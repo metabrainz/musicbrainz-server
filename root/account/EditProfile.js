@@ -12,8 +12,10 @@ import * as React from 'react';
 import UserAccountLayout from '../components/UserAccountLayout';
 import {withCatalystContext} from '../context';
 import * as manifest from '../static/manifest';
-import EditProfileForm from '../static/scripts/account/components/EditProfileForm';
-import type {EditProfileFormPropsT} from '../static/scripts/account/components/EditProfileForm';
+import EditProfileForm
+  from '../static/scripts/account/components/EditProfileForm';
+import type {EditProfileFormPropsT}
+  from '../static/scripts/account/components/EditProfileForm';
 
 type Props = {
   +$c: CatalystContextT,
@@ -28,14 +30,17 @@ const EditProfile = ({$c, ...props}: Props) => {
   return (
     <UserAccountLayout
       entity={user}
-      gettext_domains={['attributes']}
+      gettextDomains={['attributes']}
       page="edit_profile"
       title={l('Edit Profile')}
     >
       <h2>{l('Edit Profile')}</h2>
       <p>
-        {exp.l('See also your {uri|user preferences}, which include your privacy settings.',
-               {uri: '/account/preferences'})}
+        {exp.l(
+          `See also your {uri|user preferences}, which include
+           your privacy settings.`,
+          {uri: '/account/preferences'},
+        )}
       </p>
       <EditProfileForm {...props} />
       {manifest.js('account/edit')}

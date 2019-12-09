@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -142,11 +145,13 @@ releaseEditor.edits = {
     medium: function (release) {
         var edits = [];
 
-        // oldPositions are the original positions for all the original
-        // mediums (as they exist in the database). newPositions are all
-        // the new positions for the new mediums (as they exist on the
-        // page). tmpPositions stores any positions we use to avoid
-        // conflicts between oldPositions/newPositions.
+        /*
+         * oldPositions are the original positions for all the original
+         * mediums (as they exist in the database). newPositions are all
+         * the new positions for the new mediums (as they exist on the
+         * page). tmpPositions stores any positions we use to avoid
+         * conflicts between oldPositions/newPositions.
+         */
 
         var oldPositions = _.map(release.mediums.original(), function (m) {
             return m.original().position;
@@ -196,15 +201,17 @@ releaseEditor.edits = {
                     edits.push(MB.edit.mediumEdit(newNoPosition, oldNoPosition));
                 }
             } else if (medium.hasTracks()) {
-                // With regards to the medium position, make sure that:
-                //
-                //  (1) The position doesn't conflict with an existing
-                //      medium as present in the database. If it does,
-                //      pick a position that doesn't and enter a reorder
-                //      edit.
-                //
-                //  (2) The position doesn't conflict with the new
-                //      position of any moved medium, unless they swap.
+                /*
+                 * With regards to the medium position, make sure that:
+                 *
+                 *  (1) The position doesn't conflict with an existing
+                 *      medium as present in the database. If it does,
+                 *      pick a position that doesn't and enter a reorder
+                 *      edit.
+                 *
+                 *  (2) The position doesn't conflict with the new
+                 *      position of any moved medium, unless they swap.
+                 */
 
                 var newPosition = newMediumData.position;
 
@@ -212,7 +219,7 @@ releaseEditor.edits = {
                     var lastAttempt = (_.last(tmpPositions) + 1) || 1;
                     var attempt;
 
-                    while (attempt = lastAttempt++) {
+                    while ((attempt = lastAttempt++)) {
                         if (_.includes(oldPositions, attempt) ||
                             _.includes(tmpPositions, attempt)) {
                             // This position is taken.
@@ -220,9 +227,11 @@ releaseEditor.edits = {
                         }
 
                         if (_.includes(newPositions, attempt)) {
-                            // Another medium is being moved to the
-                            // position we want. Avoid this *unless* we're
-                            // swapping with that medium.
+                            /*
+                             * Another medium is being moved to the
+                             * position we want. Avoid this *unless* we're
+                             * swapping with that medium.
+                             */
 
                             var possibleSwap = _.find(
                                 newMediums,
@@ -282,10 +291,12 @@ releaseEditor.edits = {
             );
 
             if (oldPosition !== newPosition) {
-                // A removed medium is already in the position we want, so
-                // make sure we swap with it to avoid conflicts.
+                /*
+                 * A removed medium is already in the position we want, so
+                 * make sure we swap with it to avoid conflicts.
+                 */
                 var removedMedium;
-                if (removedMedium = removedMediums[newPosition]) {
+                if ((removedMedium = removedMediums[newPosition])) {
                     newOrder.push({
                         medium_id:  removedMedium.id,
                         "old":      newPosition,
@@ -505,7 +516,7 @@ function chainEditSubmissions(release, submissions) {
             submitted = MB.edit.create($.extend({ edits: edits }, args));
         }
 
-        let submissionDone = function (data) {
+        const submissionDone = function (data) {
             if (data && current.callback) {
                 current.callback(
                     release,
@@ -611,9 +622,11 @@ releaseEditor.orderedEditSubmissions = [
 
                     var currentData = MB.edit.fields.medium(medium);
 
-                    // mediumReorder edits haven't been submitted yet, so
-                    // we must keep the position the medium was added in
-                    // (i.e. tmpPosition).
+                    /*
+                     * mediumReorder edits haven't been submitted yet, so
+                     * we must keep the position the medium was added in
+                     * (i.e. tmpPosition).
+                     */
                     currentData.position = addedData.position;
 
                     medium.original(currentData);

@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2016 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -19,7 +22,6 @@ import {
   isComplexArtistCredit,
   reduceArtistCredit,
 } from '../../common/immutable-entities';
-import MB from '../../common/MB';
 import nonEmpty from '../../common/utility/nonEmpty';
 import {localStorage} from '../../common/utility/storage';
 
@@ -39,14 +41,16 @@ function setAutoJoinPhrases(ac) {
 
   if (size > 1) {
     const name1 = names[size - 2];
-    if (name1 && name1.automaticJoinPhrase !== false && auto.test(name1.joinPhrase)) {
+    if (name1 && name1.automaticJoinPhrase !== false &&
+        auto.test(name1.joinPhrase)) {
       names[size - 2] = {...name1, joinPhrase: ' & '};
     }
   }
 
   if (size > 2) {
     const name2 = names[size - 3];
-    if (name2 && name2.automaticJoinPhrase !== false && auto.test(name2.joinPhrase)) {
+    if (name2 && name2.automaticJoinPhrase !== false &&
+        auto.test(name2.joinPhrase)) {
       names[size - 3] = {...name2, joinPhrase: ', '};
     }
   }
@@ -76,10 +80,10 @@ class ArtistCreditEditor extends React.Component {
     this.copyArtistCredit = this.copyArtistCredit.bind(this);
     this.done = this.done.bind(this);
     this.hide = this.hide.bind(this);
-    this.onNameChange = this.onNameChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
     this.pasteArtistCredit = this.pasteArtistCredit.bind(this);
     this.removeName = this.removeName.bind(this);
-    this.toggleBubble = this.toggleBubble.bind(this);
+    this.handleBubbleToggle = this.handleBubbleToggle.bind(this);
   }
 
   addName() {
@@ -111,9 +115,10 @@ class ArtistCreditEditor extends React.Component {
     });
   }
 
-  onNameChange(i, update) {
+  handleNameChange(i, update) {
     this.setState(state => mutate(state, newState => {
-      newState.artistCredit.names[i] = {...state.artistCredit.names[i], ...update};
+      newState.artistCredit.names[i] =
+        {...state.artistCredit.names[i], ...update};
     }));
   }
 
@@ -132,7 +137,7 @@ class ArtistCreditEditor extends React.Component {
     this.setState({artistCredit: {names}});
   }
 
-  toggleBubble() {
+  handleBubbleToggle() {
     const $bubble = $('#artist-credit-bubble');
     if ($bubble.is(':visible')) {
       const inst = $bubble.data('componentInst');
@@ -156,7 +161,7 @@ class ArtistCreditEditor extends React.Component {
     }
 
     const $button = $(this._editButton);
-    let position = {of: $button[0], collision: 'fit none', within: $('body')};
+    const position = {of: $button[0], collision: 'fit none', within: $('body')};
     let maxWidth;
     let tailClass;
 
@@ -168,7 +173,8 @@ class ArtistCreditEditor extends React.Component {
     } else {
       position.my = 'left center';
       position.at = 'right+15 center';
-      maxWidth = $('body').innerWidth() - ($button.position().left + $button.outerWidth() + 64);
+      maxWidth = $('body').innerWidth() - ($button.position().left +
+        $button.outerWidth() + 64);
       tailClass = 'left-tail';
     }
 
@@ -180,9 +186,11 @@ class ArtistCreditEditor extends React.Component {
         .end()
       .show()
       .position(position)
-      // For some reason this needs to be called twice...
-      // Steps to reproduce: open the release AC bubble, switch to the
-      // tracklist tab, open a track AC bubble.
+      /*
+       * For some reason this needs to be called twice...
+       * Steps to reproduce: open the release AC bubble, switch to the
+       * tracklist tab, open a track AC bubble.
+       */
       .position(position);
   }
 
@@ -192,14 +200,19 @@ class ArtistCreditEditor extends React.Component {
     const $bubble = $('#artist-credit-bubble');
     const bubbleWasVisible = $bubble.is(':visible');
 
-    // `show` implies the bubble should be made visible with a new entity. If
-    // show = false and the bubble isn't visible, there's no point in updating it.
+    /*
+     * `show` implies the bubble should be made visible with a new entity.
+     * If show = false and the bubble isn't visible,
+     * there's no point in updating it.
+     */
     if (!show && !bubbleWasVisible) {
       return;
     }
 
-    // Don't hijack the bubble unless show = true or this is for the
-    // currently-open entity.
+    /*
+     * Don't hijack the bubble unless show = true or this is for the
+     * currently-open entity.
+     */
     if (!show && $bubble.data('target') !== this.props.entity) {
       return;
     }
@@ -220,7 +233,7 @@ class ArtistCreditEditor extends React.Component {
         copyArtistCredit={this.copyArtistCredit}
         done={this.done}
         hide={this.hide}
-        onNameChange={this.onNameChange}
+        onNameChange={this.handleNameChange}
         pasteArtistCredit={this.pasteArtistCredit}
         removeName={this.removeName}
         {...this.props}
@@ -289,8 +302,10 @@ class ArtistCreditEditor extends React.Component {
             $bubble.is(':visible') &&
             $target.is(':not(.open-ac)') &&
             !$bubble.has($target).length &&
-            // Close unless focus was moved to a dialog above this one, e.g.
-            // when adding a new entity.
+            /*
+             * Close unless focus was moved to a dialog above this one, e.g.
+             * when adding a new entity.
+             */
             !$target.parents('.ui-dialog').length) {
           $bubble.data('componentInst').done(false);
         }
@@ -304,7 +319,9 @@ class ArtistCreditEditor extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.onChange &&
-        !artistCreditsAreEqual(prevState.artistCredit, this.state.artistCredit)) {
+        !artistCreditsAreEqual(
+          prevState.artistCredit, this.state.artistCredit,
+        )) {
       this.props.onChange(this.state.artistCredit);
     }
 
@@ -327,19 +344,27 @@ class ArtistCreditEditor extends React.Component {
       return [
         {name: curPrefix + 'name', value: name.name},
         {name: curPrefix + 'join_phrase', value: name.joinPhrase},
-        {name: curPrefix + 'artist.name', value: name.artist ? name.artist.name : ''},
-        {name: curPrefix + 'artist.id', value: name.artist ? name.artist.id : ''},
+        {
+          name: curPrefix + 'artist.name',
+          value: name.artist ? name.artist.name : '',
+        },
+        {
+          name: curPrefix + 'artist.id',
+          value: name.artist ? name.artist.id : '',
+        },
       ];
     }));
   }
 
   render() {
     const ac = this.state.artistCredit;
-    let entity = _.clone(this.props.entity);
+    const entity = _.clone(this.props.entity);
     entity.artistCredit = {names: _.filter(ac.names, n => hasArtist(n))};
 
-    // The single-artist lookup changes the credit boxes in the doc bubble,
-    // and the credit boxes change the single-artist lookup.
+    /*
+     * The single-artist lookup changes the credit boxes in the doc bubble,
+     * and the credit boxes change the single-artist lookup.
+     */
     const complex = isComplexArtistCredit(ac);
     let singleArtistSelection = {name: ''};
     let singleArtistIsEditable = true;
@@ -398,7 +423,7 @@ class ArtistCreditEditor extends React.Component {
                   className="open-ac"
                   ref={button => this._editButton = button}
                   type="button"
-                  onClick={this.toggleBubble}>
+                  onClick={this.handleBubbleToggle}>
                   {l('Edit')}
                 </button>
               </td>

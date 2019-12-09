@@ -1,12 +1,14 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015-2017 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015-2017 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 /* eslint-disable import/no-commonjs */
 
 const _ = require('lodash');
-const path = require('path');
 const Raven = require('raven');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
@@ -44,8 +46,11 @@ function getResponse(requestBody, context) {
 
   let components;
   try {
-    // N.B. This *must* be required in the same process that serves the request.
-    // Do not move to the top of the file.
+    /*
+     * N.B. This *must* be required in the same process
+     * that serves the request.
+     * Do not move to the top of the file.
+     */
     components = require('../static/build/server-components');
   } catch (err) {
     Raven.captureException(err);

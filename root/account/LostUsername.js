@@ -34,6 +34,7 @@ const LostUsername = (props: Props) => (
         field={props.form.field.email}
         label={addColonText(l('Email'))}
         required
+        uncontrolled
       />
       <FormRow hasNoLabel>
         <FormSubmit label={l('Send Email')} />

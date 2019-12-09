@@ -28,7 +28,11 @@ function buildResult(result, index) {
       <td>
         <EntityLink entity={place} />
       </td>
-      <td>{place.typeName ? lp_attributes(place.typeName, 'place_type') : null}</td>
+      <td>
+        {place.typeName
+          ? lp_attributes(place.typeName, 'place_type')
+          : null}
+      </td>
       <td>{place.address}</td>
       <td>
         {place.area ? <EntityLink entity={place.area} /> : null}

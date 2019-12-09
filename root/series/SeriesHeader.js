@@ -21,7 +21,9 @@ const SeriesHeader = ({series, page}: Props) => (
     entity={series}
     headerClass="seriesheader"
     page={page}
-    subHeading={series.typeName ? lp_attributes(series.typeName, 'series_type') : lp('Series', 'singular')}
+    subHeading={series.typeName
+      ? lp_attributes(series.typeName, 'series_type')
+      : lp('Series', 'singular')}
   />
 );
 

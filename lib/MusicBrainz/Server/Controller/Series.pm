@@ -3,10 +3,10 @@ use JSON;
 use Moose;
 use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_CREATE
-    $EDIT_SERIES_DELETE
     $EDIT_SERIES_EDIT
     $EDIT_SERIES_MERGE
 );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
@@ -98,10 +98,19 @@ sub show : PathPart('') Chained('load') {
         $c->model('Work')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
+    my %props = (
+        entities          => \@entities,
+        numberOfRevisions => $c->stash->{number_of_revisions},
+        pager             => serialize_pager($c->stash->{pager}),
+        series            => $series,
+        seriesItemNumbers => $item_numbers,
+        wikipediaExtract  => $c->stash->{wikipedia_extract},
+    );
+
     $c->stash(
-        template => 'series/index.tt',
-        entities => \@entities,
-        series_item_numbers => $item_numbers,
+        component_path => 'series/SeriesIndex',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
@@ -145,10 +154,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Series',
     edit_type      => $EDIT_SERIES_EDIT,
-};
-
-with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_SERIES_DELETE,
 };
 
 before qw( edit create ) => sub {

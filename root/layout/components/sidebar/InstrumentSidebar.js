@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import entityHref from '../../../static/scripts/common/utility/entityHref';
+import CommonsImage
+  from '../../../static/scripts/common/components/CommonsImage';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -21,7 +21,7 @@ import LastUpdated from './LastUpdated';
 import MergeLink from './MergeLink';
 import RemoveLink from './RemoveLink';
 import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
+import {SidebarProperties} from './SidebarProperties';
 import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 

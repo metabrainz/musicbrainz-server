@@ -11,7 +11,8 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context';
 import {ENTITIES} from '../static/scripts/common/constants';
-import isSpecialPurposeArtist from '../static/scripts/common/utility/isSpecialPurposeArtist';
+import isSpecialPurposeArtist
+  from '../static/scripts/common/utility/isSpecialPurposeArtist';
 
 import Tabs from './Tabs';
 import EntityTabLink from './EntityTabLink';
@@ -86,7 +87,15 @@ function buildLinks(
   }
 
   if (entityProperties.cover_art) {
-    links.push(buildLink(texp.l('Cover Art ({num})', {num: $c.stash.release_artwork_count || 0}), entity, 'cover-art', page));
+    links.push(buildLink(
+      texp.l(
+        'Cover Art ({num})',
+        {num: $c.stash.release_artwork_count || 0},
+      ),
+      entity,
+      'cover-art',
+      page,
+    ));
   }
 
   if (entityProperties.aliases) {
@@ -110,7 +119,12 @@ function buildLinks(
   }
 
   if (entity.entityType === 'release') {
-    links.push(buildLink(l('Edit Relationships'), entity, 'edit-relationships', page));
+    links.push(buildLink(
+      l('Edit Relationships'),
+      entity,
+      'edit-relationships',
+      page,
+    ));
   }
 
   return links;

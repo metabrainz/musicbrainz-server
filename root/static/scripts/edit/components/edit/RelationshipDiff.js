@@ -10,15 +10,18 @@
 import keyBy from 'lodash/keyBy';
 import * as React from 'react';
 
-import relationshipDateText from '../../../../../utility/relationshipDateText';
+import relationshipDateText
+  from '../../../../../utility/relationshipDateText';
 import {INSERT, DELETE} from '../../utility/editDiff';
 import DescriptiveLink from '../../../common/components/DescriptiveLink';
 import commaList from '../../../common/i18n/commaList';
 import commaOnlyList from '../../../common/i18n/commaOnlyList';
-import expand2react, {hooks as expand2reactHooks} from '../../../common/i18n/expand2react';
+import expand2react, {hooks as expand2reactHooks}
+  from '../../../common/i18n/expand2react';
 import linkedEntities from '../../../common/linkedEntities';
 import bracketed from '../../../common/utility/bracketed';
-import displayLinkAttribute from '../../../common/utility/displayLinkAttribute';
+import displayLinkAttribute
+  from '../../../common/utility/displayLinkAttribute';
 import {
   getPhraseAndExtraAttributes,
   type CachedLinkPhraseData,

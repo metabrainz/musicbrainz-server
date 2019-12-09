@@ -10,8 +10,10 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import DescriptiveLink from '../../../static/scripts/common/components/DescriptiveLink';
+import CommonsImage
+  from '../../../static/scripts/common/components/CommonsImage';
+import DescriptiveLink
+  from '../../../static/scripts/common/components/DescriptiveLink';
 import * as age from '../../../utility/age';
 import formatLabelCode from '../../../utility/formatLabelCode';
 import ExternalLinks from '../ExternalLinks';
@@ -56,9 +58,17 @@ const LabelSidebar = ({$c, label}: Props) => {
       <SidebarProperties>
         <SidebarType entity={label} typeType="label_type" />
 
-        <SidebarBeginDate age={labelAge} entity={label} label={l('Founded:')} />
+        <SidebarBeginDate
+          age={labelAge}
+          entity={label}
+          label={l('Founded:')}
+        />
 
-        <SidebarEndDate age={labelAge} entity={label} label={l('Defunct:')} />
+        <SidebarEndDate
+          age={labelAge}
+          entity={label}
+          label={l('Defunct:')}
+        />
 
         <SidebarIpis entity={label} />
 

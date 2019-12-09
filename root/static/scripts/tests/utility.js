@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import _ from 'lodash';
 import test from 'tape';
@@ -87,7 +90,7 @@ test('age', function (t) {
 test('hasAge', function (t) {
     t.plan(4);
 
-    let entity = {
+    const entity = {
         begin_date: {year: 1970, month: 1, day: 1},
         end_date: {year: null, month: 1, day: 1},
         ended: true,

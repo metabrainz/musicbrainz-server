@@ -47,7 +47,7 @@ const ReleasesWithCaaNoTypes = ({
       </li>
       <li>
         {texp.l('Generated on {date}',
-                {date: formatUserDate($c.user, generated)})}
+                {date: formatUserDate($c, generated)})}
       </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}

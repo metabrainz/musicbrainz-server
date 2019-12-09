@@ -13,7 +13,8 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
-import RecordingRelationshipList from './components/RecordingRelationshipList';
+import RecordingRelationshipList
+  from './components/RecordingRelationshipList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types';
 
@@ -39,7 +40,7 @@ const DeprecatedRelationshipRecordings = ({
       </li>
       <li>
         {texp.l('Generated on {date}',
-                {date: formatUserDate($c.user, generated)})}
+                {date: formatUserDate($c, generated)})}
       </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}

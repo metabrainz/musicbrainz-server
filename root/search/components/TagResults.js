@@ -21,9 +21,9 @@ function buildResult(result, index) {
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} data-score={score} key={tag}>
+    <tr className={loopParity(index)} data-score={score} key={tag.name}>
       <td>
-        <TagLink tag={tag} />
+        <TagLink tag={tag.name} />
       </td>
     </tr>
   );
@@ -35,7 +35,7 @@ const TagResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<string>) => (
+}: ResultsPropsT<TagT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 /* eslint-disable import/no-commonjs */
 
@@ -17,7 +20,7 @@ const spawnSync = require('child_process').spawnSync;
 const _ = require('lodash');
 
 const createServer = require('./server/createServer');
-const {clearRequireCache} = require('./server/utils');
+const writeCoverage = require('./utility/writeCoverage');
 
 const yargs = require('yargs')
   .option('socket', {
@@ -94,20 +97,18 @@ if (cluster.isMaster) {
     }
   }
 
-  const cleanup = Raven.wrap(function (signal) {
-    let timeout;
-
-    cluster.disconnect(function () {
-      clearTimeout(timeout);
-      process.exit();
-    });
-
-    timeout = setTimeout(() => {
+  const cleanup = Raven.wrap(function () {
+    const timeout = setTimeout(() => {
       for (const id in cluster.workers) {
         killWorker(cluster.workers[id]);
       }
       process.exit();
     }, DISCONNECT_TIMEOUT);
+
+    cluster.disconnect(function () {
+      clearTimeout(timeout);
+      process.exit();
+    });
   });
 
   let hupAction = null;
@@ -148,4 +149,14 @@ if (cluster.isMaster) {
   process.on('SIGHUP', hup);
 } else {
   createServer(SOCKET_PATH);
+
+  process.on('beforeExit', function () {
+    const coverage = global.__coverage__;
+    if (coverage) {
+      writeCoverage(
+        `server-${process.pid}`,
+        JSON.stringify(coverage),
+      );
+    }
+  });
 }

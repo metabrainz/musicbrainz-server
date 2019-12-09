@@ -12,8 +12,10 @@ import React from 'react';
 import {withCatalystContext} from '../../context';
 import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
-import EventLocations from '../../static/scripts/common/components/EventLocations';
-import formatDatePeriod from '../../static/scripts/common/utility/formatDatePeriod';
+import EventLocations
+  from '../../static/scripts/common/components/EventLocations';
+import formatDatePeriod
+  from '../../static/scripts/common/utility/formatDatePeriod';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsWithContextT} from '../types';
 
@@ -31,7 +33,11 @@ function buildResult(result, index) {
       </td>
       <td>{formatDatePeriod(event)}</td>
       <td>{event.time}</td>
-      <td>{event.typeName ? lp_attributes(event.typeName, 'event_type') : null}</td>
+      <td>
+        {event.typeName
+          ? lp_attributes(event.typeName, 'event_type')
+          : null}
+      </td>
       <td>
         <ArtistRoles relations={event.performers} />
       </td>

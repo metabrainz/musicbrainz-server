@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-
 import * as DBDefs from '../static/scripts/common/DBDefs-client';
 
 const seeReviewsHref = (releaseGroup) => (
@@ -34,13 +32,17 @@ const CritiqueBrainzLinks = ({releaseGroup}: Props) => {
     return null;
   }
   if (reviewCount === 0) {
-    return exp.l('No one has reviewed this release group yet. Be the first to {write_link|write a review}.', {
-      write_link: writeReviewLink(releaseGroup),
-    });
+    return exp.l(
+      `No one has reviewed this release group yet.
+       Be the first to {write_link|write a review}.`,
+      {write_link: writeReviewLink(releaseGroup)},
+    );
   }
   return exp.ln(
-    'There’s {reviews_link|{review_count} review} on CritiqueBrainz. You can also {write_link|write your own}.',
-    'There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can also {write_link|write your own}.',
+    `There’s {reviews_link|{review_count} review} on CritiqueBrainz.
+     You can also {write_link|write your own}.`,
+    `There are {reviews_link|{review_count} reviews} on CritiqueBrainz.
+     You can also {write_link|write your own}.`,
     reviewCount,
     {
       review_count: reviewCount,

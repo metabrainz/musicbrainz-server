@@ -1,8 +1,9 @@
 /*
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2010 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 import _ from 'lodash';
@@ -296,7 +297,7 @@ function reencodeMediawikiLocalPart(url) {
   return url;
 }
 
-function disallow(url, id) {
+function disallow() {
   return false;
 }
 
@@ -338,7 +339,7 @@ const CLEANUPS = {
             return prefix === 'artist';
           case LINK_TYPES.otherdatabases.label:
             return prefix === 'label';
-          case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return prefix === 'record';
         }
       }
@@ -354,7 +355,6 @@ const CLEANUPS = {
     validate: function (url, id) {
       const m = /^http:\/\/www\.45worlds\.com\/([0-9a-z]+)\/([a-z]+)\/[^\/?&#]+$/.exec(url);
       if (m) {
-        const world = m[1];
         const prefix = m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
@@ -365,7 +365,7 @@ const CLEANUPS = {
             return prefix === 'label';
           case LINK_TYPES.otherdatabases.place:
             return prefix === 'venue';
-          case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return /^(album|cd|media|music|record)$/.test(prefix);
         }
       }
@@ -436,7 +436,7 @@ const CLEANUPS = {
         return 'https://www.amazon.' + tld + '/gp/product/' + asin;
       }
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\//.test(url);
     },
   },
@@ -526,7 +526,7 @@ const CLEANUPS = {
       if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
         url = url.replace(/^https:\/\/daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:\/.*)?$/, 'https://daily.bandcamp.com/$1/');
       } else {
-        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
+        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|merch|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
       }
       return url;
     },
@@ -585,7 +585,7 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?bbc\.co\.uk\/music\/artists\/([0-9a-f-]+).*$/, 'https://www.bbc.co.uk/music/artists/$1');
       return url;
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/www\.bbc\.co\.uk\/music\/artists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(url);
     },
   },
@@ -739,7 +739,7 @@ const CLEANUPS = {
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?bookbrainz\.org\/([^\/]*)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(?:[#\/?].*)?$/, 'https://bookbrainz.org/$1/$2');
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/bookbrainz\.org\/[^\/]+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(url);
     },
   },
@@ -1026,6 +1026,16 @@ const CLEANUPS = {
       return url;
     },
   },
+  'dynamicrangedb': {
+    match: [new RegExp('^(https?://)?dr\\.loudness-war\\.info', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^https:/, 'http:');
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.otherdatabases.release;
+    },
+  },
   'ester': {
     match: [new RegExp('^(https?://)?(www\\.)?ester\\.ee/', 'i')],
     type: LINK_TYPES.otherdatabases,
@@ -1056,7 +1066,7 @@ const CLEANUPS = {
       url = url.replace(/\/(?:about|info|photos_stream|timeline)([?#].*)?$/, '$1');
       return url;
     },
-    validate: function (url, id) {
+    validate: function (url) {
       if (/facebook.com\/pages\//.test(url)) {
         return /\/pages\/[^\/?#]+\/\d+/.test(url);
       }
@@ -1559,7 +1569,7 @@ const CLEANUPS = {
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musopen\.org\/music\/(\d+).*$/, 'https://musopen.org/music/$1/');
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/musopen\.org\/music\/\d+\/$/.test(url);
     },
   },
@@ -1585,7 +1595,7 @@ const CLEANUPS = {
     clean: function (url) {
       return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, 'https://myspace.com');
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/myspace\.com\//.test(url);
     },
   },
@@ -1712,9 +1722,12 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?patreon\\.com/[^/?#]', 'i')],
     type: LINK_TYPES.patronage,
     clean: function (url) {
-      url = url.replace(/^((?:https?:\/\/)?(?:www\.)?patreon\.com\/user)\/(?:community|posts)(\?u=.*)$/, '$1$2');
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/((?:user\?u=)?[^\/?&#]+)(?:.*)?$/, 'https://www.patreon.com/$1');
+      url = url.replace(/^((?:https?:\/\/)?(?:www\.)?patreon\.com\/user)\/(?:community|posts)(\?u=\d+).*$/, '$1$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/(user\?u=\d+|(?!posts\/)\w+).*$/, 'https://www.patreon.com/$1');
       return url;
+    },
+    validate: function (url) {
+      return /^https?:\/\/(?:www\.)?patreon\.com\/(?:user\?u=\d+|(?!posts$)\w+)$/.test(url);
     },
   },
   'paypal': {
@@ -2006,7 +2019,7 @@ const CLEANUPS = {
     clean: function (url) {
       return url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, 'https://soundcloud.com');
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
     },
   },
@@ -2064,7 +2077,7 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([a-zA-Z0-9_-]+)\/?(?:[?#].*)?$/, 'https://open.spotify.com/user/$1');
       return url;
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/open\.spotify\.com\/user\/[a-zA-Z0-9_-]+$/.test(url);
     },
   },
@@ -2271,7 +2284,7 @@ const CLEANUPS = {
         'http://viaf.org/viaf/$1');
       return url;
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^http:\/\/viaf\.org\/viaf\/[1-9][0-9]*$/.test(url);
     },
   },
@@ -2298,7 +2311,7 @@ const CLEANUPS = {
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/(?:wiki(?:\/Special:EntityPage)?|entity)\/(Q([0-9]+)).*$/, 'https://www.wikidata.org/wiki/$1');
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/www\.wikidata\.org\/wiki\/Q[1-9][0-9]*$/.test(url);
     },
   },
@@ -2313,7 +2326,7 @@ const CLEANUPS = {
       url = reencodeMediawikiLocalPart(url);
       return url.replace(/^https?:\/\/commons\.(?:m\.)?wikimedia\.org\/wiki\/(?:File|Image):/, 'https://commons.wikimedia.org/wiki/File:');
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/commons\.wikimedia\.org\/wiki\/File:[^?#]+$/.test(url);
     },
   },
@@ -2329,7 +2342,7 @@ const CLEANUPS = {
       url = reencodeMediawikiLocalPart(url);
       return url;
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/[a-z]+\.wikipedia\.org\/wiki\//.test(url);
     },
   },
@@ -2341,7 +2354,7 @@ const CLEANUPS = {
       url = reencodeMediawikiLocalPart(url);
       return url;
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/(?:[a-z-]+\.)?wikisource\.org\/wiki\//.test(url);
     },
   },
@@ -2370,7 +2383,7 @@ const CLEANUPS = {
       url = url.replace(/\/user\/([^\/?#]+).*$/, '/user/$1');
       return url;
     },
-    validate: function (url, id) {
+    validate: function (url) {
       return /^https:\/\/www\.youtube\.com\//.test(url);
     },
   },
@@ -2432,7 +2445,7 @@ export function cleanURL(dirtyURL) {
 }
 
 export function registerEvents($url) {
-  function urlChanged(event) {
+  function urlChanged() {
     const url = $url.val();
     const clean = cleanURL(url) || url;
 

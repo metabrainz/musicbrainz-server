@@ -1,8 +1,9 @@
 /*
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2015 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 import React from 'react';
@@ -21,7 +22,9 @@ const _404 = ({$c, ...props}) => (
     <div id="content">
       <h1>{l('Page Not Found')}</h1>
       <p>
-        <strong>{l('Sorry, the page you\'re looking for does not exist.')}</strong>
+        <strong>
+          {l(`Sorry, the page you're looking for does not exist.`)}
+        </strong>
       </p>
       {props.message &&
         <p>
@@ -29,16 +32,22 @@ const _404 = ({$c, ...props}) => (
           <code>{props.message}</code>
         </p>}
       <p>
-        {exp.l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
-               {doc: '/doc/MusicBrainz_Documentation', faq: '/doc/FAQ'})}
+        {exp.l(
+          'Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
+          {doc: '/doc/MusicBrainz_Documentation', faq: '/doc/FAQ'},
+        )}
       </p>
       <p>
-        {exp.l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.', {
-          report: bugTrackerURL(
-            'Nonexistent page: ' + $c.req.uri + '\n' +
-            'Referrer: ' + ($c.req.headers.referer || ''),
-          ),
-        })}
+        {exp.l(
+          `Found a broken link on our site? Please {report|report a bug}
+           and include any error message that is shown above.`,
+          {
+            report: bugTrackerURL(
+              'Nonexistent page: ' + $c.req.uri + '\n' +
+              'Referrer: ' + ($c.req.headers.referer || ''),
+            ),
+          },
+        )}
       </p>
     </div>
   </Layout>

@@ -11,27 +11,30 @@ import React from 'react';
 
 import {withCatalystContext} from '../../context';
 import loopParity from '../../utility/loopParity';
-import {commaListText} from '../../static/scripts/common/i18n/commaList';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../../static/scripts/common/components/CodeLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
+import renderMergeCheckboxElement
+  from '../../static/scripts/common/utility/renderMergeCheckboxElement';
+import InstrumentRelTypes from '../InstrumentRelTypes';
 import RatingStars from '../RatingStars';
+import RemoveFromMergeTableCell from '../RemoveFromMergeTableCell';
+import RemoveFromMergeTableHeader from '../RemoveFromMergeTableHeader';
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {
-  ...InstrumentCreditsRoleT,
+  ...InstrumentCreditsAndRelTypesRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +lengthClass?: string,
-  +merging?: boolean,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingT>,
-  +renderCheckboxElement?: (RecordingT, number) => React$MixedElement,
-  +showInstrumentCredits?: boolean,
+  +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
 };
@@ -39,22 +42,22 @@ type Props = {
 const RecordingList = ({
   $c,
   checkboxes,
-  instrumentCredits,
+  instrumentCreditsAndRelTypes,
   lengthClass,
+  mergeForm,
   order,
   recordings,
-  renderCheckboxElement,
   seriesItemNumbers,
-  showInstrumentCredits,
+  showInstrumentCreditsAndRelTypes,
   showRatings,
   sortable,
 }: Props) => (
   <table className="tbl">
     <thead>
       <tr>
-        {$c.user_exists && (checkboxes || renderCheckboxElement) ? (
+        {$c.user_exists && (checkboxes || mergeForm) ? (
           <th className="checkbox-cell">
-            {renderCheckboxElement ? null : <input type="checkbox" />}
+            {mergeForm ? null : <input type="checkbox" />}
           </th>
         ) : null}
         {seriesItemNumbers ? <th style={{width: '1em'}}>{l('#')}</th> : null}
@@ -93,16 +96,21 @@ const RecordingList = ({
             )
             : l('Length')}
         </th>
-        {showInstrumentCredits ? <th>{l('Instrument Credits')}</th> : null}
+        {showInstrumentCreditsAndRelTypes
+          ? <th>{l('Relationship Types')}</th>
+          : null}
+        {mergeForm
+          ? <RemoveFromMergeTableHeader toMerge={recordings} />
+          : null}
       </tr>
     </thead>
     <tbody>
       {recordings.map((recording, index) => (
         <tr className={loopParity(index)} key={recording.id}>
-          {$c.user_exists && (checkboxes || renderCheckboxElement) ? (
+          {$c.user_exists && (checkboxes || mergeForm) ? (
             <td>
-              {renderCheckboxElement
-                ? renderCheckboxElement(recording, index)
+              {mergeForm
+                ? renderMergeCheckboxElement(recording, mergeForm, index)
                 : (
                   <input
                     name={checkboxes}
@@ -143,12 +151,17 @@ const RecordingList = ({
             {/* Show nothing rather than ?:?? for recordings merged away */}
             {recording.gid ? formatTrackLength(recording.length) : null}
           </td>
-          {showInstrumentCredits ? (
-            <td>
-              {instrumentCredits && instrumentCredits[recording.gid]
-                ? commaListText(instrumentCredits[recording.gid])
-                : null}
-            </td>
+          {showInstrumentCreditsAndRelTypes ? (
+            <InstrumentRelTypes
+              entity={recording}
+              instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+            />
+          ) : null}
+          {mergeForm ? (
+            <RemoveFromMergeTableCell
+              entity={recording}
+              toMerge={recordings}
+            />
           ) : null}
         </tr>
       ))}

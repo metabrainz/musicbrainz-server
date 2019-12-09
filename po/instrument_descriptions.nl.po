@@ -2,12 +2,12 @@
 # Translators:
 # reneweesp <email address hidden>, 2017-2019
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2019
+# Maurits Meulenbelt <email address hidden>, 2012-2019
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-28 16:05+0000\n"
+"PO-Revision-Date: 2019-12-07 15:36+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -324,7 +324,7 @@ msgstr "Akoestische gitaar zonder fretten."
 msgid ""
 "Also known as Melodeon, it has 1 to 2 rows of buttons that each produce two "
 "tones (bisonoric)."
-msgstr ""
+msgstr "De trekharmonica of trekzak is een diatonische accordeon met één, twee of drie rijen knoppen."
 
 #. name:repeater
 #: DB:instrument/description:882
@@ -591,6 +591,20 @@ msgstr "Typemachines worden niet alleen gebruikt om mee te schrijven, maar ook v
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
 msgstr "Een handtrommel met een slagvlak van hout uit Peru."
+
+#. name:saron demung
+#: DB:instrument/description:1006
+msgid ""
+"Called simply \"demung\", it is the largest and deepest pitched of the "
+"regular saron."
+msgstr ""
+
+#. name:saron panerus
+#: DB:instrument/description:1008
+msgid ""
+"Called simply \"panerus\", it has seven bronze keys resting on a decorated "
+"rancak box. Keys are hit by tabuh mallet with head of buffalo horn."
+msgstr ""
 
 #. name:tōkere
 #: DB:instrument/description:865
@@ -1022,12 +1036,18 @@ msgid ""
 "ensemble with zhu."
 msgstr "Een yu is een houten tijger met een rij tanden op de rug. Het geluid wordt geproduceerd door over de tanden te schrapen. Het instrument werd bespeeld in een ensemble met de zhu."
 
-#. name:gendèr
-#: DB:instrument/description:961
+#. name:gamelan
+#: DB:instrument/description:365
 msgid ""
-"From the Bali and Java use in gamelan, it has 12-14 tuned bronze keys "
-"suspended over metal or bamboo resonators."
-msgstr "De gender wordt in Bali en Java gebruikt in het gamelanensemble en heeft 12 tot 14 gestemde bronzen toetsen die boven resonators van metaal of bamboe zijn opgehangen."
+"Gamelan is basically split up in 3 traditions: the Balinese, the Sundanese "
+"and the Javanese, with each area having several different gamelan ensembles "
+"from large to small, each including a variety of instruments.<br /> Most if "
+"not all gamelan instruments come in two scales, Sléndro and Pélog, these are"
+" tuned differently and large gamelan orchestras always include at-least one "
+"of each scale and often several sets in each.<br /> Gamelan is an integrated"
+" part of Indonesian culture, is used in important traditions and throughout "
+"Indonesian life."
+msgstr ""
 
 #. name:gankogui
 #: DB:instrument/description:383
@@ -1103,8 +1123,10 @@ msgstr "Een accordina is een soort combinatie van een mondharmonica en een accor
 msgid ""
 "Having 4 metal strings, it is carved from a single piece of wood into a "
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
-"side of the short neck and one under the bridge which is membrane-covered."
-msgstr "De qeychak (ook wel ghichak of ghaychak) heeft vier metalen snaren en is uit één stuk hout gesneden in een vorm die lijkt op die van de sarinda. Het instrument heeft drie klankgaten: twee aan weerszijden van de korte hals en een onder de brug, afgedekt door een membraan."
+"side of the short neck and one under the bridge which is membrane-"
+"covered.<br /> Not to be confused with the Uyghur spike fiddle <a "
+"href=\"/instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
+msgstr ""
 
 #. name:kantilan
 #: DB:instrument/description:975
@@ -1184,6 +1206,13 @@ msgid ""
 "Cretan lyra with the violin."
 msgstr "De vioollier is een in de jaren 1920 door Griekse luitmakers ontwikkelde hybride van de viool en de Kretenzische lier."
 
+#. name:kacapi siter
+#: DB:instrument/description:1000
+msgid ""
+"Inspired by western zithers, it has 20 strings and is flatter than the other"
+" kacapis."
+msgstr ""
+
 #. name:tubulum
 #: DB:instrument/description:873
 msgid ""
@@ -1238,15 +1267,6 @@ msgid ""
 "lute\""
 msgstr "De yueqin heeft een korte hals met fretten en vier snaren die traditioneel van zijde, maar tegenwoordig van nylon of staal worden gemaakt. Dankzij de schijfvormige klankkast heeft het instrument de bijnamen maangitaar en maanciter."
 
-#. name:slentho
-#: DB:instrument/description:964
-msgid ""
-"It has seven bossed keys hit with the tabuh mallet and is nailed to a wooden"
-" frame. Largely replaced by the <a href=\"/instrument/73173277-b7ef-4d5e-"
-"83b2-205cd2f12488\">slethem</a> in gamelan, it is the lowest member of the "
-"saron family."
-msgstr "De slentho heeft zeven toetsen met knobbels die op een houten raamwerk zijn gespijkerd en met hamers worden aangeslagen. Het instrument is het laagste lid van de saronfamilie en is in het gamelanensemble grotendeels vervangen door de <a href=\"/instrument/73173277-b7ef-4d5e-83b2-205cd2f12488\">slethem</a>."
-
 #. name:yangqin
 #: DB:instrument/description:254
 msgid ""
@@ -1294,6 +1314,21 @@ msgid ""
 "pitched member of the modern violin family, it is a principal member of the "
 "symphony orchestra."
 msgstr "Een contrabas, ook wel staande bas of simpelweg bas genoemd, is het grootste en laagst klinkende lid van de moderne vioolfamilie. Het is een belangrijk onderdeel van moderne symfonieorkesten."
+
+#. name:kacapi indung
+#: DB:instrument/description:1001
+msgid ""
+"Known as indung \"mother\" or parahu \"boat\", it has 18 brass strings each "
+"with its own pyramid shaped bridge. Shaped like a boat, its sound hole is at"
+" the bottom."
+msgstr ""
+
+#. name:kacapi rincik
+#: DB:instrument/description:1002
+msgid ""
+"Known as rincik \"child\" it has 15 steel strings, it has individual bridges"
+" and a sound-hole in the bottom."
+msgstr ""
 
 #. name:birch lur
 #: DB:instrument/description:801
@@ -1395,6 +1430,11 @@ msgid ""
 "for both war and peace. Even living hollowed trees have been used as pahū."
 msgstr "De pahuu bestaat uit boomstammen of dikke planken met een lengte tot negen meter. Het wordt gebruikt om signalen door te geven, zowel in oorlogstijd als in tijden van vrede. Soms worden ook holle levende bomen als pahuu gebruikt."
 
+#. name:baglamas
+#: DB:instrument/description:236
+msgid "Long necked bowl lute, it is named after a related Turkish lute"
+msgstr "De baglamas is een langhalsluit die verwant is aan de Turkse luit."
+
 #. name:pūmotomoto
 #: DB:instrument/description:785
 msgid ""
@@ -1409,13 +1449,6 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
 msgstr "Ziet er uit als een blokfluit, maar met dubbelriet en het vingersysteem van een doedelzak. Wordt vooral gebruikt om te leren de doedelzak te bespelen, maar soms ook op zichzelf."
-
-#. name:kendang wadon
-#: DB:instrument/description:995
-msgid ""
-"Low pitched cylindrical kendang used in Bali gamelan. The larger and deeper "
-"pitched of the Bali kendang, it is the leader \"female\" drum."
-msgstr ""
 
 #. name:madal
 #: DB:instrument/description:186
@@ -1471,7 +1504,7 @@ msgid ""
 "frame like a xylophone. <br /> For the balinese metallophone sometimes known"
 " as chalung or calung, see <a "
 "href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">jublag</a>"
-msgstr ""
+msgstr "De tjaloeng is een percussie-instrument dat bestaat uit verticaal opgehangen bamboebuizen die voor de juiste toonhoogte op maat zijn gesneden. Het instrument kan zowel hangend als op een rek (als een xylofoon) worden bespeeld. <br />Zie voor de Balinese metallofoon die ook soms tjaloeng wordt genoemd <a href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">djoeblag</a>."
 
 #. name:sasando
 #: DB:instrument/description:928
@@ -1628,6 +1661,13 @@ msgstr "Viooloctet is een benaming voor een moderne gestroomlijnde familie van v
 msgid "Northumbrian (small)pipes"
 msgstr "Door de ellebogen aangeblazen doedelzak uit Northumberland."
 
+#. name:ghijak
+#: DB:instrument/description:932
+msgid ""
+"Not to be confused with the Persian lute <a href=\"/instrument/d50ba107-4930"
+"-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
+msgstr ""
+
 #. name:oboe
 #: DB:instrument/description:8
 msgid "Oboe (soprano)"
@@ -1637,6 +1677,11 @@ msgstr "Een dubbelrietinstrument met een conisch geboorde buis met een licht tre
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
 msgstr "Oboe d’amore / liefdeshobo (mezzo-sopraan)."
+
+#. name:saron barung
+#: DB:instrument/description:1007
+msgid "Often called simply \"saron\", it plays the basic, balungan melody"
+msgstr ""
 
 #. name:boomwhacker
 #: DB:instrument/description:948
@@ -1772,21 +1817,20 @@ msgstr "Castagnetten zijn schelpvormige kleppers van hout, bot, schelp of glasve
 msgid "Pardessus or sopranino member of the viol family"
 msgstr "De pardessus de viole is het kleinste lid (sopranino) van de familie viole da gamba."
 
-#. name:slenthem
-#: DB:instrument/description:962
-msgid ""
-"Part of central Javanese gamelan, the 6(slendro)-7(pelog) bronze keys beat "
-"by a disk mallet(tabuh) are suspended above individual tube metal/bamboo "
-"resonators set in a 75 cm long wooden frame."
-msgstr "De slenthem bestaat uit zes tot zeven bronzen toetsen die met een schijfvormige hamer worden aangeslagen. De toetsen hangen boven buisvormige resonators van metaal of bamboe in een 75 cm lang houten raamwerk. De slenthem maakt deel uit van het Centraal-Javaanse gamelanensemble."
-
-#. name:saron
+#. name:saron family
 #: DB:instrument/description:597
 msgid ""
-"Part of the Javanese gamelan, these can have from six up to nine thick "
-"bronze or iron slabs resting on wooden resonator (rancak) and are hit with "
-"wooden mallets or buffalo horn."
-msgstr "De saron bestaat uit zes tot negen dikke staven van brons of ijzer op een houten resonator (rancak) die met houten hamers of een buffelhoorn worden aangeslagen. Het maakt deel uit van het Javaanse gamelanensemble."
+"Part of the Sundanese gamelan, these consist of a decorated wood resonator "
+"(rancak) upon which is resting six to nine thick, smooth, bronze or iron "
+"keys that are hit with mallets of hard wood or buffalo horn. <br /><br /> "
+"The saron family consists of the smallest member; saron panerus, the middle "
+"pitch member; saron barung and the largest member; sarong demung. "
+"Additionally, the largely obsolete slentho (which has been subsumed by the "
+"slenthem) is even deeper than the demung and the saron peking, which is a "
+"special slendro variant is even higher than the panerus, of which it shares "
+"an overlapping range. Finally the saron wayang is used in wayang "
+"performances."
+msgstr ""
 
 #. name:body percussion
 #: DB:instrument/description:500
@@ -1799,7 +1843,7 @@ msgid ""
 "Percussion performed with feet, such as <a "
 "href=\"http://en.wikipedia.org/wiki/Foot-tapping\">foot tapping</a> and <a "
 "href=\"http://en.wikipedia.org/wiki/Clogging\">clogging</a>."
-msgstr ""
+msgstr "Met voeten uitgevoerde percussie, zoals <a href=\"http://en.wikipedia.org/wiki/Clogging\">klompendansen</a>."
 
 #. name:ney
 #: DB:instrument/description:540
@@ -1821,7 +1865,7 @@ msgid ""
 "Pipes of bamboo with goat or calfskin membranes, the pitches depend largely "
 "on tube-lenght, it is the ancestor to the octoban. Modern variants are "
 "usually made of wood, plastic or metal with plastic membranes."
-msgstr "Een boebam is een pijp van bamboe met een membraan van geiten- of kalfshuid.  De toonhoogte hangt vooral van de lengte van de pijp af. Het instrument is een voorloper van de octoban."
+msgstr "Een boebam is een pijp van bamboe met een membraan van geiten- of kalfshuid. De toonhoogte hangt vooral van de lengte van de pijp af. Het instrument is een voorloper van de octoban."
 
 #. name:k'lông pút
 #: DB:instrument/description:283
@@ -1891,6 +1935,14 @@ msgid ""
 "Popular in the renaissance, it was small and portable with two bellows and "
 "brass reeds."
 msgstr "De regaal was een klein en draagbaar orgel met twee balgen en tongetjes van messing, populair tijdens de renaissance."
+
+#. name:komuz
+#: DB:instrument/description:543
+msgid ""
+"Possibly dating back as far as 6000 BC, it is a national symbol of the "
+"Kyrgyz. Made of a single piece of apricot or juniper wood with 3 gut stings,"
+" it has derivations in much of eastern Europe."
+msgstr ""
 
 #. name:baroque guitar
 #: DB:instrument/description:917
@@ -1981,7 +2033,7 @@ msgid ""
 "over long bamboo resonators <br /> For the sundanese bamboo xylophone also "
 "used in gamelan, see <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
 "c576a010fb5a\">calung</a>"
-msgstr ""
+msgstr "De djoeblag is het een-na-laagst klinkende lid van de gangsafamilie en bestaat uit vier tot zeven bronzen staven die boven lange klankkasten van bamboe hangen. <br />Zie voor de Soendanese xylofoon die ook in gamelanensembles wordt gebruikt de <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-c576a010fb5a\">tjaloeng</a>."
 
 #. name:reyong
 #: DB:instrument/description:973
@@ -2047,6 +2099,13 @@ msgid ""
 "Side drum, often with one or more snares, worn by one person and beaten by "
 "one hand, it is often combined with tabor pipes."
 msgstr "Een tabor is een trommel met een of twee snaren die met één hand wordt bespeeld, vaak in combinatie met een eenhandsfluit."
+
+#. name:saron peking
+#: DB:instrument/description:1009
+msgid ""
+"Similar to panerus with which it has a different but overlapping range, it "
+"has 6 bronze keys tuned for the slendro key."
+msgstr ""
 
 #. name:mirliton
 #: DB:instrument/description:591
@@ -2148,7 +2207,7 @@ msgstr ""
 msgid ""
 "Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
 "pitch."
-msgstr ""
+msgstr "Een Mark-tree bestaat uit metalen (vaak aluminium) inharmonische staven die aan een balkje hangen."
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -2162,7 +2221,7 @@ msgstr "Sopilka verwijst (meestal) naar een soort pijperfluit die wordt gebruikt
 msgid ""
 "Sound chip from various video game consoles, computers and similar, used for"
 " music, chiefly in bitunes and chiptunes"
-msgstr ""
+msgstr "De geluidschip van een spelcomputer of ander soort computer, gebruikt als instrument, zoals bij chiptunemuziek."
 
 #. name:sitar
 #: DB:instrument/description:88
@@ -2173,6 +2232,14 @@ msgid ""
 "ancient times, it flourished during the 16-17th before arriving at it's "
 "current form in the 18th century. It became popular worldwide in the 1950-60"
 msgstr "De sitar is een instrument met een klankkast van kalebas, 18 tot 21 metalen snaren (6 of 7 op fretten en 11 tot 15 resonantiesnaren daaronder), twee bruggen en een lange houten hals waaraan de stemschroeven voor de resonantiesnaren aan zijn bevestigd. Het instrument wordt als sinds de oudheid in India gebruikt, had een bloeiperiode in de 16e en 17e eeuw en kreeg zijn huidige vorm in de 18e eeuw. In de jaren ’50 en ’60 werd het in de hele wereld populair."
+
+#. name:gendèr wayang
+#: DB:instrument/description:1005
+msgid ""
+"Special version of the gendèr used in Gamelan gendèr wayang performances. "
+"Tuned in Slendro, one to two pairs are played using the same hand to both "
+"play and dampen the keys."
+msgstr ""
 
 #. name:struck idiophone
 #: DB:instrument/description:675
@@ -3063,13 +3130,6 @@ msgid ""
 " a colourful skirt."
 msgstr "Een klong yao is een vaastrommel uit Thailand en wordt vaak versierd met een kleurrijke rok."
 
-#. name:komuz
-#: DB:instrument/description:543
-msgid ""
-"The komuz is a fretless string instrument used in Central Asian music, seen "
-"as the Kyrgyz national instrument."
-msgstr "De komuz is een fretloos snaarinstrument uit Centraal Azië en geldt als het nationale instrument van Kirgizië."
-
 #. name:kortholt
 #: DB:instrument/description:264
 msgid ""
@@ -3111,6 +3171,13 @@ msgid ""
 "consists of a leaf which is curled up and positioned in the mouth so it "
 "vibrates when it is blown."
 msgstr "Een kèn lá , ook bekend als khen la of nplooj, is een instrument dat wordt gebruikt door de Hmong-minderheid in Vietnam. Het instrument bestaat uit een gekruld blad dat in de mond wordt geplaatst en vibreert als er op wordt geblazen."
+
+#. name:kendang wadon
+#: DB:instrument/description:995
+msgid ""
+"The larger and deeper pitched of the Bali kendang, it is the leader "
+"\"female\" drum."
+msgstr ""
 
 #. name:lasso d'amore
 #: DB:instrument/description:144
@@ -3361,7 +3428,7 @@ msgstr "De reco-reco is een of ander instrument. Ik weet het verder ook niet."
 #. name:repinique
 #: DB:instrument/description:722
 msgid "The repinique is a cylindrical drum from Brazil."
-msgstr "Een repinique is een cilindrische trommel uit Brazilië"
+msgstr "Een repinique is een cilindrische trommel uit Brazilië."
 
 #. name:riq
 #: DB:instrument/description:329
@@ -3522,7 +3589,7 @@ msgstr "Een schruti-doos of srut-doos is vergelijkbaar met een harmonium en word
 #. name:shudraga
 #: DB:instrument/description:593
 msgid "The shudraga is a Mongolian fretless lute with three strings."
-msgstr "De shudraga is een Mongoolse luit zonder fretten en met drie snaren. Het staat ook bekend als  shanz en shadraga."
+msgstr "De shudraga is een Mongoolse luit zonder fretten en met drie snaren. Het staat ook bekend als shanz en shadraga."
 
 #. name:sho
 #: DB:instrument/description:192
@@ -4000,6 +4067,15 @@ msgstr "Een żummara is een Maltees instrument dat lijkt op de kazoo. Het wordt 
 msgid "Theatre organ, such as the Wurlitzer"
 msgstr "Een (klein) pijporgel dat bedoeld was voor de begeleiding van stomme films. Ook bekend onder de namen bioscooporgel en cinemaorgel."
 
+#. name:kacapi
+#: DB:instrument/description:999
+msgid ""
+"There are two kinds, boat shaped \"mother\" and \"child\" ones, originally "
+"made of a single piece of wood and descended from the kacapi pantun as used "
+"in epic story. And a flat box-zither made of wood used from the 1950's and "
+"in experimental music."
+msgstr ""
+
 #. name:akete
 #: DB:instrument/description:747
 msgid ""
@@ -4138,6 +4214,15 @@ msgid ""
 "classical Carnatic music."
 msgstr "De vina-familie bestaat uit twee subfamilies: de Noord-Indiase citer met twee kalebassen en de Zuid-Indiase luit met één kalebas die in klassieke Carnatische muziek wordt gebruikt."
 
+#. name:slentho
+#: DB:instrument/description:964
+msgid ""
+"Unlike the other saron, its six-seven keys are not smooth, but bevelled or "
+"bossed, like the gendèr and the <a href=\"/instrument/73173277-b7ef-4d5e-"
+"83b2-205cd2f12488\">slenthem</a>, which has largely replaced it in the "
+"modernised gamelan."
+msgstr ""
+
 #. name:pūkaea
 #: DB:instrument/description:788
 msgid ""
@@ -4168,6 +4253,21 @@ msgid ""
 "drawn across free reeds which are mounted on a plate inside."
 msgstr "De mondharmonica wordt vooral bespeeld in de blues en Amerikaanse volks- en countrymuziek. Het is een rechthoekig instrument met gaten aan de brede zijde waarin langs doorslaande tongen wordt geblazen."
 
+#. name:gendèr barung
+#: DB:instrument/description:1004
+msgid ""
+"Used for elaborate and complex parts, it has thinner but wider metal bars "
+"suspended above resonator rods, it is the middle-pitched member of the "
+"gendèr family."
+msgstr ""
+
+#. name:gendèr panerus
+#: DB:instrument/description:1003
+msgid ""
+"Used for simple ornamentation, it has thick small metal bars suspended above"
+" resonator rods, it is the highest pitched member of the gendèr family."
+msgstr ""
+
 #. name:Saraswati veena
 #: DB:instrument/description:476
 msgid ""
@@ -4182,6 +4282,14 @@ msgid ""
 "Used in Hindustani dhrupad, this two-headed barrel-drum is tuned like its "
 "descendant the tabla."
 msgstr "De pakhavaj wordt gebruikt bij Hindoestaanse dhrupadmuziek. Het is een tweekoppige vattrommel en is op dezelfde manier gestemd als de tabla die van het instrument is afgeleid."
+
+#. name:slenthem
+#: DB:instrument/description:962
+msgid ""
+"Used in Javanese gamelan, the 6(slendro)-7(pelog) bronze keys beat by a disk"
+" mallet(tabuh) are suspended above individual tube metal/bamboo resonators "
+"set in a 75 cm long wooden frame."
+msgstr ""
 
 #. name:octavilla
 #: DB:instrument/description:940
@@ -4215,6 +4323,14 @@ msgid ""
 "are hit together."
 msgstr "De krap khū wordt gebruikt in de volksmuziek en bestaat een in de lengterichting doorgesneden stuk bamboe van 40 cm. Deze delen worden tegen elkaar aangeslagen."
 
+#. name:bağlama
+#: DB:instrument/description:235
+msgid ""
+"Used in folk music, it is often called \"saz\". The neck with adjustable "
+"frets, is of beech or juniper, the body with spruce soundboard, of various "
+"woods, its seven strings divided into courses are plucked with a plectrum."
+msgstr "De bağlama, een instrument dat ook vaak saz wordt genoemd, is een langhalsluit met instelbare fretten, een hals van berken- of jeneverbeshout, een klankbord van sparrenhout en een klankkast van verschillende houtsoorten. De zeven snaren worden met een plectrum bespeeld."
+
 #. name:viola caipira
 #: DB:instrument/description:660
 msgid "Used in folk-music, It has ten steel strings in five courses."
@@ -4237,6 +4353,13 @@ msgid ""
 " several pieces of wood, ivory and sheets of brass between two larger pieces"
 " of wood tied together by a string at one end."
 msgstr "De krap phuang wordt tijdens koninklijke ceremonies bespeeld door het tegen de palm aan te slaan. Het instrument is gemaakt van meerdere stukken hout, ivoor en koperen vellen die zijn ingeklemd tussen twee grotere stukken hout die aan een uiteinde zijn samengebonden."
+
+#. name:saron wayang
+#: DB:instrument/description:1010
+msgid ""
+"Used in the Javanese Wayang puppet theatre, it has nine large bronze keys "
+"set in a decorated frame."
+msgstr ""
 
 #. name:krap sēphā
 #: DB:instrument/description:952
@@ -4266,6 +4389,14 @@ msgid ""
 " perform creating sound."
 msgstr "Draaitafels worden gebruikt bij turntablism. Platen worden niet simpelweg afgespeeld, maar door dj’s gebruikt om nieuw geluid te creëren."
 
+#. name:kepyak
+#: DB:instrument/description:998
+msgid ""
+"Used in wayang puppetry, it is made of 1 to 4 iron (sometimes bronze) plates"
+" hung by strings, The puppeteer uses a small mallet set in the foot to hit "
+"the plate(s)."
+msgstr ""
+
 #. name:bonang panerus
 #: DB:instrument/description:971
 msgid ""
@@ -4290,6 +4421,13 @@ msgid ""
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
 msgstr "De saluang wordt traditioneel door de Minang uit West-Sumatra bespeeld voor liefdesliederen en bij sjamaanrituelen en het vangen van tijgers. Het is een open, verticale fluit die vaak met tijgerstrepen wordt versierd. Het instrument wordt met een circulaire ademhalingstechniek bespeeld, is 75 cm lang en heeft afhankelijk van het type 3 tot 6 vingergaten. <br /><ul><li>de saluang darek (uit het binnenland) met 4 gaten</li> <li>de saluang pauh/padang met 6 gaten </li><li>de saluang sungai pagu met 3 gaten</li> </ul>"
+
+#. name:gendèr
+#: DB:instrument/description:961
+msgid ""
+"Uses in Javanese gamelan and Balinese wayang, these range from 12 to 14 "
+"tuned bronze keys, all suspended over metal or bamboo resonators."
+msgstr ""
 
 #. name:tanpura
 #: DB:instrument/description:829
@@ -4560,7 +4698,7 @@ msgstr "Een tubon is een soort elektronisch orgel dat als een gitaar om de nek k
 #. name:saxophone quartet
 #: DB:instrument/description:942
 msgid "ensemble of four saxophones, generally SATBar"
-msgstr "Een saxofoonkwartet is een ensemble van vier saxofonen, meestal bestaande uit sopraan, alt, tenor en bariton."
+msgstr "Een saxofoonkwartet is een ensemble van vier saxofoons, meestal bestaande uit sopraan, alt, tenor en bariton."
 
 #. name:hmông flute
 #: DB:instrument/description:312
@@ -4754,7 +4892,7 @@ msgstr "Een bekfluit met zes gaten die net als de gerelateerde spilåpipa tradit
 msgid ""
 "small fretted hybrid instrument with a banjo body and a ukulele neck, "
 "popular in the 1920-30"
-msgstr "Een in de jaren 1920 en 1930 populaire kruising tussen de klankkast van een banjo en de hals van een ukulele."
+msgstr "Een in de jaren 1920 en 1930 populaire kruising tussen de klankkast van een banjo en de hals van een ukelele."
 
 #. name:piano spinet
 #: DB:instrument/description:798

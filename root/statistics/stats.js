@@ -2,19 +2,9 @@
  * Copyright (C) 2011 Ian McEwen
  * Copyright (C) 2018 MetaBrainz Foundation
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 import padStart from 'lodash/padStart';
@@ -270,7 +260,9 @@ const stats = {
   'count.editor.activelastweek': {
     category: 'edit-information',
     color: '#ff00cc',
-    description: l('Count of active editors (editing or voting) during the last week'),
+    description: l(
+      'Count of active editors (editing or voting) during the last week',
+    ),
     label: l('Active Users'),
   },
   'count.editor.deleted': {
@@ -283,7 +275,9 @@ const stats = {
   'count.editor.editlastweek': {
     category: 'edit-information',
     color: '#6600ff',
-    description: l('Count of editors who have submitted edits during the last 7 days'),
+    description: l(
+      'Count of editors who have submitted edits during the last 7 days',
+    ),
     label: l('Active Editors'),
   },
   'count.editor.valid': {
@@ -303,7 +297,9 @@ const stats = {
   'count.editor.votelastweek': {
     category: 'edit-information',
     color: '#cc00ff',
-    description: l('Count of editors who have voted on during the last 7 days'),
+    description: l(
+      'Count of editors who have voted on during the last 7 days',
+    ),
     label: l('Active Voters'),
   },
   'count.event': {
@@ -744,28 +740,48 @@ for (let n = 0; n < 11; n++) {
     category: 'other',
     color: '#ff0000',
     description: texp.l('Count of all Releases with {n} Disc IDs', no),
-    label: texp.ln('Releases with 1 Disc ID', 'Releases with {n} Disc IDs', n, no),
+    label: texp.ln(
+      'Releases with 1 Disc ID',
+      'Releases with {n} Disc IDs',
+      n,
+      no,
+    ),
   };
 
   stats[`count.medium.${n}discids`] = {
     category: 'other',
     color: '#ff0000',
     description: texp.l('Count of all Mediums with {n} Disc IDs', no),
-    label: texp.ln('Mediums with 1 Disc ID', 'Mediums with {n} Disc IDs', n, no),
+    label: texp.ln(
+      'Mediums with 1 Disc ID',
+      'Mediums with {n} Disc IDs',
+      n,
+      no,
+    ),
   };
 
   stats[`count.recording.${n}releases`] = {
     category: 'other',
     color: '#ff0000',
     description: texp.l('Count of all Recordings with {n} Releases', no),
-    label: texp.ln('Recordings with 1 Release', 'Recordings with {n} Releases', n, no),
+    label: texp.ln(
+      'Recordings with 1 Release',
+      'Recordings with {n} Releases',
+      n,
+      no,
+    ),
   };
 
   stats[`count.releasegroup.${n}releases`] = {
     category: 'other',
     color: '#ff0000',
     description: texp.l('Count of all Release Groups with {n} Releases', no),
-    label: texp.ln('Release Groups with 1 Release', 'Release Groups with {n} Releases', n, no),
+    label: texp.ln(
+      'Release Groups with 1 Release',
+      'Release Groups with {n} Releases',
+      n,
+      no,
+    ),
   };
 }
 

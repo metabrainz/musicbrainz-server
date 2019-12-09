@@ -50,3 +50,7 @@
 
 # Ignore schema change catchup folder
 /catchup
+
+# Istanbul coverage
+/.nyc_output/
+/coverage/

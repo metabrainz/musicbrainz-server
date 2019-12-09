@@ -11,11 +11,11 @@ import React from 'react';
 
 import {withCatalystContext} from '../../context';
 import loopParity from '../../utility/loopParity';
+import InstrumentRelTypes from '../InstrumentRelTypes';
 import ReleaseCatnoList from '../ReleaseCatnoList';
 import ReleaseCountries from '../ReleaseCountries';
 import ReleaseDates from '../ReleaseDates';
 import ReleaseLabelList from '../ReleaseLabelList';
-import commaList from '../../static/scripts/common/i18n/commaList';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
@@ -27,14 +27,14 @@ import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {
-  ...InstrumentCreditsRoleT,
+  ...InstrumentCreditsAndRelTypesRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +filterLabel?: LabelT,
   +order?: string,
   +releases: $ReadOnlyArray<ReleaseT>,
-  +showInstrumentCredits?: boolean,
+  +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
 };
@@ -43,11 +43,11 @@ const ReleaseList = ({
   $c,
   checkboxes,
   filterLabel,
-  instrumentCredits,
+  instrumentCreditsAndRelTypes,
   order,
   releases,
   seriesItemNumbers,
-  showInstrumentCredits,
+  showInstrumentCreditsAndRelTypes,
   showRatings,
   sortable,
 }: Props) => (
@@ -162,7 +162,7 @@ const ReleaseList = ({
             : l('Barcode')}
         </th>
         {showRatings ? <th>{l('Rating')}</th> : null}
-        {showInstrumentCredits ? <th>{l('Instrument Credits')}</th> : null}
+        {showInstrumentCreditsAndRelTypes ? <th>{l('Relationship Types')}</th> : null}
         {$c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
       </tr>
     </thead>
@@ -193,7 +193,7 @@ const ReleaseList = ({
             {release.combined_format_name || l('[missing media]')}
           </td>
           <td>
-            {release.combined_track_count || l('-')}
+            {release.combined_track_count || lp('-', 'missing data')}
           </td>
           <td>
             <ReleaseDates events={release.events} />
@@ -227,12 +227,11 @@ const ReleaseList = ({
               ) : null}
             </td>
           ) : null}
-          {showInstrumentCredits ? (
-            <td>
-              {instrumentCredits && instrumentCredits[release.gid]
-                ? commaList(instrumentCredits[release.gid])
-                : null}
-            </td>
+          {showInstrumentCreditsAndRelTypes ? (
+            <InstrumentRelTypes
+              entity={release}
+              instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+            />
           ) : null}
           {$c.session && $c.session.tport ? (
             <td>

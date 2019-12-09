@@ -20,7 +20,10 @@ type Props = {
 const SidebarDataQuality = ({quality}: Props) => {
   const name = QUALITY_NAMES.get(quality);
   return name ? (
-    <SidebarProperty className="data-quality" label={addColonText(l('Data Quality'))}>
+    <SidebarProperty
+      className="data-quality"
+      label={addColonText(l('Data Quality'))}
+    >
       {name()}
     </SidebarProperty>
   ) : null;

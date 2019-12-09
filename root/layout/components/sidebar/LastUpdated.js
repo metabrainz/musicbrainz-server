@@ -23,7 +23,7 @@ const LastUpdated = ({$c, entity}: Props) => {
     <p className="lastupdate">
       {lastUpdated ? (
         texp.l('Last updated on {date}', {
-          date: formatUserDate($c.user, lastUpdated),
+          date: formatUserDate($c, lastUpdated),
         })
       ) : (
         l('Last updated on an unknown date')

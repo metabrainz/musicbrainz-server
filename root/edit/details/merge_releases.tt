@@ -2,8 +2,8 @@
   <tr>
     <td>[% link_entity(release) %]</td>
     <td>[% artist_credit(release.artist_credit) %]</td>
-    <td>[% html_escape(release.combined_format_name) %]</td>
-    <td>[% release.combined_track_count %]</td>
+    <td>[% html_escape(release.combined_format_name) || l('[missing media]') IF release.gid %]</td>
+    <td>[% release.combined_track_count || lp('-', 'missing data') IF release.gid %]</td>
     <td>[% release_dates(release.events) %]</td>
     <td>[% release_countries(release.events) %]</td>
     <td>[% release_label_list(release.labels) %]</td>
@@ -28,6 +28,14 @@
   </thead>
   <tbody>
   [% IF edit.data.merge_strategy == 1 %]
+    [% FOR empty_release=edit.display_data.empty_releases %]
+      [% release_row(empty_release.release) %]
+      <tr class="[% loop.parity %]">
+        <td colspan="9">
+          [% l('This release has no media to merge.') %]
+        </td>
+      </tr>
+    [% END %]
     [% FOR change=edit.display_data.changes %]
       [% release_row(change.release) %]
       [% FOR medium=change.mediums %]
@@ -89,7 +97,7 @@
 </table>
 
 [%~ IF edit.data.merge_strategy == 2 ~%]
-[%~ IF edit.display_data.recording_merges.size ~%]
+[%~ IF edit.display_data.recording_merges.defined && edit.display_data.recording_merges.size ~%]
     <table class="tbl">
     <thead>
         <tr>
@@ -121,9 +129,15 @@
         [%~ END; END %]
     [%~ END ~%]
     </tbody></table>
-[%~ ELSIF edit.display_data.merges_are_calculated && !edit.is_open ~%]
+[%~ ELSIF !edit.display_data.recording_merges.defined && !edit.is_open ~%]
     <p><strong>[% l('This edit does not store recording merge information and is closed, so no recording merge information can be shown.') %]</strong></p>
-[%~ ELSE  ~%]
+[%~ ELSIF edit.cannot_merge_recordings_reason ~%]
+    <p class="error merge-error">
+      <strong>
+        [%- l(edit.cannot_merge_recordings_reason.message, edit.cannot_merge_recordings_reason.args) -%]
+      </strong>
+    </p>
+[%~ ELSE ~%]
     <p><strong>[% l('All recordings for these releases are already merged.') %]</strong></p>
 [%~ END ~%]
 [%~ END ~%]

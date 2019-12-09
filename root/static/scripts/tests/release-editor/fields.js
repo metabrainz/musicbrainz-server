@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -74,7 +77,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
     var medium = new fields.Medium({
         id: 123,
         position: 1,
-        formatID: 1,
+        format_id: 1,
         name: "foo",
         tracks: []
     }, release);
@@ -185,7 +188,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     t.ok(_.last(medium.tracks()).isDataTrack());
 });
 
-fieldTest("track times entered as integers are converted into HH:MM:SS", function (t, release){
+fieldTest("track times entered as integers are converted into HH:MM:SS", function (t, release) {
     t.plan(11);
 
     var medium = new fields.Medium({ tracks: [ {} ] }, release);

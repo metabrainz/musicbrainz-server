@@ -14,7 +14,8 @@ import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import ReleaseGroupAnnotationList from './components/ReleaseGroupAnnotationList';
+import ReleaseGroupAnnotationList
+  from './components/ReleaseGroupAnnotationList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportReleaseGroupAnnotationT} from './types';
 
@@ -40,7 +41,7 @@ const AnnotationsReleaseGroups = ({
       </li>
       <li>
         {texp.l('Generated on {date}',
-                {date: formatUserDate($c.user, generated)})}
+                {date: formatUserDate($c, generated)})}
       </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}

@@ -52,12 +52,19 @@ class WikipediaExtract extends React.Component<Props, State> {
         </a>
         {' '}
         <small>
-          {exp.l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
-                 {license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
+          {exp.l(
+            `Wikipedia content provided under the terms of the
+             {license_link|Creative Commons BY-SA license}`,
+            {license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'},
+          )}
         </small>
       </>
     ) : null;
   }
 }
 
-export default hydrate<Props>('div.wikipedia-extract', WikipediaExtract, minimalEntity);
+export default hydrate<Props>(
+  'div.wikipedia-extract',
+  WikipediaExtract,
+  minimalEntity,
+);

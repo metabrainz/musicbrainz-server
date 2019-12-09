@@ -10,17 +10,24 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../../context';
+import RemoveFromMergeTableCell
+  from '../../../../components/RemoveFromMergeTableCell';
 import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
 import formatDate from '../utility/formatDate';
 import formatEndDate from '../utility/formatEndDate';
+import renderMergeCheckboxElement
+  from '../utility/renderMergeCheckboxElement';
 
 import DescriptiveLink from './DescriptiveLink';
 
 type ArtistListRowProps = {
   +$c: CatalystContextT,
   +artist: ArtistT,
+  +artistList?: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
+  +index: number,
+  +mergeForm?: MergeFormT,
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
   +showSortName?: boolean,
@@ -28,8 +35,10 @@ type ArtistListRowProps = {
 
 type ArtistListEntryProps = {
   +artist: ArtistT,
+  +artistList?: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
   +index: number,
+  +mergeForm?: MergeFormT,
   +score?: number,
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
@@ -39,19 +48,26 @@ type ArtistListEntryProps = {
 const ArtistListRow = withCatalystContext(({
   $c,
   artist,
+  artistList,
   checkboxes,
+  index,
+  mergeForm,
   showBeginEnd,
   showRatings,
   showSortName,
 }: ArtistListRowProps) => (
   <>
-    {$c.user_exists && checkboxes ? (
+    {$c.user_exists && (checkboxes || mergeForm) ? (
       <td>
-        <input
-          name={checkboxes}
-          type="checkbox"
-          value={artist.id}
-        />
+        {mergeForm
+          ? renderMergeCheckboxElement(artist, mergeForm, index)
+          : (
+            <input
+              name={checkboxes}
+              type="checkbox"
+              value={artist.id}
+            />
+          )}
       </td>
     ) : null}
     <td>
@@ -92,13 +108,21 @@ const ArtistListRow = withCatalystContext(({
         <RatingStars entity={artist} />
       </td>
     ) : null}
+    {mergeForm && artistList ? (
+      <RemoveFromMergeTableCell
+        entity={artist}
+        toMerge={artistList}
+      />
+    ) : null}
   </>
 ));
 
 const ArtistListEntry = ({
   artist,
+  artistList,
   checkboxes,
   index,
+  mergeForm,
   score,
   showBeginEnd,
   showRatings,
@@ -107,7 +131,10 @@ const ArtistListEntry = ({
   <tr className={loopParity(index)} data-score={score || null}>
     <ArtistListRow
       artist={artist}
+      artistList={artistList}
       checkboxes={checkboxes}
+      index={index}
+      mergeForm={mergeForm}
       showBeginEnd={showBeginEnd}
       showRatings={showRatings}
       showSortName={showSortName}

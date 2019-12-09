@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 /*
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2018 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 /* eslint-disable import/no-commonjs */
@@ -25,7 +26,6 @@ require('@babel/register')({
 
 const gettextParser = require('gettext-parser');
 const has = require('lodash/has');
-const moment = require('moment');
 const XGettext = require('xgettext-js');
 const argv = require('yargs').argv;
 
@@ -41,7 +41,6 @@ const potFile = {
   headers: {
     'project-id-version': 'PACKAGE VERSION',
     'report-msgid-bugs-to': '',
-    'pot-creation-date': moment().format('YYYY-MM-DD HH:mmZZ'),
     'po-revision-date': 'YEAR-MO-DA HO:MI+ZONE',
     'last-translator': 'FULL NAME <EMAIL@ADDRESS>',
     'language-team': 'LANGUAGE <LL@li.org>',

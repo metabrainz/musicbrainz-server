@@ -116,40 +116,34 @@ test 'can_merge for the merge strategy' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
-    ok(
-        $test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            new_id => 6, old_ids => [ 7 ]
-        }),
-        'can merge 2 discs with equal track counts'
-    );
+    my $can_merge;
 
-    ok(
-        $test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            new_id => 7,
-            old_ids => [ 6 ]
-        }),
-        'can merge 2 discs with equal track counts in opposite direction'
-    );
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 6, old_ids => [ 7 ]
+    });
+    ok($can_merge, 'can merge 2 discs with equal track counts');
 
-    ok(
-        !$test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            new_id => 6,
-            old_ids => [ 3 ]
-        }),
-        'cannot merge releases with different track counts'
-    );
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 7,
+        old_ids => [ 6 ]
+    });
+    ok($can_merge, 'can merge 2 discs with equal track counts in opposite direction');
 
-    ok(
-        !$test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            new_id => 3,
-            old_ids => [ 6 ]
-        }),
-        'cannot merge releases with different track counts in opposite direction'
-    );
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 6,
+        old_ids => [ 3 ]
+    });
+    ok(!$can_merge, 'cannot merge releases with different track counts');
+
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 3,
+        old_ids => [ 6 ]
+    });
+    ok(!$can_merge, 'cannot merge releases with different track counts in opposite direction');
 
     $test->c->model('Release')->merge(
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
@@ -161,50 +155,40 @@ test 'can_merge for the merge strategy' => sub {
         }
     );
 
-    ok(
-        $test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            new_id => 6,
-            old_ids => [ 8 ]
-        }),
-        'can merge with differing medium counts as long as position/track count matches'
-    );
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 6,
+        old_ids => [ 8 ]
+    });
+    ok($can_merge, 'can merge with differing medium counts as long as position/track count matches');
 
-    ok(
-        !$test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            new_id => 6,
-            old_ids => [ 3 ]
-        }),
-        'cannot merge with differing medium counts when there is a track count mismatch'
-    );
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 6,
+        old_ids => [ 3 ]
+    });
+    ok(!$can_merge, 'cannot merge with differing medium counts when there is a track count mismatch');
 
-    ok(
-        !$test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            new_id => 8,
-            old_ids => [ 6]
-        }),
-        'cannot merge when old mediums are not accounted for'
-    );
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 8,
+        old_ids => [ 6]
+    });
+    ok(!$can_merge, 'cannot merge when old mediums are not accounted for');
 
-    ok(
-        !$test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            new_id => 110,
-            old_ids => [100],
-        }),
-        'cannot merge a release with a pregap into one without a pregap'
-    );
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 110,
+        old_ids => [100],
+    });
+    ok(!$can_merge, 'cannot merge a release with a pregap into one without a pregap');
 
-    ok(
-        !$test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            new_id => 100,
-            old_ids => [110],
-        }),
-        'cannot merge a release without a pregap into one with a pregap'
-    );
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 100,
+        old_ids => [110],
+    });
+    ok(!$can_merge, 'cannot merge a release without a pregap into one with a pregap');
 };
 
 test 'can_merge for the append strategy' => sub {
@@ -229,17 +213,18 @@ INSERT INTO medium (id, release, position, track_count)
            (3, 3, 1, 1);
 EOSQL
 
-    ok(
-        $test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
-            new_id => 1,
-            old_ids => [ 3 ],
-            medium_positions => {
-                1 => 1,
-                3 => 2
-            }
-        })
-    );
+    my $can_merge;
+
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+        new_id => 1,
+        old_ids => [ 3 ],
+        medium_positions => {
+            1 => 1,
+            3 => 2
+        }
+    });
+    ok($can_merge);
 
     $test->c->model('Release')->merge(
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
@@ -251,18 +236,17 @@ EOSQL
         }
     );
 
-    ok(
-        $test->c->model('Release')->can_merge({
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
-            new_id => 1,
-            old_ids => [ 2 ],
-            medium_positions => {
-                1 => 1,
-                2 => 2,
-                3 => 3,
-            }
-        })
-    );
+    ($can_merge) = $test->c->model('Release')->can_merge({
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+        new_id => 1,
+        old_ids => [ 2 ],
+        medium_positions => {
+            1 => 1,
+            2 => 2,
+            3 => 3,
+        }
+    });
+    ok($can_merge);
 };
 
 test 'preserve cover_art_presence on merge' => sub {

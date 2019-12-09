@@ -1,0 +1,3 @@
+root/static/build/**/*.js
+root/static/lib/**/*.js
+root/static/scripts/tests/typeInfo.js

@@ -1,12 +1,13 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import _ from 'lodash';
-
-import MB from './MB';
 
     $.widget("mb.iframeDialog", $.ui.dialog, {
 
@@ -39,9 +40,11 @@ import MB from './MB';
             this.element.remove();
             event.preventDefault();
 
-            // XXX Returning focus to the "opener" element is handled by $.ui,
-            // but it doesn't always work in Opera. This trys to focus again
-            // after a small delay, if it hasn't already.
+            /*
+             * XXX Returning focus to the "opener" element is handled by $.ui,
+             * but it doesn't always work in Opera. This trys to focus again
+             * after a small delay, if it hasn't already.
+             */
             _.defer(function () {
                 if (self.opener[0] !== document.activeElement) {
                     self.opener.focus();
@@ -110,8 +113,10 @@ import MB from './MB';
     });
 
 
-    // Make sure click events within the dialog don't bubble and cause
-    // side-effects.
+    /*
+     * Make sure click events within the dialog don't bubble and cause
+     * side-effects.
+     */
 
     $(function () {
         $("body").on("click", ".ui-dialog", function (event) {

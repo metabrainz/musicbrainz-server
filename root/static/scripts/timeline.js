@@ -59,8 +59,10 @@ class TimelineViewModel {
             rate: ko.observable(false),
             events: ko.observable(true)
         };
-        // rateLimit so they'll all be updated before zoomHashPart is recalculated,
-        // and to ensure graph doesn't need repeated redrawing
+        /*
+         * rateLimit so they'll all be updated before zoomHashPart is
+         * recalculated, and to ensure graph doesn't need repeated redrawing
+         */
         self.zoom = {
             xaxis: { min: debounce(ko.observable(null), 50),
                      max: debounce(ko.observable(null), 50) },
@@ -109,11 +111,13 @@ class TimelineViewModel {
         }, 1000);
 
         self.waitToGraph = ko.computed(function () {
-            if (_.some(self.enabledCategories(), function (c) { return c.hasLoadingLines() }))
+            if (_.some(self.enabledCategories(), function (c) { return c.hasLoadingLines() })) {
                 return true;
+            }
 
-            if (self.options.events() && !self.loadedEvents())
+            if (self.options.events() && !self.loadedEvents()) {
                 return true;
+            }
 
             return false;
         });
@@ -134,10 +138,12 @@ class TimelineViewModel {
                 }
                 return accum;
             }, {min: null, max: null});
-            if (bounds.min)
+            if (bounds.min) {
                 bounds.min = bounds.min - Math.abs(bounds.min * 0.10);
-            if (bounds.max)
+            }
+            if (bounds.max) {
                 bounds.max = bounds.max + Math.abs(bounds.max * 0.10);
+            }
             return bounds;
         });
 
@@ -174,9 +180,11 @@ class TimelineViewModel {
             return optionParts.concat(categoryParts, lineParts).join('+');
         }, 1000);
 
-        // Ignore hashchange events that are the result of the user fiddling
-        // with options. We only need to call _getLocationHashSettings again
-        // if it's directly changed in the address bar.
+        /*
+         * Ignore hashchange events that are the result of the user fiddling
+         * with options. We only need to call _getLocationHashSettings again
+         * if it's directly changed in the address bar.
+         */
         var ignoreHashChange = false;
 
         self.hash.subscribe(function (newHash) {
@@ -208,19 +216,20 @@ class TimelineViewModel {
 
         _.forEach(parts, function (part) {
             var match;
-            if (match = part.match(/^(-)?([rv])-?$/)) { // trailing - for backwards-compatibility
+
+            if ((match = part.match(/^(-)?([rv])-?$/))) { // trailing - for backwards-compatibility
                 var meth = match[2] === 'r' ? 'rate' : 'events';
                 self.options[meth](!(match[1] === '-'));
-            } else if (match = part.match(/^(-)?(c-.*)$/)) {
+            } else if ((match = part.match(/^(-)?(c-.*)$/))) {
                 var category = _.find(self.categories(), { hashIdentifier: match[2] });
                 if (category) { category.enabled(!(match[1] === '-')) }
-            } else if (match = part.match(/^g\/.*$/)) {
+            } else if ((match = part.match(/^g\/.*$/))) {
                 self.zoomHashPart(part);
             } else {
                 match = part.match(/^(-)?(.*)$/);
                 outer:
-                for (let category of self.categories()) {
-                    for (let line of category.lines()) {
+                for (const category of self.categories()) {
+                    for (const line of category.lines()) {
                         if (line.hashIdentifier === match[2]) {
                             line.enabled(!(match[1] === '-'))
                             break outer;
@@ -259,7 +268,7 @@ class TimelineViewModel {
         $.ajax({
             url: '../../ws/js/events',
             dataType: 'json'
-        }).done(function (data, status, jqxhr) {
+        }).done(function (data) {
             self.events(_.map(data, function (e) {
                 e.jsDate = Date.parse(e.date);
                 return e;
@@ -330,13 +339,13 @@ class TimelineLine {
         });
     }
 
-    loadData () {
+    loadData() {
         var self = this;
         self.loading(true);
         $.ajax({
             url: '../../statistics/dataset/' + self.name,
             dataType: 'json'
-        }).done(function (data, status, jqxhr) {
+        }).done(function (data) {
             data = data.data;
 
             const serial = [];
@@ -355,7 +364,7 @@ class TimelineLine {
         });
     }
 
-    calculateRateData (data) {
+    calculateRateData(data) {
         if (!data || !data.length) { return {data: [], thresholds: {min: null, max: null}}; }
         var weekData = [];
         var oneDay = 1000 * 60 * 60 * 24;
@@ -389,7 +398,7 @@ class TimelineLine {
         });
         mean = mean / count;
 
-        var deviationSum = _.reduce(weekData, function(sum, next) {
+        var deviationSum = _.reduce(weekData, function (sum, next) {
             var toSquare = next[1] - mean;
             return sum + toSquare * toSquare;
         }, 0);
@@ -426,7 +435,7 @@ class TimelineLine {
 (function () {
     // Closure over utility functions.
     var showTooltip = function (x, y, contents) {
-        $('<div id="tooltip">' + contents + '</div>').css( {
+        $('<div id="tooltip">' + contents + '</div>').css({
             position: 'absolute',
             display: 'none',
             top: y + 5,
@@ -485,7 +494,7 @@ class TimelineLine {
             var graph = ko.unwrap(valueAccessor());
             var previousPoint = null;
             var currentEvent = null;
-            var reset = function() {
+            var reset = function () {
                 removeTooltip();
                 previousPoint = null;
                 currentEvent = null;
@@ -514,10 +523,12 @@ class TimelineLine {
                 }
             }).bind('plotselected', function (event, ranges) {
                 // Prevent eternal zoom
-                if (ranges.xaxis.to - ranges.xaxis.from < 86400000)
+                if (ranges.xaxis.to - ranges.xaxis.from < 86400000) {
                     ranges.xaxis.to = ranges.xaxis.from + 86400000;
-                if (ranges.yaxis.to - ranges.yaxis.from < 1)
+                }
+                if (ranges.yaxis.to - ranges.yaxis.from < 1) {
                     ranges.yaxis.to = ranges.yaxis.from + 1;
+                 }
 
                 var zoomArr = [ranges.xaxis.from, ranges.xaxis.to];
                 if (graph === 'main' || graph === 'overview') {

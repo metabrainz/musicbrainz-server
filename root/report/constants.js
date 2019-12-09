@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,7 +9,7 @@
 
 export const ANNOTATION_REPORT_TEXT = N_l(
   `If you see something in these annotations that can be represented with a 
-  relationship instead, please add a relationship and remove that part of the 
-  annotation. If something is marked as “sub-optimal”, consider checking 
-  if a better way to store that data has been added in the meantime.`,
+   relationship instead, please add a relationship and remove that part of
+   the annotation. If something is marked as “sub-optimal”, consider checking 
+   if a better way to store that data has been added in the meantime.`,
 );

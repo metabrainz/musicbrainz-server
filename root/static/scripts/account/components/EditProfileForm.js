@@ -21,6 +21,7 @@ import FormRowURLLong from '../../../../components/FormRowURLLong';
 import FormSubmit from '../../../../components/FormSubmit';
 import SelectField from '../../../../components/SelectField';
 import DBDefs from '../../common/DBDefs-client';
+import {FLUENCY_NAMES} from '../../common/constants';
 import Autocomplete from '../../common/components/Autocomplete';
 import Warning from '../../common/components/Warning';
 import {N_lp_attributes} from '../../common/i18n/attributes';
@@ -33,8 +34,6 @@ type AreaClassT = {
   id: number | null,
   name: string,
 };
-
-type FluencyT = 'basic' | 'intermediate' | 'advanced' | 'native';
 
 type UserLanguageFieldT = CompoundFieldT<{
   +fluency: FieldT<FluencyT | null>,
@@ -75,10 +74,10 @@ const genderOptions = {
 const fluencyOptions = {
   grouped: false,
   options: [
-    {label: N_l('Basic'), value: 'basic'},
-    {label: N_l('Intermediate'), value: 'intermediate'},
-    {label: N_l('Advanced'), value: 'advanced'},
-    {label: N_l('Native'), value: 'native'},
+    {label: FLUENCY_NAMES.basic, value: 'basic'},
+    {label: FLUENCY_NAMES.intermediate, value: 'intermediate'},
+    {label: FLUENCY_NAMES.advanced, value: 'advanced'},
+    {label: FLUENCY_NAMES.native, value: 'native'},
   ],
 };
 
@@ -180,21 +179,29 @@ class EditProfileForm extends React.Component<Props, State> {
         />
         {DBDefs.DB_STAGING_TESTING_FEATURES ? (
           <Warning
-            message={l('This is a development server. Your email address is not private or secure. Proceed with caution!')}
+            message={l(
+              `This is a development server. Your email address is not private
+               or secure. Proceed with caution!`,
+            )}
           />
         ) : null}
 
         <FormRowEmailLong
           field={field.email}
           label={addColonText(l('Email'))}
+          uncontrolled
         />
         <FormRow hasNoLabel>
-          {l('If you change your email address, you will be required to verify it.')}
+          {l(
+            `If you change your email address,
+             you will be required to verify it.`,
+          )}
         </FormRow>
 
         <FormRowURLLong
           field={field.website}
           label={addColonText(l('Website'))}
+          uncontrolled
         />
 
         <FormRowSelect
@@ -232,7 +239,10 @@ class EditProfileForm extends React.Component<Props, State> {
           <FieldErrors field={areaField.name} />
         </FormRow>
         <FormRow hasNoLabel>
-          {l('You can pick the level you prefer here: your country, region or city. Be as specific as you want to!')}
+          {l(
+            `You can pick the level you prefer here: your country,
+             region or city. Be as specific as you want to!`,
+          )}
         </FormRow>
 
         <FormRowPartialDate
@@ -240,7 +250,10 @@ class EditProfileForm extends React.Component<Props, State> {
           label={l('Birth date:')}
         />
         <FormRow hasNoLabel>
-          {l('We will use your birth date to display your age in years on your profile page.')}
+          {l(
+            `We will use your birth date to display your age
+             in years on your profile page.`,
+          )}
         </FormRow>
 
         <FormRowTextArea

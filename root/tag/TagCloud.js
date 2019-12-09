@@ -50,10 +50,13 @@ const TagCloud = ({tagMaxCount, tags}: Props) => (
             {tags.map(({count, tag}) => (
               <li
                 className={getTagSize(count, tagMaxCount)}
-                key={tag}
-                title={texp.l("'{tag}' has been used {num} times", {num: count.toLocaleString(), tag})}
+                key={tag.name}
+                title={texp.l(
+                  "'{tag}' has been used {num} times",
+                  {num: count.toLocaleString(), tag: tag.name},
+                )}
               >
-                <TagLink tag={tag} />
+                <TagLink tag={tag.name} />
                 {' '}
               </li>
             ))}

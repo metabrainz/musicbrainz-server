@@ -47,7 +47,12 @@ const OAuth2Authorize = ({
 
     <form action={$c.req.uri} method="post" name="confirm">
       <span className="buttons">
-        <button className="negative" name="confirm.cancel" type="submit" value="1">
+        <button
+          className="negative"
+          name="confirm.cancel"
+          type="submit"
+          value="1"
+        >
           {l('No thanks')}
         </button>
         <button name="confirm.submit" type="submit" value="1">

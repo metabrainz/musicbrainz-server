@@ -27,7 +27,7 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
 };
 
 use List::Util qw( first );
-use List::MoreUtils qw( part uniq );
+use List::MoreUtils qw( uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( :edit_type $MAX_INITIAL_MEDIUMS );
@@ -40,7 +40,6 @@ use MusicBrainz::Server::Form::Utils qw(
 );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
-use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
 =head1 NAME
 
@@ -381,24 +380,10 @@ sub _merge_form_arguments {
         }
     }
 
-    my @bad_recording_merges;
-    my @recording_merges = $c->model('Release')->determine_recording_merges(@releases);
-    for my $recordings (@recording_merges) {
-        my @ac_ids = map { $_->artist_credit_id } @$recordings;
-        if (uniq(@ac_ids) > 1) {
-            push @bad_recording_merges, $recordings;
-        }
-    }
-    if (@bad_recording_merges) {
-        $c->model('ArtistCredit')->load(map { @$_ } @bad_recording_merges);
-    }
-
     @mediums = nsort_by { $_->{position} } @mediums;
 
     $c->stash(
         mediums => [ map { $medium_by_id{$_->{id}} } @mediums ],
-        xxx_releases => \@releases,
-        bad_recording_merges => \@bad_recording_merges,
     );
 
     return (
@@ -439,31 +424,8 @@ sub _merge_parameters {
                 }, keys %medium_changes
             ]
         );
-    } elsif ($form->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
-        my %release_map = map { $_->id => $_ } @$releases;
-
-        my $new_id = $form->field('target')->value;
-        my $new = $release_map{$new_id};
-        my $old = [map { $release_map{$_} } grep { $_ != $new_id } @{ $form->field('merging')->value }];
-
-        my $recording_merges = [map +{
-            medium => $_->{medium},
-            track => $_->{track},
-            destination => {
-                id => $_->{destination}->id,
-                name => $_->{destination}->name,
-                length => $_->{destination}->length
-            },
-            sources => [map +{
-                id => $_->id,
-                name => $_->name,
-                length => $_->length
-            }, @{ $_->{sources} }]
-        }, @{ calculate_recording_merges($new, $old) } ];
-
-        return (recording_merges => $recording_merges);
     } else {
-        return ()
+        return ();
     }
 }
 
@@ -478,21 +440,64 @@ sub _extra_entity_data {
     return @args;
 }
 
-around _merge_submit => sub {
-    my ($orig, $self, $c, $form, $entities) = @_;
-    my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
-    my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$entities;
+around _validate_merge => sub {
+    my ($orig, $self, $c, $form) = @_;
+
+    my $releases = $c->stash->{to_merge};
+    my @release_ids = map { $_->id } @{$releases};
+
+    # If the form was submitted, $releases should already be sorted with the
+    # release merge target first; see `_merge_confirm` in
+    # Controller::Role::Merge. So at any point below the call to
+    # `$self->$orig`, we can assume the recording merge targets are correct.
+    # But we calculate them *now* because @bad_recording_merges (see below)
+    # are needed before we validate the form.
+    my ($can_merge_recordings, $recording_merge_result) =
+        $c->model('Release')->determine_recording_merges(@release_ids);
+
+    # `bad_recording_merges` contains recording merges where the artists
+    # differ, as a warning for the user. These are calculated even before
+    # form is validated or a merge strategy is selected, so that they can
+    # be displayed to the user immediately (with JavaScript).
+    if ($can_merge_recordings) {
+        my @bad_recording_merges;
+        for my $recording_merge (@{$recording_merge_result}) {
+            my @ac_ids = (
+                $recording_merge->{destination}{artist_credit_id},
+                map { $_->{artist_credit_id} } @{$recording_merge->{sources}},
+            );
+            if (uniq(@ac_ids) > 1) {
+                push @bad_recording_merges, (
+                    Recording->new($recording_merge->{destination}),
+                    map { Recording->new($_) } @{$recording_merge->{sources}},
+                );
+            }
+        }
+        if (@bad_recording_merges) {
+            $c->model('ArtistCredit')->load(map { @$_ } @bad_recording_merges);
+        }
+        $c->stash(bad_recording_merges => \@bad_recording_merges);
+    }
+
+    return 0 unless $self->$orig($c, $form);
+    # The entity-specific form data was submitted and is valid.
+
+    my $new_id = $form->field('target')->value;
+    my @old_ids = @release_ids[1 .. $#release_ids];
+
+    die 'unexpected merge target'
+        unless $release_ids[0] eq $new_id;
 
     my $strat = $form->field('merge_strategy')->value;
     my %merge_opts = (
         merge_strategy => $strat,
         new_id => $new_id,
-        old_ids => [ map { $_->id } @$old ],
+        old_ids => \@old_ids,
     );
 
     # XXX Ripped from Edit/Release/Merge.pm need to find a better solution.
     if ($strat == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
-        my %extra_params = $self->_merge_parameters($c, $form, $entities);
+        my %extra_params = $self->_merge_parameters($c, $form, $releases);
         $merge_opts{ medium_positions } = {
             map { $_->{id} => $_->{new_position} }
             map { @{ $_->{mediums} } }
@@ -500,14 +505,26 @@ around _merge_submit => sub {
         };
     }
 
-    if ($c->model('Release')->can_merge(\%merge_opts)) {
-        $self->$orig($c, $form, $entities);
-    } else {
+    my ($can_merge, $cannot_merge_reason) = $c->model('Release')->can_merge(\%merge_opts);
+
+    if ($can_merge &&
+            $strat == $MusicBrainz::Server::Data::Release::MERGE_MERGE &&
+            !$can_merge_recordings) {
+        $can_merge = 0;
+        $cannot_merge_reason = $recording_merge_result;
+    }
+
+    unless ($can_merge) {
         $form->field('merge_strategy')->add_error(
             l('This merge strategy is not applicable to the releases you have selected.')
         );
-        $form->field('merge_strategy')->add_error(l($merge_opts{_cannot_merge_reason}));
+        $form->field('merge_strategy')->add_error(
+            l($cannot_merge_reason->{message}, $cannot_merge_reason->{args} // {}),
+        );
+        return 0;
     }
+
+    return 1;
 };
 
 sub _merge_load_entities {

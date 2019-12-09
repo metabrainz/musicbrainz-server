@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2010-2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2010-2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -75,8 +78,10 @@ const trackParser = releaseEditor.trackParser = {
             hasTocs = medium.hasToc();
             releaseAC = medium.release.artistCredit();
 
-            // Don't add more tracks than the CDTOC allows. If there are data
-            // tracks, then more can be added at the end.
+            /*
+             * Don't add more tracks than the CDTOC allows. If there are data
+             * tracks, then more can be added at the end.
+             */
             if (hasTocs && !medium.hasDataTracks()) {
                 lines = lines.slice(0, currentTracks.length);
             }
@@ -85,10 +90,14 @@ const trackParser = releaseEditor.trackParser = {
         var newTracksData = $.map(lines, function (line) {
             var data = self.parseLine(line, options);
 
-            // We should've parsed at least some values, otherwise something
-            // went wrong. Returning undefined removes this result from
-            // newTracks.
-            if (!_.some(_.values(data))) return;
+            /*
+             * We should've parsed at least some values, otherwise something
+             * went wrong. Returning undefined removes this result from
+             * newTracks.
+             */
+            if (!_.some(_.values(data))) {
+                return;
+            }
 
             currentPosition += 1;
             data.position = currentPosition;
@@ -97,18 +106,24 @@ const trackParser = releaseEditor.trackParser = {
                 data.number = currentPosition;
             }
 
-            if (!currentTracks || !currentTracks.length) return data;
+            if (!currentTracks || !currentTracks.length) {
+                return data;
+            }
 
-            // Check for tracks with similar names to existing tracks, so that
-            // we can reuse them if possible. If the medium has a CDTOC, don't
-            // do this because we can't move tracks around. Also don't do this
-            // if the user says not to use track names.
+            /*
+             * Check for tracks with similar names to existing tracks, so that
+             * we can reuse them if possible. If the medium has a CDTOC, don't
+             * do this because we can't move tracks around. Also don't do this
+             * if the user says not to use track names.
+             */
 
             if (hasTocs || !options.useTrackNames) {
                 data.matchedTrack = currentTracks.shift();
             } else {
-                // Pair every parsed track object with every existing track,
-                // along with their similarity.
+                /*
+                 * Pair every parsed track object with every existing track,
+                 * along with their similarity.
+                 */
                 dataTrackPairs = dataTrackPairs.concat(
                     _(currentTracks)
                         .map(function (track) {
@@ -138,8 +153,10 @@ const trackParser = releaseEditor.trackParser = {
             var matchedTrackAC = matchedTrack && matchedTrack.artistCredit();
             var previousTrackAC = previousTrack && previousTrack.artistCredit();
 
-            // See if we can re-use the AC from the matched track, the previous
-            // track at this position, or the release.
+            /*
+             * See if we can re-use the AC from the matched track, the previous
+             * track at this position, or the release.
+             */
             var matchedAC = _.find([ matchedTrackAC, previousTrackAC, releaseAC ],
                 function (ac) {
                     if (!ac || hasVariousArtists(ac)) {
@@ -160,10 +177,12 @@ const trackParser = releaseEditor.trackParser = {
             data.artistCredit = data.artistCredit ||
                 {names: [{ name: data.artist || "" }]};
 
-            // If the AC has just a single artist, we can re-use the parsed
-            // artist text as the credited name for that artist. Otherwise we
-            // can't easily do anything with it because the parsed text likely
-            // contains bits for every artist.
+            /*
+             * If the AC has just a single artist, we can re-use the parsed
+             * artist text as the credited name for that artist. Otherwise we
+             * can't easily do anything with it because the parsed text likely
+             * contains bits for every artist.
+             */
             if (data.artist && data.artistCredit.names.length === 1) {
                 data.artistCredit.names[0].name = data.artist;
             }
@@ -205,16 +224,20 @@ const trackParser = releaseEditor.trackParser = {
                 var dataTracksEnded = false;
 
                 _.each(newTracks.slice(0).reverse(), function (t, index) {
-                    // Don't touch the data track boundary if the total number
-                    // of tracks is >= the previous number. The user can edit
-                    // things manually if it needs fixing. Since we're
-                    // iterating backwards, the condition is checking that we
-                    // don't exceed the point where the audio tracks end.
+                    /*
+                     * Don't touch the data track boundary if the total number
+                     * of tracks is >= the previous number. The user can edit
+                     * things manually if it needs fixing. Since we're
+                     * iterating backwards, the condition is checking that we
+                     * don't exceed the point where the audio tracks end.
+                     */
                     if (difference >= 0) {
                         t.isDataTrack(index < (newTracks.length - oldAudioTrackCount));
-                    // Otherwise, keep isDataTrack true for ones that stayed at
-                    // the end, but unset it if they somehow moved up in the
-                    // tracklist and are no longer contiguous.
+                    /*
+                     * Otherwise, keep isDataTrack true for ones that stayed
+                     * at the end, but unset it if they somehow moved up in
+                     * the tracklist and are no longer contiguous.
+                     */
                     } else if (dataTracksEnded) {
                         t.isDataTrack(false);
                     } else if (!t.isDataTrack()) {
@@ -246,17 +269,21 @@ const trackParser = releaseEditor.trackParser = {
             }
         }
 
-        // MBS-7719: make sure the "Reuse previous recordings" button is
-        // available for new tracks by saving any unset recordings onto the
-        // new track instances.
+        /*
+         * MBS-7719: Make sure the "Reuse previous recordings" button is
+         * available for new tracks by saving any unset recordings onto the
+         * new track instances.
+         */
         if (previousTracks && previousTracks.length) {
             _.each(newTracks, function (track, index) {
                 delete track.previousTrackAtThisPosition;
 
                 var previousTrack = previousTracks[index];
 
-                // Don't save the recording that was at this position if the
-                // *track* that was at this position was moved/reused.
+                /*
+                 * Don't save the recording that was at this position if the
+                 * *track* that was at this position was moved/reused.
+                 */
                 if (previousTrack && !matchedTracks[previousTrack.uniqueID]) {
                     var previousRecording = previousTrack.recording.peek();
 
@@ -289,10 +316,14 @@ const trackParser = releaseEditor.trackParser = {
         // trim only, keeping tabs and other space separators intact.
         line = line.trim();
 
-        if (line === "") return data;
+        if (line === "") {
+            return data;
+        }
 
-        // Parse track times first, because they could be confused with track
-        // numbers if the line only contains a time.
+        /*
+         * Parse track times first, because they could be confused with track
+         * numbers if the line only contains a time.
+         */
 
         // Assume the track time is at the end.
         var match = line.match(this.trackTime);
@@ -311,7 +342,9 @@ const trackParser = releaseEditor.trackParser = {
             match = line.match(options.hasVinylNumbers ? this.vinylNumber : this.trackNumber);
 
             // There should always be a track number if this option's set.
-            if (match === null) return {};
+            if (match === null) {
+                return {};
+            }
 
             if (options.useTrackNumbers) {
                 data.number = fromFullwidthLatin(match[1]);
@@ -341,8 +374,10 @@ const trackParser = releaseEditor.trackParser = {
         var parts = line.split(this.separators),
             names = _.reject(parts, x => this.separatorOrBlank(x));
 
-        // Only parse an artist if there's more than one name. Assume the
-        // artist is the last name.
+        /*
+         * Only parse an artist if there's more than one name. Assume the
+         * artist is the last name.
+         */
 
         if (names.length > 1) {
             var artist = names.pop();
@@ -363,8 +398,10 @@ const trackParser = releaseEditor.trackParser = {
             data.name = clean(line);
         }
 
-        // Either of these could be the artist name (they may have to be
-        // swapped by the user afterwards), so run `cleanArtistName` on both.
+        /*
+         * Either of these could be the artist name (they may have to be
+         * swapped by the user afterwards), so run `cleanArtistName` on both.
+         */
 
         if (options.useTrackNames) {
             data.name = this.cleanArtistName(data.name || "");
@@ -401,7 +438,9 @@ const trackParser = releaseEditor.trackParser = {
             if (options.hasTrackArtists) {
                 var artist = reduceArtistCredit(track.artistCredit());
 
-                if (artist) memo += " - " + artist;
+                if (artist) {
+                    memo += " - " + artist;
+                }
             }
 
             memo += " (" + (track.formattedLength.peek() || "?:??") + ")";
@@ -411,7 +450,9 @@ const trackParser = releaseEditor.trackParser = {
     },
 
     matchDataWithTrack: function (data, track) {
-        if (!track) return;
+        if (!track) {
+            return;
+        }
 
         var similarity = getSimilarity(data.name, track.name.peek());
 

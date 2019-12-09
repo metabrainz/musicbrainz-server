@@ -44,12 +44,14 @@ const InstrumentList = ({
                 </td>
                 <td>
                   {item.instrument.typeName
-                    ? lp_attributes(item.instrument.typeName, 'instrument_type')
+                    ? lp_attributes(
+                      item.instrument.typeName, 'instrument_type',
+                    )
                     : l('Unclassified instrument')}
                 </td>
                 <td>
                   {item.instrument.last_updated
-                    ? formatUserDate($c.user, item.instrument.last_updated)
+                    ? formatUserDate($c, item.instrument.last_updated)
                     : null
                   }
                 </td>

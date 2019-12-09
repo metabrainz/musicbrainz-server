@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2013 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2013 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 
@@ -46,11 +49,16 @@ $(document).on("click", "span.star-rating a", function () {
 
         container.children('a').each(function (i) {
             var originalRating = 100 * (1 + i) / 5;
-            var newRating = data.rating == originalRating ? 0 : originalRating;
+            var newRating = data.rating == originalRating
+                ? 0
+                : originalRating;
             var oldRatingMatch = this.href.match(/rating=(\d+)/);
             if (oldRatingMatch[1] != newRating)
             {
-                this.href = this.href.replace(oldRatingMatch[0], 'rating=' + newRating);
+                this.href = this.href.replace(
+                    oldRatingMatch[0],
+                    'rating=' + newRating,
+                );
                 $(this).attr('title', ratingTooltip(5 * newRating / 100));
             }
         });

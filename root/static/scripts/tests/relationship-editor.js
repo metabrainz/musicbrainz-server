@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import './typeInfo';
 
@@ -96,7 +99,10 @@ var testRelease = {
                     artistCredit: {names: []},
                 }
             ],
-            format: "Vinyl",
+            format: {
+                name: "Vinyl",
+            },
+            format_id: 7,
             position: 1
         }
     ],
@@ -143,9 +149,11 @@ function relationshipEditorTest(name, callback) {
                 .append('<div id="content"></div><div id="dialog"></div></div>')
                 .appendTo('body');
 
-        // _.defer makes its target functions asynchronous. It is redefined
-        // here to call its target right away, so that we don't have to deal
-        // with writing async tests.
+        /*
+         * _.defer makes its target functions asynchronous. It is redefined
+         * here to call its target right away, so that we don't have to deal
+         * with writing async tests.
+         */
         var _defer = _.defer;
 
         _.defer = function (func) {

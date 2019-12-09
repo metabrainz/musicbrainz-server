@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import {GENRE_TAGS} from '../../../static/scripts/common/constants';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {SidebarTagEditor} from '../../../static/scripts/common/components/TagEditor';
+import {SidebarTagEditor}
+  from '../../../static/scripts/common/components/TagEditor';
 import TagLink from '../../../static/scripts/common/components/TagLink';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 
@@ -31,13 +31,12 @@ type SidebarTagsProps = {
 };
 
 const TagList = ({
-  entity,
   isGenreList = false,
   tags,
 }: TagListProps) => {
   const links = tags ? tags.reduce((accum, t) => {
-    if (GENRE_TAGS.has(t.tag) === isGenreList) {
-      accum.push(<TagLink key={'tag-' + t.tag} tag={t.tag} />);
+    if (Boolean(t.tag.genre) === isGenreList) {
+      accum.push(<TagLink key={'tag-' + t.tag.name} tag={t.tag.name} />);
     }
     return accum;
   }, []) : null;

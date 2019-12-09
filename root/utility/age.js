@@ -153,7 +153,12 @@ export function displayAgeAgo(age: [number, number, number]) {
   if (years) {
     return texp.ln('{num} year ago', '{num} years ago', years, {num: years});
   } else if (months) {
-    return texp.ln('{num} month ago', '{num} months ago', months, {num: months});
+    return texp.ln(
+      '{num} month ago',
+      '{num} months ago',
+      months,
+      {num: months},
+    );
   }
   return texp.ln('{num} day ago', '{num} days ago', days, {num: days});
 }

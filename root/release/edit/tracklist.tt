@@ -338,6 +338,13 @@
           <strong>[% l('Warning:') | html_entity %]</strong>
           [% l('You’ve used the {valink|Various Artists} special purpose artist on some tracks below. {valink|Various Artists} should very rarely be used on tracks; please make sure the artists have been entered correctly.', { valink => va_doc_link }) %]
         </p>
+        <label>
+          <input id="confirm-va" type="checkbox" data-bind="checked: confirmedVariousArtists" />
+          [% l('I confirm this is an intentional use of Various Artists on tracks.') %]
+        </label>
+        <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedVariousArtists">
+          [%~ l('If you’re sure the use of Various Artists is correct, confirm it above. Otherwise, please fix the data.') %]
+        </p>
       </div>
     <!-- /ko -->
 

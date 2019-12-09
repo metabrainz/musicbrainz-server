@@ -9,7 +9,7 @@ use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Constants qw( entities_with );
+use MusicBrainz::Server::Constants qw( entities_with %ENTITIES );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Scalar::Util qw( blessed );
@@ -258,7 +258,8 @@ sub entity : Chained('root') PathPart('entity') Args(1)
 
     my $entity;
     my $type;
-    for (entities_with(['mbid', 'relatable'], take => 'model')) {
+
+    for (entities_with(['mbid'], take => 'model')) {
         $type = $_;
         $entity = $c->model($type)->get_by_gid($gid);
         last if defined $entity;
@@ -271,8 +272,11 @@ sub entity : Chained('root') PathPart('entity') Args(1)
     }
 
     my $data = $c->stash->{serializer}->serialize_internal($c, $entity);
-    my $relationships = [map { $_->TO_JSON } $entity->all_relationships];
-    $data->{relationships} = $relationships if @$relationships;
+    my $entity_properties = $ENTITIES{$type};
+    if ($entity_properties->{mbid}{relatable}) {
+        my $relationships = [map {$_->TO_JSON} $entity->all_relationships];
+        $data->{relationships} = $relationships if @$relationships;
+    };
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($data));

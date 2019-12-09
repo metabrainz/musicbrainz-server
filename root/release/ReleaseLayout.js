@@ -12,7 +12,8 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import ReleaseSidebar from '../layout/components/sidebar/ReleaseSidebar';
-import {reduceArtistCredit} from '../static/scripts/common/immutable-entities';
+import {reduceArtistCredit}
+  from '../static/scripts/common/immutable-entities';
 
 import ReleaseHeader from './ReleaseHeader';
 

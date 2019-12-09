@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import _ from 'lodash';
@@ -42,12 +45,14 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         minLength: 1,
         allowEmpty: true,
 
-        // default to showing error and lookup-performed status by adding
-        // those classes (red/green background) to lookup fields.
+        /*
+         * default to showing error and lookup-performed status by adding
+         * those classes (red/green background) to lookup fields.
+         */
         showStatus: true,
 
         // Prevent menu item focus from changing the input value
-        focus: function (event, data) {
+        focus: function () {
             return false;
         },
 
@@ -116,9 +121,11 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
 
         var self = this;
 
-        // The following callbacks are triggered by jQuery UI. They're defined
-        // here, and not in the "options" definition above, because they need
-        // access to current instance.
+        /*
+         * The following callbacks are triggered by jQuery UI. They're defined
+         * here, and not in the "options" definition above, because they need
+         * access to current instance.
+         */
 
         this.options.open = function (event) {
             // Automatically focus the first item in the menu.
@@ -131,32 +138,38 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             self.currentSelection(entity);
             self.element.trigger("lookup-performed", [entity]);
 
-            // Returning false prevents the search input's text from changing.
-            // We've already changed it in setSelection.
+            /*
+             * Returning false prevents the search input's text from changing.
+             * We've already changed it in setSelection.
+             */
             return false;
         };
 
         // End of options callbacks.
 
-        this.element.on("input", function (event) {
+        this.element.on("input", function () {
             var selection = self.currentSelection.peek();
 
-            // XXX The condition shouldn't be necessary, because the input
-            // event should only fire if the value has changed. But Opera
-            // doesn't fire an input event if you paste text into a field,
-            // only if you type it [1]. Pressing enter after pasting an MBID,
-            // then, has the effect of firing the input event too late, and
-            // clearing the field. Checking the current selection against the
-            // current value is done to prevent this.
-            // [1] https://developer.mozilla.org/en-US/docs/Web/Reference/Events/input
+            /*
+             * XXX The condition shouldn't be necessary, because the input
+             * event should only fire if the value has changed. But Opera
+             * doesn't fire an input event if you paste text into a field,
+             * only if you type it [1]. Pressing enter after pasting an MBID,
+             * then, has the effect of firing the input event too late, and
+             * clearing the field. Checking the current selection against the
+             * current value is done to prevent this.
+             * [1] https://developer.mozilla.org/en-US/docs/Web/Reference/Events/input
+             */
             if (selection && selection.name !== this.value) {
                 self.clearSelection(false);
             }
         });
 
-        this.element.on("blur", function (event) {
-            // Stop searching if someone types something and then tabs out of
-            // the field.
+        this.element.on("blur", function () {
+            /*
+             * Stop searching if someone types something and then tabs out of
+             * the field.
+             */
             self.cancelSearch = true;
 
             var selection = self.currentSelection.peek();
@@ -179,8 +192,10 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             var recent = self.recentEntities();
 
             if (!this.value && recent && recent.length && !self.menu.active) {
-                // setting ac.term to "" prevents the autocomplete plugin
-                // from running its own search, which closes our menu.
+                /*
+                 * Setting ac.term to "" prevents the autocomplete plugin
+                 * from running its own search, which closes our menu.
+                 */
                 self.term = "";
 
                 recent.push({
@@ -196,7 +211,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         });
 
 
-        this.$search.on("click.mb", function (event) {
+        this.$search.on("click.mb", function () {
             if (self.element.is(":enabled")) {
                 self.element.focus();
 
@@ -223,8 +238,10 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         }
     },
 
-    // Overrides $.ui.autocomplete.prototype.close
-    // Reset the currentPage and currentResults on menu close.
+    /*
+     * Overrides $.ui.autocomplete.prototype.close
+     * Reset the currentPage and currentResults on menu close.
+     */
     close: function (event) {
         this._super(event);
         this._resetPage();
@@ -239,10 +256,12 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         var name = clearAction ? "" : this._value();
         var currentSelection = this.currentSelection.peek();
 
-        // If the current entity doesn't have an id, it's already "blank" and
-        // we don't need to unnecessarily create a new one. Doing so can even
-        // have unintended effects, e.g. wiping other useful data on the
-        // entity (like release group types).
+        /*
+         * If the current entity doesn't have an id, it's already "blank" and
+         * we don't need to unnecessarily create a new one. Doing so can even
+         * have unintended effects, e.g. wiping other useful data on the
+         * entity (like release group types).
+         */
 
         if (currentSelection.id) {
             this.currentSelection(this._dataToEntity({ name: name }));
@@ -339,8 +358,10 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
 
         var oldTerm = this.term;
 
-        // Support pressing <space> to trigger a search, but ignore it if the
-        // menu is already open.
+        /*
+         * Support pressing <space> to trigger a search, but ignore it if the
+         * menu is already open.
+         */
         if (this.menu.element.is(':visible')) {
             newTerm = clean(newTerm);
             oldTerm = clean(oldTerm);
@@ -380,8 +401,10 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 var currentEntityType = self.entity.replace("-", "_");
 
                 if (data.entityType !== currentEntityType) {
-                    // Only RelateTo boxes and relationship-editor dialogs
-                    // support changing the entity type.
+                    /*
+                     * Only RelateTo boxes and relationship-editor dialogs
+                     * support changing the entity type.
+                     */
                     var setEntity = self.options.setEntity;
 
                     if (!setEntity || setEntity(data.entityType) === false) {
@@ -403,9 +426,11 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
 
         data = this.options.resultHook(_.initial(data));
 
-        // "currentResults" will contain action items that aren't results,
-        // e.g. ShowMore, SwitchToDirectSearch, etc. Filter these actions out
-        // before appending the new results (we re-add them below).
+        /*
+         * "currentResults" will contain action items that aren't results,
+         * e.g. ShowMore, SwitchToDirectSearch, etc. Filter these actions out
+         * before appending the new results (we re-add them below).
+         */
 
         var results = this.currentResults = _.filter(
             this.currentResults, function (item) {
@@ -460,8 +485,10 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         response(results);
 
         this._delay(function () {
-            // Once everything's rendered, jump to the first item that was
-            // added. This makes the menu scroll after hitting "Show More."
+            /*
+             * Once everything's rendered, jump to the first item that was
+             * added. This makes the menu scroll after hitting "Show More."
+             */
             var menu = this.menu;
             var $ul = menu.element;
 
@@ -534,14 +561,16 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
 
 $.widget("ui.menu", $.ui.menu, {
 
-    // When a result is normally selected from an autocomplete menu, the menu
-    // is closed and the text of the search input is changed. This is not what
-    // we want to happen for menu items associated with an action (e.g. show
-    // more, switch to indexed search, clear artist, etc.). To support the
-    // desired behavior, the "select" method for jQuery UI menus is overridden
-    // below to check if an action function is associated with the selected
-    // item. If it is, the action is executed. Otherwise we fall back to the
-    // default menu behavior.
+    /*
+     * When a result is normally selected from an autocomplete menu, the menu
+     * is closed and the text of the search input is changed. This is not what
+     * we want to happen for menu items associated with an action (e.g. show
+     * more, switch to indexed search, clear artist, etc.). To support the
+     * desired behavior, the "select" method for jQuery UI menus is overridden
+     * below to check if an action function is associated with the selected
+     * item. If it is, the action is executed. Otherwise we fall back to the
+     * default menu behavior.
+     */
 
     _selectAction: function (event) {
         var active = this.active || $(event.target).closest(".ui-menu-item");
@@ -550,9 +579,11 @@ $.widget("ui.menu", $.ui.menu, {
         if (item && $.isFunction(item.action)) {
             item.action();
 
-            // If this is a click event on the <a>, make sure the event
-            // doesn't reach the parent <li>, or the select action will
-            // close the menu.
+            /*
+             * If this is a click event on the <a>, make sure the event
+             * doesn't reach the parent <li>, or the select action will
+             * close the menu.
+             */
             event.stopPropagation();
             event.preventDefault();
 
@@ -569,9 +600,11 @@ $.widget("ui.menu", $.ui.menu, {
         if (!this._selectAction(event)) {
             this._super(event);
         }
-        // When mouseHandled is true, $.ui ignores future mouse events. It only
-        // gets reset to false if you click outside of the menu, but we want
-        // it to be false no matter what.
+        /*
+         * When mouseHandled is true, $.ui ignores future mouse events. It only
+         * gets reset to false if you click outside of the menu, but we want
+         * it to be false no matter what.
+         */
         this.mouseHandled = false;
     }
 });
@@ -980,27 +1013,27 @@ function renderContainingAreas(area) {
 }
 
 /*
-   MB.Control.EntityAutocomplete is a helper class which simplifies using
-   Autocomplete to look up entities.  It takes care of setting id and gid
-   values on related hidden inputs.
-
-   It expects to see html looking like this:
-
-       <span class="ENTITY autocomplete">
-          <img class="search" src="search.png" />
-          <input type="text" class="name" />
-          <input type="hidden" class="id" />
-          <input type="hidden" class="gid" />
-       </span>
-
-   Do a lookup of the span with jQuery and pass it into EntityAutocomplete
-   as options.inputs, for example, for a release group do this:
-
-       MB.Control.EntityAutocomplete({ inputs: $('span.release-group.autocomplete') });
-
-   The 'lookup-performed' and 'cleared' events will be triggered on the input.name
-   element (though you can just bind on the span, as events will bubble up).
-*/
+ * MB.Control.EntityAutocomplete is a helper class which simplifies using
+ * Autocomplete to look up entities.  It takes care of setting id and gid
+ * values on related hidden inputs.
+ *
+ * It expects to see html looking like this:
+ *
+ *   <span class="ENTITY autocomplete">
+ *     <img class="search" src="search.png" />
+ *     <input type="text" class="name" />
+ *     <input type="hidden" class="id" />
+ *     <input type="hidden" class="gid" />
+ *   </span>
+ *
+ * Do a lookup of the span with jQuery and pass it into EntityAutocomplete
+ * as options.inputs, for example, for a release group do this:
+ *
+ *   MB.Control.EntityAutocomplete({inputs: $('span.release-group.autocomplete')});
+ *
+ * The 'lookup-performed' and 'cleared' events will be triggered on the input.name
+ * element (though you can just bind on the span, as events will bubble up).
+ */
 
 MB.Control.EntityAutocomplete = function (options) {
     var $inputs = options.inputs || $();
@@ -1029,9 +1062,11 @@ MB.Control.EntityAutocomplete = function (options) {
     autocomplete.currentSelection.subscribe(function (item) {
         var $hidden = $inputs.find("input[type=hidden]").val("");
 
-        // We need to do this manually, rather than using $.each, due to recordings
-        // having a 'length' property.
-        for (let key in item) {
+        /*
+         * We need to do this manually, rather than using $.each, due to recordings
+         * having a 'length' property.
+         */
+        for (const key in item) {
             if (item.hasOwnProperty(key)) {
                 $hidden.filter("input." + key)
                     .val(item[key]).trigger("change");

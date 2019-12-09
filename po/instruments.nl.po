@@ -3,13 +3,15 @@
 # nikki, 2014
 # reneweesp <email address hidden>, 2017,2019
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2019
+# Maurits Meulenbelt <email address hidden>, 2012-2019
+# nikki, 2014
 # Nikolai Prokoschenko <email address hidden>, 2011
+# reneweesp <email address hidden>, 2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-23 20:34+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2019-12-07 15:35+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -118,10 +120,6 @@ msgctxt "Modern 24-stringed stainless steel kora"
 msgid "Gravikord"
 msgstr "Gravikord"
 
-#: DB:instrument/name:236
-msgid "Greek baglama"
-msgstr "Griekse baglama"
-
 #: DB:instrument/name:795
 msgctxt "electric lamellophone"
 msgid "Guitaret"
@@ -159,7 +157,7 @@ msgstr "Lyricon"
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
 msgid "Mark tree"
-msgstr ""
+msgstr "Mark-tree"
 
 #: DB:instrument/name:442
 msgid "Marxophone"
@@ -249,10 +247,6 @@ msgstr "Tibetaanse watertrommel"
 msgctxt "plastic fipple flute"
 msgid "Tonette"
 msgstr "tonette"
-
-#: DB:instrument/name:235
-msgid "Turkish baglama"
-msgstr "Turkse bağlama"
 
 #: DB:instrument/name:562
 msgid "Vienna horn"
@@ -369,7 +363,7 @@ msgid "analog synthesizer"
 msgstr "analoge synthesizer"
 
 #: DB:instrument/name:371
-msgctxt "Sundanese single pitch bamboo rattle xylophone"
+msgctxt "Single pitch bamboo rattle xylophone used in Sundanese gamelan"
 msgid "angklung"
 msgstr "angkloeng"
 
@@ -426,9 +420,10 @@ msgctxt "Nyabinghi bass drum"
 msgid "baandu"
 msgstr "baandu"
 
-#: DB:instrument/name:426
-msgid "baglama"
-msgstr "bağlama"
+#: DB:instrument/name:236
+msgctxt "Treble bouzouki"
+msgid "baglamas"
+msgstr "baglamas"
 
 #: DB:instrument/name:4
 msgid "bagpipe"
@@ -624,6 +619,15 @@ msgstr "bajan"
 #: DB:instrument/name:741
 msgid "bazooka"
 msgstr "bazooka"
+
+#: DB:instrument/name:235
+msgctxt "Turkish long-necked bowl lute"
+msgid "bağlama"
+msgstr "bağlama"
+
+#: DB:instrument/name:426
+msgid "bağlama (saz) family"
+msgstr "bağlamafamilie (sazfamilie)"
 
 #: DB:instrument/name:968
 msgctxt "Very large suspended Javanese barrel drum"
@@ -840,9 +844,9 @@ msgid "calliope"
 msgstr "stoomorgel of stoompiano"
 
 #: DB:instrument/name:974
-msgctxt "Sundanese bamboo xylophone"
+msgctxt "Bamboo xylophone used in Sundanese gamelan"
 msgid "calung"
-msgstr ""
+msgstr "tjaloeng"
 
 #: DB:instrument/name:128
 msgctxt "belfry tower bell set"
@@ -1193,7 +1197,7 @@ msgstr "dhool"
 #: DB:instrument/name:361
 msgctxt "Accordion with buttons arranged diatonically"
 msgid "diatonic button accordion"
-msgstr ""
+msgstr "trekharmonica"
 
 #: DB:instrument/name:635
 msgid "diddley bow"
@@ -1495,7 +1499,7 @@ msgstr "folkharp"
 
 #: DB:instrument/name:478
 msgid "foot stomps"
-msgstr ""
+msgstr "voetpercussie"
 
 #: DB:instrument/name:384
 msgid "fortepiano"
@@ -1554,7 +1558,7 @@ msgstr ""
 #: DB:instrument/name:853
 msgctxt "sound chip from gaming consoles"
 msgid "game console sound chip"
-msgstr ""
+msgstr "geluidschip van een spelcomputer"
 
 #: DB:instrument/name:365
 msgctxt "Indonesian traditional ensemble"
@@ -1601,6 +1605,21 @@ msgctxt "Family of Indonesian metallophones"
 msgid "gendèr"
 msgstr "gender"
 
+#: DB:instrument/name:1004
+msgctxt "Middle pitch metallophone used in Javanese gamelan"
+msgid "gendèr barung"
+msgstr ""
+
+#: DB:instrument/name:1003
+msgctxt "Higest pitch metallophone used in Javanese gamelan"
+msgid "gendèr panerus"
+msgstr ""
+
+#: DB:instrument/name:1005
+msgctxt "Ten key metallophone used in Bali wayang."
+msgid "gendèr wayang"
+msgstr ""
+
 #: DB:instrument/name:76
 msgid "geomungo"
 msgstr "geomungo"
@@ -1610,7 +1629,7 @@ msgid "ghatam"
 msgstr "ghatam"
 
 #: DB:instrument/name:931
-msgctxt "Perisan double-chambered bowl lute"
+msgctxt "Persian double-chambered bowl lute"
 msgid "ghaychak"
 msgstr "qeychak"
 
@@ -1929,7 +1948,7 @@ msgstr "jouhikko"
 #: DB:instrument/name:980
 msgctxt "Second deepest pitch gangsa used in Balinese gamelan"
 msgid "jublag"
-msgstr ""
+msgstr "djoeblag"
 
 #: DB:instrument/name:505
 msgid "jug"
@@ -1944,6 +1963,26 @@ msgstr "junjung"
 msgctxt "Vietnamese Air Xylophone"
 msgid "k'lông pút"
 msgstr "k'lông pút"
+
+#: DB:instrument/name:999
+msgctxt "Family of Sundanese string zithers"
+msgid "kacapi"
+msgstr ""
+
+#: DB:instrument/name:1001
+msgctxt "Boat shaped zither used in Sundanese gamelan"
+msgid "kacapi indung"
+msgstr ""
+
+#: DB:instrument/name:1002
+msgctxt "Small boat shaped zither used in Sundanese gamelan"
+msgid "kacapi rincik"
+msgstr ""
+
+#: DB:instrument/name:1000
+msgctxt "Box zither used in Sundanese gamelan"
+msgid "kacapi siter"
+msgstr ""
 
 #: DB:instrument/name:947
 msgctxt "Flat-cut gourd sitar"
@@ -2087,6 +2126,11 @@ msgctxt "Large high-pitch gong-chime used in Indonesian Gamelan"
 msgid "kenong"
 msgstr ""
 
+#: DB:instrument/name:998
+msgctxt "Metal plate percussion used in Javanese gamelan"
+msgid "kepyak"
+msgstr ""
+
 #: DB:instrument/name:986
 msgctxt "Small boxed gong-chime used in Javanese gamelan"
 msgid "kethuk"
@@ -2191,6 +2235,7 @@ msgid "kokyu"
 msgstr "kokyu"
 
 #: DB:instrument/name:543
+msgctxt "Ancient Kyrgys fretless string"
 msgid "komuz"
 msgstr "komuz"
 
@@ -3085,10 +3130,35 @@ msgstr "sarangi"
 msgid "sarod"
 msgstr "sarod"
 
+#: DB:instrument/name:1007
+msgctxt "Middle pitch saron-family member used in Sundanese gamelan."
+msgid "saron barung"
+msgstr ""
+
+#: DB:instrument/name:1006
+msgctxt "Penultimate pitch saron-family member used in Sundanese gamelan."
+msgid "saron demung"
+msgstr ""
+
 #: DB:instrument/name:597
-msgctxt "Javanese wooden trough metallophone family"
-msgid "saron"
-msgstr "saron"
+msgctxt "Family of Sundanese metallophones"
+msgid "saron family"
+msgstr ""
+
+#: DB:instrument/name:1008
+msgctxt "Highest pitch saron-family member used in Sundanese gamelan."
+msgid "saron panerus"
+msgstr ""
+
+#: DB:instrument/name:1009
+msgctxt "Highest pitch saron-family member."
+msgid "saron peking"
+msgstr ""
+
+#: DB:instrument/name:1010
+msgctxt "Special saron used for Wayang puppetry"
+msgid "saron wayang"
+msgstr ""
 
 #: DB:instrument/name:749
 msgid "sarrusophone"
@@ -3229,12 +3299,12 @@ msgid "sitar"
 msgstr "sitar"
 
 #: DB:instrument/name:962
-msgctxt "Central Javanese single octave metallophone"
+msgctxt "Deepest pitch single octave metallophone used in Javanese gamelan"
 msgid "slenthem"
 msgstr "slenthem"
 
 #: DB:instrument/name:964
-msgctxt "Largely obsolete Central Javan metallophone."
+msgctxt "Obsolete deepest saron-family member used in Sundanese gamelan."
 msgid "slentho"
 msgstr "slentho"
 
@@ -3493,7 +3563,7 @@ msgstr "taonga puuoro"
 
 #: DB:instrument/name:559
 msgid "tap dance"
-msgstr ""
+msgstr "tapdans"
 
 #: DB:instrument/name:520
 msgid "tape"

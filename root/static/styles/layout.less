@@ -239,8 +239,6 @@ pre code {
             clear: both;
             font-size: @small-text;
             ul.menu {
-                li a {
-                }
                 li.language-selector {
                     float: right;
                     position: relative;
@@ -362,8 +360,12 @@ div.warning {
     width: 60em;
     background: @warning-background;
 
-    p {
+    p, label {
         margin: 1em;
+    }
+
+    label {
+        display: block;
     }
 }
 
@@ -1014,6 +1016,14 @@ a.tagger-icon {
 .actions {
     white-space: nowrap;
     width: 1px;
+}
+
+.positive {
+    background: @positive-light-bg;
+}
+
+.negative {
+    background: @negative-light-bg;
 }
 
 dl.ars, dl.ars dd, dl.ars dt {

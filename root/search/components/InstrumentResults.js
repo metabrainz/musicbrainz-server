@@ -9,9 +9,10 @@
 
 import * as React from 'react';
 
+import {withCatalystContext} from '../../context';
 import InstrumentListEntry
   from '../../static/scripts/common/components/InstrumentListEntry';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -31,12 +32,13 @@ function buildResult(result, index) {
 }
 
 const InstrumentResults = ({
+  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<InstrumentT>) => (
+}: ResultsPropsWithContextT<InstrumentT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
@@ -51,7 +53,15 @@ const InstrumentResults = ({
       query={query}
       results={results}
     />
+    {$c.user && $c.user.is_relationship_editor ? (
+      <p>
+        {exp.l('Alternatively, you may {uri|add a new instrument}.', {
+          uri: '/instrument/create?edit-instrument.name=' +
+            encodeURIComponent(query),
+        })}
+      </p>
+    ) : null}
   </ResultsLayout>
 );
 
-export default InstrumentResults;
+export default withCatalystContext(InstrumentResults);

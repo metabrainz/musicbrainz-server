@@ -57,7 +57,9 @@ const DataMenu = ({user}: UserProp) => {
       </span>
       <ul>
         <li>
-          <a href={userLink(userName, '/collections')}>{l('My Collections')}</a>
+          <a href={userLink(userName, '/collections')}>
+            {l('My Collections')}
+          </a>
         </li>
         <li>
           <a href={userLink(userName, '/ratings')}>{l('My Ratings')}</a>
@@ -75,7 +77,9 @@ const DataMenu = ({user}: UserProp) => {
           <a href="/edit/subscribed">{l('Edits for Subscribed Entities')}</a>
         </li>
         <li>
-          <a href="/edit/subscribed_editors">{l('Edits by Subscribed Editors')}</a>
+          <a href="/edit/subscribed_editors">
+            {l('Edits by Subscribed Editors')}
+          </a>
         </li>
         <li>
           <a href="/edit/notes-received">{l('Notes Left on My Edits')}</a>
@@ -101,7 +105,9 @@ const AdminMenu = ({user}: UserProp) => (
       {user.is_relationship_editor ? (
         <>
           <li>
-            <a href="/instrument/create">{lp('Add Instrument', 'button/menu')}</a>
+            <a href="/instrument/create">
+              {lp('Add Instrument', 'button/menu')}
+            </a>
           </li>
           <li>
             <a href="/genre/create">{lp('Add Genre', 'button/menu')}</a>

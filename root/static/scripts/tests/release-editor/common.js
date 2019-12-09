@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import ko from 'knockout';
 import _ from 'lodash';
@@ -126,14 +129,16 @@ export const testRelease = {
           gid: "cce78f39-a1a0-32d5-b921-091757f28586"
         }
       ],
-      format: "CD",
+      format: {
+        name: "CD",
+      },
       name: null,
       position: 1,
       cdtocs: [
         "1 9 304912 150 61807 86027 116895 146370 174812 207905 236857 271077",
         "1 9 304974 153 61810 86030 116898 146373 174815 207908 236860 271079"
       ],
-      formatID: 1,
+      format_id: 1,
       id: 249113
     }
   ],
@@ -190,10 +195,12 @@ export const testMedium = {
       gid: "2e8e2c89-d2ac-3e78-b8b9-b09f3fcf8c98"
     }
   ],
-  format: "CD",
+  format: {
+    name: "CD",
+  },
   name: null,
   position: 2,
   cdtocs: ["1 3 192512 150 7100 167475"],
-  formatID: 1,
+  format_id: 1,
   id: 249114
 };

@@ -113,10 +113,10 @@ is( $tags[2]->count, 2 );
 is( $tags[3]->tag->name, 'world music' );
 is( $tags[3]->count, 1 );
 
-$tag_data->upvote(1, 3, 'world music');
-$tag_data->upvote(1, 3, 'techno');
-$tag_data->withdraw(1, 3, 'musical');
-$tag_data->withdraw(1, 3, 'rock');
+$tag_data->upvote(11, 3, 'world music');
+$tag_data->upvote(11, 3, 'techno');
+$tag_data->withdraw(11, 3, 'musical');
+$tag_data->withdraw(11, 3, 'rock');
 
 @tags = $tag_data->find_top_tags(3, 10);
 is( scalar(@tags), 5 );
@@ -131,17 +131,17 @@ is( $tags[3]->count, 2 );
 is( $tags[4]->tag->name, 'techno' );
 is( $tags[4]->count, 1 );
 
-$tag_data->withdraw(1, 3, 'techno');
+$tag_data->withdraw(11, 3, 'techno');
 
 @tags = $tag_data->find_top_tags(3, 10);
 is( scalar(@tags), 4 );
 is( $tags[3]->tag->name, 'world music' );
 is( $tags[3]->count, 2 );
 
-$tag_data->upvote(2, 3, 'techno');
-$tag_data->withdraw(2, 3, 'musical');
-$tag_data->withdraw(2, 3, 'rock');
-$tag_data->withdraw(2, 3, 'world music');
+$tag_data->upvote(12, 3, 'techno');
+$tag_data->withdraw(12, 3, 'musical');
+$tag_data->withdraw(12, 3, 'rock');
+$tag_data->withdraw(12, 3, 'world music');
 
 @tags = $tag_data->find_top_tags(3, 10);
 is( scalar(@tags), 5 );
@@ -157,8 +157,8 @@ is( $tags[4]->tag->name, 'world music' );
 is( $tags[4]->count, 1 );
 
 # Test downvoting
-$tag_data->downvote(1, 3, 'world music');
-$tag_data->downvote(2, 3, 'musical');
+$tag_data->downvote(11, 3, 'world music');
+$tag_data->downvote(12, 3, 'musical');
 
 @tags = $tag_data->find_top_tags(3, 10);
 is( scalar(@tags), 5 );
@@ -174,8 +174,8 @@ is( $tags[4]->tag->name, 'world music' );
 is( $tags[4]->count, -1 );
 
 # Change downvotes to upvotes
-$tag_data->upvote(1, 3, 'world music');
-$tag_data->upvote(2, 3, 'musical');
+$tag_data->upvote(11, 3, 'world music');
+$tag_data->upvote(12, 3, 'musical');
 
 @tags = $tag_data->find_top_tags(3, 10);
 is( scalar(@tags), 5 );
@@ -190,7 +190,7 @@ is( $tags[3]->count, 1 );
 is( $tags[4]->tag->name, 'world music' );
 is( $tags[4]->count, 1 );
 
-$tags = $test->c->sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
+$tags = $test->c->sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=12 AND artist=3 ORDER BY tag");
 is_deeply($tags, [1, 5], 'has musical, techno');
 
 };

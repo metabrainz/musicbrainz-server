@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import ko from 'knockout';
 import _ from 'lodash';
@@ -12,6 +15,7 @@ import ArtistCreditLink from './components/ArtistCreditLink';
 import EditorLink from './components/EditorLink';
 import EntityLink from './components/EntityLink';
 import DescriptiveLink from './components/DescriptiveLink';
+import MediumDescription from './components/MediumDescription';
 import {
   ENTITY_NAMES,
   PART_OF_SERIES_LINK_TYPES,
@@ -28,9 +32,11 @@ import formatTrackLength from './utility/formatTrackLength';
 
 (function () {
 
-    // Base class that both core and non-core entities inherit from. The only
-    // purpose this really serves is allowing the `data instanceof Entity`
-    // check in MB.entity() to work.
+    /*
+     * Base class that both core and non-core entities inherit from. The only
+     * purpose this really serves is allowing the `data instanceof Entity`
+     * check in MB.entity() to work.
+     */
     class Entity {
 
         constructor(data) {
@@ -79,13 +85,15 @@ import formatTrackLength from './utility/formatTrackLength';
         }
     }
 
-    // Usually, this function should be called to create new entities instead
-    // of directly instantiating any of the classes below. MB.entity() caches
-    // everything with a GID, so if you pass in the same entity twice, you get
-    // the same object back (which is ideal, because otherwise there could be a
-    // lot of duplication for things like track artists). This also allows
-    // comparing entities for equality with a simple `===` instead of having to
-    // compare the GIDs.
+    /*
+     * Usually, this function should be called to create new entities instead
+     * of directly instantiating any of the classes below. MB.entity() caches
+     * everything with a GID, so if you pass in the same entity twice, you get
+     * the same object back (which is ideal, because otherwise there could be
+     * a lot of duplication for things like track artists). This also allows
+     * comparing entities for equality with a simple `===` instead of having
+     * to compare the GIDs.
+     */
 
     MB.entity = function (data, type) {
         if (!data) {
@@ -251,9 +259,11 @@ import formatTrackLength from './utility/formatTrackLength';
 
             // Returned from the /ws/js/recording search.
             if (this.appearsOn) {
-                // Depending on where we're getting the data from (search
-                // server, /ws/js...) we may have either releases or release
-                // groups here. Assume the latter by default.
+                /*
+                 * Depending on where we're getting the data from (search
+                 * server, /ws/js...) we may have either releases or release
+                 * groups here. Assume the latter by default.
+                 */
                 var appearsOnType = this.appearsOn.entityType || "release_group";
 
                 this.appearsOn.results = _.map(this.appearsOn.results, function (appearance) {
@@ -337,7 +347,9 @@ import formatTrackLength from './utility/formatTrackLength';
 
         getSeriesItems(viewModel) {
             var type = this.type();
-            if (!type) return [];
+            if (!type) {
+                return [];
+            }
 
             var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
             var linkTypeID = linkedEntities.link_type[gid].id;
@@ -411,20 +423,9 @@ import formatTrackLength from './utility/formatTrackLength';
 
             this.tracks = _.map(data.tracks, x => new Track(x));
 
-            const positionArgs = {
-                medium_format: this.format,
-                position: this.position,
-                title: this.name
-            };
-            if (this.name) {
-                this.positionName = this.format
-                    ? texp.l('{medium_format} {position}: {title}', positionArgs)
-                    : texp.l('Medium {position}: {title}', positionArgs);
-            } else {
-                this.positionName = this.format
-                    ? texp.l('{medium_format} {position}', positionArgs)
-                    : texp.l('Medium {position}', positionArgs);
-            }
+            this.positionName = ReactDOMServer.renderToString(
+                <MediumDescription medium={this} />,
+            );
         }
     }
 
@@ -458,8 +459,10 @@ import formatTrackLength from './utility/formatTrackLength';
         });
     }
 
-    // Used by MB.entity() to look up classes. JSON from the web service
-    // usually includes a lower-case type name, which is used as the key.
+    /*
+     * Used by MB.entity() to look up classes. JSON from the web service
+     * usually includes a lower-case type name, which is used as the key.
+     */
 
     var coreEntityMapping = {
         artist:        Artist,

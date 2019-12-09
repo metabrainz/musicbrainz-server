@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -27,7 +30,7 @@ const actions = {
 
     previousTab: function () { this.adjacentTab(-1) },
 
-    lastTab: function () { 
+    lastTab: function () {
         this.uiTabs._setOption("active", this.tabCount - 1);
         this.uiTabs.tabs.eq(this.tabCount - 1).focus();
         return;
@@ -83,7 +86,9 @@ const actions = {
         var oldPosition = medium.position.peek();
         var newPosition = oldPosition + offset;
 
-        if (newPosition <= 0) return;
+        if (newPosition <= 0) {
+            return;
+        }
 
         medium.position(newPosition);
 
@@ -109,7 +114,7 @@ const actions = {
         mediums.remove(medium);
         mediums = mediums.peek();
 
-        for (var i = index; medium = mediums[i]; i++) {
+        for (var i = index; (medium = mediums[i]); i++) {
             if (medium.position() === position + 1) {
                 medium.position(position);
             }
@@ -132,7 +137,7 @@ const actions = {
         }
     },
 
-    moveTrackUp: function (track, event) {
+    moveTrackUp: function (track) {
         var previous = track.previous();
 
         if (track.isDataTrack() && (!previous || !previous.isDataTrack())) {
@@ -174,8 +179,10 @@ const actions = {
         var tracks = medium.tracks,
             underlyingTracks = tracks.peek(),
             offset = medium.hasPregap() ? 0 : 1,
-            // Use _.indexOf instead of .position()
-            // http://tickets.metabrainz.org/browse/MBS-7227
+            /*
+             * Use _.indexOf instead of .position()
+             * http://tickets.metabrainz.org/browse/MBS-7227
+             */
             position1 = _.indexOf(underlyingTracks, track1) + offset,
             position2 = _.indexOf(underlyingTracks, track2) + offset,
             number1 = track1.number(),
@@ -198,7 +205,7 @@ const actions = {
 
     resetTrackPositions: function (tracks, start, offset, removed) {
         let track;
-        for (let i = start; track = tracks[i]; i++) {
+        for (let i = start; (track = tracks[i]); i++) {
             track.position(i + offset);
 
             if (track.number.peek() == (i + offset + removed)) {

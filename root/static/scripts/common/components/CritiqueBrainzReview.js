@@ -40,7 +40,7 @@ const CritiqueBrainzReview = ({$c, review, title}: Props) => (
             {review.author.name}
           </a>
         ),
-        date: formatUserDate($c.user, review.created, {dateOnly: true}),
+        date: formatUserDate($c, review.created, {dateOnly: true}),
         review_link: {href: reviewHref(review), key: 'review_link'},
       })}
     </p>

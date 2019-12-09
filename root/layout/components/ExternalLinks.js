@@ -11,7 +11,6 @@ import URL from 'url';
 import React from 'react';
 import _ from 'lodash';
 
-import {withCatalystContext} from '../../context';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import {FAVICON_CLASSES} from '../../static/scripts/common/constants';
 import {compare, l} from '../../static/scripts/common/i18n';

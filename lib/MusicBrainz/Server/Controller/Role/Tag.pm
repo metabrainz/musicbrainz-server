@@ -18,7 +18,11 @@ after load => sub {
     my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id)
         if $c->user_exists;
 
+    $c->model('Genre')->load(map { $_->tag } (@tags, @user_tags));
+    my %genre_map = map { $_->name => $_ } $c->model('Genre')->get_all;
+
     $c->stash(
+        genre_map => \%genre_map,
         top_tags => \@tags,
         more_tags => $count > @tags,
         user_tags => \@user_tags,
@@ -31,6 +35,7 @@ sub tags : Chained('load') PathPart('tags') {
 
     my $entity = $c->stash->{$self->{entity_name}};
     my @tags = $c->model($self->{model})->tags->find_tags($entity->id);
+    $c->model('Genre')->load(map { $_->tag } @tags);
 
     my %props = (
         entity        => $entity,

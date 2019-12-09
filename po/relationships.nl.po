@@ -4,13 +4,15 @@
 # nikki2 <email address hidden>, 2012
 # reneweesp <email address hidden>, 2017-2018
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2019
+# Maurits Meulenbelt <email address hidden>, 2012-2019
+# nikki, 2012-2013
+# nikki2 <email address hidden>, 2012
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-28 16:01+0000\n"
+"PO-Revision-Date: 2019-12-07 15:36+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -6151,7 +6153,7 @@ msgstr "tournees"
 
 #: DB:link_type/name:2
 msgid "transl-tracklisting"
-msgstr ""
+msgstr "getranscribeerd/vertaald"
 
 #: DB:link_attribute_type/name:517 DB:link_type/link_phrase:871
 msgid "translated"
@@ -6225,7 +6227,7 @@ msgstr "video"
 
 #: DB:link_type/name:858
 msgid "video appearance"
-msgstr ""
+msgstr "speelt in videoclip"
 
 #: DB:link_type/link_phrase:804 DB:link_type/link_phrase:805
 #: DB:link_type/link_phrase:303 DB:link_type/link_phrase:304

@@ -55,7 +55,7 @@ const FormRowSelectList = <S: {+id: number, ...}>({
           {' '}
           <button
             className={`nobutton icon remove-item ${removeClassName}`}
-            onClick={event => onRemove(index)}
+            onClick={() => onRemove(index)}
             title={removeLabel}
             type="button"
           />

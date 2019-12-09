@@ -1,11 +1,11 @@
-package MusicBrainz::Server::Entity::URL::GooglePlus;
+package MusicBrainz::Server::Entity::URL::DynamicRangeDB;
 
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'Google+' }
+sub sidebar_name { 'Dynamic Range DB' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -13,7 +13,7 @@ no Moose;
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2013 MetaBrainz Foundation
+Copyright (C) 2019 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any

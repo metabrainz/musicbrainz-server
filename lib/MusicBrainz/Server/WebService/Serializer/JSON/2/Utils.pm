@@ -39,6 +39,7 @@ my %serializers =
         CDTOC
         Collection
         Event
+        Genre
         Instrument
         ISRC
         Label

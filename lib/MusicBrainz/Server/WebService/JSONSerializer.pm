@@ -310,6 +310,21 @@ sub autocomplete_series {
     return encode_json($output);
 }
 
+sub autocomplete_genre {
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias($results, sub {
+        shift->TO_JSON
+    });
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json($output);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

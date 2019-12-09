@@ -582,6 +582,20 @@ msgstr ""
 msgid "Cajón, Peruvian box drum"
 msgstr ""
 
+#. name:saron demung 
+#: DB:instrument/description:1006
+msgid ""
+"Called simply \"demung\", it is the largest and deepest pitched of the "
+"regular saron."
+msgstr ""
+
+#. name:saron panerus 
+#: DB:instrument/description:1008
+msgid ""
+"Called simply \"panerus\", it has seven bronze keys resting on a decorated "
+"rancak box. Keys are hit by tabuh mallet with head of buffalo horn."
+msgstr ""
+
 #. name:tōkere 
 #: DB:instrument/description:865
 msgid "Castanets of wood, bone, bivalve shells or even flax leaf."
@@ -1012,11 +1026,17 @@ msgid ""
 "ensemble with zhu."
 msgstr ""
 
-#. name:gendèr 
-#: DB:instrument/description:961
+#. name:gamelan 
+#: DB:instrument/description:365
 msgid ""
-"From the Bali and Java use in gamelan, it has 12-14 tuned bronze keys "
-"suspended over metal or bamboo resonators."
+"Gamelan is basically split up in 3 traditions: the Balinese, the Sundanese "
+"and the Javanese, with each area having several different gamelan ensembles "
+"from large to small, each including a variety of instruments.<br /> Most if "
+"not all gamelan instruments come in two scales, Sléndro and Pélog, these are "
+"tuned differently and large gamelan orchestras always include at-least one "
+"of each scale and often several sets in each.<br /> Gamelan is an integrated "
+"part of Indonesian culture, is used in important traditions and throughout "
+"Indonesian life."
 msgstr ""
 
 #. name:gankogui 
@@ -1094,6 +1114,8 @@ msgid ""
 "Having 4 metal strings, it is carved from a single piece of wood into a "
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
 "side of the short neck and one under the bridge which is membrane-covered."
+"<br /> Not to be confused with the Uyghur spike fiddle <a href=\"/"
+"instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgstr ""
 
 #. name:kantilan 
@@ -1173,6 +1195,13 @@ msgid ""
 "Cretan lyra with the violin."
 msgstr ""
 
+#. name:kacapi siter 
+#: DB:instrument/description:1000
+msgid ""
+"Inspired by western zithers, it has 20 strings and is flatter than the other "
+"kacapis."
+msgstr ""
+
 #. name:tubulum 
 #: DB:instrument/description:873
 msgid ""
@@ -1227,15 +1256,6 @@ msgid ""
 "lute\""
 msgstr ""
 
-#. name:slentho 
-#: DB:instrument/description:964
-msgid ""
-"It has seven bossed keys hit with the tabuh mallet and is nailed to a wooden "
-"frame. Largely replaced by the <a href=\"/instrument/73173277-"
-"b7ef-4d5e-83b2-205cd2f12488\">slethem</a> in gamelan, it is the lowest "
-"member of the saron family."
-msgstr ""
-
 #. name:yangqin 
 #: DB:instrument/description:254
 msgid ""
@@ -1281,6 +1301,21 @@ msgid ""
 "Known also as contrabass or upright bass, it is the largest and lowest-"
 "pitched member of the modern violin family, it is a principal member of the "
 "symphony orchestra."
+msgstr ""
+
+#. name:kacapi indung 
+#: DB:instrument/description:1001
+msgid ""
+"Known as indung \"mother\" or parahu \"boat\", it has 18 brass strings each "
+"with its own pyramid shaped bridge. Shaped like a boat, its sound hole is at "
+"the bottom."
+msgstr ""
+
+#. name:kacapi rincik 
+#: DB:instrument/description:1002
+msgid ""
+"Known as rincik \"child\" it has 15 steel strings, it has individual bridges "
+"and a sound-hole in the bottom."
 msgstr ""
 
 #. name:birch lur 
@@ -1383,6 +1418,11 @@ msgid ""
 "for both war and peace. Even living hollowed trees have been used as pahū."
 msgstr ""
 
+#. name:baglamas 
+#: DB:instrument/description:236
+msgid "Long necked bowl lute, it is named after a related Turkish lute"
+msgstr ""
+
 #. name:pūmotomoto 
 #: DB:instrument/description:785
 msgid ""
@@ -1396,13 +1436,6 @@ msgid ""
 "Looks like a recorder, but with double reeds and bagpipe fingering system. "
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
-msgstr ""
-
-#. name:kendang wadon 
-#: DB:instrument/description:995
-msgid ""
-"Low pitched cylindrical kendang used in Bali gamelan. The larger and deeper "
-"pitched of the Bali kendang, it is the leader \"female\" drum."
 msgstr ""
 
 #. name:madal 
@@ -1616,6 +1649,13 @@ msgstr ""
 msgid "Northumbrian (small)pipes"
 msgstr ""
 
+#. name:ghijak 
+#: DB:instrument/description:932
+msgid ""
+"Not to be confused with the Persian lute <a href=\"/instrument/"
+"d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
+msgstr ""
+
 #. name:oboe 
 #: DB:instrument/description:8
 msgid "Oboe (soprano)"
@@ -1624,6 +1664,11 @@ msgstr ""
 #. name:oboe d'amore 
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
+msgstr ""
+
+#. name:saron barung 
+#: DB:instrument/description:1007
+msgid "Often called simply \"saron\", it plays the basic, balungan melody"
 msgstr ""
 
 #. name:boomwhacker 
@@ -1760,20 +1805,19 @@ msgstr ""
 msgid "Pardessus or sopranino member of the viol family"
 msgstr ""
 
-#. name:slenthem 
-#: DB:instrument/description:962
-msgid ""
-"Part of central Javanese gamelan, the 6(slendro)-7(pelog) bronze keys beat "
-"by a disk mallet(tabuh) are suspended above individual tube metal/bamboo "
-"resonators set in a 75 cm long wooden frame."
-msgstr ""
-
-#. name:saron 
+#. name:saron family 
 #: DB:instrument/description:597
 msgid ""
-"Part of the Javanese gamelan, these can have from six up to nine thick "
-"bronze or iron slabs resting on wooden resonator (rancak) and are hit with "
-"wooden mallets or buffalo horn."
+"Part of the Sundanese gamelan, these consist of a decorated wood resonator "
+"(rancak) upon which is resting six to nine thick, smooth, bronze or iron "
+"keys that are hit with mallets of hard wood or buffalo horn. <br /><br /> "
+"The saron family consists of the smallest member; saron panerus, the middle "
+"pitch member; saron barung and the largest member; sarong demung. "
+"Additionally, the largely obsolete slentho (which has been subsumed by the "
+"slenthem) is even deeper than the demung and the saron peking, which is a "
+"special slendro variant is even higher than the panerus, of which it shares "
+"an overlapping range. Finally the saron wayang is used in wayang "
+"performances."
 msgstr ""
 
 #. name:body percussion 
@@ -1877,6 +1921,14 @@ msgstr ""
 msgid ""
 "Popular in the renaissance, it was small and portable with two bellows and "
 "brass reeds."
+msgstr ""
+
+#. name:komuz 
+#: DB:instrument/description:543
+msgid ""
+"Possibly dating back as far as 6000 BC, it is a national symbol of the "
+"Kyrgyz. Made of a single piece of apricot or juniper wood with 3 gut stings, "
+"it has derivations in much of eastern Europe."
 msgstr ""
 
 #. name:baroque guitar 
@@ -2035,6 +2087,13 @@ msgid ""
 "one hand, it is often combined with tabor pipes."
 msgstr ""
 
+#. name:saron peking 
+#: DB:instrument/description:1009
+msgid ""
+"Similar to panerus with which it has a different but overlapping range, it "
+"has 6 bronze keys tuned for the slendro key."
+msgstr ""
+
 #. name:mirliton 
 #: DB:instrument/description:591
 msgid ""
@@ -2159,6 +2218,14 @@ msgid ""
 "tuning pegs of the sympathetic strings are attached. Used in India since "
 "ancient times, it flourished during the 16-17th before arriving at it's "
 "current form in the 18th century. It became popular worldwide in the 1950-60"
+msgstr ""
+
+#. name:gendèr wayang 
+#: DB:instrument/description:1005
+msgid ""
+"Special version of the gendèr used in Gamelan gendèr wayang performances. "
+"Tuned in Slendro, one to two pairs are played using the same hand to both "
+"play and dampen the keys."
 msgstr ""
 
 #. name:struck idiophone 
@@ -3041,13 +3108,6 @@ msgid ""
 "a colourful skirt."
 msgstr ""
 
-#. name:komuz 
-#: DB:instrument/description:543
-msgid ""
-"The komuz is a fretless string instrument used in Central Asian music, seen "
-"as the Kyrgyz national instrument."
-msgstr ""
-
 #. name:kortholt 
 #: DB:instrument/description:264
 msgid ""
@@ -3088,6 +3148,13 @@ msgid ""
 "The kèn lá is an instrument used by the Hmong minority of Vietnam which "
 "consists of a leaf which is curled up and positioned in the mouth so it "
 "vibrates when it is blown."
+msgstr ""
+
+#. name:kendang wadon 
+#: DB:instrument/description:995
+msgid ""
+"The larger and deeper pitched of the Bali kendang, it is the leader \"female"
+"\" drum."
 msgstr ""
 
 #. name:lasso d'amore 
@@ -3975,6 +4042,15 @@ msgstr ""
 msgid "Theatre organ, such as the Wurlitzer"
 msgstr ""
 
+#. name:kacapi 
+#: DB:instrument/description:999
+msgid ""
+"There are two kinds, boat shaped \"mother\" and \"child\" ones, originally "
+"made of a single piece of wood and descended from the kacapi pantun as used "
+"in epic story. And a flat box-zither made of wood used from the 1950's and "
+"in experimental music."
+msgstr ""
+
 #. name:akete 
 #: DB:instrument/description:747
 msgid ""
@@ -4113,6 +4189,15 @@ msgid ""
 "classical Carnatic music."
 msgstr ""
 
+#. name:slentho 
+#: DB:instrument/description:964
+msgid ""
+"Unlike the other saron, its six-seven keys are not smooth, but bevelled or "
+"bossed, like the gendèr and the <a href=\"/instrument/73173277-"
+"b7ef-4d5e-83b2-205cd2f12488\">slenthem</a>, which has largely replaced it in "
+"the modernised gamelan."
+msgstr ""
+
 #. name:pūkaea 
 #: DB:instrument/description:788
 msgid ""
@@ -4143,6 +4228,21 @@ msgid ""
 "drawn across free reeds which are mounted on a plate inside."
 msgstr ""
 
+#. name:gendèr barung 
+#: DB:instrument/description:1004
+msgid ""
+"Used for elaborate and complex parts, it has thinner but wider metal bars "
+"suspended above resonator rods, it is the middle-pitched member of the "
+"gendèr family."
+msgstr ""
+
+#. name:gendèr panerus 
+#: DB:instrument/description:1003
+msgid ""
+"Used for simple ornamentation, it has thick small metal bars suspended above "
+"resonator rods, it is the highest pitched member of the gendèr family."
+msgstr ""
+
 #. name:Saraswati veena 
 #: DB:instrument/description:476
 msgid ""
@@ -4156,6 +4256,14 @@ msgstr ""
 msgid ""
 "Used in Hindustani dhrupad, this two-headed barrel-drum is tuned like its "
 "descendant the tabla."
+msgstr ""
+
+#. name:slenthem 
+#: DB:instrument/description:962
+msgid ""
+"Used in Javanese gamelan, the 6(slendro)-7(pelog) bronze keys beat by a disk "
+"mallet(tabuh) are suspended above individual tube metal/bamboo resonators "
+"set in a 75 cm long wooden frame."
 msgstr ""
 
 #. name:octavilla 
@@ -4190,6 +4298,14 @@ msgid ""
 "are hit together."
 msgstr ""
 
+#. name:bağlama 
+#: DB:instrument/description:235
+msgid ""
+"Used in folk music, it is often called \"saz\". The neck with adjustable "
+"frets, is of beech or juniper, the body with spruce soundboard, of various "
+"woods, its seven strings divided into courses are plucked with a plectrum."
+msgstr ""
+
 #. name:viola caipira 
 #: DB:instrument/description:660
 msgid "Used in folk-music, It has ten steel strings in five courses."
@@ -4211,6 +4327,13 @@ msgid ""
 "Used in royal ceremonies, played by striking against the palm, it is made of "
 "several pieces of wood, ivory and sheets of brass between two larger pieces "
 "of wood tied together by a string at one end."
+msgstr ""
+
+#. name:saron wayang 
+#: DB:instrument/description:1010
+msgid ""
+"Used in the Javanese Wayang puppet theatre, it has nine large bronze keys "
+"set in a decorated frame."
 msgstr ""
 
 #. name:krap sēphā 
@@ -4241,6 +4364,14 @@ msgid ""
 "perform creating sound."
 msgstr ""
 
+#. name:kepyak 
+#: DB:instrument/description:998
+msgid ""
+"Used in wayang puppetry, it is made of 1 to 4 iron (sometimes bronze) plates "
+"hung by strings, The puppeteer uses a small mallet set in the foot to hit "
+"the plate(s)."
+msgstr ""
+
 #. name:bonang panerus 
 #: DB:instrument/description:971
 msgid ""
@@ -4264,6 +4395,13 @@ msgid ""
 "technique, it is 75 cm long with 3 to 6 holes depending on subtype. <br /> "
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
+msgstr ""
+
+#. name:gendèr 
+#: DB:instrument/description:961
+msgid ""
+"Uses in Javanese gamelan and Balinese wayang, these range from 12 to 14 "
+"tuned bronze keys, all suspended over metal or bamboo resonators."
 msgstr ""
 
 #. name:tanpura 

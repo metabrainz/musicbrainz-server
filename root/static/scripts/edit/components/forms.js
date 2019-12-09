@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2016 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import ko from 'knockout';
 import React from 'react';
@@ -28,7 +31,7 @@ export const FormRowArtistCredit = ({form, entity}) => (
 );
 
 MB.initializeArtistCredit = function (form, initialArtistCredit) {
-  let source = MB.sourceEntity || {name: ''};
+  const source = MB.sourceEntity || {name: ''};
   source.artistCredit = ko.observable(initialArtistCredit);
 
   const container = document.getElementById('artist-credit-editor');

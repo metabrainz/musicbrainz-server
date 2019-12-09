@@ -17,8 +17,8 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
 function parseCookie(
   cookie /*: mixed */,
   name /*: string */,
-  defaultValue /*: mixed */ = undefined,
-) {
+  defaultValue /*: string */ = '',
+) /*: string */ {
   if (typeof cookie === 'string') {
     const values = parse(cookie);
     if (hasOwnProperty.call(values, name)) {

@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import ko from 'knockout';
 import _ from 'lodash';
@@ -15,7 +18,6 @@ import {
   reduceArtistCredit,
 } from '../common/immutable-entities';
 import MB from '../common/MB';
-import clean from '../common/utility/clean';
 import debounce from '../common/utility/debounce';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import nonEmpty from '../common/utility/nonEmpty';
@@ -27,7 +29,6 @@ import * as validation from '../edit/validation';
 
 import 'knockout-arraytransforms';
 
-import actions from './actions';
 import recordingAssociation from './recordingAssociation';
 import utils from './utils';
 import releaseEditor from './viewModel';
@@ -82,9 +83,11 @@ class Track {
             new MB_entity.Recording({ name: data.name })
         );
 
-        // Custom write function is needed around recordingValue because
-        // when it's written to there's certain values we need to save
-        // beforehand (see methods below).
+        /*
+         * Custom write function is needed around recordingValue because
+         * when it's written to there's certain values we need to save
+         * beforehand (see methods below).
+         */
         this.recording = ko.computed({
             read: this.recordingValue,
             write: this.setRecordingValue,
@@ -119,7 +122,7 @@ class Track {
         return recording ? recording.gid : null;
     }
 
-    nameChanged(name) {
+    nameChanged() {
         if (!this.hasExistingRecording()) {
             var recording = this.recording.peek();
 
@@ -153,7 +156,6 @@ class Track {
             }
         }
 
-        var oldLength = this.length();
         var newLength = utils.unformatTrackLength(length);
 
         if (_.isNaN(newLength)) {
@@ -173,9 +175,11 @@ class Track {
             return;
         }
 
-        // If the length being changed is for a pregap track and the medium
-        // has cdtocs attached, make sure the new length doesn't exceed the
-        // maximum possible allowed by any of the tocs.
+        /*
+         * If the length being changed is for a pregap track and the medium
+         * has cdtocs attached, make sure the new length doesn't exceed the
+         * maximum possible allowed by any of the tocs.
+         */
         const $ = require('jquery');
 
         var $lengthInput = $("input.track-length", "#track-row-" + this.uniqueID);
@@ -217,9 +221,11 @@ class Track {
     artistDiffersFromRecording() {
         const recording = this.recording();
 
-        // This function is used to determine whether we can update the
-        // recording AC, so if there's no recording, then there's nothing
-        // to compare against.
+        /*
+         * This function is used to determine whether we can update the
+         * recording AC, so if there's no recording, then there's nothing
+         * to compare against.
+         */
         if (!recording || !recording.gid) {
             return false;
         }
@@ -243,13 +249,17 @@ class Track {
         value = value || new MB_entity.Recording({ name: this.name() });
 
         var currentValue = this.recording.peek();
-        if (value.gid === currentValue.gid) return;
+        if (value.gid === currentValue.gid) {
+            return;
+        }
 
-        // Save the current track values to allow for comparison when they
-        // change. If they change too much, we unset the recording and find
-        // a new suggestion. Only save these if there's a recording to
-        // revert back to - it doesn't make sense to save these values for
-        // comparison if there's no recording.
+        /*
+         * Save the current track values to allow for comparison when they
+         * change. If they change too much, we unset the recording and find
+         * a new suggestion. Only save these if there's a recording to
+         * revert back to - it doesn't make sense to save these values for
+         * comparison if there's no recording.
+         */
         if (value.gid) {
             this.name.saved = this.name.peek();
             this.length.saved = this.length.peek();
@@ -307,8 +317,8 @@ class Medium {
         this.release = release;
         this.name = ko.observable(data.name);
         this.position = ko.observable(data.position || 1);
-        this.formatID = ko.observable(data.formatID);
-        this.formatUnknownToUser = ko.observable(Boolean(data.id && !data.formatID));
+        this.formatID = ko.observable(data.format_id);
+        this.formatUnknownToUser = ko.observable(Boolean(data.id && !data.format_id));
 
         var tracks = data.tracks;
         this.tracks = ko.observableArray(utils.mapChild(this, tracks, Track));
@@ -371,6 +381,7 @@ class Medium {
         this.needsRecordings = this.tracks.any("needsRecording");
         this.hasTrackInfo = this.tracks.all("hasNameAndArtist");
         this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
+        this.confirmedVariousArtists = ko.observable(this.hasVariousArtistTracks());
         this.needsTrackInfo = ko.computed(function () { return !self.hasTrackInfo() });
 
         if (data.id != null) {
@@ -381,8 +392,10 @@ class Medium {
             this.originalID = data.originalID;
         }
 
-        // The medium is considered to be loaded if it has tracks, or if
-        // there's no ID to load tracks from.
+        /*
+         * The medium is considered to be loaded if it has tracks, or if
+         * there's no ID to load tracks from.
+         */
         var loaded = !!(this.tracks().length || !(this.id || this.originalID));
 
         if (data.cdtocs) {
@@ -408,8 +421,18 @@ class Medium {
             return self.loaded() && self.tracks().length === 0;
         });
 
-        this.needsFormat = ko.computed(function() {
+        this.needsFormat = ko.computed(function () {
             return !(self.formatID() || self.formatUnknownToUser());
+        });
+
+        this.hasUnconfirmedVariousArtists = ko.computed(function() {
+            return (self.hasVariousArtistTracks() && !self.confirmedVariousArtists());
+        });
+
+        this.hasVariousArtistTracks.subscribe(function (value) {
+            if (!value) {
+                self.confirmedVariousArtists(false);
+            }
         });
 
         this.formatID.subscribe(function (value) {
@@ -446,7 +469,9 @@ class Medium {
     }
 
     tocChanged(toc) {
-        if (!_.isString(toc)) return;
+        if (!_.isString(toc)) {
+            return;
+        }
 
         toc = toc.split(/\s+/);
 
@@ -520,7 +545,9 @@ class Medium {
 
     loadTracks() {
         var id = this.id || this.originalID;
-        if (!id) return;
+        if (!id) {
+            return;
+        }
 
         this.loading(true);
 
@@ -548,10 +575,12 @@ class Medium {
             }
         }
 
-        // We already have the original name, format, and position data,
-        // which we don't want to overwrite - it could have been changed
-        // by the user before they loaded the medium. We just need the
-        // tracklist data, now that it's loaded.
+        /*
+         * We already have the original name, format, and position data,
+         * which we don't want to overwrite - it could have been changed
+         * by the user before they loaded the medium. We just need the
+         * tracklist data, now that it's loaded.
+         */
         var currentEditData = MB_edit.fields.medium(this);
         var originalEditData = this.original();
 
@@ -561,6 +590,7 @@ class Medium {
         this.loaded(true);
         this.loading(false);
         this.collapsed(false);
+        this.confirmedVariousArtists(this.hasVariousArtistTracks());
     }
 
     hasTracks() { return this.tracks().length > 0 }
@@ -614,7 +644,7 @@ class ReleaseEvent {
         if (nonEmpty(date.year)) {
             date.year = _.padStart(String(date.year), 4, '0');
         }
-        
+
         this.date = {
             year:   ko.observable(date.year == null ? null : date.year),
             month:  ko.observable(date.month == null ? null : date.month),
@@ -662,7 +692,9 @@ fields.ReleaseEvent = ReleaseEvent;
 class ReleaseLabel {
 
     constructor(data, release) {
-        if (data.id) this.id = data.id;
+        if (data.id) {
+            this.id = data.id;
+        }
 
         this.label = ko.observable(MB_entity(data.label || {}, "label"));
         this.catalogNumber = ko.observable(data.catalogNumber);
@@ -703,9 +735,11 @@ class Barcode {
             owner: this
         });
 
-        // Always notify of changes, so that when non-digits are stripped,
-        // the text in the input element will update even if the stripped
-        // value is identical to the old value.
+        /*
+         * Always notify of changes, so that when non-digits are stripped,
+         * the text in the input element will update even if the stripped
+         * value is identical to the old value.
+         */
         this.barcode.equalityComparer = null;
         this.value.equalityComparer = null;
 
@@ -721,7 +755,9 @@ class Barcode {
     }
 
     checkDigit(barcode) {
-        if (barcode.length !== 12) return false;
+        if (barcode.length !== 12) {
+            return false;
+        }
 
         for (var i = 0, calc = 0; i < 12; i++) {
             calc += parseInt(barcode[i]) * this.weights[i];
@@ -870,6 +906,7 @@ class Release extends MB_entity.Release {
         this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === "edit");
         this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
         this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
+        this.hasUnconfirmedVariousArtists = errorField(this.mediums.any("hasUnconfirmedVariousArtists"));
         this.needsMediums = errorField(function () { return !(self.mediums().length || self.hasUnknownTracklist()) });
         this.needsFormat = errorField(this.mediums.any("needsFormat"));
         this.needsTracks = errorField(this.mediums.any("needsTracks"));
@@ -915,9 +952,11 @@ class Release extends MB_entity.Release {
     }
 
     existingMediumData() {
-        // This function should return the mediums on the release as they
-        // hopefully exist in the DB, so including ones removed from the
-        // page (as long as they have an id, i.e. were attached before).
+        /*
+         * This function should return the mediums on the release as they
+         * hopefully exist in the DB, so including ones removed from the
+         * page (as long as they have an id, i.e. were attached before).
+         */
 
         var mediums = _.union(this.mediums(), this.mediums.original());
 

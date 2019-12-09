@@ -10,8 +10,10 @@
 import * as React from 'react';
 
 import Layout from '../../layout';
-import ApplicationForm from '../../static/scripts/account/components/ApplicationForm';
-import type {ApplicationFormT} from '../../static/scripts/account/components/ApplicationForm';
+import ApplicationForm
+  from '../../static/scripts/account/components/ApplicationForm';
+import type {ApplicationFormT}
+  from '../../static/scripts/account/components/ApplicationForm';
 
 type Props = {
   +form: ApplicationFormT,

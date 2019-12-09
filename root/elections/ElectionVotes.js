@@ -11,14 +11,13 @@ import React from 'react';
 
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import formatUserDate from '../utility/formatUserDate';
-import {votesVisible} from '../utility/voting';
 
 type PropsT = {
+  +$c: CatalystContextT,
   +election: AutoEditorElectionT,
-  +user?: EditorT,
 };
 
-const ElectionVotes = ({election, user}: PropsT) => (
+const ElectionVotes = ({$c, election}: PropsT) => (
   <table className="tbl" style={{width: 'auto'}}>
     <thead>
       <tr>
@@ -32,11 +31,11 @@ const ElectionVotes = ({election, user}: PropsT) => (
         <tr className={index % 2 ? 'even' : 'odd'} key={vote.voter.id}>
           <td><EditorLink editor={vote.voter} /></td>
           <td>
-            {user && user.id === vote.voter.id
+            {$c.user && $c.user.id === vote.voter.id
               ? lp(vote.vote_name, 'vote')
               : l('(private)')}
           </td>
-          <td>{formatUserDate(user, vote.vote_time)}</td>
+          <td>{formatUserDate($c, vote.vote_time)}</td>
         </tr>
       ))}
     </tbody>

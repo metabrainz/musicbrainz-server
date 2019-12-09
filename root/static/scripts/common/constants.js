@@ -26,8 +26,6 @@ export const ENTITY_NAMES = {
   work: N_l('Work'),
 };
 
-export const GENRE_TAGS: Set<string> = new Set(ENTITIES.tag.genres);
-
 export const INSTRUMENT_ROOT_ID = 14;
 
 export const AREA_TYPE_COUNTRY = 1;
@@ -128,7 +126,6 @@ export const FAVICON_CLASSES = {
   'paypal.me': 'paypal',
   'petitlyrics.com': 'petitlyrics',
   'play.google.com': 'googleplay',
-  'plus.google.com': 'googleplus',
   'progarchives.com': 'progarchives',
   'psydb.net': 'psydb',
   'qim.com': 'quebecinfomusique',
@@ -192,17 +189,20 @@ export const PART_OF_SERIES_LINK_TYPES = {
 };
 
 // orchestrator, orchestra performed, conductor, concertmaster
-export const PROBABLY_CLASSICAL_LINK_TYPES = [40, 45, 46, 150, 151, 300, 759, 760];
+export const PROBABLY_CLASSICAL_LINK_TYPES =
+  [40, 45, 46, 150, 151, 300, 759, 760];
 
 export const RT_SLAVE = 2;
 
-export const SERIES_ORDERING_ATTRIBUTE = 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
+export const SERIES_ORDERING_ATTRIBUTE =
+  'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
 
 export const SERIES_ORDERING_TYPE_AUTOMATIC = 1;
 
 export const SERIES_ORDERING_TYPE_MANUAL = 2;
 
-export const UUID_REGEXP_STR = '[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}';
+export const UUID_REGEXP_STR =
+  '[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}';
 
 export const VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 
@@ -234,3 +234,10 @@ export const QUALITY_NAMES: Map<QualityT, () => string> = new Map([
   [1, N_l('Normal')],
   [2, N_l('High')],
 ]);
+
+export const FLUENCY_NAMES = {
+  advanced: N_l('Advanced'),
+  basic: N_l('Basic'),
+  intermediate: N_l('Intermediate'),
+  native: N_l('Native'),
+};

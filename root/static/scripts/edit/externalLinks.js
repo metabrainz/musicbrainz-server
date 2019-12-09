@@ -1,9 +1,10 @@
 /*
  * @flow
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2015 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 import $ from 'jquery';
@@ -277,7 +278,7 @@ export class ExternalLinksEditor
                 }
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
-                removeCallback={_.bind(this.removeLink, this, index)}
+                onRemove={_.bind(this.removeLink, this, index)}
                 type={link.type}
                 typeChangeCallback={
                   _.bind(this.handleTypeChange, this, index)
@@ -328,7 +329,7 @@ type LinkProps = {
   handleVideoChange:
     (number, SyntheticEvent<HTMLInputElement>) => void,
   isOnlyLink: boolean,
-  removeCallback: (number) => void,
+  onRemove: (number) => void,
   type: number | null,
   typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
   typeOptions: Array<React.Element<'option'>>,
@@ -440,7 +441,7 @@ export class ExternalLink extends React.Component<LinkProps> {
           {typeDescription && <HelpIcon content={typeDescription} />}
           {isEmpty(props) ||
             <RemoveButton
-              callback={props.removeCallback}
+              onClick={props.onRemove}
               title={l('Remove Link')}
             />}
         </td>

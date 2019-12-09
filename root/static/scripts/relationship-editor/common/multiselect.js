@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import _ from 'lodash';
@@ -47,7 +50,7 @@ import deferFocus from '../../edit/utility/deferFocus';
             var options = params.options;
             var optionNodes = [];
 
-            for (var i = 0, node, option; option = options[i]; i++) {
+            for (var i = 0, node, option; (option = options[i]); i++) {
                 node = document.createElement("a")
                 node.href = "#";
                 node.style.paddingLeft = option.depth + "em";
@@ -81,7 +84,6 @@ import deferFocus from '../../edit/utility/deferFocus';
 
         updateOptions(term) {
             var selected = this.relationship.attributes.peek();
-            var self = this;
             var menu = this.$menu[0];
 
             var previousDisplay = menu.style.display;
@@ -127,7 +129,7 @@ import deferFocus from '../../edit/utility/deferFocus';
                 return node.optionData.value === typeGID;
             });
 
-            while (node = nodes[++nextIndex]) {
+            while ((node = nodes[++nextIndex])) {
                 if (node.style.display === "block") {
                     ++nextIndex;
                     break;

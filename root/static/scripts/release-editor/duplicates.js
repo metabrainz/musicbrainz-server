@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -51,7 +54,9 @@ releaseEditor.findReleaseDuplicates = function () {
         var releaseGroup = release.releaseGroup();
         var gid = releaseGroup.gid;
 
-        if (!gid) return;
+        if (!gid) {
+            return;
+        }
 
         var url = `/ws/2/release?release-group=${gid}&inc=labels+media&fmt=json`;
 
@@ -71,8 +76,10 @@ releaseEditor.findReleaseDuplicates = function () {
     debounce(utils.withRelease(function (release) {
         var name = release.name();
 
-        // If a release group is selected, just show the releases from
-        // there without searching.
+        /*
+         * If a release group is selected, just show the releases from
+         * there without searching.
+         */
         var rgReleases = releaseGroupReleases();
 
         if (rgReleases.length > 0) {
@@ -134,8 +141,9 @@ function formatReleaseData(release) {
     var events = _(release["release-events"]);
     var labels = _(release["label-info"]);
 
-    clean.formats = combinedMediumFormatName(release.media);
-    clean.tracks = _.map(release.media, "track-count").join(" + ");
+    clean.formats = combinedMediumFormatName(release.media) || l('[missing media]');
+    clean.tracks = _.map(release.media, "track-count").join(" + ") ||
+        lp('-', 'missing data');
 
     clean.dates = pluck(events, "date").value();
 

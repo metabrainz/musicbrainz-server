@@ -1,8 +1,9 @@
 /*
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2015 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 import * as React from 'react';
@@ -13,7 +14,7 @@ import {DONATE_URL} from '../../constants';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';
 
-const Footer = ({$c, ...props}) => {
+const Footer = ({$c}) => {
   const stash = $c.stash;
   return (
     <div id="footer">
@@ -23,6 +24,8 @@ const Footer = ({$c, ...props}) => {
         <a className="internal" href="//wiki.musicbrainz.org/">{l('Wiki')}</a>
         {' | '}
         <a className="internal" href="https://community.metabrainz.org/">{l('Forums')}</a>
+        {' | '}
+        <a className="internal" href="/doc/Communication/IRC">{l('IRC')}</a>
         {' | '}
         <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
         {' | '}
@@ -34,7 +37,9 @@ const Footer = ({$c, ...props}) => {
           <>
             {' | '}
             <a className="internal" href="/set-beta-preference">
-              {DBDefs.IS_BETA ? l('Stop using beta site') : l('Use beta site')}
+              {DBDefs.IS_BETA
+                ? l('Stop using beta site')
+                : l('Use beta site')}
             </a>
           </>
         ) : null}
@@ -44,7 +49,11 @@ const Footer = ({$c, ...props}) => {
             <br />
             {exp.l('Running: {git_details}', {
               git_details: (
-                <span className="tooltip" key="git_details" title={DBDefs.GIT_MSG}>
+                <span
+                  className="tooltip"
+                  key="git_details"
+                  title={DBDefs.GIT_MSG}
+                >
                   {DBDefs.GIT_BRANCH}
                   {' '}
                   {bracketed(DBDefs.GIT_SHA)}
@@ -59,7 +68,7 @@ const Footer = ({$c, ...props}) => {
             <br />
             {texp.l('Last replication packet received at {datetime}', {
               datetime: $c.user
-                ? formatUserDate($c.user, stash.last_replication_date)
+                ? formatUserDate($c, stash.last_replication_date)
                 : stash.last_replication_date,
             })}
           </>
@@ -67,13 +76,17 @@ const Footer = ({$c, ...props}) => {
       </p>
 
       <p className="right">
-        {exp.l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
+        {exp.l(
+          `Brought to you by {MeB|MetaBrainz Foundation} and our
+           {spon|sponsors} and {supp|supporters}. Cover Art provided
+           by the {caa|Cover Art Archive}.`,
           {
             MeB: 'https://metabrainz.org/',
             caa: '//coverartarchive.org/',
             spon: 'https://metabrainz.org/sponsors',
             supp: 'https://metabrainz.org/supporters',
-          })}
+          },
+        )}
       </p>
     </div>
   );

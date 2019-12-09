@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -15,21 +15,25 @@
  * how data is serialized for us.
  */
 
+/* eslint-disable no-unused-vars */
+
 declare type AggregatedTagT = {
   +count: number,
-  +tag: string,
+  +tag: TagT,
 };
 
 declare type AliasT = {
   ...DatePeriodRoleT,
   ...EditableRoleT,
   ...EntityRoleT<'alias'>,
-  ...TypeRoleT<empty>,
+  ...TypeRoleT<AliasTypeT>,
   +locale: string | null,
   +name: string,
   +primary_for_locale: boolean,
   +sort_name: string,
 };
+
+declare type AliasTypeT = OptionTreeT<'alias_type'>;
 
 declare type AnchorProps = {
   +href: string,
@@ -180,6 +184,9 @@ type CatalystActionT = {
 
 type CatalystContextT = {
   +action: CatalystActionT,
+  +flash: {
+    +message?: string,
+  },
   +relative_uri: string,
   +req: CatalystRequestContextT,
   +session: CatalystSessionT | null,
@@ -198,9 +205,12 @@ type CatalystRequestContextT = {
 
 type CatalystSessionT = {
   +tport?: number,
+  +merger?: MergeQueueT,
 };
 
 type CatalystStashT = {
+  +alert?: string,
+  +alert_mtime?: number | null,
   +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
   +containment?: {
@@ -208,7 +218,14 @@ type CatalystStashT = {
   },
   +current_language: string,
   +current_language_html: string,
+  +entity?: CoreEntityT,
+  +genre_map?: {+[string]: GenreT, ...},
+  +hide_merge_helper?: boolean,
+  +jsonld_data?: {...},
+  +makes_no_changes?: boolean,
   +more_tags?: boolean,
+  +new_edit_notes?: boolean,
+  +new_edit_notes_mtime?: number | null,
   +number_of_collections?: number,
   +number_of_revisions?: number,
   +own_collections?: $ReadOnlyArray<CollectionT>,
@@ -216,6 +233,7 @@ type CatalystStashT = {
   +release_artwork_count?: number,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
+  +to_merge?: $ReadOnlyArray<CoreEntityT>,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
   +user_tags?: $ReadOnlyArray<UserTagT>,
 };
@@ -248,6 +266,7 @@ declare type CollectionT = {
   +gid: string,
   +name: string,
   +public: boolean,
+  +subscribed?: boolean,
 };
 
 declare type CollectionTypeT = {
@@ -267,6 +286,11 @@ declare type CoordinatesT = {
 declare type CommonsImageT = {
   +page_url: string,
   +thumb_url: string,
+};
+
+declare type CompT<T> = {
+  +new: T,
+  +old: T,
 };
 
 declare type CompoundFieldT<F> = {
@@ -368,26 +392,38 @@ declare type EditorPreferencesT = {
 
 declare type EditorT = {
   ...EntityRoleT<'editor'>,
+  +age: number | null,
+  +area: AreaT | null,
   +biography: string | null,
   +birth_date: PartialDateT | null,
   +deleted: boolean,
   +email: string,
   +email_confirmation_date: string | null,
+  +gender: GenderT | null,
   +gravatar: string,
+  +has_confirmed_email_address: boolean,
   +is_account_admin: boolean,
   +is_admin: boolean,
   +is_auto_editor: boolean,
   +is_banner_editor: boolean,
   +is_bot: boolean,
+  +is_charter: boolean,
   +is_editing_disabled: boolean,
   +is_limited: boolean,
   +is_location_editor: boolean,
   +is_relationship_editor: boolean,
   +is_wiki_transcluder: boolean,
+  +languages: $ReadOnlyArray<EditorLanguageT> | null,
+  +last_login_date: string | null,
   +name: string,
   +preferences: EditorPreferencesT,
   +registration_date: string,
   +website: string | null,
+};
+
+declare type EditorLanguageT = {
+  +fluency: FluencyT,
+  +language: LanguageT,
 };
 
 declare type EditorOAuthTokenT = {
@@ -422,6 +458,7 @@ declare type EditT = {
   },
   +created_time: string,
   +data: Object,
+  +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
   +edit_type: number,
   +editor_id: number,
   +expires_time: string,
@@ -487,6 +524,13 @@ declare type ReadOnlyFieldT<+V> = {
   +value: V,
 };
 
+declare type FluencyT =
+  | 'basic'
+  | 'intermediate'
+  | 'advanced'
+  | 'native'
+  ;
+
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
 declare type FormT<+F> = {
   +field: F,
@@ -511,8 +555,10 @@ declare type GroupedOptionsT = $ReadOnlyArray<{
   +options: SelectOptionsT,
 }>;
 
-declare type InstrumentCreditsRoleT = {
-  +instrumentCredits?: {+[string]: $ReadOnlyArray<string>},
+declare type InstrumentCreditsAndRelTypesRoleT = {
+  +instrumentCreditsAndRelTypes?: {
+    +[string]: $ReadOnlyArray<string>,
+  },
 };
 
 declare type InstrumentT = {
@@ -659,12 +705,26 @@ declare type MediumT = {
   ...EntityRoleT<'track'>,
   ...LastUpdateRoleT,
   +editsPending: boolean,
-  +format: string,
-  +formatID: number,
+  +format: MediumFormatT | null,
+  +format_id: number,
   +name: string,
   +position: number,
   +release_id: number,
   +tracks?: $ReadOnlyArray<TrackT>,
+};
+
+declare type MergeFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+  +merging: RepeatableFieldT<FieldT<number>>,
+  +rename: FieldT<boolean>,
+  +target: FieldT<number>,
+}>;
+
+declare type MergeQueueT = {
+  +type: CoreEntityTypeT,
+  +entities: $ReadOnlyArray<number>,
+  +ready_to_merge: boolean,
 };
 
 declare type MinimalCoreEntityT = {
@@ -857,6 +917,10 @@ declare type SanitizedCatalystContextT = {
   +req: {
     +uri: string,
   },
+  +stash: {
+    +current_language: string,
+    +genre_map?: {+[string]: GenreT, ...},
+  },
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
 };
@@ -912,14 +976,14 @@ declare type SelectOptionT = {
 
 declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
 
-declare type SeriesT = {
+declare type SeriesT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
   +orderingTypeID: number,
   +type?: SeriesTypeT,
-};
+}>;
 
 declare type SeriesItemNumbersRoleT = {
   +seriesItemNumbers?: {+[number]: string},
@@ -927,7 +991,10 @@ declare type SeriesItemNumbersRoleT = {
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 
-declare type SeriesTypeT = OptionTreeT<'series_type'>;
+declare type SeriesTypeT = $ReadOnly<{
+  ...OptionTreeT<'series_type'>,
+  item_entity_type: CoreEntityTypeT,
+}>;
 
 declare type ServerLanguageT = {
   +id: number,
@@ -941,6 +1008,13 @@ declare type StrOrNum = string | number;
 type StructFieldT<F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
+
+declare type TagT = {
+  +entityType: 'tag',
+  +genre?: GenreT,
+  +id: number | null,
+  +name: string,
+};
 
 declare type TrackT = {
   ...EntityRoleT<'track'>,
@@ -975,7 +1049,7 @@ declare type UrlT = {
 
 declare type UserTagT = {
   +count: number,
-  +tag: string,
+  +tag: TagT,
   +vote: 1 | 0 | -1,
 };
 
@@ -983,6 +1057,7 @@ declare type VarSubstArg =
   | StrOrNum
   | React$MixedElement;
 
+/* eslint-disable no-multi-spaces */
 declare type VoteOptionT =
   | -2   // None
   | -1   // Abstain
@@ -990,6 +1065,7 @@ declare type VoteOptionT =
   |  1   // Yes
   |  2   // Approve
   ;
+/* eslint-enable no-multi-spaces */
 
 declare type VoteT = {
   +editor_id: number,

@@ -9,12 +9,17 @@
 
 import React from 'react';
 
-import FingerprintTable from '../static/scripts/common/components/FingerprintTable';
+import FingerprintTable
+  from '../static/scripts/common/components/FingerprintTable';
 
 import RecordingLayout from './RecordingLayout';
 
 const RecordingFingerprints = ({recording}: {recording: RecordingT}) => (
-  <RecordingLayout entity={recording} page="fingerprints" title={l('Fingerprints')}>
+  <RecordingLayout
+    entity={recording}
+    page="fingerprints"
+    title={l('Fingerprints')}
+  >
     <h2 id="acoustids">{l('Associated AcoustIDs')}</h2>
 
     <FingerprintTable recording={recording} />

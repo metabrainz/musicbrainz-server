@@ -44,12 +44,21 @@ const LanguagesScripts = ({
   languageStats,
   scriptStats,
 }: LanguagesScriptsStatsT) => (
-  <StatisticsLayout fullWidth page="languages-scripts" title={l('Languages and Scripts')}>
+  <StatisticsLayout
+    fullWidth
+    page="languages-scripts"
+    title={l('Languages and Scripts')}
+  >
     <p>
       {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>
-    <p>{l('All other available languages and scripts have 0 releases and works.')}</p>
-    <div style={{display: 'inline-block', float: 'left', marginRight: '50px'}}>
+    <p>
+      {l(`All other available languages and scripts
+          have 0 releases and works.`)}
+    </p>
+    <div
+      style={{display: 'inline-block', float: 'left', marginRight: '50px'}}
+    >
       <h2 style={{marginTop: 0}}>{l('Languages')}</h2>
       <table className="tbl" id="languages-table">
         <thead>
@@ -78,17 +87,31 @@ const LanguagesScripts = ({
             languageStat.total > 0 ? (
               <tr className={loopParity(index)} key={'language' + index}>
                 <td className="t">{index + 1}</td>
-                <td>{languageStat.entity ? l_languages(languageStat.entity.name) : l('Unknown language')}</td>
+                <td>
+                  {languageStat.entity
+                    ? l_languages(languageStat.entity.name)
+                    : l('Unknown language')}
+                </td>
                 <td className="t">
                   {languageStat.entity && languageStat.entity.iso_code_3 ? (
-                    <LinkSearchableProperty entityType="release" searchField="lang" searchValue={languageStat.entity.iso_code_3} text={formatCount($c, languageStat.releases)} />
+                    <LinkSearchableProperty
+                      entityType="release"
+                      searchField="lang"
+                      searchValue={languageStat.entity.iso_code_3}
+                      text={formatCount($c, languageStat.releases)}
+                    />
                   ) : (
                     formatCount($c, languageStat.releases)
                   )}
                 </td>
                 <td className="t">
                   {languageStat.entity && languageStat.entity.iso_code_3 ? (
-                    <LinkSearchableProperty entityType="work" searchField="lang" searchValue={languageStat.entity.iso_code_3} text={formatCount($c, languageStat.works)} />
+                    <LinkSearchableProperty
+                      entityType="work"
+                      searchField="lang"
+                      searchValue={languageStat.entity.iso_code_3}
+                      text={formatCount($c, languageStat.works)}
+                    />
                   ) : (
                     formatCount($c, languageStat.releases)
                   )}
@@ -121,10 +144,19 @@ const LanguagesScripts = ({
             scriptStat.count > 0 ? (
               <tr className={loopParity(index)} key={'script' + index}>
                 <td className="t">{index + 1}</td>
-                <td>{scriptStat.entity ? l_scripts(scriptStat.entity.name) : l('Unknown script')}</td>
+                <td>
+                  {scriptStat.entity
+                    ? l_scripts(scriptStat.entity.name)
+                    : l('Unknown script')}
+                </td>
                 <td className="t">
                   {scriptStat.entity ? (
-                    <LinkSearchableProperty entityType="release" searchField="script" searchValue={scriptStat.entity.iso_code} text={formatCount($c, scriptStat.count)} />
+                    <LinkSearchableProperty
+                      entityType="release"
+                      searchField="script"
+                      searchValue={scriptStat.entity.iso_code}
+                      text={formatCount($c, scriptStat.count)}
+                    />
                   ) : (
                     formatCount($c, scriptStat.count)
                   )}

@@ -157,7 +157,9 @@ const ProductsMenu = () => (
         <a href="/doc/Yate_Music_Tagger">{l('Yate Music Tagger')}</a>
       </li>
       <li className="separator">
-        <a href="/doc/MusicBrainz_for_Android">{l('MusicBrainz for Android')}</a>
+        <a href="/doc/MusicBrainz_for_Android">
+          {l('MusicBrainz for Android')}
+        </a>
       </li>
       <li className="separator">
         <a href="/doc/MusicBrainz_Server">{l('MusicBrainz Server')}</a>
@@ -220,7 +222,9 @@ const EditingMenu = () => (
         <a href="/label/create">{lp('Add Label', 'button/menu')}</a>
       </li>
       <li>
-        <a href="/release-group/create">{lp('Add Release Group', 'button/menu')}</a>
+        <a href="/release-group/create">
+          {lp('Add Release Group', 'button/menu')}
+        </a>
       </li>
       <li>
         <a href="/release/add">{lp('Add Release', 'button/menu')}</a>
@@ -231,7 +235,9 @@ const EditingMenu = () => (
         </a>
       </li>
       <li>
-        <a href="/recording/create">{lp('Add Standalone Recording', 'button/menu')}</a>
+        <a href="/recording/create">
+          {lp('Add Standalone Recording', 'button/menu')}
+        </a>
       </li>
       <li>
         <a href="/work/create">{lp('Add Work', 'button/menu')}</a>
@@ -246,7 +252,7 @@ const EditingMenu = () => (
         <a href="/event/create">{lp('Add Event', 'button/menu')}</a>
       </li>
       <li className="separator">
-        <a href="/edit/open">{l('Vote on Edits')}</a>
+        <a href="/vote">{l('Vote on Edits')}</a>
       </li>
       <li>
         <a href="/reports">{l('Reports')}</a>
@@ -275,7 +281,9 @@ const DocumentationMenu = () => (
         <a href="/doc/Frequently_Asked_Questions">{l('FAQs')}</a>
       </li>
       <li>
-        <a href="/doc/MusicBrainz_Documentation">{l('Documentation Index')}</a>
+        <a href="/doc/MusicBrainz_Documentation">
+          {l('Documentation Index')}
+        </a>
       </li>
       <li className="separator">
         <a href="/doc/Edit_Types">{l('Edit Types')}</a>

@@ -12,12 +12,14 @@ import React from 'react';
 import {withCatalystContext} from '../../context';
 import ArtistListEntry
   from '../../static/scripts/common/components/ArtistListEntry';
+import RemoveFromMergeTableHeader from '../RemoveFromMergeTableHeader';
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {
   +$c: CatalystContextT,
   +artists: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
@@ -28,6 +30,7 @@ const ArtistList = ({
   $c,
   artists,
   checkboxes,
+  mergeForm,
   order,
   showBeginEnd,
   showRatings,
@@ -36,9 +39,9 @@ const ArtistList = ({
   <table className="tbl">
     <thead>
       <tr>
-        {$c.user_exists && checkboxes ? (
+        {$c.user_exists && (checkboxes || mergeForm) ? (
           <th className="checkbox-cell">
-            <input type="checkbox" />
+            {mergeForm ? null : <input type="checkbox" />}
           </th>
         ) : null}
         <th>
@@ -84,15 +87,20 @@ const ArtistList = ({
           </>
         ) : null}
         {showRatings ? <th>{l('Rating')}</th> : null}
+        {mergeForm
+          ? <RemoveFromMergeTableHeader toMerge={artists} />
+          : null}
       </tr>
     </thead>
     <tbody>
       {artists.map((artist, index) => (
         <ArtistListEntry
           artist={artist}
+          artistList={artists}
           checkboxes={checkboxes}
           index={index}
           key={artist.id}
+          mergeForm={mergeForm}
           showBeginEnd={showBeginEnd}
           showRatings={showRatings}
         />

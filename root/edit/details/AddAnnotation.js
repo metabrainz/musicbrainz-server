@@ -9,8 +9,10 @@
 
 import React from 'react';
 
-import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
-import formatEntityTypeName from '../../static/scripts/common/utility/formatEntityTypeName';
+import DescriptiveLink
+  from '../../static/scripts/common/components/DescriptiveLink';
+import formatEntityTypeName
+  from '../../static/scripts/common/utility/formatEntityTypeName';
 
 type AnnotatedEntityTypeT = $ElementType<AnnotatedEntityT, 'entityType'>;
 

@@ -44,7 +44,7 @@ const EditSidebar = ({$c, edit}: Props) => (
 
     <SidebarProperties>
       <SidebarProperty className="" label={l('Opened:')}>
-        {formatUserDate($c.user, edit.created_time)}
+        {formatUserDate($c, edit.created_time)}
       </SidebarProperty>
 
       {edit.status === EDIT_STATUS_OPEN ? (
@@ -58,12 +58,15 @@ const EditSidebar = ({$c, edit}: Props) => (
           <div className="edit-expiration">
             {edit.status === EDIT_STATUS_TOBEDELETED
               ? expand2react(l('<em>Cancelling</em>'))
-              : formatUserDate($c.user, edit.close_time)}
+              : formatUserDate($c, edit.close_time)}
           </div>
         </SidebarProperty>
       )}
 
-      <SidebarProperty className="" label={addColonText(l('For quicker closing'))}>
+      <SidebarProperty
+        className=""
+        label={addColonText(l('For quicker closing'))}
+      >
         {texp.ln(
           '1 vote',
           '{n} unanimous votes',
@@ -72,7 +75,10 @@ const EditSidebar = ({$c, edit}: Props) => (
         )}
       </SidebarProperty>
 
-      <SidebarProperty className="" label={addColonText(l('If no votes cast'))}>
+      <SidebarProperty
+        className=""
+        label={addColonText(l('If no votes cast'))}
+      >
         {getEditExpireAction(edit)}
       </SidebarProperty>
     </SidebarProperties>

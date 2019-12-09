@@ -1,8 +1,9 @@
 /*
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2014 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 import test from 'tape';
@@ -29,10 +30,10 @@ const testData = [
   },
   {
                      input_url: 'http://45cat.com/record/vs1370&rc=365077#365077',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45cat.com/record/vs1370',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45cat.com/45_composer.php?tc=Floyd+Hunt',
@@ -85,31 +86,31 @@ const testData = [
   },
   {
                      input_url: 'http://www.45worlds.com/vinyl/album/mfsl1100',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45worlds.com/vinyl/album/mfsl1100',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/12single/record/fu2t',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45worlds.com/12single/record/fu2t',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/cdsingle/cd/pwcd227',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45worlds.com/cdsingle/cd/pwcd227',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/classical/music/asd264',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45worlds.com/classical/music/asd264',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   // 7digital (zdigital)
   {
@@ -401,6 +402,14 @@ const testData = [
             expected_clean_url: 'https://fieldtriptothemoon.bandcamp.com/album/something-owed',
        input_relationship_type: 'downloadpurchase',
        only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://non-serviam-records.bandcamp.com/merch/the-howling-void-megaliths-of-the-abyss-digipak',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://non-serviam-records.bandcamp.com/merch/the-howling-void-megaliths-of-the-abyss-digipak',
+       input_relationship_type: 'mailorder',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'daily.bandcamp.com/2018/05/30/brownout-fear-of-a-brown-planet-album-review/#more-90177',
@@ -1259,6 +1268,14 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://d.rip/willits',
+  },
+  // Dynamic Range DB
+  {
+                     input_url: 'https://dr.loudness-war.info/album/view/168230',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://dr.loudness-war.info/album/view/168230',
+       only_valid_entity_types: ['release'],
   },
   // e-onkyo music
   {
@@ -2351,6 +2368,14 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://www.patreon.com/user?u=4212671',
+  },
+  {
+                     input_url: 'https://www.patreon.com/posts/gamers-natural-1823606',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.patreon.com/posts/gamers-natural-1823606',
+       input_relationship_type: 'patronage',
+       only_valid_entity_types: [],
   },
   // PayPal.Me
   {

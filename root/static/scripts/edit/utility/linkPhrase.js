@@ -1,15 +1,15 @@
 /*
  * @flow
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2015 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import commaList, {commaListText} from '../../common/i18n/commaList';
-import commaOnlyList, {commaOnlyListText} from '../../common/i18n/commaOnlyList';
+import commaOnlyList, {commaOnlyListText}
+  from '../../common/i18n/commaOnlyList';
 import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
 import expand2react from '../../common/i18n/expand2react';
 import expand2text from '../../common/i18n/expand2text';
@@ -100,7 +100,10 @@ export type LinkPhraseI18n<T> = {
 };
 
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
-  cache: new WeakMap<RelationshipInfoT, CachedLinkPhraseData<Expand2ReactOutput>>(),
+  cache: new WeakMap<
+    RelationshipInfoT,
+    CachedLinkPhraseData<Expand2ReactOutput>,
+  >(),
   commaList,
   commaOnlyList,
   expand: expand2react,

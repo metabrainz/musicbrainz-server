@@ -47,6 +47,11 @@ INSERT INTO editor_collection_event (collection, event)
 INSERT INTO editor_collection_work (collection, work)
     VALUES (5, 1), (5, 2);
 
+INSERT INTO editor_preference (id, editor, name, value)
+    VALUES (1, 1, 'timezone', 'Antarctica/Troll'),
+           (2, 2, 'timezone', 'Atlantic/Reykjavik'),
+           (3, 3, 'timezone', 'Pacific/Kiritimati');
+
 INSERT INTO editor_subscribe_collection (id, editor, collection, last_edit_sent, available, last_seen_name)
     VALUES (1, 2, 1, 0, FALSE, 'collection1'),
            (2, 2, 2, 0, TRUE, NULL);

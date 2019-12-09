@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 Shamroy Pellew
  * Copyright (C) 2018 MetaBrainz Foundation
  *
@@ -13,10 +13,18 @@ export function formatPercentage(
   num: number,
   digits: number,
 ) {
-  return (num || 0).toLocaleString($c.stash.current_language_html,
-    {maximumFractionDigits: digits, minimumFractionDigits: digits, style: 'percent'});
+  return (num || 0).toLocaleString(
+    $c.stash.current_language_html,
+    {
+      maximumFractionDigits: digits,
+      minimumFractionDigits: digits,
+      style: 'percent',
+    },
+  );
 }
 
 export function formatCount($c: CatalystContextT, num: ?number) {
-  return typeof num === 'number' ? num.toLocaleString($c.stash.current_language_html) : '';
+  return typeof num === 'number'
+    ? num.toLocaleString($c.stash.current_language_html)
+    : '';
 }

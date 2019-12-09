@@ -159,7 +159,10 @@ function formatEvent(event: AutocompleteEventT) {
         (event.time || ''),
       ) : null}
 
-      {showRelatedEntities(l('Performers'), event.related_entities.performers)}
+      {showRelatedEntities(
+        l('Performers'),
+        event.related_entities.performers,
+      )}
       {showRelatedEntities(l('Location'), event.related_entities.places)}
     </>
   );
@@ -346,7 +349,9 @@ function formatSeries(series: AutocompleteSeriesT) {
       {showBracketedTextInfo(series.comment)}
 
       {series.type ? (
-        showExtraInfo(bracketedText(lp_attributes(series.type.name, 'series_type')))
+        showExtraInfo(
+          bracketedText(lp_attributes(series.type.name, 'series_type')),
+        )
       ) : null}
     </>
   );

@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -10,7 +13,8 @@ import ReactDOMServer from 'react-dom/server';
 
 import '../../../lib/jquery-ui';
 
-import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
+import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES}
+    from '../../common/constants';
 import {compare} from '../../common/i18n';
 import expand2react from '../../common/i18n/expand2react';
 import linkedEntities from '../../common/linkedEntities';
@@ -26,7 +30,6 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var UI = RE.UI = RE.UI || {};
-    var fields = RE.fields = RE.fields || {};
 
     var incorrectEntityForSeries = {
         recording:      l("The series you’ve selected is for recordings."),
@@ -50,7 +53,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         return {
-            init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            init: function (element, valueAccessor) {
                 dialog = valueAccessor();
 
                 dialog.autocomplete = $(element).entitylookup({
@@ -249,10 +252,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         var targetCredit = relationship.creditField(target)();
                         var relationshipFilter = this.selectedRelationshipCredits[role]();
 
-                        // XXX HACK XXX
-                        // MB.entityCache isn't supposed to be exposed outside of
-                        // whatever module it's defined in, but there's no easier
-                        // way to iterate over all entities on the page.
+                        /*
+                         * XXX HACK XXX
+                         * MB.entityCache isn't supposed to be exposed outside of
+                         * whatever module it's defined in, but there's no easier
+                         * way to iterate over all entities on the page.
+                         */
 
                         _.each(MB.entityCache, function (entity, gid) {
                             if (gid === target.gid) {
@@ -306,17 +311,21 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var nodeName = event.target.nodeName.toLowerCase();
             var self = this;
 
-            // Firefox needs a small delay in order to allow for the change
-            // event to trigger on <select> menus, and Opera 12.0* needs it
-            // triggered explicitly, so do that first.
+            /*
+             * Firefox needs a small delay in order to allow for the change
+             * event to trigger on <select> menus, and Opera 12.0* needs it
+             * triggered explicitly, so do that first.
+             */
 
             if (event.keyCode === 13 && /^input|select$/.test(nodeName)) {
                 $(event.target).trigger('change');
 
                 if (!this.hasErrors()) {
-                    // Opera 12.0* also has a bug where the pencil icon is
-                    // clicked if the dialog is closed too fast, which makes
-                    // it immediately reopen, hence the added delay here.
+                    /*
+                     * Opera 12.0* also has a bug where the pencil icon is
+                     * clicked if the dialog is closed too fast, which makes
+                     * it immediately reopen, hence the added delay here.
+                     */
                     _.defer(function () { self.accept() });
                 }
             } else if (event.keyCode === 27 && nodeName !== "select") {
@@ -429,7 +438,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         targetTypeChanged(newType) {
-            if (!newType) return;
+            if (!newType) {
+                return;
+            }
 
             var currentRelationship = this.relationship();
             var currentTarget = currentRelationship.target(this.source);
@@ -437,11 +448,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var data = currentRelationship.editData();
             data.target = MB.entity({ name: currentTarget.name }, newType);
 
-            // Always keep any existing dates, even if the new relationship
-            // doesn't support them. If they're not supported they'll be
-            // hidden/ignored anyway, but if the user changes the target type
-            // or link type again (to something that does support them), we
-            // want to preserve what they previously entered.
+            /*
+             * Always keep any existing dates, even if the new relationship
+             * doesn't support them. If they're not supported they'll be
+             * hidden/ignored anyway, but if the user changes the target type
+             * or link type again (to something that does support them), we
+             * want to preserve what they previously entered.
+             */
             data.begin_date = MB.edit.fields.partialDate(currentRelationship.begin_date);
             data.end_date = MB.edit.fields.partialDate(currentRelationship.end_date);
             data.ended = !!currentRelationship.ended();
@@ -456,8 +469,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             this.relationship(newRelationship);
 
-            // XXX knockout is stupid and unsets the linkTypeID for no apparent
-            // reason, so do it again...
+            /*
+             * XXX knockout is stupid and unsets the linkTypeID for no apparent
+             * reason, so do it again...
+             */
             newRelationship.linkTypeID(data.linkTypeID);
 
             currentRelationship.remove();
@@ -638,9 +653,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     export class EditDialog extends Dialog {
 
         constructor(options) {
-            // originalRelationship is a copy of the relationship when the dialog
-            // was opened, i.e. before the user edits it. if they cancel the
-            // dialog, this is what gets copied back to revert their changes.
+            /*
+             * originalRelationship is a copy of the relationship when the dialog
+             * was opened, i.e. before the user edits it. if they cancel the
+             * dialog, this is what gets copied back to revert their changes.
+             */
             const relationship = options.relationship;
             options.relationship = relationship.clone();
             super(options);
@@ -765,7 +782,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     function defaultLinkType(root) {
         var child, id, i = 0;
 
-        while (child = root.children[i++]) {
+        while ((child = root.children[i++])) {
             if (child.description && !child.deprecated) {
                 return child.id;
             }
@@ -815,4 +832,3 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     UI.EditDialog = EditDialog;
     UI.BatchRelationshipDialog = BatchRelationshipDialog;
     UI.BatchCreateWorksDialog = BatchCreateWorksDialog;
-

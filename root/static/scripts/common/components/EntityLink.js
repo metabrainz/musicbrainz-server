@@ -1,9 +1,10 @@
 /*
  * @flow
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2015–2016 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 import ko from 'knockout';
@@ -27,7 +28,10 @@ export const DeletedLink = ({
     : l('This entity has been removed, and cannot be displayed correctly.');
 
   return (
-    <span className={(allowNew ? '' : 'deleted ') + 'tooltip'} title={caption}>
+    <span
+      className={(allowNew ? '' : 'deleted ') + 'tooltip'}
+      title={caption}
+    >
       {isolateText(name || l('[removed]'))}
     </span>
   );

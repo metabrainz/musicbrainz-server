@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -257,7 +260,7 @@ function addPostedRelationships(source) {
         return;
     }
 
-    let submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
+    const submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
     if (MB.formWasPosted && submittedRelationships) {
         _.each(JSON.parse(submittedRelationships), function (data) {
             addSubmittedRelationship(data, source);
@@ -338,7 +341,7 @@ function parseQueryString(queryString) {
     var fields = {};
     var subField, match, parts;
 
-    while (match = queryStringRegex.exec(queryString)) {
+    while ((match = queryStringRegex.exec(queryString))) {
         subField = fields;
         parts = match[1].split('.');
 

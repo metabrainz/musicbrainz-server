@@ -21,7 +21,9 @@ const InstrumentHeader = ({instrument, page}: Props) => (
     entity={instrument}
     headerClass="instrumentheader"
     page={page}
-    subHeading={instrument.typeName ? lp_attributes(instrument.typeName, 'instrument_type') : l('instrument')}
+    subHeading={instrument.typeName
+      ? lp_attributes(instrument.typeName, 'instrument_type')
+      : l('instrument')}
   />
 );
 

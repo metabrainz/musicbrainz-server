@@ -10,8 +10,8 @@
 import React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import entityHref from '../../../static/scripts/common/utility/entityHref';
+import CommonsImage
+  from '../../../static/scripts/common/components/CommonsImage';
 import * as age from '../../../utility/age';
 import ExternalLinks from '../ExternalLinks';
 
@@ -50,9 +50,17 @@ const AreaSidebar = ({$c, area}: Props) => {
       <SidebarProperties>
         <SidebarType entity={area} typeType="area_type" />
 
-        <SidebarBeginDate age={areaAge} entity={area} label={l('Begin date:')} />
+        <SidebarBeginDate
+          age={areaAge}
+          entity={area}
+          label={l('Begin date:')}
+        />
 
-        <SidebarEndDate age={areaAge} entity={area} label={l('End date:')} />
+        <SidebarEndDate
+          age={areaAge}
+          entity={area}
+          label={l('End date:')}
+        />
 
         {area.iso_3166_1_codes.map(code => (
           <SidebarProperty

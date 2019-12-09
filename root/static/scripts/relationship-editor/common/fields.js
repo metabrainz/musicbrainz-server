@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import ko from 'knockout';
 import _ from 'lodash';
@@ -71,7 +74,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.end_date = setPartialDate({}, data.end_date || {});
             this.ended = ko.observable(!!data.ended);
 
-            this.disableEndedCheckBox = ko.computed(function() {
+            this.disableEndedCheckBox = ko.computed(function () {
                 var hasEndDate = !!formatDate(this.end_date);
                 this.ended(hasEndDate || data.ended);
                 return hasEndDate;
@@ -99,16 +102,19 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 });
             }
 
-            // XXX Sigh. This whole subscription shouldn't be necessary, because
-            // we already filter out invalid attributes in linkTypeIDChanged.
-            // But knockout's 'checked' binding is annoying and reverts any removals
-            // if it sees that the previous attributes are still checked (they
-            // haven't been removed from the template yet; that probably happens
-            // in a later subscription). That's why the _.defer is needed; we need
-            // to wait for it to idiotically add the attributes back. The proper
-            // solution would be to use a writable computed observable that filters
-            // out invalid values upon writing, but there's already a bunch of code
-            // that depends on 'attributes' being an observableArray.
+            /*
+             * XXX Sigh. This whole subscription shouldn't be necessary, since
+             * we already filter out invalid attributes in linkTypeIDChanged.
+             * But knockout's 'checked' binding is annoying and reverts any
+             * removals if it sees that the previous attributes are still
+             * checked (they haven't been removed from the template yet; that
+             * probably happens in a later subscription). That's why the
+             * _.defer is needed; we need to wait for it to idiotically add
+             * the attributes back. The proper solution would be to use a
+             * writable computed observable that filters out invalid values
+             * upon writing, but there's already a bunch of code
+             * that depends on 'attributes' being an observableArray.
+             */
             var removingInvalidAttributes = false;
             this.attributes.subscribe(function (newAttributes) {
                 if (!removingInvalidAttributes) {
@@ -135,7 +141,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             // By default, show all existing relationships on the page.
-            if (this.id) this.show();
+            if (this.id) {
+                this.show();
+            }
         }
 
         formatDatePeriod() {
@@ -161,8 +169,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         target(source) {
             var entities = this.entities();
 
-            if (source === entities[0]) return entities[1];
-            if (source === entities[1]) return entities[0];
+            if (source === entities[0]) {
+                return entities[1];
+            }
+            if (source === entities[1]) {
+                return entities[0];
+            }
 
             throw new Error("The given entity is not used by this relationship");
         }
@@ -174,8 +186,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return;
             }
 
-            // This should really only change if the relationship was initially
-            // seeded without any link type.
+            /*
+             * This should really only change if the relationship was
+             * initially seeded without any link type.
+             */
             this.entityTypes = linkType.type0 + '-' + linkType.type1;
 
             var typeAttributes = linkType.attributes,
@@ -246,8 +260,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var containedBy0 = relationships0.indexOf(this) >= 0;
             var containedBy1 = relationships1.indexOf(this) >= 0;
 
-            if (containedBy0 && !containedBy1) relationships1.push(this);
-            if (containedBy1 && !containedBy0) relationships0.push(this);
+            if (containedBy0 && !containedBy1) {
+                relationships1.push(this);
+            }
+            if (containedBy1 && !containedBy0) {
+                relationships0.push(this);
+            }
 
             if (entity0.entityType === "recording"
                 && entity1.entityType === "work"
@@ -273,7 +291,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         remove() {
-            if (this.removed() === true) return;
+            if (this.removed() === true) {
+                return;
+            }
 
             var entities = this.entities();
 
@@ -287,8 +307,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         getAttribute(typeGID) {
             var attributes = this.attributes();
 
-            for (var i = 0, linkAttribute; linkAttribute = attributes[i]; i++) {
-                if (linkAttribute.type.gid === typeGID) return linkAttribute;
+            for (var i = 0, linkAttribute; (linkAttribute = attributes[i]); i++) {
+                if (linkAttribute.type.gid === typeGID) {
+                    return linkAttribute;
+                }
             }
             return new fields.LinkAttribute({ type: { gid: typeGID }});
         }
@@ -358,10 +380,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return !!(linkType && linkType.orderable_direction > 0);
         }
 
-        // Same as linkPhrase, but if the link type is orderable, then
-        // also stripped of non-required attributes so that `groupBy` keeps
-        // ordered relationships together even if they have different
-        // attributes.
+        /*
+         * Same as linkPhrase, but if the link type is orderable, then
+         * also stripped of non-required attributes so that `groupBy` keeps
+         * ordered relationships together even if they have different
+         * attributes.
+         */
         groupingLinkPhrase(source) {
             return this._linkPhrase(source, this.hasOrderableLinkType());
         }
@@ -377,7 +401,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         paddedSeriesNumber() {
             var attributes = this.attributes(), numberAttribute;
 
-            for (var i = 0; numberAttribute = attributes[i]; i++) {
+            for (var i = 0; (numberAttribute = attributes[i]); i++) {
                 if (numberAttribute.type.gid === SERIES_ORDERING_ATTRIBUTE) {
                     break;
                 }
@@ -390,7 +414,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var parts = _.compact(numberAttribute.textValue().split(/(\d+)/)),
                 integerRegex = /^\d+$/;
 
-            for (var i = 0, part; part = parts[i]; i++) {
+            for (var i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {
                     parts[i] = _.padStart(part, 10, "0");
                 }
@@ -401,10 +425,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         entityIsOrdered(entity) {
             var linkType = this.getLinkType();
-            if (!linkType) return false;
+            if (!linkType) {
+                return false;
+            }
 
             var orderableDirection = linkType.orderable_direction;
-            if (orderableDirection === 0) return false;
+            if (orderableDirection === 0) {
+                return false;
+            }
 
             var entities = this.entities();
 
@@ -592,16 +620,18 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         if (attributesA.length !== attributesB.length) {
             return false;
         }
-        for (var i = 0, a; a = attributesA[i]; i++) {
+        for (var i = 0, a; (a = attributesA[i]); i++) {
             var match = false;
 
-            for (var j = i, b; b = attributesB[j]; j++) {
+            for (var j = i, b; (b = attributesB[j]); j++) {
                 if (a.identity() === b.identity()) {
                     match = true;
                     break;
                 }
             }
-            if (!match) return false;
+            if (!match) {
+                return false;
+            }
         }
         return true;
     }

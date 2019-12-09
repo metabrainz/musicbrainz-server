@@ -1,8 +1,15 @@
 package MusicBrainz::Server::Entity::EditNote;
+
+use 5.18.2;
+
+use JSON::XS;
 use Moose;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Filters qw( format_editnote );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types qw( DateTime );
 
 has 'editor_id' => (
@@ -36,6 +43,41 @@ has 'post_time' => (
     is => 'rw',
     coerce => 1
 );
+
+sub _localize_text {
+    my ($text) = @_;
+
+    state $json = JSON::XS->new->utf8(0);
+
+    if (my ($source) = ($text =~ m/^localize:(.+)$/)) {
+        $source = $json->decode($source);
+
+        my $source_args = $source->{args} // {};
+        my %args = map {
+            my $value = $source_args->{$_};
+            $_ => (ref($value) ? $value : _localize_text($value // ''))
+        } keys %{$source_args};
+
+        $text = l($source->{message} // '', \%args);
+    } else {
+        # Otherwise, assume this message uses edit note syntax.
+        $text = format_editnote($text);
+    }
+
+    return $text;
+}
+
+sub localize {
+    my ($self) = @_;
+
+    my $text = $self->text;
+
+    if ($self->editor_id == $EDITOR_MODBOT) {
+        return _localize_text($text);
+    }
+
+    return $text;
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

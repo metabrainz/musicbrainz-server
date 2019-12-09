@@ -10,7 +10,8 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
+import CommonsImage
+  from '../../../static/scripts/common/components/CommonsImage';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import ExternalLinks from '../ExternalLinks';
 
@@ -31,7 +32,6 @@ type Props = {
 };
 
 const SeriesSidebar = ({$c, series}: Props) => {
-  const gid = encodeURIComponent(series.gid);
 
   return (
     <div id="sidebar">
@@ -47,7 +47,10 @@ const SeriesSidebar = ({$c, series}: Props) => {
       <SidebarProperties>
         <SidebarType entity={series} typeType="series_type" />
 
-        <SidebarProperty className="series-code" label={addColonText(l('Ordering Type'))}>
+        <SidebarProperty
+          className="series-code"
+          label={addColonText(l('Ordering Type'))}
+        >
           {l_attributes(
             linkedEntities.series_ordering_type[series.orderingTypeID].name,
           )}

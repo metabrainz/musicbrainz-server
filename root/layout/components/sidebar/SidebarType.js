@@ -9,13 +9,12 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
 
 import {SidebarProperty} from './SidebarProperties';
 
 type Props = {
-  +entity: {...TypeRoleT<empty>, ...},
+  +entity: $ReadOnly<{...TypeRoleT<empty>, ...}>,
   +typeType: string,
 };
 

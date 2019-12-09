@@ -1,9 +1,10 @@
 /*
  * @flow
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2015–2016 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 import React, {useState} from 'react';
@@ -16,7 +17,6 @@ import EntityLink, {DeletedLink} from './EntityLink';
 type Props = {
   +artistCredit: ArtistCreditT,
   +showDeleted?: boolean,
-  +showEditsPending?: boolean,
   +target?: '_blank',
 };
 
@@ -24,7 +24,9 @@ type MpIconProps = {
   +artistCredit: ArtistCreditT,
 };
 
-const MpIcon = hydrate<MpIconProps>('span.ac-mp', ({artistCredit}: MpIconProps) => {
+const MpIcon = hydrate<MpIconProps>('span.ac-mp', (
+  {artistCredit}: MpIconProps,
+) => {
   const [hover, setHover] = useState(false);
 
   let editSearch =
@@ -34,7 +36,7 @@ const MpIcon = hydrate<MpIconProps>('span.ac-mp', ({artistCredit}: MpIconProps) 
     '&conditions.1.operator=%3D&conditions.1.args=1';
 
   let i = 2;
-  for (let name of artistCredit.names) {
+  for (const name of artistCredit.names) {
     editSearch +=
       `&conditions.${i}.field=artist&conditions.${i}.operator=%3D` +
       `&conditions.${i}.name=${encodeURIComponent(name.artist.name)}` +
@@ -67,7 +69,6 @@ const MpIcon = hydrate<MpIconProps>('span.ac-mp', ({artistCredit}: MpIconProps) 
 const ArtistCreditLink = ({
   artistCredit,
   showDeleted = true,
-  showEditsPending = true,
   ...props
 }: Props) => {
   const names = artistCredit.names;

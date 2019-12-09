@@ -1,7 +1,12 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2016 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+/* eslint-disable no-unused-vars */
 
 'use strict';
 
@@ -15,7 +20,7 @@ if (!document) {
 }
 
 const React = require('react');
-const ReactDOMServer  = require('react-dom/server');
+const ReactDOMServer = require('react-dom/server');
 
 const DescriptiveLink = require('../common/components/DescriptiveLink').default;
 const EditorLink = require('../common/components/EditorLink').default;
@@ -40,8 +45,8 @@ function attributesDiffer(a /* got */, b /* expected */) {
   }
 
   for (let i = 0; i < a.attributes.length; i++) {
-    let attrA = a.attributes.item(i);
-    let attrB = b.attributes.getNamedItem(attrA.name);
+    const attrA = a.attributes.item(i);
+    const attrB = b.attributes.getNamedItem(attrA.name);
 
     if (!attrA !== !attrB) {
       return true;
@@ -56,7 +61,7 @@ function attributesDiffer(a /* got */, b /* expected */) {
 }
 
 function removeComments(parentNode) {
-  let childNodes = Array.prototype.slice.call(parentNode.childNodes, 0);
+  const childNodes = Array.prototype.slice.call(parentNode.childNodes, 0);
   childNodes.forEach(node => {
     if (node.nodeType === 8) {
       parentNode.removeChild(node);
@@ -93,8 +98,8 @@ function compareNodes(a, b) {
 
   if (a.nodeType === 3) { // text
     // collapse whitespace
-    let textA = a.textContent.replace(/\s{2,}/g, ' ');
-    let textB = b.textContent.replace(/\s{2,}/g, ' ');
+    const textA = a.textContent.replace(/\s{2,}/g, ' ');
+    const textB = b.textContent.replace(/\s{2,}/g, ' ');
 
     if (textA !== textB) {
       throwNotEquivalent(
@@ -107,8 +112,8 @@ function compareNodes(a, b) {
 }
 
 function compareHTML(markupA /* got */, markupB /* expected */) {
-  let a = document.createElement('div');
-  let b = document.createElement('div');
+  const a = document.createElement('div');
+  const b = document.createElement('div');
 
   a.innerHTML = markupA;
   b.innerHTML = markupB;
@@ -120,22 +125,22 @@ const testData = JSON.parse(process.argv[2]);
 const testResults = [];
 
 testData.forEach(function (test) {
-  let entity = test.entity;
+  const entity = test.entity;
 
-  let ttMarkup = test.tt_markup
+  const ttMarkup = test.tt_markup
     .replace(/<tr>\s+<(td|th)>/g, '<tr><$1>')
     .replace(/<\/(td|th)>\s+<(td|th)/g, '</$1><$2')
     .replace(/<\/(td|th)>\s+<\/tr>/g, '</$1></tr>')
     .replace('&#39;', '&#x27;');
 
-  let reactMarkup =
+  const reactMarkup =
     ReactDOMServer.renderToStaticMarkup(
       React.createElement('div', null, eval(test.react_element))
     )
     .replace(/^<div>(.*)<\/div>$/, '$1')
     .replace(/([^\s])\/>/g, '$1 />');
 
-  let testCases = [
+  const testCases = [
     {
       got: ttMarkup,
       failMessage: 'TT markup does not match what was expected',

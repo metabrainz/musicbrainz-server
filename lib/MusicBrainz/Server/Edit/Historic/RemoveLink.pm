@@ -11,6 +11,7 @@ sub edit_name     { N_l('Remove relationship') }
 sub edit_kind     { 'remove' }
 sub historic_type { 35 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK }
+sub edit_template { 'historic/remove_relationship' }
 
 sub _links {
     my $self = shift;
