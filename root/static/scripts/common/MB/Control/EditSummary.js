@@ -14,9 +14,9 @@ MB.Control.EditSummary = function (container) {
     var self = {};
 
     var $container = $(container);
-        var $toggleEditNote = $container.find('.edit-note-toggle');
-        var $editNote = $container.find('.add-edit-note');
-        var $editNoteField = $editNote.find('textarea');
+    var $toggleEditNote = $container.find('.edit-note-toggle');
+    var $editNote = $container.find('.add-edit-note');
+    var $editNoteField = $editNote.find('textarea');
 
     self.addNote = function () {
         $toggleEditNote
