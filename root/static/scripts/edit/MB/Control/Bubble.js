@@ -129,8 +129,8 @@ class BubbleDoc extends BubbleBase {
     show(control) {
         super.show(control);
 
-        var $bubble = this.$bubble;
-            var $parent = $bubble.parent();
+        const $bubble = this.$bubble;
+            const $parent = $bubble.parent();
 
         $bubble
             .width($parent.width() - 24)
