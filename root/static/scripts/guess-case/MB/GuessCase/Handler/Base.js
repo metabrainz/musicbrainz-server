@@ -637,7 +637,7 @@ MB.GuessCase.Handler.Base = function (gc) {
          * "A.B.C I Love You"           => "A.B. C I Love You"
          * "P.S I Love You"             => "P. S I Love You"
          */
-        var subIndex, tmp = [];
+        var subIndex; var tmp = [];
         if (gc.i.matchCurrentWord(gc.re.ACRONYM)) {
             var cw = gc.i.getCurrentWord();
             tmp.push(cw.toUpperCase()); // Add current word
@@ -700,7 +700,7 @@ MB.GuessCase.Handler.Base = function (gc) {
             gc.re.DIGITS_NTUPLE = /^\d\d\d\d+$/;
         }
 
-        var subIndex = null, tmp = [];
+        var subIndex = null; var tmp = [];
         if (gc.i.matchCurrentWord(gc.re.DIGITS)) {
             tmp.push(gc.i.getCurrentWord());
             flags.context.numberSplitExpect = true;

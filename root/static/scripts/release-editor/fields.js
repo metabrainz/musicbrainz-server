@@ -596,9 +596,9 @@ class Medium {
     hasTracks() { return this.tracks().length > 0 }
 
     formattedName() {
-        var name = this.name(),
-            position = this.position(),
-            multidisc = this.release.mediums().length > 1 || position > 1;
+        var name = this.name();
+            var position = this.position();
+            var multidisc = this.release.mediums().length > 1 || position > 1;
 
         if (name) {
             if (multidisc) {

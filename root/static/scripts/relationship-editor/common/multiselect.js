@@ -124,7 +124,7 @@ import deferFocus from '../../edit/utility/deferFocus';
             this.menuVisible(false);
             this.updateOptions(this.term.peek());
 
-            var nodes = this.optionNodes, node;
+            var nodes = this.optionNodes; var node;
             var nextIndex = _.findIndex(nodes, function (node) {
                 return node.optionData.value === typeGID;
             });

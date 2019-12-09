@@ -418,7 +418,7 @@ relationshipEditorTest("BatchRelationshipDialog", function (t) {
     });
 
     var relationship = dialog.relationship();
-    var relationships, attributes;
+    var relationships; var attributes;
 
     relationship.linkTypeID(154);
     relationship.setAttributes(ids2attrs([1]));
@@ -533,8 +533,8 @@ relationshipEditorTest("backwardness of submitted relationships is preserved (MB
     var source = {
             entityType: "recording",
             gid: fakeGID0
-        },
-        target = {
+        };
+        var target = {
             entityType: "recording",
             gid: fakeGID1
         };

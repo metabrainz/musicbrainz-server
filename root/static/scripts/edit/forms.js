@@ -29,7 +29,7 @@ MB.forms = {
         var nbsp = String.fromCharCode(160);
 
         function buildOptions(parent, indent) {
-            var i = 0, children = parent.children, child;
+            var i = 0; var children = parent.children; var child;
             if (!children) { return; }
 
             const childOptions = [];
@@ -96,7 +96,7 @@ ko.bindingHandlers.loop = {
         viewModel,
         bindingContext,
     ) {
-        var options = valueAccessor(), observableArray = options.items;
+        var options = valueAccessor(); var observableArray = options.items;
 
         /*
          * The way this binding handler works is by using the "arrayChange"
@@ -109,9 +109,9 @@ ko.bindingHandlers.loop = {
             throw new Error("items must an an observableArray");
         }
 
-        var idAttribute = options.id,
-            elements = options.elements || {},
-            template = [];
+        var idAttribute = options.id;
+            var elements = options.elements || {};
+            var template = [];
 
         _.each(ko.virtualElements.childNodes(parentNode), function (node) {
             if (node.nodeType === ELEMENT_NODE ||
@@ -132,9 +132,9 @@ ko.bindingHandlers.loop = {
         ko.virtualElements.emptyNode(parentNode);
 
         function update(changes) {
-            var activeElement = document.activeElement,
-                items = observableArray.peek(),
-                removals = [];
+            var activeElement = document.activeElement;
+                var items = observableArray.peek();
+                var removals = [];
 
             for (var i = 0, change, j, node; (change = changes[i]); i++) {
                 var status = change.status;
@@ -143,10 +143,10 @@ ko.bindingHandlers.loop = {
                     continue;
                 }
 
-                var item = change.value,
-                    itemID = item[idAttribute],
-                    currentElements = elements[itemID],
-                    tmpElementContainer;
+                var item = change.value;
+                    var itemID = item[idAttribute];
+                    var currentElements = elements[itemID];
+                    var tmpElementContainer;
 
                 if (status === "added") {
                     if (change.moved === undefined) {
@@ -194,7 +194,7 @@ ko.bindingHandlers.loop = {
                     continue;
                 }
 
-                var elementsToInsert, elementsToInsertAfter;
+                var elementsToInsert; var elementsToInsertAfter;
                 if (currentElements.length === 1) {
                     elementsToInsert = currentElements[0];
                 } else {

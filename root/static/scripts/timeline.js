@@ -461,9 +461,9 @@ class TimelineLine {
             if (!extra) { extra = '' };
             removeTooltip();
             setCursor();
-            var x = item.datapoint[0],
-                y = item.datapoint[1],
-                date = new Date(parseInt(x));
+            var x = item.datapoint[0];
+                var y = item.datapoint[1];
+                var date = new Date(parseInt(x));
 
             if (fixed) {
                 y = y.toFixed(fixed);

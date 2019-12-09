@@ -339,7 +339,7 @@ var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-
 function parseQueryString(queryString) {
     var queryStringRegex = /(?:\\?|&)([A-z0-9\-_.]+)=([^&]+)/g;
     var fields = {};
-    var subField, match, parts;
+    var subField; var match; var parts;
 
     while ((match = queryStringRegex.exec(queryString))) {
         subField = fields;

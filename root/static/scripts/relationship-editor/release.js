@@ -323,8 +323,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         function medium(medium_selector, selector, counter) {
             $tracklist.on("change", medium_selector, function () {
-                var checked = this.checked,
-                    $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
+                var checked = this.checked;
+                    var $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
                         .find(selector).filter(checked ? ":not(:checked)" : ":checked")
                         .prop("checked", checked);
                 counter(counter() + count($changed) * (checked ? 1 : -1));
@@ -344,9 +344,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var last_clicked = null;
 
             $tracklist.on("click", selector, function (event) {
-                var checked = this.checked, $inputs = $(selector, $tracklist);
+                var checked = this.checked; var $inputs = $(selector, $tracklist);
                 if (event.shiftKey && last_clicked && last_clicked != this) {
-                    var first = $inputs.index(last_clicked), last = $inputs.index(this);
+                    var first = $inputs.index(last_clicked); var last = $inputs.index(this);
 
                     (first > last
                         ? $inputs.slice(last, first + 1)

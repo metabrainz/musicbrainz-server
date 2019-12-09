@@ -45,15 +45,15 @@ function markTabWithErrors($panel) {
 
 function showErrorHandler(handler) {
     return function (element, valueAccessor, allBindings, vm) {
-        var $element = $(element).hide(),
-            errorField = valueAccessor();
+        var $element = $(element).hide();
+            var errorField = valueAccessor();
 
         // Binding may be running before element has been added to the DOM.
         _.defer(function () {
             ko.computed({
                 read: function () {
-                    var value = errorField.call(vm),
-                        $panel = $element.parents(".ui-tabs-panel");
+                    var value = errorField.call(vm);
+                        var $panel = $element.parents(".ui-tabs-panel");
 
                     if (_.isString(value)) {
                         $element.text(value || "")

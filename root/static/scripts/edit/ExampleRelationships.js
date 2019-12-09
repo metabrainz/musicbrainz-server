@@ -10,13 +10,13 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
 
 
 // Private variables
-var type0, type1, linkTypeName, linkTypeID, jsRoot;
+var type0; var type1; var linkTypeName; var linkTypeID; var jsRoot;
 
 // Private methods
 var searchUrl;
 
 // Private classes
-var RelationshipSearcher, ViewModel;
+var RelationshipSearcher; var ViewModel;
 
 ERE.init = function (config) {
     type0 = config.type0;
@@ -43,17 +43,17 @@ ERE.init = function (config) {
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
             ko.utils.registerEventHandler(element, "click", function () {
-                var checkedValue = valueAccessor(),
-                    meValue = bindingContext.$data,
-                    checked = element.checked;
+                var checkedValue = valueAccessor();
+                    var meValue = bindingContext.$data;
+                    var checked = element.checked;
                 if (checked && ko.isObservable(checkedValue)) {
                     checkedValue(meValue);
                 }
             });
         },
         update: function (element, valueAccessor, all, vm, bindingContext) {
-            var checkedValue = ko.utils.unwrapObservable(valueAccessor()),
-                meValue = bindingContext.$data;
+            var checkedValue = ko.utils.unwrapObservable(valueAccessor());
+                var meValue = bindingContext.$data;
 
             element.checked = (checkedValue === meValue);
         }
@@ -136,7 +136,7 @@ RelationshipSearcher = function () {
                 self.error(null);
 
                 _.each(relationships, function (rel) {
-                    var source = data, target = rel.target;
+                    var source = data; var target = rel.target;
 
                     if (rel.direction == "backward") {
                         source = rel.target;

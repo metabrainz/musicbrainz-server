@@ -666,8 +666,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         _accept() {
-            var relationships = splitByCreditableAttributes(this.relationship()),
-                relationship = relationships.shift();
+            var relationships = splitByCreditableAttributes(this.relationship());
+                var relationship = relationships.shift();
 
             this.editing.fromJS(relationship.editData());
 
@@ -734,8 +734,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         accept() {
-            var workType = this.workType(),
-                workLang = this.workLanguage();
+            var workType = this.workType();
+                var workLang = this.workLanguage();
 
             this.loading(true);
 
@@ -780,7 +780,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     });
 
     function defaultLinkType(root) {
-        var child, id, i = 0;
+        var child; var id; var i = 0;
 
         while ((child = root.children[i++])) {
             if (child.description && !child.deprecated) {
@@ -801,9 +801,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function splitByCreditableAttributes(relationship) {
-        var attributes = relationship.attributes(),
-            creditable = _.filter(attributes, isCreditable),
-            relationships = [relationship];
+        var attributes = relationship.attributes();
+            var creditable = _.filter(attributes, isCreditable);
+            var relationships = [relationship];
 
         if (!creditable.length) {
             return relationships;

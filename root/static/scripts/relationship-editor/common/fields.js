@@ -192,8 +192,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
              */
             this.entityTypes = linkType.type0 + '-' + linkType.type1;
 
-            var typeAttributes = linkType.attributes,
-                attributes = this.attributes(), attribute;
+            var typeAttributes = linkType.attributes;
+                var attributes = this.attributes(); var attribute;
 
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
@@ -399,7 +399,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         paddedSeriesNumber() {
-            var attributes = this.attributes(), numberAttribute;
+            var attributes = this.attributes(); var numberAttribute;
 
             for (var i = 0; (numberAttribute = attributes[i]); i++) {
                 if (numberAttribute.type.gid === SERIES_ORDERING_ATTRIBUTE) {
@@ -411,8 +411,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return "";
             }
 
-            var parts = _.compact(numberAttribute.textValue().split(/(\d+)/)),
-                integerRegex = /^\d+$/;
+            var parts = _.compact(numberAttribute.textValue().split(/(\d+)/));
+                var integerRegex = /^\d+$/;
 
             for (var i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {
@@ -587,9 +587,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     ko.bindingHandlers.textAttribute = {
         init: function (element, valueAccessor) {
-            var options = valueAccessor(),
-                linkAttribute = options.relationship.getAttribute(options.typeGID),
-                currentValue = linkAttribute.textValue.peek();
+            var options = valueAccessor();
+                var linkAttribute = options.relationship.getAttribute(options.typeGID);
+                var currentValue = linkAttribute.textValue.peek();
 
             linkAttribute.textValue.subscribe(function (newValue) {
                 if (newValue && !currentValue) {

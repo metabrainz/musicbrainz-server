@@ -45,7 +45,7 @@ import formatTrackLength from './utility/formatTrackLength';
         }
 
         toJSON() {
-            var key, result = {};
+            var key; var result = {};
             for (key in this) {
                 toJSON(result, this[key], key);
             }

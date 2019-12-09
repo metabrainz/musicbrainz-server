@@ -119,7 +119,7 @@ MB.GuessCase.Output = function (gc) {
             (self.getWordAtIndex(index) != null)) {
 
             // Don't capitalize last word before puncuation/end of string in sentence mode.
-            var w = self.getWordAtIndex(index), o = w;
+            var w = self.getWordAtIndex(index); var o = w;
 
             // Check that last word is NOT an acronym.
             if (w.match(/^\w\..*/) == null) {
@@ -136,7 +136,7 @@ MB.GuessCase.Output = function (gc) {
                     // Else capitalize the current word.
                 } else {
                     // Rewind pos pointer on input
-                    var bef = gc.i.getPos(), pos = bef-1;
+                    var bef = gc.i.getPos(); var pos = bef-1;
                     while (pos >= 0 && utils.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
                         pos--;
                     }
