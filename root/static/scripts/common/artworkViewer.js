@@ -160,11 +160,11 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         imageAspectRatio = this._imageAspectRatio || imageAspectRatio;
         imageElement = this._imageElement || imageElement;
 
-        var $window = $(window);
-            var maxDialogHeight = $window.height() * 0.95;
-            var maxDialogWidth = $window.width() * 0.95;
-            var nonContentHeight = this.uiDialog.outerHeight() - this.element.height();
-            var nonContentWidth = this.uiDialog.outerWidth() - this.element.width();
+        const $window = $(window);
+            const maxDialogHeight = $window.height() * 0.95;
+            const maxDialogWidth = $window.width() * 0.95;
+            const nonContentHeight = this.uiDialog.outerHeight() - this.element.height();
+            const nonContentWidth = this.uiDialog.outerWidth() - this.element.width();
 
         /*
          * Don't stretch the image beyond its original dimensions, and don't
