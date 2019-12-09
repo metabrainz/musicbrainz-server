@@ -34,11 +34,13 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
     }
 
     $name.parent()
-        .find("button.guesscase-title").on("click", function () {
+        .find("button.guesscase-title")
+        .on("click", function () {
             setVal($name, guess.guess($name.val()));
         })
         .end()
-        .find("button.guesscase-options").on("click", function () {
+        .find("button.guesscase-options")
+        .on("click", function () {
             $options.dialog("open");
         });
 

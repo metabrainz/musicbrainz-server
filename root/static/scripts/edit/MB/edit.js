@@ -151,9 +151,7 @@ import request from '../../common/utility/request';
 
             data.attributes = _(ko.unwrap(relationship.attributes))
                 .invokeMap('toJS')
-                .sortBy(function (a) {
-                    return a.type.id;
-                })
+                .sortBy(a => a.type.id)
                 .value();
 
             if (_.isNumber(data.linkTypeID)) {
@@ -344,7 +342,7 @@ import request from '../../common/utility/request';
 
         function (args) {
             delete args.release_label;
-        }
+        },
     );
 
 
