@@ -83,8 +83,9 @@ $(function () {
 
               if (position > $other.data('position')) {
                 insertAfter = $other;
+                return true;
               } else {
-                return false;
+                return false; // prematurely stop iterating
               }
             });
 

@@ -244,6 +244,8 @@ releaseEditor.init = function (options) {
             event.returnValue = l("All of your changes will be lost if you leave this page.");
             return event.returnValue;
         }
+
+        return true;
     });
 
     // Intialize release data/view model.
@@ -325,7 +327,7 @@ releaseEditor.releaseLoaded = function (data) {
 releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     if (!mountPoint) {
         // XXX undefined in some tape tests
-        return;
+        return null;
     }
 
     var self = this;

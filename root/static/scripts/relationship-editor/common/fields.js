@@ -541,6 +541,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (entity === entities[1]) {
                 return this.entity1_credit;
             }
+
+            throw 'entity not in the entities array';
         }
     }
 
