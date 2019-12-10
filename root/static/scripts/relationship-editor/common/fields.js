@@ -591,7 +591,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         init: function (element, valueAccessor) {
             const options = valueAccessor();
             const linkAttribute = options.relationship.getAttribute(options.typeGID);
-            const currentValue = linkAttribute.textValue.peek();
+            let currentValue = linkAttribute.textValue.peek();
 
             linkAttribute.textValue.subscribe(function (newValue) {
                 if (newValue && !currentValue) {

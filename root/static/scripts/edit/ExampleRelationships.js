@@ -19,10 +19,6 @@ let jsRoot;
 // Private methods
 var searchUrl;
 
-// Private classes
-let RelationshipSearcher;
-let ViewModel;
-
 ERE.init = function (config) {
     type0 = config.type0;
     type1 = config.type1;
@@ -108,7 +104,7 @@ searchUrl = function (mbid) {
 }
 
 
-RelationshipSearcher = function () {
+const RelationshipSearcher = function () {
     var self = this;
 
     self.query = ko.observable();

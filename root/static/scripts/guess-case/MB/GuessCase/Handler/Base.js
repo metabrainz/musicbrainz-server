@@ -638,7 +638,7 @@ MB.GuessCase.Handler.Base = function (gc) {
          * "P.S I Love You"             => "P. S I Love You"
          */
         let subIndex;
-        let tmp = [];
+        const tmp = [];
         if (gc.i.matchCurrentWord(gc.re.ACRONYM)) {
             var cw = gc.i.getCurrentWord();
             tmp.push(cw.toUpperCase()); // Add current word
@@ -702,7 +702,7 @@ MB.GuessCase.Handler.Base = function (gc) {
         }
 
         let subIndex = null;
-        let tmp = [];
+        const tmp = [];
         if (gc.i.matchCurrentWord(gc.re.DIGITS)) {
             tmp.push(gc.i.getCurrentWord());
             flags.context.numberSplitExpect = true;

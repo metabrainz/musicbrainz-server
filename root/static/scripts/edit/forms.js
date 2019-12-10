@@ -29,10 +29,14 @@ MB.forms = {
         var nbsp = String.fromCharCode(160);
 
         function buildOptions(parent, indent) {
-            let i = 0;
             const children = parent.children;
+            
+            if (!children) {
+                return;
+            }
+
+            let i = 0;
             let child;
-            if (!children) { return; }
 
             const childOptions = [];
             while ((child = children[i++])) {
