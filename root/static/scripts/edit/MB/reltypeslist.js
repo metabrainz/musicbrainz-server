@@ -13,7 +13,7 @@ $(function () {
         const isHidden = $(this)
             .parent()
             .next(".reldetails")
-            .is(':hidden')
+            .is(':hidden');
         if (isHidden) {
             $(this).text("more");
         } else {

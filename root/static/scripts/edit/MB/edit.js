@@ -203,6 +203,7 @@ import request from '../../common/utility/request';
                         return event;
                     }
 
+                    return null;
                 })
                 .compact()
                 .value();

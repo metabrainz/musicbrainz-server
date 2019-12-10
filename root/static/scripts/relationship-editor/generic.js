@@ -112,7 +112,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         .map(getCatalogNumber)
                         .sort()
                         .head(); 
-                }
+                },
             );
         },
         release_group: function (relationships, series) {
