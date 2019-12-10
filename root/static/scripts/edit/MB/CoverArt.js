@@ -42,7 +42,8 @@ MB.CoverArt.image_error = function ($img, image) {
          */
         $img.attr("src", require('../../../images/image404-125.png'));
     } else {
-        $img.attr("src", image.image)
+        $img.attr("src", image.image);
+    }
 };
 
 MB.CoverArt.reorder_button = function (direction, $container) {
@@ -159,15 +160,12 @@ MB.CoverArt.validate_file = function (file) {
             deferred.resolve('image/jpeg');
         } else if (uint32view[0] === 0x38464947) {
             // GIF signature. "GIF8"
-
             deferred.resolve('image/gif');
         } else if (uint32view[0] === 0x474E5089) {
             // PNG signature, 0x89 "PNG"
-
             deferred.resolve('image/png');
         } else if (uint32view[0] === 0x46445025) {
             // PDF signature, 0x89 "%PDF"
-
             deferred.resolve('application/pdf');
         } else {
             deferred.reject("unrecognized image format");

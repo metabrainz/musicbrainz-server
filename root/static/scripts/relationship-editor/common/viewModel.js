@@ -127,10 +127,8 @@ export class ViewModel {
 
         _sortedRelationships(relationships, source) {
             return relationships
-                .sortBy(function (r) {
-                    return r.lowerCaseTargetName(source);
-                })
-                .sortBy("linkOrder");
+              .sortBy(r => r.lowerCaseTargetName(source))
+              .sortBy("linkOrder");
         }
 
         addAnotherEntityLabel(group, entity) {

@@ -52,17 +52,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             var newRelationships = _(relationships)
-                .map(function (data) {
-                  return MB.getRelationship(data, self);
-                })
+                .map(data => MB.getRelationship(data, self))
                 .compact()
                 .value();
 
             var allRelationships = _(this.relationships.peek())
                 .union(newRelationships)
-                .sortBy(function (r) {
-                  return r.lowerCasePhrase(self);
-                })
+                .sortBy(r => r.lowerCasePhrase(self))
                 .value();
 
             this.relationships(allRelationships);
