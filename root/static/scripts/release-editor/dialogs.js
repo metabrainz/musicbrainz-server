@@ -251,7 +251,7 @@ class SearchTab {
 
     addDisc() {
         const release = releaseEditor.rootField.release();
-            const medium = new fields.Medium(this.result(), release);
+        const medium = new fields.Medium(this.result(), release);
 
         medium.name("");
 
@@ -315,7 +315,7 @@ Object.assign(addDiscDialog, {
 
     open: function () {
         const release = releaseEditor.rootField.release();
-            const blankMedium = new fields.Medium({}, release);
+        const blankMedium = new fields.Medium({}, release);
 
         this.trackParser.setMedium(blankMedium);
         this.trackParser.result(blankMedium);

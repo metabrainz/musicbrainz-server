@@ -511,7 +511,7 @@ function chainEditSubmissions(release, submissions) {
         }
 
         const edits = current.edits(release);
-            let submitted = null;
+        let submitted = null;
 
         if (edits.length) {
             submitted = MB.edit.create($.extend({ edits: edits }, args));

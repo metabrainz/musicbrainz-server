@@ -667,7 +667,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         _accept() {
             const relationships = splitByCreditableAttributes(this.relationship());
-                const relationship = relationships.shift();
+            const relationship = relationships.shift();
 
             this.editing.fromJS(relationship.editData());
 
@@ -735,7 +735,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         accept() {
             const workType = this.workType();
-                const workLang = this.workLanguage();
+            const workLang = this.workLanguage();
 
             this.loading(true);
 
@@ -804,8 +804,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     function splitByCreditableAttributes(relationship) {
         const attributes = relationship.attributes();
-            const creditable = _.filter(attributes, isCreditable);
-            const relationships = [relationship];
+        const creditable = _.filter(attributes, isCreditable);
+        const relationships = [relationship];
 
         if (!creditable.length) {
             return relationships;

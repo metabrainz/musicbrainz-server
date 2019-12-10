@@ -139,8 +139,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         for (var i = 0, len = relationships.length; i < len; i++) {
             const relationship = relationships[i];
-                const editData = relationship.editData();
-                const prefix = fieldPrefix + "." + index;
+            const editData = relationship.editData();
+            const prefix = fieldPrefix + "." + index;
 
             if (!editData.linkTypeID) {
                 continue;

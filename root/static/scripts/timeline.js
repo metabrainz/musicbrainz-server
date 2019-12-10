@@ -462,8 +462,8 @@ class TimelineLine {
             removeTooltip();
             setCursor();
             const x = item.datapoint[0];
-                const y = item.datapoint[1];
-                const date = new Date(parseInt(x));
+            const y = item.datapoint[1];
+            const date = new Date(parseInt(x));
 
             if (fixed) {
                 y = y.toFixed(fixed);

@@ -43,7 +43,7 @@ releaseEditor.recordingAssociation = recordingAssociation;
  */
 
 const releaseGroupRecordings = ko.observable();
-    const etiRegex = /(\([^)]+\) ?)*$/;
+const etiRegex = /(\([^)]+\) ?)*$/;
 
 
 recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset, results) {
@@ -258,8 +258,8 @@ function watchTrackForChanges(track) {
 
 recordingAssociation.findRecordingSuggestions = function (track) {
     const release = releaseEditor.rootField.release();
-        const releaseGroup = release ? release.releaseGroup() : null;
-        let rgRecordings;
+    const releaseGroup = release ? release.releaseGroup() : null;
+    let rgRecordings;
 
     if (releaseGroup && releaseGroup.gid) {
         // First look in releaseGroupRecordings.

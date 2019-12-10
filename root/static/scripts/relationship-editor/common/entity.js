@@ -87,7 +87,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             function openAddDialog(source, event) {
                 const relationships = this.values();
-                    const firstRelationship = relationships[0];
+                const firstRelationship = relationships[0];
 
                 var dialog = new RE.UI.AddDialog({
                     source: self,

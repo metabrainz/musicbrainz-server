@@ -373,7 +373,7 @@ const trackParser = releaseEditor.trackParser = {
 
         // Split the string into parts, if there are any.
         const parts = line.split(this.separators);
-            const names = _.reject(parts, x => this.separatorOrBlank(x));
+        const names = _.reject(parts, x => this.separatorOrBlank(x));
 
         /*
          * Only parse an artist if there's more than one name. Assume the

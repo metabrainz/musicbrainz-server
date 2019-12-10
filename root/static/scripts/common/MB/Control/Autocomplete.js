@@ -465,7 +465,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         });
 
         let allowCreation = window === window.top;
-            let entity = this.entity.replace("-", "_");
+        let entity = this.entity.replace("-", "_");
 
         if (allowCreation && addNewEntityLabels[entity]) {
             const label = addNewEntityLabels[entity]();

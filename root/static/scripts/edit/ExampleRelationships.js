@@ -49,8 +49,8 @@ ERE.init = function (config) {
         init: function (element, valueAccessor, all, vm, bindingContext) {
             ko.utils.registerEventHandler(element, "click", function () {
                 const checkedValue = valueAccessor();
-                    const meValue = bindingContext.$data;
-                    const checked = element.checked;
+                const meValue = bindingContext.$data;
+                const checked = element.checked;
                 if (checked && ko.isObservable(checkedValue)) {
                     checkedValue(meValue);
                 }
@@ -58,7 +58,7 @@ ERE.init = function (config) {
         },
         update: function (element, valueAccessor, all, vm, bindingContext) {
             const checkedValue = ko.utils.unwrapObservable(valueAccessor());
-                const meValue = bindingContext.$data;
+            const meValue = bindingContext.$data;
 
             element.checked = (checkedValue === meValue);
         }

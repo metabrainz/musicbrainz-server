@@ -25,16 +25,16 @@ test("loop binding keeps items in order when some are quickly removed and re-add
     t.plan(3);
 
     const parentNode = document.createElement("div");
-        const childNode = document.createElement("span");
+    const childNode = document.createElement("span");
 
     parentNode.setAttribute("data-bind", "loop: { items: items, id: 'id' }");
     childNode.setAttribute("data-bind", "text: id");
     parentNode.appendChild(childNode);
 
     const item1 = { id: 1 };
-        const item2 = { id: 2 };
-        const item3 = { id: 3 };
-        const vm = { items: ko.observableArray([item1, item2, item3]) };
+    const item2 = { id: 2 };
+    const item3 = { id: 3 };
+    const vm = { items: ko.observableArray([item1, item2, item3]) };
 
     ko.applyBindings(vm, parentNode);
 

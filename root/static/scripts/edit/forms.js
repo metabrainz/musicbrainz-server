@@ -113,8 +113,8 @@ ko.bindingHandlers.loop = {
         }
 
         const idAttribute = options.id;
-            const elements = options.elements || {};
-            const template = [];
+        const elements = options.elements || {};
+        const template = [];
 
         _.each(ko.virtualElements.childNodes(parentNode), function (node) {
             if (node.nodeType === ELEMENT_NODE ||
@@ -136,8 +136,8 @@ ko.bindingHandlers.loop = {
 
         function update(changes) {
             const activeElement = document.activeElement;
-                const items = observableArray.peek();
-                const removals = [];
+            const items = observableArray.peek();
+            const removals = [];
 
             for (var i = 0, change, j, node; (change = changes[i]); i++) {
                 var status = change.status;
@@ -147,9 +147,9 @@ ko.bindingHandlers.loop = {
                 }
 
                 const item = change.value;
-                    const itemID = item[idAttribute];
-                    let currentElements = elements[itemID];
-                    let tmpElementContainer;
+                const itemID = item[idAttribute];
+                let currentElements = elements[itemID];
+                let tmpElementContainer;
 
                 if (status === "added") {
                     if (change.moved === undefined) {

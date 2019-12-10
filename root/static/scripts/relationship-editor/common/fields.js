@@ -193,8 +193,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.entityTypes = linkType.type0 + '-' + linkType.type1;
 
             const typeAttributes = linkType.attributes;
-                const attributes = this.attributes();
-                let attribute;
+            const attributes = this.attributes();
+            let attribute;
 
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
@@ -414,7 +414,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             const parts = _.compact(numberAttribute.textValue().split(/(\d+)/));
-                const integerRegex = /^\d+$/;
+            const integerRegex = /^\d+$/;
 
             for (var i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {
@@ -590,8 +590,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     ko.bindingHandlers.textAttribute = {
         init: function (element, valueAccessor) {
             const options = valueAccessor();
-                const linkAttribute = options.relationship.getAttribute(options.typeGID);
-                const currentValue = linkAttribute.textValue.peek();
+            const linkAttribute = options.relationship.getAttribute(options.typeGID);
+            const currentValue = linkAttribute.textValue.peek();
 
             linkAttribute.textValue.subscribe(function (newValue) {
                 if (newValue && !currentValue) {

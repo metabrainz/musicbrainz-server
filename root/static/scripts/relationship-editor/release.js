@@ -324,7 +324,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         function medium(medium_selector, selector, counter) {
             $tracklist.on("change", medium_selector, function () {
                 const checked = this.checked;
-                    const $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
+                const $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
                         .find(selector).filter(checked ? ":not(:checked)" : ":checked")
                         .prop("checked", checked);
                 counter(counter() + count($changed) * (checked ? 1 : -1));

@@ -535,7 +535,7 @@ relationshipEditorTest("backwardness of submitted relationships is preserved (MB
             entityType: "recording",
             gid: fakeGID0
         };
-        const target = {
+    const target = {
             entityType: "recording",
             gid: fakeGID1
         };

@@ -33,9 +33,9 @@ MB.confirmNavigationFallback = function () {
     document.onkeydown = function (event) {
         if (event.keyCode == 8) {
             const node = event.srcElement || event.target;
-                const tag = node.tagName.toLowerCase();
-                const type = (node.type || "").toLowerCase();
-                const prevent = !((tag == "input" && (type == "text" || type == "password")) || tag == "textarea");
+            const tag = node.tagName.toLowerCase();
+            const type = (node.type || "").toLowerCase();
+            const prevent = !((tag == "input" && (type == "text" || type == "password")) || tag == "textarea");
 
             if (prevent && !confirm(l("All of your changes will be lost if you leave this page."))) {
                 prevented = true;
