@@ -554,6 +554,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         if (arguments.length) {
             recentEntities[entityType] = _.take(arguments[0], MAX_RECENT_ENTITIES);
             localStorage("recentAutocompleteEntities", JSON.stringify(recentEntities));
+            return undefined;
         } else {
             return recentEntities[entityType] || [];
         }
@@ -589,8 +590,10 @@ $.widget("ui.menu", $.ui.menu, {
             event.stopPropagation();
             event.preventDefault();
 
-            return true;
+            return false;
         }
+
+        return true;
     },
 
     _create: function () {
@@ -599,7 +602,7 @@ $.widget("ui.menu", $.ui.menu, {
     },
 
     select: function (event) {
-        if (!this._selectAction(event)) {
+        if (this._selectAction(event)) {
             this._super(event);
         }
         /*
@@ -1053,6 +1056,8 @@ MB.Control.EntityAutocomplete = function (options) {
                 options.entity = entity;
                 return true;
             }
+
+            return false;
         });
     }
 

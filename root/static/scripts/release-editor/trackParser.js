@@ -92,11 +92,11 @@ const trackParser = releaseEditor.trackParser = {
 
             /*
              * We should've parsed at least some values, otherwise something
-             * went wrong. Returning undefined removes this result from
-             * newTracks.
+             * went wrong. Returning undefined or null removes this result from
+             * newTracks because $.map discards it.
              */
             if (!_.some(_.values(data))) {
-                return;
+                return null;
             }
 
             currentPosition += 1;
@@ -452,8 +452,12 @@ const trackParser = releaseEditor.trackParser = {
     },
 
     matchDataWithTrack: function (data, track) {
+        /*
+         * The result of this function will be fed into _.compact so that
+         * null and undefined return values will be stripped.
+         */
         if (!track) {
-            return;
+            return null;
         }
 
         var similarity = getSimilarity(data.name, track.name.peek());
@@ -461,6 +465,8 @@ const trackParser = releaseEditor.trackParser = {
         if (similarity >= MIN_NAME_SIMILARITY) {
             return { similarity: similarity, track: track, data: data };
         }
+
+        return null;
     }
 };
 

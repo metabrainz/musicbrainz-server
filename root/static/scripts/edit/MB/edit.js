@@ -201,6 +201,7 @@ import request from '../../common/utility/request';
                 if (_(event.date).values().some(nonEmpty) || event.country_id !== null) {
                     return event;
                 }
+
             })
             .compact()
             .value();

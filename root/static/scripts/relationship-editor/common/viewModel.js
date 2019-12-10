@@ -227,6 +227,8 @@ MB.getRelationship = function (data, source) {
         var relationship = new viewModel.relationshipClass(data, source, viewModel);
         return data.id ? (viewModel.cache[cacheKey] = relationship) : relationship;
     }
+
+    return null;
 };
 
 function getRelationshipEditor(data, source) {
@@ -239,7 +241,7 @@ function getRelationshipEditor(data, source) {
 
     if ((target && target.entityType === 'url') ||
         (linkType && (linkType.type0 === 'url' || linkType.type1 === 'url'))) {
-        return; // handled by the external links editor
+        return null; // handled by the external links editor
     }
 
     if (MB.releaseRelationshipEditor) {
@@ -249,6 +251,8 @@ function getRelationshipEditor(data, source) {
     if (source === MB.sourceRelationshipEditor.source) {
         return MB.sourceRelationshipEditor;
     }
+
+    return null;
 }
 
 function addSubmittedRelationship(data, source) {
