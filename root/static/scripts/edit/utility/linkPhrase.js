@@ -27,8 +27,8 @@ const entity0Subst = /\{entity0\}/;
 const entity1Subst = /\{entity1\}/;
 
 export type CachedLinkPhraseData<T> = {
-  attributeValues: ?{+[string]: Array<T> | T, ...},
-  phraseAndExtraAttributes: {[string]: [T, T], ...},
+  attributeValues: ?{+[attributeName: string]: Array<T> | T, ...},
+  phraseAndExtraAttributes: {[key: string]: [T, T], ...},
 };
 
 export type RelationshipInfoT = {
@@ -164,7 +164,7 @@ function _setAttributeValues<T>(
 
 const requiredAttributesCache: {
   __proto__: null,
-  [number]: {+[string]: string},
+  [linkTypeId: number]: {+[attributeName: string]: string},
   ...
 } = Object.create(null);
 

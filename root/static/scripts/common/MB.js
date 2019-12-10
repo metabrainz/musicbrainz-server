@@ -14,7 +14,7 @@ import global from '../global';
 import * as constants from './constants';
 
 // Namespaces
-const MB: {[string]: {...}, ...} = {
+const MB: {[namespace: string]: {...}, ...} = {
     // Classes, common controls used throughout MusicBrainz
     Control: {},
 

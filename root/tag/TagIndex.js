@@ -21,7 +21,7 @@ import TagLayout from './TagLayout';
 type Props = {
   +tag: TagT,
   +taggedEntities: {
-    +[string]: {
+    +[entityType: string]: {
       +count: number,
       +tags: $ReadOnlyArray<{
         +count: number,

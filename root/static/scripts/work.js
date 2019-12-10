@@ -100,7 +100,7 @@ function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
 class WorkAttribute {
   allowedValues: () => OptionListT;
 
-  allowedValuesByTypeID: {[number]: OptionListT, ...};
+  allowedValuesByTypeID: {[typeId: number]: OptionListT, ...};
 
   attributeValue: KnockoutObservable<string>;
 
@@ -163,9 +163,9 @@ class WorkAttribute {
 class ViewModel {
   attributeTypes: OptionListT;
 
-  attributeTypesByID: {[number]: WorkAttributeTypeTreeT, ...};
+  attributeTypesByID: {[id: number]: WorkAttributeTypeTreeT, ...};
 
-  allowedValuesByTypeID: {[number]: OptionListT, ...};
+  allowedValuesByTypeID: {[typeId: number]: OptionListT, ...};
 
   attributes: KnockoutObservableArray<WorkAttribute>;
 
