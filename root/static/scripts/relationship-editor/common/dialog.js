@@ -566,9 +566,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return this.linkTypeError() ||
                    this.targetEntityError() ||
                    _(relationship.getLinkType().attributes)
-                        .values()
-                        .map(_.bind(relationship.attributeError, relationship))
-                        .some() ||
+                       .values()
+                       .map(_.bind(relationship.attributeError, relationship))
+                       .some() ||
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
                    this.tooShortBeginYearError() ||

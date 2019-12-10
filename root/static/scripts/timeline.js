@@ -483,10 +483,10 @@ class TimelineLine {
             .appendTo("body")
             .fadeIn(200);
     }
+    
     var removeTooltip = function () { 
         $('#tooltip').remove(); 
     };
-
 
     var setCursor = function (type) {
         if (!type) {
