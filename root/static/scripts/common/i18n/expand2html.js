@@ -13,7 +13,7 @@ import expand2react from './expand2react';
 
 export default function expand2html(
   source: string,
-  args?: ?{+[string]: Expand2ReactInput},
+  args?: ?{+[arg: string]: Expand2ReactInput},
 ) {
   return ReactDOMServer.renderToStaticMarkup(
     expand2react(source, args),
