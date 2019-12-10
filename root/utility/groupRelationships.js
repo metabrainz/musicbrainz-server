@@ -13,7 +13,7 @@ import {interpolate, interpolateText}
   from '../static/scripts/edit/utility/linkPhrase';
 
 export type GroupedRelationshipsT = {
-  [entityType: CoreEntityTypeT]: {
+  [coreEntityType: CoreEntityTypeT]: {
     [textPhrase: string]: {
       linkType: LinkTypeT,
       phrase: Expand2ReactOutput,

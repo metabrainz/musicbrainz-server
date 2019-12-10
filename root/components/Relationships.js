@@ -19,7 +19,7 @@ import RelatedWorks from './RelatedWorks';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
 
 type DisplayTargets = {
-  +[coreEntity: CoreEntityTypeT]: ?$ReadOnlyArray<CoreEntityTypeT>,
+  +[coreEntityType: CoreEntityTypeT]: ?$ReadOnlyArray<CoreEntityTypeT>,
   ...
 };
 

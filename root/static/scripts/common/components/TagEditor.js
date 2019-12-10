@@ -203,7 +203,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   debouncePendingVotes: () => void;
 
-  genreMap: {+[genre: string]: GenreT, ...};
+  genreMap: {+[genreName: string]: GenreT, ...};
 
   genreNames: $ReadOnlyArray<string>;
 

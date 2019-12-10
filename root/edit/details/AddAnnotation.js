@@ -21,7 +21,7 @@ type AddAnnotationEditT = {
   +display_data: {
     +changelog: string,
     +entity_type: AnnotatedEntityTypeT,
-    [annotated_entity: AnnotatedEntityTypeT]: AnnotatedEntityT,
+    [annotatedEntity: AnnotatedEntityTypeT]: AnnotatedEntityT,
     +html: string,
     +text: string,
   },

@@ -214,12 +214,12 @@ type CatalystStashT = {
   +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
   +containment?: {
-    [collection_id: number]: ?1,
+    [collectionId: number]: ?1,
   },
   +current_language: string,
   +current_language_html: string,
   +entity?: CoreEntityT,
-  +genre_map?: {+[genre: string]: GenreT, ...},
+  +genre_map?: {+[genreName: string]: GenreT, ...},
   +hide_merge_helper?: boolean,
   +jsonld_data?: {...},
   +makes_no_changes?: boolean,
@@ -672,7 +672,7 @@ declare type LinkTypeAttrTypeT = {
 
 declare type LinkTypeT = {
   ...OptionTreeT<'link_type'>,
-  +attributes: {+[type_id: number]: LinkTypeAttrTypeT},
+  +attributes: {+[typeId: number]: LinkTypeAttrTypeT},
   +cardinality0: number,
   +cardinality1: number,
   +children?: $ReadOnlyArray<LinkTypeT>,
@@ -919,7 +919,7 @@ declare type SanitizedCatalystContextT = {
   },
   +stash: {
     +current_language: string,
-    +genre_map?: {+[genre: string]: GenreT, ...},
+    +genre_map?: {+[genreName: string]: GenreT, ...},
   },
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
@@ -986,7 +986,7 @@ declare type SeriesT = $ReadOnly<{
 }>;
 
 declare type SeriesItemNumbersRoleT = {
-  +seriesItemNumbers?: {+[id: number]: string},
+  +seriesItemNumbers?: {+[entityId: number]: string},
 };
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;

@@ -25,7 +25,7 @@ type EditsStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
   +stats: {[statName: string]: number},
-  +statsByCategory: {[categoryKey: string]: $ReadOnlyArray<EditCategoryT>},
+  +statsByCategory: {[editCategory: string]: $ReadOnlyArray<EditCategoryT>},
 };
 
 const Edits = ({$c, dateCollected, stats, statsByCategory}: EditsStatsT) => (

@@ -16,7 +16,7 @@ import expand2react from '../static/scripts/common/i18n/expand2react';
 type PropsT = {
   +instrument_types: $ReadOnlyArray<InstrumentTypeT>,
   +instruments_by_type: {
-    +[type_id: number]: $ReadOnlyArray<InstrumentT>,
+    +[typeId: number]: $ReadOnlyArray<InstrumentT>,
     +unknown: $ReadOnlyArray<InstrumentT>,
   },
 };

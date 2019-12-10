@@ -22,7 +22,7 @@ export type RelationshipsStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
   +stats: {[statName: string]: number},
-  +types: {[typeKey: string]: RelationshipTypeT},
+  +types: {[relationshipTypeId: string]: RelationshipTypeT},
 };
 
 declare type RelationshipTypeT = {

@@ -24,7 +24,7 @@ import yesNo from '../../static/scripts/common/utility/yesNo';
 type AddRemoveAliasEditT = $ReadOnly<{
   ...EditT,
   +display_data: {
-    +[core_entity: CoreEntityTypeT]: CoreEntityT,
+    +[coreEntityType: CoreEntityTypeT]: CoreEntityT,
     +alias: string,
     +begin_date: PartialDateT,
     +end_date: PartialDateT,
