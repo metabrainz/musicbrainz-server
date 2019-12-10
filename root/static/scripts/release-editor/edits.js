@@ -425,7 +425,8 @@ releaseEditor.getEditPreviews = function () {
 
     function getPreview(edit) { return previews[edit.hash] }
     function addPreview(tuple) {
-        var editHash = tuple[0].hash; var preview = tuple[1];
+        const editHash = tuple[0].hash;
+        const preview = tuple[1];
         if (preview) {
             preview.editHash = editHash;
             previews[editHash] = preview;
