@@ -29,6 +29,8 @@ function getDirection(relationship, source) {
   if (source === entities[1]) {
     return 'backward';
   }
+
+  throw 'source not in the entities array';
 }
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};

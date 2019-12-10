@@ -41,11 +41,15 @@ MB.confirmNavigationFallback = function () {
                 return false;
             }
         }
+
+        return undefined;
     };
 
     document.onkeypress = function () {
         if (prevented) {
             return (prevented = false);
         }
+
+        return undefined;
     };
 };
