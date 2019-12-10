@@ -485,7 +485,7 @@ class TimelineLine {
     }
     var removeTooltip = function () { 
         $('#tooltip').remove(); 
-    }
+    };
 
 
     var setCursor = function (type) {
@@ -545,50 +545,52 @@ class TimelineLine {
                 $(element).data('plot').changeCurrentEvent({});
                 setCursor();
             };
-            $(element).bind('plothover', function (event, pos, item) {
-                if (item) {
-                    if (previousPoint != item.dataIndex) {
+            $(element)
+                .bind('plothover', function (event, pos, item) {
+                    if (item) {
+                        if (previousPoint != item.dataIndex) {
+                            reset();
+                            previousPoint = item.dataIndex;
+                            setItemTooltip(item,
+                                graph === 'rate' ? stats.rateTooltipCloser : undefined,
+                                graph === 'rate' ? 2 : undefined);
+                        }
+                    } else if ($(element).data('plot').getEvent(pos)) {
+                        var thisEvent = $(element).data('plot').getEvent(pos);
+                        if (!currentEvent || thisEvent.jsDate !== currentEvent.jsDate) {
+                            reset();
+                            currentEvent = thisEvent;
+                            $(element).data('plot').changeCurrentEvent(currentEvent);
+                            setEventTooltip(thisEvent, pos);
+                        }
+                    } else {
                         reset();
-                        previousPoint = item.dataIndex;
-                        setItemTooltip(item,
-                            graph === 'rate' ? stats.rateTooltipCloser : undefined,
-                            graph === 'rate' ? 2 : undefined);
                     }
-                } else if ($(element).data('plot').getEvent(pos)) {
-                    var thisEvent = $(element).data('plot').getEvent(pos);
-                    if (!currentEvent || thisEvent.jsDate !== currentEvent.jsDate) {
-                        reset();
-                        currentEvent = thisEvent;
-                        $(element).data('plot').changeCurrentEvent(currentEvent);
-                        setEventTooltip(thisEvent, pos);
+                })
+                .bind('plotselected', function (event, ranges) {
+                    // Prevent eternal zoom
+                    if (ranges.xaxis.to - ranges.xaxis.from < 86400000) {
+                        ranges.xaxis.to = ranges.xaxis.from + 86400000;
                     }
-                } else {
-                    reset();
-                }
-            }).bind('plotselected', function (event, ranges) {
-                // Prevent eternal zoom
-                if (ranges.xaxis.to - ranges.xaxis.from < 86400000) {
-                    ranges.xaxis.to = ranges.xaxis.from + 86400000;
-                }
-                if (ranges.yaxis.to - ranges.yaxis.from < 1) {
-                    ranges.yaxis.to = ranges.yaxis.from + 1;
-                 }
+                    if (ranges.yaxis.to - ranges.yaxis.from < 1) {
+                        ranges.yaxis.to = ranges.yaxis.from + 1;
+                    }
 
-                var zoomArr = [ranges.xaxis.from, ranges.xaxis.to];
-                if (graph === 'main' || graph === 'overview') {
-                    zoomArr.push(ranges.yaxis.from);
-                    zoomArr.push(ranges.yaxis.to);
-                }
+                    var zoomArr = [ranges.xaxis.from, ranges.xaxis.to];
+                    if (graph === 'main' || graph === 'overview') {
+                        zoomArr.push(ranges.yaxis.from);
+                        zoomArr.push(ranges.yaxis.to);
+                    }
 
-                bindingContext.$data.zoomArray(zoomArr);
-            })
-            .bind('plotunselected', function () {
-                if (currentEvent && currentEvent.link) {
-                    window.open(currentEvent.link);
-                } else {
-                    bindingContext.$data.zoomArray([null, null, null, null]);
-                }
-            });
+                    bindingContext.$data.zoomArray(zoomArr);
+                })
+                .bind('plotunselected', function () {
+                    if (currentEvent && currentEvent.link) {
+                        window.open(currentEvent.link);
+                    } else {
+                        bindingContext.$data.zoomArray([null, null, null, null]);
+                    }
+                });
 
             // Resize the graph when the window size changes
             $(window).on("resize", _.debounce(function () {

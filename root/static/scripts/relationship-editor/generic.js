@@ -103,15 +103,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 relationships,
                 function (r) { 
                     return _(r.target(series).events)
-                    .map(getDate)
-                    .sort()
-                    .head() 
+                        .map(getDate)
+                        .sort()
+                        .head(); 
                 },
                 function (r) { 
                     return _(r.target(series).labels)
-                    .map(getCatalogNumber)
-                    .sort()
-                    .head() 
+                        .map(getCatalogNumber)
+                        .sort()
+                        .head(); 
                 }
             );
         },

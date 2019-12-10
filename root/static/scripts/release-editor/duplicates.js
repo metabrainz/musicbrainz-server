@@ -174,12 +174,12 @@ function combinedMediumFormatName(mediums) {
     var formatCounts = formats.countBy(_.identity);
 
     return formats
-    .uniq()
-    .map(function (format) {
-        var count = formatCounts[format];
+        .uniq()
+        .map(function (format) {
+            var count = formatCounts[format];
 
-        return (count > 1 ? count + "\u00D7" : "") + format;
-    })
-    .value()
-    .join(" + ");
+            return (count > 1 ? count + "\u00D7" : "") + format;
+        })
+        .value()
+        .join(" + ");
 }

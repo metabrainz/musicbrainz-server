@@ -10,11 +10,11 @@ $(function () {
             .parent()
             .next(".reldetails")
             .toggle();
-
-        if ($(this)
+        const isHidden = $(this)
             .parent()
             .next(".reldetails")
-            .is(':hidden')) {
+            .is(':hidden')
+        if (isHidden) {
             $(this).text("more");
         } else {
             $(this).text("less");
