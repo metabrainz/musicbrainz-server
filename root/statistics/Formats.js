@@ -22,7 +22,7 @@ type FormatsStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
   +formatStats: $ReadOnlyArray<FormatStatT>,
-  +stats: {[string]: number},
+  +stats: {[statName: string]: number},
 };
 
 type FormatStatT = {

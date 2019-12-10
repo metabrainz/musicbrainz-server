@@ -23,7 +23,7 @@ type CoverArtStatsT = {
   +releaseFormatStats: $ReadOnlyArray<CoverArtReleaseFormatStatT>,
   +releaseStatusStats: $ReadOnlyArray<CoverArtReleaseStatusStatT>,
   +releaseTypeStats: $ReadOnlyArray<CoverArtReleaseTypeStatT>,
-  +stats: {[string]: number},
+  +stats: {[stat_name: string]: number},
   +typeStats: $ReadOnlyArray<CoverArtTypeStatT>,
 };
 

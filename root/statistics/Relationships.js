@@ -21,13 +21,13 @@ import StatisticsLayout from './StatisticsLayout';
 export type RelationshipsStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
-  +stats: {[string]: number},
-  +types: {[string]: RelationshipTypeT},
+  +stats: {[statName: string]: number},
+  +types: {[typeKey: string]: RelationshipTypeT},
 };
 
 declare type RelationshipTypeT = {
   +entity_types: $ReadOnlyArray<string>,
-  +tree: {[string]: Array<LinkTypeT>},
+  +tree: {[child: string]: Array<LinkTypeT>},
 };
 
 function comparePhrases(a, b) {
