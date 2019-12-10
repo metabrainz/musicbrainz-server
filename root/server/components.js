@@ -80,6 +80,7 @@ module.exports = {
   'label/LabelRelationships': require('../label/LabelRelationships'),
   'main/404': require('../main/404'),
   'main/index': require('../main/index'),
+  'mbid/NotFound': require('../mbid/NotFound'),
   'oauth2/OAuth2Authorize': require('../oauth2/OAuth2Authorize'),
   'oauth2/OAuth2Error': require('../oauth2/OAuth2Error'),
   'oauth2/OAuth2Oob': require('../oauth2/OAuth2Oob'),
