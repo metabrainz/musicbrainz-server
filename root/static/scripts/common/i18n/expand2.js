@@ -31,7 +31,7 @@ export function gotMatch(x: mixed): boolean %checks {
   );
 }
 
-export type VarArgsObject<+T> = {__proto__: any, +[string]: T, ...};
+export type VarArgsObject<+T> = {+[string]: T, ...};
 
 export class VarArgs<+T> {
   +data: VarArgsObject<T>;
@@ -52,8 +52,6 @@ export class VarArgs<+T> {
 export type Parser<+T, -V> = (VarArgs<V>) => T;
 
 const EMPTY_OBJECT = Object.freeze({});
-
-const DEFAULT_ARGS = new VarArgs<any>(EMPTY_OBJECT);
 
 type State = {
   /*
@@ -291,15 +289,7 @@ export default function expand<+T, V>(
   state.source = source;
 
   if (!(args instanceof VarArgs)) {
-    /*
-     * Note: The `data` property is covariant on the VarArgs class,
-     * but assigning to it here is safe only because it remains
-     * constant throughout the `expand` call, so this is equivalent
-     * to creating a new object. It must not be assigned to anywhere
-     * else.
-     */
-    (DEFAULT_ARGS: any).data = args || EMPTY_OBJECT;
-    args = (DEFAULT_ARGS: VarArgs<V>);
+    args = new VarArgs<V>(args ?? EMPTY_OBJECT);
   }
 
   let result;
@@ -323,8 +313,6 @@ export default function expand<+T, V>(
       Object.assign(state, savedState);
     } else {
       state.running = false;
-      // Remove reference to the args object, so it can be GC'd.
-      (DEFAULT_ARGS: any).data = EMPTY_OBJECT;
     }
   }
 

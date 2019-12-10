@@ -260,7 +260,11 @@ rules:
   react/require-optimization: off
   react/require-render-return: error
   react/self-closing-comp: error
-  react/sort-comp: warn
+  react/sort-comp: [warn, {order: [type-annotations,
+                                   static-methods,
+                                   lifecycle,
+                                   everything-else,
+                                   render]}]
   react/sort-prop-types: off
   react/style-prop-object: error
   react/void-dom-elements-no-children: error

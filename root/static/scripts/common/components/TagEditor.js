@@ -79,24 +79,25 @@ class VoteButton extends React.Component<VoteButtonProps> {
       vote,
     } = this.props;
     const isActive = vote === currentVote;
+    const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
+    const buttonTitle = isActive
+      ? unwrapNl(activeTitle)
+      : (currentVote === 0 ? unwrapNl(title) : l('Withdraw vote'));
 
-    const buttonProps = {
-      className: 'tag-vote tag-' + VOTE_ACTIONS[vote],
-      disabled: isActive,
-      title: isActive
-        ? unwrapNl(activeTitle)
-        : (currentVote === 0 ? unwrapNl(title) : l('Withdraw vote')),
-      type: 'button',
-    };
-
-    if (!isActive) {
-      (buttonProps: any).onClick = _.partial(
-        callback,
-        currentVote === 0 ? vote : 0,
-      );
-    }
-
-    return <button {...buttonProps}>{text}</button>;
+    return (
+      <button
+        className={className}
+        disabled={isActive}
+        onClick={isActive ? null : _.partial(
+          callback,
+          currentVote === 0 ? vote : 0,
+        )}
+        title={buttonTitle}
+        type="button"
+      >
+        {text}
+      </button>
+    );
   }
 }
 
@@ -176,7 +177,7 @@ class TagRow extends React.Component<TagRowProps> {
 type TagEditorProps = {
   +$c: CatalystContextT,
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
-  +entity: MinimalCoreEntityT,
+  +entity: CoreEntityT | MinimalCoreEntityT,
   +more: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
 };

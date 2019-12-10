@@ -545,6 +545,17 @@ declare type GenreT = {
   ...CoreEntityRoleT<'genre'>,
 };
 
+declare type GettextDomain =
+  | 'attributes'
+  | 'countries'
+  | 'instrument_descriptions'
+  | 'instruments'
+  | 'languages'
+  | 'mb_server'
+  | 'relationships'
+  | 'scripts'
+  | 'statistics';
+
 /*
  * See MusicBrainz::Server::Form::Utils::build_grouped_options
  * FIXME(michael): Figure out a way to consolidate GroupedOptionsT,
@@ -728,9 +739,8 @@ declare type MergeQueueT = {
 };
 
 declare type MinimalCoreEntityT = {
-  +entityType: string,
+  +entityType: CoreEntityTypeT,
   +gid: string,
-  ...
 };
 
 // See MB.forms.buildOptionsTree
