@@ -280,10 +280,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         _sortedRelationships(relationships, source) {
 
-            return relationships.filter(function (relationship) {
-                return relationship.entityTypes !== "recording-work";
+            return relationships
+                .filter(function (relationship) {
+                    return relationship.entityTypes !== "recording-work";
 
-            })
+                })
                 .sortBy(function (relationship) {
                     return relationship.lowerCaseTargetName(source);
 
@@ -330,7 +331,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         .parents("tr.subh")
                         .nextUntil("tr.subh")
                         .find(selector)
-                            .filter(checked ? ":not(:checked)" : ":checked")
+                        .filter(checked ? ":not(:checked)" : ":checked")
                         .prop("checked", checked);
                 counter(counter() + count($changed) * (checked ? 1 : -1));
             });

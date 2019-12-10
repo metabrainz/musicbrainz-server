@@ -101,12 +101,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         release: function (relationships, series) {
             return _.sortBy(
                 relationships,
-                function (r) { return _(r.target(series).events)
+                function (r) { 
+                    return _(r.target(series).events)
                     .map(getDate)
                     .sort()
                     .head() 
                 },
-                function (r) { return _(r.target(series).labels)
+                function (r) { 
+                    return _(r.target(series).labels)
                     .map(getCatalogNumber)
                     .sort()
                     .head() 

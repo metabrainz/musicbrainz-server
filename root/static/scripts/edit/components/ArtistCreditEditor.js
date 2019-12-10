@@ -103,8 +103,7 @@ class ArtistCreditEditor extends React.Component {
 
     const ac = this.state.artistCredit;
     const newState = mutate(this.state, newState => {
-      newState.artistCredit.names
-        .splice(i, 1);
+      newState.artistCredit.names.splice(i, 1);
     });
     setAutoJoinPhrases(newState.artistCredit);
 

@@ -202,8 +202,8 @@ import request from '../../common/utility/request';
                     return event;
                 }
             })
-                .compact()
-                .value();
+            .compact()
+            .value();
 
             return {
                 name:               string(release.name),

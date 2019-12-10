@@ -122,7 +122,7 @@ function cleanRecordingData(data) {
             };
         })
         .uniqBy('releaseGroupGID')
-            .value();
+        .value();
 
     clean.appearsOn = {
         hits: appearsOn.length,
