@@ -137,7 +137,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     }
 
                     if (ko.unwrap(group.canBeOrdered)) {
-                        var hasOrdering = group.values.any(function (r) { return r.linkOrder() > 0 });
+                        var hasOrdering = group.values.any(function (r) {
+                             return r.linkOrder() > 0; 
+                        });
 
                         group.hasOrdering = ko.computed({
                             read: hasOrdering,

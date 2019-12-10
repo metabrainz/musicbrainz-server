@@ -469,20 +469,23 @@ class TimelineLine {
 (function () {
     // Closure over utility functions.
     var showTooltip = function (x, y, contents) {
-        $('<div id="tooltip">' + contents + '</div>').css({
-            position: 'absolute',
-            display: 'none',
-            top: y + 5,
-            left: x + 5,
-            border: '1px solid #fdd',
-            padding: '2px',
-            'background-color': '#fee',
-            opacity: 0.80
-
-        }).appendTo("body")
-        .fadeIn(200);
+        $('<div id="tooltip">' + contents + '</div>')
+            .css({
+                position: 'absolute',
+                display: 'none',
+                top: y + 5,
+                left: x + 5,
+                border: '1px solid #fdd',
+                padding: '2px',
+                'background-color': '#fee',
+                opacity: 0.80
+            })
+            .appendTo("body")
+            .fadeIn(200);
     }
-    var removeTooltip = function () { $('#tooltip').remove(); }
+    var removeTooltip = function () { 
+        $('#tooltip').remove(); 
+    }
 
 
     var setCursor = function (type) {

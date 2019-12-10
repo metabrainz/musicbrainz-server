@@ -35,7 +35,7 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
 
     $name.parent()
         .find("button.guesscase-title").on("click", function () { 
-            setVal($name, guess.guess($name.val())) 
+            setVal($name, guess.guess($name.val()));
         })
         .end()
         .find("button.guesscase-options")
@@ -58,9 +58,9 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
         })
         .end()
         .find("button.sortname-copy")
-            .on("click", function () {
-                setVal($sortname, $name.val());
-            });
+        .on("click", function () {
+            setVal($sortname, $name.val());
+        });
 };
 
 var guessCaseOptions = {

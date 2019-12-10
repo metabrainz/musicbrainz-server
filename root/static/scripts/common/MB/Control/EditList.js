@@ -22,8 +22,10 @@ MB.Control.EditList = function (container) {
     var $container = $(container);
 
     self.initialize = function () {
-        var $voteOptions = $container.find('input[type="radio"]')
-            .first().parents('.voteopts')
+        var $voteOptions = $container
+            .find('input[type="radio"]')
+            .first()
+            .parents('.voteopts')
             .clone()
             .addClass('overall-vote');
 
@@ -69,9 +71,13 @@ MB.Control.EditList = function (container) {
 $(function () {
     $('div.vote input[type="radio"]').change(function () {
 
-        $(this).parents('.voteopts').find('.vote')
+        $(this)
+            .parents('.voteopts')
+            .find('.vote')
             .attr('class', 'vote');
-        $(this).parent('label').parent('.vote')
+        $(this)
+            .parent('label')
+            .parent('.vote')
             .addClass(SELECTED_CLASS[ $(this).val() ]);
     })
 
