@@ -87,49 +87,52 @@ const CollectionsEntityTypeSection = ({
   type,
   user,
 }) => {
-  const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
-  const nameColumn =
-    defineNameColumn<CollectionT>(l('Collection'));
-  const typeColumn = defineTypeColumn('collection_type');
-  const sizeColumn:
-    ColumnOptions<CollectionT, number> = {
-      Header: formatPluralEntityTypeName(type),
-      accessor: 'entity_count',
-      id: 'size',
-    };
-  const collaboratorsColumn:
-    ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
-      Cell: ({cell: {value}}) => formatCollaboratorNumber(value, $c.user),
-      Header: l('Collaborators'),
-      accessor: 'collaborators',
-      id: 'collaborators',
-    };
-  const privacyColumn:
-    ColumnOptions<CollectionT, boolean> = {
-      Cell: ({row: {original}}) => formatPrivacy(
-        original,
-        $c.user,
-        isCollaborative,
-      ),
-      Header: l('Privacy'),
-      accessor: 'public',
-      id: 'privacy',
-    };
-  const actionsColumn = defineActionsColumn([
-    [l('Edit'), '/edit'],
-    [l('Remove'), '/delete'],
-  ]);
   const columns = React.useMemo(
-    () => [
-      nameColumn,
-      typeColumn,
-      sizeColumn,
-      collaboratorsColumn,
-      ...($c.user_exists ? [subscriptionColumn] : []),
-      ...(viewingOwnProfile || isCollaborative ? [privacyColumn] : []),
-      ...(viewingOwnProfile && !isCollaborative ? [actionsColumn] : []),
-    ],
-    [],
+    () => {
+      const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
+      const nameColumn =
+        defineNameColumn<CollectionT>(l('Collection'));
+      const typeColumn = defineTypeColumn('collection_type');
+      const sizeColumn:
+        ColumnOptions<CollectionT, number> = {
+          Header: formatPluralEntityTypeName(type),
+          accessor: 'entity_count',
+          id: 'size',
+        };
+      const collaboratorsColumn:
+        ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
+          Cell: ({cell: {value}}) => formatCollaboratorNumber(value, $c.user),
+          Header: l('Collaborators'),
+          accessor: 'collaborators',
+          id: 'collaborators',
+        };
+      const privacyColumn:
+        ColumnOptions<CollectionT, boolean> = {
+          Cell: ({row: {original}}) => formatPrivacy(
+            original,
+            $c.user,
+            isCollaborative,
+          ),
+          Header: l('Privacy'),
+          accessor: 'public',
+          id: 'privacy',
+        };
+      const actionsColumn = defineActionsColumn([
+        [l('Edit'), '/edit'],
+        [l('Remove'), '/delete'],
+      ]);
+
+      return [
+        nameColumn,
+        typeColumn,
+        sizeColumn,
+        collaboratorsColumn,
+        ...($c.user_exists ? [subscriptionColumn] : []),
+        ...(viewingOwnProfile || isCollaborative ? [privacyColumn] : []),
+        ...(viewingOwnProfile && !isCollaborative ? [actionsColumn] : []),
+      ];
+    },
+    [$c.user, $c.user_exists, isCollaborative, type, user.id],
   );
 
   return (
