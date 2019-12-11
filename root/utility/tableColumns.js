@@ -10,27 +10,75 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
+import SortableTableHeader from '../components/SortableTableHeader';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import yesNo from '../static/scripts/common/utility/yesNo';
 
-export function defineNameColumn(
-  title: string,
-): ColumnOptions<CoreEntityT | CollectionT, string> {
+export function defineCheckboxColumn<T>(
+  name: string,
+): ColumnOptions<EntityRoleT<T>, number> {
   return {
-    Cell: ({row: {original}}) => (
-      <EntityLink entity={original} />
+    Cell: ({cell: {value}}) => (
+      <input
+        name={name}
+        type="checkbox"
+        value={value}
+      />
     ),
-    Header: title,
-    accessor: 'name',
+    Header: <input type="checkbox" />,
+    accessor: 'id',
+    className: 'checkbox-cell',
+    id: 'checkbox',
   };
 }
 
-export const typeColumn: ColumnOptions<CollectionT, string> = {
-  Cell: ({cell: {value}}) => l(value),
-  Header: N_l('Type'),
-  accessor: 'typeName',
-  id: 'type',
-};
+export function defineNameColumn<T: CoreEntityT | CollectionT>(
+  title: string,
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<T, string> {
+  return {
+    Cell: ({row: {original}}) => (
+      <DescriptiveLink entity={original} />
+    ),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={title}
+          name="name"
+          order={order}
+        />
+      )
+      : title),
+    accessor: 'name',
+    id: 'name',
+  };
+}
+
+export function defineTypeColumn(
+  typeContext: string,
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<{+typeName: string, ...}, string> {
+  return {
+    Cell: ({cell: {value}}) => (value
+      ? lp_attributes(value, typeContext)
+      : null),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={l('Type')}
+          name="type"
+          order={order}
+        />
+      )
+      : l('Type')),
+    accessor: 'typeName',
+    id: 'type',
+  };
+}
 
 export const subscriptionColumn:
   ColumnOptions<{+subscribed: boolean, ...}, boolean> = {
