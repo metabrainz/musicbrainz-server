@@ -127,7 +127,7 @@ sub tracklist_results {
                 gid => $release->gid,
                 name => $release->name,
                 position => $medium->position,
-                format => $medium->format_name,
+                format => $medium->format ? $medium->format->TO_JSON : undef,
                 medium => $medium->name,
                 comment => $release->comment,
                 artist => $release->artist_credit->name,
