@@ -212,6 +212,7 @@ class SearchTab {
     keydownEvent(data, event) {
         if (event.keyCode === 13) { // Enter
             this.search(data, event);
+            return false;
         }
         else {
             /*

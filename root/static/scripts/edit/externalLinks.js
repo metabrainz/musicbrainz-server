@@ -52,9 +52,12 @@ type LinksEditorState = {
 
 export class ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
+  tableRef: {current: HTMLTableElement | null};
+
   constructor(props: LinksEditorProps) {
     super(props);
     this.state = {links: withOneEmptyLink(props.initialLinks)};
+    this.tableRef = React.createRef();
   }
 
   setLinkState(
@@ -113,7 +116,7 @@ export class ExternalLinksEditor
       newLinks.splice(index, 1);
       return {links: newLinks};
     }, () => {
-      $(ReactDOM.findDOMNode(this))
+      $(this.tableRef.current)
         .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
               'tr:lt(' + (index + 1) + ') button.remove:last')
         .eq(0)
@@ -195,7 +198,11 @@ export class ExternalLinksEditor
       .value();
 
     return (
-      <table className="row-form" id="external-links-editor">
+      <table
+        className="row-form"
+        id="external-links-editor"
+        ref={this.tableRef}
+      >
         <tbody>
           {linksArray.map((link, index) => {
             let error;

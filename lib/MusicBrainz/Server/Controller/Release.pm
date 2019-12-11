@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Release;
 use Moose;
 use MusicBrainz::Server::Track;
+use aliased 'MusicBrainz::Server::Entity::Recording';
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -467,10 +468,10 @@ around _validate_merge => sub {
                 map { $_->{artist_credit_id} } @{$recording_merge->{sources}},
             );
             if (uniq(@ac_ids) > 1) {
-                push @bad_recording_merges, (
+                push @bad_recording_merges, [
                     Recording->new($recording_merge->{destination}),
                     map { Recording->new($_) } @{$recording_merge->{sources}},
-                );
+                ];
             }
         }
         if (@bad_recording_merges) {

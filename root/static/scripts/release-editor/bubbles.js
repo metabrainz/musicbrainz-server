@@ -73,6 +73,8 @@ class RecordingBubble extends MB.Control.BubbleDoc {
             this.moveToTrack(track, stealFocus === true);
             return true;
         }
+
+        return false;
     }
 
     nextTrack(data, event, stealFocus) {
@@ -84,6 +86,8 @@ class RecordingBubble extends MB.Control.BubbleDoc {
             this.moveToTrack(track, stealFocus === true);
             return true;
         }
+
+        return false;
     }
 
     submit() {

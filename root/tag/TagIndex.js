@@ -137,6 +137,6 @@ const TagIndex = (props: Props) => {
       ))}
     </TagLayout>
   );
-}
+};
 
 export default TagIndex;

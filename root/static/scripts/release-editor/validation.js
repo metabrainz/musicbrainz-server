@@ -56,7 +56,7 @@ function showErrorHandler(handler) {
                         $panel = $element.parents(".ui-tabs-panel");
 
                     if (_.isString(value)) {
-                        $element.text(value || "")
+                        $element.text(value || "");
                     }
                     handler(value, $element, $panel);
                     markTabWithErrors($panel);

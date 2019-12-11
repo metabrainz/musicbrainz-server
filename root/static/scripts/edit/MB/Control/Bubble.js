@@ -229,7 +229,9 @@ ko.bindingHandlers.affectsBubble = {
         }
 
         var observer = new MutationObserver(_.throttle(function () {
-            _.delay(function () { valueAccessor().redraw() }, 100);
+            _.delay(function () {
+                valueAccessor().redraw();
+            }, 100);
         }, 100));
 
         observer.observe(element, { childList: true, subtree: true });
@@ -271,7 +273,7 @@ function bubbleControlHandler(event) {
                 bubble.hide(false);
             }
         }
-        return;
+        return undefined;
     }
 
     var isButton = $(control).is(":button");

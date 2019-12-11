@@ -8,6 +8,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Filters qw( format_editnote );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types qw( DateTime );
 
@@ -58,6 +59,9 @@ sub _localize_text {
         } keys %{$source_args};
 
         $text = l($source->{message} // '', \%args);
+    } else {
+        # Otherwise, assume this message uses edit note syntax.
+        $text = format_editnote($text);
     }
 
     return $text;
