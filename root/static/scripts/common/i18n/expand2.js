@@ -31,7 +31,7 @@ export function gotMatch(x: mixed): boolean %checks {
   );
 }
 
-export type VarArgsObject<+T> = {__proto__: any, +[arg: string]: T, ...};
+export type VarArgsObject<+T> = {+[arg: string]: T, ...};
 
 export class VarArgs<+T> {
   +data: VarArgsObject<T>;
