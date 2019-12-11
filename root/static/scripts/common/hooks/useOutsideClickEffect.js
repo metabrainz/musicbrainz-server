@@ -32,6 +32,7 @@ export default function useOutsideClickEffect(
     return;
   }
 
+  /* eslint-disable-next-line react-hooks/rules-of-hooks */
   useEffect(() => {
     TARGET_REFS.set(targetRef, action);
     return () => {
