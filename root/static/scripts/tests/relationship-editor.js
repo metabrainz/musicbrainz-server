@@ -532,12 +532,12 @@ relationshipEditorTest("backwardness of submitted relationships is preserved (MB
     t.plan(2);
 
     const source = {
-            entityType: "recording",
-            gid: fakeGID0,
+        entityType: "recording",
+        gid: fakeGID0,
     };
     const target = {
-            entityType: "recording",
-            gid: fakeGID1,
+        entityType: "recording",
+        gid: fakeGID1,
     };
 
     window.sessionStorage.setItem('submittedRelationships', JSON.stringify([
