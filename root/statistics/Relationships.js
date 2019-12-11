@@ -22,12 +22,12 @@ export type RelationshipsStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
   +stats: {[statName: string]: number},
-  +types: {[relationshipTypeId: string]: RelationshipTypeT},
+  +types: {[relationshipTable: string]: RelationshipTypeT},
 };
 
 declare type RelationshipTypeT = {
   +entity_types: $ReadOnlyArray<string>,
-  +tree: {[child: string]: Array<LinkTypeT>},
+  +tree: {[entityTypes: string]: Array<LinkTypeT>},
 };
 
 function comparePhrases(a, b) {

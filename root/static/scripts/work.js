@@ -163,7 +163,7 @@ class WorkAttribute {
 class ViewModel {
   attributeTypes: OptionListT;
 
-  attributeTypesByID: {[id: number]: WorkAttributeTypeTreeT, ...};
+  attributeTypesByID: {[typeId: number]: WorkAttributeTypeTreeT, ...};
 
   allowedValuesByTypeID: {[typeId: number]: OptionListT, ...};
 

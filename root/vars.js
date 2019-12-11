@@ -79,7 +79,7 @@ declare var exp: {
 declare var texp: {
   +l: (
     key: string, 
-    args: {+[arg: string]: StrOrNum, ...}
+    args: {+[arg: string]: StrOrNum, ...},
   ) => string,
   +ln: (
     skey: string,
