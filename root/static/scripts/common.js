@@ -29,7 +29,7 @@ if (DBDefs.DEVELOPMENT_SERVER) {
   };
 }
 
-require('./common/raven');
+require('./common/sentry');
 
 window.ko = require("knockout");
 window._ = require("lodash");

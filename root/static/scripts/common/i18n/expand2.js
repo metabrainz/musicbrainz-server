@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import Raven from 'raven-js';
 import * as React from 'react';
+import * as Sentry from '@sentry/browser';
 
 /*
  * Flow doesn't have very good support for Symbols, so we use a unique
@@ -316,7 +316,7 @@ export default function expand<+T, V>(
      * console and Sentry.
      */
     console.error(e);
-    Raven.captureException(e);
+    Sentry.captureException(e);
     return source;
   } finally {
     if (savedState) {
