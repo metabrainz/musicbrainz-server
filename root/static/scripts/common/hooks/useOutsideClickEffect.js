@@ -9,8 +9,6 @@
 
 import {useEffect} from 'react';
 
-const EMPTY_ARRAY = [];
-
 const TARGET_REFS = new Map();
 
 if (typeof document !== 'undefined') {
@@ -34,6 +32,7 @@ export default function useOutsideClickEffect(
     return;
   }
 
+  /* eslint-disable-next-line react-hooks/rules-of-hooks */
   useEffect(() => {
     TARGET_REFS.set(targetRef, action);
     return () => {
@@ -42,5 +41,5 @@ export default function useOutsideClickEffect(
         cleanup();
       }
     };
-  }, EMPTY_ARRAY);
+  }, [action, cleanup, targetRef]);
 }
