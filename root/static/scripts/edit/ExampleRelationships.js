@@ -75,7 +75,7 @@ ERE.Example = function (name, relationship) {
     return self;
 }
 
-ViewModel = function () {
+const ViewModel = function () {
     return {
         examples: ko.observableArray(),
         availableEntityTypes: ko.observableArray(),
