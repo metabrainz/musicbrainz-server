@@ -282,15 +282,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         _sortedRelationships(relationships, source) {
 
-            return relationships.filter(function (relationship) {
-                return relationship.entityTypes !== "recording-work";
-
-            }).sortBy(function (relationship) {
-                return relationship.lowerCaseTargetName(source);
-
-            }).sortBy("linkOrder").sortBy(function (relationship) {
-                return relationship.lowerCasePhrase(source);
-            });
+            return relationships
+                .filter(function (relationship) {
+                    return relationship.entityTypes !== "recording-work";
+                })
+                .sortBy(function (relationship) {
+                    return relationship.lowerCaseTargetName(source);
+                })
+                .sortBy("linkOrder").sortBy(function (relationship) {
+                    return relationship.lowerCasePhrase(source);
+                });
         }
 
         _createEdit() {
@@ -326,8 +327,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         function medium(medium_selector, selector, counter) {
             $tracklist.on("change", medium_selector, function () {
                 var checked = this.checked,
-                    $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
-                        .find(selector).filter(checked ? ":not(:checked)" : ":checked")
+                    $changed = $(this)
+                        .parents("tr.subh")
+                        .nextUntil("tr.subh")
+                        .find(selector)
+                        .filter(checked ? ":not(:checked)" : ":checked")
                         .prop("checked", checked);
                 counter(counter() + count($changed) * (checked ? 1 : -1));
             });

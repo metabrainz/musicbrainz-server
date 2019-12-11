@@ -79,8 +79,10 @@ function recordingQuery(track, name) {
     var params = {
         recording: [ utils.escapeLuceneValue(name) ],
 
-        arid: _(track.artistCredit().names).map('artist.gid')
-            .map(utils.escapeLuceneValue).value()
+        arid: _(track.artistCredit().names)
+            .map('artist.gid')
+            .map(utils.escapeLuceneValue)
+            .value(),
     };
 
     var titleAndArtists = utils.constructLuceneFieldConjunction(params);
@@ -119,7 +121,8 @@ function cleanRecordingData(data) {
                 releaseGroupGID: release["release-group"].id
             };
         })
-        .uniqBy('releaseGroupGID').value();
+        .uniqBy('releaseGroupGID')
+        .value();
 
     clean.appearsOn = {
         hits: appearsOn.length,

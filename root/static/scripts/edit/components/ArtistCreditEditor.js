@@ -110,7 +110,10 @@ class ArtistCreditEditor extends React.Component {
     this.setState(newState, () => {
       this.positionBubble();
       if (i > 0 && i === ac.names.length - 1) {
-        $('#artist-credit-bubble').find('.remove-item').eq(i - 1).focus();
+        $('#artist-credit-bubble')
+          .find('.remove-item')
+          .eq(i - 1)
+          .focus();
       }
     });
   }

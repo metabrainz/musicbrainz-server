@@ -284,7 +284,10 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
     t.ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
     t.deepEqual(
-        _(relationship.attributes()).map('type.id').value().sort(),
+        _(relationship.attributes())
+            .map('type.id')
+            .value()
+            .sort(),
         [123, 194, 277],
         "attributes are the same"
     );

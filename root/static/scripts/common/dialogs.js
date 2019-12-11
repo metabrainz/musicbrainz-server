@@ -103,7 +103,9 @@ import _ from 'lodash';
                 contentWindow.$(function () {
                     contentWindow._.defer(function () {
                         contentWindow.$(nameField, contentWindow.document)
-                            .val(self.options.name).change().focus();
+                            .val(self.options.name)
+                            .change()
+                            .focus();
 
                         delete self.options.name;
                     });
