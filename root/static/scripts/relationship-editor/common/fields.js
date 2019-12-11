@@ -16,14 +16,14 @@ import {
 import localizeLinkAttributeTypeName
     from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
-import MB_entity from '../../common/entity';
+import mbEntity from '../../common/entity';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
 import nonEmpty from '../../common/utility/nonEmpty';
 import request from '../../common/utility/request';
-import MB_edit from '../../edit/MB/edit';
+import mbEdit from '../../edit/MB/edit';
 import * as linkPhrase from '../../edit/utility/linkPhrase';
 
 import mergeDates from './mergeDates';
@@ -45,7 +45,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             this.entities = ko.observable(_.map(data.entities, function (entity) {
-                return MB_entity(entity);
+                return mbEntity(entity);
             }));
 
             this.entities.equalityComparer = entitiesComparer;
@@ -133,7 +133,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.editsPending = Boolean(data.editsPending);
 
             this.editData = ko.computed(function () {
-                return MB_edit.fields.relationship(self);
+                return mbEdit.fields.relationship(self);
             });
 
             if (data.id) {
@@ -152,7 +152,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         fromJS(data) {
             this.linkTypeID(data.linkTypeID);
-            this.entities([MB_entity(data.entities[0]), MB_entity(data.entities[1])]);
+            this.entities([mbEntity(data.entities[0]), mbEntity(data.entities[1])]);
             this.entity0_credit(data.entity0_credit || '');
             this.entity1_credit(data.entity1_credit || '');
 
@@ -511,8 +511,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         openEdits() {
             var entities = this.original.entities;
-            var entity0 = MB_entity(entities[0]);
-            var entity1 = MB_entity(entities[1]);
+            var entity0 = mbEntity(entities[0]);
+            var entity1 = mbEntity(entities[1]);
 
             return (
                 '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +

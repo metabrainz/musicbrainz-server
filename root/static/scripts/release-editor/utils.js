@@ -14,7 +14,7 @@
 import ko from 'knockout';
 import _ from 'lodash';
 
-import {rstr_sha1} from '../../lib/sha1/sha1';
+import {rstrSha1} from '../../lib/sha1/sha1';
 import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY}
     from '../common/constants';
 import escapeLuceneValue from '../common/utility/escapeLuceneValue';
@@ -206,7 +206,7 @@ export function calculateDiscID(toc) {
         temp += paddedHex(info[i], 8);
     }
 
-    return base64(rstr_sha1(temp));
+    return base64(rstrSha1(temp));
 };
 
 utils.calculateDiscID = calculateDiscID;

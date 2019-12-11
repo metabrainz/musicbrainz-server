@@ -98,10 +98,10 @@ class TimelineViewModel {
             },
             write: function (part) {
                 if (part) {
-                    var item_fix = function (item) {
+                    var itemFix = function (item) {
                         return (item === 'null' ? null : parseFloat(item));
                     };
-                    self.zoomArray(_.map(part.split('/').slice(1), item_fix));
+                    self.zoomArray(_.map(part.split('/').slice(1), itemFix));
                 } else {
                     self.zoomArray([null, null, null, null]);
                 }

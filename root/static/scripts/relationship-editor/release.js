@@ -315,16 +315,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
 
     function initCheckboxes(checkboxes) {
-        var medium_recording_selector = "input.medium-recordings";
-        var medium_work_selector = "input.medium-works";
+        var mediumRecordingSelector = "input.medium-recordings";
+        var mediumWorkSelector = "input.medium-works";
         var $tracklist = $("#tracklist tbody");
 
         function count($inputs) {
             return _.uniqBy($inputs, ko.dataFor).length;
         }
 
-        function medium(medium_selector, selector, counter) {
-            $tracklist.on("change", medium_selector, function () {
+        function medium(mediumSelector, selector, counter) {
+            $tracklist.on("change", mediumSelector, function () {
                 var checked = this.checked,
                     $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
                         .find(selector).filter(checked ? ":not(:checked)" : ":checked")
@@ -333,22 +333,22 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             });
         }
 
-        function _release(medium_selector, cls) {
+        function _release(mediumSelector, cls) {
             $('<input type="checkbox"/>&#160;')
                 .change(function () {
-                    $tracklist.find(medium_selector)
+                    $tracklist.find(mediumSelector)
                         .prop("checked", this.checked).change();
                 })
                 .prependTo("#tracklist th." + cls);
         }
 
         function range(selector, counter) {
-            var last_clicked = null;
+            var lastClicked = null;
 
             $tracklist.on("click", selector, function (event) {
                 var checked = this.checked, $inputs = $(selector, $tracklist);
-                if (event.shiftKey && last_clicked && last_clicked != this) {
-                    var first = $inputs.index(last_clicked), last = $inputs.index(this);
+                if (event.shiftKey && lastClicked && lastClicked != this) {
+                    var first = $inputs.index(lastClicked), last = $inputs.index(this);
 
                     (first > last
                         ? $inputs.slice(last, first + 1)
@@ -356,15 +356,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         .prop("checked", checked);
                 }
                 counter(count($inputs.filter(":checked")));
-                last_clicked = this;
+                lastClicked = this;
             });
         }
 
-        medium(medium_recording_selector, recordingCheckboxes, checkboxes.recordingCount);
-        medium(medium_work_selector, workCheckboxes, checkboxes.workCount);
+        medium(mediumRecordingSelector, recordingCheckboxes, checkboxes.recordingCount);
+        medium(mediumWorkSelector, workCheckboxes, checkboxes.workCount);
 
-        _release(medium_recording_selector, "recordings");
-        _release(medium_work_selector, "works");
+        _release(mediumRecordingSelector, "recordings");
+        _release(mediumWorkSelector, "works");
 
         range(recordingCheckboxes, checkboxes.recordingCount);
         range(workCheckboxes, checkboxes.workCount);

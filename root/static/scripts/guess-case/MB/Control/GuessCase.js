@@ -16,7 +16,7 @@ import gc from '../GuessCase/Main';
 import * as modes from '../../modes';
 import MB from '../../../common/MB';
 
-MB.Control.initialize_guess_case = function (type, formPrefix) {
+MB.Control.initializeGuessCase = function (type, formPrefix) {
     formPrefix = formPrefix ? (formPrefix + "\\.") : "";
 
     var $name = $("#" + formPrefix + "name");
@@ -120,4 +120,4 @@ ko.bindingHandlers.guessCase = {
 
 ko.virtualElements.allowedBindings.guessCase = true;
 
-export const initialize_guess_case = MB.Control.initialize_guess_case;
+export const initializeGuessCase = MB.Control.initializeGuessCase;

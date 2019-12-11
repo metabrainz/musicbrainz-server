@@ -9,14 +9,14 @@
 import ko from 'knockout';
 import test from 'tape';
 
-import MB_edit from '../edit/MB/edit';
+import mbEdit from '../edit/MB/edit';
 
 import '../edit/forms';
 
 test("missing track numbers should be empty strings, not null (MBS-7246)", function (t) {
     t.plan(1);
 
-    var data = MB_edit.fields.track({});
+    var data = mbEdit.fields.track({});
 
     t.equal(data.number, "", "number is empty string");
 });

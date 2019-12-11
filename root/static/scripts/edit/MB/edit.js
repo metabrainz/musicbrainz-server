@@ -9,7 +9,7 @@
 import ko from 'knockout';
 import _ from 'lodash';
 
-import {hex_sha1} from '../../../lib/sha1/sha1';
+import {hexSha1} from '../../../lib/sha1/sha1';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 import * as TYPES from '../../common/constants/editTypes';
 import linkedEntities from '../../common/linkedEntities';
@@ -274,7 +274,7 @@ import request from '../../common/utility/request';
 
             return memo + key + (_.isObject(value) ? editHash(value) : value);
         }
-        return hex_sha1(_.reduce(keys, keyValue, ""));
+        return hexSha1(_.reduce(keys, keyValue, ""));
     }
 
 

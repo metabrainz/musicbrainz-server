@@ -119,12 +119,12 @@ RelationshipSearcher = function () {
             self.error('Lookup failed: ' + error);
         })
         .done(function (data) {
-            var search_result_type = data.entityType.replace("-", "_");
+            var searchResultType = data.entityType.replace("-", "_");
 
-            if (!(search_result_type === type0 ||
-                  search_result_type === type1)) {
+            if (!(searchResultType === type0 ||
+                  searchResultType === type1)) {
                 self.error('Invalid type for this relationship: ' +
-                           search_result_type +
+                           searchResultType +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
                 return;
             }

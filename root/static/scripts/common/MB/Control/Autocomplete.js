@@ -11,7 +11,7 @@ import _ from 'lodash';
 import ko from 'knockout';
 
 import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
-import MB_entity from '../../entity';
+import mbEntity from '../../entity';
 import commaOnlyList from '../../i18n/commaOnlyList';
 import {reduceArtistCredit} from '../../immutable-entities';
 import MB from '../../MB';
@@ -232,7 +232,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             if (this.options.entityConstructor) {
                 return new this.options.entityConstructor(data);
             }
-            return MB_entity(data, this.entity);
+            return mbEntity(data, this.entity);
         } catch (e) {
             return data;
         }
@@ -970,11 +970,11 @@ MB.Control.autocomplete_formatters = {
             a.append('<br /><span class="autocomplete-comment">' + (item.begin_date ? (formatDatePeriod(item) + ' ') : '') + (item.time ? item.time : '') + '</span>');
         }
 
-        var entityRenderer = function (prefix, related_entities) {
-            if (related_entities && related_entities.hits > 0)
+        var entityRenderer = function (prefix, relatedEntities) {
+            if (relatedEntities && relatedEntities.hits > 0)
             {
-                var toRender = related_entities.results;
-                if (related_entities.hits > toRender.length)
+                var toRender = relatedEntities.results;
+                if (relatedEntities.hits > toRender.length)
                 {
                     toRender.push('...');
                 }
@@ -984,9 +984,9 @@ MB.Control.autocomplete_formatters = {
             }
         };
 
-        if (item.related_entities) {
-            entityRenderer(l('Performers'), item.related_entities.performers);
-            entityRenderer(l('Location'), item.related_entities.places);
+        if (item.relatedEntities) {
+            entityRenderer(l('Performers'), item.relatedEntities.performers);
+            entityRenderer(l('Location'), item.relatedEntities.places);
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -1060,7 +1060,7 @@ MB.Control.EntityAutocomplete = function (options) {
     $name.entitylookup(options);
     var autocomplete = $name.data("mb-entitylookup");
 
-    autocomplete.currentSelection(MB_entity({
+    autocomplete.currentSelection(mbEntity({
         name: $name.val(),
         id: $inputs.find("input.id").val(),
         gid: $inputs.find("input.gid").val()
