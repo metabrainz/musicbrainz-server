@@ -54,7 +54,7 @@ jobs:
           sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
           sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
           rm /etc/service/{redis,template-renderer,vnu,website}/down && sv start redis template-renderer vnu website
-          export MMDSCHEMA=/home/musicbrainz/mb-solr/mmd-schema
+          export MMD_SCHEMA_ROOT=/home/musicbrainz/mb-solr/mmd-schema
           export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
           sudo -E -H -u musicbrainz carton exec -- prove \
               --pgtap-option dbname=musicbrainz_test \
