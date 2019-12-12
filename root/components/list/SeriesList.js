@@ -9,12 +9,14 @@
 
 import React from 'react';
 
+import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import loopParity from '../../utility/loopParity';
-import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import linkedEntities from '../../static/scripts/common/linkedEntities';
-import SortableTableHeader from '../SortableTableHeader';
+import {
+  defineCheckboxColumn,
+  defineNameColumn,
+  defineTypeColumn,
+  seriesOrderingTypeColumn,
+} from '../../utility/tableColumns';
 
 type Props = {
   +$c: CatalystContextT,
@@ -30,73 +32,30 @@ const SeriesList = ({
   order,
   series,
   sortable,
-}: Props) => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        {$c.user_exists && checkboxes ? (
-          <th className="checkbox-cell">
-            <input type="checkbox" />
-          </th>
-        ) : null}
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={lp('Series', 'singular')}
-                name="name"
-                order={order}
-              />
-            )
-            : lp('Series', 'singular')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Type')}
-                name="type"
-                order={order}
-              />
-            )
-            : l('Type')}
-        </th>
-        <th>{l('Ordering Type')}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {series.map((thisSeries, index) => {
-        const orderingType =
-          linkedEntities.series_ordering_type[thisSeries.orderingTypeID];
-        return (
-          <tr className={loopParity(index)} key={thisSeries.id}>
-            {$c.user_exists && checkboxes ? (
-              <td>
-                <input
-                  name={checkboxes}
-                  type="checkbox"
-                  value={thisSeries.id}
-                />
-              </td>
-            ) : null}
-            <td>
-              <DescriptiveLink entity={thisSeries} />
-            </td>
-            <td>
-              {thisSeries.typeName
-                ? lp_attributes(thisSeries.typeName, 'series_type')
-                : null}
-            </td>
-            <td>
-              {orderingType
-                ? lp_attributes(orderingType.name, 'series_ordering_type')
-                : null}
-            </td>
-          </tr>
-        );
-      })}
-    </tbody>
-  </table>
-);
+}: Props) => {
+  const columns = React.useMemo(
+    () => {
+      const checkboxColumn = $c.user_exists && checkboxes
+        ? defineCheckboxColumn(checkboxes)
+        : null;
+      const nameColumn = defineNameColumn<SeriesT>(
+        lp('Series', 'singular'),
+        order,
+        sortable,
+      );
+      const typeColumn = defineTypeColumn('series_type', order, sortable);
+
+      return [
+        ...(checkboxColumn ? [checkboxColumn] : []),
+        nameColumn,
+        typeColumn,
+        seriesOrderingTypeColumn,
+      ];
+    },
+    [$c.user_exists, checkboxes, order, sortable],
+  );
+
+  return <Table columns={columns} data={series} />;
+};
 
 export default withCatalystContext(SeriesList);

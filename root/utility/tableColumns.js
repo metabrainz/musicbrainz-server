@@ -11,6 +11,7 @@ import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
 import SortableTableHeader from '../components/SortableTableHeader';
+import linkedEntities from '../static/scripts/common/linkedEntities';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
@@ -89,6 +90,18 @@ export function defineTypeColumn(
     id: 'type',
   };
 }
+
+export const seriesOrderingTypeColumn:
+  ColumnOptions<{+orderingTypeID?: number, ...}, number> = {
+    Cell: ({cell: {value}}) => {
+      const orderingType = linkedEntities.series_ordering_type[value];
+      return orderingType
+        ? lp_attributes(orderingType.name, 'series_ordering_type')
+        : null;
+    },
+    Header: N_l('Ordering Type'),
+    accessor: 'orderingTypeID',
+  };
 
 export const subscriptionColumn:
   ColumnOptions<{+subscribed: boolean, ...}, boolean> = {
