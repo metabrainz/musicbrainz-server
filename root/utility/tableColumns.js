@@ -14,6 +14,7 @@ import SortableTableHeader from '../components/SortableTableHeader';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import expand2react from '../static/scripts/common/i18n/expand2react';
 import yesNo from '../static/scripts/common/utility/yesNo';
 
 export function defineCheckboxColumn<T>(
@@ -33,6 +34,15 @@ export function defineCheckboxColumn<T>(
     id: 'checkbox',
   };
 }
+
+export const instrumentDescriptionColumn:
+  ColumnOptions<{+description?: string, ...}, string> = {
+    Cell: ({cell: {value}}) => (value
+      ? expand2react(l_instrument_descriptions(value))
+      : null),
+    Header: N_l('Description'),
+    accessor: 'description',
+  };
 
 export function defineNameColumn<T: CoreEntityT | CollectionT>(
   title: string,
