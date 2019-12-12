@@ -10,11 +10,14 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
+import RatingStars from '../components/RatingStars';
 import SortableTableHeader from '../components/SortableTableHeader';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import formatDate from '../static/scripts/common/utility/formatDate';
+import formatEndDate from '../static/scripts/common/utility/formatEndDate';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import yesNo from '../static/scripts/common/utility/yesNo';
 
@@ -90,6 +93,104 @@ export function defineTypeColumn(
     id: 'type',
   };
 }
+
+export function defineTextColumn<D>(
+  getText: (D) => string,
+  columnName: string,
+  title: string,
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<D, StrOrNum> {
+  return {
+    Cell: ({row: {original}}) => getText(original),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={title}
+          name={columnName}
+          order={order}
+        />
+      )
+      : title),
+    accessor: row => getText(row) ?? '',
+    id: columnName,
+  };
+}
+
+export function defineEntityColumn<D>(
+  getEntity: (D) => CoreEntityT,
+  columnName: string,
+  title: string,
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<D, string> {
+  return {
+    Cell: ({row: {original}}) => {
+      const entity = getEntity(original);
+      return (entity
+        ? <DescriptiveLink entity={entity} />
+        : null);
+    },
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={title}
+          name={columnName}
+          order={order}
+        />
+      )
+      : title),
+    accessor: row => getEntity(row)?.name ?? '',
+    id: columnName,
+  };
+}
+
+export function defineBeginDateColumn(
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<{+begin_date: PartialDateT, ...}, PartialDateT> {
+  return {
+    Cell: ({cell: {value}}) => formatDate(value),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={l('Begin')}
+          name="begin_date"
+          order={order}
+        />
+      )
+      : l('Begin')),
+    accessor: 'begin_date',
+    id: 'begin_date',
+  };
+}
+
+export function defineEndDateColumn(
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<{...DatePeriodRoleT, ...}, PartialDateT> {
+  return {
+    Cell: ({row: {original}}) => formatEndDate(original),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={l('End')}
+          name="end_date"
+          order={order}
+        />
+      )
+      : l('End')),
+    accessor: 'end_date',
+    id: 'end_date',
+  };
+}
+
+export const ratingsColumn:
+  ColumnOptions<{...RatableRoleT, ...}, number> = {
+    Cell: ({row: {original}}) => <RatingStars entity={original} />,
+    Header: N_l('Rating'),
+    accessor: 'rating',
+  };
 
 export const seriesOrderingTypeColumn:
   ColumnOptions<{+orderingTypeID?: number, ...}, number> = {
