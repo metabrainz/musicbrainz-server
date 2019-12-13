@@ -12,7 +12,7 @@ import ko from 'knockout';
 import formatDate from './formatDate';
 
 function formatDatePeriod<+T: {...DatePeriodRoleT, ...}>(entity: T) {
-  let {beginDate, endDate, ended} = entity;
+  let {begin_date: beginDate, end_date: endDate, ended} = entity;
 
   beginDate = formatDate(beginDate);
   endDate = formatDate(endDate);
