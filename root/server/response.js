@@ -9,7 +9,7 @@
 /* eslint-disable import/no-commonjs */
 
 const _ = require('lodash');
-const Raven = require('raven');
+const Sentry = require('@sentry/node');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
 const getRequestCookie = require('../utility/getRequestCookie');
@@ -33,15 +33,9 @@ function getResponse(requestBody, context) {
   let status = null;
   let response;
 
-  Raven.setContext({
-    environment: DBDefs.GIT_BRANCH,
-    tags: {
-      git_commit: DBDefs.GIT_SHA,
-    },
-  });
-
-  if (context.user) {
-    Raven.mergeContext({user: _.pick(context.user, ['id', 'name'])});
+  const user = context.user;
+  if (user) {
+    Sentry.setUser({id: user.id, username: user.name});
   }
 
   let components;
@@ -53,7 +47,7 @@ function getResponse(requestBody, context) {
      */
     components = require('../static/build/server-components');
   } catch (err) {
-    Raven.captureException(err);
+    Sentry.captureException(err);
     return badRequest(err);
   }
 
@@ -83,7 +77,7 @@ function getResponse(requestBody, context) {
       Page = getExport(components['main/404']);
       status = 404;
     } catch (err) {
-      Raven.captureException(err);
+      Sentry.captureException(err);
       return badRequest(err);
     }
   }
@@ -108,7 +102,7 @@ function getResponse(requestBody, context) {
       )
     );
   } catch (err) {
-    Raven.captureException(err);
+    Sentry.captureException(err);
     return badRequest(err);
   }
 
