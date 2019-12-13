@@ -6473,6 +6473,7 @@ DISTRIBUTIONS
       Test::Aggregate::Builder 0.375
       Test::Aggregate::Nested 0.375
     requirements:
+      ExtUtils::MakeMaker 0
       FindBin 1.47
       Test::Harness 3.09
       Test::Most 0.21
@@ -8034,7 +8035,7 @@ DISTRIBUTIONS
       HTTP::Request 6
       HTTP::Request::Common 6
       HTTP::Response 6
-      HTTP::Status 6.18
+      HTTP::Status 6
       IO::Select 0
       IO::Socket 0
       LWP::MediaTypes 6
