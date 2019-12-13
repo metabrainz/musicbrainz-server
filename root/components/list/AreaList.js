@@ -38,7 +38,7 @@ const AreaList = ({
         ? defineCheckboxColumn(checkboxes)
         : null;
       const nameColumn =
-        defineNameColumn<CoreEntityT>(l('Area'), order, sortable);
+        defineNameColumn<AreaT>(l('Area'), order, sortable);
       const typeColumn = defineTypeColumn('area_type', order, sortable);
 
       return [
