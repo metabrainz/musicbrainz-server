@@ -27,17 +27,17 @@ function formatDatePeriod<+T: {...DatePeriodRoleT, ...}>(entity: T) {
   }
 
   if (beginDate && endDate) {
-    return texp.l('{beginDate} \u2013 {endDate}', {beginDate, endDate});
+    return texp.l('{begin_date} \u2013 {end_date}', {begin_date: beginDate, end_date: endDate});
   }
 
   if (!beginDate) {
-    return texp.l('\u2013 {endDate}', {endDate});
+    return texp.l('\u2013 {end_date}', {end_date: endDate});
   }
 
   if (!endDate) {
     return ended
-      ? texp.l('{beginDate} \u2013 ????', {beginDate})
-      : texp.l('{beginDate} \u2013', {beginDate});
+      ? texp.l('{begin_date} \u2013 ????', {begin_date: beginDate})
+      : texp.l('{begin_date} \u2013', {begin_date: beginDate});
   }
 
   return '';
