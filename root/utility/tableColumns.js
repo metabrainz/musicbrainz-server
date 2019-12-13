@@ -145,6 +145,29 @@ export function defineEntityColumn<D>(
   };
 }
 
+export function defineTextColumn<D>(
+  getText: (D) => string,
+  columnName: string,
+  title: string,
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<D, string> {
+  return {
+    Cell: ({row: {original}}) => getText(original),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={title}
+          name={columnName}
+          order={order}
+        />
+      )
+      : title),
+    accessor: row => getText(row) ?? '',
+    id: columnName,
+  };
+}
+
 export function defineBeginDateColumn(
   order?: string = '',
   sortable?: boolean = false,
