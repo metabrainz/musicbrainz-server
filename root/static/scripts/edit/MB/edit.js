@@ -9,7 +9,7 @@
 import ko from 'knockout';
 import _ from 'lodash';
 
-import {hexSha1} from '../../../lib/sha1/sha1';
+import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 import * as TYPES from '../../common/constants/editTypes';
 import linkedEntities from '../../common/linkedEntities';
