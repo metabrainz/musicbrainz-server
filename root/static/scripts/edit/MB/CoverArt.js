@@ -334,23 +334,23 @@ MB.CoverArt.FileUpload = function (file) {
     self.comment = ko.observable("");
     self.types = MB.CoverArt.cover_art_types();
     self.data = file;
-    self.data_uri_data = ko.observable("");
+    self.dataUriData = ko.observable("");
     self.mimeType = ko.observable("");
 
     self.data_uri = ko.computed(function () {
-        if (self.mimeType() == "" || self.data_uri_data() == "") {
+        if (self.mimeType() == "" || self.dataUriData() == "") {
             return "";
         } else if (self.mimeType() == "application/pdf") {
             return "/static/images/icons/pdf-icon.png";
         } else {
-            return self.data_uri_data();
+            return self.dataUriData();
         }
     });
 
 
     MB.CoverArt.file_data_uri(file)
         .done(function (dataUri) {
-            self.dataUri_data(dataUri);
+            self.dataUriData(dataUri);
         });
 
     self.progress = ko.observable(0);
