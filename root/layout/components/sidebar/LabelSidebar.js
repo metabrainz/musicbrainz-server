@@ -43,6 +43,7 @@ type Props = {
 const LabelSidebar = ({$c, label}: Props) => {
   const labelAge = age.age(label);
   const gid = encodeURIComponent(label.gid);
+  const area = label.area;
 
   return (
     <div id="sidebar">
@@ -80,9 +81,9 @@ const LabelSidebar = ({$c, label}: Props) => {
           </SidebarProperty>
         ) : null}
 
-        {label.area ? (
+        {area ? (
           <SidebarProperty className="area" label={l('Area:')}>
-            <DescriptiveLink entity={label.area} />
+            <DescriptiveLink entity={area} />
           </SidebarProperty>
         ) : null}
       </SidebarProperties>

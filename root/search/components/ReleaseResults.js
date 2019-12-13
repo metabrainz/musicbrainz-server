@@ -28,6 +28,8 @@ import ResultsLayout from './ResultsLayout';
 function buildResult(result, index) {
   const release = result.entity;
   const score = result.score;
+  const {language, script} = release;
+  const typeName = release.releaseGroup?.typeName;
 
   return (
     <tr className={loopParity(index)} data-score={score} key={release.id}>
@@ -57,24 +59,21 @@ function buildResult(result, index) {
       </td>
       <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
       <td>
-        {release.language ? (
-          <abbr title={l_languages(release.language.name)}>
-            {release.language.iso_code_3}
+        {language ? (
+          <abbr title={l_languages(language.name)}>
+            {language.iso_code_3}
           </abbr>
         ) : null}
-        {release.language && release.script ? ' / ' : null}
-        {release.script ? (
-          <abbr title={l_scripts(release.script.name)}>
-            {release.script.iso_code}
+        {language && script ? ' / ' : null}
+        {script ? (
+          <abbr title={l_scripts(script.name)}>
+            {script.iso_code}
           </abbr>
         ) : null}
       </td>
       <td>
-        {release.releaseGroup && release.releaseGroup.typeName
-          ? lp_attributes(
-            release.releaseGroup.typeName,
-            'release_group_primary_type',
-          )
+        {typeName
+          ? lp_attributes(typeName, 'release_group_primary_type')
           : null}
       </td>
       <td>
