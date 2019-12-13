@@ -9,7 +9,7 @@ requires 'JSON::XS'             => '2.34';
 requires 'Moose'                => '2.1600';
 requires 'String::ShellQuote'   => '1.03';
 requires 'Throwable'            => '0.200009';
-requires 'DateTime::Duration'   => '1.1902';
+requires 'DateTime::Duration'   => '1.51';
 requires 'File::Slurp';
 requires 'List::AllUtils'       => '0.03';
 requires 'Readonly'             => '1.04';
