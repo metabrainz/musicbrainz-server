@@ -2,8 +2,8 @@
 
 requires 'aliased'              => '0.34';
 requires 'Class::MOP'           => '2.1600';
-requires 'DBD::Pg'              => '3.5.3';
-requires 'DBIx::Connector'      => '0.53';
+requires 'DBD::Pg'              => '3.10.0';
+requires 'DBIx::Connector'      => '0.56';
 requires 'JSON'                 => '2.61';
 requires 'JSON::XS'             => '2.34';
 requires 'Moose'                => '2.1600';
