@@ -209,7 +209,7 @@ MB.CoverArt.sign_upload = function (file, gid, mimeType) {
 
     var postfields = $.ajax({
         url: "/ws/js/cover-art-upload/" + gid,
-        data: { mimeType: mimeType },
+        data: { mime_type: mimeType },
         dataType: "json",
         cache: false
     });
