@@ -64,7 +64,7 @@
       [% closing_tag_escape(form.to_encoded_json) %],
       [% closing_tag_escape(form.field('artist_credit').json) %]
     );
-    MB.Control.initialize_guess_case("recording", "id-edit-recording");
+    MB.Control.initializeGuessCase("recording", "id-edit-recording");
     MB.Control.initGuessFeatButton('edit-recording');
     MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
   });

@@ -126,7 +126,7 @@ MB.Control.ArtistEdit = function () {
         });
     };
 
-    MB.Control.initialize_guess_case('artist', 'id-edit-artist');
+    MB.Control.initializeGuessCase('artist', 'id-edit-artist');
 
     MB.Control.Area("#area", "#begin_area", "#end_area");
 

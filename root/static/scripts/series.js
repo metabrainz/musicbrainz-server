@@ -62,7 +62,7 @@ $(function () {
   ko.applyBindings(series, $("#series-type-bubble")[0]);
   ko.applyBindings(series, $("#ordering-type-bubble")[0]);
 
-  MB.Control.initialize_guess_case("series", "id-edit-series");
+  MB.Control.initializeGuessCase("series", "id-edit-series");
 
   $orderingType.on("change", function () {
     series.orderingTypeID(+this.value);

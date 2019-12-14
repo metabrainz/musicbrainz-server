@@ -43,6 +43,6 @@
 
 <script type="text/javascript">
   (function () {
-    MB.Control.initialize_guess_case("instrument", "id-edit-instrument");
+    MB.Control.initializeGuessCase("instrument", "id-edit-instrument");
   }());
 </script>

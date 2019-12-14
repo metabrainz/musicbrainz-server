@@ -49,7 +49,7 @@ releaseEditor.init = function (options) {
      */
     utils.withRelease(function () {
         _.defer(function () {
-            MB.Control.initialize_guess_case("release");
+            MB.Control.initializeGuessCase("release");
         });
     });
 
