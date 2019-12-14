@@ -57,7 +57,7 @@ declare type AreaFieldT = CompoundFieldT<{
   +name: FieldT<string>,
 }>;
 
-declare type AreaT = {
+declare type AreaT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'area'>,
@@ -69,7 +69,7 @@ declare type AreaT = {
   +iso_3166_2_codes: $ReadOnlyArray<string>,
   +iso_3166_3_codes: $ReadOnlyArray<string>,
   +primary_code: string,
-};
+}>;
 
 declare type AnnotatedEntityT =
   | AreaT
@@ -118,7 +118,7 @@ declare type ArtistCreditT = {
   +names: $ReadOnlyArray<ArtistCreditNameT>,
 };
 
-declare type ArtistT = {
+declare type ArtistT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'artist'>,
@@ -132,7 +132,7 @@ declare type ArtistT = {
   +end_area: AreaT | null,
   +gender: GenderT | null,
   +sort_name: string,
-};
+}>;
 
 declare type ArtistTypeT = OptionTreeT<'artist_type'>;
 
@@ -182,7 +182,7 @@ type CatalystActionT = {
   +name: string,
 };
 
-type CatalystContextT = {
+declare type CatalystContextT = {
   +action: CatalystActionT,
   +flash: {
     +message?: string,
@@ -204,8 +204,8 @@ type CatalystRequestContextT = {
 };
 
 type CatalystSessionT = {
-  +tport?: number,
   +merger?: MergeQueueT,
+  +tport?: number,
 };
 
 type CatalystStashT = {
@@ -240,7 +240,7 @@ type CatalystStashT = {
 
 type CatalystUserT = EditorT;
 
-declare type CDStubT = {
+declare type CDStubT = $ReadOnly<{
   ...EntityRoleT<'cdstub'>,
   +artist: string,
   +barcode: string,
@@ -253,7 +253,7 @@ declare type CDStubT = {
   +title: string,
   +toc: string | null,
   +track_count: number,
-};
+}>;
 
 declare type CollectionT = {
   ...EntityRoleT<'collection'>,
@@ -390,7 +390,7 @@ declare type EditorPreferencesT = {
   +timezone: string,
 };
 
-declare type EditorT = {
+declare type EditorT = $ReadOnly<{
   ...EntityRoleT<'editor'>,
   +age: number | null,
   +area: AreaT | null,
@@ -419,7 +419,7 @@ declare type EditorT = {
   +preferences: EditorPreferencesT,
   +registration_date: string,
   +website: string | null,
-};
+}>;
 
 declare type EditorLanguageT = {
   +fluency: FluencyT,
@@ -457,7 +457,6 @@ declare type EditT = {
     +votes: number,
   },
   +created_time: string,
-  +data: Object,
   +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
   +edit_type: number,
   +editor_id: number,
@@ -474,7 +473,7 @@ declare type EntityRoleT<+T> = {
   +id: number,
 };
 
-declare type EventT = {
+declare type EventT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'event'>,
@@ -491,7 +490,7 @@ declare type EventT = {
   +related_series: $ReadOnlyArray<number>,
   +setlist: string,
   +time: string,
-};
+}>;
 
 declare type EventTypeT = OptionTreeT<'event_type'>;
 
@@ -540,10 +539,10 @@ declare type FormT<+F> = {
 
 declare type GenderT = OptionTreeT<'gender'>;
 
-declare type GenreT = {
+declare type GenreT = $ReadOnly<{
   ...CommentRoleT,
   ...CoreEntityRoleT<'genre'>,
-};
+}>;
 
 declare type GettextDomain =
   | 'attributes'
@@ -572,13 +571,13 @@ declare type InstrumentCreditsAndRelTypesRoleT = {
   },
 };
 
-declare type InstrumentT = {
+declare type InstrumentT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'instrument'>,
   ...TypeRoleT<InstrumentTypeT>,
   +description: string,
-};
+}>;
 
 declare type InstrumentTypeT = OptionTreeT<'instrument_type'>;
 
@@ -627,7 +626,7 @@ declare type KnockoutObservableArray<T> =
       remove: (T) => empty,
     };
 
-declare type LabelT = {
+declare type LabelT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'label'>,
@@ -638,7 +637,7 @@ declare type LabelT = {
   ...TypeRoleT<LabelTypeT>,
   +area: AreaT | null,
   +label_code: number,
-};
+}>;
 
 declare type LabelTypeT = OptionTreeT<'label_type'>;
 
@@ -708,7 +707,7 @@ declare type MediumFormatT = {
   +year: ?number,
 };
 
-declare type MediumT = {
+declare type MediumT = $ReadOnly<{
   /*
    * TODO: still missing +cdtocs: $ReadOnlyArray<MediumCdTocT>
    * (MediumCdTocT is not defined yet)
@@ -722,7 +721,7 @@ declare type MediumT = {
   +position: number,
   +release_id: number,
   +tracks?: $ReadOnlyArray<TrackT>,
-};
+}>;
 
 declare type MergeFormT = FormT<{
   +edit_note: FieldT<string>,
@@ -733,9 +732,9 @@ declare type MergeFormT = FormT<{
 }>;
 
 declare type MergeQueueT = {
-  +type: CoreEntityTypeT,
   +entities: $ReadOnlyArray<number>,
   +ready_to_merge: boolean,
+  +type: CoreEntityTypeT,
 };
 
 declare type MinimalCoreEntityT = {
@@ -783,7 +782,7 @@ declare type PartialDateT = {
   +year: number | null,
 };
 
-declare type PlaceT = {
+declare type PlaceT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'place'>,
@@ -792,7 +791,7 @@ declare type PlaceT = {
   +address: string,
   +area: AreaT | null,
   +coordinates: CoordinatesT | null,
-};
+}>;
 
 declare type PlaceTypeT = OptionTreeT<'place_type'>;
 
@@ -812,7 +811,7 @@ declare type RatableT =
   | ReleaseGroupT
   | WorkT;
 
-declare type RecordingT = {
+declare type RecordingT = $ReadOnly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
@@ -822,7 +821,7 @@ declare type RecordingT = {
   +length: number,
   +related_works: $ReadOnlyArray<number>,
   +video: boolean,
-};
+}>;
 
 declare type RelationshipT = {
   ...DatePeriodRoleT,
@@ -831,8 +830,8 @@ declare type RelationshipT = {
   +attributes?: $ReadOnlyArray<LinkAttrT>,
   +direction?: 'backward',
   +entity0_credit: string,
-  +entity1_credit: string,
   +entity0_id: number,
+  +entity1_credit: string,
   +entity1_id: number,
   +id: number,
   +linkOrder: number,
@@ -843,7 +842,7 @@ declare type RelationshipT = {
 declare type ReleaseGroupSecondaryTypeT =
   OptionTreeT<'release_group_secondary_type'>;
 
-declare type ReleaseGroupT = {
+declare type ReleaseGroupT = $ReadOnly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
@@ -859,13 +858,13 @@ declare type ReleaseGroupT = {
   +secondaryTypeIDs: $ReadOnlyArray<number>,
   +typeID: number | null,
   +typeName: string | null,
-};
+}>;
 
 declare type ReleaseGroupTypeT = OptionTreeT<'release_group_type'>;
 
 declare type ReleasePackagingT = OptionTreeT<'release_packaging'>;
 
-declare type ReleaseT = {
+declare type ReleaseT = $ReadOnly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
@@ -887,7 +886,7 @@ declare type ReleaseT = {
   +scriptID: number | null,
   +status: ReleaseStatusT | null,
   +statusID: number | null,
-};
+}>;
 
 declare type ReleaseEventT = {
   +country: AreaT | null,
@@ -1015,10 +1014,6 @@ declare type ServerLanguageT = {
 
 declare type StrOrNum = string | number;
 
-type StructFieldT<F> =
-  | CompoundFieldT<F>
-  | RepeatableFieldT<F>;
-
 declare type TagT = {
   +entityType: 'tag',
   +genre?: GenreT,
@@ -1026,7 +1021,7 @@ declare type TagT = {
   +name: string,
 };
 
-declare type TrackT = {
+declare type TrackT = $ReadOnly<{
   ...EntityRoleT<'track'>,
   ...LastUpdateRoleT,
   +artist: string,
@@ -1041,7 +1036,7 @@ declare type TrackT = {
   +position: number,
   +recording?: {+artistCredit?: ArtistCreditT} & RecordingT,
   +unaccented_name: string | null,
-};
+}>;
 
 declare type TypeRoleT<T> = {
   +typeID: number | null,
@@ -1093,7 +1088,7 @@ declare type WorkAttributeT = {
   +value_id: number | null,
 };
 
-declare type WorkT = {
+declare type WorkT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'work'>,
@@ -1107,7 +1102,7 @@ declare type WorkT = {
     +entity: ArtistT,
     +roles: $ReadOnlyArray<string>,
   }>,
-};
+}>;
 
 declare type WorkTypeT = OptionTreeT<'work_type'>;
 
