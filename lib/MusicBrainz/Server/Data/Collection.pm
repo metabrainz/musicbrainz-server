@@ -185,14 +185,18 @@ sub find_by {
                                EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
                                WHERE ecc.collection = editor_collection.id AND ecc.editor = ?))';
             push @args, $editor_id, $editor_id;
+        } elsif ($opts->{collaborator_id}) {
+            push @conditions, '(editor_collection.public = true OR
+                               EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                               WHERE ecc.collection = editor_collection.id AND ecc.editor = ?))';
+            push @args, $editor_id;
         } else {
             push @conditions, '(editor_collection.public = true OR editor_collection.editor = ?)';
             push @args, $editor_id;
         }
     } else {
-        # If we have a collaborator ID we will already only show relevant collections, and we should show all
         # If we want to only see non-visible collections, then we clearly don't want to show only public ones
-        unless ($opts->{collaborator_id} || $opts->{show_private_only}) {
+        unless ($opts->{show_private_only}) {
             push @conditions, 'editor_collection.public = true';
         }
     }

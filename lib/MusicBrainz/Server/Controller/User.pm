@@ -335,6 +335,7 @@ sub collections : Chained('load') PathPart('collections')
 
     my ($collaborative_collections) = $c->model('Collection')->find_by({
         collaborator_id => $user->id,
+        show_private => $c->user_exists ? $c->user->id : undef,
     });
     $c->model('Collection')->load_entity_count(@$collaborative_collections);
     $c->model('CollectionType')->load(@$collaborative_collections);
