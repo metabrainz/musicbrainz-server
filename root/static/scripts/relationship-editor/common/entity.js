@@ -117,7 +117,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             return this.displayableRelationships(vm)
-                .groupBy(linkPhrase).sortBy("key").map(function (group) {
+                .groupBy(linkPhrase)
+                .sortBy("key")
+                .map(function (group) {
                     group.openAddDialog = openAddDialog;
                     group.canBeOrdered = ko.observable(false);
 

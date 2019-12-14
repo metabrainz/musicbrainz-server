@@ -10,9 +10,14 @@
 
 'use strict';
 
-const Raven = require('raven');
+const Sentry = require('@sentry/node');
 const DBDefs = require('./static/scripts/common/DBDefs');
-Raven.config(DBDefs.SENTRY_DSN).install();
+
+Sentry.init({
+  dsn: DBDefs.SENTRY_DSN_PUBLIC,
+  environment: DBDefs.GIT_BRANCH,
+  release: DBDefs.GIT_SHA,
+});
 
 const cluster = require('cluster');
 const fs = require('fs');
@@ -97,7 +102,7 @@ if (cluster.isMaster) {
     }
   }
 
-  const cleanup = Raven.wrap(function () {
+  function cleanup() {
     const timeout = setTimeout(() => {
       for (const id in cluster.workers) {
         killWorker(cluster.workers[id]);
@@ -109,10 +114,10 @@ if (cluster.isMaster) {
       clearTimeout(timeout);
       process.exit();
     });
-  });
+  }
 
   let hupAction = null;
-  const hup = Raven.wrap(function () {
+  function hup() {
     console.info('master received SIGHUP; restarting workers');
 
     let oldWorkers;
@@ -123,7 +128,7 @@ if (cluster.isMaster) {
       initialTimeout = 2000;
     }
 
-    const killNext = Raven.wrap(function () {
+    function killNext() {
       if (!oldWorkers) {
         oldWorkers = _.values(cluster.workers);
       }
@@ -139,10 +144,10 @@ if (cluster.isMaster) {
       } else {
         hupAction = null;
       }
-    });
+    }
 
     hupAction = setTimeout(killNext, initialTimeout);
-  });
+  }
 
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);

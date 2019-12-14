@@ -34,9 +34,15 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
     }
 
     $name.parent()
-        .find("button.guesscase-title").on("click", function () { setVal($name, guess.guess($name.val())) })
+        .find("button.guesscase-title")
+        .on("click", function () { 
+            setVal($name, guess.guess($name.val()));
+        })
         .end()
-        .find("button.guesscase-options").on("click", function () { $options.dialog("open") });
+        .find("button.guesscase-options")
+        .on("click", function () { 
+            $options.dialog("open"); 
+        });
 
     var $sortname = $("#" + formPrefix + "sort_name");
     var $artistType = $('#id-edit-artist\\.type_id');
@@ -52,7 +58,8 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
             setVal($sortname, guess.sortname.apply(guess, args));
         })
         .end()
-        .find("button.sortname-copy").on("click", function () {
+        .find("button.sortname-copy")
+        .on("click", function () {
             setVal($sortname, $name.val());
         });
 };

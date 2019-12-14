@@ -468,7 +468,7 @@ export default function Autocomplete2(props: Props) {
     state.items,
     state.highlightedIndex,
     state.selectedItem,
-  ), [state.items, state.highlightedIndex, state.selectedItem]);
+  ), [instance, state.items, state.highlightedIndex, state.selectedItem]);
 
   useOutsideClickEffect(
     instance.container,

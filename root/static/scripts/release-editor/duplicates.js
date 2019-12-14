@@ -98,8 +98,9 @@ releaseEditor.findReleaseDuplicates = function () {
             release: [ utils.escapeLuceneValue(name) ],
 
             arid: _(ac.names)
-                    .map('artist.gid')
-                    .map(utils.escapeLuceneValue).value()
+                .map('artist.gid')
+                .map(utils.escapeLuceneValue)
+                .value()
         });
 
         toggleLoadingIndicator(true);
@@ -151,7 +152,10 @@ function formatReleaseData(release) {
 
     clean.countries = pluck(events, "area")
         .map("iso-3166-1-codes")
-        .flatten().compact().uniq().value();
+        .flatten()
+        .compact()
+        .uniq()
+        .value();
 
     clean.labels = pluck(labels, "label").map(function (info) {
         return new MB.entity.Label({ gid: info.id, name: info.name });
@@ -169,10 +173,13 @@ function combinedMediumFormatName(mediums) {
     var formats = pluck(_(mediums), "format");
     var formatCounts = formats.countBy(_.identity);
 
-    return formats.uniq().map(function (format) {
-        var count = formatCounts[format];
+    return formats
+        .uniq()
+        .map(function (format) {
+            var count = formatCounts[format];
 
-        return (count > 1 ? count + "\u00D7" : "") + format;
-    })
-    .value().join(" + ");
+            return (count > 1 ? count + "\u00D7" : "") + format;
+        })
+        .value()
+        .join(" + ");
 }

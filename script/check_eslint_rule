@@ -9,6 +9,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../"
     --plugin react \
     --plugin flowtype \
     --plugin import \
+    --plugin react-hooks \
     --rule 'react/jsx-uses-react: warn' \
     --rule 'react/jsx-uses-vars: warn' \
     --rule \

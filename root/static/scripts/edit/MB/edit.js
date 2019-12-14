@@ -192,18 +192,21 @@ import request from '../../common/utility/request';
         release: function (release) {
             var releaseGroupID = (release.releaseGroup() || {}).id;
 
-            var events = _(value(release.events)).map(function (data) {
-                var event = {
-                    date:       fields.partialDate(data.date),
-                    country_id: number(data.countryID)
-                };
+            var events = _(value(release.events))
+                .map(function (data) {
+                    var event = {
+                        date:       fields.partialDate(data.date),
+                        country_id: number(data.countryID)
+                    };
 
-                if (_(event.date).values().some(nonEmpty) || event.country_id !== null) {
-                    return event;
-                }
+                    if (_(event.date).values().some(nonEmpty) || event.country_id !== null) {
+                        return event;
+                    }
 
-                return null;
-            }).compact().value();
+                    return null;
+                })
+                .compact()
+                .value();
 
             return {
                 name:               string(release.name),

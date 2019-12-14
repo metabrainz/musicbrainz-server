@@ -22,8 +22,12 @@ MB.Control.EditList = function (container) {
     var $container = $(container);
 
     self.initialize = function () {
-        var $voteOptions = $container.find('input[type="radio"]')
-            .first().parents('.voteopts').clone().addClass('overall-vote');
+        var $voteOptions = $container
+            .find('input[type="radio"]')
+            .first()
+            .parents('.voteopts')
+            .clone()
+            .addClass('overall-vote');
 
         $voteOptions.find('label').each(function () {
             $(this).attr('for', $(this).attr('for').replace(/id-enter-vote.vote.\d+/, 'vote-all'));
@@ -48,7 +52,9 @@ MB.Control.EditList = function (container) {
         $voteOptions.find('input').each(function (i) {
             $(this).click(function () {
                     $container.find('div.voteopts').each(function () {
-                            $(this).find('input').eq(i)
+                            $(this)
+                                .find('input')
+                                .eq(i)
                                 .prop('checked', true)
                                 .change();
                         });
@@ -64,8 +70,14 @@ MB.Control.EditList = function (container) {
 
 $(function () {
     $('div.vote input[type="radio"]').change(function () {
-        $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
-        $(this).parent('label').parent('.vote').addClass(SELECTED_CLASS[ $(this).val() ]);
+        $(this)
+            .parents('.voteopts')
+            .find('.vote')
+            .attr('class', 'vote');
+        $(this)
+            .parent('label')
+            .parent('.vote')
+            .addClass(SELECTED_CLASS[ $(this).val() ]);
     });
 
     $('div.vote input[checked="checked"]').change();

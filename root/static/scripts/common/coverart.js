@@ -15,17 +15,19 @@ $(function () {
             ? $e.data("large-thumbnail")
             : $e.data("small-thumbnail");
 
-        $("<img />").bind('error', function () {
-            if ($e.data("fallback") && $e.attr("src") === thumbnailUrl) {
-                $e.attr("src", $e.data("fallback"));
-            } else {
-                $e.closest('a')
-                    .replaceWith('<em>' + $e.data("message") + '</em>');
-            }
-        }).attr({
+        $("<img />")
+            .bind('error', function () {
+                if ($e.data("fallback") && $e.attr("src") === thumbnailUrl) {
+                    $e.attr("src", $e.data("fallback"));
+                } else {
+                    $e.closest('a')
+                        .replaceWith('<em>' + $e.data("message") + '</em>');
+                }
+        })
+        .attr({
             "src": thumbnailUrl,
             "title": $e.data("title")
-        }).appendTo(this);
-
+        })
+        .appendTo(this);
     });
 });
