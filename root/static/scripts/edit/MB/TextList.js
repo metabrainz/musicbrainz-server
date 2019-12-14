@@ -41,13 +41,9 @@ MB.Form.TextList = function (input) {
                 .find('div.text-list-row')
                 .last())
             .show()
-<<<<<<< HEAD
-            .find('input.value').attr("name", input + '.' + counter).val(initValue)
-=======
             .find('input.value')
             .attr("name", input + '.' + counter)
-            .val(init_value)
->>>>>>> upstream/master
+            .val(initValue)
             .end()
             .find('button.remove-item')
             .bind('click.mb', self.removeEvent);
