@@ -45,7 +45,7 @@ const AddRemoveAlias = ({edit}: Props) => {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const entity = display[entityType];
-  const entityWithGid = entity && entity.gid ? entity : null;
+  const entityWithGid = entity?.gid ? entity : null;
   const ended = display.ended;
   const type = display.type;
 

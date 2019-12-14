@@ -53,7 +53,7 @@ const InstrumentResults = ({
       query={query}
       results={results}
     />
-    {$c.user && $c.user.is_relationship_editor ? (
+    {$c.user?.is_relationship_editor ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new instrument}.', {
           uri: '/instrument/create?edit-instrument.name=' +

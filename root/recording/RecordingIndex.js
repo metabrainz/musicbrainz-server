@@ -110,7 +110,7 @@ const RecordingAppearancesTable = ({
                     <ArtistCreditLink artistCredit={release.artistCredit} />
                   </td>
                   <td>
-                    {release.releaseGroup && release.releaseGroup.typeName
+                    {release.releaseGroup?.typeName
                       ? lp_attributes(
                         release.releaseGroup.typeName,
                         'release_group_primary_type',
@@ -155,7 +155,7 @@ const RecordingIndex = ({
     />
     <h2 className="appears-on-releases">{l('Appears on releases')}</h2>
     <PaginatedResults pager={pager}>
-      {tracks && tracks.length > 0 ? (
+      {tracks?.length ? (
         <RecordingAppearancesTable recording={recording} tracks={tracks} />
       ) : (
         <p>{l('No releases found which feature this recording.')}</p>

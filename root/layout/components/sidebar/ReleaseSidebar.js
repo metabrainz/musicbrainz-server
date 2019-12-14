@@ -208,7 +208,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         )}
       </SidebarProperties>
 
-      {releaseLabels && releaseLabels.length ? (
+      {releaseLabels?.length ? (
         <>
           <h2 className="labels">{l('Labels')}</h2>
           <ul className="links">
@@ -234,7 +234,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         </>
       ) : null}
 
-      {releaseEvents && releaseEvents.length ? (
+      {releaseEvents?.length ? (
         <>
           <h2 className="release-events">{l('Release events')}</h2>
           <ReleaseEvents events={releaseEvents} />

@@ -28,7 +28,7 @@ const AreaUsers = ({
   <AreaLayout entity={area} page="users" title={l('Users')}>
     <h2>{l('Users')}</h2>
 
-    {pager && pager.total_entries > 0 ? (
+    {pager.total_entries ? (
       <p>
         {exp.ln('There is currently {num} user in this area.',
                 'There are currently {num} users in this area.',
@@ -39,7 +39,7 @@ const AreaUsers = ({
       <p>{l('There are currently no users in this area.')}</p>
     )}
 
-    {editors && editors.length > 0 ? (
+    {editors?.length ? (
       <PaginatedResults pager={pager}>
         <ul>
           {editors.map(editor => (

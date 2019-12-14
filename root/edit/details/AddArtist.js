@@ -146,7 +146,7 @@ const AddArtist = ({edit}: {edit: AddArtistEditT}) => {
           <td>{yesNo(display.ended)}</td>
         </tr>
 
-        {display.ipi_codes && display.ipi_codes.length > 0 ? (
+        {display.ipi_codes?.length ? (
           display.ipi_codes.map(ipi => (
             <tr key={ipi}>
               <th>{addColon(l('IPI code'))}</th>
@@ -155,7 +155,7 @@ const AddArtist = ({edit}: {edit: AddArtistEditT}) => {
           ))
         ) : null}
 
-        {display.isni_codes && display.isni_codes.length > 0 ? (
+        {display.isni_codes?.length ? (
           display.isni_codes.map(isni => (
             <tr key={isni}>
               <th>{addColon(l('ISNI code'))}</th>

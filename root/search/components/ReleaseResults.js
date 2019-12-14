@@ -82,7 +82,7 @@ function buildResult(result, index) {
       </td>
       <CatalystContext.Consumer>
         {($c: CatalystContextT) => (
-          $c.session && $c.session.tport
+          $c.session?.tport
             ? <td><TaggerIcon entity={release} /></td>
             : null
         )}
@@ -113,7 +113,7 @@ export const ReleaseResultsInline = ({
         <th>{l('Language')}</th>
         <th>{l('Type')}</th>
         <th>{l('Status')}</th>
-        {$c && $c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
+        {$c?.session?.tport ? <th>{l('Tagger')}</th> : null}
       </>
     }
     pager={pager}

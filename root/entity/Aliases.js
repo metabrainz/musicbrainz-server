@@ -26,7 +26,7 @@ const Aliases = ({aliases, artistCredits, entity}: Props) => {
   return (
     <LayoutComponent entity={entity} page="aliases" title={l('Aliases')}>
       <AliasesComponent aliases={aliases} entity={entity} />
-      {artistCredits && artistCredits.length > 0 ? (
+      {artistCredits?.length ? (
         <ArtistCreditList artistCredits={artistCredits} entity={entity} />
       ) : null}
     </LayoutComponent>
