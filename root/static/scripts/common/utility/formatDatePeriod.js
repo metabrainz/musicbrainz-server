@@ -11,7 +11,9 @@ import ko from 'knockout';
 
 import formatDate from './formatDate';
 
-function formatDatePeriod<+T: {...DatePeriodRoleT, ...}>(entity: T) {
+function formatDatePeriod<
+  +T: $ReadOnly<{...DatePeriodRoleT, ...}>,
+>(entity: T) {
   let {begin_date: beginDate, end_date: endDate, ended} = entity;
 
   beginDate = formatDate(beginDate);
@@ -27,7 +29,10 @@ function formatDatePeriod<+T: {...DatePeriodRoleT, ...}>(entity: T) {
   }
 
   if (beginDate && endDate) {
-    return texp.l('{begin_date} \u2013 {end_date}', {begin_date: beginDate, end_date: endDate});
+    return texp.l(
+      '{begin_date} \u2013 {end_date}',
+      {begin_date: beginDate, end_date: endDate},
+    );
   }
 
   if (!beginDate) {

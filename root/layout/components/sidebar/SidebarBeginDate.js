@@ -19,7 +19,7 @@ import {SidebarProperty} from './SidebarProperties';
 
 type Props = {
   +age?: [number, number, number] | null,
-  +entity: {...DatePeriodRoleT, ...},
+  +entity: $ReadOnly<{...DatePeriodRoleT, ...}>,
   +label: string,
 };
 

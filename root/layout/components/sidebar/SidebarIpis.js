@@ -23,7 +23,7 @@ const buildSidebarIpi = (ipi) => (
 );
 
 type Props = {
-  +entity: {...IpiCodesRoleT, ...},
+  +entity: $ReadOnly<{...IpiCodesRoleT, ...}>,
 };
 
 const SidebarIpis = ({entity}: Props):
