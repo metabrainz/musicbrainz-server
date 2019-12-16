@@ -77,40 +77,40 @@ const DuplicateArtists = ({
             </thead>
             <tbody>
               {items.map((item, index) => {
-                const alias = item.alias;
+                const {alias, artist} = item;
                 lastKey = currentKey;
                 currentKey = item.key;
                 return (
                   <React.Fragment
-                    key={item.artist ? item.artist.gid : `removed-${index}`}
+                    key={artist ? artist.gid : `removed-${index}`}
                   >
                     {lastKey === item.key ? null : (
                       <tr className="subh">
                         <td colSpan="4" />
                       </tr>
                     )}
-                    {item.artist ? (
+                    {artist ? (
                       <tr className={loopParity(index)}>
                         <td>
                           <input
                             name="add-to-merge"
                             type="checkbox"
-                            value={item.artist.id}
+                            value={artist.id}
                           />
                         </td>
                         <td>
-                          <EntityLink entity={item.artist} />
+                          <EntityLink entity={artist} />
                           {alias ? (
                             <span>
                               {' (' + l('alias:') + ' ' + alias + ')'}
                             </span>
                           ) : null}
                         </td>
-                        <td>{item.artist.sort_name}</td>
+                        <td>{artist.sort_name}</td>
                         <td>
-                          {item.artist.typeName
+                          {artist.typeName
                             ? lp_attributes(
-                              item.artist.typeName, 'artist_type',
+                              artist.typeName, 'artist_type',
                             )
                             : l('Unknown')}
                         </td>

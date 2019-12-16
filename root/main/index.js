@@ -111,7 +111,7 @@ const Homepage = ({
         <div className="feature-column" id="blog-feed">
           <h2>{l('MetaBrainz Blog')}</h2>
 
-          {(blogEntries && blogEntries.length) ? (
+          {blogEntries?.length ? (
             <>
               <p style={{margin: '1em 0 0'}}>
                 <strong>{l('Latest posts:')}</strong>

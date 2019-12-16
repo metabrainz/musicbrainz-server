@@ -52,8 +52,8 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
     <>
       <tr className="subh">
         {$c.user_exists ? <th /> : null}
-        <th colSpan={$c.session && $c.session.tport ? 9 : 8}>
-          {status && status.name
+        <th colSpan={$c.session?.tport ? 9 : 8}>
+          {status?.name
             ? lp_attributes(status.name, 'release_status')
             : l('(unknown)')}
         </th>
@@ -88,7 +88,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
             <ReleaseCatnoList labels={release.labels} />
           </td>
           <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
-          {$c.session && $c.session.tport
+          {$c.session?.tport
             ? <td><TaggerIcon entity={release} /></td>
             : null}
         </tr>
@@ -143,7 +143,7 @@ const ReleaseGroupIndex = ({
                   <th>{l('Label')}</th>
                   <th>{l('Catalog#')}</th>
                   <th>{l('Barcode')}</th>
-                  {$c.session && $c.session.tport
+                  {$c.session?.tport
                     ? <th>{l('Tagger')}</th> : null}
                 </tr>
               </thead>

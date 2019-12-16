@@ -43,7 +43,7 @@ function getTitle(props) {
       parts.push(title);
     }
 
-    if (pager && pager.current_page && pager.current_page > 1) {
+    if (pager?.current_page && pager.current_page > 1) {
       parts.push(texp.l('Page {n}', {n: pager.current_page}));
     }
 

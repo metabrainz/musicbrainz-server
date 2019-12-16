@@ -129,6 +129,8 @@ const UserProfileInformation = withCatalystContext(({
 
   const encodedName = encodeURIComponent(user.name);
 
+  const {area, biography, gender, languages} = user;
+
   return (
     <>
       <h2>{l('General Information')}</h2>
@@ -194,15 +196,15 @@ const UserProfileInformation = withCatalystContext(({
           </UserProfileProperty>
         ) : null}
 
-        {user.gender ? (
+        {gender ? (
           <UserProfileProperty name={l('Gender:')}>
-            {l(user.gender.name)}
+            {l(gender.name)}
           </UserProfileProperty>
         ) : null}
 
-        {user.area ? (
+        {area ? (
           <UserProfileProperty name={l('Location:')}>
-            <DescriptiveLink entity={user.area} />
+            <DescriptiveLink entity={area} />
           </UserProfileProperty>
         ) : null}
 
@@ -270,10 +272,10 @@ const UserProfileInformation = withCatalystContext(({
           ) : null}
         </UserProfileProperty>
 
-        {user.biography ? (
+        {biography ? (
           <UserProfileProperty className="biography" name={l('Bio:')}>
             {showBioAndURL ? (
-              expand2react(user.biography)
+              expand2react(biography)
             ) : (
               <div className="deleted">
                 {exp.l(
@@ -286,10 +288,10 @@ const UserProfileInformation = withCatalystContext(({
           </UserProfileProperty>
         ) : null}
 
-        {user.languages && user.languages.length > 0 ? (
+        {languages?.length ? (
           <UserProfileProperty name={l('Languages:')}>
             <ul className="inline">
-              {user.languages.map(language => (
+              {languages.map(language => (
                 <li key={language.language.id}>
                   {l_languages(language.language.name)}
                   {' '}

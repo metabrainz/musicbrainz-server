@@ -40,7 +40,7 @@ const LimitedEditors = ({
       </li>
     </ul>
 
-    {$c.user && $c.user.is_account_admin ? (
+    {$c.user?.is_account_admin ? (
       <EditorList items={items} pager={pager} />
     ) : (
       <p>{l('Sorry, you are not authorized to view this page.')}</p>

@@ -87,8 +87,8 @@ const ArtistIndex = ({
   wantVariousArtistsOnly,
   wikipediaExtract,
 }: Props) => {
-  const hasRecordings = !!(recordings && recordings.length);
-  const hasReleaseGroups = !!(releaseGroups && releaseGroups.length);
+  const hasRecordings = !!(recordings?.length);
+  const hasReleaseGroups = !!(releaseGroups?.length);
   const artistLink = entityHref(artist);
   let message = '';
 
@@ -251,13 +251,13 @@ const ArtistIndex = ({
             : null}
         </RelatedArtists>
 
-      ) : (legalNameAliases && legalNameAliases.length) ? (
+      ) : legalNameAliases?.length ? (
         <RelatedArtists title={l('Legal name')}>
           {commaOnlyListText(legalNameAliases)}
         </RelatedArtists>
       ) : null}
 
-      {otherIdentities && otherIdentities.length ? (
+      {otherIdentities?.length ? (
         <RelatedArtists title={l('Also performs as')}>
           {commaOnlyList(
             otherIdentities.map(a => (

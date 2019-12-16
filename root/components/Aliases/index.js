@@ -31,7 +31,7 @@ function canEdit($c: CatalystContextT, entityType: string) {
 
 type Props = {
   +$c: CatalystContextT,
-  +aliases: $ReadOnlyArray<AliasT>,
+  +aliases: ?$ReadOnlyArray<AliasT>,
   +entity: CoreEntityT,
 };
 
@@ -50,7 +50,7 @@ const Aliases = ({$c, aliases, entity}: Props) => {
           {doc: '/doc/Aliases'},
         )}
       </p>
-      {aliases && aliases.length ? (
+      {aliases?.length ? (
         <AliasTable
           aliases={aliases}
           allowEditing={allowEditing}

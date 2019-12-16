@@ -93,7 +93,7 @@ const Relationships = ({
 
   return (
     <>
-      {source.relationships && source.relationships.length ? (
+      {source.relationships?.length ? (
         <>
           {noRelationshipsHeading ? null : (
             <h2 className="relationships">{l('Relationships')}</h2>

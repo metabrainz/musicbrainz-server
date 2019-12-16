@@ -28,7 +28,7 @@ type ReleaseEventsProps = {
 };
 
 const ReleaseCountries = ({events}: ReleaseEventsProps) => (
-  events && events.length ? (
+  events?.length ? (
     <ul className="links">
       {events.map(buildReleaseCountry)}
     </ul>

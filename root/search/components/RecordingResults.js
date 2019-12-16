@@ -48,7 +48,7 @@ const buildRecordingColumns = recording => (
 
 const buildTaggerIcon = entity => (
   <CatalystContext.Consumer>
-    {$c => $c.session && $c.session.tport
+    {$c => $c.session?.tport
       ? <td><TaggerIcon entity={entity} /></td>
       : null}
   </CatalystContext.Consumer>
@@ -77,7 +77,7 @@ function buildResultWithReleases(result) {
         </td>
         <td>{extraRow.medium_position}</td>
         <td>
-          {releaseGroup && releaseGroup.typeName
+          {releaseGroup?.typeName
             ? lp_attributes(
               releaseGroup.typeName, 'release_group_primary_type',
             )
@@ -93,7 +93,7 @@ function buildResult(result) {
   const score = result.score;
 
   return (
-    result.extra && result.extra.length
+    result.extra?.length
       ? buildResultWithReleases(result)
       : (
         <tr
@@ -125,7 +125,7 @@ export const RecordingResultsInline = ({
         <th>{l('Artist')}</th>
         <th>{l('ISRCs')}</th>
         <th>{l('Release')}</th>
-        {$c && $c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
+        {$c?.session?.tport ? <th>{l('Tagger')}</th> : null}
         <th className="t pos">{l('Track')}</th>
         <th>{l('Medium')}</th>
         <th>{l('Type')}</th>

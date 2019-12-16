@@ -38,7 +38,7 @@ type Props = {
 const PlaceSidebar = ({$c, place}: Props) => {
   const placeAge = age.age(place);
   const gid = encodeURIComponent(place.gid);
-  const coordinates = place.coordinates;
+  const {area, coordinates} = place;
   const heldAtRelGid = 'e2c6f697-07dc-38b1-be0b-83d740165532';
 
   return (
@@ -73,9 +73,9 @@ const PlaceSidebar = ({$c, place}: Props) => {
           </SidebarProperty>
         ) : null}
 
-        {place.area ? (
+        {area ? (
           <SidebarProperty className="area" label={l('Area:')}>
-            <DescriptiveLink entity={place.area} />
+            <DescriptiveLink entity={area} />
           </SidebarProperty>
         ) : null}
 

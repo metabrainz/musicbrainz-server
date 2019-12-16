@@ -56,6 +56,15 @@ const ReleaseSidebar = ({$c, release}: Props) => {
     return null;
   }
 
+  const {
+    combined_format_name: combinedFormatName,
+    events: releaseEvents,
+    labels: releaseLabels,
+    packagingID: packagingId,
+    scriptID: scriptId,
+    statusID: statusId,
+  } = release;
+
   const releaseArtwork = $c.stash.release_artwork;
   const releaseCoverUrl = release.cover_art_url
     ? coverArtUrl($c, release.cover_art_url)
@@ -68,11 +77,9 @@ const ReleaseSidebar = ({$c, release}: Props) => {
   const language = release.languageID
     ? linkedEntities.language[release.languageID]
     : null;
-  const script = release.scriptID
-    ? linkedEntities.script[release.scriptID]
+  const script = scriptId
+    ? linkedEntities.script[scriptId]
     : null;
-  const releaseEvents = release.events;
-  const releaseLabels = release.labels;
 
   return (
     <div id="sidebar">
@@ -133,9 +140,9 @@ const ReleaseSidebar = ({$c, release}: Props) => {
           </SidebarProperty>
         ) : null}
 
-        {release.combined_format_name ? (
+        {combinedFormatName ? (
           <SidebarProperty className="format" label={l('Format:')}>
-            {release.combined_format_name}
+            {combinedFormatName}
           </SidebarProperty>
         ) : null}
 
@@ -157,21 +164,21 @@ const ReleaseSidebar = ({$c, release}: Props) => {
           </SidebarProperty>
         ) : null}
 
-        {release.packagingID ? (
+        {packagingId ? (
           <SidebarProperty className="packaging" label={l('Packaging:')}>
             {l_attributes(
-              linkedEntities.release_packaging[release.packagingID].name,
+              linkedEntities.release_packaging[packagingId].name,
             )}
           </SidebarProperty>
         ) : null}
 
-        {release.statusID ? (
+        {statusId ? (
           <SidebarProperty
             className="status"
             label={lp('Status:', 'release status')}
           >
             {l_attributes(
-              linkedEntities.release_status[release.statusID].name,
+              linkedEntities.release_status[statusId].name,
             )}
           </SidebarProperty>
         ) : null}
@@ -201,7 +208,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         )}
       </SidebarProperties>
 
-      {releaseLabels && releaseLabels.length ? (
+      {releaseLabels?.length ? (
         <>
           <h2 className="labels">{l('Labels')}</h2>
           <ul className="links">
@@ -227,7 +234,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         </>
       ) : null}
 
-      {releaseEvents && releaseEvents.length ? (
+      {releaseEvents?.length ? (
         <>
           <h2 className="release-events">{l('Release events')}</h2>
           <ReleaseEvents events={releaseEvents} />

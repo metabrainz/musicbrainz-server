@@ -19,7 +19,7 @@ type Props = {
   +$c: CatalystContextT,
   +artist: ArtistT,
   +pager: PagerT,
-  +works: $ReadOnlyArray<WorkT>,
+  +works: ?$ReadOnlyArray<WorkT>,
 };
 
 const ArtistWorks = ({
@@ -31,7 +31,7 @@ const ArtistWorks = ({
   <ArtistLayout entity={artist} page="works" title={l('Works')}>
     <h2>{l('Works')}</h2>
 
-    {works && works.length > 0 ? (
+    {works?.length ? (
       <form action="/work/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <WorkList
