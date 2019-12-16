@@ -9,10 +9,20 @@
 
 import React from 'react';
 
+import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import WorkListEntry
-  from '../../static/scripts/common/components/WorkListEntry';
-import SortableTableHeader from '../SortableTableHeader';
+import {
+  defineArtistRolesColumn,
+  defineCheckboxColumn,
+  defineNameColumn,
+  defineSeriesNumberColumn,
+  defineTypeColumn,
+  attributesColumn,
+  iswcsColumn,
+  ratingsColumn,
+  workArtistsColumn,
+  workLanguagesColumn,
+} from '../../utility/tableColumns';
 
 type Props = {
   ...SeriesItemNumbersRoleT,
@@ -32,61 +42,51 @@ const WorkList = ({
   showRatings,
   sortable,
   works,
-}: Props) => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        {$c.user_exists && checkboxes ? (
-          <th className="checkbox-cell">
-            <input type="checkbox" />
-          </th>
-        ) : null}
-        {seriesItemNumbers ? <th style={{width: '1em'}}>{l('#')}</th> : null}
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Work')}
-                name="name"
-                order={order}
-              />
-            )
-            : l('Work')}
-        </th>
-        <th>{l('Writers')}</th>
-        <th>{l('Artists')}</th>
-        <th>{l('ISWC')}</th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Type')}
-                name="type"
-                order={order}
-              />
-            )
-            : l('Type')}
-        </th>
-        <th>{l('Lyrics Languages')}</th>
-        <th>{l('Attributes')}</th>
-        {showRatings ? <th>{l('Rating')}</th> : null}
-      </tr>
-    </thead>
-    <tbody>
-      {works.map((work, index) => (
-        <WorkListEntry
-          checkboxes={checkboxes}
-          index={index}
-          key={work.id}
-          seriesItemNumbers={seriesItemNumbers}
-          showAttributes
-          showIswcs
-          showRatings={showRatings}
-          work={work}
-        />
-      ))}
-    </tbody>
-  </table>
-);
+}: Props) => {
+  const columns = React.useMemo(
+    () => {
+      const checkboxColumn = $c.user_exists && checkboxes
+        ? defineCheckboxColumn(checkboxes)
+        : null;
+      const seriesNumberColumn = seriesItemNumbers
+        ? defineSeriesNumberColumn(seriesItemNumbers)
+        : null;
+      const nameColumn = defineNameColumn<WorkT>(
+        l('Work'),
+        order,
+        sortable,
+      );
+      const writersColumn = defineArtistRolesColumn(
+        entity => entity.writers,
+        'writers',
+        l('Writers'),
+      );
+      const typeColumn = defineTypeColumn('work_type', order, sortable);
+
+      return [
+        ...(checkboxColumn ? [checkboxColumn] : []),
+        ...(seriesNumberColumn ? [seriesNumberColumn] : []),
+        nameColumn,
+        writersColumn,
+        workArtistsColumn,
+        iswcsColumn,
+        typeColumn,
+        workLanguagesColumn,
+        attributesColumn,
+        ...(showRatings ? [ratingsColumn] : []),
+      ];
+    },
+    [
+      $c.user_exists,
+      checkboxes,
+      order,
+      seriesItemNumbers,
+      showRatings,
+      sortable,
+    ],
+  );
+
+  return <Table columns={columns} data={works} />;
+};
 
 export default withCatalystContext(WorkList);

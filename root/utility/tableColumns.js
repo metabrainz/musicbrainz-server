@@ -13,6 +13,12 @@ import type {ColumnOptions} from 'react-table';
 import RatingStars from '../components/RatingStars';
 import SortableTableHeader from '../components/SortableTableHeader';
 import linkedEntities from '../static/scripts/common/linkedEntities';
+import ArtistCreditLink
+  from '../static/scripts/common/components/ArtistCreditLink';
+import ArtistRoles
+  from '../static/scripts/common/components/ArtistRoles';
+import AttributeList from '../static/scripts/common/components/AttributeList';
+import CodeLink from '../static/scripts/common/components/CodeLink';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
@@ -145,6 +151,18 @@ export function defineEntityColumn<D>(
   };
 }
 
+export function defineSeriesNumberColumn(
+  seriesItemNumbers: {+[entityId: number]: string},
+): ColumnOptions<CoreEntityT, number> {
+  return {
+    Cell: ({cell: {value}}) => seriesItemNumbers[value],
+    Header: l('#'),
+    accessor: 'id',
+    className: 'number-column',
+    id: 'series-number',
+  };
+}
+
 export function defineTextColumn<D>(
   getText: (D) => string,
   columnName: string,
@@ -225,6 +243,84 @@ export const seriesOrderingTypeColumn:
     },
     Header: N_l('Ordering Type'),
     accessor: 'orderingTypeID',
+  };
+
+export const attributesColumn:
+  ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
+    Cell: ({row: {original}}) => <AttributeList entity={original} />,
+    Header: N_l('Attributes'),
+    accessor: 'attributes',
+  };
+
+export const workArtistsColumn:
+  ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
+    Cell: ({cell: {value}}) => (
+      <ul>
+        {value.map((artistCredit, i) => (
+          <li key={i}>
+            <ArtistCreditLink artistCredit={artistCredit} />
+          </li>
+        ))}
+      </ul>
+    ),
+    Header: N_l('Artists'),
+    accessor: 'artists',
+  };
+
+export const workLanguagesColumn:
+  ColumnOptions<WorkT, $ReadOnlyArray<WorkLanguageT>> = {
+    Cell: ({cell: {value}}) => (
+      <ul>
+        {value.map(language => (
+          <li key={language.language.id}>
+            <abbr title={l_languages(language.language.name)}>
+              {language.language.iso_code_3}
+            </abbr>
+          </li>
+        ))}
+      </ul>
+    ),
+    Header: N_l('Lyrics Languages'),
+    accessor: 'languages',
+  };
+
+export function defineArtistRolesColumn<D>(
+  getRoles: (D) => $ReadOnlyArray<{
+    +entity: ArtistT,
+    +roles: $ReadOnlyArray<string>,
+  }>,
+  columnName: string,
+  title: string,
+): ColumnOptions<D, $ReadOnlyArray<{
+      +entity: ArtistT,
+      +roles: $ReadOnlyArray<string>,
+}>> {
+  return {
+    Cell: ({row: {original}}) => (
+      <ArtistRoles relations={getRoles(original)} />
+    ),
+    Header: title,
+    accessor: row => getRoles(row) ?? [],
+    id: columnName,
+  };
+}
+
+export const iswcsColumn:
+  ColumnOptions<{
+    +iswcs: $ReadOnlyArray<IswcT>,
+    ...,
+  }, $ReadOnlyArray<IswcT>> = {
+    Cell: ({cell: {value}}) => (
+      <ul>
+        {value.map((iswc) => (
+          <li key={iswc.iswc}>
+            <CodeLink code={iswc} />
+          </li>
+        ))}
+      </ul>
+    ),
+    Header: N_l('ISWC'),
+    accessor: 'iswcs',
   };
 
 export const subscriptionColumn:
