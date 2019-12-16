@@ -85,6 +85,7 @@ module.exports = {
   'oauth2/OAuth2Oob': require('../oauth2/OAuth2Oob'),
   'place/PlaceEvents': require('../place/PlaceEvents'),
   'place/PlaceIndex': require('../place/PlaceIndex'),
+  'place/PlaceMap': require('../place/PlaceMap'),
   'place/PlacePerformances': require('../place/PlacePerformances'),
   'recording/RecordingFingerprints': require('../recording/RecordingFingerprints'),
   'recording/RecordingIndex': require('../recording/RecordingIndex'),
