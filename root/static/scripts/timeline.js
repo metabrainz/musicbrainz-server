@@ -485,9 +485,9 @@ class TimelineLine {
             .appendTo("body")
             .fadeIn(200);
     }
-    
-    var removeTooltip = function () { 
-        $('#tooltip').remove(); 
+
+    var removeTooltip = function () {
+        $('#tooltip').remove();
     };
 
     var setCursor = function (type) {
@@ -503,9 +503,9 @@ class TimelineLine {
         };
         removeTooltip();
         setCursor();
-        var x = item.datapoint[0],
-            y = item.datapoint[1],
-            date = new Date(parseInt(x));
+        const x = item.datapoint[0];
+        let y = item.datapoint[1];
+        const date = new Date(parseInt(x));
 
         if (fixed) {
             y = y.toFixed(fixed);

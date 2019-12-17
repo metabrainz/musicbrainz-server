@@ -415,7 +415,8 @@ releaseEditor.loadingEditPreviews = ko.observable(false);
 
 
 releaseEditor.getEditPreviews = function () {
-    var previews = {}, previewRequest = null;
+    const previews = {};
+    let previewRequest = null;
 
     function refreshPreviews(edits) {
         releaseEditor.editPreviews(_.compact(_.map(edits, getPreview)));
@@ -426,7 +427,8 @@ releaseEditor.getEditPreviews = function () {
     }
 
     function addPreview(tuple) {
-        var editHash = tuple[0].hash, preview = tuple[1];
+        const editHash = tuple[0].hash;
+        const preview = tuple[1];
         if (preview) {
             preview.editHash = editHash;
             previews[editHash] = preview;
@@ -514,8 +516,8 @@ function chainEditSubmissions(release, submissions) {
             return;
         }
 
-        var edits = current.edits(release),
-            submitted = null;
+        const edits = current.edits(release);
+        let submitted = null;
 
         if (edits.length) {
             submitted = MB.edit.create($.extend({ edits: edits }, args));

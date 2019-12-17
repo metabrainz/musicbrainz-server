@@ -124,8 +124,9 @@ import deferFocus from '../../edit/utility/deferFocus';
             this.menuVisible(false);
             this.updateOptions(this.term.peek());
 
-            var nodes = this.optionNodes, node;
-            var nextIndex = _.findIndex(nodes, node => node.optionData.value === typeGID);
+            const nodes = this.optionNodes;
+            let node;
+            let nextIndex = _.findIndex(nodes, node => node.optionData.value === typeGID);
 
             while ((node = nodes[++nextIndex])) {
                 if (node.style.display === "block") {

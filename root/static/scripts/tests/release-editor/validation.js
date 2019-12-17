@@ -38,8 +38,8 @@ validationTest("non-loaded mediums validate, even though they have no tracks (MB
         ]
     });
 
-    var release = releaseEditor.rootField.release(),
-        medium = release.mediums()[0];
+    const release = releaseEditor.rootField.release();
+    const medium = release.mediums()[0];
 
     t.ok(!medium.loaded(), "medium is not loaded");
     t.ok(!medium.needsTracks(), "medium doesn't require tracks");

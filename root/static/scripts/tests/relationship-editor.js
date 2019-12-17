@@ -427,7 +427,8 @@ relationshipEditorTest("BatchRelationshipDialog", function (t) {
     });
 
     var relationship = dialog.relationship();
-    var relationships, attributes;
+    let relationships;
+    let attributes;
 
     relationship.linkTypeID(154);
     relationship.setAttributes(ids2attrs([1]));
@@ -539,14 +540,14 @@ relationshipEditorTest("MBS-5389: added recording-recording relationship appears
 relationshipEditorTest("backwardness of submitted relationships is preserved (MBS-7636)", function (t) {
     t.plan(2);
 
-    var source = {
-            entityType: "recording",
-            gid: fakeGID0
-        },
-        target = {
-            entityType: "recording",
-            gid: fakeGID1
-        };
+    const source = {
+        entityType: "recording",
+        gid: fakeGID0,
+    };
+    const target = {
+        entityType: "recording",
+        gid: fakeGID1,
+    };
 
     window.sessionStorage.setItem('submittedRelationships', JSON.stringify([
         {

@@ -324,13 +324,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         function medium(mediumSelector, selector, counter) {
             $tracklist.on("change", mediumSelector, function () {
-                var checked = this.checked,
-                    $changed = $(this)
-                        .parents("tr.subh")
-                        .nextUntil("tr.subh")
-                        .find(selector)
-                        .filter(checked ? ":not(:checked)" : ":checked")
-                        .prop("checked", checked);
+                const checked = this.checked;
+                const $changed = $(this)
+                    .parents("tr.subh")
+                    .nextUntil("tr.subh")
+                    .find(selector)
+                    .filter(checked ? ":not(:checked)" : ":checked")
+                    .prop("checked", checked);
                 counter(counter() + count($changed) * (checked ? 1 : -1));
             });
         }
@@ -348,9 +348,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var lastClicked = null;
 
             $tracklist.on("click", selector, function (event) {
-                var checked = this.checked, $inputs = $(selector, $tracklist);
+                const checked = this.checked;
+                const $inputs = $(selector, $tracklist);
                 if (event.shiftKey && lastClicked && lastClicked != this) {
-                    var first = $inputs.index(lastClicked), last = $inputs.index(this);
+                    const first = $inputs.index(lastClicked);
+                    const last = $inputs.index(this);
 
                     (first > last
                         ? $inputs.slice(last, first + 1)
