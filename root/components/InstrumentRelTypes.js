@@ -14,7 +14,7 @@ import {bracketedText} from '../static/scripts/common/utility/bracketed';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
-  +entity: RecordingT | ReleaseT,
+  +entity: ArtistT | RecordingT | ReleaseT,
 };
 
 const InstrumentRelTypes = ({
@@ -27,10 +27,13 @@ const InstrumentRelTypes = ({
         commaOnlyListText(
           instrumentCreditsAndRelTypes[entity.gid].map(json => {
             const relType = JSON.parse(json);
-            let listElement = l_relationships(relType.name);
+            let listElement = l_relationships(relType.typeName);
             if (relType.credit) {
               listElement = listElement + ' ' +
-                bracketedText(texp.l('as “{credit}”', {credit: relType.credit}));
+                bracketedText(texp.l(
+                  'as “{credit}”',
+                  {credit: relType.credit},
+                ));
             }
             return listElement;
           }),
