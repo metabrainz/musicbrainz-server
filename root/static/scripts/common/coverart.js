@@ -23,11 +23,11 @@ $(function () {
                     $e.closest('a')
                         .replaceWith('<em>' + $e.data("message") + '</em>');
                 }
-        })
-        .attr({
-            "src": thumbnailUrl,
-            "title": $e.data("title")
-        })
-        .appendTo(this);
+            })
+            .attr({
+                "src": thumbnailUrl,
+                "title": $e.data("title")
+            })
+            .appendTo(this);
     });
 });
