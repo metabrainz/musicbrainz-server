@@ -27,7 +27,7 @@ type EditAliasEditT = $ReadOnly<{
   ...EditT,
   +alias: AliasT | null,
   +display_data: {
-    +[CoreEntityTypeT]: CoreEntityT,
+    +[coreEntityType: CoreEntityTypeT]: CoreEntityT,
     +alias: CompT<string>,
     +begin_date: CompT<PartialDateT>,
     +end_date: CompT<PartialDateT>,

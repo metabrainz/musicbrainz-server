@@ -30,7 +30,7 @@ type MainStatsT = {
   +primaryTypes: $ReadOnlyArray<ReleaseGroupTypeT>,
   +secondaryTypes: $ReadOnlyArray<ReleaseGroupSecondaryTypeT>,
   +seriesTypes: $ReadOnlyArray<SeriesTypeT>,
-  +stats: {[string]: number},
+  +stats: {[statName: string]: number},
   +statuses: $ReadOnlyArray<ReleaseStatusT>,
   +workAttributeTypes: $ReadOnlyArray<WorkAttributeTypeT>,
   +workTypes: $ReadOnlyArray<WorkTypeT>,

@@ -197,8 +197,8 @@ declare type CatalystContextT = {
 };
 
 type CatalystRequestContextT = {
-  +headers: {+[string]: string},
-  +query_params: {+[string]: string},
+  +headers: {+[header: string]: string},
+  +query_params: {+[param: string]: string},
   +secure: boolean,
   +uri: string,
 };
@@ -214,12 +214,12 @@ type CatalystStashT = {
   +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
   +containment?: {
-    [number]: ?1,
+    [collectionId: number]: ?1,
   },
   +current_language: string,
   +current_language_html: string,
   +entity?: CoreEntityT,
-  +genre_map?: {+[string]: GenreT, ...},
+  +genre_map?: {+[genreName: string]: GenreT, ...},
   +hide_merge_helper?: boolean,
   +jsonld_data?: {...},
   +makes_no_changes?: boolean,
@@ -500,7 +500,7 @@ declare type Expand2ReactOutput = string | React$MixedElement;
 
 declare type ExpandLFunc<-Input, Output> = (
   key: string,
-  args: {+[string]: Input | Output, ...},
+  args: {+[arg: string]: Input | Output, ...},
 ) => Output;
 
 declare type FieldT<V> = {
@@ -682,7 +682,7 @@ declare type LinkTypeAttrTypeT = {
 
 declare type LinkTypeT = {
   ...OptionTreeT<'link_type'>,
-  +attributes: {+[number]: LinkTypeAttrTypeT},
+  +attributes: {+[typeId: number]: LinkTypeAttrTypeT},
   +cardinality0: number,
   +cardinality1: number,
   +children?: $ReadOnlyArray<LinkTypeT>,
@@ -928,7 +928,7 @@ declare type SanitizedCatalystContextT = {
   },
   +stash: {
     +current_language: string,
-    +genre_map?: {+[string]: GenreT, ...},
+    +genre_map?: {+[genreName: string]: GenreT, ...},
   },
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
@@ -995,7 +995,7 @@ declare type SeriesT = $ReadOnly<{
 }>;
 
 declare type SeriesItemNumbersRoleT = {
-  +seriesItemNumbers?: {+[number]: string},
+  +seriesItemNumbers?: {+[entityId: number]: string},
 };
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
