@@ -834,9 +834,10 @@ MB.GuessCase.Handler.Base = function (gc) {
                      *    though :]
                      * Blah (feat. Erroll Flynn Some Remixname) (remix)
                      */
-                    var pos = gc.i.getPos();
-                    var len = gc.i.getLength();
-                    for (var i = pos; i < len; i++) {
+                    const pos = gc.i.getPos();
+                    const len = gc.i.getLength();
+                    let i = pos;
+                    for (; i < len; i++) {
                         if (gc.i.getWordAtIndex(i) == "(") {
                             break;
                         }

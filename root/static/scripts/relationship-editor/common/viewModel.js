@@ -201,11 +201,11 @@ MB.initRelationshipEditors = function (args) {
 };
 
 MB.getRelationship = function (data, source) {
-    var target = data.target;
+    const target = data.target;
 
     data = _.clone(data);
 
-    var backward = source.entityType > target.entityType;
+    let backward = source.entityType > target.entityType;
 
     if (source.entityType === target.entityType) {
         backward = (data.direction === "backward");
@@ -213,19 +213,20 @@ MB.getRelationship = function (data, source) {
 
     data.entities = backward ? [target, source] : [source, target];
 
-    var viewModel = getRelationshipEditor(data, source);
+    const viewModel = getRelationshipEditor(data, source);
 
     if (viewModel) {
+        let cacheKey;
         if (data.id) {
-            var cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
-            var cached = viewModel.cache[cacheKey];
+            cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
+            const cached = viewModel.cache[cacheKey];
 
             if (cached) {
                 return cached;
             }
         }
-        var relationship = new viewModel.relationshipClass(data, source, viewModel);
-        return data.id ? (viewModel.cache[cacheKey] = relationship) : relationship;
+        const relationship = new viewModel.relationshipClass(data, source, viewModel);
+        return cacheKey ? (viewModel.cache[cacheKey] = relationship) : relationship;
     }
 
     return null;

@@ -48,7 +48,7 @@ MB.GuessCase = MB.GuessCase || {};
     // Member functions
 
     function guess(handlerName, method) {
-        var handler;
+        let handler;
 
         /*
          * Guesses the name (e.g. capitalization) or sort name (for aliases)
@@ -67,13 +67,11 @@ MB.GuessCase = MB.GuessCase || {};
              * a special case, fetch the correct format, if the
              * returned case is indeed a special case.
              */
-            var num = handler.checkSpecialCase(is);
-            if (handler.isSpecialCase(num)) {
-                var os = handler.getSpecialCaseFormatted(is, num);
-            } else {
+            const num = handler.checkSpecialCase(is);
+            const os = handler.isSpecialCase(num)
+                ? handler.getSpecialCaseFormatted(is, num)
                 // if it was not a special case, start Guessing
-                var os = handler[method].apply(handler, arguments);
-            }
+                : handler[method].apply(handler, arguments);
 
             return os;
         };
