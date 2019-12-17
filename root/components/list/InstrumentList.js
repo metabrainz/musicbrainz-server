@@ -9,10 +9,14 @@
 
 import React from 'react';
 
+import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import InstrumentListEntry
-  from '../../static/scripts/common/components/InstrumentListEntry';
-import SortableTableHeader from '../SortableTableHeader';
+import {
+  defineCheckboxColumn,
+  defineNameColumn,
+  defineTypeColumn,
+  instrumentDescriptionColumn,
+} from '../../utility/tableColumns';
 
 type Props = {
   +$c: CatalystContextT,
@@ -28,51 +32,27 @@ const InstrumentList = ({
   instruments,
   order,
   sortable,
-}: Props) => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        {$c.user_exists && checkboxes ? (
-          <th className="checkbox-cell">
-            <input type="checkbox" />
-          </th>
-        ) : null}
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Instrument')}
-                name="name"
-                order={order}
-              />
-            )
-            : l('Instrument')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Type')}
-                name="type"
-                order={order}
-              />
-            )
-            : l('Type')}
-        </th>
-        <th>{l('Description')}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {instruments.map((instrument, index) => (
-        <InstrumentListEntry
-          checkboxes={checkboxes}
-          index={index}
-          instrument={instrument}
-          key={instrument.id}
-        />
-      ))}
-    </tbody>
-  </table>
-);
+}: Props) => {
+  const columns = React.useMemo(
+    () => {
+      const checkboxColumn = $c.user_exists && checkboxes
+        ? defineCheckboxColumn(checkboxes)
+        : null;
+      const nameColumn =
+        defineNameColumn<InstrumentT>(l('Instrument'), order, sortable);
+      const typeColumn = defineTypeColumn('instrument_type', order, sortable);
+
+      return [
+        ...(checkboxColumn ? [checkboxColumn] : []),
+        nameColumn,
+        typeColumn,
+        instrumentDescriptionColumn,
+      ];
+    },
+    [$c.user_exists, checkboxes, order, sortable],
+  );
+
+  return <Table columns={columns} data={instruments} />;
+};
 
 export default withCatalystContext(InstrumentList);
