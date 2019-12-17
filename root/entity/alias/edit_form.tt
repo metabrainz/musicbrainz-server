@@ -58,6 +58,6 @@
     $('#id-edit-alias\\\.type_id').keyup(denyDataForSearchHints).change(denyDataForSearchHints);
     denyDataForSearchHints();
 
-    MB.Control.initialize_guess_case('[% entity_type %]', 'id-edit-alias');
+    MB.Control.initializeGuessCase('[% entity_type %]', 'id-edit-alias');
 }());
 </script>
