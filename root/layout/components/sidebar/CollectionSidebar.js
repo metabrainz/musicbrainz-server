@@ -21,85 +21,89 @@ type Props = {
   +collection: CollectionT,
 };
 
-const CollectionSidebar = ({$c, collection}: Props) => (
-  <div id="sidebar">
-    <h2 className="collection-information">
-      {l('Collection information')}
-    </h2>
+const CollectionSidebar = ({$c, collection}: Props) => {
+  const typeName = collection.typeName;
 
-    <SidebarProperties>
-      <SidebarProperty className="" label={l('Owner:')}>
-        <EditorLink editor={collection.editor} />
-      </SidebarProperty>
+  return (
+    <div id="sidebar">
+      <h2 className="collection-information">
+        {l('Collection information')}
+      </h2>
 
-      {collection.typeName ? (
-        <SidebarProperty className="type" label={l('Type:')}>
-          {lp_attributes(collection.typeName, 'collection_type')}
+      <SidebarProperties>
+        <SidebarProperty className="" label={l('Owner:')}>
+          <EditorLink editor={collection.editor} />
         </SidebarProperty>
-      ) : null}
-    </SidebarProperties>
 
-    <h2 className="editing">{l('Editing')}</h2>
+        {typeName ? (
+          <SidebarProperty className="type" label={l('Type:')}>
+            {lp_attributes(typeName, 'collection_type')}
+          </SidebarProperty>
+        ) : null}
+      </SidebarProperties>
 
-    <ul className="links">
+      <h2 className="editing">{l('Editing')}</h2>
+
+      <ul className="links">
+        {$c.user_exists ? (
+          <>
+            <li>
+              <EntityLink
+                content={l('Open edits')}
+                entity={collection}
+                subPath="open_edits"
+              />
+            </li>
+            <li>
+              <EntityLink
+                content={l('Editing history')}
+                entity={collection}
+                subPath="edits"
+              />
+            </li>
+          </>
+        ) : (
+          <li>
+            <RequestLogin $c={$c} text={l('Log in to edit')} />
+          </li>
+        )}
+      </ul>
+
       {$c.user_exists ? (
         <>
-          <li>
-            <EntityLink
-              content={l('Open edits')}
-              entity={collection}
-              subPath="open_edits"
-            />
-          </li>
-          <li>
-            <EntityLink
-              content={l('Editing history')}
-              entity={collection}
-              subPath="edits"
-            />
-          </li>
+          <h2 className="subscriptions">{l('Subscriptions')}</h2>
+          <ul className="links">
+            {$c.stash.subscribed ? (
+              <li>
+                <a
+                  href={'/account/subscriptions/collection/remove?id=' +
+                    String(collection.id)}
+                >
+                  {l('Unsubscribe')}
+                </a>
+              </li>
+            ) : (
+              <li>
+                <a
+                  href={'/account/subscriptions/collection/add?id=' +
+                    String(collection.id)}
+                >
+                  {l('Subscribe')}
+                </a>
+              </li>
+            )}
+            <li>
+              <EntityLink
+                content={l('Subscribers')}
+                entity={collection}
+                subPath="subscribers"
+              />
+            </li>
+          </ul>
         </>
-      ) : (
-        <li>
-          <RequestLogin $c={$c} text={l('Log in to edit')} />
-        </li>
-      )}
-    </ul>
-
-    {$c.user_exists ? (
-      <>
-        <h2 className="subscriptions">{l('Subscriptions')}</h2>
-        <ul className="links">
-          {$c.stash.subscribed ? (
-            <li>
-              <a
-                href={'/account/subscriptions/collection/remove?id=' +
-                  String(collection.id)}
-              >
-                {l('Unsubscribe')}
-              </a>
-            </li>
-          ) : (
-            <li>
-              <a
-                href={'/account/subscriptions/collection/add?id=' +
-                  String(collection.id)}
-              >
-                {l('Subscribe')}
-              </a>
-            </li>
-          )}
-          <li>
-            <EntityLink
-              content={l('Subscribers')}
-              entity={collection}
-              subPath="subscribers"
-            />
-          </li>
-        </ul>
-      </>
-    ) : null}
-  </div>
-);
+      ) : null}
+    </div>
+  );
+}
 
 export default withCatalystContext(CollectionSidebar);

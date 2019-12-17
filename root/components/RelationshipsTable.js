@@ -54,8 +54,7 @@ const RelationshipsTable = ({
       if (!hasCreditColumn && showCredits && sourceCredit) {
         hasCreditColumn = 1;
       }
-      if (!hasAttributeColumn && relationship.attributes &&
-        relationship.attributes.length > 0) {
+      if (!hasAttributeColumn && relationship.attributes?.length) {
         hasAttributeColumn = 1;
       }
       if (!hasArtistColumn && relationship.target.artistCredit) {
@@ -138,7 +137,7 @@ const RelationshipsTable = ({
                     ) : null}
                     {hasAttributeColumn ? (
                       <td>
-                        {attributes && attributes.length > 0 ? (
+                        {attributes?.length ? (
                           commaList(
                             attributes.map(displayLinkAttribute),
                           )

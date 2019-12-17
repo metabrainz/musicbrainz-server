@@ -19,7 +19,7 @@ type Props = {
   +$c: CatalystContextT,
   +area: AreaT,
   +pager: PagerT,
-  +releases: $ReadOnlyArray<ReleaseT>,
+  +releases: ?$ReadOnlyArray<ReleaseT>,
 };
 
 const AreaReleases = ({
@@ -31,7 +31,7 @@ const AreaReleases = ({
   <AreaLayout entity={area} page="releases" title={l('Releases')}>
     <h2>{l('Releases')}</h2>
 
-    {releases && releases.length > 0 ? (
+    {releases?.length ? (
       <form action="/release/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <ReleaseList

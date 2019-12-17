@@ -190,7 +190,7 @@ const CollectionIndex = (props: Props) => {
         ) : null}
       </div>
       <div className="">
-        {collection.collaborators && collection.collaborators.length ? (
+        {collection.collaborators.length ? (
           <>
             <h2>{l('Collaborators')}</h2>
             <UserInlineList editors={collection.collaborators} />

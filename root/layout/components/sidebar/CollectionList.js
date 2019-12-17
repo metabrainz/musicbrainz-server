@@ -67,7 +67,7 @@ const CollectionAddRemove = withCatalystContext(({
   entity,
   noneText,
 }: CollectionAddRemoveProps) => (
-  (collections && collections.length) ? (
+  collections?.length ? (
     collections.map(collection => (
       <li key={collection.id}>
         {hasEntity($c, collection) ? (
@@ -145,7 +145,7 @@ const CollectionList = ({
       noneText={ownCollectionsNoneText}
     />
     <li className="separator" role="separator" />
-    {collaborativeCollections && collaborativeCollections.length > 0 ? (
+    {collaborativeCollections?.length ? (
       <>
         <h3>
           {collaborativeCollectionsHeader}

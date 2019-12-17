@@ -55,7 +55,7 @@ const InstrumentList = ({
             </ul>
           </React.Fragment>
         ))}
-        {(unknown && unknown.length)
+        {unknown?.length
           ? (
             <>
               <h2>{l('Unclassified instrument')}</h2>

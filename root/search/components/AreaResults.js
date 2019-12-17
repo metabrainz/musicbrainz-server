@@ -65,7 +65,7 @@ const AreaResults = ({
       query={query}
       results={results}
     />
-    {$c.user && $c.user.is_location_editor ? (
+    {$c.user?.is_location_editor ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new area}.', {
           uri: '/area/create?edit-area.name=' + encodeURIComponent(query),

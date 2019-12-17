@@ -17,7 +17,7 @@ import LabelLayout from './LabelLayout';
 
 const LabelRelationships = ({label}: {label: LabelT}) => (
   <LabelLayout entity={label} page="relationships" title={l('Relationships')}>
-    {label.relationships && label.relationships.length > 0 ? (
+    {label.relationships?.length ? (
       <Relationships source={label} />
     ) : (
       <>
