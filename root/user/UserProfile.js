@@ -123,7 +123,7 @@ const UserProfileInformation = withCatalystContext(({
     $c.user && !$c.user.has_confirmed_email_address) ? (
       <strong>
         {l(`Your homepage and biography will not show
-            until you have verified your email.`)}
+            until you have completed the email verification process.`)}
       </strong>
     ) : null;
 
