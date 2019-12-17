@@ -60,7 +60,7 @@ function generateUserTypesList(user: EditorT) {
       <span
         className="tooltip"
         title={l(
-          `User accounts must be more than 2 weeks old, have a confirmed
+          `User accounts must be more than 2 weeks old, have a verified
            email address, and more than 10 accepted edits in order
            to vote on others' edits.`,
         )}
@@ -123,7 +123,7 @@ const UserProfileInformation = withCatalystContext(({
     $c.user && !$c.user.has_confirmed_email_address) ? (
       <strong>
         {l(`Your homepage and biography will not show
-            until you have confirmed your email.`)}
+            until you have verified your email.`)}
       </strong>
     ) : null;
 
