@@ -621,23 +621,19 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.primaryAlias && item.primaryAlias != item.name)
-        {
+        if (item.primaryAlias && item.primaryAlias != item.name) {
             comment.push(item.primaryAlias);
         }
 
-        if (item.sort_name && !isLatin(item.name) && item.sort_name != item.name && !item.primaryAlias)
-        {
+        if (item.sort_name && !isLatin(item.name) && item.sort_name != item.name && !item.primaryAlias) {
             comment.push(item.sort_name);
         }
 
-        if (item.comment)
-        {
+        if (item.comment) {
             comment.push(item.comment);
         }
 
-        if (comment.length)
-        {
+        if (comment.length) {
             a.append(' <span class="autocomplete-comment">' +
                      _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
@@ -648,20 +644,17 @@ MB.Control.autocomplete_formatters = {
     "recording": function (ul, item) {
         var a = $("<a>").text(item.name);
 
-        if (item.length)
-        {
+        if (item.length) {
             a.prepend('<span class="autocomplete-length">' +
                 formatTrackLength(item.length) + '</span>');
         }
 
-        if (item.comment)
-        {
+        if (item.comment) {
             a.append('<span class="autocomplete-comment">' +
                       _.escape(bracketed(item.comment)) + '</span>');
         }
 
-        if (item.video)
-        {
+        if (item.video) {
             const title = _.escape(l('This recording is a video'));
             a.prepend($(`<span class="video" title="${title}"></span>`));
         }
@@ -669,27 +662,23 @@ MB.Control.autocomplete_formatters = {
         a.append('<br /><span class="autocomplete-comment">by ' +
                   _.escape(item.artist) + '</span>');
 
-        if (item.appearsOn && item.appearsOn.hits > 0)
-        {
+        if (item.appearsOn && item.appearsOn.hits > 0) {
             var rgs = [];
             $.each(item.appearsOn.results, function (idx, item) {
                 rgs.push(item.name);
             });
 
-            if (item.appearsOn.hits > item.appearsOn.results.length)
-            {
+            if (item.appearsOn.hits > item.appearsOn.results.length) {
                 rgs.push('...');
             }
 
             a.append('<br /><span class="autocomplete-appears">' + _.escape(addColon(l('appears on'))) + ' ' +
                      _.escape(commaOnlyList(rgs)) + '</span>');
-        }
-        else if (item.appearsOn && item.appearsOn.hits === 0) {
+        } else if (item.appearsOn && item.appearsOn.hits === 0) {
             a.append('<br /><span class="autocomplete-appears">' + _.escape(l('standalone recording')) + '</span>');
         }
 
-        if (item.isrcs && item.isrcs.length)
-        {
+        if (item.isrcs && item.isrcs.length) {
             a.append('<br /><span class="autocomplete-isrcs">' + _.escape(addColon(l('ISRCs'))) + ' ' +
                      _.escape(commaOnlyList(item.isrcs.map(isrc => isrc.isrc))) + '</span>');
         }
@@ -756,14 +745,12 @@ MB.Control.autocomplete_formatters = {
     "release-group": function (ul, item) {
         var a = $("<a>").text(item.name);
 
-        if (item.firstReleaseDate)
-        {
+        if (item.firstReleaseDate) {
             a.append('<span class="autocomplete-comment">' +
                         bracketed(item.firstReleaseDate) + '</span>');
         }
 
-        if (item.comment)
-        {
+        if (item.comment) {
             a.append('<span class="autocomplete-comment">' +
                       _.escape(bracketed(item.comment)) + '</span>');
         }
@@ -803,33 +790,27 @@ MB.Control.autocomplete_formatters = {
                       '</span>');
         }
 
-        if (item.primaryAlias && item.primaryAlias != item.name)
-        {
+        if (item.primaryAlias && item.primaryAlias != item.name) {
             comment.push(item.primaryAlias);
         }
 
-        if (item.comment)
-        {
+        if (item.comment) {
             comment.push(item.comment);
         }
 
-        if (comment.length)
-        {
+        if (comment.length) {
             a.append(' <span class="autocomplete-comment">' +
                      _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
 
-        if (item.typeName)
-        {
+        if (item.typeName) {
             a.append('<br /><span class="autocomplete-comment">' + _.escape(addColon(l('Type')) + ' ' + lp_attributes(item.typeName, 'work_type')) + '</span>');
         }
 
         var artistRenderer = function (prefix, artists) {
-            if (artists && artists.hits > 0)
-            {
+            if (artists && artists.hits > 0) {
                 var toRender = artists.results;
-                if (artists.hits > toRender.length)
-                {
+                if (artists.hits > toRender.length) {
                     toRender.push('...');
                 }
 
@@ -849,8 +830,7 @@ MB.Control.autocomplete_formatters = {
     "area": function (ul, item) {
         var a = $("<a>").text(item.name);
 
-        if (item.comment)
-        {
+        if (item.comment) {
             a.append('<span class="autocomplete-comment">' +
                       _.escape(bracketed(item.comment)) + '</span>');
         }
@@ -875,18 +855,15 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.primaryAlias && item.primaryAlias != item.name)
-        {
+        if (item.primaryAlias && item.primaryAlias != item.name) {
             comment.push(item.primaryAlias);
         }
 
-        if (item.comment)
-        {
+        if (item.comment) {
             comment.push(item.comment);
         }
 
-        if (comment.length)
-        {
+        if (comment.length) {
             a.append(' <span class="autocomplete-comment">' +
                      _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
@@ -927,8 +904,7 @@ MB.Control.autocomplete_formatters = {
             comment.push(lp_attributes(item.typeName, 'instrument_type'));
         }
 
-        if (comment.length)
-        {
+        if (comment.length) {
             a.append(' <span class="autocomplete-comment">' +
                      _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
@@ -949,18 +925,15 @@ MB.Control.autocomplete_formatters = {
         var a = $("<a>").text(item.name);
         var comment = [];
 
-        if (item.primaryAlias && item.primaryAlias != item.name)
-        {
+        if (item.primaryAlias && item.primaryAlias != item.name) {
             comment.push(item.primaryAlias);
         }
 
-        if (item.comment)
-        {
+        if (item.comment) {
             comment.push(item.comment);
         }
 
-        if (comment.length)
-        {
+        if (comment.length) {
             a.append(' <span class="autocomplete-comment">' +
                      _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
@@ -969,17 +942,14 @@ MB.Control.autocomplete_formatters = {
             a.append(' <span class="autocomplete-comment">' + _.escape(bracketed(lp_attributes(item.typeName, 'event_type'))) + '</span>');
         }
 
-        if (item.begin_date || item.time)
-        {
+        if (item.begin_date || item.time) {
             a.append('<br /><span class="autocomplete-comment">' + (item.begin_date ? (formatDatePeriod(item) + ' ') : '') + (item.time ? item.time : '') + '</span>');
         }
 
         var entityRenderer = function (prefix, relatedEntities) {
-            if (relatedEntities && relatedEntities.hits > 0)
-            {
+            if (relatedEntities && relatedEntities.hits > 0) {
                 var toRender = relatedEntities.results;
-                if (relatedEntities.hits > toRender.length)
-                {
+                if (relatedEntities.hits > toRender.length) {
                     toRender.push('...');
                 }
 

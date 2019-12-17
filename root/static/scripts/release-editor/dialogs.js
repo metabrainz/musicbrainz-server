@@ -84,7 +84,9 @@ class SearchResult {
         this.error = ko.observable("");
     }
 
-    expanded() { return this.tab.result() === this }
+    expanded() {
+        return this.tab.result() === this;
+    }
 
     toggle() {
         var expand = this.tab.result() !== this;
@@ -104,7 +106,9 @@ class SearchResult {
                 var response = JSON.parse(jqXHR.responseText);
                 this.error(response.error);
             })
-            .always(function () { this.loading(false) });
+            .always(function () {
+                this.loading(false);
+            });
         }
 
         return false;
@@ -213,8 +217,7 @@ class SearchTab {
         if (event.keyCode === 13) { // Enter
             this.search(data, event);
             return false;
-        }
-        else {
+        } else {
             /*
              * Knockout calls preventDefault unless you return true. Allows
              * people to actually enter text.
@@ -353,8 +356,7 @@ Object.assign(addDiscDialog, {
             }
 
             release.mediums([medium]);
-        }
-        else {
+        } else {
             // If there are no mediums, _.max will return undefined.
             const maxPosition = _.max(_.invokeMap(release.mediums(), 'position'));
             const nextPosition = _.isFinite(maxPosition) ? (maxPosition + 1) : 1;

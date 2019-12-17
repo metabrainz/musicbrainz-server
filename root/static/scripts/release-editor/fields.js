@@ -599,7 +599,9 @@ class Medium {
         this.confirmedVariousArtists(this.hasVariousArtistTracks());
     }
 
-    hasTracks() { return this.tracks().length > 0 }
+    hasTracks() {
+        return this.tracks().length > 0;
+    }
 
     formattedName() {
         var name = this.name(),
@@ -612,8 +614,7 @@ class Medium {
             }
             return name;
 
-        }
-        else if (multidisc) {
+        } else if (multidisc) {
             return texp.l("Medium {position}", { position: position });
         }
         return l("Tracklist");

@@ -151,7 +151,7 @@ import request from '../../common/utility/request';
 
             data.attributes = _(ko.unwrap(relationship.attributes))
                 .invokeMap('toJS')
-                .sortBy(function (a) { return a.type.id })
+                .sortBy(a => a.type.id)
                 .value();
 
             if (_.isNumber(data.linkTypeID)) {
@@ -345,7 +345,9 @@ import request from '../../common/utility/request';
     edit.releaseAddReleaseLabel = editConstructor(
         TYPES.EDIT_RELEASE_ADDRELEASELABEL,
 
-        function (args) { delete args.release_label }
+        function (args) {
+            delete args.release_label;
+        },
     );
 
 
@@ -398,7 +400,9 @@ import request from '../../common/utility/request';
 
     edit.relationshipCreate = editConstructor(
         TYPES.EDIT_RELATIONSHIP_CREATE,
-        function (args) { delete args.id }
+        function (args) {
+            delete args.id;
+        },
     );
 
 

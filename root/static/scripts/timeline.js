@@ -49,8 +49,9 @@ class TimelineViewModel {
         var self = this;
         self.categories = ko.observableArray([]);
         self.enabledCategories = ko.computed(function () {
-            return _.filter(self.categories(),
-                function (category) { return category.enabled() });
+            return _.filter(self.categories(), function (category) {
+                return category.enabled();
+            });
         });
         self.events = debounce(ko.observableArray([]), 50);
         self.loadingEvents = ko.observable(false);
@@ -327,7 +328,8 @@ class TimelineCategory {
                 return _.filter(self.lines(), function (line) {
                     return line.enabled() && !line.loaded() && !line.loading();
                 });
-            } else { return [] }
+            }
+            return [];
         });
         self.hasLoadingLines = ko.computed(function () {
             return _.filter(self.lines(), function (line) {
@@ -496,36 +498,37 @@ class TimelineLine {
     };
 
     var setItemTooltip = function (item, extra, fixed) {
-            if (!extra) {
-                extra = '';
-            };
-            removeTooltip();
-            setCursor();
-            var x = item.datapoint[0],
-                y = item.datapoint[1],
-                date = new Date(parseInt(x));
+        if (!extra) {
+            extra = '';
+        };
+        removeTooltip();
+        setCursor();
+        var x = item.datapoint[0],
+            y = item.datapoint[1],
+            date = new Date(parseInt(x));
 
-            if (fixed) {
-                y = y.toFixed(fixed);
-            }
+        if (fixed) {
+            y = y.toFixed(fixed);
+        }
 
-            let day;
-            if (date.getDate() < 10) {
-                day = '0' + date.getDate();
-            } else {
-                day = date.getDate();
-            }
+        let day;
+        if (date.getDate() < 10) {
+            day = '0' + date.getDate();
+        } else {
+            day = date.getDate();
+        }
 
-            let month;
-            if (date.getMonth() + 1 < 10) {
-                month = '0' + (date.getMonth() + 1);
-            } else {
-                month = date.getMonth() + 1;
-            }
+        let month;
+        if (date.getMonth() + 1 < 10) {
+            month = '0' + (date.getMonth() + 1);
+        } else {
+            month = date.getMonth() + 1;
+        }
 
-            showTooltip(item.pageX, item.pageY,
-                date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
+        showTooltip(item.pageX, item.pageY,
+            date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
     };
+
     var setEventTooltip = function (thisEvent, pos) {
         removeTooltip();
         setCursor('pointer');
