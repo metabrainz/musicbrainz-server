@@ -15,6 +15,8 @@ import * as ReactDOMServer from 'react-dom/server';
 import {QUALITY_UNKNOWN} from '../../../constants';
 import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import ReleaseEvents
+  from '../../../static/scripts/common/components/ReleaseEvents';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import formatBarcode
@@ -29,7 +31,6 @@ import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage';
 import LinkSearchableProperty
   from '../../../components/LinkSearchableProperty';
-import ReleaseEvents from '../../../components/ReleaseEvents';
 import coverArtUrl from '../../../utility/coverArtUrl';
 import ExternalLinks from '../ExternalLinks';
 
@@ -237,7 +238,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
       {releaseEvents?.length ? (
         <>
           <h2 className="release-events">{l('Release events')}</h2>
-          <ReleaseEvents events={releaseEvents} />
+          <ReleaseEvents abbreviated={false} events={releaseEvents} />
         </>
       ) : null}
 

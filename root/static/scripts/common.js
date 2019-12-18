@@ -44,6 +44,7 @@ require("./common/components/WikipediaExtract");
 require("./common/i18n");
 require("./common/entity");
 require("./common/MB/Control/Autocomplete");
+require('./common/components/ReleaseEvents');
 require("./common/components/TagEditor");
 
 import(/* webpackChunkName: "common-artwork-viewer" */ "./common/artworkViewer");

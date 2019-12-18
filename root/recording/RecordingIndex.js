@@ -11,14 +11,13 @@ import React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults';
 import Relationships from '../components/Relationships';
-import ReleaseDates from '../components/ReleaseDates';
-import ReleaseCountries from '../components/ReleaseCountries';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import Annotation from '../static/scripts/common/components/Annotation';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import ReleaseEvents from '../static/scripts/common/components/ReleaseEvents';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import isolateText from '../static/scripts/common/utility/isolateText';
 import formatTrackLength
@@ -51,8 +50,7 @@ const RecordingAppearancesTable = ({
         <th>{l('Release Title')}</th>
         <th>{l('Release Artist')}</th>
         <th>{l('Release Group Type')}</th>
-        <th>{l('Date')}</th>
-        <th>{l('Country')}</th>
+        <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
         <th>{l('Label')}</th>
         <th>{l('Catalog#')}</th>
       </tr>
@@ -67,7 +65,7 @@ const RecordingAppearancesTable = ({
         return (
           <React.Fragment key={status ? status.name : 'no-status'}>
             <tr className="subh">
-              <th colSpan="11">
+              <th colSpan="10">
                 {status
                   ? lp_attributes(status.name, 'release_status')
                   : l('(unknown)')
@@ -118,10 +116,7 @@ const RecordingAppearancesTable = ({
                       : null}
                   </td>
                   <td>
-                    <ReleaseDates events={release.events} />
-                  </td>
-                  <td>
-                    <ReleaseCountries events={release.events} />
+                    <ReleaseEvents events={release.events} />
                   </td>
                   <td>
                     <ReleaseLabelList labels={release.labels} />

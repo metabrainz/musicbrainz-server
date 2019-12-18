@@ -24,8 +24,7 @@ import CleanupBanner from '../components/CleanupBanner';
 import FormRow from '../components/FormRow';
 import FormSubmit from '../components/FormSubmit';
 import Relationships from '../components/Relationships';
-import ReleaseDates from '../components/ReleaseDates';
-import ReleaseCountries from '../components/ReleaseCountries';
+import ReleaseEvents from '../static/scripts/common/components/ReleaseEvents';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import formatBarcode from '../static/scripts/common/utility/formatBarcode';
@@ -52,7 +51,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
     <>
       <tr className="subh">
         {$c.user_exists ? <th /> : null}
-        <th colSpan={$c.session?.tport ? 9 : 8}>
+        <th colSpan={$c.session && $c.session.tport ? 8 : 7}>
           {status?.name
             ? lp_attributes(status.name, 'release_status')
             : l('(unknown)')}
@@ -76,10 +75,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
           <td>{release.combined_format_name || l('[missing media]')}</td>
           <td>{release.combined_track_count || lp('-', 'missing data')}</td>
           <td>
-            <ReleaseDates events={release.events} />
-          </td>
-          <td>
-            <ReleaseCountries events={release.events} />
+            <ReleaseEvents events={release.events} />
           </td>
           <td>
             <ReleaseLabelList labels={release.labels} />
@@ -108,7 +104,11 @@ const ReleaseGroupIndex = ({
   releases,
   wikipediaExtract,
 }: Props) => (
-  <ReleaseGroupLayout entity={releaseGroup} page="index">
+  <ReleaseGroupLayout
+    entity={releaseGroup}
+    gettextDomains={['countries']}
+    page="index"
+  >
     {eligibleForCleanup ? (
       <CleanupBanner entityType="release_group" />
     ) : null}
@@ -138,8 +138,7 @@ const ReleaseGroupIndex = ({
                   <th>{l('Release')}</th>
                   <th>{l('Format')}</th>
                   <th>{l('Tracks')}</th>
-                  <th>{l('Date')}</th>
-                  <th>{l('Country')}</th>
+                  <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
                   <th>{l('Label')}</th>
                   <th>{l('Catalog#')}</th>
                   <th>{l('Barcode')}</th>

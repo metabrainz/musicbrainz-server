@@ -9,9 +9,10 @@
 
 import * as React from 'react';
 
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import formatDate from '../static/scripts/common/utility/formatDate';
-import isDateEmpty from '../static/scripts/common/utility/isDateEmpty';
+import formatDate from '../utility/formatDate';
+import isDateEmpty from '../utility/isDateEmpty';
+
+import EntityLink from './EntityLink';
 
 type Props = {
   +event: ReleaseEventT,
@@ -19,15 +20,15 @@ type Props = {
 
 const ReleaseEvent = ({event}: Props) => (
   <>
-    {event.country ? <EntityLink entity={event.country} /> : null}
     {isDateEmpty(event.date) ? null : (
       <>
-        <br />
         <span className="release-date">
           {formatDate(event.date)}
         </span>
+        {' '}
       </>
     )}
+    {event.country ? <EntityLink entity={event.country} /> : null}
   </>
 );
 

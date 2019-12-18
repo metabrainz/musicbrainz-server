@@ -5,8 +5,7 @@
             <th>[% l('Title') %]</th>
             <th>[% l('Artist') %]</th>
             <th>[% l('Format') %]</th>
-            <th>[% l('Date') %]</th>
-            <th>[% l('Country') %]</th>
+            <th>[% l('Country') _ lp('/', 'and') _ l('Date') %]</th>
             <th>[% l('Label') %]</th>
             <th>[% l('Catalog#') %]</th>
             <th>[% l('Barcode') %]</th>
@@ -30,8 +29,9 @@
             <td>[% link_entity(release) %]</td>
             <td>[% artist_credit(release.artist_credit) %]</td>
             <td>[% medium_format_name(medium) %]</td>
-            <td>[% release_dates(release.events) %]</td>
-            <td>[% release_countries(release.events) %]</td>
+            <td>
+              [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => release.events}) %]
+            </td>
             <td>[% release_label_list(release.labels) %]</td>
             <td>[% release_catno_list(release.labels) %]</td>
             <td class="barcode-cell">[% release.barcode.format %]</td>

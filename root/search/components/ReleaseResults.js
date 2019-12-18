@@ -13,12 +13,12 @@ import {CatalystContext, withCatalystContext} from '../../context';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import ReleaseEvents
+  from '../../static/scripts/common/components/ReleaseEvents';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import loopParity from '../../utility/loopParity';
 import ReleaseCatnoList from '../../components/ReleaseCatnoList';
-import ReleaseCountries from '../../components/ReleaseCountries';
-import ReleaseDates from '../../components/ReleaseDates';
 import ReleaseLabelList from '../../components/ReleaseLabelList';
 import type {InlineResultsPropsT, ResultsPropsWithContextT} from '../types';
 
@@ -46,10 +46,7 @@ function buildResult(result, index) {
         {release.combined_track_count || lp('-', 'missing data')}
       </td>
       <td>
-        <ReleaseDates events={release.events} />
-      </td>
-      <td>
-        <ReleaseCountries events={release.events} />
+        <ReleaseEvents events={release.events} />
       </td>
       <td>
         <ReleaseLabelList labels={release.labels} />
@@ -105,8 +102,7 @@ export const ReleaseResultsInline = ({
         <th>{l('Artist')}</th>
         <th>{l('Format')}</th>
         <th>{l('Tracks')}</th>
-        <th>{l('Date')}</th>
-        <th>{l('Country')}</th>
+        <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
         <th>{l('Label')}</th>
         <th>{l('Catalog#')}</th>
         <th>{l('Barcode')}</th>

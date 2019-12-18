@@ -814,41 +814,7 @@ END ~%]
     '</span>' IF rel.edits_pending;
 END ~%]
 
-[%~ MACRO release_countries(release_events) BLOCK; # Converted to React at root/components/ReleaseCountries.js
-    IF release_events.size;
-        '<ul class="links">';
-        FOR event=release_events;
-          IF event.country;
-            '<li>' _ country_abbr(event.country) _ '</li>';
-          END;
-        END;
-        '</ul>';
-    END;
-END -%]
-
-[%~ MACRO release_dates(release_events) BLOCK; # Converted to React at root/components/ReleaseDates.js
-    IF release_events.size;
-        '<ul class="links nowrap">';
-        FOR event=release_events;
-          IF !event.date.is_empty;
-            '<li>' _ event.date.format _ '</li>';
-          END;
-        END;
-        '</ul>';
-    END;
-END -%]
-
-[%~ MACRO release_events(release_events) BLOCK; # Converted to React at root/components/ReleaseEvents.js
-      IF release_events.size;
-        '<ul class="links">';
-        FOR event=release_events;
-          '<li>' _ release_event(event) _ '</li>';
-        END;
-        '</ul>';
-      END;
-    END -%]
-
-[%~ MACRO release_event(event) BLOCK; # Converted to React at root/components/ReleaseEvent.js
+[%~ MACRO release_event(event) BLOCK; # Converted to React at root/static/scripts/common/components/ReleaseEvent.js
       date = event.date;
       country = event.country;
       parts = [];

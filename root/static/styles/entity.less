@@ -95,3 +95,44 @@ p.subheader {
 .annotation-diff {
     margin: 1em 0;
 }
+
+div.release-events-container {
+    ul.release-events {
+        &.abbreviated {
+            min-width: 10em;
+
+            li.release-event {
+                .release-country {
+                    box-sizing: border-box;
+                    display: inline-block;
+                    width: 4em;
+
+                    &.no-country {
+                        /*
+                         * If there's no country set, no flag is displayed.
+                         * The flag has a 3px padding on top, which affects
+                         * the spacing between the rows; we add it here for
+                         * symmetry, otherwise country-less rows would look
+                         * misaligned.
+                         */
+                        padding-top: 3px;
+                    }
+                }
+
+                .release-date {
+                    display: inline-block;
+                    margin-left: 4em;
+                }
+
+                .release-country + .release-date {
+                    margin-left: 0em;
+                }
+            }
+        }
+    }
+
+    .show-all, .show-less {
+        padding: 0.75em 0;
+        list-style: none;
+    }
+}
