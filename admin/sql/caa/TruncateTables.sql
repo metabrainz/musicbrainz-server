@@ -1,0 +1,10 @@
+-- Automatically generated, do not edit.
+\set ON_ERROR_STOP 1
+
+SET search_path = 'cover_art_archive';
+
+TRUNCATE TABLE art_type RESTART IDENTITY CASCADE;
+TRUNCATE TABLE cover_art RESTART IDENTITY CASCADE;
+TRUNCATE TABLE cover_art_type RESTART IDENTITY CASCADE;
+TRUNCATE TABLE image_type RESTART IDENTITY CASCADE;
+TRUNCATE TABLE release_group_cover_art RESTART IDENTITY CASCADE;

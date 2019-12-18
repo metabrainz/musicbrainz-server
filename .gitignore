@@ -62,3 +62,8 @@
 # Istanbul coverage
 /.nyc_output/
 /coverage/
+
+# sir log/pid files created by script/reset_selenium_env.sh.
+/t/selenium/.sir-amqp_watch.log
+/t/selenium/.sir-amqp_watch.pid
+/t/selenium/.sir-reindex.log

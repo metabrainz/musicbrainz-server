@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>Release Editor Duplicate Selection</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Release Editor Duplicate Selection</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>open</td>
+	<td>/release/add</td>
+	<td></td>
+</tr>
+<!-- Checks that the duplicates tab is disabled. -->
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=li[aria-controls="duplicates-tab"][aria-disabled="true"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=name</td>
+	<td>whatever</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=li[aria-controls="duplicates-tab"][aria-disabled="true"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>focus</td>
+	<td>css=span.artist input.name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=span.artist input.name</td>
+	<td>imagine</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=li[aria-controls="duplicates-tab"][aria-disabled="true"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=span.artist input.name</td>
+	<td>${KEY_ENTER}</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#duplicates-tab"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('#duplicates-tab table.tbl > tbody > tr')).map(x => Array.from(x.querySelectorAll('td')).slice(1).map(x => x.textContent.trim()).join('\t')).join('\n')</td>
+	<td>Whatever It Takes	CD	2	2017-11-17	XE	Interscope RecordsKIDinaKORNER	06025671583940602567158394	0602567158394
+Whatever It Takes (Jorgen Odegard remix)	Digital Media	1	2017-11-10	AU	Interscope RecordsKIDinaKORNER		</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#information"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>focus</td>
+	<td>id=release-group</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=release-group</td>
+	<td>${KEY_DOWN}</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<!-- Selecting a release group should only show releases from there. -->
+<tr>
+	<td>click</td>
+	<td>xpath=//ul[@data-input-id="release-group"]/li/a[text()="Whatever It Takes"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#duplicates-tab"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('#duplicates-tab table.tbl > tbody > tr')).map(x => Array.from(x.querySelectorAll('td')).slice(1).map(x => x.textContent.trim()).join('\t')).join('\n')</td>
+	<td>Whatever It Takes	CD	2	2017-11-17	XE	Interscope RecordsKIDinaKORNER	06025671583940602567158394	0602567158394</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>css=input[name="base-release"][value="61ccc0c2-9738-45ad-ad81-4d7152f33d7c"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#tracklist"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('#tracklist table.medium tr.track')).map(tr => [1, 2, 3, 4].map(x => tr.children[x].querySelector('input[type=text]').value).join('\t')).join('\n')</td>
+	<td>1	Whatever It Takes	Imagine Dragons	3:22
+2	Thunder (Official remix)	Imagine Dragons & K.Flay	3:17</td>
+</tr>
+<!-- Unsetting the base release clears the tracklist. -->
+<tr>
+	<td>click</td>
+	<td>css=a[href="#duplicates-tab"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>css=input[name="base-release"][value=""]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#tracklist"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=#add-disc-dialog a[href="#add-disc-parser"]</td>
+	<td>${KEY_ESC}</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('#tracklist table.medium tr.track')).map(tr => [1, 2, 3, 4].map(x => tr.children[x].querySelector('input[type=text]').value).join('\t')).join('\n')</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#information"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>focus</td>
+	<td>id=release-group</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=release-group</td>
+	<td>${KEY_DOWN}</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//ul[@data-input-id="release-group"]/li/a[text()="Whatever It Takes (Jorgen Odegard remix)"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#duplicates-tab"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('#duplicates-tab table.tbl > tbody > tr')).map(x => Array.from(x.querySelectorAll('td')).slice(1).map(x => x.textContent.trim()).join('\t')).join('\n')</td>
+	<td>Whatever It Takes (Jorgen Odegard remix)	Digital Media	1	2017-11-10	AU	Interscope RecordsKIDinaKORNER		</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>css=input[name="base-release"][value="4798b503-c1ec-49f3-820a-47bde61898b7"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#tracklist"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('#tracklist table.medium tr.track')).map(tr => [1, 2, 3, 4].map(x => tr.children[x].querySelector('input[type=text]').value).join('\t')).join('\n')</td>
+	<td>1	Whatever It Takes (Jorgen Odegard remix)	Imagine Dragons	3:52</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=format-unknown</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#edit-note"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=edit-note-text</td>
+	<td>not a duplicate!</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=enter-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>1</td>
+	<td>
+		{
+		    "type": 31,
+		    "status": 2,
+		    "data": {
+		        "name": "whatever",
+		        "comment": "",
+		        "entity_id": 1,
+		        "script_id": null,
+		        "status_id": null,
+		        "entity_gid": ignore,
+		        "language_id": null,
+		        "packaging_id": null,
+		        "artist_credit": {
+		            "names": [
+		                {
+		                    "name": "Imagine Dragons",
+		                    "artist": {
+		                        "id": 870909,
+		                        "gid": "012151a8-0f9a-44c9-997f-ebd68b5389f9",
+		                        "name": "Imagine Dragons",
+		                    },
+		                    "join_phrase": null,
+		                }
+		            ]
+		        },
+		        "release_group_id": 1882825
+		    }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>2</td>
+	<td>
+		{
+		    "type": 51,
+		    "status": 2,
+		    "data": {
+		        "name": "",
+		        "release": {
+		            "id": 1,
+		            "name": "whatever"
+		        },
+		        "position": 1,
+		        "entity_id": 1,
+		        "tracklist": [
+		            {
+		                "id": null,
+		                "name": "Whatever It Takes (Jorgen Odegard remix)",
+		                "length": 232000,
+		                "number": "1",
+		                "position": 1,
+		                "recording_id": 21757927,
+		                "artist_credit": {
+		                    "names": [
+		                        {
+		                            "name": "Imagine Dragons",
+		                            "artist": {
+		                                "id": 870909,
+		                                "name": "Imagine Dragons"
+		                            },
+		                            "join_phrase": ""
+		                        }
+		                    ]
+		                },
+		                "is_data_track": "0"
+		            }
+		        ]
+		    }
+		}
+	</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

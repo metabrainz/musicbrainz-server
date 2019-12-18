@@ -9,41 +9,57 @@ SELECT setval('editor_id_seq', 6, FALSE);
 SELECT setval('artist_id_seq', 3, FALSE);
 
 INSERT INTO area (id, gid, name, type, edits_pending, last_updated, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, ended, comment) VALUES
+    (13, '106e0bec-b638-3b37-b731-f53d507dc00e', 'Australia', 1, 0, '2013-05-27 12:20:27.507257+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (38, '71bbafaa-e825-3e15-8ca9-017dcad1748b', 'Canada', 1, 0, '2013-05-27 13:15:52.179105+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
     (73, '08310658-51eb-3801-80de-5a0739207115', 'France', 1, 0, '2013-05-27 12:50:32.702645+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
+    (96, '0373cdff-eac8-3fbc-92dc-36a607da06d1', 'Hong Kong', 1, 0, '2013-11-03 06:25:22.345722+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (107, '2db42837-c832-3c27-b4a3-08198f75693c', 'Japan', 1, 0, '2013-05-27 12:29:56.162248+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
-    (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1, 0, '2013-06-15 18:06:39.59323+00', NULL, NULL, NULL, NULL, NULL, NULL, 'f', '');
+    (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1, 0, '2013-05-16 11:06:19.67235+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1, 0, '2013-06-15 18:06:39.59323+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (241, '89a675c2-3e37-3518-b83c-418bad59a85a', 'Europe', NULL, 0, '2013-08-28 11:55:13.834089+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (3813, 'f0b226db-8e22-40e6-9a53-d839cfec6228', 'Cardiff', 3, 0, '2013-09-30 17:26:07.559949+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (5241, '7b2ca1e7-e7f6-4155-881d-c660a45c11e8', 'Cleveland', 3, 0, '2013-05-24 20:55:33.73614+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (5540, 'ced2611f-cfac-438a-95d0-02d6f5fb4f84', 'Tacoma', 3, 0, '2013-05-24 21:59:10.096014+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (7020, '74e50e58-5deb-4b99-93a2-decbb365c07f', 'New York', 3, 0, '2014-12-02 22:23:17.690134+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (39872, '61941444-5a83-43e2-ba48-4db7438e0f26', 'Brixton', 5, 0, '2013-11-06 23:15:45.851377+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (55331, 'afdf771e-35ec-4279-be90-cbf169294be3', 'Walthamstow', 5, 0, '2013-11-06 23:05:25.22908+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (88303, '05d2ed87-4040-462a-bdfa-06a8967a3694', 'Alcobendas', 3, 0, '2013-12-30 00:54:17.407234+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', '');
 
 INSERT INTO area_gid_redirect (gid, new_id, created) VALUES
   ('aafabb17-528e-51e3-9ac8-b8471dacd710', 38, '2013-05-27 13:15:52.179105+00');
 
-INSERT INTO artist (area, begin_area, begin_date_day, begin_date_month, begin_date_year, comment, edits_pending, end_area, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES
-    (NULL, NULL, 8, 1, 1947, '', 0, NULL, 10, 1, 2016, '1', 1, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 956, '2016-02-07 10:16:37.066958+00', 'David Bowie', 'Bowie, David', 1),
-    (NULL, NULL, 3, 5, 1903, '', 0, NULL, 14, 10, 1977, '1', 1, '2437980f-513a-44fc-80f1-b90d9d7fcf8f', 99, '2016-11-07 12:01:02.968948+00', 'Bing Crosby', 'Crosby, Bing', 1),
-    (NULL, NULL, NULL, NULL, NULL, '', 0, NULL, NULL, NULL,  NULL, '0', NULL, '4f74991f-0156-427a-88db-9b2ac293dd42', 1647244, '2018-04-11 10:07:10.225834+00', 'The David Bowie Knives', 'David Bowie Knives, The', 2),
-    (222, NULL, NULL, NULL, 1988, '', 0, NULL, NULL, NULL, NULL, 'f', NULL, 'b7ffd2af-418f-4be2-bdd1-22f8b48613da', 347, '2013-12-20 00:09:54.635352+00', 'Nine Inch Nails', 'Nine Inch Nails', 2),
-    (NULL, NULL, 14, 9, 1984, '', 0, NULL, NULL, NULL, NULL, 'f', 1, '1155431a-d35e-4863-9ae0-e3c24eb61aa9', 237981, '2016-02-07 18:20:11.786086+00', 'Lethal Bizzle', 'Lethal Bizzle', 1);
+INSERT INTO musicbrainz.artist (id, gid, name, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, type, area, gender, comment, edits_pending, last_updated, ended, begin_area, end_area) VALUES
+    (99, '2437980f-513a-44fc-80f1-b90d9d7fcf8f', 'Bing Crosby', 'Crosby, Bing', 1903, 5, 3, 1977, 10, 14, 1, 222, 1, '', 0, '2019-02-20 00:00:49.909289+00', '1', 5540, 88303),
+    (347, 'b7ffd2af-418f-4be2-bdd1-22f8b48613da', 'Nine Inch Nails', 'Nine Inch Nails', 1988, NULL, NULL, NULL, NULL, NULL, 2, 222, NULL, '', 0, '2018-11-29 21:00:53.245938+00', '0', 5241, NULL),
+    (956, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'David Bowie', 'Bowie, David', 1947, 1, 8, 2016, 1, 10, 1, 221, 1, '', 0, '2019-01-10 03:00:28.692936+00', '1', 39872, 7020),
+    (20211, 'c5f5dc27-3059-49c0-ae45-5009a01bb9ec', 'Super Furry Animals', 'Super Furry Animals', 1995, NULL, NULL, NULL, NULL, NULL, 2, 221, NULL, '', 0, '2013-09-02 02:19:54.215306+00', '0', 3813, NULL),
+    (237981, '1155431a-d35e-4863-9ae0-e3c24eb61aa9', 'Lethal Bizzle', 'Lethal Bizzle', 1984, 9, 14, NULL, NULL, NULL, 1, 221, 1, '', 0, '2016-02-07 18:20:11.786086+00', '0', 55331, NULL),
+    (1647244, '4f74991f-0156-427a-88db-9b2ac293dd42', 'The David Bowie Knives', 'David Bowie Knives, The', NULL, NULL, NULL, NULL, NULL, NULL, 2, 96, NULL, '', 0, '2018-04-11 10:07:10.225834+00', '0', NULL, NULL);
 
 INSERT INTO artist_alias (id, artist, name, locale, edits_pending, last_updated, type, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, primary_for_locale, ended) VALUES
   (37382, 237981, 'Lethal B', NULL, 0, '2012-05-15 18:57:13.252186+00', NULL, 'Lethal B', NULL, NULL, NULL, NULL, NULL, NULL, 'f', 'f');
 
-INSERT INTO artist_credit (id, name, artist_count, ref_count) VALUES
-    (347, 'Nine Inch Nails', 1, 1),
-    (956, 'David Bowie', 1, 2),
-    (2196047, 'The David Bowie Knives', 1, 2);
+INSERT INTO artist_credit (id, name, artist_count, ref_count, created, edits_pending) VALUES
+    (347, 'Nine Inch Nails', 1, 1, '2011-05-16 16:32:11.963929+00', 0),
+    (956, 'David Bowie', 1, 2, '2011-05-16 16:32:11.963929+00', 0),
+    (20211, 'Super Furry Animals', 1, 1, '2011-05-16 16:32:11.963929+00', 0),
+    (2196047, 'The David Bowie Knives', 1, 2, '2018-04-11 10:09:52.335103+00', 0);
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
     (347, 0, 347, 'Nine Inch Nails', ''),
     (956, 0, 956, 'David Bowie', ''),
+    (20211, 0, 20211, 'Super Furry Animals', ''),
     (2196047, 0, 1647244, 'The David Bowie Knives', '');
 
 INSERT INTO artist_gid_redirect (gid, new_id, created) VALUES
     ('f21a407e-3af9-4539-ab3d-c92a5230dff6', 237981, '2012-04-09 20:07:05.161415+00');
 
 INSERT INTO country_area (area) VALUES
+    (13),
     (73),
     (107),
-    (222);
+    (222),
+    (241);
 
 INSERT INTO editor VALUES
     -- privs: BANNER_EDITOR_FLAG
@@ -62,9 +78,17 @@ INSERT INTO instrument_gid_redirect (gid, new_id, created) VALUES
     ('5fbe8ee7-dea3-8cf4-4008-78a54c8a4f94', 55, '2014-08-22 17:09:51.69681+00');
 
 INSERT INTO iso_3166_1 (area, code) VALUES
+    (13, 'AU'),
     (73, 'FR'),
+    (96, 'HK'),
     (107, 'JP'),
-    (222, 'US');
+    (221, 'GB'),
+    (222, 'US'),
+    (241, 'XE');
+
+INSERT INTO iso_3166_2 (area, code) VALUES
+    (96, 'CN-91'),
+    (3813, 'GB-CRF');
 
 INSERT INTO label (id, gid, name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, label_code, type, area, comment, edits_pending, last_updated, ended) VALUES
     (399, '4b5cba06-6a79-454c-91f5-3fe220d4950d', 'Nothing Records', 1992, NULL, NULL, 2004, NULL, NULL, NULL, 4, 222, 'US industrial/electronic founded by Trent Reznor', 0, '2012-05-15 19:04:49.109476+00', 'f'),
@@ -83,7 +107,6 @@ INSERT INTO link (id, link_type, begin_date_year, begin_date_month, begin_date_d
     (6313, 74, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2011-05-16 15:03:23.368437+00', false),
     (6330, 85, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2011-05-16 15:03:23.368437+00', false);
 
-
 INSERT INTO place (id, gid, name, type, address, area, coordinates, comment, edits_pending, last_updated, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, ended) VALUES
     (1161, '88f4fdcb-c7a7-4df3-bd7d-9b02a8cb2a32', 'Many Rooms Music', 1, 'Agoura, California', NULL, NULL, '', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'f');
 
@@ -98,16 +121,16 @@ INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pend
 INSERT INTO recording_gid_redirect (gid, new_id, created) VALUES
     ('23ba24f0-dc22-fcd4-b729-b86d381a9d8a', 20937085, '2012-04-09 20:07:05.161415+00');
 
-INSERT INTO release_group (id, gid, name, artist_credit, type, comment) VALUES
-    (94299, 'df295d32-f18f-333d-a94c-e168c6323a9a', 'Demons', 2196047, 2, ''),
-    (1581583, '1fd18f5b-9a92-41fd-a590-da6b5cc60d85', '★', 956, 1, 'Blackstar'),
-    (1954919, '566b08ae-2b02-4fdb-a5d8-6a54fd16df27', 'Weapons of Mass Seduction', 2196047, 1, '');
+INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending, last_updated) VALUES
+    (94299, 'df295d32-f18f-333d-a94c-e168c6323a9a', 'Demons', 20211, 2, '', 0, '2009-05-25 10:03:19.927951+00'),
+    (1581583, '1fd18f5b-9a92-41fd-a590-da6b5cc60d85', '★', 956, 1, 'Blackstar', 0, '2019-02-26 13:00:56.920656+00'),
+    (1954919, '566b08ae-2b02-4fdb-a5d8-6a54fd16df27', 'Weapons of Mass Seduction', 2196047, 1, '', 0, '2018-04-11 10:09:52.335103+00');
 
 INSERT INTO release_group_gid_redirect (gid, new_id, created) VALUES
     ('23d592fd-f81f-d333-c49a-a9a3236c861e', 94299, '2012-04-09 20:07:05.161415+00');
 
 INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, language, script, barcode, comment, quality) VALUES
-    (26, 'dd245091-b21e-48a3-b59a-f9b8ed8a0469', 'Demons', 2196047, 94299, 1, NULL, 120, 28, NULL, '', -1),
+    (26, 'dd245091-b21e-48a3-b59a-f9b8ed8a0469', 'Demons', 20211, 94299, 1, NULL, 120, 28, NULL, '', -1),
     (1693299, '24d4159a-99d9-425d-a7b8-1b9ec0261a33', '★', 956, 1581583, 1, 3, 120, 28, '888751738621', '', -1),
     (2154808, '1bda2f85-0576-4077-b3fa-0fc939079b61', 'Weapons of Mass Seduction', 2196047, 1954919, 1, NULL, 120, 28, NULL, '', -1);
 
