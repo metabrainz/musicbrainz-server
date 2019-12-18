@@ -125,6 +125,7 @@ const driver = (x => {
       new chrome.Options()
         .headless()
         .addArguments(
+          'disable-dev-shm-usage',
           'no-sandbox',
           'proxy-server=http://localhost:5050',
         )
