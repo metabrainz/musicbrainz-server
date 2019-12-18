@@ -2428,9 +2428,47 @@ const testData = [
   },
   // QIM (Québec Info Musique)
   {
-                     input_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+                     input_url: 'http://QIM.com/artistes/biographie.asp?artistid=47',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://QuebecInfoMusique.com/artistes/albums.asp?artistid=47',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.quebecinfomusique.com/artistes/oeuvres.asp?artistid=47#',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.qim.com/artistes/nawak.asp?artistid=47',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'http://www.qim.com/artistes/nawak.asp?artistid=47',
+       input_relationship_type: 'otherdatabases',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'http://www.qim.com/albums/description.asp?albumid=16',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/albums/description.asp?albumid=16',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'http://www.qim.com/oeuvres/oeuvre.asp?oeuvreid=716&albumid=16',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/oeuvres/oeuvre.asp?oeuvreid=716&albumid=16',
+       only_valid_entity_types: ['work'],
   },
   // RecoChoku
   {
