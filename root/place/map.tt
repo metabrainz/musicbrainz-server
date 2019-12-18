@@ -1,8 +1,0 @@
-[%~ WRAPPER "place/layout.tt" title=l('Map') page='map' ~%]
-    [%~ IF place.coordinates.defined ~%]
-        <div id="largemap"></div>
-        [% script_manifest('place/map.js', { 'data-args' => map_data_args }) %]
-    [%~ ELSE ~%]
-        <p>[%~ l('A map cannot be shown because this place has no coordinates.') ~%]</p>
-    [%~ END ~%]
-[%~ END ~%]
