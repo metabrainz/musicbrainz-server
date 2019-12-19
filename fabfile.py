@@ -43,13 +43,6 @@ def pot():
             commit_message = prompt("Commit message", default='Update pot files using current code and production database.')
             local("git commit -m '%s'" % (commit_message))
 
-def no_local_changes():
-    # The exit code of these will be 0 if there are no changes.
-    # If there are changes, then the author should fix his or her damn code.
-    with settings( hide("stdout") ):
-        local("git diff --exit-code")
-        local("git diff --exit-code --cached")
-
 def deploy(deploy_env="prod"):
     """
     Update the *musicbrainz.org servers.
@@ -65,18 +58,3 @@ def deploy(deploy_env="prod"):
              "fi".format(svc))
     sudo("su root -c 'cd /root/docker-server-configs; git pull; ./scripts/start_services.sh; exit 0'")
     local("sleep 15")
-
-def tag():
-    year  = date.today().strftime("%Y")
-    month = date.today().strftime("%m")
-    day   = date.today().strftime("%d")
-    tag = prompt("Tag name", default="-".join("v", year, month, day))
-    blog_url = prompt(
-            "Blog post URL", validate=r'^http.*',
-            default="https://blog.metabrainz.org/" +
-            "/".join(year, month, day) + "/" +
-            "-".join("server", "update", year, month, day) + "/"
-            )
-    no_local_changes()
-    local("git tag -u 'CE33CF04' %s -m '%s' production" % (tag, blog_url))
-    local("git push origin %s" % (tag))
