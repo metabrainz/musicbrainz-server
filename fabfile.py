@@ -5,7 +5,6 @@ from datetime import date
 import re
 
 env.use_ssh_config = True
-env.sudo_prefix = "sudo -S -p '%(sudo_prompt)s' -H " % env
 
 def pot():
     """
@@ -42,19 +41,3 @@ def pot():
             local("git add *.pot")
             commit_message = prompt("Commit message", default='Update pot files using current code and production database.')
             local("git commit -m '%s'" % (commit_message))
-
-def deploy(deploy_env="prod"):
-    """
-    Update the *musicbrainz.org servers.
-    """
-    services = (
-        "musicbrainz-website-" + deploy_env,
-        "musicbrainz-webservice-" + deploy_env,
-    )
-    for svc in services:
-        sudo("docker container inspect {0} > /dev/null 2>&1; "
-             "if [ $? -eq 0 ]; then "
-             "docker stop --time 30 {0} && docker rm {0}; "
-             "fi".format(svc))
-    sudo("su root -c 'cd /root/docker-server-configs; git pull; ./scripts/start_services.sh; exit 0'")
-    local("sleep 15")
