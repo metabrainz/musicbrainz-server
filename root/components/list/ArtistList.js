@@ -16,12 +16,14 @@ import RemoveFromMergeTableHeader from '../RemoveFromMergeTableHeader';
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {
+  ...InstrumentCreditsAndRelTypesRoleT,
   +$c: CatalystContextT,
   +artists: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
   +showBeginEnd?: boolean,
+  +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
 };
@@ -30,9 +32,11 @@ const ArtistList = ({
   $c,
   artists,
   checkboxes,
+  instrumentCreditsAndRelTypes,
   mergeForm,
   order,
   showBeginEnd,
+  showInstrumentCreditsAndRelTypes,
   showRatings,
   sortable,
 }: Props) => (
@@ -87,6 +91,9 @@ const ArtistList = ({
           </>
         ) : null}
         {showRatings ? <th>{l('Rating')}</th> : null}
+        {showInstrumentCreditsAndRelTypes
+          ? <th>{l('Relationship Types')}</th>
+          : null}
         {mergeForm
           ? <RemoveFromMergeTableHeader toMerge={artists} />
           : null}
@@ -99,9 +106,11 @@ const ArtistList = ({
           artistList={artists}
           checkboxes={checkboxes}
           index={index}
+          instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
           key={artist.id}
           mergeForm={mergeForm}
           showBeginEnd={showBeginEnd}
+          showInstrumentCreditsAndRelTypes={showInstrumentCreditsAndRelTypes}
           showRatings={showRatings}
         />
       ))}

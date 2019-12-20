@@ -11,21 +11,23 @@ import $ from 'jquery';
 $(function () {
     $(".cover-art-image").each(function () {
         var $e = $(this);
-        var thumbnail_url = window.devicePixelRatio > 1
+        var thumbnailUrl = window.devicePixelRatio > 1
             ? $e.data("large-thumbnail")
             : $e.data("small-thumbnail");
 
-        $("<img />").bind('error', function () {
-            if ($e.data("fallback") && $e.attr("src") === thumbnail_url) {
-                $e.attr("src", $e.data("fallback"));
-            } else {
-                $e.closest('a')
-                    .replaceWith('<em>' + $e.data("message") + '</em>');
-            }
-        }).attr({
-            "src": thumbnail_url,
-            "title": $e.data("title")
-        }).appendTo(this);
-
+        $("<img />")
+            .bind('error', function () {
+                if ($e.data("fallback") && $e.attr("src") === thumbnailUrl) {
+                    $e.attr("src", $e.data("fallback"));
+                } else {
+                    $e.closest('a')
+                        .replaceWith('<em>' + $e.data("message") + '</em>');
+                }
+            })
+            .attr({
+                "src": thumbnailUrl,
+                "title": $e.data("title")
+            })
+            .appendTo(this);
     });
 });

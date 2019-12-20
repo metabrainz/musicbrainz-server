@@ -28,7 +28,7 @@ import SeriesLayout from './SeriesLayout';
 
 type ListPickerProps = {
   ...SeriesItemNumbersRoleT,
-  +entities: $ReadOnlyArray<CoreEntityT>,
+  +entities: ?$ReadOnlyArray<CoreEntityT>,
   +seriesEntityType: CoreEntityTypeT,
 };
 
@@ -91,7 +91,7 @@ const listPicker = ({
 type SeriesIndexProps = {
   ...SeriesItemNumbersRoleT,
   +eligibleForCleanup: boolean,
-  +entities: $ReadOnlyArray<CoreEntityT>,
+  +entities: ?$ReadOnlyArray<CoreEntityT>,
   +numberOfRevisions: number,
   +pager: PagerT,
   +series: $ReadOnly<{...SeriesT, +type: SeriesTypeT}>,
@@ -126,7 +126,7 @@ const SeriesIndex = ({
 
       <h2>{formatPluralEntityTypeName(seriesEntityType)}</h2>
 
-      {entities && entities.length > 0 ? (
+      {entities?.length ? (
         <PaginatedResults pager={pager}>
           {listPicker({entities, seriesEntityType, seriesItemNumbers})}
         </PaginatedResults>

@@ -29,10 +29,16 @@ MB.forms = {
         var nbsp = String.fromCharCode(160);
 
         function buildOptions(parent, indent) {
-            var i = 0, children = parent.children, child;
-            if (!children) { return; }
+            const children = parent.children;
+
+            if (!children) {
+                return;
+            }
 
             const childOptions = [];
+            let child;
+            let i = 0;
+
             while ((child = children[i++])) {
                 var opt = {};
 
@@ -60,8 +66,12 @@ MB.forms = {
 
     linkTypeOptions: function (root, backward) {
         function getText(data) {
-            return stripAttributes(data, l_relationships(
-                backward ? data.reverse_link_phrase : data.link_phrase));
+            return stripAttributes(
+                data,
+                l_relationships(
+                    backward ? data.reverse_link_phrase : data.link_phrase,
+                ),
+            );
         }
 
         var options = MB.forms.buildOptionsTree(root, getText, 'id');
@@ -92,7 +102,8 @@ ko.bindingHandlers.loop = {
         viewModel,
         bindingContext,
     ) {
-        var options = valueAccessor(), observableArray = options.items;
+        const options = valueAccessor();
+        const observableArray = options.items;
 
         /*
          * The way this binding handler works is by using the "arrayChange"
@@ -105,9 +116,9 @@ ko.bindingHandlers.loop = {
             throw new Error("items must an an observableArray");
         }
 
-        var idAttribute = options.id,
-            elements = options.elements || {},
-            template = [];
+        const idAttribute = options.id;
+        const elements = options.elements || {};
+        const template = [];
 
         _.each(ko.virtualElements.childNodes(parentNode), function (node) {
             if (node.nodeType === ELEMENT_NODE ||
@@ -128,21 +139,21 @@ ko.bindingHandlers.loop = {
         ko.virtualElements.emptyNode(parentNode);
 
         function update(changes) {
-            var activeElement = document.activeElement,
-                items = observableArray.peek(),
-                removals = [];
+            const activeElement = document.activeElement;
+            const items = observableArray.peek();
+            const removals = [];
 
-            for (var i = 0, change, j, node; (change = changes[i]); i++) {
+            for (let i = 0, change, node; (change = changes[i]); i++) {
                 var status = change.status;
 
                 if (status === "retained") {
                     continue;
                 }
 
-                var item = change.value,
-                    itemID = item[idAttribute],
-                    currentElements = elements[itemID],
-                    tmpElementContainer;
+                const item = change.value;
+                const itemID = item[idAttribute];
+                let currentElements = elements[itemID];
+                let tmpElementContainer;
 
                 if (status === "added") {
                     if (change.moved === undefined) {
@@ -156,11 +167,11 @@ ko.bindingHandlers.loop = {
                              */
                             tmpElementContainer = document.createElement("div");
 
-                            for (j = 0; (node = template[j]); j++) {
+                            for (let j = 0; (node = template[j]); j++) {
                                 tmpElementContainer.appendChild(node.cloneNode(true));
                             }
 
-                            ko.applyBindingsToDescendants(newContext, tmpElementContainer)
+                            ko.applyBindingsToDescendants(newContext, tmpElementContainer);
                             currentElements = _.toArray(tmpElementContainer.childNodes);
                             elements[itemID] = currentElements;
                             tmpElementContainer = null;
@@ -168,7 +179,7 @@ ko.bindingHandlers.loop = {
                     }
                 } else if (status === "deleted") {
                     if (change.moved === undefined) {
-                        for (j = 0; (node = currentElements[j]); j++) {
+                        for (let j = 0; (node = currentElements[j]); j++) {
                             /*
                              * If the node is already removed for some unknown
                              * reason, don't outright explode. It's possible
@@ -190,12 +201,13 @@ ko.bindingHandlers.loop = {
                     continue;
                 }
 
-                var elementsToInsert, elementsToInsertAfter;
+                let elementsToInsert;
+                let elementsToInsertAfter;
                 if (currentElements.length === 1) {
                     elementsToInsert = currentElements[0];
                 } else {
                     elementsToInsert = document.createDocumentFragment();
-                    for (j = 0; (node = currentElements[j]); j++) {
+                    for (let j = 0; (node = currentElements[j]); j++) {
                         elementsToInsert.appendChild(node);
                     }
                 }
@@ -305,8 +317,12 @@ ko.bindingHandlers.withLabel = {
 
         var name = valueAccessor() + "-" + bindingContext.$index();
 
-        $(element).attr("id", name)
-            .parents("td").prev("td").find("label").attr("for", name);
+        $(element)
+            .attr("id", name)
+            .parents("td")
+            .prev("td")
+            .find("label")
+            .attr("for", name);
     }
 };
 

@@ -128,13 +128,13 @@ function releaseDescription(release) {
     desc.push('Format: ' + combinedFormatName);
   }
   let year;
-  if (release.events && release.events.length) {
+  if (release.events?.length) {
     year = release.events[0].date?.year;
   }
   if (year) {
     desc.push('Year: ' + year);
   }
-  if (release.labels && release.labels.length) {
+  if (release.labels?.length) {
     const labels = release.labels.map(function (rl) {
       return (
         (rl.label ? rl.label.name : '[unknown]') +
@@ -216,7 +216,7 @@ const MetaDescription = ({entity}: Props) => {
       desc = workDescription(entity);
       break;
   }
-  if (desc && desc.length) {
+  if (desc?.length) {
     return <meta content={desc.join(', ')} name="description" />;
   }
   return null;

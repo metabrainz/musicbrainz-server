@@ -150,7 +150,7 @@ const Layout = ({$c, ...props}: Props) => (
           Number(
             getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', '0'),
           ) &&
-          (($c.user && $c.user.is_limited) ||
+          ($c.user?.is_limited ||
           getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !==
           'false')) &&
           <div className="banner new-edit-notes">
@@ -188,7 +188,7 @@ const Layout = ({$c, ...props}: Props) => (
         <div style={{clear: 'both'}} />
       </div>
 
-      {($c.session && $c.session.merger && !$c.stash.hide_merge_helper) &&
+      {($c.session?.merger && !$c.stash.hide_merge_helper) &&
         <MergeHelper merger={$c.session.merger} />}
 
       <Footer {...props} />

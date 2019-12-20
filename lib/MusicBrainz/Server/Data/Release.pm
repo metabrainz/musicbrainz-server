@@ -213,7 +213,7 @@ sub find_by_instrument {
         SELECT " . $self->_columns . ",
           date_year, date_month, date_day,
           area.name AS country_name,
-          array_agg(json_build_object('name', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
+          array_agg(json_build_object('typeName', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
         FROM " . $self->_table . "
         JOIN l_artist_release ON l_artist_release.entity1 = release.id
         JOIN link ON link.id = l_artist_release.link

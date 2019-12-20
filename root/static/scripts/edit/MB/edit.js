@@ -9,7 +9,7 @@
 import ko from 'knockout';
 import _ from 'lodash';
 
-import {hex_sha1} from '../../../lib/sha1/sha1';
+import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 import * as TYPES from '../../common/constants/editTypes';
 import linkedEntities from '../../common/linkedEntities';
@@ -23,11 +23,22 @@ import request from '../../common/utility/request';
     edit.TYPES = TYPES;
 
 
-    function value(arg) { return typeof arg === "function" ? arg() : arg }
-    function string(arg) { return clean(value(arg)) }
-    function number(arg) { var num = parseInt(value(arg), 10); return isNaN(num) ? null : num }
-    function array(arg, type) { return _.map(value(arg), type) }
-    function nullableString(arg) { return string(arg) || null }
+    function value(arg) {
+        return typeof arg === "function" ? arg() : arg;
+    }
+    function string(arg) {
+        return clean(value(arg));
+    }
+    function number(arg) {
+        var num = parseInt(value(arg), 10);
+        return isNaN(num) ? null : num;
+    }
+    function array(arg, type) {
+        return _.map(value(arg), type);
+    }
+    function nullableString(arg) {
+        return string(arg) || null;
+    }
 
 
     var fields = edit.fields = {
@@ -140,7 +151,7 @@ import request from '../../common/utility/request';
 
             data.attributes = _(ko.unwrap(relationship.attributes))
                 .invokeMap('toJS')
-                .sortBy(function (a) { return a.type.id })
+                .sortBy(a => a.type.id)
                 .value();
 
             if (_.isNumber(data.linkTypeID)) {
@@ -181,16 +192,21 @@ import request from '../../common/utility/request';
         release: function (release) {
             var releaseGroupID = (release.releaseGroup() || {}).id;
 
-            var events = _(value(release.events)).map(function (data) {
-                var event = {
-                    date:       fields.partialDate(data.date),
-                    country_id: number(data.countryID)
-                };
+            var events = _(value(release.events))
+                .map(function (data) {
+                    var event = {
+                        date:       fields.partialDate(data.date),
+                        country_id: number(data.countryID)
+                    };
 
-                if (_(event.date).values().some(nonEmpty) || event.country_id !== null) {
-                    return event;
-                }
-            }).compact().value();
+                    if (_(event.date).values().some(nonEmpty) || event.country_id !== null) {
+                        return event;
+                    }
+
+                    return null;
+                })
+                .compact()
+                .value();
 
             return {
                 name:               string(release.name),
@@ -261,7 +277,7 @@ import request from '../../common/utility/request';
 
             return memo + key + (_.isObject(value) ? editHash(value) : value);
         }
-        return hex_sha1(_.reduce(keys, keyValue, ""));
+        return hexSha1(_.reduce(keys, keyValue, ""));
     }
 
 
@@ -329,7 +345,9 @@ import request from '../../common/utility/request';
     edit.releaseAddReleaseLabel = editConstructor(
         TYPES.EDIT_RELEASE_ADDRELEASELABEL,
 
-        function (args) { delete args.release_label }
+        function (args) {
+            delete args.release_label;
+        },
     );
 
 
@@ -382,7 +400,9 @@ import request from '../../common/utility/request';
 
     edit.relationshipCreate = editConstructor(
         TYPES.EDIT_RELATIONSHIP_CREATE,
-        function (args) { delete args.id }
+        function (args) {
+            delete args.id;
+        },
     );
 
 
@@ -426,7 +446,9 @@ import request from '../../common/utility/request';
 
 
     function editEndpoint(endpoint) {
-        function omitHash(edit) { return _.omit(edit, "hash") }
+        function omitHash(edit) {
+            return _.omit(edit, "hash");
+        }
 
         return function (data, context) {
             data.edits = _.map(data.edits, omitHash);

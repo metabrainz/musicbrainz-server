@@ -122,7 +122,7 @@ sub run {
                                 %$data
                             );
                         } else { printf "... not sending email (dry run)\n" if $self->verbose; }
-                    } else { printf "... no confirmed email address, not sending\n" if $self->verbose; }
+                    } else { printf "... no verified email address, not sending\n" if $self->verbose; }
                 } else { printf "... no current edits found\n" if $self->verbose; }
 
             }

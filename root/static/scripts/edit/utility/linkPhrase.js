@@ -27,8 +27,8 @@ const entity0Subst = /\{entity0\}/;
 const entity1Subst = /\{entity1\}/;
 
 export type CachedLinkPhraseData<T> = {
-  attributeValues: ?{+[string]: Array<T> | T, ...},
-  phraseAndExtraAttributes: {[string]: [T, T], ...},
+  attributeValues: ?{+[attributeName: string]: Array<T> | T, ...},
+  phraseAndExtraAttributes: {[phraseKey: string]: [T, T], ...},
 };
 
 export type RelationshipInfoT = {
@@ -164,7 +164,7 @@ function _setAttributeValues<T>(
 
 const requiredAttributesCache: {
   __proto__: null,
-  [number]: {+[string]: string},
+  [linkTypeId: number]: {+[attributeName: string]: string},
   ...
 } = Object.create(null);
 
@@ -173,10 +173,10 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
   if (required) {
     return required;
   }
-  for (const [typeId, info] of Object.entries(linkType.attributes)) {
-    const {min} = ((info: any): LinkTypeAttrTypeT);
+  for (const typeId of Object.keys(linkType.attributes)) {
+    const {min} = linkType.attributes[Number(typeId)];
     if (min) {
-      const attribute = linkedEntities.link_attribute_type[(typeId: any)];
+      const attribute = linkedEntities.link_attribute_type[Number(typeId)];
       required = required || {};
       required[attribute.name] = localizeLinkAttributeTypeName(attribute);
     }

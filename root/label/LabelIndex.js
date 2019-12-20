@@ -28,7 +28,7 @@ type Props = {
   +label: LabelT,
   +numberOfRevisions: number,
   +pager: PagerT,
-  +releases: $ReadOnlyArray<ReleaseT>,
+  +releases: ?$ReadOnlyArray<ReleaseT>,
   +wikipediaExtract: WikipediaExtractT | null,
 };
 
@@ -56,7 +56,7 @@ const LabelIndex = ({
       entity={label}
     />
     <h2 className="releases">{l('Releases')}</h2>
-    {releases && releases.length > 0 ? (
+    {releases?.length ? (
       <form action="/release/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <ReleaseList

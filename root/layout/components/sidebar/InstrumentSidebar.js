@@ -60,7 +60,7 @@ const InstrumentSidebar = ({$c, instrument}: Props) => {
       <ExternalLinks empty entity={instrument} />
 
       <EditLinks entity={instrument}>
-        {$c.user && $c.user.is_relationship_editor ? (
+        {$c.user?.is_relationship_editor ? (
           <>
             <AnnotationLinks entity={instrument} />
 

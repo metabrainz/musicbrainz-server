@@ -42,7 +42,7 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
         setIsLoaded(true);
       },
     );
-  }, []);
+  }, [recording.gid]);
 
   return (
     tracks && tracks.length ? (

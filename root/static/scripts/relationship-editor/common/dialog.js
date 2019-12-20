@@ -71,6 +71,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                             }
 
                             dialog.targetType(type);
+                            return true;
                         },
 
                         resultHook: function (items) {
@@ -113,7 +114,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 instruments.push(observable);
 
                 observable.subscribe(function (instrument) {
-                    relationship.attributes.remove(observable.linkAttribute.peek())
+                    relationship.attributes.remove(observable.linkAttribute.peek());
                     if (instrument.gid) {
                         observable.linkAttribute(relationship.addAttribute(instrument.gid));
                     } else {
@@ -263,8 +264,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                             if (gid === target.gid) {
                                 _.each(entity.displayableRelationships(vm)(), function (r) {
                                     switch (relationshipFilter) {
-                                      case 'same-entity-types': if (r.entityTypes !== relationship.entityTypes) { return; }; break;
-                                      case 'same-relationship-type': if (r.linkTypeID() !== relationship.linkTypeID()) { return; }; break;
+                                        case 'same-entity-types':
+                                            if (r.entityTypes !== relationship.entityTypes) {
+                                                return;
+                                            }
+                                            break;
+                                        case 'same-relationship-type':
+                                            if (r.linkTypeID() !== relationship.linkTypeID()) {
+                                                return;
+                                            }
+                                            break;
                                     }
 
                                     var entities = r.entities();
@@ -305,7 +314,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         keydownEvent(data, event) {
             if (event.isDefaultPrevented()) {
-                return;
+                return false;
             }
 
             var nodeName = event.target.nodeName.toLowerCase();
@@ -326,7 +335,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                      * clicked if the dialog is closed too fast, which makes
                      * it immediately reopen, hence the added delay here.
                      */
-                    _.defer(function () { self.accept() });
+                    _.defer(function () {
+                        self.accept();
+                    });
                 }
             } else if (event.keyCode === 27 && nodeName !== "select") {
                 this.close();
@@ -404,6 +415,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                             linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
                         return true;
                     }
+
+                    return false;
                 });
             }
 
@@ -423,7 +436,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     if (self.linkTypeOptions(key).length) {
                         return true;
                     }
-                })
+
+                    return false;
+                });
             }
 
             var options = _.map(targetTypes, function (type) {
@@ -551,7 +566,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return this.linkTypeError() ||
                    this.targetEntityError() ||
                    _(relationship.getLinkType().attributes)
-                     .values().map(_.bind(relationship.attributeError, relationship)).some() ||
+                       .values()
+                       .map(_.bind(relationship.attributeError, relationship))
+                       .some() ||
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
                    this.tooShortBeginYearError() ||
@@ -666,8 +683,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         _accept() {
-            var relationships = splitByCreditableAttributes(this.relationship()),
-                relationship = relationships.shift();
+            const relationships = splitByCreditableAttributes(this.relationship());
+            const relationship = relationships.shift();
 
             this.editing.fromJS(relationship.editData());
 
@@ -734,8 +751,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         accept() {
-            var workType = this.workType(),
-                workLang = this.workLanguage();
+            const workType = this.workType();
+            const workLang = this.workLanguage();
 
             this.loading(true);
 
@@ -770,7 +787,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return MB.edit.create({ editNote: "", makeVotable: false, edits: edits });
         }
 
-        targetEntityError() { return "" }
+        targetEntityError() {
+            return '';
+        }
     }
 
     Object.assign(BatchCreateWorksDialog.prototype, {
@@ -780,7 +799,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     });
 
     function defaultLinkType(root) {
-        var child, id, i = 0;
+        let child;
+        let id;
+        let i = 0;
 
         while ((child = root.children[i++])) {
             if (child.description && !child.deprecated) {
@@ -790,6 +811,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return id;
             }
         }
+
+        return null;
     }
 
     function isCreditable(attribute) {
@@ -801,9 +824,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function splitByCreditableAttributes(relationship) {
-        var attributes = relationship.attributes(),
-            creditable = _.filter(attributes, isCreditable),
-            relationships = [relationship];
+        const attributes = relationship.attributes();
+        const creditable = _.filter(attributes, isCreditable);
+        const relationships = [relationship];
 
         if (!creditable.length) {
             return relationships;

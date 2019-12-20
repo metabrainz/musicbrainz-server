@@ -84,7 +84,9 @@ class SearchResult {
         this.error = ko.observable("");
     }
 
-    expanded() { return this.tab.result() === this }
+    expanded() {
+        return this.tab.result() === this;
+    }
 
     toggle() {
         var expand = this.tab.result() !== this;
@@ -104,7 +106,9 @@ class SearchResult {
                 var response = JSON.parse(jqXHR.responseText);
                 this.error(response.error);
             })
-            .always(function () { this.loading(false) });
+            .always(function () {
+                this.loading(false);
+            });
         }
 
         return false;
@@ -212,8 +216,8 @@ class SearchTab {
     keydownEvent(data, event) {
         if (event.keyCode === 13) { // Enter
             this.search(data, event);
-        }
-        else {
+            return false;
+        } else {
             /*
              * Knockout calls preventDefault unless you return true. Allows
              * people to actually enter text.
@@ -250,8 +254,8 @@ class SearchTab {
     }
 
     addDisc() {
-        var release = releaseEditor.rootField.release(),
-            medium = new fields.Medium(this.result(), release);
+        const release = releaseEditor.rootField.release();
+        const medium = new fields.Medium(this.result(), release);
 
         medium.name("");
 
@@ -314,8 +318,8 @@ Object.assign(addDiscDialog, {
     currentTab: ko.observable(trackParserDialog),
 
     open: function () {
-        var release = releaseEditor.rootField.release(),
-            blankMedium = new fields.Medium({}, release);
+        const release = releaseEditor.rootField.release();
+        const blankMedium = new fields.Medium({}, release);
 
         this.trackParser.setMedium(blankMedium);
         this.trackParser.result(blankMedium);
@@ -352,8 +356,7 @@ Object.assign(addDiscDialog, {
             }
 
             release.mediums([medium]);
-        }
-        else {
+        } else {
             // If there are no mediums, _.max will return undefined.
             const maxPosition = _.max(_.invokeMap(release.mediums(), 'position'));
             const nextPosition = _.isFinite(maxPosition) ? (maxPosition + 1) : 1;

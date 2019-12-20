@@ -101,8 +101,7 @@ MB.GuessCase.Handler.Base = function (gc) {
      * returns true, if there are more words, else false.
      */
     self.processWord = function () {
-        if (self.doWhiteSpace()) {
-        } else {
+        if (!self.doWhiteSpace()) {
             // Dump information if in debug mode.
 
             /*
@@ -117,35 +116,31 @@ MB.GuessCase.Handler.Base = function (gc) {
                 gc.re.SPECIALCASES = /(&|¿|¡|\?|\!|;|:|'|‘|’|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
             }
             if (gc.i.matchCurrentWord(gc.re.SPECIALCASES)) {
-                handled = true;
-
-                if (self.doDoubleQuote()) {
-                } else if (self.doSingleQuote()) {
-                } else if (self.doOpeningBracket()) {
-                } else if (self.doClosingBracket()) {
-                } else if (self.doComma()) {
-                } else if (self.doPeriod()) {
-                } else if (self.doLineStop()) {
-                } else if (self.doAmpersand()) {
-                } else if (self.doSlash()) {
-                } else if (self.doColon()) {
-                } else if (self.doHyphen()) {
-                } else if (self.doInvertedMarks()) {
-                } else if (self.doPlus()) {
-                } else if (self.doAsterix()) {
-                } else if (self.doDiamond()) {
-                } else if (self.doPercent()) {
-                } else {
-                    handled = false;
-                }
+                handled = !!(
+                    self.doDoubleQuote() ||
+                    self.doSingleQuote() ||
+                    self.doOpeningBracket() ||
+                    self.doClosingBracket() ||
+                    self.doComma() ||
+                    self.doPeriod() ||
+                    self.doLineStop() ||
+                    self.doAmpersand() ||
+                    self.doSlash() ||
+                    self.doColon() ||
+                    self.doHyphen() ||
+                    self.doInvertedMarks() ||
+                    self.doPlus() ||
+                    self.doAsterix() ||
+                    self.doDiamond() ||
+                    self.doPercent()
+                );
             }
-            if (!handled) {
-                if (self.doDigits()) {
-                } else if (self.doAcronym()) {
-                } else {
-                    self.doWord();
-                }
-            }
+            (
+                handled ||
+                self.doDigits() ||
+                self.doAcronym() ||
+                self.doWord()
+            );
         }
         gc.i.nextIndex();
     };
@@ -440,8 +435,6 @@ MB.GuessCase.Handler.Base = function (gc) {
                 if (state) {
                     flags.context.forceCaps = true;
                     flags.context.openedSingleQuote = false;
-                } else {
-
                 }
                 gc.o.capitalizeLastWord();
             }
@@ -637,7 +630,8 @@ MB.GuessCase.Handler.Base = function (gc) {
          * "A.B.C I Love You"           => "A.B. C I Love You"
          * "P.S I Love You"             => "P. S I Love You"
          */
-        var subIndex, tmp = [];
+        let subIndex;
+        const tmp = [];
         if (gc.i.matchCurrentWord(gc.re.ACRONYM)) {
             var cw = gc.i.getCurrentWord();
             tmp.push(cw.toUpperCase()); // Add current word
@@ -700,7 +694,8 @@ MB.GuessCase.Handler.Base = function (gc) {
             gc.re.DIGITS_NTUPLE = /^\d\d\d\d+$/;
         }
 
-        var subIndex = null, tmp = [];
+        let subIndex = null;
+        const tmp = [];
         if (gc.i.matchCurrentWord(gc.re.DIGITS)) {
             tmp.push(gc.i.getCurrentWord());
             flags.context.numberSplitExpect = true;
@@ -780,7 +775,7 @@ MB.GuessCase.Handler.Base = function (gc) {
             return true;
         }
         return false;
-    }
+    };
 
     /*
      * Detect featuring,f., ft[.], feat[.] and add parentheses as needed.
@@ -841,9 +836,10 @@ MB.GuessCase.Handler.Base = function (gc) {
                      *    though :]
                      * Blah (feat. Erroll Flynn Some Remixname) (remix)
                      */
-                    var pos = gc.i.getPos();
-                    var len = gc.i.getLength();
-                    for (var i = pos; i < len; i++) {
+                    const pos = gc.i.getPos();
+                    const len = gc.i.getLength();
+                    let i = pos;
+                    for (; i < len; i++) {
                         if (gc.i.getWordAtIndex(i) == "(") {
                             break;
                         }
@@ -883,7 +879,9 @@ MB.GuessCase.Handler.Base = function (gc) {
     self.moveArticleToEnd = function (is) {
         return utils.trim(is).replace(
             /^(The|Los) (.+)$/,
-            function (match, article, name) { return name + ", " + article }
+            function (match, article, name) {
+                return name + ', ' + article;
+            },
         );
     };
 

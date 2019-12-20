@@ -8,8 +8,7 @@ $(function () {
             iframe.src = this.href;
             iframe.style.display = "none";
             $('body').append(iframe);
-        }
-        else {
+        } else {
             var tagger = new Image();
             tagger.src = this.href;
         }

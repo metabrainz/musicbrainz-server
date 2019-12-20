@@ -8,13 +8,13 @@
 
 import test from 'tape';
 
-import MB_entity from '../common/entity';
+import mbEntity from '../common/entity';
 
 test("CoreEntity", function (t) {
     t.plan(2);
 
-    var source = MB_entity({ gid: 123, entityType: "recording", name: "a recording" }),
-        target = MB_entity({ gid: 456, entityType: "artist", name: "foo", sort_name: "bar" });
+    const source = mbEntity({ gid: 123, entityType: "recording", name: "a recording" });
+    const target = mbEntity({ gid: 456, entityType: "artist", name: "foo", sort_name: "bar" });
 
     t.equal(
         source.html(),

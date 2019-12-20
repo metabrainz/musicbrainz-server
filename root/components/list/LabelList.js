@@ -9,15 +9,19 @@
 
 import React from 'react';
 
+import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import formatLabelCode from '../../utility/formatLabelCode';
-import loopParity from '../../utility/loopParity';
-import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
-import RatingStars from '../RatingStars';
-import SortableTableHeader from '../SortableTableHeader';
+import formatLabelCode from '../../utility//formatLabelCode';
+import {
+  defineCheckboxColumn,
+  defineNameColumn,
+  defineTextColumn,
+  defineTypeColumn,
+  defineEntityColumn,
+  defineBeginDateColumn,
+  defineEndDateColumn,
+  ratingsColumn,
+} from '../../utility/tableColumns';
 
 type Props = {
   +$c: CatalystContextT,
@@ -35,121 +39,47 @@ const LabelList = ({
   order,
   showRatings,
   sortable,
-}: Props) => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        {$c.user_exists && checkboxes ? (
-          <th className="checkbox-cell">
-            <input type="checkbox" />
-          </th>
-        ) : null}
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Label')}
-                name="name"
-                order={order}
-              />
-            )
-            : l('Label')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Type')}
-                name="type"
-                order={order}
-              />
-            )
-            : l('Type')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Code')}
-                name="code"
-                order={order}
-              />
-            )
-            : l('Code')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Area')}
-                name="area"
-                order={order}
-              />
-            )
-            : l('Area')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Begin')}
-                name="begin_date"
-                order={order}
-              />
-            )
-            : l('Begin')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('End')}
-                name="end_date"
-                order={order}
-              />
-            )
-            : l('End')}
-        </th>
-        {showRatings ? <th>{l('Rating')}</th> : null}
-      </tr>
-    </thead>
-    <tbody>
-      {labels.map((label, index) => (
-        <tr className={loopParity(index)} key={label.id}>
-          {$c.user_exists && checkboxes ? (
-            <td>
-              <input
-                name={checkboxes}
-                type="checkbox"
-                value={label.id}
-              />
-            </td>
-          ) : null}
-          <td>
-            <DescriptiveLink entity={label} />
-          </td>
-          <td>
-            {label.typeName
-              ? lp_attributes(label.typeName, 'label_type')
-              : null}
-          </td>
-          <td>
-            {label.label_code ? formatLabelCode(label.label_code) : null}
-          </td>
-          <td>
-            {label.area ? <DescriptiveLink entity={label.area} /> : null}
-          </td>
-          <td>{formatDate(label.begin_date)}</td>
-          <td>{formatEndDate(label)}</td>
-          {showRatings ? (
-            <td>
-              <RatingStars entity={label} />
-            </td>
-          ) : null}
-        </tr>
-      ))}
-    </tbody>
-  </table>
-);
+}: Props) => {
+  const columns = React.useMemo(
+    () => {
+      const checkboxColumn = $c.user_exists && checkboxes
+        ? defineCheckboxColumn(checkboxes)
+        : null;
+      const nameColumn =
+        defineNameColumn<LabelT>(l('Label'), order, sortable);
+      const typeColumn = defineTypeColumn('label_type', order, sortable);
+      const labelCodeColumn = defineTextColumn(
+        entity => entity.label_code ? formatLabelCode(entity.label_code) : '',
+        'label_code',
+        l('Code'),
+        order,
+        sortable,
+      );
+      const areaColumn = defineEntityColumn(
+        entity => entity.area,
+        'area',
+        l('Area'),
+        order,
+        sortable,
+      );
+      const beginDateColumn = defineBeginDateColumn(order, sortable);
+      const endDateColumn = defineEndDateColumn(order, sortable);
+
+      return [
+        ...(checkboxColumn ? [checkboxColumn] : []),
+        nameColumn,
+        typeColumn,
+        labelCodeColumn,
+        areaColumn,
+        beginDateColumn,
+        endDateColumn,
+        ...(showRatings ? [ratingsColumn] : []),
+      ];
+    },
+    [$c.user_exists, checkboxes, order, showRatings, sortable],
+  );
+
+  return <Table columns={columns} data={labels} />;
+};
 
 export default withCatalystContext(LabelList);

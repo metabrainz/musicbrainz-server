@@ -28,7 +28,7 @@ const buildSidebarIsni = (isni) => (
 );
 
 type Props = {
-  +entity: {...IsniCodesRoleT, ...},
+  +entity: $ReadOnly<{...IsniCodesRoleT, ...}>,
 };
 
 const SidebarIsnis = ({entity}: Props):

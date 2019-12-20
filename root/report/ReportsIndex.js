@@ -98,7 +98,7 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
         </li>
       </ul>
 
-      {$c.user && $c.user.is_account_admin ? (
+      {$c.user?.is_account_admin ? (
         <>
           <h2>{l('Editors')}</h2>
 

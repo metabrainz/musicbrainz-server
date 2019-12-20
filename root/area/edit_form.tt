@@ -33,6 +33,6 @@
 
 <script type="text/javascript">
   (function () {
-    MB.Control.initialize_guess_case("area", "id-edit-area");
+    MB.Control.initializeGuessCase("area", "id-edit-area");
   }());
 </script>

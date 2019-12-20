@@ -17,12 +17,10 @@ import FormRowURLLong from '../../../../components/FormRowURLLong';
 import FormSubmit from '../../../../components/FormSubmit';
 import hydrate from '../../../../utility/hydrate';
 
-export type OauthTypeT = 'installed' | 'web';
-
 export type ApplicationFormT = FormT<{
   +name: ReadOnlyFieldT<string>,
   +oauth_redirect_uri: FieldT<string>,
-  +oauth_type: FieldT<OauthTypeT>,
+  +oauth_type: FieldT<string>,
 }>;
 
 type Props = {
@@ -66,8 +64,7 @@ class ApplicationForm extends React.Component<Props, State> {
   handleOauthTypeChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedOauthType = e.currentTarget.value;
     this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.oauth_type.value =
-        ((selectedOauthType: any): OauthTypeT);
+      newState.form.field.oauth_type.value = selectedOauthType;
     }));
   }
 

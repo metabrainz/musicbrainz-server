@@ -50,7 +50,7 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
 
     var artistCredit = wrapped
         .splice(2)
-        .filter(function (value, key) { return key %2 == 0; })
+        .filter((value, key) => key % 2 === 0)
         .compact()
         .map(c => expandCredit(c, artists, isProbablyClassical))
         .flatten()
@@ -69,7 +69,8 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
         var joinPhrase = accum.joinPhrase;
         var credits = accum.artistCredit;
         var remainder = accum.name;
-        var b, m;
+        let b;
+        let m;
 
         while (true) {
             b = balanced(pair[0], pair[1], remainder);
@@ -114,7 +115,7 @@ function extractFeatCredits(str, artists, isProbablyClassical, allowEmptyName) {
         return m1;
     }
 
-    return {name: m2.name, joinPhrase: m2.joinPhrase || m1.joinPhrase, artistCredit: m2.artistCredit.concat(m1.artistCredit)}
+    return {name: m2.name, joinPhrase: m2.joinPhrase || m1.joinPhrase, artistCredit: m2.artistCredit.concat(m1.artistCredit)};
 }
 
 function cleanCredit(name, isProbablyClassical) {
@@ -129,6 +130,7 @@ function bestArtistMatch(artists, name) {
             if (similarity >= MIN_NAME_SIMILARITY) {
                 return {similarity: similarity, artist: a, name: name};
             }
+            return null;
         })
         .compact()
         .sortBy('similarity')
@@ -216,6 +218,7 @@ MB.Control.initGuessFeatButton = function (formName) {
             name: function () {
                 if (arguments.length) {
                     nameInput.value = arguments[0];
+                    return undefined;
                 } else {
                     return nameInput.value;
                 }

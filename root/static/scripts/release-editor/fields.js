@@ -9,7 +9,7 @@
 import ko from 'knockout';
 import _ from 'lodash';
 
-import MB_entity from '../common/entity';
+import mbEntity from '../common/entity';
 import releaseLabelKey from '../common/utility/releaseLabelKey';
 import {
   artistCreditsAreEqual,
@@ -23,7 +23,7 @@ import formatTrackLength from '../common/utility/formatTrackLength';
 import nonEmpty from '../common/utility/nonEmpty';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
-import MB_edit from '../edit/MB/edit';
+import mbEdit from '../edit/MB/edit';
 import * as dates from '../edit/utility/dates';
 import * as validation from '../edit/validation';
 
@@ -80,7 +80,7 @@ class Track {
         releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
 
         this.recordingValue = ko.observable(
-            new MB_entity.Recording({ name: data.name })
+            new mbEntity.Recording({ name: data.name })
         );
 
         /*
@@ -103,8 +103,8 @@ class Track {
             if (_.isEmpty(recordingData.artistCredit)) {
                 recordingData.artistCredit = this.artistCredit();
             }
-            this.recording(MB_entity(recordingData, "recording"));
-            this.recording.original(MB_edit.fields.recording(this.recording.peek()));
+            this.recording(mbEntity(recordingData, "recording"));
+            this.recording.original(mbEdit.fields.recording(this.recording.peek()));
             this.hasNewRecording(false);
         }
 
@@ -246,7 +246,7 @@ class Track {
     }
 
     setRecordingValue(value) {
-        value = value || new MB_entity.Recording({ name: this.name() });
+        value = value || new mbEntity.Recording({ name: this.name() });
 
         var currentValue = this.recording.peek();
         if (value.gid === currentValue.gid) {
@@ -264,7 +264,7 @@ class Track {
             this.name.saved = this.name.peek();
             this.length.saved = this.length.peek();
             this.recording.saved = value;
-            this.recording.savedEditData = MB_edit.fields.recording(value);
+            this.recording.savedEditData = mbEdit.fields.recording(value);
             this.hasNewRecording(false);
         }
 
@@ -305,9 +305,9 @@ class Track {
 
 Object.assign(Track.prototype, {
     entityType: 'track',
-    renderArtistCredit: MB_entity.Entity.prototype.renderArtistCredit,
-    isCompleteArtistCredit: MB_entity.Entity.prototype.isCompleteArtistCredit,
-})
+    renderArtistCredit: mbEntity.Entity.prototype.renderArtistCredit,
+    isCompleteArtistCredit: mbEntity.Entity.prototype.isCompleteArtistCredit,
+});
 
 fields.Track = Track;
 
@@ -382,7 +382,9 @@ class Medium {
         this.hasTrackInfo = this.tracks.all("hasNameAndArtist");
         this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
         this.confirmedVariousArtists = ko.observable(this.hasVariousArtistTracks());
-        this.needsTrackInfo = ko.computed(function () { return !self.hasTrackInfo() });
+        this.needsTrackInfo = ko.computed(function () {
+            return !self.hasTrackInfo();
+        });
 
         if (data.id != null) {
             this.id = data.id;
@@ -414,7 +416,7 @@ class Medium {
         this.collapsed = ko.observable(!loaded);
         this.collapsed.subscribe(this.collapsedChanged, this);
         this.addTrackCount = ko.observable("");
-        this.original = ko.observable(this.id ? MB_edit.fields.medium(this) : {});
+        this.original = ko.observable(this.id ? mbEdit.fields.medium(this) : {});
         this.uniqueID = this.id || _.uniqueId("new-");
 
         this.needsTracks = ko.computed(function () {
@@ -477,7 +479,9 @@ class Medium {
 
         var tocTrackCount = toc.length - 3;
         var tracks = this.tracks();
-        var tocTracks = _.reject(tracks, function (t) { return t.position() == 0 || t.isDataTrack() });
+        var tocTracks = _.reject(tracks, function (t) {
+            return t.position() == 0 || t.isDataTrack();
+        });
         var trackCount = tocTracks.length;
         var pregapOffset = this.hasPregap() ? 0 : 1;
 
@@ -523,7 +527,7 @@ class Medium {
 
     hasInvalidPregapLength() {
         if (!this.hasPregap() || !this.hasToc()) {
-            return;
+            return false;
         }
 
         var maxLength = -Infinity;
@@ -564,7 +568,9 @@ class Medium {
 
         var pp = this.id ? // no ID means this medium is being reused
             Track :
-            function (track, parent) { return new Track(_.omit(track, 'id'), parent); };
+            function (track, parent) {
+                return new Track(_.omit(track, 'id'), parent);
+            };
         this.tracks(utils.mapChild(this, data.tracks, pp));
 
         if (this.release.seededTocs) {
@@ -581,7 +587,7 @@ class Medium {
          * by the user before they loaded the medium. We just need the
          * tracklist data, now that it's loaded.
          */
-        var currentEditData = MB_edit.fields.medium(this);
+        var currentEditData = mbEdit.fields.medium(this);
         var originalEditData = this.original();
 
         originalEditData.tracklist = currentEditData.tracklist;
@@ -593,12 +599,14 @@ class Medium {
         this.confirmedVariousArtists(this.hasVariousArtistTracks());
     }
 
-    hasTracks() { return this.tracks().length > 0 }
+    hasTracks() {
+        return this.tracks().length > 0;
+    }
 
     formattedName() {
-        var name = this.name(),
-            position = this.position(),
-            multidisc = this.release.mediums().length > 1 || position > 1;
+        const name = this.name();
+        const position = this.position();
+        const multidisc = this.release.mediums().length > 1 || position > 1;
 
         if (name) {
             if (multidisc) {
@@ -606,8 +614,7 @@ class Medium {
             }
             return name;
 
-        }
-        else if (multidisc) {
+        } else if (multidisc) {
             return texp.l("Medium {position}", { position: position });
         }
         return l("Tracklist");
@@ -622,14 +629,14 @@ class Medium {
 
 fields.Medium = Medium;
 
-class ReleaseGroup extends MB_entity.ReleaseGroup {
+class ReleaseGroup extends mbEntity.ReleaseGroup {
 
     constructor(data) {
         data = data || {};
 
         super(data);
 
-        this.typeID = ko.observable(data.typeID)
+        this.typeID = ko.observable(data.typeID);
         this.secondaryTypeIDs = ko.observableArray(data.secondaryTypeIDs);
     }
 }
@@ -696,7 +703,7 @@ class ReleaseLabel {
             this.id = data.id;
         }
 
-        this.label = ko.observable(MB_entity(data.label || {}, "label"));
+        this.label = ko.observable(mbEntity(data.label || {}, "label"));
         this.catalogNumber = ko.observable(data.catalogNumber);
         this.release = release;
         this.isDuplicate = ko.observable(false);
@@ -759,7 +766,8 @@ class Barcode {
             return false;
         }
 
-        for (var i = 0, calc = 0; i < 12; i++) {
+        let calc = 0;
+        for (let i = 0; i < 12; i++) {
             calc += parseInt(barcode[i]) * this.weights[i];
         }
 
@@ -781,7 +789,7 @@ Barcode.prototype.weights = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3];
 
 fields.Barcode = Barcode;
 
-class Release extends MB_entity.Release {
+class Release extends mbEntity.Release {
 
     constructor(data) {
         super(data);
@@ -833,7 +841,9 @@ class Release extends MB_entity.Release {
             utils.mapChild(this, data.events, ReleaseEvent)
         );
 
-        function countryID(event) { return event.countryID() }
+        function countryID(event) {
+            return event.countryID();
+        }
 
         function nonEmptyEvent(event) {
             var date = event.unwrapDate();
@@ -856,7 +866,7 @@ class Release extends MB_entity.Release {
         );
 
         this.labels.original = ko.observable(
-            _.map(this.labels.peek(), MB_edit.fields.releaseLabel)
+            _.map(this.labels.peek(), mbEdit.fields.releaseLabel)
         );
 
         function nonEmptyReleaseLabel(releaseLabel) {
@@ -898,7 +908,7 @@ class Release extends MB_entity.Release {
         this.formats = data.combined_format_name;
         this.mediums.original = ko.observableArray([]);
         this.mediums.original(this.existingMediumData());
-        this.original = ko.observable(MB_edit.fields.release(this));
+        this.original = ko.observable(mbEdit.fields.release(this));
 
         this.loadedMediums = this.mediums.filter("loaded");
         this.hasTrackInfo = this.loadedMediums.all("hasTrackInfo");
@@ -907,10 +917,14 @@ class Release extends MB_entity.Release {
         this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
         this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
         this.hasUnconfirmedVariousArtists = errorField(this.mediums.any("hasUnconfirmedVariousArtists"));
-        this.needsMediums = errorField(function () { return !(self.mediums().length || self.hasUnknownTracklist()) });
+        this.needsMediums = errorField(function () {
+            return !(self.mediums().length || self.hasUnknownTracklist());
+        });
         this.needsFormat = errorField(this.mediums.any("needsFormat"));
         this.needsTracks = errorField(this.mediums.any("needsTracks"));
-        this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
+        this.needsTrackInfo = errorField(function () {
+            return !self.hasTrackInfo();
+        });
         this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
 
         // Ensure there's at least one event, label, and medium to edit.

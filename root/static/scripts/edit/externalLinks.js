@@ -52,9 +52,12 @@ type LinksEditorState = {
 
 export class ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
+  tableRef: {current: HTMLTableElement | null};
+
   constructor(props: LinksEditorProps) {
     super(props);
     this.state = {links: withOneEmptyLink(props.initialLinks)};
+    this.tableRef = React.createRef();
   }
 
   setLinkState(
@@ -113,7 +116,7 @@ export class ExternalLinksEditor
       newLinks.splice(index, 1);
       return {links: newLinks};
     }, () => {
-      $(ReactDOM.findDOMNode(this))
+      $(this.tableRef.current)
         .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
               'tr:lt(' + (index + 1) + ') button.remove:last')
         .eq(0)
@@ -195,7 +198,11 @@ export class ExternalLinksEditor
       .value();
 
     return (
-      <table className="row-form" id="external-links-editor">
+      <table
+        className="row-form"
+        id="external-links-editor"
+        ref={this.tableRef}
+      >
         <tbody>
           {linksArray.map((link, index) => {
             let error;
@@ -547,10 +554,12 @@ function isValidURL(url) {
 
 const URL_SHORTENERS = [
   'adf.ly',
+  'ampl.ink',
   'band.link',
   'biglink.to',
   'bit.ly',
   'bitly.com',
+  'blackl.ink',
   'bruit.app',
   'cli.gs',
   'deck.ly',
@@ -559,19 +568,23 @@ const URL_SHORTENERS = [
   'ffm.to',
   'fty.li',
   'fur.ly',
+  'geni.us',
   'goo.gl',
   'hyperurl.co',
   'is.gd',
   'kl.am',
   'laburbain.com',
   'linkco.re',
+  'linkfi.re',
   'linktr.ee',
   'listen.lt',
   'lnk.bio',
   'lnk.co',
+  'lnk.site',
   'lnk.to',
   'mcaf.ee',
   'moourl.com',
+  'orcd.co',
   'owl.ly',
   'rubyurl.com',
   'smarturl.it',
@@ -582,7 +595,10 @@ const URL_SHORTENERS = [
   't.co',
   'tiny.cc',
   'tinyurl.com',
+  'tourlink.to',
   'u.nu',
+  'unitedmasters.com',
+  'untd.io',
   'yep.it',
 ].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/', 'i'));
 

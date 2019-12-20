@@ -55,6 +55,39 @@ after 'load' => sub {
     $c->model('InstrumentType')->load($instrument);
 };
 
+sub artists : Chained('load') {
+    my ($self, $c) = @_;
+
+    my $instrument = $c->stash->{instrument};
+    my ($results, @artists, %instrument_credits_and_rel_types);
+
+    $results = $self->_load_paged($c, sub {
+        $c->model('Artist')->find_by_instrument($instrument->id, shift, shift);
+    });
+
+    for my $item (@$results) {
+        push @artists, $item->{artist};
+        my @credits_and_rel_types = uniq grep { $_ } @{ $item->{instrument_credits_and_rel_types} // [] };
+        $instrument_credits_and_rel_types{$item->{artist}->gid} = \@credits_and_rel_types if @credits_and_rel_types;
+    }
+
+    $c->model('Artist')->load_meta(@artists);
+    $c->model('ArtistType')->load(@artists);
+    $c->model('Gender')->load(@artists);
+    $c->model('Area')->load(@artists);
+
+    if ($c->user_exists) {
+        $c->model('Artist')->rating->load_user_ratings($c->user->id, @artists);
+    }
+
+    $c->stash( template => 'instrument/artists.tt' );
+
+    $c->stash(
+        artists => \@artists,
+        instrument_credits_and_rel_types => \%instrument_credits_and_rel_types,
+    );
+}
+
 sub recordings : Chained('load') {
     my ($self, $c) = @_;
 

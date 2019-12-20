@@ -80,8 +80,7 @@ releaseEditor.edits = {
 
         if (!release.gid()) {
             edits.push(MB.edit.releaseCreate(newData));
-        }
-        else if (!_.isEqual(newData, oldData)) {
+        } else if (!_.isEqual(newData, oldData)) {
             newData = {...newData, to_edit: release.gid()};
             edits.push(MB.edit.releaseEdit(newData, oldData));
         }
@@ -416,21 +415,29 @@ releaseEditor.loadingEditPreviews = ko.observable(false);
 
 
 releaseEditor.getEditPreviews = function () {
-    var previews = {}, previewRequest = null;
+    const previews = {};
+    let previewRequest = null;
 
     function refreshPreviews(edits) {
         releaseEditor.editPreviews(_.compact(_.map(edits, getPreview)));
     }
 
-    function getPreview(edit) { return previews[edit.hash] }
+    function getPreview(edit) {
+        return previews[edit.hash];
+    }
+
     function addPreview(tuple) {
-        var editHash = tuple[0].hash, preview = tuple[1];
+        const editHash = tuple[0].hash;
+        const preview = tuple[1];
         if (preview) {
             preview.editHash = editHash;
             previews[editHash] = preview;
         }
     }
-    function isNewEdit(edit) { return previews[edit.hash] === undefined }
+
+    function isNewEdit(edit) {
+        return previews[edit.hash] === undefined;
+    }
 
     debounce(function () {
         var edits = releaseEditor.allEdits();
@@ -509,8 +516,8 @@ function chainEditSubmissions(release, submissions) {
             return;
         }
 
-        var edits = current.edits(release),
-            submitted = null;
+        const edits = current.edits(release);
+        let submitted = null;
 
         if (edits.length) {
             submitted = MB.edit.create($.extend({ edits: edits }, args));
@@ -609,8 +616,11 @@ releaseEditor.orderedEditSubmissions = [
         edits: releaseEditor.edits.medium,
 
         callback: function (release, edits) {
-            var added = _(edits).map("entity").compact()
-                                .keyBy("position").value();
+            var added = _(edits)
+                .map("entity")
+                .compact()
+                .keyBy("position")
+                .value();
 
             var newMediums = release.mediums();
 

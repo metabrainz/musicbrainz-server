@@ -24,17 +24,23 @@ import releaseEditor from './viewModel';
 
 const actions = {
 
-    cancelPage: function () { window.location = this.returnTo },
+    cancelPage: function () {
+        window.location = this.returnTo;
+    },
 
-    nextTab: function () { this.adjacentTab(1) },
+    nextTab: function () {
+        this.adjacentTab(1);
+    },
 
-    previousTab: function () { this.adjacentTab(-1) },
+    previousTab: function () {
+        this.adjacentTab(-1);
+    },
 
     lastTab: function () {
         this.uiTabs._setOption("active", this.tabCount - 1);
         this.uiTabs.tabs.eq(this.tabCount - 1).focus();
         return;
-     },
+    },
 
     adjacentTab: function (direction) {
         var index = this.activeTabIndex();
@@ -172,23 +178,23 @@ const actions = {
         // If the medium had a TOC attached, it's no longer valid.
         track.medium.toc(null);
 
-        return true
+        return true;
     },
 
     swapTracks: function (track1, track2, medium) {
-        var tracks = medium.tracks,
-            underlyingTracks = tracks.peek(),
-            offset = medium.hasPregap() ? 0 : 1,
-            /*
-             * Use _.indexOf instead of .position()
-             * http://tickets.metabrainz.org/browse/MBS-7227
-             */
-            position1 = _.indexOf(underlyingTracks, track1) + offset,
-            position2 = _.indexOf(underlyingTracks, track2) + offset,
-            number1 = track1.number(),
-            number2 = track2.number(),
-            dataTrack1 = track1.isDataTrack(),
-            dataTrack2 = track2.isDataTrack();
+        const tracks = medium.tracks;
+        const underlyingTracks = tracks.peek();
+        const offset = medium.hasPregap() ? 0 : 1;
+        /*
+         * Use _.indexOf instead of .position()
+         * http://tickets.metabrainz.org/browse/MBS-7227
+         */
+        const position1 = _.indexOf(underlyingTracks, track1) + offset;
+        const position2 = _.indexOf(underlyingTracks, track2) + offset;
+        const number1 = track1.number();
+        const number2 = track2.number();
+        const dataTrack1 = track1.isDataTrack();
+        const dataTrack2 = track2.isDataTrack();
 
         track1.position(position2);
         track1.number(number2);
@@ -222,7 +228,7 @@ const actions = {
         var index = tracks.indexOf(track);
         var offset = medium.hasPregap() ? 0 : 1;
 
-        tracks.remove(track)
+        tracks.remove(track);
         releaseEditor.resetTrackPositions(tracks.peek(), index, offset, 1);
 
         if (focus) {
@@ -244,9 +250,13 @@ const actions = {
         });
     },
 
-    toggleMedium: function (medium) { medium.collapsed(!medium.collapsed()) },
+    toggleMedium: function (medium) {
+        medium.collapsed(!medium.collapsed());
+    },
 
-    openTrackParser: function (medium) { this.trackParserDialog.open(medium) },
+    openTrackParser: function (medium) {
+        this.trackParserDialog.open(medium);
+    },
 
     resetTrackNumbers: function (medium) {
         var offset = medium.hasPregap() ? 0 : 1;

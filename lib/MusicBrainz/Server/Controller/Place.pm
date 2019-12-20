@@ -155,13 +155,25 @@ sub map : Chained('load') {
     my ($self, $c) = @_;
 
     my $place = $c->stash->{place};
-    $c->stash->{map_data_args} = $c->json->encode({
+    my $map_data_args = $c->json->encode({
         draggable => \0,
         place => {
             coordinates => $place->coordinates,
             name => $place->name,
         },
     });
+
+    my %props = (
+        mapDataArgs => $map_data_args,
+        place       => $place,
+    );
+
+    $c->stash(
+        component_path  => 'place/PlaceMap',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
+
 }
 
 after [qw( show collections details tags aliases events performances map )] => sub {

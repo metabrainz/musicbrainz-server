@@ -92,11 +92,11 @@ const trackParser = releaseEditor.trackParser = {
 
             /*
              * We should've parsed at least some values, otherwise something
-             * went wrong. Returning undefined removes this result from
-             * newTracks.
+             * went wrong. Returning undefined or null removes this result from
+             * newTracks because $.map discards it.
              */
             if (!_.some(_.values(data))) {
-                return;
+                return null;
             }
 
             currentPosition += 1;
@@ -129,7 +129,8 @@ const trackParser = releaseEditor.trackParser = {
                         .map(function (track) {
                             return self.matchDataWithTrack(data, track);
                         })
-                        .compact().value()
+                        .compact()
+                        .value()
                 );
             }
 
@@ -157,7 +158,8 @@ const trackParser = releaseEditor.trackParser = {
              * See if we can re-use the AC from the matched track, the previous
              * track at this position, or the release.
              */
-            var matchedAC = _.find([ matchedTrackAC, previousTrackAC, releaseAC ],
+            var matchedAC = _.find(
+                [ matchedTrackAC, previousTrackAC, releaseAC ],
                 function (ac) {
                     if (!ac || hasVariousArtists(ac)) {
                         return false;
@@ -167,7 +169,7 @@ const trackParser = releaseEditor.trackParser = {
                         !data.artist ||
                         utils.similarNames(data.artist, reduceArtistCredit(ac))
                     );
-                }
+                },
             );
 
             if (matchedAC) {
@@ -371,8 +373,8 @@ const trackParser = releaseEditor.trackParser = {
         this.separators = customDelimiter || this.defaultSeparators;
 
         // Split the string into parts, if there are any.
-        var parts = line.split(this.separators),
-            names = _.reject(parts, x => this.separatorOrBlank(x));
+        const parts = line.split(this.separators);
+        const names = _.reject(parts, x => this.separatorOrBlank(x));
 
         /*
          * Only parse an artist if there's more than one name. Assume the
@@ -450,8 +452,12 @@ const trackParser = releaseEditor.trackParser = {
     },
 
     matchDataWithTrack: function (data, track) {
+        /*
+         * The result of this function will be fed into _.compact so that
+         * null and undefined return values will be stripped.
+         */
         if (!track) {
-            return;
+            return null;
         }
 
         var similarity = getSimilarity(data.name, track.name.peek());
@@ -459,6 +465,8 @@ const trackParser = releaseEditor.trackParser = {
         if (similarity >= MIN_NAME_SIMILARITY) {
             return { similarity: similarity, track: track, data: data };
         }
+
+        return null;
     }
 };
 
@@ -481,20 +489,18 @@ trackParser.customDelimiterError = debounce(function () {
     return trackParser.customDelimiterRegExp()
         ? ''
         : l('Invalid regular expression.');
-})
+});
 
 function optionCookie(name, defaultValue, checkbox=true) {
-    var existingValue = getCookie(name);
+    const existingValue = getCookie(name);
 
-    if (checkbox) {
-      var observable = ko.observable(
-          defaultValue ? existingValue !== "false" : existingValue === "true"
-      );
-    } else {
-      var observable = ko.observable(
-          existingValue ? existingValue : defaultValue
-      );
-    }
+    const observable = checkbox
+      ? ko.observable(
+          defaultValue
+              ? existingValue !== "false"
+              : existingValue === "true",
+        )
+      : ko.observable(existingValue || defaultValue);
 
     observable.subscribe(function (newValue) {
         setCookie(name, newValue);

@@ -6,7 +6,7 @@ declare module 'react-table' {
   };
 
   declare export type ColumnOptions<D, V> = {
-    +accessor?: $Keys<D>,
+    +accessor?: $Keys<D> | ((D) => V),
     +id?: string,
     +Header?: Renderer<HeaderProps<D>>,
     +Cell?: React$AbstractComponent<CellRenderProps<D, V>, mixed>,

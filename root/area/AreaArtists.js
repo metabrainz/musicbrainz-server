@@ -18,7 +18,7 @@ import AreaLayout from './AreaLayout';
 type Props = {
   +$c: CatalystContextT,
   +area: AreaT,
-  +artists: $ReadOnlyArray<ArtistT>,
+  +artists: ?$ReadOnlyArray<ArtistT>,
   +pager: PagerT,
 };
 
@@ -31,7 +31,7 @@ const AreaArtists = ({
   <AreaLayout entity={area} page="artists" title={l('Artists')}>
     <h2>{l('Artists')}</h2>
 
-    {artists && artists.length > 0 ? (
+    {artists?.length ? (
       <form action="/artist/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <ArtistList

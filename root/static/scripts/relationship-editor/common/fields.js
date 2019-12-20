@@ -16,14 +16,14 @@ import {
 import localizeLinkAttributeTypeName
     from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
-import MB_entity from '../../common/entity';
+import mbEntity from '../../common/entity';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
 import nonEmpty from '../../common/utility/nonEmpty';
 import request from '../../common/utility/request';
-import MB_edit from '../../edit/MB/edit';
+import mbEdit from '../../edit/MB/edit';
 import * as linkPhrase from '../../edit/utility/linkPhrase';
 
 import mergeDates from './mergeDates';
@@ -45,7 +45,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             this.entities = ko.observable(_.map(data.entities, function (entity) {
-                return MB_entity(entity);
+                return mbEntity(entity);
             }));
 
             this.entities.equalityComparer = entitiesComparer;
@@ -133,7 +133,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.editsPending = Boolean(data.editsPending);
 
             this.editData = ko.computed(function () {
-                return MB_edit.fields.relationship(self);
+                return mbEdit.fields.relationship(self);
             });
 
             if (data.id) {
@@ -152,7 +152,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         fromJS(data) {
             this.linkTypeID(data.linkTypeID);
-            this.entities([MB_entity(data.entities[0]), MB_entity(data.entities[1])]);
+            this.entities([mbEntity(data.entities[0]), mbEntity(data.entities[1])]);
             this.entity0_credit(data.entity0_credit || '');
             this.entity1_credit(data.entity1_credit || '');
 
@@ -192,8 +192,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
              */
             this.entityTypes = linkType.type0 + '-' + linkType.type1;
 
-            var typeAttributes = linkType.attributes,
-                attributes = this.attributes(), attribute;
+            const typeAttributes = linkType.attributes;
+            const attributes = this.attributes();
+            let attribute;
 
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
@@ -215,7 +216,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return linkType ? (linkType.has_dates !== false) : true;
         }
 
-        added() { return !this.id }
+        added() {
+            return !this.id;
+        }
 
         edited() {
             return !_.isEqual(this.original, this.editData());
@@ -399,9 +402,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         paddedSeriesNumber() {
-            var attributes = this.attributes(), numberAttribute;
+            const attributes = this.attributes();
+            let numberAttribute;
 
-            for (var i = 0; (numberAttribute = attributes[i]); i++) {
+            for (let i = 0; (numberAttribute = attributes[i]); i++) {
                 if (numberAttribute.type.gid === SERIES_ORDERING_ATTRIBUTE) {
                     break;
                 }
@@ -411,10 +415,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return "";
             }
 
-            var parts = _.compact(numberAttribute.textValue().split(/(\d+)/)),
-                integerRegex = /^\d+$/;
+            const integerRegex = /^\d+$/;
+            const parts = _.compact(numberAttribute.textValue().split(/(\d+)/));
 
-            for (var i = 0, part; (part = parts[i]); i++) {
+            for (let i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {
                     parts[i] = _.padStart(part, 10, "0");
                 }
@@ -511,8 +515,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         openEdits() {
             var entities = this.original.entities;
-            var entity0 = MB_entity(entities[0]);
-            var entity1 = MB_entity(entities[1]);
+            var entity0 = mbEntity(entities[0]);
+            var entity1 = mbEntity(entities[1]);
 
             return (
                 '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
@@ -541,6 +545,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (entity === entities[1]) {
                 return this.entity1_credit;
             }
+
+            throw 'entity not in the entities array';
         }
     }
 
@@ -587,9 +593,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     ko.bindingHandlers.textAttribute = {
         init: function (element, valueAccessor) {
-            var options = valueAccessor(),
-                linkAttribute = options.relationship.getAttribute(options.typeGID),
-                currentValue = linkAttribute.textValue.peek();
+            const options = valueAccessor();
+            const linkAttribute = options.relationship.getAttribute(options.typeGID);
+            let currentValue = linkAttribute.textValue.peek();
 
             linkAttribute.textValue.subscribe(function (newValue) {
                 if (newValue && !currentValue) {
@@ -607,7 +613,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         return a[0] === b[0] && a[1] === b[1];
     }
 
-    function linkTypeComparer(a, b) { return a != b }
+    function linkTypeComparer(a, b) {
+        return a != b;
+    }
 
     function setPartialDate(target, data) {
         _.each(["year", "month", "day"], function (key) {

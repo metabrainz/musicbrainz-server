@@ -10,13 +10,14 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
 
 
 // Private variables
-var type0, type1, linkTypeName, linkTypeID, jsRoot;
+let type0;
+let type1;
+let linkTypeName;
+let linkTypeID;
+let jsRoot;
 
 // Private methods
 var searchUrl;
-
-// Private classes
-var RelationshipSearcher, ViewModel;
 
 ERE.init = function (config) {
     type0 = config.type0;
@@ -37,29 +38,30 @@ ERE.init = function (config) {
     ERE.viewModel.availableEntityTypes(
         _.uniq([ type0, type1 ]).map(function (value) {
             return { 'value': value, 'text': ENTITY_NAMES[value]() };
-        }));
+        }),
+    );
 
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
             ko.utils.registerEventHandler(element, "click", function () {
-                var checkedValue = valueAccessor(),
-                    meValue = bindingContext.$data,
-                    checked = element.checked;
+                const checkedValue = valueAccessor();
+                const meValue = bindingContext.$data;
+                const checked = element.checked;
                 if (checked && ko.isObservable(checkedValue)) {
                     checkedValue(meValue);
                 }
             });
         },
         update: function (element, valueAccessor, all, vm, bindingContext) {
-            var checkedValue = ko.utils.unwrapObservable(valueAccessor()),
-                meValue = bindingContext.$data;
+            const checkedValue = ko.utils.unwrapObservable(valueAccessor());
+            const meValue = bindingContext.$data;
 
             element.checked = (checkedValue === meValue);
         }
     };
 
     ko.applyBindings(ERE.viewModel);
-}
+};
 
 ERE.Example = function (name, relationship) {
     var self = this;
@@ -68,12 +70,12 @@ ERE.Example = function (name, relationship) {
     self.relationship = relationship;
     self.removeExample = function () {
         ERE.viewModel.examples.remove(this);
-    }
+    };
 
     return self;
-}
+};
 
-ViewModel = function () {
+const ViewModel = function () {
     return {
         examples: ko.observableArray(),
         availableEntityTypes: ko.observableArray(),
@@ -85,7 +87,8 @@ ViewModel = function () {
                 var ce = this.currentExample;
 
                 this.examples.push(
-                    new ERE.Example(ce.name(), ce.relationship()));
+                    new ERE.Example(ce.name(), ce.relationship()),
+                );
 
                 ce.name('');
                 ce.relationship(null);
@@ -93,15 +96,15 @@ ViewModel = function () {
             },
             possibleRelationships: new RelationshipSearcher()
         }
-    }
+    };
 };
 
 searchUrl = function (mbid) {
     return jsRoot + mbid + '?inc=rels';
-}
+};
 
 
-RelationshipSearcher = function () {
+const RelationshipSearcher = function () {
     var self = this;
 
     self.query = ko.observable();
@@ -117,12 +120,12 @@ RelationshipSearcher = function () {
             self.error('Lookup failed: ' + error);
         })
         .done(function (data) {
-            var search_result_type = data.entityType.replace("-", "_");
+            var searchResultType = data.entityType.replace("-", "_");
 
-            if (!(search_result_type === type0 ||
-                  search_result_type === type1)) {
+            if (!(searchResultType === type0 ||
+                  searchResultType === type1)) {
                 self.error('Invalid type for this relationship: ' +
-                           search_result_type +
+                           searchResultType +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
                 return;
             }
@@ -134,7 +137,8 @@ RelationshipSearcher = function () {
                 self.error(null);
 
                 _.each(relationships, function (rel) {
-                    var source = data, target = rel.target;
+                    let source = data;
+                    let target = rel.target;
 
                     if (rel.direction == "backward") {
                         source = rel.target;
@@ -152,7 +156,7 @@ RelationshipSearcher = function () {
                             name: target.name,
                             mbid: target.gid
                         }
-                    })
+                    });
                 });
             } else {
                 self.error(
@@ -165,10 +169,10 @@ RelationshipSearcher = function () {
     self.clear = function () {
         this.query('');
         this.results.removeAll();
-    }
+    };
 
     return self;
-}
+};
 
 return ERE;
 

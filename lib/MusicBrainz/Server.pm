@@ -336,7 +336,6 @@ around dispatch => sub {
     $c->$orig(@args);
 };
 
-my $ORIG_SEARCH_SERVER = DBDefs->can('SEARCH_SERVER');
 my $ORIG_ENTITY_CACHE_TTL = DBDefs->can('ENTITY_CACHE_TTL');
 my $ORIG_CACHE_NAMESPACE = DBDefs->can('CACHE_NAMESPACE');
 
@@ -360,7 +359,6 @@ before dispatch => sub {
         my $cache_namespace = DBDefs->CACHE_NAMESPACE;
         *DBDefs::CACHE_NAMESPACE = sub { $cache_namespace . $database . ':' };
         *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
-        *DBDefs::SEARCH_SERVER = sub { '' };
     } else {
         # Use a fresh database connection for every request, and
         # remember to disconnect at the end.
@@ -387,7 +385,6 @@ after dispatch => sub {
         $ctx->clear_database;
         *DBDefs::CACHE_NAMESPACE = $ORIG_CACHE_NAMESPACE;
         *DBDefs::ENTITY_CACHE_TTL = $ORIG_ENTITY_CACHE_TTL;
-        *DBDefs::SEARCH_SERVER = $ORIG_SEARCH_SERVER;
     }
 };
 

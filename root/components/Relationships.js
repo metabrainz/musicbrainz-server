@@ -19,7 +19,7 @@ import RelatedWorks from './RelatedWorks';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
 
 type DisplayTargets = {
-  +[CoreEntityTypeT]: ?$ReadOnlyArray<CoreEntityTypeT>,
+  +[coreEntityType: CoreEntityTypeT]: ?$ReadOnlyArray<CoreEntityTypeT>,
   ...
 };
 
@@ -93,7 +93,7 @@ const Relationships = ({
 
   return (
     <>
-      {source.relationships && source.relationships.length ? (
+      {source.relationships?.length ? (
         <>
           {noRelationshipsHeading ? null : (
             <h2 className="relationships">{l('Relationships')}</h2>

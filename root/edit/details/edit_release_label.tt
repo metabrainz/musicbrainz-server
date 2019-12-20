@@ -48,7 +48,9 @@
      [%- ELSE -%]
          <tr>
            <th>[% l('Release events:') %]</th>
-           <td colspan="2">[% release_events(edit.display_data.extra.events) %]</td>
+           <td colspan="2">
+             [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => edit.display_data.extra.events}) %]
+           </td>
          </tr>
      [%- END -%]
      [%- IF edit.display_data.extra.barcode -%]

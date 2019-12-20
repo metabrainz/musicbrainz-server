@@ -9,14 +9,14 @@
 import ko from 'knockout';
 import test from 'tape';
 
-import MB_edit from '../edit/MB/edit';
+import mbEdit from '../edit/MB/edit';
 
 import '../edit/forms';
 
 test("missing track numbers should be empty strings, not null (MBS-7246)", function (t) {
     t.plan(1);
 
-    var data = MB_edit.fields.track({});
+    var data = mbEdit.fields.track({});
 
     t.equal(data.number, "", "number is empty string");
 });
@@ -24,17 +24,17 @@ test("missing track numbers should be empty strings, not null (MBS-7246)", funct
 test("loop binding keeps items in order when some are quickly removed and re-added (MBS-7751)", function (t) {
     t.plan(3);
 
-    var parentNode = document.createElement("div"),
-        childNode = document.createElement("span");
+    const parentNode = document.createElement("div");
+    const childNode = document.createElement("span");
 
     parentNode.setAttribute("data-bind", "loop: { items: items, id: 'id' }");
     childNode.setAttribute("data-bind", "text: id");
     parentNode.appendChild(childNode);
 
-    var item1 = { id: 1 },
-        item2 = { id: 2 },
-        item3 = { id: 3 },
-        vm = { items: ko.observableArray([item1, item2, item3]) };
+    const item1 = {id: 1};
+    const item2 = {id: 2};
+    const item3 = {id: 3};
+    const vm = {items: ko.observableArray([item1, item2, item3])};
 
     ko.applyBindings(vm, parentNode);
 
