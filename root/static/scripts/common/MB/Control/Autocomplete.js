@@ -1048,7 +1048,7 @@ MB.Control.EntityAutocomplete = function (options) {
          * having a 'length' property.
          */
         for (const key in item) {
-            if (item.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(item, key)) {
                 $hidden.filter("input." + key)
                     .val(item[key]).trigger("change");
             }
