@@ -291,7 +291,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
       if (!this.state.positiveTagsOnly || isAlwaysVisible(t)) {
         const isGenre = Object.prototype.hasOwnProperty.call(
-          this.genreMap, t.tag.name
+          this.genreMap,
+          t.tag.name,
         );
 
         const tagRow = (
