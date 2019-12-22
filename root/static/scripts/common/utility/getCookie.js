@@ -6,7 +6,8 @@ import _cookies from './_cookies';
 let defaultExport = getCookieFallback;
 
 function getCookieFallback(name, defaultValue = undefined) {
-  return Object.prototype.hasOwnProperty.call(_cookies, name) ? _cookies[name] : defaultValue;
+  let cookieHasName = Object.prototype.hasOwnProperty.call(_cookies, name)
+  return cookieHasName ? _cookies[name] : defaultValue;
 }
 
 function getCookieBrowser(name, defaultValue = undefined) {
