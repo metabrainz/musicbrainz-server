@@ -270,10 +270,13 @@ Creating the database
     By default, the password for the user musicbrainz should be "musicbrainz",
     as stated in lib/DBDefs.pm. You can change it with `psql`:
 
-        postgres=# ALTER USER musicbrainz UNENCRYPTED PASSWORD 'musicbrainz'
+        postgres=# ALTER USER musicbrainz UNENCRYPTED PASSWORD 'musicbrainz';
+
+    For PostgreSQL 10 or later, you will need to leave off the `UNENCRYPTED`.
 
     Note that a running PostgreSQL will pick up changes to configuration files
-    only when being told so via a `HUP` signal.
+    only when being told so via a `HUP` signal (or by using pg_ctlcluster,
+    specifying `reload` as action).
 
 3.  Create the database
 
@@ -330,9 +333,13 @@ Creating the database
         real data to test with for development, you can download our database sample,
         published once a month at 
         ftp://ftp.musicbrainz.org/pub/musicbrainz/data/sample/
-    
+
         You can import this sample dump in the same way as the full dump above.
-        
+
+    If this process gets interrupted or fails, you will need to manually drop the
+    musicbrainz_db database in order to be able to run `./admin/InitDb.pl --createdb`
+    again.
+
     MusicBrainz Server doesn't enforce any statement timeouts on any SQL it runs.
     If this is an issue in your setup, you may want to set a timeout at the
     database level:
@@ -386,8 +393,10 @@ If you intend to run a server with translations, there are a few steps to follow
 
         sudo apt-get install gettext transifex-client
 
-    Configure a username and password in ~/.transifexrc using the format listed
-    on the above page.
+    You will need to make an account on transifex.com. Configure either a
+    username/password or an API key in ~/.transifexrc; see
+    (https://docs.transifex.com/client/client-configuration#-transifexrc) for
+    its contents.
 
 2.  Change to the po directory
 
@@ -399,6 +408,11 @@ If you intend to run a server with translations, there are a few steps to follow
 
     This will download the .po files for your language(s) of choice to the po/
     folder with the correct filenames.
+    If you want to get /all/ translations, you can also use `tx pull -a`.
+
+    Note that you will need to join the MetaBrainz Foundation organization
+    (https://www.transifex.com/musicbrainz/public/) in order to be able to do
+    this, or you will get `Forbidden` errors from `tx pull`.
 
 4.  Install translations
 
