@@ -267,12 +267,8 @@ Creating the database
 
         local   all    all    trust
 
-    By default, the password for the user musicbrainz should be "musicbrainz",
-    as stated in lib/DBDefs.pm. You can change it with `psql`:
-
-        postgres=# ALTER USER musicbrainz UNENCRYPTED PASSWORD 'musicbrainz';
-
-    For PostgreSQL 10 or later, you will need to leave off the `UNENCRYPTED`.
+    You do not need to create this user in PostgreSQL yourself; the next step will
+    do so (using the password set in lib/DBDefs.pm) if it does not yet exist.
 
     Note that a running PostgreSQL will pick up changes to configuration files
     only when being told so via a `HUP` signal (or by using pg_ctlcluster,
