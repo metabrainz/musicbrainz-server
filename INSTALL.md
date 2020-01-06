@@ -383,16 +383,33 @@ If you intend to run a server with translations, there are a few steps to follow
 
 1.  Prerequisites
 
-    Make sure gettext is installed (you need msgmerge and msgfmt, at least),
-    and the transifex client 'tx'
-    (http://help.transifex.com/features/client/index.html):
+    Make sure gettext is installed (you need msgmerge and msgfmt, at least):
 
-        sudo apt-get install gettext transifex-client
+        sudo apt-get install gettext
 
-    You will need to make an account on transifex.com. Configure either a
-    username/password or an API key in ~/.transifexrc; see
-    (https://docs.transifex.com/client/client-configuration#-transifexrc) for
-    its contents.
+    This will enable you to compile and install the translations that are in
+    the source repository.
+    
+    If you want to get the latest translation files or partial work-in-progress
+    translations, or wish to work on translations yourself, you will need to
+    create a [Transifex](https://www.transifex.com/) account and install its
+    client software (`tx`):
+
+        sudo apt-get install transifex-client
+
+    More information (and alternative ways to install the client) can be found
+    at https://docs.transifex.com/client/introduction/.
+
+    Next, create an API token at https://www.transifex.com/user/settings/api/
+    and use it to configure your credentials in `~/.transifexrc`. Details at
+    https://docs.transifex.com/client/client-configuration#-transifexrc.
+    
+    Finally, you will need to join the
+    [MetaBrainz Foundation organization](https://www.transifex.com/musicbrainz/public/)
+    on Transifex to get access to the translations. If you wish to work on
+    translations, you will also need to join a language team at
+    (https://www.transifex.com/musicbrainz/musicbrainz/dashboard/); see also
+    https://musicbrainz.org/doc/Server_Internationalisation#Getting_started.
 
 2.  Change to the po directory
 
@@ -403,12 +420,16 @@ If you intend to run a server with translations, there are a few steps to follow
         tx pull -l {a list of languages you want to pull}
 
     This will download the .po files for your language(s) of choice to the po/
-    folder with the correct filenames.
-    If you want to get /all/ translations, you can also use `tx pull -a`.
+    folder with the correct filenames. Languages are written as an ISO language
+    code, optionally followed by an underscore and an ISO country code (e.g. `fr`
+    for French, `fr_CA` for Canadian French).
 
-    Note that you will need to join the MetaBrainz Foundation organization
-    (https://www.transifex.com/musicbrainz/public/) in order to be able to do
-    this, or you will get `Forbidden` errors from `tx pull`.
+    Or, if you want to get _all_ translations instead:
+
+        tx pull -a
+
+    If you get `Forbidden` errors from `tx pull`, you will need to make sure
+    you have joined the MusicBrainz organization and/or project (see point 1).
 
 4.  Install translations
 
