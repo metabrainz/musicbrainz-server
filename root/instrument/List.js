@@ -16,7 +16,7 @@ import expand2react from '../static/scripts/common/i18n/expand2react';
 type PropsT = {
   +instrument_types: $ReadOnlyArray<InstrumentTypeT>,
   +instruments_by_type: {
-    +[number]: $ReadOnlyArray<InstrumentT>,
+    +[typeId: number]: $ReadOnlyArray<InstrumentT>,
     +unknown: $ReadOnlyArray<InstrumentT>,
   },
 };
@@ -55,7 +55,7 @@ const InstrumentList = ({
             </ul>
           </React.Fragment>
         ))}
-        {(unknown && unknown.length)
+        {unknown?.length
           ? (
             <>
               <h2>{l('Unclassified instrument')}</h2>

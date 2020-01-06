@@ -21,7 +21,7 @@ const ArtistRelationships = ({artist}: {artist: ArtistT}) => (
     page="relationships"
     title={l('Relationships')}
   >
-    {artist.relationships && artist.relationships.length > 0 ? (
+    {artist.relationships?.length ? (
       <Relationships source={artist} />
     ) : (
       <>

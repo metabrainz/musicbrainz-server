@@ -40,7 +40,7 @@ const WorkSidebar = ({$c, work}: Props) => {
   const {attributes, iswcs, languages, typeID} = work;
   const showInfo =
     attributes.length ||
-    (iswcs && iswcs.length) ||
+    iswcs.length ||
     languages.length ||
     typeID;
 
@@ -77,7 +77,7 @@ const WorkSidebar = ({$c, work}: Props) => {
               </SidebarProperty>
             ) : null}
 
-            {iswcs && iswcs.length ? (
+            {iswcs.length ? (
               iswcs.map((iswc) => (
                 <SidebarProperty
                   className="iswc"

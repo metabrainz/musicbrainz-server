@@ -26,7 +26,7 @@ const MergeHelper = ({$c, merger}: Props) => (
         {l('You currently have the following entities selected for merging:')}
       </p>
       <ul>
-        {$c.stash.to_merge && $c.stash.to_merge.map(entity => (
+        {$c.stash.to_merge?.map(entity => (
           <li key={entity.id}>
             <input
               id={`remove.${entity.id}`}

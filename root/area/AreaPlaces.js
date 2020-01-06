@@ -21,7 +21,7 @@ type Props = {
   +area: AreaT,
   +mapDataArgs: {places: $ReadOnlyArray<PlaceT>},
   +pager: PagerT,
-  +places: $ReadOnlyArray<PlaceT>,
+  +places: ?$ReadOnlyArray<PlaceT>,
 };
 
 const AreaPlaces = ({
@@ -34,7 +34,7 @@ const AreaPlaces = ({
   <AreaLayout entity={area} page="places" title={l('Places')}>
     <h2>{l('Places')}</h2>
 
-    {places && places.length > 0 ? (
+    {places?.length ? (
       <>
         <div id="largemap" />
         {manifest.js('area/places-map.js', {'data-args': mapDataArgs})}

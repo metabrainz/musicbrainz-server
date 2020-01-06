@@ -21,8 +21,7 @@ import EditorLink from './EditorLink';
 
 type MinimalAnnotatedEntityT = $ReadOnly<{
   ...MinimalCoreEntityT,
-  +latest_annotation?: AnnotationT,
-  ...
+  +latest_annotation: ?AnnotationT,
 }>;
 
 type Props = {
@@ -33,7 +32,7 @@ type Props = {
     ...
   }>,
   +collapse?: boolean,
-  +entity: MinimalAnnotatedEntityT,
+  +entity: AnnotatedEntityT | MinimalAnnotatedEntityT,
   +numberOfRevisions: number,
   +showChangeLog?: boolean,
 };

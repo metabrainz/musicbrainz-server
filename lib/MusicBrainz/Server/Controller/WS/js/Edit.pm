@@ -602,7 +602,7 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
     }]);
 
     unless ($c->user->has_confirmed_email_address) {
-        $c->forward('/ws/js/detach_with_error', ['a confirmed email address is required']);
+        $c->forward('/ws/js/detach_with_error', ['a verified email address is required']);
     }
     if ($c->user->is_editing_disabled) {
         $c->forward('/ws/js/detach_with_error', ['you are not allowed to enter edits']);

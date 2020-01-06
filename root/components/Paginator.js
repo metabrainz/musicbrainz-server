@@ -14,7 +14,7 @@ import {withCatalystContext} from '../context';
 import uriWith from '../utility/uriWith';
 
 type PageQueryParam = 'apps_page' | 'page' | 'tokens_page';
-type PageQueryObject = {[PageQueryParam]: number, ...};
+type PageQueryObject = {[pageVar: PageQueryParam]: number, ...};
 
 type Props = {
   +$c: CatalystContextT,

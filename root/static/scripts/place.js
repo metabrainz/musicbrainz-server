@@ -16,10 +16,10 @@ import initializeDuplicateChecker from './edit/check-duplicates';
 import {initializeArea} from './edit/MB/Control/Area';
 import {initializeBubble} from './edit/MB/Control/Bubble';
 import {errorField} from './edit/validation';
-import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
+import {initializeGuessCase} from './guess-case/MB/Control/GuessCase';
 import {map, marker} from './place/map';
 
-initialize_guess_case('place', 'id-edit-place');
+initializeGuessCase('place', 'id-edit-place');
 initializeArea('span.area.autocomplete');
 initializeDuplicateChecker('place');
 
@@ -44,7 +44,7 @@ bubble.show = function () {
 map.on('click', function (e) {
     if (map.getZoom() > 11) {
         marker.setLatLng(e.latlng);
-        update_coordinates(e.latlng);
+        updateCoordinates(e.latlng);
     } else {
         // If the map is zoomed too far out, marker placement would be wildly inaccurate, so just zoom in.
         map.setView(e.latlng);
@@ -54,21 +54,21 @@ map.on('click', function (e) {
 
 marker.on('dragend', function () {
     var latlng = marker.getLatLng().wrap();
-    update_coordinates(latlng)
+    updateCoordinates(latlng);
 });
 
-function update_coordinates(latlng) {
+function updateCoordinates(latlng) {
     $('#id-edit-place\\.coordinates').val(latlng.lat + ', ' + latlng.lng);
     $('#id-edit-place\\.coordinates').trigger('input');
 }
 
-var coordinates_request;
+var coordinatesRequest;
 var coordinatesError = errorField(ko.observable(false));
 
 $('input[name=edit-place\\.coordinates]').on('input', function () {
-    if (coordinates_request) {
-        coordinates_request.abort();
-        coordinates_request = null;
+    if (coordinatesRequest) {
+        coordinatesRequest.abort();
+        coordinatesRequest = null;
     }
     var coordinates = $('input[name=edit-place\\.coordinates]').val();
     if (isBlank(coordinates)) {
@@ -78,7 +78,7 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
         coordinatesError(false);
     } else {
         var url = '/ws/js/parse-coordinates?coordinates=' + encodeURIComponent(coordinates);
-        coordinates_request = $.getJSON(url, function (data) {
+        coordinatesRequest = $.getJSON(url, function (data) {
             $('.coordinates-errors').css('display', 'none');
             $('input[name=edit-place\\.coordinates]').removeClass('error');
             $('input[name=edit-place\\.coordinates]').addClass('success');
@@ -88,8 +88,10 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
 
             map.panTo(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
             map.setZoom(16);
-        }).fail(function (jqxhr, text_status) {
-            if (text_status === 'abort') { return; }
+        }).fail(function (jqxhr, textStatus) {
+            if (textStatus === 'abort') {
+                return;
+            }
 
             $('input[name=edit-place\\.coordinates]').addClass('error');
             $('.coordinates-errors').css('display', 'block');

@@ -16,7 +16,7 @@ import gc from '../GuessCase/Main';
 import * as modes from '../../modes';
 import MB from '../../../common/MB';
 
-MB.Control.initialize_guess_case = function (type, formPrefix) {
+MB.Control.initializeGuessCase = function (type, formPrefix) {
     formPrefix = formPrefix ? (formPrefix + "\\.") : "";
 
     var $name = $("#" + formPrefix + "name");
@@ -34,9 +34,15 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
     }
 
     $name.parent()
-        .find("button.guesscase-title").on("click", function () { setVal($name, guess.guess($name.val())) })
+        .find("button.guesscase-title")
+        .on("click", function () { 
+            setVal($name, guess.guess($name.val()));
+        })
         .end()
-        .find("button.guesscase-options").on("click", function () { $options.dialog("open") });
+        .find("button.guesscase-options")
+        .on("click", function () { 
+            $options.dialog("open"); 
+        });
 
     var $sortname = $("#" + formPrefix + "sort_name");
     var $artistType = $('#id-edit-artist\\.type_id');
@@ -52,7 +58,8 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
             setVal($sortname, guess.sortname.apply(guess, args));
         })
         .end()
-        .find("button.sortname-copy").on("click", function () {
+        .find("button.sortname-copy")
+        .on("click", function () {
             setVal($sortname, $name.val());
         });
 };
@@ -65,7 +72,7 @@ var guessCaseOptions = {
 
 var mode = ko.computed({
     read: function () {
-        var modeName = guessCaseOptions.modeName()
+        var modeName = guessCaseOptions.modeName();
 
         if (modeName !== gc.modeName) {
             gc.modeName = modeName;
@@ -120,4 +127,4 @@ ko.bindingHandlers.guessCase = {
 
 ko.virtualElements.allowedBindings.guessCase = true;
 
-export const initialize_guess_case = MB.Control.initialize_guess_case;
+export const initializeGuessCase = MB.Control.initializeGuessCase;

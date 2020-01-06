@@ -11,33 +11,38 @@ import ko from 'knockout';
 
 import formatDate from './formatDate';
 
-function formatDatePeriod<+T: {...DatePeriodRoleT, ...}>(entity: T) {
-  let {begin_date, end_date, ended} = entity;
+function formatDatePeriod<
+  +T: $ReadOnly<{...DatePeriodRoleT, ...}>,
+>(entity: T) {
+  let {begin_date: beginDate, end_date: endDate, ended} = entity;
 
-  begin_date = formatDate(begin_date);
-  end_date = formatDate(end_date);
+  beginDate = formatDate(beginDate);
+  endDate = formatDate(endDate);
   ended = (ko.unwrap(ended): boolean);
 
-  if (!begin_date && !end_date) {
+  if (!beginDate && !endDate) {
     return ended ? l(' \u2013 ????') : '';
   }
 
-  if (begin_date === end_date) {
-    return begin_date;
+  if (beginDate === endDate) {
+    return beginDate;
   }
 
-  if (begin_date && end_date) {
-    return texp.l('{begin_date} \u2013 {end_date}', {begin_date, end_date});
+  if (beginDate && endDate) {
+    return texp.l(
+      '{begin_date} \u2013 {end_date}',
+      {begin_date: beginDate, end_date: endDate},
+    );
   }
 
-  if (!begin_date) {
-    return texp.l('\u2013 {end_date}', {end_date});
+  if (!beginDate) {
+    return texp.l('\u2013 {end_date}', {end_date: endDate});
   }
 
-  if (!end_date) {
+  if (!endDate) {
     return ended
-      ? texp.l('{begin_date} \u2013 ????', {begin_date})
-      : texp.l('{begin_date} \u2013', {begin_date});
+      ? texp.l('{begin_date} \u2013 ????', {begin_date: beginDate})
+      : texp.l('{begin_date} \u2013', {begin_date: beginDate});
   }
 
   return '';

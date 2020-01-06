@@ -6,6 +6,7 @@ plugins:
   - import
   - react
   - flowtype
+  - react-hooks
 
 env:
   browser: true
@@ -260,7 +261,11 @@ rules:
   react/require-optimization: off
   react/require-render-return: error
   react/self-closing-comp: error
-  react/sort-comp: warn
+  react/sort-comp: [warn, {order: [type-annotations,
+                                   static-methods,
+                                   lifecycle,
+                                   everything-else,
+                                   render]}]
   react/sort-prop-types: off
   react/style-prop-object: error
   react/void-dom-elements-no-children: error
@@ -327,3 +332,10 @@ rules:
   flowtype/space-before-type-colon: [warn, never]
   flowtype/union-intersection-spacing: [warn, always]
   flowtype/use-flow-type: warn
+
+  #############################
+  # eslint-plugin-react-hooks #
+  #############################
+
+  react-hooks/rules-of-hooks: error
+  react-hooks/exhaustive-deps: warn

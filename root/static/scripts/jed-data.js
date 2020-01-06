@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -6,7 +7,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const jedData = {
+/*::
+import type {JedOptions} from 'jed';
+
+type JedData = {
+  locale: string,
+  [string]: JedOptions,
+  ...,
+};
+*/
+
+const jedData /*: JedData */ = {
   "en": {
     "domain": "mb_server",
     "locale_data": {
@@ -78,7 +89,11 @@ const jedData = {
   "locale": "en"
 };
 
-function mergeData(domain, lang, newData) {
+function mergeData(
+  domain /*: GettextDomain */,
+  lang /*: string */,
+  newData /*: JedOptions */,
+) {
   if (jedData[lang]) {
     jedData[lang].locale_data[domain] = newData.locale_data[domain];
   } else {

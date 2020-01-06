@@ -23,7 +23,7 @@ import {buildOptionsTree} from './edit/forms';
 import {initializeBubble} from './edit/MB/Control/Bubble';
 import {createCompoundField} from './edit/utility/createField';
 import {pushCompoundField, pushField} from './edit/utility/pushField';
-import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
+import {initializeGuessCase} from './guess-case/MB/Control/GuessCase';
 
 const scriptArgs = getScriptArgs();
 
@@ -100,7 +100,7 @@ function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
 class WorkAttribute {
   allowedValues: () => OptionListT;
 
-  allowedValuesByTypeID: {[number]: OptionListT, ...};
+  allowedValuesByTypeID: {[typeId: number]: OptionListT, ...};
 
   attributeValue: KnockoutObservable<string>;
 
@@ -163,9 +163,9 @@ class WorkAttribute {
 class ViewModel {
   attributeTypes: OptionListT;
 
-  attributeTypesByID: {[number]: WorkAttributeTypeTreeT, ...};
+  attributeTypesByID: {[typeId: number]: WorkAttributeTypeTreeT, ...};
 
-  allowedValuesByTypeID: {[number]: OptionListT, ...};
+  allowedValuesByTypeID: {[typeId: number]: OptionListT, ...};
 
   attributes: KnockoutObservableArray<WorkAttribute>;
 
@@ -240,7 +240,7 @@ ko.applyBindings(
   $('#work-attributes')[0],
 );
 
-initialize_guess_case('work', 'id-edit-work');
+initializeGuessCase('work', 'id-edit-work');
 
 function addLanguage() {
   store.dispatch({type: 'ADD_LANGUAGE'});

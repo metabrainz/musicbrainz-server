@@ -9,7 +9,7 @@
 /* eslint-disable import/no-commonjs */
 
 const net = require('net');
-const Raven = require('raven');
+const Sentry = require('@sentry/node');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
 const sanitizedContext = require('../utility/sanitizedContext');
@@ -18,7 +18,7 @@ const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');
 
 
-const connectionListener = Raven.wrap(function (socket) {
+const connectionListener = function (socket) {
   let expectedBytes = 0;
   let recvBuffer = null;
   let recvBytes = 0;
@@ -30,7 +30,7 @@ const connectionListener = Raven.wrap(function (socket) {
     recvBytes = 0;
   }
 
-  const receiveData = Raven.wrap(function (data) {
+  const receiveData = function (data) {
     if (!recvBuffer) {
       expectedBytes = data.readUInt32LE(0);
       recvBuffer = allocBuffer(expectedBytes);
@@ -56,7 +56,7 @@ const connectionListener = Raven.wrap(function (socket) {
       try {
         requestBody = JSON.parse(_recvBuffer);
       } catch (err) {
-        Raven.captureException(err);
+        Sentry.captureException(err);
         writeResponse(socket, badRequest(err));
         return;
       }
@@ -87,13 +87,13 @@ const connectionListener = Raven.wrap(function (socket) {
         receiveData(overflow);
       }
     }
-  });
+  };
 
   socket.on('close', clearRecv);
   socket.on('error', clearRecv);
   socket.on('timeout', clearRecv);
   socket.on('data', receiveData);
-});
+};
 
 function writeResponse(socket, body) {
   const lengthBuffer = allocBuffer(4);

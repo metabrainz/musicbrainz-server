@@ -27,8 +27,7 @@ $(document).on("click", "span.star-rating a", function () {
             currentRatingSpan.removeClass('current-rating');
             currentRatingSpan.addClass('current-user-rating');
             rating = data.rating;
-        }
-        else {
+        } else {
             // Removed user rating, use the average rating instead
             currentRatingSpan.removeClass('current-user-rating');
             currentRatingSpan.addClass('current-rating');
@@ -38,8 +37,7 @@ $(document).on("click", "span.star-rating a", function () {
             // Update the width if we have some ratings
             currentRatingSpan.css('width', rating + '%');
             currentRatingSpan.text(5 * rating / 100);
-        }
-        else {
+        } else {
             // No ratings, remove it
             currentRatingSpan.remove();
         }
@@ -53,8 +51,7 @@ $(document).on("click", "span.star-rating a", function () {
                 ? 0
                 : originalRating;
             var oldRatingMatch = this.href.match(/rating=(\d+)/);
-            if (oldRatingMatch[1] != newRating)
-            {
+            if (oldRatingMatch[1] != newRating) {
                 this.href = this.href.replace(
                     oldRatingMatch[0],
                     'rating=' + newRating,
@@ -63,6 +60,6 @@ $(document).on("click", "span.star-rating a", function () {
             }
         });
 
-    })
+    });
     return false;
 });

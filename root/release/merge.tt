@@ -14,8 +14,7 @@
                     <th>[% l('Artist') %]</th>
                     <th>[% l('Format') %]</th>
                     <th>[% l('Tracks') %]</th>
-                    <th>[% l('Date') %]</th>
-                    <th>[% l('Country') %]</th>
+                    <th>[% l('Country') _ lp('/', 'and') _ l('Date') %]</th>
                     <th>[% l('Label') %]</th>
                     <th>[% l('Catalog#') %]</th>
                     <th>[% l('Barcode') %]</th>
@@ -35,8 +34,9 @@
                   <td>[% artist_credit(entity.artist_credit) %]</td>
                   <td>[% html_escape(entity.combined_format_name) or "-" %]</td>
                   <td>[% entity.combined_track_count or "-" %]</td>
-                  <td>[% release_dates(entity.events) %]</td>
-                  <td>[% release_countries(entity.events) %]</td>
+                  <td>
+                    [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => entity.events}) %]
+                  </td>
                   [%- IF filter_label -%]
                       <td>[% release_catno_list(entity.filter_labels(filter_label)) %]</td>
                   [%- ELSE -%]

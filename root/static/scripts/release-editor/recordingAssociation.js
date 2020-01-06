@@ -42,8 +42,8 @@ releaseEditor.recordingAssociation = recordingAssociation;
  * used.
  */
 
-var releaseGroupRecordings = ko.observable(),
-    etiRegex = /(\([^)]+\) ?)*$/;
+const releaseGroupRecordings = ko.observable();
+const etiRegex = /(\([^)]+\) ?)*$/;
 
 
 recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset, results) {
@@ -79,8 +79,10 @@ function recordingQuery(track, name) {
     var params = {
         recording: [ utils.escapeLuceneValue(name) ],
 
-        arid: _(track.artistCredit().names).map('artist.gid')
-            .map(utils.escapeLuceneValue).value()
+        arid: _(track.artistCredit().names)
+            .map('artist.gid')
+            .map(utils.escapeLuceneValue)
+            .value(),
     };
 
     var titleAndArtists = utils.constructLuceneFieldConjunction(params);
@@ -119,7 +121,8 @@ function cleanRecordingData(data) {
                 releaseGroupGID: release["release-group"].id
             };
         })
-        .uniqBy('releaseGroupGID').value();
+        .uniqBy('releaseGroupGID')
+        .value();
 
     clean.appearsOn = {
         hits: appearsOn.length,
@@ -242,24 +245,22 @@ function watchTrackForChanges(track) {
                 utils.similarLengths(track.length[prop], length));
     };
 
-    // The current name/length is similar to the saved name/length.
     if (similarTo("saved")) {
+        // The current name/length is similar to the saved name/length.
         track.recording(track.recording.saved);
-    }
-    // The current name/length is similar to the original name/length.
-    else if (similarTo("original")) {
+    } else if (similarTo("original")) {
+        // The current name/length is similar to the original name/length.
         track.recording(track.recording.original.peek());
-    }
-    else {
+    } else {
         track.recording(null);
     }
 }
 
 
 recordingAssociation.findRecordingSuggestions = function (track) {
-    var release = releaseEditor.rootField.release(),
-        releaseGroup = release ? release.releaseGroup() : null,
-        rgRecordings;
+    const release = releaseEditor.rootField.release();
+    const releaseGroup = release ? release.releaseGroup() : null;
+    let rgRecordings;
 
     if (releaseGroup && releaseGroup.gid) {
         // First look in releaseGroupRecordings.
@@ -275,7 +276,8 @@ recordingAssociation.findRecordingSuggestions = function (track) {
                         delete releaseGroupRecordings.loading;
 
                         recordingAssociation.findRecordingSuggestions(track);
-                    });
+                    },
+                );
             }
             return;
         }
@@ -314,7 +316,7 @@ function setSuggestedRecordings(track, recordings) {
 
 function matchAgainstRecordings(track, recordings) {
     if (!recordings || !recordings.length) {
-        return;
+        return null;
     }
 
     var trackLength = track.length();
@@ -333,6 +335,8 @@ function matchAgainstRecordings(track, recordings) {
             if (utils.similarNames(trackName, recordingWithoutETI)) {
                 return true;
             }
+            
+            return false;
         })
         .sortBy(function (recording) {
             var appearsOn = recording.appearsOn;
@@ -359,11 +363,15 @@ function matchAgainstRecordings(track, recordings) {
             return MB.entity(match, "recording");
         });
     }
+
+    return null;
 }
 
 
 recordingAssociation.track = function (track) {
-    debounce(function () { watchTrackForChanges(track) });
+    debounce(function () {
+        watchTrackForChanges(track);
+    });
 };
 
 export default recordingAssociation;

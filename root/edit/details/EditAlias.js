@@ -27,7 +27,7 @@ type EditAliasEditT = $ReadOnly<{
   ...EditT,
   +alias: AliasT | null,
   +display_data: {
-    +[CoreEntityTypeT]: CoreEntityT,
+    +[coreEntityType: CoreEntityTypeT]: CoreEntityT,
     +alias: CompT<string>,
     +begin_date: CompT<PartialDateT>,
     +end_date: CompT<PartialDateT>,
@@ -48,12 +48,10 @@ const EditAlias = ({edit}: Props) => {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const entity = display[entityType];
-  const aliasName = edit.alias ? edit.alias.name : '';
-  const aliasPrimaryForLocale = edit.alias
-    ? edit.alias.primary_for_locale
-    : false;
-  const entityWithGid = entity && entity.gid ? entity : null;
-  const aliasLocale = edit.alias ? edit.alias.locale : null;
+  const aliasName = edit.alias?.name ?? '';
+  const aliasPrimaryForLocale = edit.alias?.primary_for_locale ?? false;
+  const entityWithGid = entity?.gid ? entity : null;
+  const aliasLocale = edit.alias?.locale;
 
   return (
     <table className={`details edit-${entityType}-alias`}>

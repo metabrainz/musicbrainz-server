@@ -435,6 +435,8 @@ const CLEANUPS = {
       if (tld !== '' && asin !== '') {
         return 'https://www.amazon.' + tld + '/gp/product/' + asin;
       }
+
+      return null;
     },
     validate: function (url) {
       return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\//.test(url);
@@ -1537,7 +1539,9 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?musik-sammler\\.de/', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?musik-sammler\.de\/(album|artist|media)\/([0-9a-z-]+)(?:[\/?#].*)?$/, 'https://www.musik-sammler.de/$1/$2/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?musik-sammler\.de\/artist\/([0-9a-zA-Z-%]+)(?:[\/?#].*)?$/, 'https://www.musik-sammler.de/artist/$1/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?musik-sammler\.de\/album\/(?:[^\/]+-(?=[\d\/]))?(\d+)(?:[\/?#].*)?$/, 'https://www.musik-sammler.de/album/$1/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?musik-sammler\.de\/(?:media|release)\/(?:[^\/]+-(?=[\d\/]))?(\d+)(?:[\/?#].*)?$/, 'https://www.musik-sammler.de/release/$1/');
       return url;
     },
   },
@@ -1696,7 +1700,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www22\\.)?big\\.or\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?japanesemetal\\.gooside\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?d-nb\\.info', 'i'),
-      new RegExp('^(https?://)?(www\\.)?qim\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?mainlynorfolk\\.info', 'i'),
       new RegExp('^(https?://)?(www\\.)?tedcrane\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?thedancegypsy\\.com', 'i'),
@@ -1793,6 +1796,39 @@ const CLEANUPS = {
   'purevolume': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?purevolume\\.com', 'i')],
     type: LINK_TYPES.purevolume,
+  },
+  'quebecinfomusique': {
+    match: [new RegExp('^(https?://)?(www\\.)?(qim|quebecinfomusique)\\.com', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?(?:qim|quebecinfomusique)\.com\/([^#]+).*$/i,
+        'http://www.qim.com/$1',
+      );
+      url = url.replace(
+        /^(http:\/\/www\.qim\.com\/artistes)\/(?:albums|oeuvres)\b/,
+        '$1/biographie',
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^http:\/\/www\.qim\.com\/(\w+)\/(\w+)\.asp\?(.+)$/.exec(url);
+      if (m) {
+        const [/* matched string */, type, page, query] = m;
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return type === 'artistes' && page === 'biographie' &&
+              /^artistid=\d+$/.test(query);
+          case LINK_TYPES.otherdatabases.release_group:
+            return type === 'albums' && page === 'description' &&
+              /^albumid=\d+$/.test(query);
+          case LINK_TYPES.otherdatabases.work:
+            return type === 'oeuvres' && page === 'oeuvre' &&
+              /^oeuvreid=\d+&albumid=\d+$/.test(query);
+        }
+      }
+      return false;
+    },
   },
   'recochoku': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?recochoku\\.jp', 'i')],
@@ -2395,6 +2431,8 @@ function testAll(tests, text) {
       return true;
     }
   }
+
+  return false;
 }
 
 export const validationRules = {};

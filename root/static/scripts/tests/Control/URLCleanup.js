@@ -2097,31 +2097,28 @@ const testData = [
   },
   // Musik-Sammler.de
   {
-                     input_url: 'http://www.musik-sammler.de/artist/100743',
+                     input_url: 'http://musik-sammler.de/artist/strafe-f%C3%BCr-rebellion/',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.musik-sammler.de/artist/strafe-f%C3%BCr-rebellion/',
   },
   {
-                     input_url: 'http://www.musik-sammler.de/artist/end-of-a-year/#',
+                     input_url: 'https://www.musik-sammler.de/artist/210311/?view=compact#disco-header',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.musik-sammler.de/artist/end-of-a-year/',
-  },
-  {
-                     input_url: 'https://musik-sammler.de/artist/100743?test',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.musik-sammler.de/artist/100743/',
+            expected_clean_url: 'https://www.musik-sammler.de/artist/210311/',
   },
   {
                      input_url: 'http://www.musik-sammler.de/media/594158',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.musik-sammler.de/release/594158/',
   },
   {
-                     input_url: 'http://www.musik-sammler.de/album/364515',
+                     input_url: 'https://www.musik-sammler.de/album/terrorgruppe-melodien-f%C3%BCr-milliarden-56725/',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.musik-sammler.de/album/56725/',
   },
   {
                      input_url: 'https://www.musik-sammler.de/album/804508/review/rain/',
@@ -2130,10 +2127,10 @@ const testData = [
             expected_clean_url: 'https://www.musik-sammler.de/album/804508/',
   },
   {
-                     input_url: 'musik-sammler.de/media/594158',
+                     input_url: 'musik-sammler.de/release/594158',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.musik-sammler.de/media/594158/',
+            expected_clean_url: 'https://www.musik-sammler.de/release/594158/',
   },
   // Musixmatch
   {
@@ -2428,9 +2425,47 @@ const testData = [
   },
   // QIM (Québec Info Musique)
   {
-                     input_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+                     input_url: 'http://QIM.com/artistes/biographie.asp?artistid=47',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://QuebecInfoMusique.com/artistes/albums.asp?artistid=47',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.quebecinfomusique.com/artistes/oeuvres.asp?artistid=47#',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.qim.com/artistes/nawak.asp?artistid=47',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'http://www.qim.com/artistes/nawak.asp?artistid=47',
+       input_relationship_type: 'otherdatabases',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'http://www.qim.com/albums/description.asp?albumid=16',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/albums/description.asp?albumid=16',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'http://www.qim.com/oeuvres/oeuvre.asp?oeuvreid=716&albumid=16',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.qim.com/oeuvres/oeuvre.asp?oeuvreid=716&albumid=16',
+       only_valid_entity_types: ['work'],
   },
   // RecoChoku
   {

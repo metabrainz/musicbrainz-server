@@ -89,14 +89,20 @@ sub process_tables
     @tables = sort(@tables);
     @replication_triggers = sort { $a->[0] cmp $b->[0] } @replication_triggers;
 
-    open OUT, ">$dir/DropTables.sql";
-    print OUT "-- Automatically generated, do not edit.\n";
-    print OUT "\\unset ON_ERROR_STOP\n\n";
-    print OUT $search_path if $search_path;
-    foreach my $table (@tables) {
-        print OUT "DROP TABLE $table;\n";
+    open my $drop_fh, ">$dir/DropTables.sql";
+    open my $trunc_fh, ">$dir/TruncateTables.sql";
+    print $_ "-- Automatically generated, do not edit.\n" for $drop_fh, $trunc_fh;
+    print $drop_fh "\\unset ON_ERROR_STOP\n\n";
+    print $trunc_fh "\\set ON_ERROR_STOP 1\n\n";
+    if ($search_path) {
+        print $_ $search_path for $drop_fh, $trunc_fh;
     }
-    close OUT;
+    foreach my $table (@tables) {
+        print $drop_fh "DROP TABLE $table;\n";
+        print $trunc_fh "TRUNCATE TABLE $table RESTART IDENTITY CASCADE;\n";
+    }
+    close $drop_fh;
+    close $trunc_fh;
 
     if (-e "$dir/CreateViews.sql") {
         open FILE, "<$dir/CreateViews.sql";

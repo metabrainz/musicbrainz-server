@@ -117,9 +117,13 @@ var testRelease = {
     }
 };
 
-function id2attr(id) { return { type: linkedEntities.link_attribute_type[id] } }
+function id2attr(id) {
+    return { type: linkedEntities.link_attribute_type[id] };
+}
 
-function ids2attrs(ids) { return _.map(ids, id2attr) }
+function ids2attrs(ids) {
+    return _.map(ids, id2attr);
+}
 
 function setupReleaseRelationshipEditor() {
     var vm = new FakeReleaseViewModel({
@@ -138,7 +142,9 @@ function setupGenericRelationshipEditor(options) {
 
 function formData() {
     var inputsArray = _.toArray($("input[type=hidden]"));
-    return _.transform(inputsArray, function (result, input) { result[input.name] = input.value }, {});
+    return _.transform(inputsArray, function (result, input) {
+        result[input.name] = input.value;
+    }, {});
 };
 
 function relationshipEditorTest(name, callback) {
@@ -158,7 +164,7 @@ function relationshipEditorTest(name, callback) {
 
         _.defer = function (func) {
             func.apply(null, _.toArray(arguments).slice(1));
-        }
+        };
 
         callback(t);
 
@@ -278,7 +284,10 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
     t.ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
     t.deepEqual(
-        _(relationship.attributes()).map('type.id').value().sort(),
+        _(relationship.attributes())
+            .map('type.id')
+            .value()
+            .sort(),
         [123, 194, 277],
         "attributes are the same"
     );
@@ -376,7 +385,7 @@ relationshipEditorTest("dialog backwardness", function (t) {
         var options = {...test.input, viewModel: vm};
         var dialog = new AddDialog(options);
 
-        t.equal(dialog.backward(), test.expected.backward)
+        t.equal(dialog.backward(), test.expected.backward);
         t.deepEqual(dialog.relationship().entities(), test.expected.entities);
 
         dialog.close();
@@ -418,7 +427,8 @@ relationshipEditorTest("BatchRelationshipDialog", function (t) {
     });
 
     var relationship = dialog.relationship();
-    var relationships, attributes;
+    let relationships;
+    let attributes;
 
     relationship.linkTypeID(154);
     relationship.setAttributes(ids2attrs([1]));
@@ -530,14 +540,14 @@ relationshipEditorTest("MBS-5389: added recording-recording relationship appears
 relationshipEditorTest("backwardness of submitted relationships is preserved (MBS-7636)", function (t) {
     t.plan(2);
 
-    var source = {
-            entityType: "recording",
-            gid: fakeGID0
-        },
-        target = {
-            entityType: "recording",
-            gid: fakeGID1
-        };
+    const source = {
+        entityType: "recording",
+        gid: fakeGID0,
+    };
+    const target = {
+        entityType: "recording",
+        gid: fakeGID1,
+    };
 
     window.sessionStorage.setItem('submittedRelationships', JSON.stringify([
         {

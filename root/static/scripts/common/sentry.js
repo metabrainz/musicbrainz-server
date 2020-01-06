@@ -6,26 +6,25 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import Raven from 'raven-js';
+import * as Sentry from '@sentry/browser';
 
 import * as DBDefs from './DBDefs-client';
 import getScriptArgs from './utility/getScriptArgs';
 
 const {user} = getScriptArgs();
 
+Sentry.init({
+  dsn: DBDefs.SENTRY_DSN_PUBLIC,
+  environment: DBDefs.GIT_BRANCH,
+  release: DBDefs.GIT_SHA,
+  whitelistUrls: [
+    new RegExp(DBDefs.STATIC_RESOURCES_LOCATION + '/.+\\.js$'),
+  ],
+});
+
 if (user && user.id) {
-  Raven.setUserContext({
+  Sentry.setUser({
     id: user.id,
     username: user.name,
   });
 }
-
-Raven.config(DBDefs.SENTRY_DSN_PUBLIC, {
-  environment: DBDefs.GIT_BRANCH,
-  tags: {
-    git_commit: DBDefs.GIT_SHA,
-  },
-  whitelistUrls: [
-    new RegExp(DBDefs.STATIC_RESOURCES_LOCATION + '/.+\\.js$'),
-  ],
-}).install();

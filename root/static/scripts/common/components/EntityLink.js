@@ -17,7 +17,6 @@ import entityHref from '../utility/entityHref';
 import formatDatePeriod from '../utility/formatDatePeriod';
 import isolateText from '../utility/isolateText';
 import nonEmpty from '../utility/nonEmpty';
-import reactTextContent from '../utility/reactTextContent';
 
 export const DeletedLink = ({
   allowNew,
@@ -175,12 +174,8 @@ const EntityLink = ({
   // TODO: support name variations for all entity types?
   if (!subPath &&
       (entity.entityType === 'artist' || entity.entityType === 'recording')) {
-    if (nameVariation === undefined) {
-      nameVariation = (
-        React.isValidElement(content)
-          ? reactTextContent(content)
-          : content
-      ) !== entity.name;
+    if (nameVariation === undefined && typeof content === 'string') {
+      nameVariation = content !== entity.name;
     }
 
     if (nameVariation) {

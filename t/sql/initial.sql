@@ -914,6 +914,7 @@ INSERT INTO release_group_secondary_type VALUES (9, 'Mixtape/Street', NULL, 0, N
 INSERT INTO release_group_secondary_type VALUES (10, 'Demo', NULL, 0, NULL, '81598169-0d6c-3bce-b4be-866fa658eda3');
 
 INSERT INTO release_packaging VALUES (1, 'Jewel Case', NULL, 0, 'The traditional CD case, made of hard, brittle plastic.', 'ec27701a-4a22-37f4-bfac-6616e0f9750a');
+INSERT INTO release_packaging VALUES (2, 'Slim Jewel Case', NULL, 0, 'A thinner jewel case, commonly used for CD singles.', '36327bc2-f691-3d66-80e5-bd03cec6060a');
 INSERT INTO release_packaging VALUES (3, 'Digipak', NULL, 0, NULL, '8f931351-d2e2-310f-afc6-37b89ddba246');
 INSERT INTO release_packaging VALUES (5, 'Other', NULL, 1, NULL, '815b7785-8284-3926-8f04-e48bc6c4d102');
 INSERT INTO release_packaging VALUES (7, 'None', NULL, 2, NULL, '119eba76-b343-3e02-a292-f0f00644bb9b');

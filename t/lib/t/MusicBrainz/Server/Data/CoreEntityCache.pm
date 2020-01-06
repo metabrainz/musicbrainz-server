@@ -118,17 +118,12 @@ is ( $test->c->cache->_orig->set_called, 2 );
 };
 
 test 'Cache is transactional (MBS-7241)' => sub {
-    # See http://blogs.perl.org/users/aristotle/2016/05/coro-vs-5022.html
-    plan skip_all => 'Coro is broken in Perl 5.22+';
-
-<<'IGNORE'
     # This test is of limited usefulness, since it only tests a *single* point
     # in the transaction where an entity might be requested. But it at least
     # detects cases where there is *no* transactionality, i.e. the situation we
     # had before MBS-7241 was fixed.
     my $test = shift;
 
-    use Coro;
     use DBDefs;
     use MusicBrainz::Server::Data::Artist;
     use MusicBrainz::Server::Context;
@@ -141,35 +136,55 @@ test 'Cache is transactional (MBS-7241)' => sub {
     my $c2 = MusicBrainz::Server::Context->create_script_context(database => 'TEST', fresh_connector => 1);
     my $_delete_from_cache = MusicBrainz::Server::Data::Artist->can('_delete_from_cache');
 
-    *MusicBrainz::Server::Data::Artist::_delete_from_cache = sub {
-        $_delete_from_cache->(@_);
-        # cede to the coroutine calling get_by_id, before this SQL transaction ends.
-        cede;
-    };
-
     $c1->sql->auto_commit(1);
     $c1->sql->do(<<'EOSQL');
     INSERT INTO artist (id, gid, name, sort_name)
     VALUES (3, '31456bd3-0e1a-4c47-a5cc-e147a42965f2', 'Test', 'Test');
 EOSQL
 
-    async {
-        Sql::run_in_transaction(sub {
-            $c1->model('Artist')->delete(3);
-        }, $c1->sql);
+    my $artist_gid = '31456bd3-0e1a-4c47-a5cc-e147a42965f2';
+
+    *MusicBrainz::Server::Data::Artist::_delete_from_cache = sub {
+        my $artist = $c2->model('Artist')->get_by_id(3);
+        is($artist->id, 3,
+            'concurrent get_by_id returns artist before ' .
+            'database deletion commits, and before cache deletion');
+
+        $artist = $c2->model('Artist')->get_by_gid($artist_gid);
+        is($artist->id, 3,
+            'concurrent get_by_gid returns artist before ' .
+            'database deletion commits, and before cache deletion');
+
+        ok($c2->cache->get('artist:3')->isa('MusicBrainz::Server::Entity::Artist'),
+            'cache contains artist entity');
+
+        $_delete_from_cache->(@_);
+
+        $artist = $c2->model('Artist')->get_by_id(3);
+        is($artist->id, 3,
+            'concurrent get_by_id returns artist before ' .
+            'database deletion commits, but after cache deletion');
+
+        is($c2->cache->get('artist:3'), undef,
+            'cache is not repopulated after concurrent get_by_id');
+
+        $artist = $c2->model('Artist')->get_by_gid($artist_gid);
+        is($artist->id, 3,
+            'concurrent get_by_gid returns artist before ' .
+            'database deletion commits, but after cache deletion');
+
+        is($c2->cache->get('artist:3'), undef,
+            'cache is not repopulated after concurrent get_by_gid');
     };
 
-    async {
-        Sql::run_in_transaction(sub {
-            $c2->model('Artist')->get_by_id(3);
-        }, $c2->sql);
-    };
-
-    cede;
-    cede;
+    Sql::run_in_transaction(sub {
+        $c1->model('Artist')->delete(3);
+    }, $c1->sql);
 
     my $artist = $c1->model('Artist')->get_by_id(3);
-    ok(!defined $artist, 'get_by_id returns undef for deleted artist');
+    ok(!defined $artist,
+        'get_by_id returns undef after ' .
+        'database deletion commits, and after cache deletion');
 
     $c1->sql->auto_commit(1);
     $c1->sql->do(<<'EOSQL');
@@ -180,7 +195,6 @@ EOSQL
     *MusicBrainz::Server::Data::Artist::_delete_from_cache = $_delete_from_cache;
     $c1->connector->disconnect;
     $c2->connector->disconnect;
-IGNORE
 };
 
 1;

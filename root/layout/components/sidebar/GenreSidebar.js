@@ -22,7 +22,7 @@ type Props = {
 const GenreSidebar = ({$c, genre}: Props) => {
   return (
     <div id="sidebar">
-      {$c.user && $c.user.is_relationship_editor ? (
+      {$c.user?.is_relationship_editor ? (
         <>
           <h2 className="editing">{l('Editing')}</h2>
           <ul className="links">

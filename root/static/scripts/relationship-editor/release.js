@@ -68,7 +68,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             window.addEventListener('beforeunload', function (event) {
                 if (self.redirecting) {
-                    return;
+                    return undefined;
                 }
                 var $changes = $(".link-phrase")
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
@@ -77,6 +77,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     event.returnValue = l("All of your changes will be lost if you leave this page.");
                     return event.returnValue;
                 }
+
+                return undefined;
             });
         }
 
@@ -146,11 +148,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                 if (relationship.added()) {
                     edits.push(MB.edit.relationshipCreate(editData));
-                }
-                else if (relationship.edited()) {
+                } else if (relationship.edited()) {
                     edits.push(MB.edit.relationshipEdit(editData, relationship.original, relationship));
-                }
-                else if (relationship.removed()) {
+                } else if (relationship.removed()) {
                     edits.push(MB.edit.relationshipDelete(editData));
                 }
             }
@@ -181,8 +181,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                         response.error.message : response.error;
 
                         this.submissionError(message);
-                    }
-                    catch (e) {
+                    } catch (e) {
                         this.submissionError(jqXHR.responseText);
                     }
                 });
@@ -205,8 +204,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return new MB.entity.Medium(mediumData, release);
             }));
 
-            var trackCount = _.reduce(release.mediums(),
-                function (memo, medium) { return memo + medium.tracks.length }, 0);
+            var trackCount = _.reduce(release.mediums(), (memo, medium) => {
+                return memo + medium.tracks.length;
+            }, 0);
 
             initCheckboxes(this.checkboxes, trackCount);
         }
@@ -280,15 +280,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         _sortedRelationships(relationships, source) {
 
-            return relationships.filter(function (relationship) {
-                return relationship.entityTypes !== "recording-work";
-
-            }).sortBy(function (relationship) {
-                return relationship.lowerCaseTargetName(source);
-
-            }).sortBy("linkOrder").sortBy(function (relationship) {
-                return relationship.lowerCasePhrase(source);
-            });
+            return relationships
+                .filter(function (relationship) {
+                    return relationship.entityTypes !== "recording-work";
+                })
+                .sortBy(function (relationship) {
+                    return relationship.lowerCaseTargetName(source);
+                })
+                .sortBy("linkOrder").sortBy(function (relationship) {
+                    return relationship.lowerCasePhrase(source);
+                });
         }
 
         _createEdit() {
@@ -313,40 +314,45 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
 
     function initCheckboxes(checkboxes) {
-        var medium_recording_selector = "input.medium-recordings";
-        var medium_work_selector = "input.medium-works";
+        var mediumRecordingSelector = "input.medium-recordings";
+        var mediumWorkSelector = "input.medium-works";
         var $tracklist = $("#tracklist tbody");
 
         function count($inputs) {
             return _.uniqBy($inputs, ko.dataFor).length;
         }
 
-        function medium(medium_selector, selector, counter) {
-            $tracklist.on("change", medium_selector, function () {
-                var checked = this.checked,
-                    $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
-                        .find(selector).filter(checked ? ":not(:checked)" : ":checked")
-                        .prop("checked", checked);
+        function medium(mediumSelector, selector, counter) {
+            $tracklist.on("change", mediumSelector, function () {
+                const checked = this.checked;
+                const $changed = $(this)
+                    .parents("tr.subh")
+                    .nextUntil("tr.subh")
+                    .find(selector)
+                    .filter(checked ? ":not(:checked)" : ":checked")
+                    .prop("checked", checked);
                 counter(counter() + count($changed) * (checked ? 1 : -1));
             });
         }
 
-        function _release(medium_selector, cls) {
+        function _release(mediumSelector, cls) {
             $('<input type="checkbox"/>&#160;')
                 .change(function () {
-                    $tracklist.find(medium_selector)
+                    $tracklist.find(mediumSelector)
                         .prop("checked", this.checked).change();
                 })
                 .prependTo("#tracklist th." + cls);
         }
 
         function range(selector, counter) {
-            var last_clicked = null;
+            var lastClicked = null;
 
             $tracklist.on("click", selector, function (event) {
-                var checked = this.checked, $inputs = $(selector, $tracklist);
-                if (event.shiftKey && last_clicked && last_clicked != this) {
-                    var first = $inputs.index(last_clicked), last = $inputs.index(this);
+                const checked = this.checked;
+                const $inputs = $(selector, $tracklist);
+                if (event.shiftKey && lastClicked && lastClicked != this) {
+                    const first = $inputs.index(lastClicked);
+                    const last = $inputs.index(this);
 
                     (first > last
                         ? $inputs.slice(last, first + 1)
@@ -354,15 +360,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         .prop("checked", checked);
                 }
                 counter(count($inputs.filter(":checked")));
-                last_clicked = this;
+                lastClicked = this;
             });
         }
 
-        medium(medium_recording_selector, recordingCheckboxes, checkboxes.recordingCount);
-        medium(medium_work_selector, workCheckboxes, checkboxes.workCount);
+        medium(mediumRecordingSelector, recordingCheckboxes, checkboxes.recordingCount);
+        medium(mediumWorkSelector, workCheckboxes, checkboxes.workCount);
 
-        _release(medium_recording_selector, "recordings");
-        _release(medium_work_selector, "works");
+        _release(mediumRecordingSelector, "recordings");
+        _release(mediumWorkSelector, "works");
 
         range(recordingCheckboxes, checkboxes.recordingCount);
         range(workCheckboxes, checkboxes.workCount);

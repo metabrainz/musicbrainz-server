@@ -14,7 +14,7 @@
 import ko from 'knockout';
 import _ from 'lodash';
 
-import {rstr_sha1} from '../../lib/sha1/sha1';
+import {rstr_sha1 as rstrSha1} from '../../lib/sha1/sha1';
 import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY}
     from '../common/constants';
 import escapeLuceneValue from '../common/utility/escapeLuceneValue';
@@ -75,7 +75,7 @@ utils.escapeLuceneValue = escapeLuceneValue;
 
 utils.constructLuceneField = function (values, key) {
     return key + ":(" + values.join(" OR ") + ")";
-}
+};
 
 utils.constructLuceneFieldConjunction = function (params) {
     return _.map(params, utils.constructLuceneField).join(" AND ");
@@ -206,7 +206,7 @@ export function calculateDiscID(toc) {
         temp += paddedHex(info[i], 8);
     }
 
-    return base64(rstr_sha1(temp));
+    return base64(rstrSha1(temp));
 };
 
 utils.calculateDiscID = calculateDiscID;
@@ -224,7 +224,8 @@ var padchar = "-";
 var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";
 
 function base64(s) {
-    var i, b10;
+    let i;
+    let b10;
     var x = [];
     var imax = s.length - s.length % 3;
 

@@ -124,7 +124,7 @@ sub _order_by {
         "name" => sub {
             return "musicbrainz_collate(name)"
         },
-        "code" => sub {
+        "label_code" => sub {
             return "label_code, musicbrainz_collate(name)"
         },
         "area" => sub {

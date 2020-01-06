@@ -63,7 +63,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         Object.assign(linkedEntities, {
             link_type_tree: typeInfo,
-            link_type: _(typeInfo).values().flatten().transform(mapItems, {}).value(),
+            link_type: _(typeInfo)
+                .values()
+                .flatten()
+                .transform(mapItems, {})
+                .value(),
             link_attribute_type: _.transform(attrInfo, mapItems, {}),
         });
 
@@ -92,7 +96,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         });
 
         // Sort each list of types alphabetically.
-        _(MB.allowedRelations).values().invokeMap('sort').value();
+        _(MB.allowedRelations)
+            .values()
+            .invokeMap('sort')
+            .value();
 
         _.each(linkedEntities.link_attribute_type, function (attr) {
             attr.root = linkedEntities.link_attribute_type[attr.root_id];
@@ -127,7 +134,7 @@ export class ViewModel {
 
         _sortedRelationships(relationships, source) {
             return relationships
-                .sortBy(function (r) { return r.lowerCaseTargetName(source) })
+                .sortBy(r => r.lowerCaseTargetName(source))
                 .sortBy("linkOrder");
         }
 
@@ -194,11 +201,11 @@ MB.initRelationshipEditors = function (args) {
 };
 
 MB.getRelationship = function (data, source) {
-    var target = data.target;
+    const target = data.target;
 
     data = _.clone(data);
 
-    var backward = source.entityType > target.entityType;
+    let backward = source.entityType > target.entityType;
 
     if (source.entityType === target.entityType) {
         backward = (data.direction === "backward");
@@ -206,20 +213,23 @@ MB.getRelationship = function (data, source) {
 
     data.entities = backward ? [target, source] : [source, target];
 
-    var viewModel = getRelationshipEditor(data, source);
+    const viewModel = getRelationshipEditor(data, source);
 
     if (viewModel) {
+        let cacheKey;
         if (data.id) {
-            var cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
-            var cached = viewModel.cache[cacheKey];
+            cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
+            const cached = viewModel.cache[cacheKey];
 
             if (cached) {
                 return cached;
             }
         }
-        var relationship = new viewModel.relationshipClass(data, source, viewModel);
-        return data.id ? (viewModel.cache[cacheKey] = relationship) : relationship;
+        const relationship = new viewModel.relationshipClass(data, source, viewModel);
+        return cacheKey ? (viewModel.cache[cacheKey] = relationship) : relationship;
     }
+
+    return null;
 };
 
 function getRelationshipEditor(data, source) {
@@ -232,7 +242,7 @@ function getRelationshipEditor(data, source) {
 
     if ((target && target.entityType === 'url') ||
         (linkType && (linkType.type0 === 'url' || linkType.type1 === 'url'))) {
-        return; // handled by the external links editor
+        return null; // handled by the external links editor
     }
 
     if (MB.releaseRelationshipEditor) {
@@ -242,6 +252,8 @@ function getRelationshipEditor(data, source) {
     if (source === MB.sourceRelationshipEditor.source) {
         return MB.sourceRelationshipEditor;
     }
+
+    return null;
 }
 
 function addSubmittedRelationship(data, source) {
@@ -339,7 +351,9 @@ var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-
 function parseQueryString(queryString) {
     var queryStringRegex = /(?:\\?|&)([A-z0-9\-_.]+)=([^&]+)/g;
     var fields = {};
-    var subField, match, parts;
+    let subField;
+    let match;
+    let parts;
 
     while ((match = queryStringRegex.exec(queryString))) {
         subField = fields;
@@ -347,7 +361,7 @@ function parseQueryString(queryString) {
 
         _.each(parts, function (part, index) {
             if (index === parts.length - 1) {
-                subField[part] = decodeURIComponent(match[2])
+                subField[part] = decodeURIComponent(match[2]);
             } else {
                 subField = subField[part] = subField[part] || {};
             }
