@@ -61,6 +61,7 @@ export const FAVICON_CLASSES = {
   'cpdl.org': 'cpdl',
   'dailymotion.com': 'dailymotion',
   'decoda.com': 'decoda',
+  'deezer.com': 'deezer',
   'dhhu.dk': 'dhhu',
   'directlyrics.com': 'directlyrics',
   'discogs.com': 'discogs',
