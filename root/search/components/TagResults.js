@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TagLink from '../../static/scripts/common/components/TagLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
@@ -24,6 +25,11 @@ function buildResult(result, index) {
     <tr className={loopParity(index)} data-score={score} key={tag.name}>
       <td>
         <TagLink tag={tag.name} />
+      </td>
+      <td>
+        {tag.genre ? (
+          <EntityLink entity={tag.genre} />
+        ) : null}
       </td>
     </tr>
   );
@@ -42,6 +48,7 @@ const TagResults = ({
       columns={
         <>
           <th>{l('Name')}</th>
+          <th>{l('Genre')}</th>
         </>
       }
       pager={pager}
