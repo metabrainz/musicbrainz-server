@@ -31,12 +31,13 @@ Contributing
 ------------
 
 Please submit all patches to [GitHub](https://github.com/metabrainz/musicbrainz-server/pulls) for review.
+See the [contributing guidelines](CONTRIBUTING.md).
 
 License
 -------
 
 MusicBrainz Server is released under the GPLv2 or later.
-See the [licenses notice](COPYING.md).
+See the [license notice](COPYING.md).
 
 Further reading
 ---------------
