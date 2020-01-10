@@ -422,7 +422,7 @@ sub load_for_collection {
     return unless $id; # nothing to do
 
     $self->load($collection);
-    my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
+    my $query = "SELECT " . $self->_columns . ", ep.value AS show_gravatar
                  FROM " . $self->_table . "
                  JOIN editor_collection_collaborator ecc ON editor.id = ecc.editor
                  LEFT JOIN editor_preference ep ON ep.editor = editor.id AND ep.name = 'show_gravatar'
@@ -432,8 +432,8 @@ sub load_for_collection {
         my ($model, $row) = @_;
 
         my $collaborator = $model->_new_from_row($row);
-        $collaborator->preferences->show_gravatar($row->{prefs_value})
-            if defined $row->{prefs_value};
+        $collaborator->preferences->show_gravatar($row->{show_gravatar})
+            if defined $row->{show_gravatar};
         $collaborator;
     });
 
