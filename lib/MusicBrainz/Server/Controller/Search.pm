@@ -178,6 +178,10 @@ sub direct : Private
             $c->model('Event')->load_related_info(@entities);
             $c->model('Event')->load_areas(@entities);
         }
+        when ('tag') {
+            #TODO: add support for genre aliases when finishing MBS-10062
+            $c->model('Genre')->load(@entities);
+        }
     }
 
     if ($type =~ /(recording|release|release_group)/)
