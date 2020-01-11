@@ -101,8 +101,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       host            => "",
 #       port            => "5432",
 #   },
-    # Fill out only if RAWDATA lives on a different host from the READWRITE server.
-    # RAWDATA_SYSTEM => undef,
 );
 
 # The schema sequence number.  Must match the value in
