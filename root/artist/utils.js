@@ -46,14 +46,17 @@ export function artistEndAreaLabel(typeId: ?number): string {
   }
 }
 
-export function artistEndLabel(typeId: ?number): string {
+export function artistEndLabel(
+  typeId: ?number,
+  future: boolean = false,
+): string {
   switch (typeId) {
     case 1:
       return l('Died:');
     case 2:
     case 5:
     case 6:
-      return l('Dissolved:');
+      return future ? addColonText(l('Dissolving')) : l('Dissolved:');
     default:
       return l('End date:');
   }
