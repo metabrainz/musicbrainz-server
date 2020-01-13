@@ -32,13 +32,13 @@
 
     [% ELSE %]
         [%~ IF model == "CollectionType" || model == "SeriesType" ~%]
-            [% form_row_select(r, 'entity_type', add_colon(l('Entity type'))) %]
+            [% form_row_select(r, 'item_entity_type', add_colon(l('Entity type'))) %]
             [%~ IF c.action.name == "edit" ~%]
                 <script>
                     $(function () {
-                        $('#id-attr\\.entity_type').prop('disabled', true);
+                        $('#id-attr\\.item_entity_type').prop('disabled', true);
                         $('form[action="[% c.req.uri %]"]').bind('submit', function () {
-                            $('#id-attr\\.entity_type').prop('disabled', false);
+                            $('#id-attr\\.item_entity_type').prop('disabled', false);
                         });
                     });
                 </script>

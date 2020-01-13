@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( entities_with );
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
-sub edit_field_names { qw( parent_id child_order name description year has_discids free_text entity_type ) }
+sub edit_field_names { qw( parent_id child_order name description year has_discids free_text item_entity_type ) }
 
 has '+name' => ( default => 'attr' );
 
@@ -42,7 +42,7 @@ has_field 'free_text' => (
     type => 'Boolean',
 );
 
-has_field 'entity_type' => (
+has_field 'item_entity_type' => (
     type => 'Select',
 );
 
@@ -51,7 +51,7 @@ sub options_parent_id {
     return select_options_tree($self->ctx, $self->ctx->stash->{model}, accessor => 'name');
 }
 
-sub options_entity_type {
+sub options_item_entity_type {
     my ($self) = @_;
     return map { $_ => $_ } sort { $a cmp $b } entities_with('collections');
 }
