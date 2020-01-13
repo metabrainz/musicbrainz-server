@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::User::Report;
 
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l N_l );
 use Readonly;
 
 extends 'MusicBrainz::Server::Form';
@@ -26,16 +26,16 @@ has_field 'reveal_address' => (
 );
 
 Readonly our %REASONS => (
-    'spam' => l('Editor is spamming'),
-    'unresponsiveness' => l('Editor is unresponsive to edit notes'),
-    'ignoring_guidelines' => l('Editor intentionally ignores accepted guidelines'),
-    'enforcing_guidelines' => l('Editor is overzealous in enforcing guidelines as rules'),
-    'voting' => l('Editor engages in overzealous or abusive yes/no voting'),
-    'other' => l('Editor has violated some other part of our Code of Conduct'),
+    'spam' => N_l('Editor is spamming'),
+    'unresponsiveness' => N_l('Editor is unresponsive to edit notes'),
+    'ignoring_guidelines' => N_l('Editor intentionally ignores accepted guidelines'),
+    'enforcing_guidelines' => N_l('Editor is overzealous in enforcing guidelines as rules'),
+    'voting' => N_l('Editor engages in overzealous or abusive yes/no voting'),
+    'other' => N_l('Editor has violated some other part of our Code of Conduct'),
 );
 
 sub options_reason {
-    [map { $_ => $REASONS{$_} } qw(
+    [map { $_ => l($REASONS{$_}) } qw(
         spam
         unresponsiveness
         ignoring_guidelines
