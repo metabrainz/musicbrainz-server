@@ -41,11 +41,9 @@ then
   LIST_METABRAINZ_HOSTS=${LIST_METABRAINZ_HOSTS:-../docker-server-configs/scripts/list_nodes.sh}
   if [ ! -x "$LIST_METABRAINZ_HOSTS" ]
   then
-    sed -E 's/^ *> ?//' >&2 << ....EOM
-    > $SCRIPT_NAME: cannot list hosts per service/deploy env
-    >
-    > Please set \$LIST_METABRAINZ_HOSTS or specify hosts list
-....EOM
+    echo >&2 "$SCRIPT_NAME: cannot list hosts per service/deploy env"
+    echo >&2
+    echo >&2 "Please set \$LIST_METABRAINZ_HOSTS or specify hosts list"
     exit 69
   fi
 

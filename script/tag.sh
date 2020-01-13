@@ -20,12 +20,10 @@ fi
 
 if ! (git diff --quiet && git diff --cached --quiet)
 then
-  sed -E 's/^ *> ?//' >&2 << ..EOM
-  > $SCRIPT_NAME: Git working tree has local changes
-  >
-  > Your local changes might be missing from 'production' branch.
-  > Please clean your Git working tree before tagging 'production'.
-..EOM
+  echo >&2 "$SCRIPT_NAME: Git working tree has local changes"
+  echo >&2
+  echo >&2 "Your local changes might be missing from 'production' branch."
+  echo >&2 "Please clean your Git working tree before tagging 'production'."
   exit 70
 fi
 

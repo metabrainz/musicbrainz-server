@@ -39,12 +39,10 @@ cd "$MB_SERVER_ROOT"
 if [ $DO_COMMIT = 'yes' ] && \
   ! (git diff --quiet && git diff --cached --quiet)
 then
-  sed -E 's/^ *> ?//' >&2 << ..EOM
-  > $SCRIPT_NAME: Git working tree has local changes already
-  >
-  > Your local changes would be incidentally committed with POT files.
-  > Please clean your Git working tree before updating POT files.
-..EOM
+  echo >&2 "$SCRIPT_NAME: Git working tree has local changes already"
+  echo >&2
+  echo >&2 "Your local changes would be incidentally committed with POT files."
+  echo >&2 "Please clean your Git working tree before updating POT files."
   exit 70
 fi
 
