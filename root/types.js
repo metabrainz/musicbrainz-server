@@ -879,6 +879,7 @@ declare type ReleaseT = $ReadOnly<{
   +language: LanguageT | null,
   +languageID: number | null,
   +length?: number,
+  +may_have_discids?: boolean,
   +packagingID: number | null,
   +quality: QualityT,
   +releaseGroup?: ReleaseGroupT,

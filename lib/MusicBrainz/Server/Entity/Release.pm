@@ -1,11 +1,13 @@
 package MusicBrainz::Server::Entity::Release;
 use Moose;
 
+use List::AllUtils qw( any );
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
@@ -202,6 +204,12 @@ sub may_have_cover_art {
     return shift->cover_art_presence ne 'darkened';
 }
 
+sub may_have_discids {
+    my $self = shift;
+
+    return any { $_->may_have_discids } $self->all_mediums;
+}
+
 sub find_medium_for_recording {
     my ($self, $recording) = @_;
     for my $medium ($self->all_mediums) {
@@ -275,6 +283,7 @@ around TO_JSON => sub {
         status      => $self->status,
         cover_art_presence => $self->cover_art_presence,
         cover_art_url => $self->cover_art_url,
+        may_have_discids => boolean_to_json($self->may_have_discids),
     };
 
     if (my $language = $self->language) {

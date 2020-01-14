@@ -510,7 +510,6 @@
         },
         "collections": true,
         "cover_art": true,
-        "custom_tabs": ["discids"],
         "disambiguation": true,
         "edit_table": true,
         "last_updated_column": true,
