@@ -231,6 +231,7 @@ type CatalystStashT = {
   +own_collections?: $ReadOnlyArray<CollectionT>,
   +release_artwork?: ArtworkT,
   +release_artwork_count?: number,
+  +release_cdtoc_count?: number,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
   +to_merge?: $ReadOnlyArray<CoreEntityT>,

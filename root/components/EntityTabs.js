@@ -89,7 +89,12 @@ function buildLinks(
 
   if (entity.entityType === 'release') {
     links.push(buildLink(
-      l('Disc IDs'),
+      entity.may_have_discids
+        ? texp.l(
+          'Disc IDs ({num})',
+          {num: $c.stash.release_cdtoc_count || 0},
+        )
+        : l('Disc IDs'),
       entity,
       'discids',
       page,

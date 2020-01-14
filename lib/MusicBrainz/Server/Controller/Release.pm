@@ -91,6 +91,9 @@ after 'load' => sub {
     my $artwork_count = $c->model('Artwork')->find_count_by_release($release->id);
     $c->stash->{release_artwork_count} = $artwork_count;
 
+    my $cdtoc_count = $c->model('MediumCDTOC')->find_count_by_release($release->id);
+    $c->stash->{release_cdtoc_count} = $cdtoc_count;
+
     # We need to load more artist credits in 'show'
     if ($c->action->name ne 'show') {
         $c->model('ArtistCredit')->load($release);
