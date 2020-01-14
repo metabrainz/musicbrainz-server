@@ -199,6 +199,7 @@
         "removal": {
             "automatic": {}
         },
+        "series": true,
         "tags": true,
         "type": {
             "simple": true
@@ -483,6 +484,7 @@
             "manual": true
         },
         "report_filter": true,
+        "series": true,
         "sitemaps_lastmod_table": true,
         "tags": true,
         "url": "recording"
@@ -528,6 +530,7 @@
             "manual": true
         },
         "report_filter": true,
+        "series": true,
         "sitemaps_lastmod_table": true,
         "tags": true,
         "url": "release"
@@ -576,6 +579,7 @@
             }
         },
         "report_filter": true,
+        "series": true,
         "sitemaps_lastmod_table": true,
         "tags": true,
         "type": {
@@ -741,6 +745,7 @@
             "automatic": {}
         },
         "report_filter": true,
+        "series": true,
         "sitemaps_lastmod_table": true,
         "tags": true,
         "type": {
