@@ -368,7 +368,6 @@ export function defineTypeColumn(
   };
 }
 
-
 export const attributesColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
     Cell: ({row: {original}}) => <AttributeList entity={original} />,
@@ -421,7 +420,6 @@ export const seriesOrderingTypeColumn:
     Header: N_l('Ordering Type'),
     accessor: 'orderingTypeID',
   };
-
 
 export const subscriptionColumn:
   ColumnOptions<{+subscribed: boolean, ...}, boolean> = {
