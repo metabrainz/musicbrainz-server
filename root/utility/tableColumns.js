@@ -10,7 +10,10 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
+import InstrumentRelTypes from '../components/InstrumentRelTypes';
 import RatingStars from '../components/RatingStars';
+import ReleaseCatnoList from '../components/ReleaseCatnoList';
+import ReleaseLabelList from '../components/ReleaseLabelList';
 import SortableTableHeader from '../components/SortableTableHeader';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import ArtistCreditLink
@@ -22,6 +25,9 @@ import CodeLink from '../static/scripts/common/components/CodeLink';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import ReleaseEvents
+  from '../static/scripts/common/components/ReleaseEvents';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import formatDate from '../static/scripts/common/utility/formatDate';
 import formatEndDate from '../static/scripts/common/utility/formatEndDate';
 import expand2react from '../static/scripts/common/i18n/expand2react';
@@ -49,6 +55,34 @@ export function defineActionsColumn(
     accessor: 'id',
     className: 'actions',
     id: 'actions',
+  };
+}
+
+export function defineArtistCreditColumn<D>(
+  getArtistCredit: (D) => ArtistCreditT,
+  columnName: string,
+  title: string,
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<D, string> {
+  return {
+    Cell: ({row: {original}}) => {
+      const artistCredit = getArtistCredit(original);
+      return (artistCredit
+        ? <ArtistCreditLink artistCredit={artistCredit} />
+        : null);
+    },
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={title}
+          name={columnName}
+          order={order}
+        />
+      )
+      : title),
+    accessor: row => getArtistCredit(row)?.names[0].name ?? '',
+    id: columnName,
   };
 }
 
@@ -159,14 +193,34 @@ export function defineEntityColumn<D>(
   };
 }
 
+export function defineInstrumentUsageColumn(
+  instrumentCreditsAndRelTypes?:
+    {+[entityGid: string]: $ReadOnlyArray<string>},
+): ColumnOptions<ArtistT | RecordingT | ReleaseT, number> {
+  return {
+    Cell: ({row: {original}}) => (
+      <InstrumentRelTypes
+        entity={original}
+        instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+      />
+    ),
+    Header: l('Relationship Types'),
+    accessor: 'id',
+    id: 'instrument-usage',
+  };
+}
+
 export function defineNameColumn<T: CoreEntityT | CollectionT>(
   title: string,
   order?: string = '',
   sortable?: boolean = false,
+  descriptive?: boolean = true,
 ): ColumnOptions<T, string> {
   return {
     Cell: ({row: {original}}) => (
-      <DescriptiveLink entity={original} />
+      descriptive
+        ? <DescriptiveLink entity={original} />
+        : <EntityLink entity={original} />
     ),
     Header: (sortable
       ? (
@@ -179,6 +233,78 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
       : title),
     accessor: 'name',
     id: 'name',
+  };
+}
+
+export function defineReleaseCatnosColumn<D>(
+  getLabels: (D) => $ReadOnlyArray<ReleaseLabelT>,
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<D, $ReadOnlyArray<ReleaseLabelT>> {
+  return {
+    Cell: ({row: {original}}) => (
+      <ReleaseCatnoList labels={getLabels(original)} />
+    ),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={l('Catalog#')}
+          name="catno"
+          order={order}
+        />
+      )
+      : l('Catalog#')),
+    id: 'catno',
+  };
+}
+
+export function defineReleaseEventsColumn(
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<ReleaseT, $ReadOnlyArray<ReleaseEventT>> {
+  return {
+    Cell: ({cell: {value}}) => <ReleaseEvents events={value} />,
+    Header: (sortable
+      ? (
+        <>
+          <SortableTableHeader
+            label={l('Country')}
+            name="country"
+            order={order}
+          />
+          {lp('/', 'and')}
+          <SortableTableHeader
+            label={l('Date')}
+            name="date"
+            order={order}
+          />
+        </>
+      )
+      : l('Country') + lp('/', 'and') + l('Date')
+    ),
+    accessor: 'events',
+    id: 'events',
+  };
+}
+
+export function defineReleaseLabelsColumn(
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<ReleaseT, $ReadOnlyArray<ReleaseLabelT>> {
+  return {
+    Cell: ({cell: {value}}) => <ReleaseLabelList labels={value} />,
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={l('Label')}
+          name="label"
+          order={order}
+        />
+      )
+      : l('Label')
+    ),
+    accessor: 'labels',
+    id: 'labels',
   };
 }
 
@@ -200,6 +326,7 @@ export function defineTextColumn<D>(
   title: string,
   order?: string = '',
   sortable?: boolean = false,
+  className?: string,
 ): ColumnOptions<D, StrOrNum> {
   return {
     Cell: ({row: {original}}) => getText(original),
@@ -213,6 +340,7 @@ export function defineTextColumn<D>(
       )
       : title),
     accessor: row => getText(row) ?? '',
+    className: className || null,
     id: columnName,
   };
 }
@@ -300,6 +428,13 @@ export const subscriptionColumn:
     Cell: ({cell: {value}}) => yesNo(value),
     Header: N_l('Subscribed'),
     accessor: 'subscribed',
+  };
+
+export const taggerColumn:
+  ColumnOptions<RecordingT | ReleaseT, void> = {
+    Cell: ({row: {original}}) => <TaggerIcon entity={original} />,
+    Header: N_l('Tagger'),
+    id: 'tagger',
   };
 
 export const workArtistsColumn:
