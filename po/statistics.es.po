@@ -7,6 +7,7 @@
 # Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013,2018
 # Robert Schneider <email address hidden>, 2019
+# Roboron <email address hidden>, 2020
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
@@ -14,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2019-10-08 01:15+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2020-01-13 22:33+0000\n"
+"Last-Translator: Roboron <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,24 +28,24 @@ msgstr ""
 msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
-msgstr ""
+msgstr "Un nuevo cargador de imagen AJAX se ha publicado, facilitando añadir imágenes a los lanzamientos."
 
 #: DB:statistics.statistic_event/description:2015-12-28
 msgid ""
 "A new banner message now notifies users whenever they receive a new edit "
 "note."
-msgstr ""
+msgstr "Ahora un nuevo anuncio notifica a los usuarios cada vez que reciben una nota sobre la edición."
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr ""
+msgstr "Una brecha en la comunidad de MusicBrainz termina en una Gran Disputa."
 
 #: DB:statistics.statistic_event/description:2014-11-19
 msgid ""
 "AcousticBrainz, which aims to crowd source acoustic information for music, "
 "is announced in cooperation with the Music Technology Group at Universitat "
 "Pompeu Fabra."
-msgstr ""
+msgstr "AcousticBrainz, que pretende ser una fuente de información acústica colaborativa  para la música, es anunciado en cooperación con el Grupo de Tecnología Musical de la Universidad Pompeu Fabra."
 
 #: DB:statistics.statistic_event/description:2003-01-21
 msgid ""
