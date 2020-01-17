@@ -73,7 +73,10 @@
   <tr>
     <th>[% l('Release events:') %]</th>
     <td>
-      [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => edit.display_data.events}) %]
+      [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {
+           abbreviated => boolean_to_json(0),
+           events => edit.display_data.events,
+         }) %]
     </td>
   </tr>
   [% END %]
