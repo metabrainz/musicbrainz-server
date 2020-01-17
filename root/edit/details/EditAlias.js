@@ -110,20 +110,20 @@ const EditAlias = ({edit}: Props) => {
 
         <FullChangeDiff
           label={addColonText(l('Locale'))}
-          newText={locales[display.locale.new]}
-          oldText={locales[display.locale.old]}
+          newContent={locales[display.locale.new]}
+          oldContent={locales[display.locale.old]}
         />
 
         <FullChangeDiff
           label={addColonText(l('Primary for locale'))}
-          newText={yesNo(display.primary_for_locale.new)}
-          oldText={yesNo(display.primary_for_locale.old)}
+          newContent={yesNo(display.primary_for_locale.new)}
+          oldContent={yesNo(display.primary_for_locale.old)}
         />
 
         <FullChangeDiff
           label={addColonText(l('Type'))}
-          newText={display.type.new ? display.type.new.name : ''}
-          oldText={display.type.old ? display.type.old.name : ''}
+          newContent={display.type.new ? display.type.new.name : ''}
+          oldContent={display.type.old ? display.type.old.name : ''}
         />
 
         <Diff
@@ -142,8 +142,8 @@ const EditAlias = ({edit}: Props) => {
 
         <FullChangeDiff
           label={addColonText(l('Ended'))}
-          newText={yesNo(display.ended.new)}
-          oldText={yesNo(display.ended.old)}
+          newContent={yesNo(display.ended.new)}
+          oldContent={yesNo(display.ended.old)}
         />
       </tbody>
     </table>

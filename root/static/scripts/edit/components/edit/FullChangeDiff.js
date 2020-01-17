@@ -9,14 +9,22 @@
 
 import * as React from 'react';
 
-import {type DiffProps} from './Diff';
+type FullChangeDiffProps = {
+  +label: string,
+  +newContent: React$Node,
+  +oldContent: React$Node,
+};
 
-const FullChangeDiff = ({label, newText, oldText}: DiffProps) => (
-  oldText === newText ? null : (
+const FullChangeDiff = ({
+  label,
+  newContent,
+  oldContent,
+}: FullChangeDiffProps) => (
+  oldContent === newContent ? null : (
     <tr>
       <th>{label}</th>
-      <td className="old">{oldText}</td>
-      <td className="new">{newText}</td>
+      <td className="old">{oldContent}</td>
+      <td className="new">{newContent}</td>
     </tr>
   )
 );
