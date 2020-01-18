@@ -319,6 +319,8 @@ class Medium {
         this.position = ko.observable(data.position || 1);
         this.formatID = ko.observable(data.format_id);
         this.formatUnknownToUser = ko.observable(Boolean(data.id && !data.format_id));
+        this.showPregapTrackHelp = ko.observable(false);
+        this.showDataTracksHelp = ko.observable(false);
 
         var tracks = data.tracks;
         this.tracks = ko.observableArray(utils.mapChild(this, tracks, Track));
@@ -471,6 +473,14 @@ class Medium {
         }
 
         this.tracks.push(new Track(data, this));
+    }
+
+    togglePregapTrackHelp() {
+        this.showPregapTrackHelp(!this.showPregapTrackHelp.peek());
+    }
+
+    toggleDataTracksHelp() {
+        this.showDataTracksHelp(!this.showDataTracksHelp.peek());
     }
 
     hasExistingTocs() {
