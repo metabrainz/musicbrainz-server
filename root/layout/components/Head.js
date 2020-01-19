@@ -18,7 +18,6 @@ import MetaDescription from './MetaDescription';
 
 export type HeadProps = {
   +$c: CatalystContextT,
-  +gettextDomains?: ?$ReadOnlyArray<string>,
   +homepage?: boolean,
   +noIcons?: boolean,
   +pager?: PagerT,
@@ -128,14 +127,9 @@ const Head = ({$c, ...props}: HeadProps) => (
 
     {manifest.js('jed-data')}
 
-    {$c.stash.current_language === 'en' ? null : (
-      ['mb_server']
-        .concat(props.gettextDomains || [])
-        .map(function (domain) {
-          const name ='jed-' + $c.stash.current_language + '-' + domain;
-          return manifest.js(name, {key: name});
-        })
-    )}
+    {$c.stash.current_language === 'en'
+      ? null
+      : manifest.js('jed-' + $c.stash.current_language)}
 
     {manifest.js('common', {
       'data-args': JSON.stringify({
