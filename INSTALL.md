@@ -172,7 +172,8 @@ Below outlines how to setup MusicBrainz server with local::lib.
             libpq-dev \
             libxml2 \
             libxml2-dev \
-            cpanminus
+            cpanminus \
+            pkg-config
 
 2.  Enable local::lib
 
@@ -228,7 +229,7 @@ Creating the database
     To build our collate extension you will need libicu and its development
     headers, to install these run:
 
-        sudo apt-get install libicu-dev
+        sudo apt-get install libicu-dev pkg-config
 
     With libicu installed, you can build and install the collate extension by
     running:
