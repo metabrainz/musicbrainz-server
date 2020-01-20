@@ -9,6 +9,7 @@ use I18N::LangTags::Detect;
 use List::UtilsBy qw( sort_by );
 use Locale::Messages qw( bindtextdomain LC_MESSAGES );
 use Locale::Util qw( web_set_locale );
+use POSIX qw( setlocale );
 use Text::Balanced qw( extract_bracketed );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 
@@ -147,6 +148,16 @@ sub set_language
     else {
         return $set_lang;
     }
+}
+
+sub run_without_translations {
+    my ($self, $code) = @_;
+
+    my $prev_locale = setlocale(LC_MESSAGES);
+    $self->unset_language();
+    $code->();
+    setlocale(LC_MESSAGES, $prev_locale);
+    return;
 }
 
 sub unset_language

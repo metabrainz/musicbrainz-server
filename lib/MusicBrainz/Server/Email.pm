@@ -18,6 +18,7 @@ use MusicBrainz::Server::Constants qw(
     :edit_status
     :email_addresses
     $CONTACT_URL
+    $EDITOR_MODBOT
     $MINIMUM_RESPONSE_PERIOD
 );
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
@@ -27,6 +28,9 @@ use MusicBrainz::Server::Email::AutoEditorElection::Canceled;
 use MusicBrainz::Server::Email::AutoEditorElection::Accepted;
 use MusicBrainz::Server::Email::AutoEditorElection::Rejected;
 use MusicBrainz::Server::Email::Subscriptions;
+use MusicBrainz::Server::Translation;
+
+use aliased 'MusicBrainz::Server::Entity::EditNote';
 
 has 'c' => (
     is => 'rw',
@@ -310,6 +314,24 @@ sub _create_edit_note_email
     my $editor = $opts{editor} or die "Missing 'editor' argument";
     my $note_text = $opts{note_text} or die "Missing 'note_text' argument";
     my $own_edit = $opts{own_edit};
+
+    if ($from_editor->id == $EDITOR_MODBOT) {
+        # Messages from ModBot, while they may be translated on the website,
+        # are currently always mailed in English via
+        # `run_without_translations` below. This is because, for one, the
+        # current language set here is unrelated to the language of the
+        # recipient: the current process is either authenticated as the
+        # user who approved the edit, or no user at all (being applied by
+        # ModBot). Second, the UI language of the recipient is stored as a
+        # cookie in their browser, which we obviously don't have access
+        # to here.
+        MusicBrainz::Server::Translation->run_without_translations(sub {
+            $note_text = EditNote->new(
+                editor_id => $from_editor->id,
+                text => "$note_text",
+            )->localize;
+        });
+    }
 
     my @headers = (
         'To'          => _user_address($editor),

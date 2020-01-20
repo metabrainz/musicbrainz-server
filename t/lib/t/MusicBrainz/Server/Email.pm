@@ -6,7 +6,10 @@ use Test::More;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Email;
 use DBDefs;
-use MusicBrainz::Server::Constants qw( $MINIMUM_RESPONSE_PERIOD );
+use MusicBrainz::Server::Constants qw(
+    $EDITOR_MODBOT
+    $MINIMUM_RESPONSE_PERIOD
+);
 
 with 't::Context';
 
@@ -300,6 +303,35 @@ EOS
                  "\n".
                  "-- The MusicBrainz Team\n");
 
+    };
+
+    subtest 'localized send_edit_note' => sub {
+        $email->send_edit_note(
+            edit_id => 1234,
+            editor => $user1,
+            from_editor => MusicBrainz::Server::Entity::Editor->new(
+                email => 'support@musicbrainz.org',
+                id => $EDITOR_MODBOT,
+                name => 'ModBot',
+            ),
+            note_text => 'localize:{"message":"Hello {name}","args":{"name":"World"}}',
+        );
+
+        my $delivery = $email->transport->shift_deliveries;
+        my $e = $delivery->{email};
+        $email->transport->clear_deliveries;
+
+        compare_body(
+            $e->object->body_str,
+            "'ModBot' has added the following note to edit #1234:\n" .
+            "------------------------------------------------------------------------\n" .
+            "Hello World\n" .
+            "------------------------------------------------------------------------\n" .
+            "If you would like to reply to this note, please add your note at:\n" .
+            "$server/edit/1234\n" .
+            "Please do not respond to this email.\n\n" .
+            "-- The MusicBrainz Team\n",
+        );
     };
 
     $email->send_edit_note(
