@@ -1,6 +1,6 @@
 [%- PROCESS 'release/edit/macros.tt' -%]
 
-[%- WRAPPER 'layout.tt' full_width=1 edit=1 gettext_domains=['attributes', 'countries', 'languages', 'relationships'] -%]
+[%- WRAPPER 'layout.tt' full_width=1 edit=1 -%]
   [% IF release.name %]
     [%- React.embed(c, 'release/ReleaseHeader', { release => release, page => 'edit' }) -%]
   [% ELSE %]

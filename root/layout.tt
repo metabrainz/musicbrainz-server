@@ -5,7 +5,6 @@
             noIcons => boolean_to_json(no_icons),
             pager => pager,
             title => title,
-            gettextDomains => gettext_domains,
         })
     -%]
     <body>

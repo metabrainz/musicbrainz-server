@@ -89,18 +89,4 @@ const jedData /*: JedData */ = {
   "locale": "en"
 };
 
-function mergeData(
-  domain /*: GettextDomain */,
-  lang /*: string */,
-  newData /*: JedOptions */,
-) {
-  if (jedData[lang]) {
-    jedData[lang].locale_data[domain] = newData.locale_data[domain];
-  } else {
-    jedData[lang] = newData;
-  }
-  jedData.locale = lang;
-}
-
-exports.jedData = jedData;
-exports.mergeData = mergeData;
+module.exports = jedData;
