@@ -53,7 +53,8 @@ libicu-dev m4_dnl
 libperl-dev m4_dnl
 libpq-dev m4_dnl
 libssl-dev m4_dnl
-libxml2-dev')
+libxml2-dev m4_dnl
+pkg-config')
 
 # postgresql-server-dev-9.5 provides pg_config, which is needed by InitDb.pl
 # at run-time.
