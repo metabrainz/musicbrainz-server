@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_PLACE_EDIT
 );
 use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( CoordinateHash Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
@@ -49,13 +50,13 @@ sub change_fields
 {
     return Dict[
         name        => Optional[Str],
-        comment     => Nullable[Str],
+        comment     => Optional[Str],
         type_id     => Nullable[Int],
-        address     => Nullable[Str],
+        address     => Optional[Str],
         area_id     => Nullable[Int],
         coordinates => Nullable[CoordinateHash],
-        begin_date  => Nullable[PartialDateHash],
-        end_date    => Nullable[PartialDateHash],
+        begin_date  => Optional[PartialDateHash],
+        end_date    => Optional[PartialDateHash],
         ended       => Optional[Bool],
     ];
 }
@@ -119,8 +120,15 @@ sub build_display_data
 
     if (exists $self->data->{new}{coordinates}) {
         $data->{coordinates} = {
-            new => defined $self->data->{new}{coordinates} ? Coordinates->new($self->data->{new}{coordinates}) : '',
-            old => defined $self->data->{old}{coordinates} ? Coordinates->new($self->data->{old}{coordinates}) : '',
+            new => defined $self->data->{new}{coordinates} ? Coordinates->new($self->data->{new}{coordinates}) : undef,
+            old => defined $self->data->{old}{coordinates} ? Coordinates->new($self->data->{old}{coordinates}) : undef,
+        };
+    }
+
+    if (exists $self->data->{new}{ended}) {
+        $data->{ended} = {
+            new => boolean_to_json($self->data->{new}{ended}),
+            old => boolean_to_json($self->data->{old}{ended}),
         };
     }
 
@@ -165,6 +173,8 @@ sub _edit_hash {
     my ($self, $data) = @_;
     return $self->merge_changes;
 }
+
+sub edit_template_react { "EditPlace" }
 
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
