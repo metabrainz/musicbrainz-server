@@ -50,13 +50,13 @@ sub change_fields
 {
     return Dict[
         name        => Optional[Str],
-        comment     => Nullable[Str],
+        comment     => Optional[Str],
         type_id     => Nullable[Int],
-        address     => Nullable[Str],
+        address     => Optional[Str],
         area_id     => Nullable[Int],
         coordinates => Nullable[CoordinateHash],
-        begin_date  => Nullable[PartialDateHash],
-        end_date    => Nullable[PartialDateHash],
+        begin_date  => Optional[PartialDateHash],
+        end_date    => Optional[PartialDateHash],
         ended       => Optional[Bool],
     ];
 }
