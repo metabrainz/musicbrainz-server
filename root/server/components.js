@@ -254,6 +254,7 @@ module.exports = {
   'edit/details/AddArtist': require('../edit/details/AddArtist'),
   'edit/details/AddEvent': require('../edit/details/AddEvent'),
   'edit/details/AddRemoveAlias': require('../edit/details/AddRemoveAlias'),
+  'edit/details/AddSeries': require('../edit/details/AddSeries'),
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'event/EventHeader': require('../event/EventHeader'),
   'instrument/InstrumentHeader': require('../instrument/InstrumentHeader'),

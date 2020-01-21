@@ -67,6 +67,8 @@ sub build_display_data {
     };
 }
 
+sub edit_template_react { "AddSeries" }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
