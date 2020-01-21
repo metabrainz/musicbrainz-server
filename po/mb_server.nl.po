@@ -14,7 +14,7 @@
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2012-2019
+# Maurits Meulenbelt <email address hidden>, 2012-2020
 # Nathan Follens, 2016
 # Nathan Follens, 2016
 # nikki, 2012-2013
@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 01:48+0000\n"
-"PO-Revision-Date: 2019-12-20 10:59+0000\n"
+"POT-Creation-Date: 2020-01-16 12:01+0000\n"
+"PO-Revision-Date: 2020-01-19 18:58+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3268,7 +3268,7 @@ msgstr "Geen"
 #: ../root/search/components/RecordingResults.js:123
 #: ../root/search/components/ReleaseResults.js:101
 #: ../root/search/components/SeriesResults.js:51
-#: ../root/search/components/TagResults.js:44
+#: ../root/search/components/TagResults.js:50
 #: ../root/search/components/WorkResults.js:48
 #: ../root/static/scripts/account/components/ApplicationForm.js:76
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:76
@@ -3789,8 +3789,8 @@ msgstr "Details van de plaats"
 msgid "Place:"
 msgstr "Plaats:"
 
-#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:34
-#: ../root/area/AreaPlaces.js:35 ../root/components/EntityTabs.js:28
+#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:35
+#: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:28
 #: ../root/report/ReportsIndex.js:455
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:114 ../root/tag/TagLayout.js:31
@@ -9072,7 +9072,7 @@ msgstr "Dit gebied is momenteel niet gekoppeld aan evenementen."
 msgid "{area_type} in {parent_areas}"
 msgstr "{area_type} in {parent_areas}"
 
-#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:52
+#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:64
 msgid "Add selected labels for merging"
 msgstr "Geselecteerde platenmaatschappijen samenvoegen"
 
@@ -9080,7 +9080,13 @@ msgstr "Geselecteerde platenmaatschappijen samenvoegen"
 msgid "This area is not currently associated with any labels."
 msgstr "Dit gebied is momenteel niet gekoppeld aan platenmaatschappijen."
 
-#: ../root/area/AreaPlaces.js:61
+#: ../root/area/AreaPlaces.js:48 ../root/place/PlaceMap.js:42
+msgid ""
+"A map cannot be shown because no maps service access token has been set for "
+"this server."
+msgstr "Er kan geen kaart worden getoond, omdat er voor deze server geen toegangstoken voor een kaartendienst is ingesteld."
+
+#: ../root/area/AreaPlaces.js:73
 msgid "This area is not currently associated with any places."
 msgstr "Dit gebied is momenteel niet gekoppeld aan plaatsen."
 
@@ -9530,7 +9536,7 @@ msgstr "We raden je sterk aan om een {note|bewerkingsnotitie} toe te voegen waar
 msgid "Fingerprints"
 msgstr "Vingerafdrukken"
 
-#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:31
+#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:32
 msgid "Map"
 msgstr "Kaart"
 
@@ -10283,7 +10289,8 @@ msgstr "Genre bewerken"
 msgid "Genre details"
 msgstr "Details van het genre"
 
-#: ../root/genre/GenreHeader.js:28 ../root/tag/TagIndex.js:79
+#: ../root/genre/GenreHeader.js:28 ../root/search/components/TagResults.js:51
+#: ../root/tag/TagIndex.js:79
 msgid "Genre"
 msgstr "Genre"
 
@@ -11098,7 +11105,7 @@ msgstr "Je kan {app} toegang gegeven. Keer nu terug naar {app} en kopieer deze t
 msgid "This place is not currently associated with any events."
 msgstr "Deze plaats is momenteel niet gekoppeld aan evenementen."
 
-#: ../root/place/PlaceMap.js:39
+#: ../root/place/PlaceMap.js:49
 msgid "A map cannot be shown because this place has no coordinates."
 msgstr "Er kan geen kaart worden getoond omdat deze plaats geen coördinaten heeft."
 

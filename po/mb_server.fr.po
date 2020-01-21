@@ -25,7 +25,7 @@
 # Jérôme Roy <email address hidden>, 2017
 # Jérôme Roy <email address hidden>, 2017
 # Laurent Hosch <email address hidden>, 2017
-# Laurent Hosch <email address hidden>, 2017
+# Laurent Hosch <email address hidden>, 2017,2020
 # Laurent Monin <email address hidden>, 2014,2016
 # Laurent Monin <email address hidden>, 2014,2016
 # Lionel Nerf <email address hidden>, 2016
@@ -62,9 +62,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 01:48+0000\n"
-"PO-Revision-Date: 2020-01-06 07:16+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2020-01-16 12:01+0000\n"
+"PO-Revision-Date: 2020-01-18 18:19+0000\n"
+"Last-Translator: Laurent Hosch <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3301,7 +3301,7 @@ msgstr "S.O."
 #: ../root/search/components/RecordingResults.js:123
 #: ../root/search/components/ReleaseResults.js:101
 #: ../root/search/components/SeriesResults.js:51
-#: ../root/search/components/TagResults.js:44
+#: ../root/search/components/TagResults.js:50
 #: ../root/search/components/WorkResults.js:48
 #: ../root/static/scripts/account/components/ApplicationForm.js:76
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:76
@@ -3822,8 +3822,8 @@ msgstr "Détails de lieu"
 msgid "Place:"
 msgstr "Lieu :"
 
-#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:34
-#: ../root/area/AreaPlaces.js:35 ../root/components/EntityTabs.js:28
+#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:35
+#: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:28
 #: ../root/report/ReportsIndex.js:455
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:114 ../root/tag/TagLayout.js:31
@@ -5521,7 +5521,7 @@ msgstr "Cet utilisateur est automatique."
 
 #: ../root/components/common-macros.tt:500
 msgid "This user is new to MusicBrainz."
-msgstr "Cet utilisateur est nouveau dans MusicBrainz"
+msgstr "Cet utilisateur est nouveau sur MusicBrainz"
 
 #: ../root/release/edit_relationships.tt:114
 msgid "This will add a relationship to all checked recordings."
@@ -9105,7 +9105,7 @@ msgstr "Cette région n’est actuellement associé à aucun événement."
 msgid "{area_type} in {parent_areas}"
 msgstr "{area_type} dans {parent_areas}"
 
-#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:52
+#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:64
 msgid "Add selected labels for merging"
 msgstr "Ajouter les labels choisis pour la fusion"
 
@@ -9113,7 +9113,13 @@ msgstr "Ajouter les labels choisis pour la fusion"
 msgid "This area is not currently associated with any labels."
 msgstr "Cette région n’est actuellement associée à aucun label."
 
-#: ../root/area/AreaPlaces.js:61
+#: ../root/area/AreaPlaces.js:48 ../root/place/PlaceMap.js:42
+msgid ""
+"A map cannot be shown because no maps service access token has been set for "
+"this server."
+msgstr "Impossible d’afficher une carte, car le jeton d’accès au service cartographique n’est pas défini pour ce serveur."
+
+#: ../root/area/AreaPlaces.js:73
 msgid "This area is not currently associated with any places."
 msgstr "Cette région n’est actuellement associée à aucun lieu."
 
@@ -9563,7 +9569,7 @@ msgstr "Il est fortement recommandé de saisir une {note|note de modification} d
 msgid "Fingerprints"
 msgstr "Empreintes"
 
-#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:31
+#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:32
 msgid "Map"
 msgstr "Carte"
 
@@ -10316,7 +10322,8 @@ msgstr "Modifier le genre"
 msgid "Genre details"
 msgstr "Détails du genre"
 
-#: ../root/genre/GenreHeader.js:28 ../root/tag/TagIndex.js:79
+#: ../root/genre/GenreHeader.js:28 ../root/search/components/TagResults.js:51
+#: ../root/tag/TagIndex.js:79
 msgid "Genre"
 msgstr "Genre"
 
@@ -10976,7 +10983,7 @@ msgstr "MusicBrainz - L’encyclopédie musicale libre"
 
 #: ../root/main/index.js:36
 msgid "Welcome to MusicBrainz!"
-msgstr "Bienvenue à MusicBrainz !"
+msgstr "Bienvenue sur MusicBrainz !"
 
 #: ../root/main/index.js:40
 msgid ""
@@ -11131,9 +11138,9 @@ msgstr "Vous avez donné l’accès à {app}. Ensuite, retourner vers {app} et c
 msgid "This place is not currently associated with any events."
 msgstr "Ce lieu n’est actuellement associé à aucun événement."
 
-#: ../root/place/PlaceMap.js:39
+#: ../root/place/PlaceMap.js:49
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr "On ne peut pas montrer de carte car ce lieu n’a pas de coordonnées."
+msgstr "Impossible d’afficher une carte, car ce lieu n’a pas de coordonnées."
 
 #: ../root/place/PlacePerformances.js:21
 msgid "No recordings, releases or release groups are linked to this place."
