@@ -64,6 +64,7 @@ RUN apt-get update && \
         openjdk-8-jre \
         openssh-client \
         perl \
+        pkg-config \
         postgresql \
         postgresql-10-pgtap \
         postgresql-contrib \

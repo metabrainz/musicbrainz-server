@@ -22,7 +22,7 @@
     </div>
 [%~ END ~%]
 
-[%~ WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' gettext_domains=['attributes', 'statistics'] ~%]
+[%~ WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' ~%]
 [%~ PROCESS "statistics/macros-header.tt" ~%]
 
 <h2>[% l('Exact Values (items vs. day)') %]</h2>

@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' title=l('Add Series') full_width=1 gettext_domains=['attributes', 'countries', 'instruments', 'instrument_descriptions', 'languages', 'relationships'] -%]
+[%- WRAPPER 'layout.tt' title=l('Add Series') full_width=1 -%]
     <div id="content">
         <h1>[%- l('Add Series') -%]</h1>
         [%- INCLUDE 'series/edit_form.tt' new=1 -%]

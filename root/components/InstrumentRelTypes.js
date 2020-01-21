@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
 
@@ -21,25 +19,23 @@ const InstrumentRelTypes = ({
   entity,
   instrumentCreditsAndRelTypes,
 }: Props) => (
-  <td>
-    {instrumentCreditsAndRelTypes &&
-      instrumentCreditsAndRelTypes[entity.gid] ? (
-        commaOnlyListText(
-          instrumentCreditsAndRelTypes[entity.gid].map(json => {
-            const relType = JSON.parse(json);
-            let listElement = l_relationships(relType.typeName);
-            if (relType.credit) {
-              listElement = listElement + ' ' +
-                bracketedText(texp.l(
-                  'as “{credit}”',
-                  {credit: relType.credit},
-                ));
-            }
-            return listElement;
-          }),
-        )
-      ) : null}
-  </td>
+  instrumentCreditsAndRelTypes &&
+    instrumentCreditsAndRelTypes[entity.gid] ? (
+      commaOnlyListText(
+        instrumentCreditsAndRelTypes[entity.gid].map(json => {
+          const relType = JSON.parse(json);
+          let listElement = l_relationships(relType.typeName);
+          if (relType.credit) {
+            listElement = listElement + ' ' +
+              bracketedText(texp.l(
+                'as “{credit}”',
+                {credit: relType.credit},
+              ));
+          }
+          return listElement;
+        }),
+      )
+    ) : null
 );
 
 export default InstrumentRelTypes;

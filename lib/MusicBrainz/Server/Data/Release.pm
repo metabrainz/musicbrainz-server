@@ -647,7 +647,7 @@ sub _order_by {
         "date" => sub {
             return "date_year, date_month, date_day, musicbrainz_collate(name)"
         },
-        "title" => sub {
+        "name" => sub {
             return "musicbrainz_collate(name), date_year, date_month, date_day"
         },
         "country" => sub {

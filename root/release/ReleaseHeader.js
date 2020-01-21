@@ -41,7 +41,6 @@ const ReleaseHeader = ({release, page}: Props) => {
             <EntityLink
               content={rgLink}
               entity={release.releaseGroup}
-              nameVariation
             />,
           )}
         </span>

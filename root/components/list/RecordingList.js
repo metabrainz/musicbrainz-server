@@ -152,10 +152,12 @@ const RecordingList = ({
             {recording.gid ? formatTrackLength(recording.length) : null}
           </td>
           {showInstrumentCreditsAndRelTypes ? (
-            <InstrumentRelTypes
-              entity={recording}
-              instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
-            />
+            <td>
+              <InstrumentRelTypes
+                entity={recording}
+                instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+              />
+            </td>
           ) : null}
           {mergeForm ? (
             <RemoveFromMergeTableCell

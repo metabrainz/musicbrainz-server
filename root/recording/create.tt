@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' title=lp('Add Standalone Recording', 'header') full_width=1 gettext_domains=['attributes', 'countries', 'instruments', 'instrument_descriptions', 'languages', 'relationships'] %]
+[% WRAPPER 'layout.tt' title=lp('Add Standalone Recording', 'header') full_width=1 %]
     <div id="content">
         <h1>[%- lp('Add Standalone Recording', 'header') -%]</h1>
         [% INCLUDE 'recording/edit_form.tt' %]

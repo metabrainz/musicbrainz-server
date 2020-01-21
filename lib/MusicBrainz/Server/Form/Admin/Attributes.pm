@@ -52,8 +52,9 @@ sub options_parent_id {
 }
 
 sub options_item_entity_type {
-    my ($self) = @_;
-    return map { $_ => $_ } sort { $a cmp $b } entities_with('collections');
+    my ($self, $model) = @_;
+    my $entity_type = $self->ctx->stash->{model} eq 'SeriesType' ? 'series' : 'collections';
+    return map { $_ => $_ } sort { $a cmp $b } entities_with($entity_type);
 }
 
 1;

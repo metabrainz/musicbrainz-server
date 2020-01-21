@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 01:48+0000\n"
-"PO-Revision-Date: 2019-12-20 01:57+0000\n"
+"POT-Creation-Date: 2020-01-16 12:01+0000\n"
+"PO-Revision-Date: 2020-01-16 13:10+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -3269,7 +3269,7 @@ msgstr "Ei saatavilla"
 #: ../root/search/components/RecordingResults.js:123
 #: ../root/search/components/ReleaseResults.js:101
 #: ../root/search/components/SeriesResults.js:51
-#: ../root/search/components/TagResults.js:44
+#: ../root/search/components/TagResults.js:50
 #: ../root/search/components/WorkResults.js:48
 #: ../root/static/scripts/account/components/ApplicationForm.js:76
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:76
@@ -3790,8 +3790,8 @@ msgstr "Lisätietoja paikasta"
 msgid "Place:"
 msgstr "Paikka:"
 
-#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:34
-#: ../root/area/AreaPlaces.js:35 ../root/components/EntityTabs.js:28
+#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:35
+#: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:28
 #: ../root/report/ReportsIndex.js:455
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:114 ../root/tag/TagLayout.js:31
@@ -9073,7 +9073,7 @@ msgstr ""
 msgid "{area_type} in {parent_areas}"
 msgstr "{area_type} alueella {parent_areas}"
 
-#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:52
+#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:64
 msgid "Add selected labels for merging"
 msgstr ""
 
@@ -9081,7 +9081,13 @@ msgstr ""
 msgid "This area is not currently associated with any labels."
 msgstr "Tätä aluetta ei ole liitetty yhteenkään levymerkkiin."
 
-#: ../root/area/AreaPlaces.js:61
+#: ../root/area/AreaPlaces.js:48 ../root/place/PlaceMap.js:42
+msgid ""
+"A map cannot be shown because no maps service access token has been set for "
+"this server."
+msgstr ""
+
+#: ../root/area/AreaPlaces.js:73
 msgid "This area is not currently associated with any places."
 msgstr "Tätä aluetta ei ole liitetty yhteenkään paikkaan."
 
@@ -9531,7 +9537,7 @@ msgstr ""
 msgid "Fingerprints"
 msgstr "Äänitunnisteet"
 
-#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:31
+#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:32
 msgid "Map"
 msgstr "Kartta"
 
@@ -10284,7 +10290,8 @@ msgstr ""
 msgid "Genre details"
 msgstr ""
 
-#: ../root/genre/GenreHeader.js:28 ../root/tag/TagIndex.js:79
+#: ../root/genre/GenreHeader.js:28 ../root/search/components/TagResults.js:51
+#: ../root/tag/TagIndex.js:79
 msgid "Genre"
 msgstr ""
 
@@ -11099,7 +11106,7 @@ msgstr "Olet myöntänyt ohjelmalle {app} käyttöoikeudet. Seuraavaksi, palaa o
 msgid "This place is not currently associated with any events."
 msgstr "Tätä paikkaa ei ole liitetty yhteenkään tapahtumaan."
 
-#: ../root/place/PlaceMap.js:39
+#: ../root/place/PlaceMap.js:49
 msgid "A map cannot be shown because this place has no coordinates."
 msgstr "Karttaa ei voida näyttää, koska tällä paikalla ei ole koordinaatteja."
 
