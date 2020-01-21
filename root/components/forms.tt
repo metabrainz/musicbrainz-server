@@ -53,17 +53,25 @@
     </div>
 [%- END -%]
 
-[%- MACRO field_errors(form, field_name) BLOCK # Converted to React at root/components/FieldErrors.js
+[%- MACRO field_errors(form, field_name, has_html_errors) BLOCK # Converted to React at root/components/FieldErrors.js
 -%]
     [% field = form.field(field_name) || field_name %]
     [%- IF field.has_errors OR field.error_fields -%]
         <ul class="errors">
           [%- FOR err IN field.errors -%]
-            <li>[% err | html %]</li>
+            [%- IF has_html_errors -%]
+              <li>[% err %]</li>
+            [% ELSE %]
+              <li>[% err | html %]</li>
+            [% END %]
           [%- END -%]
           [%- FOR field IN field.error_fields -%]
             [% FOR err IN field.errors %]
-            <li>[% err | html %]</li>
+              [%- IF has_html_errors -%]
+                <li>[% err %]</li>
+              [% ELSE %]
+                <li>[% err | html %]</li>
+              [% END %]
             [% END %]
           [%- END -%]
         </ul>
@@ -135,13 +143,13 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_select(r, field_name, label, class, attributes) BLOCK # Converted to React at root/components/FormRowSelect.js
+[%- MACRO form_row_select(r, field_name, label, class, attributes, has_html_errors) BLOCK # Converted to React at root/components/FormRowSelect.js
 -%]
     [% attributes = attributes || {}; attributes.class = class %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label, { class => class }) %]
       [% r.select(field_name, attributes) -%]
-      [% field_errors(r.form, field_name) %]
+      [% field_errors(r.form, field_name, has_html_errors) %]
     [% END %]
 [%- END -%]
 

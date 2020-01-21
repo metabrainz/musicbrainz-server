@@ -9,17 +9,24 @@
 
 import React from 'react';
 
+import expand2react from '../static/scripts/common/i18n/expand2react';
 import subfieldErrors, {type FieldShape} from '../utility/subfieldErrors';
 
-const buildErrorListItem = (error, index) => (
-  <li key={index}>{error}</li>
-);
+const buildErrorListItem = (error, hasHtmlErrors, index) => {
+  if (hasHtmlErrors) {
+    return (
+      <li key={index}>{expand2react(error)}</li>
+    );
+  }
+  return <li key={index}>{error}</li>;
+};
 
 type Props = {
   +field: FieldShape,
+  +hasHtmlErrors?: boolean,
 };
 
-const FieldErrors = ({field}: Props) => {
+const FieldErrors = ({field, hasHtmlErrors}: Props) => {
   if (!field) {
     return null;
   }
@@ -27,7 +34,9 @@ const FieldErrors = ({field}: Props) => {
   if (errors.length) {
     return (
       <ul className="errors">
-        {errors.map(buildErrorListItem)}
+        {errors.map(function (error, index) {
+          return buildErrorListItem(error, hasHtmlErrors, index);
+        })}
       </ul>
     );
   }
