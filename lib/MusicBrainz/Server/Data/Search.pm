@@ -301,9 +301,10 @@ sub search
 
     elsif ($type eq "tag") {
         $query = "
-            SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
-            FROM tag, plainto_tsquery('mb_simple', ?) AS query
-            WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+            SELECT tag.id, tag.name, genre.id as genre_id,
+                   ts_rank_cd(to_tsvector('mb_simple', tag.name), query, 2) AS rank
+            FROM tag LEFT JOIN genre USING (name), plainto_tsquery('mb_simple', ?) AS query
+            WHERE to_tsvector('mb_simple', tag.name) @@ query OR tag.name = ?
             ORDER BY rank DESC, tag.name
             OFFSET ?
         ";

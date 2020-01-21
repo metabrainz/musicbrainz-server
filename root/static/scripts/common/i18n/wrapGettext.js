@@ -18,7 +18,7 @@ if (isNodeJS) {
   gettext = require('../../../../server/gettext');
   serverGettext = gettext;
 } else {
-  const {jedData} = require('../../jed-data');
+  const jedData = require('../../jed-data');
   // jedData contains all domains used by the client.
   gettext = new Jed(jedData[jedData.locale]);
 }

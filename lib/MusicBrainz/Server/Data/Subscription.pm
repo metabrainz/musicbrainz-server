@@ -209,7 +209,7 @@ sub merge
               $edit_id, @ids);
 }
 
-sub merge_entities
+sub transfer_to_merge_target
 {
     my ($self, $new_id, @old_ids) = @_;
 

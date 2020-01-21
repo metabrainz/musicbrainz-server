@@ -43,7 +43,7 @@
 # nikki, 2013
 # nikki, 2012-2013
 # Philipp Wolfer <email address hidden>, 2012
-# Philipp Wolfer <email address hidden>, 2014-2015,2019
+# Philipp Wolfer <email address hidden>, 2014-2015,2019-2020
 # Philipp Wolfer <email address hidden>, 2012
 # Philipp Wolfer <email address hidden>, 2012
 # S.Brandt <email address hidden>, 2014-2015
@@ -68,9 +68,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 01:48+0000\n"
-"PO-Revision-Date: 2019-12-20 09:30+0000\n"
-"Last-Translator: David Kellner <email address hidden>\n"
+"POT-Creation-Date: 2020-01-16 12:01+0000\n"
+"PO-Revision-Date: 2020-01-16 13:10+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -247,7 +247,7 @@ msgstr "-"
 #: ../root/search/components/ReleaseResults.js:105
 msgctxt "and"
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../root/components/common-macros.tt:103
 msgid "250px"
@@ -792,7 +792,7 @@ msgstr "Bist du sicher, dass du das Cover-Art unten von {release} von {artist} e
 
 #: ../root/components/forms.tt:365
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
-msgstr ""
+msgstr "Bist du sicher, dass du {entity} aus MusicBrainz entfernen möchtest?"
 
 #: ../root/area/merge.tt:12 ../root/components/common-macros.tt:576
 #: ../root/edit/search_macros.tt:371 ../root/label/merge.tt:15
@@ -2493,7 +2493,7 @@ msgstr "IPI-Codes:"
 
 #: ../root/layout.tt:106 ../root/layout/components/Footer.js:28
 msgid "IRC"
-msgstr ""
+msgstr "IRC"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/AddArtist.js:161
@@ -3307,7 +3307,7 @@ msgstr "Unbekannt"
 #: ../root/search/components/RecordingResults.js:123
 #: ../root/search/components/ReleaseResults.js:101
 #: ../root/search/components/SeriesResults.js:51
-#: ../root/search/components/TagResults.js:44
+#: ../root/search/components/TagResults.js:50
 #: ../root/search/components/WorkResults.js:48
 #: ../root/static/scripts/account/components/ApplicationForm.js:76
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:76
@@ -3828,8 +3828,8 @@ msgstr "Örtlichkeitsdetails"
 msgid "Place:"
 msgstr "Örtlichkeit:"
 
-#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:34
-#: ../root/area/AreaPlaces.js:35 ../root/components/EntityTabs.js:28
+#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:35
+#: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:28
 #: ../root/report/ReportsIndex.js:455
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:114 ../root/tag/TagLayout.js:31
@@ -4482,7 +4482,7 @@ msgstr "Medium entfernen"
 #: ../root/components/RemoveFromMergeTableCell.js:25
 #: ../root/components/RemoveFromMergeTableHeader.js:16
 msgid "Remove from merge"
-msgstr ""
+msgstr "Aus Vereinigung entfernen"
 
 #: ../root/layout/merge-helper.tt:33
 #: ../root/layout/components/MergeHelper.js:67
@@ -5166,7 +5166,7 @@ msgstr "Das Künstler-Beobachten-Feature ist derzeit nicht aktiv."
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
-msgstr ""
+msgstr "Das Jahr muss vierstellig angegeben werden. Wenn du eine Jahreszahl vor 1000 n. u. Z. eingeben möchtest, fülle sie mit führenden Nullen auf, z. B. „0123“."
 
 #: ../root/edit/edit_header.tt:10
 msgid "Their vote: "
@@ -5836,7 +5836,7 @@ msgstr "URL:"
 
 #: ../root/annotation/edit.tt:58
 msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
-msgstr ""
+msgstr "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
 
 #: ../root/components/common-macros.tt:117
 #: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:505
@@ -8287,11 +8287,11 @@ msgstr "Streamen bei Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:13
 msgid "Weibo"
-msgstr ""
+msgstr "Weibo"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Wikisource.pm:9
 msgid "Wikisource"
-msgstr ""
+msgstr "Wikisource"
 
 #: ../lib/MusicBrainz/Server/Form/Admin/Attributes/Language.pm:49
 #: ../root/admin/attributes/Language.js:18
@@ -9111,7 +9111,7 @@ msgstr "Dieses Gebiet ist derzeit mit keinen Veranstaltungen verbunden."
 msgid "{area_type} in {parent_areas}"
 msgstr "{area_type} in {parent_areas}"
 
-#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:52
+#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:64
 msgid "Add selected labels for merging"
 msgstr "Ausgewählte Labels zum Vereinen hinzufügen"
 
@@ -9119,7 +9119,13 @@ msgstr "Ausgewählte Labels zum Vereinen hinzufügen"
 msgid "This area is not currently associated with any labels."
 msgstr "Dieses Gebiet ist zur Zeit mit keinen Labels verbunden."
 
-#: ../root/area/AreaPlaces.js:61
+#: ../root/area/AreaPlaces.js:48 ../root/place/PlaceMap.js:42
+msgid ""
+"A map cannot be shown because no maps service access token has been set for "
+"this server."
+msgstr ""
+
+#: ../root/area/AreaPlaces.js:73
 msgid "This area is not currently associated with any places."
 msgstr "Dieses Gebiet ist zur Zeit mit keinen Örtlichkeiten verbunden."
 
@@ -9569,7 +9575,7 @@ msgstr "Das Eingeben einer {note|Bearbeitungsbemerkung}, die beschreibt, woher D
 msgid "Fingerprints"
 msgstr "Fingerabdrücke"
 
-#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:31
+#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:32
 msgid "Map"
 msgstr "Karte"
 
@@ -10303,28 +10309,29 @@ msgstr "Du bist derzeit nicht Abonnent. {sub|Abonnieren}?"
 
 #: ../root/genre/CreateGenre.js:18 ../root/genre/CreateGenre.js:20
 msgid "Add a new genre"
-msgstr ""
+msgstr "Ein neues Genre hinzufügen"
 
 #: ../root/genre/DeleteGenre.js:28 ../root/genre/DeleteGenre.js:30
 #: ../root/genre/DeleteGenre.js:36
 msgid "Remove genre"
-msgstr ""
+msgstr "Genre entfernen"
 
 #: ../root/genre/DeleteGenre.js:32
 msgid "Are you sure you want to remove the genre {genre}?"
-msgstr ""
+msgstr "Bist du sicher, dass du das Genre {genre} löschen möchtest?"
 
 #: ../root/genre/EditGenre.js:26
 msgid "Edit genre"
-msgstr ""
+msgstr "Genre bearbeiten"
 
 #: ../root/genre/GenreEditForm.js:27
 msgid "Genre details"
 msgstr ""
 
-#: ../root/genre/GenreHeader.js:28 ../root/tag/TagIndex.js:79
+#: ../root/genre/GenreHeader.js:28 ../root/search/components/TagResults.js:51
+#: ../root/tag/TagIndex.js:79
 msgid "Genre"
-msgstr ""
+msgstr "Genre"
 
 #: ../root/genre/GenreIndex.js:17
 msgid "Genre information"
@@ -10702,7 +10709,7 @@ msgstr "Instrument hinzufügen"
 #: ../root/layout/components/TopMenu.js:113
 msgctxt "button/menu"
 msgid "Add Genre"
-msgstr ""
+msgstr "Genre hinzufügen"
 
 #: ../root/layout/components/TopMenu.js:116
 msgid "Edit Relationship Types"
@@ -10960,11 +10967,11 @@ msgstr "Werksinformationen"
 
 #: ../root/layout/index.js:32
 msgid "Birthday cakes"
-msgstr ""
+msgstr "Geburtstagskuchen"
 
 #: ../root/layout/index.js:141
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
-msgstr ""
+msgstr "Herzlichen Glückwunsch zum Geburtstag und vielen Dank für deinen Beitrag zu MusicBrainz."
 
 #: ../root/main/404.js:26
 msgid "Sorry, the page you're looking for does not exist."
@@ -11137,7 +11144,7 @@ msgstr "Du hast {app} den Zugriff erteilt. Wechsle jetzt zu {app} und trage dies
 msgid "This place is not currently associated with any events."
 msgstr "Diese Örtlichkeit ist derzeit mit keinen Veranstaltungen verbunden."
 
-#: ../root/place/PlaceMap.js:39
+#: ../root/place/PlaceMap.js:49
 msgid "A map cannot be shown because this place has no coordinates."
 msgstr "Eine Karte kann nicht angezeigt werden, da diese Örtlichkeit keine Koordinaten hat."
 
@@ -11551,7 +11558,7 @@ msgstr "Dieser Report listet Künstler auf, die mehr als einmal an verschiedenen
 #: ../root/report/components/ArtistRelationshipList.js:51
 #: ../root/report/components/ArtistUrlList.js:60
 msgid "This artist no longer exists."
-msgstr ""
+msgstr "Dieser Künstler ist nicht mehr vorhanden."
 
 #: ../root/report/ArtistsWithNoSubscribers.js:28
 #: ../root/report/ArtistsWithNoSubscribers.js:29
@@ -11601,7 +11608,7 @@ msgstr "Dieser Report zeigt Veröffentlichungen mit Amazon-URLs, die nicht dem e
 #: ../root/report/components/ReleaseRelationshipList.js:53
 #: ../root/report/components/ReleaseUrlList.js:68
 msgid "This release no longer exists."
-msgstr ""
+msgstr "Diese Veröffentlichung ist nicht mehr vorhanden."
 
 #: ../root/report/CatNoLooksLikeAsin.js:34
 #: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:308
@@ -13123,15 +13130,15 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:88
 msgid "Search for an area"
-msgstr ""
+msgstr "Gebiet suchen"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:90
 msgid "Search for an editor"
-msgstr ""
+msgstr "Bearbeiter suchen"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:91
 msgid "Search for an event"
-msgstr ""
+msgstr "Veranstaltung suchen"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:92
 msgid "Search for an instrument"
@@ -13143,7 +13150,7 @@ msgstr "Nach einem Label suchen"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:94
 msgid "Search for a place"
-msgstr ""
+msgstr "Örtlichkeit suchen"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:95
 msgid "Search for a recording"
@@ -13332,7 +13339,7 @@ msgstr "alle Tags anzeigen"
 #: ../root/static/scripts/common/components/TagEditor.js:630
 msgctxt "verb"
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
 #: ../root/static/scripts/common/components/TaggerIcon.js:40
 msgid "Open in tagger"
@@ -14151,7 +14158,7 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:117
 msgid "Reason"
-msgstr ""
+msgstr "Grund"
 
 #: ../root/user/ReportUser.js:135
 msgid ""

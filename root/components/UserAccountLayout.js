@@ -17,7 +17,6 @@ import UserAccountTabs from './UserAccountTabs';
 type Props = {
   +children: React.Node,
   +entity: EditorT,
-  +gettextDomains?: $ReadOnlyArray<string>,
   +page: string,
   +title?: string,
 };

@@ -2,12 +2,12 @@
 # Translators:
 # reneweesp <email address hidden>, 2017-2019
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2012-2019
+# Maurits Meulenbelt <email address hidden>, 2012-2020
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-12-07 15:36+0000\n"
+"PO-Revision-Date: 2020-01-20 13:34+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -333,7 +333,7 @@ msgid ""
 "tight goat skin membrane and it is struck with the fingertips. Important in "
 "the Jamaican Burru music and Rastafari movement, it is part of the "
 "Nyabinghi/Akete drums."
-msgstr ""
+msgstr "Een keteh, ook bekend als kette of repeater is de kleinste trommel van het akete-trio. Het heeft een strak membraan van geitenhuid en wordt met de vingertoppen bespeeld."
 
 #. name:alto viol
 #: DB:instrument/description:923
@@ -515,7 +515,7 @@ msgid ""
 "href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>.<br "
 "/> For the instrument used in orchestra, see <a href=\"/instrument/7d6964ff-"
 "b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
-msgstr ""
+msgstr "Een glockenspiel is een metallofoon die bestaat uit toetsen of staven die met een hamer worden beslagen. <br /> Zie voor het instrument in klokkentorens <a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a> en voor het instrument dat in orkesten wordt gebruikt <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">buisklokken</a>."
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -700,7 +700,7 @@ msgid ""
 "href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>.<br "
 "/> For the instrument called orchestra bell/chime in some languages, see <a "
 "href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
-msgstr ""
+msgstr "Een glockenspiel is een populaire metallofoon die meestal bestaat uit metalen toetsen of staven op een houten resonator. <br /> Zie voor het instrument in klokkentorens <a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a> en voor het instrument dat in orkesten wordt gebruikt <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">buisklokken</a>."
 
 #. name:rudra veena
 #: DB:instrument/description:501
@@ -811,7 +811,7 @@ msgid ""
 " each on individual resonator boxes. <br /> It is similar to glockenspiel. "
 "<br /> For the instrument called <em>bar chimes</em>, see <a "
 "href=\"/instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">chimes</a>."
-msgstr ""
+msgstr "Hoewel de naam anders doet vermoeden, bestaat een klokkenstaaf niet uit klokken, maar uit gestemde metalen staven op resonatoren. <br />Het instrument lijkt op een glockenspiel.<br />Ook al lijken de namen op elkaar, het instrument moet niet worden verward met <a href=\"/instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">klokkenspel</a>."
 
 #. name:theorbo
 #: DB:instrument/description:395
@@ -938,7 +938,7 @@ msgid ""
 "Even lower pitched than the pemade , it also has 10 bronze keys suspended "
 "over tuned bamboo resonators that the player hits with a small hammer, often"
 " in a theatrical manner. It is the leader of the pokok melody."
-msgstr ""
+msgstr "Een ugal is een bronzen metallofoon die bestaat uit 10 toetsen die boven gestemde resonatoren van bamboe zijn opgehangen. De bespeler slaat, vaak op een theatrale manier, met een kleine hamer op de toetsen. In de Indonesische gamelan is de ugal de leider van de pokok-melodie."
 
 #. name:spinettone
 #: DB:instrument/description:799
@@ -958,7 +958,7 @@ msgstr "Een bedug is een extra grote dubbelkoppige trommel met een membraan van 
 #. name:pi
 #: DB:instrument/description:667
 msgid "Family of quadruple reed oboes"
-msgstr ""
+msgstr "Pi is een familie van hobo’s uit Thailand met vier rieten."
 
 #. name:Baltic psalteries
 #: DB:instrument/description:421
@@ -1126,7 +1126,7 @@ msgid ""
 "side of the short neck and one under the bridge which is membrane-"
 "covered.<br /> Not to be confused with the Uyghur spike fiddle <a "
 "href=\"/instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
-msgstr ""
+msgstr "De qeychak (ook wel ghichak of ghaychak) heeft vier metalen snaren en is uit één stuk hout gesneden in een vorm die lijkt op die van de sarinda. Het instrument heeft drie klankgaten: twee aan weerszijden van de korte hals en een onder de brug, afgedekt door een membraan.<br />Het instrument moet niet worden verward met het Oeigoerse spijkerluit <a href=\"/instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghidjak</a>."
 
 #. name:kantilan
 #: DB:instrument/description:975
@@ -1383,7 +1383,7 @@ msgid ""
 "Larger bass drum also known as thunder or pope smasher, it has a double goat"
 " skin membrane and is hit with a padded mallet. Important in the Jamaican "
 "Burru music and Rastafari movement, it is part of the Nyabinghi/Akete drums."
-msgstr ""
+msgstr "Een baandu (ook wel thunder of pope smasher) is een grote trom met een dubbel membraan van geitenhuid en wordt met een gestoffeerde hamer bespeeld."
 
 #. name:tubular bells
 #: DB:instrument/description:168
@@ -1599,7 +1599,7 @@ msgid ""
 "Middle size/pitch drum, it has a slack goat skin membrane and it is hit with"
 " the palms. Important in the Jamaican Burru music and Rastafari movement, it"
 " is part of the Nyabinghi/Akete drums."
-msgstr ""
+msgstr "Een fundeh is een middelgrote trom met een slap membraan van geitenhuid en wordt met de handpalmen bespeeld."
 
 #. name:kendhang batangan
 #: DB:instrument/description:992
@@ -1666,7 +1666,7 @@ msgstr "Door de ellebogen aangeblazen doedelzak uit Northumberland."
 msgid ""
 "Not to be confused with the Persian lute <a href=\"/instrument/d50ba107-4930"
 "-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
-msgstr ""
+msgstr "Moet niet worden verward met de Perzische luit <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">qeychak</a>."
 
 #. name:oboe
 #: DB:instrument/description:8
@@ -1706,7 +1706,7 @@ msgid ""
 "One to two octaves below <a href=\"/instrument/7e024f24-f778-4942-8fba-"
 "6f33ebfb2ac6\">panerus</a>, it plays elaborate melodies and is one of the "
 "most important instruments in the ensemble."
-msgstr ""
+msgstr "De bonang barung is een tot twee octaven lager gestemd dan de <a href=\"/instrument/7e024f24-f778-4942-8fba-6f33ebfb2ac6\">panerus</a>. Het wordt gebruikt voor het spelen van ingewikkelde melodieën en is een van de belangrijkste leden van het ensemble."
 
 #. name:handbell
 #: DB:instrument/description:275

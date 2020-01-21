@@ -117,10 +117,12 @@ const ArtistListRow = withCatalystContext(({
       </td>
     ) : null}
     {showInstrumentCreditsAndRelTypes ? (
-      <InstrumentRelTypes
-        entity={artist}
-        instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
-      />
+      <td>
+        <InstrumentRelTypes
+          entity={artist}
+          instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+        />
+      </td>
     ) : null}
     {mergeForm && artistList ? (
       <RemoveFromMergeTableCell

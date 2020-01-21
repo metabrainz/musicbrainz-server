@@ -13,6 +13,7 @@ import {withCatalystContext} from '../context';
 import PlaceList from '../components/list/PlaceList';
 import PaginatedResults from '../components/PaginatedResults';
 import * as manifest from '../static/manifest';
+import * as DBDefs from '../static/scripts/common/DBDefs-client';
 
 import AreaLayout from './AreaLayout';
 
@@ -36,8 +37,19 @@ const AreaPlaces = ({
 
     {places?.length ? (
       <>
-        <div id="largemap" />
-        {manifest.js('area/places-map.js', {'data-args': mapDataArgs})}
+        {DBDefs.MAPBOX_ACCESS_TOKEN ? (
+          <>
+            <div id="largemap" />
+            {manifest.js('area/places-map.js', {'data-args': mapDataArgs})}
+          </>
+        ) : (
+          <p>
+            {l(
+              `A map cannot be shown because no maps service access token has
+               been set for this server.`,
+            )}
+          </p>
+        )}
         <form action="/place/merge_queue" method="post">
           <PaginatedResults pager={pager}>
             <PlaceList

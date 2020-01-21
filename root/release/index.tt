@@ -1,4 +1,4 @@
-[%- WRAPPER 'release/layout.tt' gettext_domains=['countries'] page='index' -%]
+[%- WRAPPER 'release/layout.tt' page='index' -%]
     [%- INCLUDE 'annotation/summary.tt' -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>

@@ -106,7 +106,6 @@ const ReleaseGroupIndex = ({
 }: Props) => (
   <ReleaseGroupLayout
     entity={releaseGroup}
-    gettextDomains={['countries']}
     page="index"
   >
     {eligibleForCleanup ? (

@@ -23,6 +23,7 @@ const browserConfig = require('./webpack/browserConfig');
 const {dirs, GETTEXT_DOMAINS, PUBLIC_PATH} = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
+const jedDataTemplate = require('./root/static/scripts/jed-data');
 
 const entries = [
   'account/applications/register',
@@ -126,7 +127,7 @@ function createJsPo(srcPo, lang) {
    */
   shell.exec(`msggrep ${msgLocations} ${srcPo} -o ${tmpPo}`);
 
-  jedData = poFile.load('javascript', lang, 'mb_server');
+  const jedData = poFile.load('javascript', lang, 'mb_server');
   fs.unlinkSync(tmpPo);
   return jedData;
 }
@@ -152,29 +153,40 @@ _(DBDefs.MB_LANGUAGES || '')
   .without('en')
   .map(langToPosix)
   .each(function (lang) {
+    const langJedData = _.cloneDeep(jedDataTemplate.en);
+    const fileName = `jed-${lang}`;
+    const filePath = path.resolve(dirs.BUILD, `${fileName}.source.js`);
+    const fileMtime = mtime(filePath);
+    let loadedNewPoData = false;
+
     GETTEXT_DOMAINS.forEach(function (domain) {
-      const fileName = `jed-${lang}-${domain}`;
-      const filePath = path.resolve(dirs.BUILD, `${fileName}.source.js`);
-      const fileMtime = mtime(filePath);
-      const jedData = loadNewerPo(domain, lang, fileMtime);
+      const domainJedData = loadNewerPo(domain, lang, fileMtime);
 
-      if (jedData) {
-        const source = (`
-          require(${
-            JSON.stringify(path.resolve(dirs.SCRIPTS, 'jed-data'))
-          }).mergeData(
-            ${JSON.stringify(domain)},
-            ${JSON.stringify(lang)},
-            ${canonicalJson(jedData)},
-          );
-        `);
-        fs.writeFileSync(filePath, source);
-      }
-
-      if (fs.existsSync(filePath)) {
-        entries[fileName] = filePath;
+      if (domainJedData) {
+        loadedNewPoData = true;
+        langJedData.locale_data[domain] = domainJedData.locale_data[domain];
       }
     });
+
+    if (loadedNewPoData) {
+      const source = (
+        'var jedData = require(' +
+        JSON.stringify(path.resolve(dirs.SCRIPTS, 'jed-data')) + ');\n' +
+        'var locale = ' + JSON.stringify(lang) + ';\n' +
+        // https://v8.dev/blog/cost-of-javascript-2019#json
+        'jedData[locale] = JSON.parse(\'' +
+        canonicalJson(langJedData)
+          .replace(/\\/g, '\\\\')
+          .replace(/'/g, "\\'") +
+        '\');\n' +
+        'jedData.locale = locale;\n'
+      );
+      fs.writeFileSync(filePath, source);
+    }
+
+    if (fs.existsSync(filePath)) {
+      entries[fileName] = filePath;
+    }
   });
 
 const plugins = browserConfig.plugins.concat();

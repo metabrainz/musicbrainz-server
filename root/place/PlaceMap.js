@@ -10,6 +10,7 @@
 import React from 'react';
 
 import * as manifest from '../static/manifest';
+import * as DBDefs from '../static/scripts/common/DBDefs-client';
 
 import PlaceLayout from './PlaceLayout';
 
@@ -30,10 +31,19 @@ const PlaceMap = ({
 }: Props) => (
   <PlaceLayout entity={place} page="map" title={l('Map')}>
     {place.coordinates ? (
-      <>
-        <div id="largemap" />
-        {manifest.js('place/map.js', {'data-args': mapDataArgs})}
-      </>
+      DBDefs.MAPBOX_ACCESS_TOKEN ? (
+        <>
+          <div id="largemap" />
+          {manifest.js('place/map.js', {'data-args': mapDataArgs})}
+        </>
+      ) : (
+        <p>
+          {l(
+            `A map cannot be shown because no maps service access token has
+             been set for this server.`,
+          )}
+        </p>
+      )
     ) : (
       <p>
         {l('A map cannot be shown because this place has no coordinates.')}

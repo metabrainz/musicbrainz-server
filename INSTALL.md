@@ -172,7 +172,8 @@ Below outlines how to setup MusicBrainz server with local::lib.
             libpq-dev \
             libxml2 \
             libxml2-dev \
-            cpanminus
+            cpanminus \
+            pkg-config
 
 2.  Enable local::lib
 
@@ -228,7 +229,7 @@ Creating the database
     To build our collate extension you will need libicu and its development
     headers, to install these run:
 
-        sudo apt-get install libicu-dev
+        sudo apt-get install libicu-dev pkg-config
 
     With libicu installed, you can build and install the collate extension by
     running:
@@ -251,8 +252,9 @@ Creating the database
     users (whoever your web server/crontabs run as), to one database (the
     MusicBrainz Database), as one PostgreSQL user. The PostgreSQL database name
     and user name are given in DBDefs.pm (look for the `READWRITE` key).  For
-    example, if you run your web server and crontabs as "www-user", the
-    following configuration recipe may prove useful:
+    example, if you run your web server and crontabs as "www-user", and you have
+    kept the default PostgreSQL user name ("musicbrainz"), the following
+    configuration recipe may prove useful:
 
         # in pg_hba.conf (Note: The order of lines is important!):
         local    musicbrainz_db    musicbrainz    ident    map=mb_map
@@ -267,13 +269,13 @@ Creating the database
 
         local   all    all    trust
 
-    By default, the password for the user musicbrainz should be "musicbrainz",
-    as stated in lib/DBDefs.pm. You can change it with `psql`:
-
-        postgres=# ALTER USER musicbrainz UNENCRYPTED PASSWORD 'musicbrainz'
-
     Note that a running PostgreSQL will pick up changes to configuration files
-    only when being told so via a `HUP` signal.
+    only when being told so via a `HUP` signal (or by using pg_ctlcluster,
+    specifying `reload` as action).
+
+    You do not need to create the PostgreSQL user ("musicbrainz", or whatever
+    name you configured in DBDefs.pm) yourself; the next step will do so
+    (using the password from DBDefs.pm) if it does not exist yet.
 
 3.  Create the database
 
@@ -290,12 +292,12 @@ Creating the database
     2.  Import a database dump
 
         Our database dumps are provided twice a week and can be downloaded from
-        ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
+        [from a variety of locations](https://musicbrainz.org/doc/MusicBrainz_Database/Download#Download).
+        That page also describes the contents of the various dump files.
 
         To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
-        grab whichever dumps suit your needs. The online documentation has a
-        [description of the various data dump files](https://musicbrainz.org/doc/MusicBrainz_Database/Download#File_Descriptions).
+        grab whichever dumps suit your needs.
 
         Assuming the dumps have been downloaded to /tmp/dumps/ you can verify
         that the data is correct by running:
@@ -328,11 +330,16 @@ Creating the database
         
         If a full dump is too large for your purposes, but you would like to have some
         real data to test with for development, you can download our database sample,
-        published once a month at 
-        ftp://ftp.musicbrainz.org/pub/musicbrainz/data/sample/
-    
+        published once a month. This can be found at the same places the full dump is
+        found (see above), but using `sample` instead of `fullexport` in the URL.
+        For example: http://ftp.musicbrainz.org/pub/musicbrainz/data/sample/.
+
         You can import this sample dump in the same way as the full dump above.
-        
+
+    If this process gets interrupted or fails, you will need to manually drop the
+    musicbrainz_db database in order to be able to run `./admin/InitDb.pl --createdb`
+    again.
+
     MusicBrainz Server doesn't enforce any statement timeouts on any SQL it runs.
     If this is an issue in your setup, you may want to set a timeout at the
     database level:
@@ -380,14 +387,34 @@ If you intend to run a server with translations, there are a few steps to follow
 
 1.  Prerequisites
 
-    Make sure gettext is installed (you need msgmerge and msgfmt, at least),
-    and the transifex client 'tx'
-    (http://help.transifex.com/features/client/index.html):
+    Make sure gettext is installed (you need msgmerge and msgfmt, at least):
 
-        sudo apt-get install gettext transifex-client
+        sudo apt-get install gettext
 
-    Configure a username and password in ~/.transifexrc using the format listed
-    on the above page.
+    This will enable you to compile and install the translations that are in
+    the source repository.
+    
+    If you want to get the latest translation files or partial work-in-progress
+    translations, or wish to work on translations yourself, you will need to
+    create a [Transifex](https://www.transifex.com/) account and install its
+    client software (`tx`):
+
+        sudo apt-get install transifex-client
+
+    More information (and alternative ways to install the client) can be found
+    [here](https://docs.transifex.com/client/introduction/).
+
+    Next, [create an API token](https://www.transifex.com/user/settings/api/)
+    and use it to configure your credentials in
+    [`~/.transifexrc`](https://docs.transifex.com/client/client-configuration#-transifexrc).
+    
+    Finally, you will need to join the
+    [MetaBrainz Foundation organization](https://www.transifex.com/musicbrainz/public/)
+    on Transifex to get access to the translations. If you wish to work on
+    translations, you will also need to
+    [join a language team](https://www.transifex.com/musicbrainz/musicbrainz/dashboard/).
+    More information on how to get started can be found on
+    [the MusicBrainz site](https://musicbrainz.org/doc/Server_Internationalisation).
 
 2.  Change to the po directory
 
@@ -398,32 +425,31 @@ If you intend to run a server with translations, there are a few steps to follow
         tx pull -l {a list of languages you want to pull}
 
     This will download the .po files for your language(s) of choice to the po/
-    folder with the correct filenames.
+    folder with the correct filenames. Languages are written as an ISO language
+    code, optionally followed by an underscore and an ISO country code (e.g. `fr`
+    for French, `fr_CA` for Canadian French).
+
+    Or, if you want to get _all_ translations instead:
+
+        tx pull -a
+
+    If you get `Forbidden` errors from `tx pull`, you will need to make sure
+    you have joined the MusicBrainz organization and/or project (see point 1).
 
 4.  Install translations
 
         make install
 
     This will compile and install the files to
-    lib/LocaleData/{language}/LC\_MESSAGES/{domain}.mo
+    `lib/LocaleData/{language}/LC_MESSAGES/{domain}.mo`.
 
-5.  Add the languages to MB\_LANGUAGES in DBDefs.pm. These should be formatted
+5.  Add the languages to `MB_LANGUAGES` in DBDefs.pm. These should be formatted
     {lang}-{country}, e.g. 'es', or 'fr-ca', in a space-separated list.
 
-6.  Ensure you have a system locale for any languages you want to use, and for
-    some languages, be wary of https://rt.cpan.org/Public/Bug/Display.html?id=78341
-
-    For many languages, this will suffice:
+6.  Ensure you have a system locale for any languages you want to use. For many
+    languages, this will suffice:
 
         sudo apt-get install language-pack-{language code}
-
-    To work around the linked CPAN bug, you may need to edit the file for Locale::Util
-    to add entries to LANG2COUNTRY. Suggested ones include:
-
-    * es => 'ES'
-    * et => 'EE'
-    * el => 'GR'
-    * sl => 'SI' (this one is there in 1.20, but needs amendment)
 
 
 Troubleshooting

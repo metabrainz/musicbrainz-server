@@ -22,7 +22,6 @@ type Props = {
   +children: ReactNode,
   +entity: ReleaseGroupT,
   +fullWidth?: boolean,
-  +gettextDomains?: ?$ReadOnlyArray<string>,
   +page: string,
   +title?: string,
 };
@@ -31,7 +30,6 @@ const ReleaseGroupLayout = ({
   children,
   entity: releaseGroup,
   fullWidth,
-  gettextDomains,
   page,
   title,
 }: Props) => {
@@ -41,7 +39,6 @@ const ReleaseGroupLayout = ({
   });
   return (
     <Layout
-      gettextDomains={gettextDomains}
       title={title ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">

@@ -13,7 +13,7 @@
 # leofiore <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Salini <email address hidden>, 2012
-# Luca Salini <email address hidden>, 2012-2013,2016-2019
+# Luca Salini <email address hidden>, 2012-2013,2016-2020
 # nikki, 2012-2013
 # nikki, 2012-2013
 # nikki, 2013
@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 01:48+0000\n"
-"PO-Revision-Date: 2019-12-20 01:57+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2020-01-16 12:01+0000\n"
+"PO-Revision-Date: 2020-01-19 15:29+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -205,7 +205,7 @@ msgstr "-"
 #: ../root/search/components/ReleaseResults.js:105
 msgctxt "and"
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../root/components/common-macros.tt:103
 msgid "250px"
@@ -3265,7 +3265,7 @@ msgstr "N/D"
 #: ../root/search/components/RecordingResults.js:123
 #: ../root/search/components/ReleaseResults.js:101
 #: ../root/search/components/SeriesResults.js:51
-#: ../root/search/components/TagResults.js:44
+#: ../root/search/components/TagResults.js:50
 #: ../root/search/components/WorkResults.js:48
 #: ../root/static/scripts/account/components/ApplicationForm.js:76
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:76
@@ -3427,7 +3427,7 @@ msgstr "No"
 
 #: ../root/instrument/artists.tt:12
 msgid "No artists found."
-msgstr ""
+msgstr "Nessun artista trovato."
 
 #: ../root/edit/notes.tt:13
 msgid "No edit notes have been added."
@@ -3786,8 +3786,8 @@ msgstr "Dettagli del luogo"
 msgid "Place:"
 msgstr "Luogo:"
 
-#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:34
-#: ../root/area/AreaPlaces.js:35 ../root/components/EntityTabs.js:28
+#: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:35
+#: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:28
 #: ../root/report/ReportsIndex.js:455
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:114 ../root/tag/TagLayout.js:31
@@ -7236,7 +7236,7 @@ msgid ""
 "you.</strong><br/>Please confirm that you have entered a valid address by "
 "editing your {settings|account settings}. If the problem still persists, "
 "please contact us at {mail|support@musicbrainz.org}."
-msgstr ""
+msgstr "<strong>Non è stato possibile inviarti un'email di verifica.</strong><br/>Assicurati di aver inserito un indirizzo valido modificando le {settings|impostazioni del tuo account}. Se il problema persiste, contattaci all'indirizzo {mail|support@musicbrainz.org}."
 
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:84
 msgid "User successfully edited."
@@ -7337,7 +7337,7 @@ msgstr "Le serie con tipi di entità diversi non possono essere unite."
 msgid ""
 "You cannot contact other users because you have not {url|verified your email"
 " address}."
-msgstr ""
+msgstr "Non puoi contattare altri utenti perché non hai ancora {url|verificato il tuo indirizzo email}."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:273
 #, perl-brace-format
@@ -9010,7 +9010,7 @@ msgstr "Abbiamo inviato un'email a {addr}. Controlla la tua casella di posta e c
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:15
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:16
 msgid "Unverified Email Address"
-msgstr ""
+msgstr "Indirizzo email non verificato"
 
 #: ../root/admin/EditBanner.js:23 ../root/layout/components/TopMenu.js:129
 msgid "Edit Banner Message"
@@ -9069,7 +9069,7 @@ msgstr "Quest'area non è al momento associata a nessun evento."
 msgid "{area_type} in {parent_areas}"
 msgstr "{area_type} in {parent_areas}"
 
-#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:52
+#: ../root/area/AreaLabels.js:47 ../root/area/AreaPlaces.js:64
 msgid "Add selected labels for merging"
 msgstr "Aggiungi le etichette selezionate per unirle"
 
@@ -9077,7 +9077,13 @@ msgstr "Aggiungi le etichette selezionate per unirle"
 msgid "This area is not currently associated with any labels."
 msgstr "Quest'area non è al momento associata a nessuna etichetta."
 
-#: ../root/area/AreaPlaces.js:61
+#: ../root/area/AreaPlaces.js:48 ../root/place/PlaceMap.js:42
+msgid ""
+"A map cannot be shown because no maps service access token has been set for "
+"this server."
+msgstr "Impossibile visualizzare una cartina poiché su questo server non è stato impostato alcun token di accesso ad un servizio mappe."
+
+#: ../root/area/AreaPlaces.js:73
 msgid "This area is not currently associated with any places."
 msgstr "Quest'area non è al momento associata a nessun luogo."
 
@@ -9527,7 +9533,7 @@ msgstr "È caldamente raccomandato inserire una {note|nota di modifica} che indi
 msgid "Fingerprints"
 msgstr "Impronte digitali"
 
-#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:31
+#: ../root/components/EntityTabs.js:26 ../root/place/PlaceMap.js:32
 msgid "Map"
 msgstr "Cartina"
 
@@ -10280,7 +10286,8 @@ msgstr "Modifica genere"
 msgid "Genre details"
 msgstr "Dettagli sul genere"
 
-#: ../root/genre/GenreHeader.js:28 ../root/tag/TagIndex.js:79
+#: ../root/genre/GenreHeader.js:28 ../root/search/components/TagResults.js:51
+#: ../root/tag/TagIndex.js:79
 msgid "Genre"
 msgstr "Genere"
 
@@ -11095,7 +11102,7 @@ msgstr "Hai permesso l'accesso a {app}. Ora ritorna a {app} e copia questo token
 msgid "This place is not currently associated with any events."
 msgstr "Questo luogo non è al momento associato a nessun evento."
 
-#: ../root/place/PlaceMap.js:39
+#: ../root/place/PlaceMap.js:49
 msgid "A map cannot be shown because this place has no coordinates."
 msgstr "Impossibile visualizzare una cartina poiché questo luogo non ha coordinate."
 
@@ -13196,27 +13203,27 @@ msgstr "Questa registrazione non ha nessun AcoustID associato."
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:51
 msgid "Missing country"
-msgstr ""
+msgstr "Paese mancante"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:68
 msgid "Missing date"
-msgstr ""
+msgstr "Data mancante"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:123
 msgid "Show all release events"
-msgstr ""
+msgstr "Mostra tutti gli eventi di pubblicazione"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:125
 msgid "show {n} more"
-msgstr ""
+msgstr "mostra altri {n}"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:142
 msgid "Show less release events"
-msgstr ""
+msgstr "Mostra meno eventi di pubblicazione"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:144
 msgid "show less"
-msgstr ""
+msgstr "mostra meno"
 
 #: ../root/static/scripts/common/components/TagEditor.js:85
 msgid "Withdraw vote"
@@ -14224,7 +14231,7 @@ msgstr "{doc|Editor di luoghi}"
 msgid ""
 "User accounts must be more than 2 weeks old, have a verified email address, "
 "and more than 10 accepted edits in order to vote on others' edits."
-msgstr ""
+msgstr "Gli account utente devono risalire ad almeno 2 settimane fa, avere un indirizzo email verificato e più di 10 modifiche accettate per poter votare sulle modifiche altrui."
 
 #: ../root/user/UserProfile.js:68
 msgid "Beginner"
@@ -14246,7 +14253,7 @@ msgstr "Gli inizi del progetto"
 msgid ""
 "Your homepage and biography will not show until you have completed the email"
 " verification process."
-msgstr ""
+msgstr "La tua homepage e la tua biografia non appariranno finché non avrai completato la verifica del tuo indirizzo email."
 
 #: ../root/user/UserProfile.js:136
 msgid "General Information"

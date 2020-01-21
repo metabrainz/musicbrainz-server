@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' full_width=1 title=l('Edit Relationships: {release}', {release => release.name}) gettext_domains=['attributes', 'countries', 'instruments', 'instrument_descriptions', 'languages', 'relationships'] -%]
+[%- WRAPPER 'layout.tt' full_width=1 title=l('Edit Relationships: {release}', {release => release.name}) -%]
     [% script_manifest('edit.js') %]
 
     [% PROCESS 'components/relationship-editor.tt' %]
