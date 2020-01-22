@@ -72,7 +72,7 @@
       </fieldset>
 
       [% IF artist_credits.size %]
-      <fieldset>
+      <fieldset id="artist-credit-renamer">
         <legend>[% l('Artist Credits') %]</legend>
         <p>
             [%- l('Please select the {doc|artist credits} that you want to rename to follow the new artist name.', {doc => doc_link('Artist Credits')}) -%]

@@ -15,7 +15,7 @@
     <fieldset>
       <legend data-bind="text: formattedName()"></legend>
 
-      <table data-bind="if: loaded">
+      <table id="track-recording-assignation" data-bind="if: loaded">
         <thead>
           <tr>
             <th></th>

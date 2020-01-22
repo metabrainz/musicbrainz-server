@@ -10,43 +10,53 @@ import $ from 'jquery';
 
 import MB from '../../MB';
 
-MB.Control.SelectAll = function (table) {
-    var self = {};
+MB.Control.RangeSelect = function (selector, parent) {
+  let lastChecked = null;
+  $(parent || 'body').on(
+    'click',
+    selector,
+    function (event) {
+      const thisChecked = event.currentTarget;
+      const $checkboxes = $(selector);
 
-    self.$table = $(table);
-    self.$checkboxes = self.$table.find('td input[type="checkbox"]');
-    self.lastChecked = null;
+      if (event.shiftKey && lastChecked && lastChecked !== thisChecked) {
+        const lastIndex = $checkboxes.index(lastChecked);
+        const thisIndex = $checkboxes.index(thisChecked);
+        const thisIsChecked = $(thisChecked).is(':checked');
 
-    self.$selector = self.$table.find('th input[type="checkbox"]');
-
-    self.$selector.toggle(self.$checkboxes.length > 0);
-
-    self.$selector.change(function () {
-        var $input = $(this);
-        self.$checkboxes.prop('checked', $input.prop('checked'));
-    });
-
-    self.$checkboxes.click(function (event) {
-        if (event.shiftKey && self.lastChecked && self.lastChecked != this) {
-            const first = self.$checkboxes.index(self.lastChecked);
-            const last = self.$checkboxes.index(this);
-
-            if (first > last) {
-                self.$checkboxes.slice(last, first + 1)
-                    .prop('checked', this.checked);
-            } else if (last > first) {
-                self.$checkboxes.slice(first, last + 1)
-                    .prop('checked', this.checked);
-            }
+        if (lastIndex > thisIndex) {
+          $checkboxes.slice(thisIndex, lastIndex + 1)
+            .filter(thisIsChecked ? ':not(:checked)' : ':checked')
+            .trigger('click');
+        } else if (thisIndex > lastIndex) {
+          $checkboxes.slice(lastIndex, thisIndex + 1)
+            .filter(thisIsChecked ? ':not(:checked)' : ':checked')
+            .trigger('click');
         }
-        self.lastChecked = this;
-    });
+      }
+      lastChecked = thisChecked;
+    },
+  );
+};
 
-    return self;
+MB.Control.SelectAll = function (table) {
+  const $table = $(table);
+  const $checkboxes = $table.find('td input[type="checkbox"]');
+
+  const $selector = $table.find('th input[type="checkbox"]');
+
+  $selector.toggle($checkboxes.length > 0);
+
+  $selector.change(function () {
+    const $input = $(this);
+    $checkboxes.prop('checked', $input.prop('checked'));
+  });
+
+  MB.Control.RangeSelect('td input[type="checkbox"]', $table);
 };
 
 $(function () {
-    $('table.tbl').each(function () {
-        MB.Control.SelectAll(this);
-    });
+  $('table.tbl').each(function () {
+    MB.Control.SelectAll(this);
+  });
 });
