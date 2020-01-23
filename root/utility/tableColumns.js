@@ -25,10 +25,14 @@ import CodeLink from '../static/scripts/common/components/CodeLink';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import EventLocations
+  from '../static/scripts/common/components/EventLocations';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import formatDate from '../static/scripts/common/utility/formatDate';
+import formatDatePeriod
+  from '../static/scripts/common/utility/formatDatePeriod';
 import formatEndDate from '../static/scripts/common/utility/formatEndDate';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import yesNo from '../static/scripts/common/utility/yesNo';
@@ -145,6 +149,25 @@ export function defineCheckboxColumn<T>(
   };
 }
 
+export function defineDatePeriodColumn(
+  order?: string = '',
+  sortable?: boolean = false,
+): ColumnOptions<{...DatePeriodRoleT, ...}, string> {
+  return {
+    Cell: ({row: {original}}) => formatDatePeriod(original),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={l('Date')}
+          name="date"
+          order={order}
+        />
+      )
+      : l('Date')),
+    id: 'date',
+  };
+}
+
 export function defineEndDateColumn(
   order?: string = '',
   sortable?: boolean = false,
@@ -220,7 +243,13 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
     Cell: ({row: {original}}) => (
       descriptive
         ? <DescriptiveLink entity={original} />
-        : <EntityLink entity={original} />
+        : (
+          <EntityLink
+            entity={original}
+            // Event lists show date in its own column
+            showEventDate={false}
+          />
+        )
     ),
     Header: (sortable
       ? (
@@ -400,6 +429,13 @@ export const iswcsColumn:
     ),
     Header: N_l('ISWC'),
     accessor: 'iswcs',
+  };
+
+export const locationColumn:
+  ColumnOptions<EventT, number> = {
+    Cell: ({row: {original}}) => <EventLocations event={original} />,
+    Header: N_l('Location'),
+    id: 'location',
   };
 
 export const ratingsColumn:
