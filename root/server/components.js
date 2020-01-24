@@ -289,6 +289,7 @@ module.exports = {
   'static/scripts/common/components/TaggerIcon': require('../static/scripts/common/components/TaggerIcon'),
   'static/scripts/common/components/WarningIcon': require('../static/scripts/common/components/WarningIcon'),
   'static/scripts/common/components/WikipediaExtract': require('../static/scripts/common/components/WikipediaExtract'),
+  'static/scripts/common/components/WorkArtists': require('../static/scripts/common/components/WorkArtists'),
   'static/scripts/edit/components/AddIcon': require('../static/scripts/edit/components/AddIcon'),
   'static/scripts/edit/components/GuessCaseIcon': require('../static/scripts/edit/components/GuessCaseIcon'),
   'static/scripts/edit/components/InformationIcon': require('../static/scripts/edit/components/InformationIcon'),

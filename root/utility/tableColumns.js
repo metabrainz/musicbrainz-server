@@ -30,6 +30,8 @@ import EventLocations
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
+import WorkArtists
+  from '../static/scripts/common/components/WorkArtists';
 import formatDate from '../static/scripts/common/utility/formatDate';
 import formatDatePeriod
   from '../static/scripts/common/utility/formatDatePeriod';
@@ -473,15 +475,7 @@ export const taggerColumn:
 
 export const workArtistsColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
-    Cell: ({cell: {value}}) => (
-      <ul>
-        {value.map((artistCredit, i) => (
-          <li key={i}>
-            <ArtistCreditLink artistCredit={artistCredit} />
-          </li>
-        ))}
-      </ul>
-    ),
+    Cell: ({cell: {value}}) => <WorkArtists artists={value} />,
     Header: N_l('Artists'),
     accessor: 'artists',
   };
