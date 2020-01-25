@@ -13,13 +13,22 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 
 type Props = {
   +content: string,
+  +disabled?: boolean,
   +entity: CoreEntityT | CollectionT,
   +selected: boolean,
   +subPath: string,
 };
 
-const EntityTabLink = ({selected, ...linkProps}: Props) => (
-  <li className={selected ? 'sel' : null}>
+const EntityTabLink = ({disabled, selected, ...linkProps}: Props) => (
+  <li
+    className={
+      selected || disabled
+        ? (selected ? 'sel' : '') +
+          (selected && disabled ? ' ' : '') +
+          (disabled ? 'disabled' : '')
+        : null
+    }
+  >
     <EntityLink {...linkProps} />
   </li>
 );
