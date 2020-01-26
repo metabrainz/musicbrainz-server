@@ -2,6 +2,7 @@
     [%- INCLUDE 'annotation/summary.tt' -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
+
     [% has_any_credits = release.relationships.size OR release.release_group.relationships.size %]
 
     [% IF release.mediums.size == 0 %]
@@ -9,7 +10,7 @@
         [% l('The tracklist for this release is currently unknown.') %]
       </p>
     [% ELSE %]
-      <button type="button" id="toggle-credits" class="btn-link"></button>
+      [% React.embed(c, 'components/MediumToolbox', { hasMultipleMedia => release.mediums.size > 1 }) %]
 
       [%~ PROCESS 'components/medium.tt' ~%]
 
