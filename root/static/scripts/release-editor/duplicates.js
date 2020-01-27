@@ -171,7 +171,7 @@ function formatReleaseData(release) {
 
 function combinedMediumFormatName(mediums) {
     var formats = pluck(_(mediums), "format");
-    var formatCounts = formats.countBy(_.identity);
+    var formatCounts = _.countBy(mediums, 'format');
 
     return formats
         .uniq()
