@@ -25,8 +25,7 @@ sub edits : Chained('load') PathPart
               'conditions.0.field' => model_to_type( $self->{model} ),
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
-              'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
-              $c->user_exists ? ('conditions.0.user_id' => $c->user->id) : () },
+              'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id },
     );
 }
 
@@ -51,7 +50,6 @@ sub open_edits : Chained('load') PathPart
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
               'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
-              $c->user_exists ? ('conditions.0.user_id' => $c->user->id) : (),
               'conditions.1.field' => 'status',
               'conditions.1.operator' => '=',
               'conditions.1.args' => $STATUS_OPEN },
