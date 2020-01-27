@@ -170,16 +170,16 @@ function formatReleaseData(release) {
 
 
 function combinedMediumFormatName(mediums) {
-    var formats = pluck(_(mediums), "format");
-    var formatCounts = _.countBy(mediums, 'format');
+    const getFormat = medium => medium.format || '';
+    const formats = _.uniq(mediums.map(getFormat));
+    const formatCounts = _.countBy(mediums, getFormat);
 
     return formats
-        .uniq()
         .map(function (format) {
-            var count = formatCounts[format];
+            const count = formatCounts[format];
 
-            return (count > 1 ? count + "\u00D7" : "") + format;
+            return (count > 1 ? count + "\u00D7" : "") +
+                (format || l('(unknown)'));
         })
-        .value()
         .join(" + ");
 }
