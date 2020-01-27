@@ -25,7 +25,6 @@
 /MYMETA.yml
 /po/*.mo
 *.ttc
-*.pyc
 *~
 .#*
 *.swp
