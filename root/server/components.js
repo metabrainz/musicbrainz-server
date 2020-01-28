@@ -255,6 +255,7 @@ module.exports = {
   'edit/details/AddEvent': require('../edit/details/AddEvent'),
   'edit/details/AddPlace': require('../edit/details/AddPlace'),
   'edit/details/AddRemoveAlias': require('../edit/details/AddRemoveAlias'),
+  'edit/details/AddSeries': require('../edit/details/AddSeries'),
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'edit/details/EditPlace': require('../edit/details/EditPlace'),
   'event/EventHeader': require('../event/EventHeader'),
