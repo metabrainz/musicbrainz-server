@@ -60,16 +60,7 @@ lookup_handler 'barcode' => sub {
 lookup_handler 'mbid' => sub {
     my ($self, $c, $gid) = @_;
 
-    for my $model (entities_with('mbid', take => 'model')) {
-        my $entity = $c->model($model)->get_by_gid($gid) or next;
-        $c->response->redirect(
-            $c->uri_for_action(
-                $c->controller($model)->action_for('show'),
-                [ $gid ]));
-        $c->detach;
-    }
-
-    $self->not_found($c);
+    $c->forward('/mbid/show', [$gid]);
 };
 
 lookup_handler 'url' => sub {

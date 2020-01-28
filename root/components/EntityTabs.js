@@ -18,8 +18,7 @@ import Tabs from './Tabs';
 import EntityTabLink from './EntityTabLink';
 
 const tabLinkNames = {
-  'artists': N_l('Artists'),
-  discids: N_l('Disc IDs'),
+  artists: N_l('Artists'),
   events: N_l('Events'),
   fingerprints: N_l('Fingerprints'),
   labels: N_l('Labels'),
@@ -37,10 +36,12 @@ const buildLink = (
   entity,
   subPath,
   page,
+  disabled = false,
   pageName = subPath,
 ) => (
   <EntityTabLink
     content={content}
+    disabled={disabled}
     entity={entity}
     key={subPath}
     selected={pageName === page}
@@ -71,7 +72,7 @@ function buildLinks(
   page: string,
   editTab: ?React.Node,
 ): React.Node {
-  const links = [buildLink(l('Overview'), entity, '', page, 'index')];
+  const links = [buildLink(l('Overview'), entity, '', page, false, 'index')];
   const user = $c.user;
 
   const entityProperties = ENTITIES[entity.entityType];
@@ -84,6 +85,21 @@ function buildLinks(
 
   if (entityProperties.mbid.relatable === 'dedicated') {
     links.push(buildLink(l('Relationships'), entity, 'relationships', page));
+  }
+
+  if (entity.entityType === 'release') {
+    links.push(buildLink(
+      entity.may_have_discids
+        ? texp.l(
+          'Disc IDs ({num})',
+          {num: $c.stash.release_cdtoc_count || 0},
+        )
+        : l('Disc IDs'),
+      entity,
+      'discids',
+      page,
+      !entity.may_have_discids /* disable if can't have discids */,
+    ));
   }
 
   if (entityProperties.cover_art) {

@@ -78,7 +78,7 @@ msgstr "注音符号"
 msgid "Brahmi"
 msgstr "ブラーフミー文字"
 
-#. frequency:1 iso_code:Brai
+#. frequency:2 iso_code:Brai
 #: DB:script/name:96
 msgid "Braille"
 msgstr "ブライユ点字"

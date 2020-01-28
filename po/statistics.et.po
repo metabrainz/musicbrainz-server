@@ -607,7 +607,7 @@ msgstr "Kaanepildid"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
 #: ../root/statistics/StatisticsLayout.js:98
-#: ../root/statistics/StatisticsLayout.js:112
+#: ../root/statistics/StatisticsLayout.js:111
 msgid "Database Statistics"
 msgstr "Andmebaasi statistika"
 

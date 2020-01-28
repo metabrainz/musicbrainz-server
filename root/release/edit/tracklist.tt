@@ -408,14 +408,32 @@
           <p style="margin-top: 0;">
             <label>
               <input class="has-pregap" type="checkbox" data-bind="checked: hasPregap" />
-              [% l('This disc has a hidden pregap track before track 1 ({info|more info})', { info => { href => doc_link('Hidden_Track'), target => '_blank' } }) %]
+              [% l('This disc has a hidden pregap track before track 1') %]
+              (<a href="#" data-bind="click: togglePregapTrackHelp">[% l('help') %]</a>)
             </label>
+            <div class="ar-descr" data-bind="visible: showPregapTrackHelp">
+              <p>
+                [% l('Some discs contain a hidden track in the pregap section that precedes track 1. Use this to add (or remove) the special pregap track section.') %]
+              </p>
+              <p>
+                [% l('Keep in mind that unselecting this will delete the track if the medium has a disc ID! If you unselect it by mistake, please readd the pregap track before submitting.') %]
+              </p>
+            </div>
           </p>
           <p style="margin-top: 0;">
             <label>
               <input class="has-data-tracks" type="checkbox" data-bind="checked: hasDataTracks" />
-              [% l('This disc contains data tracks at the end ({info|more info})', { info => { href => doc_link('Data_Track'), target => '_blank' } }) %]
+              [% l('This disc contains data tracks at the end') %]
+              (<a href="#" data-bind="click: toggleDataTracksHelp">[% l('help') %]</a>)
             </label>
+            <div class="ar-descr" data-bind="visible: showDataTracksHelp">
+              <p>
+                [% l('Some discs contain one or more data tracks after all audio tracks. Use this to add (or remove) the special data tracks section. You should only add data tracks that contain audio or video ({info|more info})', { info => { href => doc_link('Data_Track'), target => '_blank' } }) %]
+              </p>
+              <p>
+                [% l('Keep in mind that unselecting this will delete the tracks if the medium has a disc ID! If you unselect it by mistake, please readd the data tracks before submitting.') %]
+              </p>
+            </div>
           </p>
         <!-- /ko -->
 

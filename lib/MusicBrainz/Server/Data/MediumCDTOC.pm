@@ -75,6 +75,19 @@ sub find_by_discid
     $self->query_to_list($query, [$discid]);
 }
 
+sub find_count_by_release
+{
+    my ($self, $release_id) = @_;
+
+    return unless $release_id; # nothing to do
+    my $query = 'SELECT count(*)
+        FROM ' . $self->_table . '
+          JOIN medium ON medium = medium.id
+        WHERE medium.release = ?';
+
+    return $self->sql->select_single_value($query, $release_id);
+}
+
 sub get_by_medium_cdtoc
 {
     my ($self, $medium_id, $cdtoc_id) = @_;

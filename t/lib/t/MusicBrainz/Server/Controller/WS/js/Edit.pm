@@ -278,6 +278,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             editsPending => JSON::false,
             cover_art_presence => undef,
             cover_art_url => undef,
+            may_have_discids => JSON::false,
             quality => 1,
         },
         response => $WS_EDIT_RESPONSE_OK,

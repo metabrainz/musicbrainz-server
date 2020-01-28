@@ -502,6 +502,7 @@ sub TO_JSON {
         own_collections
         release_artwork
         release_artwork_count
+        release_cdtoc_count
         server_details
         server_languages
         subscribed

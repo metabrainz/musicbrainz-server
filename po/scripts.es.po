@@ -84,7 +84,7 @@ msgstr "Bopomofo (Zhuyin)"
 msgid "Brahmi"
 msgstr "Brahmi"
 
-#. frequency:1 iso_code:Brai
+#. frequency:2 iso_code:Brai
 #: DB:script/name:96
 msgid "Braille"
 msgstr "Braille"

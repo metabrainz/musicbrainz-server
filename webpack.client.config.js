@@ -215,7 +215,7 @@ plugins.push.apply(plugins, [
 module.exports = {
   context: dirs.CHECKOUT,
 
-  devtool: DBDefs.DEVELOPMENT_SERVER ? 'cheap-source-map' : undefined,
+  devtool: 'source-map',
 
   entry: entries,
 
@@ -262,6 +262,7 @@ if (String(process.env.WATCH_MODE) === '1') {
 if (!DBDefs.DEVELOPMENT_SERVER) {
   module.exports.optimization.minimizer = [
     new TerserPlugin({
+      sourceMap: true,
       terserOptions: {
         safari10: true,
       },

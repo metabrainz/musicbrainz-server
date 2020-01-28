@@ -46,7 +46,11 @@
             </tbody>
         </table>
     [% ELSE %]
+      [% IF release.may_have_discids %]
         <p>[% l('There are no disc IDs attached to this release; to find out more about how to add one, see {doc|How to Add Disc IDs}.', { doc => doc_link('How_to_Add_Disc_IDs') }) %]</p>
+      [% ELSE %]
+        <p>[% l('This release has no mediums that can have disc IDs.') %]</p>
+      [% END %]
     [% END %]
 
 [%- END -%]
