@@ -319,6 +319,8 @@ class Medium {
         this.position = ko.observable(data.position || 1);
         this.formatID = ko.observable(data.format_id);
         this.formatUnknownToUser = ko.observable(Boolean(data.id && !data.format_id));
+        this.showPregapTrackHelp = ko.observable(false);
+        this.showDataTracksHelp = ko.observable(false);
 
         var tracks = data.tracks;
         this.tracks = ko.observableArray(utils.mapChild(this, tracks, Track));
@@ -339,7 +341,12 @@ class Medium {
                     const tracks = self.tracks.peek();
                     const pregap = tracks[0];
 
-                    if (pregap.id) {
+                    /*
+                     * If we have a discID, adding a new track 1 is
+                     * problematic, since the normal tracklist is
+                     * supposed to be frozen by the discID.
+                     */
+                    if (pregap.id && !self.hasToc()) {
                         releaseEditor.resetTrackPositions(tracks, 0, 1, -1);
                     } else {
                         self.tracks.shift();
@@ -365,6 +372,12 @@ class Medium {
                 if (oldValue && !newValue) {
                     var dataTracks = self.dataTracks();
 
+                    /*
+                     * If we have a discID, adding new normal tracks
+                     * at the end of the tracklist is problematic,
+                     * since the normal tracklist is supposed to be
+                     * frozen by the discID.
+                     */
                     if (self.hasToc()) {
                         self.tracks.removeAll(dataTracks);
                     } else {
@@ -460,6 +473,14 @@ class Medium {
         }
 
         this.tracks.push(new Track(data, this));
+    }
+
+    togglePregapTrackHelp() {
+        this.showPregapTrackHelp(!this.showPregapTrackHelp.peek());
+    }
+
+    toggleDataTracksHelp() {
+        this.showDataTracksHelp(!this.showDataTracksHelp.peek());
     }
 
     hasExistingTocs() {
