@@ -2,6 +2,7 @@ TARGETS := $(shell find templates -name 'Dockerfile.*.m4' -exec basename '{}' .m
 BUILD_TARGETS := $(filter-out build-cpanfile-snapshot,$(shell echo "$(TARGETS)" | sed s/Dockerfile\./build-/g))
 PUSH_TARGETS := $(filter-out push-cpanfile-snapshot,$(shell echo "$(TARGETS)" | sed s/Dockerfile\./push-/g))
 
+export DOCKER_CMD ?= docker
 export GIT_BRANCH := $(shell ../script/git_info branch)
 export GIT_MSG := $(shell ../script/git_info msg)
 export GIT_SHA := $(shell ../script/git_info sha)
@@ -12,10 +13,10 @@ config :
 	./generate_dockerfiles.sh $(TARGETS)
 
 $(BUILD_TARGETS) :
-	docker build --tag metabrainz/musicbrainz-$(subst build-,,$@):$(GIT_BRANCH) --file Dockerfile.$(subst build-,,$@) ../
+	$(DOCKER_CMD) build --tag metabrainz/musicbrainz-$(subst build-,,$@):$(GIT_BRANCH) --file Dockerfile.$(subst build-,,$@) ../
 
 $(PUSH_TARGETS) :
-	docker push metabrainz/musicbrainz-$(subst push-,,$@):$(GIT_BRANCH)
+	$(DOCKER_CMD) push metabrainz/musicbrainz-$(subst push-,,$@):$(GIT_BRANCH)
 
 build-all : $(BUILD_TARGETS)
 

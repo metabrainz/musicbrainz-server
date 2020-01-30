@@ -64,7 +64,7 @@ then
   then
     echo "POT files already up-to-date, nothing to commit."
   else
-    git add -- *.po
+    git add -- *.pot
     git commit -m 'Update POT files using the production database'
     git show --stat
   fi
