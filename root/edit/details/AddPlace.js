@@ -40,7 +40,7 @@ const AddPlace = ({edit}: {edit: AddPlaceEditT}) => {
         <tbody>
           <tr>
             <th>{addColonText(l('Place'))}</th>
-            <td><DescriptiveLink allowNew entity={place} /></td>
+            <td><DescriptiveLink entity={place} /></td>
           </tr>
         </tbody>
       </table>
