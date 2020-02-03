@@ -268,7 +268,7 @@ releaseEditor.init = function (options) {
     this.seed(options.seed);
 
     if (this.action === "edit") {
-        this.loadRelease(options.gid);
+        this.releaseLoaded(options.release);
     } else {
         releaseEditor.createExternalLinksEditor(
             { entityType: 'release' },
