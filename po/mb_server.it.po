@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-29 00:15+0200\n"
-"PO-Revision-Date: 2020-01-28 22:19+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2020-01-28 16:33-0600\n"
+"PO-Revision-Date: 2020-02-01 14:09+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2746,14 +2746,14 @@ msgid ""
 "Keep in mind that unselecting this will delete the track if the medium has a"
 " disc ID! If you unselect it by mistake, please readd the pregap track "
 "before submitting."
-msgstr ""
+msgstr "Ricorda che deselezionare questa opzione eliminerà la traccia se il supporto ha un ID disco! Se la deselezioni per errore, ricordati di riaggiungere la traccia pregap prima di cliccare su Invia."
 
 #: ../root/release/edit/tracklist.tt:434
 msgid ""
 "Keep in mind that unselecting this will delete the tracks if the medium has "
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
-msgstr ""
+msgstr "Ricorda che deselezionare questa opzione eliminerà le tracce se il supporto ha un ID disco! Se la deselezioni per errore, ricordati di riaggiungere le tracce dati prima di cliccare su Invia."
 
 #: ../root/user/login.tt:31
 msgid "Keep me logged in"
@@ -4761,14 +4761,14 @@ msgstr "Salta la verifica"
 msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
-msgstr ""
+msgstr "Alcuni dischi contengono una traccia nascosta nella sezione pregap che precede la traccia 1. Utilizza questa opzione per aggiungere (o rimuovere) la sezione speciale per traccia pregap."
 
 #: ../root/release/edit/tracklist.tt:431
 msgid ""
 "Some discs contain one or more data tracks after all audio tracks. Use this "
 "to add (or remove) the special data tracks section. You should only add data"
 " tracks that contain audio or video ({info|more info})"
-msgstr ""
+msgstr "Alcuni dischi contengono una o più tracce dati dopo tutte le tracce audio. Utilizza questa opzione per aggiungere (o rimuovere) la sezione speciale per tracce dati. Aggiungi solo tracce dati che contengono audio o video ({info|maggiori informazioni})."
 
 #: ../root/release/edit/editnote.tt:4
 msgid ""
@@ -5252,11 +5252,11 @@ msgstr[1] "Questo cambiamento riguarda {num} relazioni."
 
 #: ../root/release/edit/tracklist.tt:426
 msgid "This disc contains data tracks at the end"
-msgstr ""
+msgstr "Questo disco contiene tracce dati in coda"
 
 #: ../root/release/edit/tracklist.tt:411
 msgid "This disc has a hidden pregap track before track 1"
-msgstr ""
+msgstr "Questo disco ha una traccia pregap nascosta prima della traccia 1"
 
 #: ../root/edit/details/edit_release.tt:60
 msgid "This edit also changed the track artists."
@@ -5463,7 +5463,7 @@ msgstr "Questa pubblicazione non ha supporti da unire."
 
 #: ../root/release/discids.tt:52
 msgid "This release has no mediums that can have disc IDs."
-msgstr ""
+msgstr "Questa pubblicazione non ha supporti che possono possedere un ID disco."
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -8227,7 +8227,7 @@ msgstr "Partitura/e su CPDL"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Deezer.pm:10
 msgid "Stream at Deezer"
-msgstr ""
+msgstr "Streaming su Deezer"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Gutenberg.pm:9
 msgid "Project Gutenberg"
@@ -9554,7 +9554,7 @@ msgstr "Esibizioni"
 
 #: ../root/components/EntityTabs.js:94
 msgid "Disc IDs ({num})"
-msgstr ""
+msgstr "ID disco ({num})"
 
 #: ../root/components/EntityTabs.js:108
 msgid "Cover Art ({num})"
@@ -11073,11 +11073,11 @@ msgstr "Aggiunte recenti"
 
 #: ../root/mbid/NotFound.js:15
 msgid "MBID Not Found"
-msgstr ""
+msgstr "MBID non trovato"
 
 #: ../root/mbid/NotFound.js:15
 msgid "Invalid MBID"
-msgstr ""
+msgstr "MBID non valido"
 
 #: ../root/mbid/NotFound.js:19
 msgid ""
@@ -11085,15 +11085,15 @@ msgid ""
 "Either it’s incorrect, it was for an entity that has since been deleted, or "
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
-msgstr ""
+msgstr "Nessun'{entity_doc|entità} di MusicBrainz corrisponde all'{mbid_doc|MBID} {mbid}. L'MBID potrebbe non essere corretto, appartenere ad un'entità che è stata eliminata o essere l'ID per qualcosa che non è un'entità (per es. un {rel_type_table|tipo di relazione})."
 
 #: ../root/mbid/NotFound.js:33
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
-msgstr ""
+msgstr "{mbid} non è un {mbid_doc|MBID} valido."
 
 #: ../root/mbid/NotFound.js:41
 msgid "No {mbid_doc|MBID} selected."
-msgstr ""
+msgstr "Nessun {mbid_doc|MBID} selezionato."
 
 #: ../root/oauth2/OAuth2Authorize.js:29 ../root/oauth2/OAuth2Oob.js:23
 msgid "OAuth Authorization"

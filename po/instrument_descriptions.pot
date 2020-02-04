@@ -1202,6 +1202,15 @@ msgid ""
 "kacapis."
 msgstr ""
 
+#. name:Indonesian rebab 
+#: DB:instrument/description:1011
+msgid ""
+"Introduced to Indonesia in the 15th century, this variant of the spike-"
+"fiddle rebab has two bowed metal strings with characteristically long tuning "
+"pegs and is made of hide-covered wood or coconut shell. It is the melody "
+"leader in gamelan and is also used in healing rituals."
+msgstr ""
+
 #. name:tubulum 
 #: DB:instrument/description:873
 msgid ""
@@ -2235,6 +2244,11 @@ msgid ""
 "it as a whole vibrates, without the use of strings or membranes. Therefore "
 "these are most often made of sonorous material: metal, wood, glass and even "
 "stone."
+msgstr ""
+
+#. name:rebab 
+#: DB:instrument/description:239
+msgid "Subtypes, reordering and fix-ups will be forthcoming."
 msgstr ""
 
 #. name:Swedish bagpipes 
