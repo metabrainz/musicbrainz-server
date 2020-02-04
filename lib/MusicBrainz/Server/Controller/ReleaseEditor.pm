@@ -70,9 +70,15 @@ sub edit : Chained('/release/load') PathPart('edit') Edit RequireAuth
 
     my $release = $c->stash->{release};
 
+    my @mediums = $release->all_mediums;
+    $c->model('MediumCDTOC')->load_for_mediums(@mediums);
+    $c->model('CDTOC')->load(map { $_->all_cdtocs } @mediums);
+    $c->model('Relationship')->load_cardinal($release->release_group, $release);
+
     $self->_init_release_editor(
         $c,
-        return_to => $c->uri_for_action('/release/show', [ $release->gid ])
+        return_to => $c->uri_for_action('/release/show', [ $release->gid ]),
+        release_json => $c->json->encode($release),
     );
 }
 

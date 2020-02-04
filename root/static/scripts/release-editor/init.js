@@ -54,11 +54,22 @@ releaseEditor.init = function (options) {
     });
 
     /*
+     * Allow using range-select (shift-click) on the change recording artist
+     * and change recording title checkboxes in the Recordings page.
+     */
+    MB.Control.RangeSelect(
+        '#track-recording-assignation input.update-recording-title[type="checkbox"]',
+    );
+
+    MB.Control.RangeSelect(
+        '#track-recording-assignation input.update-recording-artist[type="checkbox"]',
+    );
+
+    /*
      * Allow pressing enter to advance to the next tab. The listener is added
      * to the document and not #release-editor so that other events can call
      * preventDefault if necessary.
      */
-
     $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
@@ -257,7 +268,7 @@ releaseEditor.init = function (options) {
     this.seed(options.seed);
 
     if (this.action === "edit") {
-        this.loadRelease(options.gid);
+        this.releaseLoaded(options.release);
     } else {
         releaseEditor.createExternalLinksEditor(
             { entityType: 'release' },

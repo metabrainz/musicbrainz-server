@@ -43,6 +43,19 @@ div.tabs {
                     cursor: default;
                 }
             }
+            &.disabled a {
+                &,
+                &:hover,
+                &:focus {
+                    color: @text-black;
+                    background-color: @very-light-grey;
+                    border-color: @very-light-grey;
+                    border-bottom-color: transparent;
+                    cursor: default;
+                    pointer-events: none;
+                }
+            }
+
 
         }
     }

@@ -7,7 +7,7 @@ SCRIPT_NAME=$(basename "$0")
 HELP=$(cat <<EOH
 Usage: $SCRIPT_NAME [option]"
 
-Download latest translations from Transifex.
+Update POT files from codebase and production database.
 
 Option:
   --commit  Commit changes to Git, if any
@@ -41,28 +41,31 @@ if [ $DO_COMMIT = 'yes' ] && \
 then
   echo >&2 "$SCRIPT_NAME: Git working tree has local changes already"
   echo >&2
-  echo >&2 "Your local changes would be incidentally committed with translations."
-  echo >&2 "Please clean your Git working tree before updating translations."
+  echo >&2 "Your local changes would be incidentally committed with POT files."
+  echo >&2 "Please clean your Git working tree before updating POT files."
   exit 70
+fi
+
+export MB_POT_DB=PROD_STANDBY
+
+if ! script/database_exists $MB_POT_DB
+then
+  exit 78
 fi
 
 cd po
 
-git rm mb_server.{es_ES,el_GR}.po
-tx pull -f
-perl -pi -e 's/(Last-Translator: .*<)[^<>]+(>\\n")$/$1email address hidden$2/' -- *.po
-perl -pi -e 's/^(#.*<)[^<>]+(>, [0-9]+.*)$/$1email address hidden$2/' -- *.po
-perl -pi -e 's/ENCODING/8bit/' -- *.po
-git checkout HEAD mb_server.{es_ES,el_GR}.po
+touch extract_pot_db extract_pot_templates
+make pot
 
 if [ $DO_COMMIT = 'yes' ]
 then
   if git diff --quiet
   then
-    echo "Translations already up-to-date, nothing to commit."
+    echo "POT files already up-to-date, nothing to commit."
   else
-    git add -- *.po
-    git commit -m 'Update translations from Transifex'
+    git add -- *.pot
+    git commit -m 'Update POT files using the production database'
     git show --stat
   fi
 fi

@@ -218,6 +218,8 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Label::withdraw_tags",
   "Controller::Label::tags",
   "Controller::Label::wikipedia_extract",
+  "Controller::MBID::base",
+  "Controller::MBID::show",
   "Controller::Medium::base",
   "Controller::Medium::fragments",
   "Controller::OAuth2::authorize",

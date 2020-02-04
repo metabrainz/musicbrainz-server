@@ -46,14 +46,28 @@ sub foreign_keys {
 sub build_display_data {
     my ($self, $loaded) = @_;
 
+    my $data = $self->data;
+    my $name = $data->{name};
+    my $comment = $data->{comment};
+    my $type_id = $data->{type_id};
+    my $ordering_type_id = $data->{ordering_type_id};
+
     return {
-        name                => $self->data->{name},
-        comment             => $self->data->{comment},
-        series              => $loaded->{Series}->{$self->entity_id},
-        type                => $loaded->{SeriesType}->{$self->{data}->{type_id}},
-        ordering_type       => $loaded->{SeriesOrderingType}->{$self->data->{ordering_type_id}},
+        name                => $name,
+        comment             => $comment,
+        series              => $loaded->{Series}{$self->entity_id} //
+                                Series->new(
+                                    name => $name,
+                                    comment => $comment,
+                                    type_id => $type_id,
+                                    ordering_type_id => $ordering_type_id,
+                                ),
+        type                => $loaded->{SeriesType}{$type_id},
+        ordering_type       => $loaded->{SeriesOrderingType}{$ordering_type_id},
     };
 }
+
+sub edit_template_react { "AddSeries" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

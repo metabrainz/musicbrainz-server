@@ -11,6 +11,8 @@ MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 CPANFILE_DIR=$(cd "$(dirname ${1:-$MB_SERVER_ROOT/cpanfile})/" && pwd)
 cd "$MB_SERVER_ROOT"
 
+export DOCKER_CMD=${DOCKER_CMD:-docker}
+
 make -C docker config
 
 TMP_IMG=mbs_generate_cpanfile_snapshot
@@ -22,12 +24,12 @@ cd "$TMP_DIR"
 cp "$CPANFILE_DIR/cpanfile" "$TMP_DIR/"
 cp "$MB_SERVER_ROOT/docker/Dockerfile.cpanfile-snapshot" "$TMP_DIR/Dockerfile"
 
-docker build -t $TMP_IMG .
-CONTAINER_ID=$(docker create $TMP_IMG)
-docker cp \
+$DOCKER_CMD build -t $TMP_IMG .
+CONTAINER_ID=$($DOCKER_CMD create $TMP_IMG)
+$DOCKER_CMD cp \
     $CONTAINER_ID:/home/musicbrainz/musicbrainz-server/cpanfile.snapshot \
     "$CPANFILE_DIR/"
-docker rm $CONTAINER_ID
-docker rmi $TMP_IMG
+$DOCKER_CMD rm $CONTAINER_ID
+$DOCKER_CMD rmi $TMP_IMG
 
 rm -rf "$TMP_DIR"

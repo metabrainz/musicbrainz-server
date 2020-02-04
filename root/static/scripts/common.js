@@ -45,13 +45,13 @@ require("./common/i18n");
 require("./common/entity");
 require("./common/MB/Control/Autocomplete");
 require('./common/components/ReleaseEvents');
+require("./common/MB/Control/SelectAll");
 require("./common/components/TagEditor");
 
 import(/* webpackChunkName: "common-artwork-viewer" */ "./common/artworkViewer");
 import(/* webpackChunkName: "common-dialogs" */ "./common/dialogs");
 import(/* webpackChunkName: "common-filter" */ "./common/components/Filter");
 import(/* webpackChunkName: "common-menu" */ "./common/MB/Control/Menu");
-import(/* webpackChunkName: "common-select-all" */ "./common/MB/Control/SelectAll");
 import(/* webpackChunkName: "common-edit-search" */ "./common/MB/edit_search");
 import(/* webpackChunkName: "common-release" */ "./common/MB/release");
 import(/* webpackChunkName: "common-ratings" */ "./common/ratings");

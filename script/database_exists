@@ -13,11 +13,10 @@ if ($ARGV[0])
 {
     my $db = Databases->get_connection(uc($ARGV[0]));
 
-    my $sys = Databases->get_connection('SYSTEM');
-    my $sql = Sql->new( $sys->conn );
+    my $sql = Sql->new( $db->conn );
 
     my $so = $sql->select_single_value(
-        "SELECT TRUE FROM pg_database WHERE datname = ?",
+        "SELECT TRUE FROM information_schema.information_schema_catalog_name WHERE catalog_name = ?",
         $db->database->database);
     exit 0 if $so;
     exit 1; # E_NODATABASE

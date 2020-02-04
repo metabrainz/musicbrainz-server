@@ -62,16 +62,6 @@ function langToPosix(lang) {
   return lang.replace(/^([a-zA-Z]+)-([a-zA-Z]+)$/, function (match, l, c) {
     l = l.toLowerCase();
     c = c.toUpperCase();
-
-    /*
-     * Handle symlinks (see under po/). We want to keep the the result here
-     * consistent regardless of whether someone has el or el-gr in their
-     * MB_LANGUAGE setting, for example.
-     */
-    if (/^(?:el_GR|es_ES)$/.test(`${l}_${c}`)) {
-      return l;
-    }
-
     return l + '_' + c.toUpperCase();
   });
 }
@@ -215,7 +205,7 @@ plugins.push.apply(plugins, [
 module.exports = {
   context: dirs.CHECKOUT,
 
-  devtool: DBDefs.DEVELOPMENT_SERVER ? 'cheap-source-map' : undefined,
+  devtool: 'source-map',
 
   entry: entries,
 
@@ -262,6 +252,7 @@ if (String(process.env.WATCH_MODE) === '1') {
 if (!DBDefs.DEVELOPMENT_SERVER) {
   module.exports.optimization.minimizer = [
     new TerserPlugin({
+      sourceMap: true,
       terserOptions: {
         safari10: true,
       },

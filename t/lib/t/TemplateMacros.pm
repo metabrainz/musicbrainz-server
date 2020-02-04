@@ -712,7 +712,7 @@ test all => sub {
                 display_full_change('Name:', entity.old, entity.new);
             ),
 
-            'React.createElement(FullChangeDiff, {label: "Name:", oldText: entity.old, newText: entity.new})',
+            'React.createElement(FullChangeDiff, {label: "Name:", oldContent: entity.old, newContent: entity.new})',
 
             '<tr>' .
                 '<th>Name:</th>' .

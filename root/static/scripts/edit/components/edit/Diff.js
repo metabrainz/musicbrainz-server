@@ -21,7 +21,7 @@ export type DiffProps = {
 
 type Props = {
   ...DiffProps,
-  +split: string,
+  +split?: string,
 };
 
 const Diff = ({label, newText, oldText, split = ''}: Props) => (

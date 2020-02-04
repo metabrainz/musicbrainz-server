@@ -126,6 +126,11 @@ msgstr ""
 msgid "Indian bamboo flutes"
 msgstr ""
 
+#: DB:instrument/name:1011
+msgctxt "Indonesian spike-fiddle used in gamelan"
+msgid "Indonesian rebab"
+msgstr ""
+
 #: DB:instrument/name:406
 msgid "Irish bouzouki"
 msgstr ""
@@ -2967,6 +2972,7 @@ msgid "ravanahatha"
 msgstr ""
 
 #: DB:instrument/name:239
+msgctxt "Spike-fiddle rebab catch-all"
 msgid "rebab"
 msgstr ""
 
