@@ -29,6 +29,12 @@ page_test_jsonld $mech => {
     '@id' => 'https://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80',
     'releaseOf' => {
         'name' => 'Aerial',
+        'byArtist' => {
+            '@id' => 'https://musicbrainz.org/artist/4b585938-f271-45e2-b19a-91c634b5e396',
+            '@type' => ['Person', 'MusicGroup'],
+            'name' => 'Kate Bush',
+        },
+        'creditedTo' => 'Kate Bush',
         'albumReleaseType' => 'http://schema.org/AlbumRelease',
         'albumProductionType' => 'http://schema.org/StudioAlbum',
         '@id' => 'https://musicbrainz.org/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5',

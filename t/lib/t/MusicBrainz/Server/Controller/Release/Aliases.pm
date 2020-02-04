@@ -26,6 +26,12 @@ test all => sub {
         },
         'releaseOf' => {
             'albumReleaseType' => 'http://schema.org/AlbumRelease',
+            'byArtist' => {
+                '@id' => 'https://musicbrainz.org/artist/4b585938-f271-45e2-b19a-91c634b5e396',
+                '@type' => ['Person', 'MusicGroup'],
+                'name' => 'Kate Bush',
+            },
+            'creditedTo' => 'Kate Bush',
             'name' => 'Aerial',
             '@type' => 'MusicAlbum',
             '@id' => 'https://musicbrainz.org/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5',

@@ -21,6 +21,12 @@ test all => sub {
         'releaseOf' => {
             '@type' => 'MusicAlbum',
             'albumProductionType' => 'http://schema.org/StudioAlbum',
+            'byArtist' => {
+                'name' => 'Artist',
+                '@id' => 'https://musicbrainz.org/artist/945c079d-374e-4436-9448-da92dedef3cf',
+                '@type' => 'MusicGroup',
+            },
+            'creditedTo' => 'Artist',
             '@id' => 'https://musicbrainz.org/release-group/54b9d183-7dab-42ba-94a3-7388a66604b8',
             'name' => 'Release'
         },

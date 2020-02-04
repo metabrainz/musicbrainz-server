@@ -75,6 +75,7 @@ after 'load' => sub {
 
     # Load release group
     $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroupType')->load($release->release_group);
 
     unless ($returning_jsonld) {
         $c->model('ReleaseGroup')->load_meta($release->release_group);
@@ -94,20 +95,14 @@ after 'load' => sub {
     my $cdtoc_count = $c->model('MediumCDTOC')->find_count_by_release($release->id);
     $c->stash->{release_cdtoc_count} = $cdtoc_count;
 
-    # We need to load more artist credits in 'show'
-    if ($c->action->name ne 'show') {
-        $c->model('ArtistCredit')->load($release);
-    }
+    $c->model('ArtistCredit')->load($release, $release->release_group);
+    $c->model('ReleasePackaging')->load($release);
+    $c->model('ReleaseStatus')->load($release);
+    $c->model('Language')->load($release);
+    $c->model('Script')->load($release);
+    $c->model('Release')->load_related_info($release);
 
-    # The release editor loads this stuff on its own
     if ($c->action->name ne 'edit') {
-        $c->model('ReleaseStatus')->load($release);
-        $c->model('ReleasePackaging')->load($release);
-        $c->model('Language')->load($release);
-        $c->model('Script')->load($release);
-        $c->model('ReleaseGroupType')->load($release->release_group);
-        $c->model('Release')->load_related_info($release);
-
         # Only needed by pages showing the sidebar
         $c->model('CritiqueBrainz')->load_display_reviews($release->release_group)
             unless $returning_jsonld;
@@ -169,7 +164,6 @@ sub show : Chained('load') PathPart('') {
         $c->model('Medium')->load_related_info($user_id, @mediums);
     }
 
-    $c->model('ArtistCredit')->load($release);
     $c->stash->{template} = 'release/index.tt';
 }
 
