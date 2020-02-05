@@ -32,3 +32,21 @@ export default function compareDates(a: ?PartialDateT, b: ?PartialDateT) {
     ((a.day || 1) - (b.day || 1))
   );
 }
+
+export function compareDatePeriods(
+  a: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
+  b: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
+) {
+  // Sort null values first
+  if (!a) {
+    return b ? -1 : 0;
+  } else if (!b) {
+    return 1;
+  }
+  return (
+    compareDates(a.begin_date, b.begin_date) ||
+    compareDates(a.end_date, b.end_date) ||
+    // Sort ended dates before non-ended ones
+    ((a.ended ? 0 : 1) - (b.ended ? 0 : 1))
+  );
+}

@@ -15,52 +15,53 @@
 /*::
 type LinkedEntities = {
   artist_type: {
-    +[number]: ArtistTypeT,
+    [artistId: number]: ArtistTypeT,
   },
   language: {
-    +[number]: LanguageT,
+    [languageId: number]: LanguageT,
   },
   link_attribute_type: {
-    +[number]: LinkAttrTypeT,
+    [linkAttributeTypeId: number]: LinkAttrTypeT,
   },
   link_type: {
-    +[number]: LinkTypeT,
+    [linkTypeId: number]: LinkTypeT,
   },
   link_type_tree: {
-    +[string]: $ReadOnlyArray<LinkTypeT>,
+    [entityTypes: string]: $ReadOnlyArray<LinkTypeT>,
   },
+  mergeLinkedEntities: (update: ?$Shape<LinkedEntities>) => void,
   release: {
-    +[number]: ReleaseT,
+    [releaseId: number]: ReleaseT,
   },
   release_group_primary_type: {
-    [number]: ReleaseGroupTypeT,
+    [releaseGroupPrimaryTypeId: number]: ReleaseGroupTypeT,
   },
   release_group_secondary_type: {
-    [number]: ReleaseGroupSecondaryTypeT,
+    [releaseGroupSecondaryTypeId: number]: ReleaseGroupSecondaryTypeT,
   },
   release_packaging: {
-    +[number]: ReleasePackagingT,
+    [releasePackagingId: number]: ReleasePackagingT,
   },
   release_status: {
-    +[number]: ReleaseStatusT,
+    [releaseStatusId: number]: ReleaseStatusT,
   },
   script: {
-    +[number]: ScriptT,
+    [scriptId: number]: ScriptT,
   },
   series: {
-    +[number]: SeriesT,
+    [seriesId: number]: SeriesT,
   },
   series_ordering_type: {
-    +[number]: SeriesOrderingTypeT,
+    [seriesOrderingTypeId: number]: SeriesOrderingTypeT,
   },
   series_type: {
-    +[number]: SeriesTypeT,
+    [seriesTypeId: number]: SeriesTypeT,
   },
   work: {
-    +[number]: WorkT,
+    [workId: number]: WorkT,
   },
   work_attribute_type: {
-    +[number]: WorkAttributeTypeT,
+    [workAttributeTypeId: number]: WorkAttributeTypeT,
   },
   ...
 };
@@ -86,7 +87,7 @@ const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
   work:                           EMPTY_OBJECT,
   work_attribute_type:            EMPTY_OBJECT,
 
-  mergeLinkedEntities(update/*: ?LinkedEntities */) {
+  mergeLinkedEntities(update/*: ?$Shape<LinkedEntities> */) {
     if (update) {
       for (const [type, entities] of Object.entries(update)) {
         if (Object.prototype.hasOwnProperty.call(linkedEntities, type)) {

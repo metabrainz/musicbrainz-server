@@ -232,6 +232,7 @@ module.exports = {
   'artist/ArtistHeader': require('../artist/ArtistHeader'),
   'collection/CollectionHeader': require('../collection/CollectionHeader'),
   'components/Aliases': require('../components/Aliases'),
+  'components/GroupedTrackRelationships': require('../components/GroupedTrackRelationships'),
   'components/Relationships': require('../components/Relationships'),
   'components/RelationshipsTable': require('../components/RelationshipsTable'),
   'components/UserAccountTabs': require('../components/UserAccountTabs'),

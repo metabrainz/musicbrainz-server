@@ -306,7 +306,9 @@ sub _load_subset {
     $self->c->model('Link')->load(@rels);
     my @links = map { $_->link } @rels;
     $self->c->model('LinkType')->load(@links);
-    $self->c->model('LinkAttributeType')->load(map { $_->type->all_attributes } @links);
+    my @link_types = map { $_->type } @links;
+    $self->c->model('LinkType')->load_root_ids(@link_types);
+    $self->c->model('LinkAttributeType')->load(map { $_->all_attributes } @link_types);
     $self->load_entities(@rels);
 
     return @rels;
