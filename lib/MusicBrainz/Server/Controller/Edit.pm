@@ -55,7 +55,7 @@ sub _load
     return $c->model('Edit')->get_by_id($edit_id);
 }
 
-sub show : Chained('load') PathPart('') RequireAuth
+sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
@@ -190,7 +190,7 @@ Show a list of open moderations
 
 =cut
 
-sub open : Local RequireAuth
+sub open : Local
 {
     my ($self, $c) = @_;
 
@@ -204,7 +204,7 @@ sub open : Local RequireAuth
     $c->form(add_edit_note => 'EditNote');
 }
 
-sub search : Path('/search/edits') RequireAuth
+sub search : Path('/search/edits')
 {
     my ($self, $c) = @_;
     my $coll = $c->get_collator();

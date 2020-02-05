@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import RequestLogin from '../../components/RequestLogin';
 import VotingPeriod from '../../components/VotingPeriod';
 import {
   EDIT_STATUS_OPEN,
@@ -84,9 +85,11 @@ const EditSidebar = ({$c, edit}: Props) => (
     </SidebarProperties>
 
     <p>
-      <a href={`/edit/${edit.id}/data`}>
-        <bdi>{l('Raw edit data for this edit')}</bdi>
-      </a>
+      {$c.user_exists ? (
+        <a href={`/edit/${edit.id}/data`}>
+          <bdi>{l('Raw edit data for this edit')}</bdi>
+        </a>
+      ) : null}
     </p>
 
     <p>{l('For more information:')}</p>

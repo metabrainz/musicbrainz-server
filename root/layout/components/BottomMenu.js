@@ -183,7 +183,7 @@ const ProductsMenu = () => (
   </li>
 );
 
-const SearchMenu = withCatalystContext(({$c}: {+$c: CatalystContextT}) => (
+const SearchMenu = () => (
   <li className="search" tabIndex="-1">
     <span className="menu-header">
       {l('Search')}
@@ -193,11 +193,9 @@ const SearchMenu = withCatalystContext(({$c}: {+$c: CatalystContextT}) => (
       <li>
         <a href="/search">{l('Search Entities')}</a>
       </li>
-      {$c.user_exists ? (
-        <li>
-          <a href="/search/edits">{l('Search Edits')}</a>
-        </li>
-      ) : null}
+      <li>
+        <a href="/search/edits">{l('Search Edits')}</a>
+      </li>
       <li>
         <a href="/tags">{l('Tags')}</a>
       </li>
@@ -206,7 +204,7 @@ const SearchMenu = withCatalystContext(({$c}: {+$c: CatalystContextT}) => (
       </li>
     </ul>
   </li>
-));
+);
 
 const EditingMenu = () => (
   <li className="editing" tabIndex="-1">
