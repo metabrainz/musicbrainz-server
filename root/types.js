@@ -15,8 +15,6 @@
  * how data is serialized for us.
  */
 
-/* eslint-disable no-unused-vars */
-
 declare type AggregatedTagT = {
   +count: number,
   +tag: TagT,
@@ -178,7 +176,7 @@ declare type BlogEntryT = {
   +url: string,
 };
 
-type CatalystActionT = {
+declare type CatalystActionT = {
   +name: string,
 };
 
@@ -196,19 +194,19 @@ declare type CatalystContextT = {
   +user_exists: boolean,
 };
 
-type CatalystRequestContextT = {
+declare type CatalystRequestContextT = {
   +headers: {+[header: string]: string},
   +query_params: {+[param: string]: string},
   +secure: boolean,
   +uri: string,
 };
 
-type CatalystSessionT = {
+declare type CatalystSessionT = {
   +merger?: MergeQueueT,
   +tport?: number,
 };
 
-type CatalystStashT = {
+declare type CatalystStashT = {
   +alert?: string,
   +alert_mtime?: number | null,
   +collaborative_collections?: $ReadOnlyArray<CollectionT>,
@@ -239,7 +237,7 @@ type CatalystStashT = {
   +user_tags?: $ReadOnlyArray<UserTagT>,
 };
 
-type CatalystUserT = EditorT;
+declare type CatalystUserT = EditorT;
 
 declare type CDStubT = $ReadOnly<{
   ...EntityRoleT<'cdstub'>,
@@ -275,7 +273,7 @@ declare type CollectionTypeT = {
   item_entity_type: string,
 };
 
-type CommentRoleT = {
+declare type CommentRoleT = {
   +comment: string,
 };
 
@@ -582,7 +580,7 @@ declare type InstrumentT = $ReadOnly<{
 
 declare type InstrumentTypeT = OptionTreeT<'instrument_type'>;
 
-type IpiCodesRoleT = {
+declare type IpiCodesRoleT = {
   +ipi_codes: $ReadOnlyArray<IpiCodeT>,
 };
 
@@ -591,7 +589,7 @@ declare type IpiCodeT = {
   +ipi: string,
 };
 
-type IsniCodesRoleT = {
+declare type IsniCodesRoleT = {
   +isni_codes: $ReadOnlyArray<IsniCodeT>,
 };
 
@@ -615,6 +613,7 @@ declare type IswcT = {
 };
 
 declare type KnockoutObservable<T> = {
+  // eslint-disable-next-line no-undef
   [[call]]: (() => T) & ((T) => empty),
   peek: () => T,
   subscribe: ((T) => void) => {dispose: () => empty},
@@ -653,7 +652,7 @@ declare type LanguageT = {
   +name: string,
 };
 
-type LastUpdateRoleT = {
+declare type LastUpdateRoleT = {
   +last_updated: string | null,
 };
 

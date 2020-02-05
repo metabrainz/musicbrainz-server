@@ -10,7 +10,46 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../"
     --plugin flowtype \
     --plugin import \
     --plugin react-hooks \
+    --global '$':readonly \
+    --global jQuery:readonly \
+    --global addColon:readonly \
+    --global addColonText:readonly \
+    --global hyphenateTitle:readonly \
+    --global l:readonly \
+    --global ln:readonly \
+    --global lp:readonly \
+    --global N_l:readonly \
+    --global N_ln:readonly \
+    --global N_lp:readonly \
+    --global exp:readonly \
+    --global texp:readonly \
+    --global l_attributes:readonly \
+    --global ln_attributes:readonly \
+    --global lp_attributes:readonly \
+    --global l_countries:readonly \
+    --global ln_countries:readonly \
+    --global lp_countries:readonly \
+    --global l_instrument_descriptions:readonly \
+    --global ln_instrument_descriptions:readonly \
+    --global lp_instrument_descriptions:readonly \
+    --global l_instruments:readonly \
+    --global ln_instruments:readonly \
+    --global lp_instruments:readonly \
+    --global l_languages:readonly \
+    --global ln_languages:readonly \
+    --global lp_languages:readonly \
+    --global l_relationships:readonly \
+    --global ln_relationships:readonly \
+    --global lp_relationships:readonly \
+    --global l_scripts:readonly \
+    --global ln_scripts:readonly \
+    --global lp_scripts:readonly \
+    --global l_statistics:readonly \
+    --global ln_statistics:readonly \
+    --global lp_statistics:readonly \
     --rule 'react/jsx-uses-react: warn' \
     --rule 'react/jsx-uses-vars: warn' \
+    --rule 'flowtype/define-flow-type: warn' \
+    --rule 'flowtype/use-flow-type: warn' \
     --rule \
     "$@"
