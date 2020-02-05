@@ -135,6 +135,8 @@ sub _changes_ordering_type {
     return ($self->data->{old}{ordering_type_id} // 0) != ($self->data->{new}{ordering_type_id} // 0);
 }
 
+sub edit_template_react { "EditSeries" }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
