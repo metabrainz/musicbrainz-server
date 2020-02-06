@@ -19,6 +19,7 @@ import linkedEntities from '../../common/linkedEntities';
 import mbEntity from '../../common/entity';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
+import {displayLinkAttributesText} from '../../common/utility/displayLinkAttribute';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
 import nonEmpty from '../../common/utility/nonEmpty';
@@ -358,11 +359,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         phraseAndExtraAttributes(phraseProp, shouldStripAttributes) {
-            return linkPhrase.getPhraseAndExtraAttributesText(
+            const result = linkPhrase.getPhraseAndExtraAttributesText(
                 this.relationshipInfo(),
                 phraseProp,
                 shouldStripAttributes,
             );
+            return [
+                result[0],
+                displayLinkAttributesText(result[1]),
+            ];
         }
 
         _linkPhrase(source, shouldStripAttributes) {

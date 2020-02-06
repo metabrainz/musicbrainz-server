@@ -15,16 +15,15 @@ import relationshipDateText
 import {INSERT, DELETE} from '../../utility/editDiff';
 import DescriptiveLink from '../../../common/components/DescriptiveLink';
 import commaList from '../../../common/i18n/commaList';
-import commaOnlyList from '../../../common/i18n/commaOnlyList';
 import expand2react, {hooks as expand2reactHooks}
   from '../../../common/i18n/expand2react';
 import linkedEntities from '../../../common/linkedEntities';
 import bracketed from '../../../common/utility/bracketed';
-import displayLinkAttribute
+import displayLinkAttribute, {displayLinkAttributes}
   from '../../../common/utility/displayLinkAttribute';
 import {
   getPhraseAndExtraAttributes,
-  type CachedLinkPhraseData,
+  type CachedLinkData,
   type LinkPhraseI18n,
   type RelationshipInfoT,
 } from '../../utility/linkPhrase';
@@ -53,10 +52,9 @@ const RelationshipDiff = ({
   const i18nConfig: LinkPhraseI18n<Expand2ReactOutput> = {
     cache: new WeakMap<
       RelationshipInfoT,
-      CachedLinkPhraseData<Expand2ReactOutput>,
+      CachedLinkData<Expand2ReactOutput>,
     >(),
     commaList,
-    commaOnlyList,
     displayLinkAttribute: function (attr: LinkAttrT) {
       const typeId = attr.typeID;
       const display = displayLinkAttribute(attr);
@@ -117,8 +115,8 @@ const RelationshipDiff = ({
     />
   );
 
-  let [oldPhrase, oldExtraAttributes] = ['', null];
-  let [newPhrase, newExtraAttributes] = ['', null];
+  let [oldPhrase, oldExtraAttributes] = ['', []];
+  let [newPhrase, newExtraAttributes] = ['', []];
 
   try {
     if (oldLinkType !== newLinkType) {
@@ -170,7 +168,7 @@ const RelationshipDiff = ({
             oldText={oldDateText}
           />
           {' '}
-          {bracketed(oldExtraAttributes)}
+          {bracketed(displayLinkAttributes(oldExtraAttributes))}
         </td>
       </tr>
       <tr>
@@ -183,7 +181,7 @@ const RelationshipDiff = ({
             oldText={oldDateText}
           />
           {' '}
-          {bracketed(newExtraAttributes)}
+          {bracketed(displayLinkAttributes(newExtraAttributes))}
         </td>
       </tr>
     </>

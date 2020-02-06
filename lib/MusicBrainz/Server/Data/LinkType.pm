@@ -199,6 +199,27 @@ sub get_attribute_type_list
     return \@result;
 }
 
+sub load_root_ids {
+    my ($self, @objs) = @_;
+
+    my $rows = $self->sql->select_list_of_hashes(q{
+        WITH RECURSIVE link_type_hierarchy(id, root) AS (
+          SELECT id, id FROM link_type WHERE parent IS NULL
+           UNION ALL
+          SELECT child.id, parent.root
+            FROM link_type_hierarchy parent, link_type child
+           WHERE parent.id = child.parent
+        )
+        SELECT * FROM link_type_hierarchy
+         WHERE id = any(?)
+    }, [map { $_->id } @objs]);
+
+    my %mapping = map { $_->{id} => $_->{root} } @{$rows};
+    for my $obj (@objs) {
+        $obj->root_id($mapping{$obj->id});
+    }
+}
+
 sub insert
 {
     my ($self, $values) = @_;

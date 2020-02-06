@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {INSTRUMENT_ROOT_ID} from '../constants';
+import commaList, {commaListText} from '../i18n/commaList';
 import {type VarArgsObject} from '../i18n/expand2';
 import localizeLinkAttributeTypeName
   from '../i18n/localizeLinkAttributeTypeName';
@@ -70,4 +71,16 @@ export function displayLinkAttributeText(attribute: LinkAttrT) {
     localizeLinkAttributeTypeName,
     texp.l,
   );
+}
+
+export function displayLinkAttributes(
+  attributes: $ReadOnlyArray<LinkAttrT>,
+) {
+  return commaList(attributes.map(displayLinkAttribute));
+}
+
+export function displayLinkAttributesText(
+  attributes: $ReadOnlyArray<LinkAttrT>,
+) {
+  return commaListText(attributes.map(displayLinkAttributeText));
 }

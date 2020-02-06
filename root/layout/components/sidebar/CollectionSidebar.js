@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import RequestLogin from '../../../components/RequestLogin';
 import {withCatalystContext} from '../../../context';
 import EditorLink from '../../../static/scripts/common/components/EditorLink';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
@@ -45,28 +44,20 @@ const CollectionSidebar = ({$c, collection}: Props) => {
       <h2 className="editing">{l('Editing')}</h2>
 
       <ul className="links">
-        {$c.user_exists ? (
-          <>
-            <li>
-              <EntityLink
-                content={l('Open edits')}
-                entity={collection}
-                subPath="open_edits"
-              />
-            </li>
-            <li>
-              <EntityLink
-                content={l('Editing history')}
-                entity={collection}
-                subPath="edits"
-              />
-            </li>
-          </>
-        ) : (
-          <li>
-            <RequestLogin $c={$c} text={l('Log in to edit')} />
-          </li>
-        )}
+        <li>
+          <EntityLink
+            content={l('Open edits')}
+            entity={collection}
+            subPath="open_edits"
+          />
+        </li>
+        <li>
+          <EntityLink
+            content={l('Editing history')}
+            entity={collection}
+            subPath="edits"
+          />
+        </li>
       </ul>
 
       {$c.user_exists ? (

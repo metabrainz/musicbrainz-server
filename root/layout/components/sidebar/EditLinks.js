@@ -23,29 +23,28 @@ const EditLinks = ({$c, children, entity}: Props) => (
   <>
     <h2 className="editing">{l('Editing')}</h2>
     <ul className="links">
-      {$c.user_exists ? (
+      {$c.user_exists ? children : (
         <>
-          {children}
           <li>
-            <EntityLink
-              content={l('Open edits')}
-              entity={entity}
-              subPath="open_edits"
-            />
+            <RequestLogin $c={$c} text={l('Log in to edit')} />
           </li>
-          <li>
-            <EntityLink
-              content={l('Editing history')}
-              entity={entity}
-              subPath="edits"
-            />
-          </li>
+          <li className="separator" role="separator" />
         </>
-      ) : (
-        <li>
-          <RequestLogin $c={$c} text={l('Log in to edit')} />
-        </li>
       )}
+      <li>
+        <EntityLink
+          content={l('Open edits')}
+          entity={entity}
+          subPath="open_edits"
+        />
+      </li>
+      <li>
+        <EntityLink
+          content={l('Editing history')}
+          entity={entity}
+          subPath="edits"
+        />
+      </li>
     </ul>
   </>
 );

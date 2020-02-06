@@ -12,7 +12,9 @@ import formatDate from '../static/scripts/common/utility/formatDate';
 
 import areDatesEqual from './areDatesEqual';
 
-export default function relationshipDateText(r: RelationshipT) {
+export default function relationshipDateText(
+  r: $ReadOnly<{...DatePeriodRoleT, ...}>,
+) {
   if (r.begin_date) {
     if (r.end_date) {
       if (areDatesEqual(r.begin_date, r.end_date)) {

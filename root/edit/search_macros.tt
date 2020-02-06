@@ -247,6 +247,16 @@
   </span>
 [% END %]
 
+[% MACRO predicate_edit_notes(field, field_contents) BLOCK %]
+  [%~ IF c.user_exists ~%]
+    [% predicate_link(field, undef, 'editor') %]
+  [%~ ELSE ~%]
+    [% WRAPPER wfield predicate="set" %]
+      [%~ needs_login() ~%]
+    [% END %]        
+  [%~ END ~%]
+[% END %]
+
 [% MACRO predicate_voter(field, field_contents) WRAPPER wfield predicate="voter" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ]
@@ -363,6 +373,11 @@
   </select>
 [% END %]
 
+[% BLOCK needs_login %]
+  [%~ l('You must be logged in to use this option.') %]
+  [% request_login() -%]
+[% END %]
+
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field" class="field">
     [% UNLESS field_contents %]
@@ -375,7 +390,7 @@
                    [ 'status', lp('Status', 'edit status') ],
                    [ 'type', l('Type') ],
                    [ 'vote_count', l('Vote tally') ],
-                   [ 'edit_note_author', l('Edit Note Author') ],
+                   [ 'edit_note_author', l('Edit Note Author'), {requires_login => 1} ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
                    [ 'event', l('Event') ],
@@ -387,20 +402,22 @@
                    [ 'release_group', l('Release Group') ],
                    [ 'series', lp('Series', 'singular') ],
                    [ 'work', l('Work') ],
-                   [ 'editor', l('Editor') ],
-                   [ 'voter', l('Voter') ]
+                   [ 'editor', l('Editor'), {requires_login => 1} ],
+                   [ 'voter', l('Voter'), {requires_login => 1} ]
                    [ 'release_language', l('Release Language') ],
                    [ 'release_quality', l('Release Quality') ],
                    [ 'artist_area', l('Artist Area') ],
                    [ 'label_area', l('Label Area') ]
                    [ 'release_country', l('Release Country') ]
                    [ 'link_type', l('Relationship Type') ],
-                   [ 'editor_flag', l('Editor Flag') ],
-                   [ 'applied_edits', l('Applied Edit Count of Editor') ],
+                   [ 'editor_flag', l('Editor Flag'), {requires_login => 1} ],
+                   [ 'applied_edits', l('Applied Edit Count of Editor'), {requires_login => 1} ],
                    ] -%]
-    <option
-       [%~ ' selected="selected"' IF field_contents.field_name == field.0 =%]
-       value="[% html_escape(field.0) %]">[% html_escape(field.1) %]</option>
+      [% UNLESS (field.2.requires_login && !c.user_exists) %]
+        <option
+          [%~ ' selected="selected"' IF field_contents.field_name == field.0 =%]
+          value="[% html_escape(field.0) %]">[% html_escape(field.1) %]</option>
+      [% END %]
     [% END %]
   </select>
 [% END %]
@@ -413,7 +430,7 @@
     [% predicate_set('status', status, [], 8) %]
     [% predicate_set('release_quality', quality) %]
     [% predicate_vote_count('vote_count') %]
-    [% predicate_user('edit_note_author') %]
+    [% predicate_edit_notes('edit_note_author') %]
 
     [% FOR linked_type=[ 'artist', 'label', 'series' ];
          predicate_subscription(linked_type);

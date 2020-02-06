@@ -109,7 +109,7 @@ function createJsPo(srcPo, lang) {
     .join(' ');
 
   srcPo = shellQuote.quote([srcPo]);
-  tmpPo = shellQuote.quote([path.resolve(dirs.PO, `javascript.${lang}.po`)]);
+  const tmpPo = shellQuote.quote([path.resolve(dirs.PO, `javascript.${lang}.po`)]);
 
   /*
    * Create a temporary .po file containing only the strings used by
