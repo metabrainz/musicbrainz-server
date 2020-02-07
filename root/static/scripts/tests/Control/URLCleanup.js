@@ -2003,6 +2003,35 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
   },
+  // maniadb
+  {
+                     input_url: 'http://www.maniadb.com/artist.asp?p=114569',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.maniadb.com/artist/114569',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.maniadb.com/album.asp?a=736792',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.maniadb.com/album/736792',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'http://www.maniadb.com/index.php/album/736792',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.maniadb.com/album/736792',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'http://www.maniadb.com/album/736792/?a=736792',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.maniadb.com/album/736792',
+       only_valid_entity_types: ['release_group'],
+  },
   // (The) Metal Archives
   {
                      input_url: 'http://www.metal-archives.com/bands/Karna/26483',
