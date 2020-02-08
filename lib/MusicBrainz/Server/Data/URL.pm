@@ -45,6 +45,7 @@ my %URL_SPECIALIZATIONS = (
     'ClassicalArchives'   => qr{^https?://(?:www\.)?classicalarchives\.com/}i,
     'Commons'             => qr{^https?://commons\.wikimedia\.org/wiki/File:}i,
     'CPDL'                => qr{^https?://cpdl\.org/wiki/}i,
+    'DAHR'                => qr{^https?://adp\.library\.ucsb\.edu/}i,
     'Dailymotion'         => qr{^https?://(?:www\.)?dailymotion\.com/}i,
     'DanceDB'             => qr{^https?://(?:www\.)?tedcrane\.com/DanceDB/}i,
     'Decoda'              => qr{^https?://(?:www\.)?decoda\.com/}i,

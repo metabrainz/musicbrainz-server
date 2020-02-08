@@ -868,6 +868,28 @@ const CLEANUPS = {
       return url;
     },
   },
+  'dahr': {
+    match: [new RegExp('^(https?://)?adp\\.library\\.ucsb\\.edu/index\\.php/(matrix|objects|talent)', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?adp\.library\.ucsb\.edu\/index\.php\/([a-z]+)\/[a-z]+\/([\d]+).*$/, 'https://adp.library.ucsb.edu/index.php/$1/detail/$2');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/adp\.library\.ucsb\.edu\/index\.php\/([a-z]+)\/detail\/[\d]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'talent';
+          case LINK_TYPES.otherdatabases.recording:
+            return prefix === 'matrix';
+          case LINK_TYPES.otherdatabases.release:
+            return prefix === 'objects';
+        }
+      }
+      return false;
+    },
+  },
   'dailymotion': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(dailymotion\\.com/)', 'i')],
     type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),

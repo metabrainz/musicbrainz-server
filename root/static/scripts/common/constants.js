@@ -37,6 +37,7 @@ export const DARTIST_ID = 2;
 export const FAVICON_CLASSES = {
   '45cat.com': 'fortyfivecat',
   '45worlds.com': 'fortyfiveworlds',
+  'adp.library.ucsb.edu': 'dahr',
   'allmusic.com': 'allmusic',
   'amazon': 'amazon',
   'animenewsnetwork.com': 'animenewsnetwork',
