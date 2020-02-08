@@ -4,10 +4,8 @@ executors:
   musicbrainz-tests:
     docker:
       - environment:
-          PERL_CARTON_PATH: &carton /home/musicbrainz/carton-local
-          PERL_CPANM_OPT: --notest --no-interactive
           SIR_DIR: /home/musicbrainz/sir
-        image: metabrainz/musicbrainz-tests:v-2020-01.1
+        image: metabrainz/musicbrainz-tests:v-2020-02
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
@@ -164,21 +162,6 @@ jobs:
           paths:
             - "node_modules"
 
-      - restore_cache:
-          keys:
-            - v3-carton-{{ checksum "cpanfile.snapshot" }}
-            - v3-carton-
-      - run: |
-          [[ -d /home/musicbrainz/carton-local ]] && chown -R musicbrainz:musicbrainz /home/musicbrainz/carton-local
-          [[ -d /home/musicbrainz/vendor ]] && chown -R musicbrainz:musicbrainz /home/musicbrainz/vendor
-          sudo -E -H -u musicbrainz carton install --cached --deployment
-          sudo -E -H -u musicbrainz carton bundle
-      - save_cache:
-          key: v3-carton-{{ checksum "cpanfile.snapshot" }}
-          paths:
-            - *carton
-            - /home/musicbrainz/vendor
-
       - run: |
           sudo -E -H -u musicbrainz mkdir -p junit_output
           sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
@@ -194,7 +177,6 @@ jobs:
       - persist_to_workspace:
           root: *home
           paths:
-            - "carton-local"
             - "musicbrainz-server"
             - "pgdata"
 
