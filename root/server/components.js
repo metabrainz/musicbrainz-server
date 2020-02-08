@@ -262,6 +262,7 @@ module.exports = {
   'edit/details/AddPlace': require('../edit/details/AddPlace'),
   'edit/details/AddRemoveAlias': require('../edit/details/AddRemoveAlias'),
   'edit/details/AddSeries': require('../edit/details/AddSeries'),
+  'edit/details/AddWork': require('../edit/details/AddWork'),
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'edit/details/EditPlace': require('../edit/details/EditPlace'),
   'edit/details/EditSeries': require('../edit/details/EditSeries'),
