@@ -175,6 +175,7 @@ export const FAVICON_CLASSES = {
   'theatricalia.com': 'theatricalia',
   'thedancegypsy.com': 'thedancegypsy',
   'thesession.org': 'thesession',
+  'tidal.com': 'tidal',
   'tipeee.com': 'tipeee',
   'touhoudb.com': 'touhoudb',
   'traxsource.com': 'traxsource',
