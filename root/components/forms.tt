@@ -281,6 +281,7 @@
         <option value="French">[% l('French') %]</option>
         <option value="Turkish">[% l('Turkish') %]</option>
       </select>
+      (<a href="/doc/Guess_Case" target="_blank">[% l('help') %]</a>)
       <br />
       <label>
         <input type="checkbox" data-bind="checked: keepUpperCase" />
@@ -305,6 +306,7 @@
           <option value="French">[% l('French') %]</option>
           <option value="Turkish">[% l('Turkish') %]</option>
         </select>
+        (<a href="/doc/Guess_Case" target="_blank">[% l('help') %]</a>)
         <br />
         <label>
           <input type="checkbox" data-bind="checked: keepUpperCase" />
