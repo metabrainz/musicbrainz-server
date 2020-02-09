@@ -38,7 +38,6 @@ export const FAVICON_CLASSES = {
   '45cat.com': 'fortyfivecat',
   '45worlds.com': 'fortyfiveworlds',
   'allmusic.com': 'allmusic',
-  'amazon': 'amazon',
   'animenewsnetwork.com': 'animenewsnetwork',
   'anison.info': 'anisongeneration',
   'baidu.com': 'baidu',
@@ -110,6 +109,7 @@ export const FAVICON_CLASSES = {
   'mainlynorfolk.info': 'mainlynorfolk',
   'metal-archives.com': 'metalarchives',
   'mixcloud.com': 'mixcloud',
+  'music.amazon': 'amazonmusic',
   'musicapopular.cl': 'musicapopularcl',
   'musik-sammler.de': 'musiksammler',
   'musixmatch.com': 'musixmatch',
@@ -177,6 +177,7 @@ export const FAVICON_CLASSES = {
   'wikipedia.org': 'wikipedia',
   'wikisource.org': 'wikisource',
   'worldcat.org': 'worldcat',
+  'www.amazon': 'amazon',
   'www5.atwiki.jp/hmiku/': 'hmikuwiki',
   'youtube.com': 'youtube',
 };
