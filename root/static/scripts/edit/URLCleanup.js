@@ -1351,6 +1351,42 @@ const CLEANUPS: CleanupEntries = {
       };
     },
   },
+  'boomplay': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?boomplay\\.com/', 'i')],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(
+        /^https?:\/\/(?:www.)?boomplay.com\/((?:albums|artists|songs)\/\d+).*$/,
+        'https://www.boomplay.com/$1',
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.boomplay\.com\/(albums|artists|songs)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: prefix === 'artists',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'albums',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'songs',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'brahms': {
     match: [new RegExp('^(https?://)?brahms\\.ircam\\.fr/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
