@@ -3986,6 +3986,45 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'tidal': {
+    match: [new RegExp(
+      '^(https?://)?' +
+      '(([^/]+\\.)*(desktop|listen|stage|store|www)\\.)?tidal\\.com' +
+      '/.*(album|artist|track|video)/',
+      'i',
+    )],
+    restrict: [LINK_TYPES.streamingpaid],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:[^\/]+\.)*(?:desktop|listen|stage|store|www)\.)?tidal\.com\/(?:#!\/)?([\w\/]+).*$/, 'https://tidal.com/$1');
+      url = url.replace(/^https:\/\/tidal\.com\/(?:[a-z]{2}\/)?(?:browse\/|store\/)?(?:[a-z]+\/\d+\/)?([a-z]+)\/(\d+)(?:\/[\w]*)?$/, 'https://tidal.com/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/tidal\.com\/([a-z]+)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.streamingpaid.release:
+            if (prefix === 'album' || prefix === 'video') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.streamingpaid.recording:
+            if (prefix === 'track' || prefix === 'video') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'tipeee': {
     match: [new RegExp('^(https?://)?(?:[^/]+\\.)?tipeee\\.com/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],
