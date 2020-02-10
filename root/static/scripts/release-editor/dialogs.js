@@ -216,13 +216,12 @@ class SearchTab {
     if (event.keyCode === 13) { // Enter
       this.search(data, event);
       return false;
-    } else {
-      /*
-       * Knockout calls preventDefault unless you return true. Allows
-       * people to actually enter text.
-       */
-      return true;
     }
+    /*
+     * Knockout calls preventDefault unless you return true. Allows
+     * people to actually enter text.
+     */
+    return true;
   }
 
   nextPage() {
