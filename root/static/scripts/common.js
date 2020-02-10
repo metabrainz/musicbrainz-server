@@ -45,6 +45,7 @@ require("./common/i18n");
 require("./common/entity");
 require("./common/MB/Control/Autocomplete");
 require('./common/components/ReleaseEvents');
+require('./common/components/WorkArtists');
 require("./common/MB/Control/SelectAll");
 require("./common/components/TagEditor");
 
