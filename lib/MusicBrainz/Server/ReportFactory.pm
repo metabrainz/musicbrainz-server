@@ -71,6 +71,7 @@ use MusicBrainz::Server::PagedReport;
     ReleaseGroupsWithoutVALink
     ReleasesInCAAWithCoverArtRelationships
     ReleaseLabelSameArtist
+    ReleaseRGDifferentName
     ReleasesToConvert
     ReleasesWithCAANoTypes
     ReleasesWithDownloadRelationships
@@ -150,6 +151,7 @@ use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::ReleaseLabelSameArtist;
+use MusicBrainz::Server::Report::ReleaseRGDifferentName;
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ReleasesWithCAANoTypes;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;

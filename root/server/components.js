@@ -160,6 +160,7 @@ module.exports = {
   'report/ReleaseGroupsWithoutVaCredit': require('../report/ReleaseGroupsWithoutVaCredit'),
   'report/ReleaseGroupsWithoutVaLink': require('../report/ReleaseGroupsWithoutVaLink'),
   'report/ReleaseLabelSameArtist': require('../report/ReleaseLabelSameArtist'),
+  'report/ReleaseRgDifferentName': require('../report/ReleaseRgDifferentName'),
   'report/ReleasedTooEarly': require('../report/ReleasedTooEarly'),
   'report/ReleasesInCaaWithCoverArtRelationships': require('../report/ReleasesInCaaWithCoverArtRelationships'),
   'report/ReleasesMissingDiscIds': require('../report/ReleasesMissingDiscIds'),
