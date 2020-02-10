@@ -265,6 +265,7 @@ module.exports = {
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'edit/details/EditPlace': require('../edit/details/EditPlace'),
   'edit/details/EditSeries': require('../edit/details/EditSeries'),
+  'edit/details/MergeAreas': require('../edit/details/MergeAreas'),
   'event/EventHeader': require('../event/EventHeader'),
   'instrument/InstrumentHeader': require('../instrument/InstrumentHeader'),
   'label/LabelHeader': require('../label/LabelHeader'),
