@@ -1553,6 +1553,26 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.lyrics,
   },
+  'maniadb': {
+    match: [new RegExp('^(https?://)?(www\\.)?maniadb\\.com', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?maniadb\.com\/(?:index.php\/)?(album|artist)(?:\/|\.asp[?][ap]=)([0-9]+).*$/, 'http://www.maniadb.com/$1/$2');
+    },
+    validate: function (url, id) {
+      const m = /^http:\/\/www\.maniadb\.com\/(album|artist)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'album';
+        }
+      }
+      return false;
+    },
+  },
   'mixcloud': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i')],
     type: LINK_TYPES.socialnetwork,
@@ -1739,7 +1759,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?whosampled\\.com', 'i'),
-      new RegExp('^(https?://)?(www\\.)?maniadb\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/(?!review)', 'i'),
       new RegExp('^(https?://)?(www\\.)?vkdb\\.jp', 'i'),
