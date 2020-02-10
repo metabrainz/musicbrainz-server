@@ -57,11 +57,11 @@ Object.assign(trackParserDialog, {
   },
 
   parse: function () {
-    var medium = this.medium;
-    var toBeParsed = this.toBeParsed();
+    const medium = this.medium;
+    const toBeParsed = this.toBeParsed();
 
-    var newTracks = trackParser.parse(toBeParsed, medium);
-    var error = !isBlank(toBeParsed) && newTracks.length === 0;
+    const newTracks = trackParser.parse(toBeParsed, medium);
+    const error = !isBlank(toBeParsed) && newTracks.length === 0;
 
     this.error(error);
     !error && medium.tracks(newTracks);
@@ -89,7 +89,7 @@ class SearchResult {
   }
 
   toggle() {
-    var expand = this.tab.result() !== this;
+    const expand = this.tab.result() !== this;
 
     this.tab.result(expand ? this : null);
 
@@ -103,7 +103,7 @@ class SearchResult {
       }, this)
         .done(this.requestDone)
         .fail(function (jqXHR) {
-          var response = JSON.parse(jqXHR.responseText);
+          const response = JSON.parse(jqXHR.responseText);
           this.error(response.error);
         })
         .always(function () {
@@ -242,7 +242,7 @@ class SearchTab {
   requestDone(results) {
     this.error('');
 
-    var pager = results.pop();
+    const pager = results.pop();
 
     if (pager) {
       this.currentPage(parseInt(pager.current, 10));
@@ -295,7 +295,7 @@ Object.assign(mediumSearchTab, {
 });
 
 
-var cdstubSearchTab = new SearchTab();
+const cdstubSearchTab = new SearchTab();
 
 Object.assign(cdstubSearchTab, {
   endpoint: '/ws/js/cdstub',
@@ -339,12 +339,12 @@ Object.assign(addDiscDialog, {
   },
 
   addDisc: function () {
-    var medium = this.currentTab().addDisc();
+    const medium = this.currentTab().addDisc();
     if (!medium) {
       return;
     }
 
-    var release = releaseEditor.rootField.release();
+    const release = releaseEditor.rootField.release();
 
     // If there's only one empty disc, replace it.
     if (release.hasOneEmptyMedium()) {
