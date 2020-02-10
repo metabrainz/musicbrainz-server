@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
 import {INSTRUMENT_ROOT_ID} from '../static/scripts/common/constants';
 import {compare} from '../static/scripts/common/i18n';
 import commaList from '../static/scripts/common/i18n/commaList';
@@ -49,6 +51,7 @@ export type RelationshipPhraseGroupT = {
   combinedPhrase: Expand2ReactOutput,
   key: string,
   linkTypeInfo: Array<{
+    editsPending: boolean,
     phrase: Expand2ReactOutput,
     rootTypeId: number | null,
     textPhrase: string,
@@ -115,6 +118,14 @@ const areRelationshipTargetGroupsEqual = (a, b) => (
     areDatedExtraAttributesEqual,
   )
 );
+
+function displayLinkPhrase(linkTypeInfo) {
+  const phrase = linkTypeInfo.phrase;
+  if (linkTypeInfo.editsPending) {
+    return <span className="mp">{phrase}</span>;
+  }
+  return phrase;
+}
 
 /*
  * MBS-7678: Given the following relationships,
@@ -305,6 +316,7 @@ export default function groupRelationships(
           combinedPhrase: '',
           key: phraseGroupKey,
           linkTypeInfo: [{
+            editsPending: relationship.editsPending,
             phrase: phrase ?? textPhrase,
             rootTypeId: linkType.root_id,
             textPhrase,
@@ -408,12 +420,21 @@ export default function groupRelationships(
         const relatedLinkType = linkTypeInfo1.find(t => (
           t.rootTypeId === firstLinkType2.rootTypeId
         ));
+        const targetGroups1 = phraseGroup1.targetGroups;
+        const targetGroups2 = phraseGroup2.targetGroups;
 
         if (relatedLinkType && arraysEqual(
-          phraseGroup1.targetGroups,
-          phraseGroup2.targetGroups,
+          targetGroups1,
+          targetGroups2,
           areRelationshipTargetGroupsEqual,
         )) {
+          // Merge editsPending flags
+          for (let k = 0; k < targetGroups1.length; k++) {
+            const targetGroup1 = targetGroups1[k];
+            targetGroup1.editsPending =
+              targetGroup1.editsPending || targetGroups2[k].editsPending;
+          }
+
           phraseGroup1.key += UNIT_SEP + phraseGroup2.key;
           const [index, exists] = sortedIndexWith(
             linkTypeInfo1,
@@ -429,8 +450,8 @@ export default function groupRelationships(
       }
 
       phraseGroup1.combinedPhrase = linkTypeInfo1.length > 1
-        ? commaList(linkTypeInfo1.map(x => x.phrase))
-        : linkTypeInfo1[0].phrase;
+        ? commaList(linkTypeInfo1.map(displayLinkPhrase))
+        : displayLinkPhrase(linkTypeInfo1[0]);
     }
 
     phraseGroups.sort(cmpRelationshipPhraseGroups);
