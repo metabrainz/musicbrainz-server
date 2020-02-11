@@ -711,9 +711,11 @@ sub schema_fixup
                 map {
                     my @relationships = @{ $relationship_map{$_} };
                     {
+                        # TODO: Pass the actual credit when SEARCH-585 is fixed
+                        credit => '',
                         entity => $relationships[0]->entity1,
-                            roles  => [ map { $_->link->type->name } grep { $_->link->type->entity1_type eq 'artist' } @relationships ]
-                        }
+                        roles  => [ map { $_->link->type->name } grep { $_->link->type->entity1_type eq 'artist' } @relationships ]
+                    }
                 } grep {
                     my @relationships = @{ $relationship_map{$_} };
                     any { $_->link->type->entity1_type eq 'artist' } @relationships;

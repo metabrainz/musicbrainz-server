@@ -94,12 +94,14 @@ export function defineArtistCreditColumn<D>(
 
 export function defineArtistRolesColumn<D>(
   getRoles: (D) => $ReadOnlyArray<{
+    +credit: string,
     +entity: ArtistT,
     +roles: $ReadOnlyArray<string>,
   }>,
   columnName: string,
   title: string,
 ): ColumnOptions<D, $ReadOnlyArray<{
+      +credit: string,
       +entity: ArtistT,
       +roles: $ReadOnlyArray<string>,
 }>> {
