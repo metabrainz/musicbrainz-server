@@ -281,7 +281,7 @@ sub new_privileged {
 sub gravatar {
     my $self = shift;
 
-    if ($self->preferences->show_gravatar) {
+    if ($self->preferences->show_gravatar && $self->email) {
         my $hex = md5_hex(lc $self->email);
         return "//gravatar.com/avatar/$hex?d=mm";
     }
