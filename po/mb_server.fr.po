@@ -63,7 +63,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-28 16:33-0600\n"
-"PO-Revision-Date: 2020-01-30 16:57+0000\n"
+"PO-Revision-Date: 2020-02-08 18:33+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -4255,7 +4255,7 @@ msgstr "Groupe de parution : {release_group_link}"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
 #: ../root/tag/TagIndex.js:118 ../root/tag/TagLayout.js:26
 msgid "Release Groups"
-msgstr "Groupes de parution :"
+msgstr "Groupes de parution"
 
 #: ../root/release/edit/layout.tt:12
 msgid "Release Information"
@@ -4361,7 +4361,7 @@ msgstr "Parutions"
 #: ../root/edit/details/historic/remove_releases.tt:3
 #: ../root/edit/details/historic/remove_track.tt:3
 msgid "Releases:"
-msgstr "Parutions :"
+msgstr "Parutions :"
 
 #: ../root/admin/attributes/delete.tt:11 ../root/admin/wikidoc/index.tt:62
 #: ../root/cdtoc/list.tt:54 ../root/doc/relationship_type.tt:19
