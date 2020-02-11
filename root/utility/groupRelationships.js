@@ -9,7 +9,10 @@
 
 import * as React from 'react';
 
-import {INSTRUMENT_ROOT_ID} from '../static/scripts/common/constants';
+import {
+  INSTRUMENT_ROOT_ID,
+  VOCAL_ROOT_ID,
+} from '../static/scripts/common/constants';
 import {compare} from '../static/scripts/common/i18n';
 import commaList from '../static/scripts/common/i18n/commaList';
 import linkedEntities from '../static/scripts/common/linkedEntities';
@@ -41,6 +44,7 @@ export type RelationshipTargetGroupT = {
   datedExtraAttributesList: Array<DatedExtraAttributes>,
   earliestDatePeriod: DatePeriodRoleT,
   editsPending: boolean,
+  hasAttributes: boolean,
   key: string,
   linkOrder: number | null,
   target: CoreEntityT,
@@ -127,6 +131,43 @@ function displayLinkPhrase(linkTypeInfo) {
   return phrase;
 }
 
+function isNotInstrumentOrVocal(attribute) {
+  const type = linkedEntities.link_attribute_type[attribute.typeID];
+  return (
+    type.root_id !== INSTRUMENT_ROOT_ID &&
+    type.root_id !== VOCAL_ROOT_ID
+  );
+}
+
+function areAttributeListsMergeable(
+  attributeList1,
+  attributeList2,
+) {
+  /*
+   * Two attribute lists are mergeable for display if all their non-
+   * instrument and non-vocal attributes are equal. This is basically
+   * the inverse of Data::Util::split_relationship_by_attributes on the
+   * server, which was added for MBS-1377 and introduced the display
+   * issue described by MBS-7678.
+   *
+   * This method helps on orderable link types such as "recording of."
+   * When displaying those, we don't interpolate any attributes into
+   * the link phrase in order to keep the relevant relationships
+   * grouped and numbered together in a single list. Thus, without
+   * the check below, something like
+   *     recording of: Work (in 2001: cover; in 2001: cover, live)
+   * would be displayed only as
+   *     recording of: Work (in 2001: cover, live)
+   * which creates a deficiency in the editing interface insofar as
+   * it doesn't make duplicates visible to the user.
+   */
+  return arraysEqual(
+    attributeList1.filter(isNotInstrumentOrVocal),
+    attributeList2.filter(isNotInstrumentOrVocal),
+    areLinkAttrsEqual,
+  );
+}
+
 /*
  * MBS-7678: Given the following relationships,
  *   member: A (1999-2005) (bass)
@@ -155,7 +196,8 @@ function mergeDatedExtraAttributes(pairs) {
     const a = pairs[i];
     for (let j = i + 1; j < pairs.length; j++) {
       const b = pairs[j];
-      if (areDatePeriodsEqual(a.datePeriods[0], b.datePeriods[0])) {
+      if (areDatePeriodsEqual(a.datePeriods[0], b.datePeriods[0]) &&
+          areAttributeListsMergeable(a.attributes, b.attributes)) {
         mergeSortedArrayInto(a.attributes, b.attributes, cmpLinkAttrs);
         pairs.splice(j, 1);
         j--;
@@ -338,6 +380,9 @@ export default function groupRelationships(
       end_date: relationship.end_date,
       ended: relationship.ended,
     };
+    const hasAttributes = relationship.attributes
+      ? relationship.attributes.length > 0
+      : false;
 
     let targetGroup = phraseGroup.targetGroups.find(targetGroup => (
       targetGroup.target.id === target.id &&
@@ -350,7 +395,13 @@ export default function groupRelationships(
        * relationships where a sub-work is supposed to be played twice in
        * different orders.)
        */
-      targetGroup.linkOrder === linkOrder
+      targetGroup.linkOrder === linkOrder &&
+      /*
+       * Don't merge relationships without attributes into ones that have
+       * them; that makes the ones without any completely invisible to the
+       * user.
+       */
+      targetGroup.hasAttributes === hasAttributes
     ));
 
     if (!targetGroup) {
@@ -358,6 +409,7 @@ export default function groupRelationships(
         datedExtraAttributesList: [],
         earliestDatePeriod: datePeriod,
         editsPending: relationship.editsPending,
+        hasAttributes,
         key: String(target.id) + UNIT_SEP + targetCredit + UNIT_SEP +
           (linkOrder ?? ''),
         linkOrder,
