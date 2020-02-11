@@ -12,6 +12,7 @@ import React from 'react';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import subfieldErrors, {type FieldShape} from '../utility/subfieldErrors';
 
+// FIXME: Use expandable object instead of HTML string for safety (MBS-10632)
 const buildErrorListItem = (error, hasHtmlErrors, index) => {
   if (hasHtmlErrors) {
     return (
