@@ -3773,7 +3773,7 @@ msgid "trikiti"
 msgstr ""
 
 #: DB:instrument/name:945
-msgctxt "Indian three-stringed long-necked lute"
+msgctxt "Indian medieval three-stringed stick zither"
 msgid "tritantri veena"
 msgstr ""
 

@@ -1727,15 +1727,6 @@ msgid ""
 "townspeople."
 msgstr ""
 
-#. name:tritantri veena 
-#: DB:instrument/description:945
-msgid ""
-"Originally played in court, it consists of a 1m long piece of wood with a "
-"small intricately carved soundbox. It has 16 frets and 3 metal strings. "
-"Legend has it, the Persian Ameer Khusrau made some alterations and created "
-"the Persian sehtara (setar)."
-msgstr ""
-
 #. name:anvil 
 #: DB:instrument/description:720
 msgid ""
@@ -4270,6 +4261,15 @@ msgstr ""
 msgid ""
 "Used in Hindustani dhrupad, this two-headed barrel-drum is tuned like its "
 "descendant the tabla."
+msgstr ""
+
+#. name:tritantri veena 
+#: DB:instrument/description:945
+msgid ""
+"Used in India during the medieval period, it had a stick-zither body with 3 "
+"strings <br /> For the the long necked lute called \"tritantri veena\" in "
+"the 19 century, see \"<a href=\"/instrument/9290b2c1-97c3-4355-a26f-"
+"c6dba89cf8ff\">sitar</a>\""
 msgstr ""
 
 #. name:slenthem 
