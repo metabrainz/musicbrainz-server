@@ -82,9 +82,8 @@ MB.GuessCase.Output = function (gc) {
     self.getWordAtIndex = function (index) {
         if (self._w[index]) {
             return self._w[index];
-        } else {
-            return null;
-        }
+        } 
+        return null;
     };
 
     // Returns the word at the index, or null if index outside bounds
@@ -98,9 +97,8 @@ MB.GuessCase.Output = function (gc) {
     self.getLastWord = function () {
         if (self.isEmpty()) {
             return null;
-        } else {
-            return self._w[self._w.length-1];
         }
+        return self._w[self._w.length-1];
     };
 
     // Returns the last word of the wordlist

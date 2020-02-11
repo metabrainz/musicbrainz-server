@@ -97,5 +97,5 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
             $('.coordinates-errors').css('display', 'block');
             coordinatesError(true);
         });
-    };
+    }
 });

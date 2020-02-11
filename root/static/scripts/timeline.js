@@ -93,9 +93,8 @@ class TimelineViewModel {
                 var parts = self.zoomArray();
                 if (_.filter(parts).length > 0) {
                     return ['g'].concat(parts).join('/');
-                } else {
-                    return null;
-                }
+                } 
+                return null;
             },
             write: function (part) {
                 if (part) {
@@ -505,7 +504,7 @@ class TimelineLine {
         setCursor();
         const x = item.datapoint[0];
         let y = item.datapoint[1];
-        const date = new Date(parseInt(x));
+        const date = new Date(parseInt(x, 10));
 
         if (fixed) {
             y = y.toFixed(fixed);
