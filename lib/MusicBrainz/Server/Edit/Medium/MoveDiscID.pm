@@ -65,8 +65,20 @@ sub alter_edit_pending
 sub _build_related_entities
 {
     my $self = shift;
+    my @releases = values %{
+        $self->c->model('Release')->get_by_ids($self->release_ids)
+    };
+    $self->c->model('ReleaseGroup')->load(@releases);
+    my @release_groups = map { $_->release_group } @releases;
+
+    $self->c->model('ArtistCredit')->load(@releases, @release_groups);
     return {
-        release => [ $self->release_ids ],
+        artist => [
+            map { $_->artist_id } map { $_->artist_credit->all_names }
+                @releases, @release_groups
+        ],
+        release_group => [ map { $_->id } @release_groups ],
+        release => [ $self->release_ids ]
     }
 }
 
