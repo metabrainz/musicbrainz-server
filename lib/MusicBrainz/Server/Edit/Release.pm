@@ -15,10 +15,11 @@ sub check_event_countries {
     my $countries = {};
 
     for (@$events) {
-        if (exists $countries->{$_->{country_id} // 'undef'}) {
-            die "Duplicate release country: " . ($_->{country_id} // 'undef');
+        my $country_id = $_->{country_id} // 'undef';
+        if (exists $countries->{$country_id}) {
+            die "Duplicate release country: " . $country_id;
         }
-        $countries->{$_->{country_id} // 'undef'} = 1;
+        $countries->{$country_id} = 1;
     }
 }
 
