@@ -272,6 +272,7 @@ module.exports = {
   'edit/details/MergeLabels': require('../edit/details/MergeLabels'),
   'edit/details/MergePlaces': require('../edit/details/MergePlaces'),
   'edit/details/MergeRecordings': require('../edit/details/MergeRecordings'),
+  'edit/details/MergeReleaseGroups': require('../edit/details/MergeReleaseGroups'),
   'edit/details/MergeSeries': require('../edit/details/MergeSeries'),
   'edit/details/MergeWorks': require('../edit/details/MergeWorks'),
   'event/EventHeader': require('../event/EventHeader'),
