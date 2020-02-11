@@ -28,6 +28,8 @@ export const ENTITY_NAMES = {
 
 export const INSTRUMENT_ROOT_ID = 14;
 
+export const VOCAL_ROOT_ID = 3;
+
 export const AREA_TYPE_COUNTRY = 1;
 
 export const CONTACT_URL = 'https://metabrainz.org/contact';
