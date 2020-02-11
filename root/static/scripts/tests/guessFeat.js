@@ -82,12 +82,20 @@ test('guessing feat. artists', function (t) {
     {
       input: {
         name: 'Ft. Smith Breakdown',
-        artistCredit: {names: [{name: 'Luke Highnight & His Ozark Strutters', joinPhrase: ''}]},
+        artistCredit: {
+          names: [
+            {name: 'Luke Highnight & His Ozark Strutters', joinPhrase: ''},
+          ],
+        },
       },
       // no change
       output: {
         name: 'Ft. Smith Breakdown',
-        artistCredit: {names: [{name: 'Luke Highnight & His Ozark Strutters', joinPhrase: ''}]},
+        artistCredit: {
+          names: [
+            {name: 'Luke Highnight & His Ozark Strutters', joinPhrase: ''},
+          ],
+        },
       },
     },
     {
@@ -166,7 +174,8 @@ test('guessing feat. artists', function (t) {
     },
     {
       input: {
-        name: 'The Bell (Paranoia Network Remix), featuring Pete Seeger & DJ Spooky',
+        name: 'The Bell (Paranoia Network Remix), ' +
+              'featuring Pete Seeger & DJ Spooky',
         artistCredit: {names: [{name: 'Stephan Smith', joinPhrase: ''}]},
       },
       output: {
@@ -182,7 +191,8 @@ test('guessing feat. artists', function (t) {
     },
     {
       input: {
-        name: 'Mothership Reconnection (Feat Parliament/Funkadelic) (Daft Punk Remix)',
+        name: 'Mothership Reconnection (Feat Parliament/Funkadelic) ' +
+              '(Daft Punk Remix)',
         artistCredit: {names: [{name: 'Daft Punk', joinPhrase: ''}]},
       },
       output: {
@@ -224,7 +234,11 @@ test('guessing feat. artists', function (t) {
           gid: '8c6920a2-130c-4028-add9-684325a3fa8a',
           relationships: [
             {
-              target: {name: 'Ol’ Dirty Bastard', gid: 'd50548a0-3cfd-4d7a-964b-0aef6545d819', entityType: 'artist'},
+              target: {
+                name: 'Ol’ Dirty Bastard',
+                gid: 'd50548a0-3cfd-4d7a-964b-0aef6545d819',
+                entityType: 'artist',
+              },
               direction: 'backward',
               linkTypeID: 156,
             },
@@ -324,8 +338,12 @@ test('guessing feat. artists', function (t) {
   const releaseTests = [
     {
       input: {
-        name: 'The Nutcracker: Suite, Op. 71 (London Symphony Orchestra feat. conductor: André Previn) (disc 2)',
-        artistCredit: {names: [{name: 'Пётр Ильич Чайковский', joinPhrase: ''}]},
+        name: 'The Nutcracker: Suite, Op. 71 ' +
+              '(London Symphony Orchestra feat. conductor: André Previn) ' +
+              '(disc 2)',
+        artistCredit: {
+          names: [{name: 'Пётр Ильич Чайковский', joinPhrase: ''}],
+        },
         relationships: [
           {
             target: {name: 'London Symphony Orchestra', entityType: 'artist'},
@@ -347,8 +365,12 @@ test('guessing feat. artists', function (t) {
     },
     {
       input: {
-        name: 'Intermezzi from Palandrana and Zambrano (feat. Fortuna Ensemble; conductor: Roberto Cascio; soprano: Barbara di Castri; tenor: Gastone Sarti)',
-        artistCredit: {names: [{name: 'Alessandro Scarlatti', joinPhrase: ''}]},
+        name: 'Intermezzi from Palandrana and Zambrano ' +
+              '(feat. Fortuna Ensemble; conductor: Roberto Cascio; ' +
+              'soprano: Barbara di Castri; tenor: Gastone Sarti)',
+        artistCredit: {
+          names: [{name: 'Alessandro Scarlatti', joinPhrase: ''}],
+        },
         relationships: [
           {
             target: {name: 'Roberto Cascio', entityType: 'artist'},
@@ -372,11 +394,16 @@ test('guessing feat. artists', function (t) {
     },
     {
       input: {
-        name: 'Le nozze di Figaro - highlights (The Drottningholm Court Theatre Orchestra & Chorus, feat. conductor: Arnold Östman, singers: Salomaa, Bonney, Hagagård)',
+        name: 'Le nozze di Figaro - highlights ' +
+              '(The Drottningholm Court Theatre Orchestra & Chorus, feat. ' +
+              'conductor: Arnold Östman, singers: Salomaa, Bonney, Hagagård)',
         artistCredit: {names: [{name: 'Mozart', joinPhrase: ''}]},
         relationships: [
           {
-            target: {name: 'The Drottningholm Court Theatre Orchestra & Chorus', entityType: 'artist'},
+            target: {
+              name: 'The Drottningholm Court Theatre Orchestra & Chorus',
+              entityType: 'artist',
+            },
             direction: 'backward',
             linkTypeID: 45,
           },
@@ -387,7 +414,10 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Mozart', joinPhrase: '; '},
-            {name: 'The Drottningholm Court Theatre Orchestra & Chorus', joinPhrase: ', '},
+            {
+              name: 'The Drottningholm Court Theatre Orchestra & Chorus',
+              joinPhrase: ', ',
+            },
             {name: 'Arnold Östman', joinPhrase: ', '},
             {name: 'Salomaa', joinPhrase: ', '},
             {name: 'Bonney', joinPhrase: ', '},
@@ -412,7 +442,9 @@ test('guessing feat. artists', function (t) {
 
   function runTest(x, entity) {
     guessFeat(entity);
-    t.deepEqual(toJS(entity), x.output, x.input.name + ' -> ' + x.output.name);
+    t.deepEqual(
+      toJS(entity), x.output, x.input.name + ' -> ' + x.output.name,
+    );
   }
 
   _.each(trackTests, function (x) {
