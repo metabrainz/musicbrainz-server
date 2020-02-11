@@ -1035,6 +1035,28 @@ const testData = [
     expected_relationship_type: 'license',
             expected_clean_url: 'https://creativecommons.org/publicdomain/zero/1.0/',
   },
+  // DAHR
+  {
+                     input_url: 'https://adp.library.ucsb.edu/index.php/talent/detail/800/Louis_Armstrong_All-Stars_Musical_group',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/index.php/talent/detail/800',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://adp.library.ucsb.edu/index.php/matrix/refer/2000308570#',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/index.php/matrix/detail/2000308570',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://adp.library.ucsb.edu/index.php/objects/detail/361259/Ace_of_Hearts_England_AH-73_LP',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/index.php/objects/detail/361259',
+       only_valid_entity_types: ['release'],
+  },
   // Dailymotion
   {
                      input_url: 'https://dailymotion.com/who-knows#uploads',
