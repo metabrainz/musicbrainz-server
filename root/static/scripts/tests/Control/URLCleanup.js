@@ -1716,7 +1716,7 @@ const testData = [
                      input_url: 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://itunes.apple.com/artist/id444923726',
+            expected_clean_url: 'https://itunes.apple.com/us/artist/id444923726',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -1730,7 +1730,7 @@ const testData = [
                      input_url: 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
              input_entity_type: 'recording',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://itunes.apple.com/music-video/id564322420',
+            expected_clean_url: 'https://itunes.apple.com/us/music-video/id564322420',
        only_valid_entity_types: ['recording'],
   },
   {
@@ -1750,7 +1750,7 @@ const testData = [
                      input_url: 'https://itunes.apple.com/album/beatbox-+-iphone-+-guitar/id589456329?ign-mpt=uo%3D4',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://itunes.apple.com/album/id589456329',
+            expected_clean_url: 'https://itunes.apple.com/us/album/id589456329',
   },
   {
                      input_url: 'https://itunes.apple.com/us/album/skyfall-single/id566322358',
