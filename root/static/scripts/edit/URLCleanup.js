@@ -198,10 +198,15 @@ export const LINK_TYPES = {
     place: '1cd2eb89-2997-4901-87e9-838ac9a68da9',
     series: '4789521b-57b9-4689-9644-46de63190f66',
   },
-  streamingmusic: {
+  streamingfree: {
     artist: '769085a1-c2f7-4c24-a532-2375a77693bd',
     recording: '7e41ef12-a124-4324-afdb-fdbae687a89c',
     release: '08445ccf-7b99-4438-9f9a-fb9ac18099ee',
+  },
+  streamingpaid: {
+    artist: '63cc5d1f-f096-4c94-a43f-ecb32ea94161',
+    recording: 'b5f3058a-666c-406f-aafb-f9249fc7b122',
+    release: '320adf26-96fa-4183-9045-1f5f32f833cb',
   },
   vgmdb: {
     artist: '0af15ab3-c615-46d6-b95b-a5fcd2a92ed9',
@@ -301,6 +306,21 @@ function disallow() {
   return false;
 }
 
+function findAmazonTld(url) {
+  let tld = '';
+  let m;
+
+  if ((m = url.match(/(?:amazon|amzn)\.([a-z.]+)\//))) {
+    tld = m[1];
+    if (tld === 'jp') {
+      tld = 'co.jp';
+    }
+    if (tld === 'at') {
+      tld = 'de';
+    }
+  }
+  return tld;
+}
 /*
  * CLEANUPS entries have 2 to 4 of the following properties:
  *
@@ -399,7 +419,7 @@ const CLEANUPS = {
     },
   },
   'amazon': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)|amzn\\.com)', 'i')],
+    match: [new RegExp('^(https?://)?(((?!music)[^/])+\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)|amzn\\.com)', 'i')],
     type: LINK_TYPES.amazon,
     clean: function (url) {
       /*
@@ -414,15 +434,7 @@ const CLEANUPS = {
       let asin = '';
       let m;
 
-      if ((m = url.match(/(?:amazon|amzn)\.([a-z.]+)\//))) {
-        tld = m[1];
-        if (tld === 'jp') {
-          tld = 'co.jp';
-        }
-        if (tld === 'at') {
-          tld = 'de';
-        }
-      }
+      tld = findAmazonTld(url);
 
       if ((m = url.match(/\/e\/([A-Z0-9]{10})(?:[/?&%#]|$)/))) { // artist pages
         return 'https://www.amazon.' + tld + '/-/e/' + m[1];
@@ -440,6 +452,46 @@ const CLEANUPS = {
     },
     validate: function (url) {
       return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\//.test(url);
+    },
+  },
+  'amazonmusic': {
+    match: [new RegExp('^(https?://)?music\\.amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)/(albums|artists)', 'i')],
+    type: LINK_TYPES.streamingpaid,
+    clean: function (url) {
+      /*
+       * determine tld, asin from url, and build standard format [1],
+       * if both were found.
+       *
+       * [1] "https://www.amazon.<tld>/(albums|artists)/<ASIN>"
+       */
+      let tld = '';
+      let type = '';
+      let asin = '';
+
+      tld = findAmazonTld(url);
+
+      const m = url.match(/\/(albums|artists)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/);
+      type = m[1];
+      asin = m[2];
+
+      if (tld !== '' && asin !== '') {
+        return 'https://music.amazon.' + tld + '/' + type + '/' + asin;
+      }
+
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.amazon\.(?:com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\/(albums|artists)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            return prefix === 'artists';
+          case LINK_TYPES.streamingpaid.release:
+            return prefix === 'albums';
+        }
+      }
+      return false;
     },
   },
   'animationsong': {
@@ -868,9 +920,31 @@ const CLEANUPS = {
       return url;
     },
   },
+  'dahr': {
+    match: [new RegExp('^(https?://)?adp\\.library\\.ucsb\\.edu/index\\.php/(matrix|objects|talent)', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?adp\.library\.ucsb\.edu\/index\.php\/([a-z]+)\/[a-z]+\/([\d]+).*$/, 'https://adp.library.ucsb.edu/index.php/$1/detail/$2');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/adp\.library\.ucsb\.edu\/index\.php\/([a-z]+)\/detail\/[\d]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'talent';
+          case LINK_TYPES.otherdatabases.recording:
+            return prefix === 'matrix';
+          case LINK_TYPES.otherdatabases.release:
+            return prefix === 'objects';
+        }
+      }
+      return false;
+    },
+  },
   'dailymotion': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(dailymotion\\.com/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       const m = /^(?:https?:\/\/)?(?:www\.)?dailymotion\.com\/((([^\/?#]+)(?:\/[^?#]*)?)(?:\?[^#]*)?(?:#(.+)?)?)$/.exec(url);
       if (m) {
@@ -907,7 +981,7 @@ const CLEANUPS = {
   },
   'deezer': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(deezer\\.com)', 'i')],
-    type: LINK_TYPES.streamingmusic,
+    type: LINK_TYPES.streamingfree,
     clean: function (url) {
       url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(?:[a-z]{2}\/)?(\w+)\/(\d+).*$/, 'https://www.deezer.com/$2/$3');
       return url;
@@ -917,11 +991,11 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         switch (id) {
-          case LINK_TYPES.streamingmusic.artist:
+          case LINK_TYPES.streamingfree.artist:
             return prefix === 'artist';
-          case LINK_TYPES.streamingmusic.release:
+          case LINK_TYPES.streamingfree.release:
             return prefix === 'album';
-          case LINK_TYPES.streamingmusic.recording:
+          case LINK_TYPES.streamingfree.recording:
             return prefix === 'track' || prefix === 'episode';
         }
       }
@@ -1227,7 +1301,17 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?instagram\\.com/', 'i')],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^?#]+[^\/?#])\/*(?:[?#].*)?$/, 'https://www.instagram.com/$1/');
+      // Ignore explore/photo URLs since we'll block them anyway
+      if (!(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url))) {
+        // Point /stories/ sections to the main user profile instead
+        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/stories\/([^\/?#]+)\/?(?:[\/?#].*)?$/, 'https://www.instagram.com/$1/');
+        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^\/?#]+)\/?(?:[\/?#].*)?$/, 'https://www.instagram.com/$1/');
+      }
+      return url;
+    },
+    validate: function (url) {
+      // Block explore/photo URLs, which aren't really a social network link
+      return !(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url));
     },
   },
   'irishtune': {
@@ -1257,10 +1341,12 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/(?:geo\.)?itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|audiobook|author|music-video|podcast|preorder)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://itunes.apple.com/$1$2/id$3');
       // Author seems to be a different interface for artist with the same ID
       url = url.replace(/^(https:\/\/itunes\.apple\.com(?:\/[a-z]{2})?)\/author\//, '$1/artist/');
+      // US store is the default, add its country-code to clarify (MBS-10623)
+      url = url.replace(/^(https:\/\/itunes\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/itunes\.apple\.com\/(?:[a-z]{2}\/)?([a-z-]{3,})\/id[0-9]+$/.exec(url);
+      const m = /^https:\/\/itunes\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/id[0-9]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -1501,6 +1587,26 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.lyrics,
   },
+  'maniadb': {
+    match: [new RegExp('^(https?://)?(www\\.)?maniadb\\.com', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?maniadb\.com\/(?:index.php\/)?(album|artist)(?:\/|\.asp[?][ap]=)([0-9]+).*$/, 'http://www.maniadb.com/$1/$2');
+    },
+    validate: function (url, id) {
+      const m = /^http:\/\/www\.maniadb\.com\/(album|artist)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'album';
+        }
+      }
+      return false;
+    },
+  },
   'mixcloud': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i')],
     type: LINK_TYPES.socialnetwork,
@@ -1616,7 +1722,7 @@ const CLEANUPS = {
   },
   'niconicovideo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(nicovideo\\.jp/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?nicovideo\.jp\/(user\/[0-9]+|watch\/sm[0-9]+).*$/, 'https://www.nicovideo.jp/$1');
     },
@@ -1625,8 +1731,8 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1] || m[2];
         switch (id) {
-          case LINK_TYPES.streamingmusic.recording:
-          case LINK_TYPES.streamingmusic.release:
+          case LINK_TYPES.streamingfree.recording:
+          case LINK_TYPES.streamingfree.release:
             return prefix === 'watch';
           case LINK_TYPES.videochannel.artist:
             return prefix === 'user';
@@ -1687,7 +1793,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?whosampled\\.com', 'i'),
-      new RegExp('^(https?://)?(www\\.)?maniadb\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/(?!review)', 'i'),
       new RegExp('^(https?://)?(www\\.)?vkdb\\.jp', 'i'),
@@ -2084,7 +2189,7 @@ const CLEANUPS = {
   },
   'spotify': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(spotify\\.com)/(?!user)', 'i')],
-    type: LINK_TYPES.streamingmusic,
+    type: LINK_TYPES.streamingfree,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, 'https://open.spotify.com/$1/$2');
       url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, 'https://open.spotify.com/$1/$2');
@@ -2095,11 +2200,11 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         switch (id) {
-          case LINK_TYPES.streamingmusic.artist:
+          case LINK_TYPES.streamingfree.artist:
             return prefix === 'artist';
-          case LINK_TYPES.streamingmusic.release:
+          case LINK_TYPES.streamingfree.release:
             return prefix === 'album';
-          case LINK_TYPES.streamingmusic.recording:
+          case LINK_TYPES.streamingfree.recording:
             return prefix === 'track' || prefix === 'episode';
         }
       }
@@ -2161,7 +2266,7 @@ const CLEANUPS = {
   },
   'twitch': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(twitch\\.tv/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.tv\/((?:videos\/)?[^\/?#]+)(?:.*)?$/, 'https://www.twitch.tv/$1');
       return url;
@@ -2183,7 +2288,7 @@ const CLEANUPS = {
     type: _.defaults(
       {},
       LINK_TYPES.socialnetwork,
-      LINK_TYPES.streamingmusic,
+      LINK_TYPES.streamingfree,
     ),
     clean: function (url) {
       url = url.replace(
@@ -2200,8 +2305,8 @@ const CLEANUPS = {
       const m = /^https:\/\/twitter\.com\/[^\/?#]+(\/status\/\d+)?$/.exec(url);
       if (m) {
         const isATweet = !!m[1];
-        if (_.includes(LINK_TYPES.streamingmusic, id)) {
-          return isATweet && (id === LINK_TYPES.streamingmusic.recording);
+        if (_.includes(LINK_TYPES.streamingfree, id)) {
+          return isATweet && (id === LINK_TYPES.streamingfree.recording);
         }
         return !isATweet;
       }
@@ -2326,7 +2431,7 @@ const CLEANUPS = {
   },
   'vimeo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(vimeo\\.com/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, 'https://vimeo.com');
       // Remove query string, just the video id should be enough.
@@ -2405,7 +2510,7 @@ const CLEANUPS = {
   },
   'youtube': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
       // YouTube /c/ user channels (/c/ is unneeded)

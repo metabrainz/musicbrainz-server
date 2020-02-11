@@ -51,6 +51,7 @@ has 'performers' => (
     is => 'ro',
     isa => ArrayRef[
         Dict[
+            credit => Str,
             roles => ArrayRef[Str],
             entity => Object
         ]
@@ -115,6 +116,7 @@ around TO_JSON => sub {
         }, $self->all_areas],
         cancelled => boolean_to_json($self->cancelled),
         performers => [map +{
+            credit => $_->{credit},
             entity => $_->{entity},
             roles => $_->{roles},
         }, $self->all_performers],

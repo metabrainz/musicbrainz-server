@@ -26,9 +26,8 @@
                     return !plotEvent;
             });
             return plotEvent;
-        } else {
-            return false;
-        }
+        } 
+        return false;
     }
 
     function drawCrosshairLine(plot, ctx, x, color) {

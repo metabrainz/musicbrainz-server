@@ -28,6 +28,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw( comma_list N_l );
+use MusicBrainz::Server::Validation qw( encode_entities );
 use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -936,7 +937,7 @@ sub _link_recording {
     MusicBrainz::Server::Translation->expand(
         '{url|{name}}',
         url => '/recording/' . $recording_info->{gid},
-        name => $recording_info->{name},
+        name => encode_entities($recording_info->{name}),
     );
 }
 

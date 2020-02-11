@@ -11,6 +11,8 @@ sub edit_name { N_l('Add disc ID') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
 
+sub medium_id { shift->data->{medium_id} }
+
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
@@ -19,6 +21,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Medium';
+with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
@@ -66,13 +69,6 @@ sub _edit_hash {
 
     delete $data->{medium_position};
     return $data;
-}
-
-method _build_related_entities
-{
-    return {
-        release => [ $self->release_id ]
-    }
 }
 
 method foreign_keys {

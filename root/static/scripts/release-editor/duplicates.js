@@ -30,7 +30,7 @@ releaseEditor.baseRelease.subscribe(function (gid) {
     var release = releaseEditor.rootField.release();
 
     if (!gid) {
-        release.mediums([ new releaseEditor.fields.Medium({}, release) ]);
+        release.mediums([new releaseEditor.fields.Medium({}, release)]);
         return;
     }
 
@@ -95,7 +95,7 @@ releaseEditor.findReleaseDuplicates = function () {
         }
 
         var query = utils.constructLuceneFieldConjunction({
-            release: [ utils.escapeLuceneValue(name) ],
+            release: [utils.escapeLuceneValue(name)],
 
             arid: _(ac.names)
                 .map('artist.gid')
@@ -170,16 +170,18 @@ function formatReleaseData(release) {
 
 
 function combinedMediumFormatName(mediums) {
-    var formats = pluck(_(mediums), "format");
-    var formatCounts = formats.countBy(_.identity);
+    const getFormat = medium => medium.format || '';
+    const formats = _.uniq(mediums.map(getFormat));
+    const formatCounts = _.countBy(mediums, getFormat);
 
     return formats
-        .uniq()
         .map(function (format) {
-            var count = formatCounts[format];
+            const count = formatCounts[format];
 
-            return (count > 1 ? count + "\u00D7" : "") + format;
+            return (count > 1 ? count + "\u00D7" : "") +
+                (format
+                    ? lp_attributes(format, 'medium_format')
+                    : l('(unknown)'));
         })
-        .value()
         .join(" + ");
 }

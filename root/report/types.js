@@ -224,6 +224,14 @@ export type ReportReleaseRelationshipT = {
   +row_number: number,
 };
 
+export type ReportReleaseReleaseGroupT = {
+  +release: ?ReleaseT,
+  +release_group: ?ReleaseGroupT,
+  +release_group_id: number,
+  +release_id: number,
+  +row_number: number,
+};
+
 export type ReportReleaseT = {
   +release: ?ReleaseT,
   +release_id: number,

@@ -32,6 +32,7 @@ use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Track qw( format_track_length );
+use JSON::XS;
 use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -494,7 +495,7 @@ sub accept {
         my %tracks_reused;
         for my $track (@final_tracklist) {
             $track->{artist_credit_id} = $self->c->model('ArtistCredit')->find_or_insert(
-                delete $track->{artist_credit});
+                $track->{artist_credit});
 
             if (!$track->{recording_id}) {
                 $track->{recording_id} = $self->c->model('Recording')->insert({
@@ -513,6 +514,10 @@ sub accept {
             {
                 $self->c->model('Track')->insert($track);
             }
+
+            # Remove stuff not expected on the edit data
+            delete $track->{artist_credit_id};
+            delete $track->{medium_id};
         }
 
         for my $old_track ($medium->all_tracks)
@@ -520,6 +525,11 @@ sub accept {
             $self->c->model('Track')->delete($old_track->id)
                 unless $tracks_reused{$old_track->id}
         }
+
+        # We add the final tracklist, with created recordings, to the edit data
+        $self->data->{new}{tracklist} = \@final_tracklist;
+        my $json = JSON::XS->new;
+        $self->c->sql->update_row('edit_data', { data => $json->encode($self->to_hash) }, { edit => $self->id });
     }
 }
 

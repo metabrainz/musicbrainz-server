@@ -16,6 +16,7 @@ import EntityLink from './EntityLink';
 
 type Props = {
   +relations: $ReadOnlyArray<{
+    +credit: string,
     +entity: ArtistT,
     +roles: $ReadOnlyArray<string>,
   }>,
@@ -26,7 +27,7 @@ const ArtistRoles = ({relations}: Props) => (
     {relations.map(r => (
       <li key={r.entity.id}>
         {exp.l('{artist} ({roles})', {
-          artist: <EntityLink entity={r.entity} />,
+          artist: <EntityLink content={r.credit} entity={r.entity} />,
           roles: commaOnlyList(localizeArtistRoles(r.roles)),
         })}
       </li>

@@ -482,6 +482,7 @@ declare type EventT = $ReadOnly<{
   +areas: $ReadOnlyArray<{+entity: AreaT}>,
   +cancelled: boolean,
   +performers: $ReadOnlyArray<{
+    +credit: string,
     +entity: ArtistT,
     +roles: $ReadOnlyArray<string>,
   }>,
@@ -1101,6 +1102,7 @@ declare type WorkT = $ReadOnly<{
   +iswcs: $ReadOnlyArray<IswcT>,
   +languages: $ReadOnlyArray<WorkLanguageT>,
   +writers: $ReadOnlyArray<{
+    +credit: string,
     +entity: ArtistT,
     +roles: $ReadOnlyArray<string>,
   }>,

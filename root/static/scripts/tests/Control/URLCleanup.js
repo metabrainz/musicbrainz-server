@@ -256,6 +256,35 @@ const testData = [
                      input_url: 'http://www.amazon.com/gp/redirect.html/ref=amb_link_7764682_1?location=http://www.amazon.com/Carrie-Underwood/e/B0017PAU8Y/%20&token=3A0F170E7CEFE27BDC730D3D7344512BC1296B83&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-4&pf_rd_r=0WX9S8HSE9M2WG1YZJE4&pf_rd_t=101&pf_rd_p=80631142&pf_rd_i=721517011',
             expected_clean_url: 'https://www.amazon.com/-/e/B0017PAU8Y',
   },
+  // Amazon Music
+  {
+                     input_url: 'http://music.amazon.com/artists/B000QKDMIG',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.amazon.com/artists/B000QKDMIG',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.amazon.co.uk/albums/B07VPBW7S9#',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.amazon.co.uk/albums/B07VPBW7S9',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.amazon.co.uk/albums/B07VQTD55C?trackAsin=B07VMLW9PK&ref=dm_sh_cf2b-aa2f-dmcp-def3-f0a59&musicTerritory=GB&marketplaceId=A1F83G8C2ARO7P',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.amazon.co.uk/albums/B07VQTD55C',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://somefancymusic.amazon.com/artists/B000QKDMIG',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'amazon',
+       only_valid_entity_types: [],
+  },
   // Ameba
   {
                      input_url: 'https://ameblo.jp/murataayumi',
@@ -1006,6 +1035,28 @@ const testData = [
     expected_relationship_type: 'license',
             expected_clean_url: 'https://creativecommons.org/publicdomain/zero/1.0/',
   },
+  // DAHR
+  {
+                     input_url: 'https://adp.library.ucsb.edu/index.php/talent/detail/800/Louis_Armstrong_All-Stars_Musical_group',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/index.php/talent/detail/800',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://adp.library.ucsb.edu/index.php/matrix/refer/2000308570#',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/index.php/matrix/detail/2000308570',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://adp.library.ucsb.edu/index.php/objects/detail/361259/Ace_of_Hearts_England_AH-73_LP',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/index.php/objects/detail/361259',
+       only_valid_entity_types: ['release'],
+  },
   // Dailymotion
   {
                      input_url: 'https://dailymotion.com/who-knows#uploads',
@@ -1017,7 +1068,7 @@ const testData = [
   {
                      input_url: 'http://www.dailymotion.com/video/xyztuvw_useless-slug?start=42',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.dailymotion.com/video/xyztuvw',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -1035,40 +1086,40 @@ const testData = [
   {
                      input_url: 'http://www.deezer.com/artist/243332',
              input_entity_type: 'artist',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://www.deezer.com/artist/6509511?test',
              input_entity_type: 'artist',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.deezer.com/artist/6509511',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://deezer.com/album/8935347',
              input_entity_type: 'release',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.deezer.com/album/8935347',
        only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'http://www.deezer.com/track/3437226',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
        only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://www.deezer.com/en/episode/3495945',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.deezer.com/episode/3495945',
        only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'http://www.deezer.com/en/album/497382',
              input_entity_type: 'release',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.deezer.com/album/497382',
        only_valid_entity_types: ['release'],
   },
@@ -1076,7 +1127,7 @@ const testData = [
                      input_url: 'https://www.deezer.com/profile/18671676',
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
-       input_relationship_type: 'streamingmusic',
+       input_relationship_type: 'streamingfree',
        only_valid_entity_types: [],
   },
   // DHHU
@@ -1601,12 +1652,35 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.instagram.com/deadmau5/',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
                      input_url: 'https://i.instagram.com/yorickvannorden/?ref=badge',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.instagram.com/yorickvannorden/',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.instagram.com/stories/nathanwpylestrangeplanet/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.instagram.com/nathanwpylestrangeplanet/',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.instagram.com/p/B3Mew-Cl2Z9/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.instagram.com/p/B3Mew-Cl2Z9/',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.instagram.com/explore/locations/277133756/pacha-club-ibiza/',
+             input_entity_type: 'place',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.instagram.com/explore/locations/277133756/pacha-club-ibiza/',
+       only_valid_entity_types: [],
   },
   // Irish Traditional Music Tune Index (Alan Ng's Tunography)
   {
@@ -1642,7 +1716,7 @@ const testData = [
                      input_url: 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://itunes.apple.com/artist/id444923726',
+            expected_clean_url: 'https://itunes.apple.com/us/artist/id444923726',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -1656,7 +1730,7 @@ const testData = [
                      input_url: 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
              input_entity_type: 'recording',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://itunes.apple.com/music-video/id564322420',
+            expected_clean_url: 'https://itunes.apple.com/us/music-video/id564322420',
        only_valid_entity_types: ['recording'],
   },
   {
@@ -1676,7 +1750,7 @@ const testData = [
                      input_url: 'https://itunes.apple.com/album/beatbox-+-iphone-+-guitar/id589456329?ign-mpt=uo%3D4',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://itunes.apple.com/album/id589456329',
+            expected_clean_url: 'https://itunes.apple.com/us/album/id589456329',
   },
   {
                      input_url: 'https://itunes.apple.com/us/album/skyfall-single/id566322358',
@@ -2003,6 +2077,35 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
   },
+  // maniadb
+  {
+                     input_url: 'http://www.maniadb.com/artist.asp?p=114569',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.maniadb.com/artist/114569',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.maniadb.com/album.asp?a=736792',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.maniadb.com/album/736792',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'http://www.maniadb.com/index.php/album/736792',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.maniadb.com/album/736792',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'http://www.maniadb.com/album/736792/?a=736792',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://www.maniadb.com/album/736792',
+       only_valid_entity_types: ['release_group'],
+  },
   // (The) Metal Archives
   {
                      input_url: 'http://www.metal-archives.com/bands/Karna/26483',
@@ -2252,7 +2355,7 @@ const testData = [
   {
                      input_url: 'https://www.nicovideo.jp/watch/sm2916956?',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.nicovideo.jp/watch/sm2916956',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -2913,61 +3016,61 @@ const testData = [
   {
                      input_url: 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
        only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'http://open.spotify.com/track/1SI5O5cu8AM19cninxf9RZ',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://open.spotify.com/track/1SI5O5cu8AM19cninxf9RZ',
        only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://open.spotify.com/episode/5yyMb4t3PWlikJNucu9A6Z',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
        only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://embed.spotify.com/?uri=spotify:episode:5yyMb4t3PWlikJNucu9A6Z',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://open.spotify.com/episode/5yyMb4t3PWlikJNucu9A6Z',
        only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'http://play.spotify.com/album/3rFPzWNUrtoqMd9yNGaFMr?play=true&utm_source=open.spotify.com&utm_medium=open',
              input_entity_type: 'release',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://open.spotify.com/album/3rFPzWNUrtoqMd9yNGaFMr',
        only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://play.spotify.com/artist/5zS2OG2kKeGYFqX6lcuVOt?play=true&utm_source=google&utm_medium=growth_paid&utm_campaign=pla_US&gclid=CN-m_fOj3cMCFUJk7AodTBsA8g',
              input_entity_type: 'artist',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://open.spotify.com/artist/5zS2OG2kKeGYFqX6lcuVOt',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'open.spotify.com/album/0tabKG66W34Ms0SsovkP6Q/6yVKnHVFGkg4OQ8IrgQVpZ',
              input_entity_type: 'release',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://open.spotify.com/album/0tabKG66W34Ms0SsovkP6Q',
        only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'http://open.spotify.com/local/Electrolyze/Single/Belief/265',
              input_entity_type: 'release',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
        only_valid_entity_types: [],
   },
   {
                      input_url: 'https://play.spotify.com/search/The%20Most%20Essential%20Bossa%20Nova',
              input_entity_type: 'release',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
        only_valid_entity_types: [],
   },
   {
@@ -3086,7 +3189,7 @@ const testData = [
   {
                      input_url: 'https://www.twitch.tv/videos/1234567890?collection=Key_w',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.twitch.tv/videos/1234567890',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -3136,7 +3239,7 @@ const testData = [
   {
                      input_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
        only_valid_entity_types: ['recording'],
   },
@@ -3327,7 +3430,7 @@ const testData = [
   {
                      input_url: 'http://www.vimeo.com/1109226?pg=embed&sec=1109226',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://vimeo.com/1109226',
   },
   // Vine
@@ -3594,7 +3697,7 @@ const testData = [
   {
                      input_url: 'http://www.youtube.com/embed/UmHdefsaL6I',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
   },
   {
@@ -3605,13 +3708,13 @@ const testData = [
   {
                      input_url: 'http://youtu.be/UmHdefsaL6I',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
   },
   {
                      input_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA&list=PLkHWBeudCLJCjB41Yt1iiain82Lp1zQOB',
              input_entity_type: 'recording',
-    expected_relationship_type: 'streamingmusic',
+    expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA',
   },
   {

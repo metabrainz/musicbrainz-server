@@ -1,11 +1,11 @@
-package MusicBrainz::Server::Entity::URL::Maniadb;
+package MusicBrainz::Server::Entity::URL::DAHR;
 
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'maniadb' }
+sub sidebar_name { 'DAHR' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -13,7 +13,7 @@ no Moose;
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2014 MetaBrainz Foundation
+Copyright (C) 2020 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any
