@@ -53,7 +53,7 @@
         [% field_errors(form, 'target') %]
 
         [% USE r = FormRenderer(form) %]
-        [% form_row_select(r, 'merge_strategy', l('Merge strategy:')) %]
+        [% form_row_select(r, 'merge_strategy', l('Merge strategy:'), '', {}, 1) %]
 
         <div id="merge-strategy-1" class="merge-strategy">
           <p>
