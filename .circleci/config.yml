@@ -3,9 +3,7 @@ version: 2.1
 executors:
   musicbrainz-tests:
     docker:
-      - environment:
-          SIR_DIR: /home/musicbrainz/sir
-        image: metabrainz/musicbrainz-tests:v-2020-02
+      - image: metabrainz/musicbrainz-tests:v-2020-02
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
@@ -37,12 +35,7 @@ jobs:
       - run: |
           chown -R musicbrainz:musicbrainz .
           chown -R postgres:postgres /home/musicbrainz/pgdata
-          # As noted in docker/musicbrainz-tests/DBDefs.pm, CircleCI
-          # sets NO_PROXY=127.0.0.1,localhost in every container, so
-          # the Selenium proxy doesn't work unless we make requests
-          # against a different hostname alias. We use mbtest, added
-          # to /etc/hosts here and in the selenium job below.
-          echo '127.0.0.1 mbtest' >> /etc/hosts
+          ./docker/musicbrainz-tests/add_mbtest_alias.sh
           rm /etc/service/postgresql/down && sv start postgresql
           sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump
           sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
@@ -69,56 +62,6 @@ jobs:
               -v
       - store_test_results:
           path: ./junit_output
-
-  selenium:
-    executor: musicbrainz-tests
-    steps:
-      - attach_workspace:
-          at: *home
-      - run: |
-          chown -R musicbrainz:musicbrainz .
-          chown -R postgres:postgres /home/musicbrainz/pgdata
-          echo '127.0.0.1 mbtest' >> /etc/hosts
-          rm /etc/service/{postgresql,redis,template-renderer,website}/down && sv start postgresql redis template-renderer website
-          # Wait for the database and website to start.
-          sleep 10
-          # Create the musicbrainz_selenium DB
-          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_selenium
-          # Setup search
-          # Set the open file limit Solr requests on startup
-          ulimit -n 65000
-          rm /etc/service/solr/down && sv up solr
-          service rabbitmq-server start
-          rabbitmqctl add_user sir sir
-          rabbitmqctl add_vhost /sir-test
-          rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
-          cd /home/musicbrainz/sir
-          sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup; python -m sir extension; python -m sir triggers --broker-id=1'
-          sudo -u postgres psql -U postgres -f sql/CreateExtension.sql musicbrainz_selenium
-          sudo -u postgres psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_selenium
-          sudo -u postgres psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
-          rm /etc/service/sir-queue-purger/down && sv start sir-queue-purger
-          cd /home/musicbrainz/musicbrainz-server
-          # Replace 'localhost:5000' in the Selenium tests with
-          # 'mbtest:5000', our custom host alias. (Refer to the comment
-          # in the perl-and-pgtap job above.) This mostly only matters
-          # on the form action attributes under seeds/, and a few URL
-          # checks; the rel="selenium.base" links aren't used at all.
-          sudo -E -H -u musicbrainz find t/selenium -type f -name '*.html' -exec sed -i'' -e "s/localhost:5000/mbtest:5000/g" '{}' \;
-          export JUNIT_OUTPUT_FILE=junit_output/selenium.xml
-          sudo -E -H -u musicbrainz carton exec -- prove \
-              -I lib \
-              t/selenium.js \
-              --harness=TAP::Harness::JUnit \
-              -v
-          # Stop the template-renderer so that it dumps coverage.
-          sv down template-renderer
-          sleep 10
-          sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
-      - store_test_results:
-          path: ./junit_output
-      - store_artifacts:
-          path: ./coverage
 
   build:
     executor: musicbrainz-tests
@@ -177,9 +120,6 @@ workflows:
           requires:
             - build
       - perl-and-pgtap:
-          requires:
-            - build
-      - selenium:
           requires:
             - build
       - build
