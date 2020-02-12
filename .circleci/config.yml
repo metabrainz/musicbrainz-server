@@ -43,10 +43,6 @@ jobs:
           # against a different hostname alias. We use mbtest, added
           # to /etc/hosts here and in the selenium job below.
           echo '127.0.0.1 mbtest' >> /etc/hosts
-          # These extensions were compiled and installed in the build
-          # job, but the postgres libdir is outside of our workspace,
-          # so they need to be reinstalled.
-          ./docker/musicbrainz-tests/install_pg_extensions.sh
           rm /etc/service/postgresql/down && sv start postgresql
           sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump
           sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
@@ -83,7 +79,6 @@ jobs:
           chown -R musicbrainz:musicbrainz .
           chown -R postgres:postgres /home/musicbrainz/pgdata
           echo '127.0.0.1 mbtest' >> /etc/hosts
-          ./docker/musicbrainz-tests/install_pg_extensions.sh
           rm /etc/service/{postgresql,redis,template-renderer,website}/down && sv start postgresql redis template-renderer website
           # Wait for the database and website to start.
           sleep 10
@@ -136,8 +131,6 @@ jobs:
       - checkout
       - run: |
           chown -R musicbrainz:musicbrainz .
-          sudo -E -H -u musicbrainz git submodule sync
-          sudo -E -H -u musicbrainz git submodule update --init
           # The checkout step configures git to skip gc, so we run it
           # here to reduce .git's size before saving it to cache.
           sudo -E -H -u musicbrainz git gc
@@ -145,10 +138,6 @@ jobs:
           key: v1-source-{{ .Branch }}-{{ .Revision }}
           paths:
             - ".git"
-
-      - run: |
-          cd postgresql-musicbrainz-collate && make && make install && cd -
-          cd postgresql-musicbrainz-unaccent && make && make install && cd -
 
       - restore_cache:
           keys:
