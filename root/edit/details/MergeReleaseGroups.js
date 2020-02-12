@@ -9,7 +9,7 @@
 
 import React from 'react';
 
-import ReleaseGroupList from '../../components/list/ReleaseGroupList';
+import {ReleaseGroupListTable} from '../../components/list/ReleaseGroupList';
 
 type MergeReleaseGroupsEditT = {
   ...EditT,
@@ -24,13 +24,13 @@ const MergeReleaseGroups = ({edit}: {+edit: MergeReleaseGroupsEditT}) => (
     <tr>
       <th>{l('Merge:')}</th>
       <td>
-        <ReleaseGroupList releaseGroups={edit.display_data.old} />
+        <ReleaseGroupListTable releaseGroups={edit.display_data.old} />
       </td>
     </tr>
     <tr>
       <th>{l('Into:')}</th>
       <td>
-        <ReleaseGroupList releaseGroups={[edit.display_data.new]} />
+        <ReleaseGroupListTable releaseGroups={[edit.display_data.new]} />
       </td>
     </tr>
   </table>

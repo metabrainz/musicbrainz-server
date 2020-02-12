@@ -129,8 +129,6 @@ const listPicker = (props: Props, canRemoveFromCollection: boolean) => {
     case 'release_group':
       return (
         <ReleaseGroupList
-          // TODO: Remove groupByType as part of MBS-10155
-          groupByType
           releaseGroups={props.entities}
           showRatings
           {...sharedProps}

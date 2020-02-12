@@ -88,7 +88,7 @@ const ArtistIndex = ({
   wikipediaExtract,
 }: Props) => {
   const hasRecordings = !!(recordings?.length);
-  const hasReleaseGroups = !!(releaseGroups?.length);
+  const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;
   const artistLink = entityHref(artist);
   let message = '';
 
@@ -96,11 +96,11 @@ const ArtistIndex = ({
     message = l(
       'This artist has no release groups, only standalone recordings.',
     );
-  } else if (!hasReleaseGroups && hasFilter) {
+  } else if (!existingReleaseGroups && hasFilter) {
     message = l('No release groups found that match this search.');
   } else if (!wantAllStatuses && !wantVariousArtistsOnly) {
     if (!includingAllStatuses && !showingVariousArtistsOnly) {
-      if (hasReleaseGroups) {
+      if (existingReleaseGroups) {
         message = exp.l(
           `Showing official release groups by this artist.
            {show_all|Show all release groups instead}, or
@@ -156,7 +156,7 @@ const ArtistIndex = ({
           show_va: `${artistLink}?all=1&va=1`,
         },
       );
-    } else if (!hasReleaseGroups) {
+    } else if (!existingReleaseGroups) {
       message = l(`This artist does not have any release groups or
                    standalone recordings.`);
     } else if (includingAllStatuses && showingVariousArtistsOnly) {
@@ -184,7 +184,7 @@ const ArtistIndex = ({
           show_non_va: `${artistLink}?va=0`,
         },
       );
-    } else if (!hasReleaseGroups) {
+    } else if (!existingReleaseGroups) {
       message = exp.l(
         `This artist does not have any various artists release groups.
          {show_non_va|Show release groups by this artist instead}.`,
@@ -205,7 +205,7 @@ const ArtistIndex = ({
       );
     }
   } else if (wantAllStatuses && wantVariousArtistsOnly) {
-    if (hasReleaseGroups) {
+    if (existingReleaseGroups) {
       message = exp.l(
         `Showing all release groups for various artists.
          {show_official|Show only official various artists
@@ -279,14 +279,12 @@ const ArtistIndex = ({
         initialFilterForm={filterForm}
       />
 
-      {hasReleaseGroups ? (
+      {existingReleaseGroups ? (
         <form action="/release_group/merge_queue" method="post">
-          {/* TODO: MBS-10155 */}
           <PaginatedResults pager={pager}>
             <ReleaseGroupList
               checkboxes="add-to-merge"
-              groupByType
-              releaseGroups={releaseGroups}
+              releaseGroups={existingReleaseGroups}
               showRatings
             />
           </PaginatedResults>
