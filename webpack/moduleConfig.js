@@ -10,9 +10,11 @@ const CleanCSSPlugin = require('less-plugin-clean-css');
 
 const DBDefs = require('../root/static/scripts/common/DBDefs');
 
+const {PRODUCTION_MODE} = require('./constants');
+
 const lessOptions = {};
 
-if (!DBDefs.DEVELOPMENT_SERVER) {
+if (PRODUCTION_MODE) {
   lessOptions.plugins = [
     new CleanCSSPlugin(),
   ];
@@ -34,9 +36,9 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: (
-              DBDefs.DEVELOPMENT_SERVER
-                ? '[name].[ext]'
-                : '[name]-[hash:7].[ext]'
+              PRODUCTION_MODE
+                ? '[name]-[hash:7].[ext]'
+                : '[name].[ext]'
             ),
           },
         },
@@ -49,9 +51,9 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: (
-              DBDefs.DEVELOPMENT_SERVER
-                ? '[name].css'
-                : '[name]-[hash:7].css'
+              PRODUCTION_MODE
+                ? '[name]-[hash:7].css'
+                : '[name].css'
             ),
           },
         },
