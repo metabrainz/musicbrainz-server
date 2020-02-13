@@ -128,10 +128,8 @@ RUN curl -sLO https://www.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_V
 ENV MB_SOLR_TAG v3.1.2
 
 # Steps taken from https://github.com/metabrainz/mb-solr/blob/master/Dockerfile
-RUN sudo -E -H -u musicbrainz git clone --recursive https://github.com/metabrainz/mb-solr.git && \
-    cd mb-solr && \
-    git checkout $MB_SOLR_TAG && \
-    cd mmd-schema/brainz-mmd2-jaxb && \
+RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --recursive https://github.com/metabrainz/mb-solr.git && \
+    cd mb-solr/mmd-schema/brainz-mmd2-jaxb && \
     mvn install && \
     cd ../../mb-solr && \
     mvn package -DskipTests && \
