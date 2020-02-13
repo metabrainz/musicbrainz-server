@@ -771,7 +771,7 @@ sub _serialize_cdstub
     $cdstub_node->_setAttribute('id', $cdstub->discid);
 
     $cdstub_node->appendTextChild('title', $cdstub->title);
-    $cdstub_node->appendTextChild('artist', $cdstub->artist);
+    $cdstub_node->appendTextChild('artist', $cdstub->artist) if $cdstub->artist;
     $cdstub_node->appendTextChild('barcode', $cdstub->barcode) if $cdstub->barcode;
     $cdstub_node->appendTextChild('disambiguation', $cdstub->comment) if $cdstub->comment;
 
