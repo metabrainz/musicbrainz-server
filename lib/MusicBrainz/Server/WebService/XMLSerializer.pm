@@ -542,7 +542,7 @@ sub _serialize_work
         for my $attr (@attributes) {
             my $attr_node = $attr_list_node->addNewChild(undef, 'attribute');
             $attr_node->appendText($attr->value);
-            $attr_node->_setAttribute('value-id', $attr->value_gid);
+            $attr_node->_setAttribute('value-id', $attr->value_gid) if defined $attr->value_gid;
             $attr_node->_setAttribute('type', $attr->type->name);
             $attr_node->_setAttribute('type-id', $attr->type->gid);
         }
