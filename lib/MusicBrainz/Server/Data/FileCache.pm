@@ -79,7 +79,7 @@ sub path_to {
     my ($self, $manifest) = @_;
 
     $manifest =~ s/^\///;
-    return $self->manifest_signature($manifest) // '';
+    return $self->manifest_signature($manifest) // $manifest;
 }
 
 sub _expand {
