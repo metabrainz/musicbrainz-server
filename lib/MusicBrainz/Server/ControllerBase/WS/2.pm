@@ -325,7 +325,7 @@ sub limit_releases_by_tracks {
 
     for my $release (@{$releases}) {
         $c->model('Medium')->load_for_releases($release);
-        $track_count += sum map { $_->track_count } $release->all_mediums;
+        $track_count += (sum map { $_->track_count } $release->all_mediums) // 0;
         last if $track_count > DBDefs->WS_TRACK_LIMIT && $release_count > 0;
         $release_count++;
     }
