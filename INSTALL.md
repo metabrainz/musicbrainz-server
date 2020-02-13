@@ -51,7 +51,7 @@ Prerequisites
     The MusicBrainz development team uses Git for their DVCS. To install Git,
     run the following:
 
-        sudo apt-get install git-core
+        sudo apt-get install git
 
 5.  Redis
 
