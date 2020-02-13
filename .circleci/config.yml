@@ -8,62 +8,7 @@ executors:
     working_directory: /home/musicbrainz/musicbrainz-server
 
 jobs:
-  js:
-    executor: musicbrainz-tests
-    steps:
-      - attach_workspace:
-          at: &home /home/musicbrainz
-      - run: |
-          chown -R musicbrainz:musicbrainz .
-          chown -R postgres:postgres /home/musicbrainz/pgdata
-          rm /etc/service/chrome/down && sv start chrome
-          export JUNIT_OUTPUT_FILE=junit_output/js.xml
-          sudo -E -H -u musicbrainz carton exec -- prove \
-              -I lib \
-              t/js.t \
-              t/web.js \
-              --harness=TAP::Harness::JUnit \
-              -v
-      - store_test_results:
-          path: ./junit_output
-
-  perl-and-pgtap:
-    executor: musicbrainz-tests
-    steps:
-      - attach_workspace:
-          at: *home
-      - run: |
-          chown -R musicbrainz:musicbrainz .
-          chown -R postgres:postgres /home/musicbrainz/pgdata
-          ./docker/musicbrainz-tests/add_mbtest_alias.sh
-          rm /etc/service/postgresql/down && sv start postgresql
-          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump
-          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
-          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
-          rm /etc/service/{redis,template-renderer,vnu,website}/down && sv start redis template-renderer vnu website
-          export MMD_SCHEMA_ROOT=/home/musicbrainz/mb-solr/mmd-schema
-          export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
-          sudo -E -H -u musicbrainz carton exec -- prove \
-              --pgtap-option dbname=musicbrainz_test \
-              --pgtap-option host=localhost \
-              --pgtap-option port=5432 \
-              --pgtap-option username=musicbrainz \
-              --source pgTAP \
-              --source Perl \
-              -I lib \
-              -j 9 \
-              t/pgtap/* \
-              t/pgtap/unused-tags/* \
-              t/script/BuildSitemaps.t \
-              t/script/DumpJSON.t \
-              t/script/ExportAllTables.t \
-              t/tests.t \
-              --harness=TAP::Harness::JUnit \
-              -v
-      - store_test_results:
-          path: ./junit_output
-
-  build:
+  js-perl-and-pgtap:
     executor: musicbrainz-tests
     steps:
       - restore_cache:
@@ -102,24 +47,45 @@ jobs:
           sudo -E -H -u musicbrainz make -C po all_quiet deploy
           NODE_ENV=test WEBPACK_MODE=development sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh server web-tests
           sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
-          # Prevent postgres from writing to pgdata while
-          # persist_to_workspace runs below.
-          sv stop postgresql
+          rm /etc/service/chrome/down && sv start chrome
+          export JUNIT_OUTPUT_FILE=junit_output/js.xml
+          sudo -E -H -u musicbrainz carton exec -- prove \
+              -I lib \
+              t/js.t \
+              t/web.js \
+              --harness=TAP::Harness::JUnit \
+              -v
+          sv kill chrome
+          ./docker/musicbrainz-tests/add_mbtest_alias.sh
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
+          rm /etc/service/{template-renderer,vnu,website}/down && sv start template-renderer vnu website
+          export MMD_SCHEMA_ROOT=/home/musicbrainz/mb-solr/mmd-schema
+          export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
+          sudo -E -H -u musicbrainz carton exec -- prove \
+              --pgtap-option dbname=musicbrainz_test \
+              --pgtap-option host=localhost \
+              --pgtap-option port=5432 \
+              --pgtap-option username=musicbrainz \
+              --source pgTAP \
+              --source Perl \
+              -I lib \
+              -j 9 \
+              t/pgtap/* \
+              t/pgtap/unused-tags/* \
+              t/script/BuildSitemaps.t \
+              t/script/DumpJSON.t \
+              t/script/ExportAllTables.t \
+              t/tests.t \
+              --harness=TAP::Harness::JUnit \
+              -v
 
-      - persist_to_workspace:
-          root: *home
-          paths:
-            - "musicbrainz-server"
-            - "pgdata"
+      - store_test_results:
+          path: ./junit_output
 
 workflows:
   version: 2.1
   build-and-test:
     jobs:
-      - js:
-          requires:
-            - build
-      - perl-and-pgtap:
-          requires:
-            - build
-      - build
+      - js-perl-and-pgtap
