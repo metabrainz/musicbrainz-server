@@ -58,13 +58,10 @@ sv start template-renderer website
 sleep 10
 
 sudo -E -H -u musicbrainz mkdir -p junit_output
-export JUNIT_OUTPUT_FILE=junit_output/selenium.xml
 
-sudo -E -H -u musicbrainz carton exec -- prove \
-    -I lib \
-    t/selenium.js \
-    --harness=TAP::Harness::JUnit \
-    -v
+sudo -E -H -u musicbrainz carton exec -- ./t/selenium.js \
+     | tee >(./node_modules/.bin/tap-junit > ./junit_output/selenium.xml) \
+     | ./node_modules/.bin/tap-difflet
 
 # Stop the template-renderer so that it dumps coverage.
 sv down template-renderer

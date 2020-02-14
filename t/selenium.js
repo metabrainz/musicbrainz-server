@@ -633,7 +633,7 @@ async function runCommands(commands, t) {
     const isLastTest = index === testsToRun.length - 1;
 
     return new Promise(function (resolve) {
-      test(title, {timeout: TEST_TIMEOUT}, function (t) {
+      test(title, {objectPrintDepth: 10, timeout: TEST_TIMEOUT}, function (t) {
         t.plan(plan);
 
         const timeout = setTimeout(resolve, TEST_TIMEOUT);
