@@ -331,6 +331,8 @@ around extract_property => sub {
 sub _get_country_hash_from_id_or_name {
     my ($self, $id_or_name) = @_;
 
+    return undef unless non_empty($id_or_name);
+
     my $country_hash = {};
     my $country;
 
