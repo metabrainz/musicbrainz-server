@@ -247,9 +247,9 @@
   </span>
 [% END %]
 
-[% MACRO predicate_edit_notes(field, field_contents) BLOCK %]
+[% MACRO predicate_edit_notes BLOCK %]
   [%~ IF c.user_exists ~%]
-    [% predicate_link(field, undef, 'editor') %]
+    [% predicate_user('edit_note_author') %]
   [%~ ELSE ~%]
     [% WRAPPER wfield predicate="set" %]
       [%~ needs_login() ~%]
@@ -430,7 +430,7 @@
     [% predicate_set('status', status, [], 8) %]
     [% predicate_set('release_quality', quality) %]
     [% predicate_vote_count('vote_count') %]
-    [% predicate_edit_notes('edit_note_author') %]
+    [% predicate_edit_notes %]
 
     [% FOR linked_type=[ 'artist', 'label', 'series' ];
          predicate_subscription(linked_type);
