@@ -11,8 +11,8 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context';
 import {ENTITIES} from '../static/scripts/common/constants';
-import isSpecialPurposeArtist
-  from '../static/scripts/common/utility/isSpecialPurposeArtist';
+import isSpecialPurpose
+  from '../static/scripts/common/utility/isSpecialPurpose';
 
 import Tabs from './Tabs';
 import EntityTabLink from './EntityTabLink';
@@ -57,10 +57,12 @@ function showEditTab(
     case 'area':
       return user ? user.is_location_editor : false;
     case 'artist':
-      return !isSpecialPurposeArtist(entity);
+      return !isSpecialPurpose(entity);
     case 'genre':
     case 'instrument':
       return user ? user.is_relationship_editor : false;
+    case 'label':
+      return !isSpecialPurpose(entity);
     default:
       return true;
   }

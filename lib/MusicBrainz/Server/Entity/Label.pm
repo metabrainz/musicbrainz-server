@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Label;
 
 use Moose;
+use MusicBrainz::Server::Constants qw( $DLABEL_ID $NOLABEL_ID $NOLABEL_GID );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
@@ -31,6 +32,13 @@ sub format_label_code
         return sprintf "LC %05d", $self->label_code;
     }
     return "";
+}
+
+sub is_special_purpose {
+    my $self = shift;
+    return ($self->id && ($self->id == $DLABEL_ID ||
+                          $self->id == $NOLABEL_ID))
+        || ($self->gid && $self->gid eq $NOLABEL_GID);
 }
 
 around TO_JSON => sub {

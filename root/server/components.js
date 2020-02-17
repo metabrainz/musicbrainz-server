@@ -81,6 +81,7 @@ module.exports = {
   'iswc/Index': require('../iswc/Index'),
   'label/LabelIndex': require('../label/LabelIndex'),
   'label/LabelRelationships': require('../label/LabelRelationships'),
+  'label/SpecialPurpose': require('../label/SpecialPurpose'),
   'main/404': require('../main/404'),
   'main/index': require('../main/index'),
   'mbid/NotFound': require('../mbid/NotFound'),

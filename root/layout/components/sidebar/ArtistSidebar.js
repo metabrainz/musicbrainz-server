@@ -21,8 +21,8 @@ import CommonsImage
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
-import isSpecialPurposeArtist
-  from '../../../static/scripts/common/utility/isSpecialPurposeArtist';
+import isSpecialPurpose
+  from '../../../static/scripts/common/utility/isSpecialPurpose';
 import * as age from '../../../utility/age';
 import ExternalLinks from '../ExternalLinks';
 
@@ -50,7 +50,7 @@ type Props = {
 const ArtistSidebar = ({$c, artist}: Props) => {
   const artistAge = age.age(artist);
   const gid = encodeURIComponent(artist.gid);
-  const isSpecialPurpose = isSpecialPurposeArtist(artist);
+  const isSpecialPurposeArtist = isSpecialPurpose(artist);
   const {
     area,
     begin_area: beginArea,
@@ -137,7 +137,7 @@ const ArtistSidebar = ({$c, artist}: Props) => {
       <ExternalLinks empty entity={artist} />
 
       <EditLinks entity={artist}>
-        {isSpecialPurpose ? null : (
+        {isSpecialPurposeArtist ? null : (
           <>
             <li>
               <a href={`/release-group/create?artist=${gid}`}>
@@ -175,14 +175,14 @@ const ArtistSidebar = ({$c, artist}: Props) => {
           </>
         )}
 
-        {isSpecialPurpose ? null : <AnnotationLinks entity={artist} />}
+        {isSpecialPurposeArtist ? null : <AnnotationLinks entity={artist} />}
 
         <MergeLink entity={artist} />
 
         <li className="separator" role="separator" />
       </EditLinks>
 
-      {isSpecialPurpose ? null : <SubscriptionLinks entity={artist} />}
+      {isSpecialPurposeArtist ? null : <SubscriptionLinks entity={artist} />}
 
       <CollectionLinks entity={artist} />
 
