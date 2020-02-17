@@ -68,7 +68,7 @@
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_release) %]
     <input type="hidden" name="toc" value="[% toc %]" />
-    [% form_row_text(r, 'query', l('Release:')) %]
+    [% form_row_text(r, 'query', l('Release title or MBID:')) %]
     <div class="row no-label">
       [% form_submit(l('Search')) %]
     </div>
