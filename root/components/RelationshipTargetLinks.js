@@ -31,7 +31,9 @@ export function displayDatedExtraAttributes(
   pair: DatedExtraAttributes,
 ) {
   const renderedDatePeriods = commaOnlyListText(
-    pair.datePeriods.map(relationshipDateText),
+    pair.datePeriods.map(datePeriod => (
+      relationshipDateText(datePeriod, false /* bracketEnded */)
+    )),
   );
   const renderedExtraAttributes = commaOnlyList(
     pair.attributes.map(displayLinkAttribute),
