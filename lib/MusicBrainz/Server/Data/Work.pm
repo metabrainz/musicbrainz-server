@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Work;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( uniq zip );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN @WRITER_RELATIONSHIP_GIDS );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     hash_to_row
@@ -83,12 +83,13 @@ sub find_by_artist
                       JOIN link ON ar.link = link.id
                       JOIN link_type lt ON lt.id = link.link_type
                      WHERE entity0 = ?
+                     AND lt.gid IN (' . placeholders(@WRITER_RELATIONSHIP_GIDS) . ')
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
        ORDER BY musicbrainz_collate(work.name)';
 
     # We actually use this for the side effect in the closure
-    $self->query_to_list_limited($query, [($artist_id) x 2], $limit, $offset);
+    $self->query_to_list_limited($query, [($artist_id) x 2, @WRITER_RELATIONSHIP_GIDS], $limit, $offset);
 }
 
 =method find_by_iswc
@@ -344,11 +345,12 @@ sub _find_writers
         JOIN link l ON law.link = l.id
         JOIN link_type lt ON l.link_type = lt.id
         WHERE law.entity1 IN (" . placeholders(@$ids) . ")
+        AND lt.gid IN (" . placeholders(@WRITER_RELATIONSHIP_GIDS) . ")
         GROUP BY law.entity1, law.entity0, law.entity0_credit
         ORDER BY count(*) DESC, artist, credit
     ";
 
-    my $rows = $self->sql->select_list_of_lists($query, @$ids);
+    my $rows = $self->sql->select_list_of_lists($query, @$ids, @WRITER_RELATIONSHIP_GIDS);
 
     my @artist_ids = map { $_->[1] } @$rows;
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
