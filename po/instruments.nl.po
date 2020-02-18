@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-04 13:33+0000\n"
+"PO-Revision-Date: 2020-02-11 22:52+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3784,7 +3784,7 @@ msgid "trikiti"
 msgstr "trikiti"
 
 #: DB:instrument/name:945
-msgctxt "Indian three-stringed long-necked lute"
+msgctxt "Indian medieval three-stringed stick zither"
 msgid "tritantri veena"
 msgstr "tritantri-vina"
 
