@@ -14,6 +14,7 @@ import areDatesEqual from './areDatesEqual';
 
 export default function relationshipDateText(
   r: $ReadOnly<{...DatePeriodRoleT, ...}>,
+  bracketEnded?: boolean = true,
 ) {
   if (r.begin_date) {
     if (r.end_date) {
@@ -34,7 +35,11 @@ export default function relationshipDateText(
   } else if (r.end_date) {
     return texp.l('until {date}', {date: formatDate(r.end_date)});
   } else if (r.ended) {
-    return bracketedText(l('ended'));
+    let text = l('ended');
+    if (bracketEnded) {
+      text = bracketedText(text);
+    }
+    return text;
   }
   return '';
 }

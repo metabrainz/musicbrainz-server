@@ -53,12 +53,25 @@ const writeCoverage = require('../root/utility/writeCoverage');
 
 const IGNORE = Symbol();
 
-function skipIgnored(a, b) {
-  return (a === IGNORE || b === IGNORE) ? true : undefined;
+function compareEditDataValues(actualValue, expectedValue) {
+  if (expectedValue === IGNORE) {
+    return true;
+  }
+  /*
+   * Handle cases where Perl's JSON module serializes numbers in the
+   * edit data as strings (something we can't fix easily).
+   */
+  if (typeof actualValue === 'string' &&
+      typeof expectedValue === 'number' &&
+      actualValue === String(expectedValue)) {
+    return true;
+  }
+  // Tells `_.isEqualWith` to perform its default comparison.
+  return undefined;
 }
 
 TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
-  this._assert(isEqualWith(a, b, skipIgnored), {
+  this._assert(isEqualWith(a, b, compareEditDataValues), {
     message: defined(msg, 'should be equivalent'),
     operator: 'deepEqual2',
     actual: a,
