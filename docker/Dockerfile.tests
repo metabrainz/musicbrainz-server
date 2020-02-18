@@ -104,7 +104,7 @@ RUN curl -sLO https://www.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_V
 RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
     cpanm Carton JSON::XS
 
-ENV MB_SOLR_TAG v3.1.1
+ENV MB_SOLR_TAG v3.1.2
 
 # Steps taken from https://github.com/metabrainz/mb-solr/blob/master/Dockerfile
 RUN sudo -E -H -u musicbrainz git clone --recursive https://github.com/metabrainz/mb-solr.git && \

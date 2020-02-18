@@ -7,7 +7,7 @@ executors:
           PERL_CARTON_PATH: &carton /home/musicbrainz/carton-local
           PERL_CPANM_OPT: --notest --no-interactive
           SIR_DIR: /home/musicbrainz/sir
-        image: metabrainz/musicbrainz-tests:v-2020-01
+        image: metabrainz/musicbrainz-tests:v-2020-01.1
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 

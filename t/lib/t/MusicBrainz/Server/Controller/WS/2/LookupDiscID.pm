@@ -180,7 +180,7 @@ ws_test 'lookup via toc',
         </medium>
       </medium-list>
       <genre-list>
-        <genre count="2">
+        <genre count="2" id="ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb">
           <name>musical</name>
         </genre>
       </genre-list>
