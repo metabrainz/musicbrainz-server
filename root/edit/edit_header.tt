@@ -10,7 +10,7 @@
                                 <strong>[%- l('Their vote: ') -%]</strong>
                                 [%- lp(edit.latest_vote_for_editor(voter.id).vote_name, 'vote') ~%]
                             </div>
-                        [%~ ELSE ~%]
+                        [%~ ELSIF c.user.id ~%]
                           [%~ IF edit.latest_vote_for_editor(c.user.id) ~%]
                               <div class="my-vote">
                                   <strong>[%- l('My vote: ') -%]</strong>
@@ -31,7 +31,12 @@
                     </td>
                     <td class="vote-count">
                         [%~ IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open ~%]
-                            <div>[%- vote_tally(edit) -%]</div>
+                            <div>
+                                [%~ IF !c.user_exists ~%]
+                                    <strong>[%- add_colon(l('Vote tally')) _ ' ' -%]</strong>
+                                [%~ END ~%]
+                                [%- vote_tally(edit) -%]
+                            </div>
                         [%~ END ~%]
                     </td>
                 </tr>
@@ -55,7 +60,7 @@
             [%~ link_edit(edit, show, l('Edit #{id} - {name}', { id => edit.id, name => edit.l_edit_name})) ~%]
         </h2>
     [%~ ELSE ~%]
-        [%~ IF edit.editor_may_approve(c.user) || edit.editor_may_cancel(c.user) ~%]
+        [%~ IF c.user_exists && (edit.editor_may_approve(c.user) || edit.editor_may_cancel(c.user)) ~%]
             <div class="cancel-edit buttons">
                 [%~ IF edit.editor_may_approve(c.user) ~%]
                     <a class="positive" href="[% c.uri_for_action('/edit/approve', [ edit.id ], { returnto=c.req.uri }) %]">[% l('Approve edit') %]</a>
@@ -73,8 +78,15 @@
 
     <p class="subheader">
         <span class="prefix">~</span>
-        [% l('Edit by {editor}',
-            { editor => link_entity(edit.editor) }) %]
-        [%- editor_type_info(edit.editor) -%]
+        [%~ IF c.user_exists ~%]
+            [% l('Edit by {editor}',
+                { editor => link_entity(edit.editor) }) %]
+            [%- editor_type_info(edit.editor) -%]
+        [%~ ELSE ~%]
+            [% # We show editor type since knowing if it's, say, a bot edit is useful %]
+            [% l('Editor hidden') ~%]
+            [%- editor_type_info(edit.editor) ~%]
+            [%- bracketedWithSpace(request_login(l('log in to see who'))) -%]
+        [%~ END ~%]
     </p>
 </div>

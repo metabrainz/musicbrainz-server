@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-01-20 13:34+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2020-02-11 22:52+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1213,6 +1213,15 @@ msgid ""
 " kacapis."
 msgstr ""
 
+#. name:Indonesian rebab
+#: DB:instrument/description:1011
+msgid ""
+"Introduced to Indonesia in the 15th century, this variant of the spike-"
+"fiddle rebab has two bowed metal strings with characteristically long tuning"
+" pegs and is made of hide-covered wood or coconut shell. It is the melody "
+"leader in gamelan and is also used in healing rituals."
+msgstr ""
+
 #. name:tubulum
 #: DB:instrument/description:873
 msgid ""
@@ -1730,15 +1739,6 @@ msgid ""
 " townspeople."
 msgstr "De jootsjin werd vanuit China in Mongolië geïntroduceerd. Het heeft 13 dubbele snaren en een zwartgelakt houten klankbord. Het werd oorspronkelijk alleen door dorpsbewoners bespeeld."
 
-#. name:tritantri veena
-#: DB:instrument/description:945
-msgid ""
-"Originally played in court, it consists of a 1m long piece of wood with a "
-"small intricately carved soundbox. It has 16 frets and 3 metal strings. "
-"Legend has it, the Persian Ameer Khusrau made some alterations and created "
-"the Persian sehtara (setar)."
-msgstr "De tritantri-vina werd oorspronkelijk aan het hof bespeeld. Het bestaat uit een stuk hout van een meter lang met een kleine klankkast die met fijn houtsnijwerk is versierd. Het instrument heeft 16 fretten en drie metalen snaren. Volgens de legende maakte Amīr Khusrow wat aanpassingen en ontwikkelde zo de Perzische setar."
-
 #. name:anvil
 #: DB:instrument/description:720
 msgid ""
@@ -2249,6 +2249,11 @@ msgid ""
 "these are most often made of sonorous material: metal, wood, glass and even "
 "stone."
 msgstr "Aangeslagen idiofonen zijn instrumenten die geluid maken door in zijn geheel te trillen als ze worden aangeslagen, dus zonder gebruik te maken van snaren of membranen. Om deze reden zijn ze meestal gemaakt van klankrijke materialen zoals metaal, hout, glas of zelfs steen."
+
+#. name:rebab
+#: DB:instrument/description:239
+msgid "Subtypes, reordering and fix-ups will be forthcoming."
+msgstr ""
 
 #. name:Swedish bagpipes
 #: DB:instrument/description:691
@@ -4282,6 +4287,15 @@ msgid ""
 "Used in Hindustani dhrupad, this two-headed barrel-drum is tuned like its "
 "descendant the tabla."
 msgstr "De pakhavaj wordt gebruikt bij Hindoestaanse dhrupadmuziek. Het is een tweekoppige vattrommel en is op dezelfde manier gestemd als de tabla die van het instrument is afgeleid."
+
+#. name:tritantri veena
+#: DB:instrument/description:945
+msgid ""
+"Used in India during the medieval period, it had a stick-zither body with 3 "
+"strings <br /> For the the long necked lute called \"tritantri veena\" in "
+"the 19 century, see \"<a href=\"/instrument/9290b2c1-97c3-4355-a26f-"
+"c6dba89cf8ff\">sitar</a>\""
+msgstr ""
 
 #. name:slenthem
 #: DB:instrument/description:962

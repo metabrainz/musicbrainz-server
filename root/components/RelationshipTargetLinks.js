@@ -12,29 +12,58 @@ import * as React from 'react';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
-import bracketed, {bracketedText}
-  from '../static/scripts/common/utility/bracketed';
-import formatDatePeriod
-  from '../static/scripts/common/utility/formatDatePeriod';
+import commaOnlyList, {commaOnlyListText}
+  from '../static/scripts/common/i18n/commaOnlyList';
+import bracketed from '../static/scripts/common/utility/bracketed';
+import displayLinkAttribute
+  from '../static/scripts/common/utility/displayLinkAttribute';
 import {artistCreditsAreEqual}
   from '../static/scripts/common/immutable-entities';
-import * as linkPhrase from '../static/scripts/edit/utility/linkPhrase';
+import semicolonOnlyList
+  from '../static/scripts/common/i18n/semicolonOnlyList';
+import type {
+  DatedExtraAttributes,
+  RelationshipTargetGroupT,
+} from '../utility/groupRelationships';
+import relationshipDateText from '../utility//relationshipDateText';
+
+export function displayDatedExtraAttributes(
+  pair: DatedExtraAttributes,
+) {
+  const renderedDatePeriods = commaOnlyListText(
+    pair.datePeriods.map(datePeriod => (
+      relationshipDateText(datePeriod, false /* bracketEnded */)
+    )),
+  );
+  const renderedExtraAttributes = commaOnlyList(
+    pair.attributes.map(displayLinkAttribute),
+  );
+  if (renderedDatePeriods) {
+    if (renderedExtraAttributes) {
+      return (
+        <>
+          {addColon(renderedDatePeriods)}
+          {' '}
+          {renderedExtraAttributes}
+        </>
+      );
+    }
+    return renderedDatePeriods;
+  }
+  return renderedExtraAttributes;
+}
 
 type Props = {
-  +forGrouping: boolean,
   +hiddenArtistCredit?: ?ArtistCreditT,
-  +relationship: RelationshipT,
+  +relationship: RelationshipTargetGroupT,
 };
 
 const RelationshipTargetLinks = ({
-  forGrouping,
   hiddenArtistCredit,
   relationship,
 }: Props) => {
   const target = relationship.target;
-  const targetCredit = relationship.direction === 'backward'
-    ? relationship.entity0_credit
-    : relationship.entity1_credit;
+  const targetCredit = relationship.targetCredit;
   let link;
   if (hiddenArtistCredit &&
       target.artistCredit &&
@@ -43,18 +72,18 @@ const RelationshipTargetLinks = ({
   } else {
     link = <DescriptiveLink content={targetCredit} entity={target} />;
   }
-  const extraAttributes = linkPhrase.getExtraAttributes(
-    relationship,
-    'link_phrase',
-    forGrouping,
+  const datesAndAttributes = semicolonOnlyList(
+    relationship.datedExtraAttributesList.map(displayDatedExtraAttributes),
   );
-  const datePeriod = formatDatePeriod(relationship);
   let result = (
     <>
       {link}
-      {extraAttributes ? ' ' : null}
-      {extraAttributes ? bracketed(extraAttributes) : null}
-      {datePeriod ? ' ' + bracketedText(datePeriod) : null}
+      {datesAndAttributes ? (
+        <>
+          {' '}
+          {bracketed(datesAndAttributes)}
+        </>
+      ) : null}
     </>
   );
   if (relationship.editsPending) {

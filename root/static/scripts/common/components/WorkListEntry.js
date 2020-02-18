@@ -13,11 +13,11 @@ import {withCatalystContext} from '../../../../context';
 import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
 
-import ArtistCreditLink from './ArtistCreditLink';
 import ArtistRoles from './ArtistRoles';
 import CodeLink from './CodeLink';
 import AttributeList from './AttributeList';
 import EntityLink from './EntityLink';
+import WorkArtists from './WorkArtists';
 
 type WorkListRowProps = {
   ...SeriesItemNumbersRoleT,
@@ -69,13 +69,7 @@ export const WorkListRow = withCatalystContext<WorkListRowProps>(({
       <ArtistRoles relations={work.writers} />
     </td>
     <td>
-      <ul>
-        {work.artists.map((artist, i) => (
-          <li key={i}>
-            <ArtistCreditLink artistCredit={artist} />
-          </li>
-        ))}
-      </ul>
+      <WorkArtists artists={work.artists} />
     </td>
     {showIswcs ? (
       <td>

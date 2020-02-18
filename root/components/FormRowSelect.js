@@ -20,6 +20,7 @@ type Props = {
   +allowEmpty?: boolean,
   +field: ReadOnlyFieldT<number | string>,
   +frozen?: boolean,
+  +hasHtmlErrors?: boolean,
   +helpers?: React.Node,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
@@ -36,6 +37,7 @@ const FormRowSelect = ({
   allowEmpty = false,
   frozen = false,
   field,
+  hasHtmlErrors,
   helpers,
   label,
   onChange,
@@ -61,7 +63,7 @@ const FormRowSelect = ({
       />
       {frozen ? <HiddenField field={field} /> : null}
       {helpers}
-      <FieldErrors field={field} />
+      <FieldErrors field={field} hasHtmlErrors={hasHtmlErrors} />
     </FormRow>
   );
 };

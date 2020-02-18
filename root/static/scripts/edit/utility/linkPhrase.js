@@ -8,8 +8,6 @@
  */
 
 import commaList, {commaListText} from '../../common/i18n/commaList';
-import commaOnlyList, {commaOnlyListText}
-  from '../../common/i18n/commaOnlyList';
 import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
 import expand2react from '../../common/i18n/expand2react';
 import expand2text from '../../common/i18n/expand2text';
@@ -17,18 +15,21 @@ import localizeLinkAttributeTypeName
   from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
+import {compareStrings} from '../../common/utility/compare';
 import displayLinkAttribute, {displayLinkAttributeText}
   from '../../common/utility/displayLinkAttribute';
 
 const EMPTY_OBJECT = Object.freeze({});
 
-const emptyResult = Object.freeze(['', '']);
+const emptyResult = Object.freeze(['', []]);
 const entity0Subst = /\{entity0\}/;
 const entity1Subst = /\{entity1\}/;
 
-export type CachedLinkPhraseData<T> = {
-  attributeValues: ?{+[attributeName: string]: Array<T> | T, ...},
-  phraseAndExtraAttributes: {[phraseKey: string]: [T, T], ...},
+type LinkAttrs = Array<LinkAttrT> | LinkAttrT;
+
+export type CachedLinkData<T> = {
+  attributesByRootName: ?{+[attributeName: string]: LinkAttrs, ...},
+  phraseAndExtraAttributes: {[phraseKey: string]: [T, Array<LinkAttrT>], ...},
 };
 
 export type RelationshipInfoT = {
@@ -44,13 +45,13 @@ type LinkPhraseProp =
   ;
 
 function _getResultCache<T>(
-  resultCache: WeakMap<RelationshipInfoT, CachedLinkPhraseData<T>>,
+  resultCache: WeakMap<RelationshipInfoT, CachedLinkData<T>>,
   relationship: RelationshipInfoT,
-): CachedLinkPhraseData<T> {
+): CachedLinkData<T> {
   let result = resultCache.get(relationship);
   if (!result) {
     result = {
-      attributeValues: null,
+      attributesByRootName: null,
       phraseAndExtraAttributes: {},
     };
     resultCache.set(relationship, result);
@@ -58,43 +59,62 @@ function _getResultCache<T>(
   return result;
 }
 
-type AttrValue<T> = Array<T | string> | T | string;
+class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
+  +i18n: LinkPhraseI18n<T>;
 
-class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
-  +usedAttributes: Array<string>;
+  +entity0: T | string;
 
-  +makeCommaList: ($ReadOnlyArray<T | string>) => T | string;
+  +entity1: T | string;
+
+  /*
+   * Contains attributes that appear in the text of the given link
+   * phrase. Later used for calculating "extra" attributes (which
+   * didn't appear in the link phrase, so that we can display them
+   * separately).
+   */
+   +usedPhraseAttributes: Array<string>;
 
   constructor(
-    args: ?VarArgsObject<AttrValue<T>>,
-    makeCommaList: ($ReadOnlyArray<T | string>) => T | string,
+    args: ?VarArgsObject<LinkAttrs>,
+    i18n: LinkPhraseI18n<T>,
+    entity0: ?T,
+    entity1: ?T,
   ) {
     super(args || EMPTY_OBJECT);
-    this.usedAttributes = [];
-    this.makeCommaList = makeCommaList;
+    this.i18n = i18n;
+    this.entity0 = entity0 || '';
+    this.entity1 = entity1 || '';
+    this.usedPhraseAttributes = [];
   }
 
   get(name): T | string {
-    const value = super.get(name);
-    if (value == null) {
+    if (name === 'entity0') {
+      return this.entity0;
+    }
+    if (name === 'entity1') {
+      return this.entity1;
+    }
+    const attributes = this.data[name];
+    if (attributes == null) {
       return '';
     }
-    if (Array.isArray(value)) {
-      return this.makeCommaList(value);
+    if (Array.isArray(attributes)) {
+      return this.i18n.commaList(
+        attributes.map(this.i18n.displayLinkAttribute),
+      );
     }
-    return value;
+    return this.i18n.displayLinkAttribute(attributes);
   }
 
   has(name) {
-    this.usedAttributes.push(name);
+    this.usedPhraseAttributes.push(name);
     return true;
   }
 }
 
 export type LinkPhraseI18n<T> = {
-  cache: WeakMap<RelationshipInfoT, CachedLinkPhraseData<T>>,
+  cache: WeakMap<RelationshipInfoT, CachedLinkData<T>>,
   commaList: ($ReadOnlyArray<T>) => T,
-  commaOnlyList: ($ReadOnlyArray<T>) => T,
   expand: (string, PhraseVarArgs<T>) => T,
   displayLinkAttribute: (LinkAttrT) => T,
 };
@@ -102,18 +122,16 @@ export type LinkPhraseI18n<T> = {
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
   cache: new WeakMap<
     RelationshipInfoT,
-    CachedLinkPhraseData<Expand2ReactOutput>,
+    CachedLinkData<Expand2ReactOutput>,
   >(),
   commaList,
-  commaOnlyList,
   expand: expand2react,
   displayLinkAttribute,
 };
 
 const textI18n: LinkPhraseI18n<string> = {
-  cache: new WeakMap<RelationshipInfoT, CachedLinkPhraseData<string>>(),
+  cache: new WeakMap<RelationshipInfoT, CachedLinkData<string>>(),
   commaList: commaListText,
-  commaOnlyList: commaOnlyListText,
   expand: expand2text,
   displayLinkAttribute: displayLinkAttributeText,
 };
@@ -121,14 +139,12 @@ const textI18n: LinkPhraseI18n<string> = {
 function _setAttributeValues<T>(
   i18n: LinkPhraseI18n<T | string>,
   relationship: RelationshipInfoT,
-  entity0: ?T,
-  entity1: ?T,
-  cache: CachedLinkPhraseData<T>,
+  cache: CachedLinkData<T>,
 ) {
   const attributes = relationship.attributes;
-  const values = entity0 && entity1 ? {entity0, entity1} : {};
+  const values = {};
 
-  cache.attributeValues = values;
+  cache.attributesByRootName = values;
 
   if (!attributes) {
     return;
@@ -138,37 +154,66 @@ function _setAttributeValues<T>(
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
-    const value = i18n.displayLinkAttribute(attribute);
+    const type = linkedEntities.link_attribute_type[attribute.typeID];
+    const info = linkType.attributes[type.root_id];
+    const rootName = linkedEntities.link_attribute_type[type.root_id].name;
 
-    if (value) {
-      const type = linkedEntities.link_attribute_type[attribute.typeID];
-      const info = linkType.attributes[type.root_id];
-      const rootName = linkedEntities.link_attribute_type[type.root_id].name;
-
-      /*
-       * This may be a historical relationship which uses an attribute
-       * that has since been removed from the link type, but where the
-       * attribute still exists in the link_attribute_type table. In
-       * that case we assume `max` is unbounded just to be safe. (The
-       * only effect this has is passing the values to commaOnlyList
-       * for display.)
-       */
-      if (info && info.max === 1) {
-        values[rootName] = value;
+    /*
+     * This may be a historical relationship which uses an attribute
+     * that has since been removed from the link type, but where the
+     * attribute still exists in the link_attribute_type table. In
+     * that case we assume `max` is unbounded just to be safe. (The
+     * only effect this has is passing the values to commaOnlyList
+     * for display.)
+     */
+    if (info && info.max === 1) {
+      values[rootName] = attribute;
+    } else {
+      const attributesList = values[rootName];
+      if (attributesList) {
+        attributesList.push(attribute);
       } else {
-        (values[rootName] = values[rootName] || []).push(value);
+        values[rootName] = [attribute];
       }
     }
   }
 }
 
+export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT) {
+  const aType = linkedEntities.link_attribute_type[a.typeID];
+  const bType = linkedEntities.link_attribute_type[b.typeID];
+  const aRootType = linkedEntities.link_attribute_type[aType.root_id];
+  const bRootType = linkedEntities.link_attribute_type[bType.root_id];
+
+  return (
+    (aRootType.child_order - bRootType.child_order) ||
+    /*
+     * Sorting by the types' child orders doesn't make sense without taking
+     * into account the entire parent hierarchy, so we just sort by ID if
+     * they have the same root child order to achieve a consistent sort.
+     */
+    (aType.id - bType.id) ||
+    /*
+     * Since we now know the ids are the same, we can assume
+     * aRootType === bRootType below.
+     */
+    (aRootType.free_text ?
+      compareStrings((a.text_value ?? ''), (b.text_value ?? '')) : 0) ||
+    (aRootType.creditable ?
+      compareStrings((a.credited_as ?? ''), (b.credited_as ?? '')) : 0)
+  );
+}
+
 const requiredAttributesCache: {
   __proto__: null,
-  [linkTypeId: number]: {+[attributeName: string]: string},
-  ...
+  [linkTypeId: number]: {+[attributeName: string]: LinkAttrT, ...},
+  ...,
 } = Object.create(null);
 
-function _getRequiredAttributes(linkType: LinkTypeT) {
+function _getRequiredAttributes(
+  linkType: LinkTypeT,
+  attributesByRootName: ?{+[attributeName: string]: LinkAttrs, ...},
+) {
   let required = requiredAttributesCache[linkType.id];
   if (required) {
     return required;
@@ -178,7 +223,13 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
     if (min) {
       const attribute = linkedEntities.link_attribute_type[Number(typeId)];
       required = required || {};
-      required[attribute.name] = localizeLinkAttributeTypeName(attribute);
+      required[attribute.name] = attributesByRootName ? (
+        attributesByRootName[attribute.name]
+      ) : {
+        type: attribute,
+        typeID: attribute.id,
+        typeName: attribute.name,
+      };
     }
   }
   return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
@@ -191,7 +242,7 @@ export function getPhraseAndExtraAttributes<T>(
   forGrouping?: boolean = false,
   entity0?: T,
   entity1?: T,
-): [T | string, T | string] {
+): [T | string, Array<LinkAttrT>] {
   const cache = _getResultCache<T | string>(i18n.cache, relationship);
   const key = phraseProp + '\0' + (forGrouping ? '1' : '0');
 
@@ -210,34 +261,32 @@ export function getPhraseAndExtraAttributes<T>(
     return emptyResult;
   }
 
-  if (!cache.attributeValues) {
+  if (!cache.attributesByRootName) {
     _setAttributeValues<T | string>(
       i18n,
       relationship,
-      entity0,
-      entity1,
       cache,
     );
   }
 
-  const attributeValues = cache.attributeValues;
+  const attributesByRootName = cache.attributesByRootName;
 
-  /* flow-include if (!attributeValues) throw 'impossible'; */
+  /* flow-include if (!attributesByRootName) throw 'impossible'; */
 
   /*
-    * When forGrouping is enabled:
-    *
-    * For ordered relationships (such as those in a series), build
-    * a phrase with attributes removed, so that those relationships
-    * can remain grouped together under the same phrase in our
-    * relationships display, even if their attributes differ.
-    *
-    * Required attributes (where `min` is not null) are kept in the
-    * phrase, however, since they wouldn't be written in a way that'd
-    * make sense without them grammatically. Note, however, that there
-    * are currently no orderable link types with any required
-    * attributes.
-    */
+   * When forGrouping is enabled:
+   *
+   * For ordered relationships (such as those in a series), build
+   * a phrase with attributes removed, so that those relationships
+   * can remain grouped together under the same phrase in our
+   * relationships display, even if their attributes differ.
+   *
+   * Required attributes (where `min` is not null) are kept in the
+   * phrase, however, since they wouldn't be written in a way that'd
+   * make sense without them grammatically. Note, however, that there
+   * are currently no orderable link types with any required
+   * attributes.
+   */
   const shouldStripAttributes =
     forGrouping &&
     linkType.orderable_direction > 0;
@@ -251,11 +300,18 @@ export function getPhraseAndExtraAttributes<T>(
     }
   }
 
+  const requiredAttributes = _getRequiredAttributes(
+    linkType,
+    attributesByRootName,
+  );
+
   const varArgs = new PhraseVarArgs(
     shouldStripAttributes
-      ? _getRequiredAttributes(linkType)
-      : attributeValues,
-    i18n.commaList,
+      ? requiredAttributes
+      : attributesByRootName,
+    i18n,
+    entity0,
+    entity1,
   );
 
   let phrase = i18n.expand(phraseSource, varArgs);
@@ -263,24 +319,24 @@ export function getPhraseAndExtraAttributes<T>(
     phrase = clean(phrase);
   }
 
-  const extraAttributes: Array<T | string> = [];
-  for (const key in attributeValues) {
-    if (shouldStripAttributes ||
-        !varArgs.usedAttributes.includes(key)) {
-      const values = attributeValues[key];
-      if (Array.isArray(values)) {
-        extraAttributes.push(...values);
+  const extraAttributes: Array<LinkAttrT> = [];
+
+  for (const key in attributesByRootName) {
+    if (
+      (shouldStripAttributes && requiredAttributes[key] == null) ||
+      !varArgs.usedPhraseAttributes.includes(key)
+    ) {
+      const attributes = attributesByRootName[key];
+      if (Array.isArray(attributes)) {
+        extraAttributes.push(...attributes);
       } else {
-        extraAttributes.push(values);
+        extraAttributes.push(attributes);
       }
     }
   }
 
-  result = [
-    phrase,
-    i18n.commaOnlyList(extraAttributes),
-  ];
-
+  extraAttributes.sort(cmpLinkAttrs);
+  result = [phrase, extraAttributes];
   cache.phraseAndExtraAttributes[key] = result;
   return result;
 }
@@ -332,19 +388,11 @@ export const getExtraAttributes = (
   forGrouping,
 )[1];
 
-export const getExtraAttributesText = (
-  relationship: RelationshipInfoT,
-  phraseProp: LinkPhraseProp,
-  forGrouping?: boolean = false,
-) => getPhraseAndExtraAttributesText(
-  relationship,
-  phraseProp,
-  forGrouping,
-)[1];
-
 export const stripAttributes = (linkType: LinkTypeT, phrase: string) => {
   return clean(textI18n.expand(phrase, new PhraseVarArgs(
-    _getRequiredAttributes(linkType),
-    textI18n.commaList,
+    _getRequiredAttributes(linkType, null),
+    textI18n,
+    null,
+    null,
   )));
 };

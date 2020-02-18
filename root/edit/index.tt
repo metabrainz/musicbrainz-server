@@ -22,29 +22,31 @@
 
           <table class="vote-tally">
             <tr class="noborder">
-                <th>[% l('Vote tally:') %]</th>
+                <th>[% add_colon(l('Vote tally')) %]</th>
                 <td class="vote">[%- vote_tally(edit) -%]</td>
             </tr>
-            [% IF edit.editor_may_vote(c.user) %]
-                <tr class="noborder">
-                        <th>[% l('My vote:') %]</th>
+            [%~ IF c.user_exists ~%]
+                [% IF edit.editor_may_vote(c.user) %]
+                    <tr class="noborder">
+                            <th>[% l('My vote:') %]</th>
+                            <td class="vote">
+                                [% React.embed(c, 'edit/components/Vote', {edit => edit}) %]
+                            </td>
+                    </tr>
+                [% END %]
+                [% FOR vote=edit.votes %]
+                    <tr class="[% 'superseded' IF vote.superseded %][% 'first' IF edit.votes.size == 1 %]">
+                        <th>[% link_entity(vote.editor) %]</th>
                         <td class="vote">
-                            [% React.embed(c, 'edit/components/Vote', {edit => edit}) %]
+                            [% lp(vote.vote_name, 'vote') %]
+                            <span class="date">[% UserDate.format(vote.vote_time) %]</span>
                         </td>
-                </tr>
-            [% END %]
-            [% FOR vote=edit.votes %]
-                <tr class="[% 'superseded' IF vote.superseded %][% 'first' IF edit.votes.size == 1 %]">
-                    <th>[% link_entity(vote.editor) %]</th>
-                    <td class="vote">
-                        [% lp(vote.vote_name, 'vote') %]
-                        <span class="date">[% UserDate.format(vote.vote_time) %]</span>
-                    </td>
-                </tr>
-            [% END %]
+                    </tr>
+                [% END %]
+            [%~ END ~%]
         </table>
 
-        [% IF edit.is_open && !edit.editor_may_vote(c.user) && (edit.editor_id != c.user.id) %]
+        [% IF edit.is_open && c.user_exists && !edit.editor_may_vote(c.user) && (edit.editor_id != c.user.id) %]
             [%# The current user check is necessary because !edit.editor_may_vote
             comes back true when the current user is the edit.editor. %]
             <p>
@@ -64,18 +66,26 @@
             [% END %]
         [% ELSE %]
             <p>
-                [%- l('You must be logged in to vote on edits') -%]
-                [%- request_login() -%]
+                [%- l('You must be logged in to vote on edits.') =%]
+                [%= request_login() -%]
             </p>
         [% END %]
 
-            <h2>[% l('Edit notes') %]</h2>
+        <h2>[% l('Edit notes') %]</h2>
+        [%~ IF c.user_exists ~%]
             [% INCLUDE 'edit/notes.tt' %]
             [%- IF edit.editor_may_vote(c.user) -%]
                     [%- form_submit(l('Submit vote and note')) -%]
             [%- ELSIF edit.editor_may_add_note(c.user) -%]
                     [%- form_submit(l('Submit note')) -%]
             [%- END -%]
+        [%~ ELSE ~%]
+            <p>
+                [%- l('You must be logged in to see edit notes.') %]
+                [% request_login() -%]
+            </p>
+        [%~ END ~%]
+            
         </form>
     </div>
 

@@ -338,13 +338,14 @@ sub _find_writers
     return unless @$ids;
 
     my $query = "
-        SELECT law.entity1 AS work, law.entity0 AS artist, array_agg(lt.name) AS roles
+        SELECT law.entity1 AS work, law.entity0 AS artist, 
+            law.entity0_credit AS credit, array_agg(lt.name) AS roles
         FROM l_artist_work law
         JOIN link l ON law.link = l.id
         JOIN link_type lt ON l.link_type = lt.id
         WHERE law.entity1 IN (" . placeholders(@$ids) . ")
-        GROUP BY law.entity1, law.entity0
-        ORDER BY count(*) DESC, artist
+        GROUP BY law.entity1, law.entity0, law.entity0_credit
+        ORDER BY count(*) DESC, artist, credit
     ";
 
     my $rows = $self->sql->select_list_of_lists($query, @$ids);
@@ -353,9 +354,10 @@ sub _find_writers
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
 
     for my $row (@$rows) {
-        my ($work_id, $artist_id, $roles) = @$row;
+        my ($work_id, $artist_id, $credit, $roles) = @$row;
         $map->{$work_id} ||= [];
         push @{ $map->{$work_id} }, {
+            credit => $credit,
             entity => $artists->{$artist_id},
             roles => [ uniq @{ $roles } ]
         }

@@ -19,6 +19,7 @@ import linkedEntities from '../../common/linkedEntities';
 import mbEntity from '../../common/entity';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
+import {displayLinkAttributesText} from '../../common/utility/displayLinkAttribute';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
 import nonEmpty from '../../common/utility/nonEmpty';
@@ -358,11 +359,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         phraseAndExtraAttributes(phraseProp, shouldStripAttributes) {
-            return linkPhrase.getPhraseAndExtraAttributesText(
+            const result = linkPhrase.getPhraseAndExtraAttributesText(
                 this.relationshipInfo(),
                 phraseProp,
                 shouldStripAttributes,
             );
+            return [
+                result[0],
+                displayLinkAttributesText(result[1]),
+            ];
         }
 
         _linkPhrase(source, shouldStripAttributes) {
@@ -649,15 +654,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         if (_.isEmpty(attributes) || _.isEmpty(linkType) || _.isEmpty(linkType.attributes)) {
             return [];
-        } else {
-            return _.transform(attributes, function (accum, data) {
-                var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
+        } 
+        return _.transform(attributes, function (accum, data) {
+            var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
 
-                if (attrInfo && linkType.attributes[attrInfo.root_id]) {
-                    accum.push(data);
-                }
-            });
-        }
+            if (attrInfo && linkType.attributes[attrInfo.root_id]) {
+                accum.push(data);
+            }
+        });
     }
 
 

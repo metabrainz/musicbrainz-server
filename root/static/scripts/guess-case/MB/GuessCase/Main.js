@@ -102,8 +102,7 @@ MB.GuessCase = MB.GuessCase || {};
         sortname: guess("Release", "guessSortName")
     };
 
-    MB.GuessCase["release_group"] = MB.GuessCase.release;
-    MB.GuessCase["release-group"] = MB.GuessCase.release;
+    MB.GuessCase.release_group = MB.GuessCase.release;
 
     MB.GuessCase.track = {
         guess: guess("Track", "process"),

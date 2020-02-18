@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {PART_OF_SERIES_LINK_TYPES} from '../static/scripts/common/constants';
 import linkedEntities from '../static/scripts/common/linkedEntities';
-import groupRelationships, {type GroupedRelationshipsT}
+import groupRelationships, {type RelationshipTargetTypeGroupT}
   from '../utility/groupRelationships';
 
 import RelatedSeries from './RelatedSeries';
@@ -67,7 +67,7 @@ function isNotSeriesPart(r: RelationshipT) {
 
 type Props = {
   +noRelationshipsHeading?: boolean,
-  +relationships?: GroupedRelationshipsT,
+  +relationships?: $ReadOnlyArray<RelationshipTargetTypeGroupT>,
   +source: CoreEntityT,
 };
 

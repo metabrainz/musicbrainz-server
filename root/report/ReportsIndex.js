@@ -397,6 +397,11 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
             {l('Releases where artist name and label name are the same')}
           </a>
         </li>
+        <li>
+          <a href="/report/ReleaseRGDifferentName">
+            {l('Releases with a different name than their release group')}
+          </a>
+        </li>
       </ul>
 
       <h2>{l('Recordings')}</h2>

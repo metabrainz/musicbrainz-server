@@ -48,7 +48,7 @@ const EditSummary = ({$c, edit, index}: Props) => {
 
       <Vote edit={edit} index={index} summary />
 
-      {!DBDefs.DB_READ_ONLY && (mayAddNote || mayApprove || mayCancel) ? (
+      {$c.user_exists && !DBDefs.DB_READ_ONLY && (mayAddNote || mayApprove || mayCancel) ? (
         <div className="cancel-edit buttons">
           {mayAddNote ? (
             <a className="positive edit-note-toggle">{l('Add Note')}</a>

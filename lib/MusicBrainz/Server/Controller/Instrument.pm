@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Translation qw( l );
 use List::MoreUtils qw( uniq );
 use List::UtilsBy qw( sort_by );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Instrument',
@@ -43,7 +44,7 @@ sub show : PathPart('') Chained('load') {
     );
 
     $c->stash(
-        component_path => 'instrument/InstrumentIndex.js',
+        component_path => 'instrument/InstrumentIndex',
         component_props => \%props,
         current_view => 'Node',
     );
@@ -80,11 +81,17 @@ sub artists : Chained('load') {
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @artists);
     }
 
-    $c->stash( template => 'instrument/artists.tt' );
+    my %props = (
+        artists => \@artists,
+        instrument => $c->stash->{instrument},
+        instrumentCreditsAndRelTypes => \%instrument_credits_and_rel_types,
+        pager => serialize_pager($c->stash->{pager}),
+    );
 
     $c->stash(
-        artists => \@artists,
-        instrument_credits_and_rel_types => \%instrument_credits_and_rel_types,
+        component_path => 'instrument/InstrumentArtists',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
@@ -110,14 +117,20 @@ sub recordings : Chained('load') {
         $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
     }
 
-    $c->stash( template => 'instrument/recordings.tt' );
-
     $c->model('ISRC')->load_for_recordings(@recordings);
     $c->model('ArtistCredit')->load(@recordings);
 
-    $c->stash(
+    my %props = (
+        instrument => $c->stash->{instrument},
+        instrumentCreditsAndRelTypes => \%instrument_credits_and_rel_types,
+        pager => serialize_pager($c->stash->{pager}),
         recordings => \@recordings,
-        instrument_credits_and_rel_types => \%instrument_credits_and_rel_types,
+    );
+
+    $c->stash(
+        component_path => 'instrument/InstrumentRecordings',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
@@ -137,13 +150,20 @@ sub releases : Chained('load') {
         $instrument_credits_and_rel_types{$item->{release}->gid} = \@credits_and_rel_types if @credits_and_rel_types;
     }
 
-    $c->stash( template => 'instrument/releases.tt' );
-
     $c->model('ArtistCredit')->load(@releases);
     $c->model('Release')->load_related_info(@releases);
-    $c->stash(
+
+    my %props = (
+        instrument => $c->stash->{instrument},
+        instrumentCreditsAndRelTypes => \%instrument_credits_and_rel_types,
+        pager => serialize_pager($c->stash->{pager}),
         releases => \@releases,
-        instrument_credits_and_rel_types => \%instrument_credits_and_rel_types,
+    );
+
+    $c->stash(
+        component_path => 'instrument/InstrumentReleases',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 

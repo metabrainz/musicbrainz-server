@@ -380,13 +380,14 @@ sub _find_performers
     return unless @$ids;
 
     my $query = "
-        SELECT lae.entity1 AS event, lae.entity0 AS artist, array_agg(lt.name) AS roles
+        SELECT lae.entity1 AS event, lae.entity0 AS artist,
+            lae.entity0_credit AS credit, array_agg(lt.name) AS roles
         FROM l_artist_event lae
         JOIN link l ON lae.link = l.id
         JOIN link_type lt ON l.link_type = lt.id
         WHERE lae.entity1 IN (" . placeholders(@$ids) . ")
-        GROUP BY lae.entity1, lae.entity0
-        ORDER BY count(*) DESC, artist
+        GROUP BY lae.entity1, lae.entity0, lae.entity0_credit
+        ORDER BY count(*) DESC, artist, credit
     ";
 
     my $rows = $self->sql->select_list_of_lists($query, @$ids);
@@ -395,9 +396,10 @@ sub _find_performers
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
 
     for my $row (@$rows) {
-        my ($event_id, $artist_id, $roles) = @$row;
+        my ($event_id, $artist_id, $credit, $roles) = @$row;
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
+            credit => $credit,
             entity => $artists->{$artist_id},
             roles => [ uniq @{ $roles } ]
         }
