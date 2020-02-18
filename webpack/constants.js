@@ -8,6 +8,13 @@
 
 const DBDefs = require('../root/static/scripts/common/DBDefs');
 
+let WEBPACK_MODE = process.env.WEBPACK_MODE;
+if (typeof WEBPACK_MODE === 'undefined') {
+  WEBPACK_MODE = DBDefs.DEVELOPMENT_SERVER
+    ? 'development'
+    : 'production';
+}
+
 module.exports = {
   dirs: require('./dirs'),
   GETTEXT_DOMAINS: [
@@ -21,5 +28,7 @@ module.exports = {
     'scripts',
     'statistics',
   ],
+  PRODUCTION_MODE: WEBPACK_MODE === 'production',
   PUBLIC_PATH: DBDefs.STATIC_RESOURCES_LOCATION + '/',
+  WEBPACK_MODE: WEBPACK_MODE,
 };

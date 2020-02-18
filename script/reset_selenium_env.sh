@@ -27,7 +27,7 @@ if [[ $SIR_DIR ]]; then
     OUTPUT=`./admin/psql SELENIUM <"$SIR_DIR"/sql/DropTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
     echo `date` : Purging sir queues
-    if [[ $CIRCLECI ]]; then
+    if [[ -d /etc/service/sir-queue-purger ]]; then
         touch "$HOME"/.purge_sir_queues
         while [[ -e "$HOME"/.purge_sir_queues ]]; do
             sleep 1
