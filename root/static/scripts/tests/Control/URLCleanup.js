@@ -976,15 +976,24 @@ const testData = [
   },
   // CPDL (Choral Public Domain Library)
   {
+                     input_url: 'http://www3.cpdl.org/wiki/index.php/Juan_de_Anchieta',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'cpdl',
+            expected_clean_url: 'http://cpdl.org/wiki/index.php/Juan_de_Anchieta',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
              input_entity_type: 'work',
     expected_relationship_type: 'score',
+       only_valid_entity_types: ['work'],
   },
   {
                      input_url: 'www2.cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
              input_entity_type: 'work',
     expected_relationship_type: 'score',
             expected_clean_url: 'http://cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
+       only_valid_entity_types: ['work'],
   },
   // Creative Commons
   {
