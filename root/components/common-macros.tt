@@ -199,7 +199,7 @@ END -%]
     [%- END -%]
 [%- END -%]
 
-[%~ MACRO expanded_artist_credit_list(ac) IF ac -%]
+[%~ MACRO expanded_artist_credit_list(ac) IF ac -%] [% # Converted to React at root/static/scripts/common/components/ExpandedArtistCredit.js %]
   [%- IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment -%]
     [%- SET artist_list = [];
         SET show_list = 0;
@@ -218,7 +218,7 @@ END -%]
   [% END %]
 [%- END -%]
 
-[%~ MACRO expanded_artist_credit(ac) IF ac -%]
+[%~ MACRO expanded_artist_credit(ac) IF ac -%] [% # Converted to React at root/static/scripts/common/components/ExpandedArtistCredit.js %]
   [%- artist_credit(ac) -%]<br />
   [%- expanded_artist_credit_list(ac) -%]<br />
 [%- END -%]
