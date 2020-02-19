@@ -542,7 +542,7 @@ sub _serialize_work
         for my $attr (@attributes) {
             my $attr_node = $attr_list_node->addNewChild(undef, 'attribute');
             $attr_node->appendText($attr->value);
-            $attr_node->_setAttribute('value-id', $attr->value_gid);
+            $attr_node->_setAttribute('value-id', $attr->value_gid) if defined $attr->value_gid;
             $attr_node->_setAttribute('type', $attr->type->name);
             $attr_node->_setAttribute('type-id', $attr->type->gid);
         }
@@ -771,7 +771,7 @@ sub _serialize_cdstub
     $cdstub_node->_setAttribute('id', $cdstub->discid);
 
     $cdstub_node->appendTextChild('title', $cdstub->title);
-    $cdstub_node->appendTextChild('artist', $cdstub->artist);
+    $cdstub_node->appendTextChild('artist', $cdstub->artist) if $cdstub->artist;
     $cdstub_node->appendTextChild('barcode', $cdstub->barcode) if $cdstub->barcode;
     $cdstub_node->appendTextChild('disambiguation', $cdstub->comment) if $cdstub->comment;
 
