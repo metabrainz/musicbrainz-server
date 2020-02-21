@@ -5,7 +5,10 @@
     [% USE r = FormRenderer(form) %]
     [% form_row_url_long(r, 'url', l('URL:')) %]
 
-    [% PROCESS 'forms/relationship-editor.tt' %]
+    [% React.embed(c, 'static/scripts/url/components/UrlRelationshipEditor', {
+        formName => form.name,
+        seededRelationships => seeded_relationships,
+    }) %]
 
     [% INCLUDE 'forms/edit-note.tt' %]
     [% enter_edit() %]

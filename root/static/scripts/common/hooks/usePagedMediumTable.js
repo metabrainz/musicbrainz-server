@@ -21,6 +21,7 @@ import pThrottle, {
 } from '../../common/utility/pThrottle.js';
 import MediumDescription from '../components/MediumDescription.js';
 import {
+  type LinkedEntitiesT,
   mergeLinkedEntities,
 } from '../../common/linkedEntities.mjs';
 
@@ -58,6 +59,8 @@ export default function usePagedMediumTable(
   args: {
     dispatch: (LazyReleaseActionT) => void,
     getColumnCount: (boolean) => number,
+    handleLinkedEntities?:
+      (update: ?$ReadOnly<$Partial<LinkedEntitiesT>>) => void,
     hasUnloadedTracks: boolean,
     isExpanded: boolean,
     medium: MediumWithRecordingsT,
@@ -69,6 +72,7 @@ export default function usePagedMediumTable(
   const {
     dispatch,
     getColumnCount,
+    handleLinkedEntities = mergeLinkedEntities,
     hasUnloadedTracks,
     isExpanded,
     medium,
@@ -114,7 +118,7 @@ export default function usePagedMediumTable(
           const pager = result.pager;
           pagerRef.current = pager;
 
-          mergeLinkedEntities(result.linked_entities);
+          handleLinkedEntities(result.linked_entities);
 
           dispatch({
             medium,
@@ -142,6 +146,7 @@ export default function usePagedMediumTable(
     return null;
   }, [
     canLoadMoreTracks,
+    handleLinkedEntities,
     tracks,
     setLoadingMessage,
     medium,

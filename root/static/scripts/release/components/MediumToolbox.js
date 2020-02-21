@@ -12,51 +12,71 @@ import * as React from 'react';
 import type {
   ActionT,
   CreditsModeT,
+  LazyReleaseActionT,
 } from '../types.js';
 
-type PropsT = {
+type ToggleAllMediumsButtonsPropsT = {
+  +dispatch: (LazyReleaseActionT) => void,
+  +mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+};
+
+export const ToggleAllMediumsButtons = (React.memo<
+  ToggleAllMediumsButtonsPropsT,
+>(({
+  dispatch,
+  mediums,
+}: ToggleAllMediumsButtonsPropsT): React.MixedElement => (
+  <>
+    <button
+      className="btn-link"
+      id="expand-all-mediums"
+      onClick={() => {
+        dispatch({
+          expanded: true,
+          mediums,
+          type: 'toggle-all-mediums',
+        });
+      }}
+      type="button"
+    >
+      {l('Expand all mediums')}
+    </button>
+    {' | '}
+    <button
+      className="btn-link"
+      id="collapse-all-mediums"
+      onClick={() => {
+        dispatch({
+          expanded: false,
+          mediums,
+          type: 'toggle-all-mediums',
+        });
+      }}
+      type="button"
+    >
+      {l('Collapse all mediums')}
+    </button>
+  </>
+)): React.AbstractComponent<ToggleAllMediumsButtonsPropsT>);
+
+type MediumToolboxPropsT = {
   +creditsMode: CreditsModeT,
   +dispatch: (ActionT) => void,
   +mediums: $ReadOnlyArray<MediumWithRecordingsT>,
 };
 
-const MediumToolbox = (React.memo<PropsT>(({
+const MediumToolbox = (React.memo<MediumToolboxPropsT>(({
   creditsMode,
   dispatch,
   mediums,
-}: PropsT): React.Element<'span'> => (
+}: MediumToolboxPropsT): React.Element<'span'> => (
   <span id="medium-toolbox">
     {mediums.length > 1 ? (
       <>
-        <button
-          className="btn-link"
-          id="expand-all-mediums"
-          onClick={() => {
-            dispatch({
-              expanded: true,
-              mediums,
-              type: 'toggle-all-mediums',
-            });
-          }}
-          type="button"
-        >
-          {l('Expand all mediums')}
-        </button>
-        {' | '}
-        <button
-          className="btn-link"
-          id="collapse-all-mediums"
-          onClick={() => {
-            dispatch({
-              expanded: false,
-              mediums,
-              type: 'toggle-all-mediums',
-            });
-          }}
-          type="button"
-        >
-          {l('Collapse all mediums')}
-        </button>
+        <ToggleAllMediumsButtons
+          dispatch={dispatch}
+          mediums={mediums}
+        />
         {' | '}
       </>
     ) : null}
@@ -73,6 +93,6 @@ const MediumToolbox = (React.memo<PropsT>(({
         : l('Display Credits at Bottom')}
     </button>
   </span>
-)): React.AbstractComponent<PropsT>);
+)): React.AbstractComponent<MediumToolboxPropsT>);
 
 export default MediumToolbox;

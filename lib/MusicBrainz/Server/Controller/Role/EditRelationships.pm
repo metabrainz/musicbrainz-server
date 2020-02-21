@@ -1,7 +1,11 @@
 package MusicBrainz::Server::Controller::Role::EditRelationships;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
-use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL entities_with );
+use MusicBrainz::Server::Constants qw(
+    $DIRECTION_BACKWARD
+    $DIRECTION_FORWARD
+    entities_with
+);
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw(
     model_to_type
@@ -11,11 +15,11 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Form::Utils qw( build_type_info );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw(
     is_database_row_id
     is_non_negative_integer
+    is_positive_integer
     is_guid
 );
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -259,6 +263,7 @@ role {
                 source_credit => '',
                 target_credit => '',
                 link_order => $rel->{link_order} // 0,
+                direction => $backward ? $DIRECTION_BACKWARD : $DIRECTION_FORWARD,
             );
         }
 
@@ -274,7 +279,17 @@ role {
         my $model = $self->config->{model};
         my $source_type = model_to_type($model);
         my $source = $c->stash->{$self->{entity_name}};
-        my $source_entity = $source ? $source->TO_JSON : {entityType => $source_type};
+        my $source_entity = $source
+            ? $source->TO_JSON
+            : {entityType => $source_type, isNewEntity => \1};
+
+        # XXX Copy any submitted data required by the relationship editor.
+        if ($source_type eq 'series') {
+            my $ordering_type_id = $c->req->body_params->{'edit-series.ordering_type_id'};
+            if (is_positive_integer($ordering_type_id)) {
+                $source_entity->{orderingTypeID} = 0 + $ordering_type_id;
+            }
+        }
 
         if ($source) {
             my @existing_relationships =
@@ -295,24 +310,10 @@ role {
         # Grrr. release_group => release-group.
         $form_name =~ s/_/-/;
 
-        my $seeded_relationships = get_seeded_relationships($c, $source_type, $source);
-        my @link_type_tree = $c->model('LinkType')->get_full_tree;
-        my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
-        my $type_info = build_type_info(
-            $c,
-            qr/(^$source_type-|-$source_type$)/,
-            @link_type_tree,
-        );
-
         $c->stash(
-            seeded_relationships => $c->json->encode(to_json_array($seeded_relationships)),
             source_entity => $source_entity,
-            attr_info => $c->json->encode(\@link_attribute_types),
-            type_info => $c->json->encode($type_info),
+            seeded_relationships => to_json_array(get_seeded_relationships($c, $source_type, $source)),
         );
-
-        $c->stash->{component_props}{attrInfo} = to_json_array(\@link_attribute_types);
-        $c->stash->{component_props}{typeInfo} = $type_info;
 
         my $post_creation = delete $opts{post_creation};
 

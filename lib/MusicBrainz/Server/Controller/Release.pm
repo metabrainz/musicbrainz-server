@@ -40,12 +40,6 @@ use MusicBrainz::Server::Validation qw(
 );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Form::Utils qw(
-    build_grouped_options
-    select_options
-    language_options
-    build_type_info
-);
 use POSIX qw( ceil );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw(
@@ -728,15 +722,13 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('Relationship')->load_cardinal($release->release_group);
 
-    my @link_type_tree = $c->model('LinkType')->get_full_tree;
-    my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
+    $self->_load_mediums_limited($c, $release->mediums, undef, 1);
 
     $c->stash(
-        work_types      => select_options($c, 'WorkType'),
-        work_languages  => build_grouped_options($c, language_options($c, 'work')),
-        source_entity   => to_json_object($release),
-        attr_info       => $c->json->encode(\@link_attribute_types),
-        type_info       => $c->json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
+        component_path => 'release/EditRelationships',
+        component_props => {},
+        current_view => 'Node',
+        source_entity => to_json_object($release),
     );
 }
 

@@ -1017,8 +1017,8 @@ msgid ""
 "Giannini."
 msgstr "Een craviola is een gitaar met een karakteristieke asymmetrische vorm. Het klinkt als een combinatie van een klavecimbel (Portugees: cravo) en een viola caipira. Craviola’s kunnen zes of twaalf snaren hebben, zowel van nylon als van staal, en worden alleen door het bedrijf Giannini geproduceerd."
 
-#. name:dobro
-#: DB:instrument/description:184
+#. name:resonator guitar
+#: DB:instrument/description:386
 msgid "Dobro, resonator guitar"
 msgstr "Resonatorgitaar van het merk Dobro."
 
@@ -1380,16 +1380,6 @@ msgid ""
 "sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
 "diatonically."
 msgstr "De dulcimer is een volksinstrument uit de Appalachen met een achtvormige klankkast van verschillende houtsoorten met vaak hartvormige klankgaten. Het instrument heeft drie of vier metalen snaren (waaronder bourdonsnaren) en diatonische fretten."
-
-#. name:gut guitar
-#: DB:instrument/description:567
-msgid "Hollow-body acoustic guitar strung with gut-strings."
-msgstr "Een darmsnaargitaar is een akoestische gitaar met snaren gemaakt van darmen."
-
-#. name:nylon acoustic guitar
-#: DB:instrument/description:566
-msgid "Hollow-body acoustic guitar strung with nylon-strings."
-msgstr "Een nylongitaar is een akoestische gitaar met nylonsnaren."
 
 #. name:mendoza
 #: DB:instrument/description:114

@@ -1022,8 +1022,8 @@ msgid ""
 "Giannini."
 msgstr ""
 
-#. name:dobro
-#: DB:instrument/description:184
+#. name:resonator guitar
+#: DB:instrument/description:386
 msgid "Dobro, resonator guitar"
 msgstr "Dobro (=Herstellername) ist eine Resonatorgitarre."
 
@@ -1384,16 +1384,6 @@ msgid ""
 "eight shaped soundbox is made of various woods and often has heart-shaped "
 "sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
 "diatonically."
-msgstr ""
-
-#. name:gut guitar
-#: DB:instrument/description:567
-msgid "Hollow-body acoustic guitar strung with gut-strings."
-msgstr ""
-
-#. name:nylon acoustic guitar
-#: DB:instrument/description:566
-msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr ""
 
 #. name:mendoza

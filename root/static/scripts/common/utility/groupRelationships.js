@@ -55,6 +55,7 @@ export type RelationshipTargetGroupT = {
 };
 
 type PhraseGroupLinkTypeInfoT = {
+  backward: boolean,
   editsPending: boolean,
   phrase: Expand2ReactOutput,
   rootTypeId: number | null,
@@ -85,7 +86,8 @@ const cmpPhraseGroupLinkTypeInfo = (
   b: PhraseGroupLinkTypeInfoT,
 ) => (
   (a.typeId - b.typeId) ||
-  compare(a.textPhrase, b.textPhrase)
+  compare(a.textPhrase, b.textPhrase) ||
+  ((a.backward ? 1 : 0) - (b.backward ? 1 : 0))
 );
 
 function cmpRelationshipPhraseGroups(
@@ -118,7 +120,7 @@ const cmpRelationshipTargetGroups = (
   (a.target.id - b.target.id)
 );
 
-const areLinkAttrsEqual = (a: LinkAttrT, b: LinkAttrT) => (
+export const areLinkAttrsEqual = (a: LinkAttrT, b: LinkAttrT): boolean => (
   a.typeID === b.typeID &&
   a.text_value === b.text_value &&
   a.credited_as === b.credited_as
@@ -476,6 +478,7 @@ export default function groupRelationships(
          */
         key: String(linkType.id) + UNIT_SEP + textPhrase,
         linkTypeInfo: [{
+          backward: relationship.backward,
           editsPending: relationship.editsPending,
           phrase: phrase ?? textPhrase,
           rootTypeId: linkType.root_id,
@@ -487,7 +490,7 @@ export default function groupRelationships(
       cmpRelationshipPhraseGroups,
     );
 
-    const targetCredit = relationship.backward
+    const targetCredit = backward
       ? relationship.entity0_credit
       : relationship.entity1_credit;
     const isOrderable = isLinkTypeDirectionOrderable(linkType, backward);

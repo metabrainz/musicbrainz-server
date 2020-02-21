@@ -656,6 +656,15 @@ const seleniumTests = [
   },
   {name: 'CD_Lookup.json5', login: true},
   {name: 'FilterForm.json5', sql: 'filtering.sql'},
+  {
+    name: 'Release_Relationship_Editor.json5',
+    login: true,
+    sql: 'vision_creation_newsun.sql',
+  },
+  {
+    name: 'Series_Relationship_Editor.json5',
+    login: true,
+  },
 ];
 
 const testPath = name => path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', name);

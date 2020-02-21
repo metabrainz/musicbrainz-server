@@ -18,6 +18,11 @@ export type StateT<T: EntityItemT> = {
   +highlightedIndex: number,
   +id: string,
   +indexedSearch: boolean,
+  +inputChangeHook?: (
+    inputValue: string,
+    state: StateT<T>,
+    selectItem: (OptionItemT<T>) => boolean,
+  ) => boolean,
   +inputClass?: string,
   +inputValue: string,
   +isAddEntityDialogOpen?: boolean,
@@ -128,6 +133,7 @@ export type EntityItemT =
   | GenreT
   | InstrumentT
   | LabelT
+  | LanguageT
   | LinkAttrTypeT
   | LinkTypeT
   | PlaceT

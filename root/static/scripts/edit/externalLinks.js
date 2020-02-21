@@ -14,6 +14,7 @@ import ko from 'knockout';
 import * as React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 
+import invariant from '../../../utility/invariant.js';
 import {
   EMPTY_PARTIAL_DATE,
   FAVICON_CLASSES,
@@ -25,12 +26,16 @@ import expand2react from '../common/i18n/expand2react.js';
 import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB.js';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
+import {getSourceEntityData} from '../common/utility/catalyst.js';
 import isDateEmpty from '../common/utility/isDateEmpty.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import {hasSessionStorage} from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
 import {bracketedText} from '../common/utility/bracketed.js';
 import {compareDatePeriods} from '../common/utility/compareDates.js';
+import {
+  appendHiddenRelationshipInputs,
+} from '../relationship-editor/utility/prepareHtmlFormSubmission.js';
 import {isMalware} from '../url/utility/isGreyedOut.js';
 
 import isPositiveInteger from './utility/isPositiveInteger.js';
@@ -44,6 +49,7 @@ import type {RelationshipTypeT} from './URLCleanup.js';
 import * as validation from './validation.js';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog.js';
+import withLoadedTypeInfo from './components/withLoadedTypeInfo.js';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
@@ -94,18 +100,21 @@ export type LinkRelationshipT = $ReadOnly<{
 type LinksEditorProps = {
   +errorObservable?: (boolean) => void,
   +isNewEntity: boolean,
-  +sourceData: CoreEntityT | {
-    +entityType: CoreEntityTypeT,
-    +id?: void,
-    +relationships?: void,
-  },
+  +sourceData:
+    | CoreEntityT
+    | {
+        +entityType: CoreEntityTypeT,
+        +id?: void,
+        +isNewEntity?: true,
+        +relationships?: void,
+      },
 };
 
 type LinksEditorState = {
   +links: $ReadOnlyArray<LinkStateT>,
 };
 
-export class ExternalLinksEditor
+class _ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
   tableRef: {current: HTMLTableElement | null};
 
@@ -1500,6 +1509,13 @@ export class ExternalLink extends React.Component<LinkProps> {
   }
 }
 
+export const ExternalLinksEditor:
+  React.AbstractComponent<LinksEditorProps, _ExternalLinksEditor> =
+  withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
+    _ExternalLinksEditor,
+    new Set(['link_type', 'link_attribute_type']),
+  );
+
 const defaultLinkState: LinkStateT = {
   begin_date: EMPTY_PARTIAL_DATE,
   deleted: false,
@@ -1692,12 +1708,14 @@ function isMusicBrainz(url: string) {
 
 type InitialOptionsT = {
   errorObservable?: (boolean) => void,
-  mountPoint: Element,
-  sourceData: CoreEntityT | {
-    +entityType: CoreEntityTypeT,
-    +id?: void,
-    +relationships?: void,
-  },
+  sourceData?:
+    | CoreEntityT
+    | {
+        +entityType: CoreEntityTypeT,
+        +id?: void,
+        +isNewEntity?: true,
+        +relationships?: void,
+      },
 };
 
 type SeededUrlShape = {
@@ -1706,13 +1724,15 @@ type SeededUrlShape = {
 };
 
 export function createExternalLinksEditor(
-  options: InitialOptionsT,
+  options?: InitialOptionsT,
 ): {
-  +externalLinksEditorRef: React$Ref<typeof ExternalLinksEditor>,
+  +externalLinksEditorRef: {current: _ExternalLinksEditor | null},
   +root: {+unmount: () => void, ...},
 } {
-  const sourceData = options.sourceData;
-  const mountPoint = options.mountPoint;
+  const sourceData = options?.sourceData ?? getSourceEntityData();
+  invariant(sourceData);
+
+  const mountPoint = $('#external-links-editor-container')[0];
   let root = $(mountPoint).data('react-root');
   if (!root) {
     root = ReactDOMClient.createRoot(mountPoint);
@@ -1721,7 +1741,7 @@ export function createExternalLinksEditor(
   const externalLinksEditorRef = React.createRef();
   root.render(
     <ExternalLinksEditor
-      errorObservable={options.errorObservable}
+      errorObservable={options?.errorObservable}
       isNewEntity={!sourceData.id}
       ref={externalLinksEditorRef}
       sourceData={sourceData}
@@ -1730,4 +1750,31 @@ export function createExternalLinksEditor(
   return {externalLinksEditorRef, root};
 }
 
-MB.createExternalLinksEditor = createExternalLinksEditor;
+export function createExternalLinksEditorForHtmlForm(
+  formName: string,
+): void {
+  const {
+    externalLinksEditorRef,
+  } = createExternalLinksEditor();
+  $(document).on('submit', '#page form', function () {
+    invariant(externalLinksEditorRef.current);
+    prepareExternalLinksHtmlFormSubmission(
+      formName,
+      externalLinksEditorRef.current,
+    );
+  });
+}
+
+export function prepareExternalLinksHtmlFormSubmission(
+  formName: string,
+  externalLinksEditor: _ExternalLinksEditor,
+): void {
+  appendHiddenRelationshipInputs(function (pushInput) {
+    externalLinksEditor.getFormData(formName + '.url', 0, pushInput);
+
+    const links = externalLinksEditor.state.links;
+    if (hasSessionStorage && links.length) {
+      window.sessionStorage.setItem('submittedLinks', JSON.stringify(links));
+    }
+  });
+}

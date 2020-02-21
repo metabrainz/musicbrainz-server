@@ -12,18 +12,17 @@ import test from 'tape';
 import linkedEntities, {
   mergeLinkedEntities,
 } from '../../../common/linkedEntities.mjs';
-import MB from '../../../common/MB.js';
 import {
   getPhraseAndExtraAttributesText,
 } from '../../../edit/utility/linkPhrase.js';
-import '../../../relationship-editor/common/viewModel.js';
-import {linkTypeTree, linkAttributeTypes} from '../../typeInfo.js';
+import {linkTypes, linkAttributeTypes} from '../../typeInfo.js';
+import {
+  exportLinkAttributeTypeInfo,
+  exportLinkTypeInfo,
+} from '../../../relationship-editor/utility/exportTypeInfo.js';
 
-// $FlowIgnore[prop-missing]
-MB.relationshipEditor.exportTypeInfo(
-  linkTypeTree,
-  linkAttributeTypes,
-);
+exportLinkTypeInfo(linkTypes);
+exportLinkAttributeTypeInfo(linkAttributeTypes);
 
 test('required attributes are left with forGrouping', function (t) {
   t.plan(1);

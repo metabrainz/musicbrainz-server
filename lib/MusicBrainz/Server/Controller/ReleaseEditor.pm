@@ -19,7 +19,6 @@ use MusicBrainz::Server::Form::Utils qw(
     select_options
     select_options_tree
     build_grouped_options
-    build_type_info
 );
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -35,9 +34,6 @@ sub _init_release_editor
     );
 
     $options{seeded_data} = $c->json->encode($self->_seeded_data($c) // {});
-
-    my $url_link_types = $c->model('LinkType')->get_tree('release', 'url');
-    my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
 
     my @medium_formats = $c->model('MediumFormat')->get_all;
     my $discid_formats = [ grep { $_ } map { $_->has_discids ? ($_->id) : () } @medium_formats ];
@@ -55,8 +51,6 @@ sub _init_release_editor
         packagings          => select_options_tree($c, 'ReleasePackaging'),
         countries           => select_options($c, 'CountryArea'),
         formats             => select_options_tree($c, 'MediumFormat'),
-        type_info           => $c->json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
-        attr_info           => $c->json->encode(\@link_attribute_types),
         discid_formats      => $c->json->encode($discid_formats),
         medium_format_dates => $c->json->encode(\%medium_format_dates),
         # The merge helper doesn't really work well together with the release editor process

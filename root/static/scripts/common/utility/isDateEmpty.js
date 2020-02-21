@@ -7,27 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-declare type PartialDateObservablesT = {
-  +day: KnockoutObservable<string | null>,
-  +month: KnockoutObservable<string | null>,
-  +year: KnockoutObservable<string | null>,
-};
-
 declare type PartialDateStringsT = {
   +day?: string,
   +month?: string,
   +year?: string,
 };
-
-export function isDateObservableEmpty(
-  date: PartialDateObservablesT,
-): boolean {
-  return !(
-    nonEmpty(date.year()) ||
-    nonEmpty(date.month()) ||
-    nonEmpty(date.day())
-  );
-}
 
 export default function isDateEmpty(
   date: ?PartialDateT | ?PartialDateStringsT,

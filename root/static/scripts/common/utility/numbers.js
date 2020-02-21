@@ -12,3 +12,7 @@ let NEXT_UNIQUE_ID = 1;
 export function uniqueId(): number {
   return NEXT_UNIQUE_ID++;
 }
+
+export function uniqueNegativeId(): number {
+  return uniqueId() * -1;
+}

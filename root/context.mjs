@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-const defaultContext = {
+export const defaultContext: CatalystContextT = {
   action: {
     name: '',
   },

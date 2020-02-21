@@ -14,37 +14,31 @@ import type {GenreFormT} from '../../../../genre/types.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
-import {ExternalLinksEditor} from '../../edit/externalLinks.js';
-import {exportTypeInfo} from '../../relationship-editor/common/viewModel.js';
-import {prepareSubmission} from '../../relationship-editor/generic.js';
+import {
+  ExternalLinksEditor,
+  prepareExternalLinksHtmlFormSubmission,
+} from '../../edit/externalLinks.js';
 
 type Props = {
-  +attrInfo: LinkAttrTypeOptionsT,
   +form: GenreFormT,
-  +typeInfo: LinkTypeOptionsT,
 };
 
 const GenreEditForm = ({
-  attrInfo,
   form,
-  typeInfo,
 }: Props): React.Element<'form'> => {
   const $c = React.useContext(CatalystContext);
 
   const genre = $c.stash.source_entity;
   invariant(genre && genre.entityType === 'genre');
 
-  const [isTypeInfoExported, setTypeInfoExported] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!isTypeInfoExported) {
-      exportTypeInfo(typeInfo, attrInfo);
-      setTypeInfoExported(true);
-    }
-  }, [isTypeInfoExported, attrInfo, typeInfo]);
+  const externalLinksEditorRef = React.createRef();
 
   const handleSubmit = () => {
-    prepareSubmission('edit-genre');
+    invariant(externalLinksEditorRef.current);
+    prepareExternalLinksHtmlFormSubmission(
+      'edit-genre',
+      externalLinksEditorRef.current,
+    );
   };
 
   return (
@@ -73,12 +67,11 @@ const GenreEditForm = ({
 
         <fieldset>
           <legend>{l('External Links')}</legend>
-          {isTypeInfoExported ? (
-            <ExternalLinksEditor
-              isNewEntity={!genre.id}
-              sourceData={genre}
-            />
-          ) : null}
+          <ExternalLinksEditor
+            isNewEntity={!genre.id}
+            ref={externalLinksEditorRef}
+            sourceData={genre}
+          />
         </fieldset>
 
         <EnterEditNote field={form.field.edit_note} />

@@ -262,10 +262,20 @@ function formatLinkAttributeType(type: LinkAttrTypeT) {
 
 function formatLinkType(linkType: LinkTypeT) {
   const description = stripHtml(linkType.l_description);
+  const linkPhrase = linkType.l_link_phrase;
+  const reverseLinkPhrase = linkType.l_reverse_link_phrase;
 
   return (
     <>
       {linkType.l_name}
+      {nonEmpty(linkPhrase) ? showExtraInfoLine(
+        l('Forward link phrase:') + ' ' + linkPhrase,
+        'comment',
+      ) : null}
+      {nonEmpty(reverseLinkPhrase) ? showExtraInfoLine(
+        l('Reverse link phrase:') + ' ' + reverseLinkPhrase,
+        'comment',
+      ) : null}
       {nonEmpty(description) ? showExtraInfoLine(description) : null}
     </>
   );

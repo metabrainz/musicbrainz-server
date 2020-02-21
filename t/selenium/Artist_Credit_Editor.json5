@@ -94,7 +94,7 @@
     },
     {
       command: 'click',
-      target: 'css=td > button.add-item.with-label',
+      target: 'css=#artist-credit-bubble td > button.add-item.with-label',
       value: '',
     },
     {
@@ -322,7 +322,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'id=ac-new-12-artist-0',
+      target: 'id=ac-new-4-artist-0',
       value: 'test',
     },
     {

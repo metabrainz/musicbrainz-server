@@ -307,6 +307,7 @@ export function createReleaseGroupObject(
 export function createSeriesObject(
   props?: $ReadOnly<{
     ...CommonPropsT,
+    +orderingTypeID?: number,
   }>,
 ): SeriesT {
   return {
@@ -344,6 +345,9 @@ export function createUrlObject(
 export function createWorkObject(
   props?: $ReadOnly<{
     ...CommonPropsT,
+    +_fromBatchCreateWorksDialog?: boolean,
+    +languages?: $ReadOnlyArray<WorkLanguageT>,
+    +typeID?: number | null,
   }>,
 ): WorkT {
   return {

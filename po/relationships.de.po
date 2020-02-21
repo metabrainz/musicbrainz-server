@@ -4032,8 +4032,7 @@ msgstr "Cover-Art für"
 msgid "cover art link"
 msgstr ""
 
-#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/name:233
-#: DB:link_type/long_link_phrase:12
+#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/long_link_phrase:12
 msgid "covers and versions"
 msgstr "Covers und Versionen"
 
@@ -5782,8 +5781,8 @@ msgstr "andere Datenbanken"
 msgid "other version"
 msgstr "andere Version"
 
-#: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
-#: DB:link_type/long_link_phrase:233
+#: DB:link_type/link_phrase:233 DB:link_type/name:233
+#: DB:link_type/reverse_link_phrase:233 DB:link_type/long_link_phrase:233
 msgid "other versions"
 msgstr "andere Versionen"
 

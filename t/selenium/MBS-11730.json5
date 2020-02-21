@@ -13,8 +13,8 @@
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#relationship-editor table.details.row-form tr').textContent.replace(/\\s{2,}/g, ' ').replace(/(^\\s*|\\s*$)/g, '')",
-      value: 'no type: Bing Crosby',
+      target: "document.querySelector('#relationship-editor table.rel-editor-table tr').textContent.replace(/\\s{2,}/g, ' ').replace(/(^\\s*|\\s*$)/g, '')",
+      value: 'no type: Bing Crosby You must select a relationship type and target entity for every relationship.',
     },
   ],
 }

@@ -4051,8 +4051,7 @@ msgstr "illustration pour"
 msgid "cover art link"
 msgstr "illustration"
 
-#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/name:233
-#: DB:link_type/long_link_phrase:12
+#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/long_link_phrase:12
 msgid "covers and versions"
 msgstr "reprises et versions"
 
@@ -5801,8 +5800,8 @@ msgstr "autres bases de données"
 msgid "other version"
 msgstr "autre version"
 
-#: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
-#: DB:link_type/long_link_phrase:233
+#: DB:link_type/link_phrase:233 DB:link_type/name:233
+#: DB:link_type/reverse_link_phrase:233 DB:link_type/long_link_phrase:233
 msgid "other versions"
 msgstr "autres versions"
 
