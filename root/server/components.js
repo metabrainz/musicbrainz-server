@@ -255,6 +255,7 @@ module.exports = {
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'edit/details/EditPlace': require('../edit/details/EditPlace'),
   'edit/details/EditSeries': require('../edit/details/EditSeries'),
+  'edit/details/EditWork': require('../edit/details/EditWork'),
   'edit/details/MergeAreas': require('../edit/details/MergeAreas'),
   'edit/details/MergeArtists': require('../edit/details/MergeArtists'),
   'edit/details/MergeEvents': require('../edit/details/MergeEvents'),
