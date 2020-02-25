@@ -334,6 +334,7 @@ sub TO_JSON {
         edit_type => $self->edit_type + 0,
         editor_id => $self->editor_id + 0,
         expires_time => datetime_to_iso8601($self->expires_time),
+        historic_type => $self->can('historic_type') ? $self->historic_type + 0 : undef,
         id => $self->id + 0,
         $can_preview ? (preview => boolean_to_json($self->preview)) : (),
         status => $self->status + 0,

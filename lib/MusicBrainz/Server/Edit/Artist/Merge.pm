@@ -4,6 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( N_l );
 use Hash::Merge qw( merge );
 
@@ -16,6 +17,21 @@ sub edit_type { $EDIT_ARTIST_MERGE }
 
 sub _merge_model { 'Artist' }
 sub subscription_model { shift->c->model('Artist')->subscription }
+
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        Artist => {
+            map {
+                $_ => [ 'ArtistType', 'Gender', 'Area' ]
+            } (
+                $self->data->{new_entity}{id},
+                map { $_->{id} } @{ $self->data->{old_entities} },
+            )
+        }
+    }
+}
 
 has '+data' => (
     isa => Dict[
@@ -57,6 +73,18 @@ around _build_related_entities => sub {
     }
     return $related_entities;
 };
+
+around build_display_data => sub {
+    my ($orig, $self, @args) = @_;
+
+    my $data = $self->$orig(@args);
+
+    $data->{rename} = boolean_to_json($self->data->{rename});
+
+    return $data;
+};
+
+sub edit_template_react { 'MergeArtists' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -460,6 +460,7 @@ declare type EditT = {
   +edit_type: number,
   +editor_id: number,
   +expires_time: string,
+  +historic_type: number | null,
   +id: number,
   +preview?: boolean,
   +quality: QualityT,

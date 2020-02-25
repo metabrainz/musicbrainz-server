@@ -29,6 +29,8 @@ sub foreign_keys {
     }
 }
 
+sub edit_template_react { 'MergeSeries' };
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
