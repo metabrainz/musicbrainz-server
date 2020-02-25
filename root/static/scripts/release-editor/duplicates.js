@@ -38,9 +38,9 @@ releaseEditor.baseRelease.subscribe(function (gid) {
         release.mediums(
             _.map(data.mediums, function (m) {
                 return new releaseEditor.fields.Medium(
-                    utils.reuseExistingMediumData(m), release
+                    utils.reuseExistingMediumData(m), release,
                 );
-            })
+            }),
         );
         release.loadMedia();
     });
@@ -100,7 +100,7 @@ releaseEditor.findReleaseDuplicates = function () {
             arid: _(ac.names)
                 .map('artist.gid')
                 .map(utils.escapeLuceneValue)
-                .value()
+                .value(),
         });
 
         toggleLoadingIndicator(true);

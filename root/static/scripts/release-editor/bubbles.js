@@ -22,7 +22,7 @@ releaseEditor.releaseGroupBubble = bubbleDoc({
     canBeShown: function (release) {
         var releaseGroup = release.releaseGroup();
         return releaseGroup && releaseGroup.gid;
-    }
+    },
 });
 
 releaseEditor.statusBubble = bubbleDoc({
@@ -34,7 +34,7 @@ releaseEditor.statusBubble = bubbleDoc({
 releaseEditor.dateBubble = bubbleDoc({
     canBeShown: function (event) {
         return event.hasAmazonDate() || event.hasJanuaryFirstDate();
-    }
+    },
 });
 
 releaseEditor.packagingBubble = bubbleDoc();
@@ -47,7 +47,7 @@ releaseEditor.labelBubble = bubbleDoc({
 
     catNoLooksLikeASIN: function (catNo) {
         return /^B00[0-9A-Z]{7}$/.test(catNo);
-    }
+    },
 });
 
 releaseEditor.barcodeBubble = bubbleDoc({

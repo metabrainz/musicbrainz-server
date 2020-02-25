@@ -611,7 +611,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 currentValue = newValue;
             });
             ko.applyBindingsToNode(element, { value: linkAttribute.textValue });
-        }
+        },
     };
 
     function entitiesComparer(a, b) {

@@ -16,7 +16,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         resizable: false,
         autoOpen: false,
         minWidth: 300,
-        show: true
+        show: true,
     },
 
     _create: function () {
@@ -46,8 +46,8 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
             this.uiDialog.append(
                 $("<div>").addClass("artwork-dialog-controls").append(
                     this.$pager,
-                    $("<div>").addClass("buttons").append(this.$prev, this.$next)
-                )
+                    $("<div>").addClass("buttons").append(this.$prev, this.$next),
+                ),
             );
         } else {
             this.$prev = this.$next = this.$pager = $();
@@ -73,8 +73,8 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 
         this.$pager.text(
             texp.l("Image {current} of {total}", {
-                current: index + 1, total: this.$artwork.length
-            })
+                current: index + 1, total: this.$artwork.length,
+            }),
         );
 
         this._super();
@@ -189,14 +189,14 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 
         this._setOptions({
             width: imageWidth + nonContentWidth,
-            height: imageHeight + nonContentHeight
+            height: imageHeight + nonContentHeight,
         });
 
         if (imageElement) {
             imageElement.width = imageWidth;
             imageElement.height = imageHeight;
         }
-    }
+    },
 });
 
 

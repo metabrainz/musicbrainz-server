@@ -58,7 +58,7 @@ class TimelineViewModel {
         self.loadedEvents = ko.observable(false);
         self.options = {
             rate: ko.observable(false),
-            events: ko.observable(true)
+            events: ko.observable(true),
         };
         /*
          * rateLimit so they'll all be updated before zoomHashPart is
@@ -68,7 +68,7 @@ class TimelineViewModel {
             xaxis: { min: debounce(ko.observable(null), 50),
                      max: debounce(ko.observable(null), 50) },
             yaxis: { min: debounce(ko.observable(null), 50),
-                     max: debounce(ko.observable(null), 50) }
+                     max: debounce(ko.observable(null), 50) },
         };
         self.zoomArray = ko.computed({
             read: function () {
@@ -86,7 +86,7 @@ class TimelineViewModel {
                     self.zoom.yaxis.min(array[2]);
                     self.zoom.yaxis.max(array[3]);
                 }
-            }
+            },
         });
         self.zoomHashPart = ko.computed({
             read: function () {
@@ -105,7 +105,7 @@ class TimelineViewModel {
                 } else {
                     self.zoomArray([null, null, null, null]);
                 }
-            }
+            },
         });
         // rateLimit to ensure graph doesn't need frequent redrawing
         self.lines = debounce(function () {
@@ -156,7 +156,7 @@ class TimelineViewModel {
         });
 
         let lines = document.location.pathname.match(
-            /^\/statistics\/timeline\/(.+)$/
+            /^\/statistics\/timeline\/(.+)$/,
         )[1].split('+');
 
         if (lines.length === 1 && lines[0] === 'main') {
@@ -219,7 +219,7 @@ class TimelineViewModel {
                     self.loadEvents();
                 }
             },
-            disposeWhen: self.loadedEvents
+            disposeWhen: self.loadedEvents,
         });
     }
 
@@ -285,7 +285,7 @@ class TimelineViewModel {
         self.loadingEvents(true);
         $.ajax({
             url: '../../ws/js/events',
-            dataType: 'json'
+            dataType: 'json',
         }).done(function (data) {
             self.events(_.map(data, function (e) {
                 e.jsDate = Date.parse(e.date);
@@ -375,7 +375,7 @@ class TimelineLine {
         self.loading(true);
         $.ajax({
             url: '../../statistics/dataset/' + self.name,
-            dataType: 'json'
+            dataType: 'json',
         }).done(function (data) {
             data = data.data;
 
@@ -479,7 +479,7 @@ class TimelineLine {
                 border: '1px solid #fdd',
                 padding: '2px',
                 'background-color': '#fee',
-                opacity: 0.80
+                opacity: 0.80,
             })
             .appendTo("body")
             .fadeIn(200);
@@ -622,7 +622,7 @@ class TimelineLine {
                         options.musicbrainzEvents = {
                             enabled: bindingContext.$data.options.events(),
                             data: bindingContext.$data.events(),
-                            currentEvent: {}
+                            currentEvent: {},
                         };
                     }
                 } else if (graph === 'overview') {
@@ -666,12 +666,12 @@ class TimelineLine {
                     return {
                         data: data,
                         label: line.label,
-                        color: line.color
+                        color: line.color,
                     };
                 }), options);
                 plot.triggerRedrawOverlay();
             }
-        }
+        },
     };
 })();
 

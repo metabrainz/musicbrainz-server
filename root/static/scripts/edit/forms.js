@@ -89,7 +89,7 @@ MB.forms = {
         if (data && data.disabled) {
             option.disabled = true;
         }
-    }
+    },
 };
 
 
@@ -279,7 +279,7 @@ ko.bindingHandlers.loop = {
         }));
 
         return { controlsDescendantBindings: true };
-    }
+    },
 };
 
 ko.virtualElements.allowedBindings.loop = true;
@@ -323,7 +323,7 @@ ko.bindingHandlers.withLabel = {
             .prev("td")
             .find("label")
             .attr("for", name);
-    }
+    },
 };
 
 export const buildOptionsTree = MB.forms.buildOptionsTree;

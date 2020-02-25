@@ -26,7 +26,7 @@ ko.bindingHandlers.disableBecauseDiscIDs = {
             .prop("disabled", disabled)
             .toggleClass("disabled-hint", disabled)
             .attr("title", disabled ? l("This medium has one or more discids which prevent this information from being changed.") : "");
-    }
+    },
 };
 
 const TrackButtons = ({nextTrack, previousTrack}) => (
@@ -124,7 +124,7 @@ ko.bindingHandlers.artistCreditEditor = {
         }
         entity.artistCreditEditorInst =
             ReactDOM.render(<ArtistCreditEditor {...props} />, element);
-    }
+    },
 };
 
 _.bindAll(
