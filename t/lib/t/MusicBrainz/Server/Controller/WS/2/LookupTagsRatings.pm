@@ -130,6 +130,7 @@ ws_test 'release group lookup with tags, genres and ratings',
             </genre>
             <genre count="1" id="51cfaac4-6696-480b-8f1b-27cfc789109c">
                 <name>grime</name>
+                <disambiguation>stuff</disambiguation>
             </genre>
         </genre-list>
         <rating votes-count="1">4</rating>
@@ -178,7 +179,7 @@ ws_test 'release lookup with release-groups, tags, genres and ratings',
             <first-release-date>2007-01-29</first-release-date>
             <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
             <tag-list><tag count="2"><name>dubstep</name></tag><tag count="1"><name>electronic</name></tag><tag count="1"><name>grime</name></tag></tag-list>
-            <genre-list><genre count="2" id="1b50083b-1afa-4778-82c8-548b309af783"><name>dubstep</name></genre><genre count="1" id="89255676-1f14-4dd8-bbad-fca839d6aff4"><name>electronic</name></genre><genre count="1" id="51cfaac4-6696-480b-8f1b-27cfc789109c"><name>grime</name></genre></genre-list>
+            <genre-list><genre count="2" id="1b50083b-1afa-4778-82c8-548b309af783"><name>dubstep</name></genre><genre count="1" id="89255676-1f14-4dd8-bbad-fca839d6aff4"><name>electronic</name></genre><genre count="1" id="51cfaac4-6696-480b-8f1b-27cfc789109c"><name>grime</name><disambiguation>stuff</disambiguation></genre></genre-list>
             <rating votes-count="1">4</rating>
         </release-group>
         <date>2007-01-29</date>

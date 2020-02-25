@@ -104,6 +104,15 @@ sub method_not_allowed : Private {
     ));
 }
 
+sub not_implemented : Private
+{
+    my ($self, $c) = @_;
+
+    $c->res->status(501);
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->output_error("This hasn't been implemented yet."));
+}
+
 sub begin : Private {
     my ($self, $c) = @_;
 

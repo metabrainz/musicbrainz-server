@@ -45,9 +45,9 @@ test 'browse release group via release' => sub {
                         { count => 1, name => "electronic" },
                         { count => 1, name => "grime" }],
                     genres => [
-                        { count => 2, id => '1b50083b-1afa-4778-82c8-548b309af783', name => "dubstep" },
-                        { count => 1, id => '89255676-1f14-4dd8-bbad-fca839d6aff4', name => "electronic" },
-                        { count => 1, id => '51cfaac4-6696-480b-8f1b-27cfc789109c', name => "grime" }],
+                        { count => 2, disambiguation => '', id => '1b50083b-1afa-4778-82c8-548b309af783', name => "dubstep" },
+                        { count => 1, disambiguation => '', id => '89255676-1f14-4dd8-bbad-fca839d6aff4', name => "electronic" },
+                        { count => 1, disambiguation => 'stuff', id => '51cfaac4-6696-480b-8f1b-27cfc789109c', name => "grime" }],
                     "rating" => { "votes-count" => 1, "value" => 4 },
                     disambiguation => "",
                 }]
@@ -90,9 +90,9 @@ test 'browse release group via artist' => sub {
                         { count => 1, name => "electronic" },
                         { count => 1, name => "grime" }],
                     genres => [
-                        { count => 2, id => '1b50083b-1afa-4778-82c8-548b309af783', name => "dubstep" },
-                        { count => 1, id => '89255676-1f14-4dd8-bbad-fca839d6aff4', name => "electronic" },
-                        { count => 1, id => '51cfaac4-6696-480b-8f1b-27cfc789109c', name => "grime" }],
+                        { count => 2, disambiguation => '', id => '1b50083b-1afa-4778-82c8-548b309af783', name => "dubstep" },
+                        { count => 1, disambiguation => '', id => '89255676-1f14-4dd8-bbad-fca839d6aff4', name => "electronic" },
+                        { count => 1, disambiguation => 'stuff', id => '51cfaac4-6696-480b-8f1b-27cfc789109c', name => "grime" }],
                     "rating" => { "votes-count" => 1, "value" => 4 },
                     disambiguation => "",
                 },

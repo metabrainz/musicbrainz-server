@@ -1320,18 +1320,20 @@ sub _serialize_genre_list
 
     foreach my $tag (sort_by { $_->tag->name } @{$opts->{genres}})
     {
-        $self->_serialize_genre($list_node, $tag);
+        my $genre = $tag->tag->genre;
+        $self->_serialize_genre($list_node, $genre, $inc, $stash, 1, $tag->count);
     }
 }
 
 sub _serialize_genre
 {
-    my ($self, $parent_node, $tag) = @_;
+    my ($self, $parent_node, $genre, $inc, $stash, $toplevel, $use_count) = @_;
 
     my $genre_node = $parent_node->addNewChild(undef, 'genre');
-    $genre_node->_setAttribute('count', $tag->count);
-    $genre_node->_setAttribute('id', $tag->tag->genre->gid);
-    $genre_node->appendTextChild('name', $tag->tag->name);
+    $genre_node->_setAttribute('count', $use_count) if defined $use_count;
+    $genre_node->_setAttribute('id', $genre->gid);
+    $genre_node->appendTextChild('name', $genre->name);
+    $genre_node->appendTextChild('disambiguation', $genre->comment) if $genre->comment;
 }
 
 sub _serialize_user_tag_list

@@ -941,9 +941,9 @@ test 'release lookup, related artists have no tags/genres' => sub {
                     { count => 1, name => 'warp' },
                 ],
                 genres => [
-                    { count => 1, id => '89255676-1f14-4dd8-bbad-fca839d6aff4', name => "electronic" },
-                    { count => 1, id => '53a3cea3-17af-4421-a07a-5824b540aeb5', name => 'electronica' },
-                    { count => 1, id => '18b010d7-7d85-4445-a4a8-1889a4688308', name => 'glitch' },
+                    { count => 1, disambiguation => '', id => '89255676-1f14-4dd8-bbad-fca839d6aff4', name => "electronic" },
+                    { count => 1, disambiguation => '', id => '53a3cea3-17af-4421-a07a-5824b540aeb5', name => 'electronica' },
+                    { count => 1, disambiguation => '', id => '18b010d7-7d85-4445-a4a8-1889a4688308', name => 'glitch' },
                 ],
             },
             joinphrase => '',
@@ -1615,6 +1615,7 @@ test 'tags and genres on associated entities' => sub {
                     genres => [
                         {
                             count => 1,
+                            disambiguation => '',
                             id => '8a14f570-7297-438d-996d-8797f9b8cfcc',
                             name => 'psychobilly',
                         },
@@ -1646,6 +1647,7 @@ test 'tags and genres on associated entities' => sub {
         genres => [
             {
                 count => 1,
+                disambiguation => '',
                 id => '8c083468-2dce-4a31-ae77-433af3deafd3',
                 name => 'hard bop',
             },
@@ -1678,6 +1680,7 @@ test 'tags and genres on associated entities' => sub {
                                     genres => [
                                         {
                                             count => 1,
+                                            disambiguation => '',
                                             id => 'f1c9b874-7ef2-4e79-9419-c0bcb5f33a30',
                                             name => 'britpop',
                                         },
@@ -1701,6 +1704,7 @@ test 'tags and genres on associated entities' => sub {
                                     genres => [
                                         {
                                             count => 1,
+                                            disambiguation => '',
                                             id => 'f976d48b-965e-4fe9-aaa6-105aab988c7c',
                                             name => 'blackened death metal',
                                         },
@@ -1751,6 +1755,7 @@ test 'tags and genres on associated entities' => sub {
                                         genres => [
                                             {
                                                 count => 1,
+                                                disambiguation => '',
                                                 id => '842008b8-1c67-4c8c-b450-7f5adf20fb7f',
                                                 name => 'post-classical',
                                             },
@@ -1773,6 +1778,7 @@ test 'tags and genres on associated entities' => sub {
                             genres => [
                                 {
                                     count => 1,
+                                    disambiguation => '',
                                     id => '8103927c-5f4b-4bbc-9d8c-7a1241d2bab8',
                                     name => 'freak folk',
                                 },
@@ -1814,6 +1820,7 @@ test 'tags and genres on associated entities' => sub {
                         genres => [
                             {
                                 count => 1,
+                                disambiguation => '',
                                 id => 'f1c9b874-7ef2-4e79-9419-c0bcb5f33a30',
                                 name => 'britpop',
                             },
@@ -1837,6 +1844,7 @@ test 'tags and genres on associated entities' => sub {
             genres => [
                 {
                     count => 1,
+                    disambiguation => '',
                     id => '1696f12e-9f01-4309-be9d-116e31ac65b7',
                     name => 'doo-wop',
                 },
