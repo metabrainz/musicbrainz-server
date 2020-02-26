@@ -1411,6 +1411,7 @@ sub newest_releases_with_artwork {
         Artwork->new(
             id => $caa_id,
             release => $release,
+            suffix => 'spoof',
         );
     });
 }
