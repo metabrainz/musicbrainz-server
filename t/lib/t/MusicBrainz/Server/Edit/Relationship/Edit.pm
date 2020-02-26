@@ -473,6 +473,8 @@ test 'Entity credits can be added to an existing relationship' => sub {
         relationship_id => 1,
         type1 => 'artist',
         type0 => 'artist',
+        entity1_credit => '',
+        entity0_credit => ''
     });
 };
 

@@ -91,6 +91,8 @@ has '+data' => (
         relationship_id => Int,
         type0 => Str,
         type1 => Str,
+        entity0_credit => Optional[Str],
+        entity1_credit => Optional[Str],
         link => find_type_constraint('LinkHash'),
         new => find_type_constraint('RelationshipHash'),
         old => find_type_constraint('RelationshipHash'),
@@ -176,8 +178,10 @@ sub _build_relationship {
             defined $entity1->{id} ? (id => $entity1->{id}) : (),
             name => $entity1->{name},
         );
-    my $entity0_credit = $change->{entity0_credit} // '';
-    my $entity1_credit = $change->{entity1_credit} // '';
+    # We want to show the entities as actually credited even if the credit
+    # didn't change with this edit, but old edits won't have that data. 
+    my $entity0_credit = $change->{entity0_credit} // $data->{entity0_credit} // '';
+    my $entity1_credit = $change->{entity1_credit} // $data->{entity1_credit} // '';
 
     return Relationship->new(
         id => $data->{relationship_id},
@@ -439,6 +443,8 @@ sub initialize
                 name => $relationship->entity1->name
             },
         },
+        entity0_credit => $relationship->entity0_credit,
+        entity1_credit => $relationship->entity1_credit,
         edit_version => 2,
         $self->_change_data($relationship, %opts)
     });
