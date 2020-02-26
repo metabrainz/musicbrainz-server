@@ -130,7 +130,7 @@ const trackParser = releaseEditor.trackParser = {
                             return self.matchDataWithTrack(data, track);
                         })
                         .compact()
-                        .value()
+                        .value(),
                 );
             }
 
@@ -260,9 +260,9 @@ const trackParser = releaseEditor.trackParser = {
                     newTracks,
                     [newAudioTrackCount, 0].concat(_.times(difference, function (n) {
                         return new fields.Track({
-                            length: currentTracks[newAudioTrackCount + n].length.peek()
+                            length: currentTracks[newAudioTrackCount + n].length.peek(),
                         }, medium);
-                    }))
+                    })),
                 );
 
                 _.each(newTracks, function (t, index) {
@@ -302,7 +302,7 @@ const trackParser = releaseEditor.trackParser = {
                     if (previousTrack.gid) {
                         track.previousTrackAtThisPosition = {
                             id: previousTrack.id,
-                            gid: previousTrack.gid
+                            gid: previousTrack.gid,
                         };
                     }
                 }
@@ -467,7 +467,7 @@ const trackParser = releaseEditor.trackParser = {
         }
 
         return null;
-    }
+    },
 };
 
 trackParser.customDelimiterRegExp = ko.computed(function () {

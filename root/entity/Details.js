@@ -37,7 +37,7 @@ const XMLLink = ({
   entityType === 'release' && xmlInc.push('labels', 'discids', 'recordings');
   const protocol = isSecureConnection ? 'https://' : 'http://';
   const link = '/ws/2/' + entityTypeForUrl + '/' + entityGid +
-               '?inc=' + xmlInc.join('+');
+               (xmlInc.length ? '?inc=' : '') + xmlInc.join('+');
   return (
     <a href={link}>{protocol + DBDefs.WEB_SERVER + link}</a>
   );
@@ -86,20 +86,17 @@ const Details = ({
             <a href={canonicalLink}>{canonicalLink}</a>
           </td>
         </tr>
-        {/* TODO: remove conditon once genres have WS pages (MBS-10166) */}
-        {entityType === 'genre' ? null : (
-          <tr>
-            <th>{l('XML:')}</th>
-            <td>
-              <XMLLink
-                entityGid={entity.gid}
-                entityProperties={entityProperties}
-                entityType={entityType}
-                isSecureConnection={$c.req.secure}
-              />
-            </td>
-          </tr>
-        )}
+        <tr>
+          <th>{l('XML:')}</th>
+          <td>
+            <XMLLink
+              entityGid={entity.gid}
+              entityProperties={entityProperties}
+              entityType={entityType}
+              isSecureConnection={$c.req.secure}
+            />
+          </td>
+        </tr>
         {entityType === 'recording' ? (
           <tr>
             <th>{l('AcousticBrainz entry:')}</th>

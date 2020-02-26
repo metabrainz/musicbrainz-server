@@ -35,7 +35,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         recording:      l("The series you’ve selected is for recordings."),
         release:        l("The series you’ve selected is for releases."),
         release_group:  l("The series you’ve selected is for release groups."),
-        work:           l("The series you’ve selected is for works.")
+        work:           l("The series you’ve selected is for works."),
     };
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
@@ -82,7 +82,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                 });
                             } 
                             return items;
-                        }
+                        },
                     }).data("mb-entitylookup");
 
                 dialog.autocomplete.currentSelection.subscribe(changeTarget);
@@ -95,7 +95,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     // Fills in the recording name in the add-related-work dialog.
                     dialog.autocomplete.currentSelection({ name: target.name });
                 }
-            }
+            },
         };
     }());
 
@@ -158,14 +158,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     } else {
                         focusLastInput();
                     }
-                }
+                },
             };
 
             var childBindingContext = bindingContext.createChildContext(vm);
             ko.applyBindingsToDescendants(childBindingContext, element);
 
             return { controlsDescendantBindings: true };
-        }
+        },
     };
 
 
@@ -183,11 +183,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 target = options.relationship.target(source);
             } else {
                 options.relationship = this.viewModel.getRelationship({
-                    target: target, direction: options.direction
+                    target: target, direction: options.direction,
                 }, source);
 
                 options.relationship.linkTypeID(
-                    defaultLinkType({ children: linkedEntities.link_type_tree[options.relationship.entityTypes] })
+                    defaultLinkType({ children: linkedEntities.link_type_tree[options.relationship.entityTypes] }),
                 );
             }
 
@@ -372,7 +372,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 l_relationships(
                   this.backward()
                     ? linkType.reverse_link_phrase
-                    : linkType.link_phrase
+                    : linkType.link_phrase,
                 ),
             );
         }
@@ -385,8 +385,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 description = ReactDOMServer.renderToStaticMarkup(
                     exp.l("{description} ({url|more documentation})", {
                         description: expand2react(l_relationships(linkType.description)),
-                        url: { href: "/relationship/" + linkType.gid, target: "_blank" }
-                    })
+                        url: { href: "/relationship/" + linkType.gid, target: "_blank" },
+                    }),
                 );
             }
 
@@ -395,13 +395,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         positionBy(element) {
             this.widget._setOption("position", {
-                my: "top center", at: "center", of: element
+                my: "top center", at: "center", of: element,
             });
         }
 
         linkTypeOptions(entityTypes) {
             var options = MB.forms.linkTypeOptions(
-                { children: linkedEntities.link_type_tree[entityTypes] }, this.backward()
+                { children: linkedEntities.link_type_tree[entityTypes] }, this.backward(),
             );
 
             if (this.source.entityType === "series") {
@@ -577,7 +577,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         changeOtherRelationshipCreditsLabel(entity) {
             return ReactDOMServer.renderToStaticMarkup(
-                exp.l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()})
+                exp.l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()}),
             );
         }
 
@@ -607,7 +607,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             draggable: false,
             resizable: false,
             autoOpen: false,
-            width: "auto"
+            width: "auto",
         },
 
         setupUI: _.once(function () {

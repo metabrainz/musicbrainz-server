@@ -169,7 +169,7 @@ EOSQL
                         { count => 2, name => "not-used" },
                     ],
                     genres => [
-                        { count => 2, name => "musical" },
+                        { count => 2, disambiguation => '', id => "ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb", name => "musical" },
                     ],
                 },
                 {

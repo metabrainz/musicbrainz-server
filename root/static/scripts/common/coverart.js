@@ -26,7 +26,7 @@ $(function () {
             })
             .attr({
                 "src": thumbnailUrl,
-                "title": $e.data("title")
+                "title": $e.data("title"),
             })
             .appendTo(this);
     });

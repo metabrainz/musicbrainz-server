@@ -80,7 +80,7 @@ MB.CoverArt.reorder_position = function () {
             placeholder: 'thumb-position',
             cursor: 'grabbing',
             distance: 10,
-            tolerance: 'pointer'
+            tolerance: 'pointer',
         });
 
     $('div.editimage button.left').bind('click.mb',
@@ -95,7 +95,7 @@ MB.CoverArt.reorder_position = function () {
             $('div.editimage input.position').val(function (index) {
                 return (index + 1);
             });
-        }
+        },
     );
 
     /*
@@ -117,7 +117,7 @@ MB.CoverArt.cover_art_types = function () {
     return ko.observableArray(
         _.map(MB.cover_art_types_json, function (item) {
             return new MB.CoverArt.CoverArtType(item.l_name, item.id);
-        })
+        }),
     );
 };
 
@@ -145,7 +145,7 @@ MB.CoverArt.upload_status_enum = {
     'slowdown_error': 'slowdown_error',
     'submitting':     'submitting',
     'submit_error':   'submit_error',
-    'done':           'done'
+    'done':           'done',
 };
 
 MB.CoverArt.validate_file = function (file) {
@@ -197,7 +197,7 @@ MB.CoverArt.sign_upload = function (file, gid, mimeType) {
         url: "/ws/js/cover-art-upload/" + gid,
         data: { mime_type: mimeType },
         dataType: "json",
-        cache: false
+        cache: false,
     });
 
     postfields.fail(function (jqxhr, status, error) {

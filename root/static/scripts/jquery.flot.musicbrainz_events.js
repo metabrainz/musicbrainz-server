@@ -5,8 +5,8 @@
             deselectColor: "rgba(170, 0, 0, 0.20)",
             data: [],
             currentEvent: {},
-            enabled: true
-        }
+            enabled: true,
+        },
     };
 
     function changeCurrentEvent(to) {
@@ -74,6 +74,6 @@
         init: init,
         options: options,
         name: 'musicbrainzEvents',
-        version: '1.0'
+        version: '1.0',
     });
 })(jQuery);

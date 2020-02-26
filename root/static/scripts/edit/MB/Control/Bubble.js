@@ -142,7 +142,7 @@ class BubbleDoc extends BubbleBase {
                 at: "right center",
                 of: control,
                 collision: "fit none",
-                within: $parent
+                within: $parent,
             })
             .addClass("left-tail");
     }
@@ -161,7 +161,7 @@ ko.bindingHandlers.show = {
 
     update: function (element, valueAccessor) {
         element.style.display = ko.unwrap(valueAccessor()) ? "block" : "none";
-    }
+    },
 };
 
 
@@ -180,7 +180,7 @@ ko.bindingHandlers.bubble = {
         ko.applyBindingsToDescendants(childContext, element);
 
         return { controlsDescendantBindings: true };
-    }
+    },
 };
 
 
@@ -204,7 +204,7 @@ ko.bindingHandlers.controlsBubble = {
             read: function () {
                 return !!bubble.canBeShown(viewModel);
             },
-            disposeWhenNodeIsRemoved: element
+            disposeWhenNodeIsRemoved: element,
         })
         .subscribe(function (show) {
             if (show !== bubble.visible()) {
@@ -213,7 +213,7 @@ ko.bindingHandlers.controlsBubble = {
                 bubble.show(element);
             }
         });
-    }
+    },
 };
 
 
@@ -243,7 +243,7 @@ ko.bindingHandlers.affectsBubble = {
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             observer.disconnect();
         });
-    }
+    },
 };
 
 

@@ -210,9 +210,9 @@ test 'browse artists via release, inc=tags+genres+ratings' => sub {
                         { count => 1, name => 'pop' },
                         ],
                     genres => [
-                        { count => 1, name => 'j-pop' },
-                        { count => 1, name => 'k-pop' },
-                        { count => 1, name => 'pop' },
+                        { count => 1, disambiguation => '', id => 'eba7715e-ee26-4989-8d49-9db382955419', name => 'j-pop' },
+                        { count => 1, disambiguation => '', id => 'b74b3b6c-0700-46b1-aa55-1f2869a3bd1a', name => 'k-pop' },
+                        { count => 1, disambiguation => '', id => '911c7bbb-172d-4df8-9478-dbff4296e791', name => 'pop' },
                         ],
                     ipis => [],
                     isnis => [],

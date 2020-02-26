@@ -47,6 +47,9 @@ export const LINK_TYPES = {
   cdbaby: {
     artist: '4c21e5f5-2960-4abc-88a1-62ce491bb96e',
   },
+  cpdl: {
+    artist: '991d7d60-01ee-41de-9b62-9ef3f86c2447',
+  },
   crowdfunding: {
     artist: '93883cf6-e818-4938-990e-75863f8db2d3',
     event: '61187747-04d3-4d15-889a-0ceedaecf0aa',
@@ -266,6 +269,7 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.bandsintown,
   LINK_TYPES.bbcmusic,
   LINK_TYPES.bookbrainz,
+  LINK_TYPES.cpdl,
   LINK_TYPES.discogs,
   LINK_TYPES.geonames,
   LINK_TYPES.imdb,
@@ -918,6 +922,13 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, 'https://www.classicalarchives.com/$1/$2');
       return url;
+    },
+  },
+  'cpdl': {
+    match: [new RegExp('^(https?://)?(www[0-9]?\\.)?cpdl\\.org', 'i')],
+    type: _.defaults({}, LINK_TYPES.cpdl, LINK_TYPES.score),
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www[0-9]?\.)?cpdl\.org/, 'http://cpdl.org');
     },
   },
   'dahr': {
@@ -1720,6 +1731,10 @@ const CLEANUPS = {
         id === LINK_TYPES.otherdatabases.artist;
     },
   },
+  'neyzen': {
+    match: [new RegExp('^(https?://)?(www\\.)?neyzen\\.com', 'i')],
+    type: LINK_TYPES.score,
+  },
   'niconicovideo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(nicovideo\\.jp/)', 'i')],
     type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
@@ -2033,16 +2048,6 @@ const CLEANUPS = {
       return id === LINK_TYPES.lyrics.work && /^http:\/\/runeberg\.org\/[\w-\/]+\/\d+\.html$/.test(url);
     },
   },
-  'score': {
-    match: [
-      new RegExp('^(https?://)?(www\\.)?neyzen\\.com', 'i'),
-      new RegExp('^(https?://)?(www[0-9]?\\.)?cpdl\\.org', 'i'),
-    ],
-    type: LINK_TYPES.score,
-    clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www[0-9]?\.)?cpdl\.org/, 'http://cpdl.org');
-    },
-  },
   'secondhandsongs': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?secondhandsongs\\.com/', 'i')],
     type: LINK_TYPES.secondhandsongs,
@@ -2293,11 +2298,11 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(
         /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\//,
-        'https://twitter.com/'
+        'https://twitter.com/',
       );
       url = url.replace(
         /^(https:\/\/twitter\.com)\/@?([^\/?#]+(?:\/status\/\d+)?)(?:[\/?#].*)?$/,
-        '$1/$2'
+        '$1/$2',
       );
       return url;
     },

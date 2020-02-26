@@ -7,6 +7,12 @@
 require('@babel/register');
 
 const argv = require('yargs')
+  .option('b', {
+    alias: 'browser',
+    default: 'chrome',
+    describe: 'browser to use (chrome, firefox)',
+    type: 'string',
+  })
   .option('c', {
     alias: 'coverage',
     default: true,
@@ -42,6 +48,7 @@ const TestCls = require('tape/lib/test');
 const utf8 = require('utf8');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
+const firefox = require('selenium-webdriver/firefox');
 const webdriverProxy = require('selenium-webdriver/proxy');
 const {Key} = require('selenium-webdriver/lib/input');
 const promise = require('selenium-webdriver/lib/promise');
@@ -129,20 +136,36 @@ const customProxyServer = http.createServer(function (req, res) {
 });
 
 const driver = (x => {
-  x.forBrowser('chrome');
+  let options;
+
+  switch (argv.browser) {
+    case 'chrome':
+      x.forBrowser('chrome');
+      options = new chrome.Options();
+      options.addArguments(
+        'disable-dev-shm-usage',
+        'no-sandbox',
+        'proxy-server=http://localhost:5050',
+      );
+      x.setChromeOptions(options);
+      break;
+
+    case 'firefox':
+      x.forBrowser('firefox');
+      options = new firefox.Options();
+      options.setPreference('dom.disable_beforeunload', false);
+      options.setPreference('network.proxy.allow_hijacking_localhost', true);
+      x.setFirefoxOptions(options);
+      break;
+
+    default:
+      throw new Error('Unsupported browser: ' + argv.browser);
+  }
 
   x.setProxy(webdriverProxy.manual({http: 'localhost:5050'}));
 
   if (argv.headless) {
-    x.setChromeOptions(
-      new chrome.Options()
-        .headless()
-        .addArguments(
-          'disable-dev-shm-usage',
-          'no-sandbox',
-          'proxy-server=http://localhost:5050',
-        )
-    );
+    options.headless();
   }
 
   return x.build();
@@ -238,6 +261,7 @@ const KEY_CODES = {
   '${KEY_ESC}': Key.ESCAPE,
   '${KEY_HOME}': Key.HOME,
   '${KEY_SHIFT}': Key.SHIFT,
+  '${KEY_TAB}': Key.TAB,
 };
 
 function getPageErrors() {
@@ -394,16 +418,14 @@ async function handleCommand(file, command, target, value, t) {
 
     case 'mouseOver':
       return driver.actions()
-        .mouseMove(await findElement(target))
+        .move({origin: await findElement(target)})
         .perform();
 
     case 'open':
-      await driver.get('http://' + DBDefs.WEB_SERVER + target);
-      return driver.manage().window().setSize(1024, 768);
+      return driver.get('http://' + DBDefs.WEB_SERVER + target);
 
     case 'openFile':
-      await driver.get('file://' + path.resolve(path.dirname(file), target));
-      return driver.manage().window().setSize(1024, 768);
+      return driver.get('file://' + path.resolve(path.dirname(file), target));
 
     case 'pause':
       return driver.sleep(target);
@@ -440,6 +462,11 @@ async function handleCommand(file, command, target, value, t) {
 
     case 'uncheck':
       return setChecked(findElement(target), false);
+
+    case 'waitUntilUrlIs':
+      return driver.wait(until.urlIs(
+        'http://' + DBDefs.WEB_SERVER + target,
+      ), 30000);
 
     default:
       throw 'Unsupported command: ' + command;
@@ -496,6 +523,8 @@ function getPlan(file) {
 }
 
 async function runCommands(commands, t) {
+  await driver.manage().window().setRect({height: 768, width: 1024});
+
   for (let i = 0; i < commands.length; i++) {
     await handleCommand(...commands[i], t);
 
@@ -604,7 +633,7 @@ async function runCommands(commands, t) {
     const isLastTest = index === testsToRun.length - 1;
 
     return new Promise(function (resolve) {
-      test(title, {timeout: TEST_TIMEOUT}, function (t) {
+      test(title, {objectPrintDepth: 10, timeout: TEST_TIMEOUT}, function (t) {
         t.plan(plan);
 
         const timeout = setTimeout(resolve, TEST_TIMEOUT);

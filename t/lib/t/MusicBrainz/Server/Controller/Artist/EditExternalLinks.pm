@@ -93,6 +93,8 @@ cmp_deeply($edits[0]->data, {
             'gid' => '25d6b63a-12dc-41c9-858a-2f42ae610a7d'
         }
     },
+    'entity0_credit' => '',
+    'entity1_credit' => '',
     'edit_version' => 2,
 });
 

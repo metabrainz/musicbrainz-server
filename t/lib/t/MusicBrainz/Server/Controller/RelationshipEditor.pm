@@ -198,6 +198,8 @@ test 'Can edit relationship' => sub {
         relationship_id => 1,
         type0 => 'artist',
         type1 => 'recording',
+        entity0_credit => '',
+        entity1_credit => '',
     });
 };
 

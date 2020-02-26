@@ -812,6 +812,8 @@ test 'editing a relationship' => sub {
             ended       => 0,
             attributes  => [$guitar_attribute]
         },
+        entity0_credit => '',
+        entity1_credit => '',
         edit_version => 2,
     });
 };
@@ -875,6 +877,8 @@ test 'editing a relationship with an unchanged attribute' => sub {
             end_date    => { month => undef, day => undef, year => undef },
             ended       => 0,
         },
+        entity0_credit => '',
+        entity1_credit => '',
         edit_version => 2,
     });
 };
@@ -935,6 +939,8 @@ test 'removing an attribute from a relationship' => sub {
         old => {
             attributes  => [$guitar_attribute],
         },
+        entity0_credit => '',
+        entity1_credit => '',
         edit_version => 2,
     });
 };

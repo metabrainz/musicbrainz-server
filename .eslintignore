@@ -1,3 +1,5 @@
+.cpanm/**/*.js
+perl_modules/**/*.js
 root/static/build/**/*.js
 root/static/lib/**/*.js
 root/static/scripts/tests/typeInfo.js

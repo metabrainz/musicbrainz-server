@@ -542,7 +542,7 @@ sub _serialize_work
         for my $attr (@attributes) {
             my $attr_node = $attr_list_node->addNewChild(undef, 'attribute');
             $attr_node->appendText($attr->value);
-            $attr_node->_setAttribute('value-id', $attr->value_gid);
+            $attr_node->_setAttribute('value-id', $attr->value_gid) if defined $attr->value_gid;
             $attr_node->_setAttribute('type', $attr->type->name);
             $attr_node->_setAttribute('type-id', $attr->type->gid);
         }
@@ -771,7 +771,7 @@ sub _serialize_cdstub
     $cdstub_node->_setAttribute('id', $cdstub->discid);
 
     $cdstub_node->appendTextChild('title', $cdstub->title);
-    $cdstub_node->appendTextChild('artist', $cdstub->artist);
+    $cdstub_node->appendTextChild('artist', $cdstub->artist) if $cdstub->artist;
     $cdstub_node->appendTextChild('barcode', $cdstub->barcode) if $cdstub->barcode;
     $cdstub_node->appendTextChild('disambiguation', $cdstub->comment) if $cdstub->comment;
 
@@ -1320,17 +1320,20 @@ sub _serialize_genre_list
 
     foreach my $tag (sort_by { $_->tag->name } @{$opts->{genres}})
     {
-        $self->_serialize_genre($list_node, $tag);
+        my $genre = $tag->tag->genre;
+        $self->_serialize_genre($list_node, $genre, $inc, $stash, 1, $tag->count);
     }
 }
 
 sub _serialize_genre
 {
-    my ($self, $parent_node, $tag) = @_;
+    my ($self, $parent_node, $genre, $inc, $stash, $toplevel, $use_count) = @_;
 
     my $genre_node = $parent_node->addNewChild(undef, 'genre');
-    $genre_node->_setAttribute('count', $tag->count);
-    $genre_node->appendTextChild('name', $tag->tag->name);
+    $genre_node->_setAttribute('count', $use_count) if defined $use_count;
+    $genre_node->_setAttribute('id', $genre->gid);
+    $genre_node->appendTextChild('name', $genre->name);
+    $genre_node->appendTextChild('disambiguation', $genre->comment) if $genre->comment;
 }
 
 sub _serialize_user_tag_list
@@ -1373,7 +1376,9 @@ sub _serialize_user_genre
     my ($self, $parent_node, $tag) = @_;
 
     if ($tag->is_upvote) {
-        $parent_node->addNewChild(undef, 'user-genre')->appendTextChild('name', $tag->tag->name);
+        my $genre_node = $parent_node->addNewChild(undef, 'user-genre');
+        $genre_node->_setAttribute('id', $tag->tag->genre->gid);
+        $genre_node->appendTextChild('name', $tag->tag->name);
     }
 }
 

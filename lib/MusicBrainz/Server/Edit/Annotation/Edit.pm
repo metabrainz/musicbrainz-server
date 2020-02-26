@@ -80,8 +80,8 @@ role {
 
     method accept => sub {
         my $self = shift;
-        my $model = $self->_annotation_model;
-        my $latest_annotation = $model->get_latest($self->data->{entity}{id});
+        my $annotation_model = $self->_annotation_model;
+        my $latest_annotation = $annotation_model->get_latest($self->data->{entity}{id});
 
         if ($latest_annotation && $latest_annotation->creation_date > $self->created_time) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
@@ -89,7 +89,13 @@ role {
             );
         }
 
-        my $id = $model->edit({
+        if (!$self->c->model($model)->get_by_id($self->data->{entity}{id})) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+                'The relevant entity has been removed since this edit was created.'
+            );
+        }
+
+        my $id = $annotation_model->edit({
             entity_id => $self->data->{entity}{id},
             text      => $self->data->{text},
             changelog => $self->data->{changelog},

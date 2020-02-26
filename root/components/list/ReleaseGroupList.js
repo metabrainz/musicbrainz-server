@@ -25,9 +25,9 @@ type ReleaseGroupListHeaderProps = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
-  +groupByType?: boolean,
   +order?: string,
   +showRatings?: boolean,
+  +showTypes?: boolean,
   +sortable?: boolean,
 };
 
@@ -35,17 +35,26 @@ type ReleaseGroupListEntryProps = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
-  +groupByType?: boolean,
   +index: number,
   +releaseGroup: ReleaseGroupT,
   +showRatings?: boolean,
+  +showTypes?: boolean,
+};
+
+type ReleaseGroupListTableProps = {
+  ...SeriesItemNumbersRoleT,
+  +$c: CatalystContextT,
+  +checkboxes?: string,
+  +order?: string,
+  +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
+  +showRatings?: boolean,
+  +showTypes?: boolean,
+  +sortable?: boolean,
 };
 
 type ReleaseGroupListProps = {
   ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
   +checkboxes?: string,
-  +groupByType?: boolean,
   +order?: string,
   +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
   +showRatings?: boolean,
@@ -55,10 +64,10 @@ type ReleaseGroupListProps = {
 const ReleaseGroupListHeader = ({
   $c,
   checkboxes,
-  groupByType,
   order,
   seriesItemNumbers,
   showRatings,
+  showTypes,
   sortable,
 }: ReleaseGroupListHeaderProps) => (
   <thead>
@@ -92,7 +101,7 @@ const ReleaseGroupListHeader = ({
           : l('Title')}
       </th>
       <th className="artist">{l('Artist')}</th>
-      {groupByType ? null : (
+      {showTypes ? (
         <th>
           {sortable
             ? (
@@ -104,7 +113,7 @@ const ReleaseGroupListHeader = ({
             )
             : l('Type')}
         </th>
-      )}
+      ) : null}
       {showRatings ? <th className="rating c">{l('Rating')}</th> : null}
       <th className="count c">{l('Releases')}</th>
     </tr>
@@ -115,10 +124,10 @@ const ReleaseGroupListEntry = ({
   $c,
   checkboxes,
   index,
-  groupByType,
   releaseGroup,
   seriesItemNumbers,
   showRatings,
+  showTypes,
 }: ReleaseGroupListEntryProps) => (
   <tr className={loopParity(index)} key={releaseGroup.id}>
     {$c.user_exists && checkboxes ? (
@@ -148,14 +157,14 @@ const ReleaseGroupListEntry = ({
         ? <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
         : null}
     </td>
-    {groupByType ? null : (
+    {showTypes ? (
       <td>
         {releaseGroup.typeName
           ? releaseGroupType(releaseGroup)
           : null
         }
       </td>
-    )}
+    ) : null}
     {showRatings ? (
       <td className="c">
         <RatingStars entity={releaseGroup} />
@@ -165,24 +174,24 @@ const ReleaseGroupListEntry = ({
   </tr>
 );
 
-const ReleaseGroupListTable = ({
+export const ReleaseGroupListTable = withCatalystContext(({
   $c,
   checkboxes,
-  groupByType,
   order,
   releaseGroups,
   seriesItemNumbers,
   showRatings,
+  showTypes = true,
   sortable,
-}: ReleaseGroupListProps) => (
+}: ReleaseGroupListTableProps) => (
   <table className="tbl release-group-list">
     <ReleaseGroupListHeader
       $c={$c}
       checkboxes={checkboxes}
-      groupByType={groupByType}
       order={order}
       seriesItemNumbers={seriesItemNumbers}
       showRatings={showRatings}
+      showTypes={showTypes}
       sortable={sortable}
     />
     <tbody>
@@ -190,22 +199,20 @@ const ReleaseGroupListTable = ({
         <ReleaseGroupListEntry
           $c={$c}
           checkboxes={checkboxes}
-          groupByType={groupByType}
           index={index}
           key={releaseGroup.id}
           releaseGroup={releaseGroup}
           seriesItemNumbers={seriesItemNumbers}
           showRatings={showRatings}
+          showTypes={showTypes}
         />
       ))}
     </tbody>
   </table>
-);
+));
 
 const ReleaseGroupList = ({
-  $c,
   checkboxes,
-  groupByType,
   order,
   releaseGroups,
   seriesItemNumbers,
@@ -214,43 +221,29 @@ const ReleaseGroupList = ({
 }: ReleaseGroupListProps) => {
   const groupedReleaseGroups = groupBy(releaseGroups, 'typeName');
   return (
-    groupByType ? (
-      Object.keys(groupedReleaseGroups).map((type) => {
-        const releaseGroupsOfType = groupedReleaseGroups[type];
-        return (
-          <React.Fragment key={type}>
-            <h3>
-              {type === 'null'
-                ? l('Unspecified type')
-                : releaseGroupType(releaseGroupsOfType[0])
-              }
-            </h3>
-            <ReleaseGroupListTable
-              $c={$c}
-              checkboxes={checkboxes}
-              groupByType
-              order={order}
-              releaseGroups={releaseGroupsOfType}
-              seriesItemNumbers={seriesItemNumbers}
-              showRatings={showRatings}
-              sortable={sortable}
-            />
-          </React.Fragment>
-        );
-      })
-    ) : (
-      // TODO: When converting usages to React, please check MBS-10155.
-      <ReleaseGroupListTable
-        $c={$c}
-        checkboxes={checkboxes}
-        order={order}
-        releaseGroups={releaseGroups}
-        seriesItemNumbers={seriesItemNumbers}
-        showRatings={showRatings}
-        sortable={sortable}
-      />
-    )
+    Object.keys(groupedReleaseGroups).map<React$Node>((type) => {
+      const releaseGroupsOfType = groupedReleaseGroups[type];
+      return (
+        <React.Fragment key={type}>
+          <h3>
+            {type === 'null'
+              ? l('Unspecified type')
+              : releaseGroupType(releaseGroupsOfType[0])
+            }
+          </h3>
+          <ReleaseGroupListTable
+            checkboxes={checkboxes}
+            order={order}
+            releaseGroups={releaseGroupsOfType}
+            seriesItemNumbers={seriesItemNumbers}
+            showRatings={showRatings}
+            showTypes={false}
+            sortable={sortable}
+          />
+        </React.Fragment>
+      );
+    })
   );
 };
 
-export default withCatalystContext(ReleaseGroupList);
+export default ReleaseGroupList;

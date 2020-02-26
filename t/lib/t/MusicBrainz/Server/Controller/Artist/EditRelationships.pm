@@ -145,6 +145,8 @@ test 'editing a relationship' => sub {
                 ended       => 0,
                 attributes  => [$additional_attribute, $string_instruments_attribute],
             },
+            entity0_credit => '',
+            entity1_credit => '',
             edit_version => 2,
         });
 
@@ -202,6 +204,8 @@ test 'editing a relationship' => sub {
                 end_date    => { month => 9, day => 9, year => 2009 },
                 attributes  => [$additional_attribute, $crazy_guitar, $string_instruments_attribute]
             },
+            entity0_credit => '',
+            entity1_credit => '',
             edit_version => 2,
         });
 
@@ -252,6 +256,8 @@ test 'editing a relationship' => sub {
             old => {
                 begin_date  => { month => 1, day => 1, year => 1999 },
             },
+            entity0_credit => '',
+            entity1_credit => '',
             edit_version => 2,
         });
 
@@ -296,6 +302,8 @@ test 'editing a relationship' => sub {
             relationship_id => 3,
             new => { ended => 0 },
             old => { ended => 1 },
+            entity0_credit => '',
+            entity1_credit => '',
             edit_version => 2,
         });
 

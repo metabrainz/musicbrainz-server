@@ -20,7 +20,13 @@ const webpack = require('webpack');
 const poFile = require('./root/server/gettext/poFile');
 const DBDefs = require('./root/static/scripts/common/DBDefs');
 const browserConfig = require('./webpack/browserConfig');
-const {dirs, GETTEXT_DOMAINS, PUBLIC_PATH} = require('./webpack/constants');
+const {
+  dirs,
+  GETTEXT_DOMAINS,
+  PUBLIC_PATH,
+  PRODUCTION_MODE,
+  WEBPACK_MODE,
+} = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
 const jedDataTemplate = require('./root/static/scripts/jed-data');
@@ -183,7 +189,7 @@ const plugins = browserConfig.plugins.concat();
 
 plugins.push(new webpack.ProvidePlugin(providePluginConfig));
 
-if (!DBDefs.DEVELOPMENT_SERVER) {
+if (PRODUCTION_MODE) {
   plugins.push(
     new webpack.HashedModuleIdsPlugin({
       hashDigestLength: 7,
@@ -209,7 +215,7 @@ module.exports = {
 
   entry: entries,
 
-  mode: DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production',
+  mode: WEBPACK_MODE,
 
   module: moduleConfig,
 
@@ -232,9 +238,9 @@ module.exports = {
 
   output: {
     filename: (
-      DBDefs.DEVELOPMENT_SERVER
-        ? '[name].js'
-        : '[name]-[chunkhash:7].js'
+      PRODUCTION_MODE
+        ? '[name]-[chunkhash:7].js'
+        : '[name].js'
     ),
     path: dirs.BUILD,
     publicPath: PUBLIC_PATH,
@@ -249,7 +255,7 @@ if (String(process.env.WATCH_MODE) === '1') {
   Object.assign(module.exports, require('./webpack/watchConfig'));
 }
 
-if (!DBDefs.DEVELOPMENT_SERVER) {
+if (PRODUCTION_MODE) {
   module.exports.optimization.minimizer = [
     new TerserPlugin({
       sourceMap: true,

@@ -35,7 +35,7 @@ tag="v-$year-$month-$day"
 read -e -i "$tag" -p 'Tag? ' -r tag
 
 blog_url="https://blog.metabrainz.org/$year/$month/$day/"
-blog_url+="server-update-$year-$month-$day/"
+blog_url+="musicbrainz-server-update-$year-$month-$day/"
 read -e -i "$blog_url" -p 'Blog post URL? ' -r blog_url
 
 set -x

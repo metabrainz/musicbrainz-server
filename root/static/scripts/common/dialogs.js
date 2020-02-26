@@ -14,7 +14,7 @@ import _ from 'lodash';
         options: {
             width: 800,
             title: l("Loading..."),
-            resizable: false
+            resizable: false,
         },
 
         _create: function () {
@@ -61,7 +61,7 @@ import _ from 'lodash';
 
             this._setOptions({
                 title: this.options.title,
-                position: { my: "center", at: "center", of: window }
+                position: { my: "center", at: "center", of: window },
             });
         },
 
@@ -72,7 +72,7 @@ import _ from 'lodash';
         adjustSize: function (contentDocument) {
             $(contentDocument.body).width(this.element.width());
             this.$iframe.height($(contentDocument).height());
-        }
+        },
     });
 
 
@@ -111,7 +111,7 @@ import _ from 'lodash';
                     });
                 });
             }
-        }
+        },
     });
 
 

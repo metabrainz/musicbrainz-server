@@ -11,7 +11,11 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 const DBDefs = require('./root/static/scripts/common/DBDefs');
-const {dirs, PUBLIC_PATH} = require('./webpack/constants');
+const {
+  dirs,
+  PUBLIC_PATH,
+  WEBPACK_MODE,
+} = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
 
@@ -49,7 +53,7 @@ module.exports = {
     }
   ],
 
-  mode: DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production',
+  mode: WEBPACK_MODE,
 
   module: moduleConfig,
 

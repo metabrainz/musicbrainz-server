@@ -15,6 +15,8 @@ import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../../static/scripts/common/components/CodeLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import ExpandedArtistCredit
+  from '../../static/scripts/common/components/ExpandedArtistCredit';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
 import renderMergeCheckboxElement
@@ -34,6 +36,7 @@ type Props = {
   +mergeForm?: MergeFormT,
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingT>,
+  +showExpandedArtistCredits?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
@@ -48,6 +51,7 @@ const RecordingList = ({
   order,
   recordings,
   seriesItemNumbers,
+  showExpandedArtistCredits,
   showInstrumentCreditsAndRelTypes,
   showRatings,
   sortable,
@@ -129,9 +133,13 @@ const RecordingList = ({
             <EntityLink entity={recording} />
           </td>
           <td>
-            {recording.artistCredit
-              ? <ArtistCreditLink artistCredit={recording.artistCredit} />
-              : null}
+            {recording.artistCredit ? (
+              showExpandedArtistCredits ? (
+                <ExpandedArtistCredit artistCredit={recording.artistCredit} />
+              ) : (
+                <ArtistCreditLink artistCredit={recording.artistCredit} />
+              )
+            ) : null}
           </td>
           <td>
             <ul>

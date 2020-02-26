@@ -50,6 +50,7 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
         <RecordingList
           mergeForm={form}
           recordings={toMerge}
+          showExpandedArtistCredits
         />
         <FieldErrors field={form.field.target} />
 

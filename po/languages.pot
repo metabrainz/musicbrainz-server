@@ -2518,6 +2518,11 @@ msgstr ""
 msgid "Walloon"
 msgstr ""
 
+#. frequency:1 iso_code_3:wae 
+#: DB:language/name:6981
+msgid "Walser"
+msgstr ""
+
 #. frequency:1 iso_code_3:war 
 #: DB:language/name:453
 msgid "Waray"

@@ -34,7 +34,7 @@ sub is_perfect_match {
     my @medium_tracks = @{ $self->medium->cdtoc_tracks };
 
     return (@cdtoc_info == @medium_tracks) && all {
-      $_->[0]{length_time} == $_->[1]->length
+      defined $_->[1]->length && $_->[0]{length_time} == $_->[1]->length
     } (pairs (zip @cdtoc_info, @medium_tracks));
 }
 

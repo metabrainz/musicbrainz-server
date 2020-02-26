@@ -85,6 +85,30 @@ RUN apt-get update && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server
 
+RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
+    cpanm Carton JSON::XS && \
+    rm -rf /root/.cpanm
+
+ENV PERL_CARTON_PATH="/home/musicbrainz/carton-local" \
+    PERL_CPANM_OPT="--notest --no-interactive"
+
+COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
+RUN sudo -E -H -u musicbrainz carton install --deployment && \
+    rm cpanfile cpanfile.snapshot
+
+COPY postgresql-musicbrainz-collate/ postgresql-musicbrainz-collate/
+RUN cd postgresql-musicbrainz-collate && \
+    make && make install && \
+    cd .. && \
+    rm -rf postgresql-musicbrainz-collate
+
+COPY postgresql-musicbrainz-unaccent/ postgresql-musicbrainz-unaccent/
+RUN cd postgresql-musicbrainz-unaccent && \
+    make && make install && \
+    cd .. && \
+    rm -rf postgresql-musicbrainz-unaccent
+
+RUN mkdir musicbrainz-server
 ENV PG_AMQP_TAG v0.4.1
 
 RUN git clone --branch $PG_AMQP_TAG --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
@@ -101,16 +125,11 @@ RUN curl -sLO https://www.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_V
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
     systemctl disable solr
 
-RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
-    cpanm Carton JSON::XS
-
-ENV MB_SOLR_TAG v3.1.1
+ENV MB_SOLR_TAG v3.1.2
 
 # Steps taken from https://github.com/metabrainz/mb-solr/blob/master/Dockerfile
-RUN sudo -E -H -u musicbrainz git clone --recursive https://github.com/metabrainz/mb-solr.git && \
-    cd mb-solr && \
-    git checkout $MB_SOLR_TAG && \
-    cd mmd-schema/brainz-mmd2-jaxb && \
+RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recursive https://github.com/metabrainz/mb-solr.git && \
+    cd mb-solr/mmd-schema/brainz-mmd2-jaxb && \
     mvn install && \
     cd ../../mb-solr && \
     mvn package -DskipTests && \
@@ -128,10 +147,10 @@ ENV SIR_COMMIT 7c4c50b
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/sir.git && \
     cd sir && \
     sudo -E -H -u musicbrainz git reset --hard $SIR_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install -r requirements.txt' && \
+    sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install -r requirements.txt; pip install git+git://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
     cd /home/musicbrainz
 
-RUN curl -sLO https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip && \
+RUN curl -sLO https://chromedriver.storage.googleapis.com/80.0.3987.16/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
     chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver_linux64.zip

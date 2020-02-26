@@ -98,7 +98,7 @@ function buildLinks(
       entity,
       'discids',
       page,
-      !entity.may_have_discids /* disable if can't have discids */,
+      !entity.may_have_discids, /* disable if can't have discids */
     ));
   }
 

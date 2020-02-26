@@ -34,7 +34,7 @@ Object.assign(releaseEditor, {
         return texp.l('Error loading release: {error}', {error: releaseEditor.loadError()});
     },
     externalLinksEditData: ko.observable({}),
-    hasInvalidLinks: validation.errorField(ko.observable(false))
+    hasInvalidLinks: validation.errorField(ko.observable(false)),
 });
 
 releaseEditor.init = function (options) {
@@ -118,7 +118,7 @@ releaseEditor.init = function (options) {
             }
 
             $('#artist-credit-bubble').hide();
-        }
+        },
     });
 
     this.uiTabs = $pageContent.data("ui-tabs");
@@ -272,7 +272,7 @@ releaseEditor.init = function (options) {
     } else {
         releaseEditor.createExternalLinksEditor(
             { entityType: 'release' },
-            $('#external-links-editor-container')[0]
+            $('#external-links-editor-container')[0],
         );
     }
 
@@ -294,7 +294,7 @@ releaseEditor.init = function (options) {
 releaseEditor.loadRelease = function (gid, callback) {
     var args = {
         url: "/ws/js/release/" + gid,
-        data: { inc: "rels" }
+        data: { inc: "rels" },
     };
 
     return request(args, this)
@@ -352,7 +352,7 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     this.externalLinks = externalLinks.createExternalLinksEditor({
         sourceData: data,
         mountPoint: mountPoint,
-        errorObservable: this.hasInvalidLinks
+        errorObservable: this.hasInvalidLinks,
     });
 
     /*

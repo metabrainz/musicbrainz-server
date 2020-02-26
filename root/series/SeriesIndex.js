@@ -12,7 +12,7 @@ import React from 'react';
 import Annotation from '../static/scripts/common/components/Annotation';
 import EventList from '../components/list/EventList';
 import RecordingList from '../components/list/RecordingList';
-import ReleaseGroupList from '../components/list/ReleaseGroupList';
+import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList';
 import ReleaseList from '../components/list/ReleaseList';
 import WorkList from '../components/list/WorkList';
 import PaginatedResults from '../components/PaginatedResults';
@@ -68,8 +68,7 @@ const listPicker = ({
       );
     case 'release_group':
       return (
-        // TODO: Change to {ReleaseGroupsListTable} as part of MBS-10155
-        <ReleaseGroupList
+        <ReleaseGroupListTable
           releaseGroups={entities}
           showRatings
           {...sharedProps}
