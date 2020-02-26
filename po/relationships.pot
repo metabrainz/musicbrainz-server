@@ -120,6 +120,14 @@ msgstr ""
 msgid "CD Baby page for"
 msgstr ""
 
+#: DB:link_type/link_phrase:981 DB:link_type/name:981
+msgid "CPDL"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:981
+msgid "CPDL page for"
+msgstr ""
+
 #: DB:link_type/name:8 DB:link_type/name:227
 msgid "DJ-mix"
 msgstr ""
@@ -2298,6 +2306,12 @@ msgid ""
 "a>."
 msgstr ""
 
+#: DB:link_type/description:981
+msgid ""
+"This links an artist to its page in <a href=\"https://www.cpdl.org/\">CPDL</"
+"a>."
+msgstr ""
+
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
 msgstr ""
@@ -4068,6 +4082,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:851 DB:link_type/long_link_phrase:852
 #: DB:link_type/long_link_phrase:853 DB:link_type/long_link_phrase:850
 msgid "has a BookBrainz page at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:981
+msgid "has a CPDL page at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:180 DB:link_type/long_link_phrase:76

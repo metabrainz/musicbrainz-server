@@ -943,7 +943,7 @@ msgid "chitarra battente"
 msgstr ""
 
 #: DB:instrument/name:744
-msgctxt "Ancient South Indian fretless Carnatic slide lute"
+msgctxt "Large South Indian fretless Carnatic slide lute"
 msgid "chitra veena"
 msgstr ""
 
@@ -3958,6 +3958,7 @@ msgid "vibraslap"
 msgstr ""
 
 #: DB:instrument/name:612
+msgctxt "Large North Indian fretless stick zither"
 msgid "vichitra veena"
 msgstr ""
 
