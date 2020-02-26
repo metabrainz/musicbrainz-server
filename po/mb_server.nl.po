@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-11 22:48+0000\n"
-"PO-Revision-Date: 2020-02-16 19:23+0000\n"
+"PO-Revision-Date: 2020-02-20 18:52+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -5975,7 +5975,7 @@ msgstr "Transclusiegeschiedenis bekijken"
 #: ../root/edit/edit_header.tt:36 ../root/edit/index.tt:25
 #: ../root/edit/search_macros.tt:386
 msgid "Vote tally"
-msgstr "Telling:"
+msgstr "Telling"
 
 #: ../root/edit/search_macros.tt:386 ../root/elections/ElectionVotes.js:24
 msgid "Voter"
