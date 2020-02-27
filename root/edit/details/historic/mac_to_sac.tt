@@ -6,11 +6,11 @@
       <ul>
         [% FOR release=edit.display_data.releases %]
         <li>[% release.defined ? link_entity(release) :
-                                 l('(unknown)') %]</li>
+                                 lp('(unknown)', 'release') %]</li>
         [% END %]
       </ul>
       [% ELSE %]
-        [% l('(unknown)') %]
+        [% lp('(unknown)', 'release') %]
       [% END %]
     </td>
   </tr>

@@ -5,7 +5,7 @@ use List::AllUtils qw( any );
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l lp );
 
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
@@ -181,7 +181,7 @@ sub combined_format_name
     my ($self) = @_;
     my @mediums = @{$self->mediums};
     return "" if !@mediums;
-    return combined_medium_format_name(map { $_->l_format_name() || l('(unknown)') } @mediums );
+    return combined_medium_format_name(map { $_->l_format_name() || lp('(unknown)', 'medium format') } @mediums );
 }
 
 has [qw( cover_art_url info_url amazon_asin amazon_store )] => (
