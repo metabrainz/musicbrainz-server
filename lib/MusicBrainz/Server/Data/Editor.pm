@@ -676,6 +676,13 @@ sub is_name_used {
     return 0;
 }
 
+sub are_names_equivalent {
+    my ($self, $name1, $name2) = @_;
+
+    return $self->sql->select_single_value(
+        'SELECT lower(?) = lower(?)', $name1, $name2);
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
