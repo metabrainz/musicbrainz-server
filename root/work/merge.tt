@@ -31,18 +31,12 @@
                     </td>
                     <td>
                       <ul>
-                        [% FOR rel_artist=entity.writers %]
-                        <li>
-                          [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
-                          roles  => rel_artist.roles.join(', ') }) %]</li>
-                        [% END %]
+                        [%~ React.embed(c, 'static/scripts/common/components/ArtistRoles', {relations => entity.writers}) ~%]
                       </ul>
                     </td>
                     <td>
                       <ul>
-                        [% FOR rel_artist=entity.artists %]
-                        <li>[% artist_credit(rel_artist) %]</li>
-                        [% END %]
+                        [%~ React.embed(c, 'static/scripts/common/components/WorkArtists', {artists => entity.artists}) ~%]
                       </ul>
                     </td>
                     <td class="iswc">
