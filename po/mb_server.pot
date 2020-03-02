@@ -11,7 +11,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-26 19:56+0000\n"
+"POT-Creation-Date: 2020-03-02 18:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1612,8 +1612,8 @@ msgstr ""
 #: ../root/edit/details/add_label.tt:23 ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/add_release_group.tt:21
 #: ../root/edit/details/add_standalone_recording.tt:21
-#: ../root/edit/details/add_work.tt:16 ../root/edit/details/edit_area.tt:21
-#: ../root/edit/details/edit_artist.tt:21 ../root/edit/details/edit_event.tt:14
+#: ../root/edit/details/edit_area.tt:21 ../root/edit/details/edit_artist.tt:21
+#: ../root/edit/details/edit_event.tt:14
 #: ../root/edit/details/edit_instrument.tt:14
 #: ../root/edit/details/edit_label.tt:19
 #: ../root/edit/details/edit_recording.tt:17
@@ -1627,8 +1627,8 @@ msgstr ""
 #: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:65
 #: ../root/edit/details/AddArtist.js:78 ../root/edit/details/AddEvent.js:56
 #: ../root/edit/details/AddPlace.js:55 ../root/edit/details/AddSeries.js:47
-#: ../root/edit/details/EditPlace.js:66 ../root/edit/details/EditSeries.js:58
-#: ../root/genre/GenreEditForm.js:36
+#: ../root/edit/details/AddWork.js:55 ../root/edit/details/EditPlace.js:66
+#: ../root/edit/details/EditSeries.js:58 ../root/genre/GenreEditForm.js:36
 msgid "Disambiguation"
 msgstr ""
 
@@ -2494,7 +2494,7 @@ msgid "ISRCs:"
 msgstr ""
 
 #: ../root/work/edit_form.tt:16 ../root/work/merge.tt:14
-#: ../root/report/IswcsWithManyWorks.js:62
+#: ../root/edit/details/AddWork.js:61 ../root/report/IswcsWithManyWorks.js:62
 #: ../root/search/components/WorkResults.js:51
 #: ../root/utility/tableColumns.js:434
 msgid "ISWC"
@@ -2504,8 +2504,8 @@ msgstr ""
 msgid "ISWC {iswc} to {work}"
 msgstr ""
 
-#: ../root/edit/details/add_work.tt:23 ../root/edit/details/edit_work.tt:19
-#: ../root/edit/details/remove_iswc.tt:3 ../root/otherlookup/form.tt:3
+#: ../root/edit/details/edit_work.tt:19 ../root/edit/details/remove_iswc.tt:3
+#: ../root/otherlookup/form.tt:3
 #: ../root/layout/components/sidebar/WorkSidebar.js:85
 msgid "ISWC:"
 msgstr ""
@@ -2812,13 +2812,13 @@ msgstr ""
 
 #: ../root/otherlookup/results-release.tt:18 ../root/work/merge.tt:16
 #: ../root/admin/attributes/Language.js:30
-#: ../root/admin/attributes/Language.js:33 ../root/iswc/Index.js:53
-#: ../root/report/IswcsWithManyWorks.js:67
+#: ../root/admin/attributes/Language.js:33 ../root/edit/details/AddWork.js:73
+#: ../root/iswc/Index.js:53 ../root/report/IswcsWithManyWorks.js:67
 #: ../root/search/components/ReleaseResults.js:109
 msgid "Language"
 msgstr ""
 
-#: ../root/edit/details/add_release.tt:46 ../root/edit/details/add_work.tt:37
+#: ../root/edit/details/add_release.tt:46
 #: ../root/edit/details/edit_release.tt:33 ../root/edit/details/edit_work.tt:27
 #: ../root/edit/details/historic/add_release.tt:39
 #: ../root/release/edit/information.tt:110
@@ -2954,8 +2954,8 @@ msgstr ""
 msgid "Low"
 msgstr ""
 
-#: ../root/edit/details/add_work.tt:44 ../root/edit/details/edit_work.tt:31
-#: ../root/release/edit_relationships.tt:150
+#: ../root/edit/details/edit_work.tt:31
+#: ../root/release/edit_relationships.tt:150 ../root/edit/details/AddWork.js:79
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:53
 #: ../root/static/scripts/work.js:276 ../root/utility/tableColumns.js:498
@@ -3199,8 +3199,9 @@ msgstr ""
 #: ../root/components/list/RecordingList.js:77
 #: ../root/edit/details/AddArea.js:52 ../root/edit/details/AddArtist.js:67
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/AddPlace.js:50
-#: ../root/edit/details/AddSeries.js:42 ../root/edit/details/EditPlace.js:58
-#: ../root/edit/details/EditSeries.js:50 ../root/genre/GenreEditForm.js:30
+#: ../root/edit/details/AddSeries.js:42 ../root/edit/details/AddWork.js:50
+#: ../root/edit/details/EditPlace.js:58 ../root/edit/details/EditSeries.js:50
+#: ../root/genre/GenreEditForm.js:30
 #: ../root/search/components/AnnotationResults.js:57
 #: ../root/search/components/AreaResults.js:57
 #: ../root/search/components/ArtistResults.js:45
@@ -3227,8 +3228,8 @@ msgstr ""
 #: ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/add_release_group.tt:10
 #: ../root/edit/details/add_standalone_recording.tt:10
-#: ../root/edit/details/add_work.tt:10 ../root/edit/details/edit_area.tt:11
-#: ../root/edit/details/edit_artist.tt:11 ../root/edit/details/edit_event.tt:9
+#: ../root/edit/details/edit_area.tt:11 ../root/edit/details/edit_artist.tt:11
+#: ../root/edit/details/edit_event.tt:9
 #: ../root/edit/details/edit_instrument.tt:9
 #: ../root/edit/details/edit_label.tt:9 ../root/edit/details/edit_medium.tt:18
 #: ../root/edit/details/edit_recording.tt:12
@@ -5623,9 +5624,9 @@ msgstr ""
 #: ../root/edit/details/AddArea.js:72 ../root/edit/details/AddArtist.js:85
 #: ../root/edit/details/AddEvent.js:68 ../root/edit/details/AddPlace.js:61
 #: ../root/edit/details/AddRemoveAlias.js:101
-#: ../root/edit/details/AddSeries.js:53 ../root/edit/details/EditAlias.js:124
-#: ../root/edit/details/EditPlace.js:74 ../root/edit/details/EditSeries.js:66
-#: ../root/iswc/Index.js:52
+#: ../root/edit/details/AddSeries.js:53 ../root/edit/details/AddWork.js:67
+#: ../root/edit/details/EditAlias.js:124 ../root/edit/details/EditPlace.js:74
+#: ../root/edit/details/EditSeries.js:66 ../root/iswc/Index.js:52
 #: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:58
 #: ../root/report/DuplicateArtists.js:75
 #: ../root/report/IswcsWithManyWorks.js:66
@@ -5660,9 +5661,8 @@ msgstr ""
 
 #: ../root/area/edit_form.tt:11 ../root/artist/edit_form.tt:16
 #: ../root/edit/data.tt:5 ../root/edit/details/add_instrument.tt:23
-#: ../root/edit/details/add_label.tt:56 ../root/edit/details/add_work.tt:30
-#: ../root/edit/details/edit_area.tt:26 ../root/edit/details/edit_artist.tt:26
-#: ../root/edit/details/edit_event.tt:23
+#: ../root/edit/details/add_label.tt:56 ../root/edit/details/edit_area.tt:26
+#: ../root/edit/details/edit_artist.tt:26 ../root/edit/details/edit_event.tt:23
 #: ../root/edit/details/edit_instrument.tt:19
 #: ../root/edit/details/edit_label.tt:25
 #: ../root/edit/details/historic/add_release.tt:24
@@ -6026,7 +6026,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:576 ../root/edit/search_macros.tt:386
 #: ../root/work/merge.tt:11 ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
-#: ../root/components/list/WorkList.js:55
+#: ../root/components/list/WorkList.js:55 ../root/edit/details/AddWork.js:44
 #: ../root/layout/components/Search.js:26
 #: ../root/report/IswcsWithManyWorks.js:63
 #: ../root/report/components/WorkAnnotationList.js:25
@@ -6059,8 +6059,8 @@ msgstr ""
 msgid "Work type:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:559 ../root/edit/details/add_work.tt:3
-#: ../root/edit/details/edit_work.tt:5 ../root/edit/details/remove_iswc.tt:7
+#: ../root/components/common-macros.tt:559 ../root/edit/details/edit_work.tt:5
+#: ../root/edit/details/remove_iswc.tt:7
 msgid "Work:"
 msgstr ""
 
@@ -6387,7 +6387,7 @@ msgid "[missing media]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:261
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:78
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:79
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:184
 #: ../root/edit/details/EditAlias.js:93
 #: ../root/static/scripts/common/components/EntityLink.js:34
@@ -7352,7 +7352,7 @@ msgid "There is already a CD stub with this disc ID"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Data/Language.pm:63
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:76
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:77
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:182
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:48
 msgid "[No lyrics]"
