@@ -306,7 +306,7 @@ sub serialize_tags {
     if ($inc->genres) {
         $into->{genres} = [
             sort { $a->{name} cmp $b->{name} }
-            map +{ count => $_->count, name => $_->tag->name },
+            map +{ count => $_->count, disambiguation => $_->tag->genre->comment, id => $_->tag->genre->gid, name => $_->tag->name },
                 @{ $opts->{genres} }
         ];
     }
@@ -321,7 +321,7 @@ sub serialize_tags {
     if ($inc->user_genres) {
         $into->{'user-genres'} = [
             sort { $a->{name} cmp $b->{name} }
-            map +{ name => $_->tag->name },
+            map +{ disambiguation => $_->tag->genre->comment, id => $_->tag->genre->gid, name => $_->tag->name },
                 @{ $opts->{user_genres} }
         ];
     }

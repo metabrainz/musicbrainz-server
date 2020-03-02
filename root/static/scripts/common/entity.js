@@ -55,7 +55,7 @@ import formatTrackLength from './utility/formatTrackLength';
         renderArtistCredit(ac) {
             ac = ko.unwrap(ac);
             return ReactDOMServer.renderToStaticMarkup(
-                <ArtistCreditLink artistCredit={ac} target="_blank" />
+                <ArtistCreditLink artistCredit={ac} target="_blank" />,
             );
         }
 
@@ -230,7 +230,7 @@ import formatTrackLength from './utility/formatTrackLength';
     class Label extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                exp.l('You selected {label}.', {label: this.reactElement({target: '_blank'})})
+                exp.l('You selected {label}.', {label: this.reactElement({target: '_blank'})}),
             );
         }
     }
@@ -240,7 +240,7 @@ import formatTrackLength from './utility/formatTrackLength';
     class Area extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                exp.l('You selected {area}.', {area: this.reactElement({ target: '_blank'})})
+                exp.l('You selected {area}.', {area: this.reactElement({ target: '_blank'})}),
             );
         }
     }
@@ -329,7 +329,7 @@ import formatTrackLength from './utility/formatTrackLength';
             return ReactDOMServer.renderToStaticMarkup(
                 exp.l('You selected {releasegroup}.', {
                     releasegroup: <DescriptiveLink entity={this} target="_blank" />,
-                })
+                }),
             );
         }
     }
@@ -363,7 +363,7 @@ import formatTrackLength from './utility/formatTrackLength';
             return Object.assign(super.toJSON(), {
                 type: this.type(),
                 typeID: this.typeID,
-                orderingTypeID: this.orderingTypeID
+                orderingTypeID: this.orderingTypeID,
             });
         }
     }
@@ -481,7 +481,7 @@ import formatTrackLength from './utility/formatTrackLength';
         track:         Track,
         work:          Work,
         url:           URL,
-        editor:        Editor
+        editor:        Editor,
     };
 }());
 

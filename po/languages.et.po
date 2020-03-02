@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-04-10 17:09+0000\n"
+"PO-Revision-Date: 2020-02-26 20:58+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -2523,6 +2523,11 @@ msgstr "vakaši keelkond"
 #: DB:language/name:457
 msgid "Walloon"
 msgstr "vallooni"
+
+#. frequency:1 iso_code_3:wae
+#: DB:language/name:6981
+msgid "Walser"
+msgstr ""
 
 #. frequency:1 iso_code_3:war
 #: DB:language/name:453

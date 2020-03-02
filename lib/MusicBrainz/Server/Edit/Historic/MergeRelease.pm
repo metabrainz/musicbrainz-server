@@ -13,7 +13,7 @@ sub edit_name     { N_l('Merge releases') }
 sub edit_kind     { 'merge' }
 sub historic_type { 23 }
 sub edit_type     { $EDIT_HISTORIC_MERGE_RELEASE }
-sub edit_template { 'historic/merge_releases' }
+sub edit_template_react { 'historic/MergeReleases' }
 
 sub _build_related_entities
 {
@@ -69,7 +69,7 @@ sub build_display_data
             old => [
                 map {
                     if (my @ids = @{ $_->{release_ids} }) {
-                        map { $loaded->{Release}->{ $_ } } @ids;
+                        map { $loaded->{Release}->{ $_ } // Release->new(name => $_->{name}) } @ids;
                     }
                     else {
                         Release->new(name => $_->{name} )
@@ -78,7 +78,7 @@ sub build_display_data
             ],
             new => [ do {
                 if (my @ids = $self->_new_release_ids) {
-                    map { $loaded->{Release}->{ $_ } } @ids;
+                    map { $loaded->{Release}->{ $_ } // Release->new(name => $self->data->{new_release}{name}) } @ids;
                 }
                 else {
                     Release->new(name => $self->data->{new_release}{name})

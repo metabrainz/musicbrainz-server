@@ -1,8 +1,10 @@
 [ignore]
+<PROJECT_ROOT>/.cpanm/.*
 <PROJECT_ROOT>/.nyc_output/.*
 <PROJECT_ROOT>/coverage/.*
 <PROJECT_ROOT>/lib/.*
 <PROJECT_ROOT>/root/static/build/.*
+<PROJECT_ROOT>/perl_modules/.*
 <PROJECT_ROOT>/t/.*
 /Volumes/.*
 

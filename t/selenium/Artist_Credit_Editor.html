@@ -180,14 +180,24 @@
 </tr>
 <!--updating the artist field should also update the credited name field (MBS-8911)-->
 <tr>
-	<td>sendKeys</td>
-	<td>id=ac-source-credited-as-0</td>
-	<td>${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}David Bowie</td>
+	<td>click</td>
+	<td>id=ac-source-artist-0</td>
+	<td></td>
 </tr>
 <tr>
 	<td>sendKeys</td>
 	<td>id=ac-source-artist-0</td>
-	<td>${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}</td>
+	<td>${KEY_TAB}</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>${KEY_BKSP}David Bowie${KEY_SHIFT}${KEY_TAB}${KEY_SHIFT}</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=ac-source-artist-0</td>
+	<td>${KEY_BKSP}</td>
 </tr>
 <tr>
 	<td>assertValue</td>

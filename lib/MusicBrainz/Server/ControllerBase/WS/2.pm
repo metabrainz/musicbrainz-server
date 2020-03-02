@@ -104,6 +104,15 @@ sub method_not_allowed : Private {
     ));
 }
 
+sub not_implemented : Private
+{
+    my ($self, $c) = @_;
+
+    $c->res->status(501);
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->output_error("This hasn't been implemented yet."));
+}
+
 sub begin : Private {
     my ($self, $c) = @_;
 
@@ -325,7 +334,7 @@ sub limit_releases_by_tracks {
 
     for my $release (@{$releases}) {
         $c->model('Medium')->load_for_releases($release);
-        $track_count += sum map { $_->track_count } $release->all_mediums;
+        $track_count += (sum map { $_->track_count } $release->all_mediums) // 0;
         last if $track_count > DBDefs->WS_TRACK_LIMIT && $release_count > 0;
         $release_count++;
     }

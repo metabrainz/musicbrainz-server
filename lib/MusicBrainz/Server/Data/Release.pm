@@ -1088,8 +1088,9 @@ sub determine_recording_merges {
         track       => $_->{new_track_number},
         destination => $_->{new_recording},
         sources     => $_->{old_recordings},
-    }, nsort_by {
-        $_->{new_medium_position}, $_->{new_track_position}
+    }, sort {
+        $a->{new_medium_position} <=> $b->{new_medium_position} ||
+        $a->{new_track_position} <=> $b->{new_track_position}
     } values %recording_merges]);
 }
 
@@ -1411,6 +1412,7 @@ sub newest_releases_with_artwork {
         Artwork->new(
             id => $caa_id,
             release => $release,
+            suffix => 'spoof',
         );
     });
 }

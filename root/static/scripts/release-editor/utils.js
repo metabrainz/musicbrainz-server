@@ -87,8 +87,8 @@ utils.search = function (resource, query, limit, offset) {
         url: "/ws/2/" + resource,
         data: {
             fmt: "json",
-            query: query
-        }
+            query: query,
+        },
     };
 
     if (limit !== undefined) {
@@ -163,7 +163,7 @@ function cleanArtistCreditName(data) {
             entityType: 'artist',
         },
         name: data.name || data.artist.name,
-        joinPhrase: data.joinphrase || ""
+        joinPhrase: data.joinphrase || "",
     };
 }
 

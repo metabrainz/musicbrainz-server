@@ -183,7 +183,7 @@ MB.initRelationshipEditors = function (args) {
     if (externalLinksEditor) {
       MB.sourceExternalLinksEditor = MB.createExternalLinksEditor({
         sourceData: sourceData,
-        mountPoint: externalLinksEditor
+        mountPoint: externalLinksEditor,
       });
     }
 
@@ -309,7 +309,7 @@ function addRelationshipsFromQueryString(source) {
             end_date: parseDate(rel.end_date || ''),
             ended: !!Number(rel.ended),
             direction: rel.direction,
-            linkOrder: Number(rel.link_order) || 0
+            linkOrder: Number(rel.link_order) || 0,
         };
 
         if (linkType) {
@@ -320,7 +320,7 @@ function addRelationshipsFromQueryString(source) {
                     accum.push({
                         type: { gid: attr.type },
                         credit: attr.credited_as,
-                        textValue: attr.text_value
+                        textValue: attr.text_value,
                     });
                 }
             }, []);

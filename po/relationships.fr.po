@@ -29,13 +29,13 @@
 # AO <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# yvanz, 2016-2019
+# yvanz, 2016-2020
 # yvanz, 2016
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-12-11 06:44+0000\n"
+"PO-Revision-Date: 2020-02-28 13:46+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -158,6 +158,14 @@ msgstr "CD Baby"
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
 msgstr "Page CD Baby pour"
+
+#: DB:link_type/link_phrase:981 DB:link_type/name:981
+msgid "CPDL"
+msgstr "CPDL"
+
+#: DB:link_type/reverse_link_phrase:981
+msgid "CPDL page for"
+msgstr "Page CPDL pour"
 
 #: DB:link_type/name:8 DB:link_type/name:227
 msgid "DJ-mix"
@@ -2342,6 +2350,12 @@ msgid ""
 "href=\"http://www.imslp.org/\">IMSLP</a>."
 msgstr "Ceci relie un artiste à sa page sur <a href=\"http://www.imslp.org/\">IMSLP</a>."
 
+#: DB:link_type/description:981
+msgid ""
+"This links an artist to its page in <a "
+"href=\"https://www.cpdl.org/\">CPDL</a>."
+msgstr "Ceci relie un artiste à sa page sur <a href=\"https://www.cpdl.org/\">CPDL</a>."
+
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
 msgstr "Ceci relie un artiste à son profil sur SoundCloud."
@@ -4103,6 +4117,10 @@ msgstr "a une page Bandsintown à"
 #: DB:link_type/long_link_phrase:853 DB:link_type/long_link_phrase:850
 msgid "has a BookBrainz page at"
 msgstr "a une page BookBrainz à"
+
+#: DB:link_type/long_link_phrase:981
+msgid "has a CPDL page at"
+msgstr "a une page CPDL sur"
 
 #: DB:link_type/long_link_phrase:180 DB:link_type/long_link_phrase:76
 #: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:90

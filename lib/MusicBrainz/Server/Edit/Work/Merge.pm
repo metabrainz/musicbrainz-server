@@ -40,6 +40,8 @@ before build_display_data => sub {
     $self->c->model('Language')->load_for_works(@works);
 };
 
+sub edit_template_react { 'MergeWorks' };
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

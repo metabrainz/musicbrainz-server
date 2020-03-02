@@ -1,3 +1,4 @@
+.cpanm/
 .dockerignore
 .DS_Store
 blib/
@@ -6,8 +7,7 @@ Dockerfile
 lib/DBDefs.pm
 lib/DBDefs.pm.bak
 node_modules/
-postgresql-musicbrainz-collate/
-postgresql-musicbrainz-unaccent/
+perl_modules/
 root/static/build/
 root/static/scripts/common/DBDefs.js
 root/static/scripts/common/DBDefs-client.js

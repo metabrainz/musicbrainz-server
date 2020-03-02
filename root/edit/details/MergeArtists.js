@@ -1,0 +1,45 @@
+/*
+ * @flow
+ * Copyright (C) 2020 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import React from 'react';
+
+import ArtistList from '../../components/list/ArtistList';
+import yesNo from '../../static/scripts/common/utility/yesNo';
+
+type MergeArtistsEditT = {
+  ...EditT,
+  +display_data: {
+    +new: ArtistT,
+    +old: $ReadOnlyArray<ArtistT>,
+    +rename: boolean,
+  },
+};
+
+const MergeArtists = ({edit}: {+edit: MergeArtistsEditT}) => (
+  <table className="details merge-artists">
+    <tr>
+      <th>{l('Merge:')}</th>
+      <td>
+        <ArtistList artists={edit.display_data.old} showBeginEnd />
+      </td>
+    </tr>
+    <tr>
+      <th>{l('Into:')}</th>
+      <td>
+        <ArtistList artists={[edit.display_data.new]} showBeginEnd />
+      </td>
+    </tr>
+    <tr className="rename-artist-credits">
+      <th>{l('Rename artist and relationship credits')}</th>
+      <td>{yesNo(edit.display_data.rename)}</td>
+    </tr>
+  </table>
+);
+
+export default MergeArtists;

@@ -576,7 +576,7 @@ sub allow_auto_edit
             return 0 if $old_name ne $new_name;
             return 0 if $old->{length} && $old->{length} != $new->{length};
             return 0 if hash_artist_credit($old->{artist_credit}) ne hash_artist_credit($new->{artist_credit});
-            return 0 if $old->{recording_id} != $new->{recording_id};
+            return 0 if ($old->{recording_id} // 0) != ($new->{recording_id} // 0);
         }
     }
 

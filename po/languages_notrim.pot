@@ -36613,7 +36613,7 @@ msgstr ""
 msgid "Walmajarri"
 msgstr ""
 
-#. frequency:0 iso_code_3:wae 
+#. frequency:1 iso_code_3:wae 
 #: DB:language/name:6981
 msgid "Walser"
 msgstr ""

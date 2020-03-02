@@ -18,6 +18,7 @@ sub edit_name { N_l('Add work') }
 sub edit_type { $EDIT_WORK_CREATE }
 sub _create_model { 'Work' }
 sub work_id { shift->entity_id }
+sub edit_template_react { 'AddWork' }
 
 has '+data' => (
     isa => Dict[
@@ -55,9 +56,9 @@ sub build_display_data
     my $data = $self->data;
     my $display = {
         name          => $data->{name},
-        comment       => $data->{comment},
+        comment       => $data->{comment} // '',
         type          => $data->{type_id} && $loaded->{WorkType}->{ $data->{type_id} },
-        iswc          => $data->{iswc},
+        iswc          => $data->{iswc} // '',
         work          => $loaded->{Work}{ $self->entity_id } || Work->new( name => $data->{name} ),
         ($data->{attributes} && @{ $data->{attributes} } ?
          ( attributes => { $self->grouped_attributes_by_type($data->{attributes}) } ) : ()

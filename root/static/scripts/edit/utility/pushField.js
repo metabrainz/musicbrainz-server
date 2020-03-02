@@ -21,7 +21,7 @@ export function pushField<V>(
     createField(
       repeatable.html_name + '.' + String(++repeatable.last_index),
       value,
-    )
+    ),
   );
 }
 

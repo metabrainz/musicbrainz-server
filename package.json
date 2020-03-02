@@ -80,7 +80,9 @@
     "http-proxy": "1.18.0",
     "jsdom": "13.2.0",
     "nyc": "14.1.1",
-    "selenium-webdriver": "3.6.0",
+    "selenium-webdriver": "4.0.0-alpha.5",
+    "tap-difflet": "0.7.2",
+    "tap-junit": "3.1.0",
     "tape": "4.7.0",
     "utf8": "2.1.2",
     "xgettext-js": "2.0.0"
