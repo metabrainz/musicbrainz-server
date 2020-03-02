@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-04-27 21:21+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2020-02-26 20:58+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2526,6 +2526,11 @@ msgstr "Lingue wakash"
 #: DB:language/name:457
 msgid "Walloon"
 msgstr "Vallone"
+
+#. frequency:1 iso_code_3:wae
+#: DB:language/name:6981
+msgid "Walser"
+msgstr ""
 
 #. frequency:1 iso_code_3:war
 #: DB:language/name:453

@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-27 11:49+0000\n"
-"Last-Translator: Besnik <email address hidden>\n"
+"PO-Revision-Date: 2020-02-26 20:58+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2520,6 +2520,11 @@ msgstr ""
 #. frequency:1 iso_code_3:wln
 #: DB:language/name:457
 msgid "Walloon"
+msgstr ""
+
+#. frequency:1 iso_code_3:wae
+#: DB:language/name:6981
+msgid "Walser"
 msgstr ""
 
 #. frequency:1 iso_code_3:war

@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-11 22:48+0000\n"
-"PO-Revision-Date: 2020-02-12 10:20+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"POT-Creation-Date: 2020-02-26 19:56+0000\n"
+"PO-Revision-Date: 2020-02-26 20:59+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -77,8 +77,8 @@ msgstr "\"AA\" sono le ultime due cifre dell'anno di registrazione."
 #: ../root/edit/details/historic/add_release.tt:49
 #: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:368
 #: ../root/release/edit_relationships.tt:48
-#: ../root/components/list/RecordingList.js:63
-#: ../root/components/list/ReleaseGroupList.js:71
+#: ../root/components/list/RecordingList.js:67
+#: ../root/components/list/ReleaseGroupList.js:80
 #: ../root/recording/RecordingIndex.js:46 ../root/utility/tableColumns.js:349
 msgid "#"
 msgstr "#"
@@ -794,9 +794,9 @@ msgstr "Aree"
 #: ../root/components/RelationshipsTable.js:90
 #: ../root/components/list/ArtistList.js:55
 #: ../root/components/list/ArtistList.js:60
-#: ../root/components/list/RecordingList.js:79
-#: ../root/components/list/RecordingList.js:84
-#: ../root/components/list/ReleaseGroupList.js:94
+#: ../root/components/list/RecordingList.js:83
+#: ../root/components/list/RecordingList.js:88
+#: ../root/components/list/ReleaseGroupList.js:103
 #: ../root/components/list/ReleaseList.js:74
 #: ../root/edit/details/AddArtist.js:56 ../root/isrc/Index.js:57
 #: ../root/layout/components/Search.js:18
@@ -1184,7 +1184,7 @@ msgstr "Può essere approvato"
 #: ../root/work/merge.tt:74 ../root/artist/ArtistMerge.js:75
 #: ../root/components/ConfirmLayout.js:39
 #: ../root/layout/components/MergeHelper.js:75
-#: ../root/recording/RecordingMerge.js:65
+#: ../root/recording/RecordingMerge.js:66
 #: ../root/static/scripts/common/components/FilterForm.js:112
 msgid "Cancel"
 msgstr "Annulla"
@@ -1570,7 +1570,7 @@ msgstr "Obsoleto:"
 #: ../root/admin/attributes/form.tt:59 ../root/doc/edit_type.tt:23
 #: ../root/doc/relationship_type.tt:25 ../root/instrument/merge.tt:13
 #: ../root/work/edit_form.tt:110 ../root/admin/attributes/Attribute.js:96
-#: ../root/collection/CollectionIndex.js:178
+#: ../root/collection/CollectionIndex.js:176
 #: ../root/instrument/InstrumentIndex.js:35
 #: ../root/search/components/InstrumentResults.js:49
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:88
@@ -2693,19 +2693,20 @@ msgstr "Lingua dell'interfaccia:"
 msgid "Internal Server Error"
 msgstr "Errore interno del server"
 
-#: ../root/edit/details/merge_common.tt:17
-#: ../root/edit/details/merge_events.tt:9
-#: ../root/edit/details/merge_instruments.tt:9
-#: ../root/edit/details/merge_labels.tt:9
-#: ../root/edit/details/merge_places.tt:9
-#: ../root/edit/details/merge_recordings.tt:9
-#: ../root/edit/details/merge_release_groups.tt:9
 #: ../root/edit/details/merge_releases.tt:78
 #: ../root/edit/details/merge_releases.tt:83
 #: ../root/edit/details/merge_releases.tt:92
 #: ../root/edit/details/merge_releases.tt:109
-#: ../root/edit/details/merge_series.tt:9
-#: ../root/edit/details/merge_works.tt:9
+#: ../root/edit/details/MergeAreas.js:31
+#: ../root/edit/details/MergeArtists.js:33
+#: ../root/edit/details/MergeEvents.js:36
+#: ../root/edit/details/MergeInstruments.js:31
+#: ../root/edit/details/MergeLabels.js:31
+#: ../root/edit/details/MergePlaces.js:31
+#: ../root/edit/details/MergeRecordings.js:36
+#: ../root/edit/details/MergeReleaseGroups.js:31
+#: ../root/edit/details/MergeSeries.js:31
+#: ../root/edit/details/MergeWorks.js:31
 msgid "Into:"
 msgstr "Con:"
 
@@ -2861,8 +2862,8 @@ msgstr "Ultimo pacchetto di replica ricevuto il {datetime}"
 #: ../root/release/discids.tt:10 ../root/release/edit/tracklist.tt:151
 #: ../root/release/edit/tracklist.tt:371
 #: ../root/components/RelationshipsTable.js:91
-#: ../root/components/list/RecordingList.js:92
-#: ../root/components/list/RecordingList.js:97 ../root/isrc/Index.js:58
+#: ../root/components/list/RecordingList.js:96
+#: ../root/components/list/RecordingList.js:101 ../root/isrc/Index.js:58
 #: ../root/recording/RecordingIndex.js:48
 #: ../root/report/IsrcsWithManyRecordings.js:75
 #: ../root/search/components/RecordingResults.js:124
@@ -3120,14 +3121,6 @@ msgstr "Unisci serie"
 msgid "Merge Works"
 msgstr "Unisci opere"
 
-#: ../root/edit/details/historic/merge_releases.tt:25
-msgid "Merge attributes:"
-msgstr "Unisci attributi:"
-
-#: ../root/edit/details/historic/merge_releases.tt:30
-msgid "Merge language &amp; script:"
-msgstr "Unisci lingua &amp; script:"
-
 #: ../root/edit/details/merge_releases.tt:149
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:51
 msgid "Merge mediums and recordings"
@@ -3136,18 +3129,6 @@ msgstr "Unisci supporti e registrazioni"
 #: ../root/edit/details/merge_releases.tt:147 ../root/release/merge.tt:56
 msgid "Merge strategy:"
 msgstr "Strategia di unione:"
-
-#: ../root/edit/details/merge_common.tt:2
-#: ../root/edit/details/merge_events.tt:3
-#: ../root/edit/details/merge_instruments.tt:3
-#: ../root/edit/details/merge_labels.tt:3
-#: ../root/edit/details/merge_places.tt:3
-#: ../root/edit/details/merge_recordings.tt:3
-#: ../root/edit/details/merge_release_groups.tt:3
-#: ../root/edit/details/merge_series.tt:3
-#: ../root/edit/details/merge_works.tt:3
-msgid "Merge:"
-msgstr "Unisci:"
 
 #: ../root/user/contact.tt:11 ../root/user/ReportUser.js:125
 msgid "Message"
@@ -3237,8 +3218,8 @@ msgstr "N/D"
 #: ../root/admin/attributes/Language.js:39
 #: ../root/admin/attributes/Script.js:41
 #: ../root/components/Aliases/ArtistCreditList.js:44
-#: ../root/components/list/RecordingList.js:68
-#: ../root/components/list/RecordingList.js:73
+#: ../root/components/list/RecordingList.js:72
+#: ../root/components/list/RecordingList.js:77
 #: ../root/edit/details/AddArea.js:52 ../root/edit/details/AddArtist.js:67
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/AddPlace.js:50
 #: ../root/edit/details/AddSeries.js:42 ../root/edit/details/EditPlace.js:58
@@ -3325,10 +3306,6 @@ msgstr "Nuovo attributo di relazione"
 #: ../root/relationship/linktype/create.tt:3
 msgid "New Relationship Type"
 msgstr "Nuovo tipo di relazione"
-
-#: ../root/edit/details/historic/merge_releases.tt:14
-msgid "New Release:"
-msgstr "Nuova pubblicazione:"
 
 #: ../root/edit/details/historic/edit_release_attributes.tt:27
 msgid "New Status:"
@@ -3490,8 +3467,9 @@ msgid "Normal"
 msgstr "Normale"
 
 #: ../root/edit/details/edit_release.tt:59
-#: ../root/edit/details/historic/merge_releases.tt:36
-#: ../root/edit/details/merge_releases.tt:158 ../root/user/ReportUser.js:96
+#: ../root/edit/details/merge_releases.tt:158
+#: ../root/edit/details/historic/MergeReleases.js:65
+#: ../root/user/ReportUser.js:96
 msgid "Note"
 msgstr "Nota"
 
@@ -3557,10 +3535,6 @@ msgstr "Vecchia registrazione"
 #: ../root/edit/details/historic/edit_relationship.tt:6
 msgid "Old relationships:"
 msgstr "Vecchie relazioni:"
-
-#: ../root/edit/details/historic/merge_releases.tt:3
-msgid "Old releases:"
-msgstr "Vecchie pubblicazioni:"
 
 #: ../root/edit/details/change_wikidoc.tt:11
 #: ../root/edit/details/change_wikidoc.tt:16
@@ -3933,8 +3907,8 @@ msgstr[0] "Valuta: {rating} stella"
 msgstr[1] "Valuta: {rating} stelle"
 
 #: ../root/components/medium.tt:40 ../root/components/list/ArtistList.js:93
-#: ../root/components/list/RecordingList.js:87
-#: ../root/components/list/ReleaseGroupList.js:108
+#: ../root/components/list/RecordingList.js:91
+#: ../root/components/list/ReleaseGroupList.js:117
 #: ../root/layout/components/sidebar/SidebarRating.js:22
 #: ../root/utility/tableColumns.js:448
 msgid "Rating"
@@ -4080,7 +4054,7 @@ msgstr "Tipo di relazione in uso"
 #: ../root/doc/relationship_type.tt:4 ../root/relationship/header.tt:1
 #: ../root/relationship/linktype/index.tt:1
 #: ../root/components/list/ArtistList.js:95
-#: ../root/components/list/RecordingList.js:100
+#: ../root/components/list/RecordingList.js:104
 #: ../root/layout/components/BottomMenu.js:290
 #: ../root/utility/tableColumns.js:234
 msgid "Relationship Types"
@@ -4285,7 +4259,7 @@ msgstr "Pubblicazione:"
 #: ../root/release_group/merge.tt:16 ../root/area/AreaReleases.js:31
 #: ../root/area/AreaReleases.js:32 ../root/artist/ArtistReleases.js:45
 #: ../root/artist/ArtistReleases.js:46 ../root/components/EntityTabs.js:29
-#: ../root/components/list/ReleaseGroupList.js:109
+#: ../root/components/list/ReleaseGroupList.js:118
 #: ../root/instrument/InstrumentReleases.js:33
 #: ../root/instrument/InstrumentReleases.js:34 ../root/label/LabelIndex.js:58
 #: ../root/report/ReportsIndex.js:222
@@ -4439,10 +4413,6 @@ msgstr "Rimuovi {item}"
 #: ../root/edit/details/edit_release_events.tt:37
 msgid "Removed"
 msgstr "Rimosso"
-
-#: ../root/edit/details/merge_artists.tt:4
-msgid "Rename artist and relationship credits"
-msgstr "Rinomina accreditamenti artista e relazione"
 
 #: ../root/release/cover_art.tt:54
 msgctxt "button/menu"
@@ -5257,12 +5227,6 @@ msgstr "Questa modifica non memorizza informazioni sulle unioni di registrazioni
 msgid "This edit makes subsecond changes to track lengths"
 msgstr "Questa modifica apporta cambiamenti inferiori al secondo alla durata delle tracce"
 
-#: ../root/edit/details/historic/merge_releases.tt:37
-msgid ""
-"This edit was a \"Merge Releases (Various Artists)\" edit which additionally"
-" set the release artist to Various Artists."
-msgstr "Questa modifica era una \"unione di pubblicazioni (Artisti vari)\" che inoltre impostava l'artista della pubblicazione come Artisti vari."
-
 #: ../root/edit/details/edit_url.tt:41
 msgid "This edit was a merge."
 msgstr "Questa modifica era un'unione."
@@ -5517,8 +5481,8 @@ msgstr "Ora:"
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/release/edit/tracklist.tt:149 ../root/release/edit/tracklist.tt:369
 #: ../root/components/RelationshipsTable.js:87
-#: ../root/components/list/ReleaseGroupList.js:87
-#: ../root/components/list/ReleaseGroupList.js:92 ../root/isrc/Index.js:56
+#: ../root/components/list/ReleaseGroupList.js:96
+#: ../root/components/list/ReleaseGroupList.js:101 ../root/isrc/Index.js:56
 #: ../root/iswc/Index.js:49 ../root/recording/RecordingIndex.js:47
 msgid "Title"
 msgstr "Titolo"
@@ -5685,8 +5649,8 @@ msgstr "Twitter"
 #: ../root/components/Aliases/AliasTable.js:29
 #: ../root/components/list/ArtistList.js:66
 #: ../root/components/list/ArtistList.js:71
-#: ../root/components/list/ReleaseGroupList.js:100
-#: ../root/components/list/ReleaseGroupList.js:105
+#: ../root/components/list/ReleaseGroupList.js:109
+#: ../root/components/list/ReleaseGroupList.js:114
 #: ../root/edit/details/AddArea.js:72 ../root/edit/details/AddArtist.js:85
 #: ../root/edit/details/AddEvent.js:68 ../root/edit/details/AddPlace.js:61
 #: ../root/edit/details/AddRemoveAlias.js:101
@@ -6158,8 +6122,8 @@ msgstr "AAAA"
 
 #: ../root/admin/attributes/form.tt:66 ../root/release_group/merge.tt:15
 #: ../root/admin/attributes/Attribute.js:48
-#: ../root/components/list/ReleaseGroupList.js:76
-#: ../root/components/list/ReleaseGroupList.js:81
+#: ../root/components/list/ReleaseGroupList.js:85
+#: ../root/components/list/ReleaseGroupList.js:90
 msgid "Year"
 msgstr "Anno"
 
@@ -6565,7 +6529,7 @@ msgstr "data finale"
 #: ../root/components/common-macros.tt:641
 #: ../root/components/relationship-editor.tt:183
 #: ../root/edit/details/macros.tt:28
-#: ../root/utility/relationshipDateText.js:37
+#: ../root/utility/relationshipDateText.js:38
 msgid "ended"
 msgstr "inattivo"
 
@@ -6590,17 +6554,17 @@ msgid "events"
 msgstr "eventi"
 
 #: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
-#: ../root/utility/relationshipDateText.js:26
+#: ../root/utility/relationshipDateText.js:27
 msgid "from {begin_date} until {end_date}"
 msgstr "dal {begin_date} al {end_date}"
 
 #: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
-#: ../root/utility/relationshipDateText.js:31
+#: ../root/utility/relationshipDateText.js:32
 msgid "from {date} to ????"
 msgstr "dal {date} al ????"
 
 #: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
-#: ../root/utility/relationshipDateText.js:33
+#: ../root/utility/relationshipDateText.js:34
 msgid "from {date} to present"
 msgstr "dal {date} a oggi"
 
@@ -6637,7 +6601,7 @@ msgid "historical, {begin}-{end}"
 msgstr "storica, {begin}-{end}"
 
 #: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
-#: ../root/utility/relationshipDateText.js:24
+#: ../root/utility/relationshipDateText.js:25
 msgid "in {date}"
 msgstr "nel {date}"
 
@@ -6761,7 +6725,7 @@ msgid "on"
 msgstr "il"
 
 #: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
-#: ../root/utility/relationshipDateText.js:22
+#: ../root/utility/relationshipDateText.js:23
 msgid "on {date}"
 msgstr "il {date}"
 
@@ -6849,7 +6813,7 @@ msgid "tracks"
 msgstr "tracce"
 
 #: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
-#: ../root/utility/relationshipDateText.js:35
+#: ../root/utility/relationshipDateText.js:36
 msgid "until {date}"
 msgstr "fino al {date}"
 
@@ -6876,6 +6840,7 @@ msgid "{artist} - {name}"
 msgstr "{artist} - {name}"
 
 #: ../root/components/common-macros.tt:204
+#: ../root/static/scripts/common/components/ExpandedArtistCredit.js:32
 msgid "{artist} as {name}"
 msgstr "{artist} come {name}"
 
@@ -7538,7 +7503,7 @@ msgstr "Modifica alias dell'artista"
 msgid "Edit artist credit"
 msgstr "Modifica accreditamento dell'artista"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:15
 #: ../root/artist/ArtistMerge.js:27 ../root/artist/ArtistMerge.js:29
 msgid "Merge artists"
 msgstr "Unisci artisti"
@@ -7836,7 +7801,7 @@ msgstr "Rimuovi alias dalla registrazione"
 msgid "Edit recording alias"
 msgstr "Modifica alias della registrazione"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:15
 #: ../root/recording/RecordingMerge.js:27
 #: ../root/recording/RecordingMerge.js:29
 msgid "Merge recordings"
@@ -7962,7 +7927,7 @@ msgid "Edit release group alias"
 msgstr "Modifica alias del gruppo di pubblicazioni"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:295
+#: ../root/artist/ArtistIndex.js:293
 msgid "Merge release groups"
 msgstr "Unisci gruppi di pubblicazioni"
 
@@ -9393,23 +9358,23 @@ msgstr "Visualizza tutte le tue collezioni"
 msgid "See all of {editor}'s public collections"
 msgstr "Visualizza tutte le collezioni pubbliche di {editor}"
 
-#: ../root/collection/CollectionIndex.js:184 ../root/user/UserProfile.js:232
+#: ../root/collection/CollectionIndex.js:182 ../root/user/UserProfile.js:232
 #: ../root/user/UserProfile.js:282
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "Questo contenuto è nascosto per prevenire lo spam. {url|Accedi} per visualizzarlo."
 
-#: ../root/collection/CollectionIndex.js:195
+#: ../root/collection/CollectionIndex.js:193
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:98
 #: ../root/user/UserCollections.js:105
 msgid "Collaborators"
 msgstr "Collaboratori"
 
-#: ../root/collection/CollectionIndex.js:209
+#: ../root/collection/CollectionIndex.js:207
 msgid "Remove selected items from collection"
 msgstr "Rimuovi gli elementi selezionati dalla collezione"
 
-#: ../root/collection/CollectionIndex.js:214
+#: ../root/collection/CollectionIndex.js:212
 msgid "This collection is empty."
 msgstr "Questa collezione è vuota."
 
@@ -9674,7 +9639,7 @@ msgstr "Ruolo"
 msgid "Code"
 msgstr "Codice"
 
-#: ../root/components/list/RecordingList.js:86
+#: ../root/components/list/RecordingList.js:90
 #: ../root/report/ReportsIndex.js:521
 #: ../root/search/components/RecordingResults.js:126
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:682
@@ -9682,7 +9647,7 @@ msgstr "Codice"
 msgid "ISRCs"
 msgstr "ISRC"
 
-#: ../root/components/list/ReleaseGroupList.js:224
+#: ../root/components/list/ReleaseGroupList.js:230
 msgid "Unspecified type"
 msgstr "Tipo non specificato"
 
@@ -9834,6 +9799,45 @@ msgstr "Serie"
 #: ../root/edit/details/EditAlias.js:88
 msgid "primary for {locale}"
 msgstr "primario per {locale}"
+
+#: ../root/edit/details/MergeAreas.js:25
+#: ../root/edit/details/MergeArtists.js:27
+#: ../root/edit/details/MergeEvents.js:25
+#: ../root/edit/details/MergeInstruments.js:25
+#: ../root/edit/details/MergeLabels.js:25
+#: ../root/edit/details/MergePlaces.js:25
+#: ../root/edit/details/MergeRecordings.js:26
+#: ../root/edit/details/MergeReleaseGroups.js:25
+#: ../root/edit/details/MergeSeries.js:25
+#: ../root/edit/details/MergeWorks.js:25
+msgid "Merge:"
+msgstr "Unisci:"
+
+#: ../root/edit/details/MergeArtists.js:39
+msgid "Rename artist and relationship credits"
+msgstr "Rinomina accreditamenti artista e relazione"
+
+#: ../root/edit/details/historic/MergeReleases.js:32
+msgid "Old releases:"
+msgstr "Vecchie pubblicazioni:"
+
+#: ../root/edit/details/historic/MergeReleases.js:44
+msgid "New releases:"
+msgstr ""
+
+#: ../root/edit/details/historic/MergeReleases.js:56
+msgid "Merge attributes:"
+msgstr "Unisci attributi:"
+
+#: ../root/edit/details/historic/MergeReleases.js:60
+msgid "Merge language & script:"
+msgstr ""
+
+#: ../root/edit/details/historic/MergeReleases.js:67
+msgid ""
+"This edit was a \"Merge Releases (Various Artists)\" edit which additionally"
+" set the release artist to Various Artists."
+msgstr "Questa modifica era una \"unione di pubblicazioni (Artisti vari)\" che inoltre impostava l'artista della pubblicazione come Artisti vari."
 
 #: ../root/elections/ElectionDetails.js:28
 msgid "Candidate:"
@@ -10006,11 +10010,11 @@ msgstr "Ultimo aggiornamento:"
 msgid "Permanent link:"
 msgstr "Collegamento permanente"
 
-#: ../root/entity/Details.js:92
+#: ../root/entity/Details.js:90
 msgid "XML:"
 msgstr "XML:"
 
-#: ../root/entity/Details.js:105
+#: ../root/entity/Details.js:102
 msgid "AcousticBrainz entry:"
 msgstr "Voce su AcousticBrainz:"
 
@@ -12855,7 +12859,7 @@ msgstr "In alternativa, puoi {uri|aggiungere una nuova serie}."
 msgid "Alternatively, you may {uri|add a new work}."
 msgstr "In alternativa, puoi {uri|aggiungere una nuova opera}."
 
-#: ../root/series/SeriesIndex.js:135
+#: ../root/series/SeriesIndex.js:134
 msgid "This series is currently empty."
 msgstr "Al momento questa serie è vuota."
 

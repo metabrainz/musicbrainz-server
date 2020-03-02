@@ -2,6 +2,7 @@
 # Translators:
 # nikki, 2014
 # Daniel Schury <email address hidden>, 2011
+# David Kellner <email address hidden>, 2020
 # Eckhard Henkel <email address hidden>, 2018
 # Frank Matthiae <email address hidden>, 2017
 # happykraut, 2017
@@ -18,8 +19,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-15 14:03+0000\n"
-"Last-Translator: Marc Rodrigues <email address hidden>\n"
+"PO-Revision-Date: 2020-02-27 09:48+0000\n"
+"Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2536,6 +2537,11 @@ msgstr "Wakash-Sprachen"
 #: DB:language/name:457
 msgid "Walloon"
 msgstr "Wallonisch"
+
+#. frequency:1 iso_code_3:wae
+#: DB:language/name:6981
+msgid "Walser"
+msgstr "Walser"
 
 #. frequency:1 iso_code_3:war
 #: DB:language/name:453

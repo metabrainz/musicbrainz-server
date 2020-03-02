@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-12-11 06:49+0000\n"
+"PO-Revision-Date: 2020-02-26 20:59+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -136,6 +136,14 @@ msgstr "CD Baby"
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
 msgstr "CD Baby-pagina over"
+
+#: DB:link_type/link_phrase:981 DB:link_type/name:981
+msgid "CPDL"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:981
+msgid "CPDL page for"
+msgstr ""
 
 #: DB:link_type/name:8 DB:link_type/name:227
 msgid "DJ-mix"
@@ -2320,6 +2328,12 @@ msgid ""
 "href=\"http://www.imslp.org/\">IMSLP</a>."
 msgstr "Deze relatie koppelt een artiest aan zijn <a href=\"http://www.imslp.org/\">IMSLP</a>-pagina."
 
+#: DB:link_type/description:981
+msgid ""
+"This links an artist to its page in <a "
+"href=\"https://www.cpdl.org/\">CPDL</a>."
+msgstr ""
+
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
 msgstr "Deze relatie koppelt een artiest aan zijn SoundCloud-profiel."
@@ -4081,6 +4095,10 @@ msgstr "heeft een Bandsintown-pagina op"
 #: DB:link_type/long_link_phrase:853 DB:link_type/long_link_phrase:850
 msgid "has a BookBrainz page at"
 msgstr "heeft een BookBrainz-pagina op"
+
+#: DB:link_type/long_link_phrase:981
+msgid "has a CPDL page at"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:180 DB:link_type/long_link_phrase:76
 #: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:90
