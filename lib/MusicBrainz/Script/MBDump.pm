@@ -54,6 +54,11 @@ has compression => (
     default => 'bzip2',
 );
 
+has compression_level => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 has replication_sequence => (
     is => 'ro',
     isa => 'Maybe[Int]',
@@ -145,11 +150,13 @@ sub make_tar {
     my $t0 = [gettimeofday];
     my $output_dir = $self->output_dir;
     my $compression = $self->compression;
+    my $compression_level = $self->compression_level;
 
     my $compress_command;
     if ($compression) {
         $compress_command = "$compression";
         $compress_command .= ' --threads=0' if $compression eq 'xz';
+        $compress_command .= " -$compression_level" if defined $compression_level;
     }
 
     log("Creating $tar_file");
