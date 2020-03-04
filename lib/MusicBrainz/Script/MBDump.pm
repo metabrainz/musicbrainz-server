@@ -145,11 +145,11 @@ sub make_tar {
     my $t0 = [gettimeofday];
     my $output_dir = $self->output_dir;
     my $compression = $self->compression;
-    my $_compression = $compression;
 
-    if ($compression eq 'xz') {
-        $compression = '';
-        $tar_file =~ s/\.xz$//;
+    my $compress_command;
+    if ($compression) {
+        $compress_command = "$compression";
+        $compress_command .= ' --threads=0' if $compression eq 'xz';
     }
 
     log("Creating $tar_file");
@@ -162,28 +162,11 @@ sub make_tar {
             ' --verbose' .
             ' -- ' .
             (join ' ', shell_quote(@files)) .
-            ($compression ? " | $compression" : '') .
+            ($compression ? " | $compress_command" : '') .
             ' > ' . shell_quote("$output_dir/$tar_file");
 
     $? == 0 or die "Tar returned $?";
     log(sprintf "Tar completed in %d seconds\n", tv_interval($t0));
-
-    # This is done separately instead of using --xz in order to take
-    # advantage of the multithreading option.
-    if ($_compression eq 'xz') {
-        $t0 = [gettimeofday];
-
-        log("Compressing $tar_file with xz");
-
-        my $tar_path = catfile($output_dir, $tar_file);
-        system qw( xz -T 0 -k -z ), $tar_path;
-        $? == 0 or die "xz returned $?";
-
-        log(sprintf "xz completed in %d seconds\n", tv_interval($t0));
-
-        unlink $tar_path;
-        $tar_file .= '.xz';
-    }
 
     $self->gpg_sign("$output_dir/$tar_file");
 }
