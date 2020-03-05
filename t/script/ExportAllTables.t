@@ -56,6 +56,12 @@ EOSQL
         '--compress',
     );
 
+    my $quoted_output_dir = shell_quote($output_dir);
+    system("cd $quoted_output_dir && md5sum -c MD5SUMS") == 0
+        or die $!;
+    system("cd $quoted_output_dir && sha256sum -c SHA256SUMS") == 0
+        or die $!;
+
     $exec_sql->(<<EOSQL);
     SET client_min_messages TO WARNING;
     INSERT INTO dbmirror_pending VALUES

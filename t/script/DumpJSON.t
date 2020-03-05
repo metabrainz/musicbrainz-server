@@ -61,7 +61,7 @@ EOSQL
         system (
             File::Spec->catfile($root, 'admin/DumpJSON'),
             '--database' => 'TEST_JSON_DUMP',
-            '--no-compress',
+            '--compress',
             '--output-dir' => $output_dir,
         );
     };
@@ -71,7 +71,7 @@ EOSQL
         system (
             File::Spec->catfile($root, 'admin/DumpIncrementalJSON'),
             '--database' => 'TEST_JSON_DUMP',
-            '--no-compress',
+            '--compress',
             '--output-dir' => $output_dir,
             '--replication-access-uri' => "file://$rep_dir",
         );
@@ -81,9 +81,23 @@ EOSQL
     my $test_dump = sub {
         my ($dir, $entity, $expected) = @_;
 
+        my $quoted_dir = shell_quote($dir);
+        system("cd $quoted_dir && md5sum -c MD5SUMS") == 0 or die $!;
+        system("cd $quoted_dir && sha256sum -c SHA256SUMS") == 0 or die $!;
+
+        my $entity_dir = File::Spec->catdir($dir, $entity);
+        my $quoted_entity_dir = shell_quote($entity_dir);
+
+        system 'mkdir', '-p', $quoted_entity_dir;
+        system(
+            'tar',
+            '-C', $quoted_entity_dir,
+            '-xJf', shell_quote(File::Spec->catfile($dir, "$entity.tar.xz")),
+        ) == 0 or die $!;
+
         chomp $expected;
         my $got = read_file(
-            File::Spec->catfile($dir, $entity, 'mbdump', $entity));
+            File::Spec->catfile($entity_dir, 'mbdump', $entity));
         $got = [map { $json->decode($_) } split "\n", $got];
         cmp_bag($got, $expected);
 
