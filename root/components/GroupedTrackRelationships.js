@@ -55,13 +55,17 @@ const renderWorkRelationship = (relationship: RelationshipT) => {
     false, /* forGrouping */
   );
 
+  const title = relationship.editsPending
+    ? <span className="mp">{phrase}</span>
+    : phrase;
+
   const targetCredit = backward
     ? relationship.entity0_credit
     : relationship.entity1_credit;
 
   return (
     <React.Fragment key={relationship.id}>
-      <dt>{addColon(phrase)}</dt>
+      <dt>{addColon(title)}</dt>
       <dd>
         <EntityLink content={targetCredit} entity={work} />
         {' '}
