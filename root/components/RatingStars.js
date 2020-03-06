@@ -53,7 +53,7 @@ const RatingStars = ({$c, entity}: Props) => {
           ) : null
         )}
 
-        {$c.user_exists ? (
+        {$c.user && $c.user.has_confirmed_email_address ? (
           ratingInts.map(rating => {
             const isCurrentRating = rating === currentStarRating;
             const newRating = isCurrentRating ? 0 : rating;

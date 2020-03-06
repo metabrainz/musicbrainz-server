@@ -21,6 +21,10 @@ sub rate : Local RequireAuth DenyWhenReadonly
 {
     my ($self, $c, $type) = @_;
 
+    if (!$c->user->has_confirmed_email_address) {
+        $c->detach('/error_401');
+    }
+
     my $entity_type = $c->request->params->{entity_type};
     my $entity_id = $c->request->params->{entity_id};
     my $rating = $c->request->params->{rating};
