@@ -218,8 +218,11 @@ sub write_checksum_files {
     for my $hash_program ('md5sum', 'sha256sum') {
         my $hash_output_file = uc($hash_program . 's');
         chomp (my $hash_bin = `which g$hash_program` || `which $hash_program`);
-        system "cd $output_dir && $hash_bin --binary *.tar.${tar_ext}" .
-               " | grep -v mbdump-private > $hash_output_file";
+        system
+            'bash', '-c',
+                'set -o pipefail; ' .
+                "cd $output_dir && $hash_bin --binary *.tar.${tar_ext}" .
+                " | grep -v mbdump-private > $hash_output_file";
 
         $? == 0 or die "$hash_program returned $?";
 
