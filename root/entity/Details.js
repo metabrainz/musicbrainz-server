@@ -74,7 +74,7 @@ const Details = ({
       <h2>{l('Details')}</h2>
       <table className="details">
         <tr>
-          <th>{l('Name:')}</th>
+          <th>{addColonText(l('Name'))}</th>
           <td>
             <EntityLink entity={entity} />
           </td>
@@ -87,7 +87,7 @@ const Details = ({
           <td><code>{entity.gid}</code></td>
         </tr>
         <tr>
-          <th>{l('Last updated:')}</th>
+          <th>{addColonText(l('Last updated'))}</th>
           <td>
             {entity.last_updated
               ? formatUserDate($c, entity.last_updated)
