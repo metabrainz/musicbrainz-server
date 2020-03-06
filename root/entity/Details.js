@@ -16,28 +16,42 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import formatUserDate from '../utility/formatUserDate';
 
-type Props = {
+type WSLinkProps = {
+  +entityGid: string,
+  +entityProperties: {
+    aliases: {[edit_type: string]: number},
+    artist_credits: boolean,
+    url: string,
+    ...,
+  },
+  +entityType: CoreEntityTypeT,
+  +isJson?: boolean,
+  +isSecureConnection: boolean,
+};
+type DetailsProps = {
   +$c: CatalystContextT,
   +entity: CoreEntityT,
 };
 
-const XMLLink = ({
+const WSLink = ({
   entityGid,
   entityProperties,
   entityType,
+  isJson,
   isSecureConnection,
-}) => {
-  const xmlInc = [];
+}: WSLinkProps) => {
+  const inc = [];
   const entityTypeForUrl = entityProperties.url
     ? entityProperties.url : entityType;
-  entityProperties.aliases && xmlInc.push('aliases');
-  entityProperties.artist_credits && xmlInc.push('artist-credits');
+  entityProperties.aliases && inc.push('aliases');
+  entityProperties.artist_credits && inc.push('artist-credits');
   (entityType === 'recording' || entityType === 'release_group') &&
-    xmlInc.push('releases');
-  entityType === 'release' && xmlInc.push('labels', 'discids', 'recordings');
+    inc.push('releases');
+  entityType === 'release' && inc.push('labels', 'discids', 'recordings');
   const protocol = isSecureConnection ? 'https://' : 'http://';
   const link = '/ws/2/' + entityTypeForUrl + '/' + entityGid +
-               (xmlInc.length ? '?inc=' : '') + xmlInc.join('+');
+               (inc.length ? '?inc=' : '') + inc.join('+') +
+               (isJson ? '&fmt=json' : '');
   return (
     <a href={link}>{protocol + DBDefs.WEB_SERVER + link}</a>
   );
@@ -46,7 +60,7 @@ const XMLLink = ({
 const Details = ({
   $c,
   entity,
-}: Props) => {
+}: DetailsProps) => {
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entityType];
   const entityTypeForUrl = entityProperties.url
@@ -89,10 +103,22 @@ const Details = ({
         <tr>
           <th>{l('XML:')}</th>
           <td>
-            <XMLLink
+            <WSLink
               entityGid={entity.gid}
               entityProperties={entityProperties}
               entityType={entityType}
+              isSecureConnection={$c.req.secure}
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>{l('JSON:')}</th>
+          <td>
+            <WSLink
+              entityGid={entity.gid}
+              entityProperties={entityProperties}
+              entityType={entityType}
+              isJson
               isSecureConnection={$c.req.secure}
             />
           </td>
