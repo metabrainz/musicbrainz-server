@@ -101,7 +101,12 @@ const Details = ({
           </td>
         </tr>
         <tr>
-          <th>{l('XML:')}</th>
+          <th>
+            {addColon(exp.l(
+              '{xml_ws_docs|XML}',
+              {xml_ws_docs: '/doc/Development/XML_Web_Service/Version_2'},
+            ))}
+          </th>
           <td>
             <WSLink
               entityGid={entity.gid}
@@ -112,7 +117,12 @@ const Details = ({
           </td>
         </tr>
         <tr>
-          <th>{l('JSON:')}</th>
+          <th>
+            {addColon(exp.l(
+              '{json_ws_docs|JSON}',
+              {json_ws_docs: '/doc/Development/JSON_Web_Service'},
+            ))}
+          </th>
           <td>
             <WSLink
               entityGid={entity.gid}
