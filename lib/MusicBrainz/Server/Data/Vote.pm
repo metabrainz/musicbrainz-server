@@ -133,7 +133,7 @@ sub editor_statistics
 
     my $base_query = "SELECT vote, count(vote) AS count " .
         "FROM vote " .
-        "WHERE editor = ? ";
+        "WHERE NOT superseded AND editor = ? ";
 
     my $q_all_votes    = $base_query . "GROUP BY vote";
     my $q_recent_votes = $base_query .
