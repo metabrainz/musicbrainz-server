@@ -47,7 +47,7 @@
     [%- area_bubble() -%]
 
     <div class="bubble" id="coordinates-bubble">
-        <p>[% l('Enter coordinates manually or drag the marker to get coordinates from the map.') %]</p>
+        <p>[% l('Enter coordinates manually or click the map to get coordinates from the marker. If you’re too far out, clicking will zoom instead.') %]</p>
         <div id="largemap"></div>
         [% script_manifest('place/map.js', { 'data-args' => map_data_args }) %]
     </div>
