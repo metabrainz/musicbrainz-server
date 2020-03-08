@@ -84,10 +84,9 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
             $('input[name=edit-place\\.coordinates]').addClass('success');
             coordinatesError(false);
 
-            marker.setLatLng(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
-
-            map.panTo(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
-            map.setZoom(16);
+            const coords = L.latLng(data.coordinates.latitude, data.coordinates.longitude);
+            marker.setLatLng(coords);
+            map.setView(coords, 16);
         }).fail(function (jqxhr, textStatus) {
             if (textStatus === 'abort') {
                 return;
