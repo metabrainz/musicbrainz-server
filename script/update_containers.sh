@@ -32,6 +32,10 @@ then
   echo >&2 "$SCRIPT_NAME: missing arguments"
   echo >&2 "$HELP"
   exit 64
+elif echo "$1" | grep -Eqx -- '-*h(elp)?'
+then
+  echo "$HELP"
+  exit
 elif echo "$1" | grep -Eqvx 'prod|beta|test'
 then
   echo >&2 "$SCRIPT_NAME: unrecognized argument: $1"

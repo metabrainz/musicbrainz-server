@@ -21,7 +21,11 @@ then
   exit 64
 elif [ $# -eq 1 ]
 then
-  if [ "$1" != '--commit' ]
+  if echo "$1" | grep -Eqx -- '-*h(elp)?'
+  then
+    echo "$HELP"
+    exit
+  elif [ "$1" != '--commit' ]
   then
     echo >&2 "$SCRIPT_NAME: unrecognized option: $1"
     echo >&2 "$HELP"

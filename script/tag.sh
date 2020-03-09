@@ -11,7 +11,11 @@ Create and push a Git tag on 'production' branch.
 EOH
 )
 
-if [ $# -gt 0 ]
+if [ $# -eq 1 ] && echo "$1" | grep -Eqx -- '-*h(elp)?'
+then
+  echo "$HELP"
+  exit
+elif [ $# -gt 0 ]
 then
   echo >&2 "$SCRIPT_NAME: too many arguments"
   echo >&2 "$HELP"
