@@ -4,6 +4,8 @@ set -e -u
 
 SCRIPT_NAME=$(basename "$0")
 
+LIST_METABRAINZ_HOSTS_DEFAULT='../docker-server-configs/scripts/list_nodes.sh'
+
 HELP=$(cat <<EOH
 Usage: $SCRIPT_NAME <prod|beta|test> [<hosts list>]"
 
@@ -12,6 +14,12 @@ If no (space-delimited) hosts list is specified, update on all hosts
 listed as relevant using your working copy of docker-server-configs.
 
 Please make sure that your working copy is up-to-date beforehand!
+
+Environment:
+
+  LIST_METABRAINZ_HOSTS
+    Path to the script that lists MetaBrainz hosts by service.
+    Default: $LIST_METABRAINZ_HOSTS_DEFAULT
 EOH
 )
 
@@ -38,7 +46,7 @@ SERVICES="musicbrainz-webservice musicbrainz-website"
 
 if [ $# -eq 0 ]
 then
-  LIST_METABRAINZ_HOSTS=${LIST_METABRAINZ_HOSTS:-../docker-server-configs/scripts/list_nodes.sh}
+  LIST_METABRAINZ_HOSTS=${LIST_METABRAINZ_HOSTS:-$LIST_METABRAINZ_HOSTS_DEFAULT}
   if [ ! -x "$LIST_METABRAINZ_HOSTS" ]
   then
     echo >&2 "$SCRIPT_NAME: cannot list hosts per service/deploy env"
