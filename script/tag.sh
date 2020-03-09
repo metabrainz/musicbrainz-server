@@ -5,7 +5,7 @@ set -e -u
 SCRIPT_NAME=$(basename "$0")
 
 HELP=$(cat <<EOH
-Usage: $SCRIPT_NAME"
+Usage: $SCRIPT_NAME
 
 Create and push a Git tag on 'production' branch.
 EOH

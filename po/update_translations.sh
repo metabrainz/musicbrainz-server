@@ -5,7 +5,7 @@ set -e -u
 SCRIPT_NAME=$(basename "$0")
 
 HELP=$(cat <<EOH
-Usage: $SCRIPT_NAME [option]"
+Usage: $SCRIPT_NAME [option]
 
 Download latest translations from Transifex.
 

@@ -7,7 +7,7 @@ SCRIPT_NAME=$(basename "$0")
 LIST_METABRAINZ_HOSTS_DEFAULT='../docker-server-configs/scripts/list_nodes.sh'
 
 HELP=$(cat <<EOH
-Usage: $SCRIPT_NAME <prod|beta|test> [<hosts list>]"
+Usage: $SCRIPT_NAME <prod|beta|test> [<hosts list>]
 
 Update MusicBrainz website/webservice containers on specified hosts.
 If no (space-delimited) hosts list is specified, update on all hosts
