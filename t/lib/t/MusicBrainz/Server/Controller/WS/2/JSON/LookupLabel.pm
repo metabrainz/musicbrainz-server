@@ -35,6 +35,8 @@ test 'basic label lookup' => sub {
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso-3166-1-codes" => ["GB"],
+                "type" => JSON::null,
+                "type-id" => JSON::null,
             },
             ipis => [],
             isnis => [],
@@ -70,6 +72,8 @@ test 'basic label lookup, inc=annotation' => sub {
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso-3166-1-codes" => ["GB"],
+                "type" => JSON::null,
+                "type-id" => JSON::null,
             },
             ipis => [],
             isnis => [],
@@ -102,6 +106,8 @@ test 'label lookup, inc=aliases' => sub {
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso-3166-1-codes" => ["GB"],
+                "type" => JSON::null,
+                "type-id" => JSON::null,
             },
             aliases => [
                 {
@@ -147,6 +153,8 @@ test 'label lookup with releases, inc=media' => sub {
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso-3166-1-codes" => ["GB"],
+                "type" => JSON::null,
+                "type-id" => JSON::null,
             },
             releases => [
                 {
@@ -166,6 +174,8 @@ test 'label lookup with releases, inc=media' => sub {
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
                             "iso-3166-1-codes" => ["GB"],
+                            "type" => JSON::null,
+                            "type-id" => JSON::null,
                         },
                     }],
                     barcode => "600116817020",
@@ -198,6 +208,8 @@ test 'label lookup with releases, inc=media' => sub {
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
                             "iso-3166-1-codes" => ["GB"],
+                            "type" => JSON::null,
+                            "type-id" => JSON::null,
                         },
                     }],
                     barcode => "600116822123",

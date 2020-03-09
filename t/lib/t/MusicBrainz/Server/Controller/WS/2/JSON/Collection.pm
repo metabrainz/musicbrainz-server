@@ -266,6 +266,8 @@ test "collection lookup" => sub {
                                 "name" => "Japan",
                                 "sort-name" => "Japan",
                                 "iso-3166-1-codes" => ["JP"],
+                                "type" => JSON::null,
+                                "type-id" => JSON::null,
                             },
                         }],
                         barcode => "4942463511227",

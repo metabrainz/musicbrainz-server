@@ -333,7 +333,7 @@ ws_test 'browse releases via recording',
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>AVCD-17390</catalog-number>
-                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a" type="Original Production" type-id="7aaa37fe-2def-3476-b359-80245850062d">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>
                 </label-info>
@@ -372,7 +372,7 @@ ws_test 'browse releases via recording',
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>AVCD-17389</catalog-number>
-                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a" type="Original Production" type-id="7aaa37fe-2def-3476-b359-80245850062d">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>
                 </label-info>

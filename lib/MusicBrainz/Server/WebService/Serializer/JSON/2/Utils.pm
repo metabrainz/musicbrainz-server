@@ -333,14 +333,6 @@ sub serialize_type {
     my ($into, $entity, $inc, $stash, $toplevel) = @_;
 
     my $entity_type = $entity->entity_type;
-    return unless
-        ($toplevel ||
-         # For some reason, these four entities were implemented to always
-         # output types in the XML and JSON, regardless of `$toplevel`.
-         $entity_type eq 'collection' ||
-         $entity_type eq 'event' ||
-         $entity_type eq 'place' ||
-         $entity_type eq 'work');
 
     my $type = $entity->type;
     $into->{type} = defined $type ? $type->name : JSON::null;
