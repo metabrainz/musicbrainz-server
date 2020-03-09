@@ -155,14 +155,15 @@ sub make_tar {
     log("Creating $tar_file");
     system
         'bash', '-c',
+            'set -o pipefail; ' .
             'tar' .
             ' -C ' . shell_quote($self->export_dir) .
-            ($compression ? " --$compression" : '') .
             ' --create' .
             ' --verbose' .
-            ' --file ' . shell_quote("$output_dir/$tar_file") .
             ' -- ' .
-            (join ' ', shell_quote(@files));
+            (join ' ', shell_quote(@files)) .
+            ($compression ? " | $compression" : '') .
+            ' > ' . shell_quote("$output_dir/$tar_file");
 
     $? == 0 or die "Tar returned $?";
     log(sprintf "Tar completed in %d seconds\n", tv_interval($t0));
