@@ -10,6 +10,7 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
+import {CatalystContext} from '../context';
 import InstrumentRelTypes from '../components/InstrumentRelTypes';
 import RatingStars from '../components/RatingStars';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
@@ -35,6 +36,7 @@ import WorkArtists
 import formatDate from '../static/scripts/common/utility/formatDate';
 import formatDatePeriod
   from '../static/scripts/common/utility/formatDatePeriod';
+import {formatCount} from '../statistics/utilities';
 import formatEndDate from '../static/scripts/common/utility/formatEndDate';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import yesNo from '../static/scripts/common/utility/yesNo';
@@ -88,6 +90,7 @@ export function defineArtistCreditColumn<D>(
       )
       : title),
     accessor: row => getArtistCredit(row)?.names[0].name ?? '',
+    className: 'artist',
     id: columnName,
   };
 }
@@ -150,6 +153,34 @@ export function defineCheckboxColumn<T>(
     accessor: 'id',
     className: 'checkbox-cell',
     id: 'checkbox',
+  };
+}
+
+export function defineCountColumn<D>(
+  getCount: (D) => number,
+  columnName: string,
+  title: string,
+  order?: string = '',
+  sortable?: boolean = false,
+  className?: string,
+): ColumnOptions<D, number> {
+  return {
+    Cell: ({row: {original}}) => (
+      <CatalystContext.Consumer>
+        {($c: CatalystContextT) => formatCount($c, getCount(original))}
+      </CatalystContext.Consumer>
+    ),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={title}
+          name={columnName}
+          order={order}
+        />
+      )
+      : title),
+    className: className || 'count c',
+    id: columnName,
   };
 }
 
@@ -447,6 +478,7 @@ export const ratingsColumn:
     Cell: ({row: {original}}) => <RatingStars entity={original} />,
     Header: N_l('Rating'),
     accessor: 'rating',
+    className: 'rating c',
   };
 
 export const seriesOrderingTypeColumn:

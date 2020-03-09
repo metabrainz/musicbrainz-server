@@ -37,11 +37,13 @@ const renderTableRow = (row, i) => (
 );
 
 type Props<CV, D> = {
+  className?: string,
   columns: CV,
   data: $ReadOnlyArray<D>,
 };
 
 const Table = <CV, D>({
+  className,
   columns,
   data,
 }: Props<CV, D>): React$MixedElement => {
@@ -56,8 +58,10 @@ const Table = <CV, D>({
     data,
   });
 
+  className = 'tbl' + (className ? ' ' + className : '');
+
   return (
-    <table {...getTableProps({className: 'tbl'})}>
+    <table {...getTableProps({className: className})}>
       <thead>
         {headerGroups.map(renderTableHeaderRow)}
       </thead>
