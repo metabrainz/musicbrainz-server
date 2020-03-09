@@ -154,14 +154,16 @@ sub make_tar {
 
     log("Creating $tar_file");
     chomp (my $tar_bin = `which gtar` || `which tar`);
-    system $tar_bin,
-           '-C', $self->export_dir,
-           ($compression ? "--$compression" : ()),
-           '--create',
-           '--verbose',
-           '--file', "$output_dir/$tar_file",
-           '--',
-           @files;
+    system
+        'bash', '-c',
+            $tar_bin .
+            ' -C ' . shell_quote($self->export_dir) .
+            ($compression ? " --$compression" : '') .
+            ' --create' .
+            ' --verbose' .
+            ' --file ' . shell_quote("$output_dir/$tar_file") .
+            ' -- ' .
+            (join ' ', shell_quote(@files));
 
     $? == 0 or die "Tar returned $?";
     log(sprintf "Tar completed in %d seconds\n", tv_interval($t0));
