@@ -153,10 +153,9 @@ sub make_tar {
     }
 
     log("Creating $tar_file");
-    chomp (my $tar_bin = `which gtar` || `which tar`);
     system
         'bash', '-c',
-            $tar_bin .
+            'tar' .
             ' -C ' . shell_quote($self->export_dir) .
             ($compression ? " --$compression" : '') .
             ' --create' .
