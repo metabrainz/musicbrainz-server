@@ -536,6 +536,7 @@ sub tags : Chained('load') PathPart('tags')
     my ($self, $c) = @_;
 
     my $user = $c->stash->{user};
+    my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
 
     if (!defined $c->user || $c->user->id != $user->id)
     {
@@ -544,16 +545,27 @@ sub tags : Chained('load') PathPart('tags')
             unless $user->preferences->public_tags;
     }
 
-    my $tags = $c->model('Editor')->get_tags($user);
-    my @display_tags = grep { !$_->{tag}->genre_id } @{ $tags->{tags} };
-    my @display_genres = grep { $_->{tag}->genre_id } @{ $tags->{tags} };
+    my $tags = $c->model('Editor')->get_tags($user, $show_downvoted);
+    my @display_tags = map +{
+        %{$_},
+        tag => to_json_object($_->{tag}),
+    }, grep { !$_->{tag}->genre_id } @{ $tags->{tags} };
+    my @display_genres = map +{
+        %{$_},
+        tag => to_json_object($_->{tag}),
+    }, grep { $_->{tag}->genre_id } @{ $tags->{tags} };
+
+    my %props = (
+        showDownvoted => boolean_to_json($show_downvoted),
+        tags => to_json_array(\@display_tags),
+        genres => to_json_array(\@display_genres),
+        user => $self->serialize_user($user),
+    );
 
     $c->stash(
-        user => $user,
-        display_tags => \@display_tags,
-        display_genres => \@display_genres,
-        tag_max_count => sum(map { $_->{count} } @{ $tags->{tags} }),
-        template => 'user/tags.tt',
+        component_path  => 'user/UserTagList',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 

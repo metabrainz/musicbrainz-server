@@ -285,6 +285,7 @@ module.exports = {
   'user/UserSubscriptions': require('../user/UserSubscriptions'),
   'user/UserTag': require('../user/UserTag'),
   'user/UserTagEntity': require('../user/UserTagEntity'),
+  'user/UserTagList': require('../user/UserTagList'),
   'vote/VotingIndex': require('../vote/VotingIndex'),
   'work/WorkIndex': require('../work/WorkIndex'),
   'work/WorkMerge': require('../work/WorkMerge'),

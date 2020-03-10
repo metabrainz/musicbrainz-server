@@ -13,6 +13,8 @@ import {type AccountLayoutUserT} from '../components/UserAccountLayout';
 import {ENTITIES} from '../static/scripts/common/constants';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
+import TagLink, {UserTagLink}
+  from '../static/scripts/common/components/TagLink';
 import expand2text from '../static/scripts/common/i18n/expand2text';
 import {formatCount} from '../statistics/utilities';
 
@@ -62,25 +64,24 @@ function buildTagListSection(
           <li key="see-all">
             <em>
               {user ? (
-                <a
-                  href={'/user/' + encodeURIComponent(user.name) + '/tag/' +
-                        encodeURIComponent(props.tag.name) + '/' + url}
-                >
-                  {expand2text(
+                <UserTagLink
+                  content={expand2text(
                     seeAllMessage(tags.count),
                     {num: formatCount(props.$c, tags.count)},
                   )}
-                </a>
+                  subPath={url}
+                  tag={props.tag.name}
+                  username={user.name}
+                />
               ) : (
-                <a
-                  href={'/tag/' + encodeURIComponent(props.tag.name) +
-                        '/' + url}
-                >
-                  {expand2text(
+                <TagLink
+                  content={expand2text(
                     seeAllMessage(tags.count),
                     {num: formatCount(props.$c, tags.count)},
                   )}
-                </a>
+                  subPath={url}
+                  tag={props.tag.name}
+                />
               )}
             </em>
           </li>
