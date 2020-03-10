@@ -4,6 +4,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
+use List::MoreUtils qw( uniq );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::Data::Utils qw( type_to_model model_to_type object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid is_nat );
@@ -570,6 +571,7 @@ sub load_relationships {
         my @rels = $c->model('Relationship')->load_subset($types, @for);
 
         my @works =
+            uniq
             map { $_->target }
             grep { $_->target_type eq 'work' }
             map { $_->all_relationships } @for;
