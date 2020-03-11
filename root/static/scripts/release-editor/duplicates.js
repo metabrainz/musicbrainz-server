@@ -181,7 +181,7 @@ function combinedMediumFormatName(mediums) {
             return (count > 1 ? count + "\u00D7" : "") +
                 (format
                     ? lp_attributes(format, 'medium_format')
-                    : l('(unknown)'));
+                    : lp('(unknown)', 'medium format'));
         })
         .join(" + ");
 }

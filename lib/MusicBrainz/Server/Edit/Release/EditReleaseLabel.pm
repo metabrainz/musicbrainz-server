@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id merge_value );
 use MusicBrainz::Server::Entity::Area;
-use MusicBrainz::Server::Translation qw( N_l l );
+use MusicBrainz::Server::Translation qw( N_l l lp );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 use Scalar::Util qw( looks_like_number );
 
@@ -94,7 +94,7 @@ sub process_medium_formats
 
     return combined_medium_format_name(map {
         if ($_ eq '(unknown)') {
-            l('(unknown)');
+            lp('(unknown)', 'medium format');
         }
         else {
             MediumFormat->new(name => $_)->l_name;

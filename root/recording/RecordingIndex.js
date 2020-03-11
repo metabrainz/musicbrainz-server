@@ -68,7 +68,7 @@ const RecordingAppearancesTable = ({
               <th colSpan="10">
                 {status
                   ? lp_attributes(status.name, 'release_status')
-                  : l('(unknown)')
+                  : lp('(unknown)', 'release status')
                 }
               </th>
             </tr>

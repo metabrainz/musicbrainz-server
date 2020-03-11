@@ -54,7 +54,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
         <th colSpan={$c.session && $c.session.tport ? 8 : 7}>
           {status?.name
             ? lp_attributes(status.name, 'release_status')
-            : l('(unknown)')}
+            : lp('(unknown)', 'release status')}
         </th>
       </tr>
       {releaseStatusGroup.map((release, index) => (
