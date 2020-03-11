@@ -36,6 +36,8 @@ export const CONTACT_URL = 'https://metabrainz.org/contact';
 
 export const DARTIST_ID = 2;
 
+export const DLABEL_ID = 1;
+
 export const FAVICON_CLASSES = {
   '45cat.com': 'fortyfivecat',
   '45worlds.com': 'fortyfiveworlds',
@@ -214,6 +216,10 @@ export const VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 export const VARTIST_ID = 1;
 
 export const VARTIST_NAME = 'Various Artists';
+
+export const NOLABEL_GID = '157afde4-4bf5-4039-8ad2-5a15acc85176';
+
+export const NOLABEL_ID = 3267;
 
 export const VIDEO_ATTRIBUTE_ID = 582;
 
