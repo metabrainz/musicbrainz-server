@@ -125,7 +125,6 @@ sub foreign_keys
     my $relations = {};
     changed_relations($data, $relations,
         WorkType => 'type_id',
-        Language => 'language_id',
     );
 
     $relations->{Work} = [ $self->entity_id ];
@@ -147,7 +146,6 @@ sub build_display_data
         comment   => 'comment',
         type      => [ qw( type_id WorkType ) ],
         iswc      => 'iswc',
-        language  => [ qw( language_id Language ) ],
     );
 
     my $data = $self->data;
@@ -196,7 +194,6 @@ around allow_auto_edit => sub {
 
     return 1 if $self->can_amend($self->entity_id);
 
-    return 0 if defined $self->data->{old}{language_id};
     return 0 if @{ $self->data->{old}{languages} // [] };
 
     return 0 if !$self->$orig(@args);

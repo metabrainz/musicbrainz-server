@@ -28,7 +28,6 @@ type Props = {
     },
     +comment?: CompT<string | null>,
     +iswc?: CompT<string | null>,
-    +language?: CompT<LanguageT | null>,
     +languages?: CompT<$ReadOnlyArray<string>>,
     +name?: CompT<string>,
     +type?: CompT<WorkTypeT | null>,
@@ -44,7 +43,6 @@ const EditWork = ({edit}: {+edit: Props}) => {
   const iswc = display.iswc;
   const name = display.name;
   const type = display.type;
-  const language = display.language;
   const languages = display.languages;
   const attributes = display.attributes;
   const attributeNames = attributes
@@ -89,13 +87,6 @@ const EditWork = ({edit}: {+edit: Props}) => {
           oldContent={
             type.old?.name ? lp_attributes(type.old.name, 'work_type') : ''
           }
-        />
-      ) : null}
-      {language ? (
-        <FullChangeDiff
-          label={addColonText(l('Language'))}
-          newContent={language.new ? l_languages(language.new.name) : ''}
-          oldContent={language.old ? l_languages(language.old.name) : ''}
         />
       ) : null}
       {languages ? (
