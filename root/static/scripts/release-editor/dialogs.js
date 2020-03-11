@@ -10,7 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 import * as React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import * as ReactDOMServer from 'react-dom/server';
 
 import {reduceArtistCredit} from '../common/immutable-entities';
 import bracketed from '../common/utility/bracketed';

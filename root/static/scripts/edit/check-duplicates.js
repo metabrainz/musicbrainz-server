@@ -10,7 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 import * as React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';
 
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
