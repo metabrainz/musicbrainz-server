@@ -487,10 +487,11 @@ export const workLanguagesColumn:
     Cell: ({cell: {value}}) => (
       <ul>
         {value.map(language => (
-          <li key={language.language.id}>
-            <abbr title={l_languages(language.language.name)}>
-              {language.language.iso_code_3}
-            </abbr>
+          <li
+            data-iso-639-3={language.language.iso_code_3}
+            key={language.language.id}
+          >
+            {l_languages(language.language.name)}
           </li>
         ))}
       </ul>
