@@ -9,7 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
-import React from 'react';
+import * as React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 import {reduceArtistCredit} from '../common/immutable-entities';
