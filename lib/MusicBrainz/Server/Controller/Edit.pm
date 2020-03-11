@@ -259,7 +259,7 @@ sub subscribed : Local RequireAuth {
     my ($self, $c) = @_;
 
     my $only_open = 0;
-    if ($c->req->query_params->{open} eq '1') {
+    if (($c->req->query_params->{open} // '') eq '1') {
         $only_open = 1;
     }
 
@@ -279,7 +279,7 @@ sub subscribed_editors : Local RequireAuth {
     my ($self, $c) = @_;
 
     my $only_open = 0;
-    if ($c->req->query_params->{open} eq '1') {
+    if (($c->req->query_params->{open} // '') eq '1') {
         $only_open = 1;
     }
 

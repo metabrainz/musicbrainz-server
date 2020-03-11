@@ -126,9 +126,10 @@ sub build_display_data {
 
             if (exists $_->{country}) {
                 my $country = $_->{country};
+                my $country_gid_or_id = gid_or_id($country);
 
-                $event_display->{country} = $loaded->{Area}->{gid_or_id($country)} //
-                    (defined($country->{name}) && MusicBrainz::Server::Entity::Area->new($country));
+                $event_display->{country} = defined $country_gid_or_id && $loaded->{Area}->{$country_gid_or_id};
+                $event_display->{country} //= defined $country->{name} && MusicBrainz::Server::Entity::Area->new($country);
             }
 
             $event_display->{date} = MusicBrainz::Server::Entity::PartialDate->new($_->{date});
