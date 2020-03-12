@@ -455,6 +455,11 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
                 with the same name`)}
           </a>
         </li>
+        <li>
+          <a href="/report/RecordingTrackDifferentName">
+            {l('Recordings with a different name than their only track')}
+          </a>
+        </li>
       </ul>
 
       <h2>{l('Places')}</h2>
