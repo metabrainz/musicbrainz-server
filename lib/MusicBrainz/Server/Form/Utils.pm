@@ -206,13 +206,14 @@ sub validate_username {
 
     my $username = $self->value;
     my $previous_username = $self->init_value;
+    my $editor_model = $self->form->ctx->model('Editor');
 
     if (defined $username) {
-        unless (defined $previous_username && $previous_username eq $username) {
+        unless (defined $previous_username && $editor_model->are_names_equivalent($previous_username, $username)) {
             if ($username =~ qr{^deleted editor \#\d+$}i) {
                 $self->add_error(l('This username is reserved for internal use.'));
             }
-            if ($self->form->ctx->model('Editor')->is_name_used($username)) {
+            if ($editor_model->is_name_used($username)) {
                 $self->add_error(l('Please choose another username, this one is already taken.'));
             }
         }

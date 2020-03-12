@@ -54,6 +54,11 @@ has compression => (
     default => 'bzip2',
 );
 
+has compression_level => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 has replication_sequence => (
     is => 'ro',
     isa => 'Maybe[Int]',
@@ -145,43 +150,30 @@ sub make_tar {
     my $t0 = [gettimeofday];
     my $output_dir = $self->output_dir;
     my $compression = $self->compression;
-    my $_compression = $compression;
+    my $compression_level = $self->compression_level;
 
-    if ($compression eq 'xz') {
-        $compression = '';
-        $tar_file =~ s/\.xz$//;
+    my $compress_command;
+    if ($compression) {
+        $compress_command = "$compression";
+        $compress_command .= ' --threads=0' if $compression eq 'xz';
+        $compress_command .= " -$compression_level" if defined $compression_level;
     }
 
     log("Creating $tar_file");
-    chomp (my $tar_bin = `which gtar` || `which tar`);
-    system $tar_bin,
-           '-C', $self->export_dir,
-           ($compression ? "--$compression" : ()),
-           '--create',
-           '--verbose',
-           '--file', "$output_dir/$tar_file",
-           '--',
-           @files;
+    system
+        'bash', '-c',
+            'set -o pipefail; ' .
+            'tar' .
+            ' -C ' . shell_quote($self->export_dir) .
+            ' --create' .
+            ' --verbose' .
+            ' -- ' .
+            (join ' ', shell_quote(@files)) .
+            ($compression ? " | $compress_command" : '') .
+            ' > ' . shell_quote("$output_dir/$tar_file");
 
     $? == 0 or die "Tar returned $?";
     log(sprintf "Tar completed in %d seconds\n", tv_interval($t0));
-
-    # This is done separately instead of using --xz in order to take
-    # advantage of the multithreading option.
-    if ($_compression eq 'xz') {
-        $t0 = [gettimeofday];
-
-        log("Compressing $tar_file with xz");
-
-        my $tar_path = catfile($output_dir, $tar_file);
-        system qw( xz -T 0 -k -z ), $tar_path;
-        $? == 0 or die "xz returned $?";
-
-        log(sprintf "xz completed in %d seconds\n", tv_interval($t0));
-
-        unlink $tar_path;
-        $tar_file .= '.xz';
-    }
 
     $self->gpg_sign("$output_dir/$tar_file");
 }
@@ -202,6 +194,32 @@ sub write_file {
     open(my $fh, '>' . $self->export_dir . "/$file") or die $!;
     print $fh $contents or die $!;
     close $fh or die $!;
+}
+
+sub write_checksum_files {
+    my ($self) = @_;
+
+    my $compression = $self->compression;
+    return unless $compression;
+
+    my $tar_ext = $compression eq 'bzip2'
+        ? 'bz2'
+        : $compression;
+
+    my $output_dir = shell_quote($self->output_dir);
+    for my $hash_program ('md5sum', 'sha256sum') {
+        my $hash_output_file = uc($hash_program . 's');
+        chomp (my $hash_bin = `which g$hash_program` || `which $hash_program`);
+        system
+            'bash', '-c',
+                'set -o pipefail; ' .
+                "cd $output_dir && $hash_bin --binary *.tar.${tar_ext}" .
+                " | grep -v mbdump-private > $hash_output_file";
+
+        $? == 0 or die "$hash_program returned $?";
+
+        $self->gpg_sign("$output_dir/$hash_output_file");
+    }
 }
 
 sub DEMOLISH {

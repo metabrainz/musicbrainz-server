@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';

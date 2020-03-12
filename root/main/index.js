@@ -8,7 +8,7 @@
  */
 
 import he from 'he';
-import React from 'react';
+import * as React from 'react';
 
 import {ArtworkImage} from '../components/Artwork';
 import Layout from '../layout';

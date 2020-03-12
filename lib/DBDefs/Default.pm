@@ -359,7 +359,7 @@ sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//%s.s3.us.archive.org/"
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 
 # Mapbox access token must be set to display area/place maps.
-sub MAPBOX_MAP_ID { 'mapbox.streets' }
+sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
 sub MAPBOX_ACCESS_TOKEN { '' }
 
 # Disallow OAuth2 requests over plain HTTP

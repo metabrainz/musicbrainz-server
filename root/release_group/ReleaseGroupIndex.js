@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../context';
 import Annotation from '../static/scripts/common/components/Annotation';
@@ -54,7 +54,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
         <th colSpan={$c.session && $c.session.tport ? 8 : 7}>
           {status?.name
             ? lp_attributes(status.name, 'release_status')
-            : l('(unknown)')}
+            : lp('(unknown)', 'release status')}
         </th>
       </tr>
       {releaseStatusGroup.map((release, index) => (

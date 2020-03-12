@@ -7,12 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
+
 import Paginator from './Paginator';
-import type {Node as ReactNode} from 'react';
+
 
 type Props = {
-  +children: ReactNode,
+  +children: React.Node,
   +pager: PagerT,
   +query?: string,
   +search?: boolean,

@@ -14,6 +14,8 @@ import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
+import isSpecialPurpose
+  from '../../../static/scripts/common/utility/isSpecialPurpose';
 import * as age from '../../../utility/age';
 import formatLabelCode from '../../../utility/formatLabelCode';
 import ExternalLinks from '../ExternalLinks';
@@ -44,6 +46,7 @@ const LabelSidebar = ({$c, label}: Props) => {
   const labelAge = age.age(label);
   const gid = encodeURIComponent(label.gid);
   const area = label.area;
+  const isSpecialPurposeLabel = isSpecialPurpose(label);
 
   return (
     <div id="sidebar">
@@ -112,12 +115,12 @@ const LabelSidebar = ({$c, label}: Props) => {
 
         <MergeLink entity={label} />
 
-        <RemoveLink entity={label} />
+        {isSpecialPurposeLabel ? null : <RemoveLink entity={label} />}
 
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <SubscriptionLinks entity={label} />
+      {isSpecialPurposeLabel ? null : <SubscriptionLinks entity={label} />}
 
       <CollectionLinks entity={label} />
 

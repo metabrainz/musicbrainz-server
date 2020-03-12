@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../context';
 import ratingTooltip from '../utility/ratingTooltip';
@@ -53,7 +53,7 @@ const RatingStars = ({$c, entity}: Props) => {
           ) : null
         )}
 
-        {$c.user_exists ? (
+        {$c.user && $c.user.has_confirmed_email_address ? (
           ratingInts.map(rating => {
             const isCurrentRating = rating === currentStarRating;
             const newRating = isCurrentRating ? 0 : rating;

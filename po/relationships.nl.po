@@ -4,7 +4,7 @@
 # nikki2 <email address hidden>, 2012
 # reneweesp <email address hidden>, 2017-2018
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2012-2019
+# Maurits Meulenbelt <email address hidden>, 2012-2020
 # nikki, 2012-2013
 # nikki2 <email address hidden>, 2012
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-26 20:59+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-03-06 11:39+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,11 +139,11 @@ msgstr "CD Baby-pagina over"
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
-msgstr ""
+msgstr "CPDL-pagina van"
 
 #: DB:link_type/name:8 DB:link_type/name:227
 msgid "DJ-mix"
@@ -2332,7 +2332,7 @@ msgstr "Deze relatie koppelt een artiest aan zijn <a href=\"http://www.imslp.org
 msgid ""
 "This links an artist to its page in <a "
 "href=\"https://www.cpdl.org/\">CPDL</a>."
-msgstr ""
+msgstr "Deze relatie koppelt een artiest aan zijn <a href=\"https://www.cpdl.org/\">CPDL</a>-pagina."
 
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
@@ -4098,7 +4098,7 @@ msgstr "heeft een BookBrainz-pagina op"
 
 #: DB:link_type/long_link_phrase:981
 msgid "has a CPDL page at"
-msgstr ""
+msgstr "heeft een CPDL-pagina op"
 
 #: DB:link_type/long_link_phrase:180 DB:link_type/long_link_phrase:76
 #: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:90

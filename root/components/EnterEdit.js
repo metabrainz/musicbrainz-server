@@ -7,12 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-import type {Node as ReactNode} from 'react';
+import * as React from 'react';
 
 
 type Props<F> = {
-  +children: ReactNode,
+  +children: React.Node,
   +form: FormT<{...F, +make_votable: ReadOnlyFieldT<boolean>}>,
 };
 

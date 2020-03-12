@@ -8,8 +8,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-import type {Node as ReactNode} from 'react';
+import * as React from 'react';
 
 import Layout from '../layout';
 import Tabs from '../components/Tabs';
@@ -18,10 +17,10 @@ import {l_statistics as l, N_l_statistics as N_l}
   from '../static/scripts/common/i18n/statistics';
 
 type StatisticsLayoutPropsT = {
-  +children: ReactNode,
+  +children: React.Node,
   +fullWidth: boolean,
   +page: string,
-  +sidebar?: ?ReactNode,
+  +sidebar?: ?React.Node,
   +title: string,
 };
 

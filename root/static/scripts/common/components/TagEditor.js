@@ -8,7 +8,7 @@
  */
 
 import _ from 'lodash';
-import React from 'react';
+import * as React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';

@@ -626,7 +626,7 @@ around _validate_merge => sub {
         return 0;
     }
 
-    if (any { $_ == $DARTIST_ID } @all) {
+    if ($target == $DARTIST_ID) {
         $form->field('target')->add_error(l('You cannot merge into Deleted Artist'));
         return 0;
     }
@@ -650,7 +650,7 @@ sub rating : Chained('load') Args(2)
     $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
-around $_ => sub {
+around edit => sub {
     my $orig = shift;
     my ($self, $c) = @_;
 
@@ -670,7 +670,7 @@ around $_ => sub {
     else {
         $self->$orig($c);
     }
-} for qw( edit );
+};
 
 sub watch : Chained('load') RequireAuth {
     my ($self, $c) = @_;

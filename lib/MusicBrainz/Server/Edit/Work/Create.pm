@@ -67,6 +67,9 @@ sub build_display_data
 
     if (defined $data->{language_id}) {
         $display->{language} = $loaded->{Language}->{$data->{language_id}};
+        if ($display->{language}->iso_code_3 eq "zxx") {
+            $display->{language}->name(l("[No lyrics]"));
+        }
     }
 
     if (defined $data->{languages}) {

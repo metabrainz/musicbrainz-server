@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 import {assign} from 'lodash';
-import React from 'react';
+import * as React from 'react';
 
 import ArtistCreditLink from '../../common/components/ArtistCreditLink';
 import DescriptiveLink from '../../common/components/DescriptiveLink';

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults';
 import Relationships from '../components/Relationships';
@@ -68,7 +68,7 @@ const RecordingAppearancesTable = ({
               <th colSpan="10">
                 {status
                   ? lp_attributes(status.name, 'release_status')
-                  : l('(unknown)')
+                  : lp('(unknown)', 'release status')
                 }
               </th>
             </tr>

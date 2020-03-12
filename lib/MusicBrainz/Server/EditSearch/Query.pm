@@ -104,7 +104,7 @@ sub new_from_user_input {
     my ($class, $user_input, $user) = @_;
     my $input = expand_hash($user_input);
     my $ae = $input->{auto_edit_filter};
-    $ae = undef if $ae =~ /^\s*$/;
+    $ae = undef if defined $ae && $ae =~ /^\s*$/;
     return $class->new(
         exists $input->{negation}   ? (negate => $input->{negation}) : (),
         exists $input->{combinator} ? (combinator => $input->{combinator}) : (),

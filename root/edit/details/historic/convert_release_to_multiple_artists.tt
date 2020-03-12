@@ -9,7 +9,7 @@
         [% END %]
       </ul>
       [% ELSE;
-           l('(unknown)');
+          lp('(unknown)', 'release');
          END %]
     </td>
   </tr>

@@ -47,8 +47,7 @@ map.on('click', function (e) {
         updateCoordinates(e.latlng);
     } else {
         // If the map is zoomed too far out, marker placement would be wildly inaccurate, so just zoom in.
-        map.setView(e.latlng);
-        map.zoomIn(2);
+        map.setView(e.latlng, map.getZoom() + 2);
     }
 });
 
@@ -84,10 +83,9 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
             $('input[name=edit-place\\.coordinates]').addClass('success');
             coordinatesError(false);
 
-            marker.setLatLng(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
-
-            map.panTo(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
-            map.setZoom(16);
+            const coords = L.latLng(data.coordinates.latitude, data.coordinates.longitude);
+            marker.setLatLng(coords);
+            map.setView(coords, 16);
         }).fail(function (jqxhr, textStatus) {
             if (textStatus === 'abort') {
                 return;

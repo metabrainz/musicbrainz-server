@@ -7,9 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-import type {ElementRef} from 'react';
-
+import * as React from 'react';
 
 type Props = {
   +className: string,
@@ -42,7 +40,7 @@ class Collapsible extends React.Component<Props, State> {
     }
   }
 
-  containerRef: {current: null | ElementRef<'div'>};
+  containerRef: {current: null | React.ElementRef<'div'>};
 
   handleToggle: (event: SyntheticEvent<HTMLAnchorElement>) => void;
 
