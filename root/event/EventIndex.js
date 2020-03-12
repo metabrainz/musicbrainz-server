@@ -31,32 +31,36 @@ const EventIndex = ({
   event,
   numberOfRevisions,
   wikipediaExtract,
-}: Props) => (
-  <EventLayout entity={event} page="index">
-    {eligibleForCleanup ? (
-      <CleanupBanner entityType="event" />
-    ) : null}
-    <Annotation
-      annotation={event.latest_annotation}
-      collapse
-      entity={event}
-      numberOfRevisions={numberOfRevisions}
-    />
-    <WikipediaExtract
-      cachedWikipediaExtract={wikipediaExtract || null}
-      entity={event}
-    />
-    <Relationships source={event} />
-    {event.setlist ? (
-      <>
-        <h2 className="setlist">{l('Setlist')}</h2>
-        <p className="setlist">
-          {expand2react(event.setlist)}
-        </p>
-      </>
-    ) : null}
-    {manifest.js('event/index.js', {async: 'async'})}
-  </EventLayout>
-);
+}: Props) => {
+  const setlist = event.setlist;
+
+  return (
+    <EventLayout entity={event} page="index">
+      {eligibleForCleanup ? (
+        <CleanupBanner entityType="event" />
+      ) : null}
+      <Annotation
+        annotation={event.latest_annotation}
+        collapse
+        entity={event}
+        numberOfRevisions={numberOfRevisions}
+      />
+      <WikipediaExtract
+        cachedWikipediaExtract={wikipediaExtract || null}
+        entity={event}
+      />
+      <Relationships source={event} />
+      {setlist ? (
+        <>
+          <h2 className="setlist">{l('Setlist')}</h2>
+          <p className="setlist">
+            {expand2react(setlist)}
+          </p>
+        </>
+      ) : null}
+      {manifest.js('event/index.js', {async: 'async'})}
+    </EventLayout>
+  );
+};
 
 export default EventIndex;
