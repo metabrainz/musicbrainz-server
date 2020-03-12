@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-11 22:52+0000\n"
+"PO-Revision-Date: 2020-02-26 20:58+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -954,7 +954,7 @@ msgid "chitarra battente"
 msgstr "chitarra battente"
 
 #: DB:instrument/name:744
-msgctxt "Ancient South Indian fretless Carnatic slide lute"
+msgctxt "Large South Indian fretless Carnatic slide lute"
 msgid "chitra veena"
 msgstr "chitra-vina"
 
@@ -3969,6 +3969,7 @@ msgid "vibraslap"
 msgstr "vibraslap"
 
 #: DB:instrument/name:612
+msgctxt "Large North Indian fretless stick zither"
 msgid "vichitra veena"
 msgstr "vichitra-vina"
 
