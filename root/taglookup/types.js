@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {Node as ReactNode} from 'react';
-
 export type TagLookupFormT = FormT<{
   +artist: ReadOnlyFieldT<string>,
   +duration: ReadOnlyFieldT<string>,
@@ -25,7 +23,7 @@ export type TagLookupPropsT = {
 
 export type TagLookupResultsPropsT<T> = {
   +$c: CatalystContextT,
-  +children: ReactNode,
+  +children: React$Node,
   +form: TagLookupFormT,
   +nag: boolean,
   +pager: PagerT,

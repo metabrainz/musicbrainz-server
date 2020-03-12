@@ -8,7 +8,7 @@
  */
 
 import {assign, capitalize} from 'lodash';
-import ReactDOMServer from 'react-dom/server';
+import * as ReactDOMServer from 'react-dom/server';
 
 import getBooleanCookie from '../common/utility/getBooleanCookie';
 

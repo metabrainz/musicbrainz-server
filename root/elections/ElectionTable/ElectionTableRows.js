@@ -7,8 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-import type {Node as ReactNode} from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
@@ -64,7 +63,7 @@ const ElectionTableRow = withCatalystContext(({
 
 const ElectionTableRows = (
   {elections}: {+elections: $ReadOnlyArray<AutoEditorElectionT>},
-): ReactNode => elections.map((election, index) => (
+): React.Node => elections.map((election, index) => (
   <ElectionTableRow
     election={election}
     index={index}

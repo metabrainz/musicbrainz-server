@@ -7,8 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-import type {Node as ReactNode} from 'react';
+import * as React from 'react';
 
 import Layout from '../layout';
 import InstrumentSidebar
@@ -20,7 +19,7 @@ import localizeInstrumentName
 import InstrumentHeader from './InstrumentHeader';
 
 type Props = {
-  +children: ReactNode,
+  +children: React.Node,
   +entity: InstrumentT,
   +fullWidth?: boolean,
   +page: string,

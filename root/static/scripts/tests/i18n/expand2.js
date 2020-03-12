@@ -1,5 +1,5 @@
 import test from 'tape';
-import React from 'react';
+import * as React from 'react';
 
 import {VarArgs} from '../../common/i18n/expand2';
 import expand2html from '../../common/i18n/expand2html';

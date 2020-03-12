@@ -11,8 +11,8 @@ import $ from 'jquery';
 import _ from 'lodash';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 
 import FormRowSelectList from '../../components/FormRowSelectList';

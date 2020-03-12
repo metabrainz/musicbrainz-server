@@ -7,8 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-import type {Node as ReactNode} from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
@@ -57,7 +56,7 @@ type CollectionListProps = {
   +ownCollectionsHeader: string,
   +ownCollectionsNoneText: string,
   +sectionClass: string,
-  +usersLink: ReactNode,
+  +usersLink: React.Node,
   +usersLinkHeader: string,
 };
 

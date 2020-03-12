@@ -9,8 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import mutate from 'mutate-cow';
 
 import Autocomplete from '../../common/components/Autocomplete';

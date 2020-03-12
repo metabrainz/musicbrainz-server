@@ -8,7 +8,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import NotFoundComponent from '../components/NotFound';

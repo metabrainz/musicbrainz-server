@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-import type {Node as ReactNode} from 'react';
-
+import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
 
 type Props<T> = {
-  +buildResult: (SearchResultT<T>, number) => ReactNode,
-  +columns: ReactNode,
+  +buildResult: (SearchResultT<T>, number) => React.Node,
+  +columns: React.Node,
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,
