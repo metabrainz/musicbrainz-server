@@ -153,6 +153,7 @@ module.exports = {
   'report/PartOfSetRelationships': require('../report/PartOfSetRelationships'),
   'report/PlacesWithoutCoordinates': require('../report/PlacesWithoutCoordinates'),
   'report/PossibleCollaborations': require('../report/PossibleCollaborations'),
+  'report/RecordingTrackDifferentName': require('../report/RecordingTrackDifferentName'),
   'report/RecordingsSameNameDifferentArtistsSameName': require('../report/RecordingsSameNameDifferentArtistsSameName'),
   'report/RecordingsWithEarliestReleaseRelationships': require('../report/RecordingsWithEarliestReleaseRelationships'),
   'report/RecordingsWithVaryingTrackLengths': require('../report/RecordingsWithVaryingTrackLengths'),
