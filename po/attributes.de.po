@@ -31,7 +31,7 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2013
 # Patrick <email address hidden>, 2015
-# Philipp Wolfer <email address hidden>, 2012,2018-2019
+# Philipp Wolfer <email address hidden>, 2012,2018-2020
 # Philipp Wolfer <email address hidden>, 2012
 # S.Brandt <email address hidden>, 2014-2016
 # Shepard, 2011
@@ -46,7 +46,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-12-11 07:23+0000\n"
+"PO-Revision-Date: 2020-03-13 08:45+0000\n"
 "Last-Translator: Philipp Wolfer <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -5064,7 +5064,7 @@ msgstr ""
 #: DB:place_type/name:8
 msgctxt "place_type"
 msgid "Pressing plant"
-msgstr ""
+msgstr "Presswerk"
 
 #: DB:label_type/name:3
 msgctxt "label_type"

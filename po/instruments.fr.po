@@ -23,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-26 20:58+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-03-12 12:45+0000\n"
+"Last-Translator: AO <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -695,6 +695,11 @@ msgstr "sonnette de vélo"
 msgid "bin-sasara"
 msgstr "binzasara"
 
+#: DB:instrument/name:1013
+msgctxt "Hybrid fretted stick-zither"
+msgid "bin-sitar"
+msgstr ""
+
 #: DB:instrument/name:884
 msgid "birbynė"
 msgstr ""
@@ -843,6 +848,11 @@ msgstr "accordéon clavier « boutons »"
 #: DB:instrument/name:655
 msgid "buzuq"
 msgstr "buzuq"
+
+#: DB:instrument/name:1012
+msgctxt "Family of ancient Indian stick zither chordophones"
+msgid "bīn"
+msgstr ""
 
 #: DB:instrument/name:903
 msgctxt "Brazilian Samba snare-drum"
@@ -3313,7 +3323,7 @@ msgid "sistrum"
 msgstr "sistre"
 
 #: DB:instrument/name:88
-msgctxt "Indian long-necked lute"
+msgctxt "Indian long-necked fretted gourdlute"
 msgid "sitar"
 msgstr "sitar"
 
@@ -3571,7 +3581,7 @@ msgid "tangent piano"
 msgstr "piano à tangentes"
 
 #: DB:instrument/name:829
-msgctxt "Indian drone long-necked lute"
+msgctxt "Indian drone long-necked frettless gourdlute"
 msgid "tanpura"
 msgstr "tanpura"
 
@@ -3809,10 +3819,6 @@ msgstr "trompette marine"
 msgid "trombone"
 msgstr "trombone"
 
-#: DB:instrument/name:663
-msgid "tromboon"
-msgstr "trombon"
-
 #: DB:instrument/name:33
 msgid "trumpet"
 msgstr "trompette"
@@ -3956,7 +3962,7 @@ msgid "valved brass instruments"
 msgstr "cuivres à pistons"
 
 #: DB:instrument/name:943
-msgctxt "Family of ancient Indian chordophones"
+msgctxt "Family of ancient Indian lute-like chordophones"
 msgid "veena"
 msgstr "vînâ"
 
@@ -3982,7 +3988,7 @@ msgid "vibraslap"
 msgstr "vibraslap"
 
 #: DB:instrument/name:612
-msgctxt "Large North Indian fretless stick zither"
+msgctxt "Large North Indian fretless sliding stick zither"
 msgid "vichitra veena"
 msgstr "vichitra vînâ"
 

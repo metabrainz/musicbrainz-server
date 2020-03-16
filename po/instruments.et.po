@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-26 20:58+0000\n"
+"PO-Revision-Date: 2020-03-12 12:45+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -678,6 +678,11 @@ msgstr ""
 msgid "bin-sasara"
 msgstr "bin-sasara"
 
+#: DB:instrument/name:1013
+msgctxt "Hybrid fretted stick-zither"
+msgid "bin-sitar"
+msgstr ""
+
 #: DB:instrument/name:884
 msgid "birbynė"
 msgstr ""
@@ -825,6 +830,11 @@ msgstr "nuppakordion"
 
 #: DB:instrument/name:655
 msgid "buzuq"
+msgstr ""
+
+#: DB:instrument/name:1012
+msgctxt "Family of ancient Indian stick zither chordophones"
+msgid "bīn"
 msgstr ""
 
 #: DB:instrument/name:903
@@ -3296,9 +3306,9 @@ msgid "sistrum"
 msgstr "sistrum"
 
 #: DB:instrument/name:88
-msgctxt "Indian long-necked lute"
+msgctxt "Indian long-necked fretted gourdlute"
 msgid "sitar"
-msgstr ""
+msgstr "sitar"
 
 #: DB:instrument/name:962
 msgctxt "Deepest pitch single octave metallophone used in Javanese gamelan"
@@ -3554,7 +3564,7 @@ msgid "tangent piano"
 msgstr "tangentklaver"
 
 #: DB:instrument/name:829
-msgctxt "Indian drone long-necked lute"
+msgctxt "Indian drone long-necked frettless gourdlute"
 msgid "tanpura"
 msgstr ""
 
@@ -3792,10 +3802,6 @@ msgstr ""
 msgid "trombone"
 msgstr "tromboon"
 
-#: DB:instrument/name:663
-msgid "tromboon"
-msgstr "trombott"
-
 #: DB:instrument/name:33
 msgid "trumpet"
 msgstr "trompet"
@@ -3939,7 +3945,7 @@ msgid "valved brass instruments"
 msgstr "ventiilidega vaskpuhkpillid"
 
 #: DB:instrument/name:943
-msgctxt "Family of ancient Indian chordophones"
+msgctxt "Family of ancient Indian lute-like chordophones"
 msgid "veena"
 msgstr ""
 
@@ -3965,7 +3971,7 @@ msgid "vibraslap"
 msgstr ""
 
 #: DB:instrument/name:612
-msgctxt "Large North Indian fretless stick zither"
+msgctxt "Large North Indian fretless sliding stick zither"
 msgid "vichitra veena"
 msgstr "vicitra vīṇā"
 
