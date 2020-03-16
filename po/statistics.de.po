@@ -11,7 +11,7 @@
 # Mark Spike, 2019
 # Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
-# Philipp Wolfer <email address hidden>, 2018
+# Philipp Wolfer <email address hidden>, 2018,2020
 # S.Brandt <email address hidden>, 2014,2018
 # Shepard, 2011
 # Shepard, 2013-2014
@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2019-11-01 18:33+0000\n"
-"Last-Translator: David Kellner <email address hidden>\n"
+"PO-Revision-Date: 2020-03-13 08:40+0000\n"
+"Last-Translator: Philipp Wolfer <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -200,7 +200,7 @@ msgstr "Verbesserungen der Bearbeitungsanzeige, RDF-Abbilder deaktiviert, neue I
 
 #: DB:statistics.statistic_event/title:2015-12-28
 msgid "Edit note notifications"
-msgstr ""
+msgstr "Benachrichtigungen zu Bearbeitungsbemerkungen"
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
@@ -372,7 +372,7 @@ msgid ""
 "\"Add release\"; and \"Add\", \"Edit\" and \"Remove release label\". "
 "Additionally, the German, French and Dutch translations are available on the"
 " main server."
-msgstr ""
+msgstr "Mehr Bearbeitungstypen werden zu automatischen Bearbeitungen für jeden: \"Beziehung hinzufügen\", \"Veröffentlichung hinzufügen\" sowie \"Veröffentlichungslabel hinzufügen\", \"bearbeiten\" und \"entfernen\". Ausserdem stehen die deutsche, französische und niederländische Übersetzung auf dem Haupt-Server bereit."
 
 #: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
@@ -543,7 +543,7 @@ msgstr "Die MetaBrainz-Stiftung, der Rechtsrahmen für MusicBrainz, wird der Öf
 msgid ""
 "The alpha version of ListenBrainz, an open source and open data alternative "
 "to Last.fm®, goes live."
-msgstr ""
+msgstr "Die Alpha-Version von ListenBrainz, einer Open Source- und Open Data-Alternative zu Last.fm®, wird live geschaltet."
 
 #: DB:statistics.statistic_event/description:2014-05-19
 msgid "The beta version of CritiqueBrainz is launched."
@@ -558,7 +558,7 @@ msgid ""
 "The new MetaBrainz website, featuring an all-new design and online sign-up "
 "for commercial users, is launched, replacing the one designed in the year "
 "2000!"
-msgstr ""
+msgstr "Die neue MusicBrainz-Webseite mit einem völlig neuen Design und Online-Anmeldung für gewerbliche Nutzer ersetzt die im Jahr 2000 entworfene."
 
 #: DB:statistics.statistic_event/description:2012-10-15
 msgid ""
@@ -613,18 +613,18 @@ msgid "Controls"
 msgstr "Steuerelemente"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:36
-#: ../root/statistics/StatisticsLayout.js:52
+#: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
 msgstr "Länder"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:69
-#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:17
+#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:17
 msgid "Cover Art"
 msgstr "Cover-Art"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:98
-#: ../root/statistics/StatisticsLayout.js:111
+#: ../root/statistics/StatisticsLayout.js:97
+#: ../root/statistics/StatisticsLayout.js:110
 msgid "Database Statistics"
 msgstr "Datenbankstatistiken"
 
@@ -638,13 +638,13 @@ msgstr "Ein Rechteck auf einem der Graphen zeichnen"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:97
 #: ../root/statistics/Editors.js:108 ../root/statistics/Index.js:908
-#: ../root/statistics/StatisticsLayout.js:82
+#: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "Bearbeiter"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:32
 #: ../root/statistics/Edits.js:36 ../root/statistics/Edits.js:45
-#: ../root/statistics/Index.js:1032 ../root/statistics/StatisticsLayout.js:72
+#: ../root/statistics/Index.js:1032 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:184
 msgid "Edits"
 msgstr "Bearbeitungen"
@@ -653,7 +653,7 @@ msgstr "Bearbeitungen"
 msgid "Exact Values (items vs. day)"
 msgstr "Genaue Werte (Einträge vs. Tag)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
 #: ../root/statistics/stats.js:19
 msgid "Formats"
 msgstr "Formate"
@@ -662,7 +662,7 @@ msgstr "Formate"
 msgid "Hover and click on vertical lines"
 msgstr "Über vertikale Linien bewegen und klicken"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:57
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
 msgid "Languages/Scripts"
 msgstr "Sprachen/Schriften"
 
@@ -679,7 +679,7 @@ msgid "MusicBrainz Events:"
 msgstr "MusicBrainz-Ereignisse:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:80
-#: ../root/statistics/StatisticsLayout.js:47
+#: ../root/statistics/StatisticsLayout.js:46
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -693,7 +693,7 @@ msgstr "Diagramm der Veränderungsrate"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:88
 #: ../root/statistics/Relationships.js:92
-#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:23
+#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:23
 #: ../root/statistics/stats.js:33
 msgid "Relationships"
 msgstr "Beziehungen"
@@ -702,7 +702,7 @@ msgstr "Beziehungen"
 msgid "Reset:"
 msgstr "Zurücksetzen:"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:87
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
 msgid "Timeline"
 msgstr "Zeitleiste"
 
@@ -766,7 +766,7 @@ msgstr "Wesentliches"
 #: ../root/statistics/CoverArt.js:76 ../root/statistics/CoverArt.js:105
 #: ../root/statistics/CoverArt.js:239
 msgid "No cover art statistics available."
-msgstr ""
+msgstr "Keine Cover-Art-Statistiken verfügbar."
 
 #: ../root/statistics/CoverArt.js:82 ../root/statistics/CoverArt.js:114
 #: ../root/statistics/CoverArt.js:141 ../root/statistics/CoverArt.js:168
@@ -1463,7 +1463,7 @@ msgstr "Keine Beziehungsstatistiken verfügbar."
 #: ../root/statistics/Relationships.js:102
 msgctxt "relationships"
 msgid "This type only"
-msgstr ""
+msgstr "Nur dieser Typ"
 
 #: ../root/statistics/Relationships.js:103
 msgctxt "relationships"
