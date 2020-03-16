@@ -56,7 +56,7 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (
     (uniq map { @$_ } values %EXPORT_TAGS),
     qw(
-        $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
+        $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID $NOLABEL_ID $NOLABEL_GID
         $COVERART_FRONT_TYPE $COVERART_BACK_TYPE
         $AREA_TYPE_COUNTRY $AREA_TYPE_CITY
         $ARTIST_TYPE_PERSON $ARTIST_TYPE_GROUP
@@ -97,6 +97,9 @@ Readonly our $DARTIST_ID => 2;
 
 Readonly our $VARTIST_GID => '89ad4ac3-39f7-470e-963a-56509c546377';
 Readonly our $VARTIST_ID  => 1;
+
+Readonly our $NOLABEL_GID => '157afde4-4bf5-4039-8ad2-5a15acc85176';
+Readonly our $NOLABEL_ID  => 3267;
 
 Readonly our $EXPIRE_ACCEPT => 1;
 Readonly our $EXPIRE_REJECT => 2;
@@ -977,6 +980,10 @@ Row ID and GID's for the special artist "Various Artists"
 =item $DARTIST_ID
 
 Row ID for the Deleted Artist entity
+
+=item $NOLABEL_ID, $NOLABEL_GID
+
+Row ID and GID for the special label "[no label]"
 
 =back
 

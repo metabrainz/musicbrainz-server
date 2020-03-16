@@ -8,7 +8,7 @@
 
 import _ from 'lodash';
 import ko from 'knockout';
-import React from 'react';
+import * as React from 'react';
 
 import SearchIcon from './SearchIcon';
 

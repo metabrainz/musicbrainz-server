@@ -296,16 +296,7 @@ if ($fCompress and $fDoFullExport)
     $mbdump->make_tar("mbdump-wikidocs.tar.bz2", @WIKIDOCS_TABLE_LIST);
     $mbdump->make_tar("mbdump-documentation.tar.bz2", @DOCUMENTATION_TABLE_LIST);
 
-    for my $hash_program ('md5sum', 'sha256sum') {
-        my $hash_output_file = uc($hash_program . 's');
-        chomp (my $hash_bin = `which g$hash_program` || `which $hash_program`);
-        system "cd $OutputDir && $hash_bin --binary *.tar.bz2" .
-               " | grep -v mbdump-private > $hash_output_file";
-
-        $? == 0 or die "$hash_program returned $?";
-
-        $mbdump->gpg_sign("$OutputDir/$hash_output_file");
-    }
+    $mbdump->write_checksum_files;
 
     my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY;
     if ($encrypt_for) {

@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     get_area_containment_query
     hash_to_row
+    is_special_label
     load_subobjects
     merge_table_attributes
     merge_date_period
@@ -178,6 +179,7 @@ sub update
 sub can_delete
 {
     my ($self, $label_id) = @_;
+    return 0 if is_special_label($label_id);
     my $refcount = $self->sql->select_single_column_array('SELECT 1 FROM release_label WHERE label = ?', $label_id);
     return @$refcount == 0;
 }
@@ -205,9 +207,13 @@ sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
+    if (grep { is_special_label($_) } @old_ids) {
+        confess('Attempt to merge a special purpose label into another label');
+    }
+
     $self->alias->merge($new_id, @old_ids);
-    $self->ipi->merge($new_id, @old_ids);
-    $self->isni->merge($new_id, @old_ids);
+    $self->ipi->merge($new_id, @old_ids) unless is_special_label($new_id);
+    $self->isni->merge($new_id, @old_ids) unless is_special_label($new_id);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
@@ -216,22 +222,24 @@ sub _merge_impl
     $self->c->model('Edit')->merge_entities('label', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('label', $new_id, \@old_ids);
 
-    merge_table_attributes(
-        $self->sql => (
-            table => 'label',
-            columns => [ qw( type area label_code ) ],
-            old_ids => \@old_ids,
-            new_id => $new_id
-        )
-    );
+    unless (is_special_label($new_id)) {
+        merge_table_attributes(
+            $self->sql => (
+                table => 'label',
+                columns => [ qw( type area label_code ) ],
+                old_ids => \@old_ids,
+                new_id => $new_id
+            )
+        );
 
-    merge_date_period(
-        $self->sql => (
-            table => 'label',
-            old_ids => \@old_ids,
-            new_id => $new_id
-        )
-    );
+        merge_date_period(
+            $self->sql => (
+                table => 'label',
+                old_ids => \@old_ids,
+                new_id => $new_id
+            )
+        );
+    }
 
     $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
 

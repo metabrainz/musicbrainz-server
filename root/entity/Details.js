@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import {ENTITIES} from '../static/scripts/common/constants';
 import DBDefs from '../static/scripts/common/DBDefs';
@@ -77,7 +77,7 @@ const Details = ({
           <td>
             {entity.last_updated
               ? formatUserDate($c, entity.last_updated)
-              : l('(unknown)')}
+              : lp('(unknown)', 'last updated')}
           </td>
         </tr>
         <tr>

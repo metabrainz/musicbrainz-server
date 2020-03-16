@@ -7,8 +7,8 @@
  */
 
 import ko from 'knockout';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import MB from '../../common/MB';
 import FieldErrors from '../../../../components/FieldErrors';

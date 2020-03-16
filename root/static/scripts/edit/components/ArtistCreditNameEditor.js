@@ -7,7 +7,7 @@
  */
 
 import _ from 'lodash';
-import React from 'react';
+import * as React from 'react';
 
 import Autocomplete from '../../common/components/Autocomplete';
 import clean from '../../common/utility/clean';

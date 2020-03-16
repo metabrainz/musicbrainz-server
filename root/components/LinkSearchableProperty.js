@@ -9,7 +9,7 @@
 
 import {URL} from 'url';
 
-import React from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../context';
 import escapeLuceneValue

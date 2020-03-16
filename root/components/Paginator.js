@@ -8,7 +8,7 @@
  */
 
 import {range} from 'lodash';
-import React from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../context';
 import uriWith from '../utility/uriWith';

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import {l as lMbServer} from '../static/scripts/common/i18n';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';

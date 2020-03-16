@@ -7,11 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 import sortBy from 'lodash/sortBy';
 
 import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
+import FieldErrors from '../components/FieldErrors';
 import FormRowCheckbox from '../components/FormRowCheckbox';
 import ArtistList from '../components/list/ArtistList';
 import {withCatalystContext} from '../context';
@@ -37,6 +38,7 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => (
           artists={sortBy(toMerge, 'name')}
           mergeForm={form}
         />
+        <FieldErrors field={form.field.target} />
 
         <FormRowCheckbox
           field={form.field.rename}

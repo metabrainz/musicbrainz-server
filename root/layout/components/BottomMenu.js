@@ -8,7 +8,7 @@
  */
 
 import _ from 'lodash';
-import React from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';

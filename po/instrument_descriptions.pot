@@ -984,6 +984,15 @@ msgid ""
 "and a flared (brass) bell."
 msgstr ""
 
+#. name:kachva sitar 
+#: DB:instrument/description:947
+msgid ""
+"Flat-cut gourd sitar with 16 frets, 2 steel & 3 brass strings. In the 1820s "
+"it was used by Ghulam Mohammed to develop the surbahar.<br /><br /> "
+"Mistakenly re-named \"Kachapi vina\" in the 19th century by Tagore, that "
+"instrument was actually an ancient unrelated short-necked pear-shaped lute."
+msgstr ""
+
 #. name:poi 
 #: DB:instrument/description:866
 msgid ""
@@ -1610,13 +1619,6 @@ msgstr ""
 msgid "Middle sized kendang, it was traditionally used for the wayang dance."
 msgstr ""
 
-#. name:kachva sitar 
-#: DB:instrument/description:947
-msgid ""
-"More common in the 19th century, it was made of flat-cut gourd and had 16 "
-"frets, In the 1820s it was used by Ghulam Mohammed to develop the surbahar."
-msgstr ""
-
 #. name:bass viol 
 #: DB:instrument/description:916
 msgid ""
@@ -1695,6 +1697,28 @@ msgid ""
 "Oldest instrument of Lithuania, it is made of a special tree in a trapezoid "
 "shape, it has a metalbar and wooden pegs at each side were 5 to 12 strings "
 "are strung."
+msgstr ""
+
+#. name:bīn 
+#: DB:instrument/description:1012
+msgid ""
+"One of the two subfamilies of Indian chordophones, the North Indian stick "
+"zither used in classical Hindustani music has two (or more) large gourd "
+"sound resonators and a stick or tube body.<br /> Commonly called \"bin\", "
+"\"been\" or \"bean\", the representative is <a href=\"/instrument/aea9661c-"
+"cbda-4bf3-a61d-d78697472f29\">rudra veena</a>, and credits to just \"bin\" "
+"are usually that."
+msgstr ""
+
+#. name:veena 
+#: DB:instrument/description:943
+msgid ""
+"One of the two subfamilies of Indian chordophones, the South Indian gourd "
+"lute used in classical Carnatic music has a single gourd music-box "
+"(sometimes a secondary small resonator gourd) with an often hollow neck.<br /"
+"> Commonly called just \"veena\" or \"vina\", the representative is <a href="
+"\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati veena</a>, "
+"and credits to just \"veena\" are usually that."
 msgstr ""
 
 #. name:bonang barung 
@@ -1868,6 +1892,14 @@ msgstr ""
 msgid ""
 "Played in ensemble with kulanter, it is set at an angle and played with "
 "hands or sticks. it has the designation of \"mother\""
+msgstr ""
+
+#. name:vichitra veena 
+#: DB:instrument/description:612
+msgid ""
+"Played like a slide guitar, it has two large gourd resonators with a teak "
+"body that often ends in carved peacock heads. Fretless, it has 4 main, 5 "
+"chikari and 13 resonance strings, slide is a glass orb named batta."
 msgstr ""
 
 #. name:mijwiz 
@@ -3772,13 +3804,6 @@ msgstr ""
 msgid "The treble, descant or soprano member of the viol family"
 msgstr ""
 
-#. name:tromboon 
-#: DB:instrument/description:663
-msgid ""
-"The tromboon is an instrument created by attaching the reed of a bassoon to "
-"the body of a trombone."
-msgstr ""
-
 #. name:trống bông 
 #: DB:instrument/description:305
 msgid ""
@@ -3832,12 +3857,6 @@ msgstr ""
 msgid ""
 "The venu is a bamboo transverse flute used in the Carnatic music of South "
 "India."
-msgstr ""
-
-#. name:vichitra veena 
-#: DB:instrument/description:612
-msgid ""
-"The vichitra veena is a plucked string instrument used in Hindustani music."
 msgstr ""
 
 #. name:violino piccolo 
@@ -4184,14 +4203,6 @@ msgid ""
 "Two rods, one is held in the mouth, which works as a resonance chamber while "
 "chanting and singing, the other is used for tapping and scraping, creating "
 "rhythm."
-msgstr ""
-
-#. name:veena 
-#: DB:instrument/description:943
-msgid ""
-"Two subfamilies, The North Indian 2 gourd stick zither used in classical "
-"Hindustani music and the the South Indian single gourd lute used in "
-"classical Carnatic music."
 msgstr ""
 
 #. name:slentho 

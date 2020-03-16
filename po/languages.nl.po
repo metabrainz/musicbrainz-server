@@ -1,14 +1,14 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2019
+# Maurits Meulenbelt <email address hidden>, 2013-2020
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-26 20:58+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-03-06 11:38+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2529,7 +2529,7 @@ msgstr "Waals"
 #. frequency:1 iso_code_3:wae
 #: DB:language/name:6981
 msgid "Walser"
-msgstr ""
+msgstr "Walserduits"
 
 #. frequency:1 iso_code_3:war
 #: DB:language/name:453

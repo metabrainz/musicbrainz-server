@@ -9,7 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
-import ReactDOMServer from 'react-dom/server';
+import * as ReactDOMServer from 'react-dom/server';
 
 import '../../../lib/jquery-ui';
 

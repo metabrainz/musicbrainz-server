@@ -9,7 +9,7 @@
  */
 
 
-import React from 'react';
+import * as React from 'react';
 
 import Layout from '../../layout';
 import {compare} from '../../static/scripts/common/i18n';

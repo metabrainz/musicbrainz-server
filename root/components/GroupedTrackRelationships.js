@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import commaList from '../static/scripts/common/i18n/commaList';
@@ -55,13 +55,17 @@ const renderWorkRelationship = (relationship: RelationshipT) => {
     false, /* forGrouping */
   );
 
+  const title = relationship.editsPending
+    ? <span className="mp">{phrase}</span>
+    : phrase;
+
   const targetCredit = backward
     ? relationship.entity0_credit
     : relationship.entity1_credit;
 
   return (
     <React.Fragment key={relationship.id}>
-      <dt>{addColon(phrase)}</dt>
+      <dt>{addColon(title)}</dt>
       <dd>
         <EntityLink content={targetCredit} entity={work} />
         {' '}

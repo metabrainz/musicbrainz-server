@@ -163,6 +163,13 @@ export type ReportRecordingT = {
   +row_number: number,
 };
 
+export type ReportRecordingTrackT = {
+  +recording: ?RecordingT,
+  +recording_id: number,
+  +row_number: number,
+  +track_name: string,
+};
+
 export type ReportReleaseAnnotationT = {
   +created: string,
   +release: ?ReleaseT,

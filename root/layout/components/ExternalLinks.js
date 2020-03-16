@@ -8,7 +8,7 @@
 
 import URL from 'url';
 
-import React from 'react';
+import * as React from 'react';
 import _ from 'lodash';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';

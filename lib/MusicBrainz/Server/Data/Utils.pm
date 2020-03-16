@@ -21,6 +21,7 @@ use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $VARTIST_ID
+    $NOLABEL_ID
     $DLABEL_ID
     $INSTRUMENT_ROOT_ID
     $PART_OF_AREA_LINK_TYPE_ID
@@ -589,7 +590,7 @@ sub is_special_artist {
 
 sub is_special_label {
     my $label_id = shift;
-    return $label_id == $DLABEL_ID;
+    return $label_id == $NOLABEL_ID || $label_id == $DLABEL_ID;
 }
 
 sub take_while (&@) {

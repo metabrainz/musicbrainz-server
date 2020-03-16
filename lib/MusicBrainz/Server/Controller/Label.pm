@@ -38,6 +38,10 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use Data::Page;
+use MusicBrainz::Server::Data::Utils qw( is_special_label );
+use MusicBrainz::Server::Translation qw( l );
+use HTTP::Status qw( :constants );
+use List::AllUtils qw( any );
 
 use Sql;
 
@@ -171,6 +175,46 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_LABEL_DELETE,
+};
+
+around edit => sub {
+    my $orig = shift;
+    my ($self, $c) = @_;
+
+    my $label = $c->stash->{label};
+    if ($label->is_special_purpose) {
+        my %props = (
+            label => $label,
+        );
+        $c->stash(
+            component_path => 'label/SpecialPurpose',
+            component_props => \%props,
+            current_view => 'Node',
+        );
+        $c->response->status(HTTP_FORBIDDEN);
+        $c->detach;
+    }
+    else {
+        $self->$orig($c);
+    }
+};
+
+around _validate_merge => sub {
+    my ($orig, $self, $c, $form) = @_;
+    return unless $self->$orig($c, $form);
+    my $target = $form->field('target')->value;
+    my @all = map { $_->value } $form->field('merging')->fields;
+    if (grep { is_special_label($_) && $target != $_ } @all) {
+        $form->field('target')->add_error(l('You cannot merge a special purpose label into another label.'));
+        return 0;
+    }
+
+    if ($target == $DLABEL_ID) {
+        $form->field('target')->add_error(l('You cannot merge into Deleted Label.'));
+        return 0;
+    }
+
+    return 1;
 };
 
 1;

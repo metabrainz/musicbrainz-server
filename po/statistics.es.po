@@ -605,18 +605,18 @@ msgid "Controls"
 msgstr "Controles"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:36
-#: ../root/statistics/StatisticsLayout.js:52
+#: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
 msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:69
-#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:17
+#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:17
 msgid "Cover Art"
 msgstr "Imágenes"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:98
-#: ../root/statistics/StatisticsLayout.js:111
+#: ../root/statistics/StatisticsLayout.js:97
+#: ../root/statistics/StatisticsLayout.js:110
 msgid "Database Statistics"
 msgstr "Estadísticas de la base de datos"
 
@@ -630,13 +630,13 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:97
 #: ../root/statistics/Editors.js:108 ../root/statistics/Index.js:908
-#: ../root/statistics/StatisticsLayout.js:82
+#: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "Editores"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:32
 #: ../root/statistics/Edits.js:36 ../root/statistics/Edits.js:45
-#: ../root/statistics/Index.js:1032 ../root/statistics/StatisticsLayout.js:72
+#: ../root/statistics/Index.js:1032 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:184
 msgid "Edits"
 msgstr "Ediciones"
@@ -645,7 +645,7 @@ msgstr "Ediciones"
 msgid "Exact Values (items vs. day)"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
 #: ../root/statistics/stats.js:19
 msgid "Formats"
 msgstr "Formatos"
@@ -654,7 +654,7 @@ msgstr "Formatos"
 msgid "Hover and click on vertical lines"
 msgstr "Desplázate y clica sobre las líneas verticales"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:57
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
 msgid "Languages/Scripts"
 msgstr "Idiomas y alfabetos"
 
@@ -671,7 +671,7 @@ msgid "MusicBrainz Events:"
 msgstr "Eventos MusicBrainz:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:80
-#: ../root/statistics/StatisticsLayout.js:47
+#: ../root/statistics/StatisticsLayout.js:46
 msgid "Overview"
 msgstr "Resumen"
 
@@ -685,7 +685,7 @@ msgstr "Gráfico de ratio de cambio"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:88
 #: ../root/statistics/Relationships.js:92
-#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:23
+#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:23
 #: ../root/statistics/stats.js:33
 msgid "Relationships"
 msgstr "Relaciones"
@@ -694,7 +694,7 @@ msgstr "Relaciones"
 msgid "Reset:"
 msgstr "Reiniciar:"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:87
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
 msgid "Timeline"
 msgstr "Gráfica cronológica"
 
