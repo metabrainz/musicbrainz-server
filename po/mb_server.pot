@@ -11,7 +11,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-12 12:40+0000\n"
+"POT-Creation-Date: 2020-03-16 17:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -798,6 +798,7 @@ msgstr ""
 #: ../root/report/BadAmazonUrls.js:59 ../root/report/CatNoLooksLikeAsin.js:63
 #: ../root/report/DuplicateArtists.js:73
 #: ../root/report/IsrcsWithManyRecordings.js:73
+#: ../root/report/RecordingTrackDifferentName.js:62
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:73
 #: ../root/report/ReleaseLabelSameArtist.js:67
 #: ../root/report/components/ArtistAnnotationList.js:25
@@ -3713,7 +3714,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:35
 #: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:27
-#: ../root/report/ReportsIndex.js:460
+#: ../root/report/ReportsIndex.js:465
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:114 ../root/tag/TagLayout.js:31
 msgid "Places"
@@ -3916,6 +3917,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/layout/components/Search.js:22
 #: ../root/report/IsrcsWithManyRecordings.js:74
+#: ../root/report/RecordingTrackDifferentName.js:63
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:74
 #: ../root/report/components/RecordingAnnotationList.js:28
 #: ../root/report/components/RecordingList.js:28
@@ -5515,7 +5517,8 @@ msgstr ""
 msgid "Total tracks:"
 msgstr ""
 
-#: ../root/cdtoc/info.tt:31 ../root/search/components/RecordingResults.js:129
+#: ../root/cdtoc/info.tt:31 ../root/report/RecordingTrackDifferentName.js:64
+#: ../root/search/components/RecordingResults.js:129
 #: ../root/taglookup/Form.js:39
 msgid "Track"
 msgstr ""
@@ -5715,7 +5718,7 @@ msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:117
-#: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:510
+#: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:515
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 msgid "URLs"
 msgstr ""
@@ -6061,7 +6064,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:593 ../root/artist/ArtistWorks.js:31
 #: ../root/artist/ArtistWorks.js:32 ../root/components/EntityTabs.js:31
-#: ../root/report/ReportsIndex.js:490
+#: ../root/report/ReportsIndex.js:495
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagIndex.js:134 ../root/tag/TagLayout.js:29
 msgid "Works"
@@ -9618,7 +9621,7 @@ msgid "Code"
 msgstr ""
 
 #: ../root/components/list/RecordingList.js:90
-#: ../root/report/ReportsIndex.js:521
+#: ../root/report/ReportsIndex.js:526
 #: ../root/search/components/RecordingResults.js:126
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:682
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:244
@@ -9768,7 +9771,7 @@ msgid "Primary for locale"
 msgstr ""
 
 #: ../root/edit/details/AddSeries.js:34 ../root/edit/details/EditSeries.js:43
-#: ../root/report/ReportsIndex.js:480
+#: ../root/report/ReportsIndex.js:485
 #: ../root/report/components/SeriesAnnotationList.js:25
 #: ../root/tag/TagIndex.js:130
 msgid "Series"
@@ -11329,6 +11332,7 @@ msgstr ""
 #: ../root/report/PartOfSetRelationships.js:49
 #: ../root/report/PlacesWithoutCoordinates.js:44
 #: ../root/report/PossibleCollaborations.js:52
+#: ../root/report/RecordingTrackDifferentName.js:51
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:62
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:48
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:41
@@ -11404,6 +11408,7 @@ msgstr ""
 #: ../root/report/DeprecatedRelationshipRecordings.js:38
 #: ../root/report/DuplicateRelationshipsRecordings.js:40
 #: ../root/report/FeaturingRecordings.js:51
+#: ../root/report/RecordingTrackDifferentName.js:47
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:58
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:44
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:37
@@ -11701,7 +11706,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:28
 #: ../root/report/DeprecatedRelationshipPlaces.js:29
-#: ../root/report/ReportsIndex.js:465
+#: ../root/report/ReportsIndex.js:470
 msgid "Places with deprecated relationships"
 msgstr ""
 
@@ -11749,7 +11754,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipUrls.js:28
 #: ../root/report/DeprecatedRelationshipUrls.js:29
-#: ../root/report/ReportsIndex.js:515
+#: ../root/report/ReportsIndex.js:520
 msgid "URLs with deprecated relationships"
 msgstr ""
 
@@ -11765,7 +11770,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipWorks.js:28
 #: ../root/report/DeprecatedRelationshipWorks.js:29
-#: ../root/report/ReportsIndex.js:500
+#: ../root/report/ReportsIndex.js:505
 msgid "Works with deprecated relationships"
 msgstr ""
 
@@ -11926,7 +11931,7 @@ msgstr ""
 
 #: ../root/report/DuplicateRelationshipsWorks.js:28
 #: ../root/report/DuplicateRelationshipsWorks.js:29
-#: ../root/report/ReportsIndex.js:495
+#: ../root/report/ReportsIndex.js:500
 msgid "Works with possible duplicate relationships"
 msgstr ""
 
@@ -12037,7 +12042,7 @@ msgstr ""
 
 #: ../root/report/IsrcsWithManyRecordings.js:38
 #: ../root/report/IsrcsWithManyRecordings.js:39
-#: ../root/report/ReportsIndex.js:526
+#: ../root/report/ReportsIndex.js:531
 msgid "ISRCs with multiple recordings"
 msgstr ""
 
@@ -12057,6 +12062,7 @@ msgid "Total ISRCs found: {count}"
 msgstr ""
 
 #: ../root/report/IsrcsWithManyRecordings.js:112
+#: ../root/report/RecordingTrackDifferentName.js:83
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:102
 #: ../root/report/components/RecordingAnnotationList.js:49
 #: ../root/report/components/RecordingList.js:47
@@ -12065,7 +12071,7 @@ msgid "This recording no longer exists."
 msgstr ""
 
 #: ../root/report/IswcsWithManyWorks.js:34
-#: ../root/report/IswcsWithManyWorks.js:35 ../root/report/ReportsIndex.js:536
+#: ../root/report/IswcsWithManyWorks.js:35 ../root/report/ReportsIndex.js:541
 msgid "ISWCs with multiple works"
 msgstr ""
 
@@ -12191,7 +12197,7 @@ msgstr ""
 
 #: ../root/report/PlacesWithoutCoordinates.js:32
 #: ../root/report/PlacesWithoutCoordinates.js:33
-#: ../root/report/ReportsIndex.js:475
+#: ../root/report/ReportsIndex.js:480
 msgid "Places without coordinates"
 msgstr ""
 
@@ -12224,6 +12230,19 @@ msgid ""
 "it is a collaboration with its own name and can’t be split, collaboration "
 "relationships should be added to it. For some special cases, such as “Person "
 "& His Orchestra”, conductor and/or founder might be the best choice."
+msgstr ""
+
+#: ../root/report/RecordingTrackDifferentName.js:34
+#: ../root/report/RecordingTrackDifferentName.js:37
+#: ../root/report/ReportsIndex.js:460
+msgid "Recordings with a different name than their only track"
+msgstr ""
+
+#: ../root/report/RecordingTrackDifferentName.js:42
+msgid ""
+"This report shows recordings that are linked to only one track, yet have a "
+"different name than the track. This might mean one of the two needs to be "
+"renamed to match the other."
 msgstr ""
 
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:35
@@ -12603,19 +12622,19 @@ msgstr ""
 msgid "Recordings with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:470
+#: ../root/report/ReportsIndex.js:475
 msgid "Places with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:485
+#: ../root/report/ReportsIndex.js:490
 msgid "Series with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:505
+#: ../root/report/ReportsIndex.js:510
 msgid "Works with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:531
+#: ../root/report/ReportsIndex.js:536
 msgid "ISWCs"
 msgstr ""
 
