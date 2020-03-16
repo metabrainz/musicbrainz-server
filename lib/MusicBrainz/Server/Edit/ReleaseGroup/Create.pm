@@ -58,11 +58,11 @@ sub build_display_data
         artist_credit => artist_credit_preview($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
-        type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : '',
+        type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : undef,
         release_group => (defined($self->entity_id) &&
                               $loaded->{ReleaseGroup}{ $self->entity_id }) ||
                                   ReleaseGroup->new( name => $self->data->{name} ),
-        secondary_types => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->name }
+        secondary_types => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->l_name }
                                     @{ $self->data->{secondary_type_ids} })
     };
 }
@@ -87,6 +87,8 @@ sub _insert_hash
     $data->{comment} = '' unless defined $data->{comment};
     return $data;
 }
+
+sub edit_template_react { "AddReleaseGroup" }
 
 before accept => sub {
     my ($self) = @_;
