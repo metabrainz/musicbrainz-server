@@ -122,10 +122,6 @@ msgstr ""
 msgid "Hawaiian guitar"
 msgstr ""
 
-#: DB:instrument/name:417
-msgid "Indian bamboo flutes"
-msgstr ""
-
 #: DB:instrument/name:1011
 msgctxt "Indonesian spike-fiddle used in gamelan"
 msgid "Indonesian rebab"
