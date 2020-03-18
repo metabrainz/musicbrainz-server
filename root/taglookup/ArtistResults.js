@@ -11,20 +11,22 @@ import * as React from 'react';
 
 import {ArtistResultsInline} from '../search/components/ArtistResults';
 
-import TagLookupResults from './Results';
-import type {TagLookupResultsPropsT} from './types';
+import {TagLookupResultsReactTable} from './Results';
+import type {TagLookupResultsReactTablePropsT} from './types';
 
 const TagLookupArtistResults = (
-  props: TagLookupResultsPropsT<ArtistT>,
-): React.Element<typeof TagLookupResults> => (
-  <TagLookupResults {...props}>
+  props: TagLookupResultsReactTablePropsT<ArtistT>,
+): React.Element<typeof TagLookupResultsReactTable> => (
+  <TagLookupResultsReactTable {...props}>
     <ArtistResultsInline
       $c={props.$c}
+      entities={props.entities}
       pager={props.pager}
       query={props.query}
-      results={props.results}
+      resultsNumber={props.resultsNumber}
+      scores={props.scores}
     />
-  </TagLookupResults>
+  </TagLookupResultsReactTable>
 );
 
 export default TagLookupArtistResults;

@@ -30,6 +30,7 @@ type Props = {
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
+  +scores?: {[entityId: string]: number},
   +showBeginEnd?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
@@ -44,6 +45,7 @@ const ArtistList = ({
   instrumentCreditsAndRelTypes,
   mergeForm,
   order,
+  scores,
   showBeginEnd,
   showInstrumentCreditsAndRelTypes,
   showRatings,
@@ -58,7 +60,7 @@ const ArtistList = ({
       const nameColumn = defineNameColumn<ArtistT>({
         order: order,
         sortable: sortable,
-        title: l('Artist'),
+        title: showSortName ? l('Name') : l('Artist'),
       });
       const sortNameColumn = showSortName ? defineTextColumn<ArtistT>({
         columnName: 'sort_name',
@@ -144,6 +146,9 @@ const ArtistList = ({
   return useTable<ArtistT>({
     columns,
     data: artists,
+    getRowProps: row => ({
+      'data-score': scores ? scores[row.original.gid] : null,
+    }),
   });
 };
 

@@ -7,6 +7,28 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+export type InlineResultsReactTablePropsT<T> = {
+  +$c: CatalystContextT,
+  +entities: $ReadOnlyArray<T>,
+  +pager: PagerT,
+  +query: string,
+  +resultsNumber: number,
+  +scores: {[gid: string]: number},
+};
+
+export type ResultsReactTablePropsT<T> = {
+  ...InlineResultsReactTablePropsT<T>,
+  +form: SearchFormT,
+  +lastUpdated?: string,
+};
+
+export type ResultsReactTablePropsWithContextT<T> = {
+  ...InlineResultsReactTablePropsT<T>,
+  +$c: CatalystContextT,
+  +form: SearchFormT,
+  +lastUpdated?: string,
+};
+
 export type InlineResultsPropsT<T> = {
   +$c?: CatalystContextT,
   +pager: PagerT,

@@ -63,12 +63,18 @@ sub search : Path('')
         if ($type ne 'doc') {
             my $stash = $c->stash;
 
+            my @entities = map { $_->entity } @{ $stash->{results} };
+            my %scores_map = map { $_->entity->gid => $_->score } @{ $stash->{results} };
+
             my %props = (
                 form => $stash->{form},
                 lastUpdated => datetime_to_iso8601($stash->{last_updated}),
                 pager => serialize_pager($stash->{pager}),
                 query => $stash->{query},
                 results => $stash->{results},
+                resultsNumber => scalar @{ $stash->{results} },
+                entities => \@entities,
+                scores => \%scores_map
             );
 
             $c->stash(
