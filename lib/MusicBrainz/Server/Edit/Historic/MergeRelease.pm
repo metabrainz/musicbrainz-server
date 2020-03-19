@@ -68,8 +68,9 @@ sub build_display_data
         releases => {
             old => [
                 map {
+                    my $old_release = $_;
                     if (my @ids = @{ $_->{release_ids} }) {
-                        map { $loaded->{Release}->{ $_ } // Release->new(name => $_->{name}) } @ids;
+                        map { $loaded->{Release}->{ $_ } // Release->new(name => $old_release->{name}) } @ids;
                     }
                     else {
                         Release->new(name => $_->{name} )
