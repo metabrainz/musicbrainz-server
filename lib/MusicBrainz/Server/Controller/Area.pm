@@ -334,6 +334,7 @@ sub _merge_load_entities
 {
     my ($self, $c, @areas) = @_;
     $c->model('Area')->load_containment(@areas);
+    $c->model('AreaType')->load(@areas);
 };
 
 =head1 LICENSE

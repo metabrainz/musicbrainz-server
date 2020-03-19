@@ -40,6 +40,7 @@ module.exports = {
   'area/AreaEvents': require('../area/AreaEvents'),
   'area/AreaIndex': require('../area/AreaIndex'),
   'area/AreaLabels': require('../area/AreaLabels'),
+  'area/AreaMerge': require('../area/AreaMerge'),
   'area/AreaPlaces': require('../area/AreaPlaces'),
   'area/AreaReleases': require('../area/AreaReleases'),
   'area/AreaUsers': require('../area/AreaUsers'),
