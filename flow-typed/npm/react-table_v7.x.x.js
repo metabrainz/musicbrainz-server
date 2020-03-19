@@ -1,15 +1,17 @@
+// @flow strict
+
 declare module 'react-table' {
   declare export type CellRenderProps<D, +V> = {
+    +cell: Cell<V>,
     +column: ColumnInstance,
     +row: Row<D>,
-    +cell: Cell<V>,
   };
 
   declare export type ColumnOptions<D, V> = {
     +accessor?: $Keys<D> | ((D) => V),
-    +id?: string,
-    +Header?: Renderer<HeaderProps<D>>,
     +Cell?: React$AbstractComponent<CellRenderProps<D, V>, mixed>,
+    +Header?: Renderer<HeaderProps<D>>,
+    +id?: string,
     ...,
   };
 
