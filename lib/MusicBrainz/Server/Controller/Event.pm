@@ -85,8 +85,7 @@ sub show : PathPart('') Chained('load') {
 
 sub _merge_load_entities {
     my ($self, $c, @events) = @_;
-    $c->model('EventType')->load(@events);
-    $c->model('Event')->load_performers(@events);
+    $c->model('Event')->load_related_info(@events);
 };
 
 =head2 WRITE METHODS
