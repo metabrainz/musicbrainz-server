@@ -13,7 +13,11 @@ import {useTable} from 'react-table';
 import loopParity from '../utility/loopParity';
 
 const renderTableHeaderCell = (column) => (
-  <th {...column.getHeaderProps({className: column.className})}>
+  <th
+    {...column.getHeaderProps(
+      {...column.headerProps, className: column.className},
+    )}
+  >
     {column.render('Header')}
   </th>
 );
