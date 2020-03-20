@@ -157,7 +157,7 @@ role {
             $self->_merge_form_arguments($c, @entities)
         );
 
-        if ($c->namespace =~ /^(?:area|artist|event|instrument|label|place|recording|release_group)$/) {
+        if ($c->namespace =~ /^(?:area|artist|event|instrument|label|place|recording|release_group|series)$/) {
             my %props = (
                 isrcsDiffer => $c->stash->{isrcs_differ},
                 form => $form,
