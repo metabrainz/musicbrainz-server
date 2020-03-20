@@ -176,9 +176,9 @@ export function defineCountColumn<D>(
   className?: string,
 ): ColumnOptions<D, number> {
   return {
-    Cell: ({row: {original}}) => (
+    Cell: ({cell: {value}}) => (
       <CatalystContext.Consumer>
-        {($c: CatalystContextT) => formatCount($c, getCount(original))}
+        {($c: CatalystContextT) => formatCount($c, value)}
       </CatalystContext.Consumer>
     ),
     Header: (sortable
@@ -190,6 +190,7 @@ export function defineCountColumn<D>(
         />
       )
       : title),
+    accessor: row => getCount(row),
     className: className || 'count c',
     id: columnName,
   };
