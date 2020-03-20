@@ -101,6 +101,7 @@ module.exports = {
   'recording/RecordingIndex': require('../recording/RecordingIndex'),
   'recording/RecordingMerge': require('../recording/RecordingMerge'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
+  'release_group/ReleaseGroupMerge': require('../release_group/ReleaseGroupMerge'),
   'report/AnnotationsArtists': require('../report/AnnotationsArtists'),
   'report/AnnotationsLabels': require('../report/AnnotationsLabels'),
   'report/AnnotationsPlaces': require('../report/AnnotationsPlaces'),
