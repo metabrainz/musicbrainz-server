@@ -76,6 +76,7 @@ module.exports = {
   'genre/GenreListPage': require('../genre/GenreListPage'),
   'instrument/InstrumentArtists': require('../instrument/InstrumentArtists'),
   'instrument/InstrumentIndex': require('../instrument/InstrumentIndex'),
+  'instrument/InstrumentMerge': require('../instrument/InstrumentMerge'),
   'instrument/InstrumentRecordings': require('../instrument/InstrumentRecordings'),
   'instrument/InstrumentReleases': require('../instrument/InstrumentReleases'),
   'instrument/List': require('../instrument/List'),
