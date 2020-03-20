@@ -37,6 +37,7 @@ declare module 'react-table' {
   declare export type Row<+D> = {
     +cells: $ReadOnlyArray<Cell<mixed>>,
     +getRowProps: (props?: {...}) => {...},
+    +index: number,
     +original: D,
   };
 

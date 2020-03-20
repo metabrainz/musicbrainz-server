@@ -9,23 +9,21 @@
 
 import * as React from 'react';
 
+import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import loopParity from '../../utility/loopParity';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
-import CodeLink from '../../static/scripts/common/components/CodeLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import ExpandedArtistCredit
-  from '../../static/scripts/common/components/ExpandedArtistCredit';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
-import renderMergeCheckboxElement
-  from '../../static/scripts/common/utility/renderMergeCheckboxElement';
-import InstrumentRelTypes from '../InstrumentRelTypes';
-import RatingStars from '../RatingStars';
-import RemoveFromMergeTableCell from '../RemoveFromMergeTableCell';
-import RemoveFromMergeTableHeader from '../RemoveFromMergeTableHeader';
-import SortableTableHeader from '../SortableTableHeader';
+import {
+  defineArtistCreditColumn,
+  defineCheckboxColumn,
+  defineInstrumentUsageColumn,
+  defineNameColumn,
+  defineRemoveFromMergeColumn,
+  defineSeriesNumberColumn,
+  defineTextColumn,
+  isrcsColumn,
+  ratingsColumn,
+} from '../../utility/tableColumns';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
@@ -55,128 +53,80 @@ const RecordingList = ({
   showInstrumentCreditsAndRelTypes,
   showRatings,
   sortable,
-}: Props) => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        {$c.user_exists && (checkboxes || mergeForm) ? (
-          <th className="checkbox-cell">
-            {mergeForm ? null : <input type="checkbox" />}
-          </th>
-        ) : null}
-        {seriesItemNumbers ? <th style={{width: '1em'}}>{l('#')}</th> : null}
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Name')}
-                name="name"
-                order={order}
-              />
-            )
-            : l('Name')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Artist')}
-                name="artist"
-                order={order}
-              />
-            )
-            : l('Artist')}
-        </th>
-        <th>{l('ISRCs')}</th>
-        {showRatings ? <th>{l('Rating')}</th> : null}
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Length')}
-                name="length"
-                order={order}
-              />
-            )
-            : l('Length')}
-        </th>
-        {showInstrumentCreditsAndRelTypes
-          ? <th>{l('Relationship Types')}</th>
-          : null}
-        {mergeForm
-          ? <RemoveFromMergeTableHeader toMerge={recordings} />
-          : null}
-      </tr>
-    </thead>
-    <tbody>
-      {recordings.map((recording, index) => (
-        <tr className={loopParity(index)} key={recording.id}>
-          {$c.user_exists && (checkboxes || mergeForm) ? (
-            <td>
-              {mergeForm
-                ? renderMergeCheckboxElement(recording, mergeForm, index)
-                : (
-                  <input
-                    name={checkboxes}
-                    type="checkbox"
-                    value={recording.id}
-                  />
-                )}
-            </td>
-          ) : null}
-          {seriesItemNumbers ? (
-            <td style={{width: '1em'}}>
-              {seriesItemNumbers[recording.id]}
-            </td>
-          ) : null}
-          <td>
-            <EntityLink entity={recording} />
-          </td>
-          <td>
-            {recording.artistCredit ? (
-              showExpandedArtistCredits ? (
-                <ExpandedArtistCredit artistCredit={recording.artistCredit} />
-              ) : (
-                <ArtistCreditLink artistCredit={recording.artistCredit} />
-              )
-            ) : null}
-          </td>
-          <td>
-            <ul>
-              {recording.isrcs.map(isrc => (
-                <li key={isrc.isrc}>
-                  <CodeLink code={isrc} />
-                </li>
-              ))}
-            </ul>
-          </td>
-          {showRatings ? (
-            <td>
-              <RatingStars entity={recording} />
-            </td>
-          ) : null}
-          <td className={lengthClass || null}>
-            {/* Show nothing rather than ?:?? for recordings merged away */}
-            {recording.gid ? formatTrackLength(recording.length) : null}
-          </td>
-          {showInstrumentCreditsAndRelTypes ? (
-            <td>
-              <InstrumentRelTypes
-                entity={recording}
-                instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
-              />
-            </td>
-          ) : null}
-          {mergeForm ? (
-            <RemoveFromMergeTableCell
-              entity={recording}
-              toMerge={recordings}
-            />
-          ) : null}
-        </tr>
-      ))}
-    </tbody>
-  </table>
-);
+}: Props) => {
+  const columns = React.useMemo(
+    () => {
+      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+        ? defineCheckboxColumn(checkboxes, mergeForm)
+        : null;
+      const seriesNumberColumn = seriesItemNumbers
+        ? defineSeriesNumberColumn(seriesItemNumbers)
+        : null;
+      const nameColumn =
+        defineNameColumn<RecordingT>(
+          l('Name'),
+          order,
+          sortable,
+          false, // no descriptive linking (since ACs are in the next column)
+        );
+      const artistCreditColumn = defineArtistCreditColumn(
+        entity => entity.artistCredit,
+        'artist',
+        l('Artist'),
+        order,
+        sortable,
+        showExpandedArtistCredits,
+      );
+      const lengthColumn = defineTextColumn(
+        /* Show nothing rather than ?:?? for recordings merged away */
+        entity => entity.gid ? formatTrackLength(entity.length) : '',
+        'length',
+        l('Length'),
+        order,
+        sortable,
+        lengthClass,
+      );
+      const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
+        ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)
+        : null;
+      const removeFromMergeColumn = mergeForm
+        ? defineRemoveFromMergeColumn(recordings)
+        : null;
+
+      return [
+        ...(checkboxColumn ? [checkboxColumn] : []),
+        ...(seriesNumberColumn ? [seriesNumberColumn] : []),
+        nameColumn,
+        artistCreditColumn,
+        isrcsColumn,
+        ...(showRatings ? [ratingsColumn] : []),
+        lengthColumn,
+        ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
+        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+      ];
+    },
+    [
+      $c.user_exists,
+      checkboxes,
+      instrumentCreditsAndRelTypes,
+      lengthClass,
+      mergeForm,
+      order,
+      recordings,
+      seriesItemNumbers,
+      showExpandedArtistCredits,
+      showInstrumentCreditsAndRelTypes,
+      showRatings,
+      sortable,
+    ],
+  );
+
+  return (
+    <Table
+      columns={columns}
+      data={recordings}
+    />
+  );
+};
 
 export default withCatalystContext(RecordingList);

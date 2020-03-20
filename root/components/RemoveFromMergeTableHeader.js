@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+// Converted to react-table at root/utility/tableColumns.js
 const RemoveFromMergeTableHeader = (
   {toMerge}: {toMerge: $ReadOnlyArray<CoreEntityT>},
 ) => (
