@@ -45,7 +45,12 @@ const PlaceList = ({
         ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const nameColumn =
-        defineNameColumn<PlaceT>(l('Place'), order, sortable);
+        defineNameColumn<PlaceT>(
+          l('Place'),
+          order,
+          sortable,
+          false, // no descriptive linking (since we have an area column)
+        );
       const typeColumn = defineTypeColumn('place_type', order, sortable);
       const addressColumn = defineTextColumn<PlaceT>(
         entity => entity.address,
