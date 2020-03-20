@@ -235,6 +235,7 @@ module.exports = {
   'user/UserProfile': require('../user/UserProfile'),
   'vote/VotingIndex': require('../vote/VotingIndex'),
   'work/WorkIndex': require('../work/WorkIndex'),
+  'work/WorkMerge': require('../work/WorkMerge'),
 
   /*
    * XXX Components included via React.embed in our TT templates
