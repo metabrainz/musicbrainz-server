@@ -8,8 +8,9 @@
  */
 
 import * as React from 'react';
-import sortBy from 'lodash/sortBy';
 
+import sortByEntityName
+  from '../static/scripts/common/utility/sortByEntityName';
 import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
@@ -34,7 +35,7 @@ const InstrumentMerge = ({$c, form, toMerge}: Props) => (
       </p>
       <form action={$c.req.uri} method="post">
         <InstrumentList
-          instruments={sortBy(toMerge, 'name')}
+          instruments={sortByEntityName(toMerge)}
           mergeForm={form}
           showArtists
           showLocation
