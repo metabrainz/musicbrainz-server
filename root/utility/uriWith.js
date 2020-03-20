@@ -16,7 +16,7 @@ export default function uriWith<T: {...}>(
   const u = url.parse(uriString, true);
 
   u.query = Object.assign(u.query, params);
-  u.search = undefined;
+  u.search = null;
 
   return url.format(u);
 }
