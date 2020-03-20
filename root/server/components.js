@@ -95,6 +95,7 @@ module.exports = {
   'place/PlaceEvents': require('../place/PlaceEvents'),
   'place/PlaceIndex': require('../place/PlaceIndex'),
   'place/PlaceMap': require('../place/PlaceMap'),
+  'place/PlaceMerge': require('../place/PlaceMerge'),
   'place/PlacePerformances': require('../place/PlacePerformances'),
   'recording/RecordingFingerprints': require('../recording/RecordingFingerprints'),
   'recording/RecordingIndex': require('../recording/RecordingIndex'),
