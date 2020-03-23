@@ -28,6 +28,7 @@ import {
   defineReleaseLanguageColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
+  removeFromMergeColumn,
   taggerColumn,
 } from '../../utility/tableColumns.js';
 
@@ -36,6 +37,7 @@ type Props = {
   ...SeriesItemNumbersRoleT,
   +checkboxes?: string,
   +filterLabel?: LabelT,
+  +mergeForm?: MergeReleasesFormT,
   +order?: string,
   +releases: $ReadOnlyArray<ReleaseT>,
   +showInstrumentCreditsAndRelTypes?: boolean,
@@ -50,6 +52,7 @@ const ReleaseList = ({
   checkboxes,
   filterLabel,
   instrumentCreditsAndRelTypes,
+  mergeForm,
   order,
   releases,
   seriesItemNumbers,
@@ -64,8 +67,8 @@ const ReleaseList = ({
 
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user && nonEmpty(checkboxes)
-        ? defineCheckboxColumn({name: checkboxes})
+      const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
@@ -176,6 +179,7 @@ const ReleaseList = ({
         ...(statusColumn ? [statusColumn] : []),
         ...($c.session?.tport == null ? [] : [taggerColumn]),
         ...(showRatings ? [ratingsColumn] : []),
+        ...(mergeForm && releases.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [
@@ -184,7 +188,9 @@ const ReleaseList = ({
       checkboxes,
       filterLabel,
       instrumentCreditsAndRelTypes,
+      mergeForm,
       order,
+      releases,
       seriesItemNumbers,
       showInstrumentCreditsAndRelTypes,
       showLanguages,

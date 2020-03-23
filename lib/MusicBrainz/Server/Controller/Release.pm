@@ -427,6 +427,7 @@ sub _merge_form_arguments {
             push @mediums, {
                 id => $medium->id,
                 release_id => $medium->release_id,
+                release => $medium->release,
                 position => $position,
                 name => $name
             };
@@ -530,7 +531,12 @@ around _validate_merge => sub {
         if (@bad_recording_merges) {
             $c->model('ArtistCredit')->load(map { @$_ } @bad_recording_merges);
         }
-        $c->stash(bad_recording_merges => \@bad_recording_merges);
+
+        $c->stash(
+            bad_recording_merges => [
+                map { to_json_array($_) } @bad_recording_merges
+            ]
+        );
     }
 
     return 0 unless $self->$orig($c, $form);
