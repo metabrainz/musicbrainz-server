@@ -84,7 +84,7 @@ const ArtistList = ({
         sortable,
       );
       const beginDateColumn = showBeginEnd
-        ? defineBeginDateColumn()
+        ? defineBeginDateColumn(order, sortable)
         : null;
       const beginAreaColumn = showBeginEnd ? defineEntityColumn(
         entity => entity.begin_area,
@@ -92,7 +92,7 @@ const ArtistList = ({
         l('Begin Area'),
       ) : null;
       const endDateColumn = showBeginEnd
-        ? defineEndDateColumn()
+        ? defineEndDateColumn(order, sortable)
         : null;
       const endAreaColumn = showBeginEnd ? defineEntityColumn(
         entity => entity.end_area,
