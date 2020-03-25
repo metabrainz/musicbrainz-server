@@ -70,11 +70,11 @@ sub edit_field_names {
 sub _locale_name_special_cases {
     # Special-case some locales that have a non-descriptive name
     my $locale = shift;
-    if ($locale->id eq 'el_POLYTON') {
+    if ($locale->code eq 'el_POLYTON') {
         return 'Greek Polytonic';
-    } elsif ($locale->id eq 'sr_Cyrl_YU') {
+    } elsif ($locale->code eq 'sr_Cyrl_YU') {
         return 'Serbian Cyrillic Yugoslavia';
-    } elsif ($locale->id eq 'sr_Latn_YU') {
+    } elsif ($locale->code eq 'sr_Latn_YU') {
         return 'Serbian Latin Yugoslavia';
     } else {
         return $locale->name;
@@ -85,11 +85,11 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            $_->id => indentation($_->id =~ /[_-]/ ? 1 : 0) . _locale_name_special_cases($_)
+            $_->code => indentation($_->code =~ /[_-]/ ? 1 : 0) . _locale_name_special_cases($_)
         }
             sort_by { $_->name }
-            sort_by { $_->id }
-                map { DateTime::Locale->load($_) } DateTime::Locale->ids
+            sort_by { $_->code }
+                map { DateTime::Locale->load($_) } DateTime::Locale->codes
     ];
 }
 
