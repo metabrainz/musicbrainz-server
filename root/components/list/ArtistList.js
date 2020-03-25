@@ -80,8 +80,6 @@ const ArtistList = ({
         entity => entity.area,
         'area',
         l('Area'),
-        order,
-        sortable,
       );
       const beginDateColumn = showBeginEnd
         ? defineBeginDateColumn()

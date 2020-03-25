@@ -55,11 +55,9 @@ const PlaceList = ({
         entity => entity.area,
         'area',
         l('Area'),
-        order,
-        sortable,
       );
-      const beginDateColumn = defineBeginDateColumn(order, sortable);
-      const endDateColumn = defineEndDateColumn(order, sortable);
+      const beginDateColumn = defineBeginDateColumn();
+      const endDateColumn = defineEndDateColumn();
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),

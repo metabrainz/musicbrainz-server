@@ -89,8 +89,6 @@ export const ReleaseGroupListTable = withCatalystContext(({
         entity => entity.artistCredit,
         'artist',
         l('Artist'),
-        order,
-        sortable,
       );
       const typeColumn = defineTextColumn(
         entity => entity.l_type_name,
