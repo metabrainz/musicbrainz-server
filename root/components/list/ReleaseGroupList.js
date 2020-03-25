@@ -73,7 +73,7 @@ export const ReleaseGroupListTable = withCatalystContext(({
         : null;
       const yearColumn = defineTextColumn(
         entity => getFirstReleaseYear(entity),
-        'release_count',
+        'year',
         l('Year'),
         order,
         sortable,
