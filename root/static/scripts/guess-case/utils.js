@@ -90,7 +90,6 @@ const lowerCaseBracketWordsList = [
   'intro',
   'karaoke',
   'maxi',
-  'medley',
   'mono',
   'orchestral',
   'outro',

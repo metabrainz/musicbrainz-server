@@ -117,5 +117,15 @@ override 'insert' => sub {
     $self->entity_id($medium_cdtoc);
 };
 
+override 'reject' => sub {
+    my ($self) = @_;
+    my $cdtoc_id = $self->c->model('CDTOC')->find_or_insert($self->data->{cdtoc});
+    my $medium_cdtoc = $self->c->model('MediumCDTOC')->get_by_medium_cdtoc(
+        $self->data->{medium_id},
+        $cdtoc_id
+    );
+    $self->c->model('MediumCDTOC')->delete($medium_cdtoc->id);
+};
+
 no Moose;
 __PACKAGE__->meta->make_immutable;

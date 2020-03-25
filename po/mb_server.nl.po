@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-12 12:40+0000\n"
-"PO-Revision-Date: 2020-03-12 12:46+0000\n"
+"PO-Revision-Date: 2020-03-22 20:17+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1964,7 +1964,7 @@ msgstr "Vul hieronder de nummerlijst in:"
 msgid ""
 "Enter coordinates manually or click the map to get coordinates from the "
 "marker. If you’re too far out, clicking will zoom instead."
-msgstr ""
+msgstr "Vul de coördinaten in of klik op de kaart om de coördinaten van de aanwijzer over te nemen. Als je te ver bent uitgezoomd, wordt de map ingezoomd als je erop klikt."
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:151
 #: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:103
@@ -7260,11 +7260,11 @@ msgstr "Standaard"
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:208
 msgid "You cannot merge a special purpose label into another label."
-msgstr ""
+msgstr "Je kunt een speciale platenmaatschappij niet samenvoegen met een normale platenmaatschappij."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:213
 msgid "You cannot merge into Deleted Label."
-msgstr ""
+msgstr "Je kunt een platenmaatschappij niet met een verwijderde platenmaatschappij samenvoegen."
 
 #: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:48
 #, perl-brace-format
@@ -9666,19 +9666,19 @@ msgstr "Ongespecificeerd type"
 
 #: ../root/constants.js:19
 msgid "View and modify your private collections"
-msgstr "Je privécollecties te bekijken en te bewerken."
+msgstr "Je privécollecties bekijken en bewerken"
 
 #: ../root/constants.js:20
 msgid "View your email address"
-msgstr "Je e-mailadres te bekijken"
+msgstr "Je e-mailadres bekijken"
 
 #: ../root/constants.js:21
 msgid "View your public account information"
-msgstr "Je openbare accountinformatie te bekijken."
+msgstr "Je openbare accountinformatie bekijken"
 
 #: ../root/constants.js:22
 msgid "View and modify your private ratings"
-msgstr "Je privéwaarderingen te bekijken en te bewerken."
+msgstr "Je privéwaarderingen bekijken en bewerken"
 
 #: ../root/constants.js:23
 msgid "Submit new barcodes to the database"
@@ -9690,7 +9690,7 @@ msgstr "Nieuwe ISRC’s in te dienen."
 
 #: ../root/constants.js:25
 msgid "View and modify your private tags"
-msgstr "Je privétags te bekijken en te bewerken."
+msgstr "Je privétags bekijken en bewerken"
 
 #: ../root/doc/DocError.js:40
 msgid "Sorry, “{id}” is not a valid documentation page."
@@ -9815,7 +9815,7 @@ msgstr "primair voor {locale}"
 
 #: ../root/edit/details/EditWork.js:83
 msgid "Work type"
-msgstr ""
+msgstr "Type compositie"
 
 #: ../root/edit/details/MergeAreas.js:25
 #: ../root/edit/details/MergeArtists.js:27
@@ -10431,13 +10431,13 @@ msgstr "Deze platenmaatschappij heeft geen uitgaves."
 
 #: ../root/label/SpecialPurpose.js:21
 msgid "You may not edit special purpose labels"
-msgstr ""
+msgstr "Je mag een speciale platenmaatschappij niet bewerken"
 
 #: ../root/label/SpecialPurpose.js:23
 msgid ""
 "The label you are trying to edit is a special purpose label, and you may not"
 " make direct changes to this data."
-msgstr ""
+msgstr "De platenmaatschappij die je probeert te bewerken, is een speciale platenmaatschappij, en je mag deze gegevens niet direct bewerken."
 
 #: ../root/layout/components/BottomMenu.js:78
 msgid "(reset language)"
@@ -11193,7 +11193,7 @@ msgstr "Success!"
 msgid ""
 "You have granted access to {app}. Next, return to {app} and copy this token "
 "to complete the authorization process:"
-msgstr "Je kan {app} toegang gegeven. Keer nu terug naar {app} en kopieer deze token om het machtigingsproces te voltooien:"
+msgstr "Je hebt {app} toegang gegeven. Keer nu terug naar {app} en kopieer deze token om het machtigingsproces te voltooien:"
 
 #: ../root/place/PlaceEvents.js:57
 msgid "This place is not currently associated with any events."

@@ -10,6 +10,8 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
+import {CatalystContext} from '../context';
+import ENTITIES from '../../entities';
 import InstrumentRelTypes from '../components/InstrumentRelTypes';
 import RatingStars from '../components/RatingStars';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
@@ -27,6 +29,8 @@ import DescriptiveLink
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import EventLocations
   from '../static/scripts/common/components/EventLocations';
+import ExpandedArtistCredit
+  from '../static/scripts/common/components/ExpandedArtistCredit';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
@@ -35,7 +39,10 @@ import WorkArtists
 import formatDate from '../static/scripts/common/utility/formatDate';
 import formatDatePeriod
   from '../static/scripts/common/utility/formatDatePeriod';
+import {formatCount} from '../statistics/utilities';
 import formatEndDate from '../static/scripts/common/utility/formatEndDate';
+import renderMergeCheckboxElement
+  from '../static/scripts/common/utility/renderMergeCheckboxElement';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import yesNo from '../static/scripts/common/utility/yesNo';
 
@@ -70,13 +77,17 @@ export function defineArtistCreditColumn<D>(
   title: string,
   order?: string = '',
   sortable?: boolean = false,
+  showExpandedArtistCredits?: boolean = false,
 ): ColumnOptions<D, string> {
   return {
     Cell: ({row: {original}}) => {
       const artistCredit = getArtistCredit(original);
       return (artistCredit
-        ? <ArtistCreditLink artistCredit={artistCredit} />
-        : null);
+        ? showExpandedArtistCredits
+          ? <ExpandedArtistCredit artistCredit={artistCredit} />
+          : <ArtistCreditLink artistCredit={artistCredit} />
+        : null
+      );
     },
     Header: (sortable
       ? (
@@ -88,6 +99,7 @@ export function defineArtistCreditColumn<D>(
       )
       : title),
     accessor: row => getArtistCredit(row)?.names[0].name ?? '',
+    className: 'artist',
     id: columnName,
   };
 }
@@ -135,21 +147,52 @@ export function defineBeginDateColumn(
   };
 }
 
-export function defineCheckboxColumn<T>(
-  name: string,
-): ColumnOptions<EntityRoleT<T>, number> {
+export function defineCheckboxColumn(
+  name?: string,
+  mergeForm?: MergeFormT,
+): ColumnOptions<CoreEntityT, number> {
   return {
-    Cell: ({cell: {value}}) => (
-      <input
-        name={name}
-        type="checkbox"
-        value={value}
-      />
-    ),
-    Header: <input type="checkbox" />,
-    accessor: 'id',
+    Cell: ({row: {index, original}}) => mergeForm
+      ? renderMergeCheckboxElement(original, mergeForm, index)
+      : (
+        <input
+          name={name}
+          type="checkbox"
+          value={original.id}
+        />
+      ),
+    Header: mergeForm ? null : <input type="checkbox" />,
     className: 'checkbox-cell',
     id: 'checkbox',
+  };
+}
+
+export function defineCountColumn<D>(
+  getCount: (D) => number,
+  columnName: string,
+  title: string,
+  order?: string = '',
+  sortable?: boolean = false,
+  className?: string,
+): ColumnOptions<D, number> {
+  return {
+    Cell: ({cell: {value}}) => (
+      <CatalystContext.Consumer>
+        {($c: CatalystContextT) => formatCount($c, value)}
+      </CatalystContext.Consumer>
+    ),
+    Header: (sortable
+      ? (
+        <SortableTableHeader
+          label={title}
+          name={columnName}
+          order={order}
+        />
+      )
+      : title),
+    accessor: row => getCount(row),
+    className: className || 'count c',
+    id: columnName,
   };
 }
 
@@ -341,6 +384,31 @@ export function defineReleaseLabelsColumn(
   };
 }
 
+export function defineRemoveFromMergeColumn(
+  toMerge: $ReadOnlyArray<CoreEntityT>,
+): ColumnOptions<ArtistT | RecordingT | ReleaseT, number> {
+  return {
+    Cell: ({row: {original}}) => {
+      const url = ENTITIES[original.entityType].url;
+      return toMerge.length > 2 ? (
+        <a href={`/${url}/merge?remove=${original.id}&submit=remove`}>
+          <button
+            className="remove-item icon"
+            title={l('Remove from merge')}
+            type="button"
+          />
+        </a>
+      ) : null;
+    },
+    Header: toMerge.length > 2 ? '' : null,
+    headerProps: {
+      'aria-label': l('Remove from merge'),
+      'style': {width: '1em'},
+    },
+    id: 'remove-from-merge',
+  };
+}
+
 export function defineSeriesNumberColumn(
   seriesItemNumbers: {+[entityId: number]: string},
 ): ColumnOptions<CoreEntityT, number> {
@@ -417,6 +485,24 @@ export const instrumentDescriptionColumn:
     accessor: 'description',
   };
 
+export const isrcsColumn:
+  ColumnOptions<{
+    +isrcs: $ReadOnlyArray<IsrcT>,
+    ...,
+  }, $ReadOnlyArray<IsrcT>> = {
+    Cell: ({cell: {value}}) => (
+      <ul>
+        {value.map((isrc) => (
+          <li key={isrc.isrc}>
+            <CodeLink code={isrc} />
+          </li>
+        ))}
+      </ul>
+    ),
+    Header: N_l('ISRCs'),
+    accessor: 'isrcs',
+  };
+
 export const iswcsColumn:
   ColumnOptions<{
     +iswcs: $ReadOnlyArray<IswcT>,
@@ -447,6 +533,7 @@ export const ratingsColumn:
     Cell: ({row: {original}}) => <RatingStars entity={original} />,
     Header: N_l('Rating'),
     accessor: 'rating',
+    className: 'rating c',
   };
 
 export const seriesOrderingTypeColumn:

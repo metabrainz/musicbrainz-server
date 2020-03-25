@@ -1618,6 +1618,33 @@ const CLEANUPS = {
       return false;
     },
   },
+  'metalarchives': {
+    match: [new RegExp('^(https?://)?(www\\.)?metal-archives\\.com/', 'i')],
+    type: _.defaults({}, LINK_TYPES.review, LINK_TYPES.otherdatabases),
+    clean: function (url) {
+      return url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?metal-archives\.com\/([a-z]+(?:\/[^\/?#]+)+).*$/,
+        'https://www.metal-archives.com/$1',
+      );
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.metal-archives\.com\/([a-z]+)\/[^?#]+[^\/?#]$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'bands' || prefix === 'band';
+          case LINK_TYPES.otherdatabases.label:
+            return prefix === 'labels';
+          case LINK_TYPES.otherdatabases.release:
+            return prefix === 'albums';
+          case LINK_TYPES.review.release_group:
+            return prefix === 'reviews';
+        }
+      }
+      return false;
+    },
+  },
   'mixcloud': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i')],
     type: LINK_TYPES.socialnetwork,
@@ -1802,7 +1829,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?isrc\\.ncl\\.edu\\.tw/', 'i'),
       new RegExp('^(https?://)?(www\\.)?rolldabeats\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?psydb\\.net/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?metal-archives\\.com/(bands?|albums|artists|labels)', 'i'),
       new RegExp('^(https?://)?(www\\.)?spirit-of-metal\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?lortel\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
@@ -1972,7 +1998,6 @@ const CLEANUPS = {
   'review': {
     match: [
       new RegExp('^(https?://)?(www\\.)?bbc\\.co\\.uk/music/reviews/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?metal-archives\\.com/reviews/', 'i'),
       new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/review', 'i'),
     ],
     type: LINK_TYPES.review,

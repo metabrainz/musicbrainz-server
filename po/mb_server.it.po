@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-12 12:40+0000\n"
-"PO-Revision-Date: 2020-03-12 12:46+0000\n"
+"PO-Revision-Date: 2020-03-18 19:40+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1961,7 +1961,7 @@ msgstr "Inserisci un elenco di tracce qui sotto:"
 msgid ""
 "Enter coordinates manually or click the map to get coordinates from the "
 "marker. If you’re too far out, clicking will zoom instead."
-msgstr ""
+msgstr "Inserisci manualmente le coordinate o clicca sulla mappa per ottenere le coordinate dal segnaposto. Se sei troppo lontano, cliccando ingrandirai la mappa."
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:151
 #: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:103
@@ -7257,11 +7257,11 @@ msgstr "Default"
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:208
 msgid "You cannot merge a special purpose label into another label."
-msgstr ""
+msgstr "Non è possibile unire un'etichetta speciale con un'altra etichetta."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:213
 msgid "You cannot merge into Deleted Label."
-msgstr ""
+msgstr "Non puoi unire con Etichetta eliminata."
 
 #: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:48
 #, perl-brace-format
@@ -9812,7 +9812,7 @@ msgstr "primario per {locale}"
 
 #: ../root/edit/details/EditWork.js:83
 msgid "Work type"
-msgstr ""
+msgstr "Tipo di opera"
 
 #: ../root/edit/details/MergeAreas.js:25
 #: ../root/edit/details/MergeArtists.js:27
@@ -10428,13 +10428,13 @@ msgstr "Questa etichetta non ha nessuna pubblicazione."
 
 #: ../root/label/SpecialPurpose.js:21
 msgid "You may not edit special purpose labels"
-msgstr ""
+msgstr "Non puoi modificare le etichette speciali"
 
 #: ../root/label/SpecialPurpose.js:23
 msgid ""
 "The label you are trying to edit is a special purpose label, and you may not"
 " make direct changes to this data."
-msgstr ""
+msgstr "L'etichetta che stai cercando di modificare è un'etichetta speciale: non puoi apportare cambiamenti diretti a questi dati."
 
 #: ../root/layout/components/BottomMenu.js:78
 msgid "(reset language)"
