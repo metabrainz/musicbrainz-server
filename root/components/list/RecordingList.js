@@ -84,7 +84,7 @@ const RecordingList = ({
         l('Length'),
         order,
         sortable,
-        lengthClass,
+        {className: lengthClass ?? ''},
       );
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)

@@ -16,7 +16,8 @@ declare module 'react-table' {
   };
 
   declare export type ColumnInstance = {
-    +className?: string,
+    +cellProps?: {[attribute: string]: string},
+    +getCellProps: (props?: {...}) => {...},
     +getHeaderProps: (props?: {...}) => {...},
     // Not actually part of react-table but our own expansion of it
     +headerProps?: {[attribute: string]: string},

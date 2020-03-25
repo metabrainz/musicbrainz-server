@@ -76,7 +76,8 @@ export const ReleaseGroupListTable = withCatalystContext(({
         l('Year'),
         order,
         sortable,
-        'year c',
+        {className: 'c'},
+        {className: 'year c'},
       );
       const nameColumn =
         defineNameColumn<ReleaseGroupT>(
