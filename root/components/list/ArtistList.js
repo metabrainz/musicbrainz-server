@@ -90,6 +90,8 @@ const ArtistList = ({
         entity => entity.begin_area,
         'begin_area',
         l('Begin Area'),
+        order,
+        sortable,
       ) : null;
       const endDateColumn = showBeginEnd
         ? defineEndDateColumn(order, sortable)
@@ -98,6 +100,8 @@ const ArtistList = ({
         entity => entity.end_area,
         'end_area',
         l('End Area'),
+        order,
+        sortable,
       ) : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)
