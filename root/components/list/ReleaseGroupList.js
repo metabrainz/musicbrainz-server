@@ -19,7 +19,6 @@ import {
   defineCheckboxColumn,
   defineNameColumn,
   defineSeriesNumberColumn,
-  defineTypeColumn,
   defineTextColumn,
   defineCountColumn,
   ratingsColumn,
@@ -93,8 +92,10 @@ export const ReleaseGroupListTable = withCatalystContext(({
         order,
         sortable,
       );
-      const typeColumn = defineTypeColumn(
-        'release_group_type',
+      const typeColumn = defineTextColumn(
+        entity => entity.l_type_name,
+        'primary-type',
+        l('Type'),
         order,
         sortable,
       );
