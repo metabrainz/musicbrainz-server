@@ -45,6 +45,7 @@ export type RelationshipTargetGroupT = {
   earliestDatePeriod: DatePeriodRoleT,
   editsPending: boolean,
   hasAttributes: boolean,
+  isOrderable: boolean,
   key: string,
   linkOrder: number | null,
   target: CoreEntityT,
@@ -374,7 +375,7 @@ export default function groupRelationships(
       ? relationship.entity0_credit
       : relationship.entity1_credit;
     const isOrderable = targetIsOrderable(relationship);
-    const linkOrder = isOrderable ? relationship.linkOrder : null;
+    const linkOrder = relationship.linkOrder;
     const datePeriod = {
       begin_date: relationship.begin_date,
       end_date: relationship.end_date,
@@ -410,6 +411,7 @@ export default function groupRelationships(
         earliestDatePeriod: datePeriod,
         editsPending: relationship.editsPending,
         hasAttributes,
+        isOrderable,
         key: String(target.id) + UNIT_SEP + targetCredit + UNIT_SEP +
           (linkOrder ?? ''),
         linkOrder,
