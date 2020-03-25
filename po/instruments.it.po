@@ -691,11 +691,6 @@ msgctxt "Hybrid fretted stick-zither"
 msgid "bin-sitar"
 msgstr "bin-sitar"
 
-#: DB:instrument/name:1013
-msgctxt "Hybrid fretted stick-zither"
-msgid "bin-sitar"
-msgstr ""
-
 #: DB:instrument/name:884
 msgid "birbynė"
 msgstr "birbynė"
@@ -849,11 +844,6 @@ msgstr "buzuq"
 msgctxt "Family of ancient Indian stick zither chordophones"
 msgid "bīn"
 msgstr "bīn"
-
-#: DB:instrument/name:1012
-msgctxt "Family of ancient Indian stick zither chordophones"
-msgid "bīn"
-msgstr ""
 
 #: DB:instrument/name:903
 msgctxt "Brazilian Samba snare-drum"
