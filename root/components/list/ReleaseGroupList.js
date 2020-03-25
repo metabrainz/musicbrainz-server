@@ -55,6 +55,14 @@ export const ReleaseGroupListTable = withCatalystContext(({
   showType = true,
   sortable,
 }: ReleaseGroupListTableProps) => {
+  function getFirstReleaseYear(entity: ReleaseGroupT) {
+    if (!entity.firstReleaseDate) {
+      return '—';
+    }
+
+    return parseDate(entity.firstReleaseDate).year?.toString() ?? '—';
+  }
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user_exists && checkboxes
@@ -64,7 +72,7 @@ export const ReleaseGroupListTable = withCatalystContext(({
         ? defineSeriesNumberColumn(seriesItemNumbers)
         : null;
       const yearColumn = defineTextColumn(
-        entity => parseDate(entity.firstReleaseDate).year?.toString() ?? '—',
+        entity => getFirstReleaseYear(entity),
         'release_count',
         l('Year'),
         order,
