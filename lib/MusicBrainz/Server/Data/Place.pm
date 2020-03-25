@@ -194,6 +194,9 @@ sub _order_by {
         "name" => sub {
             return "musicbrainz_collate(name)"
         },
+        "area" => sub {
+            return "area, musicbrainz_collate(name)"
+        },
         "address" => sub {
             return "musicbrainz_collate(address), musicbrainz_collate(name)"
         },
