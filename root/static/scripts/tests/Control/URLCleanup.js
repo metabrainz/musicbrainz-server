@@ -2120,16 +2120,36 @@ const testData = [
                      input_url: 'http://www.metal-archives.com/bands/Karna/26483',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metal-archives.com/bands/Karna/26483',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.metal-archives.com/band/view/id/26483',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metal-archives.com/band/view/id/26483',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.metal-archives.com/labels/%D0%98%D0%B7%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F/51751#label_tabs_albums',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metal-archives.com/labels/%D0%98%D0%B7%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F/51751',
+       only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
-             input_entity_type: 'release_group',
+             input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'http://www.metal-archives.com/reviews/Myrkwid/Part_I/36375/',
              input_entity_type: 'release_group',
     expected_relationship_type: 'review',
+            expected_clean_url: 'https://www.metal-archives.com/reviews/Myrkwid/Part_I/36375',
+       only_valid_entity_types: ['release_group'],
   },
   // Mixcloud
   {
