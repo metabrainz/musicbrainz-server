@@ -84,20 +84,24 @@ const ArtistList = ({
         sortable,
       );
       const beginDateColumn = showBeginEnd
-        ? defineBeginDateColumn()
+        ? defineBeginDateColumn(order, sortable)
         : null;
       const beginAreaColumn = showBeginEnd ? defineEntityColumn(
         entity => entity.begin_area,
         'begin_area',
         l('Begin Area'),
+        order,
+        sortable,
       ) : null;
       const endDateColumn = showBeginEnd
-        ? defineEndDateColumn()
+        ? defineEndDateColumn(order, sortable)
         : null;
       const endAreaColumn = showBeginEnd ? defineEntityColumn(
         entity => entity.end_area,
         'end_area',
         l('End Area'),
+        order,
+        sortable,
       ) : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)

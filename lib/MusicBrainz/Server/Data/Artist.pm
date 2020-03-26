@@ -228,8 +228,23 @@ sub _order_by {
         "name" => sub {
             return "musicbrainz_collate(name)"
         },
+        "area" => sub {
+            return "area, musicbrainz_collate(name)"
+        },
         "gender" => sub {
             return "gender, musicbrainz_collate(name)"
+        },
+        "begin_date" => sub {
+            return "begin_date_year, begin_date_month, begin_date_day, musicbrainz_collate(name)"
+        },
+        "begin_area" => sub {
+            return "begin_area, musicbrainz_collate(name)"
+        },
+        "end_date" => sub {
+            return "end_date_year, end_date_month, end_date_day, musicbrainz_collate(name)"
+        },
+        "end_area" => sub {
+            return "end_area, musicbrainz_collate(name)"
         },
         "type" => sub {
             return "type, musicbrainz_collate(name)"
