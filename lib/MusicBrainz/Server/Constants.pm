@@ -6,6 +6,7 @@ use warnings;
 use base 'Exporter';
 
 use DateTime::Duration;
+use DateTime::Locale '1.00';
 use File::Basename qw( dirname );
 use File::Slurp qw( read_file );
 use File::Spec;
@@ -89,6 +90,7 @@ our @EXPORT_OK = (
         %ENTITIES entities_with @RELATABLE_ENTITIES
         $EDITOR_SANITISED_COLUMNS
         $PASSPHRASE_BCRYPT_COST
+        %ALIAS_LOCALES
     ),
 );
 
@@ -954,6 +956,30 @@ Readonly our $PASSPHRASE_BCRYPT_COST => 12;
 
 Readonly our $OAUTH_INSTALLED_APP_REDIRECT_URI_RE => qr/^(?![_-])[\w-]+(?:\.(?![_-])[\w-]+)+:/;
 Readonly our $OAUTH_WEB_APP_REDIRECT_URI_RE => qr/^https?:\/\//;
+
+=item %ALIAS_LOCALES
+
+Historically, alias locales have been stored in the database and
+returned in the web service using underscores instead of dashes, e.g.
+zh_Hant_HK instead of zh-Hant-HK. Presumably this was simply because
+that was how DateTime::Locale returned them prior to version 1.00.
+The primary reason to continue doing this is to maintain compatibility
+for data users.
+
+Thus, we define these locale codes as Unicode CLDR locale identifiers
+[1], but they can be converted to and from BCP 47 language tags quite
+easily still [2].
+
+[1] https://www.unicode.org/reports/tr35/tr35.html#BCP_47_Conformance
+[2] https://www.unicode.org/reports/tr35/tr35.html
+    #Unicode_Locale_Identifier_CLDR_to_BCP_47
+
+=cut
+
+Readonly our %ALIAS_LOCALES => map {
+    my $id = ($_ =~ s/-/_/gr);
+    $id => DateTime::Locale->load($_);
+} DateTime::Locale->codes;
 
 =head1 NAME
 

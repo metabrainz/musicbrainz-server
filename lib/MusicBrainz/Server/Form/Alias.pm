@@ -3,6 +3,7 @@ use HTML::FormHandler::Moose;
 
 use DateTime::Locale;
 use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::Constants qw( %ALIAS_LOCALES );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Form::Utils qw( select_options_tree indentation );
 
@@ -86,11 +87,12 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            $_->code => indentation($_->code =~ /[_-]/ ? 1 : 0) . _locale_name_special_cases($_)
+            my $code = $_;
+            my $locale = $ALIAS_LOCALES{$code};
+            $code => indentation($code =~ /_/ ? 1 : 0) . _locale_name_special_cases($locale)
         }
-            sort_by { $_->name }
-            sort_by { $_->code }
-                map { DateTime::Locale->load($_) } DateTime::Locale->codes
+        sort_by { $ALIAS_LOCALES{$_}->name }
+        keys %ALIAS_LOCALES
     ];
 }
 
