@@ -44,14 +44,14 @@ const PlaceList = ({
       const nameColumn =
         defineNameColumn<PlaceT>(l('Place'), order, sortable);
       const typeColumn = defineTypeColumn('place_type', order, sortable);
-      const addressColumn = defineTextColumn(
+      const addressColumn = defineTextColumn<PlaceT>(
         entity => entity.address,
         'address',
         l('Address'),
         order,
         sortable,
       );
-      const areaColumn = defineEntityColumn(
+      const areaColumn = defineEntityColumn<PlaceT>(
         entity => entity.area,
         'area',
         l('Area'),

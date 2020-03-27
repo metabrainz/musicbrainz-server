@@ -70,7 +70,7 @@ export const ReleaseGroupListTable = withCatalystContext(({
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn(seriesItemNumbers)
         : null;
-      const yearColumn = defineTextColumn(
+      const yearColumn = defineTextColumn<ReleaseGroupT>(
         entity => getFirstReleaseYear(entity),
         'year',
         l('Year'),
@@ -85,19 +85,19 @@ export const ReleaseGroupListTable = withCatalystContext(({
           sortable,
           false, // no descriptive linking (since ACs are in the next column)
         );
-      const artistCreditColumn = defineArtistCreditColumn(
+      const artistCreditColumn = defineArtistCreditColumn<ReleaseGroupT>(
         entity => entity.artistCredit,
         'artist',
         l('Artist'),
       );
-      const typeColumn = defineTextColumn(
-        entity => entity.l_type_name,
+      const typeColumn = defineTextColumn<ReleaseGroupT>(
+        entity => entity.l_type_name || '',
         'primary-type',
         l('Type'),
         order,
         sortable,
       );
-      const releaseNumberColumn = defineCountColumn(
+      const releaseNumberColumn = defineCountColumn<ReleaseGroupT>(
         entity => entity.release_count,
         'release_count',
         l('Releases'),

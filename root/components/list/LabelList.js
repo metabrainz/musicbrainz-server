@@ -48,14 +48,14 @@ const LabelList = ({
       const nameColumn =
         defineNameColumn<LabelT>(l('Label'), order, sortable);
       const typeColumn = defineTypeColumn('label_type', order, sortable);
-      const labelCodeColumn = defineTextColumn(
+      const labelCodeColumn = defineTextColumn<LabelT>(
         entity => entity.label_code ? formatLabelCode(entity.label_code) : '',
         'label_code',
         l('Code'),
         order,
         sortable,
       );
-      const areaColumn = defineEntityColumn(
+      const areaColumn = defineEntityColumn<LabelT>(
         entity => entity.area,
         'area',
         l('Area'),
