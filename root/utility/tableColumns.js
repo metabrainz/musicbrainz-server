@@ -66,7 +66,8 @@ export function defineActionsColumn(
     ),
     Header: l('Actions'),
     accessor: 'id',
-    className: 'actions',
+    cellProps: {className: 'actions'},
+    headerProps: {className: 'actions'},
     id: 'actions',
   };
 }
@@ -99,7 +100,7 @@ export function defineArtistCreditColumn<D>(
       )
       : title),
     accessor: row => getArtistCredit(row)?.names[0].name ?? '',
-    className: 'artist',
+    headerProps: {className: 'artist'},
     id: columnName,
   };
 }
@@ -162,7 +163,7 @@ export function defineCheckboxColumn(
         />
       ),
     Header: mergeForm ? null : <input type="checkbox" />,
-    className: 'checkbox-cell',
+    headerProps: {className: 'checkbox-cell'},
     id: 'checkbox',
   };
 }
@@ -173,7 +174,6 @@ export function defineCountColumn<D>(
   title: string,
   order?: string = '',
   sortable?: boolean = false,
-  className?: string,
 ): ColumnOptions<D, number> {
   return {
     Cell: ({cell: {value}}) => (
@@ -191,7 +191,8 @@ export function defineCountColumn<D>(
       )
       : title),
     accessor: row => getCount(row),
-    className: className || 'count c',
+    cellProps: {className: 'c'},
+    headerProps: {className: 'count c'},
     id: columnName,
   };
 }
@@ -236,7 +237,7 @@ export function defineEndDateColumn(
 }
 
 export function defineEntityColumn<D>(
-  getEntity: (D) => CoreEntityT,
+  getEntity: (D) => CoreEntityT | null,
   columnName: string,
   title: string,
   order?: string = '',
@@ -416,7 +417,8 @@ export function defineSeriesNumberColumn(
     Cell: ({cell: {value}}) => seriesItemNumbers[value],
     Header: l('#'),
     accessor: 'id',
-    className: 'number-column',
+    cellProps: {className: 'number-column'},
+    headerProps: {className: 'number-column'},
     id: 'series-number',
   };
 }
@@ -427,7 +429,8 @@ export function defineTextColumn<D>(
   title: string,
   order?: string = '',
   sortable?: boolean = false,
-  className?: string,
+  cellProps?: {className: string, ...},
+  headerProps?: {className: string, ...},
 ): ColumnOptions<D, StrOrNum> {
   return {
     Cell: ({row: {original}}) => getText(original),
@@ -441,7 +444,8 @@ export function defineTextColumn<D>(
       )
       : title),
     accessor: row => getText(row) ?? '',
-    className: className || null,
+    cellProps: cellProps,
+    headerProps: headerProps,
     id: columnName,
   };
 }
@@ -519,6 +523,7 @@ export const iswcsColumn:
     ),
     Header: N_l('ISWC'),
     accessor: 'iswcs',
+    cellProps: {className: 'iswc'},
   };
 
 export const locationColumn:
@@ -533,7 +538,8 @@ export const ratingsColumn:
     Cell: ({row: {original}}) => <RatingStars entity={original} />,
     Header: N_l('Rating'),
     accessor: 'rating',
-    className: 'rating c',
+    cellProps: {className: 'c'},
+    headerProps: {className: 'rating c'},
   };
 
 export const seriesOrderingTypeColumn:

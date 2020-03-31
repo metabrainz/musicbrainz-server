@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-27 09:47+0000\n"
+"PO-Revision-Date: 2020-03-25 13:31+0000\n"
 "Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -2804,32 +2804,45 @@ msgid ""
 "website created specifically for the release group."
 msgstr ""
 
+#: DB:link_type/description:980
+msgid ""
+"This relationship type is used to link a release to a site where the tracks can be legally streamed for a subscription fee, e.g. Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr "Dieser Beziehungstyp wird benutzt, um eine Veröffentlichung zu einer Seite zu verlinken, von der sie gegen eine Abo-Gebühr legal gestreamt werden kann, z.B. Tidal.\n\nWenn die Seite kostenloses Streamen erlaubt, verwende stattdessen \"kostenloses Streamen\"."
+
 #: DB:link_type/description:85
 msgid ""
 "This relationship type is used to link a release to a site where the tracks "
 "can be legally streamed for free, e.g. Spotify."
-msgstr "Dieser Beziehungstyp wird benutzt um ein eine Veröffentlichung zu einer Seite zu verlinken, von welcher sie legal kostenlos gestreamt werden kann, z.B. Spotify."
+msgstr "Dieser Beziehungstyp wird benutzt, um eine Veröffentlichung zu einer Seite zu verlinken, von der sie legal kostenlos gestreamt werden kann, z.B. Spotify."
+
+#: DB:link_type/description:979
+msgid ""
+"This relationship type is used to link a track to a site where the track can be legally streamed for a subscription fee, e.g. Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr "Dieser Beziehungstyp wird benutzt, um einen Titel zu einer Seite zu verlinken, von der er gegen eine Abo-Gebühr legal gestreamt werden kann, z.B. Tidal.\n\nWenn die Seite kostenloses Streamen erlaubt, verwende stattdessen \"kostenloses Streamen\"."
 
 #: DB:link_type/description:268
 msgid ""
 "This relationship type is used to link a track to a site where the track can"
 " be legally streamed for free, such as Spotify for audio tracks or YouTube "
 "for videos."
-msgstr "Dieser Beziehungstyp wird benutzt um einen Titel zu einer Seite zu verlinken, von welcher Musik legal kostenlos gestreamt werden kann, wie beispielsweise Spotify für Audiotitel oder YouTube für Videos."
+msgstr "Dieser Beziehungstyp wird benutzt, um einen Titel zu einer Seite zu verlinken, von der Musik legal kostenlos gestreamt werden kann, wie beispielsweise Spotify für Audiotitel oder YouTube für Videos."
 
-#: DB:link_type/description:978 DB:link_type/description:979
-#: DB:link_type/description:980
+#: DB:link_type/description:978
 msgid ""
 "This relationship type is used to link an artist to a site where music can be legally streamed for a subscription fee, e.g. Tidal.\n"
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
-msgstr ""
+msgstr "Dieser Beziehungstyp wird benutzt, um einen Künstler zu einer Seite zu verlinken, von der Musik gegen eine Abo-Gebühr legal gestreamt werden kann, z.B. Tidal.\n\nWenn die Seite kostenloses Streamen erlaubt, verwende stattdessen \"kostenloses Streamen\"."
 
 #: DB:link_type/description:194
 msgid ""
 "This relationship type is used to link an artist to a site where music can "
 "be legally streamed for free, e.g. Spotify."
-msgstr "Dieser Beziehungstyp wird benutzt um einen Künstler zu einer Seite zu verlinken, von welcher Musik legal kostenlos gestreamt werden kann, z.B. Spotify."
+msgstr "Dieser Beziehungstyp wird benutzt, um einen Künstler zu einer Seite zu verlinken, von der Musik legal kostenlos gestreamt werden kann, z.B. Spotify."
 
 #: DB:link_type/description:199
 msgid "This relationship type is used to link an artist to their blog."
@@ -3978,7 +3991,7 @@ msgstr "Seite zum kostenlosen Musik-{video:Video-}Streamen für"
 
 #: DB:link_type/name:85 DB:link_type/name:268 DB:link_type/name:194
 msgid "free streaming"
-msgstr ""
+msgstr "kostenloses Streamen"
 
 #: DB:link_type/reverse_link_phrase:752
 msgid "from"

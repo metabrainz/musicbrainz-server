@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-03-06 11:39+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2020-03-25 10:59+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2800,11 +2800,25 @@ msgid ""
 "website created specifically for the release group."
 msgstr "Deze relatie wordt gebruikt om een uitgavegroep te koppelen aan een officiële website die specifiek voor deze uitgavegroep is gemaakt."
 
+#: DB:link_type/description:980
+msgid ""
+"This relationship type is used to link a release to a site where the tracks can be legally streamed for a subscription fee, e.g. Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr ""
+
 #: DB:link_type/description:85
 msgid ""
 "This relationship type is used to link a release to a site where the tracks "
 "can be legally streamed for free, e.g. Spotify."
 msgstr "Deze relatie wordt gebruikt om een uitgave te koppelen aan een website waarop de nummers gratis legaal kunnen worden beluisterd, zoals Spotify."
+
+#: DB:link_type/description:979
+msgid ""
+"This relationship type is used to link a track to a site where the track can be legally streamed for a subscription fee, e.g. Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr ""
 
 #: DB:link_type/description:268
 msgid ""
@@ -2813,8 +2827,7 @@ msgid ""
 "for videos."
 msgstr "Deze relatie wordt gebruikt om een nummer te koppelen aan een website waarop het nummer gratis legaal kan worden beluisterd, zoals Spotify voor audio of Youtube voor video’s."
 
-#: DB:link_type/description:978 DB:link_type/description:979
-#: DB:link_type/description:980
+#: DB:link_type/description:978
 msgid ""
 "This relationship type is used to link an artist to a site where music can be legally streamed for a subscription fee, e.g. Tidal.\n"
 "\n"

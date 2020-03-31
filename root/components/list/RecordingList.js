@@ -69,7 +69,7 @@ const RecordingList = ({
           sortable,
           false, // no descriptive linking (since ACs are in the next column)
         );
-      const artistCreditColumn = defineArtistCreditColumn(
+      const artistCreditColumn = defineArtistCreditColumn<RecordingT>(
         entity => entity.artistCredit,
         'artist',
         l('Artist'),
@@ -77,14 +77,14 @@ const RecordingList = ({
         sortable,
         showExpandedArtistCredits,
       );
-      const lengthColumn = defineTextColumn(
+      const lengthColumn = defineTextColumn<RecordingT>(
         /* Show nothing rather than ?:?? for recordings merged away */
         entity => entity.gid ? formatTrackLength(entity.length) : '',
         'length',
         l('Length'),
         order,
         sortable,
-        lengthClass,
+        {className: lengthClass ?? ''},
       );
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)

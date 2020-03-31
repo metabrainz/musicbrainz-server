@@ -72,23 +72,26 @@ const EventList = ({
           false, // to use EntityLink without dates (separate column for that)
         );
       const typeColumn = defineTypeColumn('event_type', order, sortable);
-      const artistsColumn = defineArtistRolesColumn(
+      const artistsColumn = defineArtistRolesColumn<EventT>(
         entity => entity.performers,
         'performers',
         l('Artists'),
       );
-      const timeColumn = defineTextColumn(
+      const timeColumn = defineTextColumn<EventT>(
         entity => entity.time,
         'time',
         l('Time'),
       );
       const rolesOnlyColumn = artist && artistRoles
-        ? defineTextColumn(
-          entity => entity.performers.map(performer => (
-            performer.entity.id === artist.id
-              ? commaOnlyListText(localizeArtistRoles(performer.roles))
-              : null
-          )),
+        ? defineTextColumn<EventT>(
+          entity => commaOnlyListText(
+            entity.performers.reduce((result, performer) => {
+              if (performer.entity.id === artist.id) {
+                result.push(...localizeArtistRoles(performer.roles));
+              }
+              return result;
+            }, []),
+          ),
           'performers',
           l('Role'),
         )

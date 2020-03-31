@@ -56,7 +56,7 @@ const WorkList = ({
         order,
         sortable,
       );
-      const writersColumn = defineArtistRolesColumn(
+      const writersColumn = defineArtistRolesColumn<WorkT>(
         entity => entity.writers,
         'writers',
         l('Writers'),
