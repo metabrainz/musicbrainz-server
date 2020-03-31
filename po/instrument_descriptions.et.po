@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-03-12 12:45+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-03-25 10:59+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,6 +32,24 @@ msgid ""
 "href=\"/doc/How_to_Add_Instruments\">requesting the missing instrument</a>. "
 "</li> </ul> If you can't find more information than the generic \"drum\" or "
 "\"drums\" credit, use this instrument."
+msgstr ""
+
+#. name:rebab
+#: DB:instrument/description:239
+msgid ""
+"\"Rebab\" (and other variant spellings) is the name for chiefly these 3 "
+"types of bowed/plucked string instrument families: <br /> <ul> <li>Large, "
+"short necked boatshaped \"sarinda\" type, here the kabuli rebab</li> "
+"<li>Small, long necked spike fiddle \"huqyin\" type, here the indonesian "
+"rebab</li> <li>various sizes, varying necklength, pearshaped \"Cretan lyra\""
+" type, here the bowed lutes proper</li> </ul> <br /> <br /> Given the name "
+"cross-overs they are confused with eachother in most sources. Curiously, "
+"this cross-over confusion extends to related but separately or similarly "
+"named instruments as well, for example <a href=\"/instrument/0d766870-3021"
+"-47ce-bd51-78d2d2484e1b\">Ghijak</a> (a spikefiddle) and <a "
+"href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">Ghaychak</a> (a "
+"boat-shaped).<br /> It is, for the meantime, unknown how, if at all, these 3"
+" subtypes are related."
 msgstr ""
 
 #. name:chitra veena
@@ -562,6 +580,13 @@ msgstr ""
 msgid "Bass member of the garifuna drum group."
 msgstr ""
 
+#. name:lirone
+#: DB:instrument/description:697
+msgid ""
+"Bass member of the lira family, it has between 9 and 16 strings and a "
+"fretted neck."
+msgstr ""
+
 #. name:bicycle bell
 #: DB:instrument/description:743
 msgid ""
@@ -828,6 +853,13 @@ msgid ""
 "fastened with pins. The back can be rounded or flat."
 msgstr ""
 
+#. name:seni rebab
+#: DB:instrument/description:1014
+msgid ""
+"Developed in India during medieval times by Tansen, making it larger, with a"
+" longer neck and giving it metal sympathetic strings."
+msgstr ""
+
 #. name:violin family
 #: DB:instrument/description:59
 msgid ""
@@ -1015,6 +1047,17 @@ msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
 msgstr ""
 
+#. name:lira da braccio
+#: DB:instrument/description:1016
+msgid ""
+"For the wheel-bowed instrument also called \"lira\", see <a "
+"href=\"/instrument/303d4f1a-f799-4c42-9bac-dbedd9139e91\">hurdy-gurdy</a><br"
+" /> For the harp-like instrument, see <a "
+"href=\"/instrument/21bd4d63-a75a-4022-abd3-52ba7487c2de\">lyre</a><br /> For"
+" the bowed lute, see Cretan <a "
+"href=\"/instrument/4fe225a3-6939-4fab-a416-d0cd38c96cb9\">lyra</a>"
+msgstr ""
+
 #. name:jeli ngɔni
 #: DB:instrument/description:854
 msgid ""
@@ -1060,6 +1103,13 @@ msgstr ""
 #. name:gankogui
 #: DB:instrument/description:383
 msgid "Gankogui, iron bell"
+msgstr ""
+
+#. name:fiddle
+#: DB:instrument/description:61
+msgid ""
+"Generally any bowed handle lute with the characteristic \"violin\" shape "
+"belong to fiddles."
 msgstr ""
 
 #. name:percussion idiophone
@@ -1591,6 +1641,11 @@ msgid ""
 "many other struck idiophones"
 msgstr ""
 
+#. name:kemenche
+#: DB:instrument/description:211
+msgid "Made of wood, its soundbox is oblong and its neck is short"
+msgstr ""
+
 #. name:gemshorn
 #: DB:instrument/description:868
 msgid ""
@@ -1853,6 +1908,13 @@ msgid ""
 "special slendro variant is even higher than the panerus, of which it shares "
 "an overlapping range. Finally the saron wayang is used in wayang "
 "performances."
+msgstr ""
+
+#. name:spike-fiddle
+#: DB:instrument/description:1019
+msgid ""
+"Particular type of fiddle, long neck, often few strings and usually with a "
+"rather small soundbox, it has a spike at the end."
 msgstr ""
 
 #. name:body percussion
@@ -2279,11 +2341,6 @@ msgid ""
 " it as a whole vibrates, without the use of strings or membranes. Therefore "
 "these are most often made of sonorous material: metal, wood, glass and even "
 "stone."
-msgstr ""
-
-#. name:rebab
-#: DB:instrument/description:239
-msgid "Subtypes, reordering and fix-ups will be forthcoming."
 msgstr ""
 
 #. name:Swedish bagpipes
@@ -3076,11 +3133,6 @@ msgid ""
 "Karelia."
 msgstr ""
 
-#. name:kamancheh
-#: DB:instrument/description:503
-msgid "The kamānche is a Persian bowed string instrument."
-msgstr ""
-
 #. name:kanjira
 #: DB:instrument/description:474
 msgid "The kanjira is a South Indian frame drum."
@@ -3238,13 +3290,6 @@ msgstr ""
 #: DB:instrument/description:573
 msgid "The limbe is a Mongolian transverse flute."
 msgstr "mongoli põikflööt"
-
-#. name:lirone
-#: DB:instrument/description:697
-msgid ""
-"The lirone (or lira da gamba) is the bass member of the lira family, a bowed"
-" string instrument with between 9 and 16 strings and a fretted neck."
-msgstr ""
 
 #. name:luthéal
 #: DB:instrument/description:737
@@ -4481,13 +4526,6 @@ msgstr ""
 msgid "Various types of cymbal. Also called chũm chọe"
 msgstr "mitmesugused taldrikud; tuntud ka kui chũm chọe"
 
-#. name:kemenche
-#: DB:instrument/description:211
-msgid ""
-"Various types of stringed bowed musical instruments having their origin in "
-"the Eastern Mediterranean"
-msgstr ""
-
 #. name:Blaster Beam
 #: DB:instrument/description:852
 msgid ""
@@ -4954,7 +4992,7 @@ msgstr ""
 
 #. name:rōria
 #: DB:instrument/description:859
-msgid "thin quiet jew's harp-like instrument made of wood or bone."
+msgid "thin quiet mouth harp like instrument made of wood or bone."
 msgstr ""
 
 #. name:ti bwa

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-03-12 12:45+0000\n"
-"Last-Translator: Panos Bouklis <email address hidden>\n"
+"PO-Revision-Date: 2020-03-25 10:59+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -128,10 +128,6 @@ msgstr "Όργανο Hammond"
 #: DB:instrument/name:323
 msgid "Hawaiian guitar"
 msgstr "Χαβανέζικη κιθάρα"
-
-#: DB:instrument/name:417
-msgid "Indian bamboo flutes"
-msgstr "Ινδικά φλάουτα από μπαμπού"
 
 #: DB:instrument/name:1011
 msgctxt "Indonesian spike-fiddle used in gamelan"
@@ -354,7 +350,7 @@ msgid "amadinda"
 msgstr ""
 
 #: DB:instrument/name:809
-msgctxt "mongolian jew's harp"
+msgctxt "mongolian mouth harp"
 msgid "aman khuur"
 msgstr ""
 
@@ -509,6 +505,7 @@ msgid "baritone saxophone"
 msgstr "βαρύτονο σαξόφωνο"
 
 #: DB:instrument/name:917
+msgctxt "Baroque gut string guitar"
 msgid "baroque guitar"
 msgstr ""
 
@@ -769,6 +766,14 @@ msgstr ""
 msgid "bouzouki"
 msgstr "μπουζούκι"
 
+#: DB:instrument/name:1017
+msgid "bowed lute"
+msgstr ""
+
+#: DB:instrument/name:1018
+msgid "bowed lyre"
+msgstr ""
+
 #: DB:instrument/name:504
 msgid "bowed piano"
 msgstr "κυρτό πιάνο"
@@ -1016,6 +1021,7 @@ msgid "clarinet"
 msgstr "κλαρινέτο"
 
 #: DB:instrument/name:54
+msgctxt "Classical nylon string guitar"
 msgid "classical guitar"
 msgstr "κλασική κιθάρα"
 
@@ -2011,6 +2017,7 @@ msgid "kamalen ngɔni"
 msgstr ""
 
 #: DB:instrument/name:503
+msgctxt "Persian spike-fiddle"
 msgid "kamancheh"
 msgstr ""
 
@@ -2065,6 +2072,7 @@ msgid "kemanak"
 msgstr ""
 
 #: DB:instrument/name:211
+msgctxt "Eastern Mediterranean bowed lute"
 msgid "kemenche"
 msgstr "κεμεντζέ / Πολίτικη λύρα"
 
@@ -2371,7 +2379,13 @@ msgstr ""
 msgid "limbe"
 msgstr ""
 
+#: DB:instrument/name:1016
+msgctxt "Renaissance violin"
+msgid "lira da braccio"
+msgstr ""
+
 #: DB:instrument/name:697
+msgctxt "Bass renaissance violin"
 msgid "lirone"
 msgstr ""
 
@@ -2392,6 +2406,10 @@ msgstr "κυρτή σφυρίχτρα"
 #: DB:instrument/name:83
 msgid "lute"
 msgstr "λαούτο"
+
+#: DB:instrument/name:1015
+msgid "lute family"
+msgstr ""
 
 #: DB:instrument/name:737
 msgid "luthéal"
@@ -2519,7 +2537,7 @@ msgid "mridangam"
 msgstr ""
 
 #: DB:instrument/name:710
-msgctxt "Ainu jew's harp"
+msgctxt "Ainu mouth harp"
 msgid "mukkuri"
 msgstr ""
 
@@ -2989,14 +3007,14 @@ msgid "ravanahatha"
 msgstr ""
 
 #: DB:instrument/name:239
-msgctxt "Spike-fiddle rebab catch-all"
+msgctxt "Generic rebab catch-all"
 msgid "rebab"
 msgstr "ραμπάμπ / ρεμπάμπ"
 
 #: DB:instrument/name:206
-msgctxt "Medieval bowed lyre"
+msgctxt "Medieval bowed lute"
 msgid "rebec"
-msgstr ""
+msgstr "ρεμπέκ"
 
 #: DB:instrument/name:721
 msgid "reco-reco"
@@ -3068,7 +3086,7 @@ msgid "ruan"
 msgstr ""
 
 #: DB:instrument/name:883
-msgctxt "Plucked lute member of the bowed rebab family"
+msgctxt "Ancient Afghan plucked lute member of the bowed rebab family"
 msgid "rubab"
 msgstr ""
 
@@ -3082,7 +3100,7 @@ msgid "ryuteki"
 msgstr ""
 
 #: DB:instrument/name:859
-msgctxt "Māori taonga pūoro jew's harp"
+msgctxt "Māori taonga pūoro mouth harp"
 msgid "rōria"
 msgstr ""
 
@@ -3216,6 +3234,11 @@ msgstr ""
 #: DB:instrument/name:757
 msgctxt "Bass garifuna drum"
 msgid "segunda"
+msgstr ""
+
+#: DB:instrument/name:1014
+msgctxt "Medieval Indian evolution of the Afghan (kabuli) rabab"
+msgid "seni rebab"
 msgstr ""
 
 #: DB:instrument/name:148
@@ -3376,6 +3399,10 @@ msgstr "σοπράνο βιολί"
 msgid "sousaphone"
 msgstr ""
 
+#: DB:instrument/name:1019
+msgid "spike-fiddle"
+msgstr ""
+
 #: DB:instrument/name:513
 msgid "spilåpipa"
 msgstr ""
@@ -3399,6 +3426,7 @@ msgid "steel guitar"
 msgstr "κιθάρα χάλυβα"
 
 #: DB:instrument/name:653
+msgctxt "Modern acoustic steel string guitar"
 msgid "steel-string guitar"
 msgstr ""
 
@@ -3976,6 +4004,7 @@ msgid "vichitra veena"
 msgstr ""
 
 #: DB:instrument/name:91
+msgctxt "Medieval violin"
 msgid "vielle"
 msgstr ""
 

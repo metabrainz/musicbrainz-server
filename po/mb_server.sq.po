@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-12 12:40+0000\n"
-"PO-Revision-Date: 2020-03-12 12:46+0000\n"
-"Last-Translator: Besnik <email address hidden>\n"
+"POT-Creation-Date: 2020-03-25 12:57+0200\n"
+"PO-Revision-Date: 2020-03-25 10:58+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,9 +59,7 @@ msgstr "\"YY\" janë dy shifrat e fundit të vitit të regjistrimit."
 #: ../root/edit/details/historic/add_release.tt:49
 #: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:368
 #: ../root/release/edit_relationships.tt:48
-#: ../root/components/list/RecordingList.js:67
-#: ../root/components/list/ReleaseGroupList.js:80
-#: ../root/recording/RecordingIndex.js:46 ../root/utility/tableColumns.js:349
+#: ../root/recording/RecordingIndex.js:46 ../root/utility/tableColumns.js:417
 msgid "#"
 msgstr "#"
 
@@ -182,7 +180,7 @@ msgstr ""
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/release_group/ReleaseGroupIndex.js:140
 #: ../root/search/components/ReleaseResults.js:105
-#: ../root/utility/tableColumns.js:308 ../root/utility/tableColumns.js:316
+#: ../root/utility/tableColumns.js:351 ../root/utility/tableColumns.js:359
 msgctxt "and"
 msgid "/"
 msgstr ""
@@ -318,7 +316,7 @@ msgstr "Përgjegjës llogarish"
 #: ../root/components/Aliases/AliasTable.js:31
 #: ../root/components/Aliases/ArtistCreditList.js:48
 #: ../root/static/scripts/common/components/FingerprintTable.js:53
-#: ../root/utility/tableColumns.js:60
+#: ../root/utility/tableColumns.js:67
 msgid "Actions"
 msgstr "Veprime"
 
@@ -721,7 +719,7 @@ msgstr ""
 #: ../root/place/merge.tt:14 ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/area/AreaHeader.js:24 ../root/components/list/AreaList.js:41
-#: ../root/components/list/ArtistList.js:84
+#: ../root/components/list/ArtistList.js:82
 #: ../root/components/list/LabelList.js:61
 #: ../root/components/list/PlaceList.js:57 ../root/edit/details/AddArea.js:41
 #: ../root/edit/details/AddArtist.js:99 ../root/edit/details/AddPlace.js:73
@@ -774,11 +772,9 @@ msgstr "Zona"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:31
 #: ../root/components/RelationshipsTable.js:90
-#: ../root/components/list/ArtistList.js:55
 #: ../root/components/list/ArtistList.js:60
-#: ../root/components/list/RecordingList.js:83
-#: ../root/components/list/RecordingList.js:88
-#: ../root/components/list/ReleaseGroupList.js:103
+#: ../root/components/list/RecordingList.js:75
+#: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:74
 #: ../root/edit/details/AddArtist.js:56 ../root/isrc/Index.js:57
 #: ../root/layout/components/Search.js:18
@@ -786,6 +782,7 @@ msgstr "Zona"
 #: ../root/report/BadAmazonUrls.js:59 ../root/report/CatNoLooksLikeAsin.js:63
 #: ../root/report/DuplicateArtists.js:73
 #: ../root/report/IsrcsWithManyRecordings.js:73
+#: ../root/report/RecordingTrackDifferentName.js:62
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:73
 #: ../root/report/ReleaseLabelSameArtist.js:67
 #: ../root/report/components/ArtistAnnotationList.js:25
@@ -901,7 +898,7 @@ msgstr "Artist:"
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:387
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
 #: ../root/tag/TagIndex.js:98 ../root/tag/TagLayout.js:25
-#: ../root/utility/tableColumns.js:481
+#: ../root/utility/tableColumns.js:568
 msgid "Artists"
 msgstr "Artistë"
 
@@ -935,7 +932,7 @@ msgstr "Bashkëngjitur te hedhje në qarkullim"
 #: ../root/admin/attributes/Language.js:32
 #: ../root/admin/attributes/Script.js:33
 #: ../root/components/RelationshipsTable.js:89
-#: ../root/utility/tableColumns.js:407
+#: ../root/utility/tableColumns.js:475
 msgid "Attributes"
 msgstr "Atribute"
 
@@ -1043,12 +1040,11 @@ msgid ""
 msgstr "Bëhuni pjesë e MusicBrainz-it duke krijuar një llogari dhe {how|duke lexuar rreth procesit tonë} për parashtrim të dhënash te MusicBrainz. Shihni se si kryejmë shqyrtim peer review të dhënave të sjella, për të krijuar në internet bazën më të saktë të të dhënave mbi muzikën. Nëse kjo ju ngjall interes, ju lutemi, {reg|krijoni një llogari} ose {login_url|bëni hyrjen në të}."
 
 #: ../root/event/merge.tt:14 ../root/label/merge.tt:16
-#: ../root/place/merge.tt:15 ../root/components/list/ArtistList.js:87
-#: ../root/search/components/AreaResults.js:60
+#: ../root/place/merge.tt:15 ../root/search/components/AreaResults.js:60
 #: ../root/search/components/ArtistResults.js:50
 #: ../root/search/components/LabelResults.js:64
 #: ../root/search/components/PlaceResults.js:63
-#: ../root/utility/tableColumns.js:127 ../root/utility/tableColumns.js:132
+#: ../root/utility/tableColumns.js:139 ../root/utility/tableColumns.js:144
 msgid "Begin"
 msgstr "Fillim"
 
@@ -1234,7 +1230,7 @@ msgstr "Numër katalogu:"
 #: ../root/recording/RecordingIndex.js:55
 #: ../root/release_group/ReleaseGroupIndex.js:142
 #: ../root/search/components/ReleaseResults.js:107
-#: ../root/utility/tableColumns.js:284 ../root/utility/tableColumns.js:289
+#: ../root/utility/tableColumns.js:327 ../root/utility/tableColumns.js:332
 msgid "Catalog#"
 msgstr "Katalog#"
 
@@ -1403,7 +1399,7 @@ msgstr "Kopjoje titullin e hedhjes në qarkullim te grupi i hedhjeve në qarkull
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/release_group/ReleaseGroupIndex.js:140
 #: ../root/search/components/ReleaseResults.js:105
-#: ../root/utility/tableColumns.js:304 ../root/utility/tableColumns.js:316
+#: ../root/utility/tableColumns.js:347 ../root/utility/tableColumns.js:359
 msgid "Country"
 msgstr "Vend"
 
@@ -1502,8 +1498,8 @@ msgstr "Të dhëna:"
 #: ../root/report/components/EventList.js:34
 #: ../root/search/components/EventResults.js:65
 #: ../root/search/components/ReleaseResults.js:105
-#: ../root/utility/tableColumns.js:165 ../root/utility/tableColumns.js:170
-#: ../root/utility/tableColumns.js:310 ../root/utility/tableColumns.js:316
+#: ../root/utility/tableColumns.js:208 ../root/utility/tableColumns.js:213
+#: ../root/utility/tableColumns.js:353 ../root/utility/tableColumns.js:359
 msgid "Date"
 msgstr "Datë"
 
@@ -1556,7 +1552,7 @@ msgstr "Nxjerrë nga përdorimi:"
 #: ../root/instrument/InstrumentIndex.js:35
 #: ../root/search/components/InstrumentResults.js:49
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:88
-#: ../root/utility/tableColumns.js:416
+#: ../root/utility/tableColumns.js:484
 msgid "Description"
 msgstr "Përshkrim"
 
@@ -1897,12 +1893,11 @@ msgstr "Aktivizoni numra pjesësh vinili"
 
 #: ../root/cdtoc/info.tt:34 ../root/event/merge.tt:15
 #: ../root/label/merge.tt:17 ../root/place/merge.tt:16
-#: ../root/components/list/ArtistList.js:89
 #: ../root/search/components/AreaResults.js:61
 #: ../root/search/components/ArtistResults.js:52
 #: ../root/search/components/LabelResults.js:65
 #: ../root/search/components/PlaceResults.js:64
-#: ../root/utility/tableColumns.js:184 ../root/utility/tableColumns.js:189
+#: ../root/utility/tableColumns.js:227 ../root/utility/tableColumns.js:232
 msgid "End"
 msgstr "Fund"
 
@@ -2496,7 +2491,7 @@ msgstr ""
 #: ../root/edit/details/AddWork.js:61 ../root/edit/details/EditWork.js:76
 #: ../root/report/IswcsWithManyWorks.js:62
 #: ../root/search/components/WorkResults.js:51
-#: ../root/utility/tableColumns.js:434
+#: ../root/utility/tableColumns.js:520
 msgid "ISWC"
 msgstr "ISWC"
 
@@ -2755,7 +2750,7 @@ msgstr "Mbamë të futur"
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:19
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
-#: ../root/utility/tableColumns.js:332 ../root/utility/tableColumns.js:337
+#: ../root/utility/tableColumns.js:375 ../root/utility/tableColumns.js:380
 msgid "Label"
 msgstr "Etiketë"
 
@@ -2842,8 +2837,7 @@ msgstr ""
 #: ../root/release/discids.tt:10 ../root/release/edit/tracklist.tt:151
 #: ../root/release/edit/tracklist.tt:371
 #: ../root/components/RelationshipsTable.js:91
-#: ../root/components/list/RecordingList.js:96
-#: ../root/components/list/RecordingList.js:101 ../root/isrc/Index.js:58
+#: ../root/components/list/RecordingList.js:84 ../root/isrc/Index.js:58
 #: ../root/recording/RecordingIndex.js:48
 #: ../root/report/IsrcsWithManyRecordings.js:75
 #: ../root/search/components/RecordingResults.js:124
@@ -2959,7 +2953,7 @@ msgstr ""
 #: ../root/edit/details/AddWork.js:79 ../root/edit/details/EditWork.js:94
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:53
-#: ../root/static/scripts/work.js:276 ../root/utility/tableColumns.js:499
+#: ../root/static/scripts/work.js:276 ../root/utility/tableColumns.js:586
 msgid "Lyrics Languages"
 msgstr "Gjuhë Vargjesh"
 
@@ -3198,8 +3192,7 @@ msgstr "N/A"
 #: ../root/admin/attributes/Language.js:39
 #: ../root/admin/attributes/Script.js:41
 #: ../root/components/Aliases/ArtistCreditList.js:44
-#: ../root/components/list/RecordingList.js:72
-#: ../root/components/list/RecordingList.js:77
+#: ../root/components/list/RecordingList.js:67
 #: ../root/edit/details/AddArea.js:52 ../root/edit/details/AddArtist.js:67
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/AddPlace.js:50
 #: ../root/edit/details/AddSeries.js:42 ../root/edit/details/AddWork.js:50
@@ -3597,7 +3590,7 @@ msgstr ""
 #: ../root/series/merge.tt:14 ../root/edit/details/AddSeries.js:61
 #: ../root/edit/details/EditSeries.js:77
 #: ../root/layout/components/sidebar/SeriesSidebar.js:52
-#: ../root/utility/tableColumns.js:460
+#: ../root/utility/tableColumns.js:547
 msgid "Ordering Type"
 msgstr ""
 
@@ -3716,7 +3709,7 @@ msgstr "Vend:"
 
 #: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:35
 #: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:27
-#: ../root/report/ReportsIndex.js:460
+#: ../root/report/ReportsIndex.js:465
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:114 ../root/tag/TagLayout.js:31
 msgid "Places"
@@ -3886,11 +3879,9 @@ msgid_plural "Rate: {rating} stars"
 msgstr[0] "Vlerësim: {rating} yll"
 msgstr[1] "Vlerësim: {rating} yje"
 
-#: ../root/components/medium.tt:40 ../root/components/list/ArtistList.js:93
-#: ../root/components/list/RecordingList.js:91
-#: ../root/components/list/ReleaseGroupList.js:117
+#: ../root/components/medium.tt:40
 #: ../root/layout/components/sidebar/SidebarRating.js:22
-#: ../root/utility/tableColumns.js:448
+#: ../root/utility/tableColumns.js:534
 msgid "Rating"
 msgstr "Vlerësim"
 
@@ -3921,6 +3912,7 @@ msgstr "Shënime të Lëna Së Fundi në Përpunimet Tuaja"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/layout/components/Search.js:22
 #: ../root/report/IsrcsWithManyRecordings.js:74
+#: ../root/report/RecordingTrackDifferentName.js:63
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:74
 #: ../root/report/components/RecordingAnnotationList.js:28
 #: ../root/report/components/RecordingList.js:28
@@ -4033,10 +4025,8 @@ msgstr "Lloj Marrëdhënieje Në Përdorim"
 
 #: ../root/doc/relationship_type.tt:4 ../root/relationship/header.tt:1
 #: ../root/relationship/linktype/index.tt:1
-#: ../root/components/list/ArtistList.js:95
-#: ../root/components/list/RecordingList.js:104
 #: ../root/layout/components/BottomMenu.js:290
-#: ../root/utility/tableColumns.js:234
+#: ../root/utility/tableColumns.js:277
 msgid "Relationship Types"
 msgstr "Lloje Marrëdhëniesh"
 
@@ -4239,7 +4229,7 @@ msgstr "Hedhje në qarkullim:"
 #: ../root/release_group/merge.tt:16 ../root/area/AreaReleases.js:31
 #: ../root/area/AreaReleases.js:32 ../root/artist/ArtistReleases.js:45
 #: ../root/artist/ArtistReleases.js:46 ../root/components/EntityTabs.js:29
-#: ../root/components/list/ReleaseGroupList.js:118
+#: ../root/components/list/ReleaseGroupList.js:96
 #: ../root/instrument/InstrumentReleases.js:33
 #: ../root/instrument/InstrumentReleases.js:34 ../root/label/LabelIndex.js:58
 #: ../root/report/ReportsIndex.js:222
@@ -4367,8 +4357,8 @@ msgstr "Hiqni disk"
 
 #: ../root/components/common-macros.tt:936
 #: ../root/components/common-macros.tt:944
-#: ../root/components/RemoveFromMergeTableCell.js:25
-#: ../root/components/RemoveFromMergeTableHeader.js:16
+#: ../root/components/RemoveFromMergeTableCell.js:26
+#: ../root/utility/tableColumns.js:397 ../root/utility/tableColumns.js:405
 msgid "Remove from merge"
 msgstr ""
 
@@ -4887,7 +4877,7 @@ msgstr "Kërkim etiketash"
 #: ../root/search/components/RecordingResults.js:128
 #: ../root/search/components/ReleaseResults.js:112
 #: ../root/static/scripts/common/components/TaggerIcon.js:43
-#: ../root/utility/tableColumns.js:474
+#: ../root/utility/tableColumns.js:561
 msgid "Tagger"
 msgstr "Etiketues"
 
@@ -5461,8 +5451,7 @@ msgstr "Kohë:"
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/release/edit/tracklist.tt:149 ../root/release/edit/tracklist.tt:369
 #: ../root/components/RelationshipsTable.js:87
-#: ../root/components/list/ReleaseGroupList.js:96
-#: ../root/components/list/ReleaseGroupList.js:101 ../root/isrc/Index.js:56
+#: ../root/components/list/ReleaseGroupList.js:76 ../root/isrc/Index.js:56
 #: ../root/iswc/Index.js:49 ../root/recording/RecordingIndex.js:47
 msgid "Title"
 msgstr "Titull"
@@ -5524,7 +5513,8 @@ msgstr "Gjatësia gjithsej:"
 msgid "Total tracks:"
 msgstr "Pjesë gjithsej:"
 
-#: ../root/cdtoc/info.tt:31 ../root/search/components/RecordingResults.js:129
+#: ../root/cdtoc/info.tt:31 ../root/report/RecordingTrackDifferentName.js:64
+#: ../root/search/components/RecordingResults.js:129
 #: ../root/taglookup/Form.js:39
 msgid "Track"
 msgstr "Pjesë"
@@ -5627,10 +5617,6 @@ msgstr "Twitter"
 #: ../root/release_group/merge.tt:14 ../root/series/merge.tt:13
 #: ../root/work/merge.tt:15 ../root/account/applications/Index.js:136
 #: ../root/components/Aliases/AliasTable.js:28
-#: ../root/components/list/ArtistList.js:66
-#: ../root/components/list/ArtistList.js:71
-#: ../root/components/list/ReleaseGroupList.js:109
-#: ../root/components/list/ReleaseGroupList.js:114
 #: ../root/edit/details/AddArea.js:72 ../root/edit/details/AddArtist.js:85
 #: ../root/edit/details/AddEvent.js:68 ../root/edit/details/AddPlace.js:61
 #: ../root/edit/details/AddRemoveAlias.js:101
@@ -5665,7 +5651,7 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:807
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:379
 #: ../root/static/scripts/common/components/FilterForm.js:56
-#: ../root/utility/tableColumns.js:393 ../root/utility/tableColumns.js:398
+#: ../root/utility/tableColumns.js:461 ../root/utility/tableColumns.js:466
 msgid "Type"
 msgstr "Lloj"
 
@@ -5727,7 +5713,7 @@ msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:117
-#: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:510
+#: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:515
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 msgid "URLs"
 msgstr "URL-ra"
@@ -6074,7 +6060,7 @@ msgstr "Vepër:"
 
 #: ../root/components/common-macros.tt:593 ../root/artist/ArtistWorks.js:31
 #: ../root/artist/ArtistWorks.js:32 ../root/components/EntityTabs.js:31
-#: ../root/report/ReportsIndex.js:490
+#: ../root/report/ReportsIndex.js:495
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagIndex.js:134 ../root/tag/TagLayout.js:29
 msgid "Works"
@@ -6098,8 +6084,7 @@ msgstr "YYYY"
 
 #: ../root/admin/attributes/form.tt:66 ../root/release_group/merge.tt:15
 #: ../root/admin/attributes/Attribute.js:48
-#: ../root/components/list/ReleaseGroupList.js:85
-#: ../root/components/list/ReleaseGroupList.js:90
+#: ../root/components/list/ReleaseGroupList.js:69
 msgid "Year"
 msgstr "Vit"
 
@@ -9604,19 +9589,23 @@ msgstr[1] ""
 msgid "About to close"
 msgstr ""
 
-#: ../root/components/list/ArtistList.js:77
-#: ../root/components/list/ArtistList.js:82
+#: ../root/components/list/ArtistList.js:67
+#: ../root/search/components/ArtistResults.js:46
+msgid "Sort Name"
+msgstr ""
+
+#: ../root/components/list/ArtistList.js:75
 #: ../root/edit/details/AddArtist.js:92
 #: ../root/search/components/ArtistResults.js:48
 msgid "Gender"
 msgstr "Gjini"
 
-#: ../root/components/list/ArtistList.js:88
+#: ../root/components/list/ArtistList.js:92
 #: ../root/search/components/ArtistResults.js:51
 msgid "Begin Area"
 msgstr "Zonë Fillimi"
 
-#: ../root/components/list/ArtistList.js:90
+#: ../root/components/list/ArtistList.js:100
 #: ../root/search/components/ArtistResults.js:53
 msgid "End Area"
 msgstr "Zonë Mbarimi"
@@ -9631,15 +9620,7 @@ msgstr "Rol"
 msgid "Code"
 msgstr "Kod"
 
-#: ../root/components/list/RecordingList.js:90
-#: ../root/report/ReportsIndex.js:521
-#: ../root/search/components/RecordingResults.js:126
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:682
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:244
-msgid "ISRCs"
-msgstr "ISRC-ra"
-
-#: ../root/components/list/ReleaseGroupList.js:230
+#: ../root/components/list/ReleaseGroupList.js:146
 msgid "Unspecified type"
 msgstr "Lloj i papërcaktuar"
 
@@ -9782,7 +9763,7 @@ msgid "Primary for locale"
 msgstr "Parësor për vendoren"
 
 #: ../root/edit/details/AddSeries.js:34 ../root/edit/details/EditSeries.js:43
-#: ../root/report/ReportsIndex.js:480
+#: ../root/report/ReportsIndex.js:485
 #: ../root/report/components/SeriesAnnotationList.js:25
 #: ../root/tag/TagIndex.js:130
 msgid "Series"
@@ -11350,6 +11331,7 @@ msgstr "Artistë të gjetur gjithsej: {count}"
 #: ../root/report/NoScript.js:42 ../root/report/PartOfSetRelationships.js:49
 #: ../root/report/PlacesWithoutCoordinates.js:44
 #: ../root/report/PossibleCollaborations.js:52
+#: ../root/report/RecordingTrackDifferentName.js:51
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:62
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:48
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:41
@@ -11425,6 +11407,7 @@ msgstr "Ky raport paraqet incizime me shënime."
 #: ../root/report/DeprecatedRelationshipRecordings.js:38
 #: ../root/report/DuplicateRelationshipsRecordings.js:40
 #: ../root/report/FeaturingRecordings.js:51
+#: ../root/report/RecordingTrackDifferentName.js:47
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:58
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:44
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:37
@@ -11722,7 +11705,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:28
 #: ../root/report/DeprecatedRelationshipPlaces.js:29
-#: ../root/report/ReportsIndex.js:465
+#: ../root/report/ReportsIndex.js:470
 msgid "Places with deprecated relationships"
 msgstr "Vende me marrëdhënie të nxjerra nga përdorimi"
 
@@ -11770,7 +11753,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipUrls.js:28
 #: ../root/report/DeprecatedRelationshipUrls.js:29
-#: ../root/report/ReportsIndex.js:515
+#: ../root/report/ReportsIndex.js:520
 msgid "URLs with deprecated relationships"
 msgstr "URL-ra me marrëdhënie të nxjerra nga përdorimi"
 
@@ -11786,7 +11769,7 @@ msgstr "URL-ra të gjetura gjithsej: {count}"
 
 #: ../root/report/DeprecatedRelationshipWorks.js:28
 #: ../root/report/DeprecatedRelationshipWorks.js:29
-#: ../root/report/ReportsIndex.js:500
+#: ../root/report/ReportsIndex.js:505
 msgid "Works with deprecated relationships"
 msgstr "Vepra me marrëdhënie të nxjerra nga përdorimi"
 
@@ -11947,7 +11930,7 @@ msgstr ""
 
 #: ../root/report/DuplicateRelationshipsWorks.js:28
 #: ../root/report/DuplicateRelationshipsWorks.js:29
-#: ../root/report/ReportsIndex.js:495
+#: ../root/report/ReportsIndex.js:500
 msgid "Works with possible duplicate relationships"
 msgstr "Vepra me gjasa marrëdhëniesh të përsëdytura"
 
@@ -12059,7 +12042,7 @@ msgstr "Instrumente të gjetura gjithsej: {count}"
 
 #: ../root/report/IsrcsWithManyRecordings.js:38
 #: ../root/report/IsrcsWithManyRecordings.js:39
-#: ../root/report/ReportsIndex.js:526
+#: ../root/report/ReportsIndex.js:531
 msgid "ISRCs with multiple recordings"
 msgstr ""
 
@@ -12079,6 +12062,7 @@ msgid "Total ISRCs found: {count}"
 msgstr ""
 
 #: ../root/report/IsrcsWithManyRecordings.js:112
+#: ../root/report/RecordingTrackDifferentName.js:83
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:102
 #: ../root/report/components/RecordingAnnotationList.js:49
 #: ../root/report/components/RecordingList.js:47
@@ -12087,7 +12071,7 @@ msgid "This recording no longer exists."
 msgstr "Ky incizim s’ekziston më."
 
 #: ../root/report/IswcsWithManyWorks.js:34
-#: ../root/report/IswcsWithManyWorks.js:35 ../root/report/ReportsIndex.js:536
+#: ../root/report/IswcsWithManyWorks.js:35 ../root/report/ReportsIndex.js:541
 msgid "ISWCs with multiple works"
 msgstr ""
 
@@ -12213,7 +12197,7 @@ msgstr ""
 
 #: ../root/report/PlacesWithoutCoordinates.js:32
 #: ../root/report/PlacesWithoutCoordinates.js:33
-#: ../root/report/ReportsIndex.js:475
+#: ../root/report/ReportsIndex.js:480
 msgid "Places without coordinates"
 msgstr "Vende pa koordinata"
 
@@ -12246,6 +12230,19 @@ msgid ""
 "it is a collaboration with its own name and can’t be split, collaboration "
 "relationships should be added to it. For some special cases, such as “Person"
 " & His Orchestra”, conductor and/or founder might be the best choice."
+msgstr ""
+
+#: ../root/report/RecordingTrackDifferentName.js:34
+#: ../root/report/RecordingTrackDifferentName.js:37
+#: ../root/report/ReportsIndex.js:460
+msgid "Recordings with a different name than their only track"
+msgstr ""
+
+#: ../root/report/RecordingTrackDifferentName.js:42
+msgid ""
+"This report shows recordings that are linked to only one track, yet have a "
+"different name than the track. This might mean one of the two needs to be "
+"renamed to match the other."
 msgstr ""
 
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:35
@@ -12627,19 +12624,27 @@ msgstr "Hedhje në qarkullim me shënime"
 msgid "Recordings with annotations"
 msgstr "Incizime me shënime"
 
-#: ../root/report/ReportsIndex.js:470
+#: ../root/report/ReportsIndex.js:475
 msgid "Places with annotations"
 msgstr "Vende me shënime"
 
-#: ../root/report/ReportsIndex.js:485
+#: ../root/report/ReportsIndex.js:490
 msgid "Series with annotations"
 msgstr "Seri me shënime"
 
-#: ../root/report/ReportsIndex.js:505
+#: ../root/report/ReportsIndex.js:510
 msgid "Works with annotations"
 msgstr "Vepra me shënime"
 
-#: ../root/report/ReportsIndex.js:531
+#: ../root/report/ReportsIndex.js:526
+#: ../root/search/components/RecordingResults.js:126
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:682
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:244
+#: ../root/utility/tableColumns.js:502
+msgid "ISRCs"
+msgstr "ISRC-ra"
+
+#: ../root/report/ReportsIndex.js:536
 msgid "ISWCs"
 msgstr ""
 
@@ -12776,7 +12781,7 @@ msgstr "fshije"
 #: ../root/search/components/EventResults.js:69
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:963
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:166
-#: ../root/utility/tableColumns.js:441
+#: ../root/utility/tableColumns.js:527
 msgid "Location"
 msgstr "Vend"
 
@@ -12817,10 +12822,6 @@ msgstr ""
 
 #: ../root/search/components/AreaResults.js:70
 msgid "Alternatively, you may {uri|add a new area}."
-msgstr ""
-
-#: ../root/search/components/ArtistResults.js:46
-msgid "Sort Name"
 msgstr ""
 
 #: ../root/search/components/ArtistResults.js:78
@@ -14589,7 +14590,7 @@ msgstr "Ky përpunim është anuluar së fundi."
 msgid "This edit was cancelled."
 msgstr "Ky përpunim qe anuluar."
 
-#: ../root/utility/tableColumns.js:467
+#: ../root/utility/tableColumns.js:554
 msgid "Subscribed"
 msgstr ""
 

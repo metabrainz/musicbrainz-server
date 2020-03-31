@@ -7,15 +7,15 @@
 # Gioele <email address hidden>, 2012
 # theloca95 <email address hidden>, 2015
 # leofiore <email address hidden>, 2012
-# Luca Salini <email address hidden>, 2012,2017
+# Luca Salini <email address hidden>, 2012,2017,2020
 # Monica <email address hidden>, 2014
 # Luca Salini <email address hidden>, 2014
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-26 20:59+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-03-28 14:45+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,11 +140,11 @@ msgstr "CD Baby pagina per"
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
-msgstr ""
+msgstr "Pagina CPDL per"
 
 #: DB:link_type/name:8 DB:link_type/name:227
 msgid "DJ-mix"
@@ -308,11 +308,11 @@ msgstr "Indica un rapporto genitore-figlio."
 
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
-msgstr "Indica un'immagine pittorica (JPEG, GIF, PNG) di un luogo"
+msgstr "Indica un'immagine illustrativa (JPEG, GIF, PNG) di un luogo"
 
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
-msgstr "Indica un'immagine pittorica (JPEG, GIF, PNG) di un artista"
+msgstr "Indica un'immagine illustrativa (JPEG, GIF, PNG) di un artista"
 
 #: DB:link_type/description:943
 msgid ""
@@ -330,7 +330,7 @@ msgstr "Indica una pagina web che recensisce l'evento in questione."
 
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
-msgstr "Indica una pagina web che recensisce la pubblicazione (gruppo) in questione."
+msgstr "Indica una pagina web che recensisce la pubblicazione (gruppo di pubblicazioni) in questione."
 
 #: DB:link_type/description:958
 msgid ""
@@ -945,19 +945,19 @@ msgstr ""
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
-msgstr "Punta alla pagina Wikipedia per questo album."
+msgstr "Indica la pagina Wikipedia per questo album."
 
 #: DB:link_type/description:355
 msgid "Points to the Wikipedia page for this area."
-msgstr "Punta alla pagina Wikipedia per quest'area."
+msgstr "Indica la pagina Wikipedia per quest'area."
 
 #: DB:link_type/description:179
 msgid "Points to the Wikipedia page for this artist."
-msgstr "Punta alla pagina Wikipedia per quest'artista."
+msgstr "Indica la pagina Wikipedia per quest'artista."
 
 #: DB:link_type/description:789
 msgid "Points to the Wikipedia page for this event."
-msgstr "Punta alla pagina Wikipedia per questo evento."
+msgstr "Indica la pagina Wikipedia per questo evento."
 
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
@@ -965,15 +965,15 @@ msgstr ""
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place"
-msgstr "Punta alla pagina Wikipedia per questo luogo."
+msgstr "Indica la pagina Wikipedia per questo luogo."
 
 #: DB:link_type/description:744
 msgid "Points to the Wikipedia page for this series."
-msgstr "Punta alla pagina Wikipedia per questa serie."
+msgstr "Indica la pagina Wikipedia per questa serie."
 
 #: DB:link_type/description:279
 msgid "Points to the Wikipedia page for this work."
-msgstr "Punta alla pagina Wikipedia per questa opera."
+msgstr "Indica la pagina Wikipedia per questa opera."
 
 #: DB:link_type/description:127
 msgid ""
@@ -2801,10 +2801,24 @@ msgid ""
 "website created specifically for the release group."
 msgstr ""
 
+#: DB:link_type/description:980
+msgid ""
+"This relationship type is used to link a release to a site where the tracks can be legally streamed for a subscription fee, e.g. Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr ""
+
 #: DB:link_type/description:85
 msgid ""
 "This relationship type is used to link a release to a site where the tracks "
 "can be legally streamed for free, e.g. Spotify."
+msgstr ""
+
+#: DB:link_type/description:979
+msgid ""
+"This relationship type is used to link a track to a site where the track can be legally streamed for a subscription fee, e.g. Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
 
 #: DB:link_type/description:268
@@ -2814,8 +2828,7 @@ msgid ""
 "for videos."
 msgstr ""
 
-#: DB:link_type/description:978 DB:link_type/description:979
-#: DB:link_type/description:980
+#: DB:link_type/description:978
 msgid ""
 "This relationship type is used to link an artist to a site where music can be legally streamed for a subscription fee, e.g. Tidal.\n"
 "\n"
@@ -4181,11 +4194,11 @@ msgstr "ha una pagina di crowdfunding su"
 
 #: DB:link_type/long_link_phrase:288
 msgid "has a discography entry at"
-msgstr "ha una informazioni discografiche su"
+msgstr "ha una voce della discografia su"
 
 #: DB:link_type/long_link_phrase:184
 msgid "has a discography page at"
-msgstr "ha una pagina discografica su"
+msgstr "ha una pagina di discografia su"
 
 #: DB:link_type/long_link_phrase:214 DB:link_type/long_link_phrase:172
 msgid "has a fan page at"
@@ -4478,7 +4491,7 @@ msgstr ""
 
 #: DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
-msgstr "Strumento"
+msgstr "strumento"
 
 #: DB:link_type/name:158 DB:link_type/name:41 DB:link_type/name:282
 msgid "instrument arranger"
