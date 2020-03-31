@@ -68,21 +68,21 @@ const ReleaseList = ({
           sortable,
           false, // no descriptive linking (since ACs are in the next column)
         );
-      const artistCreditColumn = defineArtistCreditColumn(
+      const artistCreditColumn = defineArtistCreditColumn<ReleaseT>(
         entity => entity.artistCredit,
         'artist',
         l('Artist'),
         order,
         sortable,
       );
-      const formatColumn = defineTextColumn(
+      const formatColumn = defineTextColumn<ReleaseT>(
         entity => entity.combined_format_name || l('[missing media]'),
         'format',
         l('Format'),
         order,
         sortable,
       );
-      const tracksColumn = defineTextColumn(
+      const tracksColumn = defineTextColumn<ReleaseT>(
         entity => entity.combined_track_count || lp('-', 'missing data'),
         'tracks',
         l('Tracks'),
@@ -106,7 +106,7 @@ const ReleaseList = ({
         order,
         sortable,
       );
-      const barcodeColumn = defineTextColumn(
+      const barcodeColumn = defineTextColumn<ReleaseT>(
         entity => formatBarcode(entity.barcode),
         'barcode',
         l('Barcode'),

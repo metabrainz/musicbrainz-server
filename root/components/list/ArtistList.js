@@ -61,13 +61,13 @@ const ArtistList = ({
         order,
         sortable,
       );
-      const sortNameColumn = showSortName ? defineTextColumn(
+      const sortNameColumn = showSortName ? defineTextColumn<ArtistT>(
         entity => entity.sort_name,
         'sort_name',
         l('Sort Name'),
       ) : null;
       const typeColumn = defineTypeColumn('artist_type', order, sortable);
-      const genderColumn = defineTextColumn(
+      const genderColumn = defineTextColumn<ArtistT>(
         entity => entity.gender
           ? lp_attributes(entity.gender.name, 'gender')
           : '',
@@ -76,17 +76,15 @@ const ArtistList = ({
         order,
         sortable,
       );
-      const areaColumn = defineEntityColumn(
+      const areaColumn = defineEntityColumn<ArtistT>(
         entity => entity.area,
         'area',
         l('Area'),
-        order,
-        sortable,
       );
       const beginDateColumn = showBeginEnd
         ? defineBeginDateColumn()
         : null;
-      const beginAreaColumn = showBeginEnd ? defineEntityColumn(
+      const beginAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>(
         entity => entity.begin_area,
         'begin_area',
         l('Begin Area'),
@@ -94,7 +92,7 @@ const ArtistList = ({
       const endDateColumn = showBeginEnd
         ? defineEndDateColumn()
         : null;
-      const endAreaColumn = showBeginEnd ? defineEntityColumn(
+      const endAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>(
         entity => entity.end_area,
         'end_area',
         l('End Area'),

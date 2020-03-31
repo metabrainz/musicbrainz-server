@@ -19,7 +19,6 @@ import {
   defineCheckboxColumn,
   defineNameColumn,
   defineSeriesNumberColumn,
-  defineTypeColumn,
   defineTextColumn,
   defineCountColumn,
   ratingsColumn,
@@ -55,6 +54,14 @@ export const ReleaseGroupListTable = withCatalystContext(({
   showType = true,
   sortable,
 }: ReleaseGroupListTableProps) => {
+  function getFirstReleaseYear(entity: ReleaseGroupT) {
+    if (!entity.firstReleaseDate) {
+      return '—';
+    }
+
+    return parseDate(entity.firstReleaseDate).year?.toString() ?? '—';
+  }
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user_exists && checkboxes
@@ -63,9 +70,9 @@ export const ReleaseGroupListTable = withCatalystContext(({
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn(seriesItemNumbers)
         : null;
-      const yearColumn = defineTextColumn(
-        entity => parseDate(entity.firstReleaseDate).year?.toString() ?? '—',
-        'release_count',
+      const yearColumn = defineTextColumn<ReleaseGroupT>(
+        entity => getFirstReleaseYear(entity),
+        'year',
         l('Year'),
         order,
         sortable,
@@ -78,19 +85,19 @@ export const ReleaseGroupListTable = withCatalystContext(({
           sortable,
           false, // no descriptive linking (since ACs are in the next column)
         );
-      const artistCreditColumn = defineArtistCreditColumn(
+      const artistCreditColumn = defineArtistCreditColumn<ReleaseGroupT>(
         entity => entity.artistCredit,
         'artist',
         l('Artist'),
+      );
+      const typeColumn = defineTextColumn<ReleaseGroupT>(
+        entity => entity.l_type_name || '',
+        'primary-type',
+        l('Type'),
         order,
         sortable,
       );
-      const typeColumn = defineTypeColumn(
-        'release_group_type',
-        order,
-        sortable,
-      );
-      const releaseNumberColumn = defineCountColumn(
+      const releaseNumberColumn = defineCountColumn<ReleaseGroupT>(
         entity => entity.release_count,
         'release_count',
         l('Releases'),

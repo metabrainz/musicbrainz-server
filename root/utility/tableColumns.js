@@ -236,7 +236,7 @@ export function defineEndDateColumn(
 }
 
 export function defineEntityColumn<D>(
-  getEntity: (D) => CoreEntityT,
+  getEntity: (D) => CoreEntityT | null,
   columnName: string,
   title: string,
   order?: string = '',
