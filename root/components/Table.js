@@ -14,9 +14,7 @@ import loopParity from '../utility/loopParity';
 
 const renderTableHeaderCell = (column) => (
   <th
-    {...column.getHeaderProps(
-      {...column.headerProps, className: column.className},
-    )}
+    {...column.getHeaderProps(column.headerProps)}
   >
     {column.render('Header')}
   </th>
@@ -29,7 +27,7 @@ const renderTableHeaderRow = (headerGroup) => (
 );
 
 const renderTableCell = (cell) => (
-  <td {...cell.getCellProps({className: cell.column.className})}>
+  <td {...cell.getCellProps(cell.column.cellProps)}>
     {cell.render('Cell')}
   </td>
 );

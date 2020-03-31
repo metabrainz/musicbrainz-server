@@ -112,7 +112,7 @@ const ReleaseList = ({
         l('Barcode'),
         order,
         sortable,
-        'barcode-cell',
+        {className: 'barcode-cell'},
       );
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)
