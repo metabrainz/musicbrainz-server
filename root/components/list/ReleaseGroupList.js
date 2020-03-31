@@ -10,36 +10,19 @@
 import * as React from 'react';
 import {groupBy} from 'lodash';
 
+import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import loopParity from '../../utility/loopParity';
 import releaseGroupType from '../../utility/releaseGroupType';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
-import EntityLink
-  from '../../static/scripts/common/components/EntityLink';
 import parseDate from '../../static/scripts/common/utility/parseDate';
-import RatingStars from '../RatingStars';
-import SortableTableHeader from '../SortableTableHeader';
-
-type ReleaseGroupListHeaderProps = {
-  ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
-  +checkboxes?: string,
-  +order?: string,
-  +showRatings?: boolean,
-  +showTypes?: boolean,
-  +sortable?: boolean,
-};
-
-type ReleaseGroupListEntryProps = {
-  ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
-  +checkboxes?: string,
-  +index: number,
-  +releaseGroup: ReleaseGroupT,
-  +showRatings?: boolean,
-  +showTypes?: boolean,
-};
+import {
+  defineArtistCreditColumn,
+  defineCheckboxColumn,
+  defineNameColumn,
+  defineSeriesNumberColumn,
+  defineTextColumn,
+  defineCountColumn,
+  ratingsColumn,
+} from '../../utility/tableColumns';
 
 type ReleaseGroupListTableProps = {
   ...SeriesItemNumbersRoleT,
@@ -48,7 +31,7 @@ type ReleaseGroupListTableProps = {
   +order?: string,
   +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
   +showRatings?: boolean,
-  +showTypes?: boolean,
+  +showType?: boolean,
   +sortable?: boolean,
 };
 
@@ -61,119 +44,6 @@ type ReleaseGroupListProps = {
   +sortable?: boolean,
 };
 
-const ReleaseGroupListHeader = ({
-  $c,
-  checkboxes,
-  order,
-  seriesItemNumbers,
-  showRatings,
-  showTypes,
-  sortable,
-}: ReleaseGroupListHeaderProps) => (
-  <thead>
-    <tr>
-      {$c.user_exists && checkboxes ? (
-        <th className="checkbox-cell">
-          <input type="checkbox" />
-        </th>
-      ) : null}
-      {seriesItemNumbers ? <th style={{width: '1em'}}>{l('#')}</th> : null}
-      <th className="year c">
-        {sortable
-          ? (
-            <SortableTableHeader
-              label={l('Year')}
-              name="year"
-              order={order}
-            />
-          )
-          : l('Year')}
-      </th>
-      <th>
-        {sortable
-          ? (
-            <SortableTableHeader
-              label={l('Title')}
-              name="name"
-              order={order}
-            />
-          )
-          : l('Title')}
-      </th>
-      <th className="artist">{l('Artist')}</th>
-      {showTypes ? (
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Type')}
-                name="primary_type"
-                order={order}
-              />
-            )
-            : l('Type')}
-        </th>
-      ) : null}
-      {showRatings ? <th className="rating c">{l('Rating')}</th> : null}
-      <th className="count c">{l('Releases')}</th>
-    </tr>
-  </thead>
-);
-
-const ReleaseGroupListEntry = ({
-  $c,
-  checkboxes,
-  index,
-  releaseGroup,
-  seriesItemNumbers,
-  showRatings,
-  showTypes,
-}: ReleaseGroupListEntryProps) => (
-  <tr className={loopParity(index)} key={releaseGroup.id}>
-    {$c.user_exists && checkboxes ? (
-      <td>
-        <input
-          name={checkboxes}
-          type="checkbox"
-          value={releaseGroup.id}
-        />
-      </td>
-    ) : null}
-    {seriesItemNumbers ? (
-      <td style={{width: '1em'}}>
-        {seriesItemNumbers[releaseGroup.id]}
-      </td>
-    ) : null}
-    <td className="c">
-      {releaseGroup.firstReleaseDate
-        ? parseDate(releaseGroup.firstReleaseDate).year
-        : '—'}
-    </td>
-    <td>
-      <EntityLink entity={releaseGroup} />
-    </td>
-    <td>
-      {releaseGroup.artistCredit
-        ? <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
-        : null}
-    </td>
-    {showTypes ? (
-      <td>
-        {releaseGroup.typeName
-          ? releaseGroupType(releaseGroup)
-          : null
-        }
-      </td>
-    ) : null}
-    {showRatings ? (
-      <td className="c">
-        <RatingStars entity={releaseGroup} />
-      </td>
-    ) : null}
-    <td className="c">{releaseGroup.release_count}</td>
-  </tr>
-);
-
 export const ReleaseGroupListTable = withCatalystContext(({
   $c,
   checkboxes,
@@ -181,35 +51,89 @@ export const ReleaseGroupListTable = withCatalystContext(({
   releaseGroups,
   seriesItemNumbers,
   showRatings,
-  showTypes = true,
+  showType = true,
   sortable,
-}: ReleaseGroupListTableProps) => (
-  <table className="tbl release-group-list">
-    <ReleaseGroupListHeader
-      $c={$c}
-      checkboxes={checkboxes}
-      order={order}
-      seriesItemNumbers={seriesItemNumbers}
-      showRatings={showRatings}
-      showTypes={showTypes}
-      sortable={sortable}
+}: ReleaseGroupListTableProps) => {
+  function getFirstReleaseYear(entity: ReleaseGroupT) {
+    if (!entity.firstReleaseDate) {
+      return '—';
+    }
+
+    return parseDate(entity.firstReleaseDate).year?.toString() ?? '—';
+  }
+
+  const columns = React.useMemo(
+    () => {
+      const checkboxColumn = $c.user_exists && checkboxes
+        ? defineCheckboxColumn(checkboxes)
+        : null;
+      const seriesNumberColumn = seriesItemNumbers
+        ? defineSeriesNumberColumn(seriesItemNumbers)
+        : null;
+      const yearColumn = defineTextColumn<ReleaseGroupT>(
+        entity => getFirstReleaseYear(entity),
+        'year',
+        l('Year'),
+        order,
+        sortable,
+        {className: 'c'},
+        {className: 'year c'},
+      );
+      const nameColumn =
+        defineNameColumn<ReleaseGroupT>(
+          l('Title'),
+          order,
+          sortable,
+          false, // no descriptive linking (since ACs are in the next column)
+        );
+      const artistCreditColumn = defineArtistCreditColumn<ReleaseGroupT>(
+        entity => entity.artistCredit,
+        'artist',
+        l('Artist'),
+      );
+      const typeColumn = defineTextColumn<ReleaseGroupT>(
+        entity => entity.l_type_name || '',
+        'primary-type',
+        l('Type'),
+        order,
+        sortable,
+      );
+      const releaseNumberColumn = defineCountColumn<ReleaseGroupT>(
+        entity => entity.release_count,
+        'release_count',
+        l('Releases'),
+      );
+
+      return [
+        ...(checkboxColumn ? [checkboxColumn] : []),
+        ...(seriesNumberColumn ? [seriesNumberColumn] : []),
+        yearColumn,
+        nameColumn,
+        artistCreditColumn,
+        ...(showType ? [typeColumn] : []),
+        ...(showRatings ? [ratingsColumn] : []),
+        releaseNumberColumn,
+      ];
+    },
+    [
+      $c.user_exists,
+      checkboxes,
+      order,
+      seriesItemNumbers,
+      showRatings,
+      showType,
+      sortable,
+    ],
+  );
+
+  return (
+    <Table
+      className="release-group-list"
+      columns={columns}
+      data={releaseGroups}
     />
-    <tbody>
-      {releaseGroups.map((releaseGroup, index) => (
-        <ReleaseGroupListEntry
-          $c={$c}
-          checkboxes={checkboxes}
-          index={index}
-          key={releaseGroup.id}
-          releaseGroup={releaseGroup}
-          seriesItemNumbers={seriesItemNumbers}
-          showRatings={showRatings}
-          showTypes={showTypes}
-        />
-      ))}
-    </tbody>
-  </table>
-));
+  );
+});
 
 const ReleaseGroupList = ({
   checkboxes,
@@ -237,7 +161,7 @@ const ReleaseGroupList = ({
             releaseGroups={releaseGroupsOfType}
             seriesItemNumbers={seriesItemNumbers}
             showRatings={showRatings}
-            showTypes={false}
+            showType={false}
             sortable={sortable}
           />
         </React.Fragment>

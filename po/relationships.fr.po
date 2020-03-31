@@ -35,7 +35,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-28 13:46+0000\n"
+"PO-Revision-Date: 2020-03-25 16:11+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -2822,11 +2822,25 @@ msgid ""
 "website created specifically for the release group."
 msgstr "Ce type de relation est utilisé pour relier un groupe de parution à un site Web officiel créé spécifiquement pour le groupe de parution."
 
+#: DB:link_type/description:980
+msgid ""
+"This relationship type is used to link a release to a site where the tracks can be legally streamed for a subscription fee, e.g. Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr "Ce type de relation est utilisé pour relier une parution à un site où ses pistes peuvent être légalement écoutées en flux continu en contrepartie d’un abonnement payant, p. ex. Tidal.\n\nSi le site permet l’écoute gratuite, utilisez « diffusion gratuite en flux continu » à la place."
+
 #: DB:link_type/description:85
 msgid ""
 "This relationship type is used to link a release to a site where the tracks "
 "can be legally streamed for free, e.g. Spotify."
 msgstr "Ce type de relation est utilisé pour relier une parution à un site où les pistes peuvent être légalement et gratuitement écoutées en flux continu, p. ex. Spotify."
+
+#: DB:link_type/description:979
+msgid ""
+"This relationship type is used to link a track to a site where the track can be legally streamed for a subscription fee, e.g. Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr "Ce type de relation est utilisé pour relier une piste à un site où la piste peut être légalement écoutée en flux continu en contrepartie d’un abonnement payant, p. ex. Tidal.\n\nSi le site permet l’écoute gratuite, utilisez « diffusion gratuite en flux continu » à la place."
 
 #: DB:link_type/description:268
 msgid ""
@@ -2835,8 +2849,7 @@ msgid ""
 "for videos."
 msgstr "Ce type de relation est utilisé pour relier une piste à un site où la piste peut être légalement et gratuitement écoutée en flux continu, tel que Spotify pour les pistes audio ou YouTube pour les vidéos."
 
-#: DB:link_type/description:978 DB:link_type/description:979
-#: DB:link_type/description:980
+#: DB:link_type/description:978
 msgid ""
 "This relationship type is used to link an artist to a site where music can be legally streamed for a subscription fee, e.g. Tidal.\n"
 "\n"

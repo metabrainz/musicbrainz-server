@@ -1,21 +1,26 @@
+// @flow strict
+
 declare module 'react-table' {
   declare export type CellRenderProps<D, +V> = {
+    +cell: Cell<V>,
     +column: ColumnInstance,
     +row: Row<D>,
-    +cell: Cell<V>,
   };
 
   declare export type ColumnOptions<D, V> = {
     +accessor?: $Keys<D> | ((D) => V),
-    +id?: string,
-    +Header?: Renderer<HeaderProps<D>>,
     +Cell?: React$AbstractComponent<CellRenderProps<D, V>, mixed>,
+    +Header?: Renderer<HeaderProps<D>>,
+    +id?: string,
     ...,
   };
 
   declare export type ColumnInstance = {
-    +className?: string,
+    +cellProps?: {[attribute: string]: string},
+    +getCellProps: (props?: {...}) => {...},
     +getHeaderProps: (props?: {...}) => {...},
+    // Not actually part of react-table but our own expansion of it
+    +headerProps?: {[attribute: string]: string},
     +render: (type: 'Header' | string, props?: {...}) => React$Node,
   };
 
@@ -35,6 +40,7 @@ declare module 'react-table' {
   declare export type Row<+D> = {
     +cells: $ReadOnlyArray<Cell<mixed>>,
     +getRowProps: (props?: {...}) => {...},
+    +index: number,
     +original: D,
   };
 

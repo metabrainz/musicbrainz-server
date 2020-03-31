@@ -9,11 +9,20 @@
 
 import * as React from 'react';
 
+import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import ArtistListEntry
-  from '../../static/scripts/common/components/ArtistListEntry';
-import RemoveFromMergeTableHeader from '../RemoveFromMergeTableHeader';
-import SortableTableHeader from '../SortableTableHeader';
+import {
+  defineCheckboxColumn,
+  defineNameColumn,
+  defineTextColumn,
+  defineTypeColumn,
+  defineEntityColumn,
+  defineBeginDateColumn,
+  defineEndDateColumn,
+  defineInstrumentUsageColumn,
+  defineRemoveFromMergeColumn,
+  ratingsColumn,
+} from '../../utility/tableColumns';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
@@ -25,6 +34,7 @@ type Props = {
   +showBeginEnd?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
+  +showSortName?: boolean,
   +sortable?: boolean,
 };
 
@@ -38,84 +48,94 @@ const ArtistList = ({
   showBeginEnd,
   showInstrumentCreditsAndRelTypes,
   showRatings,
+  showSortName,
   sortable,
-}: Props) => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        {$c.user_exists && (checkboxes || mergeForm) ? (
-          <th className="checkbox-cell">
-            {mergeForm ? null : <input type="checkbox" />}
-          </th>
-        ) : null}
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Artist')}
-                name="name"
-                order={order}
-              />
-            )
-            : l('Artist')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Type')}
-                name="type"
-                order={order}
-              />
-            )
-            : l('Type')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Gender')}
-                name="gender"
-                order={order}
-              />
-            )
-            : l('Gender')}
-        </th>
-        <th>{l('Area')}</th>
-        {showBeginEnd ? (
-          <>
-            <th>{l('Begin')}</th>
-            <th>{l('Begin Area')}</th>
-            <th>{l('End')}</th>
-            <th>{l('End Area')}</th>
-          </>
-        ) : null}
-        {showRatings ? <th>{l('Rating')}</th> : null}
-        {showInstrumentCreditsAndRelTypes
-          ? <th>{l('Relationship Types')}</th>
-          : null}
-        {mergeForm
-          ? <RemoveFromMergeTableHeader toMerge={artists} />
-          : null}
-      </tr>
-    </thead>
-    <tbody>
-      {artists.map((artist, index) => (
-        <ArtistListEntry
-          artist={artist}
-          artistList={artists}
-          checkboxes={checkboxes}
-          index={index}
-          instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
-          key={artist.id}
-          mergeForm={mergeForm}
-          showBeginEnd={showBeginEnd}
-          showInstrumentCreditsAndRelTypes={showInstrumentCreditsAndRelTypes}
-          showRatings={showRatings}
-        />
-      ))}
-    </tbody>
-  </table>
-);
+}: Props) => {
+  const columns = React.useMemo(
+    () => {
+      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+        ? defineCheckboxColumn(checkboxes, mergeForm)
+        : null;
+      const nameColumn = defineNameColumn<ArtistT>(
+        l('Artist'),
+        order,
+        sortable,
+      );
+      const sortNameColumn = showSortName ? defineTextColumn<ArtistT>(
+        entity => entity.sort_name,
+        'sort_name',
+        l('Sort Name'),
+      ) : null;
+      const typeColumn = defineTypeColumn('artist_type', order, sortable);
+      const genderColumn = defineTextColumn<ArtistT>(
+        entity => entity.gender
+          ? lp_attributes(entity.gender.name, 'gender')
+          : '',
+        'gender',
+        l('Gender'),
+        order,
+        sortable,
+      );
+      const areaColumn = defineEntityColumn<ArtistT>(
+        entity => entity.area,
+        'area',
+        l('Area'),
+      );
+      const beginDateColumn = showBeginEnd
+        ? defineBeginDateColumn()
+        : null;
+      const beginAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>(
+        entity => entity.begin_area,
+        'begin_area',
+        l('Begin Area'),
+      ) : null;
+      const endDateColumn = showBeginEnd
+        ? defineEndDateColumn()
+        : null;
+      const endAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>(
+        entity => entity.end_area,
+        'end_area',
+        l('End Area'),
+      ) : null;
+      const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
+        ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)
+        : null;
+      const removeFromMergeColumn = mergeForm
+        ? defineRemoveFromMergeColumn(artists)
+        : null;
+
+      return [
+        ...(checkboxColumn ? [checkboxColumn] : []),
+        nameColumn,
+        ...(sortNameColumn ? [sortNameColumn] : []),
+        typeColumn,
+        genderColumn,
+        areaColumn,
+        ...(beginDateColumn ? [beginDateColumn] : []),
+        ...(beginAreaColumn ? [beginAreaColumn] : []),
+        ...(endDateColumn ? [endDateColumn] : []),
+        ...(endAreaColumn ? [endAreaColumn] : []),
+        ...(showRatings ? [ratingsColumn] : []),
+        ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
+        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+      ];
+    },
+    [
+      $c.user_exists,
+      artists,
+      checkboxes,
+      instrumentCreditsAndRelTypes,
+      mergeForm,
+      order,
+      showBeginEnd,
+      showInstrumentCreditsAndRelTypes,
+      showRatings,
+      showSortName,
+      sortable,
+    ],
+  );
+
+  return <Table columns={columns} data={artists} />;
+};
 
 export default withCatalystContext(ArtistList);

@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import ENTITIES from '../../entities';
 
+// Converted to react-table at root/utility/tableColumns.js
 const RemoveFromMergeTableCell = ({
   entity,
   toMerge,

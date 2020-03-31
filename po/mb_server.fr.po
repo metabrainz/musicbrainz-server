@@ -62,9 +62,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-12 12:40+0000\n"
-"PO-Revision-Date: 2020-03-16 17:30+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2020-03-25 12:57+0200\n"
+"PO-Revision-Date: 2020-03-27 16:07+0000\n"
+"Last-Translator: Laurent Monin <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -113,9 +113,7 @@ msgstr "« YY » sont les 2 derniers chiffres de l’année d’inscription."
 #: ../root/edit/details/historic/add_release.tt:49
 #: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:368
 #: ../root/release/edit_relationships.tt:48
-#: ../root/components/list/RecordingList.js:67
-#: ../root/components/list/ReleaseGroupList.js:80
-#: ../root/recording/RecordingIndex.js:46 ../root/utility/tableColumns.js:349
+#: ../root/recording/RecordingIndex.js:46 ../root/utility/tableColumns.js:417
 msgid "#"
 msgstr "no"
 
@@ -236,7 +234,7 @@ msgstr "-"
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/release_group/ReleaseGroupIndex.js:140
 #: ../root/search/components/ReleaseResults.js:105
-#: ../root/utility/tableColumns.js:308 ../root/utility/tableColumns.js:316
+#: ../root/utility/tableColumns.js:351 ../root/utility/tableColumns.js:359
 msgctxt "and"
 msgid "/"
 msgstr " / "
@@ -372,7 +370,7 @@ msgstr "Administration du compte"
 #: ../root/components/Aliases/AliasTable.js:31
 #: ../root/components/Aliases/ArtistCreditList.js:48
 #: ../root/static/scripts/common/components/FingerprintTable.js:53
-#: ../root/utility/tableColumns.js:60
+#: ../root/utility/tableColumns.js:67
 msgid "Actions"
 msgstr "Actions"
 
@@ -775,7 +773,7 @@ msgstr "Êtes-vous certain de vouloir supprimer {entity} de MusicBrainz ?"
 #: ../root/place/merge.tt:14 ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/area/AreaHeader.js:24 ../root/components/list/AreaList.js:41
-#: ../root/components/list/ArtistList.js:84
+#: ../root/components/list/ArtistList.js:82
 #: ../root/components/list/LabelList.js:61
 #: ../root/components/list/PlaceList.js:57 ../root/edit/details/AddArea.js:41
 #: ../root/edit/details/AddArtist.js:99 ../root/edit/details/AddPlace.js:73
@@ -828,11 +826,9 @@ msgstr "Régions"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:31
 #: ../root/components/RelationshipsTable.js:90
-#: ../root/components/list/ArtistList.js:55
 #: ../root/components/list/ArtistList.js:60
-#: ../root/components/list/RecordingList.js:83
-#: ../root/components/list/RecordingList.js:88
-#: ../root/components/list/ReleaseGroupList.js:103
+#: ../root/components/list/RecordingList.js:75
+#: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:74
 #: ../root/edit/details/AddArtist.js:56 ../root/isrc/Index.js:57
 #: ../root/layout/components/Search.js:18
@@ -840,6 +836,7 @@ msgstr "Régions"
 #: ../root/report/BadAmazonUrls.js:59 ../root/report/CatNoLooksLikeAsin.js:63
 #: ../root/report/DuplicateArtists.js:73
 #: ../root/report/IsrcsWithManyRecordings.js:73
+#: ../root/report/RecordingTrackDifferentName.js:62
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:73
 #: ../root/report/ReleaseLabelSameArtist.js:67
 #: ../root/report/components/ArtistAnnotationList.js:25
@@ -955,7 +952,7 @@ msgstr "Artiste :"
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:387
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
 #: ../root/tag/TagIndex.js:98 ../root/tag/TagLayout.js:25
-#: ../root/utility/tableColumns.js:481
+#: ../root/utility/tableColumns.js:568
 msgid "Artists"
 msgstr "Artistes"
 
@@ -989,7 +986,7 @@ msgstr "Rattaché aux parutions"
 #: ../root/admin/attributes/Language.js:32
 #: ../root/admin/attributes/Script.js:33
 #: ../root/components/RelationshipsTable.js:89
-#: ../root/utility/tableColumns.js:407
+#: ../root/utility/tableColumns.js:475
 msgid "Attributes"
 msgstr "Attributs"
 
@@ -1097,12 +1094,11 @@ msgid ""
 msgstr "Devenez partie intégrante de MusicBrainz en créant un compte et en {how|lisant sur le processus} pour envoyer de l’information à MusicBrainz. Découvrez notre révision par des pairs afin de créer la base de données musicale la plus précise sur internet. Si ceci vous plaît {reg|créer un compte} ou {login_url|connectez-vous}."
 
 #: ../root/event/merge.tt:14 ../root/label/merge.tt:16
-#: ../root/place/merge.tt:15 ../root/components/list/ArtistList.js:87
-#: ../root/search/components/AreaResults.js:60
+#: ../root/place/merge.tt:15 ../root/search/components/AreaResults.js:60
 #: ../root/search/components/ArtistResults.js:50
 #: ../root/search/components/LabelResults.js:64
 #: ../root/search/components/PlaceResults.js:63
-#: ../root/utility/tableColumns.js:127 ../root/utility/tableColumns.js:132
+#: ../root/utility/tableColumns.js:139 ../root/utility/tableColumns.js:144
 msgid "Begin"
 msgstr "Début (date)"
 
@@ -1288,7 +1284,7 @@ msgstr "No dans le catalogue :"
 #: ../root/recording/RecordingIndex.js:55
 #: ../root/release_group/ReleaseGroupIndex.js:142
 #: ../root/search/components/ReleaseResults.js:107
-#: ../root/utility/tableColumns.js:284 ../root/utility/tableColumns.js:289
+#: ../root/utility/tableColumns.js:327 ../root/utility/tableColumns.js:332
 msgid "Catalog#"
 msgstr "No dans le catalogue "
 
@@ -1457,7 +1453,7 @@ msgstr "Copier le titre de parution vers le groupe de parution"
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/release_group/ReleaseGroupIndex.js:140
 #: ../root/search/components/ReleaseResults.js:105
-#: ../root/utility/tableColumns.js:304 ../root/utility/tableColumns.js:316
+#: ../root/utility/tableColumns.js:347 ../root/utility/tableColumns.js:359
 msgid "Country"
 msgstr "Pays"
 
@@ -1556,8 +1552,8 @@ msgstr "Données :"
 #: ../root/report/components/EventList.js:34
 #: ../root/search/components/EventResults.js:65
 #: ../root/search/components/ReleaseResults.js:105
-#: ../root/utility/tableColumns.js:165 ../root/utility/tableColumns.js:170
-#: ../root/utility/tableColumns.js:310 ../root/utility/tableColumns.js:316
+#: ../root/utility/tableColumns.js:208 ../root/utility/tableColumns.js:213
+#: ../root/utility/tableColumns.js:353 ../root/utility/tableColumns.js:359
 msgid "Date"
 msgstr "Date"
 
@@ -1610,7 +1606,7 @@ msgstr "Obsolète :"
 #: ../root/instrument/InstrumentIndex.js:35
 #: ../root/search/components/InstrumentResults.js:49
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:88
-#: ../root/utility/tableColumns.js:416
+#: ../root/utility/tableColumns.js:484
 msgid "Description"
 msgstr "Description"
 
@@ -1951,12 +1947,11 @@ msgstr "Activer les numéros de pistes du vinyle"
 
 #: ../root/cdtoc/info.tt:34 ../root/event/merge.tt:15
 #: ../root/label/merge.tt:17 ../root/place/merge.tt:16
-#: ../root/components/list/ArtistList.js:89
 #: ../root/search/components/AreaResults.js:61
 #: ../root/search/components/ArtistResults.js:52
 #: ../root/search/components/LabelResults.js:65
 #: ../root/search/components/PlaceResults.js:64
-#: ../root/utility/tableColumns.js:184 ../root/utility/tableColumns.js:189
+#: ../root/utility/tableColumns.js:227 ../root/utility/tableColumns.js:232
 msgid "End"
 msgstr "Fin (date)"
 
@@ -2550,7 +2545,7 @@ msgstr "ISRC :"
 #: ../root/edit/details/AddWork.js:61 ../root/edit/details/EditWork.js:76
 #: ../root/report/IswcsWithManyWorks.js:62
 #: ../root/search/components/WorkResults.js:51
-#: ../root/utility/tableColumns.js:434
+#: ../root/utility/tableColumns.js:520
 msgid "ISWC"
 msgstr "ISWC"
 
@@ -2809,7 +2804,7 @@ msgstr "Je souhaite rester connecté"
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:19
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
-#: ../root/utility/tableColumns.js:332 ../root/utility/tableColumns.js:337
+#: ../root/utility/tableColumns.js:375 ../root/utility/tableColumns.js:380
 msgid "Label"
 msgstr "Label"
 
@@ -2896,8 +2891,7 @@ msgstr "Dernier paquet de réplication reçu à {datetime}"
 #: ../root/release/discids.tt:10 ../root/release/edit/tracklist.tt:151
 #: ../root/release/edit/tracklist.tt:371
 #: ../root/components/RelationshipsTable.js:91
-#: ../root/components/list/RecordingList.js:96
-#: ../root/components/list/RecordingList.js:101 ../root/isrc/Index.js:58
+#: ../root/components/list/RecordingList.js:84 ../root/isrc/Index.js:58
 #: ../root/recording/RecordingIndex.js:48
 #: ../root/report/IsrcsWithManyRecordings.js:75
 #: ../root/search/components/RecordingResults.js:124
@@ -3013,7 +3007,7 @@ msgstr "Bas"
 #: ../root/edit/details/AddWork.js:79 ../root/edit/details/EditWork.js:94
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:53
-#: ../root/static/scripts/work.js:276 ../root/utility/tableColumns.js:499
+#: ../root/static/scripts/work.js:276 ../root/utility/tableColumns.js:586
 msgid "Lyrics Languages"
 msgstr "Langues des paroles"
 
@@ -3031,7 +3025,7 @@ msgstr "MM"
 #: ../root/components/forms.tt:15 ../root/components/forms.tt:20
 #: ../root/components/EnterEdit.js:30
 msgid "Make all edits votable."
-msgstr "Pouvoir voter sur toutes les modifications."
+msgstr "Permettre de voter sur toutes les modifications."
 
 #: ../root/release/merge.tt:114
 msgid ""
@@ -3252,8 +3246,7 @@ msgstr "S.O."
 #: ../root/admin/attributes/Language.js:39
 #: ../root/admin/attributes/Script.js:41
 #: ../root/components/Aliases/ArtistCreditList.js:44
-#: ../root/components/list/RecordingList.js:72
-#: ../root/components/list/RecordingList.js:77
+#: ../root/components/list/RecordingList.js:67
 #: ../root/edit/details/AddArea.js:52 ../root/edit/details/AddArtist.js:67
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/AddPlace.js:50
 #: ../root/edit/details/AddSeries.js:42 ../root/edit/details/AddWork.js:50
@@ -3651,7 +3644,7 @@ msgstr "Ordre de tri :"
 #: ../root/series/merge.tt:14 ../root/edit/details/AddSeries.js:61
 #: ../root/edit/details/EditSeries.js:77
 #: ../root/layout/components/sidebar/SeriesSidebar.js:52
-#: ../root/utility/tableColumns.js:460
+#: ../root/utility/tableColumns.js:547
 msgid "Ordering Type"
 msgstr "Type de tri"
 
@@ -3770,7 +3763,7 @@ msgstr "Lieu :"
 
 #: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:35
 #: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:27
-#: ../root/report/ReportsIndex.js:460
+#: ../root/report/ReportsIndex.js:465
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:114 ../root/tag/TagLayout.js:31
 msgid "Places"
@@ -3940,11 +3933,9 @@ msgid_plural "Rate: {rating} stars"
 msgstr[0] "Évaluation : {rating} étoile"
 msgstr[1] "Évaluation : {rating} étoiles"
 
-#: ../root/components/medium.tt:40 ../root/components/list/ArtistList.js:93
-#: ../root/components/list/RecordingList.js:91
-#: ../root/components/list/ReleaseGroupList.js:117
+#: ../root/components/medium.tt:40
 #: ../root/layout/components/sidebar/SidebarRating.js:22
-#: ../root/utility/tableColumns.js:448
+#: ../root/utility/tableColumns.js:534
 msgid "Rating"
 msgstr "Évaluation"
 
@@ -3975,6 +3966,7 @@ msgstr "Notes récentes laissées sur vos modifications"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/layout/components/Search.js:22
 #: ../root/report/IsrcsWithManyRecordings.js:74
+#: ../root/report/RecordingTrackDifferentName.js:63
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:74
 #: ../root/report/components/RecordingAnnotationList.js:28
 #: ../root/report/components/RecordingList.js:28
@@ -4087,10 +4079,8 @@ msgstr "Type de relation utilisé"
 
 #: ../root/doc/relationship_type.tt:4 ../root/relationship/header.tt:1
 #: ../root/relationship/linktype/index.tt:1
-#: ../root/components/list/ArtistList.js:95
-#: ../root/components/list/RecordingList.js:104
 #: ../root/layout/components/BottomMenu.js:290
-#: ../root/utility/tableColumns.js:234
+#: ../root/utility/tableColumns.js:277
 msgid "Relationship Types"
 msgstr "Types de relation"
 
@@ -4293,7 +4283,7 @@ msgstr "Parution :"
 #: ../root/release_group/merge.tt:16 ../root/area/AreaReleases.js:31
 #: ../root/area/AreaReleases.js:32 ../root/artist/ArtistReleases.js:45
 #: ../root/artist/ArtistReleases.js:46 ../root/components/EntityTabs.js:29
-#: ../root/components/list/ReleaseGroupList.js:118
+#: ../root/components/list/ReleaseGroupList.js:96
 #: ../root/instrument/InstrumentReleases.js:33
 #: ../root/instrument/InstrumentReleases.js:34 ../root/label/LabelIndex.js:58
 #: ../root/report/ReportsIndex.js:222
@@ -4421,8 +4411,8 @@ msgstr "Enlever le disque"
 
 #: ../root/components/common-macros.tt:936
 #: ../root/components/common-macros.tt:944
-#: ../root/components/RemoveFromMergeTableCell.js:25
-#: ../root/components/RemoveFromMergeTableHeader.js:16
+#: ../root/components/RemoveFromMergeTableCell.js:26
+#: ../root/utility/tableColumns.js:397 ../root/utility/tableColumns.js:405
 msgid "Remove from merge"
 msgstr "Retirer de la fusion"
 
@@ -4941,7 +4931,7 @@ msgstr "Recherche par balise"
 #: ../root/search/components/RecordingResults.js:128
 #: ../root/search/components/ReleaseResults.js:112
 #: ../root/static/scripts/common/components/TaggerIcon.js:43
-#: ../root/utility/tableColumns.js:474
+#: ../root/utility/tableColumns.js:561
 msgid "Tagger"
 msgstr "Baliseur"
 
@@ -5515,8 +5505,7 @@ msgstr "Heure :"
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/release/edit/tracklist.tt:149 ../root/release/edit/tracklist.tt:369
 #: ../root/components/RelationshipsTable.js:87
-#: ../root/components/list/ReleaseGroupList.js:96
-#: ../root/components/list/ReleaseGroupList.js:101 ../root/isrc/Index.js:56
+#: ../root/components/list/ReleaseGroupList.js:76 ../root/isrc/Index.js:56
 #: ../root/iswc/Index.js:49 ../root/recording/RecordingIndex.js:47
 msgid "Title"
 msgstr "Titre"
@@ -5578,7 +5567,8 @@ msgstr "Durée totale :"
 msgid "Total tracks:"
 msgstr "Nombre total de pistes :"
 
-#: ../root/cdtoc/info.tt:31 ../root/search/components/RecordingResults.js:129
+#: ../root/cdtoc/info.tt:31 ../root/report/RecordingTrackDifferentName.js:64
+#: ../root/search/components/RecordingResults.js:129
 #: ../root/taglookup/Form.js:39
 msgid "Track"
 msgstr "Piste"
@@ -5681,10 +5671,6 @@ msgstr "Twitter"
 #: ../root/release_group/merge.tt:14 ../root/series/merge.tt:13
 #: ../root/work/merge.tt:15 ../root/account/applications/Index.js:136
 #: ../root/components/Aliases/AliasTable.js:28
-#: ../root/components/list/ArtistList.js:66
-#: ../root/components/list/ArtistList.js:71
-#: ../root/components/list/ReleaseGroupList.js:109
-#: ../root/components/list/ReleaseGroupList.js:114
 #: ../root/edit/details/AddArea.js:72 ../root/edit/details/AddArtist.js:85
 #: ../root/edit/details/AddEvent.js:68 ../root/edit/details/AddPlace.js:61
 #: ../root/edit/details/AddRemoveAlias.js:101
@@ -5719,7 +5705,7 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:807
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:379
 #: ../root/static/scripts/common/components/FilterForm.js:56
-#: ../root/utility/tableColumns.js:393 ../root/utility/tableColumns.js:398
+#: ../root/utility/tableColumns.js:461 ../root/utility/tableColumns.js:466
 msgid "Type"
 msgstr "Type"
 
@@ -5781,7 +5767,7 @@ msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
 msgstr "URL ; [URL] ; [URL|label] ; [type-d-entité:MBID|label]"
 
 #: ../root/components/common-macros.tt:117
-#: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:510
+#: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:515
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 msgid "URLs"
 msgstr "URLs"
@@ -6128,7 +6114,7 @@ msgstr "Œuvre :"
 
 #: ../root/components/common-macros.tt:593 ../root/artist/ArtistWorks.js:31
 #: ../root/artist/ArtistWorks.js:32 ../root/components/EntityTabs.js:31
-#: ../root/report/ReportsIndex.js:490
+#: ../root/report/ReportsIndex.js:495
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagIndex.js:134 ../root/tag/TagLayout.js:29
 msgid "Works"
@@ -6152,8 +6138,7 @@ msgstr "AAAA"
 
 #: ../root/admin/attributes/form.tt:66 ../root/release_group/merge.tt:15
 #: ../root/admin/attributes/Attribute.js:48
-#: ../root/components/list/ReleaseGroupList.js:85
-#: ../root/components/list/ReleaseGroupList.js:90
+#: ../root/components/list/ReleaseGroupList.js:69
 msgid "Year"
 msgstr "Année"
 
@@ -9658,19 +9643,23 @@ msgstr[1] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} minute
 msgid "About to close"
 msgstr "Sur le point de fermer"
 
-#: ../root/components/list/ArtistList.js:77
-#: ../root/components/list/ArtistList.js:82
+#: ../root/components/list/ArtistList.js:67
+#: ../root/search/components/ArtistResults.js:46
+msgid "Sort Name"
+msgstr "Nom de tri"
+
+#: ../root/components/list/ArtistList.js:75
 #: ../root/edit/details/AddArtist.js:92
 #: ../root/search/components/ArtistResults.js:48
 msgid "Gender"
 msgstr "Genre"
 
-#: ../root/components/list/ArtistList.js:88
+#: ../root/components/list/ArtistList.js:92
 #: ../root/search/components/ArtistResults.js:51
 msgid "Begin Area"
 msgstr "Début (région)"
 
-#: ../root/components/list/ArtistList.js:90
+#: ../root/components/list/ArtistList.js:100
 #: ../root/search/components/ArtistResults.js:53
 msgid "End Area"
 msgstr "Fin (région)"
@@ -9685,15 +9674,7 @@ msgstr "Rôle"
 msgid "Code"
 msgstr "Code"
 
-#: ../root/components/list/RecordingList.js:90
-#: ../root/report/ReportsIndex.js:521
-#: ../root/search/components/RecordingResults.js:126
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:682
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:244
-msgid "ISRCs"
-msgstr "ISRC"
-
-#: ../root/components/list/ReleaseGroupList.js:230
+#: ../root/components/list/ReleaseGroupList.js:146
 msgid "Unspecified type"
 msgstr "Type non spécifié"
 
@@ -9836,7 +9817,7 @@ msgid "Primary for locale"
 msgstr "Principal pour cette locale"
 
 #: ../root/edit/details/AddSeries.js:34 ../root/edit/details/EditSeries.js:43
-#: ../root/report/ReportsIndex.js:480
+#: ../root/report/ReportsIndex.js:485
 #: ../root/report/components/SeriesAnnotationList.js:25
 #: ../root/tag/TagIndex.js:130
 msgid "Series"
@@ -11404,6 +11385,7 @@ msgstr "Nombre total d’artistes trouvés : {count}"
 #: ../root/report/NoScript.js:42 ../root/report/PartOfSetRelationships.js:49
 #: ../root/report/PlacesWithoutCoordinates.js:44
 #: ../root/report/PossibleCollaborations.js:52
+#: ../root/report/RecordingTrackDifferentName.js:51
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:62
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:48
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:41
@@ -11479,6 +11461,7 @@ msgstr "Ce rapport liste les enregistrements avec des annotations."
 #: ../root/report/DeprecatedRelationshipRecordings.js:38
 #: ../root/report/DuplicateRelationshipsRecordings.js:40
 #: ../root/report/FeaturingRecordings.js:51
+#: ../root/report/RecordingTrackDifferentName.js:47
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:58
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:44
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:37
@@ -11776,7 +11759,7 @@ msgstr "Ce rapport liste les labels qui ont des relations utilisant uniquement d
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:28
 #: ../root/report/DeprecatedRelationshipPlaces.js:29
-#: ../root/report/ReportsIndex.js:465
+#: ../root/report/ReportsIndex.js:470
 msgid "Places with deprecated relationships"
 msgstr "Lieux avec des relations obsolètes"
 
@@ -11824,7 +11807,7 @@ msgstr "Ce rapport liste les parutions qui ont des relations utilisant uniquemen
 
 #: ../root/report/DeprecatedRelationshipUrls.js:28
 #: ../root/report/DeprecatedRelationshipUrls.js:29
-#: ../root/report/ReportsIndex.js:515
+#: ../root/report/ReportsIndex.js:520
 msgid "URLs with deprecated relationships"
 msgstr "URLs avec des relations obsolètes"
 
@@ -11840,7 +11823,7 @@ msgstr "Total des URLs trouvées : {count}"
 
 #: ../root/report/DeprecatedRelationshipWorks.js:28
 #: ../root/report/DeprecatedRelationshipWorks.js:29
-#: ../root/report/ReportsIndex.js:500
+#: ../root/report/ReportsIndex.js:505
 msgid "Works with deprecated relationships"
 msgstr "Œuvres avec des relations obsolètes"
 
@@ -12001,7 +11984,7 @@ msgstr "Ce rapport montre les parutions qui ont plusieurs relations vers la mêm
 
 #: ../root/report/DuplicateRelationshipsWorks.js:28
 #: ../root/report/DuplicateRelationshipsWorks.js:29
-#: ../root/report/ReportsIndex.js:495
+#: ../root/report/ReportsIndex.js:500
 msgid "Works with possible duplicate relationships"
 msgstr "Œuvres avec relations probablement en double"
 
@@ -12113,7 +12096,7 @@ msgstr "Nombre total d’instruments trouvés : {count}"
 
 #: ../root/report/IsrcsWithManyRecordings.js:38
 #: ../root/report/IsrcsWithManyRecordings.js:39
-#: ../root/report/ReportsIndex.js:526
+#: ../root/report/ReportsIndex.js:531
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC avec plusieurs enregistrements"
 
@@ -12133,6 +12116,7 @@ msgid "Total ISRCs found: {count}"
 msgstr "Nombre total d’ISRC trouvés : {count}"
 
 #: ../root/report/IsrcsWithManyRecordings.js:112
+#: ../root/report/RecordingTrackDifferentName.js:83
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:102
 #: ../root/report/components/RecordingAnnotationList.js:49
 #: ../root/report/components/RecordingList.js:47
@@ -12141,7 +12125,7 @@ msgid "This recording no longer exists."
 msgstr "Cet enregistrement n’existe plus."
 
 #: ../root/report/IswcsWithManyWorks.js:34
-#: ../root/report/IswcsWithManyWorks.js:35 ../root/report/ReportsIndex.js:536
+#: ../root/report/IswcsWithManyWorks.js:35 ../root/report/ReportsIndex.js:541
 msgid "ISWCs with multiple works"
 msgstr "ISWC à plusieurs œuvres "
 
@@ -12267,7 +12251,7 @@ msgstr "Ce rapport montre les parutions qui ont encore la relation obsolète «�
 
 #: ../root/report/PlacesWithoutCoordinates.js:32
 #: ../root/report/PlacesWithoutCoordinates.js:33
-#: ../root/report/ReportsIndex.js:475
+#: ../root/report/ReportsIndex.js:480
 msgid "Places without coordinates"
 msgstr "Lieux sans coordonnées"
 
@@ -12302,11 +12286,24 @@ msgid ""
 " & His Orchestra”, conductor and/or founder might be the best choice."
 msgstr "Ce rapport liste les artistes qui ont « & » dans leur nom mais pas de relation d’appartenance (ni membre, ni collaborateur, ni chef d’orchestre, ni fondateur, ni sous-groupe). Si l’artiste est habituellement vu en tant que groupe, une relation de membre devrait être ajoutée. Si c’est une collaboration de courte durée, il devrait être si possible scindé (voir {how_to_split_artists|Comment scinder les artistes}). Si c’est une collaboration avec son propre nom et ne peut être scindée, une relation de collaboration devrait y être ajoutée. Dans certains cas particuliers, tels que « Quidam et son orchestre », il peut être plus judicieux de sélectionner chef d’orchestre et/ou fondateur."
 
+#: ../root/report/RecordingTrackDifferentName.js:34
+#: ../root/report/RecordingTrackDifferentName.js:37
+#: ../root/report/ReportsIndex.js:460
+msgid "Recordings with a different name than their only track"
+msgstr "Enregistrements avec un nom différent de leur unique piste"
+
+#: ../root/report/RecordingTrackDifferentName.js:42
+msgid ""
+"This report shows recordings that are linked to only one track, yet have a "
+"different name than the track. This might mean one of the two needs to be "
+"renamed to match the other."
+msgstr "Ce rapport montre les enregistrements qui sont parus sur une seule piste et qui ont pourtant un nom différent de celui de cette piste. Cela peut indiquer que l’un des deux peut être renommer pour correspondre à l’autre."
+
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:35
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:39
 #: ../root/report/ReportsIndex.js:454
 msgid "Recordings with the same name by different artists with the same name"
-msgstr "Enregistrements de même nom par des des artistes différents de même nom"
+msgstr "Enregistrements de même nom par des artistes différents de même nom"
 
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:45
 msgid ""
@@ -12681,19 +12678,27 @@ msgstr "Parutions avec des annotations"
 msgid "Recordings with annotations"
 msgstr "Enregistrements avec des annotations"
 
-#: ../root/report/ReportsIndex.js:470
+#: ../root/report/ReportsIndex.js:475
 msgid "Places with annotations"
 msgstr "Lieux avec annotations"
 
-#: ../root/report/ReportsIndex.js:485
+#: ../root/report/ReportsIndex.js:490
 msgid "Series with annotations"
 msgstr "Séries avec annotations"
 
-#: ../root/report/ReportsIndex.js:505
+#: ../root/report/ReportsIndex.js:510
 msgid "Works with annotations"
 msgstr "Œuvres avec des annotations"
 
-#: ../root/report/ReportsIndex.js:531
+#: ../root/report/ReportsIndex.js:526
+#: ../root/search/components/RecordingResults.js:126
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:682
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:244
+#: ../root/utility/tableColumns.js:502
+msgid "ISRCs"
+msgstr "ISRC"
+
+#: ../root/report/ReportsIndex.js:536
 msgid "ISWCs"
 msgstr "ISWC"
 
@@ -12830,7 +12835,7 @@ msgstr "supprimer"
 #: ../root/search/components/EventResults.js:69
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:963
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:166
-#: ../root/utility/tableColumns.js:441
+#: ../root/utility/tableColumns.js:527
 msgid "Location"
 msgstr "Lieu"
 
@@ -12872,10 +12877,6 @@ msgstr "Si vous remarquez dans ces annotations une donnée qui pourrait être re
 #: ../root/search/components/AreaResults.js:70
 msgid "Alternatively, you may {uri|add a new area}."
 msgstr "Autrement, vous pouvez {uri|ajouter une nouvelle région}."
-
-#: ../root/search/components/ArtistResults.js:46
-msgid "Sort Name"
-msgstr "Nom de tri"
 
 #: ../root/search/components/ArtistResults.js:78
 msgid "Alternatively, you may {uri|add a new artist}."
@@ -14643,7 +14644,7 @@ msgstr "La modification a été annulée récemment."
 msgid "This edit was cancelled."
 msgstr "La modification a été annulée."
 
-#: ../root/utility/tableColumns.js:467
+#: ../root/utility/tableColumns.js:554
 msgid "Subscribed"
 msgstr "Abonné"
 
