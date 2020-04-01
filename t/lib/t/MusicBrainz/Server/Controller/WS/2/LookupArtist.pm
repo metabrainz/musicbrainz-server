@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::2::LookupArtist;
+use HTTP::Request;
+use Test::Deep qw( cmp_bag );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -30,6 +32,19 @@ ws_test 'basic artist lookup',
         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
     </artist>
 </metadata>';
+
+# Check CORS preflight support
+my $req = HTTP::Request->new('OPTIONS', '/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a', [
+    'Access-Control-Request-Method' => 'GET',
+    'Origin' => 'https://example.com',
+]);
+
+$mech->request($req);
+is($mech->status, 200);
+cmp_bag(
+    [split /\s*,\s*/, lc $mech->res->header('Access-Control-Allow-Headers')],
+    [qw( authorization content-type user-agent )],
+);
 
 ws_test 'artist lookup, inc=aliases',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases' =>
