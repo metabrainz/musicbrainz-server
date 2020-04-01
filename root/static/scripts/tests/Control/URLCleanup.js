@@ -2382,6 +2382,56 @@ const testData = [
     expected_relationship_type: 'myspace',
             expected_clean_url: 'https://myspace.com/whoevenusesthisanymore',
   },
+  // Napster
+  {
+                     input_url: 'https://es.napster.com/artist/bread#',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://es.napster.com/artist/bread',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://napster.com/artist/bread?ref=spammer',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://us.napster.com/artist/bread',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.napster.com/artist/anuka/album/incomplete-single/track/incomplete-muzzy-remix',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://us.napster.com/artist/anuka/album/incomplete-single/track/incomplete-muzzy-remix',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://fr.napster.com/artist/various-artists/album/70-hits-of-the-70s/track/guitar-man',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://fr.napster.com/artist/various-artists/album/70-hits-of-the-70s/track/guitar-man',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://app.napster.com/artist/banjoory/album/ireggaeular',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://us.napster.com/artist/banjoory/album/ireggaeular',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://us.napster.com/artist/bread/album/the-elektra-years-complete-albums-box',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://us.napster.com/artist/bread/album/the-elektra-years-complete-albums-box',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://napster.com/artist/art.326711648/album/alb.326714896',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://us.napster.com/artist/art.326711648/album/alb.326714896',
+       only_valid_entity_types: [],
+  },
   // Naxos Records
   {
                      input_url: 'http://www.naxos.com/catalogue/item.asp?item_code=8.553162',

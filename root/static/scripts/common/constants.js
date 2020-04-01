@@ -123,6 +123,7 @@ export const FAVICON_CLASSES = {
   'muziekweb.eu': 'muziekweb',
   'muzikum.eu': 'muzikum',
   'myspace.com': 'myspace',
+  'napster.com': 'napster',
   'nicovideo.jp': 'niconicovideo',
   'nla.gov.au': 'trove',
   'ocremix.org': 'ocremix',
