@@ -397,11 +397,12 @@ sub remove_invalid_characters {
     # trim other undesirable characters:
     # - zwsp
     # - shy
+    # - bom
     # - Other, control
     # - Other, surrogate
     # - Other, private use
     # - Noncharacters
-    =~ s/[\x{200B}\x{00AD}\p{Cc}\p{Co}${noncharacter_pattern}]//gr
+    =~ s/[\x{200B}\x{00AD}\x{FEFF}\p{Cc}\p{Co}${noncharacter_pattern}]//gr
 }
 
 sub type_to_model
