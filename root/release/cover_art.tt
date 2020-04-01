@@ -23,7 +23,7 @@
         [%- IF c.user_exists -%]
           <div class="buttons">
             <a href="[% c.uri_for_action('/release/edit_cover_art', [ release.gid ], artwork.id) %]">
-              [%- lp('Edit', 'button') -%]
+              [%- lp('Edit', 'button/link') -%]
             </a>
             <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.id) %]">
               [%- l('Remove') -%]
