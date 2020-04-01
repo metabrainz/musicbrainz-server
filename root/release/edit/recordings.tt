@@ -55,7 +55,7 @@
             <!-- /ko -->
 
             <td rowspan="2" class="buttons">
-              <button class="edit-track-recording" type="button" data-bind="controlsBubble: $root.recordingBubble, css: { negative: needsRecording() }">[% lp('Edit', 'button') | html_entity %]</button>
+              <button class="edit-track-recording" type="button" data-bind="controlsBubble: $root.recordingBubble, css: { negative: needsRecording() }">[% lp('Edit', 'button/link') | html_entity %]</button>
             </td>
           </tr>
 
@@ -91,7 +91,7 @@
       <div class="edit-recording">
         <div class="buttons">
           <button type="button" data-bind="disable: loading" data-click="loadTracks">
-            [% lp('Edit', 'button') | html_entity %]
+            [% lp('Edit', 'button/link') | html_entity %]
           </button>
         </div>
 
