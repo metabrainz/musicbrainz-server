@@ -427,7 +427,7 @@ class ArtistCreditEditor extends React.Component {
                   ref={button => this._editButton = button}
                   type="button"
                   onClick={this.handleBubbleToggle}>
-                  {l('Edit')}
+                  {lp('Edit', 'button')}
                 </button>
               </td>
             </tr>
