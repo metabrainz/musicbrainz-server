@@ -8,7 +8,7 @@
 
 [%- info_links = [
     ['index', link_cdstub(cdstub, 'show', l('Overview')) ]
-    ['edit', link_cdstub(cdstub, 'edit', lp('Edit', 'tab/column title')) ]
+    ['edit', link_cdstub(cdstub, 'edit', lp('Edit', 'tab/column/page title')) ]
 ] -%]
 
 [% INCLUDE 'components/tabs.tt' list=info_links %]
