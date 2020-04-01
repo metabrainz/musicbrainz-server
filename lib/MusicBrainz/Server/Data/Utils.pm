@@ -317,9 +317,6 @@ sub collapse_whitespace {
     # Replace all spaces with U+0020
     =~ s/\s/ /gr
 
-    # Remove non-printable characters.
-    =~ s/[^[:print:]]//gr
-
     # Compress whitespace
     =~ s/\s{2,}/ /gr
 }
@@ -328,8 +325,12 @@ sub sanitize {
     my $t = shift;
 
     $t = NFC($t);
+    # Before removing invalid characters, convert space control characters
+    # into U+0020 (or else they'll be removed).
+    $t = collapse_whitespace($t);
     $t = remove_invalid_characters($t);
     $t = remove_direction_marks($t);
+    # Collapse spaces again, since characters may have been removed.
     $t = collapse_whitespace($t);
 
     return $t;
@@ -380,13 +381,28 @@ sub remove_direction_marks {
     }
 }
 
+# https://www.unicode.org/faq/private_use.html#nonchar4
+my $noncharacter_pattern = '\x{FDD0}-\x{FDEF}\x{FFFE}\x{FFFF}';
+{
+    for my $i (1 .. 16) {
+        my $hex_i = sprintf('%X', $i);
+        $noncharacter_pattern .= "\\x{${hex_i}FFFE}\\x{${hex_i}FFFF}";
+    }
+}
+
 sub remove_invalid_characters {
     shift
     # trim XML-invalid characters
     =~ s/[^\x09\x0A\x0D\x20-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]//gor
-    # trim other undesirable characters
-    =~ s/[\x{200B}\x{00AD}]//gor
-    #     zwsp    shy
+    # trim other undesirable characters:
+    # - zwsp
+    # - shy
+    # - bom
+    # - Other, control
+    # - Other, surrogate
+    # - Other, private use
+    # - Noncharacters
+    =~ s/[\x{200B}\x{00AD}\x{FEFF}\p{Cc}\p{Co}${noncharacter_pattern}]//gr
 }
 
 sub type_to_model
