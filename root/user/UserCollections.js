@@ -118,7 +118,7 @@ const CollectionsEntityTypeSection = ({
           id: 'privacy',
         };
       const actionsColumn = defineActionsColumn([
-        [l('Edit'), '/edit'],
+        [lp('Edit', 'button'), '/edit'],
         [l('Remove'), '/delete'],
       ]);
 
