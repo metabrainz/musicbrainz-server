@@ -58,7 +58,7 @@ const Script = ({model, attributes}: Props) => (
             <td>{frequencyLabels[attr.frequency]()}</td>
             <td>
               <a href={`/admin/attributes/${model}/edit/${attr.id}`}>
-                {lp('Edit', 'button')}
+                {lp('Edit', 'button/link')}
               </a>
               {' | '}
               <a href={`/admin/attributes/${model}/delete/${attr.id}`}>
