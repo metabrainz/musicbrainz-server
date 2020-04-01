@@ -14,7 +14,7 @@
         <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
         [
         [%- IF c.user.is_relationship_editor -%]
-            <a href="[% c.uri_for_action('/relationship/linktype/edit', [ obj.gid ]) %]">[% l('Edit') %]</a>
+            <a href="[% c.uri_for_action('/relationship/linktype/edit', [ obj.gid ]) %]">[% lp('Edit', 'button') %]</a>
             [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linktype/delete', [ obj.gid ]) %]">[% l('Remove') %]</a>[% END %]
             |
         [% END %]
