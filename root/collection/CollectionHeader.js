@@ -78,7 +78,7 @@ const CollectionHeader = ({$c, collection, page}: Props) => {
         {viewingOwnCollection ? (
           <>
             <EntityTabLink
-              content={l('Edit')}
+              content={lp('Edit', 'button')}
               entity={collection}
               key="own_collection/edit"
               selected={'edit' === page}
