@@ -301,7 +301,8 @@ sub find_standalone
 {
     my ($self, $artist_id, $limit, $offset) = @_;
     my $query ='
-        SELECT ' . $self->_columns . '
+        SELECT DISTINCT ' . $self->_columns . ',
+            musicbrainz_collate(recording.name)
           FROM ' . $self->_table . '
      LEFT JOIN track t ON t.recording = recording.id
           JOIN artist_credit_name acn
@@ -316,7 +317,8 @@ sub find_video
 {
     my ($self, $artist_id, $limit, $offset) = @_;
     my $query ='
-        SELECT ' . $self->_columns . '
+        SELECT DISTINCT ' . $self->_columns . ',
+            musicbrainz_collate(recording.name)
           FROM ' . $self->_table . '
           JOIN artist_credit_name acn
             ON acn.artist_credit = recording.artist_credit
