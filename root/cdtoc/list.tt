@@ -13,7 +13,7 @@
               <th>[% l('Tagger') %]</th>
             [% END %]
             [% IF edit_links AND c.user_exists %]
-              <th>[% l('Edit') %]</th>
+              <th>[% lp('Edit', 'tab/column title') %]</th>
             [% END %]
         </tr>
     </thead>
