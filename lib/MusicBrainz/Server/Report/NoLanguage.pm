@@ -4,6 +4,17 @@ use Moose;
 with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
+around inflate_rows => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $rows = $self->$orig(@_);
+    $self->c->model('Language')->load(map { $_->{release} } @$rows);
+    $self->c->model('Script')->load(map { $_->{release} } @$rows);
+
+    return $rows;
+};
+
 sub query {
     "
         SELECT

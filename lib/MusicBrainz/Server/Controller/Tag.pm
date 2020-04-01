@@ -39,7 +39,8 @@ sub cloud : Path('/tags')
 {
     my ($self, $c, $name) = @_;
 
-    my ($cloud, $hits) = $c->model('Tag')->get_cloud(200);
+    my $cloud = $c->model('Tag')->get_cloud(200);
+    my $hits = scalar @$cloud;
 
     $c->stash(
         current_view => 'Node',

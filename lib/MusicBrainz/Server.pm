@@ -56,7 +56,6 @@ __PACKAGE__->config(
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
-            'format_setlist' => \&MusicBrainz::Server::Filters::format_setlist,
             'locale' => \&MusicBrainz::Server::Filters::locale,
             'gravatar' => \&MusicBrainz::Server::Filters::gravatar,
             'coverart_https' => \&MusicBrainz::Server::Filters::coverart_https

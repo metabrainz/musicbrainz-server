@@ -48,7 +48,7 @@ $mech->request($req);
 is($mech->status, HTTP_OK);
 
 my $headers = $mech->response->headers;
-is($headers->header('access-control-allow-headers'), 'Authorization, Content-Type');
+is($headers->header('access-control-allow-headers'), 'Authorization, Content-Type, User-Agent');
 is($headers->header('access-control-allow-methods'), 'GET, POST, OPTIONS');
 is($headers->header('access-control-allow-origin'), '*');
 is($headers->header('allow'), 'GET, POST, OPTIONS');

@@ -319,9 +319,18 @@ sub find_by_recording
 
 sub _order_by {
     my ($self, $order) = @_;
+
+    my $extra_join = "";
+    my $also_select = "";
+
     my $order_by = order_by($order, "name", {
         "name" => sub {
             return "musicbrainz_collate(name)"
+        },
+        "artist" => sub {
+            $extra_join = "JOIN artist_credit ac ON ac.id = rg.artist_credit";
+            $also_select = "ac.name AS ac_name";
+            return "musicbrainz_collate(ac_name), musicbrainz_collate(release_group.name)";
         },
         "primary_type" => sub {
             return "primary_type_id, musicbrainz_collate(name)"
@@ -331,7 +340,7 @@ sub _order_by {
         }
     });
 
-    return $order_by
+    return ($order_by, $extra_join, $also_select)
 }
 
 sub _insert_hook_after_each {
