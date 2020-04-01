@@ -35,7 +35,7 @@ const buildApplicationRow = (application: ApplicationT, index: number) => (
     <td><code>{application.oauth_secret}</code></td>
     <td>
       <a href={'/account/applications/edit/' + application.id}>
-        {lp('Edit', 'button')}
+        {lp('Edit', 'button/link')}
       </a>
       {' | '}
       <a href={'/account/applications/remove/' + application.id}>
