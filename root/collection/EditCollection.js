@@ -27,7 +27,7 @@ const EditCollection = ({collection, collectionTypes, form}: Props) => (
     entity={collection}
     fullWidth
     page="edit"
-    title={l('Edit')}
+    title={lp('Edit', 'tab/column/page title')}
   >
     <CollectionEditForm collectionTypes={collectionTypes} form={form} />
     {manifest.js('collection/edit')}
