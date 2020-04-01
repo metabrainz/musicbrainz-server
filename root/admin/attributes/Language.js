@@ -60,7 +60,7 @@ const Language = ({model, attributes}: Props) => {
               <td>{frequencyLabels[attr.frequency]()}</td>
               <td>
                 <a href={`/admin/attributes/${model}/edit/${attr.id}`}>
-                  {l('Edit')}
+                  {lp('Edit', 'button')}
                 </a>
                 {' | '}
                 <a href={`/admin/attributes/${model}/delete/${attr.id}`}>
