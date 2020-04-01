@@ -60,8 +60,8 @@ const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
                 <td className="actions">
                   <a href={`/artist/${entity.gid}/credit/${credit.id}/edit`}>
                     {credit.editsPending
-                      ? <span className="mp">{l('Edit')}</span>
-                      : l('Edit')}
+                      ? <span className="mp">{lp('Edit', 'button')}</span>
+                      : lp('Edit', 'button')}
                   </a>
                 </td>
               ) : null}
