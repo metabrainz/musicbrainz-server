@@ -1,3 +1,3 @@
-[%- WRAPPER "$entity_type/layout.tt" title=lp('Edit', 'tab/column title') full_width=1 page='edit' -%]
+[%- WRAPPER "$entity_type/layout.tt" title=lp('Edit', 'tab/column/page title') full_width=1 page='edit' -%]
     [%- INCLUDE "$entity_type/edit_form.tt" -%]
 [%- END -%]
