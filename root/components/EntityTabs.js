@@ -132,7 +132,7 @@ function buildLinks(
     if (editTab) {
       links.push(editTab);
     } else {
-      links.push(buildLink(l('Edit'), entity, 'edit', page));
+      links.push(buildLink(lp('Edit', 'tab/column/page title'), entity, 'edit', page));
     }
   }
 
