@@ -113,7 +113,7 @@ const Attribute = ({attributes, model}: Props) => (
               {renderAttributes(attribute)}
               <td>
                 <a href={`/admin/attributes/${model}/edit/${attribute.id}`}>
-                  {lp('Edit', 'button')}
+                  {lp('Edit', 'button/link')}
                 </a>
                 {' | '}
                 <a href={`/admin/attributes/${model}/delete/${attribute.id}`}>
