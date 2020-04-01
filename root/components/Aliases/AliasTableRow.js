@@ -54,7 +54,7 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
         ? (
           <>
             <a href={entityHref(entity, `/alias/${alias.id}/edit`)}>
-              {lp('Edit', 'button')}
+              {lp('Edit', 'button/link')}
             </a>
             {' | '}
             <a href={entityHref(entity, `/alias/${alias.id}/delete`)}>
