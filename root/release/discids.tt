@@ -9,7 +9,7 @@
                     <th>[% l('Tracks') %]</th>
                     <th>[% l('Length') %]</th>
                     [% IF c.user_exists %]
-                    <th>[% lp('Edit', 'tab/column title') %]</th>
+                    <th>[% lp('Edit', 'tab/column/page title') %]</th>
                     [% END %]
                 </tr>
             </thead>
