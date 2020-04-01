@@ -29,9 +29,8 @@ const InstrumentMerge = ({$c, form, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge instruments')}</h1>
       <p>
-        {l(`You are about to merge the following instruments into a single
-            instrument. Please select the instrument which you would like
-            other instruments to be merged into:`)}
+        {l(`You are about to merge all these instruments into a single one.
+            Please select the instrument all others should be merged into:`)}
       </p>
       <form action={$c.req.uri} method="post">
         <InstrumentList

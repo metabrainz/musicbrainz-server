@@ -29,9 +29,8 @@ const EventMerge = ({$c, form, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge events')}</h1>
       <p>
-        {l(`You are about to merge the following events into a single
-            event. Please select the event which you would like other
-            events to be merged into:`)}
+        {l(`You are about to merge all these events into a single one.
+            Please select the event all others should be merged into:`)}
       </p>
       <form action={$c.req.uri} method="post">
         <EventList

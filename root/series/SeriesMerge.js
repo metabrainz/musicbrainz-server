@@ -29,9 +29,8 @@ const SeriesMerge = ({$c, form, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge series')}</h1>
       <p>
-        {l(`You are about to merge the following series into a single
-            series. Please select the series which you would
-            like other series to be merged into:`)}
+        {l(`You are about to merge all these series into a single one.
+            Please select the series all others should be merged into:`)}
       </p>
       <form action={$c.req.uri} method="post">
         <SeriesList

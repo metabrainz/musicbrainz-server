@@ -29,9 +29,8 @@ const LabelMerge = ({$c, form, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge labels')}</h1>
       <p>
-        {l(`You are about to merge the following labels into a single
-            label. Please select the label which you would like other
-            labels to be merged into:`)}
+        {l(`You are about to merge all these labels into a single one.
+            Please select the label all others should be merged into:`)}
       </p>
       <form action={$c.req.uri} method="post">
         <LabelList

@@ -30,9 +30,8 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge artists')}</h1>
       <p>
-        {l(`You are about to merge the following artists into a single
-            artist. Please select the artist which you would like other
-            artists to be merged into:`)}
+        {l(`You are about to merge all these artists into a single one.
+            Please select the artist all others should be merged into:`)}
       </p>
       <form action={$c.req.uri} method="post">
         <ArtistList

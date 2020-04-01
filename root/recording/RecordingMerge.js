@@ -28,11 +28,8 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge recordings')}</h1>
       <p>
-        {l(
-          `You are about to merge the following recordings into a single
-            recording. Please select the recording which you would like
-            other recordings to be merged into:`,
-        )}
+        {l(`You are about to merge all these recordings into a single one.
+            Please select the recording all others should be merged into:`)}
       </p>
       {isrcsDiffer ? (
         <div className="warning warning-isrcs-differ">

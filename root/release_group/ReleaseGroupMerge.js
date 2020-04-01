@@ -29,9 +29,9 @@ const ReleaseGroupMerge = ({$c, form, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge release groups')}</h1>
       <p>
-        {l(`You are about to merge the following release groups into a single
-            release group. Please select the release group which you would
-            like other release groups to be merged into:`)}
+        {l(`You are about to merge all these release groups into a single one.
+            Please select the release group all others
+            should be merged into:`)}
       </p>
       <form action={$c.req.uri} method="post">
         <ReleaseGroupListTable

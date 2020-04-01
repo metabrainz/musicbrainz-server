@@ -29,9 +29,8 @@ const WorkMerge = ({$c, form, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge works')}</h1>
       <p>
-        {l(`You are about to merge the following works into a single
-            work. Please select the work that you would like
-            the other works merged into:`)}
+        {l(`You are about to merge all these works into a single one.
+            Please select the work all others should be merged into:`)}
       </p>
       <form action={$c.req.uri} method="post">
         <WorkList
