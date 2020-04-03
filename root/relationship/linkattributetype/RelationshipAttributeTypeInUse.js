@@ -14,11 +14,11 @@ import Layout from '../../layout';
 const RelationshipAttributeTypeInUse = ({type}: {type: LinkAttrTypeT}) => (
   <Layout fullWidth page="in-use" title={l('Relationship attribute in use')}>
     <div className="content">
-      <h2>{l('Relationship attribute still in use')}</h2>
+      <h1>{l('Relationship attribute in use')}</h1>
       <p>
         {exp.l(
-          `You cannot remove the relationship attribute "{type}"
-           as it is still in use by other relationships.`,
+          `The relationship attribute type “{type}” can’t be deleted
+           because it’s still in use.`,
           {type: type.name},
         )}
       </p>
