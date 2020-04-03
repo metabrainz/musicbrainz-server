@@ -357,6 +357,7 @@ export default function Autocomplete2(props: Props): React.Element<"div"> {
         case 'Escape':
           instance.stopRequests();
           if (isMenuOpen) {
+            event.preventDefault();
             dispatch(HIDE_MENU);
           }
           break;
