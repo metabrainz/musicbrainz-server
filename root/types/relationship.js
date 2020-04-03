@@ -72,8 +72,7 @@ declare type PagedTargetTypeGroupT = {
 declare type RelationshipT = {
   ...DatePeriodRoleT,
   ...EditableRoleT,
-  // `attributes` may not exist when seeding.
-  +attributes?: $ReadOnlyArray<LinkAttrT>,
+  +attributes: $ReadOnlyArray<LinkAttrT>,
   +direction?: 'backward',
   +entity0?: CoreEntityT,
   +entity0_credit: string,

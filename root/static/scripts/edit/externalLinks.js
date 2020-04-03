@@ -518,7 +518,14 @@ function withOneEmptyLink(links, dontRemove) {
 const isVideoAttribute = attr => attr.type.gid === VIDEO_ATTRIBUTE_GID;
 
 export function parseRelationships(
-  relationships?: $ReadOnlyArray<RelationshipT>,
+  relationships?: $ReadOnlyArray<RelationshipT | {
+    +id: null,
+    +linkTypeID?: number,
+    +target: {
+      +entityType: 'url',
+      +name: string,
+    },
+  }>,
 ): Array<LinkStateT> {
   if (!relationships) {
     return [];
@@ -529,7 +536,7 @@ export function parseRelationships(
     if (target.entityType === 'url') {
       accum.push({
         relationship: data.id,
-        type: data.linkTypeID,
+        type: data.linkTypeID ?? null,
         url: target.name,
         video: data.attributes
           ? data.attributes.some(isVideoAttribute)
