@@ -43,18 +43,6 @@ import type {
   State,
 } from './Autocomplete2/types';
 
-const INITIAL_STATE: State = {
-  highlightedIndex: 0,
-  indexedSearch: true,
-  inputValue: '',
-  isOpen: false,
-  items: EMPTY_ARRAY,
-  page: 1,
-  pendingSearch: null,
-  selectedItem: null,
-  statusMessage: '',
-};
-
 /*
  * If the autocomplete is provided an `items` prop, it's assumed that it
  * contains the complete list of searchable options. In that case, we filter
@@ -243,7 +231,18 @@ export default function Autocomplete2(props: Props): React.Element<"div"> {
 
   const [state, dispatch] = React.useReducer<State, Actions>(
     reducer,
-    INITIAL_STATE,
+    {
+      highlightedIndex: 0,
+      indexedSearch: true,
+      inputValue: props.initialInputValue ??
+        props.initialSelectedItem?.name ?? '',
+      isOpen: false,
+      items: EMPTY_ARRAY,
+      page: 1,
+      pendingSearch: null,
+      selectedItem: props.initialSelectedItem ?? null,
+      statusMessage: '',
+    },
   );
 
   let activeElementBeforeItemClick = null;

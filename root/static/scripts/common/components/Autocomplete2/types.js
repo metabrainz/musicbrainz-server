@@ -34,6 +34,8 @@ export type Instance = {
 export type Props = {
   entityType: CoreEntityTypeT | 'editor',
   id: string,
+  initialInputValue?: string,
+  initialSelectedItem?: EntityItem | null,
   items?: $ReadOnlyArray<EntityItem>,
   onChange: (EntityItem | null) => void,
   onTypeChange?: (string) => boolean,
