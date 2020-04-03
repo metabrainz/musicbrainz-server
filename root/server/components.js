@@ -95,6 +95,8 @@ module.exports = {
   'recording/RecordingFingerprints': require('../recording/RecordingFingerprints'),
   'recording/RecordingIndex': require('../recording/RecordingIndex'),
   'recording/RecordingMerge': require('../recording/RecordingMerge'),
+  'relationship/linkattributetype/RelationshipAttributeTypeInUse': require('../relationship/linkattributetype/RelationshipAttributeTypeInUse'),
+  'relationship/linktype/RelationshipTypeInUse': require('../relationship/linktype/RelationshipTypeInUse'),
   'relationship/linktype/RelationshipTypesIndex': require('../relationship/linktype/RelationshipTypesIndex'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
   'report/AnnotationsArtists': require('../report/AnnotationsArtists'),

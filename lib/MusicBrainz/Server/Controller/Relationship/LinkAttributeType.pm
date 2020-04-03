@@ -103,7 +103,11 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
     );
 
     if ($c->model('LinkAttributeType')->in_use($link_attr_type->id)) {
-        $c->stash( template => $c->namespace . '/in_use.tt');
+        $c->stash(
+            component_path  => 'relationship/linkattributetype/RelationshipAttributeTypeInUse',
+            component_props => {type => $link_attr_type},
+            current_view    => 'Node',
+        );
         $c->detach;
     }
 

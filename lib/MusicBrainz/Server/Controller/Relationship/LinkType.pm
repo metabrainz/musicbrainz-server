@@ -282,7 +282,11 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
     my $link_type = $c->stash->{link_type};
 
     if ($c->model('LinkType')->in_use($link_type->id)) {
-        $c->stash( template => 'relationship/linktype/in_use.tt' );
+        $c->stash(
+            component_path  => 'relationship/linktype/RelationshipTypeInUse',
+            component_props => {type => $link_type},
+            current_view    => 'Node',
+        );
         $c->detach;
     }
 
