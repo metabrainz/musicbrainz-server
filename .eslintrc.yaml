@@ -330,7 +330,7 @@ rules:
   react/jsx-indent-props: [error, 2]
   react/jsx-key: warn
   react/jsx-max-props-per-line: [error, {maximum: 1, when: multiline}]
-  react/jsx-no-bind: warn
+  react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
   react/jsx-no-comment-textnodes: warn
   react/jsx-no-duplicate-props: [error, {ignoreCase: true}]
   react/jsx-no-literals: warn
