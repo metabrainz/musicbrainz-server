@@ -238,7 +238,7 @@ test('guessing feat. artists', function (t) {
                 gid: 'd50548a0-3cfd-4d7a-964b-0aef6545d819',
                 entityType: 'artist',
               },
-              direction: 'backward',
+              backward: true,
               linkTypeID: 156,
             },
           ],
@@ -346,7 +346,7 @@ test('guessing feat. artists', function (t) {
         relationships: [
           {
             target: {name: 'London Symphony Orchestra', entityType: 'artist'},
-            direction: 'backward',
+            backward: true,
             linkTypeID: 45,
           },
         ],
@@ -373,7 +373,7 @@ test('guessing feat. artists', function (t) {
         relationships: [
           {
             target: {name: 'Roberto Cascio', entityType: 'artist'},
-            direction: 'backward',
+            backward: true,
             linkTypeID: 46,
           },
         ],
@@ -403,7 +403,7 @@ test('guessing feat. artists', function (t) {
               name: 'The Drottningholm Court Theatre Orchestra & Chorus',
               entityType: 'artist',
             },
-            direction: 'backward',
+            backward: true,
             linkTypeID: 45,
           },
         ],

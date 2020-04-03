@@ -66,7 +66,7 @@ declare type LinkTypeT = {
 };
 
 declare type PagedLinkTypeGroupT = {
-  +direction: 'backward' | 'forward',
+  +backward: boolean,
   +is_loaded: boolean,
   +limit: number,
   +link_type_id: number,
@@ -83,7 +83,7 @@ declare type RelationshipT = $ReadOnly<{
   ...DatePeriodRoleT,
   ...EditableRoleT,
   +attributes: $ReadOnlyArray<LinkAttrT>,
-  +direction?: 'backward',
+  +backward: boolean,
   +entity0?: CoreEntityT,
   +entity0_credit: string,
   +entity0_id: number,
