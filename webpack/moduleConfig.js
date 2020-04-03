@@ -8,6 +8,7 @@
 
 const CleanCSSPlugin = require('less-plugin-clean-css');
 
+const ignore = require('./babel-ignored');
 const {PRODUCTION_MODE} = require('./constants');
 
 const lessOptions = {};
@@ -23,7 +24,7 @@ module.exports = {
 
   rules: [
     {
-      exclude: /node_modules/,
+      exclude: ignore,
       test: /\.js$/,
       use: {
         loader: 'babel-loader',

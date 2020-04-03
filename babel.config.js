@@ -1,3 +1,5 @@
+const ignore = require('./webpack/babel-ignored');
+
 const BROWSER_TARGETS = {
   chrome: '49',
   edge: '14',
@@ -44,16 +46,10 @@ module.exports = function (api) {
     plugins.push('babel-plugin-istanbul');
   }
 
-  const ignore = [
-    'node_modules',
-    'root/static/scripts/tests/typeInfo.js',
-    /root\/static\/build\/jed-[A-z_-]+?\.source\.js$/,
-  ];
-
   return {
-    presets,
-    plugins,
     ignore,
+    plugins,
+    presets,
     sourceType: 'unambiguous',
   };
 };
