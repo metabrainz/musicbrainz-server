@@ -75,6 +75,8 @@ around TO_JSON => sub {
         $self->link_entity('link_attribute_type', $root->id, $root);
     }
 
+    my @children = map { $_->TO_JSON } $self->all_children;
+
     return {
         %{ $self->$orig },
         gid => $self->gid,
@@ -83,6 +85,7 @@ around TO_JSON => sub {
         free_text => boolean_to_json($self->free_text),
         creditable => boolean_to_json($self->creditable),
         $self->instrument_comment ? (instrument_comment => $self->instrument_comment) : (),
+        @children ? (children => \@children) : (),
     };
 };
 

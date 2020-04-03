@@ -31,6 +31,12 @@ sub index : Path('/relationship-attributes') Args(0)
     my ($self, $c) = @_;
 
     $self->_load_tree($c);
+
+    $c->stash(
+        component_path  => 'relationship/linkattributetype/RelationshipAttributeTypesIndex',
+        component_props => {root => $c->stash->{root}},
+        current_view    => 'Node',
+    );
 }
 
 sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relationship_editor)

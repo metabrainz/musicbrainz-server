@@ -96,6 +96,7 @@ module.exports = {
   'recording/RecordingIndex': require('../recording/RecordingIndex'),
   'recording/RecordingMerge': require('../recording/RecordingMerge'),
   'relationship/linkattributetype/RelationshipAttributeTypeInUse': require('../relationship/linkattributetype/RelationshipAttributeTypeInUse'),
+  'relationship/linkattributetype/RelationshipAttributeTypesIndex': require('../relationship/linkattributetype/RelationshipAttributeTypesIndex'),
   'relationship/linktype/RelationshipTypeInUse': require('../relationship/linktype/RelationshipTypeInUse'),
   'relationship/linktype/RelationshipTypesIndex': require('../relationship/linktype/RelationshipTypesIndex'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
