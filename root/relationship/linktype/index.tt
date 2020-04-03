@@ -1,6 +1,6 @@
 [% WRAPPER "layout.tt" title=l("Relationship Types") full_width=1 no_icons=1 %]
     <div id="content" class="wikicontent">
-        [%- INCLUDE 'relationship/header.tt' page='index' %]
+        [%~ React.embed(c, 'relationship/RelationshipsHeader', { page => 'index' }) ~%]
 
         <table class="wikitable">
             <tr>

@@ -2,7 +2,7 @@
 
 [% WRAPPER "layout.tt" title=l("Relationship Attributes") full_width=1 no_icons=1 %]
     <div id="content">
-        [%- INCLUDE 'relationship/header.tt' page='attributes' %]
+        [%~ React.embed(c, 'relationship/RelationshipsHeader', { page => 'attributes' }) ~%]
 
         [%- IF c.user.is_relationship_editor -%]
             <p><a href="[% c.uri_for_action('/relationship/linkattributetype/create') %]">[% l('Create a new relationship attribute') %]</a></p>

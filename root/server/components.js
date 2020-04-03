@@ -290,6 +290,7 @@ module.exports = {
   'layout/components/sidebar/WorkSidebar': require('../layout/components/sidebar/WorkSidebar'),
   'place/PlaceHeader': require('../place/PlaceHeader'),
   'recording/RecordingHeader': require('../recording/RecordingHeader'),
+  'relationship/RelationshipsHeader': require('../relationship/RelationshipsHeader'),
   'release/ReleaseHeader': require('../release/ReleaseHeader'),
   'release_group/ReleaseGroupHeader': require('../release_group/ReleaseGroupHeader'),
   'series/SeriesHeader': require('../series/SeriesHeader'),

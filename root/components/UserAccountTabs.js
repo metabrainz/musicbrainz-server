@@ -11,19 +11,9 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context';
 import * as DBDefs from '../static/scripts/common/DBDefs';
+import buildTab from '../utility/buildTab';
 
 import Tabs from './Tabs';
-
-const buildTab = (
-  page: string,
-  title: string,
-  path: string,
-  tabPage: string,
-) => (
-  <li className={tabPage === page ? 'sel' : null} key={tabPage}>
-    <a href={path}>{title}</a>
-  </li>
-);
 
 function buildTabs(
   $c: CatalystContextT,

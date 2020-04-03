@@ -39,7 +39,7 @@
     <div id="content">
         [% script_manifest('edit.js') %]
 
-        [%- INCLUDE 'relationship/header.tt' %]
+        [%~ React.embed(c, 'relationship/RelationshipsHeader') ~%]
 
         <p><small><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[%- l('&lt; Back to all relationship types') -%]</a></small></p>
 
