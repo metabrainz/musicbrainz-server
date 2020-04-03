@@ -42,7 +42,7 @@ around _format_output => sub {
 
     return map +{
         %$_,
-        artists => $artists{$_->{entity}->id},
+        related_artists => $artists{$_->{entity}->id},
     }, $self->$orig($c, @entities);
 };
 

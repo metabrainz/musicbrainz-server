@@ -19,18 +19,7 @@ import formatDate from '../../utility/formatDate';
 import formatDatePeriod from '../../utility/formatDatePeriod';
 import formatTrackLength from '../../utility/formatTrackLength';
 
-import type {
-  AutocompleteAreaT,
-  AutocompleteEventT,
-  AutocompleteInstrumentT,
-  AutocompletePlaceT,
-  AutocompleteRecordingT,
-  AutocompleteReleaseT,
-  AutocompleteReleaseGroupT,
-  AutocompleteSeriesT,
-  AutocompleteWorkT,
-  Item,
-} from './types';
+import type {Item} from './types';
 
 const nonLatinRegExp = /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/;
 
@@ -59,20 +48,16 @@ function showExtraInfoLine(children, className = 'comment') {
   );
 }
 
+function formatName(entity) {
+  return unwrapNl<string>(entity.name);
+}
+
 function formatGeneric(entity, extraInfo) {
-  const name = unwrapNl<string>(entity.name);
+  const name = formatName(entity);
   const info = [];
 
   if (nonEmpty(entity.primaryAlias) && entity.primaryAlias !== name) {
     info.push(entity.primaryAlias);
-  }
-
-  if (entity.entityType === 'artist' &&
-      entity.sort_name &&
-      entity.sort_name !== name &&
-      !nonEmpty(entity.primaryAlias) &&
-      isNonLatin(name)) {
-    info.push(entity.sort_name);
   }
 
   if (entity.comment) {
@@ -80,7 +65,7 @@ function formatGeneric(entity, extraInfo) {
   }
 
   if (extraInfo) {
-    info.push.apply(info, extraInfo);
+    extraInfo(info);
   }
 
   return (
@@ -91,6 +76,20 @@ function formatGeneric(entity, extraInfo) {
       ) : null}
     </>
   );
+}
+
+function formatArtist(artist) {
+  const sortName = artist.sort_name;
+  let extraInfo;
+  if (
+    sortName &&
+    sortName !== artist.name &&
+    !nonEmpty(artist.primaryAlias) &&
+    isNonLatin(artist.name)
+  ) {
+    extraInfo = (info) => info.unshift(sortName);
+  }
+  return formatGeneric(artist, extraInfo);
 }
 
 function showLabeledTextList(label, items, className = 'comment') {
@@ -122,7 +121,7 @@ function pushContainmentInfo(area, extraInfo) {
   }
 }
 
-function formatArea(area: AutocompleteAreaT) {
+function formatArea(area: AreaT) {
   const extraInfo = [];
 
   if (nonEmpty(area.typeName)) {
@@ -140,7 +139,7 @@ function formatArea(area: AutocompleteAreaT) {
   );
 }
 
-function formatEvent(event: AutocompleteEventT) {
+function formatEvent(event: EventT) {
   return (
     <>
       {formatGeneric(event)}
@@ -161,14 +160,14 @@ function formatEvent(event: AutocompleteEventT) {
 
       {showRelatedEntities(
         l('Performers'),
-        event.related_entities.performers,
+        event.related_entities?.performers,
       )}
-      {showRelatedEntities(l('Location'), event.related_entities.places)}
+      {showRelatedEntities(l('Location'), event.related_entities?.places)}
     </>
   );
 }
 
-function formatInstrument(instrument: AutocompleteInstrumentT) {
+function formatInstrument(instrument: InstrumentT) {
   const extraInfo = [];
 
   if (nonEmpty(instrument.typeName)) {
@@ -185,13 +184,13 @@ function formatInstrument(instrument: AutocompleteInstrumentT) {
 
   return (
     <>
-      {formatGeneric(instrument, extraInfo)}
+      {formatGeneric(instrument, (info) => info.push(...extraInfo))}
       {description ? showExtraInfoLine(description) : null}
     </>
   );
 }
 
-function formatPlace(place: AutocompletePlaceT) {
+function formatPlace(place: PlaceT) {
   const extraInfo = [];
 
   if (nonEmpty(place.typeName)) {
@@ -212,7 +211,7 @@ function formatPlace(place: AutocompletePlaceT) {
   );
 }
 
-function formatRecording(recording: AutocompleteRecordingT) {
+function formatRecording(recording: RecordingT) {
   const appearsOn = recording.appearsOn;
 
   return (
@@ -266,7 +265,7 @@ function formatReleaseEvent(event: ReleaseEventT) {
   );
 }
 
-function formatRelease(release: AutocompleteReleaseT) {
+function formatRelease(release: ReleaseT) {
   const releaseLabelDisplay = [];
 
   if (release.labels) {
@@ -318,7 +317,7 @@ function formatRelease(release: AutocompleteReleaseT) {
   );
 }
 
-function formatReleaseGroup(releaseGroup: AutocompleteReleaseGroupT) {
+function formatReleaseGroup(releaseGroup: ReleaseGroupT) {
   return (
     <>
       {releaseGroup.name}
@@ -341,7 +340,7 @@ function formatReleaseGroup(releaseGroup: AutocompleteReleaseGroupT) {
   );
 }
 
-function formatSeries(series: AutocompleteSeriesT) {
+function formatSeries(series: SeriesT) {
   return (
     <>
       {series.name}
@@ -357,7 +356,7 @@ function formatSeries(series: AutocompleteSeriesT) {
   );
 }
 
-function formatWork(work: AutocompleteWorkT) {
+function formatWork(work: WorkT) {
   const languages = work.languages;
   const typeName = work.typeName;
 
@@ -383,8 +382,8 @@ function formatWork(work: AutocompleteWorkT) {
 
       {work.artists ? (
         <>
-          {showRelatedEntities(l('Writers'), work.artists.writers)}
-          {showRelatedEntities(l('Artists'), work.artists.artists)}
+          {showRelatedEntities(l('Writers'), work.related_artists?.writers)}
+          {showRelatedEntities(l('Artists'), work.related_artists?.artists)}
         </>
       ) : null}
     </>
@@ -399,6 +398,9 @@ export default function formatItem(item: Item): Expand2ReactOutput {
   switch (item.entityType) {
     case 'area':
       return formatArea(item);
+
+    case 'artist':
+      return formatArtist(item);
 
     case 'event':
       return formatEvent(item);
@@ -425,6 +427,6 @@ export default function formatItem(item: Item): Expand2ReactOutput {
       return formatWork(item);
 
     default:
-      return formatGeneric(item);
+      return formatName(item);
   }
 }
