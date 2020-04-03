@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import ENTITIES from '../../../../../entities';
+import {MBID_REGEXP} from '../constants';
 import useOutsideClickEffect from '../hooks/useOutsideClickEffect';
 import {unwrapNl} from '../i18n';
 import clean from '../utility/clean';
@@ -28,7 +29,6 @@ import {
   ARIA_LIVE_STYLE,
   DISPLAY_NONE_STYLE,
   EMPTY_ARRAY,
-  MBID_REGEXP,
   MENU_ITEMS,
   SEARCH_PLACEHOLDERS,
 } from './Autocomplete2/constants';

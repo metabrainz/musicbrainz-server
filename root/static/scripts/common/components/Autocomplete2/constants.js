@@ -37,8 +37,6 @@ export const DISPLAY_NONE_STYLE = {display: 'none'};
 
 export const EMPTY_ARRAY: $ReadOnlyArray<Item> = Object.freeze([]);
 
-export const MBID_REGEXP: RegExp = /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/;
-
 export const MENU_ITEMS: {+[name: string]: ActionItem, ...} = {
   ERROR_TRY_AGAIN_DIRECT: {
     action: TOGGLE_INDEXED_SEARCH,
