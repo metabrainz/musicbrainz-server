@@ -18,7 +18,6 @@ import {
   HIDE_MENU,
   HIGHLIGHT_NEXT_ITEM,
   HIGHLIGHT_PREVIOUS_ITEM,
-  SELECT_HIGHLIGHTED_ITEM,
   SHOW_LOOKUP_ERROR,
   SHOW_LOOKUP_TYPE_ERROR,
   SHOW_MENU,
@@ -114,6 +113,7 @@ function doLookup(parent: Instance, mbid: string) {
         (!onTypeChange || onTypeChange(entity.entityType) === false)) {
       parent.dispatch(SHOW_LOOKUP_TYPE_ERROR);
     } else {
+      runOnChange(parent, entity);
       parent.dispatch({item: entity, type: 'select-item'});
     }
   });
@@ -207,6 +207,16 @@ function findItem(instance: Instance, itemId: string) {
   return [-1, null];
 }
 
+function runOnChange(instance, item) {
+  if (!item?.action) {
+    const selectedItem = instance.state.selectedItem;
+    if ((!selectedItem !== !item) ||
+        (selectedItem && item && selectedItem.id !== item.id)) {
+      instance.props.onChange(item);
+    }
+  }
+}
+
 function setScrollPosition(menuId: string, siblingAccessor: string) {
   const menu = document.getElementById(menuId);
   if (!menu) {
@@ -290,6 +300,7 @@ export default function Autocomplete2(props: Props): React.Element<"div"> {
       const newInputValue = event.currentTarget.value;
       const newCleanInputValue = clean(newInputValue);
 
+      runOnChange(instance, null);
       dispatch({type: 'type-value', value: newInputValue});
 
       const mbidMatch = newCleanInputValue.match(MBID_REGEXP);
@@ -331,12 +342,18 @@ export default function Autocomplete2(props: Props): React.Element<"div"> {
           }
           break;
 
-        case 'Enter':
+        case 'Enter': {
           if (isMenuOpen) {
             event.preventDefault();
-            dispatch(SELECT_HIGHLIGHTED_ITEM);
+            const {items, highlightedIndex} = instance.state;
+            const item = items[highlightedIndex];
+            if (item) {
+              runOnChange(instance, item);
+              instance.dispatch({item, type: 'select-item'});
+            }
           }
           break;
+        }
 
         case 'Escape':
           instance.stopRequests();
@@ -357,7 +374,10 @@ export default function Autocomplete2(props: Props): React.Element<"div"> {
         activeElementBeforeItemClick = null;
       }
       const [, item] = findItem(instance, event.currentTarget.dataset.itemId);
-      item && instance.dispatch({item, type: 'select-item'});
+      if (item) {
+        runOnChange(instance, item);
+        instance.dispatch({item, type: 'select-item'});
+      }
     },
 
     handleItemMouseDown() {

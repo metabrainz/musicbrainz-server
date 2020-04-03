@@ -35,7 +35,7 @@ export type Props = {
   entityType: CoreEntityTypeT | 'editor',
   id: string,
   items?: $ReadOnlyArray<EntityItem>,
-  onChange: () => void,
+  onChange: (EntityItem | null) => void,
   onTypeChange?: (string) => boolean,
   placeholder?: string,
   width?: string,
@@ -65,7 +65,6 @@ export type Actions =
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
   | { +type: 'noop' }
-  | { +type: 'select-highlighted-item' }
   | { +item: Item, +type: 'select-item' }
   | { +type: 'set-menu-visibility', +value: boolean }
   | {

@@ -69,13 +69,6 @@ function selectItem(state: State, item: Item) {
   }
 }
 
-function selectItemAtIndex(state: State, index: number) {
-  const item = state.items[index];
-  if (item) {
-    selectItem(state, item);
-  }
-}
-
 function showError(state: State, error: ActionItem) {
   state.highlightedIndex = 0;
   state.isOpen = true;
@@ -118,10 +111,6 @@ function runReducer(
     case 'search-after-timeout':
       state.page = 1;
       initSearch(state, action);
-      break;
-
-    case 'select-highlighted-item':
-      selectItemAtIndex(state, state.highlightedIndex);
       break;
 
     case 'select-item':
