@@ -30,9 +30,15 @@ sub index : Path('/relationships') Args(0)
 
     my @types = sort keys %by_second_type;
 
-    $c->stash(
+    my %props = (
         types => \@types,
         table => [ map { [ sort_by { $_->[0] } @{ $by_second_type{$_} } ] } @types ]
+    );
+
+    $c->stash(
+        component_path  => 'relationship/linktype/RelationshipTypesIndex',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
