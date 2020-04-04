@@ -1,0 +1,136 @@
+{
+  title: 'Relationship Seeding',
+  commands: [
+    {
+      command: 'open',
+      target: '/artist/create?rels.0.type=fd3927ba-fd51-4fa9-bcc2-e83637896fe8&rels.0.target=Name%20Only&rels.0.begin_date=2021-??-01&rels.0.ended=1&rels.1.type=798&rels.1.target=a43f824a-1679-4453-9722-d9ab51fbc85a&rels.1.attributes.0.type=ebd303c3-7f57-452a-aa3b-d780ebad868d&rels.1.attributes.0.text_value=19:00',
+      value: '',
+    },
+    {
+      command: 'assertTextMatches',
+      target: 'css=#relationship-editor p.error',
+      value: 'You must select a relationship type and target entity for every relationship.',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#relationship-editor table.details.row-form tr')).map(x => x.textContent.replace(/\\s{2,}/g, ' ').replace(/(^\\s*|\\s*$)/g, '')).join('\\n ')",
+      value: 'involved with: Name Only (2021-??-01 – ????)\n Add another artist\n main performer at: MusicBrainz Summit 14 (time: 19:00)\n Add another event',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.name',
+      value: 'new artist on the block',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.sort_name',
+      value: 'new artist on block, the',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//fieldset[@id = "relationship-editor"]//th/label[contains(text(), "involved with:")]/parent::th/following-sibling::td//button[contains(@class, "edit-item")])[1]',
+    },
+    {
+      command: 'type',
+      target: 'css=#dialog input.name',
+      value: '89ad4ac3-39f7-470e-963a-56509c546377',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+    },
+    {
+      command: 'click',
+      target: 'css=#dialog button.positive',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#content button.submit.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          ended: '1',
+          type0: 'artist',
+          type1: 'artist',
+          entity0: {
+            id: '$$__IGNORE__$$',
+            gid: '$$__IGNORE__$$',
+            name: 'new artist on the block',
+          },
+          entity1: {
+            id: 1,
+            gid: '89ad4ac3-39f7-470e-963a-56509c546377',
+            name: 'Various Artists',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 112,
+            name: 'involved with',
+            link_phrase: 'involved with',
+            long_link_phrase: 'is/was involved with',
+            reverse_link_phrase: 'involved with',
+          },
+          begin_date: {
+            day: '1',
+            year: '2021',
+            month: null,
+          },
+          edit_version: 2,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          ended: '0',
+          type0: 'artist',
+          type1: 'event',
+          entity0: {
+            id: '$$__IGNORE__$$',
+            gid: '$$__IGNORE__$$',
+            name: 'new artist on the block',
+          },
+          entity1: {
+            id: 1606,
+            gid: 'a43f824a-1679-4453-9722-d9ab51fbc85a',
+            name: 'MusicBrainz Summit 14',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 798,
+            name: 'main performer',
+            link_phrase: 'main performer at',
+            long_link_phrase: 'was a main performer at',
+            reverse_link_phrase: 'main performers',
+          },
+          attributes: [
+            {
+              type: {
+                id: 830,
+                gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                name: 'time',
+                root: {
+                  id: 830,
+                  gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                  name: 'time',
+                },
+              },
+              text_value: '19:00',
+            }
+          ],
+          edit_version: 2,
+        },
+      },
+    },
+  ],
+}

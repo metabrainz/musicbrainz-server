@@ -627,6 +627,7 @@ const seleniumTests = [
   {name: 'Work_Editor.json5', login: true},
   {name: 'Redirect_Merged_Entities.json5', login: true},
   {name: 'admin/Edit_Banner.json5', login: true},
+  {name: 'Relationship_Seeding.json5', login: true},
   {name: 'release-editor/The_Downward_Spiral.json5', login: true},
   {
     name: 'release-editor/Duplicate_Selection.json5',
