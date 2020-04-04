@@ -73,9 +73,13 @@ sub tree : Chained('type_specific') PathPart('')
 {
     my ($self, $c) = @_;
 
+    my $root = $c->model('LinkType')->get_tree($c->stash->{type0},
+                                                $c->stash->{type1});
+
     $c->stash(
-        root => $c->model('LinkType')->get_tree($c->stash->{type0},
-                                                $c->stash->{type1})
+        component_path  => 'relationship/linktype/RelationshipTypePairTree',
+        component_props => {root => $root},
+        current_view    => 'Node',
     );
 }
 

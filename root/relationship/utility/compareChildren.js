@@ -13,10 +13,8 @@ export default function compareChildren(
   a: LinkTypeT | LinkAttrTypeT,
   b: LinkTypeT | LinkAttrTypeT,
 ): number {
-  if (a.child_order === b.child_order) {
-    return compare(a.name, b.name);
-  }
-  return a.child_order < b.child_order
-    ? -1
-    : (a.child_order > b.child_order ? 1 : 0);
+  return (
+    (a.child_order - b.child_order) ||
+    compare(l_relationships(a.name), l_relationships(b.name))
+  );
 }

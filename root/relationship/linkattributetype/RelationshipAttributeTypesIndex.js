@@ -12,10 +12,10 @@ import upperFirst from 'lodash/upperFirst';
 
 import {withCatalystContext} from '../../context';
 import Layout from '../../layout';
-import {compare} from '../../static/scripts/common/i18n';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 import bracketed, {bracketedText}
   from '../../static/scripts/common/utility/bracketed';
+import compareChildren from '../utility/compareChildren';
 import RelationshipsHeader from '../RelationshipsHeader';
 
 type AttributeTreeProps = {
@@ -33,13 +33,6 @@ type AttributesListProps = {
   +$c: CatalystContextT,
   +root: LinkAttrTypeT,
 };
-
-function compareChildren(a: LinkAttrTypeT, b: LinkAttrTypeT): number {
-  return (
-    (a.child_order - b.child_order) ||
-    compare(l_relationships(a.name), l_relationships(b.name))
-  );
-}
 
 const AttributeDetails = ({
   $c,
