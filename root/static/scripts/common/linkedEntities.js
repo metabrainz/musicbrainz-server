@@ -39,10 +39,10 @@ type LinkedEntities = {
     [languageId: number]: LanguageT,
   },
   link_attribute_type: {
-    [linkAttributeTypeId: number]: LinkAttrTypeT,
+    [linkAttributeTypeIdOrGid: StrOrNum]: LinkAttrTypeT,
   },
   link_type: {
-    [linkTypeId: number]: LinkTypeT,
+    [linkTypeIdOrGid: StrOrNum]: LinkTypeT,
   },
   link_type_tree: {
     [entityTypes: string]: $ReadOnlyArray<LinkTypeT>,
