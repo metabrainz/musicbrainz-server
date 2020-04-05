@@ -9,8 +9,7 @@
 
 import {compare} from '../static/scripts/common/i18n.js';
 import compareDates from '../static/scripts/common/utility/compareDates.js';
-
-import getSortName from './getSortName.js';
+import getSortName from '../static/scripts/common/utility/getSortName.js';
 
 export default function compareRelationships(
   a: RelationshipT,

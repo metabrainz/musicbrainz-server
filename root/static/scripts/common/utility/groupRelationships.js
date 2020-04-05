@@ -29,6 +29,7 @@ import {
 } from './arrays.js';
 import {compareStrings} from './compare.js';
 import {compareDatePeriods} from './compareDates.js';
+import getSortName from './getSortName.js';
 import isLinkTypeDirectionOrderable from './isLinkTypeDirectionOrderable.js';
 import {uniqueId} from './strings.js';
 
@@ -334,10 +335,6 @@ function mergeTargetGroupsByTracks(
     }
   }
 }
-
-const getSortName = (x: CoreEntityT) => (
-  x.entityType === 'artist' ? x.sort_name : x.name
-);
 
 function areSetsEqual<T>(a: Set<T>, b: Set<T>): boolean {
   if (a.size !== b.size) {

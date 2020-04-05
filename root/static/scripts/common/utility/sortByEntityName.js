@@ -8,7 +8,8 @@
  */
 
 import {compare} from '../i18n.js';
-import getSortName from '../../../../utility/getSortName.js';
+
+import getSortName from './getSortName.js';
 
 function compareEntities(a: CoreEntityT, b: CoreEntityT): number {
   return compare(getSortName(a), getSortName(b)) || (a.id - b.id);
