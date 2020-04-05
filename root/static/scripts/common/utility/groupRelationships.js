@@ -29,6 +29,7 @@ import {
 } from './arrays.js';
 import {compareStrings} from './compare.js';
 import {compareDatePeriods} from './compareDates.js';
+import isLinkTypeDirectionOrderable from './isLinkTypeDirectionOrderable.js';
 import {uniqueId} from './strings.js';
 
 const UNIT_SEP = '\x1F';
@@ -338,14 +339,6 @@ const getSortName = (x: CoreEntityT) => (
   x.entityType === 'artist' ? x.sort_name : x.name
 );
 
-function targetIsOrderable(relationship: RelationshipT) {
-  const linkType = linkedEntities.link_type[relationship.linkTypeID];
-  const backward = relationship.backward;
-  // `backward` indicates that the relationship target is entity0
-  return (linkType.orderable_direction === 1 && !backward) ||
-          (linkType.orderable_direction === 2 && backward);
-}
-
 function areSetsEqual<T>(a: Set<T>, b: Set<T>): boolean {
   if (a.size !== b.size) {
     return false;
@@ -518,7 +511,7 @@ export default function groupRelationships(
     const targetCredit = relationship.backward
       ? relationship.entity0_credit
       : relationship.entity1_credit;
-    const isOrderable = targetIsOrderable(relationship);
+    const isOrderable = isLinkTypeDirectionOrderable(linkType, backward);
     const linkOrder = relationship.linkOrder;
     const datePeriod = {
       begin_date: relationship.begin_date,
