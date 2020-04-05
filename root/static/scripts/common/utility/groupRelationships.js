@@ -25,6 +25,7 @@ import areDatePeriodsEqual from './areDatePeriodsEqual.js';
 import {
   arraysEqual,
   mergeSortedArrayInto,
+  sortedFindOrInsert,
   sortedIndexWith,
 } from './arrays.js';
 import {compareStrings} from './compare.js';
@@ -70,19 +71,13 @@ export type RelationshipPhraseGroupT = {
 
 export type RelationshipTargetTypeGroupT = {
   +relationshipPhraseGroups: Array<RelationshipPhraseGroupT>,
-  +targetType: string,
+  +targetType: CoreEntityTypeT,
 };
 
-function cmpRelationshipPhraseGroups(
-  a: RelationshipPhraseGroupT,
-  b: RelationshipPhraseGroupT,
-) {
-  const linkTypeInfoA = a.linkTypeInfo[0];
-  const linkTypeInfoB = b.linkTypeInfo[0];
-  return (
-    (linkTypeInfoA.typeId - linkTypeInfoB.typeId) ||
-    compare(linkTypeInfoA.textPhrase, linkTypeInfoB.textPhrase)
-  );
+export function cmpTargetTypeGroups<
+  T: {+targetType: CoreEntityTypeT, ...},
+>(a: T, b: T): number {
+  return compareStrings(a.targetType, b.targetType);
 }
 
 const cmpPhraseGroupLinkTypeInfo = (
@@ -92,6 +87,13 @@ const cmpPhraseGroupLinkTypeInfo = (
   (a.typeId - b.typeId) ||
   compare(a.textPhrase, b.textPhrase)
 );
+
+function cmpRelationshipPhraseGroups(
+  a: RelationshipPhraseGroupT,
+  b: RelationshipPhraseGroupT,
+) {
+  return cmpPhraseGroupLinkTypeInfo(a.linkTypeInfo[0], b.linkTypeInfo[0]);
+}
 
 function cmpFirstDatePeriods(
   a: DatedExtraAttributes,
@@ -389,23 +391,14 @@ export default function groupRelationships(
       continue;
     }
 
-    let targetTypeGroup;
-    {
-      const [index, exists] = sortedIndexWith(
-        targetTypeGroups,
+    const targetTypeGroup = sortedFindOrInsert(
+      targetTypeGroups,
+      ({
+        relationshipPhraseGroups: [],
         targetType,
-        (group, targetType) => compareStrings(group.targetType, targetType),
-      );
-      if (exists) {
-        targetTypeGroup = targetTypeGroups[index];
-      } else {
-        targetTypeGroup = ({
-          relationshipPhraseGroups: [],
-          targetType,
-        }: RelationshipTargetTypeGroupT);
-        targetTypeGroups.splice(index, 0, targetTypeGroup);
-      }
-    }
+      }: RelationshipTargetTypeGroupT),
+      cmpTargetTypeGroups,
+    );
 
     const backward = relationship.backward;
     const linkType = linkedEntities.link_type[relationship.linkTypeID];
@@ -471,39 +464,28 @@ export default function groupRelationships(
       }
     }
 
-    /*
-     * linkType.id shouldn't really be needed in the grouping key, since
-     * two different link types to the same entity types shouldn't ever
-     * produce the same text phrase. Nonetheless, the code should continue
-     * to work if that happens.
-     */
-    const phraseGroupKey = textPhrase + UNIT_SEP + String(linkType.id);
-    let phraseGroup;
-    {
-      const phraseGroups = targetTypeGroup.relationshipPhraseGroups;
-      const [index, exists] = sortedIndexWith(
-        phraseGroups,
-        phraseGroupKey,
-        (group, phraseGroupKey) => compare(group.key, phraseGroupKey),
-      );
-      if (exists) {
-        phraseGroup = phraseGroups[index];
-      } else {
-        phraseGroup = ({
-          combinedPhrase: '',
-          key: phraseGroupKey,
-          linkTypeInfo: [{
-            editsPending: relationship.editsPending,
-            phrase: phrase ?? textPhrase,
-            rootTypeId: linkType.root_id,
-            textPhrase,
-            typeId: linkType.id,
-          }],
-          targetGroups: [],
-        }: RelationshipPhraseGroupT);
-        phraseGroups.splice(index, 0, phraseGroup);
-      }
-    }
+    const phraseGroup = sortedFindOrInsert(
+      targetTypeGroup.relationshipPhraseGroups,
+      ({
+        combinedPhrase: '',
+        /*
+         * linkTypeId shouldn't really be needed in the grouping key, since
+         * two different link types to the same entity types shouldn't ever
+         * produce the same text phrase. Nonetheless, the code should continue
+         * to work if that happens.
+         */
+        key: String(linkType.id) + UNIT_SEP + textPhrase,
+        linkTypeInfo: [{
+          editsPending: relationship.editsPending,
+          phrase: phrase ?? textPhrase,
+          rootTypeId: linkType.root_id,
+          textPhrase,
+          typeId: linkType.id,
+        }],
+        targetGroups: [],
+      }: RelationshipPhraseGroupT),
+      cmpRelationshipPhraseGroups,
+    );
 
     const targetCredit = relationship.backward
       ? relationship.entity0_credit
@@ -651,8 +633,6 @@ export default function groupRelationships(
         ? commaList(linkTypeInfo1.map(displayLinkPhrase))
         : displayLinkPhrase(linkTypeInfo1[0]);
     }
-
-    phraseGroups.sort(cmpRelationshipPhraseGroups);
   }
 
   return targetTypeGroups;
