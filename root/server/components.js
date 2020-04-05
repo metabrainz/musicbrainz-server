@@ -132,6 +132,7 @@ module.exports = {
   'recording/RecordingIndex': require('../recording/RecordingIndex'),
   'recording/RecordingMerge': require('../recording/RecordingMerge'),
   'relationship/linkattributetype/RelationshipAttributeTypeInUse': require('../relationship/linkattributetype/RelationshipAttributeTypeInUse'),
+  'relationship/linkattributetype/RelationshipAttributeTypeIndex': require('../relationship/linkattributetype/RelationshipAttributeTypeIndex'),
   'relationship/linkattributetype/RelationshipAttributeTypesList': require('../relationship/linkattributetype/RelationshipAttributeTypesList'),
   'relationship/linktype/RelationshipTypeInUse': require('../relationship/linktype/RelationshipTypeInUse'),
   'relationship/linktype/RelationshipTypeIndex': require('../relationship/linktype/RelationshipTypeIndex'),

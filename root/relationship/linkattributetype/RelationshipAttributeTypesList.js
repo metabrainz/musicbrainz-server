@@ -70,13 +70,24 @@ const AttributeDetails = ({
             </a>
           </>
         )}
+        {' | '}
+        <a href={'/relationship-attribute/' + attribute.gid}>
+          {l('Documentation')}
+        </a>
         {' ]'}
 
       </>
     ) : (
-      attribute.description && attribute.description !== attribute.name
-        ? descriptionSection
-        : null
+      <>
+        {attribute.description && attribute.description !== attribute.name
+          ? descriptionSection
+          : null}
+        {' [ '}
+        <a href={'/relationship-attribute/' + attribute.gid}>
+          {l('Documentation')}
+        </a>
+        {' ]'}
+      </>
     )
   );
 };

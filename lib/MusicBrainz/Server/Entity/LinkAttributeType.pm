@@ -33,6 +33,16 @@ has 'root' => (
     isa => 'LinkAttributeType',
 );
 
+has 'parent_gid' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
+has 'parent_name' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 sub l_name {
     my $self = shift;
     my $rootid = defined $self->root ? $self->root->id : $self->root_id;
@@ -76,6 +86,11 @@ around TO_JSON => sub {
         $self->link_entity('link_attribute_type', $root->id, $root);
     }
 
+    my $parent = $self->parent;
+    if ($parent) {
+        $self->link_entity('link_attribute_type', $parent->id, $parent);
+    }
+
     my $children = to_json_array($self->children);
 
     return {
@@ -83,6 +98,7 @@ around TO_JSON => sub {
         gid => $self->gid,
         root_id => $self->root_id + 0,
         root_gid => $self->root_gid,
+        parent_id => $self->parent_id + 0,
         free_text => boolean_to_json($self->free_text),
         creditable => boolean_to_json($self->creditable),
         $self->instrument_comment ? (instrument_comment => $self->instrument_comment) : (),
