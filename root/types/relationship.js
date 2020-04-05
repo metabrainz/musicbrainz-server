@@ -69,7 +69,7 @@ declare type PagedTargetTypeGroupT = {
   +[linkTypeIdAndSourceColumn: string]: PagedLinkTypeGroupT,
 };
 
-declare type RelationshipT = {
+declare type RelationshipT = $ReadOnly<{
   ...DatePeriodRoleT,
   ...EditableRoleT,
   +attributes: $ReadOnlyArray<LinkAttrT>,
@@ -86,4 +86,4 @@ declare type RelationshipT = {
   +source_type: string,
   +target: CoreEntityT,
   +target_type: string,
-};
+}>;
