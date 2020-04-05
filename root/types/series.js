@@ -7,6 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+declare type SeriesEntityTypeT =
+  | 'artist'
+  | 'event'
+  | 'recording'
+  | 'release'
+  | 'release_group'
+  | 'work';
+
 // MusicBrainz::Server::Entity::Series::TO_JSON
 declare type SeriesT = $ReadOnly<{
   ...AnnotationRoleT,
@@ -26,5 +34,5 @@ declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 
 declare type SeriesTypeT = $ReadOnly<{
   ...OptionTreeT<'series_type'>,
-  item_entity_type: CoreEntityTypeT,
+  item_entity_type: SeriesEntityTypeT,
 }>;
