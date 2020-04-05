@@ -53,7 +53,7 @@ function validateDate(date: WritablePartialDateFieldT) {
       l(`The year should have four digits. If you want to enter a year
          earlier than 1000 CE, please pad with zeros, such as “0123”.`),
     );
-  } else if (!isDateValid(year, month, day)) {
+  } else if (!isDateValid({day, month, year})) {
     pendingErrors.push(l('The date you\'ve entered is not valid'));
   }
   /*

@@ -605,7 +605,7 @@ class Dialog {
   }
 
   dateError(date) {
-    var valid = dates.isDateValid(date.year(), date.month(), date.day());
+    var valid = dates.isDateValid(ko.toJS(date));
     return valid ? '' : l("The date you've entered is not valid.");
   }
 

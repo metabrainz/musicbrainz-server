@@ -364,42 +364,70 @@ test('formatDatePeriod', function (t) {
 });
 
 test('validDate', function (t) {
-  t.plan(14);
+  t.plan(12);
 
-  t.equal(dates.isDateValid('', '', ''), true, 'all empty strings are valid');
+  /* eslint-disable sort-keys */
   t.equal(
-    dates.isDateValid(undefined, undefined, undefined),
+    dates.isDateValid({year: '', month: '', day: ''}),
+    true,
+    'all empty strings are valid',
+  );
+  t.equal(
+    dates.isDateValid({year: undefined, month: undefined, day: undefined}),
     true,
     'all undefined values are valid',
   );
   t.equal(
-    dates.isDateValid(null, null, null),
+    dates.isDateValid({year: null, month: null, day: null}),
     true,
     'all null values are valid',
   );
-  t.equal(dates.isDateValid(2000), true, 'just a year is valid');
-  t.equal(dates.isDateValid('', 10), true, 'just a month is valid');
-  t.equal(dates.isDateValid('', '', 29), true, 'just a day is valid');
-  t.equal(dates.isDateValid(0), false, 'the year 0 is invalid');
-  t.equal(dates.isDateValid('', 13), false, 'months > 12 are invalid');
-  t.equal(dates.isDateValid('', '', 32), false, 'days > 31 are invalid');
-  t.equal(dates.isDateValid(2001, 2, 29), false, '2001-02-29 is invalid');
-  t.equal(dates.isDateValid('2000f'), false, 'letters are invalid');
   t.equal(
-    dates.isDateValid(1960, 2, 29),
+    dates.isDateValid({year: 2000}),
+    true,
+    'just a year is valid',
+  );
+  t.equal(
+    dates.isDateValid({year: '', month: 10}),
+    true,
+    'just a month is valid',
+  );
+  t.equal(
+    dates.isDateValid({year: '', month: '', day: 29}),
+    true,
+    'just a day is valid',
+  );
+  t.equal(
+    dates.isDateValid({year: 0}),
+    false,
+    'the year 0 is invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: '', month: 13}),
+    false,
+    'months > 12 are invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: '', month: '', day: 32}),
+    false,
+    'days > 31 are invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: 2001, month: 2, day: 29}),
+    false,
+    '2001-02-29 is invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: '2000f'}),
+    false,
+    'letters are invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: 1960, month: 2, day: 29}),
     true,
     'leap years are handled correctly (MBS-5663)',
   );
-  t.equal(
-    dates.isDateValid(null, null, 10),
-    true,
-    'just a day with nulls is valid',
-  );
-  t.equal(
-    dates.isDateValid(2010, null, 10),
-    true,
-    'just a day and year with null month is valid',
-  );
+  /* eslint-enable sort-keys */
 });
 
 test('validDatePeriod', function (t) {
