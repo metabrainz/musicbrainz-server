@@ -26,14 +26,14 @@ sub _load_tree
 
 sub base : Chained('/') PathPart('relationship-attribute') CaptureArgs(0) { }
 
-sub index : Path('/relationship-attributes') Args(0)
+sub list : Path('/relationship-attributes') Args(0)
 {
     my ($self, $c) = @_;
 
     $self->_load_tree($c);
 
     $c->stash(
-        component_path  => 'relationship/linkattributetype/RelationshipAttributeTypesIndex',
+        component_path  => 'relationship/linkattributetype/RelationshipAttributeTypesList',
         component_props => {root => $c->stash->{root}->TO_JSON},
         current_view    => 'Node',
     );
@@ -62,7 +62,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
             );
         });
 
-        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/index'));
+        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/list'));
         $c->detach;
     }
 }
@@ -93,7 +93,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             );
         });
 
-        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/index'));
+        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/list'));
         $c->detach;
     }
 }
@@ -130,7 +130,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
             );
         });
 
-        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/index'));
+        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/list'));
         $c->detach;
     }
 }

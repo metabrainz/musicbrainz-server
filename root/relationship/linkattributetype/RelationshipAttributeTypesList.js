@@ -154,7 +154,7 @@ const AttributesList = ({$c, root}: AttributesListProps) => {
   );
 };
 
-const RelationshipAttributeTypesIndex = ({
+const RelationshipAttributeTypesList = ({
   $c,
   root,
 }: AttributesListProps): React.Element<typeof Layout> => (
@@ -173,4 +173,4 @@ const RelationshipAttributeTypesIndex = ({
   </Layout>
 );
 
-export default RelationshipAttributeTypesIndex;
+export default RelationshipAttributeTypesList;

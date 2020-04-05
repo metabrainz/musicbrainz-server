@@ -286,7 +286,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Recording::tags",
   "Controller::Relationship::LinkAttributeType::base",
   "Controller::Relationship::LinkAttributeType::create",
-  "Controller::Relationship::LinkAttributeType::index",
+  "Controller::Relationship::LinkAttributeType::list",
   "Controller::Relationship::LinkType::base",
   "Controller::Relationship::LinkType::create",
   "Controller::Relationship::LinkType::list",
