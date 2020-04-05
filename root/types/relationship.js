@@ -51,8 +51,8 @@ declare type LinkTypeT = {
   +orderable_direction: number,
   +reverse_link_phrase: string,
   +root_id: number | null,
-  +type0: string,
-  +type1: string,
+  +type0: CoreEntityTypeT,
+  +type1: CoreEntityTypeT,
 };
 
 declare type PagedLinkTypeGroupT = {
