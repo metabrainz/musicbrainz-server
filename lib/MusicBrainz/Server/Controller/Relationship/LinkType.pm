@@ -35,7 +35,7 @@ sub show : PathPart('') Chained('load')
     );
 }
 
-sub index : Path('/relationships') Args(0)
+sub list : Path('/relationships') Args(0)
 {
     my ($self, $c) = @_;
 
@@ -50,7 +50,7 @@ sub index : Path('/relationships') Args(0)
     );
 
     $c->stash(
-        component_path  => 'relationship/linktype/RelationshipTypesIndex',
+        component_path  => 'relationship/linktype/RelationshipTypesList',
         component_props => \%props,
         current_view    => 'Node',
     );

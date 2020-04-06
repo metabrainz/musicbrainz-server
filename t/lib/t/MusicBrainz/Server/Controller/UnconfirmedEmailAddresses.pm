@@ -280,7 +280,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Relationship::LinkAttributeType::index",
   "Controller::Relationship::LinkType::base",
   "Controller::Relationship::LinkType::create",
-  "Controller::Relationship::LinkType::index",
+  "Controller::Relationship::LinkType::list",
   "Controller::Relationship::LinkType::show",
   "Controller::Relationship::LinkType::tree",
   "Controller::Relationship::LinkType::type_specific",

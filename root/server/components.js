@@ -104,7 +104,7 @@ module.exports = {
   'relationship/linkattributetype/RelationshipAttributeTypesIndex': require('../relationship/linkattributetype/RelationshipAttributeTypesIndex'),
   'relationship/linktype/RelationshipTypeInUse': require('../relationship/linktype/RelationshipTypeInUse'),
   'relationship/linktype/RelationshipTypePairTree': require('../relationship/linktype/RelationshipTypePairTree'),
-  'relationship/linktype/RelationshipTypesIndex': require('../relationship/linktype/RelationshipTypesIndex'),
+  'relationship/linktype/RelationshipTypesList': require('../relationship/linktype/RelationshipTypesList'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
   'release_group/ReleaseGroupMerge': require('../release_group/ReleaseGroupMerge'),
   'report/AnnotationsArtists': require('../report/AnnotationsArtists'),
