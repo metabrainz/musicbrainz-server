@@ -30,8 +30,9 @@ sub show : PathPart('') Chained('load')
     $c->model('LinkAttributeType')->load($relationship_type->all_attributes);
     $c->model('LinkType')->load_documentation($relationship_type);
     $c->stash(
-        relationship_type => $relationship_type,
-        template => 'relationship/linktype/relationship_type.tt'
+        component_path  => 'relationship/linktype/RelationshipTypeIndex',
+        component_props => { relType => $relationship_type },
+        current_view => 'Node',
     );
 }
 

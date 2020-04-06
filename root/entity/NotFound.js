@@ -155,6 +155,15 @@ const notFoundPages = {
     args: {},
     footer: null,
   },
+  'relationship/linktype': {
+    title: N_l('Relationship Type Not Found'),
+    message: N_l(
+      `Sorry, we could not find a relationship type
+       with that MusicBrainz ID.`,
+    ),
+    args: {},
+    footer: null,
+  },
   'release': {
     title: N_l('Release Not Found'),
     message: N_l(

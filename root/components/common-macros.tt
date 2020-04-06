@@ -637,7 +637,7 @@ END -%]
     END -%]
 [%- END -%]
 
-[%~ MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
+[%~ MACRO display_relationship(relationship, phrase_field) BLOCK; -%] [% # Converted to React at root/static/scripts/common/components/Relationship.js %]
   [%- phrase_field = phrase_field || 'phrase';
     extra_attributes_field = "extra_${phrase_field}_attributes";
     IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
@@ -859,7 +859,7 @@ END ~%]
   END %] ([% cardinality %])
 [%~ END ~%]
 
-[%~ MACRO orderable_direction_name(direction) BLOCK ~%]
+[%~ MACRO orderable_direction_name(direction) BLOCK ~%]  [% # Converted to React at root/static/scripts/common/components/OrderableDirection.js %]
   [%~ IF direction == 0; l('None');
       ELSIF direction == 1; l('Forward');
       ELSIF direction == 2; l('Backward');
