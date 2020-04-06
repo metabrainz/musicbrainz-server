@@ -24,9 +24,7 @@ import displayLinkAttribute, {displayLinkAttributes}
 import isDisabledLink from '../../../../../utility/isDisabledLink';
 import {
   getPhraseAndExtraAttributes,
-  type CachedLinkData,
   type LinkPhraseI18n,
-  type RelationshipInfoT,
 } from '../../utility/linkPhrase';
 
 import DiffSide from './DiffSide';
@@ -53,10 +51,7 @@ const RelationshipDiff = ({
     : {};
 
   const i18nConfig: LinkPhraseI18n<Expand2ReactOutput> = {
-    cache: new WeakMap<
-      RelationshipInfoT,
-      CachedLinkData<Expand2ReactOutput>,
-    >(),
+    cache: Object.create(null),
     commaList,
     displayLinkAttribute: function (attr: LinkAttrT) {
       const typeId = String(attr.typeID);
@@ -132,7 +127,8 @@ const RelationshipDiff = ({
 
     [oldPhrase, oldExtraAttributes] = getPhraseAndExtraAttributes(
       i18nConfig,
-      oldRelationship,
+      oldLinkType,
+      oldRelationship.attributes ?? [],
       'long_link_phrase',
       false, /* forGrouping */
       oldSource.id === newSource.id
@@ -147,7 +143,8 @@ const RelationshipDiff = ({
 
     [newPhrase, newExtraAttributes] = getPhraseAndExtraAttributes(
       i18nConfig,
-      newRelationship,
+      newLinkType,
+      newRelationship.attributes ?? [],
       'long_link_phrase',
       false, /* forGrouping */
       oldSource.id === newSource.id

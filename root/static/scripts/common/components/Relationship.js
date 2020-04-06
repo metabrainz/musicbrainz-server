@@ -32,7 +32,8 @@ const HistoricRelationshipContent = ({
   const linkType = linkedEntities.link_type[relationship.linkTypeID];
   const source = linkedEntities[linkType.type0][relationship.entity0_id];
   const extraAttributes = getExtraAttributes(
-    relationship,
+    linkType,
+    relationship.attributes,
     'link_phrase',
     false, /* forGrouping */
   );
@@ -91,7 +92,8 @@ const RelationshipContent = ({
     }
   }
   const longPhrase = interpolate(
-    relationship,
+    linkType,
+    relationship.attributes,
     'long_link_phrase',
     false /* forGrouping */,
     <DescriptiveLink
@@ -108,7 +110,8 @@ const RelationshipContent = ({
     />,
   );
   const extraAttributes = getExtraAttributes(
-    relationship,
+    linkType,
+    relationship.attributes,
     'long_link_phrase',
     false, /* forGrouping */
   );
