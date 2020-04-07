@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import mutate from 'mutate-cow';
+
 import {unwrapNl} from '../../i18n';
 
 import {
@@ -16,7 +18,7 @@ import {EMPTY_ARRAY, MENU_ITEMS} from './constants';
 import type {
   ActionItem,
   Actions,
-  Item,
+  Props,
   SearchAction,
   State,
 } from './types';
@@ -47,15 +49,23 @@ function initSearch(state: State, action: SearchAction) {
 }
 
 function resetPage(state: State) {
-  state.highlightedIndex = 0;
+  state.highlightedItem = null;
   state.isOpen = false;
   state.items = EMPTY_ARRAY;
   state.page = 1;
 }
 
-function selectItem(state: State, item: Item) {
+function runOnChange(props, state, item) {
+  const selectedItem = state.selectedItem;
+  if ((!selectedItem !== !item) ||
+      (selectedItem && item && selectedItem.id !== item.id)) {
+    props.onChange(item);
+  }
+}
+
+function selectItem(props, state, item, unwrapProxy) {
   if (item.action) {
-    runReducer(state, item.action);
+    runReducer(props, state, item.action, unwrapProxy);
     return;
   }
 
@@ -67,10 +77,12 @@ function selectItem(state: State, item: Item) {
     state.inputValue = item.name;
     resetPage(state);
   }
+
+  runOnChange(props, state, item);
 }
 
 function showError(state: State, error: ActionItem) {
-  state.highlightedIndex = 0;
+  state.highlightedItem = null;
   state.isOpen = true;
   state.items = [error];
   state.statusMessage = unwrapNl<string>(error.name);
@@ -78,30 +90,38 @@ function showError(state: State, error: ActionItem) {
 
 // `runReducer` should only be run on a copy of the existing state.
 function runReducer(
+  props: Props,
   state: State,
   action: Actions,
+  unwrapProxy: <T>(T) => T,
 ) {
   switch (action.type) {
     case 'highlight-item': {
-      state.highlightedIndex = action.index;
+      state.highlightedItem = action.item;
       break;
     }
 
     case 'highlight-next-item': {
-      let index = state.highlightedIndex + 1;
+      const {highlightedItem} = state;
+      let index = highlightedItem
+        ? state.items.findIndex(item => item.id === highlightedItem.id) + 1
+        : 0;
       if (index >= state.items.length) {
         index = 0;
       }
-      state.highlightedIndex = index;
+      state.highlightedItem = state.items[index];
       break;
     }
 
     case 'highlight-previous-item': {
-      let index = state.highlightedIndex - 1;
+      const {highlightedItem} = state;
+      let index = highlightedItem
+        ? state.items.findIndex(item => item.id === highlightedItem.id) - 1
+        : 0;
       if (index < 0) {
         index = state.items.length - 1;
       }
-      state.highlightedIndex = index;
+      state.highlightedItem = state.items[index];
       break;
     }
 
@@ -114,7 +134,7 @@ function runReducer(
       break;
 
     case 'select-item':
-      selectItem(state, action.item);
+      selectItem(props, state, action.item, unwrapProxy);
       break;
 
     case 'set-menu-visibility':
@@ -135,12 +155,10 @@ function runReducer(
       const {items, page, resultCount} = action;
 
       if (page === 1) {
-        state.highlightedIndex = 0;
-      } else if (state.highlightedIndex >= items.length) {
-        state.highlightedIndex = items.length - 1;
+        state.highlightedItem = items[0];
       }
 
-      const highlightedItem = items[state.highlightedIndex];
+      const highlightedItem = state.highlightedItem;
 
       state.isOpen = true;
       state.items = items;
@@ -166,7 +184,7 @@ function runReducer(
 
     case 'show-search-error': {
       showError(state, MENU_ITEMS.SEARCH_ERROR);
-      state.items = state.items.concat(
+      state.items = unwrapProxy(state.items).concat(
         state.indexedSearch
           ? MENU_ITEMS.ERROR_TRY_AGAIN_DIRECT
           : MENU_ITEMS.ERROR_TRY_AGAIN_INDEXED,
@@ -200,6 +218,7 @@ function runReducer(
         resetPage(state);
       }
 
+      runOnChange(props, state, null);
       break;
 
     default:
@@ -208,6 +227,7 @@ function runReducer(
 }
 
 export default function reducer(
+  props: Props,
   state: State,
   action: Actions,
 ): State {
@@ -215,7 +235,7 @@ export default function reducer(
     return state;
   }
 
-  const nextState = {...state};
-  runReducer(nextState, action);
-  return nextState;
+  return mutate(state, (nextState, unwrapProxy) => {
+    runReducer(props, nextState, action, unwrapProxy);
+  });
 }

@@ -7,30 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type Instance = {
-  container: {current: HTMLElement | null},
-  dispatch: (Actions) => void,
-  handleBlur: () => void,
-  handleButtonClick: () => void,
-  handleInputChange: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  handleInputKeyDown: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  handleItemClick: (SyntheticMouseEvent<HTMLLIElement>) => void,
-  handleItemMouseDown: () => void,
-  handleItemMouseOver: (SyntheticMouseEvent<HTMLLIElement>) => void,
-  handleOuterClick: () => void,
-  inputTimeout: TimeoutID | null,
-  props: Props,
-  renderItems: (
-    $ReadOnlyArray<Item>,
-    number,
-    EntityItem | null,
-  ) => Map<string, React$Element<'li'>>,
-  setContainer: (HTMLDivElement | null) => void,
-  state: State,
-  stopRequests: () => void,
-  xhr: XMLHttpRequest | null,
-};
-
 export type Props = {
   entityType: CoreEntityTypeT | 'editor',
   id: string,
@@ -44,7 +20,7 @@ export type Props = {
 };
 
 export type State = {
-  highlightedIndex: number,
+  highlightedItem: Item | null,
   indexedSearch: boolean,
   inputValue: string,
   isOpen: boolean,
@@ -63,7 +39,7 @@ export type SearchAction = {
 
 export type Actions =
   | SearchAction
-  | { +index: number, +type: 'highlight-item' }
+  | { +item: Item, +type: 'highlight-item' }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
   | { +type: 'noop' }
