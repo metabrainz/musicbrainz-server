@@ -5,7 +5,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_PUID_DELETE );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
 use MooseX::Types::Moose qw( Int Maybe Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
@@ -22,14 +22,14 @@ has '+data' => (
     isa => Dict[
         # Edit migration might not be able to find out what these
         # were
-        recording_puid_id => Maybe[Int],
-        puid_id           => Maybe[Int],
+        recording_puid_id => Optional[Int],
+        puid_id           => Optional[Int],
         recording         => Dict[
             id => Int,
             name => Str
         ],
         puid              => Str,
-        client_version    => Maybe[Str]
+        client_version    => Optional[Str]
     ]
 );
 
