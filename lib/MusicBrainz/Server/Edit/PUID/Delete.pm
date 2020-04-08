@@ -14,7 +14,7 @@ with 'MusicBrainz::Server::Edit::Recording';
 sub edit_type { $EDIT_PUID_DELETE }
 sub edit_name { N_l('Remove PUID (historic)') }
 sub edit_kind { 'remove' }
-sub edit_template { 'historic/remove_puid' }
+sub edit_template_react { 'historic/RemovePuid' }
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
@@ -24,7 +24,6 @@ has '+data' => (
         # were
         recording_puid_id => Maybe[Int],
         puid_id           => Maybe[Int],
-
         recording         => Dict[
             id => Int,
             name => Str
