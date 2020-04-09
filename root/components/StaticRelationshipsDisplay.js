@@ -50,11 +50,18 @@ const StaticRelationshipsDisplay = ({
 
         phraseRows.push(
           <React.Fragment key={targetGroup.key}>
-            {groupSize > 1 && targetGroup.linkOrder ? (
-              exp.l('{num}. {relationship}', {
-                num: targetGroup.linkOrder,
-                relationship: relationshipLink,
-              })
+            {targetGroup.linkOrder ? (
+              targetGroup.isOrderable ? (
+                exp.l('{num}. {relationship}', {
+                  num: targetGroup.linkOrder,
+                  relationship: relationshipLink,
+                })
+              ) : (
+                exp.l('{relationship} (order: {num})', {
+                  num: targetGroup.linkOrder,
+                  relationship: relationshipLink,
+                })
+              )
             ) : relationshipLink}
             <br />
           </React.Fragment>,
