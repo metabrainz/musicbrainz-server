@@ -18,18 +18,25 @@
   </tr>
   [% FOR medium=release.mediums %]
     [% NEXT UNLESS
-        medium.cdtoc_track_count == cdtoc.track_count %]
+        medium.cdtoc_track_count == cdtoc.track_count;
+       this_medium_has_cdtoc = medium_has_cdtoc.defined AND (medium.id == medium_has_cdtoc) %]
       <tr[% ' class="even"' IF zebra % 2 == 0 %]>
         <td class="pos"></td>
         <td>
-          <label[% IF !medium.may_have_discids %] title="[%l('This medium format cannot have a disc ID attached') %]"[% END %]>
-            <input type="radio" name="medium" value="[% medium.id %]"[% IF !medium.may_have_discids %] disabled="disabled"[% END %]/>
+          <label
+            [%~ IF !medium.may_have_discids %] title="[% l('This medium format cannot have a disc ID attached') %]"[% END ~%]
+            [%~ IF this_medium_has_cdtoc %] title="[% l('This CDTOC is already attached to this medium') %]"[% END ~%]
+          >
+            <input type="radio" name="medium" value="[% medium.id %]"[% IF !medium.may_have_discids OR this_medium_has_cdtoc %] disabled="disabled"[% END %]/>
             [% medium.format_name %] [% medium.position %]
             [%~ IF medium.name %]:
                [% medium.name | html %]
             [% END %]
           </label>
           <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
+          [% IF this_medium_has_cdtoc %]
+            <div class="error">[% l('This CDTOC is already attached to this medium') %]</div>
+          [% END %]
         </td>
         <td colspan="6"></td>
       </tr>
