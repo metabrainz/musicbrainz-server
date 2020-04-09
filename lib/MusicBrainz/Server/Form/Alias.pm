@@ -70,11 +70,12 @@ sub edit_field_names {
 sub _locale_name_special_cases {
     # Special-case some locales that have a non-descriptive name
     my $locale = shift;
-    if ($locale->code eq 'el_POLYTON') {
+    my $code = ($locale->code =~ s/-/_/gr);
+    if ($code eq 'el_POLYTON') {
         return 'Greek Polytonic';
-    } elsif ($locale->code eq 'sr_Cyrl_YU') {
+    } elsif ($code eq 'sr_Cyrl_YU') {
         return 'Serbian Cyrillic Yugoslavia';
-    } elsif ($locale->code eq 'sr_Latn_YU') {
+    } elsif ($code eq 'sr_Latn_YU') {
         return 'Serbian Latin Yugoslavia';
     } else {
         return $locale->name;
