@@ -3,6 +3,7 @@ use HTML::FormHandler::Moose;
 
 use DateTime::Locale;
 use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::Constants qw( %ALIAS_LOCALES );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Form::Utils qw( select_options_tree indentation );
 
@@ -70,11 +71,12 @@ sub edit_field_names {
 sub _locale_name_special_cases {
     # Special-case some locales that have a non-descriptive name
     my $locale = shift;
-    if ($locale->id eq 'el_POLYTON') {
+    my $code = ($locale->code =~ s/-/_/gr);
+    if ($code eq 'el_POLYTON') {
         return 'Greek Polytonic';
-    } elsif ($locale->id eq 'sr_Cyrl_YU') {
+    } elsif ($code eq 'sr_Cyrl_YU') {
         return 'Serbian Cyrillic Yugoslavia';
-    } elsif ($locale->id eq 'sr_Latn_YU') {
+    } elsif ($code eq 'sr_Latn_YU') {
         return 'Serbian Latin Yugoslavia';
     } else {
         return $locale->name;
@@ -85,11 +87,12 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            $_->id => indentation($_->id =~ /[_-]/ ? 1 : 0) . _locale_name_special_cases($_)
+            my $code = $_;
+            my $locale = $ALIAS_LOCALES{$code};
+            $code => indentation($code =~ /_/ ? 1 : 0) . _locale_name_special_cases($locale)
         }
-            sort_by { $_->name }
-            sort_by { $_->id }
-                map { DateTime::Locale->load($_) } DateTime::Locale->ids
+        sort_by { $ALIAS_LOCALES{$_}->name }
+        keys %ALIAS_LOCALES
     ];
 }
 
