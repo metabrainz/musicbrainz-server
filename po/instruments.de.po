@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-03-25 10:59+0000\n"
-"Last-Translator: Marc Rodrigues <email address hidden>\n"
+"PO-Revision-Date: 2020-04-01 22:27+0000\n"
+"Last-Translator: TL\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2724,6 +2724,7 @@ msgid "organ"
 msgstr "Orgel"
 
 #: DB:instrument/name:519
+msgctxt "Metal stringed renaissance lute."
 msgid "orpharion"
 msgstr "Orpheoreon"
 

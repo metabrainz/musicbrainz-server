@@ -1,12 +1,12 @@
 # 
 # Translators:
 # Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2012,2014-2016,2018
-# Mihkel Tõnnov <email address hidden>, 2018
+# Mihkel Tõnnov <email address hidden>, 2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-26 20:58+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-04-01 21:37+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1577,7 +1577,7 @@ msgstr "lõunamini"
 #. frequency:1 iso_code_3:hna
 #: DB:language/name:2735
 msgid "Mina (Cameroon)"
-msgstr "hina (Kamerun)"
+msgstr "hina (Kameruni)"
 
 #. frequency:1 iso_code_3:min
 #: DB:language/name:272
@@ -1747,7 +1747,7 @@ msgstr "norra (bokmål)"
 #. frequency:1 iso_code_3:nno
 #: DB:language/name:305
 msgid "Norwegian Nynorsk"
-msgstr "uusnorra (nynorsk)"
+msgstr "norra (nynorsk ehk uusnorra)"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:311
@@ -2457,7 +2457,7 @@ msgstr "umbundu"
 #. frequency:1 iso_code_3:sju
 #: DB:language/name:5995
 msgid "Ume Sami"
-msgstr ""
+msgstr "Umeå saami"
 
 #. frequency:0 iso_code_3:mis
 #: DB:language/name:273
@@ -2527,7 +2527,7 @@ msgstr "vallooni"
 #. frequency:1 iso_code_3:wae
 #: DB:language/name:6981
 msgid "Walser"
-msgstr ""
+msgstr "valsi"
 
 #. frequency:1 iso_code_3:war
 #: DB:language/name:453
