@@ -1678,7 +1678,7 @@ const CLEANUPS = {
       }
       return false;
     },
-  },/* */
+  },
   'musiksammler': {
     match: [new RegExp('^(https?://)?(www\\.)?musik-sammler\\.de/', 'i')],
     type: LINK_TYPES.otherdatabases,
