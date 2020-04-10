@@ -7,6 +7,7 @@ use Digest::SHA qw(sha1_base64);
 use JSON;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
     language_options
@@ -689,12 +690,15 @@ sub donation : Local RequireAuth HiddenOnSlaves
     my $result = $c->model('Editor')->donation_check($c->user);
     $c->detach('/error_500') unless $result;
 
+    # If nag is 0, don't nag - if 1 or -1 then nag
+    my $nag = $result->{nag} != 0;
+
     $c->stash(
         current_view => 'Node',
         component_path => 'account/Donation',
         component_props => {
             days => sprintf("%.0f", $result->{days}),
-            nag => $result->{nag} > 0,
+            nag => boolean_to_json($nag),
         }
     );
 }

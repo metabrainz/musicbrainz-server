@@ -405,6 +405,7 @@ sub donation_check
         );
 
         if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/) {
+            # Possible values for nag will be -1, 0, 1 (only 0 means do not nag)
             $nag = $1;
             $days = $2;
         } else {

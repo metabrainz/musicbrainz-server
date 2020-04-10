@@ -170,11 +170,12 @@ sub attach : Local DenyWhenReadonly
                      message => l('The provided medium id is not valid')
             ) unless looks_like_number($medium_id);
 
-        $self->error(
-            $c,
-            status => HTTP_BAD_REQUEST,
-            message => l('This CDTOC is already attached to this medium')
-        ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
+        if ($c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc)) {
+            $c->stash->{medium_has_cdtoc} = $medium_id;
+            $c->res->status(HTTP_BAD_REQUEST);
+            $self->_attach_list($c, $cdtoc);
+            return;
+        }
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
         $c->model('MediumFormat')->load($medium);
@@ -204,9 +205,16 @@ sub attach : Local DenyWhenReadonly
                     $c->uri_for_action(
                         '/release/discids' => [ $medium->release->gid ]));
             }
-        )
+        );
+    } else {
+        $self->_attach_list($c, $cdtoc);
     }
-    elsif (my $artist_id = $c->req->query_params->{artist}) {
+}
+
+sub _attach_list {
+    my ($self, $c, $cdtoc) = @_;
+
+    if (my $artist_id = $c->req->query_params->{artist}) {
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided artist id is not valid')

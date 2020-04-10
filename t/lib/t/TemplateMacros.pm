@@ -23,7 +23,6 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 use aliased 'MusicBrainz::Server::Entity::URL';
-use aliased 'MusicBrainz::Server::Entity::URL::CDBaby';
 use aliased 'MusicBrainz::Server::Entity::Work';
 
 test all => sub {
@@ -463,21 +462,6 @@ test all => sub {
                 id => 1705433,
                 gid => '2de1616a-7ca0-4688-92cc-0a8373190ede',
                 name => 'http://xn--80aeafihs7aqfneip9p.xn--p1ai/',
-            ),
-        ],
-        [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
-
-            '<a href="//www.cdbaby.com/cd/shetler/from/musicbrainz">' .
-                '<bdi>CD Baby</bdi>' .
-            '</a> ' . # space required
-            '[<a href="/url/ec7e05ca-dacf-48d2-ad43-1b4989f4d43a">info</a>]',
-
-            CDBaby->new(
-                id => 690,
-                gid => 'ec7e05ca-dacf-48d2-ad43-1b4989f4d43a',
-                name => 'http://www.cdbaby.com/cd/shetler',
             ),
         ],
         [
