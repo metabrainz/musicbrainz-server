@@ -11,7 +11,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-01 17:25-0500\n"
+"POT-Creation-Date: 2020-04-10 06:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2348,7 +2348,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:246
+#: ../root/static/scripts/common/constants.js:245
 msgid "High"
 msgstr ""
 
@@ -2946,7 +2946,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:243
+#: ../root/static/scripts/common/constants.js:242
 msgid "Low"
 msgstr ""
 
@@ -3434,8 +3434,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
+#: ../root/static/scripts/common/constants.js:243
 #: ../root/static/scripts/common/constants.js:244
-#: ../root/static/scripts/common/constants.js:245
 msgid "Normal"
 msgstr ""
 
@@ -5112,6 +5112,10 @@ msgstr ""
 msgid "This CD has tracks from more than one artist (e.g. a compilation CD)"
 msgstr ""
 
+#: ../root/cdtoc/attach_list.tt:28 ../root/cdtoc/attach_list.tt:38
+msgid "This CDTOC is already attached to this medium"
+msgstr ""
+
 #: ../root/entity/alias/edit_form.tt:23
 msgid "This alias is no longer current."
 msgstr ""
@@ -5287,7 +5291,7 @@ msgstr ""
 msgid "This label/catalog number pair already exists."
 msgstr ""
 
-#: ../root/cdtoc/attach_list.tt:25
+#: ../root/cdtoc/attach_list.tt:27
 msgid "This medium format cannot have a disc ID attached"
 msgstr ""
 
@@ -6529,7 +6533,7 @@ msgstr ""
 msgid "help"
 msgstr ""
 
-#: ../root/cdtoc/attach_list.tt:58
+#: ../root/cdtoc/attach_list.tt:65
 msgid "hide tracklist"
 msgstr ""
 
@@ -6732,7 +6736,7 @@ msgctxt "plural"
 msgid "series"
 msgstr ""
 
-#: ../root/cdtoc/attach_list.tt:32 ../root/cdtoc/attach_list.tt:56
+#: ../root/cdtoc/attach_list.tt:36 ../root/cdtoc/attach_list.tt:63
 msgid "show tracklist"
 msgstr ""
 
@@ -7056,79 +7060,79 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:55
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:56
 msgid "The user ID is missing or is in an invalid format."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:65
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:66
 msgid "The email address is missing."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:75
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:76
 msgid "The time is missing or is in an invalid format."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:86
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:87
 msgid "The verification key is missing."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:97
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:269
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:98
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:270
 msgid "The checksum is invalid, please double check your email."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:108
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:109
 msgid "Sorry, this email verification link has expired."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:120
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:281
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:121
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:282
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:167
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:168
 msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:194
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:195
 msgid "There is no user with this username"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:199
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:200
 msgid "There is no user with this username and email"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid ""
 "We can't send a password reset email, because we have no email on record for "
 "this user."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:232
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:233
 msgid "Your password has been reset."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:247
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:248
 msgid "Missing one or more required parameters."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:258
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:259
 msgid "Sorry, this password reset link has expired."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:325
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:326
 msgid "There is no user with this email"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:408
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:409
 msgid "Your profile has been updated."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:412
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:413
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
@@ -7136,11 +7140,11 @@ msgid ""
 "address."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:451
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:452
 msgid "Your password has been changed."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:668
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:669
 msgid ""
 "<strong>We were unable to send a verification email to you.</strong><br/"
 ">Please confirm that you have entered a valid address by editing your "
@@ -7183,25 +7187,21 @@ msgid "Could not find medium"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:157
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:318
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:326
 msgid "The provided CD TOC is not valid"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:170
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:332
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:340
 msgid "The provided medium id is not valid"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:176
-msgid "This CDTOC is already attached to this medium"
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:185
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:340
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:186
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:348
 msgid "The selected medium cannot have disc IDs"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:212
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:220
 msgid "The provided artist id is not valid"
 msgstr ""
 
@@ -8135,8 +8135,8 @@ msgid "{begindate} &#x2013;"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/Role/Linkable.pm:42
-#: ../root/utility/groupRelationships.js:326
-#: ../root/utility/groupRelationships.js:332
+#: ../root/utility/groupRelationships.js:327
+#: ../root/utility/groupRelationships.js:333
 #, perl-brace-format
 msgid "{role} (as {credited_name})"
 msgstr ""
@@ -8231,11 +8231,11 @@ msgid ""
 "instead."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Alias.pm:105
+#: ../lib/MusicBrainz/Server/Form/Alias.pm:108
 msgid "This alias can only be a primary alias if a locale is selected"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Alias.pm:118
+#: ../lib/MusicBrainz/Server/Form/Alias.pm:121
 msgid "This alias already exists."
 msgstr ""
 
@@ -8467,22 +8467,22 @@ msgid "Invalid URL format"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:72
-#: ../root/static/scripts/common/constants.js:251
+#: ../root/static/scripts/common/constants.js:250
 msgid "Basic"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:73
-#: ../root/static/scripts/common/constants.js:252
+#: ../root/static/scripts/common/constants.js:251
 msgid "Intermediate"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:74
-#: ../root/static/scripts/common/constants.js:250
+#: ../root/static/scripts/common/constants.js:249
 msgid "Advanced"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:75
-#: ../root/static/scripts/common/constants.js:253
+#: ../root/static/scripts/common/constants.js:252
 msgid "Native"
 msgstr ""
 
@@ -9523,9 +9523,13 @@ msgstr ""
 msgid "Credited As"
 msgstr ""
 
-#: ../root/components/StaticRelationshipsDisplay.js:54
+#: ../root/components/StaticRelationshipsDisplay.js:55
 #: ../root/static/scripts/relationship-editor/common/fields.js:503
 msgid "{num}. {relationship}"
+msgstr ""
+
+#: ../root/components/StaticRelationshipsDisplay.js:60
+msgid "{relationship} (order: {num})"
 msgstr ""
 
 #: ../root/components/UserAccountTabs.js:40
@@ -14529,47 +14533,47 @@ msgstr ""
 msgid "Reject upon closing"
 msgstr ""
 
-#: ../root/utility/edit.js:58
-msgid "This edit is open and awaiting votes before it can be applied."
+#: ../root/utility/edit.js:57
+msgid "This edit is open for voting."
 msgstr ""
 
-#: ../root/utility/edit.js:61
+#: ../root/utility/edit.js:59
 msgid "This edit has been successfully applied."
 msgstr ""
 
-#: ../root/utility/edit.js:64
+#: ../root/utility/edit.js:62
 msgid "This edit failed because there were insufficient \"yes\" votes."
 msgstr ""
 
-#: ../root/utility/edit.js:68
+#: ../root/utility/edit.js:66
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists, "
 "or the entity can not be modified in this manner anymore."
 msgstr ""
 
-#: ../root/utility/edit.js:73
+#: ../root/utility/edit.js:71
 msgid ""
 "This edit failed due to an internal error and may need to be entered again."
 msgstr ""
 
-#: ../root/utility/edit.js:78
+#: ../root/utility/edit.js:76
 msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was created. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
 msgstr ""
 
-#: ../root/utility/edit.js:84
+#: ../root/utility/edit.js:82
 msgid ""
 "This edit failed because it affected high quality data and did not receive "
 "any votes."
 msgstr ""
 
-#: ../root/utility/edit.js:88
+#: ../root/utility/edit.js:86
 msgid "This edit was recently cancelled."
 msgstr ""
 
-#: ../root/utility/edit.js:90
+#: ../root/utility/edit.js:88
 msgid "This edit was cancelled."
 msgstr ""
 
