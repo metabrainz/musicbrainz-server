@@ -55,6 +55,7 @@ __PACKAGE__->config(
             boolean_to_json
             comma_list
             comma_only_list
+            form_to_json
         )],
         FILTERS => {
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
