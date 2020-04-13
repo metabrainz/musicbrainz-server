@@ -16,6 +16,7 @@ import nonEmpty from './nonEmpty';
 const leadingSlash = /^\/?(.*)/;
 
 type LinkableEntity =
+  | {+discid: string, +entityType: 'cdtoc', ...}
   | {+discid: string, +entityType: 'cdstub', ...}
   | {+entityType: 'editor', +name: string, ...}
   | {+entityType: 'isrc', +isrc: string, ...}
@@ -40,6 +41,7 @@ function entityHref(
       break;
 
     case 'cdstub':
+    case 'cdtoc':
       id = entity.discid;
       break;
 

@@ -12,7 +12,7 @@ sub edit_name     { N_l('Remove disc ID') }
 sub edit_kind     { 'remove' }
 sub historic_type { 20 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_DISCID }
-sub edit_template { 'historic/remove_disc_id' }
+sub edit_template_react { 'historic/RemoveDiscId' }
 
 sub _build_related_entities
 {
@@ -35,7 +35,10 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         releases => [ map { $loaded->{Release}->{$_} } @{ $self->data->{release_ids} } ],
-        cdtoc    => CDTOC->new(discid => $self->data->{disc_id})
+        cdtoc    => CDTOC->new(
+            id => $self->data->{cdtoc_id},
+            discid => $self->data->{disc_id}
+        )
     }
 }
 
