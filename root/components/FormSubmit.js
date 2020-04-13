@@ -12,11 +12,12 @@ import * as React from 'react';
 type Props = {
   +className?: string,
   +label: string,
+  +name?: string,
 };
 
-const FormSubmit = ({className, label}: Props) => (
+const FormSubmit = ({className, label, name}: Props) => (
   <span className={'buttons' + (className ? ' ' + className : '')}>
-    <button type="submit">{label}</button>
+    <button name={name} type="submit">{label}</button>
   </span>
 );
 
