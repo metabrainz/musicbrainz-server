@@ -78,6 +78,12 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
         $c->response->redirect($url);
         $c->detach;
     }
+
+    $c->stash(
+        component_path => 'admin/wikidoc/CreateWikiDoc',
+        component_props => {form => $form},
+        current_view => 'Node',
+    );
 }
 
 sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
