@@ -291,6 +291,7 @@ module.exports = {
   'edit/details/MergeSeries': require('../edit/details/MergeSeries'),
   'edit/details/MergeWorks': require('../edit/details/MergeWorks'),
   'edit/details/historic/MergeReleases': require('../edit/details/historic/MergeReleases'),
+  'edit/details/historic/RemoveLabelAlias': require('../edit/details/historic/RemoveLabelAlias'),
   'edit/details/historic/RemovePuid': require('../edit/details/historic/RemovePuid'),
   'edit/details/historic/RemoveRelease': require('../edit/details/historic/RemoveRelease'),
   'edit/details/historic/RemoveReleases': require('../edit/details/historic/RemoveReleases'),
