@@ -16,28 +16,42 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import formatUserDate from '../utility/formatUserDate';
 
-type Props = {
+type WSLinkProps = {
+  +entityGid: string,
+  +entityProperties: {
+    aliases: {[edit_type: string]: number},
+    artist_credits: boolean,
+    url: string,
+    ...,
+  },
+  +entityType: CoreEntityTypeT,
+  +isJson?: boolean,
+  +isSecureConnection: boolean,
+};
+type DetailsProps = {
   +$c: CatalystContextT,
   +entity: CoreEntityT,
 };
 
-const XMLLink = ({
+const WSLink = ({
   entityGid,
   entityProperties,
   entityType,
+  isJson,
   isSecureConnection,
-}) => {
-  const xmlInc = [];
+}: WSLinkProps) => {
+  const inc = [];
   const entityTypeForUrl = entityProperties.url
     ? entityProperties.url : entityType;
-  entityProperties.aliases && xmlInc.push('aliases');
-  entityProperties.artist_credits && xmlInc.push('artist-credits');
+  entityProperties.aliases && inc.push('aliases');
+  entityProperties.artist_credits && inc.push('artist-credits');
   (entityType === 'recording' || entityType === 'release_group') &&
-    xmlInc.push('releases');
-  entityType === 'release' && xmlInc.push('labels', 'discids', 'recordings');
+    inc.push('releases');
+  entityType === 'release' && inc.push('labels', 'discids', 'recordings');
   const protocol = isSecureConnection ? 'https://' : 'http://';
   const link = '/ws/2/' + entityTypeForUrl + '/' + entityGid +
-               (xmlInc.length ? '?inc=' : '') + xmlInc.join('+');
+               (inc.length ? '?inc=' : '') + inc.join('+') +
+               (isJson ? '&fmt=json' : '');
   return (
     <a href={link}>{protocol + DBDefs.WEB_SERVER + link}</a>
   );
@@ -46,7 +60,7 @@ const XMLLink = ({
 const Details = ({
   $c,
   entity,
-}: Props) => {
+}: DetailsProps) => {
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entityType];
   const entityTypeForUrl = entityProperties.url
@@ -60,7 +74,7 @@ const Details = ({
       <h2>{l('Details')}</h2>
       <table className="details">
         <tr>
-          <th>{l('Name:')}</th>
+          <th>{addColonText(l('Name'))}</th>
           <td>
             <EntityLink entity={entity} />
           </td>
@@ -73,7 +87,7 @@ const Details = ({
           <td><code>{entity.gid}</code></td>
         </tr>
         <tr>
-          <th>{l('Last updated:')}</th>
+          <th>{addColonText(l('Last updated'))}</th>
           <td>
             {entity.last_updated
               ? formatUserDate($c, entity.last_updated)
@@ -87,12 +101,34 @@ const Details = ({
           </td>
         </tr>
         <tr>
-          <th>{l('XML:')}</th>
+          <th>
+            {addColon(exp.l(
+              '{xml_ws_docs|XML}',
+              {xml_ws_docs: '/doc/Development/XML_Web_Service/Version_2'},
+            ))}
+          </th>
           <td>
-            <XMLLink
+            <WSLink
               entityGid={entity.gid}
               entityProperties={entityProperties}
               entityType={entityType}
+              isSecureConnection={$c.req.secure}
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>
+            {addColon(exp.l(
+              '{json_ws_docs|JSON}',
+              {json_ws_docs: '/doc/Development/JSON_Web_Service'},
+            ))}
+          </th>
+          <td>
+            <WSLink
+              entityGid={entity.gid}
+              entityProperties={entityProperties}
+              entityType={entityType}
+              isJson
               isSecureConnection={$c.req.secure}
             />
           </td>

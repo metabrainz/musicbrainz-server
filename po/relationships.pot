@@ -3016,6 +3016,10 @@ msgid ""
 "relationship."
 msgstr ""
 
+#: DB:link_attribute_type/description:568
+msgid "This specifies the medium the relationship applies to."
+msgstr ""
+
 #: DB:link_attribute_type/description:617
 msgid ""
 "This title indicates that a conductor has at least partially retired, and no "

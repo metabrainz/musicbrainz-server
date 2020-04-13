@@ -187,6 +187,12 @@ test 'Test trim and sanitize' => sub {
     $run->("A\x{FDD0}  B",
            "A B",
            'collapses spaces after a non-printable character');
+
+    $run->("\x{FEFF} A \x{FEFF} B \x{FEFF}",
+           "A B",
+           'strips BOM, removes leading/trailing whitespace',
+           " A B ",
+           'strips BOM, keeps leading/trailing whitespace');
 };
 
 1;

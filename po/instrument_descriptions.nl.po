@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-03-25 10:59+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2020-04-03 13:36+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgid ""
 "\"Rebab\" (and other variant spellings) is the name for chiefly these 3 "
 "types of bowed/plucked string instrument families: <br /> <ul> <li>Large, "
 "short necked boatshaped \"sarinda\" type, here the kabuli rebab</li> "
-"<li>Small, long necked spike fiddle \"huqyin\" type, here the indonesian "
+"<li>Small, long necked spike fiddle \"huqyin\" type, here the Indonesian "
 "rebab</li> <li>various sizes, varying necklength, pearshaped \"Cretan lyra\""
 " type, here the bowed lutes proper</li> </ul> <br /> <br /> Given the name "
 "cross-overs they are confused with eachother in most sources. Curiously, "
@@ -50,7 +50,14 @@ msgid ""
 "-47ce-bd51-78d2d2484e1b\">Ghijak</a> (a spikefiddle) and <a "
 "href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">Ghaychak</a> (a "
 "boat-shaped).<br /> It is, for the meantime, unknown how, if at all, these 3"
-" subtypes are related."
+" subtypes are related.<br /> <br /> For the spike fiddle used in gamelan, "
+"see <a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">Indonesian "
+"rebab</a>.<br /> For the plucked, boat-shaped Afghani instrument also know "
+"as kabuli rabab, see <a href=\"/instrument/7e42e637-c7b4-422c-"
+"ad56-f7fafbd961bb\">rubab</a>.<br /> For the medieval Indian plucked lute "
+"see <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni "
+"rebab</a>.<br /> For the medieval European pear-shaped fiddle see <a "
+"href=\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
 
 #. name:chitra veena
@@ -235,11 +242,6 @@ msgstr "Een mondorgel is een algemene term voor aerofonen met een doorslaande to
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials"
 msgstr "Een piano waarbij de snaren worden gestreken met fijne draden van nylon of andere materialen."
-
-#. name:orpharion
-#: DB:instrument/description:519
-msgid "A plucked instrument from the Renaissance."
-msgstr "Een tokkelinstrument uit de Renaissance."
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -1296,6 +1298,13 @@ msgid ""
 "6 to 7 single or double courses of gut strings and a long neck with either "
 "sharp or shallow angled pegbox."
 msgstr "De mandora werd in de eerste helft van de 18e eeuw uitgevonden. Het heeft zes of zeven enkel- of dubbelkorige darmsnaren en een lange hals die een hoek en een schroevenhouder die onder een hoek staat."
+
+#. name:orpharion
+#: DB:instrument/description:519
+msgid ""
+"Invented in 16th century England, it had low-tension metal strings and "
+"sloping frets."
+msgstr ""
 
 #. name:arpeggione
 #: DB:instrument/description:823
@@ -4143,6 +4152,13 @@ msgid ""
 "made of a single piece of wood and descended from the kacapi pantun as used "
 "in epic story. And a flat box-zither made of wood used from the 1950's and "
 "in experimental music."
+msgstr ""
+
+#. name:lute
+#: DB:instrument/description:83
+msgid ""
+"This is the specific instrument, for other, \"lute-like\" instruments, see "
+"<a href=\"/instrument/1a28f232-38ee-4293-9f4c-e0daed92b926\">lute-family</a>"
 msgstr ""
 
 #. name:akete

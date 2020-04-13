@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-03-25 10:59+0000\n"
+"PO-Revision-Date: 2020-04-03 13:27+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1027,7 +1027,7 @@ msgstr "klarinet"
 #: DB:instrument/name:54
 msgctxt "Classical nylon string guitar"
 msgid "classical guitar"
-msgstr "De klassieke of Spaanse gitaar is de gitaar die aan de oorsprong stond van alle andere versies van de Spaanse gitaar zoals de flamencogitaar, de archtop gitaar en de steelstringgitaar. (<a href=\"http://nl.wikipedia.org/wiki/Klassieke_gitaar\">Wikipedia</a>)"
+msgstr "De klassieke of Spaanse gitaar is de gitaar die aan de oorsprong stond van alle andere versies van de Spaanse gitaar zoals de flamencogitaar, de archtopgitaar en de steelstringgitaar."
 
 #: DB:instrument/name:542
 msgid "classical kemençe"
@@ -2023,7 +2023,7 @@ msgstr "kamalen ngoni"
 #: DB:instrument/name:503
 msgctxt "Persian spike-fiddle"
 msgid "kamancheh"
-msgstr "kamānche / kamāncha"
+msgstr "kamānche"
 
 #: DB:instrument/name:474
 msgid "kanjira"
@@ -2718,6 +2718,7 @@ msgid "organ"
 msgstr "orgel"
 
 #: DB:instrument/name:519
+msgctxt "Metal stringed renaissance lute."
 msgid "orpharion"
 msgstr "orpharion"
 
@@ -3013,7 +3014,7 @@ msgstr "ravanahatha"
 #: DB:instrument/name:239
 msgctxt "Generic rebab catch-all"
 msgid "rebab"
-msgstr "Een Arabisch strijkinstrument met een ronde klankkast. (<a href=\"http://en.wikipedia.org/wiki/Rebab\">Wikipedia</a>)"
+msgstr "De rebab is een Arabisch strijkinstrument met een ronde klankkast."
 
 #: DB:instrument/name:206
 msgctxt "Medieval bowed lute"

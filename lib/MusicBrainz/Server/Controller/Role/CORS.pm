@@ -19,7 +19,7 @@ after begin => sub {
         if ($req->header('Origin') && $req->header('Access-Control-Request-Method')) {
             # CORS preflight
             $res->header('Access-Control-Allow-Methods' => $allow);
-            $res->header('Access-Control-Allow-Headers' => 'Authorization, Content-Type');
+            $res->header('Access-Control-Allow-Headers' => 'Authorization, Content-Type, User-Agent');
         }
 
         $c->detach;

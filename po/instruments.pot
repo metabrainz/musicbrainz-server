@@ -2707,6 +2707,7 @@ msgid "organ"
 msgstr ""
 
 #: DB:instrument/name:519
+msgctxt "Metal stringed renaissance lute."
 msgid "orpharion"
 msgstr ""
 

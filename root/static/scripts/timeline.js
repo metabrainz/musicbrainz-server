@@ -382,7 +382,7 @@ class TimelineLine {
             const serial = [];
             for (const key in data) {
                 const {year, month, day} = parseDate(key);
-                serial.push([Date.UTC(year, month, day), data[key]]);
+                serial.push([Date.UTC(year, month - 1, day), data[key]]);
             }
             serial.sort((a, b) => a[0] - b[0]);
 

@@ -54,9 +54,7 @@ export function getEditStatusName(edit: EditT) {
 export function getEditStatusDescription(edit: EditT) {
   switch (edit.status) {
     case EDIT_STATUS_OPEN:
-      return l(
-        'This edit is open and awaiting votes before it can be applied.',
-      );
+      return l('This edit is open for voting.');
     case EDIT_STATUS_APPLIED:
       return l('This edit has been successfully applied.');
     case EDIT_STATUS_FAILEDVOTE:

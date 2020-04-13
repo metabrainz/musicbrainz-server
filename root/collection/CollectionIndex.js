@@ -73,6 +73,7 @@ const listPicker = (props: Props, canRemoveFromCollection: boolean) => {
       return (
         <ArtistList
           artists={props.entities}
+          showBeginEnd
           showRatings
           {...sharedProps}
         />

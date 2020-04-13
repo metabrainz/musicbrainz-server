@@ -82,20 +82,24 @@ const ArtistList = ({
         l('Area'),
       );
       const beginDateColumn = showBeginEnd
-        ? defineBeginDateColumn()
+        ? defineBeginDateColumn(order, sortable)
         : null;
       const beginAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>(
         entity => entity.begin_area,
         'begin_area',
         l('Begin Area'),
+        order,
+        sortable,
       ) : null;
       const endDateColumn = showBeginEnd
-        ? defineEndDateColumn()
+        ? defineEndDateColumn(order, sortable)
         : null;
       const endAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>(
         entity => entity.end_area,
         'end_area',
         l('End Area'),
+        order,
+        sortable,
       ) : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)
