@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 sub index : Path Args(0)
 {
@@ -19,6 +20,7 @@ sub index : Path Args(0)
 
     my @wiki_pages = $c->model('WikiDocIndex')->get_wiki_versions($index);
     my $updates_required = 0;
+    my $wiki_unreachable = 0;
 
     # Merge the data retreived from the wiki with the transclusion table
     for (my $i = 0; $i < @pages; $i++) {
@@ -33,14 +35,22 @@ sub index : Path Args(0)
                 $c->log->error("'$pages[$i]->{id}' from the transclusion table doesn't match '$wiki_pages[$i]->{id}' from the wiki");
             } else {
                 # Problem accessing the api data
-                $c->stash->{wiki_unreachable} = 1;
+                $wiki_unreachable = 1;
             }
         }
     }
 
+    my %props = (
+        pages             => \@pages,
+        updatesRequired   => boolean_to_json($updates_required),
+        wikiIsUnreachable => boolean_to_json($wiki_unreachable),
+        wikiServer        => $c->stash->{wiki_server},
+    );
+
     $c->stash(
-        pages            => \@pages,
-        updates_required => $updates_required
+        component_path => 'admin/wikidoc/WikiDocIndex',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
