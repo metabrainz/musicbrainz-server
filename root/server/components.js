@@ -36,6 +36,7 @@ module.exports = {
   'admin/attributes/Index': require('../admin/attributes/Index'),
   'admin/attributes/Language': require('../admin/attributes/Language'),
   'admin/attributes/Script': require('../admin/attributes/Script'),
+  'admin/wikidoc/EditWikiDoc': require('../admin/wikidoc/EditWikiDoc'),
   'admin/wikidoc/WikiDocIndex': require('../admin/wikidoc/WikiDocIndex'),
   'area/AreaArtists': require('../area/AreaArtists'),
   'area/AreaEvents': require('../area/AreaEvents'),

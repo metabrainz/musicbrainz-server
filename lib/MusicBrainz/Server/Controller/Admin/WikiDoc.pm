@@ -108,7 +108,17 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
         $c->detach;
     }
 
-    $c->stash( page => $page, current_version => $current_version, new_version => $new_version );
+    my %props = (
+        currentVersion => $current_version,
+        form            => $form,
+        page            => $page,
+    );
+
+    $c->stash(
+        component_path => 'admin/wikidoc/EditWikiDoc',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
