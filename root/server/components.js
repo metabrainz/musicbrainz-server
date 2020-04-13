@@ -292,6 +292,7 @@ module.exports = {
   'edit/details/MergeWorks': require('../edit/details/MergeWorks'),
   'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
   'edit/details/historic/MergeReleases': require('../edit/details/historic/MergeReleases'),
+  'edit/details/historic/MoveDiscId': require('../edit/details/historic/MoveDiscId'),
   'edit/details/historic/RemoveDiscId': require('../edit/details/historic/RemoveDiscId'),
   'edit/details/historic/RemoveLabelAlias': require('../edit/details/historic/RemoveLabelAlias'),
   'edit/details/historic/RemovePuid': require('../edit/details/historic/RemovePuid'),
