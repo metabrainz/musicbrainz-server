@@ -148,7 +148,15 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
         $c->detach;
     }
 
-    $c->stash( page => $page, version => $version );
+    my %props = (
+        page    => $page,
+    );
+
+    $c->stash(
+        component_path => 'admin/wikidoc/DeleteWikiDoc',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub history : Local Args(0) RequireAuth {
