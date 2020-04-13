@@ -290,6 +290,7 @@ module.exports = {
   'edit/details/MergeReleaseGroups': require('../edit/details/MergeReleaseGroups'),
   'edit/details/MergeSeries': require('../edit/details/MergeSeries'),
   'edit/details/MergeWorks': require('../edit/details/MergeWorks'),
+  'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
   'edit/details/historic/MergeReleases': require('../edit/details/historic/MergeReleases'),
   'edit/details/historic/RemoveDiscId': require('../edit/details/historic/RemoveDiscId'),
   'edit/details/historic/RemoveLabelAlias': require('../edit/details/historic/RemoveLabelAlias'),
