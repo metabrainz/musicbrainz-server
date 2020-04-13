@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-01 17:25-0500\n"
-"PO-Revision-Date: 2020-04-01 22:27+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2020-04-10 13:01+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10016,11 +10016,11 @@ msgstr "Collegamento permanente"
 
 #: ../root/entity/Details.js:106
 msgid "{xml_ws_docs|XML}"
-msgstr ""
+msgstr "{xml_ws_docs|XML}"
 
 #: ../root/entity/Details.js:122
 msgid "{json_ws_docs|JSON}"
-msgstr ""
+msgstr "{json_ws_docs|JSON}"
 
 #: ../root/entity/Details.js:138
 msgid "AcousticBrainz entry:"
@@ -12828,7 +12828,7 @@ msgstr "Questa etichetta non esiste più."
 
 #: ../root/report/components/ReleaseList.js:39
 msgid "Language/Script"
-msgstr ""
+msgstr "Lingua/Script"
 
 #: ../root/report/components/SeriesAnnotationList.js:39
 msgid "This series no longer exists."
