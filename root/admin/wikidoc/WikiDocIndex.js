@@ -95,7 +95,6 @@ const WikiDocTable = withCatalystContext(({
       const actionsColumn = {
         Cell: ({row: {original}}) => (
           <>
-            {'[ '}
             <a href={'/admin/wikidoc/edit' +
                      '?page=' + encodeURIComponent(original.id) +
                      '&new_version=' + original.wiki_version}
@@ -114,7 +113,6 @@ const WikiDocTable = withCatalystContext(({
             >
               {l('View on wiki')}
             </a>
-            {' ]'}
           </>
         ),
         Header: l('Actions'),
