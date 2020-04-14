@@ -27,9 +27,12 @@ const DeleteWikiDoc = withCatalystContext(({
     <div id="content">
       <h1>{l('Remove Page')}</h1>
       <p>
-        {exp.l(`Are you sure you wish to remove
-                <strong>{page}</strong> from the transclusion table?`,
-               {page: page})}
+        {exp.l(`Are you sure you wish to remove the page
+                “{page_uri|{page_name}}” from the transclusion table?`,
+               {
+                 page_name: page,
+                 page_uri: '/doc/' + encodeURIComponent(page),
+               })}
       </p>
       <form action={$c.req.uri} method="post" name="confirm">
         <FormCsrfToken />
