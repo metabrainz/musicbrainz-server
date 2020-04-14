@@ -117,7 +117,7 @@ const WikiDocTable = withCatalystContext(({
         ),
         Header: l('Actions'),
         accessor: 'id',
-        cellProps: {className: 'c nowrap'},
+        cellProps: {className: 'actions c'},
         headerProps: {className: 'c'},
         id: 'actions',
       };
