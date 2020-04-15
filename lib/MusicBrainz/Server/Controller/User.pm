@@ -34,10 +34,6 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Editor'
 };
 
-__PACKAGE__->config(
-    paging_limit => 25,
-);
-
 use Try::Tiny;
 
 =head1 NAME

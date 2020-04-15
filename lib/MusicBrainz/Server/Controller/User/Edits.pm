@@ -6,10 +6,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use MusicBrainz::Server::Data::Utils qw( load_everything_for_edits );
 use MusicBrainz::Server::Constants ':edit_status';
 
-__PACKAGE__->config(
-    paging_limit => 25,
-);
-
 sub _edits {
     my ($self, $c, $loader) = @_;
 
