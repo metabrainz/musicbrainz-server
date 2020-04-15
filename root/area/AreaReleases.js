@@ -12,6 +12,7 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import ReleaseList from '../components/list/ReleaseList';
 import PaginatedResults from '../components/PaginatedResults';
+import RelationshipsTable from '../components/RelationshipsTable';
 
 import AreaLayout from './AreaLayout';
 
@@ -54,6 +55,15 @@ const AreaReleases = ({
         {l('This area is not currently associated with any releases.')}
       </p>
     )}
+
+    <RelationshipsTable
+      entity={area}
+      fallbackMessage={l(
+        'This area has no relationships to any releases.',
+      )}
+      heading={l('Relationships')}
+      showCredits
+    />
   </AreaLayout>
 );
 

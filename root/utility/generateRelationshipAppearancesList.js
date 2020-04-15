@@ -16,6 +16,7 @@ const recordingOnlyTypesList = ['recording'];
 
 const pickAppearancesTypes = (entityType) => {
   switch (entityType) {
+    case 'area':
     case 'artist':
     case 'label':
     case 'place': {

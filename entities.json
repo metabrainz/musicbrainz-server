@@ -16,7 +16,7 @@
             "id": 1
         },
         "collections": true,
-        "custom_tabs": ["artists", "events", "labels", "releases", "places", "users"],
+        "custom_tabs": ["artists", "events", "labels", "releases", "recordings", "places", "users", "works"],
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
