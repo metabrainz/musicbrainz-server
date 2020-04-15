@@ -14,7 +14,8 @@ import {bracketedText} from '../utility/bracketed';
 
 import ArtistCreditLink from './ArtistCreditLink';
 
-const COLLAPSE_THRESHOLD = 4;
+const TO_SHOW_BEFORE = 4;
+const TO_TRIGGER_COLLAPSE = TO_SHOW_BEFORE + 2;
 
 const buildWorkArtistRow = (artistCredit: ArtistCreditT) => {
   return (
@@ -47,7 +48,7 @@ const WorkArtists = ({artists}: WorkArtistsProps) => {
   };
 
   const tooManyArtists = artists
-    ? artists.length > COLLAPSE_THRESHOLD
+    ? artists.length >= TO_TRIGGER_COLLAPSE
     : false;
 
   return (
@@ -56,7 +57,7 @@ const WorkArtists = ({artists}: WorkArtistsProps) => {
         {(tooManyArtists && !expanded) ? (
           <>
             <ul {...containerProps}>
-              {artists.slice(0, COLLAPSE_THRESHOLD).map(
+              {artists.slice(0, TO_SHOW_BEFORE).map(
                 artist => buildWorkArtistRow(artist),
               )}
               <li className="show-all" key="show-all">
@@ -67,7 +68,7 @@ const WorkArtists = ({artists}: WorkArtistsProps) => {
                   title={l('Show all artists')}
                 >
                   {bracketedText(texp.l('show {n} more', {
-                    n: artists.length - COLLAPSE_THRESHOLD,
+                    n: artists.length - TO_SHOW_BEFORE,
                   }))}
                 </a>
               </li>
