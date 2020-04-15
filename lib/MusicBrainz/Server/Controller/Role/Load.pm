@@ -98,6 +98,9 @@ role
         my $id_is_guid = is_guid($id) && $c->model($model)->can('get_by_gid');
 
         if ($id_is_guid) {
+            if ($model eq 'EntityType' and $id eq 'mbidmbid-mbid-mbid-mbid-mbidmbidmbid') {
+                $c->detach('/error_503');
+            }
             $entity = $c->model($model)->get_by_gid($id);
         } elsif ($allows_integer_ids && is_positive_integer($id)) {
             $entity = $c->model($model)->get_by_id($id);
