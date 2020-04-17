@@ -606,7 +606,7 @@ END -%]
     END -%]
 [%- END -%]
 
-[%~ MACRO quality_name(quality) SWITCH quality;
+[%~ MACRO quality_name(quality) SWITCH quality; # Converted to React as QUALITY_NAMES in root/static/scripts/common/constants.js
     CASE 0;  l('Low');
     CASE 1;  l('Normal');
     CASE -1; l('Normal');
