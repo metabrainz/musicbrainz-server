@@ -51,14 +51,31 @@ sub find_tag_count
 sub find_top_tags
 {
     my ($self, $entity_id, $limit) = @_;
-    my $query = "SELECT tag.name, entity_tag.count,
-                        tag.id AS tag_id, genre.id AS genre_id
-                 FROM " . $self->tag_table . " entity_tag
-                 JOIN tag ON tag.id = entity_tag.tag
-                 LEFT JOIN genre ON tag.name = genre.name
-                 WHERE " .  $self->type . " = ?
-                 ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name) LIMIT ?";
-    $self->query_to_list($query, [$entity_id, $limit]);
+    my $query = "
+        SELECT name, count, tag_id, genre_id FROM ((
+            SELECT tag.name, entity_tag.count,
+                tag.id AS tag_id, genre.id AS genre_id
+            FROM " . $self->tag_table . " entity_tag
+            JOIN tag ON tag.id = entity_tag.tag
+            JOIN genre ON tag.name = genre.name
+            WHERE " .  $self->type . " = ?
+            ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)
+            LIMIT ?
+        ) UNION (
+            SELECT tag.name, entity_tag.count,
+                tag.id AS tag_id, NULL AS genre_id
+            FROM " . $self->tag_table . " entity_tag
+            JOIN tag ON tag.id = entity_tag.tag
+            WHERE " .  $self->type . " = ?   
+            AND NOT EXISTS (
+                SELECT 1 FROM genre
+                WHERE genre.name = tag.name
+            )  
+            ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)
+            LIMIT ?       
+        )) top_tags
+        ORDER BY count DESC, musicbrainz_collate(name)";
+    $self->query_to_list($query, [$entity_id, $limit, $entity_id, $limit]);
 }
 
 sub find_tags_for_entities
