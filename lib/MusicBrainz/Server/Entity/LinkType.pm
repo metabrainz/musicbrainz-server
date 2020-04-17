@@ -136,6 +136,8 @@ around TO_JSON => sub {
         $_->type_id => $_->TO_JSON
     } $self->all_attributes;
 
+    my @children = map { $_->TO_JSON } $self->all_children;
+
     $json->{attributes} = \%attrs;
     $json->{cardinality0} = $self->entity0_cardinality;
     $json->{cardinality1} = $self->entity1_cardinality;
@@ -149,6 +151,7 @@ around TO_JSON => sub {
     $json->{reverse_link_phrase} = $self->reverse_link_phrase;
     $json->{type0} = $self->entity0_type;
     $json->{type1} = $self->entity1_type;
+    $json->{children} = \@children if @children;
 
     return $json;
 };

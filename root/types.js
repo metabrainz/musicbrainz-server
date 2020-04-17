@@ -670,6 +670,7 @@ declare type LinkAttrT = {
 
 declare type LinkAttrTypeT = {
   ...OptionTreeT<'link_attribute_type'>,
+  +children?: $ReadOnlyArray<LinkAttrTypeT>,
   +creditable: boolean,
   +free_text: boolean,
   +instrument_comment?: string,
