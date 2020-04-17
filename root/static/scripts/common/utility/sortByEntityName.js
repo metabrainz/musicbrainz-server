@@ -8,9 +8,10 @@
  */
 
 import {compare} from '../i18n';
+import getSortName from '../../../../utility/getSortName';
 
 function compareEntities(a: CoreEntityT, b: CoreEntityT): number {
-  return compare(a.name, b.name) || (a.id - b.id);
+  return compare(getSortName(a), getSortName(b)) || (a.id - b.id);
 }
 
 export default function sortByEntityName(
