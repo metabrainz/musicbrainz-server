@@ -1,6 +1,6 @@
 /*
  * @flow
- * Copyright (C) 2018 MetaBrainz Foundation
+ * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -14,42 +14,29 @@ import sortByEntityName
 import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
-import RecordingList from '../components/list/RecordingList';
+import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
   +$c: CatalystContextT,
   +form: MergeFormT,
-  +isrcsDiffer?: boolean,
-  +toMerge: $ReadOnlyArray<RecordingT>,
+  +toMerge: $ReadOnlyArray<ReleaseGroupT>,
 };
 
-const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge recordings')}>
+const ReleaseGroupMerge = ({$c, form, toMerge}: Props) => (
+  <Layout fullWidth title={l('Merge release groups')}>
     <div id="content">
-      <h1>{l('Merge recordings')}</h1>
+      <h1>{l('Merge release groups')}</h1>
       <p>
-        {l(`You are about to merge all these recordings into a single one.
-            Please select the recording all others should be merged into:`)}
+        {l(`You are about to merge all these release groups into a single one.
+            Please select the release group all others
+            should be merged into:`)}
       </p>
-      {isrcsDiffer ? (
-        <div className="warning warning-isrcs-differ">
-          <p>
-            {exp.l(
-              `<strong>Warning:</strong> Some of the recordings you're
-                merging have different ISRCs. Please make sure they are
-                indeed the same recordings and you wish to continue with
-                the merge.`,
-            )}
-          </p>
-        </div>
-      ) : null}
       <form action={$c.req.uri} method="post">
-        <RecordingList
+        <ReleaseGroupListTable
           mergeForm={form}
-          recordings={sortByEntityName(toMerge)}
-          showExpandedArtistCredits
+          releaseGroups={sortByEntityName(toMerge)}
         />
         <FieldErrors field={form.field.target} />
 
@@ -70,4 +57,4 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(RecordingMerge);
+export default withCatalystContext(ReleaseGroupMerge);

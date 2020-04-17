@@ -20,6 +20,7 @@ import {
   defineEntityColumn,
   defineBeginDateColumn,
   defineEndDateColumn,
+  defineRemoveFromMergeColumn,
   ratingsColumn,
 } from '../../utility/tableColumns';
 
@@ -27,6 +28,7 @@ type Props = {
   +$c: CatalystContextT,
   +checkboxes?: string,
   +labels: $ReadOnlyArray<LabelT>,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +showRatings?: boolean,
   +sortable?: boolean,
@@ -36,14 +38,15 @@ const LabelList = ({
   $c,
   checkboxes,
   labels,
+  mergeForm,
   order,
   showRatings,
   sortable,
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && checkboxes
-        ? defineCheckboxColumn(checkboxes)
+      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+        ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const nameColumn =
         defineNameColumn<LabelT>(l('Label'), order, sortable);
@@ -64,6 +67,9 @@ const LabelList = ({
       );
       const beginDateColumn = defineBeginDateColumn(order, sortable);
       const endDateColumn = defineEndDateColumn(order, sortable);
+      const removeFromMergeColumn = mergeForm
+        ? defineRemoveFromMergeColumn(labels)
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -74,9 +80,18 @@ const LabelList = ({
         beginDateColumn,
         endDateColumn,
         ...(showRatings ? [ratingsColumn] : []),
+        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user_exists, checkboxes, order, showRatings, sortable],
+    [
+      $c.user_exists,
+      checkboxes,
+      labels,
+      mergeForm,
+      order,
+      showRatings,
+      sortable,
+    ],
   );
 
   return <Table columns={columns} data={labels} />;
