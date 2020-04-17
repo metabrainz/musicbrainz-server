@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import sortByEntityName
+  from '../static/scripts/common/utility/sortByEntityName';
 import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
@@ -46,7 +48,7 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
       <form action={$c.req.uri} method="post">
         <RecordingList
           mergeForm={form}
-          recordings={toMerge}
+          recordings={sortByEntityName(toMerge)}
           showExpandedArtistCredits
         />
         <FieldErrors field={form.field.target} />
