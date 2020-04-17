@@ -439,6 +439,13 @@ sub DISCOURSE_SSO_SECRET { '' }
 sub USE_SET_DATABASE_HEADER { shift->USE_SELENIUM_HEADER }
 sub USE_SELENIUM_HEADER { 0 }
 
+# Used to create search indexes dump from SolrCloud.
+sub SOLRCLOUD_COLLECTIONS_API { undef }
+sub SOLRCLOUD_BACKUP_LOCATION { undef }
+sub SOLRCLOUD_RSYNC_BANDWIDTH { undef }
+sub SOLRCLOUD_SSH_CIPHER_SPEC { undef }
+sub SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL { undef }
+
 sub WIKIMEDIA_COMMONS_IMAGES_ENABLED { 1 }
 
 # On release browse endpoints in the webservice, we limit the number of

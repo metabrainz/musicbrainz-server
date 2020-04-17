@@ -1,0 +1,306 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Getopt::Long qw( GetOptions );
+use Pod::Usage qw( pod2usage );
+
+################################################################################
+
+=head1 NAME
+
+RequestSolrCloudBackups - Request MB SolrCloud leader to backup every collection
+
+=head1 SYNOPSIS
+
+RequestSolrCloudBackups [options]
+
+Options:
+
+    -c, --collection COLLECTION         backup given collection only
+    -d, --debug                         print more progress messages
+
+    -h, --help                          show this help
+
+Environment:
+
+    BACKUP_STAMP                        timestamp used for backup directory name
+                                        (default: date +%Y%m%d-%H%M%S GMT)
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2019 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
+
+################################################################################
+
+my $sample_collection;
+my $debug_flag;
+my $help_flag;
+
+GetOptions(
+    "collection|c=s"            => \$sample_collection,
+    "debug|d"                   => \$debug_flag,
+    "help|h"                    => \$help_flag,
+);
+
+pod2usage() if $help_flag;
+pod2usage(
+    -exitval => 64, # EX_USAGE
+    -message => "$0: unrecognized arguments",
+) if @ARGV;
+
+################################################################################
+
+$SIG{'INT'} = sub { exit 3 };
+
+use JSON::XS qw( decode_json encode_json );
+use POSIX qw( strftime );
+use Readonly;
+use URI;
+use URI::QueryParam;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use DBDefs;
+use MusicBrainz::Server::Context;
+
+################################################################################
+
+sub _debug { print "[debug] ", (sprintf shift, @_), "\n" if $debug_flag; }
+sub _info { print "[info] ", (sprintf shift, @_), "\n"; }
+sub _warn { warn "[warning] ", (sprintf shift, @_), "\n"; }
+sub _error { warn "[error] ", (sprintf shift, @_), "\n"; }
+
+foreach my $def (qw(
+    SOLRCLOUD_COLLECTIONS_API
+    SOLRCLOUD_BACKUP_LOCATION
+))
+{
+    if (!DBDefs->$def)
+    {
+        _error("$def is not set in DBDefs.");
+        exit 78; # EX_CONFIG
+    }
+}
+
+Readonly my $COLLECTIONS_API => DBDefs->SOLRCLOUD_COLLECTIONS_API;
+Readonly my $BACKUP_LOCATION => DBDefs->SOLRCLOUD_BACKUP_LOCATION;
+
+Readonly my $BACKUP_STAMP => $ENV{BACKUP_STAMP} // strftime "%Y%m%d-%H%M%S", gmtime;
+
+my $c = MusicBrainz::Server::Context->create_script_context;
+
+# pending   => Backup request has not been sent yet
+Readonly my $BACKUP_REQUEST_PENDING => 'pending';
+# running   => Solr Cloud is processing backup request
+Readonly my $BACKUP_REQUEST_RUNNING => 'running';
+# completed => Solr Cloud completely processed backup request
+Readonly my $BACKUP_REQUEST_COMPLETED => 'completed';
+
+Readonly my $collections => $sample_collection
+    ? [$sample_collection]
+    : [grep { $_ ne 'editor' } @{ list_solr_collections() }];
+my %backup_requests;
+prepare_backup_requests();
+_info 'Requesting SolrCloud to backup all collections...';
+do_backup_collections();
+wait_backup_complete();
+_info 'Successfully completed backup for all collections on SolrCloud.';
+exit;
+
+################################################################################
+
+sub list_solr_collections
+{
+    my $solr_response = _query_collections_api('LIST');
+    return $solr_response->{collections};
+}
+
+sub prepare_backup_requests
+{
+    my $next_request_id = 1500;
+    my $has_error;
+    foreach my $collection (sort @$collections)
+    {
+        my $request_id = $next_request_id++;
+        $backup_requests{$request_id} = {
+            name => 'backup_' . $BACKUP_STAMP . '_' . $collection,
+            collection => $collection,
+            status => $BACKUP_REQUEST_PENDING,
+        };
+        my $solr_response = _query_collections_api('REQUESTSTATUS', {
+                requestid => $request_id,
+            }
+        );
+        my $solr_request_status = $solr_response->{status}->{state};
+        if ($solr_request_status ne 'notfound')
+        {
+            _error(
+                "A request to SolrCloud with id '%d' is '%s' already: '%s'",
+                $request_id,
+                $solr_request_status,
+                encode_json($solr_response),
+            );
+            $has_error = 1;
+        }
+    }
+    exit 70 if $has_error; # EX_SOFTWARE
+}
+
+sub do_backup_collections
+{
+    foreach my $request_id (sort keys %backup_requests)
+    {
+        my $backup_name = $backup_requests{$request_id}{name};
+        my $collection = $backup_requests{$request_id}{collection};
+
+        _debug (
+            "Sending backup request '%d' of collection '%s' as '%s'.",
+            $request_id,
+            $collection,
+            $backup_name,
+        );
+        my $solr_response = _query_collections_api('BACKUP', {
+                name => $backup_name,
+                collection => $collection,
+                location => $BACKUP_LOCATION,
+                async => $request_id,
+            }
+        );
+        if (defined $solr_response->{error})
+        {
+            _error(
+                "Failed to backup request '%s' of collection '%s' as '%s': " .
+                "Error '%s'",
+                $request_id,
+                $collection,
+                $backup_name,
+                $solr_response->{error},
+            );
+            _flush_running_requests_status();
+            exit 70; # EX_SOFTWARE
+        }
+        $backup_requests{$request_id}{status} = $BACKUP_REQUEST_RUNNING;
+    }
+}
+
+sub wait_backup_complete
+{
+    while (
+        grep { $backup_requests{$_}{status} eq $BACKUP_REQUEST_RUNNING }
+        keys %backup_requests
+    )
+    {
+        my $pause = '60';
+        _debug "Sleeping $pause";
+        sleep $pause;
+        foreach my $request_id (
+            sort
+            grep { $backup_requests{$_}{status} eq $BACKUP_REQUEST_RUNNING }
+            keys %backup_requests
+        )
+        {
+            my $solr_response = _query_collections_api('REQUESTSTATUS', {
+                    requestid => $request_id,
+                }
+            );
+            _debug (
+                "Received: %s",
+                encode_json($solr_response),
+            );
+            if (exists $solr_response->{error}) {
+                _error(
+                    "Failed on backup request '%s' of collection '%s' as '%s': " .
+                    "Error '%s'",
+                    $request_id,
+                    $backup_requests{$request_id}{collection},
+                    $backup_requests{$request_id}{name},
+                    $solr_response->{error},
+                );
+                _flush_running_requests_status();
+                exit 70; # EX_SOFTWARE
+            }
+            elsif ($solr_response->{status}->{state} eq 'completed')
+            {
+                $backup_requests{$request_id}{status} = $BACKUP_REQUEST_COMPLETED;
+                _query_collections_api('DELETESTATUS', {
+                        requestid => $request_id,
+                    }
+                );
+            }
+            elsif ($solr_response->{status}->{state} ne 'running')
+            {
+                _error(
+                    "Failed on backup request '%s' of collection '%s' as '%s': " .
+                    "Unhandled state '%s'",
+                    $request_id,
+                    $backup_requests{$request_id}{collection},
+                    $backup_requests{$request_id}{name},
+                    $solr_response->{status}->{state},
+                );
+                _flush_running_requests_status();
+                exit 70; # EX_SOFTWARE
+            }
+        }
+    }
+}
+
+sub _flush_running_requests_status
+{
+    foreach my $request_id (
+        sort
+        grep { $backup_requests{$_}{status} eq $BACKUP_REQUEST_RUNNING }
+        keys %backup_requests
+    )
+    {
+        _query_collections_api('DELETESTATUS', {
+                requestid => $request_id,
+            }
+        );
+    }
+}
+
+sub _query_collections_api
+{
+    my ($action, $parameters) = @_;
+
+    my $uri = new URI->new($COLLECTIONS_API);
+    $uri->query_param('action' => $action);
+    foreach my $key (keys %{$parameters})
+    {
+        $uri->query_param_append($key, $parameters->{$key});
+    }
+    _debug "Querying '" . ($uri =~ s/%/%%/gr) . "'";
+
+    my $http_response = $c->lwp->get($uri);
+    if (!$http_response->is_success)
+    {
+        _error(
+            "Failed HTTP request '%s': Error '%s'",
+            $uri =~ s/%/%%/gr,
+            $http_response->status_line,
+        );
+        exit 70; # EX_SOFTWARE
+    }
+
+    my $http_content = $http_response->decoded_content;
+    my $solr_response = decode_json($http_content);
+    if (($solr_response->{responseHeader}->{status} // '') ne '0')
+    {
+        _error(
+            "Failed Solr request at '%s': Response '%s'",
+            $uri =~ s/%/%%/gr,
+            $http_content,
+        );
+        exit 70; # EX_SOFTWARE
+    }
+    return $solr_response;
+}

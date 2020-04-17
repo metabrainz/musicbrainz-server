@@ -118,7 +118,7 @@ sub copy_readme() {
 }
 
 sub gpg_sign {
-    my ($self, $file_to_be_signed) = @_;
+    my ($file_to_be_signed) = @_;
 
     my $sign_with = DBDefs->GPG_SIGN_KEY;
     return unless $sign_with;
@@ -175,7 +175,7 @@ sub make_tar {
     $? == 0 or die "Tar returned $?";
     log(sprintf "Tar completed in %d seconds\n", tv_interval($t0));
 
-    $self->gpg_sign("$output_dir/$tar_file");
+    gpg_sign("$output_dir/$tar_file");
 }
 
 sub copy_file {
@@ -218,7 +218,7 @@ sub write_checksum_files {
 
         $? == 0 or die "$hash_program returned $?";
 
-        $self->gpg_sign("$output_dir/$hash_output_file");
+        gpg_sign("$output_dir/$hash_output_file");
     }
 }
 

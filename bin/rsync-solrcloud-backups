@@ -1,0 +1,46 @@
+#!/bin/bash
+
+unset SSH_AUTH_SOCK
+
+set -u
+
+DESTINATION="$1"
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+cd "$MB_SERVER_ROOT"
+
+source admin/config.sh
+source admin/functions.sh
+
+RSYNC_SOLRCLOUD_BACKUPS_BANDWIDTH="$(perl -Ilib -e 'use DBDefs; print DBDefs->SOLRCLOUD_RSYNC_BANDWIDTH;')"
+RSYNC_SOLRCLOUD_BACKUPS_CIPHER_SPEC="$(perl -Ilib -e 'use DBDefs; print DBDefs->SOLRCLOUD_SSH_CIPHER_SPEC;')"
+SOLRCLOUD_COLLECTIONS_API="$(perl -Ilib -e 'use DBDefs; print DBDefs->SOLRCLOUD_COLLECTIONS_API;')"
+RSYNC_SOLRCLOUD_BACKUPS_HOST="$(
+    curl -sS "$SOLRCLOUD_COLLECTIONS_API?action=OVERSEERSTATUS" \
+        | jq -r '.leader' \
+        | sed 's/:.*//'
+)"
+
+if [ -n "$RSYNC_SOLRCLOUD_BACKUPS_HOST" ]; then
+    RSYNC_SOLRCLOUD_BACKUPS_PORT=${RSYNC_SOLRCLOUD_BACKUPS_PORT:-22}
+
+    retry rsync \
+        --archive \
+        --bwlimit="$RSYNC_SOLRCLOUD_BACKUPS_BANDWIDTH" \
+        --delete \
+        --exclude="zk_backup" \
+        --rsh "ssh -i $RSYNC_SOLRCLOUD_BACKUPS_KEY -c $RSYNC_SOLRCLOUD_BACKUPS_CIPHER_SPEC -o Compression=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_SOLRCLOUD_BACKUPS_PORT" \
+        --verbose \
+        solr@"$RSYNC_SOLRCLOUD_BACKUPS_HOST":. \
+        "$DESTINATION/"
+
+    make_temp_dir
+
+    retry rsync \
+        --archive \
+        --delete \
+        --rsh "ssh -i $RSYNC_SOLRCLOUD_BACKUPS_KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_SOLRCLOUD_BACKUPS_PORT" \
+        --verbose \
+        "$TEMP_DIR/" \
+        solr@"$RSYNC_SOLRCLOUD_BACKUPS_HOST":.
+fi
