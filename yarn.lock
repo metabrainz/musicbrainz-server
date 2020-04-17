@@ -6972,9 +6972,10 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-"tablesorter@git://github.com/Mottie/tablesorter.git#430f8c5":
-  version "2.18.4"
-  resolved "git://github.com/Mottie/tablesorter.git#430f8c533f7fb3b262903163132a29f323db68c3"
+tablesorter@2.31.3:
+  version "2.31.3"
+  resolved "https://registry.yarnpkg.com/tablesorter/-/tablesorter-2.31.3.tgz#94c33234ba0e5d9efc5ba4e48651010a396c8b64"
+  integrity sha512-ueEzeKiMajDcCWnUoT1dOeNEaS1OmPh9+8J0O2Sjp3TTijMygH74EA9QNJiNkLJqULyNU0RhbKY26UMUq9iurA==
   dependencies:
     jquery ">=1.2.6"
 
