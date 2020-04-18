@@ -5,7 +5,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 use DBDefs;
 use HTTP::Status qw( :constants );
 use List::MoreUtils qw( uniq );
-use List::UtilsBy qw( uniq_by );
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( type_to_model model_to_type object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid is_nat );
 use MusicBrainz::Server::WebService::Format;
@@ -415,11 +415,10 @@ sub linked_recordings
 
         my @acns = map { $_->artist_credit->all_names } @$recordings;
         $c->model('Artist')->load(@acns);
+        my @artists = uniq map { $_->artist } @acns;
+        $c->model('ArtistType')->load(@artists);
 
-        $self->linked_artists(
-            $c, $stash,
-            [ uniq_by { $_->id } map { $_->artist } @acns ]
-        );
+        $self->linked_artists($c, $stash, \@artists);
     }
 
     $self->_tags_and_ratings($c, 'Recording', $recordings, $stash);
@@ -436,7 +435,6 @@ sub linked_releases
 
     $c->model('Language')->load(@$releases);
     $c->model('Script')->load(@$releases);
-    $c->model('Release')->load_release_events(@$releases);
 
     my @mediums;
     if ($c->stash->{inc}->media || $c->stash->{inc}->recordings)
@@ -461,6 +459,10 @@ sub linked_releases
     if ($c->stash->{inc}->artist_credits)
     {
         $c->model('ArtistCredit')->load(@$releases);
+
+        my @acns = map { $_->artist_credit->all_names } @$releases;
+        $c->model('Artist')->load(@acns);
+        $c->model('ArtistType')->load(map { $_->artist } @acns);
     }
 
     $self->_tags($c, 'Release', $releases, $stash);
@@ -479,11 +481,10 @@ sub linked_release_groups
 
         my @acns = map { $_->artist_credit->all_names } @$release_groups;
         $c->model('Artist')->load(@acns);
+        my @artists = uniq map { $_->artist } @acns;
+        $c->model('ArtistType')->load(@artists);
 
-        $self->linked_artists(
-            $c, $stash,
-            [uniq_by { $_->id } map { $_->artist } @acns],
-        );
+        $self->linked_artists($c, $stash, \@artists);
     }
 
     $self->_tags_and_ratings($c, 'ReleaseGroup', $release_groups, $stash);
@@ -570,6 +571,8 @@ sub load_relationships {
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, @for);
 
+        my @entities_with_rels = @for;
+
         my @works =
             uniq
             map { $_->target }
@@ -578,9 +581,26 @@ sub load_relationships {
 
         if ($c->stash->{inc}->work_level_rels)
         {
+            push(@entities_with_rels, @works); 
             $c->model('Relationship')->load_subset($types, @works);
         }
         $self->linked_works($c, $stash, \@works);
+
+        my %rels_by_target_type =
+            partition_by { $_->target_type }
+            map { $_->all_relationships } @entities_with_rels;
+
+        for my $target_type (keys %rels_by_target_type) {
+            my $rels = $rels_by_target_type{$target_type};
+            if ($ENTITIES{$target_type}->{type} && $ENTITIES{$target_type}->{type}{simple}) {
+                $c->model(type_to_model($target_type) . 'Type')->load(
+                    map { $_->target } @$rels,
+                );
+            }
+            if ($target_type eq 'place') {
+                $c->model('AreaType')->load(map { $_->area } map { $_->target } @$rels);
+            }
+        }
 
         my $collect_works = sub {
             my $relationship = shift;

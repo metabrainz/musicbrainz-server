@@ -48,7 +48,7 @@ ws_test 'discid lookup with artist-credits',
                 </text-representation>
                 <artist-credit>
                     <name-credit>
-                        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                             <name>BoA</name>
                             <sort-name>BoA</sort-name>
                         </artist>

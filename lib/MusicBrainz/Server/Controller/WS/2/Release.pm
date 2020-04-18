@@ -106,6 +106,7 @@ sub release_toplevel {
         $c->model('Label')->load(@release_labels);
 
         my @labels = grep { defined } map { $_->label } @release_labels;
+        $c->model('LabelType')->load(@labels);
         $self->linked_labels($c, $stash, \@labels);
     }
 
@@ -195,8 +196,9 @@ sub release_toplevel {
                    uniq map { $_->artist_credit } @ac_entities;
 
         $c->model('Artist')->load(@acns);
-
         my @artists = uniq map { $_->artist } @acns;
+        $c->model('ArtistType')->load(@artists);
+
         $self->linked_artists($c, $stash, \@artists);
     }
 
