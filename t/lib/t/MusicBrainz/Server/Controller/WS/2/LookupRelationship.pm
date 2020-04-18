@@ -136,13 +136,13 @@ ws_test 'recording lookup with artist relationships and credits',
         <title>the Love Bug</title><length>243000</length>
         <artist-credit>
             <name-credit joinphrase="♥">
-                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name>
                     <sort-name>m-flo</sort-name>
                 </artist>
             </name-credit>
             <name-credit>
-                <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                   <name>BoA</name>
                   <sort-name>BoA</sort-name>
                 </artist>
@@ -152,14 +152,14 @@ ws_test 'recording lookup with artist relationships and credits',
             <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                 <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
                 <direction>backward</direction>
-                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                 </artist>
             </relation>
             <relation type-id="36c50022-44e0-488d-994b-33f11d20301e" type="programming">
                 <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
                 <direction>backward</direction>
-                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                 </artist>
             </relation>
@@ -167,7 +167,7 @@ ws_test 'recording lookup with artist relationships and credits',
                 <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target>
                 <direction>backward</direction>
                 <attribute-list><attribute type-id="b3045913-62ac-433e-9211-ac683cdf6b5c">guest</attribute></attribute-list>
-                <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>BoA</name><sort-name>BoA</sort-name>
                 </artist>
             </relation>
@@ -399,7 +399,7 @@ ws_test 'release lookup with recording-level relationships',
                                             <relation type-id="d59d99ea-23d4-4a80-b066-edca32ee158f" type="composer">
                                                 <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>
                                                 <direction>backward</direction>
-                                                <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+                                                <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                                                     <name>Distance</name>
                                                     <sort-name>Distance</sort-name>
                                                     <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
@@ -448,7 +448,7 @@ ws_test 'recording lookup with work-level relationships',
                         <relation type-id="d59d99ea-23d4-4a80-b066-edca32ee158f" type="composer">
                             <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>
                             <direction>backward</direction>
-                            <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+                            <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                                 <name>Distance</name>
                                 <sort-name>Distance</sort-name>
                                 <disambiguation>UK dubstep artist Greg Sanders</disambiguation>

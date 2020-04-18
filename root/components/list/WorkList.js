@@ -15,6 +15,7 @@ import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
   defineNameColumn,
+  defineRemoveFromMergeColumn,
   defineSeriesNumberColumn,
   defineTypeColumn,
   attributesColumn,
@@ -28,6 +29,7 @@ type Props = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +showRatings?: boolean,
   +sortable?: boolean,
@@ -37,6 +39,7 @@ type Props = {
 const WorkList = ({
   $c,
   checkboxes,
+  mergeForm,
   order,
   seriesItemNumbers,
   showRatings,
@@ -45,8 +48,8 @@ const WorkList = ({
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && checkboxes
-        ? defineCheckboxColumn(checkboxes)
+      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+        ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn(seriesItemNumbers)
@@ -62,6 +65,9 @@ const WorkList = ({
         l('Writers'),
       );
       const typeColumn = defineTypeColumn('work_type', order, sortable);
+      const removeFromMergeColumn = mergeForm
+        ? defineRemoveFromMergeColumn(works)
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -74,15 +80,18 @@ const WorkList = ({
         workLanguagesColumn,
         attributesColumn,
         ...(showRatings ? [ratingsColumn] : []),
+        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
       ];
     },
     [
       $c.user_exists,
       checkboxes,
+      mergeForm,
       order,
       seriesItemNumbers,
       showRatings,
       sortable,
+      works,
     ],
   );
 

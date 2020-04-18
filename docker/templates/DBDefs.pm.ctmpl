@@ -213,11 +213,16 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "STRING_DEF" "RENDERER_SOCKET"}}
 {{executeTemplate "STRING_DEF" "REPLICATION_ACCESS_TOKEN"}}
 {{executeTemplate "STRING_DEF" "SEARCH_ENGINE"}}
+{{executeTemplate "STRING_DEF" "SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL"}}
 {{executeTemplate "STRING_DEF" "SEARCH_SERVER"}}
 {{executeTemplate "STRING_DEF" "SENTRY_DSN"}}
 {{executeTemplate "STRING_DEF" "SENTRY_DSN_PUBLIC"}}
 {{executeTemplate "STRING_DEF" "SESSION_COOKIE"}}
 {{executeTemplate "STRING_DEF" "SMTP_SECRET_CHECKSUM"}}
+{{executeTemplate "STRING_DEF" "SOLRCLOUD_BACKUP_LOCATION"}}
+{{executeTemplate "STRING_DEF" "SOLRCLOUD_COLLECTIONS_API"}}
+{{executeTemplate "STRING_DEF" "SOLRCLOUD_RSYNC_BANDWIDTH"}}
+{{executeTemplate "STRING_DEF" "SOLRCLOUD_SSH_CIPHER_SPEC"}}
 {{executeTemplate "STRING_DEF" "STATIC_RESOURCES_LOCATION"}}
 {{executeTemplate "STRING_DEF" "WEB_SERVER"}}
 {{executeTemplate "STRING_DEF" "WEB_SERVER_SSL"}}

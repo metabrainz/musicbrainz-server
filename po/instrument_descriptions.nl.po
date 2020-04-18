@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-03 13:36+0000\n"
+"PO-Revision-Date: 2020-04-18 16:06+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgid ""
 "see <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni "
 "rebab</a>.<br /> For the medieval European pear-shaped fiddle see <a "
 "href=\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
-msgstr ""
+msgstr "De naam ‘rebab’ wordt gebruikt voor met name drie families snaarinstrumenten (gestreken en getokkeld):<br /> <ul><li>Grote, bootvormige instrumenten met een korte hals van het sarinda-type, zoals de kabuli-rebab</li> <li>Kleine spijkerluiten van het huqin-type, zoals de Indonesische rebab</li> <li>Verschillende formaten instrumenten met een peervormige klankkast en verschillende halslengtes, zoals de Kretenzische lier</li></ul><br /><br />Dankzij de soortgelijke namen worden ze in bronnen vaak door elkaar gehaald. Ook worden ze vaak verward met soortgelijke instrumenten zoals de <a href=\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghidjak</a> (een spijkerluit) en <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">queychak</a> (met bootvormige klankkast).<br />Het is nu niet bekend of de drie ondersoorten aan elkaar verwand zijn.<br /><br />Zie <a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">Indonesische rebab</a> voor de spijkerluit die in gamelan-ensembles wordt gebruikt.<br />Zie <a href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">roebab</a> voor het bootvormige Afghaanse instrument kabuli rebab.<br />Zie <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">seni rebab</a> voor de middeleeuwse Indiase getokkelde luit.<br />Zie <a href=\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a> voor de middeleeuwse Europese peervormige vedel."
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -384,7 +384,7 @@ msgid ""
 "href=\"/instrument/c588cc24-e139-44a9-8a48-7963eb693dd1\">indung</a>, dual "
 "child drums are divided into the katipung (\"besar\" or larger) and the "
 "kutiplak (\"kecil\" or smaller)."
-msgstr ""
+msgstr "De kendar koelanter wordt altijd samen met de <a href=\"/instrument/c588cc24-e139-44a9-8a48-7963eb693dd1\">kendar indoeng</a> bespeeld. Het instrument maakt deel uit van het Soendanese gemelanensemble."
 
 #. name:kethuk
 #: DB:instrument/description:986
@@ -392,7 +392,7 @@ msgid ""
 "Always used with kempyang, it consists of a single bronze kettle-gong, "
 "pitched deeper than kempyangs'. Flat top bossed gong is sat in a highly "
 "decorated rancak frame, beaten with tabuh beaters by the same person."
-msgstr ""
+msgstr "De ketoek wordt altijd samen met de kempyang bespeeld. De ketoek bestaat uit een bronzen gongketel die lager is gestemd dan de kempyang. Beide gongketels liggen in hetzelfde uitbundig gedecoreerde rancak-onderstel en worden door dezelfde speler met taboeh-hamers beslagen."
 
 #. name:kempyang
 #: DB:instrument/description:987
@@ -400,7 +400,7 @@ msgid ""
 "Always used with ketuk, it consists of two bronze kettle-gongs, pitched a "
 "note apart. Ached top bossed gongs are sat in the highly decorated rancak "
 "frame, beaten with tabuh beaters by the same person."
-msgstr ""
+msgstr "De kempyang wordt altijd samen met de ketoek bespeeld. De kempyang bestaat uit een bronze gongketel die hoger is gestemd dan de ketoek. Beide gongketels liggen in hetzelfde uitbundig gedecoreerde rancak-onderstel en worden door dezelfde speler met taboeh-hamers beslagen."
 
 #. name:amadinda
 #: DB:instrument/description:363
@@ -624,7 +624,7 @@ msgstr "Een handtrommel met een slagvlak van hout uit Peru."
 msgid ""
 "Called simply \"demung\", it is the largest and deepest pitched of the "
 "regular saron."
-msgstr ""
+msgstr "De saron demoeng, vaak simpelweg demoeng genoemd, is het grootste en laagst gestemde lid van de huidige saron-familie."
 
 #. name:saron panerus
 #: DB:instrument/description:1008
@@ -767,7 +767,7 @@ msgid ""
 "Consists of up to 21 hardwood bars suspended by pins and rope over an oft "
 "ornate wooden trapeze shaped box, the two springy beaters are made of "
 "buffalo horn."
-msgstr ""
+msgstr "De gambang bestaat uit maximaal 21 hardhouten staven die met pinnen en touw boven een vaak rijk gedecoreerde houten kast worden opgehangen. Het instrument wordt bespeeld met twee flexibele kloppers van buffelhoorn."
 
 #. name:octobass
 #: DB:instrument/description:935
@@ -987,7 +987,7 @@ msgid ""
 "Extra large double-headed water buffalo hide barrel drum. It is suspended "
 "from a rack and beat with mallet, it is used in central Javanese gamelan and"
 " for religious signalling purposes in mosques."
-msgstr "Een bedug is een extra grote dubbelkoppige trommel met een membraan van buffelhuid. De trommel wordt aan een rek opgehangen en met een hamer aangeslagen. Het instrument maakt deel uit van het gamelanensemble en wordt ook in moskeeën gebruikt."
+msgstr "Een bedoeg is een extra grote dubbelkoppige trommel met een membraan van buffelhuid. De trommel wordt aan een rek opgehangen en met een hamer aangeslagen. Het instrument maakt deel uit van het gamelanensemble en wordt ook in moskeeën gebruikt."
 
 #. name:pi
 #: DB:instrument/description:667
@@ -1073,7 +1073,7 @@ msgstr "Een jeli ngoni is een banjo-achtige luit uit West-Afrika. Het wordt gema
 msgid ""
 "Free reeds with bellows attached, often in a square shape, thence called "
 "squeezebox"
-msgstr ""
+msgstr "Een draagbaar vrijrietinstrument met een balg. Er zijn meerdere instrumenten die hieronder vallen en vaak namen hebben die door elkaar worden gebruikt."
 
 #. name:friction idiophone
 #: DB:instrument/description:701
@@ -1194,7 +1194,7 @@ msgstr "De qeychak (ook wel ghichak of ghaychak) heeft vier metalen snaren en is
 msgid ""
 "Highest pitched gangsa, it has 10 brass or bronze keys suspended over short "
 "resonating bamboo pipes set in an heavily ornate case."
-msgstr ""
+msgstr "De kantilan is het hoogst gestemde lid van de gangsafamilie. Het instrument bestaat uit tien messing of bronzen toeten die boven korte resonatoren van bamboe in een rijk gedecoreerde kast zijn opgehangen."
 
 #. name:gut guitar
 #: DB:instrument/description:567
@@ -1272,7 +1272,7 @@ msgstr "De vioollier is een in de jaren 1920 door Griekse luitmakers ontwikkelde
 msgid ""
 "Inspired by western zithers, it has 20 strings and is flatter than the other"
 " kacapis."
-msgstr ""
+msgstr "De katjapi siter is een moderne variant van de katjapi. Het is geïnspireerd door westerse citers en heeft twintig snaren en een plattere klankkast."
 
 #. name:Indonesian rebab
 #: DB:instrument/description:1011
@@ -1281,7 +1281,7 @@ msgid ""
 "fiddle rebab has two bowed metal strings with characteristically long tuning"
 " pegs and is made of hide-covered wood or coconut shell. It is the melody "
 "leader in gamelan and is also used in healing rituals."
-msgstr ""
+msgstr "De rebab werd in de 15e eeuw in Indonesië geïntroduceerd en is een variant op rebabs in de vorm van een spijkerluit. De Indonesische rebab heeft twee metalen snaren en lange stemschroeven, en de klankkast is van hout of een kokosnoot gemaakt en bespannen met een huid. Het instrument geeft in het gamelan-ensemble de melodie aan en wordt ook gebruikt bij geneeskrachtige rituelen."
 
 #. name:tubulum
 #: DB:instrument/description:873
@@ -1398,14 +1398,14 @@ msgid ""
 "Known as indung \"mother\" or parahu \"boat\", it has 18 brass strings each "
 "with its own pyramid shaped bridge. Shaped like a boat, its sound hole is at"
 " the bottom."
-msgstr ""
+msgstr "De katjapi indoeng (moeder) of parahoe (boot) heeft 18 bronzen snaren met elk een piramidevormige brug en een klankkast in de vorm van een boot met een open onderkant."
 
 #. name:kacapi rincik
 #: DB:instrument/description:1002
 msgid ""
 "Known as rincik \"child\" it has 15 steel strings, it has individual bridges"
 " and a sound-hole in the bottom."
-msgstr ""
+msgstr "De katjapi rintjik (kind) bestaat uit een klankkast met een open onderkant en heeft 15 stalen snaren met elk een eigen brug."
 
 #. name:birch lur
 #: DB:instrument/description:801
@@ -1475,7 +1475,7 @@ msgstr ""
 msgid ""
 "Largest and lowest pitched of the gangsa, it has 5 to 7 large metal bars "
 "suspended over long bamboo resonators"
-msgstr ""
+msgstr "De djègogan is het grootste en laagst gestemde lid van de gangsa-familie. Het instrument bestaat uit vijf tot zeven grote metalen toetsen die boven lange resonatoren van bamboe zijn opgehangen."
 
 #. name:kendhang gendhing
 #: DB:instrument/description:990
@@ -1756,7 +1756,7 @@ msgstr "Oboe d’amore / liefdeshobo (mezzo-sopraan)."
 #. name:saron barung
 #: DB:instrument/description:1007
 msgid "Often called simply \"saron\", it plays the basic, balungan melody"
-msgstr ""
+msgstr "De saron baroeng, vaak simpelweg saron genoemd, is het middelste lid van de huidige saron-familie en wordt gebruikt voor baloengan, de basismelodie."
 
 #. name:boomwhacker
 #: DB:instrument/description:948
@@ -1784,7 +1784,7 @@ msgid ""
 "\"been\" or \"bean\", the representative is <a href=\"/instrument/aea9661c-"
 "cbda-4bf3-a61d-d78697472f29\">rudra veena</a>, and credits to just \"bin\" "
 "are usually that."
-msgstr ""
+msgstr "De bin is een van de twee onderfamilies Indiase snaarinstrumenten. Het zijn citers uit Noord-India met twee (of meer) grote resonatoren van kalebassen en een staaf- of buisvormige kast.<br />Het belangrijkste instrument in deze familie is de <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra-vina</a> en in bronnen is dat vaak het instrument dat met ‘bin’ wordt aangeduid."
 
 #. name:veena
 #: DB:instrument/description:943
@@ -1918,7 +1918,7 @@ msgid ""
 "special slendro variant is even higher than the panerus, of which it shares "
 "an overlapping range. Finally the saron wayang is used in wayang "
 "performances."
-msgstr ""
+msgstr "Saron is een familie instrumenten die deel uitmaakt van de Soendanese gamelan. Een saron bestaat uit een gedecoreerde houten kast (rancak) met daarop zes tot negen dikke en gladde bronzen of ijzeren toetsen die met kloppers van hardhout of buffelhoorn worden beslagen.<br /><br />Van hoog naar laag bestaat de familie uit de saron paneroes / saron peking, saron baroeng, saron demoeng en slento. De slento is grotendeels in onbruik geraakt ten faveure van de slentem. De saron peking is een variant op de saron paneroes en is nog hoger gestemd dan de paneroes. Ten slotte bestaat er ook een saron wajang die bij wajangvoorstellingen wordt bespeeld."
 
 #. name:spike-fiddle
 #: DB:instrument/description:1019
@@ -1975,7 +1975,7 @@ msgstr "Een k'lông pút wordt bespeeld door de luchtstroom door bamboebuizen me
 msgid ""
 "Played in ensemble with kulanter, it is set at an angle and played with "
 "hands or sticks. it has the designation of \"mother\""
-msgstr ""
+msgstr "De kendang indoeng wordt samen met de kendang koelanter bespeeld. Het instrument maakt deel uit van het Soendanese gamelanensemble."
 
 #. name:vichitra veena
 #: DB:instrument/description:612
@@ -2127,7 +2127,7 @@ msgid ""
 "Second highest pitched gangsa, it is deeper than the kantil but also has 10 "
 "brass or bronze keys suspended over short resonating pipes set in an heavily"
 " ornate case."
-msgstr ""
+msgstr "De pemadé is een gangsa die lager is gestemd dan de kantilan. Het instrument bestaat uit tien messing of bronzen toetsen die boven korte resonatoren van bamboe in een rijk gedecoreerde kast zijn opgehangen."
 
 #. name:jublag
 #: DB:instrument/description:980
@@ -2342,7 +2342,7 @@ msgid ""
 "Special version of the gendèr used in Gamelan gendèr wayang performances. "
 "Tuned in Slendro, one to two pairs are played using the same hand to both "
 "play and dampen the keys."
-msgstr ""
+msgstr "De gendèr wajang is een gendèr die specifiek wordt bespeeld bij wajangspelen, waarbij over het algemeen twee paren gendèrs met verschillende toonhoogtes die door twee spelers worden bespeeld. Elke speler speelt met twee kloppers en moet ook toetsen dempen."
 
 #. name:struck idiophone
 #: DB:instrument/description:675
@@ -3275,7 +3275,7 @@ msgstr "Een kèn lá , ook bekend als khen la of nplooj, is een instrument dat w
 msgid ""
 "The larger and deeper pitched of the Bali kendang, it is the leader "
 "\"female\" drum."
-msgstr ""
+msgstr "Van de twee Balinese kendangs is de wadon het grootste en lager klinkende instrument. Het is de leidende en ‘vrouwelijke’ trommel."
 
 #. name:lasso d'amore
 #: DB:instrument/description:144
@@ -3704,7 +3704,7 @@ msgstr "Een sistrum is een metalen ratel."
 msgid ""
 "The smaller and higher pitched of the Bali kendang, it is the follower "
 "\"male\" drum."
-msgstr ""
+msgstr "Van de twee Balinese kendangs is de langang het kleinste en hoogst klinkende instrument. Het is de volgende en ‘mannelijke’ trommel."
 
 #. name:song loan
 #: DB:instrument/description:284
@@ -4152,7 +4152,7 @@ msgid ""
 "made of a single piece of wood and descended from the kacapi pantun as used "
 "in epic story. And a flat box-zither made of wood used from the 1950's and "
 "in experimental music."
-msgstr ""
+msgstr "Traditioneel zijn er twee soorten katjapi, een ‘moeder’ (indoeng) en ‘kind’ (rintjik). De klankkast heeft de vorm van een boot. De moderne katjapi siter is rechthoekiger en platter."
 
 #. name:lute
 #: DB:instrument/description:83
@@ -4298,7 +4298,7 @@ msgid ""
 "bossed, like the gendèr and the <a href=\"/instrument/73173277-b7ef-4d5e-"
 "83b2-205cd2f12488\">slenthem</a>, which has largely replaced it in the "
 "modernised gamelan."
-msgstr ""
+msgstr "De slento is een in onbruik geraakt lid van de saron-familie en in tegenstelling tot de andere sarons heeft het geen gladde, maar afgeschuinde en gebobbelde toetsen. In moderne gamelan-ensembles is het instrument meestal vervangen door de <a href=\"/instrument/73173277-b7ef-4d5e-83b2-205cd2f12488\">slentem</a>."
 
 #. name:pūkaea
 #: DB:instrument/description:788
@@ -4336,14 +4336,14 @@ msgid ""
 "Used for elaborate and complex parts, it has thinner but wider metal bars "
 "suspended above resonator rods, it is the middle-pitched member of the "
 "gendèr family."
-msgstr ""
+msgstr "De gendèr baroeng heeft relatief smalle en bredere metalen staven ten opzichte van andere leden van de gendèr-familie, en bevindt zich wat toonhoogte betreft in het midden. Het instrument wordt gebruikt voor complexe melodieën."
 
 #. name:gendèr panerus
 #: DB:instrument/description:1003
 msgid ""
 "Used for simple ornamentation, it has thick small metal bars suspended above"
 " resonator rods, it is the highest pitched member of the gendèr family."
-msgstr ""
+msgstr "De gendèr paneroes heeft dikke en smalle metalen staven ten opzichte van andere leden van de gendèr-familie, en is het hoogst gestemd. Het instrument wordt gebruikt voor eenvoudige ornamentele muzieklijnen."
 
 #. name:Saraswati veena
 #: DB:instrument/description:476
@@ -4513,7 +4513,7 @@ msgstr "De saluang wordt traditioneel door de Minang uit West-Sumatra bespeeld v
 msgid ""
 "Uses in Javanese gamelan and Balinese wayang, these range from 12 to 14 "
 "tuned bronze keys, all suspended over metal or bamboo resonators."
-msgstr ""
+msgstr "De gendèr is een metallofoon die bestaat uit 12 tot 14 gestemde bronzen staven die boven resonatoren van metaal of bamboe zijn opgehangen. Het instrument wordt gebruikt in Balinese en Javaanse gamelanensembles."
 
 #. name:tanpura
 #: DB:instrument/description:829

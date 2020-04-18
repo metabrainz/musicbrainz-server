@@ -1688,6 +1688,21 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?musik-sammler\.de\/(?:media|release)\/(?:[^\/]+-(?=[\d\/]))?(\d+)(?:[\/?#].*)?$/, 'https://www.musik-sammler.de/release/$1/');
       return url;
     },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.musik-sammler\.de\/(\w+)\/[^?#]+\/$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.otherdatabases.release:
+            return prefix === 'release';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'album';
+        }
+      }
+      return false;
+    },
   },
   'musixmatch': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?musixmatch\\.com/', 'i')],

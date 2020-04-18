@@ -19,11 +19,13 @@ import {
   defineEntityColumn,
   defineBeginDateColumn,
   defineEndDateColumn,
+  defineRemoveFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
   +$c: CatalystContextT,
   +checkboxes?: string,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +places: $ReadOnlyArray<PlaceT>,
   +sortable?: boolean,
@@ -32,17 +34,23 @@ type Props = {
 const PlaceList = ({
   $c,
   checkboxes,
+  mergeForm,
   order,
   places,
   sortable,
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && checkboxes
-        ? defineCheckboxColumn(checkboxes)
+      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+        ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const nameColumn =
-        defineNameColumn<PlaceT>(l('Place'), order, sortable);
+        defineNameColumn<PlaceT>(
+          l('Place'),
+          order,
+          sortable,
+          false, // no descriptive linking (since we have an area column)
+        );
       const typeColumn = defineTypeColumn('place_type', order, sortable);
       const addressColumn = defineTextColumn<PlaceT>(
         entity => entity.address,
@@ -58,6 +66,9 @@ const PlaceList = ({
       );
       const beginDateColumn = defineBeginDateColumn();
       const endDateColumn = defineEndDateColumn();
+      const removeFromMergeColumn = mergeForm
+        ? defineRemoveFromMergeColumn(places)
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -67,9 +78,10 @@ const PlaceList = ({
         areaColumn,
         beginDateColumn,
         endDateColumn,
+        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user_exists, checkboxes, order, sortable],
+    [$c.user_exists, checkboxes, mergeForm, order, places, sortable],
   );
 
   return <Table columns={columns} data={places} />;

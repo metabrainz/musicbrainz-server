@@ -1086,7 +1086,7 @@ msgstr ""
 #: DB:link_attribute_type/description:1094
 msgid ""
 "This attribute indicates a member the band is named after and without which "
-"it wouldn't exist (e.g. Miles Davis -> Miles Davis Sextet)"
+"it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
 msgstr ""
 
 #: DB:link_attribute_type/description:511

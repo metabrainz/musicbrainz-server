@@ -14,6 +14,7 @@ import {withCatalystContext} from '../../context';
 import {
   defineCheckboxColumn,
   defineNameColumn,
+  defineRemoveFromMergeColumn,
   defineTypeColumn,
   seriesOrderingTypeColumn,
 } from '../../utility/tableColumns';
@@ -21,6 +22,7 @@ import {
 type Props = {
   +$c: CatalystContextT,
   +checkboxes?: string,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +series: $ReadOnlyArray<SeriesT>,
   +sortable?: boolean,
@@ -29,14 +31,15 @@ type Props = {
 const SeriesList = ({
   $c,
   checkboxes,
+  mergeForm,
   order,
   series,
   sortable,
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && checkboxes
-        ? defineCheckboxColumn(checkboxes)
+      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+        ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const nameColumn = defineNameColumn<SeriesT>(
         lp('Series', 'singular'),
@@ -44,15 +47,19 @@ const SeriesList = ({
         sortable,
       );
       const typeColumn = defineTypeColumn('series_type', order, sortable);
+      const removeFromMergeColumn = mergeForm
+        ? defineRemoveFromMergeColumn(series)
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
         nameColumn,
         typeColumn,
         seriesOrderingTypeColumn,
+        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user_exists, checkboxes, order, sortable],
+    [$c.user_exists, checkboxes, mergeForm, order, series, sortable],
   );
 
   return <Table columns={columns} data={series} />;

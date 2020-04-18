@@ -30,9 +30,15 @@ sub index : Path('/relationships') Args(0)
 
     my @types = sort keys %by_second_type;
 
-    $c->stash(
+    my %props = (
         types => \@types,
         table => [ map { [ sort_by { $_->[0] } @{ $by_second_type{$_} } ] } @types ]
+    );
+
+    $c->stash(
+        component_path  => 'relationship/linktype/RelationshipTypesIndex',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
@@ -67,9 +73,13 @@ sub tree : Chained('type_specific') PathPart('')
 {
     my ($self, $c) = @_;
 
+    my $root = $c->model('LinkType')->get_tree($c->stash->{type0},
+                                                $c->stash->{type1});
+
     $c->stash(
-        root => $c->model('LinkType')->get_tree($c->stash->{type0},
-                                                $c->stash->{type1})
+        component_path  => 'relationship/linktype/RelationshipTypePairTree',
+        component_props => {root => $root},
+        current_view    => 'Node',
     );
 }
 
@@ -276,7 +286,11 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
     my $link_type = $c->stash->{link_type};
 
     if ($c->model('LinkType')->in_use($link_type->id)) {
-        $c->stash( template => 'relationship/linktype/in_use.tt' );
+        $c->stash(
+            component_path  => 'relationship/linktype/RelationshipTypeInUse',
+            component_props => {type => $link_type},
+            current_view    => 'Node',
+        );
         $c->detach;
     }
 

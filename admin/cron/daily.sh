@@ -52,8 +52,8 @@ echo `date`" : Removing unused works"
 ./admin/cleanup/RemoveEmpty work
 
 # Dump all the data
-# Only do this on the nominated days (0=Sun 6=Sat)
-if date +%w | grep -q [36]
+# Only do this on the nominated days 3=Wed and 6=Sat (for reference 0=Sun)
+if date +%w | grep -qw '[36]'
 then
     FULL=1
 fi
@@ -62,7 +62,7 @@ fi
 # Do any necessary packet bundling
 echo `date`" : Bundling replication packets, daily"
 ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period daily --require-previous
-if date +%w | grep -q [6]
+if date +%w | grep -qw '[6]'
 then
     echo `date`" : + weekly"
     ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
@@ -77,7 +77,7 @@ nice ./admin/RunReports.pl
 
 # Process subscriptions
 echo `date`" : Processing subscriptions"
-if date +%w | grep -q [6]
+if date +%w | grep -qw '[6]'
 then
     WEEKLY="--weekly"
 fi
