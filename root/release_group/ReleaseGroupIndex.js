@@ -48,7 +48,7 @@ type Props = {
 function buildReleaseStatusTable($c, releaseStatusGroup) {
   const status = releaseStatusGroup[0].status;
   return (
-    <>
+    <React.Fragment key={status ? status.name : 'no-status'}>
       <tr className="subh">
         {$c.user_exists ? <th /> : null}
         <th colSpan={$c.session && $c.session.tport ? 8 : 7}>
@@ -89,7 +89,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
             : null}
         </tr>
       ))}
-    </>
+    </React.Fragment>
   );
 }
 
