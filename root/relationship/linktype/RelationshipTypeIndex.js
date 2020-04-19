@@ -209,10 +209,7 @@ const RelationshipTypeIndex = ({
                         ? null
                         : <h3>{example.name}</h3>}
                       <p>
-                        <Relationship
-                          phraseField="long_link_phrase"
-                          relationship={example.relationship}
-                        />
+                        <Relationship relationship={example.relationship} />
                       </p>
                     </React.Fragment>
                   );

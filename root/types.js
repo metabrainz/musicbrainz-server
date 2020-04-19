@@ -846,8 +846,10 @@ declare type RelationshipT = {
   // `attributes` may not exist when seeding.
   +attributes?: $ReadOnlyArray<LinkAttrT>,
   +direction?: 'backward',
+  +entity0?: CoreEntityT,
   +entity0_credit: string,
   +entity0_id: number,
+  +entity1?: CoreEntityT,
   +entity1_credit: string,
   +entity1_id: number,
   +id: number,
