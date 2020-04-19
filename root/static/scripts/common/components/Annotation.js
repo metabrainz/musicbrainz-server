@@ -29,7 +29,7 @@ type Props = {
   +annotation: ?$ReadOnly<{
     ...AnnotationT,
     +editor: EditorT | SanitizedEditorT | null,
-    ...
+    ...,
   }>,
   +collapse?: boolean,
   +entity: AnnotatedEntityT | MinimalAnnotatedEntityT,
@@ -41,10 +41,10 @@ type WritableProps = {
   annotation: ?{
     ...AnnotationT,
     editor: EditorT | SanitizedEditorT | null,
-    ...
+    ...,
   },
   entity: MinimalAnnotatedEntityT,
-  ...
+  ...,
 };
 
 const Annotation = ({
@@ -92,14 +92,18 @@ const Annotation = ({
                 date: formatUserDate($c, annotation.creation_date),
                 user: <EditorLink editor={annotation.editor} />,
               })}
+              {' '}
               {numberOfRevisions && numberOfRevisions > 1 ? (
                 <>
-                  {' '}
                   <a href={entityHref(entity, '/annotations')}>
                     {l('View annotation history')}
                   </a>
+                  {' | '}
                 </>
               ) : null}
+              <a href={entityHref(entity, 'edit_annotation')}>
+                {l('Edit annotation')}
+              </a>
             </>
           ) : (
             exp.l(
