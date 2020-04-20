@@ -459,6 +459,21 @@ sub try_get_session {
     return $c->sessionid ? $c->session->{$key} : undef;
 }
 
+around make_session_cookie => sub {
+    my ($orig, $self, $sid, %attrs) = @_;
+
+    my $cookie = $self->$orig($sid, %attrs);
+    # Browsers are starting to default to SameSite=Lax, which breaks
+    # cross-origin form submissions employed by popular userscripts. We can
+    # opt out with SameSite=None, but this requires the Secure attribute
+    # to be set too. See https://www.chromium.org/updates/same-site
+    if ($self->req->secure) {
+        $cookie->{samesite} = 'None';
+        $cookie->{secure} = 1;
+    }
+    return $cookie;
+};
+
 has json => (
     is => 'ro',
     default => sub {
