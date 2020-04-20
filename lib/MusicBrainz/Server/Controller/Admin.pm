@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Translation qw(l ln );
 
-sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
+sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves CSRFToken
 {
     my ($self, $c, $user_name) = @_;
 
@@ -95,7 +95,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
     );
 }
 
-sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves {
+sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves CSRFToken {
     my ($self, $c, $name) = @_;
 
     my $editor = $c->model('Editor')->get_by_name($name);
@@ -110,7 +110,7 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
 
     $c->stash( user => $editor );
 
-    if ($c->form_posted) {
+    if ($c->form_posted && $c->validate_csrf_token) {
         my $allow_reuse = 0;
         if ($id != $c->user->id && $c->user->is_account_admin) {
             $allow_reuse = 1 if ($c->req->params->{allow_reuse} // '') eq '1';
@@ -134,7 +134,7 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
     }
 }
 
-sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) {
+sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) CSRFToken {
     my ($self, $c) = @_;
 
     my $current_message = $c->stash->{server_details}->{alert};

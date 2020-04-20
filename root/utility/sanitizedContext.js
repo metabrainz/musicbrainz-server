@@ -29,8 +29,10 @@ function sanitizedContext(
       uri: $c.req.uri,
     },
     stash: {
+      csrf_token: stash.csrf_token,
       current_language: stash.current_language,
       genre_map: stash.genre_map,
+      invalid_csrf_token: stash.invalid_csrf_token,
     },
     user: user ? sanitizedEditor(user) : null,
     user_exists: $c.user_exists,

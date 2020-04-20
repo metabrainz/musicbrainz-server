@@ -29,7 +29,7 @@ sub index : Private
     $c->detach;
 }
 
-sub authorize : Local Args(0) RequireAuth
+sub authorize : Local Args(0) RequireAuth CSRFToken
 {
     my ($self, $c) = @_;
 

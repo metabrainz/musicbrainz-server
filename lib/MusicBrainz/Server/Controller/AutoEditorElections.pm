@@ -25,7 +25,7 @@ sub index : Path('')
     );
 }
 
-sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor)
+sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor) CSRFToken
 {
     my ($self, $c, $editor) = @_;
 

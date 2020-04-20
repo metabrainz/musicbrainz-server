@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import Layout from '../layout';
 
+import FormCsrfToken from './FormCsrfToken';
+
 type Props = {
   +action?: string,
   +question: React.Node,
@@ -22,6 +24,7 @@ const ConfirmLayout = ({action, question, title}: Props) => (
     <h1>{title}</h1>
     <p>{question}</p>
     <form action={action} method="post">
+      <FormCsrfToken />
       <span className="buttons">
         <button
           name="confirm.submit"

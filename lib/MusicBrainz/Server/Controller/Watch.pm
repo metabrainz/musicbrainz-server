@@ -2,10 +2,10 @@ package MusicBrainz::Server::Controller::Watch;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-sub list : Local RequireAuth {
+sub list : Local RequireAuth CSRFToken {
     my ($self, $c) = @_;
 
-    if ($c->form_posted) {
+    if ($c->form_posted && $c->validate_csrf_token) {
         my $remove_s = $c->req->params->{remove};
         my @remove = ref($remove_s) ? @$remove_s : ( $remove_s );
 

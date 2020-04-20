@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import UserAccountLayout from '../components/UserAccountLayout';
+import FormCsrfToken from '../components/FormCsrfToken';
 import FormRow from '../components/FormRow';
 import FormRowCheckbox from '../components/FormRowCheckbox';
 import FormRowSelect from '../components/FormRowSelect';
@@ -112,6 +113,8 @@ const ReportUser = ({
     </p>
 
     <form action={$c.req.uri} className="report-form" method="post">
+      <FormCsrfToken />
+
       <FormRowSelect
         field={form.field.reason}
         label={addColonText(l('Reason'))}

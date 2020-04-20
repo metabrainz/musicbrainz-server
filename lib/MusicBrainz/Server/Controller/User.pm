@@ -139,7 +139,7 @@ sub do_login : Private
     $c->detach;
 }
 
-sub login : Path('/login') ForbiddenOnSlaves RequireSSL
+sub login : Path('/login') ForbiddenOnSlaves RequireSSL CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -262,7 +262,7 @@ Allows users to contact other users via email
 
 =cut
 
-sub contact : Chained('load') RequireAuth HiddenOnSlaves
+sub contact : Chained('load') RequireAuth HiddenOnSlaves CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -548,7 +548,7 @@ sub privileged : Path('/privileged')
     );
 }
 
-sub report : Chained('load') RequireAuth HiddenOnSlaves {
+sub report : Chained('load') RequireAuth HiddenOnSlaves CSRFToken {
     my ($self, $c) = @_;
 
     my $reporter = $c->user;

@@ -44,7 +44,7 @@ sub index : Path Args(0)
     );
 }
 
-sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit
+sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -70,7 +70,7 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit
     }
 }
 
-sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit
+sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -101,7 +101,7 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit
     $c->stash( page => $page, current_version => $current_version, new_version => $new_version );
 }
 
-sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit
+sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
 {
     my ($self, $c) = @_;
 

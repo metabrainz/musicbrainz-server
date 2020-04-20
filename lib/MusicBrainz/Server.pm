@@ -9,7 +9,11 @@ use Encode;
 use JSON;
 use Moose::Util qw( does_role );
 use MusicBrainz::Sentry qw( sentry_enabled );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    datetime_to_iso8601
+    generate_token
+);
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
@@ -481,6 +485,13 @@ has json => (
     }
 );
 
+has json_canonical => (
+    is => 'ro',
+    default => sub {
+        return JSON->new->allow_blessed->canonical->convert_blessed;
+    }
+);
+
 has json_canonical_utf8 => (
     is => 'ro',
     default => sub {
@@ -513,7 +524,47 @@ sub form_submitted_and_valid {
         $form->process(params => $params) &&
         $form->has_params;
 
+    return 0 if
+        exists $self->action->attributes->{CSRFToken} &&
+        !$self->validate_csrf_token;
+
     return 1;
+}
+
+sub _csrf_session_key {
+    my ($self) = @_;
+
+    return 'csrf_token:' . $self->json_canonical->encode({
+        namespace => $self->namespace // '',
+        action => $self->action->name,
+        arguments => $self->req->arguments,
+    });
+}
+
+sub generate_csrf_token {
+    my ($self) = @_;
+
+    my $session_key = $self->_csrf_session_key;
+    my $token = generate_token();
+    $self->session->{$session_key} = $token;
+    $self->stash->{csrf_token} = $token;
+}
+
+sub validate_csrf_token {
+    my ($self) = @_;
+
+    my $session_key = $self->_csrf_session_key;
+    my $got_token = $self->req->param('csrf_token') // '';
+    my $expected_token = $self->session->{$session_key} // '';
+
+    return 1 if (
+        $got_token && $expected_token &&
+        $got_token eq $expected_token
+    );
+
+    $self->response->status(403);
+    $self->stash->{invalid_csrf_token} = 1;
+    return 0;
 }
 
 sub TO_JSON {
@@ -524,6 +575,7 @@ sub TO_JSON {
         collaborative_collections
         commons_image
         containment
+        csrf_token
         current_language
         current_language_html
         entity
@@ -548,6 +600,7 @@ sub TO_JSON {
 
     my @boolean_stash_keys = qw(
         hide_merge_helper
+        invalid_csrf_token
         makes_no_changes
         new_edit_notes
     );

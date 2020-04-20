@@ -11,6 +11,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import mutate from 'mutate-cow';
 
+import FormCsrfToken from '../../../../components/FormCsrfToken';
 import FormRow from '../../../../components/FormRow';
 import FormRowCheckbox from '../../../../components/FormRowCheckbox';
 import FormRowSelect from '../../../../components/FormRowSelect';
@@ -148,6 +149,8 @@ class PreferencesForm extends React.Component<Props, State> {
     const field = this.state.form.field;
     return (
       <form method="post">
+        <FormCsrfToken />
+
         <fieldset>
           <legend>{l('Regional settings')}</legend>
           <FormRowSelect
