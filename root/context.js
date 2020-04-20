@@ -42,18 +42,18 @@ exports.CatalystContext = CatalystContext;
 /*::
 type ContextPropT = {
   +$c: CatalystContextT | SanitizedCatalystContextT,
-  ...
+  ...,
 };
 */
 
 function withCatalystContext/*:: <P: ContextPropT> */(
   Component /*: ComponentType<P> */,
-) /*: ComponentType<$Exact<$Diff<P, ContextPropT>>> */ {
+) /*: ComponentType<$Diff<P, ContextPropT>> */ {
   return (props) => React.createElement(
     CatalystContext.Consumer,
     null,
     ($c /*: CatalystContextT */) => (
-      React.createElement(Component, {$c, ...props})
+      React.createElement(Component, {...props, $c})
     ),
   );
 }
