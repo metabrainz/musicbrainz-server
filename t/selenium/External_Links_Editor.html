@@ -349,11 +349,16 @@
 	<td>1500</td>
 	<td></td>
 </tr>
+<!--FIXME: Flaky test. The intent is to check that there's only one edit in
+           the preview list. Will likely resolve itself once the release
+           editor is converted to React and edit previews aren't rendered
+           via /ws/js/edit/preview.
 <tr>
 	<td>assertEval</td>
 	<td>window.document.getElementsByClassName('edit-list').length</td>
 	<td>1</td>
 </tr>
+-->
 <tr>
 	<td>assertText</td>
 	<td>xpath=(//div[contains(@class, 'edit-list')]//h2)[1]</td>
