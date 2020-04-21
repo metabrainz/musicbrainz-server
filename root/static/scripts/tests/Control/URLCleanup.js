@@ -3195,6 +3195,56 @@ const testData = [
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://www.tipeee.com/example',
   },
+  // Traxsource
+  {
+                     input_url: 'https://www.traxsource.com/artist/584/joey-negro',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.traxsource.com/artist/584',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.traxsource.com/artist/89788/?test',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.traxsource.com/artist/89788',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.traxsource.com/title/1141014/tonic-edits-vol-6-the-japan-reworks',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.traxsource.com/title/1141014',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://www.traxsource.com/track/6286240/japanese-woman',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.traxsource.com/track/6286240',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.traxsource.com/label/10701?testing',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.traxsource.com/label/10701',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'http://traxsource.com/label/10701/toy-tonics',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.traxsource.com/label/10701',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://www.traxsource.com/spotlight/5/yam-who-s-causing-a-riot',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: [],
+  },
   // triple j Unearthed
   {
                      input_url: 'https://www.triplejunearthed.com/artist/sampa-great',

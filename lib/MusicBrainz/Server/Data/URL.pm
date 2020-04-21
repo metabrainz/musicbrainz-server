@@ -159,6 +159,7 @@ my %URL_SPECIALIZATIONS = (
     'TheDanceGypsy'       => qr{^https?://(?:www\.)?thedancegypsy\.com/}i,
     'TheSession'          => qr{^https?://(?:www\.)?thesession\.org/}i,
     'TouhouDB'            => qr{^https?://(?:www\.)?touhoudb\.com/}i,
+    'Traxsource'          => qr{^https?://(?:www\.)?traxsource.com/}i,
     'TripleJUnearthed'    => qr{^https?://(?:www\.)?triplejunearthed\.com/}i,
     'Trove'               => qr{^https?://(?:www\.)?(?:trove\.)?nla\.gov\.au/}i,
     'Tunearch'            => qr{^https?://(?:www\.)?tunearch\.org/}i,
