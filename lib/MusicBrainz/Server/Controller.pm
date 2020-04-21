@@ -49,31 +49,6 @@ sub create_action
     $self->SUPER::create_action(%args);
 }
 
-=head2 submit_and_validate
-
-Submit a form, and modify volatile privileges from form data. This
-could mean changing the users temporary session privileges (disabling
-auto-editing, for example).
-=cut
-
-sub submit_and_validate
-{
-    my ($self, $c) = @_;
-    if ($c->form_posted && $self->form->validate($c->req->body_params))
-    {
-        if ($self->form->isa('MusicBrainz::Server::Form'))
-        {
-            $self->form->check_volatile_prefs($c);
-        }
-
-        return 1;
-    }
-    else
-    {
-        return;
-    }
-}
-
 sub _insert_edit {
     my ($self, $c, $form, %opts) = @_;
 
