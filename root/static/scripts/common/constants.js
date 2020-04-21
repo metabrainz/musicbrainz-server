@@ -160,6 +160,7 @@ export const FAVICON_CLASSES = {
   'thesession.org': 'thesession',
   'tipeee.com': 'tipeee',
   'touhoudb.com': 'touhoudb',
+  'traxsource.com': 'traxsource',
   'triplejunearthed.com': 'triplejunearthed',
   'tunearch.org': 'tunearch',
   'twitch.tv': 'twitch',
