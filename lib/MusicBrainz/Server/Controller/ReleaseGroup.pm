@@ -168,7 +168,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my $form = $c->form(form => 'ReleaseGroup::SetCoverArt', init_object => {
         release => $cover_art_release ? $cover_art_release->gid : undef });
 
-    my $form_valid = $c->form_posted && $form->submitted_and_valid($c->req->params);
+    my $form_valid = $c->form_posted_and_valid($form);
 
     my $release = $form_valid
         ? $c->model('Release')->get_by_gid($form->field('release')->value)

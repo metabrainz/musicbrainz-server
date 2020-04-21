@@ -50,7 +50,7 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit
 
     my $form = $c->form( form => 'Admin::WikiDoc::Add' );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         my $values = $form->values;
         my $page = $values->{page} =~ tr/ /_/r;
         $c->model('MB')->with_transaction(sub {
@@ -80,7 +80,7 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit
     my $form = $c->form( form => 'Admin::WikiDoc::Edit',
                          init_object => { version => $new_version } );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         my $values = $form->values;
         $c->model('MB')->with_transaction(sub {
             my $edit = $c->model('Edit')->create(
@@ -111,7 +111,7 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit
         form => 'Confirm'
     );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             my $edit = $c->model('Edit')->create(
                 edit_type   => $EDIT_WIKIDOC_CHANGE,

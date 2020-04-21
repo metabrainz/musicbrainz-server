@@ -495,6 +495,27 @@ has json_utf8 => (
     }
 );
 
+sub form_posted_and_valid {
+    my ($self, $form, $params) = @_;
+
+    return 0 unless $self->form_posted;
+    return $self->form_submitted_and_valid($form, $params);
+}
+
+sub form_submitted_and_valid {
+    my ($self, $form, $params) = @_;
+
+    $params = $self->req->params
+        unless defined $params;
+
+    return 0 unless
+        %{$params} &&
+        $form->process(params => $params) &&
+        $form->has_params;
+
+    return 1;
+}
+
 sub TO_JSON {
     my $self = shift;
 

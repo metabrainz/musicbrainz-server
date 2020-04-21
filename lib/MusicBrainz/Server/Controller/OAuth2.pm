@@ -72,7 +72,7 @@ sub authorize : Local Args(0) RequireAuth
     }
 
     my $form = $c->form( form => 'SubmitCancel' );
-    if ($pre_authorized || ($c->form_posted && $form->submitted_and_valid($c->req->params))) {
+    if ($pre_authorized || ($c->form_posted_and_valid($form))) {
         if (DBDefs->DB_READ_ONLY) {
             $self->_send_redirect_error($c, $params{redirect_uri}, 'temporarily_unavailable', 'Server is in read-only mode');
         }

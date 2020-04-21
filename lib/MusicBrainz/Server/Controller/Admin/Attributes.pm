@@ -75,7 +75,7 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) {
     my $form_name = $forms{$model} // "Admin::Attributes";
     my $form = $c->form( form => $form_name );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $c->model($model)->insert({ map { $_->name => $_->value } $form->edit_fields });
         });
@@ -97,7 +97,7 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
     my $form_name = $forms{$model} // "Admin::Attributes";
     my $form = $c->form( form => $form_name, init_object => $attr );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $c->model($model)->update($id, { map { $_->name => $_->value } $form->edit_fields });
         });
@@ -119,7 +119,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
         $c->detach;
     }
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $c->model($model)->delete($id);
         });
