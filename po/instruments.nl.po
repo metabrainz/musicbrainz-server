@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-18 16:05+0000\n"
+"PO-Revision-Date: 2020-04-19 12:02+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -735,12 +735,12 @@ msgstr "bonang barung"
 #: DB:instrument/name:972
 msgctxt "Lowest pitched gong-chime set in Javanese gamelan"
 msgid "bonang panembung"
-msgstr "bonang panembung"
+msgstr "bonang panemboeng"
 
 #: DB:instrument/name:971
 msgctxt "Highest pitched gong-chime set in Javanese gamelan"
 msgid "bonang panerus"
-msgstr "bonang panerus"
+msgstr "bonang paneroes"
 
 #: DB:instrument/name:357
 msgctxt "Folk music idiophone"
@@ -871,7 +871,7 @@ msgstr "tjaloeng"
 #: DB:instrument/name:128
 msgctxt "belfry tower bell set"
 msgid "carillon"
-msgstr "beiaard"
+msgstr "carillon"
 
 #: DB:instrument/name:109
 msgctxt "Pair of concave shells"
@@ -976,7 +976,7 @@ msgstr "chitra-vina"
 #: DB:instrument/name:433
 msgctxt "Accordion with buttons arranged chromatically"
 msgid "chromatic button accordion"
-msgstr "Knopaccordeon waarvan de knoppen aan de melodiekant chromatisch geordend zijn. (<a href=\"http://en.wikipedia.org/wiki/Chromatic_button_accordion\">Wikipedia</a>"
+msgstr "chromatische knopaccordeon"
 
 #: DB:instrument/name:300
 msgid "chromatic harmonica"
@@ -1027,11 +1027,11 @@ msgstr "klarinet"
 #: DB:instrument/name:54
 msgctxt "Classical nylon string guitar"
 msgid "classical guitar"
-msgstr "De klassieke of Spaanse gitaar is de gitaar die aan de oorsprong stond van alle andere versies van de Spaanse gitaar zoals de flamencogitaar, de archtopgitaar en de steelstringgitaar."
+msgstr "klassieke gitaar"
 
 #: DB:instrument/name:542
 msgid "classical kemençe"
-msgstr "klassieke kemençe"
+msgstr "klassieke kementsje"
 
 #: DB:instrument/name:110
 msgid "claves"
@@ -1455,7 +1455,7 @@ msgstr "farfisaorgel"
 
 #: DB:instrument/name:61
 msgid "fiddle"
-msgstr "fiddle"
+msgstr "vioolachtigen"
 
 #: DB:instrument/name:514
 msgid "fife"
@@ -1699,7 +1699,7 @@ msgstr "grote gongtrom"
 #: DB:instrument/name:981
 msgctxt "Arrangement of kettle shaped gongs"
 msgid "gong-chime"
-msgstr ""
+msgstr "gongrek"
 
 #: DB:instrument/name:582
 msgid "gralla"
@@ -2068,31 +2068,31 @@ msgstr "kazoo"
 #: DB:instrument/name:978
 msgctxt "Indonesian racked cymbals"
 msgid "kecer"
-msgstr ""
+msgstr "ketjer"
 
 #: DB:instrument/name:988
 msgctxt "Banana shaped bronze slit-drum used in javanese gamelan"
 msgid "kemanak"
-msgstr ""
+msgstr "kemanak"
 
 #: DB:instrument/name:211
 msgctxt "Eastern Mediterranean bowed lute"
 msgid "kemenche"
-msgstr "kemençhe"
+msgstr "kementsje"
 
 #: DB:instrument/name:541
 msgid "kemençe of the Black Sea"
-msgstr "kemençe van de Zwarte Zee"
+msgstr "Pontische kementsje"
 
 #: DB:instrument/name:982
 msgctxt "Singular metal timekeeping gong-chime used in Balinese gamelan"
 msgid "kempli"
-msgstr ""
+msgstr "kempli"
 
 #: DB:instrument/name:984
 msgctxt "Javanese hanging gong-set"
 msgid "kempul"
-msgstr ""
+msgstr "kempoel"
 
 #: DB:instrument/name:987
 msgctxt "Small boxed double gong-chime used in Javanese gamelan"
@@ -2147,12 +2147,12 @@ msgstr "kendang wajang"
 #: DB:instrument/name:985
 msgctxt "Large high-pitch gong-chime used in Indonesian Gamelan"
 msgid "kenong"
-msgstr ""
+msgstr "kenong"
 
 #: DB:instrument/name:998
 msgctxt "Metal plate percussion used in Javanese gamelan"
 msgid "kepyak"
-msgstr ""
+msgstr "kepyak"
 
 #: DB:instrument/name:986
 msgctxt "Small boxed gong-chime used in Javanese gamelan"
@@ -2386,7 +2386,7 @@ msgstr "limbe"
 #: DB:instrument/name:1016
 msgctxt "Renaissance violin"
 msgid "lira da braccio"
-msgstr ""
+msgstr "lira da braccio"
 
 #: DB:instrument/name:697
 msgctxt "Bass renaissance violin"
@@ -2413,7 +2413,7 @@ msgstr "luit"
 
 #: DB:instrument/name:1015
 msgid "lute family"
-msgstr ""
+msgstr "luitachtigen"
 
 #: DB:instrument/name:737
 msgid "luthéal"
@@ -3068,7 +3068,7 @@ msgstr "resonatorgitaar"
 #: DB:instrument/name:973
 msgctxt "Gong-chime used in Balinese gamelan"
 msgid "reyong"
-msgstr ""
+msgstr "réjong"
 
 #: DB:instrument/name:369
 msgid "rhythm sticks"
@@ -3244,7 +3244,7 @@ msgstr "segunda"
 #: DB:instrument/name:1014
 msgctxt "Medieval Indian evolution of the Afghan (kabuli) rabab"
 msgid "seni rebab"
-msgstr ""
+msgstr "seni rebab"
 
 #: DB:instrument/name:148
 msgid "serpent"
@@ -3354,7 +3354,7 @@ msgstr "koperblazers met schuifventiel"
 
 #: DB:instrument/name:56
 msgid "slide guitar"
-msgstr "slide-gitaar"
+msgstr "slidegitaar"
 
 #: DB:instrument/name:198
 msgid "slide whistle"
@@ -3406,7 +3406,7 @@ msgstr "sousafoon"
 
 #: DB:instrument/name:1019
 msgid "spike-fiddle"
-msgstr ""
+msgstr "spijkerluit"
 
 #: DB:instrument/name:513
 msgid "spilåpipa"
@@ -3544,7 +3544,7 @@ msgstr "tabor"
 
 #: DB:instrument/name:636
 msgid "tack piano"
-msgstr "honky-tonk piano"
+msgstr "honky-tonkpiano"
 
 #: DB:instrument/name:641
 msgid "taepyeongso"
@@ -3880,7 +3880,7 @@ msgstr "tubon"
 #: DB:instrument/name:168
 msgctxt "Orchestral chimes"
 msgid "tubular bells"
-msgstr "Buisklokken is een instrument uit de slagwerkfamilie, behorend tot de klasse van de idiofonen. (<a href=\"http://nl.wikipedia.org/wiki/Buisklokken\">Wikipedia</a>)"
+msgstr "buisklokken"
 
 #: DB:instrument/name:873
 msgctxt "PVC pipe instrument"

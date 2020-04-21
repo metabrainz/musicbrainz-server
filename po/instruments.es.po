@@ -7,7 +7,7 @@
 # Gustavo Guillermo Scalvini Imazio <email address hidden>, 2016
 # Héctor Arroyo <email address hidden>, 2012
 # Jaime Marquínez Ferrándiz, 2018
-# Jesús Heriberto López Cisneros <email address hidden>, 2019
+# Jesús Heriberto López Cisneros, 2019
 # Luis zas <email address hidden>, 2017
 # Marta PD <email address hidden>, 2014
 # AriasNicolas <email address hidden>, 2014
