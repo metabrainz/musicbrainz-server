@@ -39,7 +39,12 @@ const RelationshipsTable = ({
   const appearances = generateRelationshipAppearancesList(entity);
   const relationshipTypes = Object.keys(appearances);
   if (!appearances || relationshipTypes.length === 0) {
-    return <p>{fallbackMessage}</p> || null;
+    return fallbackMessage ? (
+      <>
+        <h2>{heading}</h2>
+        <p>{fallbackMessage}</p>
+      </>
+    ) : null;
   }
   let hasCreditColumn = 0;
   let hasAttributeColumn = 0;

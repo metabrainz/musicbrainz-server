@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-03-25 10:59+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2020-04-18 16:20+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1110,7 +1110,7 @@ msgstr "Tämä määrite ilmaisee vierailijasuorituksen, jonka esittäjä ei ole
 #: DB:link_attribute_type/description:1094
 msgid ""
 "This attribute indicates a member the band is named after and without which "
-"it wouldn't exist (e.g. Miles Davis -> Miles Davis Sextet)"
+"it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
 msgstr ""
 
 #: DB:link_attribute_type/description:511
@@ -3024,6 +3024,10 @@ msgstr ""
 msgid ""
 "This specifies the credited task(s) for a \"miscellaneous support\" "
 "relationship."
+msgstr ""
+
+#: DB:link_attribute_type/description:568
+msgid "This specifies the medium the relationship applies to."
 msgstr ""
 
 #: DB:link_attribute_type/description:617

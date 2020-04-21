@@ -2299,6 +2299,31 @@ const CLEANUPS = {
       return url;
     },
   },
+  'traxsource': {
+    match: [new RegExp('^(https?://)?(www\\.)?traxsource\\.com', 'i')],
+    type: LINK_TYPES.downloadpurchase,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)(?:www\.)?traxsource\.com\/([a-z]+)\/([0-9]+).*$/, 'https://www.traxsource.com/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.traxsource\.com\/([a-z]+)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.downloadpurchase.label:
+            return prefix === 'label';
+          case LINK_TYPES.downloadpurchase.recording:
+            return prefix === 'track';
+          case LINK_TYPES.downloadpurchase.release:
+            return prefix === 'title';
+        }
+      }
+      return false;
+    },
+  },
   'trove': {
     match: [new RegExp('^(https?://)?(www\\.)?(trove\\.)?nla\\.gov\\.au/', 'i')],
     type: LINK_TYPES.otherdatabases,
