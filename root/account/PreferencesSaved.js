@@ -13,7 +13,7 @@ import {withCatalystContext} from '../context';
 import StatusPage from '../components/StatusPage';
 
 type Props = {
-  +$c: CatalystContextT | SanitizedCatalystContextT,
+  +$c: CatalystContextT,
 };
 
 const PreferencesSaved = ({$c}: Props) => (

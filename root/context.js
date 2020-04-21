@@ -34,14 +34,35 @@ const defaultContext = {
   user_exists: false,
 };
 
+const defaultSanitizedContext = {
+  action: {
+    name: '',
+  },
+  req: {
+    uri: '',
+  },
+  stash: {
+    current_language: 'en',
+  },
+  user: null,
+  user_exists: false,
+};
+
 const CatalystContext =
-  React.createContext/*:: <typeof defaultContext> */(defaultContext);
+  React.createContext/*:: <CatalystContextT> */(defaultContext);
 
 exports.CatalystContext = CatalystContext;
 
+const SanitizedCatalystContext =
+  React.createContext/*:: <SanitizedCatalystContextT> */(
+    defaultSanitizedContext,
+  );
+
+exports.SanitizedCatalystContext = SanitizedCatalystContext;
+
 /*::
 type ContextPropT = {
-  +$c: CatalystContextT | SanitizedCatalystContextT,
+  +$c: CatalystContextT,
   ...,
 };
 */

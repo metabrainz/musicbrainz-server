@@ -15,6 +15,7 @@ import FormRow from '../../../../components/FormRow';
 import FormRowCheckbox from '../../../../components/FormRowCheckbox';
 import FormRowSelect from '../../../../components/FormRowSelect';
 import FormSubmit from '../../../../components/FormSubmit';
+import {SanitizedCatalystContext} from '../../../../context';
 import {formatUserDateObject} from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
 
@@ -36,7 +37,6 @@ type PreferencesFormT = FormT<{
 }>;
 
 type Props = {
-  +$c: CatalystContextT | SanitizedCatalystContextT,
   +form: PreferencesFormT,
   +timezone_options: MaybeGroupedOptionsT,
 };
@@ -167,15 +167,19 @@ class PreferencesForm extends React.Component<Props, State> {
             onChange={this.handleTimezoneChange}
             options={this.state.timezoneOptions}
           />
-          <FormRowSelect
-            field={field.datetime_format}
-            label={l('Date/time format:')}
-            onChange={this.handleDateTimeFormatChange}
-            options={buildDateTimeFormatOptions(
-              this.props.$c,
-              field.timezone.value,
+          <SanitizedCatalystContext.Consumer>
+            {$c => (
+              <FormRowSelect
+                field={field.datetime_format}
+                label={l('Date/time format:')}
+                onChange={this.handleDateTimeFormatChange}
+                options={buildDateTimeFormatOptions(
+                  $c,
+                  field.timezone.value,
+                )}
+              />
             )}
-          />
+          </SanitizedCatalystContext.Consumer>
         </fieldset>
         <fieldset>
           <legend>{l('Privacy')}</legend>
