@@ -108,7 +108,7 @@ function createJsPo(srcPo, lang) {
    * possible terminal paths.
    */
   const scriptsDir = shellQuote.quote([dirs.SCRIPTS]);
-  const nestedDirs = shell.exec(`find ${scriptsDir} -type d`, {silent: true}).output.split('\n');
+  const nestedDirs = shell.exec(`find ${scriptsDir} -type d`, {silent: true}).stdout.split('\n');
   const msgLocations = _(nestedDirs)
     .compact()
     .map(dir => '-N ' + shellQuote.quote(['..' + dir.replace(dirs.CHECKOUT, '') + '/*.js']))
