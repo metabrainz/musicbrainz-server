@@ -28,7 +28,7 @@ import SeriesLayout from './SeriesLayout';
 
 type ListPickerProps = {
   ...SeriesItemNumbersRoleT,
-  +entities: ?$ReadOnlyArray<CoreEntityT>,
+  +entities: $ReadOnlyArray<CoreEntityT>,
   +seriesEntityType: CoreEntityTypeT,
 };
 
@@ -44,7 +44,7 @@ const listPicker = ({
     case 'event':
       return (
         <EventList
-          events={entities}
+          events={((entities: any): $ReadOnlyArray<EventT>)}
           showArtists
           showLocation
           showRatings
@@ -54,7 +54,7 @@ const listPicker = ({
     case 'recording':
       return (
         <RecordingList
-          recordings={entities}
+          recordings={((entities: any): $ReadOnlyArray<RecordingT>)}
           showRatings
           {...sharedProps}
         />
@@ -62,14 +62,14 @@ const listPicker = ({
     case 'release':
       return (
         <ReleaseList
-          releases={entities}
+          releases={((entities: any): $ReadOnlyArray<ReleaseT>)}
           {...sharedProps}
         />
       );
     case 'release_group':
       return (
         <ReleaseGroupListTable
-          releaseGroups={entities}
+          releaseGroups={((entities: any): $ReadOnlyArray<ReleaseGroupT>)}
           showRatings
           {...sharedProps}
         />
@@ -78,7 +78,7 @@ const listPicker = ({
       return (
         <WorkList
           showRatings
-          works={entities}
+          works={((entities: any): $ReadOnlyArray<WorkT>)}
           {...sharedProps}
         />
       );
@@ -107,6 +107,7 @@ const SeriesIndex = ({
   wikipediaExtract,
 }: SeriesIndexProps) => {
   const seriesEntityType = series.type.item_entity_type;
+  const existingEntities = entities?.length ? entities : null;
   return (
     <SeriesLayout entity={series} page="index">
       {eligibleForCleanup ? (
@@ -125,9 +126,13 @@ const SeriesIndex = ({
 
       <h2>{formatPluralEntityTypeName(seriesEntityType)}</h2>
 
-      {entities?.length ? (
+      {existingEntities ? (
         <PaginatedResults pager={pager}>
-          {listPicker({entities, seriesEntityType, seriesItemNumbers})}
+          {listPicker({
+            entities: existingEntities,
+            seriesEntityType,
+            seriesItemNumbers,
+          })}
         </PaginatedResults>
       ) : (
         <p>

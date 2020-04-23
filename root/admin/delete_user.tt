@@ -5,6 +5,7 @@
     <p>[% l('Are you sure you want to delete all information about {e}? This cannot be undone!',
         { e => link_editor(user) }) %]</p>
     <form action="[% c.req.uri %]" method="post" id="delete-account-form">
+      [% form_csrf_token %]
       <p>
         <label>
           <input type="checkbox" name="allow_reuse" value="1" checked="checked" />
@@ -22,6 +23,7 @@
 
     <p>[% l('Are you sure you want to delete your account? This cannot be undone!')%]</p>
     <form action="[% c.req.uri %]" method="post" id="delete-account-form">
+      [% form_csrf_token %]
       <span class="buttons">
         <button class="negative" type="submit">[% l('Delete my account') %]</button>
       </span>

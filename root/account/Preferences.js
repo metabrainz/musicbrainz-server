@@ -22,9 +22,9 @@ type Props = {
   +$c: $ReadOnly<{...CatalystContextT, user: EditorT}>,
 };
 
-const Preferences = withCatalystContext((props: Props) => (
+const Preferences = withCatalystContext(({$c, ...props}: Props) => (
   <UserAccountLayout
-    entity={props.$c.user}
+    entity={$c.user}
     page="preferences"
     title={l('Preferences')}
   >

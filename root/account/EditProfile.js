@@ -18,8 +18,8 @@ import type {EditProfileFormPropsT}
   from '../static/scripts/account/components/EditProfileForm';
 
 type Props = {
-  +$c: CatalystContextT,
   ...EditProfileFormPropsT,
+  +$c: CatalystContextT,
 };
 
 const EditProfile = ({$c, ...props}: Props) => {

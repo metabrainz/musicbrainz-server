@@ -25,7 +25,7 @@ sub index : Path('')
     );
 }
 
-sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor)
+sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor) CSRFToken
 {
     my ($self, $c, $editor) = @_;
 
@@ -34,7 +34,7 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor)
         unless $c->user->can_nominate($candidate);
 
     my $form = $c->form( form => 'SubmitCancel' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             my $url = $c->uri_for_action('/user/profile', [ $candidate->name ]);
             $c->res->redirect($url);
@@ -104,7 +104,7 @@ sub second : Chained('load') Args(0) RequireAuth(auto_editor)
     my $election = $c->stash->{election};
 
     my $form = $c->form( form => 'Submit' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('AutoEditorElection')->second($election, $c->user);
     }
 
@@ -122,7 +122,7 @@ sub cancel : Chained('load') Args(0) RequireAuth(auto_editor)
         unless $election->proposer_id == $c->user->id;
 
     my $form = $c->form( form => 'Submit' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('AutoEditorElection')->cancel($election, $c->user);
     }
 
@@ -138,7 +138,7 @@ sub vote : Chained('load') Args(0) RequireAuth(auto_editor)
     my $election = $c->stash->{election};
 
     my $form = $c->form( form => 'AutoEditorElection::Vote' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('AutoEditorElection')->vote($election, $c->user,
                                               $form->field('vote')->value);
     }

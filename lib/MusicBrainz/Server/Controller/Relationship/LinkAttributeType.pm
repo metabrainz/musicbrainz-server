@@ -53,7 +53,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
     $form->field('parent_id')->value($parent_link_attr_type->id)
         if $parent_link_attr_type;
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,
@@ -77,7 +77,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
 
     my $form = $c->form( form => 'Admin::LinkAttributeType', init_object => $link_attr_type );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,
@@ -117,7 +117,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
         $c->detach;
     }
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,

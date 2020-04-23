@@ -10,6 +10,7 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
+import FormCsrfToken from '../../../../components/FormCsrfToken';
 import FormRow from '../../../../components/FormRow';
 import FormRowSelect from '../../../../components/FormRowSelect';
 import FormRowText from '../../../../components/FormRowText';
@@ -71,6 +72,8 @@ class ApplicationForm extends React.Component<Props, State> {
   render() {
     return (
       <form method="post">
+        <FormCsrfToken />
+
         <FormRowText
           field={this.state.form.field.name}
           label={addColonText(l('Name'))}

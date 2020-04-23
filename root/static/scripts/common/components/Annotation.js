@@ -10,7 +10,7 @@
 import * as React from 'react';
 import mutate from 'mutate-cow';
 
-import {withCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
 import sanitizedEditor from '../../../../utility/sanitizedEditor';
@@ -25,7 +25,6 @@ type MinimalAnnotatedEntityT = $ReadOnly<{
 }>;
 
 type Props = {
-  +$c: CatalystContextT | SanitizedCatalystContextT,
   +annotation: ?$ReadOnly<{
     ...AnnotationT,
     +editor: EditorT | SanitizedEditorT | null,
@@ -48,7 +47,6 @@ type WritableProps = {
 };
 
 const Annotation = ({
-  $c,
   annotation,
   collapse = false,
   entity,
@@ -84,52 +82,58 @@ const Annotation = ({
         </p>
       ) : null}
 
-      <div className="annotation-details">
-        {$c.user_exists ? (
-          latestAnnotation && (annotation.id === latestAnnotation.id) ? (
-            <>
-              {exp.l('Annotation last modified by {user} on {date}.', {
-                date: formatUserDate($c, annotation.creation_date),
-                user: <EditorLink editor={annotation.editor} />,
-              })}
-              {' '}
-              {numberOfRevisions && numberOfRevisions > 1 ? (
+      <SanitizedCatalystContext.Consumer>
+        {$c => (
+          <div className="annotation-details">
+            {$c.user_exists ? (
+              latestAnnotation && (annotation.id === latestAnnotation.id) ? (
                 <>
-                  <a href={entityHref(entity, '/annotations')}>
-                    {l('View annotation history')}
+                  {exp.l('Annotation last modified by {user} on {date}.', {
+                    date: formatUserDate($c, annotation.creation_date),
+                    user: <EditorLink editor={annotation.editor} />,
+                  })}
+                  {' '}
+                  {numberOfRevisions && numberOfRevisions > 1 ? (
+                    <>
+                      <a href={entityHref(entity, '/annotations')}>
+                        {l('View annotation history')}
+                      </a>
+                      {' | '}
+                    </>
+                  ) : null}
+                  <a href={entityHref(entity, 'edit_annotation')}>
+                    {l('Edit annotation')}
                   </a>
-                  {' | '}
                 </>
-              ) : null}
-              <a href={entityHref(entity, 'edit_annotation')}>
-                {l('Edit annotation')}
-              </a>
-            </>
-          ) : (
-            exp.l(
-              `This is an {history|old revision} of this annotation,
-               as edited by {user} on {date}.
-               {current|View current revision}.`,
-              {
-                current: entityHref(entity, '/annotation'),
+              ) : (
+                exp.l(
+                  `This is an {history|old revision} of this annotation,
+                  as edited by {user} on {date}.
+                  {current|View current revision}.`,
+                  {
+                    current: entityHref(entity, '/annotation'),
+                    date: formatUserDate($c, annotation.creation_date),
+                    history: entityHref(entity, '/annotations'),
+                    user: <EditorLink editor={annotation.editor} />,
+                  },
+                )
+              )
+            ) : (
+              texp.l('Annotation last modified on {date}.', {
                 date: formatUserDate($c, annotation.creation_date),
-                history: entityHref(entity, '/annotations'),
-                user: <EditorLink editor={annotation.editor} />,
-              },
-            )
-          )
-        ) : (
-          texp.l('Annotation last modified on {date}.', {
-            date: formatUserDate($c, annotation.creation_date),
-          })
+              })
+            )}
+          </div>
         )}
-      </div>
+      </SanitizedCatalystContext.Consumer>
     </>
   );
 };
 
-export default withCatalystContext(
-  hydrate<Props>('div.annotation', Annotation, function (props) {
+export default hydrate<Props>(
+  'div.annotation',
+  Annotation,
+  function (props) {
     const entity = props.entity;
 
     return mutate<WritableProps, Props>(props, newProps => {
@@ -146,5 +150,5 @@ export default withCatalystContext(
         latest_annotation: entity.latest_annotation,
       };
     });
-  }),
+  },
 );

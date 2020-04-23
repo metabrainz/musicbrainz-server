@@ -13,6 +13,7 @@ const Sentry = require('@sentry/node');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
 const getRequestCookie = require('../utility/getRequestCookie');
+const sanitizedContext = require('../utility/sanitizedContext');
 const {bufferFrom} = require('./buffer');
 
 function badRequest(err) {
@@ -92,13 +93,17 @@ function getResponse(requestBody, context) {
      */
     const React = require('react');
     const ReactDOMServer = require('react-dom/server');
-    const {CatalystContext} = require('../context');
+    const {CatalystContext, SanitizedCatalystContext} = require('../context');
 
     response = ReactDOMServer.renderToString(
       React.createElement(
         CatalystContext.Provider,
         {value: context},
-        React.createElement(Page, requestBody.props),
+        React.createElement(
+          SanitizedCatalystContext.Provider,
+          {value: sanitizedContext(context)},
+          React.createElement(Page, requestBody.props),
+        ),
       ),
     );
   } catch (err) {

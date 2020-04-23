@@ -281,7 +281,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
         }
     );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,
@@ -328,7 +328,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
         form => 'Release::ReorderCoverArt',
         init_object => { artwork => \@positions }
     );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,
@@ -564,7 +564,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
             comment => $artwork->comment,
         }
     );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,

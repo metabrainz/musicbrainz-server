@@ -14,8 +14,8 @@ function compareEntities(a: CoreEntityT, b: CoreEntityT): number {
   return compare(getSortName(a), getSortName(b)) || (a.id - b.id);
 }
 
-export default function sortByEntityName(
-  entities: $ReadOnlyArray<CoreEntityT>,
-): $ReadOnlyArray<CoreEntityT> {
+export default function sortByEntityName<T: CoreEntityT>(
+  entities: $ReadOnlyArray<T>,
+): $ReadOnlyArray<T> {
   return entities.slice(0).sort(compareEntities);
 }

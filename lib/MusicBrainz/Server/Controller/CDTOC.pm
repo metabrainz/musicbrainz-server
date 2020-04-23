@@ -250,7 +250,7 @@ sub _attach_list {
             qw( artist-name release-name );
 
         # One of these must have been submitted to get here
-        if ($search_artist->submitted_and_valid($c->req->query_params)) {
+        if ($c->form_submitted_and_valid($search_artist, $c->req->query_params)) {
             my $artists = $self->_load_paged($c, sub {
                 $c->model('Search')->search('artist', $search_artist->field('query')->value, shift, shift)
             });
@@ -260,7 +260,7 @@ sub _attach_list {
             );
             $c->detach;
         }
-        elsif ($search_release->submitted_and_valid($c->req->query_params)) {
+        elsif ($c->form_submitted_and_valid($search_release, $c->req->query_params)) {
             my $releases = $self->_load_paged($c, sub {
                 $c->model('Search')->search('release', $search_release->field('query')->value, shift, shift,
                                             { track_count => $cdtoc->track_count });
@@ -381,7 +381,7 @@ sub move : Local Edit
                                        name => 'filter-release' );
         $c->stash( template => 'cdtoc/move_search.tt' );
 
-        if ($search_release->submitted_and_valid($c->req->query_params)) {
+        if ($c->form_submitted_and_valid($search_release, $c->req->query_params)) {
             my $releases = $self->_load_paged($c, sub {
                 $c->model('Search')->search('release', $search_release->field('query')->value, shift, shift,
                                             { track_count => $cdtoc->track_count });

@@ -171,7 +171,7 @@ sub _send_password_reset_email
     };
 }
 
-sub lost_password : Path('/lost-password') ForbiddenOnSlaves
+sub lost_password : Path('/lost-password') ForbiddenOnSlaves CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -184,8 +184,7 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
     }
 
     my $form = $c->form( form => 'User::LostPassword' );
-
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         my $username = $form->field('username')->value;
         my $email = $form->field('email')->value;
 
@@ -221,7 +220,7 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
     $c->detach;
 }
 
-sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
+sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -288,8 +287,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
 
     my $form = $c->form( form => 'User::ResetPassword' );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
+    if ($c->form_posted_and_valid($form)) {
         my $password = $form->field('password')->value;
         $c->model('Editor')->update_password($editor->name, $password);
 
@@ -304,7 +302,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
     $c->stash->{form} = $form;
 }
 
-sub lost_username : Path('/lost-username') ForbiddenOnSlaves
+sub lost_username : Path('/lost-username') ForbiddenOnSlaves CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -318,7 +316,7 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves
 
     my $form = $c->form( form => 'User::LostUsername' );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         my $email = $form->field('email')->value;
 
         my @editors = $c->model('Editor')->find_by_email($email);
@@ -352,7 +350,7 @@ request is received), update the profile data in the database.
 
 =cut
 
-sub edit : Local RequireAuth DenyWhenReadonly {
+sub edit : Local RequireAuth DenyWhenReadonly CSRFToken {
     my ($self, $c) = @_;
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
@@ -375,7 +373,7 @@ sub edit : Local RequireAuth DenyWhenReadonly {
         },
     );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         my $old_username = $editor->name;
         my $new_username = $form->field('username')->value;
 
@@ -444,7 +442,7 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadonly
+sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadonly CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -466,7 +464,7 @@ sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadon
         }
     );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         my $password = $form->field('password')->value;
         $c->model('Editor')->update_password(
             $form->field('username')->value, $password);
@@ -482,7 +480,7 @@ Change the users preferences
 
 =cut
 
-sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly
+sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -499,8 +497,7 @@ sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly
 
     my $form = $c->form( form => 'User::Preferences', item => $editor->preferences );
 
-    if ($c->form_posted &&
-        $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('Editor')->save_preferences($editor, $form->values);
 
         $c->user->preferences($editor->preferences);
@@ -535,7 +532,7 @@ new user.
 
 =cut
 
-sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
+sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -552,8 +549,7 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
                        defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
                        defined DBDefs->RECAPTCHA_PRIVATE_KEY);
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
+    if ($c->form_posted_and_valid($form)) {
         my $valid = 0;
         if ($use_captcha)
         {
@@ -730,12 +726,12 @@ sub applications : Path('/account/applications') RequireAuth RequireSSL
     );
 }
 
-sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth DenyWhenReadonly
+sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth DenyWhenReadonly CSRFToken
 {
     my ($self, $c, $application_id, $scope) = @_;
 
     my $form = $c->form( form => 'SubmitCancel' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             $c->response->redirect($c->uri_for_action('/account/applications'));
             $c->detach;
@@ -758,12 +754,12 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     }
 }
 
-sub register_application : Path('/account/applications/register') RequireAuth RequireSSL DenyWhenReadonly
+sub register_application : Path('/account/applications/register') RequireAuth RequireSSL DenyWhenReadonly CSRFToken
 {
     my ($self, $c) = @_;
 
     my $form = $c->form( form => 'Application' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $c->model('Application')->insert({
                 owner_id => $c->user->id,
@@ -785,7 +781,7 @@ sub register_application : Path('/account/applications/register') RequireAuth Re
     }
 }
 
-sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth RequireSSL DenyWhenReadonly
+sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth RequireSSL DenyWhenReadonly CSRFToken
 {
     my ($self, $c, $id) = @_;
 
@@ -796,7 +792,7 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth Re
     $c->stash( application => $application );
 
     my $form = $c->form( form => 'Application', init_object => $application );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params) && $form->field('oauth_type')->value eq $application->oauth_type) {
+    if ($c->form_posted_and_valid($form) && $form->field('oauth_type')->value eq $application->oauth_type) {
         $c->model('MB')->with_transaction(sub {
             $c->model('Application')->update($application->id, {
                 name => $form->field('name')->value,
@@ -818,7 +814,7 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth Re
     }
 }
 
-sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth RequireSSL DenyWhenReadonly
+sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth RequireSSL DenyWhenReadonly CSRFToken
 {
     my ($self, $c, $id) = @_;
 
@@ -827,7 +823,7 @@ sub remove_application : Path('/account/applications/remove') Args(1) RequireAut
         unless defined $application && $application->owner_id == $c->user->id;
 
     my $form = $c->form( form => 'SubmitCancel' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             $c->response->redirect($c->uri_for_action('/account/applications'));
             $c->detach;
