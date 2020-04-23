@@ -62,8 +62,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-18 16:16+0000\n"
-"PO-Revision-Date: 2020-04-18 16:19+0000\n"
+"POT-Creation-Date: 2020-04-21 20:02+0000\n"
+"PO-Revision-Date: 2020-04-22 16:28+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -804,7 +804,7 @@ msgstr "Régions"
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:31
-#: ../root/components/RelationshipsTable.js:90
+#: ../root/components/RelationshipsTable.js:95
 #: ../root/components/list/ArtistList.js:60
 #: ../root/components/list/RecordingList.js:75
 #: ../root/components/list/ReleaseGroupList.js:96
@@ -964,7 +964,7 @@ msgstr "Rattaché aux parutions"
 #: ../root/admin/attributes/Index.js:20 ../root/admin/attributes/Index.js:21
 #: ../root/admin/attributes/Language.js:32
 #: ../root/admin/attributes/Script.js:33
-#: ../root/components/RelationshipsTable.js:89
+#: ../root/components/RelationshipsTable.js:94
 #: ../root/utility/tableColumns.js:479
 msgid "Attributes"
 msgstr "Attributs"
@@ -1504,7 +1504,7 @@ msgstr "Données :"
 #: ../root/edit/details/merge_releases.tt:23
 #: ../root/otherlookup/results-release.tt:14
 #: ../root/release/edit/duplicates.tt:13 ../root/release/merge.tt:16
-#: ../root/components/RelationshipsTable.js:86
+#: ../root/components/RelationshipsTable.js:91
 #: ../root/elections/ElectionVotes.js:26
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/release_group/ReleaseGroupIndex.js:140
@@ -1795,6 +1795,7 @@ msgstr "Modifier l’alias"
 
 #: ../root/annotation/edit.tt:2
 #: ../root/layout/components/sidebar/AnnotationLinks.js:33
+#: ../root/static/scripts/common/components/Annotation.js:105
 msgid "Edit annotation"
 msgstr "Modifier l’annotation"
 
@@ -2353,7 +2354,7 @@ msgstr "« Masquée » devrait être utilisé pour les langues des signes et l
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:245
+#: ../root/static/scripts/common/constants.js:246
 msgid "High"
 msgstr "Haute"
 
@@ -2838,7 +2839,7 @@ msgstr "Dernier paquet de réplication reçu à {datetime}"
 #: ../root/edit/details/historic/add_release.tt:52
 #: ../root/release/discids.tt:10 ../root/release/edit/tracklist.tt:151
 #: ../root/release/edit/tracklist.tt:371
-#: ../root/components/RelationshipsTable.js:91
+#: ../root/components/RelationshipsTable.js:96
 #: ../root/components/list/RecordingList.js:84 ../root/isrc/Index.js:58
 #: ../root/recording/RecordingIndex.js:48
 #: ../root/report/IsrcsWithManyRecordings.js:75
@@ -2947,7 +2948,7 @@ msgstr "Nombre de recherches"
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:242
+#: ../root/static/scripts/common/constants.js:243
 msgid "Low"
 msgstr "Bas"
 
@@ -3398,8 +3399,8 @@ msgstr "Aucun des ID de disque joints ne peut correspondre à un silence prélim
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:243
 #: ../root/static/scripts/common/constants.js:244
+#: ../root/static/scripts/common/constants.js:245
 msgid "Normal"
 msgstr "Normal"
 
@@ -3902,8 +3903,8 @@ msgid "Recording:"
 msgstr "Enregistrement :"
 
 #: ../root/components/common-macros.tt:593 ../root/release/edit/layout.tt:17
-#: ../root/artist/ArtistRecordings.js:45 ../root/artist/ArtistRecordings.js:46
-#: ../root/components/EntityTabs.js:28
+#: ../root/area/AreaRecordings.js:17 ../root/artist/ArtistRecordings.js:45
+#: ../root/artist/ArtistRecordings.js:46 ../root/components/EntityTabs.js:28
 #: ../root/instrument/InstrumentRecordings.js:36
 #: ../root/instrument/InstrumentRecordings.js:38
 #: ../root/report/ReportsIndex.js:407
@@ -3980,7 +3981,8 @@ msgstr "Éditeur de relation"
 msgid "Relationship:"
 msgstr "Relation :"
 
-#: ../root/forms/relationship-editor.tt:5
+#: ../root/forms/relationship-editor.tt:5 ../root/area/AreaRecordings.js:23
+#: ../root/area/AreaReleases.js:64 ../root/area/AreaWorks.js:23
 #: ../root/artist/ArtistRelationships.js:22
 #: ../root/artist/ArtistRelationships.js:28
 #: ../root/components/EntityTabs.js:89 ../root/components/Relationships.js:99
@@ -4159,7 +4161,7 @@ msgstr "Parution :"
 
 #: ../root/components/common-macros.tt:593
 #: ../root/edit/details/historic/add_release_annotation.tt:3
-#: ../root/area/AreaReleases.js:31 ../root/area/AreaReleases.js:32
+#: ../root/area/AreaReleases.js:32 ../root/area/AreaReleases.js:33
 #: ../root/artist/ArtistReleases.js:45 ../root/artist/ArtistReleases.js:46
 #: ../root/components/EntityTabs.js:29
 #: ../root/components/list/ReleaseGroupList.js:108
@@ -5380,7 +5382,7 @@ msgstr "Heure :"
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/release/edit/tracklist.tt:149 ../root/release/edit/tracklist.tt:369
-#: ../root/components/RelationshipsTable.js:87
+#: ../root/components/RelationshipsTable.js:92
 #: ../root/components/list/ReleaseGroupList.js:88 ../root/isrc/Index.js:56
 #: ../root/iswc/Index.js:49 ../root/recording/RecordingIndex.js:47
 msgid "Title"
@@ -5987,9 +5989,9 @@ msgstr "Évaluations des œuvres"
 msgid "Work:"
 msgstr "Œuvre :"
 
-#: ../root/components/common-macros.tt:593 ../root/artist/ArtistWorks.js:31
-#: ../root/artist/ArtistWorks.js:32 ../root/components/EntityTabs.js:31
-#: ../root/report/ReportsIndex.js:495
+#: ../root/components/common-macros.tt:593 ../root/area/AreaWorks.js:17
+#: ../root/artist/ArtistWorks.js:31 ../root/artist/ArtistWorks.js:32
+#: ../root/components/EntityTabs.js:31 ../root/report/ReportsIndex.js:495
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagIndex.js:134 ../root/tag/TagLayout.js:29
 msgid "Works"
@@ -6055,7 +6057,7 @@ msgstr "Vous êtes sur le point de saisir une modification qui changera la duré
 msgid ""
 "You are about to merge all these releases into a single one. Please select "
 "the release all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner toutes ces parutions en une seule parution. Veuillez choisir la parution dans laquelle vous souhaitez fusionner les autres :"
 
 #: ../root/watch/list.tt:7
 msgid "You are currently watching the following artists for new releases."
@@ -8326,22 +8328,22 @@ msgid "Invalid URL format"
 msgstr "Format d’URL invalide"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:72
-#: ../root/static/scripts/common/constants.js:250
+#: ../root/static/scripts/common/constants.js:251
 msgid "Basic"
 msgstr "De base"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:73
-#: ../root/static/scripts/common/constants.js:251
+#: ../root/static/scripts/common/constants.js:252
 msgid "Intermediate"
 msgstr "Intermédiaire"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:74
-#: ../root/static/scripts/common/constants.js:249
+#: ../root/static/scripts/common/constants.js:250
 msgid "Advanced"
 msgstr "Avancé"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:75
-#: ../root/static/scripts/common/constants.js:252
+#: ../root/static/scripts/common/constants.js:253
 msgid "Native"
 msgstr "Natif"
 
@@ -8876,7 +8878,7 @@ msgstr "Cette région n’est actuellement associée à aucun label."
 msgid ""
 "You are about to merge all these areas into a single one. Please select the "
 "area all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner toutes ces régions en une seule région. Veuillez choisir la région dans laquelle vous souhaitez fusionner les autres :"
 
 #: ../root/area/AreaPlaces.js:48 ../root/place/PlaceMap.js:42
 msgid ""
@@ -8888,15 +8890,23 @@ msgstr "Impossible d’afficher une carte, car le jeton d’accès au service ca
 msgid "This area is not currently associated with any places."
 msgstr "Cette région n’est actuellement associée à aucun lieu."
 
-#: ../root/area/AreaReleases.js:46 ../root/artist/ArtistReleases.js:60
+#: ../root/area/AreaRecordings.js:21
+msgid "This area has no relationships to any recordings."
+msgstr "Cette région n’a de relation avec aucun enregistrement."
+
+#: ../root/area/AreaReleases.js:47 ../root/artist/ArtistReleases.js:60
 #: ../root/instrument/InstrumentReleases.js:50 ../root/label/LabelIndex.js:70
 #: ../root/release_group/ReleaseGroupIndex.js:155
 msgid "Add selected releases for merging"
 msgstr "Ajouter les parutions choisies pour la fusion"
 
-#: ../root/area/AreaReleases.js:54
+#: ../root/area/AreaReleases.js:55
 msgid "This area is not currently associated with any releases."
 msgstr "Cette région n’est actuellement associée à aucune parution,"
+
+#: ../root/area/AreaReleases.js:62
+msgid "This area has no relationships to any releases."
+msgstr "Cette région n’a de relation avec aucune parution."
 
 #: ../root/area/AreaUsers.js:28 ../root/area/AreaUsers.js:29
 #: ../root/components/EntityTabs.js:30
@@ -8912,6 +8922,10 @@ msgstr[1] "Il y a actuellement {num} utilisateurs dans cette région."
 #: ../root/area/AreaUsers.js:39
 msgid "There are currently no users in this area."
 msgstr "Il n’y a actuellement aucun utilisateur dans cette région."
+
+#: ../root/area/AreaWorks.js:21
+msgid "This area has no relationships to any works."
+msgstr "Cette région n’a de relation avec aucune œuvre."
 
 #: ../root/artist/ArtistEvents.js:59
 msgid "This artist is not currently associated with any events."
@@ -9024,7 +9038,7 @@ msgstr "Discographie"
 msgid ""
 "You are about to merge all these artists into a single one. Please select "
 "the artist all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner tous ces artistes en un seul artiste. Veuillez choisir l’artiste dans lequel vous souhaitez fusionner les autres :"
 
 #: ../root/artist/ArtistMerge.js:49
 msgid "You should only use the checkbox above to fix errors (e.g. typos)."
@@ -9384,7 +9398,7 @@ msgstr "Séries connexes"
 msgid "Related works"
 msgstr "Œuvres connexes"
 
-#: ../root/components/RelationshipsTable.js:88
+#: ../root/components/RelationshipsTable.js:93
 msgid "Credited As"
 msgstr "Crédité en tant que"
 
@@ -9395,7 +9409,7 @@ msgstr "{num}. {relationship}"
 
 #: ../root/components/StaticRelationshipsDisplay.js:60
 msgid "{relationship} (order: {num})"
-msgstr ""
+msgstr "{relationship} (ordre : {num})"
 
 #: ../root/components/UserAccountTabs.js:30
 #: ../root/layout/components/TopMenu.js:32
@@ -10162,7 +10176,7 @@ msgstr "Vous n’êtes actuellement pas abonné. {sub|Vous abonner} ?"
 msgid ""
 "You are about to merge all these events into a single one. Please select the"
 " event all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner tous ces événements en un seul événement. Veuillez choisir l’événement dans lequel vous souhaitez fusionner les autres :"
 
 #: ../root/genre/CreateGenre.js:18 ../root/genre/CreateGenre.js:20
 msgid "Add a new genre"
@@ -10236,7 +10250,7 @@ msgstr "instrument"
 msgid ""
 "You are about to merge all these instruments into a single one. Please "
 "select the instrument all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner tous ces instruments en un seul instrument. Veuillez choisir l’instrument dans lequel vous souhaitez fusionner les autres :"
 
 #: ../root/instrument/List.js:45 ../root/instrument/List.js:47
 #: ../root/layout/components/BottomMenu.js:293
@@ -10282,7 +10296,7 @@ msgstr "Ce label n’a pas de parution."
 msgid ""
 "You are about to merge all these labels into a single one. Please select the"
 " label all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner tous ces labels en un seul label. Veuillez choisir le label dans lequel vous souhaitez fusionner les autres :"
 
 #: ../root/label/SpecialPurpose.js:21
 msgid "You may not edit special purpose labels"
@@ -11067,7 +11081,7 @@ msgstr "Impossible d’afficher une carte, car ce lieu n’a pas de coordonnées
 msgid ""
 "You are about to merge all these places into a single one. Please select the"
 " place all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner tous ces lieux en un seul lieu. Veuillez choisir le lieu dans lequel vous souhaitez fusionner les autres :"
 
 #: ../root/place/PlacePerformances.js:21
 msgid "No recordings, releases or release groups are linked to this place."
@@ -11123,7 +11137,7 @@ msgstr "Aucune parution de trouvée contenant cet enregistrement."
 msgid ""
 "You are about to merge all these recordings into a single one. Please select"
 " the recording all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner tous ces enregistrements en un seul enregistrement. Veuillez choisir l’enregistrement dans lequel vous souhaitez fusionner les autres :"
 
 #: ../root/recording/RecordingMerge.js:40
 msgid ""
@@ -11146,7 +11160,7 @@ msgstr "Attributs de relation utilisés"
 msgid ""
 "The relationship attribute type “{type}” can’t be deleted because it’s still"
 " in use."
-msgstr ""
+msgstr "Le type d’attribut de relation « {type} » ne peut pas être effacé car il est encore utilisé."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:45
 msgid "none"
@@ -11176,7 +11190,7 @@ msgstr "Type de relation utilisé"
 #: ../root/relationship/linktype/RelationshipTypeInUse.js:20
 msgid ""
 "The relationship type \"{type}\" can’t be deleted because it’s still in use."
-msgstr ""
+msgstr "Le type de relation « {type} » ne peut pas être effacé car il est encore utilisé."
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:45
 msgid "more"
@@ -11256,7 +11270,7 @@ msgstr "Les plus populaires"
 msgid ""
 "You are about to merge all these release groups into a single one. Please "
 "select the release group all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner tous ces groupes de parution en un seul groupe. Veuillez choisir le groupe dans lequel vous souhaitez fusionner les autres :"
 
 #: ../root/report/AnnotationsArtists.js:29
 #: ../root/report/AnnotationsArtists.js:30
@@ -12897,7 +12911,7 @@ msgstr "Cette série est actuellement vide."
 msgid ""
 "You are about to merge all these series into a single one. Please select the"
 " series all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner toutes ces séries en une seule série. Veuillez choisir la série dans laquelle vous souhaitez fusionner les autres :"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:90
 msgid "Callback URL"
@@ -13172,13 +13186,13 @@ msgstr "(pas de journal des changements)"
 msgid "Annotation last modified by {user} on {date}."
 msgstr "Annotation modifiée le {date} par {user}."
 
-#: ../root/static/scripts/common/components/Annotation.js:106
+#: ../root/static/scripts/common/components/Annotation.js:110
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
 msgstr "Ceci est une {history|ancienne version} de cette annotation, comme l’a modifiée l’utilisateur {user} le {date}. {current|Voir la version actuelle}."
 
-#: ../root/static/scripts/common/components/Annotation.js:118
+#: ../root/static/scripts/common/components/Annotation.js:122
 msgid "Annotation last modified on {date}."
 msgstr "Annotation modifiée en dernier le {date}."
 
@@ -14566,7 +14580,7 @@ msgstr "Rejeter à la fin du vote"
 
 #: ../root/utility/edit.js:57
 msgid "This edit is open for voting."
-msgstr ""
+msgstr "Cette modification est ouverte aux votes."
 
 #: ../root/utility/edit.js:59
 msgid "This edit has been successfully applied."
@@ -14829,4 +14843,4 @@ msgstr "Toutes les modifications ouvertes"
 msgid ""
 "You are about to merge all these works into a single one. Please select the "
 "work all others should be merged into:"
-msgstr ""
+msgstr "Vous êtes sur le point de fusionner toutes ces œuvres en une seule œuvre Veuillez choisir la œuvre dans laquelle vous souhaitez fusionner les autres :"

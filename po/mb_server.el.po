@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-18 16:16+0000\n"
-"PO-Revision-Date: 2020-04-18 16:19+0000\n"
+"POT-Creation-Date: 2020-04-21 20:02+0000\n"
+"PO-Revision-Date: 2020-04-21 20:17+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -764,7 +764,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:31
-#: ../root/components/RelationshipsTable.js:90
+#: ../root/components/RelationshipsTable.js:95
 #: ../root/components/list/ArtistList.js:60
 #: ../root/components/list/RecordingList.js:75
 #: ../root/components/list/ReleaseGroupList.js:96
@@ -924,7 +924,7 @@ msgstr "Επισυνάφθηκε στις κυκλοφορίες"
 #: ../root/admin/attributes/Index.js:20 ../root/admin/attributes/Index.js:21
 #: ../root/admin/attributes/Language.js:32
 #: ../root/admin/attributes/Script.js:33
-#: ../root/components/RelationshipsTable.js:89
+#: ../root/components/RelationshipsTable.js:94
 #: ../root/utility/tableColumns.js:479
 msgid "Attributes"
 msgstr "Γνωρίσματα"
@@ -1464,7 +1464,7 @@ msgstr ""
 #: ../root/edit/details/merge_releases.tt:23
 #: ../root/otherlookup/results-release.tt:14
 #: ../root/release/edit/duplicates.tt:13 ../root/release/merge.tt:16
-#: ../root/components/RelationshipsTable.js:86
+#: ../root/components/RelationshipsTable.js:91
 #: ../root/elections/ElectionVotes.js:26
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/release_group/ReleaseGroupIndex.js:140
@@ -1755,6 +1755,7 @@ msgstr ""
 
 #: ../root/annotation/edit.tt:2
 #: ../root/layout/components/sidebar/AnnotationLinks.js:33
+#: ../root/static/scripts/common/components/Annotation.js:105
 msgid "Edit annotation"
 msgstr "Επεξεργασία σχολίου"
 
@@ -2313,7 +2314,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:245
+#: ../root/static/scripts/common/constants.js:246
 msgid "High"
 msgstr "Υψηλή"
 
@@ -2798,7 +2799,7 @@ msgstr ""
 #: ../root/edit/details/historic/add_release.tt:52
 #: ../root/release/discids.tt:10 ../root/release/edit/tracklist.tt:151
 #: ../root/release/edit/tracklist.tt:371
-#: ../root/components/RelationshipsTable.js:91
+#: ../root/components/RelationshipsTable.js:96
 #: ../root/components/list/RecordingList.js:84 ../root/isrc/Index.js:58
 #: ../root/recording/RecordingIndex.js:48
 #: ../root/report/IsrcsWithManyRecordings.js:75
@@ -2907,7 +2908,7 @@ msgstr "Πλήθος αναζητήσεων"
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:242
+#: ../root/static/scripts/common/constants.js:243
 msgid "Low"
 msgstr "Χαμηλή"
 
@@ -3358,8 +3359,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:243
 #: ../root/static/scripts/common/constants.js:244
+#: ../root/static/scripts/common/constants.js:245
 msgid "Normal"
 msgstr "Κανονικό"
 
@@ -3862,8 +3863,8 @@ msgid "Recording:"
 msgstr "Ηχογράφηση:"
 
 #: ../root/components/common-macros.tt:593 ../root/release/edit/layout.tt:17
-#: ../root/artist/ArtistRecordings.js:45 ../root/artist/ArtistRecordings.js:46
-#: ../root/components/EntityTabs.js:28
+#: ../root/area/AreaRecordings.js:17 ../root/artist/ArtistRecordings.js:45
+#: ../root/artist/ArtistRecordings.js:46 ../root/components/EntityTabs.js:28
 #: ../root/instrument/InstrumentRecordings.js:36
 #: ../root/instrument/InstrumentRecordings.js:38
 #: ../root/report/ReportsIndex.js:407
@@ -3940,7 +3941,8 @@ msgstr ""
 msgid "Relationship:"
 msgstr "Σχέση:"
 
-#: ../root/forms/relationship-editor.tt:5
+#: ../root/forms/relationship-editor.tt:5 ../root/area/AreaRecordings.js:23
+#: ../root/area/AreaReleases.js:64 ../root/area/AreaWorks.js:23
 #: ../root/artist/ArtistRelationships.js:22
 #: ../root/artist/ArtistRelationships.js:28
 #: ../root/components/EntityTabs.js:89 ../root/components/Relationships.js:99
@@ -4119,7 +4121,7 @@ msgstr "Κυκλοφορία:"
 
 #: ../root/components/common-macros.tt:593
 #: ../root/edit/details/historic/add_release_annotation.tt:3
-#: ../root/area/AreaReleases.js:31 ../root/area/AreaReleases.js:32
+#: ../root/area/AreaReleases.js:32 ../root/area/AreaReleases.js:33
 #: ../root/artist/ArtistReleases.js:45 ../root/artist/ArtistReleases.js:46
 #: ../root/components/EntityTabs.js:29
 #: ../root/components/list/ReleaseGroupList.js:108
@@ -5340,7 +5342,7 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/release/edit/tracklist.tt:149 ../root/release/edit/tracklist.tt:369
-#: ../root/components/RelationshipsTable.js:87
+#: ../root/components/RelationshipsTable.js:92
 #: ../root/components/list/ReleaseGroupList.js:88 ../root/isrc/Index.js:56
 #: ../root/iswc/Index.js:49 ../root/recording/RecordingIndex.js:47
 msgid "Title"
@@ -5947,9 +5949,9 @@ msgstr "Βαθμολογίες έργου"
 msgid "Work:"
 msgstr "Έργο:"
 
-#: ../root/components/common-macros.tt:593 ../root/artist/ArtistWorks.js:31
-#: ../root/artist/ArtistWorks.js:32 ../root/components/EntityTabs.js:31
-#: ../root/report/ReportsIndex.js:495
+#: ../root/components/common-macros.tt:593 ../root/area/AreaWorks.js:17
+#: ../root/artist/ArtistWorks.js:31 ../root/artist/ArtistWorks.js:32
+#: ../root/components/EntityTabs.js:31 ../root/report/ReportsIndex.js:495
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagIndex.js:134 ../root/tag/TagLayout.js:29
 msgid "Works"
@@ -8286,22 +8288,22 @@ msgid "Invalid URL format"
 msgstr "Μη έγκυρη μορφή URL"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:72
-#: ../root/static/scripts/common/constants.js:250
+#: ../root/static/scripts/common/constants.js:251
 msgid "Basic"
 msgstr "Βασικό"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:73
-#: ../root/static/scripts/common/constants.js:251
+#: ../root/static/scripts/common/constants.js:252
 msgid "Intermediate"
 msgstr "Φυσιολογικό"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:74
-#: ../root/static/scripts/common/constants.js:249
+#: ../root/static/scripts/common/constants.js:250
 msgid "Advanced"
 msgstr "Προχωρημένο"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:75
-#: ../root/static/scripts/common/constants.js:252
+#: ../root/static/scripts/common/constants.js:253
 msgid "Native"
 msgstr "Εγγενές"
 
@@ -8848,14 +8850,22 @@ msgstr ""
 msgid "This area is not currently associated with any places."
 msgstr ""
 
-#: ../root/area/AreaReleases.js:46 ../root/artist/ArtistReleases.js:60
+#: ../root/area/AreaRecordings.js:21
+msgid "This area has no relationships to any recordings."
+msgstr ""
+
+#: ../root/area/AreaReleases.js:47 ../root/artist/ArtistReleases.js:60
 #: ../root/instrument/InstrumentReleases.js:50 ../root/label/LabelIndex.js:70
 #: ../root/release_group/ReleaseGroupIndex.js:155
 msgid "Add selected releases for merging"
 msgstr "Προσθήκη επιλεγμένων κυκλοφοριών προς συγχώνευση "
 
-#: ../root/area/AreaReleases.js:54
+#: ../root/area/AreaReleases.js:55
 msgid "This area is not currently associated with any releases."
+msgstr ""
+
+#: ../root/area/AreaReleases.js:62
+msgid "This area has no relationships to any releases."
 msgstr ""
 
 #: ../root/area/AreaUsers.js:28 ../root/area/AreaUsers.js:29
@@ -8871,6 +8881,10 @@ msgstr[1] ""
 
 #: ../root/area/AreaUsers.js:39
 msgid "There are currently no users in this area."
+msgstr ""
+
+#: ../root/area/AreaWorks.js:21
+msgid "This area has no relationships to any works."
 msgstr ""
 
 #: ../root/artist/ArtistEvents.js:59
@@ -9344,7 +9358,7 @@ msgstr ""
 msgid "Related works"
 msgstr "Σχετικά έργα"
 
-#: ../root/components/RelationshipsTable.js:88
+#: ../root/components/RelationshipsTable.js:93
 msgid "Credited As"
 msgstr ""
 
@@ -13132,13 +13146,13 @@ msgstr ""
 msgid "Annotation last modified by {user} on {date}."
 msgstr "Τελευταία τροποποίηση σχολίου από {user} στις {date}."
 
-#: ../root/static/scripts/common/components/Annotation.js:106
+#: ../root/static/scripts/common/components/Annotation.js:110
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
 msgstr "Αυτή είναι μία {history|παλιά έκδοση} αυτού του σχολίου, όπως επεξεργάστηκε από {user} στις {date}. {current|Προβολή τρέχουσας έκδοσης}."
 
-#: ../root/static/scripts/common/components/Annotation.js:118
+#: ../root/static/scripts/common/components/Annotation.js:122
 msgid "Annotation last modified on {date}."
 msgstr "Τελευταία τροποποίηση σχολίου στις {date}."
 
