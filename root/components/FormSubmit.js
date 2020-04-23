@@ -13,11 +13,12 @@ type Props = {
   +className?: string,
   +label: string,
   +name?: string,
+  +value?: string,
 };
 
-const FormSubmit = ({className, label, name}: Props) => (
+const FormSubmit = ({className, label, name, value}: Props) => (
   <span className={'buttons' + (className ? ' ' + className : '')}>
-    <button name={name} type="submit">{label}</button>
+    <button name={name} type="submit" value={value}>{label}</button>
   </span>
 );
 
