@@ -47,7 +47,9 @@ type ReleaseGroupListProps = {
   +sortable?: boolean,
 };
 
-export const ReleaseGroupListTable = withCatalystContext(({
+export const ReleaseGroupListTable = withCatalystContext<
+  ReleaseGroupListTableProps,
+>(({
   $c,
   checkboxes,
   mergeForm,

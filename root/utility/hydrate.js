@@ -11,10 +11,20 @@ import mutate from 'mutate-cow';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-export default function hydrate<Config>(
+import {
+  CatalystContext,
+  SanitizedCatalystContext,
+} from '../context';
+
+import sanitizedContext from './sanitizedContext';
+
+export default function hydrate<
+  Config,
+  SanitizedConfig = Config,
+>(
   containerSelector: string,
-  Component: React.AbstractComponent<Config>,
-  mungeProps?: (Config) => Config,
+  Component: React.AbstractComponent<Config | SanitizedConfig>,
+  mungeProps?: (Config) => SanitizedConfig,
 ): React.AbstractComponent<Config, void> {
   const [containerTag, ...classes] = containerSelector.split('.');
   if (typeof document !== 'undefined') {
@@ -23,27 +33,40 @@ export default function hydrate<Config>(
     $(function () {
       const roots = document.querySelectorAll(containerSelector);
       for (const root of roots) {
+        const contextString = root.getAttribute('data-context');
         const propString = root.getAttribute('data-props');
+        root.removeAttribute('data-context');
         root.removeAttribute('data-props');
-        if (propString) {
-          const props: Config = JSON.parse(propString);
-          ReactDOM.hydrate(<Component {...props} />, root);
+        if (contextString && propString) {
+          const $c: SanitizedCatalystContextT = JSON.parse(contextString);
+          const props: SanitizedConfig = JSON.parse(propString);
+          ReactDOM.hydrate(
+            <SanitizedCatalystContext.Provider value={$c}>
+              <Component {...props} />
+            </SanitizedCatalystContext.Provider>,
+            root,
+          );
         }
       }
     });
   }
-  return (props) => {
+  return (props: Config) => {
     let dataProps = props;
     if (mungeProps) {
       dataProps = mungeProps(dataProps);
     }
-    return React.createElement(
-      containerTag,
-      {
-        'className': classes.join(' '),
-        'data-props': JSON.stringify(dataProps),
-      },
-      <Component {...props} />,
+    return (
+      <CatalystContext.Consumer>
+        {$c => React.createElement(
+          containerTag,
+          {
+            'className': classes.join(' '),
+            'data-context': JSON.stringify(sanitizedContext($c)),
+            'data-props': JSON.stringify(dataProps),
+          },
+          <Component {...props} />,
+        )}
+      </CatalystContext.Consumer>
     );
   };
 }

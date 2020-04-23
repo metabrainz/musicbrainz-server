@@ -11,6 +11,7 @@ import mutate from 'mutate-cow';
 import * as React from 'react';
 
 import FieldErrors from '../../../../components/FieldErrors';
+import FormCsrfToken from '../../../../components/FormCsrfToken';
 import FormLabel from '../../../../components/FormLabel';
 import FormRow from '../../../../components/FormRow';
 import FormRowEmailLong from '../../../../components/FormRowEmailLong';
@@ -170,6 +171,8 @@ class EditProfileForm extends React.Component<Props, State> {
     const areaField = field.area.field;
     return (
       <form id="edit-profile-form" method="post">
+        <FormCsrfToken />
+
         <input
           hidden
           id={'id-' + field.username.html_name}

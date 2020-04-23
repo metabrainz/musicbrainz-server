@@ -136,7 +136,7 @@ role {
         }
 
         my $check_form = $c->form(form => 'Merge');
-        if ($check_form->submitted_and_valid($c->req->params)) {
+        if ($c->form_submitted_and_valid($check_form)) {
             # Ensure that we use the entities that appeared on the page and the right type,
             # in case the merger has changed since that page loaded (MBS-7057)
             @entities = values %{
@@ -177,7 +177,7 @@ role {
 
     method _validate_merge => sub {
         my ($self, $c, $form) = @_;
-        return $form->submitted_and_valid($c->req->params);
+        return $c->form_submitted_and_valid($form);
     };
 
     method _merge_submit => sub {

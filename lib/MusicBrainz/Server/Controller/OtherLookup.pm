@@ -14,7 +14,7 @@ sub lookup_handler {
         my $form = $c->form(other_lookup => 'OtherLookup');
         $form->field($name)->required(1);
 
-        if ($form->submitted_and_valid($c->req->query_params)) {
+        if ($c->form_submitted_and_valid($form, $c->req->query_params)) {
             $self->$code($c, $form->field($name)->value);
         }
         else {

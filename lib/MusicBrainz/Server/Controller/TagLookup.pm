@@ -210,7 +210,7 @@ sub index : Path('')
     # All the fields are optional, but we shouldn't do anything unless at
     # least one of them has a value
     return unless grep { $_ } values %$mapped_params;
-    return unless $form->submitted_and_valid( $mapped_params );
+    return unless $c->form_submitted_and_valid($form, $mapped_params);
 
     $self->external($c, $form);
 

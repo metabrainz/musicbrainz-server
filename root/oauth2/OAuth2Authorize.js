@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import FormCsrfToken from '../components/FormCsrfToken';
 import {ACCESS_SCOPE_PERMISSIONS} from '../constants';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
@@ -46,6 +47,7 @@ const OAuth2Authorize = ({
     </ul>
 
     <form action={$c.req.uri} method="post" name="confirm">
+      <FormCsrfToken />
       <span className="buttons">
         <button
           className="negative"

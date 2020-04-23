@@ -10,7 +10,7 @@
 import mutate from 'mutate-cow';
 import React, {useState} from 'react';
 
-import {withCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context';
 import FieldErrors from '../../../../components/FieldErrors';
 import FormRow from '../../../../components/FormRow';
 import FormLabel from '../../../../components/FormLabel';
@@ -27,12 +27,11 @@ import type {CollaboratorStateT, CollectionEditFormT}
   from '../../../../collection/types';
 
 type Props = {
-  +$c: CatalystContextT,
   +collectionTypes: SelectOptionsT,
   +form: CollectionEditFormT,
 };
 
-const CollectionEditForm = ({$c, collectionTypes, form}: Props) => {
+const CollectionEditForm = ({collectionTypes, form}: Props) => {
   const [collaborators, setCollaborators] =
     useState(form.field.collaborators);
 
@@ -68,90 +67,94 @@ const CollectionEditForm = ({$c, collectionTypes, form}: Props) => {
   }
 
   return (
-    <form action={$c.req.uri} method="post">
-      <fieldset>
-        <legend>{l('Collection details')}</legend>
-        <FormRowTextLong
-          field={form.field.name}
-          label={addColonText(l('Name'))}
-          required
-          uncontrolled
-        />
-        <FormRowSelect
-          field={form.field.type_id}
-          label={addColonText(l('Type'))}
-          options={typeOptions}
-          uncontrolled
-        />
-        <FormRowTextArea
-          field={form.field.description}
-          label={addColonText(l('Description'))}
-        />
-        <FormRowCheckbox
-          field={form.field.public}
-          label={l('Allow other users to see this collection')}
-        />
+    <SanitizedCatalystContext.Consumer>
+      {$c => (
+        <form action={$c.req.uri} method="post">
+          <fieldset>
+            <legend>{l('Collection details')}</legend>
+            <FormRowTextLong
+              field={form.field.name}
+              label={addColonText(l('Name'))}
+              required
+              uncontrolled
+            />
+            <FormRowSelect
+              field={form.field.type_id}
+              label={addColonText(l('Type'))}
+              options={typeOptions}
+              uncontrolled
+            />
+            <FormRowTextArea
+              field={form.field.description}
+              label={addColonText(l('Description'))}
+            />
+            <FormRowCheckbox
+              field={form.field.public}
+              label={l('Allow other users to see this collection')}
+            />
 
-        <FormRow>
-          <FormLabel
-            forField={collaborators}
-            label={addColonText(l('Collaborators'))}
-          />
-          <div className="form-row-text-list">
-            {collaborators.field.map((collaborator, index) => (
-              <div className="text-list-row" key={collaborator.html_name}>
-                <Autocomplete
-                  currentSelection={{
-                    id: collaborator.field.id.value,
-                    name: collaborator.field.name.value,
-                  }}
-                  entity="editor"
-                  inputID={'id-' + collaborator.html_name}
-                  inputName={collaborator.html_name}
-                  onChange={(c) => handleCollaboratorChange(c, index)}
-                >
-                  <input
-                    name={collaborator.field.id.html_name}
-                    type="hidden"
-                    value={collaborator.field.id.value || ''}
-                  />
-                </Autocomplete>
-                <button
-                  className="nobutton icon remove-item"
-                  onClick={() => (removeCollaborator(index))}
-                  title={l('Remove collaborator')}
-                  type="button"
-                />
+            <FormRow>
+              <FormLabel
+                forField={collaborators}
+                label={addColonText(l('Collaborators'))}
+              />
+              <div className="form-row-text-list">
+                {collaborators.field.map((collaborator, index) => (
+                  <div className="text-list-row" key={collaborator.html_name}>
+                    <Autocomplete
+                      currentSelection={{
+                        id: collaborator.field.id.value,
+                        name: collaborator.field.name.value,
+                      }}
+                      entity="editor"
+                      inputID={'id-' + collaborator.html_name}
+                      inputName={collaborator.html_name}
+                      onChange={(c) => handleCollaboratorChange(c, index)}
+                    >
+                      <input
+                        name={collaborator.field.id.html_name}
+                        type="hidden"
+                        value={collaborator.field.id.value || ''}
+                      />
+                    </Autocomplete>
+                    <button
+                      className="nobutton icon remove-item"
+                      onClick={() => (removeCollaborator(index))}
+                      title={l('Remove collaborator')}
+                      type="button"
+                    />
 
-                <FieldErrors field={collaborator.field.id} />
-                <FieldErrors field={collaborator.field.name} />
+                    <FieldErrors field={collaborator.field.id} />
+                    <FieldErrors field={collaborator.field.name} />
+                  </div>
+                ))}
+                <div className="form-row-add">
+                  <button
+                    className="with-label add-item"
+                    onClick={handleCollaboratorAdd}
+                    type="button"
+                  >
+                    {l('Add collaborator')}
+                  </button>
+                </div>
               </div>
-            ))}
-            <div className="form-row-add">
-              <button
-                className="with-label add-item"
-                onClick={handleCollaboratorAdd}
-                type="button"
-              >
-                {l('Add collaborator')}
-              </button>
-            </div>
-          </div>
-        </FormRow>
-      </fieldset>
+            </FormRow>
+          </fieldset>
 
-      <div className="row no-label">
-        {$c.action.name === 'create' ? (
-          <FormSubmit label={l('Create collection')} />
-        ) : (
-          <FormSubmit label={l('Update collection')} />
-        )}
-      </div>
-    </form>
+          <div className="row no-label">
+            {$c.action.name === 'create' ? (
+              <FormSubmit label={l('Create collection')} />
+            ) : (
+              <FormSubmit label={l('Update collection')} />
+            )}
+          </div>
+        </form>
+      )}
+    </SanitizedCatalystContext.Consumer>
   );
 };
 
-export default withCatalystContext(hydrate<Props>(
+export default hydrate<Props>(
   'div.collection-edit-form',
   CollectionEditForm,
-));
+);

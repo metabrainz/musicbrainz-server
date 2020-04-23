@@ -365,7 +365,11 @@ sub end : ActionClass('RenderView')
 {
     my ($self, $c) = @_;
 
-    return if exists $c->action->attributes->{Minimal};
+    my $attrs = $c->action->attributes;
+
+    $c->generate_csrf_token if exists $attrs->{CSRFToken};
+
+    return if exists $attrs->{Minimal};
 
     $c->stash->{server_details} = {
         %{ $c->stash->{server_details} // {} },

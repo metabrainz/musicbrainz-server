@@ -115,7 +115,7 @@ sub create : Chained('type_specific') PathPart('create') RequireAuth(relationshi
     );
     $form->field('parent_id')->_load_options;
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         my $values = { map { $_->name => $_->value } $form->edit_fields };
         $values->{entity0_type} = $c->stash->{type0};
         $values->{entity1_type} = $c->stash->{type1};
@@ -296,7 +296,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
 
     my $form = $c->form( form => 'Confirm' );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,

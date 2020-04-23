@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import FormCsrfToken from '../components/FormCsrfToken';
 import FormRowTextArea from '../components/FormRowTextArea';
 import FormSubmit from '../components/FormSubmit';
 import Layout from '../layout';
@@ -28,6 +29,7 @@ const EditBanner = ({form}: Props) => (
             of each page. An empty string removes the banner.`)}
       </p>
       <form action="/admin/banner/edit" method="post">
+        <FormCsrfToken />
         <FormRowTextArea
           field={form.field.message}
           label={addColonText(l('Banner message'))}

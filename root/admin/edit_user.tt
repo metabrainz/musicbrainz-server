@@ -2,6 +2,7 @@
     [%- USE r = FormRenderer(form) -%]
     [%- USE t = FormRenderer(form2) -%]
     <form action="[% c.req.uri %]" method="post">
+        [% form_csrf_token %]
         [% r.hidden('submitted', value => 1) %]
         <h2>[%- l('User permissions') -%]</h2>
         [% form_row_checkbox(r, 'auto_editor', l('Auto-editor')) %]

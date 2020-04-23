@@ -9,7 +9,11 @@ use Encode;
 use JSON;
 use Moose::Util qw( does_role );
 use MusicBrainz::Sentry qw( sentry_enabled );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    datetime_to_iso8601
+    generate_token
+);
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
@@ -459,10 +463,32 @@ sub try_get_session {
     return $c->sessionid ? $c->session->{$key} : undef;
 }
 
+around make_session_cookie => sub {
+    my ($orig, $self, $sid, %attrs) = @_;
+
+    my $cookie = $self->$orig($sid, %attrs);
+    # Browsers are starting to default to SameSite=Lax, which breaks
+    # cross-origin form submissions employed by popular userscripts. We can
+    # opt out with SameSite=None, but this requires the Secure attribute
+    # to be set too. See https://www.chromium.org/updates/same-site
+    if ($self->req->secure) {
+        $cookie->{samesite} = 'None';
+        $cookie->{secure} = 1;
+    }
+    return $cookie;
+};
+
 has json => (
     is => 'ro',
     default => sub {
         return JSON->new->allow_blessed->convert_blessed;
+    }
+);
+
+has json_canonical => (
+    is => 'ro',
+    default => sub {
+        return JSON->new->allow_blessed->canonical->convert_blessed;
     }
 );
 
@@ -480,6 +506,67 @@ has json_utf8 => (
     }
 );
 
+sub form_posted_and_valid {
+    my ($self, $form, $params) = @_;
+
+    return 0 unless $self->form_posted;
+    return $self->form_submitted_and_valid($form, $params);
+}
+
+sub form_submitted_and_valid {
+    my ($self, $form, $params) = @_;
+
+    $params = $self->req->params
+        unless defined $params;
+
+    return 0 unless
+        %{$params} &&
+        $form->process(params => $params) &&
+        $form->has_params;
+
+    return 0 if
+        exists $self->action->attributes->{CSRFToken} &&
+        !$self->validate_csrf_token;
+
+    return 1;
+}
+
+sub _csrf_session_key {
+    my ($self) = @_;
+
+    return 'csrf_token:' . $self->json_canonical->encode({
+        namespace => $self->namespace // '',
+        action => $self->action->name,
+        arguments => $self->req->arguments,
+    });
+}
+
+sub generate_csrf_token {
+    my ($self) = @_;
+
+    my $session_key = $self->_csrf_session_key;
+    my $token = generate_token();
+    $self->session->{$session_key} = $token;
+    $self->stash->{csrf_token} = $token;
+}
+
+sub validate_csrf_token {
+    my ($self) = @_;
+
+    my $session_key = $self->_csrf_session_key;
+    my $got_token = $self->req->param('csrf_token') // '';
+    my $expected_token = $self->session->{$session_key} // '';
+
+    return 1 if (
+        $got_token && $expected_token &&
+        $got_token eq $expected_token
+    );
+
+    $self->response->status(403);
+    $self->stash->{invalid_csrf_token} = 1;
+    return 0;
+}
+
 sub TO_JSON {
     my $self = shift;
 
@@ -488,6 +575,7 @@ sub TO_JSON {
         collaborative_collections
         commons_image
         containment
+        csrf_token
         current_language
         current_language_html
         entity
@@ -512,6 +600,7 @@ sub TO_JSON {
 
     my @boolean_stash_keys = qw(
         hide_merge_helper
+        invalid_csrf_token
         makes_no_changes
         new_edit_notes
     );

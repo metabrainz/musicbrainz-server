@@ -246,7 +246,7 @@ sub create : Local RequireAuth {
         $form = $c->form( form => 'Collection' );
     }
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         my %insert = $self->_form_to_hash($form);
         my $collection = $c->model('Collection')->insert($c->user->id, \%insert);
         if ($initial_entity_id) {
@@ -279,7 +279,7 @@ sub edit : Chained('own_collection') RequireAuth {
 
     $c->model('Collection')->load_entity_count($collection);
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         my %update = $self->_form_to_hash($form);
 
         $c->model('Collection')->update($collection->id, \%update);

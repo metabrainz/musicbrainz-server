@@ -39,7 +39,7 @@ sub create : Local RequireAuth(relationship_editor) Edit {
 
     my $form = $c->form( form => 'Genre' );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         my %insert = $self->_form_to_hash($form);
         my $genre = $c->model('MB')->with_transaction(sub {
             $c->model('Genre')->insert(\%insert);
@@ -62,7 +62,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor) {
 
     my $form = $c->form( form => 'Genre', init_object => $genre );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         my %update = $self->_form_to_hash($form);
 
         $c->model('MB')->with_transaction(sub {
