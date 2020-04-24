@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import formatLabelCode from '../../utility//formatLabelCode';
+import formatLabelCode from '../../utility/formatLabelCode';
 import {
   defineCheckboxColumn,
   defineNameColumn,
