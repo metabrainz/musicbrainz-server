@@ -85,7 +85,7 @@ const Annotation = ({
       <SanitizedCatalystContext.Consumer>
         {$c => (
           <div className="annotation-details">
-            {$c.user_exists ? (
+            {$c.user ? (
               latestAnnotation && (annotation.id === latestAnnotation.id) ? (
                 <>
                   {exp.l('Annotation last modified by {user} on {date}.', {

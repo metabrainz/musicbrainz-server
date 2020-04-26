@@ -21,7 +21,7 @@ type Props = {
 
 const CollectionLinks = ({$c, entity}: Props) => {
   const numberOfCollections = $c.stash.number_of_collections || 0;
-  if (!$c.user_exists) {
+  if (!$c.user) {
     return null;
   }
   return (

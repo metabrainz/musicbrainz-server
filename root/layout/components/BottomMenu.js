@@ -310,7 +310,7 @@ const BottomMenu = ({$c}: {+$c: CatalystContextT}) => {
         <AboutMenu />
         <ProductsMenu />
         <SearchMenu />
-        {$c.user_exists ? <EditingMenu /> : null}
+        {$c.user ? <EditingMenu /> : null}
         <DocumentationMenu />
         {serverLanguages && serverLanguages.length > 1 ? (
           <LanguageMenu

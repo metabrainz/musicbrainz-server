@@ -85,7 +85,7 @@ const EditSidebar = ({$c, edit}: Props) => (
     </SidebarProperties>
 
     <p>
-      {$c.user_exists ? (
+      {$c.user ? (
         <a href={`/edit/${edit.id}/data`}>
           <bdi>{l('Raw edit data for this edit')}</bdi>
         </a>

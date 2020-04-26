@@ -26,7 +26,7 @@ type PropsT = {
 };
 
 const Index = ({$c, isrcs, recordings}: PropsT) => {
-  const userExists = $c.user_exists;
+  const userExists = !!$c.user;
   const isrc = isrcs[0];
   return (
     <Layout fullWidth title={texp.l('ISRC “{isrc}”', {isrc: isrc.isrc})}>

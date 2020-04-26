@@ -109,7 +109,7 @@ const UserProfileInformation = withCatalystContext(({
   user,
   viewingOwnProfile,
 }: UserProfileInformationProps) => {
-  const showBioAndURL = !user.is_limited || $c.user_exists;
+  const showBioAndURL = !!(!user.is_limited || $c.user);
   let memberSince;
   if (user.name === 'rob') {
     memberSince = l('The Dawn of the Project');
@@ -160,7 +160,7 @@ const UserProfileInformation = withCatalystContext(({
                   </a>,
                 )
               ) : (
-                $c.user_exists ? (
+                $c.user ? (
                   bracketed(
                     <a href={`/user/${encodedName}/contact`}>
                       {l('send email')}
@@ -250,7 +250,7 @@ const UserProfileInformation = withCatalystContext(({
           ) : (
             l('0')
           )}
-          {$c.user_exists && !viewingOwnProfile ? (
+          {$c.user && !viewingOwnProfile ? (
             <>
               {' '}
               {bracketed(
@@ -557,7 +557,7 @@ const UserProfile = ({
         votes={votes}
       />
 
-      {$c.user_exists && !viewingOwnProfile ? (
+      {$c.user && !viewingOwnProfile ? (
         <h2 style={{clear: 'both'}}>
           <a href={`/user/${encodedName}/report`}>
             {l('Report this user for bad behavior')}

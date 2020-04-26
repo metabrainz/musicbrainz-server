@@ -38,7 +38,7 @@ const InstrumentList = ({
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+      const checkboxColumn = $c.user && (checkboxes || mergeForm)
         ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const nameColumn =
@@ -56,7 +56,7 @@ const InstrumentList = ({
         ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user_exists, checkboxes, instruments, mergeForm, order, sortable],
+    [$c.user, checkboxes, instruments, mergeForm, order, sortable],
   );
 
   return <Table columns={columns} data={instruments} />;

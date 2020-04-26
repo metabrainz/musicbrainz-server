@@ -34,7 +34,7 @@ const InstrumentListRow = withCatalystContext(({
   instrument,
 }: InstrumentListRowProps) => (
   <>
-    {$c.user_exists && checkboxes ? (
+    {$c.user && checkboxes ? (
       <td>
         <input
           name={checkboxes}

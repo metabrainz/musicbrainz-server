@@ -60,7 +60,7 @@ const CollectionSidebar = ({$c, collection}: Props) => {
         </li>
       </ul>
 
-      {$c.user_exists ? (
+      {$c.user ? (
         <>
           <h2 className="subscriptions">{l('Subscriptions')}</h2>
           <ul className="links">

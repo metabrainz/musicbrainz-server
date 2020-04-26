@@ -31,7 +31,6 @@ const defaultContext = {
     current_language: 'en',
     current_language_html: 'en',
   },
-  user_exists: false,
 };
 
 const defaultSanitizedContext = {
@@ -45,7 +44,6 @@ const defaultSanitizedContext = {
     current_language: 'en',
   },
   user: null,
-  user_exists: false,
 };
 
 const CatalystContext =

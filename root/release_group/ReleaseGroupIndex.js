@@ -50,7 +50,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
   return (
     <React.Fragment key={status ? status.name : 'no-status'}>
       <tr className="subh">
-        {$c.user_exists ? <th /> : null}
+        {$c.user ? <th /> : null}
         <th colSpan={$c.session && $c.session.tport ? 8 : 7}>
           {status?.name
             ? lp_attributes(status.name, 'release_status')
@@ -59,7 +59,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
       </tr>
       {releaseStatusGroup.map((release, index) => (
         <tr className={loopParity(index)} key={release.id}>
-          {$c.user_exists
+          {$c.user
             ? (
               <td>
                 <input
@@ -129,7 +129,7 @@ const ReleaseGroupIndex = ({
             <table className="tbl">
               <thead>
                 <tr>
-                  {$c.user_exists ? (
+                  {$c.user ? (
                     <th className="checkbox-cell">
                       <input type="checkbox" />
                     </th>
@@ -150,7 +150,7 @@ const ReleaseGroupIndex = ({
               </tbody>
             </table>
           </PaginatedResults>
-          {$c.user_exists ? (
+          {$c.user ? (
             <FormRow>
               <FormSubmit label={l('Add selected releases for merging')} />
             </FormRow>

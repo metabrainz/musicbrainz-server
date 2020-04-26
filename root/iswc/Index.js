@@ -21,7 +21,7 @@ type Props = {
 };
 
 const Index = ({$c, iswcs, works}: Props) => {
-  const userExists = $c.user_exists;
+  const userExists = !!$c.user;
   const iswc = iswcs[0];
   return (
     <Layout fullWidth title={texp.l('ISWC “{iswc}”', {iswc: iswc.iswc})}>
