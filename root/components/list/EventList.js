@@ -20,6 +20,7 @@ import {
   defineCheckboxColumn,
   defineDatePeriodColumn,
   defineNameColumn,
+  defineRemoveFromMergeColumn,
   defineSeriesNumberColumn,
   defineTypeColumn,
   defineTextColumn,
@@ -34,6 +35,7 @@ type Props = {
   +artistRoles?: boolean,
   +checkboxes?: string,
   +events: $ReadOnlyArray<EventT>,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +showArtists?: boolean,
   +showLocation?: boolean,
@@ -48,6 +50,7 @@ const EventList = ({
   artistRoles,
   checkboxes,
   events,
+  mergeForm,
   order,
   seriesItemNumbers,
   showArtists,
@@ -58,8 +61,8 @@ const EventList = ({
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && checkboxes
-        ? defineCheckboxColumn(checkboxes)
+      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+        ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn(seriesItemNumbers)
@@ -97,6 +100,9 @@ const EventList = ({
         )
         : null;
       const dateColumn = defineDatePeriodColumn(order, sortable);
+      const removeFromMergeColumn = mergeForm
+        ? defineRemoveFromMergeColumn(events)
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -109,6 +115,7 @@ const EventList = ({
         dateColumn,
         timeColumn,
         ...(showRatings ? [ratingsColumn] : []),
+        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
       ];
     },
     [
@@ -116,6 +123,8 @@ const EventList = ({
       artist,
       artistRoles,
       checkboxes,
+      events,
+      mergeForm,
       order,
       seriesItemNumbers,
       showArtists,

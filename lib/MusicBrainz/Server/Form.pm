@@ -10,12 +10,6 @@ with 'MusicBrainz::Server::Form::Role::ToJSON';
 has '+name' => ( required => 1 );
 has '+html_prefix' => ( default => 1 );
 
-sub submitted_and_valid
-{
-    my ($self, $params) = @_;
-    return $self->process( params => $params) && $self->has_params if values %$params;
-}
-
 # Modified copy from HTML/FormHandler.pm (including a bug fix for
 # Repeatable initialization)
 sub _init_from_object

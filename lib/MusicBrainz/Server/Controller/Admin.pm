@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Translation qw(l ln );
 
-sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
+sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves CSRFToken
 {
     my ($self, $c, $user_name) = @_;
 
@@ -47,44 +47,44 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
         },
     );
 
-    if ($c->form_posted) {
-        if ($form->submitted_and_valid($c->req->params)
-            && $form2->submitted_and_valid($c->req->params )) {
-            # When an admin views their own flags page the account admin checkbox will be disabled,
-            # thus we need to manually insert a value here to keep the admin's privileges intact.
-            $form->values->{account_admin} = 1 if ($c->user->id == $user->id);
-            $c->model('Editor')->update_privileges($user, $form->values);
+    if (
+        $c->form_posted_and_valid($form) &&
+        $c->form_posted_and_valid($form2)
+    ) {
+        # When an admin views their own flags page the account admin checkbox will be disabled,
+        # thus we need to manually insert a value here to keep the admin's privileges intact.
+        $form->values->{account_admin} = 1 if ($c->user->id == $user->id);
+        $c->model('Editor')->update_privileges($user, $form->values);
 
-            $c->model('Editor')->update_profile(
-                $user,
-                $form2->value
-            );
+        $c->model('Editor')->update_profile(
+            $user,
+            $form2->value
+        );
 
-            my %args = ( ok => 1 );
-            my $old_email = $user->email || '';
-            my $new_email = $form2->field('email')->value || '';
-            if ($old_email ne $new_email) {
-                if ($new_email) {
-                    if ($form2->field('skip_verification')->value) {
-                        $c->model('Editor')->update_email($user, $new_email);
-                        $user->email($new_email);
-                        $c->forward('/discourse/sync_sso', [$user]);
-                    } else {
-                        $c->controller('Account')->_send_confirmation_email($c, $user, $new_email);
-                        $args{email} = $new_email;
-                    }
-                }
-                else {
-                    $c->model('Editor')->update_email($user, undef);
-                    $user->email('editor-' . $user->id . '@musicbrainz.invalid');
+        my %args = ( ok => 1 );
+        my $old_email = $user->email || '';
+        my $new_email = $form2->field('email')->value || '';
+        if ($old_email ne $new_email) {
+            if ($new_email) {
+                if ($form2->field('skip_verification')->value) {
+                    $c->model('Editor')->update_email($user, $new_email);
+                    $user->email($new_email);
                     $c->forward('/discourse/sync_sso', [$user]);
+                } else {
+                    $c->controller('Account')->_send_confirmation_email($c, $user, $new_email);
+                    $args{email} = $new_email;
                 }
             }
-
-            $c->flash->{message} = l('User successfully edited.');
-            $c->response->redirect($c->uri_for_action('/user/profile', [$form2->field('username')->value]));
-            $c->detach;
+            else {
+                $c->model('Editor')->update_email($user, undef);
+                $user->email('editor-' . $user->id . '@musicbrainz.invalid');
+                $c->forward('/discourse/sync_sso', [$user]);
+            }
         }
+
+        $c->flash->{message} = l('User successfully edited.');
+        $c->response->redirect($c->uri_for_action('/user/profile', [$form2->field('username')->value]));
+        $c->detach;
     }
 
     $c->stash(
@@ -95,7 +95,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
     );
 }
 
-sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves {
+sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves CSRFToken {
     my ($self, $c, $name) = @_;
 
     my $editor = $c->model('Editor')->get_by_name($name);
@@ -110,7 +110,7 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
 
     $c->stash( user => $editor );
 
-    if ($c->form_posted) {
+    if ($c->form_posted && $c->validate_csrf_token) {
         my $allow_reuse = 0;
         if ($id != $c->user->id && $c->user->is_account_admin) {
             $allow_reuse = 1 if ($c->req->params->{allow_reuse} // '') eq '1';
@@ -134,14 +134,14 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
     }
 }
 
-sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) {
+sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) CSRFToken {
     my ($self, $c) = @_;
 
     my $current_message = $c->stash->{server_details}->{alert};
     my $form = $c->form( form => 'Admin::Banner',
                          init_object => { message => $current_message } );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         my $store = $c->model('MB')->context->store;
 
         $store->set('alert', $form->values->{message});

@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Validation qw( is_guid );
+use List::AllUtils qw( uniq );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -61,8 +62,9 @@ sub release_group_toplevel {
 
         my @acns = map { $_->artist_credit->all_names } @rgs;
         $c->model('Artist')->load(@acns);
+        my @artists = uniq map { $_->artist } @acns;
+        $c->model('ArtistType')->load(@artists);
 
-        my @artists = map { $_->artist } @acns;
         $self->linked_artists($c, $stash, \@artists);
     }
 

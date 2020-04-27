@@ -31,6 +31,12 @@ sub index : Path('/relationship-attributes') Args(0)
     my ($self, $c) = @_;
 
     $self->_load_tree($c);
+
+    $c->stash(
+        component_path  => 'relationship/linkattributetype/RelationshipAttributeTypesIndex',
+        component_props => {root => $c->stash->{root}},
+        current_view    => 'Node',
+    );
 }
 
 sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relationship_editor)
@@ -47,7 +53,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
     $form->field('parent_id')->value($parent_link_attr_type->id)
         if $parent_link_attr_type;
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,
@@ -71,7 +77,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
 
     my $form = $c->form( form => 'Admin::LinkAttributeType', init_object => $link_attr_type );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,
@@ -103,11 +109,15 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
     );
 
     if ($c->model('LinkAttributeType')->in_use($link_attr_type->id)) {
-        $c->stash( template => $c->namespace . '/in_use.tt');
+        $c->stash(
+            component_path  => 'relationship/linkattributetype/RelationshipAttributeTypeInUse',
+            component_props => {type => $link_attr_type},
+            current_view    => 'Node',
+        );
         $c->detach;
     }
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,

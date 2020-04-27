@@ -314,13 +314,13 @@ ws_test 'artist lookup with recordings and artist credits',
                 <title>the Love Bug</title><length>243000</length>
                 <artist-credit>
                     <name-credit joinphrase="♥">
-                        <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                        <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                             <name>m-flo</name>
                             <sort-name>m-flo</sort-name>
                         </artist>
                     </name-credit>
                     <name-credit>
-                        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                             <name>BoA</name>
                             <sort-name>BoA</sort-name>
                         </artist>
@@ -331,13 +331,13 @@ ws_test 'artist lookup with recordings and artist credits',
                 <title>the Love Bug (Big Bug NYC remix)</title><length>222000</length>
                 <artist-credit>
                     <name-credit joinphrase="♥">
-                        <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                        <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                             <name>m-flo</name>
                             <sort-name>m-flo</sort-name>
                         </artist>
                     </name-credit>
                     <name-credit>
-                        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                             <name>BoA</name>
                             <sort-name>BoA</sort-name>
                         </artist>
@@ -518,7 +518,7 @@ ws_test 'artist lookup with artist relations',
                 <target>802673f0-9b88-4e8a-bb5c-dd01d68b086f</target>
                 <direction>forward</direction>
                 <begin>2001</begin>
-                <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+                <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>7人祭</name>
                     <sort-name>7nin Matsuri</sort-name>
                 </artist>

@@ -19,6 +19,7 @@ import {
   defineCheckboxColumn,
   defineNameColumn,
   defineSeriesNumberColumn,
+  defineRemoveFromMergeColumn,
   defineTextColumn,
   defineCountColumn,
   ratingsColumn,
@@ -28,6 +29,7 @@ type ReleaseGroupListTableProps = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
   +showRatings?: boolean,
@@ -38,15 +40,19 @@ type ReleaseGroupListTableProps = {
 type ReleaseGroupListProps = {
   ...SeriesItemNumbersRoleT,
   +checkboxes?: string,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
   +showRatings?: boolean,
   +sortable?: boolean,
 };
 
-export const ReleaseGroupListTable = withCatalystContext(({
+export const ReleaseGroupListTable = withCatalystContext<
+  ReleaseGroupListTableProps,
+>(({
   $c,
   checkboxes,
+  mergeForm,
   order,
   releaseGroups,
   seriesItemNumbers,
@@ -64,8 +70,8 @@ export const ReleaseGroupListTable = withCatalystContext(({
 
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && checkboxes
-        ? defineCheckboxColumn(checkboxes)
+      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+        ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn(seriesItemNumbers)
@@ -103,6 +109,9 @@ export const ReleaseGroupListTable = withCatalystContext(({
         'release_count',
         l('Releases'),
       );
+      const removeFromMergeColumn = mergeForm
+        ? defineRemoveFromMergeColumn(releaseGroups)
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -113,12 +122,15 @@ export const ReleaseGroupListTable = withCatalystContext(({
         ...(showType ? [typeColumn] : []),
         ...(showRatings ? [ratingsColumn] : []),
         releaseNumberColumn,
+        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
       ];
     },
     [
       $c.user_exists,
       checkboxes,
+      mergeForm,
       order,
+      releaseGroups,
       seriesItemNumbers,
       showRatings,
       showType,
@@ -137,6 +149,7 @@ export const ReleaseGroupListTable = withCatalystContext(({
 
 const ReleaseGroupList = ({
   checkboxes,
+  mergeForm,
   order,
   releaseGroups,
   seriesItemNumbers,
@@ -157,6 +170,7 @@ const ReleaseGroupList = ({
           </h3>
           <ReleaseGroupListTable
             checkboxes={checkboxes}
+            mergeForm={mergeForm}
             order={order}
             releaseGroups={releaseGroupsOfType}
             seriesItemNumbers={seriesItemNumbers}

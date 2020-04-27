@@ -114,7 +114,9 @@ sub recording_toplevel
 
     if (@load_acs) {
         $c->model('ArtistCredit')->load(@load_acs);
-        $c->model('Artist')->load(map { $_->artist_credit->all_names } @load_acs);
+        my @acns = map { $_->artist_credit->all_names } @load_acs;
+        $c->model('Artist')->load(@acns);
+        $c->model('ArtistType')->load(map { $_->artist } @acns);
 
         if ($inc->artists) {
             $self->linked_artists(

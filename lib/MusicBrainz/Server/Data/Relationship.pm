@@ -173,7 +173,7 @@ sub _load
                       JOIN link l ON link = l.id
                       JOIN link_type lt ON lt.id = l.link_type";
 
-        my $order = 'lt.name, link_order,
+        my $order = 'lt.name,
                      l.begin_date_year, l.begin_date_month, l.begin_date_day,
                      l.end_date_year,   l.end_date_month,   l.end_date_day,
                      l.ended';

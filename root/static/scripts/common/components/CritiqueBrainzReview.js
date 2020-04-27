@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
 import * as DBDefs from '../DBDefs-client';
@@ -17,7 +17,6 @@ import * as DBDefs from '../DBDefs-client';
 import Collapsible from './Collapsible';
 
 type Props = {
-  +$c: CatalystContextT | SanitizedCatalystContextT,
   +review: CritiqueBrainzReviewT,
   +title: string,
 };
@@ -30,25 +29,27 @@ const reviewHref = review => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/review/' + review.id
 );
 
-const CritiqueBrainzReview = ({$c, review, title}: Props) => (
+const CritiqueBrainzReview = ({review, title}: Props) => (
   <>
     <h3>{title}</h3>
     <p className="review-metadata">
-      {exp.l('{review_link|Review} by {author} on {date}', {
-        author: (
-          <a href={authorHref(review.author)} key="author">
-            {review.author.name}
-          </a>
-        ),
-        date: formatUserDate($c, review.created, {dateOnly: true}),
-        review_link: {href: reviewHref(review), key: 'review_link'},
-      })}
+      <SanitizedCatalystContext.Consumer>
+        {$c => exp.l('{review_link|Review} by {author} on {date}', {
+          author: (
+            <a href={authorHref(review.author)} key="author">
+              {review.author.name}
+            </a>
+          ),
+          date: formatUserDate($c, review.created, {dateOnly: true}),
+          review_link: {href: reviewHref(review), key: 'review_link'},
+        })}
+      </SanitizedCatalystContext.Consumer>
     </p>
     <Collapsible className="review" html={review.body} />
   </>
 );
 
-export default withCatalystContext(hydrate(
+export default hydrate<Props>(
   'div.critiquebrainz-review',
   CritiqueBrainzReview,
-));
+);

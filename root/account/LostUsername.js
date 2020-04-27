@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import FormCsrfToken from '../components/FormCsrfToken';
 import FormRow from '../components/FormRow';
 import FormRowEmailLong from '../components/FormRowEmailLong';
 import FormSubmit from '../components/FormSubmit';
@@ -30,6 +31,7 @@ const LostUsername = (props: Props) => (
           your MusicBrainz account information.`)}
     </p>
     <form method="post">
+      <FormCsrfToken />
       <FormRowEmailLong
         field={props.form.field.email}
         label={addColonText(l('Email'))}

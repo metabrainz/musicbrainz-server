@@ -17,7 +17,9 @@ import isDateEmpty from '../utility/isDateEmpty';
 
 import EntityLink from './EntityLink';
 
-const COLLAPSE_THRESHOLD = 4;
+const TO_SHOW_BEFORE = 2;
+const TO_SHOW_AFTER = 1;
+const TO_TRIGGER_COLLAPSE = TO_SHOW_BEFORE + TO_SHOW_AFTER + 2;
 
 const releaseEventKey = event => (
   String(event.country ? event.country.id : '') + '\0' +
@@ -103,7 +105,7 @@ const ReleaseEvents = ({
   };
 
   const tooManyEvents = events
-    ? events.length > COLLAPSE_THRESHOLD
+    ? events.length >= TO_TRIGGER_COLLAPSE
     : false;
 
   return (
@@ -112,7 +114,7 @@ const ReleaseEvents = ({
         {(tooManyEvents && !expanded) ? (
           <>
             <ul {...containerProps}>
-              {events.slice(0, COLLAPSE_THRESHOLD - 2).map(
+              {events.slice(0, TO_SHOW_BEFORE).map(
                 event => buildReleaseEventRow(event, abbreviated),
               )}
               <li className="show-all" key="show-all">
@@ -123,11 +125,13 @@ const ReleaseEvents = ({
                   title={l('Show all release events')}
                 >
                   {bracketedText(texp.l('show {n} more', {
-                    n: events.length - COLLAPSE_THRESHOLD,
+                    n: events.length - (TO_SHOW_BEFORE + TO_SHOW_AFTER),
                   }))}
                 </a>
               </li>
-              {buildReleaseEventRow(events[events.length - 1], abbreviated)}
+              {events.slice(-TO_SHOW_AFTER).map(
+                event => buildReleaseEventRow(event, abbreviated),
+              )}
             </ul>
           </>
         ) : (

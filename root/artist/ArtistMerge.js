@@ -8,8 +8,9 @@
  */
 
 import * as React from 'react';
-import sortBy from 'lodash/sortBy';
 
+import sortByEntityName
+  from '../static/scripts/common/utility/sortByEntityName';
 import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
@@ -29,13 +30,12 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge artists')}</h1>
       <p>
-        {l(`You are about to merge the following artists into a single
-            artist. Please select the artist which you would like other
-            artists to be merged into:`)}
+        {l(`You are about to merge all these artists into a single one.
+            Please select the artist all others should be merged into:`)}
       </p>
       <form action={$c.req.uri} method="post">
         <ArtistList
-          artists={sortBy(toMerge, 'name')}
+          artists={sortByEntityName(toMerge)}
           mergeForm={form}
         />
         <FieldErrors field={form.field.target} />

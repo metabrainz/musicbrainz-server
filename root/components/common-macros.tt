@@ -852,7 +852,7 @@ END ~%]
   [%- END %]
 [%- END -%]
 
-[%~ MACRO link_type_cardinality_name(cardinality) BLOCK ~%]
+[%~ MACRO link_type_cardinality_name(cardinality) BLOCK ~%] [% # Converted to React at root/static/scripts/common/components/Cardinality.js %]
   [%~ IF cardinality == 0; l('Few relationships');
       ELSIF cardinality == 1; l('Many relationships');
       ELSE; l('Unknown');
@@ -946,3 +946,10 @@ END ~%]
       </td>
   [% END %]
 [%- END -%]
+
+[%~ MACRO form_csrf_token BLOCK; # Converted to React at root/components/FormCsrfToken.js
+    IF invalid_csrf_token;
+        '<p class="error">' _ l('The form you’ve submitted has expired. Please resubmit your request.') _ '</p>';
+    END;
+    '<input type="hidden" name="csrf_token" value="' _ html_escape(csrf_token) _ '" />';
+END ~%]

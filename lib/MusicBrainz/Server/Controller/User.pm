@@ -111,7 +111,7 @@ sub do_login : Private
     my $form = $c->form(form => 'User::Login');
     my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
 
-    if ($c->form_posted && $form->process(params => $c->req->params))
+    if ($c->form_posted_and_valid($form))
     {
         if ($self->_perform_login($c, $form->field("username")->value, $form->field("password")->value)) {
             if ($form->field('remember_me')->value) {
@@ -139,7 +139,7 @@ sub do_login : Private
     $c->detach;
 }
 
-sub login : Path('/login') ForbiddenOnSlaves RequireSSL
+sub login : Path('/login') ForbiddenOnSlaves RequireSSL CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -262,7 +262,7 @@ Allows users to contact other users via email
 
 =cut
 
-sub contact : Chained('load') RequireAuth HiddenOnSlaves
+sub contact : Chained('load') RequireAuth HiddenOnSlaves CSRFToken
 {
     my ($self, $c) = @_;
 
@@ -285,7 +285,7 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves
     }
 
     my $form = $c->form( form => 'User::Contact' );
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
 
         my $result;
         try {
@@ -548,7 +548,7 @@ sub privileged : Path('/privileged')
     );
 }
 
-sub report : Chained('load') RequireAuth HiddenOnSlaves {
+sub report : Chained('load') RequireAuth HiddenOnSlaves CSRFToken {
     my ($self, $c) = @_;
 
     my $reporter = $c->user;
@@ -573,7 +573,7 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves {
         },
     );
 
-    if ($c->form_posted && $form->process(params => $c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         my $result;
         try {
             $result = $c->model('Email')->send_editor_report(

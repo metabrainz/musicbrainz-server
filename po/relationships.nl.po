@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-03 12:59+0000\n"
+"PO-Revision-Date: 2020-04-18 20:44+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1108,7 +1108,7 @@ msgstr "Deze eigenschap geeft aan dat een gast meespeelt die normaal geen deel v
 #: DB:link_attribute_type/description:1094
 msgid ""
 "This attribute indicates a member the band is named after and without which "
-"it wouldn't exist (e.g. Miles Davis -> Miles Davis Sextet)"
+"it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
 msgstr "Deze eigenschap geeft een lid van de groep aan waarnaar de groep is vernoemd en zonder wie de groep niet zou bestaan (bijv. Miles Davis > Miles Davis Sextet)"
 
 #: DB:link_attribute_type/description:511
@@ -3023,6 +3023,10 @@ msgid ""
 "This specifies the credited task(s) for a \"miscellaneous support\" "
 "relationship."
 msgstr "Hiermee kun je de relatie “diverse ondersteuning” specificeren."
+
+#: DB:link_attribute_type/description:568
+msgid "This specifies the medium the relationship applies to."
+msgstr "Deze eigenschap geeft aan op welk medium de relatie van toepassing is."
 
 #: DB:link_attribute_type/description:617
 msgid ""

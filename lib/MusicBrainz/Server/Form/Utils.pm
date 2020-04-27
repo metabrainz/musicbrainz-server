@@ -176,8 +176,6 @@ sub build_type_info {
 
         my $result = $root->TO_JSON;
 
-        $result->{children} = build_child_info($root, \&build_type) if $root->all_children;
-
         return $result;
     };
 

@@ -30,9 +30,15 @@ sub index : Path('/relationships') Args(0)
 
     my @types = sort keys %by_second_type;
 
-    $c->stash(
+    my %props = (
         types => \@types,
         table => [ map { [ sort_by { $_->[0] } @{ $by_second_type{$_} } ] } @types ]
+    );
+
+    $c->stash(
+        component_path  => 'relationship/linktype/RelationshipTypesIndex',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
@@ -67,9 +73,13 @@ sub tree : Chained('type_specific') PathPart('')
 {
     my ($self, $c) = @_;
 
+    my $root = $c->model('LinkType')->get_tree($c->stash->{type0},
+                                                $c->stash->{type1});
+
     $c->stash(
-        root => $c->model('LinkType')->get_tree($c->stash->{type0},
-                                                $c->stash->{type1})
+        component_path  => 'relationship/linktype/RelationshipTypePairTree',
+        component_props => {root => $root},
+        current_view    => 'Node',
     );
 }
 
@@ -105,7 +115,7 @@ sub create : Chained('type_specific') PathPart('create') RequireAuth(relationshi
     );
     $form->field('parent_id')->_load_options;
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         my $values = { map { $_->name => $_->value } $form->edit_fields };
         $values->{entity0_type} = $c->stash->{type0};
         $values->{entity1_type} = $c->stash->{type1};
@@ -276,13 +286,17 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
     my $link_type = $c->stash->{link_type};
 
     if ($c->model('LinkType')->in_use($link_type->id)) {
-        $c->stash( template => 'relationship/linktype/in_use.tt' );
+        $c->stash(
+            component_path  => 'relationship/linktype/RelationshipTypeInUse',
+            component_props => {type => $link_type},
+            current_view    => 'Node',
+        );
         $c->detach;
     }
 
     my $form = $c->form( form => 'Confirm' );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,

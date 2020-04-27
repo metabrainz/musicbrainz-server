@@ -32,6 +32,8 @@ test 'browse labels via release' => sub {
                         "name" => "Japan",
                         "sort-name" => "Japan",
                         "iso-3166-1-codes" => ["JP"],
+                        "type" => JSON::null,
+                        "type-id" => JSON::null,
                     },
                     "life-span" => {
                         begin => JSON::null,

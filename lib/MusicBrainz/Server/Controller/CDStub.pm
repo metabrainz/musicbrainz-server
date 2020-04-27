@@ -82,7 +82,7 @@ sub add : Path('add') DenyWhenReadonly
         }
     );
     $c->stash( template => 'cdstub/add.tt' );
-    if ($form->submitted_and_valid($c->req->params)) {
+    if ($c->form_submitted_and_valid($form)) {
         my $form_val = $form->value;
         $c->model('CDStub')->insert({
             %$form_val,
@@ -121,7 +121,7 @@ sub edit : Chained('load') DenyWhenReadonly
     my $cdstub = $c->stash->{cdstub};
 
     my $form = $c->form(form => 'CDStub', init_object => $cdstub);
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         $c->model('CDStub')->update($cdstub, $form->value);
 
         $c->res->redirect(
@@ -140,7 +140,7 @@ sub import : Chained('load') RequireAuth
         form => 'Search::Query',
         item => { query => $search_query }
     );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted_and_valid($form)) {
         $search_query = $form->field('query')->value;
     }
 

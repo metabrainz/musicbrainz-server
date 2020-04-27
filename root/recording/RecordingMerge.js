@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import sortByEntityName
+  from '../static/scripts/common/utility/sortByEntityName';
 import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
@@ -28,11 +30,8 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
     <div id="content">
       <h1>{l('Merge recordings')}</h1>
       <p>
-        {l(
-          `You are about to merge the following recordings into a single
-            recording. Please select the recording which you would like
-            other recordings to be merged into:`,
-        )}
+        {l(`You are about to merge all these recordings into a single one.
+            Please select the recording all others should be merged into:`)}
       </p>
       {isrcsDiffer ? (
         <div className="warning warning-isrcs-differ">
@@ -49,7 +48,7 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
       <form action={$c.req.uri} method="post">
         <RecordingList
           mergeForm={form}
-          recordings={toMerge}
+          recordings={sortByEntityName(toMerge)}
           showExpandedArtistCredits
         />
         <FieldErrors field={form.field.target} />

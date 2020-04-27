@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import FormCsrfToken from '../components/FormCsrfToken';
 import FormRow from '../components/FormRow';
 import FormRowText from '../components/FormRowText';
 import FormRowEmailLong from '../components/FormRowEmailLong';
@@ -37,6 +38,7 @@ const LostPassword = (props: Props) => (
       )}
     </p>
     <form method="post">
+      <FormCsrfToken />
       <FormRowText
         field={props.form.field.username}
         label={l('Username:')}

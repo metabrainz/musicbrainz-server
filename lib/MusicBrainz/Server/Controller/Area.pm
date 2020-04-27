@@ -7,10 +7,13 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Area',
     relationships   => {
         cardinal    => ['edit'],
-        default     => ['url'],
         subset      => {
-            show => [qw( area artist label place series instrument release release_group recording work url )],
-        }
+            show => [qw( area artist label place series instrument release_group url )],
+            recordings => ['recording'],
+            releases => ['release'],
+            works => ['work'],
+        },
+        default     => ['url']
     },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
@@ -267,11 +270,6 @@ sub places : Chained('load')
     );
 }
 
-after [qw( show collections details tags aliases artists labels releases places )] => sub {
-    my ($self, $c) = @_;
-    $self->_stash_collections($c);
-};
-
 =head2 users
 
 Shows editors located in this area.
@@ -298,6 +296,43 @@ sub users : Chained('load') {
         current_view    => 'Node',
     );
 }
+
+=head2 recordings
+
+Shows recordings related to this area.
+
+=cut
+
+sub recordings : Chained('load') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        component_path => 'area/AreaRecordings',
+        component_props => { area => $c->stash->{area} },
+        current_view => 'Node',
+    );
+}
+
+=head2 works
+
+Shows works related to this area.
+
+=cut
+
+sub works : Chained('load') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        component_path => 'area/AreaWorks',
+        component_props => { area => $c->stash->{area} },
+        current_view => 'Node',
+    );
+}
+
+after [qw( show collections details tags aliases artists labels releases recordings places users works )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collections($c);
+};
 
 =head2 WRITE METHODS
 
@@ -334,6 +369,7 @@ sub _merge_load_entities
 {
     my ($self, $c, @areas) = @_;
     $c->model('Area')->load_containment(@areas);
+    $c->model('AreaType')->load(@areas);
 };
 
 =head1 LICENSE

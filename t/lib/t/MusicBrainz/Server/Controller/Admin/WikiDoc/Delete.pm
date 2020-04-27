@@ -25,7 +25,8 @@ test 'Edit an already transcluded page' => sub {
     html_ok($mech->content);
 
     my @edits = capture_edits {
-        $mech->request(POST $mech->uri, [ 'confirm.submit' => 1 ]);
+        $mech->form_name('confirm');
+        $mech->click_button(name => 'confirm.submit');
     } $c;
 
     is(@edits, 1);
