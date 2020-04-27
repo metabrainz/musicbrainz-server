@@ -35,7 +35,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-18 16:20+0000\n"
+"PO-Revision-Date: 2020-04-23 09:02+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1131,7 +1131,7 @@ msgstr "Cet attribut indique une interprétation en tant qu’invité quand l’
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
-msgstr ""
+msgstr "Cet attribut indique un membre qui a donné son nom au groupe et sans lequel ce groupe n’existerait pas (p. ex. Miles Davis -&gt; Miles Davis Sextet)."
 
 #: DB:link_attribute_type/description:511
 msgid ""
@@ -3048,7 +3048,7 @@ msgstr "Cet attribut désigne la tâche créditée pour une relation de « souti
 
 #: DB:link_attribute_type/description:568
 msgid "This specifies the medium the relationship applies to."
-msgstr ""
+msgstr "Cet attribut désigne le support auquel s’applique cette relation."
 
 #: DB:link_attribute_type/description:617
 msgid ""
