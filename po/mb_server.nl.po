@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 20:02+0000\n"
-"PO-Revision-Date: 2020-04-22 06:15+0000\n"
+"POT-Creation-Date: 2020-04-23 00:34-0500\n"
+"PO-Revision-Date: 2020-04-23 10:23+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -205,7 +205,7 @@ msgstr "250px"
 msgid "500px"
 msgstr "500px"
 
-#: ../root/admin/edit_user.tt:20
+#: ../root/admin/edit_user.tt:21
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
 msgstr "<abbr title=\"MusicBrainz Identifier\">MBID</abbr>-indiener"
 
@@ -316,7 +316,7 @@ msgstr "Bewerking accepteren"
 msgid "Accepted edits by {name}"
 msgstr "Geaccepteerde bewerkingen door {name}"
 
-#: ../root/admin/edit_user.tt:27 ../root/admin/edit_user.tt:31
+#: ../root/admin/edit_user.tt:28 ../root/admin/edit_user.tt:32
 msgid "Account admin"
 msgstr "Accountbeheerder"
 
@@ -532,7 +532,7 @@ msgstr "Adres:"
 msgid "Adjust User Account Flags"
 msgstr "Rechten voor accounts aanpassen"
 
-#: ../root/admin/edit_user.tt:19
+#: ../root/admin/edit_user.tt:20
 msgid "Administration flags"
 msgstr "Administratieve markering"
 
@@ -567,7 +567,7 @@ msgid ""
 " doesn’t exist yet."
 msgstr "Alle nummers hebben een bijbehorende opname nodig. Klik “Bewerken” om voor elk nummer een opname te kiezen. Kies voor “Nieuwe opname toevoegen” als er nog geen geschikte opname bestaat."
 
-#: ../root/admin/delete_user.tt:11
+#: ../root/admin/delete_user.tt:12
 msgid "Allow the name “{editor_name}” to be reused."
 msgstr "Maak het mogelijk om de naam “{editor_name}” opnieuw te gebruiken."
 
@@ -614,7 +614,7 @@ msgstr "Er is een fout opgetreden:"
 #: ../root/report/components/WorkAnnotationList.js:26
 #: ../root/search/components/AnnotationResults.js:58
 #: ../root/search/components/SearchForm.js:42
-#: ../root/static/scripts/common/components/Annotation.js:64
+#: ../root/static/scripts/common/components/Annotation.js:62
 msgid "Annotation"
 msgstr "Aantekening"
 
@@ -669,7 +669,7 @@ msgid ""
 "undone!"
 msgstr "Weet je zeker dat je alle informatie over {e} wil verwijderen? Dit kan niet ongedaan worden gemaakt!"
 
-#: ../root/admin/delete_user.tt:23
+#: ../root/admin/delete_user.tt:24
 msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr "Weet je zeker dat je je account wil verwijderen? Dit kan niet ongedaan worden gemaakt!"
 
@@ -767,14 +767,14 @@ msgstr "Gebieden"
 #: ../root/edit/details/merge_releases.tt:20 ../root/edit/search_macros.tt:386
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:150 ../root/release/edit/tracklist.tt:370
-#: ../root/release/merge.tt:13 ../root/watch/list.tt:14
+#: ../root/release/merge.tt:13 ../root/watch/list.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:31
 #: ../root/components/RelationshipsTable.js:95
 #: ../root/components/list/ArtistList.js:60
 #: ../root/components/list/RecordingList.js:75
-#: ../root/components/list/ReleaseGroupList.js:96
+#: ../root/components/list/ReleaseGroupList.js:98
 #: ../root/components/list/ReleaseList.js:74
 #: ../root/edit/details/AddArtist.js:56
 #: ../root/edit/details/AddReleaseGroup.js:53 ../root/isrc/Index.js:57
@@ -947,7 +947,7 @@ msgstr "Eigenschappen:"
 msgid "Auto-Editor"
 msgstr "Autoredacteur"
 
-#: ../root/admin/edit_user.tt:7
+#: ../root/admin/edit_user.tt:8
 msgid "Auto-editor"
 msgstr "Autoredacteur"
 
@@ -967,7 +967,7 @@ msgstr "Achteruit"
 msgid "Bad Request"
 msgstr "Verkeerd verzoek"
 
-#: ../root/admin/edit_user.tt:11
+#: ../root/admin/edit_user.tt:12
 msgid "Banner message editor"
 msgstr "Mededelingsredateur"
 
@@ -1060,8 +1060,8 @@ msgid ""
 " sure to include it!"
 msgstr "Hieronder staat informatie over de foutmelding. Als je deze fout wil melden, kan je dat doen op {bugs|onze bugtracker}. Voeg de onderstaande informatie aan de melding toe. Dit help ons om het probleem op te lossen!"
 
-#: ../root/admin/edit_user.tt:40
-#: ../root/static/scripts/account/components/EditProfileForm.js:261
+#: ../root/admin/edit_user.tt:41
+#: ../root/static/scripts/account/components/EditProfileForm.js:264
 #: ../root/user/UserProfile.js:276
 msgid "Bio:"
 msgstr "Biografie:"
@@ -1076,11 +1076,11 @@ msgstr "Weblog"
 msgid "Born:"
 msgstr "Geboren:"
 
-#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:360
+#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:360
 msgid "Bot"
 msgstr "Robot"
 
-#: ../root/admin/attributes/form.tt:28
+#: ../root/admin/attributes/form.tt:30
 msgid ""
 "Both Other and Uncommon are shown in the \"other\" section, but Uncommon "
 "should be used for scripts in Unicode which are unlikely to be used."
@@ -1148,7 +1148,7 @@ msgstr "Kan worden goedgekeurd"
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
 #: ../root/release/edit/tracklist.tt:104 ../root/release/merge.tt:134
 #: ../root/area/AreaMerge.js:51 ../root/artist/ArtistMerge.js:77
-#: ../root/components/ConfirmLayout.js:39 ../root/event/EventMerge.js:54
+#: ../root/components/ConfirmLayout.js:42 ../root/event/EventMerge.js:54
 #: ../root/instrument/InstrumentMerge.js:54 ../root/label/LabelMerge.js:51
 #: ../root/layout/components/MergeHelper.js:75 ../root/place/PlaceMerge.js:51
 #: ../root/recording/RecordingMerge.js:65
@@ -1185,7 +1185,7 @@ msgstr "Kan geen afbeelding toevoegen"
 msgid "Cannot Remove Attribute"
 msgstr "Eigenschap kan niet worden verwijderd"
 
-#: ../root/account/register.tt:40
+#: ../root/account/register.tt:41
 msgid "Captcha"
 msgstr "Captcha"
 
@@ -1226,9 +1226,9 @@ msgstr "Catalogusnummer:"
 msgid "Catalog#"
 msgstr "Catalogus#"
 
-#: ../root/account/change_password.tt:24 ../root/account/change_password.tt:30
-#: ../root/account/change_password.tt:31 ../root/account/change_password.tt:35
-#: ../root/account/change_password.tt:36
+#: ../root/account/change_password.tt:25 ../root/account/change_password.tt:31
+#: ../root/account/change_password.tt:32 ../root/account/change_password.tt:36
+#: ../root/account/change_password.tt:37
 #: ../root/components/UserAccountTabs.js:77
 msgid "Change Password"
 msgstr "Wachtwoord veranderen"
@@ -1247,7 +1247,7 @@ msgid "Change track artists:"
 msgstr "De artiesten van de nummers veranderen:"
 
 #: ../root/annotation/edit.tt:24
-#: ../root/static/scripts/common/components/Annotation.js:81
+#: ../root/static/scripts/common/components/Annotation.js:79
 msgid "Changelog:"
 msgstr "Veranderingslogboek:"
 
@@ -1255,7 +1255,7 @@ msgstr "Veranderingslogboek:"
 msgid "Changes"
 msgstr "Bewerkingen"
 
-#: ../root/admin/attributes/form.tt:51
+#: ../root/admin/attributes/form.tt:53
 #: ../root/admin/attributes/Attribute.js:97
 msgid "Child order"
 msgstr "Volgorde van kindelementen"
@@ -1347,8 +1347,8 @@ msgid ""
 "on {date_new}."
 msgstr "Vergelijkt de revisie door {user_old} op {date_old} met de revisie door {user_new} op {date_new}."
 
-#: ../root/account/change_password.tt:21 ../root/account/register.tt:33
-#: ../root/account/reset_password.tt:11
+#: ../root/account/change_password.tt:22 ../root/account/register.tt:34
+#: ../root/account/reset_password.tt:12
 msgid "Confirm password:"
 msgstr "Wachtwoord bevestigen:"
 
@@ -1404,11 +1404,11 @@ msgstr "Afbeelding(en)"
 msgid "Cover art:"
 msgstr "Afbeelding:"
 
-#: ../root/admin/wikidoc/create.tt:12
+#: ../root/admin/wikidoc/create.tt:13
 msgid "Create"
 msgstr "Aanmaken"
 
-#: ../root/account/register.tt:46 ../root/layout/components/TopMenu.js:157
+#: ../root/account/register.tt:47 ../root/layout/components/TopMenu.js:157
 msgid "Create Account"
 msgstr "Registreren"
 
@@ -1432,7 +1432,7 @@ msgstr "Vermeld als:"
 msgid "Credits"
 msgstr "Relaties"
 
-#: ../root/admin/wikidoc/edit.tt:14
+#: ../root/admin/wikidoc/edit.tt:16
 msgid "Current version:"
 msgstr "Huidige versie:"
 
@@ -1513,11 +1513,11 @@ msgstr "Account verwijderen"
 msgid "Delete User"
 msgstr "Gebruiker verwijderen"
 
-#: ../root/admin/delete_user.tt:26
+#: ../root/admin/delete_user.tt:28
 msgid "Delete my account"
 msgstr "Mijn account verwijderen"
 
-#: ../root/admin/delete_user.tt:15
+#: ../root/admin/delete_user.tt:16
 msgid "Delete {e}"
 msgstr "Verwijder {e}"
 
@@ -1525,13 +1525,13 @@ msgstr "Verwijder {e}"
 msgid "Deprecated:"
 msgstr "Verouderd:"
 
-#: ../root/admin/attributes/form.tt:59 ../root/doc/edit_type.tt:23
+#: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
 #: ../root/doc/relationship_type.tt:25 ../root/work/edit_form.tt:110
 #: ../root/admin/attributes/Attribute.js:96
 #: ../root/collection/CollectionIndex.js:177
 #: ../root/instrument/InstrumentIndex.js:35
 #: ../root/search/components/InstrumentResults.js:49
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:88
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:89
 #: ../root/utility/tableColumns.js:488
 msgid "Description"
 msgstr "Omschrijving"
@@ -1790,11 +1790,11 @@ msgid ""
 "writing edit notes!"
 msgstr "Je kan voor je bewerkingsnotities {doc_formatting|beperkte wiki-opmaak gebruiken}. Houd bij het schrijven altijd rekening met de {doc_coc|Gedragscode}."
 
-#: ../root/admin/edit_user.tt:34
+#: ../root/admin/edit_user.tt:35
 msgid "Edit profile"
 msgstr "Profiel bewerken"
 
-#: ../root/admin/edit_user.tt:46
+#: ../root/admin/edit_user.tt:47
 msgid "Edit user"
 msgstr "Gebruiker bewerken"
 
@@ -1806,7 +1806,7 @@ msgstr "Bewerkt"
 msgid "Editing FAQ"
 msgstr "Veelgestelde vragen over bewerkingen"
 
-#: ../root/admin/edit_user.tt:12
+#: ../root/admin/edit_user.tt:13
 msgid "Editing/voting disabled"
 msgstr "Bewerken en stemmen uitgeschakeld"
 
@@ -1859,7 +1859,7 @@ msgstr "Voor de pagina geladen bewerkinen:"
 msgid "Email Sent"
 msgstr "E-mail verstuurd"
 
-#: ../root/account/register.tt:34 ../root/admin/edit_user.tt:36
+#: ../root/account/register.tt:35 ../root/admin/edit_user.tt:37
 #: ../root/user/UserProfile.js:139
 msgid "Email:"
 msgstr "E-mail:"
@@ -1939,7 +1939,7 @@ msgid ""
 "&#x2014; thus making your edit get applied faster."
 msgstr "We raden je sterk aan om een {note|bewerkingsnotitie} toe te voegen waarin je beschrijft waar je je informatie hebt gevonden. Dit maakt niet alleen duidelijk waar je je informatie vandaan hebt, maar kan gebruikers ook aansporen om op je bewerking te stemmen, waardoor die sneller wordt doorgevoerd. Vergeet niet dat dit een internationale gemeenschap is: schijf je notitie daarom in het Engels, ook als je Nederlandse artiesten bewerkt."
 
-#: ../root/admin/attributes/form.tt:35
+#: ../root/admin/attributes/form.tt:37
 #: ../root/admin/attributes/Attribute.js:55
 msgid "Entity type"
 msgstr "Objecttype"
@@ -2087,7 +2087,7 @@ msgid ""
 "order to edit their recordings."
 msgstr "Vul eerst alle informatie over de nummers, inclusief titels en artiesten, in om de opnames te bewerken."
 
-#: ../root/account/register.tt:56
+#: ../root/account/register.tt:57
 msgid ""
 "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
 "the {fo|forums} or {irc|IRC}."
@@ -2099,7 +2099,7 @@ msgid ""
 "{doc|syntax documentation}."
 msgstr "Lees de {doc|syntaxdocumentatie} voor hulp bij het schrijven van effectieve geavanceerde zoekopdrachten."
 
-#: ../root/admin/delete_user.tt:19
+#: ../root/admin/delete_user.tt:20
 msgid ""
 "For information about the account deletion process, please read the "
 "{uri|account FAQ}."
@@ -2123,7 +2123,7 @@ msgstr "Lees de {doc_doc|documentatie} voor meer informatie."
 msgid "Forbidden Request"
 msgstr "Verboden verzoek"
 
-#: ../root/user/login.tt:39
+#: ../root/user/login.tt:40
 msgid "Forgot your {link1|username} or {link2|password}?"
 msgstr "Ben je je {link1|gebruikersnaam} of {link2|wachtwoord} vergeten?"
 
@@ -2211,13 +2211,13 @@ msgstr "FreeDB:"
 msgid "French"
 msgstr "Frans"
 
-#: ../root/admin/attributes/form.tt:10 ../root/admin/attributes/form.tt:24
+#: ../root/admin/attributes/form.tt:12 ../root/admin/attributes/form.tt:26
 #: ../root/admin/attributes/Language.js:44
 #: ../root/admin/attributes/Script.js:44
 msgid "Frequency"
 msgstr "Frequentie"
 
-#: ../root/admin/attributes/form.tt:12 ../root/admin/attributes/form.tt:26
+#: ../root/admin/attributes/form.tt:14 ../root/admin/attributes/form.tt:28
 msgid "Frequency notes:"
 msgstr "Notities over de frequentie:"
 
@@ -2232,7 +2232,7 @@ msgstr "Volledige TOC:"
 
 #: ../root/artist/edit_form.tt:17 ../root/edit/details/edit_artist.tt:30
 #: ../root/layout/components/sidebar/ArtistSidebar.js:82
-#: ../root/static/scripts/account/components/EditProfileForm.js:210
+#: ../root/static/scripts/account/components/EditProfileForm.js:213
 #: ../root/user/UserProfile.js:200
 msgid "Gender:"
 msgstr "Geslacht:"
@@ -2303,17 +2303,17 @@ msgstr "Koppen:"
 msgid "Help:"
 msgstr "Help:"
 
-#: ../root/admin/attributes/form.tt:15
+#: ../root/admin/attributes/form.tt:17
 msgid ""
 "Hidden is used by default for ancient languages and languages only in ISO "
 "639-3 (until requested by a user)."
 msgstr "Verborgen is standaard voor antieke talen en talen die alleen in ISO 639-3 staan (tot deze taal door een gebruiker wordt aangevraagd)."
 
-#: ../root/admin/attributes/form.tt:29
+#: ../root/admin/attributes/form.tt:31
 msgid "Hidden should be used for scripts not in Unicode."
 msgstr "Verbogen moet worden gebruikt voor schriften die geen deel van Unicode uitmaken."
 
-#: ../root/admin/attributes/form.tt:14
+#: ../root/admin/attributes/form.tt:16
 msgid ""
 "Hidden should be used for sign languages and languages with no ISO 639-3 "
 "code."
@@ -2421,27 +2421,27 @@ msgstr "ISO 3166-3"
 msgid "ISO 3166-3:"
 msgstr "ISO 3166-3:"
 
-#: ../root/admin/attributes/form.tt:6 ../root/admin/attributes/Language.js:40
+#: ../root/admin/attributes/form.tt:8 ../root/admin/attributes/Language.js:40
 msgid "ISO 639-1"
 msgstr "ISO 639-1"
 
-#: ../root/admin/attributes/form.tt:7 ../root/admin/attributes/Language.js:41
+#: ../root/admin/attributes/form.tt:9 ../root/admin/attributes/Language.js:41
 msgid "ISO 639-2/B"
 msgstr "ISO 639-2/B"
 
-#: ../root/admin/attributes/form.tt:8 ../root/admin/attributes/Language.js:42
+#: ../root/admin/attributes/form.tt:10 ../root/admin/attributes/Language.js:42
 msgid "ISO 639-2/T"
 msgstr "ISO 639-2/T"
 
-#: ../root/admin/attributes/form.tt:9 ../root/admin/attributes/Language.js:43
+#: ../root/admin/attributes/form.tt:11 ../root/admin/attributes/Language.js:43
 msgid "ISO 639-3"
 msgstr "ISO 639-3"
 
-#: ../root/admin/attributes/form.tt:22 ../root/admin/attributes/Script.js:42
+#: ../root/admin/attributes/form.tt:24 ../root/admin/attributes/Script.js:42
 msgid "ISO code"
 msgstr "ISO-code"
 
-#: ../root/admin/attributes/form.tt:23 ../root/admin/attributes/Script.js:43
+#: ../root/admin/attributes/form.tt:25 ../root/admin/attributes/Script.js:43
 msgid "ISO number"
 msgstr "ISO-nummer"
 
@@ -2549,7 +2549,7 @@ msgid ""
 " and the URL of the page that sent you here."
 msgstr "{report|Meld een bug} als je hier via een link op onze site bent gekomen, en voeg de URL van de pagina die je hierheen stuurde aan de melding toe."
 
-#: ../root/account/register.tt:50
+#: ../root/account/register.tt:51
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or "
 "{doc|documentation} before {con|contacting us}. "
@@ -2592,7 +2592,7 @@ msgid ""
 "{mb|https://musicbrainz.org/}."
 msgstr "Om deze pagina te bekijken, moet je de hoofdserver op {mb|https://musicbrainz.org/} gebruiken."
 
-#: ../root/user/login.tt:20
+#: ../root/user/login.tt:21
 msgid "Incorrect username or password"
 msgstr "Incorrecte gebruikersnaam of wachtwoord"
 
@@ -2697,7 +2697,7 @@ msgid ""
 "before submitting."
 msgstr "Vergeet niet dat de nummers worden verwijderd als je dit vakje uitvinkt en het medium een disc-ID heeft! Als je het per ongeluk hebt uitgevinkt, moet je de pregapnummers weer toevoegen voordat je de bewerking indient."
 
-#: ../root/user/login.tt:31
+#: ../root/user/login.tt:32
 msgid "Keep me logged in"
 msgstr "Aangemeld blijven"
 
@@ -2872,11 +2872,11 @@ msgstr "Lokalisatie:"
 msgid "Location Editor"
 msgstr "Locatieredacteur"
 
-#: ../root/admin/edit_user.tt:10
+#: ../root/admin/edit_user.tt:11
 msgid "Location editor"
 msgstr "Locatieredacteur"
 
-#: ../root/user/login.tt:1 ../root/user/login.tt:3 ../root/user/login.tt:34
+#: ../root/user/login.tt:1 ../root/user/login.tt:3 ../root/user/login.tt:35
 #: ../root/layout/components/TopMenu.js:153
 msgid "Log In"
 msgstr "Aanmelden"
@@ -3043,7 +3043,7 @@ msgstr "Media en opnames samenvoegen"
 msgid "Merge strategy:"
 msgstr "Samenvoegingsstrategie:"
 
-#: ../root/user/contact.tt:11 ../root/user/ReportUser.js:125
+#: ../root/user/contact.tt:13 ../root/user/ReportUser.js:128
 msgid "Message"
 msgstr "Bericht"
 
@@ -3102,7 +3102,7 @@ msgstr "MusicBrainz hecht veel waarde aan de privacy van haar gebruikers! Persoo
 msgid "MusicBrainz does not have any CDs with the TOC:"
 msgstr "MusicBrainz heeft geen cd’s met de TOC:"
 
-#: ../root/account/register.tt:62
+#: ../root/account/register.tt:63
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -3121,8 +3121,8 @@ msgstr "Mijn stem: "
 msgid "N/A"
 msgstr "Geen"
 
-#: ../root/admin/attributes/form.tt:5 ../root/admin/attributes/form.tt:21
-#: ../root/admin/attributes/form.tt:56 ../root/components/results-generic.tt:5
+#: ../root/admin/attributes/form.tt:7 ../root/admin/attributes/form.tt:23
+#: ../root/admin/attributes/form.tt:58 ../root/components/results-generic.tt:5
 #: ../root/edit/details/historic/add_release.tt:50
 #: ../root/otherlookup/results-release.tt:10
 #: ../root/otherlookup/results-work.tt:7
@@ -3152,8 +3152,8 @@ msgstr "Geen"
 #: ../root/search/components/SeriesResults.js:51
 #: ../root/search/components/TagResults.js:50
 #: ../root/search/components/WorkResults.js:48
-#: ../root/static/scripts/account/components/ApplicationForm.js:76
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:76
+#: ../root/static/scripts/account/components/ApplicationForm.js:79
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:77
 #: ../root/static/scripts/common/components/FilterForm.js:89
 msgid "Name"
 msgstr "Naam"
@@ -3248,7 +3248,7 @@ msgstr "Nieuwe taal:"
 msgid "New page"
 msgstr "Nieuwe pagina"
 
-#: ../root/account/change_password.tt:20
+#: ../root/account/change_password.tt:21
 msgid "New password:"
 msgstr "Nieuw wachtwoord:"
 
@@ -3272,7 +3272,7 @@ msgstr "Nieuwe relaties:"
 msgid "New script:"
 msgstr "Nieuw schrift:"
 
-#: ../root/admin/wikidoc/edit.tt:18 ../root/edit/details/change_wikidoc.tt:23
+#: ../root/admin/wikidoc/edit.tt:20 ../root/edit/details/change_wikidoc.tt:23
 #: ../root/edit/details/change_wikidoc.tt:28
 msgid "New version:"
 msgstr "Nieuwe versie:"
@@ -3309,7 +3309,7 @@ msgstr "Geen bewerkingsnotities toegevoegd."
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Er zijn geen bewerkingen gevonden die aan je zoekopdracht voldoen. {search|Probeer het opnieuw.}"
 
-#: ../root/admin/edit_user.tt:17
+#: ../root/admin/edit_user.tt:18
 msgid "No nag"
 msgstr "Niet lastigvallen"
 
@@ -3374,7 +3374,7 @@ msgstr "Normaal"
 #: ../root/edit/details/edit_release.tt:59
 #: ../root/edit/details/merge_releases.tt:158
 #: ../root/edit/details/historic/MergeReleases.js:65
-#: ../root/user/ReportUser.js:96
+#: ../root/user/ReportUser.js:97
 msgid "Note"
 msgstr "Notitie"
 
@@ -3425,7 +3425,7 @@ msgstr "Oude nummerlijst"
 msgid "Old cover art:"
 msgstr "Oude afbeeldingen:"
 
-#: ../root/account/change_password.tt:19
+#: ../root/account/change_password.tt:20
 msgid "Old password:"
 msgstr "Oud wachtwoord:"
 
@@ -3576,11 +3576,11 @@ msgstr "Paginanaam"
 msgid "Page removed"
 msgstr "Pagina verwijderd"
 
-#: ../root/admin/wikidoc/create.tt:8 ../root/admin/wikidoc/edit.tt:9
+#: ../root/admin/wikidoc/create.tt:9 ../root/admin/wikidoc/edit.tt:11
 msgid "Page:"
 msgstr "Pagina:"
 
-#: ../root/admin/attributes/form.tt:48
+#: ../root/admin/attributes/form.tt:50
 #: ../root/edit/details/edit_relationship_type.tt:92
 msgid "Parent"
 msgstr "Ouderelement"
@@ -3596,8 +3596,8 @@ msgstr "Ouderelement:"
 msgid "Parse Tracks"
 msgstr "Nummers invullen"
 
-#: ../root/account/register.tt:32 ../root/account/reset_password.tt:10
-#: ../root/user/login.tt:24
+#: ../root/account/register.tt:33 ../root/account/reset_password.tt:11
+#: ../root/user/login.tt:25
 msgid "Password:"
 msgstr "Wachtwoord:"
 
@@ -3697,7 +3697,7 @@ msgid ""
 "text here! "
 msgstr "Let op dat alle informatie die aan MusicBrainz wordt toegevoegd, onder {open|open licenties} aan het publiek beschikbaar wordt gesteld. Voeg hier geen auteursrechtelijk beschermde tekst toe!"
 
-#: ../root/account/register.tt:45
+#: ../root/account/register.tt:46
 msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
 "account."
@@ -3938,7 +3938,7 @@ msgstr "Relatietype"
 msgid "Relationship Types"
 msgstr "Relatietypes"
 
-#: ../root/admin/edit_user.tt:9
+#: ../root/admin/edit_user.tt:10
 msgid "Relationship editor"
 msgstr "Relatieredacteur"
 
@@ -4131,7 +4131,7 @@ msgstr "Uitgave:"
 #: ../root/area/AreaReleases.js:32 ../root/area/AreaReleases.js:33
 #: ../root/artist/ArtistReleases.js:45 ../root/artist/ArtistReleases.js:46
 #: ../root/components/EntityTabs.js:29
-#: ../root/components/list/ReleaseGroupList.js:108
+#: ../root/components/list/ReleaseGroupList.js:110
 #: ../root/instrument/InstrumentReleases.js:33
 #: ../root/instrument/InstrumentReleases.js:34 ../root/label/LabelIndex.js:58
 #: ../root/report/ReportsIndex.js:222
@@ -4158,7 +4158,7 @@ msgstr "Uitgaves"
 msgid "Releases:"
 msgstr "Uitgaves:"
 
-#: ../root/admin/attributes/delete.tt:11 ../root/admin/wikidoc/index.tt:62
+#: ../root/admin/attributes/delete.tt:12 ../root/admin/wikidoc/index.tt:62
 #: ../root/cdtoc/list.tt:54 ../root/doc/relationship_type.tt:19
 #: ../root/relationship/linkattributetype/delete.tt:11
 #: ../root/relationship/linktype/delete.tt:11
@@ -4173,7 +4173,7 @@ msgstr "Uitgaves:"
 #: ../root/layout/components/sidebar/RemoveLink.js:27
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:68
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:116
-#: ../root/static/scripts/account/components/EditProfileForm.js:287
+#: ../root/static/scripts/account/components/EditProfileForm.js:290
 #: ../root/user/UserCollections.js:122
 msgid "Remove"
 msgstr "Verwijderen"
@@ -4310,7 +4310,7 @@ msgid "Request signature..."
 msgstr "Ondertekeningsverzoek"
 
 #: ../root/account/reset_password.tt:1 ../root/account/reset_password.tt:3
-#: ../root/account/reset_password.tt:14 ../root/account/LostPassword.js:53
+#: ../root/account/reset_password.tt:15 ../root/account/LostPassword.js:55
 #: ../root/account/ResetPasswordStatus.js:19
 msgid "Reset Password"
 msgstr "Wachtwoord opnieuw instellen"
@@ -4334,7 +4334,7 @@ msgstr "Resultaten:"
 msgid "Reuse previous recordings"
 msgstr "Eerder gekoppelde opnames hergebruiken"
 
-#: ../root/user/contact.tt:16 ../root/user/ReportUser.js:143
+#: ../root/user/contact.tt:18 ../root/user/ReportUser.js:146
 msgid "Reveal my email address"
 msgstr "Mijn e-mailadres tonen"
 
@@ -4359,11 +4359,11 @@ msgstr "Lees de {url|documentatie} over het invullen van de uitgavebewerker en z
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Draait <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
-#: ../root/admin/attributes/form.tt:80
+#: ../root/admin/attributes/form.tt:82
 #: ../root/relationship/linkattributetype/form.tt:21
 #: ../root/relationship/linktype/form.tt:200
-#: ../root/static/scripts/account/components/EditProfileForm.js:307
-#: ../root/static/scripts/account/components/PreferencesForm.js:246
+#: ../root/static/scripts/account/components/EditProfileForm.js:310
+#: ../root/static/scripts/account/components/PreferencesForm.js:253
 msgid "Save"
 msgstr "Opslaan"
 
@@ -4484,18 +4484,18 @@ msgstr "Selecteer een type uit deze lijst om een omschrijving te zien. Als er ge
 msgid "Select images..."
 msgstr "Bestanden selecteren …"
 
-#: ../root/user/contact.tt:20 ../root/user/ReportUser.js:147
+#: ../root/user/contact.tt:22 ../root/user/ReportUser.js:150
 msgid "Send"
 msgstr "Verzenden"
 
 #: ../root/user/contact.tt:1 ../root/user/contact.tt:3
 #: ../lib/MusicBrainz/Server/Controller/User.pm:250
 #: ../lib/MusicBrainz/Server/Controller/User.pm:272
-#: ../root/account/LostUsername.js:40
+#: ../root/account/LostUsername.js:42
 msgid "Send Email"
 msgstr "E-mail sturen"
 
-#: ../root/user/contact.tt:17
+#: ../root/user/contact.tt:19
 msgid "Send a copy to my own email address"
 msgstr "Stuur een kopie naar mijn e-mailadres"
 
@@ -4576,7 +4576,7 @@ msgstr "Toon {autoedit_select_block} sortering: {sort_select_block}, {match_or_n
 msgid "Similar releases"
 msgstr "Soortgelijke uitgaves"
 
-#: ../root/admin/edit_user.tt:37
+#: ../root/admin/edit_user.tt:38
 msgid "Skip verification"
 msgstr "Verificatie overslaan"
 
@@ -4705,7 +4705,7 @@ msgstr "Status:"
 msgid "Stop using beta site"
 msgstr "Bètasite niet meer gebruiken"
 
-#: ../root/watch/list.tt:28
+#: ../root/watch/list.tt:29
 msgid "Stop watching selected artists"
 msgstr "Stop met het volgen van de geselecteerde artiesten."
 
@@ -4713,7 +4713,7 @@ msgstr "Stop met het volgen van de geselecteerde artiesten."
 msgid "Style guidelines"
 msgstr "Stijlgids"
 
-#: ../root/user/contact.tt:8
+#: ../root/user/contact.tt:10
 msgid "Subject:"
 msgstr "Onderwerp:"
 
@@ -4794,7 +4794,7 @@ msgstr "Etiketten"
 msgid "Technical Information"
 msgstr "Technische informatie"
 
-#: ../root/admin/edit_user.tt:14
+#: ../root/admin/edit_user.tt:15
 msgid "Technical flags"
 msgstr "Technische markering"
 
@@ -4871,6 +4871,11 @@ msgstr "Deze bewerking is geannuleerd."
 #: ../root/doc/relationship_type.tt:54
 msgid "The following attributes can be used with this relationship type:"
 msgstr "De volgende eigenschappen kunnen met dit relatietype worden gebruikt:"
+
+#: ../root/components/common-macros.tt:950
+#: ../root/components/FormCsrfToken.js:20
+msgid "The form you’ve submitted has expired. Please resubmit your request."
+msgstr "Het formulier dat je hebt ingediend is verlopen. Je moet het verzoek opnieuw indienen."
 
 #: ../root/cdtoc/set_durations.tt:19
 msgid ""
@@ -5135,7 +5140,7 @@ msgid ""
 "relationships will be removed"
 msgstr "Met dit formulier kan je {artist} splitsen in afzonderlijke artiesten. Als de bewerking wordt doorgevoerd, worden bestaande artiestvermeldingen bijgewerkt en samenwerkingsrelaties verwijderd."
 
-#: ../root/admin/attributes/form.tt:71
+#: ../root/admin/attributes/form.tt:73
 msgid "This format can have disc IDs"
 msgstr "Dit soort medium kan een disc-ID hebben"
 
@@ -5161,11 +5166,11 @@ msgid ""
 "file."
 msgstr "Dit is een PDF-bestand, de miniatuur toont misschien niet alle inhoud."
 
-#: ../root/user/login.tt:27
+#: ../root/user/login.tt:28
 msgid "This is a development server; all passwords have been reset to \"mb\"."
 msgstr "Dit is een server voor ontwikkeling; alle wachtwoorden zijn teruggezet naar ‘mb’."
 
-#: ../root/admin/attributes/form.tt:75
+#: ../root/admin/attributes/form.tt:77
 msgid "This is a free text work attribute"
 msgstr "Dit is een compositie-eigenschap zonder opmaak"
 
@@ -5350,7 +5355,7 @@ msgstr "Tijd:"
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/release/edit/tracklist.tt:149 ../root/release/edit/tracklist.tt:369
 #: ../root/components/RelationshipsTable.js:92
-#: ../root/components/list/ReleaseGroupList.js:88 ../root/isrc/Index.js:56
+#: ../root/components/list/ReleaseGroupList.js:90 ../root/isrc/Index.js:56
 #: ../root/iswc/Index.js:49 ../root/recording/RecordingIndex.js:47
 msgid "Title"
 msgstr "Titel"
@@ -5388,7 +5393,7 @@ msgid ""
 "checkboxes."
 msgstr "Vink meerdere opnames of composities aan om het partij-gereedschap te gebruiken."
 
-#: ../root/watch/list.tt:36
+#: ../root/watch/list.tt:37
 msgid ""
 "To watch an artist and be notified of new releases, {search_url|search} for "
 "them and select 'Watch this artist for new releases' from the sidebar."
@@ -5497,7 +5502,7 @@ msgstr "Getranscludeerde versie"
 msgid "Transclusion Table"
 msgstr "Transclusietabel"
 
-#: ../root/admin/edit_user.tt:8
+#: ../root/admin/edit_user.tt:9
 msgid "Transclusion editor"
 msgstr "Transclusieredacteur"
 
@@ -5513,7 +5518,7 @@ msgstr "Twitter"
 #: ../root/edit/search_macros.tt:386 ../root/otherlookup/results-release.tt:19
 #: ../root/account/applications/Index.js:136
 #: ../root/components/Aliases/AliasTable.js:28
-#: ../root/components/list/ReleaseGroupList.js:101
+#: ../root/components/list/ReleaseGroupList.js:103
 #: ../root/edit/details/AddArea.js:72 ../root/edit/details/AddArtist.js:85
 #: ../root/edit/details/AddEvent.js:68 ../root/edit/details/AddPlace.js:61
 #: ../root/edit/details/AddRemoveAlias.js:101
@@ -5543,8 +5548,8 @@ msgstr "Twitter"
 #: ../root/search/components/ReleaseResults.js:110
 #: ../root/search/components/SeriesResults.js:52
 #: ../root/search/components/WorkResults.js:52
-#: ../root/static/scripts/account/components/ApplicationForm.js:83
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:82
+#: ../root/static/scripts/account/components/ApplicationForm.js:86
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:83
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:807
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:379
 #: ../root/static/scripts/common/components/FilterForm.js:56
@@ -5647,7 +5652,7 @@ msgstr "Onbekend"
 msgid "Unsubscribe"
 msgstr "Abonnement opzeggen"
 
-#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:360
+#: ../root/admin/edit_user.tt:17 ../root/edit/search_macros.tt:360
 msgid "Untrusted"
 msgstr "Niet vertrouwd"
 
@@ -5657,8 +5662,8 @@ msgstr "Niet vertrouwd"
 msgid "Up to {n}"
 msgstr "Tot {n}"
 
-#: ../root/admin/wikidoc/edit.tt:21 ../root/admin/wikidoc/index.tt:61
-#: ../root/account/applications/Edit.js:28 ../root/admin/EditBanner.js:36
+#: ../root/admin/wikidoc/edit.tt:23 ../root/admin/wikidoc/index.tt:61
+#: ../root/account/applications/Edit.js:28 ../root/admin/EditBanner.js:38
 msgid "Update"
 msgstr "Bijwerken"
 
@@ -5718,16 +5723,16 @@ msgstr "Nummertitels gebruiken"
 msgid "Use {doc|advanced query syntax}"
 msgstr "Gebruik de {doc|geavanceerde zoeksyntaxis)"
 
-#: ../root/account/change_password.tt:18
+#: ../root/account/change_password.tt:19
 msgid "User name:"
 msgstr "Gebruikersnaam:"
 
-#: ../root/admin/edit_user.tt:6
+#: ../root/admin/edit_user.tt:7
 msgid "User permissions"
 msgstr "Gebruikerspermissies"
 
-#: ../root/account/register.tt:28 ../root/admin/edit_user.tt:35
-#: ../root/user/login.tt:23 ../root/account/LostPassword.js:42
+#: ../root/account/register.tt:29 ../root/admin/edit_user.tt:36
+#: ../root/user/login.tt:24 ../root/account/LostPassword.js:44
 msgid "Username:"
 msgstr "Gebruikersnaam:"
 
@@ -5752,7 +5757,7 @@ msgstr "Diverse Artiesten"
 msgid "Version History"
 msgstr "Versiegeschiedenis"
 
-#: ../root/admin/wikidoc/create.tt:9
+#: ../root/admin/wikidoc/create.tt:10
 msgid "Version:"
 msgstr "Versie:"
 
@@ -5891,7 +5896,7 @@ msgid ""
 "your request &#x2014; the problem may go away."
 msgstr "Dit probleem spijt ons enorm. Wacht een paar minuten en herhaal dan je verzoek. Het probleem kan ondertussen verholpen zijn."
 
-#: ../root/admin/edit_user.tt:38
+#: ../root/admin/edit_user.tt:39
 msgid "Website:"
 msgstr "Website:"
 
@@ -5980,9 +5985,9 @@ msgstr "Auteurs"
 msgid "YYYY"
 msgstr "JJJJ"
 
-#: ../root/admin/attributes/form.tt:66
+#: ../root/admin/attributes/form.tt:68
 #: ../root/admin/attributes/Attribute.js:48
-#: ../root/components/list/ReleaseGroupList.js:80
+#: ../root/components/list/ReleaseGroupList.js:82
 msgid "Year"
 msgstr "Jaar"
 
@@ -5998,7 +6003,7 @@ msgctxt "vote"
 msgid "Yes"
 msgstr "Voor"
 
-#: ../root/admin/wikidoc/delete.tt:9
+#: ../root/admin/wikidoc/delete.tt:11
 msgid "Yes, I'm sure"
 msgstr "Ja, ik weet het zeker"
 
@@ -6038,7 +6043,7 @@ msgstr "Je kan momenteel geen notities aan deze bewerking toevoegen. ({url|Detai
 msgid "You are not currently able to vote on this edit. ({url|Details})"
 msgstr "Je kan momenteel niet op deze bewerking stemmen. ({url|Details})"
 
-#: ../root/watch/list.tt:32
+#: ../root/watch/list.tt:33
 msgid "You are not currently watching any artists for new releases."
 msgstr "Je volgt nu geen artiesten voor nieuwe uitgaves."
 
@@ -6135,7 +6140,7 @@ msgid ""
 "edit or add anything to the database."
 msgstr "Je moet eerst je {url|e-mailadres verifiëren} voordat je informatie op MusicBrainz kan bewerken."
 
-#: ../root/account/register.tt:36
+#: ../root/account/register.tt:37
 msgid ""
 "You must provide a working email address if you wish to contribute to the "
 "database."
@@ -6187,7 +6192,7 @@ msgid ""
 "specific, or to try again."
 msgstr "Je zoekopdracht duurde te lang en werd geannuleerd. Het kan helpen om specifieker te zijn of om het nogmaals te proberen."
 
-#: ../root/account/register.tt:30
+#: ../root/account/register.tt:31
 msgid "Your username will be publicly visible."
 msgstr "Je gebruikersnaam zal publiekelijk zichtbaar zijn."
 
@@ -6843,7 +6848,7 @@ msgstr "…"
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr "“{id}” is geen geldige MusicBrainz-ID"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:146
+#: ../lib/MusicBrainz/Server/Controller.pm:121
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted"
@@ -6854,7 +6859,7 @@ msgid_plural ""
 msgstr[0] "Bedankt, je {num_edits} {edit_url|bewerking} ({edit_ids}) is automatisch geaccepteerd en doorgevoerd."
 msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn automatisch geaccepteerd en doorgevoerd."
 
-#: ../lib/MusicBrainz/Server/Controller.pm:152
+#: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
@@ -6865,7 +6870,7 @@ msgid_plural ""
 msgstr[0] "Bedankt, je {edit_url|bewerking} ({edit_ids}) is toegevoegd aan de lijst met open bewerkingen, zodat er op gestemd kan worden."
 msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn toegevoegd aan de lijst met open bewerkingen, zodat er op gestemd kan worden."
 
-#: ../lib/MusicBrainz/Server/Controller.pm:160
+#: ../lib/MusicBrainz/Server/Controller.pm:135
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
@@ -6895,7 +6900,7 @@ msgid "The verification key is missing."
 msgstr "De verificatiesleutel ontbreekt."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:98
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:270
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:269
 msgid "The checksum is invalid, please double check your email."
 msgstr "Het controlegetal klopt niet, controleer je e-mail alsjeblieft opnieuw."
 
@@ -6904,7 +6909,7 @@ msgid "Sorry, this email verification link has expired."
 msgstr "Helaas, deze e-mailverificatielink is verlopen."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:121
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:282
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:281
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr "De gebruiker met de ID “{user_id}” kon niet worden gevonden."
@@ -6916,41 +6921,41 @@ msgid ""
 "support@musicbrainz.org."
 msgstr "We konden geen aanmeldinformatie naar je e-mailadres sturen. Probeer het opnieuw, en neem als je problemen blijft houden contact met ons op via support@musicbrainz.org."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:195
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:194
 msgid "There is no user with this username"
 msgstr "Er is geen gebruiker met deze gebruikersnaam"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:200
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:199
 msgid "There is no user with this username and email"
 msgstr "Er is geen gebruiker met deze gebruikersnaam en dit e-mailadres"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:203
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:202
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
 msgstr "We kunnen geen e-mail sturen met een nieuw wachtwoord omdat we van deze gebruiker geen e-mailadres hebben."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:233
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:232
 msgid "Your password has been reset."
 msgstr "Je wachtwoord is opnieuw ingesteld."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:248
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:247
 msgid "Missing one or more required parameters."
 msgstr "Eén of meerdere verplichte parameters ontbreekt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:259
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:258
 msgid "Sorry, this password reset link has expired."
 msgstr "Helaas, deze link om het wachtwoord opnieuw in te stellen is verlopen."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:326
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:324
 msgid "There is no user with this email"
 msgstr "Er is geen gebruiker met dit e-mailadres"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:409
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:407
 msgid "Your profile has been updated."
 msgstr "Je profiel is bijgewerkt"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:413
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:411
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
@@ -6958,11 +6963,11 @@ msgid ""
 "address."
 msgstr "We hebben je een verificatie-e-mail gestuurd naar <code>{email}</code>. Kijk in je postvak en klik op de link in de e-mail om het nieuwe e-mailadres te verifiëren."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:452
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:450
 msgid "Your password has been changed."
 msgstr "Je wachtwoord is veranderd."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:669
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:665
 msgid ""
 "<strong>We were unable to send a verification email to "
 "you.</strong><br/>Please confirm that you have entered a valid address by "
@@ -6970,7 +6975,7 @@ msgid ""
 "please contact us at {mail|support@musicbrainz.org}."
 msgstr "<strong>We konden je geen verificatiemail sturen.</strong><br/>Bevestig dat je een geldig e-mailadres hebt ingevuld door je {settings|gebruikersinstellingen} te wijzigen. Neem contact op met {mail|support@musicbrainz.org} als het probleem zich blijft voordoen."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:84
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:85
 msgid "User successfully edited."
 msgstr "Gebruiker succesvol bewerkt."
 
@@ -8331,17 +8336,17 @@ msgid "Password field is required"
 msgstr "Het veld wachtwoord is vereist."
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:84
-#: ../root/static/scripts/account/components/PreferencesForm.js:78
+#: ../root/static/scripts/account/components/PreferencesForm.js:79
 msgid "Daily"
 msgstr "Dagelijks"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:85
-#: ../root/static/scripts/account/components/PreferencesForm.js:79
+#: ../root/static/scripts/account/components/PreferencesForm.js:80
 msgid "Weekly"
 msgstr "Wekelijks"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:86
-#: ../root/static/scripts/account/components/PreferencesForm.js:80
+#: ../root/static/scripts/account/components/PreferencesForm.js:81
 msgid "Never"
 msgstr "Nooit"
 
@@ -8354,32 +8359,32 @@ msgid "The password confirmation does not match the password"
 msgstr "De bevestiging van het wachtwoord komt niet overeen met het wachtwoord."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:29
-#: ../root/user/ReportUser.js:43
+#: ../root/user/ReportUser.js:44
 msgid "Editor is spamming"
 msgstr "De redacteur spamt."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:30
-#: ../root/user/ReportUser.js:47
+#: ../root/user/ReportUser.js:48
 msgid "Editor is unresponsive to edit notes"
 msgstr "De redacteur reageert niet op bewerkingsnotities."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:31
-#: ../root/user/ReportUser.js:51
+#: ../root/user/ReportUser.js:52
 msgid "Editor intentionally ignores accepted guidelines"
 msgstr "De redacteur negeert bewust de geaccepteerde richtlijnen."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:32
-#: ../root/user/ReportUser.js:55
+#: ../root/user/ReportUser.js:56
 msgid "Editor is overzealous in enforcing guidelines as rules"
 msgstr "De redacteur legt richtlijnen te fanatiek uit als regels."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:33
-#: ../root/user/ReportUser.js:59
+#: ../root/user/ReportUser.js:60
 msgid "Editor engages in overzealous or abusive yes/no voting"
 msgstr "De redacteur is te fanatiek of beledigend bij het stemmen."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:34
-#: ../root/user/ReportUser.js:64
+#: ../root/user/ReportUser.js:65
 msgid "Editor has violated some other part of our Code of Conduct"
 msgstr "De redacteur heeft een ander deel van de Gedragscode overtreden."
 
@@ -8585,22 +8590,22 @@ msgid ""
 "edit, please try to log out and log in again."
 msgstr "Bedankt, je e-mailadres is nu geverifieerd! Probeer je af en weer aan te melden als je nog steeds geen bewerkingen kan maken."
 
-#: ../root/account/LostPassword.js:28 ../root/account/LostPassword.js:29
+#: ../root/account/LostPassword.js:29 ../root/account/LostPassword.js:30
 #: ../root/account/LostPasswordSent.js:16
 msgid "Lost Password"
 msgstr "Wachtwoord verloren"
 
-#: ../root/account/LostPassword.js:32
+#: ../root/account/LostPassword.js:33
 msgid ""
 "Enter your username and email below. We will send you an email with a link "
 "to reset your password. If you have forgotten your username, {link|retrieve "
 "it} first and then reset your password."
 msgstr "Voer hieronder je gebruikersnaam en wachtwoord in. We zullen je een e-mail sturen met een link om je wachtwoord opnieuw in te stellen. Als je je gebruikersnaam bent vergeten, moet je die eerst {link|opvragen} en daarna je wachtwoord opnieuw instellen."
 
-#: ../root/account/LostPassword.js:48 ../root/account/LostUsername.js:35
+#: ../root/account/LostPassword.js:50 ../root/account/LostUsername.js:37
 #: ../root/report/components/EditorList.js:29
-#: ../root/static/scripts/account/components/EditProfileForm.js:191
-#: ../root/static/scripts/account/components/PreferencesForm.js:200
+#: ../root/static/scripts/account/components/EditProfileForm.js:194
+#: ../root/static/scripts/account/components/PreferencesForm.js:207
 msgid "Email"
 msgstr "E-mail"
 
@@ -8616,12 +8621,12 @@ msgid ""
 "us}."
 msgstr "We hebben je instructies gestuurd om je wachtwoord opnieuw in te stellen. Neem {link|contact met ons op} als je deze e-mail niet hebt ontvangen of nog steeds problemen hebt met aanmelden."
 
-#: ../root/account/LostUsername.js:26 ../root/account/LostUsername.js:27
+#: ../root/account/LostUsername.js:27 ../root/account/LostUsername.js:28
 #: ../root/account/LostUsernameSent.js:16
 msgid "Lost Username"
 msgstr "Gebruikersnaam kwijt"
 
-#: ../root/account/LostUsername.js:29
+#: ../root/account/LostUsername.js:30
 msgid ""
 "Enter your email address below and we will send you an email with your "
 "MusicBrainz account information."
@@ -8651,12 +8656,12 @@ msgid "Edit Application"
 msgstr "Applicatie bewerken"
 
 #: ../root/account/applications/Index.js:31
-#: ../root/static/scripts/account/components/ApplicationForm.js:39
+#: ../root/static/scripts/account/components/ApplicationForm.js:40
 msgid "Web Application"
 msgstr "Web Application"
 
 #: ../root/account/applications/Index.js:32
-#: ../root/static/scripts/account/components/ApplicationForm.js:40
+#: ../root/static/scripts/account/components/ApplicationForm.js:41
 msgid "Installed Application"
 msgstr "Geïnstalleerde applicatie"
 
@@ -8771,21 +8776,21 @@ msgstr "Er is een e-mail gestuurd naar {addr}. Kijk in je e-mail en klik op de l
 msgid "Unverified Email Address"
 msgstr "Niet-geverifieerd e-mailadres"
 
-#: ../root/admin/EditBanner.js:23 ../root/layout/components/TopMenu.js:129
+#: ../root/admin/EditBanner.js:24 ../root/layout/components/TopMenu.js:129
 msgid "Edit Banner Message"
 msgstr "Mededeling bewerken"
 
-#: ../root/admin/EditBanner.js:25
+#: ../root/admin/EditBanner.js:26
 msgid "Edit banner message"
 msgstr "Mededeling bewerken"
 
-#: ../root/admin/EditBanner.js:27
+#: ../root/admin/EditBanner.js:28
 msgid ""
 "This will set the banner message that is shown at the top of each page. An "
 "empty string removes the banner."
 msgstr "Dit stelt een mededeling in die bovenaan elke pagina wordt weergegeven. Maak de mededeling leeg om hem te verwijderen."
 
-#: ../root/admin/EditBanner.js:33
+#: ../root/admin/EditBanner.js:35
 msgid "Banner message"
 msgstr "Mededeling"
 
@@ -9175,7 +9180,7 @@ msgid ""
 msgstr "Om spam te voorkomen is deze informatie verborgen. {url|Meld je aan} om het te bekijken."
 
 #: ../root/collection/CollectionIndex.js:194
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:98
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:99
 #: ../root/user/UserCollections.js:105
 msgid "Collaborators"
 msgstr "Deelnemers"
@@ -9299,7 +9304,7 @@ msgid ""
 " few days. If this is not intended, please add relationships to this work."
 msgstr "Deze compositie heeft geen relaties en zal in de komende dagen automatisch worden verwijderd. Voeg relaties aan deze compositie toe als dit niet de bedoeling is."
 
-#: ../root/components/ConfirmLayout.js:31
+#: ../root/components/ConfirmLayout.js:34
 msgid "Yes, I am sure"
 msgstr "Ja, ik weet het zeker"
 
@@ -9464,7 +9469,7 @@ msgstr "Code"
 msgid "Address"
 msgstr "Adres"
 
-#: ../root/components/list/ReleaseGroupList.js:165
+#: ../root/components/list/ReleaseGroupList.js:167
 msgid "Unspecified type"
 msgstr "Ongespecificeerd type"
 
@@ -10399,7 +10404,7 @@ msgstr "Bewerkingen zoeken"
 #: ../root/layout/components/sidebar/CollectionSidebar.js:44
 #: ../root/layout/components/sidebar/EditLinks.js:24
 #: ../root/layout/components/sidebar/GenreSidebar.js:27
-#: ../root/static/scripts/account/components/PreferencesForm.js:231
+#: ../root/static/scripts/account/components/PreferencesForm.js:238
 msgid "Editing"
 msgstr "Bewerken"
 
@@ -10990,27 +10995,27 @@ msgstr "{mbid} is geen geldige {mbid_doc|MBID}."
 msgid "No {mbid_doc|MBID} selected."
 msgstr "Geen {mbid_doc|MBID} opgegeven."
 
-#: ../root/oauth2/OAuth2Authorize.js:29 ../root/oauth2/OAuth2Oob.js:23
+#: ../root/oauth2/OAuth2Authorize.js:30 ../root/oauth2/OAuth2Oob.js:23
 msgid "OAuth Authorization"
 msgstr "OAuth-machtiging"
 
-#: ../root/oauth2/OAuth2Authorize.js:30
+#: ../root/oauth2/OAuth2Authorize.js:31
 msgid "Authorization"
 msgstr "Machtigingen"
 
-#: ../root/oauth2/OAuth2Authorize.js:33
+#: ../root/oauth2/OAuth2Authorize.js:34
 msgid "{app} is requesting permission to:"
 msgstr "{app} vraagt permissie om:"
 
-#: ../root/oauth2/OAuth2Authorize.js:42
+#: ../root/oauth2/OAuth2Authorize.js:43
 msgid "Perform the above operations when I'm not using the application"
 msgstr "Voer de bovenstaande operaties uit als ik de applicatie niet gebruik"
 
-#: ../root/oauth2/OAuth2Authorize.js:56
+#: ../root/oauth2/OAuth2Authorize.js:58
 msgid "No thanks"
 msgstr "Nee bedankt"
 
-#: ../root/oauth2/OAuth2Authorize.js:59
+#: ../root/oauth2/OAuth2Authorize.js:61
 msgid "Allow access"
 msgstr "Toegang toestaan"
 
@@ -12750,7 +12755,7 @@ msgid "Member since"
 msgstr "Lid sinds"
 
 #: ../root/report/components/EditorList.js:28
-#: ../root/static/scripts/account/components/EditProfileForm.js:203
+#: ../root/static/scripts/account/components/EditProfileForm.js:206
 msgid "Website"
 msgstr "Website"
 
@@ -12870,7 +12875,7 @@ msgstr "Je kan ook {uri|een nieuwe serie toevoegen}."
 msgid "Alternatively, you may {uri|add a new work}."
 msgstr "Je kan ook {uri|een nieuwe compositie toevoegen}."
 
-#: ../root/series/SeriesIndex.js:134
+#: ../root/series/SeriesIndex.js:139
 msgid "This series is currently empty."
 msgstr "Deze serie is momenteel leeg."
 
@@ -12880,120 +12885,120 @@ msgid ""
 " series all others should be merged into:"
 msgstr "Je staat op het punt om al deze series samen te voegen. Selecteer de serie waarin je de andere wil samenvoegen:"
 
-#: ../root/static/scripts/account/components/ApplicationForm.js:90
+#: ../root/static/scripts/account/components/ApplicationForm.js:93
 msgid "Callback URL"
 msgstr "URL voor terugbellen"
 
-#: ../root/static/scripts/account/components/ApplicationForm.js:98
+#: ../root/static/scripts/account/components/ApplicationForm.js:101
 msgid ""
 "Callback URI is optional for installed applications. If set, its scheme must"
 " be a custom reverse-DNS string, as in <code>org.example.app://auth</code>, "
 "for installed applications."
 msgstr "Voor geïnstalleerde applicaties kan een URI voor terugbellen worden opgegeven. Als dit wordt gebruikt, moet het een aangepaste omgekeerde DNS-reeks zijn, zoals <code>org.example.app://auth</code> voor geïnstalleerde applicaties."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:183
+#: ../root/static/scripts/account/components/EditProfileForm.js:186
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
 msgstr "Dit is een server voor ontwikkeling. Je e-mailadres is hier niet privé of veilig. Wees voorzichtig!"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:196
+#: ../root/static/scripts/account/components/EditProfileForm.js:199
 msgid "If you change your email address, you will be required to verify it."
 msgstr "Je moet je e-mailadres verifiëren als je het verandert."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:218
+#: ../root/static/scripts/account/components/EditProfileForm.js:221
 #: ../root/user/UserProfile.js:206
 msgid "Location:"
 msgstr "Locatie:"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:243
+#: ../root/static/scripts/account/components/EditProfileForm.js:246
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
 msgstr "Je kan zelf kiezen hoe specifiek je wil zijn, bijvoorbeeld door je land of je woonplaats in te voeren."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:250
+#: ../root/static/scripts/account/components/EditProfileForm.js:253
 msgid "Birth date:"
 msgstr "Geboortedatum:"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:254
+#: ../root/static/scripts/account/components/EditProfileForm.js:257
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
 msgstr "We zullen je geboortedatum gebruiken om je leeftijd op je profielpagina te tonen."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:265
+#: ../root/static/scripts/account/components/EditProfileForm.js:268
 msgid "Languages Known:"
 msgstr "Bekende talen:"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:299
+#: ../root/static/scripts/account/components/EditProfileForm.js:302
 msgid "Add a language"
 msgstr "Taal toevoegen"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:152
+#: ../root/static/scripts/account/components/PreferencesForm.js:155
 msgid "Regional settings"
 msgstr "Regionale instellingen"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:161
+#: ../root/static/scripts/account/components/PreferencesForm.js:164
 msgid "Guess timezone"
 msgstr "Tijdzone gokken"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:166
+#: ../root/static/scripts/account/components/PreferencesForm.js:169
 msgid "Timezone:"
 msgstr "Tijdzone:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:172
+#: ../root/static/scripts/account/components/PreferencesForm.js:177
 msgid "Date/time format:"
 msgstr "Opmaak van datum en tijd:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:181
+#: ../root/static/scripts/account/components/PreferencesForm.js:188
 #: ../root/user/UserCollections.js:116
 msgid "Privacy"
 msgstr "Privacy"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:184
+#: ../root/static/scripts/account/components/PreferencesForm.js:191
 msgid "Allow other users to see my subscriptions"
 msgstr "Toestaan dat andere gebruikers mijn abonnementen zien"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:188
+#: ../root/static/scripts/account/components/PreferencesForm.js:195
 msgid "Allow other users to see my tags"
 msgstr "Toestaan dat andere gebruikers mijn etiketten zien"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:192
+#: ../root/static/scripts/account/components/PreferencesForm.js:199
 msgid "Allow other users to see my ratings"
 msgstr "Toestaan dat andere gebruikers mijn waarderingen zien"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:196
+#: ../root/static/scripts/account/components/PreferencesForm.js:203
 msgid "Show my Gravatar"
 msgstr "Laat mijn Gravatar zien"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:204
+#: ../root/static/scripts/account/components/PreferencesForm.js:211
 msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
 msgstr "E-mail mij als er tegen een van mijn bewerkingen wordt gestemd. De e-mail wordt alleen gestuurd na de eerste tegenstem, niet voor elke."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:212
+#: ../root/static/scripts/account/components/PreferencesForm.js:219
 msgid "When I add a note to an edit, mail me all future notes for that edit."
 msgstr "E-mail me, als ik een notitie aan een bewerking heb toegevoegd, alle nieuwe notities over deze bewerking."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:219
+#: ../root/static/scripts/account/components/PreferencesForm.js:226
 msgid "When I vote on an edit, mail me all future notes for that edit."
 msgstr "E-mail me, als ik op een bewerking gestemd heb, alle nieuwe notities over deze bewerking."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:225
+#: ../root/static/scripts/account/components/PreferencesForm.js:232
 msgid "Send me mails with edits to my subscriptions:"
 msgstr "Stuur mij e-mails met bewerkingen in mijn abonnementen:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:234
+#: ../root/static/scripts/account/components/PreferencesForm.js:241
 msgid "Automatically subscribe me to artists I create."
 msgstr "Abonneer me automatisch op artiesten die ik toevoeg."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:238
+#: ../root/static/scripts/account/components/PreferencesForm.js:245
 msgid "Automatically subscribe me to labels I create."
 msgstr "Abonneer me automatisch op platenmaatschappijen die ik toevoeg."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:242
+#: ../root/static/scripts/account/components/PreferencesForm.js:249
 msgid "Automatically subscribe me to series I create."
 msgstr "Abonneer me automatisch op series die ik toevoeg."
 
@@ -13011,27 +13016,27 @@ msgstr "Geen type"
 msgid "{place_type}: {place_link}"
 msgstr "{place_type}: {place_link}"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:73
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:74
 msgid "Collection details"
 msgstr "Collectiedetails"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:92
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:93
 msgid "Allow other users to see this collection"
 msgstr "Toestaan dat andere gebruikers deze collectie zien"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:122
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:123
 msgid "Remove collaborator"
 msgstr "Deelnemer verwijderen"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:136
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:137
 msgid "Add collaborator"
 msgstr "Deelnemer toevoegen"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:145
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:146
 msgid "Create collection"
 msgstr "Een collectie aanmaken"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:147
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:148
 msgid "Update collection"
 msgstr "Collectie bijwerken"
 
@@ -13145,7 +13150,7 @@ msgstr "Medium laden is mislukt."
 msgid "Image {current} of {total}"
 msgstr "Afbeelding {current} van {total}"
 
-#: ../root/static/scripts/common/components/Annotation.js:83
+#: ../root/static/scripts/common/components/Annotation.js:81
 msgid "(no changelog)"
 msgstr "(geen veranderingslogboek)"
 
@@ -14207,21 +14212,21 @@ msgstr "Robots"
 msgid "The following {count} user accounts are bots:"
 msgstr "De volgende {count} gebruikers zijn robots:"
 
-#: ../root/user/ReportUser.js:79 ../root/user/ReportUser.js:81
+#: ../root/user/ReportUser.js:80 ../root/user/ReportUser.js:82
 msgid "Report User"
 msgstr "Gebruiker rapporteren"
 
-#: ../root/user/ReportUser.js:84
+#: ../root/user/ReportUser.js:85
 msgid "Please review our {uri|Code of Conduct} before sending a report."
 msgstr "Bekijk onze {uri|Gedragscode} voor je een gebruiker meldt."
 
-#: ../root/user/ReportUser.js:90
+#: ../root/user/ReportUser.js:91
 msgid ""
 "Your report will be sent to our {uri|account administrators}, who will "
 "decide what action to take."
 msgstr "Je melding wordt naar de {uri|accountbeheerders} gestuurd. Zij zullen beslissen wat ermee wordt gedaan."
 
-#: ../root/user/ReportUser.js:99
+#: ../root/user/ReportUser.js:100
 msgid ""
 "Be sure to provide direct links to examples of the behaviour you’re "
 "reporting (for example, use “<code>https://musicbrainz.org/edit/23</code>” "
@@ -14233,11 +14238,11 @@ msgid ""
 "will require a lot of additional research."
 msgstr "Zorg dat je rechtstreekse links naar het gedrag dat je wil melden opgeeft (bijvoorbeeld “<code>https://musicbrainz.org/edit/23</code>” in plaats van “bewerking 23” en gebruik “<code>https://musicbrainz.org/edit/42</code> en <code>https://musicbrainz.org/edit/43</code>” in plaats van “<code>https://musicbrainz.org/user/Gebruikersnaam/edits</code>”). Met deze links kunnen de ontvangers van de melding veel makkelijker naar de problemen kijken. Een melding zonder links wordt waarschijnlijk minder snel opgepakt omdat er veel meer onderzoek voor nodig is."
 
-#: ../root/user/ReportUser.js:117
+#: ../root/user/ReportUser.js:120
 msgid "Reason"
 msgstr "Reden"
 
-#: ../root/user/ReportUser.js:135
+#: ../root/user/ReportUser.js:138
 msgid ""
 "If you don’t want our admins to contact you further regarding this report, "
 "you can uncheck the checkbox above. <br /> We recommend leaving it checked, "
