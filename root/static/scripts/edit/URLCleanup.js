@@ -1288,7 +1288,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i')],
     type: LINK_TYPES.lyrics,
     clean: function (url) {
-      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
+      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
     },
   },
   'geonames': {
