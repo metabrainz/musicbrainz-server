@@ -15,17 +15,19 @@ import {DeletedLink}
   from '../../static/scripts/common/components/EntityLink';
 
 type Props = {
+  colSpan?: string,
   label?: string,
   releases: $ReadOnlyArray<ReleaseT | null>,
 };
 
 const HistoricReleaseList = ({
+  colSpan,
   label,
   releases,
 }: Props) => (
   <tr>
     <th>{label || l('Releases:')}</th>
-    <td>
+    <td colSpan={colSpan}>
       <ul>
         {releases.length ? (
           releases.map((release, index) => (
