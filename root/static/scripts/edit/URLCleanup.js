@@ -1290,6 +1290,17 @@ const CLEANUPS = {
     clean: function (url) {
       return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
     },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.lyrics.artist:
+          return {result: /^https:\/\/genius\.com\/artists\/[\w-]+$/.test(url)};
+        case LINK_TYPES.lyrics.release_group:
+          return {result: /^https:\/\/genius\.com\/albums\/[\w-]+\/[\w-]+$/.test(url)};
+        case LINK_TYPES.lyrics.work:
+          return {result: /^https:\/\/genius\.com\/(?!(?:artists|albums)\/)[\w-]+-lyrics$/.test(url)};
+      }
+      return false;
+    },
   },
   'geonames': {
     match: [new RegExp('^https?:\/\/([a-z]+\.)?geonames.org\/([0-9]+)\/.*$', 'i')],

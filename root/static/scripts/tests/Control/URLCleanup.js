@@ -1487,18 +1487,21 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://genius.com/artists/Dramatik',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',
              input_entity_type: 'release_group',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://genius.com/albums/The-dream/Terius-nash-1977',
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
              input_entity_type: 'work',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://genius.com/The-beatles-she-loves-you-lyrics',
+       only_valid_entity_types: ['work'],
   },
   // GeoNames
   {
