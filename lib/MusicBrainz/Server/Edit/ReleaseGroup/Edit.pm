@@ -133,7 +133,7 @@ sub build_display_data
 
     $data->{secondary_types} = {
         map {
-            $_ => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->name }
+            $_ => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->l_name }
                            @{ $self->data->{$_}{secondary_type_ids} })
         } qw( old new )
     };
@@ -220,6 +220,8 @@ sub _edit_hash
     $data->{comment} //= '' if exists $data->{comment};
     return $data;
 }
+
+sub edit_template_react { "EditReleaseGroup" }
 
 before accept => sub {
     my ($self) = @_;
