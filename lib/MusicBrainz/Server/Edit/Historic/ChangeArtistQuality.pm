@@ -7,11 +7,13 @@ use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
+
 sub edit_name     { N_l('Change artist quality (historic)') }
 sub edit_kind     { 'other' }
 sub historic_type { 52 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY }
-sub edit_template { 'historic/change_artist_quality' }
+sub edit_template_react { 'historic/ChangeArtistQuality' }
 
 sub _build_related_entities
 {
@@ -33,10 +35,11 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        artist => $loaded->{Artist}{ $self->data->{artist_id} },
+        artist => $loaded->{Artist}{ $self->data->{artist_id} } ||
+                    Artist->new( id => $self->data->{artist_id} ),
         quality => {
-            old => $self->data->{old}{quality},
-            new => $self->data->{new}{quality}
+            old => $self->data->{old}{quality} + 0, # force number
+            new => $self->data->{new}{quality} + 0, # force number
         }
     }
 }
