@@ -294,6 +294,7 @@ module.exports = {
   'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
   'edit/details/historic/AddRelationship': require('../edit/details/historic/AddRelationship'),
   'edit/details/historic/ChangeReleaseArtist': require('../edit/details/historic/ChangeReleaseArtist'),
+  'edit/details/historic/ChangeReleaseGroup': require('../edit/details/historic/ChangeReleaseGroup'),
   'edit/details/historic/ChangeReleaseQuality': require('../edit/details/historic/ChangeReleaseQuality'),
   'edit/details/historic/EditRelationship': require('../edit/details/historic/EditRelationship'),
   'edit/details/historic/MergeReleases': require('../edit/details/historic/MergeReleases'),
