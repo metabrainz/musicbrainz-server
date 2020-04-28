@@ -19,22 +19,23 @@ import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
 
 type EditReleaseGroupProps = {
-  display_data: {
-    artist_credit: CompT<ArtistCreditT>,
-    comment?: CompT<string | null>,
-    name?: CompT<string | null>,
-    release_group: ReleaseGroupT,
-    secondary_types?: CompT<string>,
-    type?: CompT<ReleaseGroupTypeT | null>,
+  +display_data: {
+    +artist_credit?: CompT<ArtistCreditT>,
+    +comment?: CompT<string>,
+    +name?: CompT<string>,
+    +release_group: ReleaseGroupT,
+    +secondary_types: CompT<string>,
+    +type?: CompT<ReleaseGroupTypeT | null>,
   },
 };
 
-const EditReleaseGroup = ({edit}: {edit: EditReleaseGroupProps}) => {
+const EditReleaseGroup = ({edit}: {+edit: EditReleaseGroupProps}) => {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;
   const type = display.type;
   const secondaryTypes = display.secondary_types;
+  const artistCredit = display.artist_credit;
 
   return (
     <table className="details edit-release-group">
@@ -47,15 +48,15 @@ const EditReleaseGroup = ({edit}: {edit: EditReleaseGroupProps}) => {
       {name ? (
         <WordDiff
           label={addColonText(l('Name'))}
-          newText={name.new ?? ''}
-          oldText={name.old ?? ''}
+          newText={name.new}
+          oldText={name.old}
         />
       ) : null}
       {comment ? (
         <WordDiff
           label={addColonText(l('Disambiguation'))}
-          newText={comment.new ?? ''}
-          oldText={comment.old ?? ''}
+          newText={comment.new}
+          oldText={comment.old}
         />
       ) : null}
       {type ? (
@@ -77,17 +78,17 @@ const EditReleaseGroup = ({edit}: {edit: EditReleaseGroupProps}) => {
           split=" \+"
         />
       ) : null}
-      {display.artist_credit ? (
+      {artistCredit ? (
         <tr>
           <th>{addColonText(l('Artist'))}</th>
           <td className="old">
             <ExpandedArtistCredit
-              artistCredit={display.artist_credit.old}
+              artistCredit={artistCredit.old}
             />
           </td>
           <td className="new">
             <ExpandedArtistCredit
-              artistCredit={display.artist_credit.new}
+              artistCredit={artistCredit.new}
             />
           </td>
         </tr>
