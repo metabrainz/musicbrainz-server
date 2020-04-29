@@ -2594,8 +2594,20 @@ const CLEANUPS = {
       url = url.replace(/\/user\/([^\/?#]+).*$/, '/user/$1');
       return url;
     },
-    validate: function (url) {
-      return /^https:\/\/www\.youtube\.com\//.test(url);
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.youtube.artist:
+        case LINK_TYPES.youtube.event:
+        case LINK_TYPES.youtube.label:
+        case LINK_TYPES.youtube.place:
+        case LINK_TYPES.youtube.series:
+          return /^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url);
+        case LINK_TYPES.streamingfree.recording:
+          return /^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url);
+        case LINK_TYPES.streamingfree.release:
+          return /^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url);
+      }
+      return false;
     },
   },
 };
