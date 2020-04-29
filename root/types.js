@@ -692,6 +692,11 @@ declare type LinkTypeT = {
   +cardinality1: number,
   +children?: $ReadOnlyArray<LinkTypeT>,
   +deprecated: boolean,
+  +documentation: string | null,
+  +examples: $ReadOnlyArray<{
+    +name: string,
+    +relationship: RelationshipT,
+  }>,
   +has_dates: boolean,
   +id: number,
   +link_phrase: string,

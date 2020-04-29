@@ -53,21 +53,6 @@ sub show : Path('')
     }
 }
 
-sub relationship_type : Path('/relationship') Args(1) {
-    my ($self, $c, $link_type_gid) = @_;
-
-    if (!is_guid($link_type_gid)) {
-        $self->invalid_mbid($c, $link_type_gid);
-    }
-
-    my $relationship_type = $c->model('LinkType')->get_by_gid($link_type_gid)
-        or $c->detach('/error_404');
-
-    $c->model('LinkAttributeType')->load($relationship_type->all_attributes);
-    $c->model('LinkType')->load_documentation($relationship_type);
-    $c->stash( relationship_type => $relationship_type );
-}
-
 no Moose;
 1;
 

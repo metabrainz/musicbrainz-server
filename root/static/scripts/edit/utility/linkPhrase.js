@@ -38,7 +38,7 @@ export type RelationshipInfoT = {
   ...
 };
 
-type LinkPhraseProp =
+export type LinkPhraseProp =
   | 'link_phrase'
   | 'long_link_phrase'
   | 'reverse_link_phrase'
