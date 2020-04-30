@@ -11,7 +11,9 @@ sub edit_name     { N_l('Remove track') }
 sub edit_kind     { 'remove' }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_TRACK }
 sub historic_type { 11 }
-sub edit_template { 'historic/remove_track' }
+sub edit_template_react { 'historic/RemoveTrack' }
+
+use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub _release_ids
 {
@@ -42,7 +44,8 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         name => $self->data->{name},
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} },
+        recording => $loaded->{Recording}->{ $self->data->{recording_id} }
+            || Recording->new( name => $self->data->{name} ),
         releases => [
             map { $loaded->{Release}->{$_} } $self->_release_ids
         ]

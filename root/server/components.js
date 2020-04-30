@@ -292,6 +292,7 @@ module.exports = {
   'edit/details/MergeWorks': require('../edit/details/MergeWorks'),
   'edit/details/historic/MergeReleases': require('../edit/details/historic/MergeReleases'),
   'edit/details/historic/RemovePuid': require('../edit/details/historic/RemovePuid'),
+  'edit/details/historic/RemoveTrack': require('../edit/details/historic/RemoveTrack'),
   'event/EventHeader': require('../event/EventHeader'),
   'instrument/InstrumentHeader': require('../instrument/InstrumentHeader'),
   'label/LabelHeader': require('../label/LabelHeader'),
