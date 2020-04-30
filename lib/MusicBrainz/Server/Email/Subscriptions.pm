@@ -104,7 +104,7 @@ To view or edit your subscription list, please use the following link:
 [% self.server %]/user/[% escape(self.editor.name) %]/subscriptions
 
 To see all open edits for your subscribed entities, see this link:
-[% self.server %]/edit/subscribed
+[% self.server %]/edit/subscribed?open=1
 };
 }
 
