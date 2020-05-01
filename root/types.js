@@ -256,6 +256,11 @@ declare type CDStubT = $ReadOnly<{
   +track_count: number,
 }>;
 
+declare type CDTocT = $ReadOnly<{
+  ...EntityRoleT<'cdtoc'>,
+  +discid: string,
+}>;
+
 declare type CollectionT = {
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,

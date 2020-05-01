@@ -475,7 +475,7 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='iswc' default_content=iswc.iswc edits_pending=iswc.edits_pending code_tag=1;
 END -%]
 
-[%~ MACRO link_cdtoc(cdtoc, action, text) BLOCK;
+[%~ MACRO link_cdtoc(cdtoc, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/CDTocLink.js
     INCLUDE _link_other_entity content=text action=action type='cdtoc' default_content=cdtoc.discid;
 END -%]
 

@@ -144,6 +144,16 @@ sub _compute_freedb_id
 
 with 'MusicBrainz::Server::Entity::Role::TOC';
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{discid} = $self->discid;
+
+    return $json;
+};
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
