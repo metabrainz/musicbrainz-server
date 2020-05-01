@@ -212,30 +212,38 @@ sub _display_relationships {
     my ($self, $data, $loaded) = @_;
     return [
         map {
+            my $entity0_type = $_->{entity0_type};
+            my $entity1_type = $_->{entity1_type};
             my $model0 = type_to_model( $_->{entity0_type} );
             my $model1 = type_to_model( $_->{entity1_type} );
             my $entity0_id = $_->{entity0_id};
             my $entity1_id = $_->{entity1_id};
             my $entity0 = $loaded->{ $model0 }{ $entity0_id } ||
-                $self->c->model($model0)->_entity_class->new( name => $_->{entity0_name});
+                $self->c->model($model0)->_entity_class->new(
+                    id => $entity0_id,
+                    name => $_->{entity0_name}
+                );
+            MusicBrainz::Server::Entity::Relationship->link_entity($entity0_type, $entity0_id, $entity0);
             my $entity1 = $loaded->{ $model1 }{ $entity1_id } ||
-                $self->c->model($model1)->_entity_class->new( name => $_->{entity1_name});
+                $self->c->model($model1)->_entity_class->new(
+                    id => $entity1_id,
+                    name => $_->{entity1_name},
+                );
 
             Relationship->new(
-                entity0 => $entity0,
-                entity1 => $entity1,
+                entity0_id => $entity0_id,
                 source => $entity0,
                 target => $entity1,
-                source_type => $entity0->entity_type,
-                target_type => $entity1->entity_type,
                 link    => Link->new(
                     id         => $data->{link_id},
                     begin_date => PartialDate->new($data->{begin_date}),
                     end_date   => PartialDate->new($data->{end_date}),
                     type_id    => $data->{link_type_id},
                     type       => LinkType->new(
-                        id     => $data->{link_type_id},
-                        link_phrase => $_->{link_type_phrase}
+                        entity0_type => $entity0_type,
+                        entity1_type => $entity1_type,
+                        id           => $data->{link_type_id},
+                        link_phrase  => $_->{link_type_phrase}
                     )
                 ),
                 direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD

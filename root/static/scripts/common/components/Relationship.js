@@ -31,6 +31,7 @@ const HistoricRelationshipContent = ({
   relationship,
 }: {relationship: RelationshipT}) => {
   const linkType = linkedEntities.link_type[relationship.linkTypeID];
+  const source = linkedEntities[linkType.type0][relationship.entity0_id];
   const extraAttributes = getExtraAttributes(
     relationship,
     'link_phrase',
@@ -38,6 +39,11 @@ const HistoricRelationshipContent = ({
   );
   return (
     <>
+      <DescriptiveLink
+        content={relationship.entity0_credit}
+        entity={source}
+      />
+      {' '}
       {linkType.link_phrase /* hardcoded untranslatable historical hack */}
       {' '}
       <DescriptiveLink
