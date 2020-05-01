@@ -306,6 +306,7 @@ module.exports = {
   'edit/details/MergeSeries': require('../edit/details/MergeSeries'),
   'edit/details/MergeWorks': require('../edit/details/MergeWorks'),
   'edit/details/RemoveRelationship': require('../edit/details/RemoveRelationship'),
+  'edit/details/ReorderRelationships': require('../edit/details/ReorderRelationships'),
   'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
   'edit/details/historic/AddRelationship': require('../edit/details/historic/AddRelationship'),
   'edit/details/historic/ChangeArtistQuality': require('../edit/details/historic/ChangeArtistQuality'),
