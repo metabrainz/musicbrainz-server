@@ -9,7 +9,7 @@ sub query {
         SELECT
             artist0.id AS id0, artist0.name AS name0, artist1.id AS id1, artist1.name AS name1,
             row_number() OVER (
-              ORDER BY musicbrainz_collate(artist1.name), artist1.id, musicbrainz_collate(artist0.name), artist0.id
+              ORDER BY artist1.name COLLATE musicbrainz, artist1.id, artist0.name COLLATE musicbrainz, artist0.id
             )
         FROM
             l_artist_artist

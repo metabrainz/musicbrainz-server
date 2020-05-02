@@ -114,9 +114,9 @@ sub find_by_recording
             FROM release_unknown_country
           ) release_event ON release_event.release = release.id
           WHERE track.recording = ?
-          ORDER BY track.id, medium.id, date_year, date_month, date_day, musicbrainz_collate(release.name)
+          ORDER BY track.id, medium.id, date_year, date_month, date_day, release.name COLLATE musicbrainz
         ) s
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(r_name)";
+        ORDER BY date_year, date_month, date_day, r_name COLLATE musicbrainz";
 
     $self->query_to_list_limited(
         $query,

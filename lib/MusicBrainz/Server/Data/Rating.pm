@@ -31,7 +31,7 @@ sub find_editor_ratings {
       FROM $table rating
       JOIN $type entity ON entity.id = rating.${type}
       WHERE editor = ?
-      ORDER BY rating DESC, musicbrainz_collate(name) ASC";
+      ORDER BY rating DESC, name COLLATE musicbrainz ASC";
 
     my ($rows, $hits) = $self->query_to_list_limited(
         $query,

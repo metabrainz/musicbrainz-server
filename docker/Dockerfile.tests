@@ -96,12 +96,6 @@ COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
 RUN sudo -E -H -u musicbrainz carton install --deployment && \
     rm cpanfile cpanfile.snapshot
 
-COPY postgresql-musicbrainz-collate/ postgresql-musicbrainz-collate/
-RUN cd postgresql-musicbrainz-collate && \
-    make && make install && \
-    cd .. && \
-    rm -rf postgresql-musicbrainz-collate
-
 COPY postgresql-musicbrainz-unaccent/ postgresql-musicbrainz-unaccent/
 RUN cd postgresql-musicbrainz-unaccent && \
     make && make install && \

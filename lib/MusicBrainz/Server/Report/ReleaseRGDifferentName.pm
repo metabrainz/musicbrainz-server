@@ -12,7 +12,7 @@ sub query {
     "
         SELECT
             r.id AS release_id, rg.id AS release_group_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(r.name), musicbrainz_collate(rg.name))
+            row_number() OVER (ORDER BY r.name COLLATE musicbrainz, rg.name COLLATE musicbrainz)
         FROM
             release r
             JOIN release_group rg 

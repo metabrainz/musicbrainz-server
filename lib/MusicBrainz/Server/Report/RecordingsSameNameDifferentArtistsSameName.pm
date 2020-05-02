@@ -8,7 +8,7 @@ sub query {
     "
     SELECT
         recording_id,
-        row_number() OVER (ORDER BY musicbrainz_collate(rname), artist_id)
+        row_number() OVER (ORDER BY rname COLLATE musicbrainz, artist_id)
     FROM (
         SELECT
             DISTINCT r1.id AS recording_id, r1.name AS rname, a1.id as artist_id

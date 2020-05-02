@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Report::ArtistReport',
 
 sub query {
     "
-        SELECT artist.id AS artist_id, row_number() OVER ( ORDER BY musicbrainz_collate(artist.name) )
+        SELECT artist.id AS artist_id, row_number() OVER ( ORDER BY artist.name COLLATE musicbrainz )
         FROM
             artist
         WHERE

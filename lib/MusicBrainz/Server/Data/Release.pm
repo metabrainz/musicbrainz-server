@@ -165,7 +165,7 @@ sub find_by_area {
                    JOIN release_event ON release.id = release_event.release
                    JOIN area ON release_event.country = area.id
                  WHERE area.id = ?
-                 ORDER BY musicbrainz_collate(release.name), release.id";
+                 ORDER BY release.name COLLATE musicbrainz, release.id";
 
     $self->query_to_list_limited($query, [$area_id], $limit, $offset);
 }
@@ -192,10 +192,10 @@ sub find_by_artist
         LEFT JOIN area ON area.id = release_event.country
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          country_name, barcode, musicbrainz_collate(release.name)
+          country_name, barcode, release.name COLLATE musicbrainz
       ) release
       ORDER BY date_year, date_month, date_day,
-        country_name, barcode, musicbrainz_collate(name)";
+        country_name, barcode, name COLLATE musicbrainz";
     $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
@@ -232,11 +232,11 @@ sub find_by_instrument {
          WHERE " . join(" AND ", @$conditions) . "
         GROUP BY release.id, date_year, date_month, date_day, country_name
         ORDER BY release.id, date_year, date_month, date_day,
-          musicbrainz_collate(release.name), country_name,
+          release.name COLLATE musicbrainz, country_name,
           barcode
       ) s
       ORDER BY date_year, date_month, date_day,
-        musicbrainz_collate(name), country_name,
+        name COLLATE musicbrainz, country_name,
         barcode";
 
     $self->query_to_list_limited($query, $params, $limit, $offset, sub {
@@ -270,11 +270,11 @@ sub find_by_label
         LEFT JOIN area ON area.id = release_event.country
          WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day, catalog_number,
-          musicbrainz_collate(release.name), country_name,
+          release.name COLLATE musicbrainz, country_name,
           barcode
       ) s
       ORDER BY date_year, date_month, date_day, catalog_number,
-        musicbrainz_collate(name), country_name,
+        name COLLATE musicbrainz, country_name,
         barcode";
     $self->query_to_list_limited($query, $params, $limit, $offset);
 }
@@ -296,10 +296,10 @@ sub find_by_disc_id
         LEFT JOIN release_event ON release_event.release = release.id
         WHERE cdtoc.discid = ?
         ORDER BY release.id, date_year, date_month, date_day,
-          musicbrainz_collate(release.name)
+          release.name COLLATE musicbrainz
       ) s
       ORDER BY date_year, date_month, date_day,
-        musicbrainz_collate(name)";
+        name COLLATE musicbrainz";
 
     $self->query_to_list($query, [$disc_id]);
 }
@@ -367,10 +367,10 @@ sub find_by_track_artist
           LEFT JOIN area ON area.id = release_event.country
           WHERE " . join(" AND ", @$conditions) . "
           ORDER BY release.id, date_year, date_month, date_day,
-            musicbrainz_collate(release.name)
+            release.name COLLATE musicbrainz
       ) s
       ORDER BY date_year, date_month, date_day,
-        musicbrainz_collate(name)";
+        name COLLATE musicbrainz";
 
     $self->query_to_list_limited($query, $params, $limit, $offset);
 }
@@ -405,9 +405,9 @@ sub find_for_various_artists
         LEFT JOIN release_event ON release_event.release = release.id
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id,
-          date_year, date_month, date_day, musicbrainz_collate(release.name)
+          date_year, date_month, date_day, release.name COLLATE musicbrainz
       ) release
-      ORDER BY date_year, date_month, date_day, musicbrainz_collate(name)";
+      ORDER BY date_year, date_month, date_day, name COLLATE musicbrainz";
 
     $self->query_to_list_limited($query, $params, $limit, $offset);
 }
@@ -436,10 +436,10 @@ sub find_by_recording
         LEFT JOIN area ON area.id = release_event.country
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          musicbrainz_collate(release.name)
+          release.name COLLATE musicbrainz
       ) s
       ORDER BY date_year, date_month, date_day,
-        musicbrainz_collate(name)
+        name COLLATE musicbrainz
     ";
 
     $self->query_to_list_limited($query, $params, $limit, $offset);
@@ -498,10 +498,10 @@ sub find_by_country
         LEFT JOIN area ON area.id = release_event.country
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          country_name, barcode, musicbrainz_collate(release.name)
+          country_name, barcode, release.name COLLATE musicbrainz
       ) release
       ORDER BY date_year, date_month, date_day,
-        country_name, barcode, musicbrainz_collate(name)";
+        country_name, barcode, name COLLATE musicbrainz";
 
     $self->query_to_list_limited($query, $params, $limit, $offset);
 }
@@ -529,10 +529,10 @@ sub find_for_cdtoc
         WHERE track_count_matches_cdtoc(medium, ?)
           AND acn.artist = ?
         ORDER BY release.id, release.release_group,
-          date_year, date_month, date_day, musicbrainz_collate(release.name)
+          date_year, date_month, date_day, release.name COLLATE musicbrainz
       ) s
       ORDER BY release_group,
-          date_year, date_month, date_day, musicbrainz_collate(name)";
+          date_year, date_month, date_day, name COLLATE musicbrainz";
 
     $self->query_to_list_limited($query, [$track_count, $artist_id], $limit, $offset);
 }
@@ -604,10 +604,10 @@ sub load_with_medium_for_recording
         " . join(' ', @$extra_joins) . "
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          musicbrainz_collate(release.name)
+          release.name COLLATE musicbrainz
       ) s
       ORDER BY date_year, date_month, date_day,
-        musicbrainz_collate(r_name)";
+        r_name COLLATE musicbrainz";
 
     $self->query_to_list_limited($query, $params, $limit, $offset, sub {
         my ($model, $row) = @_;
@@ -646,10 +646,10 @@ sub _order_by {
 
     my $order_by = order_by($order, "date", {
         "date" => sub {
-            return "date_year, date_month, date_day, musicbrainz_collate(name)"
+            return "date_year, date_month, date_day, name COLLATE musicbrainz"
         },
         "name" => sub {
-            return "musicbrainz_collate(name), date_year, date_month, date_day"
+            return "name COLLATE musicbrainz, date_year, date_month, date_day"
         },
         "country" => sub {
             $extra_join = "LEFT JOIN area ON release_event.country = area.id";
@@ -659,16 +659,16 @@ sub _order_by {
         "artist" => sub {
             $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit";
             $also_select = "ac.name AS ac_name";
-            return "musicbrainz_collate(ac_name), musicbrainz_collate(name)";
+            return "ac_name COLLATE musicbrainz, name COLLATE musicbrainz";
         },
         "label" => sub {
             $extra_join = "LEFT OUTER JOIN
-                (SELECT release, array_agg(musicbrainz_collate(label.name)) AS labels FROM release_label
+                (SELECT release, array_agg(label.name COLLATE musicbrainz) AS labels FROM release_label
                     JOIN label ON release_label.label = label.id
                     GROUP BY release) rl
                 ON rl.release = release.id";
             $also_select = "rl.labels AS labels";
-            return "labels, musicbrainz_collate(name)";
+            return "labels, name COLLATE musicbrainz";
         },
         "catno" => sub {
             $extra_join = "LEFT OUTER JOIN
@@ -676,13 +676,13 @@ sub _order_by {
                   WHERE catalog_number IS NOT NULL GROUP BY release) rl
                 ON rl.release = release.id";
             $also_select = "catnos";
-            return "catnos, musicbrainz_collate(name)";
+            return "catnos, name COLLATE musicbrainz";
         },
         "format" => sub {
             $extra_join = "LEFT JOIN medium ON medium.release = release.id
                            LEFT JOIN medium_format ON medium.format = medium_format.id";
             $also_select = "medium_format.name AS medium_format_name";
-            return "medium_format_name, musicbrainz_collate(name)";
+            return "medium_format_name, name COLLATE musicbrainz";
         },
         "tracks" => sub {
             $extra_join = "LEFT JOIN
@@ -691,10 +691,10 @@ sub _order_by {
                     GROUP BY medium.release) medium
                 ON medium.release = release.id";
             $also_select = "total_track_count";
-            return "total_track_count, musicbrainz_collate(name)";
+            return "total_track_count, name COLLATE musicbrainz";
         },
         "barcode" => sub {
-            return "length(barcode), barcode, musicbrainz_collate(name)"
+            return "length(barcode), barcode, name COLLATE musicbrainz"
         },
     });
 
@@ -1446,7 +1446,7 @@ sub find_release_events {
         date_year ASC NULLS LAST,
         date_month ASC NULLS LAST,
         date_day ASC NULLS LAST,
-        musicbrainz_collate(area.name) ASC NULLS LAST
+        area.name COLLATE musicbrainz ASC NULLS LAST
     ";
 
     my $events = $self->sql->select_list_of_hashes($query, \@release_ids);

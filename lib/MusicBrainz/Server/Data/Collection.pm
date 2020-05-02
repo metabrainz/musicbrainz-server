@@ -48,7 +48,7 @@ sub find_by_subscribed_editor {
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_collection s ON editor_collection.id = s.collection
                  WHERE s.editor = ? AND s.available
-                 ORDER BY musicbrainz_collate(name), editor_collection.id";
+                 ORDER BY name COLLATE musicbrainz, editor_collection.id";
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
@@ -214,7 +214,7 @@ sub find_by {
         'SELECT ' . $self->_columns .
         '  FROM ' . $self->_table . ' ' .
         ' WHERE ' . join(' AND ', @conditions) .
-        ' ORDER BY musicbrainz_collate(editor_collection.name), editor_collection.id';
+        ' ORDER BY editor_collection.name COLLATE musicbrainz, editor_collection.id';
 
     if (defined $limit) {
         return $self->query_to_list_limited($query, \@args, $limit, $offset);

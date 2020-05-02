@@ -226,26 +226,13 @@ Creating the database
         sudo make install
         cd ..
 
-    To build our collate extension you will need libicu and its development
-    headers, to install these run:
-
-        sudo apt-get install libicu-dev pkg-config
-
-    With libicu installed, you can build and install the collate extension by
-    running:
-
-        cd postgresql-musicbrainz-collate
-        make
-        sudo make install
-        cd ..
-
-    Note: if you have forgotten to clone the repository with the `--recursive` 
-    option, this won't work. In that case, you should run the following and 
+    Note: if you have forgotten to clone the repository with the `--recursive`
+    option, this won't work. In that case, you should run the following and
     then try again:
 
         git submodule init
         git submodule update
-        
+
 2.  Setup PostgreSQL authentication
 
     For normal operation, the server only needs to connect from one or two OS

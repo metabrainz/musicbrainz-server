@@ -19,7 +19,7 @@ sub query {
     "
         SELECT
             r.id AS release_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(artist_credit.name), musicbrainz_collate(r.name))
+            row_number() OVER (ORDER BY artist_credit.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
         FROM release r
         JOIN artist_credit ON r.artist_credit = artist_credit.id
         WHERE language IS NULL

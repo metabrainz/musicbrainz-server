@@ -275,6 +275,7 @@ sub CreateRelations
     die "\nFailed to create schema\n" if ($? >> 8);
 
     RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
+    RunSQLScript($DB, "CreateCollations.sql", "Creating collations ...");
 
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "caa/CreateTables.sql", "Creating CAA tables ...");

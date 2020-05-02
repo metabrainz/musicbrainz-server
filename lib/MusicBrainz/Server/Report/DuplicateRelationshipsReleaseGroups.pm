@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::ReleaseGroupReport',
 sub query {
     "
 
-SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY musicbrainz_collate(release_group.name)) FROM (
+SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY release_group.name COLLATE musicbrainz) FROM (
 
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
     FROM l_artist_release_group lxx

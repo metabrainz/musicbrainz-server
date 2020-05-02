@@ -184,7 +184,7 @@ sub find_for_cdstub {
       LEFT JOIN medium_format ON medium.format = medium_format.id
           WHERE track_count_matches_cdtoc(medium, ?)
           AND (medium_format.id IS NULL OR medium_format.has_discids)
-       ORDER BY name.rank DESC, musicbrainz_collate(name.name),
+       ORDER BY name.rank DESC, name.name COLLATE musicbrainz,
                 release.artist_credit";
 
     $self->query_to_list(

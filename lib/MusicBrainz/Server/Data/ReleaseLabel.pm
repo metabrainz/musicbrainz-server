@@ -48,7 +48,7 @@ sub load
                  FROM " . $self->_table . "
                  LEFT JOIN label ON rl.label = label.id
                  WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, rl_catalog_number, musicbrainz_collate(label.name)";
+                 ORDER BY release, rl_catalog_number, label.name COLLATE musicbrainz";
     my @labels = $self->query_to_list($query, \@ids);
     foreach my $label (@labels) {
         foreach (@{ $id_to_release{$label->release_id} })

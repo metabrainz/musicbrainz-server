@@ -97,14 +97,14 @@ sub find_by_artist
     }
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
-                        musicbrainz_collate(recording.name) AS name_collate,
-                        musicbrainz_collate(comment) AS comment_collate
+                        recording.name COLLATE musicbrainz AS name_collate,
+                        comment COLLATE musicbrainz AS comment_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
                  WHERE " . join(" AND ", @where_query) . "
-                 ORDER BY musicbrainz_collate(recording.name),
-                          musicbrainz_collate(comment)";
+                 ORDER BY recording.name COLLATE musicbrainz,
+                          comment COLLATE musicbrainz";
     $self->query_to_list_limited($query, \@where_args, $limit, $offset);
 }
 
@@ -127,7 +127,7 @@ sub find_by_instrument {
                      )
                  WHERE instrument.id = ?
                  GROUP BY recording.id
-                 ORDER BY musicbrainz_collate(recording.name)";
+                 ORDER BY recording.name COLLATE musicbrainz";
 
     $self->query_to_list_limited(
         $query,
@@ -152,7 +152,7 @@ sub find_by_release
                      JOIN medium ON medium.id = track.medium
                      JOIN release ON release.id = medium.release
                  WHERE release.id = ?
-                 ORDER BY musicbrainz_collate(recording.name)";
+                 ORDER BY recording.name COLLATE musicbrainz";
 
     $self->query_to_list_limited($query, [$release_id], $limit, $offset);
 }
@@ -164,7 +164,7 @@ sub find_by_work
                  FROM ". $self->_table . "
                      JOIN l_recording_work lrw ON lrw.entity0 = recording.id
                  WHERE lrw.entity1 = ?
-                 ORDER BY musicbrainz_collate(recording.name)";
+                 ORDER BY recording.name COLLATE musicbrainz";
 
     $self->query_to_list_limited($query, [$work_id], $limit, $offset);
 }
@@ -177,15 +177,15 @@ sub _order_by {
 
     my $order_by = order_by($order, "name", {
         "name" => sub {
-            return "musicbrainz_collate(name)"
+            return "name COLLATE musicbrainz"
         },
         "artist" => sub {
             $extra_join = "JOIN artist_credit ac ON ac.id = recording.artist_credit";
             $also_select = "ac.name AS ac_name";
-            return "musicbrainz_collate(ac_name), musicbrainz_collate(recording.name)";
+            return "ac_name COLLATE musicbrainz, recording.name COLLATE musicbrainz";
         },
         "length" => sub {
-            return "length, musicbrainz_collate(name)"
+            return "length, name COLLATE musicbrainz"
         },
     });
 
@@ -302,14 +302,14 @@ sub find_standalone
     my ($self, $artist_id, $limit, $offset) = @_;
     my $query ='
         SELECT DISTINCT ' . $self->_columns . ',
-            musicbrainz_collate(recording.name)
+            recording.name COLLATE musicbrainz
           FROM ' . $self->_table . '
      LEFT JOIN track t ON t.recording = recording.id
           JOIN artist_credit_name acn
             ON acn.artist_credit = recording.artist_credit
          WHERE t.id IS NULL
            AND acn.artist = ?
-      ORDER BY musicbrainz_collate(recording.name)';
+      ORDER BY recording.name COLLATE musicbrainz';
     $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
 }
 
@@ -318,13 +318,13 @@ sub find_video
     my ($self, $artist_id, $limit, $offset) = @_;
     my $query ='
         SELECT DISTINCT ' . $self->_columns . ',
-            musicbrainz_collate(recording.name)
+            recording.name COLLATE musicbrainz
           FROM ' . $self->_table . '
           JOIN artist_credit_name acn
             ON acn.artist_credit = recording.artist_credit
          WHERE video IS TRUE
            AND acn.artist = ?
-      ORDER BY musicbrainz_collate(recording.name)';
+      ORDER BY recording.name COLLATE musicbrainz';
     $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
 }
 =method appears_on
