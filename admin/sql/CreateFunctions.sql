@@ -1428,4 +1428,20 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+-----------------------------------------------------------------------
+-- Text search helpers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION mb_lower(input text) RETURNS text AS $$
+  SELECT lower(input COLLATE musicbrainz.musicbrainz);
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE STRICT;
+
+CREATE OR REPLACE FUNCTION mb_simple_tsvector(input text) RETURNS tsvector AS $$
+  -- The builtin 'simple' dictionary, which the mb_simple text search
+  -- configuration makes use of, would normally lowercase the input string
+  -- for us, but internally it hardcodes DEFAULT_COLLATION_OID; therefore
+  -- we first lowercase the input string ourselves using mb_lower.
+  SELECT to_tsvector('musicbrainz.mb_simple', musicbrainz.mb_lower(input));
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE STRICT;
+
 -- vi: set ts=4 sw=4 et :

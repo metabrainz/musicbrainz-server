@@ -1,3 +1,0 @@
-[submodule "postgresql-musicbrainz-unaccent"]
-	path = postgresql-musicbrainz-unaccent
-	url = git://github.com/metabrainz/postgresql-musicbrainz-unaccent

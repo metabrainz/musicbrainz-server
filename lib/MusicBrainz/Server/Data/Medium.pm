@@ -172,10 +172,10 @@ sub find_for_cdstub {
                              id name track_count release position format edits_pending
                          )) . "
            FROM (
-                    SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank,
+                    SELECT id, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank,
                            name
-                    FROM release, plainto_tsquery('mb_simple', ?) AS query
-                    WHERE to_tsvector('mb_simple', name) @@ query
+                    FROM release, plainto_tsquery('mb_simple', mb_lower(?)) AS query
+                    WHERE mb_simple_tsvector(name) @@ query
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS name

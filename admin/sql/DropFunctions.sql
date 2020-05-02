@@ -72,6 +72,8 @@ DROP FUNCTION inc_nullable_artist_credit(row_id integer);
 DROP FUNCTION inc_ref_count(tbl varchar, row_id integer, val integer);
 DROP FUNCTION inserting_edits_requires_confirmed_email_address();
 DROP FUNCTION materialise_recording_length(recording_id INT);
+DROP FUNCTION mb_lower(input text);
+DROP FUNCTION mb_simple_tsvector(input text);
 DROP FUNCTION median_track_length(recording_id integer);
 DROP FUNCTION padded_by_whitespace(TEXT);
 DROP FUNCTION prevent_invalid_attributes();

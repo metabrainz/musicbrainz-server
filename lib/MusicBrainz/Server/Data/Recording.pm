@@ -87,7 +87,7 @@ sub find_by_artist
     if (exists $args{filter}) {
         my %filter = %{ $args{filter} };
         if (exists $filter{name}) {
-            push @where_query, "(to_tsvector('mb_simple', recording.name) @@ plainto_tsquery('mb_simple', ?) OR recording.name = ?)";
+            push @where_query, "(mb_simple_tsvector(recording.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR recording.name = ?)";
             push @where_args, $filter{name}, $filter{name};
         }
         if (exists $filter{artist_credit_id}) {

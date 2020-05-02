@@ -102,7 +102,7 @@ sub _where_filter
 
     if (defined $filter) {
         if (exists $filter->{name}) {
-            push @query, "(to_tsvector('mb_simple', release.name) @@ plainto_tsquery('mb_simple', ?) OR release.name = ?)";
+            push @query, "(mb_simple_tsvector(release.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR release.name = ?)";
             push @params, $filter->{name}, $filter->{name};
         }
         if (exists $filter->{artist_credit_id}) {

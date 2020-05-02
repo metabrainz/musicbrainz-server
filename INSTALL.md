@@ -215,25 +215,7 @@ devDependencies (listed in package.json):
 Creating the database
 ---------------------
 
-1.  Install PostgreSQL Extensions
-
-    Before you start, you need to install the PostgreSQL Extensions on your
-    database server. To build the musicbrainz_unaccent extension run these
-    commands:
-
-        cd postgresql-musicbrainz-unaccent
-        make
-        sudo make install
-        cd ..
-
-    Note: if you have forgotten to clone the repository with the `--recursive`
-    option, this won't work. In that case, you should run the following and
-    then try again:
-
-        git submodule init
-        git submodule update
-
-2.  Setup PostgreSQL authentication
+1.  Setup PostgreSQL authentication
 
     For normal operation, the server only needs to connect from one or two OS
     users (whoever your web server/crontabs run as), to one database (the
@@ -264,7 +246,7 @@ Creating the database
     name you configured in DBDefs.pm) yourself; the next step will do so
     (using the password from DBDefs.pm) if it does not exist yet.
 
-3.  Create the database
+2.  Create the database
 
     You have three options when it comes to the database. You can opt for a
     clean database with just the schema, a sample of database content (useful 
