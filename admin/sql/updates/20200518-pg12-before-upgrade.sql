@@ -5,6 +5,18 @@ SET statement_timeout = 0;
 
 BEGIN;
 
+-- Unused indexes
+DROP INDEX IF EXISTS cdtoc_raw_track_offset;
+DROP INDEX IF EXISTS dbmirror_pending_xid_index;
+DROP INDEX IF EXISTS edit_note_idx_post_time;
+DROP INDEX IF EXISTS edit_note_idx_post_time_edit;
+DROP INDEX IF EXISTS editor_collection_idx_name;
+DROP INDEX IF EXISTS release_raw_idx_last_modified;
+DROP INDEX IF EXISTS release_raw_idx_lookup_count;
+DROP INDEX IF EXISTS release_raw_idx_modify_count;
+DROP INDEX IF EXISTS track_idx_name;
+DROP INDEX IF EXISTS vote_idx_vote_time;
+
 -- Indexes using musicbrainz_unaccent (via the mb_simple search configuration)
 DROP INDEX IF EXISTS area_alias_idx_txt;
 DROP INDEX IF EXISTS area_alias_idx_txt_sort;
