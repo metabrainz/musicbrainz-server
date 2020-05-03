@@ -72,8 +72,8 @@ sub RequireMinimumPostgreSQLVersion
 
     my $version = $sql->select_single_value("SELECT current_setting('server_version_num')");
 
-    if ($version < 90500) {
-        die 'MusicBrainz requires PostgreSQL 9.5 or later';
+    if ($version < 12000) {
+        die 'MusicBrainz requires PostgreSQL 12 or later';
     }
 }
 

@@ -28,18 +28,20 @@ Prerequisites
 
         perl -v
 
-3.  PostgreSQL (at least version 9.5)
+3.  PostgreSQL (at least version 12)
 
-    PostgreSQL is required, along with its development libraries. To install
-    using packages run the following, replacing 9.x with the latest version.
-    If needed, packages of all supported PostgreSQL versions for various Ubuntu
-    releases are available from the [PostgreSQL apt repository](http://www.postgresql.org/download/linux/ubuntu/).
+    PostgreSQL version 12 or higher is required, along with its development
+    libraries. To install using packages, run the following:
 
-        POSTGRES_VERSION=9.5
+        POSTGRES_VERSION=12 \
         sudo apt-get install \
             postgresql-${POSTGRES_VERSION} \
             postgresql-contrib-${POSTGRES_VERSION} \
             postgresql-server-dev-${POSTGRES_VERSION}
+
+    If needed, packages of all supported PostgreSQL versions for various Ubuntu
+    releases are available from the
+    [PostgreSQL apt repository](http://www.postgresql.org/download/linux/ubuntu/).
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube and earthdistance extensions found in the contrib
@@ -296,7 +298,7 @@ Creating the database
         `--tmp-dir` option.
 
     3.  Import a database sample
-        
+
         If a full dump is too large for your purposes, but you would like to have some
         real data to test with for development, you can download our database sample,
         published once a month. This can be found at the same places the full dump is

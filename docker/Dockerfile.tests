@@ -4,7 +4,7 @@ RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
 
-COPY docker/yarn_pubkey.txt .
+COPY docker/pgdg_pubkey.txt docker/yarn_pubkey.txt ./
 
 RUN apt-get update && \
     apt-get install \
@@ -14,9 +14,11 @@ RUN apt-get update && \
         ca-certificates \
         curl \
         gnupg && \
+    apt-key add pgdg_pubkey.txt && \
     apt-key add yarn_pubkey.txt && \
-    rm yarn_pubkey.txt && \
+    rm pgdg_pubkey.txt yarn_pubkey.txt && \
     apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys 'Yarn' && \
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     curl -sLO https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/nodejs_10.17.0-1nodesource1_amd64.deb && \
@@ -65,10 +67,9 @@ RUN apt-get update && \
         openssh-client \
         perl \
         pkg-config \
-        postgresql \
-        postgresql-10-pgtap \
-        postgresql-contrib \
-        postgresql-server-dev-10 \
+        postgresql-12 \
+        postgresql-12-pgtap \
+        postgresql-server-dev-12 \
         python2.7-dev \
         python2.7-minimal \
         rabbitmq-server \
@@ -152,8 +153,15 @@ RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
 
 ENV PGDATA /home/musicbrainz/pgdata
 
-RUN pg_dropcluster --stop 10 main && \
-    pg_createcluster --datadir="$PGDATA" --encoding=utf8 --locale=en_US.UTF-8 --user=postgres 10 main
+RUN mkdir -p "$PGDATA" && \
+    chown postgres:postgres "$PGDATA" && \
+    chmod 700 "$PGDATA" && \
+    sudo -u postgres /usr/lib/postgresql/12/bin/initdb \
+        --data-checksums \
+        --encoding utf8 \
+        --locale en_US.UTF8 \
+        --username postgres \
+        --pgdata "$PGDATA"
 
 COPY --chown=postgres:postgres \
     docker/musicbrainz-tests/pg_hba.conf \
