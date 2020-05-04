@@ -401,7 +401,7 @@ sub donation_check
     my $days = 0.0;
     if ($nag) {
         my $response = $self->c->lwp->get(
-            'https://metabrainz.org/donations/nag-check/' . uri_escape_utf8($obj->name)
+            'https://metabrainz.org/donations/nag-check?editor=' . uri_escape_utf8($obj->name)
         );
 
         if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/) {
