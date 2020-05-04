@@ -207,6 +207,12 @@ const testData = [
             expected_clean_url: 'https://www.amazon.in/gp/product/B006H1JVW4',
   },
   {
+                     input_url: 'https://www.amazon.nl/Various-Artists-100X-Winter-2014/dp/B00NX6I0UA/ref=pd_rhf_se_p_img_1?_encoding=UTF8&psc=1&refRID=A6BMGX43CX4PV9HTFZZX',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.nl/gp/product/B00NX6I0UA',
+  },
+  {
                      input_url: 'http://amzn.com/B000005SU4',
              input_entity_type: 'release',
     expected_relationship_type: 'amazon',
@@ -225,10 +231,10 @@ const testData = [
             expected_clean_url: 'https://www.amazon.co.uk/gp/product/B00008CQP2',
   },
   {
-                     input_url: 'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
+                     input_url: 'http://www.amazon.com.tr/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
              input_entity_type: 'release',
     expected_relationship_type: 'amazon',
-            expected_clean_url: 'https://www.amazon.co.uk/gp/product/B00009W0XE',
+            expected_clean_url: 'https://www.amazon.com.tr/gp/product/B00009W0XE',
   },
   {
                      input_url: 'http://www.amazon.com/Shine-We-Are-BoA/dp/B00015007W%3FSubscriptionId%3D14P3HXS0ZAYFZPH45TR2%26tag%3Dws%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00015007W',
