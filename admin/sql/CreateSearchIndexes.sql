@@ -41,8 +41,6 @@ CREATE INDEX series_idx_txt ON series USING gin(musicbrainz.mb_simple_tsvector(n
 CREATE INDEX series_alias_idx_txt ON series_alias USING gin(musicbrainz.mb_simple_tsvector(name));
 CREATE INDEX series_alias_idx_txt_sort ON series_alias USING gin(musicbrainz.mb_simple_tsvector(sort_name));
 
-CREATE INDEX track_idx_txt ON track USING gin(musicbrainz.mb_simple_tsvector(name));
-
 CREATE INDEX work_idx_txt ON work USING gin(musicbrainz.mb_simple_tsvector(name));
 
 CREATE INDEX work_alias_idx_txt ON work_alias USING gin(musicbrainz.mb_simple_tsvector(name));

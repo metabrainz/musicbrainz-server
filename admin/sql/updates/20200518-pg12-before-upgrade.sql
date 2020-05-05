@@ -14,7 +14,9 @@ DROP INDEX IF EXISTS editor_collection_idx_name;
 DROP INDEX IF EXISTS release_raw_idx_last_modified;
 DROP INDEX IF EXISTS release_raw_idx_lookup_count;
 DROP INDEX IF EXISTS release_raw_idx_modify_count;
+DROP INDEX IF EXISTS track_idx_musicbrainz_collate;
 DROP INDEX IF EXISTS track_idx_name;
+DROP INDEX IF EXISTS track_idx_txt;
 DROP INDEX IF EXISTS vote_idx_vote_time;
 
 -- Indexes using musicbrainz_unaccent (via the mb_simple search configuration)

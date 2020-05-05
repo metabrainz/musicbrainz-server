@@ -432,7 +432,6 @@ DROP INDEX tag_idx_name;
 DROP INDEX track_gid_redirect_idx_new_id;
 DROP INDEX track_idx_artist_credit;
 DROP INDEX track_idx_gid;
-DROP INDEX track_idx_musicbrainz_collate;
 DROP INDEX track_idx_recording;
 DROP INDEX track_raw_idx_release;
 DROP INDEX url_gid_redirect_idx_new_id;
