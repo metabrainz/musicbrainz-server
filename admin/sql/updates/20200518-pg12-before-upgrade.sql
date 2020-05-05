@@ -19,6 +19,17 @@ DROP INDEX IF EXISTS track_idx_name;
 DROP INDEX IF EXISTS track_idx_txt;
 DROP INDEX IF EXISTS vote_idx_vote_time;
 
+-- Ancient page_index stuff from admin/sql/updates/20140130-remove-page-index.sql
+DROP INDEX IF EXISTS area_idx_page;
+DROP INDEX IF EXISTS artist_idx_page;
+DROP INDEX IF EXISTS label_idx_page;
+DROP INDEX IF EXISTS place_idx_page;
+DROP INDEX IF EXISTS release_idx_page;
+DROP INDEX IF EXISTS release_group_idx_page;
+DROP INDEX IF EXISTS work_idx_page;
+DROP FUNCTION IF EXISTS page_index(txt varchar);
+DROP FUNCTION IF EXISTS page_index_max(txt varchar);
+
 -- Indexes using musicbrainz_unaccent (via the mb_simple search configuration)
 DROP INDEX IF EXISTS area_alias_idx_txt;
 DROP INDEX IF EXISTS area_alias_idx_txt_sort;
