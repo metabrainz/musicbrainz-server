@@ -792,6 +792,7 @@ MB.GuessCase.Handler.Base = function (gc) {
         if (gc.i.matchCurrentWord(gc.re.FEAT)) {
             // Special cases (f.) and (f/), have to check if next word is a "." or a "/"
             if ((gc.i.matchCurrentWord(gc.re.FEAT_F)) &&
+                gc.i.getNextWord() &&
                 !gc.i.getNextWord().match(/^[\/.]$/)) {
                     return false;
             }
