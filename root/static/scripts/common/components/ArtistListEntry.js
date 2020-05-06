@@ -65,7 +65,7 @@ const ArtistListRow = withCatalystContext(({
   showSortName,
 }: ArtistListRowProps) => (
   <>
-    {$c.user_exists && (checkboxes || mergeForm) ? (
+    {$c.user && (checkboxes || mergeForm) ? (
       <td>
         {mergeForm
           ? renderMergeCheckboxElement(artist, mergeForm, index)

@@ -175,7 +175,7 @@ const CollectionIndex = (props: Props) => {
         {collection.description_html ? (
           <>
             <h2>{l('Description')}</h2>
-            {$c.user_exists ||
+            {$c.user ||
               (collection.editor && !collection.editor.is_limited) ? (
                 expand2react(collection.description_html)
               ) : (

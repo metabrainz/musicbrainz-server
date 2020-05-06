@@ -37,7 +37,7 @@ const AreaList = ({
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+      const checkboxColumn = $c.user && (checkboxes || mergeForm)
         ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const nameColumn =
@@ -54,7 +54,7 @@ const AreaList = ({
         ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user_exists, areas, checkboxes, mergeForm, order, sortable],
+    [$c.user, areas, checkboxes, mergeForm, order, sortable],
   );
 
   return <Table columns={columns} data={areas} />;

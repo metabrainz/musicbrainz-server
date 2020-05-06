@@ -191,7 +191,6 @@ declare type CatalystContextT = {
   +sessionid: string | null,
   +stash: CatalystStashT,
   +user?: CatalystUserT,
-  +user_exists: boolean,
 };
 
 declare type CatalystRequestContextT = {
@@ -950,7 +949,6 @@ declare type SanitizedCatalystContextT = {
     +invalid_csrf_token?: boolean,
   },
   +user: SanitizedEditorT | null,
-  +user_exists: boolean,
 };
 
 declare type SanitizedEditorPreferencesT = {

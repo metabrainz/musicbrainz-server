@@ -43,7 +43,7 @@ const AreaEvents = ({
             showType
           />
         </PaginatedResults>
-        {$c.user_exists ? (
+        {$c.user ? (
           <div className="row">
             <span className="buttons">
               <button type="submit">

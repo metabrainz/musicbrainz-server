@@ -55,7 +55,7 @@ const ArtistReleases = ({
         <PaginatedResults pager={pager}>
           <ReleaseList checkboxes="add-to-merge" releases={releases} />
         </PaginatedResults>
-        {$c.user_exists ? (
+        {$c.user ? (
           <div className="row">
             <FormSubmit label={l('Add selected releases for merging')} />
           </div>

@@ -23,7 +23,7 @@ const EditLinks = ({$c, children, entity}: Props) => (
   <>
     <h2 className="editing">{l('Editing')}</h2>
     <ul className="links">
-      {$c.user_exists ? children : (
+      {$c.user ? children : (
         <>
           <li>
             <RequestLogin $c={$c} text={l('Log in to edit')} />

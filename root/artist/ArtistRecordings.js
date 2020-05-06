@@ -59,7 +59,7 @@ const ArtistRecordings = ({
             showRatings
           />
         </PaginatedResults>
-        {$c.user_exists ? (
+        {$c.user ? (
           <div className="row">
             <FormSubmit label={l('Add selected recordings for merging')} />
           </div>

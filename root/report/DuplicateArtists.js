@@ -128,7 +128,7 @@ const DuplicateArtists = ({
               })}
             </tbody>
           </table>
-          {$c.user_exists ? (
+          {$c.user ? (
             <FormRow>
               <FormSubmit label={l('Add selected artists for merging')} />
             </FormRow>
