@@ -12,10 +12,11 @@ my $hard_mock_edit_class = $mock_edit_class + 1;
     package t::Controller::Edit::Show::MockEdit;
     use Moose;
     extends 'MusicBrainz::Server::Edit';
-    sub edit_name { 'Edit artist' } # Just so we use an edit template
+    sub edit_name { 'Remove label alias' } # Just so we use an edit template
     sub edit_type { $mock_edit_class }
     sub edit_kind { 'other' }
     sub edit_category { 'Fake' }
+    sub edit_template_react { 'historic/RemoveLabelAlias' }
 };
 
 {
