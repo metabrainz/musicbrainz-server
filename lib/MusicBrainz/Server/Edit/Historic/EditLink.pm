@@ -18,7 +18,7 @@ sub edit_name     { N_l('Edit relationship') }
 sub edit_kind     { 'edit' }
 sub edit_type     { $EDIT_HISTORIC_EDIT_LINK }
 sub historic_type { 34 }
-sub edit_template { 'historic/edit_relationship' }
+sub edit_template_react { 'historic/EditRelationship' }
 
 sub _links {
     my $self = shift;
@@ -56,10 +56,18 @@ sub _upgrade
 sub build_display_data
 {
     my ($self, $loaded) = @_;
+    my $old_rel = $self->data->{old};
+    $old_rel->{link_id} = $self->data->{link_id};
+    my $new_rel = $self->data->{new};
+    $new_rel->{link_id} = $self->data->{link_id};
+    # Since the link phrase with attributes to display is hacked
+    # onto the link type phrase, we need to pass them separately
+    # to linkedEntities.
+    $new_rel->{link_type_id} = $new_rel->{link_type_id} + 10000;
     return {
         relationship => {
-            old => $self->_display_relationships($self->data->{old}, $loaded),
-            new => $self->_display_relationships($self->data->{new}, $loaded),
+            old => $self->_display_relationships($old_rel, $loaded),
+            new => $self->_display_relationships($new_rel, $loaded),
         }
     }
 }

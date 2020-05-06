@@ -10,11 +10,9 @@
 import * as React from 'react';
 
 import linkedEntities from '../linkedEntities';
-import bracketed, {bracketedText} from '../utility/bracketed';
+import bracketed from '../utility/bracketed';
 import {displayLinkAttributes}
   from '../utility/displayLinkAttribute';
-import formatDate from '../utility/formatDate';
-import isDateEmpty from '../utility/isDateEmpty';
 import {interpolate, getExtraAttributes} from '../../edit/utility/linkPhrase';
 import type {LinkPhraseProp} from '../../edit/utility/linkPhrase';
 import relationshipDateText
