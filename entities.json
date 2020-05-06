@@ -129,7 +129,8 @@
         "url": "cdstub"
     },
     "cdtoc": {
-        "model": "CDTOC"
+        "model": "CDTOC",
+        "url": "cdtoc"
     },
     "collection": {
         "mbid": {

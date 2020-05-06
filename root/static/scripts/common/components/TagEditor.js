@@ -140,7 +140,7 @@ class VoteButtons extends React.Component<VoteButtonsProps> {
 
     return (
       <span className={'tag-vote-buttons' + className}>
-        {this.props.$c.user_exists ? (
+        {this.props.$c.user ? (
           <>
             <UpvoteButton {...this.props} />
             <DownvoteButton {...this.props} />
@@ -512,7 +512,7 @@ export const MainTagEditor = hydrate<TagEditorProps>(
 
           {(positiveTagsOnly && !tags.every(isAlwaysVisible)) ? (
             <>
-              {this.props.$c.user_exists ? (
+              {this.props.$c.user ? (
                 <p>
                   {l(
                     `Tags with a score of zero or below,
@@ -537,7 +537,7 @@ export const MainTagEditor = hydrate<TagEditorProps>(
               <p>
                 {l('All tags are being shown.')}
               </p>
-              {this.props.$c.user_exists ? (
+              {this.props.$c.user ? (
                 <p>
                   <a href="#" onClick={this.hideNegativeTags.bind(this)}>
                     {l(
@@ -556,7 +556,7 @@ export const MainTagEditor = hydrate<TagEditorProps>(
             </>
           ) : null}
 
-          {this.props.$c.user_exists ? (
+          {this.props.$c.user ? (
             <>
               <h2>{l('Add Tags')}</h2>
               <p>

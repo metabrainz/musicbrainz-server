@@ -1,0 +1,14 @@
+# Configuration for new-pr-welcome - https://github.com/behaviorbot/new-pr-welcome
+
+# Comment to be posted to on PRs from first time contributors in your repository
+newPRWelcomeComment: |
+  Thanks for opening your first pull request for MusicBrainz Server, and welcome to our community! :tada:
+  If you haven’t yet, please check out our [contributing guidelines](https://github.com/metabrainz/musicbrainz-server/blob/master/CONTRIBUTING.md).
+  Someone will be reviewing your PR soon; just hang in there!
+  In the meantime, if you’re wondering what to do next, you can have a look at our [issue tracker](https://tickets.metabrainz.org/browse/MBS).
+# Configuration for first-pr-merge - https://github.com/behaviorbot/first-pr-merge
+
+# Comment to be posted to on pull requests merged by a first time user
+firstPRMergeComment: |
+  Congratulations on your first merged pull request for MusicBrainz Server! :tada:
+  We’re very thankful for your work, and happy to count you as part of our community!

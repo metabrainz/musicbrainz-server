@@ -53,7 +53,7 @@ const ArtistList = ({
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+      const checkboxColumn = $c.user && (checkboxes || mergeForm)
         ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const nameColumn = defineNameColumn<ArtistT>(
@@ -125,7 +125,7 @@ const ArtistList = ({
       ];
     },
     [
-      $c.user_exists,
+      $c.user,
       artists,
       checkboxes,
       instrumentCreditsAndRelTypes,

@@ -9,9 +9,9 @@ extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 
 sub edit_name     { N_l('Add relationship') }
 sub edit_kind     { 'add' }
-sub edit_type     { $EDIT_HISTORIC_ADD_LINK }
-sub edit_template { 'historic/add_relationship' }
 sub historic_type { 33 }
+sub edit_type     { $EDIT_HISTORIC_ADD_LINK }
+sub edit_template_react { 'historic/AddRelationship' }
 
 sub _links {
     my $self = shift;

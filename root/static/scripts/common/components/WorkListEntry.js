@@ -50,7 +50,7 @@ export const WorkListRow = withCatalystContext<WorkListRowProps>(({
   work,
 }: WorkListRowProps) => (
   <>
-    {$c.user_exists && checkboxes ? (
+    {$c.user && checkboxes ? (
       <td>
         <input
           name={checkboxes}

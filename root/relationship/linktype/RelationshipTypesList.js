@@ -55,16 +55,16 @@ const TypesTable = ({table, types}: Props) => (
   </table>
 );
 
-const RelationshipTypesIndex = ({
+const RelationshipTypesList = ({
   table,
   types,
 }: Props) => (
-  <Layout fullWidth noIcons page="index" title={l('Relationship Types')}>
+  <Layout fullWidth noIcons page="list" title={l('Relationship Types')}>
     <div className="wikicontent" id="content">
-      <RelationshipsHeader page="index" />
+      <RelationshipsHeader page="relationships" />
       <TypesTable table={table} types={types} />
     </div>
   </Layout>
 );
 
-export default RelationshipTypesIndex;
+export default RelationshipTypesList;

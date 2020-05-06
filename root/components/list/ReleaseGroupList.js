@@ -70,7 +70,7 @@ export const ReleaseGroupListTable = withCatalystContext<
 
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+      const checkboxColumn = $c.user && (checkboxes || mergeForm)
         ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const seriesNumberColumn = seriesItemNumbers
@@ -126,7 +126,7 @@ export const ReleaseGroupListTable = withCatalystContext<
       ];
     },
     [
-      $c.user_exists,
+      $c.user,
       checkboxes,
       mergeForm,
       order,
