@@ -423,7 +423,7 @@ const CLEANUPS = {
     },
   },
   'amazon': {
-    match: [new RegExp('^(https?://)?(((?!music)[^/])+\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)|amzn\\.com)', 'i')],
+    match: [new RegExp('^(https?://)?(((?!music)[^/])+\.)?(amazon\\.(com|ca|co\\.uk|fr|ae|at|de|it|sg|co\\.jp|jp|cn|es|in|nl|com\\.br|com\\.mx|com\\.au|com\\.tr)|amzn\\.com)', 'i')],
     type: LINK_TYPES.amazon,
     clean: function (url) {
       /*
@@ -455,11 +455,11 @@ const CLEANUPS = {
       return null;
     },
     validate: function (url) {
-      return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\//.test(url);
+      return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\//.test(url);
     },
   },
   'amazonmusic': {
-    match: [new RegExp('^(https?://)?music\\.amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)/(albums|artists)', 'i')],
+    match: [new RegExp('^(https?://)?music\\.amazon\\.(com|ca|co\\.uk|fr|ae|at|de|it|sg|co\\.jp|jp|cn|es|in|nl|com\\.br|com\\.mx|com\\.au|com\\.tr)/(albums|artists)', 'i')],
     type: LINK_TYPES.streamingpaid,
     clean: function (url) {
       /*
@@ -485,7 +485,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/music\.amazon\.(?:com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\/(albums|artists)/.exec(url);
+      const m = /^https:\/\/music\.amazon\.(?:com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\/(albums|artists)/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {

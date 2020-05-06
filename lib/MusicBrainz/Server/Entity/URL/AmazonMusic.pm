@@ -11,7 +11,7 @@ sub pretty_name
 {
     my $self = shift;
 
-    if ($self->url =~ m{^https://music\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)}i) {
+    if ($self->url =~ m{^https://music\.amazon\.(com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)}i) {
         my $country = $1;
         if ($country =~ m/com?\.([a-z]{2})/) {
             $country = $1;
