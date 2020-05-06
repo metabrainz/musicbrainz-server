@@ -4,6 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
@@ -23,6 +24,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_type { $EDIT_RECORDING_CREATE }
 sub edit_name { N_l('Add standalone recording') }
+sub edit_template_react { "AddStandaloneRecording" }
 sub _create_model { 'Recording' }
 sub recording_id { return shift->entity_id }
 
@@ -53,7 +55,7 @@ sub build_display_data
         name          => $self->data->{name},
         comment       => $self->data->{comment},
         length        => $self->data->{length},
-        video         => $self->data->{video},
+        video         => boolean_to_json($self->data->{video}),
         recording => $loaded->{Recording}{ $self->entity_id } ||
             Recording->new( name => $self->data->{name} )
     };
