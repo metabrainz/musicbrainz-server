@@ -3163,6 +3163,13 @@ const testData = [
        only_valid_entity_types: ['event'],
   },
   {
+                     input_url: 'https://thesession.org/sessions/display/432',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://thesession.org/sessions/432',
+       only_valid_entity_types: ['place'],
+  },
+  {
                      input_url: 'http://www.thesession.org/recordings/display/1488',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',

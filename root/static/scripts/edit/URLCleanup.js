@@ -2271,7 +2271,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?thesession\\.org', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, 'https://thesession.org/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?|sessions)(?:\/.*)?\/([0-9]+)(?:.*)?$/, 'https://thesession.org/$1/$2');
     },
     validate: function (url, id) {
       const m = /^https:\/\/thesession\.org\/([a-z\/]+)\/[0-9]+$/.exec(url);
@@ -2282,6 +2282,8 @@ const CLEANUPS = {
             return prefix === 'recordings/artists';
           case LINK_TYPES.otherdatabases.event:
             return prefix === 'events';
+          case LINK_TYPES.otherdatabases.place:
+            return prefix === 'sessions';
           case LINK_TYPES.otherdatabases.release_group:
             return prefix === 'recordings';
           case LINK_TYPES.otherdatabases.work:
