@@ -293,6 +293,7 @@ module.exports = {
   'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
   'edit/details/historic/AddRelationship': require('../edit/details/historic/AddRelationship'),
   'edit/details/historic/ChangeReleaseQuality': require('../edit/details/historic/ChangeReleaseQuality'),
+  'edit/details/historic/EditRelationship': require('../edit/details/historic/EditRelationship'),
   'edit/details/historic/MergeReleases': require('../edit/details/historic/MergeReleases'),
   'edit/details/historic/MoveDiscId': require('../edit/details/historic/MoveDiscId'),
   'edit/details/historic/RemoveDiscId': require('../edit/details/historic/RemoveDiscId'),
