@@ -1633,7 +1633,7 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'bands' || prefix === 'band';
+            return /^(?:artists?|bands?)$/.test(prefix);
           case LINK_TYPES.otherdatabases.label:
             return prefix === 'labels';
           case LINK_TYPES.otherdatabases.release:

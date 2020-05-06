@@ -2117,6 +2117,20 @@ const testData = [
   },
   // (The) Metal Archives
   {
+                     input_url: 'http://metal-archives.com/artists/Phillip_Gallagher/591782',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metal-archives.com/artists/Phillip_Gallagher/591782',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://metal-archives.com/artist/view/id/591782',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metal-archives.com/artist/view/id/591782',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.metal-archives.com/bands/Karna/26483',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
