@@ -69,7 +69,8 @@ const store = createStore(function (state: WorkForm = form, action) {
 
     case 'EDIT_LANGUAGE':
       state = mutate<WorkForm, _>(state, newState => {
-        newState.field.languages.field[action.index].value = action.languageId;
+        newState.field.languages.field[action.index].value =
+          action.languageId;
       });
       break;
 
@@ -272,7 +273,10 @@ function renderWorkLanguages() {
       addId="add-language"
       addLabel={l('Add Language')}
       getSelectField={_.identity}
-      hideAddButton={_.intersection(form.field.languages.field.map(lang => String(lang.value)), ["486", "284"]).length > 0}
+      hideAddButton={_.intersection(
+        form.field.languages.field.map(lang => String(lang.value)),
+        ['486', '284'],
+      ).length > 0}
       label={l('Lyrics Languages')}
       onAdd={addLanguage}
       onEdit={editLanguage}
