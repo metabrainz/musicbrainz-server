@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_EVENT_EDIT
 );
 use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
@@ -39,6 +40,7 @@ with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Edit event') }
 sub edit_type { $EDIT_EVENT_EDIT }
+sub edit_template_react { "EditEvent" }
 
 sub _edit_model { 'Event' }
 
@@ -108,6 +110,11 @@ sub build_display_data
                 old => PartialDate->new($self->data->{old}{$date_prop}),
             };
         }
+    }
+
+    if (exists $data->{cancelled}) {
+        $data->{cancelled}{old} = boolean_to_json($data->{cancelled}{old});
+        $data->{cancelled}{new} = boolean_to_json($data->{cancelled}{new});
     }
 
     return $data;
