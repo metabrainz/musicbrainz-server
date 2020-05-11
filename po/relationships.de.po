@@ -1236,7 +1236,7 @@ msgid ""
 "</ul>"
 msgstr ""
 
-#: DB:link_type/description:140 DB:link_type/description:31
+#: DB:link_type/description:31 DB:link_type/description:140
 msgid ""
 "This describes an engineer involved with the machines used to generate "
 "sound, such as effects processors and digital audio equipment used to modify"
@@ -1261,7 +1261,7 @@ msgid ""
 "play (a \"radio edit\")."
 msgstr ""
 
-#: DB:link_type/description:29 DB:link_type/description:133
+#: DB:link_type/description:133 DB:link_type/description:29
 msgid ""
 "This describes an engineer responsible for ensuring that the sounds that the"
 " artists make reach the microphones sounding pleasant, without unwanted "
@@ -1284,7 +1284,7 @@ msgid ""
 "744428d2382b\">remixer</a>."
 msgstr ""
 
-#: DB:link_type/description:138 DB:link_type/description:28
+#: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role."
 msgstr ""
 
@@ -3331,7 +3331,7 @@ msgstr "ausgekoppelte Singles/EPs"
 msgid "associated with"
 msgstr "verbunden mit"
 
-#: DB:link_type/name:140 DB:link_type/name:31
+#: DB:link_type/name:31 DB:link_type/name:140
 msgid "audio"
 msgstr "Audio"
 
@@ -3906,7 +3906,7 @@ msgstr ""
 msgid "emeritus"
 msgstr "Emeritus"
 
-#: DB:link_type/name:138 DB:link_type/name:28
+#: DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
 msgstr ""
 
@@ -4893,7 +4893,7 @@ msgstr "Logos"
 msgid "lyricist"
 msgstr "Texter"
 
-#: DB:link_type/name:271 DB:link_type/name:93 DB:link_type/name:197
+#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
 msgid "lyrics"
 msgstr "Liedtext"
 
@@ -5093,7 +5093,7 @@ msgstr "sonstige Rollen"
 msgid "miscellaneous support"
 msgstr "sonstige Unterstützung"
 
-#: DB:link_type/name:26 DB:link_type/name:143
+#: DB:link_type/name:143 DB:link_type/name:26
 msgid "mix"
 msgstr "Mix"
 
@@ -5738,9 +5738,9 @@ msgstr "rekonstruiert"
 msgid "reconstructed by"
 msgstr "rekonstruiert von"
 
-#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
-#: DB:link_type/reverse_link_phrase:809
+#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
+#: DB:link_type/reverse_link_phrase:810
 msgid "recorded at"
 msgstr "aufgenommen bei"
 
@@ -5768,7 +5768,7 @@ msgstr "Aufnahmetechniker bei"
 msgid "recording engineers"
 msgstr "Aufnahmetechniker"
 
-#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
+#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
 msgid "recording location for"
 msgstr "Aufnahmeort für"
 
@@ -6005,7 +6005,7 @@ msgstr ""
 msgid "soprano vocals"
 msgstr "Soprangesang"
 
-#: DB:link_type/name:29 DB:link_type/name:133
+#: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
 msgstr ""
 
@@ -6598,8 +6598,8 @@ msgid ""
 "on}"
 msgstr "programmierte {additional:zusätzlich} {assistant:assistierend} {associate:als Partner} {instrument} {instrument:auf}"
 
-#: DB:link_type/link_phrase:140 DB:link_type/link_phrase:31
-#: DB:link_type/long_link_phrase:140 DB:link_type/long_link_phrase:31
+#: DB:link_type/link_phrase:31 DB:link_type/link_phrase:140
+#: DB:link_type/long_link_phrase:31 DB:link_type/long_link_phrase:140
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
 msgstr "{co:ko-}audio-engineerte {additional:zusätzlich} {assistant:assistierend} {associate:als Partner}"
@@ -6619,19 +6619,19 @@ msgstr "{co:ko-}editierte {additional:zusätzlich} {assistant:assistierend} {ass
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgstr "{co:ko-}masterte {additional:zusätzlich} {assistant:assistierend} {associate:als Partner}"
 
-#: DB:link_type/link_phrase:26 DB:link_type/link_phrase:143
-#: DB:link_type/long_link_phrase:26 DB:link_type/long_link_phrase:143
+#: DB:link_type/link_phrase:143 DB:link_type/link_phrase:26
+#: DB:link_type/long_link_phrase:143 DB:link_type/long_link_phrase:26
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
 msgstr "{co:ko-}mixte {additional:zusätzlich} {assistant:assistierend} {associate:als Partner}"
 
-#: DB:link_type/link_phrase:29 DB:link_type/link_phrase:133
-#: DB:link_type/long_link_phrase:29 DB:link_type/long_link_phrase:133
+#: DB:link_type/link_phrase:133 DB:link_type/link_phrase:29
+#: DB:link_type/long_link_phrase:133 DB:link_type/long_link_phrase:29
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
 msgstr "{co:ko-}sound-engineerte {additional:zusätzlich} {assistant:assistierend} {associate:als Partner}"
 
-#: DB:link_type/link_phrase:138 DB:link_type/link_phrase:28
-#: DB:link_type/long_link_phrase:138 DB:link_type/long_link_phrase:28
+#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
+#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
 msgid ""
 "{additional:additionally} {assistant} {associate} "
 "{co:co-}{executive:executive }engineered"
@@ -6854,7 +6854,7 @@ msgstr "{additional:zusätzliche(r)} Verfasser(in)"
 msgid "{additional} writing location for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
+#: DB:link_type/reverse_link_phrase:31 DB:link_type/reverse_link_phrase:140
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr "{additional:zusätzliches} {assistant:assistierendes} {associate:Partner-}{co:Ko-}Audio-Engineering"
 
@@ -6870,7 +6870,7 @@ msgstr "{additional:zusätzliches} {assistant:assistierendes} {associate:Partner
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
 msgstr "{additional:zusätzliches} {assistant:assistierendes} {associate:Partner-}{co:Ko-}Mastering"
 
-#: DB:link_type/reverse_link_phrase:26 DB:link_type/reverse_link_phrase:143
+#: DB:link_type/reverse_link_phrase:143 DB:link_type/reverse_link_phrase:26
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{additional:zusätzliche(r)} {assistant:assistierende(r)} {associate:Partner-}{co:Ko-}Mix"
 
@@ -6882,11 +6882,11 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:29 DB:link_type/reverse_link_phrase:133
+#: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
 msgstr "{additional:zusätzliches} {assistant:assistierendes} {associate:Partner-}{co:Ko-}Sound-Engineering"
 
-#: DB:link_type/reverse_link_phrase:138 DB:link_type/reverse_link_phrase:28
+#: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr "{additional:zusätzliche(r)} {assistant:assistierende(r)} {executive:leitende(r)} {associate:Partner-}{co:Ko-}Techniker(in)"
@@ -7159,7 +7159,7 @@ msgstr ""
 msgid "{entity1} was printed in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
+#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
 msgid "{entity1} was recorded at  {entity0}"
 msgstr "{entity1} wurde in {entity0} aufgenommen"
 

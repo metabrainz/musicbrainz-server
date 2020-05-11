@@ -1232,7 +1232,7 @@ msgid ""
 "</ul>"
 msgstr "Dit beschrijft een situatie waarbij een platenmaatschappij onder eigen naam (een deel van) de catalogus van een andere platenmaatschappij heruitgeeft. Dit kan in ten minste drie soorten gevallen:\n<ul>\n<li>Een platenmaatschappij verwerft de rechten op de catalogus van een andere maatschappij, voor een bepaalde tijd of regio.</li>\n<li>Een platenmaatschappij koopt de rechten van een verdwenen maatschappij, of koopt er een en ontmantelt haar.</li>\n<li>Een uitgever van bootlegs geeft de catalogus van een platenmaatschappij opnieuw uit.</li>\n</ul>"
 
-#: DB:link_type/description:140 DB:link_type/description:31
+#: DB:link_type/description:31 DB:link_type/description:140
 msgid ""
 "This describes an engineer involved with the machines used to generate "
 "sound, such as effects processors and digital audio equipment used to modify"
@@ -1257,7 +1257,7 @@ msgid ""
 "play (a \"radio edit\")."
 msgstr "Dit geeft de technicus aan die verantwoordelijk was voor het samenvoegen van verschillende elementen van een geluidsopname, of het op een andere manier herindelen van materiaal dat in een sessie is opgenomen. Dit is meestal een aanvulling op het werk van de mixtechnicus. Dit kan ook het verkorten van een langer nummer tot ongeveer drie minuten zijn om het geschikt te maken voor de radio (een radio edit)."
 
-#: DB:link_type/description:29 DB:link_type/description:133
+#: DB:link_type/description:133 DB:link_type/description:29
 msgid ""
 "This describes an engineer responsible for ensuring that the sounds that the"
 " artists make reach the microphones sounding pleasant, without unwanted "
@@ -1280,7 +1280,7 @@ msgid ""
 "744428d2382b\">remixer</a>."
 msgstr "Dit geeft de technicus aan die verantwoordelijk was voor het gebruik van het mengpaneel om een opgenomen nummer te mixen in een stuk muziek dat geschikt is om uit te geven. Zie voor remixen <a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixer</a>."
 
-#: DB:link_type/description:138 DB:link_type/description:28
+#: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "Dit beschrijft een technicus die een algemene technische rol vervulde."
 
@@ -3327,7 +3327,7 @@ msgstr "geassocieerde singles/EP’s"
 msgid "associated with"
 msgstr "geassocieerd met"
 
-#: DB:link_type/name:140 DB:link_type/name:31
+#: DB:link_type/name:31 DB:link_type/name:140
 msgid "audio"
 msgstr "audio"
 
@@ -3902,7 +3902,7 @@ msgstr "elektronische muziek"
 msgid "emeritus"
 msgstr "emeritus"
 
-#: DB:link_type/name:138 DB:link_type/name:28
+#: DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
 msgstr "technicus"
 
@@ -4889,7 +4889,7 @@ msgstr "logo’s"
 msgid "lyricist"
 msgstr "tekstschrijver"
 
-#: DB:link_type/name:271 DB:link_type/name:93 DB:link_type/name:197
+#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
 msgid "lyrics"
 msgstr "teksten"
 
@@ -5089,7 +5089,7 @@ msgstr "diverse rollen"
 msgid "miscellaneous support"
 msgstr "diverse ondersteuning"
 
-#: DB:link_type/name:26 DB:link_type/name:143
+#: DB:link_type/name:143 DB:link_type/name:26
 msgid "mix"
 msgstr "mix"
 
@@ -5734,9 +5734,9 @@ msgstr "reconstrueerde"
 msgid "reconstructed by"
 msgstr "gereconstrueerd door"
 
-#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
-#: DB:link_type/reverse_link_phrase:809
+#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
+#: DB:link_type/reverse_link_phrase:810
 msgid "recorded at"
 msgstr "opgenomen bij"
 
@@ -5764,7 +5764,7 @@ msgstr "in dienst als opnametechnicus bij"
 msgid "recording engineers"
 msgstr "opnametechnici"
 
-#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
+#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
 msgid "recording location for"
 msgstr "opnamelocatie van"
 
@@ -6001,7 +6001,7 @@ msgstr "Songkick"
 msgid "soprano vocals"
 msgstr "sopraanvocalen"
 
-#: DB:link_type/name:29 DB:link_type/name:133
+#: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
 msgstr "geluid"
 
@@ -6594,8 +6594,8 @@ msgid ""
 "on}"
 msgstr "programmeerde {additional:aanvullend} {assistant:assisterend} {associate:als partner} {instrument:% on}"
 
-#: DB:link_type/link_phrase:140 DB:link_type/link_phrase:31
-#: DB:link_type/long_link_phrase:140 DB:link_type/long_link_phrase:31
+#: DB:link_type/link_phrase:31 DB:link_type/link_phrase:140
+#: DB:link_type/long_link_phrase:31 DB:link_type/long_link_phrase:140
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
 msgstr "werkte {additional:aanvullend} {assistant:assisterend} {associate:als partner} als {co:co-}audiotechnicus op"
@@ -6615,19 +6615,19 @@ msgstr "{co:co}redigeerde {additional:aanvullend} {assistant:assisterend} {assoc
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgstr "{co:co}masterde {additional:aanvullend} {assistant:assisterend} {associate:als partner} "
 
-#: DB:link_type/link_phrase:26 DB:link_type/link_phrase:143
-#: DB:link_type/long_link_phrase:26 DB:link_type/long_link_phrase:143
+#: DB:link_type/link_phrase:143 DB:link_type/link_phrase:26
+#: DB:link_type/long_link_phrase:143 DB:link_type/long_link_phrase:26
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
 msgstr "{co:co}mixte {additional:aanvullend} {assistant:assisterend} {associate:als partner} "
 
-#: DB:link_type/link_phrase:29 DB:link_type/link_phrase:133
-#: DB:link_type/long_link_phrase:29 DB:link_type/long_link_phrase:133
+#: DB:link_type/link_phrase:133 DB:link_type/link_phrase:29
+#: DB:link_type/long_link_phrase:133 DB:link_type/long_link_phrase:29
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
 msgstr "{additional:aanvullend} {assistant:assisterend} {associate:als partner} {co:co-}geluidstechnicus op"
 
-#: DB:link_type/link_phrase:138 DB:link_type/link_phrase:28
-#: DB:link_type/long_link_phrase:138 DB:link_type/long_link_phrase:28
+#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
+#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
 msgid ""
 "{additional:additionally} {assistant} {associate} "
 "{co:co-}{executive:executive }engineered"
@@ -6850,7 +6850,7 @@ msgstr "{additional:aanvullend} schrijver"
 msgid "{additional} writing location for"
 msgstr "hier {additional:aanvullend }geschreven"
 
-#: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
+#: DB:link_type/reverse_link_phrase:31 DB:link_type/reverse_link_phrase:140
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}audiotechnicus"
 
@@ -6866,7 +6866,7 @@ msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd}
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
 msgstr "{additional:aanvullende} {assistant:assisterende} {associate:geassocieerd} {co:co-}mastering"
 
-#: DB:link_type/reverse_link_phrase:26 DB:link_type/reverse_link_phrase:143
+#: DB:link_type/reverse_link_phrase:143 DB:link_type/reverse_link_phrase:26
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{additional:aanvullende} {assistant:assisterende} {associate:geassocieerd} {co:co-}mixer"
 
@@ -6878,11 +6878,11 @@ msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd}
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus van"
 
-#: DB:link_type/reverse_link_phrase:29 DB:link_type/reverse_link_phrase:133
+#: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
 msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}geluidstechnicus"
 
-#: DB:link_type/reverse_link_phrase:138 DB:link_type/reverse_link_phrase:28
+#: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}{executive:leidinggevend} technicus"
@@ -7155,7 +7155,7 @@ msgstr "{entity1} werd eerder toegeschreven aan {entity0}"
 msgid "{entity1} was printed in {entity0}"
 msgstr "{entity1} werd gedrukt in {entity0}"
 
-#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
+#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
 msgid "{entity1} was recorded at  {entity0}"
 msgstr "{entity1} werd opgenomen bij {entity0}"
 

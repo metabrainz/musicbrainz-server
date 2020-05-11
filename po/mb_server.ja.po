@@ -33,9 +33,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-23 00:34-0500\n"
-"PO-Revision-Date: 2020-04-23 05:37+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"POT-Creation-Date: 2020-05-06 20:58+0000\n"
+"PO-Revision-Date: 2020-05-06 21:02+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -161,13 +161,6 @@ msgctxt "isrc client"
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: ../root/edit/details/historic/convert_release_to_multiple_artists.tt:11
-#: ../root/edit/details/historic/mac_to_sac.tt:8
-#: ../root/edit/details/historic/mac_to_sac.tt:13
-msgctxt "release"
-msgid "(unknown)"
-msgstr "(不明)"
-
 #: ../root/release/merge.tt:87
 msgid "(was medium {position} on release {release})"
 msgstr "（リリース「{release}」のメディア{position}でした）"
@@ -250,14 +243,6 @@ msgid ""
 "classical release unless you’re very sure it’s a good idea!"
 msgstr ""
 
-#: ../root/admin/wikidoc/index.tt:16
-msgid ""
-"<strong>Note:</strong> MediaWiki does not check to see if the version number"
-" matches the page name, it will take the version number and provide whatever"
-" page is associated with it. Make sure to double check your work when "
-"updating a page!"
-msgstr "<strong>備考:</strong> MediaWikiはバージョン番号とページ名が合ってるかどうかを確認せず、バージョン番号と関連してるページを表示します。ページを更新する際は十分注意してご確認ください。"
-
 #: ../root/components/common-macros.tt:705 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>警告</strong>"
@@ -323,18 +308,6 @@ msgstr "{name}による承認済みの編集"
 msgid "Account admin"
 msgstr "アカウント設定"
 
-#: ../root/admin/wikidoc/index.tt:36 ../root/account/applications/Index.js:101
-#: ../root/account/applications/Index.js:139
-#: ../root/admin/attributes/Attribute.js:100
-#: ../root/admin/attributes/Language.js:45
-#: ../root/admin/attributes/Script.js:45
-#: ../root/components/Aliases/AliasTable.js:31
-#: ../root/components/Aliases/ArtistCreditList.js:48
-#: ../root/static/scripts/common/components/FingerprintTable.js:53
-#: ../root/utility/tableColumns.js:67
-msgid "Actions"
-msgstr "アクション"
-
 #: ../root/event/edit_form.tt:22
 msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \""
@@ -397,6 +370,8 @@ msgid "Add Medium"
 msgstr "メディアを追加"
 
 #: ../root/admin/wikidoc/create.tt:1 ../root/admin/wikidoc/create.tt:3
+#: ../root/admin/wikidoc/CreateWikiDoc.js:31
+#: ../root/admin/wikidoc/CreateWikiDoc.js:33
 msgid "Add Page"
 msgstr "ページを追加"
 
@@ -453,10 +428,6 @@ msgid ""
 "tracklist is unknown."
 msgstr "下の「メディアを追加」ボタンをクリックしてメディアを追加するか、トラックリストが不明である場合はチェックボックスを選択するかしてください。"
 
-#: ../root/admin/wikidoc/index.tt:11
-msgid "Add a new entry"
-msgstr "新しいエントリーを追加"
-
 #: ../root/release/edit/recordings.tt:197
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:34
 msgid "Add a new recording"
@@ -474,7 +445,7 @@ msgstr "新しいリリースを追加"
 msgid "Add alias"
 msgstr "別名を追加"
 
-#: ../root/edit/notes.tt:29
+#: ../root/edit/notes.tt:28
 msgid "Add an edit note"
 msgstr "編集メモを追加"
 
@@ -547,10 +518,6 @@ msgstr "別名の詳細"
 msgid "Alias name:"
 msgstr "別名:"
 
-#: ../root/edit/details/historic/remove_label_alias.tt:3
-msgid "Alias:"
-msgstr "別名:"
-
 #: ../root/components/relationship-editor.tt:59
 msgid "All of these relationships."
 msgstr "これらの関連の全て"
@@ -595,8 +562,8 @@ msgstr "同じ名前の区別不能な項目が既に存在しています。他
 msgid "An error occurred while creating the works."
 msgstr "作品の作成中にエラーが発生しました。"
 
-#: ../root/edit/details/historic/remove_relationship.tt:17
 #: ../root/edit/index.tt:14 ../root/edit/list.tt:65
+#: ../root/edit/details/historic/RemoveRelationship.js:40
 msgid "An error occurred while loading this edit."
 msgstr "編集の読み込み中にエラーが発生しました。"
 
@@ -726,7 +693,8 @@ msgstr ""
 #: ../root/components/list/LabelList.js:64
 #: ../root/components/list/PlaceList.js:65 ../root/edit/details/AddArea.js:41
 #: ../root/edit/details/AddArtist.js:99 ../root/edit/details/AddPlace.js:73
-#: ../root/edit/details/EditPlace.js:91 ../root/layout/components/Search.js:29
+#: ../root/edit/details/EditArtist.js:127 ../root/edit/details/EditPlace.js:91
+#: ../root/layout/components/Search.js:29
 #: ../root/report/PlacesWithoutCoordinates.js:57
 #: ../root/search/components/ArtistResults.js:49
 #: ../root/search/components/LabelResults.js:63
@@ -743,7 +711,6 @@ msgstr "地域の詳細"
 
 #: ../root/artist/edit_form.tt:20 ../root/components/common-macros.tt:559
 #: ../root/edit/details/add_label.tt:49 ../root/edit/details/edit_area.tt:5
-#: ../root/edit/details/edit_artist.tt:34
 #: ../root/edit/details/edit_label.tt:47 ../root/label/edit_form.tt:18
 #: ../root/place/edit_form.tt:19
 #: ../root/layout/components/sidebar/ArtistSidebar.js:118
@@ -780,7 +747,9 @@ msgstr "地域\t"
 #: ../root/components/list/ReleaseGroupList.js:98
 #: ../root/components/list/ReleaseList.js:74
 #: ../root/edit/details/AddArtist.js:56
-#: ../root/edit/details/AddReleaseGroup.js:53 ../root/isrc/Index.js:57
+#: ../root/edit/details/AddReleaseGroup.js:53
+#: ../root/edit/details/EditArtist.js:72
+#: ../root/edit/details/EditReleaseGroup.js:83 ../root/isrc/Index.js:57
 #: ../root/layout/components/Search.js:18
 #: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:57
 #: ../root/report/BadAmazonUrls.js:59 ../root/report/CatNoLooksLikeAsin.js:63
@@ -868,19 +837,16 @@ msgstr "アーティスト {n}:"
 #: ../root/components/common-macros.tt:559
 #: ../root/edit/details/add_release.tt:15
 #: ../root/edit/details/add_standalone_recording.tt:15
-#: ../root/edit/details/edit_artist.tt:5
 #: ../root/edit/details/edit_recording.tt:32
 #: ../root/edit/details/edit_release.tt:15
-#: ../root/edit/details/edit_release_group.tt:30
 #: ../root/edit/details/historic/add_release.tt:19
 #: ../root/edit/details/historic/add_track_kv.tt:20
-#: ../root/edit/details/historic/change_artist_quality.tt:3
-#: ../root/edit/details/historic/convert_release_to_multiple_artists.tt:18
-#: ../root/edit/details/historic/mac_to_sac.tt:19
 #: ../root/edit/details/historic/move_release.tt:19
-#: ../root/edit/details/historic/remove_release.tt:17
 #: ../root/release/edit/information.tt:26 ../root/release/edit/tracklist.tt:97
 #: ../root/taglookup/form.tt:4
+#: ../root/edit/details/historic/ChangeArtistQuality.js:30
+#: ../root/edit/details/historic/ChangeReleaseArtist.js:31
+#: ../root/edit/details/historic/RemoveRelease.js:33
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:52
 #: ../root/static/scripts/edit/components/forms.js:22
@@ -929,16 +895,6 @@ msgstr "ディスクIDを添付"
 msgid "Attached to releases"
 msgstr "リリースの関連"
 
-#: ../root/doc/relationship_type.tt:49
-#: ../root/admin/attributes/Attribute.js:88
-#: ../root/admin/attributes/Index.js:20 ../root/admin/attributes/Index.js:21
-#: ../root/admin/attributes/Language.js:32
-#: ../root/admin/attributes/Script.js:33
-#: ../root/components/RelationshipsTable.js:94
-#: ../root/utility/tableColumns.js:479
-msgid "Attributes"
-msgstr "属性"
-
 #: ../root/components/relationship-editor.tt:138
 #: ../root/edit/details/add_relationship_type.tt:37
 #: ../root/edit/details/edit_relationship_type.tt:68
@@ -963,6 +919,7 @@ msgid "Average rating:"
 msgstr "平均評価:"
 
 #: ../root/components/common-macros.tt:863
+#: ../root/static/scripts/common/components/OrderableDirection.js:24
 msgid "Backward"
 msgstr "戻る"
 
@@ -1042,7 +999,7 @@ msgid ""
 "{login_url|login}."
 msgstr "MusicBrainzは{how|査読を行い}、インターネットの最も正確な音楽情報データベースです。提出や手伝いの興味ある方は{reg|アカウントを作成}、または{login_url|ログインして}ください。"
 
-#: ../root/artist/edit_form.tt:42 ../root/edit/details/edit_artist.tt:46
+#: ../root/artist/edit_form.tt:42
 msgid "Begin Area:"
 msgstr "開始地域:"
 
@@ -1115,10 +1072,6 @@ msgstr "CDスタブが見つかりました"
 #: ../root/cdtoc/info.tt:1
 msgid "CD TOC details"
 msgstr "CD TOCの詳細"
-
-#: ../root/edit/details/historic/add_disc_id.tt:13
-msgid "CD TOC:"
-msgstr "CD TOC:"
 
 #: ../root/cdstub/header.tt:5
 msgid "CD stub by {artist}"
@@ -1241,6 +1194,7 @@ msgid "Change direction"
 msgstr "向きを入れ替える"
 
 #: ../root/release/change_quality.tt:1 ../root/release/change_quality.tt:2
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:24
 msgid "Change release data quality"
 msgstr "リリース品質を変更"
@@ -1263,12 +1217,12 @@ msgstr "変更"
 msgid "Child order"
 msgstr "子順序"
 
-#: ../root/doc/relationship_type.tt:32
 #: ../root/edit/details/add_relationship_attribute.tt:11
 #: ../root/edit/details/edit_relationship_attribute.tt:18
 #: ../root/edit/details/edit_relationship_type.tt:33
 #: ../root/relationship/linkattributetype/form.tt:7
 #: ../root/relationship/linktype/form.tt:7
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:106
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:56
 msgid "Child order:"
 msgstr " 子順序:"
@@ -1408,6 +1362,7 @@ msgid "Cover art:"
 msgstr "カバーアート:"
 
 #: ../root/admin/wikidoc/create.tt:13
+#: ../root/admin/wikidoc/CreateWikiDoc.js:50
 msgid "Create"
 msgstr "作成"
 
@@ -1435,10 +1390,6 @@ msgstr "クレジット:"
 msgid "Credits"
 msgstr "クレジット"
 
-#: ../root/admin/wikidoc/edit.tt:16
-msgid "Current version:"
-msgstr "現在のバージョン:"
-
 #: ../root/release/edit/tracklist.tt:68
 msgid "Custom delimiter"
 msgstr ""
@@ -1451,9 +1402,9 @@ msgid "DD"
 msgstr "DD"
 
 #: ../root/edit/details/change_release_data_quality.tt:7
-#: ../root/edit/details/historic/change_artist_quality.tt:7
-#: ../root/edit/details/historic/change_release_quality.tt:14
 #: ../root/release/change_quality.tt:5
+#: ../root/edit/details/historic/ChangeArtistQuality.js:36
+#: ../root/edit/details/historic/ChangeReleaseQuality.js:46
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:25
 msgid "Data Quality"
 msgstr "データ品質"
@@ -1529,10 +1480,10 @@ msgid "Deprecated:"
 msgstr "廃止:"
 
 #: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
-#: ../root/doc/relationship_type.tt:25 ../root/work/edit_form.tt:110
-#: ../root/admin/attributes/Attribute.js:96
+#: ../root/work/edit_form.tt:110 ../root/admin/attributes/Attribute.js:96
 #: ../root/collection/CollectionIndex.js:177
 #: ../root/instrument/InstrumentIndex.js:35
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:96
 #: ../root/search/components/InstrumentResults.js:49
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:89
 #: ../root/utility/tableColumns.js:488
@@ -1580,13 +1531,11 @@ msgstr "データベースの直接検索"
 #: ../root/edit/details/add_instrument.tt:16
 #: ../root/edit/details/add_label.tt:23 ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/add_standalone_recording.tt:21
-#: ../root/edit/details/edit_area.tt:21 ../root/edit/details/edit_artist.tt:21
-#: ../root/edit/details/edit_event.tt:14
+#: ../root/edit/details/edit_area.tt:21 ../root/edit/details/edit_event.tt:14
 #: ../root/edit/details/edit_instrument.tt:14
 #: ../root/edit/details/edit_label.tt:19
 #: ../root/edit/details/edit_recording.tt:17
-#: ../root/edit/details/edit_release.tt:25
-#: ../root/edit/details/edit_release_group.tt:15 ../root/event/edit_form.tt:13
+#: ../root/edit/details/edit_release.tt:25 ../root/event/edit_form.tt:13
 #: ../root/instrument/edit_form.tt:10 ../root/label/edit_form.tt:13
 #: ../root/place/edit_form.tt:13 ../root/recording/edit_form.tt:26
 #: ../root/release/edit/information.tt:252
@@ -1596,8 +1545,10 @@ msgstr "データベースの直接検索"
 #: ../root/edit/details/AddPlace.js:55
 #: ../root/edit/details/AddReleaseGroup.js:63
 #: ../root/edit/details/AddSeries.js:47 ../root/edit/details/AddWork.js:55
-#: ../root/edit/details/EditPlace.js:66 ../root/edit/details/EditSeries.js:58
-#: ../root/edit/details/EditWork.js:69 ../root/genre/GenreEditForm.js:36
+#: ../root/edit/details/EditArtist.js:97 ../root/edit/details/EditPlace.js:66
+#: ../root/edit/details/EditReleaseGroup.js:57
+#: ../root/edit/details/EditSeries.js:58 ../root/edit/details/EditWork.js:69
+#: ../root/genre/GenreEditForm.js:36
 msgid "Disambiguation"
 msgstr "曖昧さ回避"
 
@@ -1618,12 +1569,12 @@ msgid "Disc ID “{discid}”"
 msgstr "ディスク ID 「{discid}」"
 
 #: ../root/cdtoc/info.tt:11 ../root/edit/details/add_disc_id.tt:11
-#: ../root/edit/details/historic/add_disc_id.tt:17
-#: ../root/edit/details/historic/move_disc_id.tt:3
-#: ../root/edit/details/historic/remove_disc_id.tt:14
 #: ../root/edit/details/move_disc_id.tt:3
 #: ../root/edit/details/remove_disc_id.tt:9
 #: ../root/edit/details/set_track_lengths.tt:15 ../root/otherlookup/form.tt:3
+#: ../root/edit/details/historic/AddDiscId.js:34
+#: ../root/edit/details/historic/MoveDiscId.js:28
+#: ../root/edit/details/historic/RemoveDiscId.js:29
 msgid "Disc ID:"
 msgstr "ディスク ID:"
 
@@ -1676,9 +1627,9 @@ msgid ""
 msgstr "MusicBrainzデータベースの各トラックは、レコーディングとリンクされることになりますので、適切なレコーディングを選ぶかデータベースを検索してください。"
 
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:16
-#: ../root/doc/relationship_type.tt:17 ../root/entity/edit.tt:1
-#: ../root/release/cover_art.tt:26 ../root/release/discids.tt:12
-#: ../root/release/edit/recordings.tt:58 ../root/release/edit/recordings.tt:94
+#: ../root/entity/edit.tt:1 ../root/release/cover_art.tt:26
+#: ../root/release/discids.tt:12 ../root/release/edit/recordings.tt:58
+#: ../root/release/edit/recordings.tt:94
 #: ../root/account/applications/Index.js:38
 #: ../root/admin/attributes/Attribute.js:116
 #: ../root/admin/attributes/Language.js:63
@@ -1690,6 +1641,7 @@ msgstr "MusicBrainzデータベースの各トラックは、レコーディン�
 #: ../root/components/Aliases/ArtistCreditList.js:64
 #: ../root/components/EntityTabs.js:135
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:62
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:82
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:110
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:430
 #: ../root/user/UserCollections.js:121
@@ -1786,7 +1738,7 @@ msgstr "メモを編集:"
 msgid "Edit notes"
 msgstr "メモを編集"
 
-#: ../root/edit/notes.tt:23
+#: ../root/edit/notes.tt:22
 msgid ""
 "Edit notes support {doc_formatting|a limited set of wiki formatting "
 "options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
@@ -1883,7 +1835,7 @@ msgstr "レコード用のトラック番号を使用する"
 msgid "End"
 msgstr "終了"
 
-#: ../root/artist/edit_form.tt:56 ../root/edit/details/edit_artist.tt:54
+#: ../root/artist/edit_form.tt:56
 msgid "End Area:"
 msgstr "終了地域:"
 
@@ -1898,7 +1850,6 @@ msgid "End date:"
 msgstr "終了日:"
 
 #: ../root/edit/details/add_label.tt:43 ../root/edit/details/edit_area.tt:52
-#: ../root/edit/details/edit_artist.tt:58
 #: ../root/edit/details/edit_label.tt:43
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:50
 msgid "Ended:"
@@ -1968,10 +1919,6 @@ msgstr ""
 msgid "Error message: "
 msgstr "エラーメッセージ:"
 
-#: ../root/admin/wikidoc/index.tt:50
-msgid "Error!"
-msgstr "エラー!"
-
 #: ../root/main/info/error.tt:3
 msgid "Error:"
 msgid_plural "Errors:"
@@ -2022,8 +1969,8 @@ msgstr "イベント:"
 msgid "Events"
 msgstr "イベント"
 
-#: ../root/doc/relationship_type.tt:85
 #: ../root/relationship/linktype/form.tt:71
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:203
 msgid "Examples"
 msgstr "例"
 
@@ -2154,11 +2101,12 @@ msgid "Forums"
 msgstr "フォーラム"
 
 #: ../root/components/common-macros.tt:863
+#: ../root/static/scripts/common/components/OrderableDirection.js:21
 msgid "Forward"
 msgstr "進む"
 
-#: ../root/doc/relationship_type.tt:43
 #: ../root/relationship/linktype/form.tt:13
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:134
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:63
 msgid "Forward link phrase:"
 msgstr "順方向のリンクの表記"
@@ -2219,8 +2167,8 @@ msgstr "周波数"
 msgid "Frequency notes:"
 msgstr "頻度メモ："
 
-#: ../root/edit/details/historic/move_disc_id.tt:8
 #: ../root/edit/details/move_disc_id.tt:8
+#: ../root/edit/details/historic/MoveDiscId.js:37
 msgid "From:"
 msgstr "開始:"
 
@@ -2228,7 +2176,7 @@ msgstr "開始:"
 msgid "Full TOC:"
 msgstr "完全TOC:"
 
-#: ../root/artist/edit_form.tt:17 ../root/edit/details/edit_artist.tt:30
+#: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:82
 #: ../root/static/scripts/account/components/EditProfileForm.js:213
 #: ../root/user/UserProfile.js:200
@@ -2280,10 +2228,6 @@ msgstr "feat.がつくアーティストをトラックのタイトルから推�
 #: ../root/components/forms.tt:270
 msgid "Guess sort name"
 msgstr "ソート名を推測"
-
-#: ../root/doc/relationship_type.tt:72
-msgid "Guidelines"
-msgstr "ガイドライン"
 
 #: ../root/components/forms.tt:124
 msgid "HH:MM"
@@ -2354,10 +2298,6 @@ msgstr "不明"
 msgid "ID"
 msgstr "ID"
 
-#: ../root/doc/relationship_type.tt:31
-msgid "ID:"
-msgstr "ID:"
-
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/AddArtist.js:152
 msgid "IPI code"
@@ -2368,8 +2308,8 @@ msgstr "IPI コード"
 msgid "IPI code:"
 msgstr "IPI コード:"
 
-#: ../root/artist/edit_form.tt:29 ../root/edit/details/edit_artist.tt:62
-#: ../root/edit/details/edit_label.tt:51 ../root/label/edit_form.tt:32
+#: ../root/artist/edit_form.tt:29 ../root/edit/details/edit_label.tt:51
+#: ../root/label/edit_form.tt:32 ../root/edit/details/EditArtist.js:180
 msgid "IPI codes:"
 msgstr "IPI コード:"
 
@@ -2387,8 +2327,8 @@ msgstr "ISNIコード"
 msgid "ISNI code:"
 msgstr "ISNIコード:"
 
-#: ../root/artist/edit_form.tt:30 ../root/edit/details/edit_artist.tt:67
-#: ../root/edit/details/edit_label.tt:56 ../root/label/edit_form.tt:33
+#: ../root/artist/edit_form.tt:30 ../root/edit/details/edit_label.tt:56
+#: ../root/label/edit_form.tt:33 ../root/edit/details/EditArtist.js:188
 msgid "ISNI codes:"
 msgstr "ISNIコード:"
 
@@ -2839,10 +2779,6 @@ msgstr "リンク順序:"
 msgid "Link phrase:"
 msgstr "リンクフレーズ:"
 
-#: ../root/doc/relationship_type.tt:40
-msgid "Link phrases"
-msgstr "リンクフレーズ"
-
 #: ../root/annotation/edit.tt:56
 msgid "Links:"
 msgstr "リンク:"
@@ -2888,9 +2824,9 @@ msgstr "ログイン"
 msgid "Log in to upload cover art"
 msgstr "ログインしてカバーアートをアップロード"
 
-#: ../root/doc/relationship_type.tt:45
 #: ../root/edit/details/edit_relationship_type.tt:29
 #: ../root/relationship/linktype/form.tt:15
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:144
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:77
 msgid "Long link phrase:"
 msgstr "詳細なリンク表記:"
@@ -3134,9 +3070,10 @@ msgstr "なし"
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/AddPlace.js:50
 #: ../root/edit/details/AddReleaseGroup.js:48
 #: ../root/edit/details/AddSeries.js:42 ../root/edit/details/AddWork.js:50
-#: ../root/edit/details/EditPlace.js:58 ../root/edit/details/EditSeries.js:50
-#: ../root/edit/details/EditWork.js:62 ../root/entity/Details.js:77
-#: ../root/genre/GenreEditForm.js:30
+#: ../root/edit/details/EditArtist.js:81 ../root/edit/details/EditPlace.js:58
+#: ../root/edit/details/EditReleaseGroup.js:50
+#: ../root/edit/details/EditSeries.js:50 ../root/edit/details/EditWork.js:62
+#: ../root/entity/Details.js:77 ../root/genre/GenreEditForm.js:30
 #: ../root/search/components/AnnotationResults.js:57
 #: ../root/search/components/AreaResults.js:57
 #: ../root/search/components/ArtistResults.js:45
@@ -3162,15 +3099,13 @@ msgstr "名前"
 #: ../root/edit/details/add_relationship_type.tt:3
 #: ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/add_standalone_recording.tt:10
-#: ../root/edit/details/edit_area.tt:11 ../root/edit/details/edit_artist.tt:11
-#: ../root/edit/details/edit_event.tt:9
+#: ../root/edit/details/edit_area.tt:11 ../root/edit/details/edit_event.tt:9
 #: ../root/edit/details/edit_instrument.tt:9
 #: ../root/edit/details/edit_label.tt:9 ../root/edit/details/edit_medium.tt:18
 #: ../root/edit/details/edit_recording.tt:12
 #: ../root/edit/details/edit_relationship_attribute.tt:4
 #: ../root/edit/details/edit_relationship_type.tt:11
 #: ../root/edit/details/edit_release.tt:9
-#: ../root/edit/details/edit_release_group.tt:11
 #: ../root/edit/details/historic/add_release.tt:14
 #: ../root/edit/details/historic/add_track_kv.tt:14
 #: ../root/edit/details/historic/add_track_old.tt:14
@@ -3262,16 +3197,13 @@ msgstr "新しいポジション:"
 msgid "New recording"
 msgstr "新しいレコーディング"
 
-#: ../root/edit/details/historic/edit_relationship.tt:29
-msgid "New relationships:"
-msgstr "新しい関係:"
-
 #: ../root/edit/details/historic/edit_release_language.tt:30
 msgid "New script:"
 msgstr "新しい表記:"
 
-#: ../root/admin/wikidoc/edit.tt:20 ../root/edit/details/change_wikidoc.tt:23
+#: ../root/edit/details/change_wikidoc.tt:23
 #: ../root/edit/details/change_wikidoc.tt:28
+#: ../root/admin/wikidoc/EditWikiDoc.js:48
 msgid "New version:"
 msgstr "新しいバージョン:"
 
@@ -3353,6 +3285,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:863 ../root/edit/edit_header.tt:27
 #: ../root/edit/components/Vote.js:103
+#: ../root/static/scripts/common/components/OrderableDirection.js:18
 msgid "None"
 msgstr "無し"
 
@@ -3435,10 +3368,6 @@ msgstr ""
 msgid "Old recording"
 msgstr "前のレコーディング"
 
-#: ../root/edit/details/historic/edit_relationship.tt:6
-msgid "Old relationships:"
-msgstr "前の関係："
-
 #: ../root/edit/details/change_wikidoc.tt:11
 #: ../root/edit/details/change_wikidoc.tt:16
 msgid "Old version:"
@@ -3510,10 +3439,10 @@ msgstr "オプション"
 msgid "Or..."
 msgstr ""
 
-#: ../root/doc/relationship_type.tt:36
 #: ../root/edit/details/add_relationship_type.tt:30
 #: ../root/edit/details/edit_relationship_type.tt:61
 #: ../root/relationship/linktype/form.tt:37
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:120
 msgid "Orderable direction:"
 msgstr ""
 
@@ -3566,15 +3495,12 @@ msgstr "パッケージ:"
 msgid "Page Not Found"
 msgstr "ページが見つかりませんでした"
 
-#: ../root/admin/wikidoc/index.tt:32
-msgid "Page name"
-msgstr "ページ名"
-
 #: ../root/edit/details/change_wikidoc.tt:29
 msgid "Page removed"
 msgstr "ページ削除しました"
 
-#: ../root/admin/wikidoc/create.tt:9 ../root/admin/wikidoc/edit.tt:11
+#: ../root/admin/wikidoc/create.tt:9 ../root/admin/wikidoc/CreateWikiDoc.js:38
+#: ../root/admin/wikidoc/EditWikiDoc.js:39
 msgid "Page:"
 msgstr "ページ:"
 
@@ -3764,10 +3690,10 @@ msgstr "プレビュー:"
 msgid "Previous"
 msgstr "前へ"
 
-#: ../root/edit/details/edit_release_group.tt:19
 #: ../root/release/edit/information.tt:91
 #: ../root/release_group/edit_form.tt:16
 #: ../root/edit/details/AddReleaseGroup.js:70
+#: ../root/edit/details/EditReleaseGroup.js:64
 msgid "Primary Type:"
 msgstr "一次タイプ:"
 
@@ -3808,12 +3734,6 @@ msgstr "評価"
 #: ../root/edit/index.tt:15
 msgid "Raw edit data may be available."
 msgstr ""
-
-#: ../root/admin/wikidoc/index.tt:5
-msgid ""
-"Read the {doc|WikiDocs} documentation for an overview of how transclusion "
-"works."
-msgstr "トランスクルージョンの説明は{doc|WikiDocs}をご参照ください。"
 
 #: ../root/edit/notes-received.tt:1 ../root/edit/notes-received.tt:3
 msgid "Recent Notes Left on Your Edits"
@@ -3915,7 +3835,8 @@ msgstr "関係"
 msgid "Relationship Editor"
 msgstr "関係編集者"
 
-#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:386
+#: ../root/edit/search_macros.tt:386
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:39
 #: ../root/report/components/ArtistRelationshipList.js:25
 #: ../root/report/components/LabelRelationshipList.js:25
 #: ../root/report/components/PlaceRelationshipList.js:25
@@ -3925,14 +3846,6 @@ msgstr "関係編集者"
 #: ../root/report/components/UrlRelationshipList.js:27
 #: ../root/report/components/WorkRelationshipList.js:25
 msgid "Relationship Type"
-msgstr "関係タイプ"
-
-#: ../root/doc/relationship_type.tt:4
-#: ../root/layout/components/BottomMenu.js:290
-#: ../root/relationship/RelationshipsHeader.js:19
-#: ../root/relationship/linktype/RelationshipTypesIndex.js:62
-#: ../root/utility/tableColumns.js:278
-msgid "Relationship Types"
 msgstr "関係タイプ"
 
 #: ../root/admin/edit_user.tt:10
@@ -3963,11 +3876,6 @@ msgid ""
 " be removed, and relationships highlighted <span class=\"rel-"
 "add\">green</span> will be added."
 msgstr ""
-
-#: ../root/edit/details/historic/add_relationship.tt:3
-#: ../root/edit/details/historic/remove_relationship.tt:4
-msgid "Relationships:"
-msgstr "関係:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:15
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:37
@@ -4011,6 +3919,7 @@ msgstr "リリースイベント:"
 #: ../root/release/index.tt:57
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
 #: ../root/edit/details/AddReleaseGroup.js:38
+#: ../root/edit/details/EditReleaseGroup.js:43
 #: ../root/layout/components/Search.js:24
 #: ../root/report/ReleaseRgDifferentName.js:59
 #: ../root/report/components/ReleaseGroupAnnotationList.js:28
@@ -4032,7 +3941,6 @@ msgid "Release Group Relationships"
 msgstr "リリースグループの関連"
 
 #: ../root/edit/details/edit_release.tt:21
-#: ../root/edit/details/edit_release_group.tt:5
 #: ../root/release/edit/information.tt:33
 msgid "Release Group:"
 msgstr "リリースグループ:"
@@ -4086,9 +3994,9 @@ msgstr "{artist}のリリースグループ「{name}」"
 
 #: ../root/components/common-macros.tt:559
 #: ../root/edit/details/add_release.tt:20
-#: ../root/edit/details/historic/change_release_group.tt:13
 #: ../root/edit/details/historic/move_release_to_rg.tt:7
 #: ../root/edit/details/set_cover_art.tt:5
+#: ../root/edit/details/historic/ChangeReleaseGroup.js:31
 msgid "Release group:"
 msgstr "リリースグループ:"
 
@@ -4137,26 +4045,19 @@ msgstr "リリース:"
 msgid "Releases"
 msgstr "リリース"
 
-#: ../root/edit/details/historic/add_disc_id.tt:3
 #: ../root/edit/details/historic/add_release.tt:3
 #: ../root/edit/details/historic/add_track_kv.tt:3
 #: ../root/edit/details/historic/add_track_old.tt:3
-#: ../root/edit/details/historic/change_release_group.tt:3
-#: ../root/edit/details/historic/change_release_quality.tt:4
-#: ../root/edit/details/historic/convert_release_to_multiple_artists.tt:3
 #: ../root/edit/details/historic/edit_release_attributes.tt:4
 #: ../root/edit/details/historic/edit_release_name.tt:5
-#: ../root/edit/details/historic/mac_to_sac.tt:3
 #: ../root/edit/details/historic/move_release.tt:3
-#: ../root/edit/details/historic/remove_disc_id.tt:3
-#: ../root/edit/details/historic/remove_release.tt:2
-#: ../root/edit/details/historic/remove_releases.tt:3
-#: ../root/edit/details/historic/remove_track.tt:3
+#: ../root/edit/components/HistoricReleaseList.js:29
+#: ../root/edit/details/historic/ChangeReleaseQuality.js:34
+#: ../root/edit/details/historic/RemoveReleases.js:25
 msgid "Releases:"
 msgstr "リリース:"
 
-#: ../root/admin/attributes/delete.tt:12 ../root/admin/wikidoc/index.tt:62
-#: ../root/cdtoc/list.tt:54 ../root/doc/relationship_type.tt:19
+#: ../root/admin/attributes/delete.tt:12 ../root/cdtoc/list.tt:54
 #: ../root/relationship/linkattributetype/delete.tt:11
 #: ../root/relationship/linktype/delete.tt:11
 #: ../root/release/add_cover_art.tt:70 ../root/release/cover_art.tt:29
@@ -4164,11 +4065,13 @@ msgstr "リリース:"
 #: ../root/admin/attributes/Attribute.js:120
 #: ../root/admin/attributes/Language.js:67
 #: ../root/admin/attributes/Script.js:65
+#: ../root/admin/wikidoc/WikiDocIndex.js:108
 #: ../root/collection/CollectionHeader.js:88
 #: ../root/collection/DeleteCollection.js:28
 #: ../root/components/Aliases/AliasTableRow.js:61
 #: ../root/layout/components/sidebar/RemoveLink.js:27
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:68
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:88
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:116
 #: ../root/static/scripts/account/components/EditProfileForm.js:290
 #: ../root/user/UserCollections.js:122
@@ -4209,6 +4112,8 @@ msgid "Remove Label"
 msgstr "レーベルを削除"
 
 #: ../root/admin/wikidoc/delete.tt:1 ../root/admin/wikidoc/delete.tt:3
+#: ../root/admin/wikidoc/DeleteWikiDoc.js:26
+#: ../root/admin/wikidoc/DeleteWikiDoc.js:28
 msgid "Remove Page"
 msgstr "ページを削除"
 
@@ -4335,9 +4240,9 @@ msgstr "以前のレコーディングを再利用"
 msgid "Reveal my email address"
 msgstr "メールアドレスを公開する"
 
-#: ../root/doc/relationship_type.tt:44
 #: ../root/edit/details/edit_relationship_type.tt:25
 #: ../root/relationship/linktype/form.tt:14
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:139
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:70
 msgid "Reverse link phrase:"
 msgstr ""
@@ -4440,20 +4345,16 @@ msgstr "検索:"
 msgid "Searching..."
 msgstr "検索中…"
 
-#: ../root/edit/details/edit_release_group.tt:23
 #: ../root/release/edit/information.tt:94
 #: ../root/release_group/edit_form.tt:17
 #: ../root/edit/details/AddReleaseGroup.js:79
+#: ../root/edit/details/EditReleaseGroup.js:75
 msgid "Secondary Types:"
 msgstr "二次タイプ:"
 
 #: ../root/cdtoc/info.tt:38 ../root/cdtoc/info.tt:40 ../root/cdtoc/info.tt:42
 msgid "Sectors"
 msgstr "セクター"
-
-#: ../root/doc/relationship_type.tt:75
-msgid "See the general {url|guidelines for URLs}."
-msgstr ""
 
 #: ../root/cdtoc/attach_filter_artist.tt:35 ../root/cdtoc/move_search.tt:42
 #: ../root/release_group/set_cover_art.tt:35
@@ -4654,8 +4555,7 @@ msgid "Sorry, your query was too large."
 msgstr ""
 
 #: ../root/components/forms.tt:268 ../root/edit/details/add_label.tt:16
-#: ../root/edit/details/edit_area.tt:16 ../root/edit/details/edit_artist.tt:16
-#: ../root/edit/details/edit_label.tt:14
+#: ../root/edit/details/edit_area.tt:16 ../root/edit/details/edit_label.tt:14
 #: ../root/layout/components/sidebar/ArtistSidebar.js:74
 msgid "Sort name:"
 msgstr "ソート名:"
@@ -4865,10 +4765,6 @@ msgstr "この編集は既に終了しました。"
 msgid "The edit has been cancelled."
 msgstr "この編集はキャンセルしました。"
 
-#: ../root/doc/relationship_type.tt:54
-msgid "The following attributes can be used with this relationship type:"
-msgstr "以下の属性はこちらの関係タイプで利用されています: "
-
 #: ../root/components/common-macros.tt:950
 #: ../root/components/FormCsrfToken.js:20
 msgid "The form you’ve submitted has expired. Please resubmit your request."
@@ -4983,10 +4879,6 @@ msgid ""
 "at the bottom of the {alias_uri|aliases} tab and remove all existing "
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
-msgstr ""
-
-#: ../root/admin/wikidoc/index.tt:25
-msgid "There was a problem accessing the wiki API."
 msgstr ""
 
 #: ../root/edit/cannot_approve.tt:3
@@ -5248,21 +5140,6 @@ msgstr "この関係は非推奨です"
 msgid "This relationship type does not have any examples."
 msgstr "この関連タイプは例がありません。"
 
-#: ../root/doc/relationship_type.tt:52
-msgid "This relationship type doesn't allow any attributes."
-msgstr "この関係タイプには属性を設定できません。"
-
-#: ../root/doc/relationship_type.tt:11
-#: ../root/static/scripts/edit/externalLinks.js:232
-#: ../root/static/scripts/relationship-editor/common/dialog.js:510
-msgid "This relationship type is deprecated and should not be used."
-msgstr "この関係タイプは非推奨のため使用しないでください。"
-
-#: ../root/doc/relationship_type.tt:101
-msgid ""
-"This relationship type is only used for grouping other relationship types."
-msgstr "この関係タイプは他の関係タイプをグループ化するためだけに使用されます。"
-
 #: ../root/release/edit/information.tt:229
 msgid "This release does not have a barcode"
 msgstr "このリリースはバーコードがありません。"
@@ -5395,8 +5272,8 @@ msgid ""
 "them and select 'Watch this artist for new releases' from the sidebar."
 msgstr ""
 
-#: ../root/edit/details/historic/move_disc_id.tt:23
 #: ../root/edit/details/move_disc_id.tt:15
+#: ../root/edit/details/historic/MoveDiscId.js:41
 msgid "To:"
 msgstr ""
 
@@ -5458,8 +5335,7 @@ msgstr "トラック番号:"
 msgid "Track {n}:"
 msgstr "トラック {n}:"
 
-#: ../root/edit/details/historic/remove_track.tt:14
-#: ../root/taglookup/form.tt:7
+#: ../root/taglookup/form.tt:7 ../root/edit/details/historic/RemoveTrack.js:30
 msgid "Track:"
 msgstr "トラック:"
 
@@ -5490,14 +5366,6 @@ msgstr "トラック"
 msgid "Tracks:"
 msgstr "トラック:"
 
-#: ../root/admin/wikidoc/index.tt:33
-msgid "Transcluded version"
-msgstr "トランスクルードしたバージョン"
-
-#: ../root/admin/wikidoc/index.tt:1 ../root/admin/wikidoc/index.tt:3
-msgid "Transclusion Table"
-msgstr "トランスクルージョン表"
-
 #: ../root/admin/edit_user.tt:9
 msgid "Transclusion editor"
 msgstr "トランスクルージョン編集者"
@@ -5519,7 +5387,8 @@ msgstr "Twitter"
 #: ../root/edit/details/AddEvent.js:68 ../root/edit/details/AddPlace.js:61
 #: ../root/edit/details/AddRemoveAlias.js:101
 #: ../root/edit/details/AddSeries.js:53 ../root/edit/details/AddWork.js:67
-#: ../root/edit/details/EditAlias.js:124 ../root/edit/details/EditPlace.js:74
+#: ../root/edit/details/EditAlias.js:124
+#: ../root/edit/details/EditArtist.js:105 ../root/edit/details/EditPlace.js:74
 #: ../root/edit/details/EditSeries.js:66 ../root/iswc/Index.js:52
 #: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:58
 #: ../root/report/DuplicateArtists.js:75
@@ -5556,7 +5425,6 @@ msgstr "タイプ"
 #: ../root/area/edit_form.tt:11 ../root/artist/edit_form.tt:16
 #: ../root/edit/data.tt:5 ../root/edit/details/add_instrument.tt:23
 #: ../root/edit/details/add_label.tt:56 ../root/edit/details/edit_area.tt:26
-#: ../root/edit/details/edit_artist.tt:26
 #: ../root/edit/details/edit_event.tt:23
 #: ../root/edit/details/edit_instrument.tt:19
 #: ../root/edit/details/edit_label.tt:25
@@ -5616,11 +5484,6 @@ msgstr ""
 msgid "URLs"
 msgstr "URL"
 
-#: ../root/doc/relationship_type.tt:37
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:101
-msgid "UUID:"
-msgstr "UUID:"
-
 #: ../root/release/edit/tracklist.tt:8
 msgid "Unable to parse the tracklist you entered."
 msgstr ""
@@ -5657,15 +5520,6 @@ msgstr "信頼されない"
 #: ../root/search/components/SearchForm.js:27
 msgid "Up to {n}"
 msgstr "{n} まで"
-
-#: ../root/admin/wikidoc/edit.tt:23 ../root/admin/wikidoc/index.tt:61
-#: ../root/account/applications/Edit.js:28 ../root/admin/EditBanner.js:38
-msgid "Update"
-msgstr "更新"
-
-#: ../root/admin/wikidoc/edit.tt:1 ../root/admin/wikidoc/edit.tt:3
-msgid "Update Page"
-msgstr "ページを更新"
 
 #: ../root/release/edit/recordings.tt:83
 msgid "Update the recording artist credit to match the track artist credit."
@@ -5754,6 +5608,7 @@ msgid "Version History"
 msgstr "バージョン履歴"
 
 #: ../root/admin/wikidoc/create.tt:10
+#: ../root/admin/wikidoc/CreateWikiDoc.js:44
 msgid "Version:"
 msgstr "バージョン:"
 
@@ -5782,10 +5637,6 @@ msgstr "注釈の履歴を表示。"
 msgid "View diff"
 msgstr "差分を表示"
 
-#: ../root/admin/wikidoc/index.tt:63
-msgid "View on wiki"
-msgstr "wikiで表示"
-
 #: ../root/edit/data.tt:32
 msgid "View the human-readable rendering instead."
 msgstr ""
@@ -5793,10 +5644,6 @@ msgstr ""
 #: ../root/annotation/history.tt:32
 msgid "View this version"
 msgstr "このバージョンを表示"
-
-#: ../root/admin/wikidoc/index.tt:12
-msgid "View transclusion history"
-msgstr "トランスクルージョンの履歴を表示"
 
 #: ../root/edit/edit_header.tt:36 ../root/edit/index.tt:25
 #: ../root/edit/search_macros.tt:386
@@ -5912,10 +5759,6 @@ msgstr "Wiki"
 msgid "Wiki Transcluder"
 msgstr ""
 
-#: ../root/admin/wikidoc/index.tt:34
-msgid "Wiki version"
-msgstr "Wiki バージョン"
-
 #: ../root/edit/details/change_wikidoc.tt:4
 msgid "WikiDoc:"
 msgstr "WikiDoc:"
@@ -6000,6 +5843,7 @@ msgid "Yes"
 msgstr "賛成"
 
 #: ../root/admin/wikidoc/delete.tt:11
+#: ../root/admin/wikidoc/DeleteWikiDoc.js:40
 msgid "Yes, I'm sure"
 msgstr "確認"
 
@@ -6031,7 +5875,7 @@ msgstr ""
 msgid "You are currently watching the following artists for new releases."
 msgstr ""
 
-#: ../root/edit/notes.tt:35
+#: ../root/edit/notes.tt:34
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr ""
 
@@ -6297,10 +6141,6 @@ msgstr ""
 msgid "credited as"
 msgstr ""
 
-#: ../root/admin/wikidoc/index.tt:53
-msgid "diff"
-msgstr "差分"
-
 #: ../root/edit/search_macros.tt:28
 msgid "do not match"
 msgstr ""
@@ -6317,10 +6157,6 @@ msgstr "編集者"
 msgid "edits"
 msgstr ""
 
-#: ../root/doc/relationship_type.tt:65
-msgid "end date"
-msgstr ""
-
 #: ../root/components/common-macros.tt:641
 #: ../root/components/relationship-editor.tt:183
 #: ../root/edit/details/macros.tt:28
@@ -6328,18 +6164,18 @@ msgstr ""
 msgid "ended"
 msgstr "終了"
 
-#: ../root/doc/relationship_type.tt:34
 #: ../root/edit/details/add_relationship_type.tt:19
 #: ../root/edit/details/edit_relationship_type.tt:50
 #: ../root/relationship/linktype/form.tt:26
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:112
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:91
 msgid "entity0 cardinality:"
 msgstr ""
 
-#: ../root/doc/relationship_type.tt:35
 #: ../root/edit/details/add_relationship_type.tt:23
 #: ../root/edit/details/edit_relationship_type.tt:55
 #: ../root/relationship/linktype/form.tt:31
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:116
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:96
 msgid "entity1 cardinality:"
 msgstr ""
@@ -6574,10 +6410,6 @@ msgstr "シリーズ"
 msgid "show tracklist"
 msgstr "トラックリストを表示"
 
-#: ../root/doc/relationship_type.tt:62
-msgid "start date"
-msgstr "開始日"
-
 #: ../root/annotation/edit.tt:53
 msgid ""
 "tab or 4 spaces and: * bullets or 1., a., A., i., I. numbered items "
@@ -6660,10 +6492,6 @@ msgid ""
 "{edit} has received one or more \"no\" votes, you must leave an edit note "
 "before you can approve it."
 msgstr "{edit}には反対投票があるため、承認するには編集ノートが必要です。"
-
-#: ../root/doc/relationship_type.tt:5
-msgid "{entity0}-{entity1}"
-msgstr ""
 
 #: ../root/entity/edits.tt:1
 msgid "{entity_type} by {artist}"
@@ -7017,7 +6845,7 @@ msgstr ""
 msgid "You cannot merge into Deleted Label."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:54
+#: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:69
 #, perl-brace-format
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
@@ -7249,7 +7077,7 @@ msgstr "アーティストを削除"
 msgid "Remove artist alias"
 msgstr "アーティストの別名を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:43
 msgid "Edit artist"
 msgstr "アーティストを編集"
 
@@ -7328,11 +7156,11 @@ msgstr "リリースイベントを追加 (歴史的)"
 msgid "Add track (historic)"
 msgstr "トラックを追加（歴史的）"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeArtistQuality.pm:10
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeArtistQuality.pm:12
 msgid "Change artist quality (historic)"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseGroup.pm:10
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseGroup.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseAttrs.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseLanguage.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:10
@@ -7342,10 +7170,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:32
 msgid "Edit release"
 msgstr "リリースを編集"
-
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:12
-msgid "Change release quality"
-msgstr "リリース品質を変更"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:11
@@ -8632,6 +8456,12 @@ msgstr ""
 msgid "Edit Application"
 msgstr "アプリケーションを編集"
 
+#: ../root/account/applications/Edit.js:28 ../root/admin/EditBanner.js:38
+#: ../root/admin/wikidoc/EditWikiDoc.js:54
+#: ../root/admin/wikidoc/WikiDocIndex.js:102
+msgid "Update"
+msgstr "更新"
+
 #: ../root/account/applications/Index.js:31
 #: ../root/static/scripts/account/components/ApplicationForm.js:40
 msgid "Web Application"
@@ -8677,6 +8507,19 @@ msgstr "アプリケーション"
 #: ../root/account/applications/Index.js:100
 msgid "Access"
 msgstr "アクセス"
+
+#: ../root/account/applications/Index.js:101
+#: ../root/account/applications/Index.js:139
+#: ../root/admin/attributes/Attribute.js:100
+#: ../root/admin/attributes/Language.js:45
+#: ../root/admin/attributes/Script.js:45
+#: ../root/admin/wikidoc/WikiDocIndex.js:118
+#: ../root/components/Aliases/AliasTable.js:31
+#: ../root/components/Aliases/ArtistCreditList.js:48
+#: ../root/static/scripts/common/components/FingerprintTable.js:53
+#: ../root/utility/tableColumns.js:67
+msgid "Actions"
+msgstr "アクション"
 
 #: ../root/account/applications/Index.js:110
 msgid "You have not authorized any applications."
@@ -8779,6 +8622,16 @@ msgstr ""
 msgid "Free text"
 msgstr "フリーテキスト"
 
+#: ../root/admin/attributes/Attribute.js:88
+#: ../root/admin/attributes/Index.js:20 ../root/admin/attributes/Index.js:21
+#: ../root/admin/attributes/Language.js:32
+#: ../root/admin/attributes/Script.js:33
+#: ../root/components/RelationshipsTable.js:94
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:151
+#: ../root/utility/tableColumns.js:479
+msgid "Attributes"
+msgstr "属性"
+
 #: ../root/admin/attributes/Attribute.js:98
 msgid "Parent ID"
 msgstr ""
@@ -8792,6 +8645,76 @@ msgstr "新しい属性を追加"
 #: ../root/admin/attributes/Script.js:31 ../root/admin/attributes/Script.js:34
 msgid "Script"
 msgstr "文字"
+
+#: ../root/admin/wikidoc/DeleteWikiDoc.js:30
+msgid ""
+"Are you sure you wish to remove the page “{page_uri|{page_name}}” from the "
+"transclusion table?"
+msgstr ""
+
+#: ../root/admin/wikidoc/EditWikiDoc.js:33
+#: ../root/admin/wikidoc/EditWikiDoc.js:35
+msgid "Update Page"
+msgstr "ページを更新"
+
+#: ../root/admin/wikidoc/EditWikiDoc.js:43
+msgid "Current version:"
+msgstr "現在のバージョン:"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:40
+msgid "Page name"
+msgstr "ページ名"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:46
+msgid "Transcluded version"
+msgstr "トランスクルードしたバージョン"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:68
+msgid "Error!"
+msgstr "エラー!"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:81
+msgid "diff"
+msgstr "差分"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:90
+msgid "Wiki version"
+msgstr "Wiki バージョン"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:114
+msgid "View on wiki"
+msgstr "wikiで表示"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:149
+#: ../root/admin/wikidoc/WikiDocIndex.js:151
+msgid "Transclusion Table"
+msgstr "トランスクルージョン表"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:154
+msgid ""
+"Read the {doc|WikiDocs} documentation for an overview of how transclusion "
+"works."
+msgstr "トランスクルージョンの説明は{doc|WikiDocs}をご参照ください。"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:164
+msgid "Add a new entry"
+msgstr "新しいエントリーを追加"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:169
+msgid "View transclusion history"
+msgstr "トランスクルージョンの履歴を表示"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:174
+msgid ""
+"<strong>Note:</strong> MediaWiki does not check to see if the version number"
+" matches the page name, it will take the version number and provide whatever"
+" page is associated with it. Make sure to double check your work when "
+"updating a page!"
+msgstr "<strong>備考:</strong> MediaWikiはバージョン番号とページ名が合ってるかどうかを確認せず、バージョン番号と関連してるページを表示します。ページを更新する際は十分注意してご確認ください。"
+
+#: ../root/admin/wikidoc/WikiDocIndex.js:185
+msgid "There was a problem accessing the wiki API."
+msgstr ""
 
 #: ../root/area/AreaArtists.js:48 ../root/instrument/InstrumentArtists.js:51
 #: ../root/report/DuplicateArtists.js:133
@@ -9197,7 +9120,8 @@ msgstr "別名"
 #: ../root/components/Aliases/AliasTable.js:25
 #: ../root/edit/details/AddArea.js:58 ../root/edit/details/AddArtist.js:72
 #: ../root/edit/details/AddRemoveAlias.js:81
-#: ../root/edit/details/EditAlias.js:105 ../root/report/DuplicateArtists.js:74
+#: ../root/edit/details/EditAlias.js:105 ../root/edit/details/EditArtist.js:89
+#: ../root/report/DuplicateArtists.js:74
 msgid "Sort name"
 msgstr "ソート名"
 
@@ -9409,7 +9333,7 @@ msgid "Sort Name"
 msgstr "ソート名"
 
 #: ../root/components/list/ArtistList.js:75
-#: ../root/edit/details/AddArtist.js:92
+#: ../root/edit/details/AddArtist.js:92 ../root/edit/details/EditArtist.js:114
 #: ../root/search/components/ArtistResults.js:48
 msgid "Gender"
 msgstr "性別"
@@ -9564,7 +9488,9 @@ msgstr "終了日"
 #: ../root/edit/details/AddArea.js:113 ../root/edit/details/AddArtist.js:145
 #: ../root/edit/details/AddPlace.js:96
 #: ../root/edit/details/AddRemoveAlias.js:122
-#: ../root/edit/details/EditAlias.js:144 ../root/edit/details/EditPlace.js:125
+#: ../root/edit/details/EditAlias.js:144
+#: ../root/edit/details/EditArtist.js:173
+#: ../root/edit/details/EditPlace.js:125
 msgid "Ended"
 msgstr "終了済み"
 
@@ -9620,6 +9546,23 @@ msgstr "マージ:"
 msgid "Rename artist and relationship credits"
 msgstr "アーティストと関係のクレジット名を変更してください"
 
+#: ../root/edit/details/historic/AddDiscId.js:30
+msgid "CD TOC:"
+msgstr "CD TOC:"
+
+#: ../root/edit/details/historic/AddRelationship.js:25
+#: ../root/edit/details/historic/RemoveRelationship.js:27
+msgid "Relationships:"
+msgstr "関係:"
+
+#: ../root/edit/details/historic/EditRelationship.js:31
+msgid "Old relationships:"
+msgstr "前の関係："
+
+#: ../root/edit/details/historic/EditRelationship.js:90
+msgid "New relationships:"
+msgstr "新しい関係:"
+
 #: ../root/edit/details/historic/MergeReleases.js:32
 msgid "Old releases:"
 msgstr "前のリリース:"
@@ -9641,6 +9584,10 @@ msgid ""
 "This edit was a \"Merge Releases (Various Artists)\" edit which additionally"
 " set the release artist to Various Artists."
 msgstr ""
+
+#: ../root/edit/details/historic/RemoveLabelAlias.js:22
+msgid "Alias:"
+msgstr "別名:"
 
 #: ../root/edit/details/historic/RemovePuid.js:30
 msgid "PUID:"
@@ -9992,68 +9939,76 @@ msgid ""
 msgstr "そのMusicBrainz IDとの関連属性は見つかりませんでした。"
 
 #: ../root/entity/NotFound.js:159
+msgid "Relationship Type Not Found"
+msgstr ""
+
+#: ../root/entity/NotFound.js:161
+msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
+msgstr ""
+
+#: ../root/entity/NotFound.js:168
 msgid "Release Not Found"
 msgstr "リリースが見つかりません"
 
-#: ../root/entity/NotFound.js:161
+#: ../root/entity/NotFound.js:170
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:168
+#: ../root/entity/NotFound.js:177
 msgid "Release Group Not Found"
 msgstr "リリースグループ見つかりません"
 
-#: ../root/entity/NotFound.js:170
+#: ../root/entity/NotFound.js:179
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:177
+#: ../root/entity/NotFound.js:186
 msgid "Series Not Found"
 msgstr "シリーズがありません"
 
-#: ../root/entity/NotFound.js:179
+#: ../root/entity/NotFound.js:188
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:186
+#: ../root/entity/NotFound.js:195
 msgid "Track Not Found"
 msgstr "トラックがありません"
 
-#: ../root/entity/NotFound.js:188
+#: ../root/entity/NotFound.js:197
 msgid ""
 "Sorry, we could not find neither a recording nor a track with that "
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:196
+#: ../root/entity/NotFound.js:205
 msgid "URL Not Found"
 msgstr "URLが見つかりません"
 
-#: ../root/entity/NotFound.js:197
+#: ../root/entity/NotFound.js:206
 msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgstr ""
 
-#: ../root/entity/NotFound.js:202
+#: ../root/entity/NotFound.js:211
 msgid "Editor Not Found"
 msgstr "編集者が見つかりません"
 
-#: ../root/entity/NotFound.js:204
+#: ../root/entity/NotFound.js:213
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:211
+#: ../root/entity/NotFound.js:220
 msgid "Work Not Found"
 msgstr "作品が見つかりません"
 
-#: ../root/entity/NotFound.js:213
+#: ../root/entity/NotFound.js:222
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10444,6 +10399,14 @@ msgstr "よくある質問"
 #: ../root/layout/components/BottomMenu.js:283
 msgid "Documentation Index"
 msgstr "ドキュメントの目次"
+
+#: ../root/layout/components/BottomMenu.js:290
+#: ../root/relationship/RelationshipsHeader.js:19
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:59
+#: ../root/relationship/linktype/RelationshipTypesList.js:62
+#: ../root/utility/tableColumns.js:278
+msgid "Relationship Types"
+msgstr "関係タイプ"
 
 #: ../root/layout/components/BottomMenu.js:299
 msgid "Development"
@@ -11127,6 +11090,58 @@ msgid ""
 "The relationship type \"{type}\" can’t be deleted because it’s still in use."
 msgstr ""
 
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:64
+msgid "{entity0}-{entity1}"
+msgstr ""
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:74
+#: ../root/static/scripts/edit/externalLinks.js:232
+#: ../root/static/scripts/relationship-editor/common/dialog.js:510
+msgid "This relationship type is deprecated and should not be used."
+msgstr "この関係タイプは非推奨のため使用しないでください。"
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:102
+msgid "ID:"
+msgstr "ID:"
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:124
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:101
+msgid "UUID:"
+msgstr "UUID:"
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:130
+msgid "Link phrases"
+msgstr "リンクフレーズ"
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:154
+msgid "This relationship type doesn't allow any attributes."
+msgstr "この関係タイプには属性を設定できません。"
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:157
+msgid "The following attributes can be used with this relationship type:"
+msgstr "以下の属性はこちらの関係タイプで利用されています: "
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:173
+msgid "start date"
+msgstr "開始日"
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:176
+msgid "end date"
+msgstr ""
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:186
+msgid "Guidelines"
+msgstr "ガイドライン"
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:190
+msgid "See the general {url|guidelines for URLs}."
+msgstr ""
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:226
+msgid ""
+"This relationship type is only used for grouping other relationship types."
+msgstr "この関係タイプは他の関係タイプをグループ化するためだけに使用されます。"
+
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:45
 msgid "more"
 msgstr ""
@@ -11170,7 +11185,7 @@ msgstr "すべて折りたたむ"
 msgid "No {type0}-{type1} relationship types found."
 msgstr "{type0}・{type1}の関連タイプ見つかりません。"
 
-#: ../root/relationship/linktype/RelationshipTypesIndex.js:42
+#: ../root/relationship/linktype/RelationshipTypesList.js:42
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
 
