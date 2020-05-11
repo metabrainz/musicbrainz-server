@@ -90,9 +90,10 @@ const CollectionsEntityTypeSection = ({
   const columns = React.useMemo(
     () => {
       const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
-      const nameColumn =
-        defineNameColumn<CollectionT>(l('Collection'));
-      const typeColumn = defineTypeColumn('collection_type');
+      const nameColumn = defineNameColumn<CollectionT>({
+        title: l('Collection'),
+      });
+      const typeColumn = defineTypeColumn({typeContext: 'collection_type'});
       const sizeColumn:
         ColumnOptions<CollectionT, number> = {
           Header: formatPluralEntityTypeName(type),
@@ -117,10 +118,12 @@ const CollectionsEntityTypeSection = ({
           accessor: 'public',
           id: 'privacy',
         };
-      const actionsColumn = defineActionsColumn([
-        [l('Edit'), '/edit'],
-        [l('Remove'), '/delete'],
-      ]);
+      const actionsColumn = defineActionsColumn({
+        actions: [
+          [l('Edit'), '/edit'],
+          [l('Remove'), '/delete'],
+        ],
+      });
 
       return [
         nameColumn,

@@ -39,16 +39,20 @@ const SeriesList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
-      const nameColumn = defineNameColumn<SeriesT>(
-        lp('Series', 'singular'),
-        order,
-        sortable,
-      );
-      const typeColumn = defineTypeColumn('series_type', order, sortable);
+      const nameColumn = defineNameColumn<SeriesT>({
+        order: order,
+        sortable: sortable,
+        title: lp('Series', 'singular'),
+      });
+      const typeColumn = defineTypeColumn({
+        order: order,
+        sortable: sortable,
+        typeContext: 'series_type',
+      });
       const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(series)
+        ? defineRemoveFromMergeColumn({toMerge: series})
         : null;
 
       return [

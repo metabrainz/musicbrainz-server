@@ -57,40 +57,41 @@ const RecordingList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn(seriesItemNumbers)
+        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn =
-        defineNameColumn<RecordingT>(
-          l('Name'),
-          order,
-          sortable,
-          false, // no descriptive linking (since ACs are in the next column)
-        );
-      const artistCreditColumn = defineArtistCreditColumn<RecordingT>(
-        entity => entity.artistCredit,
-        'artist',
-        l('Artist'),
-        order,
-        sortable,
-        showExpandedArtistCredits,
-      );
-      const lengthColumn = defineTextColumn<RecordingT>(
+      const nameColumn = defineNameColumn<RecordingT>({
+        descriptive: false, // since ACs are in the next column
+        order: order,
+        sortable: sortable,
+        title: l('Name'),
+      });
+      const artistCreditColumn = defineArtistCreditColumn<RecordingT>({
+        columnName: 'artist',
+        getArtistCredit: entity => entity.artistCredit,
+        order: order,
+        showExpandedArtistCredits: showExpandedArtistCredits,
+        sortable: sortable,
+        title: l('Artist'),
+      });
+      const lengthColumn = defineTextColumn<RecordingT>({
+        cellProps: {className: lengthClass ?? ''},
+        columnName: 'length',
         /* Show nothing rather than ?:?? for recordings merged away */
-        entity => entity.gid ? formatTrackLength(entity.length) : '',
-        'length',
-        l('Length'),
-        order,
-        sortable,
-        {className: lengthClass ?? ''},
-      );
+        getText: entity => entity.gid ? formatTrackLength(entity.length) : '',
+        order: order,
+        sortable: sortable,
+        title: l('Length'),
+      });
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
-        ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)
+        ? defineInstrumentUsageColumn({
+          instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
+        })
         : null;
       const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(recordings)
+        ? defineRemoveFromMergeColumn({toMerge: recordings})
         : null;
 
       return [
