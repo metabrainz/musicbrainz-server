@@ -1234,7 +1234,7 @@ msgid ""
 "</ul>"
 msgstr ""
 
-#: DB:link_type/description:140 DB:link_type/description:31
+#: DB:link_type/description:31 DB:link_type/description:140
 msgid ""
 "This describes an engineer involved with the machines used to generate "
 "sound, such as effects processors and digital audio equipment used to modify"
@@ -1259,7 +1259,7 @@ msgid ""
 "play (a \"radio edit\")."
 msgstr ""
 
-#: DB:link_type/description:29 DB:link_type/description:133
+#: DB:link_type/description:133 DB:link_type/description:29
 msgid ""
 "This describes an engineer responsible for ensuring that the sounds that the"
 " artists make reach the microphones sounding pleasant, without unwanted "
@@ -1282,7 +1282,7 @@ msgid ""
 "744428d2382b\">remixer</a>."
 msgstr ""
 
-#: DB:link_type/description:138 DB:link_type/description:28
+#: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role."
 msgstr ""
 
@@ -3329,7 +3329,7 @@ msgstr ""
 msgid "associated with"
 msgstr ""
 
-#: DB:link_type/name:140 DB:link_type/name:31
+#: DB:link_type/name:31 DB:link_type/name:140
 msgid "audio"
 msgstr ""
 
@@ -3904,7 +3904,7 @@ msgstr ""
 msgid "emeritus"
 msgstr "emeritus"
 
-#: DB:link_type/name:138 DB:link_type/name:28
+#: DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
 msgstr ""
 
@@ -4891,7 +4891,7 @@ msgstr "logot"
 msgid "lyricist"
 msgstr ""
 
-#: DB:link_type/name:271 DB:link_type/name:93 DB:link_type/name:197
+#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
 msgid "lyrics"
 msgstr ""
 
@@ -5091,7 +5091,7 @@ msgstr "sekalaiset roolit"
 msgid "miscellaneous support"
 msgstr "sekalainen tuki"
 
-#: DB:link_type/name:26 DB:link_type/name:143
+#: DB:link_type/name:143 DB:link_type/name:26
 msgid "mix"
 msgstr ""
 
@@ -5736,9 +5736,9 @@ msgstr ""
 msgid "reconstructed by"
 msgstr ""
 
-#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
-#: DB:link_type/reverse_link_phrase:809
+#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
+#: DB:link_type/reverse_link_phrase:810
 msgid "recorded at"
 msgstr "äänityspaikka"
 
@@ -5766,7 +5766,7 @@ msgstr ""
 msgid "recording engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
+#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
 msgid "recording location for"
 msgstr "äänityspaikkana kohteelle"
 
@@ -6003,7 +6003,7 @@ msgstr ""
 msgid "soprano vocals"
 msgstr "sopraanolaulu"
 
-#: DB:link_type/name:29 DB:link_type/name:133
+#: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
 msgstr ""
 
@@ -6596,8 +6596,8 @@ msgid ""
 "on}"
 msgstr ""
 
-#: DB:link_type/link_phrase:140 DB:link_type/link_phrase:31
-#: DB:link_type/long_link_phrase:140 DB:link_type/long_link_phrase:31
+#: DB:link_type/link_phrase:31 DB:link_type/link_phrase:140
+#: DB:link_type/long_link_phrase:31 DB:link_type/long_link_phrase:140
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
 msgstr ""
@@ -6617,19 +6617,19 @@ msgstr ""
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgstr "{additional:additionally} {assistant} {associate} {co:co-}masteroi"
 
-#: DB:link_type/link_phrase:26 DB:link_type/link_phrase:143
-#: DB:link_type/long_link_phrase:26 DB:link_type/long_link_phrase:143
+#: DB:link_type/link_phrase:143 DB:link_type/link_phrase:26
+#: DB:link_type/long_link_phrase:143 DB:link_type/long_link_phrase:26
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
 msgstr "{additional:additionally} {assistant} {associate} {co:co-}miksasi"
 
-#: DB:link_type/link_phrase:29 DB:link_type/link_phrase:133
-#: DB:link_type/long_link_phrase:29 DB:link_type/long_link_phrase:133
+#: DB:link_type/link_phrase:133 DB:link_type/link_phrase:29
+#: DB:link_type/long_link_phrase:133 DB:link_type/long_link_phrase:29
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
 msgstr "toimi {additional:lisä}{assistant}{associate}{co:co-}ääniteknikkona"
 
-#: DB:link_type/link_phrase:138 DB:link_type/link_phrase:28
-#: DB:link_type/long_link_phrase:138 DB:link_type/long_link_phrase:28
+#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
+#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
 msgid ""
 "{additional:additionally} {assistant} {associate} "
 "{co:co-}{executive:executive }engineered"
@@ -6852,7 +6852,7 @@ msgstr "{additional} tekijä"
 msgid "{additional} writing location for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
+#: DB:link_type/reverse_link_phrase:31 DB:link_type/reverse_link_phrase:140
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr ""
 
@@ -6868,7 +6868,7 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
 msgstr "{additional} {assistant} {associate} {co:co-}masterointi"
 
-#: DB:link_type/reverse_link_phrase:26 DB:link_type/reverse_link_phrase:143
+#: DB:link_type/reverse_link_phrase:143 DB:link_type/reverse_link_phrase:26
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{additional} {assistant} {associate} {co:co-}miksaus"
 
@@ -6880,11 +6880,11 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:29 DB:link_type/reverse_link_phrase:133
+#: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
 msgstr "{additional} {assistant} {associate} {co:co-}ääniteknikko"
 
-#: DB:link_type/reverse_link_phrase:138 DB:link_type/reverse_link_phrase:28
+#: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr "{additional} {assistant} {associate} {co:co-}{executive:executive }teknikko"
@@ -7157,7 +7157,7 @@ msgstr ""
 msgid "{entity1} was printed in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
+#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
 msgid "{entity1} was recorded at  {entity0}"
 msgstr ""
 
