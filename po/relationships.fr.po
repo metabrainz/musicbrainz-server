@@ -1254,7 +1254,7 @@ msgid ""
 "</ul>"
 msgstr "Ceci décrit une situation où un label réédite, sous son propre nom, (partiellement) le catalogue d’un autre label. Ceci a lieu dans au moins trois cas :\n<ul>\n<li>Un label loue le catalogue d’un autre label pour un certain temps, dans une région spécifique du monde.</li>\n<li>Un label achète les droits de catalogue d’un label défunt, ou achète un label (avec son catalogue) et le démantèle.</li>\n<li>Un label pirate réédite le catalogue d’un autre label.</li>\n</ul>"
 
-#: DB:link_type/description:140 DB:link_type/description:31
+#: DB:link_type/description:31 DB:link_type/description:140
 msgid ""
 "This describes an engineer involved with the machines used to generate "
 "sound, such as effects processors and digital audio equipment used to modify"
@@ -1279,7 +1279,7 @@ msgid ""
 "play (a \"radio edit\")."
 msgstr "Ceci décrit un ingénieur responsable du montage d’éléments disparates d’un enregistrement audio ou encore de redistribuer le contenu enregistrer lors des sessions. Ceci est habituellement secondaire ou complémentaire au travail effectué par l’ingénieur de mixage. Il peut aussi alléger une piste plus longue à environ 3 minutes pour l’adapter au passage à la radio (une « version radio »)."
 
-#: DB:link_type/description:29 DB:link_type/description:133
+#: DB:link_type/description:133 DB:link_type/description:29
 msgid ""
 "This describes an engineer responsible for ensuring that the sounds that the"
 " artists make reach the microphones sounding pleasant, without unwanted "
@@ -1302,7 +1302,7 @@ msgid ""
 "744428d2382b\">remixer</a>."
 msgstr "Ceci décrit un ingénieur responsable de l’utilisation d’une console de mixage pour mélanger une piste enregistrée en une pièce musicale appropriée pour la parution. Pour le remixage, voir <a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixeur</a>."
 
-#: DB:link_type/description:138 DB:link_type/description:28
+#: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "Ceci décrit un ingénieur qui a tenu un rôle général d’ingénierie."
 
@@ -3349,7 +3349,7 @@ msgstr "singles/EP associés"
 msgid "associated with"
 msgstr "associé à"
 
-#: DB:link_type/name:140 DB:link_type/name:31
+#: DB:link_type/name:31 DB:link_type/name:140
 msgid "audio"
 msgstr "sonorisateur"
 
@@ -3924,7 +3924,7 @@ msgstr "musique électronique"
 msgid "emeritus"
 msgstr "émérite"
 
-#: DB:link_type/name:138 DB:link_type/name:28
+#: DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
 msgstr "ingénieur"
 
@@ -4911,7 +4911,7 @@ msgstr "logos"
 msgid "lyricist"
 msgstr "parolier"
 
-#: DB:link_type/name:271 DB:link_type/name:93 DB:link_type/name:197
+#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
 msgid "lyrics"
 msgstr "paroles"
 
@@ -5111,7 +5111,7 @@ msgstr "rôles divers"
 msgid "miscellaneous support"
 msgstr "soutien divers"
 
-#: DB:link_type/name:26 DB:link_type/name:143
+#: DB:link_type/name:143 DB:link_type/name:26
 msgid "mix"
 msgstr "mixage"
 
@@ -5756,9 +5756,9 @@ msgstr "reconstruit"
 msgid "reconstructed by"
 msgstr "reconstruit par"
 
-#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
-#: DB:link_type/reverse_link_phrase:809
+#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
+#: DB:link_type/reverse_link_phrase:810
 msgid "recorded at"
 msgstr "enregistré à"
 
@@ -5786,7 +5786,7 @@ msgstr "poste d’ingénieur du son à"
 msgid "recording engineers"
 msgstr "ingénieurs du son "
 
-#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
+#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
 msgid "recording location for"
 msgstr "lieu d’enregistrement de"
 
@@ -6023,7 +6023,7 @@ msgstr "Songkick"
 msgid "soprano vocals"
 msgstr "voix de soprano"
 
-#: DB:link_type/name:29 DB:link_type/name:133
+#: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
 msgstr "prise de son"
 
@@ -6616,8 +6616,8 @@ msgid ""
 "on}"
 msgstr "a {additional:aussi} programmé {assistant:en tant qu’assistant} {associate:en tant qu’associé}  {instrument:% sur}"
 
-#: DB:link_type/link_phrase:140 DB:link_type/link_phrase:31
-#: DB:link_type/long_link_phrase:140 DB:link_type/long_link_phrase:31
+#: DB:link_type/link_phrase:31 DB:link_type/link_phrase:140
+#: DB:link_type/long_link_phrase:31 DB:link_type/long_link_phrase:140
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
 msgstr "{additional:aussi} {co:co-}sonorisateur {assistant} {associate:associé}"
@@ -6637,19 +6637,19 @@ msgstr "{additional:aussi} {co:co-}monté {assistant:en tant qu’assistant} {as
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgstr "{additional:aussi} {co:co-}matricé {assistant:en tant qu’assistant} {associate:en tant qu’associé}"
 
-#: DB:link_type/link_phrase:26 DB:link_type/link_phrase:143
-#: DB:link_type/long_link_phrase:26 DB:link_type/long_link_phrase:143
+#: DB:link_type/link_phrase:143 DB:link_type/link_phrase:26
+#: DB:link_type/long_link_phrase:143 DB:link_type/long_link_phrase:26
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
 msgstr "{additional:aussi} {co:co-}mixé {assistant:en tant qu’assistant} {associate:en tant qu’associé}"
 
-#: DB:link_type/link_phrase:29 DB:link_type/link_phrase:133
-#: DB:link_type/long_link_phrase:29 DB:link_type/long_link_phrase:133
+#: DB:link_type/link_phrase:133 DB:link_type/link_phrase:29
+#: DB:link_type/long_link_phrase:133 DB:link_type/long_link_phrase:29
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
 msgstr "était {additional:aussi} {co:co-}preneur de son {assistant} {associate:associé}"
 
-#: DB:link_type/link_phrase:138 DB:link_type/link_phrase:28
-#: DB:link_type/long_link_phrase:138 DB:link_type/long_link_phrase:28
+#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
+#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
 msgid ""
 "{additional:additionally} {assistant} {associate} "
 "{co:co-}{executive:executive }engineered"
@@ -6872,7 +6872,7 @@ msgstr "auteur {additional:supplémentaire}"
 msgid "{additional} writing location for"
 msgstr "lieu {additional:supplémentaire} d’écriture de"
 
-#: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
+#: DB:link_type/reverse_link_phrase:31 DB:link_type/reverse_link_phrase:140
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr "{co:co-}sonorisateur {additional:supplémentaire} {assistant} {associate:associé}"
 
@@ -6888,7 +6888,7 @@ msgstr "{co:co-}monteur {additional:supplémentaire} {assistant} {associate:asso
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
 msgstr "{co:co-}matriçage {additional:supplémentaire} {assistant} {associate:associé} "
 
-#: DB:link_type/reverse_link_phrase:26 DB:link_type/reverse_link_phrase:143
+#: DB:link_type/reverse_link_phrase:143 DB:link_type/reverse_link_phrase:26
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{co:co-}mixeur {additional:supplémentaire} {assistant} {associate:associé}"
 
@@ -6900,11 +6900,11 @@ msgstr "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:asso
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé} pour"
 
-#: DB:link_type/reverse_link_phrase:29 DB:link_type/reverse_link_phrase:133
+#: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
 msgstr "{co:co-}preneur de son {additional:supplémentaire} {assistant} {associate:associé}"
 
-#: DB:link_type/reverse_link_phrase:138 DB:link_type/reverse_link_phrase:28
+#: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr "{co:co-}ingénieur {additional:supplémentaire} {assistant} {associate:associé} {executive:exécutif} "
@@ -7177,7 +7177,7 @@ msgstr "{entity1} était précédemment attribué à {entity0}"
 msgid "{entity1} was printed in {entity0}"
 msgstr "{entity1} a été imprimé en {entity0}"
 
-#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
+#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
 msgid "{entity1} was recorded at  {entity0}"
 msgstr "{entity1} a été enregistré à {entity0}"
 

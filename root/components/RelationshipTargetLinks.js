@@ -25,7 +25,7 @@ import type {
   DatedExtraAttributes,
   RelationshipTargetGroupT,
 } from '../utility/groupRelationships';
-import relationshipDateText from '../utility//relationshipDateText';
+import relationshipDateText from '../utility/relationshipDateText';
 
 export function displayDatedExtraAttributes(
   pair: DatedExtraAttributes,

@@ -11,7 +11,7 @@ sub sidebar_name {
     if ($self->url =~ m{^(?:https?:)?//(?:www.)?youtube.com/watch\?v=([a-z0-9_-]+)/?$}i) {
         return 'Play on YouTube';
     }
-    elsif ($self->url =~ m{^(?:https?:)?//(?:www.)?youtube.com/(?:(?:c|user)/)?([a-z0-9_-]+)/?$}i) {
+    elsif ($self->decoded =~ m{^(?:https?:)?//(?:www.)?youtube.com/(?:(?:c|user)/)?([^/#?]+)/?$}i) {
         return $1;
     }
     else {

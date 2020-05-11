@@ -1,0 +1,41 @@
+/*
+ * @flow
+ * Copyright (C) 2020 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import * as React from 'react';
+
+import HistoricReleaseList
+  from '../../components/HistoricReleaseList';
+import DescriptiveLink
+  from '../../../static/scripts/common/components/DescriptiveLink';
+
+type RemoveTrackEditT = {
+  ...EditT,
+  +display_data: {
+    +name: string,
+    +recording: RecordingT,
+    +releases: $ReadOnlyArray<ReleaseT | null>,
+  },
+};
+
+const RemoveTrack = ({edit}: {+edit: RemoveTrackEditT}) => (
+  <table className="details remove-track">
+    <HistoricReleaseList releases={edit.display_data.releases} />
+    <tr>
+      <th>{l('Track:')}</th>
+      <td>
+        <DescriptiveLink
+          content={edit.display_data.name}
+          entity={edit.display_data.recording}
+        />
+      </td>
+    </tr>
+  </table>
+);
+
+export default RemoveTrack;

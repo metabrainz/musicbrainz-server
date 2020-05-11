@@ -18,7 +18,7 @@ const RelationshipTabs = ({page}: {page?: string}) => (
       page,
       l('Relationship Types'),
       '/relationships',
-      'index',
+      'relationships',
     )}
     {buildTab(
       page,

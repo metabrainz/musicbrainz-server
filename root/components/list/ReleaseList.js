@@ -55,7 +55,7 @@ const ReleaseList = ({
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && checkboxes
+      const checkboxColumn = $c.user && checkboxes
         ? defineCheckboxColumn(checkboxes)
         : null;
       const seriesNumberColumn = seriesItemNumbers
@@ -136,7 +136,7 @@ const ReleaseList = ({
     },
     [
       $c.session,
-      $c.user_exists,
+      $c.user,
       checkboxes,
       filterLabel,
       instrumentCreditsAndRelTypes,

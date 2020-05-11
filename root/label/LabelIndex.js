@@ -65,7 +65,7 @@ const LabelIndex = ({
             releases={releases}
           />
         </PaginatedResults>
-        {$c.user_exists ? (
+        {$c.user ? (
           <FormRow>
             <FormSubmit label={l('Add selected releases for merging')} />
           </FormRow>

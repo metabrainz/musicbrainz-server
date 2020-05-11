@@ -191,7 +191,6 @@ declare type CatalystContextT = {
   +sessionid: string | null,
   +stash: CatalystStashT,
   +user?: CatalystUserT,
-  +user_exists: boolean,
 };
 
 declare type CatalystRequestContextT = {
@@ -254,6 +253,11 @@ declare type CDStubT = $ReadOnly<{
   +title: string,
   +toc: string | null,
   +track_count: number,
+}>;
+
+declare type CDTocT = $ReadOnly<{
+  ...EntityRoleT<'cdtoc'>,
+  +discid: string,
 }>;
 
 declare type CollectionT = {
@@ -692,6 +696,11 @@ declare type LinkTypeT = {
   +cardinality1: number,
   +children?: $ReadOnlyArray<LinkTypeT>,
   +deprecated: boolean,
+  +documentation: string | null,
+  +examples: $ReadOnlyArray<{
+    +name: string,
+    +relationship: RelationshipT,
+  }>,
   +has_dates: boolean,
   +id: number,
   +link_phrase: string,
@@ -940,7 +949,6 @@ declare type SanitizedCatalystContextT = {
     +invalid_csrf_token?: boolean,
   },
   +user: SanitizedEditorT | null,
-  +user_exists: boolean,
 };
 
 declare type SanitizedEditorPreferencesT = {

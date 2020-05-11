@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import formatLabelCode from '../../utility//formatLabelCode';
+import formatLabelCode from '../../utility/formatLabelCode';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -45,7 +45,7 @@ const LabelList = ({
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+      const checkboxColumn = $c.user && (checkboxes || mergeForm)
         ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const nameColumn =
@@ -84,7 +84,7 @@ const LabelList = ({
       ];
     },
     [
-      $c.user_exists,
+      $c.user,
       checkboxes,
       labels,
       mergeForm,

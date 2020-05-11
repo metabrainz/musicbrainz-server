@@ -12,7 +12,7 @@ sub edit_name { N_l('Remove label alias') }
 sub edit_kind { 'remove' }
 sub historic_type { 62 }
 sub edit_type { $EDIT_HISTORIC_REMOVE_LABEL_ALIAS }
-sub edit_template { 'historic/remove_label_alias' }
+sub edit_template_react { 'historic/RemoveLabelAlias' }
 
 sub _build_related_entities {
     my $self = shift;

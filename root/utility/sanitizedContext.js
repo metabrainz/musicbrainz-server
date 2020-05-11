@@ -35,7 +35,6 @@ function sanitizedContext(
       invalid_csrf_token: stash.invalid_csrf_token,
     },
     user: user ? sanitizedEditor(user) : null,
-    user_exists: $c.user_exists,
   };
 }
 

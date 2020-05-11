@@ -43,7 +43,7 @@ const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
             <th>
               {l('Name')}
             </th>
-            {$c.user_exists ? (
+            {$c.user ? (
               <th className="actions">
                 {l('Actions')}
               </th>
@@ -56,7 +56,7 @@ const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
               <td>
                 <ArtistCreditLink artistCredit={credit} />
               </td>
-              {$c.user_exists ? (
+              {$c.user ? (
                 <td className="actions">
                   <a href={`/artist/${entity.gid}/credit/${credit.id}/edit`}>
                     {credit.editsPending

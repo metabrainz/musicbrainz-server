@@ -138,6 +138,8 @@ sub get_wiki_versions
                 # Prevent "Use of uninitialized value" warnings
                 $info->{wiki_version} = 0;
             }
+            # Force numeric context
+            $info->{wiki_version} += 0;
 
             push @wiki_pages, $info;
         }

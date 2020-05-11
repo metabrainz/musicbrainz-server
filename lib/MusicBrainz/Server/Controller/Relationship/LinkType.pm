@@ -21,7 +21,22 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 
 sub base : Chained('/') PathPart('relationship') CaptureArgs(0) { }
 
-sub index : Path('/relationships') Args(0)
+sub show : PathPart('') Chained('load')
+{
+    my ($self, $c) = @_;
+
+    my $relationship_type = $c->stash->{link_type};
+
+    $c->model('LinkAttributeType')->load($relationship_type->all_attributes);
+    $c->model('LinkType')->load_documentation($relationship_type);
+    $c->stash(
+        component_path  => 'relationship/linktype/RelationshipTypeIndex',
+        component_props => { relType => $relationship_type },
+        current_view => 'Node',
+    );
+}
+
+sub list : Path('/relationships') Args(0)
 {
     my ($self, $c) = @_;
 
@@ -36,7 +51,7 @@ sub index : Path('/relationships') Args(0)
     );
 
     $c->stash(
-        component_path  => 'relationship/linktype/RelationshipTypesIndex',
+        component_path  => 'relationship/linktype/RelationshipTypesList',
         component_props => \%props,
         current_view    => 'Node',
     );
@@ -273,7 +288,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                 );
             });
 
-            $c->response->redirect($c->uri_for_action('/doc/relationship_type', [ $link_type->gid ]));
+            $c->response->redirect($c->uri_for_action('/relationship/linktype/show', [ $link_type->gid ]));
             $c->detach;
         }
     }

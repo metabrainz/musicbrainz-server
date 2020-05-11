@@ -13,9 +13,9 @@ use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_l('Remove release') }
 sub edit_kind     { 'remove' }
-sub edit_template { 'historic/remove_release' }
 sub historic_type { 12 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASE }
+sub edit_template_react { 'historic/RemoveRelease' }
 
 sub _build_related_entities
 {

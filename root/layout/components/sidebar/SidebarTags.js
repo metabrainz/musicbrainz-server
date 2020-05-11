@@ -55,7 +55,7 @@ const SidebarTags = ({
 }: SidebarTagsProps) => (
   $c.action.name === 'tags' ? null : (
     <>
-      {($c.user_exists && aggregatedTags && userTags) ? (
+      {($c.user && aggregatedTags && userTags) ? (
         <SidebarTagEditor
           $c={$c}
           aggregatedTags={aggregatedTags}

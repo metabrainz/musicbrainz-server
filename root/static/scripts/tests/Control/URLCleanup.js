@@ -207,6 +207,12 @@ const testData = [
             expected_clean_url: 'https://www.amazon.in/gp/product/B006H1JVW4',
   },
   {
+                     input_url: 'https://www.amazon.nl/Various-Artists-100X-Winter-2014/dp/B00NX6I0UA/ref=pd_rhf_se_p_img_1?_encoding=UTF8&psc=1&refRID=A6BMGX43CX4PV9HTFZZX',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.nl/gp/product/B00NX6I0UA',
+  },
+  {
                      input_url: 'http://amzn.com/B000005SU4',
              input_entity_type: 'release',
     expected_relationship_type: 'amazon',
@@ -225,10 +231,10 @@ const testData = [
             expected_clean_url: 'https://www.amazon.co.uk/gp/product/B00008CQP2',
   },
   {
-                     input_url: 'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
+                     input_url: 'http://www.amazon.com.tr/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
              input_entity_type: 'release',
     expected_relationship_type: 'amazon',
-            expected_clean_url: 'https://www.amazon.co.uk/gp/product/B00009W0XE',
+            expected_clean_url: 'https://www.amazon.com.tr/gp/product/B00009W0XE',
   },
   {
                      input_url: 'http://www.amazon.com/Shine-We-Are-BoA/dp/B00015007W%3FSubscriptionId%3D14P3HXS0ZAYFZPH45TR2%26tag%3Dws%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00015007W',
@@ -2117,6 +2123,20 @@ const testData = [
   },
   // (The) Metal Archives
   {
+                     input_url: 'http://metal-archives.com/artists/Phillip_Gallagher/591782',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metal-archives.com/artists/Phillip_Gallagher/591782',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://metal-archives.com/artist/view/id/591782',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metal-archives.com/artist/view/id/591782',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.metal-archives.com/bands/Karna/26483',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
@@ -3163,6 +3183,13 @@ const testData = [
        only_valid_entity_types: ['event'],
   },
   {
+                     input_url: 'https://thesession.org/sessions/display/432',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://thesession.org/sessions/432',
+       only_valid_entity_types: ['place'],
+  },
+  {
                      input_url: 'http://www.thesession.org/recordings/display/1488',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
@@ -3766,47 +3793,70 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'youtube',
             expected_clean_url: 'https://www.youtube.com/user/officialpsy',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
                      input_url: 'http://m.youtube.com/#/user/JessVincentMusic',
              input_entity_type: 'artist',
     expected_relationship_type: 'youtube',
             expected_clean_url: 'https://www.youtube.com/user/JessVincentMusic',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
                      input_url: 'https://www.youtube.com/user/JessVincentMusic?feature=watch',
              input_entity_type: 'artist',
     expected_relationship_type: 'youtube',
             expected_clean_url: 'https://www.youtube.com/user/JessVincentMusic',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
                      input_url: 'http://www.youtube.com/embed/UmHdefsaL6I',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'http://youtube.com/user/officialpsy/videos',
              input_entity_type: 'label',
     expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/user/officialpsy',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
                      input_url: 'http://youtu.be/UmHdefsaL6I',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA&list=PLkHWBeudCLJCjB41Yt1iiain82Lp1zQOB',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/playlist?list=PLnbecBgjL4QQtjDRyHD99b6xWjLD3i9r5',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.youtube.com/playlist?list=PLnbecBgjL4QQtjDRyHD99b6xWjLD3i9r5',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://www.youtube.com/c/MetaBrainz',
              input_entity_type: 'artist',
     expected_relationship_type: 'youtube',
             expected_clean_url: 'https://www.youtube.com/MetaBrainz',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/playlist?list=PL43OynbWaTMKSxLVnUF0HbHHiXEgAVm3Q',
+             input_entity_type: 'series',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/playlist?list=PL43OynbWaTMKSxLVnUF0HbHHiXEgAVm3Q',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
 ];
 /* eslint-enable indent, max-len, sort-keys */

@@ -38,7 +38,7 @@ const SeriesList = ({
 }: Props) => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user_exists && (checkboxes || mergeForm)
+      const checkboxColumn = $c.user && (checkboxes || mergeForm)
         ? defineCheckboxColumn(checkboxes, mergeForm)
         : null;
       const nameColumn = defineNameColumn<SeriesT>(
@@ -59,7 +59,7 @@ const SeriesList = ({
         ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user_exists, checkboxes, mergeForm, order, series, sortable],
+    [$c.user, checkboxes, mergeForm, order, series, sortable],
   );
 
   return <Table columns={columns} data={series} />;

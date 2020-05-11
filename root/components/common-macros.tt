@@ -475,7 +475,7 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='iswc' default_content=iswc.iswc edits_pending=iswc.edits_pending code_tag=1;
 END -%]
 
-[%~ MACRO link_cdtoc(cdtoc, action, text) BLOCK;
+[%~ MACRO link_cdtoc(cdtoc, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/CDTocLink.js
     INCLUDE _link_other_entity content=text action=action type='cdtoc' default_content=cdtoc.discid;
 END -%]
 
@@ -572,7 +572,7 @@ END -%]
     END;
 END -%]
 
-[%~ MACRO format_entity_type_name(type_name) BLOCK # Converted to React at root/components/formatEntityTypeName.js -%]
+[%~ MACRO format_entity_type_name(type_name) BLOCK # Converted to React at root/static/scripts/common/utility/formatEntityTypeName.js -%]
     [%- IF    type_name == 'artist'; l('Artist');
         ELSIF type_name == 'area'; l('Area');
         ELSIF type_name == 'event'; l('Event');
@@ -589,7 +589,7 @@ END -%]
     END -%]
 [%- END -%]
 
-[%~ MACRO format_plural_entity_type_name(type_name) BLOCK # Converted to React at root/components/formatEntityTypeName.js -%]
+[%~ MACRO format_plural_entity_type_name(type_name) BLOCK # Converted to React at root/static/scripts/common/utility/formatEntityTypeName.js -%]
     [%- IF    type_name == 'artist'; l('Artists');
         ELSIF type_name == 'area'; l('Areas');
         ELSIF type_name == 'event'; l('Events');
@@ -606,7 +606,7 @@ END -%]
     END -%]
 [%- END -%]
 
-[%~ MACRO quality_name(quality) SWITCH quality;
+[%~ MACRO quality_name(quality) SWITCH quality; # Converted to React as QUALITY_NAMES in root/static/scripts/common/constants.js
     CASE 0;  l('Low');
     CASE 1;  l('Normal');
     CASE -1; l('Normal');
@@ -637,7 +637,7 @@ END -%]
     END -%]
 [%- END -%]
 
-[%~ MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
+[%~ MACRO display_relationship(relationship, phrase_field) BLOCK; -%] [% # Converted to React at root/static/scripts/common/components/Relationship.js %]
   [%- phrase_field = phrase_field || 'phrase';
     extra_attributes_field = "extra_${phrase_field}_attributes";
     IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
@@ -859,7 +859,7 @@ END ~%]
   END %] ([% cardinality %])
 [%~ END ~%]
 
-[%~ MACRO orderable_direction_name(direction) BLOCK ~%]
+[%~ MACRO orderable_direction_name(direction) BLOCK ~%]  [% # Converted to React at root/static/scripts/common/components/OrderableDirection.js %]
   [%~ IF direction == 0; l('None');
       ELSIF direction == 1; l('Forward');
       ELSIF direction == 2; l('Backward');

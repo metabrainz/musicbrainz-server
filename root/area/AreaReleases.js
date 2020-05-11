@@ -40,7 +40,7 @@ const AreaReleases = ({
             releases={releases}
           />
         </PaginatedResults>
-        {$c.user_exists ? (
+        {$c.user ? (
           <div className="row">
             <span className="buttons">
               <button type="submit">
