@@ -135,7 +135,7 @@ const CollectionsEntityTypeSection = ({
         ...(viewingOwnProfile && !isCollaborative ? [actionsColumn] : []),
       ];
     },
-    [$c.user, $c.user, isCollaborative, type, user.id],
+    [$c.user, isCollaborative, type, user.id],
   );
 
   return (
