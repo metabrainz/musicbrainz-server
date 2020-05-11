@@ -513,7 +513,7 @@ export const instrumentDescriptionColumn:
 export const isrcsColumn:
   ColumnOptions<{
     +isrcs: $ReadOnlyArray<IsrcT>,
-    ...,
+    ...
   }, $ReadOnlyArray<IsrcT>> = {
     Cell: ({cell: {value}}) => (
       <ul>
@@ -531,7 +531,7 @@ export const isrcsColumn:
 export const iswcsColumn:
   ColumnOptions<{
     +iswcs: $ReadOnlyArray<IswcT>,
-    ...,
+    ...
   }, $ReadOnlyArray<IswcT>> = {
     Cell: ({cell: {value}}) => (
       <ul>
