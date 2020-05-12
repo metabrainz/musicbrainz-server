@@ -3,7 +3,8 @@ use Moose;
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
+use List::MoreUtils qw( any );
+use MusicBrainz::Server::Constants qw( $ARTIST_TYPE_GROUP $EDIT_ARTIST_MERGE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( N_l );
 use Hash::Merge qw( merge );
@@ -50,6 +51,24 @@ has '+data' => (
 sub do_merge
 {
     my $self = shift;
+
+    my $new_artist = $self->c->model('Artist')->get_by_id($self->new_entity->{id});
+    my @old_artists = values %{ $self->c->model('Artist')->get_by_ids($self->_old_ids) };
+
+    my $old_groups = any {
+        ($_->type_id == $ARTIST_TYPE_GROUP) || $self->c->sql->select_single_value(
+            'SELECT 1 FROM artist_type WHERE id = ? AND parent = ?',
+            $_->type_id, $ARTIST_TYPE_GROUP,
+        );
+    } @old_artists;
+
+    if (defined $new_artist->gender_id && !defined $new_artist->type_id && $old_groups) {
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+            'This edit would create a group artist with a gender, '.
+            'but a group cannot have a gender. '.
+            'Please correct the data as needed and re-enter the merge.'
+        );
+    }
 
     $self->c->model('Artist')->merge(
         $self->new_entity->{id},
