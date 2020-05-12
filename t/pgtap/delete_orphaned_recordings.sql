@@ -58,6 +58,11 @@ SELECT bag_eq(
   'old recordings still exist'
 );
 
+-- To test for MBS-10821
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
+    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', FALSE, '', 12);
+INSERT INTO editor_collection_recording (collection, recording) VALUES (1, 1);
+
 -- Simulate the commit
 SET CONSTRAINTS remove_orphaned_tracks IMMEDIATE;
 
