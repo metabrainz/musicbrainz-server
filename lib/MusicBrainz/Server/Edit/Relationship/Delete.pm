@@ -2,8 +2,10 @@ package MusicBrainz::Server::Edit::Relationship::Delete;
 use Moose;
 use Try::Tiny;
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
+use List::MoreUtils qw( any );
+use MusicBrainz::Server::Constants qw( $CONTACT_URL $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Data::Utils qw(
+    localized_note
     partial_date_to_hash
     type_to_model
 );
@@ -247,6 +249,24 @@ sub accept {
         $self->data->{relationship}{link}{type}{entity1_type},
         $self->data->{relationship}{id}
     ) or return;
+
+    $self->c->model('Link')->load($relationship);
+    $self->c->model('LinkType')->load($relationship->link);
+    $self->c->model('LinkType')->load_documentation($relationship->link->type);
+    my @examples = $relationship->link->type->all_examples;
+
+    if (any { $_->{relationship}->id == $relationship->id } @examples) {
+        my $error = localized_note(
+            N_l(
+                'This edit would remove a relationship that is set ' .
+                'as an example of its relationship type in the documentation. ' .
+                'If you still think this should be removed, please ' .
+                '{contact_url|contact us}.'),
+            {contact_url => $CONTACT_URL},
+        
+        );
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw($error);
+    }
 
     $self->c->model('Relationship')->delete(
         $self->data->{relationship}{link}{type}{entity0_type},
