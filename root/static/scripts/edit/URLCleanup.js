@@ -769,7 +769,16 @@ const CLEANUPS = {
         if (!/^(images|www)$/.test(subdomain)) {
           switch (id) {
             case LINK_TYPES.mailorder.artist:
-              return {result: product === undefined};
+              if (product === undefined) {
+                return {result: true};
+              }
+              return {
+                error: l(
+                  `Please link to the main page for the artist,
+                   not a specific product.`,
+                ),
+                result: false,
+              };
             case LINK_TYPES.mailorder.release:
               return {result: product !== undefined};
           }
