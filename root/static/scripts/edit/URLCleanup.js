@@ -306,10 +306,6 @@ function reencodeMediawikiLocalPart(url) {
   return url;
 }
 
-function disallow() {
-  return false;
-}
-
 function findAmazonTld(url) {
   let tld = '';
   let m;
@@ -360,14 +356,14 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.otherdatabases.label:
-            return prefix === 'label';
+            return {result: prefix === 'label'};
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'record';
+            return {result: prefix === 'record'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   '45worlds': {
@@ -382,18 +378,18 @@ const CLEANUPS = {
         const prefix = m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return /^(artist|composer|conductor|orchestra|soloist)$/.test(prefix);
+            return {result: /^(artist|composer|conductor|orchestra|soloist)$/.test(prefix)};
           case LINK_TYPES.otherdatabases.event:
-            return prefix === 'listing';
+            return {result: prefix === 'listing'};
           case LINK_TYPES.otherdatabases.label:
-            return prefix === 'label';
+            return {result: prefix === 'label'};
           case LINK_TYPES.otherdatabases.place:
-            return prefix === 'venue';
+            return {result: prefix === 'venue'};
           case LINK_TYPES.otherdatabases.release_group:
-            return /^(album|cd|media|music|record)$/.test(prefix);
+            return {result: /^(album|cd|media|music|record)$/.test(prefix)};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'allmusic': {
@@ -408,18 +404,21 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.allmusic.artist:
-            return prefix === 'artist/mn';
+            return {result: prefix === 'artist/mn'};
           case LINK_TYPES.allmusic.recording:
-            return prefix === 'performance/mq';
+            return {result: prefix === 'performance/mq'};
           case LINK_TYPES.allmusic.release:
-            return prefix === 'album/release/mr';
+            return {result: prefix === 'album/release/mr'};
           case LINK_TYPES.allmusic.release_group:
-            return prefix === 'album/mw';
+            return {result: prefix === 'album/mw'};
           case LINK_TYPES.allmusic.work:
-            return prefix === 'composition/mc' || prefix === 'song/mt';
+            return {
+              result: prefix === 'composition/mc' ||
+                prefix === 'song/mt',
+            };
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'amazon': {
@@ -455,7 +454,7 @@ const CLEANUPS = {
       return null;
     },
     validate: function (url) {
-      return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\//.test(url);
+      return {result: /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\//.test(url)};
     },
   },
   'amazonmusic': {
@@ -490,12 +489,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.streamingpaid.artist:
-            return prefix === 'artists';
+            return {result: prefix === 'artists'};
           case LINK_TYPES.streamingpaid.release:
-            return prefix === 'albums';
+            return {result: prefix === 'albums'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'animationsong': {
@@ -505,7 +504,10 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?animationsong\.com\/(archives\/\d+\.html).*$/, 'http://animationsong.com/$1');
     },
     validate: function (url, id) {
-      return id === LINK_TYPES.lyrics.work && /^http:\/\/animationsong\.com\/archives\/\d+\.html$/.test(url);
+      return {
+        result: id === LINK_TYPES.lyrics.work &&
+          /^http:\/\/animationsong\.com\/archives\/\d+\.html$/.test(url),
+      };
     },
   },
   'animenewsnetwork': {
@@ -528,14 +530,14 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'person';
+            return {result: prefix === 'person'};
           case LINK_TYPES.otherdatabases.release:
-            return prefix === 'source';
+            return {result: prefix === 'source'};
           case LINK_TYPES.otherdatabases.recording:
-            return prefix === 'song';
+            return {result: prefix === 'song'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'archive': {
@@ -563,12 +565,14 @@ const CLEANUPS = {
           case LINK_TYPES.otherdatabases.artist:
           case LINK_TYPES.otherdatabases.release_group:
           case LINK_TYPES.otherdatabases.work:
-            return /^view\/[1-9][0-9]*\.htm$/.test(path) ||
-              /^subview(\/[1-9][0-9]*){2}\.htm$/.test(path) ||
-              /^item\/[^\/]+(?:\/[1-9][0-9]*)?$/.test(path);
+            return {
+              result: /^view\/[1-9][0-9]*\.htm$/.test(path) ||
+                /^subview(\/[1-9][0-9]*){2}\.htm$/.test(path) ||
+                /^item\/[^\/]+(?:\/[1-9][0-9]*)?$/.test(path),
+            };
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'bandcamp': {
@@ -592,13 +596,13 @@ const CLEANUPS = {
       switch (id) {
         case LINK_TYPES.bandcamp.artist:
         case LINK_TYPES.bandcamp.label:
-          return /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
+          return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url)};
         case LINK_TYPES.review.release_group:
-          return /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url);
+          return {result: /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url)};
         case LINK_TYPES.lyrics.work:
-          return /^https:\/\/[^\/]+\.bandcamp\.com\/track\/[\w-]+$/.test(url);
+          return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/track\/[\w-]+$/.test(url)};
       }
-      return false;
+      return {result: false};
     },
   },
   'bandsintown': {
@@ -626,14 +630,17 @@ const CLEANUPS = {
         const target = m[2];
         switch (id) {
           case LINK_TYPES.bandsintown.artist:
-            return prefix === undefined && target !== undefined || prefix === 'a' && /^[1-9][0-9]*$/.test(target);
+            return {
+              result: prefix === undefined && target !== undefined ||
+                prefix === 'a' && /^[1-9][0-9]*$/.test(target),
+            };
           case LINK_TYPES.bandsintown.event:
-            return prefix === 'e' && /^[1-9][0-9]*$/.test(target);
+            return {result: prefix === 'e' && /^[1-9][0-9]*$/.test(target)};
           case LINK_TYPES.bandsintown.place:
-            return prefix === 'v' && /^[1-9][0-9]*$/.test(target);
+            return {result: prefix === 'v' && /^[1-9][0-9]*$/.test(target)};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'bbcmusic': {
@@ -644,7 +651,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url) {
-      return /^https:\/\/www\.bbc\.co\.uk\/music\/artists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(url);
+      return {result: /^https:\/\/www\.bbc\.co\.uk\/music\/artists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(url)};
     },
   },
   'beatport': {
@@ -681,16 +688,20 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.downloadpurchase.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.downloadpurchase.recording:
-            return prefix === 'track' || prefix === 'stem';
+            return {result: prefix === 'track' || prefix === 'stem'};
           case LINK_TYPES.downloadpurchase.release:
-            return prefix === 'release' || prefix === 'chart' || prefix === 'stem-pack';
+            return {
+              result: prefix === 'release' ||
+                prefix === 'chart' ||
+                prefix === 'stem-pack',
+            };
           case LINK_TYPES.downloadpurchase.label:
-            return prefix === 'label';
+            return {result: prefix === 'label'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'bigcartel': {
@@ -716,13 +727,13 @@ const CLEANUPS = {
         if (!/^(images|www)$/.test(subdomain)) {
           switch (id) {
             case LINK_TYPES.mailorder.artist:
-              return product === undefined;
+              return {result: product === undefined};
             case LINK_TYPES.mailorder.release:
-              return product !== undefined;
+              return {result: product !== undefined};
           }
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'blog': {
@@ -780,15 +791,15 @@ const CLEANUPS = {
           case LINK_TYPES.otherdatabases.label:
           case LINK_TYPES.otherdatabases.place:
           case LINK_TYPES.otherdatabases.work:
-            return digit === '1' || digit === '2';
+            return {result: digit === '1' || digit === '2'};
           case LINK_TYPES.otherdatabases.event:
           case LINK_TYPES.otherdatabases.release:
-            return digit === '3' || digit === '4';
+            return {result: digit === '3' || digit === '4'};
           case LINK_TYPES.otherdatabases.series:
-            return true;
+            return {result: true};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'bookbrainz': {
@@ -798,7 +809,7 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?bookbrainz\.org\/([^\/]*)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(?:[#\/?].*)?$/, 'https://bookbrainz.org/$1/$2');
     },
     validate: function (url) {
-      return /^https:\/\/bookbrainz\.org\/[^\/]+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(url);
+      return {result: /^https:\/\/bookbrainz\.org\/[^\/]+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(url)};
     },
   },
   'brahms': {
@@ -813,12 +824,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.work:
-            return prefix === 'works/work';
+            return {result: prefix === 'works/work'};
           case LINK_TYPES.otherdatabases.artist:
-            return prefix !== 'works/work';
+            return {result: prefix !== 'works/work'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'cancionerosmewiki': {
@@ -828,10 +839,12 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?cancioneros\.si\/([^#]+)(?:[#].*)?$/, 'http://www.cancioneros.si/$1');
     },
     validate: function (url, id) {
-      return /^http:\/\/www\.cancioneros\.si\/mediawiki\/index\.php\?title=.+$/.test(url) &&
-        (id === LINK_TYPES.otherdatabases.artist ||
-          id === LINK_TYPES.otherdatabases.series ||
-            id === LINK_TYPES.otherdatabases.work);
+      return {
+        result: /^http:\/\/www\.cancioneros\.si\/mediawiki\/index\.php\?title=.+$/.test(url) &&
+          (id === LINK_TYPES.otherdatabases.artist ||
+           id === LINK_TYPES.otherdatabases.series ||
+           id === LINK_TYPES.otherdatabases.work),
+      };
     },
   },
   'cbfiddlerx': {
@@ -846,12 +859,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'rec/r';
+            return {result: prefix === 'rec/r'};
           case LINK_TYPES.otherdatabases.work:
-            return prefix === 'tune/t';
+            return {result: prefix === 'tune/t'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'ccmixter': {
@@ -867,12 +880,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'people';
+            return {result: prefix === 'people'};
           case LINK_TYPES.otherdatabases.recording:
-            return prefix === 'files';
+            return {result: prefix === 'files'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'cdbaby': {
@@ -893,7 +906,10 @@ const CLEANUPS = {
       return url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.(?:com|name)\/Artist\/([\w%]+).*$/i, 'https://store.cdbaby.com/Artist/$1');
     },
     validate: function (url, id) {
-      return /^https:\/\/store.cdbaby\.com\/Artist\/[\w%]+$/.test(url) && id === LINK_TYPES.cdbaby.artist;
+      return {
+        result: /^https:\/\/store.cdbaby\.com\/Artist\/[\w%]+$/.test(url) &&
+          id === LINK_TYPES.cdbaby.artist,
+      };
     },
   },
   'cdjapan': {
@@ -943,14 +959,14 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'talent';
+            return {result: prefix === 'talent'};
           case LINK_TYPES.otherdatabases.recording:
-            return prefix === 'matrix';
+            return {result: prefix === 'matrix'};
           case LINK_TYPES.otherdatabases.release:
-            return prefix === 'objects';
+            return {result: prefix === 'objects'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'dailymotion': {
@@ -983,11 +999,11 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         if (_.includes(LINK_TYPES.videochannel, id)) {
-          return prefix === undefined;
+          return {result: prefix === undefined};
         }
-        return prefix === 'video/';
+        return {result: prefix === 'video/'};
       }
-      return false;
+      return {result: false};
     },
   },
   'deezer': {
@@ -1003,14 +1019,14 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.streamingfree.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.streamingfree.release:
-            return prefix === 'album';
+            return {result: prefix === 'album'};
           case LINK_TYPES.streamingfree.recording:
-            return prefix === 'track' || prefix === 'episode';
+            return {result: prefix === 'track' || prefix === 'episode'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'dhhu': {
@@ -1049,21 +1065,21 @@ const CLEANUPS = {
         const prefix = m[1] || m[2] || m[3];
         switch (id) {
           case LINK_TYPES.discogs.artist:
-            return prefix === 'artist' || prefix === 'user';
+            return {result: prefix === 'artist' || prefix === 'user'};
           case LINK_TYPES.discogs.label:
           case LINK_TYPES.discogs.series:
-            return prefix === 'label';
+            return {result: prefix === 'label'};
           case LINK_TYPES.discogs.place:
-            return prefix === 'artist' || prefix === 'label';
+            return {result: prefix === 'artist' || prefix === 'label'};
           case LINK_TYPES.discogs.release_group:
-            return prefix === 'master';
+            return {result: prefix === 'master'};
           case LINK_TYPES.discogs.release:
-            return prefix === 'release';
+            return {result: prefix === 'release'};
           case LINK_TYPES.discogs.work:
-            return prefix === 'composition';
+            return {result: prefix === 'composition'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'downloadpurchase': {
@@ -1089,16 +1105,16 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return /^(composers|ensembles|performers)$/.test(prefix);
+            return {result: /^(composers|ensembles|performers)$/.test(prefix)};
           case LINK_TYPES.otherdatabases.release:
-            return prefix === 'albums';
+            return {result: prefix === 'albums'};
           case LINK_TYPES.otherdatabases.label:
-            return prefix === 'labels';
+            return {result: prefix === 'labels'};
           case LINK_TYPES.otherdatabases.instrument:
-            return /^instruments\/[a-z-]+$/.test(prefix);
+            return {result: /^instruments\/[a-z-]+$/.test(prefix)};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'drip': {
@@ -1120,7 +1136,7 @@ const CLEANUPS = {
       return url.replace(/^https:/, 'http:');
     },
     validate: function (url, id) {
-      return id === LINK_TYPES.otherdatabases.release;
+      return {result: id === LINK_TYPES.otherdatabases.release};
     },
   },
   'ester': {
@@ -1155,9 +1171,9 @@ const CLEANUPS = {
     },
     validate: function (url) {
       if (/facebook.com\/pages\//.test(url)) {
-        return /\/pages\/[^\/?#]+\/\d+/.test(url);
+        return {result: /\/pages\/[^\/?#]+\/\d+/.test(url)};
       }
-      return true;
+      return {result: true};
     },
   },
   'fandomlyrics': {
@@ -1191,10 +1207,12 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, 'https://www.generasia.com/wiki/$1');
     },
     validate: function (url, id) {
-      return id === LINK_TYPES.otherdatabases.artist ||
+      return {
+        result: id === LINK_TYPES.otherdatabases.artist ||
           id === LINK_TYPES.otherdatabases.label ||
           id === LINK_TYPES.otherdatabases.release_group ||
-          id === LINK_TYPES.otherdatabases.work;
+          id === LINK_TYPES.otherdatabases.work,
+      };
     },
   },
   'genius': {
@@ -1231,10 +1249,12 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:www5\.)?atwiki\.jp\/([^#]+)(?:#.*)?$/, 'https://www5.atwiki.jp/$1');
     },
     validate: function (url, id) {
-      return /^https:\/\/www5\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url) &&
-        (id === LINK_TYPES.otherdatabases.artist ||
-          id === LINK_TYPES.otherdatabases.release_group ||
-            id === LINK_TYPES.otherdatabases.work);
+      return {
+        result: /^https:\/\/www5\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url) &&
+          (id === LINK_TYPES.otherdatabases.artist ||
+           id === LINK_TYPES.otherdatabases.release_group ||
+           id === LINK_TYPES.otherdatabases.work),
+      };
     },
   },
   'hoick': {
@@ -1251,14 +1271,26 @@ const CLEANUPS = {
         const slashRef = m[3];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
-            return db === 'mdb' && type === 'author' && slashRef === undefined;
+            return {
+              result: db === 'mdb' &&
+                type === 'author' &&
+                slashRef === undefined,
+            };
           case LINK_TYPES.mailorder.release:
-            return db === 'products' && type === 'detail' && slashRef !== undefined;
+            return {
+              result: db === 'products' &&
+                type === 'detail' &&
+                slashRef !== undefined,
+            };
           case LINK_TYPES.lyrics.work:
-            return db === 'mdb' && type === 'detail' && slashRef !== undefined;
+            return {
+              result: db === 'mdb' &&
+                type === 'detail' &&
+                slashRef !== undefined,
+            };
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'ibdb': {
@@ -1281,18 +1313,22 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.imdb.artist:
-            return prefix === 'name/nm' || prefix === 'character/ch' || prefix === 'company/co';
+            return {
+              result: prefix === 'name/nm' ||
+                prefix === 'character/ch' ||
+                prefix === 'company/co',
+            };
           case LINK_TYPES.imdb.label:
           case LINK_TYPES.imdb.place:
-            return prefix === 'company/co';
+            return {result: prefix === 'company/co'};
           case LINK_TYPES.imdb.recording:
           case LINK_TYPES.imdb.release:
           case LINK_TYPES.imdb.release_group:
           case LINK_TYPES.imdb.work:
-            return prefix === 'title/tt';
+            return {result: prefix === 'title/tt'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'imslp': {
@@ -1322,7 +1358,7 @@ const CLEANUPS = {
     },
     validate: function (url) {
       // Block explore/photo URLs, which aren't really a social network link
-      return !(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url));
+      return {result: !(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url))};
     },
   },
   'irishtune': {
@@ -1337,12 +1373,12 @@ const CLEANUPS = {
         const prefix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'album';
+            return {result: prefix === 'album'};
           case LINK_TYPES.otherdatabases.work:
-            return prefix === 'tune';
+            return {result: prefix === 'tune'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'itunes': {
@@ -1362,14 +1398,14 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.downloadpurchase.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.downloadpurchase.recording:
-            return prefix === 'music-video';
+            return {result: prefix === 'music-video'};
           case LINK_TYPES.downloadpurchase.release:
-            return /^(album|audiobook|podcast|preorder)$/.test(prefix);
+            return {result: /^(album|audiobook|podcast|preorder)$/.test(prefix)};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'jamendo': {
@@ -1394,12 +1430,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.lyrics.work:
-            return prefix === 'song';
+            return {result: prefix === 'song'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'kashinavi': {
@@ -1421,12 +1457,12 @@ const CLEANUPS = {
         const tail = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
-            return /^kashu\.php\?artist=\d+$/.test(tail);
+            return {result: /^kashu\.php\?artist=\d+$/.test(tail)};
           case LINK_TYPES.lyrics.work:
-            return /^song_view\.html\?\d+$/.test(tail);
+            return {result: /^song_view\.html\?\d+$/.test(tail)};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'kget': {
@@ -1448,12 +1484,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
-            return prefix === 'search/index';
+            return {result: prefix === 'search/index'};
           case LINK_TYPES.lyrics.work:
-            return prefix === 'lyric';
+            return {result: prefix === 'lyric'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'kickstarter': {
@@ -1496,11 +1532,13 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(id\.loc\.gov\/authorities\/names\/[a-z]+\d+)(?:[.#].*)?$/, 'http://$1');
     },
     validate: function (url, id) {
-      return /^http:\/\/id\.loc\.gov\/authorities\/names\/[a-z]+\d+$/.test(url) &&
-        (id === LINK_TYPES.otherdatabases.artist ||
-          id === LINK_TYPES.otherdatabases.label ||
-          id === LINK_TYPES.otherdatabases.place ||
-          id === LINK_TYPES.otherdatabases.work);
+      return {
+        result: /^http:\/\/id\.loc\.gov\/authorities\/names\/[a-z]+\d+$/.test(url) &&
+          (id === LINK_TYPES.otherdatabases.artist ||
+           id === LINK_TYPES.otherdatabases.label ||
+           id === LINK_TYPES.otherdatabases.place ||
+           id === LINK_TYPES.otherdatabases.work),
+      };
     },
   },
   'license': {
@@ -1543,16 +1581,16 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artists';
+            return {result: prefix === 'artists'};
           case LINK_TYPES.otherdatabases.event:
-            return prefix === 'events';
+            return {result: prefix === 'events'};
           case LINK_TYPES.otherdatabases.series:
-            return prefix === 'groups';
+            return {result: prefix === 'groups'};
           case LINK_TYPES.otherdatabases.place:
-            return prefix === 'venues';
+            return {result: prefix === 'venues'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'loudr': {
@@ -1575,12 +1613,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
-            return prefix === 'a';
+            return {result: prefix === 'a'};
           case LINK_TYPES.lyrics.work:
-            return prefix === 'l';
+            return {result: prefix === 'l'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'lyrics': {
@@ -1610,12 +1648,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'album';
+            return {result: prefix === 'album'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'metalarchives': {
@@ -1633,16 +1671,16 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return /^(?:artists?|bands?)$/.test(prefix);
+            return {result: /^(?:artists?|bands?)$/.test(prefix)};
           case LINK_TYPES.otherdatabases.label:
-            return prefix === 'labels';
+            return {result: prefix === 'labels'};
           case LINK_TYPES.otherdatabases.release:
-            return prefix === 'albums';
+            return {result: prefix === 'albums'};
           case LINK_TYPES.review.release_group:
-            return prefix === 'reviews';
+            return {result: prefix === 'reviews'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'mixcloud': {
@@ -1671,12 +1709,12 @@ const CLEANUPS = {
         const prefix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artista' || prefix === 'grupo';
+            return {result: prefix === 'artista' || prefix === 'grupo'};
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'disco';
+            return {result: prefix === 'disco'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'musiksammler': {
@@ -1694,14 +1732,14 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.otherdatabases.release:
-            return prefix === 'release';
+            return {result: prefix === 'release'};
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'album';
+            return {result: prefix === 'album'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'musixmatch': {
@@ -1718,12 +1756,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.lyrics.work:
-            return prefix === 'lyrics';
+            return {result: prefix === 'lyrics'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'musopen': {
@@ -1733,7 +1771,7 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musopen\.org\/music\/(\d+).*$/, 'https://musopen.org/music/$1/');
     },
     validate: function (url) {
-      return /^https:\/\/musopen\.org\/music\/\d+\/$/.test(url);
+      return {result: /^https:\/\/musopen\.org\/music\/\d+\/$/.test(url)};
     },
   },
   'muziekweb': {
@@ -1745,11 +1783,11 @@ const CLEANUPS = {
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
-          return /^https:\/\/www\.muziekweb\.eu\/Link\/M\d{11}\/$/.test(url);
+          return {result: /^https:\/\/www\.muziekweb\.eu\/Link\/M\d{11}\/$/.test(url)};
         case LINK_TYPES.otherdatabases.release:
-          return /^https:\/\/www\.muziekweb\.eu\/Link\/[A-Z]{2,3}\d{4,6}\/$/.test(url);
+          return {result: /^https:\/\/www\.muziekweb\.eu\/Link\/[A-Z]{2,3}\d{4,6}\/$/.test(url)};
       }
-      return false;
+      return {result: false};
     },
   },
   'myspace': {
@@ -1759,7 +1797,7 @@ const CLEANUPS = {
       return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, 'https://myspace.com');
     },
     validate: function (url) {
-      return /^https:\/\/myspace\.com\//.test(url);
+      return {result: /^https:\/\/myspace\.com\//.test(url)};
     },
   },
   'ndlauth': {
@@ -1769,8 +1807,10 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(id\.ndl\.go\.jp\/auth\/ndlna\/\d+)(?:[.#].*)?$/, 'https://$1');
     },
     validate: function (url, id) {
-      return /^https:\/\/id\.ndl\.go\.jp\/auth\/ndlna\/\d+$/.test(url) &&
-        id === LINK_TYPES.otherdatabases.artist;
+      return {
+        result: /^https:\/\/id\.ndl\.go\.jp\/auth\/ndlna\/\d+$/.test(url) &&
+          id === LINK_TYPES.otherdatabases.artist,
+      };
     },
   },
   'neyzen': {
@@ -1790,12 +1830,12 @@ const CLEANUPS = {
         switch (id) {
           case LINK_TYPES.streamingfree.recording:
           case LINK_TYPES.streamingfree.release:
-            return prefix === 'watch';
+            return {result: prefix === 'watch'};
           case LINK_TYPES.videochannel.artist:
-            return prefix === 'user';
+            return {result: prefix === 'user'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'onlinebijbel': {
@@ -1805,7 +1845,10 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?online-bijbel\.nl\/(12gezang|gezang|psalm)\/(\d+).*$/, 'http://www.online-bijbel.nl/$1/$2/');
     },
     validate: function (url, id) {
-      return id === LINK_TYPES.lyrics.work && /^http:\/\/www.online-bijbel\.nl\/(12gezang|gezang|psalm)\/\d+\/$/.test(url);
+      return {
+        result: id === LINK_TYPES.lyrics.work &&
+          /^http:\/\/www.online-bijbel\.nl\/(12gezang|gezang|psalm)\/\d+\/$/.test(url),
+      };
     },
   },
   'onlinecommunity': {
@@ -1831,7 +1874,10 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/a\/([^\/?#]+)\/([0-9]+).*$/, 'https://operabase.com/a/$1/$2');
     },
     validate: function (url, id) {
-      return id === LINK_TYPES.otherdatabases.artist && /^https:\/\/operabase\.com\/a\/[^\/?#]+\/[0-9]+$/.test(url);
+      return {
+        result: id === LINK_TYPES.otherdatabases.artist &&
+          /^https:\/\/operabase\.com\/a\/[^\/?#]+\/[0-9]+$/.test(url),
+      };
     },
   },
   'otherdatabases': {
@@ -1891,7 +1937,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url) {
-      return /^https?:\/\/(?:www\.)?patreon\.com\/(?:user\?u=\d+|(?!posts$)\w+)$/.test(url);
+      return {result: /^https?:\/\/(?:www\.)?patreon\.com\/(?:user\?u=\d+|(?!posts$)\w+)$/.test(url)};
     },
   },
   'paypal': {
@@ -1914,14 +1960,14 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
-            return prefix === 'lyrics/artist';
+            return {result: prefix === 'lyrics/artist'};
           case LINK_TYPES.lyrics.release_group:
-            return prefix === 'lyrics/album';
+            return {result: prefix === 'lyrics/album'};
           case LINK_TYPES.lyrics.work:
-            return prefix === 'lyrics';
+            return {result: prefix === 'lyrics'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'pinterest': {
@@ -1946,12 +1992,12 @@ const CLEANUPS = {
         const type = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return type === 'artist';
+            return {result: type === 'artist'};
           case LINK_TYPES.otherdatabases.release_group:
-            return type === 'album';
+            return {result: type === 'album'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'purevolume': {
@@ -1978,17 +2024,26 @@ const CLEANUPS = {
         const [/* matched string */, type, page, query] = m;
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return type === 'artistes' && page === 'biographie' &&
-              /^artistid=\d+$/.test(query);
+            return {
+              result: type === 'artistes' &&
+                page === 'biographie' &&
+                /^artistid=\d+$/.test(query),
+            };
           case LINK_TYPES.otherdatabases.release_group:
-            return type === 'albums' && page === 'description' &&
-              /^albumid=\d+$/.test(query);
+            return {
+              result: type === 'albums' &&
+                page === 'description' &&
+                /^albumid=\d+$/.test(query),
+            };
           case LINK_TYPES.otherdatabases.work:
-            return type === 'oeuvres' && page === 'oeuvre' &&
-              /^oeuvreid=\d+&albumid=\d+$/.test(query);
+            return {
+              result: type === 'oeuvres' &&
+                page === 'oeuvre' &&
+                /^oeuvreid=\d+&albumid=\d+$/.test(query),
+            };
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'recochoku': {
@@ -2031,11 +2086,11 @@ const CLEANUPS = {
         const subsection = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return !subsection;
+            return {result: !subsection};
           case LINK_TYPES.otherdatabases.release_group:
-            return subsection === 'discos';
+            return {result: subsection === 'discos'};
           case LINK_TYPES.otherdatabases.work:
-            return subsection === 'letras';
+            return {result: subsection === 'letras'};
         }
       }
       // Keep validating URLs from before Rock.com.ar 2017 relaunch
@@ -2044,14 +2099,14 @@ const CLEANUPS = {
         const prefix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artistas' || prefix === 'bios';
+            return {result: prefix === 'artistas' || prefix === 'bios'};
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'discos';
+            return {result: prefix === 'discos'};
           case LINK_TYPES.otherdatabases.work:
-            return prefix === 'letras';
+            return {result: prefix === 'letras'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'rockensdanmarkskort': {
@@ -2085,7 +2140,10 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?runeberg\.org\/(.*)$/, 'http://runeberg.org/$1');
     },
     validate: function (url, id) {
-      return id === LINK_TYPES.lyrics.work && /^http:\/\/runeberg\.org\/[\w-\/]+\/\d+\.html$/.test(url);
+      return {
+        result: id === LINK_TYPES.lyrics.work &&
+          /^http:\/\/runeberg\.org\/[\w-\/]+\/\d+\.html$/.test(url),
+      };
     },
   },
   'secondhandsongs': {
@@ -2102,18 +2160,18 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.secondhandsongs.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.secondhandsongs.label:
-            return prefix === 'label';
+            return {result: prefix === 'label'};
           case LINK_TYPES.secondhandsongs.recording:
-            return prefix === 'performance';
+            return {result: prefix === 'performance'};
           case LINK_TYPES.secondhandsongs.release:
-            return prefix === 'release';
+            return {result: prefix === 'release'};
           case LINK_TYPES.secondhandsongs.work:
-            return prefix === 'work';
+            return {result: prefix === 'work'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'setlistfm': {
@@ -2128,16 +2186,16 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.setlistfm.artist:
-            return prefix === 'setlists';
+            return {result: prefix === 'setlists'};
           case LINK_TYPES.setlistfm.event:
-            return prefix === 'setlist' || prefix === 'festival';
+            return {result: prefix === 'setlist' || prefix === 'festival'};
           case LINK_TYPES.setlistfm.place:
-            return prefix === 'venue';
+            return {result: prefix === 'venue'};
           case LINK_TYPES.setlistfm.series:
-            return prefix === 'festivals';
+            return {result: prefix === 'festivals'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'snac': {
@@ -2156,9 +2214,9 @@ const CLEANUPS = {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
         case LINK_TYPES.otherdatabases.label:
-          return /^http:\/\/snaccooperative\.org\/ark:\/99166\/[a-z0-9]+$/.test(url);
+          return {result: /^http:\/\/snaccooperative\.org\/ark:\/99166\/[a-z0-9]+$/.test(url)};
       }
-      return false;
+      return {result: false};
     },
   },
   'socialnetwork': {
@@ -2185,18 +2243,18 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         if ((m[2] === 'id') !== (prefix === 'festivals')) {
-          return false;
+          return {result: false};
         }
         switch (id) {
           case LINK_TYPES.songkick.artist:
-            return prefix === 'artists';
+            return {result: prefix === 'artists'};
           case LINK_TYPES.songkick.event:
-            return prefix === 'concerts' || prefix === 'festivals';
+            return  {result: prefix === 'concerts' || prefix === 'festivals'};
           case LINK_TYPES.songkick.place:
-            return prefix === 'venues';
+            return  {result: prefix === 'venues'};
         }
       }
-      return false;
+      return  {result: false};
     },
   },
   'soundcloud': {
@@ -2206,7 +2264,7 @@ const CLEANUPS = {
       return url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, 'https://soundcloud.com');
     },
     validate: function (url) {
-      return /^https:\/\/soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
+      return {result: /^https:\/\/soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url)};
     },
   },
   'soundtrackcollector': {
@@ -2224,12 +2282,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'composer';
+            return {result: prefix === 'composer'};
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'title';
+            return {result: prefix === 'title'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'spotify': {
@@ -2246,14 +2304,14 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.streamingfree.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.streamingfree.release:
-            return prefix === 'album';
+            return {result: prefix === 'album'};
           case LINK_TYPES.streamingfree.recording:
-            return prefix === 'track' || prefix === 'episode';
+            return {result: prefix === 'track' || prefix === 'episode'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'spotifyuseraccount': {
@@ -2264,7 +2322,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url) {
-      return /^https:\/\/open\.spotify\.com\/user\/[a-zA-Z0-9_-]+$/.test(url);
+      return {result: /^https:\/\/open\.spotify\.com\/user\/[a-zA-Z0-9_-]+$/.test(url)};
     },
   },
   'thesession': {
@@ -2279,18 +2337,18 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'recordings/artists';
+            return {result: prefix === 'recordings/artists'};
           case LINK_TYPES.otherdatabases.event:
-            return prefix === 'events';
+            return {result: prefix === 'events'};
           case LINK_TYPES.otherdatabases.place:
-            return prefix === 'sessions';
+            return {result: prefix === 'sessions'};
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'recordings';
+            return {result: prefix === 'recordings'};
           case LINK_TYPES.otherdatabases.work:
-            return prefix === 'tunes';
+            return {result: prefix === 'tunes'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'tipeee': {
@@ -2314,16 +2372,16 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.downloadpurchase.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.downloadpurchase.label:
-            return prefix === 'label';
+            return {result: prefix === 'label'};
           case LINK_TYPES.downloadpurchase.recording:
-            return prefix === 'track';
+            return {result: prefix === 'track'};
           case LINK_TYPES.downloadpurchase.release:
-            return prefix === 'title';
+            return {result: prefix === 'title'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'trove': {
@@ -2348,11 +2406,11 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         if (_.includes(LINK_TYPES.videochannel, id)) {
-          return prefix === undefined;
+          return {result: prefix === undefined};
         }
-        return prefix === 'videos/';
+        return {result: prefix === 'videos/'};
       }
-      return false;
+      return {result: false};
     },
   },
   'twitter': {
@@ -2378,11 +2436,14 @@ const CLEANUPS = {
       if (m) {
         const isATweet = !!m[1];
         if (_.includes(LINK_TYPES.streamingfree, id)) {
-          return isATweet && (id === LINK_TYPES.streamingfree.recording);
+          return {
+            result: isATweet &&
+              (id === LINK_TYPES.streamingfree.recording),
+          };
         }
-        return !isATweet;
+        return {result: !isATweet};
       }
-      return false;
+      return {result: false};
     },
   },
   'unwelcomeimages': { // Block images from sites that don't allow deeplinking
@@ -2391,7 +2452,9 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(s|img)\\.discogss?\\.com\/', 'i'),
     ],
     type: LINK_TYPES.image,
-    validate: disallow,
+    validate: function () {
+      return {result: false};
+    },
   },
   'utaitedbvocadbtouhoudb': {
     match: [new RegExp('^(https?://)?(www\\.)?((utaite|voca)db\\.net|touhoudb\\.com)', 'i')],
@@ -2410,19 +2473,19 @@ const CLEANUPS = {
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
           case LINK_TYPES.otherdatabases.label:
-            return prefix === 'Ar';
+            return {result: prefix === 'Ar'};
           case LINK_TYPES.otherdatabases.event:
-            return prefix === 'E';
+            return {result: prefix === 'E'};
           case LINK_TYPES.otherdatabases.recording:
           case LINK_TYPES.otherdatabases.work:
-            return prefix === 'S';
+            return {result: prefix === 'S'};
           case LINK_TYPES.otherdatabases.release_group:
-            return prefix === 'Al';
+            return {result: prefix === 'Al'};
           case LINK_TYPES.otherdatabases.series:
-            return prefix === 'Event/SeriesDetails';
+            return {result: prefix === 'Event/SeriesDetails'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'utanet': {
@@ -2437,12 +2500,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.lyrics.work:
-            return prefix === 'song';
+            return {result: prefix === 'song'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'utaten': {
@@ -2457,12 +2520,12 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
-            return prefix === 'artist';
+            return {result: prefix === 'artist'};
           case LINK_TYPES.lyrics.work:
-            return prefix === 'lyric';
+            return {result: prefix === 'lyric'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'vgmdb': {
@@ -2477,16 +2540,16 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.vgmdb.artist:
-            return prefix === 'artist' || prefix === 'org';
+            return {result: prefix === 'artist' || prefix === 'org'};
           case LINK_TYPES.vgmdb.release:
-            return prefix === 'album';
+            return {result: prefix === 'album'};
           case LINK_TYPES.vgmdb.label:
-            return prefix === 'org';
+            return {result: prefix === 'org'};
           case LINK_TYPES.vgmdb.event:
-            return prefix === 'event';
+            return {result: prefix === 'event'};
         }
       }
-      return false;
+      return {result: false};
     },
   },
   'viaf': {
@@ -2498,7 +2561,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url) {
-      return /^http:\/\/viaf\.org\/viaf\/[1-9][0-9]*$/.test(url);
+      return {result: /^http:\/\/viaf\.org\/viaf\/[1-9][0-9]*$/.test(url)};
     },
   },
   'vimeo': {
@@ -2525,7 +2588,7 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/(?:wiki(?:\/Special:EntityPage)?|entity)\/(Q([0-9]+)).*$/, 'https://www.wikidata.org/wiki/$1');
     },
     validate: function (url) {
-      return /^https:\/\/www\.wikidata\.org\/wiki\/Q[1-9][0-9]*$/.test(url);
+      return {result: /^https:\/\/www\.wikidata\.org\/wiki\/Q[1-9][0-9]*$/.test(url)};
     },
   },
   'wikimediacommons': {
@@ -2540,7 +2603,7 @@ const CLEANUPS = {
       return url.replace(/^https?:\/\/commons\.(?:m\.)?wikimedia\.org\/wiki\/(?:File|Image):/, 'https://commons.wikimedia.org/wiki/File:');
     },
     validate: function (url) {
-      return /^https:\/\/commons\.wikimedia\.org\/wiki\/File:[^?#]+$/.test(url);
+      return {result: /^https:\/\/commons\.wikimedia\.org\/wiki\/File:[^?#]+$/.test(url)};
     },
   },
   'wikipedia': {
@@ -2556,7 +2619,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url) {
-      return /^https:\/\/[a-z]+\.wikipedia\.org\/wiki\//.test(url);
+      return {result: /^https:\/\/[a-z]+\.wikipedia\.org\/wiki\//.test(url)};
     },
   },
   'wikisource': {
@@ -2568,7 +2631,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url) {
-      return /^https:\/\/(?:[a-z-]+\.)?wikisource\.org\/wiki\//.test(url);
+      return {result: /^https:\/\/(?:[a-z-]+\.)?wikisource\.org\/wiki\//.test(url)};
     },
   },
   'worldcat': {
@@ -2603,13 +2666,13 @@ const CLEANUPS = {
         case LINK_TYPES.youtube.label:
         case LINK_TYPES.youtube.place:
         case LINK_TYPES.youtube.series:
-          return /^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url);
+          return {result: /^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url)};
         case LINK_TYPES.streamingfree.recording:
-          return /^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url);
+          return {result: /^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)};
         case LINK_TYPES.streamingfree.release:
-          return /^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url);
+          return {result: /^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url)};
       }
-      return false;
+      return {result: false};
     },
   },
 };
@@ -2634,10 +2697,14 @@ _.each(LINK_TYPES, function (linkType) {
           return testAll(cleanup.match, url);
         });
         if (cleanup && cleanup.type && cleanup.type[entityType]) {
-          return cleanup.type[entityType] === id &&
-            (!cleanup.validate || cleanup.validate(url, id));
+          const validation = cleanup.validate
+            ? cleanup.validate(url, id)
+            : {result: true};
+          validation.result = validation.result &&
+            cleanup.type[entityType] === id;
+          return validation;
         }
-        return RESTRICTED_LINK_TYPES.indexOf(id) === -1;
+        return {result: RESTRICTED_LINK_TYPES.indexOf(id) === -1};
       };
     }
   });
@@ -2647,7 +2714,7 @@ _.each(LINK_TYPES, function (linkType) {
 const originalRule = validationRules[LINK_TYPES.discographyentry.release];
 validationRules[LINK_TYPES.discographyentry.release] = function (url) {
   if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
-    return false;
+    return {result: false};
   }
   return originalRule(url);
 };

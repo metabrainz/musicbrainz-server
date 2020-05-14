@@ -3942,7 +3942,7 @@ _.each(testData, function (subtest, i) {
       const validationResults = _.reduce(LINK_TYPES[relationshipType],
         function (results, relUuid, entityType) {
           const rule = validationRules[relUuid];
-          const isValid = rule ? rule(cleanUrl) || false : true;
+          const isValid = rule ? rule(cleanUrl).result || false : true;
           results[isValid].splice(
             _.sortedIndex(results[isValid], entityType),
             0,

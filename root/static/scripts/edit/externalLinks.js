@@ -232,10 +232,9 @@ export class ExternalLinksEditor
               error = l(`This relationship type is deprecated 
                          and should not be used.`);
             } else if (
-              (isNewLink || linkChanged) && checker && !checker(link.url)
+              (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1
             ) {
-              error = l(`This URL is not allowed for the selected link type, 
-                         or is incorrectly formatted.`);
+              error = l('This relationship already exists.');
             } else if (
               (isNewLink || linkChanged) &&
                 /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/
@@ -262,9 +261,14 @@ export class ExternalLinksEditor
                 },
               );
             } else if (
-              (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1
+              (isNewLink || linkChanged) && checker
             ) {
-              error = l('This relationship already exists.');
+              const check = checker(link.url);
+              if (!check.result) {
+                error = check.error ||
+                  l(`This URL is not allowed for the selected link type, 
+                     or is incorrectly formatted.`);
+              }
             }
 
             if (error) {
