@@ -2876,7 +2876,13 @@ _.each(LINK_TYPES, function (linkType) {
 const originalRule = validationRules[LINK_TYPES.discographyentry.release];
 validationRules[LINK_TYPES.discographyentry.release] = function (url) {
   if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
-    return {result: false};
+    return {
+      error: l(
+        `Wikipedia is not a discography entry. Please add this Wikipedia link
+         to the release group instead.`,
+      ),
+      result: false,
+    };
   }
   return originalRule(url);
 };
