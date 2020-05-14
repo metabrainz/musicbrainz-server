@@ -7,6 +7,7 @@
  */
 
 import _ from 'lodash';
+import * as React from 'react';
 
 // See https://musicbrainz.org/relationships (but deprecated ones)
 export const LINK_TYPES = {
@@ -2618,7 +2619,31 @@ const CLEANUPS = {
       url = reencodeMediawikiLocalPart(url);
       return url;
     },
-    validate: function (url) {
+    validate: function (url, id) {
+      if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/.test(url)) {
+        return {
+          error: exp.l(
+            `Links to specific sections of Wikipedia articles are not 
+             allowed. Please remove “{fragment}” if still appropriate.
+             See the {url|guidelines}.`,
+            {
+              fragment: (
+                <span className="url-quote" key="fragment">
+                  {url.replace(
+                    /^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/,
+                    '#$1',
+                  )}
+                </span>
+              ),
+              url: {
+                href: '/relationship/' + id,
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+        };
+      }
       return {result: /^https:\/\/[a-z]+\.wikipedia\.org\/wiki\//.test(url)};
     },
   },
