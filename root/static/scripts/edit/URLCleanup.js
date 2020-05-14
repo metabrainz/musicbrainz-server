@@ -322,6 +322,18 @@ function findAmazonTld(url) {
   }
   return tld;
 }
+
+const linkToChannelMsg = N_l(
+  `Please link to a channel, not a specific video.
+   Videos should be linked to the appropriate
+   recordings or releases instead.`,
+);
+
+const linkToVideoMsg = N_l(
+  `Please link to a specific video. Add channel pages
+   to the relevant artist, label, etc. instead.`,
+);
+
 /*
  * CLEANUPS entries have 2 to 4 of the following properties:
  *
@@ -1000,9 +1012,18 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         if (_.includes(LINK_TYPES.videochannel, id)) {
+          if (prefix === 'video/') {
+            return {
+              error: linkToChannelMsg(),
+              result: false,
+            };
+          }
           return {result: prefix === undefined};
         }
-        return {result: prefix === 'video/'};
+        return {
+          error: linkToVideoMsg(),
+          result: prefix === 'video/',
+        };
       }
       return {result: false};
     },
@@ -1831,8 +1852,20 @@ const CLEANUPS = {
         switch (id) {
           case LINK_TYPES.streamingfree.recording:
           case LINK_TYPES.streamingfree.release:
+            if (prefix === 'user') {
+              return {
+                error: linkToVideoMsg(),
+                result: false,
+              };
+            }
             return {result: prefix === 'watch'};
           case LINK_TYPES.videochannel.artist:
+            if (prefix === 'watch') {
+              return {
+                error: linkToChannelMsg(),
+                result: false,
+              };
+            }
             return {result: prefix === 'user'};
         }
       }
@@ -2407,9 +2440,18 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         if (_.includes(LINK_TYPES.videochannel, id)) {
+          if (prefix === 'videos/') {
+            return {
+              error: linkToChannelMsg(),
+              result: false,
+            };
+          }
           return {result: prefix === undefined};
         }
-        return {result: prefix === 'videos/'};
+        return {
+          error: linkToVideoMsg(),
+          result: prefix === 'videos/',
+        };
       }
       return {result: false};
     },
@@ -2691,11 +2733,22 @@ const CLEANUPS = {
         case LINK_TYPES.youtube.label:
         case LINK_TYPES.youtube.place:
         case LINK_TYPES.youtube.series:
-          return {result: /^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url)};
+          return {
+            error: linkToChannelMsg(),
+            result: /^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url),
+          };
         case LINK_TYPES.streamingfree.recording:
-          return {result: /^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)};
+          return {
+            error: linkToVideoMsg(),
+            result: /^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url),
+          };
         case LINK_TYPES.streamingfree.release:
-          return {result: /^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url)};
+          return {
+            error: l(
+              'Only video and playlist links are allowed on releases.',
+            ),
+            result: /^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url),
+          };
       }
       return {result: false};
     },
