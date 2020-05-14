@@ -1486,7 +1486,17 @@ const CLEANUPS = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.downloadpurchase.artist:
-            return {result: prefix === 'artist'};
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {
+              error: l(
+                `Only iTunes artist pages can be added directly 
+                 to artists. Please link albums, videos, etc. 
+                 to the appropriate release or recording instead.`,
+              ),
+              result: false,
+            };
           case LINK_TYPES.downloadpurchase.recording:
             return {result: prefix === 'music-video'};
           case LINK_TYPES.downloadpurchase.release:
