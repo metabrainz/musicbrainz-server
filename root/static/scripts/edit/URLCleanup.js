@@ -421,6 +421,16 @@ const CLEANUPS = {
           case LINK_TYPES.allmusic.recording:
             return {result: prefix === 'performance/mq'};
           case LINK_TYPES.allmusic.release:
+            if (prefix === 'album/mw') {
+              return {
+                error: l(
+                  `Allmusic album links should be added to release groups.
+                   To find the appropriate release link for this release,
+                   please check the Releases tab for the Allmusic album.`,
+                ),
+                result: false,
+              };
+            }
             return {result: prefix === 'album/release/mr'};
           case LINK_TYPES.allmusic.release_group:
             return {result: prefix === 'album/mw'};
