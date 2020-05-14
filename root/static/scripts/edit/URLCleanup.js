@@ -2559,8 +2559,13 @@ const CLEANUPS = {
             result: isATweet &&
               (id === LINK_TYPES.streamingfree.recording),
           };
+        } else if (isATweet) {
+          return {
+            error: l('Please link to Twitter profiles, not tweets.'),
+            result: false,
+          };
         }
-        return {result: !isATweet};
+        return {result: true};
       }
       return {result: false};
     },
