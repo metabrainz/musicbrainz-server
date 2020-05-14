@@ -618,7 +618,26 @@ const CLEANUPS = {
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.bandcamp.artist:
+          if (/^https:\/\/[^\/]+\.bandcamp\.com\/(album|track)/.test(url)) {
+            return {
+              error: l(
+                `Please link to the main page for the artist,
+                 not to a specific album or track.`,
+              ),
+              result: false,
+            };
+          }
+          return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url)};
         case LINK_TYPES.bandcamp.label:
+          if (/^https:\/\/[^\/]+\.bandcamp\.com\/(album|track)/.test(url)) {
+            return {
+              error: l(
+                `Please link to the main page for the label,
+                 not to a specific album or track.`,
+              ),
+              result: false,
+            };
+          }
           return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url)};
         case LINK_TYPES.review.release_group:
           return {result: /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url)};
