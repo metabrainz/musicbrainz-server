@@ -1427,7 +1427,26 @@ const CLEANUPS = {
     },
     validate: function (url) {
       // Block explore/photo URLs, which aren't really a social network link
-      return {result: !(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url))};
+      if (/^https:\/\/www\.instagram\.com\/p\//.test(url)) {
+        return {
+          error: l(
+            `Please do not link directly to images,
+             link to the appropriate Instagram profile page instead.`,
+          ),
+          result: false,
+        };
+      }
+      if (/^https:\/\/www\.instagram\.com\/explore\//.test(url)) {
+        return {
+          error: l(
+            `Explore links are not officially connected to a location.
+             If you want to link a to a location, try and find
+             the place's Instagram profile instead, if there's one.`,
+          ),
+          result: false,
+        };
+      }
+      return {result: true};
     },
   },
   'irishtune': {
