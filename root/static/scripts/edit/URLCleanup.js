@@ -1134,6 +1134,15 @@ const CLEANUPS = {
           case LINK_TYPES.discogs.release_group:
             return {result: prefix === 'master'};
           case LINK_TYPES.discogs.release:
+            if (prefix === 'master') {
+              return {
+                error: l(
+                  `Discogs master links group several releases,
+                   so this should be added to the release group instead.`,
+                ),
+                result: false,
+              };
+            }
             return {result: prefix === 'release'};
           case LINK_TYPES.discogs.work:
             return {result: prefix === 'composition'};
