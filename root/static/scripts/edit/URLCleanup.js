@@ -1873,17 +1873,24 @@ const CLEANUPS = {
     },
   },
   'muziekweb': {
-    match: [new RegExp('^(https?://)?www\\.muziekweb\\.(eu|nl)/', 'i')],
+    match: [new RegExp('^(https?://)?www\\.muziekweb\\.(com|eu|nl)/', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?muziekweb\.(?:eu|nl)\/(?:[a-z]{2}\/)?Link\/([A-Z]{1,3}\d+).*$/, 'https://www.muziekweb.eu/Link/$1/');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?muziekweb\.(?:com|eu|nl)\/(?:[a-z]{2}\/)?Link\/([A-Z]{1,3}\d+(?:\/(?:CLASSICAL(?:\/COMPOSER)?|POPULAR))?).*$/, 'https://www.muziekweb.nl/Link/$1/');
     },
     validate: function (url, id) {
-      switch (id) {
-        case LINK_TYPES.otherdatabases.artist:
-          return {result: /^https:\/\/www\.muziekweb\.eu\/Link\/M\d{11}\/$/.test(url)};
-        case LINK_TYPES.otherdatabases.release:
-          return {result: /^https:\/\/www\.muziekweb\.eu\/Link\/[A-Z]{2,3}\d{4,6}\/$/.test(url)};
+      const subpath = /^https:\/\/www\.muziekweb\.nl\/Link\/(.*)\/$/.exec(url)[1];
+      if (subpath) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: /^M\d{11}\/(CLASSICAL(?:\/COMPOSER)?|POPULAR)$/.test(subpath)};
+          case LINK_TYPES.otherdatabases.label:
+            return {result: /^L\d{11}$/.test(subpath)};
+          case LINK_TYPES.otherdatabases.release:
+            return {result: /^[A-Z]{2,3}\d{4,6}$/.test(subpath)};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: /^U\d{11}\/(CLASSICAL|POPULAR)$/.test(subpath)};
+        }
       }
       return {result: false};
     },
