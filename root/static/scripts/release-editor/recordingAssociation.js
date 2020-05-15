@@ -85,7 +85,7 @@ function recordingQuery(track, name) {
 
   var titleAndArtists = utils.constructLuceneFieldConjunction(params);
   var justTitle = utils.constructLuceneField(params.recording, 'recording');
-  var query = '(' + titleAndArtists + ')^2 OR (' + justTitle + ')';
+  var query;
 
   var duration = parseInt(track.length(), 10);
 
@@ -93,8 +93,16 @@ function recordingQuery(track, name) {
     var a = duration - MAX_LENGTH_DIFFERENCE;
     var b = duration + MAX_LENGTH_DIFFERENCE;
 
-    duration = utils.constructLuceneField([`[${a} TO ${b}] OR \\-`], 'dur');
-    query = '(' + query + ') AND ' + duration;
+    const durationCondition =
+      utils.constructLuceneField([`[${a} TO ${b}]`], 'dur');
+    const durationOrNoneCondition =
+      '(' + durationCondition + ' OR (NOT dur:[* TO *]))';
+    query =
+      '(' + titleAndArtists + ' AND ' + durationOrNoneCondition + ')^2' +
+      ' OR ' +
+      '(' + justTitle + ' AND ' + durationCondition + ')';
+  } else {
+    query = '(' + titleAndArtists + ')^2 OR (' + justTitle + ')';
   }
 
   return query;
