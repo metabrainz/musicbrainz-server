@@ -2419,7 +2419,7 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'videochannel',
             expected_clean_url: 'https://www.nicovideo.jp/user/1050860',
-       only_valid_entity_types: ['artist'],
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   // NLA (National Library of Australia)
   {

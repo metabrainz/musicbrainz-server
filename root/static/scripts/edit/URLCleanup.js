@@ -1925,25 +1925,23 @@ const CLEANUPS = {
       const m = /^(?:https?:\/\/)?(?:[^\/]+\.)?nicovideo\.jp\/(?:(user)\/[0-9]+|(watch)\/sm[0-9]+)$/.exec(url);
       if (m) {
         const prefix = m[1] || m[2];
-        switch (id) {
-          case LINK_TYPES.streamingfree.recording:
-          case LINK_TYPES.streamingfree.release:
-            if (prefix === 'user') {
-              return {
-                error: linkToVideoMsg(),
-                result: false,
-              };
-            }
-            return {result: prefix === 'watch'};
-          case LINK_TYPES.videochannel.artist:
-            if (prefix === 'watch') {
-              return {
-                error: linkToChannelMsg(),
-                result: false,
-              };
-            }
-            return {result: prefix === 'user'};
+        if (_.includes(LINK_TYPES.videochannel, id)) {
+          if (prefix === 'watch') {
+            return {
+              error: linkToChannelMsg(),
+              result: false,
+            };
+          }
+          return {result: prefix === 'user'};
         }
+
+        if (prefix === 'user') {
+          return {
+            error: linkToVideoMsg(),
+            result: false,
+          };
+        }
+        return {result: prefix === 'watch'};
       }
       return {result: false};
     },
