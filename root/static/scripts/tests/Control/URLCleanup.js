@@ -2421,6 +2421,13 @@ const testData = [
             expected_clean_url: 'https://www.nicovideo.jp/user/1050860',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
+  {
+                     input_url: 'https://ch.nicovideo.jp/maverickdci/video?sort=r&order=d',
+             input_entity_type: 'label',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://ch.nicovideo.jp/maverickdci',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
   // NLA (National Library of Australia)
   {
                      input_url: 'http://nla.gov.au/nla.party-548358/',
