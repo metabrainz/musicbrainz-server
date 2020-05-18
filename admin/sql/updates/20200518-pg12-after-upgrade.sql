@@ -89,7 +89,6 @@ CREATE INDEX recording_alias_idx_txt_sort ON recording_alias USING gin(musicbrai
 CREATE INDEX series_idx_txt ON series USING gin(musicbrainz.mb_simple_tsvector(name));
 CREATE INDEX series_alias_idx_txt ON series_alias USING gin(musicbrainz.mb_simple_tsvector(name));
 CREATE INDEX series_alias_idx_txt_sort ON series_alias USING gin(musicbrainz.mb_simple_tsvector(sort_name));
-CREATE INDEX track_idx_txt ON track USING gin(musicbrainz.mb_simple_tsvector(name));
 CREATE INDEX work_idx_txt ON work USING gin(musicbrainz.mb_simple_tsvector(name));
 CREATE INDEX work_alias_idx_txt ON work_alias USING gin(musicbrainz.mb_simple_tsvector(name));
 CREATE INDEX work_alias_idx_txt_sort ON work_alias USING gin(musicbrainz.mb_simple_tsvector(sort_name));
@@ -107,7 +106,6 @@ CREATE INDEX artist_idx_musicbrainz_collate ON artist (name COLLATE musicbrainz.
 CREATE INDEX artist_credit_idx_musicbrainz_collate ON artist_credit (name COLLATE musicbrainz.musicbrainz);
 CREATE INDEX artist_credit_name_idx_musicbrainz_collate ON artist_credit_name (name COLLATE musicbrainz.musicbrainz);
 CREATE INDEX label_idx_musicbrainz_collate ON label (name COLLATE musicbrainz.musicbrainz);
-CREATE INDEX track_idx_musicbrainz_collate ON track (name COLLATE musicbrainz.musicbrainz);
 CREATE INDEX recording_idx_musicbrainz_collate ON recording (name COLLATE musicbrainz.musicbrainz);
 CREATE INDEX work_idx_musicbrainz_collate ON work (name COLLATE musicbrainz.musicbrainz);
 
