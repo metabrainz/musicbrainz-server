@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Report::ArtistReport',
 
 sub query {
     "SELECT DISTINCT ON (artist.id) artist.id AS artist_id,
-       row_number() OVER (ORDER BY musicbrainz_collate(artist.name), artist.id)
+       row_number() OVER (ORDER BY artist.name COLLATE musicbrainz, artist.id)
      FROM artist
      JOIN l_artist_artist ON l_artist_artist.entity1=artist.id
      JOIN link ON link.id=l_artist_artist.link

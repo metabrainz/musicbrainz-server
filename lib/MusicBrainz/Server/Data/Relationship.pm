@@ -179,11 +179,11 @@ sub _load
                      l.ended';
 
         if ($ENTITIES{$target}{sort_name}) {
-            $order .= ", musicbrainz_collate(${target}.sort_name)";
+            $order .= ", ${target}.sort_name COLLATE musicbrainz";
         } elsif ($target eq 'url') {
             $order .= ', url';
         } else {
-            $order .= ", musicbrainz_collate(${target}.name)";
+            $order .= ", ${target}.name COLLATE musicbrainz";
         }
 
         $order .= ', lt.child_order';

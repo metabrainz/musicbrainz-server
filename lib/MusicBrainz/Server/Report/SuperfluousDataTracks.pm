@@ -9,7 +9,7 @@ sub query {
     <<'EOSQL'
 SELECT
   release.id AS release_id,
-  row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(release.name))
+  row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, release.name COLLATE musicbrainz)
 FROM (
    SELECT DISTINCT release.* FROM release
    JOIN medium ON medium.release = release.id

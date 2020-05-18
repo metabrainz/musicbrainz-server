@@ -20,7 +20,7 @@ General Prerequisites:
 * Ubuntu/Debian
 * Node (at least version 10.15)
 * Perl (at least version 5.18.2)
-* PostgreSQL (at least version 9.5)
+* PostgreSQL (at least version 12)
 
 Reporting bugs
 --------------

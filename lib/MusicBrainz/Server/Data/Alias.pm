@@ -88,8 +88,8 @@ sub find_by_entity_ids
                    end_date_year NULLS LAST,
                    end_date_month NULLS LAST,
                    end_date_day NULLS LAST,
-                   musicbrainz_collate(sort_name),
-                   musicbrainz_collate(name)";
+                   sort_name COLLATE musicbrainz,
+                   name COLLATE musicbrainz";
 
     my %ret = map { $_ => [] } @ids;
 

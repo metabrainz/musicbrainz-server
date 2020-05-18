@@ -96,7 +96,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_artist s ON artist.id = s.artist
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(artist.sort_name), artist.id";
+                 ORDER BY artist.sort_name COLLATE musicbrainz, artist.id";
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
@@ -112,7 +112,7 @@ sub find_by_area {
                     SELECT 1 FROM ($containment_query) ac
                      WHERE ac.descendant IN (area, begin_area, end_area) AND ac.parent = \$1
                  )
-                 ORDER BY musicbrainz_collate(artist.name), artist.id";
+                 ORDER BY artist.name COLLATE musicbrainz, artist.id";
     $self->query_to_list_limited(
         $query, [$area_id, @containment_query_args], $limit, $offset, undef,
         dollar_placeholders => 1,
@@ -144,7 +144,7 @@ sub find_by_instrument {
                 )
             WHERE instrument.id = ?
             GROUP BY artist.id
-            ORDER BY musicbrainz_collate(artist.sort_name)";
+            ORDER BY artist.sort_name COLLATE musicbrainz";
 
     $self->query_to_list_limited(
         $query,
@@ -167,7 +167,7 @@ sub find_by_recording
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN recording ON recording.artist_credit = acn.artist_credit
                  WHERE recording.id = ?
-                 ORDER BY musicbrainz_collate(artist.name), artist.id";
+                 ORDER BY artist.name COLLATE musicbrainz, artist.id";
     $self->query_to_list_limited($query, [$recording_id], $limit, $offset);
 }
 
@@ -187,7 +187,7 @@ sub find_by_release
                      JOIN artist_credit_name acn ON acn.artist = artist.id
                      JOIN release ON release.artist_credit = acn.artist_credit
                      wHERE release.id = ?)
-                 ORDER BY musicbrainz_collate(artist.name), artist.id";
+                 ORDER BY artist.name COLLATE musicbrainz, artist.id";
     $self->query_to_list_limited($query, [($release_id) x 2], $limit, $offset);
 }
 
@@ -199,14 +199,14 @@ sub find_by_release_group
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN release_group ON release_group.artist_credit = acn.artist_credit
                  WHERE release_group.id = ?
-                 ORDER BY musicbrainz_collate(artist.name), artist.id";
+                 ORDER BY artist.name COLLATE musicbrainz, artist.id";
     $self->query_to_list_limited($query, [$recording_id], $limit, $offset);
 }
 
 sub find_by_work
 {
     my ($self, $work_id, $limit, $offset) = @_;
-    my $query = "SELECT DISTINCT musicbrainz_collate(name) name_collate, s.*
+    my $query = "SELECT DISTINCT name COLLATE musicbrainz name_collate, s.*
                  FROM (
                    SELECT " . $self->_columns . " FROM ". $self->_table . "
                    JOIN artist_credit_name acn ON acn.artist = artist.id
@@ -218,7 +218,7 @@ sub find_by_work
                    JOIN l_artist_work law ON law.entity0 = artist.id
                    WHERE law.entity1 = ?
                  ) s
-                 ORDER BY musicbrainz_collate(name), id";
+                 ORDER BY name COLLATE musicbrainz, id";
     $self->query_to_list_limited($query, [($work_id) x 2], $limit, $offset);
 }
 
@@ -226,28 +226,28 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, "name", {
         "name" => sub {
-            return "musicbrainz_collate(sort_name)"
+            return "sort_name COLLATE musicbrainz"
         },
         "area" => sub {
-            return "area, musicbrainz_collate(name)"
+            return "area, name COLLATE musicbrainz"
         },
         "gender" => sub {
-            return "gender, musicbrainz_collate(sort_name)"
+            return "gender, sort_name COLLATE musicbrainz"
         },
         "begin_date" => sub {
-            return "begin_date_year, begin_date_month, begin_date_day, musicbrainz_collate(name)"
+            return "begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz"
         },
         "begin_area" => sub {
-            return "begin_area, musicbrainz_collate(name)"
+            return "begin_area, name COLLATE musicbrainz"
         },
         "end_date" => sub {
-            return "end_date_year, end_date_month, end_date_day, musicbrainz_collate(name)"
+            return "end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz"
         },
         "end_area" => sub {
-            return "end_area, musicbrainz_collate(name)"
+            return "end_area, name COLLATE musicbrainz"
         },
         "type" => sub {
-            return "type, musicbrainz_collate(sort_name)"
+            return "type, sort_name COLLATE musicbrainz"
         }
     });
 

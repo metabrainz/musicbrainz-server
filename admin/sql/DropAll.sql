@@ -11,3 +11,4 @@
 \i admin/sql/DropIndexes.sql
 \i admin/sql/DropPrimaryKeys.sql
 \i admin/sql/DropTables.sql
+\i admin/sql/DropCollations.sql

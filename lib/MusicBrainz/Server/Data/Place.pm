@@ -181,7 +181,7 @@ sub find_by_area {
                     SELECT 1 FROM ($containment_query) ac
                      WHERE ac.descendant = area AND ac.parent = \$1
                  )
-                 ORDER BY musicbrainz_collate(place.name), place.id";
+                 ORDER BY place.name COLLATE musicbrainz, place.id";
     $self->query_to_list_limited(
         $query, [$area_id, @containment_query_args], $limit, $offset, undef,
         dollar_placeholders => 1,
@@ -192,22 +192,22 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, "name", {
         "name" => sub {
-            return "musicbrainz_collate(name)"
+            return "name COLLATE musicbrainz"
         },
         "area" => sub {
-            return "area, musicbrainz_collate(name)"
+            return "area, name COLLATE musicbrainz"
         },
         "address" => sub {
-            return "musicbrainz_collate(address), musicbrainz_collate(name)"
+            return "address COLLATE musicbrainz, name COLLATE musicbrainz"
         },
         "begin_date" => sub {
-            return "begin_date_year, begin_date_month, begin_date_day, musicbrainz_collate(name)"
+            return "begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz"
         },
         "end_date" => sub {
-            return "end_date_year, end_date_month, end_date_day, musicbrainz_collate(name)"
+            return "end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz"
         },
         "type" => sub {
-            return "type, musicbrainz_collate(name)"
+            return "type, name COLLATE musicbrainz"
         }
     });
 

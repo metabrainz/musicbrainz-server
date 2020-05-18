@@ -75,7 +75,8 @@ sub _where_filter
 
     if (defined $filter) {
         if (exists $filter->{name}) {
-            push @query, "(to_tsvector('mb_simple', rg.name) @@ plainto_tsquery('mb_simple', ?) OR rg.name = ?)";
+            push @query,
+            push @query, "(mb_simple_tsvector(rg.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR rg.name = ?)";
             push @params, $filter->{name}, $filter->{name};
         }
         if (exists $filter->{artist_credit_id}) {
@@ -148,7 +149,7 @@ sub find_by_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(rg.name) AS name_collate,
+                    rg.name COLLATE musicbrainz AS name_collate,
                     array(
                       SELECT name FROM release_group_secondary_type rgst
                       JOIN release_group_secondary_type_join rgstj
@@ -166,7 +167,7 @@ sub find_by_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(rg.name)";
+                    rg.name COLLATE musicbrainz";
     $self->query_to_list_limited(
         $query,
         $params,
@@ -202,7 +203,7 @@ sub find_by_track_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(rg.name),
+                    rg.name COLLATE musicbrainz,
                     array(
                       SELECT name FROM release_group_secondary_type rgst
                       JOIN release_group_secondary_type_join rgstj
@@ -234,7 +235,7 @@ sub find_by_track_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(rg.name)";
+                    rg.name COLLATE musicbrainz";
     $self->query_to_list_limited(
         $query,
         [$artist_id, $artist_id],
@@ -267,7 +268,7 @@ sub find_by_release
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(rg.name)";
+                    rg.name COLLATE musicbrainz";
     $self->query_to_list_limited($query, [$release_id], $limit, $offset, sub {
         my ($model, $row) = @_;
         my $rg = $model->_new_from_row($row);
@@ -291,7 +292,7 @@ sub find_by_release_gids
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(rg.name)";
+                    rg.name COLLATE musicbrainz";
     $self->query_to_list($query, \@release_gids, sub {
         my ($model, $row) = @_;
         my $rg = $model->_new_from_row($row);
@@ -312,7 +313,7 @@ sub find_by_recording
                  WHERE recording.id = ?
                  ORDER BY
                     rg.type,
-                    musicbrainz_collate(rg.name)";
+                    rg.name COLLATE musicbrainz";
 
     $self->query_to_list($query, [$recording]);
 }
@@ -325,18 +326,18 @@ sub _order_by {
 
     my $order_by = order_by($order, "name", {
         "name" => sub {
-            return "musicbrainz_collate(name)"
+            return "name COLLATE musicbrainz"
         },
         "artist" => sub {
             $extra_join = "JOIN artist_credit ac ON ac.id = rg.artist_credit";
             $also_select = "ac.name AS ac_name";
-            return "musicbrainz_collate(ac_name), musicbrainz_collate(release_group.name)";
+            return "ac_name COLLATE musicbrainz, release_group.name COLLATE musicbrainz";
         },
         "primary_type" => sub {
-            return "primary_type_id, musicbrainz_collate(name)"
+            return "primary_type_id, name COLLATE musicbrainz"
         },
         "year" => sub {
-            return "first_release_date_year, musicbrainz_collate(name)"
+            return "first_release_date_year, name COLLATE musicbrainz"
         }
     });
 

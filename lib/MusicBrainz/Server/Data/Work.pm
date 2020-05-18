@@ -85,7 +85,7 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
-       ORDER BY musicbrainz_collate(work.name)';
+       ORDER BY work.name COLLATE musicbrainz';
 
     # We actually use this for the side effect in the closure
     $self->query_to_list_limited($query, [($artist_id) x 2], $limit, $offset);
@@ -107,7 +107,7 @@ sub find_by_iswc
                  FROM " . $self->_table . "
                  JOIN iswc ON work.id = iswc.work
                  WHERE iswc.iswc = ?
-                 ORDER BY musicbrainz_collate(work.name)";
+                 ORDER BY work.name COLLATE musicbrainz";
 
     $self->query_to_list($query, [$iswc]);
 }
@@ -116,10 +116,10 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, "name", {
         "name" => sub {
-            return "musicbrainz_collate(name)"
+            return "name COLLATE musicbrainz"
         },
         "type" => sub {
-            return "type, musicbrainz_collate(name)"
+            return "type, name COLLATE musicbrainz"
         },
     });
 

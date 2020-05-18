@@ -78,10 +78,10 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, "name", {
         "name" => sub {
-            return "musicbrainz_collate(name)"
+            return "name COLLATE musicbrainz"
         },
         "type" => sub {
-            return "type, musicbrainz_collate(name)"
+            return "type, name COLLATE musicbrainz"
         }
     });
 
@@ -206,7 +206,7 @@ sub get_entities {
       FROM (SELECT " . $model->_columns . " FROM " . $model->_table . ") e
       JOIN (SELECT * FROM ${entity_type}_series) es ON e.id = es.$entity_type
       WHERE es.series = ?
-      ORDER BY es.link_order, musicbrainz_collate(e.name) ASC";
+      ORDER BY es.link_order, e.name COLLATE musicbrainz ASC";
 
     $model->query_to_list_limited($query, [$series->id], $limit, $offset, sub {
         my ($model, $row) = @_;
@@ -226,7 +226,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_series s ON series.id = s.series
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(series.name), series.id";
+                 ORDER BY series.name COLLATE musicbrainz, series.id";
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 

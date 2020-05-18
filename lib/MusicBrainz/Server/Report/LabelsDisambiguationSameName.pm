@@ -8,7 +8,7 @@ sub query {
     "
         SELECT
             label.id AS label_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(label.name), label.id)
+            row_number() OVER (ORDER BY label.name COLLATE musicbrainz, label.id)
         FROM label
         WHERE label.name = label.comment
     "
