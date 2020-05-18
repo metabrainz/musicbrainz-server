@@ -8,7 +8,7 @@ sub query {
     "
         SELECT
             r.id AS recording_id, t.name AS track_name,
-            row_number() OVER (ORDER BY musicbrainz_collate(r.name), musicbrainz_collate(t.name))
+            row_number() OVER (ORDER BY r.name COLLATE musicbrainz, t.name COLLATE musicbrainz)
         FROM
             recording r
             JOIN track t 

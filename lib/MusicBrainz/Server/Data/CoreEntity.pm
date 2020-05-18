@@ -132,7 +132,7 @@ sub get_by_ids_sorted_by_name
     my $query = "SELECT " . $self->_columns .
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ") " .
-                " ORDER BY musicbrainz_collate(name)";
+                " ORDER BY name COLLATE musicbrainz";
 
     my @result;
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {

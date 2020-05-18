@@ -56,7 +56,7 @@ libssl-dev m4_dnl
 libxml2-dev m4_dnl
 pkg-config')
 
-# postgresql-server-dev-9.5 provides pg_config, which is needed by InitDb.pl
+# postgresql-server-dev-12 provides pg_config, which is needed by InitDb.pl
 # at run-time.
 m4_define(
     `mbs_run_deps',
@@ -70,14 +70,14 @@ libpq5 m4_dnl
 libssl1.0.0 m4_dnl
 libxml2 m4_dnl
 perl m4_dnl
-postgresql-client-9.5 m4_dnl
-postgresql-server-dev-9.5')
+postgresql-client-12 m4_dnl
+postgresql-server-dev-12')
 
 m4_define(
     `test_db_run_deps',
     `m4_dnl
 carton m4_dnl
-postgresql-9.5-pgtap')
+postgresql-12-pgtap')
 
 m4_define(
     `test_db_build_deps',
@@ -85,7 +85,7 @@ m4_define(
 gcc m4_dnl
 libc6-dev m4_dnl
 make m4_dnl
-postgresql-server-dev-9.5')
+postgresql-server-dev-12')
 
 m4_define(
     `install_perl_modules',
@@ -93,7 +93,11 @@ m4_define(
 ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
 ENV PERL_CPANM_OPT --notest --no-interactive
 
-RUN apt_install(`mbs_build_deps mbs_run_deps') && \
+COPY docker/pgdg_pubkey.txt /tmp/
+RUN apt-key add /tmp/pgdg_pubkey.txt && \
+    rm /tmp/pgdg_pubkey.txt && \
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`mbs_build_deps mbs_run_deps') && \
     wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
     cpanm Carton JSON::XS && \
     chown_mb(``$PERL_CARTON_PATH'') && \

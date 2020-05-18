@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 sub query {
     <<'EOSQL'
 SELECT release.id AS release_id,
-  row_number() OVER (ORDER BY musicbrainz_collate(release.name))
+  row_number() OVER (ORDER BY release.name COLLATE musicbrainz)
 FROM (
   SELECT release.id
   FROM track

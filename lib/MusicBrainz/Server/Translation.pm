@@ -240,7 +240,7 @@ sub get_collator
 {
     my ($language) = @_;
     my $coll = Unicode::ICU::Collator->new($language);
-    # make sure to update the postgresql collate extension as well
+    # make sure to update admin/sql/CreateCollations.sql as well
     $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
     return $coll;
 }

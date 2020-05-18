@@ -10,7 +10,7 @@ sub query
     q{
         SELECT
             i.id AS instrument_id,
-            row_number() OVER (ORDER BY i.type, musicbrainz_collate(i.name))
+            row_number() OVER (ORDER BY i.type, i.name COLLATE musicbrainz)
         FROM
             instrument i
             LEFT JOIN l_instrument_url liu ON i.id = liu.entity0

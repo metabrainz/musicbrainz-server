@@ -8,7 +8,7 @@ sub query {
     "
         SELECT DISTINCT ON (r.id)
             r.id AS release_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(r.name))
+            row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
         FROM
           ( SELECT r.*
             FROM release r

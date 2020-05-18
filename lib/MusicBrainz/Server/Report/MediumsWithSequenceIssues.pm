@@ -18,8 +18,8 @@ sub query
     #    1 + 2 + 3 + 3 + 5 = 1 + 2 + 3 + 4 + 5
     <<'EOSQL'
 SELECT DISTINCT release.id AS release_id,
-  musicbrainz_collate(release.name), release.name,
-  row_number() OVER (ORDER BY musicbrainz_collate(release.name))
+  release.name COLLATE musicbrainz, release.name,
+  row_number() OVER (ORDER BY release.name COLLATE musicbrainz)
 FROM (
     SELECT
       medium.release,

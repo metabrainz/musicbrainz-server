@@ -8,7 +8,7 @@ sub query {
     "
         SELECT
             artist.id AS artist_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(artist.name), artist.id)
+            row_number() OVER (ORDER BY artist.name COLLATE musicbrainz, artist.id)
         FROM artist
         WHERE artist.name = artist.comment
     "

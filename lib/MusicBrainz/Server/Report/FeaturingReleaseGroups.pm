@@ -8,7 +8,7 @@ sub query {
     "
         SELECT
             rg.id AS release_group_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(rg.name))
+            row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, rg.name COLLATE musicbrainz)
         FROM
             release_group rg
             JOIN artist_credit ac ON rg.artist_credit = ac.id

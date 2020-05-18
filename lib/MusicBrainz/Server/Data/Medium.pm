@@ -172,10 +172,10 @@ sub find_for_cdstub {
                              id name track_count release position format edits_pending
                          )) . "
            FROM (
-                    SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank,
+                    SELECT id, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank,
                            name
-                    FROM release, plainto_tsquery('mb_simple', ?) AS query
-                    WHERE to_tsvector('mb_simple', name) @@ query
+                    FROM release, plainto_tsquery('mb_simple', mb_lower(?)) AS query
+                    WHERE mb_simple_tsvector(name) @@ query
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS name
@@ -184,7 +184,7 @@ sub find_for_cdstub {
       LEFT JOIN medium_format ON medium.format = medium_format.id
           WHERE track_count_matches_cdtoc(medium, ?)
           AND (medium_format.id IS NULL OR medium_format.has_discids)
-       ORDER BY name.rank DESC, musicbrainz_collate(name.name),
+       ORDER BY name.rank DESC, name.name COLLATE musicbrainz,
                 release.artist_credit";
 
     $self->query_to_list(

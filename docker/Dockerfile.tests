@@ -4,7 +4,7 @@ RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
 
-COPY docker/yarn_pubkey.txt .
+COPY docker/pgdg_pubkey.txt docker/yarn_pubkey.txt ./
 
 RUN apt-get update && \
     apt-get install \
@@ -14,9 +14,11 @@ RUN apt-get update && \
         ca-certificates \
         curl \
         gnupg && \
+    apt-key add pgdg_pubkey.txt && \
     apt-key add yarn_pubkey.txt && \
-    rm yarn_pubkey.txt && \
+    rm pgdg_pubkey.txt yarn_pubkey.txt && \
     apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys 'Yarn' && \
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     curl -sLO https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/nodejs_10.17.0-1nodesource1_amd64.deb && \
@@ -65,10 +67,9 @@ RUN apt-get update && \
         openssh-client \
         perl \
         pkg-config \
-        postgresql \
-        postgresql-10-pgtap \
-        postgresql-contrib \
-        postgresql-server-dev-10 \
+        postgresql-12 \
+        postgresql-12-pgtap \
+        postgresql-server-dev-12 \
         python2.7-dev \
         python2.7-minimal \
         rabbitmq-server \
@@ -96,18 +97,6 @@ COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
 RUN sudo -E -H -u musicbrainz carton install --deployment && \
     rm cpanfile cpanfile.snapshot
 
-COPY postgresql-musicbrainz-collate/ postgresql-musicbrainz-collate/
-RUN cd postgresql-musicbrainz-collate && \
-    make && make install && \
-    cd .. && \
-    rm -rf postgresql-musicbrainz-collate
-
-COPY postgresql-musicbrainz-unaccent/ postgresql-musicbrainz-unaccent/
-RUN cd postgresql-musicbrainz-unaccent && \
-    make && make install && \
-    cd .. && \
-    rm -rf postgresql-musicbrainz-unaccent
-
 RUN mkdir musicbrainz-server
 ENV PG_AMQP_TAG v0.4.1
 
@@ -117,10 +106,10 @@ RUN git clone --branch $PG_AMQP_TAG --depth 1 https://github.com/omniti-labs/pg_
     make install && \
     cd /home/musicbrainz
 
-ENV SOLR_VERSION 7.7.2
+ENV SOLR_VERSION 7.7.3
 ENV SOLR_HOME /opt/solr/server/solr
 
-RUN curl -sLO https://www.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
+RUN curl -sLO http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
     tar xzf solr-$SOLR_VERSION.tgz solr-$SOLR_VERSION/bin/install_solr_service.sh --strip-components=2 && \
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
     systemctl disable solr
@@ -150,7 +139,7 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/sir.git &&
     sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install -r requirements.txt; pip install git+git://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
     cd /home/musicbrainz
 
-RUN curl -sLO https://chromedriver.storage.googleapis.com/80.0.3987.16/chromedriver_linux64.zip && \
+RUN curl -sLO https://chromedriver.storage.googleapis.com/81.0.4044.138/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
     chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver_linux64.zip
@@ -164,8 +153,15 @@ RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
 
 ENV PGDATA /home/musicbrainz/pgdata
 
-RUN pg_dropcluster --stop 10 main && \
-    pg_createcluster --datadir="$PGDATA" --encoding=utf8 --locale=en_US.UTF-8 --user=postgres 10 main
+RUN mkdir -p "$PGDATA" && \
+    chown postgres:postgres "$PGDATA" && \
+    chmod 700 "$PGDATA" && \
+    sudo -u postgres /usr/lib/postgresql/12/bin/initdb \
+        --data-checksums \
+        --encoding utf8 \
+        --locale en_US.UTF8 \
+        --username postgres \
+        --pgdata "$PGDATA"
 
 COPY --chown=postgres:postgres \
     docker/musicbrainz-tests/pg_hba.conf \
