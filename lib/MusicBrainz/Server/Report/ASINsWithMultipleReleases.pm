@@ -12,7 +12,7 @@ sub query {
     "   SELECT r.id AS release_id, q.id AS url_id,
           row_number() OVER (
              ORDER BY q.count DESC, q.url,
-               musicbrainz_collate(ac.name), musicbrainz_collate(r.name)
+               ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz
           )
         FROM
             (

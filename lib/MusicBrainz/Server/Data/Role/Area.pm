@@ -11,7 +11,7 @@ sub find_by_area
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE " . join(" OR ", map { $_ . " = ?" } @$area_cols ) . "
-                 ORDER BY musicbrainz_collate(name), id";
+                 ORDER BY name COLLATE musicbrainz, id";
     $self->query_to_list_limited($query, [($area_id) x @$area_cols], $limit, $offset);
 }
 

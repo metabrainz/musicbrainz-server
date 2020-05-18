@@ -83,7 +83,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_label s ON label.id = s.label
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(label.name), label.id";
+                 ORDER BY label.name COLLATE musicbrainz, label.id";
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
@@ -99,7 +99,7 @@ sub find_by_area {
                     SELECT 1 FROM ($containment_query) ac
                      WHERE ac.descendant = area AND ac.parent = \$1
                  )
-                 ORDER BY musicbrainz_collate(label.name), label.id";
+                 ORDER BY label.name COLLATE musicbrainz, label.id";
     $self->query_to_list_limited(
         $query, [$area_id, @containment_query_args], $limit, $offset, undef,
         dollar_placeholders => 1,
@@ -114,7 +114,7 @@ sub find_by_release
                  FROM " . $self->_table . "
                      JOIN release_label ON release_label.label = label.id
                  WHERE release_label.release = ?
-                 ORDER BY musicbrainz_collate(label.name)";
+                 ORDER BY label.name COLLATE musicbrainz";
 
     $self->query_to_list_limited($query, [$release_id], $limit, $offset);
 }
@@ -123,22 +123,22 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, "name", {
         "name" => sub {
-            return "musicbrainz_collate(name)"
+            return "name COLLATE musicbrainz"
         },
         "label_code" => sub {
-            return "label_code, musicbrainz_collate(name)"
+            return "label_code, name COLLATE musicbrainz"
         },
         "area" => sub {
-            return "area, musicbrainz_collate(name)"
+            return "area, name COLLATE musicbrainz"
         },
         "begin_date" => sub {
-            return "begin_date_year, begin_date_month, begin_date_day, musicbrainz_collate(name)"
+            return "begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz"
         },
         "end_date" => sub {
-            return "end_date_year, end_date_month, end_date_day, musicbrainz_collate(name)"
+            return "end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz"
         },
         "type" => sub {
-            return "type, musicbrainz_collate(name)"
+            return "type, name COLLATE musicbrainz"
         }
     });
 

@@ -15,7 +15,7 @@ WITH duplicates AS (
 ) 
 
 SELECT event.id AS event_id, 
-       row_number() OVER ( ORDER BY musicbrainz_collate(place.name), event.begin_date_year, event.begin_date_month, event.begin_date_day )
+       row_number() OVER ( ORDER BY place.name COLLATE musicbrainz, event.begin_date_year, event.begin_date_month, event.begin_date_day )
   FROM event 
   JOIN l_event_place ON event.id = l_event_place.entity0 
   JOIN place ON place.id = l_event_place.entity1

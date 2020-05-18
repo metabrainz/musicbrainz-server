@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 sub query {
     "
         SELECT DISTINCT release.id AS release_id,
-          row_number() OVER (ORDER BY musicbrainz_collate(artist_credit.name), musicbrainz_collate(release.name))
+          row_number() OVER (ORDER BY artist_credit.name COLLATE musicbrainz, release.name COLLATE musicbrainz)
         FROM track
         JOIN medium ON medium.id = track.medium
         JOIN release ON medium.release = release.id

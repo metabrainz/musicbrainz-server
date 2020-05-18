@@ -42,7 +42,7 @@ sub load_for_editor {
     my @languages = $self->query_to_list(
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE editor = ?' .
-        ' ORDER BY fluency DESC, musicbrainz_collate(language.name)',
+        ' ORDER BY fluency DESC, language.name COLLATE musicbrainz',
         [$editor->id],
     );
 

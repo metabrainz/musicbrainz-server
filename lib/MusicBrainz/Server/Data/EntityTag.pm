@@ -34,7 +34,7 @@ sub find_tags {
                  JOIN tag ON tag.id = entity_tag.tag
                  LEFT JOIN genre ON tag.name = genre.name
                  WHERE " . $self->type . " = ?
-                 ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
+                 ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz";
 
     $self->query_to_list($query, [$entity_id]);
 }
@@ -59,7 +59,7 @@ sub find_top_tags
             JOIN tag ON tag.id = entity_tag.tag
             JOIN genre ON tag.name = genre.name
             WHERE " .  $self->type . " = ?
-            ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)
+            ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz
             LIMIT ?
         ) UNION (
             SELECT tag.name, entity_tag.count,
@@ -71,10 +71,10 @@ sub find_top_tags
                 SELECT 1 FROM genre
                 WHERE genre.name = tag.name
             )  
-            ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)
+            ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz
             LIMIT ?       
         )) top_tags
-        ORDER BY count DESC, musicbrainz_collate(name)";
+        ORDER BY count DESC, name COLLATE musicbrainz";
     $self->query_to_list($query, [$entity_id, $limit, $entity_id, $limit]);
 }
 
@@ -89,7 +89,7 @@ sub find_tags_for_entities
                  FROM " . $self->tag_table . " entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
                  WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
-                 ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
+                 ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz";
 
     $self->query_to_list($query, \@ids);
 }
@@ -108,7 +108,7 @@ sub find_user_tags_for_entities
                  JOIN tag ON tag.id = entity_tag.tag
                  WHERE editor = ?
                  AND $type IN (" . placeholders(@ids) . ")
-                 ORDER BY musicbrainz_collate(tag.name)";
+                 ORDER BY tag.name COLLATE musicbrainz";
 
     $self->query_to_list($query, [$user_id, @ids], sub {
         my ($model, $row) = @_;
@@ -137,7 +137,7 @@ sub find_genres_for_entities
                  JOIN tag ON tag.id = entity_tag.tag
                  JOIN genre ON tag.name = genre.name
                  WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
-                 ORDER BY musicbrainz_collate(tag.name)";
+                 ORDER BY tag.name COLLATE musicbrainz";
 
     my @tags = $self->query_to_list($query, \@ids);
 
@@ -162,7 +162,7 @@ sub find_user_genres_for_entities
                  JOIN genre ON tag.name = genre.name
                  WHERE editor = ?
                  AND $type IN (" . placeholders(@ids) . ")
-                 ORDER BY musicbrainz_collate(tag.name)";
+                 ORDER BY tag.name COLLATE musicbrainz";
 
     my @tags = $self->query_to_list($query, [$user_id, @ids], sub {
         my ($model, $row) = @_;
@@ -433,7 +433,7 @@ sub find_user_tags {
         JOIN tag ON tag.id = $table.tag
         LEFT JOIN genre ON genre.name = tag.name
         WHERE editor = ? AND $type = ?
-        ORDER BY musicbrainz_collate(tag.name)
+        ORDER BY tag.name COLLATE musicbrainz
     };
 
     $self->query_to_list($query, [$user_id, $entity_id], sub {
@@ -461,7 +461,7 @@ sub find_entities
                  FROM " . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
-                 ORDER BY tt.count DESC, musicbrainz_collate(name), " . $self->parent->_id_column;
+                 ORDER BY tt.count DESC, name COLLATE musicbrainz, " . $self->parent->_id_column;
     $self->query_to_list_limited($query, [$tag_id], $limit, $offset, sub {
         my ($model, $row) = @_;
 

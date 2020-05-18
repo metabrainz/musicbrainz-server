@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 sub query {
     "
 SELECT r.id AS release_id,
-  row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(r.name))
+  row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
 FROM release r
         JOIN release_status rs ON r.status = rs.id
         LEFT JOIN l_release_release lrr ON r.id = lrr.entity1

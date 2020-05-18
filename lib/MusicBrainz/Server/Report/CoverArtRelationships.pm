@@ -9,7 +9,7 @@ sub query {
     "
         SELECT
             r.id AS release_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(r.name))
+            row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
         FROM release r
             JOIN l_release_url l_ru ON r.id = l_ru.entity0
             JOIN link l ON l_ru.link = l.id

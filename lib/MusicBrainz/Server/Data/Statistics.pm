@@ -97,7 +97,7 @@ my %stats = (
                    AND open_time >= now() - '1 week'::INTERVAL
                    AND cast(privs AS bit(2)) & B'10' = B'00'
                  GROUP BY edit.editor, editor.name
-                 ORDER BY count(edit.id) DESC, musicbrainz_collate(editor.name)
+                 ORDER BY count(edit.id) DESC, editor.name COLLATE musicbrainz
                  LIMIT 25",
                 $STATUS_OPEN, $STATUS_APPLIED
             );
@@ -123,7 +123,7 @@ my %stats = (
                   WHERE status = ?
                     AND cast(editor.privs AS bit(2)) & B'10' = B'00'
                   GROUP BY edit.editor, editor.name
-                  ORDER BY COUNT(edit.id) DESC, musicbrainz_collate(editor.name)
+                  ORDER BY COUNT(edit.id) DESC, editor.name COLLATE musicbrainz
                   LIMIT 25",
                 $STATUS_APPLIED,
             );
@@ -150,7 +150,7 @@ my %stats = (
                    AND vote_time >= now() - '1 week'::INTERVAL
                    AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
                  GROUP BY vote.editor, editor.name
-                 ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
+                 ORDER BY count(vote.id) DESC, editor.name COLLATE musicbrainz
                  LIMIT 25"
             );
 
@@ -175,7 +175,7 @@ my %stats = (
                  WHERE NOT superseded AND vote != -1
                    AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
                  GROUP BY editor, editor.name
-                 ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
+                 ORDER BY count(vote.id) DESC, editor.name COLLATE musicbrainz
                  LIMIT 25"
             );
 

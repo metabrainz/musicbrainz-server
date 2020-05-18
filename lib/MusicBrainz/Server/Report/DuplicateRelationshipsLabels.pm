@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::LabelReport',
 sub query {
     "
 
-SELECT q.entity AS label_id, row_number() OVER (ORDER BY musicbrainz_collate(label.name)) FROM (
+SELECT q.entity AS label_id, row_number() OVER (ORDER BY label.name COLLATE musicbrainz) FROM (
 
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
     FROM l_artist_label lxx

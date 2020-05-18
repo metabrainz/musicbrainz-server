@@ -205,7 +205,7 @@ sub find_by_area
                      )
                 ) s, " . $self->_table . "
           WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)";
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, event.name COLLATE musicbrainz";
     $self->query_to_list_limited(
         $query, [$area_id, @containment_query_args], $limit, $offset, undef,
         dollar_placeholders => 1,
@@ -226,7 +226,7 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)';
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, event.name COLLATE musicbrainz';
 
     $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
 }
@@ -237,13 +237,13 @@ sub _order_by {
 
     my $order_by = order_by($order, "date", {
         "date" => sub {
-            return "begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)"
+            return "begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz"
         },
         "name" => sub {
-            return "musicbrainz_collate(name), begin_date_year, begin_date_month, begin_date_day, time"
+            return "name COLLATE musicbrainz, begin_date_year, begin_date_month, begin_date_day, time"
         },
         "type" => sub {
-            return "type, begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)"
+            return "type, begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz"
         },
     });
 
@@ -264,7 +264,7 @@ sub find_by_place
                      WHERE entity1 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)';
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, event.name COLLATE musicbrainz';
 
     $self->query_to_list_limited($query, [$place_id], $limit, $offset);
 }

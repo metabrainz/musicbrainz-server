@@ -10,7 +10,7 @@ sub query {
     my ($self) = @_;
     my $entity_type = $self->entity_type;
 
-    my $query = "SELECT s.text, substr(s.created::text, 0, 17) AS created, e.id AS ${entity_type}_id, row_number() OVER (order by s.created DESC, musicbrainz_collate(e.name))
+    my $query = "SELECT s.text, substr(s.created::text, 0, 17) AS created, e.id AS ${entity_type}_id, row_number() OVER (order by s.created DESC, e.name COLLATE musicbrainz)
                     FROM (
                         select *, row_number() over (partition by $entity_type order by created desc)
                         from ${entity_type}_annotation ea

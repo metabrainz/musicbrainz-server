@@ -28,18 +28,20 @@ Prerequisites
 
         perl -v
 
-3.  PostgreSQL (at least version 9.5)
+3.  PostgreSQL (at least version 12)
 
-    PostgreSQL is required, along with its development libraries. To install
-    using packages run the following, replacing 9.x with the latest version.
-    If needed, packages of all supported PostgreSQL versions for various Ubuntu
-    releases are available from the [PostgreSQL apt repository](http://www.postgresql.org/download/linux/ubuntu/).
+    PostgreSQL version 12 or higher is required, along with its development
+    libraries. To install using packages, run the following:
 
-        POSTGRES_VERSION=9.5
+        POSTGRES_VERSION=12 \
         sudo apt-get install \
             postgresql-${POSTGRES_VERSION} \
             postgresql-contrib-${POSTGRES_VERSION} \
             postgresql-server-dev-${POSTGRES_VERSION}
+
+    If needed, packages of all supported PostgreSQL versions for various Ubuntu
+    releases are available from the
+    [PostgreSQL apt repository](http://www.postgresql.org/download/linux/ubuntu/).
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube and earthdistance extensions found in the contrib
@@ -215,38 +217,7 @@ devDependencies (listed in package.json):
 Creating the database
 ---------------------
 
-1.  Install PostgreSQL Extensions
-
-    Before you start, you need to install the PostgreSQL Extensions on your
-    database server. To build the musicbrainz_unaccent extension run these
-    commands:
-
-        cd postgresql-musicbrainz-unaccent
-        make
-        sudo make install
-        cd ..
-
-    To build our collate extension you will need libicu and its development
-    headers, to install these run:
-
-        sudo apt-get install libicu-dev pkg-config
-
-    With libicu installed, you can build and install the collate extension by
-    running:
-
-        cd postgresql-musicbrainz-collate
-        make
-        sudo make install
-        cd ..
-
-    Note: if you have forgotten to clone the repository with the `--recursive` 
-    option, this won't work. In that case, you should run the following and 
-    then try again:
-
-        git submodule init
-        git submodule update
-        
-2.  Setup PostgreSQL authentication
+1.  Setup PostgreSQL authentication
 
     For normal operation, the server only needs to connect from one or two OS
     users (whoever your web server/crontabs run as), to one database (the
@@ -277,7 +248,7 @@ Creating the database
     name you configured in DBDefs.pm) yourself; the next step will do so
     (using the password from DBDefs.pm) if it does not exist yet.
 
-3.  Create the database
+2.  Create the database
 
     You have three options when it comes to the database. You can opt for a
     clean database with just the schema, a sample of database content (useful 
@@ -327,7 +298,7 @@ Creating the database
         `--tmp-dir` option.
 
     3.  Import a database sample
-        
+
         If a full dump is too large for your purposes, but you would like to have some
         real data to test with for development, you can download our database sample,
         published once a month. This can be found at the same places the full dump is

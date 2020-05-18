@@ -67,7 +67,6 @@ CREATE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
 CREATE INDEX artist_tag_raw_idx_editor ON artist_tag_raw (editor);
 
 CREATE INDEX cdtoc_raw_discid ON cdtoc_raw (discid);
-CREATE INDEX cdtoc_raw_track_offset ON cdtoc_raw (track_offset);
 CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, track_offset);
 
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
@@ -147,8 +146,6 @@ CREATE INDEX edit_url_idx ON edit_url (url);
 
 CREATE INDEX edit_note_idx_edit ON edit_note (edit);
 CREATE INDEX edit_note_idx_editor ON edit_note (editor);
-CREATE INDEX edit_note_idx_post_time ON edit_note USING BRIN (post_time);
-CREATE INDEX edit_note_idx_post_time_edit ON edit_note (post_time DESC NULLS LAST, edit DESC);
 
 CREATE INDEX edit_note_recipient_idx_recipient ON edit_note_recipient (recipient);
 
@@ -422,7 +419,6 @@ CREATE UNIQUE INDEX language_idx_iso_code_1 ON language (iso_code_1);
 CREATE UNIQUE INDEX language_idx_iso_code_3 ON language (iso_code_3);
 
 CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
-CREATE INDEX editor_collection_idx_name ON editor_collection (name);
 CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
 CREATE UNIQUE INDEX editor_collection_type_idx_gid ON editor_collection_type (gid);
@@ -446,7 +442,7 @@ CREATE UNIQUE INDEX medium_format_idx_gid ON medium_format (gid);
 CREATE UNIQUE INDEX place_idx_gid ON place (gid);
 CREATE INDEX place_idx_name ON place (name);
 CREATE INDEX place_idx_area ON place (area);
-CREATE INDEX place_idx_geo ON place USING gist (ll_to_earth(coordinates[0], coordinates[1])) WHERE coordinates IS NOT NULL;
+CREATE INDEX place_idx_geo ON place USING gist (musicbrainz.ll_to_earth(coordinates[0], coordinates[1])) WHERE coordinates IS NOT NULL;
 
 CREATE INDEX place_alias_idx_place ON place_alias (place);
 CREATE UNIQUE INDEX place_alias_idx_primary ON place_alias (place, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
@@ -510,10 +506,6 @@ CREATE INDEX release_tag_idx_tag ON release_tag (tag);
 
 CREATE INDEX release_tag_raw_idx_tag ON release_tag_raw (tag);
 CREATE INDEX release_tag_raw_idx_editor ON release_tag_raw (editor);
-
-CREATE INDEX release_raw_idx_last_modified ON release_raw (last_modified);
-CREATE INDEX release_raw_idx_lookup_count ON release_raw (lookup_count);
-CREATE INDEX release_raw_idx_modify_count ON release_raw (modify_count);
 
 CREATE INDEX release_label_idx_release ON release_label (release);
 CREATE INDEX release_label_idx_label ON release_label (label);
@@ -584,7 +576,6 @@ CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 CREATE UNIQUE INDEX track_idx_gid ON track (gid);
 
 CREATE INDEX track_idx_recording ON track (recording);
-CREATE INDEX track_idx_name ON track (name);
 CREATE INDEX track_idx_artist_credit ON track (artist_credit);
 
 CREATE INDEX track_raw_idx_release ON track_raw (release);
@@ -598,7 +589,6 @@ CREATE UNIQUE INDEX url_idx_url ON url (url);
 CREATE INDEX vote_idx_edit ON vote (edit);
 CREATE INDEX vote_idx_editor_vote_time ON vote (editor, vote_time);
 CREATE INDEX vote_idx_editor_edit ON vote (editor, edit) WHERE superseded = FALSE;
-CREATE INDEX vote_idx_vote_time ON vote USING BRIN (vote_time);
 
 CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);
@@ -625,16 +615,15 @@ CREATE UNIQUE INDEX work_type_idx_gid ON work_type (gid);
 CREATE INDEX artist_idx_lower_name ON artist (lower(name));
 CREATE INDEX label_idx_lower_name ON label (lower(name));
 
--- musicbrainz_collate indexes for unicode sorting
-CREATE INDEX release_idx_musicbrainz_collate ON release (musicbrainz_collate(name));
-CREATE INDEX release_group_idx_musicbrainz_collate ON release_group (musicbrainz_collate(name));
-CREATE INDEX artist_idx_musicbrainz_collate ON artist (musicbrainz_collate(name));
-CREATE INDEX artist_credit_idx_musicbrainz_collate ON artist_credit (musicbrainz_collate(name));
-CREATE INDEX artist_credit_name_idx_musicbrainz_collate ON artist_credit_name (musicbrainz_collate(name));
-CREATE INDEX label_idx_musicbrainz_collate ON label (musicbrainz_collate(name));
-CREATE INDEX track_idx_musicbrainz_collate ON track (musicbrainz_collate(name));
-CREATE INDEX recording_idx_musicbrainz_collate ON recording (musicbrainz_collate(name));
-CREATE INDEX work_idx_musicbrainz_collate ON work (musicbrainz_collate(name));
+-- collated name indexes for unicode sorting
+CREATE INDEX release_idx_musicbrainz_collate ON release (name COLLATE musicbrainz.musicbrainz);
+CREATE INDEX release_group_idx_musicbrainz_collate ON release_group (name COLLATE musicbrainz.musicbrainz);
+CREATE INDEX artist_idx_musicbrainz_collate ON artist (name COLLATE musicbrainz.musicbrainz);
+CREATE INDEX artist_credit_idx_musicbrainz_collate ON artist_credit (name COLLATE musicbrainz.musicbrainz);
+CREATE INDEX artist_credit_name_idx_musicbrainz_collate ON artist_credit_name (name COLLATE musicbrainz.musicbrainz);
+CREATE INDEX label_idx_musicbrainz_collate ON label (name COLLATE musicbrainz.musicbrainz);
+CREATE INDEX recording_idx_musicbrainz_collate ON recording (name COLLATE musicbrainz.musicbrainz);
+CREATE INDEX work_idx_musicbrainz_collate ON work (name COLLATE musicbrainz.musicbrainz);
 
 CREATE INDEX alternative_release_idx_release ON alternative_release (release);
 CREATE INDEX alternative_release_idx_name ON alternative_release (name);

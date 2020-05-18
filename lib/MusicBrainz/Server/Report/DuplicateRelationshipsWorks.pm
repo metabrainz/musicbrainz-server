@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::WorkReport',
 sub query {
     "
 
-SELECT q.entity AS work_id, row_number() OVER (ORDER BY musicbrainz_collate(work.name)) FROM (
+SELECT q.entity AS work_id, row_number() OVER (ORDER BY work.name COLLATE musicbrainz) FROM (
 
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
     FROM l_artist_work lxx

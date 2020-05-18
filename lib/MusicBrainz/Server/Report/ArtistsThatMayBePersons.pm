@@ -37,7 +37,7 @@ WITH groups AS (
               SELECT * from persons_entity1) AS persons
           EXCEPT
               SELECT * from groups)
-SELECT DISTINCT ON (artists.id) artists.id AS artist_id, row_number() OVER (ORDER BY musicbrainz_collate(artists.name), artists.id)
+SELECT DISTINCT ON (artists.id) artists.id AS artist_id, row_number() OVER (ORDER BY artists.name COLLATE musicbrainz, artists.id)
     FROM artists
     ";
 }

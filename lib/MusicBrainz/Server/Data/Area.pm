@@ -335,10 +335,10 @@ sub _order_by {
 
     my $order_by = order_by($order, "name", {
         "name" => sub {
-            return "musicbrainz_collate(name)"
+            return "name COLLATE musicbrainz"
         },
         "type" => sub {
-            return "type, musicbrainz_collate(name)"
+            return "type, name COLLATE musicbrainz"
         }
     });
 
