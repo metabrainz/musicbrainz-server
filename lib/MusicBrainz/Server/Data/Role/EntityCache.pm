@@ -68,7 +68,6 @@ sub _create_cache_entries {
 
     my $cache_id = $self->_cache_id;
     my $cache_prefix = $self->_type . ':';
-    my @entries;
     my @ids = keys %{$data};
 
     if (scalar(@ids) > $MAX_CACHE_ENTRIES) {
@@ -76,6 +75,23 @@ sub _create_cache_entries {
     }
 
     my $ttl = DBDefs->ENTITY_CACHE_TTL;
+
+    if (DBDefs->DB_READ_ONLY) {
+        # There's no point in acquiring advisory locks for caching if
+        # DB_READ_ONLY is set, because there should be no concurrent
+        # writes in that case. While it's possible to have some servers
+        # set in DB_READ_ONLY and others still accepting writes, that's
+        # never done intentionally, and there's not much we can do
+        # about it: READONLY connections (which are made when
+        # DB_READ_ONLY is set) typically go to a standby server
+        # different from the master. Locks are not shared between
+        # primary and standby servers.
+        return map {
+            [$cache_prefix . $_, $data->{$_}, ($ttl ? $ttl : ())]
+        } @ids;
+    }
+
+    my @entries;
     my $it = natatime 100, @ids;
     while (my @next_ids = $it->()) {
         # MBS-7241: Try to acquire deletion locks on all of the cache
