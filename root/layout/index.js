@@ -113,6 +113,19 @@ const Layout = ({$c, ...props}: Props) => (
     <body>
       <Header {...props} />
 
+      {$c.user?.is_editing_disabled ? (
+        <div className="banner editing-disabled">
+          <p>
+            {exp.l(
+              `You’re currently not allowed to edit or vote because an admin
+               has revoked your privileges. If you haven’t already been
+               contacted about why, please {uri|send us a message}.`,
+              {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
+            )}
+          </p>
+        </div>
+      ) : null}
+
       {!getRequestCookie($c.req, 'server_details_dismissed_mtime') &&
         <ServerDetailsBanner />}
 
