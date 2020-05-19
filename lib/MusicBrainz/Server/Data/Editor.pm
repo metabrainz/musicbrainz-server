@@ -304,17 +304,18 @@ sub update_profile
 sub update_privileges {
     my ($self, $editor, $values) = @_;
 
-    my $privs =   ($values->{auto_editor}      // 0) * $AUTO_EDITOR_FLAG
-                + ($values->{bot}              // 0) * $BOT_FLAG
-                + ($values->{untrusted}        // 0) * $UNTRUSTED_FLAG
-                + ($values->{link_editor}      // 0) * $RELATIONSHIP_EDITOR_FLAG
-                + ($values->{location_editor}  // 0) * $LOCATION_EDITOR_FLAG
-                + ($values->{no_nag}           // 0) * $DONT_NAG_FLAG
-                + ($values->{wiki_transcluder} // 0) * $WIKI_TRANSCLUSION_FLAG
-                + ($values->{banner_editor}    // 0) * $BANNER_EDITOR_FLAG
-                + ($values->{mbid_submitter}   // 0) * $MBID_SUBMITTER_FLAG
-                + ($values->{account_admin}    // 0) * $ACCOUNT_ADMIN_FLAG
-                + ($values->{editing_disabled} // 0) * $EDITING_DISABLED_FLAG;
+    my $privs =   ($values->{auto_editor}           // 0) * $AUTO_EDITOR_FLAG
+                + ($values->{bot}                   // 0) * $BOT_FLAG
+                + ($values->{untrusted}             // 0) * $UNTRUSTED_FLAG
+                + ($values->{link_editor}           // 0) * $RELATIONSHIP_EDITOR_FLAG
+                + ($values->{location_editor}       // 0) * $LOCATION_EDITOR_FLAG
+                + ($values->{no_nag}                // 0) * $DONT_NAG_FLAG
+                + ($values->{wiki_transcluder}      // 0) * $WIKI_TRANSCLUSION_FLAG
+                + ($values->{banner_editor}         // 0) * $BANNER_EDITOR_FLAG
+                + ($values->{mbid_submitter}        // 0) * $MBID_SUBMITTER_FLAG
+                + ($values->{account_admin}         // 0) * $ACCOUNT_ADMIN_FLAG
+                + ($values->{editing_disabled}      // 0) * $EDITING_DISABLED_FLAG
+                + ($values->{adding_notes_disabled} // 0) * $ADDING_NOTES_DISABLED_FLAG;
 
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET privs = ? WHERE id = ?', $privs, $editor->id);

@@ -174,7 +174,8 @@ sub editor_may_add_note
     my ($self, $editor) = @_;
 
     return defined $editor && $editor->email_confirmation_date &&
-        ($editor->id == $self->editor_id || !$editor->is_limited);
+        ($editor->id == $self->editor_id || !$editor->is_limited) &&
+        !$editor->is_adding_notes_disabled;
 }
 
 sub editor_may_edit {

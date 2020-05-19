@@ -54,6 +54,10 @@ has_field 'editing_disabled' => (
     type => 'Boolean',
 );
 
+has_field 'adding_notes_disabled' => (
+    type => 'Boolean',
+);
+
 1;
 
 =head1 COPYRIGHT

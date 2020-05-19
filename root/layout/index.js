@@ -113,14 +113,33 @@ const Layout = ({$c, ...props}: Props) => (
     <body>
       <Header {...props} />
 
-      {$c.user?.is_editing_disabled ? (
+      {$c.user?.is_editing_disabled || $c.user?.is_adding_notes_disabled ? (
         <div className="banner editing-disabled">
           <p>
-            {exp.l(
-              `You’re currently not allowed to edit or vote because an admin
-               has revoked your privileges. If you haven’t already been
-               contacted about why, please {uri|send us a message}.`,
-              {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
+            {$c.user?.is_editing_disabled ? (
+              $c.user?.is_adding_notes_disabled ? (
+                exp.l(
+                  `You’re currently not allowed to edit, vote or leave edit
+                   notes because an admin has revoked your privileges.
+                   If you haven’t already been contacted
+                   about why, please {uri|send us a message}.`,
+                  {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
+                )
+              ) : (
+                exp.l(
+                  `You’re currently not allowed to edit or vote because an
+                   admin has revoked your privileges. If you haven’t already
+                   been contacted about why, please {uri|send us a message}.`,
+                  {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
+                )
+              )
+            ) : (
+              exp.l(
+                `You’re currently not allowed to leave edit notes because
+                 an admin has revoked your privileges. If you haven’t already
+                 been contacted about why, please {uri|send us a message}.`,
+                {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
+              )
             )}
           </p>
         </div>

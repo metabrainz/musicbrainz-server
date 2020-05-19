@@ -104,6 +104,10 @@ sub is_editing_enabled {
     (shift->privileges & $EDITING_DISABLED_FLAG) == 0;
 }
 
+sub is_adding_notes_disabled {
+    (shift->privileges & $ADDING_NOTES_DISABLED_FLAG) > 0;
+}
+
 has 'email' => (
     is        => 'rw',
     isa       => 'Str',
@@ -312,6 +316,7 @@ around TO_JSON => sub {
         gravatar                    => $self->gravatar,
         has_confirmed_email_address => boolean_to_json($self->has_confirmed_email_address),
         is_account_admin            => boolean_to_json($self->is_account_admin),
+        is_adding_notes_disabled    => boolean_to_json($self->is_adding_notes_disabled),
         is_admin                    => boolean_to_json($self->is_admin),
         is_auto_editor              => boolean_to_json($self->is_auto_editor),
         is_banner_editor            => boolean_to_json($self->is_banner_editor),
