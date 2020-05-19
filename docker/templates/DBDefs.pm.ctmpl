@@ -91,10 +91,22 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     READONLY => {
         database    => '{{or (env "MBS_READONLY_DB_NAME") "musicbrainz_db"}}',
         schema      => 'musicbrainz',
-        username    => 'musicbrainz',
+        username    => 'musicbrainz_ro',
         host        => '{{.Address}}',
         port        => {{.Port}},
     },
+    {{- end}}
+    {{- else}}
+    {{- with service (or (env "MBS_READWRITE_DB_SERVICE") "pgbouncer-master")}}
+    {{- with index . 0}}
+    READONLY => {
+        database    => '{{or (env "MBS_READWRITE_DB_NAME") "musicbrainz_db"}}',
+        schema      => 'musicbrainz',
+        username    => 'musicbrainz_ro',
+        host        => '{{.Address}}',
+        port        => {{.Port}},
+    },
+    {{- end}}
     {{- end}}
     {{- end}}
 );
