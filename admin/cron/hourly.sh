@@ -28,4 +28,6 @@ fi
 
 ./admin/CheckElectionVotes.pl
 
+./admin/cleanup/MergeDuplicateArtistCredits --limit 100
+
 ./admin/RunExport

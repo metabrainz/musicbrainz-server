@@ -1,0 +1,216 @@
+#!/usr/bin/env perl
+
+=head1 NAME
+
+MergeDuplicateArtistCredits - Finds and merges duplicate artist credits
+
+=head1 SYNOPSIS
+
+MergeDuplicateArtistCredits [options]
+
+Options:
+
+    -l, --limit NUM         limit the number of entities updated
+    -d, --database NAME     name of database in DBDefs.pm to connect to
+    -n, --dry-run           show any changes but don't apply them
+    -h, --help              show this help
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2020 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+
+use Getopt::Long qw( GetOptions );
+use List::MoreUtils qw( natatime );
+use Pod::Usage qw( pod2usage );
+use MusicBrainz::Server::Constants qw(
+    %ENTITIES
+    entities_with
+);
+use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_info );
+
+my $limit = 100;
+my $database = 'MAINTENANCE';
+my $dry_run;
+my $help_flag;
+
+GetOptions(
+    'limit|l=i' => \$limit,
+    'database|d=s' => \$database,
+    'dry-run|n' => \$dry_run,
+    'help|h' => \$help_flag,
+);
+
+pod2usage() if $help_flag;
+pod2usage(
+    -exitval => 64, # EX_USAGE
+    -message => "$0: unrecognized arguments",
+) if @ARGV;
+
+log_info {
+    'Performing a dry run: changes reported below will not be committed ' .
+    'to the database or cache.'
+} if $dry_run;
+
+my $c = MusicBrainz::Server::Context->create_script_context(
+    database => $database,
+);
+
+$c->sql->begin;
+
+my $rows = $c->sql->select_single_column_array(q{
+    WITH ac_names AS (
+        SELECT ac.id,
+               array_agg(
+                row(acn.position,
+                    acn.artist,
+                    acn.name,
+                    acn.join_phrase)
+                ORDER BY acn.position ASC
+               ) AS names
+          FROM artist_credit ac
+          JOIN artist_credit_name acn
+            ON acn.artist_credit = ac.id
+         WHERE ac.edits_pending = 0
+         GROUP BY ac.id
+    )
+    SELECT array_agg(id ORDER BY id ASC) AS duplicates
+      FROM ac_names
+     GROUP BY names
+    HAVING count(id) > 1
+     LIMIT ?
+}, $limit);
+
+unless (@$rows) {
+    log_info { 'No mergeable artist credits found.' };
+    exit(0);
+}
+
+my @ac_entity_models = map { $c->model($_) }
+    sort { $a cmp $b }
+    entities_with('artist_credits', take => 'model');
+
+my $delete_unused_ac_name_query =
+    'DELETE FROM artist_credit_name ' .
+    'WHERE artist_credit = any($1) ' .
+    join(' ', map {
+        'AND NOT EXISTS (' .
+        'SELECT 1 FROM ' . $_->_main_table .
+        ' WHERE artist_credit = any($1)' .
+        ')'
+    } @ac_entity_models) .
+    ' RETURNING artist_credit';
+
+my @cache_entries_to_clear;
+my $updated_entity_count = 0;
+
+for my $duplicates (@$rows) {
+    my ($orig_ac, @dupe_acs) = @$duplicates;
+
+    my $id_display = join(', ', @$duplicates);
+    log_info { "Found duplicate artist credits: $id_display." };
+
+    for my $model (@ac_entity_models) {
+        my $entity_table = $model->_main_table;
+
+        my $entity_ids = $c->sql->select_single_column_array(qq{
+            UPDATE $entity_table SET artist_credit = ?
+             WHERE id IN (SELECT id FROM $entity_table
+                           WHERE artist_credit = any(?::INT[])
+                           ORDER BY id ASC
+                           LIMIT ? FOR UPDATE SKIP LOCKED)
+            RETURNING id
+        }, $orig_ac, \@dupe_acs, ($limit - $updated_entity_count));
+
+        my $entity_id_count = scalar(@$entity_ids);
+        next unless $entity_id_count > 0;
+
+        log_info {
+            "Updated $entity_id_count $entity_table " .
+            ($entity_id_count == 1 ? 'row' : 'rows') .
+            " to use artist_credit = $orig_ac:"
+        };
+        my $it = natatime 100, @$entity_ids;
+        while (my @next_ids = $it->()) {
+            log_info {
+                join(', ', @next_ids)
+            };
+        }
+
+        if ($model->can('_delete_from_cache')) {
+            push @cache_entries_to_clear, {
+                table => $model->_main_table,
+                model => $model,
+                ids => $entity_ids,
+            };
+        }
+
+        $updated_entity_count += scalar(@$entity_ids);
+        last if $updated_entity_count >= $limit;
+    }
+
+    my $deleted_ac_ids = $c->sql->select_single_column_array(
+        $delete_unused_ac_name_query,
+        \@dupe_acs,
+    );
+
+    if (@$deleted_ac_ids) {
+        $c->sql->do(
+            'DELETE FROM artist_credit WHERE id = any(?)',
+            $deleted_ac_ids,
+        );
+
+        $id_display = join(', ', @$deleted_ac_ids);
+        log_info {
+            'Deleted the following now-unused artist credits: ' .
+            $id_display
+        };
+
+        push @cache_entries_to_clear, {
+            table => 'artist_credit',
+            model => $c->model('ArtistCredit'),
+            ids => $deleted_ac_ids,
+        };
+    }
+
+    last if $updated_entity_count >= $limit;
+}
+
+for my $info (@cache_entries_to_clear) {
+    my ($table, $model, $ids) = @$info{qw(table model ids)};
+
+    unless ($dry_run) {
+        my $it = natatime 100, @$ids;
+        while (my @next_ids = $it->()) {
+            $model->_delete_from_cache(@next_ids);
+        }
+    }
+
+    my $id_count = scalar @$ids;
+    log_info {
+        "Cleared the same $id_count $table " .
+        ($id_count == 1 ? 'entity' : 'entities') .
+        ' from the cache.'
+    };
+}
+
+if ($updated_entity_count) {
+    if ($dry_run) {
+        $c->sql->rollback;
+    } else {
+        log_info { 'Committing changes.' };
+        $c->sql->commit;
+    }
+}
