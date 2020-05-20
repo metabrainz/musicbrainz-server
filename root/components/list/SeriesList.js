@@ -14,8 +14,8 @@ import {withCatalystContext} from '../../context';
 import {
   defineCheckboxColumn,
   defineNameColumn,
-  defineRemoveFromMergeColumn,
   defineTypeColumn,
+  removeFromMergeColumn,
   seriesOrderingTypeColumn,
 } from '../../utility/tableColumns';
 
@@ -51,16 +51,13 @@ const SeriesList = ({
         sortable: sortable,
         typeContext: 'series_type',
       });
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn({toMerge: series})
-        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
         nameColumn,
         typeColumn,
         seriesOrderingTypeColumn,
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && series.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [$c.user, checkboxes, mergeForm, order, series, sortable],

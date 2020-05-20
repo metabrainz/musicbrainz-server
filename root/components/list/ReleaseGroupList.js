@@ -19,10 +19,10 @@ import {
   defineCheckboxColumn,
   defineNameColumn,
   defineSeriesNumberColumn,
-  defineRemoveFromMergeColumn,
   defineTextColumn,
   defineCountColumn,
   ratingsColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type ReleaseGroupListTableProps = {
@@ -108,9 +108,6 @@ export const ReleaseGroupListTable = withCatalystContext<
         getCount: entity => entity.release_count,
         title: l('Releases'),
       });
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn({toMerge: releaseGroups})
-        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -121,7 +118,9 @@ export const ReleaseGroupListTable = withCatalystContext<
         ...(showType ? [typeColumn] : []),
         ...(showRatings ? [ratingsColumn] : []),
         releaseNumberColumn,
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && releaseGroups.length > 2
+          ? [removeFromMergeColumn]
+          : []),
       ];
     },
     [

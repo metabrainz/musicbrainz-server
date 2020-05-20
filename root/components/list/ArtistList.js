@@ -20,8 +20,8 @@ import {
   defineBeginDateColumn,
   defineEndDateColumn,
   defineInstrumentUsageColumn,
-  defineRemoveFromMergeColumn,
   ratingsColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -110,9 +110,6 @@ const ArtistList = ({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
         })
         : null;
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn({toMerge: artists})
-        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -127,7 +124,7 @@ const ArtistList = ({
         ...(endAreaColumn ? [endAreaColumn] : []),
         ...(showRatings ? [ratingsColumn] : []),
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && artists.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [
