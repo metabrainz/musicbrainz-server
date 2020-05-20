@@ -62,7 +62,7 @@ sub build_display_data
             $loaded->{Artist}->{ $self->data->{old_artist_id} },
             name => $self->data->{old_artist_name},
         )
-        : Artist->new( 
+        : Artist->new(
             id => $self->data->{old_artist_id},
             name => $self->data->{old_artist_name} );
 
