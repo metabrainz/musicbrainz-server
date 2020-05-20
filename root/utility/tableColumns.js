@@ -171,7 +171,7 @@ export function defineCheckboxColumn(
           value={original.id}
         />
       ),
-    Header: props.mergeForm ? null : <input type="checkbox" />,
+    Header: props.mergeForm ? '' : <input type="checkbox" />,
     headerProps: {className: 'checkbox-cell'},
     id: 'checkbox',
   };
@@ -418,7 +418,7 @@ export function defineRemoveFromMergeColumn(
         </a>
       ) : null;
     },
-    Header: props.toMerge.length > 2 ? '' : null,
+    Header: '',
     headerProps: {
       'aria-label': l('Remove from merge'),
       'style': {width: '1em'},
