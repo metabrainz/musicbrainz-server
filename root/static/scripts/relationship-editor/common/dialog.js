@@ -511,8 +511,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             } else if (this.source.entityType === "url") {
                 var checker = URLCleanup.validationRules[linkType.gid];
 
-                if (checker && !checker(this.source.name())) {
-                    return l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
+                if (checker) {
+                    const check = checker(this.source.name());
+                    if (!check.result) {
+                        return check.error ||
+                            l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
+                    }
                 }
             }
 
