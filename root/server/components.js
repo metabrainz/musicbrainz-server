@@ -303,6 +303,7 @@ module.exports = {
   'edit/details/historic/MergeReleases': require('../edit/details/historic/MergeReleases'),
   'edit/details/historic/MoveDiscId': require('../edit/details/historic/MoveDiscId'),
   'edit/details/historic/MoveRelease': require('../edit/details/historic/MoveRelease'),
+  'edit/details/historic/MoveReleaseToReleaseGroup': require('../edit/details/historic/MoveReleaseToReleaseGroup'),
   'edit/details/historic/RemoveDiscId': require('../edit/details/historic/RemoveDiscId'),
   'edit/details/historic/RemoveLabelAlias': require('../edit/details/historic/RemoveLabelAlias'),
   'edit/details/historic/RemovePuid': require('../edit/details/historic/RemovePuid'),
