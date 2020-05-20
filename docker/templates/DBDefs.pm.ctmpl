@@ -42,9 +42,8 @@ use MusicBrainz::Server::DatabaseConnectionFactory;
 use MusicBrainz::Server::Replication ':replication_type';
 
 MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
-    {{with $service_name := or (env "MBS_MAINTENANCE_DB_SERVICE") "postgres-master"}}
-    {{- if service $service_name}}
-    {{- with index (service $service_name) 0}}
+    {{- with service (or (env "MBS_MAINTENANCE_DB_SERVICE") "postgres-master")}}
+    {{- with index . 0}}
     MAINTENANCE => {
         database    => '{{or (env "MBS_MAINTENANCE_DB_NAME") "musicbrainz_db"}}',
         schema      => 'musicbrainz',
@@ -54,10 +53,8 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     },
     {{- end}}
     {{- end}}
-    {{- end}}
-    {{with $service_name := or (env "MBS_SYSTEM_DB_SERVICE") "postgres-master"}}
-    {{- if service $service_name}}
-    {{- with index (service $service_name) 0}}
+    {{- with service (or (env "MBS_SYSTEM_DB_SERVICE") "postgres-master")}}
+    {{- with index . 0}}
     SYSTEM => {
         database    => '{{or (env "MBS_SYSTEM_DB_NAME") "template1"}}',
         schema      => '',
@@ -67,10 +64,8 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     },
     {{- end}}
     {{- end}}
-    {{- end}}
-    {{with $service_name := or (env "MBS_TEST_DB_SERVICE") "postgres-master"}}
-    {{- if service $service_name}}
-    {{- with index (service $service_name) 0}}
+    {{- with service (or (env "MBS_TEST_DB_SERVICE") "postgres-master")}}
+    {{- with index . 0}}
     TEST => {
         database    => '{{or (env "MBS_TEST_DB_NAME") "musicbrainz_test"}}',
         schema      => 'musicbrainz',
@@ -80,10 +75,8 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     },
     {{- end}}
     {{- end}}
-    {{- end}}
-    {{with $service_name := or (env "MBS_READWRITE_DB_SERVICE") "pgbouncer-master"}}
-    {{- if service $service_name}}
-    {{- with index (service $service_name) 0}}
+    {{- with service (or (env "MBS_READWRITE_DB_SERVICE") "pgbouncer-master")}}
+    {{- with index . 0}}
     READWRITE => {
         database    => '{{or (env "MBS_READWRITE_DB_NAME") "musicbrainz_db"}}',
         schema      => 'musicbrainz',
@@ -93,14 +86,23 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     },
     {{- end}}
     {{- end}}
-    {{- end}}
-    {{with $service_name := or (env "MBS_READONLY_DB_SERVICE") "pgbouncer-slave"}}
-    {{- if service $service_name}}
-    {{- with index (service $service_name) 0}}
+    {{- with service (or (env "MBS_READONLY_DB_SERVICE") "pgbouncer-slave")}}
+    {{- with index . 0}}
     READONLY => {
         database    => '{{or (env "MBS_READONLY_DB_NAME") "musicbrainz_db"}}',
         schema      => 'musicbrainz',
-        username    => 'musicbrainz',
+        username    => 'musicbrainz_ro',
+        host        => '{{.Address}}',
+        port        => {{.Port}},
+    },
+    {{- end}}
+    {{- else}}
+    {{- with service (or (env "MBS_READWRITE_DB_SERVICE") "pgbouncer-master")}}
+    {{- with index . 0}}
+    READONLY => {
+        database    => '{{or (env "MBS_READWRITE_DB_NAME") "musicbrainz_db"}}',
+        schema      => 'musicbrainz',
+        username    => 'musicbrainz_ro',
         host        => '{{.Address}}',
         port        => {{.Port}},
     },
@@ -109,17 +111,14 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     {{- end}}
 );
 
-{{with $service_name := or (env "MBS_SMTP_SERVICE") "default.exim-relay"}}
-{{- if service $service_name}}
-{{- with index (service $service_name) 0}}
+{{- with service (or (env "MBS_SMTP_SERVICE") "default.exim-relay")}}
+{{- with index . 0}}
 sub SMTP_SERVER { '{{.Address}}:{{.Port}}' }
 {{- end}}
 {{- end}}
-{{- end}}
 
-{{with $service_name := or (env "MBS_REDIS_STORE_SERVICE") "musicbrainz-redis-store"}}
-{{- if service $service_name}}
-{{- with index (service $service_name) 0}}
+{{- with service (or (env "MBS_REDIS_STORE_SERVICE") "musicbrainz-redis-store")}}
+{{- with index . 0}}
 sub DATASTORE_REDIS_ARGS {
     return {
         namespace => 'MB:',
@@ -130,11 +129,9 @@ sub DATASTORE_REDIS_ARGS {
 }
 {{- end}}
 {{- end}}
-{{- end}}
 
-{{with $service_name := or (env "MBS_REDIS_CACHE_SERVICE") "musicbrainz-redis-cache"}}
-{{- if service $service_name}}
-{{- with index (service $service_name) 0}}
+{{- with service (or (env "MBS_REDIS_CACHE_SERVICE") "musicbrainz-redis-cache")}}
+{{- with index . 0}}
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
@@ -160,7 +157,6 @@ sub CACHE_MANAGER_OPTIONS {
     );
     return \%CACHE_MANAGER_OPTIONS
 }
-{{- end}}
 {{- end}}
 {{- end}}
 
