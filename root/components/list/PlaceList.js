@@ -19,7 +19,7 @@ import {
   defineEntityColumn,
   defineBeginDateColumn,
   defineEndDateColumn,
-  defineRemoveFromMergeColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -69,9 +69,6 @@ const PlaceList = ({
       });
       const beginDateColumn = defineBeginDateColumn({});
       const endDateColumn = defineEndDateColumn({});
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn({toMerge: places})
-        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -81,7 +78,7 @@ const PlaceList = ({
         areaColumn,
         beginDateColumn,
         endDateColumn,
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && places.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [$c.user, checkboxes, mergeForm, order, places, sortable],

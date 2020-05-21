@@ -20,12 +20,12 @@ import {
   defineCheckboxColumn,
   defineDatePeriodColumn,
   defineNameColumn,
-  defineRemoveFromMergeColumn,
   defineSeriesNumberColumn,
   defineTypeColumn,
   defineTextColumn,
   locationColumn,
   ratingsColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -106,9 +106,6 @@ const EventList = ({
         order: order,
         sortable: sortable,
       });
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn({toMerge: events})
-        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -121,7 +118,7 @@ const EventList = ({
         dateColumn,
         timeColumn,
         ...(showRatings ? [ratingsColumn] : []),
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && events.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [

@@ -18,11 +18,11 @@ import {
   defineCheckboxColumn,
   defineInstrumentUsageColumn,
   defineNameColumn,
-  defineRemoveFromMergeColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
   isrcsColumn,
   ratingsColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -90,9 +90,6 @@ const RecordingList = ({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
         })
         : null;
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn({toMerge: recordings})
-        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -103,7 +100,9 @@ const RecordingList = ({
         ...(showRatings ? [ratingsColumn] : []),
         lengthColumn,
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && recordings.length > 2
+          ? [removeFromMergeColumn]
+          : []),
       ];
     },
     [

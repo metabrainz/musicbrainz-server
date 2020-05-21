@@ -15,12 +15,12 @@ import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
   defineNameColumn,
-  defineRemoveFromMergeColumn,
   defineSeriesNumberColumn,
   defineTypeColumn,
   attributesColumn,
   iswcsColumn,
   ratingsColumn,
+  removeFromMergeColumn,
   workArtistsColumn,
   workLanguagesColumn,
 } from '../../utility/tableColumns';
@@ -69,9 +69,6 @@ const WorkList = ({
         sortable: sortable,
         typeContext: 'work_type',
       });
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn({toMerge: works})
-        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -84,7 +81,7 @@ const WorkList = ({
         workLanguagesColumn,
         attributesColumn,
         ...(showRatings ? [ratingsColumn] : []),
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && works.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [

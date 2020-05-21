@@ -20,8 +20,8 @@ import {
   defineEntityColumn,
   defineBeginDateColumn,
   defineEndDateColumn,
-  defineRemoveFromMergeColumn,
   ratingsColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -82,9 +82,6 @@ const LabelList = ({
         order: order,
         sortable: sortable,
       });
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn({toMerge: labels})
-        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -95,7 +92,7 @@ const LabelList = ({
         beginDateColumn,
         endDateColumn,
         ...(showRatings ? [ratingsColumn] : []),
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && labels.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [

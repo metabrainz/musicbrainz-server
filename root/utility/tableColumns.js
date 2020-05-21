@@ -171,7 +171,7 @@ export function defineCheckboxColumn(
           value={original.id}
         />
       ),
-    Header: props.mergeForm ? null : <input type="checkbox" />,
+    Header: props.mergeForm ? '' : <input type="checkbox" />,
     headerProps: {className: 'checkbox-cell'},
     id: 'checkbox',
   };
@@ -400,33 +400,6 @@ export function defineReleaseLabelsColumn(
   };
 }
 
-export function defineRemoveFromMergeColumn(
-  props: {
-    +toMerge: $ReadOnlyArray<CoreEntityT>,
-  },
-): ColumnOptions<ArtistT | RecordingT | ReleaseT, number> {
-  return {
-    Cell: ({row: {original}}) => {
-      const url = ENTITIES[original.entityType].url;
-      return props.toMerge.length > 2 ? (
-        <a href={`/${url}/merge?remove=${original.id}&submit=remove`}>
-          <button
-            className="remove-item icon"
-            title={l('Remove from merge')}
-            type="button"
-          />
-        </a>
-      ) : null;
-    },
-    Header: props.toMerge.length > 2 ? '' : null,
-    headerProps: {
-      'aria-label': l('Remove from merge'),
-      'style': {width: '1em'},
-    },
-    id: 'remove-from-merge',
-  };
-}
-
 export function defineSeriesNumberColumn(
   props: {
     +seriesItemNumbers: {+[entityId: number]: string},
@@ -561,6 +534,28 @@ export const ratingsColumn:
     accessor: 'rating',
     cellProps: {className: 'c'},
     headerProps: {className: 'rating c'},
+  };
+
+export const removeFromMergeColumn:
+  ColumnOptions<ArtistT | RecordingT | ReleaseT, number> = {
+    Cell: ({row: {original}}) => {
+      const url = ENTITIES[original.entityType].url;
+      return (
+        <a href={`/${url}/merge?remove=${original.id}&submit=remove`}>
+          <button
+            className="remove-item icon"
+            title={l('Remove from merge')}
+            type="button"
+          />
+        </a>
+      );
+    },
+    Header: '',
+    headerProps: {
+      'aria-label': l('Remove from merge'),
+      'style': {width: '1em'},
+    },
+    id: 'remove-from-merge',
   };
 
 export const seriesOrderingTypeColumn:

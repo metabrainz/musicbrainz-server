@@ -14,9 +14,9 @@ import {withCatalystContext} from '../../context';
 import {
   defineCheckboxColumn,
   defineNameColumn,
-  defineRemoveFromMergeColumn,
   defineTypeColumn,
   instrumentDescriptionColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -51,16 +51,15 @@ const InstrumentList = ({
         sortable: sortable,
         typeContext: 'instrument_type',
       });
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn({toMerge: instruments})
-        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
         nameColumn,
         typeColumn,
         instrumentDescriptionColumn,
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && instruments.length > 2
+          ? [removeFromMergeColumn]
+          : []),
       ];
     },
     [$c.user, checkboxes, instruments, mergeForm, order, sortable],
