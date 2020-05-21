@@ -557,7 +557,7 @@ const UserProfile = ({
         votes={votes}
       />
 
-      {$c.user && !viewingOwnProfile ? (
+      {$c.user && !viewingOwnProfile && !user.deleted ? (
         <h2 style={{clear: 'both'}}>
           <a href={`/user/${encodedName}/report`}>
             {l('Report this user for bad behavior')}
