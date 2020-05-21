@@ -4,6 +4,10 @@ use Moose;
 with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
+# MBS-10843: This report has been disabled since the upgrade to PG 12,
+# because its query can no longer execute in under 5 minutes in
+# production.
+
 sub query {
     "
     SELECT

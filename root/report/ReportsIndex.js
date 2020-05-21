@@ -449,7 +449,12 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
                 to VA`)}
           </a>
         </li>
-        <li>
+        {/*
+          * MBS-10843: This report has been disabled since the upgrade
+          * to PG 12, because its query can no longer execute in under
+          * 5 minutes in production.
+          */}
+        <li style={{display: 'none'}}>
           <a href="/report/RecordingsSameNameDifferentArtistsSameName">
             {l(`Recordings with the same name by different artists
                 with the same name`)}
