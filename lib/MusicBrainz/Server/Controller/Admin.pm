@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Admin;
 use Moose;
+use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -157,6 +158,53 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
             component_props => {form => $form},
         );
     }
+}
+
+sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c) = @_;
+
+    my $form = $c->form(form => 'Admin::EmailSearch');
+    my @results;
+
+    if ($c->form_submitted_and_valid($form)) {
+        try {
+            @results = $c->model('Editor')->search_by_email(
+                $form->field('email')->value // '',
+            );
+        } catch {
+            my $error = $_;
+            if ("$error" =~ m/invalid regular expression/) {
+                $form->field('email')->add_error(l('Invalid regular expression.'));
+                $c->response->status(400);
+            } else {
+                die $error;
+            }
+        };
+    }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/EmailSearch',
+        component_props => {
+            form => $form,
+            @results ? (results => \@results) : (),
+        },
+    );
+}
+
+sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c, $ip_hash) = @_;
+
+    my @users = $c->model('Editor')->find_by_ip($ip_hash // '');
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/IpLookup',
+        component_props => {
+            ipHash => $ip_hash,
+            users => \@users,
+        },
+    );
 }
 
 1;

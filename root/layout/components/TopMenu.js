@@ -131,9 +131,14 @@ const AdminMenu = ({user}: UserProp) => (
       ) : null}
 
       {user.is_account_admin ? (
-        <li>
-          <a href="/admin/attributes">{l('Edit Attributes')}</a>
-        </li>
+        <>
+          <li>
+            <a href="/admin/attributes">{l('Edit Attributes')}</a>
+          </li>
+          <li>
+            <a href="/admin/email-search">{l('Email Search')}</a>
+          </li>
+        </>
       ) : null}
     </ul>
   </li>

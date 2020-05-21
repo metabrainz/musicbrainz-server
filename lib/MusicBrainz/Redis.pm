@@ -61,6 +61,24 @@ sub get_multi {
     return \%result;
 }
 
+sub set_add {
+    my ($self, $key, @values) = @_;
+
+    $self->_connection->sadd(
+        $self->_prepare_key($key),
+        map { $self->_encode_value($_) } @values,
+    );
+    return;
+}
+
+sub set_members {
+    my ($self, $key) = @_;
+
+    return map {
+        $self->_decode_value($_)
+    } $self->_connection->smembers($self->_prepare_key($key));
+}
+
 sub set {
     my ($self, $key, $value, $exptime) = @_;
 

@@ -32,6 +32,8 @@ module.exports = {
   'account/sso/DiscourseRegistered': require('../account/sso/DiscourseRegistered'),
   'account/sso/DiscourseUnconfirmedEmailAddress': require('../account/sso/DiscourseUnconfirmedEmailAddress'),
   'admin/EditBanner': require('../admin/EditBanner'),
+  'admin/EmailSearch': require('../admin/EmailSearch'),
+  'admin/IpLookup': require('../admin/IpLookup'),
   'admin/attributes/Attribute': require('../admin/attributes/Attribute'),
   'admin/attributes/Index': require('../admin/attributes/Index'),
   'admin/attributes/Language': require('../admin/attributes/Language'),

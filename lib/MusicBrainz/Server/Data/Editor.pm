@@ -167,6 +167,27 @@ sub find_by_email
     return $self->_get_by_keys('email', $email);
 }
 
+sub find_by_ip {
+    my ($self, $ip) = @_;
+
+    my $query = 'SELECT ' . $self->_columns .
+        ' FROM ' . $self->_table . ' WHERE id = any(?)' .
+        ' ORDER BY member_since LIMIT 100';
+
+    my @ids = $self->store->set_members("ipusers:$ip");
+    $self->query_to_list($query, [\@ids]);
+}
+
+sub search_by_email {
+    my ($self, $email) = @_;
+
+    my $query = 'SELECT ' . $self->_columns .
+        ' FROM ' . $self->_table . ' WHERE email ~ ?' .
+        ' ORDER BY member_since LIMIT 100';
+
+    $self->query_to_list($query, [$email]);
+}
+
 sub find_by_area {
     my ($self, $area_id, $limit, $offset) = @_;
     my (
