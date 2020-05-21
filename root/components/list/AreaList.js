@@ -38,13 +38,20 @@ const AreaList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
-      const nameColumn =
-        defineNameColumn<AreaT>(l('Area'), order, sortable);
-      const typeColumn = defineTypeColumn('area_type', order, sortable);
+      const nameColumn = defineNameColumn<AreaT>({
+        order: order,
+        sortable: sortable,
+        title: l('Area'),
+      });
+      const typeColumn = defineTypeColumn({
+        order: order,
+        sortable: sortable,
+        typeContext: 'area_type',
+      });
       const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(areas)
+        ? defineRemoveFromMergeColumn({toMerge: areas})
         : null;
 
       return [

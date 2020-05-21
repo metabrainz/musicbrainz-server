@@ -54,58 +54,64 @@ const ArtistList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
-      const nameColumn = defineNameColumn<ArtistT>(
-        l('Artist'),
-        order,
-        sortable,
-      );
-      const sortNameColumn = showSortName ? defineTextColumn<ArtistT>(
-        entity => entity.sort_name,
-        'sort_name',
-        l('Sort Name'),
-      ) : null;
-      const typeColumn = defineTypeColumn('artist_type', order, sortable);
-      const genderColumn = defineTextColumn<ArtistT>(
-        entity => entity.gender
+      const nameColumn = defineNameColumn<ArtistT>({
+        order: order,
+        sortable: sortable,
+        title: l('Artist'),
+      });
+      const sortNameColumn = showSortName ? defineTextColumn<ArtistT>({
+        columnName: 'sort_name',
+        getText: entity => entity.sort_name,
+        title: l('Sort Name'),
+      }) : null;
+      const typeColumn = defineTypeColumn({
+        order: order,
+        sortable: sortable,
+        typeContext: 'artist_type',
+      });
+      const genderColumn = defineTextColumn<ArtistT>({
+        columnName: 'gender',
+        getText: entity => entity.gender
           ? lp_attributes(entity.gender.name, 'gender')
           : '',
-        'gender',
-        l('Gender'),
-        order,
-        sortable,
-      );
-      const areaColumn = defineEntityColumn<ArtistT>(
-        entity => entity.area,
-        'area',
-        l('Area'),
-      );
+        order: order,
+        sortable: sortable,
+        title: l('Gender'),
+      });
+      const areaColumn = defineEntityColumn<ArtistT>({
+        columnName: 'area',
+        getEntity: entity => entity.area,
+        title: l('Area'),
+      });
       const beginDateColumn = showBeginEnd
-        ? defineBeginDateColumn(order, sortable)
+        ? defineBeginDateColumn({order: order, sortable: sortable})
         : null;
-      const beginAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>(
-        entity => entity.begin_area,
-        'begin_area',
-        l('Begin Area'),
-        order,
-        sortable,
-      ) : null;
+      const beginAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>({
+        columnName: 'begin_area',
+        getEntity: entity => entity.begin_area,
+        order: order,
+        sortable: sortable,
+        title: l('Begin Area'),
+      }) : null;
       const endDateColumn = showBeginEnd
-        ? defineEndDateColumn(order, sortable)
+        ? defineEndDateColumn({order: order, sortable: sortable})
         : null;
-      const endAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>(
-        entity => entity.end_area,
-        'end_area',
-        l('End Area'),
-        order,
-        sortable,
-      ) : null;
+      const endAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>({
+        columnName: 'end_area',
+        getEntity: entity => entity.end_area,
+        order: order,
+        sortable: sortable,
+        title: l('End Area'),
+      }) : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
-        ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)
+        ? defineInstrumentUsageColumn({
+          instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
+        })
         : null;
       const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(artists)
+        ? defineRemoveFromMergeColumn({toMerge: artists})
         : null;
 
       return [

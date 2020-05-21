@@ -56,66 +56,69 @@ const ReleaseList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && checkboxes
-        ? defineCheckboxColumn(checkboxes)
+        ? defineCheckboxColumn({name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn(seriesItemNumbers)
+        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn =
-        defineNameColumn<ReleaseT>(
-          l('Release'),
-          order,
-          sortable,
-          false, // no descriptive linking (since ACs are in the next column)
-        );
-      const artistCreditColumn = defineArtistCreditColumn<ReleaseT>(
-        entity => entity.artistCredit,
-        'artist',
-        l('Artist'),
-        order,
-        sortable,
-      );
-      const formatColumn = defineTextColumn<ReleaseT>(
-        entity => entity.combined_format_name || l('[missing media]'),
-        'format',
-        l('Format'),
-        order,
-        sortable,
-      );
-      const tracksColumn = defineTextColumn<ReleaseT>(
-        entity => entity.combined_track_count || lp('-', 'missing data'),
-        'tracks',
-        l('Tracks'),
-        order,
-        sortable,
-      );
-      const releaseEventsColumn = defineReleaseEventsColumn(
-        order,
-        sortable,
-      );
+      const nameColumn = defineNameColumn<ReleaseT>({
+        descriptive: false, // since ACs are in the next column
+        order: order,
+        sortable: sortable,
+        title: l('Release'),
+      });
+      const artistCreditColumn = defineArtistCreditColumn<ReleaseT>({
+        columnName: 'artist',
+        getArtistCredit: entity => entity.artistCredit,
+        order: order,
+        sortable: sortable,
+        title: l('Artist'),
+      });
+      const formatColumn = defineTextColumn<ReleaseT>({
+        columnName: 'format',
+        getText:
+          entity => entity.combined_format_name || l('[missing media]'),
+        order: order,
+        sortable: sortable,
+        title: l('Format'),
+      });
+      const tracksColumn = defineTextColumn<ReleaseT>({
+        columnName: 'tracks',
+        getText:
+          entity => entity.combined_track_count || lp('-', 'missing data'),
+        order: order,
+        sortable: sortable,
+        title: l('Tracks'),
+      });
+      const releaseEventsColumn = defineReleaseEventsColumn({
+        order: order,
+        sortable: sortable,
+      });
       const labelsColumn = filterLabel
         ? null
-        : defineReleaseLabelsColumn(
-          order,
-          sortable,
-        );
-      const catnosColumn = defineReleaseCatnosColumn(
-        entity => filterLabel
+        : defineReleaseLabelsColumn({
+          order: order,
+          sortable: sortable,
+        });
+      const catnosColumn = defineReleaseCatnosColumn({
+        getLabels: entity => filterLabel
           ? filterReleaseLabels(entity.labels, filterLabel)
           : entity.labels,
-        order,
-        sortable,
-      );
-      const barcodeColumn = defineTextColumn<ReleaseT>(
-        entity => formatBarcode(entity.barcode),
-        'barcode',
-        l('Barcode'),
-        order,
-        sortable,
-        {className: 'barcode-cell'},
-      );
+        order: order,
+        sortable: sortable,
+      });
+      const barcodeColumn = defineTextColumn<ReleaseT>({
+        cellProps: {className: 'barcode-cell'},
+        columnName: 'barcode',
+        getText: entity => formatBarcode(entity.barcode),
+        order: order,
+        sortable: sortable,
+        title: l('Barcode'),
+      });
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
-        ? defineInstrumentUsageColumn(instrumentCreditsAndRelTypes)
+        ? defineInstrumentUsageColumn({
+          instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
+        })
         : null;
 
       return [

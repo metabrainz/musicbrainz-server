@@ -71,46 +71,45 @@ export const ReleaseGroupListTable = withCatalystContext<
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn(seriesItemNumbers)
+        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const yearColumn = defineTextColumn<ReleaseGroupT>(
-        entity => getFirstReleaseYear(entity),
-        'year',
-        l('Year'),
-        order,
-        sortable,
-        {className: 'c'},
-        {className: 'year c'},
-      );
-      const nameColumn =
-        defineNameColumn<ReleaseGroupT>(
-          l('Title'),
-          order,
-          sortable,
-          false, // no descriptive linking (since ACs are in the next column)
-        );
-      const artistCreditColumn = defineArtistCreditColumn<ReleaseGroupT>(
-        entity => entity.artistCredit,
-        'artist',
-        l('Artist'),
-      );
-      const typeColumn = defineTextColumn<ReleaseGroupT>(
-        entity => entity.l_type_name || '',
-        'primary-type',
-        l('Type'),
-        order,
-        sortable,
-      );
-      const releaseNumberColumn = defineCountColumn<ReleaseGroupT>(
-        entity => entity.release_count,
-        'release_count',
-        l('Releases'),
-      );
+      const yearColumn = defineTextColumn<ReleaseGroupT>({
+        cellProps: {className: 'c'},
+        columnName: 'year',
+        getText: entity => getFirstReleaseYear(entity),
+        headerProps: {className: 'year c'},
+        order: order,
+        sortable: sortable,
+        title: l('Year'),
+      });
+      const nameColumn = defineNameColumn<ReleaseGroupT>({
+        descriptive: false, // since ACs are in the next column
+        order: order,
+        sortable: sortable,
+        title: l('Title'),
+      });
+      const artistCreditColumn = defineArtistCreditColumn<ReleaseGroupT>({
+        columnName: 'artist',
+        getArtistCredit: entity => entity.artistCredit,
+        title: l('Artist'),
+      });
+      const typeColumn = defineTextColumn<ReleaseGroupT>({
+        columnName: 'primary-type',
+        getText: entity => entity.l_type_name || '',
+        order: order,
+        sortable: sortable,
+        title: l('Type'),
+      });
+      const releaseNumberColumn = defineCountColumn<ReleaseGroupT>({
+        columnName: 'release_count',
+        getCount: entity => entity.release_count,
+        title: l('Releases'),
+      });
       const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(releaseGroups)
+        ? defineRemoveFromMergeColumn({toMerge: releaseGroups})
         : null;
 
       return [

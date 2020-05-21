@@ -49,24 +49,28 @@ const WorkList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn(seriesItemNumbers)
+        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<WorkT>(
-        l('Work'),
-        order,
-        sortable,
-      );
-      const writersColumn = defineArtistRolesColumn<WorkT>(
-        entity => entity.writers,
-        'writers',
-        l('Writers'),
-      );
-      const typeColumn = defineTypeColumn('work_type', order, sortable);
+      const nameColumn = defineNameColumn<WorkT>({
+        order: order,
+        sortable: sortable,
+        title: l('Work'),
+      });
+      const writersColumn = defineArtistRolesColumn<WorkT>({
+        columnName: 'writers',
+        getRoles: entity => entity.writers,
+        title: l('Writers'),
+      });
+      const typeColumn = defineTypeColumn({
+        order: order,
+        sortable: sortable,
+        typeContext: 'work_type',
+      });
       const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(works)
+        ? defineRemoveFromMergeColumn({toMerge: works})
         : null;
 
       return [

@@ -39,13 +39,20 @@ const InstrumentList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
-      const nameColumn =
-        defineNameColumn<InstrumentT>(l('Instrument'), order, sortable);
-      const typeColumn = defineTypeColumn('instrument_type', order, sortable);
+      const nameColumn = defineNameColumn<InstrumentT>({
+        order: order,
+        sortable: sortable,
+        title: l('Instrument'),
+      });
+      const typeColumn = defineTypeColumn({
+        order: order,
+        sortable: sortable,
+        typeContext: 'instrument_type',
+      });
       const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(instruments)
+        ? defineRemoveFromMergeColumn({toMerge: instruments})
         : null;
 
       return [
