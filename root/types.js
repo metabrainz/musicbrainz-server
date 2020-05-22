@@ -408,6 +408,7 @@ declare type EditorT = $ReadOnly<{
   +gravatar: string,
   +has_confirmed_email_address: boolean,
   +is_account_admin: boolean,
+  +is_adding_notes_disabled: boolean,
   +is_admin: boolean,
   +is_auto_editor: boolean,
   +is_banner_editor: boolean,
