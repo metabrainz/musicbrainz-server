@@ -297,13 +297,20 @@ const ArtistIndex = ({
       ) : null}
 
       {hasRecordings ? (
-        <PaginatedResults pager={pager}>
-          <RecordingList
-            checkboxes="add-to-merge"
-            recordings={recordings}
-            showRatings
-          />
-        </PaginatedResults>
+        <form action="/recording/merge_queue" method="post">
+          <PaginatedResults pager={pager}>
+            <RecordingList
+              checkboxes="add-to-merge"
+              recordings={recordings}
+              showRatings
+            />
+          </PaginatedResults>
+          {$c.user ? (
+            <div className="row">
+              <FormSubmit label={l('Add selected recordings for merging')} />
+            </div>
+          ) : null}
+        </form>
       ) : null}
 
       <p>{message}</p>
