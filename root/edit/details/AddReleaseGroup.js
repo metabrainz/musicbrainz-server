@@ -14,7 +14,7 @@ import DescriptiveLink from
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit';
 
-type AddReleaseGroupProps = {
+type AddReleaseGroupEditT = {
   ...EditT,
   +display_data: {
     +artist_credit: ArtistCreditT,
@@ -26,7 +26,12 @@ type AddReleaseGroupProps = {
   },
 };
 
-const AddReleaseGroup = ({edit}: {+edit: AddReleaseGroupProps}) => {
+type Props = {
+  +allowNew?: boolean,
+  +edit: AddReleaseGroupEditT,
+};
+
+const AddReleaseGroup = ({allowNew, edit}: Props) => {
   const display = edit.display_data;
   const type = display.type;
   const secondaryType = display.secondary_types;
@@ -37,7 +42,10 @@ const AddReleaseGroup = ({edit}: {+edit: AddReleaseGroupProps}) => {
           <tr>
             <th>{addColonText(l('Release Group'))}</th>
             <td>
-              <DescriptiveLink entity={display.release_group} />
+              <DescriptiveLink
+                allowNew={allowNew}
+                entity={display.release_group}
+              />
             </td>
           </tr>
         </tbody>
