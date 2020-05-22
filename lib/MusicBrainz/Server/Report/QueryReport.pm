@@ -11,6 +11,12 @@ sub run {
     my $qualified_table = $self->qualified_table;
     my $query = $self->query;
 
+    if ($self->can('statement_timeout')) {
+        $self->sql->do(
+            'SET LOCAL statement_timeout = ?',
+            $self->statement_timeout,
+        );
+    }
     $self->sql->do("DROP TABLE IF EXISTS $qualified_table");
     $self->sql->do(
         "SELECT s.*

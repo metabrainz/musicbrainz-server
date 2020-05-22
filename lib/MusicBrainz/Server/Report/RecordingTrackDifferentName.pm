@@ -4,6 +4,8 @@ use Moose;
 with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
+sub statement_timeout { '120s' }
+
 sub query {
     "
         SELECT
