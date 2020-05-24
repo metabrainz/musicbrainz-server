@@ -223,7 +223,7 @@ const Layout = ({$c, ...props}: Props) => (
       {($c.session?.merger && !$c.stash.hide_merge_helper) &&
         <MergeHelper merger={$c.session.merger} />}
 
-      <Footer {...props} />
+      <Footer $c={$c} />
     </body>
   </html>
 );

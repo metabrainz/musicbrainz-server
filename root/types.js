@@ -221,6 +221,7 @@ declare type CatalystStashT = {
   +hide_merge_helper?: boolean,
   +invalid_csrf_token?: boolean,
   +jsonld_data?: {...},
+  +last_replication_date?: string,
   +makes_no_changes?: boolean,
   +more_tags?: boolean,
   +new_edit_notes?: boolean,
