@@ -95,6 +95,12 @@ function getResponse(requestBody, context) {
     const ReactDOMServer = require('react-dom/server');
     const {CatalystContext, SanitizedCatalystContext} = require('../context');
 
+    let props = requestBody.props;
+    if (props == null) {
+      props = {};
+    }
+    props.$c = context;
+
     response = ReactDOMServer.renderToString(
       React.createElement(
         CatalystContext.Provider,
@@ -102,7 +108,7 @@ function getResponse(requestBody, context) {
         React.createElement(
           SanitizedCatalystContext.Provider,
           {value: sanitizedContext(context)},
-          React.createElement(Page, requestBody.props),
+          React.createElement(Page, props),
         ),
       ),
     );
