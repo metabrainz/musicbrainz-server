@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL';
 
@@ -17,8 +17,16 @@ import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL';
  * looking similar to how this template looks.
  */
 
-const _404 = ({$c, ...props}) => (
-  <Layout {...props} fullWidth title={l('Page Not Found')}>
+type Props = {
+  +$c: CatalystContextT,
+  +message?: string,
+};
+
+const _404 = ({
+  $c,
+  message,
+}: Props): React.Element<typeof Layout> => (
+  <Layout fullWidth title={l('Page Not Found')}>
     <div id="content">
       <h1>{l('Page Not Found')}</h1>
       <p>
@@ -26,11 +34,12 @@ const _404 = ({$c, ...props}) => (
           {l(`Sorry, the page you're looking for does not exist.`)}
         </strong>
       </p>
-      {props.message &&
+      {message ? (
         <p>
           <strong>{l('Error message: ')}</strong>
-          <code>{props.message}</code>
-        </p>}
+          <code>{message}</code>
+        </p>
+      ) : null}
       <p>
         {exp.l(
           'Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
@@ -53,4 +62,4 @@ const _404 = ({$c, ...props}) => (
   </Layout>
 );
 
-export default withCatalystContext(_404);
+export default _404;
