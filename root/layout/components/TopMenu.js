@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import RequestLogin from '../../components/RequestLogin';
-import {withCatalystContext} from '../../context';
 import returnUri from '../../utility/returnUri';
 
 import Search from './Search';
@@ -167,7 +166,11 @@ const UserMenu = ({$c}) => (
   </ul>
 );
 
-const TopMenu = ({$c}) => (
+type Props = {
+  +$c: CatalystContextT,
+};
+
+const TopMenu = ({$c}: Props): React.Element<'div'> => (
   <div className="top">
     <div className="links-container">
       <UserMenu $c={$c} />
@@ -178,4 +181,4 @@ const TopMenu = ({$c}) => (
   </div>
 );
 
-export default withCatalystContext(TopMenu);
+export default TopMenu;

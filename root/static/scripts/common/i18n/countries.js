@@ -9,6 +9,12 @@
 
 import * as wrapGettext from './wrapGettext';
 
-export const l_countries = wrapGettext.dgettext('countries');
-export const ln_countries = wrapGettext.dngettext('countries');
-export const lp_countries = wrapGettext.dpgettext('countries');
+export const l_countries: (string) => string =
+  wrapGettext.dgettext('countries');
+
+export const ln_countries: (string, string, number) => string =
+  wrapGettext.dngettext('countries');
+
+export const lp_countries: (string, string) => string =
+  wrapGettext.dpgettext('countries');
+

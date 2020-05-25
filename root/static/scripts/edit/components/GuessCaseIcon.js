@@ -12,7 +12,7 @@ import * as React from 'react';
 
 const style = {float: 'left', margin: '1em'};
 
-const GuessCaseIcon = () => (
+const GuessCaseIcon = (): React.Element<'img'> => (
   <img
     alt=""
     src={require('../../../images/icons/guesscase.32x32.png')}

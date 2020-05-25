@@ -23,7 +23,11 @@ type Props = {
   +label: string,
 };
 
-const SidebarBeginDate = ({age, entity, label}: Props) => (
+const SidebarBeginDate = ({
+  age,
+  entity,
+  label,
+}: Props): React.MixedElement | null => (
   isDateEmpty(entity.begin_date) ? (
     null
   ) : (

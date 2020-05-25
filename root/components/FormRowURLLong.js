@@ -12,7 +12,9 @@ import * as React from 'react';
 import type {Props as FormRowTextProps} from './FormRowText';
 import FormRowTextLong from './FormRowTextLong';
 
-const FormRowURLLong = (props: FormRowTextProps) => (
+const FormRowURLLong = (
+  props: FormRowTextProps,
+): React.Element<typeof FormRowTextLong> => (
   <FormRowTextLong type="url" {...props} />
 );
 

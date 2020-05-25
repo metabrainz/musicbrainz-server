@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const SeparateDiscs = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Discs as separate releases')}>
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Discs as separate releases')}>
     <h1>{l('Discs as separate releases')}</h1>
 
     <ul>
@@ -51,7 +50,7 @@ const SeparateDiscs = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -59,4 +58,4 @@ const SeparateDiscs = ({
   </Layout>
 );
 
-export default withCatalystContext(SeparateDiscs);
+export default SeparateDiscs;

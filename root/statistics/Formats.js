@@ -11,7 +11,6 @@
 import * as React from 'react';
 
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
-import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
 import LinkSearchableProperty from '../components/LinkSearchableProperty';
 
@@ -33,8 +32,14 @@ type FormatStatT = {
   +release_stat: string,
 };
 
-const Formats = ({$c, dateCollected, formatStats, stats}: FormatsStatsT) => (
+const Formats = ({
+  $c,
+  dateCollected,
+  formatStats,
+  stats,
+}: FormatsStatsT): React.Element<typeof StatisticsLayout> => (
   <StatisticsLayout
+    $c={$c}
     fullWidth
     page="formats"
     title={l('Release/Medium Formats')}
@@ -108,4 +113,4 @@ const Formats = ({$c, dateCollected, formatStats, stats}: FormatsStatsT) => (
   </StatisticsLayout>
 );
 
-export default withCatalystContext(Formats);
+export default Formats;

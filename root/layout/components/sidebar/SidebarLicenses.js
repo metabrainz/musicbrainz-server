@@ -90,7 +90,7 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const SidebarLicenses = ({entity}: Props) => {
+const SidebarLicenses = ({entity}: Props): React.MixedElement | null => {
   const relationships = entity.relationships;
 
   if (!relationships) {

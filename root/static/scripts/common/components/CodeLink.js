@@ -15,7 +15,7 @@ type Props = {
   +code: IsrcT | IswcT,
 };
 
-const CodeLink = ({code}: Props) => {
+const CodeLink = ({code}: Props): React.MixedElement=> {
   let link = (
     <a href={entityHref(code)}>
       <bdi>

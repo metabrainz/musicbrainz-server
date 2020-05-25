@@ -14,10 +14,15 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
 import type {ReportArtistRelationshipT} from '../types';
 
+type Props = {
+  +items: $ReadOnlyArray<ReportArtistRelationshipT>,
+  +pager: PagerT,
+};
+
 const ArtistRelationshipList = ({
   items,
   pager,
-}: {items: $ReadOnlyArray<ReportArtistRelationshipT>, pager: PagerT}) => (
+}: Props): React.Element<typeof PaginatedResults> => (
   <PaginatedResults pager={pager}>
     <table className="tbl">
       <thead>

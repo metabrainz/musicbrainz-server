@@ -15,8 +15,17 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import ArtistLayout from './ArtistLayout';
 
-const ArtistRelationships = ({artist}: {artist: ArtistT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +artist: ArtistT,
+};
+
+const ArtistRelationships = ({
+  $c,
+  artist,
+}: Props): React.Element<typeof ArtistLayout> => (
   <ArtistLayout
+    $c={$c}
     entity={artist}
     page="relationships"
     title={l('Relationships')}

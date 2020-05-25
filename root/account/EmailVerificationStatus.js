@@ -15,7 +15,9 @@ type Props = {
   +message?: string,
 };
 
-const EmailVerificationStatus = ({message}: Props) => (
+const EmailVerificationStatus = ({
+  message,
+}: Props): React.Element<typeof StatusPage> => (
   <StatusPage title={l('Email Verification')}>
     <p>
       {message

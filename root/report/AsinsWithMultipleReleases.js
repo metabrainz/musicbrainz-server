@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const AsinsWithMultipleReleases = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseUrlT>) => (
-  <Layout fullWidth title={l('Amazon URLs linked to multiple releases')}>
+}: ReportDataT<ReportReleaseUrlT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Amazon URLs linked to multiple releases')}>
     <h1>{l('Amazon URLs linked to multiple releases')}</h1>
 
     <ul>
@@ -52,7 +51,7 @@ const AsinsWithMultipleReleases = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseUrlList items={items} pager={pager} />
@@ -60,4 +59,4 @@ const AsinsWithMultipleReleases = ({
   </Layout>
 );
 
-export default withCatalystContext(AsinsWithMultipleReleases);
+export default AsinsWithMultipleReleases;

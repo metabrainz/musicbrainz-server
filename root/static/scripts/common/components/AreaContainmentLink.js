@@ -19,7 +19,7 @@ type Props = {
   +area: AreaT,
 };
 
-const AreaContainmentLink = ({area}: Props) => (
+const AreaContainmentLink = ({area}: Props): Expand2ReactOutput | null => (
   area.containment
     ? commaOnlyList(area.containment.map(makeLink))
     : null

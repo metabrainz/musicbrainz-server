@@ -17,11 +17,14 @@ import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import bracketed from '../static/scripts/common/utility/bracketed';
 
 type Props = {
-  page: string,
-  release: ReleaseT,
+  +page: string,
+  +release: ReleaseT,
 };
 
-const ReleaseHeader = ({release, page}: Props) => {
+const ReleaseHeader = ({
+  release,
+  page,
+}: Props): React.Element<typeof EntityHeader> => {
   const rgLink = release.releaseGroup
     ? texp.ln(
       'see all versions of this release, {count} available',

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -21,8 +20,8 @@ const InstrumentsWithoutAnImage = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportInstrumentT>) => (
-  <Layout fullWidth title={l('Instruments without an image')}>
+}: ReportDataT<ReportInstrumentT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Instruments without an image')}>
     <h1>{l('Instruments without an image')}</h1>
 
     <ul>
@@ -41,9 +40,9 @@ const InstrumentsWithoutAnImage = ({
 
     </ul>
 
-    <InstrumentList items={items} pager={pager} />
+    <InstrumentList $c={$c} items={items} pager={pager} />
 
   </Layout>
 );
 
-export default withCatalystContext(InstrumentsWithoutAnImage);
+export default InstrumentsWithoutAnImage;

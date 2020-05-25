@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
@@ -51,8 +50,9 @@ const ReleaseGroupResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<ReleaseGroupT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<ReleaseGroupT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={
@@ -77,4 +77,4 @@ const ReleaseGroupResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(ReleaseGroupResults);
+export default ReleaseGroupResults;

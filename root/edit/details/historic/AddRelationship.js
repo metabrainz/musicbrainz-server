@@ -19,7 +19,11 @@ type AddRelationshipEditT = {
   },
 };
 
-const AddRelationship = ({edit}: {+edit: AddRelationshipEditT}) => (
+type Props = {
+  +edit: AddRelationshipEditT,
+};
+
+const AddRelationship = ({edit}: Props): React.Element<'table'> => (
   <table className="details add-relationship-historic">
     <tr>
       <th rowSpan="2">{l('Relationships:')}</th>

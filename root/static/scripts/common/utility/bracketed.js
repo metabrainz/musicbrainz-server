@@ -23,14 +23,17 @@ function _bracketed(args?: Args) {
   }
 }
 
-export default function bracketed(text: ?VarSubstArg, args?: Args) {
+export default function bracketed(
+  text: ?VarSubstArg,
+  args?: Args,
+): Expand2ReactOutput {
   if (text) {
     return expand2react(_bracketed(args), {text});
   }
   return '';
 }
 
-export function bracketedText(text: ?StrOrNum, args?: Args) {
+export function bracketedText(text: ?StrOrNum, args?: Args): string {
   if (text) {
     return expand2text(_bracketed(args), {text});
   }

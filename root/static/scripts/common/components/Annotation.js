@@ -130,7 +130,7 @@ const Annotation = ({
   );
 };
 
-export default hydrate<Props>(
+export default (hydrate<Props>(
   'div.annotation',
   Annotation,
   function (props) {
@@ -151,4 +151,4 @@ export default hydrate<Props>(
       };
     });
   },
-);
+): React.AbstractComponent<Props, void>);

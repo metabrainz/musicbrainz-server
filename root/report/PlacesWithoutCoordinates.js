@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -28,8 +27,8 @@ const PlacesWithoutCoordinates = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportPlaceRelationshipT>) => (
-  <Layout fullWidth title={l('Places without coordinates')}>
+}: ReportDataT<ReportPlaceRelationshipT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Places without coordinates')}>
     <h1>{l('Places without coordinates')}</h1>
 
     <ul>
@@ -45,7 +44,7 @@ const PlacesWithoutCoordinates = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <PaginatedResults pager={pager}>
@@ -147,4 +146,4 @@ const PlacesWithoutCoordinates = ({
   </Layout>
 );
 
-export default withCatalystContext(PlacesWithoutCoordinates);
+export default PlacesWithoutCoordinates;

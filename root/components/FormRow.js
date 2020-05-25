@@ -14,7 +14,11 @@ type Props = {
   +hasNoLabel?: boolean,
 };
 
-const FormRow = ({children, hasNoLabel, ...props}: Props) => (
+const FormRow = ({
+  children,
+  hasNoLabel,
+  ...props
+}: Props): React.Element<'div'> => (
   <div className={'row' + (hasNoLabel ? ' no-label' : '')} {...props}>
     {children}
   </div>

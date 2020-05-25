@@ -21,7 +21,7 @@ export type EditType =
   | typeof INSERT
   ;
 
-const CLASS_MAP = {
+const CLASS_MAP: {+[editType: EditType]: string} = {
   [CHANGE]: '',
   [DELETE]: 'diff-only-a',
   [EQUAL]: '',

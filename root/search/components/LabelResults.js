@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
@@ -51,8 +50,9 @@ const LabelResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<LabelT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<LabelT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={
@@ -79,4 +79,4 @@ const LabelResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(LabelResults);
+export default LabelResults;

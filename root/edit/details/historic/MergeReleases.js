@@ -25,7 +25,11 @@ type MergeReleasesEditT = {
   },
 };
 
-const MergeReleases = ({edit}: {edit: MergeReleasesEditT}) => (
+type Props = {
+  +edit: MergeReleasesEditT,
+};
+
+const MergeReleases = ({edit}: Props): React.MixedElement => (
   <>
     <table className="details merge-releases">
       <tr>

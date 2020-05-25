@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 
 import CollectionList from './CollectionList';
@@ -19,7 +18,10 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const CollectionLinks = ({$c, entity}: Props) => {
+const CollectionLinks = ({
+  $c,
+  entity,
+}: Props): React.Element<typeof CollectionList> | null => {
   const numberOfCollections = $c.stash.number_of_collections || 0;
   if (!$c.user) {
     return null;
@@ -52,4 +54,4 @@ const CollectionLinks = ({$c, entity}: Props) => {
   );
 };
 
-export default withCatalystContext(CollectionLinks);
+export default CollectionLinks;

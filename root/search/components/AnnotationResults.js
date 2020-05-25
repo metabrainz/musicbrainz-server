@@ -13,7 +13,7 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -42,13 +42,15 @@ function buildResult(result, index) {
 }
 
 const AnnotationResults = ({
+  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<AnnotationT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<AnnotationT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={

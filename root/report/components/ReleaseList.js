@@ -16,17 +16,17 @@ import type {ReportReleaseT} from '../types';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 
-type Props = {|
+type Props = {
   +items: $ReadOnlyArray<ReportReleaseT>,
   +pager: PagerT,
   +showLanguageAndScript?: boolean,
-|};
+};
 
 const ReleaseList = ({
   items,
   pager,
   showLanguageAndScript,
-}: Props) => {
+}: Props): React.Element<typeof PaginatedResults> => {
   const colSpan = showLanguageAndScript ? 3 : 2;
 
   return (

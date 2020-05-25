@@ -20,12 +20,15 @@ const makeContainmentLink = (x, i) => (
 type Props = {
   +allowNew?: boolean,
   +area: AreaT,
-  +content?: React.Node,
+  +content?: Expand2ReactOutput,
   +showDisambiguation?: boolean,
   +target?: '_blank',
 };
 
-const AreaWithContainmentLink = ({area, ...props}: Props) => {
+const AreaWithContainmentLink = ({
+  area,
+  ...props
+}: Props): Expand2ReactOutput => {
   const areaLink = <EntityLink entity={area} key={0} {...props} />;
 
   return area.containment ? commaOnlyList(

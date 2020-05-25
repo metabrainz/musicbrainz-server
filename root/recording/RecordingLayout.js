@@ -18,6 +18,7 @@ import {
 import RecordingHeader from './RecordingHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: RecordingT,
   +fullWidth?: boolean,
@@ -26,12 +27,13 @@ type Props = {
 };
 
 const RecordingLayout = ({
+  $c,
   children,
   entity: recording,
   fullWidth,
   page,
   title,
-}: Props) => {
+}: Props): React.Element<typeof Layout> => {
   const titleArgs = {
     artist: reduceArtistCredit(recording.artistCredit),
     name: recording.name,
@@ -41,13 +43,14 @@ const RecordingLayout = ({
     : texp.l('Recording “{name}” by {artist}', titleArgs);
   return (
     <Layout
+      $c={$c}
       title={title ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">
         <RecordingHeader page={page} recording={recording} />
         {children}
       </div>
-      {fullWidth ? null : <RecordingSidebar recording={recording} />}
+      {fullWidth ? null : <RecordingSidebar $c={$c} recording={recording} />}
     </Layout>
   );
 };

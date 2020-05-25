@@ -9,7 +9,7 @@
 
 import {AREA_TYPE_COUNTRY} from '../constants';
 
-function localizeAreaName(area: AreaT) {
+function localizeAreaName(area: AreaT): string {
   const areaType = area.typeID;
   if (areaType && areaType === AREA_TYPE_COUNTRY) {
     return l_countries(area.name);

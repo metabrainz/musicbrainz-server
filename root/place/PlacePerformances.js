@@ -13,8 +13,16 @@ import RelationshipsTable from '../components/RelationshipsTable';
 
 import PlaceLayout from './PlaceLayout';
 
-const PlacePerformances = ({place}: {place: PlaceT}) => (
-  <PlaceLayout entity={place} page="performances" title={l('Performances')}>
+type Props = {
+  +$c: CatalystContextT,
+  +place: PlaceT,
+};
+
+const PlacePerformances = ({
+  $c,
+  place,
+}: Props): React.Element<typeof PlaceLayout> => (
+  <PlaceLayout $c={$c} entity={place} page="performances" title={l('Performances')}>
     <RelationshipsTable
       entity={place}
       fallbackMessage={l(

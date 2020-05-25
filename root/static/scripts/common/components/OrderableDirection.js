@@ -11,7 +11,13 @@ import * as React from 'react';
 
 import {bracketedText} from '../utility/bracketed';
 
-const OrderableDirection = ({direction}: {direction: number}) => {
+type Props = {
+  +direction: number,
+};
+
+const OrderableDirection = ({
+  direction,
+}: Props): React.MixedElement => {
   let directionName;
   switch (direction) {
     case 0:

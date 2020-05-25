@@ -19,18 +19,26 @@ type MergeSeriesEditT = {
   },
 };
 
-const MergeSeries = ({edit}: {+edit: MergeSeriesEditT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +edit: MergeSeriesEditT,
+};
+
+const MergeSeries = ({
+  $c,
+  edit,
+}: Props): React.Element<'table'> => (
   <table className="details merge-series">
     <tr>
       <th>{l('Merge:')}</th>
       <td>
-        <SeriesList series={edit.display_data.old} />
+        <SeriesList $c={$c} series={edit.display_data.old} />
       </td>
     </tr>
     <tr>
       <th>{l('Into:')}</th>
       <td>
-        <SeriesList series={[edit.display_data.new]} />
+        <SeriesList $c={$c} series={[edit.display_data.new]} />
       </td>
     </tr>
   </table>

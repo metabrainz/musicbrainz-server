@@ -11,7 +11,11 @@ import * as React from 'react';
 
 import {bracketedText} from '../utility/bracketed';
 
-const AttributeList = ({entity}: {entity: WorkT}) => (
+type Props = {
+  +entity: WorkT,
+};
+
+const AttributeList = ({entity}: Props): React.Element<'ul'> | null => (
   entity.attributes ? (
     <ul>
       {entity.attributes.map(attribute => (

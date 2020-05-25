@@ -110,7 +110,7 @@ const RelationshipContent = ({
 
 export const HistoricRelationship = ({
   relationship,
-}: Props) => (
+}: Props): React.MixedElement => (
   relationship.editsPending ? (
     <span className="mp mp-rel">
       <HistoricRelationshipContent relationship={relationship} />
@@ -120,7 +120,7 @@ export const HistoricRelationship = ({
 
 const Relationship = ({
   relationship,
-}: Props) => (
+}: Props): React.MixedElement => (
   relationship.editsPending ? (
     <span className="mp mp-rel">
       <RelationshipContent relationship={relationship} />

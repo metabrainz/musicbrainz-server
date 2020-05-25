@@ -10,7 +10,6 @@
 import _ from 'lodash';
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';
 
 function languageName(language, selected) {
@@ -299,7 +298,11 @@ const DocumentationMenu = () => (
   </li>
 );
 
-const BottomMenu = ({$c}: {+$c: CatalystContextT}) => {
+type Props = {
+  +$c: CatalystContextT,
+};
+
+const BottomMenu = ({$c}: Props): React.Element<'div'> => {
   const serverLanguages = $c.stash.server_languages;
   return (
     <div className="bottom">
@@ -320,4 +323,4 @@ const BottomMenu = ({$c}: {+$c: CatalystContextT}) => {
   );
 };
 
-export default withCatalystContext(BottomMenu);
+export default BottomMenu;

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import FormSubmit from '../components/FormSubmit';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
@@ -20,8 +19,12 @@ type Props = {
   +genre: GenreT,
 };
 
-const DeleteGenre = ({$c, genre}: Props) => (
+const DeleteGenre = ({
+  $c,
+  genre,
+}: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
+    $c={$c}
     entity={genre}
     fullWidth
     page="delete"
@@ -39,4 +42,4 @@ const DeleteGenre = ({$c, genre}: Props) => (
   </GenreLayout>
 );
 
-export default withCatalystContext(DeleteGenre);
+export default DeleteGenre;

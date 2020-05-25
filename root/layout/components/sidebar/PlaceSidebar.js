@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import DescriptiveLink
@@ -35,7 +34,7 @@ type Props = {
   +place: PlaceT,
 };
 
-const PlaceSidebar = ({$c, place}: Props) => {
+const PlaceSidebar = ({$c, place}: Props): React.Element<'div'> => {
   const placeAge = age.age(place);
   const gid = encodeURIComponent(place.gid);
   const {area, coordinates} = place;
@@ -89,6 +88,7 @@ const PlaceSidebar = ({$c, place}: Props) => {
       </SidebarProperties>
 
       <SidebarTags
+        $c={$c}
         aggregatedTags={$c.stash.top_tags}
         entity={place}
         more={!!$c.stash.more_tags}
@@ -97,7 +97,7 @@ const PlaceSidebar = ({$c, place}: Props) => {
 
       <ExternalLinks empty entity={place} />
 
-      <EditLinks entity={place}>
+      <EditLinks $c={$c} entity={place}>
         <li>
           <a
             href={
@@ -110,14 +110,14 @@ const PlaceSidebar = ({$c, place}: Props) => {
 
         <li className="separator" role="separator" />
 
-        <AnnotationLinks entity={place} />
+        <AnnotationLinks $c={$c} entity={place} />
 
         <MergeLink entity={place} />
 
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks entity={place} />
+      <CollectionLinks $c={$c} entity={place} />
 
       <SidebarLicenses entity={place} />
 
@@ -126,4 +126,4 @@ const PlaceSidebar = ({$c, place}: Props) => {
   );
 };
 
-export default withCatalystContext(PlaceSidebar);
+export default PlaceSidebar;

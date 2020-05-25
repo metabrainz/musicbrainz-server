@@ -9,18 +9,23 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
-  children: React.Node,
-  title: string,
+  +children: React.Node,
+  +title: string,
 };
 
-const StatusPage = ({title, children}: Props) => (
-  <Layout fullWidth title={title}>
-    <h1>{title}</h1>
-    {children}
-  </Layout>
+const StatusPage = ({title, children}: Props): React.MixedElement => (
+  <CatalystContext.Consumer>
+    {$c => (
+      <Layout $c={$c} fullWidth title={title}>
+        <h1>{title}</h1>
+        {children}
+      </Layout>
+    )}
+  </CatalystContext.Consumer>
 );
 
 export default StatusPage;

@@ -15,7 +15,6 @@ import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import RecordingList from '../components/list/RecordingList';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -25,8 +24,13 @@ type Props = {
   +toMerge: $ReadOnlyArray<RecordingT>,
 };
 
-const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge recordings')}>
+const RecordingMerge = ({
+  $c,
+  form,
+  isrcsDiffer,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge recordings')}>
     <div id="content">
       <h1>{l('Merge recordings')}</h1>
       <p>
@@ -47,6 +51,7 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
       ) : null}
       <form action={$c.req.uri} method="post">
         <RecordingList
+          $c={$c}
           mergeForm={form}
           recordings={sortByEntityName(toMerge)}
           showExpandedArtistCredits
@@ -70,4 +75,4 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(RecordingMerge);
+export default RecordingMerge;

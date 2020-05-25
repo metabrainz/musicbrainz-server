@@ -19,18 +19,23 @@ type MergeLabelsEditT = {
   },
 };
 
-const MergeLabels = ({edit}: {+edit: MergeLabelsEditT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +edit: MergeLabelsEditT,
+};
+
+const MergeLabels = ({$c, edit}: Props): React.Element<'table'> => (
   <table className="details merge-labels">
     <tr>
       <th>{l('Merge:')}</th>
       <td>
-        <LabelList labels={edit.display_data.old} showBeginEnd />
+        <LabelList $c={$c} labels={edit.display_data.old} />
       </td>
     </tr>
     <tr>
       <th>{l('Into:')}</th>
       <td>
-        <LabelList labels={[edit.display_data.new]} showBeginEnd />
+        <LabelList $c={$c} labels={[edit.display_data.new]} />
       </td>
     </tr>
   </table>

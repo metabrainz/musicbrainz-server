@@ -45,7 +45,7 @@ export type Props =
       uncontrolled: true,
     }>;
 
-const FormRowText = (props: Props) => {
+const FormRowText = (props: Props): React.Element<typeof FormRow> => {
   const field = props.field;
   const required = props.required ?? false;
 

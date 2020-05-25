@@ -17,7 +17,7 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const AliasTable = (props: Props) => (
+const AliasTable = (props: Props): React.Element<'table'> => (
   <table className="tbl">
     <thead>
       <tr>

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import mutate from 'mutate-cow';
+import type {AbstractComponent} from "React";import mutate from 'mutate-cow';
 import React, {useState} from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context';
@@ -158,7 +158,7 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
   );
 };
 
-export default hydrate<Props>(
+export default (hydrate<Props>(
   'div.collection-edit-form',
   CollectionEditForm,
-);
+): AbstractComponent<Props, void>);

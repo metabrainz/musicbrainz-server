@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const TracksWithoutTimes = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases with unknown track times')}>
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Releases with unknown track times')}>
     <h1>{l('Releases with unknown track times')}</h1>
 
     <ul>
@@ -42,7 +41,7 @@ const TracksWithoutTimes = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -50,4 +49,4 @@ const TracksWithoutTimes = ({
   </Layout>
 );
 
-export default withCatalystContext(TracksWithoutTimes);
+export default TracksWithoutTimes;

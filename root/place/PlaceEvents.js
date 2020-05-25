@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import EventList from '../components/list/EventList';
 import PaginatedResults from '../components/PaginatedResults';
 
@@ -27,14 +26,15 @@ const PlaceEvents = ({
   events,
   pager,
   place,
-}: Props) => (
-  <PlaceLayout entity={place} page="events" title={l('Events')}>
+}: Props): React.Element<typeof PlaceLayout> => (
+  <PlaceLayout $c={$c} entity={place} page="events" title={l('Events')}>
     <h2>{l('Events')}</h2>
 
     {events.length > 0 ? (
       <form action="/event/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <EventList
+            $c={$c}
             checkboxes="add-to-merge"
             events={events}
             showArtists
@@ -60,4 +60,4 @@ const PlaceEvents = ({
   </PlaceLayout>
 );
 
-export default withCatalystContext(PlaceEvents);
+export default PlaceEvents;

@@ -74,7 +74,10 @@ type Props = {
   +oldEvents: $ReadOnlyArray<ReleaseEventT>,
 };
 
-const ReleaseEventsDiff = ({newEvents, oldEvents}: Props) => {
+const ReleaseEventsDiff = ({
+  newEvents,
+  oldEvents,
+}: Props): React.Element<'tr'> => {
   const oldEventsByCountry = keyBy(oldEvents, countryId);
   const newEventsByCountry = keyBy(newEvents, countryId);
 

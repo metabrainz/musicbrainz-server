@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import entityHref from '../../static/scripts/common/utility/entityHref';
 
@@ -35,7 +34,7 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const Aliases = ({$c, aliases, entity}: Props) => {
+const Aliases = ({$c, aliases, entity}: Props): React.MixedElement => {
   const entityType = entity.entityType;
   const allowEditing = canEdit($c, entityType);
   return (
@@ -75,4 +74,4 @@ const Aliases = ({$c, aliases, entity}: Props) => {
   );
 };
 
-export default withCatalystContext(Aliases);
+export default Aliases;

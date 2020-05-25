@@ -16,7 +16,10 @@ type Props = {
   +page: string,
 };
 
-const ArtistHeader = ({artist, page}: Props) => {
+const ArtistHeader = ({
+  artist,
+  page,
+}: Props): React.Element<typeof EntityHeader> => {
   let headerClass = 'artistheader';
   if (artist.typeName) {
     headerClass += ` ${artist.typeName.toLowerCase()}-icon`;

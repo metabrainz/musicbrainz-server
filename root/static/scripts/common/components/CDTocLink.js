@@ -17,7 +17,7 @@ type Props = {
   +subPath?: string,
 };
 
-const CDTocLink = ({cdToc, content, subPath}: Props) => (
+const CDTocLink = ({cdToc, content, subPath}: Props): React.Element<'a'> => (
   <a href={entityHref(cdToc, subPath)}>
     <bdi>
       {content}

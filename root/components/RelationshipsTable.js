@@ -35,7 +35,7 @@ const RelationshipsTable = ({
   fallbackMessage,
   heading,
   showCredits,
-}: Props) => {
+}: Props): React.MixedElement | null => {
   const appearances = generateRelationshipAppearancesList(entity);
   const relationshipTypes = Object.keys(appearances);
   if (!appearances || relationshipTypes.length === 0) {

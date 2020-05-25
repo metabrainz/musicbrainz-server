@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -25,12 +24,12 @@ const CollaborationRelationships = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportCollaborationT>) => {
+}: ReportDataT<ReportCollaborationT>): React.Element<typeof Layout> => {
   let lastID = 0;
   let currentID = 0;
 
   return (
-    <Layout fullWidth title={l('Artists with collaboration relationships')}>
+    <Layout $c={$c} fullWidth title={l('Artists with collaboration relationships')}>
       <h1>{l('Artists with collaboration relationships')}</h1>
 
       <ul>
@@ -53,7 +52,7 @@ const CollaborationRelationships = ({
                   {date: formatUserDate($c, generated)})}
         </li>
 
-        {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
       </ul>
 
       <PaginatedResults pager={pager}>
@@ -104,4 +103,4 @@ const CollaborationRelationships = ({
   );
 };
 
-export default withCatalystContext(CollaborationRelationships);
+export default CollaborationRelationships;

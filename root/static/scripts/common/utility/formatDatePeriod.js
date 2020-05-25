@@ -13,7 +13,7 @@ import formatDate from './formatDate';
 
 function formatDatePeriod<
   +T: $ReadOnly<{...DatePeriodRoleT, ...}>,
->(entity: T) {
+>(entity: T): string {
   let {begin_date: beginDate, end_date: endDate, ended} = entity;
 
   beginDate = formatDate(beginDate);

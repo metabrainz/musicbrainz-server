@@ -17,7 +17,10 @@ type Props = {
   page: string,
 };
 
-const GenreHeader = ({genre, page}: Props) => (
+const GenreHeader = ({
+  genre,
+  page,
+}: Props): React.Element<typeof EntityHeader> => (
   <EntityHeader
     entity={genre}
     headerClass="genreheader"

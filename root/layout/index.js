@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import {formatUserDateObject} from '../utility/formatUserDate';
 import getRequestCookie from '../utility/getRequestCookie';
 import {RT_SLAVE} from '../static/scripts/common/constants';
@@ -106,12 +105,26 @@ export type Props = $ReadOnly<{
   fullWidth?: boolean,
 }>;
 
-const Layout = ({$c, ...props}: Props) => (
+const Layout = ({
+  $c,
+  children,
+  fullWidth,
+  homepage,
+  noIcons,
+  pager,
+  title,
+}: Props): React.Element<'html'> => (
   <html lang={$c.stash.current_language_html}>
-    <Head {...props} />
+    <Head
+      $c={$c}
+      homepage={homepage}
+      noIcons={noIcons}
+      pager={pager}
+      title={title}
+    />
 
     <body>
-      <Header {...props} />
+      <Header $c={$c} />
 
       {$c.user?.is_editing_disabled || $c.user?.is_adding_notes_disabled ? (
         <div className="banner editing-disabled">
@@ -212,20 +225,20 @@ const Layout = ({$c, ...props}: Props) => (
         </div>}
 
       <div
-        className={(props.fullWidth ? 'fullwidth ' : '') +
-          (props.homepage ? 'homepage' : '')}
+        className={(fullWidth ? 'fullwidth ' : '') +
+          (homepage ? 'homepage' : '')}
         id="page"
       >
-        {props.children}
+        {children}
         <div style={{clear: 'both'}} />
       </div>
 
       {($c.session?.merger && !$c.stash.hide_merge_helper) &&
-        <MergeHelper merger={$c.session.merger} />}
+        <MergeHelper $c={$c} merger={$c.session.merger} />}
 
       <Footer $c={$c} />
     </body>
   </html>
 );
 
-export default withCatalystContext(Layout);
+export default Layout;

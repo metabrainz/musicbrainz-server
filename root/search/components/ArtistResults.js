@@ -9,20 +9,23 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import ArtistListEntry
   from '../../static/scripts/common/components/ArtistListEntry';
-import type {InlineResultsPropsT, ResultsPropsWithContextT} from '../types';
+import type {
+  InlineResultsPropsWithContextT,
+  ResultsPropsWithContextT,
+} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult($c, result, index) {
   const artist = result.entity;
   const score = result.score;
 
   return (
     <ArtistListEntry
+      $c={$c}
       artist={artist}
       index={index}
       key={artist.id}
@@ -34,12 +37,14 @@ function buildResult(result, index) {
 }
 
 export const ArtistResultsInline = ({
+  $c,
   pager,
   query,
   results,
-}: InlineResultsPropsT<ArtistT>) => (
+}: InlineResultsPropsWithContextT<ArtistT>):
+React.Element<typeof PaginatedSearchResults> => (
   <PaginatedSearchResults
-    buildResult={buildResult}
+    buildResult={(result, index) => buildResult($c, result, index)}
     columns={
       <>
         <th>{l('Name')}</th>
@@ -66,9 +71,11 @@ const ArtistResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<ArtistT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<ArtistT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <ArtistResultsInline
+      $c={$c}
       pager={pager}
       query={query}
       results={results}
@@ -83,4 +90,4 @@ const ArtistResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(ArtistResults);
+export default ArtistResults;

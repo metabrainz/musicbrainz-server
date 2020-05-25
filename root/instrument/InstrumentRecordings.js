@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import RecordingList from '../components/list/RecordingList';
 import PaginatedResults from '../components/PaginatedResults';
 
@@ -29,8 +28,9 @@ const InstrumentRecordings = ({
   instrumentCreditsAndRelTypes,
   pager,
   recordings,
-}: Props) => (
+}: Props): React.Element<typeof InstrumentLayout> => (
   <InstrumentLayout
+    $c={$c}
     entity={instrument}
     page="recordings"
     title={l('Recordings')}
@@ -41,6 +41,7 @@ const InstrumentRecordings = ({
       <form action="/recording/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <RecordingList
+            $c={$c}
             checkboxes="add-to-merge"
             instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
             recordings={recordings}
@@ -66,4 +67,4 @@ const InstrumentRecordings = ({
   </InstrumentLayout>
 );
 
-export default withCatalystContext(InstrumentRecordings);
+export default InstrumentRecordings;

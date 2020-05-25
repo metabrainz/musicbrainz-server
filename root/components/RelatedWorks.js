@@ -27,7 +27,7 @@ type Props = {
   +workIds: $ReadOnlyArray<number>,
 };
 
-const RelatedWorks = ({workIds}: Props) => {
+const RelatedWorks = ({workIds}: Props): React.MixedElement => {
   const createArgs = [
     React.Fragment,
     null,

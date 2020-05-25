@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import Table from '../Table';
-import {withCatalystContext} from '../../context';
 import formatLabelCode from '../../utility/formatLabelCode';
 import {
   defineCheckboxColumn,
@@ -42,7 +41,7 @@ const LabelList = ({
   order,
   showRatings,
   sortable,
-}: Props) => {
+}: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -109,4 +108,4 @@ const LabelList = ({
   return <Table columns={columns} data={labels} />;
 };
 
-export default withCatalystContext(LabelList);
+export default LabelList;

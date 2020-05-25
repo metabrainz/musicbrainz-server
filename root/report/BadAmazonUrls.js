@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -28,8 +27,8 @@ const BadAmazonUrls = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseUrlT>) => (
-  <Layout fullWidth title={l('Bad Amazon URLs')}>
+}: ReportDataT<ReportReleaseUrlT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Bad Amazon URLs')}>
     <h1>{l('Bad Amazon URLs')}</h1>
 
     <ul>
@@ -48,7 +47,7 @@ const BadAmazonUrls = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <PaginatedResults pager={pager}>
@@ -93,4 +92,4 @@ const BadAmazonUrls = ({
   </Layout>
 );
 
-export default withCatalystContext(BadAmazonUrls);
+export default BadAmazonUrls;

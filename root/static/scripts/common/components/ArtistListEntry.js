@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../../context';
 import InstrumentRelTypes
   from '../../../../components/InstrumentRelTypes';
 import RemoveFromMergeTableCell
@@ -39,6 +38,7 @@ type ArtistListRowProps = {
 
 type ArtistListEntryProps = {
   ...InstrumentCreditsAndRelTypesRoleT,
+  +$c: CatalystContextT,
   +artist: ArtistT,
   +artistList?: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
@@ -51,7 +51,7 @@ type ArtistListEntryProps = {
   +showSortName?: boolean,
 };
 
-const ArtistListRow = withCatalystContext(({
+const ArtistListRow = ({
   $c,
   artist,
   artistList,
@@ -131,9 +131,10 @@ const ArtistListRow = withCatalystContext(({
       />
     ) : null}
   </>
-));
+);
 
 const ArtistListEntry = ({
+  $c,
   artist,
   artistList,
   checkboxes,
@@ -145,9 +146,10 @@ const ArtistListEntry = ({
   showInstrumentCreditsAndRelTypes,
   showRatings,
   showSortName,
-}: ArtistListEntryProps) => (
+}: ArtistListEntryProps): React.Element<'tr'> => (
   <tr className={loopParity(index)} data-score={score || null}>
     <ArtistListRow
+      $c={$c}
       artist={artist}
       artistList={artistList}
       checkboxes={checkboxes}

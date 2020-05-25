@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -26,8 +25,9 @@ const ReleaseRgDifferentName = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseReleaseGroupT>) => (
+}: ReportDataT<ReportReleaseReleaseGroupT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Releases with a different name than their release group')}
   >
@@ -48,7 +48,7 @@ const ReleaseRgDifferentName = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <PaginatedResults pager={pager}>
@@ -89,4 +89,4 @@ const ReleaseRgDifferentName = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleaseRgDifferentName);
+export default ReleaseRgDifferentName;

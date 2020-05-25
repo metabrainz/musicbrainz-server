@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-const WarningIcon = () => (
+const WarningIcon = (): React.Element<'img'> => (
   <img
     alt={l('Warning')}
     className="warning"

@@ -20,7 +20,7 @@ const Warning = ({
   className,
   message,
   ...divProps
-}: Props) => (
+}: Props): React.Element<'div'> => (
   <div
     className={'warning' + (className ? ' ' + className : '')}
     {...divProps}

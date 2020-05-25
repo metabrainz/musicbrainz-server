@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
@@ -48,8 +47,9 @@ const AreaResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<AreaT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<AreaT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={
@@ -75,4 +75,4 @@ const AreaResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(AreaResults);
+export default AreaResults;

@@ -21,7 +21,7 @@ type Props = {
     | ReleaseT,
 };
 
-const RemoveLink = ({entity}: Props) => (
+const RemoveLink = ({entity}: Props): React.Element<'li'> => (
   <li>
     <a href={entityHref(entity, 'delete')}>
       {l('Remove')}

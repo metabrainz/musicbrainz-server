@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import {RecordingResultsInline} from '../search/components/RecordingResults';
 
 import TagLookupResults from './Results';
@@ -17,7 +16,7 @@ import type {TagLookupResultsPropsT} from './types';
 
 const TagLookupRecordingResults = (
   props: TagLookupResultsPropsT<RecordingT>,
-) => (
+): React.Element<typeof TagLookupResults> => (
   <TagLookupResults {...props}>
     <RecordingResultsInline
       $c={props.$c}
@@ -28,4 +27,4 @@ const TagLookupRecordingResults = (
   </TagLookupResults>
 );
 
-export default withCatalystContext(TagLookupRecordingResults);
+export default TagLookupRecordingResults;

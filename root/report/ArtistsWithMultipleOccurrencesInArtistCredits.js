@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -26,8 +25,9 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>) => (
+}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Artists occurring multiple times in the same artist credit')}
   >
@@ -47,7 +47,7 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <PaginatedResults pager={pager}>
@@ -85,6 +85,4 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
   </Layout>
 );
 
-export default withCatalystContext(
-  ArtistsWithMultipleOccurrencesInArtistCredits,
-);
+export default ArtistsWithMultipleOccurrencesInArtistCredits;

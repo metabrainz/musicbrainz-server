@@ -9,6 +9,11 @@
 
 import * as wrapGettext from './wrapGettext';
 
-export const l_instruments = wrapGettext.dgettext('instruments');
-export const ln_instruments = wrapGettext.dngettext('instruments');
-export const lp_instruments = wrapGettext.dpgettext('instruments');
+export const l_instruments: (string) => string =
+  wrapGettext.dgettext('instruments');
+
+export const ln_instruments: (string, string, number) => string =
+  wrapGettext.dngettext('instruments');
+
+export const lp_instruments: (string, string) => string =
+  wrapGettext.dpgettext('instruments');

@@ -9,17 +9,22 @@
 
 import * as wrapGettext from './i18n/wrapGettext';
 
-export const l = wrapGettext.dgettext('mb_server');
-export const ln = wrapGettext.dngettext('mb_server');
-export const lp = wrapGettext.dpgettext('mb_server');
+export const l: (string) => string =
+  wrapGettext.dgettext('mb_server');
 
-export const N_l = (key: string) => (
+export const ln: (string, string, number) => string =
+  wrapGettext.dngettext('mb_server');
+
+export const lp: (string, string) => string =
+  wrapGettext.dpgettext('mb_server');
+
+export const N_l = (key: string): (() => string) => (
   () => l(key)
 );
-export const N_ln = (skey: string, pkey: string) => (
+export const N_ln = (skey: string, pkey: string): ((number) => string) => (
   (val: number) => ln(skey, pkey, val)
 );
-export const N_lp = (key: string, context: string) => (
+export const N_lp = (key: string, context: string): (() => string) => (
   () => lp(key, context)
 );
 
@@ -39,7 +44,7 @@ if (typeof document !== 'undefined') {
 
 const collatorOptions = {numeric: true};
 
-let compare;
+let compare: ((a: string, b: string) => number);
 if (typeof Intl === 'undefined') {
   compare = function (a: string, b: string) {
     return a.localeCompare(b, documentLang, collatorOptions);

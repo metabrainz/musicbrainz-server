@@ -23,7 +23,11 @@ type ChangeReleaseArtistT = {
   },
 };
 
-const ChangeReleaseArtist = ({edit}: {+edit: ChangeReleaseArtistT}) => (
+type Props = {
+  +edit: ChangeReleaseArtistT,
+};
+
+const ChangeReleaseArtist = ({edit}: Props): React.Element<'table'> => (
   <table className="details edit-release">
     <HistoricReleaseList
       colSpan="2"

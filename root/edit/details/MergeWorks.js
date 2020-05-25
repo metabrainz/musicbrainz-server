@@ -19,18 +19,23 @@ type MergeWorksEditT = {
   },
 };
 
-const MergeWorks = ({edit}: {+edit: MergeWorksEditT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +edit: MergeWorksEditT,
+};
+
+const MergeWorks = ({$c, edit}: Props): React.Element<'table'> => (
   <table className="details merge-works">
     <tr>
       <th>{l('Merge:')}</th>
       <td>
-        <WorkList works={edit.display_data.old} />
+        <WorkList $c={$c} works={edit.display_data.old} />
       </td>
     </tr>
     <tr>
       <th>{l('Into:')}</th>
       <td>
-        <WorkList works={[edit.display_data.new]} />
+        <WorkList $c={$c} works={[edit.display_data.new]} />
       </td>
     </tr>
   </table>

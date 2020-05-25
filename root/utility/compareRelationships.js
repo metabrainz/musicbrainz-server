@@ -14,7 +14,7 @@ import compareDates from '../static/scripts/common/utility/compareDates';
 export default function compareRelationships(
   a: RelationshipT,
   b: RelationshipT,
-) {
+): number {
   return (
     (a.linkOrder - b.linkOrder) ||
     compareDates(a.begin_date, b.begin_date) ||

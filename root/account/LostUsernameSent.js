@@ -12,7 +12,7 @@ import * as React from 'react';
 import {CONTACT_URL} from '../constants';
 import StatusPage from '../components/StatusPage';
 
-const LostUsernameSent = () => (
+const LostUsernameSent = (): React.Element<typeof StatusPage> => (
   <StatusPage title={hyphenateTitle(l('Lost Username'), l('Email Sent!'))}>
     <p>
       {exp.l(

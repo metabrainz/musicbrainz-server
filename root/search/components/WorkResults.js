@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import WorkListEntry
   from '../../static/scripts/common/components/WorkListEntry';
 import type {ResultsPropsWithContextT} from '../types';
@@ -17,12 +16,13 @@ import type {ResultsPropsWithContextT} from '../types';
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult($c, result, index) {
   const work = result.entity;
   const score = result.score;
 
   return (
     <WorkListEntry
+      $c={$c}
       index={index}
       key={work.id}
       score={score}
@@ -39,10 +39,11 @@ const WorkResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<WorkT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<WorkT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
-      buildResult={buildResult}
+      buildResult={(result, index) => buildResult($c, result, index)}
       columns={
         <>
           <th>{l('Name')}</th>
@@ -67,4 +68,4 @@ const WorkResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(WorkResults);
+export default WorkResults;

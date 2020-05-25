@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../../context';
+import {CatalystContext} from '../../../../context';
 
 function buildTaggerLink(entity, tport: number): string {
   const gid = entity.gid;
@@ -24,27 +24,24 @@ function buildTaggerLink(entity, tport: number): string {
 }
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: RecordingT | ReleaseT,
 };
 
-const TaggerIcon = ({$c, entity}: Props) => {
-  const tport = $c.session ? $c.session.tport : null;
-  if (!tport) {
-    return null;
-  }
-  return (
-    <a
-      className="tagger-icon"
-      href={buildTaggerLink(entity, tport)}
-      title={l('Open in tagger')}
-    >
-      <img
-        alt={l('Tagger')}
-        src={require('../../../images/icons/mblookup-tagger.png')}
-      />
-    </a>
-  );
-};
+const TaggerIcon = ({entity}: Props): React.MixedElement => (
+  <CatalystContext.Consumer>
+    {$c => $c.session?.tport ? (
+      <a
+        className="tagger-icon"
+        href={buildTaggerLink(entity, $c.session.tport)}
+        title={l('Open in tagger')}
+      >
+        <img
+          alt={l('Tagger')}
+          src={require('../../../images/icons/mblookup-tagger.png')}
+        />
+      </a>
+    ) : null}
+  </CatalystContext.Consumer>
+);
 
-export default withCatalystContext(TaggerIcon);
+export default TaggerIcon;

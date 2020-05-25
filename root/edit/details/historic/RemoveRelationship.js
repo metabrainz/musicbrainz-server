@@ -19,7 +19,11 @@ type RemoveRelationshipEditT = {
   },
 };
 
-const RemoveRelationship = ({edit}: {+edit: RemoveRelationshipEditT}) => (
+type Props = {
+  +edit: RemoveRelationshipEditT,
+};
+
+const RemoveRelationship = ({edit}: Props): React.Element<'table'> => (
   <table className="details remove-relationship-historic">
     <tr>
       {edit.display_data.relationships.length ? (

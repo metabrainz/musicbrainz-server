@@ -11,8 +11,6 @@ import commaList, {commaListText} from '../../common/i18n/commaList';
 import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
 import expand2react from '../../common/i18n/expand2react';
 import expand2text from '../../common/i18n/expand2text';
-import localizeLinkAttributeTypeName
-  from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
 import {compareStrings} from '../../common/utility/compare';
@@ -87,7 +85,7 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
     this.usedPhraseAttributes = [];
   }
 
-  get(name): T | string {
+  get(name: string): T | string {
     if (name === 'entity0') {
       return this.entity0;
     }
@@ -106,7 +104,7 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
     return this.i18n.displayLinkAttribute(attributes);
   }
 
-  has(name) {
+  has(name: string): boolean {
     this.usedPhraseAttributes.push(name);
     return true;
   }
@@ -179,7 +177,7 @@ function _setAttributeValues<T>(
   }
 }
 
-export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT) {
+export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
   const aType = linkedEntities.link_attribute_type[a.typeID];
   const bType = linkedEntities.link_attribute_type[b.typeID];
   const aRootType = linkedEntities.link_attribute_type[aType.root_id];
@@ -345,7 +343,7 @@ export const getPhraseAndExtraAttributesText = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-) => getPhraseAndExtraAttributes<string, StrOrNum>(
+): [string, Array<LinkAttrT>] => getPhraseAndExtraAttributes<string, StrOrNum>(
   textI18n,
   relationship,
   phraseProp,
@@ -358,7 +356,7 @@ export const interpolate = (
   forGrouping?: boolean = false,
   entity0?: React$MixedElement,
   entity1?: React$MixedElement,
-) => getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+): Expand2ReactOutput | string => getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
   reactI18n,
   relationship,
   phraseProp,
@@ -371,7 +369,7 @@ export const interpolateText = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-) => getPhraseAndExtraAttributesText(
+): string => getPhraseAndExtraAttributesText(
   relationship,
   phraseProp,
   forGrouping,
@@ -381,14 +379,14 @@ export const getExtraAttributes = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-) => getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+): Array<LinkAttrT> => getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
   reactI18n,
   relationship,
   phraseProp,
   forGrouping,
 )[1];
 
-export const stripAttributes = (linkType: LinkTypeT, phrase: string) => {
+export const stripAttributes = (linkType: LinkTypeT, phrase: string): string => {
   return clean(textI18n.expand(phrase, new PhraseVarArgs(
     _getRequiredAttributes(linkType, null),
     textI18n,

@@ -17,7 +17,10 @@ type Props = {
   url: UrlT,
 };
 
-const UrlHeader = ({url, page}: Props) => (
+const UrlHeader = ({
+  url,
+  page,
+}: Props): React.Element<typeof EntityHeader> => (
   <EntityHeader
     entity={url}
     headerClass="urlheader"

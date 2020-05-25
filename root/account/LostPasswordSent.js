@@ -12,7 +12,7 @@ import * as React from 'react';
 import {CONTACT_URL} from '../constants';
 import StatusPage from '../components/StatusPage';
 
-const LostPasswordSent = () => (
+const LostPasswordSent = (): React.Element<typeof StatusPage> => (
   <StatusPage title={hyphenateTitle(l('Lost Password'), l('Email Sent!'))}>
     <p>
       {exp.l(

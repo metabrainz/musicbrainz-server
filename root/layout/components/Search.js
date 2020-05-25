@@ -77,7 +77,7 @@ const SearchOptions = () => (
   </select>
 );
 
-const Search = () => (
+const Search = (): React.Element<'form'> => (
   <form action="/search" method="get">
     <input
       id="headerid-query"

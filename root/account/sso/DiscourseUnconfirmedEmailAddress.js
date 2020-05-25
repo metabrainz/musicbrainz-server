@@ -11,8 +11,14 @@ import * as React from 'react';
 
 import Layout from '../../layout';
 
-const DiscourseUnconfirmedEmailAddress = () => (
-  <Layout fullWidth title={l('Unverified Email Address')}>
+type Props = {
+  +$c: CatalystContextT,
+};
+
+const DiscourseUnconfirmedEmailAddress = ({
+  $c,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Unverified Email Address')}>
     <h2>{l('Unverified Email Address')}</h2>
     <p>
       {exp.l(

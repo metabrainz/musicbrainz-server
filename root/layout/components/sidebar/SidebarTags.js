@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import {SidebarTagEditor}
   from '../../../static/scripts/common/components/TagEditor';
@@ -52,7 +51,7 @@ const SidebarTags = ({
   entity,
   more,
   userTags,
-}: SidebarTagsProps) => (
+}: SidebarTagsProps): React.Element<typeof React.Fragment> | null => (
   $c.action.name === 'tags' ? null : (
     <>
       {($c.user && aggregatedTags && userTags) ? (
@@ -99,4 +98,4 @@ const SidebarTags = ({
   )
 );
 
-export default withCatalystContext(SidebarTags);
+export default SidebarTags;

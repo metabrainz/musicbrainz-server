@@ -27,6 +27,7 @@ import loopParity from '../utility/loopParity';
 import RecordingLayout from './RecordingLayout';
 
 type Props = {
+  +$c: CatalystContextT,
   +numberOfRevisions: number,
   +pager: PagerT,
   +recording: RecordingT,
@@ -132,16 +133,16 @@ const RecordingAppearancesTable = ({
       })}
     </tbody>
   </table>
-
 );
 
 const RecordingIndex = ({
+  $c,
   numberOfRevisions,
   pager,
   recording,
   tracks,
-}: Props) => (
-  <RecordingLayout entity={recording} page="index">
+}: Props): React.Element<typeof RecordingLayout> => (
+  <RecordingLayout $c={$c} entity={recording} page="index">
     <Annotation
       annotation={recording.latest_annotation}
       collapse

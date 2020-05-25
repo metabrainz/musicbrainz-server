@@ -39,6 +39,14 @@ const layoutPicker = {
   work: WorkLayout,
 };
 
-export default function chooseLayoutComponent(typeName: string) {
+export default function chooseLayoutComponent(
+  typeName: string,
+): React$ComponentType<{
+  +$c: CatalystContextT,
+  +children: React$Node,
+  +entity: CoreEntityT | EditorT | CollectionT,
+  +page: string,
+  +title: string,
+}> {
   return layoutPicker[typeName];
 }

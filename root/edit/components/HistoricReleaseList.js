@@ -24,7 +24,7 @@ const HistoricReleaseList = ({
   colSpan,
   label,
   releases,
-}: Props) => (
+}: Props): React.Element<'tr'> => (
   <tr>
     <th>{label || l('Releases:')}</th>
     <td colSpan={colSpan}>

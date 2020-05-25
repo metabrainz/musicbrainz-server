@@ -16,7 +16,8 @@ import FullChangeDiff from
 import yesNo from '../../static/scripts/common/utility/yesNo';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 
-type EditEventProps = {
+type EditEventEditT = {
+  ...EditT,
   +display_data: {
     +begin_date?: CompT<PartialDateT | null>,
     +cancelled?: CompT<boolean>,
@@ -30,7 +31,11 @@ type EditEventProps = {
   },
 };
 
-const EditEvent = ({edit}: {+edit: EditEventProps}) => {
+type Props = {
+  +edit: EditEventEditT,
+};
+
+const EditEvent = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;

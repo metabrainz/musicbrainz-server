@@ -11,7 +11,15 @@ import * as React from 'react';
 
 import NotFound from '../components/NotFound';
 
-const MbidNotFound = ({isGuid, mbid}: {+isGuid: boolean, +mbid?: string}) => (
+type Props = {
+  +isGuid: boolean,
+  +mbid?: string,
+};
+
+const MbidNotFound = ({
+  isGuid,
+  mbid,
+}: Props): React.Element<typeof NotFound> => (
   <NotFound title={isGuid ? l('MBID Not Found') : l('Invalid MBID')}>
     <p>
       {mbid && isGuid ? (

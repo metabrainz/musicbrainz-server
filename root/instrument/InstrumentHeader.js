@@ -16,7 +16,10 @@ type Props = {
   +page: string,
 };
 
-const InstrumentHeader = ({instrument, page}: Props) => (
+const InstrumentHeader = ({
+  instrument,
+  page,
+}: Props): React.Element<typeof EntityHeader> => (
   <EntityHeader
     entity={instrument}
     headerClass="instrumentheader"

@@ -23,7 +23,11 @@ type AddDiscIdT = {
   },
 };
 
-const AddDiscId = ({edit}: {+edit: AddDiscIdT}) => (
+type Props = {
+  +edit: AddDiscIdT,
+};
+
+const AddDiscId = ({edit}: Props): React.Element<'table'> => (
   <table className="details add-discid">
     <HistoricReleaseList releases={edit.display_data.releases} />
     <tr>

@@ -9,7 +9,7 @@
 
 import parseInteger from './parseInteger';
 
-export default function parseIntegerOrNull(str: string) {
+export default function parseIntegerOrNull(str: string): $FlowFixMe | null {
   const integer = parseInteger(str);
   return isNaN(integer) ? null : integer;
 }

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,9 @@ const ReleasesWithCaaNoTypes = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l(`Releases in the Cover Art Archive where no cover art piece
               has types`)}
@@ -50,7 +50,7 @@ const ReleasesWithCaaNoTypes = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -58,4 +58,4 @@ const ReleasesWithCaaNoTypes = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleasesWithCaaNoTypes);
+export default ReleasesWithCaaNoTypes;

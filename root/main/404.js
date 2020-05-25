@@ -26,7 +26,7 @@ const _404 = ({
   $c,
   message,
 }: Props): React.Element<typeof Layout> => (
-  <Layout fullWidth title={l('Page Not Found')}>
+  <Layout $c={$c} fullWidth title={l('Page Not Found')}>
     <div id="content">
       <h1>{l('Page Not Found')}</h1>
       <p>

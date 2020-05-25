@@ -15,6 +15,7 @@ import UrlSidebar from '../layout/components/sidebar/UrlSidebar';
 import UrlHeader from './UrlHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: UrlT,
   +fullWidth?: boolean,
@@ -23,20 +24,19 @@ type Props = {
 };
 
 const UrlLayout = ({
+  $c,
   children,
   entity: url,
   fullWidth,
   page,
   title,
-}: Props) => (
-  <Layout
-    title={title}
-  >
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} title={title}>
     <div id="content">
       <UrlHeader page={page} url={url} />
       {children}
     </div>
-    {fullWidth ? null : <UrlSidebar url={url} />}
+    {fullWidth ? null : <UrlSidebar $c={$c} url={url} />}
   </Layout>
 );
 

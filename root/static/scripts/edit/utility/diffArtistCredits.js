@@ -30,7 +30,7 @@ function areArtistCreditNamesEqual(a, b) {
 }
 
 type ArtistLinkProps = {
-  +content?: React.Node,
+  +content?: Expand2ReactOutput,
   +credit: ArtistCreditNameT,
   +nameVariation?: boolean,
 };
@@ -46,7 +46,7 @@ const ArtistLink = ({content, credit, nameVariation}: ArtistLinkProps) => (
 export default function diffArtistCredits(
   oldArtistCredit: ArtistCreditT,
   newArtistCredit: ArtistCreditT,
-) {
+): {new: React.Node, old: React.Node} {
   const diffs = editDiff(
     oldArtistCredit.names,
     newArtistCredit.names,

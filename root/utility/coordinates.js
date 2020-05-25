@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export function formatCoordinates(coordinates: ?CoordinatesT) {
+export function formatCoordinates(coordinates: ?CoordinatesT): string {
   if (!coordinates) {
     return '';
   }
@@ -18,7 +18,7 @@ export function formatCoordinates(coordinates: ?CoordinatesT) {
   );
 }
 
-export function osmUrl(coordinates: CoordinatesT, zoom: number) {
+export function osmUrl(coordinates: CoordinatesT, zoom: number): string {
   let {latitude, longitude} = coordinates;
   latitude = encodeURIComponent(String(latitude));
   longitude = encodeURIComponent(String(longitude));

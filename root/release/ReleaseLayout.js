@@ -17,6 +17,7 @@ import {reduceArtistCredit}
 import ReleaseHeader from './ReleaseHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: ReleaseT,
   +fullWidth?: boolean,
@@ -25,23 +26,24 @@ type Props = {
 };
 
 const ReleaseLayout = ({
+  $c,
   children,
   entity: release,
   fullWidth,
   page,
   title,
-}: Props) => {
+}: Props): React.Element<typeof Layout> => {
   const mainTitle = texp.l('Release “{name}” by {artist}', {
     artist: reduceArtistCredit(release.artistCredit),
     name: release.name,
   });
   return (
-    <Layout title={title ? hyphenateTitle(mainTitle, title) : mainTitle}>
+    <Layout $c={$c} title={title ? hyphenateTitle(mainTitle, title) : mainTitle}>
       <div id="content">
         <ReleaseHeader page={page} release={release} />
         {children}
       </div>
-      {fullWidth ? null : <ReleaseSidebar release={release} />}
+      {fullWidth ? null : <ReleaseSidebar $c={$c} release={release} />}
     </Layout>
   );
 };

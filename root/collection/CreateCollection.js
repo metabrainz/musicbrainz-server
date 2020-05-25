@@ -17,12 +17,18 @@ import CollectionEditForm
 import type {CollectionEditFormT} from './types';
 
 type Props = {
+  +$c: CatalystContextT,
   +collectionTypes: SelectOptionsT,
   +form: CollectionEditFormT,
 };
 
-const CreateCollection = ({collectionTypes, form}: Props) => (
+const CreateCollection = ({
+  $c,
+  collectionTypes,
+  form,
+}: Props): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Create a new collection')}
   >
