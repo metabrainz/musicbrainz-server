@@ -83,6 +83,8 @@ else
   pause=30
 fi
 
+last_host=${HOSTS/* }
+
 for host in $HOSTS
 do
   echo "$host: Updating containers..."
@@ -90,7 +92,10 @@ do
     sudo -H -S -- \
       /root/docker-server-configs/scripts/update_services.sh \
         $DEPLOY_ENV $SERVICES
-  sleep $pause
+  if [[ $host != "$last_host" ]]
+  then
+    sleep $pause
+  fi
 done
 
 # vi: set et sts=2 sw=2 ts=2 :
