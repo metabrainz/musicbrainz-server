@@ -145,9 +145,11 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
 
     if ($c->form_posted_and_valid($form)) {
         my $store = $c->model('MB')->context->store;
+        my $alert_cache_key = DBDefs->IS_BETA ? 'beta:alert' : 'alert';
+        my $alert_mtime_cache_key = DBDefs->IS_BETA ? 'beta:alert_time' : 'alert_mtime';
 
-        $store->set('alert', $form->values->{message});
-        $store->set('alert_mtime', time());
+        $store->set($alert_cache_key, $form->values->{message});
+        $store->set($alert_mtime_cache_key, time());
 
         $c->flash->{message} = l('Banner updated. Remember that each server has its own, independent banner.');
         $c->response->redirect($c->uri_for('/'));

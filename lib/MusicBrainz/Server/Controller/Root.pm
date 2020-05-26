@@ -221,7 +221,9 @@ sub begin : Private
     try {
         my $store = $c->model('MB')->context->store;
 
-        my @alert_cache_keys = qw( alert alert_mtime );
+        my @alert_cache_keys = DBDefs->IS_BETA
+            ? qw( beta:alert beta:alert_mtime );
+            : qw( alert alert_mtime );
 
         if ($c->user_exists) {
             my $ip_md5 = md5_hex($c->req->address);
