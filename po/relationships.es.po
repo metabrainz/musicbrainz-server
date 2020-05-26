@@ -12,14 +12,15 @@
 # Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # Oscar Rivas Krucker <email address hidden>, 2015
+# Stich Lilo <email address hidden>, 2020
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-18 16:20+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-05-12 13:47+0000\n"
+"Last-Translator: Stich Lilo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -152,11 +153,11 @@ msgstr ""
 
 #: DB:link_type/name:8 DB:link_type/name:227
 msgid "DJ-mix"
-msgstr ""
+msgstr "DJ-mix"
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
-msgstr ""
+msgstr "DJ-mix de"
 
 #: DB:link_type/link_phrase:155 DB:link_type/long_link_phrase:155
 msgid "DJ-mixed"
@@ -566,12 +567,12 @@ msgstr ""
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:840
 #: DB:link_type/link_phrase:839 DB:link_type/link_phrase:838
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:840
 #: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:838
 msgid "Last.fm page for"
-msgstr ""
+msgstr "Página de Last.fm para"
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
@@ -3532,16 +3533,16 @@ msgstr "recopilación de"
 #: DB:link_type/link_phrase:48 DB:link_type/link_phrase:147
 #: DB:link_type/long_link_phrase:48 DB:link_type/long_link_phrase:147
 msgid "compiled"
-msgstr ""
+msgstr "compilado"
 
 #: DB:link_type/reverse_link_phrase:228
 msgid "compiled in"
-msgstr ""
+msgstr "compilado en"
 
 #: DB:link_type/name:48 DB:link_type/name:147
 #: DB:link_type/reverse_link_phrase:48 DB:link_type/reverse_link_phrase:147
 msgid "compiler"
-msgstr ""
+msgstr "compilador"
 
 #: DB:link_type/name:876
 msgid "composed at"
@@ -3681,13 +3682,13 @@ msgstr ""
 #: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/name:233
 #: DB:link_type/long_link_phrase:12
 msgid "covers and versions"
-msgstr ""
+msgstr "portadas y versiones"
 
 #: DB:link_type/link_phrase:12 DB:link_type/link_phrase:4
 #: DB:link_type/reverse_link_phrase:12 DB:link_type/reverse_link_phrase:4
 #: DB:link_type/long_link_phrase:4
 msgid "covers or other versions"
-msgstr ""
+msgstr "cubiertas de otras versiones"
 
 #: DB:link_type/name:63 DB:link_type/name:146
 msgid "creative direction"
@@ -3869,7 +3870,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"
-msgstr ""
+msgstr "edición de"
 
 #: DB:link_type/name:820 DB:link_type/name:819
 msgid "edited at"
@@ -4000,7 +4001,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:752
 msgid "from"
-msgstr ""
+msgstr "desde"
 
 #: DB:link_type/name:934 DB:link_type/name:713
 msgid "geonames"
@@ -4210,7 +4211,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:214 DB:link_type/long_link_phrase:172
 msgid "has a fan page at"
-msgstr ""
+msgstr "tiene una página de fans en"
 
 #: DB:link_type/long_link_phrase:226
 msgid "has a karaoke version"
@@ -4548,11 +4549,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
 msgid "is a DJ-mix of"
-msgstr ""
+msgstr "Es un DJ-mix de"
 
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
-msgstr ""
+msgstr "es una recopilación de"
 
 #: DB:link_type/long_link_phrase:916
 msgid "is a hybrid of"
@@ -4607,7 +4608,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
-msgstr ""
+msgstr "Es una edición de"
 
 #: DB:link_type/long_link_phrase:926
 msgid "is associated with"
@@ -6301,7 +6302,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:3 DB:link_type/name:60 DB:link_type/name:149
 msgid "vocal"
-msgstr ""
+msgstr "vocal"
 
 #: DB:link_type/name:298 DB:link_type/name:296 DB:link_type/name:294
 msgid "vocal arranger"

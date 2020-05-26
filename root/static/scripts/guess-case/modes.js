@@ -290,8 +290,30 @@ export const English = assign({}, DefaultMode, {
     },
   )),
 
+  /*
+   * This changes key names in titles to follow
+   * the English classical music guidelines.
+   * See https://musicbrainz.org/doc/Style/Classical/Language/English#Keys
+   */
+  fixEnglishKeyNames(is) {
+    return is.replace(
+      /\bin ([a-g])(?:[\s-]([Ff]lat|[Ss]harp))?\s(dorian|lydian|major|minor|mixolydian)(?:\b|$)/ig,
+      function (match, p1, p2, p3) {
+        return 'in ' + p1.toUpperCase() +
+          (p2 ? '-' + p2.toLowerCase() : '') +
+          ' ' + p3.toLowerCase();
+      },
+    );
+  },
+
   isSentenceCaps() {
     return false;
+  },
+
+  runPostProcess(is) {
+    is = DefaultMode.runPostProcess(is);
+    is = this.fixEnglishKeyNames(is);
+    return is;
   },
 });
 

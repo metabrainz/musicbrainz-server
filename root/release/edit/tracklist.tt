@@ -441,6 +441,7 @@
           <button type="button" class="open-track-parser" data-click="openTrackParser">[% l('Track Parser') %]</button>
           <button type="button" class="reset-track-numbers" data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
           <button type="button" data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
+          <button type="button" data-click="guessMediumCase">[%- l('Guess case') -%]</button>
           <button type="button" data-click="guessMediumFeatArtists">[%- l('Guess feat. artists from track titles') -%]</button>
         </div>
 

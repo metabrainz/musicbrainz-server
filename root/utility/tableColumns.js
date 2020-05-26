@@ -46,13 +46,18 @@ import renderMergeCheckboxElement
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import yesNo from '../static/scripts/common/utility/yesNo';
 
+type OrderableProps = {
+    +order?: string,
+    +sortable?: boolean,
+};
+
 export function defineActionsColumn(
-  actions: $ReadOnlyArray<[string, string]>,
+  props: {+actions: $ReadOnlyArray<[string, string]>},
 ): ColumnOptions<CoreEntityT | CollectionT, number> {
   return {
     Cell: ({row: {original}}) => (
       <>
-        {actions.map((actionPair, index) => (
+        {props.actions.map((actionPair, index) => (
           <React.Fragment key={actionPair[1] + (index === 0 ? '-first' : '')}>
             {index === 0 ? null : ' | '}
             <EntityLink
@@ -73,46 +78,49 @@ export function defineActionsColumn(
 }
 
 export function defineArtistCreditColumn<D>(
-  getArtistCredit: (D) => ArtistCreditT,
-  columnName: string,
-  title: string,
-  order?: string = '',
-  sortable?: boolean = false,
-  showExpandedArtistCredits?: boolean = false,
+  props: {
+    ...OrderableProps,
+    +columnName: string,
+    +getArtistCredit: (D) => ArtistCreditT,
+    +showExpandedArtistCredits?: boolean,
+    +title: string,
+  },
 ): ColumnOptions<D, string> {
   return {
     Cell: ({row: {original}}) => {
-      const artistCredit = getArtistCredit(original);
+      const artistCredit = props.getArtistCredit(original);
       return (artistCredit
-        ? showExpandedArtistCredits
+        ? props.showExpandedArtistCredits
           ? <ExpandedArtistCredit artistCredit={artistCredit} />
           : <ArtistCreditLink artistCredit={artistCredit} />
         : null
       );
     },
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
-          label={title}
-          name={columnName}
-          order={order}
+          label={props.title}
+          name={props.columnName}
+          order={props.order ?? ''}
         />
       )
-      : title),
-    accessor: row => getArtistCredit(row)?.names[0].name ?? '',
+      : props.title),
+    accessor: row => props.getArtistCredit(row)?.names[0].name ?? '',
     headerProps: {className: 'artist'},
-    id: columnName,
+    id: props.columnName,
   };
 }
 
 export function defineArtistRolesColumn<D>(
-  getRoles: (D) => $ReadOnlyArray<{
-    +credit: string,
-    +entity: ArtistT,
-    +roles: $ReadOnlyArray<string>,
-  }>,
-  columnName: string,
-  title: string,
+  props: {
+    +columnName: string,
+    +getRoles: (D) => $ReadOnlyArray<{
+      +credit: string,
+      +entity: ArtistT,
+      +roles: $ReadOnlyArray<string>,
+    }>,
+    +title: string,
+  },
 ): ColumnOptions<D, $ReadOnlyArray<{
       +credit: string,
       +entity: ArtistT,
@@ -120,26 +128,25 @@ export function defineArtistRolesColumn<D>(
 }>> {
   return {
     Cell: ({row: {original}}) => (
-      <ArtistRoles relations={getRoles(original)} />
+      <ArtistRoles relations={props.getRoles(original)} />
     ),
-    Header: title,
-    accessor: row => getRoles(row) ?? [],
-    id: columnName,
+    Header: props.title,
+    accessor: row => props.getRoles(row) ?? [],
+    id: props.columnName,
   };
 }
 
 export function defineBeginDateColumn(
-  order?: string = '',
-  sortable?: boolean = false,
+  props: OrderableProps,
 ): ColumnOptions<{+begin_date: PartialDateT, ...}, PartialDateT> {
   return {
     Cell: ({cell: {value}}) => formatDate(value),
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
           label={l('Begin')}
           name="begin_date"
-          order={order}
+          order={props.order ?? ''}
         />
       )
       : l('Begin')),
@@ -149,31 +156,34 @@ export function defineBeginDateColumn(
 }
 
 export function defineCheckboxColumn(
-  name?: string,
-  mergeForm?: MergeFormT,
+  props: {
+    +mergeForm?: MergeFormT,
+    +name?: string,
+  },
 ): ColumnOptions<CoreEntityT, number> {
   return {
-    Cell: ({row: {index, original}}) => mergeForm
-      ? renderMergeCheckboxElement(original, mergeForm, index)
+    Cell: ({row: {index, original}}) => props.mergeForm
+      ? renderMergeCheckboxElement(original, props.mergeForm, index)
       : (
         <input
-          name={name}
+          name={props.name}
           type="checkbox"
           value={original.id}
         />
       ),
-    Header: mergeForm ? null : <input type="checkbox" />,
+    Header: props.mergeForm ? '' : <input type="checkbox" />,
     headerProps: {className: 'checkbox-cell'},
     id: 'checkbox',
   };
 }
 
 export function defineCountColumn<D>(
-  getCount: (D) => number,
-  columnName: string,
-  title: string,
-  order?: string = '',
-  sortable?: boolean = false,
+  props: {
+    ...OrderableProps,
+    +columnName: string,
+    +getCount: (D) => number,
+    +title: string,
+  },
 ): ColumnOptions<D, number> {
   return {
     Cell: ({cell: {value}}) => (
@@ -181,34 +191,33 @@ export function defineCountColumn<D>(
         {($c: CatalystContextT) => formatCount($c, value)}
       </CatalystContext.Consumer>
     ),
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
-          label={title}
-          name={columnName}
-          order={order}
+          label={props.title}
+          name={props.columnName}
+          order={props.order ?? ''}
         />
       )
-      : title),
-    accessor: row => getCount(row),
+      : props.title),
+    accessor: row => props.getCount(row),
     cellProps: {className: 'c'},
     headerProps: {className: 'count c'},
-    id: columnName,
+    id: props.columnName,
   };
 }
 
 export function defineDatePeriodColumn(
-  order?: string = '',
-  sortable?: boolean = false,
+  props: OrderableProps,
 ): ColumnOptions<{...DatePeriodRoleT, ...}, string> {
   return {
     Cell: ({row: {original}}) => formatDatePeriod(original),
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
           label={l('Date')}
           name="date"
-          order={order}
+          order={props.order ?? ''}
         />
       )
       : l('Date')),
@@ -217,17 +226,16 @@ export function defineDatePeriodColumn(
 }
 
 export function defineEndDateColumn(
-  order?: string = '',
-  sortable?: boolean = false,
+  props: OrderableProps,
 ): ColumnOptions<{...DatePeriodRoleT, ...}, PartialDateT> {
   return {
     Cell: ({row: {original}}) => formatEndDate(original),
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
           label={l('End')}
           name="end_date"
-          order={order}
+          order={props.order ?? ''}
         />
       )
       : l('End')),
@@ -237,42 +245,45 @@ export function defineEndDateColumn(
 }
 
 export function defineEntityColumn<D>(
-  getEntity: (D) => CoreEntityT | null,
-  columnName: string,
-  title: string,
-  order?: string = '',
-  sortable?: boolean = false,
+  props: {
+    ...OrderableProps,
+    +columnName: string,
+    +getEntity: (D) => CoreEntityT | null,
+    +title: string,
+  },
 ): ColumnOptions<D, string> {
   return {
     Cell: ({row: {original}}) => {
-      const entity = getEntity(original);
+      const entity = props.getEntity(original);
       return (entity
         ? <DescriptiveLink entity={entity} />
         : null);
     },
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
-          label={title}
-          name={columnName}
-          order={order}
+          label={props.title}
+          name={props.columnName}
+          order={props.order ?? ''}
         />
       )
-      : title),
-    accessor: row => getEntity(row)?.name ?? '',
-    id: columnName,
+      : props.title),
+    accessor: row => props.getEntity(row)?.name ?? '',
+    id: props.columnName,
   };
 }
 
 export function defineInstrumentUsageColumn(
-  instrumentCreditsAndRelTypes?:
-    {+[entityGid: string]: $ReadOnlyArray<string>},
+  props: {
+    +instrumentCreditsAndRelTypes?:
+      {+[entityGid: string]: $ReadOnlyArray<string>},
+  },
 ): ColumnOptions<ArtistT | RecordingT | ReleaseT, number> {
   return {
     Cell: ({row: {original}}) => (
       <InstrumentRelTypes
         entity={original}
-        instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+        instrumentCreditsAndRelTypes={props.instrumentCreditsAndRelTypes}
       />
     ),
     Header: l('Relationship Types'),
@@ -282,11 +293,16 @@ export function defineInstrumentUsageColumn(
 }
 
 export function defineNameColumn<T: CoreEntityT | CollectionT>(
-  title: string,
-  order?: string = '',
-  sortable?: boolean = false,
-  descriptive?: boolean = true,
+  props: {
+    ...OrderableProps,
+    +descriptive?: boolean,
+    +title: string,
+  },
 ): ColumnOptions<T, string> {
+  const descriptive =
+    Object.prototype.hasOwnProperty.call(props, 'descriptive')
+      ? props.descriptive
+      : true;
   return {
     Cell: ({row: {original}}) => (
       descriptive
@@ -299,35 +315,36 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
           />
         )
     ),
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
-          label={title}
+          label={props.title}
           name="name"
-          order={order}
+          order={props.order ?? ''}
         />
       )
-      : title),
+      : props.title),
     accessor: 'name',
     id: 'name',
   };
 }
 
 export function defineReleaseCatnosColumn<D>(
-  getLabels: (D) => $ReadOnlyArray<ReleaseLabelT>,
-  order?: string = '',
-  sortable?: boolean = false,
+  props: {
+    ...OrderableProps,
+    getLabels: (D) => $ReadOnlyArray<ReleaseLabelT>,
+  },
 ): ColumnOptions<D, $ReadOnlyArray<ReleaseLabelT>> {
   return {
     Cell: ({row: {original}}) => (
-      <ReleaseCatnoList labels={getLabels(original)} />
+      <ReleaseCatnoList labels={props.getLabels(original)} />
     ),
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
           label={l('Catalog#')}
           name="catno"
-          order={order}
+          order={props.order ?? ''}
         />
       )
       : l('Catalog#')),
@@ -336,24 +353,23 @@ export function defineReleaseCatnosColumn<D>(
 }
 
 export function defineReleaseEventsColumn(
-  order?: string = '',
-  sortable?: boolean = false,
+  props: OrderableProps,
 ): ColumnOptions<ReleaseT, $ReadOnlyArray<ReleaseEventT>> {
   return {
     Cell: ({cell: {value}}) => <ReleaseEvents events={value} />,
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <>
           <SortableTableHeader
             label={l('Country')}
             name="country"
-            order={order}
+            order={props.order ?? ''}
           />
           {lp('/', 'and')}
           <SortableTableHeader
             label={l('Date')}
             name="date"
-            order={order}
+            order={props.order ?? ''}
           />
         </>
       )
@@ -365,17 +381,16 @@ export function defineReleaseEventsColumn(
 }
 
 export function defineReleaseLabelsColumn(
-  order?: string = '',
-  sortable?: boolean = false,
+  props: OrderableProps,
 ): ColumnOptions<ReleaseT, $ReadOnlyArray<ReleaseLabelT>> {
   return {
     Cell: ({cell: {value}}) => <ReleaseLabelList labels={value} />,
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
           label={l('Label')}
           name="label"
-          order={order}
+          order={props.order ?? ''}
         />
       )
       : l('Label')
@@ -385,36 +400,13 @@ export function defineReleaseLabelsColumn(
   };
 }
 
-export function defineRemoveFromMergeColumn(
-  toMerge: $ReadOnlyArray<CoreEntityT>,
-): ColumnOptions<ArtistT | RecordingT | ReleaseT, number> {
-  return {
-    Cell: ({row: {original}}) => {
-      const url = ENTITIES[original.entityType].url;
-      return toMerge.length > 2 ? (
-        <a href={`/${url}/merge?remove=${original.id}&submit=remove`}>
-          <button
-            className="remove-item icon"
-            title={l('Remove from merge')}
-            type="button"
-          />
-        </a>
-      ) : null;
-    },
-    Header: toMerge.length > 2 ? '' : null,
-    headerProps: {
-      'aria-label': l('Remove from merge'),
-      'style': {width: '1em'},
-    },
-    id: 'remove-from-merge',
-  };
-}
-
 export function defineSeriesNumberColumn(
-  seriesItemNumbers: {+[entityId: number]: string},
+  props: {
+    +seriesItemNumbers: {+[entityId: number]: string},
+  },
 ): ColumnOptions<CoreEntityT, number> {
   return {
-    Cell: ({cell: {value}}) => seriesItemNumbers[value],
+    Cell: ({cell: {value}}) => props.seriesItemNumbers[value],
     Header: l('#'),
     accessor: 'id',
     cellProps: {className: 'number-column'},
@@ -424,47 +416,49 @@ export function defineSeriesNumberColumn(
 }
 
 export function defineTextColumn<D>(
-  getText: (D) => string,
-  columnName: string,
-  title: string,
-  order?: string = '',
-  sortable?: boolean = false,
-  cellProps?: {className: string, ...},
-  headerProps?: {className: string, ...},
+  props: {
+    ...OrderableProps,
+    +cellProps?: {className: string, ...},
+    +columnName: string,
+    +getText: (D) => string,
+    +headerProps?: {className: string, ...},
+    +title: string,
+  },
 ): ColumnOptions<D, StrOrNum> {
   return {
-    Cell: ({row: {original}}) => getText(original),
-    Header: (sortable
+    Cell: ({row: {original}}) => props.getText(original),
+    Header: (props.sortable
       ? (
         <SortableTableHeader
-          label={title}
-          name={columnName}
-          order={order}
+          label={props.title}
+          name={props.columnName}
+          order={props.order ?? ''}
         />
       )
-      : title),
-    accessor: row => getText(row) ?? '',
-    cellProps: cellProps,
-    headerProps: headerProps,
-    id: columnName,
+      : props.title),
+    accessor: row => props.getText(row) ?? '',
+    cellProps: props.cellProps,
+    headerProps: props.headerProps,
+    id: props.columnName,
   };
 }
 
 export function defineTypeColumn(
-  typeContext: string,
-  order?: string = '',
-  sortable?: boolean = false,
+  props: {
+    ...OrderableProps,
+    +typeContext: string,
+  },
 ): ColumnOptions<{+typeName: string, ...}, string> {
   return {
     Cell: ({cell: {value}}) => (value
-      ? lp_attributes(value, typeContext)
+      ? lp_attributes(value, props.typeContext)
       : null),
-    Header: (sortable
+    Header: (props.sortable
       ? (
         <SortableTableHeader
           label={l('Type')}
           name="type"
-          order={order}
+          order={props.order ?? ''}
         />
       )
       : l('Type')),
@@ -492,7 +486,7 @@ export const instrumentDescriptionColumn:
 export const isrcsColumn:
   ColumnOptions<{
     +isrcs: $ReadOnlyArray<IsrcT>,
-    ...,
+    ...
   }, $ReadOnlyArray<IsrcT>> = {
     Cell: ({cell: {value}}) => (
       <ul>
@@ -510,7 +504,7 @@ export const isrcsColumn:
 export const iswcsColumn:
   ColumnOptions<{
     +iswcs: $ReadOnlyArray<IswcT>,
-    ...,
+    ...
   }, $ReadOnlyArray<IswcT>> = {
     Cell: ({cell: {value}}) => (
       <ul>
@@ -540,6 +534,28 @@ export const ratingsColumn:
     accessor: 'rating',
     cellProps: {className: 'c'},
     headerProps: {className: 'rating c'},
+  };
+
+export const removeFromMergeColumn:
+  ColumnOptions<ArtistT | RecordingT | ReleaseT, number> = {
+    Cell: ({row: {original}}) => {
+      const url = ENTITIES[original.entityType].url;
+      return (
+        <a href={`/${url}/merge?remove=${original.id}&submit=remove`}>
+          <button
+            className="remove-item icon"
+            title={l('Remove from merge')}
+            type="button"
+          />
+        </a>
+      );
+    },
+    Header: '',
+    headerProps: {
+      'aria-label': l('Remove from merge'),
+      'style': {width: '1em'},
+    },
+    id: 'remove-from-merge',
   };
 
 export const seriesOrderingTypeColumn:

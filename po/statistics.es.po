@@ -8,6 +8,7 @@
 # Nicolás Tamargo <email address hidden>, 2011-2013,2018
 # Robert Schneider <email address hidden>, 2019
 # Roboron <email address hidden>, 2020
+# Stich Lilo <email address hidden>, 2020
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
@@ -15,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-01-13 22:33+0000\n"
-"Last-Translator: Roboron <email address hidden>\n"
+"PO-Revision-Date: 2020-05-12 13:39+0000\n"
+"Last-Translator: Stich Lilo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -161,7 +162,7 @@ msgstr ""
 #: DB:statistics.statistic_event/title:2003-06-07
 #: DB:statistics.statistic_event/title:2003-06-15
 msgid "Cleanup"
-msgstr ""
+msgstr "Limpiar"
 
 #: DB:statistics.statistic_event/description:2003-06-07
 #: DB:statistics.statistic_event/description:2003-06-15
@@ -170,19 +171,19 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
-msgstr ""
+msgstr "Colección, Calificación, CDStubs"
 
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr ""
+msgstr "Colección, Calificación, CDStubs, Última actualización lanzada."
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
-msgstr ""
+msgstr "Subir Imagen de Portada"
 
 #: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
-msgstr ""
+msgstr "Servidor dedicado de base de datos "
 
 #: DB:statistics.statistic_event/description:2004-05-09
 msgid ""
@@ -245,15 +246,15 @@ msgstr "Importamos los datos del catálogo de CD Baby en nuestra colección de e
 
 #: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
-msgstr ""
+msgstr "Votación mejorada"
 
 #: DB:statistics.statistic_event/title:2003-04-05
 msgid "Improved search"
-msgstr ""
+msgstr "Búsqueda mejorada"
 
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "Improved search/cleanup."
-msgstr ""
+msgstr "Búsqueda/limpieza mejorada."
 
 #: DB:statistics.statistic_event/description:2013-02-11
 msgid ""
@@ -274,7 +275,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
-msgstr ""
+msgstr "Búsqueda indexada/XML WS"
 
 #: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
@@ -282,15 +283,15 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2004-01-17
 msgid "Inline edits"
-msgstr ""
+msgstr "Editar en linea"
 
 #: DB:statistics.statistic_event/description:2004-01-17
 msgid "Inline edits, new reports, improved data import scripts."
-msgstr ""
+msgstr "Ediciones en línea, nuevos informes, scripts de importación de datos mejoradas."
 
 #: DB:statistics.statistic_event/title:2004-05-09
 msgid "Install scripts"
-msgstr ""
+msgstr "Instalar Scripts"
 
 #: DB:statistics.statistic_event/description:2009-12-14
 msgid "Kuno Woudt begins working for MusicBrainz full-time."
@@ -302,7 +303,7 @@ msgstr "Kuno Woudt contratado como desarrollador a tiempo completo"
 
 #: DB:statistics.statistic_event/title:2007-04-01
 msgid "Labels/data quality"
-msgstr ""
+msgstr "Calidad de nombres/datos"
 
 #: DB:statistics.statistic_event/title:2007-11-07
 msgid "Last.fm"
@@ -324,7 +325,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-12-28
 msgid "Linking"
-msgstr ""
+msgstr "Enlace"
 
 #: DB:statistics.statistic_event/title:2005-10-23
 msgid "Menus/Client scripting"
@@ -376,7 +377,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
-msgstr ""
+msgstr "MusicBrainz obtiene su primer servidor de base de datos dedicado."
 
 #: DB:statistics.statistic_event/description:2016-02-22
 msgid ""
@@ -417,7 +418,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2016-02-22
 msgid "New MusicBrainz design"
-msgstr ""
+msgstr "Nuevo diseño de MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
@@ -471,7 +472,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
-msgstr ""
+msgstr "Mejoras de búsqueda"
 
 #: DB:statistics.statistic_event/title:2015-11-16
 msgid "Several new auto-edit types and translations"
@@ -493,7 +494,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-01-21
 msgid "TRM collisions"
-msgstr ""
+msgstr "TRM Colisiones"
 
 #: DB:statistics.statistic_event/title:2007-10-17
 #: ../root/statistics/stats.js:621
@@ -502,7 +503,7 @@ msgstr "Etiquetas"
 
 #: DB:statistics.statistic_event/title:2014-11-19
 msgid "The AcousticBrainz project goes live"
-msgstr ""
+msgstr "El proyecto AcousticBrainz se pone en marcha"
 
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
@@ -519,11 +520,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
-msgstr ""
+msgstr "El proyecto CritiqueBrainz se pone en marcha"
 
 #: DB:statistics.statistic_event/title:2015-09-17
 msgid "The ListenBrainz project goes live"
-msgstr ""
+msgstr "El proyecto ListenBrainz se pone en marcha"
 
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
@@ -543,7 +544,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-05-18
 msgid "The new MetaBrainz website goes live"
-msgstr ""
+msgstr "Se lanza el nuevo sitio web de MetaBrainz"
 
 #: DB:statistics.statistic_event/description:2015-05-18
 msgid ""
@@ -582,11 +583,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2013-02-11
 msgid "Voting period shortened to 7 days"
-msgstr ""
+msgstr "Período de votación acortado a 7 días"
 
 #: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
-msgstr ""
+msgstr "mb_server ahora alojado en Git"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
@@ -594,7 +595,7 @@ msgstr "Añadir/eliminar lineas:"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Check boxes above"
-msgstr ""
+msgstr "Marque las casillas de arriba"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Click to deselect"
@@ -607,7 +608,7 @@ msgstr "Controles"
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:36
 #: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
-msgstr ""
+msgstr "Países"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:69
 #: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:17
@@ -626,7 +627,7 @@ msgstr "Estadísticas de la base de datos - {title}"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Draw a rectangle on either graph"
-msgstr ""
+msgstr "Dibuja un rectángulo en cualquier gráfico"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:97
 #: ../root/statistics/Editors.js:108 ../root/statistics/Index.js:908
@@ -1042,7 +1043,7 @@ msgstr "IPIs:"
 
 #: ../root/statistics/Index.js:220
 msgid "ISNIs:"
-msgstr ""
+msgstr "ISNIs:"
 
 #: ../root/statistics/Index.js:239
 msgid "of type Person:"
@@ -1134,7 +1135,7 @@ msgstr "Sin empaquetado indicado"
 
 #: ../root/statistics/Index.js:432
 msgid "Cover Art Sources"
-msgstr ""
+msgstr "Fuentes de imagen"
 
 #: ../root/statistics/Index.js:441
 msgid "CAA:"
@@ -1150,7 +1151,7 @@ msgstr "Relaciones URL:"
 
 #: ../root/statistics/Index.js:459
 msgid "No front cover art:"
-msgstr ""
+msgstr "Sin imagen de portada:"
 
 #: ../root/statistics/Index.js:466
 msgid "Data Quality"
@@ -1162,7 +1163,7 @@ msgstr "Calidad de datos alta:"
 
 #: ../root/statistics/Index.js:481
 msgid "Default Data Quality:"
-msgstr ""
+msgstr "Calidad de datos predeterminada:"
 
 #: ../root/statistics/Index.js:488
 msgid "Normal Data Quality:"
@@ -1450,17 +1451,17 @@ msgstr "Las estadísticas nunca han sido recolectadas en este servidor. Si eres 
 
 #: ../root/statistics/Relationships.js:95
 msgid "No relationship statistics available."
-msgstr ""
+msgstr "Sin estadísticas de relación disponibles."
 
 #: ../root/statistics/Relationships.js:102
 msgctxt "relationships"
 msgid "This type only"
-msgstr ""
+msgstr "Solo este tipo"
 
 #: ../root/statistics/Relationships.js:103
 msgctxt "relationships"
 msgid "Including subtypes"
-msgstr ""
+msgstr "Incluyendo subtipos"
 
 #: ../root/statistics/Relationships.js:120
 msgid "{type0}-{type1}"
@@ -1480,7 +1481,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:18
 msgid "Edit Information"
-msgstr ""
+msgstr "Editar Información"
 
 #: ../root/statistics/stats.js:20
 msgid "Label Countries"
@@ -1869,7 +1870,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:339
 msgid "ISNIs"
-msgstr ""
+msgstr "ISNIs"
 
 #: ../root/statistics/stats.js:344
 msgid "Count of all ISNIs for Artists"

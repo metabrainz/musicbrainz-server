@@ -74,6 +74,7 @@ jobs:
               -j 9 \
               t/pgtap/* \
               t/pgtap/unused-tags/* \
+              t/script/MergeDuplicateArtistCredits.t \
               t/script/BuildSitemaps.t \
               t/script/DumpJSON.t \
               t/script/ExportAllTables.t \

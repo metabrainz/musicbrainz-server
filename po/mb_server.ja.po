@@ -5,7 +5,7 @@
 # 
 # Translators:
 # nikki, 2014
-# PATATE12, 2014
+# 3832d0d0efdb299a8fecc04b951025e6_d30d94a, 2014
 # john doe, 2016
 # john doe, 2016
 # Keshav Kini <email address hidden>, 2013

@@ -20,8 +20,8 @@ import {
   defineEntityColumn,
   defineBeginDateColumn,
   defineEndDateColumn,
-  defineRemoveFromMergeColumn,
   ratingsColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -46,30 +46,42 @@ const LabelList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
-      const nameColumn =
-        defineNameColumn<LabelT>(l('Label'), order, sortable);
-      const typeColumn = defineTypeColumn('label_type', order, sortable);
-      const labelCodeColumn = defineTextColumn<LabelT>(
-        entity => entity.label_code ? formatLabelCode(entity.label_code) : '',
-        'label_code',
-        l('Code'),
-        order,
-        sortable,
-      );
-      const areaColumn = defineEntityColumn<LabelT>(
-        entity => entity.area,
-        'area',
-        l('Area'),
-        order,
-        sortable,
-      );
-      const beginDateColumn = defineBeginDateColumn(order, sortable);
-      const endDateColumn = defineEndDateColumn(order, sortable);
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(labels)
-        : null;
+      const nameColumn = defineNameColumn<LabelT>({
+        order: order,
+        sortable: sortable,
+        title: l('Label'),
+      });
+      const typeColumn = defineTypeColumn({
+        order: order,
+        sortable: sortable,
+        typeContext: 'label_type',
+      });
+      const labelCodeColumn = defineTextColumn<LabelT>({
+        columnName: 'label_code',
+        getText: entity => entity.label_code
+          ? formatLabelCode(entity.label_code)
+          : '',
+        order: order,
+        sortable: sortable,
+        title: l('Code'),
+      });
+      const areaColumn = defineEntityColumn<LabelT>({
+        columnName: 'area',
+        getEntity: entity => entity.area,
+        order: order,
+        sortable: sortable,
+        title: l('Area'),
+      });
+      const beginDateColumn = defineBeginDateColumn({
+        order: order,
+        sortable: sortable,
+      });
+      const endDateColumn = defineEndDateColumn({
+        order: order,
+        sortable: sortable,
+      });
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -80,7 +92,7 @@ const LabelList = ({
         beginDateColumn,
         endDateColumn,
         ...(showRatings ? [ratingsColumn] : []),
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && labels.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [

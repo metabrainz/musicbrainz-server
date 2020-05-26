@@ -20,12 +20,12 @@ import {
   defineCheckboxColumn,
   defineDatePeriodColumn,
   defineNameColumn,
-  defineRemoveFromMergeColumn,
   defineSeriesNumberColumn,
   defineTypeColumn,
   defineTextColumn,
   locationColumn,
   ratingsColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -62,32 +62,36 @@ const EventList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn(seriesItemNumbers)
+        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn =
-        defineNameColumn<EventT>(
-          l('Event'),
-          order,
-          sortable,
-          false, // to use EntityLink without dates (separate column for that)
-        );
-      const typeColumn = defineTypeColumn('event_type', order, sortable);
-      const artistsColumn = defineArtistRolesColumn<EventT>(
-        entity => entity.performers,
-        'performers',
-        l('Artists'),
-      );
-      const timeColumn = defineTextColumn<EventT>(
-        entity => entity.time,
-        'time',
-        l('Time'),
-      );
+      const nameColumn = defineNameColumn<EventT>({
+        descriptive: false, // since dates have their own column
+        order: order,
+        sortable: sortable,
+        title: l('Event'),
+      });
+      const typeColumn = defineTypeColumn({
+        order: order,
+        sortable: sortable,
+        typeContext: 'event_type',
+      });
+      const artistsColumn = defineArtistRolesColumn<EventT>({
+        columnName: 'performers',
+        getRoles: entity => entity.performers,
+        title: l('Artists'),
+      });
+      const timeColumn = defineTextColumn<EventT>({
+        columnName: 'time',
+        getText: entity => entity.time,
+        title: l('Time'),
+      });
       const rolesOnlyColumn = artist && artistRoles
-        ? defineTextColumn<EventT>(
-          entity => commaOnlyListText(
+        ? defineTextColumn<EventT>({
+          columnName: 'performers',
+          getText: entity => commaOnlyListText(
             entity.performers.reduce((result, performer) => {
               if (performer.entity.id === artist.id) {
                 result.push(...localizeArtistRoles(performer.roles));
@@ -95,14 +99,13 @@ const EventList = ({
               return result;
             }, []),
           ),
-          'performers',
-          l('Role'),
-        )
+          title: l('Role'),
+        })
         : null;
-      const dateColumn = defineDatePeriodColumn(order, sortable);
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(events)
-        : null;
+      const dateColumn = defineDatePeriodColumn({
+        order: order,
+        sortable: sortable,
+      });
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -115,7 +118,7 @@ const EventList = ({
         dateColumn,
         timeColumn,
         ...(showRatings ? [ratingsColumn] : []),
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && events.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [

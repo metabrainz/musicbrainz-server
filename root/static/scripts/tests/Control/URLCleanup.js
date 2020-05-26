@@ -2419,7 +2419,14 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'videochannel',
             expected_clean_url: 'https://www.nicovideo.jp/user/1050860',
-       only_valid_entity_types: ['artist'],
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://ch.nicovideo.jp/maverickdci/video?sort=r&order=d',
+             input_entity_type: 'label',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://ch.nicovideo.jp/maverickdci',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   // NLA (National Library of Australia)
   {
@@ -3942,7 +3949,7 @@ _.each(testData, function (subtest, i) {
       const validationResults = _.reduce(LINK_TYPES[relationshipType],
         function (results, relUuid, entityType) {
           const rule = validationRules[relUuid];
-          const isValid = rule ? rule(cleanUrl) || false : true;
+          const isValid = rule ? rule(cleanUrl).result || false : true;
           results[isValid].splice(
             _.sortedIndex(results[isValid], entityType),
             0,

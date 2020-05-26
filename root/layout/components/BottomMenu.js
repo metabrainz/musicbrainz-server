@@ -176,9 +176,6 @@ const ProductsMenu = () => (
       <li>
         <a href="/doc/Live_Data_Feed">{l('Live Data Feed')}</a>
       </li>
-      <li className="separator">
-        <a href="/doc/FreeDB_Gateway">{l('FreeDB Gateway')}</a>
-      </li>
     </ul>
   </li>
 );
