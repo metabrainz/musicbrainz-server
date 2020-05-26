@@ -76,6 +76,13 @@ else
   HOSTS="$*"
 fi
 
+if [[ $DEPLOY_ENV == beta ]]
+then
+  pause=90
+else
+  pause=30
+fi
+
 for host in $HOSTS
 do
   echo "$host: Updating containers..."
@@ -83,7 +90,7 @@ do
     sudo -H -S -- \
       /root/docker-server-configs/scripts/update_services.sh \
         $DEPLOY_ENV $SERVICES
-  sleep 30
+  sleep $pause
 done
 
 # vi: set et sts=2 sw=2 ts=2 :
