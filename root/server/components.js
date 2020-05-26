@@ -280,6 +280,7 @@ module.exports = {
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'edit/details/EditArtist': require('../edit/details/EditArtist'),
   'edit/details/EditEvent': require('../edit/details/EditEvent'),
+  'edit/details/EditLabel': require('../edit/details/EditLabel'),
   'edit/details/EditPlace': require('../edit/details/EditPlace'),
   'edit/details/EditRecording': require('../edit/details/EditRecording'),
   'edit/details/EditReleaseGroup': require('../edit/details/EditReleaseGroup'),
