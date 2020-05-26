@@ -61,8 +61,8 @@
 # Ulrich Klauer <email address hidden>, 2015-2016
 # Wieland Hoffmann <email address hidden>, 2011,2013
 # Wieland Hoffmann <email address hidden>, 2013
-# HumHumXX, 2012
-# HumHumXX, 2012
+# c8ba6e46576070595b2ba64068f9a431_0cfbcb2, 2012
+# c8ba6e46576070595b2ba64068f9a431_0cfbcb2, 2012
 # yvanz, 2018
 msgid ""
 msgstr ""
