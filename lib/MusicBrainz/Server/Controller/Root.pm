@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Controller::Root;
+use Digest::MD5 qw( md5_hex );
 use Moose;
 use Try::Tiny;
 use List::Util qw( max );
+use Readonly;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -14,6 +16,8 @@ use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
 use MusicBrainz::Server::Translation 'l';
+
+Readonly my $IP_STORE_EXPIRES => (60 * 60 * 24 * 30 * 6); # 6 months
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -217,19 +221,30 @@ sub begin : Private
     try {
         my $store = $c->model('MB')->context->store;
 
-        my @cache_keys = qw( alert alert_mtime );
+        my @alert_cache_keys = qw( alert alert_mtime );
 
-        if ($c->user_exists && $c->action->name ne 'notes_received') {
-            my $user_name = $c->user->name;
-            push @cache_keys, (
-                "edit_notes_received_last_viewed:$user_name",
-                "edit_notes_received_last_updated:$user_name",
-            );
+        if ($c->user_exists) {
+            my $ip_md5 = md5_hex($c->req->address);
+            my $user_id = $c->user->id;
+
+            $store->set_add("ipusers:$ip_md5", $user_id);
+            $store->expire("ipusers:$ip_md5", $IP_STORE_EXPIRES);
+
+            $store->set_add("userips:$user_id", $ip_md5);
+            $store->expire("userips:$user_id", $IP_STORE_EXPIRES);
+
+            if ($c->action->name ne 'notes_received') {
+                my $user_name = $c->user->name;
+                push @alert_cache_keys, (
+                    "edit_notes_received_last_viewed:$user_name",
+                    "edit_notes_received_last_updated:$user_name",
+                );
+            }
         }
 
         my ($notes_viewed, $notes_updated);
         ($alert, $alert_mtime, $notes_viewed, $notes_updated) =
-            @{$store->get_multi(@cache_keys)}{@cache_keys};
+            @{$store->get_multi(@alert_cache_keys)}{@alert_cache_keys};
 
         if ($notes_updated && (!defined($notes_viewed) || $notes_updated > $notes_viewed)) {
             $new_edit_notes = 1;
