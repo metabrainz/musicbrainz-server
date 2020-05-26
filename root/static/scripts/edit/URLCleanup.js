@@ -2591,7 +2591,7 @@ const CLEANUPS = {
     type: LINK_TYPES.image,
     validate: function () {
       return {
-        error: l('This site does not allow direct links to their images'),
+        error: l('This site does not allow direct links to their images.'),
         result: false,
       };
     },
