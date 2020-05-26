@@ -1453,8 +1453,8 @@ const CLEANUPS = {
         return {
           error: l(
             `Explore links are not officially connected to a location.
-             If you want to link a to a location, try and find
-             the place's Instagram profile instead, if there's one.`,
+             If you want to link a place to a location, try and find
+             the place’s Instagram profile instead, if there is one.`,
           ),
           result: false,
         };
