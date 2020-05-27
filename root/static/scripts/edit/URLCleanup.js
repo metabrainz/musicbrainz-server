@@ -1288,7 +1288,18 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i')],
     type: LINK_TYPES.lyrics,
     clean: function (url) {
-      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
+      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.lyrics.artist:
+          return {result: /^https:\/\/genius\.com\/artists\/[\w-]+$/.test(url)};
+        case LINK_TYPES.lyrics.release_group:
+          return {result: /^https:\/\/genius\.com\/albums\/[\w-]+\/[\w-]+$/.test(url)};
+        case LINK_TYPES.lyrics.work:
+          return {result: /^https:\/\/genius\.com\/(?!(?:artists|albums)\/)[\w-]+-lyrics$/.test(url)};
+      }
+      return false;
     },
   },
   'geonames': {
