@@ -794,7 +794,7 @@ sub external_search
     $type =~ s/release_group/release-group/;
 
     my $search_url_string;
-    if (DBDefs->SEARCH_ENGINE eq 'LUCENE') {
+    if (DBDefs->SEARCH_ENGINE eq 'LUCENE' || DBDefs->SEARCH_SERVER eq DBDefs::Default->SEARCH_SERVER) {
         my $dismax = $adv ? 'false' : 'true';
         $search_url_string = "http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
     } else {
