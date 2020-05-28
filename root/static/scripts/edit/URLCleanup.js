@@ -1066,9 +1066,12 @@ const CLEANUPS = {
           }
           return {result: prefix === undefined};
         }
+        if (prefix === 'video/') {
+          return {result: true};
+        }
         return {
           error: linkToVideoMsg(),
-          result: prefix === 'video/',
+          result: false,
         };
       }
       return {result: false};
@@ -2560,9 +2563,12 @@ const CLEANUPS = {
           }
           return {result: prefix === undefined};
         }
+        if (prefix === 'videos/') {
+          return {result: true};
+        }
         return {
           error: linkToVideoMsg(),
-          result: prefix === 'videos/',
+          result: true,
         };
       }
       return {result: false};
@@ -2853,21 +2859,30 @@ const CLEANUPS = {
         case LINK_TYPES.youtube.label:
         case LINK_TYPES.youtube.place:
         case LINK_TYPES.youtube.series:
+          if (/^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url)) {
+            return {result: true};
+          }
           return {
             error: linkToChannelMsg(),
-            result: /^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url),
+            result: false,
           };
         case LINK_TYPES.streamingfree.recording:
+          if (/^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)) {
+            return {result: true};
+          }
           return {
             error: linkToVideoMsg(),
-            result: /^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url),
+            result: false,
           };
         case LINK_TYPES.streamingfree.release:
+          if (/^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url)) {
+            return {result: true};
+          }
           return {
             error: l(
               'Only video and playlist links are allowed on releases.',
             ),
-            result: /^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url),
+            result: false,
           };
       }
       return {result: false};
