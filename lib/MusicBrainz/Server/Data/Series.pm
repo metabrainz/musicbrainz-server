@@ -177,7 +177,7 @@ sub update {
 }
 
 sub is_empty {
-    my ($self, $series_id) = @_;
+    my ($self, $series_id, %args) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, series => $series_id);
     return $self->sql->select_single_value("SELECT NOT ($used_in_relationship)");

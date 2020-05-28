@@ -426,20 +426,23 @@ sub _find_recording_artists
 }
 
 sub is_empty {
-    my ($self, $work_id) = @_;
+    my ($self, $work_id, %args) = @_;
 
+    my $edits_pending_condition = 'AND edits_pending = 0' unless $args{ignore_edits};
+    my $open_edits_condition = 
+        'EXISTS (
+          SELECT TRUE
+          FROM edit_work JOIN edit ON edit_work.edit = edit.id
+          WHERE status = ' . $STATUS_OPEN . ' AND work = work_row.id
+        ) OR' unless $args{ignore_edits};
     my $used_in_relationship = used_in_relationship($self->c, work => 'work_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $work_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<EOSQL, $work_id);
         SELECT TRUE
         FROM work work_row
         WHERE id = ?
-        AND edits_pending = 0
+        $edits_pending_condition
         AND NOT (
-          EXISTS (
-            SELECT TRUE
-            FROM edit_work JOIN edit ON edit_work.edit = edit.id
-            WHERE status = ? AND work = work_row.id
-          ) OR
+          $open_edits_condition
           $used_in_relationship
         )
 EOSQL

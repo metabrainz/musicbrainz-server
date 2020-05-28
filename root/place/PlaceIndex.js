@@ -13,6 +13,7 @@ import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import CleanupBanner from '../components/CleanupBanner';
+import CleanupDangerBanner from '../components/CleanupDangerBanner';
 import Relationships from '../components/Relationships';
 import * as manifest from '../static/manifest';
 
@@ -21,6 +22,7 @@ import PlaceLayout from './PlaceLayout';
 type Props = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
+  +inCleanupDanger: boolean,
   +numberOfRevisions: number,
   +place: PlaceT,
   +wikipediaExtract: WikipediaExtractT | null,
@@ -29,6 +31,7 @@ type Props = {
 const PlaceIndex = ({
   $c,
   eligibleForCleanup,
+  inCleanupDanger,
   numberOfRevisions,
   place,
   wikipediaExtract,
@@ -36,6 +39,9 @@ const PlaceIndex = ({
   <PlaceLayout $c={$c} entity={place} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="place" />
+    ) : null}
+    {inCleanupDanger ? (
+      <CleanupDangerBanner entityType="place" />
     ) : null}
     <Annotation
       annotation={place.latest_annotation}

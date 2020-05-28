@@ -21,6 +21,7 @@ import WikipediaExtract
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName';
 import CleanupBanner from '../components/CleanupBanner';
+import CleanupDangerBanner from '../components/CleanupDangerBanner';
 import Relationships from '../components/Relationships';
 import * as manifest from '../static/manifest';
 
@@ -98,6 +99,7 @@ type SeriesIndexProps = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +entities: ?$ReadOnlyArray<CoreEntityT>,
+  +inCleanupDanger: boolean,
   +numberOfRevisions: number,
   +pager: PagerT,
   +series: $ReadOnly<{...SeriesT, +type: SeriesTypeT}>,
@@ -108,6 +110,7 @@ const SeriesIndex = ({
   $c,
   eligibleForCleanup,
   entities,
+  inCleanupDanger,
   numberOfRevisions,
   pager,
   series,
@@ -120,6 +123,9 @@ const SeriesIndex = ({
     <SeriesLayout $c={$c} entity={series} page="index">
       {eligibleForCleanup ? (
         <CleanupBanner entityType="series" />
+      ) : null}
+      {inCleanupDanger ? (
+        <CleanupDangerBanner entityType="series" />
       ) : null}
       <Annotation
         annotation={series.latest_annotation}

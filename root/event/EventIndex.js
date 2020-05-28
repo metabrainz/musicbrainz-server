@@ -14,6 +14,7 @@ import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import CleanupBanner from '../components/CleanupBanner';
+import CleanupDangerBanner from '../components/CleanupDangerBanner';
 import Relationships from '../components/Relationships';
 import * as manifest from '../static/manifest';
 
@@ -23,6 +24,7 @@ type Props = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +event: EventT,
+  +inCleanupDanger: boolean,
   +numberOfRevisions: number,
   +wikipediaExtract: WikipediaExtractT,
 };
@@ -30,6 +32,7 @@ type Props = {
 const EventIndex = ({
   $c,
   eligibleForCleanup,
+  inCleanupDanger,
   event,
   numberOfRevisions,
   wikipediaExtract,
@@ -40,6 +43,9 @@ const EventIndex = ({
     <EventLayout $c={$c} entity={event} page="index">
       {eligibleForCleanup ? (
         <CleanupBanner entityType="event" />
+      ) : null}
+      {inCleanupDanger ? (
+        <CleanupDangerBanner entityType="event" />
       ) : null}
       <Annotation
         annotation={event.latest_annotation}

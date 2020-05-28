@@ -22,6 +22,7 @@ import commaOnlyList, {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import CleanupBanner from '../components/CleanupBanner';
+import CleanupDangerBanner from '../components/CleanupDangerBanner';
 import FormSubmit from '../components/FormSubmit';
 import RecordingList from '../components/list/RecordingList';
 import ReleaseGroupList from '../components/list/ReleaseGroupList';
@@ -66,6 +67,7 @@ type Props = {
   +hasFilter: boolean,
   +hasVariousArtists: boolean,
   +hasVariousArtistsExtra: boolean,
+  +inCleanupDanger: boolean,
   +includingAllStatuses: boolean,
   +legalName: ?ArtistT,
   +legalNameAliases: ?$ReadOnlyArray<string>,
@@ -216,6 +218,7 @@ const ArtistIndex = ({
   ajaxFilterFormUrl,
   artist,
   eligibleForCleanup,
+  inCleanupDanger,
   filterForm,
   hasDefault,
   hasExtra,
@@ -241,6 +244,10 @@ const ArtistIndex = ({
     <ArtistLayout $c={$c} entity={artist} page="index">
       {eligibleForCleanup ? (
         <CleanupBanner entityType="artist" />
+      ) : null}
+
+      {inCleanupDanger ? (
+        <CleanupDangerBanner entityType="artist" />
       ) : null}
 
       <Annotation

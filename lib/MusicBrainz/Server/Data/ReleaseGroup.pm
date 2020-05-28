@@ -658,22 +658,25 @@ sub merge_releases {
 }
 
 sub is_empty {
-    my ($self, $release_group_id) = @_;
+    my ($self, $release_group_id, %args) = @_;
 
+    my $edits_pending_condition = 'AND edits_pending = 0' unless $args{ignore_edits};
+    my $open_edits_condition = 
+        'EXISTS (
+          SELECT TRUE
+          FROM edit_release_group JOIN edit ON edit.id = edit_release_group.edit
+          WHERE status = ' . $STATUS_OPEN . ' AND release_group = release_group_row.id
+        ) OR' unless $args{ignore_edits};
     my $used_in_relationship =
         used_in_relationship($self->c, release_group => 'release_group_row.id');
 
-    return $self->sql->select_single_value(<<EOSQL, $release_group_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<EOSQL, $release_group_id);
         SELECT TRUE
         FROM release_group release_group_row
         WHERE id = ?
-        AND edits_pending = 0
+        $edits_pending_condition
         AND NOT (
-          EXISTS (
-            SELECT TRUE FROM edit_release_group
-            JOIN edit ON edit.id = edit_release_group.edit
-            WHERE status = ? AND release_group = release_group_row.id
-          ) OR
+          $open_edits_condition
           EXISTS (
             SELECT TRUE FROM release
             WHERE release.release_group = release_group_row.id

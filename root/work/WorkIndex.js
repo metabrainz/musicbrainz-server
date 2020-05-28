@@ -13,6 +13,7 @@ import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import CleanupBanner from '../components/CleanupBanner';
+import CleanupDangerBanner from '../components/CleanupDangerBanner';
 import Relationships from '../components/Relationships';
 import RelationshipsTable from '../components/RelationshipsTable';
 import * as manifest from '../static/manifest';
@@ -22,6 +23,7 @@ import WorkLayout from './WorkLayout';
 type Props = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
+  +inCleanupDanger: boolean,
   +numberOfRevisions: number,
   +wikipediaExtract: WikipediaExtractT | null,
   +work: WorkT,
@@ -30,6 +32,7 @@ type Props = {
 const WorkIndex = ({
   $c,
   eligibleForCleanup,
+  inCleanupDanger,
   numberOfRevisions,
   wikipediaExtract,
   work,
@@ -37,6 +40,9 @@ const WorkIndex = ({
   <WorkLayout $c={$c} entity={work} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="work" />
+    ) : null}
+    {inCleanupDanger ? (
+      <CleanupDangerBanner entityType="work" />
     ) : null}
     <Annotation
       annotation={work.latest_annotation}

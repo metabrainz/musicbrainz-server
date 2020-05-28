@@ -20,6 +20,7 @@ import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import CleanupBanner from '../components/CleanupBanner';
+import CleanupDangerBanner from '../components/CleanupDangerBanner';
 import FormRow from '../components/FormRow';
 import FormSubmit from '../components/FormSubmit';
 import Relationships from '../components/Relationships';
@@ -36,6 +37,7 @@ import ReleaseGroupLayout from './ReleaseGroupLayout';
 type Props = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
+  +inCleanupDanger: boolean,
   +mostPopularReview: CritiqueBrainzReviewT,
   +mostRecentReview: CritiqueBrainzReviewT,
   +numberOfRevisions: number,
@@ -96,6 +98,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
 const ReleaseGroupIndex = ({
   $c,
   eligibleForCleanup,
+  inCleanupDanger,
   pager,
   mostPopularReview,
   mostRecentReview,
@@ -111,6 +114,9 @@ const ReleaseGroupIndex = ({
   >
     {eligibleForCleanup ? (
       <CleanupBanner entityType="release_group" />
+    ) : null}
+    {inCleanupDanger ? (
+      <CleanupDangerBanner entityType="release_group" />
     ) : null}
     <Annotation
       annotation={releaseGroup.latest_annotation}

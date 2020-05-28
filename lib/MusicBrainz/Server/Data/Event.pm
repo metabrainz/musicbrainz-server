@@ -150,20 +150,23 @@ sub load_meta
 }
 
 sub is_empty {
-    my ($self, $event_id) = @_;
+    my ($self, $event_id, %args) = @_;
 
+    my $edits_pending_condition = 'AND edits_pending = 0' unless $args{ignore_edits};
+    my $open_edits_condition = 
+        'EXISTS (
+          SELECT TRUE
+          FROM edit_event JOIN edit ON edit_event.edit = edit.id
+          WHERE status = ' . $STATUS_OPEN . ' AND event = event_row.id
+        ) OR' unless $args{ignore_edits};
     my $used_in_relationship = used_in_relationship($self->c, event => 'event_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $event_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<EOSQL, $event_id);
         SELECT TRUE
         FROM event event_row
         WHERE id = ?
-        AND edits_pending = 0
+        $edits_pending_condition
         AND NOT (
-          EXISTS (
-            SELECT TRUE
-            FROM edit_event JOIN edit ON edit_event.edit = edit.id
-            WHERE status = ? AND event = event_row.id
-          ) OR
+          $open_edits_condition
           $used_in_relationship
         )
 EOSQL
