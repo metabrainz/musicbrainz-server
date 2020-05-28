@@ -15,7 +15,7 @@
     [% IF !submission.exists('old_barcode') %]
       <tr>
           <th>[% l('Barcode:') %]</th>
-          <td colspan="2">[% submission.barcode | html %]</td>
+          <td colspan="2">[% submission.new_barcode.format | html %]</td>
       </tr>
     [% ELSE %]
        [% display_diff(l('Barcode:'), submission.old_barcode.format, submission.new_barcode.format) %]
