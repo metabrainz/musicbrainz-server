@@ -427,8 +427,13 @@ const CLEANUPS = {
                   `Allmusic “{album_url_pattern}” links should be added to
                    release groups.
                    To find the appropriate release link for this release,
-                   please check the Releases tab for the Allmusic album.`,
+                   please check the Releases tab from {album_url|your link}.`,
                   {
+                    album_url: {
+                      href: url,
+                      rel: 'noopener noreferrer',
+                      target: '_blank',
+                    },
                     album_url_pattern: (
                       <span className="url-quote">{'/album'}</span>
                     ),
