@@ -78,4 +78,32 @@ sub validate_type_id {
     }
 }
 
+sub validate_collaborators {
+    my $self = shift;
+
+    my @collaborators = $self->field('collaborators')->fields;
+    my $is_valid = 1;
+    for my $collaborator (@collaborators) {
+        my $id_field = $collaborator->field('id');
+        my $name_field = $collaborator->field('name');
+        if (defined $name_field->value && !(defined $id_field->value)) {
+            my $editor = $self->ctx->model('Editor')->get_by_name($name_field->value);
+            if (defined $editor) {
+                $id_field->add_error(
+                    l('To add “{editor}” as a collaborator, please select them from the dropdown.',
+                      {editor => $name_field->value})
+                );
+            } else {
+                $id_field->add_error(
+                    l('Editor “{editor}” does not exist.',
+                      {editor => $name_field->value})
+                );
+            }
+            $is_valid = 0;
+        }
+    }
+
+    return $is_valid;
+}
+
 1;
