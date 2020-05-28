@@ -100,7 +100,11 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
               />
               <div className="form-row-text-list">
                 {collaborators.field.map((collaborator, index) => (
-                  <div className="text-list-row" key={collaborator.html_name}>
+                  <div
+                    className="text-list-row"
+                    id="collaborators-form-list"
+                    key={collaborator.html_name}
+                  >
                     <Autocomplete
                       currentSelection={{
                         id: collaborator.field.id.value,
@@ -108,7 +112,7 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
                       }}
                       entity="editor"
                       inputID={'id-' + collaborator.html_name}
-                      inputName={collaborator.html_name}
+                      inputName={collaborator.field.name.html_name}
                       onChange={(c) => handleCollaboratorChange(c, index)}
                     >
                       <input

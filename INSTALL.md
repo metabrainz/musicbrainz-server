@@ -345,7 +345,8 @@ The server by itself doesn't rate limit any request it handles. If you're
 receiving 503s, then you're likely performing
 [search queries](https://musicbrainz.org/doc/Search_Server) without having set
 up a local instance of the
-[search server](https://github.com/metabrainz/search-server). By default,
+[search server](https://github.com/metabrainz/mb-solr) along with the
+[search index rebuilder](https://github.com/metabrainz/sir). By default,
 search queries are sent to search.musicbrainz.org and are rate limited.
 
 Once you set up your own instance, change `SEARCH_SERVER` in lib/DBDefs.pm to

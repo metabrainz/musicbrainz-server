@@ -423,10 +423,21 @@ const CLEANUPS = {
           case LINK_TYPES.allmusic.release:
             if (prefix === 'album/mw') {
               return {
-                error: l(
-                  `Allmusic album links should be added to release groups.
+                error: exp.l(
+                  `Allmusic “{album_url_pattern}” links should be added to
+                   release groups.
                    To find the appropriate release link for this release,
-                   please check the Releases tab for the Allmusic album.`,
+                   please check the Releases tab from {album_url|your link}.`,
+                  {
+                    album_url: {
+                      href: url,
+                      rel: 'noopener noreferrer',
+                      target: '_blank',
+                    },
+                    album_url_pattern: (
+                      <span className="url-quote">{'/album'}</span>
+                    ),
+                  },
                 ),
                 result: false,
               };
@@ -477,6 +488,7 @@ const CLEANUPS = {
       return null;
     },
     validate: function (url) {
+      // If you change this, please update the BadAmazonURLs report.
       return {result: /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\//.test(url)};
     },
   },
@@ -507,6 +519,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
+      // If you change this, please update the BadAmazonURLs report.
       const m = /^https:\/\/music\.amazon\.(?:com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\/(albums|artists)/.exec(url);
       if (m) {
         const prefix = m[1];
@@ -1058,9 +1071,12 @@ const CLEANUPS = {
           }
           return {result: prefix === undefined};
         }
+        if (prefix === 'video/') {
+          return {result: true};
+        }
         return {
           error: linkToVideoMsg(),
-          result: prefix === 'video/',
+          result: false,
         };
       }
       return {result: false};
@@ -1136,9 +1152,15 @@ const CLEANUPS = {
           case LINK_TYPES.discogs.release:
             if (prefix === 'master') {
               return {
-                error: l(
-                  `Discogs master links group several releases,
+                error: exp.l(
+                  `Discogs “{master_url_pattern}” links group several
+                   releases,
                    so this should be added to the release group instead.`,
+                  {
+                    master_url_pattern: (
+                      <span className="url-quote">{'/master'}</span>
+                    ),
+                  },
                 ),
                 result: false,
               };
@@ -1288,7 +1310,18 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i')],
     type: LINK_TYPES.lyrics,
     clean: function (url) {
-      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
+      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.lyrics.artist:
+          return {result: /^https:\/\/genius\.com\/artists\/[\w-]+$/.test(url)};
+        case LINK_TYPES.lyrics.release_group:
+          return {result: /^https:\/\/genius\.com\/albums\/[\w-]+\/[\w-]+$/.test(url)};
+        case LINK_TYPES.lyrics.work:
+          return {result: /^https:\/\/genius\.com\/(?!(?:artists|albums)\/)[\w-]+-lyrics$/.test(url)};
+      }
+      return false;
     },
   },
   'geonames': {
@@ -1438,10 +1471,16 @@ const CLEANUPS = {
       }
       if (/^https:\/\/www\.instagram\.com\/explore\//.test(url)) {
         return {
-          error: l(
-            `Explore links are not officially connected to a location.
-             If you want to link a to a location, try and find
-             the place's Instagram profile instead, if there's one.`,
+          error: exp.l(
+            `Instagram “{explore_url_pattern}” links are not officially
+             connected to a location.
+             If you want to link a place to a location, try and find
+             the place’s Instagram profile instead, if there is one.`,
+            {
+              explore_url_pattern: (
+                <span className="url-quote">{'/explore'}</span>
+              ),
+            },
           ),
           result: false,
         };
@@ -1490,10 +1529,15 @@ const CLEANUPS = {
               return {result: true};
             }
             return {
-              error: l(
-                `Only iTunes artist pages can be added directly 
-                 to artists. Please link albums, videos, etc. 
+              error: exp.l(
+                `Only iTunes “{artist_url_pattern}” pages can be added
+                 directly to artists. Please link albums, videos, etc.
                  to the appropriate release or recording instead.`,
+                {
+                  artist_url_pattern: (
+                    <span className="url-quote">{'/artist'}</span>
+                  ),
+                },
               ),
               result: false,
             };
@@ -1723,7 +1767,6 @@ const CLEANUPS = {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?directlyrics\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?decoda\\.com', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?kasi-time\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?lieder\\.net', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?utamap\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?j-lyric\\.net', 'i'),
@@ -2525,9 +2568,12 @@ const CLEANUPS = {
           }
           return {result: prefix === undefined};
         }
+        if (prefix === 'videos/') {
+          return {result: true};
+        }
         return {
           error: linkToVideoMsg(),
-          result: prefix === 'videos/',
+          result: true,
         };
       }
       return {result: false};
@@ -2579,7 +2625,7 @@ const CLEANUPS = {
     type: LINK_TYPES.image,
     validate: function () {
       return {
-        error: l('This site does not allow direct links to their images'),
+        error: l('This site does not allow direct links to their images.'),
         result: false,
       };
     },
@@ -2750,12 +2796,12 @@ const CLEANUPS = {
       if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/.test(url)) {
         return {
           error: exp.l(
-            `Links to specific sections of Wikipedia articles are not 
+            `Links to specific sections of Wikipedia articles are not
              allowed. Please remove “{fragment}” if still appropriate.
              See the {url|guidelines}.`,
             {
               fragment: (
-                <span className="url-quote" key="fragment">
+                <span className="url-quote">
                   {url.replace(
                     /^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/,
                     '#$1',
@@ -2818,21 +2864,30 @@ const CLEANUPS = {
         case LINK_TYPES.youtube.label:
         case LINK_TYPES.youtube.place:
         case LINK_TYPES.youtube.series:
+          if (/^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url)) {
+            return {result: true};
+          }
           return {
             error: linkToChannelMsg(),
-            result: /^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url),
+            result: false,
           };
         case LINK_TYPES.streamingfree.recording:
+          if (/^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)) {
+            return {result: true};
+          }
           return {
             error: linkToVideoMsg(),
-            result: /^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url),
+            result: false,
           };
         case LINK_TYPES.streamingfree.release:
+          if (/^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url)) {
+            return {result: true};
+          }
           return {
             error: l(
               'Only video and playlist links are allowed on releases.',
             ),
-            result: /^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url),
+            result: false,
           };
       }
       return {result: false};

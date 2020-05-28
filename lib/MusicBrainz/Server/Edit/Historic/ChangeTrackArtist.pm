@@ -8,6 +8,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
+use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_name     { N_l('Edit track (historic)') }
 sub edit_kind     { 'edit' }
@@ -36,7 +37,10 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} },
+        recording => $loaded->{Recording}->{ $self->data->{recording_id} } ||
+                Recording->new(
+                    id => $self->data->{recording_id},
+                ),
         artist => {
             old => $loaded->{Artist}->{ $self->data->{old_artist_id} } ||
                 Artist->new(
