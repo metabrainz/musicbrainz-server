@@ -1734,7 +1734,6 @@ const CLEANUPS = {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?directlyrics\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?decoda\\.com', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?kasi-time\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?lieder\\.net', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?utamap\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?j-lyric\\.net', 'i'),
