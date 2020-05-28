@@ -9,9 +9,6 @@ after show => sub {
     my $eligible_for_cleanup = $c->model( $self->config->{model} )->is_empty($entity->id);
     $c->stash->{component_props}{eligibleForCleanup} =
         boolean_to_json($eligible_for_cleanup);
-    $c->stash(
-        eligible_for_cleanup => $eligible_for_cleanup
-    )
 };
 
 1;
