@@ -477,6 +477,7 @@ const CLEANUPS = {
       return null;
     },
     validate: function (url) {
+      // If you change this, please update the BadAmazonURLs report.
       return {result: /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\//.test(url)};
     },
   },
@@ -507,6 +508,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
+      // If you change this, please update the BadAmazonURLs report.
       const m = /^https:\/\/music\.amazon\.(?:com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\/(albums|artists)/.exec(url);
       if (m) {
         const prefix = m[1];
