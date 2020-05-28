@@ -331,7 +331,7 @@ const UserProfileInformation = withCatalystContext(({
         ) : null}
 
         {$c.user?.is_account_admin && ipHashes.length ? (
-          <UserProfileProperty name={l('IP lookup:')}>
+          <UserProfileProperty name={bracketedText(l('IP lookup'))}>
             <ul className="inline">
               {commaOnlyList(ipHashes.map(ipHash => (
                 <a
