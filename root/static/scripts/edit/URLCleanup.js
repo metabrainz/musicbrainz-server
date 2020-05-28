@@ -2785,12 +2785,12 @@ const CLEANUPS = {
       if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/.test(url)) {
         return {
           error: exp.l(
-            `Links to specific sections of Wikipedia articles are not 
+            `Links to specific sections of Wikipedia articles are not
              allowed. Please remove “{fragment}” if still appropriate.
              See the {url|guidelines}.`,
             {
               fragment: (
-                <span className="url-quote" key="fragment">
+                <span className="url-quote">
                   {url.replace(
                     /^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/,
                     '#$1',
