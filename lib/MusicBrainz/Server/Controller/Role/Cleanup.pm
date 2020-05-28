@@ -26,10 +26,6 @@ after show => sub {
     
     $c->stash->{component_props}{eligibleForCleanup} = $eligible_for_cleanup;
     $c->stash->{component_props}{inCleanupDanger} = $in_cleanup_danger;
-    $c->stash(
-        eligible_for_cleanup => $eligible_for_cleanup,
-        in_cleanup_danger => $in_cleanup_danger
-    )
 };
 
 1;
