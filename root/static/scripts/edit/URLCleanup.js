@@ -423,10 +423,16 @@ const CLEANUPS = {
           case LINK_TYPES.allmusic.release:
             if (prefix === 'album/mw') {
               return {
-                error: l(
-                  `Allmusic album links should be added to release groups.
+                error: exp.l(
+                  `Allmusic “{album_url_pattern}” links should be added to
+                   release groups.
                    To find the appropriate release link for this release,
                    please check the Releases tab for the Allmusic album.`,
+                  {
+                    album_url_pattern: (
+                      <span className="url-quote">{'/album'}</span>
+                    ),
+                  },
                 ),
                 result: false,
               };
@@ -1138,9 +1144,15 @@ const CLEANUPS = {
           case LINK_TYPES.discogs.release:
             if (prefix === 'master') {
               return {
-                error: l(
-                  `Discogs master links group several releases,
+                error: exp.l(
+                  `Discogs “{master_url_pattern}” links group several
+                   releases,
                    so this should be added to the release group instead.`,
+                  {
+                    master_url_pattern: (
+                      <span className="url-quote">{'/master'}</span>
+                    ),
+                  },
                 ),
                 result: false,
               };
@@ -1451,10 +1463,16 @@ const CLEANUPS = {
       }
       if (/^https:\/\/www\.instagram\.com\/explore\//.test(url)) {
         return {
-          error: l(
-            `Explore links are not officially connected to a location.
+          error: exp.l(
+            `Instagram “{explore_url_pattern}” links are not officially
+             connected to a location.
              If you want to link a place to a location, try and find
              the place’s Instagram profile instead, if there is one.`,
+            {
+              explore_url_pattern: (
+                <span className="url-quote">{'/explore'}</span>
+              ),
+            },
           ),
           result: false,
         };
@@ -1503,10 +1521,15 @@ const CLEANUPS = {
               return {result: true};
             }
             return {
-              error: l(
-                `Only iTunes artist pages can be added directly 
-                 to artists. Please link albums, videos, etc. 
+              error: exp.l(
+                `Only iTunes “{artist_url_pattern}” pages can be added
+                 directly to artists. Please link albums, videos, etc.
                  to the appropriate release or recording instead.`,
+                {
+                  artist_url_pattern: (
+                    <span className="url-quote">{'/artist'}</span>
+                  ),
+                },
               ),
               result: false,
             };
