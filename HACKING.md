@@ -321,7 +321,12 @@ Common instructions for porting:
         ```
 
  3. You can access most of the [Catalyst Context](http://search.cpan.org/~ether/Catalyst-Manual-5.9009/lib/Catalyst/Manual/Intro.pod#Context) in JavaScript
-    via the variable `$c`.
+    via the variable `$c`. This is passed as a prop automatically if the
+    component is top-level or used from `React.embed`. If you need to access
+    `$c` from a deeply-nested component, you can either pass it down from
+    a parent component, or import the `CatalystContext`
+    [React context](https://reactjs.org/docs/context.html) from
+    root/context.js and use the `CatalystContext.Consumer` component.
 
  4. To communicate between the Perl and Node servers (the latter renders React
     components for us), you need to appropriately serialize the props passed
