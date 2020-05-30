@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const ReleasesWithNoMediums = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases with no mediums')}>
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Releases with no mediums')}>
     <h1>{l('Releases with no mediums')}</h1>
 
     <ul>
@@ -41,7 +40,7 @@ const ReleasesWithNoMediums = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -49,4 +48,4 @@ const ReleasesWithNoMediums = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleasesWithNoMediums);
+export default ReleasesWithNoMediums;

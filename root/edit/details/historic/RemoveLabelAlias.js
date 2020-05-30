@@ -16,7 +16,11 @@ type RemoveLabelAliasEditT = {
   },
 };
 
-const RemoveLabelAlias = ({edit}: {+edit: RemoveLabelAliasEditT}) => (
+type Props = {
+  +edit: RemoveLabelAliasEditT,
+};
+
+const RemoveLabelAlias = ({edit}: Props): React.Element<'table'> => (
   <table className="details remove-label-alias">
     <tr>
       <th>{l('Alias:')}</th>

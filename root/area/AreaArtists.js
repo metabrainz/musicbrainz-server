@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import ArtistList from '../components/list/ArtistList';
 import PaginatedResults from '../components/PaginatedResults';
 
@@ -27,14 +26,15 @@ const AreaArtists = ({
   area,
   artists,
   pager,
-}: Props) => (
-  <AreaLayout entity={area} page="artists" title={l('Artists')}>
+}: Props): React.Element<typeof AreaLayout> => (
+  <AreaLayout $c={$c} entity={area} page="artists" title={l('Artists')}>
     <h2>{l('Artists')}</h2>
 
     {artists?.length ? (
       <form action="/artist/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <ArtistList
+            $c={$c}
             artists={artists}
             checkboxes="add-to-merge"
             showBeginEnd
@@ -59,4 +59,4 @@ const AreaArtists = ({
   </AreaLayout>
 );
 
-export default withCatalystContext(AreaArtists);
+export default AreaArtists;

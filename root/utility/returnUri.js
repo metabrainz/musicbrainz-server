@@ -12,7 +12,7 @@ export default function returnUri(
   path: string,
   param?: string = 'uri',
   redirect?: string = '',
-) {
+): string {
   return path + '?' + param + '=' + encodeURIComponent(
     $c.req.query_params[param] || redirect || $c.relative_uri,
   );

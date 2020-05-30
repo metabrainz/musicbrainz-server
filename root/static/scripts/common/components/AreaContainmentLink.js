@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -14,7 +15,11 @@ import EntityLink from './EntityLink';
 
 const makeLink = (x, i) => <EntityLink entity={x} key={i} />;
 
-const AreaContainmentLink = ({area}) => (
+type Props = {
+  +area: AreaT,
+};
+
+const AreaContainmentLink = ({area}: Props): Expand2ReactOutput | null => (
   area.containment
     ? commaOnlyList(area.containment.map(makeLink))
     : null

@@ -13,8 +13,7 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import {commaOnlyListText} from
   '../../static/scripts/common/i18n/commaOnlyList';
 
-
-type AddWorkEdit = {
+type AddWorkEditT = {
   ...EditT,
   +display_data: {
     +attributes?: {
@@ -30,8 +29,11 @@ type AddWorkEdit = {
   },
 };
 
+type Props = {
+  +edit: AddWorkEditT,
+};
 
-const AddWork = ({edit}: {+edit: AddWorkEdit}) => {
+const AddWork = ({edit}: Props): React.MixedElement => {
   const display = edit.display_data;
   const attributes = display.attributes ?? {};
   const type = display.type;

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,9 @@ const ArtistsContainingDisambiguationComments = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>) => (
+}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Artists containing disambiguation comments in their name')}
   >
@@ -46,7 +46,7 @@ const ArtistsContainingDisambiguationComments = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ArtistList items={items} pager={pager} />
@@ -54,4 +54,4 @@ const ArtistsContainingDisambiguationComments = ({
   </Layout>
 );
 
-export default withCatalystContext(ArtistsContainingDisambiguationComments);
+export default ArtistsContainingDisambiguationComments;

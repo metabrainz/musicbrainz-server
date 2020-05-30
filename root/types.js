@@ -221,6 +221,7 @@ declare type CatalystStashT = {
   +hide_merge_helper?: boolean,
   +invalid_csrf_token?: boolean,
   +jsonld_data?: {...},
+  +last_replication_date?: string,
   +makes_no_changes?: boolean,
   +more_tags?: boolean,
   +new_edit_notes?: boolean,
@@ -1067,7 +1068,9 @@ declare type UrlT = {
   +decoded: string,
   +href_url: string,
   +pretty_name: string,
+  +show_in_external_links?: boolean,
   +show_license_in_sidebar?: boolean,
+  +sidebar_name?: string,
 };
 
 declare type UserTagT = {

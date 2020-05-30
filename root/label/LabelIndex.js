@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import CleanupBanner from '../components/CleanupBanner';
 import FormRow from '../components/FormRow';
 import FormSubmit from '../components/FormSubmit';
@@ -40,8 +39,8 @@ const LabelIndex = ({
   pager,
   releases,
   wikipediaExtract,
-}: Props) => (
-  <LabelLayout entity={label} page="index">
+}: Props): React.Element<typeof LabelLayout> => (
+  <LabelLayout $c={$c} entity={label} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="label" />
     ) : null}
@@ -60,6 +59,7 @@ const LabelIndex = ({
       <form action="/release/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <ReleaseList
+            $c={$c}
             checkboxes="add-to-merge"
             filterLabel={label}
             releases={releases}
@@ -78,4 +78,4 @@ const LabelIndex = ({
   </LabelLayout>
 );
 
-export default withCatalystContext(LabelIndex);
+export default LabelIndex;

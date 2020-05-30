@@ -26,7 +26,7 @@ type LinkableEntity =
 function entityHref(
   entity: LinkableEntity,
   subPath?: string,
-) {
+): string {
   const entityProps = ENTITIES[entity.entityType];
   let href = '/' + entityProps.url + '/';
   let id = '';

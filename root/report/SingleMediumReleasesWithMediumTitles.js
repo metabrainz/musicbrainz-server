@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,9 @@ const SingleMediumReleasesWithMediumTitles = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Releases with a single medium that has a name')}
   >
@@ -46,7 +46,7 @@ const SingleMediumReleasesWithMediumTitles = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -54,4 +54,4 @@ const SingleMediumReleasesWithMediumTitles = ({
   </Layout>
 );
 
-export default withCatalystContext(SingleMediumReleasesWithMediumTitles);
+export default SingleMediumReleasesWithMediumTitles;

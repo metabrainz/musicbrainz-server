@@ -39,6 +39,11 @@ type LinkStateT = {
   ...
 };
 
+type LinkHashT = {
+  +[key: number | string | null]: LinkStateT,
+  ...
+};
+
 type LinksEditorProps = {
   errorObservable: (boolean) => void,
   initialLinks: Array<LinkStateT>,
@@ -124,14 +129,18 @@ export class ExternalLinksEditor
     });
   }
 
-  getOldLinksHash() {
+  getOldLinksHash(): LinkHashT {
     return _(this.props.initialLinks)
       .filter(link => isPositiveInteger(link.relationship))
       .keyBy('relationship')
       .value();
   }
 
-  getEditData() {
+  getEditData(): {
+    allLinks: LinkHashT,
+    newLinks: LinkHashT,
+    oldLinks: LinkHashT,
+    } {
     const oldLinks = this.getOldLinksHash();
     const newLinks = _.keyBy<
       LinkStateT,
@@ -186,7 +195,7 @@ export class ExternalLinksEditor
     });
   }
 
-  render() {
+  render(): React.Element<'table'> {
     this.props.errorObservable(false);
 
     const oldLinks = this.getOldLinksHash();
@@ -325,7 +334,7 @@ type LinkProps = {
 };
 
 export class ExternalLink extends React.Component<LinkProps> {
-  render() {
+  render(): React.Element<'tr'> {
     const props = this.props;
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
     let typeDescription = '';
@@ -481,7 +490,7 @@ const isVideoAttribute = attr => attr.type.gid === VIDEO_ATTRIBUTE_GID;
 
 export function parseRelationships(
   relationships?: $ReadOnlyArray<RelationshipT>,
-) {
+): Array<LinkStateT> {
   if (!relationships) {
     return [];
   }

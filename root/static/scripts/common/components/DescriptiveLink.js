@@ -16,7 +16,7 @@ import EntityLink from './EntityLink';
 
 type DescriptiveLinkProps = {
   +allowNew?: boolean,
-  +content?: React.Node,
+  +content?: Expand2ReactOutput,
   +entity: CollectionT | CoreEntityT,
   +showDeletedArtists?: boolean,
   +target?: '_blank',
@@ -28,7 +28,7 @@ const DescriptiveLink = ({
   entity,
   showDeletedArtists = true,
   target,
-}: DescriptiveLinkProps) => {
+}: DescriptiveLinkProps): Expand2ReactOutput | React.Node => {
   const props = {content, showDisambiguation: true, target, allowNew};
 
   if (entity.entityType === 'area' && entity.gid) {

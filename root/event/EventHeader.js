@@ -16,7 +16,10 @@ type Props = {
   +page: string,
 };
 
-const EventHeader = ({event, page}: Props) => (
+const EventHeader = ({
+  event,
+  page,
+}: Props): React.Element<typeof EntityHeader> => (
   <EntityHeader
     entity={event}
     headerClass="eventheader"

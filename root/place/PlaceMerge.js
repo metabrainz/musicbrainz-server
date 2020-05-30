@@ -15,7 +15,6 @@ import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import PlaceList from '../components/list/PlaceList';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -24,8 +23,12 @@ type Props = {
   +toMerge: $ReadOnlyArray<PlaceT>,
 };
 
-const PlaceMerge = ({$c, form, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge places')}>
+const PlaceMerge = ({
+  $c,
+  form,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge places')}>
     <div id="content">
       <h1>{l('Merge places')}</h1>
       <p>
@@ -34,6 +37,7 @@ const PlaceMerge = ({$c, form, toMerge}: Props) => (
       </p>
       <form action={$c.req.uri} method="post">
         <PlaceList
+          $c={$c}
           mergeForm={form}
           places={sortByEntityName(toMerge)}
         />
@@ -56,4 +60,4 @@ const PlaceMerge = ({$c, form, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(PlaceMerge);
+export default PlaceMerge;

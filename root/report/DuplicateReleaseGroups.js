@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const DuplicateReleaseGroups = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupT>) => (
-  <Layout fullWidth title={l('Possible duplicate release groups')}>
+}: ReportDataT<ReportReleaseGroupT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Possible duplicate release groups')}>
     <h1>{l('Possible duplicate release groups')}</h1>
 
     <ul>
@@ -51,7 +50,7 @@ const DuplicateReleaseGroups = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseGroupList items={items} pager={pager} />
@@ -59,4 +58,4 @@ const DuplicateReleaseGroups = ({
   </Layout>
 );
 
-export default withCatalystContext(DuplicateReleaseGroups);
+export default DuplicateReleaseGroups;

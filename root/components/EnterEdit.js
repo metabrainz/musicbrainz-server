@@ -9,13 +9,12 @@
 
 import * as React from 'react';
 
-
-type Props<F> = {
+type Props = {
   +children: React.Node,
-  +form: FormT<{...F, +make_votable: ReadOnlyFieldT<boolean>}>,
+  +form: FormT<{+make_votable: ReadOnlyFieldT<boolean>, ...}>,
 };
 
-const EnterEdit = <F>({children, form}: Props<F>) => (
+const EnterEdit = ({children, form}: Props): React.MixedElement => (
   <>
     <div className="row no-label">
       <div className="auto-editor">

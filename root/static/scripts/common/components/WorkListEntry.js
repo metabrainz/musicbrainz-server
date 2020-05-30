@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../../context';
 import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
 
@@ -31,6 +30,7 @@ type WorkListRowProps = {
 
 type WorkListEntryProps = {
   ...SeriesItemNumbersRoleT,
+  +$c: CatalystContextT,
   +checkboxes?: string,
   +index: number,
   +score?: number,
@@ -40,7 +40,7 @@ type WorkListEntryProps = {
   +work: WorkT,
 };
 
-export const WorkListRow = withCatalystContext<WorkListRowProps>(({
+export const WorkListRow = ({
   $c,
   checkboxes,
   seriesItemNumbers,
@@ -48,7 +48,7 @@ export const WorkListRow = withCatalystContext<WorkListRowProps>(({
   showIswcs,
   showRatings,
   work,
-}: WorkListRowProps) => (
+}: WorkListRowProps): React.Element<typeof React.Fragment> => (
   <>
     {$c.user && checkboxes ? (
       <td>
@@ -108,9 +108,10 @@ export const WorkListRow = withCatalystContext<WorkListRowProps>(({
       </td>
     ) : null}
   </>
-));
+);
 
 const WorkListEntry = ({
+  $c,
   checkboxes,
   index,
   score,
@@ -119,9 +120,10 @@ const WorkListEntry = ({
   showIswcs,
   showRatings,
   work,
-}: WorkListEntryProps) => (
+}: WorkListEntryProps): React.Element<'tr'> => (
   <tr className={loopParity(index)} data-score={score || null}>
     <WorkListRow
+      $c={$c}
       checkboxes={checkboxes}
       seriesItemNumbers={seriesItemNumbers}
       showAttributes={showAttributes}

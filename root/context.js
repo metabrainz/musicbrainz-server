@@ -46,35 +46,14 @@ const defaultSanitizedContext = {
   user: null,
 };
 
-const CatalystContext =
+const CatalystContext/*: React$Context<CatalystContextT> */ =
   React.createContext/*:: <CatalystContextT> */(defaultContext);
 
 exports.CatalystContext = CatalystContext;
 
-const SanitizedCatalystContext =
+const SanitizedCatalystContext/*: React$Context<SanitizedCatalystContextT> */ =
   React.createContext/*:: <SanitizedCatalystContextT> */(
     defaultSanitizedContext,
   );
 
 exports.SanitizedCatalystContext = SanitizedCatalystContext;
-
-/*::
-type ContextPropT = {
-  +$c: CatalystContextT,
-  ...,
-};
-*/
-
-function withCatalystContext/*:: <P: ContextPropT> */(
-  Component /*: ComponentType<P> */,
-) /*: ComponentType<$Diff<P, ContextPropT>> */ {
-  return (props) => React.createElement(
-    CatalystContext.Consumer,
-    null,
-    ($c /*: CatalystContextT */) => (
-      React.createElement(Component, {...props, $c})
-    ),
-  );
-}
-
-exports.withCatalystContext = withCatalystContext;

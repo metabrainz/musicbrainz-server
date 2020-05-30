@@ -14,11 +14,16 @@ import Layout from '../layout';
 import GenreEditForm from './GenreEditForm';
 import type {GenreFormT} from './types';
 
-const CreateGenre = ({form}: {form: GenreFormT}) => (
-  <Layout fullWidth title={l('Add a new genre')}>
+type Props = {
+  +$c: CatalystContextT,
+  +form: GenreFormT,
+};
+
+const CreateGenre = ({$c, form}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Add a new genre')}>
     <div id="content">
       <h1>{l('Add a new genre')}</h1>
-      <GenreEditForm form={form} />
+      <GenreEditForm $c={$c} form={form} />
     </div>
   </Layout>
 );

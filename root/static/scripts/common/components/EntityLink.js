@@ -18,10 +18,15 @@ import formatDatePeriod from '../utility/formatDatePeriod';
 import isolateText from '../utility/isolateText';
 import nonEmpty from '../utility/nonEmpty';
 
+type DeletedLinkProps = {
+  +allowNew: boolean,
+  +name: ?Expand2ReactOutput,
+};
+
 export const DeletedLink = ({
   allowNew,
   name,
-}: {+allowNew: boolean, +name: React.Node}) => {
+}: DeletedLinkProps): React.Element<'span'> => {
   const caption = allowNew
     ? l('This entity will be created by this edit.')
     : l('This entity has been removed, and cannot be displayed correctly.');
@@ -103,7 +108,7 @@ const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
 /* eslint-disable sort-keys, flowtype/sort-keys */
 type EntityLinkProps = {
   +allowNew?: boolean,
-  +content?: React.Node,
+  +content?: ?Expand2ReactOutput,
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
   +nameVariation?: boolean,
@@ -132,7 +137,8 @@ const EntityLink = ({
   showEventDate = true,
   subPath,
   ...anchorProps
-}: EntityLinkProps) => {
+}: EntityLinkProps):
+$ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   const hasCustomContent = nonEmpty(content);
   const comment = entity.comment ? ko.unwrap(entity.comment) : '';
 

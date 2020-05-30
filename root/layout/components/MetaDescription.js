@@ -188,7 +188,7 @@ type Props = {
   +entity: ?CoreEntityT,
 };
 
-const MetaDescription = ({entity}: Props) => {
+const MetaDescription = ({entity}: Props): React.Element<'meta'> | null => {
   if (!entity) {
     return null;
   }

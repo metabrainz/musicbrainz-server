@@ -49,7 +49,7 @@ const CritiqueBrainzReview = ({review, title}: Props) => (
   </>
 );
 
-export default hydrate<Props>(
+export default (hydrate<Props>(
   'div.critiquebrainz-review',
   CritiqueBrainzReview,
-);
+): React.AbstractComponent<Props, void>);

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import PlaceList from '../components/list/PlaceList';
 import PaginatedResults from '../components/PaginatedResults';
 import * as manifest from '../static/manifest';
@@ -31,8 +30,8 @@ const AreaPlaces = ({
   mapDataArgs,
   pager,
   places,
-}: Props) => (
-  <AreaLayout entity={area} page="places" title={l('Places')}>
+}: Props): React.Element<typeof AreaLayout> => (
+  <AreaLayout $c={$c} entity={area} page="places" title={l('Places')}>
     <h2>{l('Places')}</h2>
 
     {places?.length ? (
@@ -53,6 +52,7 @@ const AreaPlaces = ({
         <form action="/place/merge_queue" method="post">
           <PaginatedResults pager={pager}>
             <PlaceList
+              $c={$c}
               checkboxes="add-to-merge"
               places={places}
             />
@@ -76,4 +76,4 @@ const AreaPlaces = ({
   </AreaLayout>
 );
 
-export default withCatalystContext(AreaPlaces);
+export default AreaPlaces;

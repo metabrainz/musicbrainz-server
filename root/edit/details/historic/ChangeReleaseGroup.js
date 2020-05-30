@@ -13,7 +13,7 @@ import HistoricReleaseList from '../../components/HistoricReleaseList';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 
-type ChangeReleaseGroupT = {
+type ChangeReleaseGroupEditT = {
   ...EditT,
   +display_data: {
     +release_group: CompT<ReleaseGroupT>,
@@ -21,7 +21,11 @@ type ChangeReleaseGroupT = {
   },
 };
 
-const ChangeReleaseGroup = ({edit}: {+edit: ChangeReleaseGroupT}) => (
+type Props = {
+  +edit: ChangeReleaseGroupEditT,
+};
+
+const ChangeReleaseGroup = ({edit}: Props): React.Element<'table'> => (
   <table className="details change-release-group">
     <HistoricReleaseList
       colSpan="2"

@@ -11,7 +11,6 @@ import * as React from 'react';
 import {groupBy} from 'lodash';
 
 import Table from '../Table';
-import {withCatalystContext} from '../../context';
 import releaseGroupType from '../../utility/releaseGroupType';
 import parseDate from '../../static/scripts/common/utility/parseDate';
 import {
@@ -39,6 +38,7 @@ type ReleaseGroupListTableProps = {
 
 type ReleaseGroupListProps = {
   ...SeriesItemNumbersRoleT,
+  +$c: CatalystContextT,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
@@ -47,9 +47,7 @@ type ReleaseGroupListProps = {
   +sortable?: boolean,
 };
 
-export const ReleaseGroupListTable = withCatalystContext<
-  ReleaseGroupListTableProps,
->(({
+export const ReleaseGroupListTable = ({
   $c,
   checkboxes,
   mergeForm,
@@ -59,7 +57,7 @@ export const ReleaseGroupListTable = withCatalystContext<
   showRatings,
   showType = true,
   sortable,
-}: ReleaseGroupListTableProps) => {
+}: ReleaseGroupListTableProps): React.Element<typeof Table> => {
   function getFirstReleaseYear(entity: ReleaseGroupT) {
     if (!entity.firstReleaseDate) {
       return '—';
@@ -143,9 +141,10 @@ export const ReleaseGroupListTable = withCatalystContext<
       data={releaseGroups}
     />
   );
-});
+};
 
 const ReleaseGroupList = ({
+  $c,
   checkboxes,
   mergeForm,
   order,
@@ -153,7 +152,7 @@ const ReleaseGroupList = ({
   seriesItemNumbers,
   showRatings,
   sortable,
-}: ReleaseGroupListProps) => {
+}: ReleaseGroupListProps): Array<React$Node> => {
   const groupedReleaseGroups = groupBy(releaseGroups, 'typeName');
   return (
     Object.keys(groupedReleaseGroups).map<React$Node>((type) => {
@@ -167,6 +166,7 @@ const ReleaseGroupList = ({
             }
           </h3>
           <ReleaseGroupListTable
+            $c={$c}
             checkboxes={checkboxes}
             mergeForm={mergeForm}
             order={order}

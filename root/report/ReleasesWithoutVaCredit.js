@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,9 @@ const ReleasesWithoutVaCredit = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Releases not credited to "Various Artists" but linked to VA')}
   >
@@ -47,7 +47,7 @@ const ReleasesWithoutVaCredit = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -55,4 +55,4 @@ const ReleasesWithoutVaCredit = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleasesWithoutVaCredit);
+export default ReleasesWithoutVaCredit;

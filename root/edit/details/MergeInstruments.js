@@ -19,18 +19,23 @@ type MergeInstrumentsEditT = {
   },
 };
 
-const MergeInstruments = ({edit}: {+edit: MergeInstrumentsEditT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +edit: MergeInstrumentsEditT,
+};
+
+const MergeInstruments = ({$c, edit}: Props): React.Element<'table'> => (
   <table className="details merge-instruments">
     <tr>
       <th>{l('Merge:')}</th>
       <td>
-        <InstrumentList instruments={edit.display_data.old} />
+        <InstrumentList $c={$c} instruments={edit.display_data.old} />
       </td>
     </tr>
     <tr>
       <th>{l('Into:')}</th>
       <td>
-        <InstrumentList instruments={[edit.display_data.new]} />
+        <InstrumentList $c={$c} instruments={[edit.display_data.new]} />
       </td>
     </tr>
   </table>

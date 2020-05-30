@@ -11,8 +11,16 @@ import * as React from 'react';
 
 import Layout from '../../layout';
 
-const RelationshipTypeInUse = ({type}: {type: LinkTypeT}) => (
-  <Layout fullWidth page="in-use" title={l('Relationship Type In Use')}>
+type Props = {
+  +$c: CatalystContextT,
+  +type: LinkTypeT,
+};
+
+const RelationshipTypeInUse = ({
+  $c,
+  type,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Relationship Type In Use')}>
     <div className="content">
       <h1>{l('Relationship Type In Use')}</h1>
       <p>

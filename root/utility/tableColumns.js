@@ -47,8 +47,8 @@ import expand2react from '../static/scripts/common/i18n/expand2react';
 import yesNo from '../static/scripts/common/utility/yesNo';
 
 type OrderableProps = {
-    +order?: string,
-    +sortable?: boolean,
+  +order?: string,
+  +sortable?: boolean,
 };
 
 export function defineActionsColumn(
@@ -528,7 +528,7 @@ export const locationColumn:
   };
 
 export const ratingsColumn:
-  ColumnOptions<{...RatableRoleT, ...}, number> = {
+  ColumnOptions<RatableT, number> = {
     Cell: ({row: {original}}) => <RatingStars entity={original} />,
     Header: N_l('Rating'),
     accessor: 'rating',

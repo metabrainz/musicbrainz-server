@@ -23,7 +23,11 @@ type RemoveTrackEditT = {
   },
 };
 
-const RemoveTrack = ({edit}: {+edit: RemoveTrackEditT}) => (
+type Props = {
+  +edit: RemoveTrackEditT,
+};
+
+const RemoveTrack = ({edit}: Props): React.Element<'table'> => (
   <table className="details remove-track">
     <HistoricReleaseList releases={edit.display_data.releases} />
     <tr>

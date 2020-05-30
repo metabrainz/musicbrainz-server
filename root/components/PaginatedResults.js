@@ -9,16 +9,17 @@
 
 import * as React from 'react';
 
-import Paginator from './Paginator';
+import {CatalystContext} from '../context';
 
+import Paginator from './Paginator';
 
 type Props = {
   +children: React.Node,
   +pager: PagerT,
+  +pageVar?: 'apps_page' | 'page' | 'tokens_page',
   +query?: string,
   +search?: boolean,
   +total?: boolean,
-  +pageVar?: string,
 };
 
 const PaginatedResults = ({
@@ -28,17 +29,23 @@ const PaginatedResults = ({
   query,
   search = false,
   total = false,
-}: Props) => {
-  const paginator = <Paginator pager={pager} pageVar={pageVar} />;
+}: Props): React.Element<typeof React.Fragment> => {
+  const paginator = (
+    <CatalystContext.Consumer>
+      {$c => <Paginator $c={$c} pager={pager} pageVar={pageVar} />}
+    </CatalystContext.Consumer>
+  );
   return (
     <>
       {paginator}
       {(search || total) ? (
         <p className="pageselector-results">
           {(total || !query) ? (
-            texp.ln('Found {n} result', 'Found {n} results',
+            texp.ln(
+              'Found {n} result', 'Found {n} results',
               pager.total_entries,
-              {n: Number(pager.total_entries).toLocaleString()})
+              {n: Number(pager.total_entries).toLocaleString()},
+            )
           ) : (
             texp.ln(
               'Found {n} result for "{q}"',

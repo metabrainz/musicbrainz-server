@@ -14,7 +14,7 @@ import linkedEntities from '../linkedEntities';
 import DescriptiveLink from './DescriptiveLink';
 import MediumDescription from './MediumDescription';
 
-const MediumLink = ({medium}: {+medium: MediumT}) => (
+const MediumLink = ({medium}: {+medium: MediumT}): Expand2ReactOutput => (
   exp.l('{medium} on {release}', {
     medium: <MediumDescription medium={medium} />,
     release: (

@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {l as lMbServer} from '../static/scripts/common/i18n';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
-import {withCatalystContext} from '../context';
 
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
@@ -28,8 +27,13 @@ type EditsStatsT = {
   +statsByCategory: {[editCategory: string]: $ReadOnlyArray<EditCategoryT>},
 };
 
-const Edits = ({$c, dateCollected, stats, statsByCategory}: EditsStatsT) => (
-  <StatisticsLayout fullWidth page="edits" title={l('Edits')}>
+const Edits = ({
+  $c,
+  dateCollected,
+  stats,
+  statsByCategory,
+}: EditsStatsT): React.Element<typeof StatisticsLayout> => (
+  <StatisticsLayout $c={$c} fullWidth page="edits" title={l('Edits')}>
     <p>
       {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>
@@ -84,4 +88,4 @@ const Edits = ({$c, dateCollected, stats, statsByCategory}: EditsStatsT) => (
   </StatisticsLayout>
 );
 
-export default withCatalystContext(Edits);
+export default Edits;

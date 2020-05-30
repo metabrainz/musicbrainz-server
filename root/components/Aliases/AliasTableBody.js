@@ -17,7 +17,10 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const AliasTableBody = ({aliases, ...props}: Props) => {
+const AliasTableBody = ({
+  aliases,
+  ...props
+}: Props): React.Element<'tbody'> => {
   const aliasRows = [];
   for (let i = 0; i < aliases.length; i++) {
     const alias = aliases[i];

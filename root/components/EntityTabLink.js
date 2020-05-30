@@ -19,7 +19,11 @@ type Props = {
   +subPath: string,
 };
 
-const EntityTabLink = ({disabled, selected, ...linkProps}: Props) => (
+const EntityTabLink = ({
+  disabled,
+  selected,
+  ...linkProps
+}: Props): React.Element<'li'> => (
   <li
     className={
       selected || disabled

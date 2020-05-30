@@ -10,7 +10,6 @@
 import {range} from 'lodash';
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import uriWith from '../utility/uriWith';
 
 type PageQueryParam = 'apps_page' | 'page' | 'tokens_page';
@@ -42,7 +41,7 @@ const Paginator = ({
   guessSearch = false,
   pager,
   pageVar = 'page',
-}: Props) => {
+}: Props): React.Element<'nav'> | null => {
   const lastPage = pager.last_page;
 
   if (lastPage <= 1) {
@@ -149,4 +148,4 @@ const Paginator = ({
   );
 };
 
-export default withCatalystContext(Paginator);
+export default Paginator;

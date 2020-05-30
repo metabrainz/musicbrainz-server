@@ -15,7 +15,7 @@ const NULL_DATE: PartialDateT = Object.freeze({
 });
 /* eslint-enable sort-keys */
 
-export default function compareDates(a: ?PartialDateT, b: ?PartialDateT) {
+export default function compareDates(a: ?PartialDateT, b: ?PartialDateT): number {
   a = a || NULL_DATE;
   b = b || NULL_DATE;
 
@@ -36,7 +36,7 @@ export default function compareDates(a: ?PartialDateT, b: ?PartialDateT) {
 export function compareDatePeriods(
   a: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
   b: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
-) {
+): number {
   // Sort null values first
   if (!a) {
     return b ? -1 : 0;

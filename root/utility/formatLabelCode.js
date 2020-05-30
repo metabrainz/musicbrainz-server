@@ -9,6 +9,6 @@
 
 import padStart from 'lodash/padStart';
 
-export default function formatLabelCode(code: number) {
+export default function formatLabelCode(code: number): string {
   return 'LC ' + padStart(String(code), 5, '0');
 }

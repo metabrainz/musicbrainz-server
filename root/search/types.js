@@ -14,6 +14,13 @@ export type InlineResultsPropsT<T> = {
   +results: $ReadOnlyArray<SearchResultT<T>>,
 };
 
+export type InlineResultsPropsWithContextT<T> = {
+  +$c: CatalystContextT,
+  +pager: PagerT,
+  +query: string,
+  +results: $ReadOnlyArray<SearchResultT<T>>,
+};
+
 export type ResultsPropsT<T> = {
   ...InlineResultsPropsT<T>,
   +form: SearchFormT,

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,9 @@ const EventSequenceNotInSeries = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportEventT>) => (
+}: ReportDataT<ReportEventT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Events which should be part of series or larger event')}
   >
@@ -45,7 +45,7 @@ const EventSequenceNotInSeries = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <EventList items={items} pager={pager} />
@@ -53,4 +53,4 @@ const EventSequenceNotInSeries = ({
   </Layout>
 );
 
-export default withCatalystContext(EventSequenceNotInSeries);
+export default EventSequenceNotInSeries;

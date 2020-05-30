@@ -15,7 +15,6 @@ import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import WorkList from '../components/list/WorkList';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -24,8 +23,12 @@ type Props = {
   +toMerge: $ReadOnlyArray<WorkT>,
 };
 
-const WorkMerge = ({$c, form, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge works')}>
+const WorkMerge = ({
+  $c,
+  form,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge works')}>
     <div id="content">
       <h1>{l('Merge works')}</h1>
       <p>
@@ -34,6 +37,7 @@ const WorkMerge = ({$c, form, toMerge}: Props) => (
       </p>
       <form action={$c.req.uri} method="post">
         <WorkList
+          $c={$c}
           mergeForm={form}
           works={sortByEntityName(toMerge)}
         />
@@ -56,4 +60,4 @@ const WorkMerge = ({$c, form, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(WorkMerge);
+export default WorkMerge;

@@ -16,7 +16,6 @@ import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import FormRowCheckbox from '../components/FormRowCheckbox';
 import ArtistList from '../components/list/ArtistList';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -25,8 +24,12 @@ type Props = {
   +toMerge: $ReadOnlyArray<ArtistT>,
 };
 
-const ArtistMerge = ({$c, form, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge artists')}>
+const ArtistMerge = ({
+  $c,
+  form,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge artists')}>
     <div id="content">
       <h1>{l('Merge artists')}</h1>
       <p>
@@ -35,6 +38,7 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => (
       </p>
       <form action={$c.req.uri} method="post">
         <ArtistList
+          $c={$c}
           artists={sortByEntityName(toMerge)}
           mergeForm={form}
         />
@@ -82,4 +86,4 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(ArtistMerge);
+export default ArtistMerge;

@@ -15,7 +15,6 @@ import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import EventList from '../components/list/EventList';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -24,8 +23,12 @@ type Props = {
   +toMerge: $ReadOnlyArray<EventT>,
 };
 
-const EventMerge = ({$c, form, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge events')}>
+const EventMerge = ({
+  $c,
+  form,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge events')}>
     <div id="content">
       <h1>{l('Merge events')}</h1>
       <p>
@@ -34,6 +37,7 @@ const EventMerge = ({$c, form, toMerge}: Props) => (
       </p>
       <form action={$c.req.uri} method="post">
         <EventList
+          $c={$c}
           events={sortByEntityName(toMerge)}
           mergeForm={form}
           showArtists
@@ -59,4 +63,4 @@ const EventMerge = ({$c, form, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(EventMerge);
+export default EventMerge;

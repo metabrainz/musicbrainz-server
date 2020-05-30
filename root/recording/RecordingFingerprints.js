@@ -14,8 +14,17 @@ import FingerprintTable
 
 import RecordingLayout from './RecordingLayout';
 
-const RecordingFingerprints = ({recording}: {recording: RecordingT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +recording: RecordingT,
+};
+
+const RecordingFingerprints = ({
+  $c,
+  recording,
+}: Props): React.Element<typeof RecordingLayout> => (
   <RecordingLayout
+    $c={$c}
     entity={recording}
     page="fingerprints"
     title={l('Fingerprints')}

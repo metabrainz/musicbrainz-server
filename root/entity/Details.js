@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {ENTITIES} from '../static/scripts/common/constants';
 import DBDefs from '../static/scripts/common/DBDefs';
-import {withCatalystContext} from '../context';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import formatUserDate from '../utility/formatUserDate';
@@ -60,7 +59,7 @@ const WSLink = ({
 const Details = ({
   $c,
   entity,
-}: DetailsProps) => {
+}: DetailsProps): React.MixedElement => {
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entityType];
   const entityTypeForUrl = entityProperties.url
@@ -70,7 +69,12 @@ const Details = ({
   const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
-    <LayoutComponent entity={entity} page="details" title={l('Details')}>
+    <LayoutComponent
+      $c={$c}
+      entity={entity}
+      page="details"
+      title={l('Details')}
+    >
       <h2>{l('Details')}</h2>
       <table className="details">
         <tr>
@@ -148,4 +152,4 @@ const Details = ({
   );
 };
 
-export default withCatalystContext(Details);
+export default Details;

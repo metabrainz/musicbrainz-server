@@ -15,10 +15,15 @@ import bracketed from '../../static/scripts/common/utility/bracketed';
 import loopParity from '../../utility/loopParity';
 import type {ReportEditorT} from '../types';
 
+type Props = {
+  +items: $ReadOnlyArray<ReportEditorT>,
+  +pager: PagerT,
+};
+
 const EditorList = ({
   items,
   pager,
-}: {items: $ReadOnlyArray<ReportEditorT>, pager: PagerT}) => (
+}: Props): React.Element<typeof PaginatedResults> => (
   <PaginatedResults pager={pager}>
     <table className="tbl">
       <thead>

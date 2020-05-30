@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 
 import LastUpdated from './LastUpdated';
 import RemoveLink from './RemoveLink';
@@ -19,7 +18,7 @@ type Props = {
   +genre: GenreT,
 };
 
-const GenreSidebar = ({$c, genre}: Props) => {
+const GenreSidebar = ({$c, genre}: Props): React.Element<'div'> => {
   return (
     <div id="sidebar">
       {$c.user?.is_relationship_editor ? (
@@ -35,4 +34,4 @@ const GenreSidebar = ({$c, genre}: Props) => {
   );
 };
 
-export default withCatalystContext(GenreSidebar);
+export default GenreSidebar;

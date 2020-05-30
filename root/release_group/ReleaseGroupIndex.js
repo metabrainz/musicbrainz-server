@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
@@ -103,8 +102,9 @@ const ReleaseGroupIndex = ({
   releaseGroup,
   releases,
   wikipediaExtract,
-}: Props) => (
+}: Props): React.Element<typeof ReleaseGroupLayout> => (
   <ReleaseGroupLayout
+    $c={$c}
     entity={releaseGroup}
     page="index"
   >
@@ -186,4 +186,4 @@ const ReleaseGroupIndex = ({
   </ReleaseGroupLayout>
 );
 
-export default withCatalystContext(ReleaseGroupIndex);
+export default ReleaseGroupIndex;

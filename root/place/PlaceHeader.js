@@ -16,7 +16,10 @@ type Props = {
   place: PlaceT,
 };
 
-const PlaceHeader = ({place, page}: Props) => (
+const PlaceHeader = ({
+  place,
+  page,
+}: Props): React.Element<typeof EntityHeader> => (
   <EntityHeader
     entity={place}
     headerClass="placeheader"

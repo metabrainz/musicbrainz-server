@@ -41,7 +41,7 @@ type Props = {
   edit: AddRemoveAliasEditT,
 };
 
-const AddRemoveAlias = ({edit}: Props) => {
+const AddRemoveAlias = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const entity = display[entityType];

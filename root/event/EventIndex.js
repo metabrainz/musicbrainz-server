@@ -20,6 +20,7 @@ import * as manifest from '../static/manifest';
 import EventLayout from './EventLayout';
 
 type Props = {
+  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +event: EventT,
   +numberOfRevisions: number,
@@ -27,15 +28,16 @@ type Props = {
 };
 
 const EventIndex = ({
+  $c,
   eligibleForCleanup,
   event,
   numberOfRevisions,
   wikipediaExtract,
-}: Props) => {
+}: Props): React.Element<typeof EventLayout> => {
   const setlist = event.setlist;
 
   return (
-    <EventLayout entity={event} page="index">
+    <EventLayout $c={$c} entity={event} page="index">
       {eligibleForCleanup ? (
         <CleanupBanner entityType="event" />
       ) : null}

@@ -13,10 +13,15 @@ import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import type {ReportArtistUrlT} from '../types';
 
+type Props = {
+  +items: $ReadOnlyArray<ReportArtistUrlT>,
+  +pager: PagerT,
+};
+
 const ArtistUrlList = ({
   items,
   pager,
-}: {items: $ReadOnlyArray<ReportArtistUrlT>, pager: PagerT}) => {
+}: Props): React.Element<typeof PaginatedResults> => {
   let lastGID = 0;
   let currentGID = 0;
 

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import * as age from '../../../utility/age';
@@ -33,7 +32,7 @@ type Props = {
   +area: AreaT,
 };
 
-const AreaSidebar = ({$c, area}: Props) => {
+const AreaSidebar = ({$c, area}: Props): React.Element<'div'> => {
   const areaAge = age.age(area);
 
   return (
@@ -94,6 +93,7 @@ const AreaSidebar = ({$c, area}: Props) => {
       </SidebarProperties>
 
       <SidebarTags
+        $c={$c}
         aggregatedTags={$c.stash.top_tags}
         entity={area}
         more={!!$c.stash.more_tags}
@@ -102,10 +102,10 @@ const AreaSidebar = ({$c, area}: Props) => {
 
       <ExternalLinks empty entity={area} />
 
-      <EditLinks entity={area}>
+      <EditLinks $c={$c} entity={area}>
         {$c.user && $c.user.is_location_editor ? (
           <>
-            <AnnotationLinks entity={area} />
+            <AnnotationLinks $c={$c} entity={area} />
 
             <MergeLink entity={area} />
 
@@ -116,7 +116,7 @@ const AreaSidebar = ({$c, area}: Props) => {
         ) : null}
       </EditLinks>
 
-      <CollectionLinks entity={area} />
+      <CollectionLinks $c={$c} entity={area} />
 
       <SidebarLicenses entity={area} />
 
@@ -125,4 +125,4 @@ const AreaSidebar = ({$c, area}: Props) => {
   );
 };
 
-export default withCatalystContext(AreaSidebar);
+export default AreaSidebar;

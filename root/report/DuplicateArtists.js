@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -28,12 +27,12 @@ const DuplicateArtists = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>) => {
+}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => {
   let currentKey = '';
   let lastKey = '';
 
   return (
-    <Layout fullWidth title={l('Possibly duplicate artists')}>
+    <Layout $c={$c} fullWidth title={l('Possibly duplicate artists')}>
       <h1>{l('Possibly duplicate artists')}</h1>
 
       <ul>
@@ -61,7 +60,7 @@ const DuplicateArtists = ({
                   {date: formatUserDate($c, generated)})}
         </li>
 
-        {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
       </ul>
 
       <form action="/artist/merge_queue" method="post">
@@ -140,4 +139,4 @@ const DuplicateArtists = ({
   );
 };
 
-export default withCatalystContext(DuplicateArtists);
+export default DuplicateArtists;

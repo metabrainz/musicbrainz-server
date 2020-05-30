@@ -9,10 +9,15 @@
 
 import * as wrapGettext from './wrapGettext';
 
-export const l_statistics = wrapGettext.dgettext('statistics');
-export const ln_statistics = wrapGettext.dngettext('statistics');
-export const lp_statistics = wrapGettext.dpgettext('statistics');
+export const l_statistics: (string) => string =
+  wrapGettext.dgettext('statistics');
 
-export const N_l_statistics = (key: string) => (
+export const ln_statistics: (string, string, number) => string =
+  wrapGettext.dngettext('statistics');
+
+export const lp_statistics: (string, string) => string =
+  wrapGettext.dpgettext('statistics');
+
+export const N_l_statistics = (key: string): (() => string) => (
   () => l_statistics(key)
 );

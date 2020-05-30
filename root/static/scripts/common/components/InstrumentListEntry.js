@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../../context';
 import loopParity from '../../../../utility/loopParity';
 import expand2react from '../i18n/expand2react';
 
@@ -22,13 +21,14 @@ type InstrumentListRowProps = {
 };
 
 type InstrumentListEntryProps = {
+  +$c: CatalystContextT,
   +checkboxes?: string,
   +index: number,
   +instrument: InstrumentT,
   +score?: number,
 };
 
-const InstrumentListRow = withCatalystContext(({
+const InstrumentListRow = ({
   $c,
   checkboxes,
   instrument,
@@ -57,16 +57,18 @@ const InstrumentListRow = withCatalystContext(({
         : null}
     </td>
   </>
-));
+);
 
 const InstrumentListEntry = ({
+  $c,
   checkboxes,
   index,
   instrument,
   score,
-}: InstrumentListEntryProps) => (
+}: InstrumentListEntryProps): React.Element<'tr'> => (
   <tr className={loopParity(index)} data-score={score || null}>
     <InstrumentListRow
+      $c={$c}
       checkboxes={checkboxes}
       instrument={instrument}
     />

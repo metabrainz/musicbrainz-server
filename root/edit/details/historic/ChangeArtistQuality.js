@@ -21,7 +21,11 @@ type ChangeArtistQualityT = {
   },
 };
 
-const ChangeArtistQuality = ({edit}: {+edit: ChangeArtistQualityT}) => {
+type Props = {
+  +edit: ChangeArtistQualityT,
+};
+
+const ChangeArtistQuality = ({edit}: Props): React.Element<'table'> => {
   const oldQuality = QUALITY_NAMES.get(edit.display_data.quality.old);
   const newQuality = QUALITY_NAMES.get(edit.display_data.quality.new);
   return (

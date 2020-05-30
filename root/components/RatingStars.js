@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
+import {CatalystContext} from '../context';
 import ratingTooltip from '../utility/ratingTooltip';
 
 const ratingURL = (entity: RatableT, rating) => (
@@ -24,11 +24,10 @@ const ratingURL = (entity: RatableT, rating) => (
 const ratingInts = [1, 2, 3, 4, 5];
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: RatableT,
 };
 
-const RatingStars = ({$c, entity}: Props) => {
+const RatingStars = ({entity}: Props): React.Element<'span'> => {
   const currentStarRating =
     entity.user_rating ? (5 * entity.user_rating / 100) : 0;
 
@@ -53,28 +52,30 @@ const RatingStars = ({$c, entity}: Props) => {
           ) : null
         )}
 
-        {$c.user && $c.user.has_confirmed_email_address ? (
-          ratingInts.map(rating => {
-            const isCurrentRating = rating === currentStarRating;
-            const newRating = isCurrentRating ? 0 : rating;
+        <CatalystContext.Consumer>
+          {$c => $c.user?.has_confirmed_email_address ? (
+            ratingInts.map(rating => {
+              const isCurrentRating = rating === currentStarRating;
+              const newRating = isCurrentRating ? 0 : rating;
 
-            return (
-              <a
-                className={`stars-${rating} ${isCurrentRating
-                  ? 'remove-rating'
-                  : 'set-rating'}`}
-                href={ratingURL(entity, newRating)}
-                key={rating}
-                title={ratingTooltip(newRating)}
-              >
-                {rating}
-              </a>
-            );
-          })
-        ) : null}
+              return (
+                <a
+                  className={`stars-${rating} ${isCurrentRating
+                    ? 'remove-rating'
+                    : 'set-rating'}`}
+                  href={ratingURL(entity, newRating)}
+                  key={rating}
+                  title={ratingTooltip(newRating)}
+                >
+                  {rating}
+                </a>
+              );
+            })
+          ) : null}
+        </CatalystContext.Consumer>
       </span>
     </span>
   );
 };
 
-export default withCatalystContext(RatingStars);
+export default RatingStars;

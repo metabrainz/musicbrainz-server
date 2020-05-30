@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
@@ -32,7 +31,10 @@ type Props = {
   +releaseGroup: ReleaseGroupT,
 };
 
-const ReleaseGroupSidebar = ({$c, releaseGroup}: Props) => {
+const ReleaseGroupSidebar = ({
+  $c,
+  releaseGroup,
+}: Props): React.Element<'div'> => {
   const gid = encodeURIComponent(releaseGroup.gid);
   const typeName = releaseGroupType(releaseGroup);
 
@@ -63,6 +65,7 @@ const ReleaseGroupSidebar = ({$c, releaseGroup}: Props) => {
       <SidebarRating entity={releaseGroup} />
 
       <SidebarTags
+        $c={$c}
         aggregatedTags={$c.stash.top_tags}
         entity={releaseGroup}
         more={!!$c.stash.more_tags}
@@ -71,7 +74,7 @@ const ReleaseGroupSidebar = ({$c, releaseGroup}: Props) => {
 
       <ExternalLinks empty entity={releaseGroup} />
 
-      <EditLinks entity={releaseGroup}>
+      <EditLinks $c={$c} entity={releaseGroup}>
         <li>
           <a href={`/release/add?release-group=${gid}`}>
             {l('Add release')}
@@ -86,14 +89,14 @@ const ReleaseGroupSidebar = ({$c, releaseGroup}: Props) => {
           </a>
         </li>
 
-        <AnnotationLinks entity={releaseGroup} />
+        <AnnotationLinks $c={$c} entity={releaseGroup} />
 
         <MergeLink entity={releaseGroup} />
 
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks entity={releaseGroup} />
+      <CollectionLinks $c={$c} entity={releaseGroup} />
 
       <SidebarLicenses entity={releaseGroup} />
 
@@ -102,4 +105,4 @@ const ReleaseGroupSidebar = ({$c, releaseGroup}: Props) => {
   );
 };
 
-export default withCatalystContext(ReleaseGroupSidebar);
+export default ReleaseGroupSidebar;

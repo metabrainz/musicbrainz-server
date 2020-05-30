@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,9 @@ const ReleasesWithDownloadRelationships = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Non-digital releases with download relationships')}
   >
@@ -47,7 +47,7 @@ const ReleasesWithDownloadRelationships = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -55,4 +55,4 @@ const ReleasesWithDownloadRelationships = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleasesWithDownloadRelationships);
+export default ReleasesWithDownloadRelationships;

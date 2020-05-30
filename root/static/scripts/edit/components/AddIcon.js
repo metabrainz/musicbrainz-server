@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-const AddIcon = () => (
+const AddIcon = (): React.Element<'img'> => (
   <img
     className="bottom"
     src={require('../../../images/icons/add.png')}

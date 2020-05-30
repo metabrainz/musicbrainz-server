@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import Layout from '../../layout';
 import formatUserDate from '../../utility/formatUserDate';
 
@@ -22,13 +21,18 @@ type Props = {
   +lastUpdated?: string,
 };
 
-const ResultsLayout = ({$c, children, form, lastUpdated}: Props) => (
-  <Layout fullWidth title={l('Search Results')}>
+const ResultsLayout = ({
+  $c,
+  children,
+  form,
+  lastUpdated,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Search Results')}>
     <div id="content">
       <h1>{l('Search Results')}</h1>
       {lastUpdated ? (
         <p>
-          {texp.l(
+          {exp.l(
             'Last updated: {date}',
             {date: formatUserDate($c, lastUpdated)},
           )}
@@ -40,4 +44,4 @@ const ResultsLayout = ({$c, children, form, lastUpdated}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(ResultsLayout);
+export default ResultsLayout;

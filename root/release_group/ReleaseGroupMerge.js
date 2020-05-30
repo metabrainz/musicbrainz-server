@@ -15,7 +15,6 @@ import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -24,8 +23,12 @@ type Props = {
   +toMerge: $ReadOnlyArray<ReleaseGroupT>,
 };
 
-const ReleaseGroupMerge = ({$c, form, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge release groups')}>
+const ReleaseGroupMerge = ({
+  $c,
+  form,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge release groups')}>
     <div id="content">
       <h1>{l('Merge release groups')}</h1>
       <p>
@@ -35,6 +38,7 @@ const ReleaseGroupMerge = ({$c, form, toMerge}: Props) => (
       </p>
       <form action={$c.req.uri} method="post">
         <ReleaseGroupListTable
+          $c={$c}
           mergeForm={form}
           releaseGroups={sortByEntityName(toMerge)}
         />
@@ -57,4 +61,4 @@ const ReleaseGroupMerge = ({$c, form, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(ReleaseGroupMerge);
+export default ReleaseGroupMerge;

@@ -9,13 +9,11 @@
 
 import * as React from 'react';
 
-import RequestLogin from '../../components/RequestLogin';
 import VotingPeriod from '../../components/VotingPeriod';
 import {
   EDIT_STATUS_OPEN,
   EDIT_STATUS_TOBEDELETED,
 } from '../../constants';
-import {withCatalystContext} from '../../context';
 import {
   SidebarProperties,
   SidebarProperty,
@@ -33,7 +31,10 @@ type Props = {
   +edit: EditT,
 };
 
-const EditSidebar = ({$c, edit}: Props) => (
+const EditSidebar = ({
+  $c,
+  edit,
+}: Props): React.Element<'div'> => (
   <div id="sidebar">
     <SidebarProperties className="edit-status">
       <SidebarProperty className="" label={lp('Status:', 'edit status')}>
@@ -51,7 +52,7 @@ const EditSidebar = ({$c, edit}: Props) => (
       {edit.status === EDIT_STATUS_OPEN ? (
         <SidebarProperty className="" label={addColonText(l('Voting'))}>
           <div className="edit-expiration">
-            <VotingPeriod closingDate={edit.expires_time} user={$c.user} />
+            <VotingPeriod $c={$c} closingDate={edit.expires_time} />
           </div>
         </SidebarProperty>
       ) : (
@@ -102,4 +103,4 @@ const EditSidebar = ({$c, edit}: Props) => (
   </div>
 );
 
-export default withCatalystContext(EditSidebar);
+export default EditSidebar;

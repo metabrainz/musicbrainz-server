@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
@@ -21,7 +20,11 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
+const ArtistCreditList = ({
+  $c,
+  artistCredits,
+  entity,
+}: Props): React.Element<typeof React.Fragment> => {
   return (
     <>
       <h2>{l('Artist credits')}</h2>
@@ -73,4 +76,4 @@ const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
   );
 };
 
-export default withCatalystContext(ArtistCreditList);
+export default ArtistCreditList;

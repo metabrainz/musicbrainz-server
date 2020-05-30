@@ -15,7 +15,6 @@ import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import LabelList from '../components/list/LabelList';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -24,8 +23,12 @@ type Props = {
   +toMerge: $ReadOnlyArray<LabelT>,
 };
 
-const LabelMerge = ({$c, form, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge labels')}>
+const LabelMerge = ({
+  $c,
+  form,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge labels')}>
     <div id="content">
       <h1>{l('Merge labels')}</h1>
       <p>
@@ -34,6 +37,7 @@ const LabelMerge = ({$c, form, toMerge}: Props) => (
       </p>
       <form action={$c.req.uri} method="post">
         <LabelList
+          $c={$c}
           labels={sortByEntityName(toMerge)}
           mergeForm={form}
         />
@@ -56,4 +60,4 @@ const LabelMerge = ({$c, form, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(LabelMerge);
+export default LabelMerge;

@@ -13,7 +13,7 @@ import returnUri from '../utility/returnUri';
 
 type Props = {+$c: CatalystContextT, text: string};
 
-const RequestLogin = ({$c, text}: Props) => (
+const RequestLogin = ({$c, text}: Props): React.Element<'a'> => (
   <a href={returnUri($c, '/login')}>
     {text || l('Log in')}
   </a>

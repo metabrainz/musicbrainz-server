@@ -20,7 +20,7 @@ import FullChangeDiff
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff';
 
-type Props = {
+type EditWorkEditT = {
   ...EditT,
   +display_data: {
     +attributes?: {
@@ -35,9 +35,13 @@ type Props = {
   },
 };
 
+type Props = {
+  +edit: EditWorkEditT,
+};
+
 const localizeLanguageName = name => l_languages(name);
 
-const EditWork = ({edit}: {+edit: Props}) => {
+const EditWork = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const comment = display.comment;
   const iswc = display.iswc;

@@ -14,17 +14,18 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
 import type {ReportInstrumentT} from '../types';
 import formatUserDate from '../../utility/formatUserDate';
-import {withCatalystContext} from '../../context';
+
+type Props = {
+  +$c: CatalystContextT,
+  +items: $ReadOnlyArray<ReportInstrumentT>,
+  +pager: PagerT,
+};
 
 const InstrumentList = ({
   $c,
   items,
   pager,
-}: {
-  $c: CatalystContextT,
-  items: $ReadOnlyArray<ReportInstrumentT>,
-  pager: PagerT,
-}) => (
+}: Props): React.Element<typeof PaginatedResults> => (
   <PaginatedResults pager={pager}>
     <table className="tbl">
       <thead>
@@ -50,10 +51,9 @@ const InstrumentList = ({
                     : l('Unclassified instrument')}
                 </td>
                 <td>
-                  {item.instrument.last_updated
+                  {item.instrument?.last_updated
                     ? formatUserDate($c, item.instrument.last_updated)
-                    : null
-                  }
+                    : null}
                 </td>
               </>
             ) : (
@@ -68,4 +68,4 @@ const InstrumentList = ({
   </PaginatedResults>
 );
 
-export default withCatalystContext(InstrumentList);
+export default InstrumentList;

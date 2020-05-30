@@ -25,7 +25,7 @@ const PaginatedSearchResults = <T>({
   pager,
   query,
   results,
-}: Props<T>) => {
+}: Props<T>): React.Element<typeof PaginatedResults | 'p'> => {
   return results.length ? (
     <PaginatedResults pager={pager} query={query} search>
       <table className="tbl">

@@ -29,7 +29,11 @@ const RelationshipTabs = ({page}: {page?: string}) => (
   </>
 );
 
-const RelationshipsHeader = ({page}: {page?: string}) => (
+type Props = {
+  +page?: string,
+};
+
+const RelationshipsHeader = ({page}: Props): React.MixedElement => (
   <>
     <div className="relationshipsheader">
       <h1>{l('Relationships')}</h1>

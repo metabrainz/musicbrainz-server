@@ -13,8 +13,13 @@ import RelationshipsTable from '../components/RelationshipsTable';
 
 import AreaLayout from './AreaLayout';
 
-const AreaWorks = ({area}: {area: AreaT}) => (
-  <AreaLayout entity={area} page="works" title={l('Works')}>
+type Props = {
+  +$c: CatalystContextT,
+  +area: AreaT,
+};
+
+const AreaWorks = ({$c, area}: Props): React.Element<typeof AreaLayout> => (
+  <AreaLayout $c={$c} entity={area} page="works" title={l('Works')}>
     <RelationshipsTable
       entity={area}
       fallbackMessage={l(

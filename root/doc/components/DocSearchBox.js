@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import FormSubmit from '../../components/FormSubmit';
 
-const DocSearchBox = () => (
+const DocSearchBox = (): React.Element<'div'> => (
   <div className="wikidoc-search">
     <form action="/search" method="get">
       <input name="type" type="hidden" value="doc" />

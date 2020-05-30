@@ -17,7 +17,7 @@ import * as Sentry from '@sentry/browser';
 export class NO_MATCH {
   static instance: ?NO_MATCH;
 
-  constructor() {
+  constructor(): NO_MATCH {
     return NO_MATCH.instance || (NO_MATCH.instance = this);
   }
 }
@@ -84,7 +84,7 @@ export const state: State = Object.seal({
   source: '',
 });
 
-export function getString(x: mixed) {
+export function getString(x: mixed): string {
   if (typeof x === 'string') {
     return x;
   }
@@ -94,14 +94,14 @@ export function getString(x: mixed) {
   return '';
 }
 
-export function getVarSubstArg(x: mixed) {
+export function getVarSubstArg(x: mixed): React$MixedElement | string {
   if (React.isValidElement(x)) {
     return ((x: any): React$MixedElement);
   }
   return getString(x);
 }
 
-export function accept(pattern: RegExp) {
+export function accept(pattern: RegExp): NO_MATCH | string {
   const m = state.remainder.match(pattern);
   if (m) {
     const entireMatch = m[0];
@@ -113,7 +113,7 @@ export function accept(pattern: RegExp) {
   return NO_MATCH_VALUE;
 }
 
-export function error(message: string) {
+export function error(message: string): Error {
   return new Error(
     `Failed to parse string ${JSON.stringify(state.source)} at position ` +
     `${state.position}: ${message}`,
@@ -213,12 +213,12 @@ export const createVarSubstParser = <T, V>(
     return state.match;
   });
 
-export const parseStringVarSubst =
+export const parseStringVarSubst: Parser<string | NO_MATCH, mixed> =
   createVarSubstParser<string, mixed>(getString);
 
 const condSubstStart = /^\{([0-9A-z_]+):/;
 const verticalPipe = /^\|/;
-export const substEnd = /^}/;
+export const substEnd: RegExp = /^}/;
 export const createCondSubstParser = <T, V>(
   thenParser: Parser<T, V>,
   elseParser: Parser<T, V>,

@@ -9,11 +9,14 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
-const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
-  <Layout fullWidth title={l('Reports')}>
+type Props = {
+  +$c: CatalystContextT,
+};
+
+const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Reports')}>
     <div id="content">
       <h1>{l('Reports')}</h1>
 
@@ -551,4 +554,4 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
   </Layout>
 );
 
-export default withCatalystContext(ReportsIndex);
+export default ReportsIndex;

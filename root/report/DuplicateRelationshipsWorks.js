@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const DuplicateRelationshipsWorks = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportWorkT>) => (
-  <Layout fullWidth title={l('Works with possible duplicate relationships')}>
+}: ReportDataT<ReportWorkT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Works with possible duplicate relationships')}>
     <h1>{l('Works with possible duplicate relationships')}</h1>
 
     <ul>
@@ -44,7 +43,7 @@ const DuplicateRelationshipsWorks = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <WorkList items={items} pager={pager} />
@@ -52,4 +51,4 @@ const DuplicateRelationshipsWorks = ({
   </Layout>
 );
 
-export default withCatalystContext(DuplicateRelationshipsWorks);
+export default DuplicateRelationshipsWorks;

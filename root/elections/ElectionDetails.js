@@ -20,7 +20,7 @@ type PropsT = {
   +election: AutoEditorElectionT,
 };
 
-const ElectionDetails = ({$c, election}: PropsT) => (
+const ElectionDetails = ({$c, election}: PropsT): React.MixedElement => (
   <>
     <h2>{l('Details')}</h2>
     <table className="properties">
@@ -93,6 +93,7 @@ const ElectionDetails = ({$c, election}: PropsT) => (
                 {' '}
                 {bracketed(
                   <VotingPeriod
+                    $c={$c}
                     closingDate={election.current_expiration_time}
                   />,
                 )}

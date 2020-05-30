@@ -17,7 +17,7 @@ type Props = {
   +nag: boolean,
 };
 
-const Donation = ({days, nag}: Props) => (
+const Donation = ({days, nag}: Props): React.Element<typeof StatusPage> => (
   <StatusPage title={l('Donation Check')}>
     {nag
       ? (

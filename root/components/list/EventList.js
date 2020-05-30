@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import Table from '../Table';
-import {withCatalystContext} from '../../context';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList';
 import localizeArtistRoles
@@ -58,7 +57,7 @@ const EventList = ({
   showRatings,
   showType,
   sortable,
-}: Props) => {
+}: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -141,4 +140,4 @@ const EventList = ({
   return <Table columns={columns} data={events} />;
 };
 
-export default withCatalystContext(EventList);
+export default EventList;

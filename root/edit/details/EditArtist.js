@@ -26,7 +26,7 @@ import yesNo from '../../static/scripts/common/utility/yesNo';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList';
 
-type EditArtistProps = {
+type EditArtistEditT = {
   +display_data: {
     +area?: CompT<AreaT | null>,
     +artist: ArtistT,
@@ -45,7 +45,11 @@ type EditArtistProps = {
   },
 };
 
-const EditArtist = ({edit}: {edit: EditArtistProps}) => {
+type Props = {
+  +edit: EditArtistEditT,
+};
+
+const EditArtist = ({edit}: Props): React.MixedElement => {
   const display = edit.display_data;
   const area = display.area;
   const beginDate = display.begin_date;

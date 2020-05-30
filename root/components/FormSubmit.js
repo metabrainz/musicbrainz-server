@@ -16,7 +16,12 @@ type Props = {
   +value?: string,
 };
 
-const FormSubmit = ({className, label, name, value}: Props) => (
+const FormSubmit = ({
+  className,
+  label,
+  name,
+  value,
+}: Props): React.Element<'span'> => (
   <span className={'buttons' + (className ? ' ' + className : '')}>
     <button name={name} type="submit" value={value}>{label}</button>
   </span>

@@ -13,7 +13,11 @@ import {addColonText} from '../i18n/addColon';
 import isolateText from '../utility/isolateText';
 import mediumFormatName from '../utility/mediumFormatName';
 
-const MediumDescription = ({medium}: {+medium: MediumT}) => {
+type Props = {
+  +medium: MediumT,
+};
+
+const MediumDescription = ({medium}: Props): Expand2ReactOutput => {
   const formatAndPosition = texp.l('{medium_format} {position}', {
     medium_format: mediumFormatName(medium),
     position: medium.position,

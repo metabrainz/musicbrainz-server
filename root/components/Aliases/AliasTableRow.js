@@ -23,7 +23,12 @@ type Props = {
   +row: string,
 };
 
-const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
+const AliasTableRow = ({
+  alias,
+  allowEditing,
+  entity,
+  row,
+}: Props): React.Element<'tr'> => (
   <tr className={row}>
     <td colSpan={alias.name === alias.sort_name ? 2 : 1}>
       {alias.editsPending

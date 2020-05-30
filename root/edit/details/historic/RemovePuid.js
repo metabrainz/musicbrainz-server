@@ -20,7 +20,11 @@ type RemovePuidEditT = {
   },
 };
 
-const RemovePuid = ({edit}: {+edit: RemovePuidEditT}) => (
+type Props = {
+  +edit: RemovePuidEditT,
+};
+
+const RemovePuid = ({edit}: Props): React.Element<'table'> => (
   <table className="details remove-puid">
     <tr>
       <th>{l('Recording:')}</th>

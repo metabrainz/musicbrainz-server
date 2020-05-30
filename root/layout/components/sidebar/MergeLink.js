@@ -20,7 +20,7 @@ const mergeUrl = entity => {
   return `/${entityType}/merge_queue?add-to-merge=${id}`;
 };
 
-const MergeLink = ({entity}: Props) => (
+const MergeLink = ({entity}: Props): React.Element<'li'> => (
   <li>
     <a href={mergeUrl(entity)}>
       {l('Merge')}

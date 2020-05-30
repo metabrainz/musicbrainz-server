@@ -13,9 +13,13 @@ import commaOnlyList from '../i18n/commaOnlyList';
 import ArtistCreditLink from './ArtistCreditLink';
 import DescriptiveLink from './DescriptiveLink';
 
+type Props = {
+  +artistCredit: ArtistCreditT,
+};
+
 export const ExpandedArtistCreditList = ({
   artistCredit,
-}: {artistCredit: ArtistCreditT}) => {
+}: Props): React.Element<'span'> | null => {
   if (!artistCredit) {
     return null;
   }
@@ -47,9 +51,7 @@ export const ExpandedArtistCreditList = ({
   return null;
 };
 
-const ExpandedArtistCredit = ({
-  artistCredit,
-}: {artistCredit: ArtistCreditT}) => (
+const ExpandedArtistCredit = ({artistCredit}: Props): React.MixedElement => (
   <>
     <ArtistCreditLink artistCredit={artistCredit} />
     <br />

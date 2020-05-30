@@ -64,7 +64,9 @@ const methodOptions = [
   {label: N_l('Direct database search'), value: 'direct'},
 ];
 
-const SearchForm = ({form}: Props) => (
+const SearchForm = ({
+  form,
+}: Props): React.Element<typeof React.Fragment> => (
   <>
     <div className="searchform">
       <form action="/search" method="get">

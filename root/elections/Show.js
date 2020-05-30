@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 import ElectionDetails from './ElectionDetails';
@@ -21,14 +20,14 @@ type Props = {
   +election: AutoEditorElectionT,
 };
 
-const Show = ({$c, election}: Props) => {
+const Show = ({$c, election}: Props): React.Element<typeof Layout> | null => {
   const user = $c.user;
   if (!election) {
     return null;
   }
   const title = texp.l('Auto-editor election #{no}', {no: election.id});
   return (
-    <Layout fullWidth title={title}>
+    <Layout $c={$c} fullWidth title={title}>
       <h1>{title}</h1>
       <p>
         <a href="/elections">{l('Back to elections')}</a>
@@ -42,4 +41,4 @@ const Show = ({$c, election}: Props) => {
   );
 };
 
-export default withCatalystContext(Show);
+export default Show;

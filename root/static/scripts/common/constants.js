@@ -11,7 +11,10 @@ import ENTITIES from '../../../../entities';
 
 export {ENTITIES};
 
-export const ENTITY_NAMES = {
+export const ENTITY_NAMES: {
+  +[entityType: CoreEntityTypeT]: () => string,
+  ...
+} = {
   area: N_l('Area'),
   artist: N_l('Artist'),
   event: N_l('Event'),
@@ -245,7 +248,10 @@ export const QUALITY_NAMES: Map<QualityT, () => string> = new Map([
   [2, N_l('High')],
 ]);
 
-export const FLUENCY_NAMES = {
+export const FLUENCY_NAMES:
+  {+[fluency: string]: () => string,
+  ...
+} = {
   advanced: N_l('Advanced'),
   basic: N_l('Basic'),
   intermediate: N_l('Intermediate'),

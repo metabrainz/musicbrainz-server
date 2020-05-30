@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import Layout from '../../layout';
 import * as manifest from '../../static/manifest';
 import Cardinality from '../../static/scripts/common/components/Cardinality';
@@ -148,7 +147,7 @@ const RelationshipTypeDetails = ({
 const RelationshipTypePairTree = ({
   $c,
   root,
-}: RelationshipTypePairTreeProps) => {
+}: RelationshipTypePairTreeProps): React.Element<typeof Layout> => {
   const childrenTypes = root.children || [];
   const type0 = root.type0;
   const type1 = root.type1;
@@ -157,10 +156,10 @@ const RelationshipTypePairTree = ({
 
   return (
     <Layout
+      $c={$c}
       fullWidth
       noIcons
-      page="index"
-      title={exp.l(
+      title={texp.l(
         '{type0}-{type1} Relationship Types',
         {type0: formattedType0, type1: formattedType1},
       )}
@@ -232,4 +231,4 @@ const RelationshipTypePairTree = ({
   );
 };
 
-export default withCatalystContext(RelationshipTypePairTree);
+export default RelationshipTypePairTree;

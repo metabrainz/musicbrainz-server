@@ -15,7 +15,7 @@ export const ACCESS_SCOPE_COLLECTION: 16 = 16;
 export const ACCESS_SCOPE_SUBMIT_ISRC: 64 = 64;
 export const ACCESS_SCOPE_SUBMIT_BARCODE: 128 = 128;
 
-export const ACCESS_SCOPE_PERMISSIONS = {
+export const ACCESS_SCOPE_PERMISSIONS: {+[scope: number]: () => string, ...} = {
   [ACCESS_SCOPE_COLLECTION]: N_l('View and modify your private collections'),
   [ACCESS_SCOPE_EMAIL]: N_l('View your email address'),
   [ACCESS_SCOPE_PROFILE]: N_l('View your public account information'),

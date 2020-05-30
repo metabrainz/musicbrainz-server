@@ -18,7 +18,10 @@ type Props = {
   releaseGroup: ReleaseGroupT,
 };
 
-const ReleaseGroupHeader = ({releaseGroup, page}: Props) => {
+const ReleaseGroupHeader = ({
+  releaseGroup,
+  page,
+}: Props): React.Element<typeof EntityHeader> => {
   return (
     <EntityHeader
       entity={releaseGroup}

@@ -15,6 +15,7 @@ import LabelSidebar from '../layout/components/sidebar/LabelSidebar';
 import LabelHeader from './LabelHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: LabelT,
   +fullWidth?: boolean,
@@ -23,20 +24,22 @@ type Props = {
 };
 
 const LabelLayout = ({
+  $c,
   children,
   entity: label,
   fullWidth,
   page,
   title,
-}: Props) => (
+}: Props): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     title={title ? hyphenateTitle(label.name, title) : label.name}
   >
     <div id="content">
       <LabelHeader label={label} page={page} />
       {children}
     </div>
-    {fullWidth ? null : <LabelSidebar label={label} />}
+    {fullWidth ? null : <LabelSidebar $c={$c} label={label} />}
   </Layout>
 );
 

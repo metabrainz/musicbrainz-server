@@ -12,15 +12,17 @@ import * as React from 'react';
 import Layout from '../layout';
 
 type Props = {
+  +$c: CatalystContextT,
   +errorDescription: string,
   +errorMessage: string,
 };
 
 const OAuth2Error = ({
+  $c,
   errorDescription,
   errorMessage,
-}: Props) => (
-  <Layout fullWidth title={l('OAuth Authorization Error')}>
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('OAuth Authorization Error')}>
     <h1>{texp.l('Error: {error}', {error: errorMessage})}</h1>
     <p>{errorDescription}</p>
     <p>{exp.l('{doc|Learn more}', {doc: '/doc/Development/OAuth2'})}</p>

@@ -16,11 +16,12 @@ import type {ApplicationFormT}
   from '../../static/scripts/account/components/ApplicationForm';
 
 type Props = {
+  +$c: CatalystContextT,
   +form: ApplicationFormT,
 };
 
-const EditApplication = (props: Props) => (
-  <Layout fullWidth title={l('Edit Application')}>
+const EditApplication = (props: Props): React.Element<typeof Layout> => (
+  <Layout $c={props.$c} fullWidth title={l('Edit Application')}>
     <h1>{l('Edit Application')}</h1>
     <ApplicationForm
       action="edit"

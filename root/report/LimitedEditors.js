@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -21,8 +20,8 @@ const LimitedEditors = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportEditorT>) => (
-  <Layout fullWidth title={l('Beginner/limited editors')}>
+}: ReportDataT<ReportEditorT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Beginner/limited editors')}>
     <h1>{l('Beginner/limited editors')}</h1>
 
     <ul>
@@ -49,4 +48,4 @@ const LimitedEditors = ({
   </Layout>
 );
 
-export default withCatalystContext(LimitedEditors);
+export default LimitedEditors;

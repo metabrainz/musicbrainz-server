@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const SuperfluousDataTracks = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases with superfluous data tracks')}>
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Releases with superfluous data tracks')}>
     <h1>{l('Releases with superfluous data tracks')}</h1>
 
     <ul>
@@ -52,7 +51,7 @@ const SuperfluousDataTracks = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -60,4 +59,4 @@ const SuperfluousDataTracks = ({
   </Layout>
 );
 
-export default withCatalystContext(SuperfluousDataTracks);
+export default SuperfluousDataTracks;

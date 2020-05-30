@@ -17,7 +17,7 @@ type Props = {
   +quality: QualityT,
 };
 
-const SidebarDataQuality = ({quality}: Props) => {
+const SidebarDataQuality = ({quality}: Props): React.MixedElement | null => {
   const name = QUALITY_NAMES.get(quality);
   return name ? (
     <SidebarProperty

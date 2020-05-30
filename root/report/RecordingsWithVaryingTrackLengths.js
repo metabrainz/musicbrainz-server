@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const RecordingsWithVaryingTrackLengths = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>) => (
-  <Layout fullWidth title={l('Recordings with varying track times')}>
+}: ReportDataT<ReportRecordingT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Recordings with varying track times')}>
     <h1>{l('Recordings with varying track times')}</h1>
 
     <ul>
@@ -42,7 +41,7 @@ const RecordingsWithVaryingTrackLengths = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <RecordingList items={items} pager={pager} />
@@ -50,4 +49,4 @@ const RecordingsWithVaryingTrackLengths = ({
   </Layout>
 );
 
-export default withCatalystContext(RecordingsWithVaryingTrackLengths);
+export default RecordingsWithVaryingTrackLengths;

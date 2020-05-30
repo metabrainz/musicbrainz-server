@@ -40,7 +40,7 @@ function tryLoadDomain(domain) {
   }
 }
 
-export function dgettext(domain: GettextDomain) {
+export function dgettext(domain: GettextDomain): ((string) => string) {
   return function (key: string) {
     tryLoadDomain(domain);
     key = cleanMsgid(key);
@@ -48,7 +48,7 @@ export function dgettext(domain: GettextDomain) {
   };
 }
 
-export function dngettext(domain: GettextDomain) {
+export function dngettext(domain: GettextDomain): ((string, string, number) => string) {
   return function (skey: string, pkey: string, val: number) {
     tryLoadDomain(domain);
     skey = cleanMsgid(skey);
@@ -57,7 +57,7 @@ export function dngettext(domain: GettextDomain) {
   };
 }
 
-export function dpgettext(domain: GettextDomain) {
+export function dpgettext(domain: GettextDomain): ((string, string) => string) {
   return function (key: string, context: string) {
     tryLoadDomain(domain);
     key = cleanMsgid(key);

@@ -51,7 +51,7 @@ class Collapsible extends React.Component<Props, State> {
     }));
   }
 
-  render() {
+  render(): React.MixedElement {
     const {className, html} = this.props;
     const {isCollapsed, isCollapsible} = this.state;
 

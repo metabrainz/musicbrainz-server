@@ -13,8 +13,13 @@ import Relationships from '../components/Relationships';
 
 import UrlLayout from './UrlLayout';
 
-const UrlIndex = ({url}: {url: UrlT}) => (
-  <UrlLayout entity={url} page="index" title={l('URL Information')}>
+type Props = {
+  +$c: CatalystContextT,
+  +url: UrlT,
+};
+
+const UrlIndex = ({$c, url}: Props): React.Element<typeof UrlLayout> => (
+  <UrlLayout $c={$c} entity={url} page="index" title={l('URL Information')}>
     <h2 className="url-details">{l('URL Details')}</h2>
     <table className="details">
       <tr>

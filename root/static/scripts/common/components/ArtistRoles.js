@@ -22,7 +22,7 @@ type Props = {
   }>,
 };
 
-const ArtistRoles = ({relations}: Props) => (
+const ArtistRoles = ({relations}: Props): React.Element<'ul'> => (
   <ul>
     {relations.map(r => (
       <li key={r.entity.id}>

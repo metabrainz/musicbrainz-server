@@ -15,7 +15,6 @@ import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import InstrumentList from '../components/list/InstrumentList';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -24,8 +23,12 @@ type Props = {
   +toMerge: $ReadOnlyArray<InstrumentT>,
 };
 
-const InstrumentMerge = ({$c, form, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge instruments')}>
+const InstrumentMerge = ({
+  $c,
+  form,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge instruments')}>
     <div id="content">
       <h1>{l('Merge instruments')}</h1>
       <p>
@@ -34,11 +37,9 @@ const InstrumentMerge = ({$c, form, toMerge}: Props) => (
       </p>
       <form action={$c.req.uri} method="post">
         <InstrumentList
+          $c={$c}
           instruments={sortByEntityName(toMerge)}
           mergeForm={form}
-          showArtists
-          showLocation
-          showType
         />
         <FieldErrors field={form.field.target} />
 
@@ -59,4 +60,4 @@ const InstrumentMerge = ({$c, form, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(InstrumentMerge);
+export default InstrumentMerge;

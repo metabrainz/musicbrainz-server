@@ -13,8 +13,9 @@ import Layout from '../layout';
 import TagLink from '../static/scripts/common/components/TagLink';
 
 type Props = {
-  tagMaxCount: number,
-  tags: $ReadOnlyArray<AggregatedTagT>,
+  +$c: CatalystContextT,
+  +tagMaxCount: number,
+  +tags: $ReadOnlyArray<AggregatedTagT>,
 };
 
 function getTagSize(count: number, tagMaxCount: number) {
@@ -40,8 +41,12 @@ function getTagSize(count: number, tagMaxCount: number) {
   return 'tag7';
 }
 
-const TagCloud = ({tagMaxCount, tags}: Props) => (
-  <Layout fullWidth title={l('Tags')}>
+const TagCloud = ({
+  $c,
+  tagMaxCount,
+  tags,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Tags')}>
     <div id="content">
       <h1>{l('Tags')}</h1>
       <p>

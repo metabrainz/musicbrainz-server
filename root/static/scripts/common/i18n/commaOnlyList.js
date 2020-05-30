@@ -31,11 +31,11 @@ function _commaOnlyList<Input, Output>(
   return output;
 }
 
-const commaOnlyList = (items: $ReadOnlyArray<VarSubstArg>) => (
+const commaOnlyList = (items: $ReadOnlyArray<VarSubstArg>): Expand2ReactOutput | string => (
   _commaOnlyList<VarSubstArg, Expand2ReactOutput>(exp.l, items)
 );
 
-const commaOnlyListText = (items: $ReadOnlyArray<StrOrNum>) => (
+const commaOnlyListText = (items: $ReadOnlyArray<StrOrNum>): string => (
   _commaOnlyList<StrOrNum, string>(texp.l, items)
 );
 

@@ -9,6 +9,6 @@
 
 const regexp = /^[0-9]+$/;
 
-export default function parseInteger(num: string) {
+export default function parseInteger(num: string): number {
   return regexp.test(num) ? parseInt(num, 10) : NaN;
 }

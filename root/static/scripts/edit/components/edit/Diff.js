@@ -24,7 +24,12 @@ type Props = {
   +split?: string,
 };
 
-const Diff = ({label, newText, oldText, split = ''}: Props) => (
+const Diff = ({
+  label,
+  newText,
+  oldText,
+  split = '',
+}: Props): React.Element<'tr'> | null => (
   oldText === newText ? null : (
     <tr>
       <th>{label}</th>

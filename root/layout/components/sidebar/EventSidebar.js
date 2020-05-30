@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import isDateEmpty from '../../../static/scripts/common/utility/isDateEmpty';
@@ -34,7 +33,7 @@ type Props = {
   +event: EventT,
 };
 
-const EventSidebar = ({$c, event}: Props) => {
+const EventSidebar = ({$c, event}: Props): React.Element<'div'> => {
   const hasBegin = !isDateEmpty(event.begin_date);
   const hasEnd = !isDateEmpty(event.end_date);
 
@@ -73,6 +72,7 @@ const EventSidebar = ({$c, event}: Props) => {
       <SidebarRating entity={event} />
 
       <SidebarTags
+        $c={$c}
         aggregatedTags={$c.stash.top_tags}
         entity={event}
         more={!!$c.stash.more_tags}
@@ -81,10 +81,10 @@ const EventSidebar = ({$c, event}: Props) => {
 
       <ExternalLinks empty entity={event} />
 
-      <EditLinks entity={event}>
+      <EditLinks $c={$c} entity={event}>
         {$c.user ? (
           <>
-            <AnnotationLinks entity={event} />
+            <AnnotationLinks $c={$c} entity={event} />
 
             <MergeLink entity={event} />
 
@@ -93,7 +93,7 @@ const EventSidebar = ({$c, event}: Props) => {
         ) : null}
       </EditLinks>
 
-      <CollectionLinks entity={event} />
+      <CollectionLinks $c={$c} entity={event} />
 
       <SidebarLicenses entity={event} />
 
@@ -102,4 +102,4 @@ const EventSidebar = ({$c, event}: Props) => {
   );
 };
 
-export default withCatalystContext(EventSidebar);
+export default EventSidebar;

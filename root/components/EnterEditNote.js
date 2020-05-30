@@ -20,7 +20,8 @@ type Props = {
 const EnterEditNote = ({
   field,
   hideHelp = false,
-}: Props) => (
+}: Props):
+React.Element<'fieldset'> => (
   <fieldset className="editnote">
     <legend>{l('Edit Note')}</legend>
     {hideHelp ? null : (

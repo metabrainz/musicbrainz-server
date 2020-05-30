@@ -13,8 +13,16 @@ import TagLink from '../static/scripts/common/components/TagLink';
 
 import GenreLayout from './GenreLayout';
 
-const GenreIndex = ({genre}: {genre: GenreT}) => (
-  <GenreLayout entity={genre} page="index" title={l('Genre information')}>
+type Props = {
+  +$c: CatalystContextT,
+  +genre: GenreT,
+};
+
+const GenreIndex = ({
+  $c,
+  genre,
+}: Props): React.Element<typeof GenreLayout> => (
+  <GenreLayout $c={$c} entity={genre} page="index" title={l('Genre information')}>
     <h2>{l('Associated tags')}</h2>
     <table className="details">
       <tr>

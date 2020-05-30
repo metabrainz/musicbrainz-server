@@ -228,7 +228,13 @@ const notFoundPages = {
 };
 /* eslint-enable sort-keys */
 
-const NotFound = ({namespace}: {namespace: string}) => {
+type Props = {
+  +namespace: string,
+};
+
+const NotFound = ({
+  namespace,
+}: Props): React.Element<typeof NotFoundComponent> => {
   const parameters = notFoundPages[namespace];
   return (
     <NotFoundComponent title={parameters.title()}>

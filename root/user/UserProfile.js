@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import UserAccountLayout from '../components/UserAccountLayout';
-import {withCatalystContext} from '../context';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import {FLUENCY_NAMES} from '../static/scripts/common/constants';
@@ -105,7 +104,7 @@ type UserProfileInformationProps = {
   +viewingOwnProfile: boolean,
 };
 
-const UserProfileInformation = withCatalystContext(({
+const UserProfileInformation = ({
   $c,
   ipHashes,
   subscribed,
@@ -347,7 +346,7 @@ const UserProfileInformation = withCatalystContext(({
       </table>
     </>
   );
-});
+};
 
 type EditStatsT = {
   +accepted_auto_count: number,
@@ -378,7 +377,7 @@ type UserProfileStatisticsProps = {
   +votes: VoteStatsT,
 };
 
-const UserProfileStatistics = withCatalystContext(({
+const UserProfileStatistics = ({
   $c,
   editStats,
   user,
@@ -563,7 +562,7 @@ const UserProfileStatistics = withCatalystContext(({
       </table>
     </>
   );
-});
+};
 
 type UserProfileProps = {
   +$c: CatalystContextT,
@@ -583,13 +582,14 @@ const UserProfile = ({
   subscriberCount,
   user,
   votes,
-}: UserProfileProps) => {
+}: UserProfileProps): React.Element<typeof UserAccountLayout> => {
   const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
   const encodedName = encodeURIComponent(user.name);
 
   return (
-    <UserAccountLayout entity={user} page="index">
+    <UserAccountLayout $c={$c} entity={user} page="index">
       <UserProfileInformation
+        $c={$c}
         ipHashes={ipHashes}
         subscribed={subscribed}
         subscriberCount={subscriberCount}
@@ -598,6 +598,7 @@ const UserProfile = ({
       />
 
       <UserProfileStatistics
+        $c={$c}
         editStats={editStats}
         user={user}
         votes={votes}
@@ -614,4 +615,4 @@ const UserProfile = ({
   );
 };
 
-export default withCatalystContext(UserProfile);
+export default UserProfile;

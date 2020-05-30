@@ -19,7 +19,11 @@ type RemoveReleasesEditT = {
   },
 };
 
-const RemoveReleases = ({edit}: {+edit: RemoveReleasesEditT}) => (
+type Props = {
+  +edit: RemoveReleasesEditT,
+};
+
+const RemoveReleases = ({edit}: Props): React.Element<'table'> => (
   <table className="details remove-releases">
     <tr>
       <th>{l('Releases:')}</th>
