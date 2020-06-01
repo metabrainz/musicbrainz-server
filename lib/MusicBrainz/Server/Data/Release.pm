@@ -1398,6 +1398,7 @@ sub newest_releases_with_artwork {
       WHERE cover_art_type.type_id = ?
         AND cover_art.ordering = 1
         AND edit.type = ?
+        AND cover_art.date_uploaded < NOW() - INTERVAL \'10 minutes\'
       ORDER BY edit.id DESC
       LIMIT 10';
 
