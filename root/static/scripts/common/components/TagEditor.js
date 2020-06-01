@@ -140,7 +140,7 @@ class VoteButtons extends React.Component<VoteButtonsProps> {
 
     return (
       <span className={'tag-vote-buttons' + className}>
-        {this.props.$c.user ? (
+        {this.props.$c.user?.has_confirmed_email_address ? (
           <>
             <UpvoteButton {...this.props} />
             <DownvoteButton {...this.props} />
@@ -512,7 +512,7 @@ export const MainTagEditor: React.AbstractComponent<TagEditorProps, void> = hydr
 
           {(positiveTagsOnly && !tags.every(isAlwaysVisible)) ? (
             <>
-              {this.props.$c.user ? (
+              {this.props.$c.user?.has_confirmed_email_address ? (
                 <p>
                   {l(
                     `Tags with a score of zero or below,
@@ -521,7 +521,7 @@ export const MainTagEditor: React.AbstractComponent<TagEditorProps, void> = hydr
                 </p>
               ) : (
                 <p>
-                  {l('Tags with a score of zero or below are hidden.') + ' '}
+                  {l('Tags with a score of zero or below are hidden.')}
                 </p>
               )}
               <p>
@@ -537,7 +537,7 @@ export const MainTagEditor: React.AbstractComponent<TagEditorProps, void> = hydr
               <p>
                 {l('All tags are being shown.')}
               </p>
-              {this.props.$c.user ? (
+              {this.props.$c.user?.has_confirmed_email_address ? (
                 <p>
                   <a href="#" onClick={this.hideNegativeTags.bind(this)}>
                     {l(
@@ -556,7 +556,7 @@ export const MainTagEditor: React.AbstractComponent<TagEditorProps, void> = hydr
             </>
           ) : null}
 
-          {this.props.$c.user ? (
+          {this.props.$c.user?.has_confirmed_email_address ? (
             <>
               <h2>{l('Add Tags')}</h2>
               <p>

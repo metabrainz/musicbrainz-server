@@ -62,7 +62,7 @@ sub _vote_on_tags {
     my ($self, $c, $method) = @_;
 
     $c->res->headers->header('X-Robots-Tag' => 'noindex');
-    if (!$c->user_exists) {
+    if (!$c->user_exists || !$c->user->has_confirmed_email_address) {
         $c->res->status(401);
         $c->res->body('{}');
         $c->detach;

@@ -961,6 +961,7 @@ declare type SanitizedEditorPreferencesT = {
 declare type SanitizedEditorT = {
   ...EntityRoleT<'editor'>,
   +gravatar: string,
+  +has_confirmed_email_address: boolean,
   +name: string,
   +preferences: SanitizedEditorPreferencesT,
 };
