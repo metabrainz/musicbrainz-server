@@ -16,7 +16,8 @@ import formatTrackLength from
   '../../static/scripts/common/utility/formatTrackLength';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AddStandaloneRecordingProps = {
+type AddStandaloneRecordingEditT = {
+  ...EditT,
   +display_data: {
     +artist_credit: ArtistCreditT,
     +comment: string | null,
@@ -27,9 +28,11 @@ type AddStandaloneRecordingProps = {
   },
 };
 
-const AddStandaloneRecording = (
-  {edit}: {+edit: AddStandaloneRecordingProps},
-): React.MixedElement => {
+type Props = {
+  +edit: AddStandaloneRecordingEditT,
+};
+
+const AddStandaloneRecording = ({edit}: Props): React.MixedElement => {
   const display = edit.display_data;
   return (
     <>
