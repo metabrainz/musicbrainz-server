@@ -45,14 +45,7 @@ const AddStandaloneRecording = (
         <tbody>
           <tr>
             <th>{addColonText(l('Name'))}</th>
-            <td>
-              <EntityLink
-                allowNew
-                content={display.name}
-                entity={display.recording}
-                showDisambiguation={false}
-              />
-            </td>
+            <td>{display.name}</td>
           </tr>
           <tr>
             <th>{addColonText(l('Artist'))}</th>
