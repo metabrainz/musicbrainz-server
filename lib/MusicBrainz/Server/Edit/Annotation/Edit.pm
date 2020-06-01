@@ -4,6 +4,7 @@ use Carp;
 use MooseX::Role::Parameterized;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Filters qw( format_wikitext );
@@ -71,7 +72,10 @@ role {
         };
 
         unless ($self->preview) {
-            $data->{$entity_type} = $loaded->{$model}->{$self->$entity_id} //
+            my $entity_properties = $ENTITIES{$entity_type};
+            my $entity = $loaded->{$model}->{$self->$entity_id};
+            $self->c->model('ArtistCredit')->load($entity) if $entity_properties->{artist_credits};
+            $data->{$entity_type} = $entity //
                 $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name}),
         }
 
