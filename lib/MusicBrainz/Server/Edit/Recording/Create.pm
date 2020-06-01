@@ -31,7 +31,7 @@ sub recording_id { return shift->entity_id }
 has '+data' => (
     isa => Dict[
         name          => Str,
-        artist_credit => Optional[ArtistCreditDefinition],
+        artist_credit => ArtistCreditDefinition,
         length        => Nullable[Int],
         comment       => Nullable[Str],
         video         => Optional[Bool],
