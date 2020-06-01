@@ -34,7 +34,8 @@ has '+data' => (
         artist_credit => Optional[ArtistCreditDefinition],
         length        => Nullable[Int],
         comment       => Nullable[Str],
-        video         => Optional[Bool]    ]
+        video         => Optional[Bool],
+    ],
 );
 
 sub foreign_keys
