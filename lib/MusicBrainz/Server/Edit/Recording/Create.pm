@@ -30,7 +30,7 @@ sub recording_id { return shift->entity_id }
 
 has '+data' => (
     isa => Dict[
-        name          => Optional[Str],
+        name          => Str,
         artist_credit => Optional[ArtistCreditDefinition],
         length        => Nullable[Int],
         comment       => Nullable[Str],
