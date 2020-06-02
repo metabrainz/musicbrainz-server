@@ -276,6 +276,7 @@ module.exports = {
   'edit/details/AddReleaseGroup': require('../edit/details/AddReleaseGroup'),
   'edit/details/AddRemoveAlias': require('../edit/details/AddRemoveAlias'),
   'edit/details/AddSeries': require('../edit/details/AddSeries'),
+  'edit/details/AddStandaloneRecording': require('../edit/details/AddStandaloneRecording'),
   'edit/details/AddWork': require('../edit/details/AddWork'),
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'edit/details/EditArtist': require('../edit/details/EditArtist'),
