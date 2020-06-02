@@ -44,7 +44,7 @@ const Footer = ({$c}) => {
           </>
         ) : null}
 
-        {DBDefs.GIT_BRANCH ? (
+        {DBDefs.DB_STAGING_SERVER && DBDefs.GIT_BRANCH ? (
           <>
             <br />
             {exp.l('Running: {git_details}', {

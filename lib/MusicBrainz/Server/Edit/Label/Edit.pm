@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_LABEL_EDIT
 );
 use MusicBrainz::Server::Data::Label;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     date_closure
@@ -40,6 +41,7 @@ with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
 
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { N_l('Edit label') }
+sub edit_template_react { 'EditLabel' }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }
 
@@ -123,6 +125,11 @@ sub build_display_data
     if (exists $self->data->{new}{isni_codes}) {
         $data->{isni_codes}{old} = $self->data->{old}{isni_codes};
         $data->{isni_codes}{new} = $self->data->{new}{isni_codes};
+    }
+
+    if (exists $data->{ended}) {
+        $data->{ended}{old} = boolean_to_json($data->{ended}{old});
+        $data->{ended}{new} = boolean_to_json($data->{ended}{new});
     }
 
     for my $side (qw( old new )) {

@@ -15,8 +15,8 @@
 # Frank Matthiae <email address hidden>, 2015
 # Hans-Peter Braun <email address hidden>, 2017
 # happykraut, 2017
-# J L <email address hidden>, 2018
-# J L <email address hidden>, 2018
+# 871cf62ea721ffc486279ce0e5a0f34c_d3e66b3 <email address hidden>, 2018
+# 871cf62ea721ffc486279ce0e5a0f34c_d3e66b3 <email address hidden>, 2018
 # Jod isnotmyname <email address hidden>, 2017
 # happykraut, 2017
 # Leo_Verto <email address hidden>, 2017

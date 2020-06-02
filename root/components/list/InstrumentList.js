@@ -14,9 +14,9 @@ import {withCatalystContext} from '../../context';
 import {
   defineCheckboxColumn,
   defineNameColumn,
-  defineRemoveFromMergeColumn,
   defineTypeColumn,
   instrumentDescriptionColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -39,21 +39,27 @@ const InstrumentList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
-      const nameColumn =
-        defineNameColumn<InstrumentT>(l('Instrument'), order, sortable);
-      const typeColumn = defineTypeColumn('instrument_type', order, sortable);
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(instruments)
-        : null;
+      const nameColumn = defineNameColumn<InstrumentT>({
+        order: order,
+        sortable: sortable,
+        title: l('Instrument'),
+      });
+      const typeColumn = defineTypeColumn({
+        order: order,
+        sortable: sortable,
+        typeContext: 'instrument_type',
+      });
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
         nameColumn,
         typeColumn,
         instrumentDescriptionColumn,
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && instruments.length > 2
+          ? [removeFromMergeColumn]
+          : []),
       ];
     },
     [$c.user, checkboxes, instruments, mergeForm, order, sortable],

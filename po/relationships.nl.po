@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-18 20:44+0000\n"
+"PO-Revision-Date: 2020-05-31 16:46+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1936,13 +1936,13 @@ msgstr "Dit wordt gebruikt om aan te geven dat een <a href=\"/doc/Artist\" title
 msgid ""
 "This link points to a page for a particular release within a discography for"
 " an artist or label."
-msgstr "Deze koppeling wijst naar een pagina voor een bepaalde uitgave binnen een discografie van een artiest of platenmaatschappij."
+msgstr "Deze link wijst naar een pagina voor een bepaalde uitgave binnen een discografie van een artiest of platenmaatschappij."
 
 #: DB:link_type/description:921
 msgid ""
 "This link points to a page for a particular work within a work list for an "
 "artist."
-msgstr "Deze koppeling wijst naar een pagina met een lijst met composities van een artiest."
+msgstr "Deze link wijst naar een pagina met een lijst met composities van een artiest."
 
 #: DB:link_type/description:43 DB:link_type/description:155
 msgid ""

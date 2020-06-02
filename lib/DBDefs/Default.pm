@@ -103,7 +103,7 @@ sub WEB_SERVER                { "localhost:5000" }
 # Relevant only if SSL redirects are enabled
 sub WEB_SERVER_SSL            { "localhost" }
 sub SEARCH_SERVER             { "search.musicbrainz.org" }
-sub SEARCH_ENGINE             { "LUCENE" }
+sub SEARCH_ENGINE             { "SOLR" }
 # Whether to use x-accel-redirect for webservice searches,
 # using /internal/search as the internal redirect
 sub SEARCH_X_ACCEL_REDIRECT   { 0 }

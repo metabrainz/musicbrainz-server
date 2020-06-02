@@ -232,39 +232,18 @@ export class ExternalLinksEditor
               error = l(`This relationship type is deprecated 
                          and should not be used.`);
             } else if (
-              (isNewLink || linkChanged) && checker && !checker(link.url)
-            ) {
-              error = l(`This URL is not allowed for the selected link type, 
-                         or is incorrectly formatted.`);
-            } else if (
-              (isNewLink || linkChanged) &&
-                /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/
-                  .test(link.url)
-            ) {
-              // Kludge for MBS-9515 to be replaced with general MBS-9516
-              error = exp.l(
-                `Links to specific sections of Wikipedia articles are not 
-                 allowed. Please remove “{fragment}” if still appropriate.
-                 See the {url|guidelines}.`,
-                {
-                  fragment: (
-                    <span className="url-quote" key="fragment">
-                      {link.url.replace(
-                        /^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/,
-                        '#$1',
-                      )}
-                    </span>
-                  ),
-                  url: {
-                    href: '/relationship/' + linkType.gid,
-                    target: '_blank',
-                  },
-                },
-              );
-            } else if (
               (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1
             ) {
               error = l('This relationship already exists.');
+            } else if (
+              (isNewLink || linkChanged) && checker
+            ) {
+              const check = checker(link.url);
+              if (!check.result) {
+                error = check.error ||
+                  l(`This URL is not allowed for the selected link type, 
+                     or is incorrectly formatted.`);
+              }
             }
 
             if (error) {

@@ -19,7 +19,7 @@ import {
   defineEntityColumn,
   defineBeginDateColumn,
   defineEndDateColumn,
-  defineRemoveFromMergeColumn,
+  removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
@@ -42,33 +42,33 @@ const PlaceList = ({
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
-        ? defineCheckboxColumn(checkboxes, mergeForm)
+        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
-      const nameColumn =
-        defineNameColumn<PlaceT>(
-          l('Place'),
-          order,
-          sortable,
-          false, // no descriptive linking (since we have an area column)
-        );
-      const typeColumn = defineTypeColumn('place_type', order, sortable);
-      const addressColumn = defineTextColumn<PlaceT>(
-        entity => entity.address,
-        'address',
-        l('Address'),
-        order,
-        sortable,
-      );
-      const areaColumn = defineEntityColumn<PlaceT>(
-        entity => entity.area,
-        'area',
-        l('Area'),
-      );
-      const beginDateColumn = defineBeginDateColumn();
-      const endDateColumn = defineEndDateColumn();
-      const removeFromMergeColumn = mergeForm
-        ? defineRemoveFromMergeColumn(places)
-        : null;
+      const nameColumn = defineNameColumn<PlaceT>({
+        descriptive: false, // since area has its own column
+        order: order,
+        sortable: sortable,
+        title: l('Place'),
+      });
+      const typeColumn = defineTypeColumn({
+        order: order,
+        sortable: sortable,
+        typeContext: 'place_type',
+      });
+      const addressColumn = defineTextColumn<PlaceT>({
+        columnName: 'address',
+        getText: entity => entity.address,
+        order: order,
+        sortable: sortable,
+        title: l('Address'),
+      });
+      const areaColumn = defineEntityColumn<PlaceT>({
+        columnName: 'area',
+        getEntity: entity => entity.area,
+        title: l('Area'),
+      });
+      const beginDateColumn = defineBeginDateColumn({});
+      const endDateColumn = defineEndDateColumn({});
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -78,7 +78,7 @@ const PlaceList = ({
         areaColumn,
         beginDateColumn,
         endDateColumn,
-        ...(removeFromMergeColumn ? [removeFromMergeColumn] : []),
+        ...(mergeForm && places.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [$c.user, checkboxes, mergeForm, order, places, sortable],

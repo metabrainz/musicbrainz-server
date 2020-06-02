@@ -18,6 +18,8 @@ import commaList from '../static/scripts/common/i18n/commaList';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed';
+import escapeRegExp from '../static/scripts/common/utility/escapeRegExp';
+import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty';
 import {formatCount, formatPercentage} from '../statistics/utilities';
 import formatUserDate from '../utility/formatUserDate';
@@ -96,6 +98,7 @@ const UserProfileProperty = ({
 
 type UserProfileInformationProps = {
   +$c: CatalystContextT,
+  +ipHashes: $ReadOnlyArray<string>,
   +subscribed: boolean,
   +subscriberCount: number,
   +user: EditorT,
@@ -104,6 +107,7 @@ type UserProfileInformationProps = {
 
 const UserProfileInformation = withCatalystContext(({
   $c,
+  ipHashes,
   subscribed,
   subscriberCount,
   user,
@@ -130,6 +134,12 @@ const UserProfileInformation = withCatalystContext(({
   const encodedName = encodeURIComponent(user.name);
 
   const {area, biography, gender, languages} = user;
+
+  /*
+   * Whether the user making the request is an account admin (not
+   * the user whose profile is being viewed).
+   */
+  const isAccountAdmin = !!($c.user?.is_account_admin);
 
   return (
     <>
@@ -161,11 +171,29 @@ const UserProfileInformation = withCatalystContext(({
                 )
               ) : (
                 $c.user ? (
-                  bracketed(
-                    <a href={`/user/${encodedName}/contact`}>
-                      {l('send email')}
-                    </a>,
-                  )
+                  <>
+                    {bracketed(
+                      <a href={`/user/${encodedName}/contact`}>
+                        {l('send email')}
+                      </a>,
+                    )}
+                    {isAccountAdmin ? (
+                      <>
+                        {' '}
+                        {bracketed(
+                          <a
+                            href={
+                              '/admin/email-search/?emailsearch.email=' +
+                              encodeURIComponent(escapeRegExp(user.email)) +
+                              '&emailsearch.submit=1'
+                            }
+                          >
+                            {l('find all users of this email')}
+                          </a>,
+                        )}
+                      </>
+                    ) : null}
+                  </>
                 ) : null
               )}
             </>
@@ -212,7 +240,7 @@ const UserProfileInformation = withCatalystContext(({
           {memberSince}
         </UserProfileProperty>
 
-        {$c.user && (viewingOwnProfile || $c.user.is_account_admin) ? (
+        {(viewingOwnProfile || isAccountAdmin) ? (
           <UserProfileProperty name={l('Last login:')}>
             {user.last_login_date
               ? formatUserDate($c, user.last_login_date)
@@ -298,6 +326,21 @@ const UserProfileInformation = withCatalystContext(({
                   {bracketedText(FLUENCY_NAMES[language.fluency]())}
                 </li>
               ))}
+            </ul>
+          </UserProfileProperty>
+        ) : null}
+
+        {$c.user?.is_account_admin && ipHashes.length ? (
+          <UserProfileProperty name={addColonText(l('IP lookup'))}>
+            <ul className="inline">
+              {commaOnlyList(ipHashes.map(ipHash => (
+                <a
+                  href={'/admin/ip-lookup/' + encodeURIComponent(ipHash)}
+                  key={ipHash}
+                >
+                  {ipHash.substring(0, 7)}
+                </a>
+              )))}
             </ul>
           </UserProfileProperty>
         ) : null}
@@ -525,6 +568,7 @@ const UserProfileStatistics = withCatalystContext(({
 type UserProfileProps = {
   +$c: CatalystContextT,
   +editStats: EditStatsT,
+  +ipHashes: $ReadOnlyArray<string>,
   +subscribed: boolean,
   +subscriberCount: number,
   +user: EditorT,
@@ -534,6 +578,7 @@ type UserProfileProps = {
 const UserProfile = ({
   $c,
   editStats,
+  ipHashes,
   subscribed,
   subscriberCount,
   user,
@@ -545,6 +590,7 @@ const UserProfile = ({
   return (
     <UserAccountLayout entity={user} page="index">
       <UserProfileInformation
+        ipHashes={ipHashes}
         subscribed={subscribed}
         subscriberCount={subscriberCount}
         user={user}
@@ -557,7 +603,7 @@ const UserProfile = ({
         votes={votes}
       />
 
-      {$c.user && !viewingOwnProfile ? (
+      {$c.user && !viewingOwnProfile && !user.deleted ? (
         <h2 style={{clear: 'both'}}>
           <a href={`/user/${encodedName}/report`}>
             {l('Report this user for bad behavior')}

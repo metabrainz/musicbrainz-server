@@ -34,10 +34,6 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Editor'
 };
 
-__PACKAGE__->config(
-    paging_limit => 25,
-);
-
 use Try::Tiny;
 
 =head1 NAME
@@ -381,8 +377,15 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     my $edit_stats = $c->model('Editor')->various_edit_counts($user->id);
     $edit_stats->{last_day_count} = $c->model('Editor')->last_24h_edit_count($user->id);
 
+    my @ip_hashes;
+    if ($c->user_exists && $c->user->is_account_admin) {
+        my $store = $c->model('MB')->context->store;
+        @ip_hashes = $store->set_members('userips:' . $user->id);
+    }
+
     my %props = (
         editStats       => $edit_stats,
+        ipHashes        => \@ip_hashes,
         subscribed      => $c->stash->{subscribed},
         subscriberCount => $c->stash->{subscriber_count},
         user            => $user,

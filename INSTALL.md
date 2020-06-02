@@ -1,10 +1,11 @@
 Installing MusicBrainz Server
 =============================
 
-The easiest method of installing a local MusicBrainz Server may be to download the
-[pre-configured virtual machine](https://musicbrainz.org/doc/MusicBrainz_Server/Setup),
-if there is a current image available. In case you only need a replicated
-database, you should consider using [mbdata](https://github.com/lalinsky/mbdata).
+The easiest method of installing a local MusicBrainz Server may be to use the
+[MusicBrainz Docker](https://github.com/metabrainz/musicbrainz-docker) Compose
+project, which can be used for a website/web service mirror, testing, or
+development. In case you only need a replicated database, you should consider
+using [mbdata](https://github.com/lalinsky/mbdata).
 
 If you want to manually set up MusicBrainz Server from source, read on!
 
@@ -344,7 +345,8 @@ The server by itself doesn't rate limit any request it handles. If you're
 receiving 503s, then you're likely performing
 [search queries](https://musicbrainz.org/doc/Search_Server) without having set
 up a local instance of the
-[search server](https://github.com/metabrainz/search-server). By default,
+[search server](https://github.com/metabrainz/mb-solr) along with the
+[search index rebuilder](https://github.com/metabrainz/sir). By default,
 search queries are sent to search.musicbrainz.org and are rate limited.
 
 Once you set up your own instance, change `SEARCH_SERVER` in lib/DBDefs.pm to

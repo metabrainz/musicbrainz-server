@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Admin;
 use Moose;
+use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -22,17 +23,18 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves CSRF
     my $form = $c->form(
         form => 'User::AdjustFlags',
         item => {
-            auto_editor         => $user->is_auto_editor,
-            bot                 => $user->is_bot,
-            untrusted           => $user->is_untrusted,
-            link_editor         => $user->is_relationship_editor,
-            location_editor     => $user->is_location_editor,
-            no_nag              => $user->is_nag_free,
-            wiki_transcluder    => $user->is_wiki_transcluder,
-            banner_editor       => $user->is_banner_editor,
-            mbid_submitter      => $user->is_mbid_submitter,
-            account_admin       => $user->is_account_admin,
-            editing_disabled    => $user->is_editing_disabled,
+            auto_editor             => $user->is_auto_editor,
+            bot                     => $user->is_bot,
+            untrusted               => $user->is_untrusted,
+            link_editor             => $user->is_relationship_editor,
+            location_editor         => $user->is_location_editor,
+            no_nag                  => $user->is_nag_free,
+            wiki_transcluder        => $user->is_wiki_transcluder,
+            banner_editor           => $user->is_banner_editor,
+            mbid_submitter          => $user->is_mbid_submitter,
+            account_admin           => $user->is_account_admin,
+            editing_disabled        => $user->is_editing_disabled,
+            adding_notes_disabled   => $user->is_adding_notes_disabled,
         },
     );
 
@@ -143,9 +145,11 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
 
     if ($c->form_posted_and_valid($form)) {
         my $store = $c->model('MB')->context->store;
+        my $alert_cache_key = DBDefs->IS_BETA ? 'beta:alert' : 'alert';
+        my $alert_mtime_cache_key = DBDefs->IS_BETA ? 'beta:alert_mtime' : 'alert_mtime';
 
-        $store->set('alert', $form->values->{message});
-        $store->set('alert_mtime', time());
+        $store->set($alert_cache_key, $form->values->{message});
+        $store->set($alert_mtime_cache_key, time());
 
         $c->flash->{message} = l('Banner updated. Remember that each server has its own, independent banner.');
         $c->response->redirect($c->uri_for('/'));
@@ -157,6 +161,53 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
             component_props => {form => $form},
         );
     }
+}
+
+sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c) = @_;
+
+    my $form = $c->form(form => 'Admin::EmailSearch');
+    my @results;
+
+    if ($c->form_submitted_and_valid($form)) {
+        try {
+            @results = $c->model('Editor')->search_by_email(
+                $form->field('email')->value // '',
+            );
+        } catch {
+            my $error = $_;
+            if ("$error" =~ m/invalid regular expression/) {
+                $form->field('email')->add_error(l('Invalid regular expression.'));
+                $c->response->status(400);
+            } else {
+                die $error;
+            }
+        };
+    }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/EmailSearch',
+        component_props => {
+            form => $form,
+            @results ? (results => \@results) : (),
+        },
+    );
+}
+
+sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c, $ip_hash) = @_;
+
+    my @users = $c->model('Editor')->find_by_ip($ip_hash // '');
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/IpLookup',
+        component_props => {
+            ipHash => $ip_hash,
+            users => \@users,
+        },
+    );
 }
 
 1;

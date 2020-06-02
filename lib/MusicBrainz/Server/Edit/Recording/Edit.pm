@@ -42,6 +42,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
 sub edit_name { N_l('Edit recording') }
+sub edit_template_react { "EditRecording" }
 sub _edit_model { 'Recording' }
 sub recording_id { return shift->entity_id }
 
@@ -142,6 +143,13 @@ sub build_display_data
             new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
             old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
         }
+    }
+
+    if (exists $self->data->{new}{video}) {
+        $data->{video} = {
+            new => boolean_to_json($self->data->{new}{video}),
+            old => boolean_to_json($self->data->{old}{video}),
+        };
     }
 
     $data->{recording} = $loaded->{Recording}{ $self->data->{entity}{id} }

@@ -7,11 +7,13 @@ use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
+use aliased 'MusicBrainz::Server::Entity::Recording';
+
 sub edit_name { N_l('Edit recording') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_HISTORIC_EDIT_TRACK_LENGTH }
 sub historic_type { 45 }
-sub edit_template { 'edit_recording' }
+sub edit_template_react { 'EditRecording' }
 
 sub _build_related_entities
 {
@@ -33,7 +35,8 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} },
+        recording => $loaded->{Recording}->{ $self->data->{recording_id} } ||
+                    Recording->new( id => $self->data->{recording_id} ),
         length => {
             old => $self->data->{old}->{length},
             new => $self->data->{new}->{length},

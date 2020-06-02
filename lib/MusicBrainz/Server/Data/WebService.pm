@@ -211,7 +211,7 @@ sub xml_search
     }
 
     my $url_ext;
-    if (DBDefs->SEARCH_ENGINE eq 'LUCENE') {
+    if (DBDefs->SEARCH_ENGINE eq 'LUCENE' || DBDefs->SEARCH_SERVER eq DBDefs::Default->SEARCH_SERVER) {
         my $format = ($args->{fmt} // "") eq "json" ? "jsonnew" : "xml";
         $url_ext = "/ws/2/$resource/?" .
            "max=$limit&type=$resource&fmt=$format&offset=$offset" .

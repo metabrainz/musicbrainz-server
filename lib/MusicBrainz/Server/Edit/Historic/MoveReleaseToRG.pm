@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Edit::Release';
 sub edit_name { N_l('Edit release') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_MOVE }
-sub edit_template { 'historic/move_release_to_rg' }
+sub edit_template_react { 'historic/MoveReleaseToReleaseGroup' }
 
 sub release_id { shift->data->{release}{id} }
 sub release_ids { shift->release_id }
@@ -76,11 +76,19 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         release => $loaded->{Release}->{ $self->data->{release}{id} }
-            || Release->new( name => $self->data->{release}{name} ),
-        old_group => $loaded->{ReleaseGroup}->{ $self->data->{old_release_group}{id} }
-            || ReleaseGroup->new( name => $self->data->{old_release_group}{name} ),
-        new_group => $loaded->{ReleaseGroup}->{ $self->data->{new_release_group}{id} }
-            || ReleaseGroup->new( name => $self->data->{new_release_group}{name} )
+            || Release->new(
+                id => $self->data->{release}{id},
+                name => $self->data->{release}{name} ),
+        release_group => {
+            old => $loaded->{ReleaseGroup}->{ $self->data->{old_release_group}{id} }
+            || ReleaseGroup->new(
+                id => $self->data->{old_release_group}{id},
+                name => $self->data->{old_release_group}{name} ),
+            new => $loaded->{ReleaseGroup}->{ $self->data->{new_release_group}{id} }
+            || ReleaseGroup->new(
+                id => $self->data->{new_release_group}{id},
+                name => $self->data->{new_release_group}{name} )
+        }
     }
 }
 

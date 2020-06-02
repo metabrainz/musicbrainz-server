@@ -311,6 +311,11 @@ const actions = {
         guessFeat(track);
     },
 
+    guessMediumCase: function (medium) {
+        releaseEditor.guessCaseMediumName(medium);
+        releaseEditor.guessCaseTrackNames(medium);
+    },
+
     guessMediumFeatArtists: function (medium) {
         _.each(medium.tracks(), guessFeat);
     },

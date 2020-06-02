@@ -177,7 +177,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-  t.plan(19);
+  t.plan(22);
 
   const tests = [
     {
@@ -312,6 +312,30 @@ test('Work', function (t) {
       bug: 'MBS-5338',
       mode: 'English',
       roman: true,
+      keepuppercase: false,
+    },
+    {
+      input: 'My brother is a minor',
+      expected: 'My Brother Is a Minor',
+      bug: 'MBS-10840',
+      mode: 'English',
+      roman: false,
+      keepuppercase: false,
+    },
+    {
+      input: 'Sonata in a minor',
+      expected: 'Sonata in A minor',
+      bug: 'MBS-10840',
+      mode: 'English',
+      roman: false,
+      keepuppercase: false,
+    },
+    {
+      input: 'Sonata in g flat major',
+      expected: 'Sonata in G-flat major',
+      bug: 'MBS-10840',
+      mode: 'English',
+      roman: false,
       keepuppercase: false,
     },
   ];
