@@ -62,8 +62,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 08:15+0000\n"
-"PO-Revision-Date: 2020-05-28 09:36+0000\n"
+"POT-Creation-Date: 2020-05-28 20:40+0000\n"
+"PO-Revision-Date: 2020-05-28 21:28+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -777,7 +777,7 @@ msgstr "Régions"
 #: ../root/components/list/ReleaseGroupList.js:97
 #: ../root/components/list/ReleaseList.js:75
 #: ../root/edit/details/AddArtist.js:56
-#: ../root/edit/details/AddReleaseGroup.js:53
+#: ../root/edit/details/AddReleaseGroup.js:61
 #: ../root/edit/details/EditArtist.js:72
 #: ../root/edit/details/EditRecording.js:82
 #: ../root/edit/details/EditReleaseGroup.js:83 ../root/isrc/Index.js:57
@@ -1562,7 +1562,7 @@ msgstr "Recherche directe dans la base de données"
 #: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:65
 #: ../root/edit/details/AddArtist.js:78 ../root/edit/details/AddEvent.js:56
 #: ../root/edit/details/AddPlace.js:55
-#: ../root/edit/details/AddReleaseGroup.js:63
+#: ../root/edit/details/AddReleaseGroup.js:71
 #: ../root/edit/details/AddSeries.js:47 ../root/edit/details/AddWork.js:55
 #: ../root/edit/details/EditArtist.js:97 ../root/edit/details/EditEvent.js:59
 #: ../root/edit/details/EditLabel.js:80 ../root/edit/details/EditPlace.js:66
@@ -1761,7 +1761,7 @@ msgstr "Notes de modification"
 
 #: ../root/admin/edit_user.tt:14
 msgid "Edit notes disabled"
-msgstr ""
+msgstr "Notes de modification désactivées"
 
 #: ../root/edit/notes.tt:22
 msgid ""
@@ -2292,8 +2292,8 @@ msgid ""
 msgstr "« Masquée » devrait être utilisé pour les langues des signes et les langues sans code ISO 639-3."
 
 #: ../root/components/common-macros.tt:609
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:246
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
+#: ../root/static/scripts/common/constants.js:245
 msgid "High"
 msgstr "Haute"
 
@@ -2877,8 +2877,8 @@ msgid "Lookup count"
 msgstr "Nombre de recherches"
 
 #: ../root/components/common-macros.tt:609
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:243
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
+#: ../root/static/scripts/common/constants.js:242
 msgid "Low"
 msgstr "Bas"
 
@@ -3097,7 +3097,7 @@ msgstr "S.O."
 #: ../root/components/list/RecordingList.js:69
 #: ../root/edit/details/AddArea.js:52 ../root/edit/details/AddArtist.js:67
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/AddPlace.js:50
-#: ../root/edit/details/AddReleaseGroup.js:48
+#: ../root/edit/details/AddReleaseGroup.js:56
 #: ../root/edit/details/AddSeries.js:42 ../root/edit/details/AddWork.js:50
 #: ../root/edit/details/EditArtist.js:81 ../root/edit/details/EditEvent.js:51
 #: ../root/edit/details/EditLabel.js:63 ../root/edit/details/EditPlace.js:58
@@ -3326,9 +3326,9 @@ msgid ""
 msgstr "Aucun des ID de disque joints ne peut correspondre à un silence préliminaire de la durée donnée."
 
 #: ../root/components/common-macros.tt:609
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
+#: ../root/static/scripts/common/constants.js:243
 #: ../root/static/scripts/common/constants.js:244
-#: ../root/static/scripts/common/constants.js:245
 msgid "Normal"
 msgstr "Normal"
 
@@ -3722,7 +3722,7 @@ msgstr "Précédent"
 
 #: ../root/release/edit/information.tt:91
 #: ../root/release_group/edit_form.tt:16
-#: ../root/edit/details/AddReleaseGroup.js:70
+#: ../root/edit/details/AddReleaseGroup.js:78
 #: ../root/edit/details/EditReleaseGroup.js:64
 msgid "Primary Type:"
 msgstr "Type primaire :"
@@ -3949,7 +3949,7 @@ msgstr "Événements de parution :"
 #: ../root/components/common-macros.tt:576 ../root/edit/search_macros.tt:386
 #: ../root/release/index.tt:57
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
-#: ../root/edit/details/AddReleaseGroup.js:38
+#: ../root/edit/details/AddReleaseGroup.js:43
 #: ../root/edit/details/EditReleaseGroup.js:43
 #: ../root/layout/components/Search.js:24
 #: ../root/report/ReleaseRgDifferentName.js:59
@@ -4377,7 +4377,7 @@ msgstr "Recherche en cours..."
 
 #: ../root/release/edit/information.tt:94
 #: ../root/release_group/edit_form.tt:17
-#: ../root/edit/details/AddReleaseGroup.js:79
+#: ../root/edit/details/AddReleaseGroup.js:87
 #: ../root/edit/details/EditReleaseGroup.js:75
 msgid "Secondary Types:"
 msgstr "Types secondaires :"
@@ -4417,8 +4417,8 @@ msgid "Send"
 msgstr "Envoyer"
 
 #: ../root/user/contact.tt:1 ../root/user/contact.tt:3
-#: ../lib/MusicBrainz/Server/Controller/User.pm:250
-#: ../lib/MusicBrainz/Server/Controller/User.pm:272
+#: ../lib/MusicBrainz/Server/Controller/User.pm:246
+#: ../lib/MusicBrainz/Server/Controller/User.pm:268
 #: ../root/account/LostUsername.js:42
 msgid "Send Email"
 msgstr "Envoyer un courriel"
@@ -6846,12 +6846,12 @@ msgstr "<strong>Nous n’avons pas pu vous envoyer un courriel de vérification.
 msgid "User successfully edited."
 msgstr "Utilisateur modifié avec succès."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:152
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:154
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "La bannière est mise à jour. Souvenez-vous que chaque serveur à sa propre bannière indépendante."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:178
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:180
 #: ../root/static/scripts/release-editor/trackParser.js:491
 msgid "Invalid regular expression."
 msgstr "Expression régulière invalide."
@@ -6900,7 +6900,7 @@ msgstr "Le support sélectionné ne peut pas avoir d’ID de disque"
 msgid "The provided artist id is not valid"
 msgstr "L’ID d’artiste fourni n’est pas valide"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
 msgid "Default"
 msgstr "Valeur par défaut"
 
@@ -6936,7 +6936,7 @@ msgid ""
 "{url|help us improve it}!"
 msgstr "Langue appliquée. Si vous rencontrez un quelconque problème de traduction, n’hésitez pas à {url|nous aider à l’améliorer} !"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:254
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:256
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -6946,31 +6946,31 @@ msgstr "Notre serveur Redis semble être hors service. Certaines fonctions pourr
 msgid "Series that have different entity types cannot be merged."
 msgstr "Les séries ayant des types d’entité différents ne peuvent pas être fusionnées."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:251
+#: ../lib/MusicBrainz/Server/Controller/User.pm:247
 msgid ""
 "You cannot contact other users because you have not {url|verified your email"
 " address}."
 msgstr "Vous ne pouvez pas contacter d’autres utilisateurs car vous n’avez pas {url|vérifié votre adresse courriel}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:273
+#: ../lib/MusicBrainz/Server/Controller/User.pm:269
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "L’éditeur nommé {name} n’a pas d’adresse courriel attaché à son compte."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:303
+#: ../lib/MusicBrainz/Server/Controller/User.pm:299
 msgid "Your message could not be sent"
 msgstr "Votre message n’a pas pu être envoyé"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:438
+#: ../lib/MusicBrainz/Server/Controller/User.pm:434
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' n’est pas un type d’entité qui peut avoir des évaluations."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:595
+#: ../lib/MusicBrainz/Server/Controller/User.pm:591
 msgid "An error occurred while trying to send your report."
 msgstr "Une erreur est survenue durant l’envoi de votre signalement."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:599
+#: ../lib/MusicBrainz/Server/Controller/User.pm:595
 msgid "Your report has been sent."
 msgstr "Votre signalement a été envoyé."
 
@@ -7238,7 +7238,7 @@ msgstr "Changer la qualité de l’artiste (historique)"
 msgid "Edit release"
 msgstr "Modifier la parution"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:11
 msgid "Edit track (historic)"
 msgstr "Modifier la piste (historique)"
@@ -7998,6 +7998,17 @@ msgstr "Vous ne pouvez pas spécifier une combinaison d’artistes de piste et d
 msgid "The collection type must match the type of entities it contains."
 msgstr "Le type de collection doit correspondre au type d’entités qu’elle contient."
 
+#: ../lib/MusicBrainz/Server/Form/Collection.pm:93
+#, perl-brace-format
+msgid ""
+"To add “{editor}” as a collaborator, please select them from the dropdown."
+msgstr "Pour ajouter «{editor}» comme collaborateur, merci de le sélectionner dans la liste déroulante."
+
+#: ../lib/MusicBrainz/Server/Form/Collection.pm:98
+#, perl-brace-format
+msgid "Editor “{editor}” does not exist."
+msgstr "L’éditeur « {editor} » n’existe pas."
+
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:48
 #, perl-brace-format
 msgid "Please add an artist name for {credit}"
@@ -8168,22 +8179,22 @@ msgid "Invalid URL format"
 msgstr "Format d’URL invalide"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:72
-#: ../root/static/scripts/common/constants.js:251
+#: ../root/static/scripts/common/constants.js:250
 msgid "Basic"
 msgstr "De base"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:73
-#: ../root/static/scripts/common/constants.js:252
+#: ../root/static/scripts/common/constants.js:251
 msgid "Intermediate"
 msgstr "Intermédiaire"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:74
-#: ../root/static/scripts/common/constants.js:250
+#: ../root/static/scripts/common/constants.js:249
 msgid "Advanced"
 msgstr "Avancé"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:75
-#: ../root/static/scripts/common/constants.js:253
+#: ../root/static/scripts/common/constants.js:252
 msgid "Native"
 msgstr "Natif"
 
@@ -8691,6 +8702,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr "Entrez une {link|expression régulière POSIX}."
 
 #: ../root/admin/IpLookup.js:28 ../root/admin/IpLookup.js:30
+#: ../root/user/UserProfile.js:334
 msgid "IP lookup"
 msgstr "Recherche par IP"
 
@@ -13129,19 +13141,19 @@ msgstr "Détails de la collection"
 msgid "Allow other users to see this collection"
 msgstr "Autoriser les autres utilisateurs à voir cette collection"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:123
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:127
 msgid "Remove collaborator"
 msgstr "Retirer un collaborateur"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:137
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:141
 msgid "Add collaborator"
 msgstr "Ajouter un collaborateur"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:146
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:150
 msgid "Create collection"
 msgstr "Créer une collection"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:148
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:152
 msgid "Update collection"
 msgstr "Mettre à jour la collection"
 
@@ -13621,71 +13633,72 @@ msgstr "Merci de lier à la vidéo correspondante. Les chaînes peuvent être aj
 
 #: ../root/static/scripts/edit/URLCleanup.js:427
 msgid ""
-"Allmusic album links should be added to release groups. To find the "
-"appropriate release link for this release, please check the Releases tab for"
-" the Allmusic album."
-msgstr "Les liens « album » de Allmusic doivent être ajoutés aux groupes de parution. Pour trouver le lien Allmusic approprié à cette parution, merci de regarder dans l’onglet « Releases » de l’album sur Allmusic."
+"Allmusic “{album_url_pattern}” links should be added to release groups. To "
+"find the appropriate release link for this release, please check the "
+"Releases tab from {album_url|your link}."
+msgstr "Les liens « {album_url_pattern} » de Allmusic doivent être ajoutés aux groupes de parution. Pour trouver le lien Allmusic approprié à cette parution, merci de regarder dans l’onglet « Releases » de {album_url|votre lien}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:624
+#: ../root/static/scripts/edit/URLCleanup.js:637
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr "Merci de lier à la page principale pour cet artiste, plutôt qu’à un album ou une piste en particulier."
 
-#: ../root/static/scripts/edit/URLCleanup.js:635
+#: ../root/static/scripts/edit/URLCleanup.js:648
 msgid ""
 "Please link to the main page for the label, not to a specific album or "
 "track."
 msgstr "Merci de lier à la page principale pour ce label, plutôt qu’à un album ou une piste en particulier."
 
-#: ../root/static/scripts/edit/URLCleanup.js:777
+#: ../root/static/scripts/edit/URLCleanup.js:790
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr "Merci de lier à la page principale pour cet artiste, plutôt qu’à un produit en particulier."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1140
+#: ../root/static/scripts/edit/URLCleanup.js:1156
 msgid ""
-"Discogs master links group several releases, so this should be added to the "
-"release group instead."
-msgstr "Les liens « master » de Discogs groupent plusieurs parutions, ils doivent donc être ajoutés au groupe de parution."
+"Discogs “{master_url_pattern}” links group several releases, so this should "
+"be added to the release group instead."
+msgstr "Les liens « {master_url_pattern} » de Discogs groupent plusieurs parutions, ils doivent donc être ajoutés au groupe de parution."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1433
+#: ../root/static/scripts/edit/URLCleanup.js:1466
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead."
 msgstr "Merci de lier directement aux images, liez plutôt au profil Instagram correspondant à cette page, s’il existe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1442
+#: ../root/static/scripts/edit/URLCleanup.js:1475
 msgid ""
-"Explore links are not officially connected to a location. If you want to "
-"link a to a location, try and find the place's Instagram profile instead, if"
-" there's one."
-msgstr ""
+"Instagram “{explore_url_pattern}” links are not officially connected to a "
+"location. If you want to link a place to a location, try and find the "
+"place’s Instagram profile instead, if there is one."
+msgstr "Les liens «  {explore_url_pattern}  » de Instagram ne sont pas officiellement connectés à un lieu. Si vous voulez lier à un lieu, essayez de trouver son profil Instagram et ajoutez-le s’il existe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1494
+#: ../root/static/scripts/edit/URLCleanup.js:1533
 msgid ""
-"Only iTunes artist pages can be added directly to artists. Please link "
-"albums, videos, etc. to the appropriate release or recording instead."
-msgstr ""
+"Only iTunes “{artist_url_pattern}” pages can be added directly to artists. "
+"Please link albums, videos, etc. to the appropriate release or recording "
+"instead."
+msgstr "Seuls les liens «  {artist_url_pattern}  » de iTunes peuvent être ajoutés directement aux artistes. Merci de lier les albums, vidéos, etc. à l’enregistrement ou à la parution appropriée."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2565
+#: ../root/static/scripts/edit/URLCleanup.js:2611
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Merci de lier au profil Twitter, pas à un tweet."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2582
-msgid "This site does not allow direct links to their images"
+#: ../root/static/scripts/edit/URLCleanup.js:2628
+msgid "This site does not allow direct links to their images."
 msgstr "Ce site n’autorise pas les liens directs vers ses images."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2753
+#: ../root/static/scripts/edit/URLCleanup.js:2799
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "Les liens vers les sections spécifiques des articles Wikipédia ne sont pas autorisés. Veuillez supprimer « {fragment} » si cela reste approprié. Voir les {url|directives}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2833
+#: ../root/static/scripts/edit/URLCleanup.js:2888
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Seuls les liens vers des vidéos ou des listes de lecture sont valables pour les parutions."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2882
+#: ../root/static/scripts/edit/URLCleanup.js:2937
 msgid ""
 "Wikipedia is not a discography entry. Please add this Wikipedia link to the "
 "release group instead."
@@ -14649,10 +14662,6 @@ msgstr "s’abonner"
 #: ../root/user/UserProfile.js:320
 msgid "Languages:"
 msgstr "Langues : "
-
-#: ../root/user/UserProfile.js:334
-msgid "IP lookup:"
-msgstr "Recherche par IP :"
 
 #: ../root/user/UserProfile.js:401
 msgid "Edits ({view_url|view})"

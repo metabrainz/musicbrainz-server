@@ -7,6 +7,7 @@
 # Héctor Arroyo <email address hidden>, 2012
 # Ismael Olea <email address hidden>, 2012-2015
 # Jeremias Brown <email address hidden>, 2018
+# Mario Herrera <email address hidden>, 2020
 # Maurizio Corripio <email address hidden>, 2019
 # Nacho Pique, 2016
 # Nicolás Tamargo <email address hidden>, 2011-2013
@@ -18,8 +19,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-26 20:58+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-06-01 20:01+0000\n"
+"Last-Translator: Mario Herrera <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,7 +71,7 @@ msgstr "Afrikáans"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:7
 msgid "Afro-Asiatic languages"
-msgstr "Afroasiáticas, lenguas"
+msgstr " Idiomas afroasiáticos"
 
 #. frequency:1 iso_code_3:ain
 #: DB:language/name:473
@@ -2540,7 +2541,7 @@ msgstr "Valón"
 #. frequency:1 iso_code_3:wae
 #: DB:language/name:6981
 msgid "Walser"
-msgstr ""
+msgstr "Walser"
 
 #. frequency:1 iso_code_3:war
 #: DB:language/name:453

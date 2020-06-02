@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 08:15+0000\n"
-"PO-Revision-Date: 2020-05-26 08:23+0000\n"
+"POT-Creation-Date: 2020-05-28 20:40+0000\n"
+"PO-Revision-Date: 2020-05-28 20:44+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -737,7 +737,7 @@ msgstr ""
 #: ../root/components/list/ReleaseGroupList.js:97
 #: ../root/components/list/ReleaseList.js:75
 #: ../root/edit/details/AddArtist.js:56
-#: ../root/edit/details/AddReleaseGroup.js:53
+#: ../root/edit/details/AddReleaseGroup.js:61
 #: ../root/edit/details/EditArtist.js:72
 #: ../root/edit/details/EditRecording.js:82
 #: ../root/edit/details/EditReleaseGroup.js:83 ../root/isrc/Index.js:57
@@ -1522,7 +1522,7 @@ msgstr "Απευθείας αναζήτηση βάσης δεδομένων"
 #: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:65
 #: ../root/edit/details/AddArtist.js:78 ../root/edit/details/AddEvent.js:56
 #: ../root/edit/details/AddPlace.js:55
-#: ../root/edit/details/AddReleaseGroup.js:63
+#: ../root/edit/details/AddReleaseGroup.js:71
 #: ../root/edit/details/AddSeries.js:47 ../root/edit/details/AddWork.js:55
 #: ../root/edit/details/EditArtist.js:97 ../root/edit/details/EditEvent.js:59
 #: ../root/edit/details/EditLabel.js:80 ../root/edit/details/EditPlace.js:66
@@ -2252,8 +2252,8 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:609
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:246
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
+#: ../root/static/scripts/common/constants.js:245
 msgid "High"
 msgstr "Υψηλή"
 
@@ -2837,8 +2837,8 @@ msgid "Lookup count"
 msgstr "Πλήθος αναζητήσεων"
 
 #: ../root/components/common-macros.tt:609
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:243
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
+#: ../root/static/scripts/common/constants.js:242
 msgid "Low"
 msgstr "Χαμηλή"
 
@@ -3057,7 +3057,7 @@ msgstr ""
 #: ../root/components/list/RecordingList.js:69
 #: ../root/edit/details/AddArea.js:52 ../root/edit/details/AddArtist.js:67
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/AddPlace.js:50
-#: ../root/edit/details/AddReleaseGroup.js:48
+#: ../root/edit/details/AddReleaseGroup.js:56
 #: ../root/edit/details/AddSeries.js:42 ../root/edit/details/AddWork.js:50
 #: ../root/edit/details/EditArtist.js:81 ../root/edit/details/EditEvent.js:51
 #: ../root/edit/details/EditLabel.js:63 ../root/edit/details/EditPlace.js:58
@@ -3286,9 +3286,9 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:609
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
+#: ../root/static/scripts/common/constants.js:243
 #: ../root/static/scripts/common/constants.js:244
-#: ../root/static/scripts/common/constants.js:245
 msgid "Normal"
 msgstr "Κανονικό"
 
@@ -3682,7 +3682,7 @@ msgstr "Προηγούμενο"
 
 #: ../root/release/edit/information.tt:91
 #: ../root/release_group/edit_form.tt:16
-#: ../root/edit/details/AddReleaseGroup.js:70
+#: ../root/edit/details/AddReleaseGroup.js:78
 #: ../root/edit/details/EditReleaseGroup.js:64
 msgid "Primary Type:"
 msgstr "Πρωτεύων τύπος:"
@@ -3909,7 +3909,7 @@ msgstr "Γεγονότα κυκλοφορίας:"
 #: ../root/components/common-macros.tt:576 ../root/edit/search_macros.tt:386
 #: ../root/release/index.tt:57
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
-#: ../root/edit/details/AddReleaseGroup.js:38
+#: ../root/edit/details/AddReleaseGroup.js:43
 #: ../root/edit/details/EditReleaseGroup.js:43
 #: ../root/layout/components/Search.js:24
 #: ../root/report/ReleaseRgDifferentName.js:59
@@ -4337,7 +4337,7 @@ msgstr "Γίνεται αναζήτηση..."
 
 #: ../root/release/edit/information.tt:94
 #: ../root/release_group/edit_form.tt:17
-#: ../root/edit/details/AddReleaseGroup.js:79
+#: ../root/edit/details/AddReleaseGroup.js:87
 #: ../root/edit/details/EditReleaseGroup.js:75
 msgid "Secondary Types:"
 msgstr "Δευτερεύοντες τύποι:"
@@ -4377,8 +4377,8 @@ msgid "Send"
 msgstr "Αποστολή"
 
 #: ../root/user/contact.tt:1 ../root/user/contact.tt:3
-#: ../lib/MusicBrainz/Server/Controller/User.pm:250
-#: ../lib/MusicBrainz/Server/Controller/User.pm:272
+#: ../lib/MusicBrainz/Server/Controller/User.pm:246
+#: ../lib/MusicBrainz/Server/Controller/User.pm:268
 #: ../root/account/LostUsername.js:42
 msgid "Send Email"
 msgstr "Αποστολή Email"
@@ -6806,12 +6806,12 @@ msgstr ""
 msgid "User successfully edited."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:152
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:154
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:178
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:180
 #: ../root/static/scripts/release-editor/trackParser.js:491
 msgid "Invalid regular expression."
 msgstr ""
@@ -6860,7 +6860,7 @@ msgstr "Το επιλεγμένο μέσο δεν μπορεί να έχει dis
 msgid "The provided artist id is not valid"
 msgstr "Το παρεχόμενο id καλλιτέχνη δεν είναι έγκυρο"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
 msgid "Default"
 msgstr ""
 
@@ -6896,7 +6896,7 @@ msgid ""
 "{url|help us improve it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:254
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:256
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -6906,31 +6906,31 @@ msgstr ""
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:251
+#: ../lib/MusicBrainz/Server/Controller/User.pm:247
 msgid ""
 "You cannot contact other users because you have not {url|verified your email"
 " address}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:273
+#: ../lib/MusicBrainz/Server/Controller/User.pm:269
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "Ο χρήστης {name} δεν έχει συνδέσει κάποια διεύθυνση email με το λογαριασμό του."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:303
+#: ../lib/MusicBrainz/Server/Controller/User.pm:299
 msgid "Your message could not be sent"
 msgstr "Το μήνυμά σας δεν μπορούσε να σταλεί"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:438
+#: ../lib/MusicBrainz/Server/Controller/User.pm:434
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:595
+#: ../lib/MusicBrainz/Server/Controller/User.pm:591
 msgid "An error occurred while trying to send your report."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:599
+#: ../lib/MusicBrainz/Server/Controller/User.pm:595
 msgid "Your report has been sent."
 msgstr ""
 
@@ -7198,7 +7198,7 @@ msgstr "Αλλαγή ποιότητας καλλιτέχνη (ιστορικό)"
 msgid "Edit release"
 msgstr "Επεξεργασία κυκλοφορίας"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:11
 msgid "Edit track (historic)"
 msgstr ""
@@ -7958,6 +7958,17 @@ msgstr ""
 msgid "The collection type must match the type of entities it contains."
 msgstr ""
 
+#: ../lib/MusicBrainz/Server/Form/Collection.pm:93
+#, perl-brace-format
+msgid ""
+"To add “{editor}” as a collaborator, please select them from the dropdown."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/Collection.pm:98
+#, perl-brace-format
+msgid "Editor “{editor}” does not exist."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:48
 #, perl-brace-format
 msgid "Please add an artist name for {credit}"
@@ -8128,22 +8139,22 @@ msgid "Invalid URL format"
 msgstr "Μη έγκυρη μορφή URL"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:72
-#: ../root/static/scripts/common/constants.js:251
+#: ../root/static/scripts/common/constants.js:250
 msgid "Basic"
 msgstr "Βασικό"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:73
-#: ../root/static/scripts/common/constants.js:252
+#: ../root/static/scripts/common/constants.js:251
 msgid "Intermediate"
 msgstr "Φυσιολογικό"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:74
-#: ../root/static/scripts/common/constants.js:250
+#: ../root/static/scripts/common/constants.js:249
 msgid "Advanced"
 msgstr "Προχωρημένο"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:75
-#: ../root/static/scripts/common/constants.js:253
+#: ../root/static/scripts/common/constants.js:252
 msgid "Native"
 msgstr "Εγγενές"
 
@@ -8651,6 +8662,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr ""
 
 #: ../root/admin/IpLookup.js:28 ../root/admin/IpLookup.js:30
+#: ../root/user/UserProfile.js:334
 msgid "IP lookup"
 msgstr ""
 
@@ -13089,19 +13101,19 @@ msgstr "Λεπτομέρειες συλλογής"
 msgid "Allow other users to see this collection"
 msgstr "Να είναι ορατή αυτή η συλλογή στους άλλους χρήστες"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:123
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:127
 msgid "Remove collaborator"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:137
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:141
 msgid "Add collaborator"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:146
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:150
 msgid "Create collection"
 msgstr "Δημιουργία συλλογής"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:148
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:152
 msgid "Update collection"
 msgstr "Ενημέρωση συλλογής"
 
@@ -13581,71 +13593,72 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:427
 msgid ""
-"Allmusic album links should be added to release groups. To find the "
-"appropriate release link for this release, please check the Releases tab for"
-" the Allmusic album."
+"Allmusic “{album_url_pattern}” links should be added to release groups. To "
+"find the appropriate release link for this release, please check the "
+"Releases tab from {album_url|your link}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:624
+#: ../root/static/scripts/edit/URLCleanup.js:637
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:635
+#: ../root/static/scripts/edit/URLCleanup.js:648
 msgid ""
 "Please link to the main page for the label, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:777
+#: ../root/static/scripts/edit/URLCleanup.js:790
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1140
+#: ../root/static/scripts/edit/URLCleanup.js:1156
 msgid ""
-"Discogs master links group several releases, so this should be added to the "
-"release group instead."
+"Discogs “{master_url_pattern}” links group several releases, so this should "
+"be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1433
+#: ../root/static/scripts/edit/URLCleanup.js:1466
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1442
+#: ../root/static/scripts/edit/URLCleanup.js:1475
 msgid ""
-"Explore links are not officially connected to a location. If you want to "
-"link a to a location, try and find the place's Instagram profile instead, if"
-" there's one."
+"Instagram “{explore_url_pattern}” links are not officially connected to a "
+"location. If you want to link a place to a location, try and find the "
+"place’s Instagram profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1494
+#: ../root/static/scripts/edit/URLCleanup.js:1533
 msgid ""
-"Only iTunes artist pages can be added directly to artists. Please link "
-"albums, videos, etc. to the appropriate release or recording instead."
+"Only iTunes “{artist_url_pattern}” pages can be added directly to artists. "
+"Please link albums, videos, etc. to the appropriate release or recording "
+"instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2565
+#: ../root/static/scripts/edit/URLCleanup.js:2611
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2582
-msgid "This site does not allow direct links to their images"
+#: ../root/static/scripts/edit/URLCleanup.js:2628
+msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2753
+#: ../root/static/scripts/edit/URLCleanup.js:2799
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2833
+#: ../root/static/scripts/edit/URLCleanup.js:2888
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2882
+#: ../root/static/scripts/edit/URLCleanup.js:2937
 msgid ""
 "Wikipedia is not a discography entry. Please add this Wikipedia link to the "
 "release group instead."
@@ -14609,10 +14622,6 @@ msgstr "παρακολούθηση"
 #: ../root/user/UserProfile.js:320
 msgid "Languages:"
 msgstr "Γλώσσες:"
-
-#: ../root/user/UserProfile.js:334
-msgid "IP lookup:"
-msgstr ""
 
 #: ../root/user/UserProfile.js:401
 msgid "Edits ({view_url|view})"
