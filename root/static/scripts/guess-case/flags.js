@@ -46,6 +46,7 @@ export function popBracket() {
 
 var bracketChars = /^[()\[\]{}<>]$/;
 
+// If you change this, also change bracketPairs in edit/utility/guessFeat
 var bracketPairs = {
   '(': ')',
   ')': '(',
