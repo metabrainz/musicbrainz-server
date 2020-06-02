@@ -75,6 +75,7 @@ export function popBracket(): string | null {
 
 const bracketChars = /^[()[\]{}<>]$/;
 
+// If you change this, also change bracketPairs in edit/utility/guessFeat
 const bracketPairs: {
   +[openingBracket: string]: string,
 } = {
