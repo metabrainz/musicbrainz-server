@@ -349,6 +349,9 @@ sub process_relationship {
     $data->{entity0} = $data->{entities}->[0];
     $data->{entity1} = $data->{entities}->[1];
 
+    trim_string($data, 'entity0_credit');
+    trim_string($data, 'entity1_credit');
+
     my $begin_date = clean_partial_date(delete $data->{begin_date});
     my $end_date = clean_partial_date(delete $data->{end_date});
     my $ended = delete $data->{ended};
