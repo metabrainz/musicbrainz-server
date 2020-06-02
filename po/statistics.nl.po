@@ -3,13 +3,13 @@
 # reneweesp <email address hidden>, 2018
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2019
+# Maurits Meulenbelt <email address hidden>, 2013-2020
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2019-10-28 15:06+0000\n"
+"PO-Revision-Date: 2020-05-31 16:45+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -310,7 +310,7 @@ msgstr "Last.fm tekent een contract met MetaBrainz en begint gegevens van MusicB
 #: DB:statistics.statistic_event/description:2003-12-28
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
-msgstr "Mogelijkheden voor koppeling naar MusicBrainz, uitgavegebeurtenissen en suggesties voor bewerkingen uitgebracht."
+msgstr "Mogelijkheden voor links naar MusicBrainz, uitgavegebeurtenissen en suggesties voor bewerkingen uitgebracht."
 
 #: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
@@ -318,7 +318,7 @@ msgstr "Linkara Musica wordt de eerste commerciële klant van MetaBrainz."
 
 #: DB:statistics.statistic_event/title:2003-12-28
 msgid "Linking"
-msgstr "Koppeling"
+msgstr "Links"
 
 #: DB:statistics.statistic_event/title:2005-10-23
 msgid "Menus/Client scripting"

@@ -4,6 +4,7 @@
 # Alfredo Briones <email address hidden>, 2016
 # 3b2b9b2970dff2223d07f096c7a072f3, 2011
 # Héctor Arroyo <email address hidden>, 2012
+# Mario Herrera <email address hidden>, 2020
 # Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013,2018
 # Robert Schneider <email address hidden>, 2019
@@ -16,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-12 13:39+0000\n"
-"Last-Translator: Stich Lilo <email address hidden>\n"
+"PO-Revision-Date: 2020-06-01 20:05+0000\n"
+"Last-Translator: Mario Herrera <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +52,7 @@ msgstr "AcousticBrainz, que pretende ser una fuente de información acústica co
 #: DB:statistics.statistic_event/description:2003-01-21
 msgid ""
 "Added support for improved TRM collision handling in the classic tagger."
-msgstr ""
+msgstr "Se agregó soporte para mejorar el manejo de colisiones TRM en el clásico etiquetador."
 
 #: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
