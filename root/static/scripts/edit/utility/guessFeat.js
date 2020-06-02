@@ -29,9 +29,10 @@ import isEntityProbablyClassical from './isEntityProbablyClassical.js';
 import getSimilarity from './similarity.js';
 
 /* eslint-disable sort-keys */
-const featRegex = /(?:^\s*|[,，－\-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
+export const featRegex = /(?:^\s*|[,，－\-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
 const collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|、|[,，;；]\s+|\s*[\/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
-const bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
+// If you change this, also change bracketPairs in guess-case/flags
+export const bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
 
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
   const parts = str.split(featRegex).map(clean);
