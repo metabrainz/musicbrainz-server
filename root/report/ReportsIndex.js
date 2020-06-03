@@ -312,6 +312,11 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           </a>
         </li>
         <li>
+          <a href="/report/CatNoLooksLikeLabelCode">
+            {l('Releases with catalog numbers that look like Label Codes')}
+          </a>
+        </li>
+        <li>
           <a href="/report/UnlinkedPseudoReleases">
             {l(`Translated/Transliterated Pseudo-Releases not linked to
                 an original version`)}
