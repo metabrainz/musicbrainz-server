@@ -12,6 +12,7 @@ const webpack = require('webpack');
 const browserConfig = require('./webpack/browserConfig');
 const dirs = require('./webpack/dirs');
 const moduleConfig = require('./webpack/moduleConfig');
+const definePluginConfig = require('./webpack/definePluginConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
 
 process.env.MUSICBRAINZ_RUNNING_TESTS = true;
@@ -58,6 +59,7 @@ const nodeTestsConfig = {
   },
 
   plugins: [
+    new webpack.DefinePlugin(definePluginConfig),
     new webpack.ProvidePlugin(providePluginConfig),
   ],
 

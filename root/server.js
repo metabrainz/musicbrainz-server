@@ -13,11 +13,14 @@
 const Sentry = require('@sentry/node');
 const DBDefs = require('./static/scripts/common/DBDefs');
 
-Sentry.init({
-  dsn: DBDefs.SENTRY_DSN_PUBLIC,
-  environment: DBDefs.GIT_BRANCH,
-  release: DBDefs.GIT_SHA,
-});
+function sentryInit(config) {
+  Sentry.init({
+    dsn: config.SENTRY_DSN_PUBLIC,
+    environment: config.GIT_BRANCH,
+    release: config.GIT_SHA,
+  });
+}
+sentryInit(DBDefs);
 
 const cluster = require('cluster');
 const fs = require('fs');
@@ -25,6 +28,7 @@ const spawnSync = require('child_process').spawnSync;
 const _ = require('lodash');
 
 const createServer = require('./server/createServer');
+const {clearRequireCache} = require('./server/utils');
 const writeCoverage = require('./utility/writeCoverage');
 
 const yargs = require('yargs')
@@ -119,6 +123,12 @@ if (cluster.isMaster) {
   let hupAction = null;
   function hup() {
     console.info('master received SIGHUP; restarting workers');
+
+    clearRequireCache();
+
+    Sentry.close().then(function () {
+      sentryInit(require('./static/scripts/common/DBDefs'));
+    });
 
     let oldWorkers;
     let initialTimeout = 0;

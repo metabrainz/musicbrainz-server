@@ -16,7 +16,7 @@ import {
   EDIT_VOTE_NO,
   EDIT_VOTE_YES,
 } from '../../constants';
-import * as DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs';
 import {
   editorMayVote,
   getLatestVoteForEditor,

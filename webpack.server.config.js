@@ -17,6 +17,7 @@ const {
   WEBPACK_MODE,
 } = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
+const definePluginConfig = require('./webpack/definePluginConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
 
 /*
@@ -26,6 +27,8 @@ const providePluginConfig = require('./webpack/providePluginConfig');
 const externals = [
   'root/context',
   'root/server/gettext',
+  'root/static/scripts/common/DBDefs',
+  'root/static/scripts/common/DBDefs-client-values',
   'root/static/scripts/common/linkedEntities',
 ];
 
@@ -70,6 +73,7 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin(definePluginConfig),
     new webpack.IgnorePlugin({resourceRegExp: /jquery/}),
     new webpack.ProvidePlugin(providePluginConfig),
   ],

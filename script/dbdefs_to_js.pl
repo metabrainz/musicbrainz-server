@@ -111,7 +111,7 @@ for my $conversion (@conversions) {
 
 my $common_dir = "$FindBin::Bin/../root/static/scripts/common";
 my $server_js_path = "$common_dir/DBDefs.js";
-my $client_json_path = "$common_dir/DBDefs-client.js";
+my $client_json_path = "$common_dir/DBDefs-client-values.js";
 
 open(my $fh, '>', $server_js_path);
 print $fh $server_code;

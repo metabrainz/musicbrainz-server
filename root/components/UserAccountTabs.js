@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context';
-import * as DBDefs from '../static/scripts/common/DBDefs';
+import DBDefs from '../static/scripts/common/DBDefs';
 import buildTab from '../utility/buildTab';
 
 import Tabs from './Tabs';

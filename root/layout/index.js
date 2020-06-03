@@ -12,7 +12,7 @@ import * as React from 'react';
 import {formatUserDateObject} from '../utility/formatUserDate';
 import getRequestCookie from '../utility/getRequestCookie';
 import {RT_SLAVE} from '../static/scripts/common/constants';
-import * as DBDefs from '../static/scripts/common/DBDefs';
+import DBDefs from '../static/scripts/common/DBDefs';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
