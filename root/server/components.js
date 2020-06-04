@@ -310,7 +310,6 @@ module.exports = {
   'edit/details/historic/MoveReleaseToReleaseGroup': require('../edit/details/historic/MoveReleaseToReleaseGroup'),
   'edit/details/historic/RemoveDiscId': require('../edit/details/historic/RemoveDiscId'),
   'edit/details/historic/RemoveLabelAlias': require('../edit/details/historic/RemoveLabelAlias'),
-  'edit/details/historic/RemovePuid': require('../edit/details/historic/RemovePuid'),
   'edit/details/historic/RemoveRelationship': require('../edit/details/historic/RemoveRelationship'),
   'edit/details/historic/RemoveRelease': require('../edit/details/historic/RemoveRelease'),
   'edit/details/historic/RemoveReleases': require('../edit/details/historic/RemoveReleases'),
