@@ -378,7 +378,10 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $edit_stats->{last_day_count} = $c->model('Editor')->last_24h_edit_count($user->id);
 
     my @ip_hashes;
-    if ($c->user_exists && $c->user->is_account_admin) {
+    if ($c->user_exists && $c->user->is_account_admin && !(
+            $c->stash->{server_details}->{staging_server} &&
+            $c->stash->{server_details}->{is_sanitized}))
+    {
         my $store = $c->model('MB')->context->store;
         @ip_hashes = $store->set_members('userips:' . $user->id);
     }
