@@ -22,8 +22,8 @@ has '+data' => (
     isa => Dict[
         # Edit migration might not be able to find out what these
         # were
-        recording_puid_id => Optional[Int],
-        puid_id           => Optional[Int],
+        recording_puid_id => Maybe[Int],
+        puid_id           => Maybe[Int],
         recording         => Dict[
             id => Int,
             name => Str
