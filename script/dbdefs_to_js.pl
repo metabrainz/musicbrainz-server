@@ -18,9 +18,6 @@ Readonly our @BOOLEAN_DEFS => qw(
     IS_BETA
 );
 
-Readonly our @HASH_DEFS => qw(
-);
-
 Readonly our @NUMBER_DEFS => qw(
     REPLICATION_TYPE
     STAT_TTL
@@ -89,7 +86,7 @@ for my $def (@BOOLEAN_DEFS) {
 
 my $json = JSON->new->allow_nonref->ascii->canonical;
 
-for my $def (@HASH_DEFS, @NUMBER_DEFS, @STRING_DEFS) {
+for my $def (@NUMBER_DEFS, @STRING_DEFS) {
     my $value = get_value($def);
     $value = $json->encode($value);
     my $line = "exports.$def = $value;\n";
