@@ -42,7 +42,7 @@ Readonly our @STRING_DEFS => qw(
     WIKITRANS_SERVER
 );
 
-Readonly our @QW_DEFS => qw(
+Readonly our @QW_STRING_DEFS => qw(
     MB_LANGUAGES
 );
 
@@ -60,6 +60,25 @@ Readonly our %CLIENT_DEFS => (
     WIKITRANS_SERVER => 1,
 );
 
+my @conversions = (
+    {
+        defs => \@BOOLEAN_DEFS,
+        convert => sub { shift ? \\1 : \\0 },
+    },
+    {
+        defs => \@NUMBER_DEFS,
+        convert => sub { \(0 + shift) },
+    },
+    {
+        defs => \@STRING_DEFS,
+        convert => sub { \('' . shift) },
+    },
+    {
+        defs => \@QW_STRING_DEFS,
+        convert => sub { \[map { '' . $_ } @_] },
+    },
+);
+
 sub get_value {
     my $def = shift;
 
@@ -67,48 +86,37 @@ sub get_value {
     $ENV{$def} // DBDefs->$def;
 }
 
+my $json = JSON->new->allow_nonref->ascii->canonical;
 my $server_code = '';
 my $client_code = '';
 
-for my $def (@BOOLEAN_DEFS) {
-    my $value = get_value($def);
+for my $conversion (@conversions) {
+    my ($defs, $convert) = @{$conversion}{qw(defs convert)};
 
-    if (defined $value && $value eq '1') {
-        $value = 'true';
-    } else {
-        $value = 'false';
+    for my $def (@$defs) {
+        my @raw_value = get_value($def);
+        my $json_value = \undef;
+
+        if (defined $raw_value[0]) {
+            $json_value = $convert->(@raw_value);
+        }
+
+        $json_value = $json->encode(${$json_value});
+
+        my $line = "exports.$def = $json_value;\n";
+        $server_code .= $line;
+        $client_code .= $line if $CLIENT_DEFS{$def};
     }
-
-    my $line = "exports.$def = $value;\n";
-    $server_code .= $line;
-    $client_code .= $line if $CLIENT_DEFS{$def};
 }
 
-my $json = JSON->new->allow_nonref->ascii->canonical;
-
-for my $def (@NUMBER_DEFS, @STRING_DEFS) {
-    my $value = get_value($def);
-    $value = $json->encode($value);
-    my $line = "exports.$def = $value;\n";
-    $server_code .= $line;
-    $client_code .= $line if $CLIENT_DEFS{$def};
-}
-
-for my $def (@QW_DEFS) {
-    my @words = get_value($def);
-    my $value = $json->encode(join ' ', @words);
-    my $line = "exports.$def = $value;\n";
-    $server_code .= $line;
-    $client_code .= $line if $CLIENT_DEFS{$def};
-}
-
-my $server_js_path = "$FindBin::Bin/../root/static/scripts/common/DBDefs.js";
-my $client_js_path = ($server_js_path =~ s/\.js$/-client.js/r);
+my $common_dir = "$FindBin::Bin/../root/static/scripts/common";
+my $server_js_path = "$common_dir/DBDefs.js";
+my $client_json_path = "$common_dir/DBDefs-client.js";
 
 open(my $fh, '>', $server_js_path);
 print $fh $server_code;
 close $fh;
 
-open($fh, '>', $client_js_path);
+open($fh, '>', $client_json_path);
 print $fh $client_code;
 close $fh;

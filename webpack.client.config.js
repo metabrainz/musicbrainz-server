@@ -143,9 +143,7 @@ function loadNewerPo(domain, lang, bundleMtime) {
   return jedData;
 }
 
-_(DBDefs.MB_LANGUAGES || '')
-  .split(/\s+/)
-  .compact()
+_(DBDefs.MB_LANGUAGES)
   .without('en')
   .map(langToPosix)
   .each(function (lang) {
