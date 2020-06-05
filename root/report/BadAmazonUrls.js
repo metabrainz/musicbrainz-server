@@ -73,10 +73,14 @@ const BadAmazonUrls = ({
                     />
                   </td>
                   <td>
-                    <EntityLink
-                      content={item.url.href_url}
-                      entity={item.url}
-                    />
+                    {item.url ? (
+                      <EntityLink
+                        content={item.url.href_url}
+                        entity={item.url}
+                      />
+                    ) : (
+                      l('This URL no longer exists.')
+                    )}
                   </td>
                 </>
               ) : (
