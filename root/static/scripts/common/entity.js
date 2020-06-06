@@ -11,6 +11,8 @@ import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
+import formatLabelCode from '../../../utility/formatLabelCode';
+
 import ArtistCreditLink from './components/ArtistCreditLink';
 import EditorLink from './components/EditorLink';
 import EntityLink from './components/EntityLink';
@@ -27,6 +29,7 @@ import {
 } from './immutable-entities';
 import linkedEntities from './linkedEntities';
 import MB from './MB';
+import bracketed from './utility/bracketed';
 import clean from './utility/clean';
 import formatTrackLength from './utility/formatTrackLength';
 
@@ -231,9 +234,18 @@ import formatTrackLength from './utility/formatTrackLength';
 
     class Label extends CoreEntity {
         selectionMessage() {
+            const code = this.label_code;
+            let codeSection = '';
+
+            if (code) {
+                codeSection = ' ' + bracketed(exp.l(
+                    'Label code: {code}',
+                    {code: formatLabelCode(code)},
+                ));
+            }
             return ReactDOMServer.renderToStaticMarkup(
                 exp.l('You selected {label}.', {label: this.reactElement({target: '_blank'})}),
-            );
+            ) + codeSection;
         }
     }
 
