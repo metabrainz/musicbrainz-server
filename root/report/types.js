@@ -150,6 +150,8 @@ export type ReportRecordingAnnotationT = {
 };
 
 export type ReportRecordingRelationshipT = {
+  +begin?: number,
+  +end?: number,
   +link_gid: string,
   +link_name: string,
   +recording: ?RecordingT,
