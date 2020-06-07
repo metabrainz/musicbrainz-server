@@ -30,6 +30,7 @@ our %EXPORT_TAGS = (
     quality            => _get(qr/^QUALITY_/),
     alias              => _get(qr/^EDIT_.*_ALIAS$/),
     annotation         => _get(qr/^EDIT_.*_ADD_ANNOTATION$/),
+    create_entity      => _get(qr/^EDIT_.*_CREATE$/),
     historic           => _get(qr/^EDIT_HISTORIC_/),
     editor             => _get(qr/^EDITOR_/),
     vote               => _get(qr/^VOTE_/),

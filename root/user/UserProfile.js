@@ -13,15 +13,28 @@ import UserAccountLayout from '../components/UserAccountLayout';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import {FLUENCY_NAMES} from '../static/scripts/common/constants';
+import {compare} from '../static/scripts/common/i18n';
 import commaList from '../static/scripts/common/i18n/commaList';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed';
+import * as TYPES from '../static/scripts/common/constants/editTypes';
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import {formatCount, formatPercentage} from '../statistics/utilities';
 import formatUserDate from '../utility/formatUserDate';
 import {canNominate} from '../utility/voting';
+
+const ADDED_ENTITIES_TYPES = {
+  artist:    N_l('Artist'),
+  cover_art: N_l('Cover Art'),
+  event:     N_l('Event'),
+  label:     N_l('Label'),
+  place:     N_l('Place'),
+  release:   N_l('Release'),
+  series:    N_lp('Series', 'singular'),
+  work:      N_l('Work'),
+};
 
 function generateUserTypesList(user: EditorT) {
   const typesList = [];
@@ -347,6 +360,48 @@ const UserProfileInformation = ({
   );
 };
 
+type UserEditsPropertyProps = {
+  +$c: CatalystContextT,
+  +addedEntities: number,
+  +editType: number,
+  +name: string,
+  +user: EditorT,
+};
+
+const UserEditsProperty = ({
+  $c,
+  addedEntities,
+  editType,
+  name,
+  user,
+}: UserEditsPropertyProps) => {
+  const encodedName = encodeURIComponent(user.name);
+  const searchEditsURL = (editType => (
+    '/search/edits' +
+    '?auto_edit_filter=' +
+    '&conditions.0.field=editor' +
+    '&conditions.0.operator=%3D' +
+    `&conditions.0.name=${encodedName}` +
+    `&conditions.0.args.0=${user.id}` +
+    '&combinator=and' +
+    '&conditions.1.field=type' +
+    '&conditions.1.operator=%3D' +
+    '&conditions.1.args=' + editType +
+    '&negation=0' +
+    '&order=desc'
+  ));
+  return (
+    <UserProfileProperty name={name}>
+      {$c.user ? (exp.l('{count} ({view_url|view})', {
+        count: formatCount($c, addedEntities),
+        view_url: searchEditsURL(editType),
+      })) : (exp.l('{count}', {
+        count: formatCount($c, addedEntities),
+      }))}
+    </UserProfileProperty>
+  );
+};
+
 type EditStatsT = {
   +accepted_auto_count: number,
   +accepted_count: number,
@@ -369,8 +424,20 @@ type VoteStatsT = Array<{
   },
 }>;
 
+type EntitiesStatsT = {
+  +artist: number,
+  +cover_art: number,
+  +event: number,
+  +label: number,
+  +place: number,
+  +release: number,
+  +series: number,
+  +work: number,
+};
+
 type UserProfileStatisticsProps = {
   +$c: CatalystContextT,
+  +addedEntities: EntitiesStatsT,
   +editStats: EditStatsT,
   +user: EditorT,
   +votes: VoteStatsT,
@@ -381,6 +448,7 @@ const UserProfileStatistics = ({
   editStats,
   user,
   votes,
+  addedEntities,
 }: UserProfileStatisticsProps) => {
   const voteTotals = votes.pop();
   const encodedName = encodeURIComponent(user.name);
@@ -559,12 +627,46 @@ const UserProfileStatistics = ({
           </tr>
         </tfoot>
       </table>
+
+      <table
+        className="statistics"
+        title={l('This table shows a summary ' +
+                 'of entities added by this editor.')}
+      >
+        <thead>
+          <tr>
+            <th colSpan="2">
+              {exp.l('Added entities')}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.keys(ADDED_ENTITIES_TYPES)
+            .map(type => [type, ADDED_ENTITIES_TYPES[type]()])
+            .sort((a, b) => compare(a[1], b[1]))
+            .map(([entityType, entityTypeName]) => (
+              <UserEditsProperty
+                $c={$c}
+                addedEntities={addedEntities[entityType]}
+                editType={
+                  entityType === 'cover_art'
+                    ? TYPES.EDIT_RELEASE_ADD_COVER_ART
+                    : TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]
+                }
+                key={entityType}
+                name={entityTypeName}
+                user={user}
+              />
+            ))}
+        </tbody>
+      </table>
     </>
   );
 };
 
 type UserProfileProps = {
   +$c: CatalystContextT,
+  +addedEntities: EntitiesStatsT,
   +editStats: EditStatsT,
   +ipHashes: $ReadOnlyArray<string>,
   +subscribed: boolean,
@@ -581,6 +683,7 @@ const UserProfile = ({
   subscriberCount,
   user,
   votes,
+  addedEntities,
 }: UserProfileProps): React.Element<typeof UserAccountLayout> => {
   const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
   const encodedName = encodeURIComponent(user.name);
@@ -598,6 +701,7 @@ const UserProfile = ({
 
       <UserProfileStatistics
         $c={$c}
+        addedEntities={addedEntities}
         editStats={editStats}
         user={user}
         votes={votes}
