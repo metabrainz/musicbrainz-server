@@ -41,6 +41,8 @@ copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_render
 copy_mb(``webpack.client.config.js webpack.server.config.js webpack.tests.config.js ./'')
 copy_mb(``webpack/ webpack/'')
 
+ENV NODE_ENV production
+RUN sudo_mb(``carton exec -- ./script/compile_resources.sh'')
 RUN chown_mb(``/tmp/ttc'')')
 
 m4_define(
