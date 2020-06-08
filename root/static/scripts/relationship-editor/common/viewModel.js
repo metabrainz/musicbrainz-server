@@ -139,8 +139,12 @@ export class ViewModel {
         }
 
         addAnotherEntityLabel(group, entity) {
-            const entityType = group.values.peek()[0].target(entity).entityType;
-            return addAnotherEntityLabels[entityType]();
+            const relationships = group.values.peek();
+            if (relationships.length) {
+                const entityType = relationships[0].target(entity).entityType;
+                return addAnotherEntityLabels[entityType]();
+            }
+            return '';
         }
 
         localizeLinkAttributeTypeName(type) {
