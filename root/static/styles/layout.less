@@ -604,6 +604,24 @@ span.video {
 /* Don't try to add the video icon on the recording overview tab */
 .tabs .video { display: none; }
 
+span.high-data-quality {
+    font-size: xx-small;
+    padding-right: 5px;
+}
+
+span.low-data-quality {
+    font-size: xx-small;
+    padding-right: 5px;
+}
+
+/* Don't add the quality icons on the release overview tab */
+.tabs .high-data-quality { display: none; }
+.tabs .low-data-quality { display: none; }
+
+/* Don't add the quality icons on the release page title */
+h1 .high-data-quality { display: none; }
+h1 .low-data-quality { display: none; }
+
 /* The release information table */
 table.tbl {
     margin-top: 1em;
