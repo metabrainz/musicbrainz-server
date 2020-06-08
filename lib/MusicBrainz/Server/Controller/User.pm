@@ -379,8 +379,8 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
 
     my @ip_hashes;
     if ($c->user_exists && $c->user->is_account_admin && !(
-            $c->stash->{server_details}->{staging_server} &&
-            $c->stash->{server_details}->{is_sanitized}))
+            DBDefs->DB_STAGING_SERVER &&
+            DBDefs->DB_STAGING_SERVER_SANITIZED))
     {
         my $store = $c->model('MB')->context->store;
         @ip_hashes = $store->set_members('userips:' . $user->id);
