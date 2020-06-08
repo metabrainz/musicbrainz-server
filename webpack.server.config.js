@@ -10,10 +10,8 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
-const DBDefs = require('./root/static/scripts/common/DBDefs');
 const {
   dirs,
-  PUBLIC_PATH,
   WEBPACK_MODE,
 } = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
@@ -69,7 +67,6 @@ module.exports = {
     filename: '[name].js',
     libraryTarget: 'commonjs2',
     path: dirs.BUILD,
-    publicPath: PUBLIC_PATH,
   },
 
   plugins: [

@@ -18,12 +18,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 
 const poFile = require('./root/server/gettext/poFile');
-const DBDefs = require('./root/static/scripts/common/DBDefs');
 const browserConfig = require('./webpack/browserConfig');
 const {
   dirs,
   GETTEXT_DOMAINS,
-  PUBLIC_PATH,
   PRODUCTION_MODE,
   WEBPACK_MODE,
 } = require('./webpack/constants');
@@ -143,45 +141,53 @@ function loadNewerPo(domain, lang, bundleMtime) {
   return jedData;
 }
 
-_(DBDefs.MB_LANGUAGES)
-  .without('en')
-  .map(langToPosix)
-  .each(function (lang) {
-    const langJedData = _.cloneDeep(jedDataTemplate.en);
-    const fileName = `jed-${lang}`;
-    const filePath = path.resolve(dirs.BUILD, `${fileName}.source.js`);
-    const fileMtime = mtime(filePath);
-    let loadedNewPoData = false;
+const MB_LANGUAGES = shell.exec(
+  `find ${shellQuote.quote([dirs.PO])} -type f -name 'mb_server*.po'`,
+  {silent: true},
+).stdout.split('\n').reduce((accum, filePath) => {
+  const lang = filePath.replace(/^.*\/mb_server\.([A-z_]+)\.po$/, '$1');
+  if (lang && lang !== 'en') {
+    accum.push(langToPosix(lang));
+  }
+  return accum;
+}, []);
 
-    GETTEXT_DOMAINS.forEach(function (domain) {
-      const domainJedData = loadNewerPo(domain, lang, fileMtime);
+MB_LANGUAGES.forEach(function (lang) {
+  const langJedData = _.cloneDeep(jedDataTemplate.en);
+  const fileName = `jed-${lang}`;
+  const filePath = path.resolve(dirs.BUILD, `${fileName}.source.js`);
+  const fileMtime = mtime(filePath);
+  let loadedNewPoData = false;
 
-      if (domainJedData) {
-        loadedNewPoData = true;
-        langJedData.locale_data[domain] = domainJedData.locale_data[domain];
-      }
-    });
+  GETTEXT_DOMAINS.forEach(function (domain) {
+    const domainJedData = loadNewerPo(domain, lang, fileMtime);
 
-    if (loadedNewPoData) {
-      const source = (
-        'var jedData = require(' +
-        JSON.stringify(path.resolve(dirs.SCRIPTS, 'jed-data')) + ');\n' +
-        'var locale = ' + JSON.stringify(lang) + ';\n' +
-        // https://v8.dev/blog/cost-of-javascript-2019#json
-        'jedData[locale] = JSON.parse(\'' +
-        canonicalJson(langJedData)
-          .replace(/\\/g, '\\\\')
-          .replace(/'/g, "\\'") +
-        '\');\n' +
-        'jedData.locale = locale;\n'
-      );
-      fs.writeFileSync(filePath, source);
-    }
-
-    if (fs.existsSync(filePath)) {
-      entries[fileName] = filePath;
+    if (domainJedData) {
+      loadedNewPoData = true;
+      langJedData.locale_data[domain] = domainJedData.locale_data[domain];
     }
   });
+
+  if (loadedNewPoData) {
+    const source = (
+      'var jedData = require(' +
+      JSON.stringify(path.resolve(dirs.SCRIPTS, 'jed-data')) + ');\n' +
+      'var locale = ' + JSON.stringify(lang) + ';\n' +
+      // https://v8.dev/blog/cost-of-javascript-2019#json
+      'jedData[locale] = JSON.parse(\'' +
+      canonicalJson(langJedData)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'") +
+      '\');\n' +
+      'jedData.locale = locale;\n'
+    );
+    fs.writeFileSync(filePath, source);
+  }
+
+  if (fs.existsSync(filePath)) {
+    entries[fileName] = filePath;
+  }
+});
 
 const plugins = browserConfig.plugins.concat();
 
@@ -241,7 +247,6 @@ module.exports = {
         : '[name].js'
     ),
     path: dirs.BUILD,
-    publicPath: PUBLIC_PATH,
   },
 
   plugins,

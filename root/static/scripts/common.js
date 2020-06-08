@@ -1,3 +1,5 @@
+require('./public-path');
+
 /*
  * Needed by root/release/cover_art_uploader.tt, which uses the
  * css_manifest TT macro that requires common.less to exist in

@@ -9,6 +9,10 @@
 
 /* eslint-disable max-len */
 
+const DBDefs = require('../static/scripts/common/DBDefs');
+
+__webpack_public_path__ = DBDefs.STATIC_RESOURCES_LOCATION + '/';
+
 module.exports = {
   /*
    * Any server-rendered page referenced via component_path in the

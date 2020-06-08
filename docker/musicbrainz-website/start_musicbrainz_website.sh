@@ -12,6 +12,8 @@ cd $MBS_ROOT
 deploy_static_resources.sh &
 trap_jobs
 
+export NODE_ENV=production
+
 sudo -E -H -u musicbrainz \
     carton exec -- ./script/compile_resources.sh server &
 trap_jobs

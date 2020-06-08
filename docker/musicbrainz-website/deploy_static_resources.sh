@@ -14,7 +14,9 @@ _compile_static_resources() {
     chown musicbrainz:musicbrainz $TMP_BUILD_DIR
 
     pushd "$MBS_ROOT" > /dev/null
-    HOME="$MBS_HOME" MBS_STATIC_BUILD_DIR="$TMP_BUILD_DIR" \
+    HOME="$MBS_HOME" \
+    MBS_STATIC_BUILD_DIR="$TMP_BUILD_DIR" \
+    NODE_ENV=production \
         eval 'chpst -u musicbrainz:musicbrainz carton exec -- ./script/compile_resources.sh client &'
     trap_jobs
     popd > /dev/null
