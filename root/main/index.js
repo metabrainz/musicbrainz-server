@@ -153,7 +153,7 @@ const Homepage = ({
                 </a>
               </li>
               <li>
-                <a href="/doc/Magic_MP3_Tagger">{l('Magic MP3 Tagger')}</a>
+                <a href="/doc/AudioRanger">{l('AudioRanger')}</a>
               </li>
               <li>
                 <a href="/doc/Yate_Music_Tagger">{l('Yate Music Tagger')}</a>
