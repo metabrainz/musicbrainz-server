@@ -20,12 +20,14 @@ type Props = {
   +items: $ReadOnlyArray<ReportReleaseT>,
   +pager: PagerT,
   +showLanguageAndScript?: boolean,
+  +subPath?: string,
 };
 
 const ReleaseList = ({
   items,
   pager,
   showLanguageAndScript,
+  subPath,
 }: Props): React.Element<typeof PaginatedResults> => {
   const colSpan = showLanguageAndScript ? 3 : 2;
 
@@ -48,7 +50,7 @@ const ReleaseList = ({
                 {item.release ? (
                   <>
                     <td>
-                      <EntityLink entity={item.release} />
+                      <EntityLink entity={item.release} subPath={subPath} />
                     </td>
                     <td>
                       <ArtistCreditLink
