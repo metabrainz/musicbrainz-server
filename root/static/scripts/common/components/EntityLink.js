@@ -236,18 +236,16 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
 
   if (!subPath && entity.entityType === 'release') {
     if (entity.quality == 2) {
-      // unicode large green circle U+1F7E2
       content = (
         <>
-          <span className="high-data-quality" title={l('High quality: All available data has been added, if possible including cover art with liner info that proves it')}>🟢</span>
+          <span className="high-data-quality" title={l('High quality: All available data has been added, if possible including cover art with liner info that proves it')} />
           {content}
         </>
       );
     } else if (entity.quality == 0) {
-      // unicode large orange circle U+1F7E0
       content = (
         <>
-          <span className="low-data-quality" title={l("Low quality: The release needs serious fixes, or its existence is hard to prove (but it's not clearly fake)")}>🟠</span>
+          <span className="low-data-quality" title={l("Low quality: The release needs serious fixes, or its existence is hard to prove (but it's not clearly fake)")} />
           {content}
         </>
       );

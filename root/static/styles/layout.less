@@ -609,9 +609,19 @@ span.high-data-quality {
     padding-right: 5px;
 }
 
+/* unicode large green circle U+1F7E2 */
+span.high-data-quality::before {
+    content: '🟢';
+}
+
 span.low-data-quality {
     font-size: xx-small;
     padding-right: 5px;
+}
+
+/* unicode large orange circle U+1F7E0 */
+span.low-data-quality::before {
+    content: '🟠';
 }
 
 /* Don't add the quality icons on the release overview tab */
