@@ -18,6 +18,9 @@
         <div class="row">
           <div class="label required">[% l('Results:') %]</div>
           <div class="no-label">
+            <p>[%- l('Click the radio button to select the appropriate artist, or click the artist’s name to get more info.') -%]</p>
+          </div>
+          <div class="no-label">
             [% WRAPPER 'components/with-pager.tt' %]
              <ul class="radio-list">
               [%- FOREACH artist=artists -%]
