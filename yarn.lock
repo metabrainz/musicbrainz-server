@@ -2675,6 +2675,11 @@ eslint@6.8.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
+esm@^3.2.25:
+  version "3.2.25"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.25.tgz#342c18c29d56157688ba5ce31f8431fbb795cc10"
+  integrity sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==
+
 espree@^6.1.2:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/espree/-/espree-6.2.1.tgz#77fc72e1fd744a2052c20f38a5b575832e82734a"
@@ -4492,10 +4497,12 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-mutate-cow@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/mutate-cow/-/mutate-cow-1.5.0.tgz#976f1c777a4a4a3b6254dbe17ba8fefcb0449cd8"
-  integrity sha512-+MrK6ReDD3ssjnLJJ6JQl6h+jcwnY4XLkTHnauVG5Vvp18pptWXrseqoZ6yeCJVA6dIHVeQ07wdeFsfpTBTOPw==
+mutate-cow@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/mutate-cow/-/mutate-cow-4.0.2.tgz#d763f931f3fa4267b5b5e7e5abcc7665dbb27fa4"
+  integrity sha512-9R6tjSBsts0qqFwZKZ+WEGV4GGUwL4o+GOUUuGrpqQjdR27owZTUBApxnD9JqaS+I06OQuFZSN+IUC8CxRSNyw==
+  dependencies:
+    esm "^3.2.25"
 
 mute-stream@0.0.8:
   version "0.0.8"
