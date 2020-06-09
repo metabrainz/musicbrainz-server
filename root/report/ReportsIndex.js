@@ -401,6 +401,11 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           </a>
         </li>
         <li>
+          <a href="/report/ReleasesConflictingDiscIDs">
+            {l('Releases with conflicting disc IDs')}
+          </a>
+        </li>
+        <li>
           <a href="/report/ReleaseLabelSameArtist">
             {l('Releases where artist name and label name are the same')}
           </a>

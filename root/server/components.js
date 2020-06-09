@@ -191,6 +191,7 @@ module.exports = {
   'report/ReleasedTooEarly': require('../report/ReleasedTooEarly'),
   'report/ReleasesInCaaWithCoverArtRelationships': require('../report/ReleasesInCaaWithCoverArtRelationships'),
   'report/ReleasesMissingDiscIds': require('../report/ReleasesMissingDiscIds'),
+  'report/ReleasesConflictingDiscIds': require('../report/ReleasesConflictingDiscIds'),
   'report/ReleasesToConvert': require('../report/ReleasesToConvert'),
   'report/ReleasesWithCaaNoTypes': require('../report/ReleasesWithCaaNoTypes'),
   'report/ReleasesWithDownloadRelationships': require('../report/ReleasesWithDownloadRelationships'),

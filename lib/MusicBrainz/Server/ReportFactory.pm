@@ -81,6 +81,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesWithoutVALink
     ReleasesWithUnlikelyLanguageScript
     ReleasesMissingDiscIDs
+    ReleasesConflictingDiscIDs
     SeparateDiscs
     SetInDifferentRG
     SingleMediumReleasesWithMediumTitles
@@ -163,6 +164,7 @@ use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
 use MusicBrainz::Server::Report::ReleasesWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::ReleasesMissingDiscIDs;
+use MusicBrainz::Server::Report::ReleasesConflictingDiscIDs;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::SingleMediumReleasesWithMediumTitles;
