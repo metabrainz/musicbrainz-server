@@ -24,7 +24,7 @@
     "@babel/runtime-corejs3": "7.10.2",
     "@sentry/browser": "5.10.2",
     "@sentry/node": "5.10.2",
-    "babel-loader": "8.0.5",
+    "babel-loader": "8.1.0",
     "balanced-match": "0.2.0",
     "canonical-json": "0.0.4",
     "cookie": "0.4.0",
