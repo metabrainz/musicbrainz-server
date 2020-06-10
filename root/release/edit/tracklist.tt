@@ -309,6 +309,9 @@
           <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: needsFormat">
             [%~ l('A format is required. If you don’t know it, tick the “I don’t know” checkbox next to the format dropdown.') %]
           </p>
+          <p class="error field-error" style="padding-left: 1em" data-bind="showErrorRightAway: hasTooEarlyFormat">
+            [%~ l('This medium is set to a format that did not exist on the selected release date.') %]
+          </p>
         </td>
 
         <td class="align-right icon" >

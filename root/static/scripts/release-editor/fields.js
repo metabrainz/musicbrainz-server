@@ -424,6 +424,11 @@ class Medium {
             return !self.canHaveDiscID() && (self.hasExistingTocs() || hasPregap() || hasDataTracks());
         });
 
+        this.hasTooEarlyFormat = ko.computed(function () {
+            const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
+            return !!(mediumFormatDate && self.release.earliestYear() && self.release.earliestYear() < mediumFormatDate);
+        });
+
         this.loaded = ko.observable(loaded);
         this.loading = ko.observable(false);
         this.collapsed = ko.observable(!loaded);
@@ -876,6 +881,10 @@ class Release extends mbEntity.Release {
                 const isDuplicate = _.filter(events, nonEmptyEvent).length > 1;
                 events.forEach(e => e.isDuplicate(isDuplicate));
             });
+        }); 
+
+        this.earliestYear = ko.computed(function () {
+            return Math.min(...self.events().map(e => e.unwrapDate().year));  
         });
 
         this.hasDuplicateCountries = errorField(this.events.any("isDuplicate"));
@@ -937,6 +946,7 @@ class Release extends mbEntity.Release {
         this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === "edit");
         this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
         this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
+        this.hasTooEarlyFormat = errorField(this.mediums.any("hasTooEarlyFormat"));
         this.hasUnconfirmedVariousArtists = errorField(this.mediums.any("hasUnconfirmedVariousArtists"));
         this.needsMediums = errorField(function () {
             return !(self.mediums().length || self.hasUnknownTracklist());
