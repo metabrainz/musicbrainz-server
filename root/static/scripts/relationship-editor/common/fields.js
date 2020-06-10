@@ -476,14 +476,20 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var index = _.indexOf(relationships, this);
             var newIndex = index + offset;
 
-            if (newIndex >= 0 && newIndex <= relationships.length - 1) {
-                var other = relationships[newIndex];
-                relationships[newIndex] = this;
-                relationships[index] = other;
+            const thisLinkOrder = this.linkOrder();
+            relationships[index].linkOrder(thisLinkOrder + offset);
 
-                _.each(relationships, function (r, i) {
-                    r.linkOrder(i + 1);
-                });
+            if (newIndex >= 0 && newIndex <= relationships.length - 1) {
+                const other = relationships[newIndex];
+                const otherLinkOrder = other.linkOrder();
+
+                if (otherLinkOrder === thisLinkOrder + offset) {
+                    // swap relationships
+                    relationships[newIndex] = this;
+                    relationships[index] = other;
+                    // but keep original part numbers
+                    relationships[index].linkOrder(thisLinkOrder);
+                }
             }
         }
 
