@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import * as manifest from '../static/manifest';
-import * as DBDefs from '../static/scripts/common/DBDefs-client';
+import DBDefs from '../static/scripts/common/DBDefs-client';
 
 import PlaceLayout from './PlaceLayout';
 

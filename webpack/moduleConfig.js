@@ -8,8 +8,6 @@
 
 const CleanCSSPlugin = require('less-plugin-clean-css');
 
-const DBDefs = require('../root/static/scripts/common/DBDefs');
-
 const {PRODUCTION_MODE} = require('./constants');
 
 const lessOptions = {};

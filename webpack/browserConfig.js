@@ -9,7 +9,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const DBDefs = require('../root/static/scripts/common/DBDefs')
+const definePluginConfig = require('./definePluginConfig');
 const dirs = require('./dirs');
 
 module.exports = {
@@ -19,6 +19,8 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin(definePluginConfig),
+
     new webpack.IgnorePlugin({
       resourceRegExp: /\/server\/gettext$/,
       contextRegExp: /\/root\/static\/scripts\/common\/i18n$/,
@@ -26,12 +28,12 @@ module.exports = {
 
     // Modules that run in the browser must use DBDefs-client.
     new webpack.IgnorePlugin({
-      resourceRegExp: /\/DBDefs$/,
+      resourceRegExp: /\/DBDefs(?:-client-values)?$/,
     }),
 
     new webpack.EnvironmentPlugin({
       MUSICBRAINZ_RUNNING_TESTS: false,
-      NODE_ENV: DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production',
+      NODE_ENV: process.env.NODE_ENV || 'development',
     }),
   ],
 

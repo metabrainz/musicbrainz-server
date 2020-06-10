@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import Layout from '../layout';
-import * as DBDefs from '../static/scripts/common/DBDefs';
+import DBDefs from '../static/scripts/common/DBDefs';
 
 import DocSearchBox from './components/DocSearchBox';
 

@@ -10,13 +10,12 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
-const DBDefs = require('./root/static/scripts/common/DBDefs');
 const {
   dirs,
-  PUBLIC_PATH,
   WEBPACK_MODE,
 } = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
+const definePluginConfig = require('./webpack/definePluginConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
 
 /*
@@ -26,6 +25,8 @@ const providePluginConfig = require('./webpack/providePluginConfig');
 const externals = [
   'root/context',
   'root/server/gettext',
+  'root/static/scripts/common/DBDefs',
+  'root/static/scripts/common/DBDefs-client-values',
   'root/static/scripts/common/linkedEntities',
 ];
 
@@ -66,10 +67,10 @@ module.exports = {
     filename: '[name].js',
     libraryTarget: 'commonjs2',
     path: dirs.BUILD,
-    publicPath: PUBLIC_PATH,
   },
 
   plugins: [
+    new webpack.DefinePlugin(definePluginConfig),
     new webpack.IgnorePlugin({resourceRegExp: /jquery/}),
     new webpack.ProvidePlugin(providePluginConfig),
   ],

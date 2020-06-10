@@ -15,11 +15,13 @@
 const React = require('react');
 
 const revManifest = require('./build/rev-manifest');
+const DBDefs = require('./scripts/common/DBDefs');
 
 function pathTo(manifest) {
   manifest = manifest.replace(/^\//, '');
 
-  const publicPath = revManifest[manifest];
+  const publicPath = DBDefs.STATIC_RESOURCES_LOCATION + '/' +
+    revManifest[manifest];
 
   if (!publicPath) {
     return manifest;

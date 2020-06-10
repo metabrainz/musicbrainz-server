@@ -8,7 +8,7 @@
 
 import L from 'leaflet/dist/leaflet-src';
 
-import * as DBDefs from './DBDefs-client';
+import DBDefs from './DBDefs-client';
 
 const iconsUrls = {
   'arena-marker-icon.png':

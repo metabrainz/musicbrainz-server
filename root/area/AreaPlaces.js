@@ -12,7 +12,7 @@ import * as React from 'react';
 import PlaceList from '../components/list/PlaceList';
 import PaginatedResults from '../components/PaginatedResults';
 import * as manifest from '../static/manifest';
-import * as DBDefs from '../static/scripts/common/DBDefs-client';
+import DBDefs from '../static/scripts/common/DBDefs-client';
 
 import AreaLayout from './AreaLayout';
 

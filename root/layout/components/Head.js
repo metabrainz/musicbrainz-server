@@ -10,9 +10,10 @@
 import * as React from 'react';
 
 import * as manifest from '../../static/manifest';
-import * as DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 
+import clientDBDefsScript from './clientDBDefsScript';
 import MetaDescription from './MetaDescription';
 
 export type HeadProps = {
@@ -119,6 +120,8 @@ const Head = ({$c, ...props}: HeadProps): React.Element<'head'> => (
         type="text/css"
       />
     </noscript>
+
+    {clientDBDefsScript}
 
     {manifest.js('runtime')}
 
