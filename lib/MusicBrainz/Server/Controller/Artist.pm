@@ -480,6 +480,7 @@ sub releases : Chained('load')
 
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('Release')->load_meta(@$releases);
     $c->stash(
         current_view => 'Node',
         component_path => 'artist/ArtistReleases',

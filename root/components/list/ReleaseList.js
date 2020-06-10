@@ -63,6 +63,7 @@ const ReleaseList = ({
       const nameColumn = defineNameColumn<ReleaseT>({
         descriptive: false, // since ACs are in the next column
         order: order,
+        showCaaPresence: true,
         sortable: sortable,
         title: l('Release'),
       });
