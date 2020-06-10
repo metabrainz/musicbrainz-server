@@ -198,7 +198,7 @@ ws_test 'recording lookup with artists',
     </recording>
 </metadata>';
 
-ws_test 'recording lookup with puids and isrcs',
+ws_test 'recording lookup with puids (no-op) and isrcs',
     '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=puids+isrcs' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">

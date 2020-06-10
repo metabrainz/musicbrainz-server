@@ -14,7 +14,7 @@ test 'browse recordings via artist (first page)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse recordings via artist (first page)',
-    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3' =>
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=3' =>
         {
             "recording-count" => 10,
             "recording-offset" => 0,
@@ -48,7 +48,7 @@ test 'browse recordings via artist (second page)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse recordings via artist (second page)',
-    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3&offset=3' =>
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=3&offset=3' =>
         {
             "recording-count" => 10,
             "recording-offset" => 3,
