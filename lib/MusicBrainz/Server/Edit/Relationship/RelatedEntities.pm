@@ -28,7 +28,7 @@ around _build_related_entities => sub {
 
         # For works, we want relationship edits to also appear on the recordings and releases they're linked to
         my @work_ids = map { $_->id } grep { $_->isa('MusicBrainz::Server::Entity::Work') } @entities;
-        my ($recordings, $hits) = $self->c->model('Recording')->find_by_works(\@work_ids);
+        my ($recordings, $recording_hits) = $self->c->model('Recording')->find_by_works(\@work_ids);
         my @work_recording_ids = map { $_->id } @$recordings;
         push @{ $direct->{recording} }, @work_recording_ids;
 
@@ -36,7 +36,7 @@ around _build_related_entities => sub {
         # For recordings, we want relationship edits to also appear on the releases they're on
         my @recording_ids = map { $_->id } grep { $_->isa('MusicBrainz::Server::Entity::Recording') } @entities;
         push @recording_ids, @work_recording_ids;
-        my ($releases, $hits) = $self->c->model('Release')->find_by_recording(\@recording_ids);
+        my ($releases, $release_hits) = $self->c->model('Release')->find_by_recording(\@recording_ids);
         push @{ $direct->{release} }, map { $_->id } @$releases;
     }
 
