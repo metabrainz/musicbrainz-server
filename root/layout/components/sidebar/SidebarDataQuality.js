@@ -19,11 +19,25 @@ type Props = {
 
 const SidebarDataQuality = ({quality}: Props): React.MixedElement | null => {
   const name = QUALITY_NAMES.get(quality);
+  let qualityClass;
+  switch (quality) {
+    case 2:
+      qualityClass = "high-data-quality";
+      break;
+    case 0:
+      qualityClass = "low-data-quality";
+      break;
+    default:
+      qualityClass = "";
+      break;
+  };
+
   return name ? (
     <SidebarProperty
       className="data-quality"
       label={addColonText(l('Data Quality'))}
     >
+      <span className={qualityClass} />
       {name()}
     </SidebarProperty>
   ) : null;
