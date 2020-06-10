@@ -21,7 +21,7 @@ type Props = {
   +cdstub: CDStubT,
 };
 
-const CDStubSidebar = ({cdstub}: Props) => {
+const CDStubSidebar = ({cdstub}: Props): React.Element<'div'> => {
   const now = parseDate((new Date()).toISOString().slice(0, 10));
 
   const addedAge = cdstub.date_added ? age({

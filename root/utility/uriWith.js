@@ -12,7 +12,7 @@ import url from 'url';
 export default function uriWith<T: {...}>(
   uriString: string,
   params: T,
-) {
+): string {
   const u = url.parse(uriString, true);
 
   u.query = Object.assign(u.query, params);

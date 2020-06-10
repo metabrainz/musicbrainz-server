@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-const TagLookupNagSection = () => (
+const TagLookupNagSection = (): React.Element<'div'> => (
   <div className="nagpanel">
     <p>
       {l('The users make MusicBrainz happen and we appreciate your help!')}

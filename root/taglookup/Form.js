@@ -16,7 +16,11 @@ import FormSubmit from '../components/FormSubmit';
 
 import type {TagLookupFormT} from './types';
 
-const TagLookupForm = ({form}: {+form: TagLookupFormT}) => (
+type Props = {
+  +form: TagLookupFormT,
+};
+
+const TagLookupForm = ({form}: Props): React.Element<'div'> => (
   <div className="searchform">
     <form action="/taglookup/index" method="get">
       <FormRowTextLong

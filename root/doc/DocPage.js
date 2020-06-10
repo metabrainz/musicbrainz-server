@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import Layout from '../layout';
-import * as DBDefs from '../static/scripts/common/DBDefs';
+import DBDefs from '../static/scripts/common/DBDefs';
 
 import DocSearchBox from './components/DocSearchBox';
 
@@ -22,14 +22,16 @@ type DocPageT = {
 };
 
 type Props = {
+  +$c: CatalystContextT,
   +id: string,
   +page: DocPageT,
 };
 
 const DocPage = ({
+  $c,
   id,
   page,
-}: Props) => {
+}: Props): React.Element<typeof Layout> => {
   let doc = '';
   let lastDoc = '';
   // We check whether we have a Google Custom Search engine
@@ -52,7 +54,7 @@ const DocPage = ({
     </a>
   );
   return (
-    <Layout fullWidth noIcons title={page.title}>
+    <Layout $c={$c} fullWidth noIcons title={page.title}>
       <div className="wikicontent" id="content">
         {useGoogleCustomSearch ? <DocSearchBox /> : null}
 

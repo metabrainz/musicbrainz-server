@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context';
-import * as DBDefs from '../static/scripts/common/DBDefs';
+import DBDefs from '../static/scripts/common/DBDefs';
 import buildTab from '../utility/buildTab';
 
 import Tabs from './Tabs';
@@ -19,7 +19,7 @@ function buildTabs(
   $c: CatalystContextT,
   user: EditorT,
   page: string,
-): React.Node {
+): $ReadOnlyArray<React.Element<'li'>> {
   const viewingOwnProfile = $c.user && $c.user.id === user.id;
   const showAdmin = $c.user && $c.user.is_account_admin;
   const showPrivate = showAdmin || viewingOwnProfile;
@@ -115,7 +115,7 @@ type Props = {
 const UserAccountTabs = ({
   user,
   page,
-}: Props) => (
+}: Props): React.Element<typeof Tabs> => (
   <Tabs>
     <CatalystContext.Consumer>
       {($c: CatalystContextT) => buildTabs($c, user, page)}

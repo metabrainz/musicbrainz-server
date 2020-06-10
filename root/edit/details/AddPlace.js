@@ -30,7 +30,11 @@ type AddPlaceEditT = {
   },
 };
 
-const AddPlace = ({edit}: {edit: AddPlaceEditT}) => {
+type Props = {
+  +edit: AddPlaceEditT,
+};
+
+const AddPlace = ({edit}: Props): React.MixedElement => {
   const display = edit.display_data;
   const type = display.type;
   const place = display.place;

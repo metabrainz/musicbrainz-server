@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 
@@ -18,7 +17,7 @@ type Props = {
   +merger: MergeQueueT,
 };
 
-const MergeHelper = ({$c, merger}: Props) => (
+const MergeHelper = ({$c, merger}: Props): React.Element<'div'> => (
   <div id="current-editing">
     <form action={`/${merger.type}/merge`} method="get">
       <h2>{l('Merge Process')}</h2>
@@ -79,4 +78,4 @@ const MergeHelper = ({$c, merger}: Props) => (
   </div>
 );
 
-export default withCatalystContext(MergeHelper);
+export default MergeHelper;

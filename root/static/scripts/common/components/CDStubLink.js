@@ -17,7 +17,11 @@ type Props = {
   +subPath?: string,
 };
 
-const CDStubLink = ({cdstub, content, subPath}: Props) => (
+const CDStubLink = ({
+  cdstub,
+  content,
+  subPath,
+}: Props): React.Element<'a'> => (
   <a href={entityHref(cdstub, subPath)}>
     <bdi>
       {content}

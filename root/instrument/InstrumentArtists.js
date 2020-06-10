@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import ArtistList from '../components/list/ArtistList';
 import PaginatedResults from '../components/PaginatedResults';
 
@@ -29,14 +28,15 @@ const InstrumentArtists = ({
   instrument,
   instrumentCreditsAndRelTypes,
   pager,
-}: Props) => (
-  <InstrumentLayout entity={instrument} page="artists" title={l('Artists')}>
+}: Props): React.Element<typeof InstrumentLayout> => (
+  <InstrumentLayout $c={$c} entity={instrument} page="artists" title={l('Artists')}>
     <h2>{l('Artists')}</h2>
 
     {artists && artists.length > 0 ? (
       <form action="/artist/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <ArtistList
+            $c={$c}
             artists={artists}
             checkboxes="add-to-merge"
             instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
@@ -62,4 +62,4 @@ const InstrumentArtists = ({
   </InstrumentLayout>
 );
 
-export default withCatalystContext(InstrumentArtists);
+export default InstrumentArtists;

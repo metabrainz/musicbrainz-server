@@ -17,11 +17,12 @@ import type {ApplicationFormT}
   from '../../static/scripts/account/components/ApplicationForm';
 
 type Props = {
+  +$c: CatalystContextT,
   +form: ApplicationFormT,
 };
 
-const RegisterApplication = (props: Props) => (
-  <Layout fullWidth title={l('Register Application')}>
+const RegisterApplication = (props: Props): React.Element<typeof Layout> => (
+  <Layout $c={props.$c} fullWidth title={l('Register Application')}>
     <h1>{l('Register Application')}</h1>
     <ApplicationForm
       action="register"

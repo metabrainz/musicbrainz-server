@@ -21,7 +21,7 @@ type Props = {
   +seriesIds: $ReadOnlyArray<number>,
 };
 
-const RelatedSeries = ({seriesIds}: Props) => {
+const RelatedSeries = ({seriesIds}: Props): React.MixedElement => {
   const createArgs = [
     React.Fragment,
     null,

@@ -374,17 +374,17 @@ export default function expand2react(
 export const l = (
   key: string,
   args?: ?{+[arg: string]: Input, ...},
-) => expand2react(lActual(key), args);
+): Output => expand2react(lActual(key), args);
 
 export const ln = (
   skey: string,
   pkey: string,
   val: number,
   args?: ?{+[arg: string]: Input, ...},
-) => expand2react(lnActual(skey, pkey, val), args);
+): Output => expand2react(lnActual(skey, pkey, val), args);
 
 export const lp = (
   key: string,
   context: string,
   args?: ?{+[arg: string]: Input, ...},
-) => expand2react(lpActual(key, context), args);
+): Output => expand2react(lpActual(key, context), args);

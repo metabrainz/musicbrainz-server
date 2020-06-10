@@ -29,7 +29,7 @@ import relationshipDateText from '../utility/relationshipDateText';
 
 export function displayDatedExtraAttributes(
   pair: DatedExtraAttributes,
-) {
+): React.MixedElement | string {
   const renderedDatePeriods = commaOnlyListText(
     pair.datePeriods.map(datePeriod => (
       relationshipDateText(datePeriod, false /* bracketEnded */)
@@ -61,7 +61,7 @@ type Props = {
 const RelationshipTargetLinks = ({
   hiddenArtistCredit,
   relationship,
-}: Props) => {
+}: Props): React.MixedElement => {
   const target = relationship.target;
   const targetCredit = relationship.targetCredit;
   let link;

@@ -4,4 +4,4 @@
  * Non-JavaScript files are mapped to here, so we can require() them
  * via Webpack's file-loader without Flow triggering import errors.
  */
-export default {};
+export default ({}: mixed);

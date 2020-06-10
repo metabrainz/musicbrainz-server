@@ -13,8 +13,7 @@ import {
   EDIT_STATUS_OPEN,
   EDIT_STATUS_APPLIED,
 } from '../../constants';
-import {withCatalystContext} from '../../context';
-import * as DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs';
 import {
   editorMayAddNote,
   editorMayApprove,
@@ -31,7 +30,11 @@ type Props = {
   +index: number,
 };
 
-const EditSummary = ({$c, edit, index}: Props) => {
+const EditSummary = ({
+  $c,
+  edit,
+  index,
+}: Props): React.Element<typeof React.Fragment> => {
   const user = $c.user;
   const mayAddNote = editorMayAddNote(edit, user);
   const mayApprove = editorMayApprove(edit, user);
@@ -46,7 +49,7 @@ const EditSummary = ({$c, edit, index}: Props) => {
           </div>
         ) : null}
 
-      <Vote edit={edit} index={index} summary />
+      <Vote $c={$c} edit={edit} index={index} summary />
 
       {$c.user && !DBDefs.DB_READ_ONLY && (mayAddNote || mayApprove || mayCancel) ? (
         <div className="cancel-edit buttons">
@@ -89,4 +92,4 @@ const EditSummary = ({$c, edit, index}: Props) => {
   );
 };
 
-export default withCatalystContext(EditSummary);
+export default EditSummary;

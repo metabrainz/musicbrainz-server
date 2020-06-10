@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-function isolateText(content: ?React$Node) {
+function isolateText(content: ?React$Node): React.Element<'bdi'> | string {
   if (content != null && content !== '') {
     return <bdi>{content}</bdi>;
   }

@@ -19,18 +19,23 @@ type MergePlacesEditT = {
   },
 };
 
-const MergePlaces = ({edit}: {+edit: MergePlacesEditT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +edit: MergePlacesEditT,
+};
+
+const MergePlaces = ({$c, edit}: Props): React.Element<'table'> => (
   <table className="details merge-place">
     <tr>
       <th>{l('Merge:')}</th>
       <td>
-        <PlaceList places={edit.display_data.old} />
+        <PlaceList $c={$c} places={edit.display_data.old} />
       </td>
     </tr>
     <tr>
       <th>{l('Into:')}</th>
       <td>
-        <PlaceList places={[edit.display_data.new]} />
+        <PlaceList $c={$c} places={[edit.display_data.new]} />
       </td>
     </tr>
   </table>

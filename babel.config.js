@@ -1,16 +1,25 @@
+const BROWSER_TARGETS = {
+  chrome: '49',
+  edge: '14',
+  firefox: '52',
+  ie: '11',
+  safari: '9.0',
+};
+
+const NODE_TARGETS = {
+  node: process.versions.node,
+};
+
 module.exports = function (api) {
   api.cache.using(() => process.env.NODE_ENV);
 
   const presets = [
     ['@babel/preset-env', {
-      targets: {
-        chrome: '49',
-        edge: '14',
-        firefox: '52',
-        ie: '11',
-        node: '6',
-        safari: '9.0',
-      }
+      corejs: 3,
+      targets: api.caller(caller => caller && caller.target === 'node')
+        ? NODE_TARGETS
+        : BROWSER_TARGETS,
+      useBuiltIns: 'usage',
     }],
   ];
 
@@ -19,8 +28,9 @@ module.exports = function (api) {
     '@babel/plugin-transform-react-jsx',
     '@babel/plugin-transform-react-constant-elements',
     ['@babel/plugin-transform-runtime', {
-      corejs: 2,
+      corejs: 3,
       helpers: true,
+      proposals: true,
       regenerator: true,
       useESModules: false,
     }],

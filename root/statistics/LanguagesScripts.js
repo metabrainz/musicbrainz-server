@@ -12,7 +12,6 @@ import * as React from 'react';
 
 import manifest from '../static/manifest';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
-import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
 import LinkSearchableProperty from '../components/LinkSearchableProperty';
 
@@ -43,8 +42,9 @@ const LanguagesScripts = ({
   dateCollected,
   languageStats,
   scriptStats,
-}: LanguagesScriptsStatsT) => (
+}: LanguagesScriptsStatsT): React.Element<typeof StatisticsLayout> => (
   <StatisticsLayout
+    $c={$c}
     fullWidth
     page="languages-scripts"
     title={l('Languages and Scripts')}
@@ -171,4 +171,4 @@ const LanguagesScripts = ({
   </StatisticsLayout>
 );
 
-export default withCatalystContext(LanguagesScripts);
+export default LanguagesScripts;

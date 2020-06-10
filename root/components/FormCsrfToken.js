@@ -11,7 +11,8 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../context';
 
-const FormCsrfToken = () => (
+const FormCsrfToken = ():
+React.Element<typeof SanitizedCatalystContext.Consumer> => (
   <SanitizedCatalystContext.Consumer>
     {$c => (
       <>

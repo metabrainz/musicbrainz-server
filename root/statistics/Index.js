@@ -13,7 +13,6 @@ import {range} from 'lodash';
 
 import {l_statistics as l, lp_statistics as lp}
   from '../static/scripts/common/i18n/statistics';
-import {withCatalystContext} from '../context';
 
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
@@ -54,7 +53,7 @@ const Index = ({
   statuses,
   workAttributeTypes,
   workTypes,
-}: MainStatsT) => {
+}: MainStatsT): React.Element<typeof StatisticsLayout> => {
   const nonGroupCount = stats['count.artist.type.null'] +
     stats['count.artist.type.person'] +
     stats['count.artist.type.character'] +
@@ -77,7 +76,7 @@ const Index = ({
   const _formatPercentage = (a, b) => formatPercentage($c, a / b, 1);
 
   return (
-    <StatisticsLayout fullWidth page="index" title={l('Overview')}>
+    <StatisticsLayout $c={$c} fullWidth page="index" title={l('Overview')}>
       <p>
         {texp.l('Last updated: {date}', {date: dateCollected})}
       </p>
@@ -1154,4 +1153,4 @@ const Index = ({
   );
 };
 
-export default withCatalystContext(Index);
+export default Index;

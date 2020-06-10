@@ -16,7 +16,10 @@ type Props = {
   work: WorkT,
 };
 
-const WorkHeader = ({work, page}: Props) => (
+const WorkHeader = ({
+  work,
+  page,
+}: Props): React.Element<typeof EntityHeader> => (
   <EntityHeader
     entity={work}
     headerClass="workheader"

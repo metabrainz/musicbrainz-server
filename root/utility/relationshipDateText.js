@@ -15,7 +15,7 @@ import areDatesEqual from './areDatesEqual';
 export default function relationshipDateText(
   r: $ReadOnly<{...DatePeriodRoleT, ...}>,
   bracketEnded?: boolean = true,
-) {
+): string {
   if (r.begin_date) {
     if (r.end_date) {
       if (areDatesEqual(r.begin_date, r.end_date)) {

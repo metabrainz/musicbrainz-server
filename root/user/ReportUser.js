@@ -17,7 +17,6 @@ import FormRowCheckbox from '../components/FormRowCheckbox';
 import FormRowSelect from '../components/FormRowSelect';
 import FormRowTextArea from '../components/FormRowTextArea';
 import FormSubmit from '../components/FormSubmit';
-import {withCatalystContext} from '../context';
 
 type ReportReasonT =
   | 'enforcing_guidelines'
@@ -74,8 +73,9 @@ const ReportUser = ({
   $c,
   form,
   user,
-}: Props) => (
+}: Props): React.Element<typeof UserAccountLayout> => (
   <UserAccountLayout
+    $c={$c}
     entity={user}
     page="report"
     title={l('Report User')}
@@ -173,4 +173,4 @@ const ReportUser = ({
   </UserAccountLayout>
 );
 
-export default withCatalystContext(ReportUser);
+export default ReportUser;

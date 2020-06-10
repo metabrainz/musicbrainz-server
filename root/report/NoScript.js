@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const NoScript = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases without script')}>
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Releases without script')}>
     <h1>{l('Releases without script')}</h1>
 
     <ul>
@@ -43,7 +42,7 @@ const NoScript = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} showLanguageAndScript />
@@ -51,4 +50,4 @@ const NoScript = ({
   </Layout>
 );
 
-export default withCatalystContext(NoScript);
+export default NoScript;

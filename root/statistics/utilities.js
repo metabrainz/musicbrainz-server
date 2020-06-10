@@ -12,7 +12,7 @@ export function formatPercentage(
   $c: CatalystContextT,
   num: number,
   digits: number,
-) {
+): string {
   return (num || 0).toLocaleString(
     $c.stash.current_language_html,
     {
@@ -23,7 +23,7 @@ export function formatPercentage(
   );
 }
 
-export function formatCount($c: CatalystContextT, num: ?number) {
+export function formatCount($c: CatalystContextT, num: ?number): string {
   return typeof num === 'number'
     ? num.toLocaleString($c.stash.current_language_html)
     : '';

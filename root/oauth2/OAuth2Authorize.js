@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import FormCsrfToken from '../components/FormCsrfToken';
 import {ACCESS_SCOPE_PERMISSIONS} from '../constants';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -26,8 +25,8 @@ const OAuth2Authorize = ({
   application,
   offline,
   permissions,
-}: Props) => (
-  <Layout fullWidth title={l('OAuth Authorization')}>
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('OAuth Authorization')}>
     <h1>{l('Authorization')}</h1>
 
     <p>
@@ -65,4 +64,4 @@ const OAuth2Authorize = ({
   </Layout>
 );
 
-export default withCatalystContext(OAuth2Authorize);
+export default OAuth2Authorize;

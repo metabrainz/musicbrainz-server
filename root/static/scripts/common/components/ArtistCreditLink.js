@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React, {useState} from 'react';
+import * as React from 'react';
 
 import hydrate from '../../../../utility/hydrate';
 import Tooltip from '../../edit/components/Tooltip';
@@ -27,7 +27,7 @@ type MpIconProps = {
 const MpIcon = hydrate<MpIconProps>('span.ac-mp', (
   {artistCredit}: MpIconProps,
 ) => {
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = React.useState(false);
 
   let editSearch =
     '/search/edits?auto_edit_filter=&order=desc&negation=0' +
@@ -70,7 +70,7 @@ const ArtistCreditLink = ({
   artistCredit,
   showDeleted = true,
   ...props
-}: Props) => {
+}: Props): React.Element<'span'> | Array<React.Node> => {
   const names = artistCredit.names;
   const parts = [];
   for (let i = 0; i < names.length; i++) {

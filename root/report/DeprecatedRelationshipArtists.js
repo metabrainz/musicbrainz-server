@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const DeprecatedRelationshipArtists = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistRelationshipT>) => (
-  <Layout fullWidth title={l('Artists with deprecated relationships')}>
+}: ReportDataT<ReportArtistRelationshipT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Artists with deprecated relationships')}>
     <h1>{l('Artists with deprecated relationships')}</h1>
 
     <ul>
@@ -42,7 +41,7 @@ const DeprecatedRelationshipArtists = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ArtistRelationshipList items={items} pager={pager} />
@@ -50,4 +49,4 @@ const DeprecatedRelationshipArtists = ({
   </Layout>
 );
 
-export default withCatalystContext(DeprecatedRelationshipArtists);
+export default DeprecatedRelationshipArtists;

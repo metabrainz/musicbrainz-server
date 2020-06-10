@@ -14,7 +14,7 @@ import Diff from '../../static/scripts/edit/components/edit/Diff';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
 
-type EditSeriesEdit = {
+type EditSeriesEditT = {
   ...EditT,
   +display_data: {
     +comment?: CompT<string>,
@@ -25,7 +25,11 @@ type EditSeriesEdit = {
   },
 };
 
-const EditSeries = ({edit}: {+edit: EditSeriesEdit}) => {
+type Props = {
+  +edit: EditSeriesEditT,
+};
+
+const EditSeries = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const name = display.name;
   const series = display.series;

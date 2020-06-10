@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const DeprecatedRelationshipWorks = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportWorkRelationshipT>) => (
-  <Layout fullWidth title={l('Works with deprecated relationships')}>
+}: ReportDataT<ReportWorkRelationshipT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Works with deprecated relationships')}>
     <h1>{l('Works with deprecated relationships')}</h1>
 
     <ul>
@@ -42,7 +41,7 @@ const DeprecatedRelationshipWorks = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <WorkRelationshipList items={items} pager={pager} />
@@ -50,4 +49,4 @@ const DeprecatedRelationshipWorks = ({
   </Layout>
 );
 
-export default withCatalystContext(DeprecatedRelationshipWorks);
+export default DeprecatedRelationshipWorks;

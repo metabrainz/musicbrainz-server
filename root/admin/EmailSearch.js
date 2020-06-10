@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import FormRowText from '../components/FormRowText';
 import FormSubmit from '../components/FormSubmit';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 import UserList from './components/UserList';
@@ -28,8 +27,8 @@ const EmailSearch = ({
   $c,
   form,
   results,
-}: Props) => (
-  <Layout fullWidth title={l('Search users by email')}>
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Search users by email')}>
     <div id="content">
       <h1>{l('Search users by email')}</h1>
 
@@ -67,4 +66,4 @@ const EmailSearch = ({
   </Layout>
 );
 
-export default withCatalystContext<Props>(EmailSearch);
+export default EmailSearch;

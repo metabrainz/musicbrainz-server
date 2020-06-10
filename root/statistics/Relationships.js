@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {compare} from '../static/scripts/common/i18n';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
-import {withCatalystContext} from '../context';
 import formatEntityTypeName
   from '../static/scripts/common/utility/formatEntityTypeName';
 
@@ -37,7 +36,7 @@ function comparePhrases(a, b) {
   );
 }
 
-const TypeRows = withCatalystContext(({
+const TypeRows = ({
   $c,
   base,
   indent,
@@ -64,8 +63,9 @@ const TypeRows = withCatalystContext(({
         </td>
       </tr>
       {type.children ? (
-        type.children.sort(comparePhrases).map((child) => (
+        type.children.slice(0).sort(comparePhrases).map((child) => (
           <TypeRows
+            $c={$c}
             base={base}
             indent={indent + 1}
             key={child.id}
@@ -77,15 +77,15 @@ const TypeRows = withCatalystContext(({
       ) : null}
     </>
   );
-});
+};
 
 const Relationships = ({
   $c,
   dateCollected,
   stats,
   types,
-}: RelationshipsStatsT) => (
-  <StatisticsLayout fullWidth page="relationships" title={l('Relationships')}>
+}: RelationshipsStatsT): React.Element<typeof StatisticsLayout> => (
+  <StatisticsLayout $c={$c} fullWidth page="relationships" title={l('Relationships')}>
     <p>
       {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>
@@ -142,6 +142,7 @@ const Relationships = ({
                 {Object.keys(type.tree).sort().map((child) => (
                   type.tree[child].sort(comparePhrases).map((child2) => (
                     <TypeRows
+                      $c={$c}
                       base={'count.ar.links.' + typeKey}
                       indent={2}
                       key={child2.id}
@@ -160,4 +161,4 @@ const Relationships = ({
   </StatisticsLayout>
 );
 
-export default withCatalystContext(Relationships);
+export default Relationships;

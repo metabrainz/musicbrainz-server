@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 
-type AddSeriesEditProps = {
+type AddSeriesEditT = {
   ...EditT,
   +display_data: {
     +comment: string,
@@ -22,7 +22,11 @@ type AddSeriesEditProps = {
   },
 };
 
-const AddSeries = ({edit}: {+edit: AddSeriesEditProps}) => {
+type Props = {
+  +edit: AddSeriesEditT,
+};
+
+const AddSeries = ({edit}: Props): React.MixedElement => {
   const type = edit.display_data.type;
   const orderingType = edit.display_data.ordering_type;
 

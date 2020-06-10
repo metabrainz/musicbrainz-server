@@ -17,6 +17,7 @@ import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 import loopParity from '../../utility/loopParity';
 
 type Props = {
+  +$c: CatalystContextT,
   +applications: $ReadOnlyArray<ApplicationT>,
   +appsPager: PagerT,
   +tokens: $ReadOnlyArray<EditorOAuthTokenT>,
@@ -62,7 +63,7 @@ const buildTokenRow = (token: EditorOAuthTokenT, index: number) => (
 
 function formatScopes(token: EditorOAuthTokenT) {
   const lScopes = token.permissions.map(
-    perm => ACCESS_SCOPE_PERMISSIONS[perm](),
+    perm => ACCESS_SCOPE_PERMISSIONS[+perm](),
   );
 
   if (token.is_offline) {
@@ -74,8 +75,14 @@ function formatScopes(token: EditorOAuthTokenT) {
   return commaOnlyList(lScopes);
 }
 
-const Index = ({applications, appsPager, tokens, tokensPager}: Props) => (
-  <Layout fullWidth title={l('Applications')}>
+const Index = ({
+  $c,
+  applications,
+  appsPager,
+  tokens,
+  tokensPager,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Applications')}>
     <h1>{l('Applications')}</h1>
 
     <h2>{l('Authorized Applications')}</h2>
@@ -92,7 +99,7 @@ const Index = ({applications, appsPager, tokens, tokensPager}: Props) => (
 
     {tokens.length
       ? (
-        <PaginatedResults pageVar="tokens_page" pager={tokensPager}>
+        <PaginatedResults pager={tokensPager} pageVar="tokens_page">
           <table className="tbl">
             <thead>
               <tr>
@@ -128,7 +135,7 @@ const Index = ({applications, appsPager, tokens, tokensPager}: Props) => (
 
     {applications.length
       ? (
-        <PaginatedResults pageVar="apps_page" pager={appsPager}>
+        <PaginatedResults pager={appsPager} pageVar="apps_page">
           <table className="tbl">
             <thead>
               <tr>

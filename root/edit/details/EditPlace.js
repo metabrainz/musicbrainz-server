@@ -18,7 +18,7 @@ import {formatCoordinates} from '../../utility/coordinates';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type PlaceEditT = {
+type EditPlaceEditT = {
   ...EditT,
   +display_data: {
     +address?: CompT<string>,
@@ -34,7 +34,11 @@ type PlaceEditT = {
   },
 };
 
-const EditPlace = ({edit}: {edit: PlaceEditT}) => {
+type Props = {
+  +edit: EditPlaceEditT,
+};
+
+const EditPlace = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const address = display.address;
   const area = display.area;

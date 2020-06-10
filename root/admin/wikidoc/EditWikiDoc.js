@@ -13,7 +13,6 @@ import FormCsrfToken from '../../components/FormCsrfToken';
 import FormRowText from '../../components/FormRowText';
 import FormSubmit from '../../components/FormSubmit';
 import Layout from '../../layout';
-import {withCatalystContext} from '../../context';
 
 type Props = {
   +$c: CatalystContextT,
@@ -24,13 +23,13 @@ type Props = {
   +page: string,
 };
 
-const EditWikiDoc = withCatalystContext(({
+const EditWikiDoc = ({
   $c,
   currentVersion,
   form,
   page,
-}: Props) => (
-  <Layout fullWidth title={l('Update Page')}>
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Update Page')}>
     <div id="content">
       <h1>{l('Update Page')}</h1>
       <form action={$c.req.uri} method="post">
@@ -56,6 +55,6 @@ const EditWikiDoc = withCatalystContext(({
       </form>
     </div>
   </Layout>
-));
+);
 
 export default EditWikiDoc;

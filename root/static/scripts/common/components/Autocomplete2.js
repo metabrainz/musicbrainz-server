@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import partition from 'lodash/partition';
+import type {Element} from "React";import partition from 'lodash/partition';
 import unionBy from 'lodash/unionBy';
 import React, {useEffect, useMemo, useReducer, useRef} from 'react';
 
@@ -228,7 +228,7 @@ function setScrollPosition(menuId: string, siblingAccessor: string) {
   }
 }
 
-export default function Autocomplete2(props: Props) {
+export default function Autocomplete2(props: Props): Element<"div"> {
   const {entityType, id} = props;
 
   const [state, dispatch] = useReducer<State, Actions>(

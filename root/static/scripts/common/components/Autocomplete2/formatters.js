@@ -391,7 +391,7 @@ function formatWork(work: AutocompleteWorkT) {
   );
 }
 
-export default function formatItem(item: Item) {
+export default function formatItem(item: Item): Expand2ReactOutput {
   if (!item.entityType) {
     return unwrapNl<string>(item.name);
   }

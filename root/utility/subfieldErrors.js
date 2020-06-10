@@ -19,7 +19,7 @@ export type FieldShape = {
 export default function subfieldErrors(
   field: FieldShape,
   accum: $ReadOnlyArray<string> = [],
-) {
+): $ReadOnlyArray<string> {
   if (field.errors && field.errors.length) {
     accum = accum.concat(field.errors);
   }

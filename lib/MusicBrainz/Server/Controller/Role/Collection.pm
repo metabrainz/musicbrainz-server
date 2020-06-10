@@ -78,6 +78,7 @@ role
             ($collaborative_collections) = $c->model('Collection')->find_by({
                 collaborator_id => $c->user->id,
                 entity_type => $entity_type,
+                show_private => $c->user->id,
             });
             foreach my $collection (@$collaborative_collections) {
                 $containment{$collection->id} = 1 if $entity_collections_map{$collection->id};

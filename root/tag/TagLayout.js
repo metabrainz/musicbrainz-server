@@ -14,6 +14,7 @@ import Layout from '../layout';
 import TagLink from '../static/scripts/common/components/TagLink';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +page: string,
   +tag: TagT,
@@ -35,8 +36,15 @@ const tabLinks: $ReadOnlyArray<[string, () => string]> = [
   ['/event', N_l('Events')],
 ];
 
-const TagLayout = ({children, page, tag, title}: Props) => (
+const TagLayout = ({
+  $c,
+  children,
+  page,
+  tag,
+  title,
+}: Props): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={
       title

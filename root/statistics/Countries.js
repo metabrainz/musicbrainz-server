@@ -13,7 +13,6 @@ import * as React from 'react';
 import manifest from '../static/manifest';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import EntityLink from '../static/scripts/common/components/EntityLink';
-import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
 
 import {formatCount} from './utilities';
@@ -32,8 +31,12 @@ type CountryStatT = {
   +release_count: number,
 };
 
-const Countries = ({$c, countryStats, dateCollected}: CountriesStatsT) => (
-  <StatisticsLayout fullWidth page="countries" title={l('Countries')}>
+const Countries = ({
+  $c,
+  countryStats,
+  dateCollected,
+}: CountriesStatsT): React.Element<typeof StatisticsLayout> => (
+  <StatisticsLayout $c={$c} fullWidth page="countries" title={l('Countries')}>
     <p>
       {texp.l('Last updated: {date}',
               {date: dateCollected})}
@@ -128,4 +131,4 @@ const Countries = ({$c, countryStats, dateCollected}: CountriesStatsT) => (
   </StatisticsLayout>
 );
 
-export default withCatalystContext(Countries);
+export default Countries;

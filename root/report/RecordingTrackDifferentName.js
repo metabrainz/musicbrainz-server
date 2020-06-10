@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -28,8 +27,9 @@ const RecordingTrackDifferentName = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingTrackT>) => (
+}: ReportDataT<ReportRecordingTrackT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Recordings with a different name than their only track')}
   >
@@ -52,7 +52,7 @@ const RecordingTrackDifferentName = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <PaginatedResults pager={pager}>
@@ -92,4 +92,4 @@ const RecordingTrackDifferentName = ({
   </Layout>
 );
 
-export default withCatalystContext(RecordingTrackDifferentName);
+export default RecordingTrackDifferentName;

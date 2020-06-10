@@ -44,7 +44,7 @@ type Props = {
   +edit: EditAliasEditT,
 };
 
-const EditAlias = ({edit}: Props) => {
+const EditAlias = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const entity = display[entityType];

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -26,8 +25,9 @@ const AnnotationsReleaseGroups = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupAnnotationT>) => (
-  <Layout fullWidth title={l('Release group annotations')}>
+}: ReportDataT<ReportReleaseGroupAnnotationT>):
+React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Release group annotations')}>
     <h1>{l('Release group annotations')}</h1>
 
     <ul>
@@ -44,7 +44,7 @@ const AnnotationsReleaseGroups = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseGroupAnnotationList items={items} pager={pager} />
@@ -52,4 +52,4 @@ const AnnotationsReleaseGroups = ({
   </Layout>
 );
 
-export default withCatalystContext(AnnotationsReleaseGroups);
+export default AnnotationsReleaseGroups;

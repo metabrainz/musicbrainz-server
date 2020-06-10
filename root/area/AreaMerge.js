@@ -15,7 +15,6 @@ import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import AreaList from '../components/list/AreaList';
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -24,8 +23,12 @@ type Props = {
   +toMerge: $ReadOnlyArray<AreaT>,
 };
 
-const AreaMerge = ({$c, form, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge areas')}>
+const AreaMerge = ({
+  $c,
+  form,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge areas')}>
     <div id="content">
       <h1>{l('Merge areas')}</h1>
       <p>
@@ -34,6 +37,7 @@ const AreaMerge = ({$c, form, toMerge}: Props) => (
       </p>
       <form action={$c.req.uri} method="post">
         <AreaList
+          $c={$c}
           areas={sortByEntityName(toMerge)}
           mergeForm={form}
         />
@@ -56,4 +60,4 @@ const AreaMerge = ({$c, form, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(AreaMerge);
+export default AreaMerge;

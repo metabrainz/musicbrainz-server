@@ -15,6 +15,7 @@ import SeriesSidebar from '../layout/components/sidebar/SeriesSidebar';
 import SeriesHeader from './SeriesHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: SeriesT,
   +fullWidth?: boolean,
@@ -23,22 +24,23 @@ type Props = {
 };
 
 const SeriesLayout = ({
+  $c,
   children,
   entity: series,
   fullWidth,
   page,
   title,
-}: Props) => (
+}: Props): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     title={title ? hyphenateTitle(series.name, title) : series.name}
   >
     <div id="content">
       <SeriesHeader page={page} series={series} />
       {children}
     </div>
-    {fullWidth ? null : <SeriesSidebar series={series} />}
+    {fullWidth ? null : <SeriesSidebar $c={$c} series={series} />}
   </Layout>
 );
-
 
 export default SeriesLayout;

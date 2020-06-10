@@ -14,13 +14,19 @@ import Layout from '../layout';
 import FormCsrfToken from './FormCsrfToken';
 
 type Props = {
+  +$c: CatalystContextT,
   +action?: string,
-  +question: React.Node,
+  +question: Expand2ReactOutput,
   +title: string,
 };
 
-const ConfirmLayout = ({action, question, title}: Props) => (
-  <Layout fullWidth title={title}>
+const ConfirmLayout = ({
+  $c,
+  action,
+  question,
+  title,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={title}>
     <h1>{title}</h1>
     <p>{question}</p>
     <form action={action} method="post">

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -28,8 +27,9 @@ const CatNoLooksLikeAsin = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseCatNoT>) => (
+}: ReportDataT<ReportReleaseCatNoT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Releases with catalog numbers that look like ASINs')}
   >
@@ -51,7 +51,7 @@ const CatNoLooksLikeAsin = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <PaginatedResults pager={pager}>
@@ -92,4 +92,4 @@ const CatNoLooksLikeAsin = ({
   </Layout>
 );
 
-export default withCatalystContext(CatNoLooksLikeAsin);
+export default CatNoLooksLikeAsin;

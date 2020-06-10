@@ -14,7 +14,7 @@ const Jed = require('jed');
 const jedData = require('../static/scripts/jed-data');
 const poFile = require('./gettext/poFile');
 
-const jedInstance = new Jed(jedData.en);
+const jedInstance/*: Jed */ = new Jed(jedData.en);
 jedInstance.locale = 'en';
 
 exports.setLocale = function (locale /*: string */) {
@@ -52,6 +52,15 @@ exports.loadDomain = function (domain /*: string */) {
 };
 
 exports.jedInstance = jedInstance;
-exports.dgettext = jedInstance.dgettext.bind(jedInstance);
-exports.dngettext = jedInstance.dngettext.bind(jedInstance);
-exports.dpgettext = jedInstance.dpgettext.bind(jedInstance);
+exports.dgettext = (
+  jedInstance.dgettext.bind(jedInstance)
+  /*: ((string, string) => string) */
+);
+exports.dngettext = (
+  jedInstance.dngettext.bind(jedInstance)
+  /*: ((string, string, string, number) => string) */
+);
+exports.dpgettext = (
+  jedInstance.dpgettext.bind(jedInstance)
+  /*: ((string, string, string) => string) */
+);

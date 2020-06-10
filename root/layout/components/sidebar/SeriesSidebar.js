@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
@@ -31,8 +30,10 @@ type Props = {
   +series: SeriesT,
 };
 
-const SeriesSidebar = ({$c, series}: Props) => {
-
+const SeriesSidebar = ({
+  $c,
+  series,
+}: Props): React.Element<'div'> => {
   return (
     <div id="sidebar">
       <CommonsImage
@@ -58,6 +59,7 @@ const SeriesSidebar = ({$c, series}: Props) => {
       </SidebarProperties>
 
       <SidebarTags
+        $c={$c}
         aggregatedTags={$c.stash.top_tags}
         entity={series}
         more={!!$c.stash.more_tags}
@@ -66,17 +68,17 @@ const SeriesSidebar = ({$c, series}: Props) => {
 
       <ExternalLinks empty entity={series} />
 
-      <EditLinks entity={series}>
-        <AnnotationLinks entity={series} />
+      <EditLinks $c={$c} entity={series}>
+        <AnnotationLinks $c={$c} entity={series} />
 
         <MergeLink entity={series} />
 
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <SubscriptionLinks entity={series} />
+      <SubscriptionLinks $c={$c} entity={series} />
 
-      <CollectionLinks entity={series} />
+      <CollectionLinks $c={$c} entity={series} />
 
       <SidebarLicenses entity={series} />
 
@@ -85,4 +87,4 @@ const SeriesSidebar = ({$c, series}: Props) => {
   );
 };
 
-export default withCatalystContext(SeriesSidebar);
+export default SeriesSidebar;

@@ -13,7 +13,7 @@ import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 
-type ChangeReleaseQualityT = {
+type ChangeReleaseQualityEditT = {
   ...EditT,
   +display_data: {
     +changes: $ReadOnlyArray<{
@@ -23,7 +23,11 @@ type ChangeReleaseQualityT = {
   },
 };
 
-const ChangeReleaseQuality = ({edit}: {+edit: ChangeReleaseQualityT}) => (
+type Props = {
+  +edit: ChangeReleaseQualityEditT,
+};
+
+const ChangeReleaseQuality = ({edit}: Props): React.Element<'table'> => (
   <table className="details change-release-quality">
     {edit.display_data.changes.map((change, index) => {
       const oldQuality = QUALITY_NAMES.get(change.quality.old);

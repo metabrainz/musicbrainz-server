@@ -9,7 +9,9 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
+import {CatalystContext} from '../../../context';
+import typeof EntityLink
+  from '../../../static/scripts/common/components/EntityLink';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 
 function entityArg(entity) {
@@ -28,7 +30,6 @@ function hasEntity($c, collection) {
 }
 
 type CollectionAddRemoveProps = {
-  +$c: CatalystContextT,
   +collections?: $ReadOnlyArray<CollectionT>,
   +entity: CoreEntityT,
   +noneText?: string,
@@ -56,12 +57,11 @@ type CollectionListProps = {
   +ownCollectionsHeader: string,
   +ownCollectionsNoneText: string,
   +sectionClass: string,
-  +usersLink: React.Node,
+  +usersLink: React.Element<EntityLink>,
   +usersLinkHeader: string,
 };
 
-const CollectionAddRemove = withCatalystContext(({
-  $c,
+const CollectionAddRemove = ({
   collections,
   entity,
   noneText,
@@ -69,21 +69,25 @@ const CollectionAddRemove = withCatalystContext(({
   collections?.length ? (
     collections.map(collection => (
       <li key={collection.id}>
-        {hasEntity($c, collection) ? (
-          <a href={collectionUrl(collection, entity, 'remove')}>
-            {texp.l(
-              'Remove from {collection}', {collection: collection.name},
-            )}
-          </a>
-        ) : (
-          <a href={collectionUrl(collection, entity, 'add')}>
-            {texp.l('Add to {collection}', {collection: collection.name})}
-          </a>
-        )}
+        <CatalystContext.Consumer>
+          {$c => (
+            hasEntity($c, collection) ? (
+              <a href={collectionUrl(collection, entity, 'remove')}>
+                {texp.l(
+                  'Remove from {collection}', {collection: collection.name},
+                )}
+              </a>
+            ) : (
+              <a href={collectionUrl(collection, entity, 'add')}>
+                {texp.l('Add to {collection}', {collection: collection.name})}
+              </a>
+            )
+          )}
+        </CatalystContext.Consumer>
       </li>
     ))
   ) : <li>{noneText}</li>
-));
+);
 
 const CollaborativeCollectionList = ({
   collections,
@@ -129,7 +133,7 @@ const CollectionList = ({
   sectionClass,
   usersLink,
   usersLinkHeader,
-}: CollectionListProps) => (
+}: CollectionListProps): React.MixedElement => (
   <>
     <h2 className={sectionClass}>
       {header}

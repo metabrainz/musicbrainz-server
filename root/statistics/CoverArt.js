@@ -12,7 +12,6 @@ import {range} from 'lodash';
 
 import {l_statistics as l}
   from '../static/scripts/common/i18n/statistics';
-import {withCatalystContext} from '../context';
 
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
@@ -65,8 +64,8 @@ const CoverArt = ({
   releaseFormatStats,
   stats,
   typeStats,
-}: CoverArtStatsT) => (
-  <StatisticsLayout fullWidth page="coverart" title={l('Cover Art')}>
+}: CoverArtStatsT): React.Element<typeof StatisticsLayout> => (
+  <StatisticsLayout $c={$c} fullWidth page="coverart" title={l('Cover Art')}>
     <p>
       {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>
@@ -327,5 +326,4 @@ const CoverArt = ({
   </StatisticsLayout>
 );
 
-
-export default withCatalystContext(CoverArt);
+export default CoverArt;

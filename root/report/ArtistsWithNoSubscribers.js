@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const ArtistsWithNoSubscribers = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>) => (
-  <Layout fullWidth title={l('Artists with no subscribers')}>
+}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Artists with no subscribers')}>
     <h1>{l('Artists with no subscribers')}</h1>
 
     <ul>
@@ -43,7 +42,7 @@ const ArtistsWithNoSubscribers = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ArtistList items={items} pager={pager} />
@@ -51,4 +50,4 @@ const ArtistsWithNoSubscribers = ({
   </Layout>
 );
 
-export default withCatalystContext(ArtistsWithNoSubscribers);
+export default ArtistsWithNoSubscribers;

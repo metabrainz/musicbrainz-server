@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import EditorLink from '../../../static/scripts/common/components/EditorLink';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 
@@ -20,7 +19,10 @@ type Props = {
   +collection: CollectionT,
 };
 
-const CollectionSidebar = ({$c, collection}: Props) => {
+const CollectionSidebar = ({
+  $c,
+  collection,
+}: Props): React.Element<'div'> => {
   const typeName = collection.typeName;
 
   return (
@@ -97,4 +99,4 @@ const CollectionSidebar = ({$c, collection}: Props) => {
   );
 }
 
-export default withCatalystContext(CollectionSidebar);
+export default CollectionSidebar;

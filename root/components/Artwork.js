@@ -31,7 +31,11 @@ type Props = {
   +message?: string,
 };
 
-export const ArtworkImage = ({artwork, fallback, message}: Props) => (
+export const ArtworkImage = ({
+  artwork,
+  fallback,
+  message,
+}: Props): React.Element<typeof React.Fragment> => (
   <>
     <noscript>
       <img src={artwork.small_thumbnail} />
@@ -49,7 +53,11 @@ export const ArtworkImage = ({artwork, fallback, message}: Props) => (
   </>
 );
 
-export const Artwork = ({artwork, fallback, message}: Props) => (
+export const Artwork = ({
+  artwork,
+  fallback,
+  message,
+}: Props): React.Element<'a'> => (
   <a
     className={artwork.mime_type === 'application/pdf'
       ? 'artwork-pdf'

@@ -68,6 +68,45 @@ sub is_empty_attribute {
     return !$field->field('type_id')->value && !$field->field('value')->value;
 }
 
+sub validate_languages {
+    my $self = shift;
+
+    my @languages = $self->field('languages')->fields;
+
+    my $is_valid = 1;
+
+    # If we have only one language, then it can be whatever
+    # If we have two or more, we check it's not mul (248) nor zxx (486)
+    # because combining those with anything else doesn't make sense,
+    # and we check the same language hasn't been selected multiple times
+    if (scalar @languages > 1) {
+        my %used_languages;
+        for my $language_field (@languages) {
+            my $language_id = $language_field->value;
+
+            if ($language_id == 284) {
+                $language_field->push_errors(
+                    l('You cannot select “[Multiple languages]” and specific languages at the same time.')
+                );
+                $is_valid = 0;
+            } elsif ($language_id == 486) {
+                $language_field->push_errors(
+                    l('You cannot select “[No lyrics]” and a lyrics language at the same time.')
+                );
+                $is_valid = 0;
+            } elsif ($used_languages{$language_id}) {
+                $language_field->add_error(
+                    l('You cannot select the same language more than once.')
+                );
+                $is_valid = 0;
+            }
+            $used_languages{$language_id} = 1;
+        }
+    }
+
+    return $is_valid;
+}
+
 after 'validate' => sub {
     my ($self) = @_;
 

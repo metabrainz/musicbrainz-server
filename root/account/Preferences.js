@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import UserAccountLayout from '../components/UserAccountLayout';
-import {withCatalystContext} from '../context';
 import PreferencesForm
   from '../static/scripts/account/components/PreferencesForm';
 import type {PreferencesFormPropsT}
@@ -22,8 +21,12 @@ type Props = {
   +$c: $ReadOnly<{...CatalystContextT, user: EditorT}>,
 };
 
-const Preferences = withCatalystContext(({$c, ...props}: Props) => (
+const Preferences = ({
+  $c,
+  ...props
+}: Props): React.Element<typeof UserAccountLayout> => (
   <UserAccountLayout
+    $c={$c}
     entity={$c.user}
     page="preferences"
     title={l('Preferences')}
@@ -31,6 +34,6 @@ const Preferences = withCatalystContext(({$c, ...props}: Props) => (
     <PreferencesForm {...props} />
     {manifest.js('account/preferences')}
   </UserAccountLayout>
-));
+);
 
 export default Preferences;

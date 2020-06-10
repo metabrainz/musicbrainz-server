@@ -41,6 +41,8 @@ copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_render
 copy_mb(``webpack.client.config.js webpack.server.config.js webpack.tests.config.js ./'')
 copy_mb(``webpack/ webpack/'')
 
+ENV NODE_ENV production
+RUN sudo_mb(``carton exec -- ./script/compile_resources.sh'')
 RUN chown_mb(``/tmp/ttc'')')
 
 m4_define(
@@ -145,11 +147,10 @@ copy_mb(``script/functions.sh script/git_info script/'')')
 m4_define(
     `git_info',
     `m4_dnl
-m4_pushdef(`git_info', ``git_info'')
 ENV `GIT_BRANCH' GIT_BRANCH
-ENV `GIT_MSG' GIT_MSG
-ENV `GIT_SHA' GIT_SHA
-m4_popdef(`git_info')')
+ENV `GIT_MSG' m4_changequote(`.quote_never_ever_use_in_a_commit_message.', `.end_quote_never_ever_use_in_a_commit_message.')GIT_MSG
+m4_changequote`'m4_dnl
+ENV `GIT_SHA' GIT_SHA')
 
 m4_define(
     `install_new_xz_utils',

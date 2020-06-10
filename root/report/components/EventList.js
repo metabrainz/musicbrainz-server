@@ -19,10 +19,15 @@ import EventLocations
   from '../../static/scripts/common/components/EventLocations';
 import type {ReportEventT} from '../types';
 
+type Props = {
+  +items: $ReadOnlyArray<ReportEventT>,
+  +pager: PagerT,
+};
+
 const EventList = ({
   items,
   pager,
-}: {items: $ReadOnlyArray<ReportEventT>, pager: PagerT}) => (
+}: Props): React.Element<typeof PaginatedResults> => (
   <PaginatedResults pager={pager}>
     <table className="tbl">
       <thead>

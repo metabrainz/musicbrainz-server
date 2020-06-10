@@ -20,6 +20,7 @@ import * as manifest from '../static/manifest';
 import WorkLayout from './WorkLayout';
 
 type Props = {
+  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +numberOfRevisions: number,
   +wikipediaExtract: WikipediaExtractT | null,
@@ -27,12 +28,13 @@ type Props = {
 };
 
 const WorkIndex = ({
+  $c,
   eligibleForCleanup,
   numberOfRevisions,
   wikipediaExtract,
   work,
-}: Props) => (
-  <WorkLayout entity={work} page="index">
+}: Props): React.Element<typeof WorkLayout>  => (
+  <WorkLayout $c={$c} entity={work} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="work" />
     ) : null}

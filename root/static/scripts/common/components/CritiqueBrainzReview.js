@@ -12,7 +12,7 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
-import * as DBDefs from '../DBDefs-client';
+import DBDefs from '../DBDefs-client';
 
 import Collapsible from './Collapsible';
 
@@ -49,7 +49,7 @@ const CritiqueBrainzReview = ({review, title}: Props) => (
   </>
 );
 
-export default hydrate<Props>(
+export default (hydrate<Props>(
   'div.critiquebrainz-review',
   CritiqueBrainzReview,
-);
+): React.AbstractComponent<Props, void>);

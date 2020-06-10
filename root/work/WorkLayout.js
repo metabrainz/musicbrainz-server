@@ -15,6 +15,7 @@ import WorkSidebar from '../layout/components/sidebar/WorkSidebar';
 import WorkHeader from './WorkHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: WorkT,
   +fullWidth?: boolean,
@@ -23,12 +24,13 @@ type Props = {
 };
 
 const WorkLayout = ({
+  $c,
   children,
   entity: work,
   fullWidth,
   page,
   title,
-}: Props) => {
+}: Props): React.Element<typeof Layout> => {
   const mainTitle = texp.l('{type} “{work}”', {
     type: work.typeName
       ? lp_attributes(work.typeName, 'work_type')
@@ -37,13 +39,14 @@ const WorkLayout = ({
   });
   return (
     <Layout
+      $c={$c}
       title={title ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">
         <WorkHeader page={page} work={work} />
         {children}
       </div>
-      {fullWidth ? null : <WorkSidebar work={work} />}
+      {fullWidth ? null : <WorkSidebar $c={$c} work={work} />}
     </Layout>
   );
 };

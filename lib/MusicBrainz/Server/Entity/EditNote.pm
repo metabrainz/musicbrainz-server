@@ -45,7 +45,7 @@ has 'post_time' => (
 );
 
 sub _localize_text {
-    my ($text) = @_;
+    my ($text, $depth) = @_;
 
     state $json = JSON::XS->new->utf8(0);
 
@@ -55,11 +55,11 @@ sub _localize_text {
         my $source_args = $source->{args} // {};
         my %args = map {
             my $value = $source_args->{$_};
-            $_ => (ref($value) ? $value : _localize_text($value // ''))
+            $_ => (ref($value) ? $value : _localize_text($value // '', $depth + 1))
         } keys %{$source_args};
 
         $text = l($source->{message} // '', \%args);
-    } else {
+    } elsif ($depth == 0) {
         # Otherwise, assume this message uses edit note syntax.
         $text = format_editnote($text);
     }
@@ -73,7 +73,7 @@ sub localize {
     my $text = $self->text;
 
     if ($self->editor_id == $EDITOR_MODBOT) {
-        return _localize_text($text);
+        return _localize_text($text, 0);
     }
 
     return $text;

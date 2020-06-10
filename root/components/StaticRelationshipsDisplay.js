@@ -25,7 +25,7 @@ type Props = {
 const StaticRelationshipsDisplay = ({
   hiddenArtistCredit,
   relationships: groupedRelationships,
-}: Props) => {
+}: Props): Array<React.Element<'table'>> => {
   const tables = [];
 
   for (let i = 0; i < groupedRelationships.length; i++) {

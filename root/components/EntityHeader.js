@@ -12,16 +12,17 @@ import * as React from 'react';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import EntityTabs from './EntityTabs';
+import typeof EntityTabLink from './EntityTabLink';
 import SubHeader from './SubHeader';
 
 type Props = {
-  +editTab?: React.Node,
+  +editTab?: React.Element<EntityTabLink>,
   +entity: CoreEntityT,
   +headerClass: string,
-  +heading?: React.Node,
+  +heading?: Expand2ReactOutput,
   +page: string,
-  +preHeader?: React.Node,
-  +subHeading: React.Node,
+  +preHeader?: Expand2ReactOutput,
+  +subHeading: Expand2ReactOutput,
 };
 
 const EntityHeader = ({
@@ -32,7 +33,7 @@ const EntityHeader = ({
   page,
   preHeader,
   subHeading,
-}: Props) => (
+}: Props): React.Element<typeof React.Fragment> => (
   <>
     <div className={headerClass}>
       {preHeader || null}

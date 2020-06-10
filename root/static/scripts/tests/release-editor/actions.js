@@ -14,6 +14,8 @@ import fields from '../../release-editor/fields';
 
 import * as common from './common';
 
+MB.mediumFormatDates = {1: 1982};
+
 test("removing a track should change the track numbers", function (t) {
     t.plan(3);
 
@@ -35,8 +37,8 @@ test("removing a medium should change the medium positions", function (t) {
     var release = common.setupReleaseEdit();
 
     release.mediums.push(
-        new fields.Medium(common.testMedium),
-        new fields.Medium({ tracks: [], position: 3 }),
+        new fields.Medium(common.testMedium, release),
+        new fields.Medium({ tracks: [], position: 3, release: release }),
     );
 
     var mediums = release.mediums();

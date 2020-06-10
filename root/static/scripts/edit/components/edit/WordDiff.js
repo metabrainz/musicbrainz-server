@@ -11,7 +11,11 @@ import * as React from 'react';
 
 import Diff, {type DiffProps} from './Diff';
 
-const WordDiff = ({label, newText, oldText}: DiffProps) => (
+const WordDiff = ({
+  label,
+  newText,
+  oldText,
+}: DiffProps): React.Element<typeof Diff> => (
   <Diff
     label={label}
     newText={newText}

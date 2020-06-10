@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,9 @@ const LabelsDisambiguationSameName = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportLabelT>) => (
+}: ReportDataT<ReportLabelT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Labels with disambiguation the same as the name')}
   >
@@ -46,7 +46,7 @@ const LabelsDisambiguationSameName = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <LabelList items={items} pager={pager} />
@@ -54,4 +54,4 @@ const LabelsDisambiguationSameName = ({
   </Layout>
 );
 
-export default withCatalystContext(LabelsDisambiguationSameName);
+export default LabelsDisambiguationSameName;

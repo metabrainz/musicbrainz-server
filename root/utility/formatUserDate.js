@@ -156,7 +156,7 @@ export function formatUserDateObject(
   $c: ?(CatalystContextT | SanitizedCatalystContextT),
   date: Date,
   options?: FormatUserDateOptions,
-) {
+): string {
   if (!HAS_INTL_DATETIMEFORMAT) {
     return date.toString();
   }
@@ -192,7 +192,7 @@ export default function formatUserDate(
   $c: ?(CatalystContextT | SanitizedCatalystContextT),
   dateString: string,
   options?: FormatUserDateOptions,
-) {
+): string {
   const date = parseIsoDate(dateString);
 
   if (!date) {

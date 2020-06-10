@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as DBDefs from '../static/scripts/common/DBDefs-client';
+import DBDefs from '../static/scripts/common/DBDefs-client';
 
 const seeReviewsHref = (releaseGroup) => (
   DBDefs.CRITIQUEBRAINZ_SERVER +
@@ -25,7 +25,7 @@ type Props = {
   +releaseGroup: ReleaseGroupT,
 };
 
-const CritiqueBrainzLinks = ({releaseGroup}: Props) => {
+const CritiqueBrainzLinks = ({releaseGroup}: Props): null | Expand2ReactOutput => {
   const reviewCount = releaseGroup.review_count;
 
   if (reviewCount == null) {

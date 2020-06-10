@@ -166,7 +166,7 @@ sub recording_browse : Private
         my $work = $c->model('Work')->get_by_gid($id);
         $c->detach('not_found') unless ($work);
 
-        my @tmp = $c->model('Recording')->find_by_work($work->id, $limit, $offset);
+        my @tmp = $c->model('Recording')->find_by_works([$work->id], $limit, $offset);
         $recordings = $self->make_list(@tmp, $offset);
     }
 

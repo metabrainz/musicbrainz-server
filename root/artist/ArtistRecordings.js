@@ -12,7 +12,6 @@ import * as React from 'react';
 import FormSubmit from '../components/FormSubmit';
 import RecordingList from '../components/list/RecordingList';
 import PaginatedResults from '../components/PaginatedResults';
-import {withCatalystContext} from '../context';
 import Filter from '../static/scripts/common/components/Filter';
 import {type FilterFormT}
   from '../static/scripts/common/components/FilterForm';
@@ -41,8 +40,8 @@ const ArtistRecordings = ({
   recordings,
   standaloneOnly,
   videoOnly,
-}: Props) => (
-  <ArtistLayout entity={artist} page="recordings" title={l('Recordings')}>
+}: Props): React.Element<typeof ArtistLayout> => (
+  <ArtistLayout $c={$c} entity={artist} page="recordings" title={l('Recordings')}>
     <h2>{l('Recordings')}</h2>
 
     <Filter
@@ -54,6 +53,7 @@ const ArtistRecordings = ({
       <form action="/recording/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <RecordingList
+            $c={$c}
             checkboxes="add-to-merge"
             recordings={recordings}
             showRatings
@@ -106,4 +106,4 @@ const ArtistRecordings = ({
   </ArtistLayout>
 );
 
-export default withCatalystContext(ArtistRecordings);
+export default ArtistRecordings;

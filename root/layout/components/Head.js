@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import * as manifest from '../../static/manifest';
-import * as DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 
+import clientDBDefsScript from './clientDBDefsScript';
 import MetaDescription from './MetaDescription';
 
 export type HeadProps = {
@@ -21,7 +21,7 @@ export type HeadProps = {
   +homepage?: boolean,
   +noIcons?: boolean,
   +pager?: PagerT,
-  +title: string,
+  +title?: string,
 };
 
 const canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
@@ -61,7 +61,7 @@ const CanonicalLink = ({requestUri}) => {
   return null;
 };
 
-const Head = ({$c, ...props}: HeadProps) => (
+const Head = ({$c, ...props}: HeadProps): React.Element<'head'> => (
   <head>
     <meta charSet="utf-8" />
     <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
@@ -78,13 +78,13 @@ const Head = ({$c, ...props}: HeadProps) => (
       type="text/css"
     />
 
-    {props.noIcons
-      ? null
-      : <link
-          href={require('../../static/styles/icons.less')}
-          rel="stylesheet"
-          type="text/css"
-        />}
+    {props.noIcons ? null : (
+      <link
+        href={require('../../static/styles/icons.less')}
+        rel="stylesheet"
+        type="text/css"
+      />
+    )}
 
     <link
       href="/static/search_plugins/opensearch/musicbrainz_artist.xml"
@@ -121,6 +121,8 @@ const Head = ({$c, ...props}: HeadProps) => (
       />
     </noscript>
 
+    {clientDBDefsScript}
+
     {manifest.js('runtime')}
 
     {manifest.js('common-chunks')}
@@ -148,4 +150,4 @@ const Head = ({$c, ...props}: HeadProps) => (
   </head>
 );
 
-export default withCatalystContext(Head);
+export default Head;

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-const HeaderLogo = () => (
+const HeaderLogo = (): React.Element<'img'> => (
   <img
     alt="MusicBrainz"
     className="logo"

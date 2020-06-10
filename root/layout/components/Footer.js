@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,13 +9,16 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
-import * as DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs';
 import {DONATE_URL} from '../../constants';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';
 
-const Footer = ({$c}) => {
+type Props = {
+  +$c: CatalystContextT,
+};
+
+const Footer = ({$c}: Props): React.Element<'div'> => {
   const stash = $c.stash;
   return (
     <div id="footer">
@@ -92,4 +96,4 @@ const Footer = ({$c}) => {
   );
 };
 
-export default withCatalystContext(Footer);
+export default Footer;

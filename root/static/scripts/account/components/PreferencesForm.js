@@ -259,4 +259,4 @@ class PreferencesForm extends React.Component<Props, State> {
 
 export type PreferencesFormPropsT = Props;
 
-export default hydrate<Props>('div.preferences-form', PreferencesForm);
+export default (hydrate<Props>('div.preferences-form', PreferencesForm): React.AbstractComponent<Props, void>);

@@ -17,6 +17,7 @@ export type TagLookupFormT = FormT<{
 }>;
 
 export type TagLookupPropsT = {
+  +$c: CatalystContextT,
   +form: TagLookupFormT,
   +nag: boolean,
 };

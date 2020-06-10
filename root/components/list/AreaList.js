@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import Table from '../Table';
-import {withCatalystContext} from '../../context';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -34,7 +33,7 @@ const AreaList = ({
   mergeForm,
   order,
   sortable,
-}: Props) => {
+}: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -64,4 +63,4 @@ const AreaList = ({
   return <Table columns={columns} data={areas} />;
 };
 
-export default withCatalystContext(AreaList);
+export default AreaList;

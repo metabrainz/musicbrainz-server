@@ -416,6 +416,7 @@ sub find_by_recording
 {
     my ($self, $ids, $limit, $offset, %args) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
+    return ([], 0) unless @ids;
 
     my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
@@ -1398,6 +1399,7 @@ sub newest_releases_with_artwork {
       WHERE cover_art_type.type_id = ?
         AND cover_art.ordering = 1
         AND edit.type = ?
+        AND cover_art.date_uploaded < NOW() - INTERVAL \'10 minutes\'
       ORDER BY edit.id DESC
       LIMIT 10';
 

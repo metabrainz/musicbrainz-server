@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const ratingTooltip = (rating: number) => (
+const ratingTooltip = (rating: number): string => (
   rating === 0
     ? l('Remove your rating')
     : texp.ln('Rate: {rating} star', 'Rate: {rating} stars', rating, {rating})

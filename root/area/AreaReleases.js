@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import ReleaseList from '../components/list/ReleaseList';
 import PaginatedResults from '../components/PaginatedResults';
 import RelationshipsTable from '../components/RelationshipsTable';
@@ -28,14 +27,15 @@ const AreaReleases = ({
   area,
   pager,
   releases,
-}: Props) => (
-  <AreaLayout entity={area} page="releases" title={l('Releases')}>
+}: Props): React.Element<typeof AreaLayout> => (
+  <AreaLayout $c={$c} entity={area} page="releases" title={l('Releases')}>
     <h2>{l('Releases')}</h2>
 
     {releases?.length ? (
       <form action="/release/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <ReleaseList
+            $c={$c}
             checkboxes="add-to-merge"
             releases={releases}
           />
@@ -67,4 +67,4 @@ const AreaReleases = ({
   </AreaLayout>
 );
 
-export default withCatalystContext(AreaReleases);
+export default AreaReleases;

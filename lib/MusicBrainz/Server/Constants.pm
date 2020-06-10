@@ -200,7 +200,6 @@ Readonly our $EDIT_RECORDING_DELETE => 73;
 Readonly our $EDIT_RECORDING_MERGE => 74;
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;
-Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
 Readonly our $EDIT_RECORDING_ADD_ALIAS => 711;
 Readonly our $EDIT_RECORDING_DELETE_ALIAS => 712;
@@ -256,8 +255,6 @@ Readonly our $EDIT_EVENT_EDIT_ALIAS => 157;
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
 Readonly our $EDIT_URL_EDIT => 101;
-
-Readonly our $EDIT_PUID_DELETE => 113;
 
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_NAME       => 201;
 Readonly our $EDIT_HISTORIC_EDIT_TRACKNAME          => 204;

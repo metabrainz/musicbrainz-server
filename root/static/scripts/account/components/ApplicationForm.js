@@ -115,4 +115,4 @@ class ApplicationForm extends React.Component<Props, State> {
 }
 
 export type ApplicationFormPropsT = Props;
-export default hydrate<Props>('div.application-form', ApplicationForm);
+export default (hydrate<Props>('div.application-form', ApplicationForm): React.AbstractComponent<Props, void>);

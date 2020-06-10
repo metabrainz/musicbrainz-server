@@ -15,7 +15,9 @@ type Props = {
   +message: string,
 };
 
-const ResetPasswordStatus = ({message}: Props) => (
+const ResetPasswordStatus = ({
+  message,
+}: Props): React.Element<typeof StatusPage> => (
   <StatusPage title={l('Reset Password')}>
     <p>{message}</p>
   </StatusPage>

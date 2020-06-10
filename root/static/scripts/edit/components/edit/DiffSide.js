@@ -33,7 +33,12 @@ type Props = {
   +split?: string,
 };
 
-const DiffSide = ({filter, newText, oldText, split = ''}: Props) => {
+const DiffSide = ({
+  filter,
+  newText,
+  oldText,
+  split = '',
+}: Props): React.MixedElement | string => {
   const stack = [];
   const splitMatch = new RegExp('^(?:' + split + ')$');
   const diffs = editDiff(

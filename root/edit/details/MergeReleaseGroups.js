@@ -19,18 +19,23 @@ type MergeReleaseGroupsEditT = {
   },
 };
 
-const MergeReleaseGroups = ({edit}: {+edit: MergeReleaseGroupsEditT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +edit: MergeReleaseGroupsEditT,
+};
+
+const MergeReleaseGroups = ({$c, edit}: Props): React.Element<'table'> => (
   <table className="details merge-release-groups">
     <tr>
       <th>{l('Merge:')}</th>
       <td>
-        <ReleaseGroupListTable releaseGroups={edit.display_data.old} />
+        <ReleaseGroupListTable $c={$c} releaseGroups={edit.display_data.old} />
       </td>
     </tr>
     <tr>
       <th>{l('Into:')}</th>
       <td>
-        <ReleaseGroupListTable releaseGroups={[edit.display_data.new]} />
+        <ReleaseGroupListTable $c={$c} releaseGroups={[edit.display_data.new]} />
       </td>
     </tr>
   </table>

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const DiscogsLinksWithMultipleReleases = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseUrlT>) => (
-  <Layout fullWidth title={l('Discogs URLs linked to multiple releases')}>
+}: ReportDataT<ReportReleaseUrlT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Discogs URLs linked to multiple releases')}>
     <h1>{l('Discogs URLs linked to multiple releases')}</h1>
 
     <ul>
@@ -50,7 +49,7 @@ const DiscogsLinksWithMultipleReleases = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseUrlList items={items} pager={pager} />
@@ -58,4 +57,4 @@ const DiscogsLinksWithMultipleReleases = ({
   </Layout>
 );
 
-export default withCatalystContext(DiscogsLinksWithMultipleReleases);
+export default DiscogsLinksWithMultipleReleases;

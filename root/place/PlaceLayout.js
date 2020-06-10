@@ -15,6 +15,7 @@ import PlaceSidebar from '../layout/components/sidebar/PlaceSidebar';
 import PlaceHeader from './PlaceHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: PlaceT,
   +fullWidth?: boolean,
@@ -23,20 +24,22 @@ type Props = {
 };
 
 const PlaceLayout = ({
+  $c,
   children,
   entity: place,
   fullWidth,
   page,
   title,
-}: Props) => (
+}: Props): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     title={title ? hyphenateTitle(place.name, title) : place.name}
   >
     <div id="content">
       <PlaceHeader page={page} place={place} />
       {children}
     </div>
-    {fullWidth ? null : <PlaceSidebar place={place} />}
+    {fullWidth ? null : <PlaceSidebar $c={$c} place={place} />}
   </Layout>
 );
 

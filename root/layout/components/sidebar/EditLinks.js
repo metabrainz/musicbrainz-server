@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import RequestLogin from '../../../components/RequestLogin';
-import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 
 type Props = {
@@ -19,7 +18,11 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const EditLinks = ({$c, children, entity}: Props) => (
+const EditLinks = ({
+  $c,
+  children,
+  entity,
+}: Props): React.Element<typeof React.Fragment> => (
   <>
     <h2 className="editing">{l('Editing')}</h2>
     <ul className="links">
@@ -49,4 +52,4 @@ const EditLinks = ({$c, children, entity}: Props) => (
   </>
 );
 
-export default withCatalystContext(EditLinks);
+export default EditLinks;

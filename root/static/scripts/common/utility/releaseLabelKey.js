@@ -11,7 +11,7 @@ import ko from 'knockout';
 
 import clean from './clean';
 
-export default function releaseLabelKey(releaseLabel: ReleaseLabelT) {
+export default function releaseLabelKey(releaseLabel: ReleaseLabelT): string {
   let result = '';
   const label = ko.unwrap(releaseLabel.label);
   if (label) {

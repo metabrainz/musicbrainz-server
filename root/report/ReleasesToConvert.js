@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,9 @@ const ReleasesToConvert = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Releases which might need converting to "multiple artists"')}
   >
@@ -47,7 +47,7 @@ const ReleasesToConvert = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -55,4 +55,4 @@ const ReleasesToConvert = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleasesToConvert);
+export default ReleasesToConvert;

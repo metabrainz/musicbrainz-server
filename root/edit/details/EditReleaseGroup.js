@@ -18,7 +18,8 @@ import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
 
-type EditReleaseGroupProps = {
+type EditReleaseGroupEditT = {
+  ...EditT,
   +display_data: {
     +artist_credit?: CompT<ArtistCreditT>,
     +comment?: CompT<string>,
@@ -29,7 +30,11 @@ type EditReleaseGroupProps = {
   },
 };
 
-const EditReleaseGroup = ({edit}: {+edit: EditReleaseGroupProps}) => {
+type Props = {
+  +edit: EditReleaseGroupEditT,
+};
+
+const EditReleaseGroup = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;

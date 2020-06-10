@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export function formatPluralEntityTypeName(typeName: string) {
+export function formatPluralEntityTypeName(typeName: string): string {
   switch (typeName) {
     case 'area':
       return l('Areas');
@@ -40,7 +40,7 @@ export function formatPluralEntityTypeName(typeName: string) {
   }
 }
 
-export default function formatEntityTypeName(typeName: string) {
+export default function formatEntityTypeName(typeName: string): string {
   switch (typeName) {
     case 'area':
       return l('Area');

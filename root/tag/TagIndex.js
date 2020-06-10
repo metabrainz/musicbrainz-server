@@ -19,6 +19,7 @@ import expand2text from '../static/scripts/common/i18n/expand2text';
 import TagLayout from './TagLayout';
 
 type Props = {
+  +$c: CatalystContextT,
   +tag: TagT,
   +taggedEntities: {
     +[entityType: string]: {
@@ -70,10 +71,10 @@ function buildSection(
   );
 }
 
-const TagIndex = (props: Props) => {
+const TagIndex = (props: Props): React.Element<typeof TagLayout> => {
   const genre = props.tag.genre;
   return (
-    <TagLayout page="" tag={props.tag}>
+    <TagLayout $c={props.$c} page="" tag={props.tag}>
       {genre ? (
         <>
           <h2>{l('Genre')}</h2>

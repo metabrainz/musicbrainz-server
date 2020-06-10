@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -25,8 +24,8 @@ const AnnotationsRecordings = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingAnnotationT>) => (
-  <Layout fullWidth title={l('Recording annotations')}>
+}: ReportDataT<ReportRecordingAnnotationT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Recording annotations')}>
     <h1>{l('Recording annotations')}</h1>
 
     <ul>
@@ -43,7 +42,7 @@ const AnnotationsRecordings = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <RecordingAnnotationList items={items} pager={pager} />
@@ -51,4 +50,4 @@ const AnnotationsRecordings = ({
   </Layout>
 );
 
-export default withCatalystContext(AnnotationsRecordings);
+export default AnnotationsRecordings;

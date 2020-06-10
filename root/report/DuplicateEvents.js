@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const DuplicateEvents = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportEventT>) => (
-  <Layout fullWidth title={l('Possible duplicate events')}>
+}: ReportDataT<ReportEventT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Possible duplicate events')}>
     <h1>{l('Possible duplicate events')}</h1>
 
     <ul>
@@ -44,7 +43,7 @@ const DuplicateEvents = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <EventList items={items} pager={pager} />
@@ -52,4 +51,4 @@ const DuplicateEvents = ({
   </Layout>
 );
 
-export default withCatalystContext(DuplicateEvents);
+export default DuplicateEvents;

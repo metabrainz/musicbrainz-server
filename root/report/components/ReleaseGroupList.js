@@ -16,13 +16,15 @@ import type {ReportReleaseGroupT} from '../types';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 
+type Props = {
+  +items: $ReadOnlyArray<ReportReleaseGroupT>,
+  +pager: PagerT,
+};
+
 const ReleaseGroupList = ({
   items,
   pager,
-}: {
-  items: $ReadOnlyArray<ReportReleaseGroupT>,
-  pager: PagerT,
-}) => {
+}: Props): React.Element<typeof PaginatedResults> => {
   let currentKey = '';
   let lastKey = '';
 

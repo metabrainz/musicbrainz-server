@@ -11,7 +11,11 @@ import * as React from 'react';
 
 import DescriptiveLink from './DescriptiveLink';
 
-const EventLocations = ({event}: {event: EventT}) => (
+type Props = {
+  +event: EventT,
+};
+
+const EventLocations = ({event}: Props): React.Element<'ul'> => (
   <ul>
     {event.places.map(place => (
       <li key={place.entity.id}>

@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {withCatalystContext} from '../context';
 import {formatUserDateObject} from '../utility/formatUserDate';
 import parseIsoDate from '../utility/parseIsoDate';
 
@@ -16,7 +15,10 @@ type PropsT = {
   +closingDate: string,
 };
 
-const VotingPeriod = ({$c, closingDate}: PropsT) => {
+const VotingPeriod = ({
+  $c,
+  closingDate,
+}: PropsT): Expand2ReactOutput | null => {
   const date = parseIsoDate(closingDate);
   if (!date) {
     return null;
@@ -61,4 +63,4 @@ const VotingPeriod = ({$c, closingDate}: PropsT) => {
   return l('About to close');
 };
 
-export default withCatalystContext(VotingPeriod);
+export default VotingPeriod;

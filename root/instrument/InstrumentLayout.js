@@ -15,10 +15,10 @@ import InstrumentSidebar
 import localizeInstrumentName
   from '../static/scripts/common/i18n/localizeInstrumentName';
 
-
 import InstrumentHeader from './InstrumentHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: InstrumentT,
   +fullWidth?: boolean,
@@ -27,12 +27,13 @@ type Props = {
 };
 
 const InstrumentLayout = ({
+  $c,
   children,
   entity: instrument,
   fullWidth,
   page,
   title,
-}: Props) => {
+}: Props): React.Element<typeof Layout> => {
   const nameWithType = texp.l('{type} “{instrument}”', {
     instrument: localizeInstrumentName(instrument),
     type: instrument.typeName
@@ -41,6 +42,7 @@ const InstrumentLayout = ({
   });
   return (
     <Layout
+      $c={$c}
       title={title
         ? hyphenateTitle(nameWithType, title)
         : nameWithType}
@@ -49,7 +51,9 @@ const InstrumentLayout = ({
         <InstrumentHeader instrument={instrument} page={page} />
         {children}
       </div>
-      {fullWidth ? null : <InstrumentSidebar instrument={instrument} />}
+      {fullWidth ? null : (
+        <InstrumentSidebar $c={$c} instrument={instrument} />
+      )}
     </Layout>
   );
 };

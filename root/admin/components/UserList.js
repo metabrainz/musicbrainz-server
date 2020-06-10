@@ -19,7 +19,7 @@ type Props = {
   +users: $ReadOnlyArray<EditorT>,
 };
 
-const UserList = ({$c, users}: Props) => (
+const UserList = ({$c, users}: Props): React.Element<'table'> => (
   <table className="tbl">
     <thead>
       <tr>

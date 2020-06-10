@@ -15,7 +15,7 @@ type Props = {
 
 const HiddenField = ({
   field,
-}: Props) => (
+}: Props): React.Element<'input'> => (
   <input
     name={field.html_name}
     type="hidden"

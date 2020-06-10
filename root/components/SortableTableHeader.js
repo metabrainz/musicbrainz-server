@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
+import {CatalystContext} from '../context';
 import uriWith from '../utility/uriWith';
 
 function printSortArrows(name, order) {
@@ -27,24 +27,29 @@ function printSortArrows(name, order) {
 }
 
 type Props = {
-  +$c: CatalystContextT,
   +label: string,
   +name: string,
   +order: ?string,
 };
 
-const SortableTableHeader = ({$c, label, name, order}: Props) => (
-  <>
-    <a
-      href={uriWith(
-        $c.req.uri,
-        {order: order === name ? '-' + name : name},
-      )}
-    >
-      {label}
-      {printSortArrows(name, order)}
-    </a>
-  </>
+const SortableTableHeader = ({
+  label,
+  name,
+  order,
+}: Props): React.MixedElement => (
+  <CatalystContext.Consumer>
+    {$c => (
+      <a
+        href={uriWith(
+          $c.req.uri,
+          {order: order === name ? '-' + name : name},
+        )}
+      >
+        {label}
+        {printSortArrows(name, order)}
+      </a>
+    )}
+  </CatalystContext.Consumer>
 );
 
-export default withCatalystContext(SortableTableHeader);
+export default SortableTableHeader;

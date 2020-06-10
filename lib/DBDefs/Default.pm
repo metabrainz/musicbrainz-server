@@ -154,8 +154,10 @@ sub DB_STAGING_SERVER { 1 }
 # If left empty the default value will be shown.
 sub DB_STAGING_SERVER_DESCRIPTION { '' }
 
-# Only change this if running a non-sanitized database on a dev server,
-# e.g. http://test.musicbrainz.org.
+# Only change this if running a non-sanitized database on a staging server,
+# e.g. http://beta.musicbrainz.org.
+# * It shows a banner informing that 'all passwords have been reset to "mb"'.
+# * It disables the IP lookup admin tool.
 sub DB_STAGING_SERVER_SANITIZED { 1 }
 
 # Testing features enable "Accept edit" and "Reject edit" links on edits,

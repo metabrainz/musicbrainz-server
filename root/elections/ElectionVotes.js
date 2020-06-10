@@ -17,7 +17,7 @@ type PropsT = {
   +election: AutoEditorElectionT,
 };
 
-const ElectionVotes = ({$c, election}: PropsT) => (
+const ElectionVotes = ({$c, election}: PropsT): React.Element<'table'> => (
   <table className="tbl" style={{width: 'auto'}}>
     <thead>
       <tr>

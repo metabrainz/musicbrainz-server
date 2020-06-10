@@ -12,15 +12,17 @@ import * as React from 'react';
 import Layout from '../layout';
 
 type Props = {
+  +$c: CatalystContextT,
   +application: ApplicationT,
   +code: string,
 };
 
 const OAuth2Oob = ({
+  $c,
   application,
   code,
-}: Props) => (
-  <Layout fullWidth title={l('OAuth Authorization')}>
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('OAuth Authorization')}>
     <h1>{l('Success!')}</h1>
     <p>
       {texp.l(

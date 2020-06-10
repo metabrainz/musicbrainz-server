@@ -13,7 +13,7 @@ import HistoricReleaseList from '../../components/HistoricReleaseList';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 
-type ChangeReleaseArtistT = {
+type ChangeReleaseArtistEditT = {
   ...EditT,
   +display_data: {
     +artist: CompT<ArtistT>,
@@ -21,7 +21,11 @@ type ChangeReleaseArtistT = {
   },
 };
 
-const ChangeReleaseArtist = ({edit}: {+edit: ChangeReleaseArtistT}) => (
+type Props = {
+  +edit: ChangeReleaseArtistEditT,
+};
+
+const ChangeReleaseArtist = ({edit}: Props): React.Element<'table'> => (
   <table className="details change-release-artist">
     <HistoricReleaseList
       colSpan="2"

@@ -10,7 +10,6 @@
 import * as React from 'react';
 import upperFirst from 'lodash/upperFirst';
 
-import {withCatalystContext} from '../../context';
 import Layout from '../../layout';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 import bracketed, {bracketedText}
@@ -156,8 +155,8 @@ const AttributesList = ({$c, root}: AttributesListProps) => {
 const RelationshipAttributeTypesIndex = ({
   $c,
   root,
-}: AttributesListProps) => (
-  <Layout fullWidth noIcons page="index" title={l('Relationship Attributes')}>
+}: AttributesListProps): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth noIcons title={l('Relationship Attributes')}>
     <div id="content">
       <RelationshipsHeader page="attributes" />
       {$c.user?.is_relationship_editor ? (
@@ -172,4 +171,4 @@ const RelationshipAttributeTypesIndex = ({
   </Layout>
 );
 
-export default withCatalystContext(RelationshipAttributeTypesIndex);
+export default RelationshipAttributeTypesIndex;

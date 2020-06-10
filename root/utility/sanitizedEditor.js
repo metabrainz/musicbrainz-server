@@ -16,6 +16,7 @@ function sanitizedEditor(
   return {
     entityType: 'editor',
     gravatar: editor.gravatar,
+    has_confirmed_email_address: editor.has_confirmed_email_address,
     id: editor.id,
     name: editor.name,
     preferences: {

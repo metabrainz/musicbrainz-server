@@ -16,7 +16,10 @@ type Props = {
   +page: string,
 };
 
-const LabelHeader = ({label, page}: Props) => (
+const LabelHeader = ({
+  label,
+  page,
+}: Props): React.Element<typeof EntityHeader> => (
   <EntityHeader
     entity={label}
     headerClass="labelheader"

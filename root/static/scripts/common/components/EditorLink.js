@@ -12,7 +12,7 @@ import * as React from 'react';
 import entityHref from '../utility/entityHref';
 import isolateText from '../utility/isolateText';
 
-const MissingEditorLink = () => {
+const MissingEditorLink = (): React.Element<'span'> => {
   return (
     <span
       className="deleted tooltip"
@@ -33,7 +33,12 @@ type Props = {
   +subPath?: string,
 };
 
-const EditorLink = ({editor, content, avatarSize, subPath}: Props) => {
+const EditorLink = ({
+  editor,
+  content,
+  avatarSize,
+  subPath,
+}: Props): React.Element<typeof MissingEditorLink | 'a'> => {
   if (!editor) {
     return <MissingEditorLink />;
   }

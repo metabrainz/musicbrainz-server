@@ -39,7 +39,7 @@ function getSubmitText(type: string) {
   return '';
 }
 
-const FilterForm = ({form}: Props) => {
+const FilterForm = ({form}: Props): React.Element<'div'> => {
   const typeIdField = form.field.type_id;
   const typeIdOptions = form.options_type_id;
   const artistCreditIdField = form.field.artist_credit_id;

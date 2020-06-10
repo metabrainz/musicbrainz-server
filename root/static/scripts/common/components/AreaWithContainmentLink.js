@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015–2016 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -16,7 +17,18 @@ const makeContainmentLink = (x, i) => (
   <EntityLink entity={x} key={i + 1} />
 );
 
-const AreaWithContainmentLink = ({area, ...props}) => {
+type Props = {
+  +allowNew?: boolean,
+  +area: AreaT,
+  +content?: Expand2ReactOutput,
+  +showDisambiguation?: boolean,
+  +target?: '_blank',
+};
+
+const AreaWithContainmentLink = ({
+  area,
+  ...props
+}: Props): Expand2ReactOutput => {
   const areaLink = <EntityLink entity={area} key={0} {...props} />;
 
   return area.containment ? commaOnlyList(

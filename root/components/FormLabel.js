@@ -15,7 +15,7 @@ type Props = {
   +required?: boolean,
 };
 
-const FormLabel = (props: Props) => (
+const FormLabel = (props: Props): React.Element<'label'> => (
   <label
     className={props.required ? 'required' : ''}
     htmlFor={props.forField ? 'id-' + props.forField.html_name : null}

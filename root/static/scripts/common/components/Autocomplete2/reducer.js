@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {unwrapNl} from '../../i18n';
+import type {EntityItem} from "./types.js";import {unwrapNl} from '../../i18n';
 
 import {
   SEARCH_AGAIN,
@@ -223,7 +223,7 @@ function runReducer(
 export default function reducer(
   state: State,
   action: Actions,
-) {
+): State {
   if (action.type === 'noop') {
     return state;
   }

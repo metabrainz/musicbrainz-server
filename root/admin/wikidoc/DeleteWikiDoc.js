@@ -12,18 +12,17 @@ import * as React from 'react';
 import FormCsrfToken from '../../components/FormCsrfToken';
 import FormSubmit from '../../components/FormSubmit';
 import Layout from '../../layout';
-import {withCatalystContext} from '../../context';
 
 type Props = {
   +$c: CatalystContextT,
   +page: string,
 };
 
-const DeleteWikiDoc = withCatalystContext(({
+const DeleteWikiDoc = ({
   $c,
   page,
-}: Props) => (
-  <Layout fullWidth title={l('Remove Page')}>
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Remove Page')}>
     <div id="content">
       <h1>{l('Remove Page')}</h1>
       <p>
@@ -44,6 +43,6 @@ const DeleteWikiDoc = withCatalystContext(({
       </form>
     </div>
   </Layout>
-));
+);
 
 export default DeleteWikiDoc;

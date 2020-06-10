@@ -14,6 +14,7 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 
 type PropsT = {
+  +$c: CatalystContextT,
   +instrument_types: $ReadOnlyArray<InstrumentTypeT>,
   +instruments_by_type: {
     +[typeId: number]: $ReadOnlyArray<InstrumentT>,
@@ -36,13 +37,14 @@ const Instrument = ({instrument}) => (
 );
 
 const InstrumentList = ({
+  $c,
   instrument_types: instrumentTypes,
   instruments_by_type: instrumentsByType,
-}: PropsT) => {
+}: PropsT): React.Element<typeof Layout> => {
   const unknown = instrumentsByType.unknown;
 
   return (
-    <Layout fullWidth title={l('Instrument List')}>
+    <Layout $c={$c} fullWidth title={l('Instrument List')}>
       <div id="content">
         <h1>{l('Instrument List')}</h1>
         {instrumentTypes.map(type => (

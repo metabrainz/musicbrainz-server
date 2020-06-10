@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsWithContextT} from '../types';
@@ -42,8 +41,9 @@ const SeriesResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<SeriesT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<SeriesT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={
@@ -66,4 +66,4 @@ const SeriesResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(SeriesResults);
+export default SeriesResults;

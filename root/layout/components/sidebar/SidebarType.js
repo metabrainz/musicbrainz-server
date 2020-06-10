@@ -18,7 +18,10 @@ type Props = {
   +typeType: string,
 };
 
-const SidebarType = ({entity, typeType}: Props) => (
+const SidebarType = ({
+  entity,
+  typeType,
+}: Props): React.MixedElement | null => (
   entity.typeID ? (
     <SidebarProperty className="type" label={l('Type:')}>
       {lp_attributes(

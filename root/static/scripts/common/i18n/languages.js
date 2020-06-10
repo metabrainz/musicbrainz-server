@@ -9,6 +9,11 @@
 
 import * as wrapGettext from './wrapGettext';
 
-export const l_languages = wrapGettext.dgettext('languages');
-export const ln_languages = wrapGettext.dngettext('languages');
-export const lp_languages = wrapGettext.dpgettext('languages');
+export const l_languages: (string) => string =
+  wrapGettext.dgettext('languages');
+
+export const ln_languages: (string, string, number) => string =
+  wrapGettext.dngettext('languages');
+
+export const lp_languages: (string, string) => string =
+  wrapGettext.dpgettext('languages');

@@ -75,7 +75,6 @@ sub _where_filter
 
     if (defined $filter) {
         if (exists $filter->{name}) {
-            push @query,
             push @query, "(mb_simple_tsvector(rg.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR rg.name = ?)";
             push @params, $filter->{name}, $filter->{name};
         }

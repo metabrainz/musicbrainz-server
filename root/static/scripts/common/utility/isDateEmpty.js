@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function isDateEmpty(date: ?PartialDateT) {
+export default function isDateEmpty(date: ?PartialDateT): boolean {
   return (date == null) ||
     (date.year == null && date.month == null && date.day == null);
 }

@@ -20,7 +20,7 @@ import DescriptiveLink from
 import {commaOnlyListText} from
   '../../static/scripts/common/i18n/commaOnlyList';
 
-type EditLabelProps = {
+type EditLabelEditT = {
   +display_data: {
     +area?: CompT<AreaT | null>,
     +begin_date?: CompT<PartialDateT>,
@@ -37,7 +37,11 @@ type EditLabelProps = {
   },
 };
 
-const EditLabel = ({edit}: {+edit: EditLabelProps}) => {
+type Props = {
+  +edit: EditLabelEditT,
+};
+
+const EditLabel = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const name = display.name;
   const sortName = display.sort_name;

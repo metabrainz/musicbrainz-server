@@ -9,7 +9,9 @@
 
 import * as React from 'react';
 
-const SubHeader = ({subHeading}: {subHeading: React.Node}) => (
+type Props = {+subHeading: React.Node};
+
+const SubHeader = ({subHeading}: Props): React.Element<'p'> => (
   <p className="subheader">
     <span className="prefix">{'~'}</span>
     {' '}

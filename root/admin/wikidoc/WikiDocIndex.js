@@ -12,7 +12,6 @@ import defaults from 'lodash/defaults';
 
 import Layout from '../../layout';
 import Table from '../../components/Table';
-import {withCatalystContext} from '../../context';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 
 import type {WikiDocT} from './types';
@@ -25,7 +24,7 @@ type PropsT = {
   +wikiServer: string,
 };
 
-const WikiDocTable = withCatalystContext(({
+const WikiDocTable = ({
   $c,
   pages,
   updatesRequired,
@@ -143,10 +142,10 @@ const WikiDocTable = withCatalystContext(({
       data={pages}
     />
   );
-});
+};
 
-const WikiDocIndex = withCatalystContext((props: PropsT) => (
-  <Layout fullWidth title={l('Transclusion Table')}>
+const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => (
+  <Layout $c={props.$c} fullWidth title={l('Transclusion Table')}>
     <div className="content">
       <h1>{l('Transclusion Table')}</h1>
       <p>
@@ -189,6 +188,6 @@ const WikiDocIndex = withCatalystContext((props: PropsT) => (
 
     <WikiDocTable {...props} />
   </Layout>
-));
+);
 
 export default WikiDocIndex;

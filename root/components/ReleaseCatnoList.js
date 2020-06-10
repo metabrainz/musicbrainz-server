@@ -21,7 +21,9 @@ type ReleaseLabelsProps = {
   +labels?: $ReadOnlyArray<ReleaseLabelT>,
 };
 
-const ReleaseCatnoList = ({labels: releaseLabels}: ReleaseLabelsProps) => {
+const ReleaseCatnoList = ({
+  labels: releaseLabels,
+}: ReleaseLabelsProps): Expand2ReactOutput | null => {
   if (!releaseLabels || !releaseLabels.length) {
     return null;
   }
