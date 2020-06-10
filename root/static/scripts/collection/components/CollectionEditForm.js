@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {AbstractComponent} from "React";import mutate from 'mutate-cow';
-import React, {useState} from 'react';
+import mutate from 'mutate-cow';
+import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context';
 import FieldErrors from '../../../../components/FieldErrors';
@@ -33,7 +33,7 @@ type Props = {
 
 const CollectionEditForm = ({collectionTypes, form}: Props) => {
   const [collaborators, setCollaborators] =
-    useState(form.field.collaborators);
+    React.useState(form.field.collaborators);
 
   function removeCollaborator(collaboratorIndex: number) {
     setCollaborators(mutate<CollaboratorStateT, _>(collaborators, copy => {
@@ -161,4 +161,4 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
 export default (hydrate<Props>(
   'div.collection-edit-form',
   CollectionEditForm,
-): AbstractComponent<Props, void>);
+): React.AbstractComponent<Props, void>);
