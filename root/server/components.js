@@ -133,6 +133,7 @@ module.exports = {
   'report/AsinsWithMultipleReleases': require('../report/AsinsWithMultipleReleases'),
   'report/BadAmazonUrls': require('../report/BadAmazonUrls'),
   'report/CatNoLooksLikeAsin': require('../report/CatNoLooksLikeAsin'),
+  'report/CatNoLooksLikeLabelCode': require('../report/CatNoLooksLikeLabelCode'),
   'report/CollaborationRelationships': require('../report/CollaborationRelationships'),
   'report/CoverArtRelationships': require('../report/CoverArtRelationships'),
   'report/DeprecatedRelationshipArtists': require('../report/DeprecatedRelationshipArtists'),
