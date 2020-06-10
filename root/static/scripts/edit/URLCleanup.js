@@ -1472,10 +1472,8 @@ const CLEANUPS = {
       if (/^https:\/\/www\.instagram\.com\/explore\//.test(url)) {
         return {
           error: exp.l(
-            `Instagram “{explore_url_pattern}” links are not officially
-             connected to a location.
-             If you want to link a place to a location, try and find
-             the place’s Instagram profile instead, if there is one.`,
+            `Instagram “{explore_url_pattern}” links are not allowed.
+             Please link to a profile instead, if there is one.`,
             {
               explore_url_pattern: (
                 <span className="url-quote">{'/explore'}</span>
