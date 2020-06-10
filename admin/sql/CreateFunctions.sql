@@ -1303,6 +1303,7 @@ AS $$
       DELETE FROM recording_rating_raw WHERE recording = OLD.recording;
       DELETE FROM recording_tag WHERE recording = OLD.recording;
       DELETE FROM recording_tag_raw WHERE recording = OLD.recording;
+      DELETE FROM editor_collection_recording WHERE recording = OLD.recording;
 
       DELETE FROM recording WHERE id = OLD.recording;
     END IF;
