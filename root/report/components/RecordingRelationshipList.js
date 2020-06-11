@@ -20,12 +20,14 @@ type Props = {
   +items: $ReadOnlyArray<ReportRecordingRelationshipT>,
   +pager: PagerT,
   +showDates?: boolean,
+  +showArtist?: boolean,
 };
 
 const RecordingRelationshipList = ({
   items,
   pager,
   showDates,
+  showArtist,
 }: Props): React.Element<typeof PaginatedResults> => (
   <PaginatedResults pager={pager}>
     <table className="tbl">
@@ -38,7 +40,9 @@ const RecordingRelationshipList = ({
             </>
           ) : null}
           <th>{l('Relationship Type')}</th>
-          <th>{l('Artist')}</th>
+          {showArtist ? (
+            <th>{l('Artist')}</th>
+          ) : null}
           <th>{l('Recording')}</th>
         </tr>
       </thead>
@@ -62,11 +66,13 @@ const RecordingRelationshipList = ({
             </td>
             {item.recording ? (
               <>
-                <td>
-                  <ArtistCreditLink
-                    artistCredit={item.recording.artistCredit}
-                  />
-                </td>
+                {showArtist ? (
+                  <td>
+                    <ArtistCreditLink
+                      artistCredit={item.recording.artistCredit}
+                    />
+                  </td>
+                ) : null}
                 <td>
                   <EntityLink entity={item.recording} />
                 </td>
