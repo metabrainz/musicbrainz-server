@@ -60,8 +60,8 @@ const PlaceSidebar = ({$c, place}: Props): React.Element<'div'> => {
           entity={place}
           label={
             isFutureDate(place.begin_date)
-              ? addColonText(l('Opening'))
-              : l('Opened:')
+              ? addColonText(lp('Opening', 'place'))
+              : addColonText(lp('Opened', 'place'))
           }
         />
 
@@ -70,8 +70,8 @@ const PlaceSidebar = ({$c, place}: Props): React.Element<'div'> => {
           entity={place}
           label={
             isFutureDate(place.end_date)
-              ? addColonText(l('Closing'))
-              : l('Closed:')
+              ? addColonText(lp('Closing', 'place'))
+              : addColonText(lp('Closed', 'place'))
           }
         />
 
