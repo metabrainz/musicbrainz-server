@@ -310,6 +310,7 @@
     </p>
     <!-- ko with: target() && target().barcode -->
     <p data-bind="visible: message, text: message"></p>
+    <p data-bind="visible: existing, html: existing"></p>
     <p class="field-error" data-bind="visible: error() || confirmed()">
       <label>
         <strong>

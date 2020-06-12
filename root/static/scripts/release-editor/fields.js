@@ -759,6 +759,7 @@ class Barcode {
         this.original = data;
         this.barcode = ko.observable(data);
         this.message = ko.observable("");
+        this.existing = ko.observable("");
         this.confirmed = ko.observable(false);
         this.error = validation.errorField(ko.observable(""));
 

@@ -10,6 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 
+import expand2html from '../common/i18n/expand2html';
 import expand2text from '../common/i18n/expand2text';
 import {errorsExist} from '../edit/validation';
 
@@ -123,6 +124,26 @@ $(function () {
 });
 
 
+// Search releases with the same barcode
+function searchExistingBarcode(field, barcode) {
+    utils.search("release", `barcode:${barcode}`, 1).done(data => {
+        if (data.releases.length) {
+            var msg = l(
+                `There already exists at least one release with that barcode.
+                 Please check on {url|this search page} whether the release you
+                 are entering is identical.`
+            );
+            var query = `barcode%3A${barcode}&type=release&method=advanced`;
+            field.existing(
+                expand2html(
+                    msg,
+                    { url: { href: `/search?query=${query}`, target: "_blank" }}
+                )
+            );
+        }
+    });
+}
+
 // Barcode should be a valid EAN/UPC.
 
 utils.withRelease(function (release) {
@@ -130,6 +151,7 @@ utils.withRelease(function (release) {
 
     field.error("");
     field.message("");
+    field.existing("");
 
     var barcode = field.barcode();
     if (!barcode || barcode === field.original || field.confirmed()) {
@@ -148,6 +170,7 @@ utils.withRelease(function (release) {
     } else if (barcode.length === 12) {
         if (field.validateCheckDigit("0" + barcode)) {
             field.message(l("The barcode you entered is a valid UPC code."));
+            searchExistingBarcode(field, barcode);
         } else {
             field.error(
                 l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
@@ -160,6 +183,7 @@ utils.withRelease(function (release) {
     } else if (barcode.length === 13) {
         if (field.validateCheckDigit(barcode)) {
             field.message(l("The barcode you entered is a valid EAN code."));
+            searchExistingBarcode(field, barcode);
         } else {
             field.error(
                 l("The barcode you entered is not a valid EAN code.") +
