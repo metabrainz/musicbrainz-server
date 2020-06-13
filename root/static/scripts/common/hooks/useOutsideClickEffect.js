@@ -28,8 +28,8 @@ if (typeof document !== 'undefined') {
   });
 }
 
-export default function useOutsideClickEffect(
-  targetRef: {current: HTMLElement | null},
+export default function useOutsideClickEffect<T: HTMLElement>(
+  targetRef: {current: T | null},
   action: () => void,
   cleanup?: () => void,
 ) {
