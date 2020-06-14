@@ -13,12 +13,12 @@
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').value",
+      target: "document.querySelector('#tracklist input[id$=-single-artist]').value",
       value: 'Nine Inch Nails',
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')",
+      target: "document.querySelector('#tracklist input[id$=-single-artist]').classList.contains('lookup-performed')",
       value: 'true',
     },
     {
@@ -78,12 +78,12 @@
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').value",
+      target: "document.querySelector('#tracklist input[id$=-single-artist]').value",
       value: 'Radiohead',
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')",
+      target: "document.querySelector('#tracklist input[id$=-single-artist]').classList.contains('lookup-performed')",
       value: 'false',
     },
     {

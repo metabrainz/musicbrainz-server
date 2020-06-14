@@ -10,6 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import {MIN_NAME_SIMILARITY} from '../common/constants.js';
+import {createArtistObject} from '../common/entity2.js';
 import {
   hasVariousArtists,
   isCompleteArtistCredit,
@@ -175,8 +176,15 @@ const trackParser = releaseEditor.trackParser = {
         data.artistCredit = matchedAC;
       }
 
-      data.artistCredit = data.artistCredit ||
-        {names: [{name: data.artist || ''}]};
+      const artistName = data.artist ?? '';
+      data.artistCredit = data.artistCredit || {
+        names: [
+          {
+            artist: createArtistObject({name: artistName}),
+            name: artistName,
+          },
+        ],
+      };
 
       /*
        * If the AC has just a single artist, we can re-use the parsed
@@ -207,9 +215,6 @@ const trackParser = releaseEditor.trackParser = {
 
         if (options.useTrackArtists) {
           matchedTrack.artistCredit(data.artistCredit);
-          matchedTrack.artistCreditEditorInst?.current?.setState({
-            artistCredit: data.artistCredit,
-          });
         }
 
         return matchedTrack;
