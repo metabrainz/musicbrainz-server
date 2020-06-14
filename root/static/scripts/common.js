@@ -40,6 +40,7 @@ require('./common/components/ReleaseEvents');
 require('./common/components/WorkArtists');
 require("./common/MB/Control/SelectAll");
 require("./common/components/TagEditor");
+require("./common/components/sidebar/AcousticBrainz");
 
 import(/* webpackChunkName: "common-artwork-viewer" */ "./common/artworkViewer");
 import(/* webpackChunkName: "common-dialogs" */ "./common/dialogs");
