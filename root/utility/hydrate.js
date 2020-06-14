@@ -11,12 +11,7 @@ import mutate from 'mutate-cow';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import {
-  CatalystContext,
-  SanitizedCatalystContext,
-} from '../context';
-
-import sanitizedContext from './sanitizedContext';
+import {SanitizedCatalystContext} from '../context';
 
 export default function hydrate<
   Config: {+$c?: CatalystContextT, ...},
@@ -33,12 +28,11 @@ export default function hydrate<
     $(function () {
       const roots = document.querySelectorAll(containerSelector);
       for (const root of roots) {
-        const contextString = root.getAttribute('data-context');
         const propString = root.getAttribute('data-props');
-        root.removeAttribute('data-context');
         root.removeAttribute('data-props');
-        if (contextString && propString) {
-          const $c: SanitizedCatalystContextT = JSON.parse(contextString);
+        if (propString) {
+          const $c: SanitizedCatalystContextT =
+            window[GLOBAL_CATALYST_CONTEXT_NAMESPACE];
           const props: SanitizedConfig = JSON.parse(propString);
           ReactDOM.hydrate(
             <SanitizedCatalystContext.Provider value={$c}>
@@ -58,18 +52,13 @@ export default function hydrate<
     if (mungeProps) {
       dataProps = mungeProps(dataProps);
     }
-    return (
-      <CatalystContext.Consumer>
-        {$c => React.createElement(
-          containerTag,
-          {
-            'className': classes.join(' '),
-            'data-context': JSON.stringify(sanitizedContext($c)),
-            'data-props': JSON.stringify(dataProps),
-          },
-          <Component {...props} />,
-        )}
-      </CatalystContext.Consumer>
+    return React.createElement(
+      containerTag,
+      {
+        'className': classes.join(' '),
+        'data-props': JSON.stringify(dataProps),
+      },
+      <Component {...props} />,
     );
   };
 }
