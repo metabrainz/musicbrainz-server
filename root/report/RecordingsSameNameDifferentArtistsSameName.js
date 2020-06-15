@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -29,8 +28,9 @@ const RecordingsSameNameDifferentArtistsSameName = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>) => (
+}: ReportDataT<ReportRecordingT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l(`Recordings with the same name by different artists
               with the same name`)}
@@ -63,7 +63,7 @@ const RecordingsSameNameDifferentArtistsSameName = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <PaginatedResults pager={pager}>
@@ -111,6 +111,4 @@ const RecordingsSameNameDifferentArtistsSameName = ({
   </Layout>
 );
 
-export default withCatalystContext(
-  RecordingsSameNameDifferentArtistsSameName,
-);
+export default RecordingsSameNameDifferentArtistsSameName;

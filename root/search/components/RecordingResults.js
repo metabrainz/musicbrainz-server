@@ -9,13 +9,15 @@
 
 import * as React from 'react';
 
-import {CatalystContext, withCatalystContext} from '../../context';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../../utility/loopParity';
-import type {InlineResultsPropsT, ResultsPropsWithContextT} from '../types';
+import type {
+  InlineResultsPropsWithContextT,
+  ResultsPropsWithContextT,
+} from '../types';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../../static/scripts/common/components/CodeLink';
@@ -46,15 +48,13 @@ const buildRecordingColumns = recording => (
   </>
 );
 
-const buildTaggerIcon = entity => (
-  <CatalystContext.Consumer>
-    {$c => $c.session?.tport
-      ? <td><TaggerIcon entity={entity} /></td>
-      : null}
-  </CatalystContext.Consumer>
+const buildTaggerIcon = ($c, entity) => (
+  $c.session?.tport
+    ? <td><TaggerIcon entity={entity} /></td>
+    : null
 );
 
-function buildResultWithReleases(result) {
+function buildResultWithReleases($c, result) {
   const recording = result.entity;
   const score = result.score;
 
@@ -71,7 +71,7 @@ function buildResultWithReleases(result) {
         <td>
           <EntityLink entity={release} />
         </td>
-        {buildTaggerIcon(release)}
+        {buildTaggerIcon($c, release)}
         <td>
           {extraRow.track_position + '/' + extraRow.medium_track_count}
         </td>
@@ -88,13 +88,13 @@ function buildResultWithReleases(result) {
   });
 }
 
-function buildResult(result) {
+function buildResult($c, result) {
   const recording = result.entity;
   const score = result.score;
 
   return (
     result.extra?.length
-      ? buildResultWithReleases(result)
+      ? buildResultWithReleases($c, result)
       : (
         <tr
           className={loopParity(linenum++)}
@@ -103,7 +103,7 @@ function buildResult(result) {
         >
           {buildRecordingColumns(recording)}
           <td>{l('(standalone recording)')}</td>
-          {buildTaggerIcon(recording)}
+          {buildTaggerIcon($c, recording)}
           <td colSpan="3">{'\u00A0'}</td>
         </tr>
       )
@@ -115,9 +115,10 @@ export const RecordingResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsT<RecordingT>) => (
+}: InlineResultsPropsWithContextT<RecordingT>):
+React.Element<typeof PaginatedSearchResults> => (
   <PaginatedSearchResults
-    buildResult={buildResult}
+    buildResult={result => buildResult($c, result)}
     columns={
       <>
         <th>{l('Name')}</th>
@@ -144,10 +145,11 @@ const RecordingResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<RecordingT>) => {
+}: ResultsPropsWithContextT<RecordingT>):
+React.Element<typeof ResultsLayout> => {
   linenum = 0;
   return (
-    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+    <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
       <RecordingResultsInline
         $c={$c}
         pager={pager}
@@ -166,4 +168,4 @@ const RecordingResults = ({
   );
 };
 
-export default withCatalystContext(RecordingResults);
+export default RecordingResults;

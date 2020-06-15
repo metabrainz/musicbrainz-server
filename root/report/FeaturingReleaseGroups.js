@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,9 @@ const FeaturingReleaseGroups = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupT>) => (
+}: ReportDataT<ReportReleaseGroupT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Release groups with titles containing featuring artists')}
   >
@@ -55,7 +55,7 @@ const FeaturingReleaseGroups = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseGroupList items={items} pager={pager} />
@@ -63,4 +63,4 @@ const FeaturingReleaseGroups = ({
   </Layout>
 );
 
-export default withCatalystContext(FeaturingReleaseGroups);
+export default FeaturingReleaseGroups;

@@ -48,7 +48,11 @@ const cleanupBannerStrings = {
   ),
 };
 
-const CleanupBanner = ({entityType}: {entityType: string}) => (
+type Props = {
+  +entityType: string,
+};
+
+const CleanupBanner = ({entityType}: Props): React.Element<'p'> => (
   <p className="cleanup">
     {cleanupBannerStrings[entityType]()}
   </p>

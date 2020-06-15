@@ -36,11 +36,11 @@ function _commaList<Input, Output>(
   return output;
 }
 
-const commaList = (items: $ReadOnlyArray<VarSubstArg>) => (
+const commaList = (items: $ReadOnlyArray<VarSubstArg>): Expand2ReactOutput | string => (
   _commaList<VarSubstArg, Expand2ReactOutput>(exp.l, items)
 );
 
-const commaListText = (items: $ReadOnlyArray<StrOrNum>) => (
+const commaListText = (items: $ReadOnlyArray<StrOrNum>): string => (
   _commaList<StrOrNum, string>(texp.l, items)
 );
 

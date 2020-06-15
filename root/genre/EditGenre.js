@@ -14,18 +14,24 @@ import GenreLayout from './GenreLayout';
 import type {GenreFormT} from './types';
 
 type Props = {
+  +$c: CatalystContextT,
   +form: GenreFormT,
   +genre: GenreT,
 };
 
-const EditGenre = ({form, genre}: Props) => (
+const EditGenre = ({
+  $c,
+  form,
+  genre,
+}: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
+    $c={$c}
     entity={genre}
     fullWidth
     page="edit"
     title={l('Edit genre')}
   >
-    <GenreEditForm form={form} />
+    <GenreEditForm $c={$c} form={form} />
   </GenreLayout>
 );
 

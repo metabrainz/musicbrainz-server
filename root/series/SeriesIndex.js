@@ -28,22 +28,26 @@ import SeriesLayout from './SeriesLayout';
 
 type ListPickerProps = {
   ...SeriesItemNumbersRoleT,
+  +$c: CatalystContextT,
   +entities: $ReadOnlyArray<CoreEntityT>,
   +seriesEntityType: CoreEntityTypeT,
 };
 
 const listPicker = ({
+  $c,
   entities,
   seriesEntityType,
   seriesItemNumbers,
 }: ListPickerProps) => {
   const sharedProps = {
+    $c,
     seriesItemNumbers: seriesItemNumbers,
   };
   switch (seriesEntityType) {
     case 'event':
       return (
         <EventList
+          $c={$c}
           events={((entities: any): $ReadOnlyArray<EventT>)}
           showArtists
           showLocation
@@ -89,6 +93,7 @@ const listPicker = ({
 
 type SeriesIndexProps = {
   ...SeriesItemNumbersRoleT,
+  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +entities: ?$ReadOnlyArray<CoreEntityT>,
   +numberOfRevisions: number,
@@ -98,6 +103,7 @@ type SeriesIndexProps = {
 };
 
 const SeriesIndex = ({
+  $c,
   eligibleForCleanup,
   entities,
   numberOfRevisions,
@@ -105,11 +111,11 @@ const SeriesIndex = ({
   series,
   seriesItemNumbers,
   wikipediaExtract,
-}: SeriesIndexProps) => {
+}: SeriesIndexProps): React.Element<typeof SeriesLayout> => {
   const seriesEntityType = series.type.item_entity_type;
   const existingEntities = entities?.length ? entities : null;
   return (
-    <SeriesLayout entity={series} page="index">
+    <SeriesLayout $c={$c} entity={series} page="index">
       {eligibleForCleanup ? (
         <CleanupBanner entityType="series" />
       ) : null}
@@ -129,6 +135,7 @@ const SeriesIndex = ({
       {existingEntities ? (
         <PaginatedResults pager={pager}>
           {listPicker({
+            $c,
             entities: existingEntities,
             seriesEntityType,
             seriesItemNumbers,

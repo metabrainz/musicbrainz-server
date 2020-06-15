@@ -2,11 +2,12 @@ package MusicBrainz::Server::Edit::Relationship::RelatedEntities;
 use Moose::Role;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 requires 'directly_related_entities';
 
-my %expand = map { $_ => 1 } qw( recording release release_group );
+my %expand = map { $_ => 1 } qw( recording release release_group work );
 
 around _build_related_entities => sub {
     my ($orig, $self) = @_;
@@ -17,15 +18,25 @@ around _build_related_entities => sub {
         my $model = type_to_model($type);
         my @ids = @{ $direct->{$type} };
         my @entities = values %{ $self->c->model($model)->get_by_any_ids(@ids) };
-        $self->c->model('ArtistCredit')->load(@entities);
-        $direct->{artist} ||= [];
-        push @{ $direct->{artist} }, map { $_->artist_id }
-            map { $_->artist_credit->all_names }
-                @entities;
+        if ($ENTITIES{$type}{artist_credits}) {
+            $self->c->model('ArtistCredit')->load(@entities);
+            $direct->{artist} ||= [];
+            push @{ $direct->{artist} }, map { $_->artist_id }
+                map { $_->artist_credit->all_names }
+                    @entities;
+        }
+
+        # For works, we want relationship edits to also appear on the recordings and releases they're linked to
+        my @work_ids = map { $_->id } grep { $_->isa('MusicBrainz::Server::Entity::Work') } @entities;
+        my ($recordings, $recording_hits) = $self->c->model('Recording')->find_by_works(\@work_ids);
+        my @work_recording_ids = map { $_->id } @$recordings;
+        push @{ $direct->{recording} }, @work_recording_ids;
+
 
         # For recordings, we want relationship edits to also appear on the releases they're on
         my @recording_ids = map { $_->id } grep { $_->isa('MusicBrainz::Server::Entity::Recording') } @entities;
-        my ($releases, $hits) = $self->c->model('Release')->find_by_recording(@recording_ids);
+        push @recording_ids, @work_recording_ids;
+        my ($releases, $release_hits) = $self->c->model('Release')->find_by_recording(\@recording_ids);
         push @{ $direct->{release} }, map { $_->id } @$releases;
     }
 

@@ -16,6 +16,7 @@ import CollectionSidebar
 import CollectionHeader from './CollectionHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: CollectionT,
   +fullWidth?: boolean,
@@ -24,24 +25,31 @@ type Props = {
 };
 
 const CollectionLayout = ({
+  $c,
   children,
   entity: collection,
   fullWidth,
   page,
   title,
-}: Props) => {
+}: Props): React.Element<typeof Layout> => {
   const mainTitle = texp.l(
     'Collection “{collection}”',
     {collection: collection.name},
   );
 
   return (
-    <Layout title={title ? hyphenateTitle(mainTitle, title) : mainTitle}>
+    <Layout $c={$c} title={title ? hyphenateTitle(mainTitle, title) : mainTitle}>
       <div id="content">
-        <CollectionHeader collection={collection} page={page} />
+        <CollectionHeader
+          collection={collection}
+          page={page}
+          user={$c.user}
+        />
         {children}
       </div>
-      {fullWidth ? null : <CollectionSidebar collection={collection} />}
+      {fullWidth ? null : (
+        <CollectionSidebar $c={$c} collection={collection} />
+      )}
     </Layout>
   );
 };

@@ -12,7 +12,7 @@ import formatDate from './formatDate';
 export default function formatEndDate<+T: $ReadOnly<{
   ...DatePeriodRoleT,
   ...,
-}>>(entity: T) {
+}>>(entity: T): null | string {
   return entity.end_date
     ? formatDate(entity.end_date)
     : entity.ended ? l('[unknown]') : null;

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -26,12 +25,12 @@ const IswcsWithManyWorks = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportIswcT>) => {
+}: ReportDataT<ReportIswcT>): React.Element<typeof Layout> => {
   let lastIswc = 0;
   let currentIswc = 0;
 
   return (
-    <Layout fullWidth title={l('ISWCs with multiple works')}>
+    <Layout $c={$c} fullWidth title={l('ISWCs with multiple works')}>
       <h1>{l('ISWCs with multiple works')}</h1>
 
       <ul>
@@ -52,7 +51,7 @@ const IswcsWithManyWorks = ({
                   {date: formatUserDate($c, generated)})}
         </li>
 
-        {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
       </ul>
 
       <PaginatedResults pager={pager}>
@@ -88,6 +87,7 @@ const IswcsWithManyWorks = ({
                       <>
                         <td />
                         <WorkListRow
+                          $c={$c}
                           work={item.work}
                         />
                       </>
@@ -110,4 +110,4 @@ const IswcsWithManyWorks = ({
   );
 };
 
-export default withCatalystContext(IswcsWithManyWorks);
+export default IswcsWithManyWorks;

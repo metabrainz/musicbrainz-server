@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import EventLocations
@@ -55,8 +54,9 @@ const EventResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<EventT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<EventT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={
@@ -83,4 +83,4 @@ const EventResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(EventResults);
+export default EventResults;

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -30,12 +29,12 @@ const IsrcsWithManyRecordings = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportIsrcT>) => {
+}: ReportDataT<ReportIsrcT>): React.Element<typeof Layout> => {
   let lastIsrc = 0;
   let currentIsrc = 0;
 
   return (
-    <Layout fullWidth title={l('ISRCs with multiple recordings')}>
+    <Layout $c={$c} fullWidth title={l('ISRCs with multiple recordings')}>
       <h1>{l('ISRCs with multiple recordings')}</h1>
 
       <ul>
@@ -62,7 +61,7 @@ const IsrcsWithManyRecordings = ({
                   {date: formatUserDate($c, generated)})}
         </li>
 
-        {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
       </ul>
 
       <PaginatedResults pager={pager}>
@@ -124,4 +123,4 @@ const IsrcsWithManyRecordings = ({
   );
 };
 
-export default withCatalystContext(IsrcsWithManyRecordings);
+export default IsrcsWithManyRecordings;

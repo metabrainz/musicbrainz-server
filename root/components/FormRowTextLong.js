@@ -12,7 +12,9 @@ import * as React from 'react';
 import type {Props as FormRowTextProps} from './FormRowText';
 import FormRowText from './FormRowText';
 
-const FormRowTextLong = (props: FormRowTextProps) => (
+const FormRowTextLong = (
+  props: FormRowTextProps,
+): React.Element<typeof FormRowText> => (
   <FormRowText size={47} {...props} />
 );
 

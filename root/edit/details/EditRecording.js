@@ -20,7 +20,8 @@ import yesNo from '../../static/scripts/common/utility/yesNo';
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit';
 
-type EditRecordingProps = {
+type EditRecordingEditT = {
+  ...EditT,
   +display_data: {
     +artist_credit?: CompT<ArtistCreditT>,
     +comment?: CompT<string | null>,
@@ -31,7 +32,11 @@ type EditRecordingProps = {
   },
 };
 
-const EditRecording = ({edit}: {+edit: EditRecordingProps}) => {
+type Props = {
+  +edit: EditRecordingEditT,
+};
+
+const EditRecording = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;

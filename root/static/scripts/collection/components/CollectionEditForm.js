@@ -8,7 +8,7 @@
  */
 
 import mutate from 'mutate-cow';
-import React, {useState} from 'react';
+import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context';
 import FieldErrors from '../../../../components/FieldErrors';
@@ -33,7 +33,7 @@ type Props = {
 
 const CollectionEditForm = ({collectionTypes, form}: Props) => {
   const [collaborators, setCollaborators] =
-    useState(form.field.collaborators);
+    React.useState(form.field.collaborators);
 
   function removeCollaborator(collaboratorIndex: number) {
     setCollaborators(mutate<CollaboratorStateT, _>(collaborators, copy => {
@@ -158,7 +158,7 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
   );
 };
 
-export default hydrate<Props>(
+export default (hydrate<Props>(
   'div.collection-edit-form',
   CollectionEditForm,
-);
+): React.AbstractComponent<Props, void>);

@@ -41,7 +41,7 @@ const FormRowSelectList = <S: {+id: number, ...}>({
   removeClassName,
   removeLabel,
   repeatable,
-}: Props<S>) => (
+}: Props<S>): React.Element<typeof FormRow> => (
   <FormRow>
     <label>{addColon(label)}</label>
     <div className="form-row-select-list">

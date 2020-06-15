@@ -14,20 +14,35 @@ import AliasesComponent from '../components/Aliases';
 import ArtistCreditList from '../components/Aliases/ArtistCreditList';
 
 type Props = {
+  +$c: CatalystContextT,
   +aliases: $ReadOnlyArray<AliasT>,
   +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   +entity: CoreEntityT,
 };
 
-const Aliases = ({aliases, artistCredits, entity}: Props) => {
+const Aliases = ({
+  $c,
+  aliases,
+  artistCredits,
+  entity,
+}: Props): React.MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
-    <LayoutComponent entity={entity} page="aliases" title={l('Aliases')}>
-      <AliasesComponent aliases={aliases} entity={entity} />
+    <LayoutComponent
+      $c={$c}
+      entity={entity}
+      page="aliases"
+      title={l('Aliases')}
+    >
+      <AliasesComponent $c={$c} aliases={aliases} entity={entity} />
       {artistCredits?.length ? (
-        <ArtistCreditList artistCredits={artistCredits} entity={entity} />
+        <ArtistCreditList
+          $c={$c}
+          artistCredits={artistCredits}
+          entity={entity}
+        />
       ) : null}
     </LayoutComponent>
   );

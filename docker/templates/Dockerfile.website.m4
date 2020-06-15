@@ -2,13 +2,15 @@ m4_include(`server_base.m4')m4_dnl
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt_install(`lsof zopfli')
+RUN apt_install(`lsof')
+
+copy_common_mbs_files
+
+git_info
 
 install_javascript_and_templates(` --only=production')
 
 install_translations()
-
-copy_common_mbs_files
 
 COPY \
     docker/musicbrainz-website/consul-template-template-renderer.conf \
@@ -23,16 +25,11 @@ COPY \
     /etc/service/website/run
 RUN chmod 755 \
         /etc/service/template-renderer/run \
-        /etc/service/website/run && \
-    touch /etc/service/template-renderer/down
+        /etc/service/website/run
 
 COPY \
-    docker/musicbrainz-website/deploy_static_resources.sh \
-    docker/musicbrainz-website/start_musicbrainz_website.sh \
     docker/scripts/start_musicbrainz_server.sh \
     docker/scripts/start_template_renderer.sh \
     /usr/local/bin/
 
 copy_mb(`docker/templates/DBDefs.pm.ctmpl lib/')
-
-git_info

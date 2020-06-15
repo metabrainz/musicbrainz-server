@@ -17,7 +17,7 @@ type PropsT = {
   +user?: EditorT,
 };
 
-const ElectionVoting = ({election, user}: PropsT) => {
+const ElectionVoting = ({election, user}: PropsT): React.MixedElement => {
   let message = exp.l(
     'To find out if you can vote for this candidate, please {url|log in}.',
     {url: '/login'},

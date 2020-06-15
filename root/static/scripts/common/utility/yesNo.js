@@ -7,6 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function yesNo(bool: boolean) {
+export default function yesNo(bool: boolean): string {
   return bool ? l('Yes') : l('No');
 }

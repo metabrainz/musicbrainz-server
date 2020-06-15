@@ -9,9 +9,8 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
-import * as DBDefs from '../static/scripts/common/DBDefs';
+import DBDefs from '../static/scripts/common/DBDefs';
 import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL';
 
 import DocSearchBox from './components/DocSearchBox';
@@ -24,12 +23,12 @@ type Props = {
 const DocError = ({
   $c,
   id,
-}: Props) => {
+}: Props): React.Element<typeof Layout> => {
   // We check whether we have a Google Custom Search engine
   const useGoogleCustomSearch = !!DBDefs.GOOGLE_CUSTOM_SEARCH;
 
   return (
-    <Layout fullWidth title={l('Page Not Found')}>
+    <Layout $c={$c} fullWidth title={l('Page Not Found')}>
       <div className="wikicontent" id="content">
         {useGoogleCustomSearch ? <DocSearchBox /> : null}
 
@@ -66,4 +65,4 @@ const DocError = ({
   );
 };
 
-export default withCatalystContext(DocError);
+export default DocError;

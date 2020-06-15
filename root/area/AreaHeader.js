@@ -18,7 +18,10 @@ type Props = {
   +page: string,
 };
 
-const AreaHeader = ({area, page}: Props) => {
+const AreaHeader = ({
+  area,
+  page,
+}: Props): React.Element<typeof EntityHeader> => {
   const areaType = area.typeName
     ? lp_attributes(area.typeName, 'area_type')
     : l('Area');

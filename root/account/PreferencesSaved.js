@@ -9,14 +9,13 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import StatusPage from '../components/StatusPage';
 
 type Props = {
   +$c: CatalystContextT,
 };
 
-const PreferencesSaved = ({$c}: Props) => (
+const PreferencesSaved = ({$c}: Props): React.Element<typeof StatusPage> => (
   <StatusPage title={l('Preferences')}>
     <p>
       {exp.l(
@@ -32,4 +31,4 @@ const PreferencesSaved = ({$c}: Props) => (
   </StatusPage>
 );
 
-export default withCatalystContext(PreferencesSaved);
+export default PreferencesSaved;

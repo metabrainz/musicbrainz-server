@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import Table from '../Table';
-import {withCatalystContext} from '../../context';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -35,7 +34,7 @@ const InstrumentList = ({
   mergeForm,
   order,
   sortable,
-}: Props) => {
+}: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -68,4 +67,4 @@ const InstrumentList = ({
   return <Table columns={columns} data={instruments} />;
 };
 
-export default withCatalystContext(InstrumentList);
+export default InstrumentList;

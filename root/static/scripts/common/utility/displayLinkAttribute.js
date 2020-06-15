@@ -57,7 +57,7 @@ function getAttributeValueReact(type: LinkAttrTypeT) {
   );
 }
 
-export default function displayLinkAttribute(attribute: LinkAttrT) {
+export default function displayLinkAttribute(attribute: LinkAttrT): Expand2ReactOutput {
   return _displayLinkAttribute<Expand2ReactOutput>(
     attribute,
     getAttributeValueReact,
@@ -65,7 +65,7 @@ export default function displayLinkAttribute(attribute: LinkAttrT) {
   );
 }
 
-export function displayLinkAttributeText(attribute: LinkAttrT) {
+export function displayLinkAttributeText(attribute: LinkAttrT): string {
   return _displayLinkAttribute<string>(
     attribute,
     localizeLinkAttributeTypeName,
@@ -75,12 +75,12 @@ export function displayLinkAttributeText(attribute: LinkAttrT) {
 
 export function displayLinkAttributes(
   attributes: $ReadOnlyArray<LinkAttrT>,
-) {
+): Expand2ReactOutput {
   return commaList(attributes.map(displayLinkAttribute));
 }
 
 export function displayLinkAttributesText(
   attributes: $ReadOnlyArray<LinkAttrT>,
-) {
+): string {
   return commaListText(attributes.map(displayLinkAttributeText));
 }

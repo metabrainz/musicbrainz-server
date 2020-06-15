@@ -9,13 +9,14 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import {ArtistResultsInline} from '../search/components/ArtistResults';
 
 import TagLookupResults from './Results';
 import type {TagLookupResultsPropsT} from './types';
 
-const TagLookupArtistResults = (props: TagLookupResultsPropsT<ArtistT>) => (
+const TagLookupArtistResults = (
+  props: TagLookupResultsPropsT<ArtistT>,
+): React.Element<typeof TagLookupResults> => (
   <TagLookupResults {...props}>
     <ArtistResultsInline
       $c={props.$c}
@@ -26,4 +27,4 @@ const TagLookupArtistResults = (props: TagLookupResultsPropsT<ArtistT>) => (
   </TagLookupResults>
 );
 
-export default withCatalystContext(TagLookupArtistResults);
+export default TagLookupArtistResults;

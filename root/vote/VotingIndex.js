@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
 type VotingGuideRowProps = {
@@ -43,8 +42,12 @@ const VotingGuideRow = ({
   );
 };
 
-const VotingIndex = () => (
-  <Layout fullWidth title={l('Voting suggestions')}>
+type Props = {
+  +$c: CatalystContextT,
+};
+
+const VotingIndex = ({$c}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Voting suggestions')}>
     <div id="content">
       <h1>{l('Voting suggestions')}</h1>
 
@@ -378,4 +381,4 @@ const VotingIndex = () => (
   </Layout>
 );
 
-export default withCatalystContext(VotingIndex);
+export default VotingIndex;

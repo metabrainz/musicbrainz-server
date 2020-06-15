@@ -36,8 +36,9 @@ type AttributeT =
   ;
 
 type Props = {
-  attributes: Array<AttributeT>,
-  model: string,
+  +$c: CatalystContextT,
+  +attributes: Array<AttributeT>,
+  +model: string,
 };
 
 const renderAttributesHeaderAccordingToModel = (model) => {
@@ -82,8 +83,12 @@ const renderAttributes = (attribute) => {
   }
 };
 
-const Attribute = ({attributes, model}: Props) => (
-  <Layout fullWidth title={model}>
+const Attribute = ({
+  $c,
+  attributes,
+  model,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={model}>
     <h1>
       <a href="/admin/attributes">{l('Attributes')}</a>
       {' / ' + model}

@@ -10,11 +10,12 @@
 import * as React from 'react';
 
 import * as manifest from '../static/manifest';
-import * as DBDefs from '../static/scripts/common/DBDefs-client';
+import DBDefs from '../static/scripts/common/DBDefs-client';
 
 import PlaceLayout from './PlaceLayout';
 
 type Props = {
+  +$c: CatalystContextT,
   +mapDataArgs: {
     +draggable: boolean,
     +place: {
@@ -26,10 +27,11 @@ type Props = {
 };
 
 const PlaceMap = ({
+  $c,
   mapDataArgs,
   place,
-}: Props) => (
-  <PlaceLayout entity={place} page="map" title={l('Map')}>
+}: Props): React.Element<typeof PlaceLayout> => (
+  <PlaceLayout $c={$c} entity={place} page="map" title={l('Map')}>
     {place.coordinates ? (
       DBDefs.MAPBOX_ACCESS_TOKEN ? (
         <>

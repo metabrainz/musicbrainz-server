@@ -17,7 +17,7 @@ type Props = {
   +editors: $ReadOnlyArray<EditorT>,
 };
 
-const UserInlineList = ({editors}: Props) => (
+const UserInlineList = ({editors}: Props): React.Element<'p'> => (
   <p>
     {editors.length ? (
       commaOnlyList(

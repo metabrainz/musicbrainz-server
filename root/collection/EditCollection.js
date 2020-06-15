@@ -17,13 +17,20 @@ import CollectionLayout from './CollectionLayout';
 import type {CollectionEditFormT} from './types';
 
 type Props = {
+  +$c: CatalystContextT,
   +collection: CollectionT,
   +collectionTypes: SelectOptionsT,
   +form: CollectionEditFormT,
 };
 
-const EditCollection = ({collection, collectionTypes, form}: Props) => (
+const EditCollection = ({
+  $c,
+  collection,
+  collectionTypes,
+  form,
+}: Props): React.Element<typeof CollectionLayout> => (
   <CollectionLayout
+    $c={$c}
     entity={collection}
     fullWidth
     page="edit"

@@ -32,7 +32,7 @@ const FormRowRadio = ({
   label,
   options,
   required = false,
-}: Props) => (
+}: Props): React.Element<typeof FormRow> => (
   <FormRow>
     <FormLabel label={label} required={required} />
     <div className="no-label">

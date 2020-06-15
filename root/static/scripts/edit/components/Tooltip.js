@@ -38,7 +38,7 @@ class Tooltip extends React.Component<TooltipProps> {
     }
   }
 
-  render() {
+  render(): React.Element<'div'> {
     var hoverCallback = this.props.hoverCallback;
     return (
       <div className="tooltip-container"

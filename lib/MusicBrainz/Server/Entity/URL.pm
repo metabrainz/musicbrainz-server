@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::URL;
 use Moose;
 
 use MooseX::Types::URI qw( Uri );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
@@ -122,7 +123,7 @@ around TO_JSON => sub {
     return {
         %{ $self->$orig },
         $self->can('show_in_external_links') ?
-            (show_in_external_links => $self->show_in_external_links) : (),
+            (show_in_external_links => boolean_to_json($self->show_in_external_links)) : (),
         $self->can('sidebar_name') ?
             (sidebar_name => $self->sidebar_name) : (),
         href_url => $self->href_url,

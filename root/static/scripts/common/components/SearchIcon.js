@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-const SearchIcon = () => (
+const SearchIcon = (): React.Element<'img'> => (
   <img
     alt={l('Search')}
     className="search"

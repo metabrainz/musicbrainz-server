@@ -9,13 +9,14 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import {ReleaseResultsInline} from '../search/components/ReleaseResults';
 
 import TagLookupResults from './Results';
 import type {TagLookupResultsPropsT} from './types';
 
-const TagLookupReleaseResults = (props: TagLookupResultsPropsT<ReleaseT>) => (
+const TagLookupReleaseResults = (
+  props: TagLookupResultsPropsT<ReleaseT>,
+): React.Element<typeof TagLookupResults> => (
   <TagLookupResults {...props}>
     <ReleaseResultsInline
       $c={props.$c}
@@ -26,4 +27,4 @@ const TagLookupReleaseResults = (props: TagLookupResultsPropsT<ReleaseT>) => (
   </TagLookupResults>
 );
 
-export default withCatalystContext(TagLookupReleaseResults);
+export default TagLookupReleaseResults;

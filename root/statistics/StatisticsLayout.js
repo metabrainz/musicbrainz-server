@@ -17,6 +17,7 @@ import {l_statistics as l, N_l_statistics as N_l}
   from '../static/scripts/common/i18n/statistics';
 
 type StatisticsLayoutPropsT = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +fullWidth: boolean,
   +page: string,
@@ -88,15 +89,17 @@ const infoLinks = [
 ];
 
 const StatisticsLayout = ({
+  $c,
   children,
   fullWidth,
   page,
   sidebar,
   title,
-}: StatisticsLayoutPropsT) => {
+}: StatisticsLayoutPropsT): React.Element<typeof Layout> => {
   const htmlTitle = hyphenateTitle(l('Database Statistics'), title);
   return (
     <Layout
+      $c={$c}
       fullWidth={fullWidth}
       title={htmlTitle}
     >

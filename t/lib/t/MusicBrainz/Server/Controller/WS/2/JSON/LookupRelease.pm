@@ -649,12 +649,12 @@ test 'release lookup with release-group and ratings' => sub {
     { username => 'the-anti-kuno', password => 'wrong' };
 };
 
-test 'release lookup with discids and puids' => sub {
+test 'release lookup with discids' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws2_test_json 'release lookup with discids and puids',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' =>
+    ws2_test_json 'release lookup with discids and recordings',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+recordings' =>
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",

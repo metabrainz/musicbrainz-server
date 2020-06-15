@@ -41,7 +41,11 @@ type AddArtistEditT = {
   },
 };
 
-const AddArtist = ({edit}: {edit: AddArtistEditT}) => {
+type Props = {
+  +edit: AddArtistEditT,
+};
+
+const AddArtist = ({edit}: Props): React.MixedElement => {
   const display = edit.display_data;
   const area = display.area;
   const beginArea = display.begin_area;

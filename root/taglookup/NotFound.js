@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import NotFound from '../components/NotFound';
 
-const TagLookupNotFound = () => (
+const TagLookupNotFound = (): React.Element<typeof NotFound> => (
   <NotFound title={l('Tag Lookup Error')}>
     <p>
       {l(

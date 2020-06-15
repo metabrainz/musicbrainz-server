@@ -14,9 +14,9 @@
       [%- form_row_name_with_guesscase(r, { label => l('Alias name:') }) -%]
       [%- form_row_sortname_with_guesscase(r) -%]
       [% form_row_select(r, 'locale', l('Locale:')) %]
-      <span id="allow_primary_for_locale" style="display: [% form.field('primary_for_locale').value ? 'block' : 'none' %]">
+      <div id="allow_primary_for_locale" style="display: [% form.field('primary_for_locale').value ? 'block' : 'none' %]">
         [% form_row_checkbox(r, 'primary_for_locale', l('This is the primary alias for this locale')) %]
-      </span>
+      </div>
       [% form_row_select(r, 'type_id', l('Type:')) %]
     </fieldset>
 

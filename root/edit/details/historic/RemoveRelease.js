@@ -23,7 +23,11 @@ type RemoveReleaseEditT = {
   },
 };
 
-const RemoveRelease = ({edit}: {+edit: RemoveReleaseEditT}) => {
+type Props = {
+  +edit: RemoveReleaseEditT,
+};
+
+const RemoveRelease = ({edit}: Props): React.Element<'table'> => {
   const artistCredit = edit.display_data.artist_credit;
   return (
     <table className="details remove-release">

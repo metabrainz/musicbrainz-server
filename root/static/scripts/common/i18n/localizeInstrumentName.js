@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-function localizeInstrumentName(instrument: InstrumentT) {
+function localizeInstrumentName(instrument: InstrumentT): string {
   if (instrument.comment) {
     return lp_instruments(instrument.name, instrument.comment);
   }

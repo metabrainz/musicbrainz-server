@@ -12,11 +12,15 @@ import * as React from 'react';
 import Layout from '../../layout';
 
 type Props = {
+  +$c: CatalystContextT,
   +emailAddress: string,
 };
 
-const DiscourseRegistered = ({emailAddress}: Props) => (
-  <Layout fullWidth title={l('Account Created')}>
+const DiscourseRegistered = ({
+  $c,
+  emailAddress,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Account Created')}>
     <h2>{l('Account Created')}</h2>
     <p style={{fontSize: '1.2em'}}>
       {exp.l(

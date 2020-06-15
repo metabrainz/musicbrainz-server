@@ -12,7 +12,6 @@ import * as React from 'react';
 
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage';
-import {withCatalystContext} from '../../../context';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from
@@ -36,7 +35,7 @@ type Props = {
   +work: WorkT,
 };
 
-const WorkSidebar = ({$c, work}: Props) => {
+const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
   const {attributes, iswcs, languages, typeID} = work;
   const showInfo =
     attributes.length ||
@@ -117,6 +116,7 @@ const WorkSidebar = ({$c, work}: Props) => {
       <SidebarRating entity={work} />
 
       <SidebarTags
+        $c={$c}
         aggregatedTags={$c.stash.top_tags}
         entity={work}
         more={!!$c.stash.more_tags}
@@ -125,15 +125,15 @@ const WorkSidebar = ({$c, work}: Props) => {
 
       <ExternalLinks empty entity={work} />
 
-      <EditLinks entity={work}>
-        <AnnotationLinks entity={work} />
+      <EditLinks $c={$c} entity={work}>
+        <AnnotationLinks $c={$c} entity={work} />
 
         <MergeLink entity={work} />
 
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks entity={work} />
+      <CollectionLinks $c={$c} entity={work} />
 
       <SidebarLicenses entity={work} />
 
@@ -142,4 +142,4 @@ const WorkSidebar = ({$c, work}: Props) => {
   );
 };
 
-export default withCatalystContext(WorkSidebar);
+export default WorkSidebar;

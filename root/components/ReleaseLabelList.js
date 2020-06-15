@@ -21,7 +21,9 @@ type ReleaseLabelsProps = {
   +labels?: $ReadOnlyArray<ReleaseLabelT>,
 };
 
-const ReleaseLabelList = ({labels: releaseLabels}: ReleaseLabelsProps) => {
+const ReleaseLabelList = ({
+  labels: releaseLabels,
+}: ReleaseLabelsProps): Expand2ReactOutput | null => {
   if (!releaseLabels || !releaseLabels.length) {
     return null;
   }

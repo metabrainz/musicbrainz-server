@@ -15,17 +15,20 @@ import Tabs from '../components/Tabs';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import bracketed from '../static/scripts/common/utility/bracketed';
-import {withCatalystContext} from '../context';
 
 type Props = {
-  +$c: CatalystContextT,
   +collection: CollectionT,
   +page: string,
+  +user: ?EditorT,
 };
 
-const CollectionHeader = ({$c, collection, page}: Props) => {
+const CollectionHeader = ({
+  collection,
+  page,
+  user,
+}: Props): React.Element<typeof React.Fragment> => {
   const owner = collection.editor;
-  const viewingOwnCollection = $c.user && owner && owner.id === $c.user.id;
+  const viewingOwnCollection = user && owner && owner.id === user.id;
   const subHeading = (
     <>
       {collection.public ? (
@@ -98,4 +101,4 @@ const CollectionHeader = ({$c, collection, page}: Props) => {
   );
 };
 
-export default withCatalystContext(CollectionHeader);
+export default CollectionHeader;

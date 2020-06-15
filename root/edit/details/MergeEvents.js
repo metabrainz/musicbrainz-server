@@ -19,12 +19,18 @@ type MergeEventsEditT = {
   },
 };
 
-const MergeEvents = ({edit}: {+edit: MergeEventsEditT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +edit: MergeEventsEditT,
+};
+
+const MergeEvents = ({$c, edit}: Props): React.Element<'table'> => (
   <table className="details merge-events">
     <tr>
       <th>{l('Merge:')}</th>
       <td>
         <EventList
+          $c={$c}
           events={edit.display_data.old}
           showArtists
           showLocation
@@ -36,6 +42,7 @@ const MergeEvents = ({edit}: {+edit: MergeEventsEditT}) => (
       <th>{l('Into:')}</th>
       <td>
         <EventList
+          $c={$c}
           events={[edit.display_data.new]}
           showArtists
           showLocation

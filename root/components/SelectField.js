@@ -58,7 +58,7 @@ const SelectField = ({
   required,
   uncontrolled = false,
   ...props
-}: SelectFieldProps) => {
+}: SelectFieldProps): React.Element<'select'> => {
   const selectProps: SelectElementProps = props;
 
   if (selectProps.className === undefined) {

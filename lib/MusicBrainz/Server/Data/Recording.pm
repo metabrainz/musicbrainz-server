@@ -157,16 +157,18 @@ sub find_by_release
     $self->query_to_list_limited($query, [$release_id], $limit, $offset);
 }
 
-sub find_by_work
+sub find_by_works
 {
-    my ($self, $work_id, $limit, $offset) = @_;
+    my ($self, $work_ids, $limit, $offset) = @_;
+    return ([], 0) unless @$work_ids;
+
     my $query = "SELECT " . $self->_columns . "
                  FROM ". $self->_table . "
                      JOIN l_recording_work lrw ON lrw.entity0 = recording.id
-                 WHERE lrw.entity1 = ?
+                 WHERE lrw.entity1 = any(?)
                  ORDER BY recording.name COLLATE musicbrainz";
 
-    $self->query_to_list_limited($query, [$work_id], $limit, $offset);
+    $self->query_to_list_limited($query, [$work_ids], $limit, $offset);
 }
 
 sub _order_by {

@@ -15,6 +15,7 @@ import GenreSidebar from '../layout/components/sidebar/GenreSidebar';
 import GenreHeader from './GenreHeader';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: GenreT,
   +fullWidth?: boolean,
@@ -23,20 +24,19 @@ type Props = {
 };
 
 const GenreLayout = ({
+  $c,
   children,
   entity: genre,
   fullWidth,
   page,
   title,
-}: Props) => (
-  <Layout
-    title={title}
-  >
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} title={title}>
     <div id="content">
       <GenreHeader genre={genre} page={page} />
       {children}
     </div>
-    {fullWidth ? null : <GenreSidebar genre={genre} />}
+    {fullWidth ? null : <GenreSidebar $c={$c} genre={genre} />}
   </Layout>
 );
 

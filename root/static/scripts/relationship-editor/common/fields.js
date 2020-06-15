@@ -551,7 +551,22 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return this.entity1_credit;
             }
 
-            throw 'entity not in the entities array';
+            /*
+             * We can sometimes hit this case while `this.entities` is being
+             * updated but `entity` is stale, due to the order of
+             * subscriptions being run. If this is the case, just return a
+             * function that returns an empty string. Only throw an error if
+             * we attempt to *write* a value in this situation.
+             */
+            return function () {
+                if (arguments.length > 0) {
+                    throw new Error(
+                        'Can’t set an entity credit; ' +
+                        'entity not in the entities array.',
+                    );
+                }
+                return '';
+            };
         }
     }
 

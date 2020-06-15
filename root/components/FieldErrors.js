@@ -27,7 +27,10 @@ type Props = {
   +hasHtmlErrors?: boolean,
 };
 
-const FieldErrors = ({field, hasHtmlErrors}: Props) => {
+const FieldErrors = ({
+  field,
+  hasHtmlErrors,
+}: Props): React.Element<'ul'> | null => {
   if (!field) {
     return null;
   }

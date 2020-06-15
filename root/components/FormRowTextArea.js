@@ -28,7 +28,7 @@ const FormRowTextArea = ({
   required = false,
   rows = 5,
   ...textareaProps
-}: Props) => (
+}: Props): React.Element<typeof FormRow> => (
   <FormRow>
     <FormLabel forField={field} label={label} required={required} />
     <textarea

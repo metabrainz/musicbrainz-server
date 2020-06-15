@@ -12,7 +12,6 @@ import * as React from 'react';
 import FormSubmit from '../components/FormSubmit';
 import ReleaseList from '../components/list/ReleaseList';
 import PaginatedResults from '../components/PaginatedResults';
-import {withCatalystContext} from '../context';
 import Filter from '../static/scripts/common/components/Filter';
 import {type FilterFormT}
   from '../static/scripts/common/components/FilterForm';
@@ -26,7 +25,7 @@ type Props = {
   +filterForm: ?FilterFormT,
   +hasFilter: boolean,
   +pager: PagerT,
-  +releases: $ReadOnlyArray<RecordingT>,
+  +releases: $ReadOnlyArray<ReleaseT>,
   +showingVariousArtistsOnly: boolean,
   +wantVariousArtistsOnly: boolean,
 };
@@ -41,8 +40,8 @@ const ArtistReleases = ({
   releases,
   showingVariousArtistsOnly,
   wantVariousArtistsOnly,
-}: Props) => (
-  <ArtistLayout entity={artist} page="releases" title={l('Releases')}>
+}: Props): React.Element<typeof ArtistLayout> => (
+  <ArtistLayout $c={$c} entity={artist} page="releases" title={l('Releases')}>
     <h2>{l('Releases')}</h2>
 
     <Filter
@@ -53,7 +52,11 @@ const ArtistReleases = ({
     {releases.length ? (
       <form action="/release/merge_queue" method="post">
         <PaginatedResults pager={pager}>
-          <ReleaseList checkboxes="add-to-merge" releases={releases} />
+          <ReleaseList
+            $c={$c}
+            checkboxes="add-to-merge"
+            releases={releases}
+          />
         </PaginatedResults>
         {$c.user ? (
           <div className="row">
@@ -99,4 +102,4 @@ const ArtistReleases = ({
   </ArtistLayout>
 );
 
-export default withCatalystContext(ArtistReleases);
+export default ArtistReleases;

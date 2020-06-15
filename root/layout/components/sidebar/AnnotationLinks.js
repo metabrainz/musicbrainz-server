@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import returnUri from '../../../utility/returnUri';
 
@@ -18,7 +17,10 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const AnnotationLinks = ({$c, entity}: Props) => (
+const AnnotationLinks = ({
+  $c,
+  entity,
+}: Props): React.Element<typeof React.Fragment> => (
   <>
     <li>
       <a
@@ -44,4 +46,4 @@ const AnnotationLinks = ({$c, entity}: Props) => (
   </>
 );
 
-export default withCatalystContext(AnnotationLinks);
+export default AnnotationLinks;

@@ -29,7 +29,11 @@ type AddEventEditT = {
   },
 };
 
-const AddEvent = ({edit}: {edit: AddEventEditT}) => {
+type Props = {
+  +edit: AddEventEditT,
+};
+
+const AddEvent = ({edit}: Props): React.MixedElement => {
   const display = edit.display_data;
 
   return (

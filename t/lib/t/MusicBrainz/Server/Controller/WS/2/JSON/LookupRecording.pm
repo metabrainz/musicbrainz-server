@@ -256,7 +256,7 @@ test 'recording lookup with artists' => sub {
         };
 };
 
-test 'recording lookup with puids and isrcs' => sub {
+test 'recording lookup with puids (no-op) and isrcs' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 

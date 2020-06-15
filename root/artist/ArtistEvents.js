@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import EventList from '../components/list/EventList';
 import PaginatedResults from '../components/PaginatedResults';
 
@@ -27,14 +26,15 @@ const ArtistEvents = ({
   artist,
   events,
   pager,
-}: Props) => (
-  <ArtistLayout entity={artist} page="events" title={l('Events')}>
+}: Props): React.Element<typeof ArtistLayout> => (
+  <ArtistLayout $c={$c} entity={artist} page="events" title={l('Events')}>
     <h2>{l('Events')}</h2>
 
     {events.length > 0 ? (
       <form action="/event/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <EventList
+            $c={$c}
             artist={artist}
             artistRoles
             checkboxes="add-to-merge"
@@ -62,4 +62,4 @@ const ArtistEvents = ({
   </ArtistLayout>
 );
 
-export default withCatalystContext(ArtistEvents);
+export default ArtistEvents;

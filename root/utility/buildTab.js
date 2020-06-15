@@ -14,7 +14,7 @@ const buildTab = (
   title: string,
   path: string,
   tabPage: string,
-) => (
+): React.Element<'li'> => (
   <li className={tabPage === page ? 'sel' : null} key={tabPage}>
     <a href={path}>{title}</a>
   </li>

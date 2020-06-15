@@ -15,7 +15,7 @@ export function arraysEqual<T>(
   a: $ReadOnlyArray<T>,
   b: $ReadOnlyArray<T>,
   isEqual: (T, T) => boolean,
-) {
+): boolean {
   const length = a.length;
   if (length !== b.length) {
     return false;

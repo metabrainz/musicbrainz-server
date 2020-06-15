@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
-import {withCatalystContext} from '../context';
 
 type Props = {
   +$c: CatalystContextT,
@@ -27,7 +26,7 @@ const Subscribers = ({
   privateEditors,
   publicEditors,
   subscribed,
-}: Props) => {
+}: Props): React.MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
   const subLink = `/account/subscriptions/${entityType}/add?id=${entity.id}`;
@@ -39,6 +38,7 @@ const Subscribers = ({
 
   return (
     <LayoutComponent
+      $c={$c}
       entity={entity}
       page="subscribers"
       title={l('Subscribers')}
@@ -152,4 +152,4 @@ const Subscribers = ({
   );
 };
 
-export default withCatalystContext(Subscribers);
+export default Subscribers;

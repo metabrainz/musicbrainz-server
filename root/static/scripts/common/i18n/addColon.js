@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function addColon(variable: Expand2ReactInput) {
+export default function addColon(variable: Expand2ReactInput): Expand2ReactOutput {
   return exp.l('{variable}:', {variable});
 }
 
-export function addColonText(variable: string) {
+export function addColonText(variable: string): string {
   return texp.l('{variable}:', {variable});
 }

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import FormRowTextLong from '../components/FormRowTextLong';
 import FormSubmit from '../components/FormSubmit';
 
@@ -20,7 +19,10 @@ type Props = {
   +form: GenreFormT,
 };
 
-const GenreEditForm = ({$c, form}: Props) => (
+const GenreEditForm = ({
+  $c,
+  form,
+}: Props): React.Element<'form'> => (
   <form action={$c.req.uri} method="post">
     <div className="half-width">
       <fieldset>
@@ -45,4 +47,4 @@ const GenreEditForm = ({$c, form}: Props) => (
   </form>
 );
 
-export default withCatalystContext(GenreEditForm);
+export default GenreEditForm;

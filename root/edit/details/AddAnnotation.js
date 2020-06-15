@@ -27,7 +27,11 @@ type AddAnnotationEditT = {
   },
 };
 
-const AddAnnotation = ({edit}: {edit: AddAnnotationEditT}) => {
+type Props = {
+  +edit: AddAnnotationEditT,
+};
+
+const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const entityType = display.entity_type;
 

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Annotation from '../static/scripts/common/components/Annotation';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
@@ -86,13 +85,13 @@ const ArtistIndex = ({
   wantAllStatuses,
   wantVariousArtistsOnly,
   wikipediaExtract,
-}: Props) => {
-  const hasRecordings = !!(recordings?.length);
+}: Props): React.Element<typeof ArtistLayout> => {
+  const existingRecordings = recordings?.length ? recordings : null;
   const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;
   const artistLink = entityHref(artist);
   let message = '';
 
-  if (hasRecordings) {
+  if (existingRecordings) {
     message = l(
       'This artist has no release groups, only standalone recordings.',
     );
@@ -226,7 +225,7 @@ const ArtistIndex = ({
   }
 
   return (
-    <ArtistLayout entity={artist} page="index">
+    <ArtistLayout $c={$c} entity={artist} page="index">
       {eligibleForCleanup ? (
         <p className="cleanup">
           {l(`This artist has no relationships, recordings, releases or
@@ -283,6 +282,7 @@ const ArtistIndex = ({
         <form action="/release_group/merge_queue" method="post">
           <PaginatedResults pager={pager}>
             <ReleaseGroupList
+              $c={$c}
               checkboxes="add-to-merge"
               releaseGroups={existingReleaseGroups}
               showRatings
@@ -296,12 +296,13 @@ const ArtistIndex = ({
         </form>
       ) : null}
 
-      {hasRecordings ? (
+      {existingRecordings ? (
         <form action="/recording/merge_queue" method="post">
           <PaginatedResults pager={pager}>
             <RecordingList
+              $c={$c}
               checkboxes="add-to-merge"
-              recordings={recordings}
+              recordings={existingRecordings}
               showRatings
             />
           </PaginatedResults>
@@ -320,4 +321,4 @@ const ArtistIndex = ({
   );
 };
 
-export default withCatalystContext(ArtistIndex);
+export default ArtistIndex;

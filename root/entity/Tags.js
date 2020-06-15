@@ -10,9 +10,7 @@
 import * as React from 'react';
 
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
-import {withCatalystContext} from '../context';
 import {MainTagEditor} from '../static/scripts/common/components/TagEditor';
-
 
 type Props = {
   +$c: CatalystContextT,
@@ -28,12 +26,12 @@ const Tags = ({
   entity,
   moreTags,
   userTags,
-}: Props) => {
+}: Props): React.MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
-    <LayoutComponent entity={entity} page="tags" title={l('Tags')}>
+    <LayoutComponent $c={$c} entity={entity} page="tags" title={l('Tags')}>
       <MainTagEditor
         $c={$c}
         aggregatedTags={allTags}
@@ -45,4 +43,4 @@ const Tags = ({
   );
 };
 
-export default withCatalystContext(Tags);
+export default Tags;

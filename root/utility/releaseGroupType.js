@@ -11,7 +11,7 @@ import linkedEntities from '../static/scripts/common/linkedEntities';
 
 export default function releaseGroupType(
   releaseGroup: ReleaseGroupT,
-) {
+): string {
   const types = [];
   let id = releaseGroup.typeID;
   if (id) {

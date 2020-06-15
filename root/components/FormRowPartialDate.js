@@ -25,7 +25,7 @@ const FormRowPartialDate = ({
   label,
   required = false,
   ...inputProps
-}: Props) => (
+}: Props): React.Element<typeof FormRow> => (
   <FormRow>
     <FormLabel
       forField={field.field.year}

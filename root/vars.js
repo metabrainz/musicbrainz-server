@@ -14,6 +14,10 @@
 
 /* eslint-disable no-unused-vars */
 
+// eslint-disable-next-line camelcase
+declare var __webpack_public_path__: string;
+declare var GLOBAL_DBDEFS_NAMESPACE: '__MB_DBDefs__';
+
 declare var addColon: (variable: Expand2ReactInput) => Expand2ReactOutput;
 declare var addColonText: (variable: StrOrNum) => string;
 declare var hyphenateTitle: (title: string, subtitle: string) => string;

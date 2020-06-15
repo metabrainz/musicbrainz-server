@@ -41,7 +41,7 @@ type Props = {
 const RelationshipDiff = ({
   newRelationship,
   oldRelationship,
-}: Props) => {
+}: Props): React.Element<typeof React.Fragment> => {
   const oldAttrs = oldRelationship.attributes
     ? keyBy(oldRelationship.attributes, 'typeID')
     : {};

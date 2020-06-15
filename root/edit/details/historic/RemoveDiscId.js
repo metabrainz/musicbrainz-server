@@ -14,7 +14,7 @@ import HistoricReleaseList
 import CDTocLink
   from '../../../static/scripts/common/components/CDTocLink';
 
-type RemoveDiscIdT = {
+type RemoveDiscIdEditT = {
   ...EditT,
   +display_data: {
     +cdtoc: CDTocT,
@@ -22,7 +22,11 @@ type RemoveDiscIdT = {
   },
 };
 
-const RemoveDiscId = ({edit}: {+edit: RemoveDiscIdT}) => (
+type Props = {
+  +edit: RemoveDiscIdEditT,
+};
+
+const RemoveDiscId = ({edit}: Props): React.Element<'table'> => (
   <table className="details remove-discid">
     <HistoricReleaseList releases={edit.display_data.releases} />
     <tr>

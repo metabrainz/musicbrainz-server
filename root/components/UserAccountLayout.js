@@ -15,6 +15,7 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 import UserAccountTabs from './UserAccountTabs';
 
 type Props = {
+  +$c: CatalystContextT,
   +children: React.Node,
   +entity: EditorT,
   +page: string,
@@ -22,13 +23,15 @@ type Props = {
 };
 
 const UserAccountLayout = ({
+  $c,
   children,
   entity: user,
   page,
   title,
   ...layoutProps
-}: Props) => (
+}: Props): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={title
       ? hyphenateTitle(texp.l('Editor “{user}”', {user: user.name}), title)

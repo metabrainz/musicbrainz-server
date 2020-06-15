@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const ReleasesWithUnlikelyLanguageScript = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases with unlikely language/script pairs')}>
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Releases with unlikely language/script pairs')}>
     <h1>{l('Releases with unlikely language/script pairs')}</h1>
 
     <ul>
@@ -42,7 +41,7 @@ const ReleasesWithUnlikelyLanguageScript = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} showLanguageAndScript />
@@ -50,4 +49,4 @@ const ReleasesWithUnlikelyLanguageScript = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleasesWithUnlikelyLanguageScript);
+export default ReleasesWithUnlikelyLanguageScript;

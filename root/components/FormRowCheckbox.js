@@ -19,7 +19,12 @@ type Props = {
   +onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
 };
 
-const FormRowCheckbox = ({field, help, label, onChange}: Props) => (
+const FormRowCheckbox = ({
+  field,
+  help,
+  label,
+  onChange,
+}: Props): React.Element<typeof FormRow> => (
   <FormRow hasNoLabel>
     <label className="inline">
       <input

@@ -9,7 +9,7 @@
 
 import linkedEntities from '../static/scripts/common/linkedEntities';
 
-export default function mediumHasMultipleArtists(medium: MediumT) {
+export default function mediumHasMultipleArtists(medium: MediumT): boolean {
   const tracks = medium.tracks;
   if (!tracks || !tracks.length) {
     return false;

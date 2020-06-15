@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React, {useEffect, useState} from 'react';
+import type {AbstractComponent} from "React";import React, {useEffect, useState} from 'react';
 
 import loopParity from '../../../../utility/loopParity';
 import hydrate from '../../../../utility/hydrate';
@@ -88,7 +88,7 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
   );
 };
 
-export default hydrate<{recording: RecordingT}>(
+export default (hydrate<{recording: RecordingT}>(
   'div.acoustid-fingerprints',
   FingerprintTable,
-);
+): AbstractComponent<{recording: RecordingT}, void>);

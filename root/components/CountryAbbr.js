@@ -13,15 +13,17 @@ import entityHref from '../static/scripts/common/utility/entityHref';
 import primaryAreaCode
   from '../static/scripts/common/utility/primaryAreaCode';
 
+type Props = {
+  +className?: string,
+  +country: AreaT,
+  +withLink?: boolean,
+};
+
 const CountryAbbr = ({
   className,
   country,
   withLink = false,
-}: {
-  +className?: string,
-  +country: AreaT,
-  +withLink?: boolean,
-}) => {
+}: Props): React.Element<'span'> | null => {
   const primaryCode = primaryAreaCode(country);
   if (!primaryCode) {
     return null;

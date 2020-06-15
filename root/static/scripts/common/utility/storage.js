@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export let hasLocalStorage = false;
-export let hasSessionStorage = false;
+export let hasLocalStorage: boolean = false;
+export let hasSessionStorage: boolean = false;
 
 // https://bugzilla.mozilla.org/show_bug.cgi?id=365772
 try {

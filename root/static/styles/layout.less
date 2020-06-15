@@ -592,6 +592,16 @@ span.ac-mp {
     margin-left: -5px;
 }
 
+span.caa-icon {
+    background-image: data-uri('../images/icons/picture.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 18px;
+    padding-right: 5px;
+    vertical-align: bottom;
+    width: 18px;
+}
+
 span.video {
     background-image: data-uri('../images/icons/video.png');
     background-repeat: no-repeat;
@@ -603,6 +613,34 @@ span.video {
 
 /* Don't try to add the video icon on the recording overview tab */
 .tabs .video { display: none; }
+
+span.high-data-quality {
+    font-size: xx-small;
+    padding-right: 5px;
+}
+
+/* unicode large green circle U+1F7E2 */
+span.high-data-quality::before {
+    content: '🟢';
+}
+
+span.low-data-quality {
+    font-size: xx-small;
+    padding-right: 5px;
+}
+
+/* unicode large orange circle U+1F7E0 */
+span.low-data-quality::before {
+    content: '🟠';
+}
+
+/* Don't add the quality icons on the release overview tab */
+.tabs .high-data-quality { display: none; }
+.tabs .low-data-quality { display: none; }
+
+/* Don't add the quality icons on the release page title */
+h1 .high-data-quality { display: none; }
+h1 .low-data-quality { display: none; }
 
 /* The release information table */
 table.tbl {

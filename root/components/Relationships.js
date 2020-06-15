@@ -75,7 +75,7 @@ const Relationships = ({
   noRelationshipsHeading = false,
   relationships,
   source,
-}: Props) => {
+}: Props): React.Element<typeof React.Fragment> => {
   if (!relationships) {
     let srcRels = source.relationships;
     if (srcRels && source.entityType === 'series') {

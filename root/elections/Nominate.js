@@ -12,8 +12,17 @@ import * as React from 'react';
 import ConfirmLayout from '../components/ConfirmLayout';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 
-const Nominate = ({candidate}: {+candidate: EditorT}) => (
+type Props = {
+  +$c: CatalystContextT,
+  +candidate: EditorT,
+};
+
+const Nominate = ({
+  $c,
+  candidate,
+}: Props): React.Element<typeof ConfirmLayout> => (
   <ConfirmLayout
+    $c={$c}
     question={exp.l(
       `Are you sure you want to nominate the editor {editor}
        for auto-editor status?`,

@@ -16,7 +16,10 @@ type Props = {
   +language: LanguageT,
 };
 
-const LinkSearchableLanguage = ({entityType, language}: Props) => (
+const LinkSearchableLanguage = ({
+  entityType,
+  language,
+}: Props): React.Element<typeof LinkSearchableProperty> => (
   <LinkSearchableProperty
     entityType={entityType}
     searchField="lang"

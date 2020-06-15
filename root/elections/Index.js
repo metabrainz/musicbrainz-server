@@ -13,13 +13,16 @@ import Layout from '../layout';
 
 import ElectionTable from './ElectionTable';
 
-const Index = ({elections}: {
+type Props = {
+  +$c: CatalystContextT,
   +elections: $ReadOnlyArray<AutoEditorElectionT>,
-}) => (
-  <Layout fullWidth title={l('Auto-editor elections')}>
+};
+
+const Index = ({$c, elections}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Auto-editor elections')}>
     <h1>{l('Auto-editor elections')}</h1>
     {elections.length
-      ? <ElectionTable elections={elections} />
+      ? <ElectionTable $c={$c} elections={elections} />
       : <p>{l('No elections found.')}</p>}
   </Layout>
 );

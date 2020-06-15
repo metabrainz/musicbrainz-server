@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
@@ -28,8 +27,9 @@ const ReleaseLabelSameArtist = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseLabelT>) => (
+}: ReportDataT<ReportReleaseLabelT>): React.Element<typeof Layout> => (
   <Layout
+    $c={$c}
     fullWidth
     title={l('Releases where artist name and label name are the same')}
   >
@@ -56,7 +56,7 @@ const ReleaseLabelSameArtist = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <PaginatedResults pager={pager}>
@@ -101,4 +101,4 @@ const ReleaseLabelSameArtist = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleaseLabelSameArtist);
+export default ReleaseLabelSameArtist;

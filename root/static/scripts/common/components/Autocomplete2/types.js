@@ -32,7 +32,7 @@ export type Instance = {
 };
 
 export type Props = {
-  entityType: string,
+  entityType: CoreEntityTypeT | 'editor',
   id: string,
   items?: $ReadOnlyArray<EntityItem>,
   onChange: () => void,

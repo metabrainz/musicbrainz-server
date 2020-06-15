@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const TracksWithSequenceIssues = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases with track number issues')}>
+}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Releases with track number issues')}>
     <h1>{l('Releases with track number issues')}</h1>
 
     <ul>
@@ -43,7 +42,7 @@ const TracksWithSequenceIssues = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseList items={items} pager={pager} />
@@ -51,4 +50,4 @@ const TracksWithSequenceIssues = ({
   </Layout>
 );
 
-export default withCatalystContext(TracksWithSequenceIssues);
+export default TracksWithSequenceIssues;

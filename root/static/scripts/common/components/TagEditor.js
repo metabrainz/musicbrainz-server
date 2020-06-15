@@ -140,7 +140,7 @@ class VoteButtons extends React.Component<VoteButtonsProps> {
 
     return (
       <span className={'tag-vote-buttons' + className}>
-        {this.props.$c.user ? (
+        {this.props.$c.user?.has_confirmed_email_address ? (
           <>
             <UpvoteButton {...this.props} />
             <DownvoteButton {...this.props} />
@@ -465,7 +465,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 }
 
-export const MainTagEditor = hydrate<TagEditorProps>(
+export const MainTagEditor: React.AbstractComponent<TagEditorProps, void> = hydrate<TagEditorProps>(
   'div.all-tags',
   class extends TagEditor {
     hideNegativeTags(event: SyntheticEvent<HTMLAnchorElement>) {
@@ -512,7 +512,7 @@ export const MainTagEditor = hydrate<TagEditorProps>(
 
           {(positiveTagsOnly && !tags.every(isAlwaysVisible)) ? (
             <>
-              {this.props.$c.user ? (
+              {this.props.$c.user?.has_confirmed_email_address ? (
                 <p>
                   {l(
                     `Tags with a score of zero or below,
@@ -521,7 +521,7 @@ export const MainTagEditor = hydrate<TagEditorProps>(
                 </p>
               ) : (
                 <p>
-                  {l('Tags with a score of zero or below are hidden.') + ' '}
+                  {l('Tags with a score of zero or below are hidden.')}
                 </p>
               )}
               <p>
@@ -537,7 +537,7 @@ export const MainTagEditor = hydrate<TagEditorProps>(
               <p>
                 {l('All tags are being shown.')}
               </p>
-              {this.props.$c.user ? (
+              {this.props.$c.user?.has_confirmed_email_address ? (
                 <p>
                   <a href="#" onClick={this.hideNegativeTags.bind(this)}>
                     {l(
@@ -556,7 +556,7 @@ export const MainTagEditor = hydrate<TagEditorProps>(
             </>
           ) : null}
 
-          {this.props.$c.user ? (
+          {this.props.$c.user?.has_confirmed_email_address ? (
             <>
               <h2>{l('Add Tags')}</h2>
               <p>
@@ -583,7 +583,7 @@ export const MainTagEditor = hydrate<TagEditorProps>(
   minimalEntity,
 );
 
-export const SidebarTagEditor = hydrate<TagEditorProps>(
+export const SidebarTagEditor: React.AbstractComponent<TagEditorProps, void> = hydrate<TagEditorProps>(
   'div.sidebar-tags',
   class extends TagEditor {
     render() {

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import LabelList from '../components/list/LabelList';
 import PaginatedResults from '../components/PaginatedResults';
 
@@ -27,14 +26,15 @@ const AreaLabels = ({
   area,
   labels,
   pager,
-}: Props) => (
-  <AreaLayout entity={area} page="labels" title={l('Labels')}>
+}: Props): React.Element<typeof AreaLayout> => (
+  <AreaLayout $c={$c} entity={area} page="labels" title={l('Labels')}>
     <h2>{l('Labels')}</h2>
 
     {labels.length > 0 ? (
       <form action="/label/merge_queue" method="post">
         <PaginatedResults pager={pager}>
           <LabelList
+            $c={$c}
             checkboxes="add-to-merge"
             labels={labels}
             showRatings
@@ -58,4 +58,4 @@ const AreaLabels = ({
   </AreaLayout>
 );
 
-export default withCatalystContext(AreaLabels);
+export default AreaLabels;

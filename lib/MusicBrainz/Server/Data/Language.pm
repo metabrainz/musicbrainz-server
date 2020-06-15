@@ -51,7 +51,7 @@ sub load
 sub load_for_works {
     my ($self, @objs) = @_;
 
-    @objs = grep { defined $_ } @objs;
+    @objs = grep { defined $_ && !scalar($_->all_languages) } @objs;
 
     $self->c->model('Work')->language->load_for(@objs);
 

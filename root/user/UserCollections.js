@@ -13,7 +13,6 @@ import type {ColumnOptions} from 'react-table';
 
 import Table from '../components/Table';
 import UserAccountLayout from '../components/UserAccountLayout';
-import {withCatalystContext} from '../context';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName';
 import {
@@ -120,8 +119,8 @@ const CollectionsEntityTypeSection = ({
         };
       const actionsColumn = defineActionsColumn({
         actions: [
-          [l('Edit'), '/edit'],
-          [l('Remove'), '/delete'],
+          [l('Edit'), '/own_collection/edit'],
+          [l('Remove'), '/own_collection/delete'],
         ],
       });
 
@@ -146,18 +145,19 @@ const CollectionsEntityTypeSection = ({
   );
 };
 
-const UserCollections = withCatalystContext(({
+const UserCollections = ({
   $c,
   ownCollections,
   collaborativeCollections,
   user,
-}: Props) => {
+}: Props): React.Element<typeof UserAccountLayout> => {
   const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
   const ownCollectionTypes = Object.keys(ownCollections);
   const collaborativeCollectionTypes = Object.keys(collaborativeCollections);
 
   return (
     <UserAccountLayout
+      $c={$c}
       entity={user}
       page="collections"
       title={l('Collections')}
@@ -210,6 +210,6 @@ const UserCollections = withCatalystContext(({
       ) : null}
     </UserAccountLayout>
   );
-});
+};
 
 export default UserCollections;

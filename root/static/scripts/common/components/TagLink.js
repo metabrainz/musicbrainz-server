@@ -9,7 +9,11 @@
 
 import * as React from 'react';
 
-const TagLink = ({tag}: {tag: string}) => (
+type Props = {
+  +tag: string,
+};
+
+const TagLink = ({tag}: Props): React.Element<'a'> => (
   <a href={`/tag/${encodeURIComponent(tag)}`}>{tag}</a>
 );
 

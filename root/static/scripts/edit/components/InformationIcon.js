@@ -13,7 +13,7 @@ type Props = {
   title?: string,
 };
 
-const InformationIcon = (props: Props) => (
+const InformationIcon = (props: Props): React.Element<'img'> => (
   <img
     src={require('../../../images/icons/information.png')}
     {...props}

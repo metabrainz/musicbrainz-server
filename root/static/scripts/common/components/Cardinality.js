@@ -11,7 +11,11 @@ import * as React from 'react';
 
 import {bracketedText} from '../utility/bracketed';
 
-const Cardinality = ({cardinality}: {cardinality: number}) => {
+type Props = {
+  +cardinality: number,
+};
+
+const Cardinality = ({cardinality}: Props): React.MixedElement => {
   let cardinalityName;
   switch (cardinality) {
     case 0:

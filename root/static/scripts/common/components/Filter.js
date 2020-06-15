@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React, {useState} from 'react';
+import * as React from 'react';
 
 import hydrate from '../../../../utility/hydrate';
 import setCookie from '../utility/setCookie';
@@ -20,10 +20,10 @@ type Props = {
 };
 
 const Filter = ({ajaxFormUrl, initialFilterForm}: Props) => {
-  const [filterForm, setFilterForm] = useState<?FilterFormT>(
+  const [filterForm, setFilterForm] = React.useState<?FilterFormT>(
     initialFilterForm,
   );
-  const [hidden, setHidden] = useState<boolean>(!initialFilterForm);
+  const [hidden, setHidden] = React.useState<boolean>(!initialFilterForm);
 
   function show() {
     setHidden(false);
@@ -72,4 +72,7 @@ const Filter = ({ajaxFormUrl, initialFilterForm}: Props) => {
   );
 };
 
-export default hydrate<Props>('div.filter', Filter);
+export default (
+  hydrate<Props>('div.filter', Filter):
+  React.AbstractComponent<Props, void>
+);

@@ -15,8 +15,16 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import LabelLayout from './LabelLayout';
 
-const LabelRelationships = ({label}: {label: LabelT}) => (
-  <LabelLayout entity={label} page="relationships" title={l('Relationships')}>
+type Props = {
+  +$c: CatalystContextT,
+  +label: LabelT,
+};
+
+const LabelRelationships = ({
+  $c,
+  label,
+}: Props): React.Element<typeof LabelLayout> => (
+  <LabelLayout $c={$c} entity={label} page="relationships" title={l('Relationships')}>
     {label.relationships?.length ? (
       <Relationships source={label} />
     ) : (

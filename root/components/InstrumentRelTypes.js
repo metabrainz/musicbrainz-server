@@ -18,7 +18,7 @@ type Props = {
 const InstrumentRelTypes = ({
   entity,
   instrumentCreditsAndRelTypes,
-}: Props) => (
+}: Props): string | null => (
   instrumentCreditsAndRelTypes &&
     instrumentCreditsAndRelTypes[entity.gid] ? (
       commaOnlyListText(

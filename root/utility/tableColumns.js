@@ -47,8 +47,8 @@ import expand2react from '../static/scripts/common/i18n/expand2react';
 import yesNo from '../static/scripts/common/utility/yesNo';
 
 type OrderableProps = {
-    +order?: string,
-    +sortable?: boolean,
+  +order?: string,
+  +sortable?: boolean,
 };
 
 export function defineActionsColumn(
@@ -296,6 +296,7 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
   props: {
     ...OrderableProps,
     +descriptive?: boolean,
+    +showCaaPresence?: boolean,
     +title: string,
   },
 ): ColumnOptions<T, string> {
@@ -311,6 +312,7 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
           <EntityLink
             entity={original}
             // Event lists show date in its own column
+            showCaaPresence={props.showCaaPresence}
             showEventDate={false}
           />
         )
@@ -528,7 +530,7 @@ export const locationColumn:
   };
 
 export const ratingsColumn:
-  ColumnOptions<{...RatableRoleT, ...}, number> = {
+  ColumnOptions<RatableT, number> = {
     Cell: ({row: {original}}) => <RatingStars entity={original} />,
     Header: N_l('Rating'),
     accessor: 'rating',

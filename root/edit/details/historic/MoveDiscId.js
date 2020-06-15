@@ -13,7 +13,7 @@ import HistoricReleaseList from '../../components/HistoricReleaseList';
 import CDTocLink
   from '../../../static/scripts/common/components/CDTocLink';
 
-type MoveDiscIdT = {
+type MoveDiscIdEditT = {
   ...EditT,
   +display_data: {
     +cdtoc: CDTocT,
@@ -22,7 +22,11 @@ type MoveDiscIdT = {
   },
 };
 
-const MoveDiscId = ({edit}: {+edit: MoveDiscIdT}) => (
+type Props = {
+  +edit: MoveDiscIdEditT,
+};
+
+const MoveDiscId = ({edit}: Props): React.Element<'table'> => (
   <table className="details move-discid">
     <tr>
       <th>{l('Disc ID:')}</th>

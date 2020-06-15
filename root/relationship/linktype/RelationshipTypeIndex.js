@@ -10,7 +10,6 @@
 import * as React from 'react';
 import {sortBy, upperFirst} from 'lodash';
 
-import {withCatalystContext} from '../../context';
 import Layout from '../../layout';
 import Cardinality from '../../static/scripts/common/components/Cardinality';
 import OrderableDirection
@@ -33,7 +32,7 @@ type Props = {
 const RelationshipTypeIndex = ({
   $c,
   relType,
-}: Props) => {
+}: Props): React.Element<typeof Layout> => {
   const childrenTypes = relType.children || [];
   const typeName = upperFirst(l_relationships(relType.name));
   const title = l('Relationship Type') + ' / ' + typeName;
@@ -52,7 +51,7 @@ const RelationshipTypeIndex = ({
   let lastExampleName = '';
 
   return (
-    <Layout fullWidth noIcons page="index" title={title}>
+    <Layout $c={$c} fullWidth noIcons title={title}>
       <div id="content">
         <h1 className="hierarchy-links">
           <a href="/relationships">
@@ -232,4 +231,4 @@ const RelationshipTypeIndex = ({
   );
 };
 
-export default withCatalystContext(RelationshipTypeIndex);
+export default RelationshipTypeIndex;

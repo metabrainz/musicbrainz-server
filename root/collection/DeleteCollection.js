@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import FormSubmit from '../components/FormSubmit';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
@@ -20,8 +19,12 @@ type Props = {
   +collection: CollectionT,
 };
 
-const DeleteCollection = ({$c, collection}: Props) => (
+const DeleteCollection = ({
+  $c,
+  collection,
+}: Props): React.Element<typeof CollectionLayout> => (
   <CollectionLayout
+    $c={$c}
     entity={collection}
     fullWidth
     page="delete"
@@ -39,4 +42,4 @@ const DeleteCollection = ({$c, collection}: Props) => (
   </CollectionLayout>
 );
 
-export default withCatalystContext(DeleteCollection);
+export default DeleteCollection;

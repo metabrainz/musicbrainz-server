@@ -11,11 +11,16 @@ import * as React from 'react';
 
 import ENTITIES from '../../entities';
 
+type Props = {
+  +entity: CoreEntityT,
+  +toMerge: $ReadOnlyArray<CoreEntityT>,
+};
+
 // Converted to react-table at root/utility/tableColumns.js
 const RemoveFromMergeTableCell = ({
   entity,
   toMerge,
-}: {entity: CoreEntityT, toMerge: $ReadOnlyArray<CoreEntityT>}) => {
+}: Props): React.Element<'td'> | null => {
   const url = ENTITIES[entity.entityType].url;
   return (
     toMerge.length > 2 ? (

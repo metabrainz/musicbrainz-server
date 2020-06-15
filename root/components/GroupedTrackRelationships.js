@@ -76,7 +76,7 @@ const renderWorkRelationship = (relationship: RelationshipT) => {
   );
 };
 
-const GroupedTrackRelationships = ({source}: Props) => {
+const GroupedTrackRelationships = ({source}: Props): Array<React.Element<'dl'>> => {
   const workRelationships = [];
 
   const groupedRelationships = groupRelationships(

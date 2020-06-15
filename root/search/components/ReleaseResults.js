@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {CatalystContext, withCatalystContext} from '../../context';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
@@ -20,12 +19,15 @@ import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import loopParity from '../../utility/loopParity';
 import ReleaseCatnoList from '../../components/ReleaseCatnoList';
 import ReleaseLabelList from '../../components/ReleaseLabelList';
-import type {InlineResultsPropsT, ResultsPropsWithContextT} from '../types';
+import type {
+  InlineResultsPropsWithContextT,
+  ResultsPropsWithContextT,
+} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult($c, result, index) {
   const release = result.entity;
   const score = result.score;
   const {language, script} = release;
@@ -77,13 +79,9 @@ function buildResult(result, index) {
         {release.status
           ? lp_attributes(release.status.name, 'release_status') : null}
       </td>
-      <CatalystContext.Consumer>
-        {($c: CatalystContextT) => (
-          $c.session?.tport
-            ? <td><TaggerIcon entity={release} /></td>
-            : null
-        )}
-      </CatalystContext.Consumer>
+      {$c?.session?.tport
+        ? <td><TaggerIcon entity={release} /></td>
+        : null}
     </tr>
   );
 }
@@ -93,9 +91,10 @@ export const ReleaseResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsT<ReleaseT>) => (
+}: InlineResultsPropsWithContextT<ReleaseT>):
+React.Element<typeof PaginatedSearchResults> => (
   <PaginatedSearchResults
-    buildResult={buildResult}
+    buildResult={(result, index) => buildResult($c, result, index)}
     columns={
       <>
         <th>{l('Name')}</th>
@@ -109,7 +108,9 @@ export const ReleaseResultsInline = ({
         <th>{l('Language')}</th>
         <th>{l('Type')}</th>
         <th>{l('Status')}</th>
-        {$c?.session?.tport ? <th>{l('Tagger')}</th> : null}
+        {$c?.session?.tport
+          ? <th>{l('Tagger')}</th>
+          : null}
       </>
     }
     pager={pager}
@@ -125,8 +126,9 @@ const ReleaseResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<ReleaseT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<ReleaseT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <ReleaseResultsInline
       $c={$c}
       pager={pager}
@@ -143,4 +145,4 @@ const ReleaseResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(ReleaseResults);
+export default ReleaseResults;

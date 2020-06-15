@@ -9,6 +9,10 @@
 
 /* eslint-disable max-len */
 
+const DBDefs = require('../static/scripts/common/DBDefs');
+
+__webpack_public_path__ = DBDefs.STATIC_RESOURCES_LOCATION + '/';
+
 module.exports = {
   /*
    * Any server-rendered page referenced via component_path in the
@@ -133,6 +137,7 @@ module.exports = {
   'report/AsinsWithMultipleReleases': require('../report/AsinsWithMultipleReleases'),
   'report/BadAmazonUrls': require('../report/BadAmazonUrls'),
   'report/CatNoLooksLikeAsin': require('../report/CatNoLooksLikeAsin'),
+  'report/CatNoLooksLikeLabelCode': require('../report/CatNoLooksLikeLabelCode'),
   'report/CollaborationRelationships': require('../report/CollaborationRelationships'),
   'report/CoverArtRelationships': require('../report/CoverArtRelationships'),
   'report/DeprecatedRelationshipArtists': require('../report/DeprecatedRelationshipArtists'),
@@ -276,6 +281,7 @@ module.exports = {
   'edit/details/AddReleaseGroup': require('../edit/details/AddReleaseGroup'),
   'edit/details/AddRemoveAlias': require('../edit/details/AddRemoveAlias'),
   'edit/details/AddSeries': require('../edit/details/AddSeries'),
+  'edit/details/AddStandaloneRecording': require('../edit/details/AddStandaloneRecording'),
   'edit/details/AddWork': require('../edit/details/AddWork'),
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'edit/details/EditArtist': require('../edit/details/EditArtist'),
@@ -309,7 +315,6 @@ module.exports = {
   'edit/details/historic/MoveReleaseToReleaseGroup': require('../edit/details/historic/MoveReleaseToReleaseGroup'),
   'edit/details/historic/RemoveDiscId': require('../edit/details/historic/RemoveDiscId'),
   'edit/details/historic/RemoveLabelAlias': require('../edit/details/historic/RemoveLabelAlias'),
-  'edit/details/historic/RemovePuid': require('../edit/details/historic/RemovePuid'),
   'edit/details/historic/RemoveRelationship': require('../edit/details/historic/RemoveRelationship'),
   'edit/details/historic/RemoveRelease': require('../edit/details/historic/RemoveRelease'),
   'edit/details/historic/RemoveReleases': require('../edit/details/historic/RemoveReleases'),

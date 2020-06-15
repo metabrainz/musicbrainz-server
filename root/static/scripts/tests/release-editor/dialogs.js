@@ -130,12 +130,13 @@ dialogTest("clearing the tracks of an existing medium via the track parser doesn
 dialogTest("adding a new medium does not cause reorder edits (MBS-7412)", function (t, release) {
     t.plan(1);
 
+    releaseEditor.rootField.release(release);
     release.mediums([
         new fields.Medium(
             Object.assign(_.omit(common.testMedium, "id"), { position: 1 }),
+            release,
         ),
     ]);
-
     addDiscDialog.open();
     addDiscDialog.currentTab(mediumSearchTab);
     mediumSearchTab.result({ position: 1, tracks: [{ name: "foo" }] });

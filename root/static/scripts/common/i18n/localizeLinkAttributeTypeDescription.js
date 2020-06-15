@@ -9,7 +9,7 @@
 
 import {INSTRUMENT_ROOT_ID} from '../../common/constants';
 
-function localizeLinkAttributeTypeDescription(type: LinkAttrTypeT) {
+function localizeLinkAttributeTypeDescription(type: LinkAttrTypeT): string {
   if (!type.description) {
     return '';
   }

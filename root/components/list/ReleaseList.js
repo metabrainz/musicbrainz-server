@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import Table from '../Table';
-import {withCatalystContext} from '../../context';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
@@ -52,7 +51,7 @@ const ReleaseList = ({
   showInstrumentCreditsAndRelTypes,
   showRatings,
   sortable,
-}: Props) => {
+}: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && checkboxes
@@ -64,6 +63,7 @@ const ReleaseList = ({
       const nameColumn = defineNameColumn<ReleaseT>({
         descriptive: false, // since ACs are in the next column
         order: order,
+        showCaaPresence: true,
         sortable: sortable,
         title: l('Release'),
       });
@@ -154,4 +154,4 @@ const ReleaseList = ({
   return <Table columns={columns} data={releases} />;
 };
 
-export default withCatalystContext(ReleaseList);
+export default ReleaseList;

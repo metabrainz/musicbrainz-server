@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import ExternalLinks from '../ExternalLinks';
@@ -30,7 +29,7 @@ type Props = {
   +instrument: InstrumentT,
 };
 
-const InstrumentSidebar = ({$c, instrument}: Props) => {
+const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
   return (
     <div id="sidebar">
       <CommonsImage
@@ -51,6 +50,7 @@ const InstrumentSidebar = ({$c, instrument}: Props) => {
       ) : null}
 
       <SidebarTags
+        $c={$c}
         aggregatedTags={$c.stash.top_tags}
         entity={instrument}
         more={!!$c.stash.more_tags}
@@ -59,10 +59,10 @@ const InstrumentSidebar = ({$c, instrument}: Props) => {
 
       <ExternalLinks empty entity={instrument} />
 
-      <EditLinks entity={instrument}>
+      <EditLinks $c={$c} entity={instrument}>
         {$c.user?.is_relationship_editor ? (
           <>
-            <AnnotationLinks entity={instrument} />
+            <AnnotationLinks $c={$c} entity={instrument} />
 
             <MergeLink entity={instrument} />
 
@@ -73,7 +73,7 @@ const InstrumentSidebar = ({$c, instrument}: Props) => {
         ) : null}
       </EditLinks>
 
-      <CollectionLinks entity={instrument} />
+      <CollectionLinks $c={$c} entity={instrument} />
 
       <SidebarLicenses entity={instrument} />
 
@@ -82,4 +82,4 @@ const InstrumentSidebar = ({$c, instrument}: Props) => {
   );
 };
 
-export default withCatalystContext(InstrumentSidebar);
+export default InstrumentSidebar;

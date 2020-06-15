@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import AreaList from '../components/list/AreaList';
 import ArtistList from '../components/list/ArtistList';
 import EventList from '../components/list/EventList';
@@ -54,8 +53,13 @@ type Props =
   | PropsForEntity<WorkT>
   ;
 
-const listPicker = (props: Props, canRemoveFromCollection: boolean) => {
+const listPicker = (
+  $c: CatalystContextT,
+  props: Props,
+  canRemoveFromCollection: boolean,
+) => {
   const sharedProps = {
+    $c,
     checkboxes: canRemoveFromCollection ? 'remove' : '',
     order: props.order,
     sortable: true,
@@ -81,6 +85,7 @@ const listPicker = (props: Props, canRemoveFromCollection: boolean) => {
     case 'event':
       return (
         <EventList
+          $c={$c}
           events={props.entities}
           showArtists
           showLocation
@@ -155,7 +160,8 @@ const listPicker = (props: Props, canRemoveFromCollection: boolean) => {
   }
 };
 
-const CollectionIndex = (props: Props) => {
+const CollectionIndex = (props: Props):
+React.Element<typeof CollectionLayout> => {
   const {
     $c,
     collection,
@@ -170,7 +176,7 @@ const CollectionIndex = (props: Props) => {
       collection.collaborators.some(x => x.id === user.id));
 
   return (
-    <CollectionLayout entity={collection} page="index">
+    <CollectionLayout $c={$c} entity={collection} page="index">
       <div className="description">
         {collection.description_html ? (
           <>
@@ -200,7 +206,7 @@ const CollectionIndex = (props: Props) => {
       {entities.length > 0 ? (
         <form action={$c.req.uri} method="post">
           <PaginatedResults pager={pager}>
-            {listPicker(props, canRemoveFromCollection)}
+            {listPicker($c, props, canRemoveFromCollection)}
           </PaginatedResults>
           {canRemoveFromCollection ? (
             <FormRow>
@@ -215,4 +221,4 @@ const CollectionIndex = (props: Props) => {
   );
 };
 
-export default withCatalystContext(CollectionIndex);
+export default CollectionIndex;

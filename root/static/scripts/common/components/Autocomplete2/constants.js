@@ -15,9 +15,16 @@ import {
   SHOW_MORE_RESULTS,
   TOGGLE_INDEXED_SEARCH,
 } from './actions';
-import type {Item} from './types';
+import type {ActionItem, Item} from './types';
 
-export const ARIA_LIVE_STYLE = Object.seal({
+export const ARIA_LIVE_STYLE: {
+  +height: string,
+  +left: string,
+  +overflow: string,
+  +position: string,
+  +top: string,
+  +width: string,
+} = Object.seal({
   height: '1px',
   left: '-1px',
   overflow: 'hidden',
@@ -30,9 +37,9 @@ export const DISPLAY_NONE_STYLE = {display: 'none'};
 
 export const EMPTY_ARRAY: $ReadOnlyArray<Item> = Object.freeze([]);
 
-export const MBID_REGEXP = /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/;
+export const MBID_REGEXP: RegExp = /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/;
 
-export const MENU_ITEMS = {
+export const MENU_ITEMS: {+[name: string]: ActionItem, ...} = {
   ERROR_TRY_AGAIN_DIRECT: {
     action: TOGGLE_INDEXED_SEARCH,
     id: 'error-try-again-direct',
@@ -84,7 +91,10 @@ export const MENU_ITEMS = {
   },
 };
 
-export const SEARCH_PLACEHOLDERS = {
+export const SEARCH_PLACEHOLDERS: {
+  +[type: CoreEntityTypeT | 'editor']: () => string,
+  ...
+} = {
   area: N_l('Search for an area'),
   artist: N_l('Search for an artist'),
   editor: N_l('Search for an editor'),

@@ -32,7 +32,7 @@ const tabLinkNames = {
 };
 
 const buildLink = (
-  content,
+  content: string,
   entity,
   subPath,
   page,
@@ -72,8 +72,8 @@ function buildLinks(
   $c: CatalystContextT,
   entity: CoreEntityT,
   page: string,
-  editTab: ?React.Node,
-): React.Node {
+  editTab: ?React.Element<typeof EntityTabLink>,
+): $ReadOnlyArray<React.Element<typeof EntityTabLink>> {
   const links = [buildLink(l('Overview'), entity, '', page, false, 'index')];
   const user = $c.user;
 
@@ -149,7 +149,7 @@ function buildLinks(
 }
 
 type Props = {
-  +editTab: ?React.Node,
+  +editTab: ?React.Element<typeof EntityTabLink>,
   +entity: CoreEntityT,
   +page: string,
 };
@@ -158,7 +158,7 @@ const EntityTabs = ({
   editTab,
   entity,
   page,
-}: Props) => (
+}: Props): React.Element<typeof Tabs> => (
   <Tabs>
     <CatalystContext.Consumer>
       {($c: CatalystContextT) => buildLinks($c, entity, page, editTab)}

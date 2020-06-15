@@ -62,12 +62,10 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Place::Edit
     MusicBrainz::Server::Edit::Place::EditAlias
     MusicBrainz::Server::Edit::Place::Merge
-    MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Recording::AddAlias
     MusicBrainz::Server::Edit::Recording::DeleteAlias
     MusicBrainz::Server::Edit::Recording::EditAlias
-    MusicBrainz::Server::Edit::Recording::AddPUIDs
     MusicBrainz::Server::Edit::Recording::Create
     MusicBrainz::Server::Edit::Recording::Delete
     MusicBrainz::Server::Edit::Recording::Edit

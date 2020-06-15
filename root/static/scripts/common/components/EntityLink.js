@@ -18,10 +18,15 @@ import formatDatePeriod from '../utility/formatDatePeriod';
 import isolateText from '../utility/isolateText';
 import nonEmpty from '../utility/nonEmpty';
 
+type DeletedLinkProps = {
+  +allowNew: boolean,
+  +name: ?Expand2ReactOutput,
+};
+
 export const DeletedLink = ({
   allowNew,
   name,
-}: {+allowNew: boolean, +name: React.Node}) => {
+}: DeletedLinkProps): React.Element<'span'> => {
   const caption = allowNew
     ? l('This entity will be created by this edit.')
     : l('This entity has been removed, and cannot be displayed correctly.');
@@ -103,10 +108,11 @@ const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
 /* eslint-disable sort-keys, flowtype/sort-keys */
 type EntityLinkProps = {
   +allowNew?: boolean,
-  +content?: React.Node,
+  +content?: ?Expand2ReactOutput,
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
   +nameVariation?: boolean,
+  +showCaaPresence?: boolean,
   +showDeleted?: boolean,
   +showDisambiguation?: boolean,
   +showEditsPending?: boolean,
@@ -126,13 +132,15 @@ const EntityLink = ({
   entity,
   hover,
   nameVariation,
+  showCaaPresence,
   showDeleted = true,
   showDisambiguation,
   showEditsPending = true,
   showEventDate = true,
   subPath,
   ...anchorProps
-}: EntityLinkProps) => {
+}: EntityLinkProps):
+$ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   const hasCustomContent = nonEmpty(content);
   const comment = entity.comment ? ko.unwrap(entity.comment) : '';
 
@@ -226,6 +234,52 @@ const EntityLink = ({
         {content}
       </>
     );
+  }
+
+  if (showCaaPresence &&
+    entity.entityType === 'release' &&
+    entity.cover_art_presence === 'present') {
+    content = (
+      <>
+        <a href={'/release/' + entity.gid + '/cover-art'}>
+          <span
+            className="caa-icon"
+            title={l('This release has artwork in the Cover Art Archive')}
+          />
+        </a>
+        {content}
+      </>
+    );
+  }
+
+  if (!subPath && entity.entityType === 'release') {
+    if (entity.quality === 2) {
+      content = (
+        <>
+          <span
+            className="high-data-quality"
+            title={l(
+              `High quality: All available data has been added, if possible
+               including cover art with liner info that proves it`,
+            )}
+          />
+          {content}
+        </>
+      );
+    } else if (entity.quality === 0) {
+      content = (
+        <>
+          <span
+            className="low-data-quality"
+            title={l(
+              `Low quality: The release needs serious fixes, or its existence
+               is hard to prove (but it’s not clearly fake)`,
+            )}
+          />
+          {content}
+        </>
+      );
+    }
   }
 
   if (!showDisambiguation && !infoLink) {

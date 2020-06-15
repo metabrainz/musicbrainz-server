@@ -15,7 +15,6 @@ import {
   artistEndAreaLabel,
   artistEndLabel,
 } from '../../../artist/utils';
-import {withCatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import DescriptiveLink
@@ -47,7 +46,7 @@ type Props = {
   +artist: ArtistT,
 };
 
-const ArtistSidebar = ({$c, artist}: Props) => {
+const ArtistSidebar = ({$c, artist}: Props): React.Element<'div'> => {
   const artistAge = age.age(artist);
   const gid = encodeURIComponent(artist.gid);
   const isSpecialPurposeArtist = isSpecialPurpose(artist);
@@ -128,6 +127,7 @@ const ArtistSidebar = ({$c, artist}: Props) => {
       <SidebarRating entity={artist} />
 
       <SidebarTags
+        $c={$c}
         aggregatedTags={$c.stash.top_tags}
         entity={artist}
         more={!!$c.stash.more_tags}
@@ -136,7 +136,7 @@ const ArtistSidebar = ({$c, artist}: Props) => {
 
       <ExternalLinks empty entity={artist} />
 
-      <EditLinks entity={artist}>
+      <EditLinks $c={$c} entity={artist}>
         {isSpecialPurposeArtist ? null : (
           <>
             <li>
@@ -175,16 +175,20 @@ const ArtistSidebar = ({$c, artist}: Props) => {
           </>
         )}
 
-        {isSpecialPurposeArtist ? null : <AnnotationLinks entity={artist} />}
+        {isSpecialPurposeArtist ? null : (
+          <AnnotationLinks $c={$c} entity={artist} />
+        )}
 
         <MergeLink entity={artist} />
 
         <li className="separator" role="separator" />
       </EditLinks>
 
-      {isSpecialPurposeArtist ? null : <SubscriptionLinks entity={artist} />}
+      {isSpecialPurposeArtist ? null : (
+        <SubscriptionLinks $c={$c} entity={artist} />
+      )}
 
-      <CollectionLinks entity={artist} />
+      <CollectionLinks $c={$c} entity={artist} />
 
       <SidebarLicenses entity={artist} />
 
@@ -193,4 +197,4 @@ const ArtistSidebar = ({$c, artist}: Props) => {
   );
 };
 
-export default withCatalystContext(ArtistSidebar);
+export default ArtistSidebar;

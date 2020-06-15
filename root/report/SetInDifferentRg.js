@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
@@ -24,8 +23,8 @@ const SetInDifferentRg = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupT>) => (
-  <Layout fullWidth title={l('Mismatched release groups')}>
+}: ReportDataT<ReportReleaseGroupT>): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Mismatched release groups')}>
     <h1>{l('Mismatched release groups')}</h1>
 
     <ul>
@@ -50,7 +49,7 @@ const SetInDifferentRg = ({
                 {date: formatUserDate($c, generated)})}
       </li>
 
-      {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
+      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
     <ReleaseGroupList items={items} pager={pager} />
@@ -58,4 +57,4 @@ const SetInDifferentRg = ({
   </Layout>
 );
 
-export default withCatalystContext(SetInDifferentRg);
+export default SetInDifferentRg;

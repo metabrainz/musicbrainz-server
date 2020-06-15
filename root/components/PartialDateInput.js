@@ -16,7 +16,7 @@ type Props = {
 const PartialDateInput = ({
   field,
   ...inputProps
-}: Props) => (
+}: Props): React.Element<'span'> => (
   <span className="partial-date">
     <input
       className="partial-date-year"

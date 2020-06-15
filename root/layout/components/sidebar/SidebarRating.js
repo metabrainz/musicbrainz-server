@@ -17,7 +17,10 @@ type Props = {
   +heading?: string,
 };
 
-const SidebarRating = ({entity, heading}: Props) => (
+const SidebarRating = ({
+  entity,
+  heading,
+}: Props): React.Element<typeof React.Fragment> => (
   <>
     <h2 className="rating">{heading || l('Rating')}</h2>
     <p>

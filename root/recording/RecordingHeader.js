@@ -19,7 +19,10 @@ type Props = {
   +recording: RecordingT,
 };
 
-const RecordingHeader = ({recording, page}: Props) => {
+const RecordingHeader = ({
+  recording,
+  page,
+}: Props): React.Element<typeof EntityHeader> => {
   const lArgs = {
     artist: <ArtistCreditLink artistCredit={recording.artistCredit} />,
   };

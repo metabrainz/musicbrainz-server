@@ -13,14 +13,18 @@ import HeaderLogo from './HeaderLogo';
 import TopMenu from './TopMenu';
 import BottomMenu from './BottomMenu';
 
-const Header = () => (
+type Props = {
+  +$c: CatalystContextT,
+};
+
+const Header = ({$c}: Props): React.Element<'div'> => (
   <div className="header">
     <a className="logo" href="/" title="MusicBrainz">
       <HeaderLogo />
     </a>
     <div className="right">
-      <TopMenu />
-      <BottomMenu />
+      <TopMenu $c={$c} />
+      <BottomMenu $c={$c} />
     </div>
   </div>
 );

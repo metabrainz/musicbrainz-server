@@ -20,9 +20,13 @@ type MoveReleaseToReleaseGroupT = {
   },
 };
 
+type Props = {
+  +edit: MoveReleaseToReleaseGroupT,
+};
+
 const MoveReleaseToReleaseGroup = ({
   edit,
-}: {+edit: MoveReleaseToReleaseGroupT}) => (
+}: Props): React.Element<'table'> => (
   <table className="details edit-release">
     <tr>
       <th>{l('Release:')}</th>

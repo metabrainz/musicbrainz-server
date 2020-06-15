@@ -16,10 +16,15 @@ import type {ReportReleaseAnnotationT} from '../types';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 
+type Props = {
+  +items: $ReadOnlyArray<ReportReleaseAnnotationT>,
+  +pager: PagerT,
+};
+
 const ReleaseAnnotationList = ({
   items,
   pager,
-}: {items: $ReadOnlyArray<ReportReleaseAnnotationT>, pager: PagerT}) => (
+}: Props): React.Element<typeof PaginatedResults> => (
   <PaginatedResults pager={pager}>
     <table className="tbl">
       <thead>

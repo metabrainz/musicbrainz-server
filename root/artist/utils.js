@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export function artistBeginAreaLabel(typeId: ?number) {
+export function artistBeginAreaLabel(typeId: ?number): string {
   switch (typeId) {
     case 1:
       return l('Born in:');
@@ -20,7 +20,7 @@ export function artistBeginAreaLabel(typeId: ?number) {
   }
 }
 
-export function artistBeginLabel(typeId: ?number) {
+export function artistBeginLabel(typeId: ?number): string {
   switch (typeId) {
     case 1:
       return l('Born:');
@@ -33,7 +33,7 @@ export function artistBeginLabel(typeId: ?number) {
   }
 }
 
-export function artistEndAreaLabel(typeId: ?number) {
+export function artistEndAreaLabel(typeId: ?number): string {
   switch (typeId) {
     case 1:
       return l('Died in:');
@@ -46,7 +46,7 @@ export function artistEndAreaLabel(typeId: ?number) {
   }
 }
 
-export function artistEndLabel(typeId: ?number) {
+export function artistEndLabel(typeId: ?number): string {
   switch (typeId) {
     case 1:
       return l('Died:');

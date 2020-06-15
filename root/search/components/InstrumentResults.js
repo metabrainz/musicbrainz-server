@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import InstrumentListEntry
   from '../../static/scripts/common/components/InstrumentListEntry';
 import type {ResultsPropsWithContextT} from '../types';
@@ -17,12 +16,13 @@ import type {ResultsPropsWithContextT} from '../types';
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult($c, result, index) {
   const instrument = result.entity;
   const score = result.score;
 
   return (
     <InstrumentListEntry
+      $c={$c}
       index={index}
       instrument={instrument}
       key={instrument.id}
@@ -38,10 +38,11 @@ const InstrumentResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<InstrumentT>) => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
+}: ResultsPropsWithContextT<InstrumentT>):
+React.Element<typeof ResultsLayout> => (
+  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
-      buildResult={buildResult}
+      buildResult={(result, index) => buildResult($c, result, index)}
       columns={
         <>
           <th>{l('Name')}</th>
@@ -64,4 +65,4 @@ const InstrumentResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(InstrumentResults);
+export default InstrumentResults;

@@ -28,7 +28,11 @@ type Props = {
   +label: string,
 };
 
-const SidebarEndDate = ({age, entity, label}: Props) => (
+const SidebarEndDate = ({
+  age,
+  entity,
+  label,
+}: Props): React.MixedElement | null => (
   isDateEmpty(entity.end_date) ? (
     entity.ended ? (
       <SidebarProperty className="end-date" label={label}>

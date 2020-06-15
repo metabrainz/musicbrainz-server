@@ -48,6 +48,7 @@ const noEntitiesText = {
 };
 
 type Props = {
+  +$c: CatalystContextT,
   +entityTags: $ReadOnlyArray<{
     +count: number,
     +entity: CoreEntityT,
@@ -60,13 +61,14 @@ type Props = {
 };
 
 const EntityList = ({
+  $c,
   entityTags,
   entityType,
   page,
   pager,
   tag,
-}: Props) => (
-  <TagLayout page={page} tag={tag}>
+}: Props): React.Element<typeof TagLayout> => (
+  <TagLayout $c={$c} page={page} tag={tag}>
     <h2>
       {expand2text(
         headingsText[entityType](pager.total_entries),

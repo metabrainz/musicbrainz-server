@@ -43,15 +43,15 @@ const STATUS_NAMES = {
   [EDIT_STATUS_OPEN]:           N_l('Open'),
 };
 
-export function getEditExpireAction(edit: EditT) {
+export function getEditExpireAction(edit: EditT): string {
   return EXPIRE_ACTIONS[edit.conditions.expire_action]();
 }
 
-export function getEditStatusName(edit: EditT) {
+export function getEditStatusName(edit: EditT): string {
   return STATUS_NAMES[edit.status]();
 }
 
-export function getEditStatusDescription(edit: EditT) {
+export function getEditStatusDescription(edit: EditT): string {
   switch (edit.status) {
     case EDIT_STATUS_OPEN:
       return l('This edit is open for voting.');

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React, {useCallback, useState} from 'react';
+import type {AbstractComponent} from "React";import React, {useCallback, useState} from 'react';
 
 import hydrate from '../../../../utility/hydrate';
 import {bracketedText} from '../utility/bracketed';
@@ -96,7 +96,7 @@ const WorkArtists = ({artists}: WorkArtistsProps) => {
   );
 };
 
-export default hydrate<WorkArtistsProps>(
+export default (hydrate<WorkArtistsProps>(
   'div.work-artists-container',
   WorkArtists,
-);
+): AbstractComponent<WorkArtistsProps, void>);

@@ -16,7 +16,10 @@ type Props = {
   series: SeriesT,
 };
 
-const SeriesHeader = ({series, page}: Props) => (
+const SeriesHeader = ({
+  series,
+  page,
+}: Props): React.Element<typeof EntityHeader> => (
   <EntityHeader
     entity={series}
     headerClass="seriesheader"

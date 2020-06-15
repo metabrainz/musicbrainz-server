@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 
 type Props = {
@@ -17,7 +16,10 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const SubscriptionLinks = ({$c, entity}: Props) => {
+const SubscriptionLinks = ({
+  $c,
+  entity,
+}: Props): React.Element<typeof React.Fragment> => {
   const entityType = entity.entityType;
   const id = encodeURIComponent(String(entity.id));
   const urlPrefix = `/account/subscriptions/${entityType}`;
@@ -53,4 +55,4 @@ const SubscriptionLinks = ({$c, entity}: Props) => {
   );
 };
 
-export default withCatalystContext(SubscriptionLinks);
+export default SubscriptionLinks;

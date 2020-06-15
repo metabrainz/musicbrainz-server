@@ -14,7 +14,6 @@ import FormRowText from '../../components/FormRowText';
 import FormRowTextLong from '../../components/FormRowTextLong';
 import FormSubmit from '../../components/FormSubmit';
 import Layout from '../../layout';
-import {withCatalystContext} from '../../context';
 
 type Props = {
   +$c: CatalystContextT,
@@ -24,11 +23,11 @@ type Props = {
   }>,
 };
 
-const CreateWikiDoc = withCatalystContext(({
+const CreateWikiDoc = ({
   $c,
   form,
-}: Props) => (
-  <Layout fullWidth title={l('Add Page')}>
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Add Page')}>
     <div id="content">
       <h1>{l('Add Page')}</h1>
       <form action={$c.req.uri} method="post">
@@ -52,6 +51,6 @@ const CreateWikiDoc = withCatalystContext(({
       </form>
     </div>
   </Layout>
-));
+);
 
 export default CreateWikiDoc;

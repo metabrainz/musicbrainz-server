@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
@@ -25,11 +24,15 @@ type PropsT = {
   +recordings: $ReadOnlyArray<RecordingT>,
 };
 
-const Index = ({$c, isrcs, recordings}: PropsT) => {
+const Index = ({
+  $c,
+  isrcs,
+  recordings,
+}: PropsT): React.Element<typeof Layout> => {
   const userExists = !!$c.user;
   const isrc = isrcs[0];
   return (
-    <Layout fullWidth title={texp.l('ISRC “{isrc}”', {isrc: isrc.isrc})}>
+    <Layout $c={$c} fullWidth title={texp.l('ISRC “{isrc}”', {isrc: isrc.isrc})}>
       <h1>
         {exp.l(
           'ISRC “{isrc}”',
@@ -96,4 +99,4 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
   );
 };
 
-export default withCatalystContext(Index);
+export default Index;
