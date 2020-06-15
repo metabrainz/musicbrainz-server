@@ -2023,12 +2023,12 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?operabase\\.com', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/a\/([^\/?#]+)\/([0-9]+).*$/, 'https://operabase.com/a/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/(?:a\/[^\/?#]+|artists)\/(?:[^0-9]+)?([0-9]+).*$/, 'https://operabase.com/artists/$1');
     },
     validate: function (url, id) {
       return {
         result: id === LINK_TYPES.otherdatabases.artist &&
-          /^https:\/\/operabase\.com\/a\/[^\/?#]+\/[0-9]+$/.test(url),
+          /^https:\/\/operabase\.com\/artists\/[0-9]+$/.test(url),
       };
     },
   },
