@@ -4,6 +4,10 @@
       <a href="[% c.uri_for_action('/track/show', [track.gid]) %]">[% track.number %]</a>
     </td>
     <td>
+      [% IF track.position == 0 %]
+        [% pregap_track_icon %]
+        [% ' ' %]
+      [% END %]
       [%- link_recording(track.recording, 'show', track.name) -%]
       [% # Show recording artist only to logged in users to avoid confusing visitors with recordings -%]
       [% IF c.user_exists && track.artist_credit_id != track.recording.artist_credit_id %]

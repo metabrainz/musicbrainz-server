@@ -178,7 +178,7 @@
   <tr class="track" data-bind="attr: { id: elementID }">
     <td class="reorder">
       <!-- ko if: position() == 0 -->
-        [% l('Pregap') %]
+        [% pregap_track_icon %]
       <!-- /ko -->
       <!-- ko if: position() > 0 -->
         <button type="button" class="icon track-down" title="[% l('Move track down') %]"

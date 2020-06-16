@@ -821,6 +821,10 @@ END ~%]
   END %] ([% direction %])
 [%~ END ~%]
 
+[%~ MACRO pregap_track_icon BLOCK ~%]
+  <div class="pregap-track icon img" title="[% l('This track is hidden in the pregap.') %]"></div>
+[%~ END ~%]
+
 [%~ MACRO data_track_icon BLOCK ~%]
   <div class="data-track icon img" title="[% l('This track is a data track.') %]"></div>
 [%~ END ~%]

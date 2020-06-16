@@ -84,6 +84,7 @@
               [% old_number_diff %]
             </td>
             <td>
+              [%~ pregap_track_icon IF old_track.position == 0 %]
               [%~ data_track_icon IF old_track.is_data_track %]
               [%= link_entity(
                      old_track.recording, 'show',
@@ -100,6 +101,7 @@
               [% new_number_diff %]
             </td>
             <td>
+              [%~ pregap_track_icon IF new_track.position == 0 %]
               [%~ data_track_icon IF new_track.is_data_track %]
               [% # If no recording_id exists, it's creating a recording
                 SET allow_new = 1 IF !new_track.recording_id
@@ -128,6 +130,7 @@
               [% track.number %]
             </td>
             <td>
+              [%~ pregap_track_icon IF track.position == 0 %]
               [%~ data_track_icon IF track.is_data_track %]
               [%= link_entity(track.recording, 'show', track.name) ~%]
             </td>
@@ -148,6 +151,7 @@
               [% html_escape(track.number) %]
             </td>
             <td>
+              [%~ pregap_track_icon IF track.position == 0 %]
               [%~ data_track_icon IF track.is_data_track %]
               [%= link_entity(track.recording, 'show', track.name) ~%]
             </td>
