@@ -288,6 +288,7 @@ function AutocompleteItems({
 
 export default function Autocomplete2(props: Props): React.Element<'div'> {
   const {
+    containerClass,
     entityType,
     id,
     onTypeChange,
@@ -462,7 +463,8 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
 
   return (
     <div
-      className="autocomplete2"
+      className={
+        'autocomplete2' + (containerClass ? ' ' + containerClass : '')}
       ref={node => {
         containerRef.current = node;
       }}

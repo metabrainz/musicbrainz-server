@@ -8,6 +8,7 @@
  */
 
 export type Props = {
+  containerClass?: string,
   entityType: CoreEntityTypeT | 'editor',
   id: string,
   initialInputValue?: string,
