@@ -8,6 +8,7 @@
  */
 
 export type Props = {
+  children?: React$Node,
   containerClass?: string,
   entityType: CoreEntityTypeT | 'editor',
   id: string,

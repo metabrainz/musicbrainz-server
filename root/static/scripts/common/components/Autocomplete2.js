@@ -514,6 +514,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
           title={l('Search')}
           type="button"
         />
+        {props.children}
       </div>
 
       <ul
