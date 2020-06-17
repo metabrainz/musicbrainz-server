@@ -9,8 +9,11 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
 
-import expand2html from '../common/i18n/expand2html';
+import MB from '../common/MB';
+import DescriptiveLink from '../common/components/DescriptiveLink'
 import expand2text from '../common/i18n/expand2text';
 import {errorsExist} from '../edit/validation';
 
@@ -128,18 +131,32 @@ $(function () {
 function searchExistingBarcode(field, barcode) {
     utils.search("release", `barcode:${barcode}`, 1).done(data => {
         if (data.releases.length) {
-            var msg = l(
-                `There already exists at least one release with that barcode.
-                 Please check on {url|this search page} whether the release you
-                 are entering is identical.`
+
+            const msg = l(
+                `The following releases with that barcode are already in the
+                 MusicBrainz database. Please make sure you are not adding an
+                 exact duplicate of any of these:`,
             );
-            var query = `barcode%3A${barcode}&type=release&method=advanced`;
-            field.existing(
-                expand2html(
-                    msg,
-                    { url: { href: `/search?query=${query}`, target: "_blank" }}
-                )
+            const releaseList = ReactDOMServer.renderToString(
+                <>
+                    {msg}
+                    <ul>
+                        {data.releases.map(release => {
+                        const cleanedRelease = new MB.entity.Release(
+                            utils.cleanWebServiceData(release),
+                        );
+                        return (
+                            <li key={release.id}>
+                                <DescriptiveLink
+                                    entity={cleanedRelease}
+                                />
+                            </li>
+                        );
+                    })}
+                    </ul>
+                </>,
             );
+            field.existing(releaseList);
         }
     });
 }
