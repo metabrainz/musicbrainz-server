@@ -14,6 +14,7 @@ export type Props = {
   initialInputValue?: string,
   initialSelectedItem?: EntityItem | null,
   items?: $ReadOnlyArray<EntityItem>,
+  labelClass?: string,
   onChange: (EntityItem | null) => void,
   onTypeChange?: (string) => boolean,
   placeholder?: string,

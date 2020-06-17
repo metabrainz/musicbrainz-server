@@ -470,7 +470,12 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
       }}
       style={props.width ? {width: props.width} : null}
     >
-      <label htmlFor={inputId} id={labelId} style={DISPLAY_NONE_STYLE}>
+      <label
+        className={props.labelClass}
+        htmlFor={inputId}
+        id={labelId}
+        style={DISPLAY_NONE_STYLE}
+      >
         {props.placeholder || SEARCH_PLACEHOLDERS[entityType]()}
       </label>
       <div
