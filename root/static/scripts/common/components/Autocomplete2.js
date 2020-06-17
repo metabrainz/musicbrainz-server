@@ -183,7 +183,7 @@ function setScrollPosition(menuId: string, siblingAccessor: string) {
   }
 }
 
-function createInitialState(props: Props): State {
+export function createInitialState(props: Props): State {
   return {
     highlightedItem: null,
     indexedSearch: true,
