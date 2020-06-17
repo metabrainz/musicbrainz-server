@@ -491,6 +491,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
           aria-labelledby={labelId}
           autoComplete="off"
           className={state.selectedItem ? 'lookup-performed' : ''}
+          disabled={props.disabled}
           id={inputId}
           onChange={handleInputChange}
           onKeyDown={handleInputKeyDown}
@@ -506,8 +507,11 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
           aria-controls={menuId}
           aria-haspopup="true"
           aria-label={l('Search')}
-          className={'search' + (state.pendingSearch ? ' loading' : '')}
+          className={
+            'search' +
+            (state.pendingSearch && !props.disabled ? ' loading' : '')}
           data-toggle="true"
+          disabled={props.disabled}
           onClick={handleButtonClick}
           onKeyDown={handleInputKeyDown}
           role="button"
@@ -522,15 +526,21 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
         aria-labelledby={labelId}
         id={menuId}
         role="listbox"
-        style={{visibility: state.isOpen ? 'visible' : 'hidden'}}
+        style={{
+          visibility: (state.isOpen && !props.disabled)
+            ? 'visible'
+            : 'hidden',
+        }}
       >
-        <AutocompleteItems
-          autocompleteId={id}
-          dispatch={dispatch}
-          highlightedItem={state.highlightedItem}
-          items={state.items}
-          selectedItem={state.selectedItem}
-        />
+        {props.disabled ? null : (
+          <AutocompleteItems
+            autocompleteId={id}
+            dispatch={dispatch}
+            highlightedItem={state.highlightedItem}
+            items={state.items}
+            selectedItem={state.selectedItem}
+          />
+        )}
       </ul>
 
       <div

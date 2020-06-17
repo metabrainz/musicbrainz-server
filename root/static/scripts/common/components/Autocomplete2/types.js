@@ -10,6 +10,7 @@
 export type Props = {
   children?: React$Node,
   containerClass?: string,
+  disabled?: boolean,
   entityType: CoreEntityTypeT | 'editor',
   id: string,
   initialInputValue?: string,
