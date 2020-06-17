@@ -18,7 +18,7 @@ import {EMPTY_ARRAY, MENU_ITEMS} from './constants';
 import type {
   ActionItem,
   Actions,
-  Props,
+  Item,
   SearchAction,
   State,
 } from './types';
@@ -55,17 +55,13 @@ function resetPage(state: State) {
   state.page = 1;
 }
 
-function runOnChange(props, state, item) {
-  const selectedItem = state.selectedItem;
-  if ((!selectedItem !== !item) ||
-      (selectedItem && item && selectedItem.id !== item.id)) {
-    props.onChange(item);
-  }
-}
-
-function selectItem(props, state, item, unwrapProxy) {
+function selectItem(
+  state: State,
+  item: Item,
+  unwrapProxy: <T>(T) => T,
+) {
   if (item.action) {
-    runReducer(props, state, item.action, unwrapProxy);
+    runReducer(state, item.action, unwrapProxy);
     return;
   }
 
@@ -77,8 +73,6 @@ function selectItem(props, state, item, unwrapProxy) {
     state.inputValue = item.name;
     resetPage(state);
   }
-
-  runOnChange(props, state, item);
 }
 
 function showError(state: State, error: ActionItem) {
@@ -90,12 +84,18 @@ function showError(state: State, error: ActionItem) {
 
 // `runReducer` should only be run on a copy of the existing state.
 function runReducer(
-  props: Props,
   state: State,
   action: Actions,
   unwrapProxy: <T>(T) => T,
 ) {
   switch (action.type) {
+    case 'change-entity-type': {
+      state.entityType = action.entityType;
+      state.selectedItem = null;
+      resetPage(state);
+      break;
+    }
+
     case 'highlight-item': {
       state.highlightedItem = action.item;
       break;
@@ -134,7 +134,7 @@ function runReducer(
       break;
 
     case 'select-item':
-      selectItem(props, state, action.item, unwrapProxy);
+      selectItem(state, action.item, unwrapProxy);
       break;
 
     case 'set-menu-visibility':
@@ -218,7 +218,6 @@ function runReducer(
         resetPage(state);
       }
 
-      runOnChange(props, state, null);
       break;
 
     default:
@@ -227,7 +226,6 @@ function runReducer(
 }
 
 export default function reducer(
-  props: Props,
   state: State,
   action: Actions,
 ): State {
@@ -236,6 +234,6 @@ export default function reducer(
   }
 
   return mutate(state, (nextState, unwrapProxy) => {
-    runReducer(props, nextState, action, unwrapProxy);
+    runReducer(nextState, action, unwrapProxy);
   });
 }

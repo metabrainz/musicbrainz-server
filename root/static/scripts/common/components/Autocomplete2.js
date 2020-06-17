@@ -33,7 +33,6 @@ import {
   SEARCH_PLACEHOLDERS,
 } from './Autocomplete2/constants';
 import formatItem from './Autocomplete2/formatters';
-import reducer from './Autocomplete2/reducer';
 import type {
   Actions,
   EntityItem,
@@ -82,7 +81,6 @@ function doFilter(
 function doSearch(
   dispatch: (Actions) => void,
   props: Props,
-  state: State,
   xhr: {current: XMLHttpRequest | null},
 ) {
   const searchXhr = new XMLHttpRequest();
@@ -110,13 +108,13 @@ function doSearch(
       actions.push(MENU_ITEMS.NO_RESULTS);
     }
 
-    actions.push(state.indexedSearch
+    actions.push(props.indexedSearch
       ? MENU_ITEMS.TRY_AGAIN_DIRECT
       : MENU_ITEMS.TRY_AGAIN_INDEXED);
 
     const prevItems: Array<EntityItem> = [];
     const prevItemIds = new Set();
-    for (const item of state.items) {
+    for (const item of props.items) {
       if (!item.action) {
         prevItems.push(item);
         prevItemIds.add(item.id);
@@ -137,9 +135,9 @@ function doSearch(
 
   const url = (
     '/ws/js/' + ENTITIES[props.entityType].url +
-    '/?q=' + encodeURIComponent(state.inputValue || '') +
-    '&page=' + String(state.page) +
-    '&direct=' + (state.indexedSearch ? 'false' : 'true')
+    '/?q=' + encodeURIComponent(props.inputValue || '') +
+    '&page=' + String(props.page) +
+    '&direct=' + (props.indexedSearch ? 'false' : 'true')
   );
 
   searchXhr.open('GET', url);
@@ -183,18 +181,31 @@ function setScrollPosition(menuId: string, siblingAccessor: string) {
   }
 }
 
-export function createInitialState(props: Props): State {
+type InitialPropsT = {
+  canChangeType?: (string) => boolean,
+  entityType: $ElementType<EntityItem, 'entityType'>,
+  id: string,
+  inputValue?: string,
+  placeholder?: string,
+  selectedItem?: EntityItem | null,
+  staticItems?: $ReadOnlyArray<EntityItem>,
+  width?: string,
+};
+
+export function createInitialState(props: InitialPropsT): State {
+  const {inputValue, selectedItem, ...restProps} = props;
   return {
+    entityType: props.entityType,
     highlightedItem: null,
     indexedSearch: true,
-    inputValue: props.initialInputValue ??
-      props.initialSelectedItem?.name ?? '',
+    inputValue: inputValue ?? selectedItem?.name ?? '',
     isOpen: false,
     items: EMPTY_ARRAY,
     page: 1,
     pendingSearch: null,
-    selectedItem: props.initialSelectedItem ?? null,
+    selectedItem: selectedItem ?? null,
     statusMessage: '',
+    ...restProps,
   };
 }
 
@@ -288,17 +299,12 @@ function AutocompleteItems({
 
 export default function Autocomplete2(props: Props): React.Element<'div'> {
   const {
+    canChangeType,
     containerClass,
+    dispatch,
     entityType,
     id,
-    onTypeChange,
   } = props;
-
-  const [state, dispatch] = React.useReducer<State, Actions, Props>(
-    (s, a) => reducer(props, s, a),
-    props,
-    createInitialState,
-  );
 
   const xhr = React.useRef<XMLHttpRequest | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
@@ -308,12 +314,12 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
   function handleButtonClick() {
     stopRequests();
 
-    if (state.isOpen) {
+    if (props.isOpen) {
       dispatch(HIDE_MENU);
-    } else if (state.items.length) {
+    } else if (props.items.length) {
       dispatch(SHOW_MENU);
-    } else if (state.inputValue) {
-      doSearchOrFilter(dispatch, props.items, state.inputValue);
+    } else if (props.inputValue) {
+      doSearchOrFilter(dispatch, props.staticItems, props.inputValue);
     }
   }
 
@@ -343,29 +349,34 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
         }
 
         const entity = JSON.parse(lookupXhr.responseText);
-        if (entity.entityType !== entityType &&
-            (!onTypeChange || onTypeChange(entity.entityType) === false)) {
-          dispatch(SHOW_LOOKUP_TYPE_ERROR);
-        } else {
+        if (entity.entityType === entityType) {
           dispatch({item: entity, type: 'select-item'});
+        } else if (canChangeType && canChangeType(entity.entityType)) {
+          dispatch({
+            entityType: entity.entityType,
+            type: 'change-entity-type',
+          });
+          dispatch({item: entity, type: 'select-item'});
+        } else {
+          dispatch(SHOW_LOOKUP_TYPE_ERROR);
         }
       });
 
       lookupXhr.open('GET', '/ws/js/entity/' + mbidMatch[0]);
       lookupXhr.send();
 
-    } else if (clean(state.inputValue) !== newCleanInputValue) {
+    } else if (clean(props.inputValue) !== newCleanInputValue) {
       stopRequests();
-      doSearchOrFilter(dispatch, props.items, newCleanInputValue);
+      doSearchOrFilter(dispatch, props.staticItems, newCleanInputValue);
     }
   }
 
   function handleInputKeyDown(
     event: SyntheticKeyboardEvent<HTMLInputElement | HTMLButtonElement>,
   ) {
-    const isInputNonEmpty = !!state.inputValue;
-    const isMenuNonEmpty = state.items.length > 0;
-    const isMenuOpen = state.isOpen;
+    const isInputNonEmpty = !!props.inputValue;
+    const isMenuNonEmpty = props.items.length > 0;
+    const isMenuOpen = props.isOpen;
     const menuId = id + '-menu';
 
     switch (event.key) {
@@ -378,7 +389,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
         } else if (isMenuNonEmpty) {
           dispatch(SHOW_MENU);
         } else if (isInputNonEmpty) {
-          doSearchOrFilter(dispatch, props.items, state.inputValue);
+          doSearchOrFilter(dispatch, props.staticItems, props.inputValue);
         }
         break;
 
@@ -393,7 +404,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
       case 'Enter': {
         if (isMenuOpen) {
           event.preventDefault();
-          const item = state.highlightedItem;
+          const item = props.highlightedItem;
           if (item) {
             dispatch({item, type: 'select-item'});
           }
@@ -430,8 +441,8 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
     dispatch(STOP_SEARCH);
   }
 
-  const activeDescendant = state.highlightedItem
-    ? `${id}-item-${state.highlightedItem.id}`
+  const activeDescendant = props.highlightedItem
+    ? `${id}-item-${props.highlightedItem.id}`
     : null;
   const inputId = `${id}-input`;
   const labelId = `${id}-label`;
@@ -445,17 +456,17 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
 
   React.useEffect(() => {
     if (
-      state.pendingSearch &&
+      props.pendingSearch &&
       !inputTimeout.current &&
       !xhr.current &&
-      !props.items
+      !props.staticItems
     ) {
       inputTimeout.current = setTimeout(() => {
         inputTimeout.current = null;
 
         // Check if the input value has changed before proceeding.
-        if (clean(state.pendingSearch) === clean(state.inputValue)) {
-          doSearch(dispatch, props, state, xhr);
+        if (clean(props.pendingSearch) === clean(props.inputValue)) {
+          doSearch(dispatch, props, xhr);
         }
       }, 300);
     }
@@ -479,7 +490,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
         {props.placeholder || SEARCH_PLACEHOLDERS[entityType]()}
       </label>
       <div
-        aria-expanded={state.isOpen ? 'true' : 'false'}
+        aria-expanded={props.isOpen ? 'true' : 'false'}
         aria-haspopup="listbox"
         aria-owns={menuId}
         role="combobox"
@@ -490,7 +501,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
           aria-controls={menuId}
           aria-labelledby={labelId}
           autoComplete="off"
-          className={state.selectedItem ? 'lookup-performed' : ''}
+          className={props.selectedItem ? 'lookup-performed' : ''}
           disabled={props.disabled}
           id={inputId}
           onChange={handleInputChange}
@@ -499,7 +510,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
             props.placeholder || l('Type to search, or paste an MBID')
           }
           ref={inputRef}
-          value={state.inputValue}
+          value={props.inputValue}
         />
         <button
           aria-activedescendant={activeDescendant}
@@ -509,7 +520,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
           aria-label={l('Search')}
           className={
             'search' +
-            (state.pendingSearch && !props.disabled ? ' loading' : '')}
+            (props.pendingSearch && !props.disabled ? ' loading' : '')}
           data-toggle="true"
           disabled={props.disabled}
           onClick={handleButtonClick}
@@ -527,7 +538,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
         id={menuId}
         role="listbox"
         style={{
-          visibility: (state.isOpen && !props.disabled)
+          visibility: (props.isOpen && !props.disabled)
             ? 'visible'
             : 'hidden',
         }}
@@ -536,9 +547,9 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
           <AutocompleteItems
             autocompleteId={id}
             dispatch={dispatch}
-            highlightedItem={state.highlightedItem}
-            items={state.items}
-            selectedItem={state.selectedItem}
+            highlightedItem={props.highlightedItem}
+            items={props.items}
+            selectedItem={props.selectedItem}
           />
         )}
       </ul>
@@ -550,7 +561,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
         role="status"
         style={ARIA_LIVE_STYLE}
       >
-        {state.statusMessage}
+        {props.statusMessage}
       </div>
     </div>
   );

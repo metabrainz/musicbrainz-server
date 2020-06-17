@@ -7,33 +7,32 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type Props = {
+export type State = {
+  canChangeType?: (string) => boolean,
   children?: React$Node,
   containerClass?: string,
   disabled?: boolean,
   entityType: CoreEntityTypeT | 'editor',
-  id: string,
-  initialInputValue?: string,
-  initialSelectedItem?: EntityItem | null,
-  items?: $ReadOnlyArray<EntityItem>,
-  labelClass?: string,
-  onChange: (EntityItem | null) => void,
-  onTypeChange?: (string) => boolean,
-  placeholder?: string,
-  width?: string,
-};
-
-export type State = {
   highlightedItem: Item | null,
+  id: string,
   indexedSearch: boolean,
   inputValue: string,
   isOpen: boolean,
   items: $ReadOnlyArray<Item>,
+  labelClass?: string,
   page: number,
   pendingSearch: string | null,
+  placeholder?: string,
   selectedItem: EntityItem | null,
+  staticItems?: $ReadOnlyArray<EntityItem>,
   statusMessage: string,
+  width?: string,
 };
+
+export type Props = $ReadOnly<{
+  ...State,
+  +dispatch: (Actions) => void,
+}>;
 
 export type SearchAction = {
   +indexed?: boolean,
@@ -44,6 +43,10 @@ export type SearchAction = {
 /* eslint-disable flowtype/sort-keys */
 export type Actions =
   | SearchAction
+  | {
+      +type: 'change-entity-type',
+      +entityType: CoreEntityTypeT | 'editor',
+    }
   | { +type: 'highlight-item', +item: Item }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
