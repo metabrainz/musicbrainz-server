@@ -4714,10 +4714,10 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-mutate-cow@4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/mutate-cow/-/mutate-cow-4.0.2.tgz#d763f931f3fa4267b5b5e7e5abcc7665dbb27fa4"
-  integrity sha512-9R6tjSBsts0qqFwZKZ+WEGV4GGUwL4o+GOUUuGrpqQjdR27owZTUBApxnD9JqaS+I06OQuFZSN+IUC8CxRSNyw==
+mutate-cow@4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/mutate-cow/-/mutate-cow-4.0.3.tgz#c162dc81c3b66729432c6bb7ca8f64907dac2c94"
+  integrity sha512-vXvdl9gqbbaucony7+Fu9cYaveJQSA0+FYbQQivuVVfo7c+anhwl+mfDKEUB8Vha5v91930t9tIpJfQ3wcXnig==
   dependencies:
     esm "^3.2.25"
 
