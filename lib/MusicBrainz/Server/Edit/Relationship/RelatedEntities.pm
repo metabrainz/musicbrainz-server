@@ -5,9 +5,9 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
-requires 'directly_related_entities';
+requires 'directly_related_entities', 'link_type';
 
-my %expand = map { $_ => 1 } qw( recording release release_group work );
+my %expand = map { $_ => 1 } qw( recording release release_group );
 
 around _build_related_entities => sub {
     my ($orig, $self) = @_;
@@ -25,20 +25,26 @@ around _build_related_entities => sub {
                 map { $_->artist_credit->all_names }
                     @entities;
         }
-
-        # For works, we want relationship edits to also appear on the recordings and releases they're linked to
-        my @work_ids = map { $_->id } grep { $_->isa('MusicBrainz::Server::Entity::Work') } @entities;
-        my ($recordings, $recording_hits) = $self->c->model('Recording')->find_by_works(\@work_ids);
-        my @work_recording_ids = map { $_->id } @$recordings;
-        push @{ $direct->{recording} }, @work_recording_ids;
-
-
-        # For recordings, we want relationship edits to also appear on the releases they're on
-        my @recording_ids = map { $_->id } grep { $_->isa('MusicBrainz::Server::Entity::Recording') } @entities;
-        push @recording_ids, @work_recording_ids;
-        my ($releases, $release_hits) = $self->c->model('Release')->find_by_recording(\@recording_ids);
-        push @{ $direct->{release} }, map { $_->id } @$releases;
     }
+
+    my @work_recording_ids;
+    # For works, we want relationship edits to also appear on the recordings and releases they're linked to
+    # As an exception, "recording of" relationships (not really changing the work in any way) should
+    # not be linked to recordings and releases unrelated to the recording in the relationship
+    unless ($self->link_type->{id} == 278) {
+        my @work_gids = @{ $direct->{work} // [] };
+        my @work_ids = map { $_->id } values %{ $self->c->model('Work')->get_by_any_ids(@work_gids) };
+        my ($recordings, $recording_hits) = $self->c->model('Recording')->find_by_works(\@work_ids);
+        @work_recording_ids = map { $_->id } @$recordings;
+        push @{ $direct->{recording} }, @work_recording_ids;
+    }
+
+    # For recordings, we want relationship edits to also appear on the releases they're on
+    my @recording_gids = @{ $direct->{recording} // [] };
+    my @recording_ids = map { $_->id } values %{ $self->c->model('Recording')->get_by_any_ids(@recording_gids) };
+    push @recording_ids, @work_recording_ids;
+    my ($releases, $release_hits) = $self->c->model('Release')->find_by_recording(\@recording_ids);
+    push @{ $direct->{release} }, map { $_->id } @$releases;
 
     # Extract attributes from delete relationship edits
     my @gids = ();
