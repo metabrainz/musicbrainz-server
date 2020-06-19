@@ -311,6 +311,20 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
   const inputTimeout = React.useRef<TimeoutID | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
 
+  const stopRequests = React.useCallback(() => {
+    if (xhr.current) {
+      xhr.current.abort();
+      xhr.current = null;
+    }
+
+    if (inputTimeout.current) {
+      clearTimeout(inputTimeout.current);
+      inputTimeout.current = null;
+    }
+
+    dispatch(STOP_SEARCH);
+  }, [dispatch]);
+
   function handleButtonClick() {
     stopRequests();
 
@@ -422,24 +436,10 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
     }
   }
 
-  function handleOuterClick() {
+  const handleOuterClick = React.useCallback(() => {
     stopRequests();
     dispatch(HIDE_MENU);
-  }
-
-  function stopRequests() {
-    if (xhr.current) {
-      xhr.current.abort();
-      xhr.current = null;
-    }
-
-    if (inputTimeout.current) {
-      clearTimeout(inputTimeout.current);
-      inputTimeout.current = null;
-    }
-
-    dispatch(STOP_SEARCH);
-  }
+  }, [stopRequests, dispatch]);
 
   const activeDescendant = props.highlightedItem
     ? `${id}-item-${props.highlightedItem.id}`
