@@ -6500,60 +6500,60 @@ DISTRIBUTIONS
       Template 0
       Test::More 0
       Time::HiRes 0
-  Template-Toolkit-3.008
-    pathname: A/AT/ATOOMIC/Template-Toolkit-3.008.tar.gz
+  Template-Toolkit-3.007
+    pathname: A/AT/ATOOMIC/Template-Toolkit-3.007.tar.gz
     provides:
-      Template 3.008
-      Template::Base 3.008
-      Template::Config 3.008
-      Template::Constants 3.008
-      Template::Context 3.008
-      Template::Directive 3.008
-      Template::Document 3.008
-      Template::Exception 3.008
-      Template::Filters 3.008
-      Template::Grammar 3.008
-      Template::Iterator 3.008
-      Template::Monad::Assert 3.008
-      Template::Monad::Scalar 3.008
-      Template::Namespace::Constants 3.008
-      Template::Parser 3.008
-      Template::Perl 3.008
-      Template::Plugin 3.008
-      Template::Plugin::Assert 3.008
-      Template::Plugin::CGI 3.008
-      Template::Plugin::Datafile 3.008
-      Template::Plugin::Date 3.008
-      Template::Plugin::Date::Calc 3.008
-      Template::Plugin::Date::Manip 3.008
-      Template::Plugin::Directory 3.008
-      Template::Plugin::Dumper 3.008
-      Template::Plugin::File 3.008
-      Template::Plugin::Filter 3.008
-      Template::Plugin::Format 3.008
-      Template::Plugin::HTML 3.008
-      Template::Plugin::Image 3.008
-      Template::Plugin::Iterator 3.008
-      Template::Plugin::Math 3.008
-      Template::Plugin::Pod 3.008
-      Template::Plugin::Procedural 3.008
-      Template::Plugin::Scalar 3.008
-      Template::Plugin::String 3.008
-      Template::Plugin::Table 3.008
-      Template::Plugin::URL 3.008
-      Template::Plugin::View 3.008
-      Template::Plugin::Wrap 3.008
-      Template::Plugins 3.008
-      Template::Provider 3.008
-      Template::Service 3.008
-      Template::Stash 3.008
-      Template::Stash::Context 3.008
+      Template 3.007
+      Template::Base 3.007
+      Template::Config 3.007
+      Template::Constants 3.007
+      Template::Context 3.007
+      Template::Directive 3.007
+      Template::Document 3.007
+      Template::Exception 3.007
+      Template::Filters 3.007
+      Template::Grammar 3.007
+      Template::Iterator 3.007
+      Template::Monad::Assert 3.007
+      Template::Monad::Scalar 3.007
+      Template::Namespace::Constants 3.007
+      Template::Parser 3.007
+      Template::Perl 3.007
+      Template::Plugin 3.007
+      Template::Plugin::Assert 3.007
+      Template::Plugin::CGI 3.007
+      Template::Plugin::Datafile 3.007
+      Template::Plugin::Date 3.007
+      Template::Plugin::Date::Calc 3.007
+      Template::Plugin::Date::Manip 3.007
+      Template::Plugin::Directory 3.007
+      Template::Plugin::Dumper 3.007
+      Template::Plugin::File 3.007
+      Template::Plugin::Filter 3.007
+      Template::Plugin::Format 3.007
+      Template::Plugin::HTML 3.007
+      Template::Plugin::Image 3.007
+      Template::Plugin::Iterator 3.007
+      Template::Plugin::Math 3.007
+      Template::Plugin::Pod 3.007
+      Template::Plugin::Procedural 3.007
+      Template::Plugin::Scalar 3.007
+      Template::Plugin::String 3.007
+      Template::Plugin::Table 3.007
+      Template::Plugin::URL 3.007
+      Template::Plugin::View 3.007
+      Template::Plugin::Wrap 3.007
+      Template::Plugins 3.007
+      Template::Provider 3.007
+      Template::Service 3.007
+      Template::Stash 3.007
+      Template::Stash::Context 3.007
       Template::Stash::XS undef
-      Template::Test 3.008
-      Template::TieString 3.008
-      Template::Toolkit 3.008
-      Template::VMethods 3.008
-      Template::View 3.008
+      Template::Test 3.007
+      Template::TieString 3.007
+      Template::Toolkit 3.007
+      Template::VMethods 3.007
+      Template::View 3.007
     requirements:
       AppConfig 1.56
       ExtUtils::MakeMaker 0
