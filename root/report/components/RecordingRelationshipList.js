@@ -19,24 +19,46 @@ import ArtistCreditLink
 type Props = {
   +items: $ReadOnlyArray<ReportRecordingRelationshipT>,
   +pager: PagerT,
+  +showDates?: boolean,
+  +showArtist?: boolean,
 };
 
 const RecordingRelationshipList = ({
   items,
   pager,
+  showDates,
+  showArtist,
 }: Props): React.Element<typeof PaginatedResults> => (
   <PaginatedResults pager={pager}>
     <table className="tbl">
       <thead>
         <tr>
+          {showDates ? (
+            <>
+              <th>{l('Begin date')}</th>
+              <th>{l('End date')}</th>
+            </>
+          ) : null}
           <th>{l('Relationship Type')}</th>
-          <th>{l('Artist')}</th>
+          {showArtist ? (
+            <th>{l('Artist')}</th>
+          ) : null}
           <th>{l('Recording')}</th>
         </tr>
       </thead>
       <tbody>
         {items.map((item, index) => (
           <tr className={loopParity(index)} key={item.recording_id}>
+            {showDates ? (
+              <>
+                <td>
+                  {item.begin}
+                </td>
+                <td>
+                  {item.end}
+                </td>
+              </>
+            ) : null}
             <td>
               <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
                 {l_relationships(item.link_name)}
@@ -44,11 +66,13 @@ const RecordingRelationshipList = ({
             </td>
             {item.recording ? (
               <>
-                <td>
-                  <ArtistCreditLink
-                    artistCredit={item.recording.artistCredit}
-                  />
-                </td>
+                {showArtist ? (
+                  <td>
+                    <ArtistCreditLink
+                      artistCredit={item.recording.artistCredit}
+                    />
+                  </td>
+                ) : null}
                 <td>
                   <EntityLink entity={item.recording} />
                 </td>

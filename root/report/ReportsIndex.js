@@ -473,6 +473,11 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
             {l('Recordings with a different name than their only track')}
           </a>
         </li>
+        <li>
+          <a href="/report/RecordingsWithFutureDates">
+            {l('Recordings with dates in the future')}
+          </a>
+        </li>
       </ul>
 
       <h2>{l('Places')}</h2>

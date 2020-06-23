@@ -181,6 +181,7 @@ module.exports = {
   'report/RecordingTrackDifferentName': require('../report/RecordingTrackDifferentName'),
   'report/RecordingsSameNameDifferentArtistsSameName': require('../report/RecordingsSameNameDifferentArtistsSameName'),
   'report/RecordingsWithEarliestReleaseRelationships': require('../report/RecordingsWithEarliestReleaseRelationships'),
+  'report/RecordingsWithFutureDates': require('../report/RecordingsWithFutureDates'),
   'report/RecordingsWithVaryingTrackLengths': require('../report/RecordingsWithVaryingTrackLengths'),
   'report/RecordingsWithoutVaCredit': require('../report/RecordingsWithoutVaCredit'),
   'report/RecordingsWithoutVaLink': require('../report/RecordingsWithoutVaLink'),
