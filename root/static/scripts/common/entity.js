@@ -29,7 +29,7 @@ import {
 } from './immutable-entities';
 import linkedEntities from './linkedEntities';
 import MB from './MB';
-import bracketed from './utility/bracketed';
+import {bracketedText} from './utility/bracketed';
 import clean from './utility/clean';
 import formatTrackLength from './utility/formatTrackLength';
 
@@ -235,17 +235,19 @@ import formatTrackLength from './utility/formatTrackLength';
     class Label extends CoreEntity {
         selectionMessage() {
             const code = this.label_code;
-            let codeSection = '';
 
-            if (code) {
-                codeSection = ' ' + bracketed(exp.l(
-                    'Label code: {code}',
-                    {code: formatLabelCode(code)},
-                ));
-            }
             return ReactDOMServer.renderToStaticMarkup(
-                exp.l('You selected {label}.', {label: this.reactElement({target: '_blank'})}),
-            ) + codeSection;
+                <>
+                    {exp.l('You selected {label}.', {label: this.reactElement({target: '_blank'})})}
+                    {code ? (
+                        ' ' +
+                        bracketedText(texp.l(
+                            'Label code: {code}',
+                            {code: formatLabelCode(code)},
+                        ))
+                    ) : null}
+                </>,
+            );
         }
     }
 
