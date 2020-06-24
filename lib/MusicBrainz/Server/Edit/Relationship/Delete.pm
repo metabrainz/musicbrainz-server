@@ -79,6 +79,8 @@ my $link_type_fake_id = 10000;
 sub model0 { type_to_model(shift->data->{relationship}{link}{type}{entity0_type}) }
 sub model1 { type_to_model(shift->data->{relationship}{link}{type}{entity1_type}) }
 
+sub link_type { shift->data->{relationship}{link}{type} }
+
 sub foreign_keys
 {
     my $self = shift;

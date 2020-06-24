@@ -61,6 +61,8 @@ has '+data' => (
     ]
 );
 
+sub link_type { shift->data->{link_type} }
+
 sub initialize
 {
     my ($self, %opts) = @_;

@@ -105,6 +105,8 @@ has 'relationship' => (
     is => 'rw'
 );
 
+sub link_type { shift->data->{link}{link_type} }
+
 sub foreign_keys
 {
     my ($self) = @_;

@@ -72,6 +72,8 @@ has '+data' => (
     ]
 );
 
+sub link_type { shift->data->{link_type} }
+
 sub foreign_keys {
     my ($self) = @_;
 
