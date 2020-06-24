@@ -23,6 +23,7 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_name { N_l('Reorder relationships') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELATIONSHIPS_REORDER }
+sub edit_template_react { 'ReorderRelationships' }
 
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -71,6 +72,8 @@ has '+data' => (
     ]
 );
 
+sub link_type { shift->data->{link_type} }
+
 sub foreign_keys {
     my ($self) = @_;
 
@@ -108,6 +111,7 @@ sub _build_relationship {
     return Relationship->new(
         link => Link->new(
             type       => $loaded->{LinkType}{$lt->{id}} || LinkType->new($lt),
+            type_id    => $lt->{id},
             begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($data->{begin_date}) // {},
             end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row($data->{end_date}) // {},
             ended      => $data->{ended},
@@ -117,6 +121,7 @@ sub _build_relationship {
 
                     if ($attr) {
                         LinkAttribute->new(
+                            type_id => $_->{type}{id},
                             type => $attr,
                             credited_as => $_->{credited_as},
                             text_value => $_->{text_value},
@@ -128,7 +133,11 @@ sub _build_relationship {
             ],
         ),
         entity0 => $entity0,
+        entity0_credit => $data->{entity0}{name},
+        entity0_id => $data->{entity0}{id},
         entity1 => $entity1,
+        entity1_credit => $data->{entity1}{name},
+        entity1_id => $data->{entity1}{id},
         source => $entity0,
         target => $entity1,
         source_type => $entity0->entity_type,
@@ -227,8 +236,8 @@ sub build_display_data {
     return {
         relationships => [
             map +{
-                old_order => $_->{old_order},
-                new_order => $_->{new_order},
+                old_order => $_->{old_order} + 0,
+                new_order => $_->{new_order} + 0,
                 relationship => $self->_build_relationship($loaded, $_->{relationship}),
             },
             sort { $a->{new_order} <=> $b->{new_order} }

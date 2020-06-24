@@ -46,7 +46,7 @@ React.Element<typeof Layout> => (
       {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
-    <RecordingRelationshipList items={items} pager={pager} />
+    <RecordingRelationshipList items={items} pager={pager} showArtist />
 
   </Layout>
 );

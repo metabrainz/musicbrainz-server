@@ -114,6 +114,7 @@ my %URL_SPECIALIZATIONS = (
     'Muzikum'             => qr{^https?://(?:www\.)?muzikum\.eu/}i,
     'MVDbase'             => qr{^https?://(?:www\.)?mvdbase\.com/}i,
     'MySpace'             => qr{^https?://(?:www\.)?myspace\.com/}i,
+    'Napster'             => qr{^https?://[\w-]{2}\.napster\.com/}i,
     'NDL'                 => qr{^https?://(?:www\.)?iss\.ndl\.go\.jp/}i,
     'NDLAuthorities'      => qr{^https?://id\.ndl\.go\.jp/}i,
     'NicoNicoVideo'       => qr{^https?://(?:www\.)?nicovideo\.jp/}i,

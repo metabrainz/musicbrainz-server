@@ -5,6 +5,7 @@ html {
 body {
     padding: 0;
     margin: 0;
+    background-color: #FFF;
     color: @text-black;
     font-family: @sans-serif;
     min-width: @min-width;
@@ -133,8 +134,10 @@ pre code {
 
 .deleted { color: @dark-text; }
 
-/* For general right aligning, and especially for barcodes */
+
+/* For general aligning, and especially for barcodes */
 .align-right, .barcode-cell { text-align: right; }
+.align-left { text-align: left !important; }
 
 /*
 ** Header
@@ -335,7 +338,6 @@ img.gravatar {
 #current-editing {
     margin-top: 1em;
     padding: 16px;
-    background: #FFF;
     overflow: visible;
     position: relative;
     display: table;
@@ -853,6 +855,12 @@ table.details {
         span.old, &.old {
             background: @negative-light-bg;
         }
+    }
+
+    th.narrow, td.narrow {
+        padding-left: 0pt;
+        white-space: nowrap;
+        width: 1px;
     }
 
     ul {
