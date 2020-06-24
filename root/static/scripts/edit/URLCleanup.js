@@ -1946,6 +1946,44 @@ const CLEANUPS = {
       return {result: /^https:\/\/myspace\.com\//.test(url)};
     },
   },
+  'napster': {
+    match: [new RegExp('^(https?://)?((app|www|[a-z]{2})\\.)?napster\\.com', 'i')],
+    type: LINK_TYPES.streamingpaid,
+    clean: function (url) {
+      url = url.replace(/^http:\/\//, 'https://');
+      // Standardise on US (host country) for multi-country redirect
+      url = url.replace(/^https:\/\/((app|www)\.)?napster/, 'https://us.napster');
+      url = url.replace(/[#?].*$/, '');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/\/(alb|art|tra)\.[\d]+/i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+        };
+      }
+      switch (id) {
+        case LINK_TYPES.streamingpaid.artist:
+          return {result: /^https:\/\/[a-z]{2}\.napster\.com\/artist\/[\w-]+$/.test(url)};
+        case LINK_TYPES.streamingpaid.recording:
+          return {result: /^https:\/\/[a-z]{2}\.napster\.com\/artist\/[\w-]+\/album\/[\w-]+\/track\/[\w-]+$/.test(url)};
+        case LINK_TYPES.streamingpaid.release:
+          return {result: /^https:\/\/[a-z]{2}\.napster\.com\/artist\/[\w-]+\/album\/[\w-]+$/.test(url)};
+      }
+      return {result: false};
+    },
+  },
   'ndlauth': {
     match: [new RegExp('^(https?://)?id\\.ndl\\.go\\.jp/', 'i')],
     type: LINK_TYPES.otherdatabases,
