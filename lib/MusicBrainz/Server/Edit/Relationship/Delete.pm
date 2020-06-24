@@ -30,6 +30,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
 sub edit_name { N_l("Remove relationship") }
 sub edit_kind { 'remove' }
+sub edit_template_react { 'RemoveRelationship' }
 
 has '+data' => (
     isa => Dict[
@@ -71,6 +72,10 @@ has 'relationship' => (
     is => 'rw'
 );
 
+# Some old edits don't actually have a link type ID stored
+# We use this dirty hack so that we can access the data in linkedEntities
+my $link_type_fake_id = 10000;
+
 sub model0 { type_to_model(shift->data->{relationship}{link}{type}{entity0_type}) }
 sub model1 { type_to_model(shift->data->{relationship}{link}{type}{entity1_type}) }
 
@@ -103,8 +108,11 @@ sub build_display_data
         map {
             my $type = $_->{type};
             MusicBrainz::Server::Entity::LinkAttribute->new(
+                type_id => $type->{id},
                 type => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    id => $type->{id},
                     name => $type->{name},
+                    root_id => $type->{root}{id},
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => $type->{root}{name},
                     )
@@ -118,15 +126,20 @@ sub build_display_data
     my $link_type = $relationship->{link}{type};
     my $entity0_type = $link_type->{entity0_type};
     my $entity1_type = $link_type->{entity1_type};
+
+    # If no link type exists, we use the fake ID and ensure the next one doesn't clash
+    my $link_type_id = $link_type->{id} // $link_type_fake_id++;
+
     my $link = MusicBrainz::Server::Entity::Link->new(
+        type_id => $link_type_id,
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{begin_date}),
         end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{end_date}),
         ended => $relationship->{link}{ended},
         type => $loaded->{LinkType}{$link_type->{id}} // MusicBrainz::Server::Entity::LinkType->new(
-            $link_type->{id} ? (id => $link_type->{id}) : (),
+            id => $link_type_id,
             entity0_type => $entity0_type,
             entity1_type => $entity1_type,
-            long_link_phrase => $link_type->{long_link_phrase} // '',
+            long_link_phrase => $link_type->{long_link_phrase} // $relationship->{phrase} // '',
         ),
         attributes => $attrs
     );
@@ -135,10 +148,12 @@ sub build_display_data
     my $entity1_data = $relationship->{entity1};
     my $entity0 = $loaded->{ $self->model0 }->{gid_or_id($entity0_data)} ||
         $self->c->model($self->model0)->_entity_class->new(
+            id => $entity0_data->{id},
             name => $entity0_data->{name}
         );
     my $entity1 = $loaded->{ $self->model1 }->{gid_or_id($entity1_data)} ||
         $self->c->model($self->model1)->_entity_class->new(
+            id => $entity1_data->{id},
             name => $entity1_data->{name}
         );
     my $entity0_credit = $relationship->{entity0_credit} // '';
@@ -147,6 +162,8 @@ sub build_display_data
     my %relationship_opts = (
         entity0 => $entity0,
         entity1 => $entity1,
+        entity0_id => $entity0->id,
+        entity1_id => $entity1->id,
         entity0_credit => $entity0_credit,
         entity1_credit => $entity1_credit,
         source => $entity0,
