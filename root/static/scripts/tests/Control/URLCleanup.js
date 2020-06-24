@@ -2500,7 +2500,14 @@ const testData = [
                      input_url: 'www.operabase.com/a/Risto_Joost/21715/future',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://operabase.com/a/Risto_Joost/21715',
+            expected_clean_url: 'https://operabase.com/artists/21715',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.operabase.com/artists/megan-esther-grey-101303/en',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://operabase.com/artists/101303',
        only_valid_entity_types: ['artist'],
   },
   {
