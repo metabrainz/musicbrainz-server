@@ -19,10 +19,12 @@ import {
   defineNameColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
+  acoustidColumn,
   isrcsColumn,
   ratingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
+import hydrate from '../../utility/hydrate';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
@@ -33,6 +35,7 @@ type Props = {
   +mergeForm?: MergeFormT,
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingT>,
+  +showAcoustid?: boolean,
   +showExpandedArtistCredits?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
@@ -48,6 +51,7 @@ const RecordingList = ({
   order,
   recordings,
   seriesItemNumbers,
+  showAcoustid = false,
   showExpandedArtistCredits = false,
   showInstrumentCreditsAndRelTypes = false,
   showRatings = false,
@@ -97,6 +101,7 @@ const RecordingList = ({
         artistCreditColumn,
         isrcsColumn,
         ...(showRatings ? [ratingsColumn] : []),
+        ...(showAcoustid ? [acoustidColumn] : []),
         lengthColumn,
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
         ...(mergeForm && recordings.length > 2
@@ -113,6 +118,7 @@ const RecordingList = ({
       order,
       recordings,
       seriesItemNumbers,
+      showAcoustid,
       showExpandedArtistCredits,
       showInstrumentCreditsAndRelTypes,
       showRatings,
@@ -128,4 +134,7 @@ const RecordingList = ({
   );
 };
 
-export default RecordingList;
+export default (hydrate<Props>(
+  'div.recording-list',
+  RecordingList,
+): React.AbstractComponent<Props, void>);

@@ -55,6 +55,7 @@ const RecordingMerge = ({
           mergeForm={form}
           recordings={sortByEntityName(toMerge)}
           showExpandedArtistCredits
+          showAcoustid
         />
         <FieldErrors field={form.field.target} />
 
