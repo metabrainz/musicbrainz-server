@@ -35,7 +35,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-23 09:02+0000\n"
+"PO-Revision-Date: 2020-06-28 16:32+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -5291,14 +5291,6 @@ msgstr "orchestrateur"
 msgid "organist"
 msgstr "organiste"
 
-#: DB:link_type/link_phrase:856
-msgid "organist at"
-msgstr "organistes à"
-
-#: DB:link_type/reverse_link_phrase:856
-msgid "organists"
-msgstr "organistes"
-
 #: DB:link_attribute_type/name:525
 msgid "original"
 msgstr "original"
@@ -6385,10 +6377,6 @@ msgstr "a été dirigé par"
 msgid "was held at"
 msgstr "était tenu à"
 
-#: DB:link_type/long_link_phrase:856
-msgid "was organist at"
-msgstr "était organiste à"
-
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr "est paru en soutien à"
@@ -6413,6 +6401,10 @@ msgstr "était le premier violon {guest:invité} pour"
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "était {additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé} pour"
+
+#: DB:link_type/long_link_phrase:856
+msgid "was {assistant} organist at"
+msgstr "était  {assistant:assistant d’}organiste à"
 
 #: DB:link_attribute_type/name:1151
 msgid "whistling"
@@ -6979,6 +6971,14 @@ msgstr "{anniversary:tournée anniversaire de|tournée de lancement de}"
 #: DB:link_type/link_phrase:888
 msgid "{anniversary:anniversary tours|supporting tours}"
 msgstr "{anniversary:tournées anniversaires|tournées de lancement}"
+
+#: DB:link_type/link_phrase:856
+msgid "{assistant} organist at"
+msgstr "{assistant:assistant d’}organiste à"
+
+#: DB:link_type/reverse_link_phrase:856
+msgid "{assistant} organists"
+msgstr "{assistant:assistants d’}organistes"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
