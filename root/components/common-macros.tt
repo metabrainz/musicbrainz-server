@@ -637,51 +637,6 @@ END -%]
     END -%]
 [%- END -%]
 
-[%~ MACRO display_relationship(relationship, phrase_field) BLOCK; -%] [% # Converted to React at root/static/scripts/common/components/Relationship.js %]
-  [%- phrase_field = phrase_field || 'phrase';
-    extra_attributes_field = "extra_${phrase_field}_attributes";
-    IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
-    IF phrase_field == "verbose_phrase";
-        expand(relationship.verbose_phrase_with_placeholders, {
-            entity0 => descriptive_link(relationship.source, relationship.source_credit),
-            entity1 => descriptive_link(relationship.target, relationship.target_credit)
-        });
-    ELSE;
-        relationship.${ phrase_field }; ' '; descriptive_link(relationship.target, relationship.target_credit);
-    END;
-    ' ';
-    IF !relationship.link.begin_date.is_empty;
-        ' ';
-        IF !relationship.link.end_date.is_empty;
-            IF relationship.link.begin_date.format == relationship.link.end_date.format;
-                IF relationship.link.begin_date.day;
-                    l('on {date}', { date => relationship.link.begin_date.format });
-                ELSE;
-                    l('in {date}', { date => relationship.link.begin_date.format });
-                END;
-            ELSE;
-                l('from {begin_date} until {end_date}', {
-                    begin_date => relationship.link.begin_date.format,
-                    end_date => relationship.link.end_date.format
-                });
-            END;
-        ELSIF relationship.link.ended;
-            l('from {date} to ????', { date => relationship.link.begin_date.format });
-        ELSE;
-            l('from {date} to present', { date => relationship.link.begin_date.format });
-        END;
-    ELSIF !relationship.link.end_date.is_empty;
-        ;' ';
-        l('until {date}', { date => relationship.link.end_date.format });
-    ELSIF relationship.link.ended;
-        ' ';
-        bracketedWithSpace(l('ended'));
-    END;
-    IF relationship.${extra_attributes_field};
-        ' (' _ relationship.${extra_attributes_field} _ ')';
-    END; -%]
-[%- END -%]
-
 [%~ MACRO css_class_name(name) BLOCK;
     name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
     END -%]

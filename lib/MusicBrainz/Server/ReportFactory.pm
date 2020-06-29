@@ -67,6 +67,7 @@ use MusicBrainz::Server::PagedReport;
     RecordingsWithEarliestReleaseRelationships
     RecordingsWithVaryingTrackLengths
     RecordingTrackDifferentName
+    RecordingsWithFutureDates
     ReleasedTooEarly
     ReleaseGroupsWithoutVACredit
     ReleaseGroupsWithoutVALink
@@ -81,6 +82,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesWithoutVALink
     ReleasesWithUnlikelyLanguageScript
     ReleasesMissingDiscIDs
+    ReleasesConflictingDiscIDs
     SeparateDiscs
     SetInDifferentRG
     SingleMediumReleasesWithMediumTitles
@@ -149,6 +151,7 @@ use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 #use MusicBrainz::Server::Report::RecordingsSameNameDifferentArtistsSameName;
 use MusicBrainz::Server::Report::RecordingTrackDifferentName;
+use MusicBrainz::Server::Report::RecordingsWithFutureDates;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
@@ -163,6 +166,7 @@ use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
 use MusicBrainz::Server::Report::ReleasesWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::ReleasesMissingDiscIDs;
+use MusicBrainz::Server::Report::ReleasesConflictingDiscIDs;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::SingleMediumReleasesWithMediumTitles;

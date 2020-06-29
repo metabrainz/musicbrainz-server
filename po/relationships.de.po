@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-18 20:53+0000\n"
+"PO-Revision-Date: 2020-06-25 13:15+0000\n"
 "Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -5273,14 +5273,6 @@ msgstr ""
 msgid "organist"
 msgstr "Organist"
 
-#: DB:link_type/link_phrase:856
-msgid "organist at"
-msgstr "Organist bei"
-
-#: DB:link_type/reverse_link_phrase:856
-msgid "organists"
-msgstr "Organisten"
-
 #: DB:link_attribute_type/name:525
 msgid "original"
 msgstr "Original"
@@ -6367,10 +6359,6 @@ msgstr ""
 msgid "was held at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:856
-msgid "was organist at"
-msgstr "war Organist bei"
-
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr ""
@@ -6395,6 +6383,10 @@ msgstr ""
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:856
+msgid "was {assistant} organist at"
+msgstr "war {assistant:assistierender} Organist bei"
 
 #: DB:link_attribute_type/name:1151
 msgid "whistling"
@@ -6961,6 +6953,14 @@ msgstr ""
 #: DB:link_type/link_phrase:888
 msgid "{anniversary:anniversary tours|supporting tours}"
 msgstr ""
+
+#: DB:link_type/link_phrase:856
+msgid "{assistant} organist at"
+msgstr "{assistant:assistierender} Organist bei"
+
+#: DB:link_type/reverse_link_phrase:856
+msgid "{assistant} organists"
+msgstr "{assistant:assistierende} Organisten"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"

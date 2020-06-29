@@ -270,6 +270,7 @@ around TO_JSON => sub {
         attributes      => [map {
             my $type = $_->type;
             $self->link_entity('link_attribute_type', $type->id, $type);
+            $self->link_entity('link_attribute_type', $type->root_id, $type->root);
             my $result = { (%{ $_->TO_JSON }, type => { gid => $type->gid }) };
             $result
         } $link->all_attributes],

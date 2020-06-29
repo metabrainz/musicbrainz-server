@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-18 16:20+0000\n"
+"PO-Revision-Date: 2020-06-24 19:46+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -5263,14 +5263,6 @@ msgstr ""
 msgid "organist"
 msgstr ""
 
-#: DB:link_type/link_phrase:856
-msgid "organist at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:856
-msgid "organists"
-msgstr ""
-
 #: DB:link_attribute_type/name:525
 msgid "original"
 msgstr "algne"
@@ -6357,10 +6349,6 @@ msgstr ""
 msgid "was held at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:856
-msgid "was organist at"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr ""
@@ -6384,6 +6372,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:856
+msgid "was {assistant} organist at"
 msgstr ""
 
 #: DB:link_attribute_type/name:1151
@@ -6950,6 +6942,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:888
 msgid "{anniversary:anniversary tours|supporting tours}"
+msgstr ""
+
+#: DB:link_type/link_phrase:856
+msgid "{assistant} organist at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:856
+msgid "{assistant} organists"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:305

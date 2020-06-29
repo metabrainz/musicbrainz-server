@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2014 Khan Academy
  * Copyright (C) 2015 MetaBrainz Foundation
  */
