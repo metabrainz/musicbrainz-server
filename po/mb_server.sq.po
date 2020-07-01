@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-10 21:18+0000\n"
-"PO-Revision-Date: 2020-06-10 21:36+0000\n"
+"POT-Creation-Date: 2020-06-24 19:42+0000\n"
+"PO-Revision-Date: 2020-06-24 19:46+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -147,8 +147,8 @@ msgstr "(qe media {position}: {name} në hedhjen në qarkullim {release})"
 #: ../root/edit/details/merge_releases.tt:6
 #: ../root/components/list/ReleaseList.js:88
 #: ../root/release_group/ReleaseGroupIndex.js:75
-#: ../root/report/components/ReleaseList.js:64
-#: ../root/report/components/ReleaseList.js:70
+#: ../root/report/components/ReleaseList.js:66
+#: ../root/report/components/ReleaseList.js:72
 #: ../root/search/components/ReleaseResults.js:48
 #: ../root/static/scripts/common/components/ReleaseEvents.js:55
 #: ../root/static/scripts/common/components/ReleaseEvents.js:72
@@ -197,7 +197,7 @@ msgstr "<strong>Mbyllur:</strong> <em>Po anulohet</em>"
 msgid "<strong>Closed:</strong> {date}"
 msgstr "<strong>Mbyllur më:</strong> {date}"
 
-#: ../root/components/common-macros.tt:697
+#: ../root/components/common-macros.tt:652
 msgid "<strong>Error</strong>:"
 msgstr "<strong>Gabim</strong>:"
 
@@ -218,7 +218,7 @@ msgid ""
 "classical release unless you’re very sure it’s a good idea!"
 msgstr ""
 
-#: ../root/components/common-macros.tt:705 ../root/recording/edit_form.tt:6
+#: ../root/components/common-macros.tt:660 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>Kujdes</strong>:"
 
@@ -528,7 +528,7 @@ msgid ""
 "results. View the {doc|alias documentation} for more details."
 msgstr "Një alias është një emër alternativ për një njësi. Zakonisht përmbajnë keqshqiptime apo variacione të rëndomtë të emrit dhe përdoren edhe për të përmirësuar përfundimet e kërkimit. Për më tepër hollësi, shihni {doc|dokumentim aliasesh}."
 
-#: ../root/components/common-macros.tt:888
+#: ../root/components/common-macros.tt:843
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a"
 " unique disambiguation comment."
@@ -743,13 +743,13 @@ msgstr "Zona"
 #: ../root/report/components/ArtistUrlList.js:34
 #: ../root/report/components/RecordingAnnotationList.js:32
 #: ../root/report/components/RecordingList.js:32
-#: ../root/report/components/RecordingRelationshipList.js:33
+#: ../root/report/components/RecordingRelationshipList.js:44
 #: ../root/report/components/ReleaseAnnotationList.js:33
 #: ../root/report/components/ReleaseGroupAnnotationList.js:32
 #: ../root/report/components/ReleaseGroupList.js:36
 #: ../root/report/components/ReleaseGroupRelationshipList.js:33
 #: ../root/report/components/ReleaseGroupUrlList.js:37
-#: ../root/report/components/ReleaseList.js:38
+#: ../root/report/components/ReleaseList.js:40
 #: ../root/report/components/ReleaseRelationshipList.js:34
 #: ../root/report/components/ReleaseUrlList.js:37
 #: ../root/search/components/CDStubResults.js:49
@@ -895,7 +895,7 @@ msgstr "Auto-përpunime nga {name}"
 msgid "Average rating:"
 msgstr "Vlerësimi mesatar:"
 
-#: ../root/components/common-macros.tt:863
+#: ../root/components/common-macros.tt:818
 #: ../root/static/scripts/common/components/OrderableDirection.js:30
 msgid "Backward"
 msgstr "Mbrapsht"
@@ -980,7 +980,7 @@ msgstr "Bëhuni pjesë e MusicBrainz-it duke krijuar një llogari dhe {how|duke 
 msgid "Begin Area:"
 msgstr "Zonë Fillimi:"
 
-#: ../root/artist/edit_form.tt:38 ../root/components/common-macros.tt:767
+#: ../root/artist/edit_form.tt:38 ../root/components/common-macros.tt:722
 #: ../root/components/forms.tt:234
 #: ../root/components/relationship-editor.tt:153
 #: ../root/edit/details/add_label.tt:30 ../root/edit/details/edit_area.tt:42
@@ -1007,7 +1007,7 @@ msgstr "Jetëshkrim:"
 msgid "Blog"
 msgstr "Blog"
 
-#: ../root/components/common-macros.tt:767 ../root/artist/utils.js:26
+#: ../root/components/common-macros.tt:722 ../root/artist/utils.js:26
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:56
 msgid "Born:"
 msgstr "Lindur më:"
@@ -1486,7 +1486,7 @@ msgstr "Përshkrim:"
 msgid "Details"
 msgstr "Hollësi"
 
-#: ../root/components/common-macros.tt:771 ../root/artist/utils.js:52
+#: ../root/components/common-macros.tt:726 ../root/artist/utils.js:52
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:56
 msgid "Died:"
 msgstr "Vdekur në:"
@@ -1562,7 +1562,7 @@ msgstr "ID Disku"
 msgid "Disc title:"
 msgstr "Titull disku:"
 
-#: ../root/components/common-macros.tt:771 ../root/artist/utils.js:56
+#: ../root/components/common-macros.tt:726 ../root/artist/utils.js:56
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:64
 msgid "Dissolved:"
 msgstr ""
@@ -1819,7 +1819,7 @@ msgstr "Fund"
 msgid "End Area:"
 msgstr "Zonë Mbarimi:"
 
-#: ../root/artist/edit_form.tt:51 ../root/components/common-macros.tt:771
+#: ../root/artist/edit_form.tt:51 ../root/components/common-macros.tt:726
 #: ../root/components/forms.tt:236
 #: ../root/components/relationship-editor.tt:157
 #: ../root/edit/details/add_label.tt:37 ../root/edit/details/edit_area.tt:47
@@ -1986,7 +1986,7 @@ msgstr "Lidhje të Jashtme"
 msgid "Failed edits by {name}"
 msgstr "Përpunime të dështuara nga {name}"
 
-#: ../root/components/common-macros.tt:856
+#: ../root/components/common-macros.tt:811
 #: ../root/static/scripts/common/components/Cardinality.js:22
 msgid "Few relationships"
 msgstr "Pak marrëdhënie"
@@ -2079,7 +2079,7 @@ msgstr "Format:"
 msgid "Forums"
 msgstr "Forume"
 
-#: ../root/components/common-macros.tt:863
+#: ../root/components/common-macros.tt:818
 #: ../root/static/scripts/common/components/OrderableDirection.js:27
 msgid "Forward"
 msgstr ""
@@ -2122,7 +2122,7 @@ msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] "U gjet {n} përfundim për \"{q}\""
 msgstr[1] "U gjetën {n} përfundime për \"{q}\""
 
-#: ../root/components/common-macros.tt:767 ../root/artist/utils.js:30
+#: ../root/components/common-macros.tt:722 ../root/artist/utils.js:30
 #: ../root/layout/components/sidebar/LabelSidebar.js:67
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:64
 msgid "Founded:"
@@ -2247,7 +2247,7 @@ msgstr "E fshehur duhet përdorur për gjuhë me shenja dhe gjuhë pa kod ISO 63
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
-#: ../root/static/scripts/common/constants.js:248
+#: ../root/static/scripts/common/constants.js:249
 msgid "High"
 msgstr ""
 
@@ -2590,7 +2590,7 @@ msgstr "ID Disku e pavlefshme"
 msgid "It may help to try again by reloading the page."
 msgstr "Mund të ndihmojë riprovimi duke ringarkuar faqen."
 
-#: ../root/components/common-macros.tt:711
+#: ../root/components/common-macros.tt:666
 msgid "Javascript is required for this page to work properly."
 msgstr "Që kjo faqe të funksionojë si duhet, lypset Javascript-i."
 
@@ -2753,10 +2753,6 @@ msgstr ""
 msgid "Lines start with a track number"
 msgstr "Rreshtat fillojnë me numër pjese"
 
-#: ../root/edit/details/add_relationship.tt:10
-msgid "Link order:"
-msgstr ""
-
 #: ../root/edit/details/add_relationship_type.tt:13
 #: ../root/edit/details/edit_relationship_type.tt:21
 msgid "Link phrase:"
@@ -2832,7 +2828,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
-#: ../root/static/scripts/common/constants.js:245
+#: ../root/static/scripts/common/constants.js:246
 msgid "Low"
 msgstr ""
 
@@ -2871,7 +2867,7 @@ msgstr "Sigurohuni që krejt mediat te hedhjet në qarkullim që po përzihen ja
 msgid "Manual entry"
 msgstr "Futje dorazi"
 
-#: ../root/components/common-macros.tt:856
+#: ../root/components/common-macros.tt:811
 #: ../root/static/scripts/common/components/Cardinality.js:25
 msgid "Many relationships"
 msgstr "Shumë marrëdhënie"
@@ -2881,7 +2877,7 @@ msgid "Matching CDs"
 msgstr "CD me përputhje"
 
 #: ../root/cdtoc/lookup.tt:38 ../root/cdtoc/set_durations.tt:10
-#: ../root/components/common-macros.tt:732
+#: ../root/components/common-macros.tt:687
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/search/components/RecordingResults.js:131
 #: ../root/static/scripts/common/utility/mediumFormatName.js:14
@@ -3123,10 +3119,6 @@ msgstr "Atribut i Ri"
 msgid "New Image Goes Here"
 msgstr "Figura e Re Kalon Këtu"
 
-#: ../root/edit/details/reorder_relationships.tt:10
-msgid "New Order"
-msgstr ""
-
 #: ../root/relationship/linkattributetype/create.tt:1
 #: ../root/relationship/linkattributetype/create.tt:3
 msgid "New Relationship Attribute"
@@ -3267,7 +3259,7 @@ msgstr "S’ka votë"
 msgid "Nobody has left notes on any of your edits in the past three months."
 msgstr "Askush s’ka lënë shënime në ndonjë nga përpunimet tuaj në tre muajt e fundit."
 
-#: ../root/components/common-macros.tt:863 ../root/edit/edit_header.tt:27
+#: ../root/components/common-macros.tt:818 ../root/edit/edit_header.tt:27
 #: ../root/edit/components/Vote.js:107
 #: ../root/static/scripts/common/components/OrderableDirection.js:24
 msgid "None"
@@ -3281,8 +3273,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:215
-#: ../root/static/scripts/common/constants.js:246
 #: ../root/static/scripts/common/constants.js:247
+#: ../root/static/scripts/common/constants.js:248
 msgid "Normal"
 msgstr "Normal"
 
@@ -3327,10 +3319,6 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:222
 msgid "Old Artist"
 msgstr "Artist i Vjetër"
-
-#: ../root/edit/details/reorder_relationships.tt:7
-msgid "Old Order"
-msgstr "Renditje e Vjetër"
 
 #: ../root/edit/details/edit_medium.tt:47
 msgid "Old Tracklist"
@@ -3534,7 +3522,7 @@ msgstr "Vend:"
 
 #: ../root/components/common-macros.tt:593 ../root/area/AreaPlaces.js:34
 #: ../root/area/AreaPlaces.js:35 ../root/components/EntityTabs.js:27
-#: ../root/report/ReportsIndex.js:478
+#: ../root/report/ReportsIndex.js:488
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:115 ../root/tag/TagLayout.js:32
 msgid "Places"
@@ -3733,7 +3721,7 @@ msgstr "Shënime të Lëna Së Fundi në Përpunimet Tuaja"
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:74
 #: ../root/report/components/RecordingAnnotationList.js:33
 #: ../root/report/components/RecordingList.js:33
-#: ../root/report/components/RecordingRelationshipList.js:34
+#: ../root/report/components/RecordingRelationshipList.js:46
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:24
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
@@ -3771,7 +3759,7 @@ msgstr "incizim:"
 #: ../root/artist/ArtistRecordings.js:45 ../root/components/EntityTabs.js:28
 #: ../root/instrument/InstrumentRecordings.js:36
 #: ../root/instrument/InstrumentRecordings.js:38
-#: ../root/report/ReportsIndex.js:415
+#: ../root/report/ReportsIndex.js:420
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagIndex.js:127 ../root/tag/TagLayout.js:29
 #: ../root/work/WorkIndex.js:52
@@ -3806,11 +3794,6 @@ msgstr "Vepra të Ngjashme"
 msgid "Related entities:"
 msgstr "Njësi të afërta"
 
-#: ../root/edit/details/reorder_relationships.tt:4
-#: ../lib/MusicBrainz/Server/Edit/Relationship.pm:18
-msgid "Relationship"
-msgstr "Marrëdhënie"
-
 #: ../root/edit/search_macros.tt:360
 msgid "Relationship Editor"
 msgstr "Përpunues Marrëdhënieje"
@@ -3820,7 +3803,7 @@ msgstr "Përpunues Marrëdhënieje"
 #: ../root/report/components/ArtistRelationshipList.js:30
 #: ../root/report/components/LabelRelationshipList.js:30
 #: ../root/report/components/PlaceRelationshipList.js:30
-#: ../root/report/components/RecordingRelationshipList.js:32
+#: ../root/report/components/RecordingRelationshipList.js:42
 #: ../root/report/components/ReleaseGroupRelationshipList.js:32
 #: ../root/report/components/ReleaseRelationshipList.js:32
 #: ../root/report/components/UrlRelationshipList.js:32
@@ -3831,12 +3814,6 @@ msgstr "Lloj Marrëdhënieje"
 #: ../root/admin/edit_user.tt:10
 msgid "Relationship editor"
 msgstr "Përpunues marrëdhëniesh"
-
-#: ../root/edit/details/add_relationship.tt:3
-#: ../root/edit/details/remove_relationship.tt:3
-#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:161
-msgid "Relationship:"
-msgstr "Marrëdhënie:"
 
 #: ../root/forms/relationship-editor.tt:5 ../root/area/AreaRecordings.js:31
 #: ../root/area/AreaReleases.js:64 ../root/area/AreaWorks.js:28
@@ -3873,7 +3850,7 @@ msgstr ""
 #: ../root/report/ReleaseLabelSameArtist.js:66
 #: ../root/report/ReleaseRgDifferentName.js:58
 #: ../root/report/components/ReleaseAnnotationList.js:32
-#: ../root/report/components/ReleaseList.js:37
+#: ../root/report/components/ReleaseList.js:39
 #: ../root/report/components/ReleaseRelationshipList.js:33
 #: ../root/report/components/ReleaseUrlList.js:36
 #: ../root/search/components/RecordingResults.js:128
@@ -4139,8 +4116,8 @@ msgstr "Hiqni atribut"
 msgid "Remove disc"
 msgstr "Hiqni disk"
 
-#: ../root/components/common-macros.tt:936
-#: ../root/components/common-macros.tt:944
+#: ../root/components/common-macros.tt:891
+#: ../root/components/common-macros.tt:899
 #: ../root/components/RemoveFromMergeTableCell.js:31
 #: ../root/utility/tableColumns.js:549 ../root/utility/tableColumns.js:557
 msgid "Remove from merge"
@@ -4745,7 +4722,7 @@ msgstr "Përpunimi është mbyllur tashmë."
 msgid "The edit has been cancelled."
 msgstr "Përpunimi është anuluar."
 
-#: ../root/components/common-macros.tt:950
+#: ../root/components/common-macros.tt:905
 #: ../root/components/FormCsrfToken.js:21
 msgid "The form you’ve submitted has expired. Please resubmit your request."
 msgstr ""
@@ -5108,8 +5085,8 @@ msgstr "Ky regjistrim është një video"
 msgid "This relationship allows setting dates"
 msgstr "Kjo marrëdhënie lejon caktim datash"
 
-#: ../root/edit/details/add_relationship.tt:18
 #: ../root/edit/details/edit_relationship.tt:11
+#: ../root/edit/details/AddRelationship.js:51
 msgid ""
 "This relationship edit also included changes to relationship attributes "
 "which no longer exist."
@@ -5159,7 +5136,7 @@ msgid ""
 "This requires that corresponding mediums have the same number of tracks."
 msgstr ""
 
-#: ../root/components/common-macros.tt:870
+#: ../root/components/common-macros.tt:825
 msgid "This track is a data track."
 msgstr "Kjo pistë është pistë të dhënash."
 
@@ -5465,7 +5442,7 @@ msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:117
-#: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:528
+#: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:538
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 msgid "URLs"
 msgstr "URL-ra"
@@ -5478,7 +5455,7 @@ msgstr ""
 msgid "Unauthorized Request"
 msgstr "Kërkesë e Paautorizuar"
 
-#: ../root/components/common-macros.tt:856
+#: ../root/components/common-macros.tt:811
 #: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:72
 #: ../root/report/DuplicateArtists.js:114
 #: ../root/report/components/ArtistAnnotationList.js:47
@@ -5785,7 +5762,7 @@ msgstr "Vepër:"
 
 #: ../root/components/common-macros.tt:593 ../root/area/AreaWorks.js:22
 #: ../root/artist/ArtistWorks.js:30 ../root/artist/ArtistWorks.js:31
-#: ../root/components/EntityTabs.js:31 ../root/report/ReportsIndex.js:508
+#: ../root/components/EntityTabs.js:31 ../root/report/ReportsIndex.js:518
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagIndex.js:135 ../root/tag/TagLayout.js:30
 msgid "Works"
@@ -5949,7 +5926,7 @@ msgstr ""
 msgid "You must be logged in to vote on edits."
 msgstr ""
 
-#: ../root/components/common-macros.tt:887
+#: ../root/components/common-macros.tt:842
 msgid "You must enter a disambiguation comment for this entity."
 msgstr ""
 
@@ -6155,7 +6132,6 @@ msgstr "përpunues"
 msgid "edits"
 msgstr "përpunime"
 
-#: ../root/components/common-macros.tt:641
 #: ../root/components/relationship-editor.tt:183
 #: ../root/edit/details/macros.tt:28
 #: ../root/utility/relationshipDateText.js:38
@@ -6182,17 +6158,17 @@ msgstr ""
 msgid "events"
 msgstr "veprimtari"
 
-#: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
+#: ../root/edit/details/macros.tt:28
 #: ../root/utility/relationshipDateText.js:27
 msgid "from {begin_date} until {end_date}"
 msgstr "nga {begin_date} deri më {end_date}"
 
-#: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
+#: ../root/edit/details/macros.tt:28
 #: ../root/utility/relationshipDateText.js:32
 msgid "from {date} to ????"
 msgstr "nga {date} në ????"
 
-#: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
+#: ../root/edit/details/macros.tt:28
 #: ../root/utility/relationshipDateText.js:34
 msgid "from {date} to present"
 msgstr "nga {date} në tani"
@@ -6229,7 +6205,7 @@ msgstr ""
 msgid "historical, {begin}-{end}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
+#: ../root/edit/details/macros.tt:28
 #: ../root/utility/relationshipDateText.js:25
 msgid "in {date}"
 msgstr "më {date}"
@@ -6345,7 +6321,7 @@ msgstr "më të hershmit së pari"
 msgid "on"
 msgstr ""
 
-#: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
+#: ../root/edit/details/macros.tt:28
 #: ../root/utility/relationshipDateText.js:23
 msgid "on {date}"
 msgstr "më {date}"
@@ -6429,7 +6405,7 @@ msgstr[1] "pjesët {tracks}"
 msgid "tracks"
 msgstr "pjesë"
 
-#: ../root/components/common-macros.tt:641 ../root/edit/details/macros.tt:28
+#: ../root/edit/details/macros.tt:28
 #: ../root/utility/relationshipDateText.js:36
 msgid "until {date}"
 msgstr "deri më {date}"
@@ -6526,12 +6502,12 @@ msgstr ""
 msgid "{link} has no ratings."
 msgstr "{link} s’ka vlerësime."
 
-#: ../root/components/common-macros.tt:735
+#: ../root/components/common-macros.tt:690
 #: ../root/static/scripts/common/components/MediumDescription.js:21
 msgid "{medium_format} {position}"
 msgstr "{medium_format} {position}"
 
-#: ../root/components/common-macros.tt:747
+#: ../root/components/common-macros.tt:702
 #: ../root/static/scripts/common/components/MediumLink.js:18
 msgid "{medium} on {release}"
 msgstr "{medium} te {release}"
@@ -6643,7 +6619,7 @@ msgid ""
 " that the artist has been entered correctly."
 msgstr ""
 
-#: ../root/components/common-macros.tt:841
+#: ../root/components/common-macros.tt:796
 #: ../root/static/scripts/common/i18n/addColon.js:11
 #: ../root/static/scripts/common/i18n/addColon.js:15
 msgid "{variable}:"
@@ -7417,6 +7393,11 @@ msgstr "Përzieni incizime"
 msgid "Remove ISRC"
 msgstr "Hiqni ISRC"
 
+#: ../lib/MusicBrainz/Server/Edit/Relationship.pm:18
+#: ../root/edit/details/ReorderRelationships.js:33
+msgid "Relationship"
+msgstr "Marrëdhënie"
+
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkAttribute.pm:14
 msgid "Add relationship attribute"
 msgstr "Shtoni atribut marrëdhënieje"
@@ -7425,7 +7406,7 @@ msgstr "Shtoni atribut marrëdhënieje"
 msgid "Add relationship type"
 msgstr "Shtoni lloj marrëdhënieje"
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:261
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:280
 msgid ""
 "This edit would remove a relationship that is set as an example of its "
 "relationship type in the documentation. If you still think this should be "
@@ -8138,22 +8119,22 @@ msgid "Invalid URL format"
 msgstr "Format URL-je i pavlefshëm"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:72
-#: ../root/static/scripts/common/constants.js:256
+#: ../root/static/scripts/common/constants.js:257
 msgid "Basic"
 msgstr "Fillestar"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:73
-#: ../root/static/scripts/common/constants.js:257
+#: ../root/static/scripts/common/constants.js:258
 msgid "Intermediate"
 msgstr "Mesatar"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:74
-#: ../root/static/scripts/common/constants.js:255
+#: ../root/static/scripts/common/constants.js:256
 msgid "Advanced"
 msgstr "I përparuar"
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:75
-#: ../root/static/scripts/common/constants.js:258
+#: ../root/static/scripts/common/constants.js:259
 msgid "Native"
 msgstr ""
 
@@ -9569,6 +9550,7 @@ msgstr "Shtoni Shënim"
 #: ../root/edit/details/AddRemoveAlias.js:108
 #: ../root/edit/details/EditAlias.js:130 ../root/edit/details/EditEvent.js:86
 #: ../root/edit/details/EditLabel.js:113 ../root/edit/details/EditPlace.js:113
+#: ../root/report/components/RecordingRelationshipList.js:38
 msgid "Begin date"
 msgstr "Datë fillimi"
 
@@ -9578,6 +9560,7 @@ msgstr "Datë fillimi"
 #: ../root/edit/details/EditAlias.js:137 ../root/edit/details/EditEvent.js:94
 #: ../root/edit/details/EditLabel.js:122 ../root/edit/details/EditPlace.js:121
 #: ../root/elections/ElectionTable/index.js:29
+#: ../root/report/components/RecordingRelationshipList.js:39
 msgid "End date"
 msgstr "Datë përfundimi"
 
@@ -9595,6 +9578,16 @@ msgstr "Përfundoi"
 msgid "Setlist"
 msgstr ""
 
+#: ../root/edit/details/AddRelationship.js:38
+#: ../root/edit/details/RemoveRelationship.js:29
+#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:161
+msgid "Relationship:"
+msgstr "Marrëdhënie:"
+
+#: ../root/edit/details/AddRelationship.js:43
+msgid "Link order:"
+msgstr ""
+
 #: ../root/edit/details/AddRemoveAlias.js:64
 #: ../root/edit/details/EditAlias.js:68
 msgid "view all aliases"
@@ -9606,7 +9599,7 @@ msgid "Primary for locale"
 msgstr "Parësor për vendoren"
 
 #: ../root/edit/details/AddSeries.js:38 ../root/edit/details/EditSeries.js:47
-#: ../root/report/ReportsIndex.js:498
+#: ../root/report/ReportsIndex.js:508
 #: ../root/report/components/SeriesAnnotationList.js:30
 #: ../root/tag/TagIndex.js:131
 msgid "Series"
@@ -9653,6 +9646,14 @@ msgstr "Përzieji:"
 
 #: ../root/edit/details/MergeArtists.js:44
 msgid "Rename artist and relationship credits"
+msgstr ""
+
+#: ../root/edit/details/ReorderRelationships.js:34
+msgid "Old Order"
+msgstr "Renditje e Vjetër"
+
+#: ../root/edit/details/ReorderRelationships.js:35
+msgid "New Order"
 msgstr ""
 
 #: ../root/edit/details/historic/AddDiscId.js:34
@@ -11254,7 +11255,7 @@ msgstr "Udhëzime"
 msgid "See the general {url|guidelines for URLs}."
 msgstr "Shihni {url|udhëzimet e përgjithshme për URL-të}."
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:225
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:222
 msgid ""
 "This relationship type is only used for grouping other relationship types."
 msgstr ""
@@ -11420,6 +11421,7 @@ msgstr "Artistë të gjetur gjithsej: {count}"
 #: ../root/report/RecordingTrackDifferentName.js:51
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:62
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:48
+#: ../root/report/RecordingsWithFutureDates.js:43
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:40
 #: ../root/report/RecordingsWithoutVaCredit.js:46
 #: ../root/report/RecordingsWithoutVaLink.js:46
@@ -11428,6 +11430,7 @@ msgstr "Artistë të gjetur gjithsej: {count}"
 #: ../root/report/ReleaseLabelSameArtist.js:55
 #: ../root/report/ReleaseRgDifferentName.js:47
 #: ../root/report/ReleasedTooEarly.js:43
+#: ../root/report/ReleasesConflictingDiscIds.js:42
 #: ../root/report/ReleasesInCaaWithCoverArtRelationships.js:49
 #: ../root/report/ReleasesMissingDiscIds.js:46
 #: ../root/report/ReleasesToConvert.js:46
@@ -11548,6 +11551,7 @@ msgstr "Ky raport paraqet hedhje në qarkullim me shënime."
 #: ../root/report/ReleaseLabelSameArtist.js:51
 #: ../root/report/ReleaseRgDifferentName.js:43
 #: ../root/report/ReleasedTooEarly.js:39
+#: ../root/report/ReleasesConflictingDiscIds.js:38
 #: ../root/report/ReleasesInCaaWithCoverArtRelationships.js:45
 #: ../root/report/ReleasesMissingDiscIds.js:42
 #: ../root/report/ReleasesToConvert.js:42
@@ -11723,7 +11727,7 @@ msgstr "Kjo URL s’ekziston më."
 #: ../root/report/ReleaseLabelSameArtist.js:92
 #: ../root/report/ReleaseRgDifferentName.js:71
 #: ../root/report/components/ReleaseAnnotationList.js:54
-#: ../root/report/components/ReleaseList.js:76
+#: ../root/report/components/ReleaseList.js:78
 #: ../root/report/components/ReleaseRelationshipList.js:58
 #: ../root/report/components/ReleaseUrlList.js:73
 msgid "This release no longer exists."
@@ -11813,7 +11817,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:27
 #: ../root/report/DeprecatedRelationshipPlaces.js:28
-#: ../root/report/ReportsIndex.js:483
+#: ../root/report/ReportsIndex.js:493
 msgid "Places with deprecated relationships"
 msgstr "Vende me marrëdhënie të nxjerra nga përdorimi"
 
@@ -11825,7 +11829,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:29
 #: ../root/report/DeprecatedRelationshipRecordings.js:30
-#: ../root/report/ReportsIndex.js:440
+#: ../root/report/ReportsIndex.js:445
 msgid "Recordings with deprecated relationships"
 msgstr "Incizime me marrëdhënie të nxjerra nga përdorimi"
 
@@ -11861,7 +11865,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipUrls.js:27
 #: ../root/report/DeprecatedRelationshipUrls.js:28
-#: ../root/report/ReportsIndex.js:533
+#: ../root/report/ReportsIndex.js:543
 msgid "URLs with deprecated relationships"
 msgstr "URL-ra me marrëdhënie të nxjerra nga përdorimi"
 
@@ -11877,7 +11881,7 @@ msgstr "URL-ra të gjetura gjithsej: {count}"
 
 #: ../root/report/DeprecatedRelationshipWorks.js:27
 #: ../root/report/DeprecatedRelationshipWorks.js:28
-#: ../root/report/ReportsIndex.js:518
+#: ../root/report/ReportsIndex.js:528
 msgid "Works with deprecated relationships"
 msgstr "Vepra me marrëdhënie të nxjerra nga përdorimi"
 
@@ -12002,7 +12006,7 @@ msgstr ""
 
 #: ../root/report/DuplicateRelationshipsRecordings.js:30
 #: ../root/report/DuplicateRelationshipsRecordings.js:32
-#: ../root/report/ReportsIndex.js:430
+#: ../root/report/ReportsIndex.js:435
 msgid "Recordings with possible duplicate relationships"
 msgstr "Incizime me gjasa marrëdhëniesh të përsëdytura"
 
@@ -12038,7 +12042,7 @@ msgstr ""
 
 #: ../root/report/DuplicateRelationshipsWorks.js:27
 #: ../root/report/DuplicateRelationshipsWorks.js:28
-#: ../root/report/ReportsIndex.js:513
+#: ../root/report/ReportsIndex.js:523
 msgid "Works with possible duplicate relationships"
 msgstr "Vepra me gjasa marrëdhëniesh të përsëdytura"
 
@@ -12079,7 +12083,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/FeaturingRecordings.js:30
-#: ../root/report/FeaturingRecordings.js:32 ../root/report/ReportsIndex.js:425
+#: ../root/report/FeaturingRecordings.js:32 ../root/report/ReportsIndex.js:430
 msgid "Recordings with titles containing featuring artists"
 msgstr ""
 
@@ -12150,7 +12154,7 @@ msgstr "Instrumente të gjetura gjithsej: {count}"
 
 #: ../root/report/IsrcsWithManyRecordings.js:37
 #: ../root/report/IsrcsWithManyRecordings.js:38
-#: ../root/report/ReportsIndex.js:544
+#: ../root/report/ReportsIndex.js:554
 msgid "ISRCs with multiple recordings"
 msgstr ""
 
@@ -12174,12 +12178,12 @@ msgstr ""
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:102
 #: ../root/report/components/RecordingAnnotationList.js:54
 #: ../root/report/components/RecordingList.js:52
-#: ../root/report/components/RecordingRelationshipList.js:58
+#: ../root/report/components/RecordingRelationshipList.js:82
 msgid "This recording no longer exists."
 msgstr "Ky incizim s’ekziston më."
 
 #: ../root/report/IswcsWithManyWorks.js:33
-#: ../root/report/IswcsWithManyWorks.js:34 ../root/report/ReportsIndex.js:554
+#: ../root/report/IswcsWithManyWorks.js:34 ../root/report/ReportsIndex.js:564
 msgid "ISWCs with multiple works"
 msgstr ""
 
@@ -12305,7 +12309,7 @@ msgstr ""
 
 #: ../root/report/PlacesWithoutCoordinates.js:31
 #: ../root/report/PlacesWithoutCoordinates.js:32
-#: ../root/report/ReportsIndex.js:493
+#: ../root/report/ReportsIndex.js:503
 msgid "Places without coordinates"
 msgstr "Vende pa koordinata"
 
@@ -12342,7 +12346,7 @@ msgstr ""
 
 #: ../root/report/RecordingTrackDifferentName.js:34
 #: ../root/report/RecordingTrackDifferentName.js:37
-#: ../root/report/ReportsIndex.js:473
+#: ../root/report/ReportsIndex.js:478
 msgid "Recordings with a different name than their only track"
 msgstr ""
 
@@ -12355,7 +12359,7 @@ msgstr ""
 
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:35
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:39
-#: ../root/report/ReportsIndex.js:467
+#: ../root/report/ReportsIndex.js:472
 msgid "Recordings with the same name by different artists with the same name"
 msgstr ""
 
@@ -12378,7 +12382,7 @@ msgstr ""
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:30
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:32
-#: ../root/report/ReportsIndex.js:420
+#: ../root/report/ReportsIndex.js:425
 msgid "Recordings with earliest release relationships"
 msgstr ""
 
@@ -12391,9 +12395,24 @@ msgid ""
 " with very different times!"
 msgstr ""
 
+#: ../root/report/RecordingsWithFutureDates.js:27
+#: ../root/report/RecordingsWithFutureDates.js:29
+msgid "Recordings with relationships having dates in the future"
+msgstr ""
+
+#: ../root/report/RecordingsWithFutureDates.js:34
+msgid ""
+"This report shows recordings with relationships using dates in the future. "
+"Those are probably typos (e.g. 2109 instead of 2019)."
+msgstr ""
+
+#: ../root/report/RecordingsWithFutureDates.js:39
+msgid "Total relationships found: {count}"
+msgstr ""
+
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:27
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:28
-#: ../root/report/ReportsIndex.js:435
+#: ../root/report/ReportsIndex.js:440
 msgid "Recordings with varying track times"
 msgstr "Hedhje në qarkullim me kohë pjesësh që ndryshojnë"
 
@@ -12405,7 +12424,7 @@ msgstr ""
 
 #: ../root/report/RecordingsWithoutVaCredit.js:30
 #: ../root/report/RecordingsWithoutVaCredit.js:33
-#: ../root/report/ReportsIndex.js:450
+#: ../root/report/ReportsIndex.js:455
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
@@ -12417,7 +12436,7 @@ msgstr ""
 
 #: ../root/report/RecordingsWithoutVaLink.js:30
 #: ../root/report/RecordingsWithoutVaLink.js:33
-#: ../root/report/ReportsIndex.js:456
+#: ../root/report/ReportsIndex.js:461
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
@@ -12453,7 +12472,7 @@ msgstr ""
 
 #: ../root/report/ReleaseLabelSameArtist.js:34
 #: ../root/report/ReleaseLabelSameArtist.js:36
-#: ../root/report/ReportsIndex.js:405
+#: ../root/report/ReportsIndex.js:410
 msgid "Releases where artist name and label name are the same"
 msgstr ""
 
@@ -12466,7 +12485,7 @@ msgstr ""
 
 #: ../root/report/ReleaseRgDifferentName.js:32
 #: ../root/report/ReleaseRgDifferentName.js:34
-#: ../root/report/ReportsIndex.js:410
+#: ../root/report/ReportsIndex.js:415
 msgid "Releases with a different name than their release group"
 msgstr ""
 
@@ -12496,6 +12515,19 @@ msgid ""
 "released too early to have disc IDs, where one of the medium formats didn't "
 "exist at the time the release was released or where a disc ID is attached to"
 " a medium whose format does not have disc IDs."
+msgstr ""
+
+#: ../root/report/ReleasesConflictingDiscIds.js:27
+#: ../root/report/ReleasesConflictingDiscIds.js:28
+#: ../root/report/ReportsIndex.js:405
+msgid "Releases with conflicting disc IDs"
+msgstr ""
+
+#: ../root/report/ReleasesConflictingDiscIds.js:32
+msgid ""
+"This report shows releases that have conflicting disc IDs on the same medium"
+" with significant differences in duration. This usually means a disc ID was "
+"applied to the wrong medium or the wrong release."
 msgstr ""
 
 #: ../root/report/ReleasesInCaaWithCoverArtRelationships.js:30
@@ -12728,23 +12760,27 @@ msgstr ""
 msgid "Releases with annotations"
 msgstr "Hedhje në qarkullim me shënime"
 
-#: ../root/report/ReportsIndex.js:445
+#: ../root/report/ReportsIndex.js:450
 msgid "Recordings with annotations"
 msgstr "Incizime me shënime"
 
-#: ../root/report/ReportsIndex.js:488
+#: ../root/report/ReportsIndex.js:483
+msgid "Recordings with dates in the future"
+msgstr ""
+
+#: ../root/report/ReportsIndex.js:498
 msgid "Places with annotations"
 msgstr "Vende me shënime"
 
-#: ../root/report/ReportsIndex.js:503
+#: ../root/report/ReportsIndex.js:513
 msgid "Series with annotations"
 msgstr "Seri me shënime"
 
-#: ../root/report/ReportsIndex.js:523
+#: ../root/report/ReportsIndex.js:533
 msgid "Works with annotations"
 msgstr "Vepra me shënime"
 
-#: ../root/report/ReportsIndex.js:539
+#: ../root/report/ReportsIndex.js:549
 #: ../root/search/components/RecordingResults.js:127
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:682
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:244
@@ -12752,7 +12788,7 @@ msgstr "Vepra me shënime"
 msgid "ISRCs"
 msgstr "ISRC-ra"
 
-#: ../root/report/ReportsIndex.js:549
+#: ../root/report/ReportsIndex.js:559
 msgid "ISWCs"
 msgstr ""
 
@@ -12900,7 +12936,7 @@ msgstr "Ky isntrument s’ekziston më."
 msgid "This label no longer exists."
 msgstr "Kjo etiketë s’ekziston më."
 
-#: ../root/report/components/ReleaseList.js:39
+#: ../root/report/components/ReleaseList.js:41
 msgid "Language/Script"
 msgstr ""
 
@@ -13564,15 +13600,19 @@ msgstr ""
 msgid "Show less artists"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:235
+#: ../root/static/scripts/common/entity.js:241
 msgid "You selected {label}."
 msgstr "Përzgjodhët {label}."
 
 #: ../root/static/scripts/common/entity.js:245
+msgid "Label code: {code}"
+msgstr ""
+
+#: ../root/static/scripts/common/entity.js:259
 msgid "You selected {area}."
 msgstr "Përzgjodhët {area}."
 
-#: ../root/static/scripts/common/entity.js:332
+#: ../root/static/scripts/common/entity.js:346
 msgid "You selected {releasegroup}."
 msgstr "Përzgjodhët {releasegroup}."
 
@@ -13684,25 +13724,31 @@ msgid ""
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2609
+#: ../root/static/scripts/edit/URLCleanup.js:1963
+msgid ""
+"This is a redirect link. Please follow {redirect_url|your link} and add the "
+"link it redirects to instead."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:2654
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2626
+#: ../root/static/scripts/edit/URLCleanup.js:2671
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2797
+#: ../root/static/scripts/edit/URLCleanup.js:2842
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2886
+#: ../root/static/scripts/edit/URLCleanup.js:2931
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2935
+#: ../root/static/scripts/edit/URLCleanup.js:2980
 msgid ""
 "Wikipedia is not a discography entry. Please add this Wikipedia link to the "
 "release group instead."

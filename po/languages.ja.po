@@ -1,5 +1,6 @@
 # 
 # Translators:
+# Atsushi Nakamura <email address hidden>, 2020
 # nikki2 <email address hidden>, 2012
 # john doe, 2018
 # Keshav Kini <email address hidden>, 2013
@@ -12,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-26 20:58+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-06-28 02:10+0000\n"
+"Last-Translator: Atsushi Nakamura <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2464,7 +2465,7 @@ msgstr "ムブンドゥ語"
 #. frequency:1 iso_code_3:sju
 #: DB:language/name:5995
 msgid "Ume Sami"
-msgstr ""
+msgstr "ウーメ・サーミ語"
 
 #. frequency:0 iso_code_3:mis
 #: DB:language/name:273
@@ -2534,7 +2535,7 @@ msgstr "ワロン語"
 #. frequency:1 iso_code_3:wae
 #: DB:language/name:6981
 msgid "Walser"
-msgstr ""
+msgstr "ヴァリス語"
 
 #. frequency:1 iso_code_3:war
 #: DB:language/name:453

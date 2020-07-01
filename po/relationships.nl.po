@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-05-31 16:46+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2020-06-24 19:46+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5269,14 +5269,6 @@ msgstr "orkestrator"
 msgid "organist"
 msgstr "organist"
 
-#: DB:link_type/link_phrase:856
-msgid "organist at"
-msgstr "organist van"
-
-#: DB:link_type/reverse_link_phrase:856
-msgid "organists"
-msgstr "organisten: "
-
 #: DB:link_attribute_type/name:525
 msgid "original"
 msgstr "oorspronkelijk"
@@ -6363,10 +6355,6 @@ msgstr "werd geregisseerd door"
 msgid "was held at"
 msgstr "werd gehouden bij"
 
-#: DB:link_type/long_link_phrase:856
-msgid "was organist at"
-msgstr "was organist van"
-
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr "werd uitgebracht als ondersteuning van"
@@ -6391,6 +6379,10 @@ msgstr "was de {gast}concertmeester op"
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "was {additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus van"
+
+#: DB:link_type/long_link_phrase:856
+msgid "was {assistant} organist at"
+msgstr ""
 
 #: DB:link_attribute_type/name:1151
 msgid "whistling"
@@ -6957,6 +6949,14 @@ msgstr "{anniversary:jubileumtournee voor|ondersteunende tournee voor}"
 #: DB:link_type/link_phrase:888
 msgid "{anniversary:anniversary tours|supporting tours}"
 msgstr "{anniversary:jubileumtournees|ondersteunende tournees}"
+
+#: DB:link_type/link_phrase:856
+msgid "{assistant} organist at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:856
+msgid "{assistant} organists"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
