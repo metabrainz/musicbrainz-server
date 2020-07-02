@@ -24,7 +24,7 @@ test "collection lookup" => sub {
         '/collection/' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list count="22">
+  <collection-list count="24">
     <collection type="Area" id="9ece2fbd-3f4e-431d-9424-da8af38374e0" entity-type="area">
       <name>private area collection</name>
       <editor>the-anti-kuno</editor>
@@ -60,10 +60,15 @@ test "collection lookup" => sub {
       <editor>the-anti-kuno</editor>
       <recording-list count="1" />
     </collection>
-    <collection type="Release" id="1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5" entity-type="release">
+    <collection  entity-type="release" type="Release" id="1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5">
       <name>private release collection</name>
       <editor>the-anti-kuno</editor>
       <release-list count="1" />
+    </collection>
+    <collection entity-type="release" type="Release" id="57fe9a9b-51c7-4a06-a4f5-bef8967dab83">
+      <name>private release collection, lots of entries</name>
+      <editor>the-anti-kuno</editor>
+      <release-list count="22"/>
     </collection>
     <collection id="b0f09ccf-a777-4c17-a917-28e01b0e66a3" type="Release group" entity-type="release_group">
       <name>private release group collection</name>
@@ -119,6 +124,11 @@ test "collection lookup" => sub {
       <name>public release collection</name>
       <editor>the-anti-kuno</editor>
       <release-list count="1" />
+    </collection>
+    <collection entity-type="release" type="Release" id="14524a06-246d-44fa-8e53-aeaf796109fa">
+      <name>public release collection, lots of entries</name>
+      <editor>the-anti-kuno</editor>
+      <release-list count="22"/>
     </collection>
     <collection entity-type="release_group" id="dadae81b-ff9e-464e-8c38-51156557bc36" type="Release group">
       <name>public release group collection</name>
@@ -200,7 +210,7 @@ test "collection lookup" => sub {
         '/collection/?editor=the-anti-kuno' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list count="11">
+  <collection-list count="12">
     <collection id="cc8cd8ee-6477-47d5-a16d-adac11ed9f30" type="Area" entity-type="area">
       <name>public area collection</name>
       <editor>the-anti-kuno</editor>
@@ -241,6 +251,11 @@ test "collection lookup" => sub {
       <editor>the-anti-kuno</editor>
       <release-list count="1" />
     </collection>
+    <collection entity-type="release" type="Release" id="14524a06-246d-44fa-8e53-aeaf796109fa">
+      <name>public release collection, lots of entries</name>
+      <editor>the-anti-kuno</editor>
+      <release-list count="22"/>
+    </collection>
     <collection entity-type="release_group" id="dadae81b-ff9e-464e-8c38-51156557bc36" type="Release group">
       <name>public release group collection</name>
       <editor>the-anti-kuno</editor>
@@ -263,7 +278,7 @@ test "collection lookup" => sub {
         '/collection/?editor=the-anti-kuno&inc=user-collections&limit=3' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list count="22">
+  <collection-list count="24">
     <collection type="Area" id="9ece2fbd-3f4e-431d-9424-da8af38374e0" entity-type="area">
       <name>private area collection</name>
       <editor>the-anti-kuno</editor>
@@ -436,11 +451,16 @@ test "browsing by release" => sub {
         '/collection/?release=0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e' =>
         '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list count="1">
+  <collection-list count="2">
     <collection entity-type="release" type="Release" id="dd07ea8b-0ec3-4b2d-85cf-80e523de4902">
       <name>public release collection</name>
       <editor>the-anti-kuno</editor>
       <release-list count="1" />
+    </collection>
+    <collection entity-type="release" type="Release" id="14524a06-246d-44fa-8e53-aeaf796109fa">
+      <name>public release collection, lots of entries</name>
+      <editor>the-anti-kuno</editor>
+      <release-list count="22"/>
     </collection>
   </collection-list>
 </metadata>';

@@ -31,7 +31,7 @@ test "collection lookup" => sub {
 
     ws2_test_json 'collections lookup',
         '/collection/' => {
-            "collection-count" => 22,
+            "collection-count" => 24,
             "collection-offset" => 0,
             "collections" => [
                 {
@@ -51,6 +51,15 @@ test "collection lookup" => sub {
                     "editor" => "the-anti-kuno",
                     "id" => "13b1d199-a79e-40fe-bd7c-0ecc3ca52d73",
                     "event-count" => 1
+                },
+                {
+                    "id" => "14524a06-246d-44fa-8e53-aeaf796109fa",
+                    "type" => "Release",
+                    "name" => "public release collection, lots of entries",
+                    "type-id" => "d94659b2-4ce5-3a98-b4b8-da1131cf33ee",
+                    "entity-type" => "release",
+                    "release-count" => 22,
+                    "editor" => "the-anti-kuno"
                 },
                 {
                     "editor" => "the-anti-kuno",
@@ -78,6 +87,15 @@ test "collection lookup" => sub {
                     "recording-count" => 1,
                     "name" => "public recording collection",
                     "id" => "38a6a0ec-f4a9-4424-80fd-bd4f9eb2e880"
+                },
+                {
+                    "type-id" => "d94659b2-4ce5-3a98-b4b8-da1131cf33ee",
+                    "type" => "Release",
+                    "id" => "57fe9a9b-51c7-4a06-a4f5-bef8967dab83",
+                    "entity-type" => "release",
+                    "editor" => "the-anti-kuno",
+                    "name" => "private release collection, lots of entries",
+                    "release-count" => 22
                 },
                 {
                     "id" => "5adf966d-d82f-4ae9-a9a3-e5e187ed2c34",
@@ -354,9 +372,18 @@ test "browsing by release" => sub {
 
     ws2_test_json 'browse by release',
         '/collection/?release=0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e' => {
-            "collection-count" => 1,
+            "collection-count" => 2,
             "collection-offset" => 0,
             "collections" => [
+                {
+                    "id" => "14524a06-246d-44fa-8e53-aeaf796109fa",
+                    "type" => "Release",
+                    "name" => "public release collection, lots of entries",
+                    "type-id" => "d94659b2-4ce5-3a98-b4b8-da1131cf33ee",
+                    "entity-type" => "release",
+                    "release-count" => 22,
+                    "editor" => "the-anti-kuno"
+                },
                 {
                     "release-count" => 1,
                     "id" => "dd07ea8b-0ec3-4b2d-85cf-80e523de4902",

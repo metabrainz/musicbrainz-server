@@ -398,7 +398,7 @@ sub _build_ws_test_json {
                 ok($mech->success);
             }
 
-            cmp_deeply(decode_json($mech->content), $expected);
+            cmp_deeply(decode_json($mech->content), $expected, "unexpected content: " . $mech->content);
 
             my $cb = $opts->{content_cb};
             $cb->($mech->content) if $cb;
