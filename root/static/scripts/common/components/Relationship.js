@@ -20,7 +20,8 @@ import relationshipDateText
 import DescriptiveLink from './DescriptiveLink';
 
 type Props = {
-  +allowNew?: boolean,
+  +allowNewEntity0?: boolean,
+  +allowNewEntity1?: boolean,
   +relationship: RelationshipT,
 };
 
@@ -61,7 +62,8 @@ const HistoricRelationshipContent = ({
 };
 
 const RelationshipContent = ({
-  allowNew,
+  allowNewEntity0,
+  allowNewEntity1,
   relationship,
 }: Props) => {
   const direction = relationship.direction;
@@ -84,12 +86,12 @@ const RelationshipContent = ({
     'long_link_phrase',
     false /* forGrouping */,
     <DescriptiveLink
-      allowNew={allowNew}
+      allowNew={allowNewEntity0}
       content={relationship.entity0_credit}
       entity={entity0}
     />,
     <DescriptiveLink
-      allowNew={allowNew}
+      allowNew={allowNewEntity1}
       content={relationship.entity1_credit}
       entity={entity1}
     />,
@@ -125,14 +127,25 @@ export const HistoricRelationship = ({
 );
 
 const Relationship = ({
-  allowNew,
+  allowNewEntity0,
+  allowNewEntity1,
   relationship,
 }: Props): React.MixedElement => (
   relationship.editsPending ? (
     <span className="mp mp-rel">
-      <RelationshipContent allowNew={allowNew} relationship={relationship} />
+      <RelationshipContent
+        allowNewEntity0={allowNewEntity0}
+        allowNewEntity1={allowNewEntity1}
+        relationship={relationship}
+      />
     </span>
-  ) : <RelationshipContent allowNew={allowNew} relationship={relationship} />
+  ) : (
+    <RelationshipContent
+      allowNewEntity0={allowNewEntity0}
+      allowNewEntity1={allowNewEntity1}
+      relationship={relationship}
+    />
+  )
 );
 
 export default Relationship;
