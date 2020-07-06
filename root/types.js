@@ -855,7 +855,9 @@ declare type RelationshipT = {
   +id: number,
   +linkOrder: number,
   +linkTypeID: number,
+  +source_type: string,
   +target: CoreEntityT,
+  +target_type: string,
 };
 
 declare type ReleaseGroupSecondaryTypeT =
