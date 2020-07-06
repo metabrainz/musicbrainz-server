@@ -39,6 +39,8 @@ around BUILDARGS => sub {
         return $class->$orig( $info );
     }
 
+    $info = {} if !ref($info); # if parsing failed
+
     my %info = map { $_ => $info->{$_} }
         grep { defined($info->{$_}) } keys %$info;
 

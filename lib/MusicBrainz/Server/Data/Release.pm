@@ -139,6 +139,33 @@ sub _where_filter
                 push @joins, 'JOIN release_group_secondary_type_join st ON release.release_group = st.release_group';
             }
         }
+        my $country_id_filter = $filter->{country_id};
+        my $date_filter = $filter->{date};
+        if (defined $country_id_filter || defined $date_filter) {
+            my $country_date_query = 'release.id IN (SELECT release FROM release_event WHERE ';
+            my @country_date_conditions;
+            if (defined $country_id_filter) {
+                push @country_date_conditions, 'country = ?';
+                push @params, $country_id_filter;
+            }
+            if (defined $date_filter) {
+                my $date = MusicBrainz::Server::Entity::PartialDate->new($date_filter);
+                if (defined $date->year) {
+                    push @country_date_conditions, 'date_year = ?';
+                    push @params, $date->year;
+                }
+                if (defined $date->month) {
+                    push @country_date_conditions, 'date_month = ?';
+                    push @params, $date->month;
+                }
+                if (defined $date->day) {
+                    push @country_date_conditions, 'date_day = ?';
+                    push @params, $date->day;
+                }
+            }
+            $country_date_query .= (join ' AND ', @country_date_conditions) . ')';
+            push @query, $country_date_query;
+        }
     }
 
     return (\@query, \@joins, \@params);
