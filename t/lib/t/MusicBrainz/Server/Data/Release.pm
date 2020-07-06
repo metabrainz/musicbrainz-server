@@ -556,7 +556,7 @@ $sql->commit;
 
 };
 
-test 'find_by_artist orders by release date and country' => sub {
+test 'find_by_artist orders by release date and country for non-VA, id only for VA (MBS-10939)' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -578,7 +578,17 @@ EOSQL
     my ($releases, undef) = $c->model('Release')->find_by_artist(1, 10, 0);
     is_deeply(
         [map { $_->id } @$releases],
-        [8, 7, 1, 9, 110, 100, 2, 6]
+        [1, 2, 6, 7, 8, 9, 100, 110]
+    );
+
+    $c->sql->do(<<EOSQL);
+UPDATE release SET artist_credit = 3 WHERE artist_credit = 1;
+EOSQL
+
+    ($releases, undef) = $c->model('Release')->find_by_artist(3, 10, 0);
+    is_deeply(
+        [map { $_->id } @$releases],
+        [8, 7, 1, 9, 110, 100, 2, 6, 10]
     );
 };
 
