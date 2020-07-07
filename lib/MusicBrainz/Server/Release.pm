@@ -27,10 +27,6 @@ use warnings;
 
 use MusicBrainz::Server::Translation qw( l ln );
 
-use constant NONALBUMTRACKS_NAME => "[non-album tracks]";
-
-use constant RELEASE_ATTR_NONALBUMTRACKS => 0;
-
 use constant RELEASE_ATTR_ALBUM          => 1;
 use constant RELEASE_ATTR_SINGLE         => 2;
 use constant RELEASE_ATTR_EP             => 3;

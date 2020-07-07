@@ -81,8 +81,6 @@ sub load_type_and_status
         lc('sa-' . $_->name)=> $_->id,
         lc('va-' . $_->name)=> $_->id,
     } @statuses;
-
-    $types{'nat'} = $types{'non-album tracks'};
 }
 
 sub validate_type
