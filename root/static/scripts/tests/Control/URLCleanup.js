@@ -1687,6 +1687,13 @@ const testData = [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://www.instagram.com/stories/nathanwpylestrangeplanet/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.instagram.com/nathanwpylestrangeplanet/',
+       only_valid_entity_types: [],
+  },
+  {
                      input_url: 'https://www.instagram.com/p/B3Mew-Cl2Z9/',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
