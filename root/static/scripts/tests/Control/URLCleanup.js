@@ -1694,6 +1694,20 @@ const testData = [
        only_valid_entity_types: [],
   },
   {
+                     input_url: 'https://www.instagram.com/tv/B3Mew-Cl2Z9/?igshid=ekrqbty1ix6c',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.instagram.com/p/B3Mew-Cl2Z9/',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.instagram.com/p/B_7IG9gonk0/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.instagram.com/p/B_7IG9gonk0/',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
                      input_url: 'https://www.instagram.com/explore/locations/277133756/pacha-club-ibiza/',
              input_entity_type: 'place',
     expected_relationship_type: 'socialnetwork',

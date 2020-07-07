@@ -1448,9 +1448,14 @@ const CLEANUPS = {
   },
   'instagram': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?instagram\\.com/', 'i')],
-    type: LINK_TYPES.socialnetwork,
+    type: _.defaults(
+      {},
+      LINK_TYPES.socialnetwork,
+      LINK_TYPES.streamingfree,
+    ),
     clean: function (url) {
-      // Ignore explore/photo URLs since we'll block them anyway
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/(?:p|tv)\/([^\/?#]+).*$/, 'https://www.instagram.com/p/$1/');
+      // Ignore explore URLs since we'll block them anyway
       if (!(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url))) {
         // Point /stories/ sections to the main user profile instead
         url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/stories\/([^\/?#]+)\/?(?:[\/?#].*)?$/, 'https://www.instagram.com/$1/');
@@ -1458,9 +1463,11 @@ const CLEANUPS = {
       }
       return url;
     },
-    validate: function (url) {
+    validate: function (url, id) {
       // Block explore/photo URLs, which aren't really a social network link
-      if (/^https:\/\/www\.instagram\.com\/p\//.test(url)) {
+      if (/^https:\/\/www\.instagram\.com\/p\//.test(url) &&
+        !_.includes(LINK_TYPES.streamingfree, id)
+      ) {
         return {
           error: l(
             `Please do not link directly to images,
