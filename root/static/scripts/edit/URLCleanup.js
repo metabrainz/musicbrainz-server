@@ -1458,8 +1458,8 @@ const CLEANUPS = {
       // Ignore explore URLs since we'll block them anyway
       if (!(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url))) {
         // Point /stories/ sections to the main user profile instead
-        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/stories\/([^\/?#]+)\/?(?:[\/?#].*)?$/, 'https://www.instagram.com/$1/');
-        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^\/?#]+)\/?(?:[\/?#].*)?$/, 'https://www.instagram.com/$1/');
+        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/stories\/([^\/?#]+).*$/, 'https://www.instagram.com/$1/');
+        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^\/?#]+).*$/, 'https://www.instagram.com/$1/');
       }
       return url;
     },
