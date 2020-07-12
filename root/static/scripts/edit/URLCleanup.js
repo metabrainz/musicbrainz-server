@@ -599,6 +599,7 @@ const CLEANUPS = {
         const path = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
           case LINK_TYPES.otherdatabases.release_group:
           case LINK_TYPES.otherdatabases.work:
             return {
