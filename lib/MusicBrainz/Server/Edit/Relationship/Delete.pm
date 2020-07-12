@@ -96,6 +96,7 @@ sub foreign_keys
     $ids{$self->model1}->{gid_or_id($entity1)} = [ 'ArtistCredit' ];
 
     $ids{LinkType} = [$self->data->{link}{type}{id}];
+    $ids{LinkAttributeType} = { map { $_->{type}{id} => ['LinkAttributeType'] } @{ $self->data->{relationship}{link}{attributes} // [] } };
 
     return \%ids;
 }
@@ -111,7 +112,7 @@ sub build_display_data
             my $type = $_->{type};
             MusicBrainz::Server::Entity::LinkAttribute->new(
                 type_id => $type->{id},
-                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                type => $loaded->{LinkAttributeType}{$type->{id}} // MusicBrainz::Server::Entity::LinkAttributeType->new(
                     id => $type->{id},
                     name => $type->{name},
                     root_id => $type->{root}{id},
