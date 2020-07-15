@@ -619,6 +619,11 @@ sub various_edit_counts {
 
 sub added_entities_counts {
     my ($self, $editor_id) = @_;
+
+    my $cache_key = "editor:$editor_id:added_entities_counts";
+    my $cached_result = $self->c->cache->get($cache_key);
+    return $cached_result if defined $cached_result;
+
     my %result = map { $_ => 0 }
         qw( artist release cover_art event label place series work other );
 
@@ -648,6 +653,9 @@ sub added_entities_counts {
         my ($type, $count) = @$row;
         $result{$type} = $count;
     }
+
+    $self->c->cache->set($cache_key, \%result, 60 * 60 * 24);
+
     return \%result;
 }
 
