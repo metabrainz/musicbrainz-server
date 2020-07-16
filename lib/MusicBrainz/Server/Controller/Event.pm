@@ -20,8 +20,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type     => 'event',
-    method_name     => 'attendance'
+    entity_type     => 'event'
 };
 
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE $EDIT_EVENT_DELETE $EDIT_EVENT_EDIT $EDIT_EVENT_MERGE );
@@ -52,7 +51,7 @@ after 'load' => sub {
 };
 
 # Stuff that has the side bar and thus needs to display collection information
-after [qw( show aliases attendance details tags )] => sub {
+after [qw( show aliases collections details tags )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };
