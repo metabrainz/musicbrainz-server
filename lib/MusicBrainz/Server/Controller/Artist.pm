@@ -330,6 +330,7 @@ sub works : Chained('load')
         $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
     $c->model('Work')->load_related_info(@$works);
+    $c->model('Work')->load_meta(@$works);
     $c->model('Work')->rating->load_user_ratings($c->user->id, @$works) if $c->user_exists;
 
     my %props = (

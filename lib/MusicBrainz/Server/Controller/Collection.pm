@@ -143,6 +143,7 @@ sub show : Chained('load') PathPart('') {
         $c->model('ReleaseGroupSecondaryType')->load_for_release_groups(@$entities);
     } elsif ($entity_type eq 'event') {
         $c->model('EventType')->load(@$entities);
+        $c->model('Event')->load_meta(@$entities);
         $model->load_performers(@$entities);
         $model->load_locations(@$entities);
         if ($c->user_exists) {
@@ -155,6 +156,7 @@ sub show : Chained('load') PathPart('') {
     } elsif ($entity_type eq 'recording') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ISRC')->load_for_recordings(@$entities);
+        $c->model('Recording')->load_meta(@$entities);
         if ($c->user_exists) {
             $c->model('Recording')->rating->load_user_ratings($c->user->id, @$entities);
         }

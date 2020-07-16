@@ -71,6 +71,7 @@ sub show : PathPart('') Chained('load') {
     if ($series->type->item_entity_type eq 'event') {
         $c->model('Event')->load_related_info(@entities);
         $c->model('Event')->load_areas(@entities);
+        $c->model('Event')->load_meta(@entities);
         $c->model('Event')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
@@ -95,6 +96,7 @@ sub show : PathPart('') Chained('load') {
 
     if ($series->type->item_entity_type eq 'work') {
         $c->model('Work')->load_related_info(@entities);
+        $c->model('Work')->load_meta(@entities);
         $c->model('Work')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
