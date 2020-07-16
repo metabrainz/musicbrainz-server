@@ -9,7 +9,11 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
 
+import MB from '../common/MB';
+import DescriptiveLink from '../common/components/DescriptiveLink'
 import expand2text from '../common/i18n/expand2text';
 import {errorsExist} from '../edit/validation';
 
@@ -123,6 +127,40 @@ $(function () {
 });
 
 
+// Search releases with the same barcode
+function searchExistingBarcode(field, barcode) {
+    utils.search("release", `barcode:${barcode}`, 1).done(data => {
+        if (data.releases.length) {
+
+            const msg = l(
+                `The following releases with that barcode are already in the
+                 MusicBrainz database. Please make sure you are not adding an
+                 exact duplicate of any of these:`,
+            );
+            const releaseList = ReactDOMServer.renderToString(
+                <>
+                    {msg}
+                    <ul>
+                        {data.releases.map(release => {
+                        const cleanedRelease = new MB.entity.Release(
+                            utils.cleanWebServiceData(release),
+                        );
+                        return (
+                            <li key={release.id}>
+                                <DescriptiveLink
+                                    entity={cleanedRelease}
+                                />
+                            </li>
+                        );
+                    })}
+                    </ul>
+                </>,
+            );
+            field.existing(releaseList);
+        }
+    });
+}
+
 // Barcode should be a valid EAN/UPC.
 
 utils.withRelease(function (release) {
@@ -130,6 +168,7 @@ utils.withRelease(function (release) {
 
     field.error("");
     field.message("");
+    field.existing("");
 
     var barcode = field.barcode();
     if (!barcode || barcode === field.original || field.confirmed()) {
@@ -148,6 +187,7 @@ utils.withRelease(function (release) {
     } else if (barcode.length === 12) {
         if (field.validateCheckDigit("0" + barcode)) {
             field.message(l("The barcode you entered is a valid UPC code."));
+            searchExistingBarcode(field, barcode);
         } else {
             field.error(
                 l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
@@ -160,6 +200,7 @@ utils.withRelease(function (release) {
     } else if (barcode.length === 13) {
         if (field.validateCheckDigit(barcode)) {
             field.message(l("The barcode you entered is a valid EAN code."));
+            searchExistingBarcode(field, barcode);
         } else {
             field.error(
                 l("The barcode you entered is not a valid EAN code.") +
