@@ -70,15 +70,23 @@ const RelationshipContent = ({
   const linkType = linkedEntities.link_type[relationship.linkTypeID];
   let entity0 = relationship.entity0;
   let entity1 = relationship.entity1;
+  const type0 = linkType.type0 ||
+    (direction === 'backward'
+      ? relationship.target_type
+      : relationship.source_type);
+  const type1 = linkType.type1 ||
+    (direction === 'backward'
+      ? relationship.source_type
+      : relationship.target_type);
   if (!entity0 || !entity1) {
     if (direction === 'backward') {
       entity0 = relationship.target;
-      entity1 = linkedEntities[linkType.type1][relationship.entity1_id] ||
-        {entityType: linkType.type1, id: relationship.entity1_id};
+      entity1 = linkedEntities[type1][relationship.entity1_id] ||
+        {entityType: type1, id: relationship.entity1_id};
     } else {
       entity1 = relationship.target;
-      entity0 = linkedEntities[linkType.type0][relationship.entity0_id] ||
-        {entityType: linkType.type0, id: relationship.entity0_id};
+      entity0 = linkedEntities[type0][relationship.entity0_id] ||
+        {entityType: type0, id: relationship.entity0_id};
     }
   }
   const longPhrase = interpolate(
