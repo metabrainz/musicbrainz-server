@@ -278,6 +278,7 @@ module.exports = {
   'edit/details/AddAnnotation': require('../edit/details/AddAnnotation'),
   'edit/details/AddArea': require('../edit/details/AddArea'),
   'edit/details/AddArtist': require('../edit/details/AddArtist'),
+  'edit/details/AddDiscId': require('../edit/details/AddDiscId'),
   'edit/details/AddEvent': require('../edit/details/AddEvent'),
   'edit/details/AddLabel': require('../edit/details/AddLabel'),
   'edit/details/AddPlace': require('../edit/details/AddPlace'),
