@@ -12,7 +12,12 @@ use JSON::XS;
 use List::AllUtils qw( all );
 use List::MoreUtils qw( part );
 use List::UtilsBy qw( nsort_by partition_by );
-use MusicBrainz::Server::Constants qw( :quality $EDIT_RELEASE_CREATE $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw(
+    :quality
+    $EDIT_RELEASE_CREATE
+    $STATUS_APPLIED
+    $VARTIST_ID
+);
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Release;
@@ -134,6 +139,33 @@ sub _where_filter
                 push @joins, 'JOIN release_group_secondary_type_join st ON release.release_group = st.release_group';
             }
         }
+        my $country_id_filter = $filter->{country_id};
+        my $date_filter = $filter->{date};
+        if (defined $country_id_filter || defined $date_filter) {
+            my $country_date_query = 'release.id IN (SELECT release FROM release_event WHERE ';
+            my @country_date_conditions;
+            if (defined $country_id_filter) {
+                push @country_date_conditions, 'country = ?';
+                push @params, $country_id_filter;
+            }
+            if (defined $date_filter) {
+                my $date = MusicBrainz::Server::Entity::PartialDate->new($date_filter);
+                if (defined $date->year) {
+                    push @country_date_conditions, 'date_year = ?';
+                    push @params, $date->year;
+                }
+                if (defined $date->month) {
+                    push @country_date_conditions, 'date_month = ?';
+                    push @params, $date->month;
+                }
+                if (defined $date->day) {
+                    push @country_date_conditions, 'date_day = ?';
+                    push @params, $date->day;
+                }
+            }
+            $country_date_query .= (join ' AND ', @country_date_conditions) . ')';
+            push @query, $country_date_query;
+        }
     }
 
     return (\@query, \@joins, \@params);
@@ -179,24 +211,38 @@ sub find_by_artist
     push @$conditions, "acn.artist = ?";
     push @$params, $artist_id;
 
-    my $query = "
-      SELECT *
-      FROM (
-        SELECT DISTINCT ON (release.id)
-          " . $self->_columns . ",
-          date_year, date_month, date_day, area.name AS country_name
-        FROM " . $self->_table . "
-        JOIN artist_credit_name acn ON acn.artist_credit = release.artist_credit
-        " . join(' ', @$extra_joins) . "
-        LEFT JOIN release_event ON release_event.release = release.id
-        LEFT JOIN area ON area.id = release_event.country
-        WHERE " . join(" AND ", @$conditions) . "
-        ORDER BY release.id, date_year, date_month, date_day,
-          country_name, barcode, release.name COLLATE musicbrainz
-      ) release
-      ORDER BY date_year, date_month, date_day,
-        country_name, barcode, name COLLATE musicbrainz";
-    $self->query_to_list_limited($query, $params, $limit, $offset);
+    my $query;
+    if ($artist_id == $VARTIST_ID) {
+        # MBS-10939: For VA, only order by ID. Sorting by date, country
+        # name, etc. doesn't currently scale at this level and causes
+        # load issues on our DB server.
+        $query = "
+            SELECT DISTINCT ON (release.id) " .
+            $self->_columns . " FROM " . $self->_table . "
+            JOIN artist_credit_name acn ON acn.artist_credit = release.artist_credit
+            " . join(' ', @$extra_joins) . "
+            WHERE " . join(" AND ", @$conditions) . "
+            ORDER BY release.id";
+    } else {
+        $query = "
+            SELECT *
+            FROM (
+              SELECT DISTINCT ON (release.id)
+                " . $self->_columns . ",
+                date_year, date_month, date_day, area.name AS country_name
+              FROM " . $self->_table . "
+              JOIN artist_credit_name acn ON acn.artist_credit = release.artist_credit
+              " . join(' ', @$extra_joins) . "
+              LEFT JOIN release_event ON release_event.release = release.id
+              LEFT JOIN area ON area.id = release_event.country
+              WHERE " . join(" AND ", @$conditions) . "
+              ORDER BY release.id, date_year, date_month, date_day,
+                country_name, barcode, release.name COLLATE musicbrainz
+            ) release
+            ORDER BY date_year, date_month, date_day,
+              country_name, barcode, name COLLATE musicbrainz";
+    }
+    $self->query_to_list_limited($query, $params, $limit, $offset, undef, cache_hits => 1);
 }
 
 sub find_by_instrument {
@@ -276,7 +322,7 @@ sub find_by_label
       ORDER BY date_year, date_month, date_day, catalog_number,
         name COLLATE musicbrainz, country_name,
         barcode";
-    $self->query_to_list_limited($query, $params, $limit, $offset);
+    $self->query_to_list_limited($query, $params, $limit, $offset, undef, cache_hits => 1);
 }
 
 sub find_by_disc_id

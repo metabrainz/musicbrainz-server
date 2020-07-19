@@ -9,17 +9,21 @@
 
 import * as React from 'react';
 
+import FieldErrors from '../../../../components/FieldErrors';
 import SelectField from '../../../../components/SelectField';
 import {addColonText} from '../i18n/addColon';
 
 export type FilterFormT = $ReadOnly<{
   ...FormT<{
     +artist_credit_id: ReadOnlyFieldT<number>,
+    +country_id?: ReadOnlyFieldT<number>,
+    +date?: ReadOnlyFieldT<string>,
     +name: ReadOnlyFieldT<string>,
     +type_id?: ReadOnlyFieldT<number>,
   }>,
   entity_type: 'recording' | 'release' | 'release_group',
   options_artist_credit_id: SelectOptionsT,
+  options_country_id: SelectOptionsT,
   options_type_id?: SelectOptionsT,
 }>;
 
@@ -44,6 +48,9 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
   const typeIdOptions = form.options_type_id;
   const artistCreditIdField = form.field.artist_credit_id;
   const artistCreditIdOptions = form.options_artist_credit_id;
+  const countryIdOptions = form.options_country_id;
+  const countryIdField = form.field.country_id;
+  const dateField = form.field.date;
 
   return (
     <div id="filter">
@@ -52,7 +59,7 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
           <tbody>
             {typeIdField && typeIdOptions ? (
               <tr>
-                <td style={{whiteSpace: 'nowrap'}}>
+                <td>
                   {addColonText(l('Type'))}
                 </td>
                 <td>
@@ -68,7 +75,7 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
 
             {artistCreditIdField && artistCreditIdOptions ? (
               <tr>
-                <td style={{whiteSpace: 'nowrap'}}>
+                <td>
                   {l('Artist credit:')}
                 </td>
                 <td>
@@ -96,6 +103,43 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
                 />
               </td>
             </tr>
+
+            {countryIdField && countryIdOptions ? (
+              <tr>
+                <td>
+                  {addColonText(l('Country'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={countryIdField}
+                    options={{
+                      grouped: false,
+                      options: countryIdOptions,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+            ) : null}
+
+            {dateField ? (
+              <tr>
+                <td>
+                  {addColonText(l('Date'))}
+                </td>
+                <td>
+                  <input
+                    defaultValue={dateField.value ?? ''}
+                    name={dateField.html_name}
+                    size="47"
+                    type="text"
+                  />
+                  <FieldErrors field={dateField} />
+                </td>
+              </tr>
+            ) : null}
+
             <tr>
               <td />
               <td>
