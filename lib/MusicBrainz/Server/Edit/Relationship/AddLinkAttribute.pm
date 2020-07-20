@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Add relationship attribute') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_ATTRIBUTE }
+sub edit_template_react { 'AddRelationshipAttribute' }
 
 has '+data' => (
     isa => Dict[
@@ -36,6 +37,9 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
+        child_order => $self->data->{child_order},
+        description => $self->data->{description},
+        name => $self->data->{name},
         parent => $loaded->{LinkAttributeType}->{ $self->data->{parent_id} }
     }
 }
