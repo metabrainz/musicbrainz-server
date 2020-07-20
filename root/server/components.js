@@ -285,6 +285,7 @@ module.exports = {
   'edit/details/AddArtist': require('../edit/details/AddArtist'),
   'edit/details/AddDiscId': require('../edit/details/AddDiscId'),
   'edit/details/AddEvent': require('../edit/details/AddEvent'),
+  'edit/details/AddInstrument': require('../edit/details/AddInstrument'),
   'edit/details/AddIsrcs': require('../edit/details/AddIsrcs'),
   'edit/details/AddIswcs': require('../edit/details/AddIswcs'),
   'edit/details/AddLabel': require('../edit/details/AddLabel'),

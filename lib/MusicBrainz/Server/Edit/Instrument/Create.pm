@@ -19,7 +19,7 @@ sub edit_name { N_l('Add instrument') }
 sub edit_type { $EDIT_INSTRUMENT_CREATE }
 sub _create_model { 'Instrument' }
 sub instrument_id { shift->entity_id }
-
+sub edit_template_react { 'AddInstrument' }
 
 has '+data' => (
     isa => Dict[
@@ -47,7 +47,7 @@ sub build_display_data {
         ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name ) ),
         type        => $type ? $loaded->{InstrumentType}->{$type} : '',
         instrument  => ($self->entity_id && $loaded->{Instrument}->{ $self->entity_id }) ||
-            Instrument->new( name => $self->data->{name} ),
+            Instrument->new( id => $self->entity_id, name => $self->data->{name} ),
         comment     => $self->data->{comment},
         description => $self->data->{description},
     };
