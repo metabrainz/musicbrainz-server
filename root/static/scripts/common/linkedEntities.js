@@ -30,6 +30,9 @@ type LinkedEntities = {
     [entityTypes: string]: $ReadOnlyArray<LinkTypeT>,
   },
   mergeLinkedEntities: (update: ?$Shape<LinkedEntities>) => void,
+  recording: {
+    [recordingId: number]: RecordingT,
+  },
   release: {
     [releaseId: number]: ReleaseT,
   },
@@ -75,6 +78,7 @@ const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
   link_attribute_type:            EMPTY_OBJECT,
   link_type:                      EMPTY_OBJECT,
   link_type_tree:                 EMPTY_OBJECT,
+  recording:                      EMPTY_OBJECT,
   release:                        EMPTY_OBJECT,
   release_group_primary_type:     EMPTY_OBJECT,
   release_group_secondary_type:   EMPTY_OBJECT,

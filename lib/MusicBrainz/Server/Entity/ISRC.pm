@@ -47,6 +47,10 @@ sub name { shift->isrc }
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    if ($self->recording) {
+        $self->link_entity('recording', $self->recording_id, $self->recording);
+    }
+
     my $json = $self->$orig;
     $json->{isrc} = $self->isrc;
     $json->{recording_id} = $self->recording_id;

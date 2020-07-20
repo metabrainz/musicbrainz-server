@@ -20,6 +20,7 @@ with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
 sub edit_name { N_l('Remove ISRC') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RECORDING_REMOVE_ISRC }
+sub edit_template_react { 'RemoveIsrc' }
 
 sub recording_id { shift->data->{recording}{id} }
 
@@ -58,7 +59,11 @@ method build_display_data ($loaded)
         ISRC->new(
             isrc => $self->data->{isrc}{isrc},
             recording => $loaded->{Recording}{ $self->data->{recording}{id} } //
-                         Recording->new( name => $self->data->{recording}{name} ),
+                         Recording->new(
+                             id => $self->data->{recording}{id},
+                             name => $self->data->{recording}{name}
+                         ),
+            recording_id => $self->data->{recording}{id},
         );
 
     return { isrc => $isrc };
