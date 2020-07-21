@@ -104,7 +104,7 @@ override accept => sub {
 # We do allow auto edits for this (as ModBot needs to insert them)
 sub modbot_auto_edit { 1 }
 
-sub edit_template { "remove_entity" };
+sub edit_template_react { 'RemoveEntity' };
 
 __PACKAGE__->meta->make_immutable;
 
