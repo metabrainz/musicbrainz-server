@@ -30,7 +30,7 @@
                         [%~ END ~%]
                     </td>
                     <td class="vote-count">
-                        [%~ IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open ~%]
+                        [%~ IF c.user.id && edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open ~%]
                             <div>
                                 [%~ IF !c.user_exists ~%]
                                     <strong>[%- add_colon(l('Vote tally')) _ ' ' -%]</strong>
