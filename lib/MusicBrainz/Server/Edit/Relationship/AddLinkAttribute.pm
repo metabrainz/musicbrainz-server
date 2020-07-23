@@ -36,11 +36,13 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
+    my $parent_id = $self->data->{parent_id};
+
     return {
         child_order => $self->data->{child_order},
         description => $self->data->{description},
         name => $self->data->{name},
-        parent => $loaded->{LinkAttributeType}->{ $self->data->{parent_id} }
+        parent => defined $parent_id ? $loaded->{LinkAttributeType}->{ $parent_id } : undef
     }
 }
 
