@@ -21,6 +21,7 @@ const CannotCancelEdit = (
   {$c, edit}: Props,
 ): React.Element<typeof Layout> => {
   const editDisplay = 'edit #' + edit.id;
+  const editIsClosed = !edit.is_open;
   const editLink = <EditLink content={editDisplay} edit={edit} />;
   return (
     <Layout $c={$c} fullWidth title={l('Error Cancelling Edit')}>
@@ -32,12 +33,9 @@ const CannotCancelEdit = (
         )}
       </p>
       <p>
-        {exp.l(
-          `Only the user who created an edit can cancel it,
-           either you did not create {edit} or perhaps
-           it has already been closed.`,
-          {edit: editLink},
-        )}
+        {editIsClosed
+          ? l('The edit has already been closed.')
+          : l('Only the editor who created an edit can cancel it.')}
       </p>
     </Layout>
   );
