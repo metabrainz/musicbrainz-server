@@ -122,7 +122,11 @@ sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(editing_enabl
         $c->model('Vote')->load_for_edits($edit);
 
         if (!$edit->editor_may_approve($c->user)) {
-            $c->stash( template => 'edit/cannot_approve.tt' );
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'edit/CannotApproveEdit',
+                component_props => {edit => $edit},
+            );
             return;
         }
         else {

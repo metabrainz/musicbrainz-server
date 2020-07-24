@@ -272,6 +272,7 @@ module.exports = {
   'components/RelationshipsTable': require('../components/RelationshipsTable'),
   'components/UserAccountTabs': require('../components/UserAccountTabs'),
   'components/VotingPeriod': require('../components/VotingPeriod'),
+  'edit/CannotApproveEdit': require('../edit/CannotApproveEdit'),
   'edit/CannotCancelEdit': require('../edit/CannotCancelEdit'),
   'edit/components/EditSidebar': require('../edit/components/EditSidebar'),
   'edit/components/EditSummary': require('../edit/components/EditSummary'),
