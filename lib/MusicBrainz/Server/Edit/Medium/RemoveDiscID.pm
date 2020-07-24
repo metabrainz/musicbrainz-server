@@ -9,6 +9,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 sub edit_name { N_l('Remove disc ID') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
 sub edit_kind { 'remove' }
+sub edit_template_react { 'RemoveDiscId' }
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
@@ -88,8 +89,13 @@ method build_display_data ($loaded)
 {
     return {
         medium  => $loaded->{Medium}{ $self->data->{medium}{id} } //
-                   Medium->new( release => $loaded->{Release}{ $self->release_id } //
-                                           Release->new( name => $self->data->{medium}{release}{name} )
+                   Medium->new(
+                       release_id => $self->release_id,
+                       release => $loaded->{Release}{ $self->release_id } //
+                                           Release->new(
+                                               id => $self->release_id,
+                                               name => $self->data->{medium}{release}{name},
+                                           ),
                    ),
         cdtoc   => $loaded->{CDTOC}{ $self->data->{medium_cdtoc}{cdtoc}{id} }
             || CDTOC->new_from_toc($self->data->{medium_cdtoc}{cdtoc}{toc})
