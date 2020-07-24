@@ -98,7 +98,10 @@ sub enter_votes : Local RequireAuth DenyWhenReadonly
         my @submissions = @{ $form->field('vote')->value };
         my @votes = grep { defined($_->{vote}) } @submissions;
         unless ($c->user->is_editing_enabled || scalar @votes == 0) {
-            $c->stash( template => 'edit/cannot_vote.tt' );
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'edit/CannotVote',
+            );
             return;
         }
         $c->model('Edit')->insert_votes_and_notes(
