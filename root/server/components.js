@@ -275,6 +275,7 @@ module.exports = {
   'edit/CannotApproveEdit': require('../edit/CannotApproveEdit'),
   'edit/CannotCancelEdit': require('../edit/CannotCancelEdit'),
   'edit/CannotVote': require('../edit/CannotVote'),
+  'edit/NoteIsRequired': require('../edit/NoteIsRequired'),
   'edit/components/EditSidebar': require('../edit/components/EditSidebar'),
   'edit/components/EditSummary': require('../edit/components/EditSummary'),
   'edit/components/Vote': require('../edit/components/Vote'),

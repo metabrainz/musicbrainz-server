@@ -143,7 +143,11 @@ sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(editing_enabl
                 }
 
                 unless ($left_note) {
-                    $c->stash( template => 'edit/require_note.tt' );
+                    $c->stash(
+                        current_view => 'Node',
+                        component_path => 'edit/NoteIsRequired',
+                        component_props => {edit => $edit},
+                    );
                     return;
                 };
             }
