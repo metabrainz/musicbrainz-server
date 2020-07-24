@@ -153,7 +153,11 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
     if (!$edit->editor_may_cancel($c->user)) {
-        $c->stash( template => 'edit/cannot_cancel.tt' );
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'edit/CannotCancelEdit',
+            component_props => {edit => $edit},
+        );
         $c->detach;
     }
 
