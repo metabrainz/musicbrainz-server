@@ -2218,6 +2218,49 @@ const testData = [
             expected_clean_url: 'https://www.metal-archives.com/reviews/Myrkwid/Part_I/36375',
        only_valid_entity_types: ['release_group'],
   },
+  // Migu Music
+  {
+                     input_url: 'https://music.migu.cn/v3/music/artist/5576#J_IntroMore',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/music/artist/5576',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://music.migu.cn/v3/music/song/6005752CRFQ',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/music/song/6005752CRFQ',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://music.migu.cn/v3/video/mv/600575Y9N2Z?prev=600575Y9FS5',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/video/mv/600575Y9N2Z',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://music.migu.cn/v3/live/10338',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/live/10338',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://cdnmusic.migu.cn/v3/music/album/1115719717',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/music/album/1115719717',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://cdnmusic.migu.cn/v3/music/digital_album/1108035685',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/music/album/1108035685',
+       only_valid_entity_types: ['release'],
+  },
   // Mixcloud
   {
                      input_url: 'https://www.mixcloud.com/andrea_mi/',

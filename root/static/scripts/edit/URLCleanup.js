@@ -1911,6 +1911,35 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'migumusic': {
+    match: [new RegExp('^(https?://)?[^/]*music\\.migu\\.cn', 'i')],
+    type: LINK_TYPES.streamingfree,
+    clean: function (url) {
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:cdn|www\.)?music\.migu\.cn\/v3\/(live|(?:music|video)\/\w+)\/([^/?#]+).*$/,
+        'https://music.migu.cn/v3/$1/$2'
+      );
+      url = url.replace(/\/digital_album\//, '/album/');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.migu\.cn\/v3\/(live|[a-z]+\/\w+)\/(?:[^/?#]+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {result: prefix === 'music/artist'};
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: ['live', 'music/song', 'video/mv'].includes(prefix),
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {result: prefix === 'music/album'};
+        }
+      }
+      return {result: false};
+    },
+  },
   'mixcloud': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i')],
     type: LINK_TYPES.socialnetwork,
