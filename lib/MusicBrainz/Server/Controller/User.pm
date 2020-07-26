@@ -34,8 +34,6 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Editor'
 };
 
-use Try::Tiny;
-
 =head1 NAME
 
 MusicBrainz::Server::Controller::User - Catalyst Controller to handle
