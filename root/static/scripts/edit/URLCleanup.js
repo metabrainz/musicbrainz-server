@@ -2681,6 +2681,7 @@ const CLEANUPS = {
       url = url.replace(/Artist\/(Details|Edit|Versions)/, 'Ar');
       url = url.replace(/Album\/(Details|DownloadTags|Edit|Related|Versions)/, 'Al');
       url = url.replace(/Event\/(Details|Edit|Versions)/, 'E');
+      url = url.replace(/Event\/SeriesDetails/, 'Es');
       return url.replace(/Song\/(Details|Edit|Related|Versions)/, 'S');
     },
     validate: function (url, id) {
@@ -2699,7 +2700,7 @@ const CLEANUPS = {
           case LINK_TYPES.otherdatabases.release_group:
             return {result: prefix === 'Al'};
           case LINK_TYPES.otherdatabases.series:
-            return {result: prefix === 'Event/SeriesDetails'};
+            return {result: prefix === 'Es'};
         }
       }
       return {result: false};

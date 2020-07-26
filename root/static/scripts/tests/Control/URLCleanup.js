@@ -3486,10 +3486,10 @@ const testData = [
        only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'https://utaitedb.net/Event/SeriesDetails/30',
+                     input_url: 'https://vocadb.net/Event/SeriesDetails/16',
              input_entity_type: 'series',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://utaitedb.net/Event/SeriesDetails/30',
+            expected_clean_url: 'https://vocadb.net/Es/16',
        only_valid_entity_types: ['series'],
   },
   {
