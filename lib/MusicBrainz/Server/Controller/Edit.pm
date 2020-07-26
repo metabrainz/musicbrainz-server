@@ -23,6 +23,10 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'edit',
 };
 
+__PACKAGE__->config(
+    paging_limit => 50,
+);
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::Moderation - handle user interaction
