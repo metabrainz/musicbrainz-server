@@ -208,7 +208,7 @@ releaseEditor.edits = {
           newWithoutPosition.to_edit = medium.id;
           edits.push(MB.edit.mediumEdit(newWithoutPosition, oldWithoutPosition));
         }
-      } else if (medium.hasTracks()) {
+      } else {
         /*
          * With regards to the medium position, make sure that:
          *
