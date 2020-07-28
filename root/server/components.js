@@ -255,6 +255,7 @@ module.exports = {
   'user/UserCollections': require('../user/UserCollections'),
   'user/UserMessage': require('../user/UserMessage'),
   'user/UserProfile': require('../user/UserProfile'),
+  'user/UserSubscriptions': require('../user/UserSubscriptions'),
   'vote/VotingIndex': require('../vote/VotingIndex'),
   'work/WorkIndex': require('../work/WorkIndex'),
   'work/WorkMerge': require('../work/WorkMerge'),

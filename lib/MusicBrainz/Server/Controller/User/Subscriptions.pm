@@ -26,15 +26,11 @@ with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
 after collection => sub {
     my ($self, $c) = @_;
 
-    $c->stash(
-        entities => [],
-        public_subscriptions => [
-            grep { $_->public } @{ $c->stash->{entities} }
-        ],
-        private_collection_count => scalar(
-            grep { !$_->public } @{ $c->stash->{entities} }
-        )
-    );
+    my $private_collection_count = scalar(grep { !$_->public } @{ $c->stash->{component_props}{entities} });
+    $c->stash->{component_props}{privateCollectionCount} = $private_collection_count;
+
+    my @public_collections = grep { $_->public } @{ $c->stash->{component_props}{entities} };
+    $c->stash->{component_props}{entities} = \@public_collections;
 };
 
 sub subscriptions : Chained('/user/load') {
