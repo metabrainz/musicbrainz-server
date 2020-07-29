@@ -257,20 +257,28 @@ sub do_external_search {
         # Switch on the response code to decide which template to provide
         given ($ret->{code})
         {
-            when (404) { $template .= 'no-results.tt'; }
-            when (403) { $template .= 'no-info.tt'; };
-            when (414) { $template .= 'uri-too-large.tt'; };
-            when (500) { $template .= 'internal-error.tt'; }
-            when (400) { $template .= 'invalid.tt'; }
-            when (503) { $template .= 'rate-limit.tt'; }
+            when (404) { $template .= 'NoResults'; }
+            when (403) { $template .= 'NoInfo'; };
+            when (414) { $template .= 'UriTooLarge'; };
+            when (500) { $template .= 'InternalError'; }
+            when (400) { $template .= 'Invalid'; }
+            when (503) { $template .= 'RateLimited'; }
 
-            default { $template .= 'general.tt'; }
+            default { $template .= 'General'; }
         }
 
-        $c->stash->{content}  = $ret->{error};
-        $c->stash->{query}    = $query;
-        $c->stash->{type}     = $type;
-        $c->stash->{template} = $template;
+        my %props = (
+            form => $c->stash->{form}->TO_JSON,
+            error => $ret->{error},
+            query => $query,
+            type => $type,
+        );
+
+        $c->stash(
+            component_path => $template,
+            component_props => \%props,
+            current_view => 'Node',
+        );
 
         $c->detach;
     }

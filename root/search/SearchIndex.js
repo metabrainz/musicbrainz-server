@@ -13,7 +13,6 @@ import Layout from '../layout';
 import TagLookupForm from '../taglookup/Form';
 import OtherLookupForm from '../otherlookup/OtherLookupForm';
 import type {OtherLookupFormT} from '../otherlookup/types';
-import type {TagLookupFormT} from '../taglookup/types';
 
 import SearchForm from './components/SearchForm';
 

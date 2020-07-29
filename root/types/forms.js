@@ -34,3 +34,12 @@ declare type SecureConfirmFormT = FormT<{
   +csrf_token: ReadOnlyFieldT<string>,
   +submit: ReadOnlyFieldT<string>,
 }>;
+
+declare type TagLookupFormT = FormT<{
+  +artist: ReadOnlyFieldT<string>,
+  +duration: ReadOnlyFieldT<string>,
+  +filename: ReadOnlyFieldT<string>,
+  +release: ReadOnlyFieldT<string>,
+  +track: ReadOnlyFieldT<string>,
+  +tracknum: ReadOnlyFieldT<string>,
+}, 'tag-lookup'>;

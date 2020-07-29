@@ -74,17 +74,17 @@ declare type ReadOnlyFieldT<+V> = {
 };
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
-declare type FormT<F> = {
+declare type FormT<F, N: string = ''> = {
   field: F,
   has_errors: boolean,
-  name: string,
+  name: N,
   +type: 'form',
 };
 
-declare type ReadOnlyFormT<+F> = {
+declare type ReadOnlyFormT<+F, +N: string = ''> = {
   +field: F,
   +has_errors: boolean,
-  +name: string,
+  +name: N,
   +type: 'form',
 };
 
