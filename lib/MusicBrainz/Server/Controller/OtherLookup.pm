@@ -18,7 +18,11 @@ sub lookup_handler {
             $self->$code($c, $form->field($name)->value);
         }
         else {
-            $c->stash( template => 'otherlookup/index.tt' );
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'otherlookup/OtherLookupIndex',
+                component_props => {form => $form},
+            );
         }
     };
 
@@ -200,6 +204,12 @@ sub index : Path('')
 {
     my ($self, $c) = @_;
     my $form = $c->form( other_lookup => 'OtherLookup' );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'otherlookup/OtherLookupIndex',
+        component_props => {form => $form},
+    );
 }
 
 1;

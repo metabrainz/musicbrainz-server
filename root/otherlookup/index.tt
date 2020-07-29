@@ -1,6 +1,0 @@
-[%- WRAPPER 'layout.tt' title=l('Other Lookups') full_width=1 -%]
-    <div class="content">
-        <h1>[% l("Other Lookups") %]</h1>
-        [%- INCLUDE 'otherlookup/form.tt' -%]
-    </div>
-[%- END -%]
