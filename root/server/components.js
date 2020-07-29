@@ -223,6 +223,7 @@ module.exports = {
   'report/TracksWithSequenceIssues': require('../report/TracksWithSequenceIssues'),
   'report/TracksWithoutTimes': require('../report/TracksWithoutTimes'),
   'report/UnlinkedPseudoReleases': require('../report/UnlinkedPseudoReleases'),
+  'search/SearchIndex': require('../search/SearchIndex'),
   'search/components/AnnotationResults': require('../search/components/AnnotationResults'),
   'search/components/AreaResults': require('../search/components/AreaResults'),
   'search/components/ArtistResults': require('../search/components/ArtistResults'),
