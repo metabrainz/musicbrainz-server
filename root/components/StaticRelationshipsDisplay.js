@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import RelationshipTargetLinks from '../components/RelationshipTargetLinks';
-import commaList from '../static/scripts/common/i18n/commaList';
 import type {
   RelationshipTargetTypeGroupT,
 } from '../utility/groupRelationships';
