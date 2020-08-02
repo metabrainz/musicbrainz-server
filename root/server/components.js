@@ -284,6 +284,7 @@ module.exports = {
   'edit/details/AddPlace': require('../edit/details/AddPlace'),
   'edit/details/AddRelationship': require('../edit/details/AddRelationship'),
   'edit/details/AddReleaseGroup': require('../edit/details/AddReleaseGroup'),
+  'edit/details/AddReleaseLabel': require('../edit/details/AddReleaseLabel'),
   'edit/details/AddRemoveAlias': require('../edit/details/AddRemoveAlias'),
   'edit/details/AddSeries': require('../edit/details/AddSeries'),
   'edit/details/AddStandaloneRecording': require('../edit/details/AddStandaloneRecording'),
