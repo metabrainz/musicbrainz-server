@@ -22,6 +22,7 @@ use aliased 'MusicBrainz::Server::Entity::ISWC';
 sub edit_type { $EDIT_WORK_ADD_ISWCS }
 sub edit_name { N_l('Add ISWCs') }
 sub edit_kind { 'add' }
+sub edit_template_react { 'AddIswcs' }
 
 sub work_ids { map { $_->{work}{id} } @{ shift->data->{iswcs} } }
 
@@ -75,7 +76,7 @@ sub build_display_data
         additions => [
             map { +{
                 work => $loaded->{Work}{ $_->{work}{id} }
-                    || Work->new( name => $_->{work}{name} ),
+                    || Work->new( id => $_->{work}{id}, name => $_->{work}{name} ),
                 iswc => ISWC->new( iswc => $_->{iswc} ),
             } } @{ $self->data->{iswcs} }
         ]
