@@ -193,9 +193,33 @@ around allow_auto_edit => sub {
     return 0 if exists $self->data->{old}{end_area_id} &&
         defined($self->data->{old}{end_area_id}) && $self->data->{old}{end_area_id} != 0;
 
-    return 0 if $self->data->{new}{ipi_codes};
+    if (defined $self->data->{new}{ipi_codes}) {
+        # If there's already IPIs for the artist, not an autoedit
+        if (@{ $self->data->{old}{ipi_codes} // [] }) {
+            return 0;
+        }
 
-    return 0 if $self->data->{new}{isni_codes};
+        # If there's already an entity with any of the IPIs, not an autoedit
+        my $reused_ipis = $self->reused_ipis;
+
+        if (%$reused_ipis) {
+            return 0;
+        }
+    }
+        
+    if (defined $self->data->{new}{isni_codes}) {
+        # If there's already ISNIs for the artist, not an autoedit
+        if (@{ $self->data->{old}{isni_codes} // [] }) {
+            return 0;
+        }
+
+        # If there's already an entity with any of the ISNIs, not an autoedit
+        my $reused_isnis = $self->reused_isnis;
+
+        if (%$reused_isnis) {
+            return 0;
+        }
+    }
 
     return $self->$orig(@args);
 };
