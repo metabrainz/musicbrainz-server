@@ -90,6 +90,7 @@ const RelationshipDiff = ({
   const oldSourceLink = (
     <DescriptiveLink
       content={oldRelationship.entity0_credit}
+      disableLink={oldRelationship.ended && oldSource.entityType === 'url'}
       entity={oldSource}
     />
   );
@@ -97,6 +98,7 @@ const RelationshipDiff = ({
   const newSourceLink = (
     <DescriptiveLink
       content={newRelationship.entity0_credit}
+      disableLink={newRelationship.ended && newSource.entityType === 'url'}
       entity={newSource}
     />
   );
@@ -104,6 +106,7 @@ const RelationshipDiff = ({
   const oldTargetLink = (
     <DescriptiveLink
       content={oldRelationship.entity1_credit}
+      disableLink={oldRelationship.ended && oldTarget.entityType === 'url'}
       entity={oldTarget}
     />
   );
@@ -111,6 +114,7 @@ const RelationshipDiff = ({
   const newTargetLink = (
     <DescriptiveLink
       content={newRelationship.entity1_credit}
+      disableLink={newRelationship.ended && newTarget.entityType === 'url'}
       entity={newTarget}
     />
   );

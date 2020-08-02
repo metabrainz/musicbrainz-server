@@ -96,11 +96,13 @@ const RelationshipContent = ({
     <DescriptiveLink
       allowNew={allowNewEntity0}
       content={relationship.entity0_credit}
+      disableLink={relationship.ended && entity0.entityType === 'url'}
       entity={entity0}
     />,
     <DescriptiveLink
       allowNew={allowNewEntity1}
       content={relationship.entity1_credit}
+      disableLink={relationship.ended && entity1.entityType === 'url'}
       entity={entity1}
     />,
   );
