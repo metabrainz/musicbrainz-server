@@ -347,6 +347,50 @@ const testData = [
             expected_clean_url: 'http://anison.info/data/song/5227.html',
        only_valid_entity_types: ['recording'],
   },
+  // Apple Books
+  {
+                     input_url: 'https://books.apple.com/us/author/richard-adams/id30997554',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://books.apple.com/us/author/id30997554',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://books.apple.com/us/book/watership-down/id381935940',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://books.apple.com/us/book/id381935940',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://books.apple.com/us/audiobook/watership-down/id1462355665?mt=3&ign-mpt=uo%3D4',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://books.apple.com/us/audiobook/id1462355665',
+       only_valid_entity_types: ['release'],
+  },
+  // Apple Music
+  {
+                     input_url: 'http://music.apple.com/artist/hangry-angry-f/id444923726',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.apple.com/us/artist/444923726',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.apple.com/ee/music-video/black-and-yellow/539886832?uo=4&mt=5&app=music',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.apple.com/jp/album/uchiagehanabi-single/1263790414',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
+       only_valid_entity_types: ['release'],
+  },
   // (Internet) Archive
   {
                      input_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',

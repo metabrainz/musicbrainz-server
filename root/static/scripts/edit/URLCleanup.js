@@ -576,6 +576,95 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'applebooks': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?books\\.apple\\.com/', 'i')],
+    type: LINK_TYPES.downloadpurchase,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/books\.apple\.com\/([a-z]{2}\/)?(audiobook|author|book)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://books.apple.com/$1$2/id$3');
+      // US page is the default, add its country-code to clarify (MBS-10623)
+      url = url.replace(/^(https:\/\/books\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/books\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/id[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+            if (prefix === 'author') {
+              return {result: true};
+            }
+            return {
+              error: exp.l(
+                `Only Apple Books “{artist_url_pattern}” pages can be added
+                 directly to artists. Please link audiobooks
+                 to the appropriate release instead.`,
+                {
+                  artist_url_pattern: (
+                    <span className="url-quote">{'/author'}</span>
+                  ),
+                },
+              ),
+              result: false,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+            if (prefix === 'book') {
+              return {
+                error: exp.l(
+                  `Only Apple Books audiobooks can be added
+                   to MusicBrainz. Consider adding books to
+                   {bookbrainz_url|BookBrainz} instead.`,
+                  {bookbrainz_url: 'https://bookbrainz.org/'},
+                ),
+                result: false,
+              };
+            }
+            return {result: prefix === 'audiobook'};
+        }
+      }
+      return {result: false};
+    },
+  },
+  'applemusic': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i')],
+    type: LINK_TYPES.streamingpaid,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/(?:geo\.)?music\.apple\.com\/([a-z]{2}\/)?(artist|album|author|music-video)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://music.apple.com/$1$2/$3');
+      // US page is the default, add its country-code to clarify (MBS-10623)
+      url = url.replace(/^(https:\/\/music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {
+              error: exp.l(
+                `Only Apple Music “{artist_url_pattern}” pages can be added
+                 directly to artists. Please link albums, videos, etc.
+                 to the appropriate release or recording instead.`,
+                {
+                  artist_url_pattern: (
+                    <span className="url-quote">{'/artist'}</span>
+                  ),
+                },
+              ),
+              result: false,
+            };
+          case LINK_TYPES.streamingpaid.recording:
+            return {result: prefix === 'music-video'};
+          case LINK_TYPES.streamingpaid.release:
+            return {result: prefix === 'album'};
+        }
+      }
+      return {result: false};
+    },
+  },
   'archive': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?archive\\.org/', 'i')],
     clean: function (url) {
