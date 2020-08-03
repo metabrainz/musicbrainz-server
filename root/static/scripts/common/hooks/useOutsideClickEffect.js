@@ -19,10 +19,13 @@ if (typeof document !== 'undefined') {
      * it's important that we wrap the iterator in `Array.from()`.
      */
     for (const [ref, action] of Array.from(TARGET_REFS.entries())) {
+      if (action == null) {
+        continue;
+      }
       const target = ref.current;
       // $FlowFixMe
       if (target && !target.contains(event.target)) {
-        action();
+        action(event.target);
       }
     }
   });
@@ -30,7 +33,7 @@ if (typeof document !== 'undefined') {
 
 export default function useOutsideClickEffect<T: HTMLElement>(
   targetRef: {current: T | null},
-  action: () => void,
+  action: ((EventTarget) => void) | null,
   cleanup?: () => void,
 ) {
   if (typeof document === 'undefined') {
