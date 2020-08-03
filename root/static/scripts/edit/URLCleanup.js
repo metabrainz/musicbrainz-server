@@ -1537,27 +1537,22 @@ const CLEANUPS = {
   },
   'instagram': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?instagram\\.com/', 'i')],
-    type: LINK_TYPES.socialnetwork,
+    type: _.defaults(
+      {},
+      LINK_TYPES.socialnetwork,
+      LINK_TYPES.streamingfree,
+    ),
     clean: function (url) {
-      // Ignore explore/photo URLs since we'll block them anyway
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/(?:p|tv)\/([^\/?#]+).*$/, 'https://www.instagram.com/p/$1/');
+      // Ignore explore URLs since we'll block them anyway
       if (!(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url))) {
         // Point /stories/ sections to the main user profile instead
-        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/stories\/([^\/?#]+)\/?(?:[\/?#].*)?$/, 'https://www.instagram.com/$1/');
-        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^\/?#]+)\/?(?:[\/?#].*)?$/, 'https://www.instagram.com/$1/');
+        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/stories\/([^\/?#]+).*$/, 'https://www.instagram.com/$1/');
+        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^\/?#]+).*$/, 'https://www.instagram.com/$1/');
       }
       return url;
     },
-    validate: function (url) {
-      // Block explore/photo URLs, which aren't really a social network link
-      if (/^https:\/\/www\.instagram\.com\/p\//.test(url)) {
-        return {
-          error: l(
-            `Please do not link directly to images,
-             link to the appropriate Instagram profile page instead.`,
-          ),
-          result: false,
-        };
-      }
+    validate: function (url, id) {
       if (/^https:\/\/www\.instagram\.com\/explore\//.test(url)) {
         return {
           error: exp.l(
@@ -1572,7 +1567,42 @@ const CLEANUPS = {
           result: false,
         };
       }
-      return {result: true};
+      const m = /^https:\/\/www\.instagram\.com\/([^\/]+)\/([^\/?#]+\/)?$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        const target = m[2];
+        if (
+          id === LINK_TYPES.streamingfree.recording ||
+          id === LINK_TYPES.streamingfree.release
+        ) {
+          return {
+            result: prefix === 'p' && target !== undefined,
+          };
+        } else if (_.includes(LINK_TYPES.socialnetwork, id)) {
+          if (prefix === 'p') {
+            return {
+              error: exp.l(
+                `Please do not link directly to images,
+                 link to the appropriate Instagram profile page instead.
+                 If you want to link to a video,
+                 {url|add a standalone recording} for it instead.`,
+                {
+                  url: {
+                    href: '/recording/create',
+                    target: '_blank',
+                  },
+                },
+              ),
+              result: false,
+            };
+          }
+          return {
+            result: /^(?!(?:explore|p|stories|tv)$)/.test(prefix) &&
+              target === undefined,
+          };
+        }
+      }
+      return {result: false};
     },
   },
   'irishtune': {
