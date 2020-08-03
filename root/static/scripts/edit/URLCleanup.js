@@ -576,6 +576,95 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'applebooks': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?books\\.apple\\.com/', 'i')],
+    type: LINK_TYPES.downloadpurchase,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/books\.apple\.com\/([a-z]{2}\/)?(audiobook|author|book)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://books.apple.com/$1$2/id$3');
+      // US page is the default, add its country-code to clarify (MBS-10623)
+      url = url.replace(/^(https:\/\/books\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/books\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/id[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+            if (prefix === 'author') {
+              return {result: true};
+            }
+            return {
+              error: exp.l(
+                `Only Apple Books “{artist_url_pattern}” pages can be added
+                 directly to artists. Please link audiobooks
+                 to the appropriate release instead.`,
+                {
+                  artist_url_pattern: (
+                    <span className="url-quote">{'/author'}</span>
+                  ),
+                },
+              ),
+              result: false,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+            if (prefix === 'book') {
+              return {
+                error: exp.l(
+                  `Only Apple Books audiobooks can be added
+                   to MusicBrainz. Consider adding books to
+                   {bookbrainz_url|BookBrainz} instead.`,
+                  {bookbrainz_url: 'https://bookbrainz.org/'},
+                ),
+                result: false,
+              };
+            }
+            return {result: prefix === 'audiobook'};
+        }
+      }
+      return {result: false};
+    },
+  },
+  'applemusic': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i')],
+    type: LINK_TYPES.streamingpaid,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/(?:geo\.)?music\.apple\.com\/([a-z]{2}\/)?(artist|album|author|music-video)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://music.apple.com/$1$2/$3');
+      // US page is the default, add its country-code to clarify (MBS-10623)
+      url = url.replace(/^(https:\/\/music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {
+              error: exp.l(
+                `Only Apple Music “{artist_url_pattern}” pages can be added
+                 directly to artists. Please link albums, videos, etc.
+                 to the appropriate release or recording instead.`,
+                {
+                  artist_url_pattern: (
+                    <span className="url-quote">{'/artist'}</span>
+                  ),
+                },
+              ),
+              result: false,
+            };
+          case LINK_TYPES.streamingpaid.recording:
+            return {result: prefix === 'music-video'};
+          case LINK_TYPES.streamingpaid.release:
+            return {result: prefix === 'album'};
+        }
+      }
+      return {result: false};
+    },
+  },
   'archive': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?archive\\.org/', 'i')],
     clean: function (url) {
@@ -1448,27 +1537,22 @@ const CLEANUPS = {
   },
   'instagram': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?instagram\\.com/', 'i')],
-    type: LINK_TYPES.socialnetwork,
+    type: _.defaults(
+      {},
+      LINK_TYPES.socialnetwork,
+      LINK_TYPES.streamingfree,
+    ),
     clean: function (url) {
-      // Ignore explore/photo URLs since we'll block them anyway
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/(?:p|tv)\/([^\/?#]+).*$/, 'https://www.instagram.com/p/$1/');
+      // Ignore explore URLs since we'll block them anyway
       if (!(/^https:\/\/www\.instagram\.com\/(explore|p)\//.test(url))) {
         // Point /stories/ sections to the main user profile instead
-        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/stories\/([^\/?#]+)\/?(?:[\/?#].*)?$/, 'https://www.instagram.com/$1/');
-        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^\/?#]+)\/?(?:[\/?#].*)?$/, 'https://www.instagram.com/$1/');
+        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/stories\/([^\/?#]+).*$/, 'https://www.instagram.com/$1/');
+        url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^\/?#]+).*$/, 'https://www.instagram.com/$1/');
       }
       return url;
     },
-    validate: function (url) {
-      // Block explore/photo URLs, which aren't really a social network link
-      if (/^https:\/\/www\.instagram\.com\/p\//.test(url)) {
-        return {
-          error: l(
-            `Please do not link directly to images,
-             link to the appropriate Instagram profile page instead.`,
-          ),
-          result: false,
-        };
-      }
+    validate: function (url, id) {
       if (/^https:\/\/www\.instagram\.com\/explore\//.test(url)) {
         return {
           error: exp.l(
@@ -1483,7 +1567,42 @@ const CLEANUPS = {
           result: false,
         };
       }
-      return {result: true};
+      const m = /^https:\/\/www\.instagram\.com\/([^\/]+)\/([^\/?#]+\/)?$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        const target = m[2];
+        if (
+          id === LINK_TYPES.streamingfree.recording ||
+          id === LINK_TYPES.streamingfree.release
+        ) {
+          return {
+            result: prefix === 'p' && target !== undefined,
+          };
+        } else if (_.includes(LINK_TYPES.socialnetwork, id)) {
+          if (prefix === 'p') {
+            return {
+              error: exp.l(
+                `Please do not link directly to images,
+                 link to the appropriate Instagram profile page instead.
+                 If you want to link to a video,
+                 {url|add a standalone recording} for it instead.`,
+                {
+                  url: {
+                    href: '/recording/create',
+                    target: '_blank',
+                  },
+                },
+              ),
+              result: false,
+            };
+          }
+          return {
+            result: /^(?!(?:explore|p|stories|tv)$)/.test(prefix) &&
+              target === undefined,
+          };
+        }
+      }
+      return {result: false};
     },
   },
   'irishtune': {
@@ -1817,6 +1936,35 @@ const CLEANUPS = {
             return {result: prefix === 'albums'};
           case LINK_TYPES.review.release_group:
             return {result: prefix === 'reviews'};
+        }
+      }
+      return {result: false};
+    },
+  },
+  'migumusic': {
+    match: [new RegExp('^(https?://)?[^/]*music\\.migu\\.cn', 'i')],
+    type: LINK_TYPES.streamingfree,
+    clean: function (url) {
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:cdn|www\.)?music\.migu\.cn\/v3\/(live|(?:music|video)\/\w+)\/([^/?#]+).*$/,
+        'https://music.migu.cn/v3/$1/$2'
+      );
+      url = url.replace(/\/digital_album\//, '/album/');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.migu\.cn\/v3\/(live|[a-z]+\/\w+)\/(?:[^/?#]+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {result: prefix === 'music/artist'};
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: ['live', 'music/song', 'video/mv'].includes(prefix),
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {result: prefix === 'music/album'};
         }
       }
       return {result: false};
@@ -2681,6 +2829,7 @@ const CLEANUPS = {
       url = url.replace(/Artist\/(Details|Edit|Versions)/, 'Ar');
       url = url.replace(/Album\/(Details|DownloadTags|Edit|Related|Versions)/, 'Al');
       url = url.replace(/Event\/(Details|Edit|Versions)/, 'E');
+      url = url.replace(/Event\/SeriesDetails/, 'Es');
       return url.replace(/Song\/(Details|Edit|Related|Versions)/, 'S');
     },
     validate: function (url, id) {
@@ -2699,7 +2848,7 @@ const CLEANUPS = {
           case LINK_TYPES.otherdatabases.release_group:
             return {result: prefix === 'Al'};
           case LINK_TYPES.otherdatabases.series:
-            return {result: prefix === 'Event/SeriesDetails'};
+            return {result: prefix === 'Es'};
         }
       }
       return {result: false};

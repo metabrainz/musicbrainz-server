@@ -36,7 +36,13 @@ const AddRelationship = ({edit}: Props): React.MixedElement => {
     <table className="details add-relationship">
       <tr>
         <th>{l('Relationship:')}</th>
-        <td><Relationship allowNew relationship={relationship} /></td>
+        <td>
+          <Relationship
+            allowNewEntity0={!edit.display_data.entity0?.id}
+            allowNewEntity1={!edit.display_data.entity1?.id}
+            relationship={relationship}
+          />
+        </td>
       </tr>
       {edit.display_data.relationship.linkOrder ? (
         <tr>

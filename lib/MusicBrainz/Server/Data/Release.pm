@@ -693,10 +693,10 @@ sub _order_by {
 
     my $order_by = order_by($order, "date", {
         "date" => sub {
-            return "date_year, date_month, date_day, name COLLATE musicbrainz"
+            return "date_year, date_month, date_day, release.name COLLATE musicbrainz"
         },
         "name" => sub {
-            return "name COLLATE musicbrainz, date_year, date_month, date_day"
+            return "release.name COLLATE musicbrainz, date_year, date_month, date_day"
         },
         "country" => sub {
             $extra_join = "LEFT JOIN area ON release_event.country = area.id";
@@ -706,7 +706,7 @@ sub _order_by {
         "artist" => sub {
             $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit";
             $also_select = "ac.name AS ac_name";
-            return "ac_name COLLATE musicbrainz, name COLLATE musicbrainz";
+            return "ac_name COLLATE musicbrainz, release.name COLLATE musicbrainz";
         },
         "label" => sub {
             $extra_join = "LEFT OUTER JOIN
@@ -715,7 +715,7 @@ sub _order_by {
                     GROUP BY release) rl
                 ON rl.release = release.id";
             $also_select = "rl.labels AS labels";
-            return "labels, name COLLATE musicbrainz";
+            return "labels, release.name COLLATE musicbrainz";
         },
         "catno" => sub {
             $extra_join = "LEFT OUTER JOIN
@@ -723,25 +723,25 @@ sub _order_by {
                   WHERE catalog_number IS NOT NULL GROUP BY release) rl
                 ON rl.release = release.id";
             $also_select = "catnos";
-            return "catnos, name COLLATE musicbrainz";
+            return "catnos, release.name COLLATE musicbrainz";
         },
         "format" => sub {
             $extra_join = "LEFT JOIN medium ON medium.release = release.id
                            LEFT JOIN medium_format ON medium.format = medium_format.id";
             $also_select = "medium_format.name AS medium_format_name";
-            return "medium_format_name, name COLLATE musicbrainz";
+            return "medium_format_name COLLATE musicbrainz, release.name COLLATE musicbrainz";
         },
         "tracks" => sub {
             $extra_join = "LEFT JOIN
                 (SELECT medium.release, sum(track_count) AS total_track_count
                     FROM medium
-                    GROUP BY medium.release) medium
-                ON medium.release = release.id";
+                    GROUP BY medium.release) tc
+                ON tc.release = release.id";
             $also_select = "total_track_count";
-            return "total_track_count, name COLLATE musicbrainz";
+            return "total_track_count, release.name COLLATE musicbrainz";
         },
         "barcode" => sub {
-            return "length(barcode), barcode, name COLLATE musicbrainz"
+            return "length(barcode), barcode, release.name COLLATE musicbrainz"
         },
     });
 
@@ -753,7 +753,15 @@ sub _order_by {
 
     $extra_join = "LEFT JOIN release_event ON release_event.release = release.id " . $extra_join;
 
-    return ($order_by, $extra_join, $also_select);
+    my $inner_order_by = $order_by
+        =~ s/country_name/area.name/r
+        =~ s/ac_name/ac.name/r
+        =~ s/labels/rl.labels/r
+        =~ s/catnos/rl.catnos/r
+        =~ s/medium_format_name/medium_format.name/r
+        =~ s/total_track_count/tc.total_track_count/r;
+
+    return ($order_by, $extra_join, $also_select, $inner_order_by);
 }
 
 sub _insert_hook_after_each {

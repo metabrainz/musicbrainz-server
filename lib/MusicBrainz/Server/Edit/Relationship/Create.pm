@@ -230,6 +230,8 @@ sub build_display_data
             grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
                 @{ $self->data->{attributes} // [] }
         )),
+        source_type => $type0,
+        target_type => $type1,
         entity0 => defined $entity0->id ? undef : $entity0,
         entity1 => defined $entity1->id ? undef : $entity1,
     }

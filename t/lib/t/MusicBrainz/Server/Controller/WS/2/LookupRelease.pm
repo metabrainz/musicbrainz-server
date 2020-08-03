@@ -536,6 +536,50 @@ ws_test 'release lookup with discids and recordings',
     </release>
 </metadata>';
 
+ws_test 'release lookup, no tracks',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e7?inc=recordings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="b3b7e934-445b-4c68-a097-730c6a6d47e7">
+        <title>Testy</title>
+        <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>jpn</language>
+            <script>Latn</script>
+        </text-representation>
+        <date>2001-07-04</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2001-07-04</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4942463511227</barcode>
+        <asin>B00005LA6G</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
+        <medium-list count="1">
+          <medium>
+            <position>1</position>
+            <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
+            <track-list count="0" />
+          </medium>
+        </medium-list>
+      </release>
+</metadata>';
+
 ws_test 'release lookup, barcode is NULL',
     '/release/fbe4eb72-0f24-3875-942e-f581589713d4' =>
     '<?xml version="1.0" encoding="UTF-8"?>

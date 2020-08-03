@@ -354,6 +354,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             relationship.entities(relationship.entities().slice(0).reverse());
         }
 
+        copyDate(data, event) {
+            const dialog = ko.contextFor(event.target).$parent;
+            dialog.relationship().end_date.year(data.date.year());
+            dialog.relationship().end_date.month(data.date.month());
+            dialog.relationship().end_date.day(data.date.day());
+        }
+
         backward() {
             return this.source === this.relationship().entities()[1];
         }

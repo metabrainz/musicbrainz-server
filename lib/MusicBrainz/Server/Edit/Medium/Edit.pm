@@ -173,7 +173,7 @@ sub initialize
             $self->_changes($entity, %opts)
         };
 
-        if ($tracklist) {
+        if ($tracklist && @$tracklist) {
             $self->c->model('Track')->load_for_mediums($entity);
             $self->c->model('ArtistCredit')->load($entity->all_tracks);
 
@@ -193,6 +193,13 @@ sub initialize
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
             }
+        } else {
+            $self->c->model('Track')->load_for_mediums($entity);
+            $self->c->model('ArtistCredit')->load($entity->all_tracks);
+
+            $data->{old}{tracklist} = tracks_to_hash($entity->tracks);
+            $data->{new}{tracklist} = [];
+
         }
 
         MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
@@ -279,7 +286,8 @@ sub build_display_data
                                 join('', $_->name, $_->join_phrase // '')
                             } $track->artist_credit->all_names
                         ),
-                        $track->is_data_track ? 1 : 0
+                        $track->is_data_track ? 1 : 0,
+                        $track->position ? 1 : 0,
                     );
                 }
             ) }

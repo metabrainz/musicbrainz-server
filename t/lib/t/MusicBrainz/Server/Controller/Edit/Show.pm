@@ -24,9 +24,17 @@ my $hard_mock_edit_class = $mock_edit_class + 1;
     use Moose;
     extends 't::Controller::Edit::Show::MockEdit';
     sub edit_name { 'Remove label' }
-    sub edit_template { "remove_entity" };
+    sub edit_template_react { 'RemoveEntity' };
     sub edit_type { $hard_mock_edit_class }
-
+    sub display_data {
+        return {
+            entity_type => 'label',
+            entity => MusicBrainz::Server::Entity::Label->new(
+                name => "Testy",
+                id => 1,
+            ),
+        }
+    }
     use MusicBrainz::Server::Constants qw( :expire_action );
     sub edit_conditions {
         return {

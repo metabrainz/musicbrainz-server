@@ -20,7 +20,8 @@ import relationshipDateText
 import DescriptiveLink from './DescriptiveLink';
 
 type Props = {
-  +allowNew?: boolean,
+  +allowNewEntity0?: boolean,
+  +allowNewEntity1?: boolean,
   +relationship: RelationshipT,
 };
 
@@ -61,22 +62,31 @@ const HistoricRelationshipContent = ({
 };
 
 const RelationshipContent = ({
-  allowNew,
+  allowNewEntity0,
+  allowNewEntity1,
   relationship,
 }: Props) => {
   const direction = relationship.direction;
   const linkType = linkedEntities.link_type[relationship.linkTypeID];
   let entity0 = relationship.entity0;
   let entity1 = relationship.entity1;
+  const type0 = linkType.type0 ||
+    (direction === 'backward'
+      ? relationship.target_type
+      : relationship.source_type);
+  const type1 = linkType.type1 ||
+    (direction === 'backward'
+      ? relationship.source_type
+      : relationship.target_type);
   if (!entity0 || !entity1) {
     if (direction === 'backward') {
       entity0 = relationship.target;
-      entity1 = linkedEntities[linkType.type1][relationship.entity1_id] ||
-        {entityType: linkType.type1, id: relationship.entity1_id};
+      entity1 = linkedEntities[type1][relationship.entity1_id] ||
+        {entityType: type1, id: relationship.entity1_id};
     } else {
       entity1 = relationship.target;
-      entity0 = linkedEntities[linkType.type0][relationship.entity0_id] ||
-        {entityType: linkType.type0, id: relationship.entity0_id};
+      entity0 = linkedEntities[type0][relationship.entity0_id] ||
+        {entityType: type0, id: relationship.entity0_id};
     }
   }
   const longPhrase = interpolate(
@@ -84,12 +94,12 @@ const RelationshipContent = ({
     'long_link_phrase',
     false /* forGrouping */,
     <DescriptiveLink
-      allowNew={allowNew}
+      allowNew={allowNewEntity0}
       content={relationship.entity0_credit}
       entity={entity0}
     />,
     <DescriptiveLink
-      allowNew={allowNew}
+      allowNew={allowNewEntity1}
       content={relationship.entity1_credit}
       entity={entity1}
     />,
@@ -125,14 +135,25 @@ export const HistoricRelationship = ({
 );
 
 const Relationship = ({
-  allowNew,
+  allowNewEntity0,
+  allowNewEntity1,
   relationship,
 }: Props): React.MixedElement => (
   relationship.editsPending ? (
     <span className="mp mp-rel">
-      <RelationshipContent allowNew={allowNew} relationship={relationship} />
+      <RelationshipContent
+        allowNewEntity0={allowNewEntity0}
+        allowNewEntity1={allowNewEntity1}
+        relationship={relationship}
+      />
     </span>
-  ) : <RelationshipContent allowNew={allowNew} relationship={relationship} />
+  ) : (
+    <RelationshipContent
+      allowNewEntity0={allowNewEntity0}
+      allowNewEntity1={allowNewEntity1}
+      relationship={relationship}
+    />
+  )
 );
 
 export default Relationship;

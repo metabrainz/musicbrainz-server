@@ -81,6 +81,10 @@ sub load_for_mediums
         my @media = @{ $id_to_medium{$track->medium_id} };
         $_->add_track($track) for @media;
     }
+    
+    foreach my $medium (@media) {
+        $medium->has_loaded_tracks(1);
+    }
 }
 
 sub find_by_recording

@@ -308,8 +308,12 @@
       [% l('Please enter the barcode of the release you are entering, see <a href="{url}" target="_blank">Barcode</a> for more information.',
            { url => doc_link('Barcode') }) %]
     </p>
+    <p>
+      [% l('If you do not know whether the release has a barcode or not, just leave this blank.') %]
+    </p>
     <!-- ko with: target() && target().barcode -->
     <p data-bind="visible: message, text: message"></p>
+    <p data-bind="visible: existing, html: existing"></p>
     <p class="field-error" data-bind="visible: error() || confirmed()">
       <label>
         <strong>
@@ -319,9 +323,6 @@
       </label>
     </p>
     <!-- /ko -->
-    <p>
-      [% l('If you do not know whether the release has a barcode or not, just leave this blank.') %]
-    </p>
   </div>
 
   <div class="bubble" data-bind="bubble: $root.annotationBubble">

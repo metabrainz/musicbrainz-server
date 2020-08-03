@@ -324,6 +324,7 @@ class Medium {
 
         var tracks = data.tracks;
         this.tracks = ko.observableArray(utils.mapChild(this, tracks, Track));
+        this.tracksUnknownToUser = ko.observable(false);
 
         var self = this;
 
@@ -391,9 +392,15 @@ class Medium {
             },
         });
 
-        this.needsRecordings = this.tracks.any("needsRecording");
-        this.hasTrackInfo = this.tracks.all("hasNameAndArtist");
-        this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
+        this.needsRecordings = ko.computed(function () {
+            return !self.tracksUnknownToUser() && self.tracks().some(t => t.needsRecording());
+        });
+        this.hasTrackInfo = ko.computed(function () {
+            return self.tracksUnknownToUser() || self.tracks().every(t => t.hasNameAndArtist());
+        });
+        this.hasVariousArtistTracks = ko.computed(function () {
+            return !self.tracksUnknownToUser() && self.tracks().some(t => t.hasVariousArtists());
+        });
         this.confirmedVariousArtists = ko.observable(this.hasVariousArtistTracks());
         this.needsTrackInfo = ko.computed(function () {
             return !self.hasTrackInfo();
@@ -411,7 +418,11 @@ class Medium {
          * The medium is considered to be loaded if it has tracks, or if
          * there's no ID to load tracks from.
          */
-        var loaded = !!(this.tracks().length || !(this.id || this.originalID));
+        var loaded = !!(
+            this.tracks().length ||
+            this.tracksUnknownToUser() ||
+            !(this.id || this.originalID)
+        );
 
         if (data.cdtocs) {
             this.cdtocs = data.cdtocs;
@@ -438,7 +449,13 @@ class Medium {
         this.uniqueID = this.id || _.uniqueId("new-");
 
         this.needsTracks = ko.computed(function () {
-            return self.loaded() && self.tracks().length === 0;
+            return self.loaded() && self.tracks().length === 0 && !self.tracksUnknownToUser();
+        });
+
+        this.tracks.subscribe(function (value) {
+            if (value.length > 0) {
+                self.tracksUnknownToUser(false);
+            }
         });
 
         this.needsFormat = ko.computed(function () {
@@ -619,6 +636,9 @@ class Medium {
         originalEditData.tracklist = currentEditData.tracklist;
         this.original.notifySubscribers(originalEditData);
 
+        if (this.tracks().length === 0) {
+            this.tracksUnknownToUser(true);
+        }
         this.loaded(true);
         this.loading(false);
         this.collapsed(false);
@@ -759,6 +779,7 @@ class Barcode {
         this.original = data;
         this.barcode = ko.observable(data);
         this.message = ko.observable("");
+        this.existing = ko.observable("");
         this.confirmed = ko.observable(false);
         this.error = validation.errorField(ko.observable(""));
 
@@ -983,7 +1004,7 @@ class Release extends mbEntity.Release {
 
     hasOneEmptyMedium() {
         var mediums = this.mediums();
-        return mediums.length === 1 && !mediums[0].hasTracks();
+        return mediums.length === 1 && !mediums[0].hasTracks() && !mediums[0].tracksUnknownToUser();
     }
 
     tracksWithUnsetPreviousRecordings() {

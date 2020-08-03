@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {AbstractComponent} from "React";import React, {useEffect, useState} from 'react';
+import * as React from 'react';
 
 import loopParity from '../../../../utility/loopParity';
 import hydrate from '../../../../utility/hydrate';
@@ -23,11 +23,11 @@ function orderTracks(a, b) {
 }
 
 const FingerprintTable = ({recording}: {recording: RecordingT}) => {
-  const [tracks, setTracks] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [tracks, setTracks] = React.useState([]);
+  const [isLoaded, setIsLoaded] = React.useState(false);
 
   // We ensure fetch only runs client-side since it's not in node
-  useEffect(() => {
+  React.useEffect(() => {
     fetch(
       '//api.acoustid.org/v2/track/list_by_mbid' +
       `?format=json&disabled=1&jsoncallback=?&mbid=${recording.gid}`,
@@ -91,4 +91,4 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
 export default (hydrate<{recording: RecordingT}>(
   'div.acoustid-fingerprints',
   FingerprintTable,
-): AbstractComponent<{recording: RecordingT}, void>);
+): React.AbstractComponent<{recording: RecordingT}, void>);

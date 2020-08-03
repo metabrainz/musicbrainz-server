@@ -191,7 +191,10 @@ sub _order_by {
         },
     });
 
-    return ($order_by, $extra_join, $also_select)
+    my $inner_order_by = $order_by
+        =~ s/ac_name/ac.name/r;
+
+    return ($order_by, $extra_join, $also_select, $inner_order_by);
 }
 
 sub can_delete {

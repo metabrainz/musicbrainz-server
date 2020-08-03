@@ -23,6 +23,7 @@ import entityHref from '../../../static/scripts/common/utility/entityHref';
 import isSpecialPurpose
   from '../../../static/scripts/common/utility/isSpecialPurpose';
 import * as age from '../../../utility/age';
+import isFutureDate from '../../../utility/isFutureDate';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -101,7 +102,7 @@ const ArtistSidebar = ({$c, artist}: Props): React.Element<'div'> => {
         <SidebarEndDate
           age={artistAge}
           entity={artist}
-          label={artistEndLabel(artist.typeID)}
+          label={artistEndLabel(artist.typeID, isFutureDate(artist.end_date))}
         />
 
         {endArea ? (

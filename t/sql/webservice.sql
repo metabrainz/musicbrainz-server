@@ -60,6 +60,7 @@ INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, 
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type, begin_area, end_area) VALUES (NULL, NULL, 1998, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '22dd2db3-88ea-4428-a7a8-5cd3acf23175', 135345, NULL, 'm-flo', 'm-flo', 2, NULL, NULL);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type, begin_area, end_area) VALUES (NULL, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '5b85945c-c9ca-4346-a58e-7992f6c6a5b6', 180273, '2010-05-23 13:32:49.951844+00', 'SKC & Bratwa', 'SKC & Bratwa', 2, NULL, NULL);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type, begin_area, end_area) VALUES (NULL, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '802673f0-9b88-4e8a-bb5c-dd01d68b086f', 265420, NULL, '7人祭', '7nin Matsuri', 2, NULL, NULL);
+INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type, begin_area, end_area) VALUES (NULL, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '802673f0-9b88-4e8a-bb5c-dd01d68b086a', 265421, NULL, 'Testy', 'Testy', 2, NULL, NULL);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type, begin_area, end_area) VALUES (NULL, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '97fa3f6e-557c-4227-bc0e-95a7f9f3285d', 283833, NULL, 'BAGDAD CAFE THE trench town', 'BAGDAD CAFE THE trench town', NULL, NULL, NULL);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type, begin_area, end_area) VALUES (NULL, NULL, 2004, 'USA electro pop', NULL, 0, NULL, NULL, NULL, '0', NULL, '6fe9f838-112e-44f1-af83-97464f08285b', 398438, '2009-09-03 07:02:56.975521+00', 'Wedlock', 'Wedlock', 2, NULL, NULL);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type, begin_area, end_area) VALUES (NULL, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '05d83760-08b5-42bb-a8d7-00d80b3bf47c', 398598, NULL, 'Paul Allgood', 'Allgood, Paul', 1, NULL, NULL);
@@ -110,6 +111,7 @@ INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (1
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (135345, 1, '2011-01-18 16:24:02.551922+00', 'm-flo', 764);
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (180273, 1, '2011-01-18 16:24:02.551922+00', 'SKC & Bratwa', 13);
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (265420, 1, '2011-01-18 16:24:02.551922+00', '7人祭', 32);
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (265421, 1, '2011-01-18 16:24:02.551922+00', 'Testy', 32);
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (283833, 1, '2011-01-18 16:24:02.551922+00', 'BAGDAD CAFE THE trench town', 53);
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (398438, 1, '2011-01-18 16:24:02.551922+00', 'Wedlock', 175);
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (398598, 1, '2011-01-18 16:24:02.551922+00', 'Paul Allgood', 68);
@@ -123,6 +125,7 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (135345, 135345, '', 'm-flo', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (180273, 180273, '', 'SKC & Bratwa', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (265420, 265420, '', '7人祭', 0);
+INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (265421, 265421, '', 'Testy', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (283833, 283833, '', 'BAGDAD CAFE THE trench town', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (398438, 398438, '', 'Wedlock', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (398598, 398598, '', 'Paul Allgood', 0);
@@ -150,6 +153,7 @@ INSERT INTO instrument_alias (id, instrument, name, sort_name) VALUES
 -- RGs
 
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (265420, '', 0, 'b84625af-6229-305f-9f1b-59c0185df016', 377462, '2009-05-24 20:47:00.490177+00', 'サマーれげぇ!レインボー', 2);
+INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (265421, '', 0, 'b84625af-6229-305f-9f1b-59c0185df017', 377463, '2009-05-24 20:47:00.490177+00', 'Testy', 2);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (11545, '', 0, '202cad78-a2e1-3fa7-b8bc-77c1f737e3da', 155364, '2009-05-24 20:47:00.490177+00', 'For Beginner Piano', 1);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (427385, '', 0, '22b54315-6e51-350b-bb34-e6e16f7688bd', 597897, '2009-05-24 20:47:00.490177+00', 'My Demons', 1);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (427385, '', 0, '56683a0b-45b8-3664-a231-5b68efe2e7e2', 761939, '2009-05-24 20:47:00.490177+00', 'Repercussions', 1);
@@ -455,6 +459,7 @@ INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('
 
 INSERT INTO release (artist_credit, barcode, comment, edits_pending, gid, id, language, last_updated, name, packaging, quality, release_group, script, status) VALUES (265420, '4942463511227', '', 0, '0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e', 49161, 198, NULL, 'サマーれげぇ!レインボー', NULL, -1, 377462, 85, 1);
 INSERT INTO release (artist_credit, barcode, comment, edits_pending, gid, id, language, last_updated, name, packaging, quality, release_group, script, status) VALUES (265420, '4942463511227', '', 0, 'b3b7e934-445b-4c68-a097-730c6a6d47e6', 123054, 198, NULL, 'Summer Reggae! Rainbow', NULL, -1, 377462, 28, 4);
+INSERT INTO release (artist_credit, barcode, comment, edits_pending, gid, id, language, last_updated, name, packaging, quality, release_group, script, status) VALUES (265421, '4942463511227', '', 0, 'b3b7e934-445b-4c68-a097-730c6a6d47e7', 123055, 198, NULL, 'Testy', NULL, -1, 377463, 28, 4);
 INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 155364, 0, NULL, 24752, -1, '2010-02-22 02:01:29.413661+00', 28, 120, 'For Beginner Piano', 11545, '5021603064126', '', '4f5a6b97-a09b-4893-80d1-eae1f3bfa221');
 INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 155364, 0, NULL, 243064, -1, '2010-02-22 02:01:29.413661+00', 28, 120, 'For Beginner Piano', 11545, NULL, '', 'fbe4eb72-0f24-3875-942e-f581589713d4');
 INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 155364, 0, NULL, 654729, -1, '2010-02-22 02:01:29.413661+00', 28, 120, 'For Beginner Piano', 11545, '', '', 'dd66bfdd-6097-32e3-91b6-67f47ba25d4c');
@@ -479,6 +484,7 @@ INSERT INTO release (status, release_group, edits_pending, packaging, id, qualit
 
 UPDATE release_meta SET amazon_asin = 'B00005LA6G', date_added = '2005-07-09 06:10:18.57297+00', info_url = 'http://www.amazon.co.jp/gp/product/B00005LA6G', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 49161;
 UPDATE release_meta SET amazon_asin = 'B00005LA6G', date_added = '2006-03-18 07:45:41.990026+00', info_url = 'http://www.amazon.co.jp/gp/product/B00005LA6G', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 123054;
+UPDATE release_meta SET amazon_asin = 'B00005LA6G', date_added = '2006-03-18 07:45:41.990026+00', info_url = 'http://www.amazon.co.jp/gp/product/B00005LA6G', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 123055;
 UPDATE release_meta SET amazon_asin = 'B00001IVAI', date_added = '2003-10-28 13:47:22.987027+00', info_url = 'http://www.amazon.com/gp/product/B00001IVAI', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 24752;
 UPDATE release_meta SET amazon_asin = 'B00001IVAI', date_added = '2003-10-28 13:47:22.987027+00', info_url = 'http://www.amazon.com/gp/product/B00001IVAI', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 243064;
 UPDATE release_meta SET amazon_asin = NULL, date_added = '2003-10-28 13:47:22.987027+00', info_url = NULL, cover_art_presence = 'absent', amazon_store = NULL WHERE id = 654729;
@@ -510,6 +516,7 @@ INSERT INTO release_country (release, country, date_year, date_month, date_day) 
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (59312, 107, 2004, 1, 15);
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (59662, 107, 2004, 3, 17);
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (123054, 107, 2001, 7, 4);
+INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (123055, 107, 2001, 7, 4);
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (243064, 222, 1999, 9, 23);
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (246898, 221, 2007, 1, 29);
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (278075, 221, 1999, 6, 21);
@@ -527,6 +534,7 @@ INSERT INTO release_country (release, country, date_year, date_month, date_day) 
 
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 49161, '2011-01-18 15:21:33.71184+00', '', 1, 49161, 3);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 123054, '2011-01-18 15:21:33.71184+00', '', 1, 123054, 3);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 123055, '2011-01-18 15:21:33.71184+00', '', 1, 123055, 0);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 24752, '2011-01-18 15:21:33.71184+00', '', 1, 24752, 10);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 243064, '2011-01-18 15:21:33.71184+00', '', 1, 243064, 10);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 654729, '2011-01-18 15:21:33.71184+00', '', 1, 654729, 10);
