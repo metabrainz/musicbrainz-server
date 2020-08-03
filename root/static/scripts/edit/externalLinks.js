@@ -580,6 +580,7 @@ const URL_SHORTENERS = [
   'owl.ly',
   'pandora.app.link',
   'push.fm',
+  'rb.gy',
   'rubyurl.com',
   'smarturl.it',
   'song.link',
