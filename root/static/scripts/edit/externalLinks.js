@@ -550,6 +550,7 @@ const URL_SHORTENERS = [
   'bitly.com',
   'backl.ink',
   'bruit.app',
+  'bstlnk.to',
   'cli.gs',
   'deck.ly',
   'distrokid.com',
