@@ -286,7 +286,8 @@ sub build_display_data
                                 join('', $_->name, $_->join_phrase // '')
                             } $track->artist_credit->all_names
                         ),
-                        $track->is_data_track ? 1 : 0
+                        $track->is_data_track ? 1 : 0,
+                        $track->position ? 1 : 0,
                     );
                 }
             ) }
