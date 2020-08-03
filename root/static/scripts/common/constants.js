@@ -118,6 +118,7 @@ export const FAVICON_CLASSES = {
   'mixcloud.com': 'mixcloud',
   'music.amazon': 'amazonmusic',
   'music.apple.com': 'applemusic',
+  'music.migu.cn': 'migumusic',
   'musicapopular.cl': 'musicapopularcl',
   'musik-sammler.de': 'musiksammler',
   'musixmatch.com': 'musixmatch',
