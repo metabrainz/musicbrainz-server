@@ -124,6 +124,7 @@ export const LINK_TYPES = {
   },
   lyrics: {
     artist: 'e4d73442-3762-45a8-905c-401da65544ed',
+    label: '9eb3977f-2aa2-41dd-bbff-0cadda5ad484',
     release_group: '156344d3-da8b-40c6-8b10-7b1c22727124',
     work: 'e38e65aa-75e0-42ba-ace0-072aeb91a538',
   },
