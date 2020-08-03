@@ -313,6 +313,14 @@ const testData = [
        input_relationship_type: 'amazon',
        only_valid_entity_types: [],
   },
+  // amzn.to
+  {
+                     input_url: 'http://amzn.to/2n4b5k4',
+             input_entity_type: 'release',
+       input_relationship_type: 'amazon',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
   // Ameba
   {
                      input_url: 'https://ameblo.jp/murataayumi',
