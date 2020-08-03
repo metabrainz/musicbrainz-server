@@ -30,8 +30,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-24 19:42+0000\n"
-"PO-Revision-Date: 2020-06-24 19:46+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-07-05 17:07+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1241,7 +1241,7 @@ msgstr "Klik hier om een instrument te kiezen"
 msgid ""
 "Click the radio button to select the appropriate artist, or click the "
 "artist’s name to get more info."
-msgstr ""
+msgstr "Klik op het keuzerondje om de juiste artiest te selecteren, of klik op de naam voor meer informatie."
 
 #: ../root/edit/details/add_isrcs.tt:4 ../root/edit/details/edit_barcodes.tt:5
 msgid "Client:"
@@ -3572,7 +3572,7 @@ msgstr "Kies een voorwaarde"
 msgid ""
 "Please choose a valid image. Currently the Cover Art Archive only supports "
 "JPEG, PNG, GIF and PDF files."
-msgstr "Je moet een geldige afbeelding kiezen. Het Cover Art Archive ondersteunt nu alleen JPEG-, PNG-, GIF- en PDF-bestanden."
+msgstr "Je moet een geldige afbeelding kiezen. Het Cover Art Archive ondersteunt nu alleen jpeg-, png-, gif- en pdf-bestanden."
 
 #: ../root/cdtoc/lookup.tt:86
 msgid ""
@@ -5078,7 +5078,7 @@ msgstr "Dit medium heeft een disc-ID, pregapnummer of datanummer, dus je kan het
 msgid ""
 "This medium is set to a format that did not exist on the selected release "
 "date."
-msgstr ""
+msgstr "Het medium is ingesteld op een type dat op de geselecteerde uitgavedatum nog niet bestond."
 
 #: ../root/release/merge.tt:110
 msgid ""
@@ -7341,7 +7341,7 @@ msgstr "Medium bewerken"
 msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
-msgstr ""
+msgstr "De TOC van de cd die gebruikt werd voor het instellen van de nummerlengtes is verwijderd nadat deze bewerking was ingediend."
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 msgid "Add place alias"
@@ -7432,7 +7432,7 @@ msgid ""
 "This edit would remove a relationship that is set as an example of its "
 "relationship type in the documentation. If you still think this should be "
 "removed, please {contact_url|contact us}."
-msgstr ""
+msgstr "Deze bewerking zou een relatie verwijderen die in de documentatie als voorbeeld wordt gebruikt. Als je zeker weet dat zij moet worden verwijderd, kun je {contact_url|contact met ons opnemen}."
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:14
 msgid "Edit relationship attribute"
@@ -8274,16 +8274,16 @@ msgstr "Voer een waarde in voor de compositie-eigenschap."
 msgid ""
 "You cannot select “[Multiple languages]” and specific languages at the same "
 "time."
-msgstr ""
+msgstr "Je kan niet tegelijkertijd én “[Meerdere talen]” én specifieke talen selecteren."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:94
 msgid ""
 "You cannot select “[No lyrics]” and a lyrics language at the same time."
-msgstr ""
+msgstr "Je kan niet tegelijkertijd én “[Geen tekst]” én een taal voor de tekst selecteren."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:99
 msgid "You cannot select the same language more than once."
-msgstr ""
+msgstr "Je kan dezelfde taal niet meer dan één keer selecteren."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:140
 msgid "Unknown work attribute type."
@@ -10415,7 +10415,7 @@ msgstr "MusicBrainz Picard"
 
 #: ../root/layout/components/BottomMenu.js:153 ../root/main/index.js:156
 msgid "AudioRanger"
-msgstr ""
+msgstr "AudioRanger"
 
 #: ../root/layout/components/BottomMenu.js:156 ../root/main/index.js:159
 msgid "Yate Music Tagger"
@@ -11771,7 +11771,7 @@ msgstr "In dit rapport staan uitgaves met catalogusnummers die lijken op ASIN’
 #: ../root/report/CatNoLooksLikeLabelCode.js:36
 #: ../root/report/ReportsIndex.js:316
 msgid "Releases with catalog numbers that look like Label Codes"
-msgstr ""
+msgstr "Uitgaves met catalogusnummers die er uitzien als platenmaatschappij-codes"
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:41
 msgid ""
@@ -11780,7 +11780,7 @@ msgid ""
 "confused: label codes apply to the label, not to a specific release. If you "
 "confirm this is a label code (check the label page to see if they match, for"
 " example), remove it or, even better, try to find the actual catalog number."
-msgstr ""
+msgstr "In dit rapport staan uitgaves met catalogusnummers die er uitzien als {doc_link|platenmaatschappij-codes}. Deze twee identificatiecodes worden vaak door elkaar gehaald, maar zijn iets anders: catalogusnummers identificeren de uitgave, platenmaatschappij-codes de platenmaatschappij. Als je kan vaststellen dat dit een platenmaatschappij-code is (je kan bijvoorbeeld op de pagina van de platenmaatschappij kijken), kun je hem verwijderen, of het juiste catalogusnummer invoeren."
 
 #: ../root/report/CollaborationRelationships.js:32
 #: ../root/report/CollaborationRelationships.js:33
@@ -12419,17 +12419,17 @@ msgstr "In dit rapport staan opnames met het verouderde relatietype ‘vroegste 
 #: ../root/report/RecordingsWithFutureDates.js:27
 #: ../root/report/RecordingsWithFutureDates.js:29
 msgid "Recordings with relationships having dates in the future"
-msgstr ""
+msgstr "Opnames met relaties waarvan een of meer data in de toekomst liggen"
 
 #: ../root/report/RecordingsWithFutureDates.js:34
 msgid ""
 "This report shows recordings with relationships using dates in the future. "
 "Those are probably typos (e.g. 2109 instead of 2019)."
-msgstr ""
+msgstr "In dit rapport staan opnames met relaties waarvan een of meer data in de toekomst liggen. Waarschijnlijk zijn dit tikfouten (bijv. 2109 in plaats van 2019)."
 
 #: ../root/report/RecordingsWithFutureDates.js:39
 msgid "Total relationships found: {count}"
-msgstr ""
+msgstr "Totaal aantal gevonden relaties {count}"
 
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:27
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:28
@@ -12542,14 +12542,14 @@ msgstr "In dit rapport staan uitgaves die disc-ID’s hebben terwijl ze te vroeg
 #: ../root/report/ReleasesConflictingDiscIds.js:28
 #: ../root/report/ReportsIndex.js:405
 msgid "Releases with conflicting disc IDs"
-msgstr ""
+msgstr "Uitgaves met elkaar tegensprekende disc-ID’s"
 
 #: ../root/report/ReleasesConflictingDiscIds.js:32
 msgid ""
 "This report shows releases that have conflicting disc IDs on the same medium"
 " with significant differences in duration. This usually means a disc ID was "
 "applied to the wrong medium or the wrong release."
-msgstr ""
+msgstr "In dit rapport staan uitgaves met meerdere disc-ID’s op hetzelfde medium met significante verschillen in nummerlengtes. Dit betekent vaak dat een disc-ID aan het verkeerde medium of de verkeerde uitgave is gekoppeld."
 
 #: ../root/report/ReleasesInCaaWithCoverArtRelationships.js:30
 #: ../root/report/ReleasesInCaaWithCoverArtRelationships.js:34
@@ -12787,7 +12787,7 @@ msgstr "Opnames met aantekeningen"
 
 #: ../root/report/ReportsIndex.js:483
 msgid "Recordings with dates in the future"
-msgstr ""
+msgstr "Opnames met data in de toekomst"
 
 #: ../root/report/ReportsIndex.js:498
 msgid "Places with annotations"
@@ -13440,19 +13440,19 @@ msgstr "[ontbrekende redacteur]"
 
 #: ../root/static/scripts/common/components/EntityLink.js:247
 msgid "This release has artwork in the Cover Art Archive"
-msgstr ""
+msgstr "Deze uitgave heeft afbeeldingen in het Cover Art Archive"
 
 #: ../root/static/scripts/common/components/EntityLink.js:262
 msgid ""
 "High quality: All available data has been added, if possible including cover"
 " art with liner info that proves it"
-msgstr ""
+msgstr "Hoge kwaliteit: alle beschikbare informatie is toegevoegd, zo mogelijk met afbeeldingen van het boekje waarin de informatie wordt bevestigd."
 
 #: ../root/static/scripts/common/components/EntityLink.js:275
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
-msgstr ""
+msgstr "Lage kwaliteit: de uitgave heeft nog veel werk nodig, of het bestaan ervan is moeilijk te bewijzen (maar het tegendeel ook)"
 
 #: ../root/static/scripts/common/components/Filter.js:64
 msgid "Filter"
@@ -13627,7 +13627,7 @@ msgstr "Je hebt {label} geselecteerd."
 
 #: ../root/static/scripts/common/entity.js:245
 msgid "Label code: {code}"
-msgstr ""
+msgstr "Platenmaatschappij-code: {code}"
 
 #: ../root/static/scripts/common/entity.js:259
 msgid "You selected {area}."
@@ -13736,7 +13736,7 @@ msgstr "Voeg geen rechtstreekse link naar een afbeelding toe, maar een link naar
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
-msgstr ""
+msgstr "Instagram-links met de vorm “{explore_url_pattern}” zijn niet toegestaan. Je kan eventueel een link naar een profiel toevoegen."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1531
 msgid ""
@@ -13749,7 +13749,7 @@ msgstr "Alleen iTunes-URL’s met “{artist_url_pattern}” kunnen aan artieste
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
-msgstr ""
+msgstr "Dit is een omleidings-URL. Volg {redirect_url|je link} en voer het doeladres in."
 
 #: ../root/static/scripts/edit/URLCleanup.js:2654
 msgid "Please link to Twitter profiles, not tweets."
