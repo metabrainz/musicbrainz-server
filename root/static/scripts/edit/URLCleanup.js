@@ -645,6 +645,27 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'appleco': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?apple\\.co/', 'i')],
+    type: LINK_TYPES.downloadpurchase,
+    validate: function (url) {
+      console.log('hi!');
+      return {
+        error: exp.l(
+          `This is a redirect link. Please follow {redirect_url|your link}
+            and add the link it redirects to instead.`,
+          {
+            redirect_url: {
+              href: url,
+              rel: 'noopener noreferrer',
+              target: '_blank',
+            },
+          },
+        ),
+        result: false,
+      };
+    },
+  },
   'applemusic': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i')],
     clean: function (url) {

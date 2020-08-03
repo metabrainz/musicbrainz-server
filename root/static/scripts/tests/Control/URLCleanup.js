@@ -391,6 +391,14 @@ const testData = [
             expected_clean_url: 'https://books.apple.com/us/audiobook/id1462355665',
        only_valid_entity_types: ['release'],
   },
+  // apple.co
+  {
+                     input_url: 'http://apple.co/2mXDtEs',
+             input_entity_type: 'release',
+       input_relationship_type: 'downloadpurchase',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
   // Apple Music
   {
                      input_url: 'http://music.apple.com/artist/hangry-angry-f/id444923726',
