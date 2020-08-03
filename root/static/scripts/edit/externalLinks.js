@@ -578,6 +578,7 @@ const URL_SHORTENERS = [
   'orcd.co',
   'owl.ly',
   'pandora.app.link',
+  'push.fm',
   'rubyurl.com',
   'smarturl.it',
   'song.link',
