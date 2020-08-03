@@ -576,6 +576,7 @@ const URL_SHORTENERS = [
   'lnk.to',
   'mcaf.ee',
   'moourl.com',
+  'musics.link',
   'orcd.co',
   'owl.ly',
   'pandora.app.link',
