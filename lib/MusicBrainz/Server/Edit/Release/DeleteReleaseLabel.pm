@@ -20,6 +20,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Remove release label') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
+sub edit_template_react { 'RemoveReleaseLabel' }
 
 sub release_id { shift->data->{release}{id} }
 sub release_label_id { shift->data->{release_label_id} }

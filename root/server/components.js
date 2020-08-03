@@ -313,6 +313,7 @@ module.exports = {
   'edit/details/RemoveIsrc': require('../edit/details/RemoveIsrc'),
   'edit/details/RemoveIswc': require('../edit/details/RemoveIswc'),
   'edit/details/RemoveRelationship': require('../edit/details/RemoveRelationship'),
+  'edit/details/RemoveReleaseLabel': require('../edit/details/RemoveReleaseLabel'),
   'edit/details/ReorderRelationships': require('../edit/details/ReorderRelationships'),
   'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
   'edit/details/historic/AddRelationship': require('../edit/details/historic/AddRelationship'),
