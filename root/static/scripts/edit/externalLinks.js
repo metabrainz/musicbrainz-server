@@ -548,7 +548,7 @@ const URL_SHORTENERS = [
   'biglink.to',
   'bit.ly',
   'bitly.com',
-  'blackl.ink',
+  'backl.ink',
   'bruit.app',
   'cli.gs',
   'deck.ly',
