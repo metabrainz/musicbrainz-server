@@ -1321,7 +1321,7 @@ const CLEANUPS = {
         case LINK_TYPES.lyrics.work:
           return {result: /^https:\/\/genius\.com\/(?!(?:artists|albums)\/)[\w-]+-lyrics$/.test(url)};
       }
-      return false;
+      return {result: false};
     },
   },
   'geonames': {
