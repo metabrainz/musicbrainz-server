@@ -14,7 +14,7 @@ export function artistBeginAreaLabel(typeId: ?number): string {
     case 2:
     case 5:
     case 6:
-      return l('Founded in:');
+      return addColonText(lp('Founded in', 'group artist'));
     default:
       return l('Begin area:');
   }
@@ -27,7 +27,7 @@ export function artistBeginLabel(typeId: ?number): string {
     case 2:
     case 5:
     case 6:
-      return l('Founded:');
+      return addColonText(lp('Founded', 'group artist'));
     default:
       return l('Begin date:');
   }
@@ -40,20 +40,25 @@ export function artistEndAreaLabel(typeId: ?number): string {
     case 2:
     case 5:
     case 6:
-      return l('Dissolved in:');
+      return addColonText(lp('Dissolved in', 'group artist'));
     default:
       return l('End area:');
   }
 }
 
-export function artistEndLabel(typeId: ?number): string {
+export function artistEndLabel(
+  typeId: ?number,
+  future: boolean = false,
+): string {
   switch (typeId) {
     case 1:
       return l('Died:');
     case 2:
     case 5:
     case 6:
-      return l('Dissolved:');
+      return future
+        ? addColonText(lp('Dissolving', 'group artist'))
+        : addColonText(lp('Dissolved', 'group artist'));
     default:
       return l('End date:');
   }
