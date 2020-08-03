@@ -777,7 +777,10 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'applemusic': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i')],
+    match: [
+      new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i'),
+      new RegExp('^(https?://)?([^/]+\\.)?apple\\.co/', 'i'),
+    ],
     restrict: [
       LINK_TYPES.downloadpurchase,
       LINK_TYPES.streamingpaid,
@@ -790,6 +793,24 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
+      if (/^(?:https?:\/\/)?(?:[^/]+\.)?apple\.co\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
       const m = /^https:\/\/music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
       if (m) {
         const prefix = m[1];
