@@ -1650,6 +1650,28 @@ const CLEANUPS = {
       return url;
     },
   },
+  'laboiteauxparoles': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?laboiteauxparoles\\.com', 'i')],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\/([^\/?#]+)(?:.*)?$/, 'https://laboiteauxparoles.com/$1/$2');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\//.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return {result: /^(?:auteur|interprete)$/.test(prefix)};
+          case LINK_TYPES.lyrics.label:
+            return {result: prefix === 'editeur'};
+          case LINK_TYPES.lyrics.work:
+            return {result: prefix === 'titre'};
+        }
+      }
+      return {result: false};
+    },
+  },
   'lastfm': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/([a-z]{2}/)?(music|label|venue|event|festival)/', 'i')],
     type: LINK_TYPES.lastfm,
@@ -1772,7 +1794,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?([^/]+\\.)?lyricsnmusic\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?muzikum\\.eu', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?gutenberg\\.org', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?laboiteauxparoles\\.com', 'i'),
     ],
     type: LINK_TYPES.lyrics,
   },
