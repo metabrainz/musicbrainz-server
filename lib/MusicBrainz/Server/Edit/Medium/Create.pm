@@ -86,12 +86,10 @@ sub initialize {
     my ($self, %opts) = @_;
 
     my $tracklist = delete $opts{tracklist};
-    if (@$tracklist) {
-        $tracklist = tracks_to_hash($tracklist);
-        check_track_hash($tracklist);
-        die 'Tracklist specifies track IDs'
-            if grep { defined $_ } map { $_->{id} } @$tracklist;
-    }
+    $tracklist = tracks_to_hash($tracklist);
+    check_track_hash($tracklist);
+    die 'Tracklist specifies track IDs'
+        if grep { defined $_ } map { $_->{id} } @$tracklist;
     $opts{tracklist} = $tracklist;
 
     my $release = delete $opts{release};

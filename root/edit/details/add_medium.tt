@@ -33,33 +33,27 @@
      <td>
        <table class="tbl">
          <tbody>
-          [% IF edit.display_data.tracks.size %]
-            [% INCLUDE 'medium/tracklist.tt' tracks=edit.display_data.tracks
-              hide_rating=1 show_artists=1 %]
-          [% ELSE %]
-            [% l('The tracklist for this medium is unknown.') %]
-          [% END %]
+         [% INCLUDE 'medium/tracklist.tt' tracks=edit.display_data.tracks
+            hide_rating=1 show_artists=1 %]
          </tbody>
        </table>
      </td>
    </tr>
 
-  [% IF edit.display_data.tracks.size %]
-    <tr>
-      <th>[% l('Artist Credits:') %]</th>
-      <td>
-        <table class="tbl">
-          <thead>
-            <tr>
-              <th class="pos">[% l('#') %]</th>
-              <th>[% l('Artist') %]</th>
-            </tr>
-          </thead>
-          <tbody>
-            [% display_condensed_track_acs(edit.display_data.tracks) %]
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  [% END %]
+   <tr>
+     <th>[% l('Artist Credits:') %]</th>
+     <td>
+       <table class="tbl">
+         <thead>
+           <tr>
+             <th class="pos">[% l('#') %]</th>
+             <th>[% l('Artist') %]</th>
+           </tr>
+         </thead>
+         <tbody>
+           [% display_condensed_track_acs(edit.display_data.tracks) %]
+         </tbody>
+       </table>
+     </td>
+   </tr>
  </table>
