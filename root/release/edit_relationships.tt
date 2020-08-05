@@ -61,25 +61,12 @@
           <tr class="subh">
             <td></td>
             <td colspan="2">
-              <!-- ko ifnot: tracks.length === 0 -->
-                <input type="checkbox" class="medium-recordings">
-              <!-- /ko -->
+              <input type="checkbox" class="medium-recordings">
               <span data-bind="html: positionName"></span>
             </td>
-            <td>
-              <!-- ko ifnot: tracks.length === 0 -->
-                <input type="checkbox" class="medium-works">
-              <!-- /ko -->            
-            </td>
+            <td><input type="checkbox" class="medium-works"></td>
           </tr>
-          <!-- ko if: tracks.length === 0 -->
-            <tr>
-              <td colspan="4">[% l('The tracklist for this medium is unknown.') %]</td>
-            </tr>
-          <!-- /ko -->
-          <!-- ko if: tracks.length > 0 -->
-            <!-- ko template: {name: 'template.track', foreach: tracks} --><!-- /ko -->
-          <!-- /ko -->
+          <!-- ko template: {name: 'template.track', foreach: tracks} --><!-- /ko -->
         </tbody>
       </table>
       <!-- /ko -->

@@ -32,12 +32,6 @@ has 'tracks' => (
     }
 );
 
-has has_loaded_tracks => (
-    is => 'rw',
-    isa => 'Bool',
-    default => 0,
-);
-
 has 'release_id' => (
     is => 'rw',
     isa => 'Int'
