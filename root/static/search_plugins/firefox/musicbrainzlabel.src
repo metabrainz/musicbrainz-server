@@ -17,7 +17,6 @@
 
 <input name="query" user="">
 <input name="type" value="label">
-<input name="limit" value="25">
 
 <interpret 
  resultListStart="<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">"

@@ -4,7 +4,7 @@
   <!-- Created on Tue, 11 Sep 2007 22:47:34 GMT -->
   <ShortName>MusicBrainz: Release</ShortName>
   <Description>Indexed search for a release on MusicBrainz.org</Description>
-  <Url type="text/html" method="get" template="http://musicbrainz.org/search/textsearch.html?type=release&amp;limit=25&amp;query={searchTerms}"/>
+  <Url type="text/html" method="get" template="http://musicbrainz.org/search/textsearch.html?type=release&amp;query={searchTerms}"/>
   <Developer>https://metabrainz.org/contact</Developer>
   <Image width="16" height="16">http://musicbrainz.org/static/images/entity/release.png</Image>
   <InputEncoding>UTF-8</InputEncoding>
