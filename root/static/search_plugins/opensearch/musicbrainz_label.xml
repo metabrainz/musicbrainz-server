@@ -9,7 +9,7 @@
   <Image width="16" height="16">https://musicbrainz.org/static/images/entity/label.png</Image>
   <InputEncoding>UTF-8</InputEncoding>
   <moz:SearchForm>https://musicbrainz.org/search</moz:SearchForm>
-  <moz:UpdateUrl>https://musicbrainz.org/search/plugins/opensearch/musicbrainzlabel.xml</moz:UpdateUrl>
+  <moz:UpdateUrl>https://musicbrainz.org/static/search_plugins/opensearch/musicbrainz_label.xml</moz:UpdateUrl>
   <moz:IconUpdateUrl>https://musicbrainz.org/static/images/entity/label.png</moz:IconUpdateUrl>
   <moz:UpdateInterval>14</moz:UpdateInterval>
 </OpenSearchDescription>

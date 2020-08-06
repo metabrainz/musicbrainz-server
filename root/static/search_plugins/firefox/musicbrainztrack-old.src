@@ -27,7 +27,7 @@
 </search>
 
 <browser
- update="https://musicbrainz.org/search/plugins/firefox/musicbrainztrack-old.src" 
+ update="https://musicbrainz.org/static/search_plugins/firefox/musicbrainztrack-old.src" 
  updateIcon="https://musicbrainz.org/static/images/entity/recording.png"
  updateCheckDays="14"
 >
