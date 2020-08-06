@@ -4,8 +4,8 @@
 # Created:  December 2, 2004
 # by: Kim Plowright (www.mildlydiverting.com or kim dot plowright at gmail dot com)
 #
-# Last updated: May 8, 2007
-# by: Jan van Thiel (MusicBrainz user: zout)
+# Last updated: August 6, 2020
+# by: jesus2099
 
 <search
  version="7.1"
@@ -18,7 +18,6 @@
 <input name="query" user="">
 <input name="type" value="track">
 <input name="limit" value="25">
-<input name="handlearguments" value="1">
 
 <interpret 
  resultListStart="<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">"
