@@ -11,8 +11,8 @@
  version="7.1"
  name="MusicBrainz: Artist (direct)"
  description="Direct search for an artist on MusicBrainz.org" 
- action="http://musicbrainz.org/search/oldsearch.html"
- searchForm="http://musicbrainz.org/search.html"
+ action="https://musicbrainz.org/search/oldsearch.html"
+ searchForm="https://musicbrainz.org/search"
  method="GET" >
 
 <input name="query" user="">
@@ -27,7 +27,7 @@
 </search>
 
 <browser
- update="http://musicbrainz.org/search/plugins/firefox/musicbrainzartist-old.src" 
- updateIcon="http://musicbrainz.org/images/aicon.png"
+ update="https://musicbrainz.org/search/plugins/firefox/musicbrainzartist-old.src" 
+ updateIcon="https://musicbrainz.org/static/images/entity/artist.png"
  updateCheckDays="14"
 >

@@ -11,8 +11,8 @@
  version="7.1"
  name="MusicBrainz: Release (indexed)"
  description="Indexed search for a release on MusicBrainz.org" 
- action="http://musicbrainz.org/search/textsearch.html"
- searchForm="http://musicbrainz.org/search.html"
+ action="https://musicbrainz.org/search"
+ searchForm="https://musicbrainz.org/search"
  method="GET" >
 
 <input name="query" user="">
@@ -27,7 +27,7 @@
 </search>
 
 <browser
- update="http://musicbrainz.org/search/plugins/firefox/musicbrainzrelease.src" 
- updateIcon="http://musicbrainz.org/images/licon.png"
+ update="https://musicbrainz.org/search/plugins/firefox/musicbrainzrelease.src" 
+ updateIcon="https://musicbrainz.org/static/images/entity/release.png"
  updateCheckDays="14"
 >
