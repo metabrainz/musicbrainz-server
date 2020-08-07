@@ -4,6 +4,7 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Filters qw( format_wikitext );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -14,7 +15,7 @@ sub edit_name { N_l('Add release annotation') }
 sub edit_kind { 'add' }
 sub historic_type { 31 }
 sub edit_type { $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION }
-sub edit_template { 'historic/add_release_annotation' }
+sub edit_template_react { 'historic/AddReleaseAnnotation' }
 
 sub _build_related_entities {
     my $self = shift;
@@ -50,6 +51,7 @@ sub build_display_data
             $loaded->{Release}{$_}
         } @{ $self->data->{release_ids} } ],
         text => $self->data->{text},
+        html => format_wikitext($self->data->{text}),
         changelog => $self->data->{changelog}
     };
 }
