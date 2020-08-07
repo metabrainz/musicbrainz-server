@@ -12,7 +12,10 @@ sub edit_name     { N_l('Add track (historic)') }
 sub edit_kind     { 'add' }
 sub historic_type { 18 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK_KV }
-sub edit_template { 'historic/add_track_kv' }
+sub edit_template_react { 'historic/AddTrackKV' }
+
+use aliased 'MusicBrainz::Server::Entity::Recording';
+use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub _build_related_entities
 {
@@ -45,14 +48,17 @@ sub build_display_data
     return {
         releases => [
             map {
-                $loaded->{Release}->{ $_ }
+                $_ == -42
+                    ? Release->new( name => '[non-album tracks]' )
+                    : $loaded->{Release}->{ $_ }
             } $self->release_ids
         ],
         position  => $self->data->{position},
         name      => $self->data->{name},
         length    => $self->data->{length},
         artist    => $loaded->{Artist}->{ $self->data->{artist_id} },
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} },
+        recording => $loaded->{Recording}->{ $self->data->{recording_id} }
+            || Recording->new( name => $self->data->{name} ),
     }
 }
 
