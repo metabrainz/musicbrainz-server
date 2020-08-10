@@ -372,24 +372,15 @@ const testData = [
   // Apple Music
   {
                      input_url: 'http://music.apple.com/artist/hangry-angry-f/id444923726',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'streamingpaid',
             expected_clean_url: 'https://music.apple.com/us/artist/444923726',
-       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://music.apple.com/ee/music-video/black-and-yellow/539886832?uo=4&mt=5&app=music',
-             input_entity_type: 'recording',
-    expected_relationship_type: 'streamingpaid',
             expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
-       only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://music.apple.com/jp/album/uchiagehanabi-single/1263790414',
-             input_entity_type: 'release',
-    expected_relationship_type: 'streamingpaid',
             expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
-       only_valid_entity_types: ['release'],
   },
   // (Internet) Archive
   {
