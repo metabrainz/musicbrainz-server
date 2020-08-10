@@ -627,42 +627,11 @@ const CLEANUPS = {
   },
   'applemusic': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i')],
-    type: LINK_TYPES.streamingpaid,
     clean: function (url) {
       url = url.replace(/^https?:\/\/(?:geo\.)?music\.apple\.com\/([a-z]{2}\/)?(artist|album|author|music-video)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://music.apple.com/$1$2/$3');
       // US page is the default, add its country-code to clarify (MBS-10623)
       url = url.replace(/^(https:\/\/music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
       return url;
-    },
-    validate: function (url, id) {
-      const m = /^https:\/\/music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
-      if (m) {
-        const prefix = m[1];
-        switch (id) {
-          case LINK_TYPES.streamingpaid.artist:
-            if (prefix === 'artist') {
-              return {result: true};
-            }
-            return {
-              error: exp.l(
-                `Only Apple Music “{artist_url_pattern}” pages can be added
-                 directly to artists. Please link albums, videos, etc.
-                 to the appropriate release or recording instead.`,
-                {
-                  artist_url_pattern: (
-                    <span className="url-quote">{'/artist'}</span>
-                  ),
-                },
-              ),
-              result: false,
-            };
-          case LINK_TYPES.streamingpaid.recording:
-            return {result: prefix === 'music-video'};
-          case LINK_TYPES.streamingpaid.release:
-            return {result: prefix === 'album'};
-        }
-      }
-      return {result: false};
     },
   },
   'archive': {
