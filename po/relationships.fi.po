@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-06-24 19:46+0000\n"
+"PO-Revision-Date: 2020-08-03 21:47+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -2514,6 +2514,14 @@ msgid ""
 "permitted."
 msgstr ""
 
+#: DB:link_type/description:982
+msgid ""
+"This relationship describes a URL where lyrics for the label (most often as "
+"a publisher) can be found. Only sites on the <a "
+"href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
+"permitted."
+msgstr ""
+
 #: DB:link_type/description:93
 msgid ""
 "This relationship describes a URL where lyrics for the release group can be "
@@ -4335,7 +4343,8 @@ msgstr ""
 msgid "has its history presented at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
+#: DB:link_type/long_link_phrase:982 DB:link_type/long_link_phrase:93
+#: DB:link_type/long_link_phrase:197
 msgid "has lyrics available at"
 msgstr "omaa sanoitukset saatavilla"
 
@@ -4891,17 +4900,18 @@ msgstr "logot"
 msgid "lyricist"
 msgstr ""
 
-#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
+#: DB:link_type/name:982 DB:link_type/name:93 DB:link_type/name:271
+#: DB:link_type/name:197
 msgid "lyrics"
 msgstr ""
 
-#: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
-#: DB:link_type/reverse_link_phrase:271
+#: DB:link_type/link_phrase:982 DB:link_type/link_phrase:93
+#: DB:link_type/link_phrase:197 DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
 msgstr "sanoitussivu"
 
-#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
-#: DB:link_type/reverse_link_phrase:197
+#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:982
+#: DB:link_type/reverse_link_phrase:93 DB:link_type/reverse_link_phrase:197
 msgid "lyrics page for"
 msgstr "sanoitussivuna"
 
