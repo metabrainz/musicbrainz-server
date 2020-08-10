@@ -35,7 +35,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-06-28 16:32+0000\n"
+"PO-Revision-Date: 2020-08-10 15:36+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -2534,6 +2534,14 @@ msgid ""
 "permitted."
 msgstr "Cette relation décrit une URL où des paroles peuvent être trouvées pour cet artiste. Seul les sites de la <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">liste blanche</a> sont permis."
 
+#: DB:link_type/description:982
+msgid ""
+"This relationship describes a URL where lyrics for the label (most often as "
+"a publisher) can be found. Only sites on the <a "
+"href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
+"permitted."
+msgstr "Cette relation décrit une URL où des paroles peuvent être trouvées pour ce label (éditeur le plus souvent). Seul les sites de la <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">liste blanche</a> sont permis."
+
 #: DB:link_type/description:93
 msgid ""
 "This relationship describes a URL where lyrics for the release group can be "
@@ -4355,7 +4363,8 @@ msgstr "a une marque"
 msgid "has its history presented at"
 msgstr "son histoire est présentée par"
 
-#: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
+#: DB:link_type/long_link_phrase:982 DB:link_type/long_link_phrase:93
+#: DB:link_type/long_link_phrase:197
 msgid "has lyrics available at"
 msgstr "a des paroles proposées sur"
 
@@ -4911,17 +4920,18 @@ msgstr "logos"
 msgid "lyricist"
 msgstr "parolier"
 
-#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
+#: DB:link_type/name:982 DB:link_type/name:93 DB:link_type/name:271
+#: DB:link_type/name:197
 msgid "lyrics"
 msgstr "paroles"
 
-#: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
-#: DB:link_type/reverse_link_phrase:271
+#: DB:link_type/link_phrase:982 DB:link_type/link_phrase:93
+#: DB:link_type/link_phrase:197 DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
 msgstr "page des paroles"
 
-#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
-#: DB:link_type/reverse_link_phrase:197
+#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:982
+#: DB:link_type/reverse_link_phrase:93 DB:link_type/reverse_link_phrase:197
 msgid "lyrics page for"
 msgstr "page des paroles pour"
 

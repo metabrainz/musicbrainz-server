@@ -22,6 +22,7 @@ with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
 sub edit_name { N_l('Remove ISWC') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_WORK_REMOVE_ISWC }
+sub edit_template_react { 'RemoveIswc' }
 
 sub work_id { shift->data->{work}{id} }
 
@@ -61,7 +62,11 @@ sub build_display_data {
         ISWC->new(
             iswc => $self->data->{iswc}{iswc},
             work => $loaded->{Work}{ $self->data->{work}{id} } //
-                    Work->new( name => $self->data->{work}{name} ),
+                    Work->new(
+                        id => $self->data->{work}{id},
+                        name => $self->data->{work}{name}
+                    ),
+            work_id => $self->data->{work}{id},
         );
 
     return { iswc => $iswc };

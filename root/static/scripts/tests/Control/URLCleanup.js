@@ -347,6 +347,41 @@ const testData = [
             expected_clean_url: 'http://anison.info/data/song/5227.html',
        only_valid_entity_types: ['recording'],
   },
+  // Apple Books
+  {
+                     input_url: 'https://books.apple.com/us/author/richard-adams/id30997554',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://books.apple.com/us/author/id30997554',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://books.apple.com/us/book/watership-down/id381935940',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://books.apple.com/us/book/id381935940',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://books.apple.com/us/audiobook/watership-down/id1462355665?mt=3&ign-mpt=uo%3D4',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://books.apple.com/us/audiobook/id1462355665',
+       only_valid_entity_types: ['release'],
+  },
+  // Apple Music
+  {
+                     input_url: 'http://music.apple.com/artist/hangry-angry-f/id444923726',
+            expected_clean_url: 'https://music.apple.com/us/artist/444923726',
+  },
+  {
+                     input_url: 'https://music.apple.com/ee/music-video/black-and-yellow/539886832?uo=4&mt=5&app=music',
+            expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
+  },
+  {
+                     input_url: 'https://music.apple.com/jp/album/uchiagehanabi-single/1263790414',
+            expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
+  },
   // (Internet) Archive
   {
                      input_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
@@ -1687,11 +1722,32 @@ const testData = [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://www.instagram.com/stories/nathanwpylestrangeplanet/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.instagram.com/nathanwpylestrangeplanet/',
+       only_valid_entity_types: [],
+  },
+  {
                      input_url: 'https://www.instagram.com/p/B3Mew-Cl2Z9/',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.instagram.com/p/B3Mew-Cl2Z9/',
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.instagram.com/tv/B3Mew-Cl2Z9/?igshid=ekrqbty1ix6c',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.instagram.com/p/B3Mew-Cl2Z9/',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.instagram.com/p/B_7IG9gonk0/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.instagram.com/p/B_7IG9gonk0/',
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://www.instagram.com/explore/locations/277133756/pacha-club-ibiza/',
@@ -2173,6 +2229,49 @@ const testData = [
     expected_relationship_type: 'review',
             expected_clean_url: 'https://www.metal-archives.com/reviews/Myrkwid/Part_I/36375',
        only_valid_entity_types: ['release_group'],
+  },
+  // Migu Music
+  {
+                     input_url: 'https://music.migu.cn/v3/music/artist/5576#J_IntroMore',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/music/artist/5576',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://music.migu.cn/v3/music/song/6005752CRFQ',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/music/song/6005752CRFQ',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://music.migu.cn/v3/video/mv/600575Y9N2Z?prev=600575Y9FS5',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/video/mv/600575Y9N2Z',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://music.migu.cn/v3/live/10338',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/live/10338',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://cdnmusic.migu.cn/v3/music/album/1115719717',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/music/album/1115719717',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://cdnmusic.migu.cn/v3/music/digital_album/1108035685',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.migu.cn/v3/music/album/1108035685',
+       only_valid_entity_types: ['release'],
   },
   // Mixcloud
   {
@@ -3486,10 +3585,10 @@ const testData = [
        only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'https://utaitedb.net/Event/SeriesDetails/30',
+                     input_url: 'https://vocadb.net/Event/SeriesDetails/16',
              input_entity_type: 'series',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://utaitedb.net/Event/SeriesDetails/30',
+            expected_clean_url: 'https://vocadb.net/Es/16',
        only_valid_entity_types: ['series'],
   },
   {

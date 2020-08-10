@@ -239,8 +239,10 @@ sub _interpolate {
             return $alt1;
         }
     };
-    $phrase =~ s/{(.*?)(?::(.*?))?}/$replace_attrs->(lc $1, $2)/eg;
-    trim_in_place($phrase);
+    if (defined $phrase) {
+        $phrase =~ s/{(.*?)(?::(.*?))?}/$replace_attrs->(lc $1, $2)/eg;
+        trim_in_place($phrase);
+    }
 
     my @extra_attrs = map { @$_ } values %extra_attrs;
     return [ $phrase, comma_only_list(@extra_attrs) ];
@@ -280,10 +282,12 @@ around TO_JSON => sub {
         entity1_credit  => $self->entity1_credit,
         entity0_id      => $self->entity0_id,
         entity1_id      => $self->entity1_id,
-        id              => $self->id + 0,
-        linkOrder       => $self->link_order + 0,
-        linkTypeID      => $link->type_id + 0,
+        id              => $self->id ? $self->id + 0 : undef,
+        linkOrder       => $self->link_order ? $self->link_order + 0 : 0,
+        linkTypeID      => $link->type_id ? $link->type_id + 0 : undef,
+        source_type     => $self->source_type,
         target          => $self->target->TO_JSON,
+        target_type     => $self->target_type,
         verbosePhrase   => $self->verbose_phrase,
     };
 

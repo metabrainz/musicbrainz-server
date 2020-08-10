@@ -14,6 +14,7 @@ import CommonsImage
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 import * as age from '../../../utility/age';
+import isFutureDate from '../../../utility/isFutureDate';
 import {formatCoordinates, osmUrl} from '../../../utility/coordinates';
 import ExternalLinks from '../ExternalLinks';
 
@@ -57,13 +58,21 @@ const PlaceSidebar = ({$c, place}: Props): React.Element<'div'> => {
         <SidebarBeginDate
           age={placeAge}
           entity={place}
-          label={l('Opened:')}
+          label={
+            isFutureDate(place.begin_date)
+              ? addColonText(lp('Opening', 'place'))
+              : addColonText(lp('Opened', 'place'))
+          }
         />
 
         <SidebarEndDate
           age={placeAge}
           entity={place}
-          label={l('Closed:')}
+          label={
+            isFutureDate(place.end_date)
+              ? addColonText(lp('Closing', 'place'))
+              : addColonText(lp('Closed', 'place'))
+          }
         />
 
         {place.address ? (

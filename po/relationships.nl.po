@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-06-24 19:46+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-08-04 07:51+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -307,11 +307,11 @@ msgstr "Geeft een ouder-kindrelatie aan."
 
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
-msgstr "Verwijst naar een afbeelding (JPEG, GIF of PNG) van een plaats."
+msgstr "Verwijst naar een afbeelding (jpeg, gif of png) van een plaats."
 
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
-msgstr "Verwijst naar een afbeelding (JPEG, GIF of PNG) van een artiest."
+msgstr "Verwijst naar een afbeelding (jpeg, gif of png) van een artiest."
 
 #: DB:link_type/description:943
 msgid ""
@@ -1969,7 +1969,7 @@ msgid ""
 "This links a MusicBrainz release to the equivalent entry at Amazon and will "
 "often provide cover art if there is no cover art in the <a "
 "href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a>."
-msgstr "Deze relatie koppelt een uitgave op MusicBrainz aan het bijbehorende product op Amazon en wordt vaak gebruikt om afbeeldingen te leveren als er geen relevante afbeeldingen in de <a href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a> staan."
+msgstr "Deze relatie koppelt een uitgave op MusicBrainz aan het bijbehorende product op Amazon en wordt vaak gebruikt om afbeeldingen te leveren als er geen relevante afbeeldingen in het <a href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a> staan."
 
 #: DB:link_type/description:888
 msgid ""
@@ -2511,6 +2511,14 @@ msgid ""
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
 msgstr "Deze relatie beschrijft een URL waarop de teksten van de artiest kunnen worden gevonden. Alleen internetpagina’s op de <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">witte lijst</a> zijn toegestaan."
+
+#: DB:link_type/description:982
+msgid ""
+"This relationship describes a URL where lyrics for the label (most often as "
+"a publisher) can be found. Only sites on the <a "
+"href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
+"permitted."
+msgstr "Deze relatie beschrijft een URL waarop de teksten van een platenmaatschappij (meestal als uitgever) kunnen worden gevonden. Alleen internetpagina’s op de <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">witte lijst</a> zijn toegestaan."
 
 #: DB:link_type/description:93
 msgid ""
@@ -4333,7 +4341,8 @@ msgstr "heeft het imprint"
 msgid "has its history presented at"
 msgstr "heeft zijn of haar geschiedenis gepresenteerd op"
 
-#: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
+#: DB:link_type/long_link_phrase:982 DB:link_type/long_link_phrase:93
+#: DB:link_type/long_link_phrase:197
 msgid "has lyrics available at"
 msgstr "tekst op"
 
@@ -4889,17 +4898,18 @@ msgstr "logo’s"
 msgid "lyricist"
 msgstr "tekstschrijver"
 
-#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
+#: DB:link_type/name:982 DB:link_type/name:93 DB:link_type/name:271
+#: DB:link_type/name:197
 msgid "lyrics"
 msgstr "teksten"
 
-#: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
-#: DB:link_type/reverse_link_phrase:271
+#: DB:link_type/link_phrase:982 DB:link_type/link_phrase:93
+#: DB:link_type/link_phrase:197 DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
 msgstr "tekst"
 
-#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
-#: DB:link_type/reverse_link_phrase:197
+#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:982
+#: DB:link_type/reverse_link_phrase:93 DB:link_type/reverse_link_phrase:197
 msgid "lyrics page for"
 msgstr "tekst van"
 
@@ -6382,7 +6392,7 @@ msgstr "was {additional:aanvullend} {assistant:assisterend} {associate:geassocie
 
 #: DB:link_type/long_link_phrase:856
 msgid "was {assistant} organist at"
-msgstr ""
+msgstr "was {assistant:assistent-}organist van"
 
 #: DB:link_attribute_type/name:1151
 msgid "whistling"
@@ -6952,11 +6962,11 @@ msgstr "{anniversary:jubileumtournees|ondersteunende tournees}"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"
-msgstr ""
+msgstr "{assistant:assistent-}organist van"
 
 #: DB:link_type/reverse_link_phrase:856
 msgid "{assistant} organists"
-msgstr ""
+msgstr "{assistant:assistent-}organisten"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"

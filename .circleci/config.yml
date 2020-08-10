@@ -48,13 +48,15 @@ jobs:
           NODE_ENV=test WEBPACK_MODE=development sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh server web-tests
           sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
           rm /etc/service/chrome/down && sv start chrome
-          export JUNIT_OUTPUT_FILE=junit_output/js.xml
-          sudo -E -H -u musicbrainz carton exec -- prove \
+          sudo -E -H -u musicbrainz carton exec -- perl \
               -I lib \
               t/js.t \
+              | tee >(./node_modules/.bin/tap-junit > ./junit_output/js.xml) \
+              | ./node_modules/.bin/tap-difflet
+          sudo -E -H -u musicbrainz carton exec -- node \
               t/web.js \
-              --harness=TAP::Harness::JUnit \
-              -v
+              | tee >(./node_modules/.bin/tap-junit > ./junit_output/js_web.xml) \
+              | ./node_modules/.bin/tap-difflet
           sv kill chrome
           ./docker/musicbrainz-tests/add_mbtest_alias.sh
           sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump

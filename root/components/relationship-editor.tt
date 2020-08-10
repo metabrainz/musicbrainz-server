@@ -125,6 +125,9 @@
       <input type="text" data-bind="value: date.year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-<!--
       --><input type="text" data-bind="value: date.month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-<!--
       --><input type="text" data-bind="value: date.day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
+      <!-- ko if: isBeginDate -->
+        <button class="icon copy-date" type="button" title="[% l('Copy to end date') | html %]" data-bind="click: $parent.copyDate"></button>
+      <!-- /ko -->
       <div class="error" data-bind="text: $parent.dateError(date)"></div>
       <div class="error" data-bind="text: isBeginDate ? $parent.tooShortBeginYearError() : $parent.tooShortEndYearError()"></div>
     </td>

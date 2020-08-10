@@ -43,6 +43,10 @@ sub source
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    if ($self->work) {
+        $self->link_entity('work', $self->work_id, $self->work);
+    }
+
     my $json = $self->$orig;
     $json->{iswc} = $self->iswc;
     $json->{work_id} = $self->work_id;

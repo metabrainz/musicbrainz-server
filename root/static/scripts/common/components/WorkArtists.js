@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {AbstractComponent} from "React";import React, {useCallback, useState} from 'react';
+import * as React from 'react';
 
 import hydrate from '../../../../utility/hydrate';
 import {bracketedText} from '../utility/bracketed';
@@ -30,14 +30,14 @@ type WorkArtistsProps = {
 };
 
 const WorkArtists = ({artists}: WorkArtistsProps) => {
-  const [expanded, setExpanded] = useState<boolean>(false);
+  const [expanded, setExpanded] = React.useState<boolean>(false);
 
-  const expand = useCallback(event => {
+  const expand = React.useCallback(event => {
     event.preventDefault();
     setExpanded(true);
   });
 
-  const collapse = useCallback(event => {
+  const collapse = React.useCallback(event => {
     event.preventDefault();
     setExpanded(false);
   });
@@ -99,4 +99,4 @@ const WorkArtists = ({artists}: WorkArtistsProps) => {
 export default (hydrate<WorkArtistsProps>(
   'div.work-artists-container',
   WorkArtists,
-): AbstractComponent<WorkArtistsProps, void>);
+): React.AbstractComponent<WorkArtistsProps, void>);

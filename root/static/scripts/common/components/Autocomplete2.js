@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {Element} from "React";import partition from 'lodash/partition';
+import partition from 'lodash/partition';
 import unionBy from 'lodash/unionBy';
-import React, {useEffect, useMemo, useReducer, useRef} from 'react';
+import * as React from 'react';
 
 import ENTITIES from '../../../../../entities';
 import useOutsideClickEffect from '../hooks/useOutsideClickEffect';
@@ -228,10 +228,10 @@ function setScrollPosition(menuId: string, siblingAccessor: string) {
   }
 }
 
-export default function Autocomplete2(props: Props): Element<"div"> {
+export default function Autocomplete2(props: Props): React.Element<"div"> {
   const {entityType, id} = props;
 
-  const [state, dispatch] = useReducer<State, Actions>(
+  const [state, dispatch] = React.useReducer<State, Actions>(
     reducer,
     INITIAL_STATE,
   );
@@ -251,7 +251,7 @@ export default function Autocomplete2(props: Props): Element<"div"> {
    * handler, `instance.state` should be used instead, as it'll refer to the
    * state of the last render.
    */
-  const instanceRef = useRef<Instance | null>(null);
+  const instanceRef = React.useRef<Instance | null>(null);
   const instance: Instance = instanceRef.current || (instanceRef.current = {
     container: {current: null},
 
@@ -464,7 +464,7 @@ export default function Autocomplete2(props: Props): Element<"div"> {
   const menuId = `${id}-menu`;
   const statusId = `${id}-status`;
 
-  const menuItems = useMemo(() => instance.renderItems(
+  const menuItems = React.useMemo(() => instance.renderItems(
     state.items,
     state.highlightedIndex,
     state.selectedItem,
@@ -476,7 +476,7 @@ export default function Autocomplete2(props: Props): Element<"div"> {
     instance.stopRequests,
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     /*
      * This gives event handlers access to the props and state of the most
      * recent render. `useEffect` runs after a completed render; this does
