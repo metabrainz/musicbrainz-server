@@ -65,8 +65,7 @@ sub build_display_data
     my $medium = $loaded->{Medium}->{ $self->medium_id } //
                  Medium->new(
                      format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
-                     name => $self->data->{name} // '',
-                         # XXX defaulting to '' can safely be removed after 2015-05 schema change (MBS-8266)
+                     name => $self->data->{name},
                      position => $self->data->{position},
                      release_id => $self->data->{release_id},
                      release => $loaded->{Release}->{ $self->data->{release_id} } //
