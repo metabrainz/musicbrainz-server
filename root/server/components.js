@@ -288,6 +288,7 @@ module.exports = {
   'edit/details/AddIsrcs': require('../edit/details/AddIsrcs'),
   'edit/details/AddIswcs': require('../edit/details/AddIswcs'),
   'edit/details/AddLabel': require('../edit/details/AddLabel'),
+  'edit/details/AddMedium': require('../edit/details/AddMedium'),
   'edit/details/AddPlace': require('../edit/details/AddPlace'),
   'edit/details/AddRelationship': require('../edit/details/AddRelationship'),
   'edit/details/AddRelationshipAttribute': require('../edit/details/AddRelationshipAttribute'),

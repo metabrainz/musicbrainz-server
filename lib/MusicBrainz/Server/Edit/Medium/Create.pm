@@ -35,6 +35,7 @@ sub edit_name { N_l('Add medium') }
 sub _create_model { 'Medium' }
 sub medium_id { shift->entity_id }
 sub release_id { shift->data->{release}->{id} }
+sub edit_template_react { 'AddMedium' }
 
 has '+data' => (
     isa => Dict[
@@ -134,15 +135,18 @@ sub build_display_data
 
     my $data = {
         name         => $self->data->{name},
-        format       => $format ? $loaded->{MediumFormat}->{ $format } : '',
+        format       => $format ? $loaded->{MediumFormat}->{ $format } : undef,
         position     => $self->data->{position},
         tracks       => display_tracklist($loaded, $self->data->{tracklist}),
         release      => $medium ? $medium->release : undef,
     };
 
     if (!$self->preview) {
-        $data->{release} = $loaded->{Release}->{ $self->data->{release}{id} }
-            || Release->new( name => $self->data->{release}{name} );
+        $data->{release} = $loaded->{Release}->{ $self->data->{release}{id} } ||
+            Release->new(
+                id => $self->data->{release}{id},
+                name => $self->data->{release}{name}
+            );
     }
 
     return $data;
