@@ -14,33 +14,43 @@ import DescriptiveLink
 import {DeletedLink}
   from '../../static/scripts/common/components/EntityLink';
 
-type Props = {
-  colSpan?: string,
-  label?: string,
-  releases: $ReadOnlyArray<ReleaseT | null>,
+type HistoricReleaseListContentProps = {
+  +releases: $ReadOnlyArray<ReleaseT | null>,
 };
+
+type HistoricReleaseListProps = {
+  +colSpan?: string,
+  +label?: string,
+  +releases: $ReadOnlyArray<ReleaseT | null>,
+};
+
+export const HistoricReleaseListContent = ({
+  releases,
+}: HistoricReleaseListContentProps): React.Element<'ul'> => (
+  <ul>
+    {releases.length ? (
+      releases.map((release, index) => (
+        <li key={index}>
+          {release
+            ? <DescriptiveLink entity={release} />
+            : <DeletedLink allowNew={false} name={null} />}
+        </li>
+      ))
+    ) : (
+      <DeletedLink allowNew={false} name={null} />
+    )}
+  </ul>
+);
 
 const HistoricReleaseList = ({
   colSpan,
   label,
   releases,
-}: Props): React.Element<'tr'> => (
+}: HistoricReleaseListProps): React.Element<'tr'> => (
   <tr>
     <th>{label || l('Releases:')}</th>
     <td colSpan={colSpan}>
-      <ul>
-        {releases.length ? (
-          releases.map((release, index) => (
-            <li key={index}>
-              {release
-                ? <DescriptiveLink entity={release} />
-                : <DeletedLink allowNew={false} name={null} />}
-            </li>
-          ))
-        ) : (
-          <DeletedLink allowNew={false} name={null} />
-        )}
-      </ul>
+      <HistoricReleaseListContent releases={releases} />
     </td>
   </tr>
 );
