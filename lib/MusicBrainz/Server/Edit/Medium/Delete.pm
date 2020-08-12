@@ -22,6 +22,7 @@ sub edit_type { $EDIT_MEDIUM_DELETE }
 sub edit_name { N_l('Remove medium') }
 sub edit_kind { 'remove' }
 sub medium_id { shift->data->{medium_id} }
+sub edit_template_react { 'RemoveMedium' }
 
 has '+data' => (
     isa => Dict[
@@ -67,8 +68,11 @@ sub build_display_data
                      name => $self->data->{name} // '',
                          # XXX defaulting to '' can safely be removed after 2015-05 schema change (MBS-8266)
                      position => $self->data->{position},
+                     release_id => $self->data->{release_id},
                      release => $loaded->{Release}->{ $self->data->{release_id} } //
-                                Release->new,
+                                Release->new(
+                                    id => $self->data->{release_id},
+                                ),
                  );
 
     return {

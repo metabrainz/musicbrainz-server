@@ -326,6 +326,7 @@ module.exports = {
   'edit/details/RemoveEntity': require('../edit/details/RemoveEntity'),
   'edit/details/RemoveIsrc': require('../edit/details/RemoveIsrc'),
   'edit/details/RemoveIswc': require('../edit/details/RemoveIswc'),
+  'edit/details/RemoveMedium': require('../edit/details/RemoveMedium'),
   'edit/details/RemoveRelationship': require('../edit/details/RemoveRelationship'),
   'edit/details/RemoveReleaseLabel': require('../edit/details/RemoveReleaseLabel'),
   'edit/details/ReorderRelationships': require('../edit/details/ReorderRelationships'),
