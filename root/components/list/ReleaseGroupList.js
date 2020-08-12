@@ -10,7 +10,7 @@
 import * as React from 'react';
 import {groupBy} from 'lodash';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import releaseGroupType from '../../utility/releaseGroupType';
 import parseDate from '../../static/scripts/common/utility/parseDate';
 import {
@@ -57,7 +57,7 @@ export const ReleaseGroupListTable = ({
   showRatings,
   showType = true,
   sortable,
-}: ReleaseGroupListTableProps): React.Element<typeof Table> => {
+}: ReleaseGroupListTableProps): React.Element<'table'> => {
   function getFirstReleaseYear(entity: ReleaseGroupT) {
     if (!entity.firstReleaseDate) {
       return '—';
@@ -134,13 +134,10 @@ export const ReleaseGroupListTable = ({
     ],
   );
 
-  return (
-    <Table
-      className="release-group-list"
-      columns={columns}
-      data={releaseGroups}
-    />
-  );
+  return useTable<ReleaseGroupT>({
+    columns,
+    data: releaseGroups,
+  });
 };
 
 const ReleaseGroupList = ({

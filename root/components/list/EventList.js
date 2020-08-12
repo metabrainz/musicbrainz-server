@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList';
 import localizeArtistRoles
@@ -57,7 +57,7 @@ const EventList = ({
   showRatings,
   showType,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -137,7 +137,10 @@ const EventList = ({
     ],
   );
 
-  return <Table columns={columns} data={events} />;
+  return useTable<EventT>({
+    columns,
+    data: events,
+  });
 };
 
 export default EventList;

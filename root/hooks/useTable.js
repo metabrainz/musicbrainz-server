@@ -8,7 +8,11 @@
  */
 
 import * as React from 'react';
-import {useTable} from 'react-table';
+import {
+  useTable as useReactTable,
+  type UseTableOptions,
+  type Row,
+} from 'react-table';
 
 import loopParity from '../utility/loopParity';
 
@@ -38,24 +42,23 @@ const renderTableRow = (row, i) => (
   </tr>
 );
 
-type Props<CV, D> = {
+type Props<D> = {
   className?: string,
-  columns: CV,
-  data: $ReadOnlyArray<D>,
+  ...UseTableOptions<D>,
 };
 
-const Table = <CV, D>({
+export default function useTable<D>({
   className,
   columns,
   data,
-}: Props<CV, D>): React$MixedElement => {
+}: Props<D>): React.Element<'table'> {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({
+  } = useReactTable<D>({
     columns,
     data,
   });
@@ -68,13 +71,11 @@ const Table = <CV, D>({
         {headerGroups.map(renderTableHeaderRow)}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
+        {rows.map((row: Row<D>, i: number) => {
           prepareRow(row);
           return renderTableRow(row, i);
         })}
       </tbody>
     </table>
   );
-};
-
-export default Table;
+}

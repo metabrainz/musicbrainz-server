@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -34,7 +34,7 @@ const SeriesList = ({
   order,
   series,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -62,7 +62,10 @@ const SeriesList = ({
     [$c.user, checkboxes, mergeForm, order, series, sortable],
   );
 
-  return <Table columns={columns} data={series} />;
+  return useTable<SeriesT>({
+    columns,
+    data: series,
+  });
 };
 
 export default SeriesList;

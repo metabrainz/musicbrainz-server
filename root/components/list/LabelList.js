@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import formatLabelCode from '../../utility/formatLabelCode';
 import {
   defineCheckboxColumn,
@@ -41,7 +41,7 @@ const LabelList = ({
   order,
   showRatings,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -105,7 +105,10 @@ const LabelList = ({
     ],
   );
 
-  return <Table columns={columns} data={labels} />;
+  return useTable<LabelT>({
+    columns,
+    data: labels,
+  });
 };
 
 export default LabelList;

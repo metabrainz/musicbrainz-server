@@ -18,7 +18,7 @@ const displayCatno = (catno) => (
 );
 
 type ReleaseLabelsProps = {
-  +labels?: $ReadOnlyArray<ReleaseLabelT>,
+  +labels: ?$ReadOnlyArray<ReleaseLabelT>,
 };
 
 const ReleaseCatnoList = ({

@@ -8,10 +8,11 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptions} from 'react-table';
 import defaults from 'lodash/defaults';
 
+import useTable from '../../hooks/useTable';
 import Layout from '../../layout';
-import Table from '../../components/Table';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 
 import type {WikiDocT} from './types';
@@ -32,7 +33,7 @@ const WikiDocTable = ({
 }: PropsT) => {
   const columns = React.useMemo(
     () => {
-      const nameColumn = {
+      const nameColumn: ColumnOptions<WikiDocT, 'id'> = {
         Cell: ({cell: {value}}) => (
           <a href={'/doc/' + encodeURIComponent(value)}>{value}</a>
         ),
@@ -41,7 +42,7 @@ const WikiDocTable = ({
         cellProps: {className: 'title'},
         id: 'name',
       };
-      const transcludedVersionColumn = {
+      const transcludedVersionColumn: ColumnOptions<WikiDocT, 'version'> = {
         Header: N_l('Transcluded version'),
         accessor: 'version',
         cellProps: defaults(
@@ -54,7 +55,7 @@ const WikiDocTable = ({
         headerProps: {className: 'c'},
         id: 'transcluded-version',
       };
-      const wikiVersionColumn = {
+      const wikiVersionColumn: ColumnOptions<WikiDocT, 'wiki_version'> = {
         Cell: ({row: {original}}) => (
           <>
             {original.wiki_version === original.version ? null : (
@@ -91,7 +92,7 @@ const WikiDocTable = ({
         headerProps: {className: 'c'},
         id: 'wiki-version',
       };
-      const actionsColumn = {
+      const actionsColumn: ColumnOptions<WikiDocT, 'id'> = {
         Cell: ({row: {original}}) => (
           <>
             <a href={'/admin/wikidoc/edit' +
@@ -135,13 +136,11 @@ const WikiDocTable = ({
     ],
   );
 
-  return (
-    <Table
-      className="wiki-pages"
-      columns={columns}
-      data={pages}
-    />
-  );
+  return useTable<WikiDocT>({
+    className: 'wiki-pages',
+    columns,
+    data: pages,
+  });
 };
 
 const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => (

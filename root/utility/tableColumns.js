@@ -8,7 +8,10 @@
  */
 
 import * as React from 'react';
-import type {ColumnOptions} from 'react-table';
+import type {
+  ColumnOptions,
+  ColumnOptionsFnAccessor,
+} from 'react-table';
 
 import {CatalystContext} from '../context';
 import ENTITIES from '../../entities';
@@ -53,7 +56,7 @@ type OrderableProps = {
 
 export function defineActionsColumn(
   props: {+actions: $ReadOnlyArray<[string, string]>},
-): ColumnOptions<CoreEntityT | CollectionT, number> {
+): ColumnOptions<CoreEntityT | CollectionT, 'id'> {
   return {
     Cell: ({row: {original}}) => (
       <>
@@ -85,7 +88,7 @@ export function defineArtistCreditColumn<D>(
     +showExpandedArtistCredits?: boolean,
     +title: string,
   },
-): ColumnOptions<D, string> {
+): ColumnOptionsFnAccessor<D, string> {
   return {
     Cell: ({row: {original}}) => {
       const artistCredit = props.getArtistCredit(original);
@@ -121,7 +124,7 @@ export function defineArtistRolesColumn<D>(
     }>,
     +title: string,
   },
-): ColumnOptions<D, $ReadOnlyArray<{
+): ColumnOptionsFnAccessor<D, $ReadOnlyArray<{
       +credit: string,
       +entity: ArtistT,
       +roles: $ReadOnlyArray<string>,
@@ -138,7 +141,7 @@ export function defineArtistRolesColumn<D>(
 
 export function defineBeginDateColumn(
   props: OrderableProps,
-): ColumnOptions<{+begin_date: PartialDateT, ...}, PartialDateT> {
+): ColumnOptions<{+begin_date: PartialDateT | null, ...}, 'begin_date'> {
   return {
     Cell: ({cell: {value}}) => formatDate(value),
     Header: (props.sortable
@@ -160,7 +163,7 @@ export function defineCheckboxColumn(
     +mergeForm?: MergeFormT,
     +name?: string,
   },
-): ColumnOptions<CoreEntityT, number> {
+): ColumnOptions<CoreEntityT> {
   return {
     Cell: ({row: {index, original}}) => props.mergeForm
       ? renderMergeCheckboxElement(original, props.mergeForm, index)
@@ -184,7 +187,7 @@ export function defineCountColumn<D>(
     +getCount: (D) => number,
     +title: string,
   },
-): ColumnOptions<D, number> {
+): ColumnOptionsFnAccessor<D, number> {
   return {
     Cell: ({cell: {value}}) => (
       <CatalystContext.Consumer>
@@ -209,7 +212,7 @@ export function defineCountColumn<D>(
 
 export function defineDatePeriodColumn(
   props: OrderableProps,
-): ColumnOptions<{...DatePeriodRoleT, ...}, string> {
+): ColumnOptions<$ReadOnly<{...DatePeriodRoleT, ...}>> {
   return {
     Cell: ({row: {original}}) => formatDatePeriod(original),
     Header: (props.sortable
@@ -227,7 +230,7 @@ export function defineDatePeriodColumn(
 
 export function defineEndDateColumn(
   props: OrderableProps,
-): ColumnOptions<{...DatePeriodRoleT, ...}, PartialDateT> {
+): ColumnOptions<$ReadOnly<{...DatePeriodRoleT, ...}>, 'end_date'> {
   return {
     Cell: ({row: {original}}) => formatEndDate(original),
     Header: (props.sortable
@@ -251,7 +254,7 @@ export function defineEntityColumn<D>(
     +getEntity: (D) => CoreEntityT | null,
     +title: string,
   },
-): ColumnOptions<D, string> {
+): ColumnOptionsFnAccessor<D, string> {
   return {
     Cell: ({row: {original}}) => {
       const entity = props.getEntity(original);
@@ -278,7 +281,7 @@ export function defineInstrumentUsageColumn(
     +instrumentCreditsAndRelTypes?:
       {+[entityGid: string]: $ReadOnlyArray<string>},
   },
-): ColumnOptions<ArtistT | RecordingT | ReleaseT, number> {
+): ColumnOptions<ArtistT | RecordingT | ReleaseT, 'id'> {
   return {
     Cell: ({row: {original}}) => (
       <InstrumentRelTypes
@@ -299,7 +302,7 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
     +showCaaPresence?: boolean,
     +title: string,
   },
-): ColumnOptions<T, string> {
+): ColumnOptions<T, 'name'> {
   const descriptive =
     Object.prototype.hasOwnProperty.call(props, 'descriptive')
       ? props.descriptive
@@ -334,9 +337,9 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
 export function defineReleaseCatnosColumn<D>(
   props: {
     ...OrderableProps,
-    getLabels: (D) => $ReadOnlyArray<ReleaseLabelT>,
+    getLabels: (D) => ?$ReadOnlyArray<ReleaseLabelT>,
   },
-): ColumnOptions<D, $ReadOnlyArray<ReleaseLabelT>> {
+): ColumnOptions<D> {
   return {
     Cell: ({row: {original}}) => (
       <ReleaseCatnoList labels={props.getLabels(original)} />
@@ -356,7 +359,7 @@ export function defineReleaseCatnosColumn<D>(
 
 export function defineReleaseEventsColumn(
   props: OrderableProps,
-): ColumnOptions<ReleaseT, $ReadOnlyArray<ReleaseEventT>> {
+): ColumnOptions<ReleaseT, 'events'> {
   return {
     Cell: ({cell: {value}}) => <ReleaseEvents events={value} />,
     Header: (props.sortable
@@ -384,7 +387,7 @@ export function defineReleaseEventsColumn(
 
 export function defineReleaseLabelsColumn(
   props: OrderableProps,
-): ColumnOptions<ReleaseT, $ReadOnlyArray<ReleaseLabelT>> {
+): ColumnOptions<ReleaseT, 'labels'> {
   return {
     Cell: ({cell: {value}}) => <ReleaseLabelList labels={value} />,
     Header: (props.sortable
@@ -406,7 +409,7 @@ export function defineSeriesNumberColumn(
   props: {
     +seriesItemNumbers: {+[entityId: number]: string},
   },
-): ColumnOptions<CoreEntityT, number> {
+): ColumnOptions<CoreEntityT, 'id'> {
   return {
     Cell: ({cell: {value}}) => props.seriesItemNumbers[value],
     Header: l('#'),
@@ -426,7 +429,7 @@ export function defineTextColumn<D>(
     +headerProps?: {className: string, ...},
     +title: string,
   },
-): ColumnOptions<D, StrOrNum> {
+): ColumnOptionsFnAccessor<D, StrOrNum> {
   return {
     Cell: ({row: {original}}) => props.getText(original),
     Header: (props.sortable
@@ -450,7 +453,7 @@ export function defineTypeColumn(
     ...OrderableProps,
     +typeContext: string,
   },
-): ColumnOptions<{+typeName: string, ...}, string> {
+): ColumnOptions<{+typeName?: string, ...}, 'typeName'> {
   return {
     Cell: ({cell: {value}}) => (value
       ? lp_attributes(value, props.typeContext)
@@ -470,14 +473,14 @@ export function defineTypeColumn(
 }
 
 export const attributesColumn:
-  ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
+  ColumnOptions<WorkT, 'attributes'> = {
     Cell: ({row: {original}}) => <AttributeList entity={original} />,
     Header: N_l('Attributes'),
     accessor: 'attributes',
   };
 
 export const instrumentDescriptionColumn:
-  ColumnOptions<{+description?: string, ...}, string> = {
+  ColumnOptions<{+description?: string, ...}, 'description'> = {
     Cell: ({cell: {value}}) => (value
       ? expand2react(l_instrument_descriptions(value))
       : null),
@@ -489,7 +492,7 @@ export const isrcsColumn:
   ColumnOptions<{
     +isrcs: $ReadOnlyArray<IsrcT>,
     ...
-  }, $ReadOnlyArray<IsrcT>> = {
+  }, 'isrcs'> = {
     Cell: ({cell: {value}}) => (
       <ul>
         {value.map((isrc) => (
@@ -507,7 +510,7 @@ export const iswcsColumn:
   ColumnOptions<{
     +iswcs: $ReadOnlyArray<IswcT>,
     ...
-  }, $ReadOnlyArray<IswcT>> = {
+  }, 'iswcs'> = {
     Cell: ({cell: {value}}) => (
       <ul>
         {value.map((iswc) => (
@@ -523,14 +526,14 @@ export const iswcsColumn:
   };
 
 export const locationColumn:
-  ColumnOptions<EventT, number> = {
+  ColumnOptions<EventT> = {
     Cell: ({row: {original}}) => <EventLocations event={original} />,
     Header: N_l('Location'),
     id: 'location',
   };
 
 export const ratingsColumn:
-  ColumnOptions<RatableT, number> = {
+  ColumnOptions<RatableT, 'rating'> = {
     Cell: ({row: {original}}) => <RatingStars entity={original} />,
     Header: N_l('Rating'),
     accessor: 'rating',
@@ -539,7 +542,11 @@ export const ratingsColumn:
   };
 
 export const removeFromMergeColumn:
-  ColumnOptions<ArtistT | RecordingT | ReleaseT, number> = {
+  ColumnOptions<{
+    +entityType: string,
+    +id: number,
+    ...
+  }> = {
     Cell: ({row: {original}}) => {
       const url = ENTITIES[original.entityType].url;
       return (
@@ -561,9 +568,11 @@ export const removeFromMergeColumn:
   };
 
 export const seriesOrderingTypeColumn:
-  ColumnOptions<{+orderingTypeID?: number, ...}, number> = {
+  ColumnOptions<{+orderingTypeID?: number, ...}, 'orderingTypeID'> = {
     Cell: ({cell: {value}}) => {
-      const orderingType = linkedEntities.series_ordering_type[value];
+      const orderingType = value
+        ? linkedEntities.series_ordering_type[value]
+        : null;
       return orderingType
         ? lp_attributes(orderingType.name, 'series_ordering_type')
         : null;
@@ -573,28 +582,28 @@ export const seriesOrderingTypeColumn:
   };
 
 export const subscriptionColumn:
-  ColumnOptions<{+subscribed: boolean, ...}, boolean> = {
-    Cell: ({cell: {value}}) => yesNo(value),
+  ColumnOptions<{+subscribed?: boolean, ...}, 'subscribed'> = {
+    Cell: ({cell: {value}}) => yesNo(!!value),
     Header: N_l('Subscribed'),
     accessor: 'subscribed',
   };
 
 export const taggerColumn:
-  ColumnOptions<RecordingT | ReleaseT, void> = {
+  ColumnOptions<RecordingT | ReleaseT> = {
     Cell: ({row: {original}}) => <TaggerIcon entity={original} />,
     Header: N_l('Tagger'),
     id: 'tagger',
   };
 
 export const workArtistsColumn:
-  ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
+  ColumnOptions<WorkT, 'artists'> = {
     Cell: ({cell: {value}}) => <WorkArtists artists={value} />,
     Header: N_l('Artists'),
     accessor: 'artists',
   };
 
 export const workLanguagesColumn:
-  ColumnOptions<WorkT, $ReadOnlyArray<WorkLanguageT>> = {
+  ColumnOptions<WorkT, 'languages'> = {
     Cell: ({cell: {value}}) => (
       <ul>
         {value.map(language => (

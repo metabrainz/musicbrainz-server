@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -33,7 +33,7 @@ const AreaList = ({
   mergeForm,
   order,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -60,7 +60,10 @@ const AreaList = ({
     [$c.user, areas, checkboxes, mergeForm, order, sortable],
   );
 
-  return <Table columns={columns} data={areas} />;
+  return useTable<AreaT>({
+    columns,
+    data: areas,
+  });
 };
 
 export default AreaList;

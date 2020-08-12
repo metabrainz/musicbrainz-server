@@ -11,7 +11,7 @@ import some from 'lodash/some';
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import Table from '../components/Table';
+import useTable from '../hooks/useTable';
 import UserAccountLayout from '../components/UserAccountLayout';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName';
@@ -30,10 +30,7 @@ type Props = {
 };
 
 type CollectionListT = {
-  +[entityType: string]: $ReadOnlyArray<$ReadOnly<{
-    ...CollectionT,
-    subscribed: boolean,
-  }>>,
+  +[entityType: string]: $ReadOnlyArray<CollectionT>,
 };
 
 const collectionsListTitles = {
@@ -94,20 +91,20 @@ const CollectionsEntityTypeSection = ({
       });
       const typeColumn = defineTypeColumn({typeContext: 'collection_type'});
       const sizeColumn:
-        ColumnOptions<CollectionT, number> = {
+        ColumnOptions<CollectionT, 'entity_count'> = {
           Header: formatPluralEntityTypeName(type),
           accessor: 'entity_count',
           id: 'size',
         };
       const collaboratorsColumn:
-        ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
+        ColumnOptions<CollectionT, 'collaborators'> = {
           Cell: ({cell: {value}}) => formatCollaboratorNumber(value, $c.user),
           Header: l('Collaborators'),
           accessor: 'collaborators',
           id: 'collaborators',
         };
       const privacyColumn:
-        ColumnOptions<CollectionT, boolean> = {
+        ColumnOptions<CollectionT, 'public'> = {
           Cell: ({row: {original}}) => formatPrivacy(
             original,
             $c.user,
@@ -140,7 +137,10 @@ const CollectionsEntityTypeSection = ({
   return (
     <>
       <h3>{collectionsListTitles[type]()}</h3>
-      <Table columns={columns} data={collections} />
+      {useTable<CollectionT>({
+        columns,
+        data: collections,
+      })}
     </>
   );
 };

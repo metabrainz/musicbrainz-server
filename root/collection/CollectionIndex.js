@@ -128,7 +128,6 @@ const listPicker = (
       return (
         <ReleaseList
           releases={props.entities}
-          showRatings
           {...sharedProps}
         />
       );

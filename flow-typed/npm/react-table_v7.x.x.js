@@ -1,34 +1,43 @@
 // @flow strict
 
 declare module 'react-table' {
-  declare export type CellRenderProps<D, +V> = {
+  declare export type CellRenderProps<+D, +V> = {
     +cell: Cell<V>,
     +column: ColumnInstance,
     +row: Row<D>,
   };
 
-  declare export type ColumnOptions<D, V> = {
-    +accessor?: $Keys<D> | ((D) => V),
-    +Cell?: React$AbstractComponent<CellRenderProps<D, V>, mixed>,
-    +Header?: Renderer<HeaderProps<D>>,
+  declare type ReactProps = {+[prop: string]: StrOrNum | ReactProps};
+
+  declare type $ColumnOptions<-D, +A, -V> = {
+    +accessor?: A,
+    +Cell?: (CellRenderProps<D, V>) => React$Node,
+    +cellProps?: ReactProps,
+    +Header?: React$Node | React$AbstractComponent<mixed, mixed>,
+    +headerProps?: ReactProps,
     +id?: string,
-    ...,
   };
 
+  declare export type ColumnOptions<-D, +A: $Keys<D> = empty> =
+    $ColumnOptions<D, A, $ElementType<D, A>>;
+
+  declare export type ColumnOptionsFnAccessor<-D, V> =
+    $ColumnOptions<D, (D) => V, V>;
+
   declare export type ColumnInstance = {
-    +cellProps?: {[attribute: string]: string},
+    +cellProps?: ReactProps,
     +getCellProps: (props?: {...}) => {...},
     +getHeaderProps: (props?: {...}) => {...},
     // Not actually part of react-table but our own expansion of it
-    +headerProps?: {[attribute: string]: string},
+    +headerProps?: ReactProps,
     +render: (type: 'Header' | string, props?: {...}) => React$Node,
   };
 
-  declare export type HeaderGroup = {
-    ...$ReadOnly<ColumnInstance>,
+  declare export type HeaderGroup = $ReadOnly<{
+    ...ColumnInstance,
     +getHeaderGroupProps: (props?: {...}) => {...},
     +headers: $ReadOnlyArray<ColumnInstance>,
-  };
+  }>;
 
   declare export type Cell<+V> = {
     +column: ColumnInstance,
@@ -52,18 +61,15 @@ declare module 'react-table' {
     +rows: $ReadOnlyArray<Row<D>>,
   };
 
-  declare type GetColumnOptions<D> = <V>(V) => ColumnOptions<D, V>;
-
-  declare export type UseTableOptions<CV, D> = {
-    +columns: $TupleMap<CV, GetColumnOptions<D>>,
+  declare export type UseTableOptions<D> = {
+    +columns: $ReadOnlyArray<$ColumnOptions<D, mixed, empty>>,
     +data: $ReadOnlyArray<D>,
   };
 
   /*
-   * CV = cell values, an array/tuple of the value types of each column cell.
    * D = data, the type of row data used to populate the table.
    */
-  declare export function useTable<CV, D>(
-    UseTableOptions<CV, D>,
+  declare export function useTable<D>(
+    UseTableOptions<D>,
   ): UseTableInstance<D>;
 }
