@@ -311,6 +311,8 @@ module.exports = {
   'edit/details/MergeReleaseGroups': require('../edit/details/MergeReleaseGroups'),
   'edit/details/MergeSeries': require('../edit/details/MergeSeries'),
   'edit/details/MergeWorks': require('../edit/details/MergeWorks'),
+  'edit/details/MoveDiscId': require('../edit/details/MoveDiscId'),
+  'edit/details/RemoveDiscId': require('../edit/details/RemoveDiscId'),
   'edit/details/RemoveEntity': require('../edit/details/RemoveEntity'),
   'edit/details/RemoveIsrc': require('../edit/details/RemoveIsrc'),
   'edit/details/RemoveIswc': require('../edit/details/RemoveIswc'),
