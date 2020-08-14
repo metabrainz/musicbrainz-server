@@ -10,6 +10,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 sub edit_name { N_l('Add disc ID') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
+sub edit_template_react { 'AddDiscId' }
 
 sub medium_id { shift->data->{medium_id} }
 
@@ -50,9 +51,11 @@ sub initialize {
     my ($self, %opts) = @_;
 
     my $release_name = delete $opts{release_name} // "";
+    # For linkedEntities to work with edit previews
+    my $fake_release_id = 1000000000000;
 
     if ($self->preview) {
-       $opts{release} = { name => $release_name };
+       $opts{release} = { id => $fake_release_id, name => $release_name };
     } else {
         my $release = $opts{release} or die 'Missing "release" argument';
         $opts{release} = {
@@ -96,8 +99,12 @@ method build_display_data ($loaded)
 
     return {
         medium => $loaded->{Medium}{ $self->data->{medium_id} // -1 } //
-                  Medium->new( release => $loaded->{Release}{ $self->release_id } //
-                                           Release->new( name => $self->data->{release}{name} ),
+                  Medium->new( release_id => $self->release_id,
+                               release => $loaded->{Release}{ $self->release_id } //
+                                           Release->new(
+                                               id   => $self->release_id, 
+                                               name => $self->data->{release}{name},
+                                            ),
                                $pos ? ( position => $pos ) : (),
                   ),
         medium_cdtoc => $loaded->{MediumCDTOC}{ $self->entity_id } ||

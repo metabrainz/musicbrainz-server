@@ -20,6 +20,7 @@ use aliased 'MusicBrainz::Server::Entity::Medium';
 sub edit_name { N_l('Move disc ID') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
+sub edit_template_react { 'MoveDiscId' }
 
 has '+data' => (
     isa => Dict[
@@ -102,8 +103,13 @@ sub build_display_data
                 cdtoc => CDTOC->new_from_toc($self->data->{medium_cdtoc}{toc})
             ),
         map { $_ => $loaded->{Medium}->{ $self->data->{$_}{id} } //
-                    Medium->new( release => $loaded->{Release}{ $self->data->{$_}{release}{id} } //
-                                            Release->new( name => $self->data->{$_}{release}{name} )
+                    Medium->new(
+                        release_id => $self->data->{$_}{release}{id},
+                        release => $loaded->{Release}{ $self->data->{$_}{release}{id} } //
+                            Release->new(
+                                id => $self->data->{$_}{release}{id},
+                                name => $self->data->{$_}{release}{name},
+                            ),
                     )
         } qw( new_medium old_medium ),
     }

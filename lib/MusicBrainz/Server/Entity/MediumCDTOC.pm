@@ -7,6 +7,8 @@ use MusicBrainz::Server::Entity::Types;
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
+sub entity_type { 'medium_cdtoc' }
+
 has 'cdtoc_id' => (
     is => 'rw',
     isa => 'Int'
@@ -37,6 +39,14 @@ sub is_perfect_match {
       defined $_->[1]->length && $_->[0]{length_time} == $_->[1]->length
     } (pairs (zip @cdtoc_info, @medium_tracks));
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{cdtoc} = $self->cdtoc->TO_JSON;
+    return $json;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

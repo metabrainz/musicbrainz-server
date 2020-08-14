@@ -64,13 +64,21 @@ const RelationshipTargetLinks = ({
 }: Props): React.MixedElement => {
   const target = relationship.target;
   const targetCredit = relationship.targetCredit;
+  const disableLink = relationship.earliestDatePeriod.ended &&
+                      target.entityType === 'url';
   let link;
   if (hiddenArtistCredit &&
       target.artistCredit &&
       artistCreditsAreEqual(hiddenArtistCredit, target.artistCredit)) {
     link = <EntityLink content={targetCredit} entity={target} />;
   } else {
-    link = <DescriptiveLink content={targetCredit} entity={target} />;
+    link = (
+      <DescriptiveLink
+        content={targetCredit}
+        disableLink={disableLink}
+        entity={target}
+      />
+    );
   }
   const datesAndAttributes = semicolonOnlyList(
     relationship.datedExtraAttributesList.map(displayDatedExtraAttributes),

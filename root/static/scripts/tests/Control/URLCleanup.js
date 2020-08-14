@@ -419,28 +419,35 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://baike.baidu.com/view/6458423.htm',
-       only_valid_entity_types: ['artist', 'release_group', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'release_group', 'work'],
   },
   {
                      input_url: 'http://baike.baidu.com/subview/738269/15973629.htm',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://baike.baidu.com/subview/738269/15973629.htm',
-       only_valid_entity_types: ['artist', 'release_group', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'release_group', 'work'],
+  },
+  {
+                     input_url: 'https://baike.baidu.com/item/啊呀啦嗦',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://baike.baidu.com/item/啊呀啦嗦',
+       only_valid_entity_types: ['artist', 'label', 'release_group', 'work'],
   },
   {
                      input_url: 'https://baike.baidu.com/item/Summer%20Romance%2787/16598351?fromtitle=Summer+Romance&fromid=8735297&type=syn#2',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://baike.baidu.com/item/Summer%20Romance%2787/16598351',
-       only_valid_entity_types: ['artist', 'release_group', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'release_group', 'work'],
   },
   {
                      input_url: 'https://baike.baidu.com/item/王婷萱#1',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://baike.baidu.com/item/王婷萱',
-       only_valid_entity_types: ['artist', 'release_group', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'release_group', 'work'],
   },
   // Bandcamp
   {
@@ -1985,6 +1992,35 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://ko-fi.com/35MJZ8OL4IO',
+  },
+  // laboiteauxparoles
+  {
+                     input_url: 'https://laboiteauxparoles.com/interprete/269/loco-locass',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://laboiteauxparoles.com/interprete/269',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://laboiteauxparoles.com/titre/55857/wi',
+             input_entity_type: 'work',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://laboiteauxparoles.com/titre/55857',
+       only_valid_entity_types: ['work'],
+  },
+  {
+                     input_url: 'http://www.laboiteauxparoles.com/auteur/1682',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://laboiteauxparoles.com/auteur/1682',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://laboiteauxparoles.com/editeur/140?page=2',
+             input_entity_type: 'label',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://laboiteauxparoles.com/editeur/140',
+       only_valid_entity_types: ['label'],
   },
   // Lantis
   {
@@ -3960,7 +3996,7 @@ const testData = [
              input_entity_type: 'work',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://wikisource.org/wiki/Reise,_Reise',
-       only_valid_entity_types: ['artist', 'release_group', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'release_group', 'work'],
   },
   // Warner Music
   {

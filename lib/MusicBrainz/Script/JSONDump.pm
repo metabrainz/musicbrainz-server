@@ -222,7 +222,10 @@ sub _fetch_entities_json {
     my $query;
     my %found;
     my @missing;
-    my ($force_update) = grep { $_ eq $entity_type } @{ $options{force_update} // [] };
+    # XXX Until MBS-10911 can be resolved, have the full dumps fetch
+    # all JSON anew to prevent it from becoming stale for too long.
+    #my ($force_update) = grep { $_ eq $entity_type } @{ $options{force_update} // [] };
+    my $force_update = $options{is_full_dump};
 
     if ($force_update) {
         # Don't retrieve anything.

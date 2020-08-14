@@ -61,7 +61,7 @@ sub _list {
 
     my $type   = model_to_type( $self->{model} );
     my $entity = $c->stash->{ $self->{entity_name} };
-    my $edits  = $self->_load_paged($c, $find->($type, $entity));
+    my $edits  = $self->_load_paged($c, $find->($type, $entity), limit => 50);
 
     $c->stash(
         edits => $edits, # stash early in case an ISE occurs
