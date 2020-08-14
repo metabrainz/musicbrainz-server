@@ -703,6 +703,7 @@ sub stop_watching : Chained('load') RequireAuth {
 sub split : Chained('load') Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
+    $self->_stash_collections($c);
 
     if (!can_split($artist)) {
         my %props = (
