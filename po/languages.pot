@@ -818,7 +818,7 @@ msgstr ""
 msgid "German, Middle High (ca.1050-1500)"
 msgstr ""
 
-#. frequency:0 iso_code_3:goh 
+#. frequency:1 iso_code_3:goh 
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
 msgstr ""
