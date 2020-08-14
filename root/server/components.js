@@ -330,6 +330,7 @@ module.exports = {
   'edit/details/historic/EditRelationship': require('../edit/details/historic/EditRelationship'),
   'edit/details/historic/EditReleaseAttributes': require('../edit/details/historic/EditReleaseAttributes'),
   'edit/details/historic/EditReleaseLanguage': require('../edit/details/historic/EditReleaseLanguage'),
+  'edit/details/historic/EditTrack': require('../edit/details/historic/EditTrack'),
   'edit/details/historic/MergeReleases': require('../edit/details/historic/MergeReleases'),
   'edit/details/historic/MoveDiscId': require('../edit/details/historic/MoveDiscId'),
   'edit/details/historic/MoveRelease': require('../edit/details/historic/MoveRelease'),
