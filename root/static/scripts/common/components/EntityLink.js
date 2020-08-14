@@ -109,6 +109,7 @@ const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
 type EntityLinkProps = {
   +allowNew?: boolean,
   +content?: ?Expand2ReactOutput,
+  +disableLink?: boolean,
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
   +nameVariation?: boolean,
@@ -129,6 +130,7 @@ type EntityLinkProps = {
 const EntityLink = ({
   allowNew = false,
   content,
+  disableLink = false,
   entity,
   hover,
   nameVariation,
@@ -202,7 +204,9 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   if (hover) {
     anchorProps.title = hover;
   }
-  content = <a key="link" {...anchorProps}>{isolateText(content)}</a>;
+  content = disableLink
+    ? <span className="deleted">{isolateText(content)}</span>
+    : <a key="link" {...anchorProps}>{isolateText(content)}</a>;
 
   if (nameVariation) {
     content = (
