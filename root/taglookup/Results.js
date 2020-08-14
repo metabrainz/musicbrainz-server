@@ -13,7 +13,21 @@ import Layout from '../layout';
 
 import TagLookupForm from './Form';
 import TagLookupNagSection from './Nag';
-import type {TagLookupResultsPropsT} from './types';
+import type {TagLookupResultsPropsT, TagLookupResultsReactTablePropsT}
+  from './types';
+
+export const TagLookupResultsReactTable = <T>(
+  props: TagLookupResultsReactTablePropsT<T>,
+): React.Element<typeof Layout> => (
+    <Layout $c={props.$c} fullWidth title={l('Tag Lookup Results')}>
+      <div className="content">
+        <h1>{l('Tag Lookup Results')}</h1>
+        {props.nag ? <TagLookupNagSection /> : null}
+        {props.children}
+        <TagLookupForm form={props.form} />
+      </div>
+    </Layout>
+  );
 
 const TagLookupResults = <T>(
   props: TagLookupResultsPropsT<T>,

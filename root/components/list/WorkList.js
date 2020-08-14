@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
@@ -44,7 +44,7 @@ const WorkList = ({
   showRatings,
   sortable,
   works,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -95,7 +95,10 @@ const WorkList = ({
     ],
   );
 
-  return <Table columns={columns} data={works} />;
+  return useTable<WorkT>({
+    columns,
+    data: works,
+  });
 };
 
 export default WorkList;

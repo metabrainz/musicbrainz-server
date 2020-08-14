@@ -8,9 +8,18 @@
  */
 
 import * as React from 'react';
-import {useTable} from 'react-table';
+import {
+  useTable as useReactTable,
+  type UseTableOptions,
+  type Row,
+} from 'react-table';
 
 import loopParity from '../utility/loopParity';
+
+type GetRowPropsFn<D> = (Row<D>) => {
+  [attribute: string]: StrOrNum | null,
+  ...
+};
 
 const renderTableHeaderCell = (column) => (
   <th
@@ -32,30 +41,41 @@ const renderTableCell = (cell) => (
   </td>
 );
 
-const renderTableRow = (row, i) => (
-  <tr {...row.getRowProps({className: loopParity(i)})}>
-    {row.cells.map(renderTableCell)}
-  </tr>
-);
-
-type Props<CV, D> = {
-  className?: string,
-  columns: CV,
-  data: $ReadOnlyArray<D>,
+const renderTableRow = <D>(
+  row: Row<D>,
+  i: number,
+  getRowProps: ?GetRowPropsFn<D>,
+) => {
+  const props = {
+    ...(getRowProps ? getRowProps(row) : null),
+    className: loopParity(i),
+  };
+  return (
+    <tr {...row.getRowProps(props)}>
+      {row.cells.map(renderTableCell)}
+    </tr>
+  );
 };
 
-const Table = <CV, D>({
+type Props<D> = {
+  className?: string,
+  getRowProps?: GetRowPropsFn<D>,
+  ...UseTableOptions<D>,
+};
+
+export default function useTable<D>({
   className,
   columns,
   data,
-}: Props<CV, D>): React$MixedElement => {
+  getRowProps,
+}: Props<D>): React.Element<'table'> {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({
+  } = useReactTable<D>({
     columns,
     data,
   });
@@ -68,13 +88,11 @@ const Table = <CV, D>({
         {headerGroups.map(renderTableHeaderRow)}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
+        {rows.map((row: Row<D>, i: number) => {
           prepareRow(row);
-          return renderTableRow(row, i);
+          return renderTableRow<D>(row, i, getRowProps);
         })}
       </tbody>
     </table>
   );
-};
-
-export default Table;
+}

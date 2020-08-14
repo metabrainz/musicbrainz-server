@@ -11,6 +11,26 @@ import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
 
+type PropsReactTable = {
+  +pager: PagerT,
+  +query: string,
+  +resultsNumber: number,
+  +table: React.Node,
+};
+
+export const PaginatedSearchResultsReactTable = ({
+  pager,
+  query,
+  resultsNumber,
+  table,
+}: PropsReactTable): React.MixedElement => {
+  return resultsNumber > 0 ? (
+    <PaginatedResults pager={pager} query={query} search>
+      {table}
+    </PaginatedResults>
+  ) : <p>{l('No results found. Try refining your search query.')}</p>;
+};
+
 type Props<T> = {
   +buildResult: (SearchResultT<T>, number) => React.Node,
   +columns: React.Node,

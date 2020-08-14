@@ -12,7 +12,7 @@ import * as React from 'react';
 import {CatalystContext} from '../context';
 import ratingTooltip from '../utility/ratingTooltip';
 
-const ratingURL = (entity: RatableT, rating) => (
+const ratingURL = (entity, rating) => (
   '/rating/rate/?entity_type=' +
   encodeURIComponent(entity.entityType) +
   '&entity_id=' +

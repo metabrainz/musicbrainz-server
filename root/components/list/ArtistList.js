@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -30,6 +30,7 @@ type Props = {
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
+  +scores?: {[entityId: string]: number},
   +showBeginEnd?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
@@ -44,12 +45,13 @@ const ArtistList = ({
   instrumentCreditsAndRelTypes,
   mergeForm,
   order,
+  scores,
   showBeginEnd,
   showInstrumentCreditsAndRelTypes,
   showRatings,
   showSortName,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -58,7 +60,7 @@ const ArtistList = ({
       const nameColumn = defineNameColumn<ArtistT>({
         order: order,
         sortable: sortable,
-        title: l('Artist'),
+        title: showSortName ? l('Name') : l('Artist'),
       });
       const sortNameColumn = showSortName ? defineTextColumn<ArtistT>({
         columnName: 'sort_name',
@@ -141,7 +143,13 @@ const ArtistList = ({
     ],
   );
 
-  return <Table columns={columns} data={artists} />;
+  return useTable<ArtistT>({
+    columns,
+    data: artists,
+    getRowProps: row => ({
+      'data-score': scores ? scores[row.original.gid] : null,
+    }),
+  });
 };
 
 export default ArtistList;

@@ -215,16 +215,25 @@ sub index : Path('')
     $self->external($c, $form);
 
     my $model = type_to_model($c->stash->{type});
+
+    my @entities = map { $_->entity } @{ $c->stash->{results} };
+    my %scores_map = map { $_->entity->gid => $_->score } @{ $c->stash->{results} };
+
+    my %props = (
+        form => $form,
+        nag => $nag,
+        pager => serialize_pager($c->stash->{pager}),
+        query => $c->stash->{query},
+        results => $c->stash->{results},
+        resultsNumber => scalar @{ $c->stash->{results} },
+        entities => \@entities,
+        scores => \%scores_map
+    );
+
     $c->stash(
         current_view => 'Node',
         component_path => "taglookup/${model}Results",
-        component_props => {
-            form => $form,
-            nag => $nag,
-            pager => serialize_pager($c->stash->{pager}),
-            query => $c->stash->{query},
-            results => $c->stash->{results},
-        },
+        component_props => \%props,
     );
 }
 

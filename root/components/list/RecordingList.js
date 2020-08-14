@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
 import {
@@ -52,7 +52,7 @@ const RecordingList = ({
   showInstrumentCreditsAndRelTypes,
   showRatings,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -120,12 +120,10 @@ const RecordingList = ({
     ],
   );
 
-  return (
-    <Table
-      columns={columns}
-      data={recordings}
-    />
-  );
+  return useTable<RecordingT>({
+    columns,
+    data: recordings,
+  });
 };
 
 export default RecordingList;

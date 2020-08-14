@@ -9,76 +9,59 @@
 
 import * as React from 'react';
 
-import ArtistListEntry
-  from '../../static/scripts/common/components/ArtistListEntry';
+import ArtistList from '../../components/list/ArtistList';
 import type {
-  InlineResultsPropsWithContextT,
-  ResultsPropsWithContextT,
+  InlineResultsReactTablePropsT,
+  ResultsReactTablePropsWithContextT,
 } from '../types';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
+import {PaginatedSearchResultsReactTable} from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
-
-function buildResult($c, result, index) {
-  const artist = result.entity;
-  const score = result.score;
-
-  return (
-    <ArtistListEntry
-      $c={$c}
-      artist={artist}
-      index={index}
-      key={artist.id}
-      score={score}
-      showBeginEnd
-      showSortName
-    />
-  );
-}
 
 export const ArtistResultsInline = ({
   $c,
+  entities,
   pager,
   query,
-  results,
-}: InlineResultsPropsWithContextT<ArtistT>):
-React.Element<typeof PaginatedSearchResults> => (
-  <PaginatedSearchResults
-    buildResult={(result, index) => buildResult($c, result, index)}
-    columns={
-      <>
-        <th>{l('Name')}</th>
-        <th>{l('Sort Name')}</th>
-        <th>{l('Type')}</th>
-        <th>{l('Gender')}</th>
-        <th>{l('Area')}</th>
-        <th>{l('Begin')}</th>
-        <th>{l('Begin Area')}</th>
-        <th>{l('End')}</th>
-        <th>{l('End Area')}</th>
-      </>
-    }
+  resultsNumber,
+  scores,
+}: InlineResultsReactTablePropsT<ArtistT>):
+React.Element<typeof PaginatedSearchResultsReactTable> => (
+  <PaginatedSearchResultsReactTable
     pager={pager}
     query={query}
-    results={results}
+    resultsNumber={resultsNumber}
+    table={
+      <ArtistList
+        $c={$c}
+        artists={entities}
+        scores={scores}
+        showBeginEnd
+        showSortName
+      />
+    }
   />
 );
 
 const ArtistResults = ({
   $c,
+  entities,
   form,
   lastUpdated,
   pager,
   query,
-  results,
-}: ResultsPropsWithContextT<ArtistT>):
+  resultsNumber,
+  scores,
+}: ResultsReactTablePropsWithContextT<ArtistT>):
 React.Element<typeof ResultsLayout> => (
   <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <ArtistResultsInline
       $c={$c}
+      entities={entities}
       pager={pager}
       query={query}
-      results={results}
+      resultsNumber={resultsNumber}
+      scores={scores}
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>

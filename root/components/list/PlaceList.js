@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -37,7 +37,7 @@ const PlaceList = ({
   order,
   places,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (checkboxes || mergeForm)
@@ -83,7 +83,10 @@ const PlaceList = ({
     [$c.user, checkboxes, mergeForm, order, places, sortable],
   );
 
-  return <Table columns={columns} data={places} />;
+  return useTable<PlaceT>({
+    columns,
+    data: places,
+  });
 };
 
 export default PlaceList;

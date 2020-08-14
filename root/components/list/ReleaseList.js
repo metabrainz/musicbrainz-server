@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Table from '../Table';
+import useTable from '../../hooks/useTable';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
@@ -23,7 +23,6 @@ import {
   defineReleaseLabelsColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
-  ratingsColumn,
   taggerColumn,
 } from '../../utility/tableColumns';
 
@@ -36,7 +35,6 @@ type Props = {
   +order?: string,
   +releases: $ReadOnlyArray<ReleaseT>,
   +showInstrumentCreditsAndRelTypes?: boolean,
-  +showRatings?: boolean,
   +sortable?: boolean,
 };
 
@@ -49,9 +47,8 @@ const ReleaseList = ({
   releases,
   seriesItemNumbers,
   showInstrumentCreditsAndRelTypes,
-  showRatings,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && checkboxes
@@ -101,7 +98,7 @@ const ReleaseList = ({
           sortable: sortable,
         });
       const catnosColumn = defineReleaseCatnosColumn({
-        getLabels: entity => filterLabel
+        getLabels: entity => (entity.labels && filterLabel)
           ? filterReleaseLabels(entity.labels, filterLabel)
           : entity.labels,
         order: order,
@@ -134,7 +131,6 @@ const ReleaseList = ({
         barcodeColumn,
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
         ...($c.session?.tport ? [taggerColumn] : []),
-        ...(showRatings ? [ratingsColumn] : []),
       ];
     },
     [
@@ -146,12 +142,14 @@ const ReleaseList = ({
       order,
       seriesItemNumbers,
       showInstrumentCreditsAndRelTypes,
-      showRatings,
       sortable,
     ],
   );
 
-  return <Table columns={columns} data={releases} />;
+  return useTable<ReleaseT>({
+    columns,
+    data: releases,
+  });
 };
 
 export default ReleaseList;

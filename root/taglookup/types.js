@@ -31,3 +31,15 @@ export type TagLookupResultsPropsT<T> = {
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,
 };
+
+export type TagLookupResultsReactTablePropsT<T> = {
+  +$c: CatalystContextT,
+  +children: React$Node,
+  +entities: $ReadOnlyArray<T>,
+  +form: TagLookupFormT,
+  +nag: boolean,
+  +pager: PagerT,
+  +query: string,
+  +resultsNumber: number,
+  +scores: {[gid: string]: number},
+};
