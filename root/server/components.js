@@ -322,6 +322,7 @@ module.exports = {
   'edit/details/ReorderRelationships': require('../edit/details/ReorderRelationships'),
   'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
   'edit/details/historic/AddRelationship': require('../edit/details/historic/AddRelationship'),
+  'edit/details/historic/AddRelease': require('../edit/details/historic/AddRelease'),
   'edit/details/historic/AddReleaseAnnotation': require('../edit/details/historic/AddReleaseAnnotation'),
   'edit/details/historic/ChangeArtistQuality': require('../edit/details/historic/ChangeArtistQuality'),
   'edit/details/historic/ChangeReleaseArtist': require('../edit/details/historic/ChangeReleaseArtist'),
