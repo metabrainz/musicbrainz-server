@@ -241,10 +241,13 @@ sub _check_for_confirmed_email {
 
     unless ($c->user->has_confirmed_email_address) {
         $c->stash(
-            title    => l('Send Email'),
-            message  => l('You cannot contact other users because you have not {url|verified your email address}.',
-                          {url => $c->uri_for_action('/account/resend_verification')}),
-            template => 'user/message.tt',
+            component_path  => 'user/UserMessage',
+            component_props => {
+                title    => l('Send Email'),
+                message  => l('You cannot contact other users because you have not {url|verified your email address}.',
+                            {url => $c->uri_for_action('/account/resend_verification')}),
+            },
+            current_view    => 'Node',
         );
         $c->detach;
     }
@@ -263,10 +266,13 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves CSRFToken
     my $editor = $c->stash->{user};
     unless ($editor->email) {
         $c->stash(
-            title    => l('Send Email'),
-            message  => l('The editor {name} has no email address attached to their account.',
-                         { name => $editor->name }),
-            template => 'user/message.tt',
+            component_path  => 'user/UserMessage',
+            component_props => {
+                title    => l('Send Email'),
+                message  => l('The editor {name} has no email address attached to their account.',
+                            { name => $editor->name }),
+            },
+            current_view    => 'Node',
         );
         $c->detach;
     }
@@ -274,7 +280,18 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves CSRFToken
     _check_for_confirmed_email($c);
 
     if (exists $c->req->params->{sent}) {
-        $c->stash( template => 'user/email_sent.tt' );
+        $c->stash(
+            component_path  => 'user/UserMessage',
+            component_props => {
+                title    => l('Email Sent'),
+                message  => l("Your email has been successfully sent! Click {link|here} to continue to {user}'s profile.",
+                            {
+                                link => $c->uri_for_action('/user/profile', [ $editor->name ]),
+                                user => $editor->name
+                            }),
+            },
+            current_view    => 'Node',
+        );
         $c->detach;
     }
 
