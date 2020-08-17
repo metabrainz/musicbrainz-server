@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import expand2react from '../../static/scripts/common/i18n/expand2react';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
 import loopParity from '../../utility/loopParity';
@@ -36,7 +37,7 @@ function buildResult(result, index) {
       <td>
         {annotation.parent ? <EntityLink entity={annotation.parent} /> : null}
       </td>
-      <td dangerouslySetInnerHTML={{__html: annotation.html}} />
+      <td>{expand2react(annotation.html)}</td>
     </tr>
   );
 }

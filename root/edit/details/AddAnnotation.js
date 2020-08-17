@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
+import expand2react from '../../static/scripts/common/i18n/expand2react';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
 
@@ -59,9 +60,7 @@ const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
           <td>
             {display.html
               ? (
-                <span
-                  dangerouslySetInnerHTML={{__html: display.html}}
-                />
+                expand2react(display.html)
               ) : (
                 <p>
                   <span
