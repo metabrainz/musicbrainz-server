@@ -4,21 +4,19 @@
 # Based upon a plugin, created by:
 # Kim Plowright (www.mildlydiverting.com or kim dot plowright at gmail dot com)
 #
-# Date: May 8, 2007
-# by: Jan van Thiel (MusicBrainz user: zout)
+# Last updated: August 6, 2020
+# by: jesus2099
 
 <search
  version="7.1"
  name="MusicBrainz: Label (indexed)"
  description="Indexed search for a label on MusicBrainz.org" 
- action="http://musicbrainz.org/search/textsearch.html"
- searchForm="http://musicbrainz.org/search.html"
+ action="https://musicbrainz.org/search"
+ searchForm="https://musicbrainz.org/search"
  method="GET" >
 
 <input name="query" user="">
 <input name="type" value="label">
-<input name="limit" value="25">
-<input name="handlearguments" value="1">
 
 <interpret 
  resultListStart="<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">"
@@ -29,7 +27,7 @@
 </search>
 
 <browser
- update="http://musicbrainz.org/search/plugins/firefox/musicbrainzlabel.src" 
- updateIcon="http://musicbrainz.org/images/bicon.png"
+ update="https://musicbrainz.org/static/search_plugins/firefox/musicbrainzlabel.src" 
+ updateIcon="https://musicbrainz.org/static/images/entity/label.png"
  updateCheckDays="14"
 >
