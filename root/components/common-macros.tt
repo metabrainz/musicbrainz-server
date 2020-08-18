@@ -99,6 +99,10 @@ END; -%]
     </a>
 [%- END -%]
 
+[%~ MACRO display_missing_artwork BLOCK -%]
+    <img src="/static/images/no-cover-art.png" title="No cover art available" />
+[%- END -%]
+
 [%~ MACRO cover_art_links(artwork) BLOCK -%]
 [% IF artwork.small_thumbnail %]<a href="[% artwork.small_thumbnail %]">[% l('250px') %]</a> |[% END %]
 [% IF artwork.large_thumbnail %]<a href="[% artwork.large_thumbnail %]">[% l('500px') %]</a> |[% END %]
@@ -769,6 +773,28 @@ END ~%]
     '</span>' IF rel.edits_pending;
 END ~%]
 
+[%~ MACRO release_countries_list(release_events) BLOCK;
+    out = [];
+    FOR event=release_events;
+      IF event.country;
+        out.push(country_abbr(event.country));
+      END;
+    END;
+    comma_only_list(out);
+END -%]
+
+[%~ MACRO release_dates_list(release_events) BLOCK;
+    out = [];
+    seen = {};
+    FOR event=release_events;
+      IF !event.date.is_empty AND !seen.${ event.date.format };
+        out.push(event.date.format);
+        seen.${ event.date.format } = 1;
+      END;
+    END;
+    comma_only_list(out);
+END -%]
+
 [%~ MACRO release_event(event) BLOCK; # Converted to React at root/static/scripts/common/components/ReleaseEvent.js
       date = event.date;
       country = event.country;
@@ -783,9 +809,8 @@ END ~%]
     END -%]
 
 [%~ MACRO country_abbr(country) BLOCK # Converted to React at root/components/CountryAbbr.js -%]
-    <span class="flag flag-[% country.primary_code %]">
+    <span class="flag flag-[% country.primary_code %]"></span>
     <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
-    </span>
 [%- END -%]
 
 [%~ MACRO set_header BLOCK -%]
