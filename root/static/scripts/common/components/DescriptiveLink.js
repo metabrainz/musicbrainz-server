@@ -17,6 +17,7 @@ import EntityLink from './EntityLink';
 type DescriptiveLinkProps = {
   +allowNew?: boolean,
   +content?: Expand2ReactOutput,
+  +deletedCaption?: string,
   +disableLink?: boolean,
   +entity: CollectionT | CoreEntityT,
   +showDeletedArtists?: boolean,
@@ -26,6 +27,7 @@ type DescriptiveLinkProps = {
 const DescriptiveLink = ({
   allowNew,
   content,
+  deletedCaption,
   disableLink = false,
   entity,
   showDeletedArtists = true,
@@ -34,6 +36,7 @@ const DescriptiveLink = ({
   const props = {
     allowNew,
     content,
+    deletedCaption,
     disableLink,
     showDisambiguation: true,
     target,

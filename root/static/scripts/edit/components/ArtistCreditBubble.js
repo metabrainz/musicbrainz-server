@@ -71,6 +71,13 @@ const ArtistCreditBubble = ({
               {entity.entityType === 'track'
                 ? (
                   <DescriptiveLink
+                    allowNew
+                    content={entity.name() === ''
+                      ? l('[missing track name]')
+                      : null}
+                    deletedCaption={entity.name() === ''
+                      ? l('You haven’t entered a track name yet.')
+                      : l('This track hasn’t been created yet.')}
                     entity={assign(
                       Object.create(entity), {artistCredit: artistCredit},
                     )}
