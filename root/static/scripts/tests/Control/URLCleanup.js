@@ -2669,6 +2669,21 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://trove.nla.gov.au/work/9438679',
   },
+  // Offizielle Deutsche Charts
+  {
+                     input_url: 'http://offiziellecharts.de/album-details-392697/?ref=foo',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.offiziellecharts.de/album-details-392697',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.offiziellecharts.de/titel-details-1917278#collapseOne',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.offiziellecharts.de/titel-details-1917278',
+       only_valid_entity_types: ['recording'],
+  },
   // Online-Bijbel.nl
   {
                      input_url: 'http://www.online-bijbel.nl/12gezang/12/',

@@ -130,6 +130,7 @@ export const FAVICON_CLASSES = {
   'nicovideo.jp': 'niconicovideo',
   'nla.gov.au': 'trove',
   'ocremix.org': 'ocremix',
+  'offiziellecharts.de': 'offiziellecharts',
   'online-bijbel.nl': 'onlinebijbel',
   'openlibrary.org': 'openlibrary',
   'operabase.com': 'operabase',
