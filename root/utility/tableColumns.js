@@ -404,11 +404,11 @@ export function defineReleaseLabelsColumn(
 
 export function defineSeriesNumberColumn(
   props: {
-    +seriesItemNumbers: {+[entityId: number]: string},
+    +seriesItemNumbers: $ReadOnlyArray<string>,
   },
 ): ColumnOptions<CoreEntityT, number> {
   return {
-    Cell: ({cell: {value}}) => props.seriesItemNumbers[value],
+    Cell: ({row: {index}}) => props.seriesItemNumbers[index],
     Header: l('#'),
     accessor: 'id',
     cellProps: {className: 'number-column'},

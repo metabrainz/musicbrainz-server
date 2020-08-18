@@ -61,11 +61,11 @@ sub show : PathPart('') Chained('load') {
     });
 
     my @entities;
-    my $item_numbers = {};
+    my @item_numbers;
 
     for (@$items) {
         push @entities, $_->{entity};
-        $item_numbers->{$_->{entity}->id} = $_->{ordering_key};
+        push @item_numbers, $_->{ordering_key};
     }
 
     if ($series->type->item_entity_type eq 'event') {
@@ -103,7 +103,7 @@ sub show : PathPart('') Chained('load') {
         numberOfRevisions => $c->stash->{number_of_revisions},
         pager             => serialize_pager($c->stash->{pager}),
         series            => $series,
-        seriesItemNumbers => $item_numbers,
+        seriesItemNumbers => \@item_numbers,
         wikipediaExtract  => $c->stash->{wikipedia_extract},
     );
 
