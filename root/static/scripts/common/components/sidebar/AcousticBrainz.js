@@ -32,12 +32,14 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
   }
 
   function fetchAcousticBrainzData() {
-    const dataUrl = `//acousticbrainz.org/api/v1/${recording.gid}/low-level`;
+    const dataUrl = '//acousticbrainz.org/api/v1/low-level?' +
+      `recording_ids=${recording.gid}&` +
+      'features=tonal.key_key;tonal.key_scale;tonal.key_strength;rhythm.bpm';
     fetch(dataUrl).then(
       resp => resp.json(),
     ).then(
       data => {
-        setData(data);
+        setData(data[recording.gid][0]);
       },
     );
   }
