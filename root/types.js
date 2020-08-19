@@ -451,7 +451,6 @@ declare type EditStatusT =
   | 5 // ERROR
   | 6 // FAILEDPREREQ
   | 7 // NOVOTES
-  | 8 // TOBEDELETED
   | 9 // DELETED
   ;
 

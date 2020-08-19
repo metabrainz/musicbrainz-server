@@ -244,12 +244,6 @@ const stats = {
     description: l('Count of edits per week'),
     label: l('Edits per week'),
   },
-  'count.edit.tobedeleted': {
-    category: 'edit-information',
-    color: '#ff0000',
-    description: l('Edits about to be cancelled'),
-    label: l('To-be-cancelled edits'),
-  },
   'count.editor': {
     category: 'edit-information',
     color: '#ff0000',

@@ -19,7 +19,6 @@ import {
   EDIT_STATUS_ERROR,
   EDIT_STATUS_FAILEDPREREQ,
   EDIT_STATUS_NOVOTES,
-  EDIT_STATUS_TOBEDELETED,
   EDIT_STATUS_DELETED,
 } from '../constants';
 import {
@@ -82,8 +81,6 @@ export function getEditStatusDescription(edit: EditT): string {
         `This edit failed because it affected high quality data 
          and did not receive any votes.`,
       );
-    case EDIT_STATUS_TOBEDELETED:
-      return l('This edit was recently cancelled.');
     case EDIT_STATUS_DELETED:
       return l('This edit was cancelled.');
     default:
