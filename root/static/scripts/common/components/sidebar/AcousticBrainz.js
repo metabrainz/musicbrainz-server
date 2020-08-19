@@ -13,6 +13,14 @@ import hydrate from '../../../../../utility/hydrate';
 import {SidebarProperty, SidebarProperties} from
   '../../../../../layout/components/sidebar/SidebarProperties';
 
+const KEY_LABELS = {
+  'A#': 'A♯/B♭',
+  'C#': 'C♯/D♭',
+  'D#': 'D♯/E♭',
+  'F#': 'F♯/G♭',
+  'G#': 'G♯/A♭',
+};
+
 const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
   const [count, setCount] = React.useState(0);
   const [data, setData] = React.useState(null);
@@ -44,6 +52,10 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
     );
   }
 
+  function keyLabel(key) {
+    return key.includes('#') ? KEY_LABELS[key] : key;
+  }
+
   React.useEffect(fetchAcousticBrainzCount, [recording.gid]);
   return count ? (
     <>
@@ -65,7 +77,7 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
 
           {data.tonal.key_strength > 0.5 ? (
             <SidebarProperty className="acousticbrainz_key" label={l('Key:')}>
-              {`${data.tonal.key_key} ${data.tonal.key_scale}`}
+              {`${keyLabel(data.tonal.key_key)} ${data.tonal.key_scale}`}
             </SidebarProperty>
           ) : null}
 
