@@ -9,30 +9,76 @@
     [%- USE r = FormRenderer(form) -%]
     [%- r.hidden('release') -%]
 
-    <div class="row" id="cover-art-position-row">
+    <p>
+      [%- l('Only releases with a front cover on the {caa|Cover Art Archive} can be selected.', { caa => '//coverartarchive.org' }) -%]
+    </p>
+    <div class="row" id="set-cover-art-position-row">
       [%- field_errors(form, 'release') -%]
       <div id="set-cover-art-images">
-      [% FOR image = artwork %]
-        <div class="editimage [% ' selected' IF image.release.gid == release.gid %]">
-          <div class="cover-image">[%- display_artwork(image) -%]</div>
-          <p>
-            [%- descriptive_link(image.release) -%]<br />
-            [%- image.release.date.format -%]
-            [%- IF image.release.country -%]
-              ([%- link_searchable_property('country', image.release.country.iso_code, 'release', image.release.country.iso_code) -%])
-            [%- END -%]<br />
-            <span style="display: inline-block">[%- html_escape(image.release.combined_format_name) -%],</span>
-            <span style="display: inline-block">[%- l('Tracks:') %] [% image.release.combined_track_count -%]</span><br />
-            <span style="display: inline-block">[% release_label_list(image.release.labels) -%]
-              [%- IF release_label_list(image.release.labels) AND release_catno_list(image.release.labels) -%];
-              [%- END -%]</span>
-            <span style="display: inline-block">[% release_catno_list(image.release.labels) %]</span>
-          </p>
-          <p>
-            [%- comma_list(image.types) || '-' -%]<br />
-            [%- image.comment | html -%]
-          </p>
-          <button type="button" class="set-cover-art" data-gid="[% image.release.gid %]">[% l('Select') %]</button>
+      [% FOR release = all_releases %]
+        [% originally_selected = release.gid == selected_release.gid %]
+        [% image = artwork.${release.id} %]
+        <div class="editimage [% ' selected' IF originally_selected %]" data-gid="[% release.gid %]" data-selectable="[% 'true' IF image %]">
+          <div class="cover-image">
+            [%- IF image -%]
+              [%- display_artwork(image) -%]
+            [%- ELSE -%]
+              [%- display_missing_artwork -%]
+            [%- END -%]
+          </div>
+          <div class="release-description">
+            <p>
+              [%- link_entity(release) -%]<br />
+              [%- l('Artist:') %] [% artist_credit(release.artist_credit) -%]
+            </p>
+            [%- IF release.events -%]
+              <p>
+                [%- IF release_dates_list(release.events) -%]
+                  [%- l('Date:') %] [% release_dates_list(release.events) %]
+                   <br />
+                [%- END -%]
+                [%- IF release_countries_list(release.events) -%]
+                  [%- l('Country:') %] [% release_countries_list(release.events) %]
+                [%- END -%]
+              </p>
+            [%- END -%]
+            <p>
+            [%- l('Format:') %] [% html_escape(release.combined_format_name) -%]<br/>
+            [%- l('Tracks:') %] [% release.combined_track_count -%]
+            </p>
+            [%- IF release.labels -%]
+              <p>
+                [%- IF release_label_list(release.labels) -%]
+                  [%- l('Label:') %] [% release_label_list(release.labels) -%]
+                  <br />
+                [%- END -%]
+                [%- IF release_catno_list(release.labels) -%]
+                  [%- l('Catalog#:') %] [% release_catno_list(release.labels) %]
+                [%- END -%]
+              </p>
+            [%- END -%]
+            [%- IF release.barcode -%]
+              <p>
+                [%- l('Barcode:') %] [% release.barcode -%]
+              </p>
+            [%- END -%]
+            [%- IF image -%]
+              <p>
+                [%- add_colon(l('Cover Art')) -%]
+                <ul>
+                  <li>[%- l('Types:') %] [% comma_list(image.types) || '-' -%]</li>
+                  [%- IF image.comment -%]
+                    <li>[%- l('Comment:') %] [%- image.comment | html -%]</li>
+                  [%- END -%]
+                </ul>
+                [%- IF originally_selected -%]
+                  <strong>
+                    [% l('This is the current release group image') %]
+                  </strong>
+                [%- END -%]
+              </p>
+          [%- END -%]
+          </div>
         </div>
       [% END %]
       </div>
@@ -45,8 +91,6 @@
 
   </form>
 
-   [%# INCLUDE 'release_group/edit_form.tt' %]
-
 [%- ELSE -%]
   <p>
     [%- l('No releases have cover art marked as "Front", cannot set cover art.') -%]
@@ -54,11 +98,23 @@
 [%- END -%]
 
 <script type="text/javascript">
-  $('button.set-cover-art').bind('click.mb', function (event) {
+  // Ensure links can still be clicked
+  $('div.editimage a:not(.artwork-image)').click(function(event) {
+    event.stopPropagation();
+  });
+  $('div.editimage').bind('click.mb', function (event) {
+    // Avoid selecting by clicking on the image / opening lightbox
+    if ($(event.target).is('img')) {
+      return;
+    }
+    // Avoid selecting releases without an image
+    if (!$(this).data("selectable")) {
+      return;
+    }
     event.preventDefault();
     $('#id-set-cover-art\\.release').val($(this).data("gid"));
     $('div.editimage').removeClass("selected");
-    $(this).closest('div.editimage').addClass("selected");
+    $(this).addClass("selected");
   });
 </script>
 

@@ -20,16 +20,18 @@ import nonEmpty from '../utility/nonEmpty';
 
 type DeletedLinkProps = {
   +allowNew: boolean,
+  +deletedCaption?: string,
   +name: ?Expand2ReactOutput,
 };
 
 export const DeletedLink = ({
   allowNew,
+  deletedCaption,
   name,
 }: DeletedLinkProps): React.Element<'span'> => {
-  const caption = allowNew
+  const caption = deletedCaption || (allowNew
     ? l('This entity will be created by this edit.')
-    : l('This entity has been removed, and cannot be displayed correctly.');
+    : l('This entity has been removed, and cannot be displayed correctly.'));
 
   return (
     <span
@@ -109,6 +111,7 @@ const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
 type EntityLinkProps = {
   +allowNew?: boolean,
   +content?: ?Expand2ReactOutput,
+  +deletedCaption?: string,
   +disableLink?: boolean,
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
@@ -130,6 +133,7 @@ type EntityLinkProps = {
 const EntityLink = ({
   allowNew = false,
   content,
+  deletedCaption,
   disableLink = false,
   entity,
   hover,
@@ -167,7 +171,13 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
       return <NoInfoURL allowNew={allowNew} url={entity.href_url} />;
     }
     if (showDeleted) {
-      return <DeletedLink allowNew={allowNew} name={content} />;
+      return (
+        <DeletedLink
+          allowNew={allowNew}
+          deletedCaption={deletedCaption}
+          name={content}
+        />
+      );
     }
     return null;
   }
