@@ -409,6 +409,7 @@ sub initialize
         $new_link_type->entity0_type,
         $new_link_type->entity1_type, {
         link_type_id => $new_link_type->id,
+        link_type_gid => $new_link_type->gid,
         begin_date   => $opts{begin_date},
         end_date     => $opts{end_date},
         ended        => $opts{ended},
