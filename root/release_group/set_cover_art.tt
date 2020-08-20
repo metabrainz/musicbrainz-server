@@ -64,10 +64,13 @@
             [%- END -%]
             [%- IF image -%]
               <p>
-                [%- l('Image types:') %] [% comma_list(image.types) || '-' -%]<br />
-                [%- IF image.comment -%]
-                  [%- l('Image comment:') %] [%- image.comment | html -%]
-                [%- END -%]
+                [%- add_colon(l('Cover Art')) -%]
+                <ul>
+                  <li>[%- l('Types:') %] [% comma_list(image.types) || '-' -%]</li>
+                  [%- IF image.comment -%]
+                    <li>[%- l('Comment:') %] [%- image.comment | html -%]</li>
+                  [%- END -%]
+                </ul>
                 [%- IF originally_selected -%]
                   <strong>
                     [% l('This is the current release group image') %]
