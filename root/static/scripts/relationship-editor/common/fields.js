@@ -9,6 +9,7 @@
 import ko from 'knockout';
 
 import {
+  PART_OF_SERIES_LINK_TYPES,
   SERIES_ORDERING_ATTRIBUTE,
   SERIES_ORDERING_TYPE_AUTOMATIC,
 } from '../../common/constants';
@@ -64,6 +65,8 @@ class Relationship {
     this.linkTypeID = ko.observable(data.linkTypeID);
     this.linkTypeID.isDifferent = linkTypeComparer;
     this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
+
+    this.linkTypeGid = ko.observable(data.linkTypeGid);
 
     if (data.begin_date && nonEmpty(data.begin_date.year)) {
       data.begin_date.year = fixedWidthInteger(data.begin_date.year, 4);
@@ -517,6 +520,12 @@ class Relationship {
     });
   }
 
+  isSeriesPart() {
+    return seriesPartLinkTypes.has(
+      linkedEntities.link_type[this.linkTypeID()].gid,
+    );
+  }
+
   isDuplicate(other) {
     const mergedBeginDate = mergeDates(this.begin_date, other.begin_date);
     const mergedEndDate = mergeDates(this.end_date, other.end_date);
@@ -535,10 +544,19 @@ class Relationship {
        !other.ended());
     const isEndedSame = this.ended() === other.ended();
 
+    /*
+     * If it is a part of series, consider it a duplicate
+     * even if the link order varies, unless a number
+     * attribute has been provided.
+     */
+    const isLinkOrderSame = this.isSeriesPart()
+      ? true
+      : this.linkOrder() == other.linkOrder();
+
     return (
       this !== other &&
       this.linkTypeID() == other.linkTypeID() &&
-      this.linkOrder() == other.linkOrder() &&
+      isLinkOrderSame &&
       deepEqual(this.entities(), other.entities()) &&
       isDatePeriodValid &&
       (isOneDateEmpty || isEndedSame) &&
@@ -715,5 +733,8 @@ function validAttributes(relationship, attributes) {
   });
 }
 
+const seriesPartLinkTypes = new Set(
+  Object.values(PART_OF_SERIES_LINK_TYPES),
+);
 
 export default MB.relationshipEditor.fields;
