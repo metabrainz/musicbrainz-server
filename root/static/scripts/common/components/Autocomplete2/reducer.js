@@ -68,6 +68,7 @@ function selectItem(
   state.isOpen = false;
   state.selectedItem = item;
   state.statusMessage = item.name;
+  state.pendingSearch = null;
 
   if (item.name !== state.inputValue) {
     state.inputValue = item.name;
