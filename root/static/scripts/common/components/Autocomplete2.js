@@ -215,12 +215,14 @@ const AutocompleteItem = React.memo(({
   isHighlighted,
   isSelected,
   item,
+  selectItem,
 }: {
   autocompleteId: string,
   dispatch: (Actions) => void,
   isHighlighted: boolean,
   isSelected: boolean,
   item: Item,
+  selectItem: (Item) => void,
 }) => {
   const itemId = `${autocompleteId}-item-${item.id}`;
 
@@ -233,7 +235,7 @@ const AutocompleteItem = React.memo(({
   }
 
   function handleItemClick() {
-    dispatch({item, type: 'select-item'});
+    selectItem(item);
   }
 
   function handleItemMouseOver() {
@@ -273,12 +275,14 @@ function AutocompleteItems({
   highlightedItem,
   items,
   selectedItem,
+  selectItem,
 }: {
   autocompleteId: string,
   dispatch: (Actions) => void,
   highlightedItem: Item | null,
   items: $ReadOnlyArray<Item>,
   selectedItem: Item | null,
+  selectItem: (Item) => void,
 }) {
   const children = [];
   for (let index = 0; index < items.length; index++) {
@@ -291,6 +295,7 @@ function AutocompleteItems({
         isSelected={!!(selectedItem && item.id === selectedItem.id)}
         item={item}
         key={item.id}
+        selectItem={selectItem}
       />,
     );
   }
@@ -324,6 +329,11 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
 
     dispatch(STOP_SEARCH);
   }, [dispatch]);
+
+  const selectItem = React.useCallback((item) => {
+    stopRequests();
+    dispatch({item, type: 'select-item'});
+  }, [stopRequests, dispatch]);
 
   function handleButtonClick() {
     stopRequests();
@@ -364,13 +374,13 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
 
         const entity = JSON.parse(lookupXhr.responseText);
         if (entity.entityType === entityType) {
-          dispatch({item: entity, type: 'select-item'});
+          selectItem(entity);
         } else if (canChangeType && canChangeType(entity.entityType)) {
           dispatch({
             entityType: entity.entityType,
             type: 'change-entity-type',
           });
-          dispatch({item: entity, type: 'select-item'});
+          selectItem(entity);
         } else {
           dispatch(SHOW_LOOKUP_TYPE_ERROR);
         }
@@ -420,7 +430,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
           event.preventDefault();
           const item = props.highlightedItem;
           if (item) {
-            dispatch({item, type: 'select-item'});
+            selectItem(item);
           }
         }
         break;
@@ -550,6 +560,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
             highlightedItem={props.highlightedItem}
             items={props.items}
             selectedItem={props.selectedItem}
+            selectItem={selectItem}
           />
         )}
       </ul>
