@@ -511,7 +511,14 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
           aria-controls={menuId}
           aria-labelledby={labelId}
           autoComplete="off"
-          className={props.selectedItem ? 'lookup-performed' : ''}
+          className={
+            (
+              props.isLookupPerformed == null
+                ? props.selectedItem
+                : props.isLookupPerformed
+            )
+              ? 'lookup-performed'
+              : ''}
           disabled={props.disabled}
           id={inputId}
           onChange={handleInputChange}

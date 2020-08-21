@@ -17,6 +17,7 @@ export type State = {
   id: string,
   indexedSearch: boolean,
   inputValue: string,
+  isLookupPerformed?: boolean,
   isOpen: boolean,
   items: $ReadOnlyArray<Item>,
   labelClass?: string,
