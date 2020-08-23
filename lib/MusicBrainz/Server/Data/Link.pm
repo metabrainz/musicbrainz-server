@@ -67,13 +67,16 @@ sub _load_attributes
                           WHERE ltat.attribute_type = attr.id), false) AS free_text,
                 COALESCE((SELECT TRUE FROM link_creditable_attribute_type lcat
                           WHERE lcat.attribute_type = attr.id), false) AS creditable,
-                COALESCE((SELECT comment FROM instrument
-                          WHERE instrument.gid = attr.gid), '') AS instrument_comment
+                COALESCE(ins.comment, '') AS instrument_comment,
+                ins_t.id AS instrument_type_id,
+                COALESCE(ins_t.name, '') AS instrument_type_name
             FROM link_attribute
                 JOIN link_attribute_type AS attr ON attr.id = link_attribute.attribute_type
                 JOIN link_attribute_type AS root_attr ON root_attr.id = attr.root
                 LEFT OUTER JOIN link_attribute_text_value USING (link, attribute_type)
                 LEFT OUTER JOIN link_attribute_credit attr_credit USING (link, attribute_type)
+                LEFT OUTER JOIN instrument ins ON ins.gid = attr.gid
+                LEFT OUTER JOIN instrument_type ins_t ON ins.type = ins_t.id
             WHERE link IN (" . placeholders(@ids) . ")
             ORDER BY link, attr.name";
 
@@ -86,6 +89,8 @@ sub _load_attributes
                     free_text => $row->{free_text},
                     creditable => $row->{creditable},
                     instrument_comment => $row->{instrument_comment},
+                    instrument_type_id => $row->{instrument_type_id},
+                    instrument_type_name => $row->{instrument_type_name},
                     root_id => $row->{root_id},
                     root_gid => $row->{root_gid},
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(

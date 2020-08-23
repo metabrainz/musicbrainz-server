@@ -23,6 +23,8 @@ declare type LinkAttrTypeT = {
   +creditable: boolean,
   +free_text: boolean,
   +instrument_comment?: string,
+  +instrument_type_id?: number,
+  +instrument_type_name?: string,
   +root_gid: string,
   +root_id: number,
 };

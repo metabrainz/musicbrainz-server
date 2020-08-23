@@ -24,16 +24,32 @@ sub _type { 'link_attribute_type' }
 
 sub _table
 {
-    return 'link_attribute_type';
+    return 'link_attribute_type ' .
+        'LEFT JOIN (' .
+            'SELECT id AS root_id, gid AS root_gid, name AS root_name ' .
+            'FROM link_attribute_type' .
+        ') AS lat_root ON lat_root.root_id = link_attribute_type.root ' .
+        'LEFT JOIN (' .
+            'SELECT id AS parent_id, gid AS parent_gid, name AS parent_name ' .
+            'FROM link_attribute_type' .
+        ') AS lat_parent ON lat_parent.parent_id = link_attribute_type.parent ' .
+        'LEFT JOIN (' .
+            'SELECT instrument.gid AS instrument_gid, ' .
+                'instrument.comment AS instrument_comment, ' .
+                'instrument_type.id AS instrument_type_id, ' .
+                'instrument_type.name AS instrument_type_name ' .
+            'FROM instrument ' .
+            'LEFT JOIN instrument_type ON instrument.type = instrument_type.id' .
+        ') AS ins ON ins.instrument_gid = link_attribute_type.gid';
 }
 
 sub _columns
 {
     return 'id, parent, child_order, gid, name, description, root, ' .
-           '(SELECT r.name FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_name, ' .
-           '(SELECT r.name FROM link_attribute_type r WHERE r.id = link_attribute_type.parent) parent_name, ' .
-           '(SELECT r.gid FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_gid, ' .
-           '(SELECT r.gid FROM link_attribute_type r WHERE r.id = link_attribute_type.parent) parent_gid, ' .
+           'lat_root.root_name, ' .
+           'lat_root.root_gid, ' .
+           'lat_parent.parent_name, ' .
+           'lat_parent.parent_gid, ' .
            'COALESCE(
                 (SELECT TRUE FROM link_text_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
@@ -44,11 +60,9 @@ sub _columns
                  WHERE attribute_type = link_attribute_type.id),
                 false
             ) AS creditable, ' .
-           'COALESCE(
-                (SELECT comment FROM instrument
-                 WHERE gid = link_attribute_type.gid),
-                \'\'
-            ) AS instrument_comment';
+           "COALESCE(ins.instrument_comment, '') AS instrument_comment, " .
+           'ins.instrument_type_id, ' .
+           "COALESCE(ins.instrument_type_name, '') AS instrument_type_name";
 }
 
 sub _column_mapping
@@ -85,7 +99,10 @@ sub _column_mapping
                 root_id => $row->{root},
                 root_gid => $row->{root_gid},
             });
-        }
+        },
+        instrument_comment => 'instrument_comment',
+        instrument_type_id => 'instrument_type_id',
+        instrument_type_name => 'instrument_type_name',
     };
 }
 
