@@ -356,6 +356,7 @@ declare type CoreEntityT =
   | LabelT
   | PlaceT
   | RecordingT
+  | RecordingWithOptionalArtistCreditT
   | ReleaseGroupT
   | ReleaseT
   | SeriesT
@@ -397,6 +398,9 @@ declare type DatePeriodRoleT = {
   +end_date: PartialDateT | null,
   +ended: boolean,
 };
+
+// From Algorithm::Diff
+declare type DiffChangeTypeT = '+' | '-' | 'c' | 'u';
 
 declare type EditableRoleT = {
   +editsPending: boolean,
@@ -864,6 +868,7 @@ declare type RatableT =
   | EventT
   | LabelT
   | RecordingT
+  | RecordingWithOptionalArtistCreditT
   | ReleaseGroupT
   | WorkT;
 
@@ -883,6 +888,19 @@ declare type RecordingT = $ReadOnly<{
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
   +primaryAlias?: string | null,
+  +related_works: $ReadOnlyArray<number>,
+  +video: boolean,
+}>;
+
+declare type RecordingWithOptionalArtistCreditT = $ReadOnly<{
+  ...AnnotationRoleT,
+  ...CommentRoleT,
+  ...CoreEntityRoleT<'recording'>,
+  ...RatableRoleT,
+  +artist: string,
+  +artistCredit?: ArtistCreditT,
+  +isrcs: $ReadOnlyArray<IsrcT>,
+  +length: number,
   +related_works: $ReadOnlyArray<number>,
   +video: boolean,
 }>;
@@ -1124,7 +1142,7 @@ declare type TrackT = $ReadOnly<{
   +name: string,
   +number: string,
   +position: number,
-  +recording?: {+artistCredit?: ArtistCreditT} & RecordingT,
+  +recording?: RecordingWithOptionalArtistCreditT,
   +unaccented_name: string | null,
 }>;
 

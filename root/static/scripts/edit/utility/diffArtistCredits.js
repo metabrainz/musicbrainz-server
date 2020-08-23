@@ -35,11 +35,13 @@ type ArtistLinkProps = {
 };
 
 const ArtistLink = ({content, credit, nameVariation}: ArtistLinkProps) => (
-  <EntityLink
-    content={nonEmpty(content) ? content : credit.name}
-    entity={credit.artist}
-    nameVariation={nameVariation}
-  />
+  credit.artist ? (
+    <EntityLink
+      content={nonEmpty(content) ? content : credit.name}
+      entity={credit.artist}
+      nameVariation={nameVariation}
+    />
+  ) : null
 );
 
 export default function diffArtistCredits(
@@ -106,7 +108,8 @@ export default function diffArtistCredits(
                 />
               }
               credit={oldCredit}
-              nameVariation={oldCredit.artist.name !== oldCredit.name}
+              nameVariation={oldCredit.artist &&
+                oldCredit.artist.name !== oldCredit.name}
             />,
             oldJoin,
           );
@@ -122,7 +125,8 @@ export default function diffArtistCredits(
                 />
               }
               credit={newCredit}
-              nameVariation={newCredit.artist.name !== newCredit.name}
+              nameVariation={newCredit.artist &&
+                newCredit.artist.name !== newCredit.name}
             />,
             newJoin,
           );
