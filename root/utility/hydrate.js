@@ -19,7 +19,7 @@ import {
 import sanitizedContext from './sanitizedContext';
 
 export default function hydrate<
-  Config,
+  Config: {+$c?: CatalystContextT, ...},
   SanitizedConfig = Config,
 >(
   containerSelector: string,
@@ -42,7 +42,7 @@ export default function hydrate<
           const props: SanitizedConfig = JSON.parse(propString);
           ReactDOM.hydrate(
             <SanitizedCatalystContext.Provider value={$c}>
-              <Component {...props} />
+              <Component $c={$c} {...props} />
             </SanitizedCatalystContext.Provider>,
             root,
           );
@@ -51,7 +51,10 @@ export default function hydrate<
     });
   }
   return (props: Config) => {
-    let dataProps = props;
+    let dataProps = {...props};
+    if (dataProps.$c) {
+      delete dataProps.$c;
+    }
     if (mungeProps) {
       dataProps = mungeProps(dataProps);
     }
