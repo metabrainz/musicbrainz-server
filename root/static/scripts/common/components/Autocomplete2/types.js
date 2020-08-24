@@ -37,19 +37,20 @@ export type SearchAction = {
   +type: 'search-after-timeout',
 };
 
+/* eslint-disable flowtype/sort-keys */
 export type Actions =
   | SearchAction
-  | { +item: Item, +type: 'highlight-item' }
+  | { +type: 'highlight-item', +item: Item }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
   | { +type: 'noop' }
-  | { +item: Item, +type: 'select-item' }
+  | { +type: 'select-item', +item: Item }
   | { +type: 'set-menu-visibility', +value: boolean }
   | {
+      +type: 'show-results',
       +items: $ReadOnlyArray<Item>,
       +page: number,
       +resultCount: number,
-      +type: 'show-results',
     }
   | { +type: 'show-lookup-error' }
   | { +type: 'show-lookup-type-error' }
@@ -59,6 +60,7 @@ export type Actions =
   | { +type: 'toggle-indexed-search' }
   | { +type: 'type-value', +value: string }
   ;
+/* eslint-enable flowtype/sort-keys */
 
 export type ActionItem = {
   +action: Actions,
