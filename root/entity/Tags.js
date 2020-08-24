@@ -36,6 +36,7 @@ const Tags = ({
         $c={$c}
         aggregatedTags={allTags}
         entity={entity}
+        genreMap={$c.stash.genre_map}
         more={moreTags}
         userTags={userTags}
       />

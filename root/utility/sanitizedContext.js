@@ -31,7 +31,6 @@ function sanitizedContext(
     stash: {
       csrf_token: stash.csrf_token,
       current_language: stash.current_language,
-      genre_map: stash.genre_map,
       invalid_csrf_token: stash.invalid_csrf_token,
     },
     user: user ? sanitizedEditor(user) : null,
