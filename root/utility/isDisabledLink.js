@@ -7,11 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import isGreyedOut from '../url/utility/isGreyedOut';
+
 export default function isDisabledLink(
   relationshipOrLinkDatePeriod: {+ended: boolean, ...},
   entity: CoreEntityT,
 ): boolean {
   return entity.entityType === 'url' && (
-    relationshipOrLinkDatePeriod.ended
+    relationshipOrLinkDatePeriod.ended || isGreyedOut(entity.href_url)
   );
 }

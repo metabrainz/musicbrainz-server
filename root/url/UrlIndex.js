@@ -12,6 +12,7 @@ import * as React from 'react';
 import Relationships from '../components/Relationships';
 
 import UrlLayout from './UrlLayout';
+import isGreyedOut from './utility/isGreyedOut';
 
 type Props = {
   +$c: CatalystContextT,
@@ -24,7 +25,12 @@ const UrlIndex = ({$c, url}: Props): React.Element<typeof UrlLayout> => (
     <table className="details">
       <tr>
         <th>{addColonText(l('URL'))}</th>
-        <td><a href={url.href_url}>{url.pretty_name}</a></td>
+        <td>
+          {isGreyedOut(url.href_url)
+            ? <span className="deleted">{url.href_url}</span>
+            : <a href={url.href_url}>{url.pretty_name}</a>
+          }
+        </td>
       </tr>
     </table>
     <Relationships source={url} />
