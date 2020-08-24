@@ -129,14 +129,14 @@ const EditAlias = ({edit}: Props): React.Element<'table'> => {
           label={addColonText(l('Begin date'))}
           newText={formatDate(display.begin_date.new)}
           oldText={formatDate(display.begin_date.old)}
-          split="\s+"
+          split="-"
         />
 
         <Diff
           label={addColonText(l('End date'))}
           newText={formatDate(display.end_date.new)}
           oldText={formatDate(display.end_date.old)}
-          split="\s+"
+          split="-"
         />
 
         <FullChangeDiff

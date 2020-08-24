@@ -159,6 +159,7 @@ const EditArtist = ({edit}: Props): React.MixedElement => {
               label={artistEndLabel(displayTypeId)}
               newText={formatDate(endDate.new)}
               oldText={formatDate(endDate.old)}
+              split="-"
             />
           ) : null}
           {endArea ? (
