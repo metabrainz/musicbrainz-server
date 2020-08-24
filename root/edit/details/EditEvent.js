@@ -13,6 +13,7 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import Diff from '../../static/scripts/edit/components/edit/Diff';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 
@@ -52,19 +53,17 @@ const EditEvent = ({edit}: Props): React.Element<'table'> => {
         <td colSpan="2"><EntityLink entity={display.event} /></td>
       </tr>
       {name ? (
-        <Diff
+        <WordDiff
           label={addColonText(l('Name'))}
           newText={name.new}
           oldText={name.old}
-          split="\s+"
         />
       ) : null}
       {comment ? (
-        <Diff
+        <WordDiff
           label={addColonText(l('Disambiguation'))}
           newText={comment.new ?? ''}
           oldText={comment.old ?? ''}
-          split="\s+"
         />
       ) : null}
       {cancelled ? (
@@ -105,11 +104,10 @@ const EditEvent = ({edit}: Props): React.Element<'table'> => {
         />
       ) : null}
       {setlist ? (
-        <Diff
+        <WordDiff
           label={addColonText(l('Setlist'))}
           newText={setlist.new ?? ''}
           oldText={setlist.old ?? ''}
-          split="\s+"
         />
       ) : null}
     </table>

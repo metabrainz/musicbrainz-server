@@ -19,6 +19,7 @@ import Diff from '../../static/scripts/edit/components/edit/Diff';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import FullChangeDiff
   from '../../static/scripts/edit/components/edit/FullChangeDiff';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
@@ -81,27 +82,24 @@ const EditArtist = ({edit}: Props): React.MixedElement => {
       <table className="details edit-artist">
         <tbody>
           {name ? (
-            <Diff
+            <WordDiff
               label={addColonText(l('Name'))}
               newText={name.new}
               oldText={name.old}
-              split="\s+"
             />
           ) : null}
           {sortName ? (
-            <Diff
+            <WordDiff
               label={addColonText(l('Sort name'))}
               newText={sortName.new}
               oldText={sortName.old}
-              split="\s+"
             />
           ) : null}
           {comment ? (
-            <Diff
+            <WordDiff
               label={addColonText(l('Disambiguation'))}
               newText={comment.new ?? ''}
               oldText={comment.old ?? ''}
-              split="\s+"
             />
           ) : null}
           {type ? (

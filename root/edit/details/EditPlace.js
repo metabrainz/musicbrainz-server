@@ -14,6 +14,7 @@ import DescriptiveLink from
 import Diff from '../../static/scripts/edit/components/edit/Diff';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import {formatCoordinates} from '../../utility/coordinates';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import yesNo from '../../static/scripts/common/utility/yesNo';
@@ -58,19 +59,17 @@ const EditPlace = ({edit}: Props): React.Element<'table'> => {
           <td><DescriptiveLink entity={place} /></td>
         </tr>
         {display.name ? (
-          <Diff
+          <WordDiff
             label={addColonText(l('Name'))}
             newText={display.name.new}
             oldText={display.name.old}
-            split="\s+"
           />
         ) : null}
         {comment ? (
-          <Diff
+          <WordDiff
             label={addColonText(l('Disambiguation'))}
             newText={comment.new}
             oldText={comment.old}
-            split="\s+"
           />
         ) : null}
         {display.type ? (
@@ -83,11 +82,10 @@ const EditPlace = ({edit}: Props): React.Element<'table'> => {
           />
         ) : null}
         {address ? (
-          <Diff
+          <WordDiff
             label={addColonText(l('Address'))}
             newText={address.new}
             oldText={address.old}
-            split="\s+"
           />
         ) : null}
         {area && area.new?.gid !== area.old?.gid ? (
