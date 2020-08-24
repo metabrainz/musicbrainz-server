@@ -27,8 +27,15 @@ const UrlIndex = ({$c, url}: Props): React.Element<typeof UrlLayout> => (
         <th>{addColonText(l('URL'))}</th>
         <td>
           {isGreyedOut(url.href_url)
-            ? <span className="deleted">{url.href_url}</span>
-            : <a href={url.href_url}>{url.pretty_name}</a>
+            ? (
+              <span
+                className="deleted"
+                title={l(`This link has been temporarily disabled because
+                          it has been reported as potentially harmful.`)}
+              >
+                {url.href_url}
+              </span>
+            ) : <a href={url.href_url}>{url.pretty_name}</a>
           }
         </td>
       </tr>
