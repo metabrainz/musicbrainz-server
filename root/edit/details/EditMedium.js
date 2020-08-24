@@ -555,7 +555,7 @@ const EditMedium = ({edit}: Props): React.MixedElement => {
       {recordingChanges?.length ? (
         <tr>
           <th>{addColonText(l('Recordings'))}</th>
-          <td>
+          <td colSpan="2">
             <table className="tbl">
               <thead>
                 <tr>
@@ -613,7 +613,7 @@ const EditMedium = ({edit}: Props): React.MixedElement => {
       {artistCreditChanges?.length ? (
         <tr>
           <th>{addColonText(l('Artist Credits'))}</th>
-          <td>
+          <td colSpan="2">
             <table className="tbl">
               <thead>
                 <tr>
