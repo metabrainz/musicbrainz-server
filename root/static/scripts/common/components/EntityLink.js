@@ -17,19 +17,22 @@ import entityHref from '../utility/entityHref';
 import formatDatePeriod from '../utility/formatDatePeriod';
 import isolateText from '../utility/isolateText';
 import nonEmpty from '../utility/nonEmpty';
+import isGreyedOut from '../../../../url/utility/isGreyedOut';
 
 type DeletedLinkProps = {
   +allowNew: boolean,
+  +deletedCaption?: string,
   +name: ?Expand2ReactOutput,
 };
 
 export const DeletedLink = ({
   allowNew,
+  deletedCaption,
   name,
 }: DeletedLinkProps): React.Element<'span'> => {
-  const caption = allowNew
+  const caption = deletedCaption || (allowNew
     ? l('This entity will be created by this edit.')
-    : l('This entity has been removed, and cannot be displayed correctly.');
+    : l('This entity has been removed, and cannot be displayed correctly.'));
 
   return (
     <span
@@ -109,6 +112,8 @@ const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
 type EntityLinkProps = {
   +allowNew?: boolean,
   +content?: ?Expand2ReactOutput,
+  +deletedCaption?: string,
+  +disableLink?: boolean,
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
   +nameVariation?: boolean,
@@ -129,6 +134,8 @@ type EntityLinkProps = {
 const EntityLink = ({
   allowNew = false,
   content,
+  deletedCaption,
+  disableLink = false,
   entity,
   hover,
   nameVariation,
@@ -165,7 +172,13 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
       return <NoInfoURL allowNew={allowNew} url={entity.href_url} />;
     }
     if (showDeleted) {
-      return <DeletedLink allowNew={allowNew} name={content} />;
+      return (
+        <DeletedLink
+          allowNew={allowNew}
+          deletedCaption={deletedCaption}
+          name={content}
+        />
+      );
     }
     return null;
   }
@@ -202,7 +215,18 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   if (hover) {
     anchorProps.title = hover;
   }
-  content = <a key="link" {...anchorProps}>{isolateText(content)}</a>;
+  content = disableLink
+    ? (
+      <span
+        className="deleted"
+        title={entity.entityType === 'url' && isGreyedOut(href)
+          ? l(`This link has been temporarily disabled because
+               it has been reported as potentially harmful.`)
+          : null}
+      >
+        {isolateText(content)}
+      </span>
+    ) : <a key="link" {...anchorProps}>{isolateText(content)}</a>;
 
   if (nameVariation) {
     content = (

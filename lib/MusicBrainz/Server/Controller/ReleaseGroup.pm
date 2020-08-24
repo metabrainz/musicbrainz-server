@@ -161,9 +161,11 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my ($releases, $hits) = $c->model('Release')->find_by_release_group(
         $entity->id);
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('ArtistCredit')->load(@$releases);
 
     my $artwork = $c->model('Artwork')->find_front_cover_by_release(@$releases);
     $c->model('CoverArtType')->load_for(@$artwork);
+    my %artwork_map = map { $_->release->id => $_ } @$artwork;
 
     my $cover_art_release = $entity->cover_art ? $entity->cover_art->release : undef;
     my $form = $c->form(form => 'ReleaseGroup::SetCoverArt', init_object => {
@@ -171,11 +173,16 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
 
     my $form_valid = $c->form_posted_and_valid($form);
 
-    my $release = $form_valid
+    my $selected_release = $form_valid
         ? $c->model('Release')->get_by_gid($form->field('release')->value)
         : $cover_art_release;
 
-    $c->stash({ form => $form, artwork => $artwork, release => $release });
+    $c->stash({
+        form => $form,
+        artwork => \%artwork_map,
+        all_releases => $releases,
+        selected_release => $selected_release,
+        });
 
     if ($form_valid)
     {
@@ -184,7 +191,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
             $edit = $self->_insert_edit(
                 $c, $form,
                 edit_type => $EDIT_RELEASEGROUP_SET_COVER_ART,
-                release => $release,
+                release => $selected_release,
                 entity => $entity,
             );
         });

@@ -14,11 +14,17 @@ import linkedEntities from '../linkedEntities';
 import DescriptiveLink from './DescriptiveLink';
 import MediumDescription from './MediumDescription';
 
-const MediumLink = ({medium}: {+medium: MediumT}): Expand2ReactOutput => (
+type Props = {
+  +allowNew?: boolean,
+  +medium: MediumT,
+};
+
+const MediumLink = ({allowNew, medium}: Props): Expand2ReactOutput => (
   exp.l('{medium} on {release}', {
     medium: <MediumDescription medium={medium} />,
     release: (
       <DescriptiveLink
+        allowNew={allowNew}
         entity={linkedEntities.release[medium.release_id]}
       />
     ),

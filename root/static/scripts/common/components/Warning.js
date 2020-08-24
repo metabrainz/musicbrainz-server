@@ -28,6 +28,7 @@ const Warning = ({
     <WarningIcon />
     <p>
       <strong>{addColon(l('Warning'))}</strong>
+      {' '}
       {message}
     </p>
   </div>

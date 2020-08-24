@@ -13,6 +13,7 @@ import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 import DiffSide from '../../../static/scripts/edit/components/edit/DiffSide';
+import Warning from '../../../static/scripts/common/components/Warning';
 import relationshipDateText from '../../../utility/relationshipDateText';
 import {INSERT, DELETE} from '../../../static/scripts/edit/utility/editDiff';
 import {interpolateText}
@@ -29,126 +30,162 @@ type Props = {
   +edit: EditRelationshipEditT,
 };
 
-const EditRelationship = ({edit}: Props): React.Element<'table'> => (
-  <table className="details edit-relationship">
-    <tr>
-      <th rowSpan="2">{l('Old relationships:')}</th>
-    </tr>
-    <tr>
-      <td>
-        <ul>
-          {edit.display_data.relationship.old.map((oldRel, index) => {
-            const newRel = edit.display_data.relationship.new[index];
-            const oldLinkType = linkedEntities.link_type[oldRel.linkTypeID];
-            const newLinkType = linkedEntities.link_type[newRel.linkTypeID];
-            const oldSource =
-              linkedEntities[oldLinkType.type0][oldRel.entity0_id];
-            const newSource =
-              linkedEntities[newLinkType.type0][newRel.entity0_id];
-            return (
-              <li key={oldRel.id}>
-                <span
-                  className={oldSource.id === newSource.id
-                    ? null
-                    : 'diff-only-a'}
-                >
-                  <DescriptiveLink entity={oldSource} />
-                </span>
-                {' '}
-                <DiffSide
-                  filter={DELETE}
-                  newText={interpolateText(
-                    newRel,
-                    'link_phrase',
-                    false, /* forGrouping */
-                  )}
-                  oldText={interpolateText(
-                    oldRel,
-                    'link_phrase',
-                    false, /* forGrouping */
-                  )}
-                  split="\s+"
-                />
-                {' '}
-                <span
-                  className={oldRel.target.id === newRel.target.id
-                    ? null
-                    : 'diff-only-a'}
-                >
-                  <DescriptiveLink entity={oldRel.target} />
-                </span>
-                {' '}
-                <DiffSide
-                  filter={DELETE}
-                  newText={relationshipDateText(newRel)}
-                  oldText={relationshipDateText(oldRel)}
-                />
-              </li>
-            );
-          })}
-        </ul>
-      </td>
-    </tr>
+const EditRelationship = ({
+  edit,
+}: Props): React.Element<typeof React.Fragment> => {
+  const oldRels = edit.display_data.relationship.old;
+  const newRels = edit.display_data.relationship.new;
+  const isDataBroken = oldRels.length !== newRels.length;
 
-    <tr>
-      <th rowSpan="2">{l('New relationships:')}</th>
-    </tr>
-    <tr>
-      <td>
-        <ul>
-          {edit.display_data.relationship.new.map((newRel, index) => {
-            const oldRel = edit.display_data.relationship.old[index];
-            const oldLinkType = linkedEntities.link_type[oldRel.linkTypeID];
-            const newLinkType = linkedEntities.link_type[newRel.linkTypeID];
-            const oldSource =
-              linkedEntities[oldLinkType.type0][oldRel.entity0_id];
-            const newSource =
-              linkedEntities[newLinkType.type0][newRel.entity0_id];
-            return (
-              <li key={newRel.id}>
-                <span
-                  className={oldSource.id === newSource.id
-                    ? null
-                    : 'diff-only-b'}
-                >
-                  <DescriptiveLink entity={newSource} />
-                </span>
-                {' '}
-                <DiffSide
-                  filter={INSERT}
-                  newText={interpolateText(
-                    newRel,
-                    'link_phrase',
-                    false, /* forGrouping */
-                  )}
-                  oldText={interpolateText(
-                    oldRel,
-                    'link_phrase',
-                    false, /* forGrouping */
-                  )}
-                  split="\s+"
-                />
-                {' '}
-                <span
-                  className={oldRel.target.id === newRel.target.id
-                    ? null
-                    : 'diff-only-b'}
-                >
-                  <DescriptiveLink entity={newRel.target} />
-                </span>
-                {' '}
-                <DiffSide
-                  filter={INSERT}
-                  newText={relationshipDateText(newRel)}
-                  oldText={relationshipDateText(oldRel)}
-                />
-              </li>
-            );
-          })}
-        </ul>
-      </td>
-    </tr>
-  </table>
-);
+  return (
+    <>
+      {isDataBroken ? (
+        <Warning
+          message={
+            l(`The data for this edit seems to have been damaged
+                during the 2011 transition to the current MusicBrainz
+                schema. The remaining data is displayed below, but
+                might not be fully accurate.`)
+          }
+        />
+      ) : null}
+      <table className="details edit-relationship">
+        <tr>
+          <th rowSpan="2">{l('Old relationships:')}</th>
+        </tr>
+        <tr>
+          <td>
+            <ul>
+              {oldRels.map((oldRel, index) => {
+                /*
+                 * Some relationships seem to have broken data where newRel
+                 * might not exist for every oldRel. In those cases, we
+                 * display oldRel unchanged (diff with itself) in order
+                 * to show *something* in the least bad way possible.
+                 */
+                let newRel = newRels[index];
+                if (isDataBroken && !newRel) {
+                  newRel = oldRel;
+                }
+                const oldLinkType =
+                  linkedEntities.link_type[oldRel.linkTypeID];
+                const oldSource =
+                  linkedEntities[oldLinkType.type0][oldRel.entity0_id];
+                const newLinkType = newRel
+                  ? linkedEntities.link_type[newRel.linkTypeID]
+                  : oldLinkType;
+                const newSource = newLinkType
+                  ? linkedEntities[newLinkType.type0][newRel.entity0_id]
+                  : oldSource;
+                return (
+                  <li key={oldRel.id}>
+                    <span
+                      className={oldSource.id === newSource.id
+                        ? null
+                        : 'diff-only-a'}
+                    >
+                      <DescriptiveLink entity={oldSource} />
+                    </span>
+                    {' '}
+                    <DiffSide
+                      filter={DELETE}
+                      newText={interpolateText(
+                        newRel,
+                        'link_phrase',
+                        false, /* forGrouping */
+                      )}
+                      oldText={interpolateText(
+                        oldRel,
+                        'link_phrase',
+                        false, /* forGrouping */
+                      )}
+                      split="\s+"
+                    />
+                    {' '}
+                    <span
+                      className={oldRel.target.id === newRel.target.id
+                        ? null
+                        : 'diff-only-a'
+                      }
+                    >
+                      <DescriptiveLink entity={oldRel.target} />
+                    </span>
+                    {' '}
+                    <DiffSide
+                      filter={DELETE}
+                      newText={relationshipDateText(newRel)}
+                      oldText={relationshipDateText(oldRel)}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <th rowSpan="2">{l('New relationships:')}</th>
+        </tr>
+        <tr>
+          <td>
+            <ul>
+              {newRels.map((newRel, index) => {
+                const oldRel = oldRels[index];
+                const oldLinkType =
+                  linkedEntities.link_type[oldRel.linkTypeID];
+                const newLinkType =
+                  linkedEntities.link_type[newRel.linkTypeID];
+                const oldSource =
+                  linkedEntities[oldLinkType.type0][oldRel.entity0_id];
+                const newSource =
+                  linkedEntities[newLinkType.type0][newRel.entity0_id];
+                return (
+                  <li key={newRel.id}>
+                    <span
+                      className={oldSource.id === newSource.id
+                        ? null
+                        : 'diff-only-b'}
+                    >
+                      <DescriptiveLink entity={newSource} />
+                    </span>
+                    {' '}
+                    <DiffSide
+                      filter={INSERT}
+                      newText={interpolateText(
+                        newRel,
+                        'link_phrase',
+                        false, /* forGrouping */
+                      )}
+                      oldText={interpolateText(
+                        oldRel,
+                        'link_phrase',
+                        false, /* forGrouping */
+                      )}
+                      split="\s+"
+                    />
+                    {' '}
+                    <span
+                      className={oldRel.target.id === newRel.target.id
+                        ? null
+                        : 'diff-only-b'}
+                    >
+                      <DescriptiveLink entity={newRel.target} />
+                    </span>
+                    {' '}
+                    <DiffSide
+                      filter={INSERT}
+                      newText={relationshipDateText(newRel)}
+                      oldText={relationshipDateText(oldRel)}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </>
+  );
+};
 
 export default EditRelationship;

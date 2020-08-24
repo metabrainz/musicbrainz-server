@@ -63,6 +63,7 @@ Images:
     flags/su.png (https://commons.wikimedia.org/wiki/File:Icons-flag-su.png)
     flags/sx.png (https://commons.wikimedia.org/wiki/File:Icons-flag-sx.png)
     flags/xg.png (https://commons.wikimedia.org/wiki/File:Icons-flag-ddde.png)
+    flags/xk.png (https://commons.wikimedia.org/wiki/File:Flag_of_Kosovo.svg)
     flags/xw.png (https://commons.wikimedia.org/wiki/File:Icons-flag-unitednations.png)
 
 ----------------------------------------------------------------------------
@@ -187,3 +188,12 @@ Images:
 
     (original .svg versions are in src/icons/*.svg)
 
+----------------------------------------------------------------------------
+
+Source:      Calvin Walton (kepstin)
+License:     CC0
+Authors:     Calvin Walton (kepstin)
+
+Image:
+
+    no-cover-art.png

@@ -7,6 +7,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 use List::MoreUtils qw( uniq );
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::Label';
+use aliased 'MusicBrainz::Server::Entity::Recording';
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_id upgrade_type_and_status );
@@ -18,7 +19,7 @@ sub edit_name     { N_l('Add release') }
 sub edit_kind     { 'add' }
 sub historic_type { 16 }
 sub edit_type     { $EDIT_HISTORIC_ADD_RELEASE }
-sub edit_template { 'historic/add_release' }
+sub edit_template_react { 'historic/AddRelease' }
 
 sub _recording_ids
 {
@@ -89,7 +90,11 @@ sub build_display_data
     return {
         name           => $self->data->{name},
         artist         => defined($self->data->{artist_id}) &&
-                            $loaded->{Artist}->{ $self->data->{artist_id} },
+                            $loaded->{Artist}->{ $self->data->{artist_id} }
+                            || Artist->new(
+                                id => $self->data->{artist_id},
+                                name => $self->data->{artist_name},
+                            ),
         releases       => [
             map { $loaded->{Release}->{ $_ } } grep { defined } $self->_release_ids
         ],
@@ -119,16 +124,28 @@ sub build_display_data
             map {
                 # Stuff that had artist_name present did not actually have an artist ID
                 my $track_artist = defined($_->{artist_name})
-                    ? Artist->new( name => $_->{artist_name} )
-                    : $loaded->{Artist}->{ $_->{artist_id} };
+                    ? Artist->new(
+                        id => $_->{artist_id},
+                        name => $_->{artist_name},
+                    ) : $loaded->{Artist}->{ $_->{artist_id} }
+                        || Artist->new( id => $_->{artist_id} );
+
+                # Our code expects undef, not 0, for length unknown, but older edits have 0
+                my $track_length = defined $_->{length} && $_->{length} == 0
+                    ? undef
+                    : $_->{length};
 
                 +{
                     name      => $_->{name},
                     artist    => $track_artist,
-                    length    => $_->{length},
+                    length    => $track_length,
                     position  => $_->{position},
                     recording => defined($_->{recording_id}) &&
                                    $loaded->{Recording}->{ $_->{recording_id} }
+                                   || Recording->new(
+                                       id => $_->{recording_id},
+                                       name => $_->{name},
+                                    ),
                 } } sort { $a->{position} <=> $b->{position} } $self->_tracks
         ]
     }

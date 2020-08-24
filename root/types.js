@@ -718,6 +718,12 @@ declare type MaybeGroupedOptionsT =
   | {+grouped: true, +options: GroupedOptionsT}
   | {+grouped: false, +options: SelectOptionsT};
 
+declare type MediumCDTocT = $ReadOnly<{
+  ...EntityRoleT<'medium_cdtoc'>,
+  +cdtoc: CDTocT,
+  +editsPending: boolean,
+}>;
+
 declare type MediumFormatT = {
   ...OptionTreeT<'medium_format'>,
   +has_discids: boolean,

@@ -21,6 +21,8 @@ type Props = {
   +allowNew?: boolean,
   +area: AreaT,
   +content?: Expand2ReactOutput,
+  +deletedCaption?: string,
+  +disableLink?: boolean,
   +showDisambiguation?: boolean,
   +target?: '_blank',
 };

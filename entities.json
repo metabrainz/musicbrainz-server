@@ -395,6 +395,7 @@
         "model": "LinkType"
     },
     "medium": {"model": "Medium"},
+    "medium_cdtoc": {"model": "MediumCDTOC"},
     "medium_format": {
         "cache": {
             "id": 19

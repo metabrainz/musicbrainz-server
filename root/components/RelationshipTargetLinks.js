@@ -25,6 +25,7 @@ import type {
   DatedExtraAttributes,
   RelationshipTargetGroupT,
 } from '../utility/groupRelationships';
+import isDisabledLink from '../utility/isDisabledLink';
 import relationshipDateText from '../utility/relationshipDateText';
 
 export function displayDatedExtraAttributes(
@@ -64,13 +65,20 @@ const RelationshipTargetLinks = ({
 }: Props): React.MixedElement => {
   const target = relationship.target;
   const targetCredit = relationship.targetCredit;
+  const disableLink = isDisabledLink(relationship.earliestDatePeriod, target);
   let link;
   if (hiddenArtistCredit &&
       target.artistCredit &&
       artistCreditsAreEqual(hiddenArtistCredit, target.artistCredit)) {
     link = <EntityLink content={targetCredit} entity={target} />;
   } else {
-    link = <DescriptiveLink content={targetCredit} entity={target} />;
+    link = (
+      <DescriptiveLink
+        content={targetCredit}
+        disableLink={disableLink}
+        entity={target}
+      />
+    );
   }
   const datesAndAttributes = semicolonOnlyList(
     relationship.datedExtraAttributesList.map(displayDatedExtraAttributes),
