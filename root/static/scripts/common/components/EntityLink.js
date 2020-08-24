@@ -17,6 +17,7 @@ import entityHref from '../utility/entityHref';
 import formatDatePeriod from '../utility/formatDatePeriod';
 import isolateText from '../utility/isolateText';
 import nonEmpty from '../utility/nonEmpty';
+import isGreyedOut from '../../../../url/utility/isGreyedOut';
 
 type DeletedLinkProps = {
   +allowNew: boolean,
@@ -215,8 +216,17 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     anchorProps.title = hover;
   }
   content = disableLink
-    ? <span className="deleted">{isolateText(content)}</span>
-    : <a key="link" {...anchorProps}>{isolateText(content)}</a>;
+    ? (
+      <span
+        className="deleted"
+        title={entity.entityType === 'url' && isGreyedOut(href)
+          ? l(`This link has been temporarily disabled because
+               it has been reported as potentially harmful.`)
+          : null}
+      >
+        {isolateText(content)}
+      </span>
+    ) : <a key="link" {...anchorProps}>{isolateText(content)}</a>;
 
   if (nameVariation) {
     content = (
