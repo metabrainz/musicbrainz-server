@@ -14,6 +14,7 @@ import bracketed from '../utility/bracketed';
 import {displayLinkAttributes}
   from '../utility/displayLinkAttribute';
 import {interpolate, getExtraAttributes} from '../../edit/utility/linkPhrase';
+import isDisabledLink from '../../../../utility/isDisabledLink';
 import relationshipDateText
   from '../../../../utility/relationshipDateText';
 
@@ -96,13 +97,13 @@ const RelationshipContent = ({
     <DescriptiveLink
       allowNew={allowNewEntity0}
       content={relationship.entity0_credit}
-      disableLink={relationship.ended && entity0.entityType === 'url'}
+      disableLink={isDisabledLink(relationship, entity0)}
       entity={entity0}
     />,
     <DescriptiveLink
       allowNew={allowNewEntity1}
       content={relationship.entity1_credit}
-      disableLink={relationship.ended && entity1.entityType === 'url'}
+      disableLink={isDisabledLink(relationship, entity1)}
       entity={entity1}
     />,
   );

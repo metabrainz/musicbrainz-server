@@ -21,6 +21,7 @@ import linkedEntities from '../../../common/linkedEntities';
 import bracketed from '../../../common/utility/bracketed';
 import displayLinkAttribute, {displayLinkAttributes}
   from '../../../common/utility/displayLinkAttribute';
+import isDisabledLink from '../../../../../utility/isDisabledLink';
 import {
   getPhraseAndExtraAttributes,
   type CachedLinkData,
@@ -90,7 +91,7 @@ const RelationshipDiff = ({
   const oldSourceLink = (
     <DescriptiveLink
       content={oldRelationship.entity0_credit}
-      disableLink={oldRelationship.ended && oldSource.entityType === 'url'}
+      disableLink={isDisabledLink(oldRelationship, oldSource)}
       entity={oldSource}
     />
   );
@@ -98,7 +99,7 @@ const RelationshipDiff = ({
   const newSourceLink = (
     <DescriptiveLink
       content={newRelationship.entity0_credit}
-      disableLink={newRelationship.ended && newSource.entityType === 'url'}
+      disableLink={isDisabledLink(newRelationship, newSource)}
       entity={newSource}
     />
   );
@@ -106,7 +107,7 @@ const RelationshipDiff = ({
   const oldTargetLink = (
     <DescriptiveLink
       content={oldRelationship.entity1_credit}
-      disableLink={oldRelationship.ended && oldTarget.entityType === 'url'}
+      disableLink={isDisabledLink(oldRelationship, oldTarget)}
       entity={oldTarget}
     />
   );
@@ -114,7 +115,7 @@ const RelationshipDiff = ({
   const newTargetLink = (
     <DescriptiveLink
       content={newRelationship.entity1_credit}
-      disableLink={newRelationship.ended && newTarget.entityType === 'url'}
+      disableLink={isDisabledLink(newRelationship, newTarget)}
       entity={newTarget}
     />
   );
