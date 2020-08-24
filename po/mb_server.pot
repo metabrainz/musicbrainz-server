@@ -11,7 +11,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-20 17:32+0000\n"
+"POT-Creation-Date: 2020-08-24 20:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4862,12 +4862,12 @@ msgid "This edit was a merge."
 msgstr ""
 
 #: ../root/components/common-macros.tt:265
-#: ../root/static/scripts/common/components/EntityLink.js:34
+#: ../root/static/scripts/common/components/EntityLink.js:35
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr ""
 
 #: ../root/components/common-macros.tt:265
-#: ../root/static/scripts/common/components/EntityLink.js:33
+#: ../root/static/scripts/common/components/EntityLink.js:34
 msgid "This entity will be created by this edit."
 msgstr ""
 
@@ -4990,7 +4990,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:308
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:658
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:221
-#: ../root/static/scripts/common/components/EntityLink.js:247
+#: ../root/static/scripts/common/components/EntityLink.js:257
 msgid "This recording is a video"
 msgstr ""
 
@@ -5327,7 +5327,7 @@ msgstr ""
 #: ../root/report/components/UrlRelationshipList.js:33
 #: ../root/static/scripts/common/constants.js:28
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:68
-#: ../root/url/UrlHeader.js:31 ../root/url/UrlIndex.js:26
+#: ../root/url/UrlHeader.js:31 ../root/url/UrlIndex.js:27
 msgid "URL"
 msgstr ""
 
@@ -5934,7 +5934,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:82
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:183
 #: ../root/edit/details/EditAlias.js:93
-#: ../root/static/scripts/common/components/EntityLink.js:41
+#: ../root/static/scripts/common/components/EntityLink.js:42
 msgid "[removed]"
 msgstr ""
 
@@ -5995,7 +5995,7 @@ msgid "by"
 msgstr ""
 
 #: ../root/components/common-macros.tt:184
-#: ../root/static/scripts/common/components/EntityLink.js:70
+#: ../root/static/scripts/common/components/EntityLink.js:71
 msgid "cancelled"
 msgstr ""
 
@@ -6075,17 +6075,17 @@ msgid "hide tracklist"
 msgstr ""
 
 #: ../root/components/common-macros.tt:175
-#: ../root/static/scripts/common/components/EntityLink.js:93
+#: ../root/static/scripts/common/components/EntityLink.js:94
 msgid "historical"
 msgstr ""
 
 #: ../root/components/common-macros.tt:173
-#: ../root/static/scripts/common/components/EntityLink.js:91
+#: ../root/static/scripts/common/components/EntityLink.js:92
 msgid "historical, until {end}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:171
-#: ../root/static/scripts/common/components/EntityLink.js:87
+#: ../root/static/scripts/common/components/EntityLink.js:88
 msgid "historical, {begin}-{end}"
 msgstr ""
 
@@ -6095,8 +6095,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:232
 #: ../root/components/common-macros.tt:308
-#: ../root/static/scripts/common/components/EntityLink.js:105
-#: ../root/static/scripts/common/components/EntityLink.js:329
+#: ../root/static/scripts/common/components/EntityLink.js:106
+#: ../root/static/scripts/common/components/EntityLink.js:339
 msgid "info"
 msgstr ""
 
@@ -6394,7 +6394,7 @@ msgid "{medium} on {release}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:339
-#: ../root/static/scripts/common/components/EntityLink.js:203
+#: ../root/static/scripts/common/components/EntityLink.js:204
 msgid "{name} – {additional_info}"
 msgstr ""
 
@@ -9540,7 +9540,7 @@ msgstr ""
 
 #: ../root/edit/details/AddRelationship.js:38
 #: ../root/edit/details/RemoveRelationship.js:29
-#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:165
+#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:166
 msgid "Relationship:"
 msgstr ""
 
@@ -13457,17 +13457,24 @@ msgstr ""
 msgid "[missing editor]"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:261
+#: ../root/static/scripts/common/components/EntityLink.js:223
+#: ../root/url/UrlIndex.js:33
+msgid ""
+"This link has been temporarily disabled because it has been reported as "
+"potentially harmful."
+msgstr ""
+
+#: ../root/static/scripts/common/components/EntityLink.js:271
 msgid "This release has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:276
+#: ../root/static/scripts/common/components/EntityLink.js:286
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:289
+#: ../root/static/scripts/common/components/EntityLink.js:299
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -14428,11 +14435,11 @@ msgstr ""
 msgid "Tag Lookup Results"
 msgstr ""
 
-#: ../root/url/UrlIndex.js:22
+#: ../root/url/UrlIndex.js:23
 msgid "URL Information"
 msgstr ""
 
-#: ../root/url/UrlIndex.js:23
+#: ../root/url/UrlIndex.js:24
 msgid "URL Details"
 msgstr ""
 

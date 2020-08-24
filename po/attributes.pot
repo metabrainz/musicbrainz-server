@@ -3051,6 +3051,11 @@ msgctxt "work_attribute_type"
 msgid "ICE ID"
 msgstr ""
 
+#: DB:work_attribute_type/description:34
+msgctxt "work_attribute_type"
+msgid "ID assigned to a work by the British rights society PRS for Music"
+msgstr ""
+
 #: DB:work_attribute_type/description:28
 msgctxt "work_attribute_type"
 msgid "ID for the Belgian rights society SABAM"
@@ -4842,6 +4847,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:652
 msgctxt "work_attribute_type_allowed_value"
 msgid "Oyunhavası"
+msgstr ""
+
+#: DB:work_attribute_type/name:34
+msgctxt "work_attribute_type"
+msgid "PRS tune code"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:993
