@@ -299,6 +299,7 @@ module.exports = {
   'edit/details/AddWork': require('../edit/details/AddWork'),
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'edit/details/EditArtist': require('../edit/details/EditArtist'),
+  'edit/details/EditArtistCredit': require('../edit/details/EditArtistCredit'),
   'edit/details/EditEvent': require('../edit/details/EditEvent'),
   'edit/details/EditLabel': require('../edit/details/EditLabel'),
   'edit/details/EditPlace': require('../edit/details/EditPlace'),
