@@ -9,7 +9,6 @@
 import ko from 'knockout';
 import _ from 'lodash';
 
-import nonEmpty from '../../common/utility/nonEmpty';
 import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull';
 
 function conflict(a, b, prop) {

@@ -11,8 +11,6 @@ import ko from 'knockout';
 
 import {ENTITIES} from '../constants';
 
-import nonEmpty from './nonEmpty';
-
 const leadingSlash = /^\/?(.*)/;
 
 type LinkableEntity =

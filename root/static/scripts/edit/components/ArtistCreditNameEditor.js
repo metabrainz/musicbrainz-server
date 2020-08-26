@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import Autocomplete from '../../common/components/Autocomplete';
 import clean from '../../common/utility/clean';
-import nonEmpty from '../../common/utility/nonEmpty';
 
 class ArtistCreditNameEditor extends React.Component {
   constructor(props) {

@@ -22,7 +22,6 @@ import clean from '../../common/utility/clean';
 import {displayLinkAttributesText} from '../../common/utility/displayLinkAttribute';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
-import nonEmpty from '../../common/utility/nonEmpty';
 import request from '../../common/utility/request';
 import mbEdit from '../../edit/MB/edit';
 import * as linkPhrase from '../../edit/utility/linkPhrase';

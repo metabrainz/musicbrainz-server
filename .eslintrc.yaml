@@ -25,6 +25,7 @@ globals:
   addColon: readonly
   addColonText: readonly
   hyphenateTitle: readonly
+  nonEmpty: readonly
   l: readonly
   ln: readonly
   lp: readonly

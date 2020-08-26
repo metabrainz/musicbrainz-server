@@ -19,7 +19,6 @@ import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed';
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
-import nonEmpty from '../static/scripts/common/utility/nonEmpty';
 import {formatCount, formatPercentage} from '../statistics/utilities';
 import formatUserDate from '../utility/formatUserDate';
 import {canNominate} from '../utility/voting';

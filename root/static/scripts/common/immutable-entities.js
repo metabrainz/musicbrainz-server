@@ -7,7 +7,6 @@
  */
 
 import {VARTIST_GID} from './constants';
-import nonEmpty from './utility/nonEmpty';
 
 const reduceName = (memo, x) => (
   memo +
