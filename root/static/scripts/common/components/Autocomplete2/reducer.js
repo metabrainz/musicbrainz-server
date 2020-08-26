@@ -17,6 +17,7 @@ import {
 import {EMPTY_ARRAY, MENU_ITEMS} from './constants';
 import type {
   Actions,
+  EntityItem,
   Item,
   SearchAction,
   State,
@@ -54,13 +55,13 @@ function resetPage(state) {
   state.page = 1;
 }
 
-function selectItem(
-  state,
-  item: Item,
-  unwrapProxy: <T>(T) => T,
+function selectItem<+T: EntityItem>(
+  state: {...State<T>},
+  item: Item<T>,
+  unwrapProxy: <V>(V) => V,
 ) {
   if (item.action) {
-    runReducer(state, item.action, unwrapProxy);
+    runReducer<T>(state, item.action, unwrapProxy);
     return;
   }
 
@@ -83,11 +84,11 @@ function showError(state, error) {
 }
 
 // `runReducer` should only be run on a copy of the existing state.
-function runReducer(
-  state: {...State},
-  action: Actions,
-  unwrapProxy: <T>(T) => T,
-) {
+export function runReducer<+T: EntityItem>(
+  state: {...State<T>},
+  action: Actions<T>,
+  unwrapProxy: <V>(V) => V,
+): void {
   switch (action.type) {
     case 'change-entity-type': {
       state.entityType = action.entityType;
@@ -134,7 +135,7 @@ function runReducer(
       break;
 
     case 'select-item':
-      selectItem(state, action.item, unwrapProxy);
+      selectItem<T>(state, action.item, unwrapProxy);
       break;
 
     case 'set-menu-visibility':
@@ -225,15 +226,18 @@ function runReducer(
   }
 }
 
-export default function reducer(
-  state: State,
-  action: Actions,
-): State {
+export default function reducer<+T: EntityItem>(
+  state: State<T>,
+  action: Actions<T>,
+): State<T> {
   if (action.type === 'noop') {
     return state;
   }
 
-  return mutate<{...State}, State>(state, (nextState, unwrapProxy) => {
-    runReducer(nextState, action, unwrapProxy);
-  });
+  return mutate<{...State<T>}, State<T>>(
+    state,
+    (nextState, unwrapProxy) => {
+      runReducer<T>(nextState, action, unwrapProxy);
+    },
+  );
 }

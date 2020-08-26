@@ -7,32 +7,34 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type State = {
+export type SearchableType = $ElementType<EntityItem, 'entityType'>;
+
+export type State<+T: EntityItem> = {
   +canChangeType?: (string) => boolean,
   +children?: React$Node,
   +containerClass?: string,
   +disabled?: boolean,
-  +entityType: CoreEntityTypeT | 'editor',
-  +highlightedItem: Item | null,
+  +entityType: SearchableType,
+  +highlightedItem: Item<T> | null,
   +id: string,
   +indexedSearch: boolean,
   +inputValue: string,
   +isLookupPerformed?: boolean,
   +isOpen: boolean,
-  +items: $ReadOnlyArray<Item>,
+  +items: $ReadOnlyArray<Item<T>>,
   +labelClass?: string,
   +page: number,
   +pendingSearch: string | null,
   +placeholder?: string,
-  +selectedItem: EntityItem | null,
-  +staticItems?: $ReadOnlyArray<EntityItem>,
+  +selectedItem: T | null,
+  +staticItems?: $ReadOnlyArray<T>,
   +statusMessage: string,
   +width?: string,
 };
 
-export type Props = $ReadOnly<{
-  ...State,
-  +dispatch: (Actions) => void,
+export type Props<+T: EntityItem> = $ReadOnly<{
+  ...State<T>,
+  +dispatch: (Actions<T>) => void,
 }>;
 
 export type SearchAction = {
@@ -42,21 +44,21 @@ export type SearchAction = {
 };
 
 /* eslint-disable flowtype/sort-keys */
-export type Actions =
+export type Actions<+T: EntityItem> =
   | SearchAction
   | {
       +type: 'change-entity-type',
-      +entityType: CoreEntityTypeT | 'editor',
+      +entityType: SearchableType,
     }
-  | { +type: 'highlight-item', +item: Item }
+  | { +type: 'highlight-item', +item: Item<T> }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
   | { +type: 'noop' }
-  | { +type: 'select-item', +item: Item }
+  | { +type: 'select-item', +item: Item<T> }
   | { +type: 'set-menu-visibility', +value: boolean }
   | {
       +type: 'show-results',
-      +items: $ReadOnlyArray<Item>,
+      +items: $ReadOnlyArray<Item<T>>,
       +page: number,
       +resultCount: number,
     }
@@ -70,8 +72,8 @@ export type Actions =
   ;
 /* eslint-enable flowtype/sort-keys */
 
-export type ActionItem = {
-  +action: Actions,
+export type ActionItem<+T: EntityItem> = {
+  +action: Actions<T>,
   +id: number | string,
   +level?: number,
   +name: string | () => string,
@@ -79,6 +81,7 @@ export type ActionItem = {
 };
 
 export type EntityItem =
-  | CoreEntityT;
+  | CoreEntityT
+  | EditorT;
 
-export type Item = ActionItem | EntityItem;
+export type Item<+T: EntityItem> = T | ActionItem<T>;

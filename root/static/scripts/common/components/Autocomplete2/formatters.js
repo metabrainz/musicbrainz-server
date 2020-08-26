@@ -19,7 +19,7 @@ import formatDate from '../../utility/formatDate';
 import formatDatePeriod from '../../utility/formatDatePeriod';
 import formatTrackLength from '../../utility/formatTrackLength';
 
-import type {Item} from './types';
+import type {EntityItem, Item} from './types';
 
 const nonLatinRegExp = /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/;
 
@@ -390,8 +390,10 @@ function formatWork(work: WorkT) {
   );
 }
 
-export default function formatItem(item: Item): Expand2ReactOutput {
-  if (!item.entityType) {
+export default function formatItem<+T: EntityItem>(
+  item: Item<T>,
+): Expand2ReactOutput {
+  if (item.action) {
     return unwrapNl<string>(item.name);
   }
 

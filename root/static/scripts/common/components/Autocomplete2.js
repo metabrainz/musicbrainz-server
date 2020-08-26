@@ -46,9 +46,9 @@ import type {
  * contains the complete list of searchable options. In that case, we filter
  * them based on a simple substring match via `doFilter`.
  */
-function doFilter(
-  dispatch: (Actions) => void,
-  items: $ReadOnlyArray<Item>,
+function doFilter<T: EntityItem>(
+  dispatch: (Actions<T>) => void,
+  items: $ReadOnlyArray<Item<T>>,
   searchTerm: string,
 ) {
   let results = items;
@@ -78,9 +78,9 @@ function doFilter(
  * `doSearch` performs a direct or indexed search (via /ws/js). This is the
  * default behavior if no `items` prop is given.
  */
-function doSearch(
-  dispatch: (Actions) => void,
-  props: Props,
+function doSearch<T: EntityItem>(
+  dispatch: (Actions<T>) => void,
+  props: Props<T>,
   xhr: {current: XMLHttpRequest | null},
 ) {
   const searchXhr = new XMLHttpRequest();
@@ -112,7 +112,7 @@ function doSearch(
       ? MENU_ITEMS.TRY_AGAIN_DIRECT
       : MENU_ITEMS.TRY_AGAIN_INDEXED);
 
-    const prevItems: Array<EntityItem> = [];
+    const prevItems: Array<T> = [];
     const prevItemIds = new Set();
     for (const item of props.items) {
       if (!item.action) {
@@ -144,9 +144,13 @@ function doSearch(
   searchXhr.send();
 }
 
-function doSearchOrFilter(dispatch, items, searchTerm) {
+function doSearchOrFilter<T: EntityItem>(
+  dispatch: (Actions<T>) => void,
+  items: ?$ReadOnlyArray<Item<T>>,
+  searchTerm: string,
+) {
   if (items) {
-    doFilter(dispatch, items, searchTerm);
+    doFilter<T>(dispatch, items, searchTerm);
   } else if (searchTerm) {
     dispatch({searchTerm, type: 'search-after-timeout'});
   }
@@ -181,18 +185,20 @@ function setScrollPosition(menuId: string, siblingAccessor: string) {
   }
 }
 
-type InitialPropsT = {
-  canChangeType?: (string) => boolean,
-  entityType: $ElementType<EntityItem, 'entityType'>,
-  id: string,
-  inputValue?: string,
-  placeholder?: string,
-  selectedItem?: EntityItem | null,
-  staticItems?: $ReadOnlyArray<EntityItem>,
-  width?: string,
+type InitialPropsT<+T: EntityItem> = {
+  +canChangeType?: (string) => boolean,
+  +entityType: $ElementType<T, 'entityType'>,
+  +id: string,
+  +inputValue?: string,
+  +placeholder?: string,
+  +selectedItem?: T | null,
+  +staticItems?: $ReadOnlyArray<T>,
+  +width?: string,
 };
 
-export function createInitialState(props: InitialPropsT): State {
+export function createInitialState<+T: EntityItem>(
+  props: InitialPropsT<T>,
+): {...State<T>} {
   const {inputValue, selectedItem, ...restProps} = props;
   return {
     entityType: props.entityType,
@@ -209,21 +215,23 @@ export function createInitialState(props: InitialPropsT): State {
   };
 }
 
-const AutocompleteItem = React.memo(({
+type AutocompleteItemProps<T: EntityItem> = {
+  autocompleteId: string,
+  dispatch: (Actions<T>) => void,
+  isHighlighted: boolean,
+  isSelected: boolean,
+  item: Item<T>,
+  selectItem: (Item<T>) => void,
+};
+
+const AutocompleteItem = React.memo(<+T: EntityItem>({
   autocompleteId,
   dispatch,
   isHighlighted,
   isSelected,
   item,
   selectItem,
-}: {
-  autocompleteId: string,
-  dispatch: (Actions) => void,
-  isHighlighted: boolean,
-  isSelected: boolean,
-  item: Item,
-  selectItem: (Item) => void,
-}) => {
+}: AutocompleteItemProps<T>) => {
   const itemId = `${autocompleteId}-item-${item.id}`;
 
   let style = item.level
@@ -258,7 +266,7 @@ const AutocompleteItem = React.memo(({
       role="option"
       style={style}
     >
-      {formatItem(item)}
+      {formatItem<T>(item)}
     </li>
   );
 }, (a, b) => {
@@ -269,26 +277,33 @@ const AutocompleteItem = React.memo(({
   );
 });
 
-function AutocompleteItems({
+type AutocompleteItemsProps<T: EntityItem> = {
+  autocompleteId: string,
+  dispatch: (Actions<T>) => void,
+  highlightedItem: Item<T> | null,
+  items: $ReadOnlyArray<Item<T>>,
+  selectedItem: Item<T> | null,
+  selectItem: (Item<T>) => void,
+};
+
+function AutocompleteItems<T: EntityItem>({
   autocompleteId,
   dispatch,
   highlightedItem,
   items,
   selectedItem,
   selectItem,
-}: {
-  autocompleteId: string,
-  dispatch: (Actions) => void,
-  highlightedItem: Item | null,
-  items: $ReadOnlyArray<Item>,
-  selectedItem: Item | null,
-  selectItem: (Item) => void,
-}) {
+}: AutocompleteItemsProps<T>) {
+  // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
+  const AutocompleteItemWithType:
+    React$AbstractComponent<AutocompleteItemProps<T>, void> =
+    (AutocompleteItem: any);
+
   const children = [];
   for (let index = 0; index < items.length; index++) {
     const item = items[index];
     children.push(
-      <AutocompleteItem
+      <AutocompleteItemWithType
         autocompleteId={autocompleteId}
         dispatch={dispatch}
         isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
@@ -302,7 +317,9 @@ function AutocompleteItems({
   return children;
 }
 
-export default function Autocomplete2(props: Props): React.Element<'div'> {
+export default function Autocomplete2<+T: EntityItem>(
+  props: Props<T>,
+): React.Element<'div'> {
   const {
     canChangeType,
     containerClass,
@@ -343,7 +360,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
     } else if (props.items.length) {
       dispatch(SHOW_MENU);
     } else if (props.inputValue) {
-      doSearchOrFilter(dispatch, props.staticItems, props.inputValue);
+      doSearchOrFilter<T>(dispatch, props.staticItems, props.inputValue);
     }
   }
 
@@ -391,7 +408,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
 
     } else if (clean(props.inputValue) !== newCleanInputValue) {
       stopRequests();
-      doSearchOrFilter(dispatch, props.staticItems, newCleanInputValue);
+      doSearchOrFilter<T>(dispatch, props.staticItems, newCleanInputValue);
     }
   }
 
@@ -413,7 +430,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
         } else if (isMenuNonEmpty) {
           dispatch(SHOW_MENU);
         } else if (isInputNonEmpty) {
-          doSearchOrFilter(dispatch, props.staticItems, props.inputValue);
+          doSearchOrFilter<T>(dispatch, props.staticItems, props.inputValue);
         }
         break;
 
@@ -476,11 +493,16 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
 
         // Check if the input value has changed before proceeding.
         if (clean(props.pendingSearch) === clean(props.inputValue)) {
-          doSearch(dispatch, props, xhr);
+          doSearch<T>(dispatch, props, xhr);
         }
       }, 300);
     }
   });
+
+  // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
+  const AutocompleteItemsWithType:
+    React$AbstractComponent<AutocompleteItemsProps<T>, void> =
+    (AutocompleteItems: any);
 
   return (
     <div
@@ -561,7 +583,7 @@ export default function Autocomplete2(props: Props): React.Element<'div'> {
         }}
       >
         {props.disabled ? null : (
-          <AutocompleteItems
+          <AutocompleteItemsWithType
             autocompleteId={id}
             dispatch={dispatch}
             highlightedItem={props.highlightedItem}
