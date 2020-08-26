@@ -16,14 +16,13 @@ import {
 } from './actions';
 import {EMPTY_ARRAY, MENU_ITEMS} from './constants';
 import type {
-  ActionItem,
   Actions,
   Item,
   SearchAction,
   State,
 } from './types';
 
-function initSearch(state: State, action: SearchAction) {
+function initSearch(state, action: SearchAction) {
   if (action.indexed !== undefined) {
     state.indexedSearch = action.indexed;
   }
@@ -48,7 +47,7 @@ function initSearch(state: State, action: SearchAction) {
   state.pendingSearch = searchTerm;
 }
 
-function resetPage(state: State) {
+function resetPage(state) {
   state.highlightedItem = null;
   state.isOpen = false;
   state.items = EMPTY_ARRAY;
@@ -56,7 +55,7 @@ function resetPage(state: State) {
 }
 
 function selectItem(
-  state: State,
+  state,
   item: Item,
   unwrapProxy: <T>(T) => T,
 ) {
@@ -76,7 +75,7 @@ function selectItem(
   }
 }
 
-function showError(state: State, error: ActionItem) {
+function showError(state, error) {
   state.highlightedItem = null;
   state.isOpen = true;
   state.items = [error];
@@ -85,7 +84,7 @@ function showError(state: State, error: ActionItem) {
 
 // `runReducer` should only be run on a copy of the existing state.
 function runReducer(
-  state: State,
+  state: {...State},
   action: Actions,
   unwrapProxy: <T>(T) => T,
 ) {
@@ -234,7 +233,7 @@ export default function reducer(
     return state;
   }
 
-  return mutate(state, (nextState, unwrapProxy) => {
+  return mutate<{...State}, State>(state, (nextState, unwrapProxy) => {
     runReducer(nextState, action, unwrapProxy);
   });
 }
