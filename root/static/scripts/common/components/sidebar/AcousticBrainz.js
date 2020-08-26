@@ -56,6 +56,10 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
     return key.includes('#') ? KEY_LABELS[key] : key;
   }
 
+  function roundedBPM(data) {
+    return Math.round(data.tonal.key_strength * 100) / 100;
+  }
+
   React.useEffect(fetchAcousticBrainzCount, [recording.gid]);
   return count ? (
     <>
@@ -64,12 +68,7 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
       </h2>
 
       <a className="external" href={`//acousticbrainz.org/${recording.gid}`}>
-        {texp.ln(
-          '{count} submission on AcousticBrainz',
-          '{count} submissions on AcousticBrainz',
-          count,
-          {count},
-        )}
+        {l('AcousticBrainz entry')}
       </a>
 
       {data === null ? null : (
@@ -77,12 +76,24 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
 
           {data.tonal.key_strength > 0.5 ? (
             <SidebarProperty className="acousticbrainz_key" label={l('Key:')}>
-              {`${keyLabel(data.tonal.key_key)} ${data.tonal.key_scale}`}
+              <abbr
+                title={
+                  l(`Automatic suggestion from entry #1/${count}`) +
+                  ' ' +
+                  l(` (key strength ${roundedBPM(data)})`)
+                }
+              >
+                {`${keyLabel(data.tonal.key_key)} ${data.tonal.key_scale}`}
+              </abbr>
             </SidebarProperty>
           ) : null}
 
           <SidebarProperty className="acousticbrainz_bpm" label={l('BPM:')}>
-            {Math.round(data.rhythm.bpm)}
+            <abbr
+              title={l(`Automatic suggestion from entry #1/${count}`)}
+            >
+              {Math.round(data.rhythm.bpm)}
+            </abbr>
           </SidebarProperty>
         </SidebarProperties>
       )}
