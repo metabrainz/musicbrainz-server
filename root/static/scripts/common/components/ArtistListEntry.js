@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -59,13 +59,13 @@ const ArtistListRow = ({
   index,
   instrumentCreditsAndRelTypes,
   mergeForm,
-  showBeginEnd,
-  showInstrumentCreditsAndRelTypes,
-  showRatings,
-  showSortName,
+  showBeginEnd = false,
+  showInstrumentCreditsAndRelTypes = false,
+  showRatings = false,
+  showSortName = false,
 }: ArtistListRowProps) => (
   <>
-    {$c.user && (checkboxes || mergeForm) ? (
+    {$c.user && (nonEmpty(checkboxes) || mergeForm) ? (
       <td>
         {mergeForm
           ? renderMergeCheckboxElement(artist, mergeForm, index)
@@ -83,7 +83,7 @@ const ArtistListRow = ({
     </td>
     {showSortName ? <td>{artist.sort_name}</td> : null}
     <td>
-      {artist.typeName
+      {nonEmpty(artist.typeName)
         ? lp_attributes(artist.typeName, 'artist_type')
         : null}
     </td>
@@ -147,7 +147,7 @@ const ArtistListEntry = ({
   showRatings,
   showSortName,
 }: ArtistListEntryProps): React.Element<'tr'> => (
-  <tr className={loopParity(index)} data-score={score || null}>
+  <tr className={loopParity(index)} data-score={score ?? null}>
     <ArtistListRow
       $c={$c}
       artist={artist}

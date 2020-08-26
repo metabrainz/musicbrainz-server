@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -48,13 +48,13 @@ const ReleaseList = ({
   order,
   releases,
   seriesItemNumbers,
-  showInstrumentCreditsAndRelTypes,
-  showRatings,
+  showInstrumentCreditsAndRelTypes = false,
+  showRatings = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user && checkboxes
+      const checkboxColumn = $c.user && nonEmpty(checkboxes)
         ? defineCheckboxColumn({name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
@@ -77,7 +77,9 @@ const ReleaseList = ({
       const formatColumn = defineTextColumn<ReleaseT>({
         columnName: 'format',
         getText:
-          entity => entity.combined_format_name || l('[missing media]'),
+          entity => nonEmpty(entity.combined_format_name)
+            ? entity.combined_format_name
+            : l('[missing media]'),
         order: order,
         sortable: sortable,
         title: l('Format'),
@@ -85,7 +87,9 @@ const ReleaseList = ({
       const tracksColumn = defineTextColumn<ReleaseT>({
         columnName: 'tracks',
         getText:
-          entity => entity.combined_track_count || lp('-', 'missing data'),
+          entity => nonEmpty(entity.combined_track_count)
+            ? entity.combined_track_count
+            : lp('-', 'missing data'),
         order: order,
         sortable: sortable,
         title: l('Tracks'),
@@ -133,7 +137,7 @@ const ReleaseList = ({
         catnosColumn,
         barcodeColumn,
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
-        ...($c.session?.tport ? [taggerColumn] : []),
+        ...($c.session?.tport == null ? [] : [taggerColumn]),
         ...(showRatings ? [ratingsColumn] : []),
       ];
     },

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -44,13 +44,13 @@ export const WorkListRow = ({
   $c,
   checkboxes,
   seriesItemNumbers,
-  showAttributes,
-  showIswcs,
-  showRatings,
+  showAttributes = false,
+  showIswcs = false,
+  showRatings = false,
   work,
 }: WorkListRowProps): React.Element<typeof React.Fragment> => (
   <>
-    {$c.user && checkboxes ? (
+    {$c.user && nonEmpty(checkboxes) ? (
       <td>
         <input
           name={checkboxes}
@@ -83,7 +83,9 @@ export const WorkListRow = ({
       </td>
     ) : null}
     <td>
-      {work.typeName ? lp_attributes(work.typeName, 'work_type') : null}
+      {nonEmpty(work.typeName)
+        ? lp_attributes(work.typeName, 'work_type')
+        : null}
     </td>
     <td>
       <ul>
@@ -121,7 +123,7 @@ const WorkListEntry = ({
   showRatings,
   work,
 }: WorkListEntryProps): React.Element<'tr'> => (
-  <tr className={loopParity(index)} data-score={score || null}>
+  <tr className={loopParity(index)} data-score={score ?? null}>
     <WorkListRow
       $c={$c}
       checkboxes={checkboxes}

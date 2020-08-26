@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -29,7 +29,7 @@ type Props = {
 
 const TaggerIcon = ({entity}: Props): React.MixedElement => (
   <CatalystContext.Consumer>
-    {$c => $c.session?.tport ? (
+    {$c => $c.session?.tport == null ? null : (
       <a
         className="tagger-icon"
         href={buildTaggerLink(entity, $c.session.tport)}
@@ -40,7 +40,7 @@ const TaggerIcon = ({entity}: Props): React.MixedElement => (
           src={require('../../../images/icons/mblookup-tagger.png')}
         />
       </a>
-    ) : null}
+    )}
   </CatalystContext.Consumer>
 );
 

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -19,7 +19,7 @@ export default function relationshipDateText(
   if (r.begin_date) {
     if (r.end_date) {
       if (areDatesEqual(r.begin_date, r.end_date)) {
-        if (r.begin_date.day) {
+        if (r.begin_date.day != null) {
           return texp.l('on {date}', {date: formatDate(r.begin_date)});
         }
         return texp.l('in {date}', {date: formatDate(r.begin_date)});
