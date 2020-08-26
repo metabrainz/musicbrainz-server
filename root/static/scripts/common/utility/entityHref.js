@@ -23,12 +23,34 @@ type LinkableEntity =
   | {+entityType: 'iswc', +iswc: string, ...}
   | {+entityType: CoreEntityTypeT | 'collection', +gid: string, ...};
 
+function generateHref(path, id, subPath) {
+  let href = '/' + path + '/';
+
+  href += encodeURIComponent(id);
+
+  if (nonEmpty(subPath)) {
+    subPath = subPath.replace(leadingSlash, '$1');
+    if (subPath) {
+      href += '/' + subPath;
+    }
+  }
+
+  return href;
+}
+
+export function editHref(
+  edit: EditT,
+  subPath?: string,
+): string {
+  return generateHref('edit', edit.id.toString(), subPath);
+}
+
 function entityHref(
   entity: LinkableEntity,
   subPath?: string,
 ): string {
   const entityProps = ENTITIES[entity.entityType];
-  let href = '/' + entityProps.url + '/';
+  const path = entityProps.url;
   let id = '';
 
   switch (entity.entityType) {
@@ -55,16 +77,7 @@ function entityHref(
       }
   }
 
-  href += encodeURIComponent(id);
-
-  if (nonEmpty(subPath)) {
-    subPath = subPath.replace(leadingSlash, '$1');
-    if (subPath) {
-      href += '/' + subPath;
-    }
-  }
-
-  return href;
+  return generateHref(path, id, subPath);
 }
 
 export default entityHref;

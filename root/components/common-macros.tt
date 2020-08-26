@@ -505,7 +505,7 @@ END -%]
     [% IF editor.is_bot; '<span class="editor-class">(<span class="tooltip" title="' _ l('This user is automated.') _ '">' _ l('bot') _ '</span>)</span>'; END %]
 [%- END -%]
 
-[%~ MACRO link_edit(edit, action, text) BLOCK;
+[%~ MACRO link_edit(edit, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/EditLink.js
     INCLUDE _link_other_entity content=text action=action type='edit' default_content=edit.id;
 END -%]
 

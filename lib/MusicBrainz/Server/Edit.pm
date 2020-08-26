@@ -337,6 +337,7 @@ sub TO_JSON {
         expires_time => datetime_to_iso8601($self->expires_time),
         historic_type => $self->can('historic_type') ? $self->historic_type + 0 : undef,
         id => $self->id + 0,
+        is_open => boolean_to_json($self->is_open),
         $can_preview ? (preview => boolean_to_json($self->preview)) : (),
         status => $self->status + 0,
         votes => [map { $_->TO_JSON } $self->all_votes],
