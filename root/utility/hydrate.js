@@ -10,8 +10,11 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as Sentry from '@sentry/browser';
 
 import {SanitizedCatalystContext} from '../context';
+
+import escapeClosingTags from './escapeClosingTags';
 
 export default function hydrate<
   Config: {+$c?: CatalystContextT, ...},
@@ -28,8 +31,15 @@ export default function hydrate<
     $(function () {
       const roots = document.querySelectorAll(containerSelector);
       for (const root of roots) {
-        const propString = root.getAttribute('data-props');
-        root.removeAttribute('data-props');
+        const propScript = root.previousElementSibling;
+        if (!propScript || propScript.tagName.toLowerCase() !== 'script') {
+          const errorMsg =
+            'Props <script> for ' + containerSelector + ' not found.';
+          console.error(errorMsg);
+          Sentry.captureException(new Error(errorMsg));
+          continue;
+        }
+        const propString = propScript.textContent;
         if (propString) {
           const $c: SanitizedCatalystContextT =
             window[GLOBAL_CATALYST_CONTEXT_NAMESPACE];
@@ -52,13 +62,20 @@ export default function hydrate<
     if (mungeProps) {
       dataProps = mungeProps(dataProps);
     }
-    return React.createElement(
-      containerTag,
-      {
-        'className': classes.join(' '),
-        'data-props': JSON.stringify(dataProps),
-      },
-      <Component {...props} />,
+    return (
+      <>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: escapeClosingTags(JSON.stringify(dataProps)),
+          }}
+          type="application/json"
+        />
+        {React.createElement(
+          containerTag,
+          {className: classes.join(' ')},
+          <Component {...props} />,
+        )}
+      </>
     );
   };
 }
