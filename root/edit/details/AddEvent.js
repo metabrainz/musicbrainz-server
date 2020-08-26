@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -88,7 +88,7 @@ const AddEvent = ({edit}: Props): React.MixedElement => {
           </tr>
         )}
 
-        {display.time ? (
+        {nonEmpty(display.time) ? (
           <tr>
             <th>{addColon(l('Time'))}</th>
             <td>{display.time}</td>

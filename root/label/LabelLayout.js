@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -27,13 +27,13 @@ const LabelLayout = ({
   $c,
   children,
   entity: label,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
     $c={$c}
-    title={title ? hyphenateTitle(label.name, title) : label.name}
+    title={nonEmpty(title) ? hyphenateTitle(label.name, title) : label.name}
   >
     <div id="content">
       <LabelHeader label={label} page={page} />

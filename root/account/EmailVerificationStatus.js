@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -20,7 +20,7 @@ const EmailVerificationStatus = ({
 }: Props): React.Element<typeof StatusPage> => (
   <StatusPage title={l('Email Verification')}>
     <p>
-      {message
+      {nonEmpty(message)
         ? message
         : l(`Thank you, your email address has now been verified! If you still
              can't edit, please try to log out and log in again.`)

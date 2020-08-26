@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -48,7 +48,7 @@ const HistoricReleaseList = ({
   releases,
 }: HistoricReleaseListProps): React.Element<'tr'> => (
   <tr>
-    <th>{label || l('Releases:')}</th>
+    <th>{nonEmpty(label) ? label : l('Releases:')}</th>
     <td colSpan={colSpan}>
       <HistoricReleaseListContent releases={releases} />
     </td>

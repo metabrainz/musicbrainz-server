@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -16,7 +16,7 @@ React.Element<typeof SanitizedCatalystContext.Consumer> => (
   <SanitizedCatalystContext.Consumer>
     {$c => (
       <>
-        {$c.stash.invalid_csrf_token ? (
+        {$c.stash.invalid_csrf_token /*:: === true */ ? (
           <p className="error">
             {l(`The form you’ve submitted has expired.
                 Please resubmit your request.`)}

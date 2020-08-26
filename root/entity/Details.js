@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -36,7 +36,7 @@ const WSLink = ({
   entityGid,
   entityProperties,
   entityType,
-  isJson,
+  isJson = false,
   isSecureConnection,
 }: WSLinkProps) => {
   const inc = [];
@@ -93,7 +93,7 @@ const Details = ({
         <tr>
           <th>{addColonText(l('Last updated'))}</th>
           <td>
-            {entity.last_updated
+            {nonEmpty(entity.last_updated)
               ? formatUserDate($c, entity.last_updated)
               : lp('(unknown)', 'last updated')}
           </td>

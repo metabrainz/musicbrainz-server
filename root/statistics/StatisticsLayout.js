@@ -91,7 +91,7 @@ const infoLinks = [
 const StatisticsLayout = ({
   $c,
   children,
-  fullWidth,
+  fullWidth = false,
   page,
   sidebar,
   title,
@@ -119,7 +119,7 @@ const StatisticsLayout = ({
         </Tabs>
         {children}
       </div>
-      {fullWidth /*:: === true */ ? null : <div id="sidebar">{sidebar}</div>}
+      {fullWidth ? null : <div id="sidebar">{sidebar}</div>}
     </Layout>
   );
 };

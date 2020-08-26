@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -67,7 +67,7 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
                     <EntityLink entity={item.artist} subPath="aliases" />
                   </td>
                   <td>
-                    {item.artist.typeName
+                    {nonEmpty(item.artist.typeName)
                       ? lp_attributes(item.artist.typeName, 'artist_type')
                       : l('Unknown')}
                   </td>

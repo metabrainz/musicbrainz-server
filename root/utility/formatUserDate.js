@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -171,7 +171,7 @@ export function formatUserDateObject(
     (preferences && preferences.datetime_format) ||
     '%Y-%m-%d %H:%M %Z';
 
-  if (options && options.dateOnly) {
+  if (options && options.dateOnly /*:: === true */) {
     format = format.replace('%c', '%x');
     format = format.replace(/%H:%M(:%S)?/, '');
     format = format.replace('%Z', '');

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -41,7 +41,7 @@ function initSearch(state: State, action: SearchAction) {
     searchTerm = state.inputValue;
   }
 
-  if (!searchTerm) {
+  if (!nonEmpty(searchTerm)) {
     return;
   }
 

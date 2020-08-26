@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -20,7 +20,7 @@ const LastUpdated = ({entity}: Props): React.Element<'p'> => {
   const lastUpdated = entity.last_updated;
   return (
     <p className="lastupdate">
-      {lastUpdated ? (
+      {nonEmpty(lastUpdated) ? (
         <CatalystContext.Consumer>
           {$c => texp.l('Last updated on {date}', {
             date: formatUserDate($c, lastUpdated),

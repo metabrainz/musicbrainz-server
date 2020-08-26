@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -180,22 +180,23 @@ const RelationshipTypeIndex = ({
               )}
             </p>
 
-            {relType.documentation || type0 === 'url' || type1 === 'url' ? (
-              <>
-                <h2>{l('Guidelines')}</h2>
-                <p>
-                  {type0 === 'url' || type1 === 'url' ? (
-                    exp.l(
-                      'See the general {url|guidelines for URLs}.',
-                      {url: '/doc/Style/Relationships/URLs'},
-                    )
-                  ) : null}
-                  {relType.documentation ? (
-                    expand2react(relType.documentation)
-                  ) : null}
-                </p>
-              </>
-            ) : null}
+            {nonEmpty(relType.documentation) ||
+              type0 === 'url' || type1 === 'url' ? (
+                <>
+                  <h2>{l('Guidelines')}</h2>
+                  <p>
+                    {type0 === 'url' || type1 === 'url' ? (
+                      exp.l(
+                        'See the general {url|guidelines for URLs}.',
+                        {url: '/doc/Style/Relationships/URLs'},
+                      )
+                    ) : null}
+                    {nonEmpty(relType.documentation) ? (
+                      expand2react(relType.documentation)
+                    ) : null}
+                  </p>
+                </>
+              ) : null}
 
             {relType.examples.length ? (
               <>

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -96,7 +96,7 @@ export function getVotesForEditor(
 }
 
 export function editorMayAddNote(edit: EditT, editor: ?EditorT): boolean {
-  return !!editor && !!editor.email_confirmation_date &&
+  return !!editor && nonEmpty(editor.email_confirmation_date) &&
     (editor.id === edit.editor_id || !editor.is_limited);
 }
 

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -76,7 +76,7 @@ const ElectionDetails = ({$c, election}: PropsT): React.MixedElement => (
       <tr>
         <th>{lp('Status:', 'election status')}</th>
         <td>
-          {election.is_open && election.open_time
+          {election.is_open && nonEmpty(election.open_time)
             ? (
               texp.lp(election.status_name, 'autoeditor election status', {
                 date: formatUserDate($c, election.open_time),
@@ -102,7 +102,7 @@ const ElectionDetails = ({$c, election}: PropsT): React.MixedElement => (
 
           {election.is_closed
             ? (
-              election.close_time
+              nonEmpty(election.close_time)
                 ? (
                   texp.lp(election.status_name, 'autoeditor election status',
                           {

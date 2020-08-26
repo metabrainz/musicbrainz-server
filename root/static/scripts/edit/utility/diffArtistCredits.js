@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -37,7 +37,7 @@ type ArtistLinkProps = {
 
 const ArtistLink = ({content, credit, nameVariation}: ArtistLinkProps) => (
   <EntityLink
-    content={content || credit.name}
+    content={nonEmpty(content) ? content : credit.name}
     entity={credit.artist}
     nameVariation={nameVariation}
   />

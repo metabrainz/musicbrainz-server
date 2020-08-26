@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -32,7 +32,7 @@ const FormRowSelectList = <S: {+id: number, ...}>({
   addId,
   addLabel,
   getSelectField,
-  hideAddButton,
+  hideAddButton = false,
   label,
   onAdd,
   onEdit,

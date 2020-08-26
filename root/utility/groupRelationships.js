@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -329,7 +329,7 @@ export default function groupRelationships(
         role: textPhrase,
       });
 
-      if (hasInstruments /*:: && phrase */) {
+      if (hasInstruments /*:: && nonEmpty(phrase) */) {
         phrase = exp.l('{role} (as {credited_name})', {
           credited_name: sourceCredit,
           role: phrase,

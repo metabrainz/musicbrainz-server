@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -44,7 +44,7 @@ export const ArtworkImage = ({
       className="cover-art-image"
       data-fallback={fallback || ''}
       data-large-thumbnail={artwork.large_thumbnail}
-      data-message={message
+      data-message={nonEmpty(message)
         ? message
         : l('Image not available yet, please try again in a few minutes.')}
       data-small-thumbnail={artwork.small_thumbnail}

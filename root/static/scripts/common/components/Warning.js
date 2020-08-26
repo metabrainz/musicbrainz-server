@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -22,7 +22,7 @@ const Warning = ({
   ...divProps
 }: Props): React.Element<'div'> => (
   <div
-    className={'warning' + (className ? ' ' + className : '')}
+    className={'warning' + (nonEmpty(className) ? ' ' + className : '')}
     {...divProps}
   >
     <WarningIcon />

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 Anirudh Jain
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -54,7 +54,7 @@ const AddPlace = ({edit}: Props): React.MixedElement => {
             <th>{addColonText(l('Name'))}</th>
             <td>{display.name}</td>
           </tr>
-          {display.comment ? (
+          {nonEmpty(display.comment) ? (
             <tr>
               <th>{addColonText(l('Disambiguation'))}</th>
               <td>{display.comment}</td>
@@ -66,7 +66,7 @@ const AddPlace = ({edit}: Props): React.MixedElement => {
               <td>{lp_attributes(type.name, 'place_type')}</td>
             </tr>
           ) : null}
-          {display.address ? (
+          {nonEmpty(display.address) ? (
             <tr>
               <th>{addColonText(l('Address'))}</th>
               <td>{display.address}</td>

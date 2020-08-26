@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -34,7 +34,7 @@ const _404 = ({
           {l(`Sorry, the page you're looking for does not exist.`)}
         </strong>
       </p>
-      {message ? (
+      {nonEmpty(message) ? (
         <p>
           <strong>{l('Error message: ')}</strong>
           <code>{message}</code>

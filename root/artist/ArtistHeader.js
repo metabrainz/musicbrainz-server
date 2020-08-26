@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -21,7 +21,7 @@ const ArtistHeader = ({
   page,
 }: Props): React.Element<typeof EntityHeader> => {
   let headerClass = 'artistheader';
-  if (artist.typeName) {
+  if (nonEmpty(artist.typeName)) {
     headerClass += ` ${artist.typeName.toLowerCase()}-icon`;
   }
   return (
@@ -29,7 +29,7 @@ const ArtistHeader = ({
       entity={artist}
       headerClass={headerClass}
       page={page}
-      subHeading={artist.typeName
+      subHeading={nonEmpty(artist.typeName)
         ? lp_attributes(artist.typeName, 'artist_type')
         : l('Artist')}
     />

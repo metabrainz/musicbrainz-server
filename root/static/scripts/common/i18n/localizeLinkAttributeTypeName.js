@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,7 +11,7 @@ import {INSTRUMENT_ROOT_ID} from '../../common/constants';
 
 function localizeLinkAttributeTypeName(type: LinkAttrTypeT): string {
   if (type.root_id === INSTRUMENT_ROOT_ID) {
-    if (type.instrument_comment) {
+    if (nonEmpty(type.instrument_comment)) {
       return lp_instruments(type.name, type.instrument_comment);
     }
     return l_instruments(type.name);
