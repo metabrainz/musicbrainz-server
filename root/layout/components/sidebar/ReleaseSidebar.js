@@ -75,6 +75,7 @@ const ReleaseSidebar = ({
   const releaseCoverHost = releaseCoverUrl
     ? new URL(releaseCoverUrl).host
     : null;
+  const releaseLength = release.length;
   const barcode = formatBarcode(release.barcode);
   const typeName = releaseGroup.l_type_name;
   const language = release.languageID
@@ -149,9 +150,9 @@ const ReleaseSidebar = ({
           </SidebarProperty>
         ) : null}
 
-        {release.length ? (
+        {releaseLength ? (
           <SidebarProperty className="length" label={l('Length:')}>
-            {formatTrackLength(release.length)}
+            {formatTrackLength(releaseLength)}
           </SidebarProperty>
         ) : null}
       </SidebarProperties>

@@ -1,4 +1,5 @@
 /*
+ * @flow strict-local
  * Copyright (C) 2016 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,7 +9,7 @@
 
 import {VARTIST_GID} from './constants';
 
-const reduceName = (memo, x) => (
+const reduceName = (memo: string, x: ArtistCreditNameT): string => (
   memo +
   (nonEmpty(x.name)
     ? x.name
@@ -17,18 +18,24 @@ const reduceName = (memo, x) => (
 );
 
 const isVariousArtist =
-  name => name.artist ? name.artist.gid === VARTIST_GID : false;
+  (name: ArtistCreditNameT): boolean => name.artist
+    ? name.artist.gid === VARTIST_GID
+    : false;
 
-export const hasVariousArtists = ac => ac.names.some(isVariousArtist);
+export const hasVariousArtists =
+  (ac: ArtistCreditT): boolean => ac.names.some(isVariousArtist);
 
-export const hasArtist = name => !!(name.artist && name.artist.gid);
+export const hasArtist =
+  (name: ArtistCreditNameT): boolean => !!(name.artist && name.artist.gid);
 
 export const isCompleteArtistCredit =
-  ac => ac.names.length > 0 && ac.names.every(hasArtist);
+  (ac: ArtistCreditT): boolean => ac.names.length > 0 &&
+    ac.names.every(hasArtist);
 
-export const reduceArtistCredit = ac => ac.names.reduce(reduceName, '');
+export const reduceArtistCredit =
+  (ac: ArtistCreditT): string => ac.names.reduce(reduceName, '');
 
-export const isComplexArtistCredit = function (ac) {
+export const isComplexArtistCredit = function (ac: ArtistCreditT): boolean {
   const firstName = ac.names[0];
   if (firstName && hasArtist(firstName)) {
     return !nonEmpty(firstName.name) ||
@@ -37,7 +44,10 @@ export const isComplexArtistCredit = function (ac) {
   return false;
 };
 
-export function artistCreditsAreEqual(a, b) {
+export function artistCreditsAreEqual(
+  a: ArtistCreditT,
+  b: ArtistCreditT,
+): boolean {
   if (a === b) {
     return true;
   }
