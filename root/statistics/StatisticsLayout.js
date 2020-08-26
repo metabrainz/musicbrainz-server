@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 Shamroy Pellew
  * Copyright (C) 2018 MetaBrainz Foundation
  *
@@ -119,7 +119,7 @@ const StatisticsLayout = ({
         </Tabs>
         {children}
       </div>
-      {fullWidth ? null : <div id="sidebar">{sidebar}</div>}
+      {fullWidth /*:: === true */ ? null : <div id="sidebar">{sidebar}</div>}
     </Layout>
   );
 };
