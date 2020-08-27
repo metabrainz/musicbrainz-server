@@ -4,9 +4,9 @@ use DBDefs;
 use Digest::SHA qw( hmac_sha256_hex );
 use HTTP::Request::Common qw( GET POST );
 use JSON qw( decode_json );
-use LWP::UserAgent;
 use MIME::Base64 qw( decode_base64 encode_base64 );
 use Moose;
+use MusicBrainz::LWP;
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use URI;
 use URI::Escape qw( uri_escape_utf8 );
@@ -18,13 +18,13 @@ has lwp => (
     is => 'ro',
     lazy => 1,
     default => sub {
-        my $lwp = LWP::UserAgent->new;
+        my $lwp = MusicBrainz::LWP->new(
+            global_timeout => 5,
+        );
         $lwp->env_proxy;
-        $lwp->timeout(5);
-        $lwp->agent(DBDefs->LWP_USER_AGENT);
         $lwp->default_header('Api-Key' => DBDefs->DISCOURSE_API_KEY);
         $lwp->default_header('Api-Username' => DBDefs->DISCOURSE_API_USERNAME);
-        $lwp;
+        return $lwp;
     },
 );
 

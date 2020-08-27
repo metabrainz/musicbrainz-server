@@ -3,8 +3,8 @@ use Moose;
 
 use Time::HiRes qw(sleep gettimeofday tv_interval );
 use Net::Amazon::AWSSign;
-use LWP::UserAgent;
 use XML::XPath;
+use MusicBrainz::LWP;
 use MusicBrainz::Server::Log qw( log_info );
 
 use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
@@ -115,10 +115,10 @@ sub _lookup_coverart {
     }
     $last_request_time = [ gettimeofday ];
 
-    my $lwp = LWP::UserAgent->new;
+    my $lwp = MusicBrainz::LWP->new(
+        global_timeout => 10,
+    );
     $lwp->env_proxy;
-    $lwp->timeout(10);
-    $lwp->agent(DBDefs->LWP_USER_AGENT);
     my $response = $lwp->get($url) or return;
     if (!$response->is_success) {
         log_error { "Failed to lookup cover art: $_" } $response->decoded_content;
