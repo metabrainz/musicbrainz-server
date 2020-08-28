@@ -35,11 +35,11 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 
             this.$prev = $("<button>").attr("type", "button")
                             .text(l("Previous"))
-                            .click(_.bind(this.prevImage, this));
+                            .click(this.prevImage.bind(this));
 
             this.$next = $("<button>").attr("type", "button")
                             .text(l("Next"))
-                            .click(_.bind(this.nextImage, this));
+                            .click(this.nextImage.bind(this));
 
             this.$pager = $("<div>").addClass("artwork-pager");
 
@@ -132,7 +132,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 
     _loadImage: function (src, callback) {
         var image = document.createElement("img");
-        callback && (image.onload = _.bind(callback, this, image));
+        callback && (image.onload = callback.bind(this, image));
         image.src = src;
         return image;
     },

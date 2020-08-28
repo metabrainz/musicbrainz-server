@@ -116,7 +116,7 @@ ko.bindingHandlers.guessCase = {
         }
 
         var bindings = {...guessCaseOptions};
-        bindings.guessCase = _.bind(valueAccessor(), bindings);
+        bindings.guessCase = valueAccessor().bind(bindings);
 
         var context = bindingContext.createChildContext(bindings);
         ko.applyBindingsToDescendants(context, element);

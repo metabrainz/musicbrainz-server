@@ -85,12 +85,12 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 error: function () {
                     response([{
                         label: l("An error occurred while searching. Click here to try again."),
-                        action: _.bind(self._searchAgain, self),
+                        action: self._searchAgain.bind(self),
                     }, {
                         label: self.indexedSearch ?
                                l("Try with direct search instead.") :
                                l("Try with indexed search instead."),
-                        action: _.bind(self._searchAgain, self, true),
+                        action: self._searchAgain.bind(self, true),
 
                     }]);
                 },
@@ -419,7 +419,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 self.options.select(null, { item: data });
             },
 
-            error: _.bind(this.clear, this),
+            error: this.clear.bind(this),
         });
     },
 
@@ -449,21 +449,21 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         if (results.length === 0) {
             results.push({
                 label: "(" + l("No results") + ")",
-                action: _.bind(this.close, this),
+                action: this.close.bind(this),
             });
         }
 
         if (this.currentPage < this.totalPages) {
             results.push({
                 label: l("Show more..."),
-                action: _.bind(this._showMore, this),
+                action: this._showMore.bind(this),
             });
         }
 
         results.push({
             label: this.indexedSearch ? l("Not found? Try again with direct search.") :
                                         l("Slow? Switch back to indexed search."),
-            action: _.bind(this._searchAgain, this, true),
+            action: this._searchAgain.bind(this, true),
         });
 
         const allowCreation = window === window.top;

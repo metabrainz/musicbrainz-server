@@ -24,7 +24,7 @@ import _ from 'lodash';
             this.$loading = $("<div>").addClass("content-loading");
 
             this.$iframe = $("<iframe>")
-                .on("load", _.bind(this._onLoad, this))
+                .on("load", this._onLoad.bind(this))
                 .attr("src", "/dialog?path=" + path);
 
             this.element

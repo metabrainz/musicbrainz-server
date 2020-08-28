@@ -270,20 +270,20 @@ export class ExternalLinksEditor
               <ExternalLink
                 errorMessage={error || ''}
                 handleUrlBlur={
-                  _.bind(this.handleUrlBlur, this, index)
+                  this.handleUrlBlur.bind(this, index)
                 }
                 handleUrlChange={
-                  _.bind(this.handleUrlChange, this, index)
+                  this.handleUrlChange.bind(this, index)
                 }
                 handleVideoChange={
-                  _.bind(this.handleVideoChange, this, index)
+                  this.handleVideoChange.bind(this, index)
                 }
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
-                onRemove={_.bind(this.removeLink, this, index)}
+                onRemove={this.removeLink.bind(this, index)}
                 type={link.type}
                 typeChangeCallback={
-                  _.bind(this.handleTypeChange, this, index)
+                  this.handleTypeChange.bind(this, index)
                 }
                 typeOptions={this.props.typeOptions}
                 url={link.url}
