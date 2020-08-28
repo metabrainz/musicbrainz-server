@@ -34,7 +34,7 @@ export function trackParserTest(t, input, expected) {
   var result = trackParser.parse(input);
 
   function getProps(track) {
-    return _.pick(...[track].concat(_.keys(expected[0])));
+    return _.pick(...[track].concat(Object.keys(expected[0])));
   }
 
   t.deepEqual(ko.toJS(result.map(getProps)), expected);

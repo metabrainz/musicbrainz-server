@@ -270,7 +270,7 @@ import request from '../../common/utility/request';
 
 
     function editHash(edit) {
-        var keys = _.keys(edit).sort();
+        var keys = Object.keys(edit).sort();
 
         function keyValue(memo, key) {
             var value = edit[key];

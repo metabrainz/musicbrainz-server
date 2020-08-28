@@ -59,7 +59,7 @@ if (cluster.isMaster) {
 
   function forkWorker(listening) {
     // Allow spawning one additional worker during HUP.
-    if (_.keys(cluster.workers).length > WORKER_COUNT) {
+    if (Object.keys(cluster.workers).length > WORKER_COUNT) {
       return false;
     }
 

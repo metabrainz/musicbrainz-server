@@ -1019,7 +1019,7 @@ MB.Control.EntityAutocomplete = function (options) {
 
     if (!options.entity) {
         // guess the entity from span classes.
-        _.keys(ENTITIES).some(function (entity) {
+        Object.keys(ENTITIES).some(function (entity) {
             entity = entity.replace(/_/g, '-');
             if ($inputs.hasClass(entity)) {
                 options.entity = entity;
