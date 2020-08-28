@@ -270,7 +270,7 @@
   <!-- /ko -->
 
   <!-- ko if: !needsMediums() && mediums().length === loadedMediums().length &&
-              _(mediums()).invokeMap("toc").filter().size() < _($data.seededTocs).values().size() -->
+              mediums().map(function (m) { return m.toc(); }).filter(Boolean).length < ($data.seededTocs ? Object.values($data.seededTocs).length : 0) -->
     <div class="warning">
       <p>
         [%~ l('You’ve seeded some Disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach Disc ID” options below.') ~%]
@@ -393,10 +393,10 @@
         </tbody>
       </table>
 
-      <!-- ko ifnot: _.isEmpty($parent.seededTocs) -->
+      <!-- ko if: $parent.seededTocs && Object.keys($parent.seededTocs).length -->
       <div id="discid-attachment">
         [% add_colon(l('Attach Disc ID')) %]
-        <select data-bind="options: _.values($parent.seededTocs).sort(),
+        <select data-bind="options: Object.values($parent.seededTocs).sort(),
                            optionsText: $root.utils.calculateDiscID,
                            optionsCaption: '',
                            value: toc"></select>
@@ -458,8 +458,8 @@
   </fieldset>
   <!-- /ko -->
 
-  <!-- ko ifnot: _.isEmpty(mediums()) -->
-    <div data-bind="guessCase: _.bind($root.guessCaseMediaNames, $data)">
+  <!-- ko if: mediums() && mediums().length -->
+    <div data-bind="guessCase: $root.guessCaseMediaNames.bind($data)">
       [% guesscase(show_icon=1) %]
     </div>
   <!-- /ko -->
