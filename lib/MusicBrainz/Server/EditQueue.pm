@@ -39,7 +39,6 @@ my %action_name = (
     $STATUS_FAILEDDEP => 'failed dep',
     $STATUS_FAILEDPREREQ => 'failed prereq',
     $STATUS_NOVOTES => 'no votes',
-    $STATUS_TOBEDELETED => 'to be deleted',
     $STATUS_DELETED => 'deleted',
     $STATUS_ERROR => 'error'
 );
@@ -125,31 +124,12 @@ sub _process_edit
 
     $self->c->model('Vote')->load_for_edits($edit);
 
-    if ($edit->status == $STATUS_TOBEDELETED) {
-        return $self->_process_tobedeleted_edit($edit);
-    }
-
     if ($edit->status == $STATUS_OPEN) {
         return $self->_process_open_edit($edit);
     }
 
     $self->log->warning("Edit #$edit_id is no longer open\n");
     return undef;
-}
-
-sub _process_tobedeleted_edit
-{
-    my ($self, $edit) = @_;
-
-    my $edit_id = $edit->id;
-    $self->log->info("Deleting edit #$edit_id\n");
-
-    # Delete the edit.
-    unless ($self->dry_run) {
-        $self->c->model('Edit')->reject($edit, $STATUS_DELETED);
-    }
-
-    return $STATUS_DELETED;
 }
 
 sub _process_open_edit

@@ -326,7 +326,6 @@ Readonly our $STATUS_FAILEDDEP    => 4;
 Readonly our $STATUS_ERROR        => 5;
 Readonly our $STATUS_FAILEDPREREQ => 6;
 Readonly our $STATUS_NOVOTES      => 7;
-Readonly our $STATUS_TOBEDELETED  => 8;
 Readonly our $STATUS_DELETED      => 9;
 
 Readonly our $AUTO_EDITOR_FLAG              => 1;
