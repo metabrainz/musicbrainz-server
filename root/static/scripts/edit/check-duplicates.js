@@ -118,7 +118,7 @@ function isPlaceCommentRequired(duplicates) {
     return true;
   }
 
-  return _.some(duplicates, function (place) {
+  return duplicates.some(function (place) {
     return !place.area || place.area.gid === selectedArea.gid;
   });
 }

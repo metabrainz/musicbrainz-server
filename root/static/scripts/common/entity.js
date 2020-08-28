@@ -480,7 +480,7 @@ import formatTrackLength from './utility/formatTrackLength';
     var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
 
     function isProbablyClassical(entity) {
-        return classicalRoles.test(entity.name) || _.some(entity.relationships, function (r) {
+        return classicalRoles.test(entity.name) || entity.relationships?.some(function (r) {
             return _.includes(PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
         });
     }

@@ -270,7 +270,7 @@ const actions = {
     swapTitlesWithArtists: function (medium) {
         var tracks = medium.tracks();
 
-        var requireConf = _.some(tracks, function (track) {
+        var requireConf = tracks.some(function (track) {
             return isComplexArtistCredit(track.artistCredit());
         });
 

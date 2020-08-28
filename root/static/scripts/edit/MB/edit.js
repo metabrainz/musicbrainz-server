@@ -314,7 +314,7 @@ import request from '../../common/utility/request';
         function (args) {
             delete args.gid;
 
-            if (!_.some(args.secondary_type_ids)) {
+            if (!args.secondary_type_ids.some(Boolean)) {
                 delete args.secondary_type_ids;
             }
         },

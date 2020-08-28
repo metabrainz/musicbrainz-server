@@ -86,8 +86,8 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
             m.name, artists, isProbablyClassical,
           );
 
-          if (_.some(
-            expandedCredits, c => c.similarity >= MIN_NAME_SIMILARITY,
+          if (expandedCredits.some(
+            c => c.similarity >= MIN_NAME_SIMILARITY,
           )) {
             credits = credits.concat(expandedCredits);
           } else {
