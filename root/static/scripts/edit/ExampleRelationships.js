@@ -130,8 +130,9 @@ const RelationshipSearcher = function () {
                 return;
             }
 
-            var relationships =
-                _.filter(data.relationships, { linkTypeID: linkTypeID });
+            var relationships = data.relationships.filter(
+                x => x.linkTypeID === linkTypeID,
+            );
 
             if (relationships.length) {
                 self.error(null);

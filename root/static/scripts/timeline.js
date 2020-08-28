@@ -49,7 +49,7 @@ class TimelineViewModel {
         var self = this;
         self.categories = ko.observableArray([]);
         self.enabledCategories = ko.computed(function () {
-            return _.filter(self.categories(), function (category) {
+            return self.categories().filter(function (category) {
                 return category.enabled();
             });
         });
@@ -91,7 +91,7 @@ class TimelineViewModel {
         self.zoomHashPart = ko.computed({
             read: function () {
                 var parts = self.zoomArray();
-                if (_.filter(parts).length > 0) {
+                if (parts.filter(Boolean).length > 0) {
                     return ['g'].concat(parts).join('/');
                 } 
                 return null;
@@ -225,7 +225,7 @@ class TimelineViewModel {
 
     _getLocationHashSettings() {
         // XXX: reset to defaults when preference is not expressed
-        var parts = _.filter(location.hash.replace(/^#/, '').split('+'));
+        var parts = location.hash.replace(/^#/, '').split('+').filter(Boolean);
         var self = this;
 
         for (const part of parts) {
@@ -321,20 +321,20 @@ class TimelineCategory {
         self.lines = debounce(ko.observableArray([]), 50);
 
         self.enabledLines = ko.computed(function () {
-            return _.filter(self.lines(), function (line) {
+            return self.lines().filter(function (line) {
                 return line.enabled() && line.loaded();
             });
         });
         self.needLoadingLines = ko.computed(function () {
             if (self.enabled()) {
-                return _.filter(self.lines(), function (line) {
+                return self.lines().filter(function (line) {
                     return line.enabled() && !line.loaded() && !line.loading();
                 });
             }
             return [];
         });
         self.hasLoadingLines = ko.computed(function () {
-            return _.filter(self.lines(), function (line) {
+            return self.lines().filter(function (line) {
                 return line.enabled() && line.loading();
             }).length;
         });

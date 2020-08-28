@@ -436,12 +436,10 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
          * before appending the new results (we re-add them below).
          */
 
-        var results = this.currentResults = _.filter(
-            this.currentResults,
-            function (item) {
+        var results = this.currentResults =
+            this.currentResults.filter(function (item) {
                 return !item.action;
-            },
-        );
+            });
 
         results.push.apply(results, data);
 

@@ -79,7 +79,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         resultHook: function (items) {
                             if (dialog.autocomplete.entity === "series" &&
                                     dialog.relationship().getLinkType().orderable_direction !== 0) {
-                                return _.filter(items, function (item) {
+                                return items.filter(function (item) {
                                     return item.type.item_entity_type === dialog.source.entityType;
                                 });
                             } 
@@ -438,7 +438,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (sourceType === "series") {
                 var self = this;
 
-                targetTypes = _.filter(targetTypes, function (targetType) {
+                targetTypes = targetTypes.filter(function (targetType) {
                     var key = [sourceType, targetType].sort().join("-");
 
                     if (self.linkTypeOptions(key).length) {
@@ -779,7 +779,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             this.createEdits(edits)
                 .done((data) => {
-                    var works = _.map(data.edits, "entity");
+                    var works = data.edits.map(x => x.entity);
 
                     super.accept(function (relationshipData) {
                         relationshipData.target = MB.entity(works.shift(), "work");
@@ -836,7 +836,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     function splitByCreditableAttributes(relationship) {
         const attributes = relationship.attributes();
-        const creditable = _.filter(attributes, isCreditable);
+        const creditable = attributes.filter(isCreditable);
         const relationships = [relationship];
 
         if (!creditable.length) {

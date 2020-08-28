@@ -246,7 +246,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         openBatchCreateWorksDialog() {
-            var sources = _.filter(UI.checkedRecordings(), function (recording) {
+            var sources = UI.checkedRecordings().filter(function (recording) {
                 return recording.performances().length === 0;
             });
 

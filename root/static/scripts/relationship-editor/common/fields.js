@@ -319,7 +319,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         setAttributes(attributes) {
-            this.attributes(_.map(validAttributes(this, attributes), function (data) {
+            this.attributes(validAttributes(this, attributes).map(function (data) {
                 return new fields.LinkAttribute(data);
             }));
         }
@@ -341,7 +341,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (min > 0) {
                 var rootID = rootInfo.attribute.id;
 
-                var values = _.filter(this.attributes(), function (attribute) {
+                var values = this.attributes().filter(function (attribute) {
                     return attribute.type.root_id == rootID;
                 });
 

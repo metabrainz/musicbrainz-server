@@ -203,8 +203,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             const linkTypeID = String(relationship.linkTypeID());
             const direction = getDirection(relationship, this);
 
-            return _.filter(
-                this.displayableRelationships(viewModel)(),
+            return this.displayableRelationships(viewModel)().filter(
                 r => String(r.linkTypeID()) === linkTypeID && getDirection(r, this) === direction,
             );
         },

@@ -370,7 +370,7 @@ import formatTrackLength from './utility/formatTrackLength';
             var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
             var linkTypeID = linkedEntities.link_type[gid].id;
 
-            return _.filter(this.displayableRelationships(viewModel)(), function (r) {
+            return this.displayableRelationships(viewModel)().filter(function (r) {
                 return r.linkTypeID() === linkTypeID;
             });
         }

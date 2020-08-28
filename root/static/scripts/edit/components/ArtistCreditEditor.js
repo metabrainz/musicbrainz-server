@@ -361,7 +361,7 @@ class ArtistCreditEditor extends React.Component {
   render() {
     const ac = this.state.artistCredit;
     const entity = _.clone(this.props.entity);
-    entity.artistCredit = {names: _.filter(ac.names, n => hasArtist(n))};
+    entity.artistCredit = {names: ac.names.filter(n => hasArtist(n))};
 
     /*
      * The single-artist lookup changes the credit boxes in the doc bubble,

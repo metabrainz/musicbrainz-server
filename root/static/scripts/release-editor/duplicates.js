@@ -110,7 +110,7 @@ releaseEditor.findReleaseDuplicates = function () {
 
 
 function gotResults(data) {
-    var releases = _.filter(data.releases, function (release) {
+    var releases = data.releases.filter(function (release) {
         return parseInt(release.score, 10) >= 65;
     });
 

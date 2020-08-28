@@ -879,7 +879,7 @@ class Release extends mbEntity.Release {
 
         ko.computed(function () {
             for (const events of Object.values(groupBy(self.events(), countryID))) {
-                const isDuplicate = _.filter(events, nonEmptyEvent).length > 1;
+                const isDuplicate = events.filter(nonEmptyEvent).length > 1;
                 events.forEach(e => e.isDuplicate(isDuplicate));
             }
         }); 
@@ -906,7 +906,7 @@ class Release extends mbEntity.Release {
 
         ko.computed(function () {
             for (const labels of Object.values(groupBy(self.labels(), releaseLabelKey))) {
-                const isDuplicate = _.filter(labels, nonEmptyReleaseLabel).length > 1;
+                const isDuplicate = labels.filter(nonEmptyReleaseLabel).length > 1;
                 labels.forEach(l => l.isDuplicate(isDuplicate));
             }
         });

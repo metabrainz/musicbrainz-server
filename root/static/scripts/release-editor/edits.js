@@ -32,7 +32,7 @@ const WS_EDIT_RESPONSE_OK = 1;
 var releaseEditData = utils.withRelease(MB.edit.fields.release);
 
 var newReleaseLabels = utils.withRelease(function (release) {
-    return _.filter(release.labels(), function (releaseLabel) {
+    return release.labels().filter(function (releaseLabel) {
         var label = releaseLabel.label();
         return (label && label.id) || clean(releaseLabel.catalogNumber());
     });
@@ -449,7 +449,7 @@ releaseEditor.getEditPreviews = function () {
             return;
         }
 
-        var addedEdits = _.filter(edits, isNewEdit);
+        var addedEdits = edits.filter(isNewEdit);
 
         if (addedEdits.length === 0) {
             refreshPreviews(edits);
