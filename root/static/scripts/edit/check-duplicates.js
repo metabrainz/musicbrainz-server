@@ -213,7 +213,7 @@ MB.initializeDuplicateChecker = function (type) {
       })
       .fail(function (jqXHR) {
         if (/^50/.test(jqXHR.status)) {
-          _.delay(_.partial(makeRequest, name, false), 3000);
+          _.delay((...args) => makeRequest(name, false, ...args), 3000);
         }
       })
       .always(function () {

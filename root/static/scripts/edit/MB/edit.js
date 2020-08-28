@@ -323,7 +323,7 @@ import request from '../../common/utility/request';
 
     edit.releaseGroupEdit = editConstructor(
         TYPES.EDIT_RELEASEGROUP_EDIT,
-        _.partialRight(removeEqual, ['gid']),
+        (...args) => removeEqual(...args, ['gid']),
     );
 
 
@@ -340,7 +340,7 @@ import request from '../../common/utility/request';
 
     edit.releaseEdit = editConstructor(
         TYPES.EDIT_RELEASE_EDIT,
-        _.partialRight(removeEqual, ['to_edit']),
+        (...args) => removeEqual(...args, ['to_edit']),
     );
 
 
@@ -384,7 +384,7 @@ import request from '../../common/utility/request';
 
     edit.mediumEdit = editConstructor(
         TYPES.EDIT_MEDIUM_EDIT,
-        _.partialRight(removeEqual, ['to_edit']),
+        (...args) => removeEqual(...args, ['to_edit']),
     );
 
 
@@ -396,7 +396,7 @@ import request from '../../common/utility/request';
 
     edit.recordingEdit = editConstructor(
         TYPES.EDIT_RECORDING_EDIT,
-        _.partialRight(removeEqual, ['to_edit']),
+        (...args) => removeEqual(...args, ['to_edit']),
     );
 
 

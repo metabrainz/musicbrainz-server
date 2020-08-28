@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
-
 import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 
@@ -40,9 +38,10 @@ MB.GuessCase.Handler.Release = function (gc) {
      * @param    is        the inputstring
      * @returns os        the processed string
      */
-    self.process = _.wrap(self.process, function (process, os) {
-        return gc.mode.fixVinylSizes(process(os));
-    });
+    const baseProcess = self.process;
+    self.process = function (os) {
+        return gc.mode.fixVinylSizes(baseProcess(os));
+    };
 
     self.getWordsForProcessing = function (is) {
         is = gc.mode.preProcessTitles(is);

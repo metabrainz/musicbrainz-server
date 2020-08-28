@@ -89,10 +89,12 @@ class VoteButton extends React.Component<VoteButtonProps> {
       <button
         className={className}
         disabled={isActive}
-        onClick={isActive ? null : _.partial(
-          callback,
-          currentVote === 0 ? vote : 0,
-        )}
+        onClick={isActive
+          ? null
+          : ((...args) => callback(
+              currentVote === 0 ? vote : 0,
+              ...args,
+            ))}
         title={buttonTitle}
         type="button"
       >
