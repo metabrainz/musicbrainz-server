@@ -27,7 +27,7 @@ import {stripAttributes} from '../../edit/utility/linkPhrase';
 import isBlank from '../../common/utility/isBlank';
 import debounce from '../../common/utility/debounce';
 
-const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
+const PART_OF_SERIES_LINK_TYPE_GIDS = Object.values(PART_OF_SERIES_LINK_TYPES);
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 

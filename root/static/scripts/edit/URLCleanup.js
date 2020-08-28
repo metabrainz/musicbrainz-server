@@ -293,7 +293,7 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.viaf,
   LINK_TYPES.youtube,
 ], function (result, linkType) {
-  return result.concat(_.values(linkType));
+  return result.concat(Object.values(linkType));
 }, []);
 
 function reencodeMediawikiLocalPart(url) {

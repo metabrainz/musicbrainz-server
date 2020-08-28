@@ -334,7 +334,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         linkTypeAttributes() {
             var linkType = this.getLinkType();
-            return linkType ? _.values(linkType.attributes) : [];
+            return linkType ? Object.values(linkType.attributes) : [];
         }
 
         attributeError(rootInfo) {

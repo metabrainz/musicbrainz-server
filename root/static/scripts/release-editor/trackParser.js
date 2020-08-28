@@ -96,7 +96,7 @@ const trackParser = releaseEditor.trackParser = {
              * went wrong. Returning undefined or null removes this result from
              * newTracks because $.map discards it.
              */
-            if (!_.values(data).some(Boolean)) {
+            if (!Object.values(data).some(Boolean)) {
                 return null;
             }
 

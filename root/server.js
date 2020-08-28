@@ -25,7 +25,6 @@ sentryInit(DBDefs);
 const cluster = require('cluster');
 const fs = require('fs');
 const spawnSync = require('child_process').spawnSync;
-const _ = require('lodash');
 
 const createServer = require('./server/createServer');
 const {clearRequireCache} = require('./server/utils');
@@ -140,7 +139,7 @@ if (cluster.isMaster) {
 
     function killNext() {
       if (!oldWorkers) {
-        oldWorkers = _.values(cluster.workers);
+        oldWorkers = Object.values(cluster.workers);
       }
       const oldWorker = oldWorkers.pop();
       if (oldWorker) {
