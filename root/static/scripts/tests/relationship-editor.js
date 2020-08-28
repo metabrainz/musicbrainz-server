@@ -126,8 +126,11 @@ function ids2attrs(ids) {
 }
 
 function setupReleaseRelationshipEditor() {
+    const testReleaseCopy = {...testRelease};
+    delete testReleaseCopy.mediums;
+
     var vm = new FakeReleaseViewModel({
-        sourceData: _.omit(testRelease, "mediums"),
+        sourceData: testReleaseCopy,
     });
 
     vm.releaseLoaded(testRelease);

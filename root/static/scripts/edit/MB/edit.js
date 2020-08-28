@@ -449,7 +449,9 @@ import request from '../../common/utility/request';
 
     function editEndpoint(endpoint) {
         function omitHash(edit) {
-            return _.omit(edit, "hash");
+            const editCopy = {...edit};
+            delete editCopy.hash;
+            return editCopy;
         }
 
         return function (data, context) {

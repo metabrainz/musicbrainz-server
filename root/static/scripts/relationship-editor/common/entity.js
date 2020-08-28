@@ -178,7 +178,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var other = relationships[i];
 
                 if (rel !== other && rel.isDuplicate(other)) {
-                    var obj = _.omit(rel.editData(), "id");
+                    var obj = {...rel.editData()};
+                    delete obj.id;
 
                     obj.begin_date = mergeDates(rel.begin_date, other.begin_date);
                     obj.end_date = mergeDates(rel.end_date, other.end_date);

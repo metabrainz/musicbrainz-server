@@ -9,7 +9,6 @@
 import '../typeInfo';
 
 import ko from 'knockout';
-import _ from 'lodash';
 import test from 'tape';
 
 import MB from '../../common/MB';
@@ -257,8 +256,10 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
 
     var mediumCreateEdits =
         releaseEditor.edits.medium(release).map(function (edit) {
-            // Don't care about this.
-            return _.omit(edit, "tracklist");
+          const editCopy = {...edit};
+          // Don't care about this.
+          delete editCopy.tracklist;
+          return editCopy;
         });
 
     t.deepEqual(mediumCreateEdits, [

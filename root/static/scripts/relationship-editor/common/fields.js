@@ -288,7 +288,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         clone() {
-            var clone = new fields.Relationship(_.omit(this.editData(), "id"));
+            const editData = {...this.editData()};
+            delete editData.id;
+            const clone = new fields.Relationship(editData);
             clone.parent = this.parent;
             return clone;
         }

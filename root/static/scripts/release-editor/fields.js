@@ -595,7 +595,9 @@ class Medium {
         var pp = this.id ? // no ID means this medium is being reused
             Track :
             function (track, parent) {
-                return new Track(_.omit(track, 'id'), parent);
+                const copy = {...track};
+                delete copy.id;
+                return new Track(copy, parent);
             };
         this.tracks(utils.mapChild(this, data.tracks, pp));
 

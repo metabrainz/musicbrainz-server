@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import test from 'tape';
 
 import '../../../lib/jquery-ui';
@@ -131,12 +130,11 @@ dialogTest("adding a new medium does not cause reorder edits (MBS-7412)", functi
     t.plan(1);
 
     releaseEditor.rootField.release(release);
-    release.mediums([
-        new fields.Medium(
-            Object.assign(_.omit(common.testMedium, "id"), { position: 1 }),
-            release,
-        ),
-    ]);
+
+    const testMediumCopy = {...common.testMedium, position: 1};
+    delete testMediumCopy.id;
+
+    release.mediums([new fields.Medium(testMediumCopy, release)]);
     addDiscDialog.open();
     addDiscDialog.currentTab(mediumSearchTab);
     mediumSearchTab.result({ position: 1, tracks: [{ name: "foo" }] });

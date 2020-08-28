@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import test from 'tape';
 
 import guessFeat from '../edit/utility/guessFeat';
@@ -432,9 +431,12 @@ test('guessing feat. artists', function (t) {
     return {
       name: track.name(),
       artistCredit: {
-        names: track.artistCredit().names.map(
-          _.partialRight(_.omit, ['artist', 'automaticJoinPhrase']),
-        ),
+        names: track.artistCredit().names.map((name) => {
+          const copy = {...name};
+          delete copy.artist;
+          delete copy.automaticJoinPhrase;
+          return copy;
+        }),
       },
     };
   }

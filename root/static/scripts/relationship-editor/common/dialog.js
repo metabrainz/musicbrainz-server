@@ -734,7 +734,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         _accept(callback) {
             var vm = this.viewModel;
-            var model = _.omit(this.relationship().editData(), "id", "entities");
+            var model = {...this.relationship().editData()};
+            delete model.id;
+            delete model.entities;
 
             model.target = this.relationship().target(this.source);
             model.direction = this.backward() ? "backward" : "forward";

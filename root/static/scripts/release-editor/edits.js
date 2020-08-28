@@ -136,7 +136,9 @@ releaseEditor.edits = {
 
             if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
                 // Delete ReleaseLabel
-                oldLabel = _.omit(oldLabel, "label", "catalog_number");
+                oldLabel = {...oldLabel};
+                delete oldLabel.label;
+                delete oldLabel.catalog_number;
                 edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
             }
         }
@@ -195,8 +197,10 @@ releaseEditor.edits = {
             newMediumData = _.cloneDeep(newMediumData);
 
             if (medium.id) {
-                var newNoPosition = _.omit(newMediumData, "position");
-                var oldNoPosition = _.omit(oldMediumData, "position");
+                const newNoPosition = {...newMediumData};
+                delete newNoPosition.position;
+                const oldNoPosition = {...oldMediumData};
+                delete oldNoPosition.position;
 
                 if (!_.isEqual(newNoPosition, oldNoPosition)) {
                     newNoPosition.to_edit = medium.id;

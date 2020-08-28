@@ -113,7 +113,11 @@ utils.reuseExistingMediumData = function (data) {
      * can request them later. We also drop the format, since it'll often
      * be different.
      */
-    var newData = _.omit(data, "id", "cdtocs", "format", "format_id");
+    const newData = {...data};
+    delete newData.id;
+    delete newData.cdtocs;
+    delete newData.format;
+    delete newData.format_id;
 
     if (data.id) {
         newData.originalID = data.id;
