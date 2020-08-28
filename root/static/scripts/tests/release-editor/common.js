@@ -41,7 +41,7 @@ export function trackParserTest(t, input, expected) {
 }
 
 export function createMediums(release) {
-  var submission = _.find(releaseEditor.orderedEditSubmissions, function (sub) {
+  var submission = releaseEditor.orderedEditSubmissions.find(function (sub) {
     return sub.edits === releaseEditor.edits.medium;
   });
 

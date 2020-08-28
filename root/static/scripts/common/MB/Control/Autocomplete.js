@@ -319,9 +319,9 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             // Add/move to the top of the recent entities menu.
             var recent = this.recentEntities();
             var entityProperties = ENTITIES[this.entityType()];
-            var duplicate = _.find(
-                recent,
-                _.pick(data, entityProperties.mbid ? 'gid' : 'id'),
+            const idProp = entityProperties.mbid ? 'gid' : 'id';
+            var duplicate = recent.find(
+                x => x[idProp] === data[idProp],
             );
 
             duplicate && recent.splice(recent.indexOf(duplicate), 1);

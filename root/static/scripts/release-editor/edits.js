@@ -235,8 +235,7 @@ releaseEditor.edits = {
                              * swapping with that medium.
                              */
 
-                            var possibleSwap = _.find(
-                                newMediums,
+                            var possibleSwap = newMediums.find(
                                 function (other) {
                                     return other.position() === attempt;
                                 },
@@ -600,12 +599,14 @@ releaseEditor.orderedEditSubmissions = [
         callback: function (release, edits) {
             release.labels.original(
                 _.map(newReleaseLabels(), function (label) {
-                    var newData = _.find(edits, {
-                        entity: {
-                            labelID: label.label().id || null,
-                            catalogNumber: label.catalogNumber() || null,
-                        },
-                    });
+                    const labelId = label.label().id || null;
+                    const catalogNumber = label.catalogNumber() || null;
+
+                    var newData = edits.find(({entity}) => (
+                        entity &&
+                        entity.labelID === labelId &&
+                        entity.catalogNumber === catalogNumber
+                    ));
 
                     if (newData) {
                         label.id = newData.entity.id;

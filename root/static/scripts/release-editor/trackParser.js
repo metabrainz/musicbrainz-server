@@ -159,9 +159,8 @@ const trackParser = releaseEditor.trackParser = {
              * See if we can re-use the AC from the matched track, the previous
              * track at this position, or the release.
              */
-            var matchedAC = _.find(
-                [matchedTrackAC, previousTrackAC, releaseAC],
-                function (ac) {
+            var matchedAC = [matchedTrackAC, previousTrackAC, releaseAC]
+                .find(function (ac) {
                     if (!ac || hasVariousArtists(ac)) {
                         return false;
                     }
@@ -170,8 +169,7 @@ const trackParser = releaseEditor.trackParser = {
                         !data.artist ||
                         utils.similarNames(data.artist, reduceArtistCredit(ac))
                     );
-                },
-            );
+                });
 
             if (matchedAC) {
                 data.artistCredit = matchedAC;

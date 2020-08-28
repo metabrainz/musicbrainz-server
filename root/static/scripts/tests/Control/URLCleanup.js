@@ -4113,8 +4113,8 @@ function doMatchSubtest(
   expectedRelationshipType,
 ) {
   const relUuid = guessType(entityType, url);
-  const actualRelationshipType = _.find(relationshipTypesByUuid[relUuid],
-    function (s) {
+  const actualRelationshipType =
+    relationshipTypesByUuid[relUuid]?.find(function (s) {
       return s === expectedRelationshipType;
     });
   st.equal(actualRelationshipType, expectedRelationshipType, 'Match ' + label + ' URL relationship type for ' + entityType + ' entities');

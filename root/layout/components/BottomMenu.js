@@ -58,7 +58,7 @@ const LanguageMenu = ({
   <li className="language-selector" tabIndex="-1">
     <span className="menu-header">
       {languageName(
-        _.find(serverLanguages, x => x.name === currentBCP47Language),
+        serverLanguages.find(x => x.name === currentBCP47Language),
         true,
       )}
     </span>

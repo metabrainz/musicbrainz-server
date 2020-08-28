@@ -347,7 +347,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
     this.updateTags(
       splitTags(tags).map(name => {
-        const index = _.findIndex(this.state.tags, t => t.tag.name === name);
+        const index = this.state.tags.findIndex(t => t.tag.name === name);
         if (index >= 0) {
           return {count: this.getNewCount(index, 1), tag: name, vote: 1};
         }
@@ -375,7 +375,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     const newTags = this.state.tags.slice(0);
 
     updatedUserTags.forEach(t => {
-      const index = _.findIndex(newTags, ct => ct.tag.name === t.tag);
+      const index = newTags.findIndex(ct => ct.tag.name === t.tag);
       const genre = this.genreMap[t.tag];
 
       if (t.deleted) {

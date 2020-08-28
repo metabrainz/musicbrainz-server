@@ -68,7 +68,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                             var possible = dialog.targetTypeOptions();
 
-                            if (!_.find(possible, { value: type })) {
+                            if (!possible.find(x => x.value === type)) {
                                 return false;
                             }
 

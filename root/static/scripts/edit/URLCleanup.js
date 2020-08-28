@@ -3092,11 +3092,13 @@ function testAll(tests, text) {
 
 export const validationRules = {};
 
+const CLEANUP_ENTRIES = Object.values(CLEANUPS);
+
 each(LINK_TYPES, function (linkType) {
   each(linkType, function (id, entityType) {
     if (!validationRules[id]) {
       validationRules[id] = function (url) {
-        const cleanup = _.find(CLEANUPS, function (cleanup) {
+        const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
           return testAll(cleanup.match, url);
         });
         if (cleanup && cleanup.type && cleanup.type[entityType]) {
@@ -3129,7 +3131,7 @@ validationRules[LINK_TYPES.discographyentry.release] = function (url) {
 };
 
 export function guessType(sourceType, currentURL) {
-  const cleanup = _.find(CLEANUPS, function (cleanup) {
+  const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
     return (cleanup.type || {})[sourceType] &&
       testAll(cleanup.match, currentURL);
   });
@@ -3140,7 +3142,7 @@ export function guessType(sourceType, currentURL) {
 export function cleanURL(dirtyURL) {
   dirtyURL = dirtyURL.trim().replace(/(%E2%80%8E|\u200E)$/, '');
 
-  const cleanup = _.find(CLEANUPS, function (cleanup) {
+  const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
     return cleanup.clean && testAll(cleanup.match, dirtyURL);
   });
 

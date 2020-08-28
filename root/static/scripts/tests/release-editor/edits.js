@@ -358,9 +358,9 @@ test("releaseDeleteReleaseLabel edits are not generated for non-existent release
     release.labels()[0].catalogNumber("foo456");
     releaseEditor.addReleaseLabel(release);
 
-    var submission = _.find(releaseEditor.orderedEditSubmissions, {
-        edits: releaseEditor.edits.releaseLabel,
-    });
+    var submission = releaseEditor.orderedEditSubmissions.find(x => (
+        x.edits === releaseEditor.edits.releaseLabel
+    ));
 
     // Simulate edit submission.
     var edits = submission.edits(release);

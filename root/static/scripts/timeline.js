@@ -235,7 +235,10 @@ class TimelineViewModel {
                 const meth = match[2] === 'r' ? 'rate' : 'events';
                 self.options[meth](!(match[1] === '-'));
             } else if ((match = part.match(/^(-)?(c-.*)$/))) {
-                const category = _.find(self.categories(), { hashIdentifier: match[2] });
+                const hashIdentifier = match[2];
+                const category = self.categories().find(
+                    x => x.hashIdentifier === hashIdentifier,
+                );
                 if (category) {
                     category.enabled(!(match[1] === '-'));
                 }
@@ -263,7 +266,7 @@ class TimelineViewModel {
 
     addLine(name) {
         var newLine = getStat(name);
-        var category = _.find(this.categories(), { name: newLine.category });
+        var category = this.categories().find(x => x.name === newLine.category);
 
         if (!category) {
             var newCategory = stats.category[newLine.category];
