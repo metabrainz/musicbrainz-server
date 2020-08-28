@@ -212,7 +212,7 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
 
     t.deepEqual(
         _.invokeMap(tracks, "length"),
-        _.map(medium.original().tracklist, "length"),
+        medium.original().tracklist.map(x => x.length),
         "track lengths are unchanged",
     );
 });
@@ -456,7 +456,7 @@ parserTest("data track boundary is unchanged if the track count is >= the previo
     medium.tracks(trackParser.parse('Track B\nTrack A\nCool Bonus Vid', medium));
 
     t.deepEqual(
-        _.map(medium.tracks(), function (t) {
+        medium.tracks().map(function (t) {
             return {id: t.id, name: t.name(), isDataTrack: t.isDataTrack()};
         }),
         [

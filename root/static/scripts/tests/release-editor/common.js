@@ -37,7 +37,7 @@ export function trackParserTest(t, input, expected) {
     return _.pick(...[track].concat(_.keys(expected[0])));
   }
 
-  t.deepEqual(ko.toJS(_.map(result, getProps)), expected);
+  t.deepEqual(ko.toJS(result.map(getProps)), expected);
 }
 
 export function createMediums(release) {
@@ -50,7 +50,7 @@ export function createMediums(release) {
 
   var nextID = 666;
 
-  submission.callback(release, _.map(createEdits, function (data) {
+  submission.callback(release, createEdits.map(function (data) {
     return { entity: { id: nextID++, position: data.position } };
   }));
 }

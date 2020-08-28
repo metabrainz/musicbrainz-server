@@ -149,7 +149,7 @@ const trackParser = releaseEditor.trackParser = {
                 }
             });
 
-        var newTracks = _.map(newTracksData, function (data, index) {
+        var newTracks = newTracksData.map(function (data, index) {
             var matchedTrack = data.matchedTrack;
             var previousTrack = previousTracks[index];
             var matchedTrackAC = matchedTrack && matchedTrack.artistCredit();

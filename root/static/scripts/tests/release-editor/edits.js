@@ -255,13 +255,11 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
     newMedium2.tracks.push(new fields.Track({}, newMedium2));
     mediums.push(newMedium1, newMedium2);
 
-    var mediumCreateEdits = _.map(
-        releaseEditor.edits.medium(release),
-        function (edit) {
+    var mediumCreateEdits =
+        releaseEditor.edits.medium(release).map(function (edit) {
             // Don't care about this.
             return _.omit(edit, "tracklist");
-        },
-    );
+        });
 
     t.deepEqual(mediumCreateEdits, [
       {

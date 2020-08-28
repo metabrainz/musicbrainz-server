@@ -104,12 +104,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                 var attributeLists = _.invokeMap(relationships, "attributes");
 
-                var commonAttributes = _.map(
-                    _.reject(_.intersection(...attributeLists), isFreeText),
-                    function (attr) {
+                var commonAttributes =
+                    _.reject(_.intersection(...attributeLists), isFreeText)
+                    .map(function (attr) {
                         return { type: { gid: attr.type.gid } };
-                    },
-                );
+                    });
 
                 relationship.setAttributes(commonAttributes);
                 deferFocus("input.name", "#dialog");

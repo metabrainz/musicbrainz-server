@@ -276,7 +276,7 @@ ko.bindingHandlers.loop = {
 
         ko.utils.domNodeDisposal.addDisposeCallback(parentNode, nodeDisposal);
 
-        update(_.map(observableArray.peek(), function (value, index) {
+        update(observableArray.peek().map(function (value, index) {
             return { status: "added", value: value, index: index };
         }));
 

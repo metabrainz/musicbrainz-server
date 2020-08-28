@@ -37,7 +37,7 @@ import request from '../../common/utility/request';
         return isNaN(num) ? null : num;
     }
     function array(arg, type) {
-        return _.map(value(arg), type);
+        return value(arg).map(type);
     }
     function nullableString(arg) {
         return string(arg) || null;
@@ -62,7 +62,7 @@ import request from '../../common/utility/request';
                 return {names: []};
             }
 
-            const names = _.map(ac.names, function (credit, index) {
+            const names = ac.names.map(function (credit, index) {
                 var artist = value(credit.artist) || {};
 
                 var name = {
@@ -453,7 +453,7 @@ import request from '../../common/utility/request';
         }
 
         return function (data, context) {
-            data.edits = _.map(data.edits, omitHash);
+            data.edits = data.edits.map(omitHash);
 
             return request({
                 type: "POST",

@@ -36,7 +36,7 @@ releaseEditor.baseRelease.subscribe(function (gid) {
 
     releaseEditor.loadRelease(gid, function (data) {
         release.mediums(
-            _.map(data.mediums, function (m) {
+            data.mediums.map(function (m) {
                 return new releaseEditor.fields.Medium(
                     utils.reuseExistingMediumData(m), release,
                 );
@@ -69,7 +69,7 @@ releaseEditor.findReleaseDuplicates = function () {
                 toggleLoadingIndicator(false);
             })
             .done(function (data) {
-                releaseGroupReleases(_.map(data.releases, formatReleaseData));
+                releaseGroupReleases(data.releases.map(formatReleaseData));
             });
     });
 
@@ -115,7 +115,7 @@ function gotResults(data) {
     });
 
     if (releases.length > 0) {
-        releaseEditor.similarReleases(_.map(releases, formatReleaseData));
+        releaseEditor.similarReleases(releases.map(formatReleaseData));
 
         $("#release-editor").tabs("enable", 1);
     } else {
@@ -139,7 +139,7 @@ function formatReleaseData(release) {
     var labels = release["label-info"];
 
     clean.formats = combinedMediumFormatName(release.media) || l('[missing media]');
-    clean.tracks = _.map(release.media, "track-count").join(" + ") ||
+    clean.tracks = release.media.map(x => x['track-count']).join(" + ") ||
         lp('-', 'missing data');
 
     clean.dates = events

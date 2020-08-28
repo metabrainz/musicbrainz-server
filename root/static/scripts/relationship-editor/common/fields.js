@@ -44,7 +44,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 this.id = data.id;
             }
 
-            this.entities = ko.observable(_.map(data.entities, function (entity) {
+            this.entities = ko.observable(data.entities.map(function (entity) {
                 return mbEntity(entity);
             }));
 

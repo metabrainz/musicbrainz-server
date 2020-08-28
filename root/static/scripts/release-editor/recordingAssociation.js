@@ -59,7 +59,7 @@ recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset,
     utils.search("recording", query, 100, offset)
         .done(function (data) {
             results.push.apply(
-                results, _.map(data.recordings, cleanRecordingData),
+                results, data.recordings.map(cleanRecordingData),
             );
 
             var countSoFar = data.offset + 100;
@@ -140,8 +140,8 @@ function cleanRecordingData(data) {
     if (recording && !recording.appearsOn) {
         recording.appearsOn = _.clone(clean.appearsOn);
 
-        recording.appearsOn.results = _.map(recording.appearsOn.results,
-            function (appearance) {
+        recording.appearsOn.results =
+            recording.appearsOn.results.map(function (appearance) {
                 return MB.entity(appearance, "release");
             });
     }
@@ -163,7 +163,7 @@ function searchTrackArtistRecordings(track) {
     track._recordingRequest = utils.search("recording", query)
         .done(function (data) {
             var recordings = matchAgainstRecordings(
-                track, _.map(data.recordings, cleanRecordingData),
+                track, data.recordings.map(cleanRecordingData),
             );
 
             setSuggestedRecordings(track, recordings || []);
@@ -200,7 +200,7 @@ recordingAssociation.autocompleteHook = function (track) {
 
         newArgs.success = function (data) {
             // Emulate the /ws/js response format.
-            var newData = _.map(data.recordings, cleanRecordingData);
+            var newData = data.recordings.map(cleanRecordingData);
 
             newData.push({
                 current: (data.offset / 10) + 1,
@@ -363,7 +363,7 @@ function matchAgainstRecordings(track, recordings) {
         });
 
     if (matches.length) {
-        return _.map(matches, function (match) {
+        return matches.map(function (match) {
             return MB.entity(match, "recording");
         });
     }

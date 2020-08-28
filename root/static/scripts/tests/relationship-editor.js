@@ -122,7 +122,7 @@ function id2attr(id) {
 }
 
 function ids2attrs(ids) {
-    return _.map(ids, id2attr);
+    return ids.map(id2attr);
 }
 
 function setupReleaseRelationshipEditor() {
@@ -418,7 +418,7 @@ relationshipEditorTest("BatchRelationshipDialog", function (t) {
     var vm = setupReleaseRelationshipEditor();
 
     var target = MB.entity({ entityType: "artist", gid: fakeGID0 });
-    var recordings = _.map(vm.source.mediums()[0].tracks, "recording");
+    var recordings = vm.source.mediums()[0].tracks.map(x => x.recording);
 
     var dialog = new BatchRelationshipDialog({
         sources: recordings,
@@ -453,7 +453,7 @@ relationshipEditorTest("BatchCreateWorksDialog", function (t) {
 
     var vm = setupReleaseRelationshipEditor();
 
-    var recordings = _.map(vm.source.mediums()[0].tracks, "recording");
+    var recordings = vm.source.mediums()[0].tracks.map(x => x.recording);
 
     var dialog = new BatchCreateWorksDialog({
         sources: recordings, viewModel: vm,

@@ -282,7 +282,7 @@ import formatTrackLength from './utility/formatTrackLength';
                  */
                 var appearsOnType = this.appearsOn.entityType || "release_group";
 
-                this.appearsOn.results = _.map(this.appearsOn.results, function (appearance) {
+                this.appearsOn.results = this.appearsOn.results.map(function (appearance) {
                     return MB.entity(appearance, appearsOnType);
                 });
             }
@@ -316,7 +316,7 @@ import formatTrackLength from './utility/formatTrackLength';
             }
 
             if (data.mediums) {
-                this.mediums = _.map(data.mediums, x => new Medium(x));
+                this.mediums = data.mediums.map(x => new Medium(x));
             }
 
             this.relatedArtists = relatedArtists(data.relationships);
@@ -437,7 +437,9 @@ import formatTrackLength from './utility/formatTrackLength';
         constructor(data) {
             super(data);
 
-            this.tracks = _.map(data.tracks, x => new Track(x));
+            this.tracks = data.tracks
+                ? data.tracks.map(x => new Track(x))
+                : [];
 
             this.positionName = ReactDOMServer.renderToString(
                 <MediumDescription medium={this} />,

@@ -255,7 +255,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         if (submitted.length && hasSessionStorage) {
             window.sessionStorage.setItem('submittedRelationships', JSON.stringify(
-                _.map(submitted, function (relationship) {
+                submitted.map(function (relationship) {
                     var data = relationship.editData();
 
                     data.target = relationship.target(source);

@@ -10,6 +10,7 @@
 import 'leaflet.markercluster/dist/leaflet.markercluster-src';
 
 import _ from 'lodash';
+import mapValues from 'lodash/mapValues';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -44,7 +45,7 @@ if (places.length) {
     5: require('../../images/leaflet/arena-marker-icon.png'),
     6: require('../../images/leaflet/religious-marker-icon.png'),
   };
-  const icons = _.mapValues(iconNames, iconUrl => new LeafIcon({iconUrl}));
+  const icons = mapValues(iconNames, iconUrl => new LeafIcon({iconUrl}));
 
   const markers = L.markerClusterGroup({
     iconCreateFunction: function (cluster) {

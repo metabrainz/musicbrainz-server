@@ -101,7 +101,7 @@ class TimelineViewModel {
                     var itemFix = function (item) {
                         return (item === 'null' ? null : parseFloat(item));
                     };
-                    self.zoomArray(_.map(part.split('/').slice(1), itemFix));
+                    self.zoomArray(part.split('/').slice(1).map(itemFix));
                 } else {
                     self.zoomArray([null, null, null, null]);
                 }
@@ -290,7 +290,7 @@ class TimelineViewModel {
             url: '../../ws/js/events',
             dataType: 'json',
         }).done(function (data) {
-            self.events(_.map(data, function (e) {
+            self.events(data.map(function (e) {
                 e.jsDate = Date.parse(e.date);
                 return e;
             }));
@@ -659,7 +659,7 @@ class TimelineLine {
                     $(element).toggle(bindingContext.$data.options.rate());
                 }
 
-                var plot = $.plot($(element), _.map(lines, function (line) {
+                var plot = $.plot($(element), lines.map(function (line) {
                     let data;
                     if (graph === 'main' || graph === 'overview') {
                         data = line.data();

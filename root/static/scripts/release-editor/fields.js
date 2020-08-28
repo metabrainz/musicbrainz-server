@@ -897,7 +897,7 @@ class Release extends mbEntity.Release {
         );
 
         this.labels.original = ko.observable(
-            _.map(this.labels.peek(), mbEdit.fields.releaseLabel),
+            this.labels.peek().map(mbEdit.fields.releaseLabel),
         );
 
         function nonEmptyReleaseLabel(releaseLabel) {

@@ -195,7 +195,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         releaseLoaded(data) {
             var release = this.source;
 
-            release.mediums(_.map(data.mediums, function (mediumData) {
+            release.mediums(data.mediums.map(function (mediumData) {
                 for (const trackData of mediumData.tracks) {
                     MB.entity(trackData.recording).parseRelationships(
                         trackData.recording.relationships,

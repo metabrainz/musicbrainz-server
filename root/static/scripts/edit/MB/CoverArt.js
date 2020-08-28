@@ -9,7 +9,6 @@
 import filesize from 'filesize';
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import MB from '../../common/MB';
 
@@ -115,7 +114,7 @@ MB.CoverArt.CoverArtType = function (name, id) {
 
 MB.CoverArt.cover_art_types = function () {
     return ko.observableArray(
-        _.map(MB.cover_art_types_json, function (item) {
+        MB.cover_art_types_json.map(function (item) {
             return new MB.CoverArt.CoverArtType(item.l_name, item.id);
         }),
     );
@@ -461,7 +460,7 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
 MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
 
-    var queue = _.map(upvm.files_to_upload(), function (item) {
+    var queue = upvm.files_to_upload().map(function (item) {
         return function () {
             return item.doUpload(gid, pos++);
         };

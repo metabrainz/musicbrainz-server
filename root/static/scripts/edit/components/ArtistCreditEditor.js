@@ -340,7 +340,7 @@ class ArtistCreditEditor extends React.Component {
       prefix = this.props.form.name + '.' + prefix;
     }
 
-    return _.flatten(_.map(this.state.artistCredit.names, function (name, i) {
+    return _.flatten(this.state.artistCredit.names.map(function (name, i) {
       const curPrefix = prefix + i + '.';
 
       return [

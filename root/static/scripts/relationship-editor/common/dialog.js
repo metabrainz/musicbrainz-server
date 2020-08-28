@@ -449,7 +449,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 });
             }
 
-            var options = _.map(targetTypes, function (type) {
+            var options = targetTypes.map(function (type) {
                 return { value: type, text: ENTITY_NAMES[type]() };
             });
 
@@ -767,7 +767,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             this.loading(true);
 
-            var edits = _.map(this.sources, function (source) {
+            var edits = this.sources.map(function (source) {
                 var editData = MB.edit.fields.work({
                     name: source.name,
                     typeID: workType,

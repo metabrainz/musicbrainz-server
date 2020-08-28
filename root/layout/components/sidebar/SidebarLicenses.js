@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import map from 'lodash/map';
 import * as React from 'react';
 
 import {compare} from '../../../static/scripts/common/i18n';
@@ -115,7 +114,7 @@ const SidebarLicenses = ({entity}: Props): React.MixedElement | null => {
     <>
       <h2 className="licenses">{l('License')}</h2>
       <ul className="licenses">
-        {map(licenses, '1')}
+        {licenses.map(x => x[1])}
       </ul>
     </>
   ) : null;

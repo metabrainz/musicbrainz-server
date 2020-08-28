@@ -197,7 +197,7 @@ class ViewModel {
     );
 
     this.attributes = ko.observableArray(
-      _.map(attributes, data => new WorkAttribute(data, this)),
+      attributes.map(data => new WorkAttribute(data, this)),
     );
   }
 

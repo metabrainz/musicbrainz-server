@@ -129,7 +129,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     t.plan(7);
 
     function lengthsAndPositions() {
-        return _.map(medium.tracks(), function (t) {
+        return medium.tracks().map(function (t) {
             return { length: t.length(), position: t.position() };
         });
     }

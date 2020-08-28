@@ -101,7 +101,7 @@ releaseEditor.edits = {
     },
 
     releaseLabel: function (release) {
-        var newLabels = _.map(newReleaseLabels(), MB.edit.fields.releaseLabel);
+        var newLabels = newReleaseLabels().map(MB.edit.fields.releaseLabel);
         var oldLabels = release.labels.original();
 
         var newLabelsByID = keyBy(newLabels, "release_label");
@@ -155,7 +155,7 @@ releaseEditor.edits = {
          * conflicts between oldPositions/newPositions.
          */
 
-        var oldPositions = _.map(release.mediums.original(), function (m) {
+        var oldPositions = release.mediums.original().map(function (m) {
             return m.original().position;
         });
 
@@ -394,7 +394,7 @@ releaseEditor.edits = {
 };
 
 
-var _allEdits = _.map([
+var _allEdits = [
     'releaseGroup',
     'release',
     'releaseLabel',
@@ -403,13 +403,13 @@ var _allEdits = _.map([
     'discID',
     'annotation',
     'externalLinks',
-], function (name) {
+].map(function (name) {
     return utils.withRelease(releaseEditor.edits[name].bind(releaseEditor.edits), []);
 });
 
 
 releaseEditor.allEdits = ko.computed(function () {
-    return _.flatten(_.map(_allEdits, ko.unwrap));
+    return _.flatten(_allEdits.map(ko.unwrap));
 });
 
 releaseEditor.editPreviews = ko.observableArray([]);
@@ -421,7 +421,7 @@ releaseEditor.getEditPreviews = function () {
     let previewRequest = null;
 
     function refreshPreviews(edits) {
-        releaseEditor.editPreviews(_.compact(_.map(edits, getPreview)));
+        releaseEditor.editPreviews(_.compact(edits.map(getPreview)));
     }
 
     function getPreview(edit) {
@@ -598,7 +598,7 @@ releaseEditor.orderedEditSubmissions = [
 
         callback: function (release, edits) {
             release.labels.original(
-                _.map(newReleaseLabels(), function (label) {
+                newReleaseLabels().map(function (label) {
                     const labelId = label.label().id || null;
                     const catalogNumber = label.catalogNumber() || null;
 

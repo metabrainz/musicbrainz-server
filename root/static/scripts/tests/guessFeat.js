@@ -432,8 +432,7 @@ test('guessing feat. artists', function (t) {
     return {
       name: track.name(),
       artistCredit: {
-        names: _.map(
-          track.artistCredit().names,
+        names: track.artistCredit().names.map(
           _.partialRight(_.omit, ['artist', 'automaticJoinPhrase']),
         ),
       },

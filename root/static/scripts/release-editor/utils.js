@@ -28,7 +28,7 @@ const utils = {};
 releaseEditor.utils = utils;
 
 utils.mapChild = function (parent, children, type) {
-    return _.map(children || [], function (data) {
+    return (children || []).map(function (data) {
         return new type(data, parent);
     });
 };
@@ -78,7 +78,9 @@ utils.constructLuceneField = function (values, key) {
 };
 
 utils.constructLuceneFieldConjunction = function (params) {
-    return _.map(params, utils.constructLuceneField).join(" AND ");
+    return Object.entries(params).map(([key, values]) => (
+        utils.constructLuceneField(values, key)
+    )).join(" AND ");
 };
 
 
@@ -139,7 +141,7 @@ utils.cleanWebServiceData = function (data) {
 
     if (data["artist-credit"]) {
         clean.artistCredit = {
-            names: _.map(data["artist-credit"], cleanArtistCreditName),
+            names: data["artist-credit"].map(cleanArtistCreditName),
         };
     }
 
