@@ -9,6 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import debounce from 'lodash/debounce';
 
 import {compare} from '../common/i18n';
 import MB from '../common/MB';
@@ -329,3 +330,31 @@ ko.bindingHandlers.withLabel = {
 export const buildOptionsTree = MB.forms.buildOptionsTree;
 export const linkTypeOptions = MB.forms.linkTypeOptions;
 export const setDisabledOption = MB.forms.setDisabledOption;
+
+MB.initializeTooShortYearChecks = function (type) {
+  function blockTooShortBeginYear() {
+    const beginYear = $(`#id-edit-${type}\\\.period\\\.begin_date\\\.year`).val();
+    const allowed = (!beginYear || beginYear.trim().length === 4);
+    $('.submit').prop('disabled', !allowed);
+    $('#too_short_begin_year').toggle(!allowed);
+  }
+
+  function blockTooShortEndYear() {
+    const endYear = $(`#id-edit-${type}\\\.period\\\.end_date\\\.year`).val();
+    const allowed = (endYear === null || endYear === '' || endYear.length === 4);
+    $('.submit').prop('disabled', !allowed);
+    $('#too_short_end_year').toggle(!allowed);
+  }
+
+  $(`#id-edit-${type}\\\.period\\\.begin_date\\\.year`)
+    .keyup(debounce(blockTooShortBeginYear, 500))
+    .change(debounce(blockTooShortBeginYear, 500));
+
+  blockTooShortBeginYear();
+
+  $(`#id-edit-${type}\\\.period\\\.end_date\\\.year`)
+    .keyup(debounce(blockTooShortEndYear, 500))
+    .change(debounce(blockTooShortEndYear, 500));
+
+  blockTooShortEndYear();
+};
