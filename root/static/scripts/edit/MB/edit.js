@@ -157,7 +157,7 @@ import request from '../../common/utility/request';
                 a => a.type.id,
             );
 
-            if (_.isNumber(data.linkTypeID)) {
+            if (data.linkTypeID) {
                 if (linkedEntities.link_type[data.linkTypeID].orderable_direction !== 0) {
                     data.linkOrder = number(relationship.linkOrder) || 0;
                 }
