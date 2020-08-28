@@ -174,7 +174,7 @@ ko.bindingHandlers.loop = {
                             }
 
                             ko.applyBindingsToDescendants(newContext, tmpElementContainer);
-                            currentElements = _.toArray(tmpElementContainer.childNodes);
+                            currentElements = Array.from(tmpElementContainer.childNodes);
                             elements[itemID] = currentElements;
                             tmpElementContainer = null;
                         }

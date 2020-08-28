@@ -144,7 +144,7 @@ function setupGenericRelationshipEditor(options) {
 }
 
 function formData() {
-    var inputsArray = _.toArray($("input[type=hidden]"));
+    var inputsArray = Array.from($("input[type=hidden]"));
     return _.transform(inputsArray, function (result, input) {
         result[input.name] = input.value;
     }, {});
@@ -166,7 +166,7 @@ function relationshipEditorTest(name, callback) {
         var _defer = _.defer;
 
         _.defer = function (func) {
-            func.apply(null, _.toArray(arguments).slice(1));
+            func.apply(null, Array.from(arguments).slice(1));
         };
 
         callback(t);
