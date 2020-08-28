@@ -136,7 +136,7 @@ const RelationshipSearcher = function () {
             if (relationships.length) {
                 self.error(null);
 
-                _.each(relationships, function (rel) {
+                for (const rel of relationships) {
                     let source = data;
                     let target = rel.target;
 
@@ -157,7 +157,7 @@ const RelationshipSearcher = function () {
                             mbid: target.gid,
                         },
                     });
-                });
+                }
             } else {
                 self.error(
                     'No ' + linkTypeName + ' relationships found for ' + data.name,

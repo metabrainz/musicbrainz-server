@@ -9,6 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import each from 'lodash/each';
 import keyBy from 'lodash/keyBy';
 import reject from 'lodash/reject';
 
@@ -108,11 +109,11 @@ releaseEditor.edits = {
 
         var edits = [];
 
-        _.each(newLabels, function (newLabel) {
-            var id = newLabel.release_label;
+        for (let newLabel of newLabels) {
+            const id = newLabel.release_label;
 
             if (id) {
-                var oldLabel = oldLabelsByID[id];
+                const oldLabel = oldLabelsByID[id];
 
                 if (oldLabel && !_.isEqual(newLabel, oldLabel)) {
                     // Edit ReleaseLabel
@@ -127,18 +128,18 @@ releaseEditor.edits = {
                     edits.push(MB.edit.releaseAddReleaseLabel(newLabel));
                 }
             }
-        });
+        }
 
-        _.each(oldLabels, function (oldLabel) {
-            var id = oldLabel.release_label;
-            var newLabel = newLabelsByID[id];
+        for (let oldLabel of oldLabels) {
+            const id = oldLabel.release_label;
+            const newLabel = newLabelsByID[id];
 
             if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
                 // Delete ReleaseLabel
                 oldLabel = _.omit(oldLabel, "label", "catalog_number");
                 edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
             }
-        });
+        }
 
         return edits;
     },
@@ -162,11 +163,11 @@ releaseEditor.edits = {
         var newPositions = _.invokeMap(newMediums, "position");
         var tmpPositions = [];
 
-        _.each(newMediums, function (medium) {
-            var newMediumData = MB.edit.fields.medium(medium);
-            var oldMediumData = medium.original();
+        for (const medium of newMediums) {
+            let newMediumData = MB.edit.fields.medium(medium);
+            const oldMediumData = medium.original();
 
-            _.each(medium.tracks(), function (track, i) {
+            medium.tracks().forEach(function (track, i) {
                 var trackData = newMediumData.tracklist[i];
 
                 if (track.hasExistingRecording()) {
@@ -262,13 +263,13 @@ releaseEditor.edits = {
                 newMediumData.release = release.gid();
                 edits.push(MB.edit.mediumCreate(newMediumData));
             }
-        });
+        }
 
-        _.each(release.mediums.original(), function (m) {
+        for (const m of release.mediums.original()) {
             if (m.id && m.removed) {
                 edits.push(MB.edit.mediumDelete({ medium: m.id }));
             }
-        });
+        }
 
         return edits;
     },
@@ -278,16 +279,16 @@ releaseEditor.edits = {
         var newOrder = [];
         var removedMediums = {};
 
-        _.each(release.mediums.original(), function (medium) {
+        for (const medium of release.mediums.original()) {
             if (medium.id && medium.removed) {
                 removedMediums[medium.original().position] = medium;
             }
-        });
+        }
 
-        _.each(release.mediums(), function (medium) {
-            var newPosition = medium.position();
+        for (const medium of release.mediums()) {
+            const newPosition = medium.position();
 
-            var oldPosition = medium.tmpPosition || (
+            const oldPosition = medium.tmpPosition || (
                 medium.id ? medium.original().position : newPosition
             );
 
@@ -296,7 +297,7 @@ releaseEditor.edits = {
                  * A removed medium is already in the position we want, so
                  * make sure we swap with it to avoid conflicts.
                  */
-                var removedMedium;
+                let removedMedium;
                 if ((removedMedium = removedMediums[newPosition])) {
                     newOrder.push({
                         medium_id:  removedMedium.id,
@@ -311,7 +312,7 @@ releaseEditor.edits = {
                     "new":      newPosition,
                 });
             }
-        });
+        }
 
         if (newOrder.length) {
             edits.push(
@@ -328,8 +329,8 @@ releaseEditor.edits = {
     discID: function (release) {
         var edits = [];
 
-        _.each(release.mediums(), function (medium) {
-            var toc = medium.toc();
+        for (const medium of release.mediums()) {
+            const toc = medium.toc();
 
             if (toc && medium.canHaveDiscID()) {
                 edits.push(
@@ -342,7 +343,7 @@ releaseEditor.edits = {
                     }),
                 );
             }
-        });
+        }
 
         return edits;
     },
@@ -361,7 +362,7 @@ releaseEditor.edits = {
 
         var { oldLinks, newLinks, allLinks } = releaseEditor.externalLinksEditData();
 
-        _.each(allLinks, function (link) {
+        each(allLinks, function (link) {
             if (!link.type || !link.url) {
                 return;
             }
@@ -464,7 +465,7 @@ releaseEditor.getEditPreviews = function () {
 
         previewRequest = MB.edit.preview({ edits: addedEdits })
             .done(function (data) {
-                _.each(_.zip(addedEdits, data.previews), addPreview);
+                _.zip(addedEdits, data.previews).forEach(addPreview);
 
                 // Make sure edits haven't changed while request was pending
                 if (edits === releaseEditor.allEdits()) {

@@ -9,6 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import each from 'lodash/each';
 import flatten from 'lodash/flatten';
 import transform from 'lodash/transform';
 
@@ -69,8 +70,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             link_attribute_type: transform(attrInfo, mapItems, {}),
         });
 
-        _.each(linkedEntities.link_type, function (type) {
-            _.each(type.attributes, function (typeAttr, id) {
+        each(linkedEntities.link_type, function (type) {
+            each(type.attributes, function (typeAttr, id) {
                 typeAttr.attribute = linkedEntities.link_attribute_type[id];
             });
         });
@@ -96,7 +97,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         // Sort each list of types alphabetically.
         Object.values(MB.allowedRelations).forEach(x => x.sort());
 
-        _.each(linkedEntities.link_attribute_type, function (attr) {
+        each(linkedEntities.link_attribute_type, function (attr) {
             attr.root = linkedEntities.link_attribute_type[attr.root_id];
         });
     });
@@ -273,7 +274,7 @@ function addPostedRelationships(source) {
 
     const submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
     if (MB.formWasPosted && submittedRelationships) {
-        _.each(JSON.parse(submittedRelationships), function (data) {
+        each(JSON.parse(submittedRelationships), function (data) {
             addSubmittedRelationship(data, source);
         });
     }
@@ -286,7 +287,7 @@ var loadingEntities = {};
 function addRelationshipsFromQueryString(source) {
     var fields = parseQueryString(window.location.search);
 
-    _.each(fields.rels, function (rel) {
+    each(fields.rels, function (rel) {
         var linkType = linkedEntities.link_type[rel.type];
         var targetIsUUID = uuidRegex.test(rel.target);
 
@@ -358,7 +359,7 @@ function parseQueryString(queryString) {
         subField = fields;
         parts = match[1].split('.');
 
-        _.each(parts, function (part, index) {
+        parts.forEach(function (part, index) {
             if (index === parts.length - 1) {
                 subField[part] = decodeURIComponent(match[2]);
             } else {

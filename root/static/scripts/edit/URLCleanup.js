@@ -7,6 +7,7 @@
  */
 
 import _ from 'lodash';
+import each from 'lodash/each';
 import * as React from 'react';
 
 // See https://musicbrainz.org/relationships (but deprecated ones)
@@ -3091,8 +3092,8 @@ function testAll(tests, text) {
 
 export const validationRules = {};
 
-_.each(LINK_TYPES, function (linkType) {
-  _.each(linkType, function (id, entityType) {
+each(LINK_TYPES, function (linkType) {
+  each(linkType, function (id, entityType) {
     if (!validationRules[id]) {
       validationRules[id] = function (url) {
         const cleanup = _.find(CLEANUPS, function (cleanup) {

@@ -8,6 +8,7 @@
  */
 
 import _ from 'lodash';
+import each from 'lodash/each';
 import * as React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
@@ -241,7 +242,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   flushPendingVotes(asap?: boolean) {
     const actions = {};
 
-    _.each(this.pendingVotes, item => {
+    each(this.pendingVotes, item => {
       const action =
         `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
 
@@ -258,7 +259,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       doRequest = require('../utility/request').default;
     }
 
-    _.each(actions, (items, action) => {
+    each(actions, (items, action) => {
       const url = action + '?tags=' +
         encodeURIComponent(items.map(x => x.tag.name).join(','));
 

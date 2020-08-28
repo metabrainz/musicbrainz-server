@@ -447,16 +447,16 @@ test('guessing feat. artists', function (t) {
     );
   }
 
-  _.each(trackTests, function (x) {
+  for (const test of trackTests) {
     const release = new fields.Release({
       artistCredit: {names: []},
-      mediums: [{tracks: [x.input]}],
+      mediums: [{tracks: [test.input]}],
     });
 
-    runTest(x, release.mediums()[0].tracks()[0]);
-  });
+    runTest(test, release.mediums()[0].tracks()[0]);
+  }
 
-  _.each(releaseTests, function (x) {
-    runTest(x, new fields.Release(x.input));
-  });
+  for (const test of releaseTests) {
+    runTest(test, new fields.Release(test.input));
+  }
 });

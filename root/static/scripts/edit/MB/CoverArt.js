@@ -272,11 +272,11 @@ MB.CoverArt.submit_edit = function (fileUpload, postfields, mimeType, position) 
         formdata.append('add-cover-art.make_votable', 'on');
     }
 
-    _.each(fileUpload.types(), function (checkbox) {
+    for (const checkbox of fileUpload.types()) {
         if (checkbox.checked()) {
             formdata.append('add-cover-art.type_id', checkbox.id);
         }
-    });
+    }
 
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", function () {

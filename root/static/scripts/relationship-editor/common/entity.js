@@ -66,9 +66,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             this.relationships(allRelationships);
 
-            _.each(relationships, function (data) {
+            for (const data of relationships) {
                 MB.entity(data.target).parseRelationships(data.target.relationships);
-            });
+            }
         },
 
         displayableRelationships: cacheByID(function (vm) {
@@ -147,11 +147,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                 var currentValue = hasOrdering.peek();
 
                                 if (currentValue && !newValue) {
-                                    _.each(group.values.slice(0), function (r) {
+                                    for (const r of group.values.slice(0)) {
                                         r.linkOrder(0);
-                                    });
+                                    }
                                 } else if (newValue && !currentValue) {
-                                    _.each(group.values.slice(0), function (r, i) {
+                                    group.values.slice(0).forEach(function (r, i) {
                                         r.linkOrder(i + 1);
                                     });
                                 }

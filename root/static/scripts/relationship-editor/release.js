@@ -98,32 +98,32 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         getEdits(addChanged) {
             var release = this.source;
 
-            _.each(release.mediums(), function (medium) {
-                _.each(medium.tracks, function (track) {
-                    var recording = track.recording;
+            for (const medium of release.mediums()) {
+                for (const track of medium.tracks) {
+                    const recording = track.recording;
 
-                    _.each(recording.relationships(), function (r) {
+                    for (const r of recording.relationships()) {
                         addChanged(r, recording);
 
                         if (r.entityTypes === "recording-work") {
-                            var work = r.entities()[1];
+                            const work = r.entities()[1];
 
-                            _.each(work.relationships(), function (r) {
+                            for (const r of work.relationships()) {
                                 addChanged(r, work);
-                            });
+                            }
                         }
-                    });
-                });
-            });
+                    }
+                }
+            }
 
-            _.each(release.relationships(), function (r) {
+            for (const r of release.relationships()) {
                 addChanged(r, release);
-            });
+            }
 
             var rg = release.releaseGroup;
-            _.each(rg.relationships(), function (r) {
+            for (const r of rg.relationships()) {
                 addChanged(r, rg);
-            });
+            }
         }
 
         submit(data, event) {
@@ -196,11 +196,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var release = this.source;
 
             release.mediums(_.map(data.mediums, function (mediumData) {
-                _.each(mediumData.tracks, function (trackData) {
+                for (const trackData of mediumData.tracks) {
                     MB.entity(trackData.recording).parseRelationships(
                         trackData.recording.relationships,
                     );
-                });
+                }
                 return new MB.entity.Medium(mediumData, release);
             }));
 

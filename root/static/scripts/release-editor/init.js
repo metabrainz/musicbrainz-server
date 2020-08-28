@@ -180,16 +180,16 @@ releaseEditor.init = function (options) {
 
         if (tabID === "#tracklist" && releaseACChanged) {
             if (!hasVariousArtists(releaseAC)) {
-                _.each(release.mediums(), function (medium) {
-                    _.each(medium.tracks(), function (track) {
+                for (const medium of release.mediums()) {
+                    for (const track of medium.tracks()) {
                         if (reduceArtistCredit(track.artistCredit()) === reduceArtistCredit(savedReleaseAC)) {
                             track.artistCredit(releaseAC);
                             track.artistCreditEditorInst.setState({
                                 artistCredit: track.artistCredit.peek(),
                             });
                         }
-                    });
-                });
+                    }
+                }
             }
             release.artistCredit.saved = releaseAC;
         }

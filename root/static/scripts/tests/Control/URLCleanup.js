@@ -8,6 +8,7 @@
 
 import test from 'tape';
 import _ from 'lodash';
+import each from 'lodash/each';
 
 import {LINK_TYPES, cleanURL, guessType, validationRules} from '../../edit/URLCleanup';
 
@@ -4096,7 +4097,7 @@ const relationshipTypesByUuid = _.reduce(LINK_TYPES, function (
   relUuidByEntityType,
   relationshipType,
 ) {
-  _.each(relUuidByEntityType, function (relUuid) {
+  each(relUuidByEntityType, function (relUuid) {
     (results[relUuid] || (results[relUuid] = [])).push(relationshipType);
   });
   return results;
@@ -4120,7 +4121,7 @@ function doMatchSubtest(
   previousMatchTests.push(entityType + '+' + url);
 }
 
-_.each(testData, function (subtest, i) {
+testData.forEach(function (subtest, i) {
   test('input URL [' + i + '] = ' + subtest.input_url, {}, function (st) {
     let tested = false;
     if (!subtest.input_url) {

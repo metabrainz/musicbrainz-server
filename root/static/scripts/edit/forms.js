@@ -10,6 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 import debounce from 'lodash/debounce';
+import each from 'lodash/each';
 
 import {compare} from '../common/i18n';
 import MB from '../common/MB';
@@ -121,7 +122,7 @@ ko.bindingHandlers.loop = {
         const elements = options.elements || {};
         const template = [];
 
-        _.each(ko.virtualElements.childNodes(parentNode), function (node) {
+        each(ko.virtualElements.childNodes(parentNode), function (node) {
             if (node.nodeType === ELEMENT_NODE ||
                 node.nodeType === COMMENT_NODE) {
                 template.push(node);

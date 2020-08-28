@@ -10,6 +10,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import each from 'lodash/each';
 import keyBy from 'lodash/keyBy';
 import groupBy from 'lodash/groupBy';
 import uniqBy from 'lodash/uniqBy';
@@ -167,7 +168,7 @@ export class ExternalLinksEditor
     const backward = this.props.sourceType > 'url';
     const {oldLinks, newLinks, allLinks} = this.getEditData();
 
-    _.each(allLinks, function (link, relationship) {
+    each(allLinks, function (link, relationship) {
       if (!link.type) {
         return;
       }
@@ -644,7 +645,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
       (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
     }
 
-    _.each(urls, function (data) {
+    each(urls, function (data) {
       initialLinks.push(newLinkState({
         relationship: _.uniqueId('new-'),
         type: data.link_type_id,

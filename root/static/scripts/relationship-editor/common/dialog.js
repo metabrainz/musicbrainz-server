@@ -128,11 +128,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 $(element).find(".ui-autocomplete-input:last").focus();
             }
 
-            _.each(relationship.attributes.peek(), function (attribute) {
+            for (const attribute of relationship.attributes.peek()) {
                 if (attribute.type.root_id == 14) {
                     addInstrument(MB.entity(attribute.type, "instrument"), attribute);
                 }
-            });
+            }
 
             if (!instruments.peek().length) {
                 addInstrument(new MB.entity.Instrument({}));
@@ -261,9 +261,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                          * way to iterate over all entities on the page.
                          */
 
-                        _.each(MB.entityCache, function (entity, gid) {
+                        each(MB.entityCache, function (entity, gid) {
                             if (gid === target.gid) {
-                                _.each(entity.displayableRelationships(vm)(), function (r) {
+                                for (const r of entity.displayableRelationships(vm)()) {
                                     switch (relationshipFilter) {
                                         case 'same-entity-types':
                                             if (r.entityTypes !== relationship.entityTypes) {
@@ -277,7 +277,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                             break;
                                     }
 
-                                    var entities = r.entities();
+                                    const entities = r.entities();
 
                                     if (entities[0].gid === gid) {
                                         r.entity0_credit(targetCredit);
@@ -286,7 +286,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                     if (entities[1].gid === gid) {
                                         r.entity1_credit(targetCredit);
                                     }
-                                });
+                                }
                             }
                         });
                     }
@@ -634,16 +634,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     });
 
     function addRelationships(relationships, source, viewModel) {
-        _.each(relationships, function (relationship) {
+        for (const relationship of relationships) {
             if (source.mergeRelationship(relationship)) {
                 return;
             }
 
             if (relationship.getLinkType().orderable_direction) {
-                var group = source.getRelationshipGroup(relationship, viewModel);
-                var maxLinkOrder = -Infinity;
+                const group = source.getRelationshipGroup(relationship, viewModel);
+                let maxLinkOrder = -Infinity;
 
-                _.each(group, function (other) {
+                each(group, function (other) {
                     maxLinkOrder = Math.max(maxLinkOrder, other.linkOrder.peek() || 0);
                 });
 
@@ -656,7 +656,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             relationship.show();
-        });
+        }
     }
 
     export class AddDialog extends Dialog {
@@ -739,13 +739,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             model.target = this.relationship().target(this.source);
             model.direction = this.backward() ? "backward" : "forward";
 
-            _.each(this.sources, function (source) {
+            for (const source of this.sources) {
                 model = _.clone(model);
 
                 if (!callback || callback(model)) {
                     addRelationships(splitByCreditableAttributes(vm.getRelationship(model, source)), source, vm);
                 }
-            });
+            }
         }
     }
 

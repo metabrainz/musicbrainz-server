@@ -229,11 +229,11 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         },
     ];
 
-    _.each(tests, function (test) {
+    for (const test of tests) {
         relationship.linkTypeID(test.linkTypeID);
         relationship.setAttributes(test.attributes);
 
-        var result = relationship.phraseAndExtraAttributes(
+        const result = relationship.phraseAndExtraAttributes(
             entities.indexOf(source) === 0 ? 'link_phrase' : 'reverse_link_phrase',
             false,
         );
@@ -250,7 +250,7 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         if (test.expectedExtra) {
             t.equal(result[1], test.expectedExtra);
         }
-    });
+    }
 
     relationship.remove();
 });
@@ -381,15 +381,15 @@ relationshipEditorTest("dialog backwardness", function (t) {
         },
     ];
 
-    _.each(tests, function (test) {
-        var options = {...test.input, viewModel: vm};
-        var dialog = new AddDialog(options);
+    for (const test of tests) {
+        const options = {...test.input, viewModel: vm};
+        const dialog = new AddDialog(options);
 
         t.equal(dialog.backward(), test.expected.backward);
         t.deepEqual(dialog.relationship().entities(), test.expected.entities);
 
         dialog.close();
-    });
+    }
 });
 
 relationshipEditorTest("AddDialog", function (t) {

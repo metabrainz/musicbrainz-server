@@ -9,6 +9,7 @@
 import ko from 'knockout';
 import _ from 'lodash';
 import difference from 'lodash/difference';
+import each from 'lodash/each';
 import intersection from 'lodash/intersection';
 import sortBy from 'lodash/sortBy';
 
@@ -414,17 +415,17 @@ import request from '../../common/utility/request';
             var origAttributes = relationship ? relationship.attributes.original : {};
             var changedAttributes = [];
 
-            _.each(args.attributes, function (hash) {
-                var gid = hash.type.gid;
+            for (const hash of args.attributes) {
+                const gid = hash.type.gid;
 
                 newAttributes[gid] = hash;
 
                 if (!origAttributes[gid] || !_.isEqual(origAttributes[gid], hash)) {
                     changedAttributes.push(hash);
                  }
-            });
+            }
 
-            _.each(origAttributes, function (value, gid) {
+            each(origAttributes, function (value, gid) {
                 if (!newAttributes[gid]) {
                     changedAttributes.push({type: {gid: gid}, removed: true});
                 }

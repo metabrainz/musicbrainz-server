@@ -115,7 +115,7 @@ class SearchResult {
     }
 
     requestDone(data) {
-        _.each(data.tracks, (track, index) => this.parseTrack(track, index));
+        data.tracks.forEach((track, index) => this.parseTrack(track, index));
         Object.assign(this, utils.reuseExistingMediumData(data));
 
         this.loaded(true);
@@ -324,16 +324,15 @@ Object.assign(addDiscDialog, {
         this.trackParser.setMedium(blankMedium);
         this.trackParser.result(blankMedium);
 
-        _.each([mediumSearchTab, cdstubSearchTab],
-            function (tab) {
-                if (!tab.releaseName()) {
-                    tab.releaseName(release.name());
-                }
+        for (const tab of [mediumSearchTab, cdstubSearchTab]) {
+            if (!tab.releaseName()) {
+                tab.releaseName(release.name());
+            }
 
-                if (!tab.artistName()) {
-                    tab.artistName(reduceArtistCredit(release.artistCredit()));
-                }
-            });
+            if (!tab.artistName()) {
+                tab.artistName(reduceArtistCredit(release.artistCredit()));
+            }
+        }
 
         Dialog.prototype.open.apply(this, arguments);
     },

@@ -97,9 +97,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }, this);
 
             if (data.id) {
-                _.each(this.attributes.peek(), function (attribute) {
+                for (const attribute of this.attributes.peek()) {
                     self.attributes.original[attribute.type.gid] = attribute.toJS();
-                });
+                }
             }
 
             /*
@@ -480,7 +480,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 relationships[newIndex] = this;
                 relationships[index] = other;
 
-                _.each(relationships, function (r, i) {
+                relationships.forEach(function (r, i) {
                     r.linkOrder(i + 1);
                 });
             }
@@ -637,9 +637,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function setPartialDate(target, data) {
-        _.each(["year", "month", "day"], function (key) {
+        for (const key of ["year", "month", "day"]) {
             (target[key] = target[key] || ko.observable())(ko.unwrap(data[key]) || null);
-        });
+        }
         return target;
     }
 

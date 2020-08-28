@@ -226,7 +226,7 @@ const trackParser = releaseEditor.trackParser = {
             if (medium.hasDataTracks()) {
                 var dataTracksEnded = false;
 
-                _.each(newTracks.slice(0).reverse(), function (t, index) {
+                newTracks.slice(0).reverse().forEach(function (t, index) {
                     /*
                      * Don't touch the data track boundary if the total number
                      * of tracks is >= the previous number. The user can edit
@@ -266,7 +266,7 @@ const trackParser = releaseEditor.trackParser = {
                     })),
                 );
 
-                _.each(newTracks, function (t, index) {
+                newTracks.forEach(function (t, index) {
                     t.position(index + 1);
                 });
             }
@@ -278,7 +278,7 @@ const trackParser = releaseEditor.trackParser = {
          * new track instances.
          */
         if (previousTracks && previousTracks.length) {
-            _.each(newTracks, function (track, index) {
+            newTracks.forEach(function (track, index) {
                 delete track.previousTrackAtThisPosition;
 
                 var previousTrack = previousTracks[index];

@@ -534,7 +534,7 @@ class Medium {
             ),
         );
 
-        _.each(tocTracks, function (track, index) {
+        tocTracks.forEach(function (track, index) {
             track.formattedLength(
                 formatTrackLength(
                     (((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000), '',
@@ -542,7 +542,7 @@ class Medium {
             );
         });
 
-        _.each(this.tracks(), function (track, index) {
+        this.tracks().forEach(function (track, index) {
             track.position(pregapOffset + index);
 
             if (wasConsecutivelyNumbered) {
@@ -559,10 +559,10 @@ class Medium {
         var maxLength = -Infinity;
         var cdtocs = (this.cdtocs || []).concat(this.toc() || []);
 
-        _.each(cdtocs, function (toc) {
+        for (let toc of cdtocs) {
             toc = toc.split(/\s+/);
             maxLength = Math.max(maxLength, toc[3] / 75 * 1000);
-        });
+        }
 
         return this.tracks()[0].length() > maxLength;
     }
@@ -989,11 +989,11 @@ class Release extends mbEntity.Release {
 
     tracksWithUnsetPreviousRecordings() {
         return _.transform(this.mediums(), function (result, medium) {
-            _.each(medium.tracks(), function (track) {
+            for (const track of medium.tracks()) {
                 if (track.recording.saved && track.needsRecording()) {
                     result.push(track);
                 }
-            });
+            }
         });
     }
 

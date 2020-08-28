@@ -168,7 +168,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             pushInput(prefix, "target", relationship.target(vm.source).gid);
 
             var changeData = MB.edit.relationshipEdit(editData, relationship.original, relationship);
-            _.each(changeData.attributes, function (attribute, i) {
+            changeData.attributes?.forEach(function (attribute, i) {
                 var attrPrefix = prefix + ".attributes." + i;
 
                 pushInput(attrPrefix, "type.gid", attribute.type.gid);
@@ -186,11 +186,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 }
             });
 
-            _.each(['entity0_credit', 'entity1_credit'], function (prop) {
-                if (typeof changeData[prop] === 'string') {
-                    pushInput(prefix, prop, changeData[prop]);
-                }
-            });
+            if (typeof changeData.entity0_credit === 'string') {
+                pushInput(prefix, 'entity0_credit', changeData.entity0_credit);
+            }
+
+            if (typeof changeData.entity1_credit === 'string') {
+                pushInput(prefix, 'entity1_credit', changeData.entity1_credit);
+            }
 
             var beginDate = changeData.begin_date;
             var endDate = changeData.end_date;

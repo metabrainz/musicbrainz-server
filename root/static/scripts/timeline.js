@@ -228,14 +228,14 @@ class TimelineViewModel {
         var parts = _.filter(location.hash.replace(/^#/, '').split('+'));
         var self = this;
 
-        _.forEach(parts, function (part) {
-            var match;
+        for (const part of parts) {
+            let match;
 
             if ((match = part.match(/^(-)?([rv])-?$/))) { // trailing - for backwards-compatibility
-                var meth = match[2] === 'r' ? 'rate' : 'events';
+                const meth = match[2] === 'r' ? 'rate' : 'events';
                 self.options[meth](!(match[1] === '-'));
             } else if ((match = part.match(/^(-)?(c-.*)$/))) {
-                var category = _.find(self.categories(), { hashIdentifier: match[2] });
+                const category = _.find(self.categories(), { hashIdentifier: match[2] });
                 if (category) {
                     category.enabled(!(match[1] === '-'));
                 }
@@ -253,7 +253,7 @@ class TimelineViewModel {
                     }
                 }
             }
-        });
+        }
     }
 
     addCategory(category) {
@@ -275,9 +275,9 @@ class TimelineViewModel {
 
     addLines(names) {
         var self = this;
-        _.forEach(names, function (name) {
+        for (const name of names) {
             self.addLine(name);
-        });
+        }
     }
 
     loadEvents() {
@@ -338,9 +338,9 @@ class TimelineCategory {
 
         // rateLimit to load asynchronously
         debounce(function () {
-            _.forEach(self.needLoadingLines(), function (line) {
+            for (const line of self.needLoadingLines()) {
                 line.loadData();
-            });
+            }
         }, 1);
     }
 
