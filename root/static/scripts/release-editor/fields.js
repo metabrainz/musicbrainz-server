@@ -8,6 +8,7 @@
 
 import ko from 'knockout';
 import _ from 'lodash';
+import groupBy from 'lodash/groupBy';
 
 import mbEntity from '../common/entity';
 import releaseLabelKey from '../common/utility/releaseLabelKey';
@@ -877,10 +878,10 @@ class Release extends mbEntity.Release {
         }
 
         ko.computed(function () {
-            _(self.events()).groupBy(countryID).each(function (events) {
+            for (const events of Object.values(groupBy(self.events(), countryID))) {
                 const isDuplicate = _.filter(events, nonEmptyEvent).length > 1;
                 events.forEach(e => e.isDuplicate(isDuplicate));
-            });
+            }
         }); 
 
         this.earliestYear = ko.computed(function () {
@@ -904,10 +905,10 @@ class Release extends mbEntity.Release {
         }
 
         ko.computed(function () {
-            _(self.labels()).groupBy(releaseLabelKey).each(function (labels) {
+            for (const labels of Object.values(groupBy(self.labels(), releaseLabelKey))) {
                 const isDuplicate = _.filter(labels, nonEmptyReleaseLabel).length > 1;
                 labels.forEach(l => l.isDuplicate(isDuplicate));
-            });
+            }
         });
 
         this.needsLabels = errorField(this.labels.any("needsLabel"));

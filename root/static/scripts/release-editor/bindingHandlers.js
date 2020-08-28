@@ -88,11 +88,12 @@ ko.bindingHandlers.artistCreditEditor = {
         const track = this.currentTarget();
         const artistCredit = track.artistCredit.peek();
 
-        _(track.medium.release.mediums())
-            .invokeMap("tracks")
-            .flatten()
-            .without(track)
-            .each(function (t) {
+        track.medium.release.mediums()
+            .flatMap(m => m.tracks())
+            .forEach(function (t) {
+                if (t === track) {
+                    return;
+                }
                 if (initialArtistText === reduceArtistCredit(t.artistCredit.peek())) {
                     t.artistCredit(artistCredit);
                     t.artistCreditEditorInst.setState({artistCredit});

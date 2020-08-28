@@ -464,10 +464,15 @@ import formatTrackLength from './utility/formatTrackLength';
     MB.entity.Work = Work;
 
     function relatedArtists(relationships) {
-        return _(relationships)
-            .filter({target: {entityType: 'artist'}})
-            .map('target')
-            .value();
+        if (!relationships) {
+            return [];
+        }
+        return relationships.reduce((accum, r) => {
+            if (r.target.entityType === 'artist') {
+                accum.push(r.target);
+            }
+            return accum;
+        }, []);
     }
 
     var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;

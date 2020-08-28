@@ -342,7 +342,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     releaseEditor.rootField.release(release);
     var medium = release.mediums()[0];
-    var oldRecordings = _(medium.tracks()).invokeMap('recording').value();
+    var oldRecordings = medium.tracks().map(x => x.recording());
 
     medium.tracks(
         trackParser.parse(
@@ -353,7 +353,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
         ),
     );
     var newTracks = medium.tracks();
-    var newRecordings = _(newTracks).invokeMap('recording').value();
+    var newRecordings = newTracks.map(x => x.recording());
 
     t.ok(!newTracks[0].id, 'first track has no id');
     t.ok(!newTracks[0].gid, 'first track has no gid');
@@ -364,7 +364,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     releaseEditor.reuseUnsetPreviousRecordings(release);
     newTracks = medium.tracks();
-    newRecordings = _(newTracks).invokeMap('recording').value();
+    newRecordings = newTracks.map(x => x.recording());
 
     t.equal(newTracks[0].id, 1, 'previous first track’s id is used');
     t.equal(newTracks[0].gid, '7aeebcb5-cc99-4c7f-82bc-f2da35200081', 'previous first track’s gid is used');

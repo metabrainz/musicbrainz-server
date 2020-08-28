@@ -9,6 +9,8 @@
 
 import $ from 'jquery';
 import _ from 'lodash';
+import groupBy from 'lodash/groupBy';
+import mapValues from 'lodash/mapValues';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
 import * as React from 'react';
@@ -183,16 +185,16 @@ class ViewModel {
 
     this.attributeTypesByID = attributeTypes.children.reduce(byID, {});
 
-    this.allowedValuesByTypeID = _(allowedValues.children)
-      .groupBy(x => x.workAttributeTypeID)
-      .mapValues(function (children) {
+    this.allowedValuesByTypeID = mapValues(
+      groupBy(allowedValues.children, x => x.workAttributeTypeID),
+      function (children) {
         return buildOptionsTree(
           {children},
           x => lp_attributes(x.value, 'work_attribute_type_allowed_value'),
           'id',
         );
-      })
-      .value();
+      },
+    );
 
     this.attributes = ko.observableArray(
       _.map(attributes, data => new WorkAttribute(data, this)),

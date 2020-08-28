@@ -8,6 +8,7 @@
 
 import ko from 'knockout';
 import _ from 'lodash';
+import uniqBy from 'lodash/uniqBy';
 
 import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
 import {
@@ -79,10 +80,8 @@ function recordingQuery(track, name) {
     var params = {
         recording: [utils.escapeLuceneValue(name)],
 
-        arid: _(track.artistCredit().names)
-            .map('artist.gid')
-            .map(utils.escapeLuceneValue)
-            .value(),
+        arid: track.artistCredit().names
+            .map(x => utils.escapeLuceneValue(x.artist.gid)),
     };
 
     var titleAndArtists = utils.constructLuceneFieldConjunction(params);
@@ -109,8 +108,8 @@ function cleanRecordingData(data) {
     clean.artist = reduceArtistCredit(clean.artistCredit);
     clean.video = !!data.video;
 
-    var appearsOn = _(data.releases)
-        .map(function (release) {
+    var appearsOn = uniqBy(
+        data.releases?.map(function (release) {
             /*
              * The webservice doesn't include the release group title, so
              * we have to use the release title instead.
@@ -120,9 +119,9 @@ function cleanRecordingData(data) {
                 gid: release.id,
                 releaseGroupGID: release["release-group"].id,
             };
-        })
-        .uniqBy('releaseGroupGID')
-        .value();
+        }) ?? [],
+        'releaseGroupGID',
+    );
 
     clean.appearsOn = {
         hits: appearsOn.length,
@@ -322,7 +321,21 @@ function matchAgainstRecordings(track, recordings) {
     var trackLength = track.length();
     var trackName = track.name();
 
-    var matches = _(recordings)
+    function getLengthDifference(recording) {
+        /*
+         * Prefer that recordings with a length be at the top of the
+         * suggestions list.
+         */
+        if (!recording.length) {
+            return MAX_LENGTH_DIFFERENCE + 1;
+        }
+        if (!trackLength) {
+            return MAX_LENGTH_DIFFERENCE;
+        }
+        return Math.abs(trackLength - recording.length);
+    }
+
+    var matches = recordings
         .filter(function (recording) {
             if (!utils.similarLengths(trackLength, recording.length)) {
                 return false;
@@ -338,25 +351,16 @@ function matchAgainstRecordings(track, recordings) {
             
             return false;
         })
-        .sortBy(function (recording) {
-            var appearsOn = recording.appearsOn;
-            return appearsOn ? appearsOn.results.length : 0;
-        })
-        .reverse()
-        .sortBy(function (recording) {
-            /*
-             * Prefer that recordings with a length be at the top of the
-             * suggestions list.
-             */
-            if (!recording.length) {
-                return MAX_LENGTH_DIFFERENCE + 1;
-            }
-            if (!trackLength) {
-                return MAX_LENGTH_DIFFERENCE;
-            }
-            return Math.abs(trackLength - recording.length);
-        })
-        .value();
+        .sort(function (r1, r2) {
+            const appearsOn1 = r1.appearsOn;
+            const appearsOn2 = r2.appearsOn;
+            return (
+                // Sort recordings with more appearances first.
+                ((appearsOn2?.results.length ?? 0) -
+                    (appearsOn1?.results.length ?? 0)) ||
+                (getLengthDifference(r1) - getLengthDifference(r2))
+            );
+        });
 
     if (matches.length) {
         return _.map(matches, function (match) {

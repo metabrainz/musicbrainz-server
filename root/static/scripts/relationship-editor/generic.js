@@ -101,16 +101,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return _.sortBy(
                 relationships,
                 function (r) {
-                    return _(r.target(series).events)
+                    return r.target(series)
+                        .events
                         .map(getDate)
-                        .sort()
-                        .head();
+                        .sort()[0];
                 },
                 function (r) {
-                    return _(r.target(series).labels)
+                    return r.target(series)
+                        .labels
                         .map(getCatalogNumber)
-                        .sort()
-                        .head();
+                        .sort()[0];
                 },
             );
         },

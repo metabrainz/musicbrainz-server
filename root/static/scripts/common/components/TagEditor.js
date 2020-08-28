@@ -260,7 +260,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
     _.each(actions, (items, action) => {
       const url = action + '?tags=' +
-        encodeURIComponent(_(items).map('tag.name').join(','));
+        encodeURIComponent(items.map(x => x.tag.name).join(','));
 
       doRequest({url: url})
         .done(data => this.updateTags(data.updates))

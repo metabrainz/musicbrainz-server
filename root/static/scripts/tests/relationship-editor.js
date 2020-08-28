@@ -241,7 +241,10 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         t.equal(
             result[0],
             test.expected,
-            [test.linkTypeID, JSON.stringify(_(test.attributes).map('type.id').value())].join(", "),
+            [
+                test.linkTypeID,
+                JSON.stringify(test.attributes.map(x => x.type.id)),
+            ].join(", "),
         );
 
         if (test.expectedExtra) {
@@ -284,10 +287,7 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
     t.ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
     t.deepEqual(
-        _(relationship.attributes())
-            .map('type.id')
-            .value()
-            .sort(),
+        relationship.attributes().map(x => x.type.id).sort(),
         [123, 194, 277],
         "attributes are the same",
     );

@@ -51,7 +51,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.entities.equalityComparer = entitiesComparer;
             this.entities.saved = this.entities.peek().slice(0);
             this.entities.subscribe(this.entitiesChanged, this);
-            this.entityTypes = _(data.entities).map("entityType").join("-");
+            this.entityTypes = data.entities.map(x => x.entityType).join("-");
             this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
 
             this.entity0_credit = ko.observable(data.entity0_credit || '');

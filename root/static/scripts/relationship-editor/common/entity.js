@@ -8,6 +8,8 @@
 
 import ko from 'knockout';
 import _ from 'lodash';
+import sortBy from 'lodash/sortBy';
+import union from 'lodash/union';
 
 import 'knockout-arraytransforms';
 
@@ -53,15 +55,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return;
             }
 
-            var newRelationships = _(relationships)
+            var newRelationships = relationships
                 .map(data => MB.getRelationship(data, self))
-                .compact()
-                .value();
+                .filter(Boolean);
 
-            var allRelationships = _(this.relationships.peek())
-                .union(newRelationships)
-                .sortBy(r => r.lowerCasePhrase(self))
-                .value();
+            var allRelationships = sortBy(
+                union(this.relationships.peek(), newRelationships),
+                r => r.lowerCasePhrase(self),
+            );
 
             this.relationships(allRelationships);
 

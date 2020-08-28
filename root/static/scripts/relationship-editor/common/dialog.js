@@ -9,6 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import each from 'lodash/each';
+import groupBy from 'lodash/groupBy';
 import * as ReactDOMServer from 'react-dom/server';
 
 import '../../../lib/jquery-ui';
@@ -575,10 +577,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             return this.linkTypeError() ||
                    this.targetEntityError() ||
-                   _(relationship.getLinkType().attributes)
-                       .values()
-                       .map(_.bind(relationship.attributeError, relationship))
-                       .some() ||
+                   Object.values(relationship.getLinkType().attributes)
+                       .map(relationship.attributeError.bind(relationship))
+                       .some(Boolean) ||
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
                    this.tooShortBeginYearError() ||
@@ -850,13 +851,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             relationships.push(newRelationship);
         }
 
-        _(creditable)
-            .groupBy(linkAttributeTypeID)
-            .each(function (attributes) {
+        each(
+            groupBy(creditable, linkAttributeTypeID),
+            function (attributes) {
                 var extra = _.tail(attributes);
                 relationship.attributes.removeAll(extra);
-                _.each(extra, split);
-            });
+                each(extra, split);
+            },
+        );
 
         return relationships;
     }

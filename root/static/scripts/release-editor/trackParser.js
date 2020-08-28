@@ -9,6 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import sortBy from 'lodash/sortBy';
 
 import {MIN_NAME_SIMILARITY} from '../common/constants';
 import {
@@ -125,20 +126,20 @@ const trackParser = releaseEditor.trackParser = {
                  * along with their similarity.
                  */
                 dataTrackPairs = dataTrackPairs.concat(
-                    _(currentTracks)
+                    currentTracks
                         .map(function (track) {
                             return self.matchDataWithTrack(data, track);
                         })
-                        .compact()
-                        .value(),
+                        .filter(Boolean),
                 );
             }
 
             return data;
         });
 
-        _(dataTrackPairs).sortBy("similarity").reverse()
-            .each(function (match) {
+        sortBy(dataTrackPairs, 'similarity')
+            .reverse()
+            .forEach(function (match) {
                 var data = match.data;
                 var track = match.track;
 

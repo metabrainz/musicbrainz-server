@@ -9,6 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import flatten from 'lodash/flatten';
+import transform from 'lodash/transform';
 
 import localizeLinkAttributeTypeDescription
     from '../../common/i18n/localizeLinkAttributeTypeDescription';
@@ -63,12 +65,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         Object.assign(linkedEntities, {
             link_type_tree: typeInfo,
-            link_type: _(typeInfo)
-                .values()
-                .flatten()
-                .transform(mapItems, {})
-                .value(),
-            link_attribute_type: _.transform(attrInfo, mapItems, {}),
+            link_type: transform(flatten(Object.values(typeInfo)), mapItems, {}),
+            link_attribute_type: transform(attrInfo, mapItems, {}),
         });
 
         _.each(linkedEntities.link_type, function (type) {
@@ -79,7 +77,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         MB.allowedRelations = {};
 
-        _(typeInfo).keys().each(function (typeString) {
+        Object.keys(typeInfo).forEach(function (typeString) {
             var types = typeString.split("-");
             var type0 = types[0];
             var type1 = types[1];
@@ -96,10 +94,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         });
 
         // Sort each list of types alphabetically.
-        _(MB.allowedRelations)
-            .values()
-            .invokeMap('sort')
-            .value();
+        Object.values(MB.allowedRelations).forEach(x => x.sort());
 
         _.each(linkedEntities.link_attribute_type, function (attr) {
             attr.root = linkedEntities.link_attribute_type[attr.root_id];

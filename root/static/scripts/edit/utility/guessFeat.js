@@ -28,7 +28,7 @@ const collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|、|[,，;�
 const bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
 
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
-  const wrapped = _(str.split(featRegex)).map(clean);
+  const parts = str.split(featRegex).map(clean);
 
   const fixFeatJoinPhrase = function (existing) {
     const joinPhrase = isProbablyClassical ? '; ' : existing ? (
@@ -44,19 +44,16 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
       : joinPhrase;
   };
 
-  const name = clean(wrapped.head());
+  const name = clean(parts[0]);
 
-  const joinPhrase = (wrapped.size() < 2)
+  const joinPhrase = (parts.length < 2)
     ? ''
-    : fixFeatJoinPhrase(wrapped.pullAt(1));
+    : fixFeatJoinPhrase(parts[1]);
 
-  const artistCredit = wrapped
+  const artistCredit = parts
     .splice(2)
-    .filter((value, key) => key % 2 === 0)
-    .compact()
-    .map(c => expandCredit(c, artists, isProbablyClassical))
-    .flatten()
-    .value();
+    .filter((value, key) => value && key % 2 === 0)
+    .flatMap(c => expandCredit(c, artists, isProbablyClassical));
 
   return {
     name: name,
@@ -141,18 +138,17 @@ function cleanCredit(name, isProbablyClassical) {
 }
 
 function bestArtistMatch(artists, name) {
-  return _(artists)
-    .map(function (a) {
-      const similarity = getSimilarity(name, a.name);
-      if (similarity >= MIN_NAME_SIMILARITY) {
-        return {similarity: similarity, artist: a, name: name};
-      }
-      return null;
-    })
-    .compact()
-    .sortBy('similarity')
-    .reverse()
-    .head();
+  let match = null;
+  for (const artist of artists) {
+    const similarity = getSimilarity(name, artist.name);
+    if (
+      similarity >= MIN_NAME_SIMILARITY &&
+      (match == null || similarity > match.similarity)
+    ) {
+      match = {similarity, artist, name};
+    }
+  }
+  return match;
 }
 
 function expandCredit(fullName, artists, isProbablyClassical) {
@@ -175,33 +171,31 @@ function expandCredit(fullName, artists, isProbablyClassical) {
       : joinPhrase;
   };
 
-  const splitMatches = _(fullName.split(collabRegex))
-    .chunk(2)
-    .map(function (pair) {
-      const name = cleanCredit(pair[0], isProbablyClassical);
+  const splitParts = fullName.split(collabRegex);
+  const splitMatches = [];
+  let bestSplitMatch;
 
-      return Object.assign(
-        {
-          similarity: -1,
-          artist: null,
-          name: name,
-          joinPhrase: fixJoinPhrase(pair[1]),
-        },
-        bestArtistMatch(artists, name) || {},
-      );
-    });
+  for (let i = 0; i < splitParts.length; i += 2) {
+    const name = cleanCredit(splitParts[i], isProbablyClassical);
+    const match = {
+      similarity: -1,
+      artist: null,
+      name: name,
+      joinPhrase: fixJoinPhrase(splitParts[i + 1]),
+      ...bestArtistMatch(artists, name),
+    };
+    splitMatches.push(match);
+    if (!bestSplitMatch || match.similarity > bestSplitMatch.similarity) {
+      bestSplitMatch = match;
+    }
+  }
 
-  if (bestFullMatch &&
-    bestFullMatch.similarity > splitMatches
-      .sortBy('similarity')
-      .reverse()
-      .head()
-      .similarity) {
+  if (bestFullMatch && bestFullMatch.similarity > bestSplitMatch.similarity) {
     bestFullMatch.joinPhrase = fixJoinPhrase();
     return [bestFullMatch];
   }
 
-  return splitMatches.value();
+  return splitMatches;
 }
 
 export default function guessFeat(entity) {

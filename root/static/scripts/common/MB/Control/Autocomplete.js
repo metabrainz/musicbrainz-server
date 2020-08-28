@@ -7,8 +7,12 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
+import _ from 'lodash';
+import each from 'lodash/each';
+import groupBy from 'lodash/groupBy';
+import head from 'lodash/head';
+import last from 'lodash/last';
 
 import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 import mbEntity from '../../entity';
@@ -712,28 +716,25 @@ MB.Control.autocomplete_formatters = {
             );
         });
 
-        _(item.labels)
-            .groupBy(getLabelName)
-            .each(function (releaseLabels, name) {
-                var catalogNumbers = _(releaseLabels)
-                    .map(getCatalogNumber)
-                    .compact()
-                    .sort()
-                    .value();
+        each(groupBy(item.labels, getLabelName), function (releaseLabels, name) {
+            const catalogNumbers = releaseLabels
+                .map(getCatalogNumber)
+                .filter(Boolean)
+                .sort();
 
-                if (catalogNumbers.length > 2) {
-                    appendComment(
-                        $a,
-                        name +
-                        maybeParentheses(_.head(catalogNumbers) + ' … ' + _.last(catalogNumbers), name),
-                    );
-                } else {
-                    _.each(releaseLabels, function (releaseLabel) {
-                        var name = getLabelName(releaseLabel);
-                        appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
-                    });
-                }
-            });
+            if (catalogNumbers.length > 2) {
+                appendComment(
+                    $a,
+                    name +
+                    maybeParentheses(head(catalogNumbers) + ' … ' + last(catalogNumbers), name),
+                );
+            } else {
+                each(releaseLabels, function (releaseLabel) {
+                    var name = getLabelName(releaseLabel);
+                    appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
+                });
+            }
+        });
 
         if (item.barcode) {
             appendComment($a, item.barcode);
@@ -988,7 +989,7 @@ function renderContainingAreas(area) {
     if (!area.containment) {
         return '';
     }
-    return commaOnlyList(_(area.containment).map('name').value());
+    return commaOnlyList(area.containment.map(x => x.name));
 }
 
 /*

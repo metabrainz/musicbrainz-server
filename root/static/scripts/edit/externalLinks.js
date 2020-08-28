@@ -10,6 +10,9 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import keyBy from 'lodash/keyBy';
+import groupBy from 'lodash/groupBy';
+import uniqBy from 'lodash/uniqBy';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -130,10 +133,11 @@ export class ExternalLinksEditor
   }
 
   getOldLinksHash(): LinkHashT {
-    return _(this.props.initialLinks)
-      .filter(link => isPositiveInteger(link.relationship))
-      .keyBy('relationship')
-      .value();
+    return keyBy(
+      this.props.initialLinks
+        .filter(link => isPositiveInteger(link.relationship)),
+      'relationship',
+    );
   }
 
   getEditData(): {
@@ -200,11 +204,13 @@ export class ExternalLinksEditor
 
     const oldLinks = this.getOldLinksHash();
     const linksArray = this.state.links;
-
-    const linksByTypeAndUrl = _(linksArray).concat(this.props.initialLinks)
-      .uniqBy((link) => link.relationship)
-      .groupBy(linkTypeAndUrlString)
-      .value();
+    const linksByTypeAndUrl = groupBy(
+      uniqBy(
+        linksArray.concat(this.props.initialLinks),
+        link => link.relationship,
+      ),
+      linkTypeAndUrlString,
+    );
 
     return (
       <table

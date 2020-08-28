@@ -9,6 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
+import keyBy from 'lodash/keyBy';
+import reject from 'lodash/reject';
 
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 import {reduceArtistCredit} from '../common/immutable-entities';
@@ -101,8 +103,8 @@ releaseEditor.edits = {
         var newLabels = _.map(newReleaseLabels(), MB.edit.fields.releaseLabel);
         var oldLabels = release.labels.original();
 
-        var newLabelsByID = _.keyBy(newLabels, "release_label");
-        var oldLabelsByID = _.keyBy(oldLabels, "release_label");
+        var newLabelsByID = keyBy(newLabels, "release_label");
+        var oldLabelsByID = keyBy(oldLabels, "release_label");
 
         var edits = [];
 
@@ -616,15 +618,14 @@ releaseEditor.orderedEditSubmissions = [
         edits: releaseEditor.edits.medium,
 
         callback: function (release, edits) {
-            var added = _(edits)
-                .map("entity")
-                .compact()
-                .keyBy("position")
-                .value();
+            var added = keyBy(
+                edits.map(x => x.entity).filter(Boolean),
+                'position',
+            );
 
             var newMediums = release.mediums();
 
-            _(newMediums).reject("id").each(function (medium) {
+            reject(newMediums, 'id').forEach(function (medium) {
                 var addedData = added[medium.tmpPosition || medium.position()];
 
                 if (addedData) {

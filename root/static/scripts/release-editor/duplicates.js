@@ -97,10 +97,9 @@ releaseEditor.findReleaseDuplicates = function () {
         var query = utils.constructLuceneFieldConjunction({
             release: [utils.escapeLuceneValue(name)],
 
-            arid: _(ac.names)
-                .map('artist.gid')
-                .map(utils.escapeLuceneValue)
-                .value(),
+            arid: ac.names.map(
+                x => utils.escapeLuceneValue(x.artist.gid),
+            ),
         });
 
         toggleLoadingIndicator(true);
@@ -133,35 +132,35 @@ function toggleLoadingIndicator(show) {
 }
 
 
-function pluck(chain, name) {
-    return chain.map(name).compact();
-}
-
-
 function formatReleaseData(release) {
     var clean = new MB.entity.Release(utils.cleanWebServiceData(release));
 
-    var events = _(release["release-events"]);
-    var labels = _(release["label-info"]);
+    var events = release["release-events"];
+    var labels = release["label-info"];
 
     clean.formats = combinedMediumFormatName(release.media) || l('[missing media]');
     clean.tracks = _.map(release.media, "track-count").join(" + ") ||
         lp('-', 'missing data');
 
-    clean.dates = pluck(events, "date").value();
+    clean.dates = events
+        ? events.map(x => x.date).filter(Boolean)
+        : [];
 
-    clean.countries = pluck(events, "area")
-        .map("iso-3166-1-codes")
-        .flatten()
-        .compact()
-        .uniq()
-        .value();
+    clean.countries = events ? [...new Set(events.flatMap(
+        x => (x.area?.['iso-3166-1-codes']) ?? [],
+    ))] : [];
 
-    clean.labels = pluck(labels, "label").map(function (info) {
-        return new MB.entity.Label({ gid: info.id, name: info.name });
-    }).value();
+    clean.labels = labels ? labels.map(function (info) {
+        const label = info.label;
+        if (label) {
+            return new MB.entity.Label({ gid: label.id, name: label.name });
+        }
+        return null;
+    }).filter(Boolean) : [];
 
-    clean.catalogNumbers = pluck(labels, "catalog-number").value();
+    clean.catalogNumbers = labels
+        ? labels.map(x => x['catalog-number']).filter(Boolean)
+        : [];
 
     clean.barcode = release.barcode || "";
 

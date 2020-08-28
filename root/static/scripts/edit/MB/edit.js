@@ -8,6 +8,9 @@
 
 import ko from 'knockout';
 import _ from 'lodash';
+import difference from 'lodash/difference';
+import intersection from 'lodash/intersection';
+import sortBy from 'lodash/sortBy';
 
 import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
@@ -148,10 +151,10 @@ import request from '../../common/utility/request';
                 entity1_credit: string(relationship.entity1_credit),
             };
 
-            data.attributes = _(ko.unwrap(relationship.attributes))
-                .invokeMap('toJS')
-                .sortBy(a => a.type.id)
-                .value();
+            data.attributes = sortBy(
+                ko.unwrap(relationship.attributes).map(x => x.toJS()),
+                a => a.type.id,
+            );
 
             if (_.isNumber(data.linkTypeID)) {
                 if (linkedEntities.link_type[data.linkTypeID].orderable_direction !== 0) {
@@ -163,7 +166,7 @@ import request from '../../common/utility/request';
                 data.begin_date = fields.partialDate(relationship.begin_date);
                 data.end_date = fields.partialDate(relationship.end_date);
 
-                if (data.end_date && _(data.end_date).values().some(nonEmpty)) {
+                if (data.end_date && Object.values(data.end_date).some(nonEmpty)) {
                     data.ended = true;
                 } else {
                     data.ended = Boolean(value(relationship.ended));
@@ -191,21 +194,18 @@ import request from '../../common/utility/request';
         release: function (release) {
             var releaseGroupID = (release.releaseGroup() || {}).id;
 
-            var events = _(value(release.events))
-                .map(function (data) {
-                    var event = {
-                        date:       fields.partialDate(data.date),
-                        country_id: number(data.countryID),
-                    };
+            var events = value(release.events).map(function (data) {
+                var event = {
+                    date:       fields.partialDate(data.date),
+                    country_id: number(data.countryID),
+                };
 
-                    if (_(event.date).values().some(nonEmpty) || event.country_id !== null) {
-                        return event;
-                    }
+                if (Object.values(event.date).some(nonEmpty) || event.country_id !== null) {
+                    return event;
+                }
 
-                    return null;
-                })
-                .compact()
-                .value();
+                return null;
+            }).filter(Boolean);
 
             return {
                 name:               string(release.name),
@@ -281,15 +281,17 @@ import request from '../../common/utility/request';
 
 
     function removeEqual(newData, oldData, required) {
-        _(newData)
-            .keys()
-            .intersection(_.keys(oldData))
-            .difference(required)
-            .each(function (key) {
-                if (_.isEqual(newData[key], oldData[key])) {
-                    delete newData[key];
-                }
-            });
+        difference(
+            intersection(
+                newData ? Object.keys(newData) : [],
+                oldData ? Object.keys(oldData) : [],
+            ),
+            required,
+        ).forEach(function (key) {
+            if (_.isEqual(newData[key], oldData[key])) {
+                delete newData[key];
+            }
+        });
     }
 
 
