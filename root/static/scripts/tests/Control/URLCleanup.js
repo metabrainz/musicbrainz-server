@@ -7,7 +7,6 @@
  */
 
 import test from 'tape';
-import _ from 'lodash';
 import each from 'lodash/each';
 
 import {LINK_TYPES, cleanURL, guessType, validationRules} from '../../edit/URLCleanup';
@@ -4173,18 +4172,14 @@ testData.forEach(function (subtest, i) {
         function (results, [entityType, relUuid]) {
           const rule = validationRules[relUuid];
           const isValid = rule ? rule(cleanUrl).result || false : true;
-          results[isValid].splice(
-            _.sortedIndex(results[isValid], entityType),
-            0,
-            entityType,
-          );
+          results[isValid].push(entityType);
           nbTestedRules += rule ? 1 : 0;
           return results;
         }, {false: [], true: []});
       if (nbTestedRules === 0) {
         st.fail('Validation test is worthless: No validation rule has been actually tested.');
       } else {
-        st.deepEqual(validationResults.true,
+        st.deepEqual(validationResults.true.sort(),
           subtest.only_valid_entity_types.sort(),
           'Validate clean URL by exactly ' + subtest.only_valid_entity_types.length +
                             ' among ' + nbTestedRules + ' ' + relationshipType + '.* rules');
