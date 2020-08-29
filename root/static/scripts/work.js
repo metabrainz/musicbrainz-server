@@ -10,7 +10,6 @@
 import $ from 'jquery';
 import identity from 'lodash/identity';
 import isEmpty from 'lodash/isEmpty';
-import mapValues from 'lodash/mapValues';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
 import * as React from 'react';
@@ -105,7 +104,7 @@ function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
 class WorkAttribute {
   allowedValues: () => OptionListT;
 
-  allowedValuesByTypeID: {[typeId: number]: OptionListT, ...};
+  allowedValuesByTypeID: {[typeId: StrOrNum]: OptionListT, ...};
 
   attributeValue: KnockoutObservable<string>;
 
@@ -130,10 +129,10 @@ class WorkAttribute {
     this.allowedValues = ko.computed(() => {
       const typeID = this.typeID();
 
-      if (this.allowsFreeText()) {
+      if (!typeID || this.allowsFreeText()) {
         return [];
       }
-      return this.parent.allowedValuesByTypeID[typeID];
+      return this.parent.allowedValuesByTypeID[typeID] ?? [];
     });
 
     this.typeID.subscribe(newTypeID => {
@@ -168,9 +167,9 @@ class WorkAttribute {
 class ViewModel {
   attributeTypes: OptionListT;
 
-  attributeTypesByID: {[typeId: number]: WorkAttributeTypeTreeT, ...};
+  attributeTypesByID: {[typeId: StrOrNum]: WorkAttributeTypeTreeT, ...};
 
-  allowedValuesByTypeID: {[typeId: number]: OptionListT, ...};
+  allowedValuesByTypeID: {[typeId: StrOrNum]: OptionListT, ...};
 
   attributes: KnockoutObservableArray<WorkAttribute>;
 
@@ -187,15 +186,17 @@ class ViewModel {
 
     this.attributeTypesByID = attributeTypes.children.reduce(byID, {});
 
-    this.allowedValuesByTypeID = mapValues(
-      groupBy(allowedValues.children, x => String(x.workAttributeTypeID)),
-      function (children) {
-        return buildOptionsTree(
+    this.allowedValuesByTypeID = Object.fromEntries(
+      Object.entries(
+        groupBy(allowedValues.children, x => String(x.workAttributeTypeID)),
+      ).map(([typeId, children]) => [
+        typeId,
+        buildOptionsTree(
           {children},
           x => lp_attributes(x.value, 'work_attribute_type_allowed_value'),
           'id',
-        );
-      },
+        ),
+      ]),
     );
 
     this.attributes = ko.observableArray(

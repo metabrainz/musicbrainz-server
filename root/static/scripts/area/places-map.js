@@ -10,7 +10,6 @@
 import 'leaflet.markercluster/dist/leaflet.markercluster-src';
 
 import escape from 'lodash/escape';
-import mapValues from 'lodash/mapValues';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -37,15 +36,16 @@ if (places.length) {
     },
   });
 
-  const iconNames = {
-    1: require('../../images/leaflet/studio-marker-icon.png'),
-    2: require('../../images/leaflet/venue-marker-icon.png'),
-    3: require('../../images/leaflet/marker-icon.png'),
-    4: require('../../images/leaflet/stadium-marker-icon.png'),
-    5: require('../../images/leaflet/arena-marker-icon.png'),
-    6: require('../../images/leaflet/religious-marker-icon.png'),
+  const buildIcon = iconUrl => new LeafIcon({iconUrl});
+
+  const icons = {
+    1: buildIcon(require('../../images/leaflet/studio-marker-icon.png')),
+    2: buildIcon(require('../../images/leaflet/venue-marker-icon.png')),
+    3: buildIcon(require('../../images/leaflet/marker-icon.png')),
+    4: buildIcon(require('../../images/leaflet/stadium-marker-icon.png')),
+    5: buildIcon(require('../../images/leaflet/arena-marker-icon.png')),
+    6: buildIcon(require('../../images/leaflet/religious-marker-icon.png')),
   };
-  const icons = mapValues(iconNames, iconUrl => new LeafIcon({iconUrl}));
 
   const markers = L.markerClusterGroup({
     iconCreateFunction: function (cluster) {

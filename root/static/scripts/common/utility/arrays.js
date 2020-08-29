@@ -111,7 +111,7 @@ export function sortByString<T>(
 export function groupBy<T>(
   array: $ReadOnlyArray<T>,
   func: (T) => string,
-): {__proto__: null, +[groupKey: string]: $ReadOnlyArray<T>} {
+): {__proto__: empty, +[groupKey: string]: $ReadOnlyArray<T>} {
   return array.reduce(function (result, item) {
     const key = func(item);
     if (!(key in result)) {
@@ -125,7 +125,7 @@ export function groupBy<T>(
 export function keyBy<T>(
   array: $ReadOnlyArray<T>,
   func: (T) => string,
-): {__proto__: null, +[groupKey: string]: T} {
+): {__proto__: empty, +[groupKey: string]: T} {
   return array.reduce(function (result, item) {
     result[func(item)] = item;
     return result;
