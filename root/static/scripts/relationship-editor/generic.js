@@ -10,11 +10,11 @@ import $ from 'jquery';
 import ko from 'knockout';
 import identity from 'lodash/identity';
 import once from 'lodash/once';
-import sortBy from 'lodash/sortBy';
 import without from 'lodash/without';
 
 import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 import MB from '../common/MB';
+import {sortByString} from '../common/utility/arrays';
 import formatDate from '../common/utility/formatDate';
 import {hasSessionStorage} from '../common/utility/storage';
 import validation from '../edit/validation';
@@ -93,33 +93,27 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var seriesOrdering = {
         event: function (relationships, series) {
-            return sortBy(
-                relationships,
-                r => r.target(series).begin_date || '',
-                r => r.target(series).end_date || '',
-                r => r.target(series).time || '',
-            );
+            return sortByString(relationships, (r) => {
+                const event = r.target(series);
+                return (
+                    (event.begin_date ?? '') + '\0' +
+                    (event.end_date ?? '') + '\0' +
+                    (event.time ?? '')
+                );
+            });
         },
         release: function (relationships, series) {
-            return sortBy(
-                relationships,
-                function (r) {
-                    return r.target(series)
-                        .events
-                        .map(getDate)
-                        .sort()[0];
-                },
-                function (r) {
-                    return r.target(series)
-                        .labels
-                        .map(getCatalogNumber)
-                        .sort()[0];
-                },
-            );
+            return sortByString(relationships, (r) => {
+                const release = r.target(series);
+                const firstDate = release.events?.map(getDate).sort()[0];
+                const firstCatNo = release.labels?.map(getCatalogNumber).sort()[0];
+                return (firstDate ?? '') + '\0' + (firstCatNo ?? '');
+            });
         },
         release_group: function (relationships, series) {
-            return sortBy(relationships, function (r) {
-                return r.target(series).firstReleaseDate || '';
+            return sortByString(relationships, (r) => {
+                const releaseGroup = r.target(series);
+                return releaseGroup.firstReleaseDate ?? '';
             });
         },
     };

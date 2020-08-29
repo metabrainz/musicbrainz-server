@@ -9,13 +9,13 @@
 import ko from 'knockout';
 import each from 'lodash/each';
 import isEqual from 'lodash/isEqual';
-import sortBy from 'lodash/sortBy';
 
 import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 import * as TYPES from '../../common/constants/editTypes';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
+import {sortByNumber} from '../../common/utility/arrays';
 import clean from '../../common/utility/clean';
 import request from '../../common/utility/request';
 
@@ -150,7 +150,7 @@ import request from '../../common/utility/request';
                 entity1_credit: string(relationship.entity1_credit),
             };
 
-            data.attributes = sortBy(
+            data.attributes = sortByNumber(
                 ko.unwrap(relationship.attributes).map(x => x.toJS()),
                 a => a.type.id,
             );

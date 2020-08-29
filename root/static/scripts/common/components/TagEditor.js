@@ -9,16 +9,16 @@
 
 import debounce from 'lodash/debounce';
 import each from 'lodash/each';
-import identity from 'lodash/identity';
 import keyBy from 'lodash/keyBy';
-import sortBy from 'lodash/sortBy';
 import without from 'lodash/without';
 import * as React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {unwrapNl} from '../i18n';
+import {sortByNumber} from '../utility/arrays';
 import bracketed from '../utility/bracketed';
+import {compareStrings} from '../utility/compare';
 import isBlank from '../utility/isBlank';
 
 import TagLink from './TagLink';
@@ -38,9 +38,9 @@ const VOTE_DELAY = 1000;
 
 const getTagName = t => t.tag.name;
 
-function sortedTags(tags) {
-  return sortBy(tags, t => -t.count, getTagName);
-}
+const cmpTags = (a, b) => (
+  (b.count - a.count) || compareStrings(a.tag.name, b.tag.name)
+);
 
 function getTagsPath(entity) {
   const type = entity.entityType.replace('_', '-');
@@ -407,7 +407,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       }
     });
 
-    this.setState({tags: sortedTags(newTags)});
+    this.setState({tags: newTags.sort(cmpTags)});
   }
 
   addPendingVote(tag: TagT, vote: VoteT, index: number) {
@@ -453,15 +453,16 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
           return;
         }
 
-        response(
-          sortBy(
-            ($.ui.autocomplete.filter(
+        const filteredTerms: $ReadOnlyArray<string> =
+          sortByNumber(
+            $.ui.autocomplete.filter(
               without(self.genreNames, ...terms),
               last,
-            ): $ReadOnlyArray<string>),
-            [x => x.startsWith(last) ? 0 : 1, identity],
-          ),
-        );
+            ).sort(),
+            x => x.startsWith(last) ? 0 : 1,
+          );
+
+        response(filteredTerms);
       },
     });
 
@@ -678,5 +679,5 @@ function createInitialTagState(
     }
   }
 
-  return sortedTags(combined);
+  return combined.sort(cmpTags);
 }

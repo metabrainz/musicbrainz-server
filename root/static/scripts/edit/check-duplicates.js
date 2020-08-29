@@ -9,11 +9,11 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import debounce from 'lodash/debounce';
-import sortBy from 'lodash/sortBy';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import MB from '../common/MB';
+import {sortByNumber} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
@@ -64,7 +64,7 @@ function sortPlaceDuplicates(duplicates) {
     );
   }
 
-  return sortBy(duplicates, function (dupe) {
+  return sortByNumber(duplicates, function (dupe) {
     var area = dupe.area;
 
     if (!area) {

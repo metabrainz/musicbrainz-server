@@ -7,14 +7,14 @@
  */
 
 import ko from 'knockout';
-import sortBy from 'lodash/sortBy';
-import union from 'lodash/union';
 import uniqueId from 'lodash/uniqueId';
 
 import 'knockout-arraytransforms';
 
+import {compare} from '../../common/i18n';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
+import {sortByString} from '../../common/utility/arrays';
 import deferFocus from '../../edit/utility/deferFocus';
 
 import mergeDates from './mergeDates';
@@ -59,12 +59,17 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 .map(data => MB.getRelationship(data, self))
                 .filter(Boolean);
 
-            var allRelationships = sortBy(
-                union(this.relationships.peek(), newRelationships),
-                r => r.lowerCasePhrase(self),
-            );
+            const allRelationships = [...new Set([
+                ...this.relationships.peek(),
+                ...newRelationships,
+            ])];
 
-            this.relationships(allRelationships);
+            // Sort allRelationships by their lower-case phrase.
+            this.relationships(sortByString(
+                allRelationships,
+                r => r.lowerCasePhrase(self),
+                compare,
+            ));
 
             for (const data of relationships) {
                 MB.entity(data.target).parseRelationships(data.target.relationships);

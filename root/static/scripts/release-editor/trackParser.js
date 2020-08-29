@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import sortBy from 'lodash/sortBy';
 
 import {MIN_NAME_SIMILARITY} from '../common/constants';
 import {
@@ -16,6 +15,7 @@ import {
   isCompleteArtistCredit,
   reduceArtistCredit,
 } from '../common/immutable-entities';
+import {sortByNumber} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
 import debounce from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
@@ -136,17 +136,15 @@ const trackParser = releaseEditor.trackParser = {
             return data;
         });
 
-        sortBy(dataTrackPairs, 'similarity')
-            .reverse()
-            .forEach(function (match) {
-                var data = match.data;
-                var track = match.track;
+        sortByNumber(dataTrackPairs, x => -x.similarity).forEach(function (match) {
+            var data = match.data;
+            var track = match.track;
 
-                if (!data.matchedTrack && !matchedTracks[track.uniqueID]) {
-                    data.matchedTrack = track;
-                    matchedTracks[track.uniqueID] = 1;
-                }
-            });
+            if (!data.matchedTrack && !matchedTracks[track.uniqueID]) {
+                data.matchedTrack = track;
+                matchedTracks[track.uniqueID] = 1;
+            }
+        });
 
         var newTracks = newTracksData.map(function (data, index) {
             var matchedTrack = data.matchedTrack;

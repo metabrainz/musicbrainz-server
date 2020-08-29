@@ -7,6 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  compareNumbers,
+  compareStrings,
+} from './compare';
+
 /*
  * Checks if two arrays are equal using the provided `isEqual` function
  * against each pair of items.
@@ -79,4 +84,26 @@ export function sortedIndexWith<T, U>(
     order = cmp(array[high], value);
   }
   return [high, order === 0];
+}
+
+export function sortByNumber<T>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => number,
+  customCmp?: (number, number) => number,
+): $ReadOnlyArray<T> {
+  const keys = array.map((x, i): [number, number] => [i, func(x)]);
+  const cmp = customCmp ?? compareNumbers;
+  keys.sort((a, b) => cmp(a[1], b[1]));
+  return keys.map(x => array[x[0]]);
+}
+
+export function sortByString<T>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => string,
+  customCmp?: (string, string) => number,
+): $ReadOnlyArray<T> {
+  const keys = array.map((x, i): [number, string] => [i, func(x)]);
+  const cmp = customCmp ?? compareStrings;
+  keys.sort((a, b) => cmp(a[1], b[1]));
+  return keys.map(x => array[x[0]]);
 }
