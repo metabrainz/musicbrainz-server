@@ -358,7 +358,7 @@ Object.assign(addDiscDialog, {
         } else {
             // If there are no mediums, _.max will return undefined.
             const maxPosition = _.max(_.invokeMap(release.mediums(), 'position'));
-            const nextPosition = _.isFinite(maxPosition) ? (maxPosition + 1) : 1;
+            const nextPosition = Number.isFinite(maxPosition) ? (maxPosition + 1) : 1;
             medium.position(nextPosition);
             release.mediums.push(medium);
         }

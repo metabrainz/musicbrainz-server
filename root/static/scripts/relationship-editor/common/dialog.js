@@ -647,7 +647,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     maxLinkOrder = Math.max(maxLinkOrder, other.linkOrder.peek() || 0);
                 });
 
-                if (maxLinkOrder === 0 || !_.isFinite(maxLinkOrder)) {
+                if (maxLinkOrder === 0 || !Number.isFinite(maxLinkOrder)) {
                     // Leave unordered relationships unordered.
                     relationship.linkOrder(0);
                 } else {
