@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import each from 'lodash/each';
 import groupBy from 'lodash/groupBy';
 import isEqual from 'lodash/isEqual';
 import once from 'lodash/once';
@@ -28,6 +27,8 @@ import * as dates from '../../edit/utility/dates';
 import {stripAttributes} from '../../edit/utility/linkPhrase';
 import isBlank from '../../common/utility/isBlank';
 import debounce from '../../common/utility/debounce';
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = Object.values(PART_OF_SERIES_LINK_TYPES);
 
@@ -263,7 +264,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                          * way to iterate over all entities on the page.
                          */
 
-                        each(MB.entityCache, function (entity, gid) {
+                        for (const gid in MB.entityCache) {
+                            if (!hasOwnProperty.call(MB.entityCache, gid)) {
+                                continue;
+                            }
+                            const entity = MB.entityCache[gid];
                             if (gid === target.gid) {
                                 for (const r of entity.displayableRelationships(vm)()) {
                                     switch (relationshipFilter) {
@@ -290,7 +295,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                     }
                                 }
                             }
-                        });
+                        }
                     }
                 }
 
@@ -645,9 +650,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 const group = source.getRelationshipGroup(relationship, viewModel);
                 let maxLinkOrder = -Infinity;
 
-                each(group, function (other) {
+                for (const other of group) {
                     maxLinkOrder = Math.max(maxLinkOrder, other.linkOrder.peek() || 0);
-                });
+                }
 
                 if (maxLinkOrder === 0 || !Number.isFinite(maxLinkOrder)) {
                     // Leave unordered relationships unordered.
@@ -855,14 +860,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             relationships.push(newRelationship);
         }
 
-        each(
-            groupBy(creditable, linkAttributeTypeID),
-            function (attributes) {
-                var extra = attributes.slice(1);
-                relationship.attributes.removeAll(extra);
-                each(extra, split);
-            },
-        );
+        for (
+            const attributes of
+            Object.values(groupBy(creditable, linkAttributeTypeID))
+        ) {
+            const extra = attributes.slice(1);
+            relationship.attributes.removeAll(extra);
+            extra.forEach(split);
+        }
 
         return relationships;
     }

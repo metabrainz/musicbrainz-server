@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import each from 'lodash/each';
 import escape from 'lodash/escape';
 import groupBy from 'lodash/groupBy';
 import head from 'lodash/head';
@@ -715,7 +714,10 @@ MB.Control.autocomplete_formatters = {
             );
         });
 
-        each(groupBy(item.labels, getLabelName), function (releaseLabels, name) {
+        for (
+            const [name, releaseLabels] of
+            Object.entries(groupBy(item.labels, getLabelName))
+        ) {
             const catalogNumbers = releaseLabels
                 .map(getCatalogNumber)
                 .filter(Boolean)
@@ -728,12 +730,12 @@ MB.Control.autocomplete_formatters = {
                     maybeParentheses(head(catalogNumbers) + ' … ' + last(catalogNumbers), name),
                 );
             } else {
-                each(releaseLabels, function (releaseLabel) {
-                    var name = getLabelName(releaseLabel);
+                for (const releaseLabel of releaseLabels) {
+                    const name = getLabelName(releaseLabel);
                     appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
-                });
+                }
             }
-        });
+        }
 
         if (item.barcode) {
             appendComment($a, item.barcode);

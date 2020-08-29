@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import each from 'lodash/each';
 import escape from 'lodash/escape';
 import isEqual from 'lodash/isEqual';
 import keyBy from 'lodash/keyBy';
@@ -366,22 +365,25 @@ releaseEditor.edits = {
         }
 
         var { oldLinks, newLinks, allLinks } = releaseEditor.externalLinksEditData();
+        if (!allLinks) {
+            return edits;
+        }
 
-        each(allLinks, function (link) {
+        for (const link of Object.values(allLinks)) {
             if (!link.type || !link.url) {
-                return;
+                continue;
             }
 
-            var newData = MB.edit.fields.externalLinkRelationship(link, release);
+            const newData = MB.edit.fields.externalLinkRelationship(link, release);
 
             if (isPositiveInteger(link.relationship)) {
                 if (!newLinks[link.relationship]) {
                     edits.push(MB.edit.relationshipDelete(newData));
                 } else if (oldLinks[link.relationship]) {
-                    var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
+                    const original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
                     if (!isEqual(newData, original)) {
-                        var editData = MB.edit.relationshipEdit(newData, original);
+                        const editData = MB.edit.relationshipEdit(newData, original);
 
                         if (hasVideo(original) && !hasVideo(newData)) {
                             editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}, removed: true}];
@@ -393,7 +395,7 @@ releaseEditor.edits = {
             } else if (newLinks[link.relationship]) {
                 edits.push(MB.edit.relationshipCreate(newData));
             }
-        });
+        }
 
         return edits;
     },

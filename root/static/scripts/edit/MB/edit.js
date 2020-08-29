@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import each from 'lodash/each';
 import isEqual from 'lodash/isEqual';
 
 import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
@@ -429,11 +428,11 @@ import request from '../../common/utility/request';
                  }
             }
 
-            each(origAttributes, function (value, gid) {
+            for (const gid of Object.keys(origAttributes)) {
                 if (!newAttributes[gid]) {
                     changedAttributes.push({type: {gid: gid}, removed: true});
                 }
-            });
+            }
 
             args.attributes = changedAttributes;
             removeEqual(args, orig, ['id', 'linkTypeID']);

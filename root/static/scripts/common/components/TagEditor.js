@@ -8,7 +8,6 @@
  */
 
 import debounce from 'lodash/debounce';
-import each from 'lodash/each';
 import keyBy from 'lodash/keyBy';
 import without from 'lodash/without';
 import * as React from 'react';
@@ -216,7 +215,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   genreNames: $ReadOnlyArray<string>;
 
-  pendingVotes: {[tagName: string]: PendingVoteT, ...};
+  pendingVotes: Map<string, PendingVoteT>;
 
   setTagsInput: (TagsInputT) => void;
 
@@ -240,7 +239,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.genreMap = props.genreMap ?? {};
     this.genreNames = Object.keys(this.genreMap);
 
-    this.pendingVotes = {};
+    this.pendingVotes = new Map();
     this.debouncePendingVotes = debounce(
       this.flushPendingVotes, VOTE_DELAY,
     );
@@ -249,14 +248,14 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   flushPendingVotes(asap?: boolean) {
     const actions = {};
 
-    each(this.pendingVotes, item => {
+    for (const item of this.pendingVotes.values()) {
       const action =
         `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
 
       (actions[action] = actions[action] || []).push(item);
-    });
+    }
 
-    this.pendingVotes = {};
+    this.pendingVotes.clear();
 
     let doRequest;
     if (asap) {
@@ -266,14 +265,14 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       doRequest = require('../utility/request').default;
     }
 
-    each(actions, (items, action) => {
+    for (const [action, items] of Object.entries(actions)) {
       const url = action + '?tags=' +
-        encodeURIComponent(items.map(x => x.tag.name).join(','));
+        encodeURIComponent((items: any).map(x => x.tag.name).join(','));
 
       doRequest({url: url})
         .done(data => this.updateTags(data.updates))
-        .fail(() => items.forEach(x => x.fail()));
-    });
+        .fail(() => (items: any).forEach(x => x.fail()));
+    }
   }
 
   onBeforeUnload() {
@@ -411,11 +410,11 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   addPendingVote(tag: TagT, vote: VoteT, index: number) {
-    this.pendingVotes[tag.name] = {
+    this.pendingVotes.set(tag.name, {
       fail: () => this.updateVote(index, vote),
       tag: tag,
       vote: vote,
-    };
+    });
     this.debouncePendingVotes();
   }
 

@@ -10,7 +10,6 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import defaults from 'lodash/defaults';
-import each from 'lodash/each';
 import keyBy from 'lodash/keyBy';
 import groupBy from 'lodash/groupBy';
 import uniqBy from 'lodash/uniqBy';
@@ -171,8 +170,11 @@ export class ExternalLinksEditor
     const backward = this.props.sourceType > 'url';
     const {oldLinks, newLinks, allLinks} = this.getEditData();
 
-    each(allLinks, function (link, relationship) {
-      if (!link.type) {
+    for (
+      const [relationship, link] of
+      ((Object.entries(allLinks): any): $ReadOnlyArray<[string, ?LinkStateT]>)
+    ) {
+      if (!link?.type) {
         return;
       }
 
@@ -200,7 +202,7 @@ export class ExternalLinksEditor
       }
 
       pushInput(prefix, 'link_type_id', String(link.type) || '');
-    });
+    }
   }
 
   render(): React.Element<'table'> {
@@ -621,6 +623,11 @@ type InitialOptionsT = {
   sourceData: CoreEntityT,
 };
 
+type SeededUrlShape = {
+  +link_type_id?: string,
+  +text?: string,
+};
+
 MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   const sourceData = options.sourceData;
   const sourceType = sourceData.entityType;
@@ -650,13 +657,16 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
       (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
     }
 
-    each(urls, function (data) {
+    for (
+      const data of
+      ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
+    ) {
       initialLinks.push(newLinkState({
         relationship: uniqueId('new-'),
-        type: data.link_type_id,
+        type: parseInt(data.link_type_id, 10) || null,
         url: data.text || '',
       }));
-    });
+    }
   }
 
   initialLinks.sort(function (a, b) {

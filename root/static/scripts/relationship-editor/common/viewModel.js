@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import each from 'lodash/each';
 import groupBy from 'lodash/groupBy';
 import once from 'lodash/once';
 import uniqueId from 'lodash/uniqueId';
@@ -75,11 +74,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             link_attribute_type: attrInfo.reduce(mapItems, {}),
         });
 
-        each(linkedEntities.link_type, function (type) {
-            each(type.attributes, function (typeAttr, id) {
+        for (const type of Object.values(linkedEntities.link_type)) {
+            for (const [id, typeAttr] of Object.entries(type.attributes)) {
                 typeAttr.attribute = linkedEntities.link_attribute_type[id];
-            });
-        });
+            }
+        }
 
         MB.allowedRelations = {};
 
@@ -102,9 +101,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         // Sort each list of types alphabetically.
         Object.values(MB.allowedRelations).forEach(x => x.sort());
 
-        each(linkedEntities.link_attribute_type, function (attr) {
+        for (const attr of Object.values(linkedEntities.link_attribute_type)) {
             attr.root = linkedEntities.link_attribute_type[attr.root_id];
-        });
+        }
     });
 
 
@@ -277,11 +276,14 @@ function addPostedRelationships(source) {
         return;
     }
 
-    const submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
-    if (MB.formWasPosted && submittedRelationships) {
-        each(JSON.parse(submittedRelationships), function (data) {
-            addSubmittedRelationship(data, source);
-        });
+    const submittedRelationshipsJson = window.sessionStorage.getItem('submittedRelationships');
+    if (MB.formWasPosted && submittedRelationshipsJson) {
+        const submittedRelationships = JSON.parse(submittedRelationshipsJson);
+        if (Array.isArray(submittedRelationships)) {
+            for (const data of submittedRelationships) {
+                addSubmittedRelationship(data, source);
+            }
+        }
     }
 
     window.sessionStorage.removeItem('submittedRelationships');
@@ -292,13 +294,17 @@ var loadingEntities = {};
 function addRelationshipsFromQueryString(source) {
     var fields = parseQueryString(window.location.search);
 
-    each(fields.rels, function (rel) {
+    if (!fields.rels) {
+        return;
+    }
+
+    for (const rel of Object.values(fields.rels)) {
         var linkType = linkedEntities.link_type[rel.type];
         var targetIsUUID = uuidRegex.test(rel.target);
 
         if (!linkType && !targetIsUUID) {
             // We need at least a link type or target gid
-            return;
+            continue;
         }
 
         var target = targetIsUUID ? (MB.entityCache[rel.target] || { gid: rel.target }) : { name: rel.target };
@@ -349,7 +355,7 @@ function addRelationshipsFromQueryString(source) {
                 delete loadingEntities[gid];
             });
         }
-    });
+    }
 }
 
 var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;

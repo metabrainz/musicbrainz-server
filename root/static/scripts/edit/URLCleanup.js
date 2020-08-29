@@ -7,7 +7,6 @@
  */
 
 import defaults from 'lodash/defaults';
-import each from 'lodash/each';
 import * as React from 'react';
 
 // See https://musicbrainz.org/relationships (but deprecated ones)
@@ -3094,8 +3093,8 @@ export const validationRules = {};
 
 const CLEANUP_ENTRIES = Object.values(CLEANUPS);
 
-each(LINK_TYPES, function (linkType) {
-  each(linkType, function (id, entityType) {
+Object.values(LINK_TYPES).forEach(function (linkType) {
+  Object.entries(linkType).forEach(function ([entityType, id]) {
     if (!validationRules[id]) {
       validationRules[id] = function (url) {
         const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {

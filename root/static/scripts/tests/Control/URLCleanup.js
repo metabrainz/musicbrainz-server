@@ -7,7 +7,6 @@
  */
 
 import test from 'tape';
-import each from 'lodash/each';
 
 import {LINK_TYPES, cleanURL, guessType, validationRules} from '../../edit/URLCleanup';
 
@@ -4095,9 +4094,9 @@ const relationshipTypesByUuid = Object.entries(LINK_TYPES).reduce(function (
   results,
   [relationshipType, relUuidByEntityType],
 ) {
-  each(relUuidByEntityType, function (relUuid) {
+  for (const relUuid of Object.values(relUuidByEntityType)) {
     (results[relUuid] || (results[relUuid] = [])).push(relationshipType);
-  });
+  }
   return results;
 }, {});
 
