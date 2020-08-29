@@ -220,18 +220,18 @@ releaseEditor.edits = {
 
                 var newPosition = newMediumData.position;
 
-                if (_.includes(oldPositions, newPosition)) {
+                if (oldPositions.includes(newPosition)) {
                     var lastAttempt = (_.last(tmpPositions) + 1) || 1;
                     var attempt;
 
                     while ((attempt = lastAttempt++)) {
-                        if (_.includes(oldPositions, attempt) ||
-                            _.includes(tmpPositions, attempt)) {
+                        if (oldPositions.includes(attempt) ||
+                            tmpPositions.includes(attempt)) {
                             // This position is taken.
                             continue;
                         }
 
-                        if (_.includes(newPositions, attempt)) {
+                        if (newPositions.includes(attempt)) {
                             /*
                              * Another medium is being moved to the
                              * position we want. Avoid this *unless* we're

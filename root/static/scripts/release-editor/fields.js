@@ -271,7 +271,7 @@ class Track {
         if (currentValue.gid) {
             var suggestions = this.suggestedRecordings.peek();
 
-            if (!_.includes(suggestions, currentValue)) {
+            if (!suggestions.includes(currentValue)) {
                 this.suggestedRecordings.unshift(currentValue);
             }
         }
@@ -651,7 +651,7 @@ class Medium {
     canHaveDiscID() {
         var formatID = parseInt(this.formatID(), 10);
 
-        return !formatID || _.includes(MB.formatsWithDiscIDs, formatID);
+        return !formatID || MB.formatsWithDiscIDs[formatID] != null;
     }
 }
 

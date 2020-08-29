@@ -189,7 +189,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 return;
             }
 
-            if (event.type === "keyup" && !_.includes([8, 40], event.keyCode)) {
+            if (event.type === "keyup" && ![8, 40].includes(event.keyCode)) {
                 return;
             }
 

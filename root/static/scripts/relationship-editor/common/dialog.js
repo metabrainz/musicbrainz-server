@@ -419,7 +419,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 options = options.filter(function (opt) {
                     var linkType = linkedEntities.link_type[opt.value];
 
-                    if (_.includes(PART_OF_SERIES_LINK_TYPE_GIDS, linkType.gid) &&
+                    if (PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
                             linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
                         return false;
                     }
@@ -544,7 +544,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             if (target.entityType === "series" &&
-                    _.includes(PART_OF_SERIES_LINK_TYPE_GIDS, linkType.gid) &&
+                    PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
                     target.type().entityType !== this.source.entityType) {
                 return incorrectEntityForSeries[target.type().entityType];
             }

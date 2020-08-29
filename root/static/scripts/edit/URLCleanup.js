@@ -1123,7 +1123,7 @@ const CLEANUPS = {
       const m = /^https:\/\/www\.dailymotion\.com\/(?:(video\/)?[^\/?#]+)$/.exec(url);
       if (m) {
         const prefix = m[1];
-        if (_.includes(LINK_TYPES.videochannel, id)) {
+        if (Object.values(LINK_TYPES.videochannel).includes(id)) {
           if (prefix === 'video/') {
             return {
               error: linkToChannelMsg(),
@@ -1550,7 +1550,7 @@ const CLEANUPS = {
           return {
             result: prefix === 'p' && target !== undefined,
           };
-        } else if (_.includes(LINK_TYPES.socialnetwork, id)) {
+        } else if (Object.values(LINK_TYPES.socialnetwork).includes(id)) {
           if (prefix === 'p') {
             return {
               error: exp.l(
@@ -2155,7 +2155,7 @@ const CLEANUPS = {
       if (m) {
         const subdomain = m[1];
         const prefix = m[2] || m[3];
-        if (_.includes(LINK_TYPES.videochannel, id)) {
+        if (Object.values(LINK_TYPES.videochannel).includes(id)) {
           if (prefix === 'watch') {
             return {
               error: linkToChannelMsg(),
@@ -2743,7 +2743,7 @@ const CLEANUPS = {
       const m = /^https:\/\/www\.twitch\.tv\/(?:(videos\/)?[^\/?#]+)$/.exec(url);
       if (m) {
         const prefix = m[1];
-        if (_.includes(LINK_TYPES.videochannel, id)) {
+        if (Object.values(LINK_TYPES.videochannel).includes(id)) {
           if (prefix === 'videos/') {
             return {
               error: linkToChannelMsg(),
@@ -2785,7 +2785,7 @@ const CLEANUPS = {
       const m = /^https:\/\/twitter\.com\/[^\/?#]+(\/status\/\d+)?$/.exec(url);
       if (m) {
         const isATweet = !!m[1];
-        if (_.includes(LINK_TYPES.streamingfree, id)) {
+        if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
           return {
             result: isATweet &&
               (id === LINK_TYPES.streamingfree.recording),

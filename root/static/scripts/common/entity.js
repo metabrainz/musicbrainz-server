@@ -481,7 +481,7 @@ import formatTrackLength from './utility/formatTrackLength';
 
     function isProbablyClassical(entity) {
         return classicalRoles.test(entity.name) || entity.relationships?.some(function (r) {
-            return _.includes(PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
+            return PROBABLY_CLASSICAL_LINK_TYPES.includes(r.linkTypeID);
         });
     }
 
