@@ -10,12 +10,12 @@ import $ from 'jquery';
 import ko from 'knockout';
 import escape from 'lodash/escape';
 import isEqual from 'lodash/isEqual';
-import keyBy from 'lodash/keyBy';
 import last from 'lodash/last';
 
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 import {reduceArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
+import {keyBy} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
 import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import debounce from '../common/utility/debounce';
@@ -38,6 +38,8 @@ var newReleaseLabels = utils.withRelease(function (release) {
         return (label && label.id) || clean(releaseLabel.catalogNumber());
     });
 }, []);
+
+const getReleaseLabel = x => String(x.release_label ?? '');
 
 releaseEditor.edits = {
 
@@ -105,8 +107,8 @@ releaseEditor.edits = {
         var newLabels = newReleaseLabels().map(MB.edit.fields.releaseLabel);
         var oldLabels = release.labels.original();
 
-        var newLabelsByID = keyBy(newLabels, "release_label");
-        var oldLabelsByID = keyBy(oldLabels, "release_label");
+        var newLabelsByID = keyBy(newLabels, getReleaseLabel);
+        var oldLabelsByID = keyBy(oldLabels, getReleaseLabel);
 
         var edits = [];
 
@@ -632,7 +634,7 @@ releaseEditor.orderedEditSubmissions = [
         callback: function (release, edits) {
             var added = keyBy(
                 edits.map(x => x.entity).filter(Boolean),
-                'position',
+                x => String(x.position),
             );
 
             var newMediums = release.mediums();

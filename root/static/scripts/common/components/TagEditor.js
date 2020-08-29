@@ -8,14 +8,13 @@
  */
 
 import debounce from 'lodash/debounce';
-import keyBy from 'lodash/keyBy';
 import without from 'lodash/without';
 import * as React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {unwrapNl} from '../i18n';
-import {sortByNumber} from '../utility/arrays';
+import {keyBy, sortByNumber} from '../utility/arrays';
 import bracketed from '../utility/bracketed';
 import {compareStrings} from '../utility/compare';
 import isBlank from '../utility/isBlank';
@@ -34,8 +33,6 @@ const VOTE_ACTIONS = {
  * request will not be sent until VOTE_DELAY has passed since the last vote.
  */
 const VOTE_DELAY = 1000;
-
-const getTagName = t => t.tag.name;
 
 const cmpTags = (a, b) => (
   (b.count - a.count) || compareStrings(a.tag.name, b.tag.name)
@@ -654,7 +651,7 @@ function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   userTags: $ReadOnlyArray<UserTagT>,
 ) {
-  const userTagsByName = keyBy(userTags, getTagName);
+  const userTagsByName = keyBy(userTags, t => t.tag.name);
 
   const used = new Set();
 

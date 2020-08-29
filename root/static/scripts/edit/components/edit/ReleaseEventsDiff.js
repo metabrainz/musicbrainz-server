@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import keyBy from 'lodash/keyBy';
 import * as React from 'react';
 
 import {l} from '../../../common/i18n';
+import {keyBy} from '../../../common/utility/arrays';
 import formatDate from '../../../common/utility/formatDate';
 import {
   INSERT,
@@ -30,7 +30,7 @@ function areReleaseDatesEqual(a, b) {
   return formatDate(a.date) === formatDate(b.date);
 }
 
-const countryId = x => x.country ? x.country.id : null;
+const countryId = x => String(x.country?.id ?? null);
 
 const changeSide = (
   oldEvent: ?ReleaseEventT,

@@ -10,7 +10,6 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import defaults from 'lodash/defaults';
-import keyBy from 'lodash/keyBy';
 import uniqBy from 'lodash/uniqBy';
 import uniqueId from 'lodash/uniqueId';
 import * as React from 'react';
@@ -25,7 +24,7 @@ import {compare} from '../common/i18n';
 import expand2react from '../common/i18n/expand2react';
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
-import {groupBy} from '../common/utility/arrays';
+import {groupBy, keyBy} from '../common/utility/arrays';
 import {hasSessionStorage} from '../common/utility/storage';
 
 import isPositiveInteger from './utility/isPositiveInteger';
@@ -44,6 +43,7 @@ type LinkStateT = {
 };
 
 type LinkHashT = {
+  __proto__: empty,
   +[key: number | string | null]: LinkStateT,
   ...
 };
@@ -139,7 +139,7 @@ export class ExternalLinksEditor
     return keyBy(
       this.props.initialLinks
         .filter(link => isPositiveInteger(link.relationship)),
-      'relationship',
+      x => String(x.relationship),
     );
   }
 
@@ -152,7 +152,7 @@ export class ExternalLinksEditor
     const newLinks = keyBy<
       LinkStateT,
       $ElementType<LinkStateT, 'relationship'>,
-    >(this.state.links, 'relationship');
+    >(this.state.links, x => String(x.relationship));
 
     return {
       allLinks: defaults({...newLinks}, oldLinks),

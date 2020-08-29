@@ -121,3 +121,13 @@ export function groupBy<T>(
     return result;
   }, Object.create(null));
 }
+
+export function keyBy<T>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => string,
+): {__proto__: null, +[groupKey: string]: T} {
+  return array.reduce(function (result, item) {
+    result[func(item)] = item;
+    return result;
+  }, Object.create(null));
+}
