@@ -262,9 +262,9 @@ class ArtistCreditEditor extends React.Component {
       this._editButton.focus();
     }
     // Defer until after the doneCallback() executes (if done() called us).
-    _.defer(function () {
+    setTimeout(function () {
       $bubble.data('target', null).data('componentInst', null);
-    });
+    }, 1);
   }
 
   runDoneCallback() {

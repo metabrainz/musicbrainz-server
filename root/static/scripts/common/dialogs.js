@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 
     $.widget("mb.iframeDialog", $.ui.dialog, {
 
@@ -45,11 +44,11 @@ import _ from 'lodash';
              * but it doesn't always work in Opera. This trys to focus again
              * after a small delay, if it hasn't already.
              */
-            _.defer(function () {
+            setTimeout(function () {
                 if (self.opener[0] !== document.activeElement) {
                     self.opener.focus();
                 }
-            });
+            }, 1);
         },
 
         _onLoad: function (event) {
@@ -101,14 +100,14 @@ import _ from 'lodash';
 
                 // Must use contentWindow's jQuery handle or this won't work.
                 contentWindow.$(function () {
-                    contentWindow._.defer(function () {
+                    contentWindow.setTimeout(function () {
                         contentWindow.$(nameField, contentWindow.document)
                             .val(self.options.name)
                             .change()
                             .focus();
 
                         delete self.options.name;
-                    });
+                    }, 1);
                 });
             }
         },

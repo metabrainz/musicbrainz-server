@@ -51,9 +51,9 @@ class BubbleBase {
         }
         this.activeBubbles[this.group] = this;
 
-        _.defer(function () {
+        setTimeout(function () {
             $bubble.find("a").attr("target", "_blank");
-        });
+        }, 1);
     }
 
     hide(stealFocus) {

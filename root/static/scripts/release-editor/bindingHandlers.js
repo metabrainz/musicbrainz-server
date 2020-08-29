@@ -62,9 +62,9 @@ ko.bindingHandlers.artistCreditEditor = {
              * since initialArtistText (which is set in updateBubble)
              * depends on the artist credit state.
              */
-            _.defer(() => {
+            setTimeout(() => {
                 prev.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
-            });
+            }, 1);
         }
     },
 
@@ -73,9 +73,9 @@ ko.bindingHandlers.artistCreditEditor = {
         const next = entity.medium.tracks()[entity.position()];
         if (next) {
             entity.artistCreditEditorInst.runDoneCallback();
-            _.defer(() => {
+            setTimeout(() => {
                 next.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
-            });
+            }, 1);
         }
     },
 

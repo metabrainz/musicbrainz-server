@@ -109,7 +109,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
              * removals if it sees that the previous attributes are still
              * checked (they haven't been removed from the template yet; that
              * probably happens in a later subscription). That's why the
-             * _.defer is needed; we need to wait for it to idiotically add
+             * setTimeout is needed; we need to wait for it to idiotically add
              * the attributes back. The proper solution would be to use a
              * writable computed observable that filters out invalid values
              * upon writing, but there's already a bunch of code
@@ -118,13 +118,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var removingInvalidAttributes = false;
             this.attributes.subscribe(function (newAttributes) {
                 if (!removingInvalidAttributes) {
-                    _.defer(function () {
+                    setTimeout(function () {
                         if (newAttributes === self.attributes.peek()) {
                             removingInvalidAttributes = true;
                             self.attributes(validAttributes(self, newAttributes));
                             removingInvalidAttributes = false;
                         }
-                    });
+                    }, 1);
                 }
             });
 

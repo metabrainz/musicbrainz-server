@@ -158,20 +158,7 @@ function relationshipEditorTest(name, callback) {
                 .append('<div id="content"></div><div id="dialog"></div></div>')
                 .appendTo('body');
 
-        /*
-         * _.defer makes its target functions asynchronous. It is redefined
-         * here to call its target right away, so that we don't have to deal
-         * with writing async tests.
-         */
-        var _defer = _.defer;
-
-        _.defer = function (func) {
-            func.apply(null, Array.from(arguments).slice(1));
-        };
-
         callback(t);
-
-        _.defer = _defer;
 
         MB.entityCache = {};
         MB.sourceRelationshipEditor = null;
@@ -957,7 +944,9 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
         ),
     );
 
-    t.equal(relationship.attributes().length, 1, "invalid attribute not added");
+    setTimeout(function () {
+        t.equal(relationship.attributes().length, 1, "invalid attribute not added");
+    }, 1);
 });
 
 relationshipEditorTest('relationships with different link orders are not duplicates of each other', function (t) {

@@ -48,9 +48,9 @@ releaseEditor.init = function (options) {
      * longer exist.
      */
     utils.withRelease(function () {
-        _.defer(function () {
+        setTimeout(function () {
             MB.Control.initializeGuessCase("release");
-        });
+        }, 1);
     });
 
     /*
@@ -74,15 +74,15 @@ releaseEditor.init = function (options) {
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
                 /*
-                 * The _.defer is entirely for <select> elements in Firefox,
+                 * The setTimeout is entirely for <select> elements in Firefox,
                  * which don't have their change events triggered until after
                  * enter is hit. Additionally, if we switch tabs before the
                  * change event is handled, it doesn't seem to even register
                  * (probably because the <select> is hidden by then).
                  */
-                _.defer(function () {
+                setTimeout(function () {
                     self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
-                });
+                }, 1);
             }
         });
 
@@ -318,9 +318,9 @@ releaseEditor.releaseLoaded = function (data) {
     var seed = this.seededReleaseData;
 
     // Setup the external links editor
-    _.defer(function () {
+    setTimeout(function () {
         releaseEditor.createExternalLinksEditor(data, $('#external-links-editor-container')[0]);
-    });
+    }, 1);
 
     var release = new fields.Release(data);
 

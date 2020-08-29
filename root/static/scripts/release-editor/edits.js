@@ -539,7 +539,7 @@ function chainEditSubmissions(release, submissions) {
                 );
             }
 
-            _.defer(nextSubmission, index);
+            setTimeout(() => nextSubmission(index), 1);
         };
 
         $.when(submitted)

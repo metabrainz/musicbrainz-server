@@ -336,9 +336,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                      * clicked if the dialog is closed too fast, which makes
                      * it immediately reopen, hence the added delay here.
                      */
-                    _.defer(function () {
+                    setTimeout(function () {
                         self.accept();
-                    });
+                    }, 1);
                 }
             } else if (event.keyCode === 27 && nodeName !== "select") {
                 this.close();
