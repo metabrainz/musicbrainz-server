@@ -81,7 +81,7 @@ import request from '../../common/utility/request';
 
                 // Trim trailing whitespace for the final join phrase only.
                 if (index === ac.names.length - 1) {
-                    name.join_phrase = _.trimEnd(name.join_phrase);
+                    name.join_phrase = name.join_phrase.trimEnd();
                 }
 
                 name.join_phrase = name.join_phrase || null;
