@@ -275,7 +275,10 @@ import request from '../../common/utility/request';
         function keyValue(memo, key) {
             var value = edit[key];
 
-            return memo + key + (_.isObject(value) ? editHash(value) : value);
+            return memo + key +
+                (value && typeof value === 'object'
+                    ? editHash(value)
+                    : value);
         }
         return hexSha1(keys.reduce(keyValue, ""));
     }

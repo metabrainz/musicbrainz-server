@@ -555,7 +555,7 @@ function submissionErrorOccurred(data) {
     try {
         error = JSON.parse(data.responseText).error;
 
-        if (_.isObject(error)) {
+        if (error && typeof error === 'object') {
             if (error.message) {
                 error = error.message;
             } else {

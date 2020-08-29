@@ -176,10 +176,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 .done(this.submissionDone)
                 .fail(function (jqXHR) {
                     try {
-                        var response = JSON.parse(jqXHR.responseText);
-                        var message = _.isObject(response.error) ?
-                                        response.error.message : response.error;
-
+                        const {error} = JSON.parse(jqXHR.responseText);
+                        const message = error && typeof error === 'object'
+                            ? error.message
+                            : error;
                         this.submissionError(message);
                     } catch (e) {
                         this.submissionError(jqXHR.responseText);
