@@ -476,6 +476,7 @@ function isEmpty(link) {
 
 function withOneEmptyLink(links, dontRemove) {
   let emptyCount = 0;
+  let canRemoveCount = 0;
   const canRemove = {};
 
   links.forEach(function (link, index) {
@@ -483,13 +484,14 @@ function withOneEmptyLink(links, dontRemove) {
       ++emptyCount;
       if (index !== dontRemove) {
         canRemove[index] = true;
+        canRemoveCount++;
       }
     }
   });
 
   if (emptyCount === 0) {
     return links.concat(newLinkState({relationship: _.uniqueId('new-')}));
-  } else if (emptyCount > 1 && _.size(canRemove)) {
+  } else if (emptyCount > 1 && canRemoveCount > 0) {
     return links.filter((link, index) => !canRemove[index]);
   }
   return links;
