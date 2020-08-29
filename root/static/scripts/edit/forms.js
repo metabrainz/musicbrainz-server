@@ -46,7 +46,7 @@ MB.forms = {
 
                 opt.value = child[valueAttr];
                 opt.text = _.repeat(nbsp, indent * 2) +
-                           (_.isFunction(textAttr)
+                           (typeof textAttr === 'function'
                                ? textAttr(child)
                                : child[textAttr]);
                 opt.data = child;
