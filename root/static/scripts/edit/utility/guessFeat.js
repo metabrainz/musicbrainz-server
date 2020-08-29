@@ -9,7 +9,6 @@
 import $ from 'jquery';
 import balanced from 'balanced-match';
 import last from 'lodash/last';
-import result from 'lodash/result';
 
 import {MIN_NAME_SIMILARITY} from '../../common/constants';
 import MB from '../../common/MB';
@@ -200,8 +199,15 @@ function expandCredit(fullName, artists, isProbablyClassical) {
 }
 
 export default function guessFeat(entity) {
-  const relatedArtists = result(entity, 'relatedArtists');
-  const isProbablyClassical = result(entity, 'isProbablyClassical');
+  let relatedArtists = entity.relatedArtists;
+  if (typeof relatedArtists === 'function') {
+    relatedArtists = relatedArtists.call(entity);
+  }
+
+  let isProbablyClassical = entity.isProbablyClassical;
+  if (typeof isProbablyClassical === 'function') {
+    isProbablyClassical = isProbablyClassical.call(entity);
+  }
 
   const name = entity.name();
   const match = extractFeatCredits(
