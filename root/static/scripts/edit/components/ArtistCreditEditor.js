@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import mutate from 'mutate-cow';
@@ -340,7 +339,7 @@ class ArtistCreditEditor extends React.Component {
       prefix = this.props.form.name + '.' + prefix;
     }
 
-    return _.flatten(this.state.artistCredit.names.map(function (name, i) {
+    return this.state.artistCredit.names.flatMap(function (name, i) {
       const curPrefix = prefix + i + '.';
 
       return [
@@ -355,7 +354,7 @@ class ArtistCreditEditor extends React.Component {
           value: name.artist ? name.artist.id : '',
         },
       ];
-    }));
+    });
   }
 
   render() {

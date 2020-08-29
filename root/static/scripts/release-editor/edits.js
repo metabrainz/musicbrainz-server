@@ -412,7 +412,7 @@ var _allEdits = [
 
 
 releaseEditor.allEdits = ko.computed(function () {
-    return _.flatten(_allEdits.map(ko.unwrap));
+    return _allEdits.flatMap(ko.unwrap);
 });
 
 releaseEditor.editPreviews = ko.observableArray([]);

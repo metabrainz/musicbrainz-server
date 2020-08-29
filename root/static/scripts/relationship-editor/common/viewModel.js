@@ -10,7 +10,6 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 import each from 'lodash/each';
-import flatten from 'lodash/flatten';
 import transform from 'lodash/transform';
 
 import localizeLinkAttributeTypeDescription
@@ -66,7 +65,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         Object.assign(linkedEntities, {
             link_type_tree: typeInfo,
-            link_type: transform(flatten(Object.values(typeInfo)), mapItems, {}),
+            link_type: transform(Object.values(typeInfo).flat(), mapItems, {}),
             link_attribute_type: transform(attrInfo, mapItems, {}),
         });
 
