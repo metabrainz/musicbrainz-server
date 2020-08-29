@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {isCompleteArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
@@ -167,16 +166,18 @@ function formatReleaseData(release) {
     return clean;
 }
 
+const getFormat = medium => medium.format || '';
 
 function combinedMediumFormatName(mediums) {
-    const getFormat = medium => medium.format || '';
-    const formats = _.uniq(mediums.map(getFormat));
-    const formatCounts = _.countBy(mediums, getFormat);
+    const formatCounts = new Map();
 
-    return formats
-        .map(function (format) {
-            const count = formatCounts[format];
+    for (const medium of mediums) {
+        const format = getFormat(medium);
+        formatCounts.set(format, (formatCounts.get(format) ?? 0) + 1);
+    }
 
+    return Array.from(formatCounts.entries())
+        .map(function ([format, count]) {
             return (count > 1 ? count + "\u00D7" : "") +
                 (format
                     ? lp_attributes(format, 'medium_format')
