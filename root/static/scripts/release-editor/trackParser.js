@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import sortBy from 'lodash/sortBy';
 
 import {MIN_NAME_SIMILARITY} from '../common/constants';
@@ -248,9 +247,9 @@ const trackParser = releaseEditor.trackParser = {
             }
 
             // Force a minimum number of audio tracks if there's a CDTOC.
-            var newAudioTrackCount = _.sumBy(newTracks, function (t) {
-                return t.isDataTrack() ? 0 : 1;
-            });
+            var newAudioTrackCount = newTracks.reduce(function (sum, t) {
+                return sum + (t.isDataTrack() ? 0 : 1);
+            }, 0);
 
             if (hasTocs && newAudioTrackCount < oldAudioTrackCount) {
                 difference = oldAudioTrackCount - newAudioTrackCount;
