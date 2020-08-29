@@ -548,7 +548,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 recentEntities = {};
             }
 
-            if (!_.isPlainObject(recentEntities)) {
+            if (!recentEntities || typeof recentEntities !== 'object') {
                 recentEntities = {};
             }
         }
