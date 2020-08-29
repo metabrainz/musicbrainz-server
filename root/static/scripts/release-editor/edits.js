@@ -424,7 +424,7 @@ releaseEditor.getEditPreviews = function () {
     let previewRequest = null;
 
     function refreshPreviews(edits) {
-        releaseEditor.editPreviews(_.compact(edits.map(getPreview)));
+        releaseEditor.editPreviews(edits.map(getPreview).filter(Boolean));
     }
 
     function getPreview(edit) {

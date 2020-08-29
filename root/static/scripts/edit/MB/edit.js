@@ -229,7 +229,7 @@ import request from '../../common/utility/request';
                 name:               string(rg.name),
                 artist_credit:      fields.artistCredit(rg.artistCredit),
                 comment:            string(rg.comment),
-                secondary_type_ids: _.compact(array(rg.secondaryTypeIDs, number)),
+                secondary_type_ids: array(rg.secondaryTypeIDs, number).filter(Boolean),
             };
         },
 

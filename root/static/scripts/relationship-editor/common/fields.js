@@ -426,7 +426,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             const integerRegex = /^\d+$/;
-            const parts = _.compact(numberAttribute.textValue().split(/(\d+)/));
+            const parts = numberAttribute.textValue().split(/(\d+)/).filter(Boolean);
 
             for (let i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {

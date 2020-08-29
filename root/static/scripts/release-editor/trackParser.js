@@ -452,7 +452,7 @@ const trackParser = releaseEditor.trackParser = {
 
     matchDataWithTrack: function (data, track) {
         /*
-         * The result of this function will be fed into _.compact so that
+         * The result of this function will be fed into filter(Boolean) so that
          * null and undefined return values will be stripped.
          */
         if (!track) {
