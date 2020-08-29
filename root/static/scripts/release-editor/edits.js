@@ -161,7 +161,7 @@ releaseEditor.edits = {
         });
 
         var newMediums = release.mediums();
-        var newPositions = _.invokeMap(newMediums, "position");
+        var newPositions = newMediums.map(x => x.position());
         var tmpPositions = [];
 
         for (const medium of newMediums) {

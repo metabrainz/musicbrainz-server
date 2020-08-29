@@ -102,7 +102,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var relationship = dialog.relationship();
                 relationship.linkTypeID(firstRelationship.linkTypeID());
 
-                var attributeLists = _.invokeMap(relationships, "attributes");
+                var attributeLists = relationships.map(x => x.attributes());
 
                 var commonAttributes =
                     _.intersection(...attributeLists)

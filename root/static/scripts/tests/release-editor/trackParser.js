@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import test from 'tape';
 
 import {reduceArtistCredit} from '../../common/immutable-entities';
@@ -211,7 +210,7 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     var tracks = medium.tracks();
 
     t.deepEqual(
-        _.invokeMap(tracks, "length"),
+        tracks.map(x => x.length()),
         medium.original().tracklist.map(x => x.length),
         "track lengths are unchanged",
     );
@@ -499,5 +498,5 @@ parserTest("force number of tracks to equal CD TOC", function (t) {
 
     t.equal(medium.audioTracks().length, 1);
     t.equal(medium.dataTracks().length, 2);
-    t.deepEqual(_.invokeMap(medium.tracks(), 'name'), ['Track A', 'Very Different Title', 'Another Data Track']);
+    t.deepEqual(medium.tracks().map(x => x.name()), ['Track A', 'Very Different Title', 'Another Data Track']);
 });
