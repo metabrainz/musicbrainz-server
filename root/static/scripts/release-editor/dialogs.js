@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -356,8 +355,8 @@ Object.assign(addDiscDialog, {
 
             release.mediums([medium]);
         } else {
-            // If there are no mediums, _.max will return undefined.
-            const maxPosition = _.max(release.mediums().map(x => x.position()));
+            // If there are no mediums, Math.max will return -Infinity.
+            const maxPosition = Math.max(...release.mediums().map(x => x.position()));
             const nextPosition = Number.isFinite(maxPosition) ? (maxPosition + 1) : 1;
             medium.position(nextPosition);
             release.mediums.push(medium);
