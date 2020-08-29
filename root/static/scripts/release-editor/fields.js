@@ -158,7 +158,7 @@ class Track {
 
         var newLength = utils.unformatTrackLength(length);
 
-        if (_.isNaN(newLength)) {
+        if (!newLength) {
             this.formattedLength('');
             return;
         }
