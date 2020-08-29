@@ -8,10 +8,8 @@
 
 /* eslint-disable import/no-commonjs */
 
-const _ = require('lodash');
 const Sentry = require('@sentry/node');
 
-const DBDefs = require('../static/scripts/common/DBDefs');
 const getRequestCookie = require('../utility/getRequestCookie');
 const sanitizedContext = require('../utility/sanitizedContext');
 const {bufferFrom} = require('./buffer');

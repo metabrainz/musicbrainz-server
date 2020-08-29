@@ -129,6 +129,11 @@ const testData = JSON.parse(process.argv[2]);
 const testResults = [];
 
 testData.forEach(function (test) {
+  /*
+   * `entity` is used within the eval(test.react_element).
+   * See t/lib/t/TemplateMacros.pm.
+   */
+  /* eslint-disable-next-line no-unused-vars */
   const entity = test.entity;
 
   const ttMarkup = test.tt_markup

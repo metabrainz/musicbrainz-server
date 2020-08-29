@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {EntityItem} from "./types.js";import {unwrapNl} from '../../i18n';
+import {unwrapNl} from '../../i18n';
 
 import {
   SEARCH_AGAIN,
