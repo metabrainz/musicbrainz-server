@@ -9,7 +9,6 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import escape from 'lodash/escape';
-import groupBy from 'lodash/groupBy';
 import head from 'lodash/head';
 import identity from 'lodash/identity';
 import last from 'lodash/last';
@@ -19,6 +18,7 @@ import mbEntity from '../../entity';
 import commaOnlyList from '../../i18n/commaOnlyList';
 import {reduceArtistCredit} from '../../immutable-entities';
 import MB from '../../MB';
+import {groupBy} from '../../utility/arrays';
 import clean from '../../utility/clean';
 import formatDate from '../../utility/formatDate';
 import formatDatePeriod from '../../utility/formatDatePeriod';
@@ -714,25 +714,27 @@ MB.Control.autocomplete_formatters = {
             );
         });
 
-        for (
-            const [name, releaseLabels] of
-            Object.entries(groupBy(item.labels, getLabelName))
-        ) {
-            const catalogNumbers = releaseLabels
-                .map(getCatalogNumber)
-                .filter(Boolean)
-                .sort();
+        if (item.labels) {
+            for (
+                const [name, releaseLabels] of
+                Object.entries(groupBy(item.labels, getLabelName))
+            ) {
+                const catalogNumbers = releaseLabels
+                    .map(getCatalogNumber)
+                    .filter(Boolean)
+                    .sort();
 
-            if (catalogNumbers.length > 2) {
-                appendComment(
-                    $a,
-                    name +
-                    maybeParentheses(head(catalogNumbers) + ' … ' + last(catalogNumbers), name),
-                );
-            } else {
-                for (const releaseLabel of releaseLabels) {
-                    const name = getLabelName(releaseLabel);
-                    appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
+                if (catalogNumbers.length > 2) {
+                    appendComment(
+                        $a,
+                        name +
+                        maybeParentheses(head(catalogNumbers) + ' … ' + last(catalogNumbers), name),
+                    );
+                } else {
+                    for (const releaseLabel of releaseLabels) {
+                        const name = getLabelName(releaseLabel);
+                        appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
+                    }
                 }
             }
         }

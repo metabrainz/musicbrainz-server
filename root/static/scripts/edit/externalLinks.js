@@ -11,7 +11,6 @@ import $ from 'jquery';
 import ko from 'knockout';
 import defaults from 'lodash/defaults';
 import keyBy from 'lodash/keyBy';
-import groupBy from 'lodash/groupBy';
 import uniqBy from 'lodash/uniqBy';
 import uniqueId from 'lodash/uniqueId';
 import * as React from 'react';
@@ -26,6 +25,7 @@ import {compare} from '../common/i18n';
 import expand2react from '../common/i18n/expand2react';
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
+import {groupBy} from '../common/utility/arrays';
 import {hasSessionStorage} from '../common/utility/storage';
 
 import isPositiveInteger from './utility/isPositiveInteger';

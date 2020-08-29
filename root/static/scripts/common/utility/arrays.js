@@ -107,3 +107,17 @@ export function sortByString<T>(
   keys.sort((a, b) => cmp(a[1], b[1]));
   return keys.map(x => array[x[0]]);
 }
+
+export function groupBy<T>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => string,
+): {__proto__: null, +[groupKey: string]: $ReadOnlyArray<T>} {
+  return array.reduce(function (result, item) {
+    const key = func(item);
+    if (!(key in result)) {
+      result[key] = [];
+    }
+    result[key].push(item);
+    return result;
+  }, Object.create(null));
+}

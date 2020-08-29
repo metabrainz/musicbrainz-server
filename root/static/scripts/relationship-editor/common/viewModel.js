@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import groupBy from 'lodash/groupBy';
 import once from 'lodash/once';
 import uniqueId from 'lodash/uniqueId';
 
@@ -18,6 +17,7 @@ import localizeLinkAttributeTypeName
     from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
+import {groupBy} from '../../common/utility/arrays';
 import parseDate from '../../common/utility/parseDate';
 import request from '../../common/utility/request';
 import {hasSessionStorage} from '../../common/utility/storage';
@@ -41,7 +41,7 @@ const addAnotherEntityLabels = {
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     RE.exportTypeInfo = once(function (typeInfo, attrInfo) {
-        const attrChildren = groupBy(attrInfo, x => x.parent_id);
+        const attrChildren = groupBy(attrInfo, x => String(x.parent_id));
 
         function mapItems(result, item) {
             if (item.id) {

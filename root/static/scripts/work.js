@@ -8,7 +8,6 @@
  */
 
 import $ from 'jquery';
-import groupBy from 'lodash/groupBy';
 import identity from 'lodash/identity';
 import isEmpty from 'lodash/isEmpty';
 import mapValues from 'lodash/mapValues';
@@ -21,6 +20,7 @@ import {createStore} from 'redux';
 import FormRowSelectList from '../../components/FormRowSelectList';
 import subfieldErrors from '../../utility/subfieldErrors';
 
+import {groupBy} from './common/utility/arrays';
 import getScriptArgs from './common/utility/getScriptArgs';
 import {buildOptionsTree} from './edit/forms';
 import {initializeBubble} from './edit/MB/Control/Bubble';
@@ -188,7 +188,7 @@ class ViewModel {
     this.attributeTypesByID = attributeTypes.children.reduce(byID, {});
 
     this.allowedValuesByTypeID = mapValues(
-      groupBy(allowedValues.children, x => x.workAttributeTypeID),
+      groupBy(allowedValues.children, x => String(x.workAttributeTypeID)),
       function (children) {
         return buildOptionsTree(
           {children},

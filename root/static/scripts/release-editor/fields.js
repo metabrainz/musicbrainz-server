@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import groupBy from 'lodash/groupBy';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
@@ -21,6 +20,7 @@ import {
   reduceArtistCredit,
 } from '../common/immutable-entities';
 import MB from '../common/MB';
+import {groupBy} from '../common/utility/arrays';
 import debounce from '../common/utility/debounce';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import isBlank from '../common/utility/isBlank';
@@ -875,7 +875,7 @@ class Release extends mbEntity.Release {
         );
 
         function countryID(event) {
-            return event.countryID();
+            return String(event.countryID());
         }
 
         function nonEmptyEvent(event) {

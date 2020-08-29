@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import groupBy from 'lodash/groupBy';
 import isEqual from 'lodash/isEqual';
 import once from 'lodash/once';
 import without from 'lodash/without';
@@ -25,6 +24,7 @@ import MB from '../../common/MB';
 import * as URLCleanup from '../../edit/URLCleanup';
 import * as dates from '../../edit/utility/dates';
 import {stripAttributes} from '../../edit/utility/linkPhrase';
+import {groupBy} from '../../common/utility/arrays';
 import isBlank from '../../common/utility/isBlank';
 import debounce from '../../common/utility/debounce';
 
@@ -840,7 +840,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function linkAttributeTypeID(attribute) {
-        return attribute.type.id;
+        return String(attribute.type.id);
     }
 
     function splitByCreditableAttributes(relationship) {

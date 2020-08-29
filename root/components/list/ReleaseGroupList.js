@@ -8,10 +8,10 @@
  */
 
 import * as React from 'react';
-import groupBy from 'lodash/groupBy';
 
 import Table from '../Table';
 import releaseGroupType from '../../utility/releaseGroupType';
+import {groupBy} from '../../static/scripts/common/utility/arrays';
 import parseDate from '../../static/scripts/common/utility/parseDate';
 import {
   defineArtistCreditColumn,
@@ -153,7 +153,7 @@ const ReleaseGroupList = ({
   showRatings,
   sortable,
 }: ReleaseGroupListProps): Array<React$Node> => {
-  const groupedReleaseGroups = groupBy(releaseGroups, 'typeName');
+  const groupedReleaseGroups = groupBy(releaseGroups, x => x.typeName ?? '');
   return (
     Object.keys(groupedReleaseGroups).map<React$Node>((type) => {
       const releaseGroupsOfType = groupedReleaseGroups[type];
