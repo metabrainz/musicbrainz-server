@@ -131,3 +131,18 @@ export function keyBy<T>(
     return result;
   }, Object.create(null));
 }
+
+export function uniqBy<T, U>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => U,
+): Array<T> {
+  const seenKeys = new Set<U>();
+  return array.reduce(function (result, item) {
+    const key = func(item);
+    if (!seenKeys.has(key)) {
+      seenKeys.add(key);
+      result.push(item);
+    }
+    return result;
+  }, []);
+}

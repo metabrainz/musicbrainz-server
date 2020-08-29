@@ -8,10 +8,10 @@
  */
 
 import * as React from 'react';
-import uniqBy from 'lodash/uniqBy';
 
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import {uniqBy} from '../static/scripts/common/utility/arrays';
 
 const displayLabel = (label) => (
   <EntityLink entity={label} />
@@ -20,6 +20,8 @@ const displayLabel = (label) => (
 type ReleaseLabelsProps = {
   +labels?: $ReadOnlyArray<ReleaseLabelT>,
 };
+
+const getLabelGid = x => x.gid;
 
 const ReleaseLabelList = ({
   labels: releaseLabels,
@@ -34,7 +36,7 @@ const ReleaseLabelList = ({
       labels.push(label);
     }
   }
-  return commaOnlyList(uniqBy(labels, 'gid').map(displayLabel));
+  return commaOnlyList(uniqBy(labels, getLabelGid).map(displayLabel));
 };
 
 export default ReleaseLabelList;

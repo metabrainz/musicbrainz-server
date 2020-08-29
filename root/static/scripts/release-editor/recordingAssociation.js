@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import uniqBy from 'lodash/uniqBy';
 
 import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
 import {
@@ -15,6 +14,7 @@ import {
   reduceArtistCredit,
 } from '../common/immutable-entities';
 import MB from '../common/MB';
+import {uniqBy} from '../common/utility/arrays';
 import debounce from '../common/utility/debounce';
 
 import releaseEditor from './viewModel';
@@ -119,7 +119,7 @@ function cleanRecordingData(data) {
                 releaseGroupGID: release["release-group"].id,
             };
         }) ?? [],
-        'releaseGroupGID',
+        x => x.releaseGroupGID,
     );
 
     clean.appearsOn = {

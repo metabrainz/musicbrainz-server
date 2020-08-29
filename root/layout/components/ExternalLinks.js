@@ -10,12 +10,12 @@
 import URL from 'url';
 
 import * as React from 'react';
-import sortedUniqBy from 'lodash/sortedUniqBy';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import {FAVICON_CLASSES} from '../../static/scripts/common/constants';
 import {compare, l} from '../../static/scripts/common/i18n';
 import linkedEntities from '../../static/scripts/common/linkedEntities';
+import {uniqBy} from '../../static/scripts/common/utility/arrays';
 
 function faviconClass(urlEntity) {
   let matchingClass;
@@ -133,17 +133,14 @@ const ExternalLinks = ({
     return null;
   }
 
-  otherLinks.sort(function (a, b) {
-    return (
+  const uniqueOtherLinks =
+    uniqBy(otherLinks, x => x.url.href_url).sort((a, b) => (
       compare(
         a.url.sidebar_name ?? '',
         b.url.sidebar_name ?? '',
       ) ||
       compare(a.url.href_url, b.url.href_url)
-    );
-  });
-
-  const uniqueOtherLinks = sortedUniqBy(otherLinks, x => x.url.href_url);
+    ));
 
   // We ensure official sites are listed above blogs, and blogs above others
   links.push.apply(links, blogLinks);

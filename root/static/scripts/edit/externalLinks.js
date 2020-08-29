@@ -10,7 +10,6 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import defaults from 'lodash/defaults';
-import uniqBy from 'lodash/uniqBy';
 import uniqueId from 'lodash/uniqueId';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -24,7 +23,7 @@ import {compare} from '../common/i18n';
 import expand2react from '../common/i18n/expand2react';
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
-import {groupBy, keyBy} from '../common/utility/arrays';
+import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
 import {hasSessionStorage} from '../common/utility/storage';
 
 import isPositiveInteger from './utility/isPositiveInteger';

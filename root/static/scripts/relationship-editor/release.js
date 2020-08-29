@@ -8,9 +8,9 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import uniqBy from 'lodash/uniqBy';
 
 import MB from '../common/MB';
+import {uniqBy} from '../common/utility/arrays';
 import request from '../common/utility/request';
 
 import {ViewModel} from './common/viewModel';
@@ -319,7 +319,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         var $tracklist = $("#tracklist tbody");
 
         function count($inputs) {
-            return uniqBy($inputs, ko.dataFor).length;
+            return uniqBy(Array.from($inputs), ko.dataFor).length;
         }
 
         function medium(mediumSelector, selector, counter) {
