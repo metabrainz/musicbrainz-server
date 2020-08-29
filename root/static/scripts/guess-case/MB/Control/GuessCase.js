@@ -7,7 +7,7 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
+import noop from 'lodash/noop';
 import ko from 'knockout';
 
 import getBooleanCookie from '../../../common/utility/getBooleanCookie';
@@ -24,7 +24,7 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
 
     if ($options.length && !$options.data("ui-dialog")) {
         $options.dialog({ title: l('Guess Case Options'), autoOpen: false });
-        ko.applyBindingsToNode($options[0], { guessCase: _.noop });
+        ko.applyBindingsToNode($options[0], { guessCase: noop });
     }
 
     var guess = MB.GuessCase[type];

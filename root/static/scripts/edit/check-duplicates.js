@@ -8,7 +8,8 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
+import sortBy from 'lodash/sortBy';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -63,7 +64,7 @@ function sortPlaceDuplicates(duplicates) {
     );
   }
 
-  return _.sortBy(duplicates, function (dupe) {
+  return sortBy(duplicates, function (dupe) {
     var area = dupe.area;
 
     if (!area) {
@@ -226,7 +227,7 @@ MB.initializeDuplicateChecker = function (type) {
     return clean(name).toLowerCase();
   }
 
-  var handleNameChange = _.debounce(function (name, forceRequest) {
+  var handleNameChange = debounce(function (name, forceRequest) {
     if (forceRequest || normalize(name) !== normalize(currentName)) {
       if (promise) {
         promise.abort();

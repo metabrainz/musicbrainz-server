@@ -8,8 +8,10 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import groupBy from 'lodash/groupBy';
+import identity from 'lodash/identity';
+import intersection from 'lodash/intersection';
+import isEmpty from 'lodash/isEmpty';
 import mapValues from 'lodash/mapValues';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
@@ -224,7 +226,7 @@ function byID(result, parent) {
 
 {
   const attributes = form.field.attributes;
-  if (_.isEmpty(attributes.field)) {
+  if (isEmpty(attributes.field)) {
     form = mutate<WritableWorkForm, _>(form, newForm => {
       pushCompoundField(newForm.field.attributes, {
         type_id: null,
@@ -274,8 +276,8 @@ function renderWorkLanguages() {
     <FormRowSelectList
       addId="add-language"
       addLabel={l('Add Language')}
-      getSelectField={_.identity}
-      hideAddButton={_.intersection(
+      getSelectField={identity}
+      hideAddButton={intersection(
         form.field.languages.field.map(lang => String(lang.value)),
         ['486', '284'],
       ).length > 0}

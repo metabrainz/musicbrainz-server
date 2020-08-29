@@ -7,9 +7,10 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
+import intersection from 'lodash/intersection';
 import sortBy from 'lodash/sortBy';
 import union from 'lodash/union';
+import uniqueId from 'lodash/uniqueId';
 
 import 'knockout-arraytransforms';
 
@@ -41,7 +42,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     coreEntityPrototype._afterCoreEntityCtor = function () {
         if (this.uniqueID == null) {
-            this.uniqueID = _.uniqueId("entity-");
+            this.uniqueID = uniqueId("entity-");
         }
         this.relationshipElements = {};
     };
@@ -105,7 +106,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var attributeLists = relationships.map(x => x.attributes());
 
                 var commonAttributes =
-                    _.intersection(...attributeLists)
+                    intersection(...attributeLists)
                     .filter(x => !isFreeText(x))
                     .map(function (attr) {
                         return { type: { gid: attr.type.gid } };
@@ -226,7 +227,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function cacheByID(func) {
-        var cacheID = _.uniqueId("cache-");
+        var cacheID = uniqueId("cache-");
 
         return function (vm) {
             var cache = this[cacheID] = this[cacheID] || {};

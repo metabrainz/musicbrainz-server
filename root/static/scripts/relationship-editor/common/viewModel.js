@@ -8,9 +8,11 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import each from 'lodash/each';
+import groupBy from 'lodash/groupBy';
+import once from 'lodash/once';
 import transform from 'lodash/transform';
+import uniqueId from 'lodash/uniqueId';
 
 import localizeLinkAttributeTypeDescription
     from '../../common/i18n/localizeLinkAttributeTypeDescription';
@@ -40,8 +42,8 @@ const addAnotherEntityLabels = {
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
-    RE.exportTypeInfo = _.once(function (typeInfo, attrInfo) {
-        const attrChildren = _.groupBy(attrInfo, x => x.parent_id);
+    RE.exportTypeInfo = once(function (typeInfo, attrInfo) {
+        const attrChildren = groupBy(attrInfo, x => x.parent_id);
 
         function mapItems(result, item) {
             if (item.id) {
@@ -58,7 +60,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     }
                     break;
                 case 'link_type':
-                    _.transform(item.children, mapItems, result);
+                    transform(item.children, mapItems, result);
                     break;
             }
         }
@@ -106,7 +108,7 @@ export class ViewModel {
 
         constructor(options) {
             this.source = options.source;
-            this.uniqueID = _.uniqueId("relationship-editor-");
+            this.uniqueID = uniqueId("relationship-editor-");
             this.cache = {};
         }
 
@@ -163,7 +165,7 @@ MB.initRelationshipEditors = function (args) {
     var sourceData = args.sourceData;
 
     // XXX used by series edit form
-    sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
+    sourceData.gid = sourceData.gid || uniqueId("tmp-");
     sourceData.uniqueID = sourceData.id || 'source';
     MB.sourceEntityGID = sourceData.gid;
     MB.sourceEntity = MB.entity(sourceData);
@@ -312,7 +314,7 @@ function addRelationshipsFromQueryString(source) {
         };
 
         if (linkType) {
-            data.attributes = _.transform(rel.attributes, function (accum, attr) {
+            data.attributes = transform(rel.attributes, function (accum, attr) {
                 var attrInfo = linkedEntities.link_attribute_type[attr.type];
 
                 if (attrInfo && linkType.attributes[attrInfo.id]) {

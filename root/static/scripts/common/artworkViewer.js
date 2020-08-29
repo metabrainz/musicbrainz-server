@@ -7,7 +7,7 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 
 $.widget("mb.artworkViewer", $.ui.dialog, {
 
@@ -254,7 +254,7 @@ $(function () {
 
     // Adjust the dialog's size/position when the browser window is resized.
 
-    var resizeDialog = _.debounce(function () {
+    var resizeDialog = debounce(function () {
         var dialog = $activeDialog.data("mb-artworkViewer");
 
         if (dialog && dialog.isOpen()) {

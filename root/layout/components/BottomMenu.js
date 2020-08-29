@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
+import capitalize from 'lodash/capitalize';
 import * as React from 'react';
 
 import {VARTIST_GID} from '../../static/scripts/common/constants';
@@ -26,10 +26,10 @@ function languageName(language, selected) {
   let text = `[${id}]`;
 
   if (nativeLanguage) {
-    text = _.capitalize(nativeLanguage);
+    text = capitalize(nativeLanguage);
 
     if (nativeTerritory) {
-      text += ' (' + _.capitalize(nativeTerritory) + ')';
+      text += ' (' + capitalize(nativeTerritory) + ')';
     }
   }
 

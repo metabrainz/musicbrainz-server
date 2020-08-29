@@ -6,7 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
+import noop from 'lodash/noop';
 import test from 'tape';
 
 import validation from '../../edit/validation';
@@ -18,7 +18,7 @@ import '../../release-editor/init';
 function validationTest(name, callback) {
     test(name, function (t) {
         const loadMedia = fields.Release.prototype.loadMedia;
-        fields.Release.prototype.loadMedia = _.noop;
+        fields.Release.prototype.loadMedia = noop;
 
         callback(t);
 

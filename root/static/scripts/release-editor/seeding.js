@@ -7,7 +7,7 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
+import transform from 'lodash/transform';
 
 import fields from './fields';
 import utils from './utils';
@@ -111,7 +111,7 @@ releaseEditor.seedRelease = function (release, data) {
     if (data.mediums) {
         release.mediums(utils.mapChild(release, data.mediums, fields.Medium));
 
-        release.seededTocs = _.transform(release.mediums(),
+        release.seededTocs = transform(release.mediums(),
             function (result, medium) {
                 var toc = medium.toc();
 

@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 
 import MB from '../../../common/MB';

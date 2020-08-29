@@ -7,7 +7,10 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import transform from 'lodash/transform';
+import uniqueId from 'lodash/uniqueId';
 
 import {
   SERIES_ORDERING_ATTRIBUTE,
@@ -55,7 +58,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.entities.saved = this.entities.peek().slice(0);
             this.entities.subscribe(this.entitiesChanged, this);
             this.entityTypes = data.entities.map(x => x.entityType).join("-");
-            this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
+            this.uniqueID = this.entityTypes + "-" + (this.id || uniqueId("new-"));
 
             this.entity0_credit = ko.observable(data.entity0_credit || '');
             this.entity1_credit = ko.observable(data.entity1_credit || '');
@@ -226,7 +229,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         edited() {
-            return !_.isEqual(this.original, this.editData());
+            return !isEqual(this.original, this.editData());
         }
 
         hasChanges() {
@@ -517,7 +520,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
                 this.linkOrder() == other.linkOrder() &&
-                _.isEqual(this.entities(), other.entities()) &&
+                isEqual(this.entities(), other.entities()) &&
                 mergeDates(this.begin_date, other.begin_date) &&
                 mergeDates(this.end_date, other.end_date) &&
                 attributesAreEqual(this.attributes(), other.attributes())
@@ -673,10 +676,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     function validAttributes(relationship, attributes) {
         var linkType = relationship.getLinkType();
 
-        if (_.isEmpty(attributes) || _.isEmpty(linkType) || _.isEmpty(linkType.attributes)) {
+        if (isEmpty(attributes) || isEmpty(linkType) || isEmpty(linkType.attributes)) {
             return [];
         } 
-        return _.transform(attributes, function (accum, data) {
+        return transform(attributes, function (accum, data) {
             var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
 
             if (attrInfo && linkType.attributes[attrInfo.root_id]) {

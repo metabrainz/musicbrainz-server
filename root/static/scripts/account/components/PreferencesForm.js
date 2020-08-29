@@ -8,7 +8,6 @@
  */
 
 import * as React from 'react';
-import _ from 'lodash';
 import mutate from 'mutate-cow';
 
 import FormCsrfToken from '../../../../components/FormCsrfToken';

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import _ from 'lodash';
+import lodashDebounce from 'lodash/debounce';
 import ko from 'knockout';
 
 import stats, {buildTypeStats, getStat} from '../../statistics/stats';
@@ -598,7 +598,7 @@ class TimelineLine {
                 });
 
             // Resize the graph when the window size changes
-            $(window).on("resize", _.debounce(function () {
+            $(window).on("resize", lodashDebounce(function () {
                 var plot = $(element).data('plot');
                 plot.resize();
                 plot.setupGrid();

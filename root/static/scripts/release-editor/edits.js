@@ -8,9 +8,12 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import each from 'lodash/each';
+import escape from 'lodash/escape';
+import isEqual from 'lodash/isEqual';
 import keyBy from 'lodash/keyBy';
+import last from 'lodash/last';
 
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 import {reduceArtistCredit} from '../common/immutable-entities';
@@ -44,7 +47,7 @@ releaseEditor.edits = {
         var releaseName = clean(release.name());
         var releaseAC = release.artistCredit();
         var origData = MB.edit.fields.releaseGroup(releaseGroup);
-        var editData = _.cloneDeep(origData);
+        var editData = cloneDeep(origData);
 
         if (releaseGroup.gid) {
             var dataChanged = false;
@@ -82,7 +85,7 @@ releaseEditor.edits = {
 
         if (!release.gid()) {
             edits.push(MB.edit.releaseCreate(newData));
-        } else if (!_.isEqual(newData, oldData)) {
+        } else if (!isEqual(newData, oldData)) {
             newData = {...newData, to_edit: release.gid()};
             edits.push(MB.edit.releaseEdit(newData, oldData));
         }
@@ -114,7 +117,7 @@ releaseEditor.edits = {
             if (id) {
                 const oldLabel = oldLabelsByID[id];
 
-                if (oldLabel && !_.isEqual(newLabel, oldLabel)) {
+                if (oldLabel && !isEqual(newLabel, oldLabel)) {
                     // Edit ReleaseLabel
                     edits.push(MB.edit.releaseEditReleaseLabel(newLabel));
                 }
@@ -185,7 +188,7 @@ releaseEditor.edits = {
                             newRecording.artist_credit = trackData.artist_credit;
                         }
 
-                        if (!_.isEqual(newRecording, oldRecording)) {
+                        if (!isEqual(newRecording, oldRecording)) {
                             edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
                         }
                     }
@@ -193,7 +196,7 @@ releaseEditor.edits = {
             });
 
             // The medium already exists
-            newMediumData = _.cloneDeep(newMediumData);
+            newMediumData = cloneDeep(newMediumData);
 
             if (medium.id) {
                 const newNoPosition = {...newMediumData};
@@ -201,7 +204,7 @@ releaseEditor.edits = {
                 const oldNoPosition = {...oldMediumData};
                 delete oldNoPosition.position;
 
-                if (!_.isEqual(newNoPosition, oldNoPosition)) {
+                if (!isEqual(newNoPosition, oldNoPosition)) {
                     newNoPosition.to_edit = medium.id;
                     edits.push(MB.edit.mediumEdit(newNoPosition, oldNoPosition));
                 }
@@ -221,7 +224,7 @@ releaseEditor.edits = {
                 var newPosition = newMediumData.position;
 
                 if (oldPositions.includes(newPosition)) {
-                    var lastAttempt = (_.last(tmpPositions) + 1) || 1;
+                    var lastAttempt = (last(tmpPositions) + 1) || 1;
                     var attempt;
 
                     while ((attempt = lastAttempt++)) {
@@ -377,7 +380,7 @@ releaseEditor.edits = {
                 } else if (oldLinks[link.relationship]) {
                     var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
-                    if (!_.isEqual(newData, original)) {
+                    if (!isEqual(newData, original)) {
                         var editData = MB.edit.relationshipEdit(newData, original);
 
                         if (hasVideo(original) && !hasVideo(newData)) {
@@ -561,11 +564,11 @@ function submissionErrorOccurred(data) {
             if (error.message) {
                 error = error.message;
             } else {
-                error = _.escape(data.statusText + ": " + data.status);
+                error = escape(data.statusText + ": " + data.status);
             }
         }
     } catch (e) {
-        error = _.escape(data.statusText + ": " + data.status);
+        error = escape(data.statusText + ": " + data.status);
     }
 
     releaseEditor.submissionError(error);

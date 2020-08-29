@@ -8,9 +8,11 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import each from 'lodash/each';
 import groupBy from 'lodash/groupBy';
+import isEqual from 'lodash/isEqual';
+import once from 'lodash/once';
+import without from 'lodash/without';
 import * as ReactDOMServer from 'react-dom/server';
 
 import '../../../lib/jquery-ui';
@@ -433,7 +435,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         targetTypeOptions() {
             var sourceType = this.source.entityType;
-            var targetTypes = _.without(MB.allowedRelations[sourceType], 'url');
+            var targetTypes = without(MB.allowedRelations[sourceType], 'url');
 
             if (sourceType === "series") {
                 var self = this;
@@ -622,7 +624,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             width: "auto",
         },
 
-        setupUI: _.once(function () {
+        setupUI: once(function () {
             var $dialog = $("#dialog").dialog(this.uiOptions);
 
             var widget = $dialog.data("ui-dialog");
@@ -708,7 +710,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (cancel !== false) {
                 var relationship = this.relationship();
 
-                if (!_.isEqual(this.originalRelationship, relationship.editData())) {
+                if (!isEqual(this.originalRelationship, relationship.editData())) {
                     relationship.fromJS(this.originalRelationship);
                 }
             }

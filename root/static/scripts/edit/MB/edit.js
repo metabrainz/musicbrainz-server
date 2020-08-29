@@ -7,9 +7,9 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 import difference from 'lodash/difference';
 import each from 'lodash/each';
+import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
 import sortBy from 'lodash/sortBy';
 
@@ -292,7 +292,7 @@ import request from '../../common/utility/request';
             ),
             required,
         ).forEach(function (key) {
-            if (_.isEqual(newData[key], oldData[key])) {
+            if (isEqual(newData[key], oldData[key])) {
                 delete newData[key];
             }
         });
@@ -423,7 +423,7 @@ import request from '../../common/utility/request';
 
                 newAttributes[gid] = hash;
 
-                if (!origAttributes[gid] || !_.isEqual(origAttributes[gid], hash)) {
+                if (!origAttributes[gid] || !isEqual(origAttributes[gid], hash)) {
                     changedAttributes.push(hash);
                  }
             }

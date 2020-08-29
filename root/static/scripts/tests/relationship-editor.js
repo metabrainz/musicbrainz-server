@@ -10,7 +10,9 @@ import './typeInfo';
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import noop from 'lodash/noop';
+import transform from 'lodash/transform';
 import test from 'tape';
 
 import linkedEntities from '../common/linkedEntities';
@@ -30,7 +32,7 @@ import {ReleaseViewModel} from '../relationship-editor/release';
 
 class FakeRelationship extends fields.Relationship {}
 
-FakeRelationship.prototype.loadWorkRelationships = _.noop;
+FakeRelationship.prototype.loadWorkRelationships = noop;
 
 class FakeGenericEntityViewModel extends GenericEntityViewModel {}
 
@@ -38,7 +40,7 @@ FakeGenericEntityViewModel.prototype.relationshipClass = FakeRelationship;
 
 class FakeReleaseViewModel extends ReleaseViewModel {}
 
-FakeReleaseViewModel.prototype.loadRelease = _.noop;
+FakeReleaseViewModel.prototype.loadRelease = noop;
 
 FakeReleaseViewModel.prototype.relationshipClass = FakeRelationship;
 
@@ -145,7 +147,7 @@ function setupGenericRelationshipEditor(options) {
 
 function formData() {
     var inputsArray = Array.from($("input[type=hidden]"));
-    return _.transform(inputsArray, function (result, input) {
+    return transform(inputsArray, function (result, input) {
         result[input.name] = input.value;
     }, {});
 };
@@ -901,7 +903,7 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: _.cloneDeep(loveMeDo),
+        sourceData: cloneDeep(loveMeDo),
     });
 
     var relationship = vm.source.relationships()[0];
@@ -952,7 +954,7 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
 relationshipEditorTest('relationships with different link orders are not duplicates of each other', function (t) {
     t.plan(1);
 
-    var sourceData = _.cloneDeep(loveMeDo);
+    var sourceData = cloneDeep(loveMeDo);
 
     var vm = setupGenericRelationshipEditor({
         sourceData: sourceData,

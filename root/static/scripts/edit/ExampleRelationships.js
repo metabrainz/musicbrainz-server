@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import _ from 'lodash';
+import uniq from 'lodash/uniq';
 import ko from 'knockout';
 
 import {ENTITY_NAMES} from '../common/constants';
@@ -36,7 +36,7 @@ ERE.init = function (config) {
     });
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
     ERE.viewModel.availableEntityTypes(
-        _.uniq([type0, type1]).map(function (value) {
+        uniq([type0, type1]).map(function (value) {
             return { 'value': value, 'text': ENTITY_NAMES[value]() };
         }),
     );

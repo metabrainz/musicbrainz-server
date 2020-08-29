@@ -7,8 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 import each from 'lodash/each';
+import identity from 'lodash/identity';
+import keyBy from 'lodash/keyBy';
+import sortBy from 'lodash/sortBy';
+import without from 'lodash/without';
 import * as React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
@@ -35,7 +39,7 @@ const VOTE_DELAY = 1000;
 const getTagName = t => t.tag.name;
 
 function sortedTags(tags) {
-  return _.sortBy(tags, t => -t.count, getTagName);
+  return sortBy(tags, t => -t.count, getTagName);
 }
 
 function getTagsPath(entity) {
@@ -237,7 +241,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.genreNames = Object.keys(this.genreMap);
 
     this.pendingVotes = {};
-    this.debouncePendingVotes = _.debounce(
+    this.debouncePendingVotes = debounce(
       this.flushPendingVotes, VOTE_DELAY,
     );
   }
@@ -450,12 +454,12 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         }
 
         response(
-          _.sortBy(
+          sortBy(
             ($.ui.autocomplete.filter(
-              _.without(self.genreNames, ...terms),
+              without(self.genreNames, ...terms),
               last,
             ): $ReadOnlyArray<string>),
-            [x => x.startsWith(last) ? 0 : 1, _.identity],
+            [x => x.startsWith(last) ? 0 : 1, identity],
           ),
         );
       },
@@ -650,7 +654,7 @@ function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   userTags: $ReadOnlyArray<UserTagT>,
 ) {
-  const userTagsByName = _.keyBy(userTags, getTagName);
+  const userTagsByName = keyBy(userTags, getTagName);
 
   const used = new Set();
 

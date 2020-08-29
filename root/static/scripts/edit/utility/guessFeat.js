@@ -9,7 +9,8 @@
 import $ from 'jquery';
 import balanced from 'balanced-match';
 import cloneDeep from 'lodash/cloneDeep';
-import _ from 'lodash';
+import last from 'lodash/last';
+import result from 'lodash/result';
 
 import {MIN_NAME_SIMILARITY} from '../../common/constants';
 import MB from '../../common/MB';
@@ -199,8 +200,8 @@ function expandCredit(fullName, artists, isProbablyClassical) {
 }
 
 export default function guessFeat(entity) {
-  const relatedArtists = _.result(entity, 'relatedArtists');
-  const isProbablyClassical = _.result(entity, 'isProbablyClassical');
+  const relatedArtists = result(entity, 'relatedArtists');
+  const isProbablyClassical = result(entity, 'isProbablyClassical');
 
   const name = entity.name();
   const match = extractFeatCredits(
@@ -214,8 +215,8 @@ export default function guessFeat(entity) {
   entity.name(match.name);
 
   const artistCredit = cloneDeep(entity.artistCredit().names);
-  _.last(artistCredit).joinPhrase = match.joinPhrase;
-  _.last(match.artistCredit).joinPhrase = '';
+  last(artistCredit).joinPhrase = match.joinPhrase;
+  last(match.artistCredit).joinPhrase = '';
 
   for (const name of match.artistCredit) {
     delete name.similarity;

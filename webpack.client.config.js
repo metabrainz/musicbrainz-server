@@ -6,7 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const _ = require('lodash');
+const cloneDeep = require('lodash/cloneDeep');
 const canonicalJson = require('canonical-json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
@@ -153,7 +153,7 @@ const MB_LANGUAGES = shell.exec(
 }, []);
 
 MB_LANGUAGES.forEach(function (lang) {
-  const langJedData = _.cloneDeep(jedDataTemplate.en);
+  const langJedData = cloneDeep(jedDataTemplate.en);
   const fileName = `jed-${lang}`;
   const filePath = path.resolve(dirs.BUILD, `${fileName}.source.js`);
   const fileMtime = mtime(filePath);

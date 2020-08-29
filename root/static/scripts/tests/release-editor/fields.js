@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
+import last from 'lodash/last';
 import test from 'tape';
 
 import fields from '../../release-editor/fields';
@@ -177,7 +177,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
         lengthsAndPositions(),
         Array.prototype.concat({ length: undefined, position: 0 }, tocData2, { length: undefined, position: 6 }),
     );
-    t.ok(_.last(medium.tracks()).isDataTrack());
+    t.ok(last(medium.tracks()).isDataTrack());
 
     // 2 tracks added, data tracks left at end
     medium.toc(toc1);
@@ -185,7 +185,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
         lengthsAndPositions(),
         Array.prototype.concat({ length: undefined, position: 0 }, tocData1, { length: undefined, position: 8 }),
     );
-    t.ok(_.last(medium.tracks()).isDataTrack());
+    t.ok(last(medium.tracks()).isDataTrack());
 });
 
 fieldTest("track times entered as integers are converted into HH:MM:SS", function (t, release) {

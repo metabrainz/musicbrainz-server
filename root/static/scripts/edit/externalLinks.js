@@ -9,11 +9,12 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import keyBy from 'lodash/keyBy';
 import groupBy from 'lodash/groupBy';
 import uniqBy from 'lodash/uniqBy';
+import uniqueId from 'lodash/uniqueId';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -149,13 +150,13 @@ export class ExternalLinksEditor
     oldLinks: LinkHashT,
     } {
     const oldLinks = this.getOldLinksHash();
-    const newLinks = _.keyBy<
+    const newLinks = keyBy<
       LinkStateT,
       $ElementType<LinkStateT, 'relationship'>,
     >(this.state.links, 'relationship');
 
     return {
-      allLinks: _.defaults({...newLinks}, oldLinks),
+      allLinks: defaults({...newLinks}, oldLinks),
       newLinks: newLinks,
       oldLinks: oldLinks,
     };
@@ -462,7 +463,7 @@ const defaultLinkState: LinkStateT = {
 };
 
 function newLinkState(state: $Shape<LinkStateT>) {
-  _.defaults(state, defaultLinkState);
+  defaults(state, defaultLinkState);
   return state;
 }
 
@@ -490,7 +491,7 @@ function withOneEmptyLink(links, dontRemove) {
   });
 
   if (emptyCount === 0) {
-    return links.concat(newLinkState({relationship: _.uniqueId('new-')}));
+    return links.concat(newLinkState({relationship: uniqueId('new-')}));
   } else if (emptyCount > 1 && canRemoveCount > 0) {
     return links.filter((link, index) => !canRemove[index]);
   }
@@ -651,7 +652,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
 
     each(urls, function (data) {
       initialLinks.push(newLinkState({
-        relationship: _.uniqueId('new-'),
+        relationship: uniqueId('new-'),
         type: data.link_type_id,
         url: data.text || '',
       }));
@@ -675,7 +676,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
      */
     if (!isPositiveInteger(link.relationship)) {
       return Object.assign({}, link, {
-        relationship: _.uniqueId('new-'),
+        relationship: uniqueId('new-'),
         url: URLCleanup.cleanURL(link.url) || link.url,
       });
     }

@@ -10,7 +10,7 @@
 import URL from 'url';
 
 import * as React from 'react';
-import _ from 'lodash';
+import sortedUniqBy from 'lodash/sortedUniqBy';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import {FAVICON_CLASSES} from '../../static/scripts/common/constants';
@@ -143,7 +143,7 @@ const ExternalLinks = ({
     );
   });
 
-  const uniqueOtherLinks = _.sortedUniqBy(otherLinks, x => x.url.href_url);
+  const uniqueOtherLinks = sortedUniqBy(otherLinks, x => x.url.href_url);
 
   // We ensure official sites are listed above blogs, and blogs above others
   links.push.apply(links, blogLinks);

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {range} from 'lodash';
+import range from 'lodash/range';
 import * as React from 'react';
 
 import uriWith from '../utility/uriWith';

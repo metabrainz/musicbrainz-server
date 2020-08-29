@@ -8,7 +8,7 @@
  */
 
 import * as React from 'react';
-import {upperFirst} from 'lodash';
+import upperFirst from 'lodash/upperFirst';
 
 import Layout from '../../layout';
 import Cardinality from '../../static/scripts/common/components/Cardinality';

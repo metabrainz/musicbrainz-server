@@ -6,7 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import * as React from 'react';
 
@@ -674,7 +674,7 @@ const CLEANUPS = {
   },
   'bandcamp': {
     match: [new RegExp('^(https?://)?([^/]+)\\.bandcamp\\.com', 'i')],
-    type: _.defaults(
+    type: defaults(
       {},
       LINK_TYPES.bandcamp,
       LINK_TYPES.review,
@@ -1067,7 +1067,7 @@ const CLEANUPS = {
   },
   'cpdl': {
     match: [new RegExp('^(https?://)?(www[0-9]?\\.)?cpdl\\.org', 'i')],
-    type: _.defaults({}, LINK_TYPES.cpdl, LINK_TYPES.score),
+    type: defaults({}, LINK_TYPES.cpdl, LINK_TYPES.score),
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:www[0-9]?\.)?cpdl\.org/, 'http://cpdl.org');
     },
@@ -1096,7 +1096,7 @@ const CLEANUPS = {
   },
   'dailymotion': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(dailymotion\\.com/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
+    type: defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       const m = /^(?:https?:\/\/)?(?:www\.)?dailymotion\.com\/((([^\/?#]+)(?:\/[^?#]*)?)(?:\?[^#]*)?(?:#(.+)?)?)$/.exec(url);
       if (m) {
@@ -1422,7 +1422,7 @@ const CLEANUPS = {
   },
   'hoick': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?hoick\\.jp/', 'i')],
-    type: _.defaults({}, LINK_TYPES.lyrics, LINK_TYPES.mailorder),
+    type: defaults({}, LINK_TYPES.lyrics, LINK_TYPES.mailorder),
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?hoick\.jp\/(mdb\/detail\/\d+|mdb\/author|products\/detail\/\d+)\/([^\/?#]+).*$/, 'https://hoick.jp/$1/$2');
     },
@@ -1496,7 +1496,7 @@ const CLEANUPS = {
   },
   'imslp': {
     match: [new RegExp('^(https?://)?(www\\.)?imslp\\.org/', 'i')],
-    type: _.defaults({}, LINK_TYPES.imslp, LINK_TYPES.score),
+    type: defaults({}, LINK_TYPES.imslp, LINK_TYPES.score),
   },
   'indiegogo': {
     match: [new RegExp('^(https?://)?(www\\.)?indiegogo\\.com/(individuals|projects)/', 'i')],
@@ -1509,7 +1509,7 @@ const CLEANUPS = {
   },
   'instagram': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?instagram\\.com/', 'i')],
-    type: _.defaults(
+    type: defaults(
       {},
       LINK_TYPES.socialnetwork,
       LINK_TYPES.streamingfree,
@@ -1909,7 +1909,7 @@ const CLEANUPS = {
   },
   'metalarchives': {
     match: [new RegExp('^(https?://)?(www\\.)?metal-archives\\.com/', 'i')],
-    type: _.defaults({}, LINK_TYPES.review, LINK_TYPES.otherdatabases),
+    type: defaults({}, LINK_TYPES.review, LINK_TYPES.otherdatabases),
     clean: function (url) {
       return url.replace(
         /^(?:https?:\/\/)?(?:www\.)?metal-archives\.com\/([a-z]+(?:\/[^\/?#]+)+).*$/,
@@ -2144,7 +2144,7 @@ const CLEANUPS = {
   },
   'niconicovideo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(nicovideo\\.jp/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
+    type: defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?ch\.nicovideo\.jp\/([^\/]+).*$/, 'https://ch.nicovideo.jp/$1');
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?nicovideo\.jp\/(user\/[0-9]+|watch\/sm[0-9]+).*$/, 'https://www.nicovideo.jp/$1');
@@ -2734,7 +2734,7 @@ const CLEANUPS = {
   },
   'twitch': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(twitch\\.tv/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
+    type: defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.tv\/((?:videos\/)?[^\/?#]+)(?:.*)?$/, 'https://www.twitch.tv/$1');
       return url;
@@ -2765,7 +2765,7 @@ const CLEANUPS = {
   },
   'twitter': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i')],
-    type: _.defaults(
+    type: defaults(
       {},
       LINK_TYPES.socialnetwork,
       LINK_TYPES.streamingfree,
@@ -2925,7 +2925,7 @@ const CLEANUPS = {
   },
   'vimeo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(vimeo\\.com/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
+    type: defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, 'https://vimeo.com');
       // Remove query string, just the video id should be enough.
@@ -2952,7 +2952,7 @@ const CLEANUPS = {
   },
   'wikimediacommons': {
     match: [new RegExp('^(https?://)?(commons\\.(?:m\\.)?wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.image, LINK_TYPES.score),
+    type: defaults({}, LINK_TYPES.image, LINK_TYPES.score),
     clean: function (url) {
       url = url.replace(/\/wiki\/[^#]+#(?:mediaviewer|\/media)\/(.*)/, '\/wiki\/$1');
       url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, 'https://commons.wikimedia.org/wiki/File:$2');
@@ -3028,7 +3028,7 @@ const CLEANUPS = {
   },
   'youtube': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingfree),
+    type: defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
       // YouTube /c/ user channels (/c/ is unneeded)

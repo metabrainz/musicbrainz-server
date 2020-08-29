@@ -9,7 +9,7 @@
  */
 
 import * as React from 'react';
-import {range} from 'lodash';
+import range from 'lodash/range';
 
 import {l_statistics as l, lp_statistics as lp}
   from '../static/scripts/common/i18n/statistics';

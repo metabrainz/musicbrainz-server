@@ -8,7 +8,7 @@
  */
 
 import * as React from 'react';
-import {groupBy} from 'lodash';
+import groupBy from 'lodash/groupBy';
 
 import Table from '../Table';
 import releaseGroupType from '../../utility/releaseGroupType';

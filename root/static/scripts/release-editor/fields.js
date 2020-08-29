@@ -7,8 +7,12 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import groupBy from 'lodash/groupBy';
+import isEmpty from 'lodash/isEmpty';
+import transform from 'lodash/transform';
+import union from 'lodash/union';
+import uniqueId from 'lodash/uniqueId';
 
 import mbEntity from '../common/entity';
 import releaseLabelKey from '../common/utility/releaseLabelKey';
@@ -65,7 +69,7 @@ class Track {
             data.artistCredit = release.artistCredit.peek();
         }
 
-        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : {names: []});
+        this.artistCredit = ko.observable(data.artistCredit ? cloneDeep(data.artistCredit) : {names: []});
         this.artistCredit.track = this;
 
         this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
@@ -101,7 +105,7 @@ class Track {
 
         var recordingData = data.recording;
         if (recordingData) {
-            if (_.isEmpty(recordingData.artistCredit)) {
+            if (isEmpty(recordingData.artistCredit)) {
                 recordingData.artistCredit = this.artistCredit();
             }
             this.recording(mbEntity(recordingData, "recording"));
@@ -111,7 +115,7 @@ class Track {
 
         recordingAssociation.track(this);
 
-        this.uniqueID = this.id || _.uniqueId("new-");
+        this.uniqueID = this.id || uniqueId("new-");
         this.elementID = "track-row-" + this.uniqueID;
 
         this.formattedLength.subscribe(this.formattedLengthChanged, this);
@@ -280,7 +284,7 @@ class Track {
         // Hints for guess-feat. functionality.
         var release = this.medium.release;
         if (release) {
-            release.relatedArtists = _.union(release.relatedArtists, value.relatedArtists);
+            release.relatedArtists = union(release.relatedArtists, value.relatedArtists);
             release.isProbablyClassical = release.isProbablyClassical || value.isProbablyClassical;
         }
 
@@ -436,7 +440,7 @@ class Medium {
         this.collapsed.subscribe(this.collapsedChanged, this);
         this.addTrackCount = ko.observable("");
         this.original = ko.observable(this.id ? mbEdit.fields.medium(this) : {});
-        this.uniqueID = this.id || _.uniqueId("new-");
+        this.uniqueID = this.id || uniqueId("new-");
 
         this.needsTracks = ko.computed(function () {
             return self.loaded() && self.tracks().length === 0;
@@ -848,7 +852,7 @@ class Release extends mbEntity.Release {
             self.needsName(!newName);
         });
 
-        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : {names: []});
+        this.artistCredit = ko.observable(data.artistCredit ? cloneDeep(data.artistCredit) : {names: []});
         this.artistCredit.saved = this.artistCredit.peek();
 
         this.needsArtistCredit = errorField(function () {
@@ -923,7 +927,7 @@ class Release extends mbEntity.Release {
 
         this.releaseGroup.subscribe(function (releaseGroup) {
             if (releaseGroup.artistCredit && !reduceArtistCredit(self.artistCredit())) {
-                self.artistCredit(_.cloneDeep(releaseGroup.artistCredit));
+                self.artistCredit(cloneDeep(releaseGroup.artistCredit));
             }
         });
 
@@ -991,7 +995,7 @@ class Release extends mbEntity.Release {
     }
 
     tracksWithUnsetPreviousRecordings() {
-        return _.transform(this.mediums(), function (result, medium) {
+        return transform(this.mediums(), function (result, medium) {
             for (const track of medium.tracks()) {
                 if (track.recording.saved && track.needsRecording()) {
                     result.push(track);
@@ -1007,9 +1011,9 @@ class Release extends mbEntity.Release {
          * page (as long as they have an id, i.e. were attached before).
          */
 
-        var mediums = _.union(this.mediums(), this.mediums.original());
+        var mediums = union(this.mediums(), this.mediums.original());
 
-        return _.transform(mediums, function (result, medium) {
+        return transform(mediums, function (result, medium) {
             if (medium.id) {
                 result.push(medium);
             }

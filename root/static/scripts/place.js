@@ -9,7 +9,7 @@
 import $ from 'jquery';
 import L from 'leaflet/dist/leaflet-src';
 import ko from 'knockout';
-import _ from 'lodash';
+import once from 'lodash/once';
 
 import isBlank from './common/utility/isBlank';
 import initializeDuplicateChecker from './edit/check-duplicates';
@@ -30,7 +30,7 @@ var bubble = initializeBubble('#coordinates-bubble', 'input[name=edit-place\\.co
  * position itself correctly.
  * This tells it to update its position once it's visible.
  */
-const afterBubbleShow = _.once(function () {
+const afterBubbleShow = once(function () {
     map.invalidateSize();
 });
 

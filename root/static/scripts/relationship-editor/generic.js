@@ -8,7 +8,10 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
+import identity from 'lodash/identity';
+import once from 'lodash/once';
+import sortBy from 'lodash/sortBy';
+import without from 'lodash/without';
 
 import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 import MB from '../common/MB';
@@ -39,7 +42,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         openAddDialog(source, event) {
-            var targetType = _.without(MB.allowedRelations[source.entityType], 'url')[0];
+            var targetType = without(MB.allowedRelations[source.entityType], 'url')[0];
 
             new UI.AddDialog({
                 source: source,
@@ -68,7 +71,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     var seriesType = source.type();
 
                     if (seriesType) {
-                        sorted((seriesOrdering[seriesType.item_entity_type] || _.identity)(result(), source));
+                        sorted((seriesOrdering[seriesType.item_entity_type] || identity)(result(), source));
                     } else {
                         sorted(result());
                     }
@@ -90,7 +93,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var seriesOrdering = {
         event: function (relationships, series) {
-            return _.sortBy(
+            return sortBy(
                 relationships,
                 r => r.target(series).begin_date || '',
                 r => r.target(series).end_date || '',
@@ -98,7 +101,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             );
         },
         release: function (relationships, series) {
-            return _.sortBy(
+            return sortBy(
                 relationships,
                 function (r) {
                     return r.target(series)
@@ -115,7 +118,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             );
         },
         release_group: function (relationships, series) {
-            return _.sortBy(relationships, function (r) {
+            return sortBy(relationships, function (r) {
                 return r.target(series).firstReleaseDate || '';
             });
         },
@@ -281,7 +284,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         $("#relationship-editor").append(hiddenInputs);
     }
 
-    $(document).on("submit", "#page form:not(#relationship-editor-form)", _.once(function () {
+    $(document).on("submit", "#page form:not(#relationship-editor-form)", once(function () {
         prepareSubmission($('#relationship-editor').data('form-name'));
     }));
 

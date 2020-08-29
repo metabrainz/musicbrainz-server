@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 import {
   artistCreditsAreEqual,
@@ -178,7 +178,7 @@ releaseEditor.init = function (options) {
 
     utils.withRelease(function (release) {
         var tabID = self.activeTabID();
-        var releaseAC = _.cloneDeep(release.artistCredit());
+        var releaseAC = cloneDeep(release.artistCredit());
         var savedReleaseAC = release.artistCredit.saved;
         var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 

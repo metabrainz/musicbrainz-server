@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
+import last from 'lodash/last';
 import debounce from 'lodash/debounce';
 import each from 'lodash/each';
 
@@ -249,7 +249,7 @@ ko.bindingHandlers.loop = {
                     }
                 }
 
-                ko.virtualElements.insertAfter(parentNode, elementsToInsert, _.last(elementsToInsertAfter));
+                ko.virtualElements.insertAfter(parentNode, elementsToInsert, last(elementsToInsertAfter));
             }
 
             // Brief timeout in case a removed item gets re-added.
