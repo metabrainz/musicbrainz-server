@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import fields from '../../release-editor/fields';
 import trackParser from '../../release-editor/trackParser';
@@ -34,7 +33,11 @@ export function trackParserTest(t, input, expected) {
   var result = trackParser.parse(input);
 
   function getProps(track) {
-    return _.pick(...[track].concat(Object.keys(expected[0])));
+    const props = {};
+    for (const key of Object.keys(expected[0])) {
+      props[key] = track[key];
+    }
+    return props;
   }
 
   t.deepEqual(ko.toJS(result.map(getProps)), expected);

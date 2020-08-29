@@ -40,7 +40,11 @@ Object.assign(releaseEditor, {
 releaseEditor.init = function (options) {
     var self = this;
 
-    $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
+    $.extend(this, {
+        action: options.action,
+        redirectURI: options.redirectURI,
+        returnTo: options.returnTo,
+    });
 
     /*
      * Setup guess case buttons for the title field. Do this every time the
