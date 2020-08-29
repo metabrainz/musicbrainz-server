@@ -7,10 +7,8 @@
  */
 
 import ko from 'knockout';
-import difference from 'lodash/difference';
 import each from 'lodash/each';
 import isEqual from 'lodash/isEqual';
-import intersection from 'lodash/intersection';
 import sortBy from 'lodash/sortBy';
 
 import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
@@ -285,17 +283,20 @@ import request from '../../common/utility/request';
 
 
     function removeEqual(newData, oldData, required) {
-        difference(
-            intersection(
-                newData ? Object.keys(newData) : [],
-                oldData ? Object.keys(oldData) : [],
-            ),
-            required,
-        ).forEach(function (key) {
-            if (isEqual(newData[key], oldData[key])) {
+        if (!oldData) {
+            return;
+        }
+        const oldKeys = new Set(Object.keys(oldData));
+
+        for (const key of Object.keys(newData)) {
+            if (
+                oldKeys.has(key) &&
+                !required.includes(key) &&
+                isEqual(newData[key], oldData[key])
+            ) {
                 delete newData[key];
             }
-        });
+        }
     }
 
 

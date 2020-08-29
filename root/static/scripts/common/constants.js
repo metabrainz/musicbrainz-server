@@ -258,3 +258,6 @@ export const FLUENCY_NAMES:
   intermediate: N_l('Intermediate'),
   native: N_l('Native'),
 };
+
+export const LANGUAGE_MUL_ID = 284;
+export const LANGUAGE_ZXX_ID = 486;

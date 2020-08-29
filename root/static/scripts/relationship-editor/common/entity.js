@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import intersection from 'lodash/intersection';
 import sortBy from 'lodash/sortBy';
 import union from 'lodash/union';
 import uniqueId from 'lodash/uniqueId';
@@ -103,16 +102,17 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var relationship = dialog.relationship();
                 relationship.linkTypeID(firstRelationship.linkTypeID());
 
-                var attributeLists = relationships.map(x => x.attributes());
+                const [firstAttributeSet, ...remainingAttributeSets] =
+                    relationships.map(x => new Set(x.attributes()));
 
-                var commonAttributes =
-                    intersection(...attributeLists)
-                    .filter(x => !isFreeText(x))
-                    .map(function (attr) {
-                        return { type: { gid: attr.type.gid } };
-                    });
+                const commonAttributes = [...firstAttributeSet].filter(x => (
+                    !isFreeText(x) && remainingAttributeSets.every(y => y.has(x))
+                ));
 
-                relationship.setAttributes(commonAttributes);
+                relationship.setAttributes(commonAttributes.map(attr => (
+                    {type: {gid: attr.type.gid}}
+                )));
+
                 deferFocus("input.name", "#dialog");
                 dialog.open(event.target);
                 return dialog;

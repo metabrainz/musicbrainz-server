@@ -10,7 +10,6 @@
 import $ from 'jquery';
 import groupBy from 'lodash/groupBy';
 import identity from 'lodash/identity';
-import intersection from 'lodash/intersection';
 import isEmpty from 'lodash/isEmpty';
 import mapValues from 'lodash/mapValues';
 import ko from 'knockout';
@@ -28,6 +27,7 @@ import {initializeBubble} from './edit/MB/Control/Bubble';
 import {createCompoundField} from './edit/utility/createField';
 import {pushCompoundField, pushField} from './edit/utility/pushField';
 import {initializeGuessCase} from './guess-case/MB/Control/GuessCase';
+import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from './common/constants';
 
 const scriptArgs = getScriptArgs();
 
@@ -272,15 +272,17 @@ function renderWorkLanguages() {
     throw new Error('Mount point #work-languages-editor does not exist');
   }
   const form: WorkForm = store.getState();
+  const selectedLanguageIds =
+    form.field.languages.field.map(lang => String(lang.value));
   ReactDOM.render(
     <FormRowSelectList
       addId="add-language"
       addLabel={l('Add Language')}
       getSelectField={identity}
-      hideAddButton={intersection(
-        form.field.languages.field.map(lang => String(lang.value)),
-        ['486', '284'],
-      ).length > 0}
+      hideAddButton={
+        selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
+        selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
+      }
       label={l('Lyrics Languages')}
       onAdd={addLanguage}
       onEdit={editLanguage}
