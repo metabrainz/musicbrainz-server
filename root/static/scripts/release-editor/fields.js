@@ -511,7 +511,7 @@ class Medium {
         var trackCount = tocTracks.length;
         var pregapOffset = this.hasPregap() ? 0 : 1;
 
-        var wasConsecutivelyNumbered = _.every(tracks, function (t, index) {
+        var wasConsecutivelyNumbered = tracks.every(function (t, index) {
             return t.number() == (index + pregapOffset);
         });
 
