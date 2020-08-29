@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 
 var nextAvailableTime = new Date().getTime();
 var previousDeferred = null;
@@ -52,7 +51,7 @@ function request(args, context) {
         previousDeferred && (previousDeferred.next = later);
         previousDeferred = deferred;
 
-        _.delay(later, nextAvailableTime - now);
+        setTimeout(later, nextAvailableTime - now);
 
         // nextAvailableTime is in the future.
         nextAvailableTime += timeout;

@@ -71,7 +71,7 @@ recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset,
             }
         })
         .fail(function () {
-            _.delay(recordingAssociation.getReleaseGroupRecordings, 5000, releaseGroup, offset, results);
+            setTimeout(recordingAssociation.getReleaseGroupRecordings, 5000, releaseGroup, offset, results);
         });
 };
 
@@ -171,7 +171,7 @@ function searchTrackArtistRecordings(track) {
         })
         .fail(function (jqXHR, textStatus) {
             if (textStatus !== "abort") {
-                _.delay(searchTrackArtistRecordings, 5000, track);
+                setTimeout(searchTrackArtistRecordings, 5000, track);
             }
         });
 }

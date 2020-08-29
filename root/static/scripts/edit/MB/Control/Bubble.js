@@ -233,7 +233,7 @@ ko.bindingHandlers.affectsBubble = {
         }
 
         var observer = new MutationObserver(_.throttle(function () {
-            _.delay(function () {
+            setTimeout(function () {
                 valueAccessor().redraw();
             }, 100);
         }, 100));
