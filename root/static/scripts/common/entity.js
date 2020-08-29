@@ -326,11 +326,11 @@ import formatTrackLength from './utility/formatTrackLength';
         toJSON() {
             var object = super.toJSON();
 
-            if (_.isArray(this.events)) {
+            if (Array.isArray(this.events)) {
                 object.events = _.cloneDeep(this.events);
             }
 
-            if (_.isArray(this.labels)) {
+            if (Array.isArray(this.labels)) {
                 object.labels = _.cloneDeep(this.labels);
             }
 
