@@ -856,7 +856,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         each(
             groupBy(creditable, linkAttributeTypeID),
             function (attributes) {
-                var extra = _.tail(attributes);
+                var extra = attributes.slice(1);
                 relationship.attributes.removeAll(extra);
                 each(extra, split);
             },
