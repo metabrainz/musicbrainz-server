@@ -277,7 +277,7 @@ import request from '../../common/utility/request';
 
             return memo + key + (_.isObject(value) ? editHash(value) : value);
         }
-        return hexSha1(_.reduce(keys, keyValue, ""));
+        return hexSha1(keys.reduce(keyValue, ""));
     }
 
 

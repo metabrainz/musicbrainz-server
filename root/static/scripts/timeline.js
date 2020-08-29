@@ -127,7 +127,7 @@ class TimelineViewModel {
         });
 
         self.rateZoomY = ko.computed(function () {
-            var bounds = _.reduce(self.lines(), function (accum, line) {
+            var bounds = self.lines().reduce(function (accum, line) {
                 if (line.loaded()) {
                     var rateBounds = line.calculateRateBounds(
                         line.rateData().data,
@@ -436,7 +436,7 @@ class TimelineLine {
         });
         mean = mean / count;
 
-        var deviationSum = _.reduce(weekData, function (sum, next) {
+        var deviationSum = weekData.reduce(function (sum, next) {
             var toSquare = next[1] - mean;
             return sum + toSquare * toSquare;
         }, 0);

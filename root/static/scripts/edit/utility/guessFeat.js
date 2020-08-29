@@ -63,7 +63,7 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
 }
 
 function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
-  return _.reduce(bracketPairs, function (accum, pair) {
+  return bracketPairs.reduce(function (accum, pair) {
     let name = '';
     let joinPhrase = accum.joinPhrase;
     let credits = accum.artistCredit;

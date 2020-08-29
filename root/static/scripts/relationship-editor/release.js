@@ -204,7 +204,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return new MB.entity.Medium(mediumData, release);
             }));
 
-            var trackCount = _.reduce(release.mediums(), (memo, medium) => {
+            var trackCount = release.mediums().reduce((memo, medium) => {
                 return memo + medium.tracks.length;
             }, 0);
 

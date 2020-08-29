@@ -265,7 +265,7 @@ export const LINK_TYPES = {
 };
 
 // See https://musicbrainz.org/doc/Style/Relationships/URLs#Restricted_relationships
-const RESTRICTED_LINK_TYPES = _.reduce([
+const RESTRICTED_LINK_TYPES = [
   LINK_TYPES.allmusic,
   LINK_TYPES.amazon,
   LINK_TYPES.bandcamp,
@@ -292,7 +292,7 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.vgmdb,
   LINK_TYPES.viaf,
   LINK_TYPES.youtube,
-], function (result, linkType) {
+].reduce(function (result, linkType) {
   return result.concat(Object.values(linkType));
 }, []);
 
@@ -893,7 +893,7 @@ const CLEANUPS = {
       if (m) {
         const frBnF = m[1];
         const phbt = '0123456789bcdfghjkmnpqrstvwxz';
-        const controlChar = phbt[_.reduce(frBnF, function (sum, c, i) {
+        const controlChar = phbt[Array.from(frBnF).reduce(function (sum, c, i) {
           return sum + phbt.indexOf(c) * (i + 3);
         }, 2) % 29];
         url = 'https://catalogue.bnf.fr/ark:/12148/cb' + frBnF + controlChar;

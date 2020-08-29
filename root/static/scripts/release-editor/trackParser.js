@@ -429,7 +429,7 @@ const trackParser = releaseEditor.trackParser = {
     mediumToString: function (medium) {
         var options = ko.toJS(this.options);
 
-        return _.reduce(medium.tracks(), function (memo, track) {
+        return medium.tracks().reduce(function (memo, track) {
             if (options.hasTrackNumbers) {
                 memo += track.number.peek() + ". ";
             }

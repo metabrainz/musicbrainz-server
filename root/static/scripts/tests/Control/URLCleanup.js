@@ -4092,10 +4092,9 @@ const testData = [
 ];
 /* eslint-enable indent, max-len, sort-keys */
 
-const relationshipTypesByUuid = _.reduce(LINK_TYPES, function (
+const relationshipTypesByUuid = Object.entries(LINK_TYPES).reduce(function (
   results,
-  relUuidByEntityType,
-  relationshipType,
+  [relationshipType, relUuidByEntityType],
 ) {
   each(relUuidByEntityType, function (relUuid) {
     (results[relUuid] || (results[relUuid] = [])).push(relationshipType);
@@ -4170,8 +4169,8 @@ testData.forEach(function (subtest, i) {
         return;
       }
       let nbTestedRules = 0;
-      const validationResults = _.reduce(LINK_TYPES[relationshipType],
-        function (results, relUuid, entityType) {
+      const validationResults = Object.entries(LINK_TYPES[relationshipType]).reduce(
+        function (results, [entityType, relUuid]) {
           const rule = validationRules[relUuid];
           const isValid = rule ? rule(cleanUrl).result || false : true;
           results[isValid].splice(
