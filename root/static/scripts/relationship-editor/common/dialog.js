@@ -10,7 +10,6 @@ import $ from 'jquery';
 import ko from 'knockout';
 import isEqual from 'lodash/isEqual';
 import once from 'lodash/once';
-import without from 'lodash/without';
 import * as ReactDOMServer from 'react-dom/server';
 
 import '../../../lib/jquery-ui';
@@ -440,7 +439,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         targetTypeOptions() {
             var sourceType = this.source.entityType;
-            var targetTypes = without(MB.allowedRelations[sourceType], 'url');
+            var targetTypes = MB.allowedRelations[sourceType].filter(
+                typeName => typeName !== 'url',
+            );
 
             if (sourceType === "series") {
                 var self = this;

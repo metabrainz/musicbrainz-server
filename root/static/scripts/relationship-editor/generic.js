@@ -10,7 +10,6 @@ import $ from 'jquery';
 import ko from 'knockout';
 import identity from 'lodash/identity';
 import once from 'lodash/once';
-import without from 'lodash/without';
 
 import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 import MB from '../common/MB';
@@ -42,7 +41,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         openAddDialog(source, event) {
-            var targetType = without(MB.allowedRelations[source.entityType], 'url')[0];
+            var targetType = MB.allowedRelations[source.entityType].find(
+                typeName => typeName !== 'url',
+            );
 
             new UI.AddDialog({
                 source: source,

@@ -8,7 +8,6 @@
  */
 
 import debounce from 'lodash/debounce';
-import without from 'lodash/without';
 import * as React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
@@ -449,10 +448,11 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
           return;
         }
 
+        const previousTerms = new Set(terms);
         const filteredTerms: $ReadOnlyArray<string> =
           sortByNumber(
             $.ui.autocomplete.filter(
-              without(self.genreNames, ...terms),
+              self.genreNames.filter(x => !previousTerms.has(x)),
               last,
             ).sort(),
             x => x.startsWith(last) ? 0 : 1,
