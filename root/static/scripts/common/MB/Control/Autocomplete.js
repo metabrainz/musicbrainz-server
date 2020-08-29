@@ -428,7 +428,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         var pager = _.last(data);
         var jumpTo = this.currentResults.length;
 
-        data = this.options.resultHook(_.initial(data));
+        data = this.options.resultHook(data.slice(0, -1));
 
         /*
          * "currentResults" will contain action items that aren't results,
