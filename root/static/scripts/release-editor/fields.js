@@ -202,14 +202,14 @@ class Track {
 
     previous() {
         var tracks = this.medium.tracks();
-        var index = _.indexOf(tracks, this);
+        var index = tracks.indexOf(this);
 
         return index > 0 ? tracks[index - 1] : null;
     }
 
     next() {
         var tracks = this.medium.tracks();
-        var index = _.indexOf(tracks, this);
+        var index = tracks.indexOf(this);
 
         return index < tracks.length - 1 ? tracks[index + 1] : null;
     }

@@ -99,7 +99,7 @@ const actions = {
         medium.position(newPosition);
 
         var mediums = medium.release.mediums.peek();
-        var index = _.indexOf(mediums, medium);
+        var index = mediums.indexOf(medium);
         var possibleNewIndex = index + offset;
         var neighbor = mediums[possibleNewIndex];
 
@@ -186,11 +186,11 @@ const actions = {
         const underlyingTracks = tracks.peek();
         const offset = medium.hasPregap() ? 0 : 1;
         /*
-         * Use _.indexOf instead of .position()
+         * Use indexOf instead of .position()
          * http://tickets.metabrainz.org/browse/MBS-7227
          */
-        const position1 = _.indexOf(underlyingTracks, track1) + offset;
-        const position2 = _.indexOf(underlyingTracks, track2) + offset;
+        const position1 = underlyingTracks.indexOf(track1) + offset;
+        const position2 = underlyingTracks.indexOf(track2) + offset;
         const number1 = track1.number();
         const number2 = track2.number();
         const dataTrack1 = track1.isDataTrack();

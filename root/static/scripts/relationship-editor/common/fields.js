@@ -478,7 +478,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         _moveEntity(offset) {
             var vm = this.parent;
             var relationships = vm.source.getRelationshipGroup(this, vm);
-            var index = _.indexOf(relationships, this);
+            var index = relationships.indexOf(this);
             var newIndex = index + offset;
 
             if (newIndex >= 0 && newIndex <= relationships.length - 1) {
