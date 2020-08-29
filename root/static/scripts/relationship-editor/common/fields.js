@@ -28,6 +28,8 @@ import * as linkPhrase from '../../edit/utility/linkPhrase';
 
 import mergeDates from './mergeDates';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var fields = RE.fields = RE.fields || {};
@@ -163,7 +165,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.setAttributes(data.attributes);
             this.linkOrder(data.linkOrder || 0);
 
-            _.has(data, "removed") && this.removed(!!data.removed);
+            if (hasOwnProperty.call(data, 'removed')) {
+                this.removed(!!data.removed);
+            }
         }
 
         target(source) {
