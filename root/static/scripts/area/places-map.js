@@ -96,7 +96,7 @@ if (places.length) {
     const marker = L.marker(coordinates, {
       clickable: true,
       draggable: false,
-      icon: _.get(icons, place.typeID, icons['3']),
+      icon: icons[place.typeID] ?? icons['3'],
       title: place.name,
     }).bindPopup(
       texp.l('{place_type}: {place_link}', {

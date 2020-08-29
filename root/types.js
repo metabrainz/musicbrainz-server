@@ -463,6 +463,7 @@ declare type EditT = {
     +votes: number,
   },
   +created_time: string,
+  +data: {+[dataProp: string]: any, ...},
   +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
   +edit_type: number,
   +editor_id: number,
