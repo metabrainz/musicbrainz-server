@@ -9,7 +9,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import defaults from 'lodash/defaults';
 import uniqueId from 'lodash/uniqueId';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -154,7 +153,7 @@ export class ExternalLinksEditor
     >(this.state.links, x => String(x.relationship));
 
     return {
-      allLinks: defaults({...newLinks}, oldLinks),
+      allLinks: {...oldLinks, ...newLinks},
       newLinks: newLinks,
       oldLinks: oldLinks,
     };
@@ -464,8 +463,7 @@ const defaultLinkState: LinkStateT = {
 };
 
 function newLinkState(state: $Shape<LinkStateT>) {
-  defaults(state, defaultLinkState);
-  return state;
+  return {...defaultLinkState, ...state};
 }
 
 function linkTypeAndUrlString(link) {
