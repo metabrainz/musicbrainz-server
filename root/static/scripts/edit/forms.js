@@ -45,7 +45,7 @@ MB.forms = {
                 var opt = {};
 
                 opt.value = child[valueAttr];
-                opt.text = _.repeat(nbsp, indent * 2) +
+                opt.text = nbsp.repeat(indent * 2) +
                            (typeof textAttr === 'function'
                                ? textAttr(child)
                                : child[textAttr]);
