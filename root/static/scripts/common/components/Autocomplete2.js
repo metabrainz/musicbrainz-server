@@ -8,7 +8,6 @@
  */
 
 import partition from 'lodash/partition';
-import unionBy from 'lodash/unionBy';
 import * as React from 'react';
 
 import ENTITIES from '../../../../../entities';
@@ -158,9 +157,10 @@ function doSearch(instance: Instance) {
       : MENU_ITEMS.TRY_AGAIN_INDEXED);
 
     const [, prevItems] = partition(instance.state.items, hasAction);
+    const prevItemIds = new Set(prevItems.map(x => x.id));
 
     newItems = newPage > 1
-      ? unionBy(prevItems, newItems, x => x.id)
+      ? prevItems.concat(newItems.filter(x => !prevItemIds.has(x.id)))
       : newItems;
 
     instance.dispatch({

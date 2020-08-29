@@ -9,7 +9,6 @@
 import ko from 'knockout';
 import groupBy from 'lodash/groupBy';
 import isEmpty from 'lodash/isEmpty';
-import union from 'lodash/union';
 import uniqueId from 'lodash/uniqueId';
 
 import mbEntity from '../common/entity';
@@ -283,7 +282,8 @@ class Track {
         // Hints for guess-feat. functionality.
         var release = this.medium.release;
         if (release) {
-            release.relatedArtists = union(release.relatedArtists, value.relatedArtists);
+            release.relatedArtists =
+                [...new Set(release.relatedArtists.concat(value.relatedArtists))];
             release.isProbablyClassical = release.isProbablyClassical || value.isProbablyClassical;
         }
 
@@ -1010,9 +1010,9 @@ class Release extends mbEntity.Release {
          * hopefully exist in the DB, so including ones removed from the
          * page (as long as they have an id, i.e. were attached before).
          */
-
-        var mediums = union(this.mediums(), this.mediums.original());
-        return mediums.filter(x => x.id);
+        return [...new Set(
+            this.mediums().concat(this.mediums.original()),
+        )].filter(x => x.id);
     }
 }
 

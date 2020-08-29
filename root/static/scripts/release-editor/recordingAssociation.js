@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import union from 'lodash/union';
 import uniqBy from 'lodash/uniqBy';
 
 import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
@@ -306,7 +305,7 @@ function setSuggestedRecordings(track, recordings) {
     var lastRecording = track.recording.saved;
 
     if (!track.hasExistingRecording() && lastRecording) {
-        recordings = union([lastRecording], recordings);
+        recordings = [...new Set([lastRecording, ...recordings])];
     }
 
     track.suggestedRecordings(recordings);
