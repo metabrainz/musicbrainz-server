@@ -10,13 +10,13 @@ import './typeInfo';
 
 import $ from 'jquery';
 import ko from 'knockout';
-import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
 import transform from 'lodash/transform';
 import test from 'tape';
 
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
+import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import fields from '../relationship-editor/common/fields';
 import {
   AddDialog,
@@ -903,7 +903,7 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: cloneDeep(loveMeDo),
+        sourceData: cloneObjectDeep(loveMeDo),
     });
 
     var relationship = vm.source.relationships()[0];
@@ -954,7 +954,7 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
 relationshipEditorTest('relationships with different link orders are not duplicates of each other', function (t) {
     t.plan(1);
 
-    var sourceData = cloneDeep(loveMeDo);
+    var sourceData = cloneObjectDeep(loveMeDo);
 
     var vm = setupGenericRelationshipEditor({
         sourceData: sourceData,

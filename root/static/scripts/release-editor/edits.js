@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import cloneDeep from 'lodash/cloneDeep';
 import each from 'lodash/each';
 import escape from 'lodash/escape';
 import isEqual from 'lodash/isEqual';
@@ -19,6 +18,7 @@ import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 import {reduceArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
+import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import debounce from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
 import isPositiveInteger from '../edit/utility/isPositiveInteger';
@@ -47,7 +47,7 @@ releaseEditor.edits = {
         var releaseName = clean(release.name());
         var releaseAC = release.artistCredit();
         var origData = MB.edit.fields.releaseGroup(releaseGroup);
-        var editData = cloneDeep(origData);
+        var editData = cloneObjectDeep(origData);
 
         if (releaseGroup.gid) {
             var dataChanged = false;
@@ -196,7 +196,7 @@ releaseEditor.edits = {
             });
 
             // The medium already exists
-            newMediumData = cloneDeep(newMediumData);
+            newMediumData = cloneObjectDeep(newMediumData);
 
             if (medium.id) {
                 const newNoPosition = {...newMediumData};

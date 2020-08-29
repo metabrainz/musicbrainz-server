@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import cloneDeep from 'lodash/cloneDeep';
 
 import {
   artistCreditsAreEqual,
@@ -17,6 +16,7 @@ import {
 } from '../common/immutable-entities';
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
+import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import request from '../common/utility/request';
 import * as externalLinks from '../edit/externalLinks';
 import * as validation from '../edit/validation';
@@ -178,7 +178,7 @@ releaseEditor.init = function (options) {
 
     utils.withRelease(function (release) {
         var tabID = self.activeTabID();
-        var releaseAC = cloneDeep(release.artistCredit());
+        var releaseAC = cloneObjectDeep(release.artistCredit());
         var savedReleaseAC = release.artistCredit.saved;
         var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 

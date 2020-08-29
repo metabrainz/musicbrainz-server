@@ -8,13 +8,13 @@
 
 import $ from 'jquery';
 import balanced from 'balanced-match';
-import cloneDeep from 'lodash/cloneDeep';
 import last from 'lodash/last';
 import result from 'lodash/result';
 
 import {MIN_NAME_SIMILARITY} from '../../common/constants';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
+import {cloneArrayDeep} from '../../common/utility/cloneDeep';
 
 import {
   fromFullwidthLatin,
@@ -214,7 +214,7 @@ export default function guessFeat(entity) {
 
   entity.name(match.name);
 
-  const artistCredit = cloneDeep(entity.artistCredit().names);
+  const artistCredit = cloneArrayDeep(entity.artistCredit().names);
   last(artistCredit).joinPhrase = match.joinPhrase;
   last(match.artistCredit).joinPhrase = '';
 

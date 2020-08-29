@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import cloneDeep from 'lodash/cloneDeep';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -31,6 +30,7 @@ import linkedEntities from './linkedEntities';
 import MB from './MB';
 import {bracketedText} from './utility/bracketed';
 import clean from './utility/clean';
+import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep';
 import formatTrackLength from './utility/formatTrackLength';
 
 (function () {
@@ -143,7 +143,7 @@ import formatTrackLength from './utility/formatTrackLength';
             this.relationships = ko.observableArray([]);
 
             if (data.artistCredit) {
-                this.artistCredit = cloneDeep(data.artistCredit);
+                this.artistCredit = cloneObjectDeep(data.artistCredit);
             }
 
             if (this._afterCoreEntityCtor) {
@@ -327,11 +327,11 @@ import formatTrackLength from './utility/formatTrackLength';
             var object = super.toJSON();
 
             if (Array.isArray(this.events)) {
-                object.events = cloneDeep(this.events);
+                object.events = cloneArrayDeep(this.events);
             }
 
             if (Array.isArray(this.labels)) {
-                object.labels = cloneDeep(this.labels);
+                object.labels = cloneArrayDeep(this.labels);
             }
 
             return object;

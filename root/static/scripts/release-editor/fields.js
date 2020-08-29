@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import cloneDeep from 'lodash/cloneDeep';
 import groupBy from 'lodash/groupBy';
 import isEmpty from 'lodash/isEmpty';
 import transform from 'lodash/transform';
@@ -15,6 +14,7 @@ import union from 'lodash/union';
 import uniqueId from 'lodash/uniqueId';
 
 import mbEntity from '../common/entity';
+import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import releaseLabelKey from '../common/utility/releaseLabelKey';
 import {
   artistCreditsAreEqual,
@@ -69,7 +69,7 @@ class Track {
             data.artistCredit = release.artistCredit.peek();
         }
 
-        this.artistCredit = ko.observable(data.artistCredit ? cloneDeep(data.artistCredit) : {names: []});
+        this.artistCredit = ko.observable(data.artistCredit ? cloneObjectDeep(data.artistCredit) : {names: []});
         this.artistCredit.track = this;
 
         this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
@@ -852,7 +852,7 @@ class Release extends mbEntity.Release {
             self.needsName(!newName);
         });
 
-        this.artistCredit = ko.observable(data.artistCredit ? cloneDeep(data.artistCredit) : {names: []});
+        this.artistCredit = ko.observable(data.artistCredit ? cloneObjectDeep(data.artistCredit) : {names: []});
         this.artistCredit.saved = this.artistCredit.peek();
 
         this.needsArtistCredit = errorField(function () {
@@ -927,7 +927,7 @@ class Release extends mbEntity.Release {
 
         this.releaseGroup.subscribe(function (releaseGroup) {
             if (releaseGroup.artistCredit && !reduceArtistCredit(self.artistCredit())) {
-                self.artistCredit(cloneDeep(releaseGroup.artistCredit));
+                self.artistCredit(cloneObjectDeep(releaseGroup.artistCredit));
             }
         });
 
