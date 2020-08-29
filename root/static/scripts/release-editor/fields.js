@@ -505,8 +505,8 @@ class Medium {
 
         var tocTrackCount = toc.length - 3;
         var tracks = this.tracks();
-        var tocTracks = _.reject(tracks, function (t) {
-            return t.position() == 0 || t.isDataTrack();
+        var tocTracks = tracks.filter(function (t) {
+            return !(t.position() == 0 || t.isDataTrack());
         });
         var trackCount = tocTracks.length;
         var pregapOffset = this.hasPregap() ? 0 : 1;

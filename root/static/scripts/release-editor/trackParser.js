@@ -62,7 +62,7 @@ const trackParser = releaseEditor.trackParser = {
         var self = this;
 
         var options = ko.toJS(this.options);
-        var lines = _.reject(str.split('\n'), isBlank);
+        var lines = str.split('\n').filter(x => !isBlank(x));
 
         var currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
         var currentTracks;
@@ -373,7 +373,7 @@ const trackParser = releaseEditor.trackParser = {
 
         // Split the string into parts, if there are any.
         const parts = line.split(this.separators);
-        const names = _.reject(parts, x => this.separatorOrBlank(x));
+        const names = parts.filter(x => !this.separatorOrBlank(x));
 
         /*
          * Only parse an artist if there's more than one name. Assume the

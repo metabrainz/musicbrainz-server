@@ -416,15 +416,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (this.source.entityType === "series") {
                 var itemType = MB.seriesTypesByID[this.source.typeID()].item_entity_type;
 
-                options = _.reject(options, function (opt) {
+                options = options.filter(function (opt) {
                     var linkType = linkedEntities.link_type[opt.value];
 
                     if (_.includes(PART_OF_SERIES_LINK_TYPE_GIDS, linkType.gid) &&
                             linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
-                        return true;
+                        return false;
                     }
 
-                    return false;
+                    return true;
                 });
             }
 
@@ -845,7 +845,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return relationships;
         }
 
-        var notCreditable = _.reject(attributes, isCreditable);
+        var notCreditable = attributes.filter(x => !isCreditable(x));
 
         function split(attribute) {
             var newRelationship = relationship.clone();

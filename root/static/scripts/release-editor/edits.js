@@ -11,7 +11,6 @@ import ko from 'knockout';
 import _ from 'lodash';
 import each from 'lodash/each';
 import keyBy from 'lodash/keyBy';
-import reject from 'lodash/reject';
 
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 import {reduceArtistCredit} from '../common/immutable-entities';
@@ -631,7 +630,7 @@ releaseEditor.orderedEditSubmissions = [
 
             var newMediums = release.mediums();
 
-            reject(newMediums, 'id').forEach(function (medium) {
+            newMediums.filter(m => m.id == null).forEach(function (medium) {
                 var addedData = added[medium.tmpPosition || medium.position()];
 
                 if (addedData) {

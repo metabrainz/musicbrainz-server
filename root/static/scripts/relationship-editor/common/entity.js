@@ -105,7 +105,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var attributeLists = _.invokeMap(relationships, "attributes");
 
                 var commonAttributes =
-                    _.reject(_.intersection(...attributeLists), isFreeText)
+                    _.intersection(...attributeLists)
+                    .filter(x => !isFreeText(x))
                     .map(function (attr) {
                         return { type: { gid: attr.type.gid } };
                     });
