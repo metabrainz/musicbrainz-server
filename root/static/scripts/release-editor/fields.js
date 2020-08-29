@@ -9,7 +9,6 @@
 import ko from 'knockout';
 import groupBy from 'lodash/groupBy';
 import isEmpty from 'lodash/isEmpty';
-import transform from 'lodash/transform';
 import union from 'lodash/union';
 import uniqueId from 'lodash/uniqueId';
 
@@ -995,13 +994,14 @@ class Release extends mbEntity.Release {
     }
 
     tracksWithUnsetPreviousRecordings() {
-        return transform(this.mediums(), function (result, medium) {
+        return this.mediums().reduce(function (result, medium) {
             for (const track of medium.tracks()) {
                 if (track.recording.saved && track.needsRecording()) {
                     result.push(track);
                 }
             }
-        });
+            return result;
+        }, []);
     }
 
     existingMediumData() {
@@ -1012,12 +1012,7 @@ class Release extends mbEntity.Release {
          */
 
         var mediums = union(this.mediums(), this.mediums.original());
-
-        return transform(mediums, function (result, medium) {
-            if (medium.id) {
-                result.push(medium);
-            }
-        });
+        return mediums.filter(x => x.id);
     }
 }
 

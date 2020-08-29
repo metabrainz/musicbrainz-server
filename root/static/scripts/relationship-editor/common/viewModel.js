@@ -11,7 +11,6 @@ import ko from 'knockout';
 import each from 'lodash/each';
 import groupBy from 'lodash/groupBy';
 import once from 'lodash/once';
-import transform from 'lodash/transform';
 import uniqueId from 'lodash/uniqueId';
 
 import localizeLinkAttributeTypeDescription
@@ -60,15 +59,20 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     }
                     break;
                 case 'link_type':
-                    transform(item.children, mapItems, result);
+                    if (item.children) {
+                        item.children.forEach((child) => {
+                            mapItems(result, child);
+                        });
+                    }
                     break;
             }
+            return result;
         }
 
         Object.assign(linkedEntities, {
             link_type_tree: typeInfo,
-            link_type: transform(Object.values(typeInfo).flat(), mapItems, {}),
-            link_attribute_type: transform(attrInfo, mapItems, {}),
+            link_type: Object.values(typeInfo).flat().reduce(mapItems, {}),
+            link_attribute_type: attrInfo.reduce(mapItems, {}),
         });
 
         each(linkedEntities.link_type, function (type) {
@@ -314,7 +318,7 @@ function addRelationshipsFromQueryString(source) {
         };
 
         if (linkType) {
-            data.attributes = transform(rel.attributes, function (accum, attr) {
+            data.attributes = rel.attributes.reduce(function (accum, attr) {
                 var attrInfo = linkedEntities.link_attribute_type[attr.type];
 
                 if (attrInfo && linkType.attributes[attrInfo.id]) {
@@ -324,6 +328,7 @@ function addRelationshipsFromQueryString(source) {
                         textValue: attr.text_value,
                     });
                 }
+                return accum;
             }, []);
         }
 

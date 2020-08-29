@@ -9,7 +9,6 @@
 import ko from 'knockout';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
-import transform from 'lodash/transform';
 import uniqueId from 'lodash/uniqueId';
 
 import {
@@ -679,12 +678,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         if (isEmpty(attributes) || isEmpty(linkType) || isEmpty(linkType.attributes)) {
             return [];
         } 
-        return transform(attributes, function (accum, data) {
+        return attributes.filter(function (data) {
             var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
-
-            if (attrInfo && linkType.attributes[attrInfo.root_id]) {
-                accum.push(data);
-            }
+            return attrInfo && linkType.attributes[attrInfo.root_id];
         });
     }
 

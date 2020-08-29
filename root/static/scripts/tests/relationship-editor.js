@@ -11,7 +11,6 @@ import './typeInfo';
 import $ from 'jquery';
 import ko from 'knockout';
 import noop from 'lodash/noop';
-import transform from 'lodash/transform';
 import test from 'tape';
 
 import linkedEntities from '../common/linkedEntities';
@@ -147,8 +146,9 @@ function setupGenericRelationshipEditor(options) {
 
 function formData() {
     var inputsArray = Array.from($("input[type=hidden]"));
-    return transform(inputsArray, function (result, input) {
+    return inputsArray.reduce(function (result, input) {
         result[input.name] = input.value;
+        return result;
     }, {});
 };
 
