@@ -232,11 +232,19 @@ ko.bindingHandlers.affectsBubble = {
             return;
         }
 
-        var observer = new MutationObserver(_.throttle(function () {
-            setTimeout(function () {
-                valueAccessor().redraw();
-            }, 100);
-        }, 100));
+        let throttled = false;
+        var observer = new MutationObserver(function () {
+            if (!throttled) {
+                throttled = true;
+                setTimeout(function () {
+                    try {
+                        valueAccessor().redraw();
+                    } finally {
+                        throttled = false;
+                    }
+                }, 100);
+            }
+        });
 
         observer.observe(element, { childList: true, subtree: true });
 
