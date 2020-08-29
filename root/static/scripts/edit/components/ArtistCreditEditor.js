@@ -360,7 +360,7 @@ class ArtistCreditEditor extends React.Component {
 
   render() {
     const ac = this.state.artistCredit;
-    const entity = _.clone(this.props.entity);
+    const entity = {...this.props.entity};
     entity.artistCredit = {names: ac.names.filter(n => hasArtist(n))};
 
     /*

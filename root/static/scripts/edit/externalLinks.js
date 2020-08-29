@@ -155,7 +155,7 @@ export class ExternalLinksEditor
     >(this.state.links, 'relationship');
 
     return {
-      allLinks: _.defaults(_.clone(newLinks), oldLinks),
+      allLinks: _.defaults({...newLinks}, oldLinks),
       newLinks: newLinks,
       oldLinks: oldLinks,
     };

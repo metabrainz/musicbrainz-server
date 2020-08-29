@@ -203,7 +203,7 @@ MB.initRelationshipEditors = function (args) {
 MB.getRelationship = function (data, source) {
     const target = data.target;
 
-    data = _.clone(data);
+    data = {...data};
 
     let backward = source.entityType > target.entityType;
 
@@ -218,7 +218,7 @@ MB.getRelationship = function (data, source) {
     if (viewModel) {
         let cacheKey;
         if (data.id) {
-            cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
+            cacheKey = data.entities.map(x => x.entityType).concat(data.id).join("-");
             const cached = viewModel.cache[cacheKey];
 
             if (cached) {

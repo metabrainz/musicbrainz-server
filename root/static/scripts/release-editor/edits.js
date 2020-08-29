@@ -120,7 +120,7 @@ releaseEditor.edits = {
                 }
             } else {
                 // Add ReleaseLabel
-                newLabel = _.clone(newLabel);
+                newLabel = {...newLabel};
 
                 if (newLabel.label || newLabel.catalog_number) {
                     newLabel.release = release.gid() || null;

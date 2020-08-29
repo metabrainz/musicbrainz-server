@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import ko from 'knockout';
 import * as React from 'react';
 
@@ -20,7 +19,7 @@ class Autocomplete extends React.Component {
     require('../MB/Control/Autocomplete');
 
     const currentSelection = ko.observable();
-    const options = _.clone(this.props);
+    const options = {...this.props};
 
     options.currentSelection = currentSelection;
     this._currentSelection = currentSelection;

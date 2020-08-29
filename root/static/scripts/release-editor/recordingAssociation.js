@@ -138,7 +138,7 @@ function cleanRecordingData(data) {
     var recording = MB.entityCache[clean.gid];
 
     if (recording && !recording.appearsOn) {
-        recording.appearsOn = _.clone(clean.appearsOn);
+        recording.appearsOn = {...clean.appearsOn};
 
         recording.appearsOn.results =
             recording.appearsOn.results.map(function (appearance) {

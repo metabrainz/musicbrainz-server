@@ -742,7 +742,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             model.direction = this.backward() ? "backward" : "forward";
 
             for (const source of this.sources) {
-                model = _.clone(model);
+                model = {...model};
 
                 if (!callback || callback(model)) {
                     addRelationships(splitByCreditableAttributes(vm.getRelationship(model, source)), source, vm);
