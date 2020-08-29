@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {
   hasVariousArtists,
@@ -298,9 +297,9 @@ const actions = {
         var defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC;
         var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
-        _.times(addTrackCount, function () {
+        for (let i = 0; i < addTrackCount; i++) {
             medium.pushTrack({ artistCredit: defaultAC });
-        });
+        }
     },
 
     guessReleaseFeatArtists: function (release) {

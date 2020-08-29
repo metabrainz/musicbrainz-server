@@ -255,14 +255,14 @@ const trackParser = releaseEditor.trackParser = {
             if (hasTocs && newAudioTrackCount < oldAudioTrackCount) {
                 difference = oldAudioTrackCount - newAudioTrackCount;
 
-                newTracks.splice.apply(
-                    newTracks,
-                    [newAudioTrackCount, 0].concat(_.times(difference, function (n) {
-                        return new fields.Track({
-                            length: currentTracks[newAudioTrackCount + n].length.peek(),
-                        }, medium);
-                    })),
-                );
+                const newAudioTracks = [];
+                for (let i = 0; i < difference; i++) {
+                    newAudioTracks.push(new fields.Track({
+                        length: currentTracks[newAudioTrackCount + i].length.peek(),
+                    }, medium));
+                }
+
+                newTracks.splice(newAudioTrackCount, 0, ...newAudioTracks);
 
                 newTracks.forEach(function (t, index) {
                     t.position(index + 1);

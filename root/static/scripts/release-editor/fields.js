@@ -520,11 +520,11 @@ class Medium {
             tocTracks = tocTracks.slice(0, tocTrackCount);
 
         } else if (trackCount < tocTrackCount) {
-            var self = this;
+            const newTrackCount = tocTrackCount - trackCount;
 
-            _.times(tocTrackCount - trackCount, function () {
-                tocTracks.push(new Track({}, self));
-            });
+            for (let i = 0; i < newTrackCount; i++) {
+                tocTracks.push(new Track({}, this));
+            }
         }
 
         this.tracks(
