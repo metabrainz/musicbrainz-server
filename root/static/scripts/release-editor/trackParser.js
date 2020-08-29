@@ -389,7 +389,7 @@ const trackParser = releaseEditor.trackParser = {
 
             if (options.useTrackNames) {
                 // Use whatever's left as the name, including any separators.
-                var withoutArtist = _.take(parts, _.lastIndexOf(parts, artist));
+                var withoutArtist = parts.slice(0, _.lastIndexOf(parts, artist));
 
                 data.name = withoutArtist.join("")
                     .replace(new RegExp('^' + this.separators.source), '')

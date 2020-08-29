@@ -536,7 +536,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         return this.entity.replace('-', '_');
     },
 
-    recentEntities: function () {
+    recentEntities: function (newEntities) {
         var entityType = this.entityType();
         var recentEntities = {};
         var storedRecentEntities = localStorage("recentAutocompleteEntities");
@@ -553,8 +553,8 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             }
         }
 
-        if (arguments.length) {
-            recentEntities[entityType] = _.take(arguments[0], MAX_RECENT_ENTITIES);
+        if (newEntities) {
+            recentEntities[entityType] = newEntities.slice(0, MAX_RECENT_ENTITIES);
             localStorage("recentAutocompleteEntities", JSON.stringify(recentEntities));
             return undefined;
         } else {
