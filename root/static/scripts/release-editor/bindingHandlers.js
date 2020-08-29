@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -128,11 +127,11 @@ ko.bindingHandlers.artistCreditEditor = {
     },
 };
 
-_.bindAll(
-    ko.bindingHandlers.artistCreditEditor,
-    'doneCallback',
-    'nextTrack',
-    'previousTrack',
-    'uncheckChangeMatchingArtists',
-    'update',
-);
+{
+    const self = ko.bindingHandlers.artistCreditEditor;
+    self.doneCallback = self.doneCallback.bind(self);
+    self.nextTrack = self.nextTrack.bind(self);
+    self.previousTrack = self.previousTrack.bind(self);
+    self.uncheckChangeMatchingArtists = self.uncheckChangeMatchingArtists.bind(self);
+    self.update = self.update.bind(self);
+}

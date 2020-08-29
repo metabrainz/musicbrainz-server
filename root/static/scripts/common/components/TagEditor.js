@@ -224,13 +224,14 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       tags: createInitialTagState(props.aggregatedTags, props.userTags),
     };
 
-    _.bindAll(
-      this,
-      'flushPendingVotes',
-      'onBeforeUnload',
-      'handleSubmit',
-      'setTagsInput',
-    );
+    // $FlowFixMe - These binds will go away with the move to functional components.
+    this.flushPendingVotes = this.flushPendingVotes.bind(this);
+    // $FlowFixMe
+    this.onBeforeUnload = this.onBeforeUnload.bind(this);
+    // $FlowFixMe
+    this.handleSubmit = this.handleSubmit.bind(this);
+    // $FlowFixMe
+    this.setTagsInput = this.setTagsInput.bind(this);
 
     this.genreMap = props.genreMap ?? {};
     this.genreNames = Object.keys(this.genreMap);
