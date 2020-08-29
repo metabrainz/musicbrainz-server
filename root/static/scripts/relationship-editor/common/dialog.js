@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import isEqual from 'lodash/isEqual';
 import once from 'lodash/once';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -26,6 +25,7 @@ import {stripAttributes} from '../../edit/utility/linkPhrase';
 import {groupBy} from '../../common/utility/arrays';
 import isBlank from '../../common/utility/isBlank';
 import debounce from '../../common/utility/debounce';
+import deepEqual from '../../common/utility/deepEqual';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -716,7 +716,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (cancel !== false) {
                 var relationship = this.relationship();
 
-                if (!isEqual(this.originalRelationship, relationship.editData())) {
+                if (!deepEqual(this.originalRelationship, relationship.editData())) {
                     relationship.fromJS(this.originalRelationship);
                 }
             }

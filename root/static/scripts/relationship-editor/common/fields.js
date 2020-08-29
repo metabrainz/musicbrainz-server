@@ -8,7 +8,6 @@
 
 import ko from 'knockout';
 import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
 import uniqueId from 'lodash/uniqueId';
 
 import {
@@ -21,6 +20,7 @@ import linkedEntities from '../../common/linkedEntities';
 import mbEntity from '../../common/entity';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
+import deepEqual from '../../common/utility/deepEqual';
 import {displayLinkAttributesText} from '../../common/utility/displayLinkAttribute';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
@@ -228,7 +228,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         edited() {
-            return !isEqual(this.original, this.editData());
+            return !deepEqual(this.original, this.editData());
         }
 
         hasChanges() {
@@ -519,7 +519,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
                 this.linkOrder() == other.linkOrder() &&
-                isEqual(this.entities(), other.entities()) &&
+                deepEqual(this.entities(), other.entities()) &&
                 mergeDates(this.begin_date, other.begin_date) &&
                 mergeDates(this.end_date, other.end_date) &&
                 attributesAreEqual(this.attributes(), other.attributes())

@@ -9,7 +9,6 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import escape from 'lodash/escape';
-import isEqual from 'lodash/isEqual';
 import last from 'lodash/last';
 
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
@@ -19,6 +18,7 @@ import {keyBy} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
 import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import debounce from '../common/utility/debounce';
+import deepEqual from '../common/utility/deepEqual';
 import isBlank from '../common/utility/isBlank';
 import isPositiveInteger from '../edit/utility/isPositiveInteger';
 import * as validation from '../edit/validation';
@@ -86,7 +86,7 @@ releaseEditor.edits = {
 
         if (!release.gid()) {
             edits.push(MB.edit.releaseCreate(newData));
-        } else if (!isEqual(newData, oldData)) {
+        } else if (!deepEqual(newData, oldData)) {
             newData = {...newData, to_edit: release.gid()};
             edits.push(MB.edit.releaseEdit(newData, oldData));
         }
@@ -118,7 +118,7 @@ releaseEditor.edits = {
             if (id) {
                 const oldLabel = oldLabelsByID[id];
 
-                if (oldLabel && !isEqual(newLabel, oldLabel)) {
+                if (oldLabel && !deepEqual(newLabel, oldLabel)) {
                     // Edit ReleaseLabel
                     edits.push(MB.edit.releaseEditReleaseLabel(newLabel));
                 }
@@ -189,7 +189,7 @@ releaseEditor.edits = {
                             newRecording.artist_credit = trackData.artist_credit;
                         }
 
-                        if (!isEqual(newRecording, oldRecording)) {
+                        if (!deepEqual(newRecording, oldRecording)) {
                             edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
                         }
                     }
@@ -205,7 +205,7 @@ releaseEditor.edits = {
                 const oldNoPosition = {...oldMediumData};
                 delete oldNoPosition.position;
 
-                if (!isEqual(newNoPosition, oldNoPosition)) {
+                if (!deepEqual(newNoPosition, oldNoPosition)) {
                     newNoPosition.to_edit = medium.id;
                     edits.push(MB.edit.mediumEdit(newNoPosition, oldNoPosition));
                 }
@@ -384,7 +384,7 @@ releaseEditor.edits = {
                 } else if (oldLinks[link.relationship]) {
                     const original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
-                    if (!isEqual(newData, original)) {
+                    if (!deepEqual(newData, original)) {
                         const editData = MB.edit.relationshipEdit(newData, original);
 
                         if (hasVideo(original) && !hasVideo(newData)) {

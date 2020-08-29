@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import isEqual from 'lodash/isEqual';
 
 import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
@@ -16,6 +15,7 @@ import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
 import {sortByNumber} from '../../common/utility/arrays';
 import clean from '../../common/utility/clean';
+import deepEqual from '../../common/utility/deepEqual';
 import request from '../../common/utility/request';
 
 (function (edit) {
@@ -291,7 +291,7 @@ import request from '../../common/utility/request';
             if (
                 oldKeys.has(key) &&
                 !required.includes(key) &&
-                isEqual(newData[key], oldData[key])
+                deepEqual(newData[key], oldData[key])
             ) {
                 delete newData[key];
             }
@@ -423,7 +423,7 @@ import request from '../../common/utility/request';
 
                 newAttributes[gid] = hash;
 
-                if (!origAttributes[gid] || !isEqual(origAttributes[gid], hash)) {
+                if (!origAttributes[gid] || !deepEqual(origAttributes[gid], hash)) {
                     changedAttributes.push(hash);
                  }
             }

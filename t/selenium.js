@@ -41,7 +41,6 @@ const fs = require('fs');
 const http = require('http');
 const httpProxy = require('http-proxy');
 const jsdom = require('jsdom');
-const isEqualWith = require('lodash/isEqualWith');
 const path = require('path');
 const test = require('tape');
 const TestCls = require('tape/lib/test');
@@ -55,6 +54,7 @@ const promise = require('selenium-webdriver/lib/promise');
 const until = require('selenium-webdriver/lib/until');
 
 const DBDefs = require('../root/static/scripts/common/DBDefs');
+const deepEqual = require('../root/static/scripts/common/utility/deepEqual');
 const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp').default;
 const writeCoverage = require('../root/utility/writeCoverage');
 
@@ -73,12 +73,12 @@ function compareEditDataValues(actualValue, expectedValue) {
       actualValue === String(expectedValue)) {
     return true;
   }
-  // Tells `_.isEqualWith` to perform its default comparison.
-  return undefined;
+  // Tells `deepEqual` to perform its default comparison.
+  return null;
 }
 
 TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
-  this._assert(isEqualWith(a, b, compareEditDataValues), {
+  this._assert(deepEqual(a, b, compareEditDataValues), {
     message: defined(msg, 'should be equivalent'),
     operator: 'deepEqual2',
     actual: a,
