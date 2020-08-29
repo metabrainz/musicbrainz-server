@@ -59,7 +59,7 @@ function showErrorHandler(handler) {
                     const value = errorField.call(vm);
                     const $panel = $element.parents(".ui-tabs-panel");
 
-                    if (_.isString(value)) {
+                    if (typeof value === 'string') {
                         $element.text(value || "");
                     }
                     handler(value, $element, $panel);

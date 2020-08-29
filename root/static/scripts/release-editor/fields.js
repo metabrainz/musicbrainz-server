@@ -497,7 +497,7 @@ class Medium {
     }
 
     tocChanged(toc) {
-        if (!_.isString(toc)) {
+        if (typeof toc !== 'string') {
             return;
         }
 

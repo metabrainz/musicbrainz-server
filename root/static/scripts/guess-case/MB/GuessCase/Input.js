@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
-
 import MB from '../../../common/MB';
 import * as utils from '../../utils';
 
@@ -109,7 +107,7 @@ MB.GuessCase.Input = function (gc) {
     self.matchWordAtIndex = function (index, re) {
         var cw = (self.getWordAtIndex(index) || "");
         var f;
-        if (_.isString(re)) {
+        if (typeof re === 'string') {
             f = (re == cw);
         } else {
             f = (cw.match(re) != null);
