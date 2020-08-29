@@ -172,7 +172,7 @@ test("formatDate", function (t) {
     t.equal(formatDate({ month: 1, day: 1 }), "????-01-01");
     t.equal(formatDate({ day: 1 }), "????-??-01");
     t.equal(formatDate({ year: 0, month: 1, day: 1 }), "0000-01-01");
-    t.equal(formatDate({ year: -1, month: 1, day: 1 }), "-001-01-01");
+    t.equal(formatDate({ year: -1, month: 1, day: 1 }), "-0001-01-01");
 });
 
 test("formatDatePeriod", function (t) {

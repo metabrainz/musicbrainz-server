@@ -12,7 +12,6 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {rstr_sha1 as rstrSha1} from '../../lib/sha1/sha1';
 import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY}
@@ -218,7 +217,7 @@ export function calculateDiscID(toc) {
 utils.calculateDiscID = calculateDiscID;
 
 function paddedHex(str, length) {
-    return _.padStart((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
+    return (parseInt(str, 10) || 0).toString(16).toUpperCase().padStart(length, '0');
 }
 
 /*

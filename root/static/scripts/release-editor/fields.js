@@ -23,6 +23,7 @@ import debounce from '../common/utility/debounce';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
+import {fixedWidthInteger} from '../common/utility/strings';
 import mbEdit from '../edit/MB/edit';
 import * as dates from '../edit/utility/dates';
 import * as validation from '../edit/validation';
@@ -677,7 +678,7 @@ class ReleaseEvent {
         var date = data.date || {};
 
         if (nonEmpty(date.year)) {
-            date.year = _.padStart(String(date.year), 4, '0');
+            date.year = fixedWidthInteger(date.year, 4);
         }
 
         this.date = {

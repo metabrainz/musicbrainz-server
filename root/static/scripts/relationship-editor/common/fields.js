@@ -23,6 +23,7 @@ import {displayLinkAttributesText} from '../../common/utility/displayLinkAttribu
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
 import request from '../../common/utility/request';
+import {fixedWidthInteger} from '../../common/utility/strings';
 import mbEdit from '../../edit/MB/edit';
 import * as linkPhrase from '../../edit/utility/linkPhrase';
 
@@ -64,13 +65,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
 
             if (data.begin_date && nonEmpty(data.begin_date.year)) {
-                data.begin_date.year = _.padStart(String(data.begin_date.year), 4, '0');
+                data.begin_date.year = fixedWidthInteger(data.begin_date.year, 4);
             }
 
             this.begin_date = setPartialDate({}, data.begin_date || {});
 
             if (data.end_date && nonEmpty(data.end_date.year)) {
-                data.end_date.year = _.padStart(String(data.end_date.year), 4, '0');
+                data.end_date.year = fixedWidthInteger(data.end_date.year, 4);
             }
 
             this.end_date = setPartialDate({}, data.end_date || {});
@@ -430,7 +431,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             for (let i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {
-                    parts[i] = _.padStart(part, 10, "0");
+                    parts[i] = fixedWidthInteger(part, 10);
                 }
             }
 
