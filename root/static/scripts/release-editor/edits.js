@@ -431,9 +431,8 @@ releaseEditor.getEditPreviews = function () {
         return previews[edit.hash];
     }
 
-    function addPreview(tuple) {
-        const editHash = tuple[0].hash;
-        const preview = tuple[1];
+    function addPreview(edit, preview) {
+        const editHash = edit.hash;
         if (preview) {
             preview.editHash = editHash;
             previews[editHash] = preview;
@@ -467,7 +466,10 @@ releaseEditor.getEditPreviews = function () {
 
         previewRequest = MB.edit.preview({ edits: addedEdits })
             .done(function (data) {
-                _.zip(addedEdits, data.previews).forEach(addPreview);
+                const newPreviews = data.previews;
+                for (let i = 0; i < addedEdits.length; i++) {
+                    addPreview(addedEdits[i], newPreviews[i]);
+                }
 
                 // Make sure edits haven't changed while request was pending
                 if (edits === releaseEditor.allEdits()) {
