@@ -15,7 +15,7 @@ import {
 } from '../common/immutable-entities';
 import MB from '../common/MB';
 import {uniqBy} from '../common/utility/arrays';
-import debounce from '../common/utility/debounce';
+import {debounceComputed} from '../common/utility/debounce';
 
 import releaseEditor from './viewModel';
 import utils from './utils';
@@ -372,7 +372,7 @@ function matchAgainstRecordings(track, recordings) {
 
 
 recordingAssociation.track = function (track) {
-    debounce(function () {
+    debounceComputed(function () {
         watchTrackForChanges(track);
     });
 };

@@ -9,10 +9,10 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import last from 'lodash/last';
-import debounce from 'lodash/debounce';
 
 import {compare} from '../common/i18n';
 import MB from '../common/MB';
+import debounce from '../common/utility/debounce';
 import {stripAttributes} from '../edit/utility/linkPhrase';
 
 const ELEMENT_NODE = window.Node.ELEMENT_NODE;

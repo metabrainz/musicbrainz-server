@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import debounce from 'lodash/debounce';
 import * as React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
@@ -16,6 +15,7 @@ import {unwrapNl} from '../i18n';
 import {keyBy, sortByNumber} from '../utility/arrays';
 import bracketed from '../utility/bracketed';
 import {compareStrings} from '../utility/compare';
+import debounce from '../utility/debounce';
 import isBlank from '../utility/isBlank';
 
 import TagLink from './TagLink';

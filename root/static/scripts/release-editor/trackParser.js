@@ -17,7 +17,7 @@ import {
 } from '../common/immutable-entities';
 import {sortByNumber} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
-import debounce from '../common/utility/debounce';
+import {debounceComputed} from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
 import getCookie from '../common/utility/getCookie';
 import setCookie from '../common/utility/setCookie';
@@ -478,7 +478,7 @@ trackParser.customDelimiterRegExp = ko.computed(function () {
     }
 });
 
-trackParser.customDelimiterError = debounce(function () {
+trackParser.customDelimiterError = debounceComputed(function () {
     if (!trackParser.options.useCustomDelimiter()) {
         return '';
     }

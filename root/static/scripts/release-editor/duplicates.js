@@ -11,7 +11,7 @@ import ko from 'knockout';
 
 import {isCompleteArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
-import debounce from '../common/utility/debounce';
+import {debounceComputed} from '../common/utility/debounce';
 import request from '../common/utility/request';
 
 import releaseEditor from './viewModel';
@@ -72,7 +72,7 @@ releaseEditor.findReleaseDuplicates = function () {
             });
     });
 
-    debounce(utils.withRelease(function (release) {
+    debounceComputed(utils.withRelease(function (release) {
         var name = release.name();
 
         /*

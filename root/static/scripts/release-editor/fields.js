@@ -21,7 +21,7 @@ import {
 } from '../common/immutable-entities';
 import MB from '../common/MB';
 import {groupBy} from '../common/utility/arrays';
-import debounce from '../common/utility/debounce';
+import {debounceComputed} from '../common/utility/debounce';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
@@ -701,7 +701,7 @@ class ReleaseEvent {
             return !dates.isDateValid(date.year, date.month, date.day);
         });
 
-        this.hasTooShortYear = debounce(function () {
+        this.hasTooShortYear = debounceComputed(function () {
             var date = self.unwrapDate();
             return !dates.isYearFourDigits(date.year);
         });

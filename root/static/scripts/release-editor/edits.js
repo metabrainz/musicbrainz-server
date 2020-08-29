@@ -17,7 +17,7 @@ import MB from '../common/MB';
 import {keyBy} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
 import {cloneObjectDeep} from '../common/utility/cloneDeep';
-import debounce from '../common/utility/debounce';
+import {debounceComputed} from '../common/utility/debounce';
 import deepEqual from '../common/utility/deepEqual';
 import isBlank from '../common/utility/isBlank';
 import isPositiveInteger from '../edit/utility/isPositiveInteger';
@@ -450,7 +450,7 @@ releaseEditor.getEditPreviews = function () {
         return previews[edit.hash] === undefined;
     }
 
-    debounce(function () {
+    debounceComputed(function () {
         var edits = releaseEditor.allEdits();
 
         if (validation.errorsExist()) {

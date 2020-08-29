@@ -1,10 +1,9 @@
 import $ from 'jquery';
-import lodashDebounce from 'lodash/debounce';
 import ko from 'knockout';
 
 import stats, {buildTypeStats, getStat} from '../../statistics/stats';
 
-import debounce from './common/utility/debounce';
+import debounce, {debounceComputed} from './common/utility/debounce';
 import parseDate from './common/utility/parseDate';
 
 import '../lib/flot/jquery.flot';
@@ -53,7 +52,7 @@ class TimelineViewModel {
                 return category.enabled();
             });
         });
-        self.events = debounce(ko.observableArray([]), 50);
+        self.events = debounceComputed(ko.observableArray([]), 50);
         self.loadingEvents = ko.observable(false);
         self.loadedEvents = ko.observable(false);
         self.options = {
@@ -65,10 +64,10 @@ class TimelineViewModel {
          * recalculated, and to ensure graph doesn't need repeated redrawing
          */
         self.zoom = {
-            xaxis: { min: debounce(ko.observable(null), 50),
-                     max: debounce(ko.observable(null), 50) },
-            yaxis: { min: debounce(ko.observable(null), 50),
-                     max: debounce(ko.observable(null), 50) },
+            xaxis: { min: debounceComputed(ko.observable(null), 50),
+                     max: debounceComputed(ko.observable(null), 50) },
+            yaxis: { min: debounceComputed(ko.observable(null), 50),
+                     max: debounceComputed(ko.observable(null), 50) },
         };
         self.zoomArray = ko.computed({
             read: function () {
@@ -108,7 +107,7 @@ class TimelineViewModel {
             },
         });
         // rateLimit to ensure graph doesn't need frequent redrawing
-        self.lines = debounce(function () {
+        self.lines = debounceComputed(function () {
             return [].concat(...self.enabledCategories().map(category => category.enabledLines()));
         }, 1000);
 
@@ -173,7 +172,7 @@ class TimelineViewModel {
             return accum;
         }
 
-        self.hash = debounce(function () {
+        self.hash = debounceComputed(function () {
             var optionParts = [];
             if (self.options.rate()) {
                 optionParts.push('r');
@@ -318,7 +317,7 @@ class TimelineCategory {
         self.enabledByDefault = !!enabledByDefault;
         self.enabled = ko.observable(!!enabledByDefault);
         // rateLimit to improve reponsiveness of checkboxes
-        self.lines = debounce(ko.observableArray([]), 50);
+        self.lines = debounceComputed(ko.observableArray([]), 50);
 
         self.enabledLines = ko.computed(function () {
             return self.lines().filter(function (line) {
@@ -340,7 +339,7 @@ class TimelineCategory {
         });
 
         // rateLimit to load asynchronously
-        debounce(function () {
+        debounceComputed(function () {
             for (const line of self.needLoadingLines()) {
                 line.loadData();
             }
@@ -598,7 +597,7 @@ class TimelineLine {
                 });
 
             // Resize the graph when the window size changes
-            $(window).on("resize", lodashDebounce(function () {
+            $(window).on("resize", debounce(function () {
                 var plot = $(element).data('plot');
                 plot.resize();
                 plot.setupGrid();

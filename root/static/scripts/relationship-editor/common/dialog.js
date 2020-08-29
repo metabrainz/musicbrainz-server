@@ -24,7 +24,7 @@ import * as dates from '../../edit/utility/dates';
 import {stripAttributes} from '../../edit/utility/linkPhrase';
 import {groupBy} from '../../common/utility/arrays';
 import isBlank from '../../common/utility/isBlank';
-import debounce from '../../common/utility/debounce';
+import {debounceComputed} from '../../common/utility/debounce';
 import deepEqual from '../../common/utility/deepEqual';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -209,12 +209,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return valid ? '' : l('The year should have four digits. If you want to enter a year earlier than 1000 CE, please pad with zeros, such as “0123”.');
             }
 
-            this.tooShortBeginYearError = debounce(function () {
+            this.tooShortBeginYearError = debounceComputed(function () {
                 const relationship = self.relationship();
                 return tooShortYear(relationship.begin_date);
             });
 
-            this.tooShortEndYearError = debounce(function () {
+            this.tooShortEndYearError = debounceComputed(function () {
                 const relationship = self.relationship();
                 return tooShortYear(relationship.end_date);
             });

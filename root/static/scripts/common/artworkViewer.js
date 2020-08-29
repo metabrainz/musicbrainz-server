@@ -7,7 +7,8 @@
  */
 
 import $ from 'jquery';
-import debounce from 'lodash/debounce';
+
+import debounce from './utility/debounce';
 
 $.widget("mb.artworkViewer", $.ui.dialog, {
 

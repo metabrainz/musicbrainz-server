@@ -8,13 +8,13 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import debounce from 'lodash/debounce';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import MB from '../common/MB';
 import {sortByNumber} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
+import debounce from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
 
