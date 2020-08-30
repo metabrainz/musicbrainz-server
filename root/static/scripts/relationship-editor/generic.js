@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import identity from 'lodash/identity';
 
 import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 import MB from '../common/MB';
@@ -71,7 +70,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     var seriesType = source.type();
 
                     if (seriesType) {
-                        sorted((seriesOrdering[seriesType.item_entity_type] || identity)(result(), source));
+                        const seriesOrderingFunc = seriesOrdering[seriesType.item_entity_type];
+                        if (seriesOrderingFunc) {
+                            sorted(seriesOrderingFunc(result(), source));
+                        }
                     } else {
                         sorted(result());
                     }

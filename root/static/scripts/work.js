@@ -8,7 +8,6 @@
  */
 
 import $ from 'jquery';
-import identity from 'lodash/identity';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
 import * as React from 'react';
@@ -266,6 +265,8 @@ function removeLanguage(i) {
   });
 }
 
+const getSelectField = field => field;
+
 function renderWorkLanguages() {
   const workLanguagesNode = document.getElementById('work-languages-editor');
   if (!workLanguagesNode) {
@@ -278,7 +279,7 @@ function renderWorkLanguages() {
     <FormRowSelectList
       addId="add-language"
       addLabel={l('Add Language')}
-      getSelectField={identity}
+      getSelectField={getSelectField}
       hideAddButton={
         selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
         selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))

@@ -9,7 +9,6 @@
 import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
-import identity from 'lodash/identity';
 
 import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 import mbEntity from '../../entity';
@@ -95,8 +94,8 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             }));
         },
 
-        resultHook: identity,
-        lookupHook: identity,
+        resultHook: (items) => items,
+        lookupHook: (requestArgs) => requestArgs,
     },
 
     _create: function () {
