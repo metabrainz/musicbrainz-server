@@ -66,7 +66,7 @@ export default function hydrate<
       <>
         <script
           dangerouslySetInnerHTML={{
-            __html: escapeClosingTags(JSON.stringify(dataProps)),
+            __html: escapeClosingTags(JSON.stringify(dataProps) ?? ''),
           }}
           type="application/json"
         />
