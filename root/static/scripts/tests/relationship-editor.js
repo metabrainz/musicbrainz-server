@@ -10,7 +10,6 @@ import './typeInfo';
 
 import $ from 'jquery';
 import ko from 'knockout';
-import noop from 'lodash/noop';
 import test from 'tape';
 
 import linkedEntities from '../common/linkedEntities';
@@ -31,7 +30,7 @@ import {ReleaseViewModel} from '../relationship-editor/release';
 
 class FakeRelationship extends fields.Relationship {}
 
-FakeRelationship.prototype.loadWorkRelationships = noop;
+FakeRelationship.prototype.loadWorkRelationships = () => undefined;
 
 class FakeGenericEntityViewModel extends GenericEntityViewModel {}
 
@@ -39,7 +38,7 @@ FakeGenericEntityViewModel.prototype.relationshipClass = FakeRelationship;
 
 class FakeReleaseViewModel extends ReleaseViewModel {}
 
-FakeReleaseViewModel.prototype.loadRelease = noop;
+FakeReleaseViewModel.prototype.loadRelease = () => undefined;
 
 FakeReleaseViewModel.prototype.relationshipClass = FakeRelationship;
 
