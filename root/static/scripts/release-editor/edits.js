@@ -6,9 +6,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
-import escape from 'lodash/escape';
 import last from 'lodash/last';
 
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
@@ -568,11 +568,11 @@ function submissionErrorOccurred(data) {
             if (error.message) {
                 error = error.message;
             } else {
-                error = escape(data.statusText + ": " + data.status);
+                error = he.escape(data.statusText + ": " + data.status);
             }
         }
     } catch (e) {
-        error = escape(data.statusText + ": " + data.status);
+        error = he.escape(data.statusText + ": " + data.status);
     }
 
     releaseEditor.submissionError(error);

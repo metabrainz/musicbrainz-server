@@ -9,7 +9,7 @@
 
 import 'leaflet.markercluster/dist/leaflet.markercluster-src';
 
-import escape from 'lodash/escape';
+import he from 'he';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -53,7 +53,7 @@ if (places.length) {
 
       return L.divIcon({
         className: 'cluster-div-icon',
-        html: '<img src="' + escape(iconURL) + '" />' +
+        html: '<img src="' + he.escape(iconURL) + '" />' +
               '<div class="cluster-div-text">' +
               '<strong>' + cluster.getChildCount() + '</strong></div>',
         iconSize: L.point(25, 41),
@@ -75,7 +75,7 @@ if (places.length) {
 
     if (markers.length > CLUSTER_POPUP_LIMIT) {
       popupText += '<br /> ';
-      popupText += escape(texp.ln(
+      popupText += he.escape(texp.ln(
         '… and {place_count} other',
         '… and {place_count} others',
         markers.length - CLUSTER_POPUP_LIMIT,
