@@ -16,6 +16,7 @@ import formatTrackLength from
   '../../static/scripts/common/utility/formatTrackLength';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit';
@@ -53,19 +54,17 @@ const EditRecording = ({edit}: Props): React.Element<'table'> => {
           </td>
         </tr>
         {name ? (
-          <Diff
+          <WordDiff
             label={addColonText(l('Name'))}
             newText={name.new}
             oldText={name.old}
-            split="\s+"
           />
         ) : null}
         {comment ? (
-          <Diff
+          <WordDiff
             label={addColonText(l('Disambiguation'))}
             newText={comment.new ?? ''}
             oldText={comment.old ?? ''}
-            split="\s+"
           />
         ) : null}
         {length ? (

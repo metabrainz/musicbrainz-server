@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 
 type EditSeriesEditT = {
   ...EditT,
@@ -50,19 +50,17 @@ const EditSeries = ({edit}: Props): React.Element<'table'> => {
           </td>
         </tr>
         {name ? (
-          <Diff
+          <WordDiff
             label={addColonText(l('Name'))}
             newText={name.new}
             oldText={name.old}
-            split="\s+"
           />
         ) : null}
         {comment ? (
-          <Diff
+          <WordDiff
             label={addColonText(l('Disambiguation'))}
             newText={comment.new}
             oldText={comment.old}
-            split="\s+"
           />
         ) : null}
         {type ? (

@@ -20,6 +20,7 @@ import Diff from '../../static/scripts/edit/components/edit/Diff';
 import locales from '../../static/scripts/common/constants/locales';
 import FullChangeDiff
   from '../../static/scripts/edit/components/edit/FullChangeDiff';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
@@ -94,18 +95,16 @@ const EditAlias = ({edit}: Props): React.Element<'table'> => {
             </td>
           </tr>) : null}
 
-        <Diff
+        <WordDiff
           label={addColonText(l('Alias'))}
           newText={display.alias.new}
           oldText={display.alias.old}
-          split="\s+"
         />
 
-        <Diff
+        <WordDiff
           label={addColonText(l('Sort name'))}
           newText={display.sort_name.new}
           oldText={display.sort_name.old}
-          split="\s+"
         />
 
         <FullChangeDiff
@@ -130,14 +129,14 @@ const EditAlias = ({edit}: Props): React.Element<'table'> => {
           label={addColonText(l('Begin date'))}
           newText={formatDate(display.begin_date.new)}
           oldText={formatDate(display.begin_date.old)}
-          split="\s+"
+          split="-"
         />
 
         <Diff
           label={addColonText(l('End date'))}
           newText={formatDate(display.end_date.new)}
           oldText={formatDate(display.end_date.old)}
-          split="\s+"
+          split="-"
         />
 
         <FullChangeDiff
