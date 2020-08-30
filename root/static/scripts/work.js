@@ -9,7 +9,6 @@
 
 import $ from 'jquery';
 import identity from 'lodash/identity';
-import isEmpty from 'lodash/isEmpty';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
 import * as React from 'react';
@@ -227,7 +226,7 @@ function byID(result, parent) {
 
 {
   const attributes = form.field.attributes;
-  if (isEmpty(attributes.field)) {
+  if (!attributes.field.length) {
     form = mutate<WritableWorkForm, _>(form, newForm => {
       pushCompoundField(newForm.field.attributes, {
         type_id: null,

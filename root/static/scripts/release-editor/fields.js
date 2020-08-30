@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
 import mbEntity from '../common/entity';
@@ -103,7 +102,7 @@ class Track {
 
         var recordingData = data.recording;
         if (recordingData) {
-            if (isEmpty(recordingData.artistCredit)) {
+            if (!recordingData.artistCredit) {
                 recordingData.artistCredit = this.artistCredit();
             }
             this.recording(mbEntity(recordingData, "recording"));

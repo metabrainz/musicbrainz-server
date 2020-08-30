@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
 import {
@@ -673,9 +672,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function validAttributes(relationship, attributes) {
+        if (!attributes) {
+            return [];
+        }
         var linkType = relationship.getLinkType();
-
-        if (isEmpty(attributes) || isEmpty(linkType) || isEmpty(linkType.attributes)) {
+        if (!linkType) {
             return [];
         } 
         return attributes.filter(function (data) {
