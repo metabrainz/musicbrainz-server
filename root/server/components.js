@@ -307,6 +307,7 @@ module.exports = {
   'edit/details/EditRecording': require('../edit/details/EditRecording'),
   'edit/details/EditReleaseGroup': require('../edit/details/EditReleaseGroup'),
   'edit/details/EditSeries': require('../edit/details/EditSeries'),
+  'edit/details/EditUrl': require('../edit/details/EditUrl'),
   'edit/details/EditWork': require('../edit/details/EditWork'),
   'edit/details/MergeAreas': require('../edit/details/MergeAreas'),
   'edit/details/MergeArtists': require('../edit/details/MergeArtists'),
