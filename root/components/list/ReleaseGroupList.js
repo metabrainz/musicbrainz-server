@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -54,12 +54,12 @@ export const ReleaseGroupListTable = ({
   order,
   releaseGroups,
   seriesItemNumbers,
-  showRatings,
+  showRatings = false,
   showType = true,
   sortable,
 }: ReleaseGroupListTableProps): React.Element<typeof Table> => {
   function getFirstReleaseYear(entity: ReleaseGroupT) {
-    if (!entity.firstReleaseDate) {
+    if (!nonEmpty(entity.firstReleaseDate)) {
       return '—';
     }
 
@@ -68,7 +68,7 @@ export const ReleaseGroupListTable = ({
 
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user && (checkboxes || mergeForm)
+      const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers

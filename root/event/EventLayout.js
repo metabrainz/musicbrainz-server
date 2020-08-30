@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -27,13 +27,13 @@ const EventLayout = ({
   $c,
   children,
   entity: event,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
     $c={$c}
-    title={title ? hyphenateTitle(event.name, title) : event.name}
+    title={nonEmpty(title) ? hyphenateTitle(event.name, title) : event.name}
   >
     <div id="content">
       <EventHeader event={event} page={page} />

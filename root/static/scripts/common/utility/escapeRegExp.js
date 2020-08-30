@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,6 +10,6 @@
 // From https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
 const regExpChars = /([.*+?^=!:${}()|\[\]\/\\])/g;
 
-export default function escapeRegExp(string) {
+export default function escapeRegExp(string: string): string {
   return string.replace(regExpChars, '\\$1');
 }

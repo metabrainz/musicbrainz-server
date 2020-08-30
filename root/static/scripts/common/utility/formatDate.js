@@ -10,8 +10,6 @@
 import ko from 'knockout';
 import padStart from 'lodash/padStart';
 
-import nonEmpty from './nonEmpty';
-
 function formatDate(date: PartialDateT | null): string {
   if (!date) {
     return '';

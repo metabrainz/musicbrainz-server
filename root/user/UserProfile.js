@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -19,7 +19,6 @@ import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed';
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
-import nonEmpty from '../static/scripts/common/utility/nonEmpty';
 import {formatCount, formatPercentage} from '../statistics/utilities';
 import formatUserDate from '../utility/formatUserDate';
 import {canNominate} from '../utility/voting';
@@ -89,7 +88,7 @@ const UserProfileProperty = ({
   className,
   name,
 }: UserProfilePropertyProps) => (
-  <tr className={className || null}>
+  <tr className={nonEmpty(className) ? className : null}>
     <th>{name}</th>
     <td>{children}</td>
   </tr>
@@ -150,7 +149,7 @@ const UserProfileInformation = ({
             <>
               {viewingOwnProfile ? user.email : l('(hidden)')}
               {' '}
-              {user.email_confirmation_date ? (
+              {nonEmpty(user.email_confirmation_date) ? (
                 exp.l('(verified at {date})', {
                   date: formatUserDate($c, user.email_confirmation_date),
                 })
@@ -241,13 +240,13 @@ const UserProfileInformation = ({
 
         {(viewingOwnProfile || isAccountAdmin) ? (
           <UserProfileProperty name={l('Last login:')}>
-            {user.last_login_date
+            {nonEmpty(user.last_login_date)
               ? formatUserDate($c, user.last_login_date)
               : l("Hasn't logged in yet")}
           </UserProfileProperty>
         ) : null}
 
-        {user.website ? (
+        {nonEmpty(user.website) ? (
           <UserProfileProperty name={l('Homepage:')}>
             {showBioAndURL ? (
               <a href={user.website} rel="nofollow">
@@ -299,7 +298,7 @@ const UserProfileInformation = ({
           ) : null}
         </UserProfileProperty>
 
-        {biography ? (
+        {nonEmpty(biography) ? (
           <UserProfileProperty className="biography" name={l('Bio:')}>
             {showBioAndURL ? (
               expand2react(biography)

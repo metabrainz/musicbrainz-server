@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2015–2016 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -98,7 +98,7 @@ const ArtistCreditLink = ({
     }
     parts.push(credit.joinPhrase);
   }
-  if (artistCredit.editsPending) {
+  if (artistCredit.editsPending /*:: === true */) {
     return (
       <span className="mp">
         {parts}

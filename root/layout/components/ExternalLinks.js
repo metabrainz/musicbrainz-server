@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database
@@ -45,7 +45,11 @@ const ExternalLink = ({
   text,
   url,
 }: ExternalLinkProps) => {
-  let element = <a href={url.href_url}>{text || url.sidebar_name}</a>;
+  let element = (
+    <a href={url.href_url}>
+      {nonEmpty(text) ? text : url.sidebar_name}
+    </a>
+  );
 
   if (editsPending) {
     element = <span className="mp mp-rel">{element}</span>;
@@ -56,7 +60,7 @@ const ExternalLink = ({
   }
 
   return (
-    <li className={className || faviconClass(url)}>
+    <li className={nonEmpty(className) || faviconClass(url)}>
       {element}
     </li>
   );
@@ -116,7 +120,7 @@ const ExternalLinks = ({
           url={target}
         />,
       );
-    } else if (target.show_in_external_links) {
+    } else if (target.show_in_external_links /*:: === true */) {
       otherLinks.push({
         editsPending: relationship.editsPending,
         id: relationship.id,
@@ -152,7 +156,7 @@ const ExternalLinks = ({
   return (
     <>
       <h2 className="external-links">
-        {heading || l('External links')}
+        {nonEmpty(heading) || l('External links')}
       </h2>
       <ul className="external_links">
         {links}

@@ -15,7 +15,6 @@ import * as TYPES from '../../common/constants/editTypes';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
-import nonEmpty from '../../common/utility/nonEmpty';
 import request from '../../common/utility/request';
 
 (function (edit) {

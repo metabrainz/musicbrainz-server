@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -109,12 +109,12 @@ const AddLabel = ({allowNew, edit}: Props): React.MixedElement => {
             </tr>
           ) : null}
 
-          {display.label_code ? (
+          {display.label_code == null ? null : (
             <tr>
               <th>{addColonText(l('Label code'))}</th>
               <td>{display.label_code}</td>
             </tr>
-          ) : null}
+          )}
 
           {display.ipi_codes?.length ? (
             display.ipi_codes.map(ipi => (

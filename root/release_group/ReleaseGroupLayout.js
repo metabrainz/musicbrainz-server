@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -30,7 +30,7 @@ const ReleaseGroupLayout = ({
   $c,
   children,
   entity: releaseGroup,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => {
@@ -41,7 +41,7 @@ const ReleaseGroupLayout = ({
   return (
     <Layout
       $c={$c}
-      title={title ? hyphenateTitle(mainTitle, title) : mainTitle}
+      title={nonEmpty(title) ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">
         <ReleaseGroupHeader page={page} releaseGroup={releaseGroup} />

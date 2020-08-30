@@ -13,7 +13,6 @@ import _ from 'lodash';
 import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 import MB from '../common/MB';
 import formatDate from '../common/utility/formatDate';
-import nonEmpty from '../common/utility/nonEmpty';
 import {hasSessionStorage} from '../common/utility/storage';
 import validation from '../edit/validation';
 

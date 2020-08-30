@@ -22,7 +22,6 @@ import {
   isComplexArtistCredit,
   reduceArtistCredit,
 } from '../../common/immutable-entities';
-import nonEmpty from '../../common/utility/nonEmpty';
 import {localStorage} from '../../common/utility/storage';
 
 import ArtistCreditBubble from './ArtistCreditBubble';

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -28,7 +28,7 @@ const CollectionLayout = ({
   $c,
   children,
   entity: collection,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => {
@@ -38,7 +38,10 @@ const CollectionLayout = ({
   );
 
   return (
-    <Layout $c={$c} title={title ? hyphenateTitle(mainTitle, title) : mainTitle}>
+    <Layout
+      $c={$c}
+      title={nonEmpty(title) ? hyphenateTitle(mainTitle, title) : mainTitle}
+    >
       <div id="content">
         <CollectionHeader
           collection={collection}

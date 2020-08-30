@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,7 +11,7 @@ import {AREA_TYPE_COUNTRY} from '../constants';
 
 function localizeAreaName(area: AreaT): string {
   const areaType = area.typeID;
-  if (areaType && areaType === AREA_TYPE_COUNTRY) {
+  if (areaType === AREA_TYPE_COUNTRY) {
     return l_countries(area.name);
   }
   return area.name;

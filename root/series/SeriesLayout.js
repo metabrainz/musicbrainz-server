@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -27,13 +27,13 @@ const SeriesLayout = ({
   $c,
   children,
   entity: series,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
     $c={$c}
-    title={title ? hyphenateTitle(series.name, title) : series.name}
+    title={nonEmpty(title) ? hyphenateTitle(series.name, title) : series.name}
   >
     <div id="content">
       <SeriesHeader page={page} series={series} />

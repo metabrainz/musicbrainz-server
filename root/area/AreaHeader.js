@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -22,7 +22,7 @@ const AreaHeader = ({
   area,
   page,
 }: Props): React.Element<typeof EntityHeader> => {
-  const areaType = area.typeName
+  const areaType = nonEmpty(area.typeName)
     ? lp_attributes(area.typeName, 'area_type')
     : l('Area');
   let subHeading = areaType;

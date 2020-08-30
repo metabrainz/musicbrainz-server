@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -25,12 +25,12 @@ const CountryAbbr = ({
   withLink = false,
 }: Props): React.Element<'span'> | null => {
   const primaryCode = primaryAreaCode(country);
-  if (!primaryCode) {
+  if (!nonEmpty(primaryCode)) {
     return null;
   }
   const combinedClass =
     ('flag flag-' + primaryCode) +
-    (className ? (' ' + className) : '');
+    (nonEmpty(className) ? (' ' + className) : '');
   let content = (
     <abbr title={l_countries(country.name)}>
       {primaryCode}

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -54,7 +54,7 @@ const ReleaseGroupRelationshipList = ({
                   <EntityLink entity={item.release_group} />
                 </td>
                 <td>
-                  {item.release_group.l_type_name
+                  {nonEmpty(item.release_group.l_type_name)
                     ? item.release_group.l_type_name
                     : l('Unknown')}
                 </td>

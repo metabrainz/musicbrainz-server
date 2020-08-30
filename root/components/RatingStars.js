@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -29,27 +29,27 @@ type Props = {
 
 const RatingStars = ({entity}: Props): React.Element<'span'> => {
   const currentStarRating =
-    entity.user_rating ? (5 * entity.user_rating / 100) : 0;
+    entity.user_rating == null ? 0 : (5 * entity.user_rating / 100);
 
   return (
     <span className="inline-rating">
       <span className="star-rating" tabIndex="-1">
-        {entity.user_rating ? (
-          <span
-            className="current-user-rating"
-            style={{width: `${entity.user_rating}%`}}
-          >
-            {currentStarRating}
-          </span>
-        ) : (
-          entity.rating ? (
+        {entity.user_rating == null ? (
+          entity.rating == null ? null : (
             <span
               className="current-rating"
               style={{width: `${entity.rating}%`}}
             >
               {5 * entity.rating / 100}
             </span>
-          ) : null
+          )
+        ) : (
+          <span
+            className="current-user-rating"
+            style={{width: `${entity.user_rating}%`}}
+          >
+            {currentStarRating}
+          </span>
         )}
 
         <CatalystContext.Consumer>

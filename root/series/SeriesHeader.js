@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -24,7 +24,7 @@ const SeriesHeader = ({
     entity={series}
     headerClass="seriesheader"
     page={page}
-    subHeading={series.typeName
+    subHeading={nonEmpty(series.typeName)
       ? lp_attributes(series.typeName, 'series_type')
       : lp('Series', 'singular')}
   />

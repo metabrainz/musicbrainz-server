@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -27,7 +27,7 @@ type Props = {
 const RecordingMerge = ({
   $c,
   form,
-  isrcsDiffer,
+  isrcsDiffer = false,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
   <Layout $c={$c} fullWidth title={l('Merge recordings')}>

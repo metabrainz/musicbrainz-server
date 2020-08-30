@@ -16,12 +16,12 @@ type Props = {
   +filtered: boolean,
 };
 
-const FilterLink = ({$c, filtered}: Props): React.Element<'li'> => {
+const FilterLink = ({$c, filtered = false}: Props): React.Element<'li'> => {
   const reqUri = $c.req.uri;
 
   return (
     <li>
-      {filtered === true ? (
+      {filtered ? (
         <a href={uriWith(reqUri, {filter: 0})}>
           {l('Show all results.')}
         </a>

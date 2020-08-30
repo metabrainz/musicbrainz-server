@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -36,7 +36,7 @@ const CollectionSidebar = ({
           <EditorLink editor={collection.editor} />
         </SidebarProperty>
 
-        {typeName ? (
+        {nonEmpty(typeName) ? (
           <SidebarProperty className="type" label={l('Type:')}>
             {lp_attributes(typeName, 'collection_type')}
           </SidebarProperty>
@@ -66,7 +66,7 @@ const CollectionSidebar = ({
         <>
           <h2 className="subscriptions">{l('Subscriptions')}</h2>
           <ul className="links">
-            {$c.stash.subscribed ? (
+            {$c.stash.subscribed /*:: === true */ ? (
               <li>
                 <a
                   href={'/account/subscriptions/collection/remove?id=' +

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -18,7 +18,7 @@ type AddRelationshipEditT = {
     +entity0?: CoreEntityT,
     +entity1?: CoreEntityT,
     +relationship: RelationshipT,
-    +unknown_attributes?: boolean,
+    +unknown_attributes: boolean,
   },
 };
 

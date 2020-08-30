@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -32,7 +32,7 @@ const AddReleaseLabel = ({edit}: Props): React.Element<'table'> => {
 
   return (
     <table className="details add-release-label">
-      {edit.preview ? null : (
+      {edit.preview /*:: === true */ ? null : (
         <tr>
           <th>{l('Release:')}</th>
           <td>

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 Anirudh Jain
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -56,18 +56,18 @@ const AddStandaloneRecording = ({edit}: Props): React.MixedElement => {
               <ExpandedArtistCredit artistCredit={display.artist_credit} />
             </td>
           </tr>
-          {display.comment ? (
+          {nonEmpty(display.comment) ? (
             <tr>
               <th>{addColonText(l('Disambiguation'))}</th>
               <td>{display.comment}</td>
             </tr>
           ) : null}
-          {display.length ? (
+          {display.length == null ? null : (
             <tr>
               <th>{addColonText(l('Length'))}</th>
               <td>{formatTrackLength(display.length)}</td>
             </tr>
-          ) : null}
+          )}
           <tr>
             <th>{addColonText(l('Video'))}</th>
             <td>{yesNo(display.video)}</td>

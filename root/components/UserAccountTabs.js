@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -20,8 +20,8 @@ function buildTabs(
   user: EditorT,
   page: string,
 ): $ReadOnlyArray<React.Element<'li'>> {
-  const viewingOwnProfile = $c.user && $c.user.id === user.id;
-  const showAdmin = $c.user && $c.user.is_account_admin;
+  const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
+  const showAdmin = Boolean($c.user && $c.user.is_account_admin);
   const showPrivate = showAdmin || viewingOwnProfile;
 
   const userName = encodeURIComponent(user.name);
@@ -86,7 +86,8 @@ function buildTabs(
     ));
   }
 
-  if (showAdmin || DBDefs.DB_STAGING_TESTING_FEATURES && $c.user) {
+  if (showAdmin ||
+    DBDefs.DB_STAGING_TESTING_FEATURES && $c.user) {
     tabs.push(buildTab(
       page,
       l('Edit User'),

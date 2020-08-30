@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -91,7 +91,7 @@ function buildLinks(
 
   if (entity.entityType === 'release') {
     links.push(buildLink(
-      entity.may_have_discids
+      entity.may_have_discids /*:: === true */
         ? texp.l(
           'Disc IDs ({num})',
           {num: $c.stash.release_cdtoc_count || 0},

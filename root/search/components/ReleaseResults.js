@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -42,10 +42,14 @@ function buildResult($c, result, index) {
         <ArtistCreditLink artistCredit={release.artistCredit} />
       </td>
       <td>
-        {release.combined_format_name || l('[missing media]')}
+        {nonEmpty(release.combined_format_name)
+          ? release.combined_format_name
+          : l('[missing media]')}
       </td>
       <td>
-        {release.combined_track_count || lp('-', 'missing data')}
+        {nonEmpty(release.combined_track_count)
+          ? release.combined_track_count
+          : lp('-', 'missing data')}
       </td>
       <td>
         <ReleaseEvents events={release.events} />
@@ -71,7 +75,7 @@ function buildResult($c, result, index) {
         ) : null}
       </td>
       <td>
-        {typeName
+        {nonEmpty(typeName)
           ? lp_attributes(typeName, 'release_group_primary_type')
           : null}
       </td>
@@ -79,9 +83,9 @@ function buildResult($c, result, index) {
         {release.status
           ? lp_attributes(release.status.name, 'release_status') : null}
       </td>
-      {$c?.session?.tport
-        ? <td><TaggerIcon entity={release} /></td>
-        : null}
+      {$c?.session?.tport == null
+        ? null
+        : <td><TaggerIcon entity={release} /></td>}
     </tr>
   );
 }
@@ -108,9 +112,9 @@ React.Element<typeof PaginatedSearchResults> => (
         <th>{l('Language')}</th>
         <th>{l('Type')}</th>
         <th>{l('Status')}</th>
-        {$c?.session?.tport
-          ? <th>{l('Tagger')}</th>
-          : null}
+        {$c?.session?.tport == null
+          ? null
+          : <th>{l('Tagger')}</th>}
       </>
     }
     pager={pager}

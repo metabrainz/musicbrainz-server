@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -27,13 +27,13 @@ const PlaceLayout = ({
   $c,
   children,
   entity: place,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
     $c={$c}
-    title={title ? hyphenateTitle(place.name, title) : place.name}
+    title={nonEmpty(title) ? hyphenateTitle(place.name, title) : place.name}
   >
     <div id="content">
       <PlaceHeader page={page} place={place} />

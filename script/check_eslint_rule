@@ -15,6 +15,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../"
     --global addColon:readonly \
     --global addColonText:readonly \
     --global hyphenateTitle:readonly \
+    --global nonEmpty:readonly \
     --global l:readonly \
     --global ln:readonly \
     --global lp:readonly \
