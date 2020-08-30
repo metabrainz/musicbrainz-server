@@ -9,6 +9,7 @@
 import _ from 'lodash';
 import test from 'tape';
 
+import MB from '../../common/MB';
 import actions from '../../release-editor/actions';
 import fields from '../../release-editor/fields';
 
