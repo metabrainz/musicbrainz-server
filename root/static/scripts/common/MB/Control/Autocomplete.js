@@ -9,16 +9,14 @@
 import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
-import head from 'lodash/head';
 import identity from 'lodash/identity';
-import last from 'lodash/last';
 
 import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 import mbEntity from '../../entity';
 import commaOnlyList from '../../i18n/commaOnlyList';
 import {reduceArtistCredit} from '../../immutable-entities';
 import MB from '../../MB';
-import {groupBy} from '../../utility/arrays';
+import {first, groupBy, last} from '../../utility/arrays';
 import clean from '../../utility/clean';
 import formatDate from '../../utility/formatDate';
 import formatDatePeriod from '../../utility/formatDatePeriod';
@@ -728,7 +726,7 @@ MB.Control.autocomplete_formatters = {
                     appendComment(
                         $a,
                         name +
-                        maybeParentheses(head(catalogNumbers) + ' … ' + last(catalogNumbers), name),
+                        maybeParentheses(first(catalogNumbers) + ' … ' + last(catalogNumbers), name),
                     );
                 } else {
                     for (const releaseLabel of releaseLabels) {

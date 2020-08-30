@@ -9,12 +9,11 @@
 import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
-import last from 'lodash/last';
 
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 import {reduceArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
-import {keyBy} from '../common/utility/arrays';
+import {keyBy, last} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
 import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import {debounceComputed} from '../common/utility/debounce';

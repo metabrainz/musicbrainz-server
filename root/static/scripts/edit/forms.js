@@ -8,10 +8,10 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import last from 'lodash/last';
 
 import {compare} from '../common/i18n';
 import MB from '../common/MB';
+import {last} from '../common/utility/arrays';
 import debounce from '../common/utility/debounce';
 import {stripAttributes} from '../edit/utility/linkPhrase';
 

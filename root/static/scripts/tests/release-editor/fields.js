@@ -8,9 +8,9 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import last from 'lodash/last';
 import test from 'tape';
 
+import {last} from '../../common/utility/arrays';
 import fields from '../../release-editor/fields';
 
 import * as common from './common';

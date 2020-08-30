@@ -122,6 +122,10 @@ export function groupBy<T>(
   }, Object.create(null));
 }
 
+export function first<T>(array: ?$ReadOnlyArray<T>): ?T {
+  return array?.length ? array[0] : undefined;
+}
+
 export function keyBy<T>(
   array: $ReadOnlyArray<T>,
   func: (T) => string,
@@ -130,6 +134,10 @@ export function keyBy<T>(
     result[func(item)] = item;
     return result;
   }, Object.create(null));
+}
+
+export function last<T>(array: ?$ReadOnlyArray<T>): ?T {
+  return array?.length ? array[array.length - 1] : undefined;
 }
 
 export function uniqBy<T, U>(
