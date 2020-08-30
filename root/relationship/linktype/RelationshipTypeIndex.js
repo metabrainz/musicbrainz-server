@@ -8,7 +8,6 @@
  */
 
 import * as React from 'react';
-import upperFirst from 'lodash/upperFirst';
 
 import Layout from '../../layout';
 import Cardinality from '../../static/scripts/common/components/Cardinality';
@@ -23,6 +22,7 @@ import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
+import {upperFirst} from '../../static/scripts/common/utility/strings';
 
 type Props = {
   +$c: CatalystContextT,

@@ -7,6 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+export function capitalize(str: string): string {
+  return str[0].toUpperCase() + str.slice(1).toLowerCase();
+}
+
 export function fixedWidthInteger(input: StrOrNum, len: number): string {
   let num = input;
   if (typeof num === 'string') {
@@ -18,4 +22,18 @@ export function fixedWidthInteger(input: StrOrNum, len: number): string {
   const negative = num < 0;
   return (negative ? '-' : '') +
     (String(negative ? -num : num).padStart(len, '0'));
+}
+
+export function upperFirst(str: string): string {
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+const lowerThenUpper = /([a-z])([A-Z])/g;
+const nonWord = /[^0-9A-Za-z]+/g;
+
+export function kebabCase(str: string): string {
+  return str
+    .replace(lowerThenUpper, '$1-$2')
+    .replace(nonWord, '-')
+    .toLowerCase();
 }

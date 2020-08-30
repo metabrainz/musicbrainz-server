@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import capitalize from 'lodash/capitalize';
 import * as ReactDOMServer from 'react-dom/server';
 
 import getBooleanCookie from '../common/utility/getBooleanCookie';
+import {capitalize} from '../common/utility/strings';
 
 import {
   isPrepBracketWord,
