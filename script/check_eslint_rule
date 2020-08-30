@@ -10,6 +10,9 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../"
     --plugin flowtype \
     --plugin import \
     --plugin react-hooks \
+    --global __webpack_public_path__:writable \
+    --global GLOBAL_CATALYST_CONTEXT_NAMESPACE:readonly \
+    --global GLOBAL_DBDEFS_NAMESPACE:readonly \
     --global '$':readonly \
     --global jQuery:readonly \
     --global addColon:readonly \
