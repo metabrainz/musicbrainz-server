@@ -9,7 +9,7 @@
 /*
  * window[GLOBAL_DBDEFS_NAMESPACE] contains the values exported by
  * DBDefs-client-values.js.
- * See root/layout/components/clientDBDefsScript.js for more info.
+ * See root/layout/components/globalsScript.js for more info.
  *
  * Flow types for this file are found in DBDefs-client.js.flow.
  */

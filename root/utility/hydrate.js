@@ -10,16 +10,14 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as Sentry from '@sentry/browser';
 
-import {
-  CatalystContext,
-  SanitizedCatalystContext,
-} from '../context';
+import {SanitizedCatalystContext} from '../context';
 
-import sanitizedContext from './sanitizedContext';
+import escapeClosingTags from './escapeClosingTags';
 
 export default function hydrate<
-  Config,
+  Config: {+$c?: CatalystContextT, ...},
   SanitizedConfig = Config,
 >(
   containerSelector: string,
@@ -33,16 +31,22 @@ export default function hydrate<
     $(function () {
       const roots = document.querySelectorAll(containerSelector);
       for (const root of roots) {
-        const contextString = root.getAttribute('data-context');
-        const propString = root.getAttribute('data-props');
-        root.removeAttribute('data-context');
-        root.removeAttribute('data-props');
-        if (contextString && propString) {
-          const $c: SanitizedCatalystContextT = JSON.parse(contextString);
+        const propScript = root.previousElementSibling;
+        if (!propScript || propScript.tagName.toLowerCase() !== 'script') {
+          const errorMsg =
+            'Props <script> for ' + containerSelector + ' not found.';
+          console.error(errorMsg);
+          Sentry.captureException(new Error(errorMsg));
+          continue;
+        }
+        const propString = propScript.textContent;
+        if (propString) {
+          const $c: SanitizedCatalystContextT =
+            window[GLOBAL_CATALYST_CONTEXT_NAMESPACE];
           const props: SanitizedConfig = JSON.parse(propString);
           ReactDOM.hydrate(
             <SanitizedCatalystContext.Provider value={$c}>
-              <Component {...props} />
+              <Component $c={$c} {...props} />
             </SanitizedCatalystContext.Provider>,
             root,
           );
@@ -51,22 +55,27 @@ export default function hydrate<
     });
   }
   return (props: Config) => {
-    let dataProps = props;
+    let dataProps = {...props};
+    if (dataProps.$c) {
+      delete dataProps.$c;
+    }
     if (mungeProps) {
       dataProps = mungeProps(dataProps);
     }
     return (
-      <CatalystContext.Consumer>
-        {$c => React.createElement(
+      <>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: escapeClosingTags(JSON.stringify(dataProps)),
+          }}
+          type="application/json"
+        />
+        {React.createElement(
           containerTag,
-          {
-            'className': classes.join(' '),
-            'data-context': JSON.stringify(sanitizedContext($c)),
-            'data-props': JSON.stringify(dataProps),
-          },
+          {className: classes.join(' ')},
           <Component {...props} />,
         )}
-      </CatalystContext.Consumer>
+      </>
     );
   };
 }

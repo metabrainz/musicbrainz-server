@@ -13,7 +13,7 @@ import * as manifest from '../../static/manifest';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 
-import clientDBDefsScript from './clientDBDefsScript';
+import globalsScript from './globalsScript';
 import MetaDescription from './MetaDescription';
 
 export type HeadProps = {
@@ -121,7 +121,7 @@ const Head = ({$c, ...props}: HeadProps): React.Element<'head'> => (
       />
     </noscript>
 
-    {clientDBDefsScript}
+    {globalsScript}
 
     {manifest.js('runtime')}
 

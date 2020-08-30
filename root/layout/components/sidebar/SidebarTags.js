@@ -60,6 +60,7 @@ const SidebarTags = ({
             $c={$c}
             aggregatedTags={aggregatedTags}
             entity={entity}
+            genreMap={$c.stash.genre_map}
             more={more}
             userTags={userTags}
           />

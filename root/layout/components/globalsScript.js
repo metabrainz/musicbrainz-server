@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../../context';
 import DBDefs from '../../static/scripts/common/DBDefs-client-values';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 
@@ -27,6 +28,11 @@ import escapeClosingTags from '../../utility/escapeClosingTags';
  * __MB_DBDefs__ (GLOBAL_DBDEFS_NAMESPACE) is used for the global var
  * name to avoid conflicts with other scripts (libraries, plugins,
  * userscripts) that pollute the global namespace.
+ *
+ * We have another, unrelated global named __MB_Catalyst_Context__
+ * which stores a sanitized version of $c for React-hydrated client
+ * scripts to use. (See root/utility/hydrate.js.) The <script> exported
+ * by this file defines both globals.
  */
 
 const CLIENT_DBDEFS_CODE =
@@ -36,7 +42,23 @@ const CLIENT_DBDEFS_CODE =
   escapeClosingTags(JSON.stringify(DBDefs)) +
   ')})';
 
-export default (
-  <script dangerouslySetInnerHTML={{__html: CLIENT_DBDEFS_CODE}} />:
-  React.Element<'script'>
-);
+export default ((
+  <SanitizedCatalystContext.Consumer>
+    {$c => {
+      const CLIENT_CATALYST_CONTEXT_CODE =
+        'Object.defineProperty(window,' +
+        JSON.stringify(GLOBAL_CATALYST_CONTEXT_NAMESPACE) +
+        ',{value:Object.freeze(' +
+        escapeClosingTags(JSON.stringify($c)) +
+        ')})';
+      return (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: CLIENT_DBDEFS_CODE + ';' +
+              CLIENT_CATALYST_CONTEXT_CODE,
+          }}
+        />
+      );
+    }}
+  </SanitizedCatalystContext.Consumer>
+): React.MixedElement);

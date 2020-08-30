@@ -178,6 +178,7 @@ type TagEditorProps = {
   +$c: CatalystContextT,
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   +entity: CoreEntityT | MinimalCoreEntityT,
+  +genreMap: ?{+[genreName: string]: GenreT, ...},
   +more: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
 };
@@ -228,7 +229,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       'setTagsInput',
     );
 
-    this.genreMap = props.$c.stash.genre_map || {};
+    this.genreMap = props.genreMap ?? {};
     this.genreNames = Object.keys(this.genreMap);
 
     this.pendingVotes = {};
