@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import once from 'lodash/once';
 import * as ReactDOMServer from 'react-dom/server';
 
 import '../../../lib/jquery-ui';
@@ -617,6 +616,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
     }
 
+    let _uiSetupDone = false;
+
     Object.assign(Dialog.prototype, {
         loading: ko.observable(false),
         showAttributesHelp: ko.observable(false),
@@ -630,7 +631,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             width: "auto",
         },
 
-        setupUI: once(function () {
+        setupUI: function () {
+            if (_uiSetupDone) {
+                return;
+            }
+
             var $dialog = $("#dialog").dialog(this.uiOptions);
 
             var widget = $dialog.data("ui-dialog");
@@ -638,7 +643,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             Object.assign(Dialog.prototype, {$dialog, widget});
             ko.applyBindings(this.viewModel, $dialog[0]);
-        }),
+            _uiSetupDone = true;
+        },
     });
 
     function addRelationships(relationships, source, viewModel) {

@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import once from 'lodash/once';
 import uniqueId from 'lodash/uniqueId';
 
 import localizeLinkAttributeTypeDescription
@@ -40,7 +39,12 @@ const addAnotherEntityLabels = {
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
-    RE.exportTypeInfo = once(function (typeInfo, attrInfo) {
+let typeInfoLoaded = false;
+
+    RE.exportTypeInfo = function (typeInfo, attrInfo) {
+        if (typeInfoLoaded) {
+            return;
+        }
         const attrChildren = groupBy(attrInfo, x => String(x.parent_id));
 
         function mapItems(result, item) {
@@ -104,7 +108,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         for (const attr of Object.values(linkedEntities.link_attribute_type)) {
             attr.root = linkedEntities.link_attribute_type[attr.root_id];
         }
-    });
+
+        typeInfoLoaded = true;
+    };
 
 
 export class ViewModel {

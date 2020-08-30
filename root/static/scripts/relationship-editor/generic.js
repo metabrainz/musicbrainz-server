@@ -9,7 +9,6 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import identity from 'lodash/identity';
-import once from 'lodash/once';
 
 import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 import MB from '../common/MB';
@@ -279,8 +278,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         $("#relationship-editor").append(hiddenInputs);
     }
 
-    $(document).on("submit", "#page form:not(#relationship-editor-form)", once(function () {
-        prepareSubmission($('#relationship-editor').data('form-name'));
-    }));
+    let submissionInProgress = false;
+    $(document).on("submit", "#page form:not(#relationship-editor-form)", function () {
+        if (!submissionInProgress) {
+            submissionInProgress = true;
+            prepareSubmission($('#relationship-editor').data('form-name'));
+        }
+    });
 
     RE.prepareSubmission = prepareSubmission;
