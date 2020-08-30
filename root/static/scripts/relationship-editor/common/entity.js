@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import uniqueId from 'lodash/uniqueId';
 
 import 'knockout-arraytransforms';
 
@@ -15,6 +14,7 @@ import {compare} from '../../common/i18n';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
 import {sortByString} from '../../common/utility/arrays';
+import {uniqueId} from '../../common/utility/strings';
 import deferFocus from '../../edit/utility/deferFocus';
 
 import mergeDates from './mergeDates';

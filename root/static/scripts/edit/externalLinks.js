@@ -9,7 +9,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import uniqueId from 'lodash/uniqueId';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -24,6 +23,7 @@ import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
 import {hasSessionStorage} from '../common/utility/storage';
+import {uniqueId} from '../common/utility/strings';
 
 import isPositiveInteger from './utility/isPositiveInteger';
 import HelpIcon from './components/HelpIcon';

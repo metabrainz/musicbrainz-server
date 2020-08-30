@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import uniqueId from 'lodash/uniqueId';
 
 import mbEntity from '../common/entity';
 import {cloneObjectDeep} from '../common/utility/cloneDeep';
@@ -24,7 +23,7 @@ import {debounceComputed} from '../common/utility/debounce';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
-import {fixedWidthInteger} from '../common/utility/strings';
+import {fixedWidthInteger, uniqueId} from '../common/utility/strings';
 import mbEdit from '../edit/MB/edit';
 import * as dates from '../edit/utility/dates';
 import * as validation from '../edit/validation';

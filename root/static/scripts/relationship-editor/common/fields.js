@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import uniqueId from 'lodash/uniqueId';
 
 import {
   SERIES_ORDERING_ATTRIBUTE,
@@ -24,7 +23,7 @@ import {displayLinkAttributesText} from '../../common/utility/displayLinkAttribu
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
 import request from '../../common/utility/request';
-import {fixedWidthInteger} from '../../common/utility/strings';
+import {fixedWidthInteger, uniqueId} from '../../common/utility/strings';
 import mbEdit from '../../edit/MB/edit';
 import * as linkPhrase from '../../edit/utility/linkPhrase';
 

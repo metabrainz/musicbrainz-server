@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import uniqueId from 'lodash/uniqueId';
 
 import localizeLinkAttributeTypeDescription
     from '../../common/i18n/localizeLinkAttributeTypeDescription';
@@ -20,6 +19,7 @@ import {groupBy} from '../../common/utility/arrays';
 import parseDate from '../../common/utility/parseDate';
 import request from '../../common/utility/request';
 import {hasSessionStorage} from '../../common/utility/storage';
+import {uniqueId} from '../../common/utility/strings';
 
 import fields from './fields';
 

@@ -37,3 +37,9 @@ export function kebabCase(str: string): string {
     .replace(nonWord, '-')
     .toLowerCase();
 }
+
+let NEXT_UNIQUE_ID = 1;
+
+export function uniqueId(prefix?: string = ''): string {
+  return prefix + String(NEXT_UNIQUE_ID++);
+}
