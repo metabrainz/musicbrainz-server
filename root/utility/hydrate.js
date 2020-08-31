@@ -16,15 +16,33 @@ import {SanitizedCatalystContext} from '../context';
 
 import escapeClosingTags from './escapeClosingTags';
 
-export default function hydrate<
-  Config: {+$c?: CatalystContextT, ...},
-  SanitizedConfig = Config,
->(
+type Config = {+$c?: CatalystContextT, ...};
+
+export function renderPropsScript<C: Config, SanitizedC = C>(
+  props: C,
+  mungeProps?: ((C) => SanitizedC) | null,
+): React.Element<'script'> {
+  let dataProps = {...props};
+  if (dataProps.$c) {
+    delete dataProps.$c;
+  }
+  if (mungeProps) {
+    dataProps = mungeProps(dataProps);
+  }
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: escapeClosingTags(JSON.stringify(dataProps) ?? ''),
+      }}
+      type="application/json"
+    />
+  );
+}
+
+export function performHydrate<C: Config, SanitizedC = C>(
   containerSelector: string,
-  Component: React.AbstractComponent<Config | SanitizedConfig>,
-  mungeProps?: (Config) => SanitizedConfig,
-): React.AbstractComponent<Config, void> {
-  const [containerTag, ...classes] = containerSelector.split('.');
+  Component: React.AbstractComponent<C | SanitizedC>,
+) {
   if (typeof document !== 'undefined') {
     // This should only run on the client.
     const $ = require('jquery');
@@ -43,7 +61,7 @@ export default function hydrate<
         if (propString) {
           const $c: SanitizedCatalystContextT =
             window[GLOBAL_CATALYST_CONTEXT_NAMESPACE];
-          const props: SanitizedConfig = JSON.parse(propString);
+          const props: SanitizedC = JSON.parse(propString);
           ReactDOM.hydrate(
             <SanitizedCatalystContext.Provider value={$c}>
               <Component $c={$c} {...props} />
@@ -54,22 +72,20 @@ export default function hydrate<
       }
     });
   }
-  return (props: Config) => {
-    let dataProps = {...props};
-    if (dataProps.$c) {
-      delete dataProps.$c;
-    }
-    if (mungeProps) {
-      dataProps = mungeProps(dataProps);
-    }
+}
+
+export default function hydrate<C: Config, SanitizedC = C>(
+  containerSelector: string,
+  Component: React.AbstractComponent<C | SanitizedC>,
+  mungeProps?: ((C) => SanitizedC) | null,
+): React.AbstractComponent<C, void> {
+  performHydrate(containerSelector, Component);
+  return (props: C) => {
+    const propsScript = renderPropsScript(props, mungeProps);
+    const [containerTag, ...classes] = containerSelector.split('.');
     return (
       <>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: escapeClosingTags(JSON.stringify(dataProps) ?? ''),
-          }}
-          type="application/json"
-        />
+        {propsScript}
         {React.createElement(
           containerTag,
           {className: classes.join(' ')},

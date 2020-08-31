@@ -101,12 +101,14 @@ const ServerDetailsBanner = () => {
 
 export type Props = $ReadOnly<{
   ...HeadProps,
+  beforePageContent?: React$Node,
   children: React$Node,
   fullWidth?: boolean,
 }>;
 
 const Layout = ({
   $c,
+  beforePageContent,
   children,
   fullWidth = false,
   homepage = false,
@@ -224,13 +226,14 @@ const Layout = ({
           <p dangerouslySetInnerHTML={{__html: $c.flash.message}} />
         </div>}
 
+      {beforePageContent}
+
       <div
         className={(fullWidth ? 'fullwidth ' : '') +
           (homepage ? 'homepage' : '')}
         id="page"
       >
         {children}
-        <div style={{clear: 'both'}} />
       </div>
 
       {($c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */) &&

@@ -16,6 +16,7 @@ module.exports = {
   node: {
     fs: 'empty',
     path: true,
+    url: 'empty',
   },
 
   plugins: [
@@ -29,6 +30,10 @@ module.exports = {
     // Modules that run in the browser must use DBDefs-client.
     new webpack.IgnorePlugin({
       resourceRegExp: /\/DBDefs(?:-client-values)?$/,
+    }),
+
+    new webpack.IgnorePlugin({
+      resourceRegExp: /\/root\/static\/build\/rev-manifest$/,
     }),
 
     new webpack.EnvironmentPlugin({

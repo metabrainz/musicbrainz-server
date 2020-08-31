@@ -91,7 +91,10 @@ sub timeline : Path('timeline/main')
 {
     my ($self, $c) = @_;
 
-    $c->stash(template => 'statistics/timeline.tt');
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'statistics/Timeline',
+    );
 }
 
 sub timeline_redirect : Path('timeline')
