@@ -64,7 +64,7 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
   return count ? (
     <>
       <h2>
-        {l('Acoustic information')}
+        {l('Acoustic analysis')}
       </h2>
 
       <a className="external" href={`//acousticbrainz.org/${recording.gid}`}>
