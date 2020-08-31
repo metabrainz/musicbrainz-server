@@ -15,7 +15,7 @@ import {
   isCompleteArtistCredit,
   reduceArtistCredit,
 } from '../common/immutable-entities';
-import {sortByNumber} from '../common/utility/arrays';
+import {compactMap, sortByNumber} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
 import {debounceComputed} from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
@@ -125,11 +125,9 @@ const trackParser = releaseEditor.trackParser = {
                  * along with their similarity.
                  */
                 dataTrackPairs = dataTrackPairs.concat(
-                    currentTracks
-                        .map(function (track) {
-                            return self.matchDataWithTrack(data, track);
-                        })
-                        .filter(Boolean),
+                    compactMap(currentTracks, function (track) {
+                        return self.matchDataWithTrack(data, track);
+                    }),
                 );
             }
 
@@ -449,7 +447,7 @@ const trackParser = releaseEditor.trackParser = {
 
     matchDataWithTrack: function (data, track) {
         /*
-         * The result of this function will be fed into filter(Boolean) so that
+         * The result of this function will be fed into `compactMap` so that
          * null and undefined return values will be stripped.
          */
         if (!track) {

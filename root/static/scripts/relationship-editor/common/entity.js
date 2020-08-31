@@ -13,7 +13,7 @@ import 'knockout-arraytransforms';
 import {compare} from '../../common/i18n';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
-import {sortByString} from '../../common/utility/arrays';
+import {compactMap, sortByString} from '../../common/utility/arrays';
 import {uniqueId} from '../../common/utility/strings';
 import deferFocus from '../../edit/utility/deferFocus';
 
@@ -55,9 +55,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return;
             }
 
-            var newRelationships = relationships
-                .map(data => MB.getRelationship(data, self))
-                .filter(Boolean);
+            var newRelationships = compactMap(
+                relationships,
+                data => MB.getRelationship(data, self),
+            );
 
             const allRelationships = [...new Set([
                 ...this.relationships.peek(),

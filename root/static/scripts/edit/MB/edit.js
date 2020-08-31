@@ -13,7 +13,7 @@ import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 import * as TYPES from '../../common/constants/editTypes';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
-import {sortByNumber} from '../../common/utility/arrays';
+import {compactMap, sortByNumber} from '../../common/utility/arrays';
 import clean from '../../common/utility/clean';
 import deepEqual from '../../common/utility/deepEqual';
 import request from '../../common/utility/request';
@@ -192,7 +192,7 @@ import request from '../../common/utility/request';
         release: function (release) {
             var releaseGroupID = (release.releaseGroup() || {}).id;
 
-            var events = value(release.events).map(function (data) {
+            var events = compactMap(value(release.events), function (data) {
                 var event = {
                     date:       fields.partialDate(data.date),
                     country_id: number(data.countryID),
@@ -203,7 +203,7 @@ import request from '../../common/utility/request';
                 }
 
                 return null;
-            }).filter(Boolean);
+            });
 
             return {
                 name:               string(release.name),
@@ -226,7 +226,7 @@ import request from '../../common/utility/request';
                 name:               string(rg.name),
                 artist_credit:      fields.artistCredit(rg.artistCredit),
                 comment:            string(rg.comment),
-                secondary_type_ids: array(rg.secondaryTypeIDs, number).filter(Boolean),
+                secondary_type_ids: compactMap(value(rg.secondaryTypeIDs), number),
             };
         },
 

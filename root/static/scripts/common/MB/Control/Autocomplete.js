@@ -15,7 +15,7 @@ import mbEntity from '../../entity';
 import commaOnlyList from '../../i18n/commaOnlyList';
 import {reduceArtistCredit} from '../../immutable-entities';
 import MB from '../../MB';
-import {first, groupBy, last} from '../../utility/arrays';
+import {compactMap, first, groupBy, last} from '../../utility/arrays';
 import clean from '../../utility/clean';
 import formatDate from '../../utility/formatDate';
 import formatDatePeriod from '../../utility/formatDatePeriod';
@@ -716,9 +716,8 @@ MB.Control.autocomplete_formatters = {
                 const [name, releaseLabels] of
                 Object.entries(groupBy(item.labels, getLabelName))
             ) {
-                const catalogNumbers = releaseLabels
-                    .map(getCatalogNumber)
-                    .filter(Boolean)
+                const catalogNumbers =
+                    compactMap(releaseLabels, getCatalogNumber)
                     .sort();
 
                 if (catalogNumbers.length > 2) {

@@ -34,6 +34,28 @@ export function arraysEqual<T>(
 }
 
 /*
+ * Equivalent to array.map(func).filter(Boolean), but shorter and only
+ * loops over the array once.
+ */
+export function compactMap<T, U>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => ?U,
+): $ReadOnlyArray<U> {
+  return array.reduce(function (result, item) {
+    const mappedValue = func(item);
+    /*
+     * The Flow lint is disabled because we intend to
+     * strip /all/ falsey values here.
+     */
+    // flowlint-next-line sketchy-null-mixed:off
+    if (mappedValue) {
+      result.push(mappedValue);
+    }
+    return result;
+  }, []);
+}
+
+/*
  * Given a `destination` array that's already in sorted order according
  * to the provided `cmp` function, merges unique items from `source`
  * into `destination` while preserving the sorted order.

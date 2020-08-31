@@ -13,7 +13,7 @@ import ko from 'knockout';
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 import {reduceArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
-import {keyBy, last} from '../common/utility/arrays';
+import {compactMap, keyBy, last} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
 import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import {debounceComputed} from '../common/utility/debounce';
@@ -430,7 +430,7 @@ releaseEditor.getEditPreviews = function () {
     let previewRequest = null;
 
     function refreshPreviews(edits) {
-        releaseEditor.editPreviews(edits.map(getPreview).filter(Boolean));
+        releaseEditor.editPreviews(compactMap(edits, getPreview));
     }
 
     function getPreview(edit) {
@@ -632,7 +632,7 @@ releaseEditor.orderedEditSubmissions = [
 
         callback: function (release, edits) {
             var added = keyBy(
-                edits.map(x => x.entity).filter(Boolean),
+                compactMap(edits, x => x.entity),
                 x => String(x.position),
             );
 

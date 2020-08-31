@@ -11,6 +11,7 @@ import ko from 'knockout';
 
 import {isCompleteArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
+import {compactMap} from '../common/utility/arrays';
 import {debounceComputed} from '../common/utility/debounce';
 import request from '../common/utility/request';
 
@@ -142,23 +143,23 @@ function formatReleaseData(release) {
         lp('-', 'missing data');
 
     clean.dates = events
-        ? events.map(x => x.date).filter(Boolean)
+        ? compactMap(events, x => x.date)
         : [];
 
     clean.countries = events ? [...new Set(events.flatMap(
         x => (x.area?.['iso-3166-1-codes']) ?? [],
     ))] : [];
 
-    clean.labels = labels ? labels.map(function (info) {
+    clean.labels = labels ? compactMap(labels, function (info) {
         const label = info.label;
         if (label) {
             return new MB.entity.Label({ gid: label.id, name: label.name });
         }
         return null;
-    }).filter(Boolean) : [];
+    }) : [];
 
     clean.catalogNumbers = labels
-        ? labels.map(x => x['catalog-number']).filter(Boolean)
+        ? compactMap(labels, x => x['catalog-number'])
         : [];
 
     clean.barcode = release.barcode || "";
