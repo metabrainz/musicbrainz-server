@@ -231,8 +231,8 @@ class TimelineViewModel {
             let match;
 
             if ((match = part.match(/^(-)?([rv])-?$/))) { // trailing - for backwards-compatibility
-                const meth = match[2] === 'r' ? 'rate' : 'events';
-                self.options[meth](!(match[1] === '-'));
+                const method = match[2] === 'r' ? 'rate' : 'events';
+                self.options[method](!(match[1] === '-'));
             } else if ((match = part.match(/^(-)?(c-.*)$/))) {
                 const hashIdentifier = match[2];
                 const category = self.categories().find(
