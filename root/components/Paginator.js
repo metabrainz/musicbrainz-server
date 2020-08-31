@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import range from 'lodash/range';
 import * as React from 'react';
 
+import mapRange from '../static/scripts/common/utility/mapRange';
 import uriWith from '../utility/uriWith';
 
 type PageQueryParam = 'apps_page' | 'page' | 'tokens_page';
@@ -91,7 +91,7 @@ const Paginator = ({
           </li>
         ) : null}
 
-        {range(start, end + 1).map(page => (
+        {mapRange(start, end, (page) => (
           (pager.current_page === page) ? (
             <li key={"number-" + page}>
               <a

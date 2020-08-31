@@ -8,10 +8,10 @@
  */
 
 import * as React from 'react';
-import range from 'lodash/range';
 
 import {l_statistics as l}
   from '../static/scripts/common/i18n/statistics';
+import mapRange from '../static/scripts/common/utility/mapRange';
 
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
@@ -53,8 +53,6 @@ const nameOrNull = (name: string, defaultName: string) => {
 
   return name;
 };
-
-const oneToTwentyNine = range(1, 30);
 
 const CoverArt = ({
   $c,
@@ -275,7 +273,7 @@ const CoverArt = ({
             <td>{formatCount($c, stats['count.release.has_caa'])}</td>
             <td />
           </tr>
-          {oneToTwentyNine.map((number) => (
+          {mapRange(1, 29, (number) => (
             <tr key={number}>
               <th />
               <th>
