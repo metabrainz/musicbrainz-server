@@ -579,14 +579,21 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return "";
         }
 
+        hasAttributeErrors() {
+            const relationship = this.relationship();
+            return (
+                Object.values(relationship.getLinkType().attributes)
+                    .map(relationship.attributeError.bind(relationship))
+                    .some(Boolean)
+            );
+        }
+
         hasErrors() {
             var relationship = this.relationship();
 
             return this.linkTypeError() ||
                    this.targetEntityError() ||
-                   Object.values(relationship.getLinkType().attributes)
-                       .map(relationship.attributeError.bind(relationship))
-                       .some(Boolean) ||
+                   this.hasAttributeErrors() ||
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
                    this.tooShortBeginYearError() ||
