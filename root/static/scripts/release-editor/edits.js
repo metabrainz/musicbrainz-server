@@ -199,14 +199,14 @@ releaseEditor.edits = {
             newMediumData = cloneObjectDeep(newMediumData);
 
             if (medium.id) {
-                const newNoPosition = {...newMediumData};
-                delete newNoPosition.position;
-                const oldNoPosition = {...oldMediumData};
-                delete oldNoPosition.position;
+                const newWithoutPosition = {...newMediumData};
+                delete newWithoutPosition.position;
+                const oldWithoutPosition = {...oldMediumData};
+                delete oldWithoutPosition.position;
 
-                if (!deepEqual(newNoPosition, oldNoPosition)) {
-                    newNoPosition.to_edit = medium.id;
-                    edits.push(MB.edit.mediumEdit(newNoPosition, oldNoPosition));
+                if (!deepEqual(newWithoutPosition, oldWithoutPosition)) {
+                    newWithoutPosition.to_edit = medium.id;
+                    edits.push(MB.edit.mediumEdit(newWithoutPosition, oldWithoutPosition));
                 }
             } else if (medium.hasTracks()) {
                 /*
