@@ -71,7 +71,7 @@ $(function () {
         const target = r.target(series);
 
         if (r.entityIsOrdered && r.entityIsOrdered(target)) {
-          r.linkOrder(r.original.linkOrder || 0);
+          r.linkOrder(r.original?.linkOrder || 0);
         }
       }
     }
