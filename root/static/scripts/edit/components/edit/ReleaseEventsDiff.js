@@ -30,7 +30,7 @@ function areReleaseDatesEqual(a, b) {
   return formatDate(a.date) === formatDate(b.date);
 }
 
-const countryId = x => String(x.country?.id ?? null);
+const getCountryId = x => String(x.country?.id ?? null);
 
 const changeSide = (
   oldEvent: ?ReleaseEventT,
@@ -78,8 +78,8 @@ const ReleaseEventsDiff = ({
   newEvents,
   oldEvents,
 }: Props): React.Element<'tr'> => {
-  const oldEventsByCountry = keyBy(oldEvents, countryId);
-  const newEventsByCountry = keyBy(newEvents, countryId);
+  const oldEventsByCountry = keyBy(oldEvents, getCountryId);
+  const newEventsByCountry = keyBy(newEvents, getCountryId);
 
   const oldKeys = Object.keys(oldEventsByCountry).sort();
   const newKeys = Object.keys(newEventsByCountry).sort();
