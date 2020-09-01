@@ -43,6 +43,10 @@ function cloneArrayDeep/*:: <+T> */(
   return _cloneArrayDeep/*:: <T> */(array, new WeakMap());
 }
 
+/*
+ * This module is imported by our Webpack config file, so don't use
+ * `hasOwnProp` here. It's not available!
+ */
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 function _cloneObjectDeep/*:: <+T: {...}> */(

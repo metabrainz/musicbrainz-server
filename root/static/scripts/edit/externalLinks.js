@@ -57,8 +57,6 @@ type LinksEditorState = {
   links: Array<LinkStateT>,
 };
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
 export class ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
   tableRef: {current: HTMLTableElement | null};
@@ -429,7 +427,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               {props.errorMessage}
             </div>}
           {linkType &&
-            hasOwnProperty.call(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
+            hasOwnProp(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
             <div className="attribute-container">
               <label>
                 <input

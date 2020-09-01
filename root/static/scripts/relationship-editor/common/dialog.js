@@ -26,8 +26,6 @@ import isBlank from '../../common/utility/isBlank';
 import {debounceComputed} from '../../common/utility/debounce';
 import deepEqual from '../../common/utility/deepEqual';
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
 const PART_OF_SERIES_LINK_TYPE_GIDS = Object.values(PART_OF_SERIES_LINK_TYPES);
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
@@ -263,7 +261,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                          */
 
                         for (const gid in MB.entityCache) {
-                            if (!hasOwnProperty.call(MB.entityCache, gid)) {
+                            if (!hasOwnProp(MB.entityCache, gid)) {
                                 continue;
                             }
                             const entity = MB.entityCache[gid];

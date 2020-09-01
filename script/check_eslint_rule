@@ -17,6 +17,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../"
     --global jQuery:readonly \
     --global addColon:readonly \
     --global addColonText:readonly \
+    --global hasOwnProp:readonly \
     --global hyphenateTitle:readonly \
     --global nonEmpty:readonly \
     --global l:readonly \
