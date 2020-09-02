@@ -1,3 +1,7 @@
+/* global polyfills not provided by core-js */
+require('whatwg-fetch');
+/* end global polyfills */
+
 require('./public-path');
 
 /*
