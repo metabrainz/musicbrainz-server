@@ -8,7 +8,6 @@
  */
 
 import * as React from 'react';
-import zip from 'lodash/zip';
 
 import EntityLink from '../../common/components/EntityLink';
 import DiffSide from '../components/edit/DiffSide';
@@ -58,22 +57,24 @@ export default function diffArtistCredits(
 
   for (let i = 0; i < diffs.length; i++) {
     const diff = diffs[i];
+    const {oldItems, newItems} = diff;
 
     switch (diff.type) {
       case EQUAL:
-        diff.oldItems.forEach(function (credit) {
+        oldItems.forEach(function (credit) {
           const link = <ArtistLink credit={credit} />;
           oldNames.push(link, credit.joinPhrase);
           newNames.push(link, credit.joinPhrase);
         });
         break;
 
-      case CHANGE:
-        // $FlowFixMe - zip doesn't like $ReadOnlyArray
-        zip(diff.oldItems, diff.newItems).forEach(function (pair) {
-          const oldCredit = pair[0] ||
+      case CHANGE: {
+        const itemCount = Math.max(oldItems.length, newItems.length);
+
+        for (let i = 0; i < itemCount; i++) {
+          const oldCredit = oldItems[i] ||
             {artist: null, joinPhrase: '', name: ''};
-          const newCredit = pair[1] ||
+          const newCredit = newItems[i] ||
             {artist: null, joinPhrase: '', name: ''};
 
           const oldJoin = (
@@ -125,12 +126,13 @@ export default function diffArtistCredits(
             />,
             newJoin,
           );
-        });
+        }
 
         break;
+      }
 
       case DELETE:
-        oldNames.push(...diff.oldItems.map(credit => (
+        oldNames.push(...oldItems.map(credit => (
           <span className={CLASS_MAP[DELETE]}>
             <ArtistLink credit={credit} />
             {credit.joinPhrase}
@@ -139,7 +141,7 @@ export default function diffArtistCredits(
         break;
 
       case INSERT:
-        newNames.push(...diff.newItems.map(credit => (
+        newNames.push(...newItems.map(credit => (
           <span className={CLASS_MAP[INSERT]}>
             <ArtistLink credit={credit} />
             {credit.joinPhrase}

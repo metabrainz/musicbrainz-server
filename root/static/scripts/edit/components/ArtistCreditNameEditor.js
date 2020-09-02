@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import * as React from 'react';
 
 import Autocomplete from '../../common/components/Autocomplete';
@@ -16,7 +15,7 @@ class ArtistCreditNameEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.artistName = _.get(props.name, ['artist', 'name'], '');
+    this.artistName = (props.name.artist?.name) ?? '';
     this.handleArtistChange = this.handleArtistChange.bind(this);
     this.handleNameBlur = this.handleNameBlur.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);

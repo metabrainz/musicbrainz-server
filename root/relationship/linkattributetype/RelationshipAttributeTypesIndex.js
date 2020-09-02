@@ -8,12 +8,12 @@
  */
 
 import * as React from 'react';
-import upperFirst from 'lodash/upperFirst';
 
 import Layout from '../../layout';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 import bracketed, {bracketedText}
   from '../../static/scripts/common/utility/bracketed';
+import {upperFirst} from '../../static/scripts/common/utility/strings';
 import compareChildren from '../utility/compareChildren';
 import RelationshipsHeader from '../RelationshipsHeader';
 

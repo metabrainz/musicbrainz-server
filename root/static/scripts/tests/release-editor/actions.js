@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import test from 'tape';
 
 import MB from '../../common/MB';
@@ -43,10 +42,10 @@ test("removing a medium should change the medium positions", function (t) {
     );
 
     var mediums = release.mediums();
-    t.deepEqual(_.invokeMap(mediums, "position"), [1, 2, 3], "medium positions are consecutive before removal");
+    t.deepEqual(mediums.map(x => x.position()), [1, 2, 3], "medium positions are consecutive before removal");
 
     actions.removeMedium(mediums[0]);
-    t.deepEqual(_.invokeMap(mediums, "position"), [1, 2], "medium positions are consecutive after removal");
+    t.deepEqual(mediums.map(x => x.position()), [1, 2], "medium positions are consecutive after removal");
 });
 
 test("reordering tracks that have non-consecutive \"position\" properties (MBS-7227)", function (t) {

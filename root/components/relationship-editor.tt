@@ -135,7 +135,7 @@
 </script>
 
 <script type="text/html" id="template.dialog-attributes">
-  <!-- ko ifnot: _.isEmpty(relationship().linkTypeAttributes()) -->
+  <!-- ko if: relationship().linkTypeAttributes().length -->
   <tr>
     <td class="section">
       [% l('Attributes:') %]<br />
@@ -212,7 +212,7 @@
               <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: creditedAs" />
             <!-- /ko -->
             <!-- ko if: $parent.instruments().length > 1 -->
-              <button type="button" class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
+              <button type="button" class="icon remove-item" data-bind="click: $parent.removeItem.bind($parent, $rawData)"></button>
             <!-- /ko -->
           </div>
         <!-- /ko -->
@@ -252,7 +252,7 @@
 <script type="text/html" id="template.multiselect">
   <div class="items" data-bind="foreach: selectedAttributes">
     <div>
-      <a href="#" data-bind="html: '&#215; ' + _.escape($root.localizeLinkAttributeTypeName(type))"></a>
+      <a href="#" data-bind="text: '× ' + $root.localizeLinkAttributeTypeName(type)"></a>
       <!-- ko if: type.creditable -->
         <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: creditedAs" />
       <!-- /ko -->

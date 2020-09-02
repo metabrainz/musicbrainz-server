@@ -16,11 +16,13 @@ const addColonPath = path.resolve(i18nPath, 'addColon');
 const hyphenateTitlePath = path.resolve(i18nPath, 'hyphenateTitle');
 const expandPath = path.resolve(i18nPath, 'expand2react');
 const expandTextPath = path.resolve(i18nPath, 'expand2text');
+const hasOwnPropPath = path.resolve(commonPath, 'utility/hasOwnProp');
 const nonEmptyPath = path.resolve(commonPath, 'utility/nonEmpty');
 
 module.exports = {
   addColon: [addColonPath, 'default'],
   addColonText: [addColonPath, 'addColonText'],
+  hasOwnProp: [hasOwnPropPath, 'default'],
   hyphenateTitle: [hyphenateTitlePath, 'default'],
   nonEmpty: [nonEmptyPath, 'default'],
 

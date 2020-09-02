@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {EntityItem} from "./types.js";import {unwrapNl} from '../../i18n';
+import {unwrapNl} from '../../i18n';
 
 import {
   SEARCH_AGAIN,
@@ -21,8 +21,6 @@ import type {
   State,
 } from './types';
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
 function initSearch(state: State, action: SearchAction) {
   if (action.indexed !== undefined) {
     state.indexedSearch = action.indexed;
@@ -31,7 +29,7 @@ function initSearch(state: State, action: SearchAction) {
   state.statusMessage = '';
 
   let searchTerm;
-  if (hasOwnProperty.call(action, 'searchTerm')) {
+  if (hasOwnProp(action, 'searchTerm')) {
     searchTerm = action.searchTerm;
   } else {
     /*

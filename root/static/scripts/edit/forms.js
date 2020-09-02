@@ -8,10 +8,11 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {compare} from '../common/i18n';
 import MB from '../common/MB';
+import {last} from '../common/utility/arrays';
+import debounce from '../common/utility/debounce';
 import {stripAttributes} from '../edit/utility/linkPhrase';
 
 const ELEMENT_NODE = window.Node.ELEMENT_NODE;
@@ -43,8 +44,8 @@ MB.forms = {
                 var opt = {};
 
                 opt.value = child[valueAttr];
-                opt.text = _.repeat(nbsp, indent * 2) +
-                           (_.isFunction(textAttr)
+                opt.text = nbsp.repeat(indent * 2) +
+                           (typeof textAttr === 'function'
                                ? textAttr(child)
                                : child[textAttr]);
                 opt.data = child;
@@ -120,12 +121,12 @@ ko.bindingHandlers.loop = {
         const elements = options.elements || {};
         const template = [];
 
-        _.each(ko.virtualElements.childNodes(parentNode), function (node) {
+        for (const node of Array.from(ko.virtualElements.childNodes(parentNode))) {
             if (node.nodeType === ELEMENT_NODE ||
                 node.nodeType === COMMENT_NODE) {
                 template.push(node);
             }
-        });
+        }
 
         /*
          * For regular DOM nodes this is the same as parentNode; if parentNode
@@ -172,7 +173,7 @@ ko.bindingHandlers.loop = {
                             }
 
                             ko.applyBindingsToDescendants(newContext, tmpElementContainer);
-                            currentElements = _.toArray(tmpElementContainer.childNodes);
+                            currentElements = Array.from(tmpElementContainer.childNodes);
                             elements[itemID] = currentElements;
                             tmpElementContainer = null;
                         }
@@ -247,7 +248,7 @@ ko.bindingHandlers.loop = {
                     }
                 }
 
-                ko.virtualElements.insertAfter(parentNode, elementsToInsert, _.last(elementsToInsertAfter));
+                ko.virtualElements.insertAfter(parentNode, elementsToInsert, last(elementsToInsertAfter));
             }
 
             // Brief timeout in case a removed item gets re-added.
@@ -274,7 +275,7 @@ ko.bindingHandlers.loop = {
 
         ko.utils.domNodeDisposal.addDisposeCallback(parentNode, nodeDisposal);
 
-        update(_.map(observableArray.peek(), function (value, index) {
+        update(observableArray.peek().map(function (value, index) {
             return { status: "added", value: value, index: index };
         }));
 
@@ -329,3 +330,31 @@ ko.bindingHandlers.withLabel = {
 export const buildOptionsTree = MB.forms.buildOptionsTree;
 export const linkTypeOptions = MB.forms.linkTypeOptions;
 export const setDisabledOption = MB.forms.setDisabledOption;
+
+MB.initializeTooShortYearChecks = function (type) {
+  function blockTooShortBeginYear() {
+    const beginYear = $(`#id-edit-${type}\\\.period\\\.begin_date\\\.year`).val();
+    const allowed = (!beginYear || beginYear.trim().length === 4);
+    $('.submit').prop('disabled', !allowed);
+    $('#too_short_begin_year').toggle(!allowed);
+  }
+
+  function blockTooShortEndYear() {
+    const endYear = $(`#id-edit-${type}\\\.period\\\.end_date\\\.year`).val();
+    const allowed = (endYear === null || endYear === '' || endYear.length === 4);
+    $('.submit').prop('disabled', !allowed);
+    $('#too_short_end_year').toggle(!allowed);
+  }
+
+  $(`#id-edit-${type}\\\.period\\\.begin_date\\\.year`)
+    .keyup(debounce(blockTooShortBeginYear, 500))
+    .change(debounce(blockTooShortBeginYear, 500));
+
+  blockTooShortBeginYear();
+
+  $(`#id-edit-${type}\\\.period\\\.end_date\\\.year`)
+    .keyup(debounce(blockTooShortEndYear, 500))
+    .change(debounce(blockTooShortEndYear, 500));
+
+  blockTooShortEndYear();
+};

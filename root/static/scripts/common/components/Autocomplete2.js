@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import partition from 'lodash/partition';
-import unionBy from 'lodash/unionBy';
 import * as React from 'react';
 
 import ENTITIES from '../../../../../entities';
@@ -39,6 +37,7 @@ import formatItem from './Autocomplete2/formatters';
 import reducer from './Autocomplete2/reducer';
 import type {
   Actions,
+  EntityItem,
   Item,
   Props,
   Instance,
@@ -157,10 +156,17 @@ function doSearch(instance: Instance) {
       ? MENU_ITEMS.TRY_AGAIN_DIRECT
       : MENU_ITEMS.TRY_AGAIN_INDEXED);
 
-    const [, prevItems] = partition(instance.state.items, hasAction);
+    const prevItems: Array<EntityItem> = [];
+    const prevItemIds = new Set();
+    for (const item of instance.state.items) {
+      if (!item.action) {
+        prevItems.push(item);
+        prevItemIds.add(item.id);
+      }
+    }
 
     newItems = newPage > 1
-      ? unionBy(prevItems, newItems, x => x.id)
+      ? prevItems.concat(newItems.filter(x => !prevItemIds.has(x.id)))
       : newItems;
 
     instance.dispatch({
@@ -199,12 +205,6 @@ function findItem(instance: Instance, itemId: string) {
     }
   }
   return [-1, null];
-}
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
-function hasAction(x: Item) {
-  return hasOwnProperty.call(x, 'action');
 }
 
 function setScrollPosition(menuId: string, siblingAccessor: string) {

@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -53,13 +52,13 @@ function showErrorHandler(handler) {
         const errorField = valueAccessor();
 
         // Binding may be running before element has been added to the DOM.
-        _.defer(function () {
+        setTimeout(function () {
             ko.computed({
                 read: function () {
                     const value = errorField.call(vm);
                     const $panel = $element.parents(".ui-tabs-panel");
 
-                    if (_.isString(value)) {
+                    if (typeof value === 'string') {
                         $element.text(value || "");
                     }
                     handler(value, $element, $panel);
@@ -67,7 +66,7 @@ function showErrorHandler(handler) {
                 },
                 disposeWhenNodeIsRemoved: element,
             });
-        });
+        }, 1);
     };
 }
 

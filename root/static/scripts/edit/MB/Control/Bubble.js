@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 
 import MB from '../../../common/MB';
@@ -51,9 +50,9 @@ class BubbleBase {
         }
         this.activeBubbles[this.group] = this;
 
-        _.defer(function () {
+        setTimeout(function () {
             $bubble.find("a").attr("target", "_blank");
-        });
+        }, 1);
     }
 
     hide(stealFocus) {
@@ -232,11 +231,19 @@ ko.bindingHandlers.affectsBubble = {
             return;
         }
 
-        var observer = new MutationObserver(_.throttle(function () {
-            _.delay(function () {
-                valueAccessor().redraw();
-            }, 100);
-        }, 100));
+        let throttled = false;
+        var observer = new MutationObserver(function () {
+            if (!throttled) {
+                throttled = true;
+                setTimeout(function () {
+                    try {
+                        valueAccessor().redraw();
+                    } finally {
+                        throttled = false;
+                    }
+                }, 100);
+            }
+        });
 
         observer.observe(element, { childList: true, subtree: true });
 

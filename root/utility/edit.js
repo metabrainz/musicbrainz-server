@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import get from 'lodash/get';
-
 import {
   EDIT_EXPIRE_ACCEPT,
   EDIT_EXPIRE_REJECT,
@@ -116,7 +114,7 @@ export function editorMayApprove(edit: EditT, editor: ?EditorT): boolean {
 
   switch (edit.edit_type) {
     case EDIT_RELATIONSHIP_DELETE:
-      const linkType = get(edit, 'data.relationship.link.type');
+      const linkType = edit.data.relationship?.link?.type;
 
       if (linkType && typeof linkType === 'object') {
         // MBS-8332
@@ -128,8 +126,8 @@ export function editorMayApprove(edit: EditT, editor: ?EditorT): boolean {
       break;
 
     case EDIT_SERIES_EDIT:
-      const oldOrderingType = get(edit, 'data.old.ordering_type_id', 0);
-      const newOrderingType = get(edit, 'data.new.ordering_type_id', 0);
+      const oldOrderingType = (edit.data.old?.ordering_type_id) ?? 0;
+      const newOrderingType = (edit.data.new?.ordering_type_id) ?? 0;
       // Intentional != since some edit data store numbers as strings
       if (oldOrderingType != newOrderingType) {
         return false;

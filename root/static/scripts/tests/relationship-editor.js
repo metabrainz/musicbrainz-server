@@ -10,11 +10,11 @@ import './typeInfo';
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import test from 'tape';
 
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
+import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import fields from '../relationship-editor/common/fields';
 import {
   AddDialog,
@@ -30,7 +30,7 @@ import {ReleaseViewModel} from '../relationship-editor/release';
 
 class FakeRelationship extends fields.Relationship {}
 
-FakeRelationship.prototype.loadWorkRelationships = _.noop;
+FakeRelationship.prototype.loadWorkRelationships = () => undefined;
 
 class FakeGenericEntityViewModel extends GenericEntityViewModel {}
 
@@ -38,7 +38,7 @@ FakeGenericEntityViewModel.prototype.relationshipClass = FakeRelationship;
 
 class FakeReleaseViewModel extends ReleaseViewModel {}
 
-FakeReleaseViewModel.prototype.loadRelease = _.noop;
+FakeReleaseViewModel.prototype.loadRelease = () => undefined;
 
 FakeReleaseViewModel.prototype.relationshipClass = FakeRelationship;
 
@@ -122,12 +122,15 @@ function id2attr(id) {
 }
 
 function ids2attrs(ids) {
-    return _.map(ids, id2attr);
+    return ids.map(id2attr);
 }
 
 function setupReleaseRelationshipEditor() {
+    const testReleaseCopy = {...testRelease};
+    delete testReleaseCopy.mediums;
+
     var vm = new FakeReleaseViewModel({
-        sourceData: _.omit(testRelease, "mediums"),
+        sourceData: testReleaseCopy,
     });
 
     vm.releaseLoaded(testRelease);
@@ -141,9 +144,10 @@ function setupGenericRelationshipEditor(options) {
 }
 
 function formData() {
-    var inputsArray = _.toArray($("input[type=hidden]"));
-    return _.transform(inputsArray, function (result, input) {
+    var inputsArray = Array.from($("input[type=hidden]"));
+    return inputsArray.reduce(function (result, input) {
         result[input.name] = input.value;
+        return result;
     }, {});
 };
 
@@ -155,20 +159,7 @@ function relationshipEditorTest(name, callback) {
                 .append('<div id="content"></div><div id="dialog"></div></div>')
                 .appendTo('body');
 
-        /*
-         * _.defer makes its target functions asynchronous. It is redefined
-         * here to call its target right away, so that we don't have to deal
-         * with writing async tests.
-         */
-        var _defer = _.defer;
-
-        _.defer = function (func) {
-            func.apply(null, _.toArray(arguments).slice(1));
-        };
-
         callback(t);
-
-        _.defer = _defer;
 
         MB.entityCache = {};
         MB.sourceRelationshipEditor = null;
@@ -229,11 +220,11 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         },
     ];
 
-    _.each(tests, function (test) {
+    for (const test of tests) {
         relationship.linkTypeID(test.linkTypeID);
         relationship.setAttributes(test.attributes);
 
-        var result = relationship.phraseAndExtraAttributes(
+        const result = relationship.phraseAndExtraAttributes(
             entities.indexOf(source) === 0 ? 'link_phrase' : 'reverse_link_phrase',
             false,
         );
@@ -241,13 +232,16 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         t.equal(
             result[0],
             test.expected,
-            [test.linkTypeID, JSON.stringify(_(test.attributes).map('type.id').value())].join(", "),
+            [
+                test.linkTypeID,
+                JSON.stringify(test.attributes.map(x => x.type.id)),
+            ].join(", "),
         );
 
         if (test.expectedExtra) {
             t.equal(result[1], test.expectedExtra);
         }
-    });
+    }
 
     relationship.remove();
 });
@@ -284,10 +278,7 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
     t.ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
     t.deepEqual(
-        _(relationship.attributes())
-            .map('type.id')
-            .value()
-            .sort(),
+        relationship.attributes().map(x => x.type.id).sort(),
         [123, 194, 277],
         "attributes are the same",
     );
@@ -381,15 +372,15 @@ relationshipEditorTest("dialog backwardness", function (t) {
         },
     ];
 
-    _.each(tests, function (test) {
-        var options = {...test.input, viewModel: vm};
-        var dialog = new AddDialog(options);
+    for (const test of tests) {
+        const options = {...test.input, viewModel: vm};
+        const dialog = new AddDialog(options);
 
         t.equal(dialog.backward(), test.expected.backward);
         t.deepEqual(dialog.relationship().entities(), test.expected.entities);
 
         dialog.close();
-    });
+    }
 });
 
 relationshipEditorTest("AddDialog", function (t) {
@@ -418,7 +409,7 @@ relationshipEditorTest("BatchRelationshipDialog", function (t) {
     var vm = setupReleaseRelationshipEditor();
 
     var target = MB.entity({ entityType: "artist", gid: fakeGID0 });
-    var recordings = _.map(vm.source.mediums()[0].tracks, "recording");
+    var recordings = vm.source.mediums()[0].tracks.map(x => x.recording);
 
     var dialog = new BatchRelationshipDialog({
         sources: recordings,
@@ -453,7 +444,7 @@ relationshipEditorTest("BatchCreateWorksDialog", function (t) {
 
     var vm = setupReleaseRelationshipEditor();
 
-    var recordings = _.map(vm.source.mediums()[0].tracks, "recording");
+    var recordings = vm.source.mediums()[0].tracks.map(x => x.recording);
 
     var dialog = new BatchCreateWorksDialog({
         sources: recordings, viewModel: vm,
@@ -911,7 +902,7 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: _.cloneDeep(loveMeDo),
+        sourceData: cloneObjectDeep(loveMeDo),
     });
 
     var relationship = vm.source.relationships()[0];
@@ -954,13 +945,15 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
         ),
     );
 
-    t.equal(relationship.attributes().length, 1, "invalid attribute not added");
+    setTimeout(function () {
+        t.equal(relationship.attributes().length, 1, "invalid attribute not added");
+    }, 1);
 });
 
 relationshipEditorTest('relationships with different link orders are not duplicates of each other', function (t) {
     t.plan(1);
 
-    var sourceData = _.cloneDeep(loveMeDo);
+    var sourceData = cloneObjectDeep(loveMeDo);
 
     var vm = setupGenericRelationshipEditor({
         sourceData: sourceData,

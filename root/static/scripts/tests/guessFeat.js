@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import test from 'tape';
 
 import guessFeat from '../edit/utility/guessFeat';
@@ -432,10 +431,12 @@ test('guessing feat. artists', function (t) {
     return {
       name: track.name(),
       artistCredit: {
-        names: _.map(
-          track.artistCredit().names,
-          _.partialRight(_.omit, ['artist', 'automaticJoinPhrase']),
-        ),
+        names: track.artistCredit().names.map((name) => {
+          const copy = {...name};
+          delete copy.artist;
+          delete copy.automaticJoinPhrase;
+          return copy;
+        }),
       },
     };
   }
@@ -447,16 +448,16 @@ test('guessing feat. artists', function (t) {
     );
   }
 
-  _.each(trackTests, function (x) {
+  for (const test of trackTests) {
     const release = new fields.Release({
       artistCredit: {names: []},
-      mediums: [{tracks: [x.input]}],
+      mediums: [{tracks: [test.input]}],
     });
 
-    runTest(x, release.mediums()[0].tracks()[0]);
-  });
+    runTest(test, release.mediums()[0].tracks()[0]);
+  }
 
-  _.each(releaseTests, function (x) {
-    runTest(x, new fields.Release(x.input));
-  });
+  for (const test of releaseTests) {
+    runTest(test, new fields.Release(test.input));
+  }
 });

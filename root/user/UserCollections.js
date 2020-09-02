@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import some from 'lodash/some';
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
@@ -54,9 +53,8 @@ function formatCollaboratorNumber(
   collaborators: $ReadOnlyArray<EditorT>,
   currentUser: EditorT | null,
 ) {
-  const isCollaborator = !!currentUser && some(
-    collaborators,
-    (collaborator => collaborator.id === currentUser.id),
+  const isCollaborator = !!currentUser && collaborators.some(
+    collaborator => collaborator.id === currentUser.id,
   );
 
   return isCollaborator ? (

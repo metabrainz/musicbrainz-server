@@ -9,7 +9,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -22,7 +21,9 @@ import {compare} from '../common/i18n';
 import expand2react from '../common/i18n/expand2react';
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
+import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
 import {hasSessionStorage} from '../common/utility/storage';
+import {uniqueId} from '../common/utility/strings';
 
 import isPositiveInteger from './utility/isPositiveInteger';
 import HelpIcon from './components/HelpIcon';
@@ -40,6 +41,7 @@ type LinkStateT = {
 };
 
 type LinkHashT = {
+  __proto__: empty,
   +[key: number | string | null]: LinkStateT,
   ...
 };
@@ -130,10 +132,11 @@ export class ExternalLinksEditor
   }
 
   getOldLinksHash(): LinkHashT {
-    return _(this.props.initialLinks)
-      .filter(link => isPositiveInteger(link.relationship))
-      .keyBy('relationship')
-      .value();
+    return keyBy(
+      this.props.initialLinks
+        .filter(link => isPositiveInteger(link.relationship)),
+      x => String(x.relationship),
+    );
   }
 
   getEditData(): {
@@ -142,13 +145,13 @@ export class ExternalLinksEditor
     oldLinks: LinkHashT,
     } {
     const oldLinks = this.getOldLinksHash();
-    const newLinks = _.keyBy<
+    const newLinks = keyBy<
       LinkStateT,
       $ElementType<LinkStateT, 'relationship'>,
-    >(this.state.links, 'relationship');
+    >(this.state.links, x => String(x.relationship));
 
     return {
-      allLinks: _.defaults(_.clone(newLinks), oldLinks),
+      allLinks: {...oldLinks, ...newLinks},
       newLinks: newLinks,
       oldLinks: oldLinks,
     };
@@ -163,8 +166,11 @@ export class ExternalLinksEditor
     const backward = this.props.sourceType > 'url';
     const {oldLinks, newLinks, allLinks} = this.getEditData();
 
-    _.each(allLinks, function (link, relationship) {
-      if (!link.type) {
+    for (
+      const [relationship, link] of
+      ((Object.entries(allLinks): any): $ReadOnlyArray<[string, ?LinkStateT]>)
+    ) {
+      if (!link?.type) {
         return;
       }
 
@@ -192,7 +198,7 @@ export class ExternalLinksEditor
       }
 
       pushInput(prefix, 'link_type_id', String(link.type) || '');
-    });
+    }
   }
 
   render(): React.Element<'table'> {
@@ -200,11 +206,13 @@ export class ExternalLinksEditor
 
     const oldLinks = this.getOldLinksHash();
     const linksArray = this.state.links;
-
-    const linksByTypeAndUrl = _(linksArray).concat(this.props.initialLinks)
-      .uniqBy((link) => link.relationship)
-      .groupBy(linkTypeAndUrlString)
-      .value();
+    const linksByTypeAndUrl = groupBy(
+      uniqBy(
+        linksArray.concat(this.props.initialLinks),
+        link => link.relationship,
+      ),
+      linkTypeAndUrlString,
+    );
 
     return (
       <table
@@ -263,20 +271,20 @@ export class ExternalLinksEditor
               <ExternalLink
                 errorMessage={error || ''}
                 handleUrlBlur={
-                  _.bind(this.handleUrlBlur, this, index)
+                  this.handleUrlBlur.bind(this, index)
                 }
                 handleUrlChange={
-                  _.bind(this.handleUrlChange, this, index)
+                  this.handleUrlChange.bind(this, index)
                 }
                 handleVideoChange={
-                  _.bind(this.handleVideoChange, this, index)
+                  this.handleVideoChange.bind(this, index)
                 }
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
-                onRemove={_.bind(this.removeLink, this, index)}
+                onRemove={this.removeLink.bind(this, index)}
                 type={link.type}
                 typeChangeCallback={
-                  _.bind(this.handleTypeChange, this, index)
+                  this.handleTypeChange.bind(this, index)
                 }
                 typeOptions={this.props.typeOptions}
                 url={link.url}
@@ -419,7 +427,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               {props.errorMessage}
             </div>}
           {linkType &&
-            _.has(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
+            hasOwnProp(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
             <div className="attribute-container">
               <label>
                 <input
@@ -453,8 +461,7 @@ const defaultLinkState: LinkStateT = {
 };
 
 function newLinkState(state: $Shape<LinkStateT>) {
-  _.defaults(state, defaultLinkState);
-  return state;
+  return {...defaultLinkState, ...state};
 }
 
 function linkTypeAndUrlString(link) {
@@ -467,6 +474,7 @@ function isEmpty(link) {
 
 function withOneEmptyLink(links, dontRemove) {
   let emptyCount = 0;
+  let canRemoveCount = 0;
   const canRemove = {};
 
   links.forEach(function (link, index) {
@@ -474,13 +482,14 @@ function withOneEmptyLink(links, dontRemove) {
       ++emptyCount;
       if (index !== dontRemove) {
         canRemove[index] = true;
+        canRemoveCount++;
       }
     }
   });
 
   if (emptyCount === 0) {
-    return links.concat(newLinkState({relationship: _.uniqueId('new-')}));
-  } else if (emptyCount > 1 && _.size(canRemove)) {
+    return links.concat(newLinkState({relationship: uniqueId('new-')}));
+  } else if (emptyCount > 1 && canRemoveCount > 0) {
     return links.filter((link, index) => !canRemove[index]);
   }
   return links;
@@ -609,6 +618,11 @@ type InitialOptionsT = {
   sourceData: CoreEntityT,
 };
 
+type SeededUrlShape = {
+  +link_type_id?: string,
+  +text?: string,
+};
+
 MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   const sourceData = options.sourceData;
   const sourceType = sourceData.entityType;
@@ -638,13 +652,16 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
       (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
     }
 
-    _.each(urls, function (data) {
+    for (
+      const data of
+      ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
+    ) {
       initialLinks.push(newLinkState({
-        relationship: _.uniqueId('new-'),
-        type: data.link_type_id,
+        relationship: uniqueId('new-'),
+        type: parseInt(data.link_type_id, 10) || null,
         url: data.text || '',
       }));
-    });
+    }
   }
 
   initialLinks.sort(function (a, b) {
@@ -664,7 +681,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
      */
     if (!isPositiveInteger(link.relationship)) {
       return Object.assign({}, link, {
-        relationship: _.uniqueId('new-'),
+        relationship: uniqueId('new-'),
         url: URLCleanup.cleanURL(link.url) || link.url,
       });
     }

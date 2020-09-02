@@ -301,7 +301,7 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
   },
 ): ColumnOptions<T, string> {
   const descriptive =
-    Object.prototype.hasOwnProperty.call(props, 'descriptive')
+    hasOwnProp(props, 'descriptive')
       ? props.descriptive
       : true;
   return {

@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 
 import linkedEntities from '../../common/linkedEntities';
@@ -60,7 +59,7 @@ import deferFocus from '../../edit/utility/deferFocus';
             }
 
             this.selectedAttributes = ko.computed(function () {
-                return _.filter(params.relationship.attributes(), function (attribute) {
+                return params.relationship.attributes().filter(function (attribute) {
                     return attribute.type.root === params.attribute;
                 });
             });
@@ -89,13 +88,13 @@ import deferFocus from '../../edit/utility/deferFocus';
             var previousDisplay = menu.style.display;
             menu.style.display = "none";
 
-            var optionNodes = _.filter(this.optionNodes, function (node) {
+            var optionNodes = this.optionNodes.filter(function (node) {
                 var option = node.optionData;
                 var typeGID = option.value;
 
                 var visible = matchIndex(option, term) >= 0 && (
                     linkedEntities.link_attribute_type[typeGID].creditable ||
-                    _.findIndex(selected, a => a.type.gid === typeGID) < 0
+                    selected.findIndex(a => a.type.gid === typeGID) < 0
                 );
 
                 node.style.display = visible ? "block" : "none";
@@ -126,7 +125,7 @@ import deferFocus from '../../edit/utility/deferFocus';
 
             const nodes = this.optionNodes;
             let node;
-            let nextIndex = _.findIndex(nodes, node => node.optionData.value === typeGID);
+            let nextIndex = nodes.findIndex(node => node.optionData.value === typeGID);
 
             while ((node = nodes[++nextIndex])) {
                 if (node.style.display === "block") {

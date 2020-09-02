@@ -24,7 +24,6 @@ if (DBDefs.DEVELOPMENT_SERVER) {
 require('./common/sentry');
 
 window.ko = require("knockout");
-window._ = require("lodash");
 window.$ = window.jQuery = require("jquery");
 
 require("../lib/jquery.ui/ui/jquery-ui.custom");

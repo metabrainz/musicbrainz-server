@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 
 import {ENTITY_NAMES} from '../common/constants';
@@ -35,11 +34,16 @@ ERE.init = function (config) {
         'setEntity': ERE.viewModel.selectedEntityType,
     });
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
-    ERE.viewModel.availableEntityTypes(
-        _.uniq([type0, type1]).map(function (value) {
-            return { 'value': value, 'text': ENTITY_NAMES[value]() };
-        }),
-    );
+
+    const availableEntityTypes = [
+        {text: ENTITY_NAMES[type0](), value: type0},
+    ];
+    if (type0 !== type1) {
+        availableEntityTypes.push(
+            {text: ENTITY_NAMES[type1](), value: type1},
+        );
+    }
+    ERE.viewModel.availableEntityTypes(availableEntityTypes);
 
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
@@ -130,13 +134,14 @@ const RelationshipSearcher = function () {
                 return;
             }
 
-            var relationships =
-                _.filter(data.relationships, { linkTypeID: linkTypeID });
+            var relationships = data.relationships.filter(
+                x => x.linkTypeID === linkTypeID,
+            );
 
             if (relationships.length) {
                 self.error(null);
 
-                _.each(relationships, function (rel) {
+                for (const rel of relationships) {
                     let source = data;
                     let target = rel.target;
 
@@ -157,7 +162,7 @@ const RelationshipSearcher = function () {
                             mbid: target.gid,
                         },
                     });
-                });
+                }
             } else {
                 self.error(
                     'No ' + linkTypeName + ' relationships found for ' + data.name,

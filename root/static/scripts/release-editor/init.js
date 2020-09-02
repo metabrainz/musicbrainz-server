@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {
   artistCreditsAreEqual,
@@ -17,6 +16,7 @@ import {
 } from '../common/immutable-entities';
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
+import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import request from '../common/utility/request';
 import * as externalLinks from '../edit/externalLinks';
 import * as validation from '../edit/validation';
@@ -40,7 +40,11 @@ Object.assign(releaseEditor, {
 releaseEditor.init = function (options) {
     var self = this;
 
-    $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
+    $.extend(this, {
+        action: options.action,
+        redirectURI: options.redirectURI,
+        returnTo: options.returnTo,
+    });
 
     /*
      * Setup guess case buttons for the title field. Do this every time the
@@ -48,9 +52,9 @@ releaseEditor.init = function (options) {
      * longer exist.
      */
     utils.withRelease(function () {
-        _.defer(function () {
+        setTimeout(function () {
             MB.Control.initializeGuessCase("release");
-        });
+        }, 1);
     });
 
     /*
@@ -74,15 +78,15 @@ releaseEditor.init = function (options) {
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
                 /*
-                 * The _.defer is entirely for <select> elements in Firefox,
+                 * The setTimeout is entirely for <select> elements in Firefox,
                  * which don't have their change events triggered until after
                  * enter is hit. Additionally, if we switch tabs before the
                  * change event is handled, it doesn't seem to even register
                  * (probably because the <select> is hidden by then).
                  */
-                _.defer(function () {
+                setTimeout(function () {
                     self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
-                });
+                }, 1);
             }
         });
 
@@ -174,22 +178,22 @@ releaseEditor.init = function (options) {
 
     utils.withRelease(function (release) {
         var tabID = self.activeTabID();
-        var releaseAC = _.cloneDeep(release.artistCredit());
+        var releaseAC = cloneObjectDeep(release.artistCredit());
         var savedReleaseAC = release.artistCredit.saved;
         var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
         if (tabID === "#tracklist" && releaseACChanged) {
             if (!hasVariousArtists(releaseAC)) {
-                _.each(release.mediums(), function (medium) {
-                    _.each(medium.tracks(), function (track) {
+                for (const medium of release.mediums()) {
+                    for (const track of medium.tracks()) {
                         if (reduceArtistCredit(track.artistCredit()) === reduceArtistCredit(savedReleaseAC)) {
                             track.artistCredit(releaseAC);
                             track.artistCreditEditorInst.setState({
                                 artistCredit: track.artistCredit.peek(),
                             });
                         }
-                    });
-                });
+                    }
+                }
             }
             release.artistCredit.saved = releaseAC;
         }
@@ -318,9 +322,9 @@ releaseEditor.releaseLoaded = function (data) {
     var seed = this.seededReleaseData;
 
     // Setup the external links editor
-    _.defer(function () {
+    setTimeout(function () {
         releaseEditor.createExternalLinksEditor(data, $('#external-links-editor-container')[0]);
-    });
+    }, 1);
 
     var release = new fields.Release(data);
 

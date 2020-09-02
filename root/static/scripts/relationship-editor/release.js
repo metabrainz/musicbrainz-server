@@ -8,9 +8,9 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import MB from '../common/MB';
+import {uniqBy} from '../common/utility/arrays';
 import request from '../common/utility/request';
 
 import {ViewModel} from './common/viewModel';
@@ -98,32 +98,32 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         getEdits(addChanged) {
             var release = this.source;
 
-            _.each(release.mediums(), function (medium) {
-                _.each(medium.tracks, function (track) {
-                    var recording = track.recording;
+            for (const medium of release.mediums()) {
+                for (const track of medium.tracks) {
+                    const recording = track.recording;
 
-                    _.each(recording.relationships(), function (r) {
+                    for (const r of recording.relationships()) {
                         addChanged(r, recording);
 
                         if (r.entityTypes === "recording-work") {
-                            var work = r.entities()[1];
+                            const work = r.entities()[1];
 
-                            _.each(work.relationships(), function (r) {
+                            for (const r of work.relationships()) {
                                 addChanged(r, work);
-                            });
+                            }
                         }
-                    });
-                });
-            });
+                    }
+                }
+            }
 
-            _.each(release.relationships(), function (r) {
+            for (const r of release.relationships()) {
                 addChanged(r, release);
-            });
+            }
 
             var rg = release.releaseGroup;
-            _.each(rg.relationships(), function (r) {
+            for (const r of rg.relationships()) {
                 addChanged(r, rg);
-            });
+            }
         }
 
         submit(data, event) {
@@ -176,10 +176,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 .done(this.submissionDone)
                 .fail(function (jqXHR) {
                     try {
-                        var response = JSON.parse(jqXHR.responseText);
-                        var message = _.isObject(response.error) ?
-                                        response.error.message : response.error;
-
+                        const {error} = JSON.parse(jqXHR.responseText);
+                        const message = error && typeof error === 'object'
+                            ? error.message
+                            : error;
                         this.submissionError(message);
                     } catch (e) {
                         this.submissionError(jqXHR.responseText);
@@ -195,16 +195,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         releaseLoaded(data) {
             var release = this.source;
 
-            release.mediums(_.map(data.mediums, function (mediumData) {
-                _.each(mediumData.tracks, function (trackData) {
+            release.mediums(data.mediums.map(function (mediumData) {
+                for (const trackData of mediumData.tracks) {
                     MB.entity(trackData.recording).parseRelationships(
                         trackData.recording.relationships,
                     );
-                });
+                }
                 return new MB.entity.Medium(mediumData, release);
             }));
 
-            var trackCount = _.reduce(release.mediums(), (memo, medium) => {
+            var trackCount = release.mediums().reduce((memo, medium) => {
                 return memo + medium.tracks.length;
             }, 0);
 
@@ -246,7 +246,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         openBatchCreateWorksDialog() {
-            var sources = _.filter(UI.checkedRecordings(), function (recording) {
+            var sources = UI.checkedRecordings().filter(function (recording) {
                 return recording.performances().length === 0;
             });
 
@@ -319,7 +319,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         var $tracklist = $("#tracklist tbody");
 
         function count($inputs) {
-            return _.uniqBy($inputs, ko.dataFor).length;
+            return uniqBy(Array.from($inputs), ko.dataFor).length;
         }
 
         function medium(mediumSelector, selector, counter) {

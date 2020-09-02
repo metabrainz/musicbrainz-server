@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import test from 'tape';
 
 import formatDate from '../common/utility/formatDate';
@@ -152,10 +151,10 @@ test('parseDate', function (t) {
         { date: '1999-01--', expected: { year: 1999, month: 1, day: null } },
     ];
 
-    _.each(parseDateTests, function (test) {
-        var result = parseDate(test.date);
+    for (const test of parseDateTests) {
+        const result = parseDate(test.date);
         t.deepEqual(result, test.expected, test.date);
-    });
+    }
 });
 
 test("formatDate", function (t) {
@@ -173,7 +172,7 @@ test("formatDate", function (t) {
     t.equal(formatDate({ month: 1, day: 1 }), "????-01-01");
     t.equal(formatDate({ day: 1 }), "????-??-01");
     t.equal(formatDate({ year: 0, month: 1, day: 1 }), "0000-01-01");
-    t.equal(formatDate({ year: -1, month: 1, day: 1 }), "-001-01-01");
+    t.equal(formatDate({ year: -1, month: 1, day: 1 }), "-0001-01-01");
 });
 
 test("formatDatePeriod", function (t) {
@@ -258,9 +257,9 @@ test("validDatePeriod", function (t) {
         },
     ];
 
-    _.each(tests, function (test) {
+    for (const test of tests) {
         t.equal(dates.isDatePeriodValid(test.a, test.b), test.expected);
-    });
+    }
 });
 
 test("fullwidthLatin", function (t) {

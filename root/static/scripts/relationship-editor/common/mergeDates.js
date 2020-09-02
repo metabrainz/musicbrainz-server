@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull';
 
@@ -15,11 +14,19 @@ function conflict(a, b, prop) {
     return nonEmpty(a[prop]) && nonEmpty(b[prop]) && a[prop] !== b[prop];
 }
 
-var unwrapInteger = _.flow(ko.unwrap, parseIntegerOrNull);
+var unwrapInteger = x => parseIntegerOrNull(ko.unwrap(x));
 
 function mergeDates(a, b) {
-    a = _.mapValues(a, unwrapInteger);
-    b = _.mapValues(b, unwrapInteger);
+    a = {
+        year: unwrapInteger(a.year),
+        month: unwrapInteger(a.month),
+        day: unwrapInteger(a.day),
+    };
+    b = {
+        year: unwrapInteger(b.year),
+        month: unwrapInteger(b.month),
+        day: unwrapInteger(b.day),
+    };
 
     if (conflict(a, b, 'year') || conflict(a, b, 'month') || conflict(a, b, 'day')) {
         return null;

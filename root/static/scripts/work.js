@@ -8,7 +8,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
 import * as React from 'react';
@@ -18,12 +17,14 @@ import {createStore} from 'redux';
 import FormRowSelectList from '../../components/FormRowSelectList';
 import subfieldErrors from '../../utility/subfieldErrors';
 
+import {groupBy} from './common/utility/arrays';
 import getScriptArgs from './common/utility/getScriptArgs';
 import {buildOptionsTree} from './edit/forms';
 import {initializeBubble} from './edit/MB/Control/Bubble';
 import {createCompoundField} from './edit/utility/createField';
 import {pushCompoundField, pushField} from './edit/utility/pushField';
 import {initializeGuessCase} from './guess-case/MB/Control/GuessCase';
+import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from './common/constants';
 
 const scriptArgs = getScriptArgs();
 
@@ -101,7 +102,7 @@ function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
 class WorkAttribute {
   allowedValues: () => OptionListT;
 
-  allowedValuesByTypeID: {[typeId: number]: OptionListT, ...};
+  allowedValuesByTypeID: {[typeId: StrOrNum]: OptionListT, ...};
 
   attributeValue: KnockoutObservable<string>;
 
@@ -126,10 +127,10 @@ class WorkAttribute {
     this.allowedValues = ko.computed(() => {
       const typeID = this.typeID();
 
-      if (this.allowsFreeText()) {
+      if (!typeID || this.allowsFreeText()) {
         return [];
       }
-      return this.parent.allowedValuesByTypeID[typeID];
+      return this.parent.allowedValuesByTypeID[typeID] ?? [];
     });
 
     this.typeID.subscribe(newTypeID => {
@@ -164,9 +165,9 @@ class WorkAttribute {
 class ViewModel {
   attributeTypes: OptionListT;
 
-  attributeTypesByID: {[typeId: number]: WorkAttributeTypeTreeT, ...};
+  attributeTypesByID: {[typeId: StrOrNum]: WorkAttributeTypeTreeT, ...};
 
-  allowedValuesByTypeID: {[typeId: number]: OptionListT, ...};
+  allowedValuesByTypeID: {[typeId: StrOrNum]: OptionListT, ...};
 
   attributes: KnockoutObservableArray<WorkAttribute>;
 
@@ -183,19 +184,21 @@ class ViewModel {
 
     this.attributeTypesByID = attributeTypes.children.reduce(byID, {});
 
-    this.allowedValuesByTypeID = _(allowedValues.children)
-      .groupBy(x => x.workAttributeTypeID)
-      .mapValues(function (children) {
-        return buildOptionsTree(
+    this.allowedValuesByTypeID = Object.fromEntries(
+      Object.entries(
+        groupBy(allowedValues.children, x => String(x.workAttributeTypeID)),
+      ).map(([typeId, children]) => [
+        typeId,
+        buildOptionsTree(
           {children},
           x => lp_attributes(x.value, 'work_attribute_type_allowed_value'),
           'id',
-        );
-      })
-      .value();
+        ),
+      ]),
+    );
 
     this.attributes = ko.observableArray(
-      _.map(attributes, data => new WorkAttribute(data, this)),
+      attributes.map(data => new WorkAttribute(data, this)),
     );
   }
 
@@ -222,7 +225,7 @@ function byID(result, parent) {
 
 {
   const attributes = form.field.attributes;
-  if (_.isEmpty(attributes.field)) {
+  if (!attributes.field.length) {
     form = mutate<WritableWorkForm, _>(form, newForm => {
       pushCompoundField(newForm.field.attributes, {
         type_id: null,
@@ -262,21 +265,25 @@ function removeLanguage(i) {
   });
 }
 
+const getSelectField = field => field;
+
 function renderWorkLanguages() {
   const workLanguagesNode = document.getElementById('work-languages-editor');
   if (!workLanguagesNode) {
     throw new Error('Mount point #work-languages-editor does not exist');
   }
   const form: WorkForm = store.getState();
+  const selectedLanguageIds =
+    form.field.languages.field.map(lang => String(lang.value));
   ReactDOM.render(
     <FormRowSelectList
       addId="add-language"
       addLabel={l('Add Language')}
-      getSelectField={_.identity}
-      hideAddButton={_.intersection(
-        form.field.languages.field.map(lang => String(lang.value)),
-        ['486', '284'],
-      ).length > 0}
+      getSelectField={getSelectField}
+      hideAddButton={
+        selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
+        selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
+      }
       label={l('Lyrics Languages')}
       onAdd={addLanguage}
       onEdit={editLanguage}

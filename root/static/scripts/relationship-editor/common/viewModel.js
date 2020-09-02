@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import localizeLinkAttributeTypeDescription
     from '../../common/i18n/localizeLinkAttributeTypeDescription';
@@ -16,9 +15,11 @@ import localizeLinkAttributeTypeName
     from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
+import {groupBy} from '../../common/utility/arrays';
 import parseDate from '../../common/utility/parseDate';
 import request from '../../common/utility/request';
 import {hasSessionStorage} from '../../common/utility/storage';
+import {uniqueId} from '../../common/utility/strings';
 
 import fields from './fields';
 
@@ -38,8 +39,13 @@ const addAnotherEntityLabels = {
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
-    RE.exportTypeInfo = _.once(function (typeInfo, attrInfo) {
-        const attrChildren = _.groupBy(attrInfo, x => x.parent_id);
+let typeInfoLoaded = false;
+
+    RE.exportTypeInfo = function (typeInfo, attrInfo) {
+        if (typeInfoLoaded) {
+            return;
+        }
+        const attrChildren = groupBy(attrInfo, x => String(x.parent_id));
 
         function mapItems(result, item) {
             if (item.id) {
@@ -56,30 +62,31 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     }
                     break;
                 case 'link_type':
-                    _.transform(item.children, mapItems, result);
+                    if (item.children) {
+                        item.children.forEach((child) => {
+                            mapItems(result, child);
+                        });
+                    }
                     break;
             }
+            return result;
         }
 
         Object.assign(linkedEntities, {
             link_type_tree: typeInfo,
-            link_type: _(typeInfo)
-                .values()
-                .flatten()
-                .transform(mapItems, {})
-                .value(),
-            link_attribute_type: _.transform(attrInfo, mapItems, {}),
+            link_type: Object.values(typeInfo).flat().reduce(mapItems, {}),
+            link_attribute_type: attrInfo.reduce(mapItems, {}),
         });
 
-        _.each(linkedEntities.link_type, function (type) {
-            _.each(type.attributes, function (typeAttr, id) {
+        for (const type of Object.values(linkedEntities.link_type)) {
+            for (const [id, typeAttr] of Object.entries(type.attributes)) {
                 typeAttr.attribute = linkedEntities.link_attribute_type[id];
-            });
-        });
+            }
+        }
 
         MB.allowedRelations = {};
 
-        _(typeInfo).keys().each(function (typeString) {
+        Object.keys(typeInfo).forEach(function (typeString) {
             var types = typeString.split("-");
             var type0 = types[0];
             var type1 = types[1];
@@ -96,22 +103,21 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         });
 
         // Sort each list of types alphabetically.
-        _(MB.allowedRelations)
-            .values()
-            .invokeMap('sort')
-            .value();
+        Object.values(MB.allowedRelations).forEach(x => x.sort());
 
-        _.each(linkedEntities.link_attribute_type, function (attr) {
+        for (const attr of Object.values(linkedEntities.link_attribute_type)) {
             attr.root = linkedEntities.link_attribute_type[attr.root_id];
-        });
-    });
+        }
+
+        typeInfoLoaded = true;
+    };
 
 
 export class ViewModel {
 
         constructor(options) {
             this.source = options.source;
-            this.uniqueID = _.uniqueId("relationship-editor-");
+            this.uniqueID = uniqueId("relationship-editor-");
             this.cache = {};
         }
 
@@ -168,7 +174,7 @@ MB.initRelationshipEditors = function (args) {
     var sourceData = args.sourceData;
 
     // XXX used by series edit form
-    sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
+    sourceData.gid = sourceData.gid || uniqueId("tmp-");
     sourceData.uniqueID = sourceData.id || 'source';
     MB.sourceEntityGID = sourceData.gid;
     MB.sourceEntity = MB.entity(sourceData);
@@ -207,7 +213,7 @@ MB.initRelationshipEditors = function (args) {
 MB.getRelationship = function (data, source) {
     const target = data.target;
 
-    data = _.clone(data);
+    data = {...data};
 
     let backward = source.entityType > target.entityType;
 
@@ -222,7 +228,7 @@ MB.getRelationship = function (data, source) {
     if (viewModel) {
         let cacheKey;
         if (data.id) {
-            cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
+            cacheKey = data.entities.map(x => x.entityType).concat(data.id).join("-");
             const cached = viewModel.cache[cacheKey];
 
             if (cached) {
@@ -276,11 +282,14 @@ function addPostedRelationships(source) {
         return;
     }
 
-    const submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
-    if (MB.formWasPosted && submittedRelationships) {
-        _.each(JSON.parse(submittedRelationships), function (data) {
-            addSubmittedRelationship(data, source);
-        });
+    const submittedRelationshipsJson = window.sessionStorage.getItem('submittedRelationships');
+    if (MB.formWasPosted && submittedRelationshipsJson) {
+        const submittedRelationships = JSON.parse(submittedRelationshipsJson);
+        if (Array.isArray(submittedRelationships)) {
+            for (const data of submittedRelationships) {
+                addSubmittedRelationship(data, source);
+            }
+        }
     }
 
     window.sessionStorage.removeItem('submittedRelationships');
@@ -291,13 +300,17 @@ var loadingEntities = {};
 function addRelationshipsFromQueryString(source) {
     var fields = parseQueryString(window.location.search);
 
-    _.each(fields.rels, function (rel) {
+    if (!fields.rels) {
+        return;
+    }
+
+    for (const rel of Object.values(fields.rels)) {
         var linkType = linkedEntities.link_type[rel.type];
         var targetIsUUID = uuidRegex.test(rel.target);
 
         if (!linkType && !targetIsUUID) {
             // We need at least a link type or target gid
-            return;
+            continue;
         }
 
         var target = targetIsUUID ? (MB.entityCache[rel.target] || { gid: rel.target }) : { name: rel.target };
@@ -317,7 +330,7 @@ function addRelationshipsFromQueryString(source) {
         };
 
         if (linkType) {
-            data.attributes = _.transform(rel.attributes, function (accum, attr) {
+            data.attributes = rel.attributes.reduce(function (accum, attr) {
                 var attrInfo = linkedEntities.link_attribute_type[attr.type];
 
                 if (attrInfo && linkType.attributes[attrInfo.id]) {
@@ -327,6 +340,7 @@ function addRelationshipsFromQueryString(source) {
                         textValue: attr.text_value,
                     });
                 }
+                return accum;
             }, []);
         }
 
@@ -347,7 +361,7 @@ function addRelationshipsFromQueryString(source) {
                 delete loadingEntities[gid];
             });
         }
-    });
+    }
 }
 
 var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
@@ -363,7 +377,7 @@ function parseQueryString(queryString) {
         subField = fields;
         parts = match[1].split('.');
 
-        _.each(parts, function (part, index) {
+        parts.forEach(function (part, index) {
             if (index === parts.length - 1) {
                 subField[part] = decodeURIComponent(match[2]);
             } else {

@@ -7,9 +7,9 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import mbEntity from '../common/entity';
+import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import releaseLabelKey from '../common/utility/releaseLabelKey';
 import {
   artistCreditsAreEqual,
@@ -18,10 +18,12 @@ import {
   reduceArtistCredit,
 } from '../common/immutable-entities';
 import MB from '../common/MB';
-import debounce from '../common/utility/debounce';
+import {groupBy} from '../common/utility/arrays';
+import {debounceComputed} from '../common/utility/debounce';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
+import {fixedWidthInteger, uniqueId} from '../common/utility/strings';
 import mbEdit from '../edit/MB/edit';
 import * as dates from '../edit/utility/dates';
 import * as validation from '../edit/validation';
@@ -63,7 +65,7 @@ class Track {
             data.artistCredit = release.artistCredit.peek();
         }
 
-        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : {names: []});
+        this.artistCredit = ko.observable(data.artistCredit ? cloneObjectDeep(data.artistCredit) : {names: []});
         this.artistCredit.track = this;
 
         this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
@@ -99,7 +101,7 @@ class Track {
 
         var recordingData = data.recording;
         if (recordingData) {
-            if (_.isEmpty(recordingData.artistCredit)) {
+            if (!recordingData.artistCredit) {
                 recordingData.artistCredit = this.artistCredit();
             }
             this.recording(mbEntity(recordingData, "recording"));
@@ -109,7 +111,7 @@ class Track {
 
         recordingAssociation.track(this);
 
-        this.uniqueID = this.id || _.uniqueId("new-");
+        this.uniqueID = this.id || uniqueId("new-");
         this.elementID = "track-row-" + this.uniqueID;
 
         this.formattedLength.subscribe(this.formattedLengthChanged, this);
@@ -157,7 +159,7 @@ class Track {
 
         var newLength = utils.unformatTrackLength(length);
 
-        if (_.isNaN(newLength)) {
+        if (!newLength) {
             this.formattedLength('');
             return;
         }
@@ -201,14 +203,14 @@ class Track {
 
     previous() {
         var tracks = this.medium.tracks();
-        var index = _.indexOf(tracks, this);
+        var index = tracks.indexOf(this);
 
         return index > 0 ? tracks[index - 1] : null;
     }
 
     next() {
         var tracks = this.medium.tracks();
-        var index = _.indexOf(tracks, this);
+        var index = tracks.indexOf(this);
 
         return index < tracks.length - 1 ? tracks[index + 1] : null;
     }
@@ -270,7 +272,7 @@ class Track {
         if (currentValue.gid) {
             var suggestions = this.suggestedRecordings.peek();
 
-            if (!_.includes(suggestions, currentValue)) {
+            if (!suggestions.includes(currentValue)) {
                 this.suggestedRecordings.unshift(currentValue);
             }
         }
@@ -278,7 +280,8 @@ class Track {
         // Hints for guess-feat. functionality.
         var release = this.medium.release;
         if (release) {
-            release.relatedArtists = _.union(release.relatedArtists, value.relatedArtists);
+            release.relatedArtists =
+                [...new Set(release.relatedArtists.concat(value.relatedArtists))];
             release.isProbablyClassical = release.isProbablyClassical || value.isProbablyClassical;
         }
 
@@ -434,7 +437,7 @@ class Medium {
         this.collapsed.subscribe(this.collapsedChanged, this);
         this.addTrackCount = ko.observable("");
         this.original = ko.observable(this.id ? mbEdit.fields.medium(this) : {});
-        this.uniqueID = this.id || _.uniqueId("new-");
+        this.uniqueID = this.id || uniqueId("new-");
 
         this.needsTracks = ko.computed(function () {
             return self.loaded() && self.tracks().length === 0;
@@ -496,7 +499,7 @@ class Medium {
     }
 
     tocChanged(toc) {
-        if (!_.isString(toc)) {
+        if (typeof toc !== 'string') {
             return;
         }
 
@@ -504,13 +507,13 @@ class Medium {
 
         var tocTrackCount = toc.length - 3;
         var tracks = this.tracks();
-        var tocTracks = _.reject(tracks, function (t) {
-            return t.position() == 0 || t.isDataTrack();
+        var tocTracks = tracks.filter(function (t) {
+            return !(t.position() == 0 || t.isDataTrack());
         });
         var trackCount = tocTracks.length;
         var pregapOffset = this.hasPregap() ? 0 : 1;
 
-        var wasConsecutivelyNumbered = _.every(tracks, function (t, index) {
+        var wasConsecutivelyNumbered = tracks.every(function (t, index) {
             return t.number() == (index + pregapOffset);
         });
 
@@ -518,11 +521,11 @@ class Medium {
             tocTracks = tocTracks.slice(0, tocTrackCount);
 
         } else if (trackCount < tocTrackCount) {
-            var self = this;
+            const newTrackCount = tocTrackCount - trackCount;
 
-            _.times(tocTrackCount - trackCount, function () {
-                tocTracks.push(new Track({}, self));
-            });
+            for (let i = 0; i < newTrackCount; i++) {
+                tocTracks.push(new Track({}, this));
+            }
         }
 
         this.tracks(
@@ -533,7 +536,7 @@ class Medium {
             ),
         );
 
-        _.each(tocTracks, function (track, index) {
+        tocTracks.forEach(function (track, index) {
             track.formattedLength(
                 formatTrackLength(
                     (((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000), '',
@@ -541,7 +544,7 @@ class Medium {
             );
         });
 
-        _.each(this.tracks(), function (track, index) {
+        this.tracks().forEach(function (track, index) {
             track.position(pregapOffset + index);
 
             if (wasConsecutivelyNumbered) {
@@ -558,10 +561,10 @@ class Medium {
         var maxLength = -Infinity;
         var cdtocs = (this.cdtocs || []).concat(this.toc() || []);
 
-        _.each(cdtocs, function (toc) {
+        for (let toc of cdtocs) {
             toc = toc.split(/\s+/);
             maxLength = Math.max(maxLength, toc[3] / 75 * 1000);
-        });
+        }
 
         return this.tracks()[0].length() > maxLength;
     }
@@ -594,7 +597,9 @@ class Medium {
         var pp = this.id ? // no ID means this medium is being reused
             Track :
             function (track, parent) {
-                return new Track(_.omit(track, 'id'), parent);
+                const copy = {...track};
+                delete copy.id;
+                return new Track(copy, parent);
             };
         this.tracks(utils.mapChild(this, data.tracks, pp));
 
@@ -648,7 +653,7 @@ class Medium {
     canHaveDiscID() {
         var formatID = parseInt(this.formatID(), 10);
 
-        return !formatID || _.includes(MB.formatsWithDiscIDs, formatID);
+        return !formatID || MB.formatsWithDiscIDs[formatID] != null;
     }
 }
 
@@ -674,7 +679,7 @@ class ReleaseEvent {
         var date = data.date || {};
 
         if (nonEmpty(date.year)) {
-            date.year = _.padStart(String(date.year), 4, '0');
+            date.year = fixedWidthInteger(date.year, 4);
         }
 
         this.date = {
@@ -694,7 +699,7 @@ class ReleaseEvent {
             return !dates.isDateValid(date.year, date.month, date.day);
         });
 
-        this.hasTooShortYear = debounce(function () {
+        this.hasTooShortYear = debounceComputed(function () {
             var date = self.unwrapDate();
             return !dates.isYearFourDigits(date.year);
         });
@@ -844,7 +849,7 @@ class Release extends mbEntity.Release {
             self.needsName(!newName);
         });
 
-        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : {names: []});
+        this.artistCredit = ko.observable(data.artistCredit ? cloneObjectDeep(data.artistCredit) : {names: []});
         this.artistCredit.saved = this.artistCredit.peek();
 
         this.needsArtistCredit = errorField(function () {
@@ -868,7 +873,7 @@ class Release extends mbEntity.Release {
         );
 
         function countryID(event) {
-            return event.countryID();
+            return String(event.countryID());
         }
 
         function nonEmptyEvent(event) {
@@ -877,10 +882,10 @@ class Release extends mbEntity.Release {
         }
 
         ko.computed(function () {
-            _(self.events()).groupBy(countryID).each(function (events) {
-                const isDuplicate = _.filter(events, nonEmptyEvent).length > 1;
+            for (const events of Object.values(groupBy(self.events(), countryID))) {
+                const isDuplicate = events.filter(nonEmptyEvent).length > 1;
                 events.forEach(e => e.isDuplicate(isDuplicate));
-            });
+            }
         }); 
 
         this.earliestYear = ko.computed(function () {
@@ -896,7 +901,7 @@ class Release extends mbEntity.Release {
         );
 
         this.labels.original = ko.observable(
-            _.map(this.labels.peek(), mbEdit.fields.releaseLabel),
+            this.labels.peek().map(mbEdit.fields.releaseLabel),
         );
 
         function nonEmptyReleaseLabel(releaseLabel) {
@@ -904,10 +909,10 @@ class Release extends mbEntity.Release {
         }
 
         ko.computed(function () {
-            _(self.labels()).groupBy(releaseLabelKey).each(function (labels) {
-                const isDuplicate = _.filter(labels, nonEmptyReleaseLabel).length > 1;
+            for (const labels of Object.values(groupBy(self.labels(), releaseLabelKey))) {
+                const isDuplicate = labels.filter(nonEmptyReleaseLabel).length > 1;
                 labels.forEach(l => l.isDuplicate(isDuplicate));
-            });
+            }
         });
 
         this.needsLabels = errorField(this.labels.any("needsLabel"));
@@ -919,7 +924,7 @@ class Release extends mbEntity.Release {
 
         this.releaseGroup.subscribe(function (releaseGroup) {
             if (releaseGroup.artistCredit && !reduceArtistCredit(self.artistCredit())) {
-                self.artistCredit(_.cloneDeep(releaseGroup.artistCredit));
+                self.artistCredit(cloneObjectDeep(releaseGroup.artistCredit));
             }
         });
 
@@ -987,13 +992,14 @@ class Release extends mbEntity.Release {
     }
 
     tracksWithUnsetPreviousRecordings() {
-        return _.transform(this.mediums(), function (result, medium) {
-            _.each(medium.tracks(), function (track) {
+        return this.mediums().reduce(function (result, medium) {
+            for (const track of medium.tracks()) {
                 if (track.recording.saved && track.needsRecording()) {
                     result.push(track);
                 }
-            });
-        });
+            }
+            return result;
+        }, []);
     }
 
     existingMediumData() {
@@ -1002,14 +1008,9 @@ class Release extends mbEntity.Release {
          * hopefully exist in the DB, so including ones removed from the
          * page (as long as they have an id, i.e. were attached before).
          */
-
-        var mediums = _.union(this.mediums(), this.mediums.original());
-
-        return _.transform(mediums, function (result, medium) {
-            if (medium.id) {
-                result.push(medium);
-            }
-        });
+        return [...new Set(
+            this.mediums().concat(this.mediums.original()),
+        )].filter(x => x.id);
     }
 }
 

@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {
   hasVariousArtists,
@@ -99,7 +98,7 @@ const actions = {
         medium.position(newPosition);
 
         var mediums = medium.release.mediums.peek();
-        var index = _.indexOf(mediums, medium);
+        var index = mediums.indexOf(medium);
         var possibleNewIndex = index + offset;
         var neighbor = mediums[possibleNewIndex];
 
@@ -129,10 +128,10 @@ const actions = {
     },
 
     guessCaseMediaNames: function () {
-        _.each(this.mediums.peek(), function (medium) {
+        for (const medium of this.mediums.peek()) {
             releaseEditor.guessCaseMediumName(medium);
             releaseEditor.guessCaseTrackNames(medium);
-        });
+        }
     },
 
     guessCaseMediumName: function (medium) {
@@ -186,11 +185,11 @@ const actions = {
         const underlyingTracks = tracks.peek();
         const offset = medium.hasPregap() ? 0 : 1;
         /*
-         * Use _.indexOf instead of .position()
+         * Use indexOf instead of .position()
          * http://tickets.metabrainz.org/browse/MBS-7227
          */
-        const position1 = _.indexOf(underlyingTracks, track1) + offset;
-        const position2 = _.indexOf(underlyingTracks, track2) + offset;
+        const position1 = underlyingTracks.indexOf(track1) + offset;
+        const position2 = underlyingTracks.indexOf(track2) + offset;
         const number1 = track1.number();
         const number2 = track2.number();
         const dataTrack1 = track1.isDataTrack();
@@ -245,9 +244,9 @@ const actions = {
     },
 
     guessCaseTrackNames: function (medium) {
-        _.each(medium.tracks.peek(), function (track) {
+        for (const track of medium.tracks.peek()) {
             releaseEditor.guessCaseTrackName(track);
-        });
+        }
     },
 
     toggleMedium: function (medium) {
@@ -261,7 +260,7 @@ const actions = {
     resetTrackNumbers: function (medium) {
         var offset = medium.hasPregap() ? 0 : 1;
 
-        _.each(medium.tracks(), function (track, i) {
+        medium.tracks().forEach(function (track, i) {
             track.position(i + offset);
             track.number(i + offset);
         });
@@ -270,7 +269,7 @@ const actions = {
     swapTitlesWithArtists: function (medium) {
         var tracks = medium.tracks();
 
-        var requireConf = _.some(tracks, function (track) {
+        var requireConf = tracks.some(function (track) {
             return isComplexArtistCredit(track.artistCredit());
         });
 
@@ -281,15 +280,15 @@ const actions = {
         );
 
         if (!requireConf || confirm(question)) {
-            _.each(tracks, function (track) {
-                var oldTitle = track.name();
+            for (const track of tracks) {
+                const oldTitle = track.name();
 
                 track.name(reduceArtistCredit(track.artistCredit()));
                 track.artistCredit({names: [{ name: oldTitle }]});
                 track.artistCreditEditorInst.setState({
                     artistCredit: track.artistCredit.peek(),
                 });
-            });
+            }
         }
     },
 
@@ -298,9 +297,9 @@ const actions = {
         var defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC;
         var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
-        _.times(addTrackCount, function () {
+        for (let i = 0; i < addTrackCount; i++) {
             medium.pushTrack({ artistCredit: defaultAC });
-        });
+        }
     },
 
     guessReleaseFeatArtists: function (release) {
@@ -317,21 +316,21 @@ const actions = {
     },
 
     guessMediumFeatArtists: function (medium) {
-        _.each(medium.tracks(), guessFeat);
+        medium.tracks().forEach(guessFeat);
     },
 
     // Recordings tab
 
     reuseUnsetPreviousRecordings: function (release) {
-        _.each(release.tracksWithUnsetPreviousRecordings(), function (track) {
-            var previous = track.previousTrackAtThisPosition;
+        for (const track of release.tracksWithUnsetPreviousRecordings()) {
+            const previous = track.previousTrackAtThisPosition;
             if (previous) {
                 track.id = previous.id;
                 track.gid = previous.gid;
                 delete track.previousTrackAtThisPosition;
             }
             track.recording(track.recording.saved);
-        });
+        }
     },
 
     copyTrackTitlesToRecordings: ko.observable(false),

@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import test from 'tape';
 
 import MB from '../common/MB';
@@ -40,10 +39,10 @@ test('Sortname', function (t) {
     },
   ];
 
-  _.each(tests, function (test) {
+  for (const test of tests) {
     const result = MB.GuessCase.artist.sortname(test.input, test.person);
     t.equal(result, test.expected, test.input);
-  });
+  }
 
   tests = [
     {
@@ -75,10 +74,10 @@ test('Sortname', function (t) {
      */
   ];
 
-  _.each(tests, function (test) {
+  for (const test of tests) {
     const result = MB.GuessCase.label.sortname(test.input);
     t.equal(result, test.expected, test.input);
-  });
+  }
 });
 
 test('Artist', function (t) {
@@ -121,13 +120,13 @@ test('Artist', function (t) {
     },
   ];
 
-  _.each(tests, function (test) {
+  for (const test of tests) {
     const result = MB.GuessCase.artist.guess(test.input);
 
     const prefix = test.bug ? test.bug + ', ' : '';
 
     t.equal(result, test.expected, prefix + test.input);
-  });
+  }
 });
 
 test('Label', function (t) {
@@ -145,10 +144,10 @@ test('Label', function (t) {
     {input: 'No Label', expected: '[unknown]'},
   ];
 
-  _.each(tests, function (test) {
+  for (const test of tests) {
     const result = MB.GuessCase.label.guess(test.input);
     t.equal(result, test.expected, test.input);
-  });
+  }
 });
 
 test('Recording', function (t) {
@@ -167,13 +166,13 @@ test('Recording', function (t) {
     },
   ];
 
-  _.each(tests, function (test) {
+  for (const test of tests) {
     t.equal(
       MB.GuessCase.recording.guess(test.input),
       test.expected,
       test.message,
     );
-  });
+  }
 });
 
 test('Work', function (t) {
@@ -340,14 +339,14 @@ test('Work', function (t) {
     },
   ];
 
-  _.each(tests, function (test) {
+  for (const test of tests) {
     setCookie('guesscase_roman', String(test.roman));
     gc.CFG_UC_UPPERCASED = test.keepuppercase;
     gc.mode = modes[test.mode];
 
     const result = MB.GuessCase.work.guess(test.input);
     t.equal(result, test.expected, test.input);
-  });
+  }
 });
 
 test('BugFixes', function (t) {
@@ -518,13 +517,13 @@ test('BugFixes', function (t) {
      */
   ];
 
-  _.each(tests, function (test) {
+  for (const test of tests) {
     gc.CFG_UC_UPPERCASED = false;
     gc.mode = modes[test.mode];
 
     const result = MB.GuessCase.work.guess(test.input);
     t.equal(result, test.expected, test.bug + ', ' + test.input);
-  });
+  }
 });
 
 test('vinyl numbers are fixed', function (t) {
@@ -557,7 +556,7 @@ test('vinyl numbers are fixed', function (t) {
     },
   ];
 
-  _.each(tests, function (test) {
+  for (const test of tests) {
     t.equal(MB.GuessCase.track.guess(test.input), test.expected);
-  });
+  }
 });

@@ -9,7 +9,6 @@
 import '../typeInfo';
 
 import ko from 'knockout';
-import _ from 'lodash';
 import test from 'tape';
 
 import MB from '../../common/MB';
@@ -255,13 +254,13 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
     newMedium2.tracks.push(new fields.Track({}, newMedium2));
     mediums.push(newMedium1, newMedium2);
 
-    var mediumCreateEdits = _.map(
-        releaseEditor.edits.medium(release),
-        function (edit) {
-            // Don't care about this.
-            return _.omit(edit, "tracklist");
-        },
-    );
+    var mediumCreateEdits =
+        releaseEditor.edits.medium(release).map(function (edit) {
+          const editCopy = {...edit};
+          // Don't care about this.
+          delete editCopy.tracklist;
+          return editCopy;
+        });
 
     t.deepEqual(mediumCreateEdits, [
       {
@@ -358,9 +357,9 @@ test("releaseDeleteReleaseLabel edits are not generated for non-existent release
     release.labels()[0].catalogNumber("foo456");
     releaseEditor.addReleaseLabel(release);
 
-    var submission = _.find(releaseEditor.orderedEditSubmissions, {
-        edits: releaseEditor.edits.releaseLabel,
-    });
+    var submission = releaseEditor.orderedEditSubmissions.find(x => (
+        x.edits === releaseEditor.edits.releaseLabel
+    ));
 
     // Simulate edit submission.
     var edits = submission.edits(release);

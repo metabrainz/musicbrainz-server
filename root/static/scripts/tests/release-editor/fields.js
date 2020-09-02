@@ -8,9 +8,9 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import test from 'tape';
 
+import {last} from '../../common/utility/arrays';
 import fields from '../../release-editor/fields';
 
 import * as common from './common';
@@ -129,7 +129,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     t.plan(7);
 
     function lengthsAndPositions() {
-        return _.map(medium.tracks(), function (t) {
+        return medium.tracks().map(function (t) {
             return { length: t.length(), position: t.position() };
         });
     }
@@ -177,7 +177,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
         lengthsAndPositions(),
         Array.prototype.concat({ length: undefined, position: 0 }, tocData2, { length: undefined, position: 6 }),
     );
-    t.ok(_.last(medium.tracks()).isDataTrack());
+    t.ok(last(medium.tracks()).isDataTrack());
 
     // 2 tracks added, data tracks left at end
     medium.toc(toc1);
@@ -185,7 +185,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
         lengthsAndPositions(),
         Array.prototype.concat({ length: undefined, position: 0 }, tocData1, { length: undefined, position: 8 }),
     );
-    t.ok(_.last(medium.tracks()).isDataTrack());
+    t.ok(last(medium.tracks()).isDataTrack());
 });
 
 fieldTest("track times entered as integers are converted into HH:MM:SS", function (t, release) {

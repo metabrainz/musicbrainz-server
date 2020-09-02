@@ -8,7 +8,20 @@
 
 import ko from 'knockout';
 
-function debounce(value, delay) {
+export default function debounce(func, ms = 100) {
+    let timeoutId = null;
+    return (...args) => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+            timeoutId = null;
+            func(...args);
+        }, ms);
+    };
+}
+
+export function debounceComputed(value, delay) {
     if (!ko.isObservable(value)) {
         value = ko.computed(value);
     }
@@ -19,5 +32,3 @@ function debounce(value, delay) {
         rateLimit: { method: "notifyWhenChangesStop", timeout: delay || 500 },
     });
 }
-
-export default debounce;

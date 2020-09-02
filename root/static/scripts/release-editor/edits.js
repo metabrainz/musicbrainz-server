@@ -6,15 +6,18 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 import {reduceArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
+import {compactMap, keyBy, last} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
-import debounce from '../common/utility/debounce';
+import {cloneObjectDeep} from '../common/utility/cloneDeep';
+import {debounceComputed} from '../common/utility/debounce';
+import deepEqual from '../common/utility/deepEqual';
 import isBlank from '../common/utility/isBlank';
 import isPositiveInteger from '../edit/utility/isPositiveInteger';
 import * as validation from '../edit/validation';
@@ -29,11 +32,13 @@ const WS_EDIT_RESPONSE_OK = 1;
 var releaseEditData = utils.withRelease(MB.edit.fields.release);
 
 var newReleaseLabels = utils.withRelease(function (release) {
-    return _.filter(release.labels(), function (releaseLabel) {
+    return release.labels().filter(function (releaseLabel) {
         var label = releaseLabel.label();
         return (label && label.id) || clean(releaseLabel.catalogNumber());
     });
 }, []);
+
+const getReleaseLabel = x => String(x.release_label ?? '');
 
 releaseEditor.edits = {
 
@@ -42,7 +47,7 @@ releaseEditor.edits = {
         var releaseName = clean(release.name());
         var releaseAC = release.artistCredit();
         var origData = MB.edit.fields.releaseGroup(releaseGroup);
-        var editData = _.cloneDeep(origData);
+        var editData = cloneObjectDeep(origData);
 
         if (releaseGroup.gid) {
             var dataChanged = false;
@@ -80,7 +85,7 @@ releaseEditor.edits = {
 
         if (!release.gid()) {
             edits.push(MB.edit.releaseCreate(newData));
-        } else if (!_.isEqual(newData, oldData)) {
+        } else if (!deepEqual(newData, oldData)) {
             newData = {...newData, to_edit: release.gid()};
             edits.push(MB.edit.releaseEdit(newData, oldData));
         }
@@ -98,45 +103,47 @@ releaseEditor.edits = {
     },
 
     releaseLabel: function (release) {
-        var newLabels = _.map(newReleaseLabels(), MB.edit.fields.releaseLabel);
+        var newLabels = newReleaseLabels().map(MB.edit.fields.releaseLabel);
         var oldLabels = release.labels.original();
 
-        var newLabelsByID = _.keyBy(newLabels, "release_label");
-        var oldLabelsByID = _.keyBy(oldLabels, "release_label");
+        var newLabelsByID = keyBy(newLabels, getReleaseLabel);
+        var oldLabelsByID = keyBy(oldLabels, getReleaseLabel);
 
         var edits = [];
 
-        _.each(newLabels, function (newLabel) {
-            var id = newLabel.release_label;
+        for (let newLabel of newLabels) {
+            const id = newLabel.release_label;
 
             if (id) {
-                var oldLabel = oldLabelsByID[id];
+                const oldLabel = oldLabelsByID[id];
 
-                if (oldLabel && !_.isEqual(newLabel, oldLabel)) {
+                if (oldLabel && !deepEqual(newLabel, oldLabel)) {
                     // Edit ReleaseLabel
                     edits.push(MB.edit.releaseEditReleaseLabel(newLabel));
                 }
             } else {
                 // Add ReleaseLabel
-                newLabel = _.clone(newLabel);
+                newLabel = {...newLabel};
 
                 if (newLabel.label || newLabel.catalog_number) {
                     newLabel.release = release.gid() || null;
                     edits.push(MB.edit.releaseAddReleaseLabel(newLabel));
                 }
             }
-        });
+        }
 
-        _.each(oldLabels, function (oldLabel) {
-            var id = oldLabel.release_label;
-            var newLabel = newLabelsByID[id];
+        for (let oldLabel of oldLabels) {
+            const id = oldLabel.release_label;
+            const newLabel = newLabelsByID[id];
 
             if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
                 // Delete ReleaseLabel
-                oldLabel = _.omit(oldLabel, "label", "catalog_number");
+                oldLabel = {...oldLabel};
+                delete oldLabel.label;
+                delete oldLabel.catalog_number;
                 edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
             }
-        });
+        }
 
         return edits;
     },
@@ -152,19 +159,19 @@ releaseEditor.edits = {
          * conflicts between oldPositions/newPositions.
          */
 
-        var oldPositions = _.map(release.mediums.original(), function (m) {
+        var oldPositions = release.mediums.original().map(function (m) {
             return m.original().position;
         });
 
         var newMediums = release.mediums();
-        var newPositions = _.invokeMap(newMediums, "position");
+        var newPositions = newMediums.map(x => x.position());
         var tmpPositions = [];
 
-        _.each(newMediums, function (medium) {
-            var newMediumData = MB.edit.fields.medium(medium);
-            var oldMediumData = medium.original();
+        for (const medium of newMediums) {
+            let newMediumData = MB.edit.fields.medium(medium);
+            const oldMediumData = medium.original();
 
-            _.each(medium.tracks(), function (track, i) {
+            medium.tracks().forEach(function (track, i) {
                 var trackData = newMediumData.tracklist[i];
 
                 if (track.hasExistingRecording()) {
@@ -181,7 +188,7 @@ releaseEditor.edits = {
                             newRecording.artist_credit = trackData.artist_credit;
                         }
 
-                        if (!_.isEqual(newRecording, oldRecording)) {
+                        if (!deepEqual(newRecording, oldRecording)) {
                             edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
                         }
                     }
@@ -189,15 +196,17 @@ releaseEditor.edits = {
             });
 
             // The medium already exists
-            newMediumData = _.cloneDeep(newMediumData);
+            newMediumData = cloneObjectDeep(newMediumData);
 
             if (medium.id) {
-                var newNoPosition = _.omit(newMediumData, "position");
-                var oldNoPosition = _.omit(oldMediumData, "position");
+                const newWithoutPosition = {...newMediumData};
+                delete newWithoutPosition.position;
+                const oldWithoutPosition = {...oldMediumData};
+                delete oldWithoutPosition.position;
 
-                if (!_.isEqual(newNoPosition, oldNoPosition)) {
-                    newNoPosition.to_edit = medium.id;
-                    edits.push(MB.edit.mediumEdit(newNoPosition, oldNoPosition));
+                if (!deepEqual(newWithoutPosition, oldWithoutPosition)) {
+                    newWithoutPosition.to_edit = medium.id;
+                    edits.push(MB.edit.mediumEdit(newWithoutPosition, oldWithoutPosition));
                 }
             } else if (medium.hasTracks()) {
                 /*
@@ -214,26 +223,25 @@ releaseEditor.edits = {
 
                 var newPosition = newMediumData.position;
 
-                if (_.includes(oldPositions, newPosition)) {
-                    var lastAttempt = (_.last(tmpPositions) + 1) || 1;
+                if (oldPositions.includes(newPosition)) {
+                    var lastAttempt = (last(tmpPositions) + 1) || 1;
                     var attempt;
 
                     while ((attempt = lastAttempt++)) {
-                        if (_.includes(oldPositions, attempt) ||
-                            _.includes(tmpPositions, attempt)) {
+                        if (oldPositions.includes(attempt) ||
+                            tmpPositions.includes(attempt)) {
                             // This position is taken.
                             continue;
                         }
 
-                        if (_.includes(newPositions, attempt)) {
+                        if (newPositions.includes(attempt)) {
                             /*
                              * Another medium is being moved to the
                              * position we want. Avoid this *unless* we're
                              * swapping with that medium.
                              */
 
-                            var possibleSwap = _.find(
-                                newMediums,
+                            var possibleSwap = newMediums.find(
                                 function (other) {
                                     return other.position() === attempt;
                                 },
@@ -260,13 +268,13 @@ releaseEditor.edits = {
                 newMediumData.release = release.gid();
                 edits.push(MB.edit.mediumCreate(newMediumData));
             }
-        });
+        }
 
-        _.each(release.mediums.original(), function (m) {
+        for (const m of release.mediums.original()) {
             if (m.id && m.removed) {
                 edits.push(MB.edit.mediumDelete({ medium: m.id }));
             }
-        });
+        }
 
         return edits;
     },
@@ -276,16 +284,16 @@ releaseEditor.edits = {
         var newOrder = [];
         var removedMediums = {};
 
-        _.each(release.mediums.original(), function (medium) {
+        for (const medium of release.mediums.original()) {
             if (medium.id && medium.removed) {
                 removedMediums[medium.original().position] = medium;
             }
-        });
+        }
 
-        _.each(release.mediums(), function (medium) {
-            var newPosition = medium.position();
+        for (const medium of release.mediums()) {
+            const newPosition = medium.position();
 
-            var oldPosition = medium.tmpPosition || (
+            const oldPosition = medium.tmpPosition || (
                 medium.id ? medium.original().position : newPosition
             );
 
@@ -294,7 +302,7 @@ releaseEditor.edits = {
                  * A removed medium is already in the position we want, so
                  * make sure we swap with it to avoid conflicts.
                  */
-                var removedMedium;
+                let removedMedium;
                 if ((removedMedium = removedMediums[newPosition])) {
                     newOrder.push({
                         medium_id:  removedMedium.id,
@@ -309,7 +317,7 @@ releaseEditor.edits = {
                     "new":      newPosition,
                 });
             }
-        });
+        }
 
         if (newOrder.length) {
             edits.push(
@@ -326,8 +334,8 @@ releaseEditor.edits = {
     discID: function (release) {
         var edits = [];
 
-        _.each(release.mediums(), function (medium) {
-            var toc = medium.toc();
+        for (const medium of release.mediums()) {
+            const toc = medium.toc();
 
             if (toc && medium.canHaveDiscID()) {
                 edits.push(
@@ -340,7 +348,7 @@ releaseEditor.edits = {
                     }),
                 );
             }
-        });
+        }
 
         return edits;
     },
@@ -358,22 +366,25 @@ releaseEditor.edits = {
         }
 
         var { oldLinks, newLinks, allLinks } = releaseEditor.externalLinksEditData();
+        if (!allLinks) {
+            return edits;
+        }
 
-        _.each(allLinks, function (link) {
+        for (const link of Object.values(allLinks)) {
             if (!link.type || !link.url) {
-                return;
+                continue;
             }
 
-            var newData = MB.edit.fields.externalLinkRelationship(link, release);
+            const newData = MB.edit.fields.externalLinkRelationship(link, release);
 
             if (isPositiveInteger(link.relationship)) {
                 if (!newLinks[link.relationship]) {
                     edits.push(MB.edit.relationshipDelete(newData));
                 } else if (oldLinks[link.relationship]) {
-                    var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
+                    const original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
-                    if (!_.isEqual(newData, original)) {
-                        var editData = MB.edit.relationshipEdit(newData, original);
+                    if (!deepEqual(newData, original)) {
+                        const editData = MB.edit.relationshipEdit(newData, original);
 
                         if (hasVideo(original) && !hasVideo(newData)) {
                             editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}, removed: true}];
@@ -385,14 +396,14 @@ releaseEditor.edits = {
             } else if (newLinks[link.relationship]) {
                 edits.push(MB.edit.relationshipCreate(newData));
             }
-        });
+        }
 
         return edits;
     },
 };
 
 
-var _allEdits = _.map([
+var _allEdits = [
     'releaseGroup',
     'release',
     'releaseLabel',
@@ -401,13 +412,13 @@ var _allEdits = _.map([
     'discID',
     'annotation',
     'externalLinks',
-], function (name) {
+].map(function (name) {
     return utils.withRelease(releaseEditor.edits[name].bind(releaseEditor.edits), []);
 });
 
 
 releaseEditor.allEdits = ko.computed(function () {
-    return _.flatten(_.map(_allEdits, ko.unwrap));
+    return _allEdits.flatMap(ko.unwrap);
 });
 
 releaseEditor.editPreviews = ko.observableArray([]);
@@ -419,16 +430,15 @@ releaseEditor.getEditPreviews = function () {
     let previewRequest = null;
 
     function refreshPreviews(edits) {
-        releaseEditor.editPreviews(_.compact(_.map(edits, getPreview)));
+        releaseEditor.editPreviews(compactMap(edits, getPreview));
     }
 
     function getPreview(edit) {
         return previews[edit.hash];
     }
 
-    function addPreview(tuple) {
-        const editHash = tuple[0].hash;
-        const preview = tuple[1];
+    function addPreview(edit, preview) {
+        const editHash = edit.hash;
         if (preview) {
             preview.editHash = editHash;
             previews[editHash] = preview;
@@ -439,7 +449,7 @@ releaseEditor.getEditPreviews = function () {
         return previews[edit.hash] === undefined;
     }
 
-    debounce(function () {
+    debounceComputed(function () {
         var edits = releaseEditor.allEdits();
 
         if (validation.errorsExist()) {
@@ -447,7 +457,7 @@ releaseEditor.getEditPreviews = function () {
             return;
         }
 
-        var addedEdits = _.filter(edits, isNewEdit);
+        var addedEdits = edits.filter(isNewEdit);
 
         if (addedEdits.length === 0) {
             refreshPreviews(edits);
@@ -462,7 +472,10 @@ releaseEditor.getEditPreviews = function () {
 
         previewRequest = MB.edit.preview({ edits: addedEdits })
             .done(function (data) {
-                _.each(_.zip(addedEdits, data.previews), addPreview);
+                const newPreviews = data.previews;
+                for (let i = 0; i < addedEdits.length; i++) {
+                    addPreview(addedEdits[i], newPreviews[i]);
+                }
 
                 // Make sure edits haven't changed while request was pending
                 if (edits === releaseEditor.allEdits()) {
@@ -533,7 +546,7 @@ function chainEditSubmissions(release, submissions) {
                 );
             }
 
-            _.defer(nextSubmission, index);
+            setTimeout(() => nextSubmission(index), 1);
         };
 
         $.when(submitted)
@@ -550,15 +563,15 @@ function submissionErrorOccurred(data) {
     try {
         error = JSON.parse(data.responseText).error;
 
-        if (_.isObject(error)) {
+        if (error && typeof error === 'object') {
             if (error.message) {
                 error = error.message;
             } else {
-                error = _.escape(data.statusText + ": " + data.status);
+                error = he.escape(data.statusText + ": " + data.status);
             }
         }
     } catch (e) {
-        error = _.escape(data.statusText + ": " + data.status);
+        error = he.escape(data.statusText + ": " + data.status);
     }
 
     releaseEditor.submissionError(error);
@@ -596,13 +609,15 @@ releaseEditor.orderedEditSubmissions = [
 
         callback: function (release, edits) {
             release.labels.original(
-                _.map(newReleaseLabels(), function (label) {
-                    var newData = _.find(edits, {
-                        entity: {
-                            labelID: label.label().id || null,
-                            catalogNumber: label.catalogNumber() || null,
-                        },
-                    });
+                newReleaseLabels().map(function (label) {
+                    const labelId = label.label().id || null;
+                    const catalogNumber = label.catalogNumber() || null;
+
+                    var newData = edits.find(({entity}) => (
+                        entity &&
+                        entity.labelID === labelId &&
+                        entity.catalogNumber === catalogNumber
+                    ));
 
                     if (newData) {
                         label.id = newData.entity.id;
@@ -616,15 +631,14 @@ releaseEditor.orderedEditSubmissions = [
         edits: releaseEditor.edits.medium,
 
         callback: function (release, edits) {
-            var added = _(edits)
-                .map("entity")
-                .compact()
-                .keyBy("position")
-                .value();
+            var added = keyBy(
+                compactMap(edits, x => x.entity),
+                x => String(x.position),
+            );
 
             var newMediums = release.mediums();
 
-            _(newMediums).reject("id").each(function (medium) {
+            newMediums.filter(m => m.id == null).forEach(function (medium) {
                 var addedData = added[medium.tmpPosition || medium.position()];
 
                 if (addedData) {

@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 
 import getBooleanCookie from '../../../common/utility/getBooleanCookie';
@@ -24,7 +23,7 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
 
     if ($options.length && !$options.data("ui-dialog")) {
         $options.dialog({ title: l('Guess Case Options'), autoOpen: false });
-        ko.applyBindingsToNode($options[0], { guessCase: _.noop });
+        ko.applyBindingsToNode($options[0], { guessCase: () => undefined });
     }
 
     var guess = MB.GuessCase[type];
@@ -116,7 +115,7 @@ ko.bindingHandlers.guessCase = {
         }
 
         var bindings = {...guessCaseOptions};
-        bindings.guessCase = _.bind(valueAccessor(), bindings);
+        bindings.guessCase = valueAccessor().bind(bindings);
 
         var context = bindingContext.createChildContext(bindings);
         ko.applyBindingsToDescendants(context, element);

@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 
 import {SERIES_ORDERING_TYPE_AUTOMATIC} from './common/constants';
@@ -68,13 +67,13 @@ $(function () {
     series.orderingTypeID(+this.value);
 
     if (+this.value === SERIES_ORDERING_TYPE_AUTOMATIC) {
-      _.each(series.relationships(), function (r) {
-        var target = r.target(series);
+      for (const r of series.relationships()) {
+        const target = r.target(series);
 
         if (r.entityIsOrdered && r.entityIsOrdered(target)) {
-          r.linkOrder(r.original.linkOrder || 0);
+          r.linkOrder(r.original?.linkOrder || 0);
         }
-      });
+      }
     }
   });
 

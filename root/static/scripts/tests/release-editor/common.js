@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import fields from '../../release-editor/fields';
 import trackParser from '../../release-editor/trackParser';
@@ -34,14 +33,18 @@ export function trackParserTest(t, input, expected) {
   var result = trackParser.parse(input);
 
   function getProps(track) {
-    return _.pick.apply(_, [track].concat(_.keys(expected[0])));
+    const props = {};
+    for (const key of Object.keys(expected[0])) {
+      props[key] = track[key];
+    }
+    return props;
   }
 
-  t.deepEqual(ko.toJS(_.map(result, getProps)), expected);
+  t.deepEqual(ko.toJS(result.map(getProps)), expected);
 }
 
 export function createMediums(release) {
-  var submission = _.find(releaseEditor.orderedEditSubmissions, function (sub) {
+  var submission = releaseEditor.orderedEditSubmissions.find(function (sub) {
     return sub.edits === releaseEditor.edits.medium;
   });
 
@@ -50,7 +53,7 @@ export function createMediums(release) {
 
   var nextID = 666;
 
-  submission.callback(release, _.map(createEdits, function (data) {
+  submission.callback(release, createEdits.map(function (data) {
     return { entity: { id: nextID++, position: data.position } };
   }));
 }

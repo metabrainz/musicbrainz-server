@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
-
 import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import * as utils from '../../../utils';
@@ -163,7 +161,7 @@ MB.GuessCase.Handler.Artist = function (gc) {
                     }
                 }
 
-                return utils.trim(_.compact(names).join(" ") + (append || ""));
+                return utils.trim(names.filter(Boolean).join(" ") + (append || ""));
             }
 
             return '';

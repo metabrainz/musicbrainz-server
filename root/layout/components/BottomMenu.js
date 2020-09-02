@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import * as React from 'react';
 
 import {VARTIST_GID} from '../../static/scripts/common/constants';
+import {capitalize} from '../../static/scripts/common/utility/strings';
 
 function languageName(language, selected) {
   if (!language) {
@@ -26,10 +26,10 @@ function languageName(language, selected) {
   let text = `[${id}]`;
 
   if (nativeLanguage) {
-    text = _.capitalize(nativeLanguage);
+    text = capitalize(nativeLanguage);
 
     if (nativeTerritory) {
-      text += ' (' + _.capitalize(nativeTerritory) + ')';
+      text += ' (' + capitalize(nativeTerritory) + ')';
     }
   }
 
@@ -58,7 +58,7 @@ const LanguageMenu = ({
   <li className="language-selector" tabIndex="-1">
     <span className="menu-header">
       {languageName(
-        _.find(serverLanguages, x => x.name === currentBCP47Language),
+        serverLanguages.find(x => x.name === currentBCP47Language),
         true,
       )}
     </span>

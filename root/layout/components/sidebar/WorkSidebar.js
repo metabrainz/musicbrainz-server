@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import kebabCase from 'lodash/kebabCase';
 import * as React from 'react';
 
 import LinkSearchableLanguage
@@ -17,6 +16,7 @@ import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from
   '../../../static/scripts/common/components/CommonsImage';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
+import {kebabCase} from '../../../static/scripts/common/utility/strings';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';

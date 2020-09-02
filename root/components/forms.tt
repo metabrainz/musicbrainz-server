@@ -195,28 +195,6 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO too_short_year_js(type) BLOCK -%]
-  function blockTooShortBeginYear() {
-    var beginYear = $('#id-edit-[% type %]\\\.period\\\.begin_date\\\.year').val();
-    var allowed = (!beginYear || beginYear.trim().length === 4);
-    $('.submit').prop('disabled', !allowed);
-    $('#too_short_begin_year').toggle(!allowed);
-  }
-
-  function blockTooShortEndYear() {
-    var endYear = $('#id-edit-[% type %]\\\.period\\\.end_date\\\.year').val();
-    var allowed = (endYear === null || endYear === '' || endYear.length === 4);
-    $('.submit').prop('disabled', !allowed);
-    $('#too_short_end_year').toggle(!allowed);
-  }
-
-  $('#id-edit-[% type %]\\\.period\\\.begin_date\\\.year').keyup(_.debounce(blockTooShortBeginYear, 500)).change(_.debounce(blockTooShortBeginYear, 500));
-  blockTooShortBeginYear();
-
-  $('#id-edit-[% type %]\\\.period\\\.end_date\\\.year').keyup(_.debounce(blockTooShortEndYear, 500)).change(_.debounce(blockTooShortEndYear, 500));
-  blockTooShortEndYear();
-[%- END -%]
-
 [%- MACRO too_short_year_error(id) BLOCK -%]
   <div class="error field-error" id="[% id %]" style="display: none">
     <div class="row no-label"> 
@@ -239,7 +217,7 @@
     </fieldset>
     <script type="text/javascript">
       MB.initializeToggleEnded('id-edit-[% type %]');
-      [% too_short_year_js(type) %] 
+      MB.initializeTooShortYearChecks('[% type %]');
     </script>
 [%- END -%]
 

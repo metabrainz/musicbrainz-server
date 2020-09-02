@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
 import {
@@ -15,7 +14,8 @@ import {
   reduceArtistCredit,
 } from '../common/immutable-entities';
 import MB from '../common/MB';
-import debounce from '../common/utility/debounce';
+import {uniqBy} from '../common/utility/arrays';
+import {debounceComputed} from '../common/utility/debounce';
 
 import releaseEditor from './viewModel';
 import utils from './utils';
@@ -58,7 +58,7 @@ recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset,
     utils.search("recording", query, 100, offset)
         .done(function (data) {
             results.push.apply(
-                results, _.map(data.recordings, cleanRecordingData),
+                results, data.recordings.map(cleanRecordingData),
             );
 
             var countSoFar = data.offset + 100;
@@ -70,7 +70,7 @@ recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset,
             }
         })
         .fail(function () {
-            _.delay(recordingAssociation.getReleaseGroupRecordings, 5000, releaseGroup, offset, results);
+            setTimeout(recordingAssociation.getReleaseGroupRecordings, 5000, releaseGroup, offset, results);
         });
 };
 
@@ -79,10 +79,8 @@ function recordingQuery(track, name) {
     var params = {
         recording: [utils.escapeLuceneValue(name)],
 
-        arid: _(track.artistCredit().names)
-            .map('artist.gid')
-            .map(utils.escapeLuceneValue)
-            .value(),
+        arid: track.artistCredit().names
+            .map(x => utils.escapeLuceneValue(x.artist.gid)),
     };
 
     var titleAndArtists = utils.constructLuceneFieldConjunction(params);
@@ -109,8 +107,8 @@ function cleanRecordingData(data) {
     clean.artist = reduceArtistCredit(clean.artistCredit);
     clean.video = !!data.video;
 
-    var appearsOn = _(data.releases)
-        .map(function (release) {
+    var appearsOn = uniqBy(
+        data.releases?.map(function (release) {
             /*
              * The webservice doesn't include the release group title, so
              * we have to use the release title instead.
@@ -120,9 +118,9 @@ function cleanRecordingData(data) {
                 gid: release.id,
                 releaseGroupGID: release["release-group"].id,
             };
-        })
-        .uniqBy('releaseGroupGID')
-        .value();
+        }) ?? [],
+        x => x.releaseGroupGID,
+    );
 
     clean.appearsOn = {
         hits: appearsOn.length,
@@ -139,10 +137,10 @@ function cleanRecordingData(data) {
     var recording = MB.entityCache[clean.gid];
 
     if (recording && !recording.appearsOn) {
-        recording.appearsOn = _.clone(clean.appearsOn);
+        recording.appearsOn = {...clean.appearsOn};
 
-        recording.appearsOn.results = _.map(recording.appearsOn.results,
-            function (appearance) {
+        recording.appearsOn.results =
+            recording.appearsOn.results.map(function (appearance) {
                 return MB.entity(appearance, "release");
             });
     }
@@ -164,7 +162,7 @@ function searchTrackArtistRecordings(track) {
     track._recordingRequest = utils.search("recording", query)
         .done(function (data) {
             var recordings = matchAgainstRecordings(
-                track, _.map(data.recordings, cleanRecordingData),
+                track, data.recordings.map(cleanRecordingData),
             );
 
             setSuggestedRecordings(track, recordings || []);
@@ -172,7 +170,7 @@ function searchTrackArtistRecordings(track) {
         })
         .fail(function (jqXHR, textStatus) {
             if (textStatus !== "abort") {
-                _.delay(searchTrackArtistRecordings, 5000, track);
+                setTimeout(searchTrackArtistRecordings, 5000, track);
             }
         });
 }
@@ -201,7 +199,7 @@ recordingAssociation.autocompleteHook = function (track) {
 
         newArgs.success = function (data) {
             // Emulate the /ws/js response format.
-            var newData = _.map(data.recordings, cleanRecordingData);
+            var newData = data.recordings.map(cleanRecordingData);
 
             newData.push({
                 current: (data.offset / 10) + 1,
@@ -307,7 +305,7 @@ function setSuggestedRecordings(track, recordings) {
     var lastRecording = track.recording.saved;
 
     if (!track.hasExistingRecording() && lastRecording) {
-        recordings = _.union([lastRecording], recordings);
+        recordings = [...new Set([lastRecording, ...recordings])];
     }
 
     track.suggestedRecordings(recordings);
@@ -322,7 +320,21 @@ function matchAgainstRecordings(track, recordings) {
     var trackLength = track.length();
     var trackName = track.name();
 
-    var matches = _(recordings)
+    function getLengthDifference(recording) {
+        /*
+         * Prefer that recordings with a length be at the top of the
+         * suggestions list.
+         */
+        if (!recording.length) {
+            return MAX_LENGTH_DIFFERENCE + 1;
+        }
+        if (!trackLength) {
+            return MAX_LENGTH_DIFFERENCE;
+        }
+        return Math.abs(trackLength - recording.length);
+    }
+
+    var matches = recordings
         .filter(function (recording) {
             if (!utils.similarLengths(trackLength, recording.length)) {
                 return false;
@@ -338,28 +350,19 @@ function matchAgainstRecordings(track, recordings) {
             
             return false;
         })
-        .sortBy(function (recording) {
-            var appearsOn = recording.appearsOn;
-            return appearsOn ? appearsOn.results.length : 0;
-        })
-        .reverse()
-        .sortBy(function (recording) {
-            /*
-             * Prefer that recordings with a length be at the top of the
-             * suggestions list.
-             */
-            if (!recording.length) {
-                return MAX_LENGTH_DIFFERENCE + 1;
-            }
-            if (!trackLength) {
-                return MAX_LENGTH_DIFFERENCE;
-            }
-            return Math.abs(trackLength - recording.length);
-        })
-        .value();
+        .sort(function (r1, r2) {
+            const appearsOn1 = r1.appearsOn;
+            const appearsOn2 = r2.appearsOn;
+            return (
+                // Sort recordings with more appearances first.
+                ((appearsOn2?.results.length ?? 0) -
+                    (appearsOn1?.results.length ?? 0)) ||
+                (getLengthDifference(r1) - getLengthDifference(r2))
+            );
+        });
 
     if (matches.length) {
-        return _.map(matches, function (match) {
+        return matches.map(function (match) {
             return MB.entity(match, "recording");
         });
     }
@@ -369,7 +372,7 @@ function matchAgainstRecordings(track, recordings) {
 
 
 recordingAssociation.track = function (track) {
-    debounce(function () {
+    debounceComputed(function () {
         watchTrackForChanges(track);
     });
 };

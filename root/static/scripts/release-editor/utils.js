@@ -12,7 +12,6 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {rstr_sha1 as rstrSha1} from '../../lib/sha1/sha1';
 import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY}
@@ -28,7 +27,7 @@ const utils = {};
 releaseEditor.utils = utils;
 
 utils.mapChild = function (parent, children, type) {
-    return _.map(children || [], function (data) {
+    return (children || []).map(function (data) {
         return new type(data, parent);
     });
 };
@@ -78,7 +77,9 @@ utils.constructLuceneField = function (values, key) {
 };
 
 utils.constructLuceneFieldConjunction = function (params) {
-    return _.map(params, utils.constructLuceneField).join(" AND ");
+    return Object.entries(params).map(([key, values]) => (
+        utils.constructLuceneField(values, key)
+    )).join(" AND ");
 };
 
 
@@ -111,7 +112,11 @@ utils.reuseExistingMediumData = function (data) {
      * can request them later. We also drop the format, since it'll often
      * be different.
      */
-    var newData = _.omit(data, "id", "cdtocs", "format", "format_id");
+    const newData = {...data};
+    delete newData.id;
+    delete newData.cdtocs;
+    delete newData.format;
+    delete newData.format_id;
 
     if (data.id) {
         newData.originalID = data.id;
@@ -139,7 +144,7 @@ utils.cleanWebServiceData = function (data) {
 
     if (data["artist-credit"]) {
         clean.artistCredit = {
-            names: _.map(data["artist-credit"], cleanArtistCreditName),
+            names: data["artist-credit"].map(cleanArtistCreditName),
         };
     }
 
@@ -212,7 +217,7 @@ export function calculateDiscID(toc) {
 utils.calculateDiscID = calculateDiscID;
 
 function paddedHex(str, length) {
-    return _.padStart((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
+    return (parseInt(str, 10) || 0).toString(16).toUpperCase().padStart(length, '0');
 }
 
 /*

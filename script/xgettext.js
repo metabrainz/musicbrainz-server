@@ -25,7 +25,6 @@ require('@babel/register')({
 });
 
 const gettextParser = require('gettext-parser');
-const has = require('lodash/has');
 const XGettext = require('xgettext-js');
 const argv = require('yargs').argv;
 
@@ -104,12 +103,17 @@ const getReference = node => (
 
 const getComments = node => ({reference: getReference(node)});
 const msgOrdering = new WeakMap();
+/*
+ * This module is not run through Webpack, so don't try to use `hasOwnProp`
+ * here. It's not available!
+ */
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 const addMsg = (data) => {
   const msgid = data.msgid;
   const msgctxt = data.msgctxt || '';
 
-  if (!has(translations, msgctxt)) {
+  if (!hasOwnProperty.call(translations, msgctxt)) {
     translations[msgctxt] = {};
   }
 

@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -62,9 +61,9 @@ ko.bindingHandlers.artistCreditEditor = {
              * since initialArtistText (which is set in updateBubble)
              * depends on the artist credit state.
              */
-            _.defer(() => {
+            setTimeout(() => {
                 prev.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
-            });
+            }, 1);
         }
     },
 
@@ -73,9 +72,9 @@ ko.bindingHandlers.artistCreditEditor = {
         const next = entity.medium.tracks()[entity.position()];
         if (next) {
             entity.artistCreditEditorInst.runDoneCallback();
-            _.defer(() => {
+            setTimeout(() => {
                 next.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
-            });
+            }, 1);
         }
     },
 
@@ -88,11 +87,12 @@ ko.bindingHandlers.artistCreditEditor = {
         const track = this.currentTarget();
         const artistCredit = track.artistCredit.peek();
 
-        _(track.medium.release.mediums())
-            .invokeMap("tracks")
-            .flatten()
-            .without(track)
-            .each(function (t) {
+        track.medium.release.mediums()
+            .flatMap(m => m.tracks())
+            .forEach(function (t) {
+                if (t === track) {
+                    return;
+                }
                 if (initialArtistText === reduceArtistCredit(t.artistCredit.peek())) {
                     t.artistCredit(artistCredit);
                     t.artistCreditEditorInst.setState({artistCredit});
@@ -127,11 +127,11 @@ ko.bindingHandlers.artistCreditEditor = {
     },
 };
 
-_.bindAll(
-    ko.bindingHandlers.artistCreditEditor,
-    'doneCallback',
-    'nextTrack',
-    'previousTrack',
-    'uncheckChangeMatchingArtists',
-    'update',
-);
+{
+    const self = ko.bindingHandlers.artistCreditEditor;
+    self.doneCallback = self.doneCallback.bind(self);
+    self.nextTrack = self.nextTrack.bind(self);
+    self.previousTrack = self.previousTrack.bind(self);
+    self.uncheckChangeMatchingArtists = self.uncheckChangeMatchingArtists.bind(self);
+    self.update = self.update.bind(self);
+}

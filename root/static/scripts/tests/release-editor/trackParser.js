@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import test from 'tape';
 
 import {reduceArtistCredit} from '../../common/immutable-entities';
@@ -211,8 +210,8 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     var tracks = medium.tracks();
 
     t.deepEqual(
-        _.invokeMap(tracks, "length"),
-        _.map(medium.original().tracklist, "length"),
+        tracks.map(x => x.length()),
+        medium.original().tracklist.map(x => x.length),
         "track lengths are unchanged",
     );
 });
@@ -342,7 +341,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     releaseEditor.rootField.release(release);
     var medium = release.mediums()[0];
-    var oldRecordings = _(medium.tracks()).invokeMap('recording').value();
+    var oldRecordings = medium.tracks().map(x => x.recording());
 
     medium.tracks(
         trackParser.parse(
@@ -353,7 +352,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
         ),
     );
     var newTracks = medium.tracks();
-    var newRecordings = _(newTracks).invokeMap('recording').value();
+    var newRecordings = newTracks.map(x => x.recording());
 
     t.ok(!newTracks[0].id, 'first track has no id');
     t.ok(!newTracks[0].gid, 'first track has no gid');
@@ -364,7 +363,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     releaseEditor.reuseUnsetPreviousRecordings(release);
     newTracks = medium.tracks();
-    newRecordings = _(newTracks).invokeMap('recording').value();
+    newRecordings = newTracks.map(x => x.recording());
 
     t.equal(newTracks[0].id, 1, 'previous first track’s id is used');
     t.equal(newTracks[0].gid, '7aeebcb5-cc99-4c7f-82bc-f2da35200081', 'previous first track’s gid is used');
@@ -456,7 +455,7 @@ parserTest("data track boundary is unchanged if the track count is >= the previo
     medium.tracks(trackParser.parse('Track B\nTrack A\nCool Bonus Vid', medium));
 
     t.deepEqual(
-        _.map(medium.tracks(), function (t) {
+        medium.tracks().map(function (t) {
             return {id: t.id, name: t.name(), isDataTrack: t.isDataTrack()};
         }),
         [
@@ -499,5 +498,5 @@ parserTest("force number of tracks to equal CD TOC", function (t) {
 
     t.equal(medium.audioTracks().length, 1);
     t.equal(medium.dataTracks().length, 2);
-    t.deepEqual(_.invokeMap(medium.tracks(), 'name'), ['Track A', 'Very Different Title', 'Another Data Track']);
+    t.deepEqual(medium.tracks().map(x => x.name()), ['Track A', 'Very Different Title', 'Another Data Track']);
 });
