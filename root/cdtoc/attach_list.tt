@@ -38,7 +38,7 @@
           </label>
           <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
           [% IF this_medium_has_cdtoc %]
-            <div class="error">[% l('This CDTOC is already attached to this medium') %]</div>
+            <div class="error">[% l('This CDTOC is already attached to this medium.') %]</div>
           [% END %]
         </td>
         <td colspan="6"></td>
