@@ -22,13 +22,13 @@ const SidebarDataQuality = ({quality}: Props): React.MixedElement | null => {
   let qualityClass;
   switch (quality) {
     case 2:
-      qualityClass = "high-data-quality";
+      qualityClass = 'high-data-quality';
       break;
     case 0:
-      qualityClass = "low-data-quality";
+      qualityClass = 'low-data-quality';
       break;
     default:
-      qualityClass = "";
+      qualityClass = '';
       break;
   };
 

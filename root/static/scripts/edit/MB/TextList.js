@@ -42,7 +42,7 @@ MB.Form.TextList = function (input) {
                 .last())
             .show()
             .find('input.value')
-            .attr("name", input + '.' + counter)
+            .attr('name', input + '.' + counter)
             .val(initValue)
             .end()
             .find('button.remove-item')

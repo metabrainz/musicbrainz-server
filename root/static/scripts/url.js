@@ -5,7 +5,7 @@ import MB from './common/MB';
 import {registerEvents} from './edit/URLCleanup';
 
 $(function () {
-  var $urlControl = $("#id-edit-url\\.url");
+  var $urlControl = $('#id-edit-url\\.url');
 
   registerEvents($urlControl);
 
@@ -13,7 +13,7 @@ $(function () {
   var source = vm.source;
   source.name = ko.observable(source.name);
 
-  $urlControl.on("change", function () {
+  $urlControl.on('change', function () {
     source.name(this.value);
   });
 });

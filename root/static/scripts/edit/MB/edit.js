@@ -24,7 +24,7 @@ import request from '../../common/utility/request';
 
 
     function value(arg) {
-        return typeof arg === "function" ? arg() : arg;
+        return typeof arg === 'function' ? arg() : arg;
     }
     function string(arg) {
         return clean(value(arg));
@@ -71,10 +71,10 @@ import request from '../../common/utility/request';
                     name: string(credit.name),
                 };
 
-                var joinPhrase = value(credit.joinPhrase) || "";
+                var joinPhrase = value(credit.joinPhrase) || '';
 
                 // Collapse whitespace, but don't strip leading/trailing.
-                name.join_phrase = joinPhrase.replace(/\s{2,}/g, " ");
+                name.join_phrase = joinPhrase.replace(/\s{2,}/g, ' ');
 
                 // Trim trailing whitespace for the final join phrase only.
                 if (index === ac.names.length - 1) {
@@ -182,7 +182,7 @@ import request from '../../common/utility/request';
             };
 
             // We only use URL gids on the edit-url form.
-            if (entity.entityType === "url" && !data.gid) {
+            if (entity.entityType === 'url' && !data.gid) {
                 delete data.gid;
             }
 
@@ -277,7 +277,7 @@ import request from '../../common/utility/request';
                     ? editHash(value)
                     : value);
         }
-        return hexSha1(keys.reduce(keyValue, ""));
+        return hexSha1(keys.reduce(keyValue, ''));
     }
 
 
@@ -461,16 +461,16 @@ import request from '../../common/utility/request';
             data.edits = data.edits.map(omitHash);
 
             return request({
-                type: "POST",
+                type: 'POST',
                 url: endpoint,
                 data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
+                contentType: 'application/json; charset=utf-8',
             }, context || null);
         };
     }
 
-    edit.preview = editEndpoint("/ws/js/edit/preview");
-    edit.create = editEndpoint("/ws/js/edit/create");
+    edit.preview = editEndpoint('/ws/js/edit/preview');
+    edit.create = editEndpoint('/ws/js/edit/create');
 
 }(MB.edit = {}));
 

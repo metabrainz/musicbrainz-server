@@ -73,21 +73,21 @@ utils.unformatTrackLength = unformatTrackLength;
 utils.escapeLuceneValue = escapeLuceneValue;
 
 utils.constructLuceneField = function (values, key) {
-    return key + ":(" + values.join(" OR ") + ")";
+    return key + ':(' + values.join(' OR ') + ')';
 };
 
 utils.constructLuceneFieldConjunction = function (params) {
     return Object.entries(params).map(([key, values]) => (
         utils.constructLuceneField(values, key)
-    )).join(" AND ");
+    )).join(' AND ');
 };
 
 
 utils.search = function (resource, query, limit, offset) {
     var requestArgs = {
-        url: "/ws/2/" + resource,
+        url: '/ws/2/' + resource,
         data: {
-            fmt: "json",
+            fmt: 'json',
             query: query,
         },
     };
@@ -138,13 +138,13 @@ utils.cleanWebServiceData = function (data) {
         clean.length = data.length;
     }
 
-    if (data["sort-name"]) {
-        clean.sort_name = data["sort-name"];
+    if (data['sort-name']) {
+        clean.sort_name = data['sort-name'];
     }
 
-    if (data["artist-credit"]) {
+    if (data['artist-credit']) {
         clean.artistCredit = {
-            names: data["artist-credit"].map(cleanArtistCreditName),
+            names: data['artist-credit'].map(cleanArtistCreditName),
         };
     }
 
@@ -164,11 +164,11 @@ function cleanArtistCreditName(data) {
         artist: {
             gid: data.artist.id,
             name: data.artist.name,
-            sort_name: data.artist["sort-name"],
+            sort_name: data.artist['sort-name'],
             entityType: 'artist',
         },
         name: data.name || data.artist.name,
-        joinPhrase: data.joinphrase || "",
+        joinPhrase: data.joinphrase || '',
     };
 }
 
@@ -225,8 +225,8 @@ function paddedHex(str, length) {
  * For an explanation, see http://wiki.musicbrainz.org/Disc_ID_Calculation
  */
 
-var padchar = "-";
-var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";
+var padchar = '-';
+var alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._';
 
 function base64(s) {
     let i;
@@ -255,7 +255,7 @@ function base64(s) {
             break;
     }
 
-    return x.join("");
+    return x.join('');
 }
 
 export default utils;

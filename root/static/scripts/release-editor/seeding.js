@@ -33,7 +33,7 @@ releaseEditor.seed = function (data) {
         this.rootField.makeVotable(!!seed.makeVotable);
     }
 
-    if (this.action === "add") {
+    if (this.action === 'add') {
         var releaseData = {};
 
         if (seed.relationships) {

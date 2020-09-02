@@ -51,7 +51,7 @@ class Track {
             this.gid = data.gid;
         }
 
-        data.name = data.name || "";
+        data.name = data.name || '';
         this.name = ko.observable(data.name);
         this.name.original = data.name;
         this.name.subscribe(this.nameChanged, this);
@@ -104,15 +104,15 @@ class Track {
             if (!recordingData.artistCredit) {
                 recordingData.artistCredit = this.artistCredit();
             }
-            this.recording(mbEntity(recordingData, "recording"));
+            this.recording(mbEntity(recordingData, 'recording'));
             this.recording.original(mbEdit.fields.recording(this.recording.peek()));
             this.hasNewRecording(false);
         }
 
         recordingAssociation.track(this);
 
-        this.uniqueID = this.id || uniqueId("new-");
-        this.elementID = "track-row-" + this.uniqueID;
+        this.uniqueID = this.id || uniqueId('new-');
+        this.elementID = 'track-row-' + this.uniqueID;
 
         this.formattedLength.subscribe(this.formattedLengthChanged, this);
         this.hasNewRecording.subscribe(this.hasNewRecordingChanged, this);
@@ -146,12 +146,12 @@ class Track {
 
             if (parseInt(seconds, 10) < 60) {
                 if (parseInt(minutes, 10) < 60) {
-                    length = (hours ? hours + ":" : "") + minutes + ":" + seconds;
+                    length = (hours ? hours + ':' : '') + minutes + ':' + seconds;
                     this.formattedLength(length);
                 } else if (lengthLength == 4) {
                     minutes = minutes - 60;
                     hours = 1;
-                    length = hours + ":" + minutes + ":" + seconds;
+                    length = hours + ':' + minutes + ':' + seconds;
                     this.formattedLength(length);
                 }
             }
@@ -183,21 +183,21 @@ class Track {
          */
         const $ = require('jquery');
 
-        var $lengthInput = $("input.track-length", "#track-row-" + this.uniqueID);
-        $lengthInput.attr("title", "");
+        var $lengthInput = $('input.track-length', '#track-row-' + this.uniqueID);
+        $lengthInput.attr('title', '');
 
-        var hasTooltip = !!$lengthInput.data("ui-tooltip");
+        var hasTooltip = !!$lengthInput.data('ui-tooltip');
 
         if (this.medium.hasInvalidPregapLength()) {
-            $lengthInput.attr("title", l('None of the attached disc IDs can fit a pregap track of the given length.'));
+            $lengthInput.attr('title', l('None of the attached disc IDs can fit a pregap track of the given length.'));
 
             if (!hasTooltip) {
                 $lengthInput.tooltip();
             }
 
-            $lengthInput.tooltip("open");
+            $lengthInput.tooltip('open');
         } else if (hasTooltip) {
-            $lengthInput.tooltip("close").tooltip("destroy");
+            $lengthInput.tooltip('close').tooltip('destroy');
         }
     }
 
@@ -359,8 +359,8 @@ class Medium {
             },
         });
 
-        this.audioTracks = this.tracks.reject("isDataTrack");
-        this.dataTracks = this.tracks.filter("isDataTrack");
+        this.audioTracks = this.tracks.reject('isDataTrack');
+        this.dataTracks = this.tracks.filter('isDataTrack');
 
         var hasDataTracks = ko.computed(function () {
             return self.dataTracks().length > 0;
@@ -393,9 +393,9 @@ class Medium {
             },
         });
 
-        this.needsRecordings = this.tracks.any("needsRecording");
-        this.hasTrackInfo = this.tracks.all("hasNameAndArtist");
-        this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
+        this.needsRecordings = this.tracks.any('needsRecording');
+        this.hasTrackInfo = this.tracks.all('hasNameAndArtist');
+        this.hasVariousArtistTracks = this.tracks.any('hasVariousArtists');
         this.confirmedVariousArtists = ko.observable(this.hasVariousArtistTracks());
         this.needsTrackInfo = ko.computed(function () {
             return !self.hasTrackInfo();
@@ -435,9 +435,9 @@ class Medium {
         this.loading = ko.observable(false);
         this.collapsed = ko.observable(!loaded);
         this.collapsed.subscribe(this.collapsedChanged, this);
-        this.addTrackCount = ko.observable("");
+        this.addTrackCount = ko.observable('');
         this.original = ko.observable(this.id ? mbEdit.fields.medium(this) : {});
-        this.uniqueID = this.id || uniqueId("new-");
+        this.uniqueID = this.id || uniqueId('new-');
 
         this.needsTracks = ko.computed(function () {
             return self.loaded() && self.tracks().length === 0;
@@ -584,8 +584,8 @@ class Medium {
         this.loading(true);
 
         var args = {
-            url: "/ws/js/medium/" + id,
-            data: { inc: "recordings+rels" },
+            url: '/ws/js/medium/' + id,
+            data: { inc: 'recordings+rels' },
         };
 
         request(args, this).done(this.tracksLoaded);
@@ -640,14 +640,14 @@ class Medium {
 
         if (name) {
             if (multidisc) {
-                return texp.l("Medium {position}: {title}", { position: position, title: name });
+                return texp.l('Medium {position}: {title}', { position: position, title: name });
             }
             return name;
 
         } else if (multidisc) {
-            return texp.l("Medium {position}", { position: position });
+            return texp.l('Medium {position}', { position: position });
         }
-        return l("Tracklist");
+        return l('Tracklist');
     }
 
     canHaveDiscID() {
@@ -733,7 +733,7 @@ class ReleaseLabel {
             this.id = data.id;
         }
 
-        this.label = ko.observable(mbEntity(data.label || {}, "label"));
+        this.label = ko.observable(mbEntity(data.label || {}, 'label'));
         this.catalogNumber = ko.observable(data.catalogNumber);
         this.release = release;
         this.isDuplicate = ko.observable(false);
@@ -747,7 +747,7 @@ class ReleaseLabel {
     }
 
     labelHTML() {
-        return this.label().html({ target: "_blank" });
+        return this.label().html({ target: '_blank' });
     }
 
     needsLabelMessage() {
@@ -762,10 +762,10 @@ class Barcode {
     constructor(data) {
         this.original = data;
         this.barcode = ko.observable(data);
-        this.message = ko.observable("");
-        this.existing = ko.observable("");
+        this.message = ko.observable('');
+        this.existing = ko.observable('');
         this.confirmed = ko.observable(false);
-        this.error = validation.errorField(ko.observable(""));
+        this.error = validation.errorField(ko.observable(''));
 
         this.value = ko.computed({
             read: this.barcode,
@@ -783,10 +783,10 @@ class Barcode {
 
         this.none = ko.computed({
             read: function () {
-                return this.barcode() === "";
+                return this.barcode() === '';
             },
             write: function (bool) {
-                this.barcode(bool ? "" : null);
+                this.barcode(bool ? '' : null);
             },
             owner: this,
         });
@@ -811,7 +811,7 @@ class Barcode {
     }
 
     writeBarcode(barcode) {
-        this.barcode((barcode || "").replace(/[^\d]/g, "") || null);
+        this.barcode((barcode || '').replace(/[^\d]/g, '') || null);
         this.confirmed(false);
     }
 }
@@ -892,9 +892,9 @@ class Release extends mbEntity.Release {
             return Math.min(...self.events().map(e => e.unwrapDate().year));  
         });
 
-        this.hasDuplicateCountries = errorField(this.events.any("isDuplicate"));
-        this.hasInvalidDates = errorField(this.events.any("hasInvalidDate"));
-        this.hasTooShortYears = errorField(this.events.any("hasTooShortYear"));
+        this.hasDuplicateCountries = errorField(this.events.any('isDuplicate'));
+        this.hasInvalidDates = errorField(this.events.any('hasInvalidDate'));
+        this.hasTooShortYears = errorField(this.events.any('hasTooShortYear'));
 
         this.labels = ko.observableArray(
             utils.mapChild(this, data.labels, ReleaseLabel),
@@ -915,8 +915,8 @@ class Release extends mbEntity.Release {
             }
         });
 
-        this.needsLabels = errorField(this.labels.any("needsLabel"));
-        this.hasDuplicateLabels = errorField(this.labels.any("isDuplicate"));
+        this.needsLabels = errorField(this.labels.any('needsLabel'));
+        this.hasDuplicateLabels = errorField(this.labels.any('isDuplicate'));
 
         this.releaseGroup = ko.observable(
             new ReleaseGroup(data.releaseGroup || {}),
@@ -929,11 +929,11 @@ class Release extends mbEntity.Release {
         });
 
         this.willCreateReleaseGroup = function () {
-            return releaseEditor.action === "add" && !self.releaseGroup().gid;
+            return releaseEditor.action === 'add' && !self.releaseGroup().gid;
         };
 
         this.needsReleaseGroup = errorField(function () {
-            return releaseEditor.action === "edit" && !self.releaseGroup().gid;
+            return releaseEditor.action === 'edit' && !self.releaseGroup().gid;
         });
 
         this.mediums = ko.observableArray(
@@ -945,23 +945,23 @@ class Release extends mbEntity.Release {
         this.mediums.original(this.existingMediumData());
         this.original = ko.observable(mbEdit.fields.release(this));
 
-        this.loadedMediums = this.mediums.filter("loaded");
-        this.hasTrackInfo = this.loadedMediums.all("hasTrackInfo");
-        this.hasTracks = this.mediums.any("hasTracks");
-        this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === "edit");
-        this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
-        this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
-        this.hasTooEarlyFormat = errorField(this.mediums.any("hasTooEarlyFormat"));
-        this.hasUnconfirmedVariousArtists = errorField(this.mediums.any("hasUnconfirmedVariousArtists"));
+        this.loadedMediums = this.mediums.filter('loaded');
+        this.hasTrackInfo = this.loadedMediums.all('hasTrackInfo');
+        this.hasTracks = this.mediums.any('hasTracks');
+        this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === 'edit');
+        this.needsRecordings = errorField(this.mediums.any('needsRecordings'));
+        this.hasInvalidFormats = errorField(this.mediums.any('hasInvalidFormat'));
+        this.hasTooEarlyFormat = errorField(this.mediums.any('hasTooEarlyFormat'));
+        this.hasUnconfirmedVariousArtists = errorField(this.mediums.any('hasUnconfirmedVariousArtists'));
         this.needsMediums = errorField(function () {
             return !(self.mediums().length || self.hasUnknownTracklist());
         });
-        this.needsFormat = errorField(this.mediums.any("needsFormat"));
-        this.needsTracks = errorField(this.mediums.any("needsTracks"));
+        this.needsFormat = errorField(this.mediums.any('needsFormat'));
+        this.needsTracks = errorField(this.mediums.any('needsTracks'));
         this.needsTrackInfo = errorField(function () {
             return !self.hasTrackInfo();
         });
-        this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
+        this.hasInvalidPregapLength = errorField(this.mediums.any('hasInvalidPregapLength'));
 
         // Ensure there's at least one event, label, and medium to edit.
 
