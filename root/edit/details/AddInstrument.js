@@ -9,8 +9,7 @@
 
 import * as React from 'react';
 
-import IntentionallyUntranslatedIcon
-  from '../components/IntentionallyUntranslatedIcon';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon';
 import EntityLink
   from '../../static/scripts/common/components/EntityLink';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
@@ -56,7 +55,7 @@ const AddInstrument = ({allowNew, edit}: Props): React.MixedElement => {
           <td>
             {display.name}
             {' '}
-            <IntentionallyUntranslatedIcon />
+            <IntentionallyRawIcon />
           </td>
         </tr>
 
@@ -80,7 +79,7 @@ const AddInstrument = ({allowNew, edit}: Props): React.MixedElement => {
             <td>
               {expand2react(description)}
               {' '}
-              <IntentionallyUntranslatedIcon />
+              <IntentionallyRawIcon />
             </td>
           </tr>
         ) : null}
