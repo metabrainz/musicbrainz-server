@@ -30,9 +30,8 @@ module.exports = function (api) {
     '@babel/plugin-transform-react-jsx',
     '@babel/plugin-transform-react-constant-elements',
     ['@babel/plugin-transform-runtime', {
-      corejs: 3,
+      corejs: false,
       helpers: true,
-      proposals: true,
       regenerator: true,
       useESModules: false,
     }],
