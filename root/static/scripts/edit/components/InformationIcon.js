@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 type Props = {
+  className?: string,
   title?: string,
 };
 
