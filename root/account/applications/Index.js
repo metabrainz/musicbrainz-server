@@ -122,13 +122,13 @@ const Index = ({
     <p>
       {exp.l(
         `Do you want to develop an application that uses the
-         {ws|MusicBrainz web service}? {register|Register an application}
-         to generate OAuth tokens. See our {oauth2|OAuth documentation}
-         for more details.`,
+         {mb_api_doc_url|MusicBrainz API}? 
+         {register_url|Register an application} to generate OAuth tokens.
+         See our {oauth2_doc_url|OAuth documentation} for more details.`,
         {
-          oauth2: '/doc/Development/OAuth2',
-          register: '/account/applications/register',
-          ws: '/doc/Development/XML_Web_Service/Version_2',
+          mb_api_doc_url: '/doc/MusicBrainz_API',
+          oauth2_doc_url: '/doc/Development/OAuth2',
+          register_url: '/account/applications/register',
         },
       )}
     </p>

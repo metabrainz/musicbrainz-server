@@ -28,7 +28,7 @@ Interally, when making the requests to fetch the JSON, all inc parameters are
 included except:
 
  * Those that perform subqueries and return 25 linked entities:
-   https://wiki.musicbrainz.org/Development/XML_Web_Service/Version_2#Subqueries
+   https://wiki.musicbrainz.org/MusicBrainz_API#Subqueries
 
  * 'work-level-rels' on recording and release lookups.
 

@@ -170,7 +170,7 @@ const ProductsMenu = () => (
         <a href="/doc/Developer_Resources">{l('Developer Resources')}</a>
       </li>
       <li>
-        <a href="/doc/XML_Web_Service">{l('XML Web Service')}</a>
+        <a href="/doc/MusicBrainz_API">{l('MusicBrainz API')}</a>
       </li>
       <li>
         <a href="/doc/Live_Data_Feed">{l('Live Data Feed')}</a>

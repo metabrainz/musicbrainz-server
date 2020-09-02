@@ -108,7 +108,7 @@ const Details = ({
           <th>
             {addColon(exp.l(
               '{xml_ws_docs|XML}',
-              {xml_ws_docs: '/doc/Development/XML_Web_Service/Version_2'},
+              {xml_ws_docs: '/doc/MusicBrainz_API'},
             ))}
           </th>
           <td>
@@ -124,7 +124,7 @@ const Details = ({
           <th>
             {addColon(exp.l(
               '{json_ws_docs|JSON}',
-              {json_ws_docs: '/doc/Development/JSON_Web_Service'},
+              {json_ws_docs: '/doc/MusicBrainz_API'},
             ))}
           </th>
           <td>
