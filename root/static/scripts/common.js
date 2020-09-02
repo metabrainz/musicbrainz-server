@@ -36,8 +36,6 @@ require('./common/components/Annotation');
 require('./common/components/CommonsImage');
 require('./common/components/FingerprintTable');
 require('./common/components/WikipediaExtract');
-require('./common/i18n');
-require('./common/entity');
 require('./common/MB/Control/Autocomplete');
 require('./common/components/ReleaseEvents');
 require('./common/components/WorkArtists');
