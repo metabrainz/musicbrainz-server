@@ -2175,6 +2175,26 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'offiziellecharts': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?offiziellecharts\\.de/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?offiziellecharts\.de\/([^\/?#]+).*$/, 'https://www.offiziellecharts.de/$1');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.offiziellecharts\.de\/(album|titel)-details-[\d]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.recording:
+            return {result: prefix === 'titel'};
+          case LINK_TYPES.otherdatabases.release_group:
+            return {result: prefix === 'album'};
+        }
+      }
+      return {result: false};
+    },
+  },
   'onlinebijbel': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?online-bijbel\\.nl/', 'i')],
     type: LINK_TYPES.lyrics,
