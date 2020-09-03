@@ -78,19 +78,25 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
             <SidebarProperty className="acousticbrainz_key" label={l('Key:')}>
               <abbr
                 title={
-                  l(`Automatic suggestion from entry #1/${count}`) +
-                  ' ' +
-                  l(` (key strength ${roundedBPM(data)})`)
+                  texp.l(`Automatic suggestion from entry #1/{count}
+                          (key strength: {keyStrength})`, {
+                    count: count,
+                    keyStrength: roundedBPM(data),
+                  })
                 }
               >
-                {`${keyLabel(data.tonal.key_key)} ${data.tonal.key_scale}`}
+                {texp.l('{key} {scale}', {
+                  key: keyLabel(data.tonal.key_key),
+                  scale: data.tonal.key_scale,
+                })}
               </abbr>
             </SidebarProperty>
           ) : null}
 
           <SidebarProperty className="acousticbrainz_bpm" label={l('BPM:')}>
             <abbr
-              title={l(`Automatic suggestion from entry #1/${count}`)}
+              title={texp.l('Automatic suggestion from entry #1/{count}',
+                       {count: count})}
             >
               {Math.round(data.rhythm.bpm)}
             </abbr>
