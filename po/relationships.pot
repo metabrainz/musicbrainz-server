@@ -1719,6 +1719,13 @@ msgid ""
 "common for classical works, but also exists in other genres to a degree."
 msgstr ""
 
+#: DB:link_type/description:983
+msgid ""
+"This indicates the work is dedicated to a specific place (such an "
+"educational institution). This is most common for classical works, but also "
+"exists in other genres to a degree."
+msgstr ""
+
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr ""
@@ -3720,17 +3727,18 @@ msgid "cut the lacquer for"
 msgstr ""
 
 #: DB:link_type/name:868 DB:link_type/reverse_link_phrase:868
-#: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
-#: DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:983 DB:link_type/reverse_link_phrase:846
+#: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
 msgid "dedicated to"
 msgstr ""
 
-#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:922
-#: DB:link_type/link_phrase:914
+#: DB:link_type/link_phrase:983 DB:link_type/link_phrase:846
+#: DB:link_type/link_phrase:922 DB:link_type/link_phrase:914
 msgid "dedicated works"
 msgstr ""
 
-#: DB:link_type/name:846 DB:link_type/name:922 DB:link_type/name:914
+#: DB:link_type/name:983 DB:link_type/name:846 DB:link_type/name:922
+#: DB:link_type/name:914
 msgid "dedication"
 msgstr ""
 
@@ -7063,8 +7071,9 @@ msgstr ""
 msgid "{entity1} is a tribute to {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
+#: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:983
+#: DB:link_type/long_link_phrase:846 DB:link_type/long_link_phrase:922
+#: DB:link_type/long_link_phrase:914
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
