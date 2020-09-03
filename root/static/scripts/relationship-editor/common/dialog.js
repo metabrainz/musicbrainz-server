@@ -33,10 +33,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     var UI = RE.UI = RE.UI || {};
 
     var incorrectEntityForSeries = {
-        recording:      l("The series you’ve selected is for recordings."),
-        release:        l("The series you’ve selected is for releases."),
-        release_group:  l("The series you’ve selected is for release groups."),
-        work:           l("The series you’ve selected is for works."),
+        recording:      l('The series you’ve selected is for recordings.'),
+        release:        l('The series you’ve selected is for releases.'),
+        release_group:  l('The series you’ve selected is for release groups.'),
+        work:           l('The series you’ve selected is for works.'),
     };
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
@@ -76,7 +76,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         },
 
                         resultHook: function (items) {
-                            if (dialog.autocomplete.entity === "series" &&
+                            if (dialog.autocomplete.entity === 'series' &&
                                     dialog.relationship().getLinkType().orderable_direction !== 0) {
                                 return items.filter(function (item) {
                                     return item.type.item_entity_type === dialog.source.entityType;
@@ -84,7 +84,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                             } 
                             return items;
                         },
-                    }).data("mb-entitylookup");
+                    }).data('mb-entitylookup');
 
                 dialog.autocomplete.currentSelection.subscribe(changeTarget);
 
@@ -124,12 +124,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             function focusLastInput() {
-                $(element).find(".ui-autocomplete-input:last").focus();
+                $(element).find('.ui-autocomplete-input:last').focus();
             }
 
             for (const attribute of relationship.attributes.peek()) {
                 if (attribute.type.root_id == 14) {
-                    addInstrument(MB.entity(attribute.type, "instrument"), attribute);
+                    addInstrument(MB.entity(attribute.type, 'instrument'), attribute);
                 }
             }
 
@@ -152,7 +152,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     relationship.attributes.remove(item.linkAttribute.peek());
 
                     index = index === instruments().length ? index - 1 : index;
-                    var $nextButton = $(element).find("button.remove-item:eq(" + index + ")");
+                    var $nextButton = $(element).find('button.remove-item:eq(' + index + ')');
 
                     if ($nextButton.length) {
                         $nextButton.focus();
@@ -237,7 +237,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             // Call this.positionBy twice to prevent jumping in Opera
             this.positionBy(positionBy);
 
-            this.$dialog.find(".link-type").focus();
+            this.$dialog.find('.link-type').focus();
         }
 
         accept() {
@@ -306,10 +306,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         clickEvent(data, event) {
             if (!event.isDefaultPrevented()) {
-                var $menu = this.$dialog.find(".menu");
+                var $menu = this.$dialog.find('.menu');
 
                 if ($menu.length) {
-                    $menu.data("multiselect").menuVisible(false);
+                    $menu.data('multiselect').menuVisible(false);
                 }
             }
 
@@ -343,7 +343,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         self.accept();
                     }, 1);
                 }
-            } else if (event.keyCode === 27 && nodeName !== "select") {
+            } else if (event.keyCode === 27 && nodeName !== 'select') {
                 this.close();
             }
 
@@ -395,19 +395,19 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             if (linkType && linkType.description) {
                 description = ReactDOMServer.renderToStaticMarkup(
-                    exp.l("{description} ({url|more documentation})", {
+                    exp.l('{description} ({url|more documentation})', {
                         description: expand2react(l_relationships(linkType.description)),
-                        url: { href: "/relationship/" + linkType.gid, target: "_blank" },
+                        url: { href: '/relationship/' + linkType.gid, target: '_blank' },
                     }),
                 );
             }
 
-            return description || "";
+            return description || '';
         }
 
         positionBy(element) {
-            this.widget._setOption("position", {
-                my: "top center", at: "center", of: element,
+            this.widget._setOption('position', {
+                my: 'top center', at: 'center', of: element,
             });
         }
 
@@ -416,7 +416,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 { children: linkedEntities.link_type_tree[entityTypes] }, this.backward(),
             );
 
-            if (this.source.entityType === "series") {
+            if (this.source.entityType === 'series') {
                 var itemType = MB.seriesTypesByID[this.source.typeID()].item_entity_type;
 
                 options = options.filter(function (opt) {
@@ -440,11 +440,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 typeName => typeName !== 'url',
             );
 
-            if (sourceType === "series") {
+            if (sourceType === 'series') {
                 var self = this;
 
                 targetTypes = targetTypes.filter(function (targetType) {
-                    var key = [sourceType, targetType].sort().join("-");
+                    var key = [sourceType, targetType].sort().join('-');
 
                     if (self.linkTypeOptions(key).length) {
                         return true;
@@ -489,7 +489,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             delete data.entities;
 
-            var entityTypes = [this.source.entityType, newType].sort().join("-");
+            var entityTypes = [this.source.entityType, newType].sort().join('-');
             data.linkTypeID = defaultLinkType({ children: linkedEntities.link_type_tree[entityTypes] });
             data.attributes = [];
 
@@ -517,24 +517,24 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var linkType = this.relationship().getLinkType();
 
             if (!linkType) {
-                return l("Please select a relationship type.");
+                return l('Please select a relationship type.');
             } else if (!linkType.description) {
-                return l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
+                return l('Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.');
             } else if (linkType.deprecated) {
-                return l("This relationship type is deprecated and should not be used.");
-            } else if (this.source.entityType === "url") {
+                return l('This relationship type is deprecated and should not be used.');
+            } else if (this.source.entityType === 'url') {
                 var checker = URLCleanup.validationRules[linkType.gid];
 
                 if (checker) {
                     const check = checker(this.source.name());
                     if (!check.result) {
                         return check.error ||
-                            l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
+                            l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
                     }
                 }
             }
 
-            return "";
+            return '';
         }
 
         targetEntityError() {
@@ -543,23 +543,23 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var linkType = relationship.getLinkType() || {};
 
             if (!target.gid) {
-                return l("Required field.");
+                return l('Required field.');
             } else if (this.source === target) {
-                return l("Entities in a relationship cannot be the same.");
+                return l('Entities in a relationship cannot be the same.');
             }
 
-            if (target.entityType === "series" &&
+            if (target.entityType === 'series' &&
                     PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
                     target.type().entityType !== this.source.entityType) {
                 return incorrectEntityForSeries[target.type().entityType];
             }
 
-            return "";
+            return '';
         }
 
         dateError(date) {
             var valid = dates.isDateValid(date.year(), date.month(), date.day());
-            return valid ? "" : l("The date you've entered is not valid.");
+            return valid ? '' : l("The date you've entered is not valid.");
         }
 
         datePeriodError() {
@@ -570,11 +570,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
-                    return l("The end date cannot precede the begin date.");
+                    return l('The end date cannot precede the begin date.');
                 }
             }
 
-            return "";
+            return '';
         }
 
         hasAttributeErrors() {
@@ -629,11 +629,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         showLinkTypeHelp: ko.observable(false),
 
         uiOptions: {
-            dialogClass: "rel-editor-dialog",
+            dialogClass: 'rel-editor-dialog',
             draggable: false,
             resizable: false,
             autoOpen: false,
-            width: "auto",
+            width: 'auto',
         },
 
         setupUI: function () {
@@ -641,10 +641,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return;
             }
 
-            var $dialog = $("#dialog").dialog(this.uiOptions);
+            var $dialog = $('#dialog').dialog(this.uiOptions);
 
-            var widget = $dialog.data("ui-dialog");
-            widget.uiDialog.find(".ui-dialog-titlebar").remove();
+            var widget = $dialog.data('ui-dialog');
+            widget.uiDialog.find('.ui-dialog-titlebar').remove();
 
             Object.assign(Dialog.prototype, {$dialog, widget});
             ko.applyBindings(this.viewModel, $dialog[0]);
@@ -693,7 +693,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     Object.assign(AddDialog.prototype, {
-        dialogTemplate: "template.relationship-dialog",
+        dialogTemplate: 'template.relationship-dialog',
         disableTypeSelection: false,
     });
 
@@ -736,7 +736,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     Object.assign(EditDialog.prototype, {
-        dialogTemplate: "template.relationship-dialog",
+        dialogTemplate: 'template.relationship-dialog',
         disableTypeSelection: true,
     });
 
@@ -758,7 +758,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             delete model.entities;
 
             model.target = this.relationship().target(this.source);
-            model.direction = this.backward() ? "backward" : "forward";
+            model.direction = this.backward() ? 'backward' : 'forward';
 
             for (const source of this.sources) {
                 model = {...model};
@@ -771,7 +771,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     Object.assign(BatchRelationshipDialog.prototype, {
-        dialogTemplate: "template.batch-relationship-dialog",
+        dialogTemplate: 'template.batch-relationship-dialog',
         disableTypeSelection: false,
     });
 
@@ -803,7 +803,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     var works = data.edits.map(x => x.entity);
 
                     super.accept(function (relationshipData) {
-                        relationshipData.target = MB.entity(works.shift(), "work");
+                        relationshipData.target = MB.entity(works.shift(), 'work');
                         return true;
                     });
 
@@ -816,7 +816,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         createEdits(edits) {
-            return MB.edit.create({ editNote: "", makeVotable: false, edits: edits });
+            return MB.edit.create({ editNote: '', makeVotable: false, edits: edits });
         }
 
         targetEntityError() {
@@ -825,7 +825,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     Object.assign(BatchCreateWorksDialog.prototype, {
-        dialogTemplate: "template.batch-create-works-dialog",
+        dialogTemplate: 'template.batch-create-works-dialog',
         workType: ko.observable(null),
         workLanguage: ko.observable(null),
     });

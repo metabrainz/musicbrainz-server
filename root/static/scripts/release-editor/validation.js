@@ -31,18 +31,18 @@ function markTabWithErrors($panel) {
      * Don't mark the edit note tab, because it's the last one and only
      * can have one error, so the user will always see it anyway.
      */
-    if ($panel.attr("id") === "edit-note") {
+    if ($panel.attr('id') === 'edit-note') {
         return;
     }
     // Mark the previous tab red if it has errors.
     var tabs = releaseEditor.uiTabs;
 
-    var $errors = $(".field-error", $panel).filter(function () {
-        return $(this).data("visible") && $(this).text();
+    var $errors = $('.field-error', $panel).filter(function () {
+        return $(this).data('visible') && $(this).text();
     });
 
     tabs.tabs.eq(tabs.panels.index($panel))
-        .toggleClass("error-tab", $errors.length > 0);
+        .toggleClass('error-tab', $errors.length > 0);
 }
 
 
@@ -56,10 +56,10 @@ function showErrorHandler(handler) {
             ko.computed({
                 read: function () {
                     const value = errorField.call(vm);
-                    const $panel = $element.parents(".ui-tabs-panel");
+                    const $panel = $element.parents('.ui-tabs-panel');
 
                     if (typeof value === 'string') {
-                        $element.text(value || "");
+                        $element.text(value || '');
                     }
                     handler(value, $element, $panel);
                     markTabWithErrors($panel);
@@ -74,7 +74,7 @@ function showErrorHandler(handler) {
 ko.bindingHandlers.showErrorRightAway = {
 
     init: showErrorHandler(function (value, $element) {
-        $element.data("visible", !!value).toggle(!!value);
+        $element.data('visible', !!value).toggle(!!value);
     }),
 };
 
@@ -83,15 +83,15 @@ ko.bindingHandlers.showMessageRightAway = ko.bindingHandlers.showErrorRightAway;
 ko.bindingHandlers.showErrorWhenTabIsSwitched = {
 
     init: showErrorHandler(function (value, $element, $panel) {
-        var alreadyVisible = $element.is(":visible");
+        var alreadyVisible = $element.is(':visible');
 
         if (!value && alreadyVisible) {
-            $element.data("visible", false).hide();
+            $element.data('visible', false).hide();
         }
 
-        var $hidden = $panel.data("hiddenErrors") || $();
+        var $hidden = $panel.data('hiddenErrors') || $();
 
-        $panel.data("hiddenErrors",
+        $panel.data('hiddenErrors',
             (value && !alreadyVisible)
                 ? $hidden.add($element) : $hidden.not($element));
     }),
@@ -99,7 +99,7 @@ ko.bindingHandlers.showErrorWhenTabIsSwitched = {
 
 
 $(function () {
-    $("#release-editor").on("tabsbeforeactivate", function (event, ui) {
+    $('#release-editor').on('tabsbeforeactivate', function (event, ui) {
 
         /*
          * Show errors on and mark all tabs between the one we just
@@ -115,10 +115,10 @@ $(function () {
         $panels.each(function () {
             var $panel = $(this);
 
-            ($panel.data("hiddenErrors") || $())
-                .data("visible", true).show();
+            ($panel.data('hiddenErrors') || $())
+                .data('visible', true).show();
 
-            $panel.data("hiddenErrors", $());
+            $panel.data('hiddenErrors', $());
 
             markTabWithErrors($panel);
         });
@@ -128,7 +128,7 @@ $(function () {
 
 // Search releases with the same barcode
 function searchExistingBarcode(field, barcode) {
-    utils.search("release", `barcode:${barcode}`, 1).done(data => {
+    utils.search('release', `barcode:${barcode}`, 1).done(data => {
         if (data.releases.length) {
 
             const msg = l(
@@ -165,52 +165,52 @@ function searchExistingBarcode(field, barcode) {
 utils.withRelease(function (release) {
     var field = release.barcode;
 
-    field.error("");
-    field.message("");
-    field.existing("");
+    field.error('');
+    field.message('');
+    field.existing('');
 
     var barcode = field.barcode();
     if (!barcode || barcode === field.original || field.confirmed()) {
         return;
     }
 
-    var checkDigitText = l("The check digit is {checkdigit}.");
-    var doubleCheckText = l("Please double-check the barcode on the release.");
+    var checkDigitText = l('The check digit is {checkdigit}.');
+    var doubleCheckText = l('Please double-check the barcode on the release.');
 
     if (barcode.length === 11) {
         field.error(
-            l("The barcode you entered looks like a UPC code with the check digit missing.") +
-            " " +
-            expand2text(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) }),
+            l('The barcode you entered looks like a UPC code with the check digit missing.') +
+            ' ' +
+            expand2text(checkDigitText, { checkdigit: field.checkDigit('0' + barcode) }),
         );
     } else if (barcode.length === 12) {
-        if (field.validateCheckDigit("0" + barcode)) {
-            field.message(l("The barcode you entered is a valid UPC code."));
+        if (field.validateCheckDigit('0' + barcode)) {
+            field.message(l('The barcode you entered is a valid UPC code.'));
             searchExistingBarcode(field, barcode);
         } else {
             field.error(
-                l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
-                " " +
+                l('The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.') +
+                ' ' +
                 doubleCheckText +
-                " " +
+                ' ' +
                 expand2text(checkDigitText, { checkdigit: field.checkDigit(barcode) }),
             );
         }
     } else if (barcode.length === 13) {
         if (field.validateCheckDigit(barcode)) {
-            field.message(l("The barcode you entered is a valid EAN code."));
+            field.message(l('The barcode you entered is a valid EAN code.'));
             searchExistingBarcode(field, barcode);
         } else {
             field.error(
-                l("The barcode you entered is not a valid EAN code.") +
-                " " +
+                l('The barcode you entered is not a valid EAN code.') +
+                ' ' +
                 doubleCheckText,
             );
         }
     } else {
         field.error(
-            l("The barcode you entered is not a valid UPC or EAN code.") +
-            " " +
+            l('The barcode you entered is not a valid UPC or EAN code.') +
+            ' ' +
             doubleCheckText,
         );
     }

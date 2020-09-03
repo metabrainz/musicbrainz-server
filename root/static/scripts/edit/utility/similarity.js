@@ -11,7 +11,7 @@ import leven from 'leven';
 var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
 
 function stripSpacesAndPunctuation(str) {
-    return (str || "").replace(punctuation, "").toLowerCase();
+    return (str || '').replace(punctuation, '').toLowerCase();
 }
 
 /*

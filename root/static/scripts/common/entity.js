@@ -44,7 +44,7 @@ import formatTrackLength from './utility/formatTrackLength';
 
         constructor(data) {
             Object.assign(this, data);
-            this.name = this.name || "";
+            this.name = this.name || '';
         }
 
         toJSON() {
@@ -105,15 +105,15 @@ import formatTrackLength from './utility/formatTrackLength';
         if (data instanceof Entity) {
             return data;
         }
-        type = (type || data.entityType || "").replace("-", "_");
+        type = (type || data.entityType || '').replace('-', '_');
         var entityClass = coreEntityMapping[type];
 
         if (!entityClass) {
-            throw "Unknown type of entity: " + type;
+            throw 'Unknown type of entity: ' + type;
         }
         var entity = MB.entityCache[data.gid];
 
-        if (type === "url") {
+        if (type === 'url') {
             entity = entity || MB.entityCache[data.name];
         }
 
@@ -124,7 +124,7 @@ import formatTrackLength from './utility/formatTrackLength';
                 MB.entityCache[data.gid] = entity;
             }
 
-            if (data.name && type === "url") {
+            if (data.name && type === 'url') {
                 MB.entityCache[data.name] = entity;
             }
         }
@@ -280,7 +280,7 @@ import formatTrackLength from './utility/formatTrackLength';
                  * server, /ws/js...) we may have either releases or release
                  * groups here. Assume the latter by default.
                  */
-                var appearsOnType = this.appearsOn.entityType || "release_group";
+                var appearsOnType = this.appearsOn.entityType || 'release_group';
 
                 this.appearsOn.results = this.appearsOn.results.map(function (appearance) {
                     return MB.entity(appearance, appearsOnType);
@@ -312,7 +312,7 @@ import formatTrackLength from './utility/formatTrackLength';
             super(data);
 
             if (data.releaseGroup) {
-                this.releaseGroup = MB.entity(data.releaseGroup, "release_group");
+                this.releaseGroup = MB.entity(data.releaseGroup, 'release_group');
             }
 
             if (data.mediums) {
@@ -394,7 +394,7 @@ import formatTrackLength from './utility/formatTrackLength';
             this.formattedLength = formatTrackLength(this.length);
 
             if (data.recording) {
-                this.recording = MB.entity(data.recording, "recording");
+                this.recording = MB.entity(data.recording, 'recording');
             }
         }
 

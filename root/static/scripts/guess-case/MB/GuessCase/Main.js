@@ -29,11 +29,11 @@ MB.GuessCase = MB.GuessCase || {};
 // Main class of the GC functionality
     var self = {};
 
-    self.modeName = getCookie("guesscase_mode") || "English";
+    self.modeName = getCookie('guesscase_mode') || 'English';
     self.mode = modes[self.modeName];
 
     // Config
-    self.CFG_UC_UPPERCASED = getCookie("guesscase_keepuppercase") !== "false";
+    self.CFG_UC_UPPERCASED = getCookie('guesscase_keepuppercase') !== 'false';
 
     // Member variables
     self.i = Input(self);
@@ -78,42 +78,42 @@ MB.GuessCase = MB.GuessCase || {};
     }
 
     MB.GuessCase.area = {
-        guess: guess("Area", "process"),
-        sortname: guess("Area", "guessSortName"),
+        guess: guess('Area', 'process'),
+        sortname: guess('Area', 'guessSortName'),
     };
 
     MB.GuessCase.artist = {
-        guess: guess("Artist", "process"),
-        sortname: guess("Artist", "guessSortName"),
+        guess: guess('Artist', 'process'),
+        sortname: guess('Artist', 'guessSortName'),
     };
 
     MB.GuessCase.label = {
-        guess: guess("Label", "process"),
-        sortname: guess("Label", "guessSortName"),
+        guess: guess('Label', 'process'),
+        sortname: guess('Label', 'guessSortName'),
     };
 
     MB.GuessCase.place = {
-        guess: guess("Place", "process"),
-        sortname: guess("Place", "guessSortName"),
+        guess: guess('Place', 'process'),
+        sortname: guess('Place', 'guessSortName'),
     };
 
     MB.GuessCase.release = {
-        guess: guess("Release", "process"),
-        sortname: guess("Release", "guessSortName"),
+        guess: guess('Release', 'process'),
+        sortname: guess('Release', 'guessSortName'),
     };
 
     MB.GuessCase.release_group = MB.GuessCase.release;
 
     MB.GuessCase.track = {
-        guess: guess("Track", "process"),
-        sortname: guess("Track", "guessSortName"),
+        guess: guess('Track', 'process'),
+        sortname: guess('Track', 'guessSortName'),
     };
 
     MB.GuessCase.recording = MB.GuessCase.track;
 
     MB.GuessCase.work = {
-        guess: guess("Work", "process"),
-        sortname: guess("Work", "guessSortName"),
+        guess: guess('Work', 'process'),
+        sortname: guess('Work', 'guessSortName'),
     };
 
     /*

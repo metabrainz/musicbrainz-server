@@ -114,7 +114,7 @@ ko.bindingHandlers.loop = {
 
         if (!ko.isObservable(observableArray) ||
             !observableArray.cacheDiffForKnownOperation) {
-            throw new Error("items must an an observableArray");
+            throw new Error('items must an an observableArray');
         }
 
         const idAttribute = options.id;
@@ -147,7 +147,7 @@ ko.bindingHandlers.loop = {
             for (let i = 0, change, node; (change = changes[i]); i++) {
                 var status = change.status;
 
-                if (status === "retained") {
+                if (status === 'retained') {
                     continue;
                 }
 
@@ -156,7 +156,7 @@ ko.bindingHandlers.loop = {
                 let currentElements = elements[itemID];
                 let tmpElementContainer;
 
-                if (status === "added") {
+                if (status === 'added') {
                     if (change.moved === undefined) {
                         var newContext = bindingContext.createChildContext(item);
 
@@ -166,7 +166,7 @@ ko.bindingHandlers.loop = {
                              * but knockout doesn't support them.
                              * https://github.com/knockout/knockout/pull/1432
                              */
-                            tmpElementContainer = document.createElement("div");
+                            tmpElementContainer = document.createElement('div');
 
                             for (let j = 0; (node = template[j]); j++) {
                                 tmpElementContainer.appendChild(node.cloneNode(true));
@@ -178,7 +178,7 @@ ko.bindingHandlers.loop = {
                             tmpElementContainer = null;
                         }
                     }
-                } else if (status === "deleted") {
+                } else if (status === 'deleted') {
                     if (change.moved === undefined) {
                         for (let j = 0; (node = currentElements[j]); j++) {
                             /*
@@ -266,7 +266,7 @@ ko.bindingHandlers.loop = {
             }
         }
 
-        var changeSubscription = observableArray.subscribe(update, null, "arrayChange");
+        var changeSubscription = observableArray.subscribe(update, null, 'arrayChange');
 
         function nodeDisposal() {
             ko.utils.domNodeDisposal.removeDisposeCallback(parentNode, nodeDisposal);
@@ -276,7 +276,7 @@ ko.bindingHandlers.loop = {
         ko.utils.domNodeDisposal.addDisposeCallback(parentNode, nodeDisposal);
 
         update(observableArray.peek().map(function (value, index) {
-            return { status: "added", value: value, index: index };
+            return { status: 'added', value: value, index: index };
         }));
 
         return { controlsDescendantBindings: true };
@@ -316,14 +316,14 @@ ko.bindingHandlers.withLabel = {
     update: function (element, valueAccessor, allBindings,
                       viewModel, bindingContext) {
 
-        var name = valueAccessor() + "-" + bindingContext.$index();
+        var name = valueAccessor() + '-' + bindingContext.$index();
 
         $(element)
-            .attr("id", name)
-            .parents("td")
-            .prev("td")
-            .find("label")
-            .attr("for", name);
+            .attr('id', name)
+            .parents('td')
+            .prev('td')
+            .find('label')
+            .attr('for', name);
     },
 };
 

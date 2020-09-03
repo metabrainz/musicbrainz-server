@@ -29,7 +29,7 @@ class Dialog {
     }
 
     close() {
-        $(this.element).dialog("close");
+        $(this.element).dialog('close');
     }
 }
 
@@ -37,12 +37,12 @@ class Dialog {
 export const trackParserDialog = releaseEditor.trackParserDialog = new Dialog();
 
 Object.assign(trackParserDialog, {
-    element: "#track-parser-dialog",
-    title: l("Track Parser"),
+    element: '#track-parser-dialog',
+    title: l('Track Parser'),
 
-    toBeParsed: ko.observable(""),
+    toBeParsed: ko.observable(''),
     result: ko.observable(null),
-    error: ko.observable(""),
+    error: ko.observable(''),
 
     open: function (medium) {
         this.setMedium(medium);
@@ -80,7 +80,7 @@ class SearchResult {
         this.tab = tab;
         this.loaded = ko.observable(false);
         this.loading = ko.observable(false);
-        this.error = ko.observable("");
+        this.error = ko.observable('');
     }
 
     expanded() {
@@ -94,7 +94,7 @@ class SearchResult {
 
         if (expand && !this.loaded() && !this.loading()) {
             this.loading(true);
-            this.error("");
+            this.error('');
 
             request({
                 url: this.tab.tracksRequestURL(this),
@@ -133,7 +133,7 @@ class SearchResult {
             const release = releaseEditor.rootField.release();
             const releaseArtistCredit = release.artistCredit();
             const releaseArtistName = reduceArtistCredit(releaseArtistCredit);
-            track.artist = track.artist || this.artist || "";
+            track.artist = track.artist || this.artist || '';
             if (track.artist === releaseArtistName) {
                 track.artistCredit = releaseArtistCredit;
             } else {
@@ -167,14 +167,14 @@ class SearchResult {
 class SearchTab {
 
     constructor() {
-        this.releaseName = ko.observable("");
-        this.artistName = ko.observable("");
-        this.trackCount = ko.observable("");
+        this.releaseName = ko.observable('');
+        this.artistName = ko.observable('');
+        this.trackCount = ko.observable('');
 
         this.searchResults = ko.observable(null);
         this.result = ko.observable(null);
         this.searching = ko.observable(false);
-        this.error = ko.observable("");
+        this.error = ko.observable('');
 
         this.currentPage = ko.observable(0);
         this.totalPages = ko.observable(0);
@@ -193,7 +193,7 @@ class SearchTab {
         this._jqXHR = request({ url: this.endpoint, data: data }, this)
             .done(this.requestDone)
             .fail(function (jqXHR, textStatus) {
-                if (textStatus !== "abort") {
+                if (textStatus !== 'abort') {
                     this.error(jqXHR.responseText);
                 }
             })
@@ -240,7 +240,7 @@ class SearchTab {
     }
 
     requestDone(results) {
-        this.error("");
+        this.error('');
 
         var pager = results.pop();
 
@@ -256,7 +256,7 @@ class SearchTab {
         const release = releaseEditor.rootField.release();
         const medium = new fields.Medium(this.result(), release);
 
-        medium.name("");
+        medium.name('');
 
         if (this._addDisc) {
             this._addDisc(medium);
@@ -279,12 +279,12 @@ SearchTab.prototype.tracksRequestData = {};
 export const mediumSearchTab = releaseEditor.mediumSearchTab = new SearchTab();
 
 Object.assign(mediumSearchTab, {
-    endpoint: "/ws/js/medium",
+    endpoint: '/ws/js/medium',
 
-    tracksRequestData: { inc: "recordings" },
+    tracksRequestData: { inc: 'recordings' },
 
     tracksRequestURL: function (result) {
-        return [this.endpoint, result.medium_id].join("/");
+        return [this.endpoint, result.medium_id].join('/');
     },
 
     _addDisc(medium) {
@@ -297,10 +297,10 @@ Object.assign(mediumSearchTab, {
 var cdstubSearchTab = new SearchTab();
 
 Object.assign(cdstubSearchTab, {
-    endpoint: "/ws/js/cdstub",
+    endpoint: '/ws/js/cdstub',
 
     tracksRequestURL: function (result) {
-        return [this.endpoint, result.discid].join("/");
+        return [this.endpoint, result.discid].join('/');
     },
 });
 
@@ -308,8 +308,8 @@ Object.assign(cdstubSearchTab, {
 export const addDiscDialog = releaseEditor.addDiscDialog = new Dialog();
 
 Object.assign(addDiscDialog, {
-    element: "#add-disc-dialog",
-    title: l("Add Medium"),
+    element: '#add-disc-dialog',
+    title: l('Add Medium'),
 
     trackParser: trackParserDialog,
     mediumSearch: mediumSearchTab,
@@ -368,13 +368,13 @@ Object.assign(addDiscDialog, {
 
 
 $(function () {
-    $("#add-disc-parser").data("model", addDiscDialog.trackParser);
-    $("#add-disc-medium").data("model", mediumSearchTab);
-    $("#add-disc-cdstub").data("model", cdstubSearchTab);
+    $('#add-disc-parser').data('model', addDiscDialog.trackParser);
+    $('#add-disc-medium').data('model', mediumSearchTab);
+    $('#add-disc-cdstub').data('model', cdstubSearchTab);
 
     $(addDiscDialog.element).tabs({
         activate: function (event, ui) {
-            addDiscDialog.currentTab(ui.newPanel.data("model"));
+            addDiscDialog.currentTab(ui.newPanel.data('model'));
         },
     });
 });

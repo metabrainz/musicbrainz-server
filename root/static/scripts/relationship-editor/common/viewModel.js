@@ -87,7 +87,7 @@ let typeInfoLoaded = false;
         MB.allowedRelations = {};
 
         Object.keys(typeInfo).forEach(function (typeString) {
-            var types = typeString.split("-");
+            var types = typeString.split('-');
             var type0 = types[0];
             var type1 = types[1];
 
@@ -117,7 +117,7 @@ export class ViewModel {
 
         constructor(options) {
             this.source = options.source;
-            this.uniqueID = uniqueId("relationship-editor-");
+            this.uniqueID = uniqueId('relationship-editor-');
             this.cache = {};
         }
 
@@ -141,7 +141,7 @@ export class ViewModel {
         _sortedRelationships(relationships, source) {
             return relationships
                 .sortBy(r => r.lowerCaseTargetName(source))
-                .sortBy("linkOrder");
+                .sortBy('linkOrder');
         }
 
         addAnotherEntityLabel(group, entity) {
@@ -174,7 +174,7 @@ MB.initRelationshipEditors = function (args) {
     var sourceData = args.sourceData;
 
     // XXX used by series edit form
-    sourceData.gid = sourceData.gid || uniqueId("tmp-");
+    sourceData.gid = sourceData.gid || uniqueId('tmp-');
     sourceData.uniqueID = sourceData.id || 'source';
     MB.sourceEntityGID = sourceData.gid;
     MB.sourceEntity = MB.entity(sourceData);
@@ -205,7 +205,7 @@ MB.initRelationshipEditors = function (args) {
         addRelationshipsFromQueryString(source);
     }
 
-    var $content = $("#relationship-editor");
+    var $content = $('#relationship-editor');
     ko.applyBindings(MB.sourceRelationshipEditor, $content[0]);
     $content.show();
 };
@@ -218,7 +218,7 @@ MB.getRelationship = function (data, source) {
     let backward = source.entityType > target.entityType;
 
     if (source.entityType === target.entityType) {
-        backward = (data.direction === "backward");
+        backward = (data.direction === 'backward');
     }
 
     data.entities = backward ? [target, source] : [source, target];
@@ -228,7 +228,7 @@ MB.getRelationship = function (data, source) {
     if (viewModel) {
         let cacheKey;
         if (data.id) {
-            cacheKey = data.entities.map(x => x.entityType).concat(data.id).join("-");
+            cacheKey = data.entities.map(x => x.entityType).concat(data.id).join('-');
             const cached = viewModel.cache[cacheKey];
 
             if (cached) {

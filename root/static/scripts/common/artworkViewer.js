@@ -10,7 +10,7 @@ import $ from 'jquery';
 
 import debounce from './utility/debounce';
 
-$.widget("mb.artworkViewer", $.ui.dialog, {
+$.widget('mb.artworkViewer', $.ui.dialog, {
 
     options: {
         modal: true,
@@ -34,46 +34,46 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
              * it doesn't save a whole lotta code anyway.
              */
 
-            this.$prev = $("<button>").attr("type", "button")
-                            .text(l("Previous"))
+            this.$prev = $('<button>').attr('type', 'button')
+                            .text(l('Previous'))
                             .click(this.prevImage.bind(this));
 
-            this.$next = $("<button>").attr("type", "button")
-                            .text(l("Next"))
+            this.$next = $('<button>').attr('type', 'button')
+                            .text(l('Next'))
                             .click(this.nextImage.bind(this));
 
-            this.$pager = $("<div>").addClass("artwork-pager");
+            this.$pager = $('<div>').addClass('artwork-pager');
 
             this.uiDialog.append(
-                $("<div>").addClass("artwork-dialog-controls").append(
+                $('<div>').addClass('artwork-dialog-controls').append(
                     this.$pager,
-                    $("<div>").addClass("buttons").append(this.$prev, this.$next),
+                    $('<div>').addClass('buttons').append(this.$prev, this.$next),
                 ),
             );
         } else {
             this.$prev = this.$next = this.$pager = $();
         }
 
-        this.$loading = $("<div>").addClass("content-loading");
-        this.element.addClass("artwork-dialog").append(this.$loading);
+        this.$loading = $('<div>').addClass('content-loading');
+        this.element.addClass('artwork-dialog').append(this.$loading);
     },
 
     open: function (link, wasClosed) {
         this._imageElement = null;
 
         const hadFocus = document.activeElement;
-        const $preview = $(link).find("img");
-        this._setOption("title", $preview.attr("title"));
+        const $preview = $(link).find('img');
+        this._setOption('title', $preview.attr('title'));
 
         var index = this.$artwork.index(link);
         this._prevImageLink = this.$artwork[index - 1];
         this._nextImageLink = this.$artwork[index + 1];
 
-        this.$prev.prop("disabled", !this._prevImageLink);
-        this.$next.prop("disabled", !this._nextImageLink);
+        this.$prev.prop('disabled', !this._prevImageLink);
+        this.$next.prop('disabled', !this._nextImageLink);
 
         this.$pager.text(
-            texp.l("Image {current} of {total}", {
+            texp.l('Image {current} of {total}', {
                 current: index + 1, total: this.$artwork.length,
             }),
         );
@@ -107,7 +107,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 
     close: function (event) {
         this._super(event);
-        this.element.find("img").remove();
+        this.element.find('img').remove();
     },
 
     _focusTabbable: function () {
@@ -132,7 +132,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
     },
 
     _loadImage: function (src, callback) {
-        var image = document.createElement("img");
+        var image = document.createElement('img');
         callback && (image.onload = callback.bind(this, image));
         image.src = src;
         return image;
@@ -150,7 +150,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         this._sizeAndPosition();
 
         this.element
-            .find("img")
+            .find('img')
             .remove()
             .end()
             .append(image);
@@ -208,44 +208,44 @@ $(function () {
      * Create separate dialogs for the sidebar and content, so that the
      * image "albums" are logically grouped.
      */
-    $("#sidebar, #content").each(function (index, container) {
-        var $artwork = $("a.artwork-image", container);
+    $('#sidebar, #content').each(function (index, container) {
+        var $artwork = $('a.artwork-image', container);
         if ($artwork.length === 0) {
             return;
         }
 
-        var $artworkViewer = $("<div>").appendTo("body")
+        var $artworkViewer = $('<div>').appendTo('body')
                 .artworkViewer({ $artwork: $artwork });
 
-        $(container).on("click", "a.artwork-image", function (event) {
+        $(container).on('click', 'a.artwork-image', function (event) {
             if (!(event.which > 1 || event.shiftKey || event.altKey ||
                     event.metaKey || event.ctrlKey)) {
 
                 event.preventDefault();
-                $activeDialog = $artworkViewer.artworkViewer("open", this, true);
+                $activeDialog = $artworkViewer.artworkViewer('open', this, true);
             }
         });
     });
 
-    $("body")
-        .on("keydown", function (event) {
-            if ($activeDialog.artworkViewer("isOpen") !== true) {
+    $('body')
+        .on('keydown', function (event) {
+            if ($activeDialog.artworkViewer('isOpen') !== true) {
                 return;
             }
 
             if (event.keyCode === 37) { // Left arrow
-                $activeDialog.artworkViewer("prevImage");
+                $activeDialog.artworkViewer('prevImage');
 
             } else if (event.keyCode === 39) { // Right Arrow
-                $activeDialog.artworkViewer("nextImage");
+                $activeDialog.artworkViewer('nextImage');
             }
         })
-        .on("click", ".artwork-dialog img", function () {
+        .on('click', '.artwork-dialog img', function () {
             // Close the dialog when the user clicks on the image.
-            $(this).parents(".artwork-dialog").artworkViewer("close");
+            $(this).parents('.artwork-dialog').artworkViewer('close');
         })
-        .on("click", ".ui-widget-overlay", function () {
-            var dialog = $activeDialog.data("mb-artworkViewer");
+        .on('click', '.ui-widget-overlay', function () {
+            var dialog = $activeDialog.data('mb-artworkViewer');
 
             // Close the dialog when clicking on the overlay.
             if (dialog.overlay && dialog.overlay[0] === this) {
@@ -256,12 +256,12 @@ $(function () {
     // Adjust the dialog's size/position when the browser window is resized.
 
     var resizeDialog = debounce(function () {
-        var dialog = $activeDialog.data("mb-artworkViewer");
+        var dialog = $activeDialog.data('mb-artworkViewer');
 
         if (dialog && dialog.isOpen()) {
             dialog._sizeAndPosition();
         }
     }, 100);
 
-    $(window).on("resize", resizeDialog);
+    $(window).on('resize', resizeDialog);
 });

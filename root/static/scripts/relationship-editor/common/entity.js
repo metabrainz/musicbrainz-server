@@ -41,7 +41,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     coreEntityPrototype._afterCoreEntityCtor = function () {
         if (this.uniqueID == null) {
-            this.uniqueID = uniqueId("entity-");
+            this.uniqueID = uniqueId('entity-');
         }
         this.relationshipElements = {};
     };
@@ -119,14 +119,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     {type: {gid: attr.type.gid}}
                 )));
 
-                deferFocus("input.name", "#dialog");
+                deferFocus('input.name', '#dialog');
                 dialog.open(event.target);
                 return dialog;
             }
 
             return this.displayableRelationships(vm)
                 .groupBy(linkPhrase)
-                .sortBy("key")
+                .sortBy('key')
                 .map(function (group) {
                     group.openAddDialog = openAddDialog;
                     group.canBeOrdered = ko.observable(false);
@@ -225,7 +225,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     };
 
     function isPerformance(relationship) {
-        return relationship.entityTypes === "recording-work";
+        return relationship.entityTypes === 'recording-work';
     }
 
     function isFreeText(linkAttribute) {
@@ -233,7 +233,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function cacheByID(func) {
-        var cacheID = uniqueId("cache-");
+        var cacheID = uniqueId('cache-');
 
         return function (vm) {
             var cache = this[cacheID] = this[cacheID] || {};

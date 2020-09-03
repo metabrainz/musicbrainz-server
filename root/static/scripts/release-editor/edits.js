@@ -65,7 +65,7 @@ releaseEditor.edits = {
             if (dataChanged) {
                 return [MB.edit.releaseGroupEdit(editData, origData)];
             }
-        } else if (releaseEditor.action === "add") {
+        } else if (releaseEditor.action === 'add') {
             editData.name = clean(releaseGroup.name) || releaseName;
             editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
             return [MB.edit.releaseGroupCreate(editData)];
@@ -306,15 +306,15 @@ releaseEditor.edits = {
                 if ((removedMedium = removedMediums[newPosition])) {
                     newOrder.push({
                         medium_id:  removedMedium.id,
-                        "old":      newPosition,
-                        "new":      oldPosition,
+                        'old':      newPosition,
+                        'new':      oldPosition,
                     });
                 }
 
                 newOrder.push({
                     medium_id:  medium.id,
-                    "old":      oldPosition,
-                    "new":      newPosition,
+                    'old':      oldPosition,
+                    'new':      newPosition,
                 });
             }
         }
@@ -516,15 +516,15 @@ function chainEditSubmissions(release, submissions) {
             root.redirecting = true;
 
             if (releaseEditor.redirectURI) {
-                var a = document.createElement("a");
+                var a = document.createElement('a');
                 a.href = releaseEditor.redirectURI;
 
-                a.search += /^\?/.test(a.search) ? "&" : "?";
-                a.search += "release_mbid=" + release.gid();
+                a.search += /^\?/.test(a.search) ? '&' : '?';
+                a.search += 'release_mbid=' + release.gid();
 
                 window.location.href = a.href;
             } else {
-                window.location.pathname = "/release/" + release.gid();
+                window.location.pathname = '/release/' + release.gid();
             }
             return;
         }
@@ -567,11 +567,11 @@ function submissionErrorOccurred(data) {
             if (error.message) {
                 error = error.message;
             } else {
-                error = he.escape(data.statusText + ": " + data.status);
+                error = he.escape(data.statusText + ': ' + data.status);
             }
         }
     } catch (e) {
-        error = he.escape(data.statusText + ": " + data.status);
+        error = he.escape(data.statusText + ': ' + data.status);
     }
 
     releaseEditor.submissionError(error);

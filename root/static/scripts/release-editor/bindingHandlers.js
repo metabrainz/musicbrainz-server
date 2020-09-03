@@ -22,9 +22,9 @@ ko.bindingHandlers.disableBecauseDiscIDs = {
         var disabled = ko.unwrap(valueAccessor()) && viewModel.medium.hasToc();
 
         $(element)
-            .prop("disabled", disabled)
-            .toggleClass("disabled-hint", disabled)
-            .attr("title", disabled ? l("This medium has one or more discids which prevent this information from being changed.") : "");
+            .prop('disabled', disabled)
+            .toggleClass('disabled-hint', disabled)
+            .attr('title', disabled ? l('This medium has one or more discids which prevent this information from being changed.') : '');
     },
 };
 

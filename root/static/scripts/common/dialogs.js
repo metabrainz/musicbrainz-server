@@ -8,11 +8,11 @@
 
 import $ from 'jquery';
 
-    $.widget("mb.iframeDialog", $.ui.dialog, {
+    $.widget('mb.iframeDialog', $.ui.dialog, {
 
         options: {
             width: 800,
-            title: l("Loading..."),
+            title: l('Loading...'),
             resizable: false,
         },
 
@@ -20,14 +20,14 @@ import $ from 'jquery';
             this._super();
             var path = encodeURIComponent(this.options.path);
 
-            this.$loading = $("<div>").addClass("content-loading");
+            this.$loading = $('<div>').addClass('content-loading');
 
-            this.$iframe = $("<iframe>")
-                .on("load", this._onLoad.bind(this))
-                .attr("src", "/dialog?path=" + path);
+            this.$iframe = $('<iframe>')
+                .on('load', this._onLoad.bind(this))
+                .attr('src', '/dialog?path=' + path);
 
             this.element
-                .addClass("iframe-dialog")
+                .addClass('iframe-dialog')
                 .append(this.$loading, this.$iframe);
         },
 
@@ -60,7 +60,7 @@ import $ from 'jquery';
 
             this._setOptions({
                 title: this.options.title,
-                position: { my: "center", at: "center", of: window },
+                position: { my: 'center', at: 'center', of: window },
             });
         },
 
@@ -75,10 +75,10 @@ import $ from 'jquery';
     });
 
 
-    $.widget("mb.createEntityDialog", $.mb.iframeDialog, {
+    $.widget('mb.createEntityDialog', $.mb.iframeDialog, {
 
         _create: function () {
-            this.options.path = "/" + this.options.entity + "/create";
+            this.options.path = '/' + this.options.entity + '/create';
             this._super();
         },
 
@@ -96,7 +96,7 @@ import $ from 'jquery';
 
             if (this.options.name) {
                 const self = this;
-                const nameField = "#id-edit-" + entity.replace("_", "-") + "\\.name";
+                const nameField = '#id-edit-' + entity.replace('_', '-') + '\\.name';
 
                 // Must use contentWindow's jQuery handle or this won't work.
                 contentWindow.$(function () {
@@ -120,7 +120,7 @@ import $ from 'jquery';
      */
 
     $(function () {
-        $("body").on("click", ".ui-dialog", function (event) {
+        $('body').on('click', '.ui-dialog', function (event) {
             event.stopPropagation();
         });
     });

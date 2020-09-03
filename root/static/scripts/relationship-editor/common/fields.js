@@ -52,8 +52,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.entities.equalityComparer = entitiesComparer;
             this.entities.saved = this.entities.peek().slice(0);
             this.entities.subscribe(this.entitiesChanged, this);
-            this.entityTypes = data.entities.map(x => x.entityType).join("-");
-            this.uniqueID = this.entityTypes + "-" + (this.id || uniqueId("new-"));
+            this.entityTypes = data.entities.map(x => x.entityType).join('-');
+            this.uniqueID = this.entityTypes + '-' + (this.id || uniqueId('new-'));
 
             this.entity0_credit = ko.observable(data.entity0_credit || '');
             this.entity1_credit = ko.observable(data.entity1_credit || '');
@@ -179,7 +179,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return entities[0];
             }
 
-            throw new Error("The given entity is not used by this relationship");
+            throw new Error('The given entity is not used by this relationship');
         }
 
         linkTypeIDChanged() {
@@ -273,8 +273,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 relationships0.push(this);
             }
 
-            if (entity0.entityType === "recording"
-                && entity1.entityType === "work"
+            if (entity0.entityType === 'recording'
+                && entity1.entityType === 'work'
                 && saved1 !== entity1 && entity1.gid) {
                 this.loadWorkRelationships(entity1);
             }
@@ -283,7 +283,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         loadWorkRelationships(work) {
-            var args = { url: "/ws/js/entity/" + work.gid + "?inc=rels" };
+            var args = { url: '/ws/js/entity/' + work.gid + '?inc=rels' };
 
             request(args).done(function (data) {
                 work.parseRelationships(data.relationships);
@@ -308,7 +308,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             entities[0].relationships.remove(this);
             entities[1].relationships.remove(this);
 
-            delete this.parent.cache[this.entityTypes + "-" + this.id];
+            delete this.parent.cache[this.entityTypes + '-' + this.id];
             this.removed(true);
         }
 
@@ -351,11 +351,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 });
 
                 if (values.length < min) {
-                    return l("This attribute is required.");
+                    return l('This attribute is required.');
                 }
             }
 
-            return "";
+            return '';
         }
 
         attributeLabel(attribute) {
@@ -421,7 +421,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             if (!numberAttribute) {
-                return "";
+                return '';
             }
 
             const integerRegex = /^\d+$/;
@@ -433,7 +433,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 }
             }
 
-            return parts.join("");
+            return parts.join('');
         }
 
         entityIsOrdered(entity) {
@@ -467,7 +467,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             var target = this.target(entity);
 
-            if (target.entityType === "series") {
+            if (target.entityType === 'series') {
                 return +target.orderingTypeID() !== SERIES_ORDERING_TYPE_AUTOMATIC;
             }
 
@@ -580,11 +580,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         var type = this.type = linkedEntities.link_attribute_type[data.type.gid];
 
         if (type.creditable) {
-            this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
+            this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || '');
         }
 
         if (type.free_text) {
-            this.textValue = ko.observable(ko.unwrap(data.text_value) || "");
+            this.textValue = ko.observable(ko.unwrap(data.text_value) || '');
         }
     };
 
@@ -592,10 +592,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         var type = this.type;
 
         if (type.creditable) {
-            return type.gid + "\0" + clean(this.creditedAs());
+            return type.gid + '\0' + clean(this.creditedAs());
         }
         if (type.free_text) {
-            return type.gid + "\0" + clean(this.textValue());
+            return type.gid + '\0' + clean(this.textValue());
         }
         return type.gid;
     };
@@ -642,7 +642,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function setPartialDate(target, data) {
-        for (const key of ["year", "month", "day"]) {
+        for (const key of ['year', 'month', 'day']) {
             (target[key] = target[key] || ko.observable())(ko.unwrap(data[key]) || null);
         }
         return target;
