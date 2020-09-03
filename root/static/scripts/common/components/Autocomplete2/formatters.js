@@ -70,7 +70,7 @@ function formatGeneric(entity, extraInfo) {
   if (entity.entityType === 'artist' &&
       entity.sort_name &&
       entity.sort_name !== name &&
-      !entity.primaryAlias &&
+      !nonEmpty(entity.primaryAlias) &&
       isNonLatin(name)) {
     info.push(entity.sort_name);
   }
