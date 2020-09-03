@@ -79,9 +79,9 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
               <abbr
                 title={
                   texp.l(`Automatic suggestion from entry #1/{count}
-                          (key strength: {keyStrength})`, {
+                          (key strength: {key_strength})`, {
                     count: count,
-                    keyStrength: roundedBPM(data),
+                    key_strength: roundedBPM(data),
                   })
                 }
               >

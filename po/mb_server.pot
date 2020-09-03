@@ -11,7 +11,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-03 12:46+0000\n"
+"POT-Creation-Date: 2020-09-03 12:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13679,7 +13679,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/sidebar/AcousticBrainz.js:81
 msgid ""
-"Automatic suggestion from entry #1/{count} (key strength: {keyStrength})"
+"Automatic suggestion from entry #1/{count} (key strength: {key_strength})"
 msgstr ""
 
 #: ../root/static/scripts/common/components/sidebar/AcousticBrainz.js:88
