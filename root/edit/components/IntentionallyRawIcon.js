@@ -12,13 +12,13 @@ import * as React from 'react';
 import InformationIcon
   from '../../static/scripts/edit/components/InformationIcon';
 
-const IntentionallyUntranslatedIcon =
+const IntentionallyRawIcon =
   (): React.Element<typeof InformationIcon> => (
     <InformationIcon
       className="align-top"
-      title={l(`This field is intentionally left untranslated
-                (i.e. just as entered) to facilitate edit review`)}
+      title={l(`This field is intentionally left as it was originally
+                entered (untranslated, unformatted).`)}
     />
   );
 
-export default IntentionallyUntranslatedIcon;
+export default IntentionallyRawIcon;
