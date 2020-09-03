@@ -47,8 +47,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-07 00:51+0000\n"
-"Last-Translator: palim <email address hidden>\n"
+"PO-Revision-Date: 2020-08-24 20:38+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3102,6 +3102,11 @@ msgctxt "work_attribute_type"
 msgid "ICE ID"
 msgstr "ICE-ID"
 
+#: DB:work_attribute_type/description:34
+msgctxt "work_attribute_type"
+msgid "ID assigned to a work by the British rights society PRS for Music"
+msgstr ""
+
 #: DB:work_attribute_type/description:28
 msgctxt "work_attribute_type"
 msgid "ID for the Belgian rights society SABAM"
@@ -4894,6 +4899,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:652
 msgctxt "work_attribute_type_allowed_value"
 msgid "Oyunhavası"
+msgstr ""
+
+#: DB:work_attribute_type/name:34
+msgctxt "work_attribute_type"
+msgid "PRS tune code"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:993
