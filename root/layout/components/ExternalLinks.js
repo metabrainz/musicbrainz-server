@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database
@@ -10,12 +10,12 @@
 import URL from 'url';
 
 import * as React from 'react';
-import _ from 'lodash';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import {FAVICON_CLASSES} from '../../static/scripts/common/constants';
 import {compare, l} from '../../static/scripts/common/i18n';
 import linkedEntities from '../../static/scripts/common/linkedEntities';
+import {uniqBy} from '../../static/scripts/common/utility/arrays';
 
 function faviconClass(urlEntity) {
   let matchingClass;
@@ -45,7 +45,11 @@ const ExternalLink = ({
   text,
   url,
 }: ExternalLinkProps) => {
-  let element = <a href={url.href_url}>{text || url.sidebar_name}</a>;
+  let element = (
+    <a href={url.href_url}>
+      {nonEmpty(text) ? text : url.sidebar_name}
+    </a>
+  );
 
   if (editsPending) {
     element = <span className="mp mp-rel">{element}</span>;
@@ -56,7 +60,7 @@ const ExternalLink = ({
   }
 
   return (
-    <li className={className || faviconClass(url)}>
+    <li className={nonEmpty(className) || faviconClass(url)}>
       {element}
     </li>
   );
@@ -116,7 +120,7 @@ const ExternalLinks = ({
           url={target}
         />,
       );
-    } else if (target.show_in_external_links) {
+    } else if (target.show_in_external_links /*:: === true */) {
       otherLinks.push({
         editsPending: relationship.editsPending,
         id: relationship.id,
@@ -129,17 +133,14 @@ const ExternalLinks = ({
     return null;
   }
 
-  otherLinks.sort(function (a, b) {
-    return (
+  const uniqueOtherLinks =
+    uniqBy(otherLinks, x => x.url.href_url).sort((a, b) => (
       compare(
         a.url.sidebar_name ?? '',
         b.url.sidebar_name ?? '',
       ) ||
       compare(a.url.href_url, b.url.href_url)
-    );
-  });
-
-  const uniqueOtherLinks = _.sortedUniqBy(otherLinks, x => x.url.href_url);
+    ));
 
   // We ensure official sites are listed above blogs, and blogs above others
   links.push.apply(links, blogLinks);
@@ -152,7 +153,7 @@ const ExternalLinks = ({
   return (
     <>
       <h2 className="external-links">
-        {heading || l('External links')}
+        {nonEmpty(heading) || l('External links')}
       </h2>
       <ul className="external_links">
         {links}

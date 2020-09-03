@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -48,14 +48,14 @@ const RecordingList = ({
   order,
   recordings,
   seriesItemNumbers,
-  showExpandedArtistCredits,
-  showInstrumentCreditsAndRelTypes,
-  showRatings,
+  showExpandedArtistCredits = false,
+  showInstrumentCreditsAndRelTypes = false,
+  showRatings = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user && (checkboxes || mergeForm)
+      const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers

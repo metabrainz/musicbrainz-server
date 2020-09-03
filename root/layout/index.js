@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -108,8 +108,8 @@ export type Props = $ReadOnly<{
 const Layout = ({
   $c,
   children,
-  fullWidth,
-  homepage,
+  fullWidth = false,
+  homepage = false,
   noIcons,
   pager,
   title,
@@ -161,7 +161,7 @@ const Layout = ({
       {!getRequestCookie($c.req, 'server_details_dismissed_mtime') &&
         <ServerDetailsBanner />}
 
-      {!!($c.stash.alert && ($c.stash.alert_mtime ?? Infinity) >
+      {!!(nonEmpty($c.stash.alert) && ($c.stash.alert_mtime ?? Infinity) >
         Number(getRequestCookie($c.req, 'alert_dismissed_mtime', '0'))) &&
         <div className="banner warning-header">
           <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
@@ -190,7 +190,7 @@ const Layout = ({
           <DismissBannerButton bannerName="birthday_message" />
         </div>}
 
-      {!!($c.stash.new_edit_notes &&
+      {!!($c.stash.new_edit_notes /*:: === true */ &&
           ($c.stash.new_edit_notes_mtime ?? Infinity) >
           Number(
             getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', '0'),
@@ -209,7 +209,7 @@ const Layout = ({
             <DismissBannerButton bannerName="new_edit_notes" />
           </div>}
 
-      {!!$c.stash.makes_no_changes &&
+      {!!$c.stash.makes_no_changes /*:: === true */ &&
         <div className="banner warning-header">
           <p>
             {l(
@@ -219,7 +219,7 @@ const Layout = ({
           </p>
         </div>}
 
-      {!!($c.sessionid && $c.flash.message) &&
+      {!!(nonEmpty($c.sessionid) && nonEmpty($c.flash.message)) &&
         <div className="banner flash">
           <p dangerouslySetInnerHTML={{__html: $c.flash.message}} />
         </div>}
@@ -233,7 +233,7 @@ const Layout = ({
         <div style={{clear: 'both'}} />
       </div>
 
-      {($c.session?.merger && !$c.stash.hide_merge_helper) &&
+      {($c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */) &&
         <MergeHelper $c={$c} merger={$c.session.merger} />}
 
       <Footer $c={$c} />

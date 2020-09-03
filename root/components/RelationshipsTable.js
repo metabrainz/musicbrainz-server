@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -34,12 +34,12 @@ const RelationshipsTable = ({
   entity,
   fallbackMessage,
   heading,
-  showCredits,
+  showCredits = false,
 }: Props): React.MixedElement | null => {
   const appearances = generateRelationshipAppearancesList(entity);
   const relationshipTypes = Object.keys(appearances);
   if (!appearances || relationshipTypes.length === 0) {
-    return fallbackMessage ? (
+    return nonEmpty(fallbackMessage) ? (
       <>
         <h2>{heading}</h2>
         <p>{fallbackMessage}</p>
@@ -65,7 +65,7 @@ const RelationshipsTable = ({
       if (!hasArtistColumn && relationship.target.artistCredit) {
         hasArtistColumn = 1;
       }
-      if (!hasLengthColumn && relationship.target.length) {
+      if (!hasLengthColumn && relationship.target.length != null) {
         hasLengthColumn = 1;
       }
       if (hasCreditColumn && hasAttributeColumn &&

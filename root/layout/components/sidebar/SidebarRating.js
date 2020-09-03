@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -22,7 +22,7 @@ const SidebarRating = ({
   heading,
 }: Props): React.Element<typeof React.Fragment> => (
   <>
-    <h2 className="rating">{heading || l('Rating')}</h2>
+    <h2 className="rating">{nonEmpty(heading) ? heading : l('Rating')}</h2>
     <p>
       <RatingStars entity={entity} />
       {entity.rating_count > 0 ? (

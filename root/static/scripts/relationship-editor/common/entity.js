@@ -7,12 +7,14 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import 'knockout-arraytransforms';
 
+import {compare} from '../../common/i18n';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
+import {compactMap, sortByString} from '../../common/utility/arrays';
+import {uniqueId} from '../../common/utility/strings';
 import deferFocus from '../../edit/utility/deferFocus';
 
 import mergeDates from './mergeDates';
@@ -39,7 +41,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     coreEntityPrototype._afterCoreEntityCtor = function () {
         if (this.uniqueID == null) {
-            this.uniqueID = _.uniqueId("entity-");
+            this.uniqueID = uniqueId('entity-');
         }
         this.relationshipElements = {};
     };
@@ -53,21 +55,26 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return;
             }
 
-            var newRelationships = _(relationships)
-                .map(data => MB.getRelationship(data, self))
-                .compact()
-                .value();
+            var newRelationships = compactMap(
+                relationships,
+                data => MB.getRelationship(data, self),
+            );
 
-            var allRelationships = _(this.relationships.peek())
-                .union(newRelationships)
-                .sortBy(r => r.lowerCasePhrase(self))
-                .value();
+            const allRelationships = [...new Set([
+                ...this.relationships.peek(),
+                ...newRelationships,
+            ])];
 
-            this.relationships(allRelationships);
+            // Sort allRelationships by their lower-case phrase.
+            this.relationships(sortByString(
+                allRelationships,
+                r => r.lowerCasePhrase(self),
+                compare,
+            ));
 
-            _.each(relationships, function (data) {
+            for (const data of relationships) {
                 MB.entity(data.target).parseRelationships(data.target.relationships);
-            });
+            }
         },
 
         displayableRelationships: cacheByID(function (vm) {
@@ -101,24 +108,25 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var relationship = dialog.relationship();
                 relationship.linkTypeID(firstRelationship.linkTypeID());
 
-                var attributeLists = _.invokeMap(relationships, "attributes");
+                const [firstAttributeSet, ...remainingAttributeSets] =
+                    relationships.map(x => new Set(x.attributes()));
 
-                var commonAttributes = _.map(
-                    _.reject(_.intersection.apply(_, attributeLists), isFreeText),
-                    function (attr) {
-                        return { type: { gid: attr.type.gid } };
-                    },
-                );
+                const commonAttributes = [...firstAttributeSet].filter(x => (
+                    !isFreeText(x) && remainingAttributeSets.every(y => y.has(x))
+                ));
 
-                relationship.setAttributes(commonAttributes);
-                deferFocus("input.name", "#dialog");
+                relationship.setAttributes(commonAttributes.map(attr => (
+                    {type: {gid: attr.type.gid}}
+                )));
+
+                deferFocus('input.name', '#dialog');
                 dialog.open(event.target);
                 return dialog;
             }
 
             return this.displayableRelationships(vm)
                 .groupBy(linkPhrase)
-                .sortBy("key")
+                .sortBy('key')
                 .map(function (group) {
                     group.openAddDialog = openAddDialog;
                     group.canBeOrdered = ko.observable(false);
@@ -146,11 +154,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                 var currentValue = hasOrdering.peek();
 
                                 if (currentValue && !newValue) {
-                                    _.each(group.values.slice(0), function (r) {
+                                    for (const r of group.values.slice(0)) {
                                         r.linkOrder(0);
-                                    });
+                                    }
                                 } else if (newValue && !currentValue) {
-                                    _.each(group.values.slice(0), function (r, i) {
+                                    group.values.slice(0).forEach(function (r, i) {
                                         r.linkOrder(i + 1);
                                     });
                                 }
@@ -178,7 +186,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var other = relationships[i];
 
                 if (rel !== other && rel.isDuplicate(other)) {
-                    var obj = _.omit(rel.editData(), "id");
+                    var obj = {...rel.editData()};
+                    delete obj.id;
 
                     obj.begin_date = mergeDates(rel.begin_date, other.begin_date);
                     obj.end_date = mergeDates(rel.end_date, other.end_date);
@@ -203,8 +212,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             const linkTypeID = String(relationship.linkTypeID());
             const direction = getDirection(relationship, this);
 
-            return _.filter(
-                this.displayableRelationships(viewModel)(),
+            return this.displayableRelationships(viewModel)().filter(
                 r => String(r.linkTypeID()) === linkTypeID && getDirection(r, this) === direction,
             );
         },
@@ -217,7 +225,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     };
 
     function isPerformance(relationship) {
-        return relationship.entityTypes === "recording-work";
+        return relationship.entityTypes === 'recording-work';
     }
 
     function isFreeText(linkAttribute) {
@@ -225,7 +233,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function cacheByID(func) {
-        var cacheID = _.uniqueId("cache-");
+        var cacheID = uniqueId('cache-');
 
         return function (vm) {
             var cache = this[cacheID] = this[cacheID] || {};

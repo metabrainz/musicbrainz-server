@@ -1,10 +1,9 @@
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 
 import stats, {buildTypeStats, getStat} from '../../statistics/stats';
 
-import debounce from './common/utility/debounce';
+import debounce, {debounceComputed} from './common/utility/debounce';
 import parseDate from './common/utility/parseDate';
 
 import '../lib/flot/jquery.flot';
@@ -49,11 +48,11 @@ class TimelineViewModel {
         var self = this;
         self.categories = ko.observableArray([]);
         self.enabledCategories = ko.computed(function () {
-            return _.filter(self.categories(), function (category) {
+            return self.categories().filter(function (category) {
                 return category.enabled();
             });
         });
-        self.events = debounce(ko.observableArray([]), 50);
+        self.events = debounceComputed(ko.observableArray([]), 50);
         self.loadingEvents = ko.observable(false);
         self.loadedEvents = ko.observable(false);
         self.options = {
@@ -65,10 +64,10 @@ class TimelineViewModel {
          * recalculated, and to ensure graph doesn't need repeated redrawing
          */
         self.zoom = {
-            xaxis: { min: debounce(ko.observable(null), 50),
-                     max: debounce(ko.observable(null), 50) },
-            yaxis: { min: debounce(ko.observable(null), 50),
-                     max: debounce(ko.observable(null), 50) },
+            xaxis: { min: debounceComputed(ko.observable(null), 50),
+                     max: debounceComputed(ko.observable(null), 50) },
+            yaxis: { min: debounceComputed(ko.observable(null), 50),
+                     max: debounceComputed(ko.observable(null), 50) },
         };
         self.zoomArray = ko.computed({
             read: function () {
@@ -91,7 +90,7 @@ class TimelineViewModel {
         self.zoomHashPart = ko.computed({
             read: function () {
                 var parts = self.zoomArray();
-                if (_.filter(parts).length > 0) {
+                if (parts.filter(Boolean).length > 0) {
                     return ['g'].concat(parts).join('/');
                 } 
                 return null;
@@ -101,19 +100,19 @@ class TimelineViewModel {
                     var itemFix = function (item) {
                         return (item === 'null' ? null : parseFloat(item));
                     };
-                    self.zoomArray(_.map(part.split('/').slice(1), itemFix));
+                    self.zoomArray(part.split('/').slice(1).map(itemFix));
                 } else {
                     self.zoomArray([null, null, null, null]);
                 }
             },
         });
         // rateLimit to ensure graph doesn't need frequent redrawing
-        self.lines = debounce(function () {
+        self.lines = debounceComputed(function () {
             return [].concat(...self.enabledCategories().map(category => category.enabledLines()));
         }, 1000);
 
         self.waitToGraph = ko.computed(function () {
-            if (_.some(self.enabledCategories(), function (c) {
+            if (self.enabledCategories().some(function (c) {
                 return c.hasLoadingLines();
             })) {
                 return true;
@@ -127,7 +126,7 @@ class TimelineViewModel {
         });
 
         self.rateZoomY = ko.computed(function () {
-            var bounds = _.reduce(self.lines(), function (accum, line) {
+            var bounds = self.lines().reduce(function (accum, line) {
                 if (line.loaded()) {
                     var rateBounds = line.calculateRateBounds(
                         line.rateData().data,
@@ -173,7 +172,7 @@ class TimelineViewModel {
             return accum;
         }
 
-        self.hash = debounce(function () {
+        self.hash = debounceComputed(function () {
             var optionParts = [];
             if (self.options.rate()) {
                 optionParts.push('r');
@@ -225,17 +224,20 @@ class TimelineViewModel {
 
     _getLocationHashSettings() {
         // XXX: reset to defaults when preference is not expressed
-        var parts = _.filter(location.hash.replace(/^#/, '').split('+'));
+        var parts = location.hash.replace(/^#/, '').split('+').filter(Boolean);
         var self = this;
 
-        _.forEach(parts, function (part) {
-            var match;
+        for (const part of parts) {
+            let match;
 
             if ((match = part.match(/^(-)?([rv])-?$/))) { // trailing - for backwards-compatibility
-                var meth = match[2] === 'r' ? 'rate' : 'events';
-                self.options[meth](!(match[1] === '-'));
+                const method = match[2] === 'r' ? 'rate' : 'events';
+                self.options[method](!(match[1] === '-'));
             } else if ((match = part.match(/^(-)?(c-.*)$/))) {
-                var category = _.find(self.categories(), { hashIdentifier: match[2] });
+                const hashIdentifier = match[2];
+                const category = self.categories().find(
+                    x => x.hashIdentifier === hashIdentifier,
+                );
                 if (category) {
                     category.enabled(!(match[1] === '-'));
                 }
@@ -253,7 +255,7 @@ class TimelineViewModel {
                     }
                 }
             }
-        });
+        }
     }
 
     addCategory(category) {
@@ -263,7 +265,7 @@ class TimelineViewModel {
 
     addLine(name) {
         var newLine = getStat(name);
-        var category = _.find(this.categories(), { name: newLine.category });
+        var category = this.categories().find(x => x.name === newLine.category);
 
         if (!category) {
             var newCategory = stats.category[newLine.category];
@@ -275,9 +277,9 @@ class TimelineViewModel {
 
     addLines(names) {
         var self = this;
-        _.forEach(names, function (name) {
+        for (const name of names) {
             self.addLine(name);
-        });
+        }
     }
 
     loadEvents() {
@@ -287,7 +289,7 @@ class TimelineViewModel {
             url: '../../ws/js/events',
             dataType: 'json',
         }).done(function (data) {
-            self.events(_.map(data, function (e) {
+            self.events(data.map(function (e) {
                 e.jsDate = Date.parse(e.date);
                 return e;
             }));
@@ -315,32 +317,32 @@ class TimelineCategory {
         self.enabledByDefault = !!enabledByDefault;
         self.enabled = ko.observable(!!enabledByDefault);
         // rateLimit to improve reponsiveness of checkboxes
-        self.lines = debounce(ko.observableArray([]), 50);
+        self.lines = debounceComputed(ko.observableArray([]), 50);
 
         self.enabledLines = ko.computed(function () {
-            return _.filter(self.lines(), function (line) {
+            return self.lines().filter(function (line) {
                 return line.enabled() && line.loaded();
             });
         });
         self.needLoadingLines = ko.computed(function () {
             if (self.enabled()) {
-                return _.filter(self.lines(), function (line) {
+                return self.lines().filter(function (line) {
                     return line.enabled() && !line.loaded() && !line.loading();
                 });
             }
             return [];
         });
         self.hasLoadingLines = ko.computed(function () {
-            return _.filter(self.lines(), function (line) {
+            return self.lines().filter(function (line) {
                 return line.enabled() && line.loading();
             }).length;
         });
 
         // rateLimit to load asynchronously
-        debounce(function () {
-            _.forEach(self.needLoadingLines(), function (line) {
+        debounceComputed(function () {
+            for (const line of self.needLoadingLines()) {
                 line.loadData();
-            });
+            }
         }, 1);
     }
 
@@ -433,7 +435,7 @@ class TimelineLine {
         });
         mean = mean / count;
 
-        var deviationSum = _.reduce(weekData, function (sum, next) {
+        var deviationSum = weekData.reduce(function (sum, next) {
             var toSquare = next[1] - mean;
             return sum + toSquare * toSquare;
         }, 0);
@@ -481,7 +483,7 @@ class TimelineLine {
                 'background-color': '#fee',
                 opacity: 0.80,
             })
-            .appendTo("body")
+            .appendTo('body')
             .fadeIn(200);
     }
 
@@ -525,7 +527,7 @@ class TimelineLine {
         }
 
         showTooltip(item.pageX, item.pageY,
-            date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
+            date.getFullYear() + '-' + month + '-' + day + ': ' + y + ' ' + item.series.label + extra);
     };
 
     var setEventTooltip = function (thisEvent, pos) {
@@ -595,7 +597,7 @@ class TimelineLine {
                 });
 
             // Resize the graph when the window size changes
-            $(window).on("resize", _.debounce(function () {
+            $(window).on('resize', debounce(function () {
                 var plot = $(element).data('plot');
                 plot.resize();
                 plot.setupGrid();
@@ -614,9 +616,9 @@ class TimelineLine {
                 // Main options (hoverability, axes, tick formatting, events, line size)
                 if (graph === 'main' || graph === 'rate') {
                     options.grid = { hoverable: true };
-                    options.xaxis = { mode: "time", timeformat: "%Y/%m/%d", minTickSize: [7, "day"]};
+                    options.xaxis = { mode: 'time', timeformat: '%Y/%m/%d', minTickSize: [7, 'day']};
                     options.yaxis = { tickFormatter: function (x) {
-                        return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ","); // XXX: localized number formatting
+                        return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ','); // XXX: localized number formatting
                     }};
                     if (bindingContext.$data.options.events()) {
                         options.musicbrainzEvents = {
@@ -627,15 +629,15 @@ class TimelineLine {
                     }
                 } else if (graph === 'overview') {
                     options.series = { lines: { lineWidth: 1 }, shadowSize: 0 };
-                    options.xaxis = { mode: "time", minTickSize: [1, "year"] };
+                    options.xaxis = { mode: 'time', minTickSize: [1, 'year'] };
                     options.yaxis = { tickFormatter: () => '' };
                 }
 
                 // Selection mode
                 if (graph === 'main' || graph === 'overview') {
-                    options.selection = { mode: "xy" };
+                    options.selection = { mode: 'xy' };
                 } else if (graph === 'rate') {
-                    options.selection = { mode: "x" };
+                    options.selection = { mode: 'x' };
                 }
 
                 // zoom
@@ -656,7 +658,7 @@ class TimelineLine {
                     $(element).toggle(bindingContext.$data.options.rate());
                 }
 
-                var plot = $.plot($(element), _.map(lines, function (line) {
+                var plot = $.plot($(element), lines.map(function (line) {
                     let data;
                     if (graph === 'main' || graph === 'overview') {
                         data = line.data();

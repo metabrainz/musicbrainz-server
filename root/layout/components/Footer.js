@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -67,7 +67,7 @@ const Footer = ({$c}: Props): React.Element<'div'> => {
           </>
         ) : null}
 
-        {stash.last_replication_date ? (
+        {nonEmpty(stash.last_replication_date) ? (
           <>
             <br />
             {texp.l('Last replication packet received at {datetime}', {

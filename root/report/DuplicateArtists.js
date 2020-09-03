@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -99,7 +99,7 @@ const DuplicateArtists = ({
                         </td>
                         <td>
                           <EntityLink entity={artist} />
-                          {alias ? (
+                          {nonEmpty(alias) ? (
                             <span>
                               {' (' + l('alias:') + ' ' + alias + ')'}
                             </span>
@@ -107,7 +107,7 @@ const DuplicateArtists = ({
                         </td>
                         <td>{artist.sort_name}</td>
                         <td>
-                          {artist.typeName
+                          {nonEmpty(artist.typeName)
                             ? lp_attributes(
                               artist.typeName, 'artist_type',
                             )

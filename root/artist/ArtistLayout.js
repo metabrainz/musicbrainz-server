@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -27,13 +27,13 @@ const ArtistLayout = ({
   $c,
   children,
   entity: artist,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
     $c={$c}
-    title={title ? hyphenateTitle(artist.name, title) : artist.name}
+    title={nonEmpty(title) ? hyphenateTitle(artist.name, title) : artist.name}
   >
     <div id="content">
       <ArtistHeader artist={artist} page={page} />

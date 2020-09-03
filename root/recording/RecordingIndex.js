@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -109,7 +109,8 @@ const RecordingAppearancesTable = ({
                     <ArtistCreditLink artistCredit={release.artistCredit} />
                   </td>
                   <td>
-                    {release.releaseGroup?.typeName
+                    {release.releaseGroup &&
+                      nonEmpty(release.releaseGroup.typeName)
                       ? lp_attributes(
                         release.releaseGroup.typeName,
                         'release_group_primary_type',

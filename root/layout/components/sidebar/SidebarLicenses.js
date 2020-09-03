@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import map from 'lodash/map';
 import * as React from 'react';
 
 import {compare} from '../../../static/scripts/common/i18n';
@@ -100,7 +99,8 @@ const SidebarLicenses = ({entity}: Props): React.MixedElement | null => {
   const licenses = [];
   for (const r of relationships) {
     const target = r.target;
-    if (target.entityType === 'url' && target.show_license_in_sidebar) {
+    if (target.entityType === 'url' &&
+      target.show_license_in_sidebar /*:: === true */) {
       licenses.push([
         l_relationships(linkedEntities.link_type[r.linkTypeID].link_phrase),
         <LicenseDisplay key={r.id} url={target} />,
@@ -114,7 +114,7 @@ const SidebarLicenses = ({entity}: Props): React.MixedElement | null => {
     <>
       <h2 className="licenses">{l('License')}</h2>
       <ul className="licenses">
-        {map(licenses, '1')}
+        {licenses.map(x => x[1])}
       </ul>
     </>
   ) : null;

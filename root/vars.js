@@ -16,11 +16,20 @@
 
 // eslint-disable-next-line camelcase
 declare var __webpack_public_path__: string;
+declare var GLOBAL_CATALYST_CONTEXT_NAMESPACE: '__MB_Catalyst_Context__';
 declare var GLOBAL_DBDEFS_NAMESPACE: '__MB_DBDefs__';
 
 declare var addColon: (variable: Expand2ReactInput) => Expand2ReactOutput;
 declare var addColonText: (variable: StrOrNum) => string;
+declare var hasOwnProp: (
+  object: {__proto__: empty, ...},
+  prop: string,
+) => boolean;
 declare var hyphenateTitle: (title: string, subtitle: string) => string;
+function nonEmptyFn(value: mixed): boolean %checks {
+  return value !== null && value !== undefined && value !== '';
+}
+declare var nonEmpty: typeof nonEmptyFn;
 
 declare var l: (key: string) => string;
 declare var ln: (skey: string, pkey: string, val: number) => string;

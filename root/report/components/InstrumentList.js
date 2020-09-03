@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -36,33 +36,36 @@ const InstrumentList = ({
         </tr>
       </thead>
       <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.instrument_id}>
-            {item.instrument ? (
-              <>
-                <td>
-                  <EntityLink entity={item.instrument} />
+        {items.map((item, index) => {
+          const instrument = item.instrument;
+          return (
+            <tr className={loopParity(index)} key={item.instrument_id}>
+              {instrument ? (
+                <>
+                  <td>
+                    <EntityLink entity={instrument} />
+                  </td>
+                  <td>
+                    {nonEmpty(instrument.typeName)
+                      ? lp_attributes(
+                        instrument.typeName, 'instrument_type',
+                      )
+                      : l('Unclassified instrument')}
+                  </td>
+                  <td>
+                    {nonEmpty(instrument.last_updated)
+                      ? formatUserDate($c, instrument.last_updated)
+                      : null}
+                  </td>
+                </>
+              ) : (
+                <td colSpan="3">
+                  {l('This instrument no longer exists.')}
                 </td>
-                <td>
-                  {item.instrument.typeName
-                    ? lp_attributes(
-                      item.instrument.typeName, 'instrument_type',
-                    )
-                    : l('Unclassified instrument')}
-                </td>
-                <td>
-                  {item.instrument?.last_updated
-                    ? formatUserDate($c, item.instrument.last_updated)
-                    : null}
-                </td>
-              </>
-            ) : (
-              <td colSpan="3">
-                {l('This instrument no longer exists.')}
-              </td>
-            )}
-          </tr>
-        ))}
+              )}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   </PaginatedResults>

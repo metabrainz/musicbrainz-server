@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import mutate from 'mutate-cow';
@@ -22,7 +21,6 @@ import {
   isComplexArtistCredit,
   reduceArtistCredit,
 } from '../../common/immutable-entities';
-import nonEmpty from '../../common/utility/nonEmpty';
 import {localStorage} from '../../common/utility/storage';
 
 import ArtistCreditBubble from './ArtistCreditBubble';
@@ -263,9 +261,9 @@ class ArtistCreditEditor extends React.Component {
       this._editButton.focus();
     }
     // Defer until after the doneCallback() executes (if done() called us).
-    _.defer(function () {
+    setTimeout(function () {
       $bubble.data('target', null).data('componentInst', null);
-    });
+    }, 1);
   }
 
   runDoneCallback() {
@@ -341,7 +339,7 @@ class ArtistCreditEditor extends React.Component {
       prefix = this.props.form.name + '.' + prefix;
     }
 
-    return _.flatten(_.map(this.state.artistCredit.names, function (name, i) {
+    return this.state.artistCredit.names.flatMap(function (name, i) {
       const curPrefix = prefix + i + '.';
 
       return [
@@ -356,13 +354,13 @@ class ArtistCreditEditor extends React.Component {
           value: name.artist ? name.artist.id : '',
         },
       ];
-    }));
+    });
   }
 
   render() {
     const ac = this.state.artistCredit;
-    const entity = _.clone(this.props.entity);
-    entity.artistCredit = {names: _.filter(ac.names, n => hasArtist(n))};
+    const entity = {...this.props.entity};
+    entity.artistCredit = {names: ac.names.filter(n => hasArtist(n))};
 
     /*
      * The single-artist lookup changes the credit boxes in the doc bubble,

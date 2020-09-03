@@ -505,7 +505,7 @@ END -%]
     [% IF editor.is_bot; '<span class="editor-class">(<span class="tooltip" title="' _ l('This user is automated.') _ '">' _ l('bot') _ '</span>)</span>'; END %]
 [%- END -%]
 
-[%~ MACRO link_edit(edit, action, text) BLOCK;
+[%~ MACRO link_edit(edit, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/EditLink.js
     INCLUDE _link_other_entity content=text action=action type='edit' default_content=edit.id;
 END -%]
 
@@ -624,8 +624,6 @@ END -%]
         [%- " applied" -%]
     [%~ ELSIF edit.status == 3 ~%]
         [%- " failed" -%]
-    [%~ ELSIF edit.status == 8 %]
-        [%- " cancelling" -%]
     [%~ ELSIF edit.status == 9 ~%]
         [%- " cancelled" -%]
     [%~ ELSE ~%]
@@ -850,7 +848,7 @@ END -%]
   <div class="pregap-track icon img" title="[% l('This track is hidden in the pregap.') %]"></div>
 [%~ END ~%]
 
-[%~ MACRO data_track_icon BLOCK ~%]
+[%~ MACRO data_track_icon BLOCK ~%]  [% # Converted to React at root/static/scripts/common/components/DataTrackIcon.js %]
   <div class="data-track icon img" title="[% l('This track is a data track.') %]"></div>
 [%~ END ~%]
 

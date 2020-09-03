@@ -451,7 +451,6 @@ declare type EditStatusT =
   | 5 // ERROR
   | 6 // FAILEDPREREQ
   | 7 // NOVOTES
-  | 8 // TOBEDELETED
   | 9 // DELETED
   ;
 
@@ -464,12 +463,14 @@ declare type EditT = {
     +votes: number,
   },
   +created_time: string,
+  +data: {+[dataProp: string]: any, ...},
   +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
   +edit_type: number,
   +editor_id: number,
   +expires_time: string,
   +historic_type: number | null,
   +id: number,
+  +is_open: boolean,
   +preview?: boolean,
   +quality: QualityT,
   +status: EditStatusT,
@@ -1025,7 +1026,7 @@ declare type SeriesT = $ReadOnly<{
 }>;
 
 declare type SeriesItemNumbersRoleT = {
-  +seriesItemNumbers?: {+[entityId: number]: string},
+  +seriesItemNumbers?: $ReadOnlyArray<string>,
 };
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;

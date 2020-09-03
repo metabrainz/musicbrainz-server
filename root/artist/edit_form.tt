@@ -115,6 +115,6 @@
 
     MB.initializeDuplicateChecker('artist');
 
-    [% too_short_year_js('artist') %]
+    MB.initializeTooShortYearChecks('artist');
   }());
 </script>

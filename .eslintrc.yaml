@@ -21,10 +21,13 @@ globals:
   # Fake globals; these are auto-imported upon use by Webpack's
   # ProvidePlugin, but look like real globals to eslint
   __webpack_public_path__: writable
+  GLOBAL_CATALYST_CONTEXT_NAMESPACE: readonly
   GLOBAL_DBDEFS_NAMESPACE: readonly
   addColon: readonly
   addColonText: readonly
+  hasOwnProp: readonly
   hyphenateTitle: readonly
+  nonEmpty: readonly
   l: readonly
   ln: readonly
   lp: readonly

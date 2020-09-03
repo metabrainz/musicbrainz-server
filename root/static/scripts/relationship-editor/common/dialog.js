@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import * as ReactDOMServer from 'react-dom/server';
 
 import '../../../lib/jquery-ui';
@@ -22,20 +21,22 @@ import MB from '../../common/MB';
 import * as URLCleanup from '../../edit/URLCleanup';
 import * as dates from '../../edit/utility/dates';
 import {stripAttributes} from '../../edit/utility/linkPhrase';
+import {groupBy} from '../../common/utility/arrays';
 import isBlank from '../../common/utility/isBlank';
-import debounce from '../../common/utility/debounce';
+import {debounceComputed} from '../../common/utility/debounce';
+import deepEqual from '../../common/utility/deepEqual';
 
-const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
+const PART_OF_SERIES_LINK_TYPE_GIDS = Object.values(PART_OF_SERIES_LINK_TYPES);
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var UI = RE.UI = RE.UI || {};
 
     var incorrectEntityForSeries = {
-        recording:      l("The series you’ve selected is for recordings."),
-        release:        l("The series you’ve selected is for releases."),
-        release_group:  l("The series you’ve selected is for release groups."),
-        work:           l("The series you’ve selected is for works."),
+        recording:      l('The series you’ve selected is for recordings.'),
+        release:        l('The series you’ve selected is for releases.'),
+        release_group:  l('The series you’ve selected is for release groups.'),
+        work:           l('The series you’ve selected is for works.'),
     };
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
@@ -66,7 +67,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                             var possible = dialog.targetTypeOptions();
 
-                            if (!_.find(possible, { value: type })) {
+                            if (!possible.find(x => x.value === type)) {
                                 return false;
                             }
 
@@ -75,15 +76,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         },
 
                         resultHook: function (items) {
-                            if (dialog.autocomplete.entity === "series" &&
+                            if (dialog.autocomplete.entity === 'series' &&
                                     dialog.relationship().getLinkType().orderable_direction !== 0) {
-                                return _.filter(items, function (item) {
+                                return items.filter(function (item) {
                                     return item.type.item_entity_type === dialog.source.entityType;
                                 });
                             } 
                             return items;
                         },
-                    }).data("mb-entitylookup");
+                    }).data('mb-entitylookup');
 
                 dialog.autocomplete.currentSelection.subscribe(changeTarget);
 
@@ -123,14 +124,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             function focusLastInput() {
-                $(element).find(".ui-autocomplete-input:last").focus();
+                $(element).find('.ui-autocomplete-input:last').focus();
             }
 
-            _.each(relationship.attributes.peek(), function (attribute) {
+            for (const attribute of relationship.attributes.peek()) {
                 if (attribute.type.root_id == 14) {
-                    addInstrument(MB.entity(attribute.type, "instrument"), attribute);
+                    addInstrument(MB.entity(attribute.type, 'instrument'), attribute);
                 }
-            });
+            }
 
             if (!instruments.peek().length) {
                 addInstrument(new MB.entity.Instrument({}));
@@ -151,7 +152,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     relationship.attributes.remove(item.linkAttribute.peek());
 
                     index = index === instruments().length ? index - 1 : index;
-                    var $nextButton = $(element).find("button.remove-item:eq(" + index + ")");
+                    var $nextButton = $(element).find('button.remove-item:eq(' + index + ')');
 
                     if ($nextButton.length) {
                         $nextButton.focus();
@@ -205,12 +206,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return valid ? '' : l('The year should have four digits. If you want to enter a year earlier than 1000 CE, please pad with zeros, such as “0123”.');
             }
 
-            this.tooShortBeginYearError = debounce(function () {
+            this.tooShortBeginYearError = debounceComputed(function () {
                 const relationship = self.relationship();
                 return tooShortYear(relationship.begin_date);
             });
 
-            this.tooShortEndYearError = debounce(function () {
+            this.tooShortEndYearError = debounceComputed(function () {
                 const relationship = self.relationship();
                 return tooShortYear(relationship.end_date);
             });
@@ -236,7 +237,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             // Call this.positionBy twice to prevent jumping in Opera
             this.positionBy(positionBy);
 
-            this.$dialog.find(".link-type").focus();
+            this.$dialog.find('.link-type').focus();
         }
 
         accept() {
@@ -259,9 +260,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                          * way to iterate over all entities on the page.
                          */
 
-                        _.each(MB.entityCache, function (entity, gid) {
+                        for (const gid in MB.entityCache) {
+                            if (!hasOwnProp(MB.entityCache, gid)) {
+                                continue;
+                            }
+                            const entity = MB.entityCache[gid];
                             if (gid === target.gid) {
-                                _.each(entity.displayableRelationships(vm)(), function (r) {
+                                for (const r of entity.displayableRelationships(vm)()) {
                                     switch (relationshipFilter) {
                                         case 'same-entity-types':
                                             if (r.entityTypes !== relationship.entityTypes) {
@@ -275,7 +280,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                             break;
                                     }
 
-                                    var entities = r.entities();
+                                    const entities = r.entities();
 
                                     if (entities[0].gid === gid) {
                                         r.entity0_credit(targetCredit);
@@ -284,9 +289,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                     if (entities[1].gid === gid) {
                                         r.entity1_credit(targetCredit);
                                     }
-                                });
+                                }
                             }
-                        });
+                        }
                     }
                 }
 
@@ -301,10 +306,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         clickEvent(data, event) {
             if (!event.isDefaultPrevented()) {
-                var $menu = this.$dialog.find(".menu");
+                var $menu = this.$dialog.find('.menu');
 
                 if ($menu.length) {
-                    $menu.data("multiselect").menuVisible(false);
+                    $menu.data('multiselect').menuVisible(false);
                 }
             }
 
@@ -334,11 +339,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                      * clicked if the dialog is closed too fast, which makes
                      * it immediately reopen, hence the added delay here.
                      */
-                    _.defer(function () {
+                    setTimeout(function () {
                         self.accept();
-                    });
+                    }, 1);
                 }
-            } else if (event.keyCode === 27 && nodeName !== "select") {
+            } else if (event.keyCode === 27 && nodeName !== 'select') {
                 this.close();
             }
 
@@ -390,19 +395,19 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             if (linkType && linkType.description) {
                 description = ReactDOMServer.renderToStaticMarkup(
-                    exp.l("{description} ({url|more documentation})", {
+                    exp.l('{description} ({url|more documentation})', {
                         description: expand2react(l_relationships(linkType.description)),
-                        url: { href: "/relationship/" + linkType.gid, target: "_blank" },
+                        url: { href: '/relationship/' + linkType.gid, target: '_blank' },
                     }),
                 );
             }
 
-            return description || "";
+            return description || '';
         }
 
         positionBy(element) {
-            this.widget._setOption("position", {
-                my: "top center", at: "center", of: element,
+            this.widget._setOption('position', {
+                my: 'top center', at: 'center', of: element,
             });
         }
 
@@ -411,18 +416,18 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 { children: linkedEntities.link_type_tree[entityTypes] }, this.backward(),
             );
 
-            if (this.source.entityType === "series") {
+            if (this.source.entityType === 'series') {
                 var itemType = MB.seriesTypesByID[this.source.typeID()].item_entity_type;
 
-                options = _.reject(options, function (opt) {
+                options = options.filter(function (opt) {
                     var linkType = linkedEntities.link_type[opt.value];
 
-                    if (_.includes(PART_OF_SERIES_LINK_TYPE_GIDS, linkType.gid) &&
+                    if (PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
                             linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
-                        return true;
+                        return false;
                     }
 
-                    return false;
+                    return true;
                 });
             }
 
@@ -431,13 +436,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         targetTypeOptions() {
             var sourceType = this.source.entityType;
-            var targetTypes = _.without(MB.allowedRelations[sourceType], 'url');
+            var targetTypes = MB.allowedRelations[sourceType].filter(
+                typeName => typeName !== 'url',
+            );
 
-            if (sourceType === "series") {
+            if (sourceType === 'series') {
                 var self = this;
 
-                targetTypes = _.filter(targetTypes, function (targetType) {
-                    var key = [sourceType, targetType].sort().join("-");
+                targetTypes = targetTypes.filter(function (targetType) {
+                    var key = [sourceType, targetType].sort().join('-');
 
                     if (self.linkTypeOptions(key).length) {
                         return true;
@@ -447,7 +454,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 });
             }
 
-            var options = _.map(targetTypes, function (type) {
+            var options = targetTypes.map(function (type) {
                 return { value: type, text: ENTITY_NAMES[type]() };
             });
 
@@ -482,7 +489,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             delete data.entities;
 
-            var entityTypes = [this.source.entityType, newType].sort().join("-");
+            var entityTypes = [this.source.entityType, newType].sort().join('-');
             data.linkTypeID = defaultLinkType({ children: linkedEntities.link_type_tree[entityTypes] });
             data.attributes = [];
 
@@ -510,24 +517,24 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var linkType = this.relationship().getLinkType();
 
             if (!linkType) {
-                return l("Please select a relationship type.");
+                return l('Please select a relationship type.');
             } else if (!linkType.description) {
-                return l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
+                return l('Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.');
             } else if (linkType.deprecated) {
-                return l("This relationship type is deprecated and should not be used.");
-            } else if (this.source.entityType === "url") {
+                return l('This relationship type is deprecated and should not be used.');
+            } else if (this.source.entityType === 'url') {
                 var checker = URLCleanup.validationRules[linkType.gid];
 
                 if (checker) {
                     const check = checker(this.source.name());
                     if (!check.result) {
                         return check.error ||
-                            l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
+                            l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
                     }
                 }
             }
 
-            return "";
+            return '';
         }
 
         targetEntityError() {
@@ -536,23 +543,23 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var linkType = relationship.getLinkType() || {};
 
             if (!target.gid) {
-                return l("Required field.");
+                return l('Required field.');
             } else if (this.source === target) {
-                return l("Entities in a relationship cannot be the same.");
+                return l('Entities in a relationship cannot be the same.');
             }
 
-            if (target.entityType === "series" &&
-                    _.includes(PART_OF_SERIES_LINK_TYPE_GIDS, linkType.gid) &&
+            if (target.entityType === 'series' &&
+                    PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
                     target.type().entityType !== this.source.entityType) {
                 return incorrectEntityForSeries[target.type().entityType];
             }
 
-            return "";
+            return '';
         }
 
         dateError(date) {
             var valid = dates.isDateValid(date.year(), date.month(), date.day());
-            return valid ? "" : l("The date you've entered is not valid.");
+            return valid ? '' : l("The date you've entered is not valid.");
         }
 
         datePeriodError() {
@@ -563,11 +570,20 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
-                    return l("The end date cannot precede the begin date.");
+                    return l('The end date cannot precede the begin date.');
                 }
             }
 
-            return "";
+            return '';
+        }
+
+        hasAttributeErrors() {
+            const relationship = this.relationship();
+            return (
+                Object.values(relationship.getLinkType().attributes)
+                    .map(relationship.attributeError.bind(relationship))
+                    .some(Boolean)
+            );
         }
 
         hasErrors() {
@@ -575,10 +591,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             return this.linkTypeError() ||
                    this.targetEntityError() ||
-                   _(relationship.getLinkType().attributes)
-                       .values()
-                       .map(_.bind(relationship.attributeError, relationship))
-                       .some() ||
+                   this.hasAttributeErrors() ||
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
                    this.tooShortBeginYearError() ||
@@ -608,45 +621,52 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
     }
 
+    let _uiSetupDone = false;
+
     Object.assign(Dialog.prototype, {
         loading: ko.observable(false),
         showAttributesHelp: ko.observable(false),
         showLinkTypeHelp: ko.observable(false),
 
         uiOptions: {
-            dialogClass: "rel-editor-dialog",
+            dialogClass: 'rel-editor-dialog',
             draggable: false,
             resizable: false,
             autoOpen: false,
-            width: "auto",
+            width: 'auto',
         },
 
-        setupUI: _.once(function () {
-            var $dialog = $("#dialog").dialog(this.uiOptions);
+        setupUI: function () {
+            if (_uiSetupDone) {
+                return;
+            }
 
-            var widget = $dialog.data("ui-dialog");
-            widget.uiDialog.find(".ui-dialog-titlebar").remove();
+            var $dialog = $('#dialog').dialog(this.uiOptions);
+
+            var widget = $dialog.data('ui-dialog');
+            widget.uiDialog.find('.ui-dialog-titlebar').remove();
 
             Object.assign(Dialog.prototype, {$dialog, widget});
             ko.applyBindings(this.viewModel, $dialog[0]);
-        }),
+            _uiSetupDone = true;
+        },
     });
 
     function addRelationships(relationships, source, viewModel) {
-        _.each(relationships, function (relationship) {
+        for (const relationship of relationships) {
             if (source.mergeRelationship(relationship)) {
                 return;
             }
 
             if (relationship.getLinkType().orderable_direction) {
-                var group = source.getRelationshipGroup(relationship, viewModel);
-                var maxLinkOrder = -Infinity;
+                const group = source.getRelationshipGroup(relationship, viewModel);
+                let maxLinkOrder = -Infinity;
 
-                _.each(group, function (other) {
+                for (const other of group) {
                     maxLinkOrder = Math.max(maxLinkOrder, other.linkOrder.peek() || 0);
-                });
+                }
 
-                if (maxLinkOrder === 0 || !_.isFinite(maxLinkOrder)) {
+                if (maxLinkOrder === 0 || !Number.isFinite(maxLinkOrder)) {
                     // Leave unordered relationships unordered.
                     relationship.linkOrder(0);
                 } else {
@@ -655,7 +675,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             relationship.show();
-        });
+        }
     }
 
     export class AddDialog extends Dialog {
@@ -673,7 +693,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     Object.assign(AddDialog.prototype, {
-        dialogTemplate: "template.relationship-dialog",
+        dialogTemplate: 'template.relationship-dialog',
         disableTypeSelection: false,
     });
 
@@ -707,7 +727,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (cancel !== false) {
                 var relationship = this.relationship();
 
-                if (!_.isEqual(this.originalRelationship, relationship.editData())) {
+                if (!deepEqual(this.originalRelationship, relationship.editData())) {
                     relationship.fromJS(this.originalRelationship);
                 }
             }
@@ -716,7 +736,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     Object.assign(EditDialog.prototype, {
-        dialogTemplate: "template.relationship-dialog",
+        dialogTemplate: 'template.relationship-dialog',
         disableTypeSelection: true,
     });
 
@@ -733,23 +753,25 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         _accept(callback) {
             var vm = this.viewModel;
-            var model = _.omit(this.relationship().editData(), "id", "entities");
+            var model = {...this.relationship().editData()};
+            delete model.id;
+            delete model.entities;
 
             model.target = this.relationship().target(this.source);
-            model.direction = this.backward() ? "backward" : "forward";
+            model.direction = this.backward() ? 'backward' : 'forward';
 
-            _.each(this.sources, function (source) {
-                model = _.clone(model);
+            for (const source of this.sources) {
+                model = {...model};
 
                 if (!callback || callback(model)) {
                     addRelationships(splitByCreditableAttributes(vm.getRelationship(model, source)), source, vm);
                 }
-            });
+            }
         }
     }
 
     Object.assign(BatchRelationshipDialog.prototype, {
-        dialogTemplate: "template.batch-relationship-dialog",
+        dialogTemplate: 'template.batch-relationship-dialog',
         disableTypeSelection: false,
     });
 
@@ -766,7 +788,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             this.loading(true);
 
-            var edits = _.map(this.sources, function (source) {
+            var edits = this.sources.map(function (source) {
                 var editData = MB.edit.fields.work({
                     name: source.name,
                     typeID: workType,
@@ -778,10 +800,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             this.createEdits(edits)
                 .done((data) => {
-                    var works = _.map(data.edits, "entity");
+                    var works = data.edits.map(x => x.entity);
 
                     super.accept(function (relationshipData) {
-                        relationshipData.target = MB.entity(works.shift(), "work");
+                        relationshipData.target = MB.entity(works.shift(), 'work');
                         return true;
                     });
 
@@ -794,7 +816,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         createEdits(edits) {
-            return MB.edit.create({ editNote: "", makeVotable: false, edits: edits });
+            return MB.edit.create({ editNote: '', makeVotable: false, edits: edits });
         }
 
         targetEntityError() {
@@ -803,7 +825,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     Object.assign(BatchCreateWorksDialog.prototype, {
-        dialogTemplate: "template.batch-create-works-dialog",
+        dialogTemplate: 'template.batch-create-works-dialog',
         workType: ko.observable(null),
         workLanguage: ko.observable(null),
     });
@@ -830,19 +852,19 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function linkAttributeTypeID(attribute) {
-        return attribute.type.id;
+        return String(attribute.type.id);
     }
 
     function splitByCreditableAttributes(relationship) {
         const attributes = relationship.attributes();
-        const creditable = _.filter(attributes, isCreditable);
+        const creditable = attributes.filter(isCreditable);
         const relationships = [relationship];
 
         if (!creditable.length) {
             return relationships;
         }
 
-        var notCreditable = _.reject(attributes, isCreditable);
+        var notCreditable = attributes.filter(x => !isCreditable(x));
 
         function split(attribute) {
             var newRelationship = relationship.clone();
@@ -850,13 +872,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             relationships.push(newRelationship);
         }
 
-        _(creditable)
-            .groupBy(linkAttributeTypeID)
-            .each(function (attributes) {
-                var extra = _.tail(attributes);
-                relationship.attributes.removeAll(extra);
-                _.each(extra, split);
-            });
+        for (
+            const attributes of
+            Object.values(groupBy(creditable, linkAttributeTypeID))
+        ) {
+            const extra = attributes.slice(1);
+            relationship.attributes.removeAll(extra);
+            extra.forEach(split);
+        }
 
         return relationships;
     }

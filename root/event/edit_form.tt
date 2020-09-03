@@ -61,6 +61,6 @@
   (function () {
     MB.Control.initializeGuessCase("event", "id-edit-event");
 
-    [% too_short_year_js("event") %]
+    MB.initializeTooShortYearChecks('event');
   }());
 </script>

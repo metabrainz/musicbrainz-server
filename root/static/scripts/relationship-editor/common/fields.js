@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {
   SERIES_ORDERING_ATTRIBUTE,
@@ -19,11 +18,12 @@ import linkedEntities from '../../common/linkedEntities';
 import mbEntity from '../../common/entity';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
+import deepEqual from '../../common/utility/deepEqual';
 import {displayLinkAttributesText} from '../../common/utility/displayLinkAttribute';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
-import nonEmpty from '../../common/utility/nonEmpty';
 import request from '../../common/utility/request';
+import {fixedWidthInteger, uniqueId} from '../../common/utility/strings';
 import mbEdit from '../../edit/MB/edit';
 import * as linkPhrase from '../../edit/utility/linkPhrase';
 
@@ -45,15 +45,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 this.id = data.id;
             }
 
-            this.entities = ko.observable(_.map(data.entities, function (entity) {
+            this.entities = ko.observable(data.entities.map(function (entity) {
                 return mbEntity(entity);
             }));
 
             this.entities.equalityComparer = entitiesComparer;
             this.entities.saved = this.entities.peek().slice(0);
             this.entities.subscribe(this.entitiesChanged, this);
-            this.entityTypes = _(data.entities).map("entityType").join("-");
-            this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
+            this.entityTypes = data.entities.map(x => x.entityType).join('-');
+            this.uniqueID = this.entityTypes + '-' + (this.id || uniqueId('new-'));
 
             this.entity0_credit = ko.observable(data.entity0_credit || '');
             this.entity1_credit = ko.observable(data.entity1_credit || '');
@@ -63,13 +63,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
 
             if (data.begin_date && nonEmpty(data.begin_date.year)) {
-                data.begin_date.year = _.padStart(String(data.begin_date.year), 4, '0');
+                data.begin_date.year = fixedWidthInteger(data.begin_date.year, 4);
             }
 
             this.begin_date = setPartialDate({}, data.begin_date || {});
 
             if (data.end_date && nonEmpty(data.end_date.year)) {
-                data.end_date.year = _.padStart(String(data.end_date.year), 4, '0');
+                data.end_date.year = fixedWidthInteger(data.end_date.year, 4);
             }
 
             this.end_date = setPartialDate({}, data.end_date || {});
@@ -98,9 +98,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }, this);
 
             if (data.id) {
-                _.each(this.attributes.peek(), function (attribute) {
+                for (const attribute of this.attributes.peek()) {
                     self.attributes.original[attribute.type.gid] = attribute.toJS();
-                });
+                }
             }
 
             /*
@@ -110,7 +110,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
              * removals if it sees that the previous attributes are still
              * checked (they haven't been removed from the template yet; that
              * probably happens in a later subscription). That's why the
-             * _.defer is needed; we need to wait for it to idiotically add
+             * setTimeout is needed; we need to wait for it to idiotically add
              * the attributes back. The proper solution would be to use a
              * writable computed observable that filters out invalid values
              * upon writing, but there's already a bunch of code
@@ -119,13 +119,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var removingInvalidAttributes = false;
             this.attributes.subscribe(function (newAttributes) {
                 if (!removingInvalidAttributes) {
-                    _.defer(function () {
+                    setTimeout(function () {
                         if (newAttributes === self.attributes.peek()) {
                             removingInvalidAttributes = true;
                             self.attributes(validAttributes(self, newAttributes));
                             removingInvalidAttributes = false;
                         }
-                    });
+                    }, 1);
                 }
             });
 
@@ -164,7 +164,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.setAttributes(data.attributes);
             this.linkOrder(data.linkOrder || 0);
 
-            _.has(data, "removed") && this.removed(!!data.removed);
+            if (hasOwnProp(data, 'removed')) {
+                this.removed(!!data.removed);
+            }
         }
 
         target(source) {
@@ -177,7 +179,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return entities[0];
             }
 
-            throw new Error("The given entity is not used by this relationship");
+            throw new Error('The given entity is not used by this relationship');
         }
 
         linkTypeIDChanged() {
@@ -222,7 +224,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         edited() {
-            return !_.isEqual(this.original, this.editData());
+            return !deepEqual(this.original, this.editData());
         }
 
         hasChanges() {
@@ -271,8 +273,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 relationships0.push(this);
             }
 
-            if (entity0.entityType === "recording"
-                && entity1.entityType === "work"
+            if (entity0.entityType === 'recording'
+                && entity1.entityType === 'work'
                 && saved1 !== entity1 && entity1.gid) {
                 this.loadWorkRelationships(entity1);
             }
@@ -281,7 +283,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         loadWorkRelationships(work) {
-            var args = { url: "/ws/js/entity/" + work.gid + "?inc=rels" };
+            var args = { url: '/ws/js/entity/' + work.gid + '?inc=rels' };
 
             request(args).done(function (data) {
                 work.parseRelationships(data.relationships);
@@ -289,7 +291,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         clone() {
-            var clone = new fields.Relationship(_.omit(this.editData(), "id"));
+            const editData = {...this.editData()};
+            delete editData.id;
+            const clone = new fields.Relationship(editData);
             clone.parent = this.parent;
             return clone;
         }
@@ -304,7 +308,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             entities[0].relationships.remove(this);
             entities[1].relationships.remove(this);
 
-            delete this.parent.cache[this.entityTypes + "-" + this.id];
+            delete this.parent.cache[this.entityTypes + '-' + this.id];
             this.removed(true);
         }
 
@@ -320,7 +324,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         setAttributes(attributes) {
-            this.attributes(_.map(validAttributes(this, attributes), function (data) {
+            this.attributes(validAttributes(this, attributes).map(function (data) {
                 return new fields.LinkAttribute(data);
             }));
         }
@@ -333,7 +337,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         linkTypeAttributes() {
             var linkType = this.getLinkType();
-            return linkType ? _.values(linkType.attributes) : [];
+            return linkType ? Object.values(linkType.attributes) : [];
         }
 
         attributeError(rootInfo) {
@@ -342,16 +346,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (min > 0) {
                 var rootID = rootInfo.attribute.id;
 
-                var values = _.filter(this.attributes(), function (attribute) {
+                var values = this.attributes().filter(function (attribute) {
                     return attribute.type.root_id == rootID;
                 });
 
                 if (values.length < min) {
-                    return l("This attribute is required.");
+                    return l('This attribute is required.');
                 }
             }
 
-            return "";
+            return '';
         }
 
         attributeLabel(attribute) {
@@ -417,19 +421,19 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             if (!numberAttribute) {
-                return "";
+                return '';
             }
 
             const integerRegex = /^\d+$/;
-            const parts = _.compact(numberAttribute.textValue().split(/(\d+)/));
+            const parts = numberAttribute.textValue().split(/(\d+)/).filter(Boolean);
 
             for (let i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {
-                    parts[i] = _.padStart(part, 10, "0");
+                    parts[i] = fixedWidthInteger(part, 10);
                 }
             }
 
-            return parts.join("");
+            return parts.join('');
         }
 
         entityIsOrdered(entity) {
@@ -463,7 +467,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             var target = this.target(entity);
 
-            if (target.entityType === "series") {
+            if (target.entityType === 'series') {
                 return +target.orderingTypeID() !== SERIES_ORDERING_TYPE_AUTOMATIC;
             }
 
@@ -473,7 +477,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         _moveEntity(offset) {
             var vm = this.parent;
             var relationships = vm.source.getRelationshipGroup(this, vm);
-            var index = _.indexOf(relationships, this);
+            var index = relationships.indexOf(this);
             var newIndex = index + offset;
 
             if (newIndex >= 0 && newIndex <= relationships.length - 1) {
@@ -481,7 +485,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 relationships[newIndex] = this;
                 relationships[index] = other;
 
-                _.each(relationships, function (r, i) {
+                relationships.forEach(function (r, i) {
                     r.linkOrder(i + 1);
                 });
             }
@@ -511,7 +515,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
                 this.linkOrder() == other.linkOrder() &&
-                _.isEqual(this.entities(), other.entities()) &&
+                deepEqual(this.entities(), other.entities()) &&
                 mergeDates(this.begin_date, other.begin_date) &&
                 mergeDates(this.end_date, other.end_date) &&
                 attributesAreEqual(this.attributes(), other.attributes())
@@ -576,11 +580,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         var type = this.type = linkedEntities.link_attribute_type[data.type.gid];
 
         if (type.creditable) {
-            this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
+            this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || '');
         }
 
         if (type.free_text) {
-            this.textValue = ko.observable(ko.unwrap(data.text_value) || "");
+            this.textValue = ko.observable(ko.unwrap(data.text_value) || '');
         }
     };
 
@@ -588,10 +592,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         var type = this.type;
 
         if (type.creditable) {
-            return type.gid + "\0" + clean(this.creditedAs());
+            return type.gid + '\0' + clean(this.creditedAs());
         }
         if (type.free_text) {
-            return type.gid + "\0" + clean(this.textValue());
+            return type.gid + '\0' + clean(this.textValue());
         }
         return type.gid;
     };
@@ -638,9 +642,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function setPartialDate(target, data) {
-        _.each(["year", "month", "day"], function (key) {
+        for (const key of ['year', 'month', 'day']) {
             (target[key] = target[key] || ko.observable())(ko.unwrap(data[key]) || null);
-        });
+        }
         return target;
     }
 
@@ -665,17 +669,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function validAttributes(relationship, attributes) {
+        if (!attributes) {
+            return [];
+        }
         var linkType = relationship.getLinkType();
-
-        if (_.isEmpty(attributes) || _.isEmpty(linkType) || _.isEmpty(linkType.attributes)) {
+        if (!linkType) {
             return [];
         } 
-        return _.transform(attributes, function (accum, data) {
+        return attributes.filter(function (data) {
             var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
-
-            if (attrInfo && linkType.attributes[attrInfo.root_id]) {
-                accum.push(data);
-            }
+            return attrInfo && linkType.attributes[attrInfo.root_id];
         });
     }
 

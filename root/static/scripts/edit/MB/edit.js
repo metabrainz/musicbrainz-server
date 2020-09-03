@@ -7,15 +7,15 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 import * as TYPES from '../../common/constants/editTypes';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
+import {compactMap, sortByNumber} from '../../common/utility/arrays';
 import clean from '../../common/utility/clean';
-import nonEmpty from '../../common/utility/nonEmpty';
+import deepEqual from '../../common/utility/deepEqual';
 import request from '../../common/utility/request';
 
 (function (edit) {
@@ -24,7 +24,7 @@ import request from '../../common/utility/request';
 
 
     function value(arg) {
-        return typeof arg === "function" ? arg() : arg;
+        return typeof arg === 'function' ? arg() : arg;
     }
     function string(arg) {
         return clean(value(arg));
@@ -34,7 +34,7 @@ import request from '../../common/utility/request';
         return isNaN(num) ? null : num;
     }
     function array(arg, type) {
-        return _.map(value(arg), type);
+        return value(arg).map(type);
     }
     function nullableString(arg) {
         return string(arg) || null;
@@ -59,7 +59,7 @@ import request from '../../common/utility/request';
                 return {names: []};
             }
 
-            const names = _.map(ac.names, function (credit, index) {
+            const names = ac.names.map(function (credit, index) {
                 var artist = value(credit.artist) || {};
 
                 var name = {
@@ -71,14 +71,14 @@ import request from '../../common/utility/request';
                     name: string(credit.name),
                 };
 
-                var joinPhrase = value(credit.joinPhrase) || "";
+                var joinPhrase = value(credit.joinPhrase) || '';
 
                 // Collapse whitespace, but don't strip leading/trailing.
-                name.join_phrase = joinPhrase.replace(/\s{2,}/g, " ");
+                name.join_phrase = joinPhrase.replace(/\s{2,}/g, ' ');
 
                 // Trim trailing whitespace for the final join phrase only.
                 if (index === ac.names.length - 1) {
-                    name.join_phrase = _.trimEnd(name.join_phrase);
+                    name.join_phrase = name.join_phrase.trimEnd();
                 }
 
                 name.join_phrase = name.join_phrase || null;
@@ -149,12 +149,12 @@ import request from '../../common/utility/request';
                 entity1_credit: string(relationship.entity1_credit),
             };
 
-            data.attributes = _(ko.unwrap(relationship.attributes))
-                .invokeMap('toJS')
-                .sortBy(a => a.type.id)
-                .value();
+            data.attributes = sortByNumber(
+                ko.unwrap(relationship.attributes).map(x => x.toJS()),
+                a => a.type.id,
+            );
 
-            if (_.isNumber(data.linkTypeID)) {
+            if (data.linkTypeID) {
                 if (linkedEntities.link_type[data.linkTypeID].orderable_direction !== 0) {
                     data.linkOrder = number(relationship.linkOrder) || 0;
                 }
@@ -164,7 +164,7 @@ import request from '../../common/utility/request';
                 data.begin_date = fields.partialDate(relationship.begin_date);
                 data.end_date = fields.partialDate(relationship.end_date);
 
-                if (data.end_date && _(data.end_date).values().some(nonEmpty)) {
+                if (data.end_date && Object.values(data.end_date).some(nonEmpty)) {
                     data.ended = true;
                 } else {
                     data.ended = Boolean(value(relationship.ended));
@@ -182,7 +182,7 @@ import request from '../../common/utility/request';
             };
 
             // We only use URL gids on the edit-url form.
-            if (entity.entityType === "url" && !data.gid) {
+            if (entity.entityType === 'url' && !data.gid) {
                 delete data.gid;
             }
 
@@ -192,21 +192,18 @@ import request from '../../common/utility/request';
         release: function (release) {
             var releaseGroupID = (release.releaseGroup() || {}).id;
 
-            var events = _(value(release.events))
-                .map(function (data) {
-                    var event = {
-                        date:       fields.partialDate(data.date),
-                        country_id: number(data.countryID),
-                    };
+            var events = compactMap(value(release.events), function (data) {
+                var event = {
+                    date:       fields.partialDate(data.date),
+                    country_id: number(data.countryID),
+                };
 
-                    if (_(event.date).values().some(nonEmpty) || event.country_id !== null) {
-                        return event;
-                    }
+                if (Object.values(event.date).some(nonEmpty) || event.country_id !== null) {
+                    return event;
+                }
 
-                    return null;
-                })
-                .compact()
-                .value();
+                return null;
+            });
 
             return {
                 name:               string(release.name),
@@ -229,7 +226,7 @@ import request from '../../common/utility/request';
                 name:               string(rg.name),
                 artist_credit:      fields.artistCredit(rg.artistCredit),
                 comment:            string(rg.comment),
-                secondary_type_ids: _.compact(array(rg.secondaryTypeIDs, number)),
+                secondary_type_ids: compactMap(value(rg.secondaryTypeIDs), number),
             };
         },
 
@@ -270,27 +267,35 @@ import request from '../../common/utility/request';
 
 
     function editHash(edit) {
-        var keys = _.keys(edit).sort();
+        var keys = Object.keys(edit).sort();
 
         function keyValue(memo, key) {
             var value = edit[key];
 
-            return memo + key + (_.isObject(value) ? editHash(value) : value);
+            return memo + key +
+                (value && typeof value === 'object'
+                    ? editHash(value)
+                    : value);
         }
-        return hexSha1(_.reduce(keys, keyValue, ""));
+        return hexSha1(keys.reduce(keyValue, ''));
     }
 
 
     function removeEqual(newData, oldData, required) {
-        _(newData)
-            .keys()
-            .intersection(_.keys(oldData))
-            .difference(required)
-            .each(function (key) {
-                if (_.isEqual(newData[key], oldData[key])) {
-                    delete newData[key];
-                }
-            });
+        if (!oldData) {
+            return;
+        }
+        const oldKeys = new Set(Object.keys(oldData));
+
+        for (const key of Object.keys(newData)) {
+            if (
+                oldKeys.has(key) &&
+                !required.includes(key) &&
+                deepEqual(newData[key], oldData[key])
+            ) {
+                delete newData[key];
+            }
+        }
     }
 
 
@@ -312,7 +317,7 @@ import request from '../../common/utility/request';
         function (args) {
             delete args.gid;
 
-            if (!_.some(args.secondary_type_ids)) {
+            if (!args.secondary_type_ids.some(Boolean)) {
                 delete args.secondary_type_ids;
             }
         },
@@ -321,7 +326,7 @@ import request from '../../common/utility/request';
 
     edit.releaseGroupEdit = editConstructor(
         TYPES.EDIT_RELEASEGROUP_EDIT,
-        _.partialRight(removeEqual, ['gid']),
+        (...args) => removeEqual(...args, ['gid']),
     );
 
 
@@ -338,7 +343,7 @@ import request from '../../common/utility/request';
 
     edit.releaseEdit = editConstructor(
         TYPES.EDIT_RELEASE_EDIT,
-        _.partialRight(removeEqual, ['to_edit']),
+        (...args) => removeEqual(...args, ['to_edit']),
     );
 
 
@@ -382,7 +387,7 @@ import request from '../../common/utility/request';
 
     edit.mediumEdit = editConstructor(
         TYPES.EDIT_MEDIUM_EDIT,
-        _.partialRight(removeEqual, ['to_edit']),
+        (...args) => removeEqual(...args, ['to_edit']),
     );
 
 
@@ -394,7 +399,7 @@ import request from '../../common/utility/request';
 
     edit.recordingEdit = editConstructor(
         TYPES.EDIT_RECORDING_EDIT,
-        _.partialRight(removeEqual, ['to_edit']),
+        (...args) => removeEqual(...args, ['to_edit']),
     );
 
 
@@ -413,21 +418,21 @@ import request from '../../common/utility/request';
             var origAttributes = relationship ? relationship.attributes.original : {};
             var changedAttributes = [];
 
-            _.each(args.attributes, function (hash) {
-                var gid = hash.type.gid;
+            for (const hash of args.attributes) {
+                const gid = hash.type.gid;
 
                 newAttributes[gid] = hash;
 
-                if (!origAttributes[gid] || !_.isEqual(origAttributes[gid], hash)) {
+                if (!origAttributes[gid] || !deepEqual(origAttributes[gid], hash)) {
                     changedAttributes.push(hash);
                  }
-            });
+            }
 
-            _.each(origAttributes, function (value, gid) {
+            for (const gid of Object.keys(origAttributes)) {
                 if (!newAttributes[gid]) {
                     changedAttributes.push({type: {gid: gid}, removed: true});
                 }
-            });
+            }
 
             args.attributes = changedAttributes;
             removeEqual(args, orig, ['id', 'linkTypeID']);
@@ -447,23 +452,25 @@ import request from '../../common/utility/request';
 
     function editEndpoint(endpoint) {
         function omitHash(edit) {
-            return _.omit(edit, "hash");
+            const editCopy = {...edit};
+            delete editCopy.hash;
+            return editCopy;
         }
 
         return function (data, context) {
-            data.edits = _.map(data.edits, omitHash);
+            data.edits = data.edits.map(omitHash);
 
             return request({
-                type: "POST",
+                type: 'POST',
                 url: endpoint,
                 data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
+                contentType: 'application/json; charset=utf-8',
             }, context || null);
         };
     }
 
-    edit.preview = editEndpoint("/ws/js/edit/preview");
-    edit.create = editEndpoint("/ws/js/edit/create");
+    edit.preview = editEndpoint('/ws/js/edit/preview');
+    edit.create = editEndpoint('/ws/js/edit/create');
 
 }(MB.edit = {}));
 

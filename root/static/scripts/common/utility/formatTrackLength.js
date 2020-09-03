@@ -1,4 +1,5 @@
 /*
+ * @flow strict-local
  * Copyright (C) 2011 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -6,8 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function formatTrackLength(milliseconds, placeholder='?:??') {
-    if (!milliseconds) {
+export default function formatTrackLength(
+    milliseconds: number | null,
+    placeholder?: string = '?:??',
+): string {
+    if (milliseconds == null || milliseconds === 0) {
         return placeholder;
     }
 

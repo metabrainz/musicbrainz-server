@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {MIN_NAME_SIMILARITY} from '../common/constants';
 import {
@@ -16,8 +15,9 @@ import {
   isCompleteArtistCredit,
   reduceArtistCredit,
 } from '../common/immutable-entities';
+import {compactMap, sortByNumber} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
-import debounce from '../common/utility/debounce';
+import {debounceComputed} from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
 import getCookie from '../common/utility/getCookie';
 import setCookie from '../common/utility/setCookie';
@@ -41,15 +41,15 @@ const trackParser = releaseEditor.trackParser = {
     trackTime: /\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９\?]+[：，．':,.][0-5０-５\?][0-9０-９\?])\)?$/,
 
     options: {
-        hasTrackNumbers: optionCookie("trackparser_tracknumbers", true),
-        hasTrackArtists: optionCookie("trackparser_trackartists", true),
-        hasVinylNumbers: optionCookie("trackparser_vinylnumbers", false),
-        customDelimiter: optionCookie("trackparser_customdelimiter", "", false),
-        useCustomDelimiter: optionCookie("trackparser_usecustomdelimiter", false),
-        useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
-        useTrackNames: optionCookie("trackparser_usetracknames", true),
-        useTrackArtists: optionCookie("trackparser_usetrackartists", true),
-        useTrackLengths: optionCookie("trackparser_tracktimes", true),
+        hasTrackNumbers: optionCookie('trackparser_tracknumbers', true),
+        hasTrackArtists: optionCookie('trackparser_trackartists', true),
+        hasVinylNumbers: optionCookie('trackparser_vinylnumbers', false),
+        customDelimiter: optionCookie('trackparser_customdelimiter', '', false),
+        useCustomDelimiter: optionCookie('trackparser_usecustomdelimiter', false),
+        useTrackNumbers: optionCookie('trackparser_usetracknumbers', true),
+        useTrackNames: optionCookie('trackparser_usetracknames', true),
+        useTrackArtists: optionCookie('trackparser_usetrackartists', true),
+        useTrackLengths: optionCookie('trackparser_tracktimes', true),
     },
 
     delimiterHelpVisible: ko.observable(false),
@@ -61,7 +61,7 @@ const trackParser = releaseEditor.trackParser = {
         var self = this;
 
         var options = ko.toJS(this.options);
-        var lines = _.reject(str.split('\n'), isBlank);
+        var lines = str.split('\n').filter(x => !isBlank(x));
 
         var currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
         var currentTracks;
@@ -95,7 +95,7 @@ const trackParser = releaseEditor.trackParser = {
              * went wrong. Returning undefined or null removes this result from
              * newTracks because $.map discards it.
              */
-            if (!_.some(_.values(data))) {
+            if (!Object.values(data).some(Boolean)) {
                 return null;
             }
 
@@ -125,30 +125,26 @@ const trackParser = releaseEditor.trackParser = {
                  * along with their similarity.
                  */
                 dataTrackPairs = dataTrackPairs.concat(
-                    _(currentTracks)
-                        .map(function (track) {
-                            return self.matchDataWithTrack(data, track);
-                        })
-                        .compact()
-                        .value(),
+                    compactMap(currentTracks, function (track) {
+                        return self.matchDataWithTrack(data, track);
+                    }),
                 );
             }
 
             return data;
         });
 
-        _(dataTrackPairs).sortBy("similarity").reverse()
-            .each(function (match) {
-                var data = match.data;
-                var track = match.track;
+        sortByNumber(dataTrackPairs, x => -x.similarity).forEach(function (match) {
+            var data = match.data;
+            var track = match.track;
 
-                if (!data.matchedTrack && !matchedTracks[track.uniqueID]) {
-                    data.matchedTrack = track;
-                    matchedTracks[track.uniqueID] = 1;
-                }
-            });
+            if (!data.matchedTrack && !matchedTracks[track.uniqueID]) {
+                data.matchedTrack = track;
+                matchedTracks[track.uniqueID] = 1;
+            }
+        });
 
-        var newTracks = _.map(newTracksData, function (data, index) {
+        var newTracks = newTracksData.map(function (data, index) {
             var matchedTrack = data.matchedTrack;
             var previousTrack = previousTracks[index];
             var matchedTrackAC = matchedTrack && matchedTrack.artistCredit();
@@ -158,9 +154,8 @@ const trackParser = releaseEditor.trackParser = {
              * See if we can re-use the AC from the matched track, the previous
              * track at this position, or the release.
              */
-            var matchedAC = _.find(
-                [matchedTrackAC, previousTrackAC, releaseAC],
-                function (ac) {
+            var matchedAC = [matchedTrackAC, previousTrackAC, releaseAC]
+                .find(function (ac) {
                     if (!ac || hasVariousArtists(ac)) {
                         return false;
                     }
@@ -169,15 +164,14 @@ const trackParser = releaseEditor.trackParser = {
                         !data.artist ||
                         utils.similarNames(data.artist, reduceArtistCredit(ac))
                     );
-                },
-            );
+                });
 
             if (matchedAC) {
                 data.artistCredit = matchedAC;
             }
 
             data.artistCredit = data.artistCredit ||
-                {names: [{ name: data.artist || "" }]};
+                {names: [{ name: data.artist || '' }]};
 
             /*
              * If the AC has just a single artist, we can re-use the parsed
@@ -225,7 +219,7 @@ const trackParser = releaseEditor.trackParser = {
             if (medium.hasDataTracks()) {
                 var dataTracksEnded = false;
 
-                _.each(newTracks.slice(0).reverse(), function (t, index) {
+                newTracks.slice(0).reverse().forEach(function (t, index) {
                     /*
                      * Don't touch the data track boundary if the total number
                      * of tracks is >= the previous number. The user can edit
@@ -249,23 +243,23 @@ const trackParser = releaseEditor.trackParser = {
             }
 
             // Force a minimum number of audio tracks if there's a CDTOC.
-            var newAudioTrackCount = _.sumBy(newTracks, function (t) {
-                return t.isDataTrack() ? 0 : 1;
-            });
+            var newAudioTrackCount = newTracks.reduce(function (sum, t) {
+                return sum + (t.isDataTrack() ? 0 : 1);
+            }, 0);
 
             if (hasTocs && newAudioTrackCount < oldAudioTrackCount) {
                 difference = oldAudioTrackCount - newAudioTrackCount;
 
-                newTracks.splice.apply(
-                    newTracks,
-                    [newAudioTrackCount, 0].concat(_.times(difference, function (n) {
-                        return new fields.Track({
-                            length: currentTracks[newAudioTrackCount + n].length.peek(),
-                        }, medium);
-                    })),
-                );
+                const newAudioTracks = [];
+                for (let i = 0; i < difference; i++) {
+                    newAudioTracks.push(new fields.Track({
+                        length: currentTracks[newAudioTrackCount + i].length.peek(),
+                    }, medium));
+                }
 
-                _.each(newTracks, function (t, index) {
+                newTracks.splice(newAudioTrackCount, 0, ...newAudioTracks);
+
+                newTracks.forEach(function (t, index) {
                     t.position(index + 1);
                 });
             }
@@ -277,7 +271,7 @@ const trackParser = releaseEditor.trackParser = {
          * new track instances.
          */
         if (previousTracks && previousTracks.length) {
-            _.each(newTracks, function (track, index) {
+            newTracks.forEach(function (track, index) {
                 delete track.previousTrackAtThisPosition;
 
                 var previousTrack = previousTracks[index];
@@ -318,7 +312,7 @@ const trackParser = releaseEditor.trackParser = {
         // trim only, keeping tabs and other space separators intact.
         line = line.trim();
 
-        if (line === "") {
+        if (line === '') {
             return data;
         }
 
@@ -331,7 +325,7 @@ const trackParser = releaseEditor.trackParser = {
         var match = line.match(this.trackTime);
 
         if (match !== null) {
-            if (options.useTrackLengths && match[1] !== "?:??") {
+            if (options.useTrackLengths && match[1] !== '?:??') {
                 data.formattedLength = fromFullwidthLatin(match[1]);
                 data.length = utils.unformatTrackLength(data.formattedLength);
             }
@@ -352,7 +346,7 @@ const trackParser = releaseEditor.trackParser = {
                 data.number = fromFullwidthLatin(match[1]);
 
                 if (/^\d+$/.test(data.number)) {
-                    data.number = data.number.replace(/^0+(\d+)/, "$1");
+                    data.number = data.number.replace(/^0+(\d+)/, '$1');
                 }
             }
 
@@ -374,7 +368,7 @@ const trackParser = releaseEditor.trackParser = {
 
         // Split the string into parts, if there are any.
         const parts = line.split(this.separators);
-        const names = _.reject(parts, x => this.separatorOrBlank(x));
+        const names = parts.filter(x => !this.separatorOrBlank(x));
 
         /*
          * Only parse an artist if there's more than one name. Assume the
@@ -390,9 +384,9 @@ const trackParser = releaseEditor.trackParser = {
 
             if (options.useTrackNames) {
                 // Use whatever's left as the name, including any separators.
-                var withoutArtist = _.take(parts, _.lastIndexOf(parts, artist));
+                var withoutArtist = parts.slice(0, parts.lastIndexOf(artist));
 
-                data.name = withoutArtist.join("")
+                data.name = withoutArtist.join('')
                     .replace(new RegExp('^' + this.separators.source), '')
                     .replace(new RegExp(this.separators.source + '$'), '');
             }
@@ -406,11 +400,11 @@ const trackParser = releaseEditor.trackParser = {
          */
 
         if (options.useTrackNames) {
-            data.name = this.cleanArtistName(data.name || "");
+            data.name = this.cleanArtistName(data.name || '');
         }
 
         if (options.useTrackArtists) {
-            data.artist = this.cleanArtistName(data.artist || "");
+            data.artist = this.cleanArtistName(data.artist || '');
         }
 
         return data;
@@ -423,37 +417,37 @@ const trackParser = releaseEditor.trackParser = {
     cleanArtistName: function (name) {
         return clean(name)
             // Artist, The -> The Artist
-            .replace(/(.*),\sThe$/i, "The $1")
-            .replace(/\s*,/g, ",");
+            .replace(/(.*),\sThe$/i, 'The $1')
+            .replace(/\s*,/g, ',');
     },
 
     mediumToString: function (medium) {
         var options = ko.toJS(this.options);
 
-        return _.reduce(medium.tracks(), function (memo, track) {
+        return medium.tracks().reduce(function (memo, track) {
             if (options.hasTrackNumbers) {
-                memo += track.number.peek() + ". ";
+                memo += track.number.peek() + '. ';
             }
 
-            memo += track.name.peek() || "";
+            memo += track.name.peek() || '';
 
             if (options.hasTrackArtists) {
                 var artist = reduceArtistCredit(track.artistCredit());
 
                 if (artist) {
-                    memo += " - " + artist;
+                    memo += ' - ' + artist;
                 }
             }
 
-            memo += " (" + (track.formattedLength.peek() || "?:??") + ")";
+            memo += ' (' + (track.formattedLength.peek() || '?:??') + ')';
 
-            return memo + "\n";
-        }, "");
+            return memo + '\n';
+        }, '');
     },
 
     matchDataWithTrack: function (data, track) {
         /*
-         * The result of this function will be fed into _.compact so that
+         * The result of this function will be fed into `compactMap` so that
          * null and undefined return values will be stripped.
          */
         if (!track) {
@@ -482,7 +476,7 @@ trackParser.customDelimiterRegExp = ko.computed(function () {
     }
 });
 
-trackParser.customDelimiterError = debounce(function () {
+trackParser.customDelimiterError = debounceComputed(function () {
     if (!trackParser.options.useCustomDelimiter()) {
         return '';
     }
@@ -497,8 +491,8 @@ function optionCookie(name, defaultValue, checkbox=true) {
     const observable = checkbox
       ? ko.observable(
           defaultValue
-              ? existingValue !== "false"
-              : existingValue === "true",
+              ? existingValue !== 'false'
+              : existingValue === 'true',
         )
       : ko.observable(existingValue || defaultValue);
 

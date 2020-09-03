@@ -8,11 +8,11 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {isCompleteArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
-import debounce from '../common/utility/debounce';
+import {compactMap} from '../common/utility/arrays';
+import {debounceComputed} from '../common/utility/debounce';
 import request from '../common/utility/request';
 
 import releaseEditor from './viewModel';
@@ -23,7 +23,7 @@ var releaseGroupReleases = ko.observableArray([]);
 
 
 releaseEditor.similarReleases = ko.observableArray([]);
-releaseEditor.baseRelease = ko.observable("");
+releaseEditor.baseRelease = ko.observable('');
 
 
 releaseEditor.baseRelease.subscribe(function (gid) {
@@ -36,7 +36,7 @@ releaseEditor.baseRelease.subscribe(function (gid) {
 
     releaseEditor.loadRelease(gid, function (data) {
         release.mediums(
-            _.map(data.mediums, function (m) {
+            data.mediums.map(function (m) {
                 return new releaseEditor.fields.Medium(
                     utils.reuseExistingMediumData(m), release,
                 );
@@ -69,11 +69,11 @@ releaseEditor.findReleaseDuplicates = function () {
                 toggleLoadingIndicator(false);
             })
             .done(function (data) {
-                releaseGroupReleases(_.map(data.releases, formatReleaseData));
+                releaseGroupReleases(data.releases.map(formatReleaseData));
             });
     });
 
-    debounce(utils.withRelease(function (release) {
+    debounceComputed(utils.withRelease(function (release) {
         var name = release.name();
 
         /*
@@ -84,7 +84,7 @@ releaseEditor.findReleaseDuplicates = function () {
 
         if (rgReleases.length > 0) {
             releaseEditor.similarReleases(rgReleases);
-            $("#release-editor").tabs("enable", 1);
+            $('#release-editor').tabs('enable', 1);
             return;
         }
 
@@ -97,30 +97,29 @@ releaseEditor.findReleaseDuplicates = function () {
         var query = utils.constructLuceneFieldConjunction({
             release: [utils.escapeLuceneValue(name)],
 
-            arid: _(ac.names)
-                .map('artist.gid')
-                .map(utils.escapeLuceneValue)
-                .value(),
+            arid: ac.names.map(
+                x => utils.escapeLuceneValue(x.artist.gid),
+            ),
         });
 
         toggleLoadingIndicator(true);
 
-        utils.search("release", query, 10).done(gotResults);
+        utils.search('release', query, 10).done(gotResults);
     }));
 };
 
 
 function gotResults(data) {
-    var releases = _.filter(data.releases, function (release) {
+    var releases = data.releases.filter(function (release) {
         return parseInt(release.score, 10) >= 65;
     });
 
     if (releases.length > 0) {
-        releaseEditor.similarReleases(_.map(releases, formatReleaseData));
+        releaseEditor.similarReleases(releases.map(formatReleaseData));
 
-        $("#release-editor").tabs("enable", 1);
+        $('#release-editor').tabs('enable', 1);
     } else {
-        $("#release-editor").tabs("disable", 1);
+        $('#release-editor').tabs('disable', 1);
     }
 
     toggleLoadingIndicator(false);
@@ -128,60 +127,62 @@ function gotResults(data) {
 
 
 function toggleLoadingIndicator(show) {
-    $("#release-editor").data("ui-tabs")
-        .tabs.eq(1).toggleClass("loading-tab", show);
-}
-
-
-function pluck(chain, name) {
-    return chain.map(name).compact();
+    $('#release-editor').data('ui-tabs')
+        .tabs.eq(1).toggleClass('loading-tab', show);
 }
 
 
 function formatReleaseData(release) {
     var clean = new MB.entity.Release(utils.cleanWebServiceData(release));
 
-    var events = _(release["release-events"]);
-    var labels = _(release["label-info"]);
+    var events = release['release-events'];
+    var labels = release['label-info'];
 
     clean.formats = combinedMediumFormatName(release.media) || l('[missing media]');
-    clean.tracks = _.map(release.media, "track-count").join(" + ") ||
+    clean.tracks = release.media.map(x => x['track-count']).join(' + ') ||
         lp('-', 'missing data');
 
-    clean.dates = pluck(events, "date").value();
+    clean.dates = events
+        ? compactMap(events, x => x.date)
+        : [];
 
-    clean.countries = pluck(events, "area")
-        .map("iso-3166-1-codes")
-        .flatten()
-        .compact()
-        .uniq()
-        .value();
+    clean.countries = events ? [...new Set(events.flatMap(
+        x => (x.area?.['iso-3166-1-codes']) ?? [],
+    ))] : [];
 
-    clean.labels = pluck(labels, "label").map(function (info) {
-        return new MB.entity.Label({ gid: info.id, name: info.name });
-    }).value();
+    clean.labels = labels ? compactMap(labels, function (info) {
+        const label = info.label;
+        if (label) {
+            return new MB.entity.Label({ gid: label.id, name: label.name });
+        }
+        return null;
+    }) : [];
 
-    clean.catalogNumbers = pluck(labels, "catalog-number").value();
+    clean.catalogNumbers = labels
+        ? compactMap(labels, x => x['catalog-number'])
+        : [];
 
-    clean.barcode = release.barcode || "";
+    clean.barcode = release.barcode || '';
 
     return clean;
 }
 
+const getFormat = medium => medium.format || '';
 
 function combinedMediumFormatName(mediums) {
-    const getFormat = medium => medium.format || '';
-    const formats = _.uniq(mediums.map(getFormat));
-    const formatCounts = _.countBy(mediums, getFormat);
+    const formatCounts = new Map();
 
-    return formats
-        .map(function (format) {
-            const count = formatCounts[format];
+    for (const medium of mediums) {
+        const format = getFormat(medium);
+        formatCounts.set(format, (formatCounts.get(format) ?? 0) + 1);
+    }
 
-            return (count > 1 ? count + "\u00D7" : "") +
+    return Array.from(formatCounts.entries())
+        .map(function ([format, count]) {
+            return (count > 1 ? count + '\u00D7' : '') +
                 (format
                     ? lp_attributes(format, 'medium_format')
                     : lp('(unknown)', 'medium format'));
         })
-        .join(" + ");
+        .join(' + ');
 }

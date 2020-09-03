@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -27,14 +27,14 @@ export default function bracketed(
   text: ?VarSubstArg,
   args?: Args,
 ): Expand2ReactOutput {
-  if (text) {
+  if (nonEmpty(text)) {
     return expand2react(_bracketed(args), {text});
   }
   return '';
 }
 
 export function bracketedText(text: ?StrOrNum, args?: Args): string {
-  if (text) {
+  if (nonEmpty(text)) {
     return expand2text(_bracketed(args), {text});
   }
   return '';

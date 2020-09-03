@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -28,13 +28,13 @@ const AreaLayout = ({
   $c,
   children,
   entity: area,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
     $c={$c}
-    title={title
+    title={nonEmpty(title)
       ? hyphenateTitle(localizeAreaName(area), title)
       : localizeAreaName(area)}
   >

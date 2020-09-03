@@ -28,8 +28,8 @@ sub get_rel_types
 
     my @rels;
     for my $type (@RELATABLE_ENTITIES) {
-        my $meth = $type . '_rels';
-        push @rels, $type if ($self->$meth);
+        my $method = $type . '_rels';
+        push @rels, $type if ($self->$method);
     }
 
     return \@rels;

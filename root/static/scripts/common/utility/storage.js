@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2014 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -23,7 +23,7 @@ const store: {[name: string]: string, ...} = {};
 
 export function localStorage(name: string, value?: string): string | void {
   if (arguments.length > 1) {
-    if (value) {
+    if (value != null) {
       let inLocalStorage = false;
       if (hasLocalStorage) {
         try {

@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 
 import MB from '../../../common/MB';
@@ -40,8 +39,8 @@ class BubbleBase {
 
         var $bubble = this.$bubble;
 
-        if (stealFocus !== false && $(control).is(":button")) {
-            deferFocus(":input:first", $bubble);
+        if (stealFocus !== false && $(control).is(':button')) {
+            deferFocus(':input:first', $bubble);
         }
 
         var activeBubble = this.activeBubbles[this.group];
@@ -51,9 +50,9 @@ class BubbleBase {
         }
         this.activeBubbles[this.group] = this;
 
-        _.defer(function () {
-            $bubble.find("a").attr("target", "_blank");
-        });
+        setTimeout(function () {
+            $bubble.find('a').attr('target', '_blank');
+        }, 1);
     }
 
     hide(stealFocus) {
@@ -62,7 +61,7 @@ class BubbleBase {
         var $control = $(this.control);
         this.control = null;
 
-        if (stealFocus !== false && $control.is(":button")) {
+        if (stealFocus !== false && $control.is(':button')) {
             $control.focus();
         }
 
@@ -98,7 +97,7 @@ class BubbleBase {
              * that's the case, we want to hide the bubble, not show it.
              */
 
-            if ($(this.control).parents("html").length === 0) {
+            if ($(this.control).parents('html').length === 0) {
                 this.hide(false);
             } else {
                 this.show(this.control, !!stealFocus, true /* isRedraw */);
@@ -138,13 +137,13 @@ class BubbleDoc extends BubbleBase {
         $bubble
             .width($parent.width() - 24)
             .position({
-                my: "left top-30",
-                at: "right center",
+                my: 'left top-30',
+                at: 'right center',
                 of: control,
-                collision: "fit none",
+                collision: 'fit none',
                 within: $parent,
             })
-            .addClass("left-tail");
+            .addClass('left-tail');
     }
 }
 
@@ -160,7 +159,7 @@ MB.Control.BubbleDoc = BubbleDoc;
 ko.bindingHandlers.show = {
 
     update: function (element, valueAccessor) {
-        element.style.display = ko.unwrap(valueAccessor()) ? "block" : "none";
+        element.style.display = ko.unwrap(valueAccessor()) ? 'block' : 'none';
     },
 };
 
@@ -190,7 +189,7 @@ ko.bindingHandlers.controlsBubble = {
         var bubble = valueAccessor();
 
         element.bubbleDoc = bubble;
-        viewModel["bubbleControl" + bubble.group] = element;
+        viewModel['bubbleControl' + bubble.group] = element;
 
         /*
          * We may be here because a template was redrawn. Since the old
@@ -232,11 +231,19 @@ ko.bindingHandlers.affectsBubble = {
             return;
         }
 
-        var observer = new MutationObserver(_.throttle(function () {
-            _.delay(function () {
-                valueAccessor().redraw();
-            }, 100);
-        }, 100));
+        let throttled = false;
+        var observer = new MutationObserver(function () {
+            if (!throttled) {
+                throttled = true;
+                setTimeout(function () {
+                    try {
+                        valueAccessor().redraw();
+                    } finally {
+                        throttled = false;
+                    }
+                }, 100);
+            }
+        });
 
         observer.observe(element, { childList: true, subtree: true });
 
@@ -260,7 +267,7 @@ function bubbleControlHandler(event) {
 
     if (!bubble) {
         // If the user clicked outside of the active bubble, hide it.
-        var $active = $("div.bubble:visible:eq(0)");
+        var $active = $('div.bubble:visible:eq(0)');
 
         if ($active.length && !$active.has(control).length) {
             bubble = $active[0].bubbleDoc;
@@ -272,7 +279,7 @@ function bubbleControlHandler(event) {
                  * Close unless focus was moved to a dialog above this
                  * one, i.e. when adding a new entity.
                  */
-                !$(event.target).parents(".ui-dialog").length) {
+                !$(event.target).parents('.ui-dialog').length) {
 
                 bubble.hide(false);
             }
@@ -280,9 +287,9 @@ function bubbleControlHandler(event) {
         return undefined;
     }
 
-    var isButton = $(control).is(":button");
-    var buttonClicked = isButton && event.type === "click";
-    var inputFocused = !isButton && event.type === "focusin";
+    var isButton = $(control).is(':button');
+    var buttonClicked = isButton && event.type === 'click';
+    var inputFocused = !isButton && event.type === 'focusin';
     var viewModel = ko.dataFor(control);
 
     /*
@@ -315,7 +322,7 @@ function bubbleKeydownHandler(event) {
     }
 
     var $target = $(event.target);
-    var $bubble = $target.parents("div.bubble");
+    var $bubble = $target.parents('div.bubble');
     var bubbleDoc = $bubble[0].bubbleDoc;
 
     if (!bubbleDoc) {
@@ -325,7 +332,7 @@ function bubbleKeydownHandler(event) {
     var pressedEsc = event.which === 27;
     var pressedEnter = event.which === 13;
 
-    if (pressedEsc || (pressedEnter && $target.is(":not(:button)"))) {
+    if (pressedEsc || (pressedEnter && $target.is(':not(:button)'))) {
         event.preventDefault();
 
         /*
@@ -335,7 +342,7 @@ function bubbleKeydownHandler(event) {
          * model should update. This should run before the code below,
          * because the view model for the bubble may change.
          */
-        $target.trigger("change");
+        $target.trigger('change');
 
         if (pressedEsc) {
             bubbleDoc.hide();
@@ -345,9 +352,9 @@ function bubbleKeydownHandler(event) {
     }
 }
 
-$("body")
-    .on("click focusin", bubbleControlHandler)
-    .on("keydown", "div.bubble :input", bubbleKeydownHandler);
+$('body')
+    .on('click focusin', bubbleControlHandler)
+    .on('keydown', 'div.bubble :input', bubbleKeydownHandler);
 
 
 // Helper function for use outside the release editor.

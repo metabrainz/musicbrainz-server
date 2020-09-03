@@ -7,12 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import each from 'lodash/each';
-
 export type FieldShape = {
   // `errors` is optional too because FormT has none
   +errors?: $ReadOnlyArray<string>,
-  +field?: FieldShape,
+  +field?: FieldShape | $ReadOnlyArray<FieldShape>,
   ...
 };
 
@@ -24,9 +22,16 @@ export default function subfieldErrors(
     accum = accum.concat(field.errors);
   }
   if (field.field) {
-    each(field.field, function (subfield) {
+    let subfields;
+    if (Array.isArray(field.field)) {
+      subfields = field.field;
+    } else {
+      subfields =
+        ((Object.values(field.field): any): $ReadOnlyArray<FieldShape>);
+    }
+    for (const subfield of subfields) {
       accum = subfieldErrors(subfield, accum);
-    });
+    }
   }
   return accum;
 }

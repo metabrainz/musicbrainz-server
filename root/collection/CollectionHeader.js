@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -28,7 +28,7 @@ const CollectionHeader = ({
   user,
 }: Props): React.Element<typeof React.Fragment> => {
   const owner = collection.editor;
-  const viewingOwnCollection = user && owner && owner.id === user.id;
+  const viewingOwnCollection = Boolean(user && owner && owner.id === user.id);
   const subHeading = (
     <>
       {collection.public ? (

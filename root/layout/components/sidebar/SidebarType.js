@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -22,14 +22,14 @@ const SidebarType = ({
   entity,
   typeType,
 }: Props): React.MixedElement | null => (
-  entity.typeID ? (
+  entity.typeID == null ? null : (
     <SidebarProperty className="type" label={l('Type:')}>
       {lp_attributes(
         linkedEntities[typeType][entity.typeID].name,
         typeType,
       )}
     </SidebarProperty>
-  ) : null
+  )
 );
 
 export default SidebarType;

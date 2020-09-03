@@ -16,7 +16,6 @@ import bracketed, {bracketedText} from '../utility/bracketed';
 import entityHref from '../utility/entityHref';
 import formatDatePeriod from '../utility/formatDatePeriod';
 import isolateText from '../utility/isolateText';
-import nonEmpty from '../utility/nonEmpty';
 import isGreyedOut from '../../../../url/utility/isGreyedOut';
 
 type DeletedLinkProps = {

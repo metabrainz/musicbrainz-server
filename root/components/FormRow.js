@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -16,10 +16,13 @@ type Props = {
 
 const FormRow = ({
   children,
-  hasNoLabel,
+  hasNoLabel = false,
   ...props
 }: Props): React.Element<'div'> => (
-  <div className={'row' + (hasNoLabel ? ' no-label' : '')} {...props}>
+  <div
+    className={'row' + (hasNoLabel ? ' no-label' : '')}
+    {...props}
+  >
     {children}
   </div>
 );

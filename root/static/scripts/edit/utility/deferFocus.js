@@ -7,13 +7,12 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 
 function deferFocus() {
     var selectorArguments = arguments;
-    _.defer(function () {
+    setTimeout(function () {
         $.apply(null, selectorArguments).focus();
-    });
+    }, 1);
 }
 
 export default deferFocus;

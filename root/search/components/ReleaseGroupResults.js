@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -35,7 +35,7 @@ function buildResult(result, index) {
         <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
       </td>
       <td>
-        {releaseGroup.typeName
+        {nonEmpty(releaseGroup.typeName)
           ? lp_attributes(releaseGroup.typeName, 'release_group_primary_type')
           : null}
       </td>

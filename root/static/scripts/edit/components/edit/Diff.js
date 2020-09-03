@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -14,6 +14,8 @@ import {INSERT, DELETE} from '../../utility/editDiff';
 import DiffSide from './DiffSide';
 
 export type DiffProps = {
+  +extraNew?: React.Node,
+  +extraOld?: React.Node,
   +label: string,
   +newText: string,
   +oldText: string,
@@ -25,6 +27,8 @@ type Props = {
 };
 
 const Diff = ({
+  extraNew,
+  extraOld,
   label,
   newText,
   oldText,
@@ -40,6 +44,7 @@ const Diff = ({
           oldText={oldText}
           split={split}
         />
+        {extraOld}
       </td>
       <td className="new">
         <DiffSide
@@ -48,6 +53,7 @@ const Diff = ({
           oldText={oldText}
           split={split}
         />
+        {extraNew}
       </td>
     </tr>
   )

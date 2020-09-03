@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import padStart from 'lodash/padStart';
+import {fixedWidthInteger} from '../static/scripts/common/utility/strings';
 
 const stats = {
   'category': {
@@ -243,12 +243,6 @@ const stats = {
     color: '#78ff00',
     description: l('Count of edits per week'),
     label: l('Edits per week'),
-  },
-  'count.edit.tobedeleted': {
-    category: 'edit-information',
-    color: '#ff0000',
-    description: l('Edits about to be cancelled'),
-    label: l('To-be-cancelled edits'),
   },
   'count.editor': {
     category: 'edit-information',
@@ -870,7 +864,7 @@ export function buildTypeStats(typeData) {
 
   for (let i = 0; i < relationships.length; i++) {
     const pair = relationships[i];
-    const hex = padStart(String((i + 1) * 3), 2, '0');
+    const hex = fixedWidthInteger((i + 1) * 3, 2);
     const label = texp.l('l_{first}_{second} Relationships', {
       first: pair[0],
       second: pair[1],

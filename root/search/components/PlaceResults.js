@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -28,7 +28,7 @@ function buildResult(result, index) {
         <EntityLink entity={place} />
       </td>
       <td>
-        {place.typeName
+        {nonEmpty(place.typeName)
           ? lp_attributes(place.typeName, 'place_type')
           : null}
       </td>

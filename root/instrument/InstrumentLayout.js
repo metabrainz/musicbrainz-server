@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -30,20 +30,20 @@ const InstrumentLayout = ({
   $c,
   children,
   entity: instrument,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => {
   const nameWithType = texp.l('{type} “{instrument}”', {
     instrument: localizeInstrumentName(instrument),
-    type: instrument.typeName
+    type: nonEmpty(instrument.typeName)
       ? lp_attributes(instrument.typeName, 'instrument_type')
       : l('Instrument'),
   });
   return (
     <Layout
       $c={$c}
-      title={title
+      title={nonEmpty(title)
         ? hyphenateTitle(nameWithType, title)
         : nameWithType}
     >

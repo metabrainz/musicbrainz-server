@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 Anirudh Jain
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,6 +13,7 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import Diff from '../../static/scripts/edit/components/edit/Diff';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 import DescriptiveLink from
@@ -63,11 +64,10 @@ const EditLabel = ({edit}: Props): React.Element<'table'> => {
         </tr>
 
         {name ? (
-          <Diff
+          <WordDiff
             label={addColonText(l('Name'))}
             newText={name.new}
             oldText={name.old}
-            split="\s+"
           />
         ) : null}
 
@@ -80,11 +80,10 @@ const EditLabel = ({edit}: Props): React.Element<'table'> => {
         ) : null}
 
         {comment ? (
-          <Diff
+          <WordDiff
             label={addColonText(l('Disambiguation'))}
             newText={comment.new ?? ''}
             oldText={comment.old ?? ''}
-            split="\s+"
           />
         ) : null}
 

@@ -72,37 +72,6 @@
   </tr>
 [%- END -%]
 
-[%- MACRO ac_row(row_counter, startnum, endnum, thisac) BLOCK -%]
-  <tr class="[% row_counter % 2 == 0 ? 'even' : '' %]">
-    <td class="pos t">
-      [% startnum %][% IF endnum AND endnum != startnum %]-[% endnum %][% END %]
-    </td>
-    <td>[% thisac %]</td>
-  </tr>
-[%- END -%]
-
-[%- MACRO display_condensed_track_acs(tracks) BLOCK;
-    thisac = 0;
-    thispos = 0;
-    row_counter = 1;
-    startnum = tracks.0.number;
-    FOR track=tracks;
-        IF thisac AND (thisac != expanded_artist_credit(track.artist_credit) OR thispos + 1 != track.position);
-            ac_row(row_counter, startnum, endnum, thisac);
-            row_counter = row_counter + 1;
-            startnum = track.number;
-            endnum = startnum;
-        ELSE;
-            endnum = track.number;
-        END;
-        thisac = expanded_artist_credit(track.artist_credit);
-        thispos = track.position;
-        IF loop.last();
-            ac_row(row_counter, startnum, endnum, thisac);
-        END;
-    END;
-END -%]
-
 [%- MACRO ac_diff_row(row_counter, startnum, endnum, oldac, newac) BLOCK -%]
   <tr class="[% row_counter % 2 == 0 ? 'even' : '' %]">
     <td class="pos t">

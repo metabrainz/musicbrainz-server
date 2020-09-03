@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 Anirudh Jain
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -22,7 +22,7 @@ type EditReleaseGroupEditT = {
   ...EditT,
   +display_data: {
     +artist_credit?: CompT<ArtistCreditT>,
-    +comment?: CompT<string>,
+    +comment?: CompT<string | null>,
     +name?: CompT<string>,
     +release_group: ReleaseGroupT,
     +secondary_types: CompT<string>,
@@ -60,8 +60,8 @@ const EditReleaseGroup = ({edit}: Props): React.Element<'table'> => {
       {comment ? (
         <WordDiff
           label={addColonText(l('Disambiguation'))}
-          newText={comment.new}
-          oldText={comment.old}
+          newText={comment.new ?? ''}
+          oldText={comment.old ?? ''}
         />
       ) : null}
       {type ? (

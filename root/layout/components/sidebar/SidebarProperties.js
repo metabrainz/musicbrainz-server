@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -38,7 +38,7 @@ export const SidebarProperties = ({
   children,
 }: SidebarPropertiesProps): React.Element<'dl'> => {
   let _className = 'properties';
-  if (className) {
+  if (nonEmpty(className)) {
     _className += ' ' + className;
   }
   return (

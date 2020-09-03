@@ -9,7 +9,6 @@
 import filesize from 'filesize';
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import MB from '../../common/MB';
 
@@ -23,29 +22,29 @@ MB.CoverArt.get_image_mime_type = function () {
     var mimeType = null;
 
     if (filename.match(/\.j(peg|pg|pe|fif|if)$/i)) {
-        mimeType = "image/jpeg";
+        mimeType = 'image/jpeg';
     } else if (filename.match(/\.png$/i)) {
-        mimeType = "image/png";
+        mimeType = 'image/png';
     } else if (filename.match(/\.gif$/i)) {
-        mimeType = "image/gif";
+        mimeType = 'image/gif';
     } else if (filename.match(/\.pdf$/i)) {
-        mimeType = "application/pdf";
+        mimeType = 'application/pdf';
     }
 
     return mimeType;
 };
 
 MB.CoverArt.image_error = function ($img, image) {
-    if ($img.attr("src") === image.image) {
+    if ($img.attr('src') === image.image) {
         /*
          * image doesn't exist at all, perhaps it was removed
          * between requesting the index and loading the image.
          * FIXME: start over if this happens?  obviously the
          * data in the index is incorrect.
          */
-        $img.attr("src", require('../../../images/image404-125.png'));
+        $img.attr('src', require('../../../images/image404-125.png'));
     } else {
-        $img.attr("src", image.image);
+        $img.attr('src', image.image);
     }
 };
 
@@ -115,7 +114,7 @@ MB.CoverArt.CoverArtType = function (name, id) {
 
 MB.CoverArt.cover_art_types = function () {
     return ko.observableArray(
-        _.map(MB.cover_art_types_json, function (item) {
+        MB.cover_art_types_json.map(function (item) {
             return new MB.CoverArt.CoverArtType(item.l_name, item.id);
         }),
     );
@@ -151,7 +150,7 @@ MB.CoverArt.upload_status_enum = {
 MB.CoverArt.validate_file = function (file) {
     var deferred = $.Deferred();
     var reader = new window.FileReader();
-    reader.addEventListener("loadend", function () {
+    reader.addEventListener('loadend', function () {
         var uint32view = new Uint32Array(reader.result);
 
         /*
@@ -171,7 +170,7 @@ MB.CoverArt.validate_file = function (file) {
             // PDF signature, 0x89 "%PDF"
             deferred.resolve('application/pdf');
         } else {
-            deferred.reject("unrecognized image format");
+            deferred.reject('unrecognized image format');
         }
     });
     reader.readAsArrayBuffer(file.slice(0, 4));
@@ -182,7 +181,7 @@ MB.CoverArt.validate_file = function (file) {
 MB.CoverArt.file_data_uri = function (file) {
     var deferred = $.Deferred();
     var reader = new window.FileReader();
-    reader.addEventListener("loadend", function () {
+    reader.addEventListener('loadend', function () {
         deferred.resolve(reader.result);
     });
     reader.readAsDataURL(file);
@@ -194,14 +193,14 @@ MB.CoverArt.sign_upload = function (file, gid, mimeType) {
     var deferred = $.Deferred();
 
     var postfields = $.ajax({
-        url: "/ws/js/cover-art-upload/" + gid,
+        url: '/ws/js/cover-art-upload/' + gid,
         data: { mime_type: mimeType },
-        dataType: "json",
+        dataType: 'json',
         cache: false,
     });
 
     postfields.fail(function (jqxhr, status, error) {
-        deferred.reject("error obtaining signature: " + status + " " + error);
+        deferred.reject('error obtaining signature: ' + status + ' ' + error);
     });
 
     postfields.done(function (data) {
@@ -220,21 +219,21 @@ MB.CoverArt.upload_image = function (postfields, file) {
         formdata.append(key, val);
     });
 
-    formdata.append("file", file);
+    formdata.append('file', file);
 
     var xhr = new XMLHttpRequest();
-    xhr.upload.addEventListener("progress", function (event) {
+    xhr.upload.addEventListener('progress', function (event) {
         if (event.lengthComputable) {
             deferred.notify(100 * event.loaded / event.total);
         }
     });
 
-    xhr.addEventListener("load", function () {
+    xhr.addEventListener('load', function () {
         if (xhr.status >= 200 && xhr.status < 210) {
             deferred.notify(100);
             deferred.resolve();
         } else {
-            deferred.reject("error uploading image: " + xhr.status + " " +
+            deferred.reject('error uploading image: ' + xhr.status + ' ' +
                              xhr.responseText, xhr.status);
         }
     });
@@ -247,13 +246,13 @@ MB.CoverArt.upload_image = function (postfields, file) {
          */
         xhr.overrideMimeType('text/plain');
     }
-    xhr.addEventListener("error", function () {
-        deferred.reject("error uploading image");
+    xhr.addEventListener('error', function () {
+        deferred.reject('error uploading image');
     });
-    xhr.addEventListener("abort", function () {
-        deferred.reject("image upload aborted");
+    xhr.addEventListener('abort', function () {
+        deferred.reject('image upload aborted');
     });
-    xhr.open("POST", postfields.action);
+    xhr.open('POST', postfields.action);
     xhr.send(formdata);
 
     return deferred.promise();
@@ -272,30 +271,30 @@ MB.CoverArt.submit_edit = function (fileUpload, postfields, mimeType, position) 
         formdata.append('add-cover-art.make_votable', 'on');
     }
 
-    _.each(fileUpload.types(), function (checkbox) {
+    for (const checkbox of fileUpload.types()) {
         if (checkbox.checked()) {
             formdata.append('add-cover-art.type_id', checkbox.id);
         }
-    });
+    }
 
     var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", function () {
+    xhr.addEventListener('load', function () {
         if (xhr.status === 200) {
             deferred.resolve();
         } else {
-            deferred.reject("error creating edit: " + xhr.status + " " + xhr.statusText);
+            deferred.reject('error creating edit: ' + xhr.status + ' ' + xhr.statusText);
         }
     });
 
-    xhr.addEventListener("error", function () {
-        deferred.reject("unknown error creating edit");
+    xhr.addEventListener('error', function () {
+        deferred.reject('unknown error creating edit');
     });
 
-    xhr.addEventListener("abort", function () {
-        deferred.reject("create edit aborted");
+    xhr.addEventListener('abort', function () {
+        deferred.reject('create edit aborted');
     });
 
-    xhr.open("POST", $('#add-cover-art').attr('action'));
+    xhr.open('POST', $('#add-cover-art').attr('action'));
     xhr.send(formdata);
 
     return deferred.promise();
@@ -308,17 +307,17 @@ MB.CoverArt.FileUpload = function (file) {
 
     self.name = file.name;
     self.size = filesize(file.size, { round: 1, bits: false });
-    self.comment = ko.observable("");
+    self.comment = ko.observable('');
     self.types = MB.CoverArt.cover_art_types();
     self.data = file;
-    self.dataUriData = ko.observable("");
-    self.mimeType = ko.observable("");
+    self.dataUriData = ko.observable('');
+    self.mimeType = ko.observable('');
 
     self.data_uri = ko.computed(function () {
-        if (self.mimeType() == "" || self.dataUriData() == "") {
-            return "";
-        } else if (self.mimeType() == "application/pdf") {
-            return "/static/images/icons/pdf-icon.png";
+        if (self.mimeType() == '' || self.dataUriData() == '') {
+            return '';
+        } else if (self.mimeType() == 'application/pdf') {
+            return '/static/images/icons/pdf-icon.png';
         }
         return self.dataUriData();
     });
@@ -461,7 +460,7 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
 MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
 
-    var queue = _.map(upvm.files_to_upload(), function (item) {
+    var queue = upvm.files_to_upload().map(function (item) {
         return function () {
             return item.doUpload(gid, pos++);
         };
@@ -498,7 +497,7 @@ MB.CoverArt.set_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-    if (typeof (window.FormData) !== "undefined" && typeof (window.FileReader) !== 'undefined') {
+    if (typeof (window.FormData) !== 'undefined' && typeof (window.FileReader) !== 'undefined') {
         File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
 
         /*

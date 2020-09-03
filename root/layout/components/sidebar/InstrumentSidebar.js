@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -37,7 +37,7 @@ const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
         entity={instrument}
       />
 
-      {instrument.typeID ? (
+      {instrument.typeID == null ? null : (
         <>
           <h2 className="instrument-information">
             {l('Instrument information')}
@@ -47,7 +47,7 @@ const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
             <SidebarType entity={instrument} typeType="instrument_type" />
           </SidebarProperties>
         </>
-      ) : null}
+      )}
 
       <SidebarTags
         $c={$c}

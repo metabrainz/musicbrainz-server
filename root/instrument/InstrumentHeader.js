@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -24,7 +24,7 @@ const InstrumentHeader = ({
     entity={instrument}
     headerClass="instrumentheader"
     page={page}
-    subHeading={instrument.typeName
+    subHeading={nonEmpty(instrument.typeName)
       ? lp_attributes(instrument.typeName, 'instrument_type')
       : l('instrument')}
   />

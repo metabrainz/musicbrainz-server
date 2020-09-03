@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -30,7 +30,7 @@ const SubscriptionLinks = ({
         {l('Subscriptions')}
       </h2>
       <ul className="links">
-        {$c.stash.subscribed ? (
+        {$c.stash.subscribed /*:: === true */ ? (
           <li>
             <a href={`${urlPrefix}/remove?id=${id}`}>
               {l('Unsubscribe')}

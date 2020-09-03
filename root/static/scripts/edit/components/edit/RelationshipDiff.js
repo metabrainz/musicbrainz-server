@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import keyBy from 'lodash/keyBy';
 import * as React from 'react';
 
 import relationshipDateText
@@ -18,6 +17,7 @@ import commaList from '../../../common/i18n/commaList';
 import expand2react, {hooks as expand2reactHooks}
   from '../../../common/i18n/expand2react';
 import linkedEntities from '../../../common/linkedEntities';
+import {keyBy} from '../../../common/utility/arrays';
 import bracketed from '../../../common/utility/bracketed';
 import displayLinkAttribute, {displayLinkAttributes}
   from '../../../common/utility/displayLinkAttribute';
@@ -39,15 +39,17 @@ type Props = {
   oldRelationship: RelationshipT,
 };
 
+const getTypeId = x => String(x.typeID);
+
 const RelationshipDiff = ({
   newRelationship,
   oldRelationship,
 }: Props): React.Element<typeof React.Fragment> => {
   const oldAttrs = oldRelationship.attributes
-    ? keyBy(oldRelationship.attributes, 'typeID')
+    ? keyBy(oldRelationship.attributes, getTypeId)
     : {};
   const newAttrs = newRelationship.attributes
-    ? keyBy(newRelationship.attributes, 'typeID')
+    ? keyBy(newRelationship.attributes, getTypeId)
     : {};
 
   const i18nConfig: LinkPhraseI18n<Expand2ReactOutput> = {
@@ -57,7 +59,7 @@ const RelationshipDiff = ({
     >(),
     commaList,
     displayLinkAttribute: function (attr: LinkAttrT) {
-      const typeId = attr.typeID;
+      const typeId = String(attr.typeID);
       const display = displayLinkAttribute(attr);
 
       if (oldAttrs[typeId] && !newAttrs[typeId]) {

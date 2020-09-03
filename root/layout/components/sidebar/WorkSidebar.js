@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import kebabCase from 'lodash/kebabCase';
 import * as React from 'react';
 
 import LinkSearchableLanguage
@@ -17,6 +16,7 @@ import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from
   '../../../static/scripts/common/components/CommonsImage';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
+import {kebabCase} from '../../../static/scripts/common/utility/strings';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -37,11 +37,12 @@ type Props = {
 
 const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
   const {attributes, iswcs, languages, typeID} = work;
-  const showInfo =
+  const showInfo = Boolean(
     attributes.length ||
     iswcs.length ||
     languages.length ||
-    typeID;
+    typeID,
+  );
 
   return (
     <div id="sidebar">
@@ -100,11 +101,11 @@ const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
                       lp_attributes(type.name, 'work_attribute_type'),
                     )}
                   >
-                    {attr.value_id
-                      ? lp_attributes(
+                    {attr.value_id == null
+                      ? attr.value
+                      : lp_attributes(
                         attr.value, 'work_attribute_type_allowed_value',
-                      )
-                      : attr.value}
+                      )}
                   </SidebarProperty>
                 );
               })

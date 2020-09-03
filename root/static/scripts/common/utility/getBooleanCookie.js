@@ -1,4 +1,5 @@
 /*
+ * @flow strict-local
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,7 +9,10 @@
 
 import getCookie from './getCookie';
 
-function getBooleanCookie(name, defaultValue = false) {
+function getBooleanCookie(
+  name: string,
+  defaultValue?: boolean = false,
+): boolean {
   const value = getCookie(name);
 
   if (value === '1' || value === 'true') {

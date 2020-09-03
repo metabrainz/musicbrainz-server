@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -45,12 +45,12 @@ const UserList = ({$c, users}: Props): React.Element<'table'> => (
           <td>{formatUserDate($c, user.registration_date)}</td>
           <td>{user.email}</td>
           <td>
-            {user.email_confirmation_date ? (
+            {nonEmpty(user.email_confirmation_date) ? (
               formatUserDate($c, user.email_confirmation_date)
             ) : null}
           </td>
           <td>
-            {user.last_login_date ? (
+            {nonEmpty(user.last_login_date) ? (
               formatUserDate($c, user.last_login_date)
             ) : null}
           </td>

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 Shamroy Pellew
  * Copyright (C) 2018 MetaBrainz Foundation
  *
@@ -91,7 +91,7 @@ const infoLinks = [
 const StatisticsLayout = ({
   $c,
   children,
-  fullWidth,
+  fullWidth = false,
   page,
   sidebar,
   title,

@@ -130,6 +130,7 @@ export const FAVICON_CLASSES = {
   'nicovideo.jp': 'niconicovideo',
   'nla.gov.au': 'trove',
   'ocremix.org': 'ocremix',
+  'offiziellecharts.de': 'offiziellecharts',
   'online-bijbel.nl': 'onlinebijbel',
   'openlibrary.org': 'openlibrary',
   'operabase.com': 'operabase',
@@ -214,9 +215,6 @@ export const SERIES_ORDERING_TYPE_AUTOMATIC = 1;
 
 export const SERIES_ORDERING_TYPE_MANUAL = 2;
 
-export const UUID_REGEXP_STR =
-  '[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}';
-
 export const VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 
 export const VARTIST_ID = 1;
@@ -261,3 +259,6 @@ export const FLUENCY_NAMES:
   intermediate: N_l('Intermediate'),
   native: N_l('Native'),
 };
+
+export const LANGUAGE_MUL_ID = 284;
+export const LANGUAGE_ZXX_ID = 486;

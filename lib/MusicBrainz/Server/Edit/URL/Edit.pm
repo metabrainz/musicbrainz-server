@@ -7,6 +7,7 @@ use MooseX::Types::Moose qw( Int Str Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
@@ -23,6 +24,7 @@ use aliased 'MusicBrainz::Server::Entity::URL';
 sub edit_name { N_l('Edit URL') }
 sub edit_type { $EDIT_URL_EDIT }
 sub _edit_model { 'URL' }
+sub edit_template_react { 'EditUrl' }
 sub url_id { shift->entity_id }
 
 sub change_fields
@@ -63,7 +65,12 @@ sub build_display_data
         description => 'description'
     );
     $data->{url} = $loaded->{URL}->{ $self->url_id }
-        || URL->new( url => $self->data->{entity}{name} );
+        || URL->new(
+            id => $self->url_id,
+            url => $self->data->{entity}{name},
+        );
+    $data->{isMerge} = boolean_to_json($self->data->{is_merge});
+    $data->{affects} = $self->data->{affects};
 
     return $data;
 }

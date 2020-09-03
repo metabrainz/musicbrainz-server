@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -24,7 +24,7 @@ const EventHeader = ({
     entity={event}
     headerClass="eventheader"
     page={page}
-    subHeading={event.typeName
+    subHeading={nonEmpty(event.typeName)
       ? lp_attributes(event.typeName, 'event_type')
       : l('Event')}
   />

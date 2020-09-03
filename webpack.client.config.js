@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const _ = require('lodash');
 const canonicalJson = require('canonical-json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
@@ -27,6 +26,7 @@ const {
 } = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
+const {cloneObjectDeep} = require('./root/static/scripts/common/utility/cloneDeep');
 const jedDataTemplate = require('./root/static/scripts/jed-data');
 
 const entries = [
@@ -107,8 +107,8 @@ function createJsPo(srcPo, lang) {
    */
   const scriptsDir = shellQuote.quote([dirs.SCRIPTS]);
   const nestedDirs = shell.exec(`find ${scriptsDir} -type d`, {silent: true}).stdout.split('\n');
-  const msgLocations = _(nestedDirs)
-    .compact()
+  const msgLocations = nestedDirs
+    .filter(Boolean)
     .map(dir => '-N ' + shellQuote.quote(['..' + dir.replace(dirs.CHECKOUT, '') + '/*.js']))
     .join(' ');
 
@@ -153,7 +153,7 @@ const MB_LANGUAGES = shell.exec(
 }, []);
 
 MB_LANGUAGES.forEach(function (lang) {
-  const langJedData = _.cloneDeep(jedDataTemplate.en);
+  const langJedData = cloneObjectDeep(jedDataTemplate.en);
   const fileName = `jed-${lang}`;
   const filePath = path.resolve(dirs.BUILD, `${fileName}.source.js`);
   const fileMtime = mtime(filePath);

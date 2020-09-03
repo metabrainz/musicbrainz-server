@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import padStart from 'lodash/padStart';
+import {fixedWidthInteger} from '../static/scripts/common/utility/strings';
 
 export default function formatLabelCode(code: number): string {
-  return 'LC ' + padStart(String(code), 5, '0');
+  return 'LC ' + fixedWidthInteger(code, 5);
 }

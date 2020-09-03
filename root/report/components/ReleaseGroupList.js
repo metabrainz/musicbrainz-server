@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -40,14 +40,14 @@ const ReleaseGroupList = ({
         </thead>
         <tbody>
           {items.map((item, index) => {
-            if (item.key) {
+            if (item.key != null) {
               lastKey = currentKey;
               currentKey = item.key;
             }
 
             return (
               <>
-                {item.key && (lastKey !== item.key) ? (
+                {item.key != null && (lastKey !== item.key) ? (
                   <tr className="subh">
                     <td colSpan="4" />
                   </tr>
@@ -67,8 +67,8 @@ const ReleaseGroupList = ({
                         <EntityLink entity={item.release_group} />
                       </td>
                       <td>
-                        {item.release_group.l_type_name
-                          ? item.release_group.typeName
+                        {nonEmpty(item.release_group.l_type_name)
+                          ? item.release_group.l_type_name
                           : l('Unknown')}
                       </td>
                     </>

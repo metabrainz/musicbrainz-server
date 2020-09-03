@@ -829,7 +829,7 @@ sub reject
     my ($self, $edit, $status) = @_;
     $status ||= $STATUS_FAILEDVOTE;
     confess "The edit is not open anymore."
-        unless $edit->status == $STATUS_TOBEDELETED || $edit->status == $STATUS_OPEN;
+        unless $edit->status == $STATUS_OPEN;
 
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
 }

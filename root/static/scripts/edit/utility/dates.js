@@ -7,7 +7,6 @@
  */
 
 import getDaysInMonth from '../../../../utility/getDaysInMonth';
-import nonEmpty from '../../common/utility/nonEmpty';
 import parseInteger from '../../common/utility/parseInteger';
 
 export const isDateValid = function (y, m, d) {
