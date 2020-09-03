@@ -237,6 +237,9 @@ export class ExternalLinksEditor
               error = l('Required field.');
             } else if (!isValidURL(link.url)) {
               error = l('Enter a valid url e.g. "http://google.com/"');
+            } else if (isMusicBrainz(link.url)) {
+              error = l(`Links to MusicBrainz URLs are not allowed.
+                         Did you mean to paste something else?`);
             } else if (isShortened(link.url)) {
               error = l(`Please don’t enter bundled/shortened URLs,
                          enter the destination URL(s) instead.`);
@@ -610,6 +613,10 @@ function isShortened(url) {
   return URL_SHORTENERS.some(function (shortenerRegex) {
     return url.match(shortenerRegex) !== null;
   });
+}
+
+function isMusicBrainz(url) {
+  return /^https?:\/\/([^/]+\.)?musicbrainz\.org/.test(url);
 }
 
 type InitialOptionsT = {
