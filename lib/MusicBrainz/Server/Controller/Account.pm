@@ -652,13 +652,23 @@ sub _send_confirmation_email
         chk    => $self->_checksum($email, $editor->id, $time),
     });
 
+    my $email_in_use = $c->model('Editor')->is_email_used_elsewhere($email, $editor->id);
+
     try {
-        $c->model('Email')->send_email_verification(
-            email             => $email,
-            verification_link => $verification_link,
-            ip                => $c->req->address,
-            editor            => $editor
-        );
+        if ($email_in_use) {
+            $c->model('Email')->send_email_in_use(
+                email             => $email,
+                ip                => $c->req->address,
+                editor            => $editor
+            );            
+        } else {
+            $c->model('Email')->send_email_verification(
+                email             => $email,
+                verification_link => $verification_link,
+                ip                => $c->req->address,
+                editor            => $editor
+            );
+        }
     }
     catch {
         $c->flash->{message} = l(
