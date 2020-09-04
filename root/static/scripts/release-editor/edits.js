@@ -206,6 +206,9 @@ releaseEditor.edits = {
 
         if (!deepEqual(newWithoutPosition, oldWithoutPosition)) {
           newWithoutPosition.to_edit = medium.id;
+          newWithoutPosition.delete_tracklist = medium.tracksUnknownToUser()
+            ? 1
+            : 0;
           edits.push(MB.edit.mediumEdit(newWithoutPosition, oldWithoutPosition));
         }
       } else {

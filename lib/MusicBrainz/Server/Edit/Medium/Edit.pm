@@ -143,6 +143,7 @@ sub initialize
     my $entity = delete $opts{to_edit};
 
     my $tracklist = delete $opts{tracklist};
+    my $delete_tracklist = delete $opts{delete_tracklist};    
     my $data;
 
     $self->check_tracks_against_format($tracklist, $opts{format_id});
@@ -193,7 +194,7 @@ sub initialize
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
             }
-        } elsif ($tracklist) {
+        } elsif ($tracklist && $delete_tracklist) {
             $self->c->model('Track')->load_for_mediums($entity);
             $self->c->model('ArtistCredit')->load($entity->all_tracks);
 
