@@ -160,7 +160,7 @@ const ReleaseGroupList = ({
       return (
         <React.Fragment key={type}>
           <h3>
-            {type === 'null'
+            {type === ''
               ? l('Unspecified type')
               : releaseGroupType(releaseGroupsOfType[0])
             }
