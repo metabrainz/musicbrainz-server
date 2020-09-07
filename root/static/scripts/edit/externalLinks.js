@@ -586,6 +586,7 @@ const URL_SHORTENERS = [
   'moourl.com',
   'orcd.co',
   'owl.ly',
+  'page.link',
   'pandora.app.link',
   'rubyurl.com',
   'smarturl.it',
