@@ -4,6 +4,57 @@ use utf8;
 use warnings;
 use strict;
 
+use Getopt::Long qw( GetOptions );
+use Pod::Usage qw( pod2usage );
+
+################################################################################
+
+=head1 NAME
+
+GenerateSQLScripts.pl - Generate SQL DROP scripts for each script in DIRECTORY
+
+=head1 SYNOPSIS
+
+GenerateSQLScripts.pl [options] [--] [DIRECTORY]
+
+Generate a corresponding SQL DROP script for each SQL CREATE script in DIRECTORY
+(admin/sql/ by default).
+
+Options:
+
+    -h, --help                          show this help
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2012 Aurélien Mino
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
+
+################################################################################
+
+my $help_flag;
+
+GetOptions(
+    "help|h"                    => \$help_flag,
+);
+
+pod2usage() if $help_flag;
+
+my $extra_arguments_count = $#ARGV + 1;
+
+pod2usage(
+    -exitval => 64, # EX_USAGE
+    -message => "$0: too many arguments",
+) if $extra_arguments_count > 1;
+
+################################################################################
+
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -339,24 +390,3 @@ sub process_triggers
 
 process_triggers("CreateTriggers.sql", "DropTriggers.sql");
 process_triggers("CreateReplicationTriggers.sql", "DropReplicationTriggers.sql");
-
-=head1 COPYRIGHT
-
-Copyright (C) 2009 Lukas Lalinsky
-Copyright (C) 2012 Aurélien Mino
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-=cut
