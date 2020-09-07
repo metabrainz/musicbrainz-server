@@ -38,20 +38,20 @@ test('isComplexArtistCredit', function (t) {
 });
 
 test('artistCreditsAreEqual', function (t) {
-    t.plan(4);
+  t.plan(4);
 
-    const ac1 = {names: [{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]};
-    const ac2 = {names: [{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]};
-    const ac3 = {names: [{artist: {gid: 1, name: 'a'}, name: 'b', joinPhrase: '/'}]};
-    const ac4 = {
-      names: [
-        {artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'},
-        {artist: {gid: 2, name: 'b'}, name: 'b', joinPhrase: ''},
-      ],
-    };
+  const ac1 = {names: [{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]};
+  const ac2 = {names: [{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]};
+  const ac3 = {names: [{artist: {gid: 1, name: 'a'}, name: 'b', joinPhrase: '/'}]};
+  const ac4 = {
+    names: [
+      {artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'},
+      {artist: {gid: 2, name: 'b'}, name: 'b', joinPhrase: ''},
+    ],
+  };
 
-    t.ok(!artistCreditsAreEqual(ac1, ac3));
-    t.ok(!artistCreditsAreEqual(ac1, ac4));
-    t.ok(artistCreditsAreEqual(ac1, ac1));
-    t.ok(artistCreditsAreEqual(ac1, ac2));
+  t.ok(!artistCreditsAreEqual(ac1, ac3));
+  t.ok(!artistCreditsAreEqual(ac1, ac4));
+  t.ok(artistCreditsAreEqual(ac1, ac1));
+  t.ok(artistCreditsAreEqual(ac1, ac2));
 });

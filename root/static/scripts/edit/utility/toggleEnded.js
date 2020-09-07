@@ -11,21 +11,21 @@ import $ from 'jquery';
 import MB from '../../common/MB';
 
 MB.initializeToggleEnded = function (formID) {
-    $(function () {
-        const endYear = '#' + formID + '\\.period\\.end_date\\.year';
-        const ended = '#' + formID + '\\.period\\.ended';
+  $(function () {
+    const endYear = '#' + formID + '\\.period\\.end_date\\.year';
+    const ended = '#' + formID + '\\.period\\.ended';
 
-        const wasEnded = $(ended).prop('checked');
+    const wasEnded = $(ended).prop('checked');
 
-        function toggleEnded() {
-            var autoEnded = $(endYear).val() != '';
-            $(ended).prop('checked', autoEnded || wasEnded);
-            $(ended).prop('disabled', autoEnded);
-        }
+    function toggleEnded() {
+      var autoEnded = $(endYear).val() != '';
+      $(ended).prop('checked', autoEnded || wasEnded);
+      $(ended).prop('disabled', autoEnded);
+    }
 
-        $(endYear).keyup(toggleEnded).change(toggleEnded);
-        toggleEnded();
-    });
+    $(endYear).keyup(toggleEnded).change(toggleEnded);
+    toggleEnded();
+  });
 };
 
 export default MB.initializeToggleEnded;

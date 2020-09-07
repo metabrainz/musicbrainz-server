@@ -31,8 +31,8 @@ export const N_lp = (key: string, context: string): (() => string) => (
 export const unwrapNl = <T: React$MixedElement | string>(
   value: T | (() => T),
 ): T => (
-  typeof value === 'function' ? value() : value
-);
+    typeof value === 'function' ? value() : value
+  );
 
 let documentLang = 'en';
 if (typeof document !== 'undefined') {

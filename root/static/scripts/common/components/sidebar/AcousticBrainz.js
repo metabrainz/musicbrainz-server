@@ -96,7 +96,7 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
           <SidebarProperty className="acousticbrainz_bpm" label={l('BPM:')}>
             <abbr
               title={texp.l('Automatic suggestion from entry #1/{count}',
-                       {count: count})}
+                            {count: count})}
             >
               {Math.round(data.rhythm.bpm)}
             </abbr>

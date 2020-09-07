@@ -10,66 +10,66 @@ import getDaysInMonth from '../../../../utility/getDaysInMonth';
 import parseInteger from '../../common/utility/parseInteger';
 
 export const isDateValid = function (y, m, d) {
-    y = nonEmpty(y) ? parseInteger(y) : null;
-    m = nonEmpty(m) ? parseInteger(m) : null;
-    d = nonEmpty(d) ? parseInteger(d) : null;
+  y = nonEmpty(y) ? parseInteger(y) : null;
+  m = nonEmpty(m) ? parseInteger(m) : null;
+  d = nonEmpty(d) ? parseInteger(d) : null;
 
-    // We couldn't parse one of the fields as a number.
-    if (isNaN(y) || isNaN(m) || isNaN(d)) {
-        return false;
-    }
+  // We couldn't parse one of the fields as a number.
+  if (isNaN(y) || isNaN(m) || isNaN(d)) {
+    return false;
+  }
 
-    // The year is a number less than 1.
-    if (y !== null && y < 1) {
-        return false;
-    }
+  // The year is a number less than 1.
+  if (y !== null && y < 1) {
+    return false;
+  }
 
-    // The month is a number less than 1 or greater than 12.
-    if (m !== null && (m < 1 || m > 12)) {
-        return false;
-    }
+  // The month is a number less than 1 or greater than 12.
+  if (m !== null && (m < 1 || m > 12)) {
+    return false;
+  }
 
-    // The day is empty. There's no further validation we can do.
-    if (d === null) {
-        return true;
-    }
-
-    // Invalid number of days based on the year.
-    if (d < 1 || d > 31 || d > getDaysInMonth(y, m)) {
-        return false;
-    }
-
-    // The date is assumed to be valid.
+  // The day is empty. There's no further validation we can do.
+  if (d === null) {
     return true;
+  }
+
+  // Invalid number of days based on the year.
+  if (d < 1 || d > 31 || d > getDaysInMonth(y, m)) {
+    return false;
+  }
+
+  // The date is assumed to be valid.
+  return true;
 };
 
 export const isYearFourDigits = function (y) {
-    return (y === null || y === '' || y.length === 4);
+  return (y === null || y === '' || y.length === 4);
 };
 
 export const isDatePeriodValid = function (a, b) {
-    const {year: y1, month: m1, day: d1} = a;
-    const {year: y2, month: m2, day: d2} = b;
+  const {year: y1, month: m1, day: d1} = a;
+  const {year: y2, month: m2, day: d2} = b;
 
-    if (!isDateValid(y1, m1, d1) || !isDateValid(y2, m2, d2)) {
-        return false;
-    }
+  if (!isDateValid(y1, m1, d1) || !isDateValid(y2, m2, d2)) {
+    return false;
+  }
 
-    if (!y1 || !y2 || +y1 < +y2) {
-        return true;
-    } else if (+y2 < +y1) {
-        return false;
-    }
-    if (!m1 || !m2 || +m1 < +m2) {
-        return true;
-    } else if (+m2 < +m1) {
-        return false;
-    }
-    if (!d1 || !d2 || +d1 < +d2) {
-        return true;
-    } else if (+d2 < +d1) {
-        return false;
-    }
-
+  if (!y1 || !y2 || +y1 < +y2) {
     return true;
+  } else if (+y2 < +y1) {
+    return false;
+  }
+  if (!m1 || !m2 || +m1 < +m2) {
+    return true;
+  } else if (+m2 < +m1) {
+    return false;
+  }
+  if (!d1 || !d2 || +d1 < +d2) {
+    return true;
+  } else if (+d2 < +d1) {
+    return false;
+  }
+
+  return true;
 };

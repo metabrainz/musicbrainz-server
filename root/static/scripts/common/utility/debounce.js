@@ -9,26 +9,26 @@
 import ko from 'knockout';
 
 export default function debounce(func, ms = 100) {
-    let timeoutId = null;
-    return (...args) => {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-        timeoutId = setTimeout(() => {
-            timeoutId = null;
-            func(...args);
-        }, ms);
-    };
+  let timeoutId = null;
+  return (...args) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      timeoutId = null;
+      func(...args);
+    }, ms);
+  };
 }
 
 export function debounceComputed(value, delay) {
-    if (!ko.isObservable(value)) {
-        value = ko.computed(value);
-    }
-    if (process.env.MUSICBRAINZ_RUNNING_TESTS) {
-        return value;
-    }
-    return value.extend({
-        rateLimit: { method: 'notifyWhenChangesStop', timeout: delay || 500 },
-    });
+  if (!ko.isObservable(value)) {
+    value = ko.computed(value);
+  }
+  if (process.env.MUSICBRAINZ_RUNNING_TESTS) {
+    return value;
+  }
+  return value.extend({
+    rateLimit: { method: 'notifyWhenChangesStop', timeout: delay || 500 },
+  });
 }

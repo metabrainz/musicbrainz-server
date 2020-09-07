@@ -11,7 +11,7 @@ import leven from 'leven';
 var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
 
 function stripSpacesAndPunctuation(str) {
-    return (str || '').replace(punctuation, '').toLowerCase();
+  return (str || '').replace(punctuation, '').toLowerCase();
 }
 
 /*
@@ -21,12 +21,12 @@ function stripSpacesAndPunctuation(str) {
  */
 
 export default function similarity(a, b) {
-    /*
-     * If a track title is all punctuation, we'll end up with an empty
-     * string, so just fall back to the original for comparison.
-     */
-    a = stripSpacesAndPunctuation(a) || a || '';
-    b = stripSpacesAndPunctuation(b) || b || '';
+  /*
+   * If a track title is all punctuation, we'll end up with an empty
+   * string, so just fall back to the original for comparison.
+   */
+  a = stripSpacesAndPunctuation(a) || a || '';
+  b = stripSpacesAndPunctuation(b) || b || '';
 
-    return 1 - (leven(a, b) / (a.length + b.length));
+  return 1 - (leven(a, b) / (a.length + b.length));
 }

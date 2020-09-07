@@ -72,42 +72,42 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
    */
    +usedPhraseAttributes: Array<string>;
 
-  constructor(
-    args: ?VarArgsObject<LinkAttrs>,
-    i18n: LinkPhraseI18n<T>,
-    entity0: ?T,
-    entity1: ?T,
-  ) {
-    super(args || EMPTY_OBJECT);
-    this.i18n = i18n;
-    this.entity0 = entity0 || '';
-    this.entity1 = entity1 || '';
-    this.usedPhraseAttributes = [];
-  }
+   constructor(
+     args: ?VarArgsObject<LinkAttrs>,
+     i18n: LinkPhraseI18n<T>,
+     entity0: ?T,
+     entity1: ?T,
+   ) {
+     super(args || EMPTY_OBJECT);
+     this.i18n = i18n;
+     this.entity0 = entity0 || '';
+     this.entity1 = entity1 || '';
+     this.usedPhraseAttributes = [];
+   }
 
-  get(name: string): T | string {
-    if (name === 'entity0') {
-      return this.entity0;
-    }
-    if (name === 'entity1') {
-      return this.entity1;
-    }
-    const attributes = this.data[name];
-    if (attributes == null) {
-      return '';
-    }
-    if (Array.isArray(attributes)) {
-      return this.i18n.commaList(
-        attributes.map(this.i18n.displayLinkAttribute),
-      );
-    }
-    return this.i18n.displayLinkAttribute(attributes);
-  }
+   get(name: string): T | string {
+     if (name === 'entity0') {
+       return this.entity0;
+     }
+     if (name === 'entity1') {
+       return this.entity1;
+     }
+     const attributes = this.data[name];
+     if (attributes == null) {
+       return '';
+     }
+     if (Array.isArray(attributes)) {
+       return this.i18n.commaList(
+         attributes.map(this.i18n.displayLinkAttribute),
+       );
+     }
+     return this.i18n.displayLinkAttribute(attributes);
+   }
 
-  has(name: string): boolean {
-    this.usedPhraseAttributes.push(name);
-    return true;
-  }
+   has(name: string): boolean {
+     this.usedPhraseAttributes.push(name);
+     return true;
+   }
 }
 
 export type LinkPhraseI18n<T> = {

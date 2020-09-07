@@ -15,35 +15,35 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
 // Area specific GuessCase functionality
 MB.GuessCase.Handler.Area = function (gc) {
-    var self = MB.GuessCase.Handler.Base(gc);
+  var self = MB.GuessCase.Handler.Base(gc);
 
-    // Checks special cases
-    self.checkSpecialCase = function () {
-        return self.NOT_A_SPECIALCASE;
-    };
+  // Checks special cases
+  self.checkSpecialCase = function () {
+    return self.NOT_A_SPECIALCASE;
+  };
 
-    /*
-     * Delegate function which handles words not handled
-     * in the common word handlers.
-     *
-     * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
-     * - Handles FeaturingArtistStyle
-     */
-    self.doWord = function () {
-        (
-            self.doIgnoreWords() ||
-            self.doFeaturingArtistStyle() ||
-            gc.mode.doWord() ||
-            self.doNormalWord()
-        );
-        flags.context.number = false;
-        return null;
-    };
+  /*
+   * Delegate function which handles words not handled
+   * in the common word handlers.
+   *
+   * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
+   * - Handles FeaturingArtistStyle
+   */
+  self.doWord = function () {
+    (
+      self.doIgnoreWords() ||
+      self.doFeaturingArtistStyle() ||
+      gc.mode.doWord() ||
+      self.doNormalWord()
+    );
+    flags.context.number = false;
+    return null;
+  };
 
-    // Guesses the sortname for areas
-    self.guessSortName = function (is) {
-        return utils.trim(is);
-    };
+  // Guesses the sortname for areas
+  self.guessSortName = function (is) {
+    return utils.trim(is);
+  };
 
-    return self;
+  return self;
 };

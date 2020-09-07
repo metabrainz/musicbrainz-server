@@ -12,23 +12,23 @@ import ko from 'knockout';
 import MB from '../../../common/MB';
 
 MB.Control.Area = function (...selectors) {
-    var bubble = new MB.Control.BubbleDoc();
+  var bubble = new MB.Control.BubbleDoc();
 
-    bubble.canBeShown = function (viewModel) {
-        return viewModel.area().gid;
-    };
+  bubble.canBeShown = function (viewModel) {
+    return viewModel.area().gid;
+  };
 
-    ko.applyBindingsToNode($('#area-bubble')[0], { bubble: bubble });
+  ko.applyBindingsToNode($('#area-bubble')[0], { bubble: bubble });
 
-    for (const selector of selectors) {
-        const $span = $(selector);
-        const name = $span.find('input.name')[0];
-        const ac = MB.Control.EntityAutocomplete({ inputs: $span });
+  for (const selector of selectors) {
+    const $span = $(selector);
+    const name = $span.find('input.name')[0];
+    const ac = MB.Control.EntityAutocomplete({ inputs: $span });
 
-        ko.applyBindingsToNode(
-            name, { controlsBubble: bubble }, { area: ac.currentSelection },
-        );
-    }
+    ko.applyBindingsToNode(
+      name, { controlsBubble: bubble }, { area: ac.currentSelection },
+    );
+  }
 };
 
 export const initializeArea = MB.Control.Area;
