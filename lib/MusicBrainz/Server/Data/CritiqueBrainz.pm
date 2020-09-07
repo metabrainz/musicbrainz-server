@@ -23,7 +23,7 @@ sub load_display_reviews {
         release_group => $release_group->gid,
         offset => 0,
         limit => 1,
-        sort => 'created'
+        sort => 'published_on'
     );
 
     $url->query_form(%params);
