@@ -7,14 +7,13 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 
 var nextAvailableTime = new Date().getTime();
 var previousDeferred = null;
 var timeout = 1000;
 
 function makeRequest(args, context, deferred) {
-    deferred.jqXHR = $.ajax({...args, dataType: "json"})
+    deferred.jqXHR = $.ajax({...args, dataType: 'json'})
         .done(function () {
             if (!deferred.aborted) {
                 deferred.resolveWith(context, arguments);
@@ -52,7 +51,7 @@ function request(args, context) {
         previousDeferred && (previousDeferred.next = later);
         previousDeferred = deferred;
 
-        _.delay(later, nextAvailableTime - now);
+        setTimeout(later, nextAvailableTime - now);
 
         // nextAvailableTime is in the future.
         nextAvailableTime += timeout;

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -26,7 +26,7 @@ type Props = {
 const ReleaseList = ({
   items,
   pager,
-  showLanguageAndScript,
+  showLanguageAndScript = false,
   subPath,
 }: Props): React.Element<typeof PaginatedResults> => {
   const colSpan = showLanguageAndScript ? 3 : 2;

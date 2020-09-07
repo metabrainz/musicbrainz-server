@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -46,21 +46,21 @@ type Props = {
 const EventList = ({
   $c,
   artist,
-  artistRoles,
+  artistRoles = false,
   checkboxes,
   events,
   mergeForm,
   order,
   seriesItemNumbers,
-  showArtists,
-  showLocation,
-  showRatings,
-  showType,
+  showArtists = false,
+  showLocation = false,
+  showRatings = false,
+  showType = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
     () => {
-      const checkboxColumn = $c.user && (checkboxes || mergeForm)
+      const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers

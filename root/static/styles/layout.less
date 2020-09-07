@@ -138,6 +138,7 @@ pre code {
 /* For general aligning, and especially for barcodes */
 .align-right, .barcode-cell { text-align: right; }
 .align-left { text-align: left !important; }
+.align-top { vertical-align: top; }
 
 /*
 ** Header
@@ -740,6 +741,11 @@ table.tbl {
     .pregap-track.icon {
         background: data-uri('../images/icons/pregap.png');
         background-size: 16px 16px;
+        cursor: help !important;
+    }
+
+    .cannot-attach-discid.icon {
+        background: data-uri('../images/icons/delete.png');
         cursor: help !important;
     }
 }

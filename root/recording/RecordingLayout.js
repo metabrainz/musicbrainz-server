@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -30,7 +30,7 @@ const RecordingLayout = ({
   $c,
   children,
   entity: recording,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => {
@@ -44,13 +44,15 @@ const RecordingLayout = ({
   return (
     <Layout
       $c={$c}
-      title={title ? hyphenateTitle(mainTitle, title) : mainTitle}
+      title={nonEmpty(title) ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">
         <RecordingHeader page={page} recording={recording} />
         {children}
       </div>
-      {fullWidth ? null : <RecordingSidebar $c={$c} recording={recording} />}
+      {fullWidth
+        ? null
+        : <RecordingSidebar $c={$c} recording={recording} />}
     </Layout>
   );
 };

@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {
   artistCreditsAreEqual,
@@ -17,6 +16,7 @@ import {
 } from '../common/immutable-entities';
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
+import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import request from '../common/utility/request';
 import * as externalLinks from '../edit/externalLinks';
 import * as validation from '../edit/validation';
@@ -27,9 +27,9 @@ import utils from './utils';
 import releaseEditor from './viewModel';
 
 Object.assign(releaseEditor, {
-    activeTabID: ko.observable("#information"),
+    activeTabID: ko.observable('#information'),
     activeTabIndex: ko.observable(0),
-    loadError: ko.observable(""),
+    loadError: ko.observable(''),
     loadErrorMessage: function () {
         return texp.l('Error loading release: {error}', {error: releaseEditor.loadError()});
     },
@@ -40,7 +40,11 @@ Object.assign(releaseEditor, {
 releaseEditor.init = function (options) {
     var self = this;
 
-    $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
+    $.extend(this, {
+        action: options.action,
+        redirectURI: options.redirectURI,
+        returnTo: options.returnTo,
+    });
 
     /*
      * Setup guess case buttons for the title field. Do this every time the
@@ -48,9 +52,9 @@ releaseEditor.init = function (options) {
      * longer exist.
      */
     utils.withRelease(function () {
-        _.defer(function () {
-            MB.Control.initializeGuessCase("release");
-        });
+        setTimeout(function () {
+            MB.Control.initializeGuessCase('release');
+        }, 1);
     });
 
     /*
@@ -70,23 +74,23 @@ releaseEditor.init = function (options) {
      * to the document and not #release-editor so that other events can call
      * preventDefault if necessary.
      */
-    $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
+    $(document).on('keydown', '#release-editor :input:not(:button, textarea)',
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
                 /*
-                 * The _.defer is entirely for <select> elements in Firefox,
+                 * The setTimeout is entirely for <select> elements in Firefox,
                  * which don't have their change events triggered until after
                  * enter is hit. Additionally, if we switch tabs before the
                  * change event is handled, it doesn't seem to even register
                  * (probably because the <select> is hidden by then).
                  */
-                _.defer(function () {
-                    self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
-                });
+                setTimeout(function () {
+                    self.activeTabID() === '#edit-note' ? self.submitEdits() : self.nextTab();
+                }, 1);
             }
         });
 
-    var $pageContent = $("#release-editor").tabs({
+    var $pageContent = $('#release-editor').tabs({
 
         beforeActivate: function (event, ui) {
             /*
@@ -111,7 +115,7 @@ releaseEditor.init = function (options) {
              * now that it's visible.
              */
 
-            var $bubble = panel.find("div.bubble:visible:eq(0)");
+            var $bubble = panel.find('div.bubble:visible:eq(0)');
             if ($bubble.length) {
                 const bubbleDoc = $bubble[0].bubbleDoc;
                 bubbleDoc.redraw(true /* stealFocus */);
@@ -121,18 +125,18 @@ releaseEditor.init = function (options) {
         },
     });
 
-    this.uiTabs = $pageContent.data("ui-tabs");
+    this.uiTabs = $pageContent.data('ui-tabs');
     this.tabCount = this.uiTabs.panels.length;
 
-    if (this.action === "add") {
-        $pageContent.tabs("disable", 1);
+    if (this.action === 'add') {
+        $pageContent.tabs('disable', 1);
 
         this.findReleaseDuplicates();
     }
 
     // Initiate tooltip widget (current just used by the recordings tab).
 
-    $pageContent.find(".ui-tabs-nav a").tooltip();
+    $pageContent.find('.ui-tabs-nav a').tooltip();
 
     /*
      * Enable or disable the recordings tab depending on whether there are
@@ -140,7 +144,7 @@ releaseEditor.init = function (options) {
      */
 
     utils.withRelease(function (release) {
-        var addingRelease = self.action === "add";
+        var addingRelease = self.action === 'add';
         var tabEnabled = addingRelease ? release.hasTracks() : true;
 
         if (tabEnabled) {
@@ -153,20 +157,20 @@ releaseEditor.init = function (options) {
         }
 
         var tabNumber = addingRelease ? 3 : 2;
-        self.uiTabs[tabEnabled ? "enable" : "disable"](tabNumber);
+        self.uiTabs[tabEnabled ? 'enable' : 'disable'](tabNumber);
 
         // When the tab is enabled, the tooltip is *disabled*
 
         var tooltipEnabled = !tabEnabled;
-        var $tab = self.uiTabs.tabs.eq(tabNumber).find("a");
+        var $tab = self.uiTabs.tabs.eq(tabNumber).find('a');
 
         /*
          * XXX Don't disable the tooltip twice.
          * http://bugs.jqueryui.com/ticket/9719
          */
 
-        if ($tab.tooltip("option", "disabled") === tooltipEnabled) {
-            $tab.tooltip(tooltipEnabled ? "enable" : "disable");
+        if ($tab.tooltip('option', 'disabled') === tooltipEnabled) {
+            $tab.tooltip(tooltipEnabled ? 'enable' : 'disable');
         }
     });
 
@@ -174,22 +178,22 @@ releaseEditor.init = function (options) {
 
     utils.withRelease(function (release) {
         var tabID = self.activeTabID();
-        var releaseAC = _.cloneDeep(release.artistCredit());
+        var releaseAC = cloneObjectDeep(release.artistCredit());
         var savedReleaseAC = release.artistCredit.saved;
         var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
-        if (tabID === "#tracklist" && releaseACChanged) {
+        if (tabID === '#tracklist' && releaseACChanged) {
             if (!hasVariousArtists(releaseAC)) {
-                _.each(release.mediums(), function (medium) {
-                    _.each(medium.tracks(), function (track) {
+                for (const medium of release.mediums()) {
+                    for (const track of medium.tracks()) {
                         if (reduceArtistCredit(track.artistCredit()) === reduceArtistCredit(savedReleaseAC)) {
                             track.artistCredit(releaseAC);
                             track.artistCreditEditorInst.setState({
                                 artistCredit: track.artistCredit.peek(),
                             });
                         }
-                    });
-                });
+                    }
+                }
             }
             release.artistCredit.saved = releaseAC;
         }
@@ -200,14 +204,14 @@ releaseEditor.init = function (options) {
     utils.withRelease(function (release) {
         var name = clean(release.name());
 
-        if (self.action === "add") {
+        if (self.action === 'add') {
             document.title =
-                name ? hyphenateTitle(name, l("Add Release")) :
-                       l("Add Release");
+                name ? hyphenateTitle(name, l('Add Release')) :
+                       l('Add Release');
         } else {
             document.title =
-                name ? hyphenateTitle(name, l("Edit Release")) :
-                       l("Edit Release");
+                name ? hyphenateTitle(name, l('Edit Release')) :
+                       l('Edit Release');
         }
     });
 
@@ -252,7 +256,7 @@ releaseEditor.init = function (options) {
 
     window.addEventListener('beforeunload', event => {
         if (hasEdits() && !this.rootField.redirecting) {
-            event.returnValue = l("All of your changes will be lost if you leave this page.");
+            event.returnValue = l('All of your changes will be lost if you leave this page.');
             return event.returnValue;
         }
 
@@ -262,12 +266,12 @@ releaseEditor.init = function (options) {
     // Intialize release data/view model.
 
     this.rootField.missingEditNote = function () {
-        return self.action === "add" && !self.rootField.editNote();
+        return self.action === 'add' && !self.rootField.editNote();
     };
 
     this.seed(options.seed);
 
-    if (this.action === "edit") {
+    if (this.action === 'edit') {
         this.releaseLoaded(options.release);
     } else {
         releaseEditor.createExternalLinksEditor(
@@ -285,26 +289,26 @@ releaseEditor.init = function (options) {
     // Fancy!
 
     $(function () {
-        $pageContent.fadeIn("fast", function () {
-            $("#name").focus();
+        $pageContent.fadeIn('fast', function () {
+            $('#name').focus();
         });
     });
 };
 
 releaseEditor.loadRelease = function (gid, callback) {
     var args = {
-        url: "/ws/js/release/" + gid,
-        data: { inc: "rels" },
+        url: '/ws/js/release/' + gid,
+        data: { inc: 'rels' },
     };
 
     return request(args, this)
             .done(callback || this.releaseLoaded)
             .fail(function (jqXHR, status, error) {
-                error = jqXHR.status + " (" + error + ")";
+                error = jqXHR.status + ' (' + error + ')';
 
                 // If there wasn't an ISE, the response should parse as JSON.
                 try {
-                    error += ": " + JSON.parse(jqXHR.responseText).error;
+                    error += ': ' + JSON.parse(jqXHR.responseText).error;
                 } catch (e) {}
 
                 this.loadError(error);
@@ -313,14 +317,14 @@ releaseEditor.loadRelease = function (gid, callback) {
 };
 
 releaseEditor.releaseLoaded = function (data) {
-    this.loadError("");
+    this.loadError('');
 
     var seed = this.seededReleaseData;
 
     // Setup the external links editor
-    _.defer(function () {
+    setTimeout(function () {
         releaseEditor.createExternalLinksEditor(data, $('#external-links-editor-container')[0]);
-    });
+    }, 1);
 
     var release = new fields.Release(data);
 
@@ -372,11 +376,11 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
 };
 
 releaseEditor.autoOpenTheAddDiscDialog = function (release) {
-    var addDiscUI = $(this.addDiscDialog.element).data("ui-dialog");
-    var trackParserUI = $(this.trackParserDialog.element).data("ui-dialog");
+    var addDiscUI = $(this.addDiscDialog.element).data('ui-dialog');
+    var trackParserUI = $(this.trackParserDialog.element).data('ui-dialog');
 
     // Show the dialog if there's no non-empty disc.
-    if (this.activeTabID() === "#tracklist") {
+    if (this.activeTabID() === '#tracklist') {
         var dialogIsOpen = (addDiscUI && addDiscUI.isOpen()) ||
                             (trackParserUI && trackParserUI.isOpen());
 
@@ -393,7 +397,7 @@ releaseEditor.allowsSubmission = function () {
     return (
         !this.submissionInProgress() &&
         !validation.errorsExist() &&
-        (this.action === "edit" || this.rootField.editNote()) &&
+        (this.action === 'edit' || this.rootField.editNote()) &&
         this.allEdits().length > 0
     );
 };

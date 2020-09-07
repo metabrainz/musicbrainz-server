@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -26,8 +26,8 @@ type Props = {
 const RecordingRelationshipList = ({
   items,
   pager,
-  showDates,
-  showArtist,
+  showDates = false,
+  showArtist = false,
 }: Props): React.Element<typeof PaginatedResults> => (
   <PaginatedResults pager={pager}>
     <table className="tbl">

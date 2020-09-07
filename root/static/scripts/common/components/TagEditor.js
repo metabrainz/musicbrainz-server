@@ -7,13 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import * as React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {unwrapNl} from '../i18n';
+import {keyBy, sortByNumber} from '../utility/arrays';
 import bracketed from '../utility/bracketed';
+import {compareStrings} from '../utility/compare';
+import debounce from '../utility/debounce';
 import isBlank from '../utility/isBlank';
 
 import TagLink from './TagLink';
@@ -31,11 +33,9 @@ const VOTE_ACTIONS = {
  */
 const VOTE_DELAY = 1000;
 
-const getTagName = t => t.tag.name;
-
-function sortedTags(tags) {
-  return _.sortBy(tags, t => -t.count, getTagName);
-}
+const cmpTags = (a, b) => (
+  (b.count - a.count) || compareStrings(a.tag.name, b.tag.name)
+);
 
 function getTagsPath(entity) {
   const type = entity.entityType.replace('_', '-');
@@ -88,10 +88,12 @@ class VoteButton extends React.Component<VoteButtonProps> {
       <button
         className={className}
         disabled={isActive}
-        onClick={isActive ? null : _.partial(
-          callback,
-          currentVote === 0 ? vote : 0,
-        )}
+        onClick={isActive
+          ? null
+          : ((...args) => callback(
+              currentVote === 0 ? vote : 0,
+              ...args,
+            ))}
         title={buttonTitle}
         type="button"
       >
@@ -178,6 +180,7 @@ type TagEditorProps = {
   +$c: CatalystContextT,
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   +entity: CoreEntityT | MinimalCoreEntityT,
+  +genreMap: ?{+[genreName: string]: GenreT, ...},
   +more: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
 };
@@ -208,7 +211,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   genreNames: $ReadOnlyArray<string>;
 
-  pendingVotes: {[tagName: string]: PendingVoteT, ...};
+  pendingVotes: Map<string, PendingVoteT>;
 
   setTagsInput: (TagsInputT) => void;
 
@@ -220,19 +223,20 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       tags: createInitialTagState(props.aggregatedTags, props.userTags),
     };
 
-    _.bindAll(
-      this,
-      'flushPendingVotes',
-      'onBeforeUnload',
-      'handleSubmit',
-      'setTagsInput',
-    );
+    // $FlowFixMe - These binds will go away with the move to functional components.
+    this.flushPendingVotes = this.flushPendingVotes.bind(this);
+    // $FlowFixMe
+    this.onBeforeUnload = this.onBeforeUnload.bind(this);
+    // $FlowFixMe
+    this.handleSubmit = this.handleSubmit.bind(this);
+    // $FlowFixMe
+    this.setTagsInput = this.setTagsInput.bind(this);
 
-    this.genreMap = props.$c.stash.genre_map || {};
+    this.genreMap = props.genreMap ?? {};
     this.genreNames = Object.keys(this.genreMap);
 
-    this.pendingVotes = {};
-    this.debouncePendingVotes = _.debounce(
+    this.pendingVotes = new Map();
+    this.debouncePendingVotes = debounce(
       this.flushPendingVotes, VOTE_DELAY,
     );
   }
@@ -240,14 +244,14 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   flushPendingVotes(asap?: boolean) {
     const actions = {};
 
-    _.each(this.pendingVotes, item => {
+    for (const item of this.pendingVotes.values()) {
       const action =
         `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
 
       (actions[action] = actions[action] || []).push(item);
-    });
+    }
 
-    this.pendingVotes = {};
+    this.pendingVotes.clear();
 
     let doRequest;
     if (asap) {
@@ -257,14 +261,14 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       doRequest = require('../utility/request').default;
     }
 
-    _.each(actions, (items, action) => {
+    for (const [action, items] of Object.entries(actions)) {
       const url = action + '?tags=' +
-        encodeURIComponent(_(items).map('tag.name').join(','));
+        encodeURIComponent((items: any).map(x => x.tag.name).join(','));
 
       doRequest({url: url})
         .done(data => this.updateTags(data.updates))
-        .fail(() => items.forEach(x => x.fail()));
-    });
+        .fail(() => (items: any).forEach(x => x.fail()));
+    }
   }
 
   onBeforeUnload() {
@@ -290,10 +294,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       };
 
       if (!this.state.positiveTagsOnly || isAlwaysVisible(t)) {
-        const isGenre = Object.prototype.hasOwnProperty.call(
-          this.genreMap,
-          t.tag.name,
-        );
+        const isGenre = hasOwnProp(this.genreMap, t.tag.name);
 
         const tagRow = (
           <TagRow
@@ -345,7 +346,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
     this.updateTags(
       splitTags(tags).map(name => {
-        const index = _.findIndex(this.state.tags, t => t.tag.name === name);
+        const index = this.state.tags.findIndex(t => t.tag.name === name);
         if (index >= 0) {
           return {count: this.getNewCount(index, 1), tag: name, vote: 1};
         }
@@ -373,7 +374,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     const newTags = this.state.tags.slice(0);
 
     updatedUserTags.forEach(t => {
-      const index = _.findIndex(newTags, ct => ct.tag.name === t.tag);
+      const index = newTags.findIndex(ct => ct.tag.name === t.tag);
       const genre = this.genreMap[t.tag];
 
       if (t.deleted) {
@@ -398,15 +399,15 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       }
     });
 
-    this.setState({tags: sortedTags(newTags)});
+    this.setState({tags: newTags.sort(cmpTags)});
   }
 
   addPendingVote(tag: TagT, vote: VoteT, index: number) {
-    this.pendingVotes[tag.name] = {
+    this.pendingVotes.set(tag.name, {
       fail: () => this.updateVote(index, vote),
       tag: tag,
       vote: vote,
-    };
+    });
     this.debouncePendingVotes();
   }
 
@@ -444,15 +445,17 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
           return;
         }
 
-        response(
-          _.sortBy(
-            ($.ui.autocomplete.filter(
-              _.without(self.genreNames, ...terms),
+        const previousTerms = new Set(terms);
+        const filteredTerms: $ReadOnlyArray<string> =
+          sortByNumber(
+            $.ui.autocomplete.filter(
+              self.genreNames.filter(x => !previousTerms.has(x)),
               last,
-            ): $ReadOnlyArray<string>),
-            [x => x.startsWith(last) ? 0 : 1, _.identity],
-          ),
-        );
+            ).sort(),
+            x => x.startsWith(last) ? 0 : 1,
+          );
+
+        response(filteredTerms);
       },
     });
 
@@ -645,7 +648,7 @@ function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   userTags: $ReadOnlyArray<UserTagT>,
 ) {
-  const userTagsByName = _.keyBy(userTags, getTagName);
+  const userTagsByName = keyBy(userTags, t => t.tag.name);
 
   const used = new Set();
 
@@ -669,5 +672,5 @@ function createInitialTagState(
     }
   }
 
-  return sortedTags(combined);
+  return combined.sort(cmpTags);
 }

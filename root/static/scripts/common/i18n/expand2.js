@@ -49,7 +49,7 @@ export class VarArgs<+T, +U = T> {
   }
 
   has(name: string): boolean {
-    return Object.prototype.hasOwnProperty.call(this.data, name);
+    return hasOwnProp(this.data, name);
   }
 }
 

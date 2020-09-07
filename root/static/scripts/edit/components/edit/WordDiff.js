@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -12,11 +12,15 @@ import * as React from 'react';
 import Diff, {type DiffProps} from './Diff';
 
 const WordDiff = ({
+  extraNew,
+  extraOld,
   label,
   newText,
   oldText,
 }: DiffProps): React.Element<typeof Diff> => (
   <Diff
+    extraNew={extraNew}
+    extraOld={extraOld}
     label={label}
     newText={newText}
     oldText={oldText}

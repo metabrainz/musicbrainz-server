@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -42,7 +42,7 @@ const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
       <table
         className={`details add-${entityType}-annotation`}
       >
-        {display[entityType] || !edit.preview ? (
+        {display[entityType] || !edit.preview /*:: === true */ ? (
           <tr>
             <th>
               {addColon(formatEntityTypeName(entityType))}

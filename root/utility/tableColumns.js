@@ -301,7 +301,7 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
   },
 ): ColumnOptions<T, string> {
   const descriptive =
-    Object.prototype.hasOwnProperty.call(props, 'descriptive')
+    hasOwnProp(props, 'descriptive')
       ? props.descriptive
       : true;
   return {
@@ -404,11 +404,11 @@ export function defineReleaseLabelsColumn(
 
 export function defineSeriesNumberColumn(
   props: {
-    +seriesItemNumbers: {+[entityId: number]: string},
+    +seriesItemNumbers: $ReadOnlyArray<string>,
   },
 ): ColumnOptions<CoreEntityT, number> {
   return {
-    Cell: ({cell: {value}}) => props.seriesItemNumbers[value],
+    Cell: ({row: {index}}) => props.seriesItemNumbers[index],
     Header: l('#'),
     accessor: 'id',
     cellProps: {className: 'number-column'},

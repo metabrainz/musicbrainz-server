@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -60,6 +60,7 @@ const SidebarTags = ({
             $c={$c}
             aggregatedTags={aggregatedTags}
             entity={entity}
+            genreMap={$c.stash.genre_map}
             more={more}
             userTags={userTags}
           />

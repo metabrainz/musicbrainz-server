@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 import ko from 'knockout';
 
 import getBooleanCookie from '../../../common/utility/getBooleanCookie';
@@ -17,14 +16,14 @@ import * as modes from '../../modes';
 import MB from '../../../common/MB';
 
 MB.Control.initializeGuessCase = function (type, formPrefix) {
-    formPrefix = formPrefix ? (formPrefix + "\\.") : "";
+    formPrefix = formPrefix ? (formPrefix + '\\.') : '';
 
-    var $name = $("#" + formPrefix + "name");
-    var $options = $("#guesscase-options");
+    var $name = $('#' + formPrefix + 'name');
+    var $options = $('#guesscase-options');
 
-    if ($options.length && !$options.data("ui-dialog")) {
+    if ($options.length && !$options.data('ui-dialog')) {
         $options.dialog({ title: l('Guess Case Options'), autoOpen: false });
-        ko.applyBindingsToNode($options[0], { guessCase: _.noop });
+        ko.applyBindingsToNode($options[0], { guessCase: () => undefined });
     }
 
     var guess = MB.GuessCase[type];
@@ -34,32 +33,32 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
     }
 
     $name.parent()
-        .find("button.guesscase-title")
-        .on("click", function () { 
+        .find('button.guesscase-title')
+        .on('click', function () { 
             setVal($name, guess.guess($name.val()));
         })
         .end()
-        .find("button.guesscase-options")
-        .on("click", function () { 
-            $options.dialog("open"); 
+        .find('button.guesscase-options')
+        .on('click', function () { 
+            $options.dialog('open'); 
         });
 
-    var $sortname = $("#" + formPrefix + "sort_name");
+    var $sortname = $('#' + formPrefix + 'sort_name');
     var $artistType = $('#id-edit-artist\\.type_id');
 
     $sortname.parent()
-        .find("button.guesscase-sortname").on("click", function () {
+        .find('button.guesscase-sortname').on('click', function () {
             var args = [$name.val()];
 
-            if (type === "artist") {
+            if (type === 'artist') {
                 args.push($artistType.val() != 2 /* person */);
             }
 
             setVal($sortname, guess.sortname.apply(guess, args));
         })
         .end()
-        .find("button.sortname-copy")
-        .on("click", function () {
+        .find('button.sortname-copy')
+        .on('click', function () {
             setVal($sortname, $name.val());
         });
 };
@@ -77,7 +76,7 @@ var mode = ko.computed({
         if (modeName !== gc.modeName) {
             gc.modeName = modeName;
             gc.mode = modes[modeName];
-            setCookie("guesscase_mode", modeName);
+            setCookie('guesscase_mode', modeName);
         }
         return gc.mode;
     },
@@ -93,11 +92,11 @@ guessCaseOptions.help = ko.computed({
 
 guessCaseOptions.keepUpperCase.subscribe(function (value) {
     gc.CFG_UC_UPPERCASED = value;
-    setCookie("guesscase_keepuppercase", value);
+    setCookie('guesscase_keepuppercase', value);
 });
 
 guessCaseOptions.upperCaseRoman.subscribe(function (value) {
-    setCookie("guesscase_roman", value);
+    setCookie('guesscase_roman', value);
 });
 
 ko.bindingHandlers.guessCase = {
@@ -116,7 +115,7 @@ ko.bindingHandlers.guessCase = {
         }
 
         var bindings = {...guessCaseOptions};
-        bindings.guessCase = _.bind(valueAccessor(), bindings);
+        bindings.guessCase = valueAccessor().bind(bindings);
 
         var context = bindingContext.createChildContext(bindings);
         ko.applyBindingsToDescendants(context, element);

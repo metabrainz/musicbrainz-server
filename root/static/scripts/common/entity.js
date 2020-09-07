@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -31,6 +30,7 @@ import linkedEntities from './linkedEntities';
 import MB from './MB';
 import {bracketedText} from './utility/bracketed';
 import clean from './utility/clean';
+import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep';
 import formatTrackLength from './utility/formatTrackLength';
 
 (function () {
@@ -44,7 +44,7 @@ import formatTrackLength from './utility/formatTrackLength';
 
         constructor(data) {
             Object.assign(this, data);
-            this.name = this.name || "";
+            this.name = this.name || '';
         }
 
         toJSON() {
@@ -105,15 +105,15 @@ import formatTrackLength from './utility/formatTrackLength';
         if (data instanceof Entity) {
             return data;
         }
-        type = (type || data.entityType || "").replace("-", "_");
+        type = (type || data.entityType || '').replace('-', '_');
         var entityClass = coreEntityMapping[type];
 
         if (!entityClass) {
-            throw "Unknown type of entity: " + type;
+            throw 'Unknown type of entity: ' + type;
         }
         var entity = MB.entityCache[data.gid];
 
-        if (type === "url") {
+        if (type === 'url') {
             entity = entity || MB.entityCache[data.name];
         }
 
@@ -124,7 +124,7 @@ import formatTrackLength from './utility/formatTrackLength';
                 MB.entityCache[data.gid] = entity;
             }
 
-            if (data.name && type === "url") {
+            if (data.name && type === 'url') {
                 MB.entityCache[data.name] = entity;
             }
         }
@@ -143,7 +143,7 @@ import formatTrackLength from './utility/formatTrackLength';
             this.relationships = ko.observableArray([]);
 
             if (data.artistCredit) {
-                this.artistCredit = _.cloneDeep(data.artistCredit);
+                this.artistCredit = cloneObjectDeep(data.artistCredit);
             }
 
             if (this._afterCoreEntityCtor) {
@@ -280,9 +280,9 @@ import formatTrackLength from './utility/formatTrackLength';
                  * server, /ws/js...) we may have either releases or release
                  * groups here. Assume the latter by default.
                  */
-                var appearsOnType = this.appearsOn.entityType || "release_group";
+                var appearsOnType = this.appearsOn.entityType || 'release_group';
 
-                this.appearsOn.results = _.map(this.appearsOn.results, function (appearance) {
+                this.appearsOn.results = this.appearsOn.results.map(function (appearance) {
                     return MB.entity(appearance, appearsOnType);
                 });
             }
@@ -312,11 +312,11 @@ import formatTrackLength from './utility/formatTrackLength';
             super(data);
 
             if (data.releaseGroup) {
-                this.releaseGroup = MB.entity(data.releaseGroup, "release_group");
+                this.releaseGroup = MB.entity(data.releaseGroup, 'release_group');
             }
 
             if (data.mediums) {
-                this.mediums = _.map(data.mediums, x => new Medium(x));
+                this.mediums = data.mediums.map(x => new Medium(x));
             }
 
             this.relatedArtists = relatedArtists(data.relationships);
@@ -326,12 +326,12 @@ import formatTrackLength from './utility/formatTrackLength';
         toJSON() {
             var object = super.toJSON();
 
-            if (_.isArray(this.events)) {
-                object.events = _.cloneDeep(this.events);
+            if (Array.isArray(this.events)) {
+                object.events = cloneArrayDeep(this.events);
             }
 
-            if (_.isArray(this.labels)) {
-                object.labels = _.cloneDeep(this.labels);
+            if (Array.isArray(this.labels)) {
+                object.labels = cloneArrayDeep(this.labels);
             }
 
             return object;
@@ -370,7 +370,7 @@ import formatTrackLength from './utility/formatTrackLength';
             var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
             var linkTypeID = linkedEntities.link_type[gid].id;
 
-            return _.filter(this.displayableRelationships(viewModel)(), function (r) {
+            return this.displayableRelationships(viewModel)().filter(function (r) {
                 return r.linkTypeID() === linkTypeID;
             });
         }
@@ -394,7 +394,7 @@ import formatTrackLength from './utility/formatTrackLength';
             this.formattedLength = formatTrackLength(this.length);
 
             if (data.recording) {
-                this.recording = MB.entity(data.recording, "recording");
+                this.recording = MB.entity(data.recording, 'recording');
             }
         }
 
@@ -437,7 +437,9 @@ import formatTrackLength from './utility/formatTrackLength';
         constructor(data) {
             super(data);
 
-            this.tracks = _.map(data.tracks, x => new Track(x));
+            this.tracks = data.tracks
+                ? data.tracks.map(x => new Track(x))
+                : [];
 
             this.positionName = ReactDOMServer.renderToString(
                 <MediumDescription medium={this} />,
@@ -464,17 +466,22 @@ import formatTrackLength from './utility/formatTrackLength';
     MB.entity.Work = Work;
 
     function relatedArtists(relationships) {
-        return _(relationships)
-            .filter({target: {entityType: 'artist'}})
-            .map('target')
-            .value();
+        if (!relationships) {
+            return [];
+        }
+        return relationships.reduce((accum, r) => {
+            if (r.target.entityType === 'artist') {
+                accum.push(r.target);
+            }
+            return accum;
+        }, []);
     }
 
     var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
 
     function isProbablyClassical(entity) {
-        return classicalRoles.test(entity.name) || _.some(entity.relationships, function (r) {
-            return _.includes(PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
+        return classicalRoles.test(entity.name) || entity.relationships?.some(function (r) {
+            return PROBABLY_CLASSICAL_LINK_TYPES.includes(r.linkTypeID);
         });
     }
 

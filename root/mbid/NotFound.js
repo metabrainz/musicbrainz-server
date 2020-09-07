@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -22,7 +22,7 @@ const MbidNotFound = ({
 }: Props): React.Element<typeof NotFound> => (
   <NotFound title={isGuid ? l('MBID Not Found') : l('Invalid MBID')}>
     <p>
-      {mbid && isGuid ? (
+      {nonEmpty(mbid) && isGuid ? (
         exp.l(
           `No MusicBrainz {entity_doc|entities} match the {mbid_doc|MBID}
            {mbid}. Either it’s incorrect, it was for an entity that has since
@@ -36,7 +36,7 @@ const MbidNotFound = ({
           },
         )
       ) : (
-        mbid ? (
+        nonEmpty(mbid) ? (
           exp.l(
             '{mbid} is not a valid {mbid_doc|MBID}.',
             {

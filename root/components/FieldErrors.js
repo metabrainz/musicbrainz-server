@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,7 +13,7 @@ import expand2react from '../static/scripts/common/i18n/expand2react';
 import subfieldErrors, {type FieldShape} from '../utility/subfieldErrors';
 
 // FIXME: Use expandable object instead of HTML string for safety (MBS-10632)
-const buildErrorListItem = (error, hasHtmlErrors, index) => {
+const buildErrorListItem = (error, hasHtmlErrors = false, index) => {
   if (hasHtmlErrors) {
     return (
       <li key={index}>{expand2react(error)}</li>

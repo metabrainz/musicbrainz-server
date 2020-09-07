@@ -12,7 +12,6 @@
  */
 
 import ko from 'knockout';
-import _ from 'lodash';
 
 import {rstr_sha1 as rstrSha1} from '../../lib/sha1/sha1';
 import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY}
@@ -28,7 +27,7 @@ const utils = {};
 releaseEditor.utils = utils;
 
 utils.mapChild = function (parent, children, type) {
-    return _.map(children || [], function (data) {
+    return (children || []).map(function (data) {
         return new type(data, parent);
     });
 };
@@ -74,19 +73,21 @@ utils.unformatTrackLength = unformatTrackLength;
 utils.escapeLuceneValue = escapeLuceneValue;
 
 utils.constructLuceneField = function (values, key) {
-    return key + ":(" + values.join(" OR ") + ")";
+    return key + ':(' + values.join(' OR ') + ')';
 };
 
 utils.constructLuceneFieldConjunction = function (params) {
-    return _.map(params, utils.constructLuceneField).join(" AND ");
+    return Object.entries(params).map(([key, values]) => (
+        utils.constructLuceneField(values, key)
+    )).join(' AND ');
 };
 
 
 utils.search = function (resource, query, limit, offset) {
     var requestArgs = {
-        url: "/ws/2/" + resource,
+        url: '/ws/2/' + resource,
         data: {
-            fmt: "json",
+            fmt: 'json',
             query: query,
         },
     };
@@ -111,7 +112,11 @@ utils.reuseExistingMediumData = function (data) {
      * can request them later. We also drop the format, since it'll often
      * be different.
      */
-    var newData = _.omit(data, "id", "cdtocs", "format", "format_id");
+    const newData = {...data};
+    delete newData.id;
+    delete newData.cdtocs;
+    delete newData.format;
+    delete newData.format_id;
 
     if (data.id) {
         newData.originalID = data.id;
@@ -133,13 +138,13 @@ utils.cleanWebServiceData = function (data) {
         clean.length = data.length;
     }
 
-    if (data["sort-name"]) {
-        clean.sort_name = data["sort-name"];
+    if (data['sort-name']) {
+        clean.sort_name = data['sort-name'];
     }
 
-    if (data["artist-credit"]) {
+    if (data['artist-credit']) {
         clean.artistCredit = {
-            names: _.map(data["artist-credit"], cleanArtistCreditName),
+            names: data['artist-credit'].map(cleanArtistCreditName),
         };
     }
 
@@ -159,11 +164,11 @@ function cleanArtistCreditName(data) {
         artist: {
             gid: data.artist.id,
             name: data.artist.name,
-            sort_name: data.artist["sort-name"],
+            sort_name: data.artist['sort-name'],
             entityType: 'artist',
         },
         name: data.name || data.artist.name,
-        joinPhrase: data.joinphrase || "",
+        joinPhrase: data.joinphrase || '',
     };
 }
 
@@ -212,7 +217,7 @@ export function calculateDiscID(toc) {
 utils.calculateDiscID = calculateDiscID;
 
 function paddedHex(str, length) {
-    return _.padStart((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
+    return (parseInt(str, 10) || 0).toString(16).toUpperCase().padStart(length, '0');
 }
 
 /*
@@ -220,8 +225,8 @@ function paddedHex(str, length) {
  * For an explanation, see http://wiki.musicbrainz.org/Disc_ID_Calculation
  */
 
-var padchar = "-";
-var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";
+var padchar = '-';
+var alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._';
 
 function base64(s) {
     let i;
@@ -250,7 +255,7 @@ function base64(s) {
             break;
     }
 
-    return x.join("");
+    return x.join('');
 }
 
 export default utils;

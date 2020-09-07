@@ -34,6 +34,7 @@ use feature "switch";
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use File::Copy;
+use File::Slurp qw( read_file );
 use File::Spec;
 use FindBin;
 use Plack::Request;
@@ -41,7 +42,10 @@ use Plack::Response;
 use Log::Dispatch;
 
 my $log = Log::Dispatch->new(outputs => [[ 'Screen', min_level => 'info' ]] );
-my $imgext = 'jpg|png|gif';
+my $imgext = 'gif|jpg|pdf|png';
+my $ssssss_storage = $ENV{SSSSSS_STORAGE}
+    ? glob($ENV{SSSSSS_STORAGE})
+    : catfile($FindBin::Bin, 'caa');
 
 sub catfile { return File::Spec->catfile(@_); }
 
@@ -61,13 +65,11 @@ sub create_bucket
 {
     my $bucket = shift;
 
-    my $storage = $ENV{SSSSSS_STORAGE} ?
-        catfile(glob ($ENV{SSSSSS_STORAGE}), $bucket) :
-        catfile($FindBin::Bin, 'caa', $bucket);
+    my $bucketdir = catfile($ssssss_storage, $bucket);
 
-    `mkdir -p $storage` unless -d $storage;
+    `mkdir -p $bucketdir` unless -d $bucketdir;
 
-    return $storage;
+    return $bucketdir;
 }
 
 sub handle_options
@@ -80,8 +82,9 @@ sub handle_options
 
 sub handle_put
 {
-    my ($request, $bucketdir) = @_;
+    my ($request) = @_;
 
+    my $bucketdir = create_bucket($request->path_info);
     my $dest = catfile($bucketdir, $request->param('file'));
     $log->info("PUT, storing upload at $dest\n");
 
@@ -94,11 +97,12 @@ sub handle_put
 
 sub handle_post
 {
-    my ($request, $bucketdir) = @_;
+    my ($request) = @_;
 
     my $key = $request->param('key');
     return undef unless $key;
 
+    my $bucketdir = create_bucket($request->path_info);
     my $dest = catfile($bucketdir, $request->param('key'));
     $log->info("POST, storing upload at $dest\n");
 
@@ -135,16 +139,40 @@ sub handle_post
     }
 }
 
+my %mime_types = (
+    gif => 'image/gif',
+    jpg => 'image/jpeg',
+    pdf => 'application/pdf',
+    png => 'image/png',
+);
+
+sub handle_get {
+    my ($request) = @_;
+
+    my $filename = catfile($ssssss_storage, $request->path_info);
+
+    if (-f $filename) {
+        my ($ext) = $filename =~ m/\.($imgext)$/;
+        my $image_data = read_file($filename, {binmode => ':raw'});
+        my $response = $request->new_response(200);
+        $response->content_type($mime_types{$ext});
+        $response->body($image_data);
+        return $response;
+    }
+
+    return $request->new_response(404);
+}
+
 sub {
     my $request = Plack::Request->new(shift);
 
-    my $bucketdir = create_bucket($request->path_info);
     my $response;
 
     given ($request->method) {
-        when ("PUT")     { $response = handle_put($request, $bucketdir) }
-        when ("POST")    { $response = handle_post($request, $bucketdir) }
+        when ("PUT")     { $response = handle_put($request) }
+        when ("POST")    { $response = handle_post($request) }
         when ("OPTIONS") { $response = handle_options($request) }
+        when ("GET")     { $response = handle_get($request) }
     }
 
     $response->header("Access-Control-Allow-Origin" => "*");

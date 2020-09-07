@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 Shamroy Pellew
  * Copyright (C) 2018 MetaBrainz Foundation
  *
@@ -9,10 +9,10 @@
  */
 
 import * as React from 'react';
-import {range} from 'lodash';
 
 import {l_statistics as l, lp_statistics as lp}
   from '../static/scripts/common/i18n/statistics';
+import mapRange from '../static/scripts/common/utility/mapRange';
 
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
@@ -34,8 +34,6 @@ type MainStatsT = {
   +workAttributeTypes: $ReadOnlyArray<WorkAttributeTypeT>,
   +workTypes: $ReadOnlyArray<WorkTypeT>,
 };
-
-const oneToNine = range(1, 10);
 
 const Index = ({
   $c,
@@ -532,7 +530,7 @@ const Index = ({
             <td>{fc('release.has_discid')}</td>
             <td>{fp('release.has_discid', 'release')}</td>
           </tr>
-          {oneToNine.map(num => (
+          {mapRange(1, 9, (num) => (
             <tr key={num}>
               <th />
               <th />
@@ -576,7 +574,7 @@ const Index = ({
             <td>{fc('medium.has_discid')}</td>
             <td>{fp('medium.has_discid', 'medium')}</td>
           </tr>
-          {oneToNine.map(num => (
+          {mapRange(1, 9, (num) => (
             <tr key={num}>
               <th />
               <th />

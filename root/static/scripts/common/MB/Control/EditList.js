@@ -42,7 +42,7 @@ MB.Control.EditList = function (container) {
         $voteOptions.find('.vote').attr('class', 'vote');
 
         $voteOptions.prepend(
-            $('<div>').text(l("Vote on all edits:")),
+            $('<div>').text(l('Vote on all edits:')),
         );
 
         /*

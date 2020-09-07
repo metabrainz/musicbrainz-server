@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import {assign} from 'lodash';
 import * as React from 'react';
 
 import ArtistCreditLink from '../../common/components/ArtistCreditLink';
@@ -78,7 +77,7 @@ const ArtistCreditBubble = ({
                     deletedCaption={entity.name() === ''
                       ? l('You haven’t entered a track name yet.')
                       : l('This track hasn’t been created yet.')}
-                    entity={assign(
+                    entity={Object.assign(
                       Object.create(entity), {artistCredit: artistCredit},
                     )}
                     showDeletedArtists={false}

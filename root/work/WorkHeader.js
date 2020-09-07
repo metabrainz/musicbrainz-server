@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -24,7 +24,7 @@ const WorkHeader = ({
     entity={work}
     headerClass="workheader"
     page={page}
-    subHeading={work.typeName
+    subHeading={nonEmpty(work.typeName)
       ? lp_attributes(work.typeName, 'work_type')
       : l('Work')}
   />

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,7 +8,6 @@
  */
 
 import * as React from 'react';
-import defaults from 'lodash/defaults';
 
 import Layout from '../../layout';
 import Table from '../../components/Table';
@@ -44,13 +43,12 @@ const WikiDocTable = ({
       const transcludedVersionColumn = {
         Header: N_l('Transcluded version'),
         accessor: 'version',
-        cellProps: defaults(
-          {className: 'c transcluded-version'},
-          (updatesRequired && $c.user?.is_wiki_transcluder
-            ? {style: {textAlign: 'right'}}
-            : {}
-          ),
-        ),
+        cellProps: {
+          className: 'c transcluded-version',
+          style: (updatesRequired && $c.user?.is_wiki_transcluder)
+            ? {textAlign: 'right'}
+            : null,
+        },
         headerProps: {className: 'c'},
         id: 'transcluded-version',
       };

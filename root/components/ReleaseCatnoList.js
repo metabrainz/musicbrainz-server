@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 
-const displayCatno = (catno) => (
+const displayCatno = (catno: string): React.Element<'span'> => (
   <span className="catalog-number">
     {catno}
   </span>
@@ -30,7 +30,7 @@ const ReleaseCatnoList = ({
   const catnos = new Set<string>();
   for (const releaseLabel of releaseLabels) {
     const catno = releaseLabel.catalogNumber;
-    if (catno) {
+    if (nonEmpty(catno)) {
       catnos.add(catno);
     }
   }

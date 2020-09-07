@@ -13,22 +13,22 @@ import mbEdit from '../edit/MB/edit';
 
 import '../edit/forms';
 
-test("missing track numbers should be empty strings, not null (MBS-7246)", function (t) {
+test('missing track numbers should be empty strings, not null (MBS-7246)', function (t) {
     t.plan(1);
 
     var data = mbEdit.fields.track({});
 
-    t.equal(data.number, "", "number is empty string");
+    t.equal(data.number, '', 'number is empty string');
 });
 
-test("loop binding keeps items in order when some are quickly removed and re-added (MBS-7751)", function (t) {
+test('loop binding keeps items in order when some are quickly removed and re-added (MBS-7751)', function (t) {
     t.plan(3);
 
-    const parentNode = document.createElement("div");
-    const childNode = document.createElement("span");
+    const parentNode = document.createElement('div');
+    const childNode = document.createElement('span');
 
-    parentNode.setAttribute("data-bind", "loop: { items: items, id: 'id' }");
-    childNode.setAttribute("data-bind", "text: id");
+    parentNode.setAttribute('data-bind', "loop: { items: items, id: 'id' }");
+    childNode.setAttribute('data-bind', 'text: id');
     parentNode.appendChild(childNode);
 
     const item1 = {id: 1};
@@ -42,7 +42,7 @@ test("loop binding keeps items in order when some are quickly removed and re-add
     vm.items([item1, item2, item3]);
 
     var childNodes = parentNode.childNodes;
-    t.equal(childNodes[0].textContent, "1");
-    t.equal(childNodes[1].textContent, "2");
-    t.equal(childNodes[2].textContent, "3");
+    t.equal(childNodes[0].textContent, '1');
+    t.equal(childNodes[1].textContent, '2');
+    t.equal(childNodes[2].textContent, '3');
 });

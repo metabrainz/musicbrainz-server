@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -57,14 +57,14 @@ const AddArea = ({edit}: Props): React.MixedElement => {
           <td>{display.name}</td>
         </tr>
 
-        {display.sort_name ? (
+        {nonEmpty(display.sort_name) ? (
           <tr>
             <th>{addColon(l('Sort name'))}</th>
             <td>{display.sort_name}</td>
           </tr>
         ) : null}
 
-        {display.comment ? (
+        {nonEmpty(display.comment) ? (
           <tr>
             <th>{addColon(l('Disambiguation'))}</th>
             <td>{display.comment}</td>

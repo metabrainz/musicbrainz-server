@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,12 +8,12 @@
  */
 
 import * as React from 'react';
-import upperFirst from 'lodash/upperFirst';
 
 import Layout from '../../layout';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 import bracketed, {bracketedText}
   from '../../static/scripts/common/utility/bracketed';
+import {upperFirst} from '../../static/scripts/common/utility/strings';
 import compareChildren from '../utility/compareChildren';
 import RelationshipsHeader from '../RelationshipsHeader';
 
@@ -36,7 +36,7 @@ type AttributesListProps = {
 const AttributeDetails = ({
   $c,
   attribute,
-  topLevel,
+  topLevel = false,
 }: AttributeDetailsProps) => {
   const childrenAttrs = attribute.children || [];
   const translatedDescription = attribute.description

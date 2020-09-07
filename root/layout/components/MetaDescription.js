@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -25,7 +25,7 @@ function entityDescription(entity) {
 
 function pushTypeName(desc, entity) {
   const typeName = entity.typeName;
-  if (typeName) {
+  if (nonEmpty(typeName)) {
     desc.push('Type: ' + typeName);
   }
 }
@@ -124,21 +124,21 @@ function placeDescription(place) {
 function releaseDescription(release) {
   const desc = entityDescription(release);
   const combinedFormatName = release.combined_format_name;
-  if (combinedFormatName) {
+  if (nonEmpty(combinedFormatName)) {
     desc.push('Format: ' + combinedFormatName);
   }
   let year;
   if (release.events?.length) {
     year = release.events[0].date?.year;
   }
-  if (year) {
+  if (year != null) {
     desc.push('Year: ' + year);
   }
   if (release.labels?.length) {
     const labels = release.labels.map(function (rl) {
       return (
         (rl.label ? rl.label.name : '[unknown]') +
-        (rl.catalogNumber ? (' (' + rl.catalogNumber + ')') : '')
+        (nonEmpty(rl.catalogNumber) ? (' (' + rl.catalogNumber + ')') : '')
       );
     });
     desc.push(
@@ -146,10 +146,10 @@ function releaseDescription(release) {
       labels.join(', '),
     );
   }
-  if (release.barcode) {
+  if (nonEmpty(release.barcode)) {
     desc.push('Barcode: ' + formatBarcode(release.barcode));
   }
-  if (release.length) {
+  if (release.length != null) {
     desc.push('Length: ' + formatTrackLength(release.length));
   }
   return desc;

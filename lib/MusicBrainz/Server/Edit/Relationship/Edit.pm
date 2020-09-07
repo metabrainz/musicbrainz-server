@@ -17,7 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( l N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -413,7 +413,13 @@ sub initialize
 
     if ($existent_id && $relationship->id != $existent_id) {
         MusicBrainz::Server::Edit::Exceptions::DuplicateViolation->throw(
-            'This relationship already exists.'
+            l('The “{relationship_type}” relationship between “{entity0}” and “{entity1}” already exists.',
+              {
+                entity0 => $new_entity0->name,
+                entity1 => $new_entity1->name,
+                relationship_type => MusicBrainz::Server::Translation::Relationships::l($new_link_type->name),
+              }
+            )
         );
     }
 

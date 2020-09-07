@@ -1,13 +1,11 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
-
-import get from 'lodash/get';
 
 import {
   EDIT_EXPIRE_ACCEPT,
@@ -19,7 +17,6 @@ import {
   EDIT_STATUS_ERROR,
   EDIT_STATUS_FAILEDPREREQ,
   EDIT_STATUS_NOVOTES,
-  EDIT_STATUS_TOBEDELETED,
   EDIT_STATUS_DELETED,
 } from '../constants';
 import {
@@ -82,8 +79,6 @@ export function getEditStatusDescription(edit: EditT): string {
         `This edit failed because it affected high quality data 
          and did not receive any votes.`,
       );
-    case EDIT_STATUS_TOBEDELETED:
-      return l('This edit was recently cancelled.');
     case EDIT_STATUS_DELETED:
       return l('This edit was cancelled.');
     default:
@@ -99,7 +94,7 @@ export function getVotesForEditor(
 }
 
 export function editorMayAddNote(edit: EditT, editor: ?EditorT): boolean {
-  return !!editor && !!editor.email_confirmation_date &&
+  return !!editor && nonEmpty(editor.email_confirmation_date) &&
     (editor.id === edit.editor_id || !editor.is_limited);
 }
 
@@ -119,7 +114,7 @@ export function editorMayApprove(edit: EditT, editor: ?EditorT): boolean {
 
   switch (edit.edit_type) {
     case EDIT_RELATIONSHIP_DELETE:
-      const linkType = get(edit, 'data.relationship.link.type');
+      const linkType = edit.data.relationship?.link?.type;
 
       if (linkType && typeof linkType === 'object') {
         // MBS-8332
@@ -131,8 +126,8 @@ export function editorMayApprove(edit: EditT, editor: ?EditorT): boolean {
       break;
 
     case EDIT_SERIES_EDIT:
-      const oldOrderingType = get(edit, 'data.old.ordering_type_id', 0);
-      const newOrderingType = get(edit, 'data.new.ordering_type_id', 0);
+      const oldOrderingType = (edit.data.old?.ordering_type_id) ?? 0;
+      const newOrderingType = (edit.data.new?.ordering_type_id) ?? 0;
       // Intentional != since some edit data store numbers as strings
       if (oldOrderingType != newOrderingType) {
         return false;

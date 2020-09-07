@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import test from 'tape';
 
 import validation from '../../edit/validation';
@@ -18,7 +17,7 @@ import '../../release-editor/init';
 function validationTest(name, callback) {
     test(name, function (t) {
         const loadMedia = fields.Release.prototype.loadMedia;
-        fields.Release.prototype.loadMedia = _.noop;
+        fields.Release.prototype.loadMedia = () => undefined;
 
         callback(t);
 
@@ -27,10 +26,10 @@ function validationTest(name, callback) {
     });
 }
 
-validationTest("non-loaded mediums validate, even though they have no tracks (MBS-7222)", function (t) {
+validationTest('non-loaded mediums validate, even though they have no tracks (MBS-7222)', function (t) {
     t.plan(8);
 
-    releaseEditor.action = "edit";
+    releaseEditor.action = 'edit';
 
     releaseEditor.releaseLoaded({
         mediums: [
@@ -41,7 +40,7 @@ validationTest("non-loaded mediums validate, even though they have no tracks (MB
     const release = releaseEditor.rootField.release();
     const medium = release.mediums()[0];
 
-    t.ok(!medium.loaded(), "medium is not loaded");
+    t.ok(!medium.loaded(), 'medium is not loaded');
     t.ok(!medium.needsTracks(), "medium doesn't require tracks");
     t.ok(!medium.needsTrackInfo(), "medium doesn't require track info");
     t.ok(!medium.needsRecordings(), "medium doesn't require recordings");
@@ -51,10 +50,10 @@ validationTest("non-loaded mediums validate, even though they have no tracks (MB
     t.ok(!release.needsRecordings(), "release doesn't need recordings");
 });
 
-validationTest("duplicate release countries are rejected, including null ones (MBS-7624)", function (t) {
+validationTest('duplicate release countries are rejected, including null ones (MBS-7624)', function (t) {
     t.plan(5);
 
-    releaseEditor.action = "edit";
+    releaseEditor.action = 'edit';
 
     releaseEditor.releaseLoaded({
         events: [

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -49,9 +49,9 @@ const buildRecordingColumns = recording => (
 );
 
 const buildTaggerIcon = ($c, entity) => (
-  $c.session?.tport
-    ? <td><TaggerIcon entity={entity} /></td>
-    : null
+  $c.session?.tport == null
+    ? null
+    : <td><TaggerIcon entity={entity} /></td>
 );
 
 function buildResultWithReleases($c, result) {
@@ -77,7 +77,7 @@ function buildResultWithReleases($c, result) {
         </td>
         <td>{extraRow.medium_position}</td>
         <td>
-          {releaseGroup?.typeName
+          {releaseGroup && nonEmpty(releaseGroup.typeName)
             ? lp_attributes(
               releaseGroup.typeName, 'release_group_primary_type',
             )
@@ -126,7 +126,7 @@ React.Element<typeof PaginatedSearchResults> => (
         <th>{l('Artist')}</th>
         <th>{l('ISRCs')}</th>
         <th>{l('Release')}</th>
-        {$c?.session?.tport ? <th>{l('Tagger')}</th> : null}
+        {$c?.session?.tport == null ? null : <th>{l('Tagger')}</th>}
         <th className="t pos">{l('Track')}</th>
         <th>{l('Medium')}</th>
         <th>{l('Type')}</th>

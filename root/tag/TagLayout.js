@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -47,7 +47,7 @@ const TagLayout = ({
     $c={$c}
     fullWidth
     title={
-      title
+      nonEmpty(title)
         ? hyphenateTitle(texp.l('Tag “{tag}”', {tag: tag.name}), title)
         : texp.l('Tag “{tag}”', {tag: tag.name})
     }

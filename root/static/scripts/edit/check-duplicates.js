@@ -8,12 +8,13 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import MB from '../common/MB';
+import {sortByNumber} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
+import debounce from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
 
@@ -63,7 +64,7 @@ function sortPlaceDuplicates(duplicates) {
     );
   }
 
-  return _.sortBy(duplicates, function (dupe) {
+  return sortByNumber(duplicates, function (dupe) {
     var area = dupe.area;
 
     if (!area) {
@@ -118,7 +119,7 @@ function isPlaceCommentRequired(duplicates) {
     return true;
   }
 
-  return _.some(duplicates, function (place) {
+  return duplicates.some(function (place) {
     return !place.area || place.area.gid === selectedArea.gid;
   });
 }
@@ -213,7 +214,7 @@ MB.initializeDuplicateChecker = function (type) {
       })
       .fail(function (jqXHR) {
         if (/^50/.test(jqXHR.status)) {
-          _.delay(_.partial(makeRequest, name, false), 3000);
+          setTimeout((...args) => makeRequest(name, false, ...args), 3000);
         }
       })
       .always(function () {
@@ -226,7 +227,7 @@ MB.initializeDuplicateChecker = function (type) {
     return clean(name).toLowerCase();
   }
 
-  var handleNameChange = _.debounce(function (name, forceRequest) {
+  var handleNameChange = debounce(function (name, forceRequest) {
     if (forceRequest || normalize(name) !== normalize(currentName)) {
       if (promise) {
         promise.abort();

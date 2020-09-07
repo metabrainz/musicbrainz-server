@@ -19,7 +19,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_DELETE
 );
 use MusicBrainz::Server::Log qw( log_debug log_warning log_notice );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( localized_note type_to_model );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 with 'MooseX::Runnable';
@@ -122,6 +122,24 @@ sub run {
                     editor => $modbot,
                     privileges => $BOT_FLAG | $AUTO_EDITOR_FLAG
                 );
+
+                $self->c->model('EditNote')->add_note(
+                    $edit->id,
+                    {
+                        editor_id => $EDITOR_MODBOT,
+                        text => localized_note(
+                            N_l('This entity was automatically removed because it was empty:
+                                 it had no relationships associated with it, nor (if
+                                 relevant for the type of entity in question) any recordings,
+                                 releases nor release groups.
+                                 If you consider this was a valid, non-duplicate entry
+                                 that does belong in MusicBrainz, feel free to add it again,
+                                 but please ensure enough data is added to it this time
+                                 to avoid another automatic removal.')
+                        )
+                    }
+                );
+
                 ++$removed
             }, $self->c->sql);
         }

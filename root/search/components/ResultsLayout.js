@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -30,7 +30,7 @@ const ResultsLayout = ({
   <Layout $c={$c} fullWidth title={l('Search Results')}>
     <div id="content">
       <h1>{l('Search Results')}</h1>
-      {lastUpdated ? (
+      {nonEmpty(lastUpdated) ? (
         <p>
           {exp.l(
             'Last updated: {date}',

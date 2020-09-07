@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -27,12 +27,12 @@ const WorkLayout = ({
   $c,
   children,
   entity: work,
-  fullWidth,
+  fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => {
   const mainTitle = texp.l('{type} “{work}”', {
-    type: work.typeName
+    type: nonEmpty(work.typeName)
       ? lp_attributes(work.typeName, 'work_type')
       : l('Work'),
     work: work.name,
@@ -40,7 +40,7 @@ const WorkLayout = ({
   return (
     <Layout
       $c={$c}
-      title={title ? hyphenateTitle(mainTitle, title) : mainTitle}
+      title={nonEmpty(title) ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">
         <WorkHeader page={page} work={work} />

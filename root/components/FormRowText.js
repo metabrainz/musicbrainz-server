@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -59,7 +59,7 @@ const FormRowText = (props: Props): React.Element<typeof FormRow> => {
 
   const inputValue = field.value ?? '';
 
-  if (props.uncontrolled) {
+  if (props.uncontrolled /*:: === true */) {
     inputProps.defaultValue = inputValue;
   } else {
     inputProps.onChange = props.onChange;

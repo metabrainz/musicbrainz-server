@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -32,9 +32,9 @@ const Subscribers = ({
   const subLink = `/account/subscriptions/${entityType}/add?id=${entity.id}`;
   const unsubLink =
     `/account/subscriptions/${entityType}/remove?id=${entity.id}`;
-  const viewingOwnProfile = $c.user &&
+  const viewingOwnProfile = Boolean($c.user &&
                             entityType === 'editor' &&
-                            $c.user.id === entity.id;
+                            $c.user.id === entity.id);
 
   return (
     <LayoutComponent

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 Anirudh Jain
  * Copyright (C) 2014 MetaBrainz Foundation
  *

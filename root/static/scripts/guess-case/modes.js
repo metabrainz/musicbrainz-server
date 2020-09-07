@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {assign, capitalize} from 'lodash';
 import * as ReactDOMServer from 'react-dom/server';
 
 import getBooleanCookie from '../common/utility/getBooleanCookie';
+import {capitalize} from '../common/utility/strings';
 
 import {
   isPrepBracketWord,
@@ -279,7 +279,7 @@ const DefaultMode = {
   },
 };
 
-export const English = assign({}, DefaultMode, {
+export const English = Object.assign({}, DefaultMode, {
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode capitalises almost all words, with some words (mainly articles 
      and short prepositions) lowercased. Some words may need to be manually 
@@ -317,7 +317,7 @@ export const English = assign({}, DefaultMode, {
   },
 });
 
-export const French = assign({}, DefaultMode, {
+export const French = Object.assign({}, DefaultMode, {
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode capitalises titles as sentence mode, but also inserts spaces 
      before semicolons, colons, exclamation marks and question marks, 
@@ -338,7 +338,7 @@ export const French = assign({}, DefaultMode, {
   },
 });
 
-export const Sentence = assign({}, DefaultMode, {
+export const Sentence = Object.assign({}, DefaultMode, {
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode capitalises the first word of a sentence, most other words 
      are lowercased. Some words, often proper nouns, may need to be manually 
@@ -349,7 +349,7 @@ export const Sentence = assign({}, DefaultMode, {
     },
   )),
 });
-export const Turkish = assign({}, DefaultMode, {
+export const Turkish = Object.assign({}, DefaultMode, {
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I').
      Some words may need to be manually corrected according to 

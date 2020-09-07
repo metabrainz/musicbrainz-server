@@ -14,7 +14,7 @@ MB.releaseEditor = {
     rootField: {
         release: ko.observable(),
         makeVotable: ko.observable(false),
-        editNote: ko.observable(""),
+        editNote: ko.observable(''),
     },
 };
 

@@ -7,7 +7,6 @@
  */
 
 import test from 'tape';
-import _ from 'lodash';
 
 import {LINK_TYPES, cleanURL, guessType, validationRules} from '../../edit/URLCleanup';
 
@@ -2669,6 +2668,21 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://trove.nla.gov.au/work/9438679',
   },
+  // Offizielle Deutsche Charts
+  {
+                     input_url: 'http://offiziellecharts.de/album-details-392697/?ref=foo',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.offiziellecharts.de/album-details-392697',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.offiziellecharts.de/titel-details-1917278#collapseOne',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.offiziellecharts.de/titel-details-1917278',
+       only_valid_entity_types: ['recording'],
+  },
   // Online-Bijbel.nl
   {
                      input_url: 'http://www.online-bijbel.nl/12gezang/12/',
@@ -4091,14 +4105,13 @@ const testData = [
 ];
 /* eslint-enable indent, max-len, sort-keys */
 
-const relationshipTypesByUuid = _.reduce(LINK_TYPES, function (
+const relationshipTypesByUuid = Object.entries(LINK_TYPES).reduce(function (
   results,
-  relUuidByEntityType,
-  relationshipType,
+  [relationshipType, relUuidByEntityType],
 ) {
-  _.each(relUuidByEntityType, function (relUuid) {
+  for (const relUuid of Object.values(relUuidByEntityType)) {
     (results[relUuid] || (results[relUuid] = [])).push(relationshipType);
-  });
+  }
   return results;
 }, {});
 
@@ -4112,15 +4125,15 @@ function doMatchSubtest(
   expectedRelationshipType,
 ) {
   const relUuid = guessType(entityType, url);
-  const actualRelationshipType = _.find(relationshipTypesByUuid[relUuid],
-    function (s) {
+  const actualRelationshipType =
+    relationshipTypesByUuid[relUuid]?.find(function (s) {
       return s === expectedRelationshipType;
     });
   st.equal(actualRelationshipType, expectedRelationshipType, 'Match ' + label + ' URL relationship type for ' + entityType + ' entities');
   previousMatchTests.push(entityType + '+' + url);
 }
 
-_.each(testData, function (subtest, i) {
+testData.forEach(function (subtest, i) {
   test('input URL [' + i + '] = ' + subtest.input_url, {}, function (st) {
     let tested = false;
     if (!subtest.input_url) {
@@ -4169,22 +4182,18 @@ _.each(testData, function (subtest, i) {
         return;
       }
       let nbTestedRules = 0;
-      const validationResults = _.reduce(LINK_TYPES[relationshipType],
-        function (results, relUuid, entityType) {
+      const validationResults = Object.entries(LINK_TYPES[relationshipType]).reduce(
+        function (results, [entityType, relUuid]) {
           const rule = validationRules[relUuid];
           const isValid = rule ? rule(cleanUrl).result || false : true;
-          results[isValid].splice(
-            _.sortedIndex(results[isValid], entityType),
-            0,
-            entityType,
-          );
+          results[isValid].push(entityType);
           nbTestedRules += rule ? 1 : 0;
           return results;
         }, {false: [], true: []});
       if (nbTestedRules === 0) {
         st.fail('Validation test is worthless: No validation rule has been actually tested.');
       } else {
-        st.deepEqual(validationResults.true,
+        st.deepEqual(validationResults.true.sort(),
           subtest.only_valid_entity_types.sort(),
           'Validate clean URL by exactly ' + subtest.only_valid_entity_types.length +
                             ' among ' + nbTestedRules + ' ' + relationshipType + '.* rules');

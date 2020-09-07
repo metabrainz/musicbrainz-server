@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,15 +10,11 @@
 import * as React from 'react';
 
 import VotingPeriod from '../../components/VotingPeriod';
-import {
-  EDIT_STATUS_OPEN,
-  EDIT_STATUS_TOBEDELETED,
-} from '../../constants';
+import {EDIT_STATUS_OPEN} from '../../constants';
 import {
   SidebarProperties,
   SidebarProperty,
 } from '../../layout/components/sidebar/SidebarProperties';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
 import {
   getEditExpireAction,
   getEditStatusName,
@@ -58,9 +54,7 @@ const EditSidebar = ({
       ) : (
         <SidebarProperty className="" label={l('Closed:')}>
           <div className="edit-expiration">
-            {edit.status === EDIT_STATUS_TOBEDELETED
-              ? expand2react(l('<em>Cancelling</em>'))
-              : formatUserDate($c, edit.close_time)}
+            {formatUserDate($c, edit.close_time)}
           </div>
         </SidebarProperty>
       )}

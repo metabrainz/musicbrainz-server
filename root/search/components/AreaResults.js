@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -31,7 +31,9 @@ function buildResult(result, index) {
         <DescriptiveLink entity={area} />
       </td>
       <td>
-        {area.typeName ? lp_attributes(area.typeName, 'area_type') : null}
+        {nonEmpty(area.typeName)
+          ? lp_attributes(area.typeName, 'area_type')
+          : null}
       </td>
       <td>{primaryAreaCode(area)}</td>
       <td>{formatDate(area.begin_date)}</td>

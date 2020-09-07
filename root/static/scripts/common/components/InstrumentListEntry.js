@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -34,7 +34,7 @@ const InstrumentListRow = ({
   instrument,
 }: InstrumentListRowProps) => (
   <>
-    {$c.user && checkboxes ? (
+    {$c.user && nonEmpty(checkboxes) ? (
       <td>
         <input
           name={checkboxes}
@@ -47,7 +47,7 @@ const InstrumentListRow = ({
       <DescriptiveLink entity={instrument} />
     </td>
     <td>
-      {instrument.typeName
+      {nonEmpty(instrument.typeName)
         ? lp_attributes(instrument.typeName, 'instrument_type')
         : null}
     </td>
@@ -66,7 +66,7 @@ const InstrumentListEntry = ({
   instrument,
   score,
 }: InstrumentListEntryProps): React.Element<'tr'> => (
-  <tr className={loopParity(index)} data-score={score || null}>
+  <tr className={loopParity(index)} data-score={score ?? null}>
     <InstrumentListRow
       $c={$c}
       checkboxes={checkboxes}

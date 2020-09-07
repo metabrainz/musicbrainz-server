@@ -4,6 +4,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_EDIT );
 use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
@@ -32,6 +33,7 @@ sub edit_name { N_l('Edit area') }
 sub edit_type { $EDIT_AREA_EDIT }
 
 sub _edit_model { 'Area' }
+sub edit_template_react { 'EditArea' }
 
 sub change_fields
 {
@@ -104,6 +106,11 @@ sub build_display_data
             $data->{$prop}->{old} = $self->data->{old}{$prop};
             $data->{$prop}->{new} = $self->data->{new}{$prop};
         }
+    }
+
+    if (exists $self->data->{new}{ended}) {
+        $data->{ended}{old} = boolean_to_json($data->{ended}{old});
+        $data->{ended}{new} = boolean_to_json($data->{ended}{new});
     }
 
     return $data;

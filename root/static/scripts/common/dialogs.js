@@ -7,13 +7,12 @@
  */
 
 import $ from 'jquery';
-import _ from 'lodash';
 
-    $.widget("mb.iframeDialog", $.ui.dialog, {
+    $.widget('mb.iframeDialog', $.ui.dialog, {
 
         options: {
             width: 800,
-            title: l("Loading..."),
+            title: l('Loading...'),
             resizable: false,
         },
 
@@ -21,14 +20,14 @@ import _ from 'lodash';
             this._super();
             var path = encodeURIComponent(this.options.path);
 
-            this.$loading = $("<div>").addClass("content-loading");
+            this.$loading = $('<div>').addClass('content-loading');
 
-            this.$iframe = $("<iframe>")
-                .on("load", _.bind(this._onLoad, this))
-                .attr("src", "/dialog?path=" + path);
+            this.$iframe = $('<iframe>')
+                .on('load', this._onLoad.bind(this))
+                .attr('src', '/dialog?path=' + path);
 
             this.element
-                .addClass("iframe-dialog")
+                .addClass('iframe-dialog')
                 .append(this.$loading, this.$iframe);
         },
 
@@ -45,11 +44,11 @@ import _ from 'lodash';
              * but it doesn't always work in Opera. This trys to focus again
              * after a small delay, if it hasn't already.
              */
-            _.defer(function () {
+            setTimeout(function () {
                 if (self.opener[0] !== document.activeElement) {
                     self.opener.focus();
                 }
-            });
+            }, 1);
         },
 
         _onLoad: function (event) {
@@ -61,7 +60,7 @@ import _ from 'lodash';
 
             this._setOptions({
                 title: this.options.title,
-                position: { my: "center", at: "center", of: window },
+                position: { my: 'center', at: 'center', of: window },
             });
         },
 
@@ -76,10 +75,10 @@ import _ from 'lodash';
     });
 
 
-    $.widget("mb.createEntityDialog", $.mb.iframeDialog, {
+    $.widget('mb.createEntityDialog', $.mb.iframeDialog, {
 
         _create: function () {
-            this.options.path = "/" + this.options.entity + "/create";
+            this.options.path = '/' + this.options.entity + '/create';
             this._super();
         },
 
@@ -97,18 +96,18 @@ import _ from 'lodash';
 
             if (this.options.name) {
                 const self = this;
-                const nameField = "#id-edit-" + entity.replace("_", "-") + "\\.name";
+                const nameField = '#id-edit-' + entity.replace('_', '-') + '\\.name';
 
                 // Must use contentWindow's jQuery handle or this won't work.
                 contentWindow.$(function () {
-                    contentWindow._.defer(function () {
+                    contentWindow.setTimeout(function () {
                         contentWindow.$(nameField, contentWindow.document)
                             .val(self.options.name)
                             .change()
                             .focus();
 
                         delete self.options.name;
-                    });
+                    }, 1);
                 });
             }
         },
@@ -121,7 +120,7 @@ import _ from 'lodash';
      */
 
     $(function () {
-        $("body").on("click", ".ui-dialog", function (event) {
+        $('body').on('click', '.ui-dialog', function (event) {
             event.stopPropagation();
         });
     });

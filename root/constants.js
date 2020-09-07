@@ -39,7 +39,6 @@ export const EDIT_STATUS_FAILEDDEP = 4;
 export const EDIT_STATUS_ERROR = 5;
 export const EDIT_STATUS_FAILEDPREREQ = 6;
 export const EDIT_STATUS_NOVOTES = 7;
-export const EDIT_STATUS_TOBEDELETED = 8;
 export const EDIT_STATUS_DELETED = 9;
 
 export const EDIT_VOTE_NONE = -2;

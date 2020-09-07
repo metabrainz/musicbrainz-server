@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -47,7 +47,7 @@ function showExtraInfo(children, className = 'comment') {
 }
 
 function showBracketedTextInfo(comment) {
-  return comment ? showExtraInfo(bracketedText(comment)) : null;
+  return nonEmpty(comment) ? showExtraInfo(bracketedText(comment)) : null;
 }
 
 function showExtraInfoLine(children, className = 'comment') {
@@ -63,14 +63,14 @@ function formatGeneric(entity, extraInfo) {
   const name = unwrapNl<string>(entity.name);
   const info = [];
 
-  if (entity.primaryAlias && entity.primaryAlias !== name) {
+  if (nonEmpty(entity.primaryAlias) && entity.primaryAlias !== name) {
     info.push(entity.primaryAlias);
   }
 
   if (entity.entityType === 'artist' &&
       entity.sort_name &&
       entity.sort_name !== name &&
-      !entity.primaryAlias &&
+      !nonEmpty(entity.primaryAlias) &&
       isNonLatin(name)) {
     info.push(entity.sort_name);
   }
@@ -125,7 +125,7 @@ function pushContainmentInfo(area, extraInfo) {
 function formatArea(area: AutocompleteAreaT) {
   const extraInfo = [];
 
-  if (area.typeName) {
+  if (nonEmpty(area.typeName)) {
     extraInfo.push(lp_attributes(area.typeName, 'area_type'));
   }
 
@@ -145,7 +145,7 @@ function formatEvent(event: AutocompleteEventT) {
     <>
       {formatGeneric(event)}
 
-      {event.typeName ? (
+      {nonEmpty(event.typeName) ? (
         <>
           {' '}
           {showExtraInfo(
@@ -171,7 +171,7 @@ function formatEvent(event: AutocompleteEventT) {
 function formatInstrument(instrument: AutocompleteInstrumentT) {
   const extraInfo = [];
 
-  if (instrument.typeName) {
+  if (nonEmpty(instrument.typeName)) {
     extraInfo.push(lp_attributes(instrument.typeName, 'instrument_type'));
   }
 
@@ -194,7 +194,7 @@ function formatInstrument(instrument: AutocompleteInstrumentT) {
 function formatPlace(place: AutocompletePlaceT) {
   const extraInfo = [];
 
-  if (place.typeName) {
+  if (nonEmpty(place.typeName)) {
     extraInfo.push(lp_attributes(place.typeName, 'place_type'));
   }
 
@@ -281,7 +281,7 @@ function formatRelease(release: AutocompleteReleaseT) {
         catNosByLabel.set(labelName, catNos);
       }
 
-      if (releaseLabel.catalogNumber) {
+      if (nonEmpty(releaseLabel.catalogNumber)) {
         catNos.push(releaseLabel.catalogNumber);
       }
     }
@@ -313,7 +313,7 @@ function formatRelease(release: AutocompleteReleaseT) {
       {showExtraInfoLine(reduceArtistCredit(release.artistCredit))}
       {release.events ? release.events.map(formatReleaseEvent) : null}
       {releaseLabelDisplay}
-      {release.barcode ? showExtraInfoLine(release.barcode) : ''}
+      {nonEmpty(release.barcode) ? showExtraInfoLine(release.barcode) : ''}
     </>
   );
 }
@@ -327,7 +327,7 @@ function formatReleaseGroup(releaseGroup: AutocompleteReleaseGroupT) {
 
       {showBracketedTextInfo(releaseGroup.comment)}
 
-      {releaseGroup.l_type_name ? (
+      {nonEmpty(releaseGroup.l_type_name) ? (
         showExtraInfoLine(texp.l('{release_group_type} by {artist}', {
           artist: releaseGroup.artist,
           release_group_type: releaseGroup.l_type_name,
@@ -374,7 +374,7 @@ function formatWork(work: AutocompleteWorkT) {
 
       {formatGeneric(work)}
 
-      {typeName ? (
+      {nonEmpty(typeName) ? (
         showExtraInfoLine(
           addColonText(l('Type')) + ' ' +
           lp_attributes(typeName, 'work_type'),

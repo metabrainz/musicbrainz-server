@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -69,20 +69,21 @@ const ReleaseSidebar = ({
   } = release;
 
   const releaseArtwork = $c.stash.release_artwork;
-  const releaseCoverUrl = release.cover_art_url
+  const releaseCoverUrl = nonEmpty(release.cover_art_url)
     ? coverArtUrl($c, release.cover_art_url)
     : '';
   const releaseCoverHost = releaseCoverUrl
     ? new URL(releaseCoverUrl).host
     : null;
+  const releaseLength = release.length;
   const barcode = formatBarcode(release.barcode);
   const typeName = releaseGroup.l_type_name;
-  const language = release.languageID
-    ? linkedEntities.language[release.languageID]
-    : null;
-  const script = scriptId
-    ? linkedEntities.script[scriptId]
-    : null;
+  const language = release.languageID == null
+    ? null
+    : linkedEntities.language[release.languageID];
+  const script = scriptId == null
+    ? null
+    : linkedEntities.script[scriptId];
 
   return (
     <div id="sidebar">
@@ -100,7 +101,7 @@ const ReleaseSidebar = ({
         ) : (
           release.cover_art_presence !== 'darkened' &&
             releaseCoverUrl
-            /* flow-include && releaseCoverHost */ ? (
+            /* flow-include && releaseCoverHost === true */ ? (
               <>
                 <img src={releaseCoverUrl} />
                 <span className="cover-art-note">
@@ -143,17 +144,17 @@ const ReleaseSidebar = ({
           </SidebarProperty>
         ) : null}
 
-        {combinedFormatName ? (
+        {nonEmpty(combinedFormatName) ? (
           <SidebarProperty className="format" label={l('Format:')}>
             {combinedFormatName}
           </SidebarProperty>
         ) : null}
 
-        {release.length ? (
+        {releaseLength == null ? null : (
           <SidebarProperty className="length" label={l('Length:')}>
-            {formatTrackLength(release.length)}
+            {formatTrackLength(releaseLength)}
           </SidebarProperty>
-        ) : null}
+        )}
       </SidebarProperties>
 
       <h2 className="additional-details">
@@ -161,21 +162,21 @@ const ReleaseSidebar = ({
       </h2>
 
       <SidebarProperties>
-        {typeName ? (
+        {nonEmpty(typeName) ? (
           <SidebarProperty className="type" label={l('Type:')}>
             {typeName}
           </SidebarProperty>
         ) : null}
 
-        {packagingId ? (
+        {packagingId == null ? null : (
           <SidebarProperty className="packaging" label={l('Packaging:')}>
             {l_attributes(
               linkedEntities.release_packaging[packagingId].name,
             )}
           </SidebarProperty>
-        ) : null}
+        )}
 
-        {statusId ? (
+        {statusId == null ? null : (
           <SidebarProperty
             className="status"
             label={lp('Status:', 'release status')}
@@ -184,7 +185,7 @@ const ReleaseSidebar = ({
               linkedEntities.release_status[statusId].name,
             )}
           </SidebarProperty>
-        ) : null}
+        )}
 
         {language ? (
           <SidebarProperty className="language" label={l('Language:')}>
@@ -226,7 +227,7 @@ const ReleaseSidebar = ({
                     <br />
                   </>
                 ) : null}
-                {releaseLabel.catalogNumber ? (
+                {nonEmpty(releaseLabel.catalogNumber) ? (
                   <span className="catalog-number">
                     {releaseLabel.catalogNumber}
                   </span>

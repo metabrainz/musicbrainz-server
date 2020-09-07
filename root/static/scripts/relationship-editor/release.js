@@ -8,9 +8,9 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import _ from 'lodash';
 
 import MB from '../common/MB';
+import {uniqBy} from '../common/utility/arrays';
 import request from '../common/utility/request';
 
 import {ViewModel} from './common/viewModel';
@@ -29,11 +29,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             MB.releaseRelationshipEditor = this;
 
-            this.editNote = ko.observable("");
+            this.editNote = ko.observable('');
             this.makeVotable = ko.observable(false);
 
             this.submissionLoading = ko.observable(false);
-            this.submissionError = ko.observable("");
+            this.submissionError = ko.observable('');
 
             var self = this;
 
@@ -43,12 +43,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                 recordingMessage: function () {
                     var n = this.recordingCount();
-                    return "(" + texp.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
+                    return '(' + texp.ln('{n} recording selected', '{n} recordings selected', n, { n: n }) + ')';
                 },
 
                 workMessage: function () {
                     var n = this.workCount();
-                    return "(" + texp.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
+                    return '(' + texp.ln('{n} work selected', '{n} works selected', n, { n: n }) + ')';
                 },
             };
 
@@ -62,7 +62,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.source.mediums = ko.observableArray([]);
             this.loadingRelease = ko.observable(false);
 
-            ko.applyBindings(this, document.getElementById("content"));
+            ko.applyBindings(this, document.getElementById('content'));
 
             this.loadRelease();
 
@@ -70,11 +70,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 if (self.redirecting) {
                     return undefined;
                 }
-                var $changes = $(".link-phrase")
-                    .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
+                var $changes = $('.link-phrase')
+                    .filter('.rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)');
 
                 if ($changes.length) {
-                    event.returnValue = l("All of your changes will be lost if you leave this page.");
+                    event.returnValue = l('All of your changes will be lost if you leave this page.');
                     return event.returnValue;
                 }
 
@@ -98,32 +98,32 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         getEdits(addChanged) {
             var release = this.source;
 
-            _.each(release.mediums(), function (medium) {
-                _.each(medium.tracks, function (track) {
-                    var recording = track.recording;
+            for (const medium of release.mediums()) {
+                for (const track of medium.tracks) {
+                    const recording = track.recording;
 
-                    _.each(recording.relationships(), function (r) {
+                    for (const r of recording.relationships()) {
                         addChanged(r, recording);
 
-                        if (r.entityTypes === "recording-work") {
-                            var work = r.entities()[1];
+                        if (r.entityTypes === 'recording-work') {
+                            const work = r.entities()[1];
 
-                            _.each(work.relationships(), function (r) {
+                            for (const r of work.relationships()) {
                                 addChanged(r, work);
-                            });
+                            }
                         }
-                    });
-                });
-            });
+                    }
+                }
+            }
 
-            _.each(release.relationships(), function (r) {
+            for (const r of release.relationships()) {
                 addChanged(r, release);
-            });
+            }
 
             var rg = release.releaseGroup;
-            _.each(rg.relationships(), function (r) {
+            for (const r of rg.relationships()) {
                 addChanged(r, rg);
-            });
+            }
         }
 
         submit(data, event) {
@@ -159,7 +159,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             if (edits.length == 0) {
                 this.submissionLoading(false);
-                this.submissionError(l("You haven’t made any changes!"));
+                this.submissionError(l('You haven’t made any changes!'));
                 return;
             }
 
@@ -176,10 +176,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 .done(this.submissionDone)
                 .fail(function (jqXHR) {
                     try {
-                        var response = JSON.parse(jqXHR.responseText);
-                        var message = _.isObject(response.error) ?
-                                        response.error.message : response.error;
-
+                        const {error} = JSON.parse(jqXHR.responseText);
+                        const message = error && typeof error === 'object'
+                            ? error.message
+                            : error;
                         this.submissionError(message);
                     } catch (e) {
                         this.submissionError(jqXHR.responseText);
@@ -189,22 +189,22 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         submissionDone() {
             this.redirecting = true;
-            window.location.replace("/release/" + this.source.gid);
+            window.location.replace('/release/' + this.source.gid);
         }
 
         releaseLoaded(data) {
             var release = this.source;
 
-            release.mediums(_.map(data.mediums, function (mediumData) {
-                _.each(mediumData.tracks, function (trackData) {
+            release.mediums(data.mediums.map(function (mediumData) {
+                for (const trackData of mediumData.tracks) {
                     MB.entity(trackData.recording).parseRelationships(
                         trackData.recording.relationships,
                     );
-                });
+                }
                 return new MB.entity.Medium(mediumData, release);
             }));
 
-            var trackCount = _.reduce(release.mediums(), (memo, medium) => {
+            var trackCount = release.mediums().reduce((memo, medium) => {
                 return memo + medium.tracks.length;
             }, 0);
 
@@ -246,7 +246,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         openBatchCreateWorksDialog() {
-            var sources = _.filter(UI.checkedRecordings(), function (recording) {
+            var sources = UI.checkedRecordings().filter(function (recording) {
                 return recording.performances().length === 0;
             });
 
@@ -272,8 +272,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (relationship.added()) {
                 $(event.target)
                     .parent()
-                    .children("input[type=checkbox]:checked")
-                    .prop("checked", false)
+                    .children('input[type=checkbox]:checked')
+                    .prop('checked', false)
                     .click();
             }
         }
@@ -282,12 +282,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             return relationships
                 .filter(function (relationship) {
-                    return relationship.entityTypes !== "recording-work";
+                    return relationship.entityTypes !== 'recording-work';
                 })
                 .sortBy(function (relationship) {
                     return relationship.lowerCaseTargetName(source);
                 })
-                .sortBy("linkOrder").sortBy(function (relationship) {
+                .sortBy('linkOrder').sortBy(function (relationship) {
                     return relationship.lowerCasePhrase(source);
                 });
         }
@@ -299,38 +299,38 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     RE.ReleaseViewModel = ReleaseViewModel;
 
-    var recordingCheckboxes = "td.recording > input[type=checkbox]";
-    var workCheckboxes = "td.works > div.ar > input[type=checkbox]";
+    var recordingCheckboxes = 'td.recording > input[type=checkbox]';
+    var workCheckboxes = 'td.works > div.ar > input[type=checkbox]';
 
 
     UI.checkedRecordings = function () {
-        return $.map($(recordingCheckboxes + ":checked", "#tracklist"), ko.dataFor);
+        return $.map($(recordingCheckboxes + ':checked', '#tracklist'), ko.dataFor);
     };
 
 
     UI.checkedWorks = function () {
-        return $.map($(workCheckboxes + ":checked", "#tracklist"), ko.dataFor);
+        return $.map($(workCheckboxes + ':checked', '#tracklist'), ko.dataFor);
     };
 
 
     function initCheckboxes(checkboxes) {
-        var mediumRecordingSelector = "input.medium-recordings";
-        var mediumWorkSelector = "input.medium-works";
-        var $tracklist = $("#tracklist tbody");
+        var mediumRecordingSelector = 'input.medium-recordings';
+        var mediumWorkSelector = 'input.medium-works';
+        var $tracklist = $('#tracklist tbody');
 
         function count($inputs) {
-            return _.uniqBy($inputs, ko.dataFor).length;
+            return uniqBy(Array.from($inputs), ko.dataFor).length;
         }
 
         function medium(mediumSelector, selector, counter) {
-            $tracklist.on("change", mediumSelector, function () {
+            $tracklist.on('change', mediumSelector, function () {
                 const checked = this.checked;
                 const $changed = $(this)
-                    .parents("tr.subh")
-                    .nextUntil("tr.subh")
+                    .parents('tr.subh')
+                    .nextUntil('tr.subh')
                     .find(selector)
-                    .filter(checked ? ":not(:checked)" : ":checked")
-                    .prop("checked", checked);
+                    .filter(checked ? ':not(:checked)' : ':checked')
+                    .prop('checked', checked);
                 counter(counter() + count($changed) * (checked ? 1 : -1));
             });
         }
@@ -339,15 +339,15 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             $('<input type="checkbox"/>&#160;')
                 .change(function () {
                     $tracklist.find(mediumSelector)
-                        .prop("checked", this.checked).change();
+                        .prop('checked', this.checked).change();
                 })
-                .prependTo("#tracklist th." + cls);
+                .prependTo('#tracklist th.' + cls);
         }
 
         function range(selector, counter) {
             var lastClicked = null;
 
-            $tracklist.on("click", selector, function (event) {
+            $tracklist.on('click', selector, function (event) {
                 const checked = this.checked;
                 const $inputs = $(selector, $tracklist);
                 if (event.shiftKey && lastClicked && lastClicked != this) {
@@ -357,9 +357,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     (first > last
                         ? $inputs.slice(last, first + 1)
                         : $inputs.slice(first, last + 1))
-                        .prop("checked", checked);
+                        .prop('checked', checked);
                 }
-                counter(count($inputs.filter(":checked")));
+                counter(count($inputs.filter(':checked')));
                 lastClicked = this;
             });
         }
@@ -367,8 +367,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         medium(mediumRecordingSelector, recordingCheckboxes, checkboxes.recordingCount);
         medium(mediumWorkSelector, workCheckboxes, checkboxes.workCount);
 
-        _release(mediumRecordingSelector, "recordings");
-        _release(mediumWorkSelector, "works");
+        _release(mediumRecordingSelector, 'recordings');
+        _release(mediumWorkSelector, 'works');
 
         range(recordingCheckboxes, checkboxes.recordingCount);
         range(workCheckboxes, checkboxes.workCount);

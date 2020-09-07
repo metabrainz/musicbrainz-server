@@ -101,6 +101,11 @@ export type AutocompleteAreaT = {
   +primaryAlias: string | null,
 };
 
+export type AutocompleteArtistT = {
+  ...ArtistT,
+  +primaryAlias: string | null,
+};
+
 export type AutocompleteEventT = {
   ...EventT,
   +primaryAlias: string | null,
@@ -153,6 +158,7 @@ export type AutocompleteWorkT = {
 
 export type EntityItem =
   | AutocompleteAreaT
+  | AutocompleteArtistT
   | AutocompleteEventT
   | AutocompleteInstrumentT
   | AutocompletePlaceT

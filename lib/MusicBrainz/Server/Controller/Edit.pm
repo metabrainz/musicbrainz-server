@@ -102,7 +102,10 @@ sub enter_votes : Local RequireAuth DenyWhenReadonly
         my @submissions = @{ $form->field('vote')->value };
         my @votes = grep { defined($_->{vote}) } @submissions;
         unless ($c->user->is_editing_enabled || scalar @votes == 0) {
-            $c->stash( template => 'edit/cannot_vote.tt' );
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'edit/CannotVote',
+            );
             return;
         }
         $c->model('Edit')->insert_votes_and_notes(
@@ -126,7 +129,11 @@ sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(editing_enabl
         $c->model('Vote')->load_for_edits($edit);
 
         if (!$edit->editor_may_approve($c->user)) {
-            $c->stash( template => 'edit/cannot_approve.tt' );
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'edit/CannotApproveEdit',
+                component_props => {edit => $edit},
+            );
             return;
         }
         else {
@@ -140,7 +147,11 @@ sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(editing_enabl
                 }
 
                 unless ($left_note) {
-                    $c->stash( template => 'edit/require_note.tt' );
+                    $c->stash(
+                        current_view => 'Node',
+                        component_path => 'edit/NoteIsRequired',
+                        component_props => {edit => $edit},
+                    );
                     return;
                 };
             }
@@ -157,7 +168,11 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
     if (!$edit->editor_may_cancel($c->user)) {
-        $c->stash( template => 'edit/cannot_cancel.tt' );
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'edit/CannotCancelEdit',
+            component_props => {edit => $edit},
+        );
         $c->detach;
     }
 

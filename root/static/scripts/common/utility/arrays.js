@@ -7,6 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  compareNumbers,
+  compareStrings,
+} from './compare';
+
 /*
  * Checks if two arrays are equal using the provided `isEqual` function
  * against each pair of items.
@@ -26,6 +31,28 @@ export function arraysEqual<T>(
     }
   }
   return true;
+}
+
+/*
+ * Equivalent to array.map(func).filter(Boolean), but shorter and only
+ * loops over the array once.
+ */
+export function compactMap<T, U>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => ?U,
+): $ReadOnlyArray<U> {
+  return array.reduce(function (result, item) {
+    const mappedValue = func(item);
+    /*
+     * The Flow lint is disabled because we intend to
+     * strip /all/ falsey values here.
+     */
+    // flowlint-next-line sketchy-null-mixed:off
+    if (mappedValue) {
+      result.push(mappedValue);
+    }
+    return result;
+  }, []);
 }
 
 /*
@@ -79,4 +106,73 @@ export function sortedIndexWith<T, U>(
     order = cmp(array[high], value);
   }
   return [high, order === 0];
+}
+
+export function sortByNumber<T>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => number,
+  customCmp?: (number, number) => number,
+): $ReadOnlyArray<T> {
+  const keys = array.map((x, i): [number, number] => [i, func(x)]);
+  const cmp = customCmp ?? compareNumbers;
+  keys.sort((a, b) => cmp(a[1], b[1]));
+  return keys.map(x => array[x[0]]);
+}
+
+export function sortByString<T>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => string,
+  customCmp?: (string, string) => number,
+): $ReadOnlyArray<T> {
+  const keys = array.map((x, i): [number, string] => [i, func(x)]);
+  const cmp = customCmp ?? compareStrings;
+  keys.sort((a, b) => cmp(a[1], b[1]));
+  return keys.map(x => array[x[0]]);
+}
+
+export function groupBy<T>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => string,
+): {__proto__: empty, +[groupKey: string]: $ReadOnlyArray<T>} {
+  return array.reduce(function (result, item) {
+    const key = func(item);
+    if (!(key in result)) {
+      result[key] = [];
+    }
+    result[key].push(item);
+    return result;
+  }, Object.create(null));
+}
+
+export function first<T>(array: ?$ReadOnlyArray<T>): ?T {
+  return array?.length ? array[0] : undefined;
+}
+
+export function keyBy<T>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => string,
+): {__proto__: empty, +[groupKey: string]: T} {
+  return array.reduce(function (result, item) {
+    result[func(item)] = item;
+    return result;
+  }, Object.create(null));
+}
+
+export function last<T>(array: ?$ReadOnlyArray<T>): ?T {
+  return array?.length ? array[array.length - 1] : undefined;
+}
+
+export function uniqBy<T, U>(
+  array: $ReadOnlyArray<T>,
+  func: (T) => U,
+): Array<T> {
+  const seenKeys = new Set<U>();
+  return array.reduce(function (result, item) {
+    const key = func(item);
+    if (!seenKeys.has(key)) {
+      seenKeys.add(key);
+      result.push(item);
+    }
+    return result;
+  }, []);
 }

@@ -35,7 +35,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-08-10 15:36+0000\n"
+"PO-Revision-Date: 2020-09-04 10:49+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1761,6 +1761,13 @@ msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
 "common for classical works, but also exists in other genres to a degree."
 msgstr "Ceci indique que l’œuvre est dédiée à une personne en particulier. Ceci est très habituel pour les œuvres classiques, mais existe aussi, jusqu’à un certain point, pour d’autres genres. "
+
+#: DB:link_type/description:983
+msgid ""
+"This indicates the work is dedicated to a specific place (such an "
+"educational institution). This is most common for classical works, but also "
+"exists in other genres to a degree."
+msgstr "Ceci indique que l’œuvre est dédiée à un lieu (tel qu’une salle de concert) en particulier. Ceci est très habituel pour les œuvres classiques, mais existe aussi, jusqu’à un certain point, pour d’autres genres. "
 
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
@@ -3753,17 +3760,18 @@ msgid "cut the lacquer for"
 msgstr "a gravé la matrice sur laque pour"
 
 #: DB:link_type/name:868 DB:link_type/reverse_link_phrase:868
-#: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
-#: DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:983 DB:link_type/reverse_link_phrase:846
+#: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
 msgid "dedicated to"
 msgstr "dédié à"
 
-#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:922
-#: DB:link_type/link_phrase:914
+#: DB:link_type/link_phrase:983 DB:link_type/link_phrase:846
+#: DB:link_type/link_phrase:922 DB:link_type/link_phrase:914
 msgid "dedicated works"
 msgstr "oeuvre dédiée"
 
-#: DB:link_type/name:846 DB:link_type/name:922 DB:link_type/name:914
+#: DB:link_type/name:983 DB:link_type/name:846 DB:link_type/name:922
+#: DB:link_type/name:914
 msgid "dedication"
 msgstr "dédicace"
 
@@ -7098,8 +7106,9 @@ msgstr "{entity1} est un instrument traditionnel de {entity0}"
 msgid "{entity1} is a tribute to {entity0}"
 msgstr "{entity1} est un hommage à {entity0}"
 
-#: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
+#: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:983
+#: DB:link_type/long_link_phrase:846 DB:link_type/long_link_phrase:922
+#: DB:link_type/long_link_phrase:914
 msgid "{entity1} is dedicated to {entity0}"
 msgstr "{entity1} est dédicacé à {entity0}"
 
