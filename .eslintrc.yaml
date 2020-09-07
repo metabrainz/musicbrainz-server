@@ -1,6 +1,6 @@
 root: true
 
-parser: babel-eslint
+parser: "@babel/eslint-parser"
 
 plugins:
   - import
@@ -217,7 +217,7 @@ rules:
   semi: [warn, always, {omitLastInOneLineBlock: true}]
   semi-spacing: [warn, {before: false, after: true}]
   semi-style: [warn, last]
-  sort-keys: [warn, asc, {caseSensitive: true, natural: true}]
+  sort-keys: [warn, asc, {caseSensitive: false, natural: true}]
   space-before-blocks: [warn, always]
   space-before-function-paren: [warn, {anonymous: always,
                                        named: never,
@@ -377,7 +377,7 @@ rules:
   flowtype/require-return-type: off
   flowtype/require-valid-file-annotation: off
   flowtype/semi: [warn, always]
-  flowtype/sort-keys: [warn, asc, {caseSensitive: true, natural: true}]
+  flowtype/sort-keys: [warn, asc]
   flowtype/space-after-type-colon: [warn, always, {allowLineBreak: true}]
   flowtype/space-before-generic-bracket: [warn, never]
   flowtype/space-before-type-colon: [warn, never]
