@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-08-03 21:47+0000\n"
+"PO-Revision-Date: 2020-09-03 13:02+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1742,6 +1742,13 @@ msgstr ""
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
 "common for classical works, but also exists in other genres to a degree."
+msgstr ""
+
+#: DB:link_type/description:983
+msgid ""
+"This indicates the work is dedicated to a specific place (such an "
+"educational institution). This is most common for classical works, but also "
+"exists in other genres to a degree."
 msgstr ""
 
 #: DB:link_type/description:972
@@ -3735,17 +3742,18 @@ msgid "cut the lacquer for"
 msgstr ""
 
 #: DB:link_type/name:868 DB:link_type/reverse_link_phrase:868
-#: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
-#: DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:983 DB:link_type/reverse_link_phrase:846
+#: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
 msgid "dedicated to"
 msgstr "gewidmet"
 
-#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:922
-#: DB:link_type/link_phrase:914
+#: DB:link_type/link_phrase:983 DB:link_type/link_phrase:846
+#: DB:link_type/link_phrase:922 DB:link_type/link_phrase:914
 msgid "dedicated works"
 msgstr ""
 
-#: DB:link_type/name:846 DB:link_type/name:922 DB:link_type/name:914
+#: DB:link_type/name:983 DB:link_type/name:846 DB:link_type/name:922
+#: DB:link_type/name:914
 msgid "dedication"
 msgstr "Widmung"
 
@@ -7080,8 +7088,9 @@ msgstr ""
 msgid "{entity1} is a tribute to {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
+#: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:983
+#: DB:link_type/long_link_phrase:846 DB:link_type/long_link_phrase:922
+#: DB:link_type/long_link_phrase:914
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
