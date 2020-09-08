@@ -41,6 +41,9 @@ dl.ars dt {
 [%# model tracks as blank nodes %]
 <tr class="[% loop.parity %][% ' mp' IF track.edits_pending %]" id="[% track.gid %]">
     <td class="pos t">
+      [% IF track.position == 0 %]
+        [% pregap_track_icon %]
+      [% END %]
       <span style="display: none">[% track.position %]</span>
       [%- track.number -%]
     </td>
