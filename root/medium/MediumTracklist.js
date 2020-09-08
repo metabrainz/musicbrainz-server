@@ -16,6 +16,8 @@ import EntityLink, {DeletedLink}
   from '../static/scripts/common/components/EntityLink';
 import DataTrackIcon
   from '../static/scripts/common/components/DataTrackIcon';
+import PregapTrackIcon
+  from '../static/scripts/common/components/PregapTrackIcon';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../utility/loopParity';
@@ -62,6 +64,12 @@ const MediumTracklist = ({
         id={track.gid}
       >
         <td className="pos t">
+          {track.position === 0 ? (
+            <>
+              <PregapTrackIcon />
+              {' '}
+            </>
+          ) : null}
           <span style={{display: 'none'}}>
             {track.position}
           </span>
