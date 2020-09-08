@@ -30,6 +30,7 @@
     "cookie": "0.4.0",
     "copy-webpack-plugin": "4.6.0",
     "core-js": "3.6.5",
+    "d3": "6.1.1",
     "detect-node": "2.0.3",
     "file-loader": "3.0.1",
     "filesize": "2.0.4",

@@ -42,14 +42,6 @@ author:      Paul Johnston
 url:         http://pajhome.org.uk/crypt/md5/jshash-2.2.zip
 note:        Modifications were made to add browserify support; see git log.
 
--- flot/jquery.flot.* --
-
-library:     flot
-license:     MIT
-version:     v0.8.3
-author:      IOLA and Ole Laursen
-url:         http://www.flotcharts.org/
-
 -- knockout/knockout-latest.debug.js --
 
 library:     Knockout

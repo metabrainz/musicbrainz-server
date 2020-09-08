@@ -1,4 +1,5 @@
 /*
+ *
  * Copyright (C) 2011 Ian McEwen
  * Copyright (C) 2018 MetaBrainz Foundation
  *

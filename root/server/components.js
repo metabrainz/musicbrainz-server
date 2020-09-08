@@ -239,6 +239,7 @@ module.exports = {
   'statistics/LanguagesScripts': require('../statistics/LanguagesScripts'),
   'statistics/NoStatistics': require('../statistics/NoStatistics'),
   'statistics/Relationships': require('../statistics/Relationships'),
+  'statistics/Timeline': require('../statistics/Timeline'),
   'tag/EntityList': require('../tag/EntityList'),
   'tag/NotFound': require('../tag/NotFound'),
   'tag/TagCloud': require('../tag/TagCloud'),
@@ -395,6 +396,7 @@ module.exports = {
   'static/scripts/edit/components/InformationIcon': require('../static/scripts/edit/components/InformationIcon'),
   'static/scripts/edit/components/edit/RelationshipDiff': require('../static/scripts/edit/components/edit/RelationshipDiff'),
   'static/scripts/edit/components/edit/ReleaseEventsDiff': require('../static/scripts/edit/components/edit/ReleaseEventsDiff'),
+  'static/scripts/statistics/components/Timeline': require('../static/scripts/statistics/timeline/components/Timeline'),
   'url/UrlHeader': require('../url/UrlHeader'),
   'work/WorkHeader': require('../work/WorkHeader'),
 };
