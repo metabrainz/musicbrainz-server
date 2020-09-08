@@ -73,7 +73,7 @@ const CondensedTrackACs = ({
   }
 
   let thisCredit;
-  let thisPosition = 0;
+  let thisPosition = tracks[0].position - 1;
   let rowCounter = 0;
   let startNumber = tracks[0].number;
   let endNumber;
