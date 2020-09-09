@@ -81,6 +81,7 @@ sub find_search_path
     my $search_path = '';
     my $infile = "CreateTables.sql";
     unless (grep { $_ eq $infile } @create_scripts) {
+        print "Use empty search_path by default\n";
         return $search_path;
     }
     unless (-e "$dir/$infile") {
@@ -174,6 +175,8 @@ sub process_tables
     }
     close $drop_fh;
     close $trunc_fh;
+    print "Generated DropTables.sql\n";
+    print "Generated TruncateTables.sql\n";
 
     if (-e "$dir/CreateViews.sql") {
         open FILE, "<$dir/CreateViews.sql";
@@ -195,6 +198,7 @@ sub process_tables
             print OUT "DROP VIEW $view;\n";
         }
         close OUT;
+        print "Generated DropViews.sql\n";
     } else {
         unless (grep { $_ eq 'CreateViews.sql' } @create_scripts) {
             print "Could not find CreateViews.sql, skipping\n"
@@ -211,6 +215,7 @@ sub process_tables
             print OUT "SELECT setval('${table}_${col}_seq', COALESCE((SELECT MAX(${col}) FROM $table), 0) + 1, FALSE);\n";
         }
         close OUT;
+        print "Generated DropViews.sql\n";
     }
 
     if (keys %foreign_keys) {
@@ -240,6 +245,7 @@ sub process_tables
             }
         }
         close OUT;
+        print "Generated CreateFKConstraints.sql\n";
 
         open OUT, ">$dir/DropFKConstraints.sql";
         print OUT "-- Automatically generated, do not edit.\n";
@@ -254,6 +260,7 @@ sub process_tables
             }
         }
         close OUT;
+        print "Generated DropFKConstraints.sql\n";
     } else {
         print "No foreign keys, skipping\n";
     }
@@ -272,6 +279,7 @@ sub process_tables
             print OUT "PRIMARY KEY ($cols);\n";
         }
         close OUT;
+        print "Generated CreatePrimaryKeys.sql\n";
 
         open OUT, ">$dir/DropPrimaryKeys.sql";
         print OUT "-- Automatically generated, do not edit.\n";
@@ -282,6 +290,7 @@ sub process_tables
             print OUT "ALTER TABLE $table DROP CONSTRAINT IF EXISTS ${table}_pkey;\n";
         }
         close OUT;
+        print "Generated DropPrimaryKeys.sql\n";
     } else {
         print "No primary keys, skipping\n";
     }
@@ -302,6 +311,7 @@ sub process_tables
         }
         print OUT "COMMIT;\n";
         close OUT;
+        print "Generated CreateReplicationTriggers.sql\n";
     }
 }
 
@@ -335,6 +345,7 @@ sub process_indexes
         print OUT "DROP INDEX $index;\n";
     }
     close OUT;
+    print "Generated $outfile\n";
 }
 
 if (grep { $_ eq 'CreateIndexes.sql' } @create_scripts) {
@@ -382,6 +393,7 @@ sub process_functions
         print OUT "DROP AGGREGATE $name ($type);\n";
     }
     close OUT;
+    print "Generated $outfile\n";
 }
 
 if (grep { $_ eq 'CreateFunctions.sql' } @create_scripts) {
@@ -414,6 +426,7 @@ sub process_triggers
         print OUT "DROP TRIGGER $trigger->[0] ON $trigger->[1];\n";
     }
     close OUT;
+    print "Generated $outfile\n";
 }
 
 if (grep { $_ eq 'CreateTriggers.sql' } @create_scripts) {
