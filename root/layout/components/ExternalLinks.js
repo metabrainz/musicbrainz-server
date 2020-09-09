@@ -60,7 +60,7 @@ const ExternalLink = ({
   }
 
   return (
-    <li className={nonEmpty(className) || faviconClass(url)}>
+    <li className={nonEmpty(className) ? className : faviconClass(url)}>
       {element}
     </li>
   );
