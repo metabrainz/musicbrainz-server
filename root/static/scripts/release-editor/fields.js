@@ -653,7 +653,7 @@ class Medium {
     canHaveDiscID() {
         var formatID = parseInt(this.formatID(), 10);
 
-        return !formatID || MB.formatsWithDiscIDs[formatID] != null;
+        return !formatID || MB.formatsWithDiscIDs.includes(formatID);
     }
 }
 
