@@ -22,6 +22,9 @@ Generate a corresponding SQL DROP script for each SQL CREATE script in DIRECTORY
 
 Options:
 
+    -c, --create-scripts FILE...        specify a list of FILEs to be parsed
+                                        (default: all possible Create...sql)
+
     -h, --help                          show this help
 
 =head1 COPYRIGHT AND LICENSE
@@ -38,9 +41,11 @@ later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 ################################################################################
 
+my @create_scripts;
 my $help_flag;
 
 GetOptions(
+    "create-scripts|c=s{1,}"    => \@create_scripts,
     "help|h"                    => \$help_flag,
 );
 
@@ -52,6 +57,15 @@ pod2usage(
     -exitval => 64, # EX_USAGE
     -message => "$0: too many arguments",
 ) if $extra_arguments_count > 1;
+
+@create_scripts = qw(
+    CreateFunctions.sql
+    CreateIndexes.sql
+    CreateSearchIndexes.sql
+    CreateTables.sql
+    CreateTriggers.sql
+    CreateViews.sql
+) if scalar @create_scripts == 0;
 
 ################################################################################
 
@@ -66,6 +80,9 @@ sub find_search_path
 {
     my $search_path = '';
     my $infile = "CreateTables.sql";
+    unless (grep { $_ eq $infile } @create_scripts) {
+        return $search_path;
+    }
     unless (-e "$dir/$infile") {
         print "Could not find $infile, search_path might not be correct\n";
         return $search_path;
@@ -86,6 +103,9 @@ my $search_path = find_search_path();
 sub process_tables
 {
     my $infile = "CreateTables.sql";
+    unless (grep { $_ eq $infile } @create_scripts) {
+        return;
+    }
     unless (-e "$dir/$infile") {
         print "Could not find $infile, skipping\n";
         return;
@@ -176,7 +196,9 @@ sub process_tables
         }
         close OUT;
     } else {
-        print "Could not find CreateViews.sql, skipping\n";
+        unless (grep { $_ eq 'CreateViews.sql' } @create_scripts) {
+            print "Could not find CreateViews.sql, skipping\n"
+        };
     }
 
     if (@sequences) {
@@ -315,8 +337,12 @@ sub process_indexes
     close OUT;
 }
 
-process_indexes("CreateIndexes.sql", "DropIndexes.sql");
-process_indexes("CreateSearchIndexes.sql", "DropSearchIndexes.sql");
+if (grep { $_ eq 'CreateIndexes.sql' } @create_scripts) {
+    process_indexes("CreateIndexes.sql", "DropIndexes.sql");
+}
+if (grep { $_ eq 'CreateSearchIndexes.sql' } @create_scripts) {
+    process_indexes("CreateSearchIndexes.sql", "DropSearchIndexes.sql");
+}
 
 sub process_functions
 {
@@ -358,7 +384,9 @@ sub process_functions
     close OUT;
 }
 
-process_functions("CreateFunctions.sql", "DropFunctions.sql");
+if (grep { $_ eq 'CreateFunctions.sql' } @create_scripts) {
+    process_functions("CreateFunctions.sql", "DropFunctions.sql");
+}
 
 sub process_triggers
 {
@@ -388,5 +416,9 @@ sub process_triggers
     close OUT;
 }
 
-process_triggers("CreateTriggers.sql", "DropTriggers.sql");
-process_triggers("CreateReplicationTriggers.sql", "DropReplicationTriggers.sql");
+if (grep { $_ eq 'CreateTriggers.sql' } @create_scripts) {
+    process_triggers("CreateTriggers.sql", "DropTriggers.sql");
+}
+if (grep { $_ eq 'CreateTables.sql' } @create_scripts) {
+    process_triggers("CreateReplicationTriggers.sql", "DropReplicationTriggers.sql");
+}
