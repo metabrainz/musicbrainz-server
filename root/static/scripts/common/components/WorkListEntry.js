@@ -56,6 +56,9 @@ export component WorkListRow(
         <WorkArtists artists={work.artists} />
         {manifest('common/components/WorkArtists', {async: 'async'})}
       </td>
+      <td>
+        <ArtistRoles relations={work.misc_artists} />
+      </td>
       {showIswcs ? (
         <td>
           <IswcList iswcs={work.iswcs} />

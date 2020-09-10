@@ -10,7 +10,6 @@ use Sql;
 use Data::Dumper;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
-use List::AllUtils qw( any partition_by );
 use MusicBrainz::Server::Entity::Alias;
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::Area;
@@ -768,31 +767,6 @@ sub schema_fixup
     }
 
     if ($type eq 'work') {
-        if (defined $data->{relationships}) {
-            my %relationship_map = partition_by { $_->entity1->gid }
-                @{ $data->{relationships} };
-
-            my $artist_model = $self->c->model('Artist');
-            $data->{writers} = [
-                map {
-                    my @relationships = @{ $relationship_map{$_} };
-
-                    my $artist = $artist_model->get_by_gid($relationships[0]->{entity1}->{gid});
-                    $artist_model->load_aliases($artist);
-
-                    {
-                        # TODO: Pass the actual credit when SEARCH-585 is fixed
-                        credit => '',
-                        entity => $artist,
-                        roles  => [ map { $_->link->type->name } grep { $_->link->type->entity1_type eq 'artist' } @relationships ],
-                    }
-                } grep {
-                    my @relationships = @{ $relationship_map{$_} };
-                    any { $_->link->type->entity1_type eq 'artist' } @relationships;
-                } keys %relationship_map,
-            ];
-        }
-
         my @languages = @{ $data->{languages} // [] };
         if (!@languages && defined $data->{language}) {
             push @languages, $data->{language};
@@ -962,7 +936,9 @@ sub external_search
         {
             my @entities = map { $_->entity } @results;
             $self->c->model('Work')->load_ids(@entities);
+            $self->c->model('Work')->load_writers(@entities);
             $self->c->model('Work')->load_recording_artists(@entities);
+            $self->c->model('Work')->load_misc_artists(@entities);
         }
 
         if ($type eq 'event')
