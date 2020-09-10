@@ -174,6 +174,7 @@ sub _merge_load_entities
     $c->model('Work')->load_meta(@works);
     $c->model('WorkType')->load(@works);
     $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_misc_artists(@works);
     $c->model('Work')->load_recording_artists(@works);
     $c->model('WorkAttribute')->load_for_works(@works);
     $c->model('Language')->load_for_works(@works);

@@ -49,7 +49,8 @@ React.Element<typeof ResultsLayout> => (
         <>
           <th>{l('Name')}</th>
           <th>{l('Writers')}</th>
-          <th>{l('Artists')}</th>
+          <th>{l('Recording artists')}</th>
+          <th>{l('Other artists')}</th>
           <th>{l('ISWC')}</th>
           <th>{l('Type')}</th>
           <th>{l('Lyrics Languages')}</th>

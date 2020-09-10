@@ -58,6 +58,23 @@ has 'writers' => (
     }
 );
 
+has 'misc_artists' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    isa => ArrayRef[
+        Dict[
+            credit => Str,
+            roles => ArrayRef[Str],
+            entity => Object
+        ]
+    ],
+    default => sub { [] },
+    handles => {
+        add_misc_artist => 'push',
+        all_misc_artists => 'elements',
+    }
+);
+
 has 'iswcs' => (
     is => 'ro',
     isa => 'ArrayRef',
@@ -100,6 +117,11 @@ around TO_JSON => sub {
         languages => to_json_array($self->languages),
         iswcs => to_json_array($self->iswcs),
         artists => to_json_array($self->artists),
+        misc_artists => [map +{
+            credit => $_->{credit},
+            entity => to_json_object($_->{entity}),
+            roles => $_->{roles},
+        }, $self->all_misc_artists],
         writers => [map +{
             credit => $_->{credit},
             entity => to_json_object($_->{entity}),
