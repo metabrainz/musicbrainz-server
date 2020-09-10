@@ -105,6 +105,26 @@ test 'Authorize web workflow online' => sub {
     $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=yyy&scope=profile&state=xxx&redirect_uri=$redirect_uri");
     oauth_redirect_error($test->mech, 'www.example.com', '/callback', 'xxx', 'unsupported_response_type');
 
+    # https://tools.ietf.org/html/rfc6749#section-3.1
+    # Request and response parameters MUST NOT be included more than once.
+    my %dupe_test_params = (
+        client_id => $client_id,
+        response_type => 'code',
+        scope => 'profile',
+        state => 'xxx',
+        redirect_uri => $redirect_uri,
+    );
+    for my $dupe_param (keys %dupe_test_params) {
+        my $uri = URI->new;
+        $uri->query_form(%dupe_test_params);
+        my $content = ("$uri" =~ s/^\?//r) .
+            "&$dupe_param=" . $dupe_test_params{$dupe_param};
+        $test->mech->get('/oauth2/authorize?' . $content);
+        is($test->mech->status, 400);
+        $test->mech->content_like(qr{invalid_request});
+        $test->mech->content_like(qr{Parameter is included more than once in the request: $dupe_param});
+    }
+
     # Authorize the request
     $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=xxx&redirect_uri=$redirect_uri");
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
@@ -245,6 +265,30 @@ test 'Exchange authorization code' => sub {
     is($response->code, 200);
     is($response->header('allow'), 'POST, OPTIONS');
     is($response->header('access-control-allow-origin'), '*');
+
+    # https://tools.ietf.org/html/rfc6749#section-3.2
+    # Request and response parameters MUST NOT be included more than once.
+    my %dupe_test_params = (
+        client_id => 'abc',
+        client_secret => 'abc',
+        grant_type => 'authorization_code',
+        redirect_uri => 'abc',
+        code => 'abc',
+    );
+    for my $dupe_param (keys %dupe_test_params) {
+        my $uri = URI->new;
+        $uri->query_form(%dupe_test_params);
+        my $content = ("$uri" =~ s/^\?//r) .
+            "&$dupe_param=" . $dupe_test_params{$dupe_param};
+        $test->mech->post('/oauth2/token', content => $content);
+        $response = from_json($test->mech->content);
+        is($test->mech->status, 400);
+        is($response->{error}, 'invalid_request');
+        is(
+            $response->{error_description},
+            'Parameter is included more than once in the request: ' . $dupe_param,
+        );
+    }
 
     # Unknown authorization code
     $code = "xxxxxxxxxxxxxxxxxxxxxx";

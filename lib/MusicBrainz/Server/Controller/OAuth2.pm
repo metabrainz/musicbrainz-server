@@ -37,12 +37,22 @@ sub authorize : Local Args(0) RequireAuth CSRFToken
 
     my %params;
     my %defaults = ( access_type => 'online', approval_prompt => 'auto' );
-    for my $name (qw/ client_id scope response_type redirect_uri access_type approval_prompt /) {
+    my %optional = ( state => 1 );
+    for my $name (qw/ client_id scope response_type redirect_uri access_type approval_prompt state /) {
         my $value = $c->request->params->{$name};
+        if (ref($value) eq 'ARRAY') {
+            $self->_send_html_error(
+                $c,
+                'invalid_request',
+                'Parameter is included more than once in the request: ' . $name,
+            );
+        }
         $value = $defaults{$name} unless defined $value;
-        $params{$name} = ref($value) eq 'ARRAY' ? $value->[0] : $value;
-        $self->_send_html_error($c, 'invalid_request', 'Required parameter is missing: ' . $name)
-            unless $params{$name};
+        if (defined $value) {
+            $params{$name} = $value;
+        } elsif (!$optional{$name}) {
+            $self->_send_html_error($c, 'invalid_request', 'Required parameter is missing: ' . $name);
+        }
     }
 
     my $application = $c->model('Application')->get_by_oauth_id($params{client_id});
@@ -148,7 +158,14 @@ sub token : Local Args(0)
     my %params;
     for my $name (qw/client_id client_secret grant_type code refresh_token redirect_uri token_type/) {
         my $value = $c->request->params->{$name};
-        $params{$name} = ref($value) eq 'ARRAY' ? $value->[0] : $value;
+        if (ref($value) eq 'ARRAY') {
+            $self->_send_error(
+                $c,
+                'invalid_request',
+                'Parameter is included more than once in the request: ' . $name,
+            );
+        }
+        $params{$name} = $value;
         my $optional = 1;
         $optional = 0 if $name eq 'code' && $params{grant_type} eq 'authorization_code';
         $optional = 0 if $name eq 'redirect_uri' && $params{grant_type} eq 'authorization_code';
@@ -216,9 +233,26 @@ sub token : Local Args(0)
     $self->_send_response($c, $data);
 }
 
+sub _set_error_status {
+    my ($self, $c, $error) = @_;
+
+    if ($error eq 'invalid_client') {
+        $c->response->headers->www_authenticate('Basic realm="OAuth2-Client"');
+        $c->response->status(401);
+    }
+    elsif ($error eq 'temporarily_unavailable') {
+        $c->response->status(503);
+    }
+    else {
+        $c->response->status(400);
+    }
+}
+
 sub _send_html_error
 {
     my ($self, $c, $error, $error_description) = @_;
+
+    $self->_set_error_status($c, $error);
 
     $c->stash(
         current_view => 'Node',
@@ -235,16 +269,7 @@ sub _send_error
 {
     my ($self, $c, $error, $error_description) = @_;
 
-    if ($error eq 'invalid_client') {
-        $c->response->headers->www_authenticate('Basic realm="OAuth2-Client"');
-        $c->response->status(401);
-    }
-    elsif ($error eq 'temporarily_unavailable') {
-        $c->response->status(503);
-    }
-    else {
-        $c->response->status(400);
-    }
+    $self->_set_error_status($c, $error);
 
     $self->_send_response($c, {
         error => $error,
