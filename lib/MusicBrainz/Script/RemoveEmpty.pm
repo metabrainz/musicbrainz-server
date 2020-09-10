@@ -129,14 +129,14 @@ sub run {
                     {
                         editor_id => $EDITOR_MODBOT,
                         text => localized_note(
-                            N_l('This entity was automatically removed because it was empty:
-                                 it had no relationships associated with it, nor (if
-                                 relevant for the type of entity in question) any recordings,
-                                 releases nor release groups.
-                                 If you consider this was a valid, non-duplicate entry
-                                 that does belong in MusicBrainz, feel free to add it again,
-                                 but please ensure enough data is added to it this time
-                                 to avoid another automatic removal.')
+                            N_l('This entity was automatically removed because it was empty: ' .
+                                'it had no relationships associated with it, nor (if ' .
+                                'relevant for the type of entity in question) any recordings, ' .
+                                'releases nor release groups. ' .
+                                'If you consider this was a valid, non-duplicate entry ' .
+                                'that does belong in MusicBrainz, feel free to add it again, ' .
+                                'but please ensure enough data is added to it this time ' .
+                                'to avoid another automatic removal.')
                         )
                     }
                 );
