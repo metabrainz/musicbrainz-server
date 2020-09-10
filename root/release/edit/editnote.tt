@@ -1,7 +1,7 @@
 <div id="form">
   <!-- ko if: validation.errorsExist -->
     <div class="warning">
-      <p>[% l('Some errors were detected in the data you’ve entered. Click on the tabs shaded red and correct any visible errors.') %]</p>
+      <p>[% l('Some errors were detected in the data you’ve entered. Click on the highlighted tabs and correct any visible errors.') %]</p>
     </div>
   <!-- /ko -->
 
