@@ -17,12 +17,12 @@ sub oauth_redirect_ok
 {
     my ($mech, $host, $path, $state) = @_;
 
-    is(302, $mech->status);
+    is($mech->status, 302);
     my $uri = URI->new($mech->response->header('Location'));
-    is('http', $uri->scheme);
-    is($host, $uri->host);
-    is($path, $uri->path);
-    is($state, $uri->query_param('state'));
+    is($uri->scheme, 'http');
+    is($uri->host, $host);
+    is($uri->path, $path);
+    is($uri->query_param('state'), $state);
     my $code = $uri->query_param('code');
     ok($code);
 
@@ -33,14 +33,14 @@ sub oauth_redirect_error
 {
     my ($mech, $host, $path, $state, $error) = @_;
 
-    is(302, $mech->status);
+    is($mech->status, 302);
     my $uri = URI->new($mech->response->header('Location'));
-    is('http', $uri->scheme);
-    is($host, $uri->host);
-    is($path, $uri->path);
-    is($state, $uri->query_param('state'));
-    is($error, $uri->query_param('error'));
-    is(undef, $uri->query_param('code'));
+    is($uri->scheme, 'http');
+    is($uri->host, $host);
+    is($uri->path, $path);
+    is($uri->query_param('state'), $state);
+    is($uri->query_param('error'), $error);
+    is($uri->query_param('code'), undef);
 }
 
 sub oauth_authorization_code_ok
@@ -49,16 +49,16 @@ sub oauth_authorization_code_ok
 
     my $token = $test->c->model('EditorOAuthToken')->get_by_authorization_code($code);
     ok($token);
-    is($application_id, $token->application_id);
-    is($editor_id, $token->editor_id);
-    is($code, $token->authorization_code);
+    is($token->application_id, $application_id);
+    is($token->editor_id, $editor_id);
+    is($token->authorization_code, $code);
     if ($offline) {
-        isnt(undef, $token->refresh_token);
+        isnt($token->refresh_token, undef);
     }
     else {
-        is(undef, $token->refresh_token);
+        is($token->refresh_token, undef);
     }
-    is(undef, $token->access_token);
+    is($token->access_token, undef);
 
     my $application = $test->c->model('Application')->get_by_id($application_id);
     $test->mech->post_ok('/oauth2/token', {
@@ -300,8 +300,8 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_grant', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_grant');
 
     # Expired authorization code
     $code = "kEbi7Dwg4hGRFvz9W8VIuQ";
@@ -313,8 +313,8 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_grant', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_grant');
 
     $code = "liUxgzsg4hGvDxX9W8VIuQ";
 
@@ -326,8 +326,8 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(401, $test->mech->status);
-    is('invalid_client', $response->{error});
+    is($test->mech->status, 401);
+    is($response->{error}, 'invalid_client');
 
     # Incorrect client_id
     $test->mech->post('/oauth2/token', {
@@ -338,8 +338,8 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(401, $test->mech->status);
-    is('invalid_client', $response->{error});
+    is($test->mech->status, 401);
+    is($response->{error}, 'invalid_client');
 
     # Missing client_secret
     $test->mech->post('/oauth2/token', {
@@ -349,8 +349,8 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(401, $test->mech->status);
-    is('invalid_client', $response->{error});
+    is($test->mech->status, 401);
+    is($response->{error}, 'invalid_client');
 
     # Incorrect client_secret
     $test->mech->post('/oauth2/token', {
@@ -361,8 +361,8 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(401, $test->mech->status);
-    is('invalid_client', $response->{error});
+    is($test->mech->status, 401);
+    is($response->{error}, 'invalid_client');
 
     # Missing grant_type
     $test->mech->post('/oauth2/token', {
@@ -372,8 +372,8 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_request', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_request');
 
     # Incorrect grant_type
     $test->mech->post('/oauth2/token', {
@@ -384,8 +384,8 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('unsupported_grant_type', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'unsupported_grant_type');
 
     # Missing redirect_uri
     $test->mech->post('/oauth2/token', {
@@ -395,8 +395,8 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_request', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_request');
 
     # Incorect redirect_uri
     $test->mech->post('/oauth2/token', {
@@ -407,8 +407,8 @@ test 'Exchange authorization code' => sub {
         code => $code
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_request', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_request');
 
     # Missing code
     $test->mech->post('/oauth2/token', {
@@ -418,8 +418,8 @@ test 'Exchange authorization code' => sub {
         redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_request', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_request');
 
     # Correct code, but incorrect application
     $test->mech->post('/oauth2/token', {
@@ -430,14 +430,14 @@ test 'Exchange authorization code' => sub {
         code => $code
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_grant', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_grant');
 
     # Correct parameters, but GET request
     $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_request', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_request');
 
     # No problems, receives access token
     $test->mech->post_ok('/oauth2/token', {
@@ -448,9 +448,9 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is(undef, $response->{error});
-    is(undef, $response->{error_description});
-    is('bearer', $response->{token_type});
+    is($response->{error}, undef);
+    is($response->{error_description}, undef);
+    is($response->{token_type}, 'bearer');
     ok($response->{access_token});
     ok($response->{refresh_token});
     ok($response->{expires_in});
@@ -472,8 +472,8 @@ test 'Exchange refresh code' => sub {
         refresh_token => $code,
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_grant', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_grant');
 
     # Correct token, but incorrect application
     $code = "yi3qjrMf4hG9VVUxXMVIuQ";
@@ -484,8 +484,8 @@ test 'Exchange refresh code' => sub {
         refresh_token => $code,
     });
     $response = from_json($test->mech->content);
-    is(400, $test->mech->status);
-    is('invalid_grant', $response->{error});
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_grant');
 
     # No problems, receives access token
     $test->mech->post_ok('/oauth2/token', {
@@ -495,7 +495,7 @@ test 'Exchange refresh code' => sub {
         refresh_token => $code,
     });
     $response = from_json($test->mech->content);
-    is('bearer', $response->{token_type});
+    is($response->{token_type}, 'bearer');
     ok($response->{access_token});
     ok($response->{refresh_token});
     ok($response->{expires_in});
