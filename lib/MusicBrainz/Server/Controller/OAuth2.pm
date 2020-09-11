@@ -33,6 +33,9 @@ sub authorize : Local Args(0) RequireAuth SecureForm
 {
     my ($self, $c) = @_;
 
+    # https://tools.ietf.org/html/draft-ietf-oauth-security-topics-14#section-4.2.4
+    $c->res->header('Referrer-Policy' => 'strict-origin-when-cross-origin');
+
     $self->_enforce_tls_html($c);
 
     my %params;

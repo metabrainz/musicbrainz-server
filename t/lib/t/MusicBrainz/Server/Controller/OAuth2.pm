@@ -96,6 +96,11 @@ test 'Authorize web workflow online' => sub {
     my $client_id = 'id-web';
     my $redirect_uri = 'http://www.example.com/callback';
 
+    my $headers_ok = sub {
+        csp_headers_ok($test);
+        is($test->mech->response->header('Referrer-Policy'), 'strict-origin-when-cross-origin');
+    };
+
     # This requires login first
     $test->mech->get_ok('/oauth2/authorize?client_id=id-web&response_type=code&scope=profile&state=xxx&redirect_uri=http://www.example.com/callback');
     html_ok($test->mech->content);
@@ -107,7 +112,7 @@ test 'Authorize web workflow online' => sub {
     $test->mech->content_like(qr{Test Web is requesting permission});
     $test->mech->content_like(qr{View your public account information});
     $test->mech->content_unlike(qr{Perform the above operations when I'm not using the application});
-    csp_headers_ok($test);
+    $headers_ok->();
 
     # Deny the request
     $test->mech->max_redirect(0);
@@ -117,12 +122,12 @@ test 'Authorize web workflow online' => sub {
     # Incorrect scope
     $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=code&scope=does-not-exist&state=xxx&redirect_uri=$redirect_uri");
     oauth_redirect_error($test->mech, 'www.example.com', '/callback', 'xxx', 'invalid_scope');
-    csp_headers_ok($test);
+    $headers_ok->();
 
     # Incorrect response type
     $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=yyy&scope=profile&state=xxx&redirect_uri=$redirect_uri");
     oauth_redirect_error($test->mech, 'www.example.com', '/callback', 'xxx', 'unsupported_response_type');
-    csp_headers_ok($test);
+    $headers_ok->();
 
     # https://tools.ietf.org/html/rfc6749#section-3.1
     # Request and response parameters MUST NOT be included more than once.
@@ -142,21 +147,21 @@ test 'Authorize web workflow online' => sub {
         is($test->mech->status, 400);
         $test->mech->content_like(qr{invalid_request});
         $test->mech->content_like(qr{Parameter is included more than once in the request: $dupe_param});
-        csp_headers_ok($test);
+        $headers_ok->();
     }
 
     # Authorize the request
     $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=xxx&redirect_uri=$redirect_uri");
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xxx');
-    csp_headers_ok($test);
+    $headers_ok->();
     oauth_authorization_code_ok($test, $code, 2, 11, 0);
 
     # Try to authorize one more time, this time we should be redirected automatically and only get the access_token
     $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&redirect_uri=$redirect_uri");
     my $code2 = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'yyy');
     isnt($code, $code2);
-    csp_headers_ok($test);
+    $headers_ok->();
     oauth_authorization_code_ok($test, $code2, 2, 11, 0);
 };
 
