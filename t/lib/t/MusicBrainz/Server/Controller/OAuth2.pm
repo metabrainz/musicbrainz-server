@@ -72,11 +72,20 @@ sub oauth_authorization_code_ok
     return $token;
 }
 
+# https://tools.ietf.org/html/draft-ietf-oauth-security-topics-14
+# Authorization servers MUST prevent clickjacking attacks.
 sub csp_headers_ok {
     my $test = shift;
     my $response = $test->mech->response;
     is($response->header('X-Frame-Options'), 'DENY');
-    is($response->header('Content-Security-Policy'), q(default-src 'self' staticbrainz.org));
+    my $csp_pattern =
+        q(default-src 'self'; ) .
+        q(frame-ancestors 'none'; ) .
+        q(script-src 'self' 'nonce-[0-9A-Za-z\+/]{43}=' staticbrainz\.org; ) .
+        q(style-src 'self' staticbrainz\.org; ) .
+        q(img-src 'self' data: staticbrainz\.org gravatar\.com; ) .
+        q(frame-src 'self');
+    like($response->header('Content-Security-Policy'), qr{^$csp_pattern$});
 }
 
 test 'Authorize web workflow online' => sub {

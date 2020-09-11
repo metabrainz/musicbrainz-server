@@ -9,9 +9,10 @@
 
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../../context';
+import {CatalystContext} from '../../context';
 import DBDefs from '../../static/scripts/common/DBDefs-client-values';
 import escapeClosingTags from '../../utility/escapeClosingTags';
+import sanitizedContext from '../../utility/sanitizedContext';
 
 /*
  * In production, lib/DBDefs.pm is rendered by consul-template, and so
@@ -43,13 +44,13 @@ const CLIENT_DBDEFS_CODE =
   ')})';
 
 export default ((
-  <SanitizedCatalystContext.Consumer>
+  <CatalystContext.Consumer>
     {$c => {
       const CLIENT_CATALYST_CONTEXT_CODE =
         'Object.defineProperty(window,' +
         JSON.stringify(GLOBAL_CATALYST_CONTEXT_NAMESPACE) +
         ',{value:Object.freeze(' +
-        escapeClosingTags(JSON.stringify($c)) +
+        escapeClosingTags(JSON.stringify(sanitizedContext($c))) +
         ')})';
       return (
         <script
@@ -57,8 +58,9 @@ export default ((
             __html: CLIENT_DBDEFS_CODE + ';' +
               CLIENT_CATALYST_CONTEXT_CODE,
           }}
+          nonce={$c.stash.globals_script_nonce}
         />
       );
     }}
-  </SanitizedCatalystContext.Consumer>
+  </CatalystContext.Consumer>
 ): React.MixedElement);

@@ -1,6 +1,10 @@
 package MusicBrainz::Server::Controller::Root;
 use Digest::MD5 qw( md5_hex );
+use Digest::SHA qw( sha256 );
+use MIME::Base64 qw( encode_base64 );
 use Moose;
+use Scalar::Util qw( refaddr );
+use Time::HiRes qw( clock_gettime CLOCK_REALTIME CLOCK_MONOTONIC );
 use Try::Tiny;
 use List::Util qw( max );
 use Readonly;
@@ -196,11 +200,102 @@ sub error_mirror_404 : Private
     $c->detach;
 }
 
+sub generate_globals_script_nonce {
+    my ($c) = @_;
+
+    encode_base64(
+        sha256(
+            join q(.),
+                refaddr($c->req),
+                clock_gettime(CLOCK_REALTIME),
+                clock_gettime(CLOCK_MONOTONIC)),
+        '',
+    );
+}
+
+sub set_csp_headers {
+    my ($c) = @_;
+
+    my $globals_script_nonce = generate_globals_script_nonce($c);
+    $c->stash->{globals_script_nonce} = $globals_script_nonce;
+
+    # CSP headers are generally only added where SecureForm is also used:
+    # account and admin-related forms. So there's no need to account for
+    # external origins like coverartarchive.org, archive.org,
+    # acousticbrainz.org, etc. here, as those are used on entity pages which
+    # don't have a CSP. Userscripts should continue to work for the same
+    # reason: edit and entity pages are unaffected. Avoid using the
+    # CSPHeaders attribute in those places.
+    my @csp_script_src = (
+        'script-src',
+        q('self'),
+        qq('nonce-$globals_script_nonce'),
+        'staticbrainz.org'
+    );
+
+    my @csp_style_src = (
+        'style-src',
+        q('self'),
+        'staticbrainz.org',
+    );
+
+    my @csp_img_src = (
+        'img-src',
+        q('self'),
+        'data:',
+        'staticbrainz.org',
+        'gravatar.com',
+    );
+
+    my @csp_frame_src = ('frame-src', q('self'));
+    if ($c->req->path eq 'register') {
+        my $use_captcha = ($c->req->address &&
+                           defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
+                           defined DBDefs->RECAPTCHA_PRIVATE_KEY);
+        if ($use_captcha) {
+            push @csp_script_src, qw(
+                https://www.google.com/recaptcha/
+                https://www.gstatic.com/recaptcha/
+            );
+            push @csp_frame_src, 'https://www.google.com/recaptcha/';
+        }
+    }
+
+    $c->res->header(
+        # X-Frame-Options is obsoleted by `frame-ancestors` on the
+        # Content-Security-Policy header; user agents that support
+        # the latter should ignore X-Frame-Options.
+        'X-Frame-Options' => 'DENY',
+        'Content-Security-Policy' => (
+            q(default-src 'self'; frame-ancestors 'none'; ) .
+            (join '; ', map { join ' ', @{$_} } (
+                \@csp_script_src,
+                \@csp_style_src,
+                \@csp_img_src,
+                \@csp_frame_src,
+            ))
+        ),
+    );
+}
+
 sub begin : Private
 {
     my ($self, $c) = @_;
 
-    ensure_ssl($c) if $c->action->attributes->{RequireSSL};
+    my $attributes = $c->action->attributes;
+
+    ensure_ssl($c) if $attributes->{RequireSSL};
+
+    # 'SecureForm' only exists as a shorthand for specifying both CSRFToken
+    # and CSPHeaders, since those are commonly paired together on forms.
+    if (exists $attributes->{SecureForm}) {
+        $attributes->{CSRFToken} = 1;
+        $attributes->{CSPHeaders} = 1;
+    }
+
+    if ($attributes->{CSPHeaders}) {
+        set_csp_headers($c);
+    }
 
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
@@ -297,24 +392,24 @@ sub begin : Private
     # anything here, make sure it is reflected there, too (if applicable).
 
     # Edit implies RequireAuth
-    if (!exists $c->action->attributes->{RequireAuth} && exists $c->action->attributes->{Edit}) {
-        $c->action->attributes->{RequireAuth} = 1;
+    if (!exists $attributes->{RequireAuth} && exists $attributes->{Edit}) {
+        $attributes->{RequireAuth} = 1;
     }
 
     # Returns a special 404 for areas of the site that shouldn't exist on a slave (e.g. /user pages)
-    if (exists $c->action->attributes->{HiddenOnSlaves}) {
+    if (exists $attributes->{HiddenOnSlaves}) {
         $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});
     }
 
     # Anything that requires authentication isn't allowed on a mirror server (e.g. editing, registering)
-    if (exists $c->action->attributes->{RequireAuth} || $c->action->attributes->{ForbiddenOnSlaves}) {
+    if (exists $attributes->{RequireAuth} || $attributes->{ForbiddenOnSlaves}) {
         $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
     }
 
-    if (exists $c->action->attributes->{RequireAuth})
+    if (exists $attributes->{RequireAuth})
     {
         $c->forward('/user/do_login');
-        my $privs = $c->action->attributes->{RequireAuth};
+        my $privs = $attributes->{RequireAuth};
         if ($privs && ref($privs) eq "ARRAY") {
             foreach my $priv (@$privs) {
                 last unless $priv;
@@ -326,14 +421,14 @@ sub begin : Private
         }
     }
 
-    if (exists $c->action->attributes->{Edit} && $c->user_exists &&
+    if (exists $attributes->{Edit} && $c->user_exists &&
         (!$c->user->has_confirmed_email_address || $c->user->is_editing_disabled))
     {
         $c->forward('/error_401');
     }
 
-    if (DBDefs->DB_READ_ONLY && (exists $c->action->attributes->{Edit} ||
-                                 exists $c->action->attributes->{DenyWhenReadonly})) {
+    if (DBDefs->DB_READ_ONLY && (exists $attributes->{Edit} ||
+                                 exists $attributes->{DenyWhenReadonly})) {
         $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
         $c->forward('/error_400');
     }

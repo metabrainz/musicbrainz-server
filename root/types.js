@@ -218,6 +218,7 @@ declare type CatalystStashT = {
   +current_language_html: string,
   +entity?: CoreEntityT,
   +genre_map?: {+[genreName: string]: GenreT, ...},
+  +globals_script_nonce?: string,
   +hide_merge_helper?: boolean,
   +invalid_csrf_token?: boolean,
   +jsonld_data?: {...},

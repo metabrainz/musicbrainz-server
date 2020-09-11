@@ -29,14 +29,9 @@ sub index : Private
     $c->detach;
 }
 
-sub authorize : Local Args(0) RequireAuth CSRFToken
+sub authorize : Local Args(0) RequireAuth SecureForm
 {
     my ($self, $c) = @_;
-
-    # https://tools.ietf.org/html/draft-ietf-oauth-security-topics-14#section-4.14
-    # Authorization servers MUST prevent clickjacking attacks.
-    $c->response->header('X-Frame-Options' => 'DENY');
-    $c->response->header('Content-Security-Policy' => q(default-src 'self' staticbrainz.org));
 
     $self->_enforce_tls_html($c);
 

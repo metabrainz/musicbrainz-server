@@ -54,7 +54,7 @@ sub index : Path Args(0)
     );
 }
 
-sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
+sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
 {
     my ($self, $c) = @_;
 
@@ -86,7 +86,7 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
     );
 }
 
-sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
+sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
 {
     my ($self, $c) = @_;
 
@@ -127,7 +127,7 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
     );
 }
 
-sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit CSRFToken
+sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
 {
     my ($self, $c) = @_;
 
