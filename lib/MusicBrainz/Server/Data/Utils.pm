@@ -235,9 +235,13 @@ sub generate_gid
     lc(Data::UUID::MT->new( version => 4 )->create_string());
 }
 
-sub generate_token
-{
-    encode_base64url(pack('LLLL', irand(), irand(), irand(), irand()));
+Readonly my $TOKEN_SIZE => 6; # times 32 bits
+sub generate_token {
+    encode_base64url(
+        pack(
+            'L' x $TOKEN_SIZE,
+            map { irand() } (1 .. $TOKEN_SIZE),
+        ));
 }
 
 sub get_area_containment_query {
