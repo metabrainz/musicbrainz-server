@@ -10,6 +10,8 @@ use URI;
 use URI::QueryParam;
 use JSON;
 use MusicBrainz::Server::Test qw( html_ok );
+use Digest::SHA qw( sha256 );
+use MIME::Base64 qw( decode_base64url encode_base64url );
 
 with 't::Context', 't::Mechanize';
 
@@ -25,13 +27,14 @@ sub oauth_redirect_ok
     is($uri->query_param('state'), $state);
     my $code = $uri->query_param('code');
     ok($code);
-
+    is($uri->query_param('code_challenge'), undef);
+    is($uri->query_param('code_challenge_method'), undef);
     return $code;
 }
 
 sub oauth_redirect_error
 {
-    my ($mech, $host, $path, $state, $error) = @_;
+    my ($mech, $host, $path, $state, $error, $error_description) = @_;
 
     is($mech->status, 302);
     my $uri = URI->new($mech->response->header('Location'));
@@ -40,7 +43,11 @@ sub oauth_redirect_error
     is($uri->path, $path);
     is($uri->query_param('state'), $state);
     is($uri->query_param('error'), $error);
+    is($uri->query_param('error_description'), $error_description)
+        if defined $error_description;
     is($uri->query_param('code'), undef);
+    is($uri->query_param('code_challenge'), undef);
+    is($uri->query_param('code_challenge_method'), undef);
 }
 
 sub oauth_authorization_code_ok
@@ -86,6 +93,17 @@ sub csp_headers_ok {
         q(img-src 'self' data: staticbrainz\.org gravatar\.com; ) .
         q(frame-src 'self');
     like($response->header('Content-Security-Policy'), qr{^$csp_pattern$});
+}
+
+sub token_response_ok {
+    my $test = shift;
+    my $response = from_json($test->mech->content);
+    is($response->{error}, undef);
+    is($response->{error_description}, undef);
+    is($response->{token_type}, 'bearer');
+    ok($response->{access_token});
+    ok($response->{expires_in});
+    return $response;
 }
 
 test 'Authorize web workflow online' => sub {
@@ -474,13 +492,156 @@ test 'Exchange authorization code' => sub {
         redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
         code => $code,
     });
-    $response = from_json($test->mech->content);
-    is($response->{error}, undef);
-    is($response->{error_description}, undef);
-    is($response->{token_type}, 'bearer');
-    ok($response->{access_token});
+    $response = token_response_ok($test);
     ok($response->{refresh_token});
-    ok($response->{expires_in});
+};
+
+test 'Authorize web workflow online with PKCE' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my ($authorization_code, $response);
+    my $common_auth_params = '/oauth2/authorize' .
+        '?client_id=id-web' .
+        '&response_type=code' .
+        '&scope=profile' .
+        '&state=xyz' .
+        '&redirect_uri=http://www.example.com/callback';
+
+    $test->mech->get_ok('/login');
+    $test->mech->submit_form(with_fields => { username => 'editor1', password => 'pass' });
+
+    $test->mech->max_redirect(0);
+    $test->mech->get($common_auth_params . '&code_challenge_method=idk');
+    oauth_redirect_error(
+        $test->mech,
+        'www.example.com', '/callback', 'xyz',
+        'invalid_request', q(The code_challenge_method must be 'S256' or 'plain'),
+    );
+
+    $test->mech->get($common_auth_params . '&code_challenge_method=S256');
+    oauth_redirect_error(
+        $test->mech,
+        'www.example.com', '/callback', 'xyz',
+        'invalid_request', q(A code_challenge_method was supplied without an accompanying code_challenge),
+    );
+
+    $test->mech->get($common_auth_params . '&code_challenge=&code_challenge_method=S256');
+    oauth_redirect_error(
+        $test->mech,
+        'www.example.com', '/callback', 'xyz',
+        'invalid_request', 'Invalid code_challenge; see https://tools.ietf.org/html/rfc7636#section-4.1',
+    );
+
+    # code_challenge too short
+    $test->mech->get($common_auth_params . '&code_challenge=abc&code_challenge_method=S256');
+    oauth_redirect_error(
+        $test->mech,
+        'www.example.com', '/callback', 'xyz',
+        'invalid_request', 'Invalid code_challenge; see https://tools.ietf.org/html/rfc7636#section-4.1',
+    );
+
+    # code_challenge too long
+    $test->mech->get($common_auth_params .
+        '&code_challenge=' . ('a' x 129) . '&code_challenge_method=S256');
+    oauth_redirect_error(
+        $test->mech,
+        'www.example.com', '/callback', 'xyz',
+        'invalid_request', 'Invalid code_challenge; see https://tools.ietf.org/html/rfc7636#section-4.1',
+    );
+
+    my $code_verifier_raw = '...never gonna guess this code..';
+    my $code_verifier = encode_base64url($code_verifier_raw); # exactly 43 chars
+    # code_challenge_method should default to 'plain'
+    $test->mech->get_ok($common_auth_params . "&code_challenge=$code_verifier");
+    $test->mech->submit_form(form_name => 'confirm', button => 'confirm.submit');
+    $authorization_code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xyz');
+
+    my %common_token_params = (
+        client_id => 'id-web',
+        client_secret => 'id-web-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'http://www.example.com/callback',
+    );
+
+    # Pass an incorrect code_verifier
+    $test->mech->post('/oauth2/token', {
+        %common_token_params,
+        code => $authorization_code,
+        code_verifier => encode_base64url('wrong'),
+    });
+    $response = from_json($test->mech->content);
+    is($response->{error}, 'invalid_grant');
+    is($response->{error_description}, 'Invalid PKCE verifier');
+
+    # Pass an empty code_verifier
+    $test->mech->post('/oauth2/token', {
+        %common_token_params,
+        code => $authorization_code,
+        code_verifier => '',
+    });
+    $response = from_json($test->mech->content);
+    is($response->{error}, 'invalid_grant');
+    is($response->{error_description}, 'Invalid PKCE verifier');
+
+    # Pass no code_verifier
+    $test->mech->post('/oauth2/token', {
+        %common_token_params,
+        code => $authorization_code,
+    });
+    $response = from_json($test->mech->content);
+    is($response->{error}, 'invalid_request');
+    is($response->{error_description}, 'Required parameter is missing: code_verifier');
+
+    # This one is okay
+    $test->mech->post_ok('/oauth2/token', {
+        %common_token_params,
+        code => $authorization_code,
+        code_verifier => $code_verifier,
+    });
+    token_response_ok($test);
+
+    # Specify code_challenge_method=plain explicitly.
+    $test->mech->get($common_auth_params .
+        "&code_challenge=$code_verifier&code_challenge_method=plain");
+    # No confirmation since we're pre-authorized.
+    $authorization_code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xyz');
+
+    $test->mech->post_ok('/oauth2/token', {
+        %common_token_params,
+        code => $authorization_code,
+        code_verifier => $code_verifier,
+    });
+    token_response_ok($test);
+
+    # With code_challenge_method=S256, the same request should be rejected.
+    $test->mech->get($common_auth_params .
+        "&code_challenge=$code_verifier&code_challenge_method=S256");
+    # No confirmation since we're pre-authorized.
+    $authorization_code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xyz');
+
+    $test->mech->post('/oauth2/token', {
+        %common_token_params,
+        code => $authorization_code,
+        code_verifier => $code_verifier,
+    });
+    $response = from_json($test->mech->content);
+    is($response->{error}, 'invalid_grant');
+    is($response->{error_description}, 'Invalid PKCE verifier');
+
+    my $code_challenge = encode_base64url(sha256($code_verifier_raw));
+    $test->mech->get($common_auth_params .
+        "&code_challenge=$code_challenge&code_challenge_method=S256");
+    # No confirmation since we're pre-authorized.
+    $authorization_code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xyz');
+
+    $test->mech->post_ok('/oauth2/token', {
+        %common_token_params,
+        code => $authorization_code,
+        code_verifier => $code_verifier,
+    });
+    token_response_ok($test);
 };
 
 test 'Exchange refresh code' => sub {
@@ -521,11 +682,8 @@ test 'Exchange refresh code' => sub {
         grant_type => 'refresh_token',
         refresh_token => $code,
     });
-    $response = from_json($test->mech->content);
-    is($response->{token_type}, 'bearer');
-    ok($response->{access_token});
+    $response = token_response_ok($test);
     ok($response->{refresh_token});
-    ok($response->{expires_in});
     $test->mech->header_is('access-control-allow-origin', '*');
 };
 

@@ -36,6 +36,16 @@ has 'authorization_code' => (
     is => 'rw',
 );
 
+has 'code_challenge' => (
+    isa => 'Maybe[Str]',
+    is => 'rw',
+);
+
+has 'code_challenge_method' => (
+    isa => 'Maybe[Str]',
+    is => 'rw',
+);
+
 has 'refresh_token' => (
     isa => 'Maybe[Str]',
     is => 'rw',
