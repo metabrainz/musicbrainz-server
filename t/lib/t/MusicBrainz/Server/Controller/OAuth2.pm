@@ -644,6 +644,52 @@ test 'Authorize web workflow online with PKCE' => sub {
     token_response_ok($test);
 };
 
+test 'Authorize web workflow with response_mode=form_post' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my $mech = $test->mech;
+    $mech->get_ok('/login');
+    $mech->submit_form(with_fields => { username => 'editor1', password => 'pass' });
+
+    $mech->get('/oauth2/authorize' .
+        '?client_id=id-web' .
+        '&response_type=code' .
+        '&scope=profile' .
+        '&state=zyx' .
+        '&redirect_uri=http://www.example.com/callback' .
+        '&response_mode=form_post');
+    $mech->submit_form(form_name => 'confirm', button => 'confirm.submit');
+    $mech->content_like(qr{Redirecting to Test Web});
+    my $csp_header =
+        q(default-src 'self'; ) .
+        q(frame-ancestors 'none'; ) .
+        q(script-src 'sha256-ePniVEkSivX/c7XWBGafqh8tSpiRrKiqYeqbG7N1TOE=');
+    $mech->header_is('Content-Security-Policy', $csp_header);
+
+    my $form = $mech->form_number(1);
+    is($form->action, 'http://www.example.com/callback');
+
+    my %inputs = map {
+        $_->name => $_->value
+    } $mech->grep_inputs({type => qr/^hidden$/});
+    is(scalar keys %inputs, 2);
+
+    my $state = $inputs{state};
+    is($state, 'zyx');
+
+    my $authorization_code = $inputs{code};
+    $mech->post_ok('/oauth2/token', {
+        client_id => 'id-web',
+        client_secret => 'id-web-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'http://www.example.com/callback',
+        code => $authorization_code,
+    });
+    token_response_ok($test);
+};
+
 test 'Exchange refresh code' => sub {
     my $test = shift;
 

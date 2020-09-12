@@ -34,6 +34,7 @@ Readonly our @AUTHORIZE_PARAMETERS => qw(
     state
     code_challenge
     code_challenge_method
+    response_mode
 );
 
 Readonly our %AUTHORIZE_PARAMETER_DEFAULTS => (
@@ -46,6 +47,7 @@ Readonly our %OPTIONAL_AUTHORIZE_PARAMETERS => (
     approval_prompt => 1,
     code_challenge => 1,
     code_challenge_method => 1,
+    response_mode => 1,
 );
 
 Readonly our @TOKEN_PARAMETERS => qw(
@@ -97,14 +99,19 @@ sub authorize : Local Args(0) RequireAuth SecureForm
     my $application = $c->model('Application')->get_by_oauth_id($params{client_id});
     $self->_send_html_error($c, 'invalid_client', 'Unknown client')
         unless defined $application;
+    # Used by root/oauth2/OAuth2FormPost.js
+    $c->stash->{application_name} = $application->name;
 
     my $redirect_uri = $params{redirect_uri};
-
     $self->_send_html_error($c, 'invalid_request', 'Mismatched redirect URI')
         unless $self->_check_redirect_uri($application, $redirect_uri);
 
     $self->_send_redirect_error($c, $redirect_uri, 'unsupported_response_type', 'Unsupported response type')
         unless $params{response_type} eq 'code';
+
+    my $response_mode = $params{response_mode};
+    $self->_send_redirect_error($c, $redirect_uri, 'invalid_request', 'Unsupported response mode')
+        if defined $response_mode && $response_mode ne 'form_post';
 
     my $scope = 0;
     for my $name (split /\s+/, $params{scope}) {
@@ -159,7 +166,7 @@ sub authorize : Local Args(0) RequireAuth SecureForm
             });
             $self->_send_redirect_response($c, $redirect_uri, {
                 code => $token->authorization_code,
-            });
+            }, $response_mode);
         }
     }
 
@@ -380,21 +387,41 @@ sub _send_redirect_error
 
 sub _send_redirect_response
 {
-    my ($self, $c, $uri, $response) = @_;
+    my ($self, $c, $uri, $response, $response_mode) = @_;
 
     if ($uri eq 'urn:ietf:wg:oauth:2.0:oob') {
         $uri = $c->uri_for_action('/oauth2/oob');
     }
 
-    my $parsed_uri = URI->new($uri);
-    for my $name (keys %$response) {
-        $parsed_uri->query_param( $name => $response->{$name} )
-    }
     if (exists $c->request->params->{state}) {
-        $parsed_uri->query_param( state => $c->request->params->{state} )
+        $response->{state} = $c->request->params->{state};
     }
 
-    $c->response->redirect($parsed_uri->as_string);
+    if (defined $response_mode && $response_mode eq 'form_post') {
+        # This overrides the CSP header set by
+        # Controller::Root::set_csp_headers. This one is more restrictive.
+        $c->res->header('Content-Security-Policy' => (
+            q(default-src 'self'; ) .
+            q(frame-ancestors 'none'; ) .
+            q(script-src 'sha256-ePniVEkSivX/c7XWBGafqh8tSpiRrKiqYeqbG7N1TOE=')
+        ));
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'oauth2/OAuth2FormPost',
+            component_props => {
+                applicationName => $c->stash->{application_name},
+                fields => $response,
+                redirectUri => $uri,
+            },
+        );
+    } else {
+        my $parsed_uri = URI->new($uri);
+        for my $name (keys %$response) {
+            $parsed_uri->query_param($name => $response->{$name});
+        }
+        $c->response->redirect($parsed_uri->as_string);
+    }
+
     $c->detach;
 }
 
