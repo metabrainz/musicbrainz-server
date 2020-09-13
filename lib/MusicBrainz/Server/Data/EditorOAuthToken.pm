@@ -178,6 +178,38 @@ sub revoke_access
                     $editor_id, $application_id, $scope);
 }
 
+sub revoke_token {
+    my ($self, $application_id, $token) = @_;
+
+    die 'undef token' unless defined $token;
+
+    # If the token is a refresh token, or if it's an access token with no
+    # associated refresh token ("online" apps), delete the entire
+    # authorization grant.
+    return if $self->sql->select_single_value(
+        'DELETE FROM editor_oauth_token ' .
+        'WHERE application = $1 ' .
+        'AND (' .
+            '(refresh_token IS NOT NULL AND refresh_token = $2) OR ' .
+            '(refresh_token IS NULL AND access_token = $2)' .
+        ') RETURNING id',
+        $application_id, $token,
+    );
+
+    # Otherwise, only NULL the access token. RFC 7009 specifies that we MAY
+    # revoke the respective refresh token as well, but our implementation
+    # allows it to continue to be used unless the client explicitly revokes
+    # the refresh token.
+    $self->sql->do(
+        'UPDATE editor_oauth_token ' .
+        'SET access_token = NULL ' .
+        'WHERE application = ? ' .
+        'AND access_token = ?',
+        $application_id, $token,
+    );
+    return;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

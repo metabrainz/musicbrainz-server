@@ -209,6 +209,28 @@ sub oob : Local Args(0)
     );
 }
 
+sub _validate_client {
+    my ($self, $c, $client_id, $client_secret) = @_;
+
+    my ($auth_client_id, $auth_client_secret) = $c->request->headers->authorization_basic;
+    if (defined $auth_client_id && defined $auth_client_secret) {
+        $client_id = $auth_client_id;
+        $client_secret = $auth_client_secret;
+    }
+
+    $self->_send_error($c, 'invalid_client', 'Client not authentified')
+        unless defined $client_id && defined $client_secret;
+
+    my $application = $c->model('Application')->get_by_oauth_id($client_id);
+    $self->_send_error($c, 'invalid_client', 'Client not authentified')
+        unless defined $application;
+
+    $self->_send_error($c, 'invalid_client', 'Client not authentified')
+        unless $client_secret eq $application->oauth_secret;
+
+    return $application;
+}
+
 sub token : Local Args(0)
 {
     my ($self, $c) = @_;
@@ -243,21 +265,11 @@ sub token : Local Args(0)
             unless $params{$name} or $optional;
     }
 
-    my ($auth_client_id, $auth_client_secret) = $c->request->headers->authorization_basic;
-    if (defined $auth_client_id && defined $auth_client_secret) {
-        $params{client_id} = $auth_client_id;
-        $params{client_secret} = $auth_client_secret;
-    }
-
-    $self->_send_error($c, 'invalid_client', 'Client not authentified')
-        unless defined $params{client_id} && defined $params{client_secret};
-
-    my $application = $c->model('Application')->get_by_oauth_id($params{client_id});
-    $self->_send_error($c, 'invalid_client', 'Client not authentified')
-        unless defined $application;
-
-    $self->_send_error($c, 'invalid_client', 'Client not authentified')
-        unless $params{client_secret} eq $application->oauth_secret;
+    my $application = $self->_validate_client(
+        $c,
+        $params{client_id},
+        $params{client_secret},
+    );
 
     my $token;
     if ($params{grant_type} eq 'authorization_code') {
@@ -601,6 +613,54 @@ sub userinfo : Local
     }
 
     $self->_send_response($c, $data);
+}
+
+sub revoke : Local {
+    my ($self, $c) = @_;
+
+    $c->res->header('Access-Control-Allow-Origin' => '*');
+
+    $self->_enforce_tls($c);
+
+    if ($c->request->method eq 'OPTIONS') {
+        $c->res->headers->header('Access-Control-Allow-Headers' => 'authorization');
+        $self->_send_options_response($c, 'POST');
+    }
+
+    $self->_send_error($c, 'invalid_request', 'Only POST requests are allowed')
+        if $c->request->method ne 'POST';
+
+    my %params;
+    for my $name (qw( token client_id client_secret )) {
+        my $value = $c->request->body_params->{$name};
+        if (ref($value) eq 'ARRAY') {
+            $self->_send_error(
+                $c,
+                'invalid_request',
+                'Parameter is included more than once in the request: ' . $name,
+            );
+        }
+        $self->_send_error($c, 'invalid_request', 'Required parameter is missing: ' . $name)
+            unless defined $value;
+        $params{$name} = $value;
+    }
+
+    my $application = $self->_validate_client(
+        $c,
+        $params{client_id},
+        $params{client_secret},
+    );
+
+    $c->model('MB')->with_transaction(sub {
+        $c->model('EditorOAuthToken')->revoke_token($application->id, $params{token});
+    });
+
+    # This endpoint returns an empty 200 OK even for invalid tokens.
+    # See RFC 7009.
+    $c->response->header('Content-Length' => '0');
+    $c->response->headers->remove_header('Content-Type');
+    $c->response->body('');
+    $c->response->status(200);
 }
 
 no Moose;

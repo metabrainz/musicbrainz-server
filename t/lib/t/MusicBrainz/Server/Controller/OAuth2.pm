@@ -855,4 +855,139 @@ test 'User info' => sub {
     is(401, $test->mech->status);
 };
 
+test 'Revoke token' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my $mech = $test->mech;
+    # CORS preflight
+    $mech->request(HTTP::Request->new(OPTIONS => '/oauth2/revoke'));
+    my $response = $mech->response;
+    is($response->code, 200);
+    is($response->header('allow'), 'POST, OPTIONS');
+    is($response->header('access-control-allow-headers'), 'authorization');
+    is($response->header('access-control-allow-origin'), '*');
+
+    # Bad Request
+    $mech->post('/oauth2/revoke');
+    $response = from_json($mech->content);
+    is($mech->status, 400);
+    is($response->{error}, 'invalid_request');
+    is($response->{error_description}, 'Required parameter is missing: token');
+
+    $mech->post('/oauth2/revoke', {token => 'invalid'});
+    $response = from_json($mech->content);
+    is($mech->status, 400);
+    is($response->{error}, 'invalid_request');
+    is($response->{error_description}, 'Required parameter is missing: client_id');
+
+    $mech->post('/oauth2/revoke', {
+        token => 'invalid',
+        client_id => 'id-desktop',
+    });
+    $response = from_json($mech->content);
+    is($mech->status, 400);
+    is($response->{error}, 'invalid_request');
+    is($response->{error_description}, 'Required parameter is missing: client_secret');
+
+    # Unauthorized
+    $mech->post('/oauth2/revoke', {
+        token => 'invalid',
+        client_id => 'not-id-desktop',
+        client_secret => 'id-desktop-secret',
+    });
+    $response = from_json($mech->content);
+    is($mech->status, 401);
+    is($response->{error}, 'invalid_client');
+    is($response->{error_description}, 'Client not authentified');
+
+    $mech->post('/oauth2/revoke', {
+        token => 'invalid',
+        client_id => 'id-desktop',
+        client_secret => 'not-id-desktop-secret',
+    });
+    $response = from_json($mech->content);
+    is($mech->status, 401);
+    is($response->{error}, 'invalid_client');
+    is($response->{error_description}, 'Client not authentified');
+
+    # Invalid token -> 200 OK
+    $mech->post('/oauth2/revoke', {
+        token => 'invalid',
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+    });
+
+    # Refresh token from another client -> 200 OK
+    my $refresh_token = 'bF3aEvwpgZ-ELDemv7wTpA';
+    $mech->post('/oauth2/revoke', {
+        token => $refresh_token,
+        client_id => 'id-web',
+        client_secret => 'id-web-secret',
+    });
+    # Token is not actually removed
+    my $model = $test->c->model('EditorOAuthToken');
+    my $token = $model->get_by_refresh_token($refresh_token);
+    is($token->refresh_token, $refresh_token);
+    my $authorization_code = $token->authorization_code;
+    $token = $model->get_by_authorization_code($authorization_code);
+    is($token->refresh_token, $refresh_token);
+
+    # Log in as the real client.
+    # Try passing client_id/client_secret in the body this time.
+    $mech->clear_credentials;
+    $mech->post('/oauth2/revoke', {
+        token => $refresh_token,
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+    });
+    # Now the token is actually removed
+    $token = $model->get_by_refresh_token($refresh_token);
+    is($token, undef);
+    $token = $model->get_by_authorization_code($authorization_code);
+    is($token, undef);
+
+    # Access token from another client -> 200 OK
+    my $access_token = 'h_UngEx7VcA6I-XybPS13Q';
+    $mech->post_ok('/oauth2/revoke', {
+        token => $access_token,
+        client_id => 'id-web',
+        client_secret => 'id-web-secret',
+    });
+    # Token is not actually removed
+    $token = $model->get_by_access_token($access_token);
+    is($token->access_token, $access_token);
+    $refresh_token = $token->refresh_token;
+    $token = $model->get_by_refresh_token($refresh_token);
+    is($token->access_token, $access_token);
+
+    # Try revoking only an access token. The refresh token should still be valid.
+    $access_token = '7Fjfp0ZBr1KtDRbnfVdmIw';
+    $token = $model->get_by_access_token($access_token);
+    $refresh_token = $token->refresh_token;
+    $mech->post('/oauth2/revoke', {
+        token => $access_token,
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+    });
+    $token = $model->get_by_access_token($access_token);
+    is($token, undef);
+    $token = $model->get_by_refresh_token($refresh_token);
+    is($token->access_token, undef);
+
+    # Try revoking only an access token for an online client
+    # (having no refresh token). The grant should be deleted.
+    $access_token = '8YCRGDkkIooBHeriCgk1d6oUpWJ-XCDd';
+    $token = $model->get_by_access_token($access_token);
+    is($token->refresh_token, undef);
+    $mech->post('/oauth2/revoke', {
+        token => $access_token,
+        client_id => 'id-web',
+        client_secret => 'id-web-secret',
+    });
+    $token = $model->get_by_id($token->id);
+    is($token, undef);
+};
+
 1;
