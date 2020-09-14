@@ -790,7 +790,7 @@ test 'User info' => sub {
     $test->mech->request(HTTP::Request->new(OPTIONS => '/oauth2/userinfo'));
     $response = $test->mech->response;
     is($response->code, 200);
-    is($response->header('allow'), 'GET, OPTIONS');
+    is($response->header('allow'), 'GET, POST, OPTIONS');
     is($response->header('access-control-allow-headers'), 'authorization');
     is($response->header('access-control-allow-origin'), '*');
 
@@ -809,7 +809,7 @@ test 'User info' => sub {
     $test->mech->get("/oauth2/userinfo?access_token=$code");
     is($test->mech->status, 200);
     $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
-    is_deeply($response, {
+    my $editor1_with_email = {
         sub => 'editor1',
         profile => 'http://localhost/user/editor1',
         website => 'http://www.mysite.com/',
@@ -818,7 +818,15 @@ test 'User info' => sub {
         email => 'me@mysite.com',
         email_verified => JSON::true,
         metabrainz_user_id => 11,
-    });
+    };
+    is_deeply($response, $editor1_with_email);
+    $test->mech->header_is('access-control-allow-origin', '*');
+
+    # Same test as above, but sending the access_token via POST parameter.
+    $test->mech->post('/oauth2/userinfo', {access_token => $code});
+    is($test->mech->status, 200);
+    $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
+    is_deeply($response, $editor1_with_email);
     $test->mech->header_is('access-control-allow-origin', '*');
 
     # Valid token without email

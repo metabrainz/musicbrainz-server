@@ -577,7 +577,7 @@ sub userinfo : Local
 
     if ($c->request->method eq 'OPTIONS') {
         $c->res->headers->header('Access-Control-Allow-Headers' => 'authorization');
-        $self->_send_options_response($c, 'GET');
+        $self->_send_options_response($c, 'GET, POST');
     }
 
     $c->authenticate({}, 'musicbrainz.org');
