@@ -25,6 +25,8 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Constants qw( :edit_status :privileges );
 use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
+use MusicBrainz::Server::Constants qw( :create_entity );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -612,6 +614,48 @@ sub various_edit_counts {
         my ($category, $count) = @$row;
         $result{$category . '_count'} = $count;
     }
+    return \%result;
+}
+
+sub added_entities_counts {
+    my ($self, $editor_id) = @_;
+
+    my $cache_key = "editor:$editor_id:added_entities_counts";
+    my $cached_result = $self->c->cache->get($cache_key);
+    return $cached_result if defined $cached_result;
+
+    my %result = map { $_ => 0 }
+        qw( artist release cover_art event label place series work other );
+
+    my $query =
+        q{SELECT
+              CASE
+                WHEN type = ? THEN 'artist'
+                WHEN type = ? THEN 'release'
+                WHEN type = ? THEN 'cover_art'
+                WHEN type = ? THEN 'event'
+                WHEN type = ? THEN 'label'
+                WHEN type = ? THEN 'place'
+                WHEN type = ? THEN 'series'
+                WHEN type = ? THEN 'work'
+                ELSE 'other'
+              END AS type,
+              COUNT(*) AS count
+            FROM edit
+           WHERE editor = ?
+           GROUP BY type};
+    my @params = ($EDIT_ARTIST_CREATE, $EDIT_RELEASE_CREATE,
+        $EDIT_RELEASE_ADD_COVER_ART, $EDIT_EVENT_CREATE, $EDIT_LABEL_CREATE,
+        $EDIT_PLACE_CREATE, $EDIT_SERIES_CREATE, $EDIT_WORK_CREATE);
+    my $rows = $self->sql->select_list_of_lists($query, @params, $editor_id);
+
+    for my $row (@$rows) {
+        my ($type, $count) = @$row;
+        $result{$type} = $count;
+    }
+
+    $self->c->cache->set($cache_key, \%result, 60 * 60 * 24);
+
     return \%result;
 }
 
