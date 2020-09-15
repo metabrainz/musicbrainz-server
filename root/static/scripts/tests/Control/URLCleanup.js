@@ -694,14 +694,14 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'mailorder',
             expected_clean_url: 'https://www.musicofjunior.bigcartel.com',
-       only_valid_entity_types: ['artist'],
+       only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'http://www.musicofjunior.bigcartel.com?test',
              input_entity_type: 'artist',
     expected_relationship_type: 'mailorder',
             expected_clean_url: 'https://www.musicofjunior.bigcartel.com',
-       only_valid_entity_types: ['artist'],
+       only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://www.musicofjunior.bigcartel.com/product/juniorland-ep#test',
