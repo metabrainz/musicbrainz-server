@@ -85,12 +85,9 @@ configuration file for the CAA-indexer itself:
     $ cp config.ini.example config.ini
     $ vim config.ini
 
-FIXME: Currently there is no way to configure the server where indexes
-should be uploaded to.  We will have to hardcode the correct URL in the
-source, edit lib/CoverArtArchive/IAS3Request.pm and change line 21.
+Configure where indexes should be uploaded to by changing `upload_url`:
 
-    -    my $uri = "$protocol://$1.s3.us.archive.org$2";
-    +    my $uri = "$protocol://localhost/caa/$1?file=$2";
+    upload_url = //localhost/caa/{bucket}?file={file}
 
 And finally run the indexer:
 
