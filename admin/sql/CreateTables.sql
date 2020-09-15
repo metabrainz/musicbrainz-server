@@ -2384,17 +2384,25 @@ CREATE TABLE editor_collection_deleted_entity (
     comment TEXT DEFAULT '' NOT NULL
 );
 
+CREATE TYPE oauth_code_challenge_method AS ENUM ('plain', 'S256');
+
 CREATE TABLE editor_oauth_token
 (
-    id                  SERIAL,
-    editor              INTEGER NOT NULL, -- references editor.id
-    application         INTEGER NOT NULL, -- references application.id
-    authorization_code  TEXT,
-    refresh_token       TEXT,
-    access_token        TEXT,
-    expire_time         TIMESTAMP WITH TIME ZONE NOT NULL,
-    scope               INTEGER NOT NULL DEFAULT 0,
-    granted             TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+    id                      SERIAL,
+    editor                  INTEGER NOT NULL, -- references editor.id
+    application             INTEGER NOT NULL, -- references application.id
+    authorization_code      TEXT,
+    refresh_token           TEXT,
+    access_token            TEXT,
+    expire_time             TIMESTAMP WITH TIME ZONE NOT NULL,
+    scope                   INTEGER NOT NULL DEFAULT 0,
+    granted                 TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    code_challenge          TEXT,
+    code_challenge_method   oauth_code_challenge_method,
+    CONSTRAINT valid_code_challenge CHECK (
+        (code_challenge IS NULL) = (code_challenge_method IS NULL) AND
+        (code_challenge IS NULL OR code_challenge ~ E'^[A-Za-z0-9.~_-]{43,128}$')
+    )
 );
 
 CREATE TABLE editor_watch_preferences
