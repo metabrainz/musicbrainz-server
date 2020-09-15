@@ -840,14 +840,16 @@ const CLEANUPS = {
         if (!/^(images|www)$/.test(subdomain)) {
           switch (id) {
             case LINK_TYPES.mailorder.artist:
+            case LINK_TYPES.mailorder.label:
               if (product === undefined) {
                 return {result: true};
               }
               return {
-                error: l(
-                  `Please link to the main page for the artist,
-                   not a specific product.`,
-                ),
+                error: id === LINK_TYPES.mailorder.artist
+                  ? l(`Please link to the main page for the artist,
+                       not a specific product.`)
+                  : l(`Please link to the main page for the label,
+                       not a specific product.`),
                 result: false,
               };
             case LINK_TYPES.mailorder.release:
