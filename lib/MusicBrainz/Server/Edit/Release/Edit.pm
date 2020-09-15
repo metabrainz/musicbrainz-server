@@ -174,7 +174,7 @@ sub build_display_data
             my $country_id = $event->{country_id};
             return MusicBrainz::Server::Entity::ReleaseEvent->new(
                 country_id => $country_id,
-                country => $loaded->{Area}{$country_id},
+                defined $country_id ? (country => $loaded->{Area}{$country_id}) : (),
                 date => MusicBrainz::Server::Entity::PartialDate->new_from_row($event->{date}),
             )
         };
