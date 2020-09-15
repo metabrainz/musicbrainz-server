@@ -78,7 +78,7 @@ Install the triggers into the database:
     $ ./admin/psql READWRITE < ./admin/sql/caa/CreateMQTriggers.sql
     $ cd -
 
-Install the dependancies for the CAA-indexer and create a
+Install the dependencies for the CAA-indexer and create a
 configuration file for the CAA-indexer itself:
 
     $ cpanm --installdeps --notest .
@@ -97,7 +97,7 @@ And finally run the indexer:
 coverart_redirect
 =================
 
-Download the coverart redirect service and install its dependancies:
+Download the coverart redirect service and install its dependencies:
 
     $ git clone git://github.com/metabrainz/coverart_redirect.git
     $ sudo apt-get install python-cherrypy3 python-psycopg2 python-sqlalchemy python-werkzeug
