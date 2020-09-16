@@ -1684,12 +1684,14 @@ const testData = [
                      input_url: 'http://imslp.org/wiki/Category:Buxtehude%2C_Dietrich',
              input_entity_type: 'artist',
     expected_relationship_type: 'imslp',
+            expected_clean_url: 'https://imslp.org/wiki/Category:Buxtehude%2C_Dietrich',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://imslp.org/wiki/Die_Zauberfl%C3%B6te,_K.620_(Mozart,_Wolfgang_Amadeus)',
              input_entity_type: 'work',
     expected_relationship_type: 'score',
+            expected_clean_url: 'https://imslp.org/wiki/Die_Zauberfl%C3%B6te,_K.620_(Mozart,_Wolfgang_Amadeus)',
        only_valid_entity_types: ['work'],
   },
   // Indiegogo

@@ -1496,6 +1496,49 @@ const CLEANUPS = {
   'imslp': {
     match: [new RegExp('^(https?://)?(www\\.)?imslp\\.org/', 'i')],
     type: {...LINK_TYPES.score, ...LINK_TYPES.imslp},
+    clean: function (url) {
+      // Standardise to https
+      return url.replace(/^https?:\/\/(?:www\.)?(.*)$/, 'https://$1');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.imslp.artist:
+          if (/^https:\/\/imslp\.org\/wiki\/Category:/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: exp.l(
+              `Only IMSLP “{category_url_pattern}” links are allowed
+               for artists. Please link work pages to the specific
+               work in question.`,
+              {
+                category_url_pattern: (
+                  <span className="url-quote">{'Category:'}</span>
+                ),
+              },
+            ),
+            result: false,
+          };
+        case LINK_TYPES.score.work:
+          if (/^https:\/\/imslp\.org\/wiki\/(?!Category:)/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: exp.l(
+              `IMSLP “{category_url_pattern}” links are only allowed
+               for artists. Please link the specific work page to this
+               work instead, if available.`,
+              {
+                category_url_pattern: (
+                  <span className="url-quote">{'Category:'}</span>
+                ),
+              },
+            ),
+            result: false,
+          };
+      }
+      return {result: false};
+    },
   },
   'indiegogo': {
     match: [new RegExp('^(https?://)?(www\\.)?indiegogo\\.com/(individuals|projects)/', 'i')],
