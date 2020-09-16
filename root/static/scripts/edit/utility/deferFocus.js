@@ -9,10 +9,10 @@
 import $ from 'jquery';
 
 function deferFocus() {
-    var selectorArguments = arguments;
-    setTimeout(function () {
-        $.apply(null, selectorArguments).focus();
-    }, 1);
+  var selectorArguments = arguments;
+  setTimeout(function () {
+    $.apply(null, selectorArguments).focus();
+  }, 1);
 }
 
 export default deferFocus;

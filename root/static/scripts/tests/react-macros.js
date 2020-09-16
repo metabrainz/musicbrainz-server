@@ -146,8 +146,8 @@ testData.forEach(function (test) {
     ReactDOMServer.renderToStaticMarkup(
       React.createElement('div', null, eval(test.react_element)),
     )
-    .replace(/^<div>(.*)<\/div>$/, '$1')
-    .replace(/([^\s])\/>/g, '$1 />');
+      .replace(/^<div>(.*)<\/div>$/, '$1')
+      .replace(/([^\s])\/>/g, '$1 />');
 
   const testCases = [
     {

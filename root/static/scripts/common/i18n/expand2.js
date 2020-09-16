@@ -192,26 +192,26 @@ export const createTextContentParser = <+T, V>(
   textPattern: RegExp,
   mapValue: (string) => T,
 ): Parser<T | string | NO_MATCH, V> => () => {
-    const text = accept(textPattern);
-    if (typeof text !== 'string') {
-      return NO_MATCH_VALUE;
-    }
-    return mapValue(text);
-  };
+  const text = accept(textPattern);
+  if (typeof text !== 'string') {
+    return NO_MATCH_VALUE;
+  }
+  return mapValue(text);
+};
 
 const varSubst = /^\{([0-9A-z_]+)\}/;
 export const createVarSubstParser = <T, V>(
   argFilter: (V) => T,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(function (args: VarArgs<V>) {
-    const name = accept(varSubst);
-    if (typeof name !== 'string') {
-      return NO_MATCH_VALUE;
-    }
-    if (args.has(name)) {
-      return argFilter(args.get(name));
-    }
-    return state.match;
-  });
+  const name = accept(varSubst);
+  if (typeof name !== 'string') {
+    return NO_MATCH_VALUE;
+  }
+  if (args.has(name)) {
+    return argFilter(args.get(name));
+  }
+  return state.match;
+});
 
 export const parseStringVarSubst: Parser<string | NO_MATCH, mixed> =
   createVarSubstParser<string, mixed>(getString);
@@ -223,38 +223,38 @@ export const createCondSubstParser = <T, V>(
   thenParser: Parser<T, V>,
   elseParser: Parser<T, V>,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(function (args) {
-    const name = accept(condSubstStart);
-    if (typeof name !== 'string') {
-      return NO_MATCH_VALUE;
+  const name = accept(condSubstStart);
+  if (typeof name !== 'string') {
+    return NO_MATCH_VALUE;
+  }
+
+  const savedReplacement = state.replacement;
+  if (args.has(name)) {
+    state.replacement = getVarSubstArg(args.get(name));
+  }
+
+  const thenChildren = thenParser(args);
+
+  let elseChildren = '';
+  if (gotMatch(accept(verticalPipe))) {
+    elseChildren = elseParser(args);
+  }
+
+  state.replacement = savedReplacement;
+
+  if (!gotMatch(accept(substEnd))) {
+    throw error('expected }');
+  }
+
+  if (args.has(name)) {
+    const value = args.get(name);
+    if (value) {
+      return thenChildren;
     }
-
-    const savedReplacement = state.replacement;
-    if (args.has(name)) {
-      state.replacement = getVarSubstArg(args.get(name));
-    }
-
-    const thenChildren = thenParser(args);
-
-    let elseChildren = '';
-    if (gotMatch(accept(verticalPipe))) {
-      elseChildren = elseParser(args);
-    }
-
-    state.replacement = savedReplacement;
-
-    if (!gotMatch(accept(substEnd))) {
-      throw error('expected }');
-    }
-
-    if (args.has(name)) {
-      const value = args.get(name);
-      if (value) {
-        return thenChildren;
-      }
-      return elseChildren;
-    }
-    return state.match;
-  });
+    return elseChildren;
+  }
+  return state.match;
+});
 
 /*
  * This is not meant to be called directly, except by expand2react and

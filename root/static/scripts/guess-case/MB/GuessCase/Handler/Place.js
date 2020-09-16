@@ -14,31 +14,31 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
 // Place specific GuessCase functionality
 MB.GuessCase.Handler.Place = function (gc) {
-    var self = MB.GuessCase.Handler.Base(gc);
+  var self = MB.GuessCase.Handler.Base(gc);
 
-    // Checks special cases
-    self.checkSpecialCase = function () {
-        return self.NOT_A_SPECIALCASE;
-    };
+  // Checks special cases
+  self.checkSpecialCase = function () {
+    return self.NOT_A_SPECIALCASE;
+  };
 
-    /*
-     * Delegate function which handles words not handled
-     * in the common word handlers.
-     */
-    self.doWord = function () {
-        (
-            self.doIgnoreWords() ||
-            gc.mode.doWord() ||
-            self.doNormalWord()
-        );
-        flags.context.number = false;
-        return null;
-    };
+  /*
+   * Delegate function which handles words not handled
+   * in the common word handlers.
+   */
+  self.doWord = function () {
+    (
+      self.doIgnoreWords() ||
+      gc.mode.doWord() ||
+      self.doNormalWord()
+    );
+    flags.context.number = false;
+    return null;
+  };
 
-    // Guesses the sortname for place aliases
-    self.guessSortName = function (is) {
-        return self.sortCompoundName(is, self.moveArticleToEnd);
-    };
+  // Guesses the sortname for place aliases
+  self.guessSortName = function (is) {
+    return self.sortCompoundName(is, self.moveArticleToEnd);
+  };
 
-    return self;
+  return self;
 };
