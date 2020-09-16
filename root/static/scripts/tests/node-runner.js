@@ -4,17 +4,17 @@ var rowCount = 0;
 var timeout;
 
 require('tape').createStream().on('data', function (row) {
-    console.log(row.replace(/\n$/, ''));
+  console.log(row.replace(/\n$/, ''));
 
-    var lastKnownRow = ++rowCount;
+  var lastKnownRow = ++rowCount;
 
-    clearTimeout(timeout);
+  clearTimeout(timeout);
 
-    timeout = setTimeout(function () {
-        if (rowCount === lastKnownRow) {
-            process.exit(0);
-        }
-    }, 3000);
+  timeout = setTimeout(function () {
+    if (rowCount === lastKnownRow) {
+      process.exit(0);
+    }
+  }, 3000);
 });
 
 require('./index');

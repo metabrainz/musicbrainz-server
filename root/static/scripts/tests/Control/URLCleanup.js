@@ -694,14 +694,14 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'mailorder',
             expected_clean_url: 'https://www.musicofjunior.bigcartel.com',
-       only_valid_entity_types: ['artist'],
+       only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'http://www.musicofjunior.bigcartel.com?test',
              input_entity_type: 'artist',
     expected_relationship_type: 'mailorder',
             expected_clean_url: 'https://www.musicofjunior.bigcartel.com',
-       only_valid_entity_types: ['artist'],
+       only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://www.musicofjunior.bigcartel.com/product/juniorland-ep#test',
@@ -1684,12 +1684,14 @@ const testData = [
                      input_url: 'http://imslp.org/wiki/Category:Buxtehude%2C_Dietrich',
              input_entity_type: 'artist',
     expected_relationship_type: 'imslp',
+            expected_clean_url: 'https://imslp.org/wiki/Category:Buxtehude%2C_Dietrich',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://imslp.org/wiki/Die_Zauberfl%C3%B6te,_K.620_(Mozart,_Wolfgang_Amadeus)',
              input_entity_type: 'work',
     expected_relationship_type: 'score',
+            expected_clean_url: 'https://imslp.org/wiki/Die_Zauberfl%C3%B6te,_K.620_(Mozart,_Wolfgang_Amadeus)',
        only_valid_entity_types: ['work'],
   },
   // Indiegogo
@@ -4193,10 +4195,12 @@ testData.forEach(function (subtest, i) {
       if (nbTestedRules === 0) {
         st.fail('Validation test is worthless: No validation rule has been actually tested.');
       } else {
-        st.deepEqual(validationResults.true.sort(),
+        st.deepEqual(
+          validationResults.true.sort(),
           subtest.only_valid_entity_types.sort(),
           'Validate clean URL by exactly ' + subtest.only_valid_entity_types.length +
-                            ' among ' + nbTestedRules + ' ' + relationshipType + '.* rules');
+            ' among ' + nbTestedRules + ' ' + relationshipType + '.* rules',
+        );
         tested = true;
       }
     }

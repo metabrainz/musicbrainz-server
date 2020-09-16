@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::Watch;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-sub list : Local RequireAuth CSRFToken {
+sub list : Local RequireAuth SecureForm {
     my ($self, $c) = @_;
 
     if ($c->form_posted && $c->validate_csrf_token) {

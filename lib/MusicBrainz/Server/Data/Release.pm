@@ -768,7 +768,7 @@ sub _insert_hook_after_each {
     my ($self, $created, $release) = @_;
 
     $self->set_release_events(
-        $created->{id}, _release_events_from_spec($release->{events} // [])
+        $created->{id}, $release->{release_group_id}, _release_events_from_spec($release->{events} // [])
     );
 }
 
@@ -787,8 +787,12 @@ sub _release_events_from_spec {
 sub update {
     my ($self, $release_id, $update) = @_;
 
+    my $release_group_id = $update->{release_group_id} // $self->sql->select_single_value(
+        'SELECT release_group FROM release WHERE id = ?', $release_id
+    );
+
     $self->set_release_events(
-        $release_id, _release_events_from_spec($update->{events})
+        $release_id, $release_group_id, _release_events_from_spec($update->{events})
     ) if $update->{events};
 
     my $row = $self->_hash_to_row($update);
@@ -799,9 +803,6 @@ sub update {
     }
 
     if ($update->{events} || $update->{release_group_id}) {
-        my $release_group_id = $update->{release_group_id} // $self->sql->select_single_value(
-            'SELECT release_group FROM release WHERE id = ?', $release_id
-        );
         $self->c->model('Series')->reorder_for_entities('release_group', $release_group_id);
     }
 }
@@ -1520,7 +1521,7 @@ sub find_release_events {
 }
 
 sub set_release_events {
-    my ($self, $release_id, $events) = @_;
+    my ($self, $release_id, $release_group_id, $events) = @_;
 
     my ($without_country, $with_country) = part { defined($_->country_id) } @$events;
 
@@ -1547,6 +1548,9 @@ sub set_release_events {
             date_day => $_->date->day
         }, @$without_country
     );
+
+    # To ensure the new first release date is cached
+    $self->c->model('ReleaseGroup')->_delete_from_cache($release_group_id);
 }
 
 sub series_ordering {

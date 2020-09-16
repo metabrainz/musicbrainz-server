@@ -69,8 +69,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-03 12:18-0500\n"
-"PO-Revision-Date: 2020-09-03 17:21+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2020-09-12 11:33+0000\n"
+"Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1891,7 +1891,7 @@ msgstr "Bearbeitung eingeben"
 msgid ""
 "Enter the delimiter that separates the track name from the artist name "
 "(valid {url|regular expressions} are accepted)."
-msgstr ""
+msgstr "Gib das Trennzeichen ein, das den Titelnamen vom Künstlernamen trennt (gültige {url|reguläre Ausdrücke} werden akzeptiert)."
 
 #: ../root/components/forms.tt:30
 msgid ""
@@ -4776,7 +4776,7 @@ msgstr "Diese CD hat Titel von mehr als einem Künstler (z.&#xa0;B. eine Kompila
 
 #: ../root/cdtoc/attach_list.tt:28 ../root/cdtoc/attach_list.tt:41
 msgid "This CDTOC is already attached to this medium."
-msgstr ""
+msgstr "Diese CD-TOC ist bereits mit diesem Medium verbunden."
 
 #: ../root/entity/alias/edit_form.tt:23
 msgid "This alias is no longer current."
@@ -4917,7 +4917,7 @@ msgstr "Dies ist eine Freitext-Werkseigenschaft"
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
-msgstr ""
+msgstr "Dies ist das aktuelle Bild der Veröffentlichungsgruppe"
 
 #: ../root/entity/alias/edit_form.tt:18
 msgid "This is the primary alias for this locale"
@@ -4944,7 +4944,7 @@ msgstr "Dieses Label/Katalog-Nummernpaar existiert bereits."
 
 #: ../root/cdtoc/attach_list.tt:30
 msgid "This medium format cannot have a disc ID attached."
-msgstr ""
+msgstr "Dieses Medienformat kann keine Disc-ID haben."
 
 #: ../root/release/edit/tracklist.tt:324
 msgid ""
@@ -7314,7 +7314,7 @@ msgstr "Diese Bearbeitung würde eine Beziehung entfernen, die in der Dokumentat
 msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
 "already exists."
-msgstr ""
+msgstr "Die „{relationship_type}” Beziehung zwischen „{entity0}” und „{entity1}” existiert bereits."
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:14
 msgid "Edit relationship attribute"
@@ -8482,7 +8482,7 @@ msgid ""
 "{mb_api_doc_url|MusicBrainz API}? {register_url|Register an application} to "
 "generate OAuth tokens. See our {oauth2_doc_url|OAuth documentation} for more"
 " details."
-msgstr ""
+msgstr "Willst du eine Anwendung entwickeln, die die {mb_api_doc_url|MusicBrainz-API} verwendet? {register_url|Registriere eine Anwendung}, um OAuth-Tokens zu generieren. Siehe unsere {oauth2_doc_url|OAuth-Dokumentation} für nähere Informationen."
 
 #: ../root/account/applications/Index.js:144
 msgid "OAuth Client ID"
@@ -9462,7 +9462,7 @@ msgstr "Es gab ein Problem beim Abbrechen von {edit}."
 
 #: ../root/edit/CannotCancelEdit.js:38
 msgid "Only the editor who created an edit can cancel it."
-msgstr ""
+msgstr "Nur der Bearbeiter, der die Bearbeitung erstellt hat, kann sie abbrechen."
 
 #: ../root/edit/CannotVote.js:19 ../root/edit/CannotVote.js:20
 msgid "Error Voting on Edits"
@@ -9528,7 +9528,7 @@ msgstr "Veröffentlichungen:"
 msgid ""
 "This field is intentionally left as it was originally entered (untranslated,"
 " unformatted)."
-msgstr ""
+msgstr "Dieses Feld wird bewusst so belassen, wie es ursprünglich eingegeben wurde (unübersetzt, unformatiert)."
 
 #: ../root/edit/details/AddAnnotation.js:58
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:37
@@ -9644,7 +9644,7 @@ msgstr "Primär für {locale}"
 
 #: ../root/edit/details/EditArtistCredit.js:32
 msgid "Artist Credit"
-msgstr ""
+msgstr "Künstlernennung"
 
 #: ../root/edit/details/EditLabel.js:150
 msgid "IPI codes"
@@ -9747,7 +9747,7 @@ msgid ""
 "The data for this edit seems to have been damaged during the 2011 transition"
 " to the current MusicBrainz schema. The remaining data is displayed below, "
 "but might not be fully accurate."
-msgstr ""
+msgstr "Die Daten für diese Bearbeitung scheinen während der Umstellung von 2011 auf das aktuelle MusicBrainz-Schema beschädigt worden zu sein. Die verbleibenden Daten werden unten angezeigt, sind aber möglicherweise nicht ganz korrekt."
 
 #: ../root/edit/details/historic/EditRelationship.js:54
 msgid "Old relationships:"
@@ -10531,7 +10531,7 @@ msgstr "Entwicklerressourcen"
 
 #: ../root/layout/components/BottomMenu.js:173
 msgid "MusicBrainz API"
-msgstr ""
+msgstr "MusicBrainz API"
 
 #: ../root/layout/components/BottomMenu.js:176
 msgid "Live Data Feed"
@@ -12993,7 +12993,7 @@ msgstr ""
 #: ../root/report/TracksNamedWithSequence.js:30
 #: ../root/report/TracksNamedWithSequence.js:32
 msgid "Releases where track names start with their track number"
-msgstr ""
+msgstr "Veröffentlichungen, auf denen die Titelnamen mit ihren Titelnummern anfangen"
 
 #: ../root/report/TracksNamedWithSequence.js:36
 msgid ""
@@ -13563,7 +13563,7 @@ msgstr "[fehlender Bearbeiter]"
 msgid ""
 "This link has been temporarily disabled because it has been reported as "
 "potentially harmful."
-msgstr ""
+msgstr "Dieser Link wurde vorübergehend deaktiviert, da er als potenziell schädlich gemeldet wurde."
 
 #: ../root/static/scripts/common/components/EntityLink.js:270
 msgid "This release has artwork in the Cover Art Archive"
@@ -13750,32 +13750,32 @@ msgstr "Zeige weniger Interpreten"
 
 #: ../root/static/scripts/common/components/sidebar/AcousticBrainz.js:67
 msgid "Acoustic analysis"
-msgstr ""
+msgstr "Akkustische Analyse"
 
 #: ../root/static/scripts/common/components/sidebar/AcousticBrainz.js:71
 msgid "AcousticBrainz entry"
-msgstr ""
+msgstr "AcousticBrainz-Eintrag"
 
 #: ../root/static/scripts/common/components/sidebar/AcousticBrainz.js:78
 msgid "Key:"
-msgstr ""
+msgstr "Tonart:"
 
 #: ../root/static/scripts/common/components/sidebar/AcousticBrainz.js:81
 msgid ""
 "Automatic suggestion from entry #1/{count} (key strength: {key_strength})"
-msgstr ""
+msgstr "Automatischer Vorschlag aus Eintrag Nr. 1/{count} (Stärke: {key_strength})"
 
 #: ../root/static/scripts/common/components/sidebar/AcousticBrainz.js:88
 msgid "{key} {scale}"
-msgstr ""
+msgstr "{key} {scale}"
 
 #: ../root/static/scripts/common/components/sidebar/AcousticBrainz.js:96
 msgid "BPM:"
-msgstr ""
+msgstr "BPM:"
 
 #: ../root/static/scripts/common/components/sidebar/AcousticBrainz.js:98
 msgid "Automatic suggestion from entry #1/{count}"
-msgstr ""
+msgstr "Automatischer Vorschlag aus Eintrag Nr. 1/{count}"
 
 #: ../root/static/scripts/common/entity.js:241
 msgid "You selected {label}."
@@ -13974,11 +13974,11 @@ msgstr "[fehlender Titelname]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:78
 msgid "You haven’t entered a track name yet."
-msgstr ""
+msgstr "Du hast noch keinen Titelnamen eingetragen."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:79
 msgid "This track hasn’t been created yet."
-msgstr ""
+msgstr "Dieser Titel wurde noch nicht erstellt."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:97
 msgid "Artist in MusicBrainz:"

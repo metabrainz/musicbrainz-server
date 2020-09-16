@@ -103,6 +103,7 @@ module.exports = {
   'mbid/NotFound': require('../mbid/NotFound'),
   'oauth2/OAuth2Authorize': require('../oauth2/OAuth2Authorize'),
   'oauth2/OAuth2Error': require('../oauth2/OAuth2Error'),
+  'oauth2/OAuth2FormPost': require('../oauth2/OAuth2FormPost'),
   'oauth2/OAuth2Oob': require('../oauth2/OAuth2Oob'),
   'place/PlaceEvents': require('../place/PlaceEvents'),
   'place/PlaceIndex': require('../place/PlaceIndex'),

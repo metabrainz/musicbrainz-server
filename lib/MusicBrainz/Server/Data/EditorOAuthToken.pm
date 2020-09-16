@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use DateTime;
 use DateTime::Duration;
+use DBDefs;
 #use MusicBrainz::Server::Entity::OAuthAuthorization;
 use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Data::Utils qw(
@@ -20,7 +21,9 @@ sub _table
 
 sub _columns
 {
-    return 'id, editor, application, authorization_code, access_token, refresh_token, expire_time, scope';
+    my $columns = 'id, editor, application, authorization_code, access_token, refresh_token, expire_time, scope';
+    $columns .= ', code_challenge, code_challenge_method' if DBDefs->OAUTH2_ENABLE_PKCE;
+    return $columns;
 }
 
 sub _column_mapping
@@ -31,6 +34,10 @@ sub _column_mapping
         application_id => 'application',
         authorization_code => 'authorization_code',
         access_token => 'access_token',
+        DBDefs->OAUTH2_ENABLE_PKCE ? (
+            code_challenge => 'code_challenge',
+            code_challenge_method => 'code_challenge_method',
+        ) : (),
         refresh_token => 'refresh_token',
         expire_time => 'expire_time',
         scope => 'scope',
@@ -105,12 +112,17 @@ sub delete_editor
 
 sub create_authorization_code
 {
-    my ($self, $editor_id, $application_id, $scope, $offline) = @_;
+    my ($self, $editor_id, $application_id, $scope, $offline,
+        $code_challenge, $code_challenge_method) = @_;
 
     my $row = {
         editor => $editor_id,
         application => $application_id,
         authorization_code => generate_token(),
+        DBDefs->OAUTH2_ENABLE_PKCE ? (
+            code_challenge => $code_challenge,
+            code_challenge_method => $code_challenge_method,
+        ) : (),
         granted => DateTime->now,
         expire_time => DateTime->now->add( hours => 1 ),
         scope => $scope,
@@ -131,11 +143,17 @@ sub grant_access_token
 
     my $update = {
         authorization_code => undef,
+        DBDefs->OAUTH2_ENABLE_PKCE ? (
+            code_challenge => undef,
+            code_challenge_method => undef,
+        ) : (),
         access_token => generate_token(),
         expire_time => DateTime->now->add( hours => 1 ),
     };
 
-    $token->authorization_code($update->{authorization_code});
+    $token->authorization_code(undef);
+    $token->code_challenge(undef);
+    $token->code_challenge_method(undef);
     $token->access_token($update->{access_token});
     $token->expire_time($update->{expire_time});
 
@@ -158,6 +176,38 @@ sub revoke_access
                     WHERE editor = ? AND application = ? AND scope = ? AND
                     access_token IS NOT NULL",
                     $editor_id, $application_id, $scope);
+}
+
+sub revoke_token {
+    my ($self, $application_id, $token) = @_;
+
+    die 'undef token' unless defined $token;
+
+    # If the token is a refresh token, or if it's an access token with no
+    # associated refresh token ("online" apps), delete the entire
+    # authorization grant.
+    return if $self->sql->select_single_value(
+        'DELETE FROM editor_oauth_token ' .
+        'WHERE application = $1 ' .
+        'AND (' .
+            '(refresh_token IS NOT NULL AND refresh_token = $2) OR ' .
+            '(refresh_token IS NULL AND access_token = $2)' .
+        ') RETURNING id',
+        $application_id, $token,
+    );
+
+    # Otherwise, only NULL the access token. RFC 7009 specifies that we MAY
+    # revoke the respective refresh token as well, but our implementation
+    # allows it to continue to be used unless the client explicitly revokes
+    # the refresh token.
+    $self->sql->do(
+        'UPDATE editor_oauth_token ' .
+        'SET access_token = NULL ' .
+        'WHERE application = ? ' .
+        'AND access_token = ?',
+        $application_id, $token,
+    );
+    return;
 }
 
 __PACKAGE__->meta->make_immutable;

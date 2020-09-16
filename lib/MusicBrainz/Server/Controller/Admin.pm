@@ -6,7 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Translation qw(l ln );
 
-sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves CSRFToken
+sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves SecureForm
 {
     my ($self, $c, $user_name) = @_;
 
@@ -97,7 +97,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves CSRF
     );
 }
 
-sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves CSRFToken {
+sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves SecureForm {
     my ($self, $c, $name) = @_;
 
     my $editor = $c->model('Editor')->get_by_name($name);
@@ -136,7 +136,7 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
     }
 }
 
-sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) CSRFToken {
+sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) SecureForm {
     my ($self, $c) = @_;
 
     my $current_message = $c->stash->{server_details}->{alert};

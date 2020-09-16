@@ -11,11 +11,11 @@ import ko from 'knockout';
 import MB from '../common/MB';
 
 MB.releaseEditor = {
-    rootField: {
-        release: ko.observable(),
-        makeVotable: ko.observable(false),
-        editNote: ko.observable(''),
-    },
+  rootField: {
+    release: ko.observable(),
+    makeVotable: ko.observable(false),
+    editNote: ko.observable(''),
+  },
 };
 
 export default MB.releaseEditor;

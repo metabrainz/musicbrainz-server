@@ -8,8 +8,10 @@
  */
 
 function amazonHttps(url) {
-  return url.replace(/http:\/\/ec[x4]\.images-amazon\.com\//,
-    'https://images-na.ssl-images-amazon.com/');
+  return url.replace(
+    /http:\/\/ec[x4]\.images-amazon\.com\//,
+    'https://images-na.ssl-images-amazon.com/',
+  );
 }
 
 function genericHttps(url) {

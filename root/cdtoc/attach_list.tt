@@ -16,10 +16,16 @@
       <td>[% tagger_icon(release) %]</td>
     [%- END -%]
   </tr>
-  [% FOR medium=release.mediums %]
-    [% NEXT UNLESS
-        medium.cdtoc_track_count == cdtoc.track_count;
-       this_medium_has_cdtoc = medium_has_cdtoc.defined AND (medium.id == medium_has_cdtoc) %]
+  [%-
+    attachable_mediums = [];
+    FOR medium=release.mediums;
+      IF medium.cdtoc_track_count == cdtoc.track_count;
+        attachable_mediums.push(medium);
+      END;
+    END;
+  -%]
+  [% FOR medium=attachable_mediums %]
+      [%- this_medium_has_cdtoc = medium_has_cdtoc.defined AND (medium.id == medium_has_cdtoc) -%]
       <tr[% ' class="even"' IF zebra % 2 == 0 %]>
         <td class="pos"></td>
         <td>
@@ -52,6 +58,13 @@
         </td>
       </tr>
     </tr>
+  [% END %]
+  [% IF was_mbid_search && !attachable_mediums.size %]
+    <tr[% ' class="even"' IF zebra % 2 == 0 %]>
+      <td class="error" colspan="7">
+        [% l('None of the mediums on this release can have the given CD TOC attached, because they have the wrong number of tracks.') %]
+      </td>
+    <tr>
   [% END %]
 [% END %]
 

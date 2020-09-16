@@ -580,6 +580,7 @@ sub TO_JSON {
         current_language_html
         entity
         genre_map
+        globals_script_nonce
         jsonld_data
         last_replication_date
         more_tags

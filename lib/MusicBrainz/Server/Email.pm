@@ -180,6 +180,60 @@ EOS
     return $self->_create_email(\@headers, $body);
 }
 
+sub _create_email_in_use_email
+{
+    my ($self, %opts) = @_;
+
+    my @headers = (
+        'To'         => $opts{email},
+        'From'       => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
+        'Message-Id' => _message_id('email-in-use-%d', time()),
+        'Subject'    => 'Email address already in use',
+    );
+
+    my $lost_username_link = $url_prefix . '/lost-username';
+    my $lost_password_link = $url_prefix . '/lost-password';
+    my $bot_code_of_conduct_link = $url_prefix . '/doc/Code_of_Conduct/Bots';
+    my $ip = $opts{ip};
+    my $user_name = $opts{editor}->name;
+
+    my $body = <<EOS;
+Hello $user_name,
+
+You have requested to verify this email address for the MusicBrainz account $user_name,
+but we already have at least one account using this address in our database.
+If you have forgotten your old username, you can recover it from the following link:
+
+$lost_username_link
+
+You can then request a password reset, if needed, from the link below:
+
+$lost_password_link
+
+If clicking the links above doesn't work, please copy and paste the URL in a
+new browser window instead.
+
+If you have a specific reason why you need a second account (for example,
+you want to run a bot and have notes also reach you at this address)
+please drop us a line (see $CONTACT_URL for details). We will look into
+your specific case. For bots, also let us know about what you are intending
+to do with it (see $bot_code_of_conduct_link).
+
+If you didn't initiate this request and feel that you've received this email in
+error, don't worry, you don't need to take any further action and can safely
+disregard this email.
+
+This email was triggered by a request from the IP address [$ip].
+
+Thanks for using MusicBrainz!
+
+-- The MusicBrainz Team
+EOS
+
+    return $self->_create_email(\@headers, $body);
+}
+
 sub _create_lost_username_email
 {
     my ($self, %opts) = @_;
@@ -420,6 +474,14 @@ sub send_email_verification
     my ($self, %opts) = @_;
 
     my $email = $self->_create_email_verification_email(%opts);
+    return $self->_send_email($email);
+}
+
+sub send_email_in_use
+{
+    my ($self, %opts) = @_;
+
+    my $email = $self->_create_email_in_use_email(%opts);
     return $self->_send_email($email);
 }
 

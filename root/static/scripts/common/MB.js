@@ -15,17 +15,17 @@ import * as constants from './constants';
 
 // Namespaces
 const MB: {[namespace: string]: {...}, ...} = {
-    // Classes, common controls used throughout MusicBrainz
-    Control: {},
+  // Classes, common controls used throughout MusicBrainz
+  Control: {},
 
-    // Utility functions
-    utility: {},
+  // Utility functions
+  utility: {},
 
-    // Hold translated text strings
-    text: {},
+  // Hold translated text strings
+  text: {},
 
-    // Hold constants for knockout templates that depend on globals.
-    constants,
+  // Hold constants for knockout templates that depend on globals.
+  constants,
 };
 
 global.MB = MB;

@@ -2,7 +2,7 @@
 # Translators:
 # nikki, 2014
 # Daniel Schury <email address hidden>, 2011
-# David Kellner <email address hidden>, 2019
+# David Kellner <email address hidden>, 2019-2020
 # Ettore Atalan <email address hidden>, 2014
 # Frank Matthiae <email address hidden>, 2018
 # Frank Matthiae <email address hidden>, 2015
@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-09-03 13:02+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-09-12 11:02+0000\n"
+"Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -240,13 +240,13 @@ msgstr "FreeDB aus/Autobearbeiter"
 
 #: DB:statistics.statistic_event/title:2018-11-02
 msgid "Genre added as a new entity"
-msgstr ""
+msgstr "Genre als neues Objekt hinzugefügt"
 
 #: DB:statistics.statistic_event/description:2018-11-02
 msgid ""
 "Genres are added as a new entity, although still tightly tied to folksonomy "
 "tags."
-msgstr ""
+msgstr "Genres als neues Objekt hinzugefügt, obwohl sie weiterhin eng an Tags gebunden sind"
 
 #: DB:statistics.statistic_event/title:2006-08-15
 msgid "Great Dispute"
@@ -461,7 +461,7 @@ msgstr "Oliver Charles arbeitet Vollzeit für MusicBrainz"
 msgid ""
 "Our old search server gets a significant upgrade with its move to SOLR, "
 "including almost-instant index updates."
-msgstr ""
+msgstr "Unser alter Suchserver erhält mit der Umstellung auf SOLR ein bedeutendes Upgrade, darunter nahezu sofortige Index-Aktualisierungen."
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
@@ -495,7 +495,7 @@ msgstr "SG5-Verbesserungen"
 
 #: DB:statistics.statistic_event/title:2018-06-30
 msgid "SOLR-based search server deployed"
-msgstr ""
+msgstr "SOLR-basierter Suchserver bereitgestellt"
 
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
@@ -594,7 +594,7 @@ msgstr "Die Suchfunktion und Web-Service-Verbesserungen wurden freigegeben."
 msgid ""
 "The voting period for edits that get a No vote is extended to give users "
 "more time to react to the issues."
-msgstr ""
+msgstr "Der Abstimmungszeitraum für Bearbeitungen, die eine Nein-Stimme erhalten, wird verlängert, um Nutzern mehr Zeit zu geben, auf die Problematik zu reagieren."
 
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
@@ -615,7 +615,7 @@ msgid ""
 "Version 1 of the web service (already deprecated since 2011) is finally "
 "taken down for good (more than a year after announcing it would happen in "
 "six months!)."
-msgstr ""
+msgstr "Version 1 des Webservice (bereits seit 2011 veraltet) wird endlich endgültig abgeschaltet (mehr als ein Jahr nach der Ankündigung, dass dies in sechs Monaten geschehen würde!)"
 
 #: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
@@ -623,7 +623,7 @@ msgstr "Abstimmlogik wurde verbessert, webbasierte Wahl der Autobearbeiter herau
 
 #: DB:statistics.statistic_event/title:2013-06-24
 msgid "Voting period for contested edits extended"
-msgstr ""
+msgstr "Abstimmungszeitraum für angefochtene Bearbeitungen verlängert"
 
 #: DB:statistics.statistic_event/title:2013-02-11
 msgid "Voting period shortened to 7 days"
@@ -631,17 +631,17 @@ msgstr "Abstimmungszeitraum auf 7 Tage verkürzt"
 
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"
-msgstr ""
+msgstr "Webservice Version 1 stillgelegt"
 
 #: DB:statistics.statistic_event/title:2017-03-13
 msgid "Yvanzo joins MusicBrainz as a developer"
-msgstr ""
+msgstr "Yvanzo schließt sich MusicBrainz als Entwickler an"
 
 #: DB:statistics.statistic_event/description:2017-03-13
 msgid ""
 "Yvanzo joins the development team as a second dedicated MusicBrainz "
 "developer."
-msgstr ""
+msgstr "Yvanzo tritt dem Entwicklungsteam als zweiter Entwickler für MusicBrainz bei"
 
 #: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"

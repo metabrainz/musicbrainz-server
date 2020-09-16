@@ -133,7 +133,7 @@ sub do_login : Private
     $c->detach;
 }
 
-sub login : Path('/login') ForbiddenOnSlaves RequireSSL CSRFToken
+sub login : Path('/login') ForbiddenOnSlaves RequireSSL SecureForm
 {
     my ($self, $c) = @_;
 
@@ -259,7 +259,7 @@ Allows users to contact other users via email
 
 =cut
 
-sub contact : Chained('load') RequireAuth HiddenOnSlaves CSRFToken
+sub contact : Chained('load') RequireAuth HiddenOnSlaves SecureForm
 {
     my ($self, $c) = @_;
 
@@ -391,6 +391,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
 
     my $edit_stats = $c->model('Editor')->various_edit_counts($user->id);
     $edit_stats->{last_day_count} = $c->model('Editor')->last_24h_edit_count($user->id);
+    my $added_entities = $c->model('Editor')->added_entities_counts($user->id);
 
     my @ip_hashes;
     if ($c->user_exists && $c->user->is_account_admin && !(
@@ -408,6 +409,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
         subscriberCount => $c->stash->{subscriber_count},
         user            => $user,
         votes           => $c->stash->{votes},
+        addedEntities   => $added_entities,
     );
 
     $c->stash(
@@ -569,7 +571,7 @@ sub privileged : Path('/privileged')
     );
 }
 
-sub report : Chained('load') RequireAuth HiddenOnSlaves CSRFToken {
+sub report : Chained('load') RequireAuth HiddenOnSlaves SecureForm {
     my ($self, $c) = @_;
 
     my $reporter = $c->user;

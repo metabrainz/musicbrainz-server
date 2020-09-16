@@ -182,9 +182,9 @@ class ArtistCreditEditor extends React.Component {
     $bubble
       .css('max-width', maxWidth)
       .find('.bubble')
-        .removeClass('left-tail right-tail')
-        .addClass(tailClass)
-        .end()
+      .removeClass('left-tail right-tail')
+      .addClass(tailClass)
+      .end()
       .show()
       .position(position)
       /*

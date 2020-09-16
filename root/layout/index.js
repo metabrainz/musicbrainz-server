@@ -230,7 +230,6 @@ const Layout = ({
         id="page"
       >
         {children}
-        <div style={{clear: 'both'}} />
       </div>
 
       {($c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */) &&

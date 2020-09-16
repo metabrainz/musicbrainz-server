@@ -171,7 +171,7 @@ sub _send_password_reset_email
     };
 }
 
-sub lost_password : Path('/lost-password') ForbiddenOnSlaves CSRFToken
+sub lost_password : Path('/lost-password') ForbiddenOnSlaves SecureForm
 {
     my ($self, $c) = @_;
 
@@ -220,7 +220,7 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves CSRFToken
     $c->detach;
 }
 
-sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly CSRFToken
+sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly SecureForm
 {
     my ($self, $c) = @_;
 
@@ -302,7 +302,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly 
     $c->stash->{form} = $form;
 }
 
-sub lost_username : Path('/lost-username') ForbiddenOnSlaves CSRFToken
+sub lost_username : Path('/lost-username') ForbiddenOnSlaves SecureForm
 {
     my ($self, $c) = @_;
 
@@ -350,7 +350,7 @@ request is received), update the profile data in the database.
 
 =cut
 
-sub edit : Local RequireAuth DenyWhenReadonly CSRFToken {
+sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
     my ($self, $c) = @_;
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
@@ -442,7 +442,7 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadonly CSRFToken
+sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadonly SecureForm
 {
     my ($self, $c) = @_;
 
@@ -480,7 +480,7 @@ Change the users preferences
 
 =cut
 
-sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly CSRFToken
+sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly SecureForm
 {
     my ($self, $c) = @_;
 
@@ -532,7 +532,7 @@ new user.
 
 =cut
 
-sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly CSRFToken
+sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly SecureForm
 {
     my ($self, $c) = @_;
 
@@ -652,13 +652,23 @@ sub _send_confirmation_email
         chk    => $self->_checksum($email, $editor->id, $time),
     });
 
+    my $email_in_use = $c->model('Editor')->is_email_used_elsewhere($email, $editor->id);
+
     try {
-        $c->model('Email')->send_email_verification(
-            email             => $email,
-            verification_link => $verification_link,
-            ip                => $c->req->address,
-            editor            => $editor
-        );
+        if ($email_in_use) {
+            $c->model('Email')->send_email_in_use(
+                email             => $email,
+                ip                => $c->req->address,
+                editor            => $editor
+            );            
+        } else {
+            $c->model('Email')->send_email_verification(
+                email             => $email,
+                verification_link => $verification_link,
+                ip                => $c->req->address,
+                editor            => $editor
+            );
+        }
     }
     catch {
         $c->flash->{message} = l(
@@ -726,7 +736,7 @@ sub applications : Path('/account/applications') RequireAuth RequireSSL
     );
 }
 
-sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth DenyWhenReadonly CSRFToken
+sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth DenyWhenReadonly SecureForm
 {
     my ($self, $c, $application_id, $scope) = @_;
 
@@ -754,7 +764,7 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     }
 }
 
-sub register_application : Path('/account/applications/register') RequireAuth RequireSSL DenyWhenReadonly CSRFToken
+sub register_application : Path('/account/applications/register') RequireAuth RequireSSL DenyWhenReadonly SecureForm
 {
     my ($self, $c) = @_;
 
@@ -781,7 +791,7 @@ sub register_application : Path('/account/applications/register') RequireAuth Re
     }
 }
 
-sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth RequireSSL DenyWhenReadonly CSRFToken
+sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth RequireSSL DenyWhenReadonly SecureForm
 {
     my ($self, $c, $id) = @_;
 
@@ -814,7 +824,7 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth Re
     }
 }
 
-sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth RequireSSL DenyWhenReadonly CSRFToken
+sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth RequireSSL DenyWhenReadonly SecureForm
 {
     my ($self, $c, $id) = @_;
 

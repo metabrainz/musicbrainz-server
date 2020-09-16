@@ -64,7 +64,7 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
     );
 }
 
-sub create : Chained('attribute_base') RequireAuth(account_admin) CSRFToken {
+sub create : Chained('attribute_base') RequireAuth(account_admin) SecureForm {
     my ($self, $c) = @_;
     my $model = $c->stash->{model};
 
@@ -85,7 +85,7 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) CSRFToken {
     }
 }
 
-sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) CSRFToken {
+sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureForm {
     my ($self, $c, $id) = @_;
     my $model = $c->stash->{model};
     my $attr = $c->model($model)->get_by_id($id);
@@ -107,7 +107,7 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) CSRFToke
     }
 }
 
-sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) CSRFToken {
+sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureForm {
     my ($self, $c, $id) = @_;
     my $model = $c->stash->{model};
     my $attr = $c->model($model)->get_by_id($id);

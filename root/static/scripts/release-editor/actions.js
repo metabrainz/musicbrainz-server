@@ -23,318 +23,318 @@ import releaseEditor from './viewModel';
 
 const actions = {
 
-    cancelPage: function () {
-        window.location = this.returnTo;
-    },
+  cancelPage: function () {
+    window.location = this.returnTo;
+  },
 
-    nextTab: function () {
-        this.adjacentTab(1);
-    },
+  nextTab: function () {
+    this.adjacentTab(1);
+  },
 
-    previousTab: function () {
-        this.adjacentTab(-1);
-    },
+  previousTab: function () {
+    this.adjacentTab(-1);
+  },
 
-    lastTab: function () {
-        this.uiTabs._setOption('active', this.tabCount - 1);
-        this.uiTabs.tabs.eq(this.tabCount - 1).focus();
+  lastTab: function () {
+    this.uiTabs._setOption('active', this.tabCount - 1);
+    this.uiTabs.tabs.eq(this.tabCount - 1).focus();
+    return;
+  },
+
+  adjacentTab: function (direction) {
+    var index = this.activeTabIndex();
+    var disabled = this.uiTabs.options.disabled;
+
+    while (index >= 0 && index < this.tabCount) {
+      index += direction;
+
+      if (!disabled || disabled.indexOf(index) < 0) {
+        this.uiTabs._setOption('active', index);
+        this.uiTabs.tabs.eq(index).focus();
         return;
-    },
+      }
+    }
+  },
 
-    adjacentTab: function (direction) {
-        var index = this.activeTabIndex();
-        var disabled = this.uiTabs.options.disabled;
+  // Information tab
 
-        while (index >= 0 && index < this.tabCount) {
-            index += direction;
+  copyTitleToReleaseGroup: ko.observable(false),
+  copyArtistToReleaseGroup: ko.observable(false),
 
-            if (!disabled || disabled.indexOf(index) < 0) {
-                this.uiTabs._setOption('active', index);
-                this.uiTabs.tabs.eq(index).focus();
-                return;
-            }
-        }
-    },
+  addReleaseEvent: function (release) {
+    release.events.push(new fields.ReleaseEvent({}, release));
+  },
 
-    // Information tab
+  removeReleaseEvent: function (releaseEvent) {
+    releaseEvent.release.events.remove(releaseEvent);
+  },
 
-    copyTitleToReleaseGroup: ko.observable(false),
-    copyArtistToReleaseGroup: ko.observable(false),
+  addReleaseLabel: function (release) {
+    release.labels.push(new fields.ReleaseLabel({}, release));
+  },
 
-    addReleaseEvent: function (release) {
-        release.events.push(new fields.ReleaseEvent({}, release));
-    },
+  removeReleaseLabel: function (releaseLabel) {
+    releaseLabel.release.labels.remove(releaseLabel);
+  },
 
-    removeReleaseEvent: function (releaseEvent) {
-        releaseEvent.release.events.remove(releaseEvent);
-    },
+  // Tracklist tab
 
-    addReleaseLabel: function (release) {
-        release.labels.push(new fields.ReleaseLabel({}, release));
-    },
+  moveMediumUp: function (medium) {
+    this.changeMediumPosition(medium, -1);
+  },
 
-    removeReleaseLabel: function (releaseLabel) {
-        releaseLabel.release.labels.remove(releaseLabel);
-    },
+  moveMediumDown: function (medium) {
+    this.changeMediumPosition(medium, 1);
+  },
 
-    // Tracklist tab
+  changeMediumPosition: function (medium, offset) {
+    var oldPosition = medium.position.peek();
+    var newPosition = oldPosition + offset;
 
-    moveMediumUp: function (medium) {
-        this.changeMediumPosition(medium, -1);
-    },
+    if (newPosition <= 0) {
+      return;
+    }
 
-    moveMediumDown: function (medium) {
-        this.changeMediumPosition(medium, 1);
-    },
+    medium.position(newPosition);
 
-    changeMediumPosition: function (medium, offset) {
-        var oldPosition = medium.position.peek();
-        var newPosition = oldPosition + offset;
+    var mediums = medium.release.mediums.peek();
+    var index = mediums.indexOf(medium);
+    var possibleNewIndex = index + offset;
+    var neighbor = mediums[possibleNewIndex];
 
-        if (newPosition <= 0) {
-            return;
-        }
+    if (neighbor && newPosition === neighbor.position.peek()) {
+      neighbor.position(oldPosition);
+      mediums[index] = neighbor;
+      mediums[possibleNewIndex] = medium;
+      medium.release.mediums.notifySubscribers(mediums);
+    }
+  },
 
-        medium.position(newPosition);
+  removeMedium: function (medium) {
+    var mediums = medium.release.mediums;
+    var index = mediums.indexOf(medium);
+    var position = medium.position();
 
-        var mediums = medium.release.mediums.peek();
-        var index = mediums.indexOf(medium);
-        var possibleNewIndex = index + offset;
-        var neighbor = mediums[possibleNewIndex];
+    medium.removed = true;
+    mediums.remove(medium);
+    mediums = mediums.peek();
 
-        if (neighbor && newPosition === neighbor.position.peek()) {
-            neighbor.position(oldPosition);
-            mediums[index] = neighbor;
-            mediums[possibleNewIndex] = medium;
-            medium.release.mediums.notifySubscribers(mediums);
-        }
-    },
+    for (var i = index; (medium = mediums[i]); i++) {
+      if (medium.position() === position + 1) {
+        medium.position(position);
+      }
+      ++position;
+    }
+  },
 
-    removeMedium: function (medium) {
-        var mediums = medium.release.mediums;
-        var index = mediums.indexOf(medium);
-        var position = medium.position();
+  guessCaseMediaNames: function () {
+    for (const medium of this.mediums.peek()) {
+      releaseEditor.guessCaseMediumName(medium);
+      releaseEditor.guessCaseTrackNames(medium);
+    }
+  },
 
-        medium.removed = true;
-        mediums.remove(medium);
-        mediums = mediums.peek();
+  guessCaseMediumName: function (medium) {
+    var name = medium.name.peek();
 
-        for (var i = index; (medium = mediums[i]); i++) {
-            if (medium.position() === position + 1) {
-                medium.position(position);
-            }
-            ++position;
-        }
-    },
+    if (name) {
+      medium.name(MB.GuessCase.release.guess(name));
+    }
+  },
 
-    guessCaseMediaNames: function () {
-        for (const medium of this.mediums.peek()) {
-            releaseEditor.guessCaseMediumName(medium);
-            releaseEditor.guessCaseTrackNames(medium);
-        }
-    },
+  moveTrackUp: function (track) {
+    var previous = track.previous();
 
-    guessCaseMediumName: function (medium) {
-        var name = medium.name.peek();
+    if (track.isDataTrack() && (!previous || !previous.isDataTrack())) {
+      track.isDataTrack(false);
+    } else if (previous) {
+      this.swapTracks(track, previous, track.medium);
+    }
 
-        if (name) {
-            medium.name(MB.GuessCase.release.guess(name));
-        }
-    },
+    deferFocus('button.track-up', '#' + track.elementID);
 
-    moveTrackUp: function (track) {
-        var previous = track.previous();
+    // If the medium had a TOC attached, it's no longer valid.
+    track.medium.toc(null);
 
-        if (track.isDataTrack() && (!previous || !previous.isDataTrack())) {
-            track.isDataTrack(false);
-        } else if (previous) {
-            this.swapTracks(track, previous, track.medium);
-        }
+    return true;
+  },
 
-        deferFocus('button.track-up', '#' + track.elementID);
+  moveTrackDown: function (track) {
+    var next = track.next();
 
-        // If the medium had a TOC attached, it's no longer valid.
-        track.medium.toc(null);
+    if (!next || track.position() == 0) {
+      return false;
+    }
 
-        return true;
-    },
+    if (next && next.isDataTrack() && !track.isDataTrack()) {
+      track.isDataTrack(true);
+    } else {
+      this.swapTracks(track, next, track.medium);
+    }
 
-    moveTrackDown: function (track) {
-        var next = track.next();
+    deferFocus('button.track-down', '#' + track.elementID);
 
-        if (!next || track.position() == 0) {
-            return false;
-        }
+    // If the medium had a TOC attached, it's no longer valid.
+    track.medium.toc(null);
 
-        if (next && next.isDataTrack() && !track.isDataTrack()) {
-            track.isDataTrack(true);
-        } else {
-            this.swapTracks(track, next, track.medium);
-        }
+    return true;
+  },
 
-        deferFocus('button.track-down', '#' + track.elementID);
+  swapTracks: function (track1, track2, medium) {
+    const tracks = medium.tracks;
+    const underlyingTracks = tracks.peek();
+    const offset = medium.hasPregap() ? 0 : 1;
+    /*
+     * Use indexOf instead of .position()
+     * http://tickets.metabrainz.org/browse/MBS-7227
+     */
+    const position1 = underlyingTracks.indexOf(track1) + offset;
+    const position2 = underlyingTracks.indexOf(track2) + offset;
+    const number1 = track1.number();
+    const number2 = track2.number();
+    const dataTrack1 = track1.isDataTrack();
+    const dataTrack2 = track2.isDataTrack();
 
-        // If the medium had a TOC attached, it's no longer valid.
-        track.medium.toc(null);
+    track1.position(position2);
+    track1.number(number2);
+    track1.isDataTrack(dataTrack2);
 
-        return true;
-    },
+    track2.position(position1);
+    track2.number(number1);
+    track2.isDataTrack(dataTrack1);
 
-    swapTracks: function (track1, track2, medium) {
-        const tracks = medium.tracks;
-        const underlyingTracks = tracks.peek();
-        const offset = medium.hasPregap() ? 0 : 1;
-        /*
-         * Use indexOf instead of .position()
-         * http://tickets.metabrainz.org/browse/MBS-7227
-         */
-        const position1 = underlyingTracks.indexOf(track1) + offset;
-        const position2 = underlyingTracks.indexOf(track2) + offset;
-        const number1 = track1.number();
-        const number2 = track2.number();
-        const dataTrack1 = track1.isDataTrack();
-        const dataTrack2 = track2.isDataTrack();
+    underlyingTracks[position1 - offset] = track2;
+    underlyingTracks[position2 - offset] = track1;
+    tracks.notifySubscribers(underlyingTracks);
+  },
 
-        track1.position(position2);
-        track1.number(number2);
-        track1.isDataTrack(dataTrack2);
+  resetTrackPositions: function (tracks, start, offset, removed) {
+    let track;
+    for (let i = start; (track = tracks[i]); i++) {
+      track.position(i + offset);
 
-        track2.position(position1);
-        track2.number(number1);
-        track2.isDataTrack(dataTrack1);
+      if (track.number.peek() == (i + offset + removed)) {
+        track.number(i + offset);
+      }
+    }
+  },
 
-        underlyingTracks[position1 - offset] = track2;
-        underlyingTracks[position2 - offset] = track1;
-        tracks.notifySubscribers(underlyingTracks);
-    },
+  removeTrack: function (track) {
+    var focus = track.next() || track.previous();
+    var $medium = $('#' + track.elementID).parents('.advanced-disc');
+    var medium = track.medium;
+    var tracks = medium.tracks;
+    var index = tracks.indexOf(track);
+    var offset = medium.hasPregap() ? 0 : 1;
 
-    resetTrackPositions: function (tracks, start, offset, removed) {
-        let track;
-        for (let i = start; (track = tracks[i]); i++) {
-            track.position(i + offset);
+    tracks.remove(track);
+    releaseEditor.resetTrackPositions(tracks.peek(), index, offset, 1);
 
-            if (track.number.peek() == (i + offset + removed)) {
-                track.number(i + offset);
-            }
-        }
-    },
+    if (focus) {
+      deferFocus('button.remove-item', '#' + focus.elementID);
+    } else {
+      deferFocus('.add-tracks button.add-item', $medium);
+    }
 
-    removeTrack: function (track) {
-        var focus = track.next() || track.previous();
-        var $medium = $('#' + track.elementID).parents('.advanced-disc');
-        var medium = track.medium;
-        var tracks = medium.tracks;
-        var index = tracks.indexOf(track);
-        var offset = medium.hasPregap() ? 0 : 1;
+    medium.toc(null);
+  },
 
-        tracks.remove(track);
-        releaseEditor.resetTrackPositions(tracks.peek(), index, offset, 1);
+  guessCaseTrackName: function (track) {
+    track.name(MB.GuessCase.track.guess(track.name.peek()));
+  },
 
-        if (focus) {
-            deferFocus('button.remove-item', '#' + focus.elementID);
-        } else {
-            deferFocus('.add-tracks button.add-item', $medium);
-        }
+  guessCaseTrackNames: function (medium) {
+    for (const track of medium.tracks.peek()) {
+      releaseEditor.guessCaseTrackName(track);
+    }
+  },
 
-        medium.toc(null);
-    },
+  toggleMedium: function (medium) {
+    medium.collapsed(!medium.collapsed());
+  },
 
-    guessCaseTrackName: function (track) {
-        track.name(MB.GuessCase.track.guess(track.name.peek()));
-    },
+  openTrackParser: function (medium) {
+    this.trackParserDialog.open(medium);
+  },
 
-    guessCaseTrackNames: function (medium) {
-        for (const track of medium.tracks.peek()) {
-            releaseEditor.guessCaseTrackName(track);
-        }
-    },
+  resetTrackNumbers: function (medium) {
+    var offset = medium.hasPregap() ? 0 : 1;
 
-    toggleMedium: function (medium) {
-        medium.collapsed(!medium.collapsed());
-    },
+    medium.tracks().forEach(function (track, i) {
+      track.position(i + offset);
+      track.number(i + offset);
+    });
+  },
 
-    openTrackParser: function (medium) {
-        this.trackParserDialog.open(medium);
-    },
+  swapTitlesWithArtists: function (medium) {
+    var tracks = medium.tracks();
 
-    resetTrackNumbers: function (medium) {
-        var offset = medium.hasPregap() ? 0 : 1;
+    var requireConf = tracks.some(function (track) {
+      return isComplexArtistCredit(track.artistCredit());
+    });
 
-        medium.tracks().forEach(function (track, i) {
-            track.position(i + offset);
-            track.number(i + offset);
+    var question = l(
+      'This tracklist has artist credits with information that ' +
+      'will be lost if you swap artist credits with track titles. ' +
+      'This cannot be undone. Do you wish to continue?',
+    );
+
+    if (!requireConf || confirm(question)) {
+      for (const track of tracks) {
+        const oldTitle = track.name();
+
+        track.name(reduceArtistCredit(track.artistCredit()));
+        track.artistCredit({names: [{ name: oldTitle }]});
+        track.artistCreditEditorInst.setState({
+          artistCredit: track.artistCredit.peek(),
         });
-    },
+      }
+    }
+  },
 
-    swapTitlesWithArtists: function (medium) {
-        var tracks = medium.tracks();
+  addNewTracks: function (medium) {
+    var releaseAC = medium.release.artistCredit();
+    var defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC;
+    var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
-        var requireConf = tracks.some(function (track) {
-            return isComplexArtistCredit(track.artistCredit());
-        });
+    for (let i = 0; i < addTrackCount; i++) {
+      medium.pushTrack({ artistCredit: defaultAC });
+    }
+  },
 
-        var question = l(
-            'This tracklist has artist credits with information that ' +
-            'will be lost if you swap artist credits with track titles. ' +
-            'This cannot be undone. Do you wish to continue?',
-        );
+  guessReleaseFeatArtists: function (release) {
+    guessFeat(release);
+  },
 
-        if (!requireConf || confirm(question)) {
-            for (const track of tracks) {
-                const oldTitle = track.name();
+  guessTrackFeatArtists: function (track) {
+    guessFeat(track);
+  },
 
-                track.name(reduceArtistCredit(track.artistCredit()));
-                track.artistCredit({names: [{ name: oldTitle }]});
-                track.artistCreditEditorInst.setState({
-                    artistCredit: track.artistCredit.peek(),
-                });
-            }
-        }
-    },
+  guessMediumCase: function (medium) {
+    releaseEditor.guessCaseMediumName(medium);
+    releaseEditor.guessCaseTrackNames(medium);
+  },
 
-    addNewTracks: function (medium) {
-        var releaseAC = medium.release.artistCredit();
-        var defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC;
-        var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
+  guessMediumFeatArtists: function (medium) {
+    medium.tracks().forEach(guessFeat);
+  },
 
-        for (let i = 0; i < addTrackCount; i++) {
-            medium.pushTrack({ artistCredit: defaultAC });
-        }
-    },
+  // Recordings tab
 
-    guessReleaseFeatArtists: function (release) {
-        guessFeat(release);
-    },
+  reuseUnsetPreviousRecordings: function (release) {
+    for (const track of release.tracksWithUnsetPreviousRecordings()) {
+      const previous = track.previousTrackAtThisPosition;
+      if (previous) {
+        track.id = previous.id;
+        track.gid = previous.gid;
+        delete track.previousTrackAtThisPosition;
+      }
+      track.recording(track.recording.saved);
+    }
+  },
 
-    guessTrackFeatArtists: function (track) {
-        guessFeat(track);
-    },
-
-    guessMediumCase: function (medium) {
-        releaseEditor.guessCaseMediumName(medium);
-        releaseEditor.guessCaseTrackNames(medium);
-    },
-
-    guessMediumFeatArtists: function (medium) {
-        medium.tracks().forEach(guessFeat);
-    },
-
-    // Recordings tab
-
-    reuseUnsetPreviousRecordings: function (release) {
-        for (const track of release.tracksWithUnsetPreviousRecordings()) {
-            const previous = track.previousTrackAtThisPosition;
-            if (previous) {
-                track.id = previous.id;
-                track.gid = previous.gid;
-                delete track.previousTrackAtThisPosition;
-            }
-            track.recording(track.recording.saved);
-        }
-    },
-
-    copyTrackTitlesToRecordings: ko.observable(false),
-    copyTrackArtistsToRecordings: ko.observable(false),
+  copyTrackTitlesToRecordings: ko.observable(false),
+  copyTrackArtistsToRecordings: ko.observable(false),
 };
 
 Object.assign(releaseEditor, actions);
