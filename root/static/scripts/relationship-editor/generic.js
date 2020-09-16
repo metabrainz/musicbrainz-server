@@ -72,7 +72,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                         ? seriesOrdering[seriesType.item_entity_type]
                         : undefined;
 
-                    if (seriesType && seriesOrderingFunc) {
+                    if (seriesOrderingFunc) {
                         sorted(seriesOrderingFunc(result(), source));
                     } else {
                         sorted(result());
