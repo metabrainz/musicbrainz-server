@@ -11,34 +11,34 @@ import ko from 'knockout';
 import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull';
 
 function conflict(a, b, prop) {
-    return nonEmpty(a[prop]) && nonEmpty(b[prop]) && a[prop] !== b[prop];
+  return nonEmpty(a[prop]) && nonEmpty(b[prop]) && a[prop] !== b[prop];
 }
 
 var unwrapInteger = x => parseIntegerOrNull(ko.unwrap(x));
 
 function mergeDates(a, b) {
-    a = {
-        year: unwrapInteger(a.year),
-        month: unwrapInteger(a.month),
-        day: unwrapInteger(a.day),
-    };
-    b = {
-        year: unwrapInteger(b.year),
-        month: unwrapInteger(b.month),
-        day: unwrapInteger(b.day),
-    };
+  a = {
+    year: unwrapInteger(a.year),
+    month: unwrapInteger(a.month),
+    day: unwrapInteger(a.day),
+  };
+  b = {
+    year: unwrapInteger(b.year),
+    month: unwrapInteger(b.month),
+    day: unwrapInteger(b.day),
+  };
 
-    if (conflict(a, b, 'year') || conflict(a, b, 'month') || conflict(a, b, 'day')) {
-        return null;
-    }
+  if (conflict(a, b, 'year') || conflict(a, b, 'month') || conflict(a, b, 'day')) {
+    return null;
+  }
 
-    /* eslint-disable no-multi-spaces */
-    return {
-        year:  nonEmpty(a.year)  ? a.year  : b.year,
-        month: nonEmpty(a.month) ? a.month : b.month,
-        day:   nonEmpty(a.day)   ? a.day   : b.day,
-    };
-    /* eslint-enable no-multi-spaces */
+  /* eslint-disable no-multi-spaces */
+  return {
+    year:  nonEmpty(a.year)  ? a.year  : b.year,
+    month: nonEmpty(a.month) ? a.month : b.month,
+    day:   nonEmpty(a.day)   ? a.day   : b.day,
+  };
+  /* eslint-enable no-multi-spaces */
 }
 
 export default mergeDates;

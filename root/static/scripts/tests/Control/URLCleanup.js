@@ -4193,10 +4193,12 @@ testData.forEach(function (subtest, i) {
       if (nbTestedRules === 0) {
         st.fail('Validation test is worthless: No validation rule has been actually tested.');
       } else {
-        st.deepEqual(validationResults.true.sort(),
+        st.deepEqual(
+          validationResults.true.sort(),
           subtest.only_valid_entity_types.sort(),
           'Validate clean URL by exactly ' + subtest.only_valid_entity_types.length +
-                            ' among ' + nbTestedRules + ' ' + relationshipType + '.* rules');
+            ' among ' + nbTestedRules + ' ' + relationshipType + '.* rules',
+        );
         tested = true;
       }
     }

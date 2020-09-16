@@ -2927,7 +2927,7 @@ const CLEANUPS = {
     type: LINK_TYPES.viaf,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
-        'http://viaf.org/viaf/$1');
+                        'http://viaf.org/viaf/$1');
       return url;
     },
     validate: function (url) {
