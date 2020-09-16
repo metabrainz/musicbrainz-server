@@ -733,6 +733,14 @@ sub allocate_remember_me_token {
     }
 }
 
+sub is_email_used_elsewhere {
+    my ($self, $email, $user_id) = @_;
+
+    return 1 if $self->sql->select_single_value(
+        'SELECT 1 FROM editor WHERE lower(email) = lower(?) AND id != ?', $email, $user_id);
+    return 0;
+}
+
 sub is_name_used {
     my ($self, $name) = @_;
 
