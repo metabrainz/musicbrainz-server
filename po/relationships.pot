@@ -2415,6 +2415,11 @@ msgid ""
 "This links to a site describing relevant details about a label's history."
 msgstr ""
 
+#: DB:link_type/description:984
+msgid ""
+"This links to a site describing relevant details about a place's history."
+msgstr ""
+
 #: DB:link_type/description:350
 msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a> where one work "
@@ -4334,7 +4339,7 @@ msgstr ""
 msgid "has imprint"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:211
+#: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
 msgstr ""
 
@@ -4414,15 +4419,15 @@ msgstr ""
 msgid "held in"
 msgstr ""
 
-#: DB:link_type/link_phrase:211
+#: DB:link_type/link_phrase:984 DB:link_type/link_phrase:211
 msgid "history page"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:211
+#: DB:link_type/reverse_link_phrase:984 DB:link_type/reverse_link_phrase:211
 msgid "history page for"
 msgstr ""
 
-#: DB:link_type/name:211
+#: DB:link_type/name:984 DB:link_type/name:211
 msgid "history site"
 msgstr ""
 
