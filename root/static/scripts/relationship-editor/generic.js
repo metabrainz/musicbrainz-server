@@ -68,12 +68,11 @@ export class GenericEntityViewModel extends ViewModel {
 
       ko.computed(function () {
         var seriesType = source.type();
-
-        if (seriesType) {
-          const seriesOrderingFunc = seriesOrdering[seriesType.item_entity_type];
-          if (seriesOrderingFunc) {
-            sorted(seriesOrderingFunc(result(), source));
-          }
+        const seriesOrderingFunc = seriesType
+          ? seriesOrdering[seriesType.item_entity_type]
+          : undefined;
+        if (seriesOrderingFunc) {
+          sorted(seriesOrderingFunc(result(), source));
         } else {
           sorted(result());
         }
