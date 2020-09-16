@@ -612,7 +612,7 @@ const URL_SHORTENERS = [
   'unitedmasters.com',
   'untd.io',
   'yep.it',
-].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/', 'i'));
+].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
 
 function isShortened(url) {
   return URL_SHORTENERS.some(function (shortenerRegex) {
