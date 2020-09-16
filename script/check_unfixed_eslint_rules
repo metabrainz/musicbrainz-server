@@ -1,0 +1,30 @@
+#!/bin/bash
+
+SCRIPT_NAME=$(basename "$0")
+
+HELP=$(cat <<EOH
+Usage: $SCRIPT_NAME [options] file.js [file.js] [dir]
+
+Check suggested ESLint rules not passing yet on given file(s).
+EOH
+)
+
+if [[ $# -ne 0 && $1 =~ -*h(elp)? ]]
+then
+  echo "$HELP"
+  exit 0 # EX_OK
+elif [[ $# -eq 0 ]]
+then
+  echo >&2 "$SCRIPT_NAME: missing file or directory"
+  echo >&2 "Try '$SCRIPT_NAME help' for usage."
+  exit 64 # EX_USAGE
+fi
+
+cd "$(dirname "${BASH_SOURCE[0]}")/../" || exit 66 # EX_NOINPUT
+
+./node_modules/eslint/bin/eslint.js \
+  --config .eslintrc.unfixed.yaml \
+  --max-warnings 0 \
+  "$@"
+
+# vi: set et sts=2 sw=2 ts=2 :
