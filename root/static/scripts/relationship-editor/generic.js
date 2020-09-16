@@ -68,12 +68,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                 ko.computed(function () {
                     var seriesType = source.type();
+                    const seriesOrderingFunc = seriesType
+                        ? seriesOrdering[seriesType.item_entity_type]
+                        : undefined;
 
-                    if (seriesType) {
-                        const seriesOrderingFunc = seriesOrdering[seriesType.item_entity_type];
-                        if (seriesOrderingFunc) {
-                            sorted(seriesOrderingFunc(result(), source));
-                        }
+                    if (seriesType && seriesOrderingFunc) {
+                        sorted(seriesOrderingFunc(result(), source));
                     } else {
                         sorted(result());
                     }
