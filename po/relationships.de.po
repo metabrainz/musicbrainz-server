@@ -17,8 +17,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-09-03 13:02+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-09-12 11:27+0000\n"
+"Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1749,7 +1749,7 @@ msgid ""
 "This indicates the work is dedicated to a specific place (such an "
 "educational institution). This is most common for classical works, but also "
 "exists in other genres to a degree."
-msgstr ""
+msgstr "Dies gibt an, dass das Werk einer bestimmten Örtlichkeit (wie einer Bildungseinrichtung) gewidmet ist. Am häufigsten ist dies bei klassischen Werken der Fall, aber zu einem gewissen Grad auch in anderen Genres."
 
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
@@ -2402,7 +2402,7 @@ msgid ""
 "This links an entity to the equivalent entry in another database. Please "
 "respect the <a "
 "href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">whitelist</a>."
-msgstr ""
+msgstr "Dies verlinkt ein Ebjekt zum äquivalenten Eintarg in einer anderen Datenbank. Respektiere bitte die <a href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">Whitelist</a>."
 
 #: DB:link_type/description:804
 msgid ""
@@ -2521,7 +2521,7 @@ msgid ""
 "Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "Diese Beziehung beschreibt eine URL, unter der Liedtexte für den Künstler gefunden werden können. Nur Websites auf der <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">Whitelist</a> sind zulässig."
 
 #: DB:link_type/description:982
 msgid ""
@@ -2529,7 +2529,7 @@ msgid ""
 "a publisher) can be found. Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "Diese Beziehung beschreibt eine URL, unter der Liedtexte für das Label (meist ein Herausgeber) gefunden werden können. Nur Websites auf der <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">Whitelist</a> sind zulässig."
 
 #: DB:link_type/description:93
 msgid ""
@@ -2537,7 +2537,7 @@ msgid ""
 "found. Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "Diese Beziehung beschreibt eine URL, unter der Liedtexte für die Veröffentlichungsgruppe gefunden werden können. Nur Websites auf der <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">Whitelist</a> sind zulässig."
 
 #: DB:link_type/description:271
 msgid ""
@@ -2545,7 +2545,7 @@ msgid ""
 "Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "Diese Beziehung beschreibt eine URL, unter der Liedtexte für das Werk gefunden werden können. Nur Websites auf der <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">Whitelist</a> sind zulässig."
 
 #: DB:link_type/description:929
 msgid ""

@@ -64,7 +64,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-03 12:18-0500\n"
-"PO-Revision-Date: 2020-09-07 17:03+0000\n"
+"PO-Revision-Date: 2020-09-08 15:18+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -6018,7 +6018,7 @@ msgstr "terminé"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:111
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:90
 msgid "entity0 cardinality:"
-msgstr "cardinalité de l’entité0 :"
+msgstr "Cardinalité de l’entité 0 :"
 
 #: ../root/edit/details/add_relationship_type.tt:23
 #: ../root/edit/details/edit_relationship_type.tt:55
@@ -6026,7 +6026,7 @@ msgstr "cardinalité de l’entité0 :"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:115
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:95
 msgid "entity1 cardinality:"
-msgstr "cardinalité de l’entité1 :"
+msgstr "Cardinalité de l’entité 1 :"
 
 #: ../root/components/common-macros.tt:121
 msgid "events"
@@ -11405,7 +11405,7 @@ msgstr "plus"
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:80
 msgctxt "link phrase"
 msgid "(none)"
-msgstr "(aucun)"
+msgstr "(aucune)"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:123
 msgid "{relationship_documentation_url|Documentation}"
