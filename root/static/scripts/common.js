@@ -30,8 +30,6 @@ require('./common/sentry');
 window.ko = require('knockout');
 window.$ = window.jQuery = require('jquery');
 
-require('../../components/list/RecordingList');
-
 require('../lib/jquery.ui/ui/jquery-ui.custom');
 
 require('./common/components/Annotation');
