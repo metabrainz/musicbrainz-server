@@ -73,7 +73,7 @@ function getResponse(requestBody, context) {
   let Page = componentModule ? getExport(componentModule) : undefined;
   if (Page === undefined) {
     try {
-      Page = getExport(components['main/404']);
+      Page = getExport(components['main/error/404']);
       status = 404;
     } catch (err) {
       Sentry.captureException(err);
