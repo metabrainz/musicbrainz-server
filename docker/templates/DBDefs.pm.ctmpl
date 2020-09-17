@@ -184,6 +184,7 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "BOOLEAN_DEF" "DEVELOPMENT_SERVER"}}
 {{executeTemplate "BOOLEAN_DEF" "FORK_RENDERER"}}
 {{executeTemplate "BOOLEAN_DEF" "IS_BETA"}}
+{{executeTemplate "BOOLEAN_DEF" "OAUTH2_ENABLE_PKCE"}}
 {{executeTemplate "BOOLEAN_DEF" "SEARCH_X_ACCEL_REDIRECT"}}
 {{executeTemplate "BOOLEAN_DEF" "SSL_REDIRECTS_ENABLED"}}
 {{executeTemplate "BOOLEAN_DEF" "WIKIMEDIA_COMMONS_IMAGES_ENABLED"}}
