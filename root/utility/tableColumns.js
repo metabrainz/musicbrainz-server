@@ -508,7 +508,7 @@ type AcoustIdTrackT = {
   +id: string,
 };
 
-const AcoustidCell = ({
+const AcoustIdCell = ({
   isLoading,
   tracks,
 }: {
@@ -579,7 +579,7 @@ export const useAcoustIdsColumn = (
 
   return {
     Cell: ({cell: {value}}) => (
-      <AcoustidCell
+      <AcoustIdCell
         isLoading={isLoading}
         tracks={data?.[value] ?? null}
       />
