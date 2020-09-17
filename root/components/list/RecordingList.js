@@ -19,10 +19,10 @@ import {
   defineNameColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
-  acoustIdColumn,
   isrcsColumn,
   ratingsColumn,
   removeFromMergeColumn,
+  useAcoustIdsColumn,
 } from '../../utility/tableColumns';
 import hydrate from '../../utility/hydrate';
 
@@ -57,6 +57,11 @@ const RecordingList = ({
   showRatings = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
+  const acoustIdsColumn = useAcoustIdsColumn(
+    recordings,
+    showAcoustIds,
+  );
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
@@ -101,7 +106,7 @@ const RecordingList = ({
         artistCreditColumn,
         isrcsColumn,
         ...(showRatings ? [ratingsColumn] : []),
-        ...(showAcoustIds ? [acoustIdColumn] : []),
+        ...(acoustIdsColumn ? [acoustIdsColumn] : []),
         lengthColumn,
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
         ...(mergeForm && recordings.length > 2
@@ -118,7 +123,7 @@ const RecordingList = ({
       order,
       recordings,
       seriesItemNumbers,
-      showAcoustIds,
+      acoustIdsColumn,
       showExpandedArtistCredits,
       showInstrumentCreditsAndRelTypes,
       showRatings,

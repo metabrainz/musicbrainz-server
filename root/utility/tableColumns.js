@@ -503,54 +503,92 @@ export const isrcsColumn:
     accessor: 'isrcs',
   };
 
-const AcoustIdCell = ({
-  value,
-}: {value: string}): React.Element<typeof React.Fragment> => {
-  const url = '//api.acoustid.org/v2/track/list_by_mbid' +
-    `?format=json&disabled=1&mbid=${value}`;
-  const [tracks, setTracks] = React.useState([]);
-  const [isLoaded, setIsLoaded] = React.useState(false);
-  React.useEffect(() => {
-    fetch(url).then(
-      resp => resp.json(),
-    ).then(data => {
-      setTracks(data.tracks);
-      setIsLoaded(true);
-    });
-  }, [url]);
-
-  return (
-    <>
-      {isLoaded ? (
-        tracks.length ? (
-          <ul>
-            {tracks.map((track) => (
-              <li key={track.id}>
-                <code>
-                  <a
-                    className={'external' +
-                      (track.disabled ? ' disabled-acoustid' : '')}
-                    href={`//acoustid.org/track/${track.id}`}
-                  >
-                    {track.id.slice(0, 6) + '…'}
-                  </a>
-                </code>
-              </li>
-            ))}
-          </ul>
-        ) : null
-      ) : <p className="loading-message">{l('Loading...')}</p>}
-    </>
-  );
+type AcoustIdTrackT = {
+  +disabled?: boolean,
+  +id: string,
 };
 
-export const acoustIdColumn:
-  ColumnOptions<{+gid?: string, ...}, string> = {
-    Cell: ({cell: {value}}) => (<AcoustIdCell value={value} />),
+const AcoustidCell = ({
+  isLoading,
+  tracks,
+}: {
+  +isLoading: boolean,
+  +tracks: ?$ReadOnlyArray<AcoustIdTrackT>,
+}): React.Element<typeof React.Fragment> => (
+  <>
+    {isLoading ? (
+      <p className="loading-message">
+        {l('Loading...')}
+      </p>
+    ) : (
+      tracks?.length ? (
+        <ul>
+          {tracks.map((track) => (
+            <li key={track.id}>
+              <code>
+                <a
+                  className={'external' +
+                    (track.disabled ? ' disabled-acoustid' : '')}
+                  href={`//acoustid.org/track/${track.id}`}
+                >
+                  {track.id.slice(0, 6) + '…'}
+                </a>
+              </code>
+            </li>
+          ))}
+        </ul>
+      ) : null
+    )}
+  </>
+);
+
+export const useAcoustIdsColumn = (
+  recordings: $ReadOnlyArray<RecordingT>,
+  showAcoustIds: boolean,
+): ColumnOptions<{+gid?: string, ...}, string> | null => {
+  const [data, setData] = React.useState<{
+    +[recordingMbid: string]: $ReadOnlyArray<AcoustIdTrackT>,
+  } | null>(null);
+  const [isLoading, setLoading] = React.useState(showAcoustIds);
+
+  React.useEffect(() => {
+    if (showAcoustIds) {
+      const url = '//api.acoustid.org/v2/track/list_by_mbid' +
+        '?format=json&disabled=1&batch=1' +
+        recordings.map(x => '&mbid=' + x.gid).join('');
+
+      fetch(url)
+        .then(
+          resp => resp.json(),
+        )
+        .then((reqData) => {
+          setData(reqData.mbids.reduce((result, x) => {
+            result[x.mbid] = x.tracks;
+            return result;
+          }, {}));
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [recordings, showAcoustIds]);
+
+  if (!showAcoustIds) {
+    return null;
+  }
+
+  return {
+    Cell: ({cell: {value}}) => (
+      <AcoustidCell
+        isLoading={isLoading}
+        tracks={data?.[value] ?? null}
+      />
+    ),
     Header: N_l('AcoustIDs'),
     accessor: 'gid',
     id: 'acoustid',
   };
+};
 
 export const iswcsColumn:
   ColumnOptions<{
