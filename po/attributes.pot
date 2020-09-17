@@ -2160,7 +2160,6 @@ msgid "E-flat major"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:12
-#: DB:work_attribute_type_allowed_value/value:815
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat minor"
 msgstr ""
@@ -2323,6 +2322,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:16
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-flat major"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:815
+msgctxt "work_attribute_type_allowed_value"
+msgid "F-flat minor"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:19
