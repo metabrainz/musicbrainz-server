@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {URL} from 'url';
-
 import * as React from 'react';
 
 import {CatalystContext} from '../context';
