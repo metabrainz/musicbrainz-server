@@ -16,6 +16,7 @@ import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
 import RecordingList from '../components/list/RecordingList';
 import Layout from '../layout';
+import * as manifest from '../static/manifest';
 
 type Props = {
   +$c: CatalystContextT,
@@ -54,6 +55,7 @@ const RecordingMerge = ({
           $c={$c}
           mergeForm={form}
           recordings={sortByEntityName(toMerge)}
+          showAcoustIds
           showExpandedArtistCredits
         />
         <FieldErrors field={form.field.target} />
@@ -72,6 +74,7 @@ const RecordingMerge = ({
         </EnterEdit>
       </form>
     </div>
+    {manifest.js('recording/merge.js', {async: 'async'})}
   </Layout>
 );
 
