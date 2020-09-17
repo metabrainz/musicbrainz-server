@@ -22,7 +22,9 @@ import {
   isrcsColumn,
   ratingsColumn,
   removeFromMergeColumn,
+  useAcoustIdsColumn,
 } from '../../utility/tableColumns';
+import hydrate from '../../utility/hydrate';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
@@ -33,6 +35,7 @@ type Props = {
   +mergeForm?: MergeFormT,
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingT>,
+  +showAcoustIds?: boolean,
   +showExpandedArtistCredits?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
@@ -48,11 +51,17 @@ const RecordingList = ({
   order,
   recordings,
   seriesItemNumbers,
+  showAcoustIds = false,
   showExpandedArtistCredits = false,
   showInstrumentCreditsAndRelTypes = false,
   showRatings = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
+  const acoustIdsColumn = useAcoustIdsColumn(
+    recordings,
+    showAcoustIds,
+  );
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
@@ -97,6 +106,7 @@ const RecordingList = ({
         artistCreditColumn,
         isrcsColumn,
         ...(showRatings ? [ratingsColumn] : []),
+        ...(acoustIdsColumn ? [acoustIdsColumn] : []),
         lengthColumn,
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
         ...(mergeForm && recordings.length > 2
@@ -113,6 +123,7 @@ const RecordingList = ({
       order,
       recordings,
       seriesItemNumbers,
+      acoustIdsColumn,
       showExpandedArtistCredits,
       showInstrumentCreditsAndRelTypes,
       showRatings,
@@ -128,4 +139,7 @@ const RecordingList = ({
   );
 };
 
-export default RecordingList;
+export default (hydrate<Props>(
+  'div.recording-list',
+  RecordingList,
+): React.AbstractComponent<Props, void>);
