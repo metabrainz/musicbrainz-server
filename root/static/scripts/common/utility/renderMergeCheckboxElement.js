@@ -22,7 +22,7 @@ export default function renderMergeCheckboxElement(
         value={entity.id}
       />
       <input
-        checked={entity.id === form.field.target.value}
+        defaultChecked={entity.id === form.field.target.value}
         name="merge.target"
         type="radio"
         value={entity.id}
