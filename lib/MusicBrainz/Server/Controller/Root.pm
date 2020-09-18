@@ -180,11 +180,11 @@ sub error_404 : Private {
     my ($self, $c, $message) = @_;
 
     $c->response->status(404);
-    $c->stash->{current_view} = 'Node';
-    $c->stash->{component_props} = {
-        message => $message,
-    };
-    $c->stash->{component_path} = 'main/error/404';
+    $c->stash(
+        component_path => 'main/error/404',
+        component_props => { message => $message },
+        current_view => 'Node',
+    );
 }
 
 sub error_500 : Private
