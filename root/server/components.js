@@ -103,6 +103,7 @@ module.exports = {
   'label/SpecialPurpose': require('../label/SpecialPurpose'),
   'main/ConfirmSeed': require('../main/ConfirmSeed'),
   'main/error/400': require('../main/error/400'),
+  'main/error/401': require('../main/error/401'),
   'main/error/404': require('../main/error/404'),
   'main/index': require('../main/index'),
   'mbid/NotFound': require('../mbid/NotFound'),

@@ -159,7 +159,10 @@ sub error_401 : Private
     my ($self, $c) = @_;
 
     $c->response->status(401);
-    $c->stash->{template} = 'main/401.tt';
+    $c->stash(
+        component_path => 'main/error/401',
+        current_view => 'Node',
+    );
 }
 
 sub error_403 : Private
