@@ -12,7 +12,7 @@ BEGIN { extends 'Catalyst::Controller' }
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
@@ -140,7 +140,18 @@ sub error_400 : Private
     my ($self, $c) = @_;
 
     $c->response->status(400);
-    $c->stash->{template} = 'main/400.tt';
+
+    my %props = (
+        hostname => $c->stash->{hostname},
+        message => $c->stash->{message},
+        useLanguages => boolean_to_json($c->stash->{use_languages}),
+    );
+
+    $c->stash(
+        component_path => 'main/error/400',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub error_401 : Private
