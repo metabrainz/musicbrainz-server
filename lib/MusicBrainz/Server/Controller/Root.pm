@@ -141,7 +141,6 @@ sub error_400 : Private
 
     $c->response->status(400);
     $c->stash->{template} = 'main/400.tt';
-    $c->detach;
 }
 
 sub error_401 : Private
@@ -150,7 +149,6 @@ sub error_401 : Private
 
     $c->response->status(401);
     $c->stash->{template} = 'main/401.tt';
-    $c->detach;
 }
 
 sub error_403 : Private
@@ -178,7 +176,6 @@ sub error_500 : Private
 
     $c->response->status(500);
     $c->stash->{template} = 'main/500.tt';
-    $c->detach;
 }
 
 sub error_503 : Private
@@ -187,7 +184,6 @@ sub error_503 : Private
 
     $c->response->status(503);
     $c->stash->{template} = 'main/503.tt';
-    $c->detach;
 }
 
 sub error_mirror : Private
@@ -196,7 +192,6 @@ sub error_mirror : Private
 
     $c->response->status(403);
     $c->stash->{template} = 'main/mirror.tt';
-    $c->detach;
 }
 
 sub error_mirror_404 : Private
@@ -205,7 +200,6 @@ sub error_mirror_404 : Private
 
     $c->response->status(404);
     $c->stash->{template} = 'main/mirror_404.tt';
-    $c->detach;
 }
 
 sub begin : Private
@@ -364,19 +358,19 @@ sub begin : Private
     if (exists $attributes->{Edit} && $c->user_exists &&
         (!$c->user->has_confirmed_email_address || $c->user->is_editing_disabled))
     {
-        $c->forward('/error_401');
+        $c->detach('/error_401');
     }
 
     if (DBDefs->DB_READ_ONLY && (exists $attributes->{Edit} ||
                                  exists $attributes->{DenyWhenReadonly})) {
         $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
-        $c->forward('/error_400');
+        $c->detach('/error_400');
     }
 
     # Update the tagger port
     if (defined $c->req->query_params->{tport}) {
         my ($tport) = $c->req->query_params->{tport} =~ /^([0-9]{1,5})$/
-            or $c->forward('/error_400');
+            or $c->detach('/error_400');
         $c->session->{tport} = $tport;
     }
 
