@@ -170,7 +170,10 @@ sub error_403 : Private
     my ($self, $c) = @_;
 
     $c->response->status(403);
-    $c->stash->{template} = 'main/403.tt';
+    $c->stash(
+        component_path => 'main/error/403',
+        current_view => 'Node',
+    );
 }
 
 sub error_404 : Private {

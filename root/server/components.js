@@ -104,6 +104,7 @@ module.exports = {
   'main/ConfirmSeed': require('../main/ConfirmSeed'),
   'main/error/400': require('../main/error/400'),
   'main/error/401': require('../main/error/401'),
+  'main/error/403': require('../main/error/403'),
   'main/error/404': require('../main/error/404'),
   'main/error/503': require('../main/error/503'),
   'main/index': require('../main/index'),
