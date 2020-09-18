@@ -211,7 +211,10 @@ sub error_mirror : Private
     my ($self, $c) = @_;
 
     $c->response->status(403);
-    $c->stash->{template} = 'main/mirror.tt';
+    $c->stash(
+        component_path => 'main/error/Mirror403',
+        current_view => 'Node',
+    );
 }
 
 sub error_mirror_404 : Private
