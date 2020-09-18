@@ -22,6 +22,7 @@ use MusicBrainz::Server::PagedReport;
     BadAmazonURLs
     CatNoLooksLikeASIN
     CatNoLooksLikeLabelCode
+    CDTOCDubiousLength
     CollaborationRelationships
     CoverArtRelationships
     DeprecatedRelationshipArtists
@@ -105,6 +106,7 @@ use MusicBrainz::Server::Report::ArtistsWithNoSubscribers;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CatNoLooksLikeLabelCode;
+use MusicBrainz::Server::Report::CDTOCDubiousLength;
 use MusicBrainz::Server::Report::CollaborationRelationships;
 use MusicBrainz::Server::Report::CoverArtRelationships;
 use MusicBrainz::Server::Report::DeprecatedRelationshipArtists;
