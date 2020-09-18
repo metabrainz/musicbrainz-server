@@ -834,6 +834,7 @@ sub TO_JSON {
         debug => boolean_to_json($self->debug),
         relative_uri => $self->relative_uri,
         req => {
+            body_params => $req->body_params,
             headers => \%headers,
             query_params => $req->query_params,
             secure => boolean_to_json($req->secure),
