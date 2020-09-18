@@ -503,9 +503,20 @@ around 'finalize_error' => sub {
         $c->$orig(@args);
 
         if (!$c->debug && scalar @{ $c->error }) {
-            $c->stash->{errors} = $errors;
-            $c->stash->{template} = $timed_out ?
-                'main/timeout.tt' : 'main/500.tt';
+            if ($timed_out) {
+                $c->stash(
+                    component_path => 'main/error/Timeout',
+                    component_props => {
+                        errors => $errors,
+                        stackTrace => $c->stash->{stack_trace},
+                        useLanguages => boolean_to_json($c->stash->{use_languages}),
+                    },
+                    current_view => 'Node',
+                );
+            } else {
+                $c->stash->{errors} = $errors;
+                $c->stash->{template} = 'main/500.tt';
+            }
             try { $c->stash->{hostname} = hostname; } catch {};
             $c->clear_errors;
             if ($c->stash->{error_body_in_stash}) {

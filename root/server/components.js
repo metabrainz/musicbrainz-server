@@ -109,6 +109,7 @@ module.exports = {
   'main/error/503': require('../main/error/503'),
   'main/error/Mirror403': require('../main/error/Mirror403'),
   'main/error/Mirror404': require('../main/error/Mirror404'),
+  'main/error/Timeout': require('../main/error/Timeout'),
   'main/index': require('../main/index'),
   'mbid/NotFound': require('../mbid/NotFound'),
   'oauth2/OAuth2Authorize': require('../oauth2/OAuth2Authorize'),
