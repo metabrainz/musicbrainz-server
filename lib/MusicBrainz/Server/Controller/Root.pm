@@ -197,7 +197,10 @@ sub error_503 : Private
     my ($self, $c) = @_;
 
     $c->response->status(503);
-    $c->stash->{template} = 'main/503.tt';
+    $c->stash(
+        component_path => 'main/error/503',
+        current_view => 'Node',
+    );
 }
 
 sub error_mirror : Private
