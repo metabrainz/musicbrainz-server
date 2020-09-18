@@ -34,6 +34,7 @@ declare type AliasT = {
 declare type AliasTypeT = OptionTreeT<'alias_type'>;
 
 declare type AnchorProps = {
+  +className?: string,
   +href: string,
   +key?: number | string,
   +target?: '_blank',
