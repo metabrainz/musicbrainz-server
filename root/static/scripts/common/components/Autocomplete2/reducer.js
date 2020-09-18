@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import mutate from 'mutate-cow';
+
 import {unwrapNl} from '../../i18n';
 
 import {
@@ -14,14 +16,14 @@ import {
 } from './actions';
 import {EMPTY_ARRAY, MENU_ITEMS} from './constants';
 import type {
-  ActionItem,
   Actions,
+  EntityItem,
   Item,
   SearchAction,
   State,
 } from './types';
 
-function initSearch(state: State, action: SearchAction) {
+function initSearch(state, action: SearchAction) {
   if (action.indexed !== undefined) {
     state.indexedSearch = action.indexed;
   }
@@ -46,22 +48,27 @@ function initSearch(state: State, action: SearchAction) {
   state.pendingSearch = searchTerm;
 }
 
-function resetPage(state: State) {
-  state.highlightedIndex = 0;
+function resetPage(state) {
+  state.highlightedItem = null;
   state.isOpen = false;
   state.items = EMPTY_ARRAY;
   state.page = 1;
 }
 
-function selectItem(state: State, item: Item) {
+function selectItem<+T: EntityItem>(
+  state: {...State<T>},
+  item: Item<T>,
+  unwrapProxy: <V>(V) => V,
+) {
   if (item.action) {
-    runReducer(state, item.action);
+    runReducer<T>(state, item.action, unwrapProxy);
     return;
   }
 
   state.isOpen = false;
   state.selectedItem = item;
   state.statusMessage = item.name;
+  state.pendingSearch = null;
 
   if (item.name !== state.inputValue) {
     state.inputValue = item.name;
@@ -69,46 +76,53 @@ function selectItem(state: State, item: Item) {
   }
 }
 
-function selectItemAtIndex(state: State, index: number) {
-  const item = state.items[index];
-  if (item) {
-    selectItem(state, item);
-  }
-}
-
-function showError(state: State, error: ActionItem) {
-  state.highlightedIndex = 0;
+function showError(state, error) {
+  state.highlightedItem = null;
   state.isOpen = true;
   state.items = [error];
   state.statusMessage = unwrapNl<string>(error.name);
 }
 
 // `runReducer` should only be run on a copy of the existing state.
-function runReducer(
-  state: State,
-  action: Actions,
-) {
+export function runReducer<+T: EntityItem>(
+  state: {...State<T>},
+  action: Actions<T>,
+  unwrapProxy: <V>(V) => V,
+): void {
   switch (action.type) {
+    case 'change-entity-type': {
+      state.entityType = action.entityType;
+      state.selectedItem = null;
+      resetPage(state);
+      break;
+    }
+
     case 'highlight-item': {
-      state.highlightedIndex = action.index;
+      state.highlightedItem = action.item;
       break;
     }
 
     case 'highlight-next-item': {
-      let index = state.highlightedIndex + 1;
+      const {highlightedItem} = state;
+      let index = highlightedItem
+        ? state.items.findIndex(item => item.id === highlightedItem.id) + 1
+        : 0;
       if (index >= state.items.length) {
         index = 0;
       }
-      state.highlightedIndex = index;
+      state.highlightedItem = state.items[index];
       break;
     }
 
     case 'highlight-previous-item': {
-      let index = state.highlightedIndex - 1;
+      const {highlightedItem} = state;
+      let index = highlightedItem
+        ? state.items.findIndex(item => item.id === highlightedItem.id) - 1
+        : 0;
       if (index < 0) {
         index = state.items.length - 1;
       }
-      state.highlightedIndex = index;
+      state.highlightedItem = state.items[index];
       break;
     }
 
@@ -120,12 +134,8 @@ function runReducer(
       initSearch(state, action);
       break;
 
-    case 'select-highlighted-item':
-      selectItemAtIndex(state, state.highlightedIndex);
-      break;
-
     case 'select-item':
-      selectItem(state, action.item);
+      selectItem<T>(state, action.item, unwrapProxy);
       break;
 
     case 'set-menu-visibility':
@@ -146,12 +156,10 @@ function runReducer(
       const {items, page, resultCount} = action;
 
       if (page === 1) {
-        state.highlightedIndex = 0;
-      } else if (state.highlightedIndex >= items.length) {
-        state.highlightedIndex = items.length - 1;
+        state.highlightedItem = items[0];
       }
 
-      const highlightedItem = items[state.highlightedIndex];
+      const highlightedItem = state.highlightedItem;
 
       state.isOpen = true;
       state.items = items;
@@ -177,7 +185,7 @@ function runReducer(
 
     case 'show-search-error': {
       showError(state, MENU_ITEMS.SEARCH_ERROR);
-      state.items = state.items.concat(
+      state.items = unwrapProxy(state.items).concat(
         state.indexedSearch
           ? MENU_ITEMS.ERROR_TRY_AGAIN_DIRECT
           : MENU_ITEMS.ERROR_TRY_AGAIN_INDEXED,
@@ -218,15 +226,18 @@ function runReducer(
   }
 }
 
-export default function reducer(
-  state: State,
-  action: Actions,
-): State {
+export default function reducer<+T: EntityItem>(
+  state: State<T>,
+  action: Actions<T>,
+): State<T> {
   if (action.type === 'noop') {
     return state;
   }
 
-  const nextState = {...state};
-  runReducer(nextState, action);
-  return nextState;
+  return mutate<{...State<T>}, State<T>>(
+    state,
+    (nextState, unwrapProxy) => {
+      runReducer<T>(nextState, action, unwrapProxy);
+    },
+  );
 }
