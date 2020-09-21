@@ -27,14 +27,12 @@ type Props = {
   +entity: CoreEntityT,
   +fallbackMessage?: string,
   +heading: string,
-  +showCredits?: boolean,
 };
 
 const RelationshipsTable = ({
   entity,
   fallbackMessage,
   heading,
-  showCredits = false,
 }: Props): React.MixedElement | null => {
   const appearances = generateRelationshipAppearancesList(entity);
   const relationshipTypes = Object.keys(appearances);
@@ -56,7 +54,7 @@ const RelationshipsTable = ({
         ? relationship.entity1_credit
         : relationship.entity0_credit;
 
-      if (!hasCreditColumn && showCredits && sourceCredit) {
+      if (!hasCreditColumn && sourceCredit) {
         hasCreditColumn = 1;
       }
       if (!hasAttributeColumn && relationship.attributes?.length) {

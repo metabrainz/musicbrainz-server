@@ -26,7 +26,6 @@ const AreaWorks = ({$c, area}: Props): React.Element<typeof AreaLayout> => (
         'This area has no relationships to any works.',
       )}
       heading={l('Relationships')}
-      showCredits
     />
   </AreaLayout>
 );
