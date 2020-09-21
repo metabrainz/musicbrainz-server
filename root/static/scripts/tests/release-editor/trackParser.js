@@ -63,7 +63,9 @@ parserTest('track numbers', function (t) {
   ]);
 });
 
-parserTest('parsing track durations with trailing whitespace (MBS-1284)', function (t) {
+parserTest((
+  'parsing track durations with trailing whitespace (MBS-1284)'
+), function (t) {
   t.plan(1);
 
   Object.assign(trackParser.options, {
@@ -92,7 +94,9 @@ parserTest('parsing track durations with trailing whitespace (MBS-1284)', functi
 
 });
 
-parserTest('numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)', function (t) {
+parserTest((
+  'numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)'
+), function (t) {
   t.plan(1);
 
   Object.assign(trackParser.options, {
@@ -114,7 +118,9 @@ parserTest('numbers at the end of track names being wrongly interpreted as durat
   ]);
 });
 
-parserTest("ignoring lines that don't start with a number when the option is set (MBS-2540)", function (t) {
+parserTest((
+  'ignoring lines that don’t start with a number when the option is set (MBS-2540)'
+), function (t) {
   t.plan(1);
 
   Object.assign(trackParser.options, {
@@ -126,7 +132,7 @@ parserTest("ignoring lines that don't start with a number when the option is set
 
   var input = '\
     1 Freeman Hardy & Willis Acid\n\n\
-       Written-By – James*, Jenkinson* \n\n\
+      Written-By – James*, Jenkinson* \n\n\
     5:42\n\
     2 Orange Romeda\n\n\
     Written-By – Eoin*, Sandison* \n\n\
@@ -134,8 +140,8 @@ parserTest("ignoring lines that don't start with a number when the option is set
   ';
 
   common.trackParserTest(t, input, [
-    { position: 1, name: 'Freeman Hardy & Willis Acid', formattedLength: '' },
-    { position: 2, name: 'Orange Romeda', formattedLength: '' },
+    {position: 1, name: 'Freeman Hardy & Willis Acid', formattedLength: ''},
+    {position: 2, name: 'Orange Romeda', formattedLength: ''},
   ]);
 });
 
@@ -156,7 +162,9 @@ parserTest('XX:XX:XX track times (MBS-3353)', function (t) {
   ]);
 });
 
-parserTest('internal track positions are updated appropriately after being reused', function (t) {
+parserTest((
+  'internal track positions are updated appropriately after being reused'
+), function (t) {
   t.plan(2);
 
   Object.assign(trackParser.options, {
@@ -187,7 +195,9 @@ parserTest('internal track positions are updated appropriately after being reuse
   t.equal(tracks[1].position(), 2, 'track 2 has position 2');
 });
 
-parserTest('MBS-7451: track parser can clear TOC track lengths', function (t) {
+parserTest((
+  'MBS-7451: track parser can clear TOC track lengths'
+), function (t) {
   t.plan(1);
 
   releaseEditor.rootField.release(new fields.Release(common.testRelease));
@@ -216,7 +226,9 @@ parserTest('MBS-7451: track parser can clear TOC track lengths', function (t) {
   );
 });
 
-parserTest('can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)', function (t) {
+parserTest((
+  'can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)'
+), function (t) {
   t.plan(16);
 
   Object.assign(trackParser.options, {
@@ -246,7 +258,11 @@ parserTest('can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
   var track = medium.tracks()[0];
   t.equal(track.number(), 'A1', 'number was used');
   t.equal(track.name(), 'foo', 'name was not used');
-  t.equal(reduceArtistCredit(track.artistCredit()), 'bar', 'artist was not used');
+  t.equal(
+    reduceArtistCredit(track.artistCredit()),
+    'bar',
+    'artist was not used',
+  );
   t.equal(track.formattedLength(), '3:00', 'length was not used');
 
   // Parse only titles
@@ -260,7 +276,11 @@ parserTest('can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
   track = medium.tracks()[0];
   t.equal(track.number(), 'A1', 'number was not used');
   t.equal(track.name(), 'FOO!', 'name was used');
-  t.equal(reduceArtistCredit(track.artistCredit()), 'bar', 'artist was not used');
+  t.equal(
+    reduceArtistCredit(track.artistCredit()),
+    'bar',
+    'artist was not used',
+  );
   t.equal(track.formattedLength(), '3:00', 'length was not used');
 
   // Parse only artists
@@ -274,7 +294,11 @@ parserTest('can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
   track = medium.tracks()[0];
   t.equal(track.number(), 'A1', 'number was not used');
   t.equal(track.name(), 'FOO!', 'name was not used');
-  t.equal(reduceArtistCredit(track.artistCredit()), 'BAR!', 'artist was used');
+  t.equal(
+    reduceArtistCredit(track.artistCredit()),
+    'BAR!',
+    'artist was used',
+  );
   t.equal(track.formattedLength(), '3:00', 'length was not used');
 
   // Parse only lengths
@@ -288,7 +312,11 @@ parserTest('can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
   track = medium.tracks()[0];
   t.equal(track.number(), 'A1', 'number was not used');
   t.equal(track.name(), 'FOO!', 'name was not used');
-  t.equal(reduceArtistCredit(track.artistCredit()), 'BAR!', 'artist was not used');
+  t.equal(
+    reduceArtistCredit(track.artistCredit()),
+    'BAR!',
+    'artist was not used',
+  );
   t.equal(track.formattedLength(), '2:55', 'length was used');
 });
 
@@ -356,20 +384,52 @@ parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
 
   t.ok(!newTracks[0].id, 'first track has no id');
   t.ok(!newTracks[0].gid, 'first track has no gid');
-  t.notEqual(oldRecordings[0], newRecordings[0], 'first recording is different');
-  t.notEqual(oldRecordings[1], newRecordings[1], 'second recording is different');
-  t.equal(oldRecordings[2], newRecordings[1], 'third recording is reused from second track');
-  t.equal(release.tracksWithUnsetPreviousRecordings().length, 1, 'there’s 1 previous recording available');
+  t.notEqual(
+    oldRecordings[0],
+    newRecordings[0],
+    'first recording is different',
+  );
+  t.notEqual(
+    oldRecordings[1],
+    newRecordings[1],
+    'second recording is different',
+  );
+  t.equal(
+    oldRecordings[2],
+    newRecordings[1],
+    'third recording is reused from second track',
+  );
+  t.equal(
+    release.tracksWithUnsetPreviousRecordings().length,
+    1,
+    'there’s 1 previous recording available',
+  );
 
   releaseEditor.reuseUnsetPreviousRecordings(release);
   newTracks = medium.tracks();
   newRecordings = newTracks.map(x => x.recording());
 
   t.equal(newTracks[0].id, 1, 'previous first track’s id is used');
-  t.equal(newTracks[0].gid, '7aeebcb5-cc99-4c7f-82bc-f2da35200081', 'previous first track’s gid is used');
-  t.equal(oldRecordings[0], newRecordings[0], 'previous first recording is reused');
-  t.notEqual(oldRecordings[1], newRecordings[1], 'second recording is still different');
-  t.equal(oldRecordings[2], newRecordings[1], 'third recording is still reused from second track');
+  t.equal(
+    newTracks[0].gid,
+    '7aeebcb5-cc99-4c7f-82bc-f2da35200081',
+    'previous first track’s gid is used',
+  );
+  t.equal(
+    oldRecordings[0],
+    newRecordings[0],
+    'previous first recording is reused',
+  );
+  t.notEqual(
+    oldRecordings[1],
+    newRecordings[1],
+    'second recording is still different',
+  );
+  t.equal(
+    oldRecordings[2],
+    newRecordings[1],
+    'third recording is still reused from second track',
+  );
 });
 
 parserTest('parsing fullwidth numbers', function (t) {
@@ -389,7 +449,9 @@ parserTest('parsing fullwidth numbers', function (t) {
   ]);
 });
 
-parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)", function (t) {
+parserTest((
+  'parses track times for data tracks if there’s a disc ID (MBS-8409)'
+), function (t) {
   t.plan(2);
 
   var trackParser = releaseEditor.trackParser;
@@ -426,11 +488,17 @@ parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)",
   var tracks = medium.tracks();
 
   medium.tracks(trackParser.parse('1:23\n2:34', medium));
-  t.equal(tracks[0].length(), 12000, 'length of non-data track did not change');
+  t.equal(
+    tracks[0].length(),
+    12000,
+    'length of non-data track did not change',
+  );
   t.equal(tracks[1].length(), 154000, 'length of data track changed');
 });
 
-parserTest('data track boundary is unchanged if the track count is >= the previous one (MBS-8410)', function (t) {
+parserTest((
+  'data track boundary is unchanged if the track count is >= the previous one (MBS-8410)'
+), function (t) {
   t.plan(1);
 
   var trackParser = releaseEditor.trackParser;
@@ -452,7 +520,9 @@ parserTest('data track boundary is unchanged if the track count is >= the previo
   releaseEditor.rootField.release(release);
 
   var medium = release.mediums()[0];
-  medium.tracks(trackParser.parse('Track B\nTrack A\nCool Bonus Vid', medium));
+  medium.tracks(
+    trackParser.parse('Track B\nTrack A\nCool Bonus Vid', medium),
+  );
 
   t.deepEqual(
     medium.tracks().map(function (t) {
@@ -498,5 +568,8 @@ parserTest('force number of tracks to equal CD TOC', function (t) {
 
   t.equal(medium.audioTracks().length, 1);
   t.equal(medium.dataTracks().length, 2);
-  t.deepEqual(medium.tracks().map(x => x.name()), ['Track A', 'Very Different Title', 'Another Data Track']);
+  t.deepEqual(
+    medium.tracks().map(x => x.name()),
+    ['Track A', 'Very Different Title', 'Another Data Track'],
+  );
 });

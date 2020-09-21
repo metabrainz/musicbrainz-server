@@ -57,7 +57,9 @@ function getAttributeValueReact(type: LinkAttrTypeT) {
   );
 }
 
-export default function displayLinkAttribute(attribute: LinkAttrT): Expand2ReactOutput {
+export default function displayLinkAttribute(
+  attribute: LinkAttrT,
+): Expand2ReactOutput {
   return _displayLinkAttribute<Expand2ReactOutput>(
     attribute,
     getAttributeValueReact,

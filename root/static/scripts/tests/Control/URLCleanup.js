@@ -8,7 +8,12 @@
 
 import test from 'tape';
 
-import {LINK_TYPES, cleanURL, guessType, validationRules} from '../../edit/URLCleanup';
+import {
+  LINK_TYPES,
+  cleanURL,
+  guessType,
+  validationRules,
+} from '../../edit/URLCleanup';
 
 /* eslint-disable indent, max-len, sort-keys */
 const testData = [
@@ -4136,7 +4141,12 @@ function doMatchSubtest(
     relationshipTypesByUuid[relUuid]?.find(function (s) {
       return s === expectedRelationshipType;
     });
-  st.equal(actualRelationshipType, expectedRelationshipType, 'Match ' + label + ' URL relationship type for ' + entityType + ' entities');
+  st.equal(
+    actualRelationshipType,
+    expectedRelationshipType,
+    'Match ' + label + ' URL relationship type for ' +
+    entityType + ' entities',
+  );
   previousMatchTests.push(entityType + '+' + url);
 }
 
@@ -4144,38 +4154,66 @@ testData.forEach(function (subtest, i) {
   test('input URL [' + i + '] = ' + subtest.input_url, {}, function (st) {
     let tested = false;
     if (!subtest.input_url) {
-      st.fail('Test is invalid: "input_url" is missing: ' + JSON.stringify(subtest));
+      st.fail(
+        'Test is invalid: "input_url" is missing: ' + JSON.stringify(subtest),
+      );
       st.end();
       return;
     }
     if (subtest.input_entity_type) {
       if ('expected_relationship_type' in subtest) {
-        if (previousMatchTests.indexOf(subtest.input_entity_type + '+' + subtest.input_url) !== -1) {
-          st.fail('Match test is worthless: Duplication has been detected: ' + JSON.stringify(subtest));
+        if (previousMatchTests.indexOf(
+          subtest.input_entity_type + '+' + subtest.input_url,
+        ) !== -1) {
+          st.fail(
+            'Match test is worthless: Duplication has been detected: ' +
+            JSON.stringify(subtest),
+          );
         }
-        doMatchSubtest(st, subtest.input_entity_type, subtest.input_url, 'input', subtest.expected_relationship_type);
+        doMatchSubtest(
+          st,
+          subtest.input_entity_type,
+          subtest.input_url,
+          'input',
+          subtest.expected_relationship_type,
+        );
         tested = true;
       } else {
-        st.fail('Test is invalid: "input_entity_type" is specified without "expected_relationship_type".');
+        st.fail(
+          'Test is invalid: "input_entity_type" is specified without "expected_relationship_type".',
+        );
         st.end();
         return;
       }
     } else if ('expected_relationship_type' in subtest) {
-      st.fail('Test is invalid: "expected_relationship_type" is specified without "input_entity_type".');
+      st.fail(
+        'Test is invalid: "expected_relationship_type" is specified without "input_entity_type".',
+      );
       st.end();
       return;
     }
     const actualCleanUrl = cleanURL(subtest.input_url);
     if (subtest.expected_clean_url) {
       st.equal(actualCleanUrl, subtest.expected_clean_url, 'Clean up');
-      if (subtest.input_entity_type && 'expected_relationship_type' in subtest &&
-                        previousMatchTests.indexOf(subtest.input_entity_type + '+' + subtest.expected_clean_url) === -1) {
-        doMatchSubtest(st, subtest.input_entity_type, subtest.expected_clean_url, 'clean', subtest.expected_relationship_type);
+      if (subtest.input_entity_type &&
+          'expected_relationship_type' in subtest &&
+          previousMatchTests.indexOf(
+            subtest.input_entity_type + '+' + subtest.expected_clean_url,
+          ) === -1) {
+        doMatchSubtest(
+          st,
+          subtest.input_entity_type,
+          subtest.expected_clean_url,
+          'clean',
+          subtest.expected_relationship_type,
+        );
       }
       tested = true;
     }
     if (subtest.input_relationship_type && !subtest.only_valid_entity_types) {
-      st.fail('Test is invalid: "input_relationship_type" is specified without "only_valid_entity_types" array.');
+      st.fail(
+        'Test is invalid: "input_relationship_type" is specified without "only_valid_entity_types" array.',
+      );
       st.end();
       return;
     }
@@ -4184,26 +4222,34 @@ testData.forEach(function (subtest, i) {
         subtest.expected_relationship_type;
       const cleanUrl = subtest.expected_clean_url || actualCleanUrl;
       if (!relationshipType) {
-        st.fail('Test is invalid: "only_valid_entity_types" are specified with neither "expected_relationship_type" nor "input_relationship_type".');
+        st.fail(
+          'Test is invalid: "only_valid_entity_types" are specified with neither "expected_relationship_type" nor "input_relationship_type".',
+        );
         st.end();
         return;
       }
       let nbTestedRules = 0;
-      const validationResults = Object.entries(LINK_TYPES[relationshipType]).reduce(
-        function (results, [entityType, relUuid]) {
-          const rule = validationRules[relUuid];
-          const isValid = rule ? rule(cleanUrl).result || false : true;
-          results[isValid].push(entityType);
-          nbTestedRules += rule ? 1 : 0;
-          return results;
-        }, {false: [], true: []});
+      const validationResults = Object.entries(LINK_TYPES[relationshipType])
+        .reduce(
+          function (results, [entityType, relUuid]) {
+            const rule = validationRules[relUuid];
+            const isValid = rule ? rule(cleanUrl).result || false : true;
+            results[isValid].push(entityType);
+            nbTestedRules += rule ? 1 : 0;
+            return results;
+          },
+          {false: [], true: []},
+        );
       if (nbTestedRules === 0) {
-        st.fail('Validation test is worthless: No validation rule has been actually tested.');
+        st.fail(
+          'Validation test is worthless: No validation rule has been actually tested.',
+        );
       } else {
         st.deepEqual(
           validationResults.true.sort(),
           subtest.only_valid_entity_types.sort(),
-          'Validate clean URL by exactly ' + subtest.only_valid_entity_types.length +
+          'Validate clean URL by exactly ' +
+            subtest.only_valid_entity_types.length +
             ' among ' + nbTestedRules + ' ' + relationshipType + '.* rules',
         );
         tested = true;

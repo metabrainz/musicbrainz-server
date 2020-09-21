@@ -37,6 +37,8 @@ export default function semicolonOnlyList(
   return _semicolonOnlyList<VarSubstArg, Expand2ReactOutput>(exp.l, items);
 }
 
-export function semicolonOnlyListText(items: $ReadOnlyArray<StrOrNum>): string {
+export function semicolonOnlyListText(
+  items: $ReadOnlyArray<StrOrNum>,
+): string {
   return _semicolonOnlyList<StrOrNum, string>(texp.l, items);
 }

@@ -57,7 +57,9 @@ function dialogTest(name, callback) {
   });
 }
 
-dialogTest('adding an empty medium via the add-disc dialog is allowed (MBS-7221)', function (t, release) {
+dialogTest((
+  'adding an empty medium via the add-disc dialog is allowed (MBS-7221)'
+), function (t, release) {
   t.plan(3);
 
   var mediums = release.mediums;
@@ -68,7 +70,10 @@ dialogTest('adding an empty medium via the add-disc dialog is allowed (MBS-7221)
   trackParserDialog.toBeParsed('1. ~fooo~ (1:23)\n');
   trackParserDialog.parse();
 
-  t.ok(mediums()[0].hasTracks(), 'first medium has tracks after using track parser');
+  t.ok(
+    mediums()[0].hasTracks(),
+    'first medium has tracks after using track parser'
+  );
 
   addDiscDialog.open();
   addDiscDialog.currentTab(trackParserDialog);
@@ -78,7 +83,9 @@ dialogTest('adding an empty medium via the add-disc dialog is allowed (MBS-7221)
   t.ok(!mediums()[1].hasTracks(), 'new empty medium was added');
 });
 
-dialogTest("switching to the tracklist tab opens the add-disc dialog if there's only one empty medium", function (t, release) {
+dialogTest((
+  'switching to the tracklist tab opens the add-disc dialog if there’s only one empty medium'
+), function (t, release) {
   t.plan(3);
 
   releaseEditor.activeTabID('#tracklist');
@@ -86,12 +93,18 @@ dialogTest("switching to the tracklist tab opens the add-disc dialog if there's 
 
   var uiDialog = $(addDiscDialog.element).data('ui-dialog');
 
-  t.ok(uiDialog.isOpen(), 'add-disc dialog is open after switching to the tracklist tab');
+  t.ok(
+    uiDialog.isOpen(),
+    'add-disc dialog is open after switching to the tracklist tab',
+  );
 
   releaseEditor.activeTabID('#information');
   releaseEditor.autoOpenTheAddDiscDialog(release);
 
-  t.ok(!uiDialog.isOpen(), 'add-disc dialog is closed after switching back to the information tab');
+  t.ok(
+    !uiDialog.isOpen(),
+    'add-disc dialog is closed after switching back to the information tab',
+  );
 
   release.mediums()[0].tracks.push(
     new fields.Track({ name: '~fooo~', position: 1, length: 12345 }),
@@ -100,10 +113,15 @@ dialogTest("switching to the tracklist tab opens the add-disc dialog if there's 
   releaseEditor.activeTabID('#information');
   releaseEditor.autoOpenTheAddDiscDialog(release);
 
-  t.ok(!uiDialog.isOpen(), 'add-disc dialog remains closed after switching to the tracklist tab with a non-empty medium');
+  t.ok(
+    !uiDialog.isOpen(),
+    'add-disc dialog remains closed after switching to the tracklist tab with a non-empty medium',
+  );
 });
 
-dialogTest("clearing the tracks of an existing medium via the track parser doesn't cause the add-disc dialog to open", function (t, release) {
+dialogTest((
+  'clearing the tracks of an existing medium via the track parser doesn’t cause the add-disc dialog to open'
+), function (t, release) {
   t.plan(3);
 
   var medium = release.mediums()[0];
@@ -126,7 +144,9 @@ dialogTest("clearing the tracks of an existing medium via the track parser doesn
   t.ok(!uiDialog, 'add-disc dialog is not open');
 });
 
-dialogTest('adding a new medium does not cause reorder edits (MBS-7412)', function (t, release) {
+dialogTest((
+  'adding a new medium does not cause reorder edits (MBS-7412)'
+), function (t, release) {
   t.plan(1);
 
   releaseEditor.rootField.release(release);
@@ -142,5 +162,9 @@ dialogTest('adding a new medium does not cause reorder edits (MBS-7412)', functi
 
   common.createMediums(release);
 
-  t.equal(edits.mediumReorder(release).length, 0, 'mediums are not reordered');
+  t.equal(
+    edits.mediumReorder(release).length,
+    0,
+    'mediums are not reordered',
+  );
 });

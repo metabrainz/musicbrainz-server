@@ -46,7 +46,11 @@ const releaseGroupRecordings = ko.observable();
 const etiRegex = /(\([^)]+\) ?)*$/;
 
 
-recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset, results) {
+recordingAssociation.getReleaseGroupRecordings = function (
+  releaseGroup,
+  offset,
+  results,
+) {
   if (!releaseGroup || !releaseGroup.gid) {
     return;
   }
@@ -64,13 +68,23 @@ recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset,
       var countSoFar = data.offset + 100;
 
       if (countSoFar < data.count) {
-        recordingAssociation.getReleaseGroupRecordings(releaseGroup, countSoFar, results);
+        recordingAssociation.getReleaseGroupRecordings(
+          releaseGroup,
+          countSoFar,
+          results,
+        );
       } else {
         releaseGroupRecordings(results);
       }
     })
     .fail(function () {
-      setTimeout(recordingAssociation.getReleaseGroupRecordings, 5000, releaseGroup, offset, results);
+      setTimeout(
+        recordingAssociation.getReleaseGroupRecordings,
+        5000,
+        releaseGroup,
+        offset,
+        results,
+      );
     });
 };
 

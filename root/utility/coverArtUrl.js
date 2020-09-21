@@ -22,7 +22,10 @@ function genericHttps(url) {
   );
 }
 
-export default function coverArtUrl($c: CatalystContextT, url: string): string {
+export default function coverArtUrl(
+  $c: CatalystContextT,
+  url: string,
+): string {
   if ($c.req.secure) {
     return amazonHttps(genericHttps(url));
   }

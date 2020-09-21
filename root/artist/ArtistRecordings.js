@@ -41,7 +41,12 @@ const ArtistRecordings = ({
   standaloneOnly,
   videoOnly,
 }: Props): React.Element<typeof ArtistLayout> => (
-  <ArtistLayout $c={$c} entity={artist} page="recordings" title={l('Recordings')}>
+  <ArtistLayout
+    $c={$c}
+    entity={artist}
+    page="recordings"
+    title={l('Recordings')}
+  >
     <h2>{l('Recordings')}</h2>
 
     <Filter

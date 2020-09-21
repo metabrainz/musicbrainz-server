@@ -28,7 +28,8 @@ const gettextParser = require('gettext-parser');
 const XGettext = require('xgettext-js');
 const argv = require('yargs').argv;
 
-const cleanMsgid = require('../root/static/scripts/common/i18n/cleanMsgid').default;
+const cleanMsgid =
+  require('../root/static/scripts/common/i18n/cleanMsgid').default;
 
 const PO_DIR = path.resolve(__dirname, '../po');
 
@@ -60,7 +61,9 @@ function extractStringLiteral(node) {
 
     case 'TemplateLiteral':
       if (node.expressions.length) {
-        throw new Error('Error: Template literals are not allowed to contain expressions');
+        throw new Error(
+          'Error: Template literals are not allowed to contain expressions',
+        );
       }
       return node.quasis[0].value.cooked;
 

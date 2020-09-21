@@ -659,7 +659,8 @@ MB.GuessCase.Handler.Base = function (gc) {
                 tmp.pop(); // Lose last of the acronym
                 subIndex--; // It's for example "P.S. I" love you
               }
-              break acronymloop; // Vound something which is not part of the acronym
+              // Found something which is not part of the acronym
+              break acronymloop;
             }
           }
         }
@@ -704,7 +705,8 @@ MB.GuessCase.Handler.Base = function (gc) {
       for (subIndex = gc.i.getPos() + 1; subIndex < gc.i.getLength();) {
         if (flags.context.numberSplitExpect) {
           if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_NUMBERSPLIT)) {
-            tmp.push(gc.i.getWordAtIndex(subIndex)); // Found a potential number split
+            // Found a potential number split
+            tmp.push(gc.i.getWordAtIndex(subIndex));
             flags.context.numberSplitExpect = false;
           } else {
             break numberloop;
@@ -713,13 +715,15 @@ MB.GuessCase.Handler.Base = function (gc) {
           // Look for a group of 3 digits
           if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_TRIPLE)) {
             if (flags.context.numberSplitChar == null) {
-              flags.context.numberSplitChar = tmp[tmp.length - 1]; // Confirmed number split
+              // Confirmed number split
+              flags.context.numberSplitChar = tmp[tmp.length - 1];
             }
             tmp.push(gc.i.getWordAtIndex(subIndex));
             flags.context.numberSplitExpect = true;
           } else {
             if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_DUPLE)) {
-              if (tmp.length > 2 && flags.context.numberSplitChar != tmp[tmp.length - 1]) {
+              if (tmp.length > 2 &&
+                  flags.context.numberSplitChar != tmp[tmp.length - 1]) {
                 /*
                  * Check for the opposite number splitter (, or .)
                  * because numbers are generally either
@@ -790,7 +794,10 @@ MB.GuessCase.Handler.Base = function (gc) {
       gc.re.FEAT_FEAT = /^feat$/i; // Match word "feat"
     }
     if (gc.i.matchCurrentWord(gc.re.FEAT)) {
-      // Special cases (f.) and (f/), have to check if next word is a "." or a "/"
+      /*
+       * Special cases (f.) and (f/),
+       * have to check if next word is a "." or a "/"
+       */
       if ((gc.i.matchCurrentWord(gc.re.FEAT_F)) &&
           gc.i.getNextWord() &&
           !gc.i.getNextWord().match(/^[\/.]$/)) {

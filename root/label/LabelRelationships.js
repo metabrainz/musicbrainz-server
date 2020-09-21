@@ -24,7 +24,12 @@ const LabelRelationships = ({
   $c,
   label,
 }: Props): React.Element<typeof LabelLayout> => (
-  <LabelLayout $c={$c} entity={label} page="relationships" title={l('Relationships')}>
+  <LabelLayout
+    $c={$c}
+    entity={label}
+    page="relationships"
+    title={l('Relationships')}
+  >
     {label.relationships?.length ? (
       <Relationships source={label} />
     ) : (

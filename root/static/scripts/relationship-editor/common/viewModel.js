@@ -95,10 +95,12 @@ RE.exportTypeInfo = function (typeInfo, attrInfo) {
       return;
     }
 
-    (MB.allowedRelations[type0] = MB.allowedRelations[type0] || []).push(type1);
+    (MB.allowedRelations[type0] = MB.allowedRelations[type0] || [])
+      .push(type1);
 
     if (type0 !== type1) {
-      (MB.allowedRelations[type1] = MB.allowedRelations[type1] || []).push(type0);
+      (MB.allowedRelations[type1] = MB.allowedRelations[type1] || [])
+        .push(type0);
     }
   });
 
@@ -228,15 +230,24 @@ MB.getRelationship = function (data, source) {
   if (viewModel) {
     let cacheKey;
     if (data.id) {
-      cacheKey = data.entities.map(x => x.entityType).concat(data.id).join('-');
+      cacheKey = data.entities
+        .map(x => x.entityType)
+        .concat(data.id)
+        .join('-');
       const cached = viewModel.cache[cacheKey];
 
       if (cached) {
         return cached;
       }
     }
-    const relationship = new viewModel.relationshipClass(data, source, viewModel);
-    return cacheKey ? (viewModel.cache[cacheKey] = relationship) : relationship;
+    const relationship = new viewModel.relationshipClass(
+      data,
+      source,
+      viewModel,
+    );
+    return cacheKey
+      ? (viewModel.cache[cacheKey] = relationship)
+      : relationship;
   }
 
   return null;
@@ -282,7 +293,8 @@ function addPostedRelationships(source) {
     return;
   }
 
-  const submittedRelationshipsJson = window.sessionStorage.getItem('submittedRelationships');
+  const submittedRelationshipsJson =
+    window.sessionStorage.getItem('submittedRelationships');
   if (MB.formWasPosted && submittedRelationshipsJson) {
     const submittedRelationships = JSON.parse(submittedRelationshipsJson);
     if (Array.isArray(submittedRelationships)) {
@@ -313,10 +325,14 @@ function addRelationshipsFromQueryString(source) {
       continue;
     }
 
-    var target = targetIsUUID ? (MB.entityCache[rel.target] || { gid: rel.target }) : { name: rel.target };
+    var target = targetIsUUID
+      ? (MB.entityCache[rel.target] || { gid: rel.target })
+      : { name: rel.target };
 
     if (linkType && !target.entityType) {
-      target.entityType = source.entityType === linkType.type0 ? linkType.type1 : linkType.type0;
+      target.entityType = source.entityType === linkType.type0
+        ? linkType.type1
+        : linkType.type0;
     }
 
     var data = {

@@ -81,7 +81,9 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         success: $.proxy(this._lookupSuccess, this, response),
         error: function () {
           response([{
-            label: l('An error occurred while searching. Click here to try again.'),
+            label: l(
+              'An error occurred while searching. Click here to try again.',
+            ),
             action: self._searchAgain.bind(self),
           }, {
             label: self.indexedSearch ?
@@ -553,7 +555,10 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
     if (newEntities) {
       recentEntities[entityType] = newEntities.slice(0, MAX_RECENT_ENTITIES);
-      localStorage('recentAutocompleteEntities', JSON.stringify(recentEntities));
+      localStorage(
+        'recentAutocompleteEntities',
+        JSON.stringify(recentEntities),
+      );
       return undefined;
     } else {
       return recentEntities[entityType] || [];
@@ -625,7 +630,8 @@ MB.Control.autocomplete_formatters = {
       comment.push(item.primaryAlias);
     }
 
-    if (item.sort_name && !isLatin(item.name) && item.sort_name != item.name && !item.primaryAlias) {
+    if (item.sort_name && !isLatin(item.name) &&
+        item.sort_name != item.name && !item.primaryAlias) {
       comment.push(item.sort_name);
     }
 
@@ -672,15 +678,25 @@ MB.Control.autocomplete_formatters = {
         rgs.push('...');
       }
 
-      a.append('<br /><span class="autocomplete-appears">' + he.escape(addColon(l('appears on'))) + ' ' +
-               he.escape(commaOnlyList(rgs)) + '</span>');
+      a.append(
+        '<br /><span class="autocomplete-appears">' +
+        he.escape(addColon(l('appears on'))) + ' ' +
+        he.escape(commaOnlyList(rgs)) + '</span>',
+      );
     } else if (item.appearsOn && item.appearsOn.hits === 0) {
-      a.append('<br /><span class="autocomplete-appears">' + he.escape(l('standalone recording')) + '</span>');
+      a.append(
+        '<br /><span class="autocomplete-appears">' +
+        he.escape(l('standalone recording')) + '</span>',
+      );
     }
 
     if (item.isrcs && item.isrcs.length) {
-      a.append('<br /><span class="autocomplete-isrcs">' + he.escape(addColon(l('ISRCs'))) + ' ' +
-               he.escape(commaOnlyList(item.isrcs.map(isrc => isrc.isrc))) + '</span>');
+      a.append(
+        '<br /><span class="autocomplete-isrcs">' +
+        he.escape(addColon(l('ISRCs'))) + ' ' +
+        he.escape(commaOnlyList(item.isrcs.map(isrc => isrc.isrc))) +
+        '</span>',
+      );
     }
 
     return $('<li>').append(a).appendTo(ul);
@@ -725,12 +741,18 @@ MB.Control.autocomplete_formatters = {
           appendComment(
             $a,
             name +
-            maybeParentheses(first(catalogNumbers) + ' … ' + last(catalogNumbers), name),
+            maybeParentheses(
+              first(catalogNumbers) + ' … ' + last(catalogNumbers),
+              name,
+            ),
           );
         } else {
           for (const releaseLabel of releaseLabels) {
             const name = getLabelName(releaseLabel);
-            appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
+            appendComment(
+              $a,
+              name + maybeParentheses(getCatalogNumber(releaseLabel), name),
+            );
           }
         }
       }
@@ -771,11 +793,18 @@ MB.Control.autocomplete_formatters = {
     var a = $('<a>').text(item.name);
 
     if (item.comment) {
-      a.append('<span class="autocomplete-comment">' + he.escape(bracketed(item.comment)) + '</span>');
+      a.append(
+        '<span class="autocomplete-comment">' +
+        he.escape(bracketed(item.comment)) + '</span>',
+      );
     }
 
     if (item.type) {
-      a.append(' <span class="autocomplete-comment">' + he.escape(bracketed(lp_attributes(item.type.name, 'series_type'))) + '</span>');
+      a.append(
+        ' <span class="autocomplete-comment">' +
+        he.escape(bracketed(lp_attributes(item.type.name, 'series_type'))) +
+        '</span>',
+      );
     }
 
     return $('<li>').append(a).appendTo(ul);
@@ -786,9 +815,12 @@ MB.Control.autocomplete_formatters = {
     var comment = [];
 
     if (item.languages && item.languages.length) {
-      a.prepend('<span class="autocomplete-language">' +
-                he.escape(commaOnlyList(item.languages.map(wl => l_languages(wl.language.name)))) +
-                '</span>');
+      a.prepend(
+        '<span class="autocomplete-language">' +
+        he.escape(commaOnlyList(
+          item.languages.map(wl => l_languages(wl.language.name)),
+        )) + '</span>',
+      );
     }
 
     if (item.primaryAlias && item.primaryAlias != item.name) {
@@ -805,7 +837,11 @@ MB.Control.autocomplete_formatters = {
     }
 
     if (item.typeName) {
-      a.append('<br /><span class="autocomplete-comment">' + he.escape(addColon(l('Type')) + ' ' + lp_attributes(item.typeName, 'work_type')) + '</span>');
+      a.append(
+        '<br /><span class="autocomplete-comment">' +
+        he.escape(addColon(l('Type')) + ' ' +
+        lp_attributes(item.typeName, 'work_type')) + '</span>',
+      );
     }
 
     var artistRenderer = function (prefix, artists) {
@@ -815,8 +851,10 @@ MB.Control.autocomplete_formatters = {
           toRender.push('...');
         }
 
-        a.append('<br /><span class="autocomplete-comment">' +
-                 prefix + ': ' + he.escape(commaOnlyList(toRender)) + '</span>');
+        a.append(
+          '<br /><span class="autocomplete-comment">' +
+          prefix + ': ' + he.escape(commaOnlyList(toRender)) + '</span>',
+        );
       }
     };
 
@@ -940,11 +978,19 @@ MB.Control.autocomplete_formatters = {
     }
 
     if (item.typeName) {
-      a.append(' <span class="autocomplete-comment">' + he.escape(bracketed(lp_attributes(item.typeName, 'event_type'))) + '</span>');
+      a.append(
+        ' <span class="autocomplete-comment">' +
+        he.escape(bracketed(lp_attributes(item.typeName, 'event_type'))) +
+        '</span>',
+      );
     }
 
     if (item.begin_date || item.time) {
-      a.append('<br /><span class="autocomplete-comment">' + (item.begin_date ? (formatDatePeriod(item) + ' ') : '') + (item.time ? item.time : '') + '</span>');
+      a.append(
+        '<br /><span class="autocomplete-comment">' +
+        (item.begin_date ? (formatDatePeriod(item) + ' ') : '') +
+        (item.time ? item.time : '') + '</span>',
+      );
     }
 
     var entityRenderer = function (prefix, relatedEntities) {
@@ -954,8 +1000,10 @@ MB.Control.autocomplete_formatters = {
           toRender.push('...');
         }
 
-        a.append('<br /><span class="autocomplete-comment">' +
-                 prefix + ': ' + he.escape(commaOnlyList(toRender)) + '</span>');
+        a.append(
+          '<br /><span class="autocomplete-comment">' +
+          prefix + ': ' + he.escape(commaOnlyList(toRender)) + '</span>',
+        );
       }
     };
 
@@ -974,7 +1022,9 @@ function maybeParentheses(text, condition) {
 }
 
 function appendComment($a, comment) {
-  return $a.append(`<br /><span class="autocomplete-comment">${comment}</span>`);
+  return $a.append(
+    `<br /><span class="autocomplete-comment">${comment}</span>`,
+  );
 }
 
 function getLabelName(releaseLabel) {
@@ -1009,10 +1059,13 @@ function renderContainingAreas(area) {
  * Do a lookup of the span with jQuery and pass it into EntityAutocomplete
  * as options.inputs, for example, for a release group do this:
  *
- *   MB.Control.EntityAutocomplete({inputs: $('span.release-group.autocomplete')});
+ *   MB.Control.EntityAutocomplete(
+ *    {inputs: $('span.release-group.autocomplete')},
+ *   );
  *
- * The 'lookup-performed' and 'cleared' events will be triggered on the input.name
- * element (though you can just bind on the span, as events will bubble up).
+ * The 'lookup-performed' and 'cleared' events will be triggered
+ * on the input.name element (though you can just bind
+ * on the span, as events will bubble up).
  */
 
 MB.Control.EntityAutocomplete = function (options) {
@@ -1045,8 +1098,8 @@ MB.Control.EntityAutocomplete = function (options) {
     var $hidden = $inputs.find('input[type=hidden]').val('');
 
     /*
-     * We need to do this manually, rather than using $.each, due to recordings
-     * having a 'length' property.
+     * We need to do this manually, rather than using $.each,
+     * due to recordings having a 'length' property.
      */
     for (const key in item) {
       if (hasOwnProp(item, key)) {

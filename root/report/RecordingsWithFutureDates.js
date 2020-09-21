@@ -12,15 +12,18 @@ import * as React from 'react';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
-import RecordingRelationshipList from './components/RecordingRelationshipList';
+import RecordingRelationshipList
+  from './components/RecordingRelationshipList';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types';
+
+type Props = ReportDataT<ReportRecordingRelationshipT>;
 
 const RecordingsWithFutureDates = ({
   $c,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingRelationshipT>): React.Element<typeof Layout> => (
+}: Props): React.Element<typeof Layout> => (
   <Layout
     $c={$c}
     fullWidth
@@ -31,8 +34,9 @@ const RecordingsWithFutureDates = ({
     <ul>
       <li>
         {exp.l(
-          `This report shows recordings with relationships using dates in the
-           future. Those are probably typos (e.g. 2109 instead of 2019).`
+          `This report shows recordings with relationships using dates in
+           the future. Those are probably typos
+           (e.g. 2109 instead of 2019).`,
         )}
       </li>
       <li>

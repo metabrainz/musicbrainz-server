@@ -24,7 +24,11 @@ const DuplicateRelationshipsWorks = ({
   items,
   pager,
 }: ReportDataT<ReportWorkT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Works with possible duplicate relationships')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Works with possible duplicate relationships')}
+  >
     <h1>{l('Works with possible duplicate relationships')}</h1>
 
     <ul>

@@ -35,9 +35,11 @@ const ReleaseRgDifferentName = ({
 
     <ul>
       <li>
-        {l(`This report shows releases which are the only ones in their release
-            group, yet have a different name than the group. This might mean
-            one of the two needs to be renamed to match the other.`)}
+        {l(
+          `This report shows releases which are the only ones in their release
+           group, yet have a different name than the group. This might mean
+           one of the two needs to be renamed to match the other.`,
+        )}
       </li>
       <li>
         {texp.l('Total releases found: {count}',

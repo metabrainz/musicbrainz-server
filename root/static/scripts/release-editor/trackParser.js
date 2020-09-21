@@ -134,7 +134,7 @@ const trackParser = releaseEditor.trackParser = {
       return data;
     });
 
-    sortByNumber(dataTrackPairs, x => -x.similarity).forEach(function (match) {
+    sortByNumber(dataTrackPairs, x => -x.similarity).forEach((match) => {
       var data = match.data;
       var track = match.track;
 
@@ -143,6 +143,7 @@ const trackParser = releaseEditor.trackParser = {
         matchedTracks[track.uniqueID] = 1;
       }
     });
+
 
     var newTracks = newTracksData.map(function (data, index) {
       var matchedTrack = data.matchedTrack;
@@ -193,7 +194,9 @@ const trackParser = releaseEditor.trackParser = {
           matchedTrack.name(data.name);
         }
 
-        if (options.useTrackLengths && (!hasTocs || matchedTrack.isDataTrack.peek()) && data.formattedLength) {
+        if (options.useTrackLengths &&
+            (!hasTocs || matchedTrack.isDataTrack.peek()) &&
+            data.formattedLength) {
           matchedTrack.formattedLength(data.formattedLength);
         }
 
@@ -337,7 +340,9 @@ const trackParser = releaseEditor.trackParser = {
 
     // Parse the track number.
     if (options.hasTrackNumbers) {
-      match = line.match(options.hasVinylNumbers ? this.vinylNumber : this.trackNumber);
+      match = line.match(options.hasVinylNumbers
+        ? this.vinylNumber
+        : this.trackNumber);
 
       // There should always be a track number if this option's set.
       if (match === null) {

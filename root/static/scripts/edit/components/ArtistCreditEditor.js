@@ -162,7 +162,11 @@ class ArtistCreditEditor extends React.Component {
     }
 
     const $button = $(this._editButton);
-    const position = {of: $button[0], collision: 'fit none', within: $('body')};
+    const position = {
+      collision: 'fit none',
+      of: $button[0],
+      within: $('body'),
+    };
     let maxWidth;
     let tailClass;
 

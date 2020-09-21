@@ -7,7 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export function isInvolved(election: AutoEditorElectionT, user: ?EditorT): void | boolean {
+export function isInvolved(
+  election: AutoEditorElectionT,
+  user: ?EditorT,
+): void | boolean {
   return !!user && (
     election.proposer.id === user.id ||
     election.candidate.id === user.id ||
@@ -16,22 +19,34 @@ export function isInvolved(election: AutoEditorElectionT, user: ?EditorT): void 
   );
 }
 
-export function votesVisible(election: AutoEditorElectionT, user: ?EditorT): void | boolean {
+export function votesVisible(
+  election: AutoEditorElectionT,
+  user: ?EditorT,
+): void | boolean {
   return election.is_closed ||
     (election.is_open && isInvolved(election, user));
 }
 
-export function canVote(election: AutoEditorElectionT, user: ?EditorT): boolean {
+export function canVote(
+  election: AutoEditorElectionT,
+  user: ?EditorT,
+): boolean {
   return (!!user && election.is_open && user.is_auto_editor &&
     !user.is_bot && !isInvolved(election, user));
 }
 
-export function canSecond(election: AutoEditorElectionT, user: ?EditorT): boolean {
+export function canSecond(
+  election: AutoEditorElectionT,
+  user: ?EditorT,
+): boolean {
   return (!!user && election.is_pending && user.is_auto_editor &&
     !user.is_bot && !isInvolved(election, user));
 }
 
-export function canCancel(election: AutoEditorElectionT, user: ?EditorT): boolean {
+export function canCancel(
+  election: AutoEditorElectionT,
+  user: ?EditorT,
+): boolean {
   return (!!user && !election.is_closed && election.proposer.id === user.id);
 }
 

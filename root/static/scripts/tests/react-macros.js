@@ -24,13 +24,16 @@ const ReactDOMServer = require('react-dom/server');
 
 /* eslint-disable no-unused-vars */
 
-const DescriptiveLink = require('../common/components/DescriptiveLink').default;
+const DescriptiveLink =
+  require('../common/components/DescriptiveLink').default;
 const EditorLink = require('../common/components/EditorLink').default;
 const EntityLink = require('../common/components/EntityLink').default;
 const l = require('../common/i18n').l;
-const diffArtistCredits = require('../edit/utility/diffArtistCredits').default;
+const diffArtistCredits =
+  require('../edit/utility/diffArtistCredits').default;
 const Diff = require('../edit/components/edit/Diff').default;
-const FullChangeDiff = require('../edit/components/edit/FullChangeDiff').default;
+const FullChangeDiff =
+  require('../edit/components/edit/FullChangeDiff').default;
 const WordDiff = require('../edit/components/edit/WordDiff').default;
 
 /* eslint-enable no-unused-vars */
@@ -88,7 +91,11 @@ function compareNodes(a, b) {
     b.normalize();
 
     if (a.childNodes.length !== b.childNodes.length) {
-      throwNotEquivalent('Different number of children', a.outerHTML, b.outerHTML);
+      throwNotEquivalent(
+        'Different number of children',
+        a.outerHTML,
+        b.outerHTML,
+      );
     }
 
     if (attributesDiffer(a, b)) {

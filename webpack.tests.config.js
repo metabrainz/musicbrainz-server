@@ -51,7 +51,11 @@ const webTestsConfig = {
 const nodeTestsConfig = {
   entry: {
     'tests': path.resolve(dirs.SCRIPTS, 'tests', 'node-runner.js'),
-    'react-macros-tests': path.resolve(dirs.SCRIPTS, 'tests', 'react-macros.js'),
+    'react-macros-tests': path.resolve(
+      dirs.SCRIPTS,
+      'tests',
+      'react-macros.js',
+    ),
   },
 
   node: {
