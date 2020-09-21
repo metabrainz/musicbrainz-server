@@ -8,7 +8,7 @@
 # Felix Gruber <email address hidden>, 2015
 # Johannes Dewender <email address hidden>, 2014
 # nikki, 2013
-# Philipp Wolfer <email address hidden>, 2015
+# Philipp Wolfer <email address hidden>, 2015,2020
 # S.Brandt <email address hidden>, 2014,2016
 # Shepard, 2013-2014
 # Till Berger <email address hidden>, 2017
@@ -17,8 +17,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-09-03 13:02+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-09-18 15:55+0000\n"
+"Last-Translator: Philipp Wolfer <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -135,11 +135,11 @@ msgstr "BookBrainz-Seite für"
 
 #: DB:link_type/link_phrase:919 DB:link_type/name:919
 msgid "CD Baby"
-msgstr ""
+msgstr "CD Baby"
 
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
-msgstr ""
+msgstr "CD-Baby-Seite für"
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
@@ -151,7 +151,7 @@ msgstr "CPDL-Seite für"
 
 #: DB:link_type/name:8 DB:link_type/name:227
 msgid "DJ-mix"
-msgstr ""
+msgstr "DJ-Mix"
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
@@ -1749,7 +1749,7 @@ msgid ""
 "This indicates the work is dedicated to a specific place (such an "
 "educational institution). This is most common for classical works, but also "
 "exists in other genres to a degree."
-msgstr ""
+msgstr "Dies gibt an, dass das Werk einer bestimmten Örtlichkeit (wie einer Bildungseinrichtung) gewidmet ist. Am häufigsten ist dies bei klassischen Werken der Fall, aber zu einem gewissen Grad auch in anderen Genres."
 
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
@@ -2402,7 +2402,7 @@ msgid ""
 "This links an entity to the equivalent entry in another database. Please "
 "respect the <a "
 "href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">whitelist</a>."
-msgstr ""
+msgstr "Dies verlinkt ein Ebjekt zum äquivalenten Eintarg in einer anderen Datenbank. Respektiere bitte die <a href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">Whitelist</a>."
 
 #: DB:link_type/description:804
 msgid ""
@@ -2521,7 +2521,7 @@ msgid ""
 "Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "Diese Beziehung beschreibt eine URL, unter der Liedtexte für den Künstler gefunden werden können. Nur Websites auf der <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">Whitelist</a> sind zulässig."
 
 #: DB:link_type/description:982
 msgid ""
@@ -2529,7 +2529,7 @@ msgid ""
 "a publisher) can be found. Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "Diese Beziehung beschreibt eine URL, unter der Liedtexte für das Label (meist ein Herausgeber) gefunden werden können. Nur Websites auf der <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">Whitelist</a> sind zulässig."
 
 #: DB:link_type/description:93
 msgid ""
@@ -2537,7 +2537,7 @@ msgid ""
 "found. Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "Diese Beziehung beschreibt eine URL, unter der Liedtexte für die Veröffentlichungsgruppe gefunden werden können. Nur Websites auf der <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">Whitelist</a> sind zulässig."
 
 #: DB:link_type/description:271
 msgid ""
@@ -2545,7 +2545,7 @@ msgid ""
 "Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "Diese Beziehung beschreibt eine URL, unter der Liedtexte für das Werk gefunden werden können. Nur Websites auf der <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">Whitelist</a> sind zulässig."
 
 #: DB:link_type/description:929
 msgid ""
@@ -3168,7 +3168,7 @@ msgstr "VGMdb-Seite für"
 #: DB:link_type/name:311 DB:link_type/name:310 DB:link_type/name:312
 #: DB:link_type/name:920
 msgid "VIAF"
-msgstr ""
+msgstr "VIAF"
 
 #: DB:link_type/link_phrase:311 DB:link_type/link_phrase:310
 #: DB:link_type/link_phrase:920 DB:link_type/reverse_link_phrase:312
@@ -3182,7 +3182,7 @@ msgstr "VIAF-ID für"
 
 #: DB:link_attribute_type/description:1151
 msgid "Whistling (with mouth, not a whistle)"
-msgstr ""
+msgstr "Pfeifen (mit dem Mund, nicht mit einer Pfeife)"
 
 #: DB:link_type/link_phrase:353 DB:link_type/link_phrase:354
 #: DB:link_type/link_phrase:749 DB:link_type/link_phrase:594

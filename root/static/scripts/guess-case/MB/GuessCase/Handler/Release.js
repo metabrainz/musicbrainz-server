@@ -15,58 +15,58 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
 // Release specific GuessCase functionality
 MB.GuessCase.Handler.Release = function (gc) {
-    var self = MB.GuessCase.Handler.Base(gc);
+  var self = MB.GuessCase.Handler.Base(gc);
 
-    // Checks special cases of releases
-    self.checkSpecialCase = function (is) {
-        if (is) {
-            if (!gc.re.RELEASE_UNTITLED) {
-                // Untitled
-                gc.re.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
-            }
-            if (is.match(gc.re.RELEASE_UNTITLED)) {
-                return self.SPECIALCASE_UNTITLED;
-            }
-        }
-        return self.NOT_A_SPECIALCASE;
-    };
+  // Checks special cases of releases
+  self.checkSpecialCase = function (is) {
+    if (is) {
+      if (!gc.re.RELEASE_UNTITLED) {
+        // Untitled
+        gc.re.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
+      }
+      if (is.match(gc.re.RELEASE_UNTITLED)) {
+        return self.SPECIALCASE_UNTITLED;
+      }
+    }
+    return self.NOT_A_SPECIALCASE;
+  };
 
-    /*
-     * Guess the releasename given in string is, and
-     * returns the guessed name.
-     *
-     * @param    is        the inputstring
-     * @returns os        the processed string
-     */
-    const baseProcess = self.process;
-    self.process = function (os) {
-        return gc.mode.fixVinylSizes(baseProcess(os));
-    };
+  /*
+   * Guess the releasename given in string is, and
+   * returns the guessed name.
+   *
+   * @param    is        the inputstring
+   * @returns os        the processed string
+   */
+  const baseProcess = self.process;
+  self.process = function (os) {
+    return gc.mode.fixVinylSizes(baseProcess(os));
+  };
 
-    self.getWordsForProcessing = function (is) {
-        is = gc.mode.preProcessTitles(is);
-        return gc.mode.prepExtraTitleInfo(gc.i.splitWordsAndPunctuation(is));
-    };
+  self.getWordsForProcessing = function (is) {
+    is = gc.mode.preProcessTitles(is);
+    return gc.mode.prepExtraTitleInfo(gc.i.splitWordsAndPunctuation(is));
+  };
 
-    /*
-     * Delegate function which handles words not handled
-     * in the common word handlers.
-     *
-     * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
-     * - Handles FeaturingArtistStyle
-     */
-    self.doWord = function () {
-        (
-            self.doFeaturingArtistStyle() ||
-            gc.mode.doWord() ||
-            self.doNormalWord()
-        );
-        flags.context.number = false;
-        return null;
-    };
+  /*
+   * Delegate function which handles words not handled
+   * in the common word handlers.
+   *
+   * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
+   * - Handles FeaturingArtistStyle
+   */
+  self.doWord = function () {
+    (
+      self.doFeaturingArtistStyle() ||
+      gc.mode.doWord() ||
+      self.doNormalWord()
+    );
+    flags.context.number = false;
+    return null;
+  };
 
-    // Guesses the sortname for releases (for aliases)
-    self.guessSortName = self.moveArticleToEnd;
+  // Guesses the sortname for releases (for aliases)
+  self.guessSortName = self.moveArticleToEnd;
 
-    return self;
+  return self;
 };

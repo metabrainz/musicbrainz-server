@@ -261,10 +261,31 @@ sub _attach_list {
             $c->detach;
         }
         elsif ($c->form_submitted_and_valid($search_release, $c->req->query_params)) {
+            my $query = $search_release->field('query')->value;
+            my ($mbid) = $query =~ m/(
+                [\da-f]{8} -
+                [\da-f]{4} -
+                [\da-f]{4} -
+                [\da-f]{4} -
+                [\da-f]{12}
+            )/ax;
             my $releases = $self->_load_paged($c, sub {
-                $c->model('Search')->search('release', $search_release->field('query')->value, shift, shift,
+                if (defined $mbid) {
+                    $c->stash->{was_mbid_search} = 1;
+                    my $release = $c->model('Release')->get_by_gid($mbid);
+                    return [] unless defined $release;
+                    return [
+                        MusicBrainz::Server::Entity::SearchResult->new(
+                            position => 1,
+                            score => 100,
+                            entity => $release,
+                        ),
+                    ];
+                }
+                $c->model('Search')->search('release', $query, shift, shift,
                                             { track_count => $cdtoc->track_count });
             });
+
             my @releases = map { $_->entity } @$releases;
             $c->model('Release')->load_related_info(@releases);
             my @mediums = map { $_->all_mediums } @releases;

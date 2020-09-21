@@ -11,33 +11,33 @@ import $ from 'jquery';
 import MB from '../../MB';
 
 MB.Control.EditSummary = function (container) {
-    var self = {};
+  var self = {};
 
-    const $container = $(container);
-    const $toggleEditNote = $container.find('.edit-note-toggle');
-    const $editNote = $container.find('.add-edit-note');
-    const $editNoteField = $editNote.find('textarea');
+  const $container = $(container);
+  const $toggleEditNote = $container.find('.edit-note-toggle');
+  const $editNote = $container.find('.add-edit-note');
+  const $editNoteField = $editNote.find('textarea');
 
-    self.addNote = function () {
-        $toggleEditNote
-            .text(l('Delete Note'))
-            .unbind('click').click(self.deleteNote);
-        $editNote.show();
-        $editNoteField.focus();
-    };
+  self.addNote = function () {
+    $toggleEditNote
+      .text(l('Delete Note'))
+      .unbind('click').click(self.deleteNote);
+    $editNote.show();
+    $editNoteField.focus();
+  };
 
-    self.deleteNote = function () {
-        $toggleEditNote
-            .text(l('Add Note'))
-            .unbind('click').click(self.addNote);
-        $editNote.hide();
-        $editNoteField.val('');
-    };
+  self.deleteNote = function () {
+    $toggleEditNote
+      .text(l('Add Note'))
+      .unbind('click').click(self.addNote);
+    $editNote.hide();
+    $editNoteField.val('');
+  };
 
-    self.initialize = function () {
-        $toggleEditNote.click(self.addNote);
-    };
+  self.initialize = function () {
+    $toggleEditNote.click(self.addNote);
+  };
 
-    self.initialize();
-    return self;
+  self.initialize();
+  return self;
 };

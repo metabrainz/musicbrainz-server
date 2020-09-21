@@ -225,6 +225,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Medium::fragments",
   "Controller::OAuth2::authorize",
   "Controller::OAuth2::oob",
+  "Controller::OAuth2::revoke",
   "Controller::OAuth2::token",
   "Controller::OAuth2::tokeninfo",
   "Controller::OAuth2::userinfo",

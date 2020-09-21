@@ -237,6 +237,9 @@ export class ExternalLinksEditor
               error = l('Required field.');
             } else if (!isValidURL(link.url)) {
               error = l('Enter a valid url e.g. "http://google.com/"');
+            } else if (isMusicBrainz(link.url)) {
+              error = l(`Links to MusicBrainz URLs are not allowed.
+                         Did you mean to paste something else?`);
             } else if (isShortened(link.url)) {
               error = l(`Please don’t enter bundled/shortened URLs,
                          enter the destination URL(s) instead.`);
@@ -557,8 +560,9 @@ const URL_SHORTENERS = [
   'biglink.to',
   'bit.ly',
   'bitly.com',
-  'blackl.ink',
+  'backl.ink',
   'bruit.app',
+  'bstlnk.to',
   'cli.gs',
   'deck.ly',
   'distrokid.com',
@@ -584,9 +588,13 @@ const URL_SHORTENERS = [
   'lnk.to',
   'mcaf.ee',
   'moourl.com',
+  'musics.link',
   'orcd.co',
   'owl.ly',
+  'page.link',
   'pandora.app.link',
+  'push.fm',
+  'rb.gy',
   'rubyurl.com',
   'smarturl.it',
   'song.link',
@@ -604,12 +612,16 @@ const URL_SHORTENERS = [
   'unitedmasters.com',
   'untd.io',
   'yep.it',
-].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/', 'i'));
+].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
 
 function isShortened(url) {
   return URL_SHORTENERS.some(function (shortenerRegex) {
     return url.match(shortenerRegex) !== null;
   });
+}
+
+function isMusicBrainz(url) {
+  return /^https?:\/\/([^/]+\.)?musicbrainz\.org/.test(url);
 }
 
 type InitialOptionsT = {

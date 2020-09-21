@@ -840,14 +840,16 @@ const CLEANUPS = {
         if (!/^(images|www)$/.test(subdomain)) {
           switch (id) {
             case LINK_TYPES.mailorder.artist:
+            case LINK_TYPES.mailorder.label:
               if (product === undefined) {
                 return {result: true};
               }
               return {
-                error: l(
-                  `Please link to the main page for the artist,
-                   not a specific product.`,
-                ),
+                error: id === LINK_TYPES.mailorder.artist
+                  ? l(`Please link to the main page for the artist,
+                       not a specific product.`)
+                  : l(`Please link to the main page for the label,
+                       not a specific product.`),
                 result: false,
               };
             case LINK_TYPES.mailorder.release:
@@ -1494,6 +1496,49 @@ const CLEANUPS = {
   'imslp': {
     match: [new RegExp('^(https?://)?(www\\.)?imslp\\.org/', 'i')],
     type: {...LINK_TYPES.score, ...LINK_TYPES.imslp},
+    clean: function (url) {
+      // Standardise to https
+      return url.replace(/^https?:\/\/(?:www\.)?(.*)$/, 'https://$1');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.imslp.artist:
+          if (/^https:\/\/imslp\.org\/wiki\/Category:/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: exp.l(
+              `Only IMSLP “{category_url_pattern}” links are allowed
+               for artists. Please link work pages to the specific
+               work in question.`,
+              {
+                category_url_pattern: (
+                  <span className="url-quote">{'Category:'}</span>
+                ),
+              },
+            ),
+            result: false,
+          };
+        case LINK_TYPES.score.work:
+          if (/^https:\/\/imslp\.org\/wiki\/(?!Category:)/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: exp.l(
+              `IMSLP “{category_url_pattern}” links are only allowed
+               for artists. Please link the specific work page to this
+               work instead, if available.`,
+              {
+                category_url_pattern: (
+                  <span className="url-quote">{'Category:'}</span>
+                ),
+              },
+            ),
+            result: false,
+          };
+      }
+      return {result: false};
+    },
   },
   'indiegogo': {
     match: [new RegExp('^(https?://)?(www\\.)?indiegogo\\.com/(individuals|projects)/', 'i')],
@@ -2925,7 +2970,7 @@ const CLEANUPS = {
     type: LINK_TYPES.viaf,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
-        'http://viaf.org/viaf/$1');
+                        'http://viaf.org/viaf/$1');
       return url;
     },
     validate: function (url) {

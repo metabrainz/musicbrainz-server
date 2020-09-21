@@ -1991,6 +1991,13 @@ msgid ""
 "sloped shoulders, c-holes and are tuned in fourths."
 msgstr ""
 
+#. name:mouth harp 
+#: DB:instrument/description:80
+msgid ""
+"Plucked by the mouth, it consists of a characteristically shaped frame with "
+"a metal or bamboo reed (tine). There are many variants around the world."
+msgstr ""
+
 #. name:plucked idiophone 
 #: DB:instrument/description:930
 msgid ""

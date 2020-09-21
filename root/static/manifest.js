@@ -1,3 +1,4 @@
+// @flow
 // This file is part of MusicBrainz, the open internet music database.
 // Copyright (C) 2015 MetaBrainz Foundation
 // Licensed under the GPL version 2, or (at your option) any later version:
@@ -14,6 +15,7 @@
  */
 const React = require('react');
 
+// $FlowIgnore[cannot-resolve-module]
 const revManifest = require('./build/rev-manifest');
 const DBDefs = require('./scripts/common/DBDefs');
 
@@ -31,7 +33,10 @@ function pathTo(manifest) {
 }
 
 const jsExt = /\.js(?:on)?$/;
-function js(manifest, extraAttrs={}) {
+function js(
+  manifest: string,
+  extraAttrs?: {+'async'?: 'async', +'data-args'?: mixed} | null = null,
+): React.Element<'script'> {
   if (!jsExt.test(manifest)) {
     manifest += '.js';
   }

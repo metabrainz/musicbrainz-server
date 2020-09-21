@@ -13,49 +13,49 @@ import MB from '../../common/MB';
 MB.Form = (MB.Form) ? MB.Form : {};
 
 MB.Form.TextList = function (input) {
-    var template = input + '-template';
-    var self = {};
-    var $template = $('.' + template.replace(/\./g, '\\.'));
-    var counter = 0;
+  var template = input + '-template';
+  var self = {};
+  var $template = $('.' + template.replace(/\./g, '\\.'));
+  var counter = 0;
 
-    self.removeEvent = function () {
-        $(this).closest('div.text-list-row').remove();
-    };
+  self.removeEvent = function () {
+    $(this).closest('div.text-list-row').remove();
+  };
 
-    self.init = function (maxIndex) {
-        counter = maxIndex;
-        $template
-            .parent()
-            .find('div.text-list-row input.value')
-            .siblings('button.remove-item')
-            .bind('click.mb', self.removeEvent);
-
-        return self;
-    };
-
-    self.add = function (initValue) {
-        $template.clone()
-            .removeClass(template)
-            .insertAfter($template
-                .parent()
-                .find('div.text-list-row')
-                .last())
-            .show()
-            .find('input.value')
-            .attr('name', input + '.' + counter)
-            .val(initValue)
-            .end()
-            .find('button.remove-item')
-            .bind('click.mb', self.removeEvent);
-
-        counter++;
-
-        return self;
-    };
-
-    $template.parent().find('button.add-item').bind('click.mb', function () {
-        self.add('');
-    });
+  self.init = function (maxIndex) {
+    counter = maxIndex;
+    $template
+      .parent()
+      .find('div.text-list-row input.value')
+      .siblings('button.remove-item')
+      .bind('click.mb', self.removeEvent);
 
     return self;
+  };
+
+  self.add = function (initValue) {
+    $template.clone()
+      .removeClass(template)
+      .insertAfter($template
+        .parent()
+        .find('div.text-list-row')
+        .last())
+      .show()
+      .find('input.value')
+      .attr('name', input + '.' + counter)
+      .val(initValue)
+      .end()
+      .find('button.remove-item')
+      .bind('click.mb', self.removeEvent);
+
+    counter++;
+
+    return self;
+  };
+
+  $template.parent().find('button.add-item').bind('click.mb', function () {
+    self.add('');
+  });
+
+  return self;
 };
