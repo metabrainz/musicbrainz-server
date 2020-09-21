@@ -320,6 +320,9 @@ class Medium {
     this.name = ko.observable(data.name);
     this.position = ko.observable(data.position || 1);
     this.formatID = ko.observable(data.format_id);
+    this.originalFormatID = data.format_id
+      ? data.format_id.toString()
+      : undefined;
     this.formatUnknownToUser = ko.observable(Boolean(data.id && !data.format_id));
     this.showPregapTrackHelp = ko.observable(false);
     this.showDataTracksHelp = ko.observable(false);
@@ -397,6 +400,12 @@ class Medium {
     this.hasTrackInfo = this.tracks.all('hasNameAndArtist');
     this.hasVariousArtistTracks = this.tracks.any('hasVariousArtists');
     this.confirmedVariousArtists = ko.observable(this.hasVariousArtistTracks());
+    this.hasTooEarlyFormat = ko.computed(function () {
+      const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
+      return !!(mediumFormatDate && self.release.earliestYear() &&
+                self.release.earliestYear() < mediumFormatDate);
+    });
+    this.confirmedEarlyFormat = ko.observable(this.hasTooEarlyFormat());
     this.needsTrackInfo = ko.computed(function () {
       return !self.hasTrackInfo();
     });
@@ -426,11 +435,6 @@ class Medium {
       return !self.canHaveDiscID() && (self.hasExistingTocs() || hasPregap() || hasDataTracks());
     });
 
-    this.hasTooEarlyFormat = ko.computed(function () {
-      const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
-      return !!(mediumFormatDate && self.release.earliestYear() && self.release.earliestYear() < mediumFormatDate);
-    });
-
     this.loaded = ko.observable(loaded);
     this.loading = ko.observable(false);
     this.collapsed = ko.observable(!loaded);
@@ -447,6 +451,10 @@ class Medium {
       return !(self.formatID() || self.formatUnknownToUser());
     });
 
+    this.hasUnconfirmedEarlyFormat = ko.computed(function () {
+      return (self.hasTooEarlyFormat() && !self.confirmedEarlyFormat());
+    });
+
     this.hasUnconfirmedVariousArtists = ko.computed(function() {
       return (self.hasVariousArtistTracks() && !self.confirmedVariousArtists());
     });
@@ -454,6 +462,14 @@ class Medium {
     this.hasVariousArtistTracks.subscribe(function (value) {
       if (!value) {
         self.confirmedVariousArtists(false);
+      }
+    });
+
+    this.formatID.subscribe(function (value) {
+      if (value === self.originalFormatID) {
+        self.confirmedEarlyFormat(true);
+      } else {
+        self.confirmedEarlyFormat(false);
       }
     });
 
@@ -951,7 +967,8 @@ class Release extends mbEntity.Release {
     this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === 'edit');
     this.needsRecordings = errorField(this.mediums.any('needsRecordings'));
     this.hasInvalidFormats = errorField(this.mediums.any('hasInvalidFormat'));
-    this.hasTooEarlyFormat = errorField(this.mediums.any('hasTooEarlyFormat'));
+    this.hasUnconfirmedEarlyFormat =
+      errorField(this.mediums.any('hasUnconfirmedEarlyFormat'));
     this.hasUnconfirmedVariousArtists = errorField(this.mediums.any('hasUnconfirmedVariousArtists'));
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());

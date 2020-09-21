@@ -309,9 +309,6 @@
           <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: needsFormat">
             [%~ l('A format is required. If you don’t know it, tick the “I don’t know” checkbox next to the format dropdown.') %]
           </p>
-          <p class="error field-error" style="padding-left: 1em" data-bind="showErrorRightAway: hasTooEarlyFormat">
-            [%~ l('This medium is set to a format that did not exist on the selected release date.') %]
-          </p>
         </td>
 
         <td class="align-right icon" >
@@ -327,6 +324,26 @@
          )
        %]
     </table>
+
+    <!-- ko if: hasTooEarlyFormat -->
+      <div class="warning">
+        [%- warning_icon %]
+        <p>
+          <strong>[% add_colon(l('Warning')) %]</strong>
+          [% l('This medium is set to a format that did not exist on the selected release date.') %]
+          <br />
+          <!-- ko if: hasUnconfirmedEarlyFormat -->
+          [% l('This should never be correct. Make sure that, say, your release set to CD isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc.') %]
+          <!-- /ko -->
+          <!-- ko ifnot: hasUnconfirmedEarlyFormat -->
+          [% l('This problem already existed before you opened the release editor, so you don’t need to do anything about it. But if you have some time, consider trying to find out what the real format should be or if the release should be split!') %]
+          <!-- /ko -->
+        </p>
+        <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedEarlyFormat">
+          [%~ l('This medium is set to a format that did not exist on the selected release date.') %]
+        </p>
+      </div>
+    <!-- /ko -->
 
     <!-- ko if: loading -->
       <div class="tracklist-loading">
