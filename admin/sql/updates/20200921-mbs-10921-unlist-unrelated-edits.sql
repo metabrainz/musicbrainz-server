@@ -110,7 +110,7 @@ WHERE (edit, recording) IN (
     FROM edit_recording er
     JOIN edit e ON er.edit = e.id
     JOIN edit_data ed ON er.edit = ed.edit
-    WHERE er.edit >= 70658947 AND er.edit < 71006471
+    WHERE e.id >= 70658947 AND e.id < 71006471
     AND e.type = 90
     AND jsonb_extract_path_text(ed.data, 'type0') = 'recording'
     AND jsonb_extract_path_text(ed.data, 'type1') = 'work'
@@ -129,7 +129,7 @@ WHERE (edit, recording) IN (
     FROM edit_recording er
     JOIN edit e ON er.edit = e.id
     JOIN edit_data ed ON er.edit = ed.edit
-    WHERE er.edit >= 70658947 AND er.edit < 71006471
+    WHERE e.id >= 70658947 AND e.id < 71006471
     AND e.type = 91
     AND jsonb_extract_path_text(ed.data, 'type0') = 'recording'
     AND jsonb_extract_path_text(ed.data, 'type1') = 'work'
@@ -148,7 +148,7 @@ WHERE (edit, recording) IN (
     FROM edit_recording er
     JOIN edit e ON er.edit = e.id
     JOIN edit_data ed ON er.edit = ed.edit
-    WHERE er.edit >= 70658947 AND er.edit < 71006471
+    WHERE e.id >= 70658947 AND e.id < 71006471
     AND e.type = 92
     AND jsonb_extract_path_text(ed.data, 'relationship', 'link', 'type', 'entity0_type') = 'recording'
     AND jsonb_extract_path_text(ed.data, 'relationship', 'link', 'type', 'entity1_type') = 'work'
@@ -167,7 +167,7 @@ WHERE (edit, recording) IN (
     FROM edit_recording er
     JOIN edit e ON er.edit = e.id
     JOIN edit_data ed ON er.edit = ed.edit
-    WHERE er.edit >= 70658947 AND er.edit < 71006471
+    WHERE e.id >= 70658947 AND e.id < 71006471
     AND e.type = 99
     AND jsonb_extract_path_text(ed.data, 'link_type', 'entity0_type') = 'recording'
     AND jsonb_extract_path_text(ed.data, 'link_type', 'entity1_type') = 'work'
