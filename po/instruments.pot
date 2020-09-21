@@ -53,10 +53,6 @@ msgstr ""
 msgid "Chapman stick"
 msgstr ""
 
-#: DB:instrument/name:175
-msgid "Clavinet"
-msgstr ""
-
 #: DB:instrument/name:482
 msgid "Cretan lyra"
 msgstr ""
@@ -1030,6 +1026,10 @@ msgstr ""
 msgid "clavichord"
 msgstr ""
 
+#: DB:instrument/name:175
+msgid "clavinet"
+msgstr ""
+
 #: DB:instrument/name:780
 msgctxt "free reed aerophone with pitching pipes."
 msgid "claviola"
@@ -1933,10 +1933,6 @@ msgctxt "West African four-stringed grigot lute"
 msgid "jeli ngɔni"
 msgstr ""
 
-#: DB:instrument/name:80
-msgid "jew's harp"
-msgstr ""
-
 #: DB:instrument/name:552
 msgid "jing"
 msgstr ""
@@ -2519,6 +2515,11 @@ msgstr ""
 #: DB:instrument/name:533
 msgctxt "Indian mouth harp"
 msgid "morsing"
+msgstr ""
+
+#: DB:instrument/name:80
+msgctxt "Family of mouth plucked idiophones"
+msgid "mouth harp"
 msgstr ""
 
 #: DB:instrument/name:610
