@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-09-06 20:36+0000\n"
+"PO-Revision-Date: 2020-09-19 08:46+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -2175,7 +2175,6 @@ msgid "E-flat major"
 msgstr "Mi bemolle maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:12
-#: DB:work_attribute_type_allowed_value/value:815
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat minor"
 msgstr "Mi bemolle minore"
@@ -2339,6 +2338,11 @@ msgstr "Fa minore"
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-flat major"
 msgstr "Fa bemolle maggiore"
+
+#: DB:work_attribute_type_allowed_value/value:815
+msgctxt "work_attribute_type_allowed_value"
+msgid "F-flat minor"
+msgstr "Fa bemolle minore"
 
 #: DB:work_attribute_type_allowed_value/value:19
 msgctxt "work_attribute_type_allowed_value"
@@ -3112,17 +3116,6 @@ msgctxt "work_attribute_type"
 msgid "ICE ID"
 msgstr "ID ICE"
 
-#: DB:work_attribute_type/description:34
-msgctxt "work_attribute_type"
-msgid "ID assigned to a work by the British rights society PRS for Music"
-msgstr "ID assegnato ad un'opera dalla società di diritti britannica PRS for Music"
-
-#: DB:work_attribute_type/description:22
-msgctxt "work_attribute_type"
-msgid ""
-"ID for rights intermediaries Christian Copyright Licensing International"
-msgstr "ID per gli intermediari di diritti Christian Copyright Licensing International"
-
 #: DB:work_attribute_type/description:24
 msgctxt "work_attribute_type"
 msgid "ID for the Argentinean rights society SADAIC"
@@ -3148,6 +3141,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Brazilian rights society ECAD"
 msgstr "ID per la società di diritti brasiliana ECAD"
 
+#: DB:work_attribute_type/description:34
+msgctxt "work_attribute_type"
+msgid "ID for the British rights society PRS for Music"
+msgstr "ID per la società di diritti britannica PRS for Music"
+
 #: DB:work_attribute_type/description:10
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SOCAN"
@@ -3172,6 +3170,11 @@ msgstr "ID per la società di diritti cubana ACDAM"
 msgctxt "work_attribute_type"
 msgid "ID for the Czech rights society OSA"
 msgstr "ID per la società di diritti ceca OSA"
+
+#: DB:work_attribute_type/description:51
+msgctxt "work_attribute_type"
+msgid "ID for the Danish rights society KODA"
+msgstr "ID per la società di diritti danese KODA"
 
 #: DB:work_attribute_type/description:26
 msgctxt "work_attribute_type"
@@ -3268,6 +3271,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Spanish rights society SGAE"
 msgstr "ID per la società di diritti spagnola SGAE"
 
+#: DB:work_attribute_type/description:50
+msgctxt "work_attribute_type"
+msgid "ID for the Swedish rights society STIM"
+msgstr "ID per la società di diritti svedese STIM"
+
 #: DB:work_attribute_type/description:18
 msgctxt "work_attribute_type"
 msgid "ID for the Swiss rights society SUISA"
@@ -3307,6 +3315,11 @@ msgstr "ID per la società di diritti venezuelana SACVEN"
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
 msgstr "ID per la società di diritti internazionale (precedentemente statunitense) AMRA"
+
+#: DB:work_attribute_type/description:22
+msgctxt "work_attribute_type"
+msgid "ID for the private licensing company CCLI"
+msgstr "ID per la società licenziataria privata CCLI"
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
@@ -3543,6 +3556,11 @@ msgstr "Jōgkauns"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jōnpuri"
 msgstr "Jōnpuri"
+
+#: DB:work_attribute_type/name:51
+msgctxt "work_attribute_type"
+msgid "KODA ID"
+msgstr "ID KODA"
 
 #: DB:work_attribute_type/name:11
 msgctxt "work_attribute_type"
@@ -5739,6 +5757,11 @@ msgstr "ID SOCAN"
 msgctxt "work_attribute_type"
 msgid "SPA ID"
 msgstr "ID SPA"
+
+#: DB:work_attribute_type/name:50
+msgctxt "work_attribute_type"
+msgid "STIM ID"
+msgstr "ID STIM"
 
 #: DB:work_attribute_type/name:18
 msgctxt "work_attribute_type"

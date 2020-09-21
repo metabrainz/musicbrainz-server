@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-09-06 16:45+0000\n"
+"PO-Revision-Date: 2020-09-18 07:55+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2173,7 +2173,6 @@ msgid "E-flat major"
 msgstr "Es grote terts"
 
 #: DB:work_attribute_type_allowed_value/value:12
-#: DB:work_attribute_type_allowed_value/value:815
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat minor"
 msgstr "es kleine terts"
@@ -2337,6 +2336,11 @@ msgstr "f kleine terts"
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-flat major"
 msgstr "Es grote terts"
+
+#: DB:work_attribute_type_allowed_value/value:815
+msgctxt "work_attribute_type_allowed_value"
+msgid "F-flat minor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:19
 msgctxt "work_attribute_type_allowed_value"
@@ -3110,17 +3114,6 @@ msgctxt "work_attribute_type"
 msgid "ICE ID"
 msgstr "ICE-ID"
 
-#: DB:work_attribute_type/description:34
-msgctxt "work_attribute_type"
-msgid "ID assigned to a work by the British rights society PRS for Music"
-msgstr "Een ID die door de Britse auteursrechtenorganisatie PRS for Music aan een compositie is toegewezen"
-
-#: DB:work_attribute_type/description:22
-msgctxt "work_attribute_type"
-msgid ""
-"ID for rights intermediaries Christian Copyright Licensing International"
-msgstr "Een ID die door auteursrechtenintermediair Christian Copyright Licensing International is toegewezen"
-
 #: DB:work_attribute_type/description:24
 msgctxt "work_attribute_type"
 msgid "ID for the Argentinean rights society SADAIC"
@@ -3146,6 +3139,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Brazilian rights society ECAD"
 msgstr "Een ID van de Braziliaanse auteursrechtenorganisatie ECAD"
 
+#: DB:work_attribute_type/description:34
+msgctxt "work_attribute_type"
+msgid "ID for the British rights society PRS for Music"
+msgstr "Een ID van de Britse auteursrechtenorganisatie PRS for Music"
+
 #: DB:work_attribute_type/description:10
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SOCAN"
@@ -3170,6 +3168,11 @@ msgstr "Een ID van de Cubaanse auteursrechtenorganisatie ACDAM"
 msgctxt "work_attribute_type"
 msgid "ID for the Czech rights society OSA"
 msgstr "Een ID van de Tsjechische auteursrechtenorganisatie OSA"
+
+#: DB:work_attribute_type/description:51
+msgctxt "work_attribute_type"
+msgid "ID for the Danish rights society KODA"
+msgstr "Een ID van de Deense auteursrechtenorganisatie KODA"
 
 #: DB:work_attribute_type/description:26
 msgctxt "work_attribute_type"
@@ -3266,6 +3269,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Spanish rights society SGAE"
 msgstr "Een ID van de Spaanse auteursrechtenorganisatie SGAE"
 
+#: DB:work_attribute_type/description:50
+msgctxt "work_attribute_type"
+msgid "ID for the Swedish rights society STIM"
+msgstr "Een ID van de Zweedse auteursrechtenorganisatie STIM"
+
 #: DB:work_attribute_type/description:18
 msgctxt "work_attribute_type"
 msgid "ID for the Swiss rights society SUISA"
@@ -3305,6 +3313,11 @@ msgstr "Een ID van de Venezolaanse auteursrechtenorganisatie SACVEN"
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
 msgstr "Een ID van de internationale (vroeger Amerikaanse) auteursrechtenorganisatie AMRA"
+
+#: DB:work_attribute_type/description:22
+msgctxt "work_attribute_type"
+msgid "ID for the private licensing company CCLI"
+msgstr "Een ID van het particuliere licentiebedrijf CCLI"
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
@@ -3541,6 +3554,11 @@ msgstr "Jōgkauns"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jōnpuri"
 msgstr "Jōnpuri"
+
+#: DB:work_attribute_type/name:51
+msgctxt "work_attribute_type"
+msgid "KODA ID"
+msgstr "KODA-ID"
 
 #: DB:work_attribute_type/name:11
 msgctxt "work_attribute_type"
@@ -5737,6 +5755,11 @@ msgstr "SOCAN-ID"
 msgctxt "work_attribute_type"
 msgid "SPA ID"
 msgstr "SPA-ID"
+
+#: DB:work_attribute_type/name:50
+msgctxt "work_attribute_type"
+msgid "STIM ID"
+msgstr "STIM-ID"
 
 #: DB:work_attribute_type/name:18
 msgctxt "work_attribute_type"
