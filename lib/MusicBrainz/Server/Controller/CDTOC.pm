@@ -300,6 +300,7 @@ sub _attach_list {
 
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
+                cdtoc_action => 'add',
                 results => [sort_by { $_->entity->release_group ? $_->entity->release_group->gid : '' } @$releases]
             );
             $c->detach;
@@ -415,6 +416,7 @@ sub move : Local Edit
             $c->model('Track')->load_for_mediums(@mediums);
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
+                cdtoc_action => 'move',
                 results => $releases
             );
             $c->detach;
