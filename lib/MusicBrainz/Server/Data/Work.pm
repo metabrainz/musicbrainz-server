@@ -69,38 +69,60 @@ sub find_by_artist
 
     # For the basic work query
     push @where_query, 'work.id = s.work';
-    push @where_args, ($artist_id) x 2;
+
+    # Select works that are related to recordings for this artist
+    my $performers_query = <<~'SQL';
+        SELECT DISTINCT lrw.entity1 AS work
+          FROM l_recording_work lrw
+          JOIN recording r ON r.id = lrw.entity0
+          JOIN artist_credit_name acn ON acn.artist_credit = r.artist_credit
+         WHERE acn.artist = ?
+        SQL
+
+    # Select works that this artist is related to
+    my $writers_query = <<~'SQL';
+        SELECT DISTINCT law.entity1 AS work
+          FROM l_artist_work law
+          JOIN link ON law.link = link.id
+          JOIN link_type lt ON lt.id = link.link_type
+         WHERE law.entity0 = ?
+        SQL
+
+    my $inner_query = $performers_query . ' UNION ' . $writers_query;
 
     if (exists $args{filter}) {
         my %filter = %{ $args{filter} };
+
+        if (exists $filter{role_type}) {
+            if ($filter{role_type} == 1) {
+                # Show only works as performer
+                $inner_query = $performers_query;
+                push @where_args, $artist_id;
+            } elsif ($filter{role_type} == 2) {
+                # Show only works as writer
+                $inner_query = $writers_query;
+                push @where_args, $artist_id;
+            }
+        } else {
+            push @where_args, ($artist_id) x 2;
+        }
+
         if (exists $filter{name}) {
             push @where_query, "(mb_simple_tsvector(work.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR work.name = ?)";
             push @where_args, ($filter{name}) x 2;
         }
+
         if (exists $filter{type_id}) {
             push @where_query, 'work.type = ?';
             push @where_args, $filter{type_id};
         }
+    } else {
+        push @where_args, ($artist_id) x 2;
     }
 
     my $query =
         'SELECT ' . $self->_columns .'
-           FROM (
-                    -- Select works that are related to recordings for this artist
-                    SELECT entity1 AS work
-                      FROM l_recording_work
-                      JOIN recording ON recording.id = entity0
-                      JOIN artist_credit_name acn
-                              ON acn.artist_credit = recording.artist_credit
-                     WHERE acn.artist = ?
-              UNION
-                    -- Select works that this artist is related to
-                    SELECT entity1 AS work
-                      FROM l_artist_work ar
-                      JOIN link ON ar.link = link.id
-                      JOIN link_type lt ON lt.id = link.link_type
-                     WHERE entity0 = ?
-                ) s, ' . $self->_table .'
+           FROM ( ' . $inner_query . ' ) s, ' . $self->_table .'
           WHERE ' . join(' AND ', @where_query) . '
        ORDER BY work.name COLLATE musicbrainz';
 

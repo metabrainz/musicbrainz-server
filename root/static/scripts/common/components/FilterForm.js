@@ -19,11 +19,13 @@ export type FilterFormT = $ReadOnly<{
     +country_id?: ReadOnlyFieldT<number>,
     +date?: ReadOnlyFieldT<string>,
     +name: ReadOnlyFieldT<string>,
+    +role_type?: ReadOnlyFieldT<number>,
     +type_id?: ReadOnlyFieldT<number>,
   }>,
   entity_type: 'recording' | 'release' | 'release_group',
   options_artist_credit_id: SelectOptionsT,
   options_country_id: SelectOptionsT,
+  options_role_type?: SelectOptionsT,
   options_type_id?: SelectOptionsT,
 }>;
 
@@ -53,6 +55,8 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
   const countryIdOptions = form.options_country_id;
   const countryIdField = form.field.country_id;
   const dateField = form.field.date;
+  const roleTypeField = form.field.role_type;
+  const roleTypeOptions = form.options_role_type;
 
   return (
     <div id="filter">
@@ -105,6 +109,25 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
                 />
               </td>
             </tr>
+
+            {roleTypeField && roleTypeOptions ? (
+              <tr>
+                <td>
+                  {addColonText(l('Role'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={roleTypeField}
+                    options={{
+                      grouped: false,
+                      options: roleTypeOptions,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+            ) : null}
 
             {countryIdField && countryIdOptions ? (
               <tr>
