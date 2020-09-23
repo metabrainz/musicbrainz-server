@@ -14,6 +14,7 @@ sub create_artist_release_groups_form {
 
     my %form_args = (
         entity_type => 'release_group',
+        secondary_types => [ $c->model('ReleaseGroupSecondaryType')->get_all ],
         types => [ $c->model('ReleaseGroupType')->get_all ],
     );
 

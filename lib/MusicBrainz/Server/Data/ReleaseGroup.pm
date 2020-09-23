@@ -94,6 +94,11 @@ sub _where_filter
             }
             push @params, $filter->{type_id};
         }
+        if (exists $filter->{secondary_type_id}) {
+            push @query, 'st.secondary_type = ?';
+            push @params, $filter->{secondary_type_id};
+            push @joins, 'JOIN release_group_secondary_type_join st ON rg.id = st.release_group';
+        }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
             my %partitioned_types = partition_by {
