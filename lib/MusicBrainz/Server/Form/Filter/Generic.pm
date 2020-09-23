@@ -12,6 +12,7 @@ has 'entity_type' => (
 
 has_field 'name' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
+    default => '',
 );
 
 has_field 'cancel' => ( type => 'Submit' );
