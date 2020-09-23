@@ -37,7 +37,7 @@ sub options_artist_credit_id {
 sub options_type_id {
     my ($self, $field) = @_;
     return [
-        map +{ value => $_->id, label => $_->name },
+        map +{ value => $_->id, label => $_->l_name },
         @{ $self->types }
     ];
 }
