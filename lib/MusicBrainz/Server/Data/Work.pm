@@ -63,7 +63,25 @@ sub _id_column
 
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
+
+    my (@where_query, @where_args);
+
+    # For the basic work query
+    push @where_query, 'work.id = s.work';
+    push @where_args, ($artist_id) x 2;
+
+    if (exists $args{filter}) {
+        my %filter = %{ $args{filter} };
+        if (exists $filter{name}) {
+            push @where_query, "(mb_simple_tsvector(work.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR work.name = ?)";
+            push @where_args, ($filter{name}) x 2;
+        }
+        if (exists $filter{type_id}) {
+            push @where_query, 'work.type = ?';
+            push @where_args, $filter{type_id};
+        }
+    }
 
     my $query =
         'SELECT ' . $self->_columns .'
@@ -83,11 +101,11 @@ sub find_by_artist
                       JOIN link_type lt ON lt.id = link.link_type
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
-          WHERE work.id = s.work
+          WHERE ' . join(' AND ', @where_query) . '
        ORDER BY work.name COLLATE musicbrainz';
 
     # We actually use this for the side effect in the closure
-    $self->query_to_list_limited($query, [($artist_id) x 2], $limit, $offset);
+    $self->query_to_list_limited($query, \@where_args, $limit, $offset);
 }
 
 =method find_by_iswc

@@ -39,6 +39,8 @@ function getSubmitText(type: string) {
       return l('Filter releases');
     case 'release_group':
       return l('Filter release groups');
+    case 'work':
+      return l('Filter works');
   }
   return '';
 }
