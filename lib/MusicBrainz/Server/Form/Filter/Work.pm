@@ -31,7 +31,7 @@ sub options_role_type {
 sub options_type_id {
     my ($self, $field) = @_;
     return [
-        map +{ value => $_->id, label => $_->name },
+        map +{ value => $_->id, label => $_->l_name },
         @{ $self->types }
     ];
 }
