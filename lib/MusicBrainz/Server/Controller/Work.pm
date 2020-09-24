@@ -154,9 +154,6 @@ sub _merge_load_entities
     my ($self, $c, @works) = @_;
     $c->model('Work')->load_meta(@works);
     $c->model('WorkType')->load(@works);
-    if ($c->user_exists) {
-        $c->model('Work')->rating->load_user_ratings($c->user->id, @works);
-    }
     $c->model('Work')->load_writers(@works);
     $c->model('Work')->load_recording_artists(@works);
     $c->model('WorkAttribute')->load_for_works(@works);
