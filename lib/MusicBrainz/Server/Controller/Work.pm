@@ -17,6 +17,7 @@ use MusicBrainz::Server::Form::Utils qw(
     language_options
 );
 use MusicBrainz::Server::Translation qw( l );
+use List::AllUtils qw( any );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Work',
@@ -161,6 +162,16 @@ sub _merge_load_entities
     $c->model('WorkAttribute')->load_for_works(@works);
     $c->model('Language')->load_for_works(@works);
     $c->model('ISWC')->load_for_works(@works);
+
+    my @works_with_iswcs = grep { $_->all_iswcs > 0 } @works;
+    if (@works_with_iswcs > 1) {
+        my ($comparator, @tail) = @works_with_iswcs;
+        my $get_iswc_set = sub { Set::Scalar->new(map { $_->iswc } shift->all_iswcs) };
+        my $expect = $get_iswc_set->($comparator);
+        $c->stash(
+            iswcs_differ => any { $get_iswc_set->($_) != $expect } @tail
+        );
+    }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
