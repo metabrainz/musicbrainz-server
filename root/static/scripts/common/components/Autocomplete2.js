@@ -160,7 +160,10 @@ function handleItemMouseDown(event) {
   event.preventDefault();
 }
 
-function setScrollPosition(menuId: string, siblingAccessor: string) {
+function setScrollPosition(
+  menuId: string,
+  siblingAccessor: 'nextElementSibling' | 'previousElementSibling',
+) {
   const menu = document.getElementById(menuId);
   if (!menu) {
     return;
@@ -169,7 +172,7 @@ function setScrollPosition(menuId: string, siblingAccessor: string) {
   if (!selectedItem) {
     return;
   }
-  // $FlowFixMe
+  // $FlowIssue[prop-missing]
   const item = selectedItem[siblingAccessor];
   if (!item) {
     return;

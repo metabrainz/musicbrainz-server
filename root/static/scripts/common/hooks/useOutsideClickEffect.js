@@ -13,6 +13,10 @@ const TARGET_REFS = new Map();
 
 if (typeof document !== 'undefined') {
   document.addEventListener('mouseup', function (event: MouseEvent) {
+    const eventTarget = event.target;
+    if (!(eventTarget instanceof Node)) {
+      return;
+    }
     /*
      * N.B. It's possible for action() to cause a component to re-render that
      * then calls `useOutsideClickEffect` again, mutating `TARGET_REFS`. Thus
@@ -23,9 +27,8 @@ if (typeof document !== 'undefined') {
         continue;
       }
       const target = ref.current;
-      // $FlowFixMe
-      if (target && !target.contains(event.target)) {
-        action(event.target);
+      if (target && !target.contains(eventTarget)) {
+        action(eventTarget);
       }
     }
   });
