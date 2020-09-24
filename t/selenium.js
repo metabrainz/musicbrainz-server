@@ -492,6 +492,7 @@ const seleniumTests = [
   {name: 'release-editor/Seeding.html', login: true, sql: 'vision_creation_newsun.sql'},
   {name: 'release-editor/MBS-10359.html', login: true},
   {name: 'release-editor/MBS-11015.html', login: true},
+  {name: 'release-editor/MBS-11114.html', login: true},
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);
