@@ -170,7 +170,7 @@ sub is_valid_ipi
 sub format_ipi
 {
     my $ipi = shift;
-    return $ipi unless $ipi =~ /^[0-9\s.]{9,}$/;
+    return $ipi unless $ipi =~ /^[0-9\s.]{5,}$/;
     $ipi =~ s/[\s.]//g;
     return sprintf("%011.0f", $ipi)
 }
