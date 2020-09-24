@@ -166,7 +166,7 @@ sub _merge_load_entities
         my $get_iswc_set = sub { Set::Scalar->new(map { $_->iswc } shift->all_iswcs) };
         my $expect = $get_iswc_set->($comparator);
         $c->stash(
-            iswcs_differ => any { $get_iswc_set->($_) != $expect } @tail
+            iswcs_differ => (any { $get_iswc_set->($_) != $expect } @tail),
         );
     }
 };

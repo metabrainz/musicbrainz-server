@@ -214,7 +214,7 @@ sub _merge_load_entities {
         my $get_isrc_set = sub { Set::Scalar->new(map { $_->isrc } shift->all_isrcs) };
         my $expect = $get_isrc_set->($comparator);
         $c->stash(
-            isrcs_differ => any { $get_isrc_set->($_) != $expect } @tail
+            isrcs_differ => (any { $get_isrc_set->($_) != $expect } @tail),
         );
     }
 };
