@@ -194,6 +194,7 @@ module.exports = {
   'report/ReleasesInCaaWithCoverArtRelationships': require('../report/ReleasesInCaaWithCoverArtRelationships'),
   'report/ReleasesMissingDiscIds': require('../report/ReleasesMissingDiscIds'),
   'report/ReleasesConflictingDiscIds': require('../report/ReleasesConflictingDiscIds'),
+  'report/ReleasesSameBarcode': require('../report/ReleasesSameBarcode'),
   'report/ReleasesToConvert': require('../report/ReleasesToConvert'),
   'report/ReleasesWithCaaNoTypes': require('../report/ReleasesWithCaaNoTypes'),
   'report/ReleasesWithDownloadRelationships': require('../report/ReleasesWithDownloadRelationships'),
