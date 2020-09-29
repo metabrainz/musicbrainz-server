@@ -42,6 +42,9 @@ sub _load_releases
     my ($self, $c, $cdtoc) = @_;
     my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
+    $c->model('Track')->load_for_mediums(@mediums);
+    my @tracks = map { $_->all_tracks } @mediums;
+    $c->model('Recording')->load(@tracks);
     my @releases = $c->model('Release')->load(@mediums);
     my @rgs = $c->model('ReleaseGroup')->load(@releases);
     $c->model('ReleaseGroup')->load_meta(@rgs);
@@ -58,10 +61,6 @@ sub show : Chained('load') PathPart('')
 
     my $cdtoc = $c->stash->{cdtoc};
     my $medium_cdtocs = $self->_load_releases($c, $cdtoc);
-
-    $c->model('Track')->load_for_mediums(
-        map { $_->medium } @{$medium_cdtocs}
-    );
 
     $c->stash(
         medium_cdtocs => $medium_cdtocs,
