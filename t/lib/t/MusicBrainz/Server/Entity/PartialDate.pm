@@ -58,13 +58,13 @@ $date = Date->new( day => 01 );
 is ($date->format, "????-??-01");
 
 $date = Date->new( year => 0 );
-is ($date->format, "0000");
+is ($date->format, "-0001");
 
 $date = Date->new( month => 1 );
 is ($date->format, "????-01");
 
 $date = Date->new( year => -1, month => 1, day => 1 );
-is ($date->format, "-001-01-01");
+is ($date->format, "-0002-01-01");
 
 my ($a, $b);
 

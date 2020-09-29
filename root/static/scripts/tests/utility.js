@@ -17,7 +17,7 @@ import * as dates from '../edit/utility/dates';
 import * as fullwidthLatin from '../edit/utility/fullwidthLatin';
 
 test('age', function (t) {
-  t.plan(11);
+  t.plan(14);
 
   t.deepEqual(age.age({
     begin_date: {year: 1976, month: 7, day: 23},
@@ -30,6 +30,12 @@ test('age', function (t) {
     end_date: {year: 1976, month: 8, day: 1},
     ended: true,
   }), [0, 0, 9], 'age is 9 days');
+
+  t.deepEqual(age.age({
+    begin_date: {year: -4, month: 7, day: 23},
+    end_date: {year: -4, month: 8, day: 1},
+    ended: true,
+  }), [0, 0, 9], 'age is 9 days (BCE)');
 
   t.deepEqual(age.age({
     begin_date: {year: 1976, month: 7, day: 23},
@@ -48,6 +54,18 @@ test('age', function (t) {
     end_date: {year: 2140, month: 11, day: 1},
     ended: true,
   }), [587, 3, 9], 'age is 587 years');
+
+  t.deepEqual(age.age({
+    begin_date: {year: -470, month: 7, day: 23},
+    end_date: {year: -399, month: 11, day: 1},
+    ended: true,
+  }), [71, 3, 9], 'age is 71 years (BCE)');
+
+  t.deepEqual(age.age({
+    begin_date: {year: -3, month: 7, day: 23},
+    end_date: {year: 5, month: 11, day: 1},
+    ended: true,
+  }), [8, 3, 9], 'age is 8 years (across BCE/CE line)');
 
   t.deepEqual(age.age({
     begin_date: {year: 2008, month: 2, day: 29},
@@ -139,7 +157,7 @@ test('formatTrackLength', function (t) {
 });
 
 test('parseDate', function (t) {
-  t.plan(16);
+  t.plan(18);
 
   var parseDateTests = [
     { date: '', expected: { year: null, month: null, day: null} },
@@ -149,6 +167,8 @@ test('parseDate', function (t) {
     { date: '1999', expected: { year: 1999, month: null, day: null } },
     { date: '????-01-02', expected: { year: null, month: 1, day: 2 } },
     { date: '????-??-02', expected: { year: null, month: null, day: 2 } },
+    { date: '-0046-??-02', expected: { year: -46, month: null, day: 2 } },
+    { date: '-0046', expected: { year: -46, month: null, day: null } },
     { date: '1999-??-02', expected: { year: 1999, month: null, day: 2 } },
 
     // Relationship editor seeding format (via URL query params).
@@ -174,7 +194,6 @@ test('formatDate', function (t) {
   t.equal(formatDate(null), '');
   t.equal(formatDate(undefined), '');
   t.equal(formatDate({}), '');
-  t.equal(formatDate({ year: 0 }), '0000');
   t.equal(formatDate({ year: 1999 }), '1999');
   t.equal(formatDate({ year: 1999, month: 1 }), '1999-01');
   t.equal(formatDate({ year: 1999, month: 1, day: 1 }), '1999-01-01');
@@ -182,8 +201,9 @@ test('formatDate', function (t) {
   t.equal(formatDate({ month: 1 }), '????-01');
   t.equal(formatDate({ month: 1, day: 1 }), '????-01-01');
   t.equal(formatDate({ day: 1 }), '????-??-01');
-  t.equal(formatDate({ year: 0, month: 1, day: 1 }), '0000-01-01');
-  t.equal(formatDate({ year: -1, month: 1, day: 1 }), '-0001-01-01');
+  t.equal(formatDate({ year: 0 }), '-0001');
+  t.equal(formatDate({ year: 0, month: 1, day: 1 }), '-0001-01-01');
+  t.equal(formatDate({ year: -1, month: 1, day: 1 }), '-0002-01-01');
 });
 
 test('formatDatePeriod', function (t) {
@@ -230,7 +250,7 @@ test('formatDatePeriod', function (t) {
 });
 
 test('validDate', function (t) {
-  t.plan(14);
+  t.plan(18);
 
   t.equal(dates.isDateValid('', '', ''), true, 'all empty strings are valid');
   t.equal(
@@ -244,10 +264,11 @@ test('validDate', function (t) {
     'all null values are valid',
   );
   t.equal(dates.isDateValid(2000), true, 'just a year is valid');
-  t.equal(dates.isDateValid('', 10), true, 'just a month is valid');
+  t.equal(dates.isDateValid(-4), true, 'just a year BCE is valid');
+  t.equal(dates.isDateValid('', 10, ''), true, 'just a month is valid');
   t.equal(dates.isDateValid('', '', 29), true, 'just a day is valid');
-  t.equal(dates.isDateValid(0), false, 'the year 0 is invalid');
-  t.equal(dates.isDateValid('', 13), false, 'months > 12 are invalid');
+  t.equal(dates.isDateValid(0, '', ''), false, 'the year 0 is not valid for form entering');
+  t.equal(dates.isDateValid('', 13, ''), false, 'months > 12 are invalid');
   t.equal(dates.isDateValid('', '', 32), false, 'days > 31 are invalid');
   t.equal(dates.isDateValid(2001, 2, 29), false, '2001-02-29 is invalid');
   t.equal(dates.isDateValid('2000f'), false, 'letters are invalid');
@@ -266,10 +287,17 @@ test('validDate', function (t) {
     true,
     'just a day and year with null month is valid',
   );
+  t.equal(dates.isDateValid(1900, 2, 29), false, '1900 was no leap year');
+  t.equal(dates.isDateValid(2000, 2, 29), true, '2000 was a leap year');
+  t.equal(
+    dates.isDateValid(-5, 2, 29),
+    true,
+    'leap years BCE are handled correctly',
+  );
 });
 
 test('validDatePeriod', function (t) {
-  t.plan(8);
+  t.plan(9);
 
   var tests = [
     {
@@ -281,6 +309,11 @@ test('validDatePeriod', function (t) {
       a: { year: 2000, month: null, day: 11 },
       b: { year: 2000, month: null, day: 10 },
       expected: true,
+    },
+    {
+      a: { year: -45, month: null, day: null },
+      b: { year: 17, month: null, day: null },
+      expected: true
     },
     {
       a: { year: 2000, month: 11, day: 11 },
