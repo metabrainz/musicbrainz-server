@@ -2,6 +2,7 @@ package MusicBrainz::Server::Validation;
 use strict;
 use warnings;
 
+use DateTime;
 use Date::Calc;
 use List::AllUtils qw( any );
 use Readonly;
@@ -292,22 +293,28 @@ sub is_valid_partial_date
         return 0 if $year % 100 == 0 && $year % 400 != 0;
     }
 
-    if (defined $year && $month && $day) {
-        # XXX retain legacy behaviour for now:
-        # partial dates with year <= 0 are OK, but complete dates are not (don't ask)
-        return 0 unless $year > 0;
-    }
-
     return 1;
 }
 
 sub is_date_range_valid {
     my ($a, $b) = @_;
 
-    my @a = ($a->{year}, $a->{month} || 1, $a->{day} || 1);
-    my @b = ($b->{year}, $b->{month} || 12, $b->{day} || Date::Calc::Days_in_Month($b->{year}, $b->{month} || 12));
+    my $start = DateTime->new(
+        year => $a->{year},
+        month => $a->{month} || 1,
+        day => $a->{day} || 1,
+    );
+    my $end = DateTime->new(
+        year => $b->{year},
+        month => $b->{month} || 12,
+        day => $b->{day} ||
+            DateTime->last_day_of_month(
+                year => $b->{year},
+                month => $b->{month} || 12,
+            )->day(),
+    );
 
-    return Date::Calc::Delta_Days(@a, @b) >= 0;
+    return DateTime->compare($end, $start) >= 0;
 }
 
 # Keep in sync with invalidEditNote in static/scripts/release-editor/init.js

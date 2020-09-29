@@ -34,8 +34,8 @@ export const isDateValid = (date: PartialDateWithStringsT): boolean => {
     return false;
   }
 
-  // The year is a number less than 1.
-  if (y !== null && y < 1) {
+  // The year is 0
+  if (y === 0) {
     return false;
   }
 
@@ -50,9 +50,13 @@ export const isDateValid = (date: PartialDateWithStringsT): boolean => {
   }
 
   // Invalid number of days based on the year.
+  const astronomicalYear = (y != null && y < 0) ? (y + 1) : y;
   if (
     d < 1 || d > 31 ||
-    (y != null && m != null && d > getDaysInMonth(y, m))
+    (
+      astronomicalYear != null && m != null &&
+      d > getDaysInMonth(astronomicalYear, m)
+    )
   ) {
     return false;
   }
@@ -62,7 +66,9 @@ export const isDateValid = (date: PartialDateWithStringsT): boolean => {
 };
 
 export const isYearFourDigits = function (y: string): boolean {
-  return (y === null || y === '' || y.length === 4);
+  return (y === null || y === '' ||
+          y.length === 4 && /^[0-9]$/.test(y.charAt(0)) ||
+          y.length === 5 && y.charAt(0) === '-');
 };
 
 export const isDatePeriodValid = function (

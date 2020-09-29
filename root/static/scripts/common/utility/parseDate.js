@@ -9,7 +9,7 @@
 
 import parseIntegerOrNull from './parseIntegerOrNull.js';
 
-const dateRegex = /^(\d{4}|\?{4}|-)(?:-(\d{2}|\?{2}|-)(?:-(\d{2}|\?{2}|-))?)?$/;
+const dateRegex = /^(-?\d{4}|\?{4}|-)(?:-(\d{2}|\?{2}|-)(?:-(\d{2}|\?{2}|-))?)?$/;
 
 function parseDate(str: string): PartialDateT {
   const match = str.match(dateRegex) || [];

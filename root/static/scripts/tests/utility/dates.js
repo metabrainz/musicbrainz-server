@@ -12,7 +12,7 @@ import test from 'tape';
 import * as dates from '../../edit/utility/dates.js';
 
 test('isDateValid', function (t) {
-  t.plan(12);
+  t.plan(18);
 
   /* eslint-disable sort-keys */
   t.equal(
@@ -34,6 +34,11 @@ test('isDateValid', function (t) {
     dates.isDateValid({year: 2000}),
     true,
     'just a year is valid',
+  );
+  t.equal(
+    dates.isDateValid({year: -4}),
+    true,
+    'just a year BCE is valid',
   );
   t.equal(
     dates.isDateValid({year: '', month: 10}),
@@ -75,11 +80,36 @@ test('isDateValid', function (t) {
     true,
     'leap years are handled correctly (MBS-5663)',
   );
+  t.equal(
+    dates.isDateValid({year: null, month: null, day: 10}),
+    true,
+    'just a day with nulls is valid',
+  );
+  t.equal(
+    dates.isDateValid({year: 2010, month: null, day: 10}),
+    true,
+    'just a day and year with null month is valid',
+  );
+  t.equal(
+    dates.isDateValid({year: 1900, month: 2, day: 29}),
+    false,
+    '1900 was no leap year',
+  );
+  t.equal(
+    dates.isDateValid({year: 2000, month: 2, day: 29}),
+    true,
+    '2000 was a leap year',
+  );
+  t.equal(
+    dates.isDateValid({year: -5, month: 2, day: 29}),
+    true,
+    'leap years BCE are handled correctly',
+  );
   /* eslint-enable sort-keys */
 });
 
 test('isDatePeriodValid', function (t) {
-  t.plan(8);
+  t.plan(9);
 
   /* eslint-disable sort-keys */
   const tests = [
@@ -91,6 +121,11 @@ test('isDatePeriodValid', function (t) {
     {
       a: {year: 2000, month: null, day: 11},
       b: {year: 2000, month: null, day: 10},
+      expected: true,
+    },
+    {
+      a: {year: -45, month: null, day: null},
+      b: {year: 17, month: null, day: null},
       expected: true,
     },
     {

@@ -13,6 +13,7 @@ import {compare} from '../common/i18n.js';
 import MB from '../common/MB.js';
 import {last} from '../common/utility/arrays.js';
 import debounce from '../common/utility/debounce.js';
+import * as dates from '../edit/utility/dates.js';
 import {stripAttributes} from '../edit/utility/linkPhrase.js';
 
 function cmpOptions(a, b) {
@@ -340,15 +341,14 @@ MB.initializeTooShortYearChecks = function (type) {
   function blockTooShortBeginYear() {
     const beginYear =
       $(`#id-edit-${type}\\\.period\\\.begin_date\\\.year`).val();
-    const allowed = (!beginYear || beginYear.trim().length === 4);
+    const allowed = dates.isYearFourDigits(beginYear);
     $('.submit').prop('disabled', !allowed);
     $('#too_short_begin_year').toggle(!allowed);
   }
 
   function blockTooShortEndYear() {
     const endYear = $(`#id-edit-${type}\\\.period\\\.end_date\\\.year`).val();
-    const allowed =
-      (endYear === null || endYear === '' || endYear.length === 4);
+    const allowed = dates.isYearFourDigits(endYear);
     $('.submit').prop('disabled', !allowed);
     $('#too_short_end_year').toggle(!allowed);
   }
