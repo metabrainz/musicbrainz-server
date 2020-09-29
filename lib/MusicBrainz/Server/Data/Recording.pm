@@ -302,6 +302,21 @@ sub _merge_impl
     return 1;
 }
 
+sub has_standalone
+{
+    my ($self, $artist_id) = @_;
+    my $query ='
+        SELECT EXISTS (
+            SELECT 1
+            FROM recording
+            JOIN artist_credit_name acn
+                ON acn.artist_credit = recording.artist_credit
+            WHERE acn.artist = ?
+            AND NOT EXISTS (SELECT 1 FROM track WHERE track.recording = recording.id)
+        )';
+    $self->sql->select_single_value($query, $artist_id);
+}
+
 sub find_standalone
 {
     my ($self, $artist_id, $limit, $offset) = @_;
@@ -316,6 +331,21 @@ sub find_standalone
            AND acn.artist = ?
       ORDER BY recording.name COLLATE musicbrainz';
     $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
+}
+
+sub has_video
+{
+    my ($self, $artist_id) = @_;
+    my $query ='
+        SELECT EXISTS (
+            SELECT 1
+            FROM recording
+            JOIN artist_credit_name acn
+                ON acn.artist_credit = recording.artist_credit
+            WHERE acn.artist = ?
+            AND recording.video IS TRUE
+        )';
+    $self->sql->select_single_value($query, $artist_id);
 }
 
 sub find_video
