@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-19 12:29+0000\n"
+"PO-Revision-Date: 2020-09-25 09:25+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2003,6 +2003,13 @@ msgid ""
 "bows, viols have frets, flat backs, sloped shoulders, c-holes and are tuned "
 "in fourths."
 msgstr "Gebruik niet dit instrument, maar de <a href=\"/instrument/be34e4e5-6e77-46f5-ab56-c9641d3da213\">viola da gamba</a> als je bron ‘viol’, ‘viola’ of een niet nader gespecificeerde viola da gamba noemt. Viole da gamba werden in de 15e eeuw ontwikkeld door vihuelisten die hun instrumenten met een strijkstok gingen bespelen. Viole da gamba hebben fretten, een vlak onderblad, aflopende schouders, C-gaten en zijn in kwarten gestemd."
+
+#. name:mouth harp
+#: DB:instrument/description:80
+msgid ""
+"Plucked by the mouth, it consists of a characteristically shaped frame with "
+"a metal or bamboo reed (tine). There are many variants around the world."
+msgstr "De mondharp is een instrument met een frame dat tegen of in de mond wordt gehouden terwijl er op een metalen of bamboeriet wordt getokkeld. Er zijn over de hele wereld vele varianten bekend."
 
 #. name:plucked idiophone
 #: DB:instrument/description:930

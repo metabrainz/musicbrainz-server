@@ -46,7 +46,6 @@ const ArtistRelationships = ({
     <RelationshipsTable
       entity={artist}
       heading={l('Appearances')}
-      showCredits
     />
   </ArtistLayout>
 );

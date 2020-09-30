@@ -13,19 +13,30 @@ const TARGET_REFS = new Map();
 
 if (typeof document !== 'undefined') {
   document.addEventListener('mouseup', function (event: MouseEvent) {
-    for (const [ref, action] of TARGET_REFS) {
+    const eventTarget = event.target;
+    if (!(eventTarget instanceof Node)) {
+      return;
+    }
+    /*
+     * N.B. It's possible for action() to cause a component to re-render that
+     * then calls `useOutsideClickEffect` again, mutating `TARGET_REFS`. Thus
+     * it's important that we wrap the iterator in `Array.from()`.
+     */
+    for (const [ref, action] of Array.from(TARGET_REFS.entries())) {
+      if (action == null) {
+        continue;
+      }
       const target = ref.current;
-      // $FlowFixMe
-      if (target && !target.contains(event.target)) {
-        action();
+      if (target && !target.contains(eventTarget)) {
+        action(eventTarget);
       }
     }
   });
 }
 
-export default function useOutsideClickEffect(
-  targetRef: {current: HTMLElement | null},
-  action: () => void,
+export default function useOutsideClickEffect<T: HTMLElement>(
+  targetRef: {current: T | null},
+  action: ((EventTarget) => void) | null,
   cleanup?: () => void,
 ) {
   if (typeof document === 'undefined') {

@@ -19,7 +19,7 @@ const CodeLink = ({code}: Props): React.MixedElement=> {
   let link = (
     <a href={entityHref(code)}>
       <bdi>
-        {/* $FlowFixMe */}
+        {/* $FlowIssue[prop-missing] */}
         <code>{code[code.entityType]}</code>
       </bdi>
     </a>

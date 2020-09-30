@@ -105,7 +105,7 @@ const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
 
   setLinkedEntities(update/*: ?LinkedEntities */) {
     for (const key of Object.keys(linkedEntities)) {
-      // $FlowFixMe
+      // $FlowIgnore[incompatible-type]
       delete linkedEntities[key];
       /*
        * The above line is deleting the own property only, not the one on the

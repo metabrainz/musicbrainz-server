@@ -207,9 +207,15 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   debouncePendingVotes: () => void;
 
+  flushPendingVotes: (asap?: boolean) => void;
+
   genreMap: {+[genreName: string]: GenreT, ...};
 
   genreNames: $ReadOnlyArray<string>;
+
+  handleSubmit: (SyntheticEvent<HTMLFormElement>) => void;
+
+  onBeforeUnload: () => void;
 
   pendingVotes: Map<string, PendingVoteT>;
 
@@ -223,13 +229,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       tags: createInitialTagState(props.aggregatedTags, props.userTags),
     };
 
-    // $FlowFixMe - These binds will go away with the move to functional components.
     this.flushPendingVotes = this.flushPendingVotes.bind(this);
-    // $FlowFixMe
     this.onBeforeUnload = this.onBeforeUnload.bind(this);
-    // $FlowFixMe
     this.handleSubmit = this.handleSubmit.bind(this);
-    // $FlowFixMe
     this.setTagsInput = this.setTagsInput.bind(this);
 
     this.genreMap = props.genreMap ?? {};

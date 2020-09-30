@@ -9,6 +9,7 @@ use Test::Deep qw( cmp_bag );
 use Test::More;
 use Test::Routine;
 use Test::Routine::Util;
+use MusicBrainz::Server::Context;
 
 $ENV{MUSICBRAINZ_RUNNING_TESTS} = 1;
 
@@ -56,6 +57,10 @@ EOSQL
             't-json-dump-packets-XXXXXXX', DIR => '/tmp', CLEANUP => 1);
     };
 
+    my $c = MusicBrainz::Server::Context->create_script_context(
+        database => 'TEST_JSON_DUMP',
+    );
+
     my $build_full_dump = sub {
         $new_output_dir->();
         system (
@@ -64,6 +69,20 @@ EOSQL
             '--compress',
             '--output-dir' => $output_dir,
         );
+        my $full_json_dump_replication_sequence = $c->sql->select_single_value(
+            'SELECT full_json_dump_replication_sequence ' .
+            'FROM json_dump.control',
+        );
+        for my $type (@dumped_entity_types) {
+            $type =~ s/-/_/g;
+            my $unneeded_row_count = $c->sql->select_single_value(qq{
+                SELECT count(*) FROM json_dump.${type}_json a
+                 WHERE a.replication_sequence < $full_json_dump_replication_sequence
+                   AND EXISTS (SELECT 1 FROM json_dump.${type}_json b
+                                WHERE b.id = a.id AND b.replication_sequence >= $full_json_dump_replication_sequence);
+            });
+            is($unneeded_row_count, 0);
+        }
     };
 
     my $build_incremental_dump = sub {

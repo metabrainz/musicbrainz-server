@@ -820,9 +820,9 @@ MB.Control.autocomplete_formatters = {
       }
     };
 
-    if (item.artists) {
-      artistRenderer(l('Writers'), item.artists.writers);
-      artistRenderer(l('Artists'), item.artists.artists);
+    if (item.related_artists) {
+      artistRenderer(l('Writers'), item.related_artists.writers);
+      artistRenderer(l('Artists'), item.related_artists.artists);
     }
 
     return $('<li>').append(a).appendTo(ul);

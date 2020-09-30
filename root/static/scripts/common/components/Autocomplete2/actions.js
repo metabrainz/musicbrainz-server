@@ -24,10 +24,6 @@ export const NOOP = {
   type: 'noop',
 };
 
-export const SELECT_HIGHLIGHTED_ITEM = {
-  type: 'select-highlighted-item',
-};
-
 export const SHOW_MENU = {
   type: 'set-menu-visibility',
   value: true,

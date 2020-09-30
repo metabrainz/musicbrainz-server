@@ -120,6 +120,7 @@ sub artists : Chained('load')
         $c->model('Gender')->load(@$artists);
         $c->model('Area')->load(@$artists);
         $c->model('Area')->load_containment(map { $_->{area}, $_->{begin_area}, $_->{end_area} } @$artists);
+        $c->model('Artist')->load_meta(@$artists);
     if ($c->user_exists) {
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @$artists);
     }
@@ -184,6 +185,7 @@ sub labels : Chained('load')
     $c->model('LabelType')->load(@$labels);
     $c->model('Area')->load(@$labels);
     $c->model('Area')->load_containment(map { $_->{area} } @$labels);
+    $c->model('Label')->load_meta(@$labels);
     if ($c->user_exists) {
         $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
     }

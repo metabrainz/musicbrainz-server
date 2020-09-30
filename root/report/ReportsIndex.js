@@ -415,6 +415,11 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
             {l('Releases with a different name than their release group')}
           </a>
         </li>
+        <li>
+          <a href="/report/ReleasesSameBarcode">
+            {l('Releases with the same barcode in different release groups')}
+          </a>
+        </li>
       </ul>
 
       <h2>{l('Recordings')}</h2>

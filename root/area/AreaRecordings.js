@@ -29,7 +29,6 @@ const AreaRecordings = ({
         'This area has no relationships to any recordings.',
       )}
       heading={l('Relationships')}
-      showCredits
     />
   </AreaLayout>
 );

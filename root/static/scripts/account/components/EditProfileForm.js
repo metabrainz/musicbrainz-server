@@ -139,8 +139,15 @@ class EditProfileForm extends React.Component<Props, State> {
     e: SyntheticEvent<HTMLSelectElement>,
     languageIndex: number,
   ) {
-    // $FlowFixMe ~ string incompatible with FluencyT's string literals
-    const selectedFluency: FluencyT = e.currentTarget.value;
+    const selectedValue = e.currentTarget.value;
+    let selectedFluency: FluencyT | null = null;
+    switch (selectedValue) {
+      case 'basic':
+      case 'intermediate':
+      case 'advanced':
+      case 'native':
+        selectedFluency = selectedValue;
+    }
     this.setState(prevState => mutate<State, _>(prevState, newState => {
       const compound = newState.form.field.languages.field[languageIndex];
       compound.field.fluency.value = selectedFluency;

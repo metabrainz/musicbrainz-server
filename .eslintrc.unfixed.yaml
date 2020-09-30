@@ -1,0 +1,105 @@
+rules:
+  no-await-in-loop: error
+  no-extra-semi: warn
+  no-unused-vars: error
+  consistent-return: error
+  eqeqeq: [warn, smart]
+  no-else-return: warn
+  no-multi-spaces: [error, {ignoreEOLComments: true}]
+  wrap-iife: warn
+  array-element-newline: [warn, consistent]
+  camelcase: [warn, {properties: never,
+                     allow: [
+                       "l_attributes",
+                       "ln_attributes",
+                       "lp_attributes",
+                       "l_countries",
+                       "ln_countries",
+                       "lp_countries",
+                       "l_instrument_descriptions",
+                       "ln_instrument_descriptions",
+                       "lp_instrument_descriptions",
+                       "l_instruments",
+                       "ln_instruments",
+                       "lp_instruments",
+                       "l_languages",
+                       "ln_languages",
+                       "lp_languages",
+                       "l_relationships",
+                       "ln_relationships",
+                       "lp_relationships",
+                       "l_scripts",
+                       "ln_scripts",
+                       "lp_scripts",
+                       "l_statistics",
+                       "ln_statistics",
+                       "lp_statistics",
+                       "N_l",
+                       "N_ln",
+                       "N_lp",
+                     ]}]
+  comma-dangle: [warn, {arrays: always-multiline,
+                        objects: always-multiline,
+                        imports: always-multiline,
+                        exports: always-multiline,
+                        functions: always-multiline}]
+  comma-spacing: [warn, {before: false, after: true}]
+  computed-property-spacing: [warn, never, {"enforceForClassMembers": true}]
+  consistent-this: [warn, self]
+  function-paren-newline: [warn, consistent]
+  jsx-quotes: [warn, prefer-double]
+  key-spacing: [warn, {mode: minimum}]
+  max-len: [warn, {code: 78,
+                   ignoreUrls: true,
+                   ignoreStrings: false,
+                   ignoreTemplateLiterals: false,
+                   ignoreRegExpLiterals: true}]
+  multiline-comment-style: [warn, starred-block]
+  newline-per-chained-call: [warn, {ignoreChainWithDepth: 3}]
+  no-lonely-if: warn
+  no-multiple-empty-lines: [warn, {max: 2, maxBOF: 0, maxEOF: 0}]
+  no-trailing-spaces: warn
+  object-curly-newline: [warn, {multiline: true, consistent: true}]
+  object-curly-spacing: [warn, never]
+  operator-assignment: [warn, always]
+  operator-linebreak: [warn, after, {overrides: {?: before, :: before}}]
+  padded-blocks: [warn, never]
+  quote-props: [warn, consistent-as-needed, {numbers: true}]
+  quotes: [warn, single, {avoidEscape: true,
+                          allowTemplateLiterals: true}]
+  semi: [warn, always, {omitLastInOneLineBlock: true}]
+  semi-style: [warn, last]
+  sort-keys: [warn, asc, {caseSensitive: false, natural: true}]
+  space-before-function-paren: [warn, {anonymous: always,
+                                       named: never,
+                                       asyncArrow: always}]
+  space-infix-ops: [warn, {int32Hint: true}]
+  no-var: warn
+  prefer-const: warn
+  import/first: warn
+  import/newline-after-import: [warn, {count: 1}]
+  import/no-commonjs: error
+  import/order: [warn, {newlines-between: always}]
+  react/no-access-state-in-setstate: error
+  react/no-multi-comp: [warn, {ignoreStateless: true}]
+  react/no-render-return-value: warn
+  react/prefer-stateless-function: warn
+  react/self-closing-comp: error
+  react/sort-comp: [warn, {order: [type-annotations,
+                                   static-methods,
+                                   lifecycle,
+                                   everything-else,
+                                   render]}]
+  react/jsx-boolean-value: [warn, never]
+  react/jsx-closing-bracket-location: [error, tag-aligned]
+  react/jsx-first-prop-new-line: [error, multiline-multiprop]
+  react/jsx-key: warn
+  react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
+  react/jsx-no-literals: warn
+  react/jsx-sort-props: warn
+  flowtype/boolean-style: [warn, boolean]
+  flowtype/delimiter-dangle: [warn, always-multiline]
+  flowtype/no-types-missing-file-annotation: error
+  flowtype/no-weak-types: warn
+  flowtype/sort-keys: [warn, asc]
+  react-hooks/exhaustive-deps: warn

@@ -43,5 +43,6 @@ if ($child) {
     push @argv, ('--socket', $socket) if $socket;
     push @argv, ('--workers', $workers) if $workers;
     chdir qq($FindBin::Bin/../);
-    exec 'node', 'root/server.js', @argv;
+    # If updating to a min. req. of Node 13+, check if icu-data-dir is still needed
+    exec 'node', '--icu-data-dir=node_modules/full-icu', 'root/server.js', @argv;
 }
