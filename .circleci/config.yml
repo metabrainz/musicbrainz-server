@@ -47,6 +47,7 @@ jobs:
           sudo -E -H -u musicbrainz make -C po all_quiet deploy
           NODE_ENV=test WEBPACK_MODE=development sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh server web-tests
           sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
+          sudo -E -H -u musicbrainz ./node_modules/.bin/eslint --max-warnings 0 .
           rm /etc/service/chrome/down && sv start chrome
           sudo -E -H -u musicbrainz carton exec -- perl \
               -I lib \
