@@ -191,9 +191,8 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     href = entity.href_url;
   }
 
-  // TODO: support name variations for all entity types?
-  if (!subPath &&
-      (entity.entityType === 'artist' || entity.entityType === 'recording')) {
+  // URLs are kind of weird and we probably don't care to set this for them
+  if (!subPath && entity.entityType !== 'url') {
     if (nameVariation === undefined && typeof content === 'string') {
       nameVariation = content !== entity.name;
     }
