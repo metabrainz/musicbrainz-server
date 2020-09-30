@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-01 22:27+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2020-09-21 19:09+0000\n"
+"Last-Translator: Timo Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,10 +65,6 @@ msgstr "cembalet"
 #: DB:instrument/name:183
 msgid "Chapman stick"
 msgstr "Chapman stick"
-
-#: DB:instrument/name:175
-msgid "Clavinet"
-msgstr "clavinet"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
@@ -1043,6 +1039,10 @@ msgstr "rytmikapulat"
 msgid "clavichord"
 msgstr "klavikordi"
 
+#: DB:instrument/name:175
+msgid "clavinet"
+msgstr "klavinetti"
+
 #: DB:instrument/name:780
 msgctxt "free reed aerophone with pitching pipes."
 msgid "claviola"
@@ -1946,10 +1946,6 @@ msgctxt "West African four-stringed grigot lute"
 msgid "jeli ngɔni"
 msgstr ""
 
-#: DB:instrument/name:80
-msgid "jew's harp"
-msgstr "munniharppu / juutalaisharppu"
-
 #: DB:instrument/name:552
 msgid "jing"
 msgstr ""
@@ -2532,6 +2528,11 @@ msgstr ""
 #: DB:instrument/name:533
 msgctxt "Indian mouth harp"
 msgid "morsing"
+msgstr ""
+
+#: DB:instrument/name:80
+msgctxt "Family of mouth plucked idiophones"
+msgid "mouth harp"
 msgstr ""
 
 #: DB:instrument/name:610
