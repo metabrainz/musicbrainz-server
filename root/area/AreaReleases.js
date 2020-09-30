@@ -62,7 +62,6 @@ const AreaReleases = ({
         'This area has no relationships to any releases.',
       )}
       heading={l('Relationships')}
-      showCredits
     />
   </AreaLayout>
 );
