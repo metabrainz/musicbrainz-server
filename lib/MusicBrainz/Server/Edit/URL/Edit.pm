@@ -18,6 +18,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::URL';
+with 'MusicBrainz::Server::Edit::URL::RelatedEntities';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::URL';
