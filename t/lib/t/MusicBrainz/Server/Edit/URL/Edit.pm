@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::URL::Edit;
 use Test::Routine;
 use Test::More;
 use Test::Fatal;
+use Test::Deep qw( cmp_set );
 
 around run_test => sub {
     my ($orig, $test) = splice(@_, 0, 2);
@@ -136,6 +137,26 @@ test 'Changing URL scheme from HTTP to HTTPS is an auto-edit (MBS-9439)' => sub 
 
     my $edit = _build_edit($test, 'http://musicbrainz.org/', 1);
     is $edit->status, $STATUS_OPEN, 'Moving from HTTPS to HTTP is not an auto edit';
+};
+
+test 'Related entities get linked to the edit' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $edit = $c->model('Edit')->create(
+        edit_type   => $EDIT_URL_EDIT,
+        editor_id   => 1,
+        to_edit     => $c->model('URL')->get_by_id(3),
+        url         => 'http://musicbrainz.org/super',
+    );
+
+    cmp_set($edit->related_entities->{artist},
+            [ 100 ],
+            'is related to the artist that uses the URL');
+
+    cmp_set($edit->related_entities->{url},
+            [ 3 ],
+            'is related to the URL itself');
 };
 
 sub _build_edit {
