@@ -8,9 +8,9 @@ copy_common_mbs_files
 
 git_info
 
-install_javascript_and_templates(` --only=production')
-
 install_translations()
+
+install_javascript_and_templates(` --only=production')
 
 COPY \
     docker/musicbrainz-website/consul-template-template-renderer.conf \
