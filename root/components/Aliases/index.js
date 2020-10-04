@@ -43,7 +43,7 @@ const Aliases = ({$c, aliases, entity}: Props): React.MixedElement => {
       <p>
         {exp.l(
           `An alias is an alternate name for an entity. They typically
-           contain common mispellings or variations of the name and are also 
+           contain common misspellings or variations of the name and are also
            used to improve search results. View the {doc|alias documentation}
            for more details.`,
           {doc: '/doc/Aliases'},
