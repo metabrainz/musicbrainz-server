@@ -77,6 +77,7 @@ module.exports = {
   'entity/Aliases': require('../entity/Aliases'),
   'entity/Details': require('../entity/Details'),
   'entity/NotFound': require('../entity/NotFound'),
+  'entity/Ratings': require('../entity/Ratings'),
   'entity/Subscribers': require('../entity/Subscribers'),
   'entity/Tags': require('../entity/Tags'),
   'event/EventIndex': require('../event/EventIndex'),

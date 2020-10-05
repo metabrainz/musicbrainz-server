@@ -853,6 +853,11 @@ declare type RatableT =
   | ReleaseGroupT
   | WorkT;
 
+declare type RatingT = {
+  +editor: EditorT,
+  +rating: number,
+};
+
 declare type RecordingT = $ReadOnly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
