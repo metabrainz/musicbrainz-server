@@ -43,7 +43,7 @@ blog_url+="musicbrainz-server-update-$year-$month-$day/"
 read -e -i "$blog_url" -p 'Blog post URL? ' -r blog_url
 
 set -x
-git tag -u CE33CF04 "$tag" -m "$blog_url" production
+git tag -u CE33CF04 "$tag" -m "See $blog_url for details" production
 git push origin "$tag"
 
 # vi: set et sts=2 sw=2 ts=2 :
