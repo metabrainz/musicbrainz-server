@@ -222,16 +222,17 @@ sub _fetch_entities_json {
     my $query;
     my %found;
     my @missing;
+    my $is_full_dump = $options{is_full_dump};
     # XXX Until MBS-10911 can be resolved, have the full dumps fetch
     # all JSON anew to prevent it from becoming stale for too long.
     #my ($force_update) = grep { $_ eq $entity_type } @{ $options{force_update} // [] };
-    my $force_update = $options{is_full_dump};
+    my $force_update = $is_full_dump;
 
     if ($force_update) {
         # Don't retrieve anything.
         @missing = @{$ids};
 
-    } elsif ($options{is_full_dump}) {
+    } elsif ($is_full_dump) {
         # If there are multiple JSON entries for different replication
         # sequences, select the newest sequence.
         $query = <<"SQL";
@@ -314,6 +315,7 @@ SQL
             $last_modified,
             \@missing,
             \%found,
+            $is_full_dump,
         );
     }
 
@@ -323,7 +325,7 @@ SQL
 
 sub insert_entities_json {
     my ($self, $c, $entity_type, $replication_sequence, $last_modified,
-        $ids, $json_hash) = @_;
+        $ids, $json_hash, $is_full_dump) = @_;
 
     state $json = JSON::XS->new->utf8;
 
@@ -365,13 +367,18 @@ SQL
     # not guaranteed that every entity will have an entry for anything newer
     # or even equal to the oldest sequence we need, so only enter deletions
     # where they do.
-    my $min_needed_sequence = $c->sql->select_single_value(
-        'SELECT full_json_dump_replication_sequence FROM json_dump.control LIMIT 1');
-
-    if (!defined($min_needed_sequence) ||
-            $replication_sequence < $min_needed_sequence) {
+    my $min_needed_sequence;
+    if ($is_full_dump) {
         $min_needed_sequence = $replication_sequence;
+    } else {
+        $min_needed_sequence = $c->sql->select_single_value(
+            'SELECT full_json_dump_replication_sequence ' .
+            'FROM json_dump.control LIMIT 1',
+        );
     }
+
+    die 'Unable to determine a full_json_dump_replication_sequence'
+        unless defined $min_needed_sequence;
 
     # retry: transient "server closed the connection unexpectedly" errors
     # have happened here.

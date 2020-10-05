@@ -139,8 +139,8 @@ const catchErrors = cb => {
     try {
       cb(match);
     } catch (err) {
-      console.error
-        (`Bad string in ${JSON.stringify(currentFile)}:`,
+      console.error(
+        `Bad string in ${JSON.stringify(currentFile)}:`,
         match,
       );
       throw err;

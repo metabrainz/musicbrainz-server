@@ -374,6 +374,10 @@ const testData = [
             expected_clean_url: 'https://music.apple.com/us/artist/444923726',
   },
   {
+                     input_url: 'https://beta.music.apple.com/ca/artist/imposs/205021452',
+            expected_clean_url: 'https://music.apple.com/ca/artist/205021452',
+  },
+  {
                      input_url: 'https://music.apple.com/ee/music-video/black-and-yellow/539886832?uo=4&mt=5&app=music',
             expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
   },

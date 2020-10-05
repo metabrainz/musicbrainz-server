@@ -329,6 +329,11 @@ sub load_cardinal {
     return $self->_load_subset(\@RELATABLE_ENTITIES, 1, @objs);
 }
 
+sub load_subset_cardinal {
+    my ($self, $types, @objs) = @_;
+    return $self->_load_subset($types, 1, @objs);
+}
+
 sub generate_table_list {
     my ($self, $type, @end_types) = @_;
     # Generate a list of all possible type combinations

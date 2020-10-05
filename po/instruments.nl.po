@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-19 12:02+0000\n"
+"PO-Revision-Date: 2020-09-25 09:16+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -63,10 +63,6 @@ msgstr "Cembalet"
 #: DB:instrument/name:183
 msgid "Chapman stick"
 msgstr "Chapman stick"
-
-#: DB:instrument/name:175
-msgid "Clavinet"
-msgstr "Clavinet"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
@@ -1041,6 +1037,10 @@ msgstr "claves"
 msgid "clavichord"
 msgstr "klavichord"
 
+#: DB:instrument/name:175
+msgid "clavinet"
+msgstr "Een clavinet is een toetsinstrument dat behoort tot de snaarinstrumenten en is een soort elektrisch klavichord. (<a href=\"http://nl.wikipedia.org/wiki/Clavinet\">Wikipedia</a>)"
+
 #: DB:instrument/name:780
 msgctxt "free reed aerophone with pitching pipes."
 msgid "claviola"
@@ -1944,10 +1944,6 @@ msgctxt "West African four-stringed grigot lute"
 msgid "jeli ngɔni"
 msgstr "jeli ngoni"
 
-#: DB:instrument/name:80
-msgid "jew's harp"
-msgstr "mondharp"
-
 #: DB:instrument/name:552
 msgid "jing"
 msgstr "jing"
@@ -2531,6 +2527,11 @@ msgstr "morin khuur"
 msgctxt "Indian mouth harp"
 msgid "morsing"
 msgstr "morsing"
+
+#: DB:instrument/name:80
+msgctxt "Family of mouth plucked idiophones"
+msgid "mouth harp"
+msgstr "mondharp"
 
 #: DB:instrument/name:610
 msgid "mouth organ"

@@ -7,51 +7,35 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type Instance = {
-  container: {current: HTMLElement | null},
-  dispatch: (Actions) => void,
-  handleBlur: () => void,
-  handleButtonClick: () => void,
-  handleInputChange: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  handleInputKeyDown: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  handleItemClick: (SyntheticMouseEvent<HTMLLIElement>) => void,
-  handleItemMouseDown: () => void,
-  handleItemMouseOver: (SyntheticMouseEvent<HTMLLIElement>) => void,
-  handleOuterClick: () => void,
-  inputTimeout: TimeoutID | null,
-  props: Props,
-  renderItems: (
-    $ReadOnlyArray<Item>,
-    number,
-    EntityItem | null,
-  ) => Map<string, React$Element<'li'>>,
-  setContainer: (HTMLDivElement | null) => void,
-  state: State,
-  stopRequests: () => void,
-  xhr: XMLHttpRequest | null,
+export type SearchableType = $ElementType<EntityItem, 'entityType'>;
+
+export type State<+T: EntityItem> = {
+  +canChangeType?: (string) => boolean,
+  +children?: React$Node,
+  +containerClass?: string,
+  +disabled?: boolean,
+  +entityType: SearchableType,
+  +highlightedItem: Item<T> | null,
+  +id: string,
+  +indexedSearch: boolean,
+  +inputValue: string,
+  +isLookupPerformed?: boolean,
+  +isOpen: boolean,
+  +items: $ReadOnlyArray<Item<T>>,
+  +labelClass?: string,
+  +page: number,
+  +pendingSearch: string | null,
+  +placeholder?: string,
+  +selectedItem: T | null,
+  +staticItems?: $ReadOnlyArray<T>,
+  +statusMessage: string,
+  +width?: string,
 };
 
-export type Props = {
-  entityType: CoreEntityTypeT | 'editor',
-  id: string,
-  items?: $ReadOnlyArray<EntityItem>,
-  onChange: () => void,
-  onTypeChange?: (string) => boolean,
-  placeholder?: string,
-  width?: string,
-};
-
-export type State = {
-  highlightedIndex: number,
-  indexedSearch: boolean,
-  inputValue: string,
-  isOpen: boolean,
-  items: $ReadOnlyArray<Item>,
-  page: number,
-  pendingSearch: string | null,
-  selectedItem: EntityItem | null,
-  statusMessage: string,
-};
+export type Props<+T: EntityItem> = $ReadOnly<{
+  ...State<T>,
+  +dispatch: (Actions<T>) => void,
+}>;
 
 export type SearchAction = {
   +indexed?: boolean,
@@ -59,20 +43,24 @@ export type SearchAction = {
   +type: 'search-after-timeout',
 };
 
-export type Actions =
+/* eslint-disable flowtype/sort-keys */
+export type Actions<+T: EntityItem> =
   | SearchAction
-  | { +index: number, +type: 'highlight-item' }
+  | {
+      +type: 'change-entity-type',
+      +entityType: SearchableType,
+    }
+  | { +type: 'highlight-item', +item: Item<T> }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
   | { +type: 'noop' }
-  | { +type: 'select-highlighted-item' }
-  | { +item: Item, +type: 'select-item' }
+  | { +type: 'select-item', +item: Item<T> }
   | { +type: 'set-menu-visibility', +value: boolean }
   | {
-      +items: $ReadOnlyArray<Item>,
+      +type: 'show-results',
+      +items: $ReadOnlyArray<Item<T>>,
       +page: number,
       +resultCount: number,
-      +type: 'show-results',
     }
   | { +type: 'show-lookup-error' }
   | { +type: 'show-lookup-type-error' }
@@ -82,90 +70,18 @@ export type Actions =
   | { +type: 'toggle-indexed-search' }
   | { +type: 'type-value', +value: string }
   ;
+/* eslint-enable flowtype/sort-keys */
 
-export type ActionItem = {
-  +action: Actions,
+export type ActionItem<+T: EntityItem> = {
+  +action: Actions<T>,
   +id: number | string,
   +level?: number,
   +name: string | () => string,
   +separator?: boolean,
 };
 
-type Appearances<T> = {
-  +hits: number,
-  +results: $ReadOnlyArray<T>,
-};
-
-export type AutocompleteAreaT = {
-  ...AreaT,
-  +primaryAlias: string | null,
-};
-
-export type AutocompleteArtistT = {
-  ...ArtistT,
-  +primaryAlias: string | null,
-};
-
-export type AutocompleteEventT = {
-  ...EventT,
-  +primaryAlias: string | null,
-  +related_entities: {
-    +areas: Appearances<string>,
-    +performers: Appearances<string>,
-    +places: Appearances<string>,
-  },
-};
-
-export type AutocompleteInstrumentT = {
-  ...InstrumentT,
-  +primaryAlias: string | null,
-};
-
-export type AutocompletePlaceT = {
-  ...PlaceT,
-  +primaryAlias: string | null,
-};
-
-export type AutocompleteRecordingT = {
-  ...RecordingT,
-  +appearsOn?: Appearances<{gid: string, name: string}>,
-  +primaryAlias: string | null,
-};
-
-export type AutocompleteReleaseT = {
-  ...ReleaseT,
-  +primaryAlias: string | null,
-};
-
-export type AutocompleteReleaseGroupT = {
-  ...ReleaseGroupT,
-  +primaryAlias: string | null,
-};
-
-export type AutocompleteSeriesT = {
-  ...SeriesT,
-  +primaryAlias: string | null,
-};
-
-export type AutocompleteWorkT = {
-  ...WorkT,
-  +artists: {
-    +artists: Appearances<string>,
-    +writers: Appearances<string>,
-  },
-  +primaryAlias: string | null,
-};
-
 export type EntityItem =
-  | AutocompleteAreaT
-  | AutocompleteArtistT
-  | AutocompleteEventT
-  | AutocompleteInstrumentT
-  | AutocompletePlaceT
-  | AutocompleteRecordingT
-  | AutocompleteReleaseT
-  | AutocompleteReleaseGroupT
-  | AutocompleteSeriesT
-  | AutocompleteWorkT;
+  | CoreEntityT
+  | EditorT;
 
-export type Item = ActionItem | EntityItem;
+export type Item<+T: EntityItem> = T | ActionItem<T>;

@@ -144,9 +144,10 @@ test 'Test is_valid_ipi' => sub {
 };
 
 test 'Test format_ipi' => sub {
-    is(format_ipi('014107338'), '00014107338');
+    is(format_ipi('07338'), '00000007338', '5 (or more) character IPI is zero-padded');
     is(format_ipi('274.373.649'), '00274373649');
     is(format_ipi('274 373 649'), '00274373649');
+    is(format_ipi('7338'), '7338', 'Too short IPI is returned as-is');
     is(format_ipi('MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)'),
        'MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)',
        'Regression test #MBS-5066');

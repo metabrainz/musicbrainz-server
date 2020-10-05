@@ -40,6 +40,11 @@ declare type AnchorProps = {
   +title?: string,
 };
 
+declare type AppearancesT<T> = {
+  +hits: number,
+  +results: $ReadOnlyArray<T>,
+};
+
 declare type ApplicationT = {
   ...EntityRoleT<'application'>,
   +is_server: boolean,
@@ -66,6 +71,7 @@ declare type AreaT = $ReadOnly<{
   +iso_3166_1_codes: $ReadOnlyArray<string>,
   +iso_3166_2_codes: $ReadOnlyArray<string>,
   +iso_3166_3_codes: $ReadOnlyArray<string>,
+  +primaryAlias?: string | null,
   +primary_code: string,
 }>;
 
@@ -129,6 +135,7 @@ declare type ArtistT = $ReadOnly<{
   +begin_area: AreaT | null,
   +end_area: AreaT | null,
   +gender: GenderT | null,
+  +primaryAlias?: string | null,
   +sort_name: string,
 }>;
 
@@ -498,6 +505,12 @@ declare type EventT = $ReadOnly<{
     +roles: $ReadOnlyArray<string>,
   }>,
   +places: $ReadOnlyArray<{+entity: PlaceT}>,
+  +primaryAlias?: string | null,
+  +related_entities?: {
+    +areas: AppearancesT<string>,
+    +performers: AppearancesT<string>,
+    +places: AppearancesT<string>,
+  },
   +related_series: $ReadOnlyArray<number>,
   +setlist?: string,
   +time: string,
@@ -553,6 +566,7 @@ declare type GenderT = OptionTreeT<'gender'>;
 declare type GenreT = $ReadOnly<{
   ...CommentRoleT,
   ...CoreEntityRoleT<'genre'>,
+  +primaryAlias?: string | null,
 }>;
 
 declare type GettextDomain =
@@ -588,6 +602,7 @@ declare type InstrumentT = $ReadOnly<{
   ...CoreEntityRoleT<'instrument'>,
   ...TypeRoleT<InstrumentTypeT>,
   +description: string,
+  +primaryAlias?: string | null,
 }>;
 
 declare type InstrumentTypeT = OptionTreeT<'instrument_type'>;
@@ -649,6 +664,7 @@ declare type LabelT = $ReadOnly<{
   ...TypeRoleT<LabelTypeT>,
   +area: AreaT | null,
   +label_code: number,
+  +primaryAlias?: string | null,
 }>;
 
 declare type LabelTypeT = OptionTreeT<'label_type'>;
@@ -816,6 +832,7 @@ declare type PlaceT = $ReadOnly<{
   +address: string,
   +area: AreaT | null,
   +coordinates: CoordinatesT | null,
+  +primaryAlias?: string | null,
 }>;
 
 declare type PlaceTypeT = OptionTreeT<'place_type'>;
@@ -842,8 +859,10 @@ declare type RecordingT = $ReadOnly<{
   ...CommentRoleT,
   ...CoreEntityRoleT<'recording'>,
   ...RatableRoleT,
+  +appearsOn?: AppearancesT<{gid: string, name: string}>,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
+  +primaryAlias?: string | null,
   +related_works: $ReadOnlyArray<number>,
   +video: boolean,
 }>;
@@ -881,6 +900,7 @@ declare type ReleaseGroupT = $ReadOnly<{
   +cover_art?: ArtworkT,
   +firstReleaseDate: string | null,
   +l_type_name: string | null,
+  +primaryAlias?: string | null,
   +release_count: number,
   +release_group?: ReleaseGroupT,
   +review_count: ?number,
@@ -910,6 +930,7 @@ declare type ReleaseT = $ReadOnly<{
   +length?: number,
   +may_have_discids?: boolean,
   +packagingID: number | null,
+  +primaryAlias?: string | null,
   +quality: QualityT,
   +releaseGroup?: ReleaseGroupT,
   +script: ScriptT | null,
@@ -1023,6 +1044,7 @@ declare type SeriesT = $ReadOnly<{
   ...CoreEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
   +orderingTypeID: number,
+  +primaryAlias?: string | null,
   +type?: SeriesTypeT,
 }>;
 
@@ -1132,6 +1154,11 @@ declare type WorkT = $ReadOnly<{
   +attributes: $ReadOnlyArray<WorkAttributeT>,
   +iswcs: $ReadOnlyArray<IswcT>,
   +languages: $ReadOnlyArray<WorkLanguageT>,
+  +primaryAlias?: string | null,
+  +related_artists?: {
+    +artists: AppearancesT<string>,
+    +writers: AppearancesT<string>,
+  },
   +writers: $ReadOnlyArray<{
     +credit: string,
     +entity: ArtistT,

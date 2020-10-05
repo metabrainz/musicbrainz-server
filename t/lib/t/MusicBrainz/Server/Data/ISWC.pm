@@ -104,25 +104,25 @@ test 'Test load_for_works' => sub {
     {
         my $work = $test->c->model('Work')->get_by_id(1);
         $test->c->model('ISWC')->load_for_works($work);
-        is($work->all_iswcs, 1, 'Work 1 has 1 ISRC');
-        is($work->iswcs->[0]->iswc, 'T-000.000.001-0', 'Work 1 has the correct ISRC');
+        is($work->all_iswcs, 1, 'Work 1 has 1 ISWC');
+        is($work->iswcs->[0]->iswc, 'T-000.000.001-0', 'Work 1 has the correct ISWC');
     }
 
     {
         my $work = $test->c->model('Work')->get_by_id(5);
         $test->c->model('ISWC')->load_for_works($work);
-        is($work->all_iswcs, 2, 'Work 5 has 2 ISRCs');
+        is($work->all_iswcs, 2, 'Work 5 has 2 ISWCs');
         cmp_bag(
             [ map { $_->iswc } $work->all_iswcs ],
             [ 'T-500.000.001-0', 'T-500.000.002-0' ],
-            'Work 5 has the correct ISRCs',
+            'Work 5 has the correct ISWCs',
         );
     }
 
     {
         my $work = $test->c->model('Work')->get_by_id(10);
         $test->c->model('ISWC')->load_for_works($work);
-        is($work->all_iswcs, 0, 'Work 10 has no ISRCs');
+        is($work->all_iswcs, 0, 'Work 10 has no ISWCs');
     }
 };
 

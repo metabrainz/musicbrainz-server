@@ -160,6 +160,7 @@ role {
         if ($c->namespace =~ /^(?:area|artist|event|instrument|label|place|recording|release_group|series|work)$/) {
             my %props = (
                 isrcsDiffer => $c->stash->{isrcs_differ},
+                iswcsDiffer => $c->stash->{iswcs_differ},
                 form => $form,
                 toMerge => \@entities,
             );

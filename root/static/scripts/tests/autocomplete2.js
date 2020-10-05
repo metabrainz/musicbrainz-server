@@ -1,7 +1,13 @@
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const Autocomplete2 = require('../common/components/Autocomplete2').default;
+const {
+  default: Autocomplete2,
+  createInitialState: createInitialAutocompleteState,
+} = require('../common/components/Autocomplete2');
+const {
+  default: autocompleteReducer,
+} = require('../common/components/Autocomplete2/reducer');
 
 const vocals = [
   {id: 3, name: 'vocal', level: 1},
@@ -27,8 +33,61 @@ $(function () {
   const container = document.createElement('div');
   document.body.insertBefore(container, document.getElementById('page'));
 
-  function render(entityType) {
-    ReactDOM.render(
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'update-autocomplete':
+        state = {...state};
+        state[action.prop] = autocompleteReducer(
+          state[action.prop],
+          action.action,
+        );
+        break;
+    }
+    return state;
+  }
+
+  function createInitialState() {
+    return {
+      entityAutocomplete: createInitialAutocompleteState({
+        canChangeType: () => true,
+        entityType: 'artist',
+        id: 'entity-test',
+        width: '200px',
+      }),
+      vocalAutocomplete: createInitialAutocompleteState({
+        entityType: 'link_attribute_type',
+        id: 'vocal-test',
+        placeholder: 'Choose a vocal',
+        staticItems: vocals,
+        width: '200px',
+      }),
+    };
+  }
+
+  const AutocompleteTest = () => {
+    const [state, dispatch] = React.useReducer(
+      reducer,
+      null,
+      createInitialState,
+    );
+
+    const entityAutocompleteDispatch = React.useCallback((action) => {
+      dispatch({
+        action,
+        prop: 'entityAutocomplete',
+        type: 'update-autocomplete',
+      });
+    }, []);
+
+    const vocalAutocompleteDispatch = React.useCallback((action) => {
+      dispatch({
+        action,
+        prop: 'vocalAutocomplete',
+        type: 'update-autocomplete',
+      });
+    }, []);
+
+    return (
       <>
         <div>
           <h2>Entity autocomplete</h2>
@@ -36,8 +95,11 @@ $(function () {
             Current entity type:
             {' '}
             <select
-              value={entityType}
-              onChange={event => render(event.target.value)}
+              value={state.entityAutocomplete.entityType}
+              onChange={(event) => entityAutocompleteDispatch({
+                type: 'change-entity-type',
+                entityType: event.target.value,
+              })}
             >
               <option value="area">Area</option>
               <option value="artist">Artist</option>
@@ -53,31 +115,20 @@ $(function () {
             </select>
           </p>
           <Autocomplete2
-            entityType={entityType}
-            id="entity-test"
-            key={entityType + '-autocomplete'}
-            // eslint-disable-next-line react/jsx-handler-names
-            onChange={console.log}
-            onTypeChange={render}
-            width="200px"
+            dispatch={entityAutocompleteDispatch}
+            {...state.entityAutocomplete}
           />
         </div>
         <div>
           <h2>Vocal autocomplete</h2>
           <Autocomplete2
-            entityType={entityType}
-            id="vocal-test"
-            items={vocals}
-            // eslint-disable-next-line react/jsx-handler-names
-            onChange={console.log}
-            placeholder="Choose a vocal"
-            width="200px"
+            dispatch={vocalAutocompleteDispatch}
+            {...state.vocalAutocomplete}
           />
         </div>
-      </>,
-      container,
+      </>
     );
-  }
+  };
 
-  render('artist');
+  ReactDOM.render(<AutocompleteTest />, container);
 });

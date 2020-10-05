@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-09-19 08:46+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2020-09-30 20:33+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -205,6 +205,15 @@ msgstr "Una festa, ricevimento o altro tipo di evento organizzato appositamente 
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
 msgstr "Un libro con rilegatura perfetta (perfect bind) e una custodia per CD alla fine"
+
+#: DB:event_type/description:6
+msgctxt "event_type"
+msgid ""
+"A performance of one or more plays, musicals, operas, ballets or other "
+"similar works for the stage in their staged form (as opposed to a <a "
+"href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
+"performance</a> without staging)."
+msgstr ""
 
 #: DB:place_type/description:8
 msgctxt "place_type"
@@ -3211,6 +3220,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the International Copyright Enterprise"
 msgstr "ID per l'International Copyright Enterprise"
 
+#: DB:work_attribute_type/description:52
+msgctxt "work_attribute_type"
+msgid "ID for the Irish rights society IMRO"
+msgstr ""
+
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
 msgid "ID for the Italian rights society SIAE"
@@ -3320,6 +3334,11 @@ msgstr "ID per la società di diritti internazionale (precedentemente statuniten
 msgctxt "work_attribute_type"
 msgid "ID for the private licensing company CCLI"
 msgstr "ID per la società licenziataria privata CCLI"
+
+#: DB:work_attribute_type/name:52
+msgctxt "work_attribute_type"
+msgid "IMRO ID"
+msgstr ""
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
@@ -6093,6 +6112,11 @@ msgstr "Spoken word (parlato)"
 msgctxt "place_type"
 msgid "Stadium"
 msgstr "Stadio"
+
+#: DB:event_type/name:6
+msgctxt "event_type"
+msgid "Stage performance"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"

@@ -1511,6 +1511,11 @@ msgstr ""
 msgid "foot stomps"
 msgstr ""
 
+#: DB:instrument/name:1020
+msgctxt "Foot operated bass bellows"
+msgid "footbass"
+msgstr ""
+
 #: DB:instrument/name:384
 msgid "fortepiano"
 msgstr ""

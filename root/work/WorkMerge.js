@@ -20,12 +20,14 @@ import Layout from '../layout';
 type Props = {
   +$c: CatalystContextT,
   +form: MergeFormT,
+  +iswcsDiffer?: boolean,
   +toMerge: $ReadOnlyArray<WorkT>,
 };
 
 const WorkMerge = ({
   $c,
   form,
+  iswcsDiffer = false,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
   <Layout $c={$c} fullWidth title={l('Merge works')}>
@@ -35,6 +37,18 @@ const WorkMerge = ({
         {l(`You are about to merge all these works into a single one.
             Please select the work all others should be merged into:`)}
       </p>
+      {iswcsDiffer ? (
+        <div className="warning warning-iswcs-differ">
+          <p>
+            {exp.l(
+              `<strong>Warning:</strong> Some of the works you’re
+               merging have different ISWCs. Please make sure they are
+               indeed the same works and you wish to continue with
+               the merge.`,
+            )}
+          </p>
+        </div>
+      ) : null}
       <form action={$c.req.uri} method="post">
         <WorkList
           $c={$c}

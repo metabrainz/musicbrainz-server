@@ -582,7 +582,8 @@ sub load_relationships {
         if ($c->stash->{inc}->work_level_rels)
         {
             push(@entities_with_rels, @works); 
-            $c->model('Relationship')->load_subset($types, @works);
+            # Avoid returning recording-work relationships for other recordings
+            $c->model('Relationship')->load_subset_cardinal($types, @works);
         }
         $self->linked_works($c, $stash, \@works);
 

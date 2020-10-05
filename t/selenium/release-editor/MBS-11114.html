@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>MBS-11114</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MBS-11114</td></tr>
+</thead>
+<tbody>
+<!-- This test case demonstrates that you can remove/clear a track length after it's set. -->
+<tr>
+    <td>open</td>
+    <td>/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit</td>
+    <td></td>
+</tr>
+<tr>
+    <td>click</td>
+    <td>xpath=//a[@href='#tracklist']</td>
+    <td></td>
+</tr>
+<tr>
+    <td>pause</td>
+    <td>1000</td>
+    <td></td>
+</tr>
+<tr>
+    <td>type</td>
+    <td>xpath=(//tr[contains(@class, 'track')])[1]//input[contains(@class, 'track-length')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>click</td>
+    <td>xpath=//a[@href='#edit-note']</td>
+    <td></td>
+</tr>
+<tr>
+  <td>type</td>
+  <td>id=edit-note-text</td>
+  <td>clearing the track time because BLARGH</td>
+</tr>
+<tr>
+  <td>clickAndWait</td>
+  <td>id=enter-edit</td>
+  <td></td>
+</tr>
+<tr>
+    <td>assertEditData</td>
+    <td>1</td>
+    <td>
+      {
+        "status": 1,
+        "type": 52,
+        "data": {
+          "new": {
+            "tracklist": [
+              {
+                "id": 18674665,
+                "name": "2 + 2 = 5 (The Lukewarm.)",
+                "length": null,
+                "number": "1",
+                "position": 1,
+                "recording_id": "20937085",
+                "artist_credit": {
+                  "names": [
+                    {
+                      "name": "Nine Inch Nails",
+                      "artist": {
+                        "id": "347",
+                        "name": "Nine Inch Nails"
+                      },
+                      "join_phrase": ""
+                    }
+                  ]
+                },
+                "is_data_track": "0"
+              }
+            ]
+          },
+          "old": {
+            "tracklist": [
+              {
+                "id": 18674665,
+                "name": "2 + 2 = 5 (The Lukewarm.)",
+                "length": 199386,
+                "number": "1",
+                "position": 1,
+                "recording_id": "20937085",
+                "artist_credit": {
+                  "names": [
+                    {
+                      "name": "Nine Inch Nails",
+                      "artist": {
+                        "id": "347",
+                        "name": "Nine Inch Nails"
+                      },
+                      "join_phrase": ""
+                    }
+                  ]
+                },
+                "is_data_track": "0"
+              }
+            ]
+          },
+          "release": {
+            "id": 1693299,
+            "name": "★"
+          },
+          "entity_id": 1690850
+        }
+      }
+    </td>
+</tr>
+<tr>
+    <td>open</td>
+    <td>/test/accept-edit/1</td>
+    <td></td>
+</tr>
+<tr>
+    <td>open</td>
+    <td>/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33</td>
+    <td></td>
+</tr>
+<!-- Check that the release length is unset. -->
+<tr>
+    <td>assertEval</td>
+    <td>Array.from(document.querySelector('h2.release-information + dl.properties').children).map(function (node) { return node.textContent }).join('\n')</td>
+    <td>Barcode:
+888751738621
+Format:
+CD</td>
+</tr>
+<!-- MBS-11114: Check that the track length is unset. -->
+<tr>
+    <td>assertEval</td>
+    <td>/\?:\?\?/.test(document.querySelector('table.medium &gt; tbody &gt; tr:not(.subh) &gt; td.treleases').textContent)</td>
+    <td>true</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
