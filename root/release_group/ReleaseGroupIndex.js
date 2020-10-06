@@ -12,9 +12,6 @@ import * as React from 'react';
 import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
-import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks';
-import CritiqueBrainzReview
-  from '../static/scripts/common/components/CritiqueBrainzReview';
 import PaginatedResults from '../components/PaginatedResults';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import loopParity from '../utility/loopParity';
@@ -36,8 +33,6 @@ import ReleaseGroupLayout from './ReleaseGroupLayout';
 type Props = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
-  +mostPopularReview: CritiqueBrainzReviewT,
-  +mostRecentReview: CritiqueBrainzReviewT,
   +numberOfRevisions: number,
   +pager: PagerT,
   +releaseGroup: ReleaseGroupT,
@@ -97,8 +92,6 @@ const ReleaseGroupIndex = ({
   $c,
   eligibleForCleanup,
   pager,
-  mostPopularReview,
-  mostRecentReview,
   numberOfRevisions,
   releaseGroup,
   releases,
@@ -165,27 +158,6 @@ const ReleaseGroupIndex = ({
       <p>{l('No releases found.')}</p>
     )}
     <Relationships source={releaseGroup} />
-    {releaseGroup.review_count === null ? null : (
-      <>
-        <h2>{l('CritiqueBrainz Reviews')}</h2>
-        <CritiqueBrainzLinks releaseGroup={releaseGroup} />
-        <div id="critiquebrainz-reviews">
-          {mostRecentReview ? (
-            <CritiqueBrainzReview
-              review={mostRecentReview}
-              title={l('Most Recent')}
-            />
-          ) : null}
-          {mostPopularReview &&
-            mostPopularReview.id !== mostRecentReview.id ? (
-              <CritiqueBrainzReview
-                review={mostPopularReview}
-                title={l('Most Popular')}
-              />
-            ) : null}
-        </div>
-      </>
-    )}
     {manifest.js('release-group/index.js', {async: 'async'})}
   </ReleaseGroupLayout>
 );

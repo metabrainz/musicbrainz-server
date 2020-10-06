@@ -10,8 +10,10 @@
 import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context';
+import {StaticRatingStars} from '../../../../components/RatingStars';
 import formatUserDate from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
+import bracketed from '../utility/bracketed';
 import DBDefs from '../DBDefs-client';
 
 import Collapsible from './Collapsible';
@@ -44,6 +46,14 @@ const CritiqueBrainzReview = ({review, title}: Props) => (
           review_link: {href: reviewHref(review), key: 'review_link'},
         })}
       </SanitizedCatalystContext.Consumer>
+      {review.rating == null ? null : (
+        <>
+          {' '}
+          {bracketed(
+            <StaticRatingStars rating={review.rating} />,
+          )}
+        </>
+      )}
     </p>
     <Collapsible className="review" html={review.body} />
   </>

@@ -132,6 +132,7 @@ declare type ArtistT = $ReadOnly<{
   ...IpiCodesRoleT,
   ...IsniCodesRoleT,
   ...RatableRoleT,
+  ...ReviewableRoleT,
   ...TypeRoleT<ArtistTypeT>,
   +area: AreaT | null,
   +begin_area: AreaT | null,
@@ -410,6 +411,7 @@ declare type CritiqueBrainzReviewT = {
   +body: string,
   +created: string,
   +id: string,
+  +rating: number | null,
 };
 
 declare type CritiqueBrainzUserT = {
@@ -544,6 +546,7 @@ declare type EventT = $ReadOnly<{
   ...CoreEntityRoleT<'event'>,
   ...DatePeriodRoleT,
   ...RatableRoleT,
+  ...ReviewableRoleT,
   ...TypeRoleT<EventTypeT>,
   +areas: $ReadOnlyArray<{
     +credit: string,
@@ -719,6 +722,7 @@ declare type LabelT = $ReadOnly<{
   ...IpiCodesRoleT,
   ...IsniCodesRoleT,
   ...RatableRoleT,
+  ...ReviewableRoleT,
   ...TypeRoleT<LabelTypeT>,
   +area: AreaT | null,
   +label_code: number,
@@ -889,6 +893,7 @@ declare type PlaceT = $ReadOnly<{
   ...CommentRoleT,
   ...CoreEntityRoleT<'place'>,
   ...DatePeriodRoleT,
+  ...ReviewableRoleT,
   ...TypeRoleT<PlaceTypeT>,
   +address: string,
   +area: AreaT | null,
@@ -967,6 +972,7 @@ declare type ReleaseGroupT = $ReadOnly<{
   ...CommentRoleT,
   ...CoreEntityRoleT<'release_group'>,
   ...RatableRoleT,
+  ...ReviewableRoleT,
   ...TypeRoleT<ReleaseGroupTypeT>,
   +cover_art?: ArtworkT,
   +firstReleaseDate: string | null,
@@ -974,7 +980,6 @@ declare type ReleaseGroupT = $ReadOnly<{
   +primaryAlias?: string | null,
   +release_count: number,
   +release_group?: ReleaseGroupT,
-  +review_count: ?number,
   +secondaryTypeIDs: $ReadOnlyArray<number>,
   +typeID: number | null,
   +typeName: string | null,
@@ -1051,6 +1056,18 @@ declare type ReadOnlyRepeatableFieldT<+F> = {
   last_index: number,
   +pendingErrors?: $ReadOnlyArray<string>,
   +type: 'repeatable_field',
+};
+
+declare type ReviewableT =
+  | ArtistT
+  | EventT
+  | LabelT
+  | PlaceT
+  | ReleaseGroupT
+  | WorkT;
+
+declare type ReviewableRoleT = {
+  +review_count: ?number,
 };
 
 declare type SanitizedCatalystContextT = {
@@ -1242,6 +1259,7 @@ declare type WorkT = $ReadOnly<{
   ...CommentRoleT,
   ...CoreEntityRoleT<'work'>,
   ...RatableRoleT,
+  ...ReviewableRoleT,
   ...TypeRoleT<WorkTypeT>,
   +artists: $ReadOnlyArray<ArtistCreditT>,
   +attributes: $ReadOnlyArray<WorkAttributeT>,

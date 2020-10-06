@@ -93,6 +93,7 @@
             }
         },
         "report_filter": true,
+        "reviews": true,
         "sitemaps_lastmod_table": true,
         "sort_name": true,
         "subscriptions": {
@@ -200,6 +201,7 @@
         "removal": {
             "automatic": {}
         },
+        "reviews": true,
         "series": true,
         "tags": true,
         "type": {
@@ -344,6 +346,7 @@
             "manual": true
         },
         "report_filter": true,
+        "reviews": true,
         "sitemaps_lastmod_table": true,
         "subscriptions": {
             "deleted": true,
@@ -437,6 +440,7 @@
         "removal": {
             "automatic": {}
         },
+        "reviews": true,
         "sitemaps_lastmod_table": true,
         "tags": true,
         "type": {
@@ -584,6 +588,7 @@
             }
         },
         "report_filter": true,
+        "reviews": true,
         "series": true,
         "sitemaps_lastmod_table": true,
         "tags": true,
@@ -750,6 +755,7 @@
             "automatic": {}
         },
         "report_filter": true,
+        "reviews": true,
         "series": true,
         "sitemaps_lastmod_table": true,
         "tags": true,

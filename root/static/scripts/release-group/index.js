@@ -9,4 +9,3 @@
 
 import '../common/components/Annotation';
 import '../common/components/WikipediaExtract';
-import '../common/components/CritiqueBrainzReview';

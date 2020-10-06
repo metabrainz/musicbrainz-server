@@ -26,6 +26,11 @@ has author => (
     isa => 'MusicBrainz::Server::Entity::CritiqueBrainz::User'
 );
 
+has rating => (
+    is => 'ro',
+    isa => 'Maybe[Int]'
+);
+
 sub href {
     my ($self) = @_;
     return DBDefs->CRITIQUEBRAINZ_SERVER . '/review/' . $self->id;
@@ -39,6 +44,7 @@ sub TO_JSON {
         body => $self->body,
         created => datetime_to_iso8601($self->created),
         id => $self->id,
+        rating => $self->rating,
     };
 }
 

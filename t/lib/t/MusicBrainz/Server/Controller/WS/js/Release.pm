@@ -58,6 +58,7 @@ test all => sub {
             typeID => 1,
             rating => undef,
             rating_count => 0,
+            review_count => undef,
             user_rating => undef,
         },
         editsPending => JSON::false,
