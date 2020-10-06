@@ -494,6 +494,7 @@ const seleniumTests = [
   {name: 'release-editor/MBS-10359.html', login: true},
   {name: 'release-editor/MBS-11015.html', login: true},
   {name: 'release-editor/MBS-11114.html', login: true},
+  {name: 'release-editor/MBS-11156.html', login: true},
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);
