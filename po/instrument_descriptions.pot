@@ -1442,6 +1442,13 @@ msgid ""
 "the neck."
 msgstr ""
 
+#. name:footbass 
+#: DB:instrument/description:1020
+msgid ""
+"Large square spring-containing bellows operated by the feet, it was used by "
+"accordion players as bass accompaniment in early 20th century Wallonia."
+msgstr ""
+
 #. name:baandu 
 #: DB:instrument/description:880
 msgid ""

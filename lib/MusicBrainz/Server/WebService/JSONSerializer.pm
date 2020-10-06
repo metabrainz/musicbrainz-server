@@ -189,7 +189,7 @@ sub autocomplete_work {
             my $result = shift;
 
             my $out = get_entity_json($result);
-            $out->{artists} = $result->{artists};
+            $out->{related_artists} = $result->{related_artists};
 
             return $out;
         }
