@@ -79,13 +79,9 @@ sub show : Chained('load') PathPart('') {
     $c->model('Release')->load_meta(@$releases);
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('ReleaseStatus')->load(@$releases);
-    $c->model('CritiqueBrainz')->load_display_reviews($rg)
-        unless $self->should_return_jsonld($c);
 
     my %props = (
         numberOfRevisions => $c->stash->{number_of_revisions},
-        mostPopularReview => to_json_object($rg->most_popular_review),
-        mostRecentReview  => to_json_object($rg->most_recent_review),
         pager             => serialize_pager($c->stash->{pager}),
         releases          => [map { to_json_array($_) } @{group_by_release_status(@$releases)}],
         releaseGroup      => $c->stash->{rg}->TO_JSON,

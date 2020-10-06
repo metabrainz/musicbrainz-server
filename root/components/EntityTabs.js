@@ -133,6 +133,13 @@ function buildLinks(
     links.push(buildLink(l('Tags'), entity, 'tags', page));
   }
 
+  if (entityProperties.ratings || entityProperties.reviews) {
+    const ratingsTabTitle = entityProperties.reviews
+      ? l('Reviews')
+      : l('Ratings');
+    links.push(buildLink(ratingsTabTitle, entity, 'ratings', page));
+  }
+
   if (!entityProperties.mbid.no_details) {
     links.push(buildLink(l('Details'), entity, 'details', page));
   }
