@@ -200,6 +200,9 @@ const trackParser = releaseEditor.trackParser = {
 
         if (options.useTrackArtists) {
           matchedTrack.artistCredit(data.artistCredit);
+          matchedTrack.artistCreditEditorInst?.setState({
+            artistCredit: data.artistCredit,
+          });
         }
 
         return matchedTrack;
