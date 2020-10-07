@@ -13,6 +13,7 @@ use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
 use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
     partial_date_to_hash
     type_to_model
 );
@@ -33,6 +34,7 @@ with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { N_l("Edit relationship") }
 sub edit_kind { 'edit' }
+sub edit_template_react { 'EditRelationship' }
 
 subtype 'LinkHash'
     => as Dict[
@@ -241,12 +243,12 @@ sub build_display_data {
     return {
         old => $self->_build_relationship($loaded, $self->data, $old),
         new => $self->_build_relationship($loaded, $self->data, $new),
-        unknown_attributes => scalar(
+        unknown_attributes => boolean_to_json(scalar(
             grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
                 @{ $old->{attributes} // [] },
                 @{ $new->{attributes} // [] },
                 @{ $self->data->{link}{attributes} // [] }
-        )
+        ))
     };
 }
 
