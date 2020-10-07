@@ -137,7 +137,6 @@ export const FAVICON_CLASSES = {
   'patreon.com': 'patreon',
   'paypal.me': 'paypal',
   'petitlyrics.com': 'petitlyrics',
-  'play.google.com': 'googleplay',
   'progarchives.com': 'progarchives',
   'psydb.net': 'psydb',
   'qim.com': 'quebecinfomusique',
