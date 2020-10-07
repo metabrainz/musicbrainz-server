@@ -1,0 +1,128 @@
+{
+  title: 'MBS-11114',
+  commands: [
+    // This test case demonstrates that you can remove/clear a track length after it's set.
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: "xpath=(//tr[contains(@class, 'track')])[1]//input[contains(@class, 'track-length')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=edit-note-text',
+      value: 'clearing the track time because BLARGH',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        status: 1,
+        type: 52,
+        data: {
+          new: {
+            tracklist: [
+              {
+                id: 18674665,
+                name: '2 + 2 = 5 (The Lukewarm.)',
+                length: null,
+                number: '1',
+                position: 1,
+                recording_id: '20937085',
+                artist_credit: {
+                  names: [
+                    {
+                      name: 'Nine Inch Nails',
+                      artist: {
+                        id: '347',
+                        name: 'Nine Inch Nails',
+                      },
+                      join_phrase: '',
+                    },
+                  ],
+                },
+                is_data_track: '0',
+              },
+            ],
+          },
+          old: {
+            tracklist: [
+              {
+                id: 18674665,
+                name: '2 + 2 = 5 (The Lukewarm.)',
+                length: 199386,
+                number: '1',
+                position: 1,
+                recording_id: '20937085',
+                artist_credit: {
+                  names: [
+                    {
+                      name: 'Nine Inch Nails',
+                      artist: {
+                        id: '347',
+                        name: 'Nine Inch Nails',
+                      },
+                      join_phrase: '',
+                    },
+                  ],
+                },
+                is_data_track: '0',
+              },
+            ],
+          },
+          release: {
+            id: 1693299,
+            name: '★',
+          },
+          entity_id: 1690850,
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/test/accept-edit/1',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33',
+      value: '',
+    },
+    // Check that the release length is unset.
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelector('h2.release-information + dl.properties').children).map(function (node) { return node.textContent }).join('\\n')",
+      value: 'Barcode:\n888751738621\nFormat:\nCD',
+    },
+    // MBS-11114: Check that the track length is unset.
+    {
+      command: 'assertEval',
+      target: "/\\?:\\?\\?/.test(document.querySelector('table.medium > tbody > tr:not(.subh) > td.treleases').textContent)",
+      value: 'true',
+    },
+  ],
+}

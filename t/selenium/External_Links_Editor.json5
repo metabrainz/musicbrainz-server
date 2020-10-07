@@ -1,0 +1,398 @@
+{
+  title: 'External Links Editor',
+  commands: [
+    {
+      command: 'open',
+      target: '/artist/create',
+      value: '',
+    },
+    // automatic link type detection for URL
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://en.wikipedia.org/wiki/No_Age',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'css=#external-links-editor .wikipedia-favicon',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//label[1]",
+      value: 'Wikipedia',
+    },
+    // invalid URL detection
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: 'foo',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      value: 'Enter a valid url e.g. "http://google.com/"',
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    // shortened URL detection
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: 'http://goo.gl/example',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      value: 'Please don’t enter bundled/shortened URLs, enter the destination URL(s) instead.',
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    // deprecated link type detection for new links
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: 'http://example.com/',
+    },
+    {
+      command: 'runScript',
+      target: 'document.querySelector(\'option[value="666"]\').disabled = false;',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=select.link-type',
+      value: 'label=regexp:\\s*MusicMoz',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      value: 'This relationship type is deprecated and should not be used.',
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    // submit the artist
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.name',
+      value: 'No Age',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.sort_name',
+      value: 'No Age',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button.submit.positive',
+      value: '',
+    },
+    // deprecated link type detection for existing links (MBS-8408)
+    {
+      command: 'clickAndWait',
+      target: "xpath=//ul[@class='tabs']//a[descendant::text()='Edit']",
+      value: '',
+    },
+    {
+      command: 'type',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'http://example.com/',
+    },
+    {
+      command: 'runScript',
+      target: 'document.querySelector(\'option[value="666"]\').disabled = false;',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=select.link-type',
+      value: 'label=regexp:\\s*MusicMoz',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[1]//div[contains(@class, 'error')]",
+      value: 'This relationship type is deprecated and should not be used.',
+    },
+    // relationshipCreate edit for external link is generated for existing release
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.discogs.com/David-Bowie--Blackstar/release/7949394',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: 'https://www.amazon.co.jp/Blackstar-David-Bowie/dp/B017VORJK6/',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#edit-note"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-list')]//h2)[1]",
+      value: 'Add relationship',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-details')])[1]",
+      value: 'Relationship: ★ by David Bowie has a Discogs page at https://www.discogs.com/release/7949394 [info]',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-list')]//h2)[2]",
+      value: 'Add relationship',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-details')])[2]",
+      value: 'Relationship: ★ by David Bowie has Amazon ASIN https://www.amazon.co.jp/gp/product/B017VORJK6 [info]',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#enter-edit',
+      value: '',
+    },
+    // relationshipEdit edit for external link is generated for existing release
+    {
+      command: 'clickAndWait',
+      target: 'css=.tabs a[href$="/edit"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html',
+    },
+    {
+      command: 'select',
+      target: 'css=select.link-type',
+      value: 'label=regexp:\\s*license',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#edit-note"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-list')]//h2)[1]",
+      value: 'Edit relationship',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-details')])[1]",
+      value: 'Relationship: ★ by David Bowie has a Discogs page at https://www.discogs.com/release/7949394 [info] ★ by David Bowie is licensed under https://www.gnu.org/licenses/gpl-3.0.en.html [info]',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#enter-edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//span[contains(@class, 'menu-header')][contains(text(), 'My Data')]",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: "xpath=//ul[contains(@class, 'menu')]//a[contains(text(), 'My Open Edits')]",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: "xpath=//a[contains(text(), 'Accept edit')][1]",
+      value: '',
+    },
+    // relationshipDelete edit for external link is generated for existing release
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    // check that edits are not generated for links that duplicate removed ones
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: 'https://www.amazon.co.jp/gp/product/B017VORJK6',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'field-error')]",
+      value: 'This relationship already exists.',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#edit-note"]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.getElementById('enter-edit').disabled",
+      value: 'true',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#information"]',
+      value: '',
+    },
+    // duplicate the first URL again by editing the other existing URL
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.amazon.co.jp/gp/product/B017VORJK6',
+    },
+    {
+      command: 'select',
+      target: 'css=select.link-type',
+      value: 'label=regexp:\\s*ASIN',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[1]//div[contains(@class, 'field-error')]",
+      value: 'This relationship already exists.',
+    },
+    // revert above edit
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html',
+    },
+    {
+      command: 'select',
+      target: 'css=select.link-type',
+      value: 'label=regexp:\\s*license',
+    },
+    // assert that there's now only one remove edit and submit
+    {
+      command: 'click',
+      target: 'css=a[href="#edit-note"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    // FIXME: Flaky test. The intent is to check that there's only one edit in
+    //        the preview list. Will likely resolve itself once the release
+    //        editor is converted to React and edit previews aren't rendered
+    //        via /ws/js/edit/preview.
+    // {
+    //   command: assertEval,
+    //   target: "window.document.getElementsByClassName('edit-list').length",
+    //   value: '1',
+    // },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-list')]//h2)[1]",
+      value: 'Remove relationship',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-details')])[1]",
+      value: 'Relationship: ★ by David Bowie has Amazon ASIN JP: B017VORJK6 [info]',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#enter-edit',
+      value: '',
+    },
+    // accept the edit and check that the removal succeeded
+    {
+      command: 'click',
+      target: "xpath=//span[contains(@class, 'menu-header')][contains(text(), 'My Data')]",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: "xpath=//ul[contains(@class, 'menu')]//a[contains(text(), 'My Open Edits')]",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: "xpath=//a[contains(text(), 'Accept edit')][1]",
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.JSON.stringify(window.Array.from(window.document.querySelectorAll('#external-links-editor input[type=url]').values()).map(function (x) { return x.value }))",
+      value: '["https://www.gnu.org/licenses/gpl-3.0.en.html",""]',
+    },
+  ],
+}

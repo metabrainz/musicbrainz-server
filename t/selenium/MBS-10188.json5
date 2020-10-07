@@ -1,0 +1,30 @@
+{
+  title: 'MBS-10188',
+  commands: [
+    {
+      command: 'open',
+      target: '/edit/60868023',
+      value: '',
+    },
+    {
+      command: 'assertTextMatches',
+      target: 'css=p.merge-error',
+      value: 'A merge cycle exists',
+    },
+    {
+      command: 'open',
+      target: '/test/accept-edit/60868023',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: 'css=dl.edit-status dd',
+      value: 'Error',
+    },
+    {
+      command: 'assertTextMatches',
+      target: 'css=#note-60868023-1 .edit-note-text',
+      value: 'These releases could not be merged: A merge cycle exists',
+    },
+  ],
+}

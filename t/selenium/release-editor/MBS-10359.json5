@@ -1,0 +1,204 @@
+{
+  title: 'MBS-10359',
+  commands: [
+    {
+      command: 'openFile',
+      target: './seeds/mbs-10359.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//td[contains(@class, 'release-artist')]//span[contains(@class, 'autocomplete')]//img[contains(@class, 'search')]",
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Bing Crosby')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//div[@id="tracklist-tools"]//button[contains(text(), "Guess feat.")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@id, "track-row-new")])[2]//button[contains(@class, "open-ac")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//div[contains(@id, "artist-credit-bubble")]//span[contains(@class, "autocomplete")])[2]//img[contains(@class, "search")]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'David Bowie')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//div[contains(@id, "artist-credit-bubble")]//button[contains(text(), "Next")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//div[contains(@id, "artist-credit-bubble")]//span[contains(@class, "autocomplete")])[2]//img[contains(@class, "search")]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'David Bowie')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//div[contains(@id, "artist-credit-bubble")]//button[contains(text(), "Done")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim().replace(/\\s*(Recording artist:)\\s*([^\\n]+)/, '\\t$1 $2')).join('\\t')).join('\\n')",
+      value: '1\ttrack1\tBing Crosby\t?:??\n2\ttrack2\tBing Crosby feat. David Bowie\t?:??\n3\ttrack3\tBing Crosby feat. David Bowie\t?:??',
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 51,
+        status: 2,
+        data: {
+          name: '',
+          release: {
+            id: 1,
+            name: 'MBS-10359',
+          },
+          position: 1,
+          entity_id: 1,
+          format_id: 12,
+          tracklist: [
+            {
+              id: null,
+              name: 'track1',
+              length: null,
+              number: '1',
+              position: 1,
+              recording_id: 1,
+              artist_credit: {
+                names: [
+                  {
+                    name: 'Bing Crosby',
+                    artist: {
+                      id: 99,
+                      name: 'Bing Crosby',
+                    },
+                    join_phrase: '',
+                  },
+                ],
+              },
+              is_data_track: '0',
+            },
+            {
+              id: null,
+              name: 'track2',
+              length: null,
+              number: '2',
+              position: 2,
+              recording_id: 2,
+              artist_credit: {
+                names: [
+                  {
+                    name: 'Bing Crosby',
+                    artist: {
+                      id: 99,
+                      name: 'Bing Crosby',
+                    },
+                    join_phrase: ' feat. ',
+                  },
+                  {
+                    name: 'David Bowie',
+                    artist: {
+                      id: 956,
+                      name: 'David Bowie',
+                    },
+                    join_phrase: '',
+                  },
+                ],
+              },
+              is_data_track: '0',
+            },
+            {
+              id: null,
+              name: 'track3',
+              length: null,
+              number: '3',
+              position: 3,
+              recording_id: 3,
+              artist_credit: {
+                names: [
+                  {
+                    name: 'Bing Crosby',
+                    artist: {
+                      id: 99,
+                      name: 'Bing Crosby',
+                    },
+                    join_phrase: ' feat. ',
+                  },
+                  {
+                    name: 'David Bowie',
+                    artist: {
+                      id: 956,
+                      name: 'David Bowie',
+                    },
+                    join_phrase: '',
+                  },
+                ],
+              },
+              is_data_track: '0',
+            },
+          ],
+        },
+      },
+    },
+  ],
+}

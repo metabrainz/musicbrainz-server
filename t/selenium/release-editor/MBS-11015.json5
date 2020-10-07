@@ -1,0 +1,84 @@
+{
+  title: 'MBS-11015',
+  commands: [
+    // This test case demonstrates that changing a medium's format (and nothing else) doesn't delete the tracklist.
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=td.format select',
+      value: 'label=regexp:\\s*Vinyl',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=edit-note-text',
+      value: 'CD NO!',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 52,
+        status: 1,
+        data: {
+          new: {
+            format_id: 7,
+          },
+          old: {
+            format_id: '1',
+          },
+          release: {
+            id: 1693299,
+            name: '★',
+          },
+          entity_id: 1690850,
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/test/accept-edit/1',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33',
+      value: '',
+    },
+    // Check that the format was changed (as displayed in the sidebar).
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelector('h2.release-information + dl.properties').children).map(function (node) { return node.textContent }).join('\\n')",
+      value: 'Barcode:\n888751738621\nFormat:\nVinyl\nLength:\n3:19',
+    },
+    // MBS-11015: Check that the tracklist is still there. (This release only has 1 track.)
+    {
+      command: 'assertEval',
+      target: "/2 \\+ 2 = 5/.test(document.querySelector('table.medium > tbody > tr:not(.subh)').textContent)",
+      value: 'true',
+    },
+  ],
+}
