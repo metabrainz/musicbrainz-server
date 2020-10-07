@@ -8,7 +8,7 @@ use DBDefs;
 use Encode;
 use JSON;
 use Moose::Util qw( does_role );
-use MusicBrainz::Sentry qw( sentry_enabled );
+use MusicBrainz::Errors qw( sentry_enabled );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     datetime_to_iso8601
@@ -91,7 +91,7 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
 }
 
 if (sentry_enabled) {
-    push @args, 'Sentry';
+    push @args, 'ErrorInfo';
 }
 
 __PACKAGE__->config->{'Plugin::Cache'}{backend} = DBDefs->PLUGIN_CACHE_OPTIONS;
@@ -433,7 +433,7 @@ around 'finalize_error' => sub {
                 && does_role($errors->[0], 'MusicBrainz::Server::Exceptions::Role::Timeout');
 
         # don't send timeouts to Sentry (log instead)
-        local $Catalyst::Plugin::Sentry::suppress = 1
+        local $Catalyst::Plugin::ErrorInfo::suppress = 1
             if $timed_out;
 
         $c->$orig(@args);

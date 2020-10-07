@@ -1,4 +1,4 @@
-package MusicBrainz::Sentry;
+package MusicBrainz::Errors;
 
 use v5.10;
 use strict;
@@ -99,7 +99,7 @@ sub sig_die_handler {
     for my $frame (reverse $stacktrace->frames) {
         ++$i;
 
-        next if $frame->package =~ /^MusicBrainz::Sentry/;
+        next if $frame->package =~ /^MusicBrainz::Errors/;
         next if $frame->package =~ /^Try::Tiny/;
 
         if (defined $frame_filter) {

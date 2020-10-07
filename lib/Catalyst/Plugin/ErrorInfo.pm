@@ -1,4 +1,4 @@
-package Catalyst::Plugin::Sentry;
+package Catalyst::Plugin::ErrorInfo;
 
 use v5.10;
 use strict;
@@ -6,7 +6,7 @@ use warnings;
 
 use CGI::Simple::Util qw( escape );
 use Sentry::Raven;
-use MusicBrainz::Sentry qw( send_error_to_sentry sig_die_handler );
+use MusicBrainz::Errors qw( send_error_to_sentry sig_die_handler );
 
 our $suppress = 0;
 
