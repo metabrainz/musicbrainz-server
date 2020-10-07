@@ -408,9 +408,6 @@ async function handleCommand({command, file, target, value}, t) {
     case 'open':
       return driver.get('http://' + DBDefs.WEB_SERVER + target);
 
-    case 'openFile':
-      return driver.get('file://' + path.resolve(path.dirname(file), target));
-
     case 'pause':
       return driver.sleep(target);
 

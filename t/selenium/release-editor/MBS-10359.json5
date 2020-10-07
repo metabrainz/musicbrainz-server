@@ -2,8 +2,8 @@
   title: 'MBS-10359',
   commands: [
     {
-      command: 'openFile',
-      target: './seeds/mbs-10359.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-10359.html',
       value: '',
     },
     {

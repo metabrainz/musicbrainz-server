@@ -43,13 +43,9 @@ sudo -E -H -u musicbrainz make -C po all_quiet deploy
 NODE_ENV=test WEBPACK_MODE=development \
      sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh
 
-# Replace 'localhost:5000' in the Selenium tests with 'mbtest:5000', our
-# custom host alias added by add_mbtest_alias.sh. This mostly only matters on
-# the form action attributes under seeds/, and a few URL checks; the
-# rel="selenium.base" links aren't used at all.
+# Add mbtest host alias to work around NO_PROXY restriction.
+# See add_mbtest_alias.sh for details.
 ./docker/musicbrainz-tests/add_mbtest_alias.sh
-sudo -E -H -u musicbrainz find t/selenium -type f -name '*.html' \
-     -exec sed -i'' -e "s/localhost:5000/mbtest:5000/g" '{}' \;
 
 rm /etc/service/{template-renderer,website}/down
 sv start template-renderer website

@@ -3,8 +3,8 @@
   commands: [
     // detecting indexes that start at 0 instead of 1
     {
-      command: 'openFile',
-      target: './seeds/0_based_indexes.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/0_based_indexes.html',
       value: '',
     },
     {
@@ -19,8 +19,8 @@
     },
     // treating negative indexes as unknown fields
     {
-      command: 'openFile',
-      target: './seeds/negative_indexes.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/negative_indexes.html',
       value: '',
     },
     {
@@ -35,8 +35,8 @@
     },
     // returning an error for literal "n" as an index
     {
-      command: 'openFile',
-      target: './seeds/literal_n.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/literal_n.html',
       value: '',
     },
     {
@@ -51,8 +51,8 @@
     },
     // returning an error for zero-padded indexes
     {
-      command: 'openFile',
-      target: './seeds/zero_padded_indexes.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/zero_padded_indexes.html',
       value: '',
     },
     {
@@ -67,8 +67,8 @@
     },
     // returning an error when multiple MBIDs are posted
     {
-      command: 'openFile',
-      target: './seeds/multiple_mbids.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/multiple_mbids.html',
       value: '',
     },
     {
@@ -83,8 +83,8 @@
     },
     // returning an error when a space appears before an MBID
     {
-      command: 'openFile',
-      target: './seeds/mbid_with_space.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbid_with_space.html',
       value: '',
     },
     {
@@ -99,8 +99,8 @@
     },
     // seeding a release with no tracklist
     {
-      command: 'openFile',
-      target: './seeds/no_tracklist.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/no_tracklist.html',
       value: '',
     },
     {
@@ -170,8 +170,8 @@
     },
     // seeding a string where a hash is expected
     {
-      command: 'openFile',
-      target: './seeds/expected_hash.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/expected_hash.html',
       value: '',
     },
     {
@@ -186,8 +186,8 @@
     },
     // seeding an array where a string is expected
     {
-      command: 'openFile',
-      target: './seeds/expected_string.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/expected_string.html',
       value: '',
     },
     {
@@ -202,8 +202,8 @@
     },
     // seeding a lowercase country
     {
-      command: 'openFile',
-      target: './seeds/lowercase_country.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/lowercase_country.html',
       value: '',
     },
     {
@@ -218,8 +218,8 @@
     },
     // seeding a toc
     {
-      command: 'openFile',
-      target: './seeds/toc.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/toc.html',
       value: '',
     },
     {
@@ -277,8 +277,8 @@
     },
     // seeding url relationships
     {
-      command: 'openFile',
-      target: './seeds/external_links.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/external_links.html',
       value: '',
     },
     {
@@ -293,8 +293,8 @@
     },
     // MBS-7250: seeding empty date parts gives an ISE
     {
-      command: 'openFile',
-      target: './seeds/mbs-7250.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-7250.html',
       value: '',
     },
     {
@@ -319,8 +319,8 @@
     },
     // MBS-7439: seeding badly formatted dates gives an ISE
     {
-      command: 'openFile',
-      target: './seeds/mbs-7439.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-7439.html',
       value: '',
     },
     {
@@ -335,8 +335,8 @@
     },
     // MBS-7447: seeding an invalid track length gives an ISE
     {
-      command: 'openFile',
-      target: './seeds/mbs-7447.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-7447.html',
       value: '',
     },
     {
@@ -351,8 +351,8 @@
     },
     // seeding a pregap track
     {
-      command: 'openFile',
-      target: './seeds/pregap.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/pregap.html',
       value: '',
     },
     {
@@ -377,8 +377,8 @@
     },
     // seeding barcode = none
     {
-      command: 'openFile',
-      target: './seeds/no_barcode.html',
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/no_barcode.html',
       value: '',
     },
     {

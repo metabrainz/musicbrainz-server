@@ -68,8 +68,8 @@
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('.relationship-list a').href",
-      value: 'http://localhost:5000/work/4491f749-d06a-348c-aa58-a288d2eafa5f',
+      target: "new URL(document.querySelector('.relationship-list a').href).pathname",
+      value: '/work/4491f749-d06a-348c-aa58-a288d2eafa5f',
     },
     {
       command: 'open',
