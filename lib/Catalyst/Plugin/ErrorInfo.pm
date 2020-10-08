@@ -14,7 +14,7 @@ sub execute {
     my $c = shift;
 
     my $frame_filter = qr/^MusicBrainz::Server/;
-    my $stack_traces = ($c->stash->{stack_trace} //= {});
+    my $stack_traces = ($c->stash->{_stack_trace_info} //= {});
 
     local $SIG{__DIE__} = sub {
         sig_die_handler(shift, $stack_traces, $frame_filter);
@@ -57,7 +57,7 @@ sub finalize_error {
         );
     }
 
-    my $stack_traces = ($c->stash->{stack_trace} //= {});
+    my $stack_traces = ($c->stash->{_stack_trace_info} //= {});
     send_error_to_sentry($c->error->[0], $stack_traces, @context);
 }
 
