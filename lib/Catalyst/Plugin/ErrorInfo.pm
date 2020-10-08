@@ -6,7 +6,11 @@ use warnings;
 
 use CGI::Simple::Util qw( escape );
 use Sentry::Raven;
-use MusicBrainz::Errors qw( send_error_to_sentry sig_die_handler );
+use MusicBrainz::Errors qw(
+    get_error_message
+    send_error_to_sentry
+    sig_die_handler
+);
 
 our $suppress = 0;
 
@@ -58,16 +62,27 @@ sub finalize_error {
     }
 
     my $stack_traces = ($c->stash->{_stack_trace_info} //= {});
-    send_error_to_sentry($c->error->[0], $stack_traces, @context);
+    for my $error (@{ $c->error }) {
+        send_error_to_sentry($error, $stack_traces, @context);
+
+        my $error_message = get_error_message($error);
+        push @{ $c->stash->{formatted_errors} //= [] },
+            (exists $stack_traces->{$error_message}
+                ? $stack_traces->{$error_message}{as_string}
+                : $error_message);
+    }
 }
 
 1;
 
 =head1 DESCRIPTION
 
-Catalyst plugin that catches exceptions in the app and sends them to
-Sentry. When you don't want an error sent, use C<local> to
-temporarily give C<$suppress> a true value.
+Catalyst plugin that catches exceptions in the app, stores them
+as C<formatted_errors> in the stash for display, and sends them
+to Sentry.
+
+When you don't want an error sent, use C<local> to temporarily
+give C<$suppress> a true value.
 
 =head1 COPYRIGHT
 

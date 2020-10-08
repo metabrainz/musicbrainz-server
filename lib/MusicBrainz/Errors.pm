@@ -14,24 +14,25 @@ use Try::Tiny;
 
 our @EXPORT_OK = qw(
     capture_exceptions
+    get_error_message
     send_error_to_sentry
     sentry_enabled
     sig_die_handler
 );
 
+our $_sentry_enabled;
 sub sentry_enabled () {
-    state $enabled;
-    return $enabled if defined $enabled;
-    if (DBDefs->SENTRY_DSN && !$ENV{MUSICBRAINZ_RUNNING_TESTS}) {
+    return $_sentry_enabled if defined $_sentry_enabled;
+    if (DBDefs->SENTRY_DSN) {
         eval {
             require Sentry::Raven;
             Sentry::Raven->import;
         };
-        $enabled = $@ ? 0 : 1;
+        $_sentry_enabled = $@ ? 0 : 1;
     } else {
-        $enabled = 0;
+        $_sentry_enabled = 0;
     }
-    return $enabled;
+    return $_sentry_enabled;
 }
 
 sub get_error_message {
@@ -82,10 +83,15 @@ sub sig_die_handler {
 
     my $message = get_error_message($error);
     # If an exception is caught and then re-thrown, __DIE__ will run
-    # twice, but we want to keep the original stack trace.
-    my $stacktrace = $stack_traces->{$message};
-    return if $stacktrace;
+    # twice, but we want to keep the original stack trace, not the re-thrown
+    # one (which will be from a different context).
+    #
+    # This is why we key $stack_traces by $message and return if the key
+    # exists -- we only want the first stack trace for a given error.
+    my $stacktrace_info = $stack_traces->{$message};
+    return if $stacktrace_info;
 
+    my $stacktrace;
     {
         local $@;
         eval {
@@ -120,25 +126,32 @@ sub sig_die_handler {
         push @included_frames, { %{ $frames->[$i] }, %context };
     }
 
-    $stack_traces->{$message} = [reverse @included_frames];
+    $stack_traces->{$message} = {
+        as_string => $stacktrace->as_string(max_arg_length => 0),
+        sentry_frames => [reverse @included_frames],
+    };
 }
 
+our $sentry;
 sub send_error_to_sentry {
     my ($error, $stack_traces, @context) = @_;
 
     my $message = get_error_message($error);
-    my @stacktrace = reverse @{ $stack_traces->{$message} // [] };
+    my @stacktrace = reverse @{ $stack_traces->{$message}{sentry_frames} // [] };
     if (@stacktrace) {
         push @context, Sentry::Raven->stacktrace_context(\@stacktrace);
     }
 
-    state $sentry = Sentry::Raven->new(
-        sentry_dsn => DBDefs->SENTRY_DSN,
-        environment => DBDefs->GIT_BRANCH,
-        tags => {
-            git_commit => DBDefs->GIT_SHA,
-        },
-    );
+    unless (defined $sentry) {
+        $sentry = Sentry::Raven->new(
+            sentry_dsn => DBDefs->SENTRY_DSN,
+            environment => DBDefs->GIT_BRANCH,
+            tags => {
+                git_commit => DBDefs->GIT_SHA,
+            },
+        );
+    }
+
     $sentry->capture_exception($message, @context);
 }
 
