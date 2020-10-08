@@ -88,7 +88,18 @@ sub sig_die_handler {
 
     {
         local $@;
-        eval { $stacktrace = Devel::StackTrace->new };
+        eval {
+            $stacktrace = Devel::StackTrace->new(
+                message => $message,
+                ignore_class => [qw(
+                    MusicBrainz::Errors
+                    Try::Tiny
+                )],
+                defined $frame_filter ? (frame_filter => sub {
+                    return $_[0]{caller}[0] =~ qr/$frame_filter/;
+                }) : (),
+            );
+        };
     };
     return unless $stacktrace;
 
@@ -98,14 +109,6 @@ sub sig_die_handler {
 
     for my $frame (reverse $stacktrace->frames) {
         ++$i;
-
-        next if $frame->package =~ /^MusicBrainz::Errors/;
-        next if $frame->package =~ /^Try::Tiny/;
-
-        if (defined $frame_filter) {
-            next unless $frame->package =~ $frame_filter;
-        }
-
         my %context;
         {
             local $@;
