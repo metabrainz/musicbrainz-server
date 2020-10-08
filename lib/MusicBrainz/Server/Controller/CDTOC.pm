@@ -187,7 +187,9 @@ sub attach : Local DenyWhenReadonly
         ) unless $medium->may_have_discids;
 
         $c->model('Release')->load($medium);
-        $c->model('ArtistCredit')->load($medium->release);
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('Recording')->load($medium->all_tracks);
+        $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release);
 
         $c->stash( medium => $medium );
 
@@ -372,11 +374,13 @@ sub move : Local Edit
 
         $c->model('Medium')->load($medium_cdtoc);
 
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('Recording')->load($medium->all_tracks);
         $c->model('Release')->load($medium, $medium_cdtoc->medium);
         $c->model('Release')->load_release_events($medium->release);
         $c->model('ReleaseLabel')->load($medium->release);
         $c->model('Label')->load($medium->release->all_labels);
-        $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
+        $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release, $medium_cdtoc->medium->release);
 
         $c->stash(
             medium => $medium
