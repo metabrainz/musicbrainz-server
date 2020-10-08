@@ -8,7 +8,6 @@ use DBDefs;
 use Encode;
 use JSON;
 use Moose::Util qw( does_role );
-use MusicBrainz::Errors qw( sentry_enabled );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     datetime_to_iso8601
@@ -90,7 +89,8 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
     __PACKAGE__->config( using_frontend_proxy => 1 );
 }
 
-if (sentry_enabled) {
+unless (DBDefs->CATALYST_DEBUG) {
+    # $c->debug provides its own error pages
     push @args, 'ErrorInfo';
 }
 
@@ -433,7 +433,7 @@ around 'finalize_error' => sub {
                 && does_role($errors->[0], 'MusicBrainz::Server::Exceptions::Role::Timeout');
 
         # don't send timeouts to Sentry (log instead)
-        local $Catalyst::Plugin::ErrorInfo::suppress = 1
+        local $Catalyst::Plugin::ErrorInfo::suppress_sentry = 1
             if $timed_out;
 
         $c->$orig(@args);
@@ -463,8 +463,7 @@ around 'finalize_error' => sub {
                 # [1] https://github.com/perl-catalyst/catalyst-runtime/
                 #     blob/5757858/lib/Catalyst/Engine.pm#L253-L259
                 $c->encoding('UTF-8');
-                $c->res->{status} = 503
-                    if $timed_out;
+                $c->res->{status} = $timed_out ? 503 : 500;
             }
         }
     });

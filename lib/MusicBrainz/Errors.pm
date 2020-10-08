@@ -109,26 +109,30 @@ sub sig_die_handler {
     };
     return unless $stacktrace;
 
-    my $frames = Sentry::Raven->_get_frames_from_devel_stacktrace($stacktrace);
-    my @included_frames;
-    my $i = -1;
+    my %sentry_frames;
+    if (sentry_enabled) {
+        my $frames = Sentry::Raven->_get_frames_from_devel_stacktrace($stacktrace);
+        my @included_frames;
+        my $i = -1;
 
-    for my $frame (reverse $stacktrace->frames) {
-        ++$i;
-        my %context;
-        {
-            local $@;
-            eval {
-                %context = get_context($frame->filename, $frame->line);
+        for my $frame (reverse $stacktrace->frames) {
+            ++$i;
+            my %context;
+            {
+                local $@;
+                eval {
+                    %context = get_context($frame->filename, $frame->line);
+                };
             };
-        };
 
-        push @included_frames, { %{ $frames->[$i] }, %context };
+            push @included_frames, { %{ $frames->[$i] }, %context };
+        }
+        $sentry_frames{sentry_frames} = [reverse @included_frames];
     }
 
     $stack_traces->{$message} = {
         as_string => $stacktrace->as_string(max_arg_length => 0),
-        sentry_frames => [reverse @included_frames],
+        %sentry_frames,
     };
 }
 
@@ -160,14 +164,10 @@ sub capture_exceptions {
 
     my $stack_traces = {};
     try {
-        if (sentry_enabled) {
-            local $SIG{__DIE__} = sub {
-                sig_die_handler(shift, $stack_traces);
-            };
-            $try_code->();
-        } else {
-            $try_code->();
-        }
+        local $SIG{__DIE__} = sub {
+            sig_die_handler(shift, $stack_traces);
+        };
+        $try_code->();
     } catch {
         my $error = $_;
         if (sentry_enabled) {
