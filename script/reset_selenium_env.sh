@@ -50,7 +50,7 @@ OUTPUT=`./admin/psql SELENIUM < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" &&
 echo `date` : Setting sequences
 OUTPUT=`./admin/psql SELENIUM <./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
-echo `date` : Inseting Selenium test data
+echo `date` : Inserting Selenium test data
 OUTPUT=`./admin/psql SELENIUM < ./t/sql/selenium.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 if [[ -f $EXTRA_SQL ]]; then

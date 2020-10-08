@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>MBS-11156</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MBS-11156</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>open</td>
+	<td>/release/add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=name</td>
+	<td>MBS-11156</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]</td>
+	<td>Various Artists</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Various Artists')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#tracklist']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='use-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='use-titles']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='use-lengths']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@id='add-disc-parser']//textarea[contains(@class, 'tracklist')]</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[@id='add-disc-dialog']//button[contains(text(), 'Add Medium')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>xpath=(//select[contains(@id, 'disc-format-')])[1]</td>
+	<td>label=Vinyl</td>
+</tr>
+<!-- Check that the parsed track does use "Various Artists" from the release artist. -->
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('#tracklist span.artist.autocomplete input.name').value</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')</td>
+	<td>false</td>
+</tr>
+<!-- Manually set the track artist to "Various Artists". -->
+<tr>
+	<td>type</td>
+	<td>xpath=(//div[@id='tracklist']//span[contains(@class, 'artist autocomplete')])[1]//input[contains(@class, 'name')]</td>
+	<td>89ad4ac3-39f7-470e-963a-56509c546377</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>xpath=(//div[@id='tracklist']//span[contains(@class, 'artist autocomplete')])[1]//input[contains(@class, 'name')]</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=confirm-va</td>
+	<td></td>
+</tr>
+<!-- Parse tracks again, and check that "Various Artists" isn't unset. -->
+<tr>
+	<td>click</td>
+	<td>css=button.open-track-parser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='lines-have-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='use-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=parse-tracks</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=close-track-parser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('#tracklist span.artist.autocomplete input.name').value</td>
+	<td>Various Artists</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')</td>
+	<td>true</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#edit-note']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('a[href="#tracklist"]').parentNode.classList.contains('error-tab')</td>
+	<td>false</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('#edit-note div.warning')).some(x => x.textContent.includes('Some errors were detected'))</td>
+	<td>false</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>handleAlert</td>
+	<td>accept</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitUntilUrlIs</td>
+	<td>/</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

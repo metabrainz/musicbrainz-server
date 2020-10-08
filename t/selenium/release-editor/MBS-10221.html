@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>MBS-10221</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MBS-10221</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>open</td>
+	<td>/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#tracklist']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('#tracklist span.artist.autocomplete input.name').value</td>
+	<td>Nine Inch Nails</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')</td>
+	<td>true</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//button[contains(@class,'open-track-parser')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='lines-have-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='enable-vinyl-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='lines-have-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='use-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='use-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='use-titles']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='use-lengths']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#track-parser-dialog &gt; textarea.tracklist</td>
+	<td>1. 2 + 2 = 5 (The Lukewarm.) - Radiohead (3:19)</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=parse-tracks</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=close-track-parser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('#tracklist span.artist.autocomplete input.name').value</td>
+	<td>Radiohead</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')</td>
+	<td>false</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>handleAlert</td>
+	<td>accept</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitUntilUrlIs</td>
+	<td>/</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

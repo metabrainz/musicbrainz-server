@@ -156,14 +156,13 @@ const trackParser = releaseEditor.trackParser = {
        */
       var matchedAC = [matchedTrackAC, previousTrackAC, releaseAC]
         .find(function (ac) {
-          if (!ac || hasVariousArtists(ac)) {
+          if (!ac || !isCompleteArtistCredit(ac)) {
             return false;
           }
-
-          return isCompleteArtistCredit(ac) && (
-            !data.artist ||
-            utils.similarNames(data.artist, reduceArtistCredit(ac))
-          );
+          if (data.artist) {
+            return utils.similarNames(data.artist, reduceArtistCredit(ac));
+          }
+          return !(ac === releaseAC && hasVariousArtists(ac));
         });
 
       if (matchedAC) {
@@ -200,6 +199,9 @@ const trackParser = releaseEditor.trackParser = {
 
         if (options.useTrackArtists) {
           matchedTrack.artistCredit(data.artistCredit);
+          matchedTrack.artistCreditEditorInst?.setState({
+            artistCredit: data.artistCredit,
+          });
         }
 
         return matchedTrack;
