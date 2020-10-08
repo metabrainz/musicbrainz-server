@@ -448,7 +448,10 @@ around 'finalize_error' => sub {
                 $c->res->{body} = $c->stash->{body};
                 $c->res->{status} = $c->stash->{status};
             } else {
-                $c->res->{body} = 'clear';
+                if (($c->stash->{current_view} // '') eq 'Node') {
+                    # Remove once error pages are converted to React.
+                    $c->stash(current_view => 'Default');
+                }
                 $c->view->process($c);
                 # Catalyst::Engine::finalize_error unsets $c->encoding. [1]
                 # We're rendering our own error page here, not using theirs,
