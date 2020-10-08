@@ -31,12 +31,15 @@ test 'Controller error handling' => sub {
         posted_error => undef,
     }, 'SentryUserAgent';
 
+    my $git_branch = DBDefs->GIT_BRANCH;
+    my $git_sha = DBDefs->GIT_SHA;
+
     $MusicBrainz::Errors::sentry = Sentry::Raven->new(
         ua_obj => $sentry_ua,
         sentry_dsn => 'http://user:password@localhost/sentry-test/1',
-        environment => DBDefs->GIT_BRANCH,
+        environment => $git_branch,
         tags => {
-            git_commit => DBDefs->GIT_SHA,
+            git_commit => $git_sha,
         },
     );
 

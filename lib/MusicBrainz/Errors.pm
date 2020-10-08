@@ -147,12 +147,16 @@ sub send_error_to_sentry {
     }
 
     unless (defined $sentry) {
+        my $sentry_dsn = DBDefs->SENTRY_DSN;
+        my $git_branch = DBDefs->GIT_BRANCH;
+        my $git_sha = DBDefs->GIT_SHA;
+
         $sentry = Sentry::Raven->new(
-            sentry_dsn => DBDefs->SENTRY_DSN,
-            environment => DBDefs->GIT_BRANCH,
-            tags => {
-                git_commit => DBDefs->GIT_SHA,
-            },
+            sentry_dsn => $sentry_dsn,
+            $git_branch ? (environment => $git_branch) : (),
+            $git_sha ? (tags => {
+                git_commit => $git_sha,
+            }) : (),
         );
     }
 
