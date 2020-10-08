@@ -450,7 +450,16 @@ around 'finalize_error' => sub {
             } else {
                 $c->res->{body} = 'clear';
                 $c->view->process($c);
-                $c->res->{body} = encode('utf-8', $c->res->{body});
+                # Catalyst::Engine::finalize_error unsets $c->encoding. [1]
+                # We're rendering our own error page here, not using theirs,
+                # so set it back to UTF-8.
+                #
+                # (This issue doesn't manifest when the `ErrorInfo` plugin is
+                # active, because that implements a new `finalize_error`.)
+                #
+                # [1] https://github.com/perl-catalyst/catalyst-runtime/
+                #     blob/5757858/lib/Catalyst/Engine.pm#L253-L259
+                $c->encoding('UTF-8');
                 $c->res->{status} = 503
                     if $timed_out;
             }
