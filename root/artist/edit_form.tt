@@ -99,11 +99,14 @@
 
   <div class="documentation">
     [%- area_bubble() -%]
+
+    [%- type_bubble(form.field('type_id'), artist_types) -%]
   </div>
 
 </form>
 
 [%- guesscase_options() -%]
+[% script_manifest('artist.js') %]
 
 <script type="text/javascript">
   (function () {

@@ -610,6 +610,12 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     merge_form => 'Merge::Artist'
 };
 
+before qw( create edit ) => sub {
+    my ($self, $c) = @_;
+    my %artist_types = map {$_->id => $_} $c->model('ArtistType')->get_all();
+    $c->stash->{artist_types} = \%artist_types;
+};
+
 sub _merge_load_entities {
     my ($self, $c, @artists) = @_;
 
