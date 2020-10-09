@@ -9,11 +9,13 @@
 
 import * as React from 'react';
 
+import warningIconUrl from '../../../images/icons/warning.png';
+
 const WarningIcon = (): React.Element<'img'> => (
   <img
     alt={l('Warning')}
     className="warning"
-    src={require('../../../images/icons/warning.png')}
+    src={warningIconUrl}
   />
 );
 

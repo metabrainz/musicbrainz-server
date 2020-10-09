@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import hydrate from '../../../../utility/hydrate';
+import filterIconUrl from '../../../images/icons/filter.png';
 import setCookie from '../utility/setCookie';
 
 import FilterForm, {type FilterFormT} from './FilterForm';
@@ -56,7 +57,7 @@ const Filter = ({ajaxFormUrl, initialFilterForm}: Props) => {
         <a className="filter-button">
           <img
             alt=""
-            src={require('../../../images/icons/filter.png')}
+            src={filterIconUrl}
           />
         </a>
         {' '}

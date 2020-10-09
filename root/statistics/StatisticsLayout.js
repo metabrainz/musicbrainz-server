@@ -15,6 +15,7 @@ import Tabs from '../components/Tabs';
 import {unwrapNl} from '../static/scripts/common/i18n';
 import {l_statistics as l, N_l_statistics as N_l}
   from '../static/scripts/common/i18n/statistics';
+import statisticsLessUrl from '../static/styles/statistics.less';
 
 type StatisticsLayoutPropsT = {
   +children: React.Node,
@@ -101,7 +102,7 @@ const StatisticsLayout = ({
       title={htmlTitle}
     >
       <link
-        href={require('../static/styles/statistics.less')}
+        href={statisticsLessUrl}
         rel="stylesheet"
         type="text/css"
       />

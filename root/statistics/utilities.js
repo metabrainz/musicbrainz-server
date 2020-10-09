@@ -10,6 +10,9 @@
 
 import * as React from 'react';
 
+import timelineIconUrl
+  from '../static/images/icons/timeline.png';
+
 export function formatPercentage(
   $c: CatalystContextT,
   num: number,
@@ -41,7 +44,7 @@ export const TimelineLink = ({
     <img
       alt=""
       className="bottom"
-      src={require('../static/images/icons/timeline.png')}
+      src={timelineIconUrl}
     />
   </a>
 );
