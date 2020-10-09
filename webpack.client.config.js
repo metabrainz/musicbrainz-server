@@ -33,6 +33,7 @@ const entries = [
   'account/applications/register',
   'account/edit',
   'account/preferences',
+  'area',
   'area/index',
   'area/places-map',
   'artist/index',
