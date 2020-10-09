@@ -43,7 +43,7 @@
     "knockout-arraytransforms": "git://github.com/mwiencek/knockout-arraytransforms.git#9673e91",
     "leaflet": "1.6.0",
     "leaflet.markercluster": "1.4.1",
-    "less": "2.7.3",
+    "less": "4.1.1",
     "less-loader": "4.1.0",
     "less-plugin-clean-css": "1.5.1",
     "leven": "2.0.0",
