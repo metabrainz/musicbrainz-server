@@ -40,6 +40,7 @@ const entries = [
   'common',
   'edit',
   'edit/notes-received',
+  'event',
   'event/index',
   'instrument/index',
   'jed-data',
