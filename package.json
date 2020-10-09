@@ -83,6 +83,7 @@
     "gettext-parser": "3.1.0",
     "http-proxy": "1.18.1",
     "jsdom": "13.2.0",
+    "json5": "2.1.3",
     "nyc": "14.1.1",
     "selenium-webdriver": "4.0.0-alpha.5",
     "tap-difflet": "0.7.2",

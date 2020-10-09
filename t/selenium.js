@@ -40,7 +40,7 @@ const defined = require('defined');
 const fs = require('fs');
 const http = require('http');
 const httpProxy = require('http-proxy');
-const jsdom = require('jsdom');
+const JSON5 = require('json5');
 const path = require('path');
 const test = require('tape');
 const TestCls = require('tape/lib/test');
@@ -58,10 +58,8 @@ const deepEqual = require('../root/static/scripts/common/utility/deepEqual');
 const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp').default;
 const writeCoverage = require('../root/utility/writeCoverage');
 
-const IGNORE = Symbol();
-
 function compareEditDataValues(actualValue, expectedValue) {
-  if (expectedValue === IGNORE) {
+  if (expectedValue === '$$__IGNORE__$$') {
     return true;
   }
   /*
@@ -301,19 +299,15 @@ async function writePreviousSeleniumCoverage() {
   }
 }
 
-function parseEditData(value) {
-  return (new Function('ignore', `return (${value})`))(IGNORE);
-}
-
-async function handleCommandAndWait(file, command, target, value, t) {
-  command = command.replace(/AndWait$/, '');
+async function handleCommandAndWait({command, file, target, value}, t) {
+  const newCommand = command.replace(/AndWait$/, '');
 
   const html = await findElement('css=html');
-  await handleCommand(file, command, target, value, t);
+  await handleCommand({command: newCommand, file, target, value}, t);
   return driver.wait(until.stalenessOf(html), 30000);
 }
 
-async function handleCommand(file, command, target, value, t) {
+async function handleCommand({command, file, target, value}, t) {
   if (/AndWait$/.test(command)) {
     return handleCommandAndWait.apply(null, arguments);
   }
@@ -324,19 +318,10 @@ async function handleCommand(file, command, target, value, t) {
     return pendingReqs.length === 0;
   });
 
-  let commentValue;
-  switch (command) {
-    case 'assertEditData':
-      commentValue = parseEditData(value);
-      break;
-    default:
-      commentValue = value;
-  }
-
   t.comment(
     command +
     ' target=' + utf8.encode(JSON.stringify(target)) +
-    ' value=' + utf8.encode(JSON.stringify(commentValue))
+    ' value=' + utf8.encode(JSON.stringify(value))
   );
 
   let element;
@@ -368,8 +353,7 @@ async function handleCommand(file, command, target, value, t) {
           headers: new Headers({'Accept': 'application/json'}),
         }).then(x => x.text().then(callback));
       `));
-      const expectedEditData = parseEditData(value);
-      t.deepEqual2(actualEditData, expectedEditData);
+      t.deepEqual2(actualEditData, value);
       return;
 
     case 'assertLocationMatches':
@@ -424,9 +408,6 @@ async function handleCommand(file, command, target, value, t) {
     case 'open':
       return driver.get('http://' + DBDefs.WEB_SERVER + target);
 
-    case 'openFile':
-      return driver.get('file://' + path.resolve(path.dirname(file), target));
-
     case 'pause':
       return driver.sleep(target);
 
@@ -474,27 +455,27 @@ async function handleCommand(file, command, target, value, t) {
 }
 
 const seleniumTests = [
-  {name: 'Create_Account.html'},
-  {name: 'MBS-5387.html', login: true},
-  {name: 'MBS-7456.html', login: true},
-  {name: 'MBS-9548.html'},
-  {name: 'MBS-9669.html'},
-  {name: 'MBS-9941.html', login: true},
-  {name: 'MBS-10188.html', login: true, sql: 'mbs-10188.sql'},
-  {name: 'MBS-10510.html', login: true, sql: 'mbs-10510.sql'},
-  {name: 'Artist_Credit_Editor.html', login: true},
-  {name: 'External_Links_Editor.html', login: true},
-  {name: 'Work_Editor.html', login: true},
-  {name: 'Redirect_Merged_Entities.html', login: true},
-  {name: 'admin/Edit_Banner.html', login: true},
-  {name: 'release-editor/The_Downward_Spiral.html', login: true},
-  {name: 'release-editor/Duplicate_Selection.html', login: true, sql: 'whatever_it_takes.sql'},
-  {name: 'release-editor/Seeding.html', login: true, sql: 'vision_creation_newsun.sql'},
-  {name: 'release-editor/MBS-10221.html', login: true},
-  {name: 'release-editor/MBS-10359.html', login: true},
-  {name: 'release-editor/MBS-11015.html', login: true},
-  {name: 'release-editor/MBS-11114.html', login: true},
-  {name: 'release-editor/MBS-11156.html', login: true},
+  {name: 'Create_Account.json5'},
+  {name: 'MBS-5387.json5', login: true},
+  {name: 'MBS-7456.json5', login: true},
+  {name: 'MBS-9548.json5'},
+  {name: 'MBS-9669.json5'},
+  {name: 'MBS-9941.json5', login: true},
+  {name: 'MBS-10188.json5', login: true, sql: 'mbs-10188.sql'},
+  {name: 'MBS-10510.json5', login: true, sql: 'mbs-10510.sql'},
+  {name: 'Artist_Credit_Editor.json5', login: true},
+  {name: 'External_Links_Editor.json5', login: true},
+  {name: 'Work_Editor.json5', login: true},
+  {name: 'Redirect_Merged_Entities.json5', login: true},
+  {name: 'admin/Edit_Banner.json5', login: true},
+  {name: 'release-editor/The_Downward_Spiral.json5', login: true},
+  {name: 'release-editor/Duplicate_Selection.json5', login: true, sql: 'whatever_it_takes.sql'},
+  {name: 'release-editor/Seeding.json5', login: true, sql: 'vision_creation_newsun.sql'},
+  {name: 'release-editor/MBS-10221.json5', login: true},
+  {name: 'release-editor/MBS-10359.json5', login: true},
+  {name: 'release-editor/MBS-11015.json5', login: true},
+  {name: 'release-editor/MBS-11114.json5', login: true},
+  {name: 'release-editor/MBS-11156.json5', login: true},
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);
@@ -504,34 +485,29 @@ seleniumTests.forEach(x => {
 });
 
 function getPlan(file) {
-  const {document} = new jsdom.JSDOM(fs.readFileSync(file)).window;
-  const title = document.querySelector('title').textContent;
-  const tbody = document.querySelector('tbody');
-  const rows = Array.prototype.slice.call(tbody.getElementsByTagName('tr'), 0);
-  const commands = [];
+  const document = JSON5.parse(fs.readFileSync(file));
+  const commands = document.commands;
   let plan = 0;
 
-  for (let i = 0; i < rows.length; i++) {
-    const cols = rows[i].getElementsByTagName('td');
-    const command = cols[0].textContent;
-    const target = cols[1].textContent;
-    const value = cols[2].textContent;
+  for (let i = 0; i < commands.length; i++) {
+    const row = commands[i];
 
-    if (/^assert/.test(command)) {
+    if (/^assert/.test(row.command)) {
       plan++;
     }
 
-    commands.push([file, command, target, value]);
+    row.file = file;
   }
 
-  return {commands, plan, title};
+  document.plan = plan;
+  return document;
 }
 
 async function runCommands(commands, t) {
   await driver.manage().window().setRect({height: 768, width: 1024});
 
   for (let i = 0; i < commands.length; i++) {
-    await handleCommand(...commands[i], t);
+    await handleCommand(commands[i], t);
 
     const nextCommand = i < (commands.length - 1) ? commands[i + 1] : null;
 
@@ -541,7 +517,7 @@ async function runCommands(commands, t) {
      * handled explicitly with the `handleAlert` command, we check if that's
      * the next command before proceeding.
      */
-    if (!nextCommand || nextCommand[1] !== 'handleAlert') {
+    if (!nextCommand || nextCommand.command !== 'handleAlert') {
       if (argv.coverage) {
         await writePreviousSeleniumCoverage();
       }
@@ -623,8 +599,8 @@ async function runCommands(commands, t) {
     );
   }
 
-  const loginPlan = getPlan(testPath('Log_In.html'));
-  const logoutPlan = getPlan(testPath('Log_Out.html'));
+  const loginPlan = getPlan(testPath('Log_In.json5'));
+  const logoutPlan = getPlan(testPath('Log_Out.json5'));
   const testsPathsToRun = argv._.map(x => path.resolve(x));
   const testsToRun = testsPathsToRun.length
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))

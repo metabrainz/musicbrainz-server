@@ -1,0 +1,105 @@
+{
+  title: 'MBS-10221',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').value",
+      value: 'Nine Inch Nails',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')",
+      value: 'true',
+    },
+    {
+      command: 'click',
+      target: "xpath=//button[contains(@class,'open-track-parser')]",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='track-parser-dialog']//input[@name='lines-have-numbers']",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='track-parser-dialog']//input[@name='enable-vinyl-numbers']",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='track-parser-dialog']//input[@name='lines-have-artists']",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='track-parser-dialog']//input[@name='use-numbers']",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='track-parser-dialog']//input[@name='use-artists']",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='track-parser-dialog']//input[@name='use-titles']",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='track-parser-dialog']//input[@name='use-lengths']",
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#track-parser-dialog > textarea.tracklist',
+      value: '1. 2 + 2 = 5 (The Lukewarm.) - Radiohead (3:19)',
+    },
+    {
+      command: 'click',
+      target: 'id=parse-tracks',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=close-track-parser',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').value",
+      value: 'Radiohead',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')",
+      value: 'false',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'waitUntilUrlIs',
+      target: '/',
+      value: '',
+    },
+  ],
+}

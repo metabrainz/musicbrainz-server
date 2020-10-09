@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <form action="/release/add" method="POST">
+      <input type="hidden" name="name" value="MBS-10359" />
+      <input type="hidden" name="artist_credit.names.0.artist.name" value="Bing Crosby" />
+      <input type="hidden" name="mediums.0.format" value="Digital Media" />
+      <input type="hidden" name="mediums.0.track.0.name" value="track1" />
+      <input type="hidden" name="mediums.0.track.1.name" value="track2 (feat. David Bowie)" />
+      <input type="hidden" name="mediums.0.track.2.name" value="track3 (feat. David Bowie)" />
+      <input type="hidden" name="edit_note" value="Testing MBS-10359" />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+{
+  title: "Failing to parse artists doesn't break track autocompletes (MBS-7456)",
+  commands: [
+    {
+      command: 'open',
+      target: '/release/add',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=ui-id-3',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=close-add-medium',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.open-track-parser',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=(//input[@name='use-numbers'])[2]",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=(//input[@name='use-artists'])[2]",
+      value: '',
+    },
+    {
+      command: 'uncheck',
+      target: "xpath=(//input[@name='use-titles'])[2]",
+      value: '',
+    },
+    {
+      command: 'uncheck',
+      target: "xpath=(//input[@name='use-lengths'])[2]",
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#track-parser-dialog > textarea.tracklist',
+      value: '1. foo',
+    },
+    {
+      command: 'click',
+      target: 'id=parse-tracks',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=close-track-parser',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.open-track-parser',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=parse-tracks',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'waitUntilUrlIs',
+      target: '/',
+      value: '',
+    },
+  ],
+}

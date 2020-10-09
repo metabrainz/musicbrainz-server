@@ -1,0 +1,130 @@
+{
+  title: 'Work Editor',
+  commands: [
+    {
+      command: 'open',
+      target: '/work/create',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=//input[@id='id-edit-work.name']",
+      value: 'all my loving',
+    },
+    // Check that guess case works.
+    {
+      command: 'click',
+      target: "xpath=//button[contains(@class, 'guesscase-title')]",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.getElementById('id-edit-work.name').value",
+      value: 'All My Loving',
+    },
+    {
+      command: 'select',
+      target: 'css=#id-edit-work\\.type_id',
+      value: 'label=Song',
+    },
+    // Add, remove, and edit some languages.
+    {
+      command: 'select',
+      target: 'name=edit-work.languages.0',
+      value: 'label=[No lyrics]',
+    },
+    {
+      command: 'assertEval',
+      target: "!!window.document.getElementById('add-language')",
+      value: 'false',
+    },
+    {
+      command: 'select',
+      target: 'name=edit-work.languages.0',
+      value: 'label=French',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-language',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'name=edit-work.languages.1',
+      value: 'label=Dutch',
+    },
+    {
+      command: 'click',
+      target: "xpath=(//button[contains(@class, 'remove-language')])[1]",
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'name=edit-work.languages.1',
+      value: 'label=English',
+    },
+    // Add an ISWC.
+    {
+      command: 'type',
+      target: 'name=edit-work.iswcs.0',
+      value: 'T-010.068.558-2',
+    },
+    // Add some work attributes.
+    {
+      command: 'select',
+      target: 'name=edit-work.attributes.0.type_id',
+      value: 'label=regexp:\\s*ASCAP ID',
+    },
+    {
+      command: 'type',
+      target: 'name=edit-work.attributes.0.value',
+      value: '310093673',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-work-attribute',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'name=edit-work.attributes.1.type_id',
+      value: 'label=Key',
+    },
+    {
+      command: 'select',
+      target: 'name=edit-work.attributes.1.value',
+      value: 'label=E major',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button.submit.positive',
+      value: '',
+    },
+    // Check the submission.
+    {
+      command: 'assertText',
+      target: 'css=dd.type',
+      value: 'Song',
+    },
+    {
+      command: 'assertText',
+      target: 'css=dd.lyrics-language > a',
+      value: 'English',
+    },
+    {
+      command: 'assertText',
+      target: 'css=code',
+      value: 'T-010.068.558-2',
+    },
+    {
+      command: 'assertText',
+      target: 'css=dd.work-attribute.work-attribute-ascap-id',
+      value: '310093673',
+    },
+    {
+      command: 'assertText',
+      target: 'css=dd.work-attribute.work-attribute-key',
+      value: 'E major',
+    },
+  ],
+}
