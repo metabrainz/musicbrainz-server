@@ -20,6 +20,7 @@ import subfieldErrors from '../../utility/subfieldErrors';
 import {groupBy} from './common/utility/arrays';
 import getScriptArgs from './common/utility/getScriptArgs';
 import {buildOptionsTree} from './edit/forms';
+import typeBubble from './edit/typeBubble';
 import {initializeBubble} from './edit/MB/Control/Bubble';
 import {createCompoundField} from './edit/utility/createField';
 import {pushCompoundField, pushField} from './edit/utility/pushField';
@@ -303,14 +304,4 @@ renderWorkLanguages();
 initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
 
 const typeIdField = 'select[name=edit-work\\.type_id]';
-initializeBubble('#type-bubble', typeIdField);
-$(typeIdField).on('change', function () {
-  if (this.value.match(/\S/g)) {
-    $('#type-bubble-default').hide();
-    $('.type-bubble-description').hide();
-    $(`#type-bubble-description-${this.value}`).show();
-  } else {
-    $('.type-bubble-description').hide();
-    $('#type-bubble-default').show();
-  }
-});
+typeBubble(typeIdField);
