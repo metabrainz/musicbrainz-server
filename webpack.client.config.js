@@ -220,10 +220,12 @@ if (PRODUCTION_MODE) {
 }
 
 plugins.push.apply(plugins, [
-  new CopyWebpackPlugin([
-    {from: 'favicon.ico', to: '.'},
-    {from: 'robots.txt.*', to: '.'},
-  ], {context: './root/'}),
+  new CopyWebpackPlugin({
+    patterns: [
+      {context: './root/', from: 'favicon.ico', to: '.'},
+      {context: './root/', from: 'robots.txt.*', to: '.'},
+    ],
+  }),
 
   new ManifestPlugin({
     fileName: 'rev-manifest.json',
