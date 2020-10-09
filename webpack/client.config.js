@@ -8,26 +8,27 @@
 
 const canonicalJson = require('canonical-json');
 const fs = require('fs');
-const ManifestPlugin = require('webpack-manifest-plugin');
 const path = require('path');
 const shell = require('shelljs');
 const shellQuote = require('shell-quote');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 
-const poFile = require('./root/server/gettext/poFile');
-const browserConfig = require('./webpack/browserConfig');
+const poFile = require('../root/server/gettext/poFile');
+const {cloneObjectDeep} =
+  require('../root/static/scripts/common/utility/cloneDeep');
+const jedDataTemplate = require('../root/static/scripts/jed-data');
+
+const browserConfig = require('./browserConfig');
+const cacheConfig = require('./cacheConfig');
 const {
   dirs,
   GETTEXT_DOMAINS,
   PRODUCTION_MODE,
   WEBPACK_MODE,
-} = require('./webpack/constants');
-const moduleConfig = require('./webpack/moduleConfig');
-const providePluginConfig = require('./webpack/providePluginConfig');
-const {cloneObjectDeep} =
-  require('./root/static/scripts/common/utility/cloneDeep');
-const jedDataTemplate = require('./root/static/scripts/jed-data');
+} = require('./constants');
+const moduleConfig = require('./moduleConfig');
+const providePluginConfig = require('./providePluginConfig');
 
 const entries = [
   'account/applications/register',
@@ -212,19 +213,23 @@ plugins.push(new webpack.ProvidePlugin(providePluginConfig));
 
 if (PRODUCTION_MODE) {
   plugins.push(
-    new webpack.HashedModuleIdsPlugin({
+    new webpack.ids.HashedModuleIdsPlugin({
       hashDigestLength: 7,
     }),
   );
 }
 
-plugins.push.apply(plugins, [
-  new ManifestPlugin({
-    fileName: 'rev-manifest.json',
-  }),
-]);
+if (String(process.env.NO_PROGRESS) !== '1') {
+  plugins.push(
+    new webpack.ProgressPlugin({
+      activeModules: true,
+    }),
+  );
+}
 
 module.exports = {
+  cache: cacheConfig,
+
   context: dirs.CHECKOUT,
 
   devtool: 'source-map',
@@ -235,10 +240,13 @@ module.exports = {
 
   module: moduleConfig,
 
-  node: browserConfig.node,
+  name: 'client-bundles',
+
+  node: false,
 
   optimization: {
     runtimeChunk: 'single',
+
     splitChunks: {
       cacheGroups: {
         'common-chunks': {
@@ -250,6 +258,16 @@ module.exports = {
         },
       },
     },
+
+    ...(PRODUCTION_MODE ? {
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            safari10: true,
+          },
+        }),
+      ],
+    } : null),
   },
 
   output: {
@@ -265,18 +283,3 @@ module.exports = {
 
   resolve: browserConfig.resolve,
 };
-
-if (String(process.env.WATCH_MODE) === '1') {
-  Object.assign(module.exports, require('./webpack/watchConfig'));
-}
-
-if (PRODUCTION_MODE) {
-  module.exports.optimization.minimizer = [
-    new TerserPlugin({
-      sourceMap: true,
-      terserOptions: {
-        safari10: true,
-      },
-    }),
-  ];
-}

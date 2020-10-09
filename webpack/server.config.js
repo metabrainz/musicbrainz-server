@@ -10,13 +10,14 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
+const cacheConfig = require('./cacheConfig');
 const {
   dirs,
   WEBPACK_MODE,
-} = require('./webpack/constants');
-const moduleConfig = require('./webpack/moduleConfig');
-const definePluginConfig = require('./webpack/definePluginConfig');
-const providePluginConfig = require('./webpack/providePluginConfig');
+} = require('./constants');
+const moduleConfig = require('./moduleConfig');
+const definePluginConfig = require('./definePluginConfig');
+const providePluginConfig = require('./providePluginConfig');
 
 /*
  * Components must use the same context, gettext, and linkedEntities
@@ -25,13 +26,18 @@ const providePluginConfig = require('./webpack/providePluginConfig');
 const externals = [
   'root/context',
   'root/server/gettext',
+  'root/static/build/rev-manifest',
   'root/static/scripts/common/DBDefs',
   'root/static/scripts/common/DBDefs-client-values',
   'root/static/scripts/common/linkedEntities',
 ];
 
 module.exports = {
+  cache: cacheConfig,
+
   context: dirs.CHECKOUT,
+
+  devtool: false,
 
   entry: {
     'server-components': path.resolve(dirs.ROOT, 'server/components'),
@@ -47,7 +53,7 @@ module.exports = {
       modulesFromFile: true,
     }),
 
-    function (context, request, callback) {
+    function ({context, request}, callback) {
       const resolvedRequest = path.resolve(context, request);
       const requestFromCheckout = path.relative(
         dirs.CHECKOUT,
@@ -60,7 +66,7 @@ module.exports = {
          */
         callback(
           null,
-          'commonjs ' + path.relative(dirs.BUILD, resolvedRequest),
+          'commonjs ./' + path.relative(dirs.BUILD, resolvedRequest),
         );
         return;
       }
@@ -72,10 +78,9 @@ module.exports = {
 
   module: moduleConfig,
 
-  node: {
-    __dirname: false,
-    __filename: false,
-  },
+  name: 'server-bundle',
+
+  node: false,
 
   output: {
     filename: '[name].js',
@@ -90,6 +95,11 @@ module.exports = {
     ),
     new webpack.DefinePlugin(definePluginConfig),
     new webpack.ProvidePlugin(providePluginConfig),
+    ...(
+      String(process.env.NO_PROGRESS) === '1'
+        ? []
+        : [new webpack.ProgressPlugin({activeModules: true})]
+    ),
   ],
 
   resolve: {
@@ -100,7 +110,3 @@ module.exports = {
 
   target: 'node',
 };
-
-if (String(process.env.WATCH_MODE) === '1') {
-  Object.assign(module.exports, require('./webpack/watchConfig'));
-}

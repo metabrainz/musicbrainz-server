@@ -45,7 +45,8 @@ jobs:
           rm /etc/service/{postgresql,redis}/down && sv start postgresql redis
           sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
           sudo -E -H -u musicbrainz make -C po all_quiet deploy
-          NODE_ENV=test WEBPACK_MODE=development sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh server web-tests
+          NODE_ENV=test WEBPACK_MODE=development NO_PROGRESS=1 sudo -E -H -u musicbrainz carton exec -- \
+              ./script/compile_resources.sh client server web-tests
           sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
           sudo -E -H -u musicbrainz ./node_modules/.bin/eslint --max-warnings 0 .
           rm /etc/service/chrome/down && sv start chrome

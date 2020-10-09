@@ -12,10 +12,7 @@ const webpack = require('webpack');
 const definePluginConfig = require('./definePluginConfig');
 
 module.exports = {
-  node: {
-    fs: 'empty',
-    path: true,
-  },
+  node: false,
 
   plugins: [
     new webpack.DefinePlugin(definePluginConfig),
@@ -40,4 +37,6 @@ module.exports = {
       jquery$: path.resolve(__dirname, '../node_modules/jquery'),
     },
   },
+
+  target: ['web', 'es5'],
 };

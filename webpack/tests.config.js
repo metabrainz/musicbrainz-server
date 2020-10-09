@@ -9,11 +9,11 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const browserConfig = require('./webpack/browserConfig');
-const dirs = require('./webpack/dirs');
-const moduleConfig = require('./webpack/moduleConfig');
-const definePluginConfig = require('./webpack/definePluginConfig');
-const providePluginConfig = require('./webpack/providePluginConfig');
+const browserConfig = require('./browserConfig');
+const dirs = require('./dirs');
+const moduleConfig = require('./moduleConfig');
+const definePluginConfig = require('./definePluginConfig');
+const providePluginConfig = require('./providePluginConfig');
 
 process.env.MUSICBRAINZ_RUNNING_TESTS = true;
 process.env.NODE_ENV = 'test';
@@ -36,14 +36,29 @@ const webTestsConfig = {
     'web-tests': path.resolve(dirs.SCRIPTS, 'tests', 'browser-runner.js'),
   },
 
-  node: browserConfig.node,
+  name: 'web-test-bundles',
+
+  node: {
+    global: true,
+  },
 
   plugins: [
     ...browserConfig.plugins,
-    new webpack.ProvidePlugin(providePluginConfig),
+    new webpack.ProvidePlugin({
+      ...providePluginConfig,
+      process: path.resolve(dirs.CHECKOUT, 'node_modules/process'),
+    }),
   ],
 
-  resolve: browserConfig.resolve,
+  resolve: {
+    ...browserConfig.resolve,
+    fallback: {
+      buffer: require.resolve('buffer'),
+      fs: false,
+      path: require.resolve('path-browserify'),
+      stream: require.resolve('stream-browserify'),
+    },
+  },
 
   ...baseTestsConfig,
 };
@@ -58,25 +73,23 @@ const nodeTestsConfig = {
     ),
   },
 
-  node: {
-    __dirname: false,
-    __filename: false,
-  },
+  name: 'node-test-bundles',
+
+  node: false,
 
   plugins: [
     new webpack.DefinePlugin(definePluginConfig),
     new webpack.ProvidePlugin(providePluginConfig),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /\/iconv-loader$/,
+      contextRegExp: /\/node_modules\/encoding\//,
+    }),
   ],
 
   target: 'node',
 
   ...baseTestsConfig,
 };
-
-if (String(process.env.WATCH_MODE) === '1') {
-  Object.assign(webTestsConfig, require('./webpack/watchConfig'));
-  Object.assign(nodeTestsConfig, require('./webpack/watchConfig'));
-}
 
 module.exports = [
   webTestsConfig,
