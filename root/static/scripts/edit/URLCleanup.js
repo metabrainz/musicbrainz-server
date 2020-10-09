@@ -463,8 +463,8 @@ const CLEANUPS = {
       '^(https?://)?' +
       '(((?!music)[^/])+\.)?' +
       '(amazon\\.(' + (
-        'com|ca|co\\.uk|fr|ae|at|de|it|sg|co\\.jp|jp|' +
-        'cn|es|in|nl|com\\.br|com\\.mx|com\\.au|com\\.tr'
+        'ae|at|com\\.au|com\\.br|ca|cn|com|de|es|fr|in' +
+        '|it|jp|co\\.jp|com\\.mx|nl|sg|com\\.tr|co\\.uk'
       ) + ')|amzn\\.com)',
       'i',
     )],
@@ -506,8 +506,8 @@ const CLEANUPS = {
   'amazonmusic': {
     match: [new RegExp(
       '^(https?://)?music\\.amazon\\.' +
-      '(com|ca|co\\.uk|fr|ae|at|de|it|sg|co\\.jp|jp|' +
-      'cn|es|in|nl|com\\.br|com\\.mx|com\\.au|com\\.tr)' +
+      '(ae|at|com\\.au|com\\.br|ca|cn|com|de|es|fr|in' +
+      '|it|jp|co\\.jp|com\\.mx|nl|sg|com\\.tr|co\\.uk)' +
       '/(albums|artists)',
       'i',
     )],
