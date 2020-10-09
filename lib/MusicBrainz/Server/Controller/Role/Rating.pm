@@ -12,9 +12,15 @@ sub ratings : Chained('load') PathPart('ratings')
     $c->model('Editor')->load(@ratings);
     $c->model('Editor')->load_preferences(map { $_->editor } @ratings);
 
-    $c->stash(
-        template => 'entity/ratings.tt',
+    my %props = (
+        entity => $entity,
         ratings => \@ratings,
+    );
+
+    $c->stash(
+        component_path => 'entity/Ratings',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 

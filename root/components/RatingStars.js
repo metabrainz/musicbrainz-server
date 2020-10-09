@@ -23,11 +23,33 @@ const ratingURL = (entity: RatableT, rating) => (
 
 const ratingInts = [1, 2, 3, 4, 5];
 
-type Props = {
+type StaticRatingStarsProps = {
+  +rating: number | null,
+};
+
+type RatingStarsProps = {
   +entity: RatableT,
 };
 
-const RatingStars = ({entity}: Props): React.Element<'span'> => {
+export const StaticRatingStars = ({
+  rating,
+}: StaticRatingStarsProps): React.Element<'span'> => {
+  const starRating = rating == null ? 0 : (5 * rating / 100);
+  return (
+    <span className="inline-rating">
+      <span className="star-rating" tabIndex="-1">
+        <span
+          className="current-rating"
+          style={{width: `${rating ?? 0}%`}}
+        >
+          {starRating}
+        </span>
+      </span>
+    </span>
+  );
+};
+
+const RatingStars = ({entity}: RatingStarsProps): React.Element<'span'> => {
   const currentStarRating =
     entity.user_rating == null ? 0 : (5 * entity.user_rating / 100);
 
