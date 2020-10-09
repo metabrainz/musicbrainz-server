@@ -36,7 +36,7 @@
     "filesize": "2.0.4",
     "generic-diff": "1.0.1",
     "he": "1.1.1",
-    "imports-loader": "0.8.0",
+    "imports-loader": "1.2.0",
     "jed": "git://github.com/mwiencek/Jed.git#cd3f71b",
     "jquery": "1.11.2",
     "knockout": "git://github.com/mwiencek/knockout.git#a09f077",

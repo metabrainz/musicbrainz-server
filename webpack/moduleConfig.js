@@ -69,7 +69,21 @@ module.exports = {
     },
     {
       test: /leaflet\.markercluster/,
-      use: 'imports-loader?L=leaflet/dist/leaflet-src',
+      use: [
+        {
+          loader: 'imports-loader',
+          options: {
+            imports: [
+              {
+                moduleName: 'leaflet/dist/leaflet-src',
+                name: 'L',
+                syntax: 'single',
+              },
+            ],
+            type: 'commonjs',
+          },
+        },
+      ],
     },
   ],
 };
