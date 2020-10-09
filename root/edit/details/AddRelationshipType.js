@@ -133,13 +133,21 @@ const AddRelationshipType = ({edit}: Props): React.Element<'table'> => {
       </tr>
 
       <tr>
-        <th>{l('entity0 cardinality:')}</th>
+        <th>
+          {addColon(exp.l('Cardinality of {entity_placeholder}', {
+            entity_placeholder: <code>{'{entity0}'}</code>,
+          }))}
+        </th>
         <td>
           <Cardinality cardinality={display.entity0_cardinality || 0} />
         </td>
       </tr>
       <tr>
-        <th>{l('entity1 cardinality:')}</th>
+        <th>
+          {addColon(exp.l('Cardinality of {entity_placeholder}', {
+            entity_placeholder: <code>{'{entity1}'}</code>,
+          }))}
+        </th>
         <td>
           <Cardinality cardinality={display.entity1_cardinality || 0} />
         </td>
