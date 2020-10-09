@@ -43,7 +43,7 @@ module.exports = {
        * jquery and @popperjs are resolved to root/static/scripts/empty.js
        * on the server. See NormalModuleReplacementPlugin below.
        */
-      whitelist: [/(jquery|@popperjs)/],
+      allowlist: [/(jquery|@popperjs)/],
       modulesFromFile: true,
     }),
 

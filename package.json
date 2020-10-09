@@ -65,7 +65,7 @@
     "webpack": "4.46.0",
     "webpack-cli": "3.3.12",
     "webpack-manifest-plugin": "2.2.0",
-    "webpack-node-externals": "1.7.2",
+    "webpack-node-externals": "3.0.0",
     "whatwg-fetch": "3.4.0",
     "yargs": "3.10.0"
   },
