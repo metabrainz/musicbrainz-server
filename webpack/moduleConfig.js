@@ -63,7 +63,7 @@ module.exports = {
         },
         {
           loader: 'less-loader',
-          options: {...lessOptions},
+          options: {lessOptions},
         },
       ],
     },
