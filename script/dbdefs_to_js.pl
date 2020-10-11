@@ -60,6 +60,7 @@ Readonly our %CLIENT_DEFS => (
     MB_LANGUAGES => 1,
     SENTRY_DSN_PUBLIC => 1,
     STATIC_RESOURCES_LOCATION => 1,
+    WEB_SERVER => 1,
     WIKITRANS_SERVER => 1,
 );
 

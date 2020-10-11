@@ -10,5 +10,6 @@ declare module.exports: {
   +MB_LANGUAGES: $ReadOnlyArray<string> | null,
   +SENTRY_DSN_PUBLIC: string | null,
   +STATIC_RESOURCES_LOCATION: string,
+  +WEB_SERVER: string,
   +WIKITRANS_SERVER: string,
 };

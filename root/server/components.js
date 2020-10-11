@@ -100,6 +100,7 @@ module.exports = {
   'label/LabelRelationships': require('../label/LabelRelationships'),
   'label/SpecialPurpose': require('../label/SpecialPurpose'),
   'main/404': require('../main/404'),
+  'main/ConfirmSeed': require('../main/ConfirmSeed'),
   'main/index': require('../main/index'),
   'mbid/NotFound': require('../mbid/NotFound'),
   'oauth2/OAuth2Authorize': require('../oauth2/OAuth2Authorize'),

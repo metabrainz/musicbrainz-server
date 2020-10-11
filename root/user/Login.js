@@ -11,7 +11,11 @@ import FormCsrfToken from '../components/FormCsrfToken';
 import FormRowCheckbox from '../components/FormRowCheckbox';
 import FormRowText from '../components/FormRowText';
 import FormSubmit from '../components/FormSubmit';
+import PostParameters, {
+  type PostParametersT,
+} from '../components/PostParameters';
 import Layout from '../layout';
+import * as manifest from '../static/manifest';
 import DBDefs from '../static/scripts/common/DBDefs';
 import returnUri from '../utility/returnUri';
 
@@ -26,10 +30,7 @@ type PropsT = {
     +remember_me: ReadOnlyFieldT<boolean>,
     +username: ReadOnlyFieldT<string>,
   }>,
-  +postParameters: {
-    +[param: string]: string,
-    ...
-  } | null,
+  +postParameters: PostParametersT | null,
 };
 
 const Login = ({
@@ -96,16 +97,7 @@ const Login = ({
         label={l('Keep me logged in')}
       />
 
-      {postParameters ? (
-        Object.entries(postParameters).map(([param, value]) => (
-          <input
-            defaultValue={value}
-            key={param}
-            name={param}
-            type="hidden"
-          />
-        ))
-      ) : null}
+      {postParameters ? <PostParameters params={postParameters} /> : null}
 
       <div className="row no-label">
         <FormSubmit className="login" label={l('Log In')} />
@@ -118,6 +110,8 @@ const Login = ({
         link2: '/lost-password',
       })}
     </p>
+
+    {manifest.js('user/login', {async: 'async'})}
   </Layout>
 );
 
