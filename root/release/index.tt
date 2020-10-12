@@ -6,7 +6,7 @@
 
     [% IF release.mediums.size == 0 %]
       <p>
-        [% l('The tracklist for this release is currently unknown.') %]
+        [% l('We have no information about this release’s media and tracklist.') %]
       </p>
     [% ELSE %]
       <button type="button" id="toggle-credits" class="btn-link"></button>
@@ -22,14 +22,14 @@
                    href="[% c.uri_for_action('/release/show', [medium.release.gid]) _
                             '/disc/' _ medium.position _ '#disc' _ medium.position %]">
                   <span class="expand-triangle">
-                    [% medium.tracks.size ? '&#x25BC;' : '&#x25B6;' %]
+                    [% medium.has_loaded_tracks ? '&#x25BC;' : '&#x25B6;' %]
                   </span>
                   [% medium_description(medium) %]
                 </a>
               </th>
             </tr>
           </thead>
-          [% medium_body(medium) IF medium.tracks.size %]
+          [% medium_body(medium) IF medium.has_loaded_tracks %]
         </table>
         [% IF medium.combined_track_relationships.size; has_any_credits = 1; END %]
       [% END %]

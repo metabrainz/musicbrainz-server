@@ -1,0 +1,335 @@
+{
+  title: 'Release Editor Duplicate Selection',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/add',
+      value: '',
+    },
+    // Checks that the duplicates tab is disabled.
+    {
+      command: 'assertElementPresent',
+      target: 'css=li[aria-controls="duplicates-tab"][aria-disabled="true"]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=name',
+      value: 'whatever',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'css=li[aria-controls="duplicates-tab"][aria-disabled="true"]',
+      value: '',
+    },
+    {
+      command: 'focus',
+      target: 'css=span.artist input.name',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=span.artist input.name',
+      value: 'imagine',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'css=li[aria-controls="duplicates-tab"][aria-disabled="true"]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=span.artist input.name',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#duplicates-tab"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#duplicates-tab table.tbl > tbody > tr')).map(x => Array.from(x.querySelectorAll('td')).slice(1).map(x => x.textContent.trim()).join('\\t')).join('\\n')",
+      value: 'Whatever It Takes\tCD\t2\t2017-11-17\tXE\tInterscope RecordsKIDinaKORNER\t06025671583940602567158394\t0602567158394\nWhatever It Takes (Jorgen Odegard remix)\tDigital Media\t1\t2017-11-10\tAU\tInterscope RecordsKIDinaKORNER\t\t',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#information"]',
+      value: '',
+    },
+    {
+      command: 'focus',
+      target: 'id=release-group',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=release-group',
+      value: '${KEY_DOWN}',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    // Selecting a release group should only show releases from there.
+    {
+      command: 'click',
+      target: 'xpath=//ul[@data-input-id="release-group"]/li/a[text()="Whatever It Takes"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#duplicates-tab"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#duplicates-tab table.tbl > tbody > tr')).map(x => Array.from(x.querySelectorAll('td')).slice(1).map(x => x.textContent.trim()).join('\\t')).join('\\n')",
+      value: 'Whatever It Takes\tCD\t2\t2017-11-17\tXE\tInterscope RecordsKIDinaKORNER\t06025671583940602567158394\t0602567158394',
+    },
+    {
+      command: 'check',
+      target: 'css=input[name="base-release"][value="61ccc0c2-9738-45ad-ad81-4d7152f33d7c"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#tracklist"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#tracklist table.medium tr.track')).map(tr => [1, 2, 3, 4].map(x => tr.children[x].querySelector('input[type=text]').value).join('\\t')).join('\\n')",
+      value: '1\tWhatever It Takes\tImagine Dragons\t3:22\n2\tThunder (Official remix)\tImagine Dragons & K.Flay\t3:17',
+    },
+    // Unsetting the base release clears the tracklist.
+    {
+      command: 'click',
+      target: 'css=a[href="#duplicates-tab"]',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'css=input[name="base-release"][value=""]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#tracklist"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-disc-dialog a[href="#add-disc-parser"]',
+      value: '${KEY_ESC}',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#tracklist table.medium tr.track')).map(tr => [1, 2, 3, 4].map(x => tr.children[x].querySelector('input[type=text]').value).join('\\t')).join('\\n')",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#information"]',
+      value: '',
+    },
+    {
+      command: 'focus',
+      target: 'id=release-group',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=release-group',
+      value: '${KEY_DOWN}',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//ul[@data-input-id="release-group"]/li/a[text()="Whatever It Takes (Jorgen Odegard remix)"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#duplicates-tab"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#duplicates-tab table.tbl > tbody > tr')).map(x => Array.from(x.querySelectorAll('td')).slice(1).map(x => x.textContent.trim()).join('\\t')).join('\\n')",
+      value: 'Whatever It Takes (Jorgen Odegard remix)\tDigital Media\t1\t2017-11-10\tAU\tInterscope RecordsKIDinaKORNER\t\t',
+    },
+    {
+      command: 'check',
+      target: 'css=input[name="base-release"][value="4798b503-c1ec-49f3-820a-47bde61898b7"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#tracklist"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#tracklist table.medium tr.track')).map(tr => [1, 2, 3, 4].map(x => tr.children[x].querySelector('input[type=text]').value).join('\\t')).join('\\n')",
+      value: '1\tWhatever It Takes (Jorgen Odegard remix)\tImagine Dragons\t3:52',
+    },
+    {
+      command: 'check',
+      target: 'id=format-unknown',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#edit-note"]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=edit-note-text',
+      value: 'not a duplicate!',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 31,
+        status: 2,
+        data: {
+          name: 'whatever',
+          comment: '',
+          entity_id: 1,
+          script_id: null,
+          status_id: null,
+          entity_gid: '$$__IGNORE__$$',
+          language_id: null,
+          packaging_id: null,
+          artist_credit: {
+            names: [
+              {
+                name: 'Imagine Dragons',
+                artist: {
+                  id: 870909,
+                  gid: '012151a8-0f9a-44c9-997f-ebd68b5389f9',
+                  name: 'Imagine Dragons',
+                },
+                join_phrase: null,
+              },
+            ],
+          },
+          release_group_id: 1882825,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 51,
+        status: 2,
+        data: {
+          name: '',
+          release: {
+            id: 1,
+            name: 'whatever',
+          },
+          position: 1,
+          entity_id: 1,
+          tracklist: [
+            {
+              id: null,
+              name: 'Whatever It Takes (Jorgen Odegard remix)',
+              length: 232000,
+              number: '1',
+              position: 1,
+              recording_id: 21757927,
+              artist_credit: {
+                names: [
+                  {
+                    name: 'Imagine Dragons',
+                    artist: {
+                      id: 870909,
+                      name: 'Imagine Dragons',
+                    },
+                    join_phrase: '',
+                  },
+                ],
+              },
+              is_data_track: '0',
+            },
+          ],
+        },
+      },
+    },
+  ],
+}

@@ -1,0 +1,80 @@
+{
+  title: 'MBS-9941',
+  commands: [
+    {
+      command: 'open',
+      target: '/set-language/de',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/artist/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.area.name',
+      value: 'France',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'France')]",
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: 'id=area-bubble',
+      value: 'Du hast Frankreich ausgewählt.',
+    },
+    {
+      command: 'click',
+      target: "xpath=//button[contains(text(), 'Beziehung hinzufügen')]",
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=select.entity-type',
+      value: 'label=Werk',
+    },
+    {
+      command: 'type',
+      target: 'css=#dialog input.name',
+      value: 'Starman',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Starman')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#dialog button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('.relationship-list a').textContent",
+      value: 'Starman',
+    },
+    {
+      command: 'assertEval',
+      target: "new URL(document.querySelector('.relationship-list a').href).pathname",
+      value: '/work/4491f749-d06a-348c-aa58-a288d2eafa5f',
+    },
+    {
+      command: 'open',
+      target: '/set-language/en',
+      value: '',
+    },
+  ],
+}

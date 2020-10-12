@@ -736,8 +736,18 @@ END ~%]
     }) -%]
 [%- END -%]
 
-[%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
+[%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop, old_label, new_label) BLOCK -%]
   [% USE Diff %]
+  [%- IF old_label && new_label -%]
+    <table class="wrap-block details">
+        <tr>
+            <th>[%- old_label -%]</th>
+        </tr>
+        <tr>
+            <th>[%- new_label -%]</th>
+        </tr>
+    </table>
+  [%- END -%]  
   [%- FOR i = loop_over %]
      [%- IF old_prop;
        old_length = old_base.${ loop.index }.${ old_prop } | format_length;

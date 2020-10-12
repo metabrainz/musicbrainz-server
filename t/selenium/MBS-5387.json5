@@ -1,0 +1,40 @@
+{
+  title: 'MBS-5387',
+  commands: [
+    {
+      command: 'open',
+      target: '/artist/b7ffd2af-418f-4be2-bdd1-22f8b48613da/aliases',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('table.tbl.artist-credits td:first-child > span.mp')",
+      value: 'null',
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@class='tbl artist-credits']//tr[contains(descendant::text(), 'Nine Inch Nails')]//a[contains(text(), 'Edit')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.open-ac',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: "xpath=//div[@id='artist-credit-bubble']//input[contains(@id, 'credited-as')]",
+      value: 'nin',
+    },
+    {
+      command: 'click',
+      target: 'css=button.submit.positive',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('table.tbl.artist-credits td:first-child > span.mp > span.ac-mp') != null",
+      value: 'true',
+    },
+  ],
+}

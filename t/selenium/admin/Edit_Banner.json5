@@ -1,0 +1,55 @@
+{
+  title: 'Can set a banner message',
+  commands: [
+    {
+      command: 'open',
+      target: '/admin/banner/edit',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-banner.message',
+      value: 'hey everybody!!',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#content button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: 'css=.banner.warning-header',
+      value: 'hey everybody!!',
+    },
+    {
+      command: 'open',
+      target: '/admin/banner/edit',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-banner.message',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#content button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('.banner.warning-header')",
+      value: 'null',
+    },
+  ],
+}

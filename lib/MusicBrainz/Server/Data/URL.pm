@@ -70,7 +70,6 @@ my %URL_SPECIALIZATIONS = (
     'FonoFi'              => qr{^https?://(?:www\.)?fono\.fi/}i,
     'Generasia'           => qr{^https?://(?:www\.)?generasia\.com/wiki/}i,
     'Genius'              => qr{^https?://(?:[^/]+\.)?genius\.com/}i,
-    'GooglePlay'          => qr{^https?://play\.google\.com/}i,
     'Gutenberg'           => qr{^https?://(?:www\.)?gutenberg\.org/}i,
     'HMikuWiki'           => qr{^https?://www5\.atwiki\.jp/hmiku/}i,
     'Hoick'               => qr{^https?://(?:www\.)?hoick\.jp/}i,

@@ -264,7 +264,7 @@
     <p>
       <label>
         <input type="checkbox" data-bind="checked: hasUnknownTracklist" />
-        [% l('The tracklist for this release is currently unknown.') %]
+        [% l('I have no information about this release’s media and tracklist.') %]
       </label>
     </p>
   <!-- /ko -->
@@ -369,8 +369,17 @@
     <!-- /ko -->
 
     <div data-bind="visible: loaded() && !collapsed()">
+      <!-- ko if: tracks().length === 0 -->
+      <p style="margin: 1em">
+        <label>
+          <input id="tracks-unknown" type="checkbox" data-bind="checked: tracksUnknownToUser" />
+          [% l('I don’t know the tracklist for this medium.') %]
+        </label>
+      </p>
+      <!-- /ko -->
+
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTracks">
-        [%~ l('A tracklist is required.') ~%]
+        [%~ l('Tracks are required. If you don’t know them, but do know some info (such as the format or number of media), tick the “I don’t know the tracklist for this medium” checkbox above and enter the available info. If you have no information about this release’s media, remove all media.') ~%]
       </p>
 
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTrackInfo">

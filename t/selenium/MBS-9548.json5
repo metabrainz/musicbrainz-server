@@ -1,0 +1,15 @@
+{
+  title: 'Same link showing twice on the sidebar (MBS-9548)',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/1bda2f85-0576-4077-b3fa-0fc939079b61',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'window.document.querySelectorAll(\'#sidebar a[href$="//thedavidbowieknives.bandcamp.com/album/weapons-of-mass-seduction"]\').length',
+      value: '1',
+    },
+  ],
+}

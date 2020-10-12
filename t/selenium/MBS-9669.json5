@@ -1,0 +1,25 @@
+{
+  title: 'UI language menu not available in Spanish and Greek (MBS-9669)',
+  commands: [
+    {
+      command: 'open',
+      target: '/set-language/el-GR',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('.language-selector .menu-header').innerHTML",
+      value: 'Ελληνικά (Ελλάδα) ▾',
+    },
+    {
+      command: 'open',
+      target: '/set-language/es-ES',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('.language-selector .menu-header').innerHTML",
+      value: 'Español (España) ▾',
+    },
+  ],
+}

@@ -33,34 +33,40 @@
 [%~ END ~%]
 
 [%~ MACRO medium_body(medium) BLOCK ~%]
-  [% show_artists = medium.has_multiple_artists %]
-  <tbody>
-    <tr class="subh">
-      <th class="pos t">[%~ l('#') ~%]</th>
-      <th>[% l('Title') %]</th>
-      [% IF show_artists %]
-        <th>[% l('Artist') %]</th>
-      [% END %]
-      <th class="rating c">[% l('Rating') %]</th>
-      <th class="treleases">[% l('Length') %]</th>
-    </tr>
-
-    [% FOR track IN medium.audio_tracks %]
-      [% medium_track_row(track, show_artists) %]
-    [% END %]
-
-    [% IF medium.data_tracks.size %]
+  [% IF !medium.tracks.size %]
+    <tbody>
+      <td>[% l('The tracklist for this medium is unknown.') %]</td>
+    </tbody>
+  [% ELSE %]
+    [% show_artists = medium.has_multiple_artists %]
+    <tbody>
       <tr class="subh">
-        <td colspan="6">
-          [% data_track_icon %]
-          [% l('Data Tracks') %]
-        </td>
+        <th class="pos t">[%~ l('#') ~%]</th>
+        <th>[% l('Title') %]</th>
+        [% IF show_artists %]
+          <th>[% l('Artist') %]</th>
+        [% END %]
+        <th class="rating c">[% l('Rating') %]</th>
+        <th class="treleases">[% l('Length') %]</th>
       </tr>
-      [% FOR track IN medium.data_tracks %]
+
+      [% FOR track IN medium.audio_tracks %]
         [% medium_track_row(track, show_artists) %]
       [% END %]
-    [% END %]
-  </tbody>
+
+      [% IF medium.data_tracks.size %]
+        <tr class="subh">
+          <td colspan="6">
+            [% data_track_icon %]
+            [% l('Data Tracks') %]
+          </td>
+        </tr>
+        [% FOR track IN medium.data_tracks %]
+          [% medium_track_row(track, show_artists) %]
+        [% END %]
+      [% END %]
+    </tbody>
+  [% END %]
 [%~ END ~%]
 
 [%~ MACRO medium_credits(medium) BLOCK ~%]

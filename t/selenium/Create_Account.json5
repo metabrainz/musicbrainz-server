@@ -1,0 +1,71 @@
+{
+  title: 'Create Account',
+  commands: [
+    {
+      command: 'open',
+      target: '/register',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=id-register.username',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-register.username',
+      value: 'new_editor',
+    },
+    {
+      command: 'type',
+      target: 'id=id-register.password',
+      value: 'password',
+    },
+    {
+      command: 'type',
+      target: 'id=id-register.confirm_password',
+      value: 'password',
+    },
+    {
+      command: 'type',
+      target: 'id=id-register.email',
+      value: 'new_editor@example.com',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=span.buttons > button[type="submit"]',
+      value: '',
+    },
+    {
+      command: 'assertLocationMatches',
+      target: '/user/new_editor$',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/verify-email?email=new_editor%40example.com&time=32503680000&userid=6&chk=EJq5fZgv%2FBzKsNkSJm6%2FDB6gg50',
+      value: '',
+    },
+    {
+      command: 'assertTextMatches',
+      target: 'css=#page > p',
+      value: 'Thank you, your email address has now been verified!',
+    },
+    // Log out
+    {
+      command: 'click',
+      target: 'css=span.menu-header',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'link=Log Out',
+      value: '',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'css=.header a[href*="/login"]',
+      value: '',
+    },
+  ],
+}

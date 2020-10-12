@@ -1,3 +1,5 @@
+[%- PROCESS 'cdtoc/attach_list.tt' -%]
+
 <table class="tbl">
     <thead>
         <tr>
@@ -25,7 +27,10 @@
            classes.push(loop.parity);
            classes.push('mp') IF medium_cdtoc.edits_pending > 0; %]
         <tr class="[% classes.join(' ') %]">
-            <td>[% medium.position %]/[% release.medium_count %]</td>
+            <td>
+              [% medium.position %]/[% release.medium_count %]
+              [% tracklist_toggle %]
+            </td>
             <td>[% link_entity(release) %]</td>
             <td>[% artist_credit(release.artist_credit) %]</td>
             <td>[% medium_format_name(medium) %]</td>
@@ -59,6 +64,24 @@
             </td>
             [% END %]
         </tr>
-        [%- END -%]
+        [% tracklist_block %]
+      [%- END -%]
+      [% attach_list_script() %]
     </tbody>
 </table>
+
+[% MACRO cdtoc_list_script BLOCK %]
+  <script>
+    $(".tracklist").hide();
+
+    $(document).on("click", ".toggle", function () {
+      var $tracklist = $(this).closest("tr").next(".tracklist").toggle();
+
+      if ($tracklist.is(":hidden")) {
+        $(this).text("[% l('show tracklist') | js %]");
+      } else {
+        $(this).text("[% l('hide tracklist') | js %]");
+      }
+    });
+  </script>
+[% END %]

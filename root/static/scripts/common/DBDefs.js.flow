@@ -3,6 +3,15 @@ declare module.exports: {
   +BETA_REDIRECT_HOSTNAME: string,
   +CANONICAL_SERVER: string,
   +CRITIQUEBRAINZ_SERVER: string,
+  +DATABASES: {
+    +[name: string]: {
+      +database: string,
+      +host: string,
+      +password: string,
+      +port: number,
+      +user: string,
+    },
+  },
   +DB_READ_ONLY: boolean,
   +DB_STAGING_SERVER: boolean,
   +DB_STAGING_SERVER_DESCRIPTION: string,

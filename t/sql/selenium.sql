@@ -29,6 +29,7 @@ INSERT INTO area_gid_redirect (gid, new_id, created) VALUES
   ('aafabb17-528e-51e3-9ac8-b8471dacd710', 38, '2013-05-27 13:15:52.179105+00');
 
 INSERT INTO musicbrainz.artist (id, gid, name, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, type, area, gender, comment, edits_pending, last_updated, ended, begin_area, end_area) VALUES
+    (1, '89ad4ac3-39f7-470e-963a-56509c546377', 'Various Artists', 'Various Artists', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', 0, '2020-10-06 17:00:04.342577-05', '0', NULL, NULL),
     (99, '2437980f-513a-44fc-80f1-b90d9d7fcf8f', 'Bing Crosby', 'Crosby, Bing', 1903, 5, 3, 1977, 10, 14, 1, 222, 1, '', 0, '2019-02-20 00:00:49.909289+00', '1', 5540, 88303),
     (347, 'b7ffd2af-418f-4be2-bdd1-22f8b48613da', 'Nine Inch Nails', 'Nine Inch Nails', 1988, NULL, NULL, NULL, NULL, NULL, 2, 222, NULL, '', 0, '2018-11-29 21:00:53.245938+00', '0', 5241, NULL),
     (956, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'David Bowie', 'Bowie, David', 1947, 1, 8, 2016, 1, 10, 1, 221, 1, '', 0, '2019-01-10 03:00:28.692936+00', '1', 39872, 7020),

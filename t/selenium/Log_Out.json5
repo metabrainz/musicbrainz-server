@@ -1,0 +1,20 @@
+{
+  title: 'Log Out',
+  commands: [
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=span.menu-header',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'link=Log Out',
+      value: '',
+    },
+  ],
+}

@@ -185,16 +185,18 @@ test('mediumEdit and releaseReorderMediums edits are generated for non-loaded me
 
   t.deepEqual(releaseEditor.edits.medium(release), [
     {
+      'delete_tracklist': 0,
       'edit_type': 52,
       'format_id': 2,
-      'hash': '7e795b9d8b514ec0549c667c8da7a844d9d00835',
+      'hash': '4d8fba45c5ebf8ee7282b5ca1db761eb458cd844',
       'name': 'bar!',
       'to_edit': 456,
     },
     {
+      'delete_tracklist': 0,
       'edit_type': 52,
       'format_id': 1,
-      'hash': 'bee90ecf182e5b8f1a80b4393f2ded17c2d0109c',
+      'hash': '910c6b6397c2301324b52662b45927b443e58195',
       'name': 'foo!',
       'to_edit': 123,
     },

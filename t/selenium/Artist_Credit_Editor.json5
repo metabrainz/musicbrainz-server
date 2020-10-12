@@ -1,0 +1,382 @@
+{
+  title: 'Artist Credit Editor',
+  commands: [
+    {
+      command: 'open',
+      target: '/recording/create',
+      value: '',
+    },
+    // hidden inputs
+    {
+      command: 'click',
+      target: 'css=button.open-ac',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=ac-source-artist-0',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=ac-source-artist-0',
+      value: '5441c29d-3602-4898-b1a1-b77fa23b8e50',
+    },
+    {
+      command: 'fireEvent',
+      target: 'id=ac-source-artist-0',
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length",
+      value: '4',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.name"]',
+      value: 'David Bowie',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.join_phrase"]',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.artist.name"]',
+      value: 'David Bowie',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.artist.id"]',
+      value: '956',
+    },
+    {
+      command: 'type',
+      target: 'id=ac-source-credited-as-0',
+      value: 'David Robert Jones',
+    },
+    {
+      command: 'fireEvent',
+      target: 'id=ac-source-credited-as-0',
+      value: 'blur',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length",
+      value: '4',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.name"]',
+      value: 'David Robert Jones',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.join_phrase"]',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.artist.name"]',
+      value: 'David Bowie',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.artist.id"]',
+      value: '956',
+    },
+    {
+      command: 'click',
+      target: 'css=td > button.add-item.with-label',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=ac-source-artist-1',
+      value: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+    },
+    {
+      command: 'fireEvent',
+      target: 'id=ac-source-artist-1',
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length",
+      value: '8',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.name"]',
+      value: 'David Robert Jones',
+    },
+    {
+      command: 'assertEval',
+      target: 'window.document.querySelector(\'input[name="edit-recording.artist_credit.names.0.join_phrase"]\').value',
+      value: ' & ',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.artist.name"]',
+      value: 'David Bowie',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.0.artist.id"]',
+      value: '956',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.1.name"]',
+      value: 'Bing Crosby',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.1.join_phrase"]',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.1.artist.name"]',
+      value: 'Bing Crosby',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.1.artist.id"]',
+      value: '99',
+    },
+    // removing all credits but one should clear the join phrase (MBS-8896)
+    {
+      command: 'click',
+      target: "xpath=(//button[contains(@class, 'remove-artist-credit')])[2]",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'window.document.querySelector(\'input[name="edit-recording.artist_credit.names.0.join_phrase"]\').value',
+      value: '',
+    },
+    // updating the artist field should also update the credited name field (MBS-8911)
+    {
+      command: 'click',
+      target: 'id=ac-source-artist-0',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=ac-source-artist-0',
+      value: '${KEY_TAB}',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=ac-source-credited-as-0',
+      value: '${KEY_BKSP}David Bowie${KEY_SHIFT}${KEY_TAB}${KEY_SHIFT}',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=ac-source-artist-0',
+      value: '${KEY_BKSP}',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=ac-source-credited-as-0',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=ac-source-artist-0',
+      value: 'hello',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=ac-source-credited-as-0',
+      value: 'hello',
+    },
+    // can clear the credited name field until it is blurred
+    {
+      command: 'assertValue',
+      target: 'id=ac-source-artist-0',
+      value: 'hello',
+    },
+    {
+      command: 'focus',
+      target: 'id=ac-source-credited-as-0',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=ac-source-credited-as-0',
+      value: '${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=ac-source-credited-as-0',
+      value: '',
+    },
+    // also test whether it can be cleared when it differs from the artist name, which was another subtle bug
+    {
+      command: 'type',
+      target: 'id=ac-source-artist-0',
+      value: '5441c29d-3602-4898-b1a1-b77fa23b8e50',
+    },
+    {
+      command: 'fireEvent',
+      target: 'id=ac-source-artist-0',
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'focus',
+      target: 'id=ac-source-credited-as-0',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=ac-source-credited-as-0',
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}hello${KEY_SHIFT}${KEY_HOME}${KEY_SHIFT}${KEY_BKSP}',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=ac-source-credited-as-0',
+      value: '',
+    },
+    // finally, blur
+    {
+      command: 'fireEvent',
+      target: 'id=ac-source-credited-as-0',
+      value: 'blur',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=ac-source-credited-as-0',
+      value: 'David Bowie',
+    },
+    // changing an artist field should not cause infinite recursion (MBS-8924)
+    {
+      command: 'type',
+      target: 'id=entity-artist',
+      value: 'Silent Dawn',
+    },
+    {
+      command: 'fireEvent',
+      target: 'id=entity-artist',
+      value: 'input',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=ac-source-artist-0',
+      value: 'Silent Dawn',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=ac-source-credited-as-0',
+      value: 'Silent Dawn',
+    },
+    // artist field does not have the "lookup-performed" class
+    {
+      command: 'assertEval',
+      target: "window.document.getElementById('ac-source-artist-0').classList.contains('lookup-performed')",
+      value: 'false',
+    },
+    // creating a new artist from the track AC bubble should not close it (MBS-7251)
+    {
+      command: 'open',
+      target: '/release/add',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#tracklist"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=.ui-dialog[aria-describedby=add-disc-dialog] button.ui-dialog-titlebar-close',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=.add-tracks button.add-item',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=td.artist button.open-ac',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=ac-new-12-artist-0',
+      value: 'test',
+    },
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'mouseOver',
+      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Add a new artist')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Add a new artist')]",
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '3000',
+      value: '',
+    },
+    // close the dialog
+    {
+      command: 'click',
+      target: "xpath=//span[contains(@class, 'ui-dialog-title')][contains(., 'Add a new artist')]/following-sibling::button[contains(@class, 'ui-dialog-titlebar-close')]",
+      value: '',
+    },
+    // bubble is visible after dialog is closed
+    {
+      command: 'assertEval',
+      target: "window.$('#artist-credit-bubble').is(':visible')",
+      value: 'true',
+    },
+    // clicking outside of a track AC bubble closes it
+    {
+      command: 'click',
+      target: 'css=h1',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.$('#artist-credit-bubble').is(':visible')",
+      value: 'false',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+  ],
+}

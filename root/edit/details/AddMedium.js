@@ -158,32 +158,36 @@ const AddMedium = ({allowNew, edit}: Props): React.MixedElement => {
         <td>
           <table className="tbl">
             <tbody>
-              <MediumTracklist
-                allowNew={allowNew}
-                showArtists
-                tracks={display.tracks}
-              />
+              {display.tracks?.length ? (
+                <MediumTracklist
+                  allowNew={allowNew}
+                  showArtists
+                  tracks={display.tracks}
+                />
+              ) : l('The tracklist for this medium is unknown.')}
             </tbody>
           </table>
         </td>
       </tr>
 
-      <tr>
-        <th>{l('Artist Credits:')}</th>
-        <td>
-          <table className="tbl">
-            <thead>
-              <tr>
-                <th className="pos">{l('#')}</th>
-                <th>{l('Artist')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <CondensedTrackACs tracks={display.tracks} />
-            </tbody>
-          </table>
-        </td>
-      </tr>
+      {display.tracks?.length ? (
+        <tr>
+          <th>{l('Artist Credits:')}</th>
+          <td>
+            <table className="tbl">
+              <thead>
+                <tr>
+                  <th className="pos">{l('#')}</th>
+                  <th>{l('Artist')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <CondensedTrackACs tracks={display.tracks} />
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      ) : null}
     </table>
   );
 };
