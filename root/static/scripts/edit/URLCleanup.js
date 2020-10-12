@@ -2987,6 +2987,9 @@ const CLEANUPS = {
   'vk': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?vk\\.com/', 'i')],
     type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
+    },
   },
   'weibo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?weibo\\.com/', 'i')],
