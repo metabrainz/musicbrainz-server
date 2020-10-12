@@ -1,3 +1,5 @@
+[%- PROCESS 'cdtoc/attach_list.tt' -%]
+
 [% WRAPPER 'layout.tt' title=l('Lookup CD') full_width=1 %]
 <h1>[% l('Lookup CD') %]</h1>
 [% IF c.user_exists %]
@@ -37,16 +39,27 @@
         <th>[% l('Release') %]</th>
         <th>[% l('Medium') %]</th>
         <th>[% l('Artist') %]</th>
+        <th>[% l('Date') %]</th>
+        <th>[% l('Country') %]</th>
+        <th>[% l('Label') %]</th>
+        <th>[% l('Catalog#') %]</th>
+        <th>[% l('Barcode') %]</th>
       </thead>
       <tbody>
         [% FOR medium=possible_mediums %]
-        <tr class="[% loop.parity %]">
-          <td><input type="radio" name="medium" value="[% medium.id %]" /></td>
-          <td>[% link_entity(medium.release) %]</td>
-          <td>[% medium.position %]</td>
-          <td>[% artist_credit(medium.release.artist_credit) %]</td>
-        </tr>
+          [% release=medium.release %]
+          <tr class="[% loop.parity %]">
+            <td><input type="radio" name="medium" value="[% medium.id %]" /></td>
+            <td>[% link_entity(release) %]</td>
+            <td>
+              [% medium.format_name %] [% medium.position %]
+              [% tracklist_toggle %]
+            </td>
+            [% release_info(1) %]
+          </tr>
+          [% tracklist_block %]
         [% END %]
+        [% attach_list_script() %]
       </tbody>
     </table>
     <p>[% form_submit(l('Attach Disc ID')) %]</p>
