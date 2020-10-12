@@ -16,7 +16,14 @@
       <legend data-bind="text: formattedName()"></legend>
 
       <table id="track-recording-assignation" data-bind="if: loaded">
-        <thead>
+        <tbody data-bind="if: tracks().length === 0">
+          <tr>
+            <td></td>
+            <td class="name" style="padding: 1em">[% l('The tracklist for this medium is unknown.') %]</td>
+          <tr>
+        </tbody>
+
+        <thead data-bind="if: tracks().length > 0">
           <tr>
             <th></th>
             <th colspan="2" style="text-align: left">[% l('track') %]</th>

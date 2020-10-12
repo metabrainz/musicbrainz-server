@@ -143,6 +143,7 @@ sub initialize
     my $entity = delete $opts{to_edit};
 
     my $tracklist = delete $opts{tracklist};
+    my $delete_tracklist = delete $opts{delete_tracklist};    
     my $data;
 
     $self->check_tracks_against_format($tracklist, $opts{format_id});
@@ -173,7 +174,7 @@ sub initialize
             $self->_changes($entity, %opts)
         };
 
-        if ($tracklist) {
+        if ($tracklist && @$tracklist) {
             $self->c->model('Track')->load_for_mediums($entity);
             $self->c->model('ArtistCredit')->load($entity->all_tracks);
 
@@ -193,6 +194,12 @@ sub initialize
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
             }
+        } elsif ($tracklist && $delete_tracklist) {
+            $self->c->model('Track')->load_for_mediums($entity);
+            $self->c->model('ArtistCredit')->load($entity->all_tracks);
+
+            $data->{old}{tracklist} = tracks_to_hash($entity->tracks);
+            $data->{new}{tracklist} = [];
         }
 
         MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
