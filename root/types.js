@@ -749,12 +749,9 @@ declare type MediumFormatT = {
 };
 
 declare type MediumT = $ReadOnly<{
-  /*
-   * TODO: still missing +cdtocs: $ReadOnlyArray<MediumCdTocT>
-   * (MediumCdTocT is not defined yet)
-   */
   ...EntityRoleT<'track'>,
   ...LastUpdateRoleT,
+  +cdtocs: $ReadOnlyArray<MediumCDTocT>,
   +editsPending: boolean,
   +format: MediumFormatT | null,
   +format_id: number,

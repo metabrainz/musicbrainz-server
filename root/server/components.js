@@ -140,6 +140,7 @@ module.exports = {
   'report/BadAmazonUrls': require('../report/BadAmazonUrls'),
   'report/CatNoLooksLikeAsin': require('../report/CatNoLooksLikeAsin'),
   'report/CatNoLooksLikeLabelCode': require('../report/CatNoLooksLikeLabelCode'),
+  'report/CDTocDubiousLength': require('../report/CDTocDubiousLength'),
   'report/CollaborationRelationships': require('../report/CollaborationRelationships'),
   'report/CoverArtRelationships': require('../report/CoverArtRelationships'),
   'report/DeprecatedRelationshipArtists': require('../report/DeprecatedRelationshipArtists'),
