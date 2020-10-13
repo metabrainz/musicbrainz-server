@@ -22,6 +22,7 @@ type DescriptiveLinkProps = {
   +disableLink?: boolean,
   +entity: CollectionT | CoreEntityT,
   +showDeletedArtists?: boolean,
+  +showIcon?: boolean,
   +target?: '_blank',
 };
 
@@ -33,6 +34,7 @@ const DescriptiveLink = ({
   disableLink = false,
   entity,
   showDeletedArtists = true,
+  showIcon = false,
   target,
 }: DescriptiveLinkProps): Expand2ReactOutput | React.Node => {
   const props = {
@@ -41,6 +43,7 @@ const DescriptiveLink = ({
     deletedCaption,
     disableLink,
     showDisambiguation: true,
+    showIcon,
     target,
   };
 
@@ -67,7 +70,9 @@ const DescriptiveLink = ({
 
   if (entity.entityType === 'place' && entity.area) {
     return exp.l('{place} in {area}', {
-      area: <AreaWithContainmentLink area={entity.area} />,
+      area: (
+        <AreaWithContainmentLink area={entity.area} showIcon={showIcon} />
+      ),
       place: link,
     });
   }

@@ -22,6 +22,7 @@ type Props = {
   +deletedCaption?: string,
   +disableLink?: boolean,
   +showDisambiguation?: boolean,
+  +showIcon?: boolean,
   +target?: '_blank',
 };
 
