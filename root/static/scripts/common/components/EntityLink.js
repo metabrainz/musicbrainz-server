@@ -43,6 +43,25 @@ export const DeletedLink = ({
   );
 };
 
+const iconClassPicker = {
+  area: 'arealink',
+  artist: 'artistlink',
+  collection: null,
+  editor: null,
+  event: 'eventlink',
+  genre: null,
+  instrument: 'instrumentlink',
+  label: 'labellink',
+  link_type: null,
+  place: 'placelink',
+  recording: 'recordinglink',
+  release: 'releaselink',
+  release_group: 'rglink',
+  series: 'serieslink',
+  url: null,
+  work: 'worklink',
+};
+
 const Comment = ({
   className,
   comment,
@@ -131,6 +150,7 @@ type EntityLinkProps = {
   +showDisambiguation?: boolean,
   +showEditsPending?: boolean,
   +showEventDate?: boolean,
+  +showIcon?: boolean,
   +subPath?: string,
 
   // ...anchorProps
@@ -153,6 +173,7 @@ const EntityLink = ({
   showDisambiguation,
   showEditsPending = true,
   showEventDate = true,
+  showIcon = false,
   subPath,
   ...anchorProps
 }: EntityLinkProps):
@@ -315,11 +336,17 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     }
   }
 
-  if (!showDisambiguation && !infoLink) {
-    return content;
+  const parts = [content];
+
+  if (showIcon) {
+    parts.unshift(
+      <span className={iconClassPicker[entity.entityType]} key="icon" />,
+    );
   }
 
-  const parts = [content];
+  if (!showDisambiguation && !infoLink) {
+    return parts;
+  }
 
   if (showDisambiguation) {
     if (entity.entityType === 'event') {

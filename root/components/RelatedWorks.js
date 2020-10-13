@@ -40,7 +40,7 @@ const RelatedWorks = ({workIds}: Props): React.MixedElement => {
     const work = linkedEntities.work[workIds[i]];
     createArgs.push(
       <h3>
-        <EntityLink entity={work} />
+        <EntityLink entity={work} showIcon />
       </h3>,
       <StaticRelationshipsDisplay
         relationships={

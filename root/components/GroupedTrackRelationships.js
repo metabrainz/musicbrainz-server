@@ -68,7 +68,7 @@ const renderWorkRelationship = (relationship: RelationshipT) => {
     <React.Fragment key={relationship.id}>
       <dt>{addColon(title)}</dt>
       <dd>
-        <EntityLink content={targetCredit} entity={work} />
+        <EntityLink content={targetCredit} entity={work} showIcon />
         {' '}
         {bracketedText(relationshipDateText(
           relationship,
