@@ -16,6 +16,7 @@ import {
 import MB from '../common/MB';
 import {uniqBy} from '../common/utility/arrays';
 import {debounceComputed} from '../common/utility/debounce';
+import similarity from '../edit/utility/similarity';
 
 import releaseEditor from './viewModel';
 import utils from './utils';
@@ -319,55 +320,73 @@ function setSuggestedRecordings(track, recordings) {
   track.suggestedRecordings(recordings);
 }
 
+function weightedScore(parts) {
+  let totalScore = 0;
+  let totalWeight = 0;
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+    totalScore += (part.score * part.weight);
+    totalWeight += part.weight;
+  }
+  return totalScore / totalWeight;
+}
+
+const MIN_RECORDING_SIMILARITY = 0.85;
 
 function matchAgainstRecordings(track, recordings) {
   if (!recordings || !recordings.length) {
     return null;
   }
 
-  var trackLength = track.length();
-  var trackName = track.name();
+  const trackLength = track.length();
+  const trackName = track.name();
 
-  function getLengthDifference(recording) {
-    /*
-     * Prefer that recordings with a length be at the top of the
-     * suggestions list.
-     */
-    if (!recording.length) {
-      return MAX_LENGTH_DIFFERENCE + 1;
-    }
-    if (!trackLength) {
-      return MAX_LENGTH_DIFFERENCE;
-    }
-    return Math.abs(trackLength - recording.length);
-  }
+  const matches = recordings
+    .reduce(function (accum, recording) {
+      const parts = [];
 
-  var matches = recordings
-    .filter(function (recording) {
-      if (!utils.similarLengths(trackLength, recording.length)) {
-        return false;
+      const recordingLength = recording.length;
+      if (trackLength && recordingLength) {
+        const lengthSimilarity = 1 - (
+          Math.abs(trackLength - recordingLength) /
+                  (trackLength + recordingLength)
+        );
+        parts.push({
+          score: lengthSimilarity,
+          weight: 2,
+        });
+      } else {
+        // Give slight preference to recordings that have a length.
+        parts.push({
+          score: recordingLength ? 1 : 0,
+          weight: 0.1,
+        });
       }
-      if (utils.similarNames(trackName, recording.name)) {
-        return true;
-      }
-      var recordingWithoutETI = recording.name.replace(etiRegex, '');
 
-      if (utils.similarNames(trackName, recordingWithoutETI)) {
-        return true;
-      }
-            
-      return false;
-    })
-    .sort(function (r1, r2) {
-      const appearsOn1 = r1.appearsOn;
-      const appearsOn2 = r2.appearsOn;
-      return (
-      // Sort recordings with more appearances first.
-        ((appearsOn2?.results.length ?? 0) -
-            (appearsOn1?.results.length ?? 0)) ||
-        (getLengthDifference(r1) - getLengthDifference(r2))
+      const recordingWithoutETI = recording.name.replace(etiRegex, '');
+      const nameSimilarity = Math.max(
+        similarity(trackName, recording.name),
+        similarity(trackName, recordingWithoutETI)
       );
-    });
+      parts.push({score: nameSimilarity, weight: 1});
+
+      let score = weightedScore(parts);
+      if (score < MIN_RECORDING_SIMILARITY) {
+        return accum;
+      }
+
+      // Add a bonus for each release it appears on.
+      let appearsOnCount = (recording.appearsOn?.results.length) ?? 0;
+      while (appearsOnCount) {
+        score += ((1 - score) * 0.10);
+        appearsOnCount--;
+      }
+
+      accum.push({recording, score});
+      return accum;
+    }, [])
+    .sort((a, b) => b.score - a.score)
+    .map(x => x.recording);
 
   if (matches.length) {
     return matches.map(function (match) {
@@ -377,7 +396,6 @@ function matchAgainstRecordings(track, recordings) {
 
   return null;
 }
-
 
 recordingAssociation.track = function (track) {
   debounceComputed(function () {
