@@ -2615,13 +2615,6 @@ const CLEANUPS = {
       return {result: false};
     },
   },
-  'socialnetwork': {
-    match: [
-      new RegExp('^(https?://)?([^/]+\\.)?vine\\.co/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?vk\\.com/', 'i'),
-    ],
-    type: LINK_TYPES.socialnetwork,
-  },
   'songfacts': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?songfacts\\.com/', 'i')],
     type: LINK_TYPES.songfacts,
@@ -2985,6 +2978,17 @@ const CLEANUPS = {
       // Remove query string, just the video id should be enough.
       url = url.replace(/\?.*/, '');
       return url;
+    },
+  },
+  'vine': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?vine\\.co/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+  },
+  'vk': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?vk\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
     },
   },
   'weibo': {
