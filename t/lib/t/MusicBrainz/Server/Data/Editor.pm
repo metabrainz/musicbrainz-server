@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
     :edit_status
     $EDIT_ARTIST_EDIT
     $UNTRUSTED_FLAG
+    :vote
 );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test qw( accept_edit );
@@ -320,6 +321,49 @@ test 'Deleting an editor cancels all open edits' => sub {
 
     is($c->model('Edit')->get_by_id($applied_edit->id)->status, $STATUS_APPLIED);
     is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
+};
+
+test 'Deleting an editor changes all Yes/No votes on open edits to Abstain' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
+
+    my $editor = $c->model('Editor')->get_by_id(2);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'A Comment',
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    $c->model('Vote')->enter_votes(
+        $editor,
+        {
+            vote    => $VOTE_NO,
+            edit_id => $edit->id,
+        }
+    );
+
+    $c->model('Vote')->load_for_edits($edit);
+    is(scalar @{ $edit->votes }, 1, 'There is one vote');
+    is($edit->votes->[0]->vote, $VOTE_NO, 'Vote is No');
+    is($edit->votes->[0]->editor_id, 2, 'Vote is by editor 2');
+
+
+    $c->model('Editor')->delete(2);
+    
+    # Clear the votes to load again
+    $edit->votes([]);
+
+    $c->model('Vote')->load_for_edits($edit);
+    is(scalar @{ $edit->votes }, 2, 'There is two votes');
+    is($edit->votes->[1]->vote, $VOTE_ABSTAIN, 'New vote is Abstain');
+    is($edit->votes->[1]->editor_id, 2, 'New vote is by editor 2');
 };
 
 test 'Deleting an editor unsubscribes anyone who was subscribed to them' => sub {

@@ -27,6 +27,7 @@ use MusicBrainz::Server::Constants qw( :edit_status :privileges );
 use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
 use MusicBrainz::Server::Constants qw( :create_entity );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
+use MusicBrainz::Server::Constants qw( :vote );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -496,6 +497,7 @@ sub editors_with_subscriptions {
 sub delete {
     my ($self, $editor_id, $allow_reuse) = @_;
     die "Invalid editor_id: $editor_id" unless $editor_id > 0;
+    my $editor = $self->c->model('Editor')->get_by_id($editor_id);
 
     $self->sql->begin;
     $self->sql->do(
@@ -542,13 +544,37 @@ sub delete {
     # We want to cancel the latest edits first, to make sure
     # no conflicts happen that make some cancelling fail and all
     # entities that should be autoremoved do get removed
-    my $ids = $self->sql->select_single_column_array(
+    my $own_edit_ids = $self->sql->select_single_column_array(
             'SELECT id FROM edit WHERE editor = ? AND status = ? ORDER BY open_time DESC',
             $editor_id, $STATUS_OPEN);
-    my $edits = $self->c->model('Edit')->get_by_ids(@$ids);
+    my $own_edits = $self->c->model('Edit')->get_by_ids(@$own_edit_ids);
 
-    for my $id (@$ids) {
-        $self->c->model('Edit')->cancel($edits->{$id});
+    for my $edit_id (@$own_edit_ids) {
+        $self->c->model('Edit')->cancel($own_edits->{$edit_id});
+    }
+
+    # Override any Yes/No votes on open edits with Abstain
+    # to avoid pre-deletion vandalism
+    my $voted_open_edit_ids = $self->sql->select_single_column_array(
+            'SELECT edit.id
+             FROM edit
+             JOIN vote
+               ON edit.id = vote.edit
+             WHERE edit.status = ?
+               AND vote.editor = ?
+               AND vote.vote IN (?, ?)
+               AND vote.superseded = FALSE
+            ORDER BY open_time DESC',
+            $STATUS_OPEN, $editor_id, $VOTE_YES, $VOTE_NO);
+
+    for my $edit_id (@$voted_open_edit_ids) {
+        $self->c->model('Vote')->enter_votes(
+            $editor,
+            {
+                vote    => $VOTE_ABSTAIN,
+                edit_id => $edit_id
+            }
+        );
     }
 
     # Delete completely if they're not actually referred to by anything
