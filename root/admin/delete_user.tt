@@ -21,6 +21,10 @@
            { uri => 'http://wiki.musicbrainz.org/Account_FAQ#How_do_I_delete_my_account.3F' }) %]
     </p>
 
+    <p>
+      [% l('This will also cancel all your open edits and change all of your votes on any edits currently open to Abstain.') %]
+    </p>
+
     <p>[% l('Are you sure you want to delete your account? This cannot be undone!')%]</p>
     <form action="[% c.req.uri %]" method="post" id="delete-account-form">
       [% form_csrf_token %]
