@@ -368,6 +368,12 @@ for my $method (qw( create edit merge merge_queue delete add_alias edit_alias de
     };
 };
 
+before qw( create edit ) => sub {
+    my ($self, $c) = @_;
+    my %area_types = map {$_->id => $_} $c->model('AreaType')->get_all();
+    $c->stash->{area_types} = \%area_types;
+};
+
 sub _merge_load_entities
 {
     my ($self, $c, @areas) = @_;

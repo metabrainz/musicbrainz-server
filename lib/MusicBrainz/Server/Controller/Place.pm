@@ -215,6 +215,12 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_PLACE_MERGE,
 };
 
+before qw( create edit ) => sub {
+    my ($self, $c) = @_;
+    my %place_types = map {$_->id => $_} $c->model('PlaceType')->get_all();
+    $c->stash->{place_types} = \%place_types;
+};
+
 sub _merge_load_entities
 {
     my ($self, $c, @places) = @_;

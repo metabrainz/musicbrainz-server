@@ -274,6 +274,7 @@ module.exports = {
   'collection/CollectionHeader': require('../collection/CollectionHeader'),
   'components/Aliases': require('../components/Aliases'),
   'components/GroupedTrackRelationships': require('../components/GroupedTrackRelationships'),
+  'components/MediumToolbox': require('../components/MediumToolbox'),
   'components/Relationships': require('../components/Relationships'),
   'components/RelationshipsTable': require('../components/RelationshipsTable'),
   'components/UserAccountTabs': require('../components/UserAccountTabs'),

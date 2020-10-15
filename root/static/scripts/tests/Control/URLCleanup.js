@@ -3801,11 +3801,12 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
   },
-  // VKontakte
+  // VK
   {
                      input_url: 'http://vk.com/tin_sontsya',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://vk.com/tin_sontsya',
   },
   // Weibo
   {

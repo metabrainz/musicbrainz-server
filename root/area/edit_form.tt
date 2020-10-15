@@ -25,11 +25,16 @@
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [%- enter_edit() -%]
-
   </div>
+
+  <div class="documentation">
+    [%- type_bubble(form.field('type_id'), area_types) -%]
+  </div>
+
 </form>
 
 [%- guesscase_options() -%]
+[% script_manifest('area.js') %]
 
 <script type="text/javascript">
   (function () {
