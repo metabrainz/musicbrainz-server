@@ -25,7 +25,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Constants qw( :edit_status :privileges );
 use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
-use MusicBrainz::Server::Constants qw( :create_entity );
+use MusicBrainz::Server::Constants qw( :create_entity $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Constants qw( :vote );
 
@@ -657,7 +657,7 @@ sub added_entities_counts {
         q{SELECT
               CASE
                 WHEN type = ? THEN 'artist'
-                WHEN type = ? THEN 'release'
+                WHEN type IN (?, ?) THEN 'release'
                 WHEN type = ? THEN 'cover_art'
                 WHEN type = ? THEN 'event'
                 WHEN type = ? THEN 'label'
@@ -670,7 +670,7 @@ sub added_entities_counts {
             FROM edit
            WHERE editor = ?
            GROUP BY type};
-    my @params = ($EDIT_ARTIST_CREATE, $EDIT_RELEASE_CREATE,
+    my @params = ($EDIT_ARTIST_CREATE, $EDIT_RELEASE_CREATE, $EDIT_HISTORIC_ADD_RELEASE,
         $EDIT_RELEASE_ADD_COVER_ART, $EDIT_EVENT_CREATE, $EDIT_LABEL_CREATE,
         $EDIT_PLACE_CREATE, $EDIT_SERIES_CREATE, $EDIT_WORK_CREATE);
     my $rows = $self->sql->select_list_of_lists($query, @params, $editor_id);
