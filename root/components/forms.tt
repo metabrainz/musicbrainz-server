@@ -343,6 +343,26 @@
     </div>
 [%- END -%]
 
+[%- MACRO type_bubble(form, types) BLOCK -%]
+    <div class="bubble" id="type-bubble">
+      <span id="type-bubble-default" [% IF form.value %] style="display:none" [% END %]>
+        [%- l('Select any type from the list to see its description. If the work
+               doesn’t seem to match any type, just leave this blank.') -%]
+      </span>
+      [% FOREACH id IN form.options %]
+         [%- id = id.value -%]
+         <span [% IF form.value != id %] style="display:none" [% END %] class="type-bubble-description" id="type-bubble-description-[% id %]">
+           <strong>[%- add_colon(l('Description')) -%] </strong>
+           [% IF types.$id.l_description %]
+             [%- types.$id.l_description -%]
+           [% ELSE %]
+             [%- lp('(none)', 'description') -%]
+           [% END %]
+         </span>
+      [% END %]
+    </div>
+[%- END -%]
+
 [%- MACRO external_links_editor BLOCK -%]
   <div id="external-links-editor-container"></div>
 [%- END -%]

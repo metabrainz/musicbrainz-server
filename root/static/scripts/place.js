@@ -14,6 +14,7 @@ import isBlank from './common/utility/isBlank';
 import initializeDuplicateChecker from './edit/check-duplicates';
 import {initializeArea} from './edit/MB/Control/Area';
 import {initializeBubble} from './edit/MB/Control/Bubble';
+import typeBubble from './edit/typeBubble';
 import {errorField} from './edit/validation';
 import {initializeGuessCase} from './guess-case/MB/Control/GuessCase';
 import {map, marker} from './place/map';
@@ -100,3 +101,6 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
     });
   }
 });
+
+const typeIdField = 'select[name=edit-place\\.type_id]';
+typeBubble(typeIdField);

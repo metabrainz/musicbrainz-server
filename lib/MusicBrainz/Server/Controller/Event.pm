@@ -110,4 +110,10 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_EVENT_DELETE,
 };
 
+before qw( create edit ) => sub {
+    my ($self, $c) = @_;
+    my %event_types = map {$_->id => $_} $c->model('EventType')->get_all();
+    $c->stash->{event_types} = \%event_types;
+};
+
 1;

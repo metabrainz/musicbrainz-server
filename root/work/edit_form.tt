@@ -99,18 +99,7 @@
   <div class="documentation">
     [%- iswc_bubble(link_entity(work)) -%]
 
-    <div class="bubble" id="type-bubble">
-      <span id="type-bubble-default" [% IF form.field('type_id').value %] style="display:none" [% END %]>
-        [%- l('Select any type from the list to see its description. If the work
-               doesn’t seem to match any type, just leave this blank.') -%]
-      </span>
-      [% FOREACH id IN form.field('type_id').options %]
-         [%- id = id.value -%]
-         <span [% IF form.field('type_id').value != id %] style="display:none" [% END %] class="type-bubble-description" id="type-bubble-description-[% id %]">
-           <strong>[%- add_colon(l('Description')) -%] </strong>[%- work_types.$id.l_description -%]
-         </span>
-      [% END %]
-    </div>
+    [%- type_bubble(form.field('type_id'), work_types) -%]
   </div>
 
 </form>
