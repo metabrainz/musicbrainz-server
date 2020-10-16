@@ -8,7 +8,7 @@
  */
 
 import * as React from 'react';
-import {useTable} from 'react-table';
+import {useTable, type Row} from 'react-table';
 
 import loopParity from '../utility/loopParity';
 
@@ -32,7 +32,7 @@ const renderTableCell = (cell) => (
   </td>
 );
 
-const renderTableRow = (row, i) => (
+const renderTableRow = <D>(row: Row<D>, i: number) => (
   <tr {...row.getRowProps({className: loopParity(i)})}>
     {row.cells.map(renderTableCell)}
   </tr>

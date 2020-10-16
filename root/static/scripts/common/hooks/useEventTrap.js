@@ -9,8 +9,12 @@
 
 import {useEffect} from 'react';
 
+type ActionFnT = ((Event) => void) | null;
+
+type TargetRefsT = Map<{+current: HTMLElement | null}, ActionFnT>;
+
 // Actions by event type name.
-const EVENTS = new Map();
+const EVENTS = new Map<string, TargetRefsT>();
 
 function setupEventHandler(eventType) {
   const cachedTargetActions = EVENTS.get(eventType);
@@ -50,7 +54,7 @@ function setupEventHandler(eventType) {
 export default function useEventTrap<T: HTMLElement>(
   eventType: FocusEventTypes | KeyboardEventTypes | MouseEventTypes,
   targetRef: {current: T | null},
-  action: ((Event) => void) | null,
+  action: ActionFnT,
   cleanup?: () => void,
 ) {
   if (typeof document === 'undefined') {
