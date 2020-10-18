@@ -20,6 +20,8 @@ ln -sf ../../../../node_modules/leaflet/dist/images/*.png .
 find . -type l ! -exec test -e '{}' \; -exec rm '{}' \;
 popd > /dev/null
 
+cp -a root/favicon.ico root/robots.txt.* "$BUILD_DIR"
+
 if [ -z "$GIT_BRANCH" ]; then
     export GIT_BRANCH=$(./script/git_info branch)
 fi

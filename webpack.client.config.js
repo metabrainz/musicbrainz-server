@@ -7,7 +7,6 @@
  */
 
 const canonicalJson = require('canonical-json');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const path = require('path');
@@ -220,13 +219,6 @@ if (PRODUCTION_MODE) {
 }
 
 plugins.push.apply(plugins, [
-  new CopyWebpackPlugin({
-    patterns: [
-      {context: './root/', from: 'favicon.ico', to: '.'},
-      {context: './root/', from: 'robots.txt.*', to: '.'},
-    ],
-  }),
-
   new ManifestPlugin({
     fileName: 'rev-manifest.json',
   }),
