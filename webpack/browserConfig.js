@@ -29,11 +29,6 @@ module.exports = {
     new webpack.IgnorePlugin({
       resourceRegExp: /\/DBDefs(?:-client-values)?$/,
     }),
-
-    new webpack.EnvironmentPlugin({
-      MUSICBRAINZ_RUNNING_TESTS: false,
-      NODE_ENV: process.env.NODE_ENV || 'development',
-    }),
   ],
 
   resolve: {
