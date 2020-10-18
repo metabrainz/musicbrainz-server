@@ -39,8 +39,10 @@ function js(
   manifest: string,
   extraAttrs?: {+'async'?: 'async', +'data-args'?: mixed} | null = null,
 ): React.Element<'script'> {
-  if (!jsExt.test(manifest)) {
-    manifest += '.js';
+  if (jsExt.test(manifest)) {
+    throw new Error(
+      'Do not include .js in the manifest path name',
+    );
   }
   return (
     <script

@@ -28,7 +28,7 @@ const RegisterApplication = (props: Props): React.Element<typeof Layout> => (
       form={props.form}
       submitLabel={l('Register')}
     />
-    {manifest.js('account/applications/register.js', {async: 'async'})}
+    {manifest.js('account/applications/register', {async: 'async'})}
   </Layout>
 );
 

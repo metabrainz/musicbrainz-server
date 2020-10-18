@@ -40,7 +40,7 @@ const AreaIndex = ({
       entity={area}
     />
     <Relationships source={area} />
-    {manifest.js('area/index.js', {async: 'async'})}
+    {manifest.js('area/index', {async: 'async'})}
   </AreaLayout>
 );
 

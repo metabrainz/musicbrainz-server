@@ -60,7 +60,7 @@ const WorkIndex = ({
       pagedLinkTypeGroup={pagedLinkTypeGroup}
       pager={pager}
     />
-    {manifest.js('work/index.js', {async: 'async'})}
+    {manifest.js('work/index', {async: 'async'})}
   </WorkLayout>
 );
 

@@ -339,7 +339,7 @@ const ArtistIndex = ({
         />
       )}
 
-      {manifest.js('artist/index.js', {async: 'async'})}
+      {manifest.js('artist/index', {async: 'async'})}
     </ArtistLayout>
   );
 };

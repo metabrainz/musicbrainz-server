@@ -186,7 +186,7 @@ const ReleaseGroupIndex = ({
         </div>
       </>
     )}
-    {manifest.js('release-group/index.js', {async: 'async'})}
+    {manifest.js('release-group/index', {async: 'async'})}
   </ReleaseGroupLayout>
 );
 
