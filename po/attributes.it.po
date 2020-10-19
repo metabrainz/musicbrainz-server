@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-13 21:59+0000\n"
+"PO-Revision-Date: 2020-10-16 20:36+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3059,12 +3059,12 @@ msgstr "SACD ibrido (strato SACD)"
 
 #: DB:medium_format/name:87
 msgctxt "medium_format"
-msgid "Hybrid SACD (SACD layer, 2ch)"
+msgid "Hybrid SACD (SACD layer, 2 channel)"
 msgstr "SACD ibrido (strato SACD, 2 canali)"
 
 #: DB:medium_format/name:86
 msgctxt "medium_format"
-msgid "Hybrid SACD (SACD layer, mch)"
+msgid "Hybrid SACD (SACD layer, multichannel)"
 msgstr "SACD ibrido (strato SACD, multicanale)"
 
 #: DB:work_attribute_type_allowed_value/value:418
@@ -5726,12 +5726,12 @@ msgstr "SACD"
 
 #: DB:medium_format/name:84
 msgctxt "medium_format"
-msgid "SACD (2ch)"
+msgid "SACD (2 channel)"
 msgstr "SACD (2 canali)"
 
 #: DB:medium_format/name:85
 msgctxt "medium_format"
-msgid "SACD (mch)"
+msgid "SACD (multichannel)"
 msgstr "SACD (multicanale)"
 
 #: DB:work_attribute_type/name:21
@@ -5791,12 +5791,12 @@ msgstr "SHM-SACD"
 
 #: DB:medium_format/name:89
 msgctxt "medium_format"
-msgid "SHM-SACD (2ch)"
+msgid "SHM-SACD (2 channel)"
 msgstr "SHM-SACD (2 canali)"
 
 #: DB:medium_format/name:88
 msgctxt "medium_format"
-msgid "SHM-SACD (mch)"
+msgid "SHM-SACD (multichannel)"
 msgstr "SHM-SACD (multicanale)"
 
 #: DB:work_attribute_type/name:36
@@ -6629,23 +6629,21 @@ msgstr "Questa voce rappresenta le opere letterarie scritte in prosa, cioè scri
 #: DB:medium_format/description:84
 msgctxt "medium_format"
 msgid ""
-"This represents the 2 channel (stereo/mono/dual) table of contents on a "
-"SACD."
-msgstr "Questo rappresenta l'indice (stereo/mono/duale) a 2 canali su un SACD."
+"This represents the 2 channel (stereo/mono) table of contents on a SACD."
+msgstr "Questo rappresenta l'indice (stereo/mono) a 2 canali su un SACD."
 
 #: DB:medium_format/description:89
 msgctxt "medium_format"
 msgid ""
-"This represents the 2 channel (stereo/mono/dual) table of contents on a SHM-"
-"SACD."
-msgstr "Questo rappresenta l'indice (stereo/mono/duale) a 2 canali su un SHM-SACD."
+"This represents the 2 channel (stereo/mono) table of contents on a SHM-SACD."
+msgstr "Questo rappresenta l'indice (stereo/mono) a 2 canali su un SHM-SACD."
 
 #: DB:medium_format/description:87
 msgctxt "medium_format"
 msgid ""
-"This represents the 2 channel (stereo/mono/dual) table of contents on a "
-"hybrid SACD's SACD layer."
-msgstr "Questo rappresenta l'indice (stereo/mono/duale) a 2 canali sullo strato SACD di un SACD ibrido."
+"This represents the 2 channel (stereo/mono) table of contents on a hybrid "
+"SACD's SACD layer."
+msgstr "Questo rappresenta l'indice (stereo/mono) a 2 canali sullo strato SACD di un SACD ibrido."
 
 #: DB:medium_format/description:85
 msgctxt "medium_format"
