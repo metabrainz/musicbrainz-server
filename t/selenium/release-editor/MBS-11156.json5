@@ -1,0 +1,178 @@
+{
+  title: 'MBS-11156',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/add',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=name',
+      value: 'MBS-11156',
+    },
+    {
+      command: 'type',
+      target: "xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]",
+      value: 'Various Artists',
+    },
+    {
+      command: 'fireEvent',
+      target: "xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]",
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Various Artists')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    {
+      command: 'uncheck',
+      target: "xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-numbers']",
+      value: '',
+    },
+    {
+      command: 'uncheck',
+      target: "xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-artists']",
+      value: '',
+    },
+    {
+      command: 'uncheck',
+      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-numbers']",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-titles']",
+      value: '',
+    },
+    {
+      command: 'uncheck',
+      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-lengths']",
+      value: '',
+    },
+    {
+      command: 'type',
+      target: "xpath=//div[@id='add-disc-parser']//textarea[contains(@class, 'tracklist')]",
+      value: 'test',
+    },
+    {
+      command: 'click',
+      target: "xpath=//div[@id='add-disc-dialog']//button[contains(text(), 'Add Medium')]",
+      value: '',
+    },
+    {
+      command: 'select',
+      target: "xpath=(//select[contains(@id, 'disc-format-')])[1]",
+      value: 'label=Vinyl',
+    },
+    // Check that the parsed track does use "Various Artists" from the release artist.
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').value",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')",
+      value: 'false',
+    },
+    // Manually set the track artist to "Various Artists".
+    {
+      command: 'type',
+      target: "xpath=(//div[@id='tracklist']//span[contains(@class, 'artist autocomplete')])[1]//input[contains(@class, 'name')]",
+      value: '89ad4ac3-39f7-470e-963a-56509c546377',
+    },
+    {
+      command: 'fireEvent',
+      target: "xpath=(//div[@id='tracklist']//span[contains(@class, 'artist autocomplete')])[1]//input[contains(@class, 'name')]",
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'id=confirm-va',
+      value: '',
+    },
+    // Parse tracks again, and check that "Various Artists" isn't unset.
+    {
+      command: 'click',
+      target: 'css=button.open-track-parser',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='track-parser-dialog']//input[@name='lines-have-artists']",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='track-parser-dialog']//input[@name='use-artists']",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=parse-tracks',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=close-track-parser',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').value",
+      value: 'Various Artists',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')",
+      value: 'true',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('a[href=\"#tracklist\"]').parentNode.classList.contains('error-tab')",
+      value: 'false',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#edit-note div.warning')).some(x => x.textContent.includes('Some errors were detected'))",
+      value: 'false',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'waitUntilUrlIs',
+      target: '/',
+      value: '',
+    },
+  ],
+}

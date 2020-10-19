@@ -1028,6 +1028,11 @@ msgstr ""
 msgid "Ingush"
 msgstr ""
 
+#. frequency:1 iso_code_3:moe 
+#: DB:language/name:4369
+msgid "Innu"
+msgstr ""
+
 #. frequency:1 iso_code_3:ina 
 #: DB:language/name:187
 msgid "Interlingua"
@@ -1611,11 +1616,6 @@ msgstr ""
 #. frequency:1 iso_code_3:mon 
 #: DB:language/name:282
 msgid "Mongolian"
-msgstr ""
-
-#. frequency:1 iso_code_3:moe 
-#: DB:language/name:4369
-msgid "Montagnais"
 msgstr ""
 
 #. frequency:1 iso_code_3:mos 

@@ -1,0 +1,35 @@
+{
+  title: 'MBS-10510',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/546d165a-3fa9-423b-acb8-0fd6342a44f1',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'xpath=//a[text()="Merge"]',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/release/45c1c4d2-ee85-4872-8af4-acd1ae9c3c31',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'xpath=//a[text()="Merge"]',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'id=id-merge.merge_strategy',
+      value: 'label=Merge mediums and recordings',
+    },
+    {
+      command: 'assertTextMatches',
+      target: 'css=#merge-strategy-2:not([style*="display: none"]) div.warning',
+      value: 'The recording artists do not match',
+    },
+  ],
+}

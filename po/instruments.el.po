@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-09-21 19:09+0000\n"
-"Last-Translator: Dimitris <email address hidden>\n"
+"PO-Revision-Date: 2020-10-05 20:35+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1517,6 +1517,11 @@ msgstr "παραδοσιακή άρπα"
 
 #: DB:instrument/name:478
 msgid "foot stomps"
+msgstr ""
+
+#: DB:instrument/name:1020
+msgctxt "Foot operated bass bellows"
+msgid "footbass"
 msgstr ""
 
 #: DB:instrument/name:384

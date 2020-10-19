@@ -8,6 +8,7 @@
 
 import $ from 'jquery';
 
+import request from '../utility/request';
 import getBooleanCookie from '../utility/getBooleanCookie';
 import setCookie from '../utility/setCookie';
 
@@ -42,8 +43,8 @@ $(function () {
 
   bottomCreditsEnabled ? switchToBottomCredits() : switchToInlineCredits();
 
-  $(document).on('click', '.expand-medium', function () {
-    var $table = $(this).parents('table:first');
+  function expandOrCollapseMedium(element) {
+    var $table = $(element).parents('table:first');
     var $tbody = $table.children('tbody');
     var $triangle = $table.find('.expand-triangle');
 
@@ -61,9 +62,9 @@ $(function () {
       .addClass('loading-message')
       .text(l('Loading...'));
 
-    var mediumId = this.getAttribute('data-medium-id');
+    var mediumId = element.data('medium-id');
 
-    $.get('/medium/' + mediumId + '/fragments')
+    request({url: '/medium/' + mediumId + '/fragments', dataType: 'html'})
       .done(function (fragments) {
         var $fragments = $($.parseHTML(fragments));
 
@@ -99,6 +100,35 @@ $(function () {
           .text(l('Failed to load the medium.'));
       });
 
+    return false;
+  }
+
+  $(document).on('click', '.expand-medium', function () {
+    expandOrCollapseMedium($(this));
+    // Prevent browser from following link
+    return false;
+  });
+
+  $(document).on('click', '#expand-all-mediums', function () {
+    $('.expand-medium').each(function () {
+      const $table = $(this).parents('table:first');
+      const $tbody = $table.children('tbody');
+      if (!$tbody.length || $tbody.is(':hidden')) {
+        expandOrCollapseMedium($(this));
+      }
+    });
+    // Prevent browser from following link
+    return false;
+  });
+
+  $(document).on('click', '#collapse-all-mediums', function () {
+    $('.expand-medium').each(function () {
+      const $table = $(this).parents('table:first');
+      const $tbody = $table.children('tbody');
+      if ($tbody.is(':visible')) {
+        expandOrCollapseMedium($(this));
+      }
+    });
     // Prevent browser from following link
     return false;
   });

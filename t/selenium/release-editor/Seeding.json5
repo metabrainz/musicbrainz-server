@@ -1,0 +1,395 @@
+{
+  title: 'Release Editor Seeding',
+  commands: [
+    // detecting indexes that start at 0 instead of 1
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/0_based_indexes.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          artist_credit.names.0 isn’t defined, do your indexes start at 0?\n        \n          labels.0 isn’t defined, do your indexes start at 0?\n        \n          mediums.0 isn’t defined, do your indexes start at 0?\n        \n          mediums.1.track.0 isn’t defined, do your indexes start at 0?\n        \n          mediums.1.track.1.artist_credit.names.0 isn’t defined, do your indexes start at 0?\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // treating negative indexes as unknown fields
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/negative_indexes.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          mediums must be an array\n        \n          Unknown field: mediums.-1\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // returning an error for literal "n" as an index
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/literal_n.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          mediums must be an array\n        \n          Unknown field: mediums.n\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // returning an error for zero-padded indexes
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/zero_padded_indexes.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          mediums.0.track must be an array\n        \n          Unknown field: mediums.0.track.00\n        \n          Unknown field: mediums.0.track.01\n        \n          Unknown field: mediums.0.track.02\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // returning an error when multiple MBIDs are posted
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/multiple_mbids.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim().replace(/ARRAY\\(0x[0-9a-f]+\\)/, 'ARRAY(0x...)')",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          Invalid mediums.0.track.0.artist_credit.names.0.mbid: “ARRAY(0x...)”.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // returning an error when a space appears before an MBID
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbid_with_space.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          Invalid mediums.0.track.0.artist_credit.names.0.mbid: “ 9bffb20c-dd17-4895-9fd1-4e73e888d799”.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // seeding a release with no tracklist
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/no_tracklist.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          Invalid language: “kpn”.\n        \n          Invalid script: “kpan”.\n        \n          labels.0 isn’t defined, do your indexes start at 0?\n        \n          Invalid labels.4.mbid: “9f142207-1a9e-4530-98a3-de23f50e8472”.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=name',
+      value: '大人なのよ!/1億3千万総ダイエット王国',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=.release-artist input.name',
+      value: 'Berryz工房',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=primary-type',
+      value: '2',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=status',
+      value: '1',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input.partial-date-year',
+      value: '2014',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input.partial-date-month',
+      value: '2',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input.partial-date-day',
+      value: '19',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=catno-4',
+      value: 'PKCP-5256',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=comment',
+      value: '通常盤B',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=edit-note-text',
+      value: 'http://www.helloproject.com/discography/berryz/s_036.html',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input.make-votable',
+      value: 'on',
+    },
+    // seeding a string where a hash is expected
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/expected_hash.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          mediums.0.track.0.artist_credit must be a hash.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // seeding an array where a string is expected
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/expected_string.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          mediums.0.track.0.artist_credit.names.0.name must be a scalar, not a hash or array.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // seeding a lowercase country
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/lowercase_country.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=country-0',
+      value: '107',
+    },
+    // seeding a toc
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/toc.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('input.track-length')).map(x => x.value).join(' ')",
+      value: '1:33 35:38 5:34',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('input.track-length')).every(x => x.disabled)",
+      value: 'true',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=#discid-attachment select',
+      value: '1 3 192512 150 7100 167475',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#discid-attachment select').selectedOptions[0].textContent",
+      value: '8JrTc74BBFV.d2LEmUkPiYMk6Ww-',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 55,
+        status: 2,
+        data: {
+          cdtoc: '1 3 192512 150 7100 167475',
+          release: {
+            id: 1,
+            name: 'Vision Creation Newsun',
+          },
+          entity_id: 1,
+          medium_id: 1,
+          medium_position: 1,
+        },
+      },
+    },
+    // seeding url relationships
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/external_links.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).slice(0, 3).map(x => [x.querySelector('select').value, x.querySelector('input').value, x.querySelector('.error').textContent].join('\\t')).join('\\n')",
+      value: '\thttp://foo.bar.baz/\tPlease select a link type for the URL you’ve entered.\n77\t\tRequired field.\n76\thttp://foo.bar.baz/foo/\tThis URL is not allowed for the selected link type, or is incorrectly formatted.',
+    },
+    // MBS-7250: seeding empty date parts gives an ISE
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-7250.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input.partial-date-year',
+      value: '2000',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input.partial-date-month',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=input.partial-date-day',
+      value: '',
+    },
+    // MBS-7439: seeding badly formatted dates gives an ISE
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-7439.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          Invalid events.0.date.year: “15.0”.\n        \n          Invalid events.0.date.month: “.2”.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // MBS-7447: seeding an invalid track length gives an ISE
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-7447.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          Invalid mediums.0.track.0.length: “4:195:0”.\n        \n          Invalid mediums.0.track.1.length: “:10”.\n        \n          Invalid mediums.0.track.2.length: “4:60”.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    // seeding a pregap track
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/pregap.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('tr.track td.reorder').querySelector('div').getAttribute('title')",
+      value: 'This track is hidden in the pregap.',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('tr.track td.position input').value",
+      value: '0',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('tr.track td.title input').value",
+      value: 'foo',
+    },
+    // seeding barcode = none
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/no_barcode.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.getElementById('barcode').disabled",
+      value: 'true',
+    },
+  ],
+}

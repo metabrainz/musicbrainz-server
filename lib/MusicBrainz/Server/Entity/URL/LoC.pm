@@ -5,6 +5,12 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
+override href_url => sub {
+    # Turn the official permalink into what LoC currently redirects to.
+    shift->url->as_string =~
+        s{^http://id.loc.gov}{https://id.loc.gov}r;
+};
+
 sub sidebar_name { 'Library of Congress' }
 
 __PACKAGE__->meta->make_immutable;

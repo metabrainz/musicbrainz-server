@@ -39,6 +39,14 @@ export type ReportArtistUrlT = {
   +url: UrlT,
 };
 
+export type ReportCDTocT = {
+  +cdtoc: ?CDTocT,
+  +cdtoc_id: number,
+  +format: string,
+  +length: number,
+  +row_number: number,
+};
+
 export type ReportCollaborationT = {
   +artist0: ?ArtistT,
   +artist1: ?ArtistT,

@@ -355,6 +355,60 @@ test 'release lookup with artists + aliases' => sub {
         };
 };
 
+test 'release lookup with recordings, no tracks' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws2_test_json 'release lookup with recordings, no tracks',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e7?inc=recordings' =>
+        {
+            id => "b3b7e934-445b-4c68-a097-730c6a6d47e7",
+            title => "Testy",
+            status => "Pseudo-Release",
+            "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
+            quality => "normal",
+            "text-representation" => {
+                language => "jpn",
+                script => "Latn",
+            },
+            "cover-art-archive" => {
+                artwork => JSON::false,
+                count => 0,
+                front => JSON::false,
+                back => JSON::false,
+                darkened => JSON::false,
+            },
+            date => "2001-07-04",
+            country => "JP",
+            "release-events" => [{
+                date => "2001-07-04",
+                "area" => {
+                    disambiguation => '',
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso-3166-1-codes" => ["JP"],
+                    "type" => JSON::null,
+                    "type-id" => JSON::null,
+                },
+            }],
+            barcode => "4942463511227",
+            asin => "B00005LA6G",
+            disambiguation => "",
+            packaging => JSON::null,
+            "packaging-id" => JSON::null,
+            media => [
+                {
+                    format => 'CD',
+                    "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
+                    title => '',
+                    position => 1,
+                    "track-count" => 0,
+                },
+            ],
+        };
+};
+
 test 'release lookup with labels and recordings' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');

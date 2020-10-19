@@ -8,6 +8,8 @@ use DBDefs;
 use JSON;
 use Readonly;
 
+use MusicBrainz::Server::DatabaseConnectionFactory;
+
 my ($output_path) = @ARGV;
 
 Readonly our @BOOLEAN_DEFS => qw(
@@ -77,10 +79,33 @@ my @conversions = (
         defs => \@QW_STRING_DEFS,
         convert => sub { \[map { '' . $_ } @_] },
     },
+    {
+        defs => ['DATABASES'],
+        convert => sub {
+            my ($databases) = @_;
+
+            my %conversion = map {
+                my $db = $databases->{$_};
+                ($_ => {
+                    user => $db->username,
+                    password => $db->password,
+                    database => $db->database,
+                    host => $db->host,
+                    port => $db->port,
+                })
+            } keys %{$databases};
+
+            return \\%conversion;
+        },
+    }
 );
 
 sub get_value {
     my $def = shift;
+
+    if ($def eq 'DATABASES') {
+        return \%MusicBrainz::Server::DatabaseConnectionFactory::databases;
+    }
 
     # Values can be overridden via the environment.
     $ENV{$def} // DBDefs->$def;

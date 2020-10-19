@@ -38,12 +38,3 @@ END -%]
     </span>
 </span>
 [%- END -%]
-
-[%- MACRO show_rating(rating) BLOCK # Converted to React at root/components/RatingStars.js
--%]
-<span class="inline-rating">
-    <span class="star-rating">
-        <span class="current-rating" style="width:[% rating.rating %]%;">[% 5 * rating.rating / 100 %]</span>
-    </span>
-</span>
-[%- END -%]

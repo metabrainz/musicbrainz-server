@@ -51,11 +51,14 @@
 
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
+
+    [%- type_bubble(form.field('type_id'), event_types) -%]
   </div>
 
 </form>
 
 [%- guesscase_options() -%]
+[% script_manifest('event.js') %]
 
 <script type="text/javascript">
   (function () {

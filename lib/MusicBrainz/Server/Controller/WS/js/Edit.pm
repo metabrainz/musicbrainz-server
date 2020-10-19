@@ -296,35 +296,35 @@ sub process_artist_credit {
 sub process_medium {
     my ($c, $loader, $data) = @_;
 
-    return unless defined $data->{tracklist};
-
     trim_string($data, 'name');
 
-    my @tracks = @{ $data->{tracklist} };
-    my @recording_gids = grep { $_ } map { $_->{recording_gid} } @tracks;
-    my $recordings = $c->model('Recording')->get_by_gids(@recording_gids);
+    if (defined $data->{tracklist}) {
+        my @tracks = @{ $data->{tracklist} };
+        my @recording_gids = grep { $_ } map { $_->{recording_gid} } @tracks;
+        my $recordings = $c->model('Recording')->get_by_gids(@recording_gids);
 
-    my $process_track = sub {
-        my $track = shift;
+        my $process_track = sub {
+            my $track = shift;
 
-        process_entity($c, $loader, $track);
-        trim_string($track, 'number');
+            process_entity($c, $loader, $track);
+            trim_string($track, 'number');
 
-        if (my $recording_gid = delete $track->{recording_gid}) {
-            $track->{recording} = $recordings->{$recording_gid};
-            $track->{recording_id} = $recordings->{$recording_gid}->id;
-        }
+            if (my $recording_gid = delete $track->{recording_gid}) {
+                $track->{recording} = $recordings->{$recording_gid};
+                $track->{recording_id} = $recordings->{$recording_gid}->id;
+            }
 
-        delete $track->{id} unless defined $track->{id};
+            delete $track->{id} unless defined $track->{id};
 
-        my $ac = $track->{artist_credit};
-        $track->{artist_credit} = ArtistCredit->from_array($ac->{names}) if $ac;
-        $track->{is_data_track} = boolean_from_json($track->{is_data_track});
+            my $ac = $track->{artist_credit};
+            $track->{artist_credit} = ArtistCredit->from_array($ac->{names}) if $ac;
+            $track->{is_data_track} = boolean_from_json($track->{is_data_track});
 
-        return Track->new(%$track);
-    };
+            return Track->new(%$track);
+        };
 
-    $data->{tracklist} = [ map { $process_track->($_) } @tracks ];
+        $data->{tracklist} = [ map { $process_track->($_) } @tracks ];
+    }
 }
 
 sub clean_partial_date {

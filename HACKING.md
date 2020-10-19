@@ -156,6 +156,33 @@ done with the following command:
 
     $ prove -l t/js.t
 
+### Flow
+
+Our JavaScript uses [Flow](https://flow.org/) for static type checking.
+If you're adding a new JS file, it should have a `@flow strict-local`
+header at the top to enable type checking.
+
+To ensure all types are correct after making a change, run Flow:
+
+    $ ./node_modules/.bin/flow
+
+Global type declarations available to all files are found in
+[root/types.js](root/types.js) and [root/vars.js](root/vars.js).
+The latter is for functions and variables that are auto-imported by
+Webpack's [ProvidePlugin](webpack/providePluginConfig.js).
+
+We have a couple of scripts you may find useful that generate Flow object
+types based on JSON data:
+
+ * `./script/generate_edit_data_flow_type.js --edit-type $EDIT_TYPE_ID`
+   will generate an object type to represent the edit data of `$EDIT_TYPE_ID`.
+   However, this requires having a `PROD_STANDBY` database configured in
+   DBDefs.pm, as it uses production data to ensure a correct type.
+
+ * `cat $JSON | ./script/generate_json_flow_type.js` will generate an object
+   type for a stream of JSON objects (which each must be on a single line).
+   Passing a single object is fine, too.
+
 ### Selenium
 
 We have a set of browser-automated UI tests running with Selenium WebDriver.

@@ -153,7 +153,7 @@ const ExternalLinks = ({
   return (
     <>
       <h2 className="external-links">
-        {nonEmpty(heading) || l('External links')}
+        {nonEmpty(heading) ? heading : l('External links')}
       </h2>
       <ul className="external_links">
         {links}

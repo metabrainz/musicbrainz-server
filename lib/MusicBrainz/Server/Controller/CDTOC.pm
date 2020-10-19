@@ -42,6 +42,9 @@ sub _load_releases
     my ($self, $c, $cdtoc) = @_;
     my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
+    $c->model('Track')->load_for_mediums(@mediums);
+    my @tracks = map { $_->all_tracks } @mediums;
+    $c->model('Recording')->load(@tracks);
     my @releases = $c->model('Release')->load(@mediums);
     my @rgs = $c->model('ReleaseGroup')->load(@releases);
     $c->model('ReleaseGroup')->load_meta(@rgs);
@@ -58,10 +61,6 @@ sub show : Chained('load') PathPart('')
 
     my $cdtoc = $c->stash->{cdtoc};
     my $medium_cdtocs = $self->_load_releases($c, $cdtoc);
-
-    $c->model('Track')->load_for_mediums(
-        map { $_->medium } @{$medium_cdtocs}
-    );
 
     $c->stash(
         medium_cdtocs => $medium_cdtocs,
@@ -187,7 +186,9 @@ sub attach : Local DenyWhenReadonly
         ) unless $medium->may_have_discids;
 
         $c->model('Release')->load($medium);
-        $c->model('ArtistCredit')->load($medium->release);
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('Recording')->load($medium->all_tracks);
+        $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release);
 
         $c->stash( medium => $medium );
 
@@ -315,7 +316,13 @@ sub _attach_list {
                 $initial_release ||= $cdstub->title;
 
                 my @mediums = $c->model('Medium')->find_for_cdstub($cdstub);
-                $c->model('ArtistCredit')->load(map { $_->release } @mediums);
+                $c->model('MediumFormat')->load(@mediums);
+                $c->model('Track')->load_for_mediums(@mediums);
+                my @tracks = map { $_->all_tracks } @mediums;
+                $c->model('Recording')->load(@tracks);
+                my @releases = map { $_->release } @mediums;
+                $c->model('Release')->load_related_info(@releases);
+                $c->model('ArtistCredit')->load(@releases);
                 $c->stash(
                     possible_mediums => [ @mediums  ],
                     cdstub => $cdstub
@@ -372,11 +379,13 @@ sub move : Local Edit
 
         $c->model('Medium')->load($medium_cdtoc);
 
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('Recording')->load($medium->all_tracks);
         $c->model('Release')->load($medium, $medium_cdtoc->medium);
         $c->model('Release')->load_release_events($medium->release);
         $c->model('ReleaseLabel')->load($medium->release);
         $c->model('Label')->load($medium->release->all_labels);
-        $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
+        $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release, $medium_cdtoc->medium->release);
 
         $c->stash(
             medium => $medium

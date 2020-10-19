@@ -1,0 +1,35 @@
+{
+  title: 'Log In',
+  commands: [
+    {
+      command: 'open',
+      target: '/login',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=id-username',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-username',
+      value: 'editor',
+    },
+    {
+      command: 'type',
+      target: 'id=id-password',
+      value: 'password',
+    },
+    {
+      command: 'check',
+      target: 'id=id-remember_me',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=span.buttons.login > button[type="submit"]',
+      value: '',
+    },
+  ],
+}
