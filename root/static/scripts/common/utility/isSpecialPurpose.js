@@ -16,7 +16,9 @@ import {
   VARTIST_GID,
 } from '../constants';
 
-export default function isSpecialPurpose(entity: ArtistT | LabelT): boolean {
+export default function isSpecialPurpose(
+  entity: CoreEntityT | CollectionT | EditorT,
+): boolean {
   if (entity.entityType === 'artist') {
     return !!(
       (entity.id === DARTIST_ID || entity.id === VARTIST_ID) ||
