@@ -149,6 +149,7 @@ export const FAVICON_CLASSES = {
   'rockipedia.no': 'rockipedia',
   'rolldabeats.com': 'rolldabeats',
   'runeberg.org': 'runeberg',
+  'saisaibatake.ame-zaiku.com/gakki': 'gakki',
   'secondhandsongs.com': 'secondhandsongs',
   'setlist.fm': 'setlistfm',
   'smdb.kb.se': 'smdb',

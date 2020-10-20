@@ -1502,6 +1502,14 @@ const testData = [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
   },
+  // IROMBOOK 私家版楽器事典 (gakki)
+  {
+                     input_url: 'http://saisaibatake.ame-zaiku.com/gakki/gakki_jiten_accordion.html',
+             input_entity_type: 'instrument',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://saisaibatake.ame-zaiku.com/gakki/gakki_jiten_accordion.html',
+       only_valid_entity_types: ['instrument'],
+  },
   // generasia
   {
                      input_url: 'http://generasia.com/wiki/Wink',
