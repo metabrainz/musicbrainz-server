@@ -222,7 +222,9 @@ rules:
   react/no-will-update-set-state: error
   react/prefer-es6-class: off
   react/prop-types: off
-  react/react-in-jsx-scope: error
+  # react-in-jsx-scope is not needed now that we've enabled
+  # https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+  react/react-in-jsx-scope: off
   react/require-default-props: off
   react/require-optimization: off
   react/require-render-return: error
@@ -248,7 +250,9 @@ rules:
   react/jsx-pascal-case: error
   react/jsx-sort-default-props: warn
   react/jsx-tag-spacing: [error, {beforeClosing: never}]
-  react/jsx-uses-react: warn
+  # jsx-uses-react is not implied since
+  # https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+  react/jsx-uses-react: off
   react/jsx-uses-vars: warn
   react/jsx-wrap-multilines: [error, {declaration: parens-new-line,
                                       assignment: parens-new-line,

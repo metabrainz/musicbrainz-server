@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import {reduceArtistCredit} from '../common/immutable-entities';

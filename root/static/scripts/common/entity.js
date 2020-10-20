@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
 import formatLabelCode from '../../../utility/formatLabelCode';
