@@ -40,10 +40,10 @@ module.exports = {
   externals: [
     nodeExternals({
       /*
-       * @popperjs is resolved to root/static/scripts/empty.js on the server.
-       * See NormalModuleReplacementPlugin below.
+       * jquery and @popperjs are resolved to root/static/scripts/empty.js
+       * on the server. See NormalModuleReplacementPlugin below.
        */
-      whitelist: [/@popperjs/],
+      whitelist: [/(jquery|@popperjs)/],
       modulesFromFile: true,
     }),
 
@@ -78,11 +78,10 @@ module.exports = {
 
   plugins: [
     new webpack.NormalModuleReplacementPlugin(
-      /@popperjs/,
+      /(jquery|@popperjs)/,
       path.resolve(dirs.SCRIPTS, 'empty.js'),
     ),
     new webpack.DefinePlugin(definePluginConfig),
-    new webpack.IgnorePlugin({resourceRegExp: /jquery/}),
     new webpack.ProvidePlugin(providePluginConfig),
   ],
 
