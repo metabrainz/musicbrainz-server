@@ -1,4 +1,5 @@
 .cpanm/**/*.js
+flow-typed/npm/@sentry/*.js
 perl_modules/**/*.js
 root/static/build/**/*.js
 root/static/lib/**/*.js
