@@ -664,7 +664,11 @@ const UserProfileStatistics = ({
         <thead>
           <tr>
             <th colSpan="2">
-              {exp.l('Added entities')}
+              <abbr title={l('Newly applied edits may ' +
+                             'need 24 hours to appear')}
+              >
+                {exp.l('Added entities')}
+              </abbr>
             </th>
           </tr>
         </thead>
