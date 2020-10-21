@@ -130,7 +130,16 @@ const EditRelationship = ({
           <td>
             <ul>
               {newRels.map((newRel, index) => {
-                const oldRel = oldRels[index];
+                /*
+                 * Some relationships seem to have broken data where oldRel
+                 * might not exist for every newRel. In those cases, we
+                 * display newRel unchanged (diff with itself) in order
+                 * to show *something* in the least bad way possible.
+                 */
+                let oldRel = oldRels[index];
+                if (isDataBroken && !oldRel) {
+                  oldRel = newRel;
+                }
                 const oldLinkType =
                   linkedEntities.link_type[oldRel.linkTypeID];
                 const newLinkType =
