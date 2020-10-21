@@ -71,12 +71,10 @@ const EditRelationship = ({
                   linkedEntities.link_type[oldRel.linkTypeID];
                 const oldSource =
                   linkedEntities[oldLinkType.type0][oldRel.entity0_id];
-                const newLinkType = newRel
-                  ? linkedEntities.link_type[newRel.linkTypeID]
-                  : oldLinkType;
-                const newSource = newLinkType
-                  ? linkedEntities[newLinkType.type0][newRel.entity0_id]
-                  : oldSource;
+                const newLinkType =
+                  linkedEntities.link_type[newRel.linkTypeID];
+                const newSource =
+                  linkedEntities[newLinkType.type0][newRel.entity0_id];
                 return (
                   <li key={oldRel.id}>
                     <span
@@ -105,8 +103,7 @@ const EditRelationship = ({
                     <span
                       className={oldRel.target.id === newRel.target.id
                         ? null
-                        : 'diff-only-a'
-                      }
+                        : 'diff-only-a'}
                     >
                       <DescriptiveLink entity={oldRel.target} />
                     </span>
