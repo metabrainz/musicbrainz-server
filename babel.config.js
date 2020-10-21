@@ -27,7 +27,9 @@ module.exports = function (api) {
 
   const plugins = [
     '@babel/plugin-transform-flow-strip-types',
-    '@babel/plugin-transform-react-jsx',
+    ['@babel/plugin-transform-react-jsx', {
+      runtime: 'automatic',
+    }],
     '@babel/plugin-transform-react-constant-elements',
     ['@babel/plugin-transform-runtime', {
       corejs: false,

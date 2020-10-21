@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {INSTRUMENT_ROOT_ID} from '../constants';
 import commaList, {commaListText} from '../i18n/commaList';
 import {type VarArgsObject} from '../i18n/expand2';

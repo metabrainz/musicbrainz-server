@@ -19,6 +19,7 @@
 [options]
 exact_by_default=true
 module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/flowstub.js.flow'
+react.runtime=automatic
 types_first=true
 
 [strict]

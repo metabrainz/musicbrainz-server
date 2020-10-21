@@ -6,8 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 // See https://musicbrainz.org/relationships (but deprecated ones)
 export const LINK_TYPES = {
   allmusic: {
