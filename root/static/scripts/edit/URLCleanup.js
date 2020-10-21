@@ -1933,6 +1933,22 @@ const CLEANUPS = {
       url = url.replace(/^https:\/\/mainlynorfolk\.info\/([^/]+)(?:\/index\.html)?$/, 'https://mainlynorfolk.info/$1/');
       return url;
     },
+    validate: function (url, id) {
+      if (id === LINK_TYPES.otherdatabases.artist) {
+        return {result: /^https:\/\/mainlynorfolk\.info\/(?:[^/]+)\/$/.test(url)};
+      }
+      const m = /^https:\/\/mainlynorfolk\.info\/(?:[^/]+)\/(records|songs)\/(?:[^/]+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.release:
+            return {result: prefix === 'records'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'songs'};
+        }
+      }
+      return {result: false};
+    },
   },
   'maniadb': {
     match: [new RegExp('^(https?://)?(www\\.)?maniadb\\.com', 'i')],

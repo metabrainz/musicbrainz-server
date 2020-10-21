@@ -2192,12 +2192,21 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://mainlynorfolk.info/watersons/',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://www.mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.mainlynorfolk.info/watersons/songs/countrylife.html',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://mainlynorfolk.info/watersons/songs/countrylife.html',
+       only_valid_entity_types: ['work'],
   },
   // maniadb
   {
