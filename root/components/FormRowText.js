@@ -13,9 +13,10 @@ import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 import FormLabel from './FormLabel';
 
-type InputOnChange = (SyntheticEvent<HTMLInputElement>) => void;
+type InputOnChange = (SyntheticKeyboardEvent<HTMLInputElement>) => void;
 
 type InputProps = {
+  +className?: string,
   defaultValue?: string,
   +id: string,
   +name: string,
@@ -27,6 +28,8 @@ type InputProps = {
 };
 
 type CommonProps = {
+  +children?: React.Node,
+  +className?: string,
   +field: ReadOnlyFieldT<?string>,
   +label: string,
   +required?: boolean,
@@ -50,6 +53,7 @@ const FormRowText = (props: Props): React.Element<typeof FormRow> => {
   const required = props.required ?? false;
 
   const inputProps: InputProps = {
+    className: props.className,
     id: 'id-' + field.html_name,
     name: field.html_name,
     required: required,
@@ -70,6 +74,7 @@ const FormRowText = (props: Props): React.Element<typeof FormRow> => {
     <FormRow>
       <FormLabel forField={field} label={props.label} required={required} />
       <input {...inputProps} />
+      {props.children}
       <FieldErrors field={field} />
     </FormRow>
   );

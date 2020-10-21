@@ -32,6 +32,7 @@ const baseTestsConfig = {
 const webTestsConfig = {
   entry: {
     'autocomplete2': path.resolve(dirs.SCRIPTS, 'tests', 'autocomplete2.js'),
+    'dialog-test': path.resolve(dirs.SCRIPTS, 'tests', 'dialog.js'),
     'web-tests': path.resolve(dirs.SCRIPTS, 'tests', 'browser-runner.js'),
   },
 

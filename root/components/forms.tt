@@ -228,7 +228,7 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_name_with_guesscase(r, options) BLOCK -%]
+[%- MACRO form_row_name_with_guesscase(r, options) BLOCK # Converted to React at root/static/scripts/edit/components/FormRowNameWithGuessCase.js -%]
   [% WRAPPER form_row %]
     [% r.label('name', options.label || l('Name:')) %]
     [% r.text('name', { class => 'with-guesscase' _ (options.guessfeat ? '-guessfeat' : '') }) %]

@@ -1,0 +1,106 @@
+/*
+ * @flow
+ * Copyright (C) 2020 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import * as React from 'react';
+
+import FormRowText from '../../../../components/FormRowText';
+
+import type {
+  ActionT as GuessCaseOptionsActionT,
+  StateT as GuessCaseOptionsStateT,
+} from './GuessCaseOptions';
+import GuessCaseOptionsPopover from './GuessCaseOptionsPopover';
+
+/* eslint-disable flowtype/sort-keys */
+export type ActionT =
+  | {+type: 'guess-case'}
+  | {+type: 'open-guess-case-options'}
+  | {+type: 'close-guess-case-options'}
+  | {+type: 'update-guess-case-options', +action: GuessCaseOptionsActionT}
+  | {+type: 'set-name', +name: string};
+/* eslint-enable flowtype/sort-keys */
+
+type PropsT = {
+  +dispatch: (ActionT) => void,
+  +field: ReadOnlyFieldT<string | null>,
+  +guessCaseOptions: GuessCaseOptionsStateT,
+  +guessFeat?: boolean,
+  +isGuessCaseOptionsOpen: boolean,
+  +label?: string,
+};
+
+export const FormRowNameWithGuessCase = ({
+  dispatch,
+  field,
+  guessCaseOptions,
+  guessFeat = false,
+  isGuessCaseOptionsOpen = false,
+  label = addColonText(l('Name')),
+}: PropsT): React.Element<typeof FormRowText> => {
+  function handleNameChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+    dispatch({
+      name: event.currentTarget.value,
+      type: 'set-name',
+    });
+  }
+
+  function handleGuessCase() {
+    dispatch({type: 'guess-case'});
+  }
+
+  const toggleGuessCaseOptions = React.useCallback((
+    open: boolean,
+  ) => {
+    if (open) {
+      dispatch({type: 'open-guess-case-options'});
+    } else {
+      dispatch({type: 'close-guess-case-options'});
+    }
+  }, [dispatch]);
+
+  const guessCaseOptionsDispatch = React.useCallback(
+    (action: GuessCaseOptionsActionT) => {
+      dispatch({action, type: 'update-guess-case-options'});
+    },
+    [dispatch],
+  );
+
+  return (
+    <FormRowText
+      className={'with-guesscase' + (guessFeat ? '-guessfeat' : '')}
+      field={field}
+      label={label}
+      onChange={handleNameChange}
+      required
+    >
+      <button
+        className="guesscase-title icon"
+        onClick={handleGuessCase}
+        title={l('Guess case')}
+        type="button"
+      />
+      {guessFeat ? (
+        <button
+          className="guessfeat icon"
+          title={l('Guess feat. artists')}
+          type="button"
+        />
+      ) : null}
+
+      <GuessCaseOptionsPopover
+        dispatch={guessCaseOptionsDispatch}
+        isOpen={isGuessCaseOptionsOpen}
+        toggle={toggleGuessCaseOptions}
+        {...guessCaseOptions}
+      />
+    </FormRowText>
+  );
+};
+
+export default FormRowNameWithGuessCase;
