@@ -42,7 +42,7 @@ export type EditDiff<+T> = {
   +type: EditType,
 };
 
-function getChangeType(diff) {
+function getChangeType<+T>(diff: GenericEditDiff<T>) {
   if (!diff.added && !diff.removed) {
     return EQUAL;
   }
@@ -62,7 +62,7 @@ export default function editDiff<T>(
   for (let i = 0; i < diffs.length; i++) {
     const diff = diffs[i];
 
-    let changeType = getChangeType(diff);
+    let changeType = getChangeType<T>(diff);
 
     let nextDiff;
     if ((i + 1) < diffs.length) {

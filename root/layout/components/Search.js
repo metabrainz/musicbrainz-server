@@ -13,7 +13,15 @@ import SearchIcon from '../../static/scripts/common/components/SearchIcon';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import {compare} from '../../static/scripts/common/i18n';
 
-const TYPE_OPTION_GROUPS = [
+type SearchOptionValueT =
+  (() => string) | null;
+
+type SearchOptionGroupT = {
+  +[optionName: string]: SearchOptionValueT,
+  ...
+};
+
+const TYPE_OPTION_GROUPS: $ReadOnlyArray<SearchOptionGroupT> = [
   {
     artist:        N_l('Artist'),
   },
@@ -46,34 +54,39 @@ const TYPE_OPTION_GROUPS = [
   },
 ];
 
-function localizedTypeOption(group, key) {
-  const option = group[key];
+function localizedTypeOption(option: SearchOptionValueT) {
   return option ? option() : '';
+}
+
+function compareTypeOptionEntries(
+  a: [string, SearchOptionValueT],
+  b: [string, SearchOptionValueT],
+) {
+  return compare(
+    localizedTypeOption(a[1]),
+    localizedTypeOption(b[1]),
+  );
 }
 
 const SearchOptions = () => (
   <select id="headerid-type" name="type">
-    {TYPE_OPTION_GROUPS.map(<TogT: {...}>(group: TogT, groupIndex) => (
-      Object.keys(group).sort(function (a, b) {
-        return compare(
-          localizedTypeOption(group, a),
-          localizedTypeOption(group, b),
-        );
-      }).map(function (key, index) {
-        const text = localizedTypeOption(group, key);
-        if (!text) {
-          return null;
-        }
-        return (
-          <option
-            key={groupIndex + '.' + index}
-            value={key}
-          >
-            {text}
-          </option>
-        );
-      })
-    ))}
+    {TYPE_OPTION_GROUPS.map((group) => (
+      Object.entries(group)
+        // $FlowIssue[incompatible-call]
+        .sort(compareTypeOptionEntries)
+        .map(([key: string, option: SearchOptionValueT]) => {
+          // $FlowIssue[incompatible-call]
+          const text = localizedTypeOption(option);
+          if (!text) {
+            return null;
+          }
+          return (
+            <option key={key} value={key}>
+              {text}
+            </option>
+          );
+        })
+      ))}
   </select>
 );
 
