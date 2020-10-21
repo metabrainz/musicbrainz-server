@@ -1351,6 +1351,24 @@ const CLEANUPS = {
       return url.replace(/^https?:\/\/(?:[^/]+\.)?foursquare\.com/, 'https://foursquare.com');
     },
   },
+  'gakki': {
+    match: [new RegExp(
+      '^(https?://)?(www\\.)?saisaibatake\\.ame-zaiku\\.com/gakki/',
+      'i',
+    )],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?saisaibatake\.ame-zaiku\.com\/gakki\/(.*)$/,
+        'https://saisaibatake.ame-zaiku.com/gakki/$1',
+      );
+    },
+    validate: function (url, id) {
+      return {
+        result: id === LINK_TYPES.otherdatabases.instrument,
+      };
+    },
+  },
   'generasia': {
     match: [new RegExp('^(https?://)?(www\\.)?generasia\\.com/wiki/', 'i')],
     type: LINK_TYPES.otherdatabases,
