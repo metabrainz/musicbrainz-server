@@ -668,11 +668,12 @@ sub added_entities_counts {
               END AS type,
               COUNT(*) AS count
             FROM edit
-           WHERE editor = ?
+           WHERE edit.status = ?
+             AND editor = ?
            GROUP BY type};
     my @params = ($EDIT_ARTIST_CREATE, $EDIT_RELEASE_CREATE, $EDIT_HISTORIC_ADD_RELEASE,
         $EDIT_RELEASE_ADD_COVER_ART, $EDIT_EVENT_CREATE, $EDIT_LABEL_CREATE,
-        $EDIT_PLACE_CREATE, $EDIT_SERIES_CREATE, $EDIT_WORK_CREATE);
+        $EDIT_PLACE_CREATE, $EDIT_SERIES_CREATE, $EDIT_WORK_CREATE, $STATUS_APPLIED);
     my $rows = $self->sql->select_list_of_lists($query, @params, $editor_id);
 
     for my $row (@$rows) {

@@ -412,6 +412,9 @@ const UserEditsProperty = ({
     '&conditions.1.field=type' +
     '&conditions.1.operator=%3D' +
     '&conditions.1.args=' + createEditTypes +
+    '&conditions.2.field=status' +
+    '&conditions.2.operator=%3D' +
+    '&conditions.2.args=2' +
     '&negation=0' +
     '&order=desc'
   ));
