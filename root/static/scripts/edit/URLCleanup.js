@@ -1925,6 +1925,15 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.lyrics,
   },
+  'mainlynorfolk': {
+    match: [new RegExp('^(https?://)?(www\\.)?mainlynorfolk\\.info', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?mainlynorfolk\.info\//, 'https://mainlynorfolk.info/');
+      url = url.replace(/^https:\/\/mainlynorfolk\.info\/([^/]+)(?:\/index\.html)?$/, 'https://mainlynorfolk.info/$1/');
+      return url;
+    },
+  },
   'maniadb': {
     match: [new RegExp('^(https?://)?(www\\.)?maniadb\\.com', 'i')],
     type: LINK_TYPES.otherdatabases,
@@ -2303,7 +2312,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www22\\.)?big\\.or\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?japanesemetal\\.gooside\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?d-nb\\.info', 'i'),
-      new RegExp('^(https?://)?(www\\.)?mainlynorfolk\\.info', 'i'),
       new RegExp('^(https?://)?(www\\.)?tedcrane\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?thedancegypsy\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?bibliotekapiosenki\\.pl', 'i'),

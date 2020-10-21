@@ -2188,9 +2188,16 @@ const testData = [
   },
   // Mainly Norfolk
   {
-                     input_url: 'http://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
+                     input_url: 'https://www.mainlynorfolk.info/watersons/index.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://mainlynorfolk.info/watersons/',
+  },
+  {
+                     input_url: 'http://www.mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
   },
   // maniadb
   {
