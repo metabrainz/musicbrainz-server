@@ -81,7 +81,7 @@ export const FAVICON_CLASSES = {
   'finnmusic.net': 'finnmusic',
   'flattr.com': 'flattr',
   'fono.fi': 'fonofi',
-  'generasia.com': 'generasia',
+  'generasia.com/wiki': 'generasia',
   'genius.com': 'genius',
   'gutenberg.org': 'gutenberg',
   'hoick.jp': 'hoick',
