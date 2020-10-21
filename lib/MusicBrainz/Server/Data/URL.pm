@@ -134,7 +134,6 @@ my %URL_SPECIALIZATIONS = (
     'Pomus'               => qr{^https?://(?:www\.)?pomus\.net/}i,
     'ProgArchives'        => qr{^https?://(?:www\.)?progarchives\.com/}i,
     'PsyDB'               => qr{^https?://(?:www\.)?psydb\.net/}i,
-    'PureVolume'          => qr{^https?://(?:www\.)?purevolume\.com/}i,
     'QuebecInfoMusique'   => qr{^https?://(?:www\.)?qim\.com/}i,
     'Rateyourmusic'       => qr{^https?://(?:www\.)?rateyourmusic\.com/}i,
     'ResidentAdvisor'     => qr{^https?://(?:www\.)?residentadvisor\.net/}i,
