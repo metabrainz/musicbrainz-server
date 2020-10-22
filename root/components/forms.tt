@@ -352,11 +352,10 @@
       [% FOREACH id IN form.options %]
          [%- id = id.value -%]
          <span [% IF form.value != id %] style="display:none" [% END %] class="type-bubble-description" id="type-bubble-description-[% id %]">
-           <strong>[%- add_colon(l('Description')) -%] </strong>
            [% IF types.$id.l_description %]
              [%- types.$id.l_description -%]
            [% ELSE %]
-             [%- lp('(none)', 'description') -%]
+             [%- l('No description available.') -%]
            [% END %]
          </span>
       [% END %]
