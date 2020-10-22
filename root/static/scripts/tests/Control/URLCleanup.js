@@ -138,6 +138,12 @@ const testData = [
 
   },
   {
+                     input_url: 'https://us.7digital.com/artist/el-p/release/cancer-4-cure-explicit-6120477#skip-back-to-top',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://us.7digital.com/artist/el-p/release/cancer-4-cure-explicit-6120477',
+  },
+  {
                      input_url: 'http://www.7digital.com/artist/el-p/release/cancer-4-cure-1',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
@@ -148,6 +154,12 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://us.7digital.com/artist/falco/release/vienna-greatest-hits-311837',
+  },
+  {
+                     input_url: 'https://fr-ca.7digital.com/artist/83-1/release/récidivistes-12888712?f=20%2C19%2C12%2C16%2C17%2C9%2C2&partner=8380',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://fr-ca.7digital.com/artist/83-1/release/récidivistes-12888712',
   },
   // AllMusic
   {

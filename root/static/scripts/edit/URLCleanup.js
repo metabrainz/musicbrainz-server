@@ -352,6 +352,7 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/(.*)$/, 'https://$1');
       // Remove yourmusic + id from link for own purchases
       url = url.replace(/^https:\/\/([^/]+\.)?(7digital\.com|zdigital\.com\.au)\/yourmusic\/(.*)\/[\d]+\/?$/, 'https://$1$2/$3');
+      url = url.replace(/([^&?#]+)(?:.*)$/, '$1');
       return url;
     },
   },
