@@ -3742,6 +3742,13 @@ const testData = [
             expected_clean_url: 'https://vgmdb.net/album/29727',
        only_valid_entity_types: ['release'],
   },
+  {
+                     input_url: 'https://vgmdb.net/product/8301',
+             input_entity_type: 'work',
+    expected_relationship_type: 'vgmdb',
+            expected_clean_url: 'https://vgmdb.net/product/8301',
+       only_valid_entity_types: ['work'],
+  },
   // VIAF (Virtual International Authority File)
   {
                      input_url: 'http://viaf.org/viaf/109231256',
