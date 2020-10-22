@@ -63,9 +63,9 @@
       value: 'David Robert Jones',
     },
     {
-      command: 'fireEvent',
+      command: 'sendKeys',
       target: 'id=ac-source-credited-as-0',
-      value: 'blur',
+      value: '${KEY_TAB}',
     },
     {
       command: 'assertEval',
@@ -258,9 +258,9 @@
     },
     // finally, blur
     {
-      command: 'fireEvent',
+      command: 'sendKeys',
       target: 'id=ac-source-credited-as-0',
-      value: 'blur',
+      value: '${KEY_TAB}',
     },
     {
       command: 'assertValue',
