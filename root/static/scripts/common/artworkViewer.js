@@ -168,7 +168,8 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     const $window = $(window);
     const maxDialogHeight = $window.height() * 0.95;
     const maxDialogWidth = $window.width() * 0.95;
-    const nonContentHeight = this.uiDialog.outerHeight() - this.element.height();
+    const nonContentHeight =
+      this.uiDialog.outerHeight() - this.element.height();
     const nonContentWidth = this.uiDialog.outerWidth() - this.element.width();
 
     /*

@@ -20,7 +20,9 @@ import * as common from './common';
 var releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];
 
-test('releaseReorderMediums edits are not generated for new releases', function (t) {
+test((
+  'releaseReorderMediums edits are not generated for new releases'
+), function (t) {
   t.plan(1);
 
   var release = new fields.Release({
@@ -37,7 +39,9 @@ test('releaseReorderMediums edits are not generated for new releases', function 
   t.equal(releaseEditor.edits.mediumReorder(release).length, 0);
 });
 
-test('MBS-7453: release group edits strip whitespace from name', function (t) {
+test((
+  'MBS-7453: release group edits strip whitespace from name'
+), function (t) {
   t.plan(1);
 
   var release = new fields.Release({ name: '  Foo  oo ' });
@@ -50,11 +54,14 @@ function editReleaseTest(name, callback) {
     callback(t, common.setupReleaseEdit());
     validation.errorFields([]);
     releaseEditor.externalLinksEditData({});
-    releaseEditor.hasInvalidLinks = validation.errorField(ko.observable(false));
+    releaseEditor.hasInvalidLinks =
+      validation.errorField(ko.observable(false));
   });
 }
 
-editReleaseTest('releaseAddAnnotation edit is generated for existing release', function (t, release) {
+editReleaseTest((
+  'releaseAddAnnotation edit is generated for existing release'
+), function (t, release) {
   t.plan(1);
 
   release.annotation('foooooo');
@@ -69,7 +76,9 @@ editReleaseTest('releaseAddAnnotation edit is generated for existing release', f
   ]);
 });
 
-editReleaseTest('releaseDeleteReleaseLabel edit is generated for existing release', function (t, release) {
+editReleaseTest((
+  'releaseDeleteReleaseLabel edit is generated for existing release'
+), function (t, release) {
   t.plan(1);
 
   release.labels.remove(release.labels()[0]);
@@ -83,7 +92,9 @@ editReleaseTest('releaseDeleteReleaseLabel edit is generated for existing releas
   ]);
 });
 
-editReleaseTest('releaseDeleteReleaseLabel edit is generated when label/catalog number fields are cleared (MBS-7287)', function (t, release) {
+editReleaseTest((
+  'releaseDeleteReleaseLabel edit is generated when label/catalog number fields are cleared (MBS-7287)'
+), function (t, release) {
   t.plan(1);
 
   var releaseLabel = release.labels()[0];
@@ -99,7 +110,9 @@ editReleaseTest('releaseDeleteReleaseLabel edit is generated when label/catalog 
   ]);
 });
 
-editReleaseTest('releaseEditReleaseLabel edits are generated for existing release', function (t, release) {
+editReleaseTest((
+  'releaseEditReleaseLabel edits are generated for existing release'
+), function (t, release) {
   t.plan(1);
 
   release.labels()[0].catalogNumber('WPC6-10046');
@@ -123,7 +136,9 @@ editReleaseTest('releaseEditReleaseLabel edits are generated for existing releas
   ]);
 });
 
-editReleaseTest('mediumDelete edit is generated for existing release', function (t, release) {
+editReleaseTest((
+  'mediumDelete edit is generated for existing release'
+), function (t, release) {
   t.plan(1);
 
   releaseEditor.removeMedium(release.mediums()[0]);
@@ -137,7 +152,9 @@ editReleaseTest('mediumDelete edit is generated for existing release', function 
   ]);
 });
 
-editReleaseTest('releaseGroupEdit edits should not include unchanged fields (MBS-8212)', function (t, release) {
+editReleaseTest((
+  'releaseGroupEdit edits should not include unchanged fields (MBS-8212)'
+), function (t, release) {
   t.plan(1);
 
   releaseEditor.copyTitleToReleaseGroup(true);
@@ -153,7 +170,9 @@ editReleaseTest('releaseGroupEdit edits should not include unchanged fields (MBS
   ]);
 });
 
-test('mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums', function (t) {
+test((
+  'mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums'
+), function (t) {
   t.plan(6);
 
   var release = new fields.Release({
@@ -304,7 +323,9 @@ test('mediumCreate edits are not given conflicting positions', function (t) {
   ]);
 });
 
-test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", function (t) {
+test((
+  'mediumCreate positions don’t conflict with removed mediums (MBS-7952)'
+), function (t) {
   t.plan(1);
 
   var release = new fields.Release({
@@ -343,7 +364,9 @@ test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", fu
   ]);
 });
 
-test('releaseDeleteReleaseLabel edits are not generated for non-existent release labels (MBS-7455)', function (t) {
+test((
+  'releaseDeleteReleaseLabel edits are not generated for non-existent release labels (MBS-7455)'
+), function (t) {
   t.plan(1);
 
   var release = new fields.Release({
@@ -368,7 +391,10 @@ test('releaseDeleteReleaseLabel edits are not generated for non-existent release
 
   submission.callback(release, [
     { message: 'OK' },
-    { message: 'OK', entity: { id: 456, labelID: null, catalogNumber: 'foo456' } },
+    {
+      entity: {catalogNumber: 'foo456', id: 456, labelID: null},
+      message: 'OK',
+    },
   ]);
 
   edits = submission.edits(release);

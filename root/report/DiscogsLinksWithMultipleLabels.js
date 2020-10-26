@@ -24,7 +24,11 @@ const DiscogsLinksWithMultipleLabels = ({
   items,
   pager,
 }: ReportDataT<ReportLabelUrlT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Discogs URLs linked to multiple labels')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Discogs URLs linked to multiple labels')}
+  >
     <h1>{l('Discogs URLs linked to multiple labels')}</h1>
 
     <ul>

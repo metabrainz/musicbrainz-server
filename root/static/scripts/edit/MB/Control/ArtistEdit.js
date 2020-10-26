@@ -47,13 +47,21 @@ MB.Control.ArtistEdit = function () {
     switch (self.$type.val()) {
       default:
       case '0':
-        self.changeDateText(l('Began:'), l('Ended:'), l('This artist has ended.'));
+        self.changeDateText(
+          l('Began:'),
+          l('Ended:'),
+          l('This artist has ended.'),
+        );
         self.changeAreaText(l('Begin area:'), l('End area:'));
         self.enableGender();
         break;
 
       case '1':
-        self.changeDateText(l('Born:'), l('Died:'), l('This person is deceased.'));
+        self.changeDateText(
+          l('Born:'),
+          l('Died:'),
+          l('This person is deceased.'),
+        );
         self.changeAreaText(l('Born in:'), l('Died in:'));
         self.enableGender();
         break;
@@ -61,7 +69,11 @@ MB.Control.ArtistEdit = function () {
       case '2':
       case '5':
       case '6':
-        self.changeDateText(l('Founded:'), l('Dissolved:'), l('This group has dissolved.'));
+        self.changeDateText(
+          l('Founded:'),
+          l('Dissolved:'),
+          l('This group has dissolved.'),
+        );
         self.changeAreaText(l('Founded in:'), l('Dissolved in:'));
         self.disableGender();
         break;

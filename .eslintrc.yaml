@@ -130,6 +130,11 @@ rules:
   keyword-spacing: [warn, {before: true, after: true}]
   linebreak-style: [warn, unix]
   lines-between-class-members: [warn, always]
+  max-len: [warn, {code: 78,
+                   ignoreUrls: true,
+                   ignoreStrings: false,
+                   ignoreTemplateLiterals: false,
+                   ignoreRegExpLiterals: true}]
   max-statements-per-line: [warn, {max: 1}]
   multiline-ternary: off
   new-cap: off

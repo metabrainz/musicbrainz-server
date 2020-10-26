@@ -13,7 +13,9 @@ import mbEdit from '../edit/MB/edit';
 
 import '../edit/forms';
 
-test('missing track numbers should be empty strings, not null (MBS-7246)', function (t) {
+test((
+  'missing track numbers should be empty strings, not null (MBS-7246)'
+), function (t) {
   t.plan(1);
 
   var data = mbEdit.fields.track({});
@@ -21,7 +23,9 @@ test('missing track numbers should be empty strings, not null (MBS-7246)', funct
   t.equal(data.number, '', 'number is empty string');
 });
 
-test('loop binding keeps items in order when some are quickly removed and re-added (MBS-7751)', function (t) {
+test((
+  'loop binding keeps items in order when some are quickly removed and re-added (MBS-7751)'
+), function (t) {
   t.plan(3);
 
   const parentNode = document.createElement('div');

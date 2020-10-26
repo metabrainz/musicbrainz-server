@@ -42,7 +42,10 @@ utils.computedWith = function (callback, observable, defaultValue) {
 
 
 utils.withRelease = function (read, defaultValue) {
-  return utils.computedWith(read, releaseEditor.rootField.release, defaultValue);
+  return utils.computedWith(
+    read,
+    releaseEditor.rootField.release, defaultValue,
+  );
 };
 
 export function unformatTrackLength(duration) {
@@ -198,7 +201,8 @@ utils.similarLengths = function (oldLength, newLength) {
    * If either of the lengths are empty, we can't compare them, so we
    * consider them to be "similar" for recording association purposes.
    */
-  return !oldLength || !newLength || lengthsAreWithin10s(oldLength, newLength);
+  return !oldLength || !newLength ||
+          lengthsAreWithin10s(oldLength, newLength);
 };
 
 
@@ -217,7 +221,10 @@ export function calculateDiscID(toc) {
 utils.calculateDiscID = calculateDiscID;
 
 function paddedHex(str, length) {
-  return (parseInt(str, 10) || 0).toString(16).toUpperCase().padStart(length, '0');
+  return (parseInt(str, 10) || 0)
+    .toString(16)
+    .toUpperCase()
+    .padStart(length, '0');
 }
 
 /*
@@ -226,7 +233,8 @@ function paddedHex(str, length) {
  */
 
 var padchar = '-';
-var alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._';
+var alpha =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._';
 
 function base64(s) {
   let i;
@@ -235,7 +243,9 @@ function base64(s) {
   var imax = s.length - s.length % 3;
 
   for (i = 0; i < imax; i += 3) {
-    b10 = (s.charCodeAt(i) << 16) | (s.charCodeAt(i + 1) << 8) | s.charCodeAt(i + 2);
+    b10 = (s.charCodeAt(i) << 16) |
+          (s.charCodeAt(i + 1) << 8) |
+          s.charCodeAt(i + 2);
     x.push(alpha.charAt(b10 >> 18));
     x.push(alpha.charAt((b10 >> 12) & 0x3F));
     x.push(alpha.charAt((b10 >> 6) & 0x3F));

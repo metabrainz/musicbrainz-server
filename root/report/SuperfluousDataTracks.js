@@ -24,7 +24,11 @@ const SuperfluousDataTracks = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Releases with superfluous data tracks')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Releases with superfluous data tracks')}
+  >
     <h1>{l('Releases with superfluous data tracks')}</h1>
 
     <ul>
@@ -38,7 +42,8 @@ const SuperfluousDataTracks = ({
            {data_track_guidelines|data track guidelines}.`,
           {
             data_track_guidelines:
-            `/doc/Style/Unknown_and_untitled/Special_purpose_track_title#Data_tracks`,
+              '/doc/Style/Unknown_and_untitled/' +
+              'Special_purpose_track_title#Data_tracks',
           },
         )}
       </li>

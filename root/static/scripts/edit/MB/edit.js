@@ -155,7 +155,8 @@ import request from '../../common/utility/request';
       );
 
       if (data.linkTypeID) {
-        if (linkedEntities.link_type[data.linkTypeID].orderable_direction !== 0) {
+        const linkType = linkedEntities.link_type[data.linkTypeID];
+        if (linkType.orderable_direction !== 0) {
           data.linkOrder = number(relationship.linkOrder) || 0;
         }
       }
@@ -198,7 +199,8 @@ import request from '../../common/utility/request';
           country_id: number(data.countryID),
         };
 
-        if (Object.values(event.date).some(nonEmpty) || event.country_id !== null) {
+        if (Object.values(event.date).some(nonEmpty) ||
+            event.country_id !== null) {
           return event;
         }
 
@@ -415,7 +417,9 @@ import request from '../../common/utility/request';
     TYPES.EDIT_RELATIONSHIP_EDIT,
     function (args, orig, relationship) {
       var newAttributes = {};
-      var origAttributes = relationship ? relationship.attributes.original : {};
+      var origAttributes = relationship
+        ? relationship.attributes.original
+        : {};
       var changedAttributes = [];
 
       for (const hash of args.attributes) {

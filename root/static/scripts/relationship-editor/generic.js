@@ -165,7 +165,11 @@ function addHiddenInputs(pushInput, vm, formName) {
 
     pushInput(prefix, 'target', relationship.target(vm.source).gid);
 
-    var changeData = MB.edit.relationshipEdit(editData, relationship.original, relationship);
+    var changeData = MB.edit.relationshipEdit(
+      editData,
+      relationship.original,
+      relationship,
+    );
     changeData.attributes?.forEach(function (attribute, i) {
       var attrPrefix = prefix + '.attributes.' + i;
 
@@ -272,7 +276,10 @@ export function prepareSubmission(formName) {
     vm.getFormData(formName + '.url', fieldCount, pushInput);
 
     if (hasSessionStorage && vm.state.links.length) {
-      window.sessionStorage.setItem('submittedLinks', JSON.stringify(vm.state.links));
+      window.sessionStorage.setItem(
+        'submittedLinks',
+        JSON.stringify(vm.state.links),
+      );
     }
   }
 
@@ -280,11 +287,15 @@ export function prepareSubmission(formName) {
 }
 
 let submissionInProgress = false;
-$(document).on('submit', '#page form:not(#relationship-editor-form)', function () {
-  if (!submissionInProgress) {
-    submissionInProgress = true;
-    prepareSubmission($('#relationship-editor').data('form-name'));
-  }
-});
+$(document).on(
+  'submit',
+  '#page form:not(#relationship-editor-form)',
+  function () {
+    if (!submissionInProgress) {
+      submissionInProgress = true;
+      prepareSubmission($('#relationship-editor').data('form-name'));
+    }
+  },
+);
 
 RE.prepareSubmission = prepareSubmission;

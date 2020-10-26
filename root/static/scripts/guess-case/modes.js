@@ -177,8 +177,10 @@ const DefaultMode = {
       (words[wi] === ' ') ||
 
       // vinyl (7" or 12")
-      (words[wi] === '"' && (words[wi - 1] === '7' || words[wi - 1] === '12')) ||
-      ((words[wi + 1] || '') === '"' && (words[wi] === '7' || words[wi] === '12')) ||
+      (words[wi] === '"' &&
+        (words[wi - 1] === '7' || words[wi - 1] === '12')) ||
+      ((words[wi + 1] || '') === '"' &&
+        (words[wi] === '7' || words[wi] === '12')) ||
 
       isPrepBracketWord(words[wi])
     )) {

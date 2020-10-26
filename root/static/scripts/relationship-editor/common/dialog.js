@@ -26,7 +26,8 @@ import isBlank from '../../common/utility/isBlank';
 import {debounceComputed} from '../../common/utility/debounce';
 import deepEqual from '../../common/utility/deepEqual';
 
-const PART_OF_SERIES_LINK_TYPE_GIDS = Object.values(PART_OF_SERIES_LINK_TYPES);
+const PART_OF_SERIES_LINK_TYPE_GIDS =
+  Object.values(PART_OF_SERIES_LINK_TYPES);
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
@@ -103,7 +104,13 @@ ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
 
 ko.bindingHandlers.instrumentSelect = {
 
-  init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+  init: function (
+    element,
+    valueAccessor,
+    allBindings,
+    viewModel,
+    bindingContext,
+  ) {
     var relationship = valueAccessor();
     var instruments = ko.observableArray([]);
 
@@ -152,7 +159,8 @@ ko.bindingHandlers.instrumentSelect = {
         relationship.attributes.remove(item.linkAttribute.peek());
 
         index = index === instruments().length ? index - 1 : index;
-        var $nextButton = $(element).find('button.remove-item:eq(' + index + ')');
+        var $nextButton =
+          $(element).find('button.remove-item:eq(' + index + ')');
 
         if ($nextButton.length) {
           $nextButton.focus();
@@ -187,8 +195,10 @@ class Dialog {
         target: target, direction: options.direction,
       }, source);
 
+      const linkTypeChildren =
+        linkedEntities.link_type_tree[options.relationship.entityTypes];
       options.relationship.linkTypeID(
-        defaultLinkType({ children: linkedEntities.link_type_tree[options.relationship.entityTypes] }),
+        defaultLinkType({children: linkTypeChildren}),
       );
     }
 
@@ -198,12 +208,17 @@ class Dialog {
     this.targetType = ko.observable(target.entityType);
     this.targetType.subscribe(this.targetTypeChanged, this);
 
-    this.changeOtherRelationshipCredits = {source: ko.observable(false), target: ko.observable(false)};
-    this.selectedRelationshipCredits = {source: ko.observable('all'), target: ko.observable('all')};
+    this.changeOtherRelationshipCredits =
+      {source: ko.observable(false), target: ko.observable(false)};
+    this.selectedRelationshipCredits =
+      {source: ko.observable('all'), target: ko.observable('all')};
 
     function tooShortYear(date) {
       const valid = dates.isYearFourDigits(date.year());
-      return valid ? '' : l('The year should have four digits. If you want to enter a year earlier than 1000 CE, please pad with zeros, such as “0123”.');
+      return valid
+        ? ''
+        : l(`The year should have four digits. If you want to enter a year
+             earlier than 1000 CE, please pad with zeros, such as “0123”.`);
     }
 
     this.tooShortBeginYearError = debounceComputed(function () {
@@ -249,7 +264,9 @@ class Dialog {
         if (this.changeOtherRelationshipCredits[role]()) {
           var vm = this.viewModel;
           var relationship = this.relationship();
-          var target = role === 'source' ? this.source : relationship.target(this.source);
+          var target = role === 'source'
+            ? this.source
+            : relationship.target(this.source);
           var targetCredit = relationship.creditField(target)();
           var relationshipFilter = this.selectedRelationshipCredits[role]();
 
@@ -413,17 +430,19 @@ class Dialog {
 
   linkTypeOptions(entityTypes) {
     var options = MB.forms.linkTypeOptions(
-      { children: linkedEntities.link_type_tree[entityTypes] }, this.backward(),
+      {children: linkedEntities.link_type_tree[entityTypes]},
+      this.backward(),
     );
 
     if (this.source.entityType === 'series') {
-      var itemType = MB.seriesTypesByID[this.source.typeID()].item_entity_type;
+      var itemType =
+        MB.seriesTypesByID[this.source.typeID()].item_entity_type;
 
       options = options.filter(function (opt) {
         var linkType = linkedEntities.link_type[opt.value];
 
         if (PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
-                            linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
+            linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
           return false;
         }
 
@@ -483,14 +502,16 @@ class Dialog {
      * or link type again (to something that does support them), we
      * want to preserve what they previously entered.
      */
-    data.begin_date = MB.edit.fields.partialDate(currentRelationship.begin_date);
+    data.begin_date =
+      MB.edit.fields.partialDate(currentRelationship.begin_date);
     data.end_date = MB.edit.fields.partialDate(currentRelationship.end_date);
     data.ended = !!currentRelationship.ended();
 
     delete data.entities;
 
     var entityTypes = [this.source.entityType, newType].sort().join('-');
-    data.linkTypeID = defaultLinkType({ children: linkedEntities.link_type_tree[entityTypes] });
+    const linkTypeChildren = linkedEntities.link_type_tree[entityTypes];
+    data.linkTypeID = defaultLinkType({children: linkTypeChildren});
     data.attributes = [];
 
     var newRelationship = this.viewModel.getRelationship(data, this.source);
@@ -519,9 +540,14 @@ class Dialog {
     if (!linkType) {
       return l('Please select a relationship type.');
     } else if (!linkType.description) {
-      return l('Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.');
+      return l(
+        `Please select a subtype of the currently selected relationship type.
+         The selected relationship type is only used for grouping subtypes.`,
+      );
     } else if (linkType.deprecated) {
-      return l('This relationship type is deprecated and should not be used.');
+      return l(
+        'This relationship type is deprecated and should not be used.',
+      );
     } else if (this.source.entityType === 'url') {
       var checker = URLCleanup.validationRules[linkType.gid];
 
@@ -529,7 +555,10 @@ class Dialog {
         const check = checker(this.source.name());
         if (!check.result) {
           return check.error ||
-          l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
+          l(
+            `This URL is not allowed for the selected link type,
+             or is incorrectly formatted.`,
+          );
         }
       }
     }
@@ -601,7 +630,10 @@ class Dialog {
 
   changeOtherRelationshipCreditsLabel(entity) {
     return ReactDOMServer.renderToStaticMarkup(
-      exp.l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()}),
+      exp.l(
+        'Change credits for other {entity} relationships on the page.',
+        {entity: entity.reactElement()},
+      ),
     );
   }
 
@@ -614,10 +646,13 @@ class Dialog {
 
   sameRelationshipTypeLabel($parent, relationship, entity) {
     const entityType = relationship.target(entity).entityType;
-    return texp.l('Only “{relationship_type}” relationships to {entity_type} entities.', {
-      relationship_type: $parent.linkTypeName(),
-      entity_type: ENTITY_NAMES[entityType](),
-    });
+    return texp.l(
+      'Only “{relationship_type}” relationships to {entity_type} entities.',
+      {
+        entity_type: ENTITY_NAMES[entityType](),
+        relationship_type: $parent.linkTypeName(),
+      },
+    );
   }
 }
 
@@ -681,7 +716,11 @@ function addRelationships(relationships, source, viewModel) {
 export class AddDialog extends Dialog {
 
   _accept() {
-    addRelationships(splitByCreditableAttributes(this.relationship()), this.source, this.viewModel);
+    addRelationships(
+      splitByCreditableAttributes(this.relationship()),
+      this.source,
+      this.viewModel,
+    );
   }
 
   close(cancel) {
@@ -764,7 +803,11 @@ export class BatchRelationshipDialog extends Dialog {
       model = {...model};
 
       if (!callback || callback(model)) {
-        addRelationships(splitByCreditableAttributes(vm.getRelationship(model, source)), source, vm);
+        addRelationships(
+          splitByCreditableAttributes(vm.getRelationship(model, source)),
+          source,
+          vm,
+        );
       }
     }
   }

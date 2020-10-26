@@ -26,7 +26,8 @@ const {
 } = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
-const {cloneObjectDeep} = require('./root/static/scripts/common/utility/cloneDeep');
+const {cloneObjectDeep} =
+  require('./root/static/scripts/common/utility/cloneDeep');
 const jedDataTemplate = require('./root/static/scripts/jed-data');
 
 const entries = [
@@ -111,14 +112,21 @@ function createJsPo(srcPo, lang) {
    * possible terminal paths.
    */
   const scriptsDir = shellQuote.quote([dirs.SCRIPTS]);
-  const nestedDirs = shell.exec(`find ${scriptsDir} -type d`, {silent: true}).stdout.split('\n');
+  const nestedDirs = shell.exec(
+    `find ${scriptsDir} -type d`,
+    {silent: true},
+  ).stdout.split('\n');
   const msgLocations = nestedDirs
     .filter(Boolean)
-    .map(dir => '-N ' + shellQuote.quote(['..' + dir.replace(dirs.CHECKOUT, '') + '/*.js']))
+    .map(dir => (
+      '-N ' +
+      shellQuote.quote(['..' + dir.replace(dirs.CHECKOUT, '') + '/*.js'])))
     .join(' ');
 
   srcPo = shellQuote.quote([srcPo]);
-  const tmpPo = shellQuote.quote([path.resolve(dirs.PO, `javascript.${lang}.po`)]);
+  const tmpPo = shellQuote.quote(
+    [path.resolve(dirs.PO, `javascript.${lang}.po`)],
+  );
 
   /*
    * Create a temporary .po file containing only the strings used by

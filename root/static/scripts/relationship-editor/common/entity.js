@@ -213,7 +213,10 @@ Object.assign(coreEntityPrototype, {
     const direction = getDirection(relationship, this);
 
     return this.displayableRelationships(viewModel)().filter(
-      r => String(r.linkTypeID()) === linkTypeID && getDirection(r, this) === direction,
+      r => (
+        String(r.linkTypeID()) === linkTypeID &&
+        getDirection(r, this) === direction
+      ),
     );
   },
 });

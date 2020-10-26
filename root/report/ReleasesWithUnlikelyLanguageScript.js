@@ -24,7 +24,11 @@ const ReleasesWithUnlikelyLanguageScript = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Releases with unlikely language/script pairs')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Releases with unlikely language/script pairs')}
+  >
     <h1>{l('Releases with unlikely language/script pairs')}</h1>
 
     <ul>

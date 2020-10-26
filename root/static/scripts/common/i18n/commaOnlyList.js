@@ -31,7 +31,9 @@ function _commaOnlyList<Input, Output>(
   return output;
 }
 
-const commaOnlyList = (items: $ReadOnlyArray<VarSubstArg>): Expand2ReactOutput | string => (
+const commaOnlyList = (
+  items: $ReadOnlyArray<VarSubstArg>,
+): Expand2ReactOutput | string => (
   _commaOnlyList<VarSubstArg, Expand2ReactOutput>(exp.l, items)
 );
 

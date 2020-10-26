@@ -448,7 +448,8 @@ export default function groupRelationships(
       const targetGroups = phraseGroups[i].targetGroups;
 
       for (let j = 0; j < targetGroups.length; j++) {
-        const datedExtraAttributesList = targetGroups[j].datedExtraAttributesList;
+        const datedExtraAttributesList =
+          targetGroups[j].datedExtraAttributesList;
         mergeDatedExtraAttributes(datedExtraAttributesList);
         datedExtraAttributesList.sort(cmpFirstDatePeriods);
       }

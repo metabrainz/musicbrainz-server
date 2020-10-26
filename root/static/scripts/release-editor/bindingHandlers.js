@@ -23,7 +23,13 @@ ko.bindingHandlers.disableBecauseDiscIDs = {
     $(element)
       .prop('disabled', disabled)
       .toggleClass('disabled-hint', disabled)
-      .attr('title', disabled ? l('This medium has one or more discids which prevent this information from being changed.') : '');
+      .attr(
+        'title',
+        disabled
+          ? l(`This medium has one or more discids
+               which prevent this information from being changed.`)
+          : '',
+      );
   },
 };
 
@@ -61,7 +67,10 @@ ko.bindingHandlers.artistCreditEditor = {
        * depends on the artist credit state.
        */
       setTimeout(() => {
-        prev.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
+        prev.artistCreditEditorInst.updateBubble(
+          true,
+          this.uncheckChangeMatchingArtists,
+        );
       }, 1);
     }
   },
@@ -72,7 +81,10 @@ ko.bindingHandlers.artistCreditEditor = {
     if (next) {
       entity.artistCreditEditorInst.runDoneCallback();
       setTimeout(() => {
-        next.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
+        next.artistCreditEditorInst.updateBubble(
+          true,
+          this.uncheckChangeMatchingArtists,
+        );
       }, 1);
     }
   },
@@ -131,6 +143,7 @@ ko.bindingHandlers.artistCreditEditor = {
   self.doneCallback = self.doneCallback.bind(self);
   self.nextTrack = self.nextTrack.bind(self);
   self.previousTrack = self.previousTrack.bind(self);
-  self.uncheckChangeMatchingArtists = self.uncheckChangeMatchingArtists.bind(self);
+  self.uncheckChangeMatchingArtists =
+    self.uncheckChangeMatchingArtists.bind(self);
   self.update = self.update.bind(self);
 }

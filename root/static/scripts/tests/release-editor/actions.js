@@ -42,13 +42,23 @@ test('removing a medium should change the medium positions', function (t) {
   );
 
   var mediums = release.mediums();
-  t.deepEqual(mediums.map(x => x.position()), [1, 2, 3], 'medium positions are consecutive before removal');
+  t.deepEqual(
+    mediums.map(x => x.position()),
+    [1, 2, 3],
+    'medium positions are consecutive before removal',
+  );
 
   actions.removeMedium(mediums[0]);
-  t.deepEqual(mediums.map(x => x.position()), [1, 2], 'medium positions are consecutive after removal');
+  t.deepEqual(
+    mediums.map(x => x.position()),
+    [1, 2],
+    'medium positions are consecutive after removal',
+  );
 });
 
-test('reordering tracks that have non-consecutive "position" properties (MBS-7227)', function (t) {
+test((
+  'reordering tracks that have non-consecutive "position" properties (MBS-7227)'
+), function (t) {
   t.plan(4);
 
   var release = common.setupReleaseEdit();
@@ -60,9 +70,25 @@ test('reordering tracks that have non-consecutive "position" properties (MBS-722
 
   actions.moveTrackUp(originalTrack2);
 
-  t.equal(tracks[0], originalTrack2, 'original track 2 has moved to position 1');
-  t.equal(originalTrack2.position(), 1, 'original track 2 now has position() 1');
+  t.equal(
+    tracks[0],
+    originalTrack2,
+    'original track 2 has moved to position 1',
+  );
+  t.equal(
+    originalTrack2.position(),
+    1,
+    'original track 2 now has position() 1',
+  );
 
-  t.equal(tracks[1], originalTrack1, 'original track 1 has moved to position 2');
-  t.equal(originalTrack1.position(), 2, 'original track 1 now has position() 2');
+  t.equal(
+    tracks[1],
+    originalTrack1,
+    'original track 1 has moved to position 2',
+  );
+  t.equal(
+    originalTrack1.position(),
+    2,
+    'original track 1 now has position() 2',
+  );
 });

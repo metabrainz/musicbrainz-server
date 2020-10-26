@@ -56,7 +56,10 @@ MB.CoverArt.reorder_button = function (direction, $container) {
     var insertAfter = (direction === 'next');
     if (!$swap.length) {
       // no direct neighbour, so wrap around
-      $swap = $editimage.siblings()[direction === 'next' ? 'first' : 'last']();
+      $swap = $editimage.siblings()[direction === 'next'
+        ? 'first'
+        : 'last'
+      ]();
       insertAfter = !insertAfter;
     }
     if ($swap.length) {
@@ -262,7 +265,12 @@ MB.CoverArt.upload_image = function (postfields, file) {
   return deferred.promise();
 };
 
-MB.CoverArt.submit_edit = function (fileUpload, postfields, mimeType, position) {
+MB.CoverArt.submit_edit = function (
+  fileUpload,
+  postfields,
+  mimeType,
+  position,
+) {
   var deferred = $.Deferred();
 
   var formdata = new window.FormData();
@@ -286,7 +294,9 @@ MB.CoverArt.submit_edit = function (fileUpload, postfields, mimeType, position) 
     if (xhr.status === 200) {
       deferred.resolve();
     } else {
-      deferred.reject('error creating edit: ' + xhr.status + ' ' + xhr.statusText);
+      deferred.reject(
+        'error creating edit: ' + xhr.status + ' ' + xhr.statusText,
+      );
     }
   });
 
@@ -501,8 +511,11 @@ MB.CoverArt.set_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-  if (typeof (window.FormData) !== 'undefined' && typeof (window.FileReader) !== 'undefined') {
-    File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
+  if (typeof (window.FormData) !== 'undefined' &&
+      typeof (window.FileReader) !== 'undefined') {
+    File.prototype.slice = File.prototype.webkitSlice ||
+                           File.prototype.mozSlice ||
+                           File.prototype.slice;
 
     /*
      * FormData is supported, so we can present the multifile ajax

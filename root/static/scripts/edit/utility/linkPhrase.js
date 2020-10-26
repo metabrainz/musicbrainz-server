@@ -343,7 +343,10 @@ export const getPhraseAndExtraAttributesText = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-): [string, Array<LinkAttrT>] => getPhraseAndExtraAttributes<string, StrOrNum>(
+): [string, Array<LinkAttrT>] => getPhraseAndExtraAttributes<
+  string,
+  StrOrNum,
+>(
   textI18n,
   relationship,
   phraseProp,
@@ -356,7 +359,10 @@ export const interpolate = (
   forGrouping?: boolean = false,
   entity0?: React$MixedElement,
   entity1?: React$MixedElement,
-): Expand2ReactOutput | string => getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+): Expand2ReactOutput | string => getPhraseAndExtraAttributes<
+  Expand2ReactOutput,
+  Expand2ReactInput,
+>(
   reactI18n,
   relationship,
   phraseProp,
@@ -379,14 +385,20 @@ export const getExtraAttributes = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-): Array<LinkAttrT> => getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+): Array<LinkAttrT> => getPhraseAndExtraAttributes<
+  Expand2ReactOutput,
+  Expand2ReactInput,
+>(
   reactI18n,
   relationship,
   phraseProp,
   forGrouping,
 )[1];
 
-export const stripAttributes = (linkType: LinkTypeT, phrase: string): string => {
+export const stripAttributes = (
+  linkType: LinkTypeT,
+  phrase: string,
+): string => {
   return clean(textI18n.expand(phrase, new PhraseVarArgs(
     _getRequiredAttributes(linkType, null),
     textI18n,

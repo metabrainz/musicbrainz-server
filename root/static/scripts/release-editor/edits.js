@@ -52,12 +52,14 @@ releaseEditor.edits = {
     if (releaseGroup.gid) {
       var dataChanged = false;
 
-      if (releaseEditor.copyTitleToReleaseGroup() && releaseGroup.canTakeName(releaseName)) {
+      if (releaseEditor.copyTitleToReleaseGroup() &&
+          releaseGroup.canTakeName(releaseName)) {
         editData.name = releaseName;
         dataChanged = true;
       }
 
-      if (releaseEditor.copyArtistToReleaseGroup() && releaseGroup.canTakeArtist(releaseAC)) {
+      if (releaseEditor.copyArtistToReleaseGroup() &&
+          releaseGroup.canTakeArtist(releaseAC)) {
         editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
         dataChanged = true;
       }
@@ -209,7 +211,9 @@ releaseEditor.edits = {
           newWithoutPosition.delete_tracklist = medium.tracksUnknownToUser()
             ? 1
             : 0;
-          edits.push(MB.edit.mediumEdit(newWithoutPosition, oldWithoutPosition));
+          edits.push(
+            MB.edit.mediumEdit(newWithoutPosition, oldWithoutPosition),
+          );
         }
       } else {
         /*
@@ -361,14 +365,20 @@ releaseEditor.edits = {
 
     function hasVideo(relationship) {
       const attributes = relationship.attributes;
-      return (attributes && attributes.some(attr => attr.type.gid === VIDEO_ATTRIBUTE_GID));
+      return (attributes &&
+              attributes.some(attr => attr.type.gid === VIDEO_ATTRIBUTE_GID));
     }
 
     if (releaseEditor.hasInvalidLinks()) {
       return edits;
     }
 
-    var { oldLinks, newLinks, allLinks } = releaseEditor.externalLinksEditData();
+    var {
+      oldLinks,
+      newLinks,
+      allLinks,
+    } = releaseEditor.externalLinksEditData();
+
     if (!allLinks) {
       return edits;
     }
@@ -384,13 +394,19 @@ releaseEditor.edits = {
         if (!newLinks[link.relationship]) {
           edits.push(MB.edit.relationshipDelete(newData));
         } else if (oldLinks[link.relationship]) {
-          const original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
+          const original = MB.edit.fields.externalLinkRelationship(
+            oldLinks[link.relationship],
+            release,
+          );
 
           if (!deepEqual(newData, original)) {
             const editData = MB.edit.relationshipEdit(newData, original);
 
             if (hasVideo(original) && !hasVideo(newData)) {
-              editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}, removed: true}];
+              editData.attributes = [{
+                removed: true,
+                type: {gid: VIDEO_ATTRIBUTE_GID},
+              }];
             }
 
             edits.push(editData);
@@ -416,7 +432,10 @@ var _allEdits = [
   'annotation',
   'externalLinks',
 ].map(function (name) {
-  return utils.withRelease(releaseEditor.edits[name].bind(releaseEditor.edits), []);
+  return utils.withRelease(
+    releaseEditor.edits[name].bind(releaseEditor.edits),
+    [],
+  );
 });
 
 
@@ -590,7 +609,9 @@ releaseEditor.orderedEditSubmissions = [
       var edit = edits[0];
 
       if (edit.edit_type == MB.edit.TYPES.EDIT_RELEASEGROUP_CREATE) {
-        release.releaseGroup(new releaseEditor.fields.ReleaseGroup(edits[0].entity));
+        release.releaseGroup(
+          new releaseEditor.fields.ReleaseGroup(edits[0].entity),
+        );
       }
     },
   },

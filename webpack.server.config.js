@@ -49,13 +49,19 @@ module.exports = {
 
     function (context, request, callback) {
       const resolvedRequest = path.resolve(context, request);
-      const requestFromCheckout = path.relative(dirs.CHECKOUT, resolvedRequest);
+      const requestFromCheckout = path.relative(
+        dirs.CHECKOUT,
+        resolvedRequest,
+      );
       if (externals.includes(requestFromCheckout)) {
         /*
          * Output a path relative to the build dir, since that's where
          * the server-components bundle will be.
          */
-        return callback(null, 'commonjs ' + path.relative(dirs.BUILD, resolvedRequest));
+        return callback(
+          null,
+          'commonjs ' + path.relative(dirs.BUILD, resolvedRequest),
+        );
       }
       callback();
     }

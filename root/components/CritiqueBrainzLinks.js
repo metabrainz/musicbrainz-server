@@ -25,7 +25,9 @@ type Props = {
   +releaseGroup: ReleaseGroupT,
 };
 
-const CritiqueBrainzLinks = ({releaseGroup}: Props): null | Expand2ReactOutput => {
+const CritiqueBrainzLinks = ({
+  releaseGroup,
+}: Props): null | Expand2ReactOutput => {
   const reviewCount = releaseGroup.review_count;
 
   if (reviewCount == null) {

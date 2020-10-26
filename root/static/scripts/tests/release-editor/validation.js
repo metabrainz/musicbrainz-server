@@ -26,7 +26,9 @@ function validationTest(name, callback) {
   });
 }
 
-validationTest('non-loaded mediums validate, even though they have no tracks (MBS-7222)', function (t) {
+validationTest((
+  'non-loaded mediums validate, even though they have no tracks (MBS-7222)'
+), function (t) {
   t.plan(8);
 
   releaseEditor.action = 'edit';
@@ -50,7 +52,9 @@ validationTest('non-loaded mediums validate, even though they have no tracks (MB
   t.ok(!release.needsRecordings(), "release doesn't need recordings");
 });
 
-validationTest('duplicate release countries are rejected, including null ones (MBS-7624)', function (t) {
+validationTest((
+  'duplicate release countries are rejected, including null ones (MBS-7624)'
+), function (t) {
   t.plan(5);
 
   releaseEditor.action = 'edit';
@@ -74,7 +78,9 @@ validationTest('duplicate release countries are rejected, including null ones (M
   t.ok(validation.errorsExist());
 });
 
-validationTest('duplicate label/catalog number pairs are rejected (MBS-8137)', function (t) {
+validationTest((
+  'duplicate label/catalog number pairs are rejected (MBS-8137)'
+), function (t) {
   t.plan(9);
 
   releaseEditor.action = 'edit';

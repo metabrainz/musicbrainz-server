@@ -108,7 +108,9 @@ class TimelineViewModel {
     });
     // rateLimit to ensure graph doesn't need frequent redrawing
     self.lines = debounceComputed(function () {
-      return [].concat(...self.enabledCategories().map(category => category.enabledLines()));
+      return [].concat(
+        ...self.enabledCategories().map(category => category.enabledLines()),
+      );
     }, 1000);
 
     self.waitToGraph = ko.computed(function () {
@@ -214,7 +216,9 @@ class TimelineViewModel {
 
     ko.computed({
       read: function () {
-        if (self.options.events() && !self.loadedEvents() && !self.loadingEvents()) {
+        if (self.options.events() &&
+            !self.loadedEvents() &&
+            !self.loadingEvents()) {
           self.loadEvents();
         }
       },
@@ -269,10 +273,19 @@ class TimelineViewModel {
 
     if (!category) {
       var newCategory = stats.category[newLine.category];
-      category = this.addCategory(new TimelineCategory(newLine.category, newCategory.label, !newCategory.hide));
+      category = this.addCategory(new TimelineCategory(
+        newLine.category,
+        newCategory.label,
+        !newCategory.hide,
+      ));
     }
 
-    category.addLine(new TimelineLine(name, newLine.label, newLine.color, !newLine.hide));
+    category.addLine(new TimelineLine(
+      name,
+      newLine.label,
+      newLine.color,
+      !newLine.hide,
+    ));
   }
 
   addLines(names) {
@@ -526,19 +539,33 @@ class TimelineLine {
       month = date.getMonth() + 1;
     }
 
-    showTooltip(item.pageX, item.pageY,
-                date.getFullYear() + '-' + month + '-' + day + ': ' + y + ' ' + item.series.label + extra);
+    showTooltip(
+      item.pageX,
+      item.pageY,
+      date.getFullYear() + '-' + month + '-' + day + ': ' + y +
+        ' ' + item.series.label + extra,
+    );
   };
 
   var setEventTooltip = function (thisEvent, pos) {
     removeTooltip();
     setCursor('pointer');
-    showTooltip(pos.pageX, pos.pageY,
-                '<h2 style="margin-top: 0px; padding-top: 0px">' + thisEvent.title + '</h2>' + thisEvent.description);
+    showTooltip(
+      pos.pageX,
+      pos.pageY,
+      '<h2 style="margin-top: 0px; padding-top: 0px">' +
+        thisEvent.title + '</h2>' + thisEvent.description,
+    );
   };
 
   ko.bindingHandlers.flot = {
-    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+    init: function (
+      element,
+      valueAccessor,
+      allBindings,
+      viewModel,
+      bindingContext,
+    ) {
       var graph = ko.unwrap(valueAccessor());
       var previousPoint = null;
       var currentEvent = null;
@@ -555,9 +582,11 @@ class TimelineLine {
             if (previousPoint != item.dataIndex) {
               reset();
               previousPoint = item.dataIndex;
-              setItemTooltip(item,
-                             graph === 'rate' ? stats.rateTooltipCloser : undefined,
-                             graph === 'rate' ? 2 : undefined);
+              setItemTooltip(
+                item,
+                graph === 'rate' ? stats.rateTooltipCloser : undefined,
+                graph === 'rate' ? 2 : undefined,
+              );
             }
           } else if ($(element).data('plot').getEvent(pos)) {
             var thisEvent = $(element).data('plot').getEvent(pos);
@@ -604,7 +633,13 @@ class TimelineLine {
         plot.draw();
       }, 100));
     },
-    update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+    update: function (
+      element,
+      valueAccessor,
+      allBindings,
+      viewModel,
+      bindingContext,
+    ) {
       var graph = ko.unwrap(valueAccessor());
       if (!bindingContext.$data.waitToGraph()) {
         var lines = bindingContext.$data.lines();
@@ -613,13 +648,23 @@ class TimelineLine {
           legend: {show: false},
         };
 
-        // Main options (hoverability, axes, tick formatting, events, line size)
+        /*
+         * Main options (hoverability, axes, tick formatting,
+         * events, line size)
+         */
         if (graph === 'main' || graph === 'rate') {
           options.grid = { hoverable: true };
-          options.xaxis = { mode: 'time', timeformat: '%Y/%m/%d', minTickSize: [7, 'day']};
-          options.yaxis = { tickFormatter: function (x) {
-            return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ','); // XXX: localized number formatting
-          }};
+          options.xaxis = {
+            minTickSize: [7, 'day'],
+            mode: 'time',
+            timeformat: '%Y/%m/%d',
+          };
+          options.yaxis = {
+            tickFormatter: function (x) {
+              // XXX: localized number formatting
+              return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+            },
+          };
           if (bindingContext.$data.options.events()) {
             options.musicbrainzEvents = {
               enabled: bindingContext.$data.options.events(),
@@ -653,7 +698,10 @@ class TimelineLine {
           options.yaxis.max = bindingContext.$data.rateZoomY().max;
         }
 
-        // This has to be done here, or the rate graph will end up huge and unwieldy.
+        /*
+         * This has to be done here, or the rate graph
+         * will end up huge and unwieldy.
+         */
         if (graph === 'rate') {
           $(element).toggle(bindingContext.$data.options.rate());
         }

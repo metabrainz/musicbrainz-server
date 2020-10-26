@@ -237,7 +237,10 @@ import formatTrackLength from './utility/formatTrackLength';
 
       return ReactDOMServer.renderToStaticMarkup(
         <>
-          {exp.l('You selected {label}.', {label: this.reactElement({target: '_blank'})})}
+          {exp.l(
+            'You selected {label}.',
+            {label: this.reactElement({target: '_blank'})},
+          )}
           {code ? (
             ' ' +
                         bracketedText(texp.l(
@@ -255,7 +258,10 @@ import formatTrackLength from './utility/formatTrackLength';
   class Area extends CoreEntity {
     selectionMessage() {
       return ReactDOMServer.renderToStaticMarkup(
-        exp.l('You selected {area}.', {area: this.reactElement({ target: '_blank'})}),
+        exp.l(
+          'You selected {area}.',
+          {area: this.reactElement({ target: '_blank'})},
+        ),
       );
     }
   }
@@ -281,9 +287,11 @@ import formatTrackLength from './utility/formatTrackLength';
          */
         var appearsOnType = this.appearsOn.entityType || 'release_group';
 
-        this.appearsOn.results = this.appearsOn.results.map(function (appearance) {
-          return MB.entity(appearance, appearsOnType);
-        });
+        this.appearsOn.results = this.appearsOn.results.map(
+          function (appearance) {
+            return MB.entity(appearance, appearsOnType);
+          },
+        );
       }
 
       if (!this.artistCredit) {
@@ -299,7 +307,10 @@ import formatTrackLength from './utility/formatTrackLength';
     }
 
     toJSON() {
-      return Object.assign(super.toJSON(), { isrcs: this.isrcs, appearsOn: this.appearsOn });
+      return Object.assign(
+        super.toJSON(),
+        { isrcs: this.isrcs, appearsOn: this.appearsOn },
+      );
     }
   }
 
@@ -479,9 +490,10 @@ import formatTrackLength from './utility/formatTrackLength';
   var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
 
   function isProbablyClassical(entity) {
-    return classicalRoles.test(entity.name) || entity.relationships?.some(function (r) {
-      return PROBABLY_CLASSICAL_LINK_TYPES.includes(r.linkTypeID);
-    });
+    return classicalRoles.test(entity.name) ||
+           entity.relationships?.some(function (r) {
+             return PROBABLY_CLASSICAL_LINK_TYPES.includes(r.linkTypeID);
+           });
   }
 
   /*

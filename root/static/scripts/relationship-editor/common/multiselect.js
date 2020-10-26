@@ -125,7 +125,9 @@ class Multiselect {
 
     const nodes = this.optionNodes;
     let node;
-    let nextIndex = nodes.findIndex(node => node.optionData.value === typeGID);
+    let nextIndex = nodes.findIndex(
+      node => node.optionData.value === typeGID,
+    );
 
     while ((node = nodes[++nextIndex])) {
       if (node.style.display === 'block') {

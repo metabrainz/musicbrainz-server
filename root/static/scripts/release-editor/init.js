@@ -31,7 +31,10 @@ Object.assign(releaseEditor, {
   activeTabIndex: ko.observable(0),
   loadError: ko.observable(''),
   loadErrorMessage: function () {
-    return texp.l('Error loading release: {error}', {error: releaseEditor.loadError()});
+    return texp.l(
+      'Error loading release: {error}',
+      {error: releaseEditor.loadError()},
+    );
   },
   externalLinksEditData: ko.observable({}),
   hasInvalidLinks: validation.errorField(ko.observable(false)),
@@ -62,11 +65,13 @@ releaseEditor.init = function (options) {
    * and change recording title checkboxes in the Recordings page.
    */
   MB.Control.RangeSelect(
-    '#track-recording-assignation input.update-recording-title[type="checkbox"]',
+    '#track-recording-assignation input.' +
+    'update-recording-title[type="checkbox"]',
   );
 
   MB.Control.RangeSelect(
-    '#track-recording-assignation input.update-recording-artist[type="checkbox"]',
+    '#track-recording-assignation input.' +
+    'update-recording-artist[type="checkbox"]',
   );
 
   /*
@@ -86,7 +91,9 @@ releaseEditor.init = function (options) {
          * (probably because the <select> is hidden by then).
          */
         setTimeout(function () {
-          self.activeTabID() === '#edit-note' ? self.submitEdits() : self.nextTab();
+          self.activeTabID() === '#edit-note'
+            ? self.submitEdits()
+            : self.nextTab();
         }, 1);
       }
     });
@@ -187,7 +194,8 @@ releaseEditor.init = function (options) {
       if (!hasVariousArtists(releaseAC)) {
         for (const medium of release.mediums()) {
           for (const track of medium.tracks()) {
-            if (reduceArtistCredit(track.artistCredit()) === reduceArtistCredit(savedReleaseAC)) {
+            if (reduceArtistCredit(track.artistCredit()) ===
+                reduceArtistCredit(savedReleaseAC)) {
               track.artistCredit(releaseAC);
               track.artistCreditEditorInst.setState({
                 artistCredit: track.artistCredit.peek(),
@@ -257,7 +265,9 @@ releaseEditor.init = function (options) {
 
   window.addEventListener('beforeunload', event => {
     if (hasEdits() && !this.rootField.redirecting) {
-      event.returnValue = l('All of your changes will be lost if you leave this page.');
+      event.returnValue = l(
+        'All of your changes will be lost if you leave this page.',
+      );
       return event.returnValue;
     }
 
@@ -324,7 +334,10 @@ releaseEditor.releaseLoaded = function (data) {
 
   // Setup the external links editor
   setTimeout(function () {
-    releaseEditor.createExternalLinksEditor(data, $('#external-links-editor-container')[0]);
+    releaseEditor.createExternalLinksEditor(
+      data,
+      $('#external-links-editor-container')[0],
+    );
   }, 1);
 
   var release = new fields.Release(data);
@@ -351,7 +364,8 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
   delete this.seededReleaseData;
 
   if (seed && seed.relationships) {
-    data.relationships = (data.relationships || []).concat(seed.relationships);
+    data.relationships = (data.relationships || [])
+      .concat(seed.relationships);
   }
 
   this.externalLinks = externalLinks.createExternalLinksEditor({

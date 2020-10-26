@@ -24,7 +24,11 @@ const PartOfSetRelationships = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Releases with “part of set” relationships')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Releases with “part of set” relationships')}
+  >
     <h1>{l('Releases with “part of set” relationships')}</h1>
 
     <ul>

@@ -370,7 +370,9 @@ export default function Autocomplete2<+T: EntityItem>(
     }
   }
 
-  function handleInputChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+  function handleInputChange(
+    event: SyntheticKeyboardEvent<HTMLInputElement>,
+  ) {
     const newInputValue = event.currentTarget.value;
     const newCleanInputValue = clean(newInputValue);
 
