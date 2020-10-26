@@ -85,47 +85,6 @@ MB.Control.ArtistEdit = function () {
   self.typeChanged();
   self.$type.bind('change.mb', self.typeChanged);
 
-  self.initializeArtistCreditPreviews = function (gid) {
-    var artistRe = new RegExp('/artist/' + gid + '$');
-    $('span.rename-artist-credit').each(function () {
-      var $ac = $(this);
-      $ac.find('input').change(function () {
-        var checked = this.checked;
-        var newName = self.$name.val();
-        $ac.find('span.ac-preview')[checked ? 'show' : 'hide']();
-        $ac.find('span.ac-preview a').each(function () {
-          var $link = $(this);
-          if ($link.data('old_name')) {
-            $link.text(checked ? newName : $link.data('old_name'));
-          }
-        });
-      });
-      $ac.find('input').each(function () {
-        $ac.find('span.ac-preview')[this.checked ? 'show' : 'hide']();
-      });
-      $ac.find('span.ac-preview a').each(function () {
-        var $link = $(this);
-        if (artistRe.test($link.attr('href'))) {
-          $link.data('old_name', $link.text());
-        }
-      });
-    });
-    self.$name.change(function () {
-      var newName = self.$name.val();
-      $('span.rename-artist-credit').each(function () {
-        var $ac = $(this);
-        if ($ac.find('input:checked').length) {
-          $ac.find('span.ac-preview a').each(function () {
-            var $link = $(this);
-            if ($link.data('old_name')) {
-              $link.text(newName);
-            }
-          });
-        }
-      });
-    });
-  };
-
   MB.Control.RangeSelect(
     '#artist-credit-renamer span.rename-artist-credit input[type="checkbox"]',
   );

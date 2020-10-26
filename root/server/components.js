@@ -387,6 +387,7 @@ module.exports = {
   'release/ReleaseHeader': require('../release/ReleaseHeader'),
   'release_group/ReleaseGroupHeader': require('../release_group/ReleaseGroupHeader'),
   'series/SeriesHeader': require('../series/SeriesHeader'),
+  'static/scripts/artist/components/ArtistCreditRenamer': require('../static/scripts/artist/components/ArtistCreditRenamer'),
   'static/scripts/common/components/Annotation': require('../static/scripts/common/components/Annotation'),
   'static/scripts/common/components/ArtistCreditLink': require('../static/scripts/common/components/ArtistCreditLink'),
   'static/scripts/common/components/CritiqueBrainzReview': require('../static/scripts/common/components/CritiqueBrainzReview'),

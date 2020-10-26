@@ -28,15 +28,17 @@ const EditArtistCredit = ({edit}: Props): React.Element<'table'> => {
 
   return (
     <table className="details split-artist">
-      <tr>
-        <th>{addColonText(l('Artist Credit'))}</th>
-        <td className="old">
-          <ExpandedArtistCredit artistCredit={display.artist_credit.old} />
-        </td>
-        <td className="new">
-          <ExpandedArtistCredit artistCredit={display.artist_credit.new} />
-        </td>
-      </tr>
+      <tbody>
+        <tr>
+          <th>{addColonText(l('Artist Credit'))}</th>
+          <td className="old">
+            <ExpandedArtistCredit artistCredit={display.artist_credit.old} />
+          </td>
+          <td className="new">
+            <ExpandedArtistCredit artistCredit={display.artist_credit.new} />
+          </td>
+        </tr>
+      </tbody>
     </table>
   );
 };
