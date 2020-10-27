@@ -320,9 +320,6 @@ sub GIT_BRANCH { qx( $git_info branch ) }
 sub GIT_MSG { qx( $git_info msg ) }
 sub GIT_SHA { qx( $git_info sha ) }
 
-# How long an annotation is considered as being locked.
-sub ANNOTATION_LOCK_TIME { 60*15 }
-
 # Amazon associate and developer ids
 my %amazon_store_associate_ids = (
     'amazon.ca'         => 'music0b72-20',

@@ -358,9 +358,6 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # for database maintainance.
 # EOF
 
-# How long an annotation is considered as being locked.
-# sub ANNOTATION_LOCK_TIME { 60*15 }
-
 # Amazon associate and developer ids
 #my %amazon_store_associate_ids = (
 #    'amazon.ca'         => 'music0b72-20',
