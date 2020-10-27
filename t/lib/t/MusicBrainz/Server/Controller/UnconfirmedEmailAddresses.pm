@@ -134,7 +134,6 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::CDStub::base",
   "Controller::CDStub::browse",
   "Controller::CDStub::show",
-  "Controller::CDTOC::attach",
   "Controller::CDTOC::base",
   "Controller::CDTOC::show",
   "Controller::Collection::base",
