@@ -220,14 +220,12 @@ declare type CatalystStashT = {
   +containment?: {
     [collectionId: number]: ?1,
   },
-  +csrf_token?: string,
   +current_language: string,
   +current_language_html: string,
   +entity?: CoreEntityT,
   +genre_map?: {+[genreName: string]: GenreT, ...},
   +globals_script_nonce?: string,
   +hide_merge_helper?: boolean,
-  +invalid_csrf_token?: boolean,
   +jsonld_data?: {...},
   +last_replication_date?: string,
   +makes_no_changes?: boolean,
@@ -322,6 +320,17 @@ declare type ReadOnlyCompoundFieldT<+F> = {
   +html_name: string,
   +id: number,
 };
+
+declare type ConfirmFormT = FormT<{
+  +cancel: ReadOnlyFieldT<string>,
+  +submit: ReadOnlyFieldT<string>,
+}>;
+
+declare type SecureConfirmFormT = FormT<{
+  +cancel: ReadOnlyFieldT<string>,
+  +csrf_token: ReadOnlyFieldT<string>,
+  +submit: ReadOnlyFieldT<string>,
+}>;
 
 declare type CoreEntityRoleT<+T> = {
   ...EntityRoleT<T>,
@@ -986,10 +995,8 @@ declare type SanitizedCatalystContextT = {
     +uri: string,
   },
   +stash: {
-    +csrf_token?: string,
     +current_language: string,
     +genre_map?: {+[genreName: string]: GenreT, ...},
-    +invalid_csrf_token?: boolean,
   },
   +user: SanitizedEditorT | null,
 };

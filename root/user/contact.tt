@@ -5,7 +5,7 @@
     [%- USE r = FormRenderer(form) -%]
 
     <form action="[% c.req.uri %]" method="post" class="contact-form">
-        [% form_csrf_token %]
+        [% form_csrf_token(r) %]
 
         [% form_row_text_long(r, 'subject', l('Subject:')) %]
 

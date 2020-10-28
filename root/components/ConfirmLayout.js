@@ -16,6 +16,7 @@ import FormCsrfToken from './FormCsrfToken';
 type Props = {
   +$c: CatalystContextT,
   +action?: string,
+  +form: ConfirmFormT | SecureConfirmFormT,
   +question: Expand2ReactOutput,
   +title: string,
 };
@@ -23,6 +24,7 @@ type Props = {
 const ConfirmLayout = ({
   $c,
   action,
+  form,
   question,
   title,
 }: Props): React.Element<typeof Layout> => (
@@ -30,7 +32,7 @@ const ConfirmLayout = ({
     <h1>{title}</h1>
     <p>{question}</p>
     <form action={action} method="post">
-      <FormCsrfToken />
+      <FormCsrfToken form={form} />
       <span className="buttons">
         <button
           name="confirm.submit"

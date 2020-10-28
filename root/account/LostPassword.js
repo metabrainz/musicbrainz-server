@@ -39,7 +39,7 @@ const LostPassword = (props: Props): React.Element<typeof Layout> => (
       )}
     </p>
     <form method="post">
-      <FormCsrfToken />
+      <FormCsrfToken form={props.form} />
       <FormRowText
         field={props.form.field.username}
         label={l('Username:')}

@@ -208,7 +208,7 @@ sub set_csp_headers {
     # acousticbrainz.org, etc. here, as those are used on entity pages which
     # don't have a CSP. Userscripts should continue to work for the same
     # reason: edit and entity pages are unaffected. Avoid using the
-    # CSPHeaders attribute in those places.
+    # SecureForm attribute in those places.
     my @csp_script_src = (
         'script-src',
         q('self'),
@@ -269,14 +269,7 @@ sub begin : Private
 
     ensure_ssl($c) if $attributes->{RequireSSL};
 
-    # 'SecureForm' only exists as a shorthand for specifying both CSRFToken
-    # and CSPHeaders, since those are commonly paired together on forms.
     if (exists $attributes->{SecureForm}) {
-        $attributes->{CSRFToken} = 1;
-        $attributes->{CSPHeaders} = 1;
-    }
-
-    if ($attributes->{CSPHeaders}) {
         set_csp_headers($c);
     }
 
@@ -463,8 +456,6 @@ sub end : ActionClass('RenderView')
     my ($self, $c) = @_;
 
     my $attrs = $c->action->attributes;
-
-    $c->generate_csrf_token if exists $attrs->{CSRFToken};
 
     $c->stash->{server_details} = {
         %{ $c->stash->{server_details} // {} },

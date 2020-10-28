@@ -541,10 +541,6 @@ sub form_submitted_and_valid {
         $form->process(params => $params) &&
         $form->has_params;
 
-    return 0 if
-        exists $self->action->attributes->{CSRFToken} &&
-        !$self->validate_csrf_token;
-
     return 1;
 }
 
@@ -565,39 +561,35 @@ sub generate_nonce {
 }
 
 sub _csrf_session_key {
-    my ($self) = @_;
+    my ($self, $form_class) = @_;
 
-    return 'csrf_token:' . $self->json_canonical->encode({
+    return $self->json_canonical->encode({
         namespace => $self->namespace // '',
         action => $self->action->name,
         arguments => $self->req->arguments,
+        form => $form_class,
     });
 }
 
-sub generate_csrf_token {
-    my ($self) = @_;
+sub get_csrf_token {
+    my ($self, $form_class) = @_;
 
-    my $session_key = $self->_csrf_session_key;
-    my $token = generate_token();
-    $self->session->{$session_key} = $token;
-    $self->stash->{csrf_token} = $token;
+    my $session_key = $self->_csrf_session_key($form_class);
+    my $session = $self->session;
+    my $existing_token;
+    if (defined $session->{csrf_token}) {
+        $existing_token = delete $session->{csrf_token}{$session_key};
+    }
+    return $existing_token;
 }
 
-sub validate_csrf_token {
-    my ($self) = @_;
+sub generate_csrf_token {
+    my ($self, $form_class) = @_;
 
-    my $session_key = $self->_csrf_session_key;
-    my $got_token = $self->req->param('csrf_token') // '';
-    my $expected_token = $self->session->{$session_key} // '';
-
-    return 1 if (
-        $got_token && $expected_token &&
-        $got_token eq $expected_token
-    );
-
-    $self->response->status(403);
-    $self->stash->{invalid_csrf_token} = 1;
-    return 0;
+    my $session_key = $self->_csrf_session_key($form_class);
+    my $token = $self->generate_nonce;
+    $self->session->{csrf_token}{$session_key} = $token;
+    return $token;
 }
 
 sub TO_JSON {
@@ -608,7 +600,6 @@ sub TO_JSON {
         collaborative_collections
         commons_image
         containment
-        csrf_token
         current_language
         current_language_html
         entity
@@ -634,7 +625,6 @@ sub TO_JSON {
 
     my @boolean_stash_keys = qw(
         hide_merge_helper
-        invalid_csrf_token
         makes_no_changes
         new_edit_notes
     );

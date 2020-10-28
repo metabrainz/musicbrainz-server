@@ -309,7 +309,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
         $c->detach;
     }
 
-    my $form = $c->form( form => 'Confirm' );
+    my $form = $c->form( form => 'SecureConfirm' );
 
     if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {

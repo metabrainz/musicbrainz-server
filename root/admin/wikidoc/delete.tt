@@ -5,7 +5,8 @@
                 { page => page }) -%]</p>
 
         <form action="[% c.req.uri | html %]" method="post" name="confirm">
-            [% form_csrf_token %]
+            [%- USE r = FormRenderer(form) -%]
+            [% form_csrf_token(r) %]
             <span class="buttons">
                 <button type="submit" name="confirm.submit" value="1">
                     [% l('Yes, I\'m sure') %]

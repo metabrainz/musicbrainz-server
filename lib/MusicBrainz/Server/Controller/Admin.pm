@@ -101,10 +101,11 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
 
     $c->stash( user => $editor );
 
-    if ($c->form_posted && $c->validate_csrf_token) {
+    my $form = $c->form(form => 'Admin::DeleteUser');
+    if ($c->form_posted_and_valid($form)) {
         my $allow_reuse = 0;
         if ($id != $c->user->id && $c->user->is_account_admin) {
-            $allow_reuse = 1 if ($c->req->params->{allow_reuse} // '') eq '1';
+            $allow_reuse = 1 if $form->field('allow_reuse')->value;
         }
 
         $c->model('Editor')->delete($id, $allow_reuse);

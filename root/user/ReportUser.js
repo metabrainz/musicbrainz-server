@@ -30,6 +30,7 @@ type ReportReasonT =
 type Props = {
   +$c: CatalystContextT,
   +form: FormT<{
+    +csrf_token: FieldT<string>,
     +message: FieldT<string>,
     +reason: FieldT<ReportReasonT>,
     +reveal_address: FieldT<boolean>,
@@ -130,7 +131,7 @@ const ReportUser = ({
         </p>
 
         <form action={$c.req.uri} className="report-form" method="post">
-          <FormCsrfToken />
+          <FormCsrfToken form={form} />
 
           <FormRowSelect
             field={form.field.reason}

@@ -142,7 +142,7 @@ sub authorize : Local Args(0) RequireAuth SecureForm
         $pre_authorized = 1 if $params{approval_prompt} ne 'force' && $has_granted_tokens;
     }
 
-    my $form = $c->form( form => 'Confirm' );
+    my $form = $c->form( form => 'SecureConfirm' );
     if ($pre_authorized || ($c->form_posted_and_valid($form))) {
         if (DBDefs->DB_READ_ONLY) {
             $self->_send_redirect_error($c, $redirect_uri, 'temporarily_unavailable', 'Server is in read-only mode');
@@ -176,6 +176,7 @@ sub authorize : Local Args(0) RequireAuth SecureForm
         component_path => 'oauth2/OAuth2Authorize',
         component_props => {
             application => $application,
+            form => $form,
             offline => boolean_to_json($offline),
             permissions => $perms,
         },

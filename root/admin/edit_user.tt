@@ -1,7 +1,7 @@
 [% WRAPPER "user/profile/layout.tt" title=l('Adjust User Account Flags') page='edit_user' %]
     [%- USE r = FormRenderer(form) -%]
     <form action="[% c.req.uri %]" method="post">
-        [% form_csrf_token %]
+        [% form_csrf_token(r) %]
         [% r.hidden('submitted', value => 1) %]
         <h2>[%- l('User permissions') -%]</h2>
         [% form_row_checkbox(r, 'auto_editor', l('Auto-editor')) %]

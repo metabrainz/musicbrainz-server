@@ -16,6 +16,7 @@ import Layout from '../layout';
 type Props = {
   +$c: CatalystContextT,
   +application: ApplicationT,
+  +form: SecureConfirmFormT,
   +offline: boolean,
   +permissions: $ReadOnlyArray<number>,
 };
@@ -23,6 +24,7 @@ type Props = {
 const OAuth2Authorize = ({
   $c,
   application,
+  form,
   offline,
   permissions,
 }: Props): React.Element<typeof Layout> => (
@@ -46,7 +48,7 @@ const OAuth2Authorize = ({
     </ul>
 
     <form action={$c.req.uri} method="post" name="confirm">
-      <FormCsrfToken />
+      <FormCsrfToken form={form} />
       <span className="buttons">
         <button
           className="negative"

@@ -52,7 +52,7 @@ const Login = ({
     </p>
 
     <form action={loginAction} method="post">
-      <FormCsrfToken field={loginForm.field.csrf_token} />
+      <FormCsrfToken form={loginForm} />
 
       {isLoginBad ? (
         <div className="row no-label">

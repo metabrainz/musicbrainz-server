@@ -33,7 +33,7 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor) SecureForm
     $c->detach('/error_404')
         unless $c->user->can_nominate($candidate);
 
-    my $form = $c->form( form => 'Confirm' );
+    my $form = $c->form( form => 'SecureConfirm' );
     if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             my $url = $c->uri_for_action('/user/profile', [ $candidate->name ]);
@@ -51,7 +51,10 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor) SecureForm
     $c->stash(
         current_view => 'Node',
         component_path => 'elections/Nominate.js',
-        component_props => {candidate => $candidate},
+        component_props => {
+            candidate => $candidate,
+            form => $form,
+        },
     );
 }
 
