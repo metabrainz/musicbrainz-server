@@ -215,6 +215,7 @@ export const LINK_TYPES = {
     event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
     label: '8a2d3e55-d291-4b99-87a0-c59c6b121762',
     release: '6af0134a-df6a-425a-96e2-895f9cd342ba',
+    work: 'bb250727-5090-4568-af7b-be8545c034bc',
   },
   viaf: {
     artist: 'e8571dcc-35d4-4e91-a577-a3382fd84460',
@@ -3146,10 +3147,10 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?vgmdb\\.(net|com)/', 'i')],
     type: LINK_TYPES.vgmdb,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org)\/([0-9]+).*$/, 'https://vgmdb.net/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org|product)\/([0-9]+).*$/, 'https://vgmdb.net/$1/$2');
     },
     validate: function (url, id) {
-      const m = /^https:\/\/vgmdb\.net\/(album|artist|org|event)\/[1-9][0-9]*$/.exec(url);
+      const m = /^https:\/\/vgmdb\.net\/(album|artist|org|event|product)\/[1-9][0-9]*$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -3161,6 +3162,8 @@ const CLEANUPS = {
             return {result: prefix === 'org'};
           case LINK_TYPES.vgmdb.event:
             return {result: prefix === 'event'};
+          case LINK_TYPES.vgmdb.work:
+            return {result: prefix === 'product'};
         }
       }
       return {result: false};
