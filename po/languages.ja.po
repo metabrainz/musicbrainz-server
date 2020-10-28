@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-06-28 02:10+0000\n"
-"Last-Translator: Atsushi Nakamura <email address hidden>\n"
+"PO-Revision-Date: 2020-10-19 14:01+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -832,7 +832,7 @@ msgstr "低地ドイツ語"
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "中期高地ドイツ語（1050年頃 - 1500年頃）"
 
-#. frequency:0 iso_code_3:goh
+#. frequency:1 iso_code_3:goh
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
 msgstr "古代高地ドイツ語（750年頃 - 1050年頃）"
@@ -1041,6 +1041,11 @@ msgstr "イングリア語"
 #: DB:language/name:191
 msgid "Ingush"
 msgstr "イングーシ語"
+
+#. frequency:1 iso_code_3:moe
+#: DB:language/name:4369
+msgid "Innu"
+msgstr ""
 
 #. frequency:1 iso_code_3:ina
 #: DB:language/name:187
@@ -1626,11 +1631,6 @@ msgstr "モンゴ語"
 #: DB:language/name:282
 msgid "Mongolian"
 msgstr "モンゴル語"
-
-#. frequency:1 iso_code_3:moe
-#: DB:language/name:4369
-msgid "Montagnais"
-msgstr "モンタニェ語"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283

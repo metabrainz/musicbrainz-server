@@ -68,8 +68,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-12 20:20+0000\n"
-"PO-Revision-Date: 2020-10-13 14:56+0000\n"
+"POT-Creation-Date: 2020-10-15 07:17+0000\n"
+"PO-Revision-Date: 2020-10-15 18:06+0000\n"
 "Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -180,6 +180,7 @@ msgctxt "comment"
 msgid "(none)"
 msgstr "(keine)"
 
+#: ../root/components/forms.tt:359
 #: ../root/edit/details/add_relationship_type.tt:9
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:87
 msgctxt "description"
@@ -569,7 +570,7 @@ msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "misspellings or variations of the name and are also used to improve search "
 "results. View the {doc|alias documentation} for more details."
-msgstr ""
+msgstr "Ein Alias ist ein alternativer Name für ein Objekt. Er enthält typischerweise häufig auftretende Falschschreibungen oder Variationen des Namens und wird auch zur Verbesserung der Suche verwendet. Weitere Informationen finden sich in der {doc|Alias-Dokumentation}."
 
 #: ../root/components/common-macros.tt:880
 msgid ""
@@ -658,7 +659,7 @@ msgid ""
 "undone!"
 msgstr "Bist du sicher, dass du alle Informationen über {e} löschen willst? Dieser Vorgang ist nicht umkehrbar!"
 
-#: ../root/admin/delete_user.tt:24
+#: ../root/admin/delete_user.tt:28
 msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr "Bist du sicher, dass du dein Konto löschen willst? Dieser Vorgang ist nicht umkehrbar!"
 
@@ -700,7 +701,7 @@ msgid ""
 "{artist}?"
 msgstr "Bist du sicher, dass du das Cover-Art unten von {release} von {artist} entfernen möchtest?"
 
-#: ../root/components/forms.tt:353
+#: ../root/components/forms.tt:373
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
 msgstr "Bist du sicher, dass du {entity} aus MusicBrainz entfernen möchtest?"
 
@@ -1075,7 +1076,7 @@ msgstr "CD-TOC-Details"
 
 #: ../root/cdtoc/attach_confirm.tt:23
 msgid "CD TOC track lengths"
-msgstr ""
+msgstr "CD-TOC-Titellängen"
 
 #: ../root/cdstub/header.tt:5
 msgid "CD stub by {artist}"
@@ -1388,7 +1389,7 @@ msgstr "Erstelle Bearbeitung ..."
 msgid "Credited as:"
 msgstr "Genannt als:"
 
-#: ../root/release/index.tt:40
+#: ../root/release/index.tt:41
 msgid "Credits"
 msgstr "Nennungen"
 
@@ -1471,7 +1472,7 @@ msgstr "Konto löschen"
 msgid "Delete User"
 msgstr "Benutzer löschen"
 
-#: ../root/admin/delete_user.tt:28
+#: ../root/admin/delete_user.tt:32
 msgid "Delete my account"
 msgstr "Mein Konto löschen"
 
@@ -1483,8 +1484,8 @@ msgstr "{e} löschen"
 msgid "Deprecated:"
 msgstr "Veraltet:"
 
-#: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
-#: ../root/work/edit_form.tt:110 ../root/admin/attributes/Attribute.js:102
+#: ../root/admin/attributes/form.tt:61 ../root/components/forms.tt:355
+#: ../root/doc/edit_type.tt:23 ../root/admin/attributes/Attribute.js:102
 #: ../root/collection/CollectionIndex.js:183
 #: ../root/edit/details/AddInstrument.js:78
 #: ../root/edit/details/AddRelationshipAttribute.js:53
@@ -2399,7 +2400,7 @@ msgstr "ISWC:"
 msgid "ISWCs:"
 msgstr "ISWCs:"
 
-#: ../root/components/forms.tt:356
+#: ../root/components/forms.tt:376
 msgid ""
 "If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it"
 " just has some small errors, it’s usually better to just fix those."
@@ -2760,7 +2761,7 @@ msgid "Loading edit previews..."
 msgstr "Lade Bearbeitungsvorschauen …"
 
 #: ../root/release/edit_relationships.tt:88
-#: ../root/static/scripts/common/MB/release.js:62
+#: ../root/static/scripts/common/MB/release.js:63
 #: ../root/static/scripts/common/components/FingerprintTable.js:87
 #: ../root/static/scripts/common/dialogs.js:15
 #: ../root/utility/tableColumns.js:521
@@ -2826,7 +2827,7 @@ msgstr "Niedrig"
 #: ../root/edit/details/AddWork.js:81 ../root/edit/details/EditWork.js:98
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:54
-#: ../root/static/scripts/work.js:287 ../root/utility/tableColumns.js:697
+#: ../root/static/scripts/work.js:288 ../root/utility/tableColumns.js:697
 msgid "Lyrics Languages"
 msgstr "Liedtextsprachen"
 
@@ -2897,7 +2898,7 @@ msgstr "Medium <span class=\"new\">{new}</span>: {title} (neues Medium)"
 
 #: ../root/cdtoc/attach_confirm.tt:23
 msgid "Medium track lengths"
-msgstr ""
+msgstr "Medium-Titellängen"
 
 #: ../root/edit/details/merge_releases.tt:44
 msgid "Medium {position} is now medium {new_position}"
@@ -3251,7 +3252,7 @@ msgstr "Keine der angefügten Disc-IDs passt zu einem Pregap-Track mit der gegeb
 msgid ""
 "None of the mediums on this release can have the given CD TOC attached, "
 "because they have the wrong number of tracks."
-msgstr ""
+msgstr "Keinem der Medien auf dieser Veröffentlichung kann die angegebene CD-TOC angehängt werden, da sie die falsche Anzahl an Titeln haben."
 
 #: ../root/components/common-macros.tt:613
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:234
@@ -3810,7 +3811,7 @@ msgstr "<span class=\"rel-edit\">Gelb</span> hervorgehobene Beziehungen werden b
 #: ../root/components/common-macros.tt:580
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:386
-#: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:50
+#: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:51
 #: ../root/release/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
 #: ../root/components/list/ReleaseList.js:68
@@ -3843,7 +3844,7 @@ msgid "Release Duplicates"
 msgstr "Ähnliche Veröffentlichungen"
 
 #: ../root/components/common-macros.tt:580 ../root/edit/search_macros.tt:386
-#: ../root/release/index.tt:57
+#: ../root/release/index.tt:58
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
 #: ../root/edit/details/AddReleaseGroup.js:43
 #: ../root/edit/details/EditReleaseGroup.js:48
@@ -3935,7 +3936,7 @@ msgstr "Veröffentlichungsinformationen"
 
 #: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:84
 msgid "Release title or MBID"
-msgstr ""
+msgstr "Veröffentlichungstitel oder MBID"
 
 #: ../root/cdtoc/move_search.tt:15
 msgid "Release title:"
@@ -4284,7 +4285,7 @@ msgid ""
 " to."
 msgstr "Wähle eine Veröffentlichung, zu der die Disc-ID <code>{discid}</code> verschoben werden soll."
 
-#: ../root/work/edit_form.tt:104
+#: ../root/components/forms.tt:349
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
@@ -4404,7 +4405,7 @@ msgstr ""
 msgid ""
 "Some errors were detected in the data you’ve entered. Click on the "
 "highlighted tabs and correct any visible errors."
-msgstr ""
+msgstr "In den von dir eingegebenen Daten wurden einige Fehler erkannt. Klicke auf die hervorgehobenen Registerkarten und korrigiere alle sichtbaren Fehler."
 
 #: ../root/cdstub/error.tt:11
 msgid ""
@@ -4551,7 +4552,7 @@ msgstr "Übermittle Bearbeitungen …"
 
 #: ../root/edit/list_header.tt:20
 msgid "Subscribed editors"
-msgstr "Abonnierende Bearbeiter"
+msgstr "Abonnierte Bearbeiter"
 
 #: ../root/edit/list_header.tt:18
 msgid "Subscribed entities"
@@ -4983,7 +4984,7 @@ msgid ""
 "don’t need to do anything about it. But if you have some time, consider "
 "trying to find out what the real format should be or if the release should "
 "be split!"
-msgstr ""
+msgstr "Dieses Problem bestand bereits, bevor du den Veröffentlichungs-Editor geöffnet hast, du brauchst also nichts zu tun. Aber wenn du etwas Zeit hast, solltest du erwägen, herauszufinden, welches das tatsächliche Format sein sollte oder ob die Veröffentlichung aufgeteilt werden sollte!"
 
 #: ../root/recording/delete.tt:14
 msgid "This recording cannot be removed because it is still used on releases."
@@ -5048,7 +5049,7 @@ msgstr "Dies erfordert, dass die entsprechenden Medien die selbe Anzahl an Titel
 msgid ""
 "This should never be correct. Make sure that, say, your release set to CD "
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
-msgstr ""
+msgstr "Dies sollte eigentlich niemals korrekt sein. Stelle sicher, dass z.B. deine als CD eingegebene Veröffentlichung nicht als Vinyl gedacht ist, oder dass dein Vinyl nicht in Wirklichkeit eine Schellackplatte ist."
 
 #: ../root/components/common-macros.tt:862
 #: ../root/static/scripts/common/components/DataTrackIcon.js:15
@@ -5079,6 +5080,12 @@ msgstr "Dies fügt eine Beziehung zu allen ausgewählten Aufnahmen hinzu."
 #: ../root/release/edit_relationships.tt:130
 msgid "This will add a relationship to all checked works."
 msgstr "Dies fügt eine Beziehung zu allen ausgewählten Werken hinzu."
+
+#: ../root/admin/delete_user.tt:25
+msgid ""
+"This will also cancel all your open edits and change all of your votes on "
+"any edits currently open to Abstain."
+msgstr "Dadurch werden auch all deine offenen Bearbeitungen abgebrochen und jede deiner Stimmen zu derzeit offenen Bearbeitungen zu Enthalten geändert."
 
 #: ../root/release/edit_relationships.tt:143
 msgid ""
@@ -5198,7 +5205,7 @@ msgstr "Titeldetails:"
 
 #: ../root/cdtoc/attach_confirm.tt:22
 msgid "Track duration comparison"
-msgstr ""
+msgstr "Vergleich der Titellängen"
 
 #: ../root/edit/details/set_track_lengths.tt:33
 msgid "Track lengths:"
@@ -5590,7 +5597,7 @@ msgstr "Für dieses Cover-Art können wir leider keine Historie anzeigen. Eine a
 
 #: ../root/cdtoc/attach_filter_release.tt:61
 msgid "We couldn’t find a release matching that MBID."
-msgstr ""
+msgstr "Wir konnten keine Veröffentlichung mit dieser MBID finden."
 
 #: ../root/release/cover_art.tt:41
 msgid "We do not currently have any cover art for {release}."
@@ -5610,7 +5617,7 @@ msgid ""
 " below in order to attach this disc to another MusicBrainz release."
 msgstr "Wir haben Medien gefunden, die auf die von dir angefragten Informationen passen. Wenn keine der unten aufgelisteten die von dir gewünschte Veröffentlichung ist, kannst du das Suchformular unten benutzen, um dieses Medium an eine andere MusicBrainz-Veröffentlichung anzuhängen."
 
-#: ../root/release/index.tt:9
+#: ../root/release/index.tt:10
 msgid "We have no information about this release’s media and tracklist."
 msgstr "Wir haben keine Informationen über die Medien und die Titelliste dieser Veröffentlichung."
 
@@ -6503,7 +6510,7 @@ msgid ""
 " was a valid, non-duplicate entry that does belong in MusicBrainz, feel free"
 " to add it again, but please ensure enough data is added to it this time to "
 "avoid another automatic removal."
-msgstr ""
+msgstr "Dieses Objekt wurde automatisch entfernt, weil es leer war: es hatte keine Beziehungen und (falls für die Art des betroffenen Objekts relevant) auch keine Aufnahmen, Veröffentlichungen oder Veröffentlichungsgruppen. Wenn du der Meinung bist, dass dies ein gültiger, nicht doppelter Eintrag war, der in MusicBrainz gehört, kannst du ihn gerne noch einmal hinzufügen, aber stelle bitte sicher, dass diesmal genügend Daten hinzugefügt werden, um eine erneute automatische Entfernung zu vermeiden."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:33
 #, perl-brace-format
@@ -6651,11 +6658,11 @@ msgstr "Banner aktualisiert. Denk daran, dass jeder Server sein eigenes, unabhä
 msgid "Invalid regular expression."
 msgstr "Ungültiger regulärer Ausdruck."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:628
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:634
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Du kannst einen Spezialkünstler nicht mit einem anderen Künstler vereinen"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:633
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:639
 msgid "You cannot merge into Deleted Artist"
 msgstr "Du kannst Künstler nicht mit dem Gelöschten Künstler vereinen."
 
@@ -9244,6 +9251,14 @@ msgstr "Beziehungen bearbeiten"
 msgid "as “{credit}”"
 msgstr "als „{credit}”"
 
+#: ../root/components/MediumToolbox.js:23
+msgid "Expand all mediums"
+msgstr "Alle Medien aufklappen"
+
+#: ../root/components/MediumToolbox.js:31
+msgid "Collapse all mediums"
+msgstr "Alle Medien zuklappen"
+
 #: ../root/components/RelatedSeries.js:30
 msgid "Related series"
 msgstr "Verbundene Serien"
@@ -11136,11 +11151,11 @@ msgstr "Einführung in das Editieren"
 
 #: ../root/main/index.js:182
 msgid "How to add artists"
-msgstr ""
+msgstr "Wie man Künstler hinzufügt"
 
 #: ../root/main/index.js:185
 msgid "How to add releases"
-msgstr ""
+msgstr "Wie man Veröffentlichungen hinzufügt"
 
 #: ../root/main/index.js:195
 msgid "Community"
@@ -11233,11 +11248,11 @@ msgstr "{doc|Mehr erfahren}"
 
 #: ../root/oauth2/OAuth2FormPost.js:23
 msgid "Redirecting to {application}"
-msgstr ""
+msgstr "Weiterleitung zu {application}"
 
 #: ../root/oauth2/OAuth2FormPost.js:35
 msgid "If this page doesn’t redirect automatically, press “Submit” below."
-msgstr ""
+msgstr "Wenn diese Seite nicht automatisch weiterleitet, drücke unten auf „Abschicken”."
 
 #: ../root/oauth2/OAuth2Oob.js:26
 msgid "Success!"
@@ -11905,7 +11920,7 @@ msgstr "Diese Veröffentlichung ist nicht mehr vorhanden."
 #: ../root/report/CDTocDubiousLength.js:24
 #: ../root/report/CDTocDubiousLength.js:25 ../root/report/ReportsIndex.js:579
 msgid "Disc IDs with dubious duration"
-msgstr ""
+msgstr "Disc-IDs mit zweifelhafter Dauer"
 
 #: ../root/report/CDTocDubiousLength.js:29
 msgid ""
@@ -11913,7 +11928,7 @@ msgid ""
 " a standard CD allows (at least 100 minutes). This usually means a disc ID "
 "was created for the wrong format (SACD) or with a buggy tool. These disc IDs"
 " can safely be removed."
-msgstr ""
+msgstr "Dieser Report zeigt Disc-IDs, die eine Gesamtdauer aufweisen, die viel länger ist, als eine Standard-CD erlaubt (mindestens 100 Minuten). Das bedeutet in der Regel, dass eine Disc-ID für das falsche Format (SACD) oder mit einem fehlerhaften Tool erzeugt wurde. Diese Disc-IDs können bedenkenlos entfernt werden."
 
 #: ../root/report/CatNoLooksLikeAsin.js:34
 #: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:311
@@ -12747,7 +12762,7 @@ msgstr ""
 #: ../root/report/ReleasesSameBarcode.js:42
 #: ../root/report/ReleasesSameBarcode.js:44 ../root/report/ReportsIndex.js:420
 msgid "Releases with the same barcode in different release groups"
-msgstr ""
+msgstr "Veröffentlichungen mit dem selben Strichcode in unterschiedlichen Veröffentlichungsgruppen"
 
 #: ../root/report/ReleasesSameBarcode.js:48
 msgid ""
@@ -12755,7 +12770,7 @@ msgid ""
 "placed in different release groups. Chances are that the releases are "
 "duplicates or parts of a set, or at least that the release groups should be "
 "merged."
-msgstr ""
+msgstr "Dieser Report zeigt Nicht-Bootleg-Veröffentlichungen, die den gleichen Strichcode haben, aber in unterschiedlichen Veröffentlichungsgruppen platziert sind. Die Chancen stehen gut, dass es sich bei den Veröffentlichungen um Duplikate oder Teile eines Sets handelt, oder zumindest, dass die Veröffentlichungsgruppen zusammengeführt werden sollten."
 
 #: ../root/report/ReleasesToConvert.js:30
 #: ../root/report/ReleasesToConvert.js:32 ../root/report/ReportsIndex.js:230
@@ -13102,7 +13117,7 @@ msgstr "Zuletzt bearbeitet"
 
 #: ../root/report/components/CDTocList.js:62
 msgid "This Disc ID no longer exists."
-msgstr ""
+msgstr "Diese Disc-ID ist nicht mehr vorhanden."
 
 #: ../root/report/components/EditorList.js:33
 #: ../root/static/scripts/account/components/EditProfileForm.js:213
@@ -13476,15 +13491,15 @@ msgstr "Über alle Bearbeitungen abstimmen:"
 msgid "Delete Note"
 msgstr "Bemerkung entfernen"
 
-#: ../root/static/scripts/common/MB/release.js:25
+#: ../root/static/scripts/common/MB/release.js:26
 msgid "Display Credits at Bottom"
 msgstr "Beziehungen unten anzeigen"
 
-#: ../root/static/scripts/common/MB/release.js:34
+#: ../root/static/scripts/common/MB/release.js:35
 msgid "Display Credits Inline"
 msgstr "Beziehungen inline anzeigen"
 
-#: ../root/static/scripts/common/MB/release.js:99
+#: ../root/static/scripts/common/MB/release.js:100
 msgid "Failed to load the medium."
 msgstr "Laden des Mediums fehlgeschlagen."
 
@@ -13956,7 +13971,7 @@ msgstr "Bitte verlinke auf die Hauptseite des Künstlers, nicht auf ein bestimmt
 
 #: ../root/static/scripts/edit/URLCleanup.js:851
 msgid "Please link to the main page for the label, not a specific product."
-msgstr ""
+msgstr "Bitte verlinke auf die Hauptseite des Labels, nicht auf ein bestimmtes Produkt."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1216
 msgid ""
@@ -13968,13 +13983,13 @@ msgstr "Discogs „{master_url_pattern}” Links gruppieren mehrere Veröffentli
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
-msgstr ""
+msgstr "Für Künstler sind nur IMSLP „{category_url_pattern}” Links erlaubt. Bitte verlinke Werk-Seiten mit dem jeweiligen Werk."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1528
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
-msgstr ""
+msgstr "IMSLP „{category_url_pattern}” Links sind nur für Künstler erlaubt. Bitte verlinke stattdessen die spezifische Seite des Werks mit diesem Werk, falls verfügbar."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1569
 msgid ""
@@ -14002,25 +14017,25 @@ msgid ""
 "link it redirects to instead."
 msgstr "Dies ist ein Weiterleitungs-Link. Bitte folge {redirect_url|deinem Link} und füge stattdessen den Link hinzu, auf den er umleitet."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2849
+#: ../root/static/scripts/edit/URLCleanup.js:2842
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Bitte verlinke auf Twitter-Profile, nicht auf Tweets."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2866
+#: ../root/static/scripts/edit/URLCleanup.js:2859
 msgid "This site does not allow direct links to their images."
 msgstr "Diese Website erlaubt keine direkten Links zu ihren Bildern."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3038
+#: ../root/static/scripts/edit/URLCleanup.js:3042
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3127
+#: ../root/static/scripts/edit/URLCleanup.js:3131
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Bei Veröffentlichungen sind nur Links zu Videos und Wiedergabelisten erlaubt."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3178
+#: ../root/static/scripts/edit/URLCleanup.js:3182
 msgid ""
 "Wikipedia is not a discography entry. Please add this Wikipedia link to the "
 "release group instead."
@@ -14110,7 +14125,7 @@ msgstr "Alle deine Änderungen gehen verloren, wenn du diese Seite verlässt."
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
-msgstr ""
+msgstr "Links zu MusicBrainz URLs sind nicht erlaubt. Wolltest du etwas anderes einfügen?"
 
 #: ../root/static/scripts/edit/externalLinks.js:244
 msgid ""
@@ -14370,11 +14385,11 @@ msgstr "Der Strichcode, den du eingegeben hast, ist keine gültige EAN."
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr "Der Strichcode, den du eingegeben hast, ist kein gültiger UPC und keine gültige EAN."
 
-#: ../root/static/scripts/work.js:281
+#: ../root/static/scripts/work.js:282
 msgid "Add Language"
 msgstr "Sprache hinzufügen"
 
-#: ../root/static/scripts/work.js:293
+#: ../root/static/scripts/work.js:294
 msgid "Remove Language"
 msgstr "Sprache entfernen"
 
@@ -15020,7 +15035,7 @@ msgstr "{count} ({view_url|ansehen})"
 
 #: ../root/user/UserProfile.js:398
 msgid "{count}"
-msgstr ""
+msgstr "{count}"
 
 #: ../root/user/UserProfile.js:467
 msgid "Edits ({view_url|view})"
@@ -15069,11 +15084,11 @@ msgstr "Insgesamt"
 
 #: ../root/user/UserProfile.js:633
 msgid "This table shows a summary of entities added by this editor."
-msgstr ""
+msgstr "Diese Tabelle zeigt eine Zusammenfassung der hinzugefügten Objekte dieses Bearbeiters."
 
 #: ../root/user/UserProfile.js:639
 msgid "Added entities"
-msgstr ""
+msgstr "Hinzugefügte Objekte"
 
 #: ../root/user/UserProfile.js:713
 msgid "Report this user for bad behavior"
@@ -15225,7 +15240,7 @@ msgstr "Diese Bearbeitung wurde abgebrochen."
 
 #: ../root/utility/tableColumns.js:587
 msgid "AcoustIDs"
-msgstr ""
+msgstr "AcoustIDs"
 
 #: ../root/utility/tableColumns.js:665
 msgid "Subscribed"
@@ -15455,4 +15470,4 @@ msgid ""
 "<strong>Warning:</strong> Some of the works you’re merging have different "
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
-msgstr ""
+msgstr "<strong>Achtung:</strong> Einige der Werke, die du vereinst, haben unterschiedliche ISWCs. Bitte stelle sicher, dass es sich tatsächlich um die gleichen Werke handelt und dass du die Vereinigung durchführen willst."

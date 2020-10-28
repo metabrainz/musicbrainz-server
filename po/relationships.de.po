@@ -17,8 +17,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-09-30 20:33+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-10-15 11:22+0000\n"
+"Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -495,13 +495,13 @@ msgstr "Gibt die Veranstaltung an, bei der das Werk uraufgeführt wurde."
 msgid ""
 "Indicates the instrument technician for this recording. Use also for \"piano"
 " tuner\" credits and other similar ones."
-msgstr ""
+msgstr "Gibt den Instrument-Techniker für diese Aufnahme an. Auch für \"Klavierstimmer\" Nennungen und ähnliche verwenden."
 
 #: DB:link_type/description:987
 msgid ""
 "Indicates the instrument technician for this release. Use also for \"piano "
 "tuner\" credits and other similar ones."
-msgstr ""
+msgstr "Gibt den Instrument-Techniker für diese Veröffentlichung an. Auch für \"Klavierstimmer\" Nennungen und ähnliche verwenden."
 
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
@@ -1583,13 +1583,13 @@ msgstr ""
 
 #: DB:link_type/description:991
 msgid "This indicates the artist was the owner of this label."
-msgstr ""
+msgstr "Gibt an, dass der Künstler der Eigentümer dieses Labels war."
 
 #: DB:link_type/description:988
 msgid ""
 "This indicates the artist was the owner of this place (often a studio, but "
 "sometimes also a venue)."
-msgstr ""
+msgstr "Gibt an, dass der Künstler der Eigentümer dieser Örtlichkeit (meist ein Studio, manchmal aber auch ein Veranstaltungsort) war."
 
 #: DB:link_type/description:297 DB:link_type/description:298
 #: DB:link_type/description:296 DB:link_type/description:295
@@ -1625,7 +1625,7 @@ msgstr ""
 msgid ""
 "This indicates the label / organization was the owner of this place (often a"
 " studio, but sometimes also a venue)."
-msgstr ""
+msgstr "Gibt an, dass das Label / die Organisation der Eigentümer dieser Örtlichkeit (meist ein Studio, manchmal aber auch ein Veranstaltungsort) war."
 
 #: DB:link_attribute_type/description:1018
 msgid ""
@@ -1658,7 +1658,7 @@ msgid ""
 "This indicates the organization that printed a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr ""
+msgstr "Dies gibt die Organisation an, die eine Veröffentlichung gedruckt hat. Dabei handelt es sich <strong>nicht</strong> um das gleiche Konzept wie beim <a href=\"/doc/Label\">Plattenlabel</a>."
 
 #: DB:link_type/description:359
 msgid ""
@@ -2473,7 +2473,7 @@ msgstr ""
 #: DB:link_type/description:984
 msgid ""
 "This links to a site describing relevant details about a place's history."
-msgstr ""
+msgstr "Dieser Link führt zu einer Webseite, die relevante Details über die Geschichte einer Örtlichkeit beschreibt."
 
 #: DB:link_type/description:350
 msgid ""
@@ -2841,7 +2841,7 @@ msgstr ""
 msgid ""
 "This relationship type is <strong>deprecated</strong>! Please use the "
 "instrument technician relationship, and select \"piano\" as the instrument."
-msgstr ""
+msgstr "Dieser Beziehungstyp ist <strong>veraltet</strong>! Bitte verwende die Instrument-Techniker-Beziehung und wähle \"Klavier\" als Instrument."
 
 #: DB:link_type/description:15
 msgid ""
@@ -3552,7 +3552,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
-msgstr ""
+msgstr "klassiche Musik"
 
 #: DB:link_attribute_type/name:424
 msgid "co"
@@ -4571,7 +4571,7 @@ msgstr ""
 
 #: DB:link_type/name:986 DB:link_type/name:987
 msgid "instrument technician"
-msgstr ""
+msgstr "Instrument-Techniker"
 
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
@@ -5214,15 +5214,15 @@ msgstr "Musik kann kostenlos gestreamt werden unter"
 
 #: DB:link_attribute_type/name:1202
 msgid "music education"
-msgstr ""
+msgstr "musikalische Ausbildung"
 
 #: DB:link_attribute_type/name:1201
 msgid "music production"
-msgstr ""
+msgstr "Musikproduktion"
 
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
-msgstr ""
+msgstr "Musiktherapie"
 
 #: DB:link_type/name:857
 msgid "music video"
@@ -5398,18 +5398,18 @@ msgstr "sonstiger Gesang"
 #: DB:link_type/reverse_link_phrase:988 DB:link_type/reverse_link_phrase:989
 #: DB:link_type/reverse_link_phrase:991
 msgid "owner"
-msgstr ""
+msgstr "Eigentümer"
 
 #: DB:link_type/link_phrase:990 DB:link_type/name:990
 #: DB:link_type/reverse_link_phrase:990 DB:link_type/long_link_phrase:990
 msgid "ownership"
-msgstr ""
+msgstr "Eigentum"
 
 #: DB:link_type/link_phrase:988 DB:link_type/link_phrase:989
 #: DB:link_type/link_phrase:991 DB:link_type/long_link_phrase:988
 #: DB:link_type/long_link_phrase:989 DB:link_type/long_link_phrase:991
 msgid "owns"
-msgstr ""
+msgstr "besitzt"
 
 #: DB:link_type/name:109
 msgid "parent"
@@ -5576,7 +5576,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1200
 msgid "popular / rock music"
-msgstr ""
+msgstr "Populär-/Rockmusik"
 
 #: DB:link_type/link_phrase:808 DB:link_type/name:808
 msgid "poster"
@@ -5659,7 +5659,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:985
 msgid "printed by"
-msgstr ""
+msgstr "gedruckt von"
 
 #: DB:link_type/name:849 DB:link_type/reverse_link_phrase:849
 msgid "printed in"
@@ -6066,7 +6066,7 @@ msgstr "unter Vertrag bei"
 
 #: DB:link_attribute_type/name:1199
 msgid "singing"
-msgstr ""
+msgstr "Gesang"
 
 #: DB:link_type/name:11
 msgid "single from"
@@ -6493,7 +6493,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:986 DB:link_type/long_link_phrase:987
 msgid "was the {instrument:%|instruments} technician for"
-msgstr ""
+msgstr "war der {instrument:%|Instrumente}-Techniker für"
 
 #: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid ""
@@ -7412,11 +7412,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:986 DB:link_type/reverse_link_phrase:987
 msgid "{instrument:%|instruments} technician"
-msgstr ""
+msgstr "{instrument:%|Instrumente}-Techniker"
 
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
-msgstr ""
+msgstr "{instrument:%|Instrumente}-Techniker für"
 
 #: DB:link_type/link_phrase:278
 msgid ""

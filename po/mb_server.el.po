@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-12 20:20+0000\n"
-"PO-Revision-Date: 2020-10-13 14:56+0000\n"
+"POT-Creation-Date: 2020-10-15 07:17+0000\n"
+"PO-Revision-Date: 2020-10-15 07:33+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -134,6 +134,7 @@ msgctxt "comment"
 msgid "(none)"
 msgstr "(κανένα)"
 
+#: ../root/components/forms.tt:359
 #: ../root/edit/details/add_relationship_type.tt:9
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:87
 msgctxt "description"
@@ -612,7 +613,7 @@ msgid ""
 "undone!"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε όλες τις πληροφορίες σχετικά με {e}; Αυτό δεν μπορεί να αναιρεθεί!"
 
-#: ../root/admin/delete_user.tt:24
+#: ../root/admin/delete_user.tt:28
 msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε το λογαριασμό σας; Αυτό δεν μπορεί να αναιρεθεί!"
 
@@ -654,7 +655,7 @@ msgid ""
 "{artist}?"
 msgstr "Είστε σίγουροι ότι θέλετε να καταργήσετε το παρακάτω εξώφυλλο από το {release} από {artist};"
 
-#: ../root/components/forms.tt:353
+#: ../root/components/forms.tt:373
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
 msgstr ""
 
@@ -1342,7 +1343,7 @@ msgstr ""
 msgid "Credited as:"
 msgstr ""
 
-#: ../root/release/index.tt:40
+#: ../root/release/index.tt:41
 msgid "Credits"
 msgstr ""
 
@@ -1425,7 +1426,7 @@ msgstr "Διαγραφή λογαριασμού"
 msgid "Delete User"
 msgstr "Διαγραφή χρήστη"
 
-#: ../root/admin/delete_user.tt:28
+#: ../root/admin/delete_user.tt:32
 msgid "Delete my account"
 msgstr "Διαγραφή του λογαριασμού μου"
 
@@ -1437,8 +1438,8 @@ msgstr "Διαγραφή {e}"
 msgid "Deprecated:"
 msgstr ""
 
-#: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
-#: ../root/work/edit_form.tt:110 ../root/admin/attributes/Attribute.js:102
+#: ../root/admin/attributes/form.tt:61 ../root/components/forms.tt:355
+#: ../root/doc/edit_type.tt:23 ../root/admin/attributes/Attribute.js:102
 #: ../root/collection/CollectionIndex.js:183
 #: ../root/edit/details/AddInstrument.js:78
 #: ../root/edit/details/AddRelationshipAttribute.js:53
@@ -2353,7 +2354,7 @@ msgstr "ISWC:"
 msgid "ISWCs:"
 msgstr ""
 
-#: ../root/components/forms.tt:356
+#: ../root/components/forms.tt:376
 msgid ""
 "If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it"
 " just has some small errors, it’s usually better to just fix those."
@@ -2714,7 +2715,7 @@ msgid "Loading edit previews..."
 msgstr ""
 
 #: ../root/release/edit_relationships.tt:88
-#: ../root/static/scripts/common/MB/release.js:62
+#: ../root/static/scripts/common/MB/release.js:63
 #: ../root/static/scripts/common/components/FingerprintTable.js:87
 #: ../root/static/scripts/common/dialogs.js:15
 #: ../root/utility/tableColumns.js:521
@@ -2780,7 +2781,7 @@ msgstr "Χαμηλή"
 #: ../root/edit/details/AddWork.js:81 ../root/edit/details/EditWork.js:98
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:54
-#: ../root/static/scripts/work.js:287 ../root/utility/tableColumns.js:697
+#: ../root/static/scripts/work.js:288 ../root/utility/tableColumns.js:697
 msgid "Lyrics Languages"
 msgstr ""
 
@@ -3764,7 +3765,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:580
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:386
-#: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:50
+#: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:51
 #: ../root/release/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
 #: ../root/components/list/ReleaseList.js:68
@@ -3797,7 +3798,7 @@ msgid "Release Duplicates"
 msgstr "Διπλότυπες κυκλοφορίες"
 
 #: ../root/components/common-macros.tt:580 ../root/edit/search_macros.tt:386
-#: ../root/release/index.tt:57
+#: ../root/release/index.tt:58
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
 #: ../root/edit/details/AddReleaseGroup.js:43
 #: ../root/edit/details/EditReleaseGroup.js:48
@@ -4238,7 +4239,7 @@ msgid ""
 " to."
 msgstr ""
 
-#: ../root/work/edit_form.tt:104
+#: ../root/components/forms.tt:349
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
@@ -5034,6 +5035,12 @@ msgstr ""
 msgid "This will add a relationship to all checked works."
 msgstr ""
 
+#: ../root/admin/delete_user.tt:25
+msgid ""
+"This will also cancel all your open edits and change all of your votes on "
+"any edits currently open to Abstain."
+msgstr ""
+
 #: ../root/release/edit_relationships.tt:143
 msgid ""
 "This will create a new work for each checked recording that has no work "
@@ -5564,7 +5571,7 @@ msgid ""
 " below in order to attach this disc to another MusicBrainz release."
 msgstr "Βρήκαμε δίσκους που ταιριάζουν με τις πληροφορίες που ζητήσατε, στην παρακάτω λίστα. Αν καμία από αυτές δεν είναι η κυκλοφορία που ψάχνετε, μπορείτε να αναζητήσετε χρησιμοποιώντας την παρακάτω φόρμα έτσι ώστε να συνδέσετε αυτό το δίσκο με μία άλλη κυκλοφορία του MusicBrainz."
 
-#: ../root/release/index.tt:9
+#: ../root/release/index.tt:10
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
@@ -6605,11 +6612,11 @@ msgstr ""
 msgid "Invalid regular expression."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:628
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:634
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Δεν μπορείτε να συγχωνεύσετε έναν καλλιτέχνη ειδικού σκοπού με κάποιον άλλον καλλιτέχνη"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:633
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:639
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
 
@@ -9196,6 +9203,14 @@ msgstr ""
 
 #: ../root/components/InstrumentRelTypes.js:31
 msgid "as “{credit}”"
+msgstr ""
+
+#: ../root/components/MediumToolbox.js:23
+msgid "Expand all mediums"
+msgstr ""
+
+#: ../root/components/MediumToolbox.js:31
+msgid "Collapse all mediums"
 msgstr ""
 
 #: ../root/components/RelatedSeries.js:30
@@ -13430,15 +13445,15 @@ msgstr ""
 msgid "Delete Note"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/release.js:25
+#: ../root/static/scripts/common/MB/release.js:26
 msgid "Display Credits at Bottom"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/release.js:34
+#: ../root/static/scripts/common/MB/release.js:35
 msgid "Display Credits Inline"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/release.js:99
+#: ../root/static/scripts/common/MB/release.js:100
 msgid "Failed to load the medium."
 msgstr ""
 
@@ -13956,25 +13971,25 @@ msgid ""
 "link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2849
+#: ../root/static/scripts/edit/URLCleanup.js:2842
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2866
+#: ../root/static/scripts/edit/URLCleanup.js:2859
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3038
+#: ../root/static/scripts/edit/URLCleanup.js:3042
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3127
+#: ../root/static/scripts/edit/URLCleanup.js:3131
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3178
+#: ../root/static/scripts/edit/URLCleanup.js:3182
 msgid ""
 "Wikipedia is not a discography entry. Please add this Wikipedia link to the "
 "release group instead."
@@ -14324,11 +14339,11 @@ msgstr "Το barcode που έχετε εισάγει δεν είναι έγκυ
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr "Το barcode που έχετε εισάγει δεν είναι έγκυρος κωδικός UPC ή EAN."
 
-#: ../root/static/scripts/work.js:281
+#: ../root/static/scripts/work.js:282
 msgid "Add Language"
 msgstr ""
 
-#: ../root/static/scripts/work.js:293
+#: ../root/static/scripts/work.js:294
 msgid "Remove Language"
 msgstr ""
 

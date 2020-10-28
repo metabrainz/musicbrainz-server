@@ -4,6 +4,7 @@
 # Andrea Corinti <email address hidden>, 2018
 # Dario Cavedon <email address hidden>, 2017
 # Davide Bardelli <email address hidden>, 2016
+# Fen0x F <email address hidden>, 2020
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Salini <email address hidden>, 2020
@@ -12,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-05 20:35+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-10-25 06:19+0000\n"
+"Last-Translator: Fen0x F <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -189,7 +190,7 @@ msgstr ""
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
-msgstr ""
+msgstr "Un koto con 17 piuttosto che 13 corde, alcune volte viene definito un koto basso."
 
 #. name:daire
 #: DB:instrument/description:532
