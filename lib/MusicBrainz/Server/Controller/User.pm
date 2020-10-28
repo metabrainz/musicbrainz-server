@@ -100,21 +100,37 @@ sub _perform_login {
 sub do_login : Private
 {
     my ($self, $c) = @_;
+
+    my $post_params;
+    my %login_params;
+
+    if ($c->form_posted) {
+        $post_params = $c->req->body_params;
+
+        for my $param (qw( username password remember_me csrf_token )) {
+            if (exists $post_params->{$param}) {
+                $login_params{$param} = delete $post_params->{$param};
+            }
+        }
+    }
+
     return 1 if $c->user_exists;
 
     my $form = $c->form(form => 'User::Login');
-    my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
 
-    if ($c->form_posted_and_valid($form))
-    {
-        if ($self->_perform_login($c, $form->field("username")->value, $form->field("password")->value)) {
+    if (%login_params && $c->form_submitted_and_valid($form, \%login_params)) {
+        my $username = $form->field('username')->value;
+        if (
+            $self->_perform_login(
+                $c,
+                $username,
+                $form->field('password')->value,
+            )
+        ) {
             if ($form->field('remember_me')->value) {
-                $self->_renew_login_cookie($c, $form->field('username')->value);
+                $self->_renew_login_cookie($c, $username);
             }
-
-            # Logged in OK
-            $c->response->redirect($redirect);
-            $c->detach;
+            return;
         }
     }
 
@@ -125,10 +141,11 @@ sub do_login : Private
         current_view => 'Node',
         component_path => 'user/Login',
         component_props => {
-            loginAction => $c->req->uri_with({ uri => $redirect }),
+            loginAction => $c->relative_uri,
             loginForm => $form,
             isLoginBad => boolean_to_json($c->stash->{bad_login}),
             isLoginRequired => boolean_to_json($c->stash->{required_login} // 1),
+            postParameters => ((defined $post_params && scalar(%$post_params)) ? $post_params : undef),
         },
     );
 
@@ -147,6 +164,11 @@ sub login : Path('/login') ForbiddenOnSlaves RequireSSL SecureForm
 
     $c->stash( required_login => 0 );
     $c->forward('/user/do_login');
+
+    # Logged in OK
+    my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
+    $c->response->redirect($redirect);
+    $c->detach;
 }
 
 sub logout : Path('/logout')

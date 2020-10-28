@@ -231,14 +231,17 @@ sub form
     return $form;
 }
 
-sub relative_uri
-{
-    my ($self) = @_;
-    my $uri = URI->new($self->req->uri->path);
-    $uri->path_query($self->req->uri->path_query);
-
-    return $uri;
-}
+has relative_uri => (
+    is => 'ro',
+    lazy => 1,
+    isa => 'URI',
+    default => sub {
+        my ($self) = @_;
+        my $uri = URI->new($self->req->uri->path);
+        $uri->path_query($self->req->uri->path_query);
+        return $uri;
+    },
+);
 
 sub get_relative_uri {
     my ($c, $uri_string) = @_;

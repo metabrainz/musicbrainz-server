@@ -26,6 +26,10 @@ type PropsT = {
     +remember_me: ReadOnlyFieldT<boolean>,
     +username: ReadOnlyFieldT<string>,
   }>,
+  +postParameters: {
+    +[param: string]: string,
+    ...
+  } | null,
 };
 
 const Login = ({
@@ -34,6 +38,7 @@ const Login = ({
   isLoginRequired = false,
   loginAction,
   loginForm,
+  postParameters,
 }: PropsT): React$Element<typeof Layout> => (
   <Layout $c={$c} fullWidth title={l('Log In')}>
     <h1>{l('Log In')}</h1>
@@ -90,6 +95,17 @@ const Login = ({
         field={loginForm.field.remember_me}
         label={l('Keep me logged in')}
       />
+
+      {postParameters ? (
+        Object.entries(postParameters).map(([param, value]) => (
+          <input
+            defaultValue={value}
+            key={param}
+            name={param}
+            type="hidden"
+          />
+        ))
+      ) : null}
 
       <div className="row no-label">
         <FormSubmit className="login" label={l('Log In')} />
