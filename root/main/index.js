@@ -179,10 +179,14 @@ const Homepage = ({
                 <a href="/doc/Frequently_Asked_Questions">{l('FAQs')}</a>
               </li>
               <li>
-                <a href="/doc/How_to_Add_an_Artist">{l('How to add artists')}</a>
+                <a href="/doc/How_to_Add_an_Artist">
+                  {l('How to add artists')}
+                </a>
               </li>
               <li>
-                <a href="/doc/How_to_Add_a_Release">{l('How to add releases')}</a>
+                <a href="/doc/How_to_Add_a_Release">
+                  {l('How to add releases')}
+                </a>
               </li>
             </ul>
           </div>

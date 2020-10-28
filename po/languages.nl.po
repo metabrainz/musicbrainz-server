@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-03-06 11:38+0000\n"
+"PO-Revision-Date: 2020-10-19 18:52+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -826,7 +826,7 @@ msgstr "Nederduits"
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "Middelhoogduits (ca. 1050 – 1500)"
 
-#. frequency:0 iso_code_3:goh
+#. frequency:1 iso_code_3:goh
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
 msgstr "Oudhoogduits (ca. 750 – 1050)"
@@ -1035,6 +1035,11 @@ msgstr "Ingrisch"
 #: DB:language/name:191
 msgid "Ingush"
 msgstr "Ingoesjetisch"
+
+#. frequency:1 iso_code_3:moe
+#: DB:language/name:4369
+msgid "Innu"
+msgstr "Innu"
 
 #. frequency:1 iso_code_3:ina
 #: DB:language/name:187
@@ -1620,11 +1625,6 @@ msgstr "Mongo"
 #: DB:language/name:282
 msgid "Mongolian"
 msgstr "Mongools"
-
-#. frequency:1 iso_code_3:moe
-#: DB:language/name:4369
-msgid "Montagnais"
-msgstr "Montagnais (Innu)"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283

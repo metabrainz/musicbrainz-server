@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
 import MB from '../common/MB';
@@ -78,7 +77,8 @@ ko.bindingHandlers.showErrorRightAway = {
   }),
 };
 
-ko.bindingHandlers.showMessageRightAway = ko.bindingHandlers.showErrorRightAway;
+ko.bindingHandlers.showMessageRightAway =
+  ko.bindingHandlers.showErrorRightAway;
 
 ko.bindingHandlers.showErrorWhenTabIsSwitched = {
 
@@ -179,9 +179,14 @@ utils.withRelease(function (release) {
 
   if (barcode.length === 11) {
     field.error(
-      l('The barcode you entered looks like a UPC code with the check digit missing.') +
+      l(
+        `The barcode you entered looks like a UPC code
+         with the check digit missing.`,
+      ) +
       ' ' +
-      expand2text(checkDigitText, { checkdigit: field.checkDigit('0' + barcode) }),
+      expand2text(
+        checkDigitText, {checkdigit: field.checkDigit('0' + barcode)},
+      ),
     );
   } else if (barcode.length === 12) {
     if (field.validateCheckDigit('0' + barcode)) {
@@ -189,11 +194,17 @@ utils.withRelease(function (release) {
       searchExistingBarcode(field, barcode);
     } else {
       field.error(
-        l('The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.') +
+        l(
+          `The barcode you entered is either an invalid UPC code,
+           or an EAN code with the check digit missing.`,
+        ) +
         ' ' +
         doubleCheckText +
         ' ' +
-        expand2text(checkDigitText, { checkdigit: field.checkDigit(barcode) }),
+        expand2text(
+          checkDigitText,
+          {checkdigit: field.checkDigit(barcode)},
+        ),
       );
     }
   } else if (barcode.length === 13) {

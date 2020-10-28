@@ -51,7 +51,9 @@ const EditSummary = ({
 
       <Vote $c={$c} edit={edit} index={index} summary />
 
-      {$c.user && !DBDefs.DB_READ_ONLY && (mayAddNote || mayApprove || mayCancel) ? (
+      {($c.user && !DBDefs.DB_READ_ONLY &&
+        (mayAddNote || mayApprove || mayCancel)
+      ) ? (
         <div className="cancel-edit buttons">
           {mayAddNote ? (
             <a className="positive edit-note-toggle">{l('Add Note')}</a>
@@ -78,16 +80,21 @@ const EditSummary = ({
           {edit.status === EDIT_STATUS_OPEN &&
             DBDefs.DB_STAGING_TESTING_FEATURES ? (
               <>
-                <a className="positive" href={`/test/accept-edit/${edit.id}`}>
+                <a
+                  className="positive"
+                  href={`/test/accept-edit/${edit.id}`}
+                >
                   {l('Accept edit')}
                 </a>
-                <a className="negative" href={`/test/reject-edit/${edit.id}`}>
+                <a
+                  className="negative"
+                  href={`/test/reject-edit/${edit.id}`}
+                >
                   {l('Reject edit')}
                 </a>
               </>
             ) : null}
-        </div>
-      ) : null}
+        </div>) : null}
     </>
   );
 };

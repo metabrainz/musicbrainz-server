@@ -24,7 +24,11 @@ const DiscogsLinksWithMultipleReleases = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseUrlT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Discogs URLs linked to multiple releases')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Discogs URLs linked to multiple releases')}
+  >
     <h1>{l('Discogs URLs linked to multiple releases')}</h1>
 
     <ul>

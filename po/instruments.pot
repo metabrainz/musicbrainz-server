@@ -2301,6 +2301,7 @@ msgid "kudüm"
 msgstr ""
 
 #: DB:instrument/name:303
+msgctxt "Vietnamese double reed"
 msgid "kèn bầu"
 msgstr ""
 
@@ -2883,6 +2884,11 @@ msgstr ""
 #: DB:instrument/name:862
 msgctxt "Māori taonga pūoro humming discs"
 msgid "porotiti"
+msgstr ""
+
+#: DB:instrument/name:1021
+msgctxt "Very small bellows operated pipe organ"
+msgid "portative"
 msgstr ""
 
 #: DB:instrument/name:626
@@ -3474,6 +3480,7 @@ msgid "suling"
 msgstr ""
 
 #: DB:instrument/name:548
+msgctxt "Chinese double reed"
 msgid "suona"
 msgstr ""
 

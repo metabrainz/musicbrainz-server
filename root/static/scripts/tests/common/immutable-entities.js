@@ -13,8 +13,16 @@ import {
   isComplexArtistCredit,
 } from '../../common/immutable-entities';
 
-const bowie = {id: 956, gid: '5441c29d-3602-4898-b1a1-b77fa23b8e50', name: 'david bowie'};
-const crosby = {id: 99, gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f', name: 'bing crosby'};
+const bowie = {
+  gid: '5441c29d-3602-4898-b1a1-b77fa23b8e50',
+  id: 956,
+  name: 'david bowie',
+};
+const crosby = {
+  gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+  id: 99,
+  name: 'bing crosby',
+};
 
 test('isComplexArtistCredit', function (t) {
   t.plan(4);
@@ -34,19 +42,35 @@ test('isComplexArtistCredit', function (t) {
       {artist: crosby, name: 'bing crosby'},
     ],
   };
-  t.equal(isComplexArtistCredit(ac), true, 'david bowie & bing crosby is complex');
+  t.equal(
+    isComplexArtistCredit(ac),
+    true,
+    'david bowie & bing crosby is complex',
+  );
 });
 
 test('artistCreditsAreEqual', function (t) {
   t.plan(4);
 
-  const ac1 = {names: [{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]};
-  const ac2 = {names: [{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]};
-  const ac3 = {names: [{artist: {gid: 1, name: 'a'}, name: 'b', joinPhrase: '/'}]};
+  const ac1 = {
+    names: [
+      {artist: {gid: 1, name: 'a'}, joinPhrase: '/', name: 'a'},
+    ],
+  };
+  const ac2 = {
+    names: [
+      {artist: {gid: 1, name: 'a'}, joinPhrase: '/', name: 'a'},
+    ],
+  };
+  const ac3 = {
+    names: [
+      {artist: {gid: 1, name: 'a'}, joinPhrase: '/', name: 'b'},
+    ],
+  };
   const ac4 = {
     names: [
-      {artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'},
-      {artist: {gid: 2, name: 'b'}, name: 'b', joinPhrase: ''},
+      {artist: {gid: 1, name: 'a'}, joinPhrase: '/', name: 'a'},
+      {artist: {gid: 2, name: 'b'}, joinPhrase: '', name: 'b'},
     ],
   };
 

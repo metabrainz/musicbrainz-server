@@ -61,11 +61,15 @@ class Track {
 
     var release = medium && medium.release;
 
-    if (release && !data.artistCredit && !hasVariousArtists(release.artistCredit.peek())) {
+    if (release &&
+        !data.artistCredit &&
+        !hasVariousArtists(release.artistCredit.peek())) {
       data.artistCredit = release.artistCredit.peek();
     }
 
-    this.artistCredit = ko.observable(data.artistCredit ? cloneObjectDeep(data.artistCredit) : {names: []});
+    this.artistCredit = ko.observable(data.artistCredit
+      ? cloneObjectDeep(data.artistCredit)
+      : {names: []});
     this.artistCredit.track = this;
 
     this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
@@ -74,11 +78,19 @@ class Track {
     this.isDataTrack = ko.observable(!!data.isDataTrack);
     this.hasNewRecording = ko.observable(true);
 
-    this.updateRecordingTitle = ko.observable(releaseEditor.copyTrackTitlesToRecordings());
-    this.updateRecordingArtist = ko.observable(releaseEditor.copyTrackArtistsToRecordings());
+    this.updateRecordingTitle = ko.observable(
+      releaseEditor.copyTrackTitlesToRecordings(),
+    );
+    this.updateRecordingArtist = ko.observable(
+      releaseEditor.copyTrackArtistsToRecordings(),
+    );
 
-    releaseEditor.copyTrackTitlesToRecordings.subscribe(this.updateRecordingTitle);
-    releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
+    releaseEditor.copyTrackTitlesToRecordings.subscribe(
+      this.updateRecordingTitle,
+    );
+    releaseEditor.copyTrackArtistsToRecordings.subscribe(
+      this.updateRecordingArtist,
+    );
 
     this.recordingValue = ko.observable(
       new mbEntity.Recording({ name: data.name }),
@@ -194,7 +206,11 @@ class Track {
     var hasTooltip = !!$lengthInput.data('ui-tooltip');
 
     if (this.medium.hasInvalidPregapLength()) {
-      $lengthInput.attr('title', l('None of the attached disc IDs can fit a pregap track of the given length.'));
+      $lengthInput.attr(
+        'title',
+        l(`None of the attached disc IDs can fit a pregap track
+           of the given length.`),
+      );
 
       if (!hasTooltip) {
         $lengthInput.tooltip();
@@ -236,7 +252,10 @@ class Track {
       return false;
     }
 
-    return !artistCreditsAreEqual(this.artistCredit(), recording.artistCredit);
+    return !artistCreditsAreEqual(
+      this.artistCredit(),
+      recording.artistCredit,
+    );
   }
 
   hasExistingRecording() {
@@ -287,14 +306,16 @@ class Track {
     if (release) {
       release.relatedArtists =
         [...new Set(release.relatedArtists.concat(value.relatedArtists))];
-      release.isProbablyClassical = release.isProbablyClassical || value.isProbablyClassical;
+      release.isProbablyClassical = release.isProbablyClassical ||
+                                    value.isProbablyClassical;
     }
 
     this.recordingValue(value);
   }
 
   hasNameAndArtist() {
-    return !isBlank(this.name()) && isCompleteArtistCredit(this.artistCredit());
+    return !isBlank(this.name()) &&
+            isCompleteArtistCredit(this.artistCredit());
   }
 
   hasVariousArtists() {
@@ -328,7 +349,9 @@ class Medium {
     this.originalFormatID = data.format_id
       ? data.format_id.toString()
       : undefined;
-    this.formatUnknownToUser = ko.observable(Boolean(data.id && !data.format_id));
+    this.formatUnknownToUser = ko.observable(
+      Boolean(data.id && !data.format_id),
+    );
     this.showPregapTrackHelp = ko.observable(false);
     this.showDataTracksHelp = ko.observable(false);
 
@@ -414,7 +437,9 @@ class Medium {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.hasVariousArtists());
     });
-    this.confirmedVariousArtists = ko.observable(this.hasVariousArtistTracks());
+    this.confirmedVariousArtists = ko.observable(
+      this.hasVariousArtistTracks(),
+    );
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
       return !!(mediumFormatDate && self.release.earliestYear() &&
@@ -451,7 +476,8 @@ class Medium {
     this.toc.subscribe(this.tocChanged, this);
 
     this.hasInvalidFormat = ko.computed(function () {
-      return !self.canHaveDiscID() && (self.hasExistingTocs() || hasPregap() || hasDataTracks());
+      return !self.canHaveDiscID() &&
+              (self.hasExistingTocs() || hasPregap() || hasDataTracks());
     });
 
     this.loaded = ko.observable(loaded);
@@ -483,7 +509,8 @@ class Medium {
     });
 
     this.hasUnconfirmedVariousArtists = ko.computed(function() {
-      return (self.hasVariousArtistTracks() && !self.confirmedVariousArtists());
+      return (self.hasVariousArtistTracks() &&
+              !self.confirmedVariousArtists());
     });
 
     this.hasVariousArtistTracks.subscribe(function (value) {
@@ -686,7 +713,10 @@ class Medium {
 
     if (name) {
       if (multidisc) {
-        return texp.l('Medium {position}: {title}', { position: position, title: name });
+        return texp.l(
+          'Medium {position}: {title}',
+          {position: position, title: name},
+        );
       }
       return name;
 
@@ -797,7 +827,10 @@ class ReleaseLabel {
   }
 
   needsLabelMessage() {
-    return texp.l('You haven’t selected a label for “{name}”.', {name: this.label().name});
+    return texp.l(
+      'You haven’t selected a label for “{name}”.',
+      {name: this.label().name},
+    );
   }
 }
 
@@ -853,7 +886,8 @@ class Barcode {
   }
 
   validateCheckDigit(barcode) {
-    return this.checkDigit(barcode.slice(0, 12)) === parseInt(barcode[12], 10);
+    return this.checkDigit(barcode.slice(0, 12)) ===
+            parseInt(barcode[12], 10);
   }
 
   writeBarcode(barcode) {
@@ -895,7 +929,9 @@ class Release extends mbEntity.Release {
       self.needsName(!newName);
     });
 
-    this.artistCredit = ko.observable(data.artistCredit ? cloneObjectDeep(data.artistCredit) : {names: []});
+    this.artistCredit = ko.observable(data.artistCredit
+      ? cloneObjectDeep(data.artistCredit)
+      : {names: []});
     this.artistCredit.saved = this.artistCredit.peek();
 
     this.needsArtistCredit = errorField(function () {
@@ -955,7 +991,8 @@ class Release extends mbEntity.Release {
     }
 
     ko.computed(function () {
-      for (const labels of Object.values(groupBy(self.labels(), releaseLabelKey))) {
+      const labelsByKey = groupBy(self.labels(), releaseLabelKey);
+      for (const labels of Object.values(labelsByKey)) {
         const isDuplicate = labels.filter(nonEmptyReleaseLabel).length > 1;
         labels.forEach(l => l.isDuplicate(isDuplicate));
       }
@@ -969,7 +1006,8 @@ class Release extends mbEntity.Release {
     );
 
     this.releaseGroup.subscribe(function (releaseGroup) {
-      if (releaseGroup.artistCredit && !reduceArtistCredit(self.artistCredit())) {
+      if (releaseGroup.artistCredit &&
+          !reduceArtistCredit(self.artistCredit())) {
         self.artistCredit(cloneObjectDeep(releaseGroup.artistCredit));
       }
     });
@@ -994,12 +1032,19 @@ class Release extends mbEntity.Release {
     this.loadedMediums = this.mediums.filter('loaded');
     this.hasTrackInfo = this.loadedMediums.all('hasTrackInfo');
     this.hasTracks = this.mediums.any('hasTracks');
-    this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === 'edit');
+    this.hasUnknownTracklist = ko.observable(
+      !this.mediums().length && releaseEditor.action === 'edit',
+    );
     this.needsRecordings = errorField(this.mediums.any('needsRecordings'));
     this.hasInvalidFormats = errorField(this.mediums.any('hasInvalidFormat'));
     this.hasUnconfirmedEarlyFormat =
       errorField(this.mediums.any('hasUnconfirmedEarlyFormat'));
-    this.hasUnconfirmedVariousArtists = errorField(this.mediums.any('hasUnconfirmedVariousArtists'));
+    this.hasUnconfirmedVariousArtists = errorField(
+      this.mediums.any('hasUnconfirmedVariousArtists'),
+    );
+    this.hasTooEarlyFormat = errorField(
+      this.mediums.any('hasTooEarlyFormat'),
+    );
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());
     });
@@ -1008,7 +1053,9 @@ class Release extends mbEntity.Release {
     this.needsTrackInfo = errorField(function () {
       return !self.hasTrackInfo();
     });
-    this.hasInvalidPregapLength = errorField(this.mediums.any('hasInvalidPregapLength'));
+    this.hasInvalidPregapLength = errorField(
+      this.mediums.any('hasInvalidPregapLength'),
+    );
 
     // Ensure there's at least one event, label, and medium to edit.
 

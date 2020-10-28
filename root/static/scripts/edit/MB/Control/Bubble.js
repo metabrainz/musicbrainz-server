@@ -117,12 +117,6 @@ class BubbleBase {
 BubbleBase.prototype.activeBubbles = {};
 
 /*
- * Whether the bubble should close when we click outside of it. Used for
- * track artist credit bubbles.
- */
-BubbleBase.prototype.closeWhenFocusIsLost = false;
-
-/*
  * BubbleDoc turns a documentation div into a bubble pointing at an
  * input to the left of it.
  */
@@ -266,24 +260,6 @@ function bubbleControlHandler(event) {
   var bubble = control.bubbleDoc;
 
   if (!bubble) {
-    // If the user clicked outside of the active bubble, hide it.
-    var $active = $('div.bubble:visible:eq(0)');
-
-    if ($active.length && !$active.has(control).length) {
-      bubble = $active[0].bubbleDoc;
-
-      if (bubble && bubble.closeWhenFocusIsLost &&
-          !event.isDefaultPrevented() &&
-
-          /*
-           * Close unless focus was moved to a dialog above this
-           * one, i.e. when adding a new entity.
-           */
-          !$(event.target).parents('.ui-dialog').length) {
-
-        bubble.hide(false);
-      }
-    }
     return undefined;
   }
 

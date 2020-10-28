@@ -361,6 +361,9 @@ sub recordings : Chained('load')
     my $standalone_only;
     my $video_only;
 
+    my $has_standalone = $c->model('Recording')->has_standalone($artist->id);
+    my $has_video = $c->model('Recording')->has_video($artist->id);
+
     my %filter = %{ $self->process_filter($c, sub {
         return create_artist_recordings_form($c, $artist->id);
     }) };
@@ -368,13 +371,15 @@ sub recordings : Chained('load')
 
     if ($c->req->query_params->{standalone}) {
         $recordings = $self->_load_paged($c, sub {
-            $c->model('Recording')->find_standalone($artist->id, shift, shift);
+            return ([], 0) unless $has_standalone;
+            return $c->model('Recording')->find_standalone($artist->id, shift, shift);
         });
         $standalone_only = 1;
     }
     elsif ($c->req->query_params->{video}) {
         $recordings = $self->_load_paged($c, sub {
-            $c->model('Recording')->find_video($artist->id, shift, shift);
+            return ([], 0) unless $has_video;
+            return $c->model('Recording')->find_video($artist->id, shift, shift);
         });
         $video_only = 1;
     }
@@ -403,6 +408,8 @@ sub recordings : Chained('load')
             artist => $artist,
             filterForm => $c->stash->{filter_form},
             hasFilter => boolean_to_json($has_filter),
+            hasStandalone => boolean_to_json($has_standalone),
+            hasVideo => boolean_to_json($has_video),
             pager => serialize_pager($c->stash->{pager}),
             recordings => $recordings,
             standaloneOnly => boolean_to_json($standalone_only),

@@ -7,7 +7,6 @@
  */
 
 import ko from 'knockout';
-import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import MB from '../../common/MB';

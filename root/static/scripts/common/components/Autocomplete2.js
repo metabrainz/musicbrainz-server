@@ -289,6 +289,9 @@ type AutocompleteItemsProps<T: EntityItem> = {
   selectItem: (Item<T>) => void,
 };
 
+type AutocompleteItemComponent<T> =
+  React$AbstractComponent<AutocompleteItemProps<T>, void>;
+
 function AutocompleteItems<T: EntityItem>({
   autocompleteId,
   dispatch,
@@ -296,10 +299,10 @@ function AutocompleteItems<T: EntityItem>({
   items,
   selectedItem,
   selectItem,
-}: AutocompleteItemsProps<T>) {
+}: AutocompleteItemsProps<T>):
+  $ReadOnlyArray<React.Element<AutocompleteItemComponent<T>>> {
   // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
-  const AutocompleteItemWithType:
-    React$AbstractComponent<AutocompleteItemProps<T>, void> =
+  const AutocompleteItemWithType: AutocompleteItemComponent<T> =
     (AutocompleteItem: any);
 
   const children = [];
@@ -367,7 +370,9 @@ export default function Autocomplete2<+T: EntityItem>(
     }
   }
 
-  function handleInputChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+  function handleInputChange(
+    event: SyntheticKeyboardEvent<HTMLInputElement>,
+  ) {
     const newInputValue = event.currentTarget.value;
     const newCleanInputValue = clean(newInputValue);
 

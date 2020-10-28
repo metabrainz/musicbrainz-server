@@ -29,7 +29,11 @@ const CollaborationRelationships = ({
   let currentID = 0;
 
   return (
-    <Layout $c={$c} fullWidth title={l('Artists with collaboration relationships')}>
+    <Layout
+      $c={$c}
+      fullWidth
+      title={l('Artists with collaboration relationships')}
+    >
       <h1>{l('Artists with collaboration relationships')}</h1>
 
       <ul>

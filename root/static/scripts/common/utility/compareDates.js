@@ -15,7 +15,10 @@ const NULL_DATE: PartialDateT = Object.freeze({
 });
 /* eslint-enable sort-keys */
 
-export default function compareDates(a: ?PartialDateT, b: ?PartialDateT): number {
+export default function compareDates(
+  a: ?PartialDateT,
+  b: ?PartialDateT,
+): number {
   a = a || NULL_DATE;
   b = b || NULL_DATE;
 

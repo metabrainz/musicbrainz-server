@@ -18,7 +18,9 @@ function timestamp(date) {
   );
 }
 
-export function hasAge<+T: $ReadOnly<{...DatePeriodRoleT, ...}>>(entity: T): boolean {
+export function hasAge<+T: $ReadOnly<{...DatePeriodRoleT, ...}>>(
+  entity: T,
+): boolean {
   const begin = entity.begin_date;
   const end = entity.end_date;
   const ended = entity.ended;
@@ -77,7 +79,9 @@ export function hasAge<+T: $ReadOnly<{...DatePeriodRoleT, ...}>>(entity: T): boo
   return false;
 }
 
-export function age<+T: $ReadOnly<{...DatePeriodRoleT, ...}>>(entity: T): [number, number, number] | null {
+export function age<+T: $ReadOnly<{...DatePeriodRoleT, ...}>>(
+  entity: T,
+): [number, number, number] | null {
   const begin = entity.begin_date;
 
   if (!begin || !hasAge(entity)) {
@@ -134,7 +138,10 @@ export function age<+T: $ReadOnly<{...DatePeriodRoleT, ...}>>(entity: T): [numbe
   return [dy, dm, dd];
 }
 
-export function displayAge(age: [number, number, number], isPerson: bool): string {
+export function displayAge(
+  age: [number, number, number],
+  isPerson: boolean,
+): string {
   const [years, months, days] = age;
 
   if (isPerson && years) {

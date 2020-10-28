@@ -275,7 +275,10 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
   relationship.show();
   duplicateRelationship.show();
 
-  t.ok(source.mergeRelationship(duplicateRelationship), 'relationships were merged');
+  t.ok(
+    source.mergeRelationship(duplicateRelationship),
+    'relationships were merged',
+  );
 
   t.deepEqual(
     relationship.attributes().map(x => x.type.id).sort(),
@@ -391,7 +394,9 @@ relationshipEditorTest('AddDialog', function (t) {
   var source = vm.source.mediums()[0].tracks[0].recording;
   var target = MB.entity({ entityType: 'artist', gid: fakeGID0 });
 
-  var dialog = new AddDialog({ source: source, target: target, viewModel: vm });
+  var dialog = new AddDialog(
+    {source: source, target: target, viewModel: vm},
+  );
   var relationship = dialog.relationship();
 
   relationship.linkTypeID(148);
@@ -428,15 +433,31 @@ relationshipEditorTest('BatchRelationshipDialog', function (t) {
 
   relationships = recordings[0].relationships();
   attributes = relationships[0].attributes();
-  t.equal(relationships[0].entities()[0], target, 'recording 0 has relationship with correct target');
+  t.equal(
+    relationships[0].entities()[0],
+    target,
+    'recording 0 has relationship with correct target',
+  );
   t.equal(attributes.length, 1, 'recording 0 has 1 attribute');
-  t.equal(attributes[0].type.id, 1, 'recording 0 has relationship with additional attribute');
+  t.equal(
+    attributes[0].type.id,
+    1,
+    'recording 0 has relationship with additional attribute',
+  );
 
   relationships = recordings[1].relationships();
   attributes = relationships[0].attributes();
-  t.equal(relationships[0].entities()[0], target, 'recording 1 has relationship with correct target');
+  t.equal(
+    relationships[0].entities()[0],
+    target,
+    'recording 1 has relationship with correct target',
+  );
   t.equal(attributes.length, 1, 'recording 1 has 1 attribute');
-  t.equal(attributes[0].type.id, 1, 'recording 1 has relationship with additional attribute');
+  t.equal(
+    attributes[0].type.id,
+    1,
+    'recording 1 has relationship with additional attribute',
+  );
 });
 
 relationshipEditorTest('BatchCreateWorksDialog', function (t) {
@@ -470,12 +491,16 @@ relationshipEditorTest('BatchCreateWorksDialog', function (t) {
   ]);
 });
 
-relationshipEditorTest('canceling an edit dialog reverts the changes', function (t) {
+relationshipEditorTest((
+  'canceling an edit dialog reverts the changes'
+), function (t) {
   t.plan(4);
 
   var vm = setupReleaseRelationshipEditor();
   var source = vm.source.mediums()[0].tracks[0].recording;
-  var target = MB.entity({ entityType: 'artist', name: 'foo', gid: fakeGID0 });
+  var target = MB.entity(
+    {entityType: 'artist', gid: fakeGID0, name: 'foo'},
+  );
 
   var relationship = vm.getRelationship({
     target: target,
@@ -489,7 +514,9 @@ relationshipEditorTest('canceling an edit dialog reverts the changes', function 
     viewModel: vm,
   });
 
-  var newTarget = MB.entity({ entityType: 'artist', name: 'bar', gid: fakeGID1 });
+  var newTarget = MB.entity(
+    {entityType: 'artist', gid: fakeGID1, name: 'bar'},
+  );
   var dialogRelationship = dialog.relationship();
 
   dialogRelationship.entities([newTarget, source]);
@@ -500,13 +527,19 @@ relationshipEditorTest('canceling an edit dialog reverts the changes', function 
   // cancel should revert the change
   dialog.close(true /* cancel */);
 
-  t.deepEqual(relationship.entities(), [target, source], 'entities changed back');
+  t.deepEqual(
+    relationship.entities(),
+    [target, source],
+    'entities changed back',
+  );
   t.deepEqual(relationship.attributes(), [], 'attributes changed back');
   t.equal(relationship.begin_date.year(), null, 'begin_date changed back');
   t.equal(relationship.end_date.year(), null, 'end_date changed back');
 });
 
-relationshipEditorTest('MBS-5389: added recording-recording relationship appears under both recordings', function (t) {
+relationshipEditorTest((
+  'MBS-5389: added recording-recording relationship appears under both recordings'
+), function (t) {
   t.plan(2);
 
   var vm = setupReleaseRelationshipEditor();
@@ -515,20 +548,32 @@ relationshipEditorTest('MBS-5389: added recording-recording relationship appears
   var recording0 = tracks[0].recording;
   var recording1 = tracks[1].recording;
 
-  var dialog = new AddDialog({ source: recording1, target: recording0, viewModel: vm });
+  var dialog = new AddDialog(
+    {source: recording1, target: recording0, viewModel: vm},
+  );
 
   var relationship = dialog.relationship();
   relationship.linkTypeID(231);
 
   dialog.accept();
 
-  t.equal(recording0.relationships()[0], relationship, 'relationship added to recording 0');
-  t.equal(recording1.relationships()[0], relationship, 'relationship added to recording 1');
+  t.equal(
+    recording0.relationships()[0],
+    relationship,
+    'relationship added to recording 0',
+  );
+  t.equal(
+    recording1.relationships()[0],
+    relationship,
+    'relationship added to recording 1',
+  );
 
   relationship.remove();
 });
 
-relationshipEditorTest('backwardness of submitted relationships is preserved (MBS-7636)', function (t) {
+relationshipEditorTest((
+  'backwardness of submitted relationships is preserved (MBS-7636)'
+), function (t) {
   t.plan(2);
 
   const source = {
@@ -560,7 +605,9 @@ relationshipEditorTest('backwardness of submitted relationships is preserved (MB
   t.equal(entities[1].gid, fakeGID0);
 });
 
-relationshipEditorTest('edit submission request is entered for release (MBS-7740, MBS-7746)', function (t) {
+relationshipEditorTest((
+  'edit submission request is entered for release (MBS-7740, MBS-7746)'
+), function (t) {
   t.plan(1);
 
   var vm = setupReleaseRelationshipEditor();
@@ -647,7 +694,9 @@ relationshipEditorTest('edit submission request is entered for release (MBS-7740
   vm.submit(null, $.Event());
 });
 
-relationshipEditorTest('hidden input fields are generated for non-release forms', function (t) {
+relationshipEditorTest((
+  'hidden input fields are generated for non-release forms'
+), function (t) {
   t.plan(1);
 
   var vm = setupGenericRelationshipEditor({
@@ -733,17 +782,21 @@ relationshipEditorTest('hidden input fields are generated for non-release forms'
     'edit-artist.rel.0.backward': '1',
     'edit-artist.rel.0.link_type_id': '103',
     'edit-artist.rel.0.attributes.0.removed': '1',
-    'edit-artist.rel.0.attributes.0.type.gid': '17f9f065-2312-4a24-8309-6f6dd63e2e33',
+    'edit-artist.rel.0.attributes.0.type.gid':
+      '17f9f065-2312-4a24-8309-6f6dd63e2e33',
     'edit-artist.rel.0.attributes.1.removed': '1',
-    'edit-artist.rel.0.attributes.1.type.gid': '8e2a3255-87c2-4809-a174-98cb3704f1a5',
+    'edit-artist.rel.0.attributes.1.type.gid':
+      '8e2a3255-87c2-4809-a174-98cb3704f1a5',
     'edit-artist.rel.1.relationship_id': '35568',
     'edit-artist.rel.1.removed': '1',
     'edit-artist.rel.1.target': '49a51491-650e-44b3-8085-2f07ac2986dd',
     'edit-artist.rel.1.backward': '1',
     'edit-artist.rel.1.link_type_id': '103',
     'edit-artist.rel.2.target': '42a8f507-8412-4611-854f-926571049fa0',
-    'edit-artist.rel.2.attributes.0.type.gid': '63021302-86cd-4aee-80df-2270d54f4978',
-    'edit-artist.rel.2.attributes.1.type.gid': '8e2a3255-87c2-4809-a174-98cb3704f1a5',
+    'edit-artist.rel.2.attributes.0.type.gid':
+      '63021302-86cd-4aee-80df-2270d54f4978',
+    'edit-artist.rel.2.attributes.1.type.gid':
+      '8e2a3255-87c2-4809-a174-98cb3704f1a5',
     'edit-artist.rel.2.period.begin_date.day' : '',
     'edit-artist.rel.2.period.begin_date.month' : '',
     'edit-artist.rel.2.period.begin_date.year' : '',
@@ -758,7 +811,9 @@ relationshipEditorTest('hidden input fields are generated for non-release forms'
   });
 });
 
-relationshipEditorTest('link orders are submitted for new, orderable relationships (MBS-7775)', function (t) {
+relationshipEditorTest((
+  'link orders are submitted for new, orderable relationships (MBS-7775)'
+), function (t) {
   t.plan(1);
 
   var vm = setupGenericRelationshipEditor({
@@ -820,7 +875,8 @@ relationshipEditorTest('link orders are submitted for new, orderable relationshi
   prepareSubmission('edit-series');
 
   t.deepEqual(formData(), {
-    'edit-series.rel.0.attributes.0.type.gid': 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+    'edit-series.rel.0.attributes.0.type.gid':
+      'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
     'edit-series.rel.0.attributes.0.text_value': '20101110',
     'edit-series.rel.0.backward': '1',
     'edit-series.rel.0.link_order': '1',
@@ -828,7 +884,8 @@ relationshipEditorTest('link orders are submitted for new, orderable relationshi
     'edit-series.rel.0.target': '0a95623a-08d1-41a6-9f0c-409e40ce4476',
     'edit-series.rel.0.entity0_credit': '',
     'edit-series.rel.0.entity1_credit': '',
-    'edit-series.rel.1.attributes.0.type.gid': 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+    'edit-series.rel.1.attributes.0.type.gid':
+      'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
     'edit-series.rel.1.attributes.0.text_value': '1',
     'edit-series.rel.1.backward': '1',
     'edit-series.rel.1.link_order': '2',
@@ -836,7 +893,8 @@ relationshipEditorTest('link orders are submitted for new, orderable relationshi
     'edit-series.rel.1.target': '4550586c-c886-483d-922b-4e810f7c85fc',
     'edit-series.rel.1.entity0_credit': '',
     'edit-series.rel.1.entity1_credit': '',
-    'edit-series.rel.2.attributes.0.type.gid': 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+    'edit-series.rel.2.attributes.0.type.gid':
+      'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
     'edit-series.rel.2.attributes.0.text_value': '2',
     'edit-series.rel.2.backward': '1',
     'edit-series.rel.2.link_order': '3',
@@ -847,7 +905,9 @@ relationshipEditorTest('link orders are submitted for new, orderable relationshi
   });
 });
 
-relationshipEditorTest('relationships for entities not editable under the viewModel are ignored (MBS-7782)', function (t) {
+relationshipEditorTest((
+  'relationships for entities not editable under the viewModel are ignored (MBS-7782)'
+), function (t) {
   t.plan(2);
 
   var vm = setupGenericRelationshipEditor({
@@ -893,12 +953,15 @@ var loveMeDo = {
       },
       linkOrder: 0,
       attributes: ids2attrs([333]),
-      verbosePhrase: 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+      verbosePhrase:
+        'performed {additional} {guest} {solo} {instrument:%|instruments} on',
     },
   ],
 };
 
-relationshipEditorTest('attributes are cleared when the target type is changed (MBS-7875)', function (t) {
+relationshipEditorTest((
+  'attributes are cleared when the target type is changed (MBS-7875)'
+), function (t) {
   t.plan(2);
 
   var vm = setupGenericRelationshipEditor({
@@ -926,10 +989,16 @@ relationshipEditorTest('attributes are cleared when the target type is changed (
 
   dialog.accept();
   relationship = dialog.relationship();
-  t.equal(relationship.attributes().length, 0, 'invalid attributes removed');
+  t.equal(
+    relationship.attributes().length,
+    0,
+    'invalid attributes removed',
+  );
 });
 
-relationshipEditorTest('invalid attributes can’t be set on a relationship (MBS-7983)', function (t) {
+relationshipEditorTest((
+  'invalid attributes can’t be set on a relationship (MBS-7983)'
+), function (t) {
   t.plan(2);
 
   var vm = setupGenericRelationshipEditor({
@@ -946,11 +1015,17 @@ relationshipEditorTest('invalid attributes can’t be set on a relationship (MBS
   );
 
   setTimeout(function () {
-    t.equal(relationship.attributes().length, 1, 'invalid attribute not added');
+    t.equal(
+      relationship.attributes().length,
+      1,
+      'invalid attribute not added',
+    );
   }, 1);
 });
 
-relationshipEditorTest('relationships with different link orders are not duplicates of each other', function (t) {
+relationshipEditorTest((
+  'relationships with different link orders are not duplicates of each other'
+), function (t) {
   t.plan(1);
 
   var sourceData = cloneObjectDeep(loveMeDo);
@@ -969,7 +1044,9 @@ relationshipEditorTest('relationships with different link orders are not duplica
   t.ok(!newRelationship.isDuplicate(relationship));
 });
 
-relationshipEditorTest('empty dates are submitted as a hash, not as undef (MBS-8443)', function (t) {
+relationshipEditorTest((
+  'empty dates are submitted as a hash, not as undef (MBS-8443)'
+), function (t) {
   t.plan(1);
 
   var beethoven = {
@@ -1005,7 +1082,9 @@ relationshipEditorTest('empty dates are submitted as a hash, not as undef (MBS-8
         id: 188961,
         gid: 'd0dd466b-3385-356b-bdf0-856737c6baf7',
         name: '3 Great Piano Sonatas',
-        artistCredit: {names: [{name: 'Beethoven', joinPhrase: '; ', artist: beethoven}]},
+        artistCredit: {names: [
+          {artist: beethoven, joinPhrase: '; ', name: 'Beethoven'},
+        ]},
       },
     },
   });
@@ -1013,11 +1092,17 @@ relationshipEditorTest('empty dates are submitted as a hash, not as undef (MBS-8
   var relationship = vm.getRelationship(compositionData, vm.source);
   relationship.begin_date.year(null);
 
-  var editData = MB.edit.relationshipEdit(relationship.editData(), relationship.original, relationship);
+  var editData = MB.edit.relationshipEdit(
+    relationship.editData(),
+    relationship.original,
+    relationship,
+  );
   t.deepEqual(editData.begin_date, {year: null, month: null, day: null});
 });
 
-relationshipEditorTest('empty date period fields are outputted when cleared', function (t) {
+relationshipEditorTest((
+  'empty date period fields are outputted when cleared'
+), function (t) {
   t.plan(1);
 
   var relData = {
@@ -1058,7 +1143,9 @@ relationshipEditorTest('empty date period fields are outputted when cleared', fu
   });
 });
 
-relationshipEditorTest('only relationships of the same direction are ordered together (MBS-8730)', function (t) {
+relationshipEditorTest((
+  'only relationships of the same direction are ordered together (MBS-8730)'
+), function (t) {
   t.plan(1);
 
   var relData = [

@@ -29,13 +29,19 @@ const MergeReleaseGroups = ({$c, edit}: Props): React.Element<'table'> => (
     <tr>
       <th>{l('Merge:')}</th>
       <td>
-        <ReleaseGroupListTable $c={$c} releaseGroups={edit.display_data.old} />
+        <ReleaseGroupListTable
+          $c={$c}
+          releaseGroups={edit.display_data.old}
+        />
       </td>
     </tr>
     <tr>
       <th>{l('Into:')}</th>
       <td>
-        <ReleaseGroupListTable $c={$c} releaseGroups={[edit.display_data.new]} />
+        <ReleaseGroupListTable
+          $c={$c}
+          releaseGroups={[edit.display_data.new]}
+        />
       </td>
     </tr>
   </table>

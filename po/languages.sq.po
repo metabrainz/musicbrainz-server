@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-26 20:58+0000\n"
+"PO-Revision-Date: 2020-10-19 14:01+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -822,7 +822,7 @@ msgstr ""
 msgid "German, Middle High (ca.1050-1500)"
 msgstr ""
 
-#. frequency:0 iso_code_3:goh
+#. frequency:1 iso_code_3:goh
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
 msgstr ""
@@ -1030,6 +1030,11 @@ msgstr ""
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
+msgstr ""
+
+#. frequency:1 iso_code_3:moe
+#: DB:language/name:4369
+msgid "Innu"
 msgstr ""
 
 #. frequency:1 iso_code_3:ina
@@ -1616,11 +1621,6 @@ msgstr ""
 #: DB:language/name:282
 msgid "Mongolian"
 msgstr "Mongolisht"
-
-#. frequency:1 iso_code_3:moe
-#: DB:language/name:4369
-msgid "Montagnais"
-msgstr ""
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283

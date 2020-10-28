@@ -29,7 +29,12 @@ const InstrumentReleases = ({
   pager,
   releases,
 }: Props): React.Element<typeof InstrumentLayout> => (
-  <InstrumentLayout $c={$c} entity={instrument} page="releases" title={l('Releases')}>
+  <InstrumentLayout
+    $c={$c}
+    entity={instrument}
+    page="releases"
+    title={l('Releases')}
+  >
     <h2>{l('Releases')}</h2>
 
     {releases && releases.length > 0 ? (

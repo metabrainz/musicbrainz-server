@@ -8,7 +8,6 @@ use DBDefs;
 use Encode;
 use JSON;
 use Moose::Util qw( does_role );
-use MusicBrainz::Sentry qw( sentry_enabled );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     datetime_to_iso8601
@@ -55,6 +54,7 @@ __PACKAGE__->config(
             boolean_to_json
             comma_list
             comma_only_list
+            form_to_json
         )],
         FILTERS => {
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
@@ -90,8 +90,9 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
     __PACKAGE__->config( using_frontend_proxy => 1 );
 }
 
-if (sentry_enabled) {
-    push @args, 'Sentry';
+unless (DBDefs->CATALYST_DEBUG) {
+    # $c->debug provides its own error pages
+    push @args, 'ErrorInfo';
 }
 
 __PACKAGE__->config->{'Plugin::Cache'}{backend} = DBDefs->PLUGIN_CACHE_OPTIONS;
@@ -433,7 +434,7 @@ around 'finalize_error' => sub {
                 && does_role($errors->[0], 'MusicBrainz::Server::Exceptions::Role::Timeout');
 
         # don't send timeouts to Sentry (log instead)
-        local $Catalyst::Plugin::Sentry::suppress = 1
+        local $Catalyst::Plugin::ErrorInfo::suppress_sentry = 1
             if $timed_out;
 
         $c->$orig(@args);
@@ -448,11 +449,22 @@ around 'finalize_error' => sub {
                 $c->res->{body} = $c->stash->{body};
                 $c->res->{status} = $c->stash->{status};
             } else {
-                $c->res->{body} = 'clear';
+                if (($c->stash->{current_view} // '') eq 'Node') {
+                    # Remove once error pages are converted to React.
+                    $c->stash(current_view => 'Default');
+                }
                 $c->view->process($c);
-                $c->res->{body} = encode('utf-8', $c->res->{body});
-                $c->res->{status} = 503
-                    if $timed_out;
+                # Catalyst::Engine::finalize_error unsets $c->encoding. [1]
+                # We're rendering our own error page here, not using theirs,
+                # so set it back to UTF-8.
+                #
+                # (This issue doesn't manifest when the `ErrorInfo` plugin is
+                # active, because that implements a new `finalize_error`.)
+                #
+                # [1] https://github.com/perl-catalyst/catalyst-runtime/
+                #     blob/5757858/lib/Catalyst/Engine.pm#L253-L259
+                $c->encoding('UTF-8');
+                $c->res->{status} = $timed_out ? 503 : 500;
             }
         }
     });

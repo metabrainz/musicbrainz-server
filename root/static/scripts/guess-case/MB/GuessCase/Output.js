@@ -111,12 +111,16 @@ MB.GuessCase.Output = function (gc) {
 
   // Capitalize the word at the current cursor position.
   self.capitalizeWordAtIndex = function (index, overrideCaps) {
-    overrideCaps = (overrideCaps == null ? flags.context.forceCaps : overrideCaps);
+    overrideCaps = overrideCaps == null
+      ? flags.context.forceCaps
+      : overrideCaps;
     if ((!gc.mode.isSentenceCaps() || overrideCaps) &&
         (!self.isEmpty()) &&
         (self.getWordAtIndex(index) != null)) {
-
-      // Don't capitalize last word before puncuation/end of string in sentence mode.
+      /*
+       * Don't capitalize last word before punctuation/end of string
+       * in sentence mode.
+       */
       const w = self.getWordAtIndex(index);
       let o = w;
 
@@ -137,7 +141,8 @@ MB.GuessCase.Output = function (gc) {
           // Rewind pos pointer on input
           const bef = gc.i.getPos();
           let pos = bef-1;
-          while (pos >= 0 && utils.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
+          while (pos >= 0 &&
+                utils.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
             pos--;
           }
           gc.i.setPos(pos);
@@ -194,7 +199,10 @@ MB.GuessCase.Output = function (gc) {
    */
   self.appendWordPreserveWhiteSpace = function (c) {
     if (c) {
-      var ws = { before: gc.i.isPreviousWord(' '), after: gc.i.isNextWord(' ') };
+      var ws = {
+        after: gc.i.isNextWord(' '),
+        before: gc.i.isPreviousWord(' '),
+      };
       if (c.apply) {
         /*
          * Do not register method, such that this message appears as

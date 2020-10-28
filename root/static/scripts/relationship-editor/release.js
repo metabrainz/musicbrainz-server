@@ -43,12 +43,22 @@ export class ReleaseViewModel extends ViewModel {
 
       recordingMessage: function () {
         var n = this.recordingCount();
-        return '(' + texp.ln('{n} recording selected', '{n} recordings selected', n, { n: n }) + ')';
+        return '(' + texp.ln(
+          '{n} recording selected',
+          '{n} recordings selected',
+          n,
+          {n: n},
+        ) + ')';
       },
 
       workMessage: function () {
         var n = this.workCount();
-        return '(' + texp.ln('{n} work selected', '{n} works selected', n, { n: n }) + ')';
+        return '(' + texp.ln(
+          '{n} work selected',
+          '{n} works selected',
+          n,
+          {n: n},
+        ) + ')';
       },
     };
 
@@ -74,7 +84,9 @@ export class ReleaseViewModel extends ViewModel {
         .filter('.rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)');
 
       if ($changes.length) {
-        event.returnValue = l('All of your changes will be lost if you leave this page.');
+        event.returnValue = l(
+          'All of your changes will be lost if you leave this page.',
+        );
         return event.returnValue;
       }
 
@@ -149,7 +161,11 @@ export class ReleaseViewModel extends ViewModel {
       if (relationship.added()) {
         edits.push(MB.edit.relationshipCreate(editData));
       } else if (relationship.edited()) {
-        edits.push(MB.edit.relationshipEdit(editData, relationship.original, relationship));
+        edits.push(MB.edit.relationshipEdit(
+          editData,
+          relationship.original,
+          relationship,
+        ));
       } else if (relationship.removed()) {
         edits.push(MB.edit.relationshipDelete(editData));
       }
@@ -233,7 +249,8 @@ export class ReleaseViewModel extends ViewModel {
     var sources = UI.checkedRecordings();
 
     if (sources.length > 0) {
-      new UI.BatchRelationshipDialog({ sources: sources, viewModel: this }).open();
+      new UI.BatchRelationshipDialog({sources: sources, viewModel: this})
+        .open();
     }
   }
 
@@ -241,7 +258,8 @@ export class ReleaseViewModel extends ViewModel {
     var sources = UI.checkedWorks();
 
     if (sources.length > 0) {
-      new UI.BatchRelationshipDialog({ sources: sources, viewModel: this }).open();
+      new UI.BatchRelationshipDialog({sources: sources, viewModel: this})
+        .open();
     }
   }
 
@@ -251,7 +269,8 @@ export class ReleaseViewModel extends ViewModel {
     });
 
     if (sources.length > 0) {
-      new UI.BatchCreateWorksDialog({ sources: sources, viewModel: this }).open();
+      new UI.BatchCreateWorksDialog({sources: sources, viewModel: this})
+        .open();
     }
   }
 
@@ -364,7 +383,11 @@ function initCheckboxes(checkboxes) {
     });
   }
 
-  medium(mediumRecordingSelector, recordingCheckboxes, checkboxes.recordingCount);
+  medium(
+    mediumRecordingSelector,
+    recordingCheckboxes,
+    checkboxes.recordingCount,
+  );
   medium(mediumWorkSelector, workCheckboxes, checkboxes.workCount);
 
   _release(mediumRecordingSelector, 'recordings');

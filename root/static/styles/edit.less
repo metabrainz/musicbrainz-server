@@ -151,7 +151,7 @@ table.vote-tally {
     }
 
     /* Adding voting icons to gravatars */
-    h3.No, h3.Yes {
+    h3.Approve, h3.No, h3.Yes {
         position: relative;
 
         .voting-icon {
@@ -161,6 +161,16 @@ table.vote-tally {
             top: 12px;
             left: 17px;
             background-repeat: no-repeat;
+        }
+    }
+
+    h3.Approve {
+        a img {
+            border-color: @yes-border;
+        }
+
+        .voting-icon {
+            background-image: data-uri('../images/icons/tick.png');
         }
     }
 

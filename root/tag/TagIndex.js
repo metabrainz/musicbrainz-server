@@ -46,7 +46,8 @@ function buildSection(
   }
 
   const entityUrlFragment = ENTITIES[entityType].url;
-  const url = '/tag/' + encodeURIComponent(props.tag.name) + '/' + entityUrlFragment;
+  const url = '/tag/' + encodeURIComponent(props.tag.name) +
+              '/' + entityUrlFragment;
 
   return (
     <React.Fragment key={entityType}>

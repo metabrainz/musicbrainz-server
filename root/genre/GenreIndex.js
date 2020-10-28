@@ -22,7 +22,12 @@ const GenreIndex = ({
   $c,
   genre,
 }: Props): React.Element<typeof GenreLayout> => (
-  <GenreLayout $c={$c} entity={genre} page="index" title={l('Genre information')}>
+  <GenreLayout
+    $c={$c}
+    entity={genre}
+    page="index"
+    title={l('Genre information')}
+  >
     <h2>{l('Associated tags')}</h2>
     <table className="details">
       <tr>

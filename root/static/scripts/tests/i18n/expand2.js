@@ -28,8 +28,16 @@ test('expand2', function (t) {
   expandText(null, null, '');
   expandText(undefined, null, '');
   expandText('Some plain text', null, 'Some plain text');
-  expandText('Some &quot;plain&quot; text', null, 'Some &quot;plain&quot; text');
-  expandHtml('Some &quot;plain&quot; text', null, 'Some &quot;plain&quot; text');
+  expandText(
+    'Some &quot;plain&quot; text',
+    null,
+    'Some &quot;plain&quot; text',
+  );
+  expandHtml(
+    'Some &quot;plain&quot; text',
+    null,
+    'Some &quot;plain&quot; text',
+  );
   expandText('An {apple_fruit}', null, 'An {apple_fruit}');
   expandText('An {apple_fruit}', {apple_fruit: 'apple'}, 'An apple');
   expandText('A {number}', {number: 1}, 'A 1');
@@ -157,10 +165,22 @@ test('expand2', function (t) {
 
   expandHtml('<a href="{x}"></a>', {x: '/&'}, '<a href="/&amp;"></a>');
   expandHtml('<a href="{x:%|}"></a>', {x: '/%'}, '<a href="/%"></a>');
-  expandHtml('<a href="/{x:%|}"></a>', {x: '&percnt;'}, '<a href="/&amp;percnt;"></a>');
-  expandHtml('<a href="/<{x:&&percnt;|}"></a>', {x: 'b'}, '<a href="/&lt;&amp;%"></a>');
+  expandHtml(
+    '<a href="/{x:%|}"></a>',
+    {x: '&percnt;'},
+    '<a href="/&amp;percnt;"></a>',
+  );
+  expandHtml(
+    '<a href="/<{x:&&percnt;|}"></a>',
+    {x: 'b'},
+    '<a href="/&lt;&amp;%"></a>',
+  );
 
-  expandHtml('{x:{y|% :)}|{z|:(}}', {x: 'hi', y: 'www'}, '<a href="www">hi :)</a>');
+  expandHtml(
+    '{x:{y|% :)}|{z|:(}}',
+    {x: 'hi', y: 'www'},
+    '<a href="www">hi :)</a>',
+  );
   expandHtml(
     '{x:{y|% :)}|{z|<br class="{zz}" />:(}}',
     {x: '', z: 'https://www', zz: '"<>"'},

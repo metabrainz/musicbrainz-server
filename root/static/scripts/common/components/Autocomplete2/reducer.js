@@ -17,13 +17,17 @@ import {
 import {EMPTY_ARRAY, MENU_ITEMS} from './constants';
 import type {
   Actions,
+  ActionItem,
   EntityItem,
   Item,
   SearchAction,
   State,
 } from './types';
 
-function initSearch(state, action: SearchAction) {
+function initSearch<+T: EntityItem>(
+  state: {...State<T>},
+  action: SearchAction,
+) {
   if (action.indexed !== undefined) {
     state.indexedSearch = action.indexed;
   }
@@ -48,7 +52,7 @@ function initSearch(state, action: SearchAction) {
   state.pendingSearch = searchTerm;
 }
 
-function resetPage(state) {
+function resetPage<+T: EntityItem>(state: {...State<T>}) {
   state.highlightedItem = null;
   state.isOpen = false;
   state.items = EMPTY_ARRAY;
@@ -72,11 +76,14 @@ function selectItem<+T: EntityItem>(
 
   if (item.name !== state.inputValue) {
     state.inputValue = item.name;
-    resetPage(state);
+    resetPage<T>(state);
   }
 }
 
-function showError(state, error) {
+function showError<+T: EntityItem>(
+  state: {...State<T>},
+  error: ActionItem<T>,
+) {
   state.highlightedItem = null;
   state.isOpen = true;
   state.items = [error];
@@ -93,7 +100,7 @@ export function runReducer<+T: EntityItem>(
     case 'change-entity-type': {
       state.entityType = action.entityType;
       state.selectedItem = null;
-      resetPage(state);
+      resetPage<T>(state);
       break;
     }
 
@@ -131,7 +138,7 @@ export function runReducer<+T: EntityItem>(
 
     case 'search-after-timeout':
       state.page = 1;
-      initSearch(state, action);
+      initSearch<T>(state, action);
       break;
 
     case 'select-item':
@@ -143,12 +150,12 @@ export function runReducer<+T: EntityItem>(
       break;
 
     case 'show-lookup-error': {
-      showError(state, MENU_ITEMS.LOOKUP_ERROR);
+      showError<T>(state, MENU_ITEMS.LOOKUP_ERROR);
       break;
     }
 
     case 'show-lookup-type-error': {
-      showError(state, MENU_ITEMS.LOOKUP_TYPE_ERROR);
+      showError<T>(state, MENU_ITEMS.LOOKUP_TYPE_ERROR);
       break;
     }
 
@@ -184,7 +191,7 @@ export function runReducer<+T: EntityItem>(
     }
 
     case 'show-search-error': {
-      showError(state, MENU_ITEMS.SEARCH_ERROR);
+      showError<T>(state, MENU_ITEMS.SEARCH_ERROR);
       state.items = unwrapProxy(state.items).concat(
         state.indexedSearch
           ? MENU_ITEMS.ERROR_TRY_AGAIN_DIRECT
@@ -196,7 +203,7 @@ export function runReducer<+T: EntityItem>(
 
     case 'show-more-results':
       state.page++;
-      initSearch(state, SEARCH_AGAIN);
+      initSearch<T>(state, SEARCH_AGAIN);
       break;
 
     case 'stop-search':
@@ -206,7 +213,7 @@ export function runReducer<+T: EntityItem>(
     case 'toggle-indexed-search':
       state.indexedSearch = !state.indexedSearch;
       state.page = 1;
-      initSearch(state, SEARCH_AGAIN);
+      initSearch<T>(state, SEARCH_AGAIN);
       break;
 
     case 'type-value':
@@ -216,7 +223,7 @@ export function runReducer<+T: EntityItem>(
       state.statusMessage = '';
 
       if (!state.inputValue) {
-        resetPage(state);
+        resetPage<T>(state);
       }
 
       break;

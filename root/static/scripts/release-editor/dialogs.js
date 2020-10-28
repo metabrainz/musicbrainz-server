@@ -8,7 +8,6 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
 import {reduceArtistCredit} from '../common/immutable-entities';
@@ -34,7 +33,8 @@ class Dialog {
 }
 
 
-export const trackParserDialog = releaseEditor.trackParserDialog = new Dialog();
+export const trackParserDialog =
+  releaseEditor.trackParserDialog = new Dialog();
 
 Object.assign(trackParserDialog, {
   element: '#track-parser-dialog',
@@ -276,7 +276,8 @@ class SearchTab {
 SearchTab.prototype.tracksRequestData = {};
 
 
-export const mediumSearchTab = releaseEditor.mediumSearchTab = new SearchTab();
+export const mediumSearchTab =
+  releaseEditor.mediumSearchTab = new SearchTab();
 
 Object.assign(mediumSearchTab, {
   endpoint: '/ws/js/medium',
@@ -356,8 +357,12 @@ Object.assign(addDiscDialog, {
       release.mediums([medium]);
     } else {
       // If there are no mediums, Math.max will return -Infinity.
-      const maxPosition = Math.max(...release.mediums().map(x => x.position()));
-      const nextPosition = Number.isFinite(maxPosition) ? (maxPosition + 1) : 1;
+      const maxPosition = Math.max(
+        ...release.mediums().map(x => x.position()),
+      );
+      const nextPosition = Number.isFinite(maxPosition)
+        ? (maxPosition + 1)
+        : 1;
       medium.position(nextPosition);
       release.mediums.push(medium);
     }

@@ -887,11 +887,14 @@ note-[%- edit.id -%]-[%- loop.count() -%]
 [%- END -%]
 
 [% MACRO votename(note) BLOCK %]
-  [% edit = note.edit %]
+  [%- edit = note.edit -%]
+  [%- is_owner = edit.editor_id == note.editor_id -%]
   [%- FOR vote=edit.votes -%]
-    [%- vote.vote_name IF (vote.editor_id == note.editor_id) && !vote.superseded -%]
+    [%- show_class = (vote.editor_id == note.editor_id) && !vote.superseded -%]
+    [%- vote.vote_name IF show_class -%]
+    [%- ' ' IF show_class && is_owner -%]
   [%- END -%]
-  [%- 'owner' IF edit.editor_id == note.editor_id -%]
+  [%- 'owner' IF is_owner -%]
 [% END %]
 
 [%~ MACRO edit_note_display(edit_note) BLOCK ~%]
@@ -901,7 +904,7 @@ note-[%- edit.id -%]-[%- loop.count() -%]
       [%- FOR vote=note.edit.votes;
         IF (vote.editor_id == note.editor_id) &&
            !vote.superseded &&
-           (vote.vote_name == 'No' || vote.vote_name == 'Yes');
+           (vote.vote_name == 'Approve' || vote.vote_name == 'No' || vote.vote_name == 'Yes');
         '<div class="voting-icon"></div>'; LAST;
       END; END; -%]
       <a href="#[% note_anchor(note.edit, loop) %]" class="date">[%- UserDate.format(note.post_time) -%]</a>

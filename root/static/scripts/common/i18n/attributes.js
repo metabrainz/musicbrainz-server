@@ -18,6 +18,9 @@ export const ln_attributes: (string, string, number) => string =
 export const lp_attributes: (string, string) => string =
   wrapGettext.dpgettext('attributes');
 
-export const N_lp_attributes = (key: string, context: string): (() => string) => (
+export const N_lp_attributes = (
+  key: string,
+  context: string,
+): (() => string) => (
   () => lp_attributes(key, context)
 );

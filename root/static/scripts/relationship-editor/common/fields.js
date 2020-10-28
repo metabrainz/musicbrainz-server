@@ -19,7 +19,8 @@ import mbEntity from '../../common/entity';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
 import deepEqual from '../../common/utility/deepEqual';
-import {displayLinkAttributesText} from '../../common/utility/displayLinkAttribute';
+import {displayLinkAttributesText}
+  from '../../common/utility/displayLinkAttribute';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
 import request from '../../common/utility/request';
@@ -500,13 +501,17 @@ class Relationship {
   }
 
   showLinkOrder(source) {
-    return this.linkOrder() > 0 && this.entityCanBeReordered(this.target(source));
+    return this.linkOrder() > 0 &&
+           this.entityCanBeReordered(this.target(source));
   }
 
   htmlWithLinkOrder(entity) {
     return texp.l('{num}. {relationship}', {
       num: this.linkOrder(),
-      relationship: entity.html({target: '_blank', creditedAs: this.creditField(entity)()}),
+      relationship: entity.html({
+        creditedAs: this.creditField(entity)(),
+        target: '_blank',
+      }),
     });
   }
 
@@ -528,7 +533,10 @@ class Relationship {
     var entity1 = mbEntity(entities[1]);
 
     return (
-      '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
+      '/search/edits?auto_edit_filter=' +
+      '&order=desc' +
+      '&negation=0' +
+      '&combinator=and' +
       `&conditions.0.field=${encodeURIComponent(entity0.entityType)}` +
       '&conditions.0.operator=%3D' +
       `&conditions.0.name=${encodeURIComponent(entity0.name)}` +
@@ -538,9 +546,14 @@ class Relationship {
       `&conditions.1.name=${encodeURIComponent(entity1.name)}` +
       `&conditions.1.args.0=${encodeURIComponent(entity1.id)}` +
       '&conditions.2.field=type' +
-      '&conditions.2.operator=%3D&conditions.2.args=90%2C233&conditions.2.args=91' +
-      '&conditions.2.args=92&conditions.3.field=status&conditions.3.operator=%3D' +
-      '&conditions.3.args=1&field=Please+choose+a+condition'
+      '&conditions.2.operator=%3D' +
+      '&conditions.2.args=90%2C233' +
+      '&conditions.2.args=91' +
+      '&conditions.2.args=92' +
+      '&conditions.3.field=status' +
+      '&conditions.3.operator=%3D' +
+      '&conditions.3.args=1' +
+      '&field=Please+choose+a+condition'
     );
   }
 
@@ -643,7 +656,8 @@ function linkTypeComparer(a, b) {
 
 function setPartialDate(target, data) {
   for (const key of ['year', 'month', 'day']) {
-    (target[key] = target[key] || ko.observable())(ko.unwrap(data[key]) || null);
+    (target[key] = target[key] ||
+                   ko.observable())(ko.unwrap(data[key]) || null);
   }
   return target;
 }

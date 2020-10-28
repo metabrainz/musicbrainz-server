@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-15 07:17+0000\n"
-"PO-Revision-Date: 2020-10-15 07:33+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-10-22 11:44+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1704,7 +1704,7 @@ msgid ""
 "Edit notes support {doc_formatting|a limited set of wiki formatting "
 "options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
 "writing edit notes!"
-msgstr ""
+msgstr "Toimetusmärgetes saab kasutada {doc_formatting|piiratud hulka wikivormindusvalikuid}. Toimetusmärkeid kirjutades järgi palun alati {doc_coc|käitumiskoodeksit}!"
 
 #: ../root/admin/edit_user.tt:36
 msgid "Edit profile"
@@ -1866,7 +1866,7 @@ msgstr "Viga: tundmatu tüüp"
 msgid ""
 "Even just providing a URL or two is helpful! For more suggestions, see "
 "{doc_how_to|our guide for writing good edit notes}."
-msgstr ""
+msgstr "Isegi lihtsalt üks-kaks internetiaadressi on abiks! Lisasoovituste saamiseks vaata {doc_how_to|juhiseid heade toimetusmärgete kirjutamiseks}."
 
 #: ../root/components/common-macros.tt:580 ../root/edit/search_macros.tt:386
 #: ../lib/MusicBrainz/Server/Edit/Event.pm:7
@@ -2904,7 +2904,7 @@ msgstr "Mestimisstrateegia:"
 
 #: ../root/user/contact.tt:13 ../root/user/ReportUser.js:145
 msgid "Message"
-msgstr ""
+msgstr "Sõnum"
 
 #: ../root/cdstub/browse.tt:11
 msgid "Modify count"
@@ -5769,7 +5769,7 @@ msgstr "Hetkel on mestimiseks valitud järgnev:"
 msgid ""
 "You have used the {valink|Various Artists} special purpose artist on this "
 "recording."
-msgstr "Oled selle salvestise jaoks kasutanud eriotstarbelist artisti „{valink|Erinevad esitajad}”."
+msgstr "Oled selle salvestise jaoks kasutanud eriotstarbelist artisti „{valink|erinevad esitajad}”."
 
 #: ../root/release/edit/information.tt:30
 msgid "You haven’t entered a complete artist credit."
@@ -5901,7 +5901,7 @@ msgid ""
 "You’ve used the {valink|Various Artists} special purpose artist on some "
 "tracks below. {valink|Various Artists} should very rarely be used on tracks;"
 " please make sure the artists have been entered correctly."
-msgstr "Oled mõne alloleva loo jaoks kasutanud eriotstarbelist artisti „{valink|Erinevad esitajad}”. Lugude puhul sobib see väga harva, seega palun vaata, et artistid oleks õigesti sisestatud."
+msgstr "Oled mõne alloleva loo jaoks kasutanud eriotstarbelist artisti „{valink|erinevad esitajad}”. Lugude puhul sobib see väga harva, seega palun vaata, et artistid oleks õigesti sisestatud."
 
 #: ../root/edit/details/merge_releases.tt:5
 #: ../root/components/list/ReleaseList.js:82
@@ -5953,7 +5953,7 @@ msgstr "kohetoimetusi"
 
 #: ../root/components/common-macros.tt:635
 msgid "automatically applied"
-msgstr "Automaatselt rakendatud"
+msgstr "automaatselt rakendatud"
 
 #: ../root/edit/search_macros.tt:164
 msgid "before"
@@ -6328,7 +6328,7 @@ msgstr "{entity_type} ~ {artist}"
 #: ../root/static/scripts/common/components/DescriptiveLink.js:52
 #: ../root/static/scripts/release-editor/dialogs.js:152
 msgid "{entity} by {artist}"
-msgstr "„{entity}”, esitaja: {artist}"
+msgstr "„{entity}”, artist: {artist}"
 
 #: ../root/entity/collections.tt:4
 msgid "{entity} has been added to {num} collection:"
@@ -8037,27 +8037,27 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:30
 #: ../root/user/ReportUser.js:48
 msgid "Editor is unresponsive to edit notes"
-msgstr ""
+msgstr "toimetaja ei vasta toimetusmärgetele"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:31
 #: ../root/user/ReportUser.js:52
 msgid "Editor intentionally ignores accepted guidelines"
-msgstr ""
+msgstr "toimetaja eirab vastuvõetud juhiseid sihilikult"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:32
 #: ../root/user/ReportUser.js:56
 msgid "Editor is overzealous in enforcing guidelines as rules"
-msgstr ""
+msgstr "toimetaja on liiga agar juhiseid reeglitena peale suruma"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:33
 #: ../root/user/ReportUser.js:60
 msgid "Editor engages in overzealous or abusive yes/no voting"
-msgstr ""
+msgstr "toimetaja väärkasutab hääletussüsteemi"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:34
 #: ../root/user/ReportUser.js:65
 msgid "Editor has violated some other part of our Code of Conduct"
-msgstr ""
+msgstr "toimetaja on rikkunud mõnda muud käitumiskoodeksi põhimõtet"
 
 #: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:36
 msgid "A day"
@@ -8909,7 +8909,7 @@ msgstr "Näidatakse eri esitajatega väljalaskeid. {show_subset|Näita selle art
 
 #: ../root/artist/ArtistReleases.js:90
 msgid "This search only found releases by various artists."
-msgstr ""
+msgstr "Selle otsingu peale leiti ainult „erinevate esitajate” väljalaskeid."
 
 #: ../root/artist/ArtistReleases.js:92
 msgid "This artist only has releases by various artists."
@@ -9259,26 +9259,26 @@ msgstr "Kasutaja muutmine"
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva pärast</span>"
+msgstr[1] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva pärast</span>"
 
 #: ../root/components/VotingPeriod.js:46
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni pärast</span>"
+msgstr[1] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni pärast</span>"
 
 #: ../root/components/VotingPeriod.js:55
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti pärast</span>"
+msgstr[1] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti pärast</span>"
 
 #: ../root/components/VotingPeriod.js:63
 msgid "About to close"
-msgstr ""
+msgstr "lõppemas"
 
 #: ../root/components/list/ArtistList.js:66
 #: ../root/search/components/ArtistResults.js:51
@@ -9440,7 +9440,7 @@ msgstr "Suletud:"
 
 #: ../root/edit/components/EditSidebar.js:64
 msgid "For quicker closing"
-msgstr ""
+msgstr "Kiirema sulgemise eeldus"
 
 #: ../root/edit/components/EditSidebar.js:67
 msgid "1 vote"
@@ -9450,7 +9450,7 @@ msgstr[1] "{n} üksmeelset häält"
 
 #: ../root/edit/components/EditSidebar.js:76
 msgid "If no votes cast"
-msgstr ""
+msgstr "Häälteta jäämise korral"
 
 #: ../root/edit/components/EditSidebar.js:85
 msgid "Raw edit data for this edit"
@@ -9760,7 +9760,7 @@ msgstr ""
 msgid ""
 "This edit was a \"Merge Releases (Various Artists)\" edit which additionally"
 " set the release artist to Various Artists."
-msgstr "See toimetus mestis eri esitajate väljalasked ja lisaks määras väljalaskeartistiks eri esitajad."
+msgstr "See toimetus mestis eri esitajate väljalasked ja lisaks määras väljalaskeartistiks „erinevad esitajad”."
 
 #: ../root/edit/details/historic/MoveRelease.js:37
 msgid "Change track artists:"
@@ -10209,8 +10209,8 @@ msgstr "{link} on ilma hinneteta."
 msgid "There is currently {num} user subscribed to edits that you make:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that you make:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hetkel on {num} kasutaja, kes jälgib sinu toimetusi:"
+msgstr[1] "Hetkel on {num} kasutajat, kes jälgivad sinu toimetusi:"
 
 #: ../root/entity/Subscribers.js:65
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
@@ -10222,14 +10222,14 @@ msgstr[1] "Hetkel on {num} kasutajat, kes jälgivad toimetusi, mida {user} teeb:
 #: ../root/entity/Subscribers.js:78
 msgid "There is currently {num} user subscribed to {entity}:"
 msgid_plural "There are currently {num} users subscribed to {entity}:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{entity} on hetkel {num} kasutaja jälgimisloendis:"
+msgstr[1] "{entity} on hetkel {num} kasutaja jälgimisloendis:"
 
 #: ../root/entity/Subscribers.js:97
 msgid "Plus {n} other anonymous user"
 msgid_plural "Plus {n} other anonymous users"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Lisaks {n} anonüümne toimetaja"
+msgstr[1] "Lisaks {n} anonüümset toimetajat"
 
 #: ../root/entity/Subscribers.js:107
 msgid "An anonymous user"
@@ -10291,7 +10291,7 @@ msgstr ""
 #: ../root/genre/GenreHeader.js:31 ../root/search/components/TagResults.js:53
 #: ../root/tag/TagIndex.js:80
 msgid "Genre"
-msgstr ""
+msgstr "Muusikastiil"
 
 #: ../root/genre/GenreIndex.js:25
 msgid "Genre information"
@@ -10796,7 +10796,7 @@ msgstr[1] "Leidub {num} kasutaja kogus"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:52
 msgid "Other collections"
-msgstr "Muud kogud"
+msgstr "Teiste kogud"
 
 #: ../root/layout/components/sidebar/CollectionList.js:77
 msgid "Remove from {collection}"
@@ -10954,7 +10954,7 @@ msgstr "Toimeta seoseid"
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:289
 msgid "Change data quality"
-msgstr ""
+msgstr "Muuda andmekvaliteeti"
 
 #: ../root/layout/components/sidebar/SeriesSidebar.js:45
 msgid "Series information"
@@ -11855,7 +11855,7 @@ msgstr "See aruanne loetleb väljalasked, millega seostatud Amazoni URL-id ei j�
 #: ../root/report/BadAmazonUrls.js:82
 #: ../root/report/components/UrlRelationshipList.js:48
 msgid "This URL no longer exists."
-msgstr ""
+msgstr "Seda URL-i pole enam olemas."
 
 #: ../root/report/BadAmazonUrls.js:88 ../root/report/CatNoLooksLikeAsin.js:83
 #: ../root/report/CatNoLooksLikeLabelCode.js:88
@@ -11913,7 +11913,7 @@ msgstr ""
 #: ../root/report/CollaborationRelationships.js:32
 #: ../root/report/CollaborationRelationships.js:33
 msgid "Artists with collaboration relationships"
-msgstr ""
+msgstr "Artistid koostöö-seostega"
 
 #: ../root/report/CollaborationRelationships.js:38
 msgid ""
@@ -11962,7 +11962,7 @@ msgstr "Plaadifirmad iganenud seostega"
 msgid ""
 "This report lists labels which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr ""
+msgstr "See aruanne loetleb plaadifirmad, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:27
 #: ../root/report/DeprecatedRelationshipPlaces.js:28
@@ -11974,7 +11974,7 @@ msgstr "Kohad iganenud seostega"
 msgid ""
 "This report lists places which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr ""
+msgstr "See aruanne loetleb kohad, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:29
 #: ../root/report/DeprecatedRelationshipRecordings.js:30
@@ -11986,19 +11986,19 @@ msgstr "Salvestised iganenud seostega"
 msgid ""
 "This report lists recordings which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr ""
+msgstr "See aruanne loetleb salvestised, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:29
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:30
 #: ../root/report/ReportsIndex.js:198
 msgid "Release groups with deprecated relationships"
-msgstr ""
+msgstr "Väljalaskerühmad iganenud seostega"
 
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:34
 msgid ""
 "This report lists release groups which have relationships using deprecated "
 "and grouping-only relationship types."
-msgstr ""
+msgstr "See aruanne loetleb väljalaskerühmad, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipReleases.js:28
 #: ../root/report/DeprecatedRelationshipReleases.js:29
@@ -12010,7 +12010,7 @@ msgstr "Väljalasked iganenud seostega"
 msgid ""
 "This report lists releases which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipUrls.js:27
 #: ../root/report/DeprecatedRelationshipUrls.js:28
@@ -12022,7 +12022,7 @@ msgstr "URL-id iganenud seostega"
 msgid ""
 "This report lists URLs which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr ""
+msgstr "See aruanne loetleb URL-id, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipUrls.js:36
 msgid "Total URLs found: {count}"
@@ -12038,7 +12038,7 @@ msgstr "Teosed iganenud seostega"
 msgid ""
 "This report lists works which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr ""
+msgstr "See aruanne loetleb teosed, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DiscogsLinksWithMultipleArtists.js:27
 #: ../root/report/DiscogsLinksWithMultipleArtists.js:28
@@ -12259,7 +12259,7 @@ msgid ""
 "guidelines}. For non-classical release groups, this is usually inherited "
 "from an older version of MusicBrainz and should be fixed. Consult the "
 "{featured_artists|page about featured artists} to know more."
-msgstr ""
+msgstr "See aruanne loetleb väljalaskerühmad, mille pealkirjas on „(feat. Artist)” vmt. Klassikalise muusika puhul pea nõu {CSG|klassikalise muusika stiilijuhistega}. Kõige muu puhul pärineb see aga üldjuhul MusicBrainzi varasemast versioonist ja tuleks ära parandada. Lisateavet saad {featured_artists|lehelt kaasa tegevate artistide kohta}."
 
 #: ../root/report/FeaturingReleases.js:30
 #: ../root/report/FeaturingReleases.js:32 ../root/report/ReportsIndex.js:295
@@ -12329,7 +12329,7 @@ msgstr "Leitud ISRC-sid: {count}"
 #: ../root/report/components/RecordingList.js:52
 #: ../root/report/components/RecordingRelationshipList.js:82
 msgid "This recording no longer exists."
-msgstr ""
+msgstr "Seda salvestist pole enam olemas."
 
 #: ../root/report/IswcsWithManyWorks.js:33
 #: ../root/report/IswcsWithManyWorks.js:34 ../root/report/ReportsIndex.js:569
@@ -12351,7 +12351,7 @@ msgstr "Leitud ISWC-sid: {count}"
 #: ../root/report/components/WorkList.js:42
 #: ../root/report/components/WorkRelationshipList.js:46
 msgid "This work no longer exists."
-msgstr ""
+msgstr "Seda teost pole enam olemas."
 
 #: ../root/report/LabelsDisambiguationSameName.js:30
 #: ../root/report/LabelsDisambiguationSameName.js:32
@@ -12391,7 +12391,7 @@ msgstr "See aruanne loetleb kõik väljalasked, kus helikandjanumbrid pole järj
 
 #: ../root/report/MultipleAsins.js:27 ../root/report/MultipleAsins.js:28
 msgid "Releases with multiple ASINs"
-msgstr ""
+msgstr "Väljalasked mitme ASIN-iga"
 
 #: ../root/report/MultipleAsins.js:32
 msgid ""
@@ -12405,7 +12405,7 @@ msgstr "See aruanne loetleb väljalasked, mis on lingitud mitme Amazoni ASIN-iga
 #: ../root/report/MultipleDiscogsLinks.js:27
 #: ../root/report/MultipleDiscogsLinks.js:28
 msgid "Releases with multiple Discogs links"
-msgstr ""
+msgstr "Väljalasked mitme Discogsi-lingiga"
 
 #: ../root/report/MultipleDiscogsLinks.js:33
 msgid ""
@@ -12444,7 +12444,7 @@ msgstr "See aruanne loetleb väljalasked, millel on kirjasüsteem määramata. K
 #: ../root/report/PartOfSetRelationships.js:27
 #: ../root/report/PartOfSetRelationships.js:28
 msgid "Releases with “part of set” relationships"
-msgstr ""
+msgstr "Väljalasked, millel on „osa komplektist” seoseid"
 
 #: ../root/report/PartOfSetRelationships.js:33
 msgid ""
@@ -12474,7 +12474,7 @@ msgstr "Koordinaatide otsimine"
 #: ../root/report/components/PlaceAnnotationList.js:44
 #: ../root/report/components/PlaceRelationshipList.js:46
 msgid "This place no longer exists."
-msgstr ""
+msgstr "Seda kohta pole enam olemas."
 
 #: ../root/report/PossibleCollaborations.js:27
 #: ../root/report/PossibleCollaborations.js:28
@@ -12652,7 +12652,7 @@ msgstr ""
 #: ../root/report/components/ReleaseGroupRelationshipList.js:64
 #: ../root/report/components/ReleaseGroupUrlList.js:73
 msgid "This release group no longer exists."
-msgstr ""
+msgstr "Seda väljalaskerühma pole enam olemas."
 
 #: ../root/report/ReleasedTooEarly.js:27 ../root/report/ReleasedTooEarly.js:28
 #: ../root/report/ReportsIndex.js:300
@@ -12735,7 +12735,7 @@ msgid ""
 "artists (because the track artists are on the title field, for example). "
 "Currently it does this by looking for releases where every track contains "
 "\"/\" or \"-\"."
-msgstr "Selle aruande eesmärk on tuvastada väljalasked, mis tuleks teisendada mitme esitaja alla (nt kuna lugude esitajad on pealkirjaväljal). Hetkel näidatakse siin kõiki väljalaskeid, millel on iga loo pealkirjas „/” või „-”."
+msgstr "Selle aruande eesmärk on tuvastada väljalasked, mis tuleks teisendada mitme artisti alla (nt kuna lugude esitajad on pealkirjaväljal). Hetkel näidatakse siin kõiki väljalaskeid, millel on iga loo pealkirjas „/” või „-”."
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:30
 #: ../root/report/ReleasesWithCaaNoTypes.js:34
@@ -12760,7 +12760,7 @@ msgstr "Mittedigitaalsed väljalasked, millel on allalaadimisseos"
 msgid ""
 "This report shows releases that have download relationships, but have media "
 "whose format is not “Digital Media”."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel on allalaadimisseoseid, aga mille helikandja formaat ei ole „audiofailid”."
 
 #: ../root/report/ReleasesWithNoMediums.js:27
 #: ../root/report/ReleasesWithNoMediums.js:28
@@ -12770,7 +12770,7 @@ msgstr "Ilma helikandjateta väljalasked"
 
 #: ../root/report/ReleasesWithNoMediums.js:32
 msgid "This report shows releases without any mediums (no tracklist)."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel pole ühtki helikandjat (ega seega lugude nimekirja)."
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:27
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:28
@@ -12957,7 +12957,7 @@ msgstr "ISWC-d"
 
 #: ../root/report/SeparateDiscs.js:27 ../root/report/SeparateDiscs.js:28
 msgid "Discs as separate releases"
-msgstr ""
+msgstr "Plaadid eraldi väljalasetena"
 
 #: ../root/report/SeparateDiscs.js:33
 msgid ""
@@ -12993,7 +12993,7 @@ msgstr "See aruanne loetleb väljalasked, mille ainsale helikandjale on sisestat
 
 #: ../root/report/SomeFormatsUnset.js:27 ../root/report/SomeFormatsUnset.js:28
 msgid "Releases with some formats unset"
-msgstr ""
+msgstr "Väljalasked osaliselt määramata formaatidega"
 
 #: ../root/report/SomeFormatsUnset.js:32
 msgid ""
@@ -13046,7 +13046,7 @@ msgstr "See aruanne loetleb kõik väljalasked, kus vähemalt ühel lool on pikk
 #: ../root/report/UnlinkedPseudoReleases.js:27
 #: ../root/report/UnlinkedPseudoReleases.js:28
 msgid "Unlinked pseudo-releases"
-msgstr ""
+msgstr "Linkimata pseudoväljalasked"
 
 #: ../root/report/UnlinkedPseudoReleases.js:32
 msgid ""
@@ -13054,7 +13054,7 @@ msgid ""
 " the translation/transliteration relationship to an original version. This "
 "could be because the original version is missing, or just because the "
 "release status is wrongly set."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, mille staatuseks on märgitud pseudoväljalase, kuid mis pole tõlke-/translitereeringuseose kaudu algse väljalaskega seostatud. Põhjuseks võib olla puuduv algne väljalase või valesti määratud väljalaske staatus."
 
 #: ../root/report/components/ArtistAnnotationList.js:33
 #: ../root/report/components/LabelAnnotationList.js:32
@@ -13090,18 +13090,18 @@ msgstr "Asukoht"
 
 #: ../root/report/components/EventList.js:73
 msgid "This event no longer exists."
-msgstr ""
+msgstr "Seda sündmust pole enam olemas."
 
 #: ../root/report/components/InstrumentList.js:63
 msgid "This instrument no longer exists."
-msgstr ""
+msgstr "Seda instrumenti pole enam olemas."
 
 #: ../root/report/components/LabelAnnotationList.js:44
 #: ../root/report/components/LabelList.js:40
 #: ../root/report/components/LabelRelationshipList.js:46
 #: ../root/report/components/LabelUrlList.js:65
 msgid "This label no longer exists."
-msgstr ""
+msgstr "Seda plaadifirmat pole enam olemas."
 
 #: ../root/report/components/ReleaseList.js:41
 msgid "Language/Script"
@@ -13109,7 +13109,7 @@ msgstr ""
 
 #: ../root/report/components/SeriesAnnotationList.js:44
 msgid "This series no longer exists."
-msgstr ""
+msgstr "Seda seeriat pole enam olemas."
 
 #: ../root/report/constants.js:11
 msgid ""
@@ -13146,7 +13146,7 @@ msgstr "Võid ka {uri|lisada uue sündmuse}."
 
 #: ../root/search/components/InstrumentResults.js:59
 msgid "Alternatively, you may {uri|add a new instrument}."
-msgstr ""
+msgstr "Võid ka {uri|lisada uue instrumendi}."
 
 #: ../root/search/components/LabelResults.js:76
 msgid "Alternatively, you may {uri|add a new label}."
@@ -13551,7 +13551,7 @@ msgstr "Artist: {artist}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:293
 msgid "{first_list_item} … {last_list_item}"
-msgstr ""
+msgstr "{first_list_item} … {last_list_item}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:173
 msgid ""
@@ -13820,7 +13820,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/i18n/semicolonOnlyList.js:25
 msgid "{semicolon_only_list_item}; {rest}"
-msgstr ""
+msgstr "{semicolon_only_list_item}; {rest}"
 
 #: ../root/static/scripts/common/utility/bracketed.js:19
 msgid "[{text}]"
@@ -14586,7 +14586,7 @@ msgid ""
 "screen disappear for 3 months. Or even better, sign up for a recurring "
 "donation every three months to not have to think about or see this nag "
 "again."
-msgstr ""
+msgstr "Kui annetad <strong>4 $</strong>, ei tüüdata sind selle tekstiga <b>kuu aega</b>. Julgustame aga annetama 12 $,  et tüütamiskuva ei näidataks kolm kuud. Või veelgi parem, sea sisse iga kolme kuu tagant korduv annetus ja sa ei pea enam tüütamisele mõtlema ega seda nägema."
 
 #: ../root/taglookup/Nag.js:44
 msgid "Make a donation now!"
@@ -14624,7 +14624,7 @@ msgstr "URL-i üksikasjad"
 
 #: ../root/user/PrivilegedUsers.js:37 ../root/user/PrivilegedUsers.js:39
 msgid "Privileged user accounts"
-msgstr ""
+msgstr "Eriõigustega kasutajad"
 
 #: ../root/user/PrivilegedUsers.js:41
 msgid "Auto-editors"
@@ -14652,7 +14652,7 @@ msgid ""
 "the database. If you would like to propose a new relationship, you must "
 "follow our {url|proposal system}. Relationship editors will only make "
 "changes that have been accepted through the proposal system."
-msgstr ""
+msgstr "Seosetoimetajad on kasutajad, kes saavad lisada või muuta seosetüüpe andmebaasis. Kui tahaksid välja pakkuda uue seose, siis palun tee seda läbi {url|ettepanekusüsteemi}. Seosetoimetajad viivad sisse vaid muudatusi, mis on ettepanekusüsteemis heaks kiidetud."
 
 #: ../root/user/PrivilegedUsers.js:73
 msgid "The following {count} users are relationship editors:"
@@ -14720,7 +14720,7 @@ msgstr "Järgmised {count} kasutajakontot on botid:"
 
 #: ../root/user/ReportUser.js:81 ../root/user/ReportUser.js:83
 msgid "Report User"
-msgstr ""
+msgstr "Halvasti käituvast kasutajast teatamine"
 
 #: ../root/user/ReportUser.js:88
 msgid ""
@@ -14731,13 +14731,13 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:99
 msgid "Please review our {uri|Code of Conduct} before sending a report."
-msgstr ""
+msgstr "Enne kaebamist loe palun läbi meie {uri|käitumiskoodeks}."
 
 #: ../root/user/ReportUser.js:107
 msgid ""
 "Your report will be sent to our {uri|account administrators}, who will "
 "decide what action to take."
-msgstr ""
+msgstr "Kaebus saadetakse meie {uri|kontoadministraatoritele}, kes otsustavad, mida ette võtta."
 
 #: ../root/user/ReportUser.js:117
 msgid ""
@@ -14753,7 +14753,7 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:137
 msgid "Reason"
-msgstr ""
+msgstr "Põhjus"
 
 #: ../root/user/ReportUser.js:155
 msgid ""
@@ -14842,7 +14842,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:42
 msgid "Deleted User"
-msgstr "Kustutatud kasutaja"
+msgstr "kustutatud kasutaja"
 
 #: ../root/user/UserProfile.js:46
 msgid "{doc|Auto-Editor}"
@@ -14868,7 +14868,7 @@ msgstr "{doc|piirkonnatoimetaja}"
 msgid ""
 "User accounts must be more than 2 weeks old, have a verified email address, "
 "and more than 10 accepted edits in order to vote on others' edits."
-msgstr ""
+msgstr "Teiste toimetuste hääletamiseks peab konto olema vähemalt 2 nädalat vana ja sel peab olema kinnitatud e-posti aadress ning üle 10 vastuvõetud toimetuse."
 
 #: ../root/user/UserProfile.js:81
 msgid "Beginner"
@@ -14890,7 +14890,7 @@ msgstr "projekti alguspäevil"
 msgid ""
 "Your homepage and biography will not show until you have completed the email"
 " verification process."
-msgstr ""
+msgstr "Sinu veebisaiti ja enesetutvustust ei näidata enne, kui oled kinnitanud oma e-posti."
 
 #: ../root/user/UserProfile.js:157
 msgid "General Information"
@@ -15000,11 +15000,11 @@ msgstr "Vastuvõetud"
 
 #: ../root/user/UserProfile.js:485
 msgid "Auto-edits"
-msgstr "Kohetoimetused"
+msgstr "Kohetoimetusi"
 
 #: ../root/user/UserProfile.js:495
 msgid "Total applied"
-msgstr ""
+msgstr "Rakendatud toimetusi kokku"
 
 #: ../root/user/UserProfile.js:505
 msgid "Voted down"
@@ -15044,7 +15044,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:713
 msgid "Report this user for bad behavior"
-msgstr ""
+msgstr "Teata halvasti käituvast kasutajast"
 
 #: ../root/user/UserSubscriptions.js:20
 msgid "Artist Subscriptions"
@@ -15144,11 +15144,11 @@ msgstr[1] "{num} päeva"
 
 #: ../root/utility/edit.js:28
 msgid "Accept upon closing"
-msgstr ""
+msgstr "aegumisel rakendatakse"
 
 #: ../root/utility/edit.js:29
 msgid "Reject upon closing"
-msgstr ""
+msgstr "aegumisel hüljatakse"
 
 #: ../root/utility/edit.js:54
 msgid "This edit is open for voting."

@@ -83,7 +83,9 @@ function searchAndClick(t, $input, $menu, itemToClick) {
   clickOnMenuItem($input, $menu, itemToClick);
 }
 
-autocompleteTest('clicking on actions should not close the menu (MBS-6912)', function (t, $input, $menu) {
+autocompleteTest((
+  'clicking on actions should not close the menu (MBS-6912)'
+), function (t, $input, $menu) {
   t.plan(2);
 
   searchAndClick(t, $input, $menu, ':contains(Show more...)');
@@ -91,17 +93,24 @@ autocompleteTest('clicking on actions should not close the menu (MBS-6912)', fun
   t.ok($menu.is(':visible'), 'menu is still open after clicking show more');
 });
 
-autocompleteTest('clicking on actions should not prevent the menu from ever closing (MBS-6978)', function (t, $input, $menu) {
+autocompleteTest((
+  'clicking on actions should not prevent the menu from ever closing (MBS-6978)'
+), function (t, $input, $menu) {
   t.plan(2);
 
   searchAndClick(t, $input, $menu, ':contains(Show more...)');
 
   blurAutocomplete($input);
 
-  t.ok($menu.is(':hidden'), 'menu is hidden after blurring the autocomplete');
+  t.ok(
+    $menu.is(':hidden'),
+    'menu is hidden after blurring the autocomplete',
+  );
 });
 
-autocompleteTest('multiple searches should not prevent clicks on the menu (MBS-7080)', function (t, $input, $menu) {
+autocompleteTest((
+  'multiple searches should not prevent clicks on the menu (MBS-7080)'
+), function (t, $input, $menu) {
   t.plan(3);
 
   searchAndClick(t, $input, $menu, ':eq(0)');

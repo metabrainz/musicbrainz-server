@@ -12,6 +12,7 @@
 </div>
 
 [% script_manifest('edit.js') %]
+[% script_manifest('recording/form.js', {async => 'async'}) %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Recording'), doc_styleguide => doc_link('Style/Recording')}) -%]</p>
 
@@ -21,7 +22,9 @@
   <div class="half-width">
     <fieldset>
       <legend>[% l('Recording Details') %]</legend>
-      [%- form_row_name_with_guesscase(r, { guessfeat => 1 }) -%]
+      [% React.embed(c, 'static/scripts/recording/RecordingName', {
+           field => form_to_json(form.field('name')),
+         }) %]
       <div id="artist-credit-editor"></div>
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
       [%- IF !form.used_by_tracks || form.field('length').has_errors -%]
@@ -53,10 +56,7 @@
   <div class="documentation">
     [%- isrc_bubble(link_entity(recording)) -%]
   </div>
-
 </form>
-
-[%- guesscase_options() -%]
 
 <script type="text/javascript">
   $(function () {
@@ -64,7 +64,6 @@
       [% closing_tag_escape(form.to_encoded_json) %],
       [% closing_tag_escape(form.field('artist_credit').json) %]
     );
-    MB.Control.initializeGuessCase("recording", "id-edit-recording");
     MB.Control.initGuessFeatButton('edit-recording');
     MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
   });

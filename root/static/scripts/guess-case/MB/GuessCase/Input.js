@@ -117,7 +117,8 @@ MB.GuessCase.Input = function (gc) {
 
   // Index methods
   self.hasMoreWords = function () {
-    return (self._wi == 0 && self.getLength() > 0 || self._wi-1 < self.getLength());
+    return (self._wi == 0 && self.getLength() > 0 ||
+            self._wi-1 < self.getLength());
   };
 
   self.isIndexAtEnd = function () {
@@ -201,7 +202,8 @@ MB.GuessCase.Input = function (gc) {
          * See http://www.codingforums.com/archive/index.php/t-49001
          * for reference (escaping the sequence)
          */
-        word.push(chars[i]); // greedy match anything except our stop characters
+        // greedy match anything except our stop characters
+        word.push(chars[i]);
       } else {
         if (word.length > 0) {
           splitwords.push(word.join(''));

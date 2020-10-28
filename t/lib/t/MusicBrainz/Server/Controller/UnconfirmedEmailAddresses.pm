@@ -324,6 +324,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Report::index",
   "Controller::Report::show",
   "Controller::Root::default",
+  "Controller::Root::die_die_die",
   "Controller::Root::index",
   "Controller::Root::set_beta_preference",
   "Controller::Root::set_language",

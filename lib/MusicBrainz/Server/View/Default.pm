@@ -45,4 +45,9 @@ sub comma_only_list {
     MusicBrainz::Server::Translation::comma_only_list(@$items);
 }
 
+sub form_to_json {
+    my ($self, $c, $form_or_field) = @_;
+    MusicBrainz::Server::Form::Role::ToJSON::TO_JSON($form_or_field);
+}
+
 1;
