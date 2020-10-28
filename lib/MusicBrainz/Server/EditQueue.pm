@@ -2,7 +2,7 @@ package MusicBrainz::Server::EditQueue;
 
 use Moose;
 use DBDefs;
-use MusicBrainz::Sentry qw( capture_exceptions );
+use MusicBrainz::Errors qw( capture_exceptions );
 use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status :vote $REQUIRED_VOTES $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD );
 use DateTime::Format::Pg;
 
