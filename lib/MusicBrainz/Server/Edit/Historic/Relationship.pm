@@ -220,7 +220,7 @@ sub _display_relationships {
             my $model0 = type_to_model( $_->{entity0_type} );
             my $model1 = type_to_model( $_->{entity1_type} );
             my $entity0_id = $_->{entity0_id} // $fake_entity_id++;
-            my $entity1_id = $_->{entity1_id};
+            my $entity1_id = $_->{entity1_id} // $fake_entity_id++;
             my $entity0 = $loaded->{ $model0 }{ $entity0_id } ||
                 $self->c->model($model0)->_entity_class->new(
                     id => $entity0_id,
