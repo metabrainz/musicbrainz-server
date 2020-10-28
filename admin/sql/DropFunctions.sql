@@ -51,6 +51,7 @@ DROP FUNCTION delete_unused_tag(tag_id INT);
 DROP FUNCTION delete_unused_url(ids INTEGER[]);
 DROP FUNCTION deny_deprecated_links();
 DROP FUNCTION deny_special_purpose_deletion();
+DROP FUNCTION edit_data_type_info(data JSONB);
 DROP FUNCTION end_area_implies_ended();
 DROP FUNCTION end_date_implies_ended();
 DROP FUNCTION ensure_area_attribute_type_allows_text();
