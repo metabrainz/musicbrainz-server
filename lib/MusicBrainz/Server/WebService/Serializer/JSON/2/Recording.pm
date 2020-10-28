@@ -1,4 +1,5 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Recording;
+use DBDefs;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     boolean
@@ -27,12 +28,20 @@ sub serialize
     $body{releases} = list_of($entity, $inc, $stash, "releases")
         if ($toplevel && $inc && $inc->releases);
 
-    return \%body unless defined $inc && $inc->isrcs;
+    if ($inc && $inc->isrcs) {
+        my $opts = $stash->store($entity);
+        $body{isrcs} = [
+            map { $_->isrc } sort_by { $_->isrc } @{ $opts->{isrcs} }
+        ];
+    }
 
-    my $opts = $stash->store($entity);
-    $body{isrcs} = [
-        map { $_->isrc } sort_by { $_->isrc } @{ $opts->{isrcs} }
-    ] if $inc->isrcs;
+    if (
+        $toplevel &&
+        DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26 &&
+        defined $entity->first_release_date
+    ) {
+        $body{'first-release-date'} = $entity->first_release_date->format;
+    }
 
     return \%body;
 };

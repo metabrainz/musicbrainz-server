@@ -362,6 +362,7 @@ DROP INDEX recording_attribute_idx_recording;
 DROP INDEX recording_attribute_type_allowed_value_idx_gid;
 DROP INDEX recording_attribute_type_allowed_value_idx_name;
 DROP INDEX recording_attribute_type_idx_gid;
+DROP INDEX recording_first_release_date_idx;
 DROP INDEX recording_gid_redirect_idx_new_id;
 DROP INDEX recording_idx_artist_credit;
 DROP INDEX recording_idx_gid;

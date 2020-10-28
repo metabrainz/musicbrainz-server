@@ -21,6 +21,7 @@ Readonly our @BOOLEAN_DEFS => qw(
 );
 
 Readonly our @NUMBER_DEFS => qw(
+    ACTIVE_SCHEMA_SEQUENCE
     REPLICATION_TYPE
     STAT_TTL
 );

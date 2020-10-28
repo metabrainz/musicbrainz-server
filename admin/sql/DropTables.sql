@@ -253,6 +253,7 @@ DROP TABLE recording_annotation;
 DROP TABLE recording_attribute;
 DROP TABLE recording_attribute_type;
 DROP TABLE recording_attribute_type_allowed_value;
+DROP TABLE recording_first_release_date;
 DROP TABLE recording_gid_redirect;
 DROP TABLE recording_meta;
 DROP TABLE recording_rating_raw;

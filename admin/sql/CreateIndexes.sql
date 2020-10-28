@@ -172,6 +172,8 @@ CREATE INDEX event_tag_idx_tag ON event_tag (tag);
 CREATE INDEX event_tag_raw_idx_tag ON event_tag_raw (tag);
 CREATE INDEX event_tag_raw_idx_editor ON event_tag_raw (editor);
 
+CREATE INDEX recording_first_release_date_idx ON recording_first_release_date (year, month, day);
+
 CREATE UNIQUE INDEX instrument_idx_gid ON instrument (gid);
 CREATE INDEX instrument_idx_name ON instrument (name);
 

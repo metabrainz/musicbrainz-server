@@ -366,7 +366,7 @@ sub MAPBOX_ACCESS_TOKEN { '' }
 # Set to 26 for the following features:
 #  * PKCE for OAuth 2.0 clients.
 #    (admin/sql/updates/20200914-oauth-pkce.sql)
-#  * first_recording_release_date table.
+#  * recording_first_release_date table.
 #    (admin/sql/updates/20201028-mbs-1424.sql)
 sub ACTIVE_SCHEMA_SEQUENCE { 25 }
 

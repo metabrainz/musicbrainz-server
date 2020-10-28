@@ -80,7 +80,8 @@
 
   "26": {
     "slave": ["20200512-mbs-10821-orphaned-recording-collection.sql",
-              "20200914-oauth-pkce.sql"],
-    "standalone": []
+              "20200914-oauth-pkce.sql",
+              "20201028-mbs-1424.sql"],
+    "standalone": ["20201028-mbs-1424-fks.sql"]
   }
 }

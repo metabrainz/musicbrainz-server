@@ -574,6 +574,7 @@ BEGIN
     -- increment track_count in the parent medium
     UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
     PERFORM materialise_recording_length(NEW.recording);
+    PERFORM set_recordings_first_release_dates(ARRAY[NEW.recording]);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -591,6 +592,7 @@ BEGIN
     END IF;
     IF OLD.recording <> NEW.recording THEN
       PERFORM materialise_recording_length(OLD.recording);
+      PERFORM set_recordings_first_release_dates(ARRAY[OLD.recording, NEW.recording]);
     END IF;
     PERFORM materialise_recording_length(NEW.recording);
     RETURN NULL;
@@ -603,6 +605,7 @@ BEGIN
     -- decrement track_count in the parent medium
     UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
     PERFORM materialise_recording_length(OLD.recording);
+    PERFORM set_recordings_first_release_dates(ARRAY[OLD.recording]);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -909,12 +912,49 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION set_recordings_first_release_dates(recording_ids INTEGER[])
+RETURNS VOID AS $$
+BEGIN
+  INSERT INTO recording_first_release_date
+  (
+    SELECT DISTINCT ON (recording)
+           recording, year, month, day
+      FROM recording_release_dates
+     WHERE recording = ANY(recording_ids)
+     ORDER BY recording, year NULLS LAST, month NULLS LAST, day NULLS LAST
+  )
+  ON CONFLICT (recording) DO UPDATE
+  SET year = excluded.year,
+      month = excluded.month,
+      day = excluded.day;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION set_releases_recordings_first_release_dates(release_ids INTEGER[])
+RETURNS VOID AS $$
+BEGIN
+  INSERT INTO recording_first_release_date
+  (
+    SELECT DISTINCT ON (recording)
+           recording, year, month, day
+      FROM recording_release_dates
+     WHERE release = ANY(release_ids)
+     ORDER BY recording, year NULLS LAST, month NULLS LAST, day NULLS LAST
+  )
+  ON CONFLICT (recording) DO UPDATE
+  SET year = excluded.year,
+      month = excluded.month,
+      day = excluded.day;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION a_ins_release_event()
 RETURNS TRIGGER AS $$
 BEGIN
   PERFORM set_release_group_first_release_date(release_group)
   FROM release
   WHERE release.id = NEW.release;
+  PERFORM set_releases_recordings_first_release_dates(ARRAY[NEW.release]);
   RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -925,6 +965,7 @@ BEGIN
   PERFORM set_release_group_first_release_date(release_group)
   FROM release
   WHERE release.id IN (NEW.release, OLD.release);
+  PERFORM set_releases_recordings_first_release_dates(ARRAY[NEW.release, OLD.release]);
   RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -935,6 +976,7 @@ BEGIN
   PERFORM set_release_group_first_release_date(release_group)
   FROM release
   WHERE release.id = OLD.release;
+  PERFORM set_releases_recordings_first_release_dates(ARRAY[OLD.release]);
   RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
