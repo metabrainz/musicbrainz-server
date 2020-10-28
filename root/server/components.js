@@ -254,6 +254,7 @@ module.exports = {
   'taglookup/ReleaseResults': require('../taglookup/ReleaseResults'),
   'taglookup/Results': require('../taglookup/Results'),
   'url/UrlIndex': require('../url/UrlIndex'),
+  'user/Login': require('../user/Login'),
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'user/ReportUser': require('../user/ReportUser'),
   'user/UserCollections': require('../user/UserCollections'),

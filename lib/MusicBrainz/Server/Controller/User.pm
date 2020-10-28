@@ -11,7 +11,7 @@ use HTTP::Status qw( :constants );
 use List::Util 'sum';
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw( l ln );
 use Try::Tiny;
@@ -122,13 +122,15 @@ sub do_login : Private
     ensure_ssl($c);
 
     $c->stash(
-        login_action => $c->req->uri_with({ uri => $redirect }),
-        template => 'user/login.tt',
-        login_form => $form
+        current_view => 'Node',
+        component_path => 'user/Login',
+        component_props => {
+            loginAction => $c->req->uri_with({ uri => $redirect }),
+            loginForm => $form,
+            isLoginBad => boolean_to_json($c->stash->{bad_login}),
+            isLoginRequired => boolean_to_json($c->stash->{required_login} // 1),
+        },
     );
-
-    $c->stash->{required_login} = 1
-        unless exists $c->stash->{required_login};
 
     $c->detach;
 }
