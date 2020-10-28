@@ -3043,7 +3043,7 @@ msgstr ""
 
 #: DB:medium_format/name:87
 msgctxt "medium_format"
-msgid "Hybrid SACD (SACD layer, 2 channel)"
+msgid "Hybrid SACD (SACD layer, 2 channels)"
 msgstr ""
 
 #: DB:medium_format/name:86
@@ -5709,7 +5709,7 @@ msgstr ""
 
 #: DB:medium_format/name:84
 msgctxt "medium_format"
-msgid "SACD (2 channel)"
+msgid "SACD (2 channels)"
 msgstr ""
 
 #: DB:medium_format/name:85
@@ -5774,7 +5774,7 @@ msgstr ""
 
 #: DB:medium_format/name:89
 msgctxt "medium_format"
-msgid "SHM-SACD (2 channel)"
+msgid "SHM-SACD (2 channels)"
 msgstr ""
 
 #: DB:medium_format/name:88

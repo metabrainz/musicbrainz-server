@@ -12768,6 +12768,11 @@ msgstr ""
 msgid "Inlaod Itneg"
 msgstr ""
 
+#. frequency:1 iso_code_3:moe 
+#: DB:language/name:4369
+msgid "Innu"
+msgstr ""
+
 #. frequency:0 iso_code_3:ino 
 #: DB:language/name:2906
 msgid "Inoke-Yate"
@@ -22466,11 +22471,6 @@ msgstr ""
 #. frequency:0 iso_code_3:nmh 
 #: DB:language/name:4903
 msgid "Monsang Naga"
-msgstr ""
-
-#. frequency:1 iso_code_3:moe 
-#: DB:language/name:4369
-msgid "Montagnais"
 msgstr ""
 
 #. frequency:0 iso_code_3:mtl 

@@ -2205,6 +2205,14 @@ msgid ""
 "\">IMDb</a> page for the movie, show or game of which it is a soundtrack."
 msgstr ""
 
+#: DB:link_type/description:992
+msgid ""
+"This links a soundtrack work to the <a href=\"http://vgmdb.net/\">VGMdb</a> "
+"page for the movie, show or game of which it is a soundtrack. VGMdb is a "
+"community project dedicated to cataloguing the music of video games and "
+"anime."
+msgstr ""
+
 #: DB:link_type/description:843
 msgid ""
 "This links a soundtrack work to the <a href=\"http://www.imdb.com/\">IMDb</"
@@ -3181,11 +3189,13 @@ msgstr ""
 
 #: DB:link_type/link_phrase:86 DB:link_type/link_phrase:191
 #: DB:link_type/link_phrase:210 DB:link_type/link_phrase:788
+#: DB:link_type/reverse_link_phrase:992
 msgid "VGMdb"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:86 DB:link_type/reverse_link_phrase:191
-#: DB:link_type/reverse_link_phrase:210 DB:link_type/reverse_link_phrase:788
+#: DB:link_type/link_phrase:992 DB:link_type/reverse_link_phrase:86
+#: DB:link_type/reverse_link_phrase:191 DB:link_type/reverse_link_phrase:210
+#: DB:link_type/reverse_link_phrase:788
 msgid "VGMdb page for"
 msgstr ""
 
@@ -6342,7 +6352,7 @@ msgid "type of"
 msgstr ""
 
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
-#: DB:link_type/name:788
+#: DB:link_type/name:788 DB:link_type/name:992
 msgid "vgmdb"
 msgstr ""
 
@@ -7106,6 +7116,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:289
 msgid "{entity1} has a Songfacts page at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:992
+msgid "{entity1} has a VGMdb page at {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:351
