@@ -51,17 +51,20 @@ const FooterSwitch = ({
   const showingAllText = l('Showing all recordings');
   const showingStandaloneText = l('Showing only standalone recordings');
   const showingVideosText = l('Showing only videos');
-  const showAllLink = exp.l(
-    '{show_all|Show all recordings}',
-    {show_all: `/artist/${artist.gid}/recordings`},
+  const showAllLink = (
+    <a href={`/artist/${artist.gid}/recordings`}>
+      {l('Show all recordings')}
+    </a>
   );
-  const showStandaloneLink = exp.l(
-    '{show_sa|Show only standalone recordings}',
-    {show_sa: `/artist/${artist.gid}/recordings?standalone=1`},
+  const showStandaloneLink = (
+    <a href={`/artist/${artist.gid}/recordings?standalone=1`}>
+      {l('Show only standalone recordings')}
+    </a>
   );
-  const showVideosLink = exp.l(
-    '{show_vid|Show only videos}',
-    {show_vid: `/artist/${artist.gid}/recordings?video=1`},
+  const showVideosLink = (
+    <a href={`/artist/${artist.gid}/recordings?video=1`}>
+      {l('Show only videos')}
+    </a>
   );
 
   return (
