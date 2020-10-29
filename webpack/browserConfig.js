@@ -25,10 +25,25 @@ module.exports = {
       contextRegExp: /\/root\/static\/scripts\/common\/i18n$/,
     }),
 
-    // Modules that run in the browser must use DBDefs-client.
+    /*
+     * Modules that run in the browser must use DBDefs-client.
+     * Any attempt at importing the server DBDefs.js, which can
+     * contain sensitive info, is ignored.
+     *
+     * On the server, files that import DBDefs-client.js will
+     * import that file directly. In the browser, we map
+     * DBDefs-client to DBDefs-client-browser (below), which
+     * fetches the DBDefs values from a global variable at runtime.
+     * See root/layout/components/globalsScript.js for more info.
+     */
     new webpack.IgnorePlugin({
-      resourceRegExp: /\/DBDefs(?:-client-values)?$/,
+      resourceRegExp: /\/DBDefs$/,
     }),
+
+    new webpack.NormalModuleReplacementPlugin(
+      /\/root\/static\/scripts\/common\/DBDefs-client\.js$/,
+      './DBDefs-client-browser.js',
+    ),
   ],
 
   resolve: {

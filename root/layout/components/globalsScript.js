@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context';
-import DBDefs from '../../static/scripts/common/DBDefs-client-values';
+import DBDefs from '../../static/scripts/common/DBDefs-client';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 import sanitizedContext from '../../utility/sanitizedContext';
 
@@ -28,12 +28,13 @@ import sanitizedContext from '../../utility/sanitizedContext';
  *   images are built without access to any private DBDefs values, and are
  *   publicly uploaded to Docker Hub; we don't copy in our private DBDefs.pm
  *   files until after the containers are started.  dbdefs_to_js.pl is then
- *   run to generate DBDefs-client-values.js.
+ *   run to generate DBDefs-client.js.
  *
  *   In order for client scripts to pick up on these changes without having
  *   to recompile/bundle all of our JavaScript, we define the DBDefs
  *   configuration values in a <script> on the page external from any JS
- *   bundle.
+ *   bundle.  Webpack is configured to map any imports for DBDefs-client.js
+ *   to DBDefs-client-browser.js, which reads from this global script.
  *
  *   CLIENT_DBDEFS_CODE below is a const for the lifetime of the module;
  *   modules, including this one, are reloaded when root/server.js receives

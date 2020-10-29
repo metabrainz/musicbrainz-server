@@ -6,6 +6,6 @@ flow-typed/npm/redux_*.js
 perl_modules/**/*.js
 root/static/build/**/*.js
 root/static/lib/**/*.js
-root/static/scripts/common/DBDefs-client-values.js
+root/static/scripts/common/DBDefs-client.js
 root/static/scripts/common/DBDefs.js
 root/static/scripts/tests/typeInfo.js

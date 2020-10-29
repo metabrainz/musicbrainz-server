@@ -138,12 +138,12 @@ for my $conversion (@conversions) {
 
 my $common_dir = "$FindBin::Bin/../root/static/scripts/common";
 my $server_js_path = "$common_dir/DBDefs.js";
-my $client_json_path = "$common_dir/DBDefs-client-values.js";
+my $client_js_path = "$common_dir/DBDefs-client.js";
 
 open(my $fh, '>', $server_js_path);
 print $fh $server_code;
 close $fh;
 
-open($fh, '>', $client_json_path);
+open($fh, '>', $client_js_path);
 print $fh $client_code;
 close $fh;

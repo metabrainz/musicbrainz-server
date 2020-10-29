@@ -31,7 +31,7 @@ const externals = [
   'root/server/gettext',
   'root/static/build/rev-manifest',
   'root/static/scripts/common/DBDefs',
-  'root/static/scripts/common/DBDefs-client-values',
+  'root/static/scripts/common/DBDefs-client',
   'root/static/scripts/common/linkedEntities',
 ];
 
