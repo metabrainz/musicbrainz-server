@@ -4,7 +4,6 @@ rules:
   consistent-return: error
   eqeqeq: [warn, smart]
   no-else-return: warn
-  no-multi-spaces: [error, {ignoreEOLComments: true}]
   wrap-iife: warn
   array-element-newline: [warn, consistent]
   camelcase: [warn, {properties: never,
