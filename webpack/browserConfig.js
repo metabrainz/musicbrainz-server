@@ -39,8 +39,10 @@ module.exports = {
 
   resolve: {
     alias: {
-      // Needed to convince jQuery plugins not to load their own
-      // copy of jQuery.
+      /*
+       * Needed to convince jQuery plugins not to load their own
+       * copy of jQuery.
+       */
       jquery$: path.resolve(__dirname, '../node_modules/jquery'),
     },
   },

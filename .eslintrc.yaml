@@ -145,6 +145,7 @@ rules:
                    ignoreTemplateLiterals: false,
                    ignoreRegExpLiterals: true}]
   max-statements-per-line: [warn, {max: 1}]
+  multiline-comment-style: [warn, starred-block]
   multiline-ternary: off
   new-cap: off
   new-parens: warn

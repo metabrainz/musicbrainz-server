@@ -40,7 +40,6 @@ rules:
   consistent-this: [warn, self]
   jsx-quotes: [warn, prefer-double]
   key-spacing: [warn, {mode: minimum}]
-  multiline-comment-style: [warn, starred-block]
   newline-per-chained-call: [warn, {ignoreChainWithDepth: 3}]
   no-lonely-if: warn
   object-curly-newline: [warn, {multiline: true, consistent: true}]
