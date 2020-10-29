@@ -15,10 +15,8 @@ const Sentry = require('@sentry/node');
 const DBDefs = require('../static/scripts/common/DBDefs');
 const sanitizedContext = require('../utility/sanitizedContext');
 
-const {allocBuffer} = require('./buffer');
 const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');
-
 
 const connectionListener = function (socket) {
   let expectedBytes = 0;
@@ -35,7 +33,7 @@ const connectionListener = function (socket) {
   const receiveData = function (data) {
     if (!recvBuffer) {
       expectedBytes = data.readUInt32LE(0);
-      recvBuffer = allocBuffer(expectedBytes);
+      recvBuffer = Buffer.allocUnsafe(expectedBytes);
       data = data.slice(4);
     }
 
@@ -98,7 +96,7 @@ const connectionListener = function (socket) {
 };
 
 function writeResponse(socket, body) {
-  const lengthBuffer = allocBuffer(4);
+  const lengthBuffer = Buffer.allocUnsafe(4);
   lengthBuffer.writeUInt32LE(Buffer.byteLength(body), 0);
   socket.write(lengthBuffer);
   socket.write(body);

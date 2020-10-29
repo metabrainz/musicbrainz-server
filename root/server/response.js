@@ -13,10 +13,8 @@ const Sentry = require('@sentry/node');
 const getRequestCookie = require('../utility/getRequestCookie');
 const sanitizedContext = require('../utility/sanitizedContext');
 
-const {bufferFrom} = require('./buffer');
-
 function badRequest(err) {
-  return bufferFrom(JSON.stringify({
+  return Buffer.from(JSON.stringify({
     body: err.stack,
     content_type: 'text/plain',
     status: 400,
@@ -116,7 +114,7 @@ function getResponse(requestBody, context) {
     return badRequest(err);
   }
 
-  return bufferFrom(JSON.stringify({
+  return Buffer.from(JSON.stringify({
     body: response,
     content_type: 'text/html',
     status,
