@@ -60,7 +60,6 @@ rules:
   no-var: warn
   prefer-const: warn
   import/first: warn
-  import/newline-after-import: [warn, {count: 1}]
   import/no-commonjs: error
   import/order: [warn, {newlines-between: always}]
   react/no-access-state-in-setstate: error

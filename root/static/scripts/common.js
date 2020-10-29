@@ -12,6 +12,7 @@ require('./public-path');
 require('../styles/common.less');
 
 const DBDefs = require('./common/DBDefs-client');
+
 import MB from './common/MB';
 
 if (DBDefs.DEVELOPMENT_SERVER) {
