@@ -155,6 +155,7 @@ rules:
   no-plusplus: off
   no-tabs: warn
   no-ternary: off
+  no-trailing-spaces: warn
   no-underscore-dangle: off
   no-unneeded-ternary: warn
   no-whitespace-before-property: warn

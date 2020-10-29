@@ -82,7 +82,7 @@ ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
             return items.filter(function (item) {
               return item.type.item_entity_type === dialog.source.entityType;
             });
-          } 
+          }
           return items;
         },
       }).data('mb-entitylookup');

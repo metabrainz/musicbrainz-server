@@ -82,7 +82,7 @@ MB.GuessCase.Output = function (gc) {
   self.getWordAtIndex = function (index) {
     if (self._w[index]) {
       return self._w[index];
-    } 
+    }
     return null;
   };
 
