@@ -68,18 +68,22 @@ my @conversions = (
     {
         defs => \@BOOLEAN_DEFS,
         convert => sub { shift ? \\1 : \\0 },
+        flowtype => 'boolean',
     },
     {
         defs => \@NUMBER_DEFS,
         convert => sub { \(0 + (shift // 0)) },
+        flowtype => 'number',
     },
     {
         defs => \@STRING_DEFS,
         convert => sub { \('' . (shift // '')) },
+        flowtype => 'string',
     },
     {
         defs => \@QW_STRING_DEFS,
         convert => sub { \[map { '' . ($_ // '') } @_] },
+        flowtype => '$ReadOnlyArray<string>',
     },
     {
         defs => ['DATABASES'],
@@ -99,6 +103,17 @@ my @conversions = (
 
             return \\%conversion;
         },
+        flowtype => (
+            '{' .
+                '+[name: string]: {' .
+                    '+database: string, ' .
+                    '+host: string, ' .
+                    '+password: string, ' .
+                    '+port: number, '.
+                    '+user: string'.
+                '}' .
+            '}'
+        ),
     }
 );
 
@@ -114,16 +129,16 @@ sub get_value {
 }
 
 my $json = JSON->new->allow_nonref->ascii->canonical;
-my $server_code = '';
-my $client_code = '';
+my $server_code = "// \@flow strict\n";
+my $client_code = "// \@flow strict\n";
 
 for my $conversion (@conversions) {
-    my ($defs, $convert) = @{$conversion}{qw(defs convert)};
+    my ($defs, $convert, $flowtype) = @{$conversion}{qw(defs convert flowtype)};
 
     for my $def (@$defs) {
         my @raw_value = get_value($def);
         my $json_value = $json->encode(${$convert->(@raw_value)});
-        my $line = "exports.$def = $json_value;\n";
+        my $line = "exports.$def = ($json_value/*: $flowtype */);\n";
         $server_code .= $line;
         $client_code .= $line if $CLIENT_DEFS{$def};
     }
