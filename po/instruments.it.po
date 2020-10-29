@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-13 21:21+0000\n"
+"PO-Revision-Date: 2020-10-28 21:04+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -2316,6 +2316,7 @@ msgid "kudüm"
 msgstr "kudüm"
 
 #: DB:instrument/name:303
+msgctxt "Vietnamese double reed"
 msgid "kèn bầu"
 msgstr "kèn bầu"
 
@@ -2899,6 +2900,11 @@ msgstr "poi āwhiowhio"
 msgctxt "Māori taonga pūoro humming discs"
 msgid "porotiti"
 msgstr "porotiti"
+
+#: DB:instrument/name:1021
+msgctxt "Very small bellows operated pipe organ"
+msgid "portative"
+msgstr ""
 
 #: DB:instrument/name:626
 msgid "post horn"
@@ -3489,6 +3495,7 @@ msgid "suling"
 msgstr "suling"
 
 #: DB:instrument/name:548
+msgctxt "Chinese double reed"
 msgid "suona"
 msgstr "suona"
 

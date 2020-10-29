@@ -729,8 +729,8 @@ msgstr ""
 msgid "Rate of Change Graph"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:88
-#: ../root/statistics/Relationships.js:92
+#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:92
+#: ../root/statistics/Relationships.js:97
 #: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:23
 #: ../root/statistics/stats.js:33
 msgid "Relationships"
@@ -756,7 +756,7 @@ msgstr "ズーム："
 #: ../root/statistics/Editors.js:100 ../root/statistics/Edits.js:38
 #: ../root/statistics/Formats.js:48 ../root/statistics/Index.js:79
 #: ../root/statistics/LanguagesScripts.js:53
-#: ../root/statistics/Relationships.js:90
+#: ../root/statistics/Relationships.js:95
 msgid "Last updated: {date}"
 msgstr "最終更新日: {date}"
 
@@ -1041,7 +1041,7 @@ msgstr "その他の項目"
 msgid "Editors (valid / deleted):"
 msgstr "編集者数（有効 / 削除済）:"
 
-#: ../root/statistics/Index.js:159 ../root/statistics/Relationships.js:107
+#: ../root/statistics/Index.js:159 ../root/statistics/Relationships.js:112
 msgid "Relationships:"
 msgstr "関係数:"
 
@@ -1492,25 +1492,25 @@ msgid ""
 "stats.tar.bz2</code>."
 msgstr ""
 
-#: ../root/statistics/Relationships.js:95
+#: ../root/statistics/Relationships.js:100
 msgid "No relationship statistics available."
 msgstr ""
 
-#: ../root/statistics/Relationships.js:102
+#: ../root/statistics/Relationships.js:107
 msgctxt "relationships"
 msgid "This type only"
 msgstr ""
 
-#: ../root/statistics/Relationships.js:103
+#: ../root/statistics/Relationships.js:108
 msgctxt "relationships"
 msgid "Including subtypes"
 msgstr ""
 
-#: ../root/statistics/Relationships.js:120
+#: ../root/statistics/Relationships.js:125
 msgid "{type0}-{type1}"
 msgstr "{type0}・{type1}"
 
-#: ../root/statistics/Relationships.js:126
+#: ../root/statistics/Relationships.js:131
 msgid "{type0}-{type1} relationships:"
 msgstr "{type0}・{type1}の関連："
 

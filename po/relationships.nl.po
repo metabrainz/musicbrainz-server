@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-01 10:42+0000\n"
+"PO-Revision-Date: 2020-10-29 15:54+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2227,6 +2227,14 @@ msgid ""
 "which it is a soundtrack."
 msgstr "Deze relatie koppelt een uitgavegroep van een soundtrack aan een <a href=\"http://www.imdb.com/\">IMDb</a>-pagina over de film, show of het spel waarvan het een soundtrack is."
 
+#: DB:link_type/description:992
+msgid ""
+"This links a soundtrack work to the <a href=\"http://vgmdb.net/\">VGMdb</a> "
+"page for the movie, show or game of which it is a soundtrack. VGMdb is a "
+"community project dedicated to cataloguing the music of video games and "
+"anime."
+msgstr "Deze relatie koppelt een soundtrackcompositie aan de <a href=\"http://vgmdb.net/\">VGMdb</a>-pagina van de film, serie of het spel. VGMdb is een gemeenschappelijk project dat is toegewijd aan het catalogiseren van muziek uit computerspellen en anime."
+
 #: DB:link_type/description:843
 msgid ""
 "This links a soundtrack work to the <a "
@@ -3193,11 +3201,13 @@ msgstr "Gebruik dit om aan te geven dat het hoofdwerk uit verschillende delen be
 
 #: DB:link_type/link_phrase:86 DB:link_type/link_phrase:191
 #: DB:link_type/link_phrase:210 DB:link_type/link_phrase:788
+#: DB:link_type/reverse_link_phrase:992
 msgid "VGMdb"
 msgstr "VGMdb"
 
-#: DB:link_type/reverse_link_phrase:86 DB:link_type/reverse_link_phrase:191
-#: DB:link_type/reverse_link_phrase:210 DB:link_type/reverse_link_phrase:788
+#: DB:link_type/link_phrase:992 DB:link_type/reverse_link_phrase:86
+#: DB:link_type/reverse_link_phrase:191 DB:link_type/reverse_link_phrase:210
+#: DB:link_type/reverse_link_phrase:788
 msgid "VGMdb page for"
 msgstr "VGMdb-pagina over"
 
@@ -3548,7 +3558,7 @@ msgstr "koorleider"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
-msgstr ""
+msgstr "klassieke muziek"
 
 #: DB:link_attribute_type/name:424
 msgid "co"
@@ -5210,15 +5220,15 @@ msgstr "muziek kan gratis worden gestreamd op"
 
 #: DB:link_attribute_type/name:1202
 msgid "music education"
-msgstr ""
+msgstr "muziekonderwijs"
 
 #: DB:link_attribute_type/name:1201
 msgid "music production"
-msgstr ""
+msgstr "muziekproductie"
 
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
-msgstr ""
+msgstr "muziektherapie"
 
 #: DB:link_type/name:857
 msgid "music video"
@@ -5572,7 +5582,7 @@ msgstr "podcast op"
 
 #: DB:link_attribute_type/name:1200
 msgid "popular / rock music"
-msgstr ""
+msgstr "populaire/rockmuziek"
 
 #: DB:link_type/link_phrase:808 DB:link_type/name:808
 msgid "poster"
@@ -6062,7 +6072,7 @@ msgstr "getekend door"
 
 #: DB:link_attribute_type/name:1199
 msgid "singing"
-msgstr ""
+msgstr "zang"
 
 #: DB:link_type/name:11
 msgid "single from"
@@ -6355,7 +6365,7 @@ msgid "type of"
 msgstr "type"
 
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
-#: DB:link_type/name:788
+#: DB:link_type/name:788 DB:link_type/name:992
 msgid "vgmdb"
 msgstr "VGMDB"
 
@@ -7121,6 +7131,10 @@ msgstr "{entity1} heeft een SecondHandSongs-pagina op {entity0}"
 #: DB:link_type/long_link_phrase:289
 msgid "{entity1} has a Songfacts page at {entity0}"
 msgstr "{entity1} heeft een SongFacts-pagina op {entity0}"
+
+#: DB:link_type/long_link_phrase:992
+msgid "{entity1} has a VGMdb page at {entity0}"
+msgstr "{entity1} heeft een VGMdb-pagina op {entity0}"
 
 #: DB:link_type/long_link_phrase:351
 msgid "{entity1} has a Wikidata page at {entity0}"
