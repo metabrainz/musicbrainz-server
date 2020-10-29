@@ -72,7 +72,6 @@ rules:
                                    lifecycle,
                                    everything-else,
                                    render]}]
-  react/jsx-boolean-value: [warn, never]
   react/jsx-closing-bracket-location: [error, tag-aligned]
   react/jsx-first-prop-new-line: [error, multiline-multiprop]
   react/jsx-key: warn

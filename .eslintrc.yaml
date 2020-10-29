@@ -251,6 +251,7 @@ rules:
   react/void-dom-elements-no-children: error
 
   # JSX-specific rules
+  react/jsx-boolean-value: [warn, never]
   react/jsx-closing-tag-location: error
   react/jsx-curly-spacing: [error, {when: never, children: true}]
   react/jsx-equals-spacing: [error, never]
