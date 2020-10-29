@@ -150,6 +150,7 @@ rules:
   new-parens: warn
   no-mixed-spaces-and-tabs: warn
   no-multi-assign: off
+  no-multiple-empty-lines: [warn, {max: 2, maxBOF: 0, maxEOF: 0}]
   no-negated-condition: warn
   no-nested-ternary: off
   no-plusplus: off

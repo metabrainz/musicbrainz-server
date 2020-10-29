@@ -43,7 +43,6 @@ rules:
   multiline-comment-style: [warn, starred-block]
   newline-per-chained-call: [warn, {ignoreChainWithDepth: 3}]
   no-lonely-if: warn
-  no-multiple-empty-lines: [warn, {max: 2, maxBOF: 0, maxEOF: 0}]
   object-curly-newline: [warn, {multiline: true, consistent: true}]
   object-curly-spacing: [warn, never]
   operator-assignment: [warn, always]
