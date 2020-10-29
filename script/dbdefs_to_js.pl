@@ -71,15 +71,15 @@ my @conversions = (
     },
     {
         defs => \@NUMBER_DEFS,
-        convert => sub { \(0 + shift) },
+        convert => sub { \(0 + (shift // 0)) },
     },
     {
         defs => \@STRING_DEFS,
-        convert => sub { \('' . shift) },
+        convert => sub { \('' . (shift // '')) },
     },
     {
         defs => \@QW_STRING_DEFS,
-        convert => sub { \[map { '' . $_ } @_] },
+        convert => sub { \[map { '' . ($_ // '') } @_] },
     },
     {
         defs => ['DATABASES'],
@@ -89,11 +89,11 @@ my @conversions = (
             my %conversion = map {
                 my $db = $databases->{$_};
                 ($_ => {
-                    user => $db->username,
-                    password => $db->password,
-                    database => $db->database,
-                    host => $db->host,
-                    port => $db->port,
+                    user => '' . ($db->username // ''),
+                    password => '' . ($db->password // ''),
+                    database => '' . ($db->database // ''),
+                    host => '' . ($db->host // ''),
+                    port => 0 + ($db->port // 0),
                 })
             } keys %{$databases};
 
@@ -122,14 +122,7 @@ for my $conversion (@conversions) {
 
     for my $def (@$defs) {
         my @raw_value = get_value($def);
-        my $json_value = \undef;
-
-        if (defined $raw_value[0]) {
-            $json_value = $convert->(@raw_value);
-        }
-
-        $json_value = $json->encode(${$json_value});
-
+        my $json_value = $json->encode(${$convert->(@raw_value)});
         my $line = "exports.$def = $json_value;\n";
         $server_code .= $line;
         $client_code .= $line if $CLIENT_DEFS{$def};
