@@ -38,7 +38,6 @@ rules:
   comma-spacing: [warn, {before: false, after: true}]
   computed-property-spacing: [warn, never, {"enforceForClassMembers": true}]
   consistent-this: [warn, self]
-  function-paren-newline: [warn, consistent]
   jsx-quotes: [warn, prefer-double]
   key-spacing: [warn, {mode: minimum}]
   multiline-comment-style: [warn, starred-block]

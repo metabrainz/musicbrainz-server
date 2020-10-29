@@ -133,6 +133,7 @@ rules:
   comma-style: [warn, last]
   eol-last: [warn, always]
   func-call-spacing: [warn, never]
+  function-paren-newline: [warn, consistent]
   implicit-arrow-linebreak: [warn, beside]
   indent: [warn, 2, {CallExpression: {arguments: first}, SwitchCase: 1, ignoredNodes: ["JSXElement", "ArrowFunctionExpression"]}]
   keyword-spacing: [warn, {before: true, after: true}]

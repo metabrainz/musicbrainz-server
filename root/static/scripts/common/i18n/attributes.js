@@ -21,6 +21,7 @@ export const lp_attributes: (string, string) => string =
 export const N_lp_attributes = (
   key: string,
   context: string,
+// eslint-disable-next-line function-paren-newline -- likely eslint bug
 ): (() => string) => (
   () => lp_attributes(key, context)
 );
