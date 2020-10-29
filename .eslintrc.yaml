@@ -81,6 +81,7 @@ rules:
   no-duplicate-case: error
   no-empty-character-class: error
   no-empty: [error, {allowEmptyCatch: true}]
+  no-extra-semi: warn
   no-irregular-whitespace: warn
   no-misleading-character-class: error
   no-obj-calls: error
