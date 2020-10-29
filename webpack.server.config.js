@@ -64,7 +64,7 @@ module.exports = {
         );
       }
       callback();
-    }
+    },
   ],
 
   mode: WEBPACK_MODE,

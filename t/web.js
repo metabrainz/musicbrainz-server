@@ -59,7 +59,7 @@ CDP((client) => {
 
     return Page.navigate({
       url: fileUrl(
-        path.resolve(__dirname, '../root/static/scripts/tests/web.html')
+        path.resolve(__dirname, '../root/static/scripts/tests/web.html'),
       ),
     });
   });

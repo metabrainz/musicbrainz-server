@@ -210,7 +210,7 @@ if (PRODUCTION_MODE) {
   plugins.push(
     new webpack.HashedModuleIdsPlugin({
       hashDigestLength: 7,
-    })
+    }),
   );
 }
 

@@ -125,6 +125,11 @@ rules:
   array-element-newline: [warn, consistent]
   block-spacing: [warn, always]
   brace-style: [warn, 1tbs]
+  comma-dangle: [warn, {arrays: always-multiline,
+                        objects: always-multiline,
+                        imports: always-multiline,
+                        exports: always-multiline,
+                        functions: always-multiline}]
   comma-style: [warn, last]
   eol-last: [warn, always]
   func-call-spacing: [warn, never]

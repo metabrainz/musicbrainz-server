@@ -2140,7 +2140,7 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(
         /^(?:https?:\/\/)?(?:cdn|www\.)?music\.migu\.cn\/v3\/(live|(?:music|video)\/\w+)\/([^/?#]+).*$/,
-        'https://music.migu.cn/v3/$1/$2'
+        'https://music.migu.cn/v3/$1/$2',
       );
       url = url.replace(/\/digital_album\//, '/album/');
       return url;
