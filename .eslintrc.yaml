@@ -122,6 +122,7 @@ rules:
   # Stylistic Issues
   array-bracket-newline: [warn, consistent]
   array-bracket-spacing: [warn, never]
+  array-element-newline: [warn, consistent]
   block-spacing: [warn, always]
   brace-style: [warn, 1tbs]
   comma-style: [warn, last]

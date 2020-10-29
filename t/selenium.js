@@ -596,8 +596,10 @@ async function runCommands(commands, t) {
       'psql',
       [
         ...hostPort,
-        '-U', systemDb.user,
-        '-c', `
+        '-U',
+        systemDb.user,
+        '-c',
+        `
           SELECT pg_terminate_backend(pg_stat_activity.pid)
             FROM pg_stat_activity
            WHERE datname = '${seleniumDb.database.replace(/'/g, "''")}'

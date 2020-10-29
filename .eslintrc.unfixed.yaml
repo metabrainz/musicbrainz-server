@@ -5,7 +5,6 @@ rules:
   eqeqeq: [warn, smart]
   no-else-return: warn
   wrap-iife: warn
-  array-element-newline: [warn, consistent]
   camelcase: [warn, {properties: never,
                      allow: [
                        "l_attributes",
