@@ -555,10 +555,10 @@ declare type FluencyT =
   ;
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
-declare type FormT<+F> = {
-  +field: F,
-  +has_errors: boolean,
-  +name: string,
+declare type FormT<F> = {
+  field: F,
+  has_errors: boolean,
+  name: string,
 };
 
 declare type GenderT = OptionTreeT<'gender'>;
@@ -961,6 +961,12 @@ declare type RepeatableFieldT<F> = {
   html_name: string,
   id: number,
   last_index: number,
+};
+
+declare type ReadOnlyFormT<+F> = {
+  +field: F,
+  +has_errors: boolean,
+  +name: string,
 };
 
 declare type ReadOnlyRepeatableFieldT<+F> = {
