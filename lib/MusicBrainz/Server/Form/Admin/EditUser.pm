@@ -1,10 +1,12 @@
-package MusicBrainz::Server::Form::User::AdjustFlags;
+package MusicBrainz::Server::Form::Admin::EditUser;
 
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
 
-has '+name' => ( default => 'flags' );
+with 'MusicBrainz::Server::Form::Role::UserProfile';
+
+has '+name' => ( default => 'edit-user' );
 
 has_field 'submitted' => (
     type => 'Integer',

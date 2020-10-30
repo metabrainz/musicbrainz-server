@@ -21,8 +21,9 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves Secu
     $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $user->id;
 
     my $form = $c->form(
-        form => 'User::AdjustFlags',
+        form => 'Admin::EditUser',
         item => {
+            # user flags
             auto_editor             => $user->is_auto_editor,
             bot                     => $user->is_bot,
             untrusted               => $user->is_untrusted,
@@ -35,40 +36,29 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves Secu
             account_admin           => $user->is_account_admin,
             editing_disabled        => $user->is_editing_disabled,
             adding_notes_disabled   => $user->is_adding_notes_disabled,
+            # user profile
+            username                => $user->name,
+            email                   => $user->email,
+            skip_verification       => 0,
+            website                 => $user->website,
+            biography               => $user->biography
         },
     );
 
-    my $form2 = $c->form(
-        form => 'User::EditProfile',
-        item => {
-            username          => $user->name,
-            email            => $user->email,
-            skip_verification => 0,
-            website            => $user->website,
-            biography        => $user->biography
-        },
-    );
-
-    if (
-        $c->form_posted_and_valid($form) &&
-        $c->form_posted_and_valid($form2)
-    ) {
+    if ($c->form_posted_and_valid($form)) {
         # When an admin views their own flags page the account admin checkbox will be disabled,
         # thus we need to manually insert a value here to keep the admin's privileges intact.
-        $form->values->{account_admin} = 1 if ($c->user->id == $user->id);
-        $c->model('Editor')->update_privileges($user, $form->values);
-
-        $c->model('Editor')->update_profile(
-            $user,
-            $form2->value
-        );
+        my $form_values = $form->value;
+        $form_values->{account_admin} = 1 if ($c->user->id == $user->id);
+        $c->model('Editor')->update_privileges($user, $form_values);
+        $c->model('Editor')->update_profile($user, $form_values);
 
         my %args = ( ok => 1 );
         my $old_email = $user->email || '';
-        my $new_email = $form2->field('email')->value || '';
+        my $new_email = $form->field('email')->value || '';
         if ($old_email ne $new_email) {
             if ($new_email) {
-                if ($form2->field('skip_verification')->value) {
+                if ($form->field('skip_verification')->value) {
                     $c->model('Editor')->update_email($user, $new_email);
                     $user->email($new_email);
                     $c->forward('/discourse/sync_sso', [$user]);
@@ -85,14 +75,13 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves Secu
         }
 
         $c->flash->{message} = l('User successfully edited.');
-        $c->response->redirect($c->uri_for_action('/user/profile', [$form2->field('username')->value]));
+        $c->response->redirect($c->uri_for_action('/user/profile', [$form->field('username')->value]));
         $c->detach;
     }
 
     $c->stash(
         user => $user,
         form => $form,
-        form2 => $form2,
         show_flags => 1,
     );
 }
