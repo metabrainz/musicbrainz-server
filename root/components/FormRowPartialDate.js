@@ -14,16 +14,30 @@ import FormRow from './FormRow';
 import FormLabel from './FormLabel';
 import PartialDateInput from './PartialDateInput';
 
-type Props = {
+type CommonProps = {
+  +children?: React.Node,
+  +disabled?: boolean,
   +field: PartialDateFieldT,
   +label: string,
   +required?: boolean,
 };
 
+type Props =
+  | $ReadOnly<{
+      ...CommonProps,
+      +uncontrolled?: false,
+    }>
+  | $ReadOnly<{
+      ...CommonProps,
+      +uncontrolled: true,
+    }>;
 const FormRowPartialDate = ({
+  children,
+  disabled = false,
   field,
   label,
   required = false,
+  uncontrolled = false,
   ...inputProps
 }: Props): React.Element<typeof FormRow> => (
   <FormRow>
@@ -33,9 +47,12 @@ const FormRowPartialDate = ({
       required={required}
     />
     <PartialDateInput
+      disabled={disabled}
       field={field}
+      uncontrolled={uncontrolled}
       {...inputProps}
     />
+    {children}
     <FieldErrors field={field} />
   </FormRow>
 );
