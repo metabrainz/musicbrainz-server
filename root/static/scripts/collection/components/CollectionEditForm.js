@@ -91,6 +91,7 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
             <FormRowCheckbox
               field={form.field.public}
               label={l('Allow other users to see this collection')}
+              uncontrolled
             />
 
             <FormRow>
