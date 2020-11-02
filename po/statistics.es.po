@@ -736,8 +736,8 @@ msgstr "Ratio de cambio (media de elementos/día vs día)"
 msgid "Rate of Change Graph"
 msgstr "Gráfico de ratio de cambio"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:88
-#: ../root/statistics/Relationships.js:92
+#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:92
+#: ../root/statistics/Relationships.js:97
 #: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:23
 #: ../root/statistics/stats.js:33
 msgid "Relationships"
@@ -763,7 +763,7 @@ msgstr "Zoom:"
 #: ../root/statistics/Editors.js:100 ../root/statistics/Edits.js:38
 #: ../root/statistics/Formats.js:48 ../root/statistics/Index.js:79
 #: ../root/statistics/LanguagesScripts.js:53
-#: ../root/statistics/Relationships.js:90
+#: ../root/statistics/Relationships.js:95
 msgid "Last updated: {date}"
 msgstr "Última actualización: {date}"
 
@@ -1049,7 +1049,7 @@ msgstr "Otras entidades"
 msgid "Editors (valid / deleted):"
 msgstr "Editores (válidos / eliminados):"
 
-#: ../root/statistics/Index.js:159 ../root/statistics/Relationships.js:107
+#: ../root/statistics/Index.js:159 ../root/statistics/Relationships.js:112
 msgid "Relationships:"
 msgstr "Relaciones:"
 
@@ -1501,25 +1501,25 @@ msgid ""
 "stats.tar.bz2</code>."
 msgstr "Las estadísticas nunca han sido recolectadas en este servidor. Si eres el administrados de este servidor, deberías ejecutar <code>./admin/CollectStats.pl</code> o importar <code>mbdump-stats.tar.bz2</code>."
 
-#: ../root/statistics/Relationships.js:95
+#: ../root/statistics/Relationships.js:100
 msgid "No relationship statistics available."
 msgstr "Sin estadísticas de relación disponibles."
 
-#: ../root/statistics/Relationships.js:102
+#: ../root/statistics/Relationships.js:107
 msgctxt "relationships"
 msgid "This type only"
 msgstr "Solo este tipo"
 
-#: ../root/statistics/Relationships.js:103
+#: ../root/statistics/Relationships.js:108
 msgctxt "relationships"
 msgid "Including subtypes"
 msgstr "Incluyendo subtipos"
 
-#: ../root/statistics/Relationships.js:120
+#: ../root/statistics/Relationships.js:125
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
 
-#: ../root/statistics/Relationships.js:126
+#: ../root/statistics/Relationships.js:131
 msgid "{type0}-{type1} relationships:"
 msgstr "Relaciones entre {type0} y {type1}:"
 
