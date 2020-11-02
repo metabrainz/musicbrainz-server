@@ -768,6 +768,14 @@ msgid ""
 "towards 4 meters and has three strings operated by levers and pedals."
 msgstr ""
 
+#. name:portative 
+#: DB:instrument/description:1021
+msgid ""
+"Constructed in medieval Europe to be as portable as possible, small upright "
+"wooden frame with keyboard contains a row of flute-pipes fed air from hand "
+"operated bellows."
+msgstr ""
+
 #. name:cornett 
 #: DB:instrument/description:203
 msgid ""
@@ -1080,6 +1088,14 @@ msgid ""
 "ensemble with zhu."
 msgstr ""
 
+#. name:shehnai 
+#: DB:instrument/description:494
+msgid ""
+"From the Indian subcontinent, it is used at marriages, in temples and "
+"concerts - made of wood with a double reed and wood/metal flared bell, it "
+"has 6-9 holes."
+msgstr ""
+
 #. name:gamelan 
 #: DB:instrument/description:365
 msgid ""
@@ -1234,6 +1250,13 @@ msgid ""
 "Important to the Mongolians, it is trapezoid shaped with two traditionally "
 "horsehair, now often nylon, strings fastened by wooden pegs at the end which "
 "is carved like a horse head."
+msgstr ""
+
+#. name:suona 
+#: DB:instrument/description:548
+msgid ""
+"Important to the folk music in northern China, it has a conical wooden body "
+"and seven finger holes."
 msgstr ""
 
 #. name:baroque rackett 
@@ -3249,11 +3272,6 @@ msgid ""
 "Ethiopia."
 msgstr ""
 
-#. name:kèn bầu 
-#: DB:instrument/description:303
-msgid "The kèn bầu is a double reed instrument from Vietnam."
-msgstr ""
-
 #. name:kèn lá 
 #: DB:instrument/description:311
 msgid ""
@@ -3621,13 +3639,6 @@ msgid ""
 "Okinawan sanshin."
 msgstr ""
 
-#. name:shehnai 
-#: DB:instrument/description:494
-msgid ""
-"The shehnai is a double reed conical oboe, common in North India, West India "
-"and Pakistan, made out of wood, with a metal flare bell at the end."
-msgstr ""
-
 #. name:shekere 
 #: DB:instrument/description:381
 msgid ""
@@ -3722,13 +3733,6 @@ msgstr ""
 #. name:suka 
 #: DB:instrument/description:730
 msgid "The suka is a once-extinct fiddle from Poland."
-msgstr ""
-
-#. name:suona 
-#: DB:instrument/description:548
-msgid ""
-"The suona is a Chinese shawm frequently used in the folk music of northern "
-"China."
 msgstr ""
 
 #. name:surdo 
@@ -4448,6 +4452,13 @@ msgstr ""
 msgid ""
 "Used in the traditional Korean music daechwita, it consists of a large two "
 "headed wooden barrel painted with dragon designs."
+msgstr ""
+
+#. name:kèn bầu 
+#: DB:instrument/description:303
+msgid ""
+"Used in the traditional music of Vietnam, it is made of wood with a "
+"gourdshaped bell."
 msgstr ""
 
 #. name:hyoshigi 

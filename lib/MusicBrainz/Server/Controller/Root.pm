@@ -497,6 +497,16 @@ sub end : ActionClass('RenderView')
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
 }
 
+if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
+    # Test method for t::MusicBrainz::Server::Controller::Errors
+    my $method = sub { die 'die die' };
+    __PACKAGE__->meta->add_method(die_die_die => $method);
+    __PACKAGE__->meta->register_method_attributes(
+        $method,
+        [q[Path('die-die-die')]],
+    );
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

@@ -32,7 +32,11 @@ const Index = ({
   const userExists = !!$c.user;
   const isrc = isrcs[0];
   return (
-    <Layout $c={$c} fullWidth title={texp.l('ISRC “{isrc}”', {isrc: isrc.isrc})}>
+    <Layout
+      $c={$c}
+      fullWidth
+      title={texp.l('ISRC “{isrc}”', {isrc: isrc.isrc})}
+    >
       <h1>
         {exp.l(
           'ISRC “{isrc}”',

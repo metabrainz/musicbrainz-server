@@ -56,7 +56,11 @@ test('age', function (t) {
   }), [0, 11, 3], 'age is 11 months');
 
   t.deepEqual(age.age({
-    begin_date: {year: (new Date()).getFullYear() - 24, month: null, day: null},
+    begin_date: {
+      year: (new Date()).getFullYear() - 24,
+      month: null,
+      day: null,
+    },
     end_date: null,
     ended: false,
   })[0], 24, 'age is 24 years');
@@ -109,7 +113,10 @@ test('hasAge', function (t) {
   // testing hasAge when the begin date is more specific than the end date
   entity.begin_date = {year: 1987, month: 3, day: 7};
   entity.end_date = {year: 1987, month: null, day: null};
-  t.ok(!age.hasAge(entity), 'no age for artists with more specific begin than end dates');
+  t.ok(
+    !age.hasAge(entity),
+    'no age for artists with more specific begin than end dates',
+  );
 });
 
 test('formatTrackLength', function (t) {
@@ -124,7 +131,11 @@ test('formatTrackLength', function (t) {
   t.equal(formatTrackLength(23 * seconds), '0:23', 'formatTrackLength');
   t.equal(formatTrackLength(59 * minutes), '59:00', 'formatTrackLength');
   t.equal(formatTrackLength(60 * minutes), '1:00:00', 'formatTrackLength');
-  t.equal(formatTrackLength(14 * hours + 15 * minutes + 16 * seconds), '14:15:16', 'formatTrackLength');
+  t.equal(
+    formatTrackLength(14 * hours + 15 * minutes + 16 * seconds),
+    '14:15:16',
+    'formatTrackLength',
+  );
 });
 
 test('parseDate', function (t) {
@@ -181,25 +192,57 @@ test('formatDatePeriod', function (t) {
   var a = { year: 1999 };
   var b = { year: 2000 };
 
-  t.equal(formatDatePeriod({ begin_date: a, end_date: a, ended: false }), '1999');
-  t.equal(formatDatePeriod({ begin_date: a, end_date: a, ended: true }), '1999');
+  t.equal(
+    formatDatePeriod({begin_date: a, end_date: a, ended: false}),
+    '1999',
+  );
+  t.equal(
+    formatDatePeriod({begin_date: a, end_date: a, ended: true}),
+    '1999',
+  );
 
-  t.equal(formatDatePeriod({ begin_date: a, end_date: b, ended: false }), '1999 \u2013 2000');
-  t.equal(formatDatePeriod({ begin_date: a, end_date: b, ended: true }), '1999 \u2013 2000');
+  t.equal(
+    formatDatePeriod({begin_date: a, end_date: b, ended: false}),
+    '1999 \u2013 2000',
+  );
+  t.equal(
+    formatDatePeriod({begin_date: a, end_date: b, ended: true}),
+    '1999 \u2013 2000',
+  );
 
-  t.equal(formatDatePeriod({ begin_date: {}, end_date: b, ended: false }), '\u2013 2000');
-  t.equal(formatDatePeriod({ begin_date: {}, end_date: b, ended: true }), '\u2013 2000');
+  t.equal(
+    formatDatePeriod({begin_date: {}, end_date: b, ended: false}),
+    '\u2013 2000',
+  );
+  t.equal(
+    formatDatePeriod({begin_date: {}, end_date: b, ended: true}),
+    '\u2013 2000',
+  );
 
-  t.equal(formatDatePeriod({ begin_date: a, end_date: {}, ended: false }), '1999 \u2013');
-  t.equal(formatDatePeriod({ begin_date: a, end_date: {}, ended: true }), '1999 \u2013 ????');
+  t.equal(
+    formatDatePeriod({begin_date: a, end_date: {}, ended: false}),
+    '1999 \u2013',
+  );
+  t.equal(
+    formatDatePeriod({begin_date: a, end_date: {}, ended: true}),
+    '1999 \u2013 ????',
+  );
 });
 
 test('validDate', function (t) {
   t.plan(12);
 
   t.equal(dates.isDateValid('', '', ''), true, 'all empty strings are valid');
-  t.equal(dates.isDateValid(undefined, undefined, undefined), true, 'all undefined values are valid');
-  t.equal(dates.isDateValid(null, null, null), true, 'all null values are valid');
+  t.equal(
+    dates.isDateValid(undefined, undefined, undefined),
+    true,
+    'all undefined values are valid',
+  );
+  t.equal(
+    dates.isDateValid(null, null, null),
+    true,
+    'all null values are valid',
+  );
   t.equal(dates.isDateValid(2000), true, 'just a year is valid');
   t.equal(dates.isDateValid('', 10), true, 'just a month is valid');
   t.equal(dates.isDateValid('', '', 29), true, 'just a day is valid');
@@ -208,7 +251,11 @@ test('validDate', function (t) {
   t.equal(dates.isDateValid('', '', 32), false, 'days > 31 are invalid');
   t.equal(dates.isDateValid(2001, 2, 29), false, '2001-02-29 is invalid');
   t.equal(dates.isDateValid('2000f'), false, 'letters are invalid');
-  t.equal(dates.isDateValid(1960, 2, 29), true, 'leap years are handled correctly (MBS-5663)');
+  t.equal(
+    dates.isDateValid(1960, 2, 29),
+    true,
+    'leap years are handled correctly (MBS-5663)',
+  );
 });
 
 test('validDatePeriod', function (t) {
@@ -265,24 +312,92 @@ test('validDatePeriod', function (t) {
 test('fullwidthLatin', function (t) {
   t.plan(17);
 
-  t.equal(fullwidthLatin.hasFullwidthLatin(undefined), false, 'undefined has no fullwidth Latin');
-  t.equal(fullwidthLatin.fromFullwidthLatin(undefined), '', 'undefined (fromFullwidthLatin) empty');
-  t.equal(fullwidthLatin.toFullwidthLatin(undefined), '', 'undefined (toFullwidthLatin) empty');
+  t.equal(
+    fullwidthLatin.hasFullwidthLatin(undefined),
+    false,
+    'undefined has no fullwidth Latin',
+  );
+  t.equal(
+    fullwidthLatin.fromFullwidthLatin(undefined),
+    '',
+    'undefined (fromFullwidthLatin) empty',
+  );
+  t.equal(
+    fullwidthLatin.toFullwidthLatin(undefined),
+    '',
+    'undefined (toFullwidthLatin) empty',
+  );
 
-  t.equal(fullwidthLatin.hasFullwidthLatin(null), false, 'null has no fullwidth Latin');
-  t.equal(fullwidthLatin.fromFullwidthLatin(null), '', 'null (fromFullwidthLatin) empty');
-  t.equal(fullwidthLatin.toFullwidthLatin(null), '', 'null (toFullwidthLatin) empty');
+  t.equal(
+    fullwidthLatin.hasFullwidthLatin(null),
+    false,
+    'null has no fullwidth Latin',
+  );
+  t.equal(
+    fullwidthLatin.fromFullwidthLatin(null),
+    '',
+    'null (fromFullwidthLatin) empty',
+  );
+  t.equal(
+    fullwidthLatin.toFullwidthLatin(null),
+    '',
+    'null (toFullwidthLatin) empty',
+  );
 
-  t.equal(fullwidthLatin.hasFullwidthLatin(''), false, 'empty has no fullwidth Latin');
-  t.equal(fullwidthLatin.fromFullwidthLatin(''), '', 'empty (fromFullwidthLatin) empty');
-  t.equal(fullwidthLatin.toFullwidthLatin(''), '', 'empty (toFullwidthLatin) empty');
+  t.equal(
+    fullwidthLatin.hasFullwidthLatin(''),
+    false,
+    'empty has no fullwidth Latin',
+  );
+  t.equal(
+    fullwidthLatin.fromFullwidthLatin(''),
+    '',
+    'empty (fromFullwidthLatin) empty',
+  );
+  t.equal(
+    fullwidthLatin.toFullwidthLatin(''),
+    '',
+    'empty (toFullwidthLatin) empty',
+  );
 
-  t.equal(fullwidthLatin.hasFullwidthLatin('　ｆｅａｔ．　'), true, 'fully fullwidth Latin has fullwidth Latin');
-  t.equal(fullwidthLatin.hasFullwidthLatin(' ｆｅａｔ. '), true, 'fullwidth Latin letters are fullwidth Latin');
-  t.equal(fullwidthLatin.hasFullwidthLatin('　feat.　'), true, 'ideographic space is fullwidth Latin');
-  t.equal(fullwidthLatin.hasFullwidthLatin(' feat． '), true, 'fullwidth full stop is fullwidth Latin');
-  t.equal(fullwidthLatin.fromFullwidthLatin('　ｆｅａｔ．　'), ' feat. ', 'fully converted fromFullwidthLatin');
-  t.equal(fullwidthLatin.fromFullwidthLatin(' ｆｅａｔ. '), ' feat. ', 'partly converted fromFullwidthLatin');
-  t.equal(fullwidthLatin.toFullwidthLatin('　feat．　'), '　ｆｅａｔ．　', 'partly converted toFullwidthLatin');
-  t.equal(fullwidthLatin.toFullwidthLatin(' feat. '), '　ｆｅａｔ．　', 'fully converted toFullwidthLatin');
+  t.equal(
+    fullwidthLatin.hasFullwidthLatin('　ｆｅａｔ．　'),
+    true,
+    'fully fullwidth Latin has fullwidth Latin',
+  );
+  t.equal(
+    fullwidthLatin.hasFullwidthLatin(' ｆｅａｔ. '),
+    true,
+    'fullwidth Latin letters are fullwidth Latin',
+  );
+  t.equal(
+    fullwidthLatin.hasFullwidthLatin('　feat.　'),
+    true,
+    'ideographic space is fullwidth Latin',
+  );
+  t.equal(
+    fullwidthLatin.hasFullwidthLatin(' feat． '),
+    true,
+    'fullwidth full stop is fullwidth Latin',
+  );
+  t.equal(
+    fullwidthLatin.fromFullwidthLatin('　ｆｅａｔ．　'),
+    ' feat. ',
+    'fully converted fromFullwidthLatin',
+  );
+  t.equal(
+    fullwidthLatin.fromFullwidthLatin(' ｆｅａｔ. '),
+    ' feat. ',
+    'partly converted fromFullwidthLatin',
+  );
+  t.equal(
+    fullwidthLatin.toFullwidthLatin('　feat．　'),
+    '　ｆｅａｔ．　',
+    'partly converted toFullwidthLatin',
+  );
+  t.equal(
+    fullwidthLatin.toFullwidthLatin(' feat. '),
+    '　ｆｅａｔ．　',
+    'fully converted toFullwidthLatin',
+  );
 });

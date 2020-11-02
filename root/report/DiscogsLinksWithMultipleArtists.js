@@ -24,7 +24,11 @@ const DiscogsLinksWithMultipleArtists = ({
   items,
   pager,
 }: ReportDataT<ReportArtistUrlT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Discogs URLs linked to multiple artists')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Discogs URLs linked to multiple artists')}
+  >
     <h1>{l('Discogs URLs linked to multiple artists')}</h1>
 
     <ul>

@@ -55,7 +55,8 @@ const until = require('selenium-webdriver/lib/until');
 
 const DBDefs = require('../root/static/scripts/common/DBDefs');
 const deepEqual = require('../root/static/scripts/common/utility/deepEqual');
-const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp').default;
+const escapeRegExp =
+  require('../root/static/scripts/common/utility/escapeRegExp').default;
 const writeCoverage = require('../root/utility/writeCoverage');
 
 function compareEditDataValues(actualValue, expectedValue) {
@@ -99,12 +100,15 @@ function execFile(...args) {
       }
     }
 
-    const child = child_process.execFile(...args, function (error, stdout, stderr) {
-      result = {error, stdout, stderr};
-      if (exitCode !== null) {
-        done();
-      }
-    });
+    const child = child_process.execFile(
+      ...args,
+      function (error, stdout, stderr) {
+        result = {error, stdout, stderr};
+        if (exitCode !== null) {
+          done();
+        }
+      },
+    );
 
     child.on('exit', function (code) {
       exitCode = code;
@@ -469,8 +473,16 @@ const seleniumTests = [
   {name: 'Redirect_Merged_Entities.json5', login: true},
   {name: 'admin/Edit_Banner.json5', login: true},
   {name: 'release-editor/The_Downward_Spiral.json5', login: true},
-  {name: 'release-editor/Duplicate_Selection.json5', login: true, sql: 'whatever_it_takes.sql'},
-  {name: 'release-editor/Seeding.json5', login: true, sql: 'vision_creation_newsun.sql'},
+  {
+    name: 'release-editor/Duplicate_Selection.json5',
+    login: true,
+    sql: 'whatever_it_takes.sql',
+  },
+  {
+    name: 'release-editor/Seeding.json5',
+    login: true,
+    sql: 'vision_creation_newsun.sql',
+  },
   {name: 'release-editor/MBS-10221.json5', login: true},
   {name: 'release-editor/MBS-10359.json5', login: true},
   {name: 'release-editor/MBS-11015.json5', login: true},
@@ -522,12 +534,13 @@ async function runCommands(commands, t) {
         await writePreviousSeleniumCoverage();
       }
 
-      // Die if there are any JS errors on the page since the previous command.
+      // Die if there are any JS errors on the page since the previous command
       const errors = await getPageErrors();
 
       if (errors.length) {
         throw new Error(
-          'Errors were found on the page since executing the previous command:\n' +
+          'Errors were found on the page ' +
+          'since executing the previous command:\n' +
           errors.join('\n\n')
         );
       }
@@ -613,8 +626,10 @@ async function runCommands(commands, t) {
 
     const isLastTest = index === testsToRun.length - 1;
 
+    const testOptions = {objectPrintDepth: 10, timeout: TEST_TIMEOUT};
+
     return new Promise(function (resolve) {
-      test(title, {objectPrintDepth: 10, timeout: TEST_TIMEOUT}, function (t) {
+      test(title, testOptions, function (t) {
         t.plan(plan);
 
         const timeout = setTimeout(resolve, TEST_TIMEOUT);

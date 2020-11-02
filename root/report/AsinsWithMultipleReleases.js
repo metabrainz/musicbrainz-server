@@ -24,7 +24,11 @@ const AsinsWithMultipleReleases = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseUrlT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Amazon URLs linked to multiple releases')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Amazon URLs linked to multiple releases')}
+  >
     <h1>{l('Amazon URLs linked to multiple releases')}</h1>
 
     <ul>

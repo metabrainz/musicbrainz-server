@@ -110,7 +110,12 @@ test('multifile/ajax upload mime type', function (t) {
   mimeTypeTest(t, '1x1.jpg', 'image/jpeg', 'resolved');
   mimeTypeTest(t, '1x1.png', 'image/png', 'resolved');
   mimeTypeTest(t, '1x1.gif', 'image/gif', 'resolved');
-  mimeTypeTest(t, 'not an image.txt', 'unrecognized image format', 'rejected');
+  mimeTypeTest(
+    t,
+    'not an image.txt',
+    'unrecognized image format',
+    'rejected',
+  );
 });
 
 test('cover art types', function (t) {
@@ -145,14 +150,38 @@ test('upload queue', function (t) {
   t.equal(upvm.files_to_upload().length, 4, 'four files in upload queue');
 
   upvm.moveFile(txtFile, 1);
-  t.equal(upvm.files_to_upload()[3].name, txtFile.name, "moving last file to the end doesn't move it");
+  t.equal(
+    upvm.files_to_upload()[3].name,
+    txtFile.name,
+    "moving last file to the end doesn't move it",
+  );
   upvm.moveFile(txtFile, -1);
-  t.equal(upvm.files_to_upload()[2].name, txtFile.name, 'last file moved to third position');
-  t.equal(upvm.files_to_upload()[3].name, pngFile.name, 'file in third position is now at the end');
+  t.equal(
+    upvm.files_to_upload()[2].name,
+    txtFile.name,
+    'last file moved to third position',
+  );
+  t.equal(
+    upvm.files_to_upload()[3].name,
+    pngFile.name,
+    'file in third position is now at the end',
+  );
 
   upvm.moveFile(gifFile, -1);
-  t.equal(upvm.files_to_upload()[0].name, gifFile.name, "moving first file to the start doesn't move it");
+  t.equal(
+    upvm.files_to_upload()[0].name,
+    gifFile.name,
+    "moving first file to the start doesn't move it",
+  );
   upvm.moveFile(gifFile, 1);
-  t.equal(upvm.files_to_upload()[1].name, gifFile.name, 'first file moved to second position');
-  t.equal(upvm.files_to_upload()[0].name, jpgFile.name, 'file in second position is now at the start');
+  t.equal(
+    upvm.files_to_upload()[1].name,
+    gifFile.name,
+    'first file moved to second position',
+  );
+  t.equal(
+    upvm.files_to_upload()[0].name,
+    jpgFile.name,
+    'file in second position is now at the start',
+  );
 });

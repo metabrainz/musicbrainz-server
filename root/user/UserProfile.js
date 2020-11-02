@@ -363,7 +363,7 @@ const UserProfileInformation = ({
 type UserEditsPropertyProps = {
   +$c: CatalystContextT,
   +addedEntities: number,
-  +editType: number,
+  +entityType: string,
   +name: string,
   +user: EditorT,
 };
@@ -371,12 +371,21 @@ type UserEditsPropertyProps = {
 const UserEditsProperty = ({
   $c,
   addedEntities,
-  editType,
+  entityType,
   name,
   user,
 }: UserEditsPropertyProps) => {
   const encodedName = encodeURIComponent(user.name);
-  const searchEditsURL = (editType => (
+  const createEditTypes = entityType === 'cover_art'
+    ? TYPES.EDIT_RELEASE_ADD_COVER_ART
+    : entityType === 'release' ? (
+      // Also list historical edits
+      [
+        TYPES.EDIT_RELEASE_CREATE,
+        TYPES.EDIT_HISTORIC_ADD_RELEASE,
+      ].join(',')
+    ) : TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`];
+  const searchEditsURL = (createEditTypes => (
     '/search/edits' +
     '?auto_edit_filter=' +
     '&conditions.0.field=editor' +
@@ -386,7 +395,7 @@ const UserEditsProperty = ({
     '&combinator=and' +
     '&conditions.1.field=type' +
     '&conditions.1.operator=%3D' +
-    '&conditions.1.args=' + editType +
+    '&conditions.1.args=' + createEditTypes +
     '&negation=0' +
     '&order=desc'
   ));
@@ -394,7 +403,7 @@ const UserEditsProperty = ({
     <UserProfileProperty name={name}>
       {$c.user ? (exp.l('{count} ({view_url|view})', {
         count: formatCount($c, addedEntities),
-        view_url: searchEditsURL(editType),
+        view_url: searchEditsURL(createEditTypes),
       })) : (exp.l('{count}', {
         count: formatCount($c, addedEntities),
       }))}
@@ -648,11 +657,7 @@ const UserProfileStatistics = ({
               <UserEditsProperty
                 $c={$c}
                 addedEntities={addedEntities[entityType]}
-                editType={
-                  entityType === 'cover_art'
-                    ? TYPES.EDIT_RELEASE_ADD_COVER_ART
-                    : TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]
-                }
+                entityType={entityType}
                 key={entityType}
                 name={entityTypeName}
                 user={user}

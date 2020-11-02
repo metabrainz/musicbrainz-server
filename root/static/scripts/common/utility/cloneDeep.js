@@ -10,7 +10,10 @@
 /* eslint-disable import/no-commonjs */
 /* eslint-disable multiline-comment-style */
 
-function _cloneDeep(value, seen)/*: any */ {
+function _cloneDeep/*:: <+T> */(
+  value/*: T */,
+  seen/*: WeakMap<any, any> */,
+)/*: any */ {
   if (value != null && typeof value === 'object') {
     const clone = seen.get(value);
     if (clone) {
@@ -32,7 +35,7 @@ function _cloneArrayDeep/*:: <+T> */(
   seen.set(array, clone);
   const size = array.length;
   for (let i = 0; i < size; i++) {
-    clone.push(_cloneDeep(array[i], seen));
+    clone.push(_cloneDeep/*:: <T> */(array[i], seen));
   }
   return clone;
 }

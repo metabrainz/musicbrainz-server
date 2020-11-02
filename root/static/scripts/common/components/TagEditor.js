@@ -470,7 +470,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 }
 
-export const MainTagEditor: React.AbstractComponent<TagEditorProps, void> = hydrate<TagEditorProps>(
+export const MainTagEditor = (hydrate<TagEditorProps>(
   'div.all-tags',
   class extends TagEditor {
     hideNegativeTags(event: SyntheticEvent<HTMLAnchorElement>) {
@@ -586,9 +586,9 @@ export const MainTagEditor: React.AbstractComponent<TagEditorProps, void> = hydr
     }
   },
   minimalEntity,
-);
+): React.AbstractComponent<TagEditorProps, void>);
 
-export const SidebarTagEditor: React.AbstractComponent<TagEditorProps, void> = hydrate<TagEditorProps>(
+export const SidebarTagEditor = (hydrate<TagEditorProps>(
   'div.sidebar-tags',
   class extends TagEditor {
     render() {
@@ -644,7 +644,7 @@ export const SidebarTagEditor: React.AbstractComponent<TagEditorProps, void> = h
     }
   },
   minimalEntity,
-);
+): React.AbstractComponent<TagEditorProps, void>);
 
 function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,

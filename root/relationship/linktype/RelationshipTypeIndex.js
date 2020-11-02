@@ -96,12 +96,18 @@ const RelationshipTypeIndex = ({
             <p>{expand2react(l_relationships(relType.description))}</p>
 
             <p>
+              {/*
+                * We need to show this to users because it is needed
+                * for release editor seeding. Once that can be done
+                * with the MBID (MBS-11175), this should be hidden
+                * if the user is not a relationship editor.
+                */}
+              <strong>{l('ID:')}</strong>
+              {' '}
+              {relType.id}
+              <br />
               {$c.user?.is_relationship_editor ? (
                 <>
-                  <strong>{l('ID:')}</strong>
-                  {' '}
-                  {relType.id}
-                  <br />
                   <strong>{l('Child order:')}</strong>
                   {' '}
                   {relType.child_order}

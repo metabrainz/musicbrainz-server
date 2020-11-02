@@ -23,7 +23,11 @@ const Index = ({$c, iswcs, works}: Props): React.Element<typeof Layout> => {
   const userExists = !!$c.user;
   const iswc = iswcs[0];
   return (
-    <Layout $c={$c} fullWidth title={texp.l('ISWC “{iswc}”', {iswc: iswc.iswc})}>
+    <Layout
+      $c={$c}
+      fullWidth
+      title={texp.l('ISWC “{iswc}”', {iswc: iswc.iswc})}
+    >
       <h1>
         {exp.l('ISWC “{iswc}”',
                {iswc: <CodeLink code={iswc} key="iswc" />})}

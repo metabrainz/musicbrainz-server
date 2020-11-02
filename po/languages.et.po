@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-04-01 21:37+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"PO-Revision-Date: 2020-10-19 14:01+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -824,7 +824,7 @@ msgstr "alamsaksa"
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "keskülemsaksa (u 1050–1500)"
 
-#. frequency:0 iso_code_3:goh
+#. frequency:1 iso_code_3:goh
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
 msgstr "vanaülemsaksa (u 750–1050)"
@@ -1033,6 +1033,11 @@ msgstr "isuri"
 #: DB:language/name:191
 msgid "Ingush"
 msgstr "inguši"
+
+#. frequency:1 iso_code_3:moe
+#: DB:language/name:4369
+msgid "Innu"
+msgstr ""
 
 #. frequency:1 iso_code_3:ina
 #: DB:language/name:187
@@ -1618,11 +1623,6 @@ msgstr "mongo"
 #: DB:language/name:282
 msgid "Mongolian"
 msgstr "mongoli"
-
-#. frequency:1 iso_code_3:moe
-#: DB:language/name:4369
-msgid "Montagnais"
-msgstr "innu"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283

@@ -15,8 +15,17 @@ import PaginatedResults from '../components/PaginatedResults';
 import Filter from '../static/scripts/common/components/Filter';
 import {type FilterFormT}
   from '../static/scripts/common/components/FilterForm';
+import bracketed from '../static/scripts/common/utility/bracketed';
 
 import ArtistLayout from './ArtistLayout';
+
+type FooterSwitchProps = {
+  +artist: ArtistT,
+  +hasStandalone: boolean,
+  +hasVideo: boolean,
+  +standaloneOnly: boolean,
+  +videoOnly: boolean,
+};
 
 type Props = {
   +$c: CatalystContextT,
@@ -24,10 +33,95 @@ type Props = {
   +artist: ArtistT,
   +filterForm: ?FilterFormT,
   +hasFilter: boolean,
+  +hasStandalone: boolean,
+  +hasVideo: boolean,
   +pager: PagerT,
   +recordings: $ReadOnlyArray<RecordingT>,
   +standaloneOnly: boolean,
   +videoOnly: boolean,
+};
+
+const FooterSwitch = ({
+  artist,
+  hasStandalone,
+  hasVideo,
+  standaloneOnly,
+  videoOnly,
+}: FooterSwitchProps): React.Element<'p'> => {
+  const showingAllText = l('Showing all recordings');
+  const showingStandaloneText = l('Showing only standalone recordings');
+  const showingVideosText = l('Showing only videos');
+  const showAllLink = (
+    <a href={`/artist/${artist.gid}/recordings`}>
+      {l('Show all recordings')}
+    </a>
+  );
+  const showStandaloneLink = (
+    <a href={`/artist/${artist.gid}/recordings?standalone=1`}>
+      {l('Show only standalone recordings')}
+    </a>
+  );
+  const showVideosLink = (
+    <a href={`/artist/${artist.gid}/recordings?video=1`}>
+      {l('Show only videos')}
+    </a>
+  );
+
+  return (
+    <p>
+      {standaloneOnly ? (
+        <>
+          {showingStandaloneText}
+          {' '}
+          {bracketed(
+            <>
+              {showAllLink}
+              {hasVideo ? (
+                <>
+                  {' / '}
+                  {showVideosLink}
+                </>
+              ) : null}
+            </>
+          )}
+        </>
+      ) : videoOnly ? (
+        <>
+          {showingVideosText}
+          {' '}
+          {bracketed(
+            <>
+              {showAllLink}
+              {hasStandalone ? (
+                <>
+                  {' / '}
+                  {showStandaloneLink}
+                </>
+              ) : null}
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          {showingAllText}
+          {' '}
+          {hasStandalone && hasVideo ? (
+            bracketed(
+              <>
+                {showStandaloneLink}
+                {' / '}
+                {showVideosLink}
+              </>
+            )
+          ) : hasStandalone ? (
+            bracketed(showStandaloneLink)
+          ) : hasVideo ? (
+            bracketed(showVideosLink)
+          ) : null}
+        </>
+      )}
+    </p>
+  );
 };
 
 const ArtistRecordings = ({
@@ -36,12 +130,19 @@ const ArtistRecordings = ({
   artist,
   filterForm,
   hasFilter,
+  hasStandalone,
+  hasVideo,
   pager,
   recordings,
   standaloneOnly,
   videoOnly,
 }: Props): React.Element<typeof ArtistLayout> => (
-  <ArtistLayout $c={$c} entity={artist} page="recordings" title={l('Recordings')}>
+  <ArtistLayout
+    $c={$c}
+    entity={artist}
+    page="recordings"
+    title={l('Recordings')}
+  >
     <h2>{l('Recordings')}</h2>
 
     <Filter
@@ -73,36 +174,13 @@ const ArtistRecordings = ({
       </p>
     )}
 
-    {standaloneOnly ? (
-      <p>
-        {exp.l(
-          `Showing only standalone recordings.
-           {show_all|Show all recordings instead}.`,
-          {show_all: `/artist/${artist.gid}/recordings?standalone=0`},
-        )}
-      </p>
-
-    ) : videoOnly ? (
-      <p>
-        {exp.l(
-          'Showing only videos. {show_all|Show all recordings instead}.',
-          {show_all: `/artist/${artist.gid}/recordings?video=0`},
-        )}
-      </p>
-
-    ) : (
-      <p>
-        {exp.l(
-          `Showing all recordings.
-           {show_sa|Show only standalone recordings instead}, or
-           {show_vid|show only videos}.`,
-          {
-            show_sa: `/artist/${artist.gid}/recordings?standalone=1`,
-            show_vid: `/artist/${artist.gid}/recordings?video=1`,
-          },
-        )}
-      </p>
-    )}
+    <FooterSwitch
+      artist={artist}
+      hasStandalone={hasStandalone}
+      hasVideo={hasVideo}
+      standaloneOnly={standaloneOnly}
+      videoOnly={videoOnly}
+    />
   </ArtistLayout>
 );
 

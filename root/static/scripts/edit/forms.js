@@ -121,7 +121,8 @@ ko.bindingHandlers.loop = {
     const elements = options.elements || {};
     const template = [];
 
-    for (const node of Array.from(ko.virtualElements.childNodes(parentNode))) {
+    const childNodes = Array.from(ko.virtualElements.childNodes(parentNode));
+    for (const node of childNodes) {
       if (node.nodeType === ELEMENT_NODE ||
           node.nodeType === COMMENT_NODE) {
         template.push(node);
@@ -248,7 +249,11 @@ ko.bindingHandlers.loop = {
           }
         }
 
-        ko.virtualElements.insertAfter(parentNode, elementsToInsert, last(elementsToInsertAfter));
+        ko.virtualElements.insertAfter(
+          parentNode,
+          elementsToInsert,
+          last(elementsToInsertAfter),
+        );
       }
 
       // Brief timeout in case a removed item gets re-added.
@@ -266,10 +271,14 @@ ko.bindingHandlers.loop = {
       }
     }
 
-    var changeSubscription = observableArray.subscribe(update, null, 'arrayChange');
+    var changeSubscription =
+      observableArray.subscribe(update, null, 'arrayChange');
 
     function nodeDisposal() {
-      ko.utils.domNodeDisposal.removeDisposeCallback(parentNode, nodeDisposal);
+      ko.utils.domNodeDisposal.removeDisposeCallback(
+        parentNode,
+        nodeDisposal,
+      );
       changeSubscription.dispose();
     }
 
@@ -333,7 +342,8 @@ export const setDisabledOption = MB.forms.setDisabledOption;
 
 MB.initializeTooShortYearChecks = function (type) {
   function blockTooShortBeginYear() {
-    const beginYear = $(`#id-edit-${type}\\\.period\\\.begin_date\\\.year`).val();
+    const beginYear =
+      $(`#id-edit-${type}\\\.period\\\.begin_date\\\.year`).val();
     const allowed = (!beginYear || beginYear.trim().length === 4);
     $('.submit').prop('disabled', !allowed);
     $('#too_short_begin_year').toggle(!allowed);
@@ -341,7 +351,8 @@ MB.initializeTooShortYearChecks = function (type) {
 
   function blockTooShortEndYear() {
     const endYear = $(`#id-edit-${type}\\\.period\\\.end_date\\\.year`).val();
-    const allowed = (endYear === null || endYear === '' || endYear.length === 4);
+    const allowed =
+      (endYear === null || endYear === '' || endYear.length === 4);
     $('.submit').prop('disabled', !allowed);
     $('#too_short_end_year').toggle(!allowed);
   }

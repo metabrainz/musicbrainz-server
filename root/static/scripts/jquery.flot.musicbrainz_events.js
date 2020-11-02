@@ -19,8 +19,10 @@
     var options = plot.getOptions();
     if (options.musicbrainzEvents.enabled) {
       $.each(options.musicbrainzEvents.data, function (index, value) {
-        if (((!options.xaxis.min || value.jsDate > options.xaxis.min) && (!options.xaxis.max || value.jsDate < options.xaxis.max)) &&
-                        (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5)) {
+        if (((!options.xaxis.min || value.jsDate > options.xaxis.min) &&
+            (!options.xaxis.max || value.jsDate < options.xaxis.max)) &&
+            (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 &&
+            plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5)) {
           plotEvent = value;
         }
         return !plotEvent;
@@ -63,7 +65,10 @@
 
       if (options.musicbrainzEvents.enabled) {
         $.each(options.musicbrainzEvents.data, function (index, value) {
-          var color = (value.jsDate == options.musicbrainzEvents.currentEvent.jsDate) ? options.musicbrainzEvents.selectColor : options.musicbrainzEvents.deselectColor;
+          var color =
+            (value.jsDate == options.musicbrainzEvents.currentEvent.jsDate)
+              ? options.musicbrainzEvents.selectColor
+              : options.musicbrainzEvents.deselectColor;
           drawCrosshairLine(plot, ctx, value.jsDate, color);
         });
       }

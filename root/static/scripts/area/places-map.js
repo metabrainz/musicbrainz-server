@@ -10,7 +10,6 @@
 import 'leaflet.markercluster/dist/leaflet.markercluster-src';
 
 import he from 'he';
-import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
 import EntityLink from '../common/components/EntityLink';

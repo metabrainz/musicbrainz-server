@@ -103,7 +103,8 @@ releaseEditor.seedRelease = function (release, data) {
      * Knockout.js will do a strict comparison when rendering the
      * input. See MBS-7828.
      */
-    data.releaseGroup.secondaryTypeIDs = data.releaseGroup.secondaryTypeIDs.map(String);
+    data.releaseGroup.secondaryTypeIDs =
+      data.releaseGroup.secondaryTypeIDs.map(String);
     release.releaseGroup(new fields.ReleaseGroup(data.releaseGroup));
   }
 

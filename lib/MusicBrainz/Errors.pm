@@ -1,4 +1,4 @@
-package MusicBrainz::Sentry;
+package MusicBrainz::Errors;
 
 use v5.10;
 use strict;
@@ -14,24 +14,25 @@ use Try::Tiny;
 
 our @EXPORT_OK = qw(
     capture_exceptions
+    get_error_message
     send_error_to_sentry
     sentry_enabled
     sig_die_handler
 );
 
+our $_sentry_enabled;
 sub sentry_enabled () {
-    state $enabled;
-    return $enabled if defined $enabled;
-    if (DBDefs->SENTRY_DSN && !$ENV{MUSICBRAINZ_RUNNING_TESTS}) {
+    return $_sentry_enabled if defined $_sentry_enabled;
+    if (DBDefs->SENTRY_DSN) {
         eval {
             require Sentry::Raven;
             Sentry::Raven->import;
         };
-        $enabled = $@ ? 0 : 1;
+        $_sentry_enabled = $@ ? 0 : 1;
     } else {
-        $enabled = 0;
+        $_sentry_enabled = 0;
     }
-    return $enabled;
+    return $_sentry_enabled;
 }
 
 sub get_error_message {
@@ -82,60 +83,83 @@ sub sig_die_handler {
 
     my $message = get_error_message($error);
     # If an exception is caught and then re-thrown, __DIE__ will run
-    # twice, but we want to keep the original stack trace.
-    my $stacktrace = $stack_traces->{$message};
-    return if $stacktrace;
+    # twice, but we want to keep the original stack trace, not the re-thrown
+    # one (which will be from a different context).
+    #
+    # This is why we key $stack_traces by $message and return if the key
+    # exists -- we only want the first stack trace for a given error.
+    my $stacktrace_info = $stack_traces->{$message};
+    return if $stacktrace_info;
 
+    my $stacktrace;
     {
         local $@;
-        eval { $stacktrace = Devel::StackTrace->new };
+        eval {
+            $stacktrace = Devel::StackTrace->new(
+                message => $message,
+                ignore_class => [qw(
+                    MusicBrainz::Errors
+                    Try::Tiny
+                )],
+                defined $frame_filter ? (frame_filter => sub {
+                    return $_[0]{caller}[0] =~ qr/$frame_filter/;
+                }) : (),
+            );
+        };
     };
     return unless $stacktrace;
 
-    my $frames = Sentry::Raven->_get_frames_from_devel_stacktrace($stacktrace);
-    my @included_frames;
-    my $i = -1;
+    my %sentry_frames;
+    if (sentry_enabled) {
+        my $frames = Sentry::Raven->_get_frames_from_devel_stacktrace($stacktrace);
+        my @included_frames;
+        my $i = -1;
 
-    for my $frame (reverse $stacktrace->frames) {
-        ++$i;
-
-        next if $frame->package =~ /^MusicBrainz::Sentry/;
-        next if $frame->package =~ /^Try::Tiny/;
-
-        if (defined $frame_filter) {
-            next unless $frame->package =~ $frame_filter;
-        }
-
-        my %context;
-        {
-            local $@;
-            eval {
-                %context = get_context($frame->filename, $frame->line);
+        for my $frame (reverse $stacktrace->frames) {
+            ++$i;
+            my %context;
+            {
+                local $@;
+                eval {
+                    %context = get_context($frame->filename, $frame->line);
+                };
             };
-        };
 
-        push @included_frames, { %{ $frames->[$i] }, %context };
+            push @included_frames, { %{ $frames->[$i] }, %context };
+        }
+        $sentry_frames{sentry_frames} = [reverse @included_frames];
     }
 
-    $stack_traces->{$message} = [reverse @included_frames];
+    $stack_traces->{$message} = {
+        as_string => $stacktrace->as_string(max_arg_length => 0),
+        %sentry_frames,
+    };
 }
 
+our $sentry;
 sub send_error_to_sentry {
     my ($error, $stack_traces, @context) = @_;
 
     my $message = get_error_message($error);
-    my @stacktrace = reverse @{ $stack_traces->{$message} // [] };
+    my @stacktrace = reverse @{ $stack_traces->{$message}{sentry_frames} // [] };
     if (@stacktrace) {
         push @context, Sentry::Raven->stacktrace_context(\@stacktrace);
     }
 
-    state $sentry = Sentry::Raven->new(
-        sentry_dsn => DBDefs->SENTRY_DSN,
-        environment => DBDefs->GIT_BRANCH,
-        tags => {
-            git_commit => DBDefs->GIT_SHA,
-        },
-    );
+    unless (defined $sentry) {
+        my $sentry_dsn = DBDefs->SENTRY_DSN;
+        my $git_branch = DBDefs->GIT_BRANCH;
+        my $git_sha = DBDefs->GIT_SHA;
+
+        $sentry = Sentry::Raven->new(
+            sentry_dsn => $sentry_dsn,
+            $git_branch ? (environment => $git_branch) : (),
+            $git_sha ? (tags => {
+                git_commit => $git_sha,
+            }) : (),
+        );
+    }
+
     $sentry->capture_exception($message, @context);
 }
 
@@ -144,14 +168,10 @@ sub capture_exceptions {
 
     my $stack_traces = {};
     try {
-        if (sentry_enabled) {
-            local $SIG{__DIE__} = sub {
-                sig_die_handler(shift, $stack_traces);
-            };
-            $try_code->();
-        } else {
-            $try_code->();
-        }
+        local $SIG{__DIE__} = sub {
+            sig_die_handler(shift, $stack_traces);
+        };
+        $try_code->();
     } catch {
         my $error = $_;
         if (sentry_enabled) {

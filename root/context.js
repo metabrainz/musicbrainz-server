@@ -51,7 +51,9 @@ const CatalystContext/*: React$Context<CatalystContextT> */ =
 
 exports.CatalystContext = CatalystContext;
 
-const SanitizedCatalystContext/*: React$Context<SanitizedCatalystContextT> */ =
+/*:: type SCC = React$Context<SanitizedCatalystContextT>; */
+
+const SanitizedCatalystContext/*: SCC */ =
   React.createContext/*:: <SanitizedCatalystContextT> */(
     defaultSanitizedContext,
   );

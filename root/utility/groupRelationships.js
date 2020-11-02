@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {
   INSTRUMENT_ROOT_ID,
   VOCAL_ROOT_ID,
@@ -450,7 +448,8 @@ export default function groupRelationships(
       const targetGroups = phraseGroups[i].targetGroups;
 
       for (let j = 0; j < targetGroups.length; j++) {
-        const datedExtraAttributesList = targetGroups[j].datedExtraAttributesList;
+        const datedExtraAttributesList =
+          targetGroups[j].datedExtraAttributesList;
         mergeDatedExtraAttributes(datedExtraAttributesList);
         datedExtraAttributesList.sort(cmpFirstDatePeriods);
       }

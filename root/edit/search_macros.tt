@@ -219,7 +219,8 @@
 [%- END %]
 
 [% MACRO predicate_link_type(field, field_contents) WRAPPER wfield predicate="set" %]
-  [% operators([ [ '=', l('is') ] ], field_contents) %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
 
   <select name="args" multiple="multiple" size="15">
     [%- FOR type_group=relationship_type %]

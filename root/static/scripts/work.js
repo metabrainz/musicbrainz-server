@@ -10,7 +10,6 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
-import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 

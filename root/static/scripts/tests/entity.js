@@ -13,8 +13,12 @@ import mbEntity from '../common/entity';
 test('CoreEntity', function (t) {
   t.plan(2);
 
-  const source = mbEntity({ gid: 123, entityType: 'recording', name: 'a recording' });
-  const target = mbEntity({ gid: 456, entityType: 'artist', name: 'foo', sort_name: 'bar' });
+  const source = mbEntity(
+    {entityType: 'recording', gid: 123, name: 'a recording'},
+  );
+  const target = mbEntity(
+    {entityType: 'artist', gid: 456, name: 'foo', sort_name: 'bar'},
+  );
 
   t.equal(
     source.html(),

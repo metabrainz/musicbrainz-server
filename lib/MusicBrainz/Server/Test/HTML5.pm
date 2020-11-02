@@ -43,6 +43,7 @@ sub ignore_warning
         '^Element .input. with attribute .type. whose value is .button.',
         '^Element .* not allowed as child of element .* in this context.',
         '^Bad value .X-UA-Compatible. for attribute .http-equiv. on element .meta..',
+        '^Bad value .dialog. for attribute .aria-haspopup. on element .button..',
     );
 
     for my $test (@ignored)

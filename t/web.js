@@ -51,7 +51,9 @@ CDP((client) => {
     });
 
     Runtime.exceptionThrown(function (event) {
-      console.error(utf8.encode(event.exceptionDetails.exception.description) + '\n');
+      console.error(
+        utf8.encode(event.exceptionDetails.exception.description) + '\n',
+      );
       exit(1);
     });
 

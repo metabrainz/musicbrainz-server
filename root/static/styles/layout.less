@@ -74,6 +74,10 @@ fieldset legend {
     font-weight: bold;
 }
 
+fieldset h2 {
+    margin-left: 1em;
+}
+
 #sidebar h2, .sidebar h2 {
     font-size: @medium-text;
     margin-left: -5px;
@@ -1048,17 +1052,26 @@ div.artwork { position: relative; width: 250px; }
     display: block;
 }
 
-.annotation-body, .review-body, .wikipedia-extract-body {
+.annotation-body,
+.review-body,
+.wikipedia-extract-body,
+.collapsible-body {
     position: relative;
     overflow: auto;
 }
 
-.annotation-collapsed, .review-collapsed, .wikipedia-extract-collapsed {
+.annotation-collapsed,
+.review-collapsed,
+.wikipedia-extract-collapsed,
+.collapsed {
     max-height: 100px;
     overflow: hidden;
 }
 
-.annotation-collapsed:after, .review-collapsed:after, .wikipedia-extract-collapsed:after {
+.annotation-collapsed:after,
+.review-collapsed:after,
+.wikipedia-extract-collapsed:after,
+.collapsed:after {
     display: block;
     position: absolute;
     bottom: 0;

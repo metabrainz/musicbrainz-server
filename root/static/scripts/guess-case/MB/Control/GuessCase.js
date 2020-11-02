@@ -101,7 +101,13 @@ guessCaseOptions.upperCaseRoman.subscribe(function (value) {
 
 ko.bindingHandlers.guessCase = {
 
-  init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+  init: function (
+    element,
+    valueAccessor,
+    allBindingsAccessor,
+    viewModel,
+    bindingContext,
+  ) {
     if (!guessCaseOptions.modeName.peek()) {
       guessCaseOptions.modeName(gc.modeName);
     }

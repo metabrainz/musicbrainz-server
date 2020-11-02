@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-02-27 09:48+0000\n"
+"PO-Revision-Date: 2020-10-21 10:51+0000\n"
 "Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -838,7 +838,7 @@ msgstr "Niederdeutsch"
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "Mittelhochdeutsch (ca. 1050–1500)"
 
-#. frequency:0 iso_code_3:goh
+#. frequency:1 iso_code_3:goh
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
 msgstr "Althochdeutsch (ca. 750–1050)"
@@ -1047,6 +1047,11 @@ msgstr "Ingrisch"
 #: DB:language/name:191
 msgid "Ingush"
 msgstr "Inguschisch"
+
+#. frequency:1 iso_code_3:moe
+#: DB:language/name:4369
+msgid "Innu"
+msgstr "Innu"
 
 #. frequency:1 iso_code_3:ina
 #: DB:language/name:187
@@ -1632,11 +1637,6 @@ msgstr "Mongo"
 #: DB:language/name:282
 msgid "Mongolian"
 msgstr "Mongolisch"
-
-#. frequency:1 iso_code_3:moe
-#: DB:language/name:4369
-msgid "Montagnais"
-msgstr "Montagnais"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283

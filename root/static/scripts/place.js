@@ -23,7 +23,10 @@ initializeGuessCase('place', 'id-edit-place');
 initializeArea('span.area.autocomplete');
 initializeDuplicateChecker('place');
 
-var bubble = initializeBubble('#coordinates-bubble', 'input[name=edit-place\\.coordinates]');
+var bubble = initializeBubble(
+  '#coordinates-bubble',
+  'input[name=edit-place\\.coordinates]',
+);
 
 /*
  * The map is hidden by default, which means it can't
@@ -50,7 +53,11 @@ map.on('click', function (e) {
     marker.setLatLng(e.latlng);
     updateCoordinates(e.latlng);
   } else {
-    // If the map is zoomed too far out, marker placement would be wildly inaccurate, so just zoom in.
+    /*
+     * If the map is zoomed too far out,
+     * marker placement would be wildly inaccurate,
+     * so just zoom in.
+     */
     map.setView(e.latlng, map.getZoom() + 2);
   }
 });
@@ -77,17 +84,22 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
   if (isBlank(coordinates)) {
     $('.coordinates-errors').css('display', 'none');
     $('input[name=edit-place\\.coordinates]').removeClass('error');
-    $('input[name=edit-place\\.coordinates]').css('background-color', 'transparent');
+    $('input[name=edit-place\\.coordinates]')
+      .css('background-color', 'transparent');
     coordinatesError(false);
   } else {
-    var url = '/ws/js/parse-coordinates?coordinates=' + encodeURIComponent(coordinates);
+    var url = '/ws/js/parse-coordinates?coordinates=' +
+              encodeURIComponent(coordinates);
     coordinatesRequest = $.getJSON(url, function (data) {
       $('.coordinates-errors').css('display', 'none');
       $('input[name=edit-place\\.coordinates]').removeClass('error');
       $('input[name=edit-place\\.coordinates]').addClass('success');
       coordinatesError(false);
 
-      const coords = L.latLng(data.coordinates.latitude, data.coordinates.longitude);
+      const coords = L.latLng(
+        data.coordinates.latitude,
+        data.coordinates.longitude,
+      );
       marker.setLatLng(coords);
       map.setView(coords, 16);
     }).fail(function (jqxhr, textStatus) {

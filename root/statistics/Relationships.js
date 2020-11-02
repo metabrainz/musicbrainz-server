@@ -85,7 +85,12 @@ const Relationships = ({
   stats,
   types,
 }: RelationshipsStatsT): React.Element<typeof StatisticsLayout> => (
-  <StatisticsLayout $c={$c} fullWidth page="relationships" title={l('Relationships')}>
+  <StatisticsLayout
+    $c={$c}
+    fullWidth
+    page="relationships"
+    title={l('Relationships')}
+  >
     <p>
       {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>

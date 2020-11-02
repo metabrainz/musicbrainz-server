@@ -25,7 +25,11 @@ const DeprecatedRelationshipReleases = ({
   pager,
 }: ReportDataT<ReportReleaseRelationshipT>):
 React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Releases with deprecated relationships')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Releases with deprecated relationships')}
+  >
     <h1>{l('Releases with deprecated relationships')}</h1>
 
     <ul>

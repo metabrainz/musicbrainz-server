@@ -24,7 +24,11 @@ const CoverArtRelationships = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Releases with cover art relationships')}>
+  <Layout
+    $c={$c}
+    fullWidth
+    title={l('Releases with cover art relationships')}
+  >
     <h1>{l('Releases with cover art relationships')}</h1>
 
     <ul>

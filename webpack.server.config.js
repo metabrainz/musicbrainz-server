@@ -38,17 +38,30 @@ module.exports = {
   },
 
   externals: [
-    nodeExternals({modulesFromFile: true}),
+    nodeExternals({
+      /*
+       * jquery and @popperjs are resolved to root/static/scripts/empty.js
+       * on the server. See NormalModuleReplacementPlugin below.
+       */
+      whitelist: [/(jquery|@popperjs)/],
+      modulesFromFile: true,
+    }),
 
     function (context, request, callback) {
       const resolvedRequest = path.resolve(context, request);
-      const requestFromCheckout = path.relative(dirs.CHECKOUT, resolvedRequest);
+      const requestFromCheckout = path.relative(
+        dirs.CHECKOUT,
+        resolvedRequest,
+      );
       if (externals.includes(requestFromCheckout)) {
         /*
          * Output a path relative to the build dir, since that's where
          * the server-components bundle will be.
          */
-        return callback(null, 'commonjs ' + path.relative(dirs.BUILD, resolvedRequest));
+        return callback(
+          null,
+          'commonjs ' + path.relative(dirs.BUILD, resolvedRequest),
+        );
       }
       callback();
     }
@@ -70,8 +83,11 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.NormalModuleReplacementPlugin(
+      /(jquery|@popperjs)/,
+      path.resolve(dirs.SCRIPTS, 'empty.js'),
+    ),
     new webpack.DefinePlugin(definePluginConfig),
-    new webpack.IgnorePlugin({resourceRegExp: /jquery/}),
     new webpack.ProvidePlugin(providePluginConfig),
   ],
 

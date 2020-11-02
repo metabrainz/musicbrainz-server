@@ -7,7 +7,6 @@
  */
 
 import $ from 'jquery';
-import * as React from 'react';
 
 import ArtistCreditLink from '../../common/components/ArtistCreditLink';
 import DescriptiveLink from '../../common/components/DescriptiveLink';

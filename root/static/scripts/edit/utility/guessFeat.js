@@ -239,8 +239,6 @@ export default function guessFeat(entity) {
 
 // For use outside of the release editor.
 MB.Control.initGuessFeatButton = function (formName) {
-  const nameInput = document.getElementById('id-' + formName + '.name');
-
   const augmentedEntity = Object.assign(
     Object.create(MB.sourceRelationshipEditor.source),
     {
@@ -249,8 +247,14 @@ MB.Control.initGuessFeatButton = function (formName) {
        * to the name input directly.
        */
       name: function () {
+        const nameInput = document.getElementById('id-' + formName + '.name');
         if (arguments.length) {
-          nameInput.value = arguments[0];
+          // XXX Allows React to see the input value change.
+          Object.getOwnPropertyDescriptor(
+            window.HTMLInputElement.prototype,
+            'value',
+          ).set.call(nameInput, arguments[0]);
+          nameInput.dispatchEvent(new Event('input', {bubbles: true}));
           return undefined;
         }
         return nameInput.value;

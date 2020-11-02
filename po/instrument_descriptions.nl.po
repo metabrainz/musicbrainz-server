@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-05 20:35+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2020-10-29 16:27+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -776,6 +776,14 @@ msgid ""
 "towards 4 meters and has three strings operated by levers and pedals."
 msgstr "De octobas is het allergrootste strijkinstrument. Het is tot vier meter hoog en heeft drie snaren die met hendels en pedalen worden bespeeld."
 
+#. name:portative
+#: DB:instrument/description:1021
+msgid ""
+"Constructed in medieval Europe to be as portable as possible, small upright "
+"wooden frame with keyboard contains a row of flute-pipes fed air from hand "
+"operated bellows."
+msgstr "De portatief is in middeleeuws Europa ontwikkeld als een zo draagbaar mogelijk orgel. Het heeft een kleine, opstaande houten kast, een toetsenbord en een rij pijpjes die door een handaangedreven balg van lucht worden voorzien."
+
 #. name:cornett
 #: DB:instrument/description:203
 msgid ""
@@ -1090,6 +1098,14 @@ msgid ""
 "ensemble with zhu."
 msgstr "Een yu is een houten tijger met een rij tanden op de rug. Het geluid wordt geproduceerd door over de tanden te schrapen. Het instrument werd bespeeld in een ensemble met de zhu."
 
+#. name:shehnai
+#: DB:instrument/description:494
+msgid ""
+"From the Indian subcontinent, it is used at marriages, in temples and "
+"concerts - made of wood with a double reed and wood/metal flared bell, it "
+"has 6-9 holes."
+msgstr "De shenhai is een houten dubbelrietinstrument met een uitlopende beker van hout of metaal en zes tot negen vingergaten uit het Indiase subcontinent."
+
 #. name:gamelan
 #: DB:instrument/description:365
 msgid ""
@@ -1246,6 +1262,13 @@ msgid ""
 "horsehair, now often nylon, strings fastened by wooden pegs at the end which"
 " is carved like a horse head."
 msgstr "De morin khuur is een snaarinstrument met een trapezevormige klankkast en twee snaren van nylon (modern) of paardenhaar (traditioneel). De krul is gesneden in de vorm van een paardenkop. Het is een belangrijk instrument voor de Mongoliërs."
+
+#. name:suona
+#: DB:instrument/description:548
+msgid ""
+"Important to the folk music in northern China, it has a conical wooden body "
+"and seven finger holes."
+msgstr "De suona is een houten fluit met een conische vorm en zeven vingergaten. Het is een belangrijk instrument in de volksmuziek van Noord-China."
 
 #. name:baroque rackett
 #: DB:instrument/description:897
@@ -1459,7 +1482,7 @@ msgstr "Een bandoera is een groot snaarinstrument dat overeenkomsten vertoont me
 msgid ""
 "Large square spring-containing bellows operated by the feet, it was used by "
 "accordion players as bass accompaniment in early 20th century Wallonia."
-msgstr ""
+msgstr "De voetenbas is een grote, rechthoekige blaasbalg die met de voeten wordt bespeeld. Het instrument werd begin 20e eeuw door accordeonspelers in Wallonië gebruikt als begeleidingsinstrument voor bastonen."
 
 #. name:baandu
 #: DB:instrument/description:880
@@ -3271,11 +3294,6 @@ msgid ""
 "Ethiopia."
 msgstr "Een krar is een vijf- of zessnarige lier met een komvormige klankkast uit Eritrea en Ethiopië."
 
-#. name:kèn bầu
-#: DB:instrument/description:303
-msgid "The kèn bầu is a double reed instrument from Vietnam."
-msgstr "De kèn bầu is een dubbelrietinstrument uit Vietnam."
-
 #. name:kèn lá
 #: DB:instrument/description:311
 msgid ""
@@ -3644,13 +3662,6 @@ msgid ""
 "Okinawan sanshin."
 msgstr "Een shamisen of samisen, ook wel sangen genoemd, is een instrument met drie snaren uit Japan dat wordt bespeeld met een grote driehoekige plectrum dat een bachi wordt genoemd. Voor de klankkast wordt meestal katten- of hondenhuid gebruikt, in tegenstelling tot de Chinese sanxian of de sanshin uit Okinawa."
 
-#. name:shehnai
-#: DB:instrument/description:494
-msgid ""
-"The shehnai is a double reed conical oboe, common in North India, West India"
-" and Pakistan, made out of wood, with a metal flare bell at the end."
-msgstr "De shehnai is een soort hobo die veel voorkomt in Noord-India, West-India en Pakistan. Hij wordt gemaakt van hout, met een metalen uiteinde in de vorm van een bel."
-
 #. name:shekere
 #: DB:instrument/description:381
 msgid ""
@@ -3746,13 +3757,6 @@ msgstr "Een westerngitaar of steelstringgitaar is een moderne variant op de akoe
 #: DB:instrument/description:730
 msgid "The suka is a once-extinct fiddle from Poland."
 msgstr "Een suka is een traditionele viool uit Polen. Hoewel bijna verdwenen, wordt hij tegenwoordig weer vaker bespeeld."
-
-#. name:suona
-#: DB:instrument/description:548
-msgid ""
-"The suona is a Chinese shawm frequently used in the folk music of northern "
-"China."
-msgstr "Een suona, ook bekend als laba of haidi, is een Chinese schalmei die vaak wordt gebruikt voor Noord-Chinese volksmuziek."
 
 #. name:surdo
 #: DB:instrument/description:379
@@ -4474,6 +4478,13 @@ msgid ""
 "Used in the traditional Korean music daechwita, it consists of a large two "
 "headed wooden barrel painted with dragon designs."
 msgstr "Een yonggo is een vattrommel met die met draken is beschilderd en wordt gebruikt in traditionele Koreaanse daechwita-muziek."
+
+#. name:kèn bầu
+#: DB:instrument/description:303
+msgid ""
+"Used in the traditional music of Vietnam, it is made of wood with a "
+"gourdshaped bell."
+msgstr "De kèn bầu is gemaakt van hout en heeft een beker in de vorm van een kalebas. Het instrument wordt in traditionele Vietnamese muziek bespeeld."
 
 #. name:hyoshigi
 #: DB:instrument/description:905

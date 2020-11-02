@@ -22,7 +22,12 @@ const PlacePerformances = ({
   $c,
   place,
 }: Props): React.Element<typeof PlaceLayout> => (
-  <PlaceLayout $c={$c} entity={place} page="performances" title={l('Performances')}>
+  <PlaceLayout
+    $c={$c}
+    entity={place}
+    page="performances"
+    title={l('Performances')}
+  >
     <RelationshipsTable
       entity={place}
       fallbackMessage={l(

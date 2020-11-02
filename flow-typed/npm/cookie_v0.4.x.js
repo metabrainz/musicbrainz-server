@@ -15,7 +15,14 @@ declare module 'cookie' {
   };
 
   declare module.exports: {
-    parse: (str: string, options?: CookeParseOptions) => {[string]: string, ...},
-    serialize: (name: string, value: string, options?: CookieSerializeOptions) => string,
+    parse: (
+      str: string,
+      options?: CookeParseOptions,
+    ) => {[string]: string, ...},
+    serialize: (
+      name: string,
+      value: string,
+      options?: CookieSerializeOptions,
+    ) => string,
   };
 }

@@ -28,7 +28,9 @@ function mergeDates(a, b) {
     day: unwrapInteger(b.day),
   };
 
-  if (conflict(a, b, 'year') || conflict(a, b, 'month') || conflict(a, b, 'day')) {
+  if (conflict(a, b, 'year') ||
+      conflict(a, b, 'month') ||
+      conflict(a, b, 'day')) {
     return null;
   }
 

@@ -1,21 +1,10 @@
-[% IF stack_trace %]
-<p>
-  <strong>[% ln('Error:', 'Errors:', errors.size) %]</strong>
-  [% IF errors.size > 1 %]
-  <ul>
-    [% FOR error=errors %]<li><code>[% error %]</code></li>[% END %]
-  </ul>
-  [% ELSE %]
-    <p><pre>[% errors.0 %]</pre></p>
-  [% END %]
-</p>
-<p>
-    <strong>[%- l('Stack trace:') -%]</strong><br />
-    <ul>
-    [% FOR frame=stack_trace %]
-      <li><code>line [% frame.lineno %]&#10;[% frame.module %]</code></li>
+[% IF formatted_errors %]
+<p id="errors">
+  <strong>[% ln('Error:', 'Errors:', formatted_errors.size) %]</strong>
+    [% FOR error=formatted_errors %]
+      <pre>[%- error | html -%]</pre>
     [% END %]
-    </ul>
+  </ul>
 </p>
 [% ELSE %]
 <p>
