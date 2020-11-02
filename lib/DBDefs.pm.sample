@@ -280,6 +280,21 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #
 #     return \%CACHE_MANAGER_OPTIONS
 # }
+#
+# Alternatively, you may disable caching by pointing to Cache::Null:
+# sub CACHE_MANAGER_OPTIONS {
+#     my $self = shift;
+#     my %CACHE_MANAGER_OPTIONS = (
+#         profiles => {
+#             null => {
+#                 class => 'Cache::Null',
+#                 wrapped => 1,
+#             },
+#         },
+#         default_profile => 'null',
+#     );
+#     return \%CACHE_MANAGER_OPTIONS;
+# }
 
 # Sets the TTL for entities stored in Redis, in seconds. A value of 0
 # indicates that no expiration is set.

@@ -222,8 +222,7 @@ sub PLUGIN_CACHE_OPTIONS {
 }
 
 # The caching options here relate to object caching in Redis - such as for
-# artists, releases, etc. in order to speed up queries. See below if you want
-# to disable caching.
+# artists, releases, etc. in order to speed up queries.
 sub CACHE_MANAGER_OPTIONS {
     my $self = shift;
     my %CACHE_MANAGER_OPTIONS = (
