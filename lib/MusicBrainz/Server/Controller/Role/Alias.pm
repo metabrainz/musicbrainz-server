@@ -70,8 +70,21 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
     my ($self, $c) = @_;
     my $type = $self->{entity_name};
     my $entity = $c->stash->{ $type };
+    my $form_type = 'add';
     my $alias_model = $c->model( $self->{model} )->alias;
-    $c->stash( template => 'entity/alias/add.tt' );
+
+    my %props = (
+        type => $type,
+        entity => $entity,
+        formType => $form_type,
+    );
+
+    $c->stash(
+        component_path => 'entity/alias/AddOrEditAlias',
+        component_props => \%props,
+        current_view => 'Node',
+    );
+
     $self->edit_action($c,
         form => 'Alias',
         form_args => {
@@ -87,7 +100,14 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
             name => $entity->name,
             id => $entity->id
         },
-        on_creation => sub { $self->_redir_to_aliases($c) }
+        on_creation => sub { $self->_redir_to_aliases($c) },
+        pre_validation => sub {
+            my $form = shift;
+            $props{form} = $form;
+            $props{aliasTypes} = $form->options_type_id;
+            $props{locales} = $form->options_locale;
+        }
+
     );
 }
 
@@ -117,8 +137,20 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
     my $alias = $c->stash->{alias};
     my $type = $self->{entity_name};
     my $entity = $c->stash->{ $type };
+    my $form_type = 'edit';
     my $alias_model = $c->model( $self->{model} )->alias;
-    $c->stash( template => 'entity/alias/edit.tt' );
+    my %props = (
+        type => $type,
+        entity => $entity,
+        formType => $form_type
+    );
+
+    $c->stash(
+        component_path => 'entity/alias/AddOrEditAlias',
+        component_props => \%props,
+        current_view => 'Node',
+    );
+
     $self->edit_action($c,
         form => 'Alias',
         form_args => {
@@ -133,7 +165,13 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
             alias  => $alias,
             entity => $c->stash->{ $self->{entity_name} }
         },
-        on_creation => sub { $self->_redir_to_aliases($c) }
+        on_creation => sub { $self->_redir_to_aliases($c) },
+        pre_validation => sub {
+            my $form = shift;
+            $props{form} = $form;
+            $props{aliasTypes} = $form->options_type_id;
+            $props{locales} = $form->options_locale;
+        }
     );
 }
 

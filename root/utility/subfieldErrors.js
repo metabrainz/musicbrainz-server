@@ -32,6 +32,15 @@ export function applyPendingErrors(
   field.errors = field.pendingErrors ?? [];
 }
 
+export function hasSubfieldErrors(formOrField: FormOrAnyFieldT): boolean {
+  for (const subfield of iterSubfields(formOrField)) {
+    if (subfield.errors?.length || subfield.pendingErrors?.length) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export default function subfieldErrors(
   formOrField: FormOrAnyFieldT,
   accum: $ReadOnlyArray<string> = [],

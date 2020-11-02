@@ -17,9 +17,15 @@ import type {
 } from './GuessCaseOptions';
 import GuessCaseOptionsPopover from './GuessCaseOptionsPopover';
 
+type NamedEntityT = {
+  +entityType: CoreEntityTypeT,
+  +name: string,
+  ...
+};
+
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =
-  | {+type: 'guess-case'}
+  | {+type: 'guess-case', +entity: NamedEntityT}
   | {+type: 'open-guess-case-options'}
   | {+type: 'close-guess-case-options'}
   | {+type: 'update-guess-case-options', +action: GuessCaseOptionsActionT}
@@ -28,6 +34,7 @@ export type ActionT =
 
 type PropsT = {
   +dispatch: (ActionT) => void,
+  +entity: NamedEntityT,
   +field: ReadOnlyFieldT<string | null>,
   +guessCaseOptions: GuessCaseOptionsStateT,
   +guessFeat?: boolean,
@@ -37,6 +44,7 @@ type PropsT = {
 
 export const FormRowNameWithGuessCase = ({
   dispatch,
+  entity,
   field,
   guessCaseOptions,
   guessFeat = false,
@@ -51,7 +59,7 @@ export const FormRowNameWithGuessCase = ({
   }
 
   function handleGuessCase() {
-    dispatch({type: 'guess-case'});
+    dispatch({entity, type: 'guess-case'});
   }
 
   const toggleGuessCaseOptions = React.useCallback((

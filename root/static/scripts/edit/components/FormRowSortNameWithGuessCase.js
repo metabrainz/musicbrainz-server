@@ -11,9 +11,15 @@ import * as React from 'react';
 
 import FormRowText from '../../../../components/FormRowText';
 
+type SortNamedEntityT = {
+  +entityType: CoreEntityTypeT,
+  +typeID?: number | null,
+  ...
+};
+
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =
-  | {+type: 'guess-case-sortname'}
+  | {+type: 'guess-case-sortname', +entity: SortNamedEntityT}
   | {+type: 'set-sortname', +sortName: string}
   | {+type: 'copy-sortname'};
 /* eslint-enable flowtype/sort-keys */
@@ -21,6 +27,7 @@ export type ActionT =
 type PropsT = {
   +disabled?: boolean,
   +dispatch: (ActionT) => void,
+  +entity: SortNamedEntityT,
   +field: ReadOnlyFieldT<string | null>,
   +label?: string,
 };
@@ -28,6 +35,7 @@ type PropsT = {
 export const FormRowSortNameWithGuessCase = ({
   disabled = false,
   dispatch,
+  entity,
   field,
   label = addColonText(l('Sort name')),
 }: PropsT): React.Element<typeof FormRowText> => {
@@ -41,7 +49,7 @@ export const FormRowSortNameWithGuessCase = ({
   }, [dispatch]);
 
   function handleGuessCase() {
-    dispatch({type: 'guess-case-sortname'});
+    dispatch({entity, type: 'guess-case-sortname'});
   }
 
   function handleSortNameCopy() {

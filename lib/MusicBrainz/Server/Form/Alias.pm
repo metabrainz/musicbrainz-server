@@ -89,7 +89,10 @@ sub options_locale {
         map {
             my $code = $_;
             my $locale = $ALIAS_LOCALES{$code};
-            $code => indentation($code =~ /_/ ? 1 : 0) . _locale_name_special_cases($locale)
+            {
+                value => $code,
+                label => indentation($code =~ /_/ ? 1 : 0) . _locale_name_special_cases($locale),
+            };
         }
         sort_by { $ALIAS_LOCALES{$_}->name }
         keys %ALIAS_LOCALES

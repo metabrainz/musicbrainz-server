@@ -24,6 +24,10 @@ import {
 
 type Props = {
   +field: ReadOnlyFieldT<string>,
+  +recording: {
+    +entityType: 'recording',
+    +name: string,
+  },
 };
 
 /*
@@ -85,6 +89,7 @@ function reducer(state: StateT, action: NameActionT): StateT {
 
 export const RecordingName = ({
   field,
+  recording,
 }: Props): React.Element<typeof FormRowNameWithGuessCase> => {
   /*
    * State must be moved higher up in the component hierarchy once more
@@ -99,6 +104,7 @@ export const RecordingName = ({
   return (
     <FormRowNameWithGuessCase
       dispatch={dispatch}
+      entity={recording}
       field={state.field}
       guessCaseOptions={state.guessCaseOptions}
       guessFeat
