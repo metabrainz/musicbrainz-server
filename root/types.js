@@ -316,6 +316,7 @@ declare type CompoundFieldT<F> = {
   has_errors: boolean,
   html_name: string,
   id: number,
+  type: 'compound_field',
 };
 
 declare type ReadOnlyCompoundFieldT<+F> = {
@@ -324,6 +325,7 @@ declare type ReadOnlyCompoundFieldT<+F> = {
   +has_errors: boolean,
   +html_name: string,
   +id: number,
+  +type: 'compound_field',
 };
 
 declare type ConfirmFormT = FormT<{
@@ -553,6 +555,7 @@ declare type FieldT<V> = {
    * is for passing to `key` attributes on React elements.
    */
   id: number,
+  type: 'field',
   value: V,
 };
 
@@ -561,6 +564,7 @@ declare type ReadOnlyFieldT<+V> = {
   +has_errors: boolean,
   +html_name: string,
   +id: number,
+  +type: 'field',
   +value: V,
 };
 
@@ -576,6 +580,7 @@ declare type FormT<F> = {
   field: F,
   has_errors: boolean,
   name: string,
+  +type: 'form',
 };
 
 declare type GenderT = OptionTreeT<'gender'>;
@@ -980,12 +985,14 @@ declare type RepeatableFieldT<F> = {
   html_name: string,
   id: number,
   last_index: number,
+  type: 'repeatable_field',
 };
 
 declare type ReadOnlyFormT<+F> = {
   +field: F,
   +has_errors: boolean,
   +name: string,
+  +type: 'form',
 };
 
 declare type ReadOnlyRepeatableFieldT<+F> = {
@@ -995,6 +1002,7 @@ declare type ReadOnlyRepeatableFieldT<+F> = {
   +html_name: string,
   +id: number,
   last_index: number,
+  +type: 'repeatable_field',
 };
 
 declare type SanitizedCatalystContextT = {

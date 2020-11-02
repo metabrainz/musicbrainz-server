@@ -31,6 +31,7 @@ export function createCompoundField<F: {[fieldValueKey: string]: mixed, ...}>(
     has_errors: false,
     html_name: name,
     id: ++LAST_FIELD_ID,
+    type: 'compound_field',
   };
 }
 
@@ -43,6 +44,7 @@ export function createField<T>(
     has_errors: false,
     html_name: name,
     id: ++LAST_FIELD_ID,
+    type: 'field',
     value,
   };
 }

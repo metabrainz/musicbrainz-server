@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,31 +7,20 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type FieldShape = {
-  // `errors` is optional too because FormT has none
-  +errors?: $ReadOnlyArray<string>,
-  +field?: FieldShape | $ReadOnlyArray<FieldShape>,
-  ...
-};
+import {
+  iterSubfields,
+  type FormOrAnyFieldT,
+} from './iterSubfields';
 
 export default function subfieldErrors(
-  field: FieldShape,
+  formOrField: FormOrAnyFieldT,
   accum: $ReadOnlyArray<string> = [],
 ): $ReadOnlyArray<string> {
-  if (field.errors && field.errors.length) {
-    accum = accum.concat(field.errors);
-  }
-  if (field.field) {
-    let subfields;
-    if (Array.isArray(field.field)) {
-      subfields = field.field;
-    } else {
-      subfields =
-        ((Object.values(field.field): any): $ReadOnlyArray<FieldShape>);
-    }
-    for (const subfield of subfields) {
-      accum = subfieldErrors(subfield, accum);
+  let result = accum;
+  for (const subfield of iterSubfields(formOrField)) {
+    if (subfield.errors?.length) {
+      result = result.concat(subfield.errors);
     }
   }
-  return accum;
+  return result;
 }
