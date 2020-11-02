@@ -12,7 +12,12 @@ import * as React from 'react';
 import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 import FormLabel from './FormLabel';
-import PartialDateInput from './PartialDateInput';
+import PartialDateInput, {
+  type ActionT as PartialDateInputActionT,
+  runReducer as runPartialDateInputReducer,
+} from './PartialDateInput';
+
+export type ActionT = PartialDateInputActionT;
 
 type CommonProps = {
   +children?: React.Node,
@@ -25,15 +30,25 @@ type CommonProps = {
 type Props =
   | $ReadOnly<{
       ...CommonProps,
+      +dispatch: (PartialDateInputActionT) => void,
       +uncontrolled?: false,
     }>
   | $ReadOnly<{
       ...CommonProps,
       +uncontrolled: true,
     }>;
+
+export type StateT = PartialDateFieldT;
+
+export type WritableStateT = WritablePartialDateFieldT;
+
+export const runReducer = runPartialDateInputReducer;
+
 const FormRowPartialDate = ({
   children,
   disabled = false,
+  // $FlowIssue[prop-missing]
+  dispatch,
   field,
   label,
   required = false,
@@ -48,6 +63,7 @@ const FormRowPartialDate = ({
     />
     <PartialDateInput
       disabled={disabled}
+      dispatch={dispatch}
       field={field}
       uncontrolled={uncontrolled}
       {...inputProps}

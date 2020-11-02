@@ -10,7 +10,14 @@
 import {
   iterSubfields,
   type FormOrAnyFieldT,
+  type WritableAnyFieldT,
 } from './iterSubfields';
+
+export function applyPendingErrors(
+  field: WritableAnyFieldT,
+): void {
+  field.errors = field.pendingErrors ?? [];
+}
 
 export default function subfieldErrors(
   formOrField: FormOrAnyFieldT,
