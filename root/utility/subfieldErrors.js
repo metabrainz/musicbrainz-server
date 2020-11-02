@@ -9,9 +9,22 @@
 
 import {
   iterSubfields,
+  iterWritableSubfields,
   type FormOrAnyFieldT,
   type WritableAnyFieldT,
+  type WritableFormOrAnyFieldT,
 } from './iterSubfields';
+
+export function applyAllPendingErrors(
+  formOrField: WritableFormOrAnyFieldT,
+): void {
+  const subfields = iterWritableSubfields(formOrField);
+  for (const subfield of subfields) {
+    if (subfield.pendingErrors?.length) {
+      applyPendingErrors(subfield);
+    }
+  }
+}
 
 export function applyPendingErrors(
   field: WritableAnyFieldT,

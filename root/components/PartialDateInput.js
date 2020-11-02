@@ -43,9 +43,9 @@ export type StateT = PartialDateFieldT;
 export type WritableStateT = WritablePartialDateFieldT;
 
 function validateDate(date: WritablePartialDateFieldT) {
-  const year = date.field.year.value;
-  const month = date.field.month.value;
-  const day = date.field.day.value;
+  const year = String(date.field.year.value ?? '');
+  const month = String(date.field.month.value ?? '');
+  const day = String(date.field.day.value ?? '');
 
   const pendingErrors = [];
   if (!isYearFourDigits(year)) {

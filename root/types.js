@@ -397,6 +397,18 @@ declare type CritiqueBrainzUserT = {
   +name: string,
 };
 
+declare type DatePeriodFieldT = ReadOnlyCompoundFieldT<{
+  +begin_date: PartialDateFieldT,
+  +end_date: PartialDateFieldT,
+  +ended: ReadOnlyFieldT<boolean>,
+}>;
+
+declare type WritableDatePeriodFieldT = CompoundFieldT<{
+  +begin_date: WritablePartialDateFieldT,
+  +end_date: WritablePartialDateFieldT,
+  +ended: FieldT<boolean>,
+}>;
+
 declare type DatePeriodRoleT = {
   +begin_date: PartialDateT | null,
   +end_date: PartialDateT | null,

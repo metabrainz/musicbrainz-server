@@ -203,7 +203,7 @@
   </div>
 [%- END -%]
 
-[%- MACRO date_range_fieldset(r, type, ended_label) BLOCK -%]
+[%- MACRO date_range_fieldset(r, type, ended_label) BLOCK # Converted to React at root/static/scripts/edit/components/DateRangeFieldset.js -%]
     <fieldset>
       <legend>[% l('Date Period') %]</legend>
       <p>

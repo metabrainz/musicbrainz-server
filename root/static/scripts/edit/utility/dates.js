@@ -11,19 +11,25 @@ import getDaysInMonth from '../../../../utility/getDaysInMonth';
 import parseInteger from '../../common/utility/parseInteger';
 
 type PartialDateWithStringsT = {
-  +day: string | null,
-  +month: string | null,
-  +year: string | null,
+  +day: StrOrNum | null,
+  +month: StrOrNum | null,
+  +year: StrOrNum | null,
 };
 
 export const isDateValid = function (
-  year: string | null,
-  month: string | null,
-  day: string | null,
+  year: StrOrNum | null,
+  month: StrOrNum | null,
+  day: StrOrNum | null,
 ): boolean {
-  const y = nonEmpty(year) ? parseInteger(year) : null;
-  const m = nonEmpty(month) ? parseInteger(month) : null;
-  const d = nonEmpty(day) ? parseInteger(day) : null;
+  const y = typeof year === 'number'
+    ? year
+    : (nonEmpty(year) ? parseInteger(year) : null);
+  const m = typeof month === 'number'
+    ? month
+    : (nonEmpty(month) ? parseInteger(month) : null);
+  const d = typeof day === 'number'
+    ? day
+    : (nonEmpty(day) ? parseInteger(day) : null);
 
   // We couldn't parse one of the fields as a number.
   if (isNaN(y) || isNaN(m) || isNaN(d)) {

@@ -37,7 +37,7 @@ after 'validate' => sub {
     return 1 unless $begin->{year} && $end->{year};
 
     unless (is_date_range_valid($begin, $end)) {
-        return $self->field('end_date')->add_error(l('The end date cannot precede the begin date.'));
+        return $self->add_error(l('The end date cannot precede the begin date.'));
     }
 
     return 1;
