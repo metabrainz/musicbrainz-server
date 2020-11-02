@@ -29,9 +29,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-28 22:54+0200\n"
-"PO-Revision-Date: 2020-10-29 16:31+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"POT-Creation-Date: 2020-10-29 17:24+0000\n"
+"PO-Revision-Date: 2020-10-29 17:26+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3684,8 +3684,8 @@ msgid "Recording:"
 msgstr "Opname:"
 
 #: ../root/components/common-macros.tt:597 ../root/release/edit/layout.tt:17
-#: ../root/area/AreaRecordings.js:25 ../root/artist/ArtistRecordings.js:141
-#: ../root/artist/ArtistRecordings.js:143 ../root/components/EntityTabs.js:28
+#: ../root/area/AreaRecordings.js:25 ../root/artist/ArtistRecordings.js:144
+#: ../root/artist/ArtistRecordings.js:146 ../root/components/EntityTabs.js:28
 #: ../root/instrument/InstrumentRecordings.js:36
 #: ../root/instrument/InstrumentRecordings.js:38
 #: ../root/report/ReportsIndex.js:425
@@ -8823,7 +8823,7 @@ msgstr "Treedt ook op als"
 msgid "Discography"
 msgstr "Discografie"
 
-#: ../root/artist/ArtistIndex.js:311 ../root/artist/ArtistRecordings.js:162
+#: ../root/artist/ArtistIndex.js:311 ../root/artist/ArtistRecordings.js:165
 #: ../root/instrument/InstrumentRecordings.js:56 ../root/isrc/Index.js:96
 msgid "Add selected recordings for merging"
 msgstr "Geselecteerde opnames samenvoegen"
@@ -8863,23 +8863,23 @@ msgstr ""
 msgid "Showing only videos"
 msgstr ""
 
-#: ../root/artist/ArtistRecordings.js:55
-msgid "{show_all|Show all recordings}"
+#: ../root/artist/ArtistRecordings.js:56
+msgid "Show all recordings"
 msgstr ""
 
-#: ../root/artist/ArtistRecordings.js:59
-msgid "{show_sa|Show only standalone recordings}"
+#: ../root/artist/ArtistRecordings.js:61
+msgid "Show only standalone recordings"
 msgstr ""
 
-#: ../root/artist/ArtistRecordings.js:63
-msgid "{show_vid|Show only videos}"
+#: ../root/artist/ArtistRecordings.js:66
+msgid "Show only videos"
 msgstr ""
 
-#: ../root/artist/ArtistRecordings.js:169
+#: ../root/artist/ArtistRecordings.js:172
 msgid "No recordings found that match this search."
 msgstr "Geen opnames gevonden die aan deze zoekopdracht voldoen."
 
-#: ../root/artist/ArtistRecordings.js:170
+#: ../root/artist/ArtistRecordings.js:173
 #: ../root/instrument/InstrumentRecordings.js:64
 msgid "No recordings found."
 msgstr "Geen opnames gevonden."

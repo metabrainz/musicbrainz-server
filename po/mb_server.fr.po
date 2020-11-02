@@ -63,8 +63,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-28 22:54+0200\n"
-"PO-Revision-Date: 2020-10-29 14:59+0000\n"
+"POT-Creation-Date: 2020-10-29 17:24+0000\n"
+"PO-Revision-Date: 2020-11-02 18:11+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3718,8 +3718,8 @@ msgid "Recording:"
 msgstr "Enregistrement :"
 
 #: ../root/components/common-macros.tt:597 ../root/release/edit/layout.tt:17
-#: ../root/area/AreaRecordings.js:25 ../root/artist/ArtistRecordings.js:141
-#: ../root/artist/ArtistRecordings.js:143 ../root/components/EntityTabs.js:28
+#: ../root/area/AreaRecordings.js:25 ../root/artist/ArtistRecordings.js:144
+#: ../root/artist/ArtistRecordings.js:146 ../root/components/EntityTabs.js:28
 #: ../root/instrument/InstrumentRecordings.js:36
 #: ../root/instrument/InstrumentRecordings.js:38
 #: ../root/report/ReportsIndex.js:425
@@ -8857,7 +8857,7 @@ msgstr "Se produit aussi comme"
 msgid "Discography"
 msgstr "Discographie"
 
-#: ../root/artist/ArtistIndex.js:311 ../root/artist/ArtistRecordings.js:162
+#: ../root/artist/ArtistIndex.js:311 ../root/artist/ArtistRecordings.js:165
 #: ../root/instrument/InstrumentRecordings.js:56 ../root/isrc/Index.js:96
 msgid "Add selected recordings for merging"
 msgstr "Ajouter les enregistrements choisis pour la fusion"
@@ -8887,33 +8887,33 @@ msgstr "Mettre à jour l’artiste et les crédits de relation correspondants av
 
 #: ../root/artist/ArtistRecordings.js:51
 msgid "Showing all recordings"
-msgstr ""
+msgstr "Tous les enregistrements sont affichés"
 
 #: ../root/artist/ArtistRecordings.js:52
 msgid "Showing only standalone recordings"
-msgstr ""
+msgstr "Seulement les enregistrements isolés sont affichés"
 
 #: ../root/artist/ArtistRecordings.js:53
 msgid "Showing only videos"
-msgstr ""
+msgstr "Seulement les vidéos sont affichées"
 
-#: ../root/artist/ArtistRecordings.js:55
-msgid "{show_all|Show all recordings}"
-msgstr ""
+#: ../root/artist/ArtistRecordings.js:56
+msgid "Show all recordings"
+msgstr "Montrer tous les enregistrements"
 
-#: ../root/artist/ArtistRecordings.js:59
-msgid "{show_sa|Show only standalone recordings}"
-msgstr ""
+#: ../root/artist/ArtistRecordings.js:61
+msgid "Show only standalone recordings"
+msgstr "Montrer seulement les enregistrements isolés"
 
-#: ../root/artist/ArtistRecordings.js:63
-msgid "{show_vid|Show only videos}"
-msgstr ""
+#: ../root/artist/ArtistRecordings.js:66
+msgid "Show only videos"
+msgstr "Montrer seulement les vidéos"
 
-#: ../root/artist/ArtistRecordings.js:169
+#: ../root/artist/ArtistRecordings.js:172
 msgid "No recordings found that match this search."
 msgstr "Aucun enregistrement de trouvé qui corresponde à cette recherche."
 
-#: ../root/artist/ArtistRecordings.js:170
+#: ../root/artist/ArtistRecordings.js:173
 #: ../root/instrument/InstrumentRecordings.js:64
 msgid "No recordings found."
 msgstr "Aucun enregistrement de trouvé."
