@@ -142,7 +142,7 @@ sub authorize : Local Args(0) RequireAuth SecureForm
         $pre_authorized = 1 if $params{approval_prompt} ne 'force' && $has_granted_tokens;
     }
 
-    my $form = $c->form( form => 'SubmitCancel' );
+    my $form = $c->form( form => 'Confirm' );
     if ($pre_authorized || ($c->form_posted_and_valid($form))) {
         if (DBDefs->DB_READ_ONLY) {
             $self->_send_redirect_error($c, $redirect_uri, 'temporarily_unavailable', 'Server is in read-only mode');
