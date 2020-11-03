@@ -90,9 +90,9 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
     my ($self, $c, $name) = @_;
 
     my $editor = $c->model('Editor')->get_by_name($name);
-    $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $editor->id;
+    $c->detach('/user/not_found') if !$editor || $editor->deleted;
 
-    $c->detach('/error_404') if !$editor || $editor->deleted;
+    $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $editor->id;
 
     my $id = $editor->id;
     if ($id != $c->user->id && !$c->user->is_account_admin) {
