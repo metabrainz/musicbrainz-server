@@ -239,7 +239,9 @@ sub _renew_login_cookie
         name => 'remember_me',
         value => $token
             ? encode('utf-8', join("\t", $cookie_version, $normalized_name, $token))
-            : ''
+            : '',
+        samesite => 'Strict',
+        $c->req->secure ? (secure => 1) : (),
     };
 }
 
