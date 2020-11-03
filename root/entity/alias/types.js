@@ -7,6 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+export type AliasDeleteFormT = FormT<{
+  +edit_note: ReadOnlyFieldT<string>,
+  +make_votable: ReadOnlyFieldT<boolean>,
+}>;
+
 export type AliasEditFormT = FormT<{
   +edit_note: ReadOnlyFieldT<string>,
   +locale: ReadOnlyFieldT<string>,

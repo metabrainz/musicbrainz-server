@@ -107,7 +107,6 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
             $props{aliasTypes} = $form->options_type_id;
             $props{locales} = $form->options_locale;
         }
-
     );
 }
 
@@ -115,8 +114,22 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
+    my $type = $self->{entity_name};
+    my $entity = $c->stash->{ $type };
     my $edit = $c->model('Edit')->find_creation_edit($model_to_edit_type{add}->{ $self->{model} }, $alias->id, id_field => 'alias_id');
-    $c->stash( template => 'entity/alias/delete.tt' );
+
+    my %props = (
+        alias => $alias,
+        entity => $entity,
+        type => $type,
+    );
+
+    $c->stash(
+        component_path => 'entity/alias/DeleteAlias',
+        component_props => \%props,
+        current_view => 'Node',
+    );
+
     cancel_or_action($c, $edit, $self->_aliases_url($c), sub {
         $self->edit_action($c,
             form => 'Confirm',
@@ -126,7 +139,11 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
                 alias  => $alias,
                 entity => $c->stash->{ $self->{entity_name} }
             },
-            on_creation => sub { $self->_redir_to_aliases($c) }
+            on_creation => sub { $self->_redir_to_aliases($c) },
+            pre_validation => sub {
+                my $form = shift;
+                $props{form} = $form;
+            }
         );
     });
 }
