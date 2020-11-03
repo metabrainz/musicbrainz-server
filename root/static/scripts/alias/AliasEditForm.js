@@ -36,6 +36,11 @@ import {
   type StateT as GuessCaseOptionsStateT,
   type WritableStateT as WritableGuessCaseOptionsStateT,
 } from '../edit/components/GuessCaseOptions';
+import copyFieldData, {copyFieldErrors} from '../edit/utility/copyFieldData';
+import {
+  createCompoundField,
+  createField,
+} from '../edit/utility/createField';
 import hydrate from '../../../utility/hydrate';
 import {
   applyAllPendingErrors,
@@ -67,6 +72,7 @@ type StateT = {
   +guessCaseOptions: GuessCaseOptionsStateT,
   +isGuessCaseOptionsOpen: boolean,
   +isTypeSearchHint: boolean,
+  +previousForm?: AliasEditFormT | null,
   +searchHintType: number,
 };
 
@@ -74,7 +80,57 @@ type WritableStateT = {
   ...StateT,
   form: WritableAliasEditFormT,
   guessCaseOptions: WritableGuessCaseOptionsStateT,
+  previousForm?: AliasEditFormT | null,
 };
+
+const blankDatePeriod = {
+  errors: [],
+  field: {
+    begin_date: createCompoundField(
+      'period.begin_date',
+      {day: '', month: '', year: ''},
+    ),
+    end_date: createCompoundField(
+      'period.end_date',
+      {day: '', month: '', year: ''},
+    ),
+    ended: createField('period.ended', false),
+  },
+  has_errors: false,
+  html_name: '',
+  id: 0,
+  type: 'compound_field',
+};
+
+function copyPartialDateField(
+  sourceField: PartialDateFieldT,
+  targetField: WritablePartialDateFieldT,
+) {
+  const sourceSubfields = sourceField.field;
+  const targetSubfields = targetField.field;
+  copyFieldData(sourceSubfields.year, targetSubfields.year);
+  copyFieldData(sourceSubfields.month, targetSubfields.month);
+  copyFieldData(sourceSubfields.day, targetSubfields.day);
+  copyFieldErrors(sourceField, targetField);
+}
+
+function copyDatePeriodField(
+  sourceField: DatePeriodFieldT,
+  targetField: WritableDatePeriodFieldT,
+) {
+  const sourceSubfields = sourceField.field;
+  const targetSubfields = targetField.field;
+  copyPartialDateField(
+    sourceSubfields.begin_date,
+    targetSubfields.begin_date,
+  );
+  copyPartialDateField(
+    sourceSubfields.end_date,
+    targetSubfields.end_date,
+  );
+  copyFieldData(sourceSubfields.ended, targetSubfields.ended);
+  copyFieldErrors(sourceField, targetField);
+}
 
 function createInitialState(form, searchHintType) {
   return {
@@ -154,12 +210,33 @@ function reducer(state: StateT, action: ActionT): StateT {
         break;
       }
       case 'set-type': {
-        newState.form.field.type_id.value = action.type_id;
+        const formField = newState.form.field;
+        formField.type_id.value = action.type_id;
         const isTypeSearchHint =
           parseInt(action.type_id, 10) === state.searchHintType;
         newState.isTypeSearchHint = isTypeSearchHint;
+        /*
+         * Many fields are irrelevant for search hints,
+         * so we blank (and disable) them if the user selects
+         * the search hint type, and bring them back if they select
+         * something else again.
+         */
         if (isTypeSearchHint) {
-          newState.form.field.primary_for_locale.value = false;
+          newState.previousForm = state.form;
+          formField.sort_name.value = '';
+          formField.locale.value = '';
+          formField.primary_for_locale.value = false;
+          copyDatePeriodField(blankDatePeriod, formField.period);
+        } else if (state.previousForm) {
+          const previousFormField = state.previousForm.field;
+          copyFieldData(previousFormField.sort_name, formField.sort_name);
+          copyFieldData(previousFormField.locale, formField.locale);
+          copyFieldData(
+            previousFormField.primary_for_locale,
+            formField.primary_for_locale,
+          );
+          copyDatePeriodField(previousFormField.period, formField.period);
+          newState.previousForm = null;
         }
         break;
       }
