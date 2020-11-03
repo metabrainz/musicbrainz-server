@@ -1,10 +1,6 @@
 package MusicBrainz::Server::Controller::Root;
 use Digest::MD5 qw( md5_hex );
-use Digest::SHA qw( sha256 );
-use MIME::Base64 qw( encode_base64 );
 use Moose;
-use Scalar::Util qw( refaddr );
-use Time::HiRes qw( clock_gettime CLOCK_REALTIME CLOCK_MONOTONIC );
 use Try::Tiny;
 use List::Util qw( max );
 use Readonly;
@@ -200,23 +196,10 @@ sub error_mirror_404 : Private
     $c->detach;
 }
 
-sub generate_globals_script_nonce {
-    my ($c) = @_;
-
-    encode_base64(
-        sha256(
-            join q(.),
-                refaddr($c->req),
-                clock_gettime(CLOCK_REALTIME),
-                clock_gettime(CLOCK_MONOTONIC)),
-        '',
-    );
-}
-
 sub set_csp_headers {
     my ($c) = @_;
 
-    my $globals_script_nonce = generate_globals_script_nonce($c);
+    my $globals_script_nonce = $c->generate_nonce;
     $c->stash->{globals_script_nonce} = $globals_script_nonce;
 
     # CSP headers are generally only added where SecureForm is also used:

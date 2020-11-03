@@ -5,8 +5,10 @@ BEGIN { extends 'Catalyst' }
 
 use Class::Load qw( load_class );
 use DBDefs;
+use Digest::SHA qw( sha256 );
 use Encode;
 use JSON;
+use MIME::Base64 qw( encode_base64 );
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
@@ -15,10 +17,13 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
+use Scalar::Util qw( refaddr );
 use Sys::Hostname;
+use Time::HiRes qw( clock_gettime CLOCK_REALTIME CLOCK_MONOTONIC );
 use Try::Tiny;
 use URI;
 use aliased 'MusicBrainz::Server::Translation';
+use feature 'state';
 
 # Set flags and add plugins for the application
 #
@@ -541,6 +546,22 @@ sub form_submitted_and_valid {
         !$self->validate_csrf_token;
 
     return 1;
+}
+
+sub generate_nonce {
+    my ($self) = @_;
+
+    state $counter = 0;
+    encode_base64(
+        sha256(
+            join q(.),
+                refaddr($self->req),
+                refaddr($self->res),
+                clock_gettime(CLOCK_REALTIME),
+                clock_gettime(CLOCK_MONOTONIC),
+                ($counter++)),
+        '',
+    );
 }
 
 sub _csrf_session_key {
