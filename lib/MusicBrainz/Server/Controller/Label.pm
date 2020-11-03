@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Label',
     entity_name     => 'label',
     relationships   => {
-        all => ['relationships'],
+        all => ['aliases', 'relationships'],
         cardinal => ['edit'],
         default => ['url'],
         subset => { show => ['artist', 'url'] }

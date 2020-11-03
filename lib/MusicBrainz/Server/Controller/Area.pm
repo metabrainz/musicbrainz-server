@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Area',
     relationships   => {
+        all         => ['aliases'],
         cardinal    => ['edit'],
         subset      => {
             show => [qw( area artist label place series instrument release_group url )],

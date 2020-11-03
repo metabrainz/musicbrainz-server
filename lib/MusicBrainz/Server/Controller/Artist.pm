@@ -9,7 +9,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Artist',
     relationships   => {
-        all         => ['relationships'],
+        all         => ['aliases', 'relationships'],
         cardinal    => ['edit'],
         subset      => { split => ['artist'], show => ['artist', 'url'] },
         default     => ['url']
