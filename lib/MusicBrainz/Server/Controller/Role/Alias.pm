@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Controller::Role::Alias;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use MusicBrainz::Server::Constants qw(
+    %ENTITIES_WITH_RELATIONSHIP_CREDITS
+);
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
@@ -48,6 +51,14 @@ sub aliases : Chained('load') PathPart('aliases')
         aliases => to_json_array($aliases),
         entity => $entity->TO_JSON,
     );
+
+    if ($ENTITIES_WITH_RELATIONSHIP_CREDITS{$entity->entity_type}) {
+        my $relationship_credits = $c->model('Relationship')->get_credits(
+            $entity->entity_type,
+            $entity->id,
+        );
+        $props{relationshipCredits} = $relationship_credits;
+    }
 
     $c->stash(
         # "aliases" needs to remain here for JSON-LD serialization
