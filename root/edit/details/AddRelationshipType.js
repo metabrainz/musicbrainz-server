@@ -45,6 +45,9 @@ const AddRelationshipType = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const entity0Type = ENTITY_NAMES[display.entity0_type]();
   const entity1Type = ENTITY_NAMES[display.entity1_type]();
+  const entity0Cardinality = display.entity0_cardinality;
+  const entity1Cardinality = display.entity1_cardinality;
+  const orderableDirection = display.orderable_direction;
 
   // Always display entity placeholders for ease of understanding
   let longLinkPhrase = display.long_link_phrase;
@@ -132,33 +135,40 @@ const AddRelationshipType = ({edit}: Props): React.Element<'table'> => {
         </td>
       </tr>
 
-      <tr>
-        <th>
-          {addColon(exp.l('Cardinality of {entity_placeholder}', {
-            entity_placeholder: <code>{'{entity0}'}</code>,
-          }))}
-        </th>
-        <td>
-          <Cardinality cardinality={display.entity0_cardinality || 0} />
-        </td>
-      </tr>
-      <tr>
-        <th>
-          {addColon(exp.l('Cardinality of {entity_placeholder}', {
-            entity_placeholder: <code>{'{entity1}'}</code>,
-          }))}
-        </th>
-        <td>
-          <Cardinality cardinality={display.entity1_cardinality || 0} />
-        </td>
-      </tr>
+      {entity0Cardinality == null ? null : (
+        <tr>
+          <th>
+            {addColon(exp.l('Cardinality of {entity_placeholder}', {
+              entity_placeholder: <code>{'{entity0}'}</code>,
+            }))}
+          </th>
+          <td>
+            <Cardinality cardinality={entity0Cardinality} />
+          </td>
+        </tr>
+      )}
 
-      <tr>
-        <th>{l('Orderable direction:')}</th>
-        <td>
-          <OrderableDirection direction={display.orderable_direction || 0} />
-        </td>
-      </tr>
+      {entity1Cardinality == null ? null : (
+        <tr>
+          <th>
+            {addColon(exp.l('Cardinality of {entity_placeholder}', {
+              entity_placeholder: <code>{'{entity1}'}</code>,
+            }))}
+          </th>
+          <td>
+            <Cardinality cardinality={entity1Cardinality} />
+          </td>
+        </tr>
+      )}
+
+      {orderableDirection == null ? null : (
+        <tr>
+          <th>{l('Orderable direction:')}</th>
+          <td>
+            <OrderableDirection direction={orderableDirection} />
+          </td>
+        </tr>
+      )}
 
       {display.attributes.length > 0 ? (
         <tr>
