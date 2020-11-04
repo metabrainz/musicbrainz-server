@@ -15,7 +15,7 @@ role {
 =method can_amend
 
 Check if an editor is still allowed to amend an entity, that is,
-if it has been created by the same editor less than an hour ago.
+if it has been created by the same editor less than one day ago.
 
 =cut
 
