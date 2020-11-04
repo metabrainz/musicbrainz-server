@@ -181,6 +181,16 @@ sub initialize {
     $self->data(\%opts);
 }
 
+sub alter_edit_pending
+{
+    my $self = shift;
+    my @recording_ids = map { $_->{id} } map { $_->{destination}, @{ $_->{sources} } } @{ $self->recording_merges // [] };
+    return {
+        Release => [ $self->release_ids ],
+        @recording_ids ? (Recording => [ @recording_ids ]) : (),    
+    }
+}
+
 override build_display_data => sub
 {
     my ($self, $loaded) = @_;
