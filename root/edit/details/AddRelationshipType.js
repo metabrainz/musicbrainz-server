@@ -55,7 +55,7 @@ const AddRelationshipType = ({edit}: Props): React.Element<'table'> => {
     longLinkPhrase = '{entity0} ' + longLinkPhrase;
   }
   if (longLinkPhrase && !longLinkPhrase.match('{entity1}')) {
-    longLinkPhrase = longLinkPhrase + ' {entity1}';
+    longLinkPhrase += ' {entity1}';
   }
 
   const rawIconSection = (
