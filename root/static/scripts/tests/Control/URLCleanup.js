@@ -1527,6 +1527,20 @@ const testData = [
             expected_clean_url: 'https://saisaibatake.ame-zaiku.com/gakki/gakki_jiten_accordion.html',
        only_valid_entity_types: ['instrument'],
   },
+  {
+                     input_url: 'https://saisaibatake.ame-zaiku.com/musical_instrument/gakki_jiten_shrutibox.html',
+             input_entity_type: 'instrument',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://saisaibatake.ame-zaiku.com/musical_instrument/gakki_jiten_shrutibox.html',
+       only_valid_entity_types: ['instrument'],
+  },
+  {
+                     input_url: 'https://saisaibatake.ame-zaiku.com/musical/instruments_concertina.html',
+             input_entity_type: 'instrument',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://saisaibatake.ame-zaiku.com/musical/instruments_concertina.html',
+       only_valid_entity_types: ['instrument'],
+  },
   // generasia
   {
                      input_url: 'http://generasia.com/wiki/Wink',

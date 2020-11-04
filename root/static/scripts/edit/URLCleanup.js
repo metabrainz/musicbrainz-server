@@ -1447,14 +1447,15 @@ const CLEANUPS = {
   },
   'gakki': {
     match: [new RegExp(
-      '^(https?://)?(www\\.)?saisaibatake\\.ame-zaiku\\.com/gakki/',
+      '^(https?://)?(www\\.)?saisaibatake\\.ame-zaiku\\.com/' +
+      '(gakki|musical|musical_instrument)/',
       'i',
     )],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
       return url.replace(
-        /^(?:https?:\/\/)?(?:www\.)?saisaibatake\.ame-zaiku\.com\/gakki\/(.*)$/,
-        'https://saisaibatake.ame-zaiku.com/gakki/$1',
+        /^(?:https?:\/\/)?(?:www\.)?saisaibatake\.ame-zaiku\.com\/(gakki|musical|musical_instrument)\/(.*)$/,
+        'https://saisaibatake.ame-zaiku.com/$1/$2',
       );
     },
     validate: function (url, id) {
