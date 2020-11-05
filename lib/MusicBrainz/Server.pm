@@ -598,6 +598,8 @@ sub generate_csrf_token {
 sub set_csp_headers {
     my ($self) = @_;
 
+    return if defined $self->res->header('Content-Security-Policy');
+
     my $globals_script_nonce = $self->generate_nonce;
     $self->stash->{globals_script_nonce} = $globals_script_nonce;
 

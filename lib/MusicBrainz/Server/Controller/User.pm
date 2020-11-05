@@ -137,6 +137,10 @@ sub do_login : Private
     # Form not even posted
     ensure_ssl($c);
 
+    # These may not be set if the original action doesn't have the
+    # SecureForm attribute.
+    $c->set_csp_headers;
+
     $c->stash(
         current_view => 'Node',
         component_path => 'user/Login',
