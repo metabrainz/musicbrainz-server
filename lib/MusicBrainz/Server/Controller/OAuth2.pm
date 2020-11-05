@@ -412,7 +412,7 @@ sub _send_redirect_response
 
     if (defined $response_mode && $response_mode eq 'form_post') {
         # This overrides the CSP header set by
-        # Controller::Root::set_csp_headers. This one is more restrictive.
+        # MusicBrainz::Server::set_csp_headers. This one is more restrictive.
         $c->res->header('Content-Security-Policy' => (
             q(default-src 'self'; ) .
             q(frame-ancestors 'none'; ) .

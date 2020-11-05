@@ -196,71 +196,6 @@ sub error_mirror_404 : Private
     $c->detach;
 }
 
-sub set_csp_headers {
-    my ($c) = @_;
-
-    my $globals_script_nonce = $c->generate_nonce;
-    $c->stash->{globals_script_nonce} = $globals_script_nonce;
-
-    # CSP headers are generally only added where SecureForm is also used:
-    # account and admin-related forms. So there's no need to account for
-    # external origins like coverartarchive.org, archive.org,
-    # acousticbrainz.org, etc. here, as those are used on entity pages which
-    # don't have a CSP. Userscripts should continue to work for the same
-    # reason: edit and entity pages are unaffected. Avoid using the
-    # SecureForm attribute in those places.
-    my @csp_script_src = (
-        'script-src',
-        q('self'),
-        qq('nonce-$globals_script_nonce'),
-        'staticbrainz.org'
-    );
-
-    my @csp_style_src = (
-        'style-src',
-        q('self'),
-        'staticbrainz.org',
-    );
-
-    my @csp_img_src = (
-        'img-src',
-        q('self'),
-        'data:',
-        'staticbrainz.org',
-        'gravatar.com',
-    );
-
-    my @csp_frame_src = ('frame-src', q('self'));
-    if ($c->req->path eq 'register') {
-        my $use_captcha = ($c->req->address &&
-                           defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
-                           defined DBDefs->RECAPTCHA_PRIVATE_KEY);
-        if ($use_captcha) {
-            push @csp_script_src, qw(
-                https://www.google.com/recaptcha/
-                https://www.gstatic.com/recaptcha/
-            );
-            push @csp_frame_src, 'https://www.google.com/recaptcha/';
-        }
-    }
-
-    $c->res->header(
-        # X-Frame-Options is obsoleted by `frame-ancestors` on the
-        # Content-Security-Policy header; user agents that support
-        # the latter should ignore X-Frame-Options.
-        'X-Frame-Options' => 'DENY',
-        'Content-Security-Policy' => (
-            q(default-src 'self'; frame-ancestors 'none'; ) .
-            (join '; ', map { join ' ', @{$_} } (
-                \@csp_script_src,
-                \@csp_style_src,
-                \@csp_img_src,
-                \@csp_frame_src,
-            ))
-        ),
-    );
-}
-
 sub begin : Private
 {
     my ($self, $c) = @_;
@@ -270,7 +205,7 @@ sub begin : Private
     ensure_ssl($c) if $attributes->{RequireSSL};
 
     if (exists $attributes->{SecureForm}) {
-        set_csp_headers($c);
+        $c->set_csp_headers;
     }
 
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
