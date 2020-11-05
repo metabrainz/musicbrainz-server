@@ -558,36 +558,24 @@ sub generate_nonce {
     );
 }
 
-sub _csrf_session_key {
-    my ($self, $form_class) = @_;
-
-    return $self->json_canonical->encode({
-        namespace => $self->namespace // '',
-        action => $self->action->name,
-        arguments => $self->req->arguments,
-        form => $form_class,
-    });
-}
-
 sub get_csrf_token {
-    my ($self, $form_class) = @_;
+    my ($self, $session_key) = @_;
 
-    my $session_key = $self->_csrf_session_key($form_class);
-    my $session = $self->session;
     my $existing_token;
-    if (defined $session->{csrf_token}) {
-        $existing_token = delete $session->{csrf_token}{$session_key};
+    if (defined $session_key) {
+        $existing_token = delete $self->session->{$session_key};
     }
     return $existing_token;
 }
 
 sub generate_csrf_token {
-    my ($self, $form_class) = @_;
+    my ($self) = @_;
 
-    my $session_key = $self->_csrf_session_key($form_class);
+    my $session_key = 'csrf_token:' . $self->generate_nonce;
     my $token = $self->generate_nonce;
-    $self->session->{csrf_token}{$session_key} = $token;
-    return $token;
+    $self->session->{$session_key} = $token;
+    $self->session_expire_key($session_key, 600); # 10 minutes
+    return ($session_key, $token);
 }
 
 sub set_csp_headers {

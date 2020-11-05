@@ -5,20 +5,34 @@ use HTML::FormHandler::Moose::Role;
 use MusicBrainz::Server::Data::Utils qw( generate_token );
 use MusicBrainz::Server::Translation qw( l N_l );
 
+my $error_message = N_l(
+    'The form you’ve submitted has expired. ' .
+    'Please resubmit your request.'
+);
+
+sub localize_error {
+    my ($self, @message) = @_;
+    return l(@message);
+}
+
 has_field 'csrf_token' => (
     type => 'Hidden',
     required => 1,
     not_nullable => 1,
-    messages => {
-        required => N_l('The form you’ve submitted has expired. Please resubmit your request.'),
-    },
-    localize_meth => sub {
-        my ($self, @message) = @_;
-        return l(@message);
-    },
+    messages => {required => $error_message},
+    localize_meth => \&localize_error,
     # There's no case where we'd ever want fif to use the input value,
     # since the CSRF token acts as a nonce. (We reset the token in
-    # `validate` below.)
+    # `BUILDARGS` below.)
+    fif_from_value => 1,
+);
+
+has_field 'csrf_session_key' => (
+    type => 'Hidden',
+    required => 1,
+    not_nullable => 1,
+    messages => {required => $error_message},
+    localize_meth => \&localize_error,
     fif_from_value => 1,
 );
 
@@ -28,17 +42,13 @@ around BUILDARGS => sub {
     my $args = $class->$orig(@args);
 
     my $c = $args->{ctx};
-    my $token;
-    if ($c->req->method eq 'POST') {
-        $token = $c->get_csrf_token($class);
-    }
-    if (!defined $token) {
-        $token = $c->generate_csrf_token($class);
-    }
+
+    my ($session_key, $token) = $c->generate_csrf_token;
 
     $args->{init_object} = {
         %{ $args->{init_object} // {} },
         csrf_token => $token,
+        csrf_session_key => $session_key,
     };
 
     # Some controllers pass `item` to the form constructor. In those
@@ -51,24 +61,30 @@ around BUILDARGS => sub {
 around validate => sub {
     my ($orig, $self, @args) = @_;
 
-    my $field = $self->field('csrf_token');
+    my $session_key_field = $self->field('csrf_session_key');
+    my $token_field = $self->field('csrf_token');
 
-    unless ($field->has_errors) {
-        my $got_token = $field->value;
-        my $expected_token = $field->init_value;
+    unless (
+        $session_key_field->has_errors ||
+        $token_field->has_errors
+    ) {
+        my $session_key = $session_key_field->value;
+        my $expected_token = $self->ctx->get_csrf_token($session_key);
+        my $got_token = $token_field->value;
 
         unless (
             $got_token && $expected_token &&
             $got_token eq $expected_token
         ) {
-            $field->push_errors(
+            $token_field->push_errors(
                 l('The form you’ve submitted has expired. ' .
                   'Please resubmit your request.'),
             );
         }
     }
 
-    $field->value($self->ctx->generate_csrf_token(ref $self));
+    $session_key_field->value($session_key_field->init_value);
+    $token_field->value($token_field->init_value);
 
     return $self->$orig(@args);
 };

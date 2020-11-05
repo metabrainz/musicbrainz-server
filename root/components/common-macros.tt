@@ -943,6 +943,8 @@ END ~%]
 [%- END -%]
 
 [%~ MACRO form_csrf_token(r) BLOCK -%] [% # Converted to React at root/components/FormCsrfToken.js %]
+    [%- r.hidden('csrf_session_key') -%]
+    [%- field_errors(r.form, 'csrf_session_key') -%]
     [%- r.hidden('csrf_token') -%]
     [%- field_errors(r.form, 'csrf_token') -%]
 [%~ END ~%]

@@ -11,24 +11,36 @@ import * as React from 'react';
 
 type PropsT = {
   +form: ReadOnlyFormT<{
+    +csrf_session_key?: ReadOnlyFieldT<string>,
     +csrf_token?: ReadOnlyFieldT<string>,
     ...
   }>,
 };
 
 const FormCsrfToken = ({form}: PropsT): React.Node => {
-  const field = form.field.csrf_token;
-  return field ? (
+  const sessionKeyField = form.field.csrf_session_key;
+  const tokenField = form.field.csrf_token;
+  return (sessionKeyField && tokenField) ? (
     <>
-      {field.errors.length ? (
+      {sessionKeyField.errors.length ? (
         <p className="error">
-          {field.errors[0]}
+          {sessionKeyField.errors[0]}
         </p>
       ) : null}
       <input
-        name={field.html_name}
+        name={sessionKeyField.html_name}
         type="hidden"
-        value={field.value}
+        value={sessionKeyField.value}
+      />
+      {tokenField.errors.length ? (
+        <p className="error">
+          {tokenField.errors[0]}
+        </p>
+      ) : null}
+      <input
+        name={tokenField.html_name}
+        type="hidden"
+        value={tokenField.value}
       />
     </>
   ) : null;
