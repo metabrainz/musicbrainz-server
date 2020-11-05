@@ -132,11 +132,11 @@ test 'Check conflicts (conflicting edits)' => sub {
 test 'Changing URL scheme from HTTP to HTTPS is an auto-edit (MBS-9439)' => sub {
     my $test = shift;
 
-    my $edit = _build_edit($test, 'https://musicbrainz.org/', 1);
-    is $edit->status, $STATUS_APPLIED;
+    my $edit_1 = _build_edit($test, 'https://musicbrainz.org/', 1);
+    is $edit_1->status, $STATUS_APPLIED;
 
-    my $edit = _build_edit($test, 'http://musicbrainz.org/', 1);
-    is $edit->status, $STATUS_OPEN, 'Moving from HTTPS to HTTP is not an auto edit';
+    my $edit_2 = _build_edit($test, 'http://musicbrainz.org/', 1);
+    is $edit_2->status, $STATUS_OPEN, 'Moving from HTTPS to HTTP is not an auto edit';
 };
 
 test 'Related entities get linked to the edit' => sub {
