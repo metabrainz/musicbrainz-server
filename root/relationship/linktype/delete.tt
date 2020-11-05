@@ -7,8 +7,11 @@
         </p>
 
         <form action="[% c.req.uri %]" method="post">
+            [% form_csrf_token %]
             <span class="buttons">
-                <button type="submit" name="confirm.submit">[% l('Remove') %]</button>
+                <button type="submit" name="confirm.submit" value="1">
+                    [% l('Remove') %]
+                </button>
             </span>
         </form>
     </div>
