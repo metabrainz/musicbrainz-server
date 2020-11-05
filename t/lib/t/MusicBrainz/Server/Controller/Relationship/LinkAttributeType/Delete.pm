@@ -28,13 +28,11 @@ test 'Deleting relationship attributes' => sub {
     html_ok($mech->content);
 
     my @edits = capture_edits {
-        my $response = $mech->request(
-            POST $mech->uri, [ 'confirm.submit' => 1 ]
-        );
+        $mech->form_with_fields('confirm.submit');
+        $mech->click('confirm.submit');
         ok($mech->success);
 
-        my @redir = $response->redirects;
-        like($redir[0]->content, qr{http://localhost/relationship-attributes}, "Redirect contains link to main relationship page.");
+        is($mech->uri, 'http://localhost/relationship-attributes', "Redirect contains link to main relationship page.");
     } $test->c;
 
     is(@edits, 1);

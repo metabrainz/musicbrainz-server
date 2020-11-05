@@ -98,7 +98,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
     }
 }
 
-sub delete : Chained('load') RequireAuth(relationship_editor)
+sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
 {
     my ($self, $c, $gid) = @_;
 
