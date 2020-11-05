@@ -548,6 +548,7 @@ sub generate_nonce {
     encode_base64(
         sha256(
             join q(.),
+                DBDefs->NONCE_SECRET,
                 refaddr($self->req),
                 refaddr($self->res),
                 clock_gettime(CLOCK_REALTIME),

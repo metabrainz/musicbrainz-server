@@ -430,6 +430,12 @@ sub DISCOURSE_API_USERNAME { '' }
 # See https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
 sub DISCOURSE_SSO_SECRET { '' }
 
+# Secret key used to generate nonce values in some contexts, e.g. CSRF tokens
+# and CSP headers. Even without a secret set, the generated nonces are very
+# unlikely to be guessed; this is mainly only useful for an additional layer
+# of security on the MusicBrainz production site.
+sub NONCE_SECRET { '' }
+
 # When enabled, if Catalyst receives a request with an `mb-set-database`
 # header, all database queries will go to the specified database instead of
 # READWRITE, as defined in the DatabaseConnectionFactory->register_databases
