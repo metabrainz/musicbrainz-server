@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import FormRowText from '../../../../components/FormRowText';
+import MB from '../../common/MB';
 
 type SortNamedEntityT = {
   +entityType: CoreEntityTypeT,
@@ -31,6 +32,42 @@ type PropsT = {
   +field: ReadOnlyFieldT<string | null>,
   +label?: string,
 };
+
+export type StateT = {
+  +nameField: ReadOnlyFieldT<string | null>,
+  +sortNameField: ReadOnlyFieldT<string | null>,
+};
+
+export type WritableStateT = {
+  +nameField: ReadOnlyFieldT<string | null>,
+  sortNameField: FieldT<string | null>,
+};
+
+export function runReducer(
+  newState: WritableStateT,
+  action: ActionT,
+) {
+  switch (action.type) {
+    case 'set-sortname': {
+      newState.sortNameField.value = action.sortName;
+      break;
+    }
+    case 'guess-case-sortname': {
+      const {entityType, typeID} = action.entity;
+      newState.sortNameField.value =
+        (MB.GuessCase: any)[entityType].sortname(
+          newState.nameField.value ?? '',
+          typeID,
+        );
+      break;
+    }
+    case 'copy-sortname': {
+      newState.sortNameField.value =
+        newState.nameField.value ?? '';
+      break;
+    }
+  }
+}
 
 export const FormRowSortNameWithGuessCase = ({
   disabled = false,

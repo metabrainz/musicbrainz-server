@@ -19,7 +19,7 @@ export type AliasEditFormT = FormT<{
   +name: ReadOnlyFieldT<string | null>,
   +period: DatePeriodFieldT,
   +primary_for_locale: ReadOnlyFieldT<boolean>,
-  +sort_name: ReadOnlyFieldT<string>,
+  +sort_name: ReadOnlyFieldT<string | null>,
   +type_id: ReadOnlyFieldT<string>,
 }>;
 
@@ -30,6 +30,6 @@ export type WritableAliasEditFormT = FormT<{
   +name: FieldT<string | null>,
   +period: WritableDatePeriodFieldT,
   +primary_for_locale: FieldT<boolean>,
-  +sort_name: FieldT<string>,
+  +sort_name: FieldT<string | null>,
   +type_id: FieldT<string>,
 }>;

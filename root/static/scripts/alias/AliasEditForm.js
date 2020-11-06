@@ -18,7 +18,6 @@ import EnterEdit from '../../../components/EnterEdit';
 import EnterEditNote from '../../../components/EnterEditNote';
 import FormRowCheckbox from '../../../components/FormRowCheckbox';
 import FormRowSelect from '../../../components/FormRowSelect';
-import MB from '../common/MB';
 import isBlank from '../common/utility/isBlank';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
@@ -29,6 +28,7 @@ import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
 } from '../edit/components/FormRowNameWithGuessCase';
 import FormRowSortNameWithGuessCase, {
+  runReducer as runSortNameReducer,
   type ActionT as SortNameActionT,
 } from '../edit/components/FormRowSortNameWithGuessCase';
 import {
@@ -58,13 +58,13 @@ type Props = {
 
 /* eslint-disable flowtype/sort-keys */
 type ActionT =
-  | SortNameActionT
   | {+type: 'set-locale', +locale: string}
   | {+type: 'set-primary-for-locale', +enabled: boolean}
   | {+type: 'set-type', +type_id: string}
   | {+type: 'show-all-pending-errors'}
   | {+type: 'update-date-range', +action: DateRangeFieldsetActionT}
-  | {+type: 'update-name', +action: NameActionT};
+  | {+type: 'update-name', +action: NameActionT}
+  | {+type: 'update-sortname', +action: SortNameActionT};
 /* eslint-enable flowtype/sort-keys */
 
 type StateT = {
@@ -145,24 +145,6 @@ function createInitialState(form, searchHintType) {
 function reducer(state: StateT, action: ActionT): StateT {
   return mutate<WritableStateT, StateT>(state, newState => {
     switch (action.type) {
-      case 'set-sortname': {
-        newState.form.field.sort_name.value = action.sortName;
-        break;
-      }
-      case 'guess-case-sortname': {
-        const {entityType, typeID} = action.entity;
-        newState.form.field.sort_name.value =
-          (MB.GuessCase: any)[entityType].sortname(
-            state.form.field.name.value ?? '',
-            typeID,
-          );
-        break;
-      }
-      case 'copy-sortname': {
-        newState.form.field.sort_name.value =
-          state.form.field.name.value ?? '';
-        break;
-      }
       case 'update-date-range': {
         runDateRangeFieldsetReducer(
           newState.form.field.period,
@@ -179,6 +161,13 @@ function reducer(state: StateT, action: ActionT): StateT {
         runNameReducer(nameState, action.action);
         newState.guessCaseOptions = nameState.guessCaseOptions;
         newState.isGuessCaseOptionsOpen = nameState.isGuessCaseOptionsOpen;
+        break;
+      }
+      case 'update-sortname': {
+        runSortNameReducer({
+          nameField: state.form.field.name,
+          sortNameField: newState.form.field.sort_name,
+        }, action.action);
         break;
       }
       case 'set-locale': {
@@ -259,6 +248,10 @@ const AliasEditForm = ({
     dispatch({action, type: 'update-name'});
   }, [dispatch]);
 
+  const sortNameDispatch = React.useCallback((action: SortNameActionT) => {
+    dispatch({action, type: 'update-sortname'});
+  }, [dispatch]);
+
   const setLocale = React.useCallback((event) => {
     dispatch({locale: event.currentTarget.value, type: 'set-locale'});
   }, [dispatch]);
@@ -334,7 +327,7 @@ const AliasEditForm = ({
             />
             <FormRowSortNameWithGuessCase
               disabled={state.isTypeSearchHint}
-              dispatch={dispatch}
+              dispatch={sortNameDispatch}
               entity={entity}
               field={state.form.field.sort_name}
             />
