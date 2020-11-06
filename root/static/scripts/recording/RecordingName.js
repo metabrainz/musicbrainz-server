@@ -11,16 +11,13 @@ import mutate from 'mutate-cow';
 import * as React from 'react';
 
 import hydrate from '../../../utility/hydrate';
-import MB from '../common/MB';
 import FormRowNameWithGuessCase, {
+  createInitialState as createNameState,
+  runReducer as runFormRowNameWithGuessCaseReducer,
   type ActionT as NameActionT,
+  type StateT as NameStateT,
+  type WritableStateT as WritableNameStateT,
 } from '../edit/components/FormRowNameWithGuessCase';
-import {
-  createInitialState as createGuessCaseOptionsState,
-  runReducer as runGuessCaseOptionsReducer,
-  type StateT as GuessCaseOptionsStateT,
-  type WritableStateT as WritableGuessCaseOptionsStateT,
-} from '../edit/components/GuessCaseOptions';
 
 type Props = {
   +field: ReadOnlyFieldT<string>,
@@ -30,60 +27,12 @@ type Props = {
   },
 };
 
-/*
- * State must be moved higher up in the component hierarchy once more
- * of the page is converted to React.
- */
-type StateT = {
-  +field: ReadOnlyFieldT<string | null>,
-  +guessCaseOptions: GuessCaseOptionsStateT,
-  +isGuessCaseOptionsOpen: boolean,
-};
-
-type WritableStateT = {
-  ...StateT,
-  field: FieldT<string | null>,
-  guessCaseOptions: WritableGuessCaseOptionsStateT,
-};
-
-function createInitialState(field) {
-  return {
-    field,
-    guessCaseOptions: createGuessCaseOptionsState(),
-    isGuessCaseOptionsOpen: false,
-  };
-}
-
-function reducer(state: StateT, action: NameActionT): StateT {
-  return mutate<WritableStateT, StateT>(state, newState => {
-    switch (action.type) {
-      case 'set-name': {
-        newState.field.value = action.name;
-        break;
-      }
-      case 'guess-case': {
-        newState.field.value =
-          (MB.GuessCase: any).recording.guess(
-            state.field.value ?? '',
-          );
-        break;
-      }
-      case 'open-guess-case-options': {
-        newState.isGuessCaseOptionsOpen = true;
-        break;
-      }
-      case 'close-guess-case-options': {
-        newState.isGuessCaseOptionsOpen = false;
-        break;
-      }
-      case 'update-guess-case-options': {
-        runGuessCaseOptionsReducer(
-          newState.guessCaseOptions,
-          action.action,
-        );
-        break;
-      }
-    }
+function reducer(
+  state: NameStateT,
+  action: NameActionT,
+): NameStateT {
+  return mutate<WritableNameStateT, NameStateT>(state, newState => {
+    runFormRowNameWithGuessCaseReducer(newState, action);
   });
 }
 
@@ -98,7 +47,7 @@ export const RecordingName = ({
   const [state, dispatch] = React.useReducer(
     reducer,
     field,
-    createInitialState,
+    createNameState,
   );
 
   return (

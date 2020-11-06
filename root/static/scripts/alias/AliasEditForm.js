@@ -25,6 +25,7 @@ import DateRangeFieldset, {
   runReducer as runDateRangeFieldsetReducer,
 } from '../edit/components/DateRangeFieldset';
 import FormRowNameWithGuessCase, {
+  runReducer as runNameReducer,
   type ActionT as NameActionT,
 } from '../edit/components/FormRowNameWithGuessCase';
 import FormRowSortNameWithGuessCase, {
@@ -32,7 +33,6 @@ import FormRowSortNameWithGuessCase, {
 } from '../edit/components/FormRowSortNameWithGuessCase';
 import {
   createInitialState as createGuessCaseOptionsState,
-  runReducer as runGuessCaseOptionsReducer,
   type StateT as GuessCaseOptionsStateT,
   type WritableStateT as WritableGuessCaseOptionsStateT,
 } from '../edit/components/GuessCaseOptions';
@@ -58,13 +58,13 @@ type Props = {
 
 /* eslint-disable flowtype/sort-keys */
 type ActionT =
-  | NameActionT
   | SortNameActionT
   | {+type: 'set-locale', +locale: string}
   | {+type: 'set-primary-for-locale', +enabled: boolean}
   | {+type: 'set-type', +type_id: string}
   | {+type: 'show-all-pending-errors'}
-  | {+type: 'update-date-range', +action: DateRangeFieldsetActionT};
+  | {+type: 'update-date-range', +action: DateRangeFieldsetActionT}
+  | {+type: 'update-name', +action: NameActionT};
 /* eslint-enable flowtype/sort-keys */
 
 type StateT = {
@@ -145,18 +145,6 @@ function createInitialState(form, searchHintType) {
 function reducer(state: StateT, action: ActionT): StateT {
   return mutate<WritableStateT, StateT>(state, newState => {
     switch (action.type) {
-      case 'set-name': {
-        newState.form.field.name.value = action.name;
-        break;
-      }
-      case 'guess-case': {
-        const nameField = newState.form.field.name;
-        nameField.value =
-          (MB.GuessCase: any)[action.entity.entityType].guess(
-            nameField.value ?? '',
-          );
-        break;
-      }
       case 'set-sortname': {
         newState.form.field.sort_name.value = action.sortName;
         break;
@@ -175,26 +163,22 @@ function reducer(state: StateT, action: ActionT): StateT {
           state.form.field.name.value ?? '';
         break;
       }
-      case 'open-guess-case-options': {
-        newState.isGuessCaseOptionsOpen = true;
-        break;
-      }
-      case 'close-guess-case-options': {
-        newState.isGuessCaseOptionsOpen = false;
-        break;
-      }
-      case 'update-guess-case-options': {
-        runGuessCaseOptionsReducer(
-          newState.guessCaseOptions,
-          action.action,
-        );
-        break;
-      }
       case 'update-date-range': {
         runDateRangeFieldsetReducer(
           newState.form.field.period,
           action.action,
         );
+        break;
+      }
+      case 'update-name': {
+        const nameState = {
+          field: newState.form.field.name,
+          guessCaseOptions: newState.guessCaseOptions,
+          isGuessCaseOptionsOpen: newState.isGuessCaseOptionsOpen,
+        };
+        runNameReducer(nameState, action.action);
+        newState.guessCaseOptions = nameState.guessCaseOptions;
+        newState.isGuessCaseOptionsOpen = nameState.isGuessCaseOptionsOpen;
         break;
       }
       case 'set-locale': {
@@ -271,6 +255,10 @@ const AliasEditForm = ({
     createInitialState(initialForm, searchHintType),
   );
 
+  const nameDispatch = React.useCallback((action: NameActionT) => {
+    dispatch({action, type: 'update-name'});
+  }, [dispatch]);
+
   const setLocale = React.useCallback((event) => {
     dispatch({locale: event.currentTarget.value, type: 'set-locale'});
   }, [dispatch]);
@@ -337,7 +325,7 @@ const AliasEditForm = ({
           <fieldset>
             <legend>{l('Alias Details')}</legend>
             <FormRowNameWithGuessCase
-              dispatch={dispatch}
+              dispatch={nameDispatch}
               entity={entity}
               field={state.form.field.name}
               guessCaseOptions={state.guessCaseOptions}

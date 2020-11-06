@@ -10,10 +10,14 @@
 import * as React from 'react';
 
 import FormRowText from '../../../../components/FormRowText';
+import MB from '../../common/MB';
 
-import type {
-  ActionT as GuessCaseOptionsActionT,
-  StateT as GuessCaseOptionsStateT,
+import {
+  createInitialState as createGuessCaseOptionsState,
+  runReducer as runGuessCaseOptionsReducer,
+  type ActionT as GuessCaseOptionsActionT,
+  type StateT as GuessCaseOptionsStateT,
+  type WritableStateT as WritableGuessCaseOptionsStateT,
 } from './GuessCaseOptions';
 import GuessCaseOptionsPopover from './GuessCaseOptionsPopover';
 
@@ -41,6 +45,62 @@ type PropsT = {
   +isGuessCaseOptionsOpen: boolean,
   +label?: string,
 };
+
+export type StateT = {
+  +field: ReadOnlyFieldT<string | null>,
+  +guessCaseOptions: GuessCaseOptionsStateT,
+  +isGuessCaseOptionsOpen: boolean,
+};
+
+export type WritableStateT = {
+  ...StateT,
+  field: FieldT<string | null>,
+  guessCaseOptions: WritableGuessCaseOptionsStateT,
+};
+
+export function createInitialState(
+  field: ReadOnlyFieldT<string | null>,
+): StateT {
+  return {
+    field,
+    guessCaseOptions: createGuessCaseOptionsState(),
+    isGuessCaseOptionsOpen: false,
+  };
+}
+
+export function runReducer(
+  newState: WritableStateT,
+  action: ActionT,
+): void {
+  switch (action.type) {
+    case 'guess-case': {
+      newState.field.value =
+        (MB.GuessCase: any)[action.entity.entityType].guess(
+          newState.field.value ?? '',
+        );
+      break;
+    }
+    case 'open-guess-case-options': {
+      newState.isGuessCaseOptionsOpen = true;
+      break;
+    }
+    case 'close-guess-case-options': {
+      newState.isGuessCaseOptionsOpen = false;
+      break;
+    }
+    case 'update-guess-case-options': {
+      runGuessCaseOptionsReducer(
+        newState.guessCaseOptions,
+        action.action,
+      );
+      break;
+    }
+    case 'set-name': {
+      newState.field.value = action.name;
+      break;
+    }
+  }
+}
 
 export const FormRowNameWithGuessCase = ({
   dispatch,
