@@ -221,11 +221,11 @@ sub show : PathPart('') Chained('load')
             my $all = $attempt->[0];
             my $va = $attempt->[1];
             $release_groups = $make_attempt->($all, $va);
+            $including_all_statuses = $all;
+            $showing_va_only = $va;
             # If filtering, only make one attempt
             # otherwise, attempt until we find RGs or exhaust the possibilities
             if (scalar @$release_groups || %filter) {
-                $including_all_statuses = $all;
-                $showing_va_only = $va;
                 last;
             }
         }
@@ -306,8 +306,12 @@ sub show : PathPart('') Chained('load')
             ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => $artist->id }),
             artist => $artist,
             filterForm => $c->stash->{filter_form},
+            hasDefault => boolean_to_json($has_default),
+            hasExtra => boolean_to_json($has_extra),
             hasFilter => boolean_to_json($has_filter),
-            includingAllStatuses => $including_all_statuses,
+            hasVariousArtists => boolean_to_json($has_va),
+            hasVariousArtistsExtra => boolean_to_json($has_va_extra),
+            includingAllStatuses => boolean_to_json($including_all_statuses),
             legalName => $legal_name,
             legalNameAliases => $legal_name_aliases,
             legalNameArtistAliases => $legal_name_artist_aliases,
@@ -316,9 +320,7 @@ sub show : PathPart('') Chained('load')
             pager => serialize_pager($c->stash->{pager}),
             recordings => $recordings,
             releaseGroups => $release_groups,
-            showingVariousArtistsOnly => $showing_va_only,
-            wantAllStatuses => boolean_to_json($want_all_statuses),
-            wantVariousArtistsOnly => boolean_to_json($want_va_only),
+            showingVariousArtistsOnly => boolean_to_json($showing_va_only),
             wikipediaExtract => $c->stash->{wikipedia_extract},
         },
     );
