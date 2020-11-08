@@ -62,7 +62,7 @@ const EditSummary = ({
           {mayApprove ? (
             <a
               className="positive"
-              href={returnUri($c, `/edit/${edit.id}/approve`, 'returnto')}
+              href={returnUri($c, `/edit/${edit.id}/approve`)}
             >
               {l('Approve edit')}
             </a>
@@ -71,7 +71,7 @@ const EditSummary = ({
           {mayCancel ? (
             <a
               className="negative"
-              href={returnUri($c, `/edit/${edit.id}/cancel`, 'returnto')}
+              href={returnUri($c, `/edit/${edit.id}/cancel`)}
             >
               {l('Cancel edit')}
             </a>

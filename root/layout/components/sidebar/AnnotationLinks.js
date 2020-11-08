@@ -27,7 +27,6 @@ const AnnotationLinks = ({
         href={returnUri(
           $c,
           entityHref(entity, 'edit_annotation'),
-          'returnto',
           $c.req.uri,
         )}
       >

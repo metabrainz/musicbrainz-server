@@ -517,11 +517,11 @@ END -%]
 [%- END -%]
 
 [%~ MACRO login_url(redirect) BLOCK;
-    c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
+    c.uri_for_action('/user/login', { returnto => c.req.query_params.returnto || redirect || c.relative_uri });
 END -%]
 
 [%~ MACRO register_url(redirect) BLOCK;
-    c.uri_for_action('/account/register', { uri => c.req.query_params.uri || redirect || c.relative_uri });
+    c.uri_for_action('/account/register', { returnto => c.req.query_params.returnto || redirect || c.relative_uri });
 END -%]
 
 [%~ MACRO simple_link(url, text) BLOCK; # url may be a string or a URI object

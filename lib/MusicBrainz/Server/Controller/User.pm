@@ -189,8 +189,7 @@ sub login : Path('/login') ForbiddenOnSlaves RequireSSL SecureForm
     $c->forward('/user/do_login');
 
     # Logged in OK
-    my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
-    $c->response->redirect($redirect);
+    $c->redirect_back(fallback => $c->relative_uri);
     $c->detach;
 }
 
