@@ -10,14 +10,17 @@
 import * as React from 'react';
 
 import ENTITIES from '../../entities';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 type Props = {
+  +$c: CatalystContextT,
   +entity: CoreEntityT,
   +toMerge: $ReadOnlyArray<CoreEntityT>,
 };
 
 // Converted to react-table at root/utility/tableColumns.js
 const RemoveFromMergeTableCell = ({
+  $c,
   entity,
   toMerge,
 }: Props): React.Element<'td'> | null => {
@@ -25,7 +28,12 @@ const RemoveFromMergeTableCell = ({
   return (
     toMerge.length > 2 ? (
       <td>
-        <a href={`/${url}/merge?remove=${entity.id}&submit=remove`}>
+        <a
+          href={
+            `/${url}/merge?remove=${entity.id}&submit=remove&` +
+            returnToCurrentPage($c)
+          }
+        >
           <button
             className="remove-item icon"
             title={l('Remove from merge')}

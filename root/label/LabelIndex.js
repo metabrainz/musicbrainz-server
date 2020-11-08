@@ -18,6 +18,7 @@ import WikipediaExtract
 import ReleaseList from '../components/list/ReleaseList';
 import * as manifest from '../static/manifest';
 import Annotation from '../static/scripts/common/components/Annotation';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import LabelLayout from './LabelLayout';
 
@@ -56,7 +57,10 @@ const LabelIndex = ({
     />
     <h2 className="releases">{l('Releases')}</h2>
     {releases?.length ? (
-      <form action="/release/merge_queue" method="post">
+      <form
+        action={'/release/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <ReleaseList
             $c={$c}

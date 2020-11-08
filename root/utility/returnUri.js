@@ -17,3 +17,10 @@ export default function returnUri(
     $c.req.query_params[param] || redirect || $c.relative_uri,
   );
 }
+
+export function returnToCurrentPage(
+  $c: CatalystContextT,
+  param?: string = 'returnto',
+): string {
+  return param + '=' + encodeURIComponent($c.relative_uri);
+}

@@ -204,7 +204,7 @@ sub logout : Path('/logout')
         $c->delete_session;
     }
 
-    $self->redirect_back($c, '/logout', '/');
+    $c->redirect_back;
 }
 
 sub cookie_login : Private

@@ -13,15 +13,17 @@ import {CatalystContext} from '../../../context';
 import typeof EntityLink
   from '../../../static/scripts/common/components/EntityLink';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
+import {returnToCurrentPage} from '../../../utility/returnUri';
 
 function entityArg(entity) {
   return '?' + entity.entityType + '=' +
     encodeURIComponent(String(entity.id));
 }
 
-function collectionUrl(collection, entity, action) {
+function collectionUrl($c, collection, entity, action) {
   return entityHref(collection, 'collection_collaborator/' + action) +
-    entityArg(entity);
+    entityArg(entity) +
+    '&' + returnToCurrentPage($c);
 }
 
 function hasEntity($c, collection) {
@@ -72,13 +74,13 @@ const CollectionAddRemove = ({
         <CatalystContext.Consumer>
           {$c => (
             hasEntity($c, collection) ? (
-              <a href={collectionUrl(collection, entity, 'remove')}>
+              <a href={collectionUrl($c, collection, entity, 'remove')}>
                 {texp.l(
                   'Remove from {collection}', {collection: collection.name},
                 )}
               </a>
             ) : (
-              <a href={collectionUrl(collection, entity, 'add')}>
+              <a href={collectionUrl($c, collection, entity, 'add')}>
                 {texp.l('Add to {collection}', {collection: collection.name})}
               </a>
             )

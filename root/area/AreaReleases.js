@@ -12,6 +12,7 @@ import * as React from 'react';
 import ReleaseList from '../components/list/ReleaseList';
 import PaginatedResults from '../components/PaginatedResults';
 import RelationshipsTable from '../components/RelationshipsTable';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import AreaLayout from './AreaLayout';
 
@@ -32,7 +33,10 @@ const AreaReleases = ({
     <h2>{l('Releases')}</h2>
 
     {releases?.length ? (
-      <form action="/release/merge_queue" method="post">
+      <form
+        action={'/release/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <ReleaseList
             $c={$c}

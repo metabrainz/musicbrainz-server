@@ -16,17 +16,15 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-$mech->get('/');
-$mech->get_ok('/logout');
+$mech->get_ok('/logout?returnto=/');
 html_ok($mech->content);
-is($mech->uri->path, '/', 'Redirected to the previous URL');
+is($mech->uri->path, '/', 'Redirected to /');
 $mech->get_ok('/artist/create');
 html_ok($mech->content);
 $mech->content_contains('You need to be logged in to view this page');
-$mech->get('/login');
-$mech->get_ok('/logout');
+$mech->get_ok('/logout?returnto=/login');
 html_ok($mech->content);
-is($mech->uri->path, '/login', 'Redirected to the previous URL');
+is($mech->uri->path, '/login', 'Redirected to /login');
 $mech->content_contains('Log In');
 
 };

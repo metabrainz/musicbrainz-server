@@ -13,6 +13,7 @@ import PlaceList from '../components/list/PlaceList';
 import PaginatedResults from '../components/PaginatedResults';
 import * as manifest from '../static/manifest';
 import DBDefs from '../static/scripts/common/DBDefs-client';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import AreaLayout from './AreaLayout';
 
@@ -49,7 +50,10 @@ const AreaPlaces = ({
             )}
           </p>
         )}
-        <form action="/place/merge_queue" method="post">
+        <form
+          action={'/place/merge_queue?' + returnToCurrentPage($c)}
+          method="post"
+        >
           <PaginatedResults pager={pager}>
             <PlaceList
               $c={$c}

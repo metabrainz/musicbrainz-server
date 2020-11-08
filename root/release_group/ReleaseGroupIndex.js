@@ -29,6 +29,7 @@ import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import formatBarcode from '../static/scripts/common/utility/formatBarcode';
 import * as manifest from '../static/manifest';
 import releaseGroupType from '../utility/releaseGroupType';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import ReleaseGroupLayout from './ReleaseGroupLayout';
 
@@ -124,7 +125,10 @@ const ReleaseGroupIndex = ({
     {releases.length ? (
       <>
         <h2>{releaseGroupType(releaseGroup)}</h2>
-        <form action="/release/merge_queue" method="post">
+        <form
+          action={'/release/merge_queue?' + returnToCurrentPage($c)}
+          method="post"
+        >
           <PaginatedResults pager={pager}>
             <table className="tbl">
               <thead>

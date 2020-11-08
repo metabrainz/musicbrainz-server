@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import ArtistList from '../components/list/ArtistList';
 import PaginatedResults from '../components/PaginatedResults';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import InstrumentLayout from './InstrumentLayout';
 
@@ -38,7 +39,10 @@ const InstrumentArtists = ({
     <h2>{l('Artists')}</h2>
 
     {artists && artists.length > 0 ? (
-      <form action="/artist/merge_queue" method="post">
+      <form
+        action={'/artist/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <ArtistList
             $c={$c}

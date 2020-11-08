@@ -9,23 +9,29 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
+import {returnToCurrentPage} from '../../../utility/returnUri';
 
 type Props = {
   +entity: CoreEntityT,
 };
 
-const mergeUrl = entity => {
+const mergeUrl = ($c, entity) => {
   const entityType = entity.entityType;
   const id = encodeURIComponent(String(entity.id));
-  return `/${entityType}/merge_queue?add-to-merge=${id}`;
+  return `/${entityType}/merge_queue?add-to-merge=${id}&` +
+    returnToCurrentPage($c);
 };
 
-const MergeLink = ({entity}: Props): React.Element<'li'> => (
-  <li>
-    <a href={mergeUrl(entity)}>
-      {l('Merge')}
-    </a>
-  </li>
-);
+const MergeLink = ({entity}: Props): React.Element<'li'> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <li>
+      <a href={mergeUrl($c, entity)}>
+        {l('Merge')}
+      </a>
+    </li>
+  );
+};
 
 export default MergeLink;

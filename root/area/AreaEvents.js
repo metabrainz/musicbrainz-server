@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import EventList from '../components/list/EventList';
 import PaginatedResults from '../components/PaginatedResults';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import AreaLayout from './AreaLayout';
 
@@ -31,7 +32,10 @@ const AreaEvents = ({
     <h2>{l('Events')}</h2>
 
     {events.length > 0 ? (
-      <form action="/event/merge_queue" method="post">
+      <form
+        action={'/event/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <EventList
             $c={$c}

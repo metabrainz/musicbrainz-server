@@ -17,6 +17,7 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../utility/loopParity';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 type PropsT = {
   +$c: CatalystContextT,
@@ -51,7 +52,10 @@ const Index = ({
           {num: recordings.length},
         )}
       </h2>
-      <form action="/recording/merge_queue" method="post">
+      <form
+        action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <table className="tbl">
           <thead>
             <tr>

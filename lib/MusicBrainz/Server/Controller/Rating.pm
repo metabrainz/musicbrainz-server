@@ -51,9 +51,7 @@ sub rate : Local RequireAuth DenyWhenReadonly
         $c->detach;
     }
 
-    my $redirect = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($redirect);
-    $c->detach;
+    $c->redirect_back;
 }
 
 1;

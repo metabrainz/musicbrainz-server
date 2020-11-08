@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import ArtistList from '../components/list/ArtistList';
 import PaginatedResults from '../components/PaginatedResults';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import AreaLayout from './AreaLayout';
 
@@ -31,7 +32,10 @@ const AreaArtists = ({
     <h2>{l('Artists')}</h2>
 
     {artists?.length ? (
-      <form action="/artist/merge_queue" method="post">
+      <form
+        action={'/artist/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <ArtistList
             $c={$c}

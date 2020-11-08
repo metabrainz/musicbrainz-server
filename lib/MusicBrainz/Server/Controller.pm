@@ -252,18 +252,6 @@ sub _load_paged
     return $data;
 }
 
-sub redirect_back
-{
-    my ($self, $c, $ignore, $fallback) = @_;
-
-    my $url = $c->request->referer;
-
-    $url = $c->uri_for($fallback)
-        if !$url || $url =~ qr{$ignore};
-
-    $c->response->redirect($url);
-}
-
 sub error {
     my ($self, $c, %args) = @_;
     my $status = $args{status} || 500;

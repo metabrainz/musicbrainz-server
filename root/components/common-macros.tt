@@ -935,7 +935,7 @@ END ~%]
 [%- MACRO remove_from_merge(entity_type_url, to_merge) BLOCK -%] [% # Converted to React at root/components/RemoveFromMergeTableCell.js %]
   [% IF to_merge.size > 2 %]
       <td>
-          <a href="/[% entity_type_url %]/merge?remove=[% entity.id %]&submit=remove">
+          <a href="/[% entity_type_url %]/merge?remove=[% entity.id %]&amp;submit=remove&amp;[% c.returnto_relative_uri %]">
             <button type="button" class="remove-item icon" title="[% l('Remove from merge') %]"></button>
           </a>
       </td>

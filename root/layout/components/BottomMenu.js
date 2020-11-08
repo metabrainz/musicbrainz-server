@@ -9,8 +9,10 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';
 import {capitalize} from '../../static/scripts/common/utility/strings';
+import {returnToCurrentPage} from '../../utility/returnUri';
 
 function languageName(language, selected) {
   if (!language) {
@@ -40,18 +42,25 @@ function languageName(language, selected) {
   return text;
 }
 
-const LanguageLink = ({language}: {+language: ServerLanguageT}) => (
-  <a href={'/set-language/' + encodeURIComponent(language.name)}>
+const LanguageLink = ({$c, language}) => (
+  <a
+    href={
+      '/set-language/' + encodeURIComponent(language.name) +
+      '?' + returnToCurrentPage($c)
+    }
+  >
     {languageName(language, false)}
   </a>
 );
 
 type LanguageMenuProps = {
+  +$c: CatalystContextT,
   +currentBCP47Language: string,
   +serverLanguages: $ReadOnlyArray<ServerLanguageT>,
 };
 
 const LanguageMenu = ({
+  $c,
   currentBCP47Language,
   serverLanguages,
 }: LanguageMenuProps) => (
@@ -64,7 +73,7 @@ const LanguageMenu = ({
     </span>
     <ul>
       {serverLanguages.map(function (language, index) {
-        let inner = <LanguageLink language={language} />;
+        let inner = <LanguageLink $c={$c} language={language} />;
 
         if (language.name === currentBCP47Language) {
           inner = <strong>{inner}</strong>;
@@ -73,7 +82,7 @@ const LanguageMenu = ({
         return <li key={index}>{inner}</li>;
       })}
       <li>
-        <a href="/set-language/unset">
+        <a href={'/set-language/unset?' + returnToCurrentPage($c)}>
           {l('(reset language)')}
         </a>
       </li>
@@ -314,6 +323,7 @@ const BottomMenu = ({$c}: Props): React.Element<'div'> => {
         <DocumentationMenu />
         {serverLanguages && serverLanguages.length > 1 ? (
           <LanguageMenu
+            $c={$c}
             currentBCP47Language={$c.stash.current_language.replace('_', '-')}
             serverLanguages={serverLanguages}
           />

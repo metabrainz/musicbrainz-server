@@ -4,6 +4,7 @@ use Moose;
 use Try::Tiny;
 use List::Util qw( max );
 use Readonly;
+use URI::QueryParam;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -82,8 +83,7 @@ sub set_language : Path('set-language') Args(1)
             l('Language set. If you find any problems with the translation, please {url|help us improve it}!',
               {url => {href => 'https://www.transifex.com/musicbrainz/musicbrainz/', target => '_blank'}});
     }
-    $c->res->redirect($c->req->referer || $c->uri_for('/'));
-    $c->detach;
+    $c->redirect_back;
 }
 
 =head2 set_beta_preference
@@ -96,12 +96,8 @@ sub set_beta_preference : Path('set-beta-preference') Args(0)
 {
     my ($self, $c) = @_;
     if (DBDefs->BETA_REDIRECT_HOSTNAME) {
-        my $new_url;
-        # Set URL to go to
-        if (DBDefs->IS_BETA) {
-            $new_url = $c->uri_for('/') . '?unset_beta=1';
-        } elsif (!DBDefs->IS_BETA) {
-            $new_url = $c->req->referer || $c->uri_for('/');
+        my $is_beta = DBDefs->IS_BETA;
+        if (!$is_beta) {
             # 1 year
             $c->res->cookies->{beta} = {
                 'value' => 'on',
@@ -113,11 +109,16 @@ sub set_beta_preference : Path('set-beta-preference') Args(0)
                 ) : (),
             };
         }
-        # Munge URL to redirect server
-        my $ws = DBDefs->WEB_SERVER;
-        $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
-        $c->res->redirect($new_url);
-        $c->detach;
+        $c->redirect_back(
+            callback => sub {
+                my $returnto = shift;
+                # Munge URL to redirect server
+                $returnto->authority(DBDefs->BETA_REDIRECT_HOSTNAME);
+                if ($is_beta) {
+                    $returnto->query_param(unset_beta => 1);
+                }
+            },
+        );
     }
 }
 
@@ -343,6 +344,7 @@ sub begin : Private
                 $c->detach;
             }
         }
+        $c->stash->{current_action_requires_auth} = 1;
         $c->forward('/user/do_login');
         my $privs = $attributes->{RequireAuth};
         if ($privs && ref($privs) eq "ARRAY") {

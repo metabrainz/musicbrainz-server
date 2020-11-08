@@ -64,7 +64,9 @@ sub _do_add_or_remove {
 
         $c->model('Collection')->$func_name($entity_type, $collection->id, $entity_id);
 
-        $c->response->redirect($c->req->referer || $c->uri_for_action("/$entity_type/show", [ $entity->gid ]));
+        $c->redirect_back(
+            fallback => $c->uri_for_action("/$entity_type/show", [ $entity->gid ]),
+        );
         $c->detach;
     } else {
         $c->forward('show');

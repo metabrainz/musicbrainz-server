@@ -243,6 +243,42 @@ has relative_uri => (
     },
 );
 
+sub redirect_back {
+    my ($c, %opts) = @_;
+
+    my $returnto_param = $c->req->query_params->{returnto};
+    my $fallback_opt = $opts{fallback};
+
+    if (!defined $returnto_param && defined $fallback_opt) {
+        $returnto_param = $c->get_relative_uri($fallback_opt);
+    }
+
+    my $returnto = URI->new($returnto_param);
+
+    if (
+        $returnto eq '' ||
+        # Check that we weren't given an external URL. Only relative
+        # URLs are allowed.
+        $returnto->authority
+    ) {
+        $returnto->path_query('/');
+        $returnto->fragment(undef);
+    }
+
+    if (my $callback = $opts{callback}) {
+        $callback->($returnto);
+    }
+
+    $c->res->redirect($returnto);
+}
+
+# XXX temporary hack for remove_from_merge in common-macros.tt, and
+# merge-helper.tt.
+use WWW::Form::UrlEncoded qw( build_urlencoded );
+sub returnto_relative_uri {
+    build_urlencoded(returnto => shift->relative_uri);
+}
+
 sub get_relative_uri {
     my ($c, $uri_string) = @_;
 
@@ -732,6 +768,7 @@ sub TO_JSON {
     );
 
     my @boolean_stash_keys = qw(
+        current_action_requires_auth
         hide_merge_helper
         makes_no_changes
         new_edit_notes

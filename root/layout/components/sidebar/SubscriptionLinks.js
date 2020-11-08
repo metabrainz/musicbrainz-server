@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import {returnToCurrentPage} from '../../../utility/returnUri';
 
 type Props = {
   +$c: CatalystContextT,
@@ -32,13 +33,21 @@ const SubscriptionLinks = ({
       <ul className="links">
         {$c.stash.subscribed /*:: === true */ ? (
           <li>
-            <a href={`${urlPrefix}/remove?id=${id}`}>
+            <a
+              href={
+                `${urlPrefix}/remove?id=${id}&${returnToCurrentPage($c)}`
+              }
+            >
               {l('Unsubscribe')}
             </a>
           </li>
         ) : (
           <li>
-            <a href={`${urlPrefix}/add?id=${id}`}>
+            <a
+              href={
+                `${urlPrefix}/add?id=${id}&${returnToCurrentPage($c)}`
+              }
+            >
               {l('Subscribe')}
             </a>
           </li>

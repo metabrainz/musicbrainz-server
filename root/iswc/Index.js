@@ -12,6 +12,7 @@ import * as React from 'react';
 import Layout from '../layout';
 import CodeLink from '../static/scripts/common/components/CodeLink';
 import WorkListEntry from '../static/scripts/common/components/WorkListEntry';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 type Props = {
   +$c: CatalystContextT,
@@ -40,7 +41,10 @@ const Index = ({$c, iswcs, works}: Props): React.Element<typeof Layout> => {
           {num: works.length},
         )}
       </h2>
-      <form action="/work/merge_queue" method="post">
+      <form
+        action={'/work/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <table className="tbl">
           <thead>
             <tr>

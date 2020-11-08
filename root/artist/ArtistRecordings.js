@@ -16,6 +16,7 @@ import Filter from '../static/scripts/common/components/Filter';
 import {type FilterFormT}
   from '../static/scripts/common/components/FilterForm';
 import bracketed from '../static/scripts/common/utility/bracketed';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import ArtistLayout from './ArtistLayout';
 
@@ -151,7 +152,10 @@ const ArtistRecordings = ({
     />
 
     {recordings.length ? (
-      <form action="/recording/merge_queue" method="post">
+      <form
+        action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <RecordingList
             $c={$c}

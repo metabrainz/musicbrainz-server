@@ -27,6 +27,7 @@ import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import {formatCount, formatPercentage} from '../statistics/utilities';
 import formatUserDate from '../utility/formatUserDate';
 import {canNominate} from '../utility/voting';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 const ADDED_ENTITIES_TYPES = {
   artist:    N_l('Artist'),
@@ -303,14 +304,20 @@ const UserProfileInformation = ({
               {' '}
               {bracketed(
                 subscribed ? (
-                  <a href={
-                    `/account/subscriptions/editor/remove?id=${user.id}`}
+                  <a
+                    href={
+                      `/account/subscriptions/editor/remove?id=${user.id}` +
+                      '&' + returnToCurrentPage($c)
+                    }
                   >
                     {l('unsubscribe')}
                   </a>
                 ) : (
-                  <a href={
-                    `/account/subscriptions/editor/add?id=${user.id}`}
+                  <a
+                    href={
+                      `/account/subscriptions/editor/add?id=${user.id}` +
+                      '&' + returnToCurrentPage($c)
+                    }
                   >
                     {l('subscribe')}
                   </a>
