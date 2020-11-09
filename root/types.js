@@ -497,6 +497,7 @@ declare type EditT = {
   +expires_time: string,
   +historic_type: number | null,
   +id: number,
+  +is_loaded: boolean,
   +is_open: boolean,
   +preview?: boolean,
   +quality: QualityT,

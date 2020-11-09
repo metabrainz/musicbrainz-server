@@ -192,7 +192,13 @@ sub error_500 : Private
     my ($self, $c) = @_;
 
     $c->response->status(500);
-    $c->stash->{template} = 'main/500.tt';
+    $c->stash(
+        component_path => 'main/error/500',
+        component_props => {
+            useLanguages => boolean_to_json($c->stash->{use_languages}),
+        },
+        current_view => 'Node',
+    );
 }
 
 sub error_503 : Private

@@ -106,6 +106,7 @@ module.exports = {
   'main/error/401': require('../main/error/401'),
   'main/error/403': require('../main/error/403'),
   'main/error/404': require('../main/error/404'),
+  'main/error/500': require('../main/error/500'),
   'main/error/503': require('../main/error/503'),
   'main/error/Mirror403': require('../main/error/Mirror403'),
   'main/error/Mirror404': require('../main/error/Mirror404'),
