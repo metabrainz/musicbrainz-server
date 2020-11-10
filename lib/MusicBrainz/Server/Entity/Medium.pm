@@ -185,6 +185,7 @@ sub _build_combined_track_relationships {
         my $key = join(
             "\0",
             $relationship->target->gid,
+            $relationship->target_credit,
             $relationship->extra_phrase_attributes,
             $relationship->link->formatted_date
         );
