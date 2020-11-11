@@ -9,44 +9,39 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
 import {isAccountAdmin} from '../static/scripts/common/utility/privileges';
-import formatUserDate from '../utility/formatUserDate';
 
 import EditorList from './components/EditorList';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportEditorT} from './types';
 
 const LimitedEditors = ({
   $c,
+  canBeFiltered,
+  filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportEditorT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Beginner/limited editors')}>
-    <h1>{l('Beginner/limited editors')}</h1>
-
-    <ul>
-      <li>
-        {exp.l('This report lists {url|beginner/limited editors}.',
-               {url: '/doc/How_to_Create_an_Account'})}
-      </li>
-      <li>
-        {texp.l('Total editors found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-    </ul>
-
+}: ReportDataT<ReportEditorT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    $c={$c}
+    canBeFiltered={canBeFiltered}
+    description={exp.l(
+      'This report lists {url|beginner/limited editors}.',
+      {url: '/doc/How_to_Create_an_Account'},
+    )}
+    entityType="editor"
+    filtered={filtered}
+    generated={generated}
+    title={l('Beginner/limited editors')}
+    totalEntries={pager.total_entries}
+  >
     {isAccountAdmin($c.user) ? (
       <EditorList items={items} pager={pager} />
     ) : (
       <p>{l('Sorry, you are not authorized to view this page.')}</p>
     )}
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default LimitedEditors;

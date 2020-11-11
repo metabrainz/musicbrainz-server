@@ -9,15 +9,13 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportPlaceRelationshipT} from './types';
 
 const PlacesWithoutCoordinates = ({
@@ -27,26 +25,18 @@ const PlacesWithoutCoordinates = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportPlaceRelationshipT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Places without coordinates')}>
-    <h1>{l('Places without coordinates')}</h1>
-
-    <ul>
-      <li>
-        {l('This report lists places without coordinates.')}
-      </li>
-      <li>
-        {texp.l('Total places found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportPlaceRelationshipT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    $c={$c}
+    canBeFiltered={canBeFiltered}
+    description={l('This report lists places without coordinates.')}
+    entityType="place"
+    filtered={filtered}
+    generated={generated}
+    title={l('Places without coordinates')}
+    totalEntries={pager.total_entries}
+  >
     <PaginatedResults pager={pager}>
       <table className="tbl">
         <thead>
@@ -143,7 +133,7 @@ const PlacesWithoutCoordinates = ({
         </tbody>
       </table>
     </PaginatedResults>
-  </Layout>
+  </ReportLayout>
 );
 
 export default PlacesWithoutCoordinates;
