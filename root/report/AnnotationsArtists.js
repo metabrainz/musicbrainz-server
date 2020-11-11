@@ -9,12 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import {ANNOTATION_REPORT_TEXT} from './constants';
 import ArtistAnnotationList from './components/ArtistAnnotationList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportArtistAnnotationT, ReportDataT} from './types';
 
 const AnnotationsArtists = ({
@@ -24,30 +21,21 @@ const AnnotationsArtists = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistAnnotationT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Artist annotations')}>
-    <h1>{l('Artist annotations')}</h1>
-
-    <ul>
-      <li>
-        {l('This report lists artists with annotations.')}
-      </li>
-      <li>{ANNOTATION_REPORT_TEXT()}</li>
-      <li>
-        {texp.l('Total artists found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportArtistAnnotationT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    $c={$c}
+    canBeFiltered={canBeFiltered}
+    description={l('This report lists artists with annotations.')}
+    entityType="artist"
+    extraInfo={ANNOTATION_REPORT_TEXT()}
+    filtered={filtered}
+    generated={generated}
+    title={l('Artist annotations')}
+    totalEntries={pager.total_entries}
+  >
     <ArtistAnnotationList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default AnnotationsArtists;
