@@ -169,6 +169,7 @@ module.exports = {
   'report/FeaturingReleaseGroups': require('../report/FeaturingReleaseGroups'),
   'report/FeaturingReleases': require('../report/FeaturingReleases'),
   'report/InstrumentsWithoutAnImage': require('../report/InstrumentsWithoutAnImage'),
+  'report/InstrumentsWithoutWikidata': require('../report/InstrumentsWithoutWikidata'),
   'report/IsrcsWithManyRecordings': require('../report/IsrcsWithManyRecordings'),
   'report/IswcsWithManyWorks': require('../report/IswcsWithManyWorks'),
   'report/LabelsDisambiguationSameName': require('../report/LabelsDisambiguationSameName'),

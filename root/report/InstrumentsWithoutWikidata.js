@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2018 MetaBrainz Foundation
+ * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -15,18 +15,18 @@ import formatUserDate from '../utility/formatUserDate';
 import InstrumentList from './components/InstrumentList';
 import type {ReportDataT, ReportInstrumentT} from './types';
 
-const InstrumentsWithoutAnImage = ({
+const InstrumentsWithoutWikidata = ({
   $c,
   generated,
   items,
   pager,
 }: ReportDataT<ReportInstrumentT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Instruments without an image')}>
-    <h1>{l('Instruments without an image')}</h1>
+  <Layout $c={$c} fullWidth title={l('Instruments without a Wikidata link')}>
+    <h1>{l('Instruments without a Wikidata link')}</h1>
 
     <ul>
       <li>
-        {l(`This report shows instruments without an image relationship.`)}
+        {l('This report shows instruments without Wikidata relationships.')}
       </li>
       <li>
         {texp.l('Total instruments found: {count}',
@@ -44,4 +44,4 @@ const InstrumentsWithoutAnImage = ({
   </Layout>
 );
 
-export default InstrumentsWithoutAnImage;
+export default InstrumentsWithoutWikidata;
