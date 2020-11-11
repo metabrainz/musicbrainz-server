@@ -9,8 +9,6 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import ArtistCreditLink
@@ -18,7 +16,7 @@ import ArtistCreditLink
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingT} from './types';
 
 const RecordingsSameNameDifferentArtistsSameName = ({
@@ -28,44 +26,30 @@ const RecordingsSameNameDifferentArtistsSameName = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportRecordingT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
-    title={l(`Recordings with the same name by different artists
-              with the same name`)}
+    canBeFiltered={canBeFiltered}
+    description={exp.l(
+      `This report shows all recordings with the same name that have
+       different artists (having different MBIDs) with the same name.
+       These are most likely cases where the {ac|artist credit} is
+       incorrect for at least one of the recordings.`,
+      {ac: '/doc/Artist_Credits'},
+    )}
+    entityType="recording"
+    extraInfo={l(
+      `Currently, this report only works
+       with recordings that have one artist.`,
+    )}
+    filtered={filtered}
+    generated={generated}
+    title={l(
+      `Recordings with the same name
+       by different artists with the same name`,
+    )}
+    totalEntries={pager.total_entries}
   >
-    <h1>
-      {l(`Recordings with the same name by different artists
-          with the same name`)}
-    </h1>
-
-    <ul>
-      <li>
-        {l(`This report shows all recordings with the same name that have
-            different artists (having different MBIDs) with the same name.`)}
-      </li>
-      <li>
-        {exp.l(`These are most likely cases where the {ac|artist credit} is
-                incorrect for at least one of the recordings.`,
-               {ac: '/doc/Artist_Credits'})}
-      </li>
-      <li>
-        {l(`Currently, this report only works with recordings that have
-            one artist.`)}
-      </li>
-      <li>
-        {texp.l('Total recordings found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <PaginatedResults pager={pager}>
       <table className="tbl">
         <thead>
@@ -108,7 +92,7 @@ const RecordingsSameNameDifferentArtistsSameName = ({
         </tbody>
       </table>
     </PaginatedResults>
-  </Layout>
+  </ReportLayout>
 );
 
 export default RecordingsSameNameDifferentArtistsSameName;
