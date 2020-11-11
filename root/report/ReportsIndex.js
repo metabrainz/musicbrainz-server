@@ -10,7 +10,10 @@
 import * as React from 'react';
 
 import Layout from '../layout';
-import {isAccountAdmin} from '../static/scripts/common/utility/privileges';
+import {
+  isAccountAdmin,
+  isRelationshipEditor,
+} from '../static/scripts/common/utility/privileges';
 
 type ReportsIndexEntryProps = {
   +content: string,
@@ -136,18 +139,22 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
         />
       </ul>
 
-      <h2>{l('Instruments')}</h2>
+      {isRelationshipEditor($c.user) ? (
+        <>
+          <h2>{l('Instruments')}</h2>
 
-      <ul>
-        <ReportsIndexEntry
-          content={l('Instruments without an image')}
-          reportName="InstrumentsWithoutAnImage"
-        />
-        <ReportsIndexEntry
-          content={l('Instruments without a link to Wikidata')}
-          reportName="InstrumentsWithoutWikidata"
-        />
-      </ul>
+          <ul>
+            <ReportsIndexEntry
+              content={l('Instruments without an image')}
+              reportName="InstrumentsWithoutAnImage"
+            />
+            <ReportsIndexEntry
+              content={l('Instruments without a link to Wikidata')}
+              reportName="InstrumentsWithoutWikidata"
+            />
+          </ul>
+        </>
+      ) : null}
 
       <h2>{l('Labels')}</h2>
 
