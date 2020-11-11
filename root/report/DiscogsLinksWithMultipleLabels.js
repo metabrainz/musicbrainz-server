@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import LabelUrlList from './components/LabelUrlList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportLabelUrlT} from './types';
 
 const DiscogsLinksWithMultipleLabels = ({
@@ -23,34 +20,22 @@ const DiscogsLinksWithMultipleLabels = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportLabelUrlT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportLabelUrlT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows Discogs URLs which are linked to multiple labels.`,
+    )}
+    entityType="label"
+    filtered={filtered}
+    generated={generated}
     title={l('Discogs URLs linked to multiple labels')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Discogs URLs linked to multiple labels')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report shows Discogs URLs which are linked
-            to multiple labels.`)}
-      </li>
-      <li>
-        {texp.l('Total labels found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <LabelUrlList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DiscogsLinksWithMultipleLabels;
