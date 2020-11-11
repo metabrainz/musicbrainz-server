@@ -9,8 +9,6 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
@@ -18,7 +16,7 @@ import FormRow from '../components/FormRow';
 import FormSubmit from '../components/FormSubmit';
 import {returnToCurrentPage} from '../utility/returnUri';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportArtistT, ReportDataT} from './types';
 
 const DuplicateArtists = ({
@@ -28,42 +26,34 @@ const DuplicateArtists = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => {
+}: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => {
   let currentKey = '';
   let lastKey = '';
 
   return (
-    <Layout $c={$c} fullWidth title={l('Possibly duplicate artists')}>
-      <h1>{l('Possibly duplicate artists')}</h1>
-
-      <ul>
-        <li>
-          {exp.l(
-            `This report aims to identify artists with very similar names.
-             If two artists are actually the same, please merge them
-             (remember to {how_to_write_edit_notes|write an edit note}
-             and give your proof). If they\'re different, add
-             {disambiguation_comment|disambiguation comments} to them
-             (and once a group of similarly named artists have
-             disambiguation comments, they will stop appearing here).`,
-            {
-              disambiguation_comment: '/doc/Disambiguation_Comment',
-              how_to_write_edit_notes: '/doc/How_to_Write_Edit_Notes',
-            },
-          )}
-        </li>
-        <li>
-          {texp.l('Total duplicate groups: {count}',
-                  {count: pager.total_entries})}
-        </li>
-        <li>
-          {texp.l('Generated on {date}',
-                  {date: formatUserDate($c, generated)})}
-        </li>
-
-        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-      </ul>
-
+    <ReportLayout
+      $c={$c}
+      canBeFiltered={canBeFiltered}
+      countText={l('Total duplicate groups: {count}')}
+      description={exp.l(
+        `This report aims to identify artists with very similar names.
+         If two artists are actually the same, please merge them
+         (remember to {how_to_write_edit_notes|write an edit note}
+         and give your proof). If they\'re different, add
+         {disambiguation_comment|disambiguation comments} to them
+         (and once a group of similarly named artists have
+         disambiguation comments, they will stop appearing here).`,
+        {
+          disambiguation_comment: '/doc/Disambiguation_Comment',
+          how_to_write_edit_notes: '/doc/How_to_Write_Edit_Notes',
+        },
+      )}
+      entityType="artist"
+      filtered={filtered}
+      generated={generated}
+      title={l('Possibly duplicate artists')}
+      totalEntries={pager.total_entries}
+    >
       <form
         action={'/artist/merge_queue?' + returnToCurrentPage($c)}
         method="post"
@@ -138,8 +128,7 @@ const DuplicateArtists = ({
           ) : null}
         </PaginatedResults>
       </form>
-
-    </Layout>
+    </ReportLayout>
   );
 };
 
