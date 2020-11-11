@@ -27,7 +27,7 @@ const LabelsDisambiguationSameName = ({
     description={l(
       `This report lists labels that have their disambiguation set
        to be the same as their name.
-       Disambiguation should not be filled in this case.`,
+       The disambiguation should be removed or, if it is needed, improved.`,
     )}
     entityType="label"
     filtered={filtered}

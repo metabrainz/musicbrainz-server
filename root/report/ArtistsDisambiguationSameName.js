@@ -27,7 +27,7 @@ const ArtistsDisambiguationSameName = ({
     description={l(
       `This report lists artists that have their disambiguation set
        to be the same as their name.
-       Disambiguation should not be filled in this case.`,
+       The disambiguation should be removed or, if it is needed, improved.`,
     )}
     entityType="artist"
     filtered={filtered}
