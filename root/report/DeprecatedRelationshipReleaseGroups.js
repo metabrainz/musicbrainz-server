@@ -9,12 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseGroupRelationshipList
   from './components/ReleaseGroupRelationshipList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseGroupRelationshipT} from './types';
 
 const DeprecatedRelationshipReleaseGroups = ({
@@ -25,34 +22,22 @@ const DeprecatedRelationshipReleaseGroups = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseGroupRelationshipT>):
-React.Element<typeof Layout> => (
-  <Layout
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists release groups which have relationships using
+       deprecated and grouping-only relationship types.`,
+    )}
+    entityType="release_group"
+    filtered={filtered}
+    generated={generated}
     title={l('Release groups with deprecated relationships')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Release groups with deprecated relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists release groups which have relationships using
-            deprecated and grouping-only relationship types.`)}
-      </li>
-      <li>
-        {texp.l('Total release groups found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ReleaseGroupRelationshipList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DeprecatedRelationshipReleaseGroups;

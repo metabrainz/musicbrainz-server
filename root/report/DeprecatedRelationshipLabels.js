@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import LabelRelationshipList from './components/LabelRelationshipList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportLabelRelationshipT} from './types';
 
 const DeprecatedRelationshipLabels = ({
@@ -23,30 +20,23 @@ const DeprecatedRelationshipLabels = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportLabelRelationshipT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Labels with deprecated relationships')}>
-    <h1>{l('Labels with deprecated relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists labels which have relationships using
-            deprecated and grouping-only relationship types.`)}
-      </li>
-      <li>
-        {texp.l('Total labels found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportLabelRelationshipT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    $c={$c}
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists labels which have relationships using
+       deprecated and grouping-only relationship types.`,
+    )}
+    entityType="label"
+    filtered={filtered}
+    generated={generated}
+    title={l('Labels with deprecated relationships')}
+    totalEntries={pager.total_entries}
+  >
     <LabelRelationshipList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DeprecatedRelationshipLabels;
