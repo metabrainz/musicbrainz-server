@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseGroupList from './components/ReleaseGroupList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseGroupT} from './types';
 
 const ReleaseGroupsWithoutVaLink = ({
@@ -23,37 +20,24 @@ const ReleaseGroupsWithoutVaLink = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportReleaseGroupT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
-    title={l(`Release groups credited to "Various Artists"
-              but not linked to VA`)}
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows release groups with "Various Artists" as the
+       credited name but not linked to the Various Artists entity.`,
+    )}
+    entityType="release_group"
+    filtered={filtered}
+    generated={generated}
+    title={l(
+      'Release groups credited to "Various Artists" but not linked to VA',
+    )}
+    totalEntries={pager.total_entries}
   >
-    <h1>
-      {l('Release groups credited to "Various Artists" but not linked to VA')}
-    </h1>
-
-    <ul>
-      <li>
-        {l(`This report shows release groups with "Various Artists" as the
-            credited name but not linked to the Various Artists entity.`)}
-      </li>
-      <li>
-        {texp.l('Total release groups found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ReleaseGroupList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default ReleaseGroupsWithoutVaLink;

@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseGroupList from './components/ReleaseGroupList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseGroupT} from './types';
 
 const FeaturingReleaseGroups = ({
@@ -23,44 +20,30 @@ const FeaturingReleaseGroups = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportReleaseGroupT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={exp.l(
+      `This report shows release groups with “(feat. Artist)” 
+       (or similar) in the title. For classical release groups, 
+       consult the {CSG|classical style guidelines}. For 
+       non-classical release groups, this is usually inherited from an
+       older version of MusicBrainz and should be fixed. Consult the
+       {featured_artists|page about featured artists} to know more.`,
+      {
+        CSG: '/doc/Style/Classical',
+        featured_artists: '/doc/Style/Artist_Credits#Featured_artists',
+      },
+    )}
+    entityType="release_group"
+    filtered={filtered}
+    generated={generated}
     title={l('Release groups with titles containing featuring artists')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Release groups with titles containing featuring artists')}</h1>
-
-    <ul>
-      <li>
-        {exp.l(
-          `This report shows release groups with “(feat. Artist)” 
-           (or similar) in the title. For classical release groups, 
-           consult the {CSG|classical style guidelines}. For 
-           non-classical release groups, this is usually inherited from an
-           older version of MusicBrainz and should be fixed. Consult the
-           {featured_artists|page about featured artists} to know more.`,
-          {
-            CSG: '/doc/Style/Classical',
-            featured_artists: '/doc/Style/Artist_Credits#Featured_artists',
-          },
-        )}
-      </li>
-      <li>
-        {texp.l('Total release groups found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ReleaseGroupList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default FeaturingReleaseGroups;
