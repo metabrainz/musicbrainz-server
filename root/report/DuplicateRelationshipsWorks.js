@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import WorkList from './components/WorkList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportWorkT} from './types';
 
 const DuplicateRelationshipsWorks = ({
@@ -23,36 +20,24 @@ const DuplicateRelationshipsWorks = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportWorkT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportWorkT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists works which have multiple relationships
+       to the same entity using the same relationship type.
+       This excludes recording-work relationships. See the recording
+       version of this report for those.`,
+    )}
+    entityType="work"
+    filtered={filtered}
+    generated={generated}
     title={l('Works with possible duplicate relationships')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Works with possible duplicate relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists works which have multiple relationships
-            to the same entity using the same relationship type.
-            This excludes recording-work relationships. See the recording
-            version of this report for those.`)}
-      </li>
-      <li>
-        {texp.l('Total works found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <WorkList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DuplicateRelationshipsWorks;

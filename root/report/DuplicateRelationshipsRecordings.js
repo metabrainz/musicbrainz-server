@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import RecordingList from './components/RecordingList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingT} from './types';
 
 const DuplicateRelationshipsRecordings = ({
@@ -23,34 +20,22 @@ const DuplicateRelationshipsRecordings = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportRecordingT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists recordings which have multiple relationships
+       to the same entity using the same relationship type.`,
+    )}
+    entityType="recording"
+    filtered={filtered}
+    generated={generated}
     title={l('Recordings with possible duplicate relationships')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Recordings with possible duplicate relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists recordings which have multiple relationships
-            to the same entity using the same relationship type.`)}
-      </li>
-      <li>
-        {texp.l('Total recordings found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <RecordingList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DuplicateRelationshipsRecordings;
