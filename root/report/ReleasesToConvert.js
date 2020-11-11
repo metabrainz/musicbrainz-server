@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseList from './components/ReleaseList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const ReleasesToConvert = ({
@@ -23,36 +20,24 @@ const ReleasesToConvert = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report aims to identify releases which need converting to
+       multiple artists (because the track artists are on the title
+       field, for example). Currently it does this by looking for
+       releases where every track contains "/" or "-".`,
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
     title={l('Releases which might need converting to "multiple artists"')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Releases which might need converting to "multiple artists"')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report aims to identify releases which need converting to
-            multiple artists (because the track artists are on the title
-            field, for example). Currently it does this by looking for
-            releases where every track contains "/" or "-".`)}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ReleaseList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default ReleasesToConvert;

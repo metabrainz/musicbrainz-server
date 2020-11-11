@@ -9,13 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseReleaseGroupT} from './types';
 
 const ReleaseRgDifferentName = ({
@@ -25,34 +23,22 @@ const ReleaseRgDifferentName = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseReleaseGroupT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportReleaseReleaseGroupT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows releases which are the only ones in their release
+       group, yet have a different name than the group. This might mean
+       one of the two needs to be renamed to match the other.`,
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
     title={l('Releases with a different name than their release group')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Releases with a different name than their release group')}</h1>
-
-    <ul>
-      <li>
-        {l(
-          `This report shows releases which are the only ones in their release
-           group, yet have a different name than the group. This might mean
-           one of the two needs to be renamed to match the other.`,
-        )}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <PaginatedResults pager={pager}>
       <table className="tbl">
         <thead>
@@ -87,8 +73,7 @@ const ReleaseRgDifferentName = ({
         </tbody>
       </table>
     </PaginatedResults>
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default ReleaseRgDifferentName;

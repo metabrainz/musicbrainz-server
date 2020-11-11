@@ -9,15 +9,13 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseLabelT} from './types';
 
 const ReleaseLabelSameArtist = ({
@@ -27,38 +25,25 @@ const ReleaseLabelSameArtist = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseLabelT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportReleaseLabelT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={exp.l(
+      `This report lists releases where the label name is the same as the
+       artist name. Often this means the release is self-released, and the
+       label {SpecialPurposeLabel|should be "[no label]" instead}.`,
+      {
+        SpecialPurposeLabel:
+        '/doc/Style/Unknown_and_untitled/Special_purpose_label',
+      },
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
     title={l('Releases where artist name and label name are the same')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Releases where artist name and label name are the same')}</h1>
-
-    <ul>
-      <li>
-        {exp.l(
-          `This report lists releases where the label name is the same as the
-           artist name. Often this means the release is self-released, and the
-           label {SpecialPurposeLabel|should be "[no label]" instead}.`,
-          {
-            SpecialPurposeLabel:
-            '/doc/Style/Unknown_and_untitled/Special_purpose_label',
-          },
-        )}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <PaginatedResults pager={pager}>
       <table className="tbl">
         <thead>
@@ -97,8 +82,7 @@ const ReleaseLabelSameArtist = ({
         </tbody>
       </table>
     </PaginatedResults>
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default ReleaseLabelSameArtist;

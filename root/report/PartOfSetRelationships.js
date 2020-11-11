@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseList from './components/ReleaseList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const PartOfSetRelationships = ({
@@ -23,42 +20,28 @@ const PartOfSetRelationships = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={exp.l(
+      `This report shows releases that still have the deprecated "part
+       of set" relationship and should probably be merged. For
+       instructions on how to fix them, please see the documentation
+       about {how_to_merge_releases|how to merge releases}. If the
+       releases are not really part of a set (for example, if they are
+       independently-released volumes in a series) just remove the
+       relationship.`,
+      {how_to_merge_releases: '/doc/How_to_Merge_Releases'},
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
     title={l('Releases with “part of set” relationships')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Releases with “part of set” relationships')}</h1>
-
-    <ul>
-      <li>
-        {exp.l(
-          `This report shows releases that still have the deprecated "part
-          of set" relationship and should probably be merged. For
-          instructions on how to fix them, please see the documentation
-          about {how_to_merge_releases|how to merge releases}. If the
-          releases are not really part of a set (for example, if they are
-          independently-released volumes in a series) just remove the
-          relationship.`,
-          {how_to_merge_releases: '/doc/How_to_Merge_Releases'},
-        )}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ReleaseList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default PartOfSetRelationships;
