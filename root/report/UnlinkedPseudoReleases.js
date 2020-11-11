@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseList from './components/ReleaseList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const UnlinkedPseudoReleases = ({
@@ -23,32 +20,24 @@ const UnlinkedPseudoReleases = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Unlinked pseudo-releases')}>
-    <h1>{l('Unlinked pseudo-releases')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report shows releases with status Pseudo-Release that aren’t
-            linked via the translation/transliteration relationship to an
-             original version. This could be because the original version is
-             missing, or just because the release status is wrongly set.`)}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    $c={$c}
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows releases with status Pseudo-Release that aren’t
+       linked via the translation/transliteration relationship to an
+       original version. This could be because the original version is
+       missing, or just because the release status is wrongly set.`,
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
+    title={l('Unlinked pseudo-releases')}
+    totalEntries={pager.total_entries}
+  >
     <ReleaseList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default UnlinkedPseudoReleases;

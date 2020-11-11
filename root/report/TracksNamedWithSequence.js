@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseList from './components/ReleaseList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const TracksNamedWithSequence = ({
@@ -23,37 +20,25 @@ const TracksNamedWithSequence = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report aims to identify releases where track names include
+       their own track number, e.g. "1) Some Name" (instead of just
+       "Some Name"). Notice that sometimes this is justified and correct,
+       don't automatically assume it is a mistake! If you confirm it
+       is a mistake, please correct it.`,
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
     title={l('Releases where track names start with their track number')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Releases where track names start with their track number')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report aims to identify releases where track names include
-            their own track number, e.g. "1) Some Name" (instead of just
-            "Some Name"). Notice that sometimes this is justified and correct,
-             don't automatically assume it is a mistake! If you confirm it
-             is a mistake, please correct it.`)}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ReleaseList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default TracksNamedWithSequence;

@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseList from './components/ReleaseList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const SingleMediumReleasesWithMediumTitles = ({
@@ -23,35 +20,23 @@ const SingleMediumReleasesWithMediumTitles = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows releases that have a single medium, where this
+       medium also has a specific name. Usually, this is not necessary
+       and is duplicate information which can be removed.`,
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
     title={l('Releases with a single medium that has a name')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Releases with a single medium that has a name')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report shows releases that have a single medium, where this
-            medium also has a specific name. Usually, this is not necessary
-            and is duplicate information which can be removed.`)}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ReleaseList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default SingleMediumReleasesWithMediumTitles;
