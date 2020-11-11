@@ -9,11 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseList from './components/ReleaseList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const MultipleAsins = ({
@@ -23,34 +20,26 @@ const MultipleAsins = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Releases with multiple ASINs')}>
-    <h1>{l('Releases with multiple ASINs')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report shows releases that have more than one Amazon ASIN.
-            In most cases ASINs should map to MusicBrainz releases 1:1, so
-            only one of them will be correct. Just check which ones do not
-            fit the release (because of format, different number of tracks,
-            etc). If the release has a barcode, you can search Amazon for it
-            and see which ASIN matches.`)}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    $c={$c}
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows releases that have more than one Amazon ASIN.
+       In most cases ASINs should map to MusicBrainz releases 1:1, so
+       only one of them will be correct. Just check which ones do not
+       fit the release (because of format, different number of tracks,
+       etc). If the release has a barcode, you can search Amazon for it
+       and see which ASIN matches.`,
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
+    title={l('Releases with multiple ASINs')}
+    totalEntries={pager.total_entries}
+  >
     <ReleaseList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default MultipleAsins;

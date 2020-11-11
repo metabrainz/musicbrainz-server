@@ -16,6 +16,7 @@ import FilterLink from '../FilterLink';
 
 const countTextPicker = {
   artist: N_l('Total artists found: {count}'),
+  discId: N_l('Total discIDs found: {count}'),
   editor: N_l('Total editors found: {count}'),
   event: N_l('Total events found: {count}'),
   instrument: N_l('Total instruments found: {count}'),

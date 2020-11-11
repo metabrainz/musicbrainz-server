@@ -9,15 +9,13 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseCatNoT} from './types';
 
 const CatNoLooksLikeLabelCode = ({
@@ -27,38 +25,25 @@ const CatNoLooksLikeLabelCode = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseCatNoT>): React.Element<typeof Layout> => (
-  <Layout
+}: ReportDataT<ReportReleaseCatNoT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
     $c={$c}
-    fullWidth
+    canBeFiltered={canBeFiltered}
+    description={exp.l(
+      `This report shows releases which have catalog numbers that look
+       like {doc_link|Label Codes}. This is often wrong, since the two
+       are often confused: label codes apply to the label, not to a
+       specific release. If you confirm this is a label code (check
+       the label page to see if they match, for example), remove it or,
+       even better, try to find the actual catalog number.`,
+      {doc_link: '/doc/Label/Label_Code'},
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
     title={l('Releases with catalog numbers that look like Label Codes')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Releases with catalog numbers that look like Label Codes')}</h1>
-
-    <ul>
-      <li>
-        {exp.l(
-          `This report shows releases which have catalog numbers that look
-           like {doc_link|Label Codes}. This is often wrong, since the two
-           are often confused: label codes apply to the label, not to a
-           specific release. If you confirm this is a label code (check
-           the label page to see if they match, for example), remove it or,
-           even better, try to find the actual catalog number.`,
-          {doc_link: '/doc/Label/Label_Code'},
-        )}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <PaginatedResults pager={pager}>
       <table className="tbl">
         <thead>
@@ -93,8 +78,7 @@ const CatNoLooksLikeLabelCode = ({
         </tbody>
       </table>
     </PaginatedResults>
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default CatNoLooksLikeLabelCode;
