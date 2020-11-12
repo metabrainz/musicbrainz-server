@@ -261,7 +261,7 @@ sub get_collator
 
 sub set_language_cookie {
     my ($c, $lang) = @_;
-    $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/', 'expires' => time()+31536000 };
+    $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/', 'expires' => time()+31536000, 'SameSite' => 'None', 'Secure' => '1' };
 }
 
 sub handle_unicode_encoding_exception {
