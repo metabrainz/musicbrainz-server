@@ -1,7 +1,7 @@
 Installing MusicBrainz Server
 =============================
 
-The easiest method of installing a local MusicBrainz Server may be to use the
+The easiest method for installing a local MusicBrainz Server may be to use the
 [MusicBrainz Docker](https://github.com/metabrainz/musicbrainz-docker) Compose
 project, which can be used for a website/web service mirror, testing, or
 development. In case you only need a replicated database, you should consider
