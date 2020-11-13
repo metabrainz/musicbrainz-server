@@ -212,10 +212,12 @@ export class ReleaseViewModel extends ViewModel {
     var release = this.source;
 
     release.mediums(data.mediums.map(function (mediumData) {
-      for (const trackData of mediumData.tracks) {
-        MB.entity(trackData.recording).parseRelationships(
-          trackData.recording.relationships,
-        );
+      if (mediumData.tracks) {
+        for (const trackData of mediumData.tracks) {
+          MB.entity(trackData.recording).parseRelationships(
+            trackData.recording.relationships,
+          );
+        }
       }
       return new MB.entity.Medium(mediumData, release);
     }));
