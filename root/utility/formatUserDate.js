@@ -131,7 +131,7 @@ function formatDateUsingPattern(
         throw e;
       }
     }
-    formatterCache.set(formatter);
+    formatterCache.set(cacheKey, formatter);
   }
   if (property) {
     const result = formatter.formatToParts(date);
