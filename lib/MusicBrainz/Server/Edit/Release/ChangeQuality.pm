@@ -25,6 +25,7 @@ sub edit_name { N_l('Change release data quality') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_CHANGE_QUALITY }
 sub release_id { shift->data->{release}{id} }
+sub edit_template_react { 'ChangeReleaseQuality' }
 
 method alter_edit_pending
 {
@@ -62,10 +63,13 @@ method build_display_data ($loaded)
 {
     return {
         release => $loaded->{Release}{ $self->release_id }
-            || Release->new( name => $self->data->{release}{name} ),
+            || Release->new(
+                id => $self->release_id,
+                name => $self->data->{release}{name},
+            ),
         quality => {
-            old => $self->data->{old}{quality},
-            new => $self->data->{new}{quality},
+            old => $self->data->{old}{quality} + 0,
+            new => $self->data->{new}{quality} + 0,
         }
     }
 }
@@ -83,7 +87,7 @@ method initialize (%opts)
             name => $release->name
         },
         old => { quality => $release->quality },
-        new => { quality => $opts{quality} },
+        new => { quality => $opts{quality} + 0 },
     });
 }
 
