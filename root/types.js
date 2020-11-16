@@ -143,11 +143,13 @@ declare type ArtistTypeT = OptionTreeT<'artist_type'>;
 
 declare type ArtworkT = {
   +comment: string,
+  +id: number,
   +image: string,
   +large_thumbnail: string,
   +mime_type: string,
   +release?: ReleaseT,
   +small_thumbnail: string,
+  +suffix: string,
   +types: $ReadOnlyArray<string>,
 };
 
