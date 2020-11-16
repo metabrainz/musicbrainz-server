@@ -3894,6 +3894,7 @@ const testData = [
                      input_url: 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
   },
   // Fandom (old Wikia)
   {

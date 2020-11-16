@@ -2464,7 +2464,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?lortel\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?whosampled\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
       new RegExp(
         '^(https?://)?(www\\.)?residentadvisor\\.net/(?!review)',
@@ -3208,6 +3207,13 @@ const CLEANUPS = {
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/(u\/)?([^\/?#]+)(?:.*)$/, 'https://www.weibo.com/$1$2');
+    },
+  },
+  'whosampled': {
+    match: [new RegExp('^(https?://)?(www\\.)?whosampled\\.com', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?whosampled\.com\/(.+)$/, 'https://www.whosampled.com/$1');
     },
   },
   'wikidata': {
