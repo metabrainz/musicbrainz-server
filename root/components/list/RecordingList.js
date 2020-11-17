@@ -34,7 +34,7 @@ type Props = {
   +lengthClass?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
-  +recordings: $ReadOnlyArray<RecordingT>,
+  +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
   +showAcoustIds?: boolean,
   +showExpandedArtistCredits?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
@@ -70,21 +70,22 @@ const RecordingList = ({
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<RecordingT>({
+      const nameColumn = defineNameColumn<RecordingWithArtistCreditT>({
         descriptive: false, // since ACs are in the next column
         order: order,
         sortable: sortable,
         title: l('Name'),
       });
-      const artistCreditColumn = defineArtistCreditColumn<RecordingT>({
-        columnName: 'artist',
-        getArtistCredit: entity => entity.artistCredit,
-        order: order,
-        showExpandedArtistCredits: showExpandedArtistCredits,
-        sortable: sortable,
-        title: l('Artist'),
-      });
-      const lengthColumn = defineTextColumn<RecordingT>({
+      const artistCreditColumn =
+        defineArtistCreditColumn<RecordingWithArtistCreditT>({
+          columnName: 'artist',
+          getArtistCredit: entity => entity.artistCredit,
+          order: order,
+          showExpandedArtistCredits: showExpandedArtistCredits,
+          sortable: sortable,
+          title: l('Artist'),
+        });
+      const lengthColumn = defineTextColumn<RecordingWithArtistCreditT>({
         cellProps: {className: lengthClass ?? ''},
         columnName: 'length',
         /* Show nothing rather than ?:?? for recordings merged away */

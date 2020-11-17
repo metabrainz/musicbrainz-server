@@ -88,7 +88,7 @@ export type ReportIsrcT = {
   +isrc: string,
   +length: number,
   +name: string,
-  +recording: ?RecordingT,
+  +recording: ?RecordingWithArtistCreditT,
   +recording_id: string,
   +recordingcount: number,
   +row_number: number,
@@ -151,7 +151,7 @@ export type ReportPlaceRelationshipT = {
 
 export type ReportRecordingAnnotationT = {
   +created: string,
-  +recording: ?RecordingT,
+  +recording: ?RecordingWithArtistCreditT,
   +recording_id: number,
   +row_number: number,
   +text: string,
@@ -162,19 +162,19 @@ export type ReportRecordingRelationshipT = {
   +end?: number,
   +link_gid: string,
   +link_name: string,
-  +recording: ?RecordingT,
+  +recording: ?RecordingWithArtistCreditT,
   +recording_id: number,
   +row_number: number,
 };
 
 export type ReportRecordingT = {
-  +recording: ?RecordingT,
+  +recording: ?RecordingWithArtistCreditT,
   +recording_id: number,
   +row_number: number,
 };
 
 export type ReportRecordingTrackT = {
-  +recording: ?RecordingT,
+  +recording: ?RecordingWithArtistCreditT,
   +recording_id: number,
   +row_number: number,
   +track_name: string,

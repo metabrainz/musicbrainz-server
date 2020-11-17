@@ -356,7 +356,6 @@ declare type CoreEntityT =
   | LabelT
   | PlaceT
   | RecordingT
-  | RecordingWithOptionalArtistCreditT
   | ReleaseGroupT
   | ReleaseT
   | SeriesT
@@ -868,7 +867,6 @@ declare type RatableT =
   | EventT
   | LabelT
   | RecordingT
-  | RecordingWithOptionalArtistCreditT
   | ReleaseGroupT
   | WorkT;
 
@@ -879,11 +877,12 @@ declare type RatingT = {
 
 declare type RecordingT = $ReadOnly<{
   ...AnnotationRoleT,
-  ...ArtistCreditRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'recording'>,
   ...RatableRoleT,
   +appearsOn?: AppearancesT<{gid: string, name: string}>,
+  +artist?: string,
+  +artistCredit?: ArtistCreditT,
   +first_release_date?: PartialDateT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
@@ -892,18 +891,8 @@ declare type RecordingT = $ReadOnly<{
   +video: boolean,
 }>;
 
-declare type RecordingWithOptionalArtistCreditT = $ReadOnly<{
-  ...AnnotationRoleT,
-  ...CommentRoleT,
-  ...CoreEntityRoleT<'recording'>,
-  ...RatableRoleT,
-  +artist: string,
-  +artistCredit?: ArtistCreditT,
-  +isrcs: $ReadOnlyArray<IsrcT>,
-  +length: number,
-  +related_works: $ReadOnlyArray<number>,
-  +video: boolean,
-}>;
+declare type RecordingWithArtistCreditT =
+  $ReadOnly<{...RecordingT, +artistCredit: ArtistCreditT}>;
 
 declare type RelationshipT = {
   ...DatePeriodRoleT,
@@ -1142,7 +1131,7 @@ declare type TrackT = $ReadOnly<{
   +name: string,
   +number: string,
   +position: number,
-  +recording?: RecordingWithOptionalArtistCreditT,
+  +recording?: RecordingT,
   +unaccented_name: string | null,
 }>;
 

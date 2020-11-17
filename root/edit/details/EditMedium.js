@@ -40,7 +40,7 @@ import loopParity from '../../utility/loopParity';
 
 type TrackWithRecordingT = $ReadOnly<{
   ...TrackT,
-  +recording: RecordingWithOptionalArtistCreditT,
+  +recording: RecordingT,
 }>;
 
 type TracklistChangesAddT = {
