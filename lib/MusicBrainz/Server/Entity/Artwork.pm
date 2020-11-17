@@ -94,6 +94,7 @@ sub TO_JSON {
 
     my $json = {
         comment => $self->comment,
+        filename => $self->filename,
         image => $self->image,
         id => $self->id,
         large_thumbnail => $self->large_thumbnail,

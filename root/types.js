@@ -143,6 +143,7 @@ declare type ArtistTypeT = OptionTreeT<'artist_type'>;
 
 declare type ArtworkT = {
   +comment: string,
+  +filename: string | null,
   +id: number,
   +image: string,
   +large_thumbnail: string,
