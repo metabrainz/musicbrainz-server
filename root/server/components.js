@@ -311,6 +311,7 @@ module.exports = {
   'edit/details/EditArea': require('../edit/details/EditArea'),
   'edit/details/EditArtist': require('../edit/details/EditArtist'),
   'edit/details/EditArtistCredit': require('../edit/details/EditArtistCredit'),
+  'edit/details/EditCoverArt': require('../edit/details/EditCoverArt'),
   'edit/details/EditEvent': require('../edit/details/EditEvent'),
   'edit/details/EditLabel': require('../edit/details/EditLabel'),
   'edit/details/EditPlace': require('../edit/details/EditPlace'),
