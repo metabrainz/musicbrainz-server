@@ -121,7 +121,7 @@ ws_test 'release lookup with release relationships',
                       </release-event>
                     </release-event-list>
                     <barcode>4942463511227</barcode>
-                    <quality>normal</quality>
+                    <quality>high</quality>
                 </release>
             </relation>
         </relation-list>
