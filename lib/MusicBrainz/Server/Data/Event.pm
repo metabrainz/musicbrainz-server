@@ -197,7 +197,7 @@ sub find_by_area
     my $query =
         "SELECT " . $self->_columns ."
            FROM (
-                    SELECT lae.entity1 AS event
+                    SELECT DISTINCT lae.entity1 AS event
                       FROM l_area_event lae
                      WHERE lae.entity0 = \$1 OR EXISTS (
                         SELECT 1 FROM ($containment_query) ac
@@ -219,7 +219,7 @@ sub find_by_artist
     my $query =
         'SELECT ' . $self->_columns .'
            FROM (
-                    SELECT entity1 AS event
+                    SELECT DISTINCT entity1 AS event
                       FROM l_artist_event ar
                       JOIN link ON ar.link = link.id
                       JOIN link_type lt ON lt.id = link.link_type
@@ -257,7 +257,7 @@ sub find_by_place
     my $query =
         'SELECT ' . $self->_columns .'
            FROM (
-                    SELECT entity0 AS event
+                    SELECT DISTINCT entity0 AS event
                       FROM l_event_place ar
                       JOIN link ON ar.link = link.id
                       JOIN link_type lt ON lt.id = link.link_type
