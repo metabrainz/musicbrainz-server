@@ -76,8 +76,12 @@ const EditEvent = ({edit}: Props): React.Element<'table'> => {
       {type ? (
         <FullChangeDiff
           label={addColonText(l('Type'))}
-          newContent={type.new?.name ?? ''}
-          oldContent={type.old?.name ?? ''}
+          newContent={type.new
+            ? lp_attributes(type.new.name, 'event_type')
+            : null}
+          oldContent={type.old
+            ? lp_attributes(type.old.name, 'event_type')
+            : null}
         />
       ) : null}
       {beginDate ? (
