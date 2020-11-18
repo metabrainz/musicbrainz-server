@@ -28,7 +28,7 @@ type EditEventEditT = {
     +name?: CompT<string>,
     +setlist?: CompT<string | null>,
     +time?: CompT<string | null>,
-    +type?: CompT<EventT | null>,
+    +type?: CompT<EventTypeT | null>,
   },
 };
 
