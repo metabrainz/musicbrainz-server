@@ -1836,6 +1836,13 @@ const testData = [
             expected_clean_url: 'https://www.irishtune.info/tune/1499/',
        only_valid_entity_types: ['work'],
   },
+  // IROMBOOK images (StaticBrainz)
+  {
+                     input_url: 'https://staticbrainz.org/irombook/sitar/sitar.png',
+             input_entity_type: 'instrument',
+    expected_relationship_type: 'image',
+       only_valid_entity_types: ['instrument'],
+  },
   // (Apple) iTunes
   {
                      input_url: 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',

@@ -1754,6 +1754,15 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'irombook': {
+    match: [new RegExp('^https://staticbrainz\\.org/irombook/')],
+    type: LINK_TYPES.image,
+    validate: function (url, id) {
+      return {
+        result: id === LINK_TYPES.image.instrument,
+      };
+    },
+  },
   'itunes': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?itunes\\.apple\\.com/', 'i')],
     type: LINK_TYPES.downloadpurchase,
