@@ -18,6 +18,7 @@ type Props = {
   +$c: CatalystContextT,
   +currentVersion: number,
   +form: FormT<{
+    +csrf_token: FieldT<string>,
     +version: FieldT<string>,
   }>,
   +page: string,
@@ -33,7 +34,7 @@ const EditWikiDoc = ({
     <div id="content">
       <h1>{l('Update Page')}</h1>
       <form action={$c.req.uri} method="post">
-        <FormCsrfToken />
+        <FormCsrfToken form={form} />
         <div className="row">
           <label>{l('Page:')}</label>
           <span>{page}</span>

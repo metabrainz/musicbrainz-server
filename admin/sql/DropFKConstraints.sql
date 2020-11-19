@@ -537,6 +537,7 @@ ALTER TABLE recording_attribute DROP CONSTRAINT IF EXISTS recording_attribute_fk
 ALTER TABLE recording_attribute_type DROP CONSTRAINT IF EXISTS recording_attribute_type_fk_parent;
 ALTER TABLE recording_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS recording_attribute_type_allowed_value_fk_recording_attribute_type;
 ALTER TABLE recording_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS recording_attribute_type_allowed_value_fk_parent;
+ALTER TABLE recording_first_release_date DROP CONSTRAINT IF EXISTS recording_first_release_date_fk_recording;
 ALTER TABLE recording_gid_redirect DROP CONSTRAINT IF EXISTS recording_gid_redirect_fk_new_id;
 ALTER TABLE recording_meta DROP CONSTRAINT IF EXISTS recording_meta_fk_id;
 ALTER TABLE recording_rating_raw DROP CONSTRAINT IF EXISTS recording_rating_raw_fk_recording;

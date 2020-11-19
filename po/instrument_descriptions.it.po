@@ -7,14 +7,15 @@
 # Fen0x F <email address hidden>, 2020
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini <email address hidden>, 2020
-# Luca Salini <email address hidden>, 2012
+# Luca Salini, 2020
+# Luca Salini, 2020
+# Luca Salini, 2012
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-28 21:04+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2020-11-19 02:16+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +40,7 @@ msgid ""
 "href=\"/doc/How_to_Add_Instruments\">requesting the missing instrument</a>. "
 "</li> </ul> If you can't find more information than the generic \"drum\" or "
 "\"drums\" credit, use this instrument."
-msgstr ""
+msgstr "\"Tamburo\" o \"tamburi\" è un accreditamento comune ma generico che si può riferire a diversi strumenti. Se sai di quale strumento si tratta, selezionalo: <ul> <li> Per lo strumento comunemente chiamato \"batteria\", utilizzato spesso nella musica popolare occidentale, usa <a href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">batteria</a>. </li> <li> Per loop di batteria o programmati, usa <a href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum machine</a>. </li> <li> Per specifici tipi di tamburo non ancora presenti su MusicBrainz, usa <a href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranofono</a> (o <a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">tamburo a fessura</a>, se rilevante) e considera di <a href=\"/doc/How_to_Add_Instruments\">fare richiesta per lo strumento mancante</a>. </li> </ul> Se non ti è possibile trovare informazioni aggiuntive all'accreditamento generico \"tamburo\" o \"tamburi\", usa questo strumento."
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -105,14 +106,14 @@ msgstr "Un organo a rullo è uno strumento musicale meccanico, tipicamente fatto
 #. name:bass synthesizer
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr "Un sintetizzatore di bassi è usato per creare suoni nella gamma bassa."
+msgstr "Un sintetizzatore basso è usato per creare suoni nella gamma bassa."
 
 #. name:bell tree
 #: DB:instrument/description:479
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
-msgstr "Un albero di campanelle (bell tree) è uno strumento a percussione costituito da una serie di campane metalliche di misura crescente inserite su un supporto verticale"
+msgstr "Un albero di campanelle (bell tree) è uno strumento a percussione costituito da una serie di campane metalliche di misura crescente inserite su un supporto verticale."
 
 #. name:chamber organ
 #: DB:instrument/description:471
@@ -153,12 +154,12 @@ msgstr "Una dolceola è uno strumento musicale simile a un pianoforte in miniatu
 #. name:five-string banjo
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
-msgstr ""
+msgstr "Un banjo a cinque corde è un banjo con cinque corde."
 
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
-msgstr ""
+msgstr "Un banjo a quattro corde è un banjo con quattro corde."
 
 #. name:gong bass drum
 #: DB:instrument/description:639
@@ -170,7 +171,7 @@ msgstr "Una gong bass drum è una grande membrana di tamburo che assomiglia ad u
 msgid ""
 "A guitar synthesizer is any one of a number of systems that allow a guitar "
 "player to play synthesizer sound."
-msgstr ""
+msgstr "Una chitarra synth è uno qualsiasi tra i sistemi che permettono ad un chitarrista di riprodurre il suono di un sintetizzatore."
 
 #. name:hi-hat
 #: DB:instrument/description:454
@@ -212,7 +213,7 @@ msgstr ""
 msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass"
 " guitar"
-msgstr ""
+msgstr "Uno strumento di fabbricazione contemporanea che ha la forma di una chitarra basso a quattro corde dal corpo squadrato"
 
 #. name:pōrutu
 #: DB:instrument/description:787
@@ -227,27 +228,27 @@ msgstr ""
 msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings"
-msgstr ""
+msgstr "Un mandoliuto è uno strumento a corda nordafricano dotato di tasti che unisce il formato tradizionale a corde di un oud con cinque paia di corde metalliche."
 
 #. name:marimba lumina
 #: DB:instrument/description:767
 msgid ""
 "A marimba lumina is a MIDI controller that lets a musician play music via a "
 "control surface based on the layout of a marimba."
-msgstr ""
+msgstr "Una marimba lumina è un controller MIDI che permette ad un musicista di suonare attraverso una superficie di controllo basata sulla struttura di una marimba."
 
 #. name:mouth organ
 #: DB:instrument/description:610
 msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air"
 " chambers fitted with a free reed."
-msgstr ""
+msgstr "Armonica a bocca è un termine generico per un aerofono ad ancia libera con una o più camere d'aria munite di un'ancia libera."
 
 #. name:bowed piano
 #: DB:instrument/description:504
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials"
-msgstr ""
+msgstr "Un pianoforte le cui corde sono strofinate, utilizzando filamenti di nylon o altri materiali"
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -262,21 +263,21 @@ msgstr "Un pianoforte preparato è un pianoforte il cui suono è stato modificat
 msgid ""
 "A pūtātara with a long wooden mouth piece, it has a deeper timbre than the "
 "pūtātara"
-msgstr ""
+msgstr "Una pūtātara con un lungo bocchino in legno, ha un timbro più profondo rispetto alla pūtātara"
 
 #. name:slit drum
 #: DB:instrument/description:366
 msgid ""
 "A slit drum is a hollow percussion instrument made of wood or bamboo with a "
 "slit at the top."
-msgstr ""
+msgstr "Un tamburo a fessura è uno strumento a percussione cavo in legno o bambù con una fessura nella parte superiore."
 
 #. name:spinet
 #: DB:instrument/description:797
 msgid ""
 "A smaller harpsichord, often with the strings at 30 degrees from the "
 "keyboard."
-msgstr ""
+msgstr "Un clavicembalo più piccolo, spesso con le corde collocate a 30 gradi rispetto alla tastiera."
 
 #. name:suikinkutsu
 #: DB:instrument/description:147
@@ -292,13 +293,13 @@ msgstr ""
 msgid ""
 "A talkbox is an effects device which enables a musician to modify the sound "
 "of an instrument."
-msgstr ""
+msgstr "Un talk box è un dispositivo per effetti che permette ad un musicista di modificare il suono di uno strumento."
 
 #. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
-msgstr ""
+msgstr "Un tar è un tamburo a cornice a punta singola originario del Nordafrica e Medio Oriente."
 
 #. name:tenor banjo
 #: DB:instrument/description:657
@@ -311,7 +312,7 @@ msgstr ""
 msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
-msgstr ""
+msgstr "Un tom-tom (detto anche tom) è un tamburo cilindrico senza rullante. Forma comunemente parte di una batteria."
 
 #. name:tromba marina
 #: DB:instrument/description:698
@@ -343,7 +344,7 @@ msgstr ""
 #. name:acoustic fretless guitar
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
-msgstr ""
+msgstr "Chitarra acustica senza tasti."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -366,7 +367,7 @@ msgstr ""
 msgid ""
 "Alt, alto or contralto member of the viol family. Not to be confused with "
 "the Viola of the violin family, known as \"Alto\" in French."
-msgstr ""
+msgstr "Membro contralto della famiglia delle viole da gamba. Da non confondersi con la viola della famiglia dei violini, chiamata \"alto\" in francese."
 
 #. name:bandora
 #: DB:instrument/description:488
@@ -413,7 +414,7 @@ msgstr ""
 msgid ""
 "Amadinda, southern Uganda giant xylophone, made on with resonating hardwood "
 "bars"
-msgstr ""
+msgstr "Xilofono gigante dell'Uganda meridionale, fatto di sbarre risonanti di legno duro."
 
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
@@ -432,7 +433,7 @@ msgstr ""
 msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-"
 "like\" sounds"
-msgstr ""
+msgstr "Un dispositivo per effetti da fissare sul ponte, produce suoni simili ad un sintetizzatore."
 
 #. name:keytar
 #: DB:instrument/description:774
@@ -530,7 +531,7 @@ msgstr ""
 #. name:balafon
 #: DB:instrument/description:364
 msgid "Balafon, Malian 'gourd xylophone'"
-msgstr ""
+msgstr "Xilofono con risuonatori di zucca originario del Mali"
 
 #. name:chimes
 #: DB:instrument/description:338
@@ -561,7 +562,7 @@ msgstr ""
 #. name:bass guitar
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
-msgstr ""
+msgstr "Basso (moderno, solitamente elettrico, ma non sempre)"
 
 #. name:bass
 #: DB:instrument/description:47
@@ -570,31 +571,31 @@ msgid ""
 "instrument, the most common being the bass guitar and the double bass "
 "(a.k.a. contrabass, acoustic upright bass, wood bass). Please use the "
 "correct instrument if you know which one is intended."
-msgstr ""
+msgstr "Il basso è un accreditamento comune ma generico che può riferirsi a più di uno strumento, tra cui i più comuni sono la chitarra basso e il contrabbasso. Seleziona lo strumento corretto se sai di quale si tratta."
 
 #. name:daruan
 #: DB:instrument/description:546
 msgid "Bass member of Chinese ruan family of lutes."
-msgstr ""
+msgstr "Membro basso della famiglia di liuti cinesi ruan."
 
 #. name:berda
 #: DB:instrument/description:828
 msgid ""
 "Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
 "like. it has four thick metal strings"
-msgstr ""
+msgstr "Membro basso dell'orchestra di tamburitza serbo-croata, simile al contrabbasso. Ha quattro corde metalliche spesse."
 
 #. name:segunda
 #: DB:instrument/description:757
 msgid "Bass member of the garifuna drum group."
-msgstr ""
+msgstr "Membro basso del gruppo di tamburi garifuna."
 
 #. name:lirone
 #: DB:instrument/description:697
 msgid ""
 "Bass member of the lira family, it has between 9 and 16 strings and a "
 "fretted neck."
-msgstr ""
+msgstr "Membro basso della famiglia della lira, ha dalle 9 alle 16 corde ed un collo dotato di tasti."
 
 #. name:bicycle bell
 #: DB:instrument/description:743
@@ -623,14 +624,14 @@ msgstr ""
 #. name:cajón
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
-msgstr ""
+msgstr "Strumento a percussione peruviano a forma di scatola"
 
 #. name:saron demung
 #: DB:instrument/description:1006
 msgid ""
 "Called simply \"demung\", it is the largest and deepest pitched of the "
 "regular saron."
-msgstr ""
+msgstr "Chiamato anche solo \"demung\", è il più grande e quello dal tono più grave tra i saron regolari."
 
 #. name:saron panerus
 #: DB:instrument/description:1008
@@ -642,7 +643,7 @@ msgstr ""
 #. name:tōkere
 #: DB:instrument/description:865
 msgid "Castanets of wood, bone, bivalve shells or even flax leaf."
-msgstr ""
+msgstr "Castagnette di legno, osso, conchiglie bivalvi o anche foglie di lino."
 
 #. name:tible
 #: DB:instrument/description:871
@@ -654,7 +655,7 @@ msgstr ""
 #. name:chacha
 #: DB:instrument/description:335
 msgid "Chacha, west Indian rattle"
-msgstr ""
+msgstr "Sonaglio originario dell'India occidentale"
 
 #. name:string quartet
 #: DB:instrument/description:908
@@ -780,7 +781,7 @@ msgstr ""
 msgid ""
 "Constructed as the uttermost largest member of the violin family, it is up "
 "towards 4 meters and has three strings operated by levers and pedals."
-msgstr ""
+msgstr "Costruito come il membro più grande in assoluto della famiglia dei violini, arriva a quasi 4 metri di altezza e ha tre corde manovrate attraverso leve e pedali."
 
 #. name:portative
 #: DB:instrument/description:1021
@@ -817,7 +818,7 @@ msgstr ""
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
-msgstr ""
+msgstr "Tamburo turco"
 
 #. name:setar
 #: DB:instrument/description:630
@@ -843,7 +844,7 @@ msgid ""
 "tuning pegs like lutes and violins, it has a thinner, lighter build with "
 "\"golpeadores\" or tapping-plates and less sustain than the classical "
 "guitar."
-msgstr ""
+msgstr "Derivata dalla chitarra classica, ha molte modifiche e tecniche di esecuzione per creare un suono più percussivo. In origine aveva piroli per l'accordatura in legno come i liuti e i violini. Ha una struttura più sottile e leggera, con \"golpeadores\" o placche e meno sustain rispetto alla chitarra classica."
 
 #. name:chime bar
 #: DB:instrument/description:638
@@ -859,7 +860,7 @@ msgstr ""
 msgid ""
 "Developed as an extended range bass-lute in Italy during the late sixteenth "
 "century, it has an extended neck with a second pegbox."
-msgstr ""
+msgstr "Sviluppata come un liuto basso a gamma estesa in Italia nel tardo sedicesimo secolo, ha un collo prolungato con un secondo cavigliere."
 
 #. name:chitarra battente
 #: DB:instrument/description:939
@@ -886,7 +887,7 @@ msgid ""
 " Double Bass (replacing the violone (big viola)) </li></ul> Past members "
 "include the violone (now a considered a viol) and bass viol (a forerunner to"
 " the violoncello). Occasionally Octobass is also included as a member."
-msgstr ""
+msgstr "Sviluppate nel sedicesimo secolo, queste viole da braccio sono distinte dalla famiglia delle viole da gamba. <br /> I suoi membri moderni sono: <ul> <li> Violino </li> <li> Viola </li> <li> Violoncello </li> <li> Contrabbasso (che ha preso il posto del violone) </li></ul> In passato includevano il violone (oggi considerato una viola da gamba) e la viola da gamba basso (un predecessore del violoncello). Talvolta anche l'ottobasso viene incluso tra i membri."
 
 #. name:trikiti
 #: DB:instrument/description:847
@@ -913,12 +914,12 @@ msgstr ""
 #. name:dobro
 #: DB:instrument/description:184
 msgid "Dobro, resonator guitar"
-msgstr ""
+msgstr "Chitarra resofonica"
 
 #. name:dhol
 #: DB:instrument/description:535
 msgid "Double headed drum from India."
-msgstr ""
+msgstr "Tamburo a due punte indiano."
 
 #. name:dunun
 #: DB:instrument/description:659
@@ -966,12 +967,12 @@ msgstr ""
 msgid ""
 "Effects refers to devices which enable a musician to modify the sound of an "
 "instrument."
-msgstr ""
+msgstr "Con effetti si intendono i dispositivi che permettono ad un musicista di modificare il suono di uno strumento. "
 
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
-msgstr ""
+msgstr "Chitarra elettrica senza tasti."
 
 #. name:trautonium
 #: DB:instrument/description:808
@@ -1001,12 +1002,12 @@ msgid ""
 "Extra large double-headed water buffalo hide barrel drum. It is suspended "
 "from a rack and beat with mallet, it is used in central Javanese gamelan and"
 " for religious signalling purposes in mosques."
-msgstr ""
+msgstr "Tamburo a barile a due punte molto grande in pelle di bufalo d'acqua. Appeso ad un telaio e percosso con un maglio, è usato nel gamelan di Giava Centrale e ai fini di segnale religioso nelle moschee."
 
 #. name:pi
 #: DB:instrument/description:667
 msgid "Family of quadruple reed oboes"
-msgstr ""
+msgstr "Famiglia di oboi ad ancia quadrupla"
 
 #. name:Baltic psalteries
 #: DB:instrument/description:421
@@ -1022,7 +1023,7 @@ msgstr ""
 #. name:trumpet family
 #: DB:instrument/description:914
 msgid "Family of the brass instrument trumpet"
-msgstr ""
+msgstr "Famiglia degli strumenti ad ottone chiamati tromba"
 
 #. name:txistu
 #: DB:instrument/description:855
@@ -1154,7 +1155,7 @@ msgstr ""
 #. name:German harp
 #: DB:instrument/description:356
 msgid "German/Bohemian harp"
-msgstr ""
+msgstr "arpa tedesca/boema"
 
 #. name:ghatam
 #: DB:instrument/description:331
@@ -1164,7 +1165,7 @@ msgstr ""
 #. name:goblet drum
 #: DB:instrument/description:268
 msgid "Goblet drums are single-headed drums with a goblet shaped body."
-msgstr ""
+msgstr "I tamburi a calice sono tamburi a punta singola con un corpo a forma di calice."
 
 #. name:pahū pounamu
 #: DB:instrument/description:790
@@ -1326,7 +1327,7 @@ msgid ""
 "Invented by European luthiers in the first half of the 18th century, it had "
 "6 to 7 single or double courses of gut strings and a long neck with either "
 "sharp or shallow angled pegbox."
-msgstr ""
+msgstr "Inventata da liutai europei nella prima metà del diciottesimo secolo, aveva 6 o 7 ordini di corde singole o doppie in budello ed un collo allungato con un cavigliere ad angolo retto o acuto."
 
 #. name:orpharion
 #: DB:instrument/description:519
@@ -1419,7 +1420,7 @@ msgid ""
 "Known also as contrabass or upright bass, it is the largest and lowest-"
 "pitched member of the modern violin family, it is a principal member of the "
 "symphony orchestra."
-msgstr ""
+msgstr "Conosciuto anche come basso, è il membro più grande e di tono più basso della moderna famiglia dei violini. È un membro di base dell'orchestra sinfonica."
 
 #. name:kacapi indung
 #: DB:instrument/description:1001
@@ -1566,14 +1567,14 @@ msgstr ""
 #. name:madal
 #: DB:instrument/description:186
 msgid "Madal, hand drum originating from Nepal"
-msgstr ""
+msgstr "Tamburo a percussione manuale originario del Nepal"
 
 #. name:maddale
 #: DB:instrument/description:537
 msgid ""
 "Maddale is a double-headed drum from Karnataka, India. It is the primary "
 "rhythmic accompaniment in Yakshagana."
-msgstr ""
+msgstr "Un maddale è un tamburo a due punte originario dello stato indiano del Karnataka. È l'accompagnamento ritmico principale nel Yakshagana."
 
 #. name:suling
 #: DB:instrument/description:725
@@ -1593,7 +1594,7 @@ msgstr ""
 #. name:calabash
 #: DB:instrument/description:777
 msgid "Made of dried gourd. Struck with hands or objects."
-msgstr ""
+msgstr "Fatto di zucca a fiasco essiccata. Percosso a mano o con oggetti."
 
 #. name:njarka
 #: DB:instrument/description:936
@@ -1704,7 +1705,7 @@ msgstr ""
 #. name:xylorimba
 #: DB:instrument/description:703
 msgid "Member of the xylophone family, it has 5 octaves."
-msgstr ""
+msgstr "Membro della famiglia degli xilofoni, ha 5 ottave."
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -1736,7 +1737,7 @@ msgstr ""
 msgid ""
 "Most common viol member today, it was the bass-range viol in the original "
 "consort."
-msgstr ""
+msgstr "Oggi il membro più comune della famiglia delle viole da gamba, in origine era la viola da gamba di gamma bassa."
 
 #. name:nai
 #: DB:instrument/description:297
@@ -2124,6 +2125,13 @@ msgstr ""
 msgid "Reedless Aerophone, usually a tube"
 msgstr ""
 
+#. name:musical saw
+#: DB:instrument/description:145
+msgid ""
+"Regular or specialised saw used for music, held and bent, it is bowed to "
+"produce characteristical glissando."
+msgstr ""
+
 #. name:kenong
 #: DB:instrument/description:985
 msgid ""
@@ -2316,7 +2324,7 @@ msgstr ""
 msgid ""
 "Small bass viol, specialised for intricate polyphonics, it had a flatter "
 "bridge than the other bass viols."
-msgstr ""
+msgstr "Piccola viola da gamba basso, specializzata in polifonie intricate, aveva un ponte più piatto delle altre viole da gamba basso."
 
 #. name:octoban
 #: DB:instrument/description:875
@@ -2449,7 +2457,7 @@ msgid ""
 "viola da gamba credits are however the <a "
 "href=\"https://beta.musicbrainz.org/instrument/7cbd040f-6217-48d0-ac43-3e8ecb4b4b0b/\">Bass"
 " Viol</a>"
-msgstr ""
+msgstr "Membro generico della famiglia delle viole da gamba, da utilizzare per accreditamenti per \"viola da gamba\", anche se la maggior parte di essi si riferiscono in realtà alla <a href=\"https://beta.musicbrainz.org/instrument/7cbd040f-6217-48d0-ac43-3e8ecb4b4b0b/\">viola da gamba basso</a>"
 
 #. name:Lyricon
 #: DB:instrument/description:561
@@ -2601,7 +2609,7 @@ msgstr ""
 #. name:atabaque
 #: DB:instrument/description:719
 msgid "The atabaque is a tall Brazilian hand drum."
-msgstr ""
+msgstr "L'atabaque è un tamburo a percussione manuale alto originario del Brasile."
 
 #. name:atarigane
 #: DB:instrument/description:565
@@ -2704,7 +2712,7 @@ msgstr ""
 #: DB:instrument/description:727
 msgid ""
 "The bass trumpet is a type of low trumpet similar to the valve trombone."
-msgstr ""
+msgstr "La tromba bassa è un tipo di tromba simile al trombone a pistoni."
 
 #. name:bawu
 #: DB:instrument/description:483
@@ -2799,7 +2807,7 @@ msgstr ""
 msgid ""
 "The chande is a drum used in the traditional and classical music of South "
 "India."
-msgstr ""
+msgstr "Il chande è un tamburo utilizzato nella musica tradizionale e classica dell'India meridionale."
 
 #. name:chanzy
 #: DB:instrument/description:713
@@ -3158,7 +3166,7 @@ msgstr ""
 msgid ""
 "The janggu or janggo is a double-headed hourglass shaped drum which is the "
 "most widely used drum used in the traditional music of Korea."
-msgstr ""
+msgstr "Il janggu o janggo è un tamburo a due punte a forma di clessidra. È il tamburo più utilizzato nella musica tradizionale coreana."
 
 #. name:jing
 #: DB:instrument/description:552
@@ -3189,7 +3197,7 @@ msgstr ""
 #. name:kanjira
 #: DB:instrument/description:474
 msgid "The kanjira is a South Indian frame drum."
-msgstr ""
+msgstr "La kanjira è un tamburo a cornice originario dell'India meridionale."
 
 #. name:kartal
 #: DB:instrument/description:534
@@ -3255,7 +3263,7 @@ msgstr ""
 msgid ""
 "The klong khaek is a double-headed barrel drum from Thailand. The heads are "
 "different sizes."
-msgstr ""
+msgstr "Il klong khaek è un tamburo a barile a due punte thailandese. Le punte sono di dimensioni differenti."
 
 #. name:klong song na
 #: DB:instrument/description:672
@@ -3725,11 +3733,6 @@ msgstr ""
 msgid "The siku is a traditional Andean panpipe."
 msgstr ""
 
-#. name:sistrum
-#: DB:instrument/description:370
-msgid "The sistrum is a metal rattle associated with ancient Iraq and Egypt."
-msgstr ""
-
 #. name:kendang lanang
 #: DB:instrument/description:994
 msgid ""
@@ -3861,7 +3864,7 @@ msgstr ""
 #. name:thavil
 #: DB:instrument/description:480
 msgid "The thavil is a barrel shaped drum from South India."
-msgstr ""
+msgstr "Il thavil è un tamburo a forma di barile originario dell'India meridionale."
 
 #. name:thon
 #: DB:instrument/description:584
@@ -3874,7 +3877,7 @@ msgstr ""
 #. name:tinya
 #: DB:instrument/description:724
 msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr ""
+msgstr "La tinya è un piccolo tamburo utilizzato nella musica tradizionale delle Ande."
 
 #. name:tiêu
 #: DB:instrument/description:324
@@ -4026,12 +4029,12 @@ msgstr ""
 #. name:zabumba
 #: DB:instrument/description:715
 msgid "The zabumba is a bass drum from Brazil."
-msgstr ""
+msgstr "La zabumba è una grancassa brasiliana."
 
 #. name:zarb
 #: DB:instrument/description:328
 msgid "The zarb is a goblet drum from Persia."
-msgstr ""
+msgstr "Lo zarb è un tamburo a calice persiano."
 
 #. name:zhaleika
 #: DB:instrument/description:692
@@ -4198,7 +4201,7 @@ msgstr ""
 #. name:timpani
 #: DB:instrument/description:167
 msgid "Timpani (Kettle drum)"
-msgstr ""
+msgstr "Timpani"
 
 #. name:tarota
 #: DB:instrument/description:870
@@ -4305,7 +4308,7 @@ msgstr ""
 #. name:kudüm
 #: DB:instrument/description:525
 msgid "Turkish pair of small, hemispherical drums"
-msgstr ""
+msgstr "Coppia di piccoli tamburi emisferici turchi"
 
 #. name:pākuru
 #: DB:instrument/description:867
@@ -4382,7 +4385,7 @@ msgstr ""
 msgid ""
 "Used in Hindustani dhrupad, this two-headed barrel-drum is tuned like its "
 "descendant the tabla."
-msgstr ""
+msgstr "Utilizzato nel dhrupad indostano, questo tamburo a barile a due punte è accordato come il suo discendente, il tabla."
 
 #. name:tritantri veena
 #: DB:instrument/description:945
@@ -4464,6 +4467,14 @@ msgid ""
 " of wood tied together by a string at one end."
 msgstr ""
 
+#. name:sistrum
+#: DB:instrument/description:370
+msgid ""
+"Used in sacred rituals, it is made of metal or clay rattle with metal discs "
+"which jangle when shook. </br> Not to be confused with the West African "
+"calabash sistrum or disc rattle (n'goso m'bara)"
+msgstr ""
+
 #. name:saron wayang
 #: DB:instrument/description:1010
 msgid ""
@@ -4483,7 +4494,7 @@ msgstr ""
 msgid ""
 "Used in the traditional Korean music daechwita, it consists of a large two "
 "headed wooden barrel painted with dragon designs."
-msgstr ""
+msgstr "Utilizzato nella musica tradizionale coreana daechwita, è composto da un grande barile di legno a due punte dipinto con motivi di dragoni."
 
 #. name:kèn bầu
 #: DB:instrument/description:303
@@ -4763,7 +4774,7 @@ msgstr ""
 #. name:ki pah
 #: DB:instrument/description:307
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
-msgstr "corno di mucca senza fori munito di un bocchino contenente un'ancia libera."
+msgstr "corno di mucca senza fori munito di un bocchino contenente un'ancia libera"
 
 #. name:cümbüş
 #: DB:instrument/description:410
@@ -4782,7 +4793,7 @@ msgstr ""
 #. name:dholak
 #: DB:instrument/description:382
 msgid "dholak, classical North Indian hand drum"
-msgstr "tamburo a due facce originario dell'India settentrionale."
+msgstr "Tamburo a due facce originario dell'India settentrionale"
 
 #. name:tambura
 #: DB:instrument/description:391
@@ -4919,7 +4930,7 @@ msgstr ""
 msgid ""
 "much like the pipe and tabor, the chirimía and drum is a South American "
 "cousin."
-msgstr ""
+msgstr "Simile a flauto e tamburo, la chirimía e tamburo ne è un cugino sudamericano."
 
 #. name:kōauau ponga ihu
 #: DB:instrument/description:856
@@ -4981,7 +4992,7 @@ msgid ""
 "second smallest member of the Serbo-Croatian tamburica orchestra, there are "
 "often two, first and second bass. it can either have three double strings or"
 " two double strings and three single strings"
-msgstr ""
+msgstr "Secondo membro più piccolo dell'orchestra di tamburitza serbo-croata, spesso ve ne sono due, primo e secondo basso. Può avere o tre corde doppie, o due corde doppie e tre corde singole."
 
 #. name:whistle
 #: DB:instrument/description:274
@@ -5115,7 +5126,7 @@ msgstr ""
 msgid ""
 "wind synthesizer or wind controller, it is connected to a midi controller "
 "and is played like a wind instrument."
-msgstr ""
+msgstr "Un sintetizzatore a fiato o controller a fiato è collegato ad un controller midi ed è suonato come uno strumento a fiato."
 
 #. name:vibrandoneon
 #: DB:instrument/description:840

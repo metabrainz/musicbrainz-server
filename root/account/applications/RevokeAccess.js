@@ -13,13 +13,16 @@ import ConfirmLayout from '../../components/ConfirmLayout';
 
 type Props = {
   +$c: CatalystContextT,
+  +form: SecureConfirmFormT,
 };
 
 const RevokeApplicationAccess = ({
   $c,
+  form,
 }: Props): React.Element<typeof ConfirmLayout> => (
   <ConfirmLayout
     $c={$c}
+    form={form}
     question={l(
       `Are you sure you want to revoke this application's access?`,
     )}

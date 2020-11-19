@@ -72,6 +72,7 @@ after 'load' => sub
 
     unless ($returning_jsonld) {
         $c->model('Recording')->load_meta($recording);
+        $c->model('Recording')->load_first_release_date($recording);
 
         if ($c->user_exists) {
             $c->model('Recording')->rating->load_user_ratings($c->user->id, $recording);

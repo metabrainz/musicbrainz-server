@@ -8,11 +8,8 @@
 
 /* eslint-disable import/no-commonjs */
 
-const GLOBAL_CATALYST_CONTEXT_NAMESPACE = '__MB_Catalyst_Context__';
-const GLOBAL_DBDEFS_NAMESPACE = '__MB_DBDefs__';
+const GLOBAL_JS_NAMESPACE = '__MB__';
 
 module.exports = {
-  GLOBAL_CATALYST_CONTEXT_NAMESPACE:
-    JSON.stringify(GLOBAL_CATALYST_CONTEXT_NAMESPACE),
-  GLOBAL_DBDEFS_NAMESPACE: JSON.stringify(GLOBAL_DBDEFS_NAMESPACE),
+  GLOBAL_JS_NAMESPACE: JSON.stringify(GLOBAL_JS_NAMESPACE),
 };

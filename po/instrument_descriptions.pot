@@ -2105,6 +2105,13 @@ msgstr ""
 msgid "Reedless Aerophone, usually a tube"
 msgstr ""
 
+#. name:musical saw 
+#: DB:instrument/description:145
+msgid ""
+"Regular or specialised saw used for music, held and bent, it is bowed to "
+"produce characteristical glissando."
+msgstr ""
+
 #. name:kenong 
 #: DB:instrument/description:985
 msgid ""
@@ -3696,11 +3703,6 @@ msgstr ""
 msgid "The siku is a traditional Andean panpipe."
 msgstr ""
 
-#. name:sistrum 
-#: DB:instrument/description:370
-msgid "The sistrum is a metal rattle associated with ancient Iraq and Egypt."
-msgstr ""
-
 #. name:kendang lanang 
 #: DB:instrument/description:994
 msgid ""
@@ -4431,6 +4433,14 @@ msgid ""
 "Used in royal ceremonies, played by striking against the palm, it is made of "
 "several pieces of wood, ivory and sheets of brass between two larger pieces "
 "of wood tied together by a string at one end."
+msgstr ""
+
+#. name:sistrum 
+#: DB:instrument/description:370
+msgid ""
+"Used in sacred rituals, it is made of metal or clay rattle with metal discs "
+"which jangle when shook. </br> Not to be confused with the West African "
+"calabash sistrum or disc rattle (n'goso m'bara)"
 msgstr ""
 
 #. name:saron wayang 

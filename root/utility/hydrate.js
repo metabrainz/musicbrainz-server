@@ -42,7 +42,7 @@ export default function hydrate<
         const propString = propScript.textContent;
         if (propString) {
           const $c: SanitizedCatalystContextT =
-            window[GLOBAL_CATALYST_CONTEXT_NAMESPACE];
+            window[GLOBAL_JS_NAMESPACE].$c;
           const props: SanitizedConfig = JSON.parse(propString);
           ReactDOM.hydrate(
             <SanitizedCatalystContext.Provider value={$c}>

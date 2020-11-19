@@ -33,9 +33,9 @@ my $req = HTTP::Request->new('OPTIONS', '/ws/2/recording?client=test-1.0');
 $mech->request($req);
 is($mech->status, HTTP_OK);
 
-my $headers = $mech->response->headers;
-is($headers->header('access-control-allow-origin'), '*');
-is($headers->header('allow'), 'GET, POST, OPTIONS');
+my $response1_headers = $mech->response->headers;
+is($response1_headers->header('access-control-allow-origin'), '*');
+is($response1_headers->header('allow'), 'GET, POST, OPTIONS');
 
 # Check CORS preflight support
 $req = HTTP::Request->new('OPTIONS', '/ws/2/recording?client=test-1.0', [
@@ -47,11 +47,11 @@ $req = HTTP::Request->new('OPTIONS', '/ws/2/recording?client=test-1.0', [
 $mech->request($req);
 is($mech->status, HTTP_OK);
 
-my $headers = $mech->response->headers;
-is($headers->header('access-control-allow-headers'), 'Authorization, Content-Type, User-Agent');
-is($headers->header('access-control-allow-methods'), 'GET, POST, OPTIONS');
-is($headers->header('access-control-allow-origin'), '*');
-is($headers->header('allow'), 'GET, POST, OPTIONS');
+my $response2_headers = $mech->response->headers;
+is($response2_headers->header('access-control-allow-headers'), 'Authorization, Content-Type, User-Agent');
+is($response2_headers->header('access-control-allow-methods'), 'GET, POST, OPTIONS');
+is($response2_headers->header('access-control-allow-origin'), '*');
+is($response2_headers->header('allow'), 'GET, POST, OPTIONS');
 
 my $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">

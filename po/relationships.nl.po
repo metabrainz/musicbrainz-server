@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-29 15:54+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2020-11-19 02:16+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2243,12 +2243,8 @@ msgid ""
 msgstr "Deze relatie  koppelt een compositie voor een soundtrack aan een <a href=\"http://www.imdb.com/\">IMDb</a>-pagina over de film, show of het spel waarvan het een soundtrack is."
 
 #: DB:link_type/description:722
-msgid ""
-"This links a subgroup to the group from which it was created. This "
-"relationship type is the functional equivalent of the <a "
-"href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
-"type</a> for group-group relationships."
-msgstr "Deze relatie koppelt een subgroep aan de groep waaruit hij is voortgekomen. Dit is vergelijkbaar met de <a href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">relatie voor leden van een groep</a>, maar dan voor relaties tussen groepen."
+msgid "This links a subgroup to the group from which it was created."
+msgstr ""
 
 #: DB:link_type/description:939
 msgid "This links a work to a license under which it is available."

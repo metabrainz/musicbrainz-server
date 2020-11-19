@@ -1,7 +1,7 @@
 <form action="[% c.req.uri %]" method="post">
-    [% form_csrf_token %]
-
     [%- USE r = FormRenderer(form) -%]
+
+    [% form_csrf_token(r) %]
 
     [% IF model == "Language" %]
         [% form_row_text(r, 'name', add_colon(l('Name'))) %]

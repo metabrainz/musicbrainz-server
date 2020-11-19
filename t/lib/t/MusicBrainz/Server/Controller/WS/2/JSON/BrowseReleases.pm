@@ -227,7 +227,7 @@ test  'browse releases via release group' => sub {
                     title => "Summer Reggae! Rainbow",
                     status => "Pseudo-Release",
                     'status-id' => "41121bb9-3413-3818-8a9a-9742318349aa",
-                    quality => "normal",
+                    quality => "high",
                     "text-representation" => { language => "jpn", script => "Latn" },
                     "cover-art-archive" => {
                         artwork => JSON::false,

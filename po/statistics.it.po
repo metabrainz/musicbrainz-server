@@ -2,15 +2,16 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini <email address hidden>, 2012,2016,2019-2020
-# Luca Salini <email address hidden>, 2013-2015
-# Luca Salini <email address hidden>, 2012
+# Luca Salini, 2012,2016,2019-2020
+# Luca Salini, 2020
+# Luca Salini, 2013-2015
+# Luca Salini, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-09-06 21:26+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2020-11-06 20:23+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,17 +99,17 @@ msgstr "Annotazioni"
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr "Sottoscrizioni di artisti"
+msgstr "Iscrizioni ad artisti"
 
 #: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
-msgstr "Lancio pubblico delle sottoscrizioni di artisti e rilascio di vari miglioramenti per l'utenza."
+msgstr "Lancio pubblico delle iscrizioni ad artisti e rilascio di vari miglioramenti per l'utenza."
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
-msgstr "Sottoscrizioni di artisti."
+msgstr "Iscrizioni ad artisti."
 
 #: DB:statistics.statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
@@ -207,7 +208,7 @@ msgstr "Le modifiche fatte dagli editor alle pubblicazioni aggiunte da loro stes
 
 #: DB:statistics.statistic_event/description:2007-10-17
 msgid "Folksonomy tagging, editor subscriptions are released."
-msgstr "Rilascio dei tag di folksonomia e delle sottoscrizioni di editor."
+msgstr "Rilascio dei tag di folksonomia e delle iscrizioni ad editor."
 
 #: DB:statistics.statistic_event/description:2015-09-04
 msgid ""
@@ -1362,7 +1363,7 @@ msgstr "che usano le valutazioni:"
 
 #: ../root/statistics/Index.js:983
 msgid "who use subscriptions:"
-msgstr "che usano le sottoscrizioni:"
+msgstr "che usano le iscrizioni:"
 
 #: ../root/statistics/Index.js:992
 msgid "who use collections:"

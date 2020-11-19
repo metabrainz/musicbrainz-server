@@ -148,6 +148,8 @@ export const FAVICON_CLASSES = {
   'rolldabeats.com': 'rolldabeats',
   'runeberg.org': 'runeberg',
   'saisaibatake.ame-zaiku.com/gakki': 'gakki',
+  'saisaibatake.ame-zaiku.com/musical': 'gakki',
+  'saisaibatake.ame-zaiku.com/musical_instrument': 'gakki',
   'secondhandsongs.com': 'secondhandsongs',
   'setlist.fm': 'setlistfm',
   'smdb.kb.se': 'smdb',

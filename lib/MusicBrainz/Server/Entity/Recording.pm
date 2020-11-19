@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Recording;
 
+use DBDefs;
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
@@ -49,6 +50,11 @@ has 'isrcs' => (
     }
 );
 
+has 'first_release_date' => (
+    is => 'rw',
+    isa => 'Maybe[PartialDate]',
+);
+
 sub related_works {
     my $self = shift;
     return uniq_by { $_->id }
@@ -71,6 +77,9 @@ around TO_JSON => sub {
         length  => $self->length,
         video   => boolean_to_json($self->video),
         related_works => [map { $_->id } @related_works],
+        DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26
+            ? (first_release_date => $self->first_release_date)
+            : (),
     };
 };
 

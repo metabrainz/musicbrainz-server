@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::CSRFToken';
 
 sub edit_field_names { qw( parent_id child_order name description year has_discids free_text item_entity_type ) }
 

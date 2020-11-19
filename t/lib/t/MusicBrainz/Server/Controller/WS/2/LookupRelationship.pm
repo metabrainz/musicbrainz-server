@@ -121,7 +121,7 @@ ws_test 'release lookup with release relationships',
                       </release-event>
                     </release-event-list>
                     <barcode>4942463511227</barcode>
-                    <quality>normal</quality>
+                    <quality>high</quality>
                 </release>
             </relation>
         </relation-list>
@@ -148,6 +148,7 @@ ws_test 'recording lookup with artist relationships and credits',
                 </artist>
             </name-credit>
         </artist-credit>
+        <first-release-date>2004-03-17</first-release-date>
         <relation-list target-type="artist">
             <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                 <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
@@ -434,6 +435,7 @@ ws_test 'recording lookup with work-level relationships',
     <recording id="4878bc36-7306-497a-b45a-561d9f7f8573">
         <title>Asseswaving</title>
         <length>274666</length>
+        <first-release-date>2008-04-29</first-release-date>
         <relation-list target-type="work">
             <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
                 <target>f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8</target>
@@ -469,6 +471,7 @@ ws_test 'recording lookup with instrument credit',
     <recording id="0982e813-a279-482c-8057-285d07372fb9">
         <title>Orange Wedge</title>
         <length>186826</length>
+        <first-release-date>1999-06-21</first-release-date>
         <relation-list target-type="artist">
             <relation type-id="59054b12-01ac-43ee-a618-285fd397e461" type="instrument">
                 <target>97fa3f6e-557c-4227-bc0e-95a7f9f3285d</target>

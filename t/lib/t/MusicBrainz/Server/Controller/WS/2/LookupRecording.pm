@@ -17,13 +17,16 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+MusicBrainz::Server::Test->prepare_test_database($c, '+standalone_recording');
 
 ws_test 'basic recording lookup',
     '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
-        <title>サマーれげぇ!レインボー</title><length>296026</length>
+        <title>サマーれげぇ!レインボー</title>
+        <length>296026</length>
+        <first-release-date>2001-07-04</first-release-date>
     </recording>
 </metadata>';
 
@@ -33,11 +36,12 @@ ws_test 'recording lookup with releases',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
+        <first-release-date>2001-07-04</first-release-date>
         <release-list count="2">
           <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
             <title>Summer Reggae! Rainbow</title>
             <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
-            <quality>normal</quality>
+            <quality>high</quality>
             <text-representation>
               <language>jpn</language><script>Latn</script>
             </text-representation>
@@ -92,6 +96,7 @@ ws_test 'recording lookup, inc=annotation',
         <title>Plock</title>
         <length>237133</length>
         <annotation><text>this is a recording annotation</text></annotation>
+        <first-release-date>1999-09-13</first-release-date>
     </recording>
 </metadata>';
 
@@ -100,7 +105,9 @@ ws_test 'lookup recording with official singles',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
-        <title>サマーれげぇ!レインボー</title><length>296026</length>
+        <title>サマーれげぇ!レインボー</title>
+        <length>296026</length>
+        <first-release-date>2001-07-04</first-release-date>
         <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
             <title>サマーれげぇ!レインボー</title>
@@ -135,6 +142,7 @@ ws_test 'lookup recording with official singles (+media)',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
+        <first-release-date>2001-07-04</first-release-date>
         <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
                 <title>サマーれげぇ!レインボー</title>
@@ -195,6 +203,7 @@ ws_test 'recording lookup with artists',
                 </artist>
             </name-credit>
         </artist-credit>
+        <first-release-date>2004-03-17</first-release-date>
     </recording>
 </metadata>';
 
@@ -203,7 +212,9 @@ ws_test 'recording lookup with puids (no-op) and isrcs',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
-        <title>サマーれげぇ!レインボー</title><length>296026</length>
+        <title>サマーれげぇ!レインボー</title>
+        <length>296026</length>
+        <first-release-date>2001-07-04</first-release-date>
         <isrc-list count="1">
             <isrc id="JPA600102450" />
         </isrc-list>
@@ -217,6 +228,7 @@ ws_test 'recording lookup with release relationships',
     <recording id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
         <title>Dear Diary</title>
         <length>86666</length>
+        <first-release-date>2008-04-29</first-release-date>
         <relation-list target-type="release">
             <relation type-id="967746f9-9d79-456c-9d1e-50116f0b27fc" type="samples material">
                 <target>4ccb3e54-caab-4ad4-94a6-a598e0e52eec</target>
@@ -244,6 +256,17 @@ ws_test 'recording lookup with release relationships',
                 </release>
             </relation>
         </relation-list>
+    </recording>
+</metadata>';
+
+
+ws_test 'standalone recording lookup',
+    '/recording/c289a368-867e-4ae0-a1ac-ba28a99822f3' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording id="c289a368-867e-4ae0-a1ac-ba28a99822f3">
+        <title>[silence]</title>
+        <length>10000</length>
     </recording>
 </metadata>';
 
