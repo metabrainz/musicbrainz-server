@@ -335,7 +335,7 @@ function addRelationshipsFromQueryString(source) {
         : linkType.type0;
     }
 
-    var data = {
+    const data = {
       target: target,
       linkTypeID: linkType ? linkType.id : null,
       begin_date: parseDate(rel.begin_date || ''),
