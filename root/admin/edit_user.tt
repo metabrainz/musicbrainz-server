@@ -1,8 +1,7 @@
 [% WRAPPER "user/profile/layout.tt" title=l('Adjust User Account Flags') page='edit_user' %]
     [%- USE r = FormRenderer(form) -%]
-    [%- USE t = FormRenderer(form2) -%]
     <form action="[% c.req.uri %]" method="post">
-        [% form_csrf_token %]
+        [% form_csrf_token(r) %]
         [% r.hidden('submitted', value => 1) %]
         <h2>[%- l('User permissions') -%]</h2>
         [% form_row_checkbox(r, 'auto_editor', l('Auto-editor')) %]
@@ -34,14 +33,14 @@
         [% END %]
 
     <h2>[%- l('Edit profile') -%]</h2>
-    [% form_row_text(t, 'username', l('Username:')) %]
-    [% form_row_email_long(t, 'email', l('Email:')) %]
-    [% form_row_checkbox(t, 'skip_verification', l('Skip verification')) %]
-    [% form_row_url_long(t, 'website', l('Website:')) %]
+    [% form_row_text(r, 'username', l('Username:')) %]
+    [% form_row_email_long(r, 'email', l('Email:')) %]
+    [% form_row_checkbox(r, 'skip_verification', l('Skip verification')) %]
+    [% form_row_url_long(r, 'website', l('Website:')) %]
     [% WRAPPER form_row %]
-        [% t.label('biography', l('Bio:')) %]
-        [% t.textarea('biography', { cols => 80, rows => 5 }) %]
-        [% field_errors(form2, 'biography') %]
+        [% r.label('biography', l('Bio:')) %]
+        [% r.textarea('biography', { cols => 80, rows => 5 }) %]
+        [% field_errors(form, 'biography') %]
     [% END %]
 
         <div class="row no-label">

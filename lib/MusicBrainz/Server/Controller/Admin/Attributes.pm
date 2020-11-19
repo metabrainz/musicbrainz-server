@@ -111,7 +111,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
     my ($self, $c, $id) = @_;
     my $model = $c->stash->{model};
     my $attr = $c->model($model)->get_by_id($id);
-    my $form = $c->form(form => 'Confirm');
+    my $form = $c->form(form => 'SecureConfirm');
     $c->stash->{attribute} = $attr;
 
     if ($c->model($model)->in_use($id)) {

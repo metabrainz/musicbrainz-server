@@ -7,7 +7,7 @@
  */
 
 /*
- * window[GLOBAL_DBDEFS_NAMESPACE] contains the values exported by
+ * window[GLOBAL_JS_NAMESPACE].DBDefs contains the values exported by
  * DBDefs-client-values.js.
  * See root/layout/components/globalsScript.js for more info.
  *
@@ -22,7 +22,7 @@ if (typeof window === 'undefined') {
    */
   defaultExport = require('./DBDefs-client-values');
 } else {
-  defaultExport = window[GLOBAL_DBDEFS_NAMESPACE];
+  defaultExport = window[GLOBAL_JS_NAMESPACE].DBDefs;
 }
 
 export default defaultExport;

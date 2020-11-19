@@ -33,7 +33,7 @@ const LostUsername = (props: Props): React.Element<typeof Layout> => (
           your MusicBrainz account information.`)}
     </p>
     <form method="post">
-      <FormCsrfToken />
+      <FormCsrfToken form={props.form} />
       <FormRowEmailLong
         field={props.form.field.email}
         label={addColonText(l('Email'))}

@@ -30,6 +30,7 @@ const FormRowCheckbox = ({
       <input
         aria-describedby={help ? `field-help-${field.id}` : null}
         defaultChecked={field.value}
+        id={'id-' + String(field.html_name)}
         name={field.html_name}
         onChange={onChange}
         type="checkbox"

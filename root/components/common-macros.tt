@@ -942,9 +942,9 @@ END ~%]
   [% END %]
 [%- END -%]
 
-[%~ MACRO form_csrf_token BLOCK; # Converted to React at root/components/FormCsrfToken.js
-    IF invalid_csrf_token;
-        '<p class="error">' _ l('The form you’ve submitted has expired. Please resubmit your request.') _ '</p>';
-    END;
-    '<input type="hidden" name="csrf_token" value="' _ html_escape(csrf_token) _ '" />';
-END ~%]
+[%~ MACRO form_csrf_token(r) BLOCK -%] [% # Converted to React at root/components/FormCsrfToken.js %]
+    [%- r.hidden('csrf_session_key') -%]
+    [%- field_errors(r.form, 'csrf_session_key') -%]
+    [%- r.hidden('csrf_token') -%]
+    [%- field_errors(r.form, 'csrf_token') -%]
+[%~ END ~%]

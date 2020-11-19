@@ -35,11 +35,11 @@ const LostPassword = (props: Props): React.Element<typeof Layout> => (
          email with a link to reset your password. If you have
          forgotten your username, {link|retrieve it} first and then
          reset your password.`,
-        {link: '/account/lost-username'},
+        {link: '/lost-username'},
       )}
     </p>
     <form method="post">
-      <FormCsrfToken />
+      <FormCsrfToken form={props.form} />
       <FormRowText
         field={props.form.field.username}
         label={l('Username:')}

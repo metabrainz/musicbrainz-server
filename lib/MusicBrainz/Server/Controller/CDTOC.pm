@@ -144,7 +144,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
     );
 }
 
-sub attach : Local DenyWhenReadonly
+sub attach : Local DenyWhenReadonly Edit
 {
     my ($self, $c) = @_;
 
@@ -158,13 +158,7 @@ sub attach : Local DenyWhenReadonly
 
     $c->stash( cdtoc => $cdtoc );
 
-    if ($c->form_posted) {
-        $c->forward('/user/do_login');
-    }
-
     if (my $medium_id = $c->req->query_params->{medium}) {
-        $c->forward('/user/do_login');
-
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
             ) unless looks_like_number($medium_id);

@@ -1,0 +1,55 @@
+{
+  title: 'MBS-4555',
+  commands: [
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/no_tracklist.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-username',
+      value: 'editor',
+    },
+    {
+      command: 'type',
+      target: 'id=id-password',
+      value: 'password',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=span.buttons.login > button[type="submit"]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('seed-errors').textContent.trim()",
+      value: 'The data you’ve seeded contained the following errors:\n        \n          Invalid language: “kpn”.\n        \n          Invalid script: “kpan”.\n        \n          labels.0 isn’t defined, do your indexes start at 0?\n        \n          Invalid labels.4.mbid: “9f142207-1a9e-4530-98a3-de23f50e8472”.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=name',
+      value: '大人なのよ!/1億3千万総ダイエット王国',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=span.menu-header',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'link=Log Out',
+      value: '',
+    },
+  ],
+}

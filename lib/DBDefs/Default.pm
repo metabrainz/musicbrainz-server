@@ -320,9 +320,6 @@ sub GIT_BRANCH { qx( $git_info branch ) }
 sub GIT_MSG { qx( $git_info msg ) }
 sub GIT_SHA { qx( $git_info sha ) }
 
-# How long an annotation is considered as being locked.
-sub ANNOTATION_LOCK_TIME { 60*15 }
-
 # Amazon associate and developer ids
 my %amazon_store_associate_ids = (
     'amazon.ca'         => 'music0b72-20',
@@ -438,6 +435,12 @@ sub DISCOURSE_API_KEY { '' }
 sub DISCOURSE_API_USERNAME { '' }
 # See https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
 sub DISCOURSE_SSO_SECRET { '' }
+
+# Secret key used to generate nonce values in some contexts, e.g. CSRF tokens
+# and CSP headers. Even without a secret set, the generated nonces are very
+# unlikely to be guessed; this is mainly only useful for an additional layer
+# of security on the MusicBrainz production site.
+sub NONCE_SECRET { '' }
 
 # When enabled, if Catalyst receives a request with an `mb-set-database`
 # header, all database queries will go to the specified database instead of
