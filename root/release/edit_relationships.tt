@@ -16,9 +16,9 @@
 
       <p>[% l('To use the batch tools, select some recordings or works using the checkboxes.') %]</p>
 
-      <!-- ko if: source.mediums().length -->
       <h2>[% l('Track Relationships') %]</h2>
 
+      <!-- ko if: source.mediums().length -->
       <table id="batch-tools" data-bind="with: checkboxes">
         <tr>
           <td>
@@ -88,6 +88,12 @@
         <span class="loading-message">[% l('Loading...') %]</span>
       </p>
 
+      <p data-bind="ifnot: loadingRelease">
+          <!-- ko if: !source.mediums().length -->
+            [% l('We have no information about this release’s media and tracklist.') %]
+          <!-- /ko -->
+      </p>
+      
       <h2>[% l('Release Relationships') %]</h2>
 
       <div id="release-rels" class="ars">
