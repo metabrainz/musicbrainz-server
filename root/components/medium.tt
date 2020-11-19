@@ -80,7 +80,18 @@
             <td>
               [% FOR item IN phrase_group.items %]
                 <div class="track-rel">
-                  [% relationship_target_links(item.relationship) %]
+                  [% relationship_link = relationship_target_links(item.relationship) %]
+                  [% item.relationship.link_order
+                    ? item.relationship.entity_is_orderable(item.relationship.target)
+                      ? l('{num}. {relationship}', {
+                        num => item.relationship.link_order,
+                        relationship => relationship_link,
+                      })
+                      :  l('{relationship} (order: {num})', {
+                        num => item.relationship.link_order,
+                        relationship => relationship_link,
+                      })
+                    : relationship_link %]
                   <span class="comment">
                     ([% ln('track {tracks}', 'tracks {tracks}', item.track_count, { tracks => item.tracks }) %])
                   </span>
