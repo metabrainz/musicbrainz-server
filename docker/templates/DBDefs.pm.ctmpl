@@ -205,6 +205,7 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "STRING_DEF" "GPG_ENCRYPT_KEY"}}
 {{executeTemplate "STRING_DEF" "GPG_SIGN_KEY"}}
 {{executeTemplate "STRING_DEF" "MAPBOX_ACCESS_TOKEN"}}
+{{executeTemplate "STRING_DEF" "NONCE_SECRET"}}
 {{executeTemplate "STRING_DEF" "RECAPTCHA_PRIVATE_KEY"}}
 {{executeTemplate "STRING_DEF" "RECAPTCHA_PUBLIC_KEY"}}
 {{executeTemplate "STRING_DEF" "RENDERER_SOCKET"}}
