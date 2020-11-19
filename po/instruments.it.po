@@ -7,15 +7,15 @@
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Panfilo <email address hidden>, 2017
-# Luca Salini <email address hidden>, 2020
+# Luca Salini, 2020
 # Monica <email address hidden>, 2014
-# Luca Salini <email address hidden>, 2012
+# Luca Salini, 2012
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-01 10:28+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2020-11-19 02:15+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2504,7 +2504,7 @@ msgstr "melodica"
 
 #: DB:instrument/name:100
 msgid "membranophone"
-msgstr "membranofoni"
+msgstr "membranofono"
 
 #: DB:instrument/name:114
 msgid "mendoza"
@@ -2569,6 +2569,7 @@ msgid "musical box"
 msgstr "carillon (scatola musicale)"
 
 #: DB:instrument/name:145
+msgctxt "Bowed metal plaque idiophone"
 msgid "musical saw"
 msgstr "sega musicale"
 
@@ -3346,6 +3347,7 @@ msgid "single reed"
 msgstr "ancia singola"
 
 #: DB:instrument/name:370
+msgctxt "Ancient Egyptian rattle"
 msgid "sistrum"
 msgstr "sistro"
 

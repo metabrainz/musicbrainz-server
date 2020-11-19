@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-29 16:19+0000\n"
+"PO-Revision-Date: 2020-11-19 02:15+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2565,6 +2565,7 @@ msgid "musical box"
 msgstr "speeldoos"
 
 #: DB:instrument/name:145
+msgctxt "Bowed metal plaque idiophone"
 msgid "musical saw"
 msgstr "zingende zaag"
 
@@ -3342,6 +3343,7 @@ msgid "single reed"
 msgstr "enkelriet"
 
 #: DB:instrument/name:370
+msgctxt "Ancient Egyptian rattle"
 msgid "sistrum"
 msgstr "sistrum"
 

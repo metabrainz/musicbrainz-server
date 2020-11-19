@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-28 21:04+0000\n"
+"PO-Revision-Date: 2020-11-19 02:15+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -2573,6 +2573,7 @@ msgid "musical box"
 msgstr "caja de música"
 
 #: DB:instrument/name:145
+msgctxt "Bowed metal plaque idiophone"
 msgid "musical saw"
 msgstr "sierra musical"
 
@@ -3350,6 +3351,7 @@ msgid "single reed"
 msgstr ""
 
 #: DB:instrument/name:370
+msgctxt "Ancient Egyptian rattle"
 msgid "sistrum"
 msgstr ""
 
