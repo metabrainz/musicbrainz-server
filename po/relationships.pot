@@ -2220,11 +2220,7 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:722
-msgid ""
-"This links a subgroup to the group from which it was created. This "
-"relationship type is the functional equivalent of the <a href=\"/"
-"relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band type</a> "
-"for group-group relationships."
+msgid "This links a subgroup to the group from which it was created."
 msgstr ""
 
 #: DB:link_type/description:939

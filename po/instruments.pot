@@ -2554,6 +2554,7 @@ msgid "musical box"
 msgstr ""
 
 #: DB:instrument/name:145
+msgctxt "Bowed metal plaque idiophone"
 msgid "musical saw"
 msgstr ""
 
@@ -3331,6 +3332,7 @@ msgid "single reed"
 msgstr ""
 
 #: DB:instrument/name:370
+msgctxt "Ancient Egyptian rattle"
 msgid "sistrum"
 msgstr ""
 
