@@ -131,7 +131,9 @@ ws_test 'isrc lookup with releases',
         <isrc id="JPA600102460">
             <recording-list count="1">
                 <recording id="487cac92-eed5-4efa-8563-c9a818079b9a">
-                    <title>HELLO! また会おうね (7人祭 version)</title><length>213106</length>
+                    <title>HELLO! また会おうね (7人祭 version)</title>
+                    <length>213106</length>
+                    <first-release-date>2001-07-04</first-release-date>
                     <release-list count="2">
                         <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                             <title>Summer Reggae! Rainbow</title>

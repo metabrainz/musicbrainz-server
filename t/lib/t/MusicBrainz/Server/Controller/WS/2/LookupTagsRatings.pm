@@ -74,7 +74,24 @@ ws_test 'artist lookup with tags, genres, user-tags, and user-genres',
 
 ws_test 'recording lookup with tags and ratings',
     '/recording/7a356856-9483-42c2-bed9-dc07cb555952?inc=tags+genres+ratings' =>
-    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><recording id="7a356856-9483-42c2-bed9-dc07cb555952"><title>Cella</title><length>334000</length><tag-list><tag count="1"><name>dubstep</name></tag></tag-list><genre-list><genre count="1" id="1b50083b-1afa-4778-82c8-548b309af783"><name>dubstep</name></genre></genre-list></recording></metadata>';
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording id="7a356856-9483-42c2-bed9-dc07cb555952">
+        <title>Cella</title>
+        <length>334000</length>
+        <first-release-date>2007-01-29</first-release-date>
+        <tag-list>
+            <tag count="1">
+                <name>dubstep</name>
+            </tag>
+        </tag-list>
+        <genre-list>
+            <genre count="1" id="1b50083b-1afa-4778-82c8-548b309af783">
+                <name>dubstep</name>
+            </genre>
+        </genre-list>
+    </recording>
+</metadata>';
 
 ws_test 'label lookup with tags, genres and ratings',
     '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=tags+genres+ratings' =>

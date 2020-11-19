@@ -363,9 +363,15 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
 sub MAPBOX_ACCESS_TOKEN { '' }
 
+# Set to 26 for the following features:
+#  * PKCE for OAuth 2.0 clients.
+#    (admin/sql/updates/20200914-oauth-pkce.sql)
+#  * recording_first_release_date table.
+#    (admin/sql/updates/20201028-mbs-1424.sql)
+sub ACTIVE_SCHEMA_SEQUENCE { 25 }
+
 # Enable PKCE for OAuth 2.0 clients.
-# Currently requires a schema change: admin/sql/updates/20200914-oauth-pkce.sql
-sub OAUTH2_ENABLE_PKCE { 0 }
+sub OAUTH2_ENABLE_PKCE { shift->ACTIVE_SCHEMA_SEQUENCE >= 26 }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }

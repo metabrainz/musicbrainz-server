@@ -76,5 +76,12 @@
                    "20190317-mbs-9941-mbs-10062-fks.sql",
                    "20190422-mbs-9428-collection-collaborators-fks.sql",
                    "20190423-mbs-10052-eaa-standalone.sql"]
+  },
+
+  "26": {
+    "slave": ["20200512-mbs-10821-orphaned-recording-collection.sql",
+              "20200914-oauth-pkce.sql",
+              "20201028-mbs-1424.sql"],
+    "standalone": ["20201028-mbs-1424-fks.sql"]
   }
 }

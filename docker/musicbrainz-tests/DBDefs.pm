@@ -104,7 +104,7 @@ sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 sub MB_LANGUAGES { qw( de el-gr es-es et fi fr it ja nl sq en ) }
 
-sub OAUTH2_ENABLE_PKCE { 1 }
+sub ACTIVE_SCHEMA_SEQUENCE { 26 }
 
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;

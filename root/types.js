@@ -862,6 +862,7 @@ declare type RecordingT = $ReadOnly<{
   ...CoreEntityRoleT<'recording'>,
   ...RatableRoleT,
   +appearsOn?: AppearancesT<{gid: string, name: string}>,
+  +first_release_date?: PartialDateT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
   +primaryAlias?: string | null,
