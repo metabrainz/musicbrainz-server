@@ -82,6 +82,7 @@ DROP FUNCTION remove_unused_links();
 DROP FUNCTION remove_unused_url();
 DROP FUNCTION replace_old_sub_on_add();
 DROP FUNCTION set_recordings_first_release_dates(recording_ids INTEGER[]);
+DROP FUNCTION set_release_first_release_date(release_id INTEGER);
 DROP FUNCTION set_release_group_first_release_date(release_group_id INTEGER);
 DROP FUNCTION set_releases_recordings_first_release_dates(release_ids INTEGER[]);
 DROP FUNCTION simplify_search_hints();
