@@ -374,7 +374,8 @@ div.status span.msg {
 }
 
 /* Cover art type checkboxes */
-ul.cover-art-type-checkboxes {
+ul.cover-art-type-checkboxes,
+ul.event-art-type-checkboxes {
     margin: 0;
     padding: 0;
     display: flex;
@@ -399,8 +400,10 @@ td.uploader-preview-column {
     width: 160px;
 }
 
-tr div.cover-art-types-help { display: none; }
-tr:nth-child(1) div.cover-art-types-help { display: block; }
+tr div.cover-art-types-help,
+tr div.event-art-types-help { display: none; }
+tr:nth-child(1) div.cover-art-types-help,
+tr:nth-child(1) div.event-art-types-help { display: block; }
 
 div.image-position { margin: 2em 0; overflow: hidden; }
 
@@ -415,7 +418,8 @@ div.thumb-position {
     border-radius: 2px;
 }
 
-table.reorder-cover-art div.thumb-position {
+table.reorder-cover-art div.thumb-position,
+table.reorder-event-art div.thumb-position {
     height: 125px;
 }
 
@@ -425,7 +429,8 @@ div.thumb-position img {
     max-height: 125px;
 }
 
-.edit-cover-art img {
+.edit-cover-art img,
+.edit-event-art img {
     max-width: 250px;
     max-height: 250px;
 }
@@ -496,7 +501,9 @@ div.editimage.selected p.currently-selected { display: block; }
 }
 
 #add-cover-art div.thumb-position.editimage,
-#reorder-cover-art div.thumb-position.editimage {
+#add-event-art div.thumb-position.editimage,
+#reorder-cover-art div.thumb-position.editimage,
+#reorder-event-art div.thumb-position.editimage {
     cursor: move;
     cursor: -moz-grab;
     cursor: -webkit-grab;

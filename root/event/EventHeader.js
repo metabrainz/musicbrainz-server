@@ -11,7 +11,7 @@ import EntityHeader from '../components/EntityHeader.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
-component EventHeader(event: EventT, page: string) {
+component EventHeader(event: EventT, page?: string) {
   return (
     <EntityHeader
       entity={event}

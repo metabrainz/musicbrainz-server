@@ -57,7 +57,7 @@ END; -%]
         <img src="[% artwork.small_ia_thumbnail %]" />
     </noscript>
 
-    <span class="cover-art-image"
+    <span class="artwork-image"
         data-small-thumbnail="[% artwork.small_ia_thumbnail %]"
         data-large-thumbnail="[% artwork.large_ia_thumbnail %]"
         data-title="[% artwork_hover(artwork) %]"

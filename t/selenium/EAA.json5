@@ -1,0 +1,522 @@
+{
+  title: 'EAA',
+  commands: [
+    {
+      command: 'open',
+      // Seed the edit note field via a query parameter.
+      target: '/event/a43f824a-1679-4453-9722-d9ab51fbc85a/add-event-art?add-event-art.edit_note=seeded+note',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=input[type=file]',
+      // Multiple files should be separated by \n.
+      // See https://github.com/SeleniumHQ/selenium/issues/7472
+      value: '${MBS_ROOT}/root/static/images/entity/artist.png\n${MBS_ROOT}/root/static/images/entity/label.png',
+    },
+    {
+      command: 'check',
+      target: "xpath=((//ul[contains(@class, 'checkboxes')])[1]//input[contains(@type, 'checkbox')][contains(@class, 'type')])[1]",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "id=id-add-event-art.edit_note",
+      value: 'seeded note',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//input[contains(@class, 'comment')])[1]",
+      value: 'cool',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//input[contains(@class, 'comment')])[2]",
+      value: 'loco',
+    },
+    {
+      command: 'runScript',
+      target: 'window.ARTWORK_IMAGE_ID = 135',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=add-event-art-submit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 158,
+        status: 1,
+        data: {
+          entity: {
+            id: 1606,
+            mbid: 'a43f824a-1679-4453-9722-d9ab51fbc85a',
+            name: 'MusicBrainz Summit 14',
+          },
+          event_art_id: 135,
+          event_art_types: [1],
+          event_art_comment: 'cool',
+          event_art_position: 1,
+          event_art_mime_type: 'image/png',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 158,
+        status: 1,
+        data: {
+          entity: {
+            id: 1606,
+            mbid: 'a43f824a-1679-4453-9722-d9ab51fbc85a',
+            name: 'MusicBrainz Summit 14',
+          },
+          event_art_id: 136,
+          event_art_types: [],
+          event_art_comment: 'loco',
+          event_art_position: 2,
+          event_art_mime_type: 'image/png',
+        },
+      },
+    },
+    {
+      command: 'assertText',
+      target: "xpath=((//div[contains(@class, 'artwork-cont mp')])[1]/p)[1]",
+      value: 'Types: Poster',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=((//div[contains(@class, 'artwork-cont mp')])[1]/p)[2]",
+      value: 'cool',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=((//div[contains(@class, 'artwork-cont mp')])[2]/p)[1]",
+      value: 'Types: -',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=((//div[contains(@class, 'artwork-cont mp')])[2]/p)[2]",
+      value: 'loco',
+    },
+    // Verify that the seeded edit note was used.
+    {
+      command: 'open',
+      target: '/edit/1',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//div[contains(@class, 'edit-note-text')]",
+      value: 'seeded note',
+    },
+    // Wait for the artwork-indexer to catch up.
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'assertArtworkJson',
+      target: 'event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      value: {
+        images: [
+          {
+            approved: false,
+            comment: 'cool',
+            edit: 1,
+            front: true,
+            id: 135,
+            image: 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135.png',
+            thumbnails: {
+              '1200': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-1200.jpg',
+              '250': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+              '500': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'large': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'small': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+            },
+            types: ['Poster'],
+          },
+          {
+            approved: false,
+            comment: 'loco',
+            edit: 2,
+            front: false,
+            id: 136,
+            image: 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136.png',
+            thumbnails: {
+              '1200': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-1200.jpg',
+              '250': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-250.jpg',
+              '500': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-500.jpg',
+              'large': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-500.jpg',
+              'small': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-250.jpg',
+            },
+            types: [],
+          },
+        ],
+        event: 'https://musicbrainz.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      },
+    },
+    // Approve both 'Add Event Art' edits.
+    {
+      command: 'open',
+      target: '/test/accept-edit/1',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/test/accept-edit/2',
+      value: '',
+    },
+    // Wait for the artwork-indexer to catch up.
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    // `approved` should be true for both images in index.json now.
+    {
+      command: 'assertArtworkJson',
+      target: 'event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      value: {
+        images: [
+          {
+            approved: true,
+            comment: 'cool',
+            edit: 1,
+            front: true,
+            id: 135,
+            image: 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135.png',
+            thumbnails: {
+              '1200': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-1200.jpg',
+              '250': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+              '500': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'large': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'small': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+            },
+            types: ['Poster'],
+          },
+          {
+            approved: true,
+            comment: 'loco',
+            edit: 2,
+            front: false,
+            id: 136,
+            image: 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136.png',
+            thumbnails: {
+              '1200': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-1200.jpg',
+              '250': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-250.jpg',
+              '500': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-500.jpg',
+              'large': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-500.jpg',
+              'small': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-250.jpg',
+            },
+            types: [],
+          },
+        ],
+        event: 'https://musicbrainz.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      },
+    },
+    // Next: edit the types and comment of the first image.
+    {
+      command: 'open',
+      target: '/event/a43f824a-1679-4453-9722-d9ab51fbc85a/event-art',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: "xpath=((//div[contains(@class, 'artwork-cont')])[1]//a[contains(text(), 'Edit')])[1]",
+      value: '',
+    },
+    {
+      command: 'uncheck',
+      target: 'xpath=//input[contains(@name, "edit-event-art.type_id")][@value = 1]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=id-edit-event-art.comment',
+      value: '+loco',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=id-edit-event-art.edit_note',
+      value: 'ed',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button.submit.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 1510,
+        status: 2,
+        data: {
+          entity: {
+            id: 1606,
+            mbid: 'a43f824a-1679-4453-9722-d9ab51fbc85a',
+            name: 'MusicBrainz Summit 14',
+          },
+          id: 135,
+          old: {
+            types: [1],
+            comment: 'cool',
+          },
+          new: {
+            types: [],
+            comment: 'cool+loco',
+          },
+        },
+      },
+    },
+    {
+      command: 'assertText',
+      target: "xpath=((//div[contains(@class, 'artwork-cont')])[1]/p)[1]",
+      value: 'Types: -',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=((//div[contains(@class, 'artwork-cont')])[1]/p)[2]",
+      value: 'cool+loco',
+    },
+    // Wait for the artwork-indexer to catch up.
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'assertArtworkJson',
+      target: 'event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      value: {
+        images: [
+          {
+            approved: true,
+            comment: 'cool+loco',
+            edit: 1,
+            front: false,
+            id: 135,
+            image: 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135.png',
+            thumbnails: {
+              '1200': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-1200.jpg',
+              '250': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+              '500': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'large': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'small': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+            },
+            types: [],
+          },
+          {
+            approved: true,
+            comment: 'loco',
+            edit: 2,
+            front: false,
+            id: 136,
+            image: 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136.png',
+            thumbnails: {
+              '1200': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-1200.jpg',
+              '250': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-250.jpg',
+              '500': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-500.jpg',
+              'large': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-500.jpg',
+              'small': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-250.jpg',
+            },
+            types: [],
+          },
+        ],
+        event: 'https://musicbrainz.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      },
+    },
+    // Reorder the images.
+    {
+      command: 'open',
+      target: '/event/a43f824a-1679-4453-9722-d9ab51fbc85a/event-art',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: "xpath=//a[contains(., 'Reorder event art')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=(//button[contains(@class, 'right')])[1]",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button.submit.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 1511,
+        status: 2,
+        data: {
+          entity: {
+            id: 1606,
+            mbid: 'a43f824a-1679-4453-9722-d9ab51fbc85a',
+            name: 'MusicBrainz Summit 14',
+          },
+          old: [
+            {
+              id: 135,
+              position: 1,
+            },
+            {
+              id: 136,
+              position: 2,
+            }
+          ],
+          new: [
+            {
+              id: 135,
+              position: 2,
+            },
+            {
+              id: 136,
+              position: 1,
+            }
+          ],
+        },
+      },
+    },
+    // Wait for the artwork-indexer to catch up.
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'assertArtworkJson',
+      target: 'event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      value: {
+        images: [
+          {
+            approved: true,
+            comment: 'loco',
+            edit: 2,
+            front: false,
+            id: 136,
+            image: 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136.png',
+            thumbnails: {
+              '1200': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-1200.jpg',
+              '250': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-250.jpg',
+              '500': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-500.jpg',
+              'large': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-500.jpg',
+              'small': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/136-250.jpg',
+            },
+            types: [],
+          },
+          {
+            approved: true,
+            comment: 'cool+loco',
+            edit: 1,
+            front: false,
+            id: 135,
+            image: 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135.png',
+            thumbnails: {
+              '1200': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-1200.jpg',
+              '250': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+              '500': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'large': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'small': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+            },
+            types: [],
+          },
+        ],
+        event: 'https://musicbrainz.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      },
+    },
+    // Remove the back image.
+    {
+      command: 'open',
+      target: '/event/a43f824a-1679-4453-9722-d9ab51fbc85a/event-art',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: "xpath=(//div[contains(@class, 'artwork-cont')])[1]//a[contains(., 'Remove')][1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "id=edit-note-text",
+      value: 'rm',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button.submit.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 5,
+      value: {
+        type: 159,
+        status: 1,
+        data: {
+          entity: {
+            id: 1606,
+            mbid: 'a43f824a-1679-4453-9722-d9ab51fbc85a',
+            name: 'MusicBrainz Summit 14',
+          },
+          event_art_id: 136,
+          event_art_types: [],
+          event_art_suffix: 'png',
+          event_art_comment: 'loco',
+          event_art_mime_type: 'image/png',
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/test/accept-edit/5',
+      value: '',
+    },
+    // Wait for the artwork-indexer to catch up.
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'assertArtworkJson',
+      target: 'event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      value: {
+        images: [
+          {
+            approved: true,
+            comment: 'cool+loco',
+            edit: 1,
+            front: false,
+            id: 135,
+            image: 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135.png',
+            thumbnails: {
+              '1200': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-1200.jpg',
+              '250': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+              '500': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'large': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-500.jpg',
+              'small': 'https://eventartarchive.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a/135-250.jpg',
+            },
+            types: [],
+          },
+        ],
+        event: 'https://musicbrainz.org/event/a43f824a-1679-4453-9722-d9ab51fbc85a',
+      },
+    },
+  ],
+}

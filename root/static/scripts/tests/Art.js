@@ -12,6 +12,20 @@ import test from 'tape';
 import MB from '../common/MB.js';
 import Art from '../edit/MB/Art.js';
 
+window[GLOBAL_JS_NAMESPACE] = {
+  $c: {
+    action: {
+      name: 'add_cover_art',
+    },
+    stash: {
+      current_language: 'en',
+    },
+    user: {},
+  },
+};
+
+Art.initialize_context();
+
 MB.cover_art_types_json = [
   {id: 'image/jpeg', l_name: 'jpg'},
   {id: 'image/png', l_name: 'png'},

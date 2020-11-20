@@ -144,6 +144,10 @@ declare type EDIT_EVENT_ADD_ANNOTATION_T = 154;
 declare type EDIT_EVENT_ADD_ALIAS_T = 155;
 declare type EDIT_EVENT_DELETE_ALIAS_T = 156;
 declare type EDIT_EVENT_EDIT_ALIAS_T = 157;
+declare type EDIT_EVENT_ADD_EVENT_ART_T = 158;
+declare type EDIT_EVENT_REMOVE_EVENT_ART_T = 159;
+declare type EDIT_EVENT_EDIT_EVENT_ART_T = 1510;
+declare type EDIT_EVENT_REORDER_EVENT_ART_T = 1511;
 
 declare type EDIT_GENRE_CREATE_T = 160;
 declare type EDIT_GENRE_EDIT_T = 161;
