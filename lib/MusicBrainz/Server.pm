@@ -495,7 +495,7 @@ around make_session_cookie => sub {
     my ($orig, $self, $sid, %attrs) = @_;
 
     my $cookie = $self->$orig($sid, %attrs);
-    $cookie->{samesite} = 'Strict';
+    $cookie->{samesite} = 'Lax';
     $cookie->{secure} = 1 if $self->req->secure;
     return $cookie;
 };
@@ -651,6 +651,19 @@ sub set_csp_headers {
             ))
         ),
     );
+}
+
+sub is_cross_origin {
+    my $self = shift;
+
+    my $origin = $self->req->header('Origin');
+    return 0 unless defined $origin;
+
+    my $mb_origin = DBDefs->SSL_REDIRECTS_ENABLED
+        ? ('https://' . DBDefs->WEB_SERVER_SSL)
+        : ('http://' . DBDefs->WEB_SERVER);
+
+    return $origin ne $mb_origin;
 }
 
 sub TO_JSON {

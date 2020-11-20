@@ -25,6 +25,10 @@ sub rate : Local RequireAuth DenyWhenReadonly
         $c->detach('/error_401');
     }
 
+    if ($c->is_cross_origin) {
+        $c->response->redirect($c->uri_for('/'));
+    }
+
     my $entity_type = $c->request->params->{entity_type};
     my $entity_id = $c->request->params->{entity_id};
     my $rating = $c->request->params->{rating};
