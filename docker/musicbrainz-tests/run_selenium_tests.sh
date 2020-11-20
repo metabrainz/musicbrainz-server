@@ -26,6 +26,11 @@ rabbitmqctl add_user sir sir
 rabbitmqctl add_vhost /sir-test
 rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
 
+sudo -u postgres psql -U musicbrainz -d musicbrainz_selenium -c <<'EOSQL'
+ALTER SCHEMA amqp OWNER TO musicbrainz;
+ALTER TABLE amqp.broker OWNER TO musicbrainz;
+EOSQL
+
 # Install the sir triggers into musicbrainz_selenium.
 export SIR_DIR=/home/musicbrainz/sir
 cd "$SIR_DIR"
@@ -35,7 +40,19 @@ sudo -u postgres psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_sele
 sudo -u postgres psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
 rm /etc/service/sir-queue-purger/down && sv start sir-queue-purger
 
+# Install the artwork_indexer schema into musicbrainz_selenium.
+cd /home/musicbrainz/artwork-indexer
+sudo -u postgres psql -U musicbrainz -f sql/create.sql musicbrainz_selenium
+sudo -u postgres psql -U musicbrainz -f sql/caa_functions.sql musicbrainz_selenium
+sudo -u postgres psql -U musicbrainz -f sql/caa_triggers.sql musicbrainz_selenium
+sudo -u postgres psql -U musicbrainz -f sql/eaa_functions.sql musicbrainz_selenium
+sudo -u postgres psql -U musicbrainz -f sql/eaa_triggers.sql musicbrainz_selenium
+
 cd /home/musicbrainz/musicbrainz-server
+
+# Start the various CAA-related services.
+rm /etc/service/{artwork-indexer,artwork-redirect,ssssss}/down
+sv start artwork-indexer artwork-redirect ssssss
 
 # Compile static resources.
 sudo -E -H -u musicbrainz yarn

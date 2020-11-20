@@ -268,6 +268,7 @@ const KEY_CODES = {
   '${KEY_HOME}': Key.HOME,
   '${KEY_SHIFT}': Key.SHIFT,
   '${KEY_TAB}': Key.TAB,
+  '${MBS_ROOT}': DBDefs.MB_SERVER_ROOT.replace(/\/$/, ''),
 };
 
 function getPageErrors() {
@@ -334,6 +335,15 @@ async function handleCommand({command, target, value}, t) {
 
   let element;
   switch (command) {
+    case 'assertArtworkJson':
+      const artworkJson = JSON.parse(await driver.executeAsyncScript(`
+        var callback = arguments[arguments.length - 1];
+        fetch('http://localhost:8081/release/${target}')
+          .then(x => x.text().then(callback));
+      `));
+      t.deepEqual2(artworkJson, value);
+      break;
+
     case 'assertAttribute':
       const splitAt = target.indexOf('@');
       const locator = target.slice(0, splitAt);
@@ -486,6 +496,7 @@ const seleniumTests = [
   {name: 'MBS-10188.json5', login: true, sql: 'mbs-10188.sql'},
   {name: 'MBS-10510.json5', login: true, sql: 'mbs-10510.sql'},
   {name: 'Artist_Credit_Editor.json5', login: true},
+  {name: 'CAA.json5', login: true},
   {name: 'External_Links_Editor.json5', login: true},
   {name: 'Work_Editor.json5', login: true},
   {name: 'Redirect_Merged_Entities.json5', login: true},

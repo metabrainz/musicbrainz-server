@@ -180,9 +180,16 @@ MB.CoverArt.file_data_uri = function (file) {
 MB.CoverArt.sign_upload = function (fileUpload, gid, mimeType) {
   var deferred = $.Deferred();
 
+  const data = {mime_type: mimeType};
+  /* global COVER_ART_IMAGE_ID */
+  if (typeof COVER_ART_IMAGE_ID === 'number') {
+    /* eslint-disable-next-line no-global-assign */
+    data.image_id = COVER_ART_IMAGE_ID++;
+  }
+
   var postfields = $.ajax({
     url: '/ws/js/cover-art-upload/' + gid,
-    data: {mime_type: mimeType},
+    data,
     dataType: 'json',
     cache: false,
   });

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /home/musicbrainz/artwork-indexer
+
+exec sudo -E -H -u musicbrainz bash -c '. venv/bin/activate; exec python3 indexer.py --max-wait=1'
