@@ -14,27 +14,45 @@ import entityHref from '../../static/scripts/common/utility/entityHref.js';
 type Props = {
   +artwork: ArtworkT,
   +colSpan?: number,
-  +release: ReleaseT,
+  +entity: EventT | ReleaseT,
 };
 
 const EditArtwork = ({
   artwork,
   colSpan,
-  release,
+  entity,
 }: Props): React$Element<'tr'> => {
-  const historyMessage = release.gid ? (
-    expand2html(
-      l(`We are unable to display history for this cover
-         art. For a current listing of cover art, please see the
-         {coverart|release's cover art page}.`),
-      {coverart: entityHref(release, 'cover-art')},
-    )
-  ) : l('We are unable to display history for this cover art.');
+  let historyMessage;
+  let title;
+  let className;
+  if (entity.entityType === 'event') {
+    historyMessage = entity.gid ? (
+      expand2html(
+        l(`We are unable to display history for this event
+           art. For a current listing of event art, please see the
+           {eventart|event's art page}.`),
+        {eventart: entityHref(entity, 'event-art')},
+      )
+    ) : l('We are unable to display history for this piece of artwork.');
+    title = addColonText(lp('Event art', 'singular'));
+    className = 'edit-event-art';
+  } else if (entity.entityType === 'release') {
+    historyMessage = entity.gid ? (
+      expand2html(
+        l(`We are unable to display history for this cover
+           art. For a current listing of cover art, please see the
+           {coverart|release's cover art page}.`),
+        {coverart: entityHref(entity, 'cover-art')},
+      )
+    ) : l('We are unable to display history for this piece of artwork.');
+    title = addColonText(lp('Cover art', 'singular'));
+    className = 'edit-cover-art';
+  }
 
   return (
     <tr>
-      <th>{addColonText(lp('Cover art', 'singular'))}</th>
-      <td className="edit-cover-art" colSpan={colSpan ?? null}>
+      <th>{title}</th>
+      <td className={className} colSpan={colSpan ?? null}>
         <Artwork artwork={artwork} message={historyMessage} />
       </td>
     </tr>

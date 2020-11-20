@@ -7,76 +7,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink.js';
-import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList.js';
-import Diff from '../../static/scripts/edit/components/edit/Diff.js';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
-import EditArtwork from '../components/EditArtwork.js';
+import EditArt from './EditArt.js';
 
 type Props = {
   +edit: EditCoverArtEditT,
 };
 
-function displayCoverArtTypes(types: $ReadOnlyArray<CoverArtTypeT>) {
-  if (types?.length) {
-    return commaOnlyListText(types.map(
-      type => lp_attributes(type.name, 'cover_art_type'),
-    ));
-  }
-  return '';
-}
-
-const EditCoverArt = ({edit}: Props): React$Element<'table'> => {
-  const display = edit.display_data;
-  const comment = display.comment;
-  const types = display.types;
-
-  return (
-    <table className="details remove-cover-art">
-      <tr>
-        <th>{addColonText(l('Release'))}</th>
-        <td colSpan="2">
-          <DescriptiveLink entity={display.release} />
-        </td>
-      </tr>
-
-      {nonEmpty(display.artwork.filename) ? (
-        <tr>
-          <th>{addColonText(l('Filename'))}</th>
-          <td colSpan="2">
-            <code>
-              {display.artwork.filename}
-            </code>
-          </td>
-        </tr>
-      ) : null}
-
-      {types ? (
-        <Diff
-          label={l('Types:')}
-          newText={displayCoverArtTypes(types.new)}
-          oldText={displayCoverArtTypes(types.old)}
-          split=", "
-        />
-      ) : null}
-
-      {comment ? (
-        <WordDiff
-          label={l('Comment:')}
-          newText={comment.new ?? ''}
-          oldText={comment.old ?? ''}
-        />
-      ) : null}
-
-      <EditArtwork
-        artwork={display.artwork}
-        colSpan={2}
-        release={display.release}
-      />
-    </table>
-  );
-};
+const EditCoverArt = ({
+  edit,
+}: Props): React$Element<typeof EditArt> => (
+  <EditArt
+    archiveName="cover"
+    edit={edit}
+    entityType="release"
+    formattedEntityType={l('Release')}
+  />
+);
 
 export default EditCoverArt;

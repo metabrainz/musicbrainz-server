@@ -8,7 +8,7 @@ for my $cls (qw(AggregatedTag AggregatedGenre Annotation Application
                 Artist ArtistAlias ArtistAliasType ArtistCredit ArtistCreditName ArtistType
                 AutoEditorElection AutoEditorElectionVote
                 Barcode CDTOC CDStub Collection CollectionType Coordinates
-                CoverArtType
+                CoverArtType EventArtType
                 CritiqueBrainz::Review CritiqueBrainz::User
                 EditNoteChange
                 Editor EditorOAuthToken

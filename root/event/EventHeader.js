@@ -13,7 +13,7 @@ import localizeTypeNameForEntity
 
 type Props = {
   +event: EventT,
-  +page: string,
+  +page?: string,
 };
 
 const EventHeader = ({

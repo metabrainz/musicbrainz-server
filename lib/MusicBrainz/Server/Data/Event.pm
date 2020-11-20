@@ -119,6 +119,7 @@ sub _merge_impl
     $self->c->model('Edit')->merge_entities('event', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('event', $new_id, \@old_ids);
     $self->c->model('Collection')->merge_entities('event', $new_id, @old_ids);
+    $self->c->model('EventArtArchive')->merge_events($new_id, @old_ids);
 
     my @merge_options = ($self->sql => (
                            table => 'event',
@@ -156,6 +157,7 @@ sub load_meta
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->event_art_presence($row->{event_art_presence});
     }, @_);
 }
 

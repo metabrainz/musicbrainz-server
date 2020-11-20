@@ -62,6 +62,7 @@ const entries = [
   'edit',
   'edit/components/NewNotesAlertCheckbox',
   'event/edit',
+  'event/eventart',
   'event/index',
   'genre/components/GenreEditForm',
   'genre/index',

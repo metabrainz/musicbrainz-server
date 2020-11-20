@@ -55,6 +55,8 @@ declare type CatalystStashT = {
   +current_language: string,
   +current_language_html: string,
   +entity?: RelatableEntityT,
+  +event_artwork?: EventArtT,
+  +event_artwork_count?: number,
   +genre_map?: {+[genreName: string]: GenreT, ...},
   +globals_script_nonce?: string,
   +hide_merge_helper?: boolean,

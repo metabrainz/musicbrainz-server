@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Role::ArtType;
 use Moose::Role;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::CoverArtType;
+use MusicBrainz::Server::Entity::EventArtType;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     object_to_ids

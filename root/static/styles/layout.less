@@ -369,6 +369,7 @@ img.avatar {
 }
 
 div.caa-warning,
+div.eaa-warning,
 div.warning {
     margin: 2em auto;
     border: 1px solid @dark-border;
@@ -471,7 +472,9 @@ div.warning img.warning {
     margin-right: 4px;
 }
 
-#sidebar .cover-art, #sidebar .picture {
+#sidebar .cover-art,
+#sidebar .event-art,
+#sidebar .picture {
     text-align: center;
 }
 
@@ -488,12 +491,16 @@ div.warning img.warning {
     max-height: 16px;
 }
 
-#sidebar .cover-art img, #sidebar .picture img {
+#sidebar .cover-art img,
+#sidebar .event-art img,
+#sidebar .picture img {
     max-height: 300px;
     max-width: 218px; /* references #sidebar's width */
 }
 
-#sidebar .cover-art-note, #sidebar .picture-note {
+#sidebar .cover-art-note,
+#sidebar .event-art-note,
+#sidebar .picture-note {
     color: @very-dark-text;
     display: block;
 }
@@ -1087,12 +1094,12 @@ div.artwork { position: relative; width: 250px; }
     overflow-wrap: anywhere;
 }
 
-.artwork-image, .artwork-pdf {
+a.artwork-image, a.artwork-pdf {
     position: relative;
     display: block;
 }
 
-.artwork-pdf .file-format-tag {
+a.artwork-pdf .file-format-tag {
     cursor: help;
     color: darken(@musicbrainz-purple, 20%);
     background-color: @effectively-white;

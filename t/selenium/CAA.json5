@@ -128,7 +128,7 @@
     },
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {
@@ -194,7 +194,7 @@
     // `approved` should be true for both images in index.json now.
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {
@@ -308,7 +308,7 @@
     },
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {
@@ -413,7 +413,7 @@
     },
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {
@@ -508,7 +508,7 @@
     },
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {

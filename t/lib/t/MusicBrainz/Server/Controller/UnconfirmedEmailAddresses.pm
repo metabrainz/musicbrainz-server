@@ -180,6 +180,11 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Event::commons_image',
   'Controller::Event::details',
   'Controller::Event::edits',
+  # FIXME: Unclear why `event_art` isn't detected, while `event_art_uploaded`
+  # is: they appear in the exact same file and have the exact same CODE
+  # attributes!
+  #'Controller::Event::event_art',
+  'Controller::Event::event_art_uploaded',
   'Controller::Event::latest_annotation',
   'Controller::Event::open_edits',
   'Controller::Event::ratings',
@@ -529,6 +534,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::WS::js::default',
   'Controller::WS::js::entities',
   'Controller::WS::js::entity',
+  'Controller::WS::js::event_art_upload',
   'Controller::WS::js::events',
   'Controller::WS::js::medium',
   'Controller::WS::js::medium_search',

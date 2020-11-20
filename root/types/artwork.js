@@ -13,6 +13,7 @@
 declare type ArtworkRoleT = $ReadOnly<{
   ...PendingEditsRoleT,
   +comment: string,
+  +event?: EventT,
   +filename: string | null,
   +huge_ia_thumbnail: string,
   +huge_thumbnail: string,
@@ -32,7 +33,13 @@ declare type ReleaseArtT = $ReadOnly<{
   +release?: ReleaseT,
 }>;
 
+declare type EventArtT = $ReadOnly<{
+  ...ArtworkRoleT,
+  +event?: EventT,
+}>;
+
 declare type ArtworkT =
+  | EventArtT
   | ReleaseArtT;
 
 // MusicBrainz::Server::Entity::CommonsImage::TO_JSON
@@ -42,3 +49,5 @@ declare type CommonsImageT = {
 };
 
 declare type CoverArtTypeT = OptionTreeT<'cover_art_type'>;
+
+declare type EventArtTypeT = OptionTreeT<'event_art_type'>;
