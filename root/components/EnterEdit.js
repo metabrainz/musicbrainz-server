@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 type Props = {
-  +children: React.Node,
+  +children?: React.Node,
   +form: ReadOnlyFormT<{
     +make_votable: ReadOnlyFieldT<boolean>,
     ...
