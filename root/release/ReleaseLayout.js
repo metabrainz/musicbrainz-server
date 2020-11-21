@@ -21,7 +21,7 @@ type Props = {
   +children: React.Node,
   +entity: ReleaseT,
   +fullWidth?: boolean,
-  +page: string,
+  +page?: string,
   +title?: string,
 };
 

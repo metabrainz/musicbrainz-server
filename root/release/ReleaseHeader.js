@@ -17,7 +17,7 @@ import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import bracketed from '../static/scripts/common/utility/bracketed';
 
 type Props = {
-  +page: string,
+  +page?: string,
   +release: ReleaseT,
 };
 

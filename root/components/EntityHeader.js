@@ -20,7 +20,7 @@ type Props = {
   +entity: CoreEntityT,
   +headerClass: string,
   +heading?: Expand2ReactOutput,
-  +page: string,
+  +page?: string,
   +preHeader?: Expand2ReactOutput,
   +subHeading: Expand2ReactOutput,
 };
