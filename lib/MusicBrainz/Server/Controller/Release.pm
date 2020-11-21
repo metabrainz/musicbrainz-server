@@ -219,7 +219,13 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
     $c->model('Release')->load_meta($entity);
 
     if (!$entity->may_have_cover_art) {
-        $c->stash( template => 'release/caa_darkened.tt' );
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'release/CoverArtDarkened',
+            component_props => {
+                release => $entity,
+            }
+        );
         $c->detach;
     }
 
@@ -282,7 +288,13 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
     $c->model('Release')->load_meta($entity);
 
     if (!$entity->may_have_cover_art) {
-        $c->stash( template => 'release/caa_darkened.tt' );
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'release/CoverArtDarkened',
+            component_props => {
+                release => $entity,
+            }
+        );
         $c->detach;
     }
 
