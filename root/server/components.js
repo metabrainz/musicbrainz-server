@@ -122,6 +122,7 @@ module.exports = {
   'relationship/linktype/RelationshipTypePairTree': require('../relationship/linktype/RelationshipTypePairTree'),
   'relationship/linktype/RelationshipTypesList': require('../relationship/linktype/RelationshipTypesList'),
   'release/CoverArtDarkened': require('../release/CoverArtDarkened'),
+  'release/RemoveCoverArt': require('../release/RemoveCoverArt'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
   'release_group/ReleaseGroupMerge': require('../release_group/ReleaseGroupMerge'),
   'report/AnnotationsArtists': require('../report/AnnotationsArtists'),

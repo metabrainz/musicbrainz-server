@@ -325,6 +325,8 @@ declare type ReadOnlyCompoundFieldT<+F> = {
 
 declare type ConfirmFormT = FormT<{
   +cancel: ReadOnlyFieldT<string>,
+  +edit_note: ReadOnlyFieldT<string>,
+  +make_votable: ReadOnlyFieldT<boolean>,
   +submit: ReadOnlyFieldT<string>,
 }>;
 

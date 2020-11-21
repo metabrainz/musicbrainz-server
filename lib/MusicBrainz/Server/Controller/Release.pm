@@ -593,6 +593,16 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
             }
         );
     });
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'release/RemoveCoverArt',
+        component_props => {
+            artwork => $artwork,
+            form => $c->stash->{form},
+            release => $release,
+        }
+    );
 }
 
 sub cover_art : Chained('load') PathPart('cover-art') {
