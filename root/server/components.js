@@ -121,6 +121,7 @@ module.exports = {
   'relationship/linktype/RelationshipTypeIndex': require('../relationship/linktype/RelationshipTypeIndex'),
   'relationship/linktype/RelationshipTypePairTree': require('../relationship/linktype/RelationshipTypePairTree'),
   'relationship/linktype/RelationshipTypesList': require('../relationship/linktype/RelationshipTypesList'),
+  'release/CoverArt': require('../release/CoverArt'),
   'release/CoverArtDarkened': require('../release/CoverArtDarkened'),
   'release/RemoveCoverArt': require('../release/RemoveCoverArt'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),

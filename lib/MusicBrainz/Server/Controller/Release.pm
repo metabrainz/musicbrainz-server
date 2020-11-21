@@ -613,7 +613,16 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $artwork = $c->model('Artwork')->find_by_release($release);
     $c->model('CoverArtType')->load_for(@$artwork);
 
-    $c->stash(cover_art => $artwork);
+    $c->stash(
+        # Needed for JSON-LD
+        cover_art => $artwork,
+        current_view => 'Node',
+        component_path => 'release/CoverArt',
+        component_props => {
+            coverArt => $artwork,
+            release => $release,
+        }
+    );
 }
 
 sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
