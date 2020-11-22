@@ -10,7 +10,7 @@
 // NOTE: Don't convert to an ES module; this is used by root/server.js.
 /* eslint-disable import/no-commonjs */
 
-const sanitizedEditor = require('./sanitizedEditor');
+const activeSanitizedEditor = require('./activeSanitizedEditor');
 
 /*
  * Returns a sanitized $c, with private or sensitive data removed, suitable
@@ -31,7 +31,7 @@ function sanitizedContext(
     stash: {
       current_language: stash.current_language,
     },
-    user: user ? sanitizedEditor(user) : null,
+    user: user ? activeSanitizedEditor(user) : null,
   };
 }
 

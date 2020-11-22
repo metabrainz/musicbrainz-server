@@ -18,6 +18,17 @@ has 'rating' => (
     isa => 'Int'
 );
 
+sub TO_JSON {
+    my $self = shift;
+
+    my $editor = $self->editor;
+    my $rating = 0 + $self->rating;
+    return {
+        editor => (defined $editor ? $editor->sanitized_json : undef),
+        rating => $rating,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

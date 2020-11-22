@@ -293,8 +293,20 @@ sub gravatar {
     return '//gravatar.com/avatar/placeholder?d=mm';
 }
 
-around TO_JSON => sub {
-    my ($orig, $self) = @_;
+# Corresponds to SanitizedEditorT in root/types.js.
+sub sanitized_json {
+    my ($self) = @_;
+
+    return {
+        entityType => 'editor',
+        gravatar => $self->gravatar,
+        id => $self->id,
+        name => $self->name,
+    };
+}
+
+sub TO_JSON {
+    my ($self) = @_;
 
     my $birth_partial_date;
 
@@ -304,7 +316,7 @@ around TO_JSON => sub {
     }
 
     return {
-        %{$self->$orig},
+        %{$self->sanitized_json},
         age                         => $self->age ? $self->age : undef,
         area                        => $self->area,
         biography                   => format_wikitext($self->biography),
@@ -313,7 +325,6 @@ around TO_JSON => sub {
         email                       => $self->email,
         email_confirmation_date     => datetime_to_iso8601($self->email_confirmation_date),
         gender                      => $self->gender,
-        gravatar                    => $self->gravatar,
         has_confirmed_email_address => boolean_to_json($self->has_confirmed_email_address),
         is_account_admin            => boolean_to_json($self->is_account_admin),
         is_adding_notes_disabled    => boolean_to_json($self->is_adding_notes_disabled),
@@ -329,12 +340,11 @@ around TO_JSON => sub {
         is_wiki_transcluder         => boolean_to_json($self->is_wiki_transcluder),
         languages                   => $self->languages,
         last_login_date             => datetime_to_iso8601($self->last_login_date),
-        name                        => $self->name,
         preferences                 => $self->preferences->TO_JSON,
         registration_date           => datetime_to_iso8601($self->registration_date),
         website                     => $self->website,
     };
-};
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
