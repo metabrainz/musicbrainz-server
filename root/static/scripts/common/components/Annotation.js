@@ -19,18 +19,12 @@ import entityHref from '../utility/entityHref';
 import Collapsible from './Collapsible';
 import EditorLink from './EditorLink';
 
-type SanitizedAnnotationT = {
-  ...AnnotationT,
-  editor: SanitizedEditorT | null,
-  ...
-};
-
 type Props = {
-  +annotation: ?(AnnotationT | $ReadOnly<SanitizedAnnotationT>),
+  +annotation: ?AnnotationT,
   +collapse?: boolean,
   +entity: $ReadOnly<{
     ...MinimalCoreEntityT,
-    +latest_annotation: ?(AnnotationT | $ReadOnly<SanitizedAnnotationT>),
+    +latest_annotation: ?AnnotationT,
     ...
   }>,
   +numberOfRevisions: number,
@@ -38,10 +32,10 @@ type Props = {
 };
 
 type WritableProps = {
-  annotation: ?SanitizedAnnotationT,
+  annotation: ?{...AnnotationT},
   entity: {
     ...MinimalCoreEntityT,
-    latest_annotation: ?SanitizedAnnotationT,
+    latest_annotation: ?{...AnnotationT},
     ...
   },
   ...
@@ -151,7 +145,7 @@ export default (hydrate<Props>(
         sanitizedLatestAnnotation = ({
           ...latestAnnotation,
           editor: sanitizedEditor(latestAnnotation.editor),
-        }: SanitizedAnnotationT);
+        }: {...AnnotationT});
       }
 
       newProps.entity = {

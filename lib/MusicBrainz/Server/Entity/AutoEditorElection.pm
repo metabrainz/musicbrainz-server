@@ -167,23 +167,28 @@ sub current_expiration_time
            $self->propose_time->clone->add( weeks => 1 );
 }
 
+sub sanitized_editor {
+    my $editor = shift;
+    return defined $editor ? $editor->sanitized_json : undef;
+}
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     return {
         %{ $self->$orig },
-        candidate => $self->candidate,
+        candidate => sanitized_editor($self->candidate),
         close_time => datetime_to_iso8601($self->close_time),
         current_expiration_time => datetime_to_iso8601($self->current_expiration_time),
         is_closed => boolean_to_json($self->is_closed),
         is_open => boolean_to_json($self->is_open),
         is_pending => boolean_to_json($self->is_pending),
         no_votes => $self->no_votes,
-        proposer => $self->proposer,
+        proposer => sanitized_editor($self->proposer),
         propose_time => datetime_to_iso8601($self->propose_time),
         open_time => datetime_to_iso8601($self->open_time),
-        seconder_1 => $self->seconder_1,
-        seconder_2 => $self->seconder_2,
+        seconder_1 => sanitized_editor($self->seconder_1),
+        seconder_2 => sanitized_editor($self->seconder_2),
         status_name => $self->status_name,
         status_name_short => $self->status_name_short,
         votes => $self->votes,
