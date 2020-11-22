@@ -985,7 +985,7 @@ declare type SanitizedCatalystContextT = {
     +genre_map?: {+[genreName: string]: GenreT, ...},
     +invalid_csrf_token?: boolean,
   },
-  +user: SanitizedEditorT | null,
+  +user: ActiveSanitizedEditorT | null,
 };
 
 declare type SanitizedEditorPreferencesT = {
@@ -993,12 +993,22 @@ declare type SanitizedEditorPreferencesT = {
   +timezone: string,
 };
 
-declare type SanitizedEditorT = {
+/*
+ * Only used in cases where the editor being sanitized is logged in;
+ * exposes some preferences and misc. metadata.
+ */
+declare type ActiveSanitizedEditorT = {
   ...EntityRoleT<'editor'>,
   +gravatar: string,
   +has_confirmed_email_address: boolean,
   +name: string,
   +preferences: SanitizedEditorPreferencesT,
+};
+
+declare type SanitizedEditorT = {
+  ...EntityRoleT<'editor'>,
+  +gravatar: string,
+  +name: string,
 };
 
 declare type ScriptT = {
