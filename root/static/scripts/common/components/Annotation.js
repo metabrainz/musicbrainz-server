@@ -19,31 +19,32 @@ import entityHref from '../utility/entityHref';
 import Collapsible from './Collapsible';
 import EditorLink from './EditorLink';
 
-type MinimalAnnotatedEntityT = $ReadOnly<{
-  ...MinimalCoreEntityT,
-  +latest_annotation: ?AnnotationT,
-}>;
+type SanitizedAnnotationT = {
+  ...AnnotationT,
+  editor: SanitizedEditorT | null,
+  ...
+};
 
 type Props = {
-  +annotation: ?$ReadOnly<{
-    ...AnnotationT,
-    +editor: EditorT | SanitizedEditorT | null,
-    ...,
-  }>,
+  +annotation: ?(AnnotationT | $ReadOnly<SanitizedAnnotationT>),
   +collapse?: boolean,
-  +entity: AnnotatedEntityT | MinimalAnnotatedEntityT,
+  +entity: $ReadOnly<{
+    ...MinimalCoreEntityT,
+    +latest_annotation: ?(AnnotationT | $ReadOnly<SanitizedAnnotationT>),
+    ...
+  }>,
   +numberOfRevisions: number,
   +showChangeLog?: boolean,
 };
 
 type WritableProps = {
-  annotation: ?{
-    ...AnnotationT,
-    editor: EditorT | SanitizedEditorT | null,
-    ...,
+  annotation: ?SanitizedAnnotationT,
+  entity: {
+    ...MinimalCoreEntityT,
+    latest_annotation: ?SanitizedAnnotationT,
+    ...
   },
-  entity: MinimalAnnotatedEntityT,
-  ...,
+  ...
 };
 
 const Annotation = ({
@@ -144,10 +145,18 @@ export default (hydrate<Props>(
         annotation.editor = sanitizedEditor(annotation.editor);
       }
 
+      let latestAnnotation = newProps.entity.latest_annotation;
+      if (latestAnnotation && latestAnnotation.editor) {
+        latestAnnotation = ({
+          ...latestAnnotation,
+          editor: sanitizedEditor(latestAnnotation.editor),
+        }: SanitizedAnnotationT);
+      }
+
       newProps.entity = {
         entityType: entity.entityType,
         gid: entity.gid,
-        latest_annotation: entity.latest_annotation,
+        latest_annotation: latestAnnotation,
       };
     });
   },
