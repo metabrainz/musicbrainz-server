@@ -12,9 +12,21 @@ sub ratings : Chained('load') PathPart('ratings')
     $c->model('Editor')->load(@ratings);
     $c->model('Editor')->load_preferences(map { $_->editor } @ratings);
 
+    my @public_ratings;
+    my $private_rating_count = 0;
+
+    for my $rating (@ratings) {
+        if ($rating->editor->preferences->public_ratings) {
+            push @public_ratings, $rating;
+        } else {
+            $private_rating_count++;
+        }
+    }
+
     my %props = (
         entity => $entity,
-        ratings => \@ratings,
+        publicRatings => \@public_ratings,
+        privateRatingCount => $private_rating_count,
     );
 
     $c->stash(

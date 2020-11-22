@@ -95,7 +95,7 @@ declare type AnnotationRoleT = {
 declare type AnnotationT = {
   +changelog: string,
   +creation_date: string,
-  +editor: EditorT | null,
+  +editor: SanitizedEditorT | null,
   +html: string,
   +id: number,
   +parent: CoreEntityT | null,
@@ -153,7 +153,7 @@ declare type ArtworkT = {
 
 declare type AutoEditorElectionT = {
   ...EntityRoleT<empty>,
-  +candidate: EditorT,
+  +candidate: SanitizedEditorT,
   +close_time?: string,
   +current_expiration_time: string,
   +is_closed: boolean,
@@ -162,9 +162,9 @@ declare type AutoEditorElectionT = {
   +no_votes: number,
   +open_time?: string,
   +propose_time: string,
-  +proposer: EditorT,
-  +seconder_1?: EditorT,
-  +seconder_2?: EditorT,
+  +proposer: SanitizedEditorT,
+  +seconder_1?: SanitizedEditorT,
+  +seconder_2?: SanitizedEditorT,
   +status_name: string,
   +status_name_short: string,
   +votes: $ReadOnlyArray<AutoEditorElectionVoteT>,
@@ -175,7 +175,7 @@ declare type AutoEditorElectionVoteT = {
   ...EntityRoleT<empty>,
   +vote_name: string,
   +vote_time: string,
-  +voter: EditorT,
+  +voter: SanitizedEditorT,
 };
 
 declare type BlogEntryT = {
@@ -270,10 +270,11 @@ declare type CDTocT = $ReadOnly<{
 declare type CollectionT = {
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
-  +collaborators: $ReadOnlyArray<EditorT>,
+  +collaborators: $ReadOnlyArray<SanitizedEditorT>,
   +description: string,
   +description_html: string,
-  +editor: EditorT | null,
+  +editor: SanitizedEditorT | null,
+  +editor_is_limited: boolean,
   +entity_count: number,
   +gid: string,
   +name: string,
@@ -453,7 +454,7 @@ declare type EditorLanguageT = {
 declare type EditorOAuthTokenT = {
   ...EntityRoleT<empty>,
   +application: ApplicationT,
-  +editor: EditorT,
+  +editor: SanitizedEditorT,
   +granted: string,
   +is_offline: boolean,
   +permissions: $ReadOnlyArray<string>,
@@ -860,7 +861,7 @@ declare type RatableT =
   | WorkT;
 
 declare type RatingT = {
-  +editor: EditorT,
+  +editor: SanitizedEditorT,
   +rating: number,
 };
 
@@ -999,7 +1000,7 @@ declare type SanitizedCatalystContextT = {
     +current_language: string,
     +genre_map?: {+[genreName: string]: GenreT, ...},
   },
-  +user: SanitizedEditorT | null,
+  +user: ActiveSanitizedEditorT | null,
 };
 
 declare type SanitizedEditorPreferencesT = {
@@ -1007,12 +1008,22 @@ declare type SanitizedEditorPreferencesT = {
   +timezone: string,
 };
 
-declare type SanitizedEditorT = {
+/*
+ * Only used in cases where the editor being sanitized is logged in;
+ * exposes some preferences and misc. metadata.
+ */
+declare type ActiveSanitizedEditorT = {
   ...EntityRoleT<'editor'>,
   +gravatar: string,
   +has_confirmed_email_address: boolean,
   +name: string,
   +preferences: SanitizedEditorPreferencesT,
+};
+
+declare type SanitizedEditorT = {
+  ...EntityRoleT<'editor'>,
+  +gravatar: string,
+  +name: string,
 };
 
 declare type ScriptT = {

@@ -181,16 +181,15 @@ React.Element<typeof CollectionLayout> => {
         {collection.description_html ? (
           <>
             <h2>{l('Description')}</h2>
-            {$c.user ||
-              (collection.editor && !collection.editor.is_limited) ? (
-                expand2react(collection.description_html)
-              ) : (
-                <p className="deleted">
-                  {exp.l(`This content is hidden to prevent spam.
-                          To view it, please {url|log in}.`,
-                         {url: '/login'})}
-                </p>
-              )}
+            {($c.user || !collection.editor_is_limited) ? (
+              expand2react(collection.description_html)
+            ) : (
+              <p className="deleted">
+                {exp.l(`This content is hidden to prevent spam.
+                        To view it, please {url|log in}.`,
+                       {url: '/login'})}
+              </p>
+            )}
           </>
         ) : null}
       </div>

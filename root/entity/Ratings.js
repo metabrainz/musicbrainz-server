@@ -17,17 +17,18 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 type Props = {
   +$c: CatalystContextT,
   +entity: RatableT,
-  +ratings: $ReadOnlyArray<RatingT>,
+  +privateRatingCount: number,
+  +publicRatings: $ReadOnlyArray<RatingT>,
 };
 
 const Ratings = ({
   $c,
   entity,
-  ratings,
+  privateRatingCount,
+  publicRatings,
 }: Props): React.MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
-  let privateRatingAmount = 0;
 
   return (
     <LayoutComponent
@@ -38,30 +39,24 @@ const Ratings = ({
     >
       <h2>{l('Ratings')}</h2>
 
-      {ratings.length ? (
+      {publicRatings.length ? (
         <>
           <ul>
-            {ratings.map(rating => {
-              if (!rating.editor.preferences.public_ratings) {
-                privateRatingAmount++;
-                return null;
-              }
-              return (
-                <li key={rating.editor.id}>
-                  <StaticRatingStars rating={rating.rating} />
-                  {' - '}
-                  <EditorLink editor={rating.editor} />
-                </li>
-              );
-            })}
+            {publicRatings.map(rating => (
+              <li key={rating.editor.id}>
+                <StaticRatingStars rating={rating.rating} />
+                {' - '}
+                <EditorLink editor={rating.editor} />
+              </li>
+            ))}
           </ul>
-          {privateRatingAmount > 0 ? (
+          {privateRatingCount > 0 ? (
             <p>
               {exp.ln(
                 '{count} private rating not listed.',
                 '{count} private ratings not listed.',
-                privateRatingAmount,
-                {count: privateRatingAmount},
+                privateRatingCount,
+                {count: privateRatingCount},
               )}
             </p>
           ) : null}
