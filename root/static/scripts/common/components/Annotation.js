@@ -145,9 +145,10 @@ export default (hydrate<Props>(
         annotation.editor = sanitizedEditor(annotation.editor);
       }
 
-      let latestAnnotation = newProps.entity.latest_annotation;
+      const latestAnnotation = entity.latest_annotation;
+      let sanitizedLatestAnnotation = null;
       if (latestAnnotation && latestAnnotation.editor) {
-        latestAnnotation = ({
+        sanitizedLatestAnnotation = ({
           ...latestAnnotation,
           editor: sanitizedEditor(latestAnnotation.editor),
         }: SanitizedAnnotationT);
@@ -156,7 +157,7 @@ export default (hydrate<Props>(
       newProps.entity = {
         entityType: entity.entityType,
         gid: entity.gid,
-        latest_annotation: latestAnnotation,
+        latest_annotation: sanitizedLatestAnnotation,
       };
     });
   },
