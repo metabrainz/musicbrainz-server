@@ -51,7 +51,6 @@ export const FAVICON_CLASSES = {
   'baidu.com': 'baidu',
   'bandcamp.com': 'bandcamp',
   'bandsintown.com': 'bandsintown',
-  'bbc.co.uk': 'bbcmusic',
   'beatport.com': 'beatport',
   'bibliotekapiosenki.pl': 'piosenki',
   'bigcartel.com': 'bigcartel',
