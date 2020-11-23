@@ -105,7 +105,10 @@
     </table>
 
     <div class="without-formdata" style="display: none">
-      [%- INCLUDE 'release/cover_art_fields.tt' -%]
+      [%- React.embed(c, 'release/CoverArtFields', {
+        form => form,
+        typeIdOptions => form.options_type_id,
+      }) -%]
     </div>
 
     <div class="row" id="cover-art-position-row">

@@ -221,13 +221,6 @@
     </script>
 [%- END -%]
 
-[%- MACRO form_row_paragraph(message, label) BLOCK -%]
-    [% WRAPPER form_row %]
-      <label>[%- IF label -%][%- label -%][%- ELSE -%]&#xa0;[%- END -%]</label>
-      <p>[%- message -%]</p>
-    [% END %]
-[%- END -%]
-
 [%- MACRO form_row_name_with_guesscase(r, options) BLOCK # Converted to React at root/static/scripts/edit/components/FormRowNameWithGuessCase.js -%]
   [% WRAPPER form_row %]
     [% r.label('name', options.label || l('Name:')) %]

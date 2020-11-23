@@ -9,7 +9,10 @@
       [%- display_artwork(artwork) -%]
     </div>
 
-    [%- INCLUDE 'release/cover_art_fields.tt' -%]
+    [%- React.embed(c, 'release/CoverArtFields', {
+      form => form,
+      typeIdOptions => form.options_type_id,
+    }) -%]
 
     <div style="clear: left;"> </div>
 
