@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-19 02:15+0000\n"
-"Last-Translator: Timo Martikainen <email address hidden>\n"
+"PO-Revision-Date: 2020-11-24 04:02+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2498,6 +2498,11 @@ msgstr ""
 #: DB:instrument/name:44
 msgctxt "Free-reed keyboard mouth-organ"
 msgid "melodica"
+msgstr ""
+
+#: DB:instrument/name:1022
+msgctxt "Bellowed free reed in a lute-like casing"
+msgid "melophone"
 msgstr ""
 
 #: DB:instrument/name:100

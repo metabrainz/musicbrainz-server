@@ -47,7 +47,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-18 20:14-0600\n"
+"POT-Creation-Date: 2020-11-23 22:00-0600\n"
 "PO-Revision-Date: 2020-11-19 02:15+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
@@ -454,12 +454,12 @@ msgstr "Agregar otro instrumento"
 msgid "Add edit note"
 msgstr "Añadir nota"
 
-#: ../root/release/edit_relationships.tt:229
+#: ../root/release/edit_relationships.tt:235
 msgid "Add related work"
 msgstr "Añadir obra relacionada"
 
 #: ../root/forms/relationship-editor.tt:7
-#: ../root/release/edit_relationships.tt:211
+#: ../root/release/edit_relationships.tt:217
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:28
 msgid "Add relationship"
@@ -550,7 +550,7 @@ msgid ""
 " unique disambiguation comment."
 msgstr "Ya existe una entidad con ese nombre y desambiguación. Debe introducir un comentario de desambiguación único."
 
-#: ../root/release/edit_relationships.tt:187
+#: ../root/release/edit_relationships.tt:193
 msgid "An error occurred while creating the works."
 msgstr "Se ha producido un error al crear las obras."
 
@@ -576,7 +576,7 @@ msgstr "Se ha producido un error:"
 #: ../root/report/components/WorkAnnotationList.js:31
 #: ../root/search/components/AnnotationResults.js:60
 #: ../root/search/components/SearchForm.js:42
-#: ../root/static/scripts/common/components/Annotation.js:62
+#: ../root/static/scripts/common/components/Annotation.js:57
 msgid "Annotation"
 msgstr "Anotación"
 
@@ -1179,7 +1179,7 @@ msgid "Change release data quality"
 msgstr "Cambiar calidad de datos de publicación"
 
 #: ../root/annotation/edit.tt:24
-#: ../root/static/scripts/common/components/Annotation.js:79
+#: ../root/static/scripts/common/components/Annotation.js:74
 msgid "Changelog:"
 msgstr "Registro de cambios:"
 
@@ -1659,7 +1659,7 @@ msgid "Edit Cover Art"
 msgstr "Editar imagen"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:109
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:115
 #: ../root/components/EnterEditNote.js:26
 msgid "Edit Note"
 msgstr "Nota"
@@ -1698,7 +1698,7 @@ msgstr "Editar alias"
 
 #: ../root/annotation/edit.tt:2
 #: ../root/layout/components/sidebar/AnnotationLinks.js:35
-#: ../root/static/scripts/common/components/Annotation.js:105
+#: ../root/static/scripts/common/components/Annotation.js:100
 msgid "Edit annotation"
 msgstr "Editar anotación"
 
@@ -1845,7 +1845,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:151
-#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:116
+#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:122
 #: ../root/components/EnterEdit.js:38
 msgid "Enter edit"
 msgstr "Introducir edición"
@@ -2783,7 +2783,7 @@ msgstr "Número de búsquedas"
 msgid "Low"
 msgstr "Baja"
 
-#: ../root/release/edit_relationships.tt:163
+#: ../root/release/edit_relationships.tt:169
 #: ../root/edit/details/AddWork.js:81 ../root/edit/details/EditWork.js:98
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:54
@@ -3308,7 +3308,7 @@ msgstr "Solo se muestran las publicaciones con el mismo número de pistas ({n}) 
 msgid "Only show open edits"
 msgstr "Mostrar solo ediciones pendientes"
 
-#: ../root/release/edit_relationships.tt:146
+#: ../root/release/edit_relationships.tt:152
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -3626,8 +3626,8 @@ msgid "Rating"
 msgstr "Valoración"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:32
-#: ../root/components/UserAccountTabs.js:59 ../root/entity/Ratings.js:37
-#: ../root/entity/Ratings.js:39
+#: ../root/components/UserAccountTabs.js:59 ../root/entity/Ratings.js:38
+#: ../root/entity/Ratings.js:40
 msgid "Ratings"
 msgstr "Valoraciones"
 
@@ -3824,7 +3824,7 @@ msgstr "Grupo de publicaciones"
 msgid "Release Group Details"
 msgstr "Detalles del grupo de publicaciones"
 
-#: ../root/release/edit_relationships.tt:97
+#: ../root/release/edit_relationships.tt:103
 msgid "Release Group Relationships"
 msgstr "Relaciones del grupo de publicaciones"
 
@@ -3856,7 +3856,7 @@ msgstr "Idioma de la publicación"
 msgid "Release Quality"
 msgstr "Calidad de publicación"
 
-#: ../root/release/edit_relationships.tt:91
+#: ../root/release/edit_relationships.tt:97
 msgid "Release Relationships"
 msgstr "Relaciones de la publicación"
 
@@ -4502,8 +4502,8 @@ msgid "Submit votes &amp; edit notes"
 msgstr "Enviar votos y notas"
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:120
-#: ../root/release/edit_relationships.tt:180
+#: ../root/release/edit_relationships.tt:126
+#: ../root/release/edit_relationships.tt:186
 msgid "Submitting edits..."
 msgstr "Enviando ediciones..."
 
@@ -5021,11 +5021,11 @@ msgstr "Este usuario funciona de forma automatizada."
 msgid "This user is new to MusicBrainz."
 msgstr "Este usuario es nuevo en MusicBrainz."
 
-#: ../root/release/edit_relationships.tt:127
+#: ../root/release/edit_relationships.tt:133
 msgid "This will add a relationship to all checked recordings."
 msgstr "Esto añadirá una relación a todas las grabaciones seleccionadas."
 
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:136
 msgid "This will add a relationship to all checked works."
 msgstr "Esto añadirá una relación a todas las obras seleccionadas."
 
@@ -5035,7 +5035,7 @@ msgid ""
 "any edits currently open to Abstain."
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:143
+#: ../root/release/edit_relationships.tt:149
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
@@ -5132,7 +5132,7 @@ msgstr "Pista #"
 msgid "Track Parser"
 msgstr "Editor de pistas"
 
-#: ../root/release/edit_relationships.tt:20
+#: ../root/release/edit_relationships.tt:19
 msgid "Track Relationships"
 msgstr "Relaciones de la pista"
 
@@ -5560,7 +5560,7 @@ msgid ""
 " below in order to attach this disc to another MusicBrainz release."
 msgstr "Hemos encontrado los siguientes discos que coinciden con la información solicitada, y son listados abajo. Si ninguno de ellos es el lanzamiento que estás buscando, puedes buscar usando el formulario de más abajo para añadir el disco a otro lanzamiento de MusicBrainz."
 
-#: ../root/release/index.tt:10
+#: ../root/release/edit_relationships.tt:93 ../root/release/index.tt:10
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
@@ -5624,7 +5624,7 @@ msgstr ""
 msgid "Work Details"
 msgstr "Detalles de la obra"
 
-#: ../root/release/edit_relationships.tt:152
+#: ../root/release/edit_relationships.tt:158
 msgid "Work Type:"
 msgstr "Tipo de obra:"
 
@@ -6234,7 +6234,7 @@ msgstr ""
 msgid "track"
 msgstr "pista"
 
-#: ../root/components/medium.tt:85
+#: ../root/components/medium.tt:96
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "pista {tracks}"
@@ -6354,6 +6354,12 @@ msgid_plural "{num} years ago"
 msgstr[0] "hace {num} año"
 msgstr[1] "hace {num} años"
 
+#: ../root/components/medium.tt:84
+#: ../root/components/StaticRelationshipsDisplay.js:54
+#: ../root/static/scripts/relationship-editor/common/fields.js:509
+msgid "{num}. {relationship}"
+msgstr ""
+
 #: ../root/components/common-macros.tt:278
 #: ../root/static/scripts/common/components/DescriptiveLink.js:64
 msgid "{place} in {area}"
@@ -6362,6 +6368,11 @@ msgstr ""
 #: ../root/recording/edit_form.tt:35
 msgid ""
 "{recording_length} ({length_info|derived} from the associated track lengths)"
+msgstr ""
+
+#: ../root/components/medium.tt:84
+#: ../root/components/StaticRelationshipsDisplay.js:59
+msgid "{relationship} (order: {num})"
 msgstr ""
 
 #: ../root/cdtoc/move_search.tt:33
@@ -7550,12 +7561,12 @@ msgstr ""
 msgid "{attribute}: {value}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:265
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:267
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:272
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:274
 #: ../lib/MusicBrainz/Server/Translation.pm:273
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -8996,23 +9007,23 @@ msgstr "Ver todas mis colecciones"
 msgid "See all of {editor}'s public collections"
 msgstr "Ver todas las colecciones públicas de {editor}"
 
-#: ../root/collection/CollectionIndex.js:189 ../root/user/UserProfile.js:271
+#: ../root/collection/CollectionIndex.js:188 ../root/user/UserProfile.js:271
 #: ../root/user/UserProfile.js:321
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:200
+#: ../root/collection/CollectionIndex.js:199
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:99
 #: ../root/user/UserCollections.js:103
 msgid "Collaborators"
 msgstr "Colaboradores"
 
-#: ../root/collection/CollectionIndex.js:214
+#: ../root/collection/CollectionIndex.js:213
 msgid "Remove selected items from collection"
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:219
+#: ../root/collection/CollectionIndex.js:218
 msgid "This collection is empty."
 msgstr ""
 
@@ -9211,15 +9222,6 @@ msgstr "Obras relacionadas"
 #: ../root/components/RelationshipsTable.js:91
 msgid "Credited As"
 msgstr "Acreditado Como"
-
-#: ../root/components/StaticRelationshipsDisplay.js:54
-#: ../root/static/scripts/relationship-editor/common/fields.js:509
-msgid "{num}. {relationship}"
-msgstr ""
-
-#: ../root/components/StaticRelationshipsDisplay.js:59
-msgid "{relationship} (order: {num})"
-msgstr ""
 
 #: ../root/components/UserAccountTabs.js:30
 #: ../root/layout/components/TopMenu.js:31
@@ -10201,17 +10203,17 @@ msgid ""
 "try and {search_url|search for it} instead."
 msgstr "No hemos encontrado una obra con esa ID de MusicBrainz. Puedes probar a {search_url|usar la búsqueda}."
 
-#: ../root/entity/Ratings.js:61
+#: ../root/entity/Ratings.js:56
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
 msgstr[0] "{count} valoración privada no indicada."
 msgstr[1] "{count} valoraciones privadas no indicada."
 
-#: ../root/entity/Ratings.js:68
+#: ../root/entity/Ratings.js:63
 msgid "Average rating:"
 msgstr "Puntuación media:"
 
-#: ../root/entity/Ratings.js:74
+#: ../root/entity/Ratings.js:69
 msgid "{link} has no ratings."
 msgstr "{link} no tiene valoraciones"
 
@@ -10737,7 +10739,7 @@ msgid "Add annotation"
 msgstr "Añadir anotación"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:42
-#: ../root/static/scripts/common/components/Annotation.js:99
+#: ../root/static/scripts/common/components/Annotation.js:94
 msgid "View annotation history"
 msgstr "Ver historial de la anotación"
 
@@ -13554,21 +13556,21 @@ msgstr ""
 msgid "Image {current} of {total}"
 msgstr "Imagen {current} de {total}"
 
-#: ../root/static/scripts/common/components/Annotation.js:81
+#: ../root/static/scripts/common/components/Annotation.js:76
 msgid "(no changelog)"
 msgstr "(sin registro de cambios)"
 
-#: ../root/static/scripts/common/components/Annotation.js:91
+#: ../root/static/scripts/common/components/Annotation.js:86
 msgid "Annotation last modified by {user} on {date}."
 msgstr "Última edición: {date} por {user}"
 
-#: ../root/static/scripts/common/components/Annotation.js:110
+#: ../root/static/scripts/common/components/Annotation.js:105
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
 msgstr "Ésta es una {history|revisión antigua} de esta anotación, tal y como fue editada por {user} el {date}. {current|Ver la revisión actual}."
 
-#: ../root/static/scripts/common/components/Annotation.js:122
+#: ../root/static/scripts/common/components/Annotation.js:117
 msgid "Annotation last modified on {date}."
 msgstr "Última edición: {date}"
 
