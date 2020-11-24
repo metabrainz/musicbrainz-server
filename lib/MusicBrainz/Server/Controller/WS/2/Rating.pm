@@ -13,6 +13,7 @@ my $ws_defs = Data::OptList::mkopt([
      rating => {
                          method   => 'GET',
                          required => [ qw(id entity) ],
+                         optional => [ qw(fmt) ],
      },
      rating => {
                          method   => 'POST',
