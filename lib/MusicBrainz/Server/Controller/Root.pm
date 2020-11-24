@@ -319,29 +319,20 @@ sub begin : Private
 
     if (exists $attributes->{RequireAuth})
     {
-        if ($c->form_posted) {
-            my $external_origin = $c->req->header('Origin');
-            if (defined $external_origin) {
-                my $mb_origin = DBDefs->SSL_REDIRECTS_ENABLED
-                    ? ('https://' . DBDefs->WEB_SERVER_SSL)
-                    : ('http://' . DBDefs->WEB_SERVER);
-                my $post_params = $c->req->body_params;
-                if (
-                    $external_origin ne $mb_origin &&
-                    defined $post_params &&
-                    scalar(%$post_params)
-                ) {
-                    $c->set_csp_headers;
-                    $c->stash(
-                        current_view => 'Node',
-                        component_path => 'main/ConfirmSeed',
-                        component_props => {
-                            origin => $external_origin,
-                            postParameters => $post_params,
-                        },
-                    );
-                    $c->detach;
-                }
+        if ($c->form_posted && $c->is_cross_origin) {
+            my $post_params = $c->req->body_params;
+            if (defined $post_params && scalar(%$post_params)) {
+                my $external_origin = $c->req->header('Origin');
+                $c->set_csp_headers;
+                $c->stash(
+                    current_view => 'Node',
+                    component_path => 'main/ConfirmSeed',
+                    component_props => {
+                        origin => $external_origin,
+                        postParameters => $post_params,
+                    },
+                );
+                $c->detach;
             }
         }
         $c->forward('/user/do_login');
