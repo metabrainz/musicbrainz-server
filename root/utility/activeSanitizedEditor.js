@@ -11,7 +11,7 @@
 /* eslint-disable import/no-commonjs */
 
 function activeSanitizedEditor(
-  editor /*: EditorT */,
+  editor /*: UnsanitizedEditorT */,
 ) /*: ActiveSanitizedEditorT */ {
   return {
     entityType: 'editor',

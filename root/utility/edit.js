@@ -88,17 +88,23 @@ export function getEditStatusDescription(edit: EditT): string {
 
 export function getVotesForEditor(
   edit: EditT,
-  editor: EditorT,
+  editor: UnsanitizedEditorT,
 ): $ReadOnlyArray<VoteT> {
   return edit.votes.filter(v => v.editor_id === editor.id);
 }
 
-export function editorMayAddNote(edit: EditT, editor: ?EditorT): boolean {
+export function editorMayAddNote(
+  edit: EditT,
+  editor: ?UnsanitizedEditorT,
+): boolean {
   return !!editor && nonEmpty(editor.email_confirmation_date) &&
     (editor.id === edit.editor_id || !editor.is_limited);
 }
 
-export function editorMayApprove(edit: EditT, editor: ?EditorT): boolean {
+export function editorMayApprove(
+  edit: EditT,
+  editor: ?UnsanitizedEditorT,
+): boolean {
   const conditions = edit.conditions;
 
   const minimalRequirements = (
@@ -138,12 +144,18 @@ export function editorMayApprove(edit: EditT, editor: ?EditorT): boolean {
   return conditions.auto_edit;
 }
 
-export function editorMayCancel(edit: EditT, editor: ?EditorT): boolean {
+export function editorMayCancel(
+  edit: EditT,
+  editor: ?UnsanitizedEditorT,
+): boolean {
   return !!editor &&
     (edit.status === EDIT_STATUS_OPEN && edit.editor_id === editor.id);
 }
 
-export function editorMayVote(edit: EditT, editor: ?EditorT): boolean {
+export function editorMayVote(
+  edit: EditT,
+  editor: ?UnsanitizedEditorT,
+): boolean {
   return (
     !!editor &&
     edit.status === EDIT_STATUS_OPEN &&
@@ -156,7 +168,7 @@ export function editorMayVote(edit: EditT, editor: ?EditorT): boolean {
 
 export function getLatestVoteForEditor(
   edit: EditT,
-  editor: EditorT,
+  editor: UnsanitizedEditorT,
 ): VoteT | null {
   const votes = getVotesForEditor(edit, editor);
   return votes.length ? votes[votes.length - 1] : null;

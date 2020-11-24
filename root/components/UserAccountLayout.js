@@ -17,7 +17,7 @@ import UserAccountTabs from './UserAccountTabs';
 type Props = {
   +$c: CatalystContextT,
   +children: React.Node,
-  +entity: EditorT,
+  +entity: UnsanitizedEditorT,
   +page: string,
   +title?: string,
 };

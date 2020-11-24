@@ -19,7 +19,7 @@ import bracketed from '../static/scripts/common/utility/bracketed';
 type Props = {
   +collection: CollectionT,
   +page: string,
-  +user: ?EditorT,
+  +user: ?UnsanitizedEditorT,
 };
 
 const CollectionHeader = ({

@@ -35,7 +35,7 @@ type EditorStatsTableProps = {
 
 type EditorStatT = {
   +count: number,
-  +editor: EditorT,
+  +editor: UnsanitizedEditorT,
 };
 
 const EditorStatsTable = ({

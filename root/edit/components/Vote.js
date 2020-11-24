@@ -26,7 +26,7 @@ type VoteCheckboxProps = {
   +edit: EditT,
   +label: string,
   +name: string,
-  +user: CatalystUserT,
+  +user: UnsanitizedEditorT,
   +value: number,
 };
 

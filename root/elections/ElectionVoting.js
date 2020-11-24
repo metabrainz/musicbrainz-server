@@ -14,7 +14,7 @@ import {canCancel, canSecond, canVote, isInvolved}
 
 type PropsT = {
   +election: AutoEditorElectionT,
-  +user?: EditorT,
+  +user?: UnsanitizedEditorT,
 };
 
 const ElectionVoting = ({election, user}: PropsT): React.MixedElement => {

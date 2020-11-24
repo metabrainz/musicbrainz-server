@@ -82,6 +82,6 @@ export type ActionItem<+T: EntityItem> = {
 
 export type EntityItem =
   | CoreEntityT
-  | EditorT;
+  | UnsanitizedEditorT;
 
 export type Item<+T: EntityItem> = T | ActionItem<T>;

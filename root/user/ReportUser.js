@@ -35,7 +35,7 @@ type Props = {
     +reason: FieldT<ReportReasonT>,
     +reveal_address: FieldT<boolean>,
   }>,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
 };
 
 const reportReasonOptions = {

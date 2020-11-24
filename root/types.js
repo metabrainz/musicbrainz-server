@@ -197,7 +197,7 @@ declare type CatalystContextT = {
   +session: CatalystSessionT | null,
   +sessionid: string | null,
   +stash: CatalystStashT,
-  +user?: CatalystUserT,
+  +user?: UnsanitizedEditorT,
 };
 
 declare type CatalystRequestContextT = {
@@ -244,8 +244,6 @@ declare type CatalystStashT = {
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
   +user_tags?: $ReadOnlyArray<UserTagT>,
 };
-
-declare type CatalystUserT = EditorT;
 
 declare type CDStubT = $ReadOnly<{
   ...EntityRoleT<'cdstub'>,
@@ -414,7 +412,7 @@ declare type EditorPreferencesT = {
   +timezone: string,
 };
 
-declare type EditorT = $ReadOnly<{
+declare type UnsanitizedEditorT = $ReadOnly<{
   ...EntityRoleT<'editor'>,
   +age: number | null,
   +area: AreaT | null,

@@ -18,7 +18,7 @@ import * as manifest from '../static/manifest';
 
 type Props = {
   ...PreferencesFormPropsT,
-  +$c: $ReadOnly<{...CatalystContextT, user: EditorT}>,
+  +$c: $ReadOnly<{...CatalystContextT, user: UnsanitizedEditorT}>,
 };
 
 const Preferences = ({

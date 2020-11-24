@@ -25,8 +25,8 @@ const titleByEntityType = {
 };
 
 type UserSubscriptionsTableProps = {
-  +entities:
-    $ReadOnlyArray<ArtistT | CollectionT | EditorT | LabelT | SeriesT>,
+  +entities: $ReadOnlyArray<
+    ArtistT | CollectionT | UnsanitizedEditorT | LabelT | SeriesT>,
   +viewingOwnProfile: boolean,
 };
 
@@ -62,8 +62,8 @@ const UserSubscriptionsTable = ({
 
 type UserSubscriptionsProps = {
   +$c: CatalystContextT,
-  +entities:
-    $ReadOnlyArray<ArtistT | CollectionT | EditorT | LabelT | SeriesT>,
+  +entities: $ReadOnlyArray<
+    ArtistT | CollectionT | UnsanitizedEditorT | LabelT | SeriesT>,
   +pager: PagerT,
   +privateCollectionCount?: number,
   +summary: {
@@ -74,7 +74,7 @@ type UserSubscriptionsProps = {
     +series: number,
   },
   +type: 'artist' | 'collection' | 'editor' | 'label' | 'series',
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
 };
 
 const UserSubscriptions = ({

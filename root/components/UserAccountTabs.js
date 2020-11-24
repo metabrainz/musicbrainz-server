@@ -17,7 +17,7 @@ import Tabs from './Tabs';
 
 function buildTabs(
   $c: CatalystContextT,
-  user: EditorT,
+  user: UnsanitizedEditorT,
   page: string,
 ): $ReadOnlyArray<React.Element<'li'>> {
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
@@ -110,7 +110,7 @@ function buildTabs(
 
 type Props = {
   +page: string,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
 };
 
 const UserAccountTabs = ({

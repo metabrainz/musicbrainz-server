@@ -36,7 +36,7 @@ const ADDED_ENTITIES_TYPES = {
   work:      N_l('Work'),
 };
 
-function generateUserTypesList(user: EditorT) {
+function generateUserTypesList(user: UnsanitizedEditorT) {
   const typesList = [];
   if (user.deleted) {
     typesList.push(l('Deleted User'));
@@ -112,7 +112,7 @@ type UserProfileInformationProps = {
   +ipHashes: $ReadOnlyArray<string>,
   +subscribed: boolean,
   +subscriberCount: number,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
   +viewingOwnProfile: boolean,
 };
 
@@ -365,7 +365,7 @@ type UserEditsPropertyProps = {
   +addedEntities: number,
   +entityType: string,
   +name: string,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
 };
 
 const UserEditsProperty = ({
@@ -448,7 +448,7 @@ type UserProfileStatisticsProps = {
   +$c: CatalystContextT,
   +addedEntities: EntitiesStatsT,
   +editStats: EditStatsT,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
   +votes: VoteStatsT,
 };
 
@@ -676,7 +676,7 @@ type UserProfileProps = {
   +ipHashes: $ReadOnlyArray<string>,
   +subscribed: boolean,
   +subscriberCount: number,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
   +votes: VoteStatsT,
 };
 
