@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-18 20:14-0600\n"
+"POT-Creation-Date: 2020-11-23 22:00-0600\n"
 "PO-Revision-Date: 2020-11-19 02:15+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
@@ -440,12 +440,12 @@ msgstr "別の楽器を追加"
 msgid "Add edit note"
 msgstr "編集メモを追加"
 
-#: ../root/release/edit_relationships.tt:229
+#: ../root/release/edit_relationships.tt:235
 msgid "Add related work"
 msgstr "関係する作品を追加"
 
 #: ../root/forms/relationship-editor.tt:7
-#: ../root/release/edit_relationships.tt:211
+#: ../root/release/edit_relationships.tt:217
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:28
 msgid "Add relationship"
@@ -536,7 +536,7 @@ msgid ""
 " unique disambiguation comment."
 msgstr "同じ名前の区別不能な項目が既に存在しています。他の項目と区別できるように一意な曖昧さ回避コメントを入力してください。"
 
-#: ../root/release/edit_relationships.tt:187
+#: ../root/release/edit_relationships.tt:193
 msgid "An error occurred while creating the works."
 msgstr "作品の作成中にエラーが発生しました。"
 
@@ -562,7 +562,7 @@ msgstr "エラー発生: "
 #: ../root/report/components/WorkAnnotationList.js:31
 #: ../root/search/components/AnnotationResults.js:60
 #: ../root/search/components/SearchForm.js:42
-#: ../root/static/scripts/common/components/Annotation.js:62
+#: ../root/static/scripts/common/components/Annotation.js:57
 msgid "Annotation"
 msgstr "注釈"
 
@@ -1165,7 +1165,7 @@ msgid "Change release data quality"
 msgstr "リリース品質を変更"
 
 #: ../root/annotation/edit.tt:24
-#: ../root/static/scripts/common/components/Annotation.js:79
+#: ../root/static/scripts/common/components/Annotation.js:74
 msgid "Changelog:"
 msgstr "更新履歴:"
 
@@ -1645,7 +1645,7 @@ msgid "Edit Cover Art"
 msgstr "カバーアートを編集"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:109
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:115
 #: ../root/components/EnterEditNote.js:26
 msgid "Edit Note"
 msgstr "メモを編集"
@@ -1684,7 +1684,7 @@ msgstr "別名を編集"
 
 #: ../root/annotation/edit.tt:2
 #: ../root/layout/components/sidebar/AnnotationLinks.js:35
-#: ../root/static/scripts/common/components/Annotation.js:105
+#: ../root/static/scripts/common/components/Annotation.js:100
 msgid "Edit annotation"
 msgstr "注釈を編集"
 
@@ -1831,7 +1831,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:151
-#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:116
+#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:122
 #: ../root/components/EnterEdit.js:38
 msgid "Enter edit"
 msgstr "編集を送信"
@@ -2764,7 +2764,7 @@ msgstr "検索件数"
 msgid "Low"
 msgstr "低"
 
-#: ../root/release/edit_relationships.tt:163
+#: ../root/release/edit_relationships.tt:169
 #: ../root/edit/details/AddWork.js:81 ../root/edit/details/EditWork.js:98
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:54
@@ -3289,7 +3289,7 @@ msgstr "ディスクIDが接続してるリリースと同じトラック数（{
 msgid "Only show open edits"
 msgstr "オープン中編集のみを表示"
 
-#: ../root/release/edit_relationships.tt:146
+#: ../root/release/edit_relationships.tt:152
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -3606,8 +3606,8 @@ msgid "Rating"
 msgstr "評価"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:32
-#: ../root/components/UserAccountTabs.js:59 ../root/entity/Ratings.js:37
-#: ../root/entity/Ratings.js:39
+#: ../root/components/UserAccountTabs.js:59 ../root/entity/Ratings.js:38
+#: ../root/entity/Ratings.js:40
 msgid "Ratings"
 msgstr "評価"
 
@@ -3804,7 +3804,7 @@ msgstr "リリースグループ"
 msgid "Release Group Details"
 msgstr "リリースグループの詳細"
 
-#: ../root/release/edit_relationships.tt:97
+#: ../root/release/edit_relationships.tt:103
 msgid "Release Group Relationships"
 msgstr "リリースグループの関連"
 
@@ -3836,7 +3836,7 @@ msgstr "リリースの言語"
 msgid "Release Quality"
 msgstr "リリースの品質"
 
-#: ../root/release/edit_relationships.tt:91
+#: ../root/release/edit_relationships.tt:97
 msgid "Release Relationships"
 msgstr "リリースの関連"
 
@@ -4482,8 +4482,8 @@ msgid "Submit votes &amp; edit notes"
 msgstr "投票と編集ノートを提出"
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:120
-#: ../root/release/edit_relationships.tt:180
+#: ../root/release/edit_relationships.tt:126
+#: ../root/release/edit_relationships.tt:186
 msgid "Submitting edits..."
 msgstr ""
 
@@ -5001,11 +5001,11 @@ msgstr "このユーザーはボットです。"
 msgid "This user is new to MusicBrainz."
 msgstr "MusicBrainzの初心者です。"
 
-#: ../root/release/edit_relationships.tt:127
+#: ../root/release/edit_relationships.tt:133
 msgid "This will add a relationship to all checked recordings."
 msgstr "選択されたレコーディングすべてに関係を追加します。"
 
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:136
 msgid "This will add a relationship to all checked works."
 msgstr "選択した作品すべてに関係を追加します。"
 
@@ -5015,7 +5015,7 @@ msgid ""
 "any edits currently open to Abstain."
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:143
+#: ../root/release/edit_relationships.tt:149
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
@@ -5112,7 +5112,7 @@ msgstr "トラック #"
 msgid "Track Parser"
 msgstr "トラックパーサ"
 
-#: ../root/release/edit_relationships.tt:20
+#: ../root/release/edit_relationships.tt:19
 msgid "Track Relationships"
 msgstr "トラックの関係"
 
@@ -5540,7 +5540,7 @@ msgid ""
 " below in order to attach this disc to another MusicBrainz release."
 msgstr ""
 
-#: ../root/release/index.tt:10
+#: ../root/release/edit_relationships.tt:93 ../root/release/index.tt:10
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
@@ -5604,7 +5604,7 @@ msgstr "作品属性"
 msgid "Work Details"
 msgstr "作品の詳細"
 
-#: ../root/release/edit_relationships.tt:152
+#: ../root/release/edit_relationships.tt:158
 msgid "Work Type:"
 msgstr "作品タイプ:"
 
@@ -6213,7 +6213,7 @@ msgstr ""
 msgid "track"
 msgstr "トラック"
 
-#: ../root/components/medium.tt:85
+#: ../root/components/medium.tt:96
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "トラック {tracks}"
@@ -6326,6 +6326,12 @@ msgid "{num} year ago"
 msgid_plural "{num} years ago"
 msgstr[0] "{num}年前"
 
+#: ../root/components/medium.tt:84
+#: ../root/components/StaticRelationshipsDisplay.js:54
+#: ../root/static/scripts/relationship-editor/common/fields.js:509
+msgid "{num}. {relationship}"
+msgstr ""
+
 #: ../root/components/common-macros.tt:278
 #: ../root/static/scripts/common/components/DescriptiveLink.js:64
 msgid "{place} in {area}"
@@ -6334,6 +6340,11 @@ msgstr ""
 #: ../root/recording/edit_form.tt:35
 msgid ""
 "{recording_length} ({length_info|derived} from the associated track lengths)"
+msgstr ""
+
+#: ../root/components/medium.tt:84
+#: ../root/components/StaticRelationshipsDisplay.js:59
+msgid "{relationship} (order: {num})"
 msgstr ""
 
 #: ../root/cdtoc/move_search.tt:33
@@ -7519,12 +7530,12 @@ msgstr ""
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:265
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:267
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:272
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:274
 #: ../lib/MusicBrainz/Server/Translation.pm:273
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -8964,23 +8975,23 @@ msgstr "自分のすべてのコレクションを表示"
 msgid "See all of {editor}'s public collections"
 msgstr "{editor}の公開コレクションをすべて表示"
 
-#: ../root/collection/CollectionIndex.js:189 ../root/user/UserProfile.js:271
+#: ../root/collection/CollectionIndex.js:188 ../root/user/UserProfile.js:271
 #: ../root/user/UserProfile.js:321
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "スパム回避のため内容は表示されません。表示するには{url|ログイン}してください。"
 
-#: ../root/collection/CollectionIndex.js:200
+#: ../root/collection/CollectionIndex.js:199
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:99
 #: ../root/user/UserCollections.js:103
 msgid "Collaborators"
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:214
+#: ../root/collection/CollectionIndex.js:213
 msgid "Remove selected items from collection"
 msgstr "コレクションから選択した項目を削除"
 
-#: ../root/collection/CollectionIndex.js:219
+#: ../root/collection/CollectionIndex.js:218
 msgid "This collection is empty."
 msgstr "コレクションが空です。"
 
@@ -9178,15 +9189,6 @@ msgstr "関係する作品"
 #: ../root/components/RelationshipsTable.js:91
 msgid "Credited As"
 msgstr "クレジット"
-
-#: ../root/components/StaticRelationshipsDisplay.js:54
-#: ../root/static/scripts/relationship-editor/common/fields.js:509
-msgid "{num}. {relationship}"
-msgstr ""
-
-#: ../root/components/StaticRelationshipsDisplay.js:59
-msgid "{relationship} (order: {num})"
-msgstr ""
 
 #: ../root/components/UserAccountTabs.js:30
 #: ../root/layout/components/TopMenu.js:31
@@ -10163,16 +10165,16 @@ msgid ""
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/Ratings.js:61
+#: ../root/entity/Ratings.js:56
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
 msgstr[0] "{count}件の評価は非公開となっています。"
 
-#: ../root/entity/Ratings.js:68
+#: ../root/entity/Ratings.js:63
 msgid "Average rating:"
 msgstr "平均評価:"
 
-#: ../root/entity/Ratings.js:74
+#: ../root/entity/Ratings.js:69
 msgid "{link} has no ratings."
 msgstr "{link}は評価がありません。"
 
@@ -10691,7 +10693,7 @@ msgid "Add annotation"
 msgstr "注釈を追加"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:42
-#: ../root/static/scripts/common/components/Annotation.js:99
+#: ../root/static/scripts/common/components/Annotation.js:94
 msgid "View annotation history"
 msgstr "注釈の履歴を表示"
 
@@ -13505,21 +13507,21 @@ msgstr ""
 msgid "Image {current} of {total}"
 msgstr ""
 
-#: ../root/static/scripts/common/components/Annotation.js:81
+#: ../root/static/scripts/common/components/Annotation.js:76
 msgid "(no changelog)"
 msgstr "(更新履歴なし)"
 
-#: ../root/static/scripts/common/components/Annotation.js:91
+#: ../root/static/scripts/common/components/Annotation.js:86
 msgid "Annotation last modified by {user} on {date}."
 msgstr "注釈は{date}に{user}で更新しました。"
 
-#: ../root/static/scripts/common/components/Annotation.js:110
+#: ../root/static/scripts/common/components/Annotation.js:105
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
 msgstr ""
 
-#: ../root/static/scripts/common/components/Annotation.js:122
+#: ../root/static/scripts/common/components/Annotation.js:117
 msgid "Annotation last modified on {date}."
 msgstr "注釈は{date}に更新しました。"
 

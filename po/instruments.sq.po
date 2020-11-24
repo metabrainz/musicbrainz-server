@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-19 02:15+0000\n"
+"PO-Revision-Date: 2020-11-24 04:02+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -2490,6 +2490,11 @@ msgstr ""
 msgctxt "Free-reed keyboard mouth-organ"
 msgid "melodica"
 msgstr "melodika"
+
+#: DB:instrument/name:1022
+msgctxt "Bellowed free reed in a lute-like casing"
+msgid "melophone"
+msgstr ""
 
 #: DB:instrument/name:100
 msgid "membranophone"

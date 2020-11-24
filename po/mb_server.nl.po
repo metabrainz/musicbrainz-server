@@ -29,9 +29,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-18 20:14-0600\n"
-"PO-Revision-Date: 2020-11-19 02:15+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2020-11-23 22:00-0600\n"
+"PO-Revision-Date: 2020-11-20 21:45+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -436,12 +436,12 @@ msgstr "Nog een instrument toevoegen"
 msgid "Add edit note"
 msgstr "Bewerkingsnotitie toevoegen"
 
-#: ../root/release/edit_relationships.tt:229
+#: ../root/release/edit_relationships.tt:235
 msgid "Add related work"
 msgstr "Gerelateerde compositie toevoegen"
 
 #: ../root/forms/relationship-editor.tt:7
-#: ../root/release/edit_relationships.tt:211
+#: ../root/release/edit_relationships.tt:217
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:28
 msgid "Add relationship"
@@ -532,7 +532,7 @@ msgid ""
 " unique disambiguation comment."
 msgstr "Er bestaat al een object met deze naam en verduidelijking. Je moet een unieke verduidelijking toevoegen."
 
-#: ../root/release/edit_relationships.tt:187
+#: ../root/release/edit_relationships.tt:193
 msgid "An error occurred while creating the works."
 msgstr "Er trad een fout op bij het toevoegen van de composities."
 
@@ -558,7 +558,7 @@ msgstr "Er is een fout opgetreden:"
 #: ../root/report/components/WorkAnnotationList.js:31
 #: ../root/search/components/AnnotationResults.js:60
 #: ../root/search/components/SearchForm.js:42
-#: ../root/static/scripts/common/components/Annotation.js:62
+#: ../root/static/scripts/common/components/Annotation.js:57
 msgid "Annotation"
 msgstr "Aantekening"
 
@@ -1110,7 +1110,7 @@ msgstr "De captcha is incorrect. Probeer het opnieuw."
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:91
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:100
 msgid "Cardinality of {entity_placeholder}"
-msgstr ""
+msgstr "Kardinaliteit van {entity_placeholder}"
 
 #: ../root/release/edit/information.tt:188
 msgid "Cat. No:"
@@ -1161,7 +1161,7 @@ msgid "Change release data quality"
 msgstr "Gegevenskwaliteitsscore van de uitgave veranderen"
 
 #: ../root/annotation/edit.tt:24
-#: ../root/static/scripts/common/components/Annotation.js:79
+#: ../root/static/scripts/common/components/Annotation.js:74
 msgid "Changelog:"
 msgstr "Veranderingslogboek:"
 
@@ -1641,7 +1641,7 @@ msgid "Edit Cover Art"
 msgstr "Afbeelding bewerken"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:109
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:115
 #: ../root/components/EnterEditNote.js:26
 msgid "Edit Note"
 msgstr "Bewerkingsnotitie"
@@ -1680,7 +1680,7 @@ msgstr "Alias bewerken"
 
 #: ../root/annotation/edit.tt:2
 #: ../root/layout/components/sidebar/AnnotationLinks.js:35
-#: ../root/static/scripts/common/components/Annotation.js:105
+#: ../root/static/scripts/common/components/Annotation.js:100
 msgid "Edit annotation"
 msgstr "Aantekening bewerken"
 
@@ -1827,7 +1827,7 @@ msgid ""
 msgstr "Vul de coördinaten in of klik op de kaart om de coördinaten van de aanwijzer over te nemen. Als je te ver bent uitgezoomd, wordt de map ingezoomd als je erop klikt."
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:151
-#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:116
+#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:122
 #: ../root/components/EnterEdit.js:38
 msgid "Enter edit"
 msgstr "Bewerking invoeren"
@@ -2765,7 +2765,7 @@ msgstr "Aantal keer opgevraagd"
 msgid "Low"
 msgstr "Laag"
 
-#: ../root/release/edit_relationships.tt:163
+#: ../root/release/edit_relationships.tt:169
 #: ../root/edit/details/AddWork.js:81 ../root/edit/details/EditWork.js:98
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:54
@@ -3290,7 +3290,7 @@ msgstr "Alleen uitgaves met hetzelfde aantal nummers ({n}) als de uitgave waar d
 msgid "Only show open edits"
 msgstr "Alleen open bewerkingen tonen"
 
-#: ../root/release/edit_relationships.tt:146
+#: ../root/release/edit_relationships.tt:152
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -3608,8 +3608,8 @@ msgid "Rating"
 msgstr "Waardering"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:32
-#: ../root/components/UserAccountTabs.js:59 ../root/entity/Ratings.js:37
-#: ../root/entity/Ratings.js:39
+#: ../root/components/UserAccountTabs.js:59 ../root/entity/Ratings.js:38
+#: ../root/entity/Ratings.js:40
 msgid "Ratings"
 msgstr "Waarderingen"
 
@@ -3806,7 +3806,7 @@ msgstr "Uitgavegroep"
 msgid "Release Group Details"
 msgstr "Details van de uitgavegroep"
 
-#: ../root/release/edit_relationships.tt:97
+#: ../root/release/edit_relationships.tt:103
 msgid "Release Group Relationships"
 msgstr "Relaties van de uitgavegroep"
 
@@ -3838,7 +3838,7 @@ msgstr "Taal van de uitgave"
 msgid "Release Quality"
 msgstr "Kwaliteit van de gegevens"
 
-#: ../root/release/edit_relationships.tt:91
+#: ../root/release/edit_relationships.tt:97
 msgid "Release Relationships"
 msgstr "Uitgaverelaties"
 
@@ -4484,8 +4484,8 @@ msgid "Submit votes &amp; edit notes"
 msgstr "Stemmen uitbrengen en notities toevoegen"
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:120
-#: ../root/release/edit_relationships.tt:180
+#: ../root/release/edit_relationships.tt:126
+#: ../root/release/edit_relationships.tt:186
 msgid "Submitting edits..."
 msgstr "Bewerkingen worden ingevoerd …"
 
@@ -5003,11 +5003,11 @@ msgstr "Deze gebruiker is geautomatiseerd."
 msgid "This user is new to MusicBrainz."
 msgstr "Deze gebruiker is nieuw op MusicBrainz."
 
-#: ../root/release/edit_relationships.tt:127
+#: ../root/release/edit_relationships.tt:133
 msgid "This will add a relationship to all checked recordings."
 msgstr "Dit voegt een relatie toe aan alle aangevinkte opnames."
 
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:136
 msgid "This will add a relationship to all checked works."
 msgstr "Dit voegt een relatie toe aan alle aangevinkte composities."
 
@@ -5017,7 +5017,7 @@ msgid ""
 "any edits currently open to Abstain."
 msgstr "Hiermee annuleer je ook al je open bewerkingen en verander je al je stemmen op open bewerkingen naar Onthouding."
 
-#: ../root/release/edit_relationships.tt:143
+#: ../root/release/edit_relationships.tt:149
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
@@ -5114,7 +5114,7 @@ msgstr "Nummer #"
 msgid "Track Parser"
 msgstr "Automatisch vullen"
 
-#: ../root/release/edit_relationships.tt:20
+#: ../root/release/edit_relationships.tt:19
 msgid "Track Relationships"
 msgstr "Nummerrelaties"
 
@@ -5542,7 +5542,7 @@ msgid ""
 " below in order to attach this disc to another MusicBrainz release."
 msgstr "We hebben media gevonden die overeenkomen met de informatie die je opvroeg. Als geen van deze uitgaves is wat je zoekt, kan je met het onderstaande formulier zoeken naar andere uitgaves in MusicBrainz, zodat je dit medium eraan kan toevoegen."
 
-#: ../root/release/index.tt:10
+#: ../root/release/edit_relationships.tt:93 ../root/release/index.tt:10
 msgid "We have no information about this release’s media and tracklist."
 msgstr "We hebben geen informatie over de media en nummerlijst van deze uitgave."
 
@@ -5606,7 +5606,7 @@ msgstr "Compositie-eigenschappen"
 msgid "Work Details"
 msgstr "Details van de compositie"
 
-#: ../root/release/edit_relationships.tt:152
+#: ../root/release/edit_relationships.tt:158
 msgid "Work Type:"
 msgstr "Type compositie:"
 
@@ -6216,7 +6216,7 @@ msgstr "een tab of vier spaties en: * punten; 1., a., A., i., I. genummerde obje
 msgid "track"
 msgstr "nummer"
 
-#: ../root/components/medium.tt:85
+#: ../root/components/medium.tt:96
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "nummer {tracks}"
@@ -6336,6 +6336,12 @@ msgid_plural "{num} years ago"
 msgstr[0] "{num} jaar geleden"
 msgstr[1] "{num} jaar geleden"
 
+#: ../root/components/medium.tt:84
+#: ../root/components/StaticRelationshipsDisplay.js:54
+#: ../root/static/scripts/relationship-editor/common/fields.js:509
+msgid "{num}. {relationship}"
+msgstr "{num}. {relationship}"
+
 #: ../root/components/common-macros.tt:278
 #: ../root/static/scripts/common/components/DescriptiveLink.js:64
 msgid "{place} in {area}"
@@ -6345,6 +6351,11 @@ msgstr "{place} in {area}"
 msgid ""
 "{recording_length} ({length_info|derived} from the associated track lengths)"
 msgstr "{recording_length} ({length_info|afgeleid} van de duur van gekoppelde nummers)"
+
+#: ../root/components/medium.tt:84
+#: ../root/components/StaticRelationshipsDisplay.js:59
+msgid "{relationship} (order: {num})"
+msgstr "{relationship} (volgorde: {num})"
 
 #: ../root/cdtoc/move_search.tt:33
 msgid "{release} by {artist}"
@@ -7532,12 +7543,12 @@ msgstr "{attribute} [{credited_as}]"
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:265
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:267
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr "{start_track}&#x2013;{end_track}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:272
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:274
 #: ../lib/MusicBrainz/Server/Translation.pm:273
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -8978,23 +8989,23 @@ msgstr "Bekijk al je collecties"
 msgid "See all of {editor}'s public collections"
 msgstr "Bekijk alle openbare collecties van {editor}"
 
-#: ../root/collection/CollectionIndex.js:189 ../root/user/UserProfile.js:271
+#: ../root/collection/CollectionIndex.js:188 ../root/user/UserProfile.js:271
 #: ../root/user/UserProfile.js:321
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "Om spam te voorkomen is deze informatie verborgen. {url|Meld je aan} om het te bekijken."
 
-#: ../root/collection/CollectionIndex.js:200
+#: ../root/collection/CollectionIndex.js:199
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:99
 #: ../root/user/UserCollections.js:103
 msgid "Collaborators"
 msgstr "Deelnemers"
 
-#: ../root/collection/CollectionIndex.js:214
+#: ../root/collection/CollectionIndex.js:213
 msgid "Remove selected items from collection"
 msgstr "Geselecteerde objecten uit de collectie verwijderen."
 
-#: ../root/collection/CollectionIndex.js:219
+#: ../root/collection/CollectionIndex.js:218
 msgid "This collection is empty."
 msgstr "Deze collectie is leeg."
 
@@ -9180,7 +9191,7 @@ msgstr "Alle media inklappen"
 
 #: ../root/components/PostParameters.js:44
 msgid "Data submitted with this request"
-msgstr ""
+msgstr "Met dit verzoek verzonden data"
 
 #: ../root/components/RelatedSeries.js:30
 msgid "Related series"
@@ -9193,15 +9204,6 @@ msgstr "Gerelateerde composities"
 #: ../root/components/RelationshipsTable.js:91
 msgid "Credited As"
 msgstr "Vermeld als"
-
-#: ../root/components/StaticRelationshipsDisplay.js:54
-#: ../root/static/scripts/relationship-editor/common/fields.js:509
-msgid "{num}. {relationship}"
-msgstr "{num}. {relationship}"
-
-#: ../root/components/StaticRelationshipsDisplay.js:59
-msgid "{relationship} (order: {num})"
-msgstr "{relationship} (volgorde: {num})"
 
 #: ../root/components/UserAccountTabs.js:30
 #: ../root/layout/components/TopMenu.js:31
@@ -9549,7 +9551,7 @@ msgstr "(geen)"
 #: ../root/edit/details/AddRelationshipType.js:94
 #: ../root/edit/details/AddRelationshipType.js:103
 msgid "Type of {entity_placeholder}"
-msgstr ""
+msgstr "Soort {entity_placeholder}"
 
 #: ../root/edit/details/AddRelationshipType.js:134
 msgctxt "link_phrase"
@@ -10183,17 +10185,17 @@ msgid ""
 "try and {search_url|search for it} instead."
 msgstr "We konden helaas geen compositie met die MusicBrainz-ID vinden. Je kan ook proberen om {search_url|ernaar te zoeken}."
 
-#: ../root/entity/Ratings.js:61
+#: ../root/entity/Ratings.js:56
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
 msgstr[0] "{count} privéwaardering niet weergegeven"
 msgstr[1] "{count} privéwaarderingen niet weergegeven"
 
-#: ../root/entity/Ratings.js:68
+#: ../root/entity/Ratings.js:63
 msgid "Average rating:"
 msgstr "Gemiddelde waardering:"
 
-#: ../root/entity/Ratings.js:74
+#: ../root/entity/Ratings.js:69
 msgid "{link} has no ratings."
 msgstr "{link} heeft geen waarderingen"
 
@@ -10719,7 +10721,7 @@ msgid "Add annotation"
 msgstr "Aantekening toevoegen"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:42
-#: ../root/static/scripts/common/components/Annotation.js:99
+#: ../root/static/scripts/common/components/Annotation.js:94
 msgid "View annotation history"
 msgstr "Geschiedenis van de aantekening bekijken"
 
@@ -10897,7 +10899,7 @@ msgstr "Informatie over de opname"
 
 #: ../root/layout/components/sidebar/RecordingSidebar.js:59
 msgid "First release year"
-msgstr ""
+msgstr "Vroegste jaar van uitgave"
 
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:50
 msgid "Release group information"
@@ -11022,28 +11024,28 @@ msgstr "Heb je op onze site een kapotte link gevonden? {report|Laat het ons wete
 
 #: ../root/main/ConfirmSeed.js:31
 msgid "Confirm Form Submission"
-msgstr ""
+msgstr "Verzenden van het formulier bevestigen"
 
 #: ../root/main/ConfirmSeed.js:37
 msgid ""
 "You are about to submit a request to {action} originating from {origin}. "
 "Continue?"
-msgstr ""
+msgstr "Je staat op het punt om een verzoek voor {action} van {origin} in te dienen. Wil je verdergaan?"
 
 #: ../root/main/ConfirmSeed.js:46
 msgid ""
 "This confirmation is important to ensure that no malicious actor can use "
 "your account to modify data without your knowledge. Below this line, you can"
 " review the data being sent and make any modifications if desired."
-msgstr ""
+msgstr "Deze bevestiging is belangrijk om te zorgen dat een kwaadwillende je account niet kan gebruiken om zonder dat je het weet data te veranderen. Hieronder kun je de gegevens controleren en als je wil dingen veranderen."
 
 #: ../root/main/components/ConfirmSeedButtons.js:18
 msgid "Continue"
-msgstr ""
+msgstr "Verdergaan"
 
 #: ../root/main/components/ConfirmSeedButtons.js:34
 msgid "Leave"
-msgstr ""
+msgstr "Verlaten"
 
 #: ../root/main/index.js:35
 msgid "MusicBrainz - The Open Music Encyclopedia"
@@ -12320,7 +12322,7 @@ msgstr "Instrumenten zonder afbeelding"
 
 #: ../root/report/InstrumentsWithoutAnImage.js:29
 msgid "This report shows instruments without an image relationship."
-msgstr ""
+msgstr "In dit rapport staan instrumenten zonder afbeeldingsrelatie."
 
 #: ../root/report/InstrumentsWithoutAnImage.js:32
 #: ../root/report/InstrumentsWithoutWikidata.js:32
@@ -12330,11 +12332,11 @@ msgstr "Totaal aantal gevonden instrumenten: {count}"
 #: ../root/report/InstrumentsWithoutWikidata.js:24
 #: ../root/report/InstrumentsWithoutWikidata.js:25
 msgid "Instruments without a Wikidata link"
-msgstr ""
+msgstr "Instrumenten zonder Wikidata-link"
 
 #: ../root/report/InstrumentsWithoutWikidata.js:29
 msgid "This report shows instruments without Wikidata relationships."
-msgstr ""
+msgstr "In dit rapport staan instrumenten zonder Wikidata-relaties."
 
 #: ../root/report/IsrcsWithManyRecordings.js:37
 #: ../root/report/IsrcsWithManyRecordings.js:38
@@ -12878,7 +12880,7 @@ msgstr "Mogelijk dubbele evenementen"
 
 #: ../root/report/ReportsIndex.js:143
 msgid "Instruments without a link to Wikidata"
-msgstr ""
+msgstr "Instrumenten zonder link naar Wikidata"
 
 #: ../root/report/ReportsIndex.js:168
 msgid "Labels with annotations"
@@ -13536,21 +13538,21 @@ msgstr "Medium laden is mislukt."
 msgid "Image {current} of {total}"
 msgstr "Afbeelding {current} van {total}"
 
-#: ../root/static/scripts/common/components/Annotation.js:81
+#: ../root/static/scripts/common/components/Annotation.js:76
 msgid "(no changelog)"
 msgstr "(geen veranderingslogboek)"
 
-#: ../root/static/scripts/common/components/Annotation.js:91
+#: ../root/static/scripts/common/components/Annotation.js:86
 msgid "Annotation last modified by {user} on {date}."
 msgstr "Aantekening het laatst bewerkt door {user} op {date}."
 
-#: ../root/static/scripts/common/components/Annotation.js:110
+#: ../root/static/scripts/common/components/Annotation.js:105
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
 msgstr "Dit is een {history|oude versie} van deze aantekening, zoals bewerkt door {user} op {date}. {current|Huidige versie bekijken}."
 
-#: ../root/static/scripts/common/components/Annotation.js:122
+#: ../root/static/scripts/common/components/Annotation.js:117
 msgid "Annotation last modified on {date}."
 msgstr "Aantekening het laatst bewerkt op {date}"
 

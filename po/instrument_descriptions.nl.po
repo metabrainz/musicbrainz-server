@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-19 02:16+0000\n"
+"PO-Revision-Date: 2020-11-24 04:02+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1766,6 +1766,16 @@ msgstr "Viooloctet is een benaming voor een moderne gestroomlijnde familie van v
 msgid "Northumbrian (small)pipes"
 msgstr "Northumbrian pipes is een door de ellebogen aangeblazen doedelzak uit Northumberland."
 
+#. name:melophone
+#: DB:instrument/description:1022
+msgid ""
+"Not to be confused with <a "
+"href=\"/instrument/6a539558-5585-4803-a705-a4520f23189d\">mellophone</a>, a "
+"brass valved instrument.<br /> Wooden body shaped like a lute, it has a "
+"bellow operated by a handle at the bottom and buttons operating the reeds in"
+" the \"neck\""
+msgstr ""
+
 #. name:ghijak
 #: DB:instrument/description:932
 msgid ""
@@ -2123,7 +2133,7 @@ msgstr "Een fluit is een rietloze aerofoon, meestal in de vorm van een buis."
 msgid ""
 "Regular or specialised saw used for music, held and bent, it is bowed to "
 "produce characteristical glissando."
-msgstr ""
+msgstr "Een normale zaag of een zaag die speciaal voor muziek is bedoeld. De zaag wordt gebogen vastgehouden en met een strijkstok bespeeld om de kenmerkende glissando te creëren."
 
 #. name:kenong
 #: DB:instrument/description:985
@@ -4466,7 +4476,7 @@ msgid ""
 "Used in sacred rituals, it is made of metal or clay rattle with metal discs "
 "which jangle when shook. </br> Not to be confused with the West African "
 "calabash sistrum or disc rattle (n'goso m'bara)"
-msgstr ""
+msgstr "Het sistrum werd gebruikt in godsdienstige rituelen. Het is een ratel van metaal of klei met metalen schijven die rinkelen als het instrument wordt geschud.</br>Niet te verwarren met de West-Afrikaanse kalebassistrum of schijfjesratel (n’goso m’bara)."
 
 #. name:saron wayang
 #: DB:instrument/description:1010

@@ -2487,6 +2487,11 @@ msgctxt "Free-reed keyboard mouth-organ"
 msgid "melodica"
 msgstr ""
 
+#: DB:instrument/name:1022
+msgctxt "Bellowed free reed in a lute-like casing"
+msgid "melophone"
+msgstr ""
+
 #: DB:instrument/name:100
 msgid "membranophone"
 msgstr ""
