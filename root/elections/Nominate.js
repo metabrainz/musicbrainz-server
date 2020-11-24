@@ -14,7 +14,7 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 
 type Props = {
   +$c: CatalystContextT,
-  +candidate: UnsanitizedEditorT,
+  +candidate: SanitizedEditorT,
   +form: SecureConfirmFormT,
 };
 

@@ -17,7 +17,7 @@ import AreaLayout from './AreaLayout';
 type Props = {
   +$c: CatalystContextT,
   +area: AreaT,
-  +editors: $ReadOnlyArray<UnsanitizedEditorT>,
+  +editors: $ReadOnlyArray<SanitizedEditorT>,
   +pager: PagerT,
 };
 

@@ -22,7 +22,7 @@ import {
 } from '../utility/tableColumns';
 
 type Props = {
-  +$c: $ReadOnly<{...CatalystContextT, user: UnsanitizedEditorT}>,
+  +$c: CatalystContextT,
   +collaborativeCollections: CollectionListT,
   +ownCollections: CollectionListT,
   +user: UnsanitizedEditorT,
@@ -50,8 +50,8 @@ const collectionsListTitles = {
 };
 
 function formatCollaboratorNumber(
-  collaborators: $ReadOnlyArray<UnsanitizedEditorT>,
-  currentUser: UnsanitizedEditorT | null,
+  collaborators: $ReadOnlyArray<SanitizedEditorT>,
+  currentUser: ?UnsanitizedEditorT,
 ) {
   const isCollaborator = !!currentUser && collaborators.some(
     collaborator => collaborator.id === currentUser.id,
@@ -67,7 +67,7 @@ function formatCollaboratorNumber(
 
 function formatPrivacy(
   collection: CollectionT,
-  currentUser: UnsanitizedEditorT | null,
+  currentUser: ?UnsanitizedEditorT,
   isCollaborativeSection: boolean,
 ) {
   return (collection.public ? l('Public') : l('Private')) + (
@@ -98,7 +98,7 @@ const CollectionsEntityTypeSection = ({
           id: 'size',
         };
       const collaboratorsColumn:
-        ColumnOptions<CollectionT, $ReadOnlyArray<UnsanitizedEditorT>> = {
+        ColumnOptions<CollectionT, $ReadOnlyArray<SanitizedEditorT>> = {
           Cell: ({cell: {value}}) => formatCollaboratorNumber(value, $c.user),
           Header: l('Collaborators'),
           accessor: 'collaborators',

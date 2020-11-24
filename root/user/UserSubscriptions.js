@@ -26,7 +26,7 @@ const titleByEntityType = {
 
 type UserSubscriptionsTableProps = {
   +entities: $ReadOnlyArray<
-    ArtistT | CollectionT | UnsanitizedEditorT | LabelT | SeriesT>,
+    ArtistT | CollectionT | SanitizedEditorT | LabelT | SeriesT>,
   +viewingOwnProfile: boolean,
 };
 
@@ -63,7 +63,7 @@ const UserSubscriptionsTable = ({
 type UserSubscriptionsProps = {
   +$c: CatalystContextT,
   +entities: $ReadOnlyArray<
-    ArtistT | CollectionT | UnsanitizedEditorT | LabelT | SeriesT>,
+    ArtistT | CollectionT | SanitizedEditorT | LabelT | SeriesT>,
   +pager: PagerT,
   +privateCollectionCount?: number,
   +summary: {

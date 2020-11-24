@@ -36,7 +36,7 @@ const EditorResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<UnsanitizedEditorT>):
+}: ResultsPropsWithContextT<SanitizedEditorT>):
 React.Element<typeof ResultsLayout> => (
   <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults

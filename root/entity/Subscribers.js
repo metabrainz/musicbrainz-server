@@ -14,9 +14,9 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 
 type Props = {
   +$c: CatalystContextT,
-  +entity: CoreEntityT | CollectionT | UnsanitizedEditorT,
+  +entity: CoreEntityT | CollectionT | SanitizedEditorT,
   +privateEditors: number,
-  +publicEditors: $ReadOnlyArray<UnsanitizedEditorT>,
+  +publicEditors: $ReadOnlyArray<SanitizedEditorT>,
   +subscribed: boolean,
 };
 

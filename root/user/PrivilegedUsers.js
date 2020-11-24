@@ -15,13 +15,13 @@ import UserInlineList from './components/UserInlineList';
 
 type Props = {
   +$c: CatalystContextT,
-  +accountAdmins: $ReadOnlyArray<UnsanitizedEditorT>,
-  +autoEditors: $ReadOnlyArray<UnsanitizedEditorT>,
-  +bannerEditors: $ReadOnlyArray<UnsanitizedEditorT>,
-  +bots: $ReadOnlyArray<UnsanitizedEditorT>,
-  +locationEditors: $ReadOnlyArray<UnsanitizedEditorT>,
-  +relationshipEditors: $ReadOnlyArray<UnsanitizedEditorT>,
-  +transclusionEditors: $ReadOnlyArray<UnsanitizedEditorT>,
+  +accountAdmins: $ReadOnlyArray<SanitizedEditorT>,
+  +autoEditors: $ReadOnlyArray<SanitizedEditorT>,
+  +bannerEditors: $ReadOnlyArray<SanitizedEditorT>,
+  +bots: $ReadOnlyArray<SanitizedEditorT>,
+  +locationEditors: $ReadOnlyArray<SanitizedEditorT>,
+  +relationshipEditors: $ReadOnlyArray<SanitizedEditorT>,
+  +transclusionEditors: $ReadOnlyArray<SanitizedEditorT>,
 };
 
 const PrivilegedUsers = ({

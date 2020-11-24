@@ -750,7 +750,7 @@ sub TO_JSON {
         action => {
             name => $self->action->name,
         },
-        user => ($self->user_exists ? $self->user : undef),
+        user => ($self->user_exists ? $self->user->unsanitized_json : undef),
         user_exists => boolean_to_json($self->user_exists),
         debug => boolean_to_json($self->debug),
         relative_uri => $self->relative_uri,

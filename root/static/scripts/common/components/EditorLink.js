@@ -29,7 +29,7 @@ const MissingEditorLink = (): React.Element<'span'> => {
 type Props = {
   +avatarSize?: number,
   +content?: string,
-  +editor: UnsanitizedEditorT | SanitizedEditorT | null,
+  +editor: $ReadOnly<{...SanitizedEditorT, ...}> | null,
   +subPath?: string,
 };
 

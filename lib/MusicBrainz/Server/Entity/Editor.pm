@@ -293,19 +293,7 @@ sub gravatar {
     return '//gravatar.com/avatar/placeholder?d=mm';
 }
 
-# Corresponds to SanitizedEditorT in root/types.js.
-sub sanitized_json {
-    my ($self) = @_;
-
-    return {
-        entityType => 'editor',
-        gravatar => $self->gravatar,
-        id => $self->id,
-        name => $self->name,
-    };
-}
-
-sub TO_JSON {
+sub unsanitized_json {
     my ($self) = @_;
 
     my $birth_partial_date;
@@ -316,7 +304,7 @@ sub TO_JSON {
     }
 
     return {
-        %{$self->sanitized_json},
+        %{$self->TO_JSON},
         age                         => $self->age ? $self->age : undef,
         area                        => $self->area,
         biography                   => format_wikitext($self->biography),
@@ -343,6 +331,17 @@ sub TO_JSON {
         preferences                 => $self->preferences->TO_JSON,
         registration_date           => datetime_to_iso8601($self->registration_date),
         website                     => $self->website,
+    };
+}
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        entityType => 'editor',
+        gravatar => $self->gravatar,
+        id => $self->id,
+        name => $self->name,
     };
 }
 

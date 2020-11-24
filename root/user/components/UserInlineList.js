@@ -14,7 +14,7 @@ import EditorLink from '../../static/scripts/common/components/EditorLink';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 
 type Props = {
-  +editors: $ReadOnlyArray<UnsanitizedEditorT | SanitizedEditorT>,
+  +editors: $ReadOnlyArray<SanitizedEditorT>,
 };
 
 const UserInlineList = ({editors}: Props): React.Element<'p'> => (
