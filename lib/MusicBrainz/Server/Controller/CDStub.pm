@@ -82,7 +82,7 @@ sub add : Path('add') DenyWhenReadonly
         }
     );
     $c->stash( template => 'cdstub/add.tt' );
-    if ($c->form_submitted_and_valid($form)) {
+    if ($c->form_posted_and_valid($form)) {
         my $form_val = $form->value;
         $c->model('CDStub')->insert({
             %$form_val,

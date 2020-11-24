@@ -19,7 +19,7 @@ type Props = {
 
 const MergeHelper = ({$c, merger}: Props): React.Element<'div'> => (
   <div id="current-editing">
-    <form action={`/${merger.type}/merge`} method="get">
+    <form action={`/${merger.type}/merge`} method="post">
       <h2>{l('Merge Process')}</h2>
       <p>
         {l('You currently have the following entities selected for merging:')}

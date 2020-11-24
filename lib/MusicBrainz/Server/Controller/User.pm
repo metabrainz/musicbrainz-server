@@ -240,7 +240,7 @@ sub _renew_login_cookie
         value => $token
             ? encode('utf-8', join("\t", $cookie_version, $normalized_name, $token))
             : '',
-        samesite => 'Strict',
+        samesite => 'Lax',
         $c->req->secure ? (secure => 1) : (),
     };
 }
