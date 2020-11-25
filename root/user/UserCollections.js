@@ -51,10 +51,10 @@ const collectionsListTitles = {
 
 function formatCollaboratorNumber(
   collaborators: $ReadOnlyArray<EditorT>,
-  currentUser: ?UnsanitizedEditorT,
+  activeUserId: ?number,
 ) {
-  const isCollaborator = !!currentUser && collaborators.some(
-    collaborator => collaborator.id === currentUser.id,
+  const isCollaborator = activeUserId != null && collaborators.some(
+    collaborator => collaborator.id === activeUserId,
   );
 
   return isCollaborator ? (
@@ -67,18 +67,18 @@ function formatCollaboratorNumber(
 
 function formatPrivacy(
   collection: CollectionT,
-  currentUser: ?UnsanitizedEditorT,
+  activeUserId: ?number,
   isCollaborativeSection: boolean,
 ) {
   return (collection.public ? l('Public') : l('Private')) + (
-    isCollaborativeSection && !!currentUser && !!collection.editor &&
-    collection.editor.id === currentUser.id
+    isCollaborativeSection && activeUserId != null && !!collection.editor &&
+    collection.editor.id === activeUserId
       ? ' ' + l('(your collection)') : ''
   );
 }
 
 const CollectionsEntityTypeSection = ({
-  $c,
+  activeUserId,
   isCollaborative,
   collections,
   type,
@@ -86,7 +86,8 @@ const CollectionsEntityTypeSection = ({
 }) => {
   const columns = React.useMemo(
     () => {
-      const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
+      const viewingOwnProfile =
+        activeUserId != null && activeUserId === user.id;
       const nameColumn = defineNameColumn<CollectionT>({
         title: l('Collection'),
       });
@@ -99,7 +100,9 @@ const CollectionsEntityTypeSection = ({
         };
       const collaboratorsColumn:
         ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
-          Cell: ({cell: {value}}) => formatCollaboratorNumber(value, $c.user),
+          Cell: ({cell: {value}}) => (
+            formatCollaboratorNumber(value, activeUserId)
+          ),
           Header: l('Collaborators'),
           accessor: 'collaborators',
           id: 'collaborators',
@@ -108,7 +111,7 @@ const CollectionsEntityTypeSection = ({
         ColumnOptions<CollectionT, boolean> = {
           Cell: ({row: {original}}) => formatPrivacy(
             original,
-            $c.user,
+            activeUserId,
             isCollaborative,
           ),
           Header: l('Privacy'),
@@ -127,12 +130,12 @@ const CollectionsEntityTypeSection = ({
         typeColumn,
         sizeColumn,
         collaboratorsColumn,
-        ...($c.user ? [subscriptionColumn] : []),
+        ...(activeUserId == null ? [] : [subscriptionColumn]),
         ...(viewingOwnProfile || isCollaborative ? [privacyColumn] : []),
         ...(viewingOwnProfile && !isCollaborative ? [actionsColumn] : []),
       ];
     },
-    [$c.user, isCollaborative, type, user.id],
+    [activeUserId, isCollaborative, type, user.id],
   );
 
   return (
@@ -149,7 +152,8 @@ const UserCollections = ({
   collaborativeCollections,
   user,
 }: Props): React.Element<typeof UserAccountLayout> => {
-  const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
+  const activeUser = $c.user;
+  const viewingOwnProfile = !!(activeUser && activeUser.id === user.id);
   const ownCollectionTypes = Object.keys(ownCollections);
   const collaborativeCollectionTypes = Object.keys(collaborativeCollections);
 
@@ -164,7 +168,7 @@ const UserCollections = ({
       {ownCollectionTypes.length > 0 ? (
         ownCollectionTypes.sort().map(type => (
           <CollectionsEntityTypeSection
-            $c={$c}
+            activeUserId={activeUser?.id}
             collections={ownCollections[type]}
             isCollaborative={false}
             key={type}
@@ -185,7 +189,7 @@ const UserCollections = ({
       {collaborativeCollectionTypes.length > 0 ? (
         collaborativeCollectionTypes.sort().map(type => (
           <CollectionsEntityTypeSection
-            $c={$c}
+            activeUserId={$c.user?.id}
             collections={collaborativeCollections[type]}
             isCollaborative
             key={type}
