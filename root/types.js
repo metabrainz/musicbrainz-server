@@ -396,7 +396,7 @@ declare type EditableRoleT = {
 
 declare type EditExpireActionT = 1 | 2;
 
-declare type EditorPreferencesT = {
+declare type UnsanitizedEditorPreferencesT = {
   +datetime_format: string,
   +email_on_no_vote: boolean,
   +email_on_notes: boolean,
@@ -439,7 +439,7 @@ declare type UnsanitizedEditorT = $ReadOnly<{
   +languages: $ReadOnlyArray<EditorLanguageT> | null,
   +last_login_date: string | null,
   +name: string,
-  +preferences: EditorPreferencesT,
+  +preferences: UnsanitizedEditorPreferencesT,
   +registration_date: string,
   +website: string | null,
 }>;
@@ -1001,7 +1001,7 @@ declare type SanitizedCatalystContextT = {
   +user: ActiveEditorT | null,
 };
 
-declare type SanitizedEditorPreferencesT = {
+declare type ActiveEditorPreferencesT = {
   +datetime_format: string,
   +timezone: string,
 };
@@ -1015,7 +1015,7 @@ declare type ActiveEditorT = {
   +gravatar: string,
   +has_confirmed_email_address: boolean,
   +name: string,
-  +preferences: SanitizedEditorPreferencesT,
+  +preferences: ActiveEditorPreferencesT,
 };
 
 declare type EditorT = {
