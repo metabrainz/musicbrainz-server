@@ -44,7 +44,7 @@ export default function chooseLayoutComponent(
 ): React$ComponentType<{
   +$c: CatalystContextT,
   +children: React$Node,
-  +entity: CoreEntityT | SanitizedEditorT | CollectionT,
+  +entity: CoreEntityT | EditorT | CollectionT,
   +page: string,
   +title: string,
 }> {

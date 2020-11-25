@@ -50,7 +50,7 @@ const collectionsListTitles = {
 };
 
 function formatCollaboratorNumber(
-  collaborators: $ReadOnlyArray<SanitizedEditorT>,
+  collaborators: $ReadOnlyArray<EditorT>,
   currentUser: ?UnsanitizedEditorT,
 ) {
   const isCollaborator = !!currentUser && collaborators.some(
@@ -98,7 +98,7 @@ const CollectionsEntityTypeSection = ({
           id: 'size',
         };
       const collaboratorsColumn:
-        ColumnOptions<CollectionT, $ReadOnlyArray<SanitizedEditorT>> = {
+        ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
           Cell: ({cell: {value}}) => formatCollaboratorNumber(value, $c.user),
           Header: l('Collaborators'),
           accessor: 'collaborators',

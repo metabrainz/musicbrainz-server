@@ -12,7 +12,7 @@
 
 function activeSanitizedEditor(
   editor /*: UnsanitizedEditorT */,
-) /*: ActiveSanitizedEditorT */ {
+) /*: ActiveEditorT */ {
   return {
     entityType: 'editor',
     gravatar: editor.gravatar,
