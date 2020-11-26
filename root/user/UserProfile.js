@@ -196,20 +196,20 @@ const UserProfileInformation = ({
                       </a>,
                     )}
                     {(nonEmpty(email) && isAccountAdmin) ? (
-                      <>
-                        {' '}
-                        {bracketed(
-                          <a
-                            href={
-                              '/admin/email-search/?emailsearch.email=' +
-                              encodeURIComponent(escapeRegExp(email)) +
-                              '&emailsearch.submit=1'
-                            }
-                          >
-                            {l('find all users of this email')}
-                          </a>,
-                        )}
-                      </>
+                      <form action="/admin/email-search" method="post">
+                        <input
+                          name="emailsearch.email"
+                          type="hidden"
+                          value={escapeRegExp(email)}
+                        />
+                        <button
+                          name="emailsearch.submit"
+                          type="submit"
+                          value="1"
+                        >
+                          {l('find all users of this email')}
+                        </button>
+                      </form>
                     ) : null}
                   </>
                 ) : null

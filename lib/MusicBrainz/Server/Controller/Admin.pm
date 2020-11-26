@@ -159,7 +159,7 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
     my $form = $c->form(form => 'Admin::EmailSearch');
     my @results;
 
-    if ($c->form_submitted_and_valid($form)) {
+    if ($c->form_posted_and_valid($form, $c->req->body_params)) {
         try {
             @results = $c->model('Editor')->search_by_email(
                 $form->field('email')->value // '',
