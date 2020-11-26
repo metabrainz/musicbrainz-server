@@ -44,6 +44,27 @@ test all => sub {
         (1, '$long_unicode_tag1', 1);
     INSERT INTO artist_tag (artist, tag, count, last_updated) VALUES
         (666, 1, 1, now());
+    INSERT INTO area (
+        id, gid, name, type, edits_pending, last_updated, begin_date_year,
+        begin_date_month, begin_date_day, end_date_year, end_date_month,
+        end_date_day, ended, comment
+    ) VALUES (
+        5099, '29a709d8-0320-493e-8d0c-f2c386662b7f', 'Chicago', 3, 0,
+        '2013-05-24 20:27:13.405462+00', NULL, NULL, NULL, NULL, NULL, NULL,
+        'f', ''
+    );
+    INSERT INTO editor (
+        name, privs, email, website, bio, member_since, email_confirm_date,
+        last_login_date, last_updated, birth_date, gender, area, password,
+        ha1, deleted
+    ) VALUES (
+        'false_editor', 937, 'false_editor123\@example.com',
+        'false_editor123.example.com', 'hi im false',
+        '2020-11-26 01:13:41.810622+00', '2020-11-26 01:13:57.82052+00',
+        '2020-11-26 01:19:11.752133+00', '2020-11-26 01:13:41.810622+00',
+        '1970-01-20', 3, 5099, '{CRYPT}abc123secret',
+        '35c1f5f73559130eddbef34e50e22ad6', 'f'
+    );
     COMMIT;
 EOSQL
 
@@ -102,6 +123,7 @@ EOSQL
         '--import',
             File::Spec->catfile($output_dir, 'mbdump.tar.bz2'),
             File::Spec->catfile($output_dir, 'mbdump-derived.tar.bz2'),
+            File::Spec->catfile($output_dir, 'mbdump-editor.tar.bz2'),
     );
 
     my $replication_setup = File::Spec->catfile($root, 'admin/sql/ReplicationSetup.sql');
@@ -181,6 +203,47 @@ EOSQL
             id => 2,
             name => $long_unicode_tag2,
             ref_count => 1,
+        },
+    ]);
+
+    my $editors = $c->sql->select_list_of_hashes('SELECT * FROM editor ORDER BY id');
+
+    cmp_deeply($editors, [
+        {
+            area => undef,
+            bio => undef,
+            birth_date => undef,
+            deleted => 0,
+            email => '',
+            email_confirm_date => '2013-07-26 11:48:31.088042+00',
+            gender => undef,
+            ha1 => '03503a81a03bdbb6055f4a6c8b86b5b8',
+            id => 4,
+            last_login_date => ignore(),
+            last_updated => ignore(),
+            member_since => ignore(),
+            name => 'ModBot',
+            password => '{CLEARTEXT}mb',
+            privs => 0,
+            website => undef,
+        },
+        {
+            area => undef,
+            bio => undef,
+            birth_date => undef,
+            deleted => 0,
+            email => '',
+            email_confirm_date => '2020-11-26 01:13:57.82052+00',
+            gender => undef,
+            ha1 => '62918b6c0e34b4bf056ecad67c96b765',
+            id => 5,
+            last_login_date => ignore(),
+            last_updated => '2020-11-26 01:13:41.810622+00',
+            member_since => '2020-11-26 01:13:41.810622+00',
+            name => 'false_editor',
+            password => '{CLEARTEXT}mb',
+            privs => 0,
+            website => undef,
         },
     ]);
 
