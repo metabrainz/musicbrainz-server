@@ -393,7 +393,7 @@ sub collections : Chained('load') PathPart('collections')
     }
 
     my %props = (
-        user                     => $user->unsanitized_json,
+        user                     => $c->unsanitized_editor_json($user),
         ownCollections           => \%collections_by_entity_type,
         collaborativeCollections => \%collaborative_collections_by_entity_type,
     );
@@ -437,7 +437,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
         ipHashes        => \@ip_hashes,
         subscribed      => $c->stash->{subscribed},
         subscriberCount => $c->stash->{subscriber_count},
-        user            => $user->unsanitized_json,
+        user            => $c->unsanitized_editor_json($user),
         votes           => $c->stash->{votes},
         addedEntities   => $added_entities,
     );
@@ -622,7 +622,7 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves SecureForm {
         component_path => 'user/ReportUser',
         component_props => {
             form => $form,
-            user => $reported_user->unsanitized_json,
+            user => $c->unsanitized_editor_json($reported_user),
         },
     );
 

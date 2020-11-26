@@ -42,7 +42,7 @@ role {
             component_path => 'user/UserSubscriptions',
             component_props => {
                 entities  => $entities,
-                user      => $user->unsanitized_editor,
+                user      => $c->unsanitized_editor_json($user),
                 summary   => $c->model('Editor')->subscription_summary($user->id),
                 type      => $type,
                 pager     => serialize_pager($c->stash->{pager}),

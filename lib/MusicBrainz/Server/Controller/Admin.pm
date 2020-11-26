@@ -181,7 +181,7 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
         component_props => {
             form => $form,
             @results ? (
-                results => [map { $_->unsanitized_json } @results],
+                results => [map { $c->unsanitized_editor_json($_) } @results],
             ) : (),
         },
     );
@@ -197,7 +197,7 @@ sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) Hidd
         component_path => 'admin/IpLookup',
         component_props => {
             ipHash => $ip_hash,
-            users => [map { $_->unsanitized_json } @users],
+            users => [map { $c->unsanitized_editor_json($_) } @users],
         },
     );
 }

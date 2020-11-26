@@ -20,6 +20,7 @@ import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed';
 import * as TYPES from '../static/scripts/common/constants/editTypes';
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp';
+import nonEmpty from '../static/scripts/common/utility/nonEmpty';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import {formatCount, formatPercentage} from '../statistics/utilities';
 import formatUserDate from '../utility/formatUserDate';
@@ -144,7 +145,13 @@ const UserProfileInformation = ({
 
   const encodedName = encodeURIComponent(user.name);
 
-  const {area, biography, gender, languages} = user;
+  const {
+    area,
+    biography,
+    email,
+    gender,
+    languages,
+  } = user;
 
   /*
    * Whether the user making the request is an account admin (not
@@ -158,9 +165,9 @@ const UserProfileInformation = ({
 
       <table className="profileinfo" role="presentation">
         <UserProfileProperty name={l('Email:')}>
-          {user.email ? (
+          {user.has_email_address ? (
             <>
-              {viewingOwnProfile ? user.email : l('(hidden)')}
+              {viewingOwnProfile ? email : l('(hidden)')}
               {' '}
               {nonEmpty(user.email_confirmation_date) ? (
                 exp.l('(verified at {date})', {
@@ -188,14 +195,14 @@ const UserProfileInformation = ({
                         {l('send email')}
                       </a>,
                     )}
-                    {isAccountAdmin ? (
+                    {(nonEmpty(email) && isAccountAdmin) ? (
                       <>
                         {' '}
                         {bracketed(
                           <a
                             href={
                               '/admin/email-search/?emailsearch.email=' +
-                              encodeURIComponent(escapeRegExp(user.email)) +
+                              encodeURIComponent(escapeRegExp(email)) +
                               '&emailsearch.submit=1'
                             }
                           >

@@ -293,27 +293,21 @@ sub gravatar {
     return '//gravatar.com/avatar/placeholder?d=mm';
 }
 
-sub unsanitized_json {
+sub _unsanitized_json {
     my ($self) = @_;
 
-    my $birth_partial_date;
-
-    if ($self->birth_date) {
-        my $bd = $self->birth_date;
-        $birth_partial_date = { year => $bd->year, month => $bd->month, day => $bd->day };
-    }
-
-    return {
+    my $json = {
         %{$self->TO_JSON},
         age                         => $self->age ? $self->age : undef,
         area                        => $self->area,
         biography                   => format_wikitext($self->biography),
-        birth_date                  => $birth_partial_date,
+        birth_date                  => undef,
         deleted                     => boolean_to_json($self->deleted),
-        email                       => $self->email,
+        email                       => undef,
         email_confirmation_date     => datetime_to_iso8601($self->email_confirmation_date),
         gender                      => $self->gender,
         has_confirmed_email_address => boolean_to_json($self->has_confirmed_email_address),
+        has_email_address           => boolean_to_json($self->has_email_address),
         is_account_admin            => boolean_to_json($self->is_account_admin),
         is_adding_notes_disabled    => boolean_to_json($self->is_adding_notes_disabled),
         is_admin                    => boolean_to_json($self->is_admin),
@@ -332,6 +326,13 @@ sub unsanitized_json {
         registration_date           => datetime_to_iso8601($self->registration_date),
         website                     => $self->website,
     };
+
+    for my $restricted_key (qw( birth_date email )) {
+        die "Use \$c->unsanitized_editor_json to access $restricted_key"
+            if defined $json->{$restricted_key};
+    }
+
+    return $json;
 }
 
 sub TO_JSON {
