@@ -302,7 +302,6 @@ sub _unsanitized_json {
         area                        => $self->area,
         biography                   => format_wikitext($self->biography),
         birth_date                  => undef,
-        deleted                     => boolean_to_json($self->deleted),
         email                       => undef,
         email_confirmation_date     => datetime_to_iso8601($self->email_confirmation_date),
         gender                      => $self->gender,
@@ -339,6 +338,7 @@ sub TO_JSON {
     my ($self) = @_;
 
     return {
+        deleted => boolean_to_json($self->deleted),
         entityType => 'editor',
         gravatar => $self->gravatar,
         id => $self->id,

@@ -9,7 +9,9 @@
 
 import * as React from 'react';
 
-import UserAccountLayout from '../components/UserAccountLayout';
+import UserAccountLayout, {
+  sanitizedAccountLayoutUser,
+} from '../components/UserAccountLayout';
 import PreferencesForm
   from '../static/scripts/account/components/PreferencesForm';
 import type {PreferencesFormPropsT}
@@ -27,7 +29,7 @@ const Preferences = ({
 }: Props): React.Element<typeof UserAccountLayout> => (
   <UserAccountLayout
     $c={$c}
-    entity={$c.user}
+    entity={sanitizedAccountLayoutUser($c.user)}
     page="preferences"
     title={l('Preferences')}
   >

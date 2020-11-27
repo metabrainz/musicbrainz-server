@@ -10,7 +10,9 @@
 import * as React from 'react';
 
 import {CONTACT_URL} from '../constants';
-import UserAccountLayout from '../components/UserAccountLayout';
+import UserAccountLayout, {
+  type AccountLayoutUserT,
+} from '../components/UserAccountLayout';
 import FormCsrfToken from '../components/FormCsrfToken';
 import FormRow from '../components/FormRow';
 import FormRowCheckbox from '../components/FormRowCheckbox';
@@ -35,7 +37,7 @@ type Props = {
     +reason: FieldT<ReportReasonT>,
     +reveal_address: FieldT<boolean>,
   }>,
-  +user: UnsanitizedEditorT,
+  +user: AccountLayoutUserT,
 };
 
 const reportReasonOptions = {

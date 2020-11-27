@@ -9,7 +9,9 @@
 
 import * as React from 'react';
 
-import UserAccountLayout from '../components/UserAccountLayout';
+import UserAccountLayout, {
+  sanitizedAccountLayoutUser,
+} from '../components/UserAccountLayout';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import {FLUENCY_NAMES} from '../static/scripts/common/constants';
@@ -701,7 +703,11 @@ const UserProfile = ({
   const encodedName = encodeURIComponent(user.name);
 
   return (
-    <UserAccountLayout $c={$c} entity={user} page="index">
+    <UserAccountLayout
+      $c={$c}
+      entity={sanitizedAccountLayoutUser(user)}
+      page="index"
+    >
       <UserProfileInformation
         $c={$c}
         ipHashes={ipHashes}

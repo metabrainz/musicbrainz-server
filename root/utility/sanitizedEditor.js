@@ -14,6 +14,7 @@ function sanitizedEditor(
   editor /*: UnsanitizedEditorT | EditorT */,
 ) /*: EditorT */ {
   return {
+    deleted: editor.deleted,
     entityType: 'editor',
     gravatar: editor.gravatar,
     id: editor.id,

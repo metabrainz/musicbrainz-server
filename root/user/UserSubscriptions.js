@@ -11,7 +11,9 @@ import * as React from 'react';
 
 import FormSubmit from '../components/FormSubmit';
 import PaginatedResults from '../components/PaginatedResults';
-import UserAccountLayout from '../components/UserAccountLayout';
+import UserAccountLayout, {
+  type AccountLayoutUserT,
+} from '../components/UserAccountLayout';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import loopParity from '../utility/loopParity';
@@ -74,7 +76,7 @@ type UserSubscriptionsProps = {
     +series: number,
   },
   +type: 'artist' | 'collection' | 'editor' | 'label' | 'series',
-  +user: UnsanitizedEditorT,
+  +user: AccountLayoutUserT,
 };
 
 const UserSubscriptions = ({

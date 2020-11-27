@@ -11,7 +11,8 @@ import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
 import Table from '../components/Table';
-import UserAccountLayout from '../components/UserAccountLayout';
+import UserAccountLayout, {type AccountLayoutUserT}
+  from '../components/UserAccountLayout';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName';
 import {
@@ -25,7 +26,7 @@ type Props = {
   +$c: CatalystContextT,
   +collaborativeCollections: CollectionListT,
   +ownCollections: CollectionListT,
-  +user: UnsanitizedEditorT,
+  +user: AccountLayoutUserT,
 };
 
 type CollectionListT = {

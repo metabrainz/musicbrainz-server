@@ -97,6 +97,25 @@ sub _perform_login {
     }
 }
 
+# Corresponds to AccountLayoutUserT in root/components/UserAccountLayout.js
+sub serialize_user {
+    my ($self, $user) = @_;
+
+    my $preferences = $user->preferences;
+    return {
+        deleted => boolean_to_json($user->deleted),
+        entityType => 'editor',
+        gravatar => $user->gravatar,
+        id => 0 + $user->id,
+        name => $user->name,
+        preferences => {
+            public_ratings => boolean_to_json($preferences->public_ratings),
+            public_subscriptions => boolean_to_json($preferences->public_ratings),
+            public_tags => boolean_to_json($preferences->public_tags),
+        },
+    };
+}
+
 sub do_login : Private
 {
     my ($self, $c) = @_;
@@ -392,8 +411,9 @@ sub collections : Chained('load') PathPart('collections')
         push @{ $collaborative_collections_by_entity_type{$collection->type->item_entity_type} }, $collection;
     }
 
+    my $preferences = $user->preferences;
     my %props = (
-        user                     => $c->unsanitized_editor_json($user),
+        user                     => $self->serialize_user($user),
         ownCollections           => \%collections_by_entity_type,
         collaborativeCollections => \%collaborative_collections_by_entity_type,
     );
@@ -622,7 +642,7 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves SecureForm {
         component_path => 'user/ReportUser',
         component_props => {
             form => $form,
-            user => $c->unsanitized_editor_json($reported_user),
+            user => $self->serialize_user($reported_user),
         },
     );
 

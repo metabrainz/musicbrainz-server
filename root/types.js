@@ -1021,6 +1021,7 @@ declare type ActiveEditorT = {
 
 declare type EditorT = {
   ...EntityRoleT<'editor'>,
+  +deleted: boolean,
   +gravatar: string,
   +name: string,
 };
