@@ -454,7 +454,7 @@ declare type EditorLanguageT = {
 declare type EditorOAuthTokenT = {
   ...EntityRoleT<empty>,
   +application: ApplicationT,
-  +editor: SanitizedEditorT,
+  +editor: SanitizedEditorT | null,
   +granted: string,
   +is_offline: boolean,
   +permissions: $ReadOnlyArray<string>,
