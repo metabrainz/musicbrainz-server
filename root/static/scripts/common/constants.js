@@ -132,6 +132,7 @@ export const FAVICON_CLASSES = {
   'online-bijbel.nl': 'onlinebijbel',
   'openlibrary.org': 'openlibrary',
   'operabase.com': 'operabase',
+  'overture.doremus.org': 'overture',
   'patreon.com': 'patreon',
   'paypal.me': 'paypal',
   'petitlyrics.com': 'petitlyrics',
