@@ -83,24 +83,6 @@ CREATE OR REPLACE VIEW work_series AS
     LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
     ORDER BY series, link_order;
 
-CREATE OR REPLACE VIEW recording_release_dates AS
-    SELECT track.recording,
-           release.id AS release,
-           date_year AS year,
-           date_month AS month,
-           date_day AS day
-      FROM track
-      JOIN medium ON (medium.id = track.medium)
-      JOIN release ON (release.id = medium.release)
-      LEFT JOIN (
-          SELECT release, date_year, date_month, date_day
-            FROM release_country
-           UNION
-          SELECT release, date_year, date_month, date_day
-            FROM release_unknown_country
-      ) release_dates
-        ON release_dates.release = release.id;
-
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

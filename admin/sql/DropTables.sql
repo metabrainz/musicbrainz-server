@@ -268,6 +268,7 @@ DROP TABLE release_attribute_type;
 DROP TABLE release_attribute_type_allowed_value;
 DROP TABLE release_country;
 DROP TABLE release_coverart;
+DROP TABLE release_first_release_date;
 DROP TABLE release_gid_redirect;
 DROP TABLE release_group;
 DROP TABLE release_group_alias;

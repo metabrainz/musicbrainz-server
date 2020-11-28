@@ -2859,6 +2859,12 @@ ALTER TABLE release_coverart
    REFERENCES release(id)
    ON DELETE CASCADE;
 
+ALTER TABLE release_first_release_date
+   ADD CONSTRAINT release_first_release_date_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE release_gid_redirect
    ADD CONSTRAINT release_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)

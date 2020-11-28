@@ -4,18 +4,13 @@ SET search_path = musicbrainz;
 
 BEGIN;
 
+DROP VIEW IF EXISTS recording_release_dates;
+
 CREATE TABLE release_first_release_date (
     release     INTEGER NOT NULL,
     year        SMALLINT,
     month       SMALLINT,
     day         SMALLINT
-);
-
-CREATE TABLE recording_first_release_date (
-  recording   INTEGER NOT NULL,
-  year        SMALLINT,
-  month       SMALLINT,
-  day         SMALLINT
 );
 
 INSERT INTO release_first_release_date (
@@ -34,6 +29,8 @@ INSERT INTO release_first_release_date (
       date_month NULLS LAST,
       date_day NULLS LAST
 );
+
+TRUNCATE recording_first_release_date;
 
 INSERT INTO recording_first_release_date (
   SELECT DISTINCT ON (track.recording)
@@ -55,9 +52,11 @@ ALTER TABLE release_first_release_date
   ADD CONSTRAINT release_first_release_date_pkey
   PRIMARY KEY (release);
 
-ALTER TABLE recording_first_release_date
-  ADD CONSTRAINT recording_first_release_date_pkey
-  PRIMARY KEY (recording);
+ALTER TABLE release_first_release_date
+   ADD CONSTRAINT release_first_release_date_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id)
+   ON DELETE CASCADE;
 
 CREATE OR REPLACE FUNCTION set_release_first_release_date(release_id INTEGER)
 RETURNS VOID AS $$
