@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import punycode from 'punycode';
+
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
@@ -103,9 +105,10 @@ export class ExternalLinksEditor
   handleUrlBlur(index: number, event: SyntheticEvent<HTMLInputElement>) {
     const url = event.currentTarget.value;
     const trimmed = url.trim();
+    const unicodeUrl = getUnicodeUrl(trimmed);
 
-    if (url !== trimmed) {
-      this.setLinkState(index, {url: trimmed});
+    if (url !== unicodeUrl) {
+      this.setLinkState(index, {url: unicodeUrl});
     }
   }
 
@@ -230,6 +233,7 @@ export class ExternalLinksEditor
             const isNewLink = !isPositiveInteger(link.relationship);
             const linkChanged = oldLink && link.url !== oldLink.url;
             const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+            link.url = getUnicodeUrl(link.url);
 
             if (isEmpty(link)) {
               error = '';
@@ -527,13 +531,27 @@ export function parseRelationships(
 const protocolRegex = /^(https?|ftp):$/;
 const hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
 
+export function getUnicodeUrl(url: string): string {
+  if (!isValidURL(url)) {
+    return url;
+  }
+
+  const urlObject = new URL(url);
+  const unicodeHostname = punycode.toUnicode(urlObject.hostname);
+  const unicodeUrl = url.replace(urlObject.hostname, unicodeHostname);
+
+  return unicodeUrl;
+}
+
 function isValidURL(url) {
   const a = document.createElement('a');
   a.href = url;
 
   const hostname = a.hostname;
 
-  if (url.indexOf(hostname) < 0) {
+  // To compare with the url we need to decode the Punycode if present
+  const unicodeHostname = punycode.toUnicode(hostname);
+  if (url.indexOf(hostname) < 0 && url.indexOf(unicodeHostname) < 0) {
     return false;
   }
 
