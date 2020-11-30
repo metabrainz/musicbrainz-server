@@ -4,6 +4,7 @@ use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_e
 use MusicBrainz::Server::Constants qw( $AREA_TYPE_COUNTRY $AREA_TYPE_CITY );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 # Role::LifeSpan is not included here because schema.org does not have
