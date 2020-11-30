@@ -327,7 +327,15 @@ around dispatch => sub {
                       $c->req->cookies->{beta}->value eq 'on' &&
                       !DBDefs->IS_BETA);
     if ( $unset_beta ) {
-        $c->res->cookies->{beta} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
+        $c->res->cookies->{beta} = {
+            'value' => '',
+            'path' => '/',
+            'expires' => time()-86400,
+            $c->req->secure ? (
+                'samesite' => 'None',
+                'secure' => '1',
+            ) : (),
+        };
     }
 
     if (DBDefs->BETA_REDIRECT_HOSTNAME &&
