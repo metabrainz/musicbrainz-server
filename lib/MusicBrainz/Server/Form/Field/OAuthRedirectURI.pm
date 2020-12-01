@@ -18,10 +18,5 @@ sub validate
     $self->_set_value($url->as_string);
 }
 
-sub deflate {
-    my ($self, $value) = @_;
-    return $value->as_string;
-}
-
 __PACKAGE__->meta->make_immutable;
 1;
