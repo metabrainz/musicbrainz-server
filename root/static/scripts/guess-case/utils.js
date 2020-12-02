@@ -217,7 +217,7 @@ export function titleString(gc, is, forceCaps) {
   } else if (isApostrophe(gc.i.getPreviousWord()) &&
       gc.i.getWordAtIndex(pos - 2) === 'Ev') {
     os = lc;
-    // Make it O'Titled, Y'All
+    // Make it O'Titled, Y'All, C'mon
   } else if (lc.match(/^[coy]$/i) &&
       isApostrophe(gc.i.getNextWord())) {
     os = uc;
