@@ -141,15 +141,16 @@ const DefaultMode = {
     return LOWER_CASE_WORDS.test(w);
   },
 
+  isRomanNumber(w) {
+    return getBooleanCookie('guesscase_roman') && ROMAN_NUMERALS.test(w);
+  },
+
   isSentenceCaps() {
     return true;
   },
 
   isUpperCaseWord(w) {
-    return (
-      UPPER_CASE_WORDS.test(w) ||
-      (getBooleanCookie('guesscase_roman') && ROMAN_NUMERALS.test(w))
-    );
+    return UPPER_CASE_WORDS.test(w);
   },
 
   name: '',

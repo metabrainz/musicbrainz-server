@@ -238,6 +238,8 @@ export function titleString(gc, is, forceCaps) {
     const nextWord = gc.i.getNextWord();
     const followedByPunctuation =
       nextWord && nextWord.length === 1 && isPunctuationChar(nextWord);
+    const followedByApostrophe =
+      nextWord && nextWord.length === 1 && isApostrophe(nextWord);
 
     /*
      * Unless forceCaps is enabled, lowercase the word
@@ -245,6 +247,12 @@ export function titleString(gc, is, forceCaps) {
      */
     if (!forceCaps && gc.mode.isLowerCaseWord(lc) && !followedByPunctuation) {
       os = lc;
+    } else if (gc.mode.isRomanNumber(lc) && !followedByApostrophe) {
+      /*
+       * Uppercase Roman numerals unless followed by apostrophe
+       * (likely false positive, "d'amore", "c'est")
+       */
+      os = uc;
     } else if (gc.mode.isUpperCaseWord(lc)) {
       os = uc;
     } else if (flags.isInsideBrackets() && isLowerCaseBracketWord(lc)) {

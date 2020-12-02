@@ -176,7 +176,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-  t.plan(22);
+  t.plan(23);
 
   const tests = [
     {
@@ -310,6 +310,14 @@ test('Work', function (t) {
       expected: 'My Favourite Numbers Are IV, VIII, XIX and MCMXCVI',
       bug: 'MBS-5338',
       mode: 'English',
+      roman: true,
+      keepuppercase: false,
+    },
+    {
+      input: "C'est le hautbois d'amour no. cvi",
+      expected: "C'est le hautbois d'amour no. CVI",
+      bug: 'MBS-11264',
+      mode: 'French',
       roman: true,
       keepuppercase: false,
     },
