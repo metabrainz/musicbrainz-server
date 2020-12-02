@@ -96,8 +96,14 @@ sub build_display_data {
         sort { $a->{new} <=> $b->{new} }
         @{ $self->data->{medium_positions} } ];
 
-    $data{release} = $loaded->{Release}{ $self->data->{release}{id} }
-        || Release->new( name => $self->data->{release}{name} );
+    my $release = $loaded->{Release}{ $self->data->{release}{id} };
+
+    if ($release) {
+        $self->c->model('ArtistCredit')->load($release);
+    }
+
+    $data{release} = $release || Release->new( name => $self->data->{release}{name} );
+
 
     return \%data;
 }
