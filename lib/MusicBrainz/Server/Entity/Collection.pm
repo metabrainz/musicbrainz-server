@@ -59,12 +59,12 @@ around TO_JSON => sub {
     my $json = $self->$orig;
 
     my $editor = $self->editor;
-    $json->{editor} = defined $editor ? $editor->sanitized_json : undef;
+    $json->{editor} = defined $editor ? $editor->TO_JSON : undef;
     $json->{public} = boolean_to_json($self->public);
     $json->{description} = $self->description;
     $json->{description_html} = format_wikitext($self->description);
     $json->{editor_is_limited} = boolean_to_json(defined $editor ? $editor->is_limited : 0);
-    $json->{collaborators} = [map { $_->sanitized_json } $self->all_collaborators];
+    $json->{collaborators} = [map { $_->TO_JSON } $self->all_collaborators];
 
     if ($self->loaded_entity_count) {
         $json->{entity_count} = $self->entity_count;

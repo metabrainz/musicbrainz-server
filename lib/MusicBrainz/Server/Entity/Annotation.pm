@@ -64,7 +64,7 @@ sub TO_JSON {
     return {
         changelog => $self->changelog,
         creation_date => datetime_to_iso8601($self->creation_date),
-        editor => (defined $self->editor ? $self->editor->sanitized_json : undef),
+        editor => (defined $self->editor ? $self->editor->TO_JSON : undef),
         html => format_wikitext($self->text),
         id => $self->id,
         parent => $self->parent ? $self->parent->TO_JSON : undef,

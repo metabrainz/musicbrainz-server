@@ -9,7 +9,9 @@
 
 import * as React from 'react';
 
-import UserAccountLayout from '../components/UserAccountLayout';
+import UserAccountLayout, {
+  sanitizedAccountLayoutUser,
+} from '../components/UserAccountLayout';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import {FLUENCY_NAMES} from '../static/scripts/common/constants';
@@ -20,6 +22,7 @@ import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed';
 import * as TYPES from '../static/scripts/common/constants/editTypes';
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp';
+import nonEmpty from '../static/scripts/common/utility/nonEmpty';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import {formatCount, formatPercentage} from '../statistics/utilities';
 import formatUserDate from '../utility/formatUserDate';
@@ -36,7 +39,7 @@ const ADDED_ENTITIES_TYPES = {
   work:      N_l('Work'),
 };
 
-function generateUserTypesList(user: EditorT) {
+function generateUserTypesList(user: UnsanitizedEditorT) {
   const typesList = [];
   if (user.deleted) {
     typesList.push(l('Deleted User'));
@@ -112,7 +115,7 @@ type UserProfileInformationProps = {
   +ipHashes: $ReadOnlyArray<string>,
   +subscribed: boolean,
   +subscriberCount: number,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
   +viewingOwnProfile: boolean,
 };
 
@@ -144,7 +147,13 @@ const UserProfileInformation = ({
 
   const encodedName = encodeURIComponent(user.name);
 
-  const {area, biography, gender, languages} = user;
+  const {
+    area,
+    biography,
+    email,
+    gender,
+    languages,
+  } = user;
 
   /*
    * Whether the user making the request is an account admin (not
@@ -158,9 +167,9 @@ const UserProfileInformation = ({
 
       <table className="profileinfo" role="presentation">
         <UserProfileProperty name={l('Email:')}>
-          {user.email ? (
+          {user.has_email_address ? (
             <>
-              {viewingOwnProfile ? user.email : l('(hidden)')}
+              {viewingOwnProfile ? email : l('(hidden)')}
               {' '}
               {nonEmpty(user.email_confirmation_date) ? (
                 exp.l('(verified at {date})', {
@@ -188,21 +197,21 @@ const UserProfileInformation = ({
                         {l('send email')}
                       </a>,
                     )}
-                    {isAccountAdmin ? (
-                      <>
-                        {' '}
-                        {bracketed(
-                          <a
-                            href={
-                              '/admin/email-search/?emailsearch.email=' +
-                              encodeURIComponent(escapeRegExp(user.email)) +
-                              '&emailsearch.submit=1'
-                            }
-                          >
-                            {l('find all users of this email')}
-                          </a>,
-                        )}
-                      </>
+                    {(nonEmpty(email) && isAccountAdmin) ? (
+                      <form action="/admin/email-search" method="post">
+                        <input
+                          name="emailsearch.email"
+                          type="hidden"
+                          value={escapeRegExp(email)}
+                        />
+                        <button
+                          name="emailsearch.submit"
+                          type="submit"
+                          value="1"
+                        >
+                          {l('find all users of this email')}
+                        </button>
+                      </form>
                     ) : null}
                   </>
                 ) : null
@@ -365,7 +374,7 @@ type UserEditsPropertyProps = {
   +addedEntities: number,
   +entityType: string,
   +name: string,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
 };
 
 const UserEditsProperty = ({
@@ -448,7 +457,7 @@ type UserProfileStatisticsProps = {
   +$c: CatalystContextT,
   +addedEntities: EntitiesStatsT,
   +editStats: EditStatsT,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
   +votes: VoteStatsT,
 };
 
@@ -676,7 +685,7 @@ type UserProfileProps = {
   +ipHashes: $ReadOnlyArray<string>,
   +subscribed: boolean,
   +subscriberCount: number,
-  +user: EditorT,
+  +user: UnsanitizedEditorT,
   +votes: VoteStatsT,
 };
 
@@ -694,7 +703,11 @@ const UserProfile = ({
   const encodedName = encodeURIComponent(user.name);
 
   return (
-    <UserAccountLayout $c={$c} entity={user} page="index">
+    <UserAccountLayout
+      $c={$c}
+      entity={sanitizedAccountLayoutUser(user)}
+      page="index"
+    >
       <UserProfileInformation
         $c={$c}
         ipHashes={ipHashes}

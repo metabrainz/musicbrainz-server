@@ -11,8 +11,8 @@
 /* eslint-disable import/no-commonjs */
 
 function activeSanitizedEditor(
-  editor /*: EditorT */,
-) /*: ActiveSanitizedEditorT */ {
+  editor /*: UnsanitizedEditorT */,
+) /*: ActiveEditorT */ {
   return {
     entityType: 'editor',
     gravatar: editor.gravatar,

@@ -42,7 +42,7 @@ role {
             component_path => 'user/UserSubscriptions',
             component_props => {
                 entities  => $entities,
-                user      => $user,
+                user      => $c->controller('User')->serialize_user($user),
                 summary   => $c->model('Editor')->subscription_summary($user->id),
                 type      => $type,
                 pager     => serialize_pager($c->stash->{pager}),

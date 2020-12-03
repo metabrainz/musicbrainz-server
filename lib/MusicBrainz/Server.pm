@@ -666,6 +666,32 @@ sub is_cross_origin {
     return $origin ne $mb_origin;
 }
 
+sub unsanitized_editor_json {
+    my ($self, $editor) = @_;
+
+    my $json = $editor->_unsanitized_json;
+
+    if ($self->user_exists) {
+        my $active_user = $self->user;
+
+        if ($editor->id == $active_user->id) {
+            my $birth_date = $editor->birth_date;
+            if ($birth_date) {
+                $json->{birth_date} = {
+                    year => $birth_date->year,
+                    month => $birth_date->month,
+                    day => $birth_date->day,
+                };
+            }
+            $json->{email} = $editor->email;
+        } elsif ($active_user->is_account_admin) {
+            $json->{email} = $editor->email;
+        }
+    }
+
+    return $json;
+}
+
 sub TO_JSON {
     my $self = shift;
 
@@ -750,7 +776,11 @@ sub TO_JSON {
         action => {
             name => $self->action->name,
         },
-        user => ($self->user_exists ? $self->user : undef),
+        user => (
+            $self->user_exists
+                ? $self->unsanitized_editor_json($self->user)
+                : undef
+        ),
         user_exists => boolean_to_json($self->user_exists),
         debug => boolean_to_json($self->debug),
         relative_uri => $self->relative_uri,

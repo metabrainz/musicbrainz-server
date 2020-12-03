@@ -16,7 +16,7 @@ import UserList from './components/UserList';
 type Props = {
   +$c: CatalystContextT,
   +ipHash: string,
-  +users: $ReadOnlyArray<EditorT>,
+  +users: $ReadOnlyArray<UnsanitizedEditorT>,
 };
 
 const IpLookup = ({
