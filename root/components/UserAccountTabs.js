@@ -14,10 +14,11 @@ import DBDefs from '../static/scripts/common/DBDefs';
 import buildTab from '../utility/buildTab';
 
 import Tabs from './Tabs';
+import type {AccountLayoutUserT} from './UserAccountLayout';
 
 function buildTabs(
   $c: CatalystContextT,
-  user: EditorT,
+  user: AccountLayoutUserT,
   page: string,
 ): $ReadOnlyArray<React.Element<'li'>> {
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
@@ -110,7 +111,7 @@ function buildTabs(
 
 type Props = {
   +page: string,
-  +user: EditorT,
+  +user: AccountLayoutUserT,
 };
 
 const UserAccountTabs = ({

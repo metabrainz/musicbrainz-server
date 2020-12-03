@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
+import IrombookImage
+  from '../../../static/scripts/common/components/IrombookImage';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -36,6 +38,8 @@ const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
         cachedImage={$c.stash.commons_image}
         entity={instrument}
       />
+
+      <IrombookImage entity={instrument} />
 
       {instrument.typeID == null ? null : (
         <>

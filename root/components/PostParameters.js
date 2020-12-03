@@ -21,6 +21,8 @@ type PropsT = {
   +params: PostParametersT,
 };
 
+const textAreaRegExp = /(^|\.)(annotation|edit_note)$/;
+
 const PostParameters = ({
   params,
 }: PropsT): React.MixedElement => {
@@ -55,13 +57,21 @@ const PostParameters = ({
                   </label>
                 </td>
                 <td>
-                  <input
-                    defaultValue={value}
-                    id={id}
-                    name={param}
-                    size="50"
-                    type="text"
-                  />
+                  {textAreaRegExp.test(param) ? (
+                    <textarea
+                      defaultValue={value}
+                      id={id}
+                      name={param}
+                      rows="10"
+                    />
+                  ) : (
+                    <input
+                      defaultValue={value}
+                      id={id}
+                      name={param}
+                      type="text"
+                    />
+                  )}
                 </td>
               </tr>
             );

@@ -20,7 +20,7 @@ type Props = {
   +form: FormT<{
     +email: ReadOnlyFieldT<string>,
   }>,
-  +results?: $ReadOnlyArray<EditorT>,
+  +results?: $ReadOnlyArray<UnsanitizedEditorT>,
 };
 
 const EmailSearch = ({

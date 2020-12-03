@@ -16,7 +16,7 @@ import loopParity from '../../utility/loopParity';
 
 type Props = {
   +$c: CatalystContextT,
-  +users: $ReadOnlyArray<EditorT>,
+  +users: $ReadOnlyArray<UnsanitizedEditorT>,
 };
 
 const UserList = ({$c, users}: Props): React.Element<'table'> => (

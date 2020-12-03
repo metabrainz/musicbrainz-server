@@ -159,7 +159,7 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
     my $form = $c->form(form => 'Admin::EmailSearch');
     my @results;
 
-    if ($c->form_submitted_and_valid($form)) {
+    if ($c->form_posted_and_valid($form, $c->req->body_params)) {
         try {
             @results = $c->model('Editor')->search_by_email(
                 $form->field('email')->value // '',
@@ -180,7 +180,9 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
         component_path => 'admin/EmailSearch',
         component_props => {
             form => $form,
-            @results ? (results => \@results) : (),
+            @results ? (
+                results => [map { $c->unsanitized_editor_json($_) } @results],
+            ) : (),
         },
     );
 }
@@ -195,7 +197,7 @@ sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) Hidd
         component_path => 'admin/IpLookup',
         component_props => {
             ipHash => $ip_hash,
-            users => \@users,
+            users => [map { $c->unsanitized_editor_json($_) } @users],
         },
     );
 }

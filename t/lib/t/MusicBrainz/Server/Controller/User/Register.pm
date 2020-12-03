@@ -51,7 +51,7 @@ test 'Registering and verifying an email address' => sub {
     $mech->get_ok($verify_link, 'verify account');
     $mech->content_like(qr/Thank you, your email address has now been verified/);
 
-    $mech->get('/user/new_editor');
+    $mech->get('/user/email_editor');
     $mech->content_like(qr{\(verified at (.*)\)});
     $mech->content =~ qr{\(verified at (.*)\)};
     my $original_verification = $1;

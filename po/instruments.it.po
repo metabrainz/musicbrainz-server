@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-24 04:02+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2020-11-30 21:10+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1078,7 +1078,7 @@ msgstr "conchiglia"
 
 #: DB:instrument/name:958
 msgid "concussion idiophone"
-msgstr "idiofoni a concussione"
+msgstr "idiofono a concussione"
 
 #: DB:instrument/name:102
 msgid "congas"
@@ -1162,7 +1162,7 @@ msgstr "tamburo cilindrico"
 
 #: DB:instrument/name:271
 msgid "cymbal"
-msgstr "piatto"
+msgstr "piatti"
 
 #: DB:instrument/name:309
 msgid "cò ke"
@@ -1561,7 +1561,7 @@ msgstr "tamburo a frizione"
 
 #: DB:instrument/name:701
 msgid "friction idiophone"
-msgstr "idiofoni a frizione"
+msgstr "idiofono a frizione"
 
 #: DB:instrument/name:368
 msgid "frottoir"
@@ -1933,7 +1933,7 @@ msgstr "härjedalspipa"
 
 #: DB:instrument/name:674
 msgid "idiophone"
-msgstr "idiofoni"
+msgstr "idiofono"
 
 #: DB:instrument/name:707
 msgid "igil"
@@ -2340,7 +2340,7 @@ msgstr "kōauau ponga ihu"
 
 #: DB:instrument/name:632
 msgid "lamellaphone"
-msgstr "lamellofoni"
+msgstr "lamellofono"
 
 #: DB:instrument/name:249
 msgid "langeleik"
@@ -2505,7 +2505,7 @@ msgstr "melodica"
 #: DB:instrument/name:1022
 msgctxt "Bellowed free reed in a lute-like casing"
 msgid "melophone"
-msgstr ""
+msgstr "mellofono"
 
 #: DB:instrument/name:100
 msgid "membranophone"
@@ -2518,7 +2518,7 @@ msgstr "mendoza"
 #: DB:instrument/name:349
 msgctxt "Arrangement of struck tuned metal bars."
 msgid "metallophone"
-msgstr "metallofoni"
+msgstr "metallofono"
 
 #: DB:instrument/name:876
 msgctxt "twin bamboo single reed pipe"
@@ -2809,7 +2809,7 @@ msgstr "percussione"
 
 #: DB:instrument/name:959
 msgid "percussion idiophone"
-msgstr "idiofoni a percussione diretta"
+msgstr "idiofono a percussione diretta"
 
 #: DB:instrument/name:302
 msgid "phách"
@@ -2882,7 +2882,7 @@ msgstr "pkhachich"
 
 #: DB:instrument/name:930
 msgid "plucked idiophone"
-msgstr "idiofoni a pizzico"
+msgstr "idiofono a pizzico"
 
 #: DB:instrument/name:232
 msgid "plucked string instruments"
@@ -3256,7 +3256,7 @@ msgstr "saz"
 
 #: DB:instrument/name:953
 msgid "scraped idiophone"
-msgstr "idiofoni a raschiamento"
+msgstr "idiofono a raschiamento"
 
 #: DB:instrument/name:757
 msgctxt "Bass garifuna drum"
@@ -3279,7 +3279,7 @@ msgstr "setar"
 
 #: DB:instrument/name:954
 msgid "shaken idiophone"
-msgstr "idiofoni a scuotimento"
+msgstr "idiofono a scuotimento"
 
 #: DB:instrument/name:340
 msgctxt "Latin-American tube rattle"
@@ -3478,7 +3478,7 @@ msgstr "archi"
 
 #: DB:instrument/name:675
 msgid "struck idiophone"
-msgstr "idiofoni a percussione"
+msgstr "idiofono a percussione"
 
 #: DB:instrument/name:252
 msgid "struck string instruments"

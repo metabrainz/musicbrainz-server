@@ -119,7 +119,7 @@ around TO_JSON => sub {
     return {
         %{ $self->$orig },
         application => $self->application,
-        editor      => defined $self->editor ? $self->editor->sanitized_json : undef,
+        editor      => defined $self->editor ? $self->editor->TO_JSON : undef,
         granted     => datetime_to_iso8601($self->granted),
         is_offline  => boolean_to_json($self->is_offline),
         permissions => $self->permissions,

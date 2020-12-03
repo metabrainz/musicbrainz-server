@@ -8,8 +8,18 @@
 
 /* eslint-disable import/no-commonjs */
 
+const DBDefs = require('../root/static/scripts/common/DBDefs');
+
 const GLOBAL_JS_NAMESPACE = '__MB__';
 
 module.exports = {
+  /*
+   * Use `__DEV__` to conditionalize code that should run during
+   * testing/development only. Will be eliminated as dead code by
+   * Webpack in production.
+   */
+  __DEV__: JSON.stringify(
+    !!(DBDefs.DEVELOPMENT_SERVER || process.env.NODE_ENV === 'test'),
+  ),
   GLOBAL_JS_NAMESPACE: JSON.stringify(GLOBAL_JS_NAMESPACE),
 };

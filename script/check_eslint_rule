@@ -11,6 +11,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../"
     --plugin import \
     --plugin react-hooks \
     --global '__webpack_public_path__:true' \
+    --global __DEV__ \
     --global GLOBAL_JS_NAMESPACE \
     --global '$' \
     --global jQuery \
