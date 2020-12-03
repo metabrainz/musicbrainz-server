@@ -103,7 +103,15 @@ sub set_beta_preference : Path('set-beta-preference') Args(0)
         } elsif (!DBDefs->IS_BETA) {
             $new_url = $c->req->referer || $c->uri_for('/');
             # 1 year
-            $c->res->cookies->{beta} = { 'value' => 'on', 'path' => '/', 'expires' => time()+31536000 };
+            $c->res->cookies->{beta} = {
+                'value' => 'on',
+                'path' => '/',
+                'expires' => time()+31536000,
+                $c->req->secure ? (
+                    'samesite' => 'None',
+                    'secure' => '1',
+                ) : (),
+            };
         }
         # Munge URL to redirect server
         my $ws = DBDefs->WEB_SERVER;
