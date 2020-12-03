@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-23 22:00-0600\n"
-"PO-Revision-Date: 2020-11-22 13:29+0000\n"
+"PO-Revision-Date: 2020-11-29 13:49+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -982,7 +982,7 @@ msgstr "Blog"
 #: ../root/components/common-macros.tt:724 ../root/artist/utils.js:26
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:61
 msgid "Born:"
-msgstr "Nato:"
+msgstr "Nato/a il:"
 
 #: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:361
 msgid "Bot"
@@ -1003,7 +1003,7 @@ msgstr "Offerto dalla {MeB|MetaBrainz Foundation} e dai nostri {spon|sponsor} e 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:34
 #: ../root/main/index.js:205
 msgid "Bug Tracker"
-msgstr "Bug Tracker"
+msgstr "Bug tracker"
 
 #: ../root/cdtoc/lookup.tt:96
 msgid "CD Not Found"
@@ -1480,7 +1480,7 @@ msgstr "Dettagli"
 #: ../root/components/common-macros.tt:728 ../root/artist/utils.js:55
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:62
 msgid "Died:"
-msgstr "Morto:"
+msgstr "Morto/a il:"
 
 #: ../root/edit/details/change_wikidoc.tt:35
 msgid "Diff"
@@ -3396,12 +3396,12 @@ msgstr "Pagina:"
 #: ../root/edit/details/AddRelationshipAttribute.js:66
 #: ../root/edit/details/EditRelationshipAttribute.js:94
 msgid "Parent"
-msgstr "Padre"
+msgstr "Controllante"
 
 #: ../root/relationship/linkattributetype/form.tt:4
 #: ../root/relationship/linktype/form.tt:4
 msgid "Parent:"
-msgstr "Padre:"
+msgstr "Controllante:"
 
 #: ../root/release/edit/tracklist.tt:225
 msgid "Parse Tracks"
@@ -4446,7 +4446,7 @@ msgstr "Status:"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
 msgid "Stop using beta site"
-msgstr "Smetti di utilizzare la versione beta del sito"
+msgstr "Non usare più la versione beta del sito"
 
 #: ../root/watch/list.tt:30
 msgid "Stop watching selected artists"
@@ -5343,7 +5343,7 @@ msgstr "Rendi maiuscoli i numeri romani"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:46
 msgid "Use beta site"
-msgstr "Utilizza la versione beta del sito"
+msgstr "Usa la versione beta del sito"
 
 #: ../root/release/edit/tracklist.tt:55
 msgid "Use custom artist delimiter"
@@ -8505,7 +8505,7 @@ msgstr "Attributi"
 
 #: ../root/admin/attributes/Attribute.js:104
 msgid "Parent ID"
-msgstr "ID padre"
+msgstr "ID controllante"
 
 #: ../root/admin/attributes/Attribute.js:136
 #: ../root/admin/attributes/Language.js:81
@@ -8929,7 +8929,7 @@ msgstr "L'artista che stai cercando di modificare è un artista speciale: non pu
 #: ../root/artist/utils.js:13
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
 msgid "Born in:"
-msgstr "Nato in:"
+msgstr "Nato/a a:"
 
 #: ../root/artist/utils.js:17
 msgctxt "group artist"
@@ -8949,7 +8949,7 @@ msgstr "Fondato"
 #: ../root/artist/utils.js:39
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
 msgid "Died in:"
-msgstr "Morto in:"
+msgstr "Morto/a a:"
 
 #: ../root/artist/utils.js:43
 msgctxt "group artist"
@@ -11093,7 +11093,7 @@ msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
-msgstr "MusicBrainz è gestita dalla {uri|MetaBrainz Foundation}, un'impresa non-profit esentasse 501(c)(3) con sede in California che si dedica a mantenere MusicBrainz {free|libero e open source}."
+msgstr "MusicBrainz è gestita dalla {uri|MetaBrainz Foundation}, un'impresa non-profit esentasse 501(c)(3) con sede in California che si dedica a mantenere MusicBrainz {free|libera e open source}."
 
 #: ../root/main/index.js:115
 msgid "MetaBrainz Blog"
@@ -15007,7 +15007,7 @@ msgstr "(<strong>non verificata!</strong>)"
 
 #: ../root/user/UserProfile.js:180
 msgid "resend verification email"
-msgstr "invia nuovamente email di verifica"
+msgstr "invia di nuovo email di verifica"
 
 #: ../root/user/UserProfile.js:188
 msgid "send email"
@@ -15210,8 +15210,8 @@ msgstr[1] "Sei iscritto a {n} collezioni private."
 #: ../root/user/UserSubscriptions.js:230
 msgid "{editor} is subscribed to {n} private collection."
 msgid_plural "{editor} is subscribed to {n} private collections."
-msgstr[0] "{editor} è sottoscritto a {n} collezione privata."
-msgstr[1] "{editor} è sottoscritto a {n} collezioni private."
+msgstr[0] "{editor} è iscritto a {n} collezione privata."
+msgstr[1] "{editor} è iscritto a {n} collezioni private."
 
 #: ../root/user/components/UserInlineList.js:26
 msgid "No users found"
@@ -15293,7 +15293,7 @@ msgstr "AcoustID"
 
 #: ../root/utility/tableColumns.js:665
 msgid "Subscribed"
-msgstr "Sottoscritte"
+msgstr "Iscritto"
 
 #: ../root/vote/VotingIndex.js:36
 msgid "…related to artists in my subscriptions"

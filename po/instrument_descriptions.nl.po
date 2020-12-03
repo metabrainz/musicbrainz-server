@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-24 04:02+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2020-11-29 09:31+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1774,7 +1774,7 @@ msgid ""
 "brass valved instrument.<br /> Wooden body shaped like a lute, it has a "
 "bellow operated by a handle at the bottom and buttons operating the reeds in"
 " the \"neck\""
-msgstr ""
+msgstr "De melofoon (niet te verwarren met de <a href=\"/instrument/6a539558-5585-4803-a705-a4520f23189d\">mellofoon</a>) is een koperblazer met ventiel.<br />Het instrument heeft een houten kast in de vorm van een luit, een blaasbalg aan de onderkant die met een hendel wordt bediend en knoppen voor het bedienen van de rieten in de hals."
 
 #. name:ghijak
 #: DB:instrument/description:932
