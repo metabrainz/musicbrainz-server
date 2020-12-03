@@ -65,6 +65,8 @@ module.exports = {
   'artist/ArtistWorks': require('../artist/ArtistWorks'),
   'artist/CannotSplit': require('../artist/CannotSplit'),
   'artist/SpecialPurpose': require('../artist/SpecialPurpose'),
+  'artist_credit/ArtistCreditIndex': require('../artist_credit/ArtistCreditIndex'),
+  'artist_credit/EntityList': require('../artist_credit/EntityList'),
   'collection/CollectionIndex': require('../collection/CollectionIndex'),
   'collection/CreateCollection': require('../collection/CreateCollection'),
   'collection/DeleteCollection': require('../collection/DeleteCollection'),

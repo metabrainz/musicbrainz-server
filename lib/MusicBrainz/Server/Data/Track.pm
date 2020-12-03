@@ -87,6 +87,18 @@ sub load_for_mediums
     }
 }
 
+sub find_by_artist_credit
+{
+    my ($self, $artist_credit_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . ",
+                    name COLLATE musicbrainz AS name_collate
+                 FROM " . $self->_table . "
+                 WHERE artist_credit = ?
+                 ORDER BY name COLLATE musicbrainz";
+    $self->query_to_list_limited($query, [$artist_credit_id], $limit, $offset);
+}
+
 sub find_by_recording
 {
     my ($self, $recording_id, $limit, $offset) = @_;

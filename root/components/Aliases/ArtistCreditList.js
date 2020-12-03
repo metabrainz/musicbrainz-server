@@ -12,6 +12,7 @@ import * as React from 'react';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import bracketed from '../../static/scripts/common/utility/bracketed';
 import loopParity from '../../utility/loopParity';
 
 type Props = {
@@ -58,6 +59,14 @@ const ArtistCreditList = ({
             <tr className={loopParity(index)} key={credit.id}>
               <td>
                 <ArtistCreditLink artistCredit={credit} />
+                {' '}
+                <span className="small">
+                  {bracketed(
+                    <a href={`/artist-credit/${credit.id}`}>
+                      {l('see uses')}
+                    </a>,
+                  )}
+                </span>
               </td>
               {$c.user ? (
                 <td className="actions">

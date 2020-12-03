@@ -90,6 +90,12 @@ sub build_display_data
         old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
     };
 
+    my $old_ac_id = $self->c->model('ArtistCredit')->find($self->data->{old}{artist_credit});
+
+    if ($old_ac_id) {
+        $data->{artist_credit}{old}{id} = $old_ac_id;
+    }
+
     return $data;
 }
 

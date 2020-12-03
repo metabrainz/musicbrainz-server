@@ -252,6 +252,18 @@ sub find_by_track_artist
     );
 }
 
+sub find_by_artist_credit
+{
+    my ($self, $artist_credit_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . ",
+                    rg.name COLLATE musicbrainz AS name_collate
+                 FROM " . $self->_table . "
+                 WHERE rg.artist_credit = ?
+                 ORDER BY rg.name COLLATE musicbrainz";
+    $self->query_to_list_limited($query, [$artist_credit_id], $limit, $offset);
+}
+
 sub find_by_release
 {
     my ($self, $release_id, $limit, $offset) = @_;
