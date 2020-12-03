@@ -8,7 +8,7 @@
 
 /* eslint-disable import/no-commonjs */
 
-const DBDefs = require('../root/static/scripts/common/DBDefs');
+const {WEBPACK_MODE} = require('./constants');
 
 const GLOBAL_JS_NAMESPACE = '__MB__';
 
@@ -18,8 +18,6 @@ module.exports = {
    * testing/development only. Will be eliminated as dead code by
    * Webpack in production.
    */
-  __DEV__: JSON.stringify(
-    !!(DBDefs.DEVELOPMENT_SERVER || process.env.NODE_ENV === 'test'),
-  ),
+  __DEV__: JSON.stringify(WEBPACK_MODE === 'development'),
   GLOBAL_JS_NAMESPACE: JSON.stringify(GLOBAL_JS_NAMESPACE),
 };
