@@ -17,8 +17,10 @@ sub query
             FROM l_instrument_url liu
             JOIN link l ON liu.link = l.id
             JOIN link_type lt ON l.link_type = lt.id
+            JOIN url ON liu.entity1 = url.id
             WHERE liu.entity0 = i.id
             AND lt.gid = 'f64eacbd-1ea1-381e-9886-2cfb552b7d90' --image
+            AND url.url LIKE '%staticbrainz.org/irombook%'
         )
     };
 }
