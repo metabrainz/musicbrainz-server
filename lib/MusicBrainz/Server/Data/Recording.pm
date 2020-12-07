@@ -424,6 +424,7 @@ sub load_first_release_date {
 
     my %recording_map = object_to_ids(@recordings);
     my @ids = keys %recording_map;
+    return unless @ids;
 
     my $release_dates = $self->sql->select_list_of_hashes(
         'SELECT * FROM recording_first_release_date ' .
