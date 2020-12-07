@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-30 21:10+0000\n"
+"PO-Revision-Date: 2020-12-06 13:04+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -193,6 +193,11 @@ msgstr "arpa paraguaiana"
 msgctxt "an electromechanical piano"
 msgid "Pianet"
 msgstr "Pianet"
+
+#: DB:instrument/name:1023
+msgctxt "ensemble flute, clarinet, violin, cello and piano"
+msgid "Pierrot ensemble"
+msgstr "ensemble Pierrot"
 
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
@@ -1115,7 +1120,7 @@ msgstr "corno inglese"
 
 #: DB:instrument/name:510
 msgid "cornamuse"
-msgstr "cornamusa"
+msgstr "cornamusa rinascimentale"
 
 #: DB:instrument/name:25
 msgctxt "19th century brass trumpet-like"
@@ -1785,7 +1790,7 @@ msgstr "gusli"
 #: DB:instrument/name:567
 msgctxt "gut-stringed acoustic guitar"
 msgid "gut guitar"
-msgstr "chitarra gut"
+msgstr "chitarra con corde in budello"
 
 #: DB:instrument/name:452
 msgid "guzheng"
@@ -2831,6 +2836,16 @@ msgstr "pianoforte"
 msgid "piano accordion"
 msgstr "fisarmonica a piano"
 
+#: DB:instrument/name:1024
+msgctxt "ensemble of two pianists playing on separate pianos"
+msgid "piano duo"
+msgstr "duo di pianoforti"
+
+#: DB:instrument/name:1025
+msgctxt "ensemble of two pianists playing on one piano"
+msgid "piano four hands"
+msgstr "pianoforte a quattro mani"
+
 #: DB:instrument/name:965
 msgctxt "ensemble of piano, violin, viola and cello"
 msgid "piano quartet"
@@ -2887,6 +2902,11 @@ msgstr "idiofono a pizzico"
 #: DB:instrument/name:232
 msgid "plucked string instruments"
 msgstr "strumenti a corda pizzicata"
+
+#: DB:instrument/name:1026
+msgctxt "bow lute from West Africa"
+msgid "pluriarc"
+msgstr "pluriarco"
 
 #: DB:instrument/name:690
 msgid "pocket trumpet"
@@ -4041,6 +4061,11 @@ msgstr "viella"
 msgctxt "Spanish string instrument."
 msgid "vihuela"
 msgstr "vihuela"
+
+#: DB:instrument/name:1027
+msgctxt "ensemble of multiple viols"
+msgid "viol consort"
+msgstr "consort di viole da gamba"
 
 #: DB:instrument/name:899
 msgctxt "Viola de gamba family"

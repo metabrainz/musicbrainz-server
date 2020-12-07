@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-19 02:16+0000\n"
+"PO-Revision-Date: 2020-12-03 14:00+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -1774,6 +1774,14 @@ msgstr "Kjo tregon veprën që frymëzoi emrin e këtij artisti."
 msgid "This indicates where a feed for this podcast can be found."
 msgstr ""
 
+#: DB:link_attribute_type/description:424
+msgid ""
+"This is used only for cases when someone is credited as co-[role] (co-"
+"producer, co-engineer, etc.) - which generally has a specific meaning that "
+"depends on the specific activity but is different from just \"there were "
+"several people collaborating\"."
+msgstr ""
+
 #: DB:link_type/description:17
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
@@ -1801,6 +1809,12 @@ msgid ""
 "This is used to indicate that the release group is a mash-up <a "
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
+msgstr ""
+
+#: DB:link_attribute_type/description:952
+msgid ""
+"This is used to indicate this instance of mastering is a specifically a "
+"remaster."
 msgstr ""
 
 #: DB:link_type/description:227
@@ -3548,10 +3562,6 @@ msgstr ""
 
 #: DB:link_attribute_type/name:424
 msgid "co"
-msgstr ""
-
-#: DB:link_attribute_type/description:424
-msgid "co-[role]"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:102
@@ -5816,10 +5826,6 @@ msgstr ""
 
 #: DB:link_attribute_type/name:952
 msgid "re"
-msgstr ""
-
-#: DB:link_attribute_type/description:952
-msgid "re-[role]"
 msgstr ""
 
 #: DB:link_type/link_phrase:917 DB:link_type/long_link_phrase:917

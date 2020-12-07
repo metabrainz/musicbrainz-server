@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-24 04:02+0000\n"
+"PO-Revision-Date: 2020-12-03 14:00+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -664,6 +664,14 @@ msgstr ""
 msgid "Chacha, west Indian rattle"
 msgstr "Chacha, sonajero del este de la India"
 
+#. name:Pierrot ensemble
+#: DB:instrument/description:1023
+msgid ""
+"Chamber ensemble of five players (flute, clarinet, violin, cello and piano)."
+" Originally required for Schönberg's Pierrot Lunaire, it became a fairly "
+"common combination for 20th century classical groups."
+msgstr ""
+
 #. name:string quartet
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)"
@@ -677,6 +685,17 @@ msgstr ""
 #. name:string trio
 #: DB:instrument/description:915
 msgid "Chamber ensemble of three players (one violin, one viola, one cello)"
+msgstr ""
+
+#. name:piano duo
+#: DB:instrument/description:1024
+msgid "Chamber ensemble where two pianists play on a different piano each."
+msgstr ""
+
+#. name:piano four hands
+#: DB:instrument/description:1025
+msgid ""
+"Chamber ensemble where two pianists play on the same piano at the same time."
 msgstr ""
 
 #. name:chap
@@ -988,6 +1007,13 @@ msgid ""
 "plate."
 msgstr ""
 
+#. name:viol consort
+#: DB:instrument/description:1027
+msgid ""
+"Ensemble of multiple instruments of the viol family, usually including at "
+"least treble, tenor and bass viols."
+msgstr ""
+
 #. name:ugal
 #: DB:instrument/description:967
 msgid ""
@@ -1102,6 +1128,13 @@ msgstr ""
 msgid ""
 "Friction idiophones are idiophones where the sound is created by the "
 "instrument being rubbed."
+msgstr ""
+
+#. name:pluriarc
+#: DB:instrument/description:1026
+msgid ""
+"From West Africa, it has multiple curved necks each with one string, "
+"sometimes played a harp and sometimes with stops like a lute."
 msgstr ""
 
 #. name:yu
