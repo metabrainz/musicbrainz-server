@@ -60,6 +60,8 @@
                  CASE 'status';
                    predicate_set(field.field_name, status, field, 8);
                END;
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteContent';
+               predicate_edit_note_content(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality';
                predicate_set(field.field_name, quality, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
@@ -251,6 +253,7 @@
 [% MACRO predicate_edit_notes BLOCK %]
   [%~ IF c.user_exists ~%]
     [% predicate_user('edit_note_author') %]
+    [% predicate_edit_note_content('edit_note_content') %]
   [%~ ELSE ~%]
     [% WRAPPER wfield predicate="set" %]
       [%~ needs_login() ~%]
@@ -365,6 +368,14 @@
   </span>
 [% END %]
 
+[% MACRO predicate_edit_note_content(field, field_contents) WRAPPER wfield predicate="edit_note_content" %]
+  [% operators([ [ 'includes', l('includes') ]
+               ], field_contents) %]
+  <span class="arg">
+    <input type="text" class="name" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" style="width: 170px;" />
+  </span>
+[% END %]
+
 [% MACRO predicate_editor_flag(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
@@ -404,6 +415,7 @@
                    [ 'type', l('Type') ],
                    [ 'vote_count', l('Vote tally') ],
                    [ 'edit_note_author', l('Edit Note Authors'), {requires_login => 1} ],
+                   [ 'edit_note_content', l('Edit Note Content'), {requires_login => 1} ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
                    [ 'event', l('Event') ],

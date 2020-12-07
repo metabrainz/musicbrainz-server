@@ -15,6 +15,9 @@ $(function () {
       // Not directly true, but it here it means "show one argument control"
       '=': 1, '!=': 1,
     },
+    edit_note_content: {
+      includes: 1,
+    },
     voter: {
       '=': 1,
       '!=': 1,
