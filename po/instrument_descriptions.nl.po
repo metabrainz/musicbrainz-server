@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-29 09:31+0000\n"
+"PO-Revision-Date: 2020-12-07 14:03+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -650,6 +650,14 @@ msgstr "De tible is een Catalaans dubbelrietinstrument dat in de negentiende eeu
 msgid "Chacha, west Indian rattle"
 msgstr "De chacha is een West-Indische ratel."
 
+#. name:Pierrot ensemble
+#: DB:instrument/description:1023
+msgid ""
+"Chamber ensemble of five players (flute, clarinet, violin, cello and piano)."
+" Originally required for Schönberg's Pierrot Lunaire, it became a fairly "
+"common combination for 20th century classical groups."
+msgstr "Een Pierrot-ensemble bestaat uit vijf spelers (fluit, klarinet, viool, cello en piano). Het ensemble was oorspronkelijk benodigd voor Schönbergs Pierrot Lunaire, en werd gedurende de 20e eeuw vrij gebruikelijk."
+
 #. name:string quartet
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)"
@@ -664,6 +672,17 @@ msgstr "Kamerensemble voor drie spelers (een piano, een viool en een cello)"
 #: DB:instrument/description:915
 msgid "Chamber ensemble of three players (one violin, one viola, one cello)"
 msgstr "Kamerensemble voor drie spelers (een viool, een altviool en een cello)"
+
+#. name:piano duo
+#: DB:instrument/description:1024
+msgid "Chamber ensemble where two pianists play on a different piano each."
+msgstr "Een pianoduo waarbij elke pianist één piano bespeelt."
+
+#. name:piano four hands
+#: DB:instrument/description:1025
+msgid ""
+"Chamber ensemble where two pianists play on the same piano at the same time."
+msgstr "Een pianoduo dat samen één piano bespeelt."
 
 #. name:chap
 #: DB:instrument/description:619
@@ -974,6 +993,13 @@ msgid ""
 "plate."
 msgstr "Een trautonium is een elektrisch instrument uit de jaren 1930, met een weerstandsdraad en een bewegende metalen plaat."
 
+#. name:viol consort
+#: DB:instrument/description:1027
+msgid ""
+"Ensemble of multiple instruments of the viol family, usually including at "
+"least treble, tenor and bass viols."
+msgstr "Een gambaconsort is een ensemble van bespelers van verschillende leden van de familie viole da gamba, waaronder vaak de discant-, tenor- en basgamba."
+
 #. name:ugal
 #: DB:instrument/description:967
 msgid ""
@@ -1089,6 +1115,13 @@ msgid ""
 "Friction idiophones are idiophones where the sound is created by the "
 "instrument being rubbed."
 msgstr "Frictie-idiofonen zijn idiofonen waarbij het geluid wordt veroorzaakt door over het instrument te wrijven."
+
+#. name:pluriarc
+#: DB:instrument/description:1026
+msgid ""
+"From West Africa, it has multiple curved necks each with one string, "
+"sometimes played a harp and sometimes with stops like a lute."
+msgstr "De boogluit of pluriarc is een West-Afrikaans instrument met meerdere gebogen halzen die elk één snaar hebben. Het instrument wordt soms als een harp en soms als een luit bespeeld."
 
 #. name:yu
 #: DB:instrument/description:891

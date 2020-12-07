@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-24 04:02+0000\n"
+"PO-Revision-Date: 2020-12-03 14:00+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -184,6 +184,11 @@ msgstr ""
 #: DB:instrument/name:793
 msgctxt "an electromechanical piano"
 msgid "Pianet"
+msgstr ""
+
+#: DB:instrument/name:1023
+msgctxt "ensemble flute, clarinet, violin, cello and piano"
+msgid "Pierrot ensemble"
 msgstr ""
 
 #: DB:instrument/name:647
@@ -2823,6 +2828,16 @@ msgstr "klaver"
 msgid "piano accordion"
 msgstr "klahvakordion"
 
+#: DB:instrument/name:1024
+msgctxt "ensemble of two pianists playing on separate pianos"
+msgid "piano duo"
+msgstr ""
+
+#: DB:instrument/name:1025
+msgctxt "ensemble of two pianists playing on one piano"
+msgid "piano four hands"
+msgstr ""
+
 #: DB:instrument/name:965
 msgctxt "ensemble of piano, violin, viola and cello"
 msgid "piano quartet"
@@ -2879,6 +2894,11 @@ msgstr ""
 #: DB:instrument/name:232
 msgid "plucked string instruments"
 msgstr "näppekeelpillid"
+
+#: DB:instrument/name:1026
+msgctxt "bow lute from West Africa"
+msgid "pluriarc"
+msgstr ""
 
 #: DB:instrument/name:690
 msgid "pocket trumpet"
@@ -4032,6 +4052,11 @@ msgstr "fiidel"
 #: DB:instrument/name:262
 msgctxt "Spanish string instrument."
 msgid "vihuela"
+msgstr ""
+
+#: DB:instrument/name:1027
+msgctxt "ensemble of multiple viols"
+msgid "viol consort"
 msgstr ""
 
 #: DB:instrument/name:899

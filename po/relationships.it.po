@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-28 15:09+0000\n"
+"PO-Revision-Date: 2020-12-06 12:35+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -230,7 +230,7 @@ msgstr "pagina di Discogs su"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse"
-msgstr "Da usare per indicare il/la coniuge di un genitore dell'artista, o la relazione con fratelli/sorelle che sono figli di tale coniuge"
+msgstr "Da usare per indicare il/la coniuge di un genitore dell'artista, o la relazione con fratelli/sorelle che sono figli di tale coniuge."
 
 #: DB:link_attribute_type/description:580
 msgid ""
@@ -279,7 +279,7 @@ msgstr "pagina di IMSLP su"
 
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc"
-msgstr "Indica un disco bonus"
+msgstr "Indica un disco bonus."
 
 #: DB:link_type/description:162
 msgid ""
@@ -411,7 +411,7 @@ msgstr "Indica che un evento era inteso come esibizione di uno specifico gruppo 
 
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
-msgstr "Indica che un'entità è una cover di un'altra entità"
+msgstr "Indica che un'entità è una cover di un'altra entità."
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
@@ -1041,13 +1041,13 @@ msgstr "pagina di SoundCloud su"
 msgid ""
 "Specifies the level of studies that a student studied towards in an "
 "educational institution."
-msgstr "Indica il livello di studi seguito da uno studente in un istituto di istruzione."
+msgstr "Indica il livello di studi seguito da uno studente presso un istituto di istruzione."
 
 #: DB:link_attribute_type/description:1125
 msgid ""
 "Specifies the subject that was taught by a teacher in an institution and/or "
 "to a student."
-msgstr "Indica la materia insegnata da un insegnante presso un'istituzione e/o a uno studente."
+msgstr "Indica la materia insegnata da un insegnante presso un istituto e/o a uno studente."
 
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
@@ -1117,7 +1117,7 @@ msgstr "Questo attributo indica un'esibizione di un \"ospite\" che non fa solita
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
-msgstr "Questo attributo indica un membro che dà il nome alla band e senza il quale essa non esisterebbe (per es. Miles Davis -&gt; Miles Davis Sextet)"
+msgstr "Questo attributo indica un membro che dà il nome alla band e senza il quale essa non esisterebbe (per es. Miles Davis -&gt; Miles Davis Sextet)."
 
 #: DB:link_attribute_type/description:511
 msgid ""
@@ -1129,7 +1129,7 @@ msgstr "Questo attributo indica una versione con intenti satirici, ironici o com
 msgid ""
 "This attribute indicates a version with the lyrics in a different language "
 "than the original."
-msgstr "Questo attributo indica una versione con testi in un linguaggio differente dall'originale."
+msgstr "Questo attributo indica una versione con testi in una lingua diversa dall'originale."
 
 #: DB:link_attribute_type/description:525
 msgid ""
@@ -1786,6 +1786,14 @@ msgstr "Indica l'opera che ha ispirato il nome di questo artista."
 msgid "This indicates where a feed for this podcast can be found."
 msgstr "Indica dove si può trovare un feed per questo podcast."
 
+#: DB:link_attribute_type/description:424
+msgid ""
+"This is used only for cases when someone is credited as co-[role] (co-"
+"producer, co-engineer, etc.) - which generally has a specific meaning that "
+"depends on the specific activity but is different from just \"there were "
+"several people collaborating\"."
+msgstr "Serve solo nei casi in cui qualcuno è accreditato come co-[ruolo] (co-produttore, co-tecnico, ecc.) - che in genere ha un significato specifico a seconda dell'attività in questione, ma è diverso da \"più persone collaboravano\"."
+
 #: DB:link_type/description:17
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
@@ -1814,6 +1822,12 @@ msgid ""
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
 msgstr "Serve a indicare che il gruppo di pubblicazioni è un <a href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> di altri due (o più) gruppi di pubblicazioni."
+
+#: DB:link_attribute_type/description:952
+msgid ""
+"This is used to indicate this instance of mastering is a specifically a "
+"remaster."
+msgstr "Serve a indicare che in questo caso il mastering è nello specifico un remaster."
 
 #: DB:link_type/description:227
 msgid ""
@@ -3106,7 +3120,7 @@ msgstr "Solitamente indica qualcuno che è alle prime armi o ha poca esperienza 
 msgid ""
 "This typically indicates someone who is less experienced and who is working "
 "under the direction of someone who is more experienced."
-msgstr "Solitamente indica qualcuno che è ha poca esperienza e che lavora sotto la supervisione di un'altra persona con più esperienza."
+msgstr "Solitamente indica qualcuno che ha poca esperienza e che lavora sotto la supervisione di un'altra persona con più esperienza."
 
 #: DB:link_attribute_type/description:477
 msgid ""
@@ -3181,7 +3195,7 @@ msgstr "Da usare per indicare che l'opera sovraordinata non è fatta per essere 
 msgid ""
 "Use this to mark acts of an opera (as opposed to other parts that are not "
 "acts)"
-msgstr "Da usare per indicare gli atti di un'opera (per contrapposizione alle altre parti che non sono atti)"
+msgstr "Da usare per indicare gli atti di un'opera (per contrapposizione alle altre parti che non sono atti)."
 
 #: DB:link_attribute_type/description:1079
 msgid ""
@@ -3562,10 +3576,6 @@ msgstr "musica classica"
 msgid "co"
 msgstr "co"
 
-#: DB:link_attribute_type/description:424
-msgid "co-[role]"
-msgstr "co-[ruolo]"
-
 #: DB:link_type/long_link_phrase:102
 msgid "collaborated {minor:minorly} {additional:additionally} on"
 msgstr "ha collaborato {additional:in aggiunta} {minor:in modo minore} su"
@@ -3642,7 +3652,7 @@ msgstr "primo violino"
 
 #: DB:link_attribute_type/name:1130
 msgid "conducting"
-msgstr "dirige l'orchestra"
+msgstr "direzione d'orchestra"
 
 #: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
 msgid "conductor"
@@ -5365,7 +5375,7 @@ msgstr "originariamente previsto come"
 
 #: DB:link_attribute_type/name:1128
 msgid "other"
-msgstr "altri"
+msgstr "altro"
 
 #: DB:link_type/link_phrase:753 DB:link_type/link_phrase:730
 #: DB:link_type/link_phrase:82 DB:link_type/link_phrase:273
@@ -5829,10 +5839,6 @@ msgstr "purevolume"
 #: DB:link_attribute_type/name:952
 msgid "re"
 msgstr "re"
-
-#: DB:link_attribute_type/description:952
-msgid "re-[role]"
-msgstr "re-[role]"
 
 #: DB:link_type/link_phrase:917 DB:link_type/long_link_phrase:917
 msgid "reconstructed"
@@ -6322,7 +6328,7 @@ msgstr "traduttore"
 
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
-msgstr "traslitterato"
+msgstr "traslitterata"
 
 #: DB:link_type/reverse_link_phrase:2
 msgid "transliterated/translated track listing of"
