@@ -17,8 +17,15 @@ sub subscribers : Chained('load') RequireAuth {
     $public ||= [];
     $private ||= [];
 
+    my $entity_json;
+    if ($entity->isa('MusicBrainz::Server::Entity::Editor')) {
+        $entity_json = $c->controller('User')->serialize_user($entity);
+    } else {
+        $entity_json = $entity->TO_JSON;
+    }
+
     my %props = (
-        entity => $entity,
+        entity => $entity_json,
         privateEditors => scalar @$private,
         publicEditors => $public,
         subscribed => $c->model($model)->subscription->check_subscription($c->user->id, $entity->id),
