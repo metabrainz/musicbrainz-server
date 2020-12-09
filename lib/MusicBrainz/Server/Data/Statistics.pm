@@ -195,7 +195,7 @@ my %stats = (
         SQL => "SELECT " .
             join(' + ',
                  (map { "(SELECT COUNT(gid) FROM $_)" } entities_with('mbid', take => sub { my $type = shift; return shift->{table} // $type })),
-                 (map { "(SELECT COUNT(gid) FROM ${_}_gid_redirect)" } entities_with(['mbid', 'multiple'])))
+                 (map { "(SELECT COUNT(gid) FROM ${_}_gid_redirect)" } entities_with(['mbid', 'multiple'], take => sub { my $type = shift; return shift->{table} // $type })))
     },
     "count.release" => {
         DESC => "Count of all releases",

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::Merge;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 
+use List::AllUtils qw( any uniq );
 use List::UtilsBy qw( nsort_by );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -11,7 +12,6 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 parameter 'edit_type' => (
     isa => 'Int',
-    required => 1
 );
 
 parameter 'merge_form' => (
@@ -45,6 +45,15 @@ role {
 
         if (@add) {
             my @loaded = values %{ $model->get_by_ids(@add) };
+
+            # For collections, ensure nobody can add someone else's collection
+            # to the merge queue by hand-entering an ID in the URL.
+            if ($type eq 'collection') {
+                my @collection_owners = uniq map { $_->editor_id } @loaded;
+                if (any { $_ != $c->user->id } @collection_owners) {
+                    $c->detach('/error_403');
+                }
+            }
 
             if (!$c->session->{merger} ||
                  $c->session->{merger}->type ne $type) {
@@ -159,10 +168,11 @@ role {
         # field errors won't be encoded.
         my $is_merge_valid = $self->_validate_merge($c, $form);
 
-        if ($c->namespace =~ /^(?:area|artist|event|instrument|label|place|recording|release_group|series|work)$/) {
+        if ($c->namespace =~ /^(?:area|artist|collection|event|instrument|label|place|recording|release_group|series|work)$/) {
             my %props = (
                 isrcsDiffer => $c->stash->{isrcs_differ},
                 iswcsDiffer => $c->stash->{iswcs_differ},
+                typesDiffer => $c->stash->{types_differ},
                 form => $form->TO_JSON,
                 toMerge => to_json_array(\@entities),
             );
@@ -195,22 +205,30 @@ role {
         log_assertion { @old_ids >= 1 } 'Got at least 1 entity to merge';
 
         $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
-                $c, $form,
-                edit_type => $params->edit_type,
-                new_entity => {
-                    id => $new->id,
-                    name => $new->name,
-                    $self->_extra_entity_data($c, $form, $new)
-                },
-                old_entities => [ map +{
-                    id => $entity_id{$_}->id,
-                    name => $entity_id{$_}->name,
-                    $self->_extra_entity_data($c, $form, $entity_id{$_})
-                }, @old_ids ],
-                (map { $_->name => $_->value } $form->edit_fields),
-                $self->_merge_parameters($c, $form, $entities)
-            );
+            if ($params->edit_type) {
+                $self->_insert_edit(
+                    $c, $form,
+                    edit_type => $params->edit_type,
+                    new_entity => {
+                        id => $new->id,
+                        name => $new->name,
+                        $self->_extra_entity_data($c, $form, $new)
+                    },
+                    old_entities => [ map +{
+                        id => $entity_id{$_}->id,
+                        name => $entity_id{$_}->name,
+                        $self->_extra_entity_data($c, $form, $entity_id{$_})
+                    }, @old_ids ],
+                    (map { $_->name => $_->value } $form->edit_fields),
+                    $self->_merge_parameters($c, $form, $entities)
+                );
+            } elsif ($c->namespace eq 'collection') {
+                $c->model('Collection')->merge(
+                    $new->id,
+                    \@old_ids,
+                    $c->user->id
+                );
+            }
         });
 
         $c->session->{merger} = undef;

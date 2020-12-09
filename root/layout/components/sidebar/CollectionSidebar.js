@@ -15,6 +15,7 @@ import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import {formatCount} from '../../../statistics/utilities';
 import {returnToCurrentPage} from '../../../utility/returnUri';
 
+import MergeLink from './MergeLink';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties';
 
 type Props = {
@@ -26,6 +27,10 @@ const CollectionSidebar = ({
 }: Props): React.Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const typeName = collection.typeName;
+  const owner = collection.editor;
+  const viewingOwnCollection = Boolean(
+    $c.user && owner && owner.id === $c.user.id,
+  );
 
   return (
     <div id="sidebar">
@@ -69,6 +74,9 @@ const CollectionSidebar = ({
             subPath="edits"
           />
         </li>
+        {viewingOwnCollection ? (
+          <MergeLink entity={collection} />
+        ) : null}
       </ul>
 
       {$c.user ? (

@@ -288,6 +288,7 @@ declare type CollectionT = {
   +editor_is_limited: boolean,
   +entity_count: number,
   +gid: string,
+  +item_entity_type?: CoreEntityTypeT,
   +name: string,
   +public: boolean,
   +subscribed?: boolean,
