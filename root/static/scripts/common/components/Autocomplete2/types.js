@@ -80,8 +80,24 @@ export type ActionItem<+T: EntityItem> = {
   +separator?: boolean,
 };
 
+/*
+ * This is basically CoreEntityT without UrlT (since those aren't
+ * searchable), plus EditorT (which isn't a core entity, but is
+ * searchable).
+ */
 export type EntityItem =
-  | CoreEntityT
-  | EditorT;
+  | AreaT
+  | ArtistT
+  | EditorT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
 
 export type Item<+T: EntityItem> = T | ActionItem<T>;
