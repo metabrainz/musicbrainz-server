@@ -12,7 +12,7 @@ import * as React from 'react';
 import {l as lMbServer} from '../static/scripts/common/i18n';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 
-import {formatCount, formatPercentage} from './utilities';
+import {formatCount, formatPercentage, TimelineLink} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
 type EditCategoryT = {
@@ -47,7 +47,12 @@ const Edits = ({
         <tbody>
           <tr>
             <th colSpan="2">{addColon(l('Edits'))}</th>
-            <td>{formatCount($c, stats['count.edit'])}</td>
+            <td>
+              {formatCount($c, stats['count.edit'])}
+              {' '}
+              <TimelineLink statName="count.edit" />
+            </td>
+
             <td />
           </tr>
           {Object.keys(statsByCategory)
@@ -68,6 +73,10 @@ const Edits = ({
                           $c,
                           stats['count.edit.type.' + type.edit_type],
                         )}
+                        {' '}
+                        <TimelineLink
+                          statName={'count.edit.type.' + type.edit_type}
+                        />
                       </td>
                       <td>
                         {formatPercentage(
