@@ -13,6 +13,7 @@ import PaginatedResults from '../components/PaginatedResults';
 import EntityLink
   from '../static/scripts/common/components/EntityLink';
 import expand2text from '../static/scripts/common/i18n/expand2text';
+import {formatCount} from '../statistics/utilities';
 
 import ArtistCreditLayout from './ArtistCreditLayout';
 
@@ -54,7 +55,7 @@ const EntityList = ({
     <h2>
       {expand2text(
         headingsText[entityType](pager.total_entries),
-        {num: pager.total_entries},
+        {num: formatCount($c, pager.total_entries)},
       )}
     </h2>
 

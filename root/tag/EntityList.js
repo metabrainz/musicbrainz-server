@@ -13,6 +13,7 @@ import PaginatedResults from '../components/PaginatedResults';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import expand2text from '../static/scripts/common/i18n/expand2text';
+import {formatCount} from '../statistics/utilities';
 
 import TagLayout from './TagLayout';
 
@@ -72,7 +73,7 @@ const EntityList = ({
     <h2>
       {expand2text(
         headingsText[entityType](pager.total_entries),
-        {num: pager.total_entries},
+        {num: formatCount($c, pager.total_entries)},
       )}
     </h2>
 

@@ -15,6 +15,7 @@ import DescriptiveLink
 import EntityLink
   from '../static/scripts/common/components/EntityLink';
 import expand2text from '../static/scripts/common/i18n/expand2text';
+import {formatCount} from '../statistics/utilities';
 
 import ArtistCreditLayout from './ArtistCreditLayout';
 
@@ -64,7 +65,7 @@ function buildSection(
               <a href={url}>
                 {expand2text(
                   seeAllMessage(entities.count),
-                  {num: entities.count},
+                  {num: formatCount(props.$c, entities.count)},
                 )}
               </a>
             </em>
