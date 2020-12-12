@@ -35,10 +35,11 @@ export const TimelineLink = ({
   statName,
 }: {statName: string}): React.Element<'a'> => (
   <a
-    href={'/statistics/timeline/' + statName}
+    href={'/statistics/timeline/' + encodeURIComponent(statName)}
     title={l('See on timeline')}
   >
     <img
+      alt=""
       className="bottom"
       src={require('../static/images/icons/timeline.png')}
     />
