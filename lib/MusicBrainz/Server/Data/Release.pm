@@ -29,7 +29,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Translation qw( comma_list N_l );
 use MusicBrainz::Server::Validation qw( encode_entities );
-use aliased 'MusicBrainz::Server::Entity::Artwork';
+use aliased 'MusicBrainz::Server::Entity::ReleaseArt';
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
@@ -1579,7 +1579,7 @@ sub newest_releases_with_artwork {
         my $release = $model->_new_from_row($row);
         my $caa_id = $row->{cover_art_id};
 
-        Artwork->new(
+        ReleaseArt->new(
             id => $caa_id,
             release => $release,
             suffix => 'spoof',

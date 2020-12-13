@@ -62,9 +62,9 @@ sub _entity_class
 {
     my ($self, $row) = @_;
     if (exists $row->{release_group}) {
-        return 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup';
+        return 'MusicBrainz::Server::Entity::ReleaseGroupArt';
     } else {
-        return 'MusicBrainz::Server::Entity::Artwork';
+        return 'MusicBrainz::Server::Entity::ReleaseArt';
     }
 }
 

@@ -10,7 +10,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
-use aliased 'MusicBrainz::Server::Entity::Artwork';
+use aliased 'MusicBrainz::Server::Entity::ReleaseArt';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release',
@@ -95,7 +95,7 @@ sub build_display_data {
         Release->new( name => $self->data->{entity}{name} );
 
     my $artwork = $loaded->{CoverArt}{ $self->data->{cover_art_id} } ||
-        Artwork->new(
+        ReleaseArt->new(
             release => $release,
             id => $self->data->{cover_art_id},
             comment => $self->data->{cover_art_comment},

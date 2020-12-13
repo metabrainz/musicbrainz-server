@@ -21,7 +21,7 @@ import {commaOnlyListText}
 import ReleaseLayout from './ReleaseLayout.js';
 
 type Props = {
-  +coverArt: $ReadOnlyArray<ArtworkT>,
+  +coverArt: $ReadOnlyArray<ReleaseArtT>,
   +release: ReleaseT,
 };
 

@@ -12,7 +12,7 @@ use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
-use aliased 'MusicBrainz::Server::Entity::Artwork';
+use aliased 'MusicBrainz::Server::Entity::ReleaseArt';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release',
@@ -139,12 +139,13 @@ sub build_display_data {
 
     $data{artwork} = to_json_object(
         $loaded->{CoverArt}{ $self->data->{id} } ||
-        Artwork->new(release => $release,
-                     id => $self->data->{id},
-                     comment => $self->data->{new}{comment} // '',
-                     types => [ map {
-                         $loaded->{CoverArtType}{$_}
-                     } @{ $self->data->{new}{types} // [] }],
+        ReleaseArt->new(
+            release => $release,
+            id => $self->data->{id},
+            comment => $self->data->{new}{comment} // '',
+            types => [ map {
+                $loaded->{CoverArtType}{$_}
+            } @{ $self->data->{new}{types} // [] }],
         ),
     );
 

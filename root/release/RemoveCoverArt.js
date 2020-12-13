@@ -18,7 +18,7 @@ import EnterEditNote
 import ReleaseLayout from './ReleaseLayout.js';
 
 type Props = {
-  +artwork: ArtworkT,
+  +artwork: ReleaseArtT,
   +form: ConfirmFormT,
   +release: ReleaseT,
 };

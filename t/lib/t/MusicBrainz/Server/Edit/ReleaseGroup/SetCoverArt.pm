@@ -34,7 +34,7 @@ test 'Set cover art' => sub {
     $rg = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('CoverArt')->load_for_release_groups($rg);
 
-    isa_ok($rg->cover_art, 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup');
+    isa_ok($rg->cover_art, 'MusicBrainz::Server::Entity::ReleaseGroupArt');
     isa_ok($rg->cover_art->release, 'MusicBrainz::Server::Entity::Release');
     isa_ok($rg->cover_art->release_group, 'MusicBrainz::Server::Entity::ReleaseGroup');
 

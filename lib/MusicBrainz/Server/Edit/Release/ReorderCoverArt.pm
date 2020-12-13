@@ -14,7 +14,7 @@ use List::AllUtils qw( nsort_by );
 use Data::Compare;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
-use aliased 'MusicBrainz::Server::Entity::Artwork';
+use aliased 'MusicBrainz::Server::Entity::ReleaseArt';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release',
@@ -124,7 +124,10 @@ sub build_display_data {
     my %artwork_by_id = map { $_->id => $_ } @$artwork;
 
     for my $undef_artwork (grep { !defined $artwork_by_id{$_->{id}} } @{ $self->data->{old} }) {
-        my $fake_artwork = Artwork->new( release => $data{release}, id => $undef_artwork->{id});
+        my $fake_artwork = ReleaseArt->new(
+            release => $data{release},
+            id => $undef_artwork->{id},
+        );
         push @$artwork, $fake_artwork;
         $artwork_by_id{$undef_artwork->{id}} = $fake_artwork;
     }
