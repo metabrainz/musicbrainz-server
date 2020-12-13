@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import ArtLinks from '../components/ArtLinks.js';
 import {Artwork} from '../components/Artwork.js';
 import RequestLogin from '../components/RequestLogin.js';
 import {RELEASE_STATUS_PSEUDORELEASE} from '../constants.js';
@@ -18,32 +19,6 @@ import {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
 
 import ReleaseLayout from './ReleaseLayout.js';
-
-component CoverArtLinks(artwork: ArtworkT) {
-  return (
-    <>
-      {artwork.small_thumbnail ? (
-        <>
-          <a href={artwork.small_thumbnail}>{l('250px')}</a>
-          {' | '}
-        </>
-      ) : null}
-      {artwork.large_thumbnail ? (
-        <>
-          <a href={artwork.large_thumbnail}>{l('500px')}</a>
-          {' | '}
-        </>
-      ) : null}
-      {artwork.huge_thumbnail ? (
-        <>
-          <a href={artwork.huge_thumbnail}>{l('1200px')}</a>
-          {' | '}
-        </>
-      ) : null}
-      <a href={artwork.image}>{l('original')}</a>
-    </>
-  );
-}
 
 component CoverArt(
   coverArt: $ReadOnlyArray<ArtworkT>,
@@ -95,7 +70,7 @@ component CoverArt(
               <p className="small">
                 {l('All sizes:')}
                 {' '}
-                <CoverArtLinks artwork={artwork} />
+                <ArtLinks artwork={artwork} />
               </p>
               {$c.user ? (
                 <div className="buttons">
