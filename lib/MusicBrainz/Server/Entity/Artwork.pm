@@ -12,21 +12,21 @@ has comment => (
     isa => 'Str',
 );
 
-has cover_art_types => (
+has types => (
     is => 'rw',
     isa => 'ArrayRef[MusicBrainz::Server::Entity::CoverArtType]',
 );
 
-sub types {
+sub type_names {
     my $self = shift;
-    return [] unless $self->cover_art_types;
-    return [ map { $_->name } @{ $self->cover_art_types } ];
+    return [] unless $self->types;
+    return [ map { $_->name } @{ $self->types } ];
 }
 
-sub l_types {
+sub l_type_names {
     my $self = shift;
-    return [] unless $self->cover_art_types;
-    return [ map { $_->l_name } @{ $self->cover_art_types } ];
+    return [] unless $self->types;
+    return [ map { $_->l_name } @{ $self->types } ];
 }
 
 has is_front => (
@@ -156,7 +156,7 @@ sub TO_JSON {
         small_ia_thumbnail => $self->small_ia_thumbnail,
         small_thumbnail => $self->small_thumbnail,
         suffix => $self->suffix,
-        types => $self->types,
+        types => $self->type_names,
     };
 
     if (my $release = $self->release) {

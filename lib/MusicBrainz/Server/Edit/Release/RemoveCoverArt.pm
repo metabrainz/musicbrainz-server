@@ -46,7 +46,7 @@ sub initialize {
     my $cover_art = $opts{to_delete} or die q(Required 'to_delete' object);
 
     my %type_map = map { $_->name => $_ }
-        $self->c->model('CoverArtType')->get_by_name(@{ $cover_art->types });
+        $self->c->model('CoverArtType')->get_by_name(@{ $cover_art->type_names });
 
     $self->data({
         entity => {
@@ -57,7 +57,7 @@ sub initialize {
         cover_art_id => $cover_art->id,
         cover_art_comment => $cover_art->comment,
         cover_art_types => [
-            grep { defined } map { $type_map{$_}->id } @{ $cover_art->types },
+            grep { defined } map { $type_map{$_}->id } @{ $cover_art->type_names },
         ],
         cover_art_mime_type => $cover_art->mime_type,
         cover_art_suffix => $cover_art->suffix,
@@ -103,7 +103,7 @@ sub build_display_data {
             exists $self->data->{cover_art_suffix} ? (suffix => $self->data->{cover_art_suffix}) : (),
         );
 
-    $artwork->cover_art_types([
+    $artwork->types([
         map { $loaded->{CoverArtType}{$_} }
             @{ $self->data->{cover_art_types} },
     ]);

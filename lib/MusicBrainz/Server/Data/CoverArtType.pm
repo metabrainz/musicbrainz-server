@@ -73,7 +73,7 @@ sub load_for
 
     while (my ($cover_art_id, $types) = each %id_types_map)
     {
-        $obj_id_map{$cover_art_id}[0]->cover_art_types($types);
+        $obj_id_map{$cover_art_id}[0]->types($types);
     }
 }
 

@@ -18,7 +18,7 @@
             <button type="button" class="left">&larr;</button>
             [% React.embed(c, 'static/scripts/edit/components/InformationIcon', {
               style => {'align-self' => 'flex-start'},
-              title => l('Types:') _ ' ' _ (comma_only_list(image.l_types) || '-') _ 
+              title => l('Types:') _ ' ' _ (comma_only_list(image.l_type_names) || '-') _
                        (image.comment ? (' / ' _ add_colon(l('Comment')) _ ' ' _ image.comment) : '')}) %]
             <button type="button" class="right" style="float: right;">&rarr;</button>
           </div>
