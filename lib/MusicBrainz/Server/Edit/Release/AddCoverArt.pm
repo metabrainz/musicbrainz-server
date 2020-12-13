@@ -11,7 +11,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
-use aliased 'MusicBrainz::Server::Entity::Artwork';
+use aliased 'MusicBrainz::Server::Entity::ReleaseArt';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release',
@@ -121,12 +121,14 @@ sub build_display_data {
         ? $self->c->model('CoverArtArchive')->image_type_suffix($self->data->{cover_art_mime_type})
         : 'jpg';
 
-    my $artwork = Artwork->new(release => $artwork_release,
-                               id => $self->data->{cover_art_id},
-                               comment => $self->data->{cover_art_comment},
-                               mime_type => $self->data->{cover_art_mime_type},
-                               suffix => $suffix,
-                               types => [map { $loaded->{CoverArtType}{$_} } @{ $self->data->{cover_art_types} }]);
+    my $artwork = ReleaseArt->new(
+        release => $artwork_release,
+        id => $self->data->{cover_art_id},
+        comment => $self->data->{cover_art_comment},
+        mime_type => $self->data->{cover_art_mime_type},
+        suffix => $suffix,
+        types => [map { $loaded->{CoverArtType}{$_} } @{ $self->data->{cover_art_types} }],
+    );
 
     return {
         release => to_json_object($release),

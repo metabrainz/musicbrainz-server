@@ -134,7 +134,7 @@ declare type AddArtistEditT = $ReadOnly<{
 declare type AddCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +artwork: ArtworkT,
+    +artwork: ReleaseArtT,
     +position: number,
     +release: ReleaseT,
   },
@@ -719,7 +719,7 @@ declare type EditBarcodesEditT = $ReadOnly<{
 declare type EditCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +artwork: ArtworkT,
+    +artwork: ReleaseArtT,
     +comment: CompT<string | null>,
     +release: ReleaseT,
     +types: CompT<$ReadOnlyArray<CoverArtTypeT>>,
@@ -1163,7 +1163,7 @@ declare type MoveDiscIdEditT = $ReadOnly<{
 declare type RemoveCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +artwork: ArtworkT,
+    +artwork: ReleaseArtT,
     +release: ReleaseT,
   },
   +edit_type: EDIT_RELEASE_REMOVE_COVER_ART_T,
@@ -1432,8 +1432,8 @@ declare type RemoveReleaseLabelEditT = $ReadOnly<{
 declare type ReorderCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +new: $ReadOnlyArray<ArtworkT>,
-    +old: $ReadOnlyArray<ArtworkT>,
+    +new: $ReadOnlyArray<ReleaseArtT>,
+    +old: $ReadOnlyArray<ReleaseArtT>,
     +release: ReleaseT,
   },
   +edit_type: EDIT_RELEASE_REORDER_COVER_ART_T,
@@ -1467,7 +1467,7 @@ declare type ReorderRelationshipsEditT = $ReadOnly<{
 declare type SetCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +artwork: CompT<ArtworkT>,
+    +artwork: CompT<ReleaseArtT>,
     +isOldArtworkAutomatic: boolean,
     +release_group: ReleaseGroupT,
   },

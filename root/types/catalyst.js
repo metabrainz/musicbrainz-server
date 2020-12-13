@@ -68,7 +68,7 @@ declare type CatalystStashT = {
   +number_of_revisions?: number,
   +overlong_string?: boolean,
   +own_collections?: $ReadOnlyArray<CollectionT>,
-  +release_artwork?: ArtworkT,
+  +release_artwork?: ReleaseArtT,
   +release_artwork_count?: number,
   +release_cdtoc_count?: number,
   +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,
