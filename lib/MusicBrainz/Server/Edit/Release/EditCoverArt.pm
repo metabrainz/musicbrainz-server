@@ -138,7 +138,7 @@ sub build_display_data {
     $data{release} = to_json_object($release);
 
     $data{artwork} = to_json_object(
-        $loaded->{Artwork}{ $self->data->{id} } ||
+        $loaded->{CoverArt}{ $self->data->{id} } ||
         Artwork->new(release => $release,
                      id => $self->data->{id},
                      comment => $self->data->{new}{comment} // '',

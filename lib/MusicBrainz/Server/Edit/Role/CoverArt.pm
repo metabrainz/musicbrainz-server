@@ -11,7 +11,7 @@ role
 
         return {
             Release => [ $self->release_ids ],
-            Artwork => [ $self->cover_art_id ],
+            CoverArt => [ $self->cover_art_id ],
         };
     };
 };

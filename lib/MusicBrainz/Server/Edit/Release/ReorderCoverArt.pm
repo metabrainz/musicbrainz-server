@@ -72,7 +72,7 @@ sub accept {
             'This release no longer exists',
         );
 
-    my $current = $self->c->model('Artwork')->find_by_release($release);
+    my $current = $self->c->model('CoverArt')->find_by_release($release);
 
     my @current_ids = sort(map { $_->id } @$current);
     my @edit_ids = sort(map { $_->{id} } @{ $self->data->{old} });
@@ -113,7 +113,7 @@ sub build_display_data {
 
     my $artwork;
     if ($data{release}) {
-        $artwork = $self->c->model('Artwork')->find_by_release($data{release});
+        $artwork = $self->c->model('CoverArt')->find_by_release($data{release});
         $self->c->model('CoverArtType')->load_for(@$artwork);
     } else {
         $data{release} = Release->new( name => $self->data->{entity}{name},

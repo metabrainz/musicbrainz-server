@@ -1,4 +1,4 @@
-package t::MusicBrainz::Server::Data::Artwork;
+package t::MusicBrainz::Server::Data::CoverArt;
 use strict;
 use warnings;
 
@@ -37,7 +37,7 @@ test 'Release group artwork is ordered by raw/unedited, then release date' => su
         SQL
 
     my $release_group = $c->model('ReleaseGroup')->get_by_id(1);
-    $c->model('Artwork')->load_for_release_groups($release_group);
+    $c->model('CoverArt')->load_for_release_groups($release_group);
     is($release_group->cover_art->id, 9876543210,
        'Cover image from earliest release is selected');
 
@@ -46,11 +46,11 @@ test 'Release group artwork is ordered by raw/unedited, then release date' => su
              VALUES (9876543210, 14);
         SQL
 
-    $c->model('Artwork')->load_for_release_groups($release_group);
+    $c->model('CoverArt')->load_for_release_groups($release_group);
     is($release_group->cover_art->id, 2,
        'Non-raw cover image is selected');
 
-    ok($c->model('Artwork')->is_valid_id($release_group->cover_art->id), 'CAA ID larger than INT_MAX is considered valid');
+    ok($c->model('CoverArt')->is_valid_id($release_group->cover_art->id), 'CAA ID larger than INT_MAX is considered valid');
 };
 
 1;

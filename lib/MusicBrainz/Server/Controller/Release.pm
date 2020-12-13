@@ -96,10 +96,10 @@ after 'load' => sub {
     }
 
     if ($release->may_have_cover_art) {
-        my $artwork = $c->model('Artwork')->find_front_cover_by_release($release);
+        my $artwork = $c->model('CoverArt')->find_front_cover_by_release($release);
         $c->stash->{release_artwork} = $artwork->[0];
 
-        my $artwork_count = $c->model('Artwork')->find_count_by_release($release->id);
+        my $artwork_count = $c->model('CoverArt')->find_count_by_release($release->id);
         $c->stash->{release_artwork_count} = $artwork_count;
     }
 
@@ -323,7 +323,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
 
     my @mime_types = map { $_->{mime_type} } @{ $c->model('CoverArtArchive')->mime_types };
 
-    my @artwork = @{ $c->model('Artwork')->find_by_release($entity) };
+    my @artwork = @{ $c->model('CoverArt')->find_by_release($entity) };
     $c->model('CoverArtType')->load_for(@artwork);
 
     my $count = 1;
@@ -406,7 +406,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
         $c->detach;
     }
 
-    my $artwork = $c->model('Artwork')->find_by_release($entity);
+    my $artwork = $c->model('CoverArt')->find_by_release($entity);
     $c->model('CoverArtType')->load_for(@$artwork);
 
     $c->stash( images => $artwork );
@@ -640,7 +640,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
     my $entity = $c->stash->{entity};
 
     my @artwork = @{
-        $c->model('Artwork')->find_by_release($entity);
+        $c->model('CoverArt')->find_by_release($entity);
     } or $c->detach('/error_404', [ l('This release has no artwork.') ]);
 
     $c->model('CoverArtType')->load_for(@artwork);
@@ -690,7 +690,7 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
 
     my $release = $c->stash->{entity};
     my $artwork = first { $_->id == $id }
-        @{ $c->model('Artwork')->find_by_release($release) }
+        @{ $c->model('CoverArt')->find_by_release($release) }
             or $c->detach('/error_404');
     $c->model('CoverArtType')->load_for($artwork);
 
@@ -731,7 +731,7 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $artwork = [];
 
     if ($release->may_have_cover_art) {
-        $artwork = $c->model('Artwork')->find_by_release($release);
+        $artwork = $c->model('CoverArt')->find_by_release($release);
         $c->model('CoverArtType')->load_for(@$artwork);
     }
 

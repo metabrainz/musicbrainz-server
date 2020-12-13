@@ -20,7 +20,7 @@ test 'Set cover art' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+caa');
     my $rg = $c->model('ReleaseGroup')->get_by_id(1);
-    $c->model('Artwork')->load_for_release_groups($rg);
+    $c->model('CoverArt')->load_for_release_groups($rg);
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELEASEGROUP_SET_COVER_ART,
@@ -32,7 +32,7 @@ test 'Set cover art' => sub {
     $edit->accept();
 
     $rg = $c->model('ReleaseGroup')->get_by_id(1);
-    $c->model('Artwork')->load_for_release_groups($rg);
+    $c->model('CoverArt')->load_for_release_groups($rg);
 
     isa_ok($rg->cover_art, 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup');
     isa_ok($rg->cover_art->release, 'MusicBrainz::Server::Entity::Release');
@@ -61,7 +61,7 @@ test 'Set cover art fails if release no longer exists' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+caa');
     my $rg = $c->model('ReleaseGroup')->get_by_id(1);
-    $c->model('Artwork')->load_for_release_groups($rg);
+    $c->model('CoverArt')->load_for_release_groups($rg);
 
     my $release = $c->model('Release')->get_by_id(1);
 
