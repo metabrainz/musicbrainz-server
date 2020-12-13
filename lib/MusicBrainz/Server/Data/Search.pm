@@ -982,7 +982,7 @@ sub external_search
         {
             my @entities = map { $_->entity } @results;
             $self->c->model('ReleaseGroup')->load_ids(@entities);
-            $self->c->model('Artwork')->load_for_release_groups(@entities);
+            $self->c->model('CoverArt')->load_for_release_groups(@entities);
         }
 
         my $pager = Data::Page->new;

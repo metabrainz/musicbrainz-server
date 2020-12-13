@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Data::Artwork;
+package MusicBrainz::Server::Data::CoverArt;
 
 use Moose;
 use MusicBrainz::Server::Entity::Release;
