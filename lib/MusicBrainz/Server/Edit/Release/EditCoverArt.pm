@@ -142,7 +142,7 @@ sub build_display_data {
         Artwork->new(release => $release,
                      id => $self->data->{id},
                      comment => $self->data->{new}{comment} // '',
-                     cover_art_types => [ map {
+                     types => [ map {
                          $loaded->{CoverArtType}{$_}
                      } @{ $self->data->{new}{types} // [] }],
         ),

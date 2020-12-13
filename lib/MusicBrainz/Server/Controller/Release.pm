@@ -656,7 +656,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/' . $entity->gid . '/',
     });
 
-    my @type_ids = map { $_->id } $c->model('CoverArtType')->get_by_name(@{ $artwork->types });
+    my @type_ids = map { $_->id } $c->model('CoverArtType')->get_by_name(@{ $artwork->type_names });
 
     my $form = $c->form(
         form => 'Release::EditCoverArt',

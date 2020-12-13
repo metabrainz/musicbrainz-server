@@ -126,7 +126,7 @@ sub build_display_data {
                                comment => $self->data->{cover_art_comment},
                                mime_type => $self->data->{cover_art_mime_type},
                                suffix => $suffix,
-                               cover_art_types => [map {$loaded->{CoverArtType}{$_}} @{ $self->data->{cover_art_types} }]);
+                               types => [map { $loaded->{CoverArtType}{$_} } @{ $self->data->{cover_art_types} }]);
 
     return {
         release => to_json_object($release),
