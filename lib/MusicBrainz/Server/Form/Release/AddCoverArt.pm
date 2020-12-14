@@ -5,7 +5,7 @@ use warnings;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 
-extends 'MusicBrainz::Server::Form::CoverArt';
+extends 'MusicBrainz::Server::Form::ReleaseCoverArt';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
 has '+name' => ( default => 'add-cover-art' );

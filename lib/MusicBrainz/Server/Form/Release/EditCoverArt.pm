@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use HTML::FormHandler::Moose;
-extends 'MusicBrainz::Server::Form::CoverArt';
+extends 'MusicBrainz::Server::Form::ReleaseCoverArt';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
 has '+name' => ( default => 'edit-cover-art' );
