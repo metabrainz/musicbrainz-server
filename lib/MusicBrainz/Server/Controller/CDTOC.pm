@@ -417,6 +417,7 @@ sub move : Local Edit
             my @mediums = grep { !$_->format || $_->format->has_discids }
                 map { $_->all_mediums } @releases;
             $c->model('Track')->load_for_mediums(@mediums);
+            $c->model('Recording')->load(map { $_->all_tracks } @mediums);
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
                 cdtoc_action => 'move',
