@@ -17,7 +17,11 @@ use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Instrument',
     entity_name     => 'instrument',
-    relationships   => { cardinal => ['show', 'edit'], default => ['url'] },
+    relationships   => {
+        all         => ['aliases'],
+        cardinal    => ['show', 'edit'],
+        default     => ['url'],
+    },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';

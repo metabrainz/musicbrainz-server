@@ -12,12 +12,15 @@ import * as React from 'react';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import AliasesComponent from '../components/Aliases';
 import ArtistCreditList from '../components/Aliases/ArtistCreditList';
+import RelationshipCreditList
+  from '../components/Aliases/RelationshipCreditList';
 
 type Props = {
   +$c: CatalystContextT,
   +aliases: $ReadOnlyArray<AliasT>,
   +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   +entity: CoreEntityT,
+  +relationshipCredits?: $ReadOnlyArray<string>,
 };
 
 const Aliases = ({
@@ -25,6 +28,7 @@ const Aliases = ({
   aliases,
   artistCredits,
   entity,
+  relationshipCredits,
 }: Props): React.MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
@@ -42,6 +46,12 @@ const Aliases = ({
           $c={$c}
           artistCredits={artistCredits}
           entity={entity}
+        />
+      ) : null}
+      {relationshipCredits?.length ? (
+        <RelationshipCreditList
+          entity={entity}
+          relationshipCredits={relationshipCredits}
         />
       ) : null}
     </LayoutComponent>

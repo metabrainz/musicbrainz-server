@@ -1,5 +1,9 @@
 package MusicBrainz::Server::Controller::Role::Alias;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use List::AllUtils qw( uniq );
+use MusicBrainz::Server::Constants qw(
+    %ENTITIES_WITH_RELATIONSHIP_CREDITS
+);
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 
 requires 'load';
@@ -47,6 +51,16 @@ sub aliases : Chained('load') PathPart('aliases')
         aliases => $aliases,
         entity => $entity,
     );
+
+    if ($ENTITIES_WITH_RELATIONSHIP_CREDITS{$self->{entity_name}}) {
+        my $relationships = $entity->{relationships};
+        my @relationship_credits = uniq sort {$a cmp $b} grep { $_ ne '' } map {
+            $_->direction == 2
+                ? $_->entity1_credit
+                : $_->entity0_credit
+        } @$relationships;
+        $props{relationshipCredits} = \@relationship_credits;
+    }
 
     $c->stash(
         # "aliases" needs to remain here for JSON-LD serialization
