@@ -71,7 +71,7 @@ function showEditTab(
 function buildLinks(
   $c: CatalystContextT,
   entity: CoreEntityT,
-  page: string,
+  page?: string,
   editTab: ?React.Element<typeof EntityTabLink>,
 ): $ReadOnlyArray<React.Element<typeof EntityTabLink>> {
   const links = [buildLink(l('Overview'), entity, '', page, false, 'index')];
@@ -151,7 +151,7 @@ function buildLinks(
 type Props = {
   +editTab: ?React.Element<typeof EntityTabLink>,
   +entity: CoreEntityT,
-  +page: string,
+  +page?: string,
 };
 
 const EntityTabs = ({

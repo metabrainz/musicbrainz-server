@@ -142,6 +142,7 @@ declare type ArtistT = $ReadOnly<{
 declare type ArtistTypeT = OptionTreeT<'artist_type'>;
 
 declare type ArtworkT = {
+  ...EditableRoleT,
   +comment: string,
   +filename: string | null,
   +id: number,
@@ -325,6 +326,8 @@ declare type ReadOnlyCompoundFieldT<+F> = {
 
 declare type ConfirmFormT = FormT<{
   +cancel: ReadOnlyFieldT<string>,
+  +edit_note: ReadOnlyFieldT<string>,
+  +make_votable: ReadOnlyFieldT<boolean>,
   +submit: ReadOnlyFieldT<string>,
 }>;
 
@@ -943,6 +946,7 @@ declare type ReleaseT = $ReadOnly<{
   +language: LanguageT | null,
   +languageID: number | null,
   +length?: number,
+  +may_have_cover_art?: boolean,
   +may_have_discids?: boolean,
   +packagingID: number | null,
   +primaryAlias?: string | null,

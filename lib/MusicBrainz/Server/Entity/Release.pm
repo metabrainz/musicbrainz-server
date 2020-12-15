@@ -283,6 +283,7 @@ around TO_JSON => sub {
         status      => $self->status,
         cover_art_presence => $self->cover_art_presence,
         cover_art_url => $self->cover_art_url,
+        may_have_cover_art => boolean_to_json($self->may_have_cover_art),
         may_have_discids => boolean_to_json($self->may_have_discids),
     };
 
