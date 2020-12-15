@@ -52,7 +52,7 @@
      END;
    END; -%]
 
-[%- MACRO display_edit_artwork(artwork, release, colspan) BLOCK -%]
+[%- MACRO display_edit_artwork(artwork, release, colspan) BLOCK -%]  [% # Converted to React at root/edit/components/EditArtwork.js %]
   <tr>
     <th>[% l('Cover art:') %]</th>
     <td class="edit-cover-art"[% IF colspan %] colspan="[% colspan %]"[% END %]>
