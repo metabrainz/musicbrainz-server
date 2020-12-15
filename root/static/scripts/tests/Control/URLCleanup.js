@@ -3898,9 +3898,39 @@ const testData = [
   },
   // WhoSampled
   {
+                     input_url: 'https://www.whosampled.com/Death-Grips/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/Death-Grips/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.whosampled.com/album/Pet-Shop-Boys/Very/',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/album/Pet-Shop-Boys/Very/',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.whosampled.com/Pet-Shop-Boys/Can-You-Forgive-Her?/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/Pet-Shop-Boys/Can-You-Forgive-Her?/',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.whosampled.com/sample/127347/Death-Grips-5D-Pet-Shop-Boys-West-End-Girls/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/sample/127347/Death-Grips-5D-Pet-Shop-Boys-West-End-Girls/',
+       only_valid_entity_types: [],
   },
   // Fandom (old Wikia)
   {

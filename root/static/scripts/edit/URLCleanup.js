@@ -2473,7 +2473,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?lortel\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?whosampled\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
       new RegExp(
         '^(https?://)?(www\\.)?residentadvisor\\.net/(?!review)',
@@ -3217,6 +3216,69 @@ const CLEANUPS = {
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/(u\/)?([^\/?#]+)(?:.*)$/, 'https://www.weibo.com/$1$2');
+    },
+  },
+  'whosampled': {
+    match: [new RegExp('^(https?://)?(www\\.)?whosampled\\.com', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?whosampled\.com\/(.+)$/, 'https://www.whosampled.com/$1');
+    },
+    validate: function (url, id) {
+      if (/[?#]/.test(url)) {
+        return {
+          error: l(
+            `There is an unencoded “?” or “#” character in this URL.
+             Please check whether it is useless and should be removed,
+             or whether it is an error and the URL is misencoded.`,
+          ),
+          result: false,
+        };
+      }
+      if (/^https:\/\/www\.whosampled\.com\/sample\//.test(url)) {
+        return {
+          error: l(
+            `Please do not link directly to WhoSampled sample pages.
+             Link to the appropriate artist, recording
+             or release page instead.`,
+          ),
+          result: false,
+        };
+      }
+      if (/^https:\/\/www\.whosampled\.com\/album\//.test(url)) {
+        if (id === LINK_TYPES.otherdatabases.release_group) {
+          return {result: true};
+        }
+        return {
+          error: l(
+            'Please link WhoSampled album pages to release groups.',
+          ),
+          result: false,
+        };
+      }
+      if (/^https:\/\/www\.whosampled\.com\/(?!(?:album|sample))[^/]+(?:\/)?$/.test(url)) {
+        if (id === LINK_TYPES.otherdatabases.artist) {
+          return {result: true};
+        }
+        return {
+          error: l(
+            'Please link WhoSampled artist pages to artists.',
+          ),
+          result: false,
+        };
+      }
+      if (/^https:\/\/www\.whosampled\.com\/(?!(?:album|sample))[^/]+\/[^/]+(?:\/)?$/.test(url)) {
+        if (id === LINK_TYPES.otherdatabases.recording) {
+          return {result: true};
+        }
+        return {
+          error: l(
+            'Please link WhoSampled song pages to recordings.',
+          ),
+          result: false,
+        };
+      }
+      return {result: false};
     },
   },
   'wikidata': {
