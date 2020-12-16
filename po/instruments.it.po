@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-06 13:04+0000\n"
+"PO-Revision-Date: 2020-12-14 12:01+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -222,7 +222,7 @@ msgstr "schwyzerörgeli"
 
 #: DB:instrument/name:427
 msgid "Scottish smallpipes"
-msgstr "smallpipes scozzesi"
+msgstr "smallpipe scozzesi"
 
 #: DB:instrument/name:910
 msgid "Serbo-Croatian tamburica orchestra"
@@ -840,7 +840,7 @@ msgstr "rombo"
 
 #: DB:instrument/name:360
 msgid "button accordion"
-msgstr "fisarmonica a tastiera"
+msgstr "fisarmonica a bottoni"
 
 #: DB:instrument/name:655
 msgid "buzuq"
@@ -1067,11 +1067,11 @@ msgstr "claviorgano"
 
 #: DB:instrument/name:414
 msgid "concert flute"
-msgstr "flauto traverso (flauto da concerto)"
+msgstr "flauto traverso"
 
 #: DB:instrument/name:351
 msgid "concert harp"
-msgstr "arpa per concerto"
+msgstr "arpa da concerto"
 
 #: DB:instrument/name:42
 msgid "concertina"
@@ -1247,7 +1247,7 @@ msgstr "ding tac ta"
 
 #: DB:instrument/name:602
 msgid "disk drive"
-msgstr "drive disco"
+msgstr "drive per disco"
 
 #: DB:instrument/name:220
 msgctxt "bass gehu (huqin)"
@@ -1839,7 +1839,7 @@ msgstr "hardingfele"
 #: DB:instrument/name:43
 msgctxt "mouth organ"
 msgid "harmonica"
-msgstr "armonica"
+msgstr "armonica (a bocca)"
 
 #: DB:instrument/name:135
 msgctxt "reed organ"
@@ -2510,7 +2510,7 @@ msgstr "melodica"
 #: DB:instrument/name:1022
 msgctxt "Bellowed free reed in a lute-like casing"
 msgid "melophone"
-msgstr "mellofono"
+msgstr "melofono"
 
 #: DB:instrument/name:100
 msgid "membranophone"
@@ -2555,7 +2555,7 @@ msgstr "arpa a bocca"
 
 #: DB:instrument/name:610
 msgid "mouth organ"
-msgstr "armonica a bocca"
+msgstr "organo a bocca"
 
 #: DB:instrument/name:475
 msgid "mridangam"
@@ -3449,7 +3449,7 @@ msgstr "sousafono"
 
 #: DB:instrument/name:1019
 msgid "spike-fiddle"
-msgstr "violino (folk) a puntale"
+msgstr "fidula"
 
 #: DB:instrument/name:513
 msgid "spilåpipa"
@@ -3476,7 +3476,7 @@ msgstr "chitarra steel"
 #: DB:instrument/name:653
 msgctxt "Modern acoustic steel string guitar"
 msgid "steel-string guitar"
-msgstr "chitarra a corde d'acciaio"
+msgstr "chitarra con corde in acciaio"
 
 #: DB:instrument/name:273
 msgid "steelpan"
@@ -3983,7 +3983,7 @@ msgstr "ugal"
 
 #: DB:instrument/name:187
 msgid "uilleann pipes"
-msgstr "uilleann pipes"
+msgstr "uilleann pipe"
 
 #: DB:instrument/name:631
 msgid "ukeke"

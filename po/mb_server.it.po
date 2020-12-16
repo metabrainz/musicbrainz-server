@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-03 07:59-0600\n"
-"PO-Revision-Date: 2020-12-03 17:27+0000\n"
+"PO-Revision-Date: 2020-12-12 00:14+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -5959,7 +5959,7 @@ msgstr "non corrispondono a"
 
 #: ../root/edit/search_macros.tt:19
 msgid "earliest closed first"
-msgstr "prima quelli chiusi meno di recente"
+msgstr "prima quelle chiuse meno di recente"
 
 #: ../root/components/common-macros.tt:121
 msgid "editors"
@@ -6121,7 +6121,7 @@ msgstr "corrispondono a"
 
 #: ../root/edit/search_macros.tt:19
 msgid "newest first"
-msgstr "prima i più recenti"
+msgstr "prima le più recenti"
 
 #: ../root/forms/relationship-editor.tt:46
 msgid "no entity"
@@ -6137,7 +6137,7 @@ msgstr "non auto-modifiche"
 
 #: ../root/edit/search_macros.tt:19
 msgid "oldest first"
-msgstr "prima i più vecchi"
+msgstr "prima le più vecchie"
 
 #: ../root/edit/search_macros.tt:164
 msgid "on"
@@ -6176,7 +6176,7 @@ msgstr "dati di modifica grezzi"
 
 #: ../root/edit/search_macros.tt:19
 msgid "recently closed first"
-msgstr "prima quelli chiusi più di recente"
+msgstr "prima quelle chiuse più di recente"
 
 #: ../root/release/edit/recordings.tt:30
 msgid "recording"
@@ -6231,11 +6231,11 @@ msgstr "fino al {date}"
 
 #: ../root/edit/search_macros.tt:19
 msgid "voting closing later first"
-msgstr "prima quelli con votazione in chiusura più tardi"
+msgstr "prima quelle con votazione in chiusura più tardi"
 
 #: ../root/edit/search_macros.tt:19
 msgid "voting closing sooner first"
-msgstr "prima quelli con votazione in chiusura tra poco"
+msgstr "prima quelle con votazione in chiusura tra poco"
 
 #: ../root/components/common-macros.tt:121
 msgid "works"
