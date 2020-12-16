@@ -92,26 +92,8 @@ lookup_handler 'isrc' => sub {
 lookup_handler 'iswc' => sub {
     my ($self, $c, $iswc) = @_;
 
-    my @works = $c->model('Work')->find_by_iswc($iswc);
-    if (@works == 1) {
-        my $work = $works[0];
-        $c->response->redirect(
-            $c->uri_for_action(
-                $c->controller('Work')->action_for('show'),
-                [ $work->gid ]));
-        $c->detach;
-    }
-    elsif (@works > 1) {
-        $c->model('Work')->load_writers(@works);
-        $c->model('Work')->load_recording_artists(@works);
-        $c->stash(
-            works => \@works,
-            template => 'otherlookup/results-work.tt'
-        );
-    }
-    else {
-        $self->not_found($c);
-    }
+    $c->response->redirect($c->uri_for_action('/iswc/show', [ $iswc ]));
+    $c->detach;
 };
 
 lookup_handler 'artist-ipi' => sub {
