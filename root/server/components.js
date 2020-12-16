@@ -110,6 +110,7 @@ module.exports = {
   'oauth2/OAuth2FormPost': require('../oauth2/OAuth2FormPost'),
   'oauth2/OAuth2Oob': require('../oauth2/OAuth2Oob'),
   'otherlookup/OtherLookupIndex': require('../otherlookup/OtherLookupIndex'),
+  'otherlookup/OtherLookupReleaseResults': require('../otherlookup/OtherLookupReleaseResults'),
   'place/PlaceEvents': require('../place/PlaceEvents'),
   'place/PlaceIndex': require('../place/PlaceIndex'),
   'place/PlaceMap': require('../place/PlaceMap'),

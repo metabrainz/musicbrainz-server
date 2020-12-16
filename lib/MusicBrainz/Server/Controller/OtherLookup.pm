@@ -177,8 +177,9 @@ lookup_handler 'freedbid' => sub {
     $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
 
     $c->stash(
-        results => \@releases,
-        template => 'otherlookup/results-release.tt'
+        current_view => 'Node',
+        component_path => 'otherlookup/OtherLookupReleaseResults',
+        component_props => {results => \@releases},
     )
 };
 
