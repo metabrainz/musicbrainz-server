@@ -21,7 +21,10 @@ sub _quality
     );
 
     return $quality_names{
-        $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED : $quality_id };
+        $quality_id == $QUALITY_UNKNOWN
+            ? $QUALITY_UNKNOWN_MAPPED
+            : $quality_id
+    };
 }
 
 sub serialize

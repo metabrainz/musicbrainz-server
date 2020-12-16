@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-29 15:54+0000\n"
+"PO-Revision-Date: 2020-12-07 14:05+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1784,6 +1784,14 @@ msgstr "Deze relatie geeft aan dat de naam van de artiest is geïnspireerd op de
 msgid "This indicates where a feed for this podcast can be found."
 msgstr "Dit geeft aan waar deze podcast kan worden gevonden."
 
+#: DB:link_attribute_type/description:424
+msgid ""
+"This is used only for cases when someone is credited as co-[role] (co-"
+"producer, co-engineer, etc.) - which generally has a specific meaning that "
+"depends on the specific activity but is different from just \"there were "
+"several people collaborating\"."
+msgstr "Deze eigenschap wordt alleen gebruikt als iemand in een co-rol (co-producent, co-technicus etc.) wordt vermeld. Over het algemeen heeft dit een specifieke betekenis en is het niet hetzelfde als “er waren verschillende mensen die met elkaar samenwerkten”."
+
 #: DB:link_type/description:17
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
@@ -1812,6 +1820,12 @@ msgid ""
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
 msgstr "Dit geeft aan dat de uitgavegroep een <a href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> van twee (of meer) andere uitgavegroepen is."
+
+#: DB:link_attribute_type/description:952
+msgid ""
+"This is used to indicate this instance of mastering is a specifically a "
+"remaster."
+msgstr "Deze eigenschap wordt gebruikt om aan te geven dat een master een remaster is."
 
 #: DB:link_type/description:227
 msgid ""
@@ -2243,12 +2257,8 @@ msgid ""
 msgstr "Deze relatie  koppelt een compositie voor een soundtrack aan een <a href=\"http://www.imdb.com/\">IMDb</a>-pagina over de film, show of het spel waarvan het een soundtrack is."
 
 #: DB:link_type/description:722
-msgid ""
-"This links a subgroup to the group from which it was created. This "
-"relationship type is the functional equivalent of the <a "
-"href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
-"type</a> for group-group relationships."
-msgstr "Deze relatie koppelt een subgroep aan de groep waaruit hij is voortgekomen. Dit is vergelijkbaar met de <a href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">relatie voor leden van een groep</a>, maar dan voor relaties tussen groepen."
+msgid "This links a subgroup to the group from which it was created."
+msgstr "Deze relatie koppelt een subgroep aan de groep waaruit de subgroep is ontstaan."
 
 #: DB:link_type/description:939
 msgid "This links a work to a license under which it is available."
@@ -3563,10 +3573,6 @@ msgstr "klassieke muziek"
 #: DB:link_attribute_type/name:424
 msgid "co"
 msgstr "co"
-
-#: DB:link_attribute_type/description:424
-msgid "co-[role]"
-msgstr "Deze eigenschap geeft aan dat een (meestal technische) relatie door meerdere personen samen is uitgevoerd."
 
 #: DB:link_type/long_link_phrase:102
 msgid "collaborated {minor:minorly} {additional:additionally} on"
@@ -5831,10 +5837,6 @@ msgstr "PureVolume"
 #: DB:link_attribute_type/name:952
 msgid "re"
 msgstr "re"
-
-#: DB:link_attribute_type/description:952
-msgid "re-[role]"
-msgstr "Deze eigenschap geeft aan dat een relatie opnieuw uitgevoerd is (zoals een remaster)."
 
 #: DB:link_type/link_phrase:917 DB:link_type/long_link_phrase:917
 msgid "reconstructed"

@@ -11,16 +11,17 @@ sub query
         SELECT
             i.id AS instrument_id,
             row_number() OVER (ORDER BY i.type, i.name COLLATE musicbrainz)
-        FROM
-            instrument i
-            LEFT JOIN l_instrument_url liu ON i.id = liu.entity0
-            LEFT JOIN link l ON liu.link = l.id AND l.link_type IN (
-                SELECT lt.id
-                FROM link_type lt
-                WHERE lt.name IN ('image', 'wikidata')
-            )
-        WHERE
-            liu.link IS NULL
+        FROM instrument i
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM l_instrument_url liu
+            JOIN link l ON liu.link = l.id
+            JOIN link_type lt ON l.link_type = lt.id
+            JOIN url ON liu.entity1 = url.id
+            WHERE liu.entity0 = i.id
+            AND lt.gid = 'f64eacbd-1ea1-381e-9886-2cfb552b7d90' --image
+            AND url.url LIKE '%staticbrainz.org/irombook%'
+        )
     };
 }
 

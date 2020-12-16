@@ -740,7 +740,7 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
 {
     my ($self, $c, $application_id, $scope) = @_;
 
-    my $form = $c->form( form => 'SubmitCancel' );
+    my $form = $c->form( form => 'Confirm' );
     if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             $c->response->redirect($c->uri_for_action('/account/applications'));
@@ -832,7 +832,7 @@ sub remove_application : Path('/account/applications/remove') Args(1) RequireAut
     $c->detach('/error_404')
         unless defined $application && $application->owner_id == $c->user->id;
 
-    my $form = $c->form( form => 'SubmitCancel' );
+    my $form = $c->form( form => 'Confirm' );
     if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             $c->response->redirect($c->uri_for_action('/account/applications'));

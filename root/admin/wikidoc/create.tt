@@ -5,7 +5,7 @@
         [%- USE r = FormRenderer(form) -%]
 
         <form action="[% c.req.uri | html %]" method="post">
-            [% form_csrf_token %]
+            [% form_csrf_token(r) %]
             [% form_row_text_long(r, 'page', l('Page:')) %]
             [% form_row_text(r, 'version', l('Version:'), { pattern => "[0-9]*" }) %]
 

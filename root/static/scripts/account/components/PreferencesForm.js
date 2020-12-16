@@ -20,6 +20,7 @@ import {formatUserDateObject} from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
 
 type PreferencesFormT = FormT<{
+  +csrf_token: FieldT<string>,
   +datetime_format: FieldT<string>,
   +email_on_no_vote: FieldT<boolean>,
   +email_on_notes: FieldT<boolean>,
@@ -148,7 +149,7 @@ class PreferencesForm extends React.Component<Props, State> {
     const field = this.state.form.field;
     return (
       <form method="post">
-        <FormCsrfToken />
+        <FormCsrfToken form={this.state.form} />
 
         <fieldset>
           <legend>{l('Regional settings')}</legend>

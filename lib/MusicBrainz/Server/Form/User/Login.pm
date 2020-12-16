@@ -4,6 +4,7 @@ use MusicBrainz::Server::Translation qw( l N_l );
 extends 'HTML::FormHandler';
 
 with 'MusicBrainz::Server::Form::Role::ToJSON';
+with 'MusicBrainz::Server::Form::Role::CSRFToken';
 
 has_field 'username' => (
     type => 'Text',

@@ -13,15 +13,16 @@ import {canCancel, canSecond, canVote, isInvolved}
   from '../utility/voting';
 
 type PropsT = {
+  +$c: CatalystContextT,
   +election: AutoEditorElectionT,
-  +user?: EditorT,
 };
 
-const ElectionVoting = ({election, user}: PropsT): React.MixedElement => {
+const ElectionVoting = ({$c, election}: PropsT): React.MixedElement => {
   let message = exp.l(
     'To find out if you can vote for this candidate, please {url|log in}.',
     {url: '/login'},
   );
+  const user = $c.user;
   if (user) {
     if (!user.is_auto_editor) {
       message = l(

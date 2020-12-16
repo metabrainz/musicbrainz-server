@@ -19,6 +19,7 @@ import FormSubmit from '../../../../components/FormSubmit';
 import hydrate from '../../../../utility/hydrate';
 
 export type ApplicationFormT = FormT<{
+  +csrf_token: FieldT<string>,
   +name: ReadOnlyFieldT<string>,
   +oauth_redirect_uri: FieldT<string>,
   +oauth_type: FieldT<string>,
@@ -72,7 +73,7 @@ class ApplicationForm extends React.Component<Props, State> {
   render() {
     return (
       <form method="post">
-        <FormCsrfToken />
+        <FormCsrfToken form={this.state.form} />
 
         <FormRowText
           field={this.state.form.field.name}

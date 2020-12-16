@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-28 21:04+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2020-12-03 14:00+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1778,6 +1778,14 @@ msgstr ""
 msgid "This indicates where a feed for this podcast can be found."
 msgstr ""
 
+#: DB:link_attribute_type/description:424
+msgid ""
+"This is used only for cases when someone is credited as co-[role] (co-"
+"producer, co-engineer, etc.) - which generally has a specific meaning that "
+"depends on the specific activity but is different from just \"there were "
+"several people collaborating\"."
+msgstr ""
+
 #: DB:link_type/description:17
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
@@ -1805,6 +1813,12 @@ msgid ""
 "This is used to indicate that the release group is a mash-up <a "
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
+msgstr ""
+
+#: DB:link_attribute_type/description:952
+msgid ""
+"This is used to indicate this instance of mastering is a specifically a "
+"remaster."
 msgstr ""
 
 #: DB:link_type/description:227
@@ -2237,11 +2251,7 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:722
-msgid ""
-"This links a subgroup to the group from which it was created. This "
-"relationship type is the functional equivalent of the <a "
-"href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
-"type</a> for group-group relationships."
+msgid "This links a subgroup to the group from which it was created."
 msgstr ""
 
 #: DB:link_type/description:939
@@ -3557,10 +3567,6 @@ msgstr ""
 #: DB:link_attribute_type/name:424
 msgid "co"
 msgstr "kaas-"
-
-#: DB:link_attribute_type/description:424
-msgid "co-[role]"
-msgstr "Tähistab kaas- (ingl „co-”) rolli."
 
 #: DB:link_type/long_link_phrase:102
 msgid "collaborated {minor:minorly} {additional:additionally} on"
@@ -5824,10 +5830,6 @@ msgstr ""
 
 #: DB:link_attribute_type/name:952
 msgid "re"
-msgstr ""
-
-#: DB:link_attribute_type/description:952
-msgid "re-[role]"
 msgstr ""
 
 #: DB:link_type/link_phrase:917 DB:link_type/long_link_phrase:917

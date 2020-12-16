@@ -16,7 +16,8 @@ import Layout from '../layout';
 
 type Props = {
   +$c: CatalystContextT,
-  +form: FormT<{
+  +form: ReadOnlyFormT<{
+    +csrf_token: ReadOnlyFieldT<string>,
     +message: ReadOnlyFieldT<string>,
   }>,
 };
@@ -30,7 +31,7 @@ const EditBanner = ({$c, form}: Props): React.Element<typeof Layout> => (
             of each page. An empty string removes the banner.`)}
       </p>
       <form action="/admin/banner/edit" method="post">
-        <FormCsrfToken />
+        <FormCsrfToken form={form} />
         <FormRowTextArea
           field={form.field.message}
           label={addColonText(l('Banner message'))}

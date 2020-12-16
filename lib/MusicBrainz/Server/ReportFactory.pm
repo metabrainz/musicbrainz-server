@@ -51,6 +51,7 @@ use MusicBrainz::Server::PagedReport;
     FeaturingReleaseGroups
     FeaturingReleases
     InstrumentsWithoutAnImage
+    InstrumentsWithoutWikidata
     ISRCsWithManyRecordings
     ISWCsWithManyWorks
     LabelsDisambiguationSameName
@@ -136,6 +137,7 @@ use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
 use MusicBrainz::Server::Report::InstrumentsWithoutAnImage;
+use MusicBrainz::Server::Report::InstrumentsWithoutWikidata;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;

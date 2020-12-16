@@ -11,7 +11,10 @@ import * as React from 'react';
 
 type Props = {
   +children: React.Node,
-  +form: FormT<{+make_votable: ReadOnlyFieldT<boolean>, ...}>,
+  +form: ReadOnlyFormT<{
+    +make_votable: ReadOnlyFieldT<boolean>,
+    ...
+  }>,
 };
 
 const EnterEdit = ({children, form}: Props): React.MixedElement => (

@@ -35,6 +35,7 @@ type Props = {
 };
 
 const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {
+  const firstReleaseYear = recording.first_release_date?.year;
   return (
     <div id="sidebar">
       <h2 className="recording-information">
@@ -51,6 +52,15 @@ const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {
             {formatTrackLength(recording.length)}
           </SidebarProperty>
         ) : null}
+
+        {firstReleaseYear == null ? null : (
+          <SidebarProperty
+            className="first-release-year"
+            label={addColonText(l('First release year'))}
+          >
+            {firstReleaseYear}
+          </SidebarProperty>
+        )}
 
         {recording.isrcs.map(isrc => (
           <SidebarProperty

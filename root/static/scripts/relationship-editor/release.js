@@ -210,19 +210,24 @@ export class ReleaseViewModel extends ViewModel {
 
   releaseLoaded(data) {
     var release = this.source;
+    let trackCount = 0;
 
-    release.mediums(data.mediums.map(function (mediumData) {
-      for (const trackData of mediumData.tracks) {
-        MB.entity(trackData.recording).parseRelationships(
-          trackData.recording.relationships,
-        );
-      }
-      return new MB.entity.Medium(mediumData, release);
-    }));
+    if (data.mediums) {
+      release.mediums(data.mediums.map(function (mediumData) {
+        if (mediumData.tracks) {
+          for (const trackData of mediumData.tracks) {
+            MB.entity(trackData.recording).parseRelationships(
+              trackData.recording.relationships,
+            );
+          }
+        }
+        return new MB.entity.Medium(mediumData, release);
+      }));
 
-    var trackCount = release.mediums().reduce((memo, medium) => {
-      return memo + medium.tracks.length;
-    }, 0);
+      trackCount = release.mediums().reduce((memo, medium) => {
+        return memo + medium.tracks.length;
+      }, 0);
+    }
 
     initCheckboxes(this.checkboxes, trackCount);
   }

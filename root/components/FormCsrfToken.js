@@ -9,27 +9,41 @@
 
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../context';
+type PropsT = {
+  +form: ReadOnlyFormT<{
+    +csrf_session_key?: ReadOnlyFieldT<string>,
+    +csrf_token?: ReadOnlyFieldT<string>,
+    ...
+  }>,
+};
 
-const FormCsrfToken = ():
-React.Element<typeof SanitizedCatalystContext.Consumer> => (
-  <SanitizedCatalystContext.Consumer>
-    {$c => (
-      <>
-        {$c.stash.invalid_csrf_token /*:: === true */ ? (
-          <p className="error">
-            {l(`The form you’ve submitted has expired.
-                Please resubmit your request.`)}
-          </p>
-        ) : null}
-        <input
-          name="csrf_token"
-          type="hidden"
-          value={$c.stash.csrf_token ?? ''}
-        />
-      </>
-    )}
-  </SanitizedCatalystContext.Consumer>
-);
+const FormCsrfToken = ({form}: PropsT): React.Node => {
+  const sessionKeyField = form.field.csrf_session_key;
+  const tokenField = form.field.csrf_token;
+  return (sessionKeyField && tokenField) ? (
+    <>
+      {sessionKeyField.errors.length ? (
+        <p className="error">
+          {sessionKeyField.errors[0]}
+        </p>
+      ) : null}
+      <input
+        name={sessionKeyField.html_name}
+        type="hidden"
+        value={sessionKeyField.value}
+      />
+      {tokenField.errors.length ? (
+        <p className="error">
+          {tokenField.errors[0]}
+        </p>
+      ) : null}
+      <input
+        name={tokenField.html_name}
+        type="hidden"
+        value={tokenField.value}
+      />
+    </>
+  ) : null;
+};
 
 export default FormCsrfToken;

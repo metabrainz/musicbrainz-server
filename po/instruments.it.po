@@ -7,15 +7,15 @@
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Panfilo <email address hidden>, 2017
-# Luca Salini <email address hidden>, 2020
+# Luca Salini, 2020
 # Monica <email address hidden>, 2014
-# Luca Salini <email address hidden>, 2012
+# Luca Salini, 2012
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-11-01 10:28+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2020-12-14 12:01+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -194,6 +194,11 @@ msgctxt "an electromechanical piano"
 msgid "Pianet"
 msgstr "Pianet"
 
+#: DB:instrument/name:1023
+msgctxt "ensemble flute, clarinet, violin, cello and piano"
+msgid "Pierrot ensemble"
+msgstr "ensemble Pierrot"
+
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
 msgstr "chitarra portoghese"
@@ -217,7 +222,7 @@ msgstr "schwyzerörgeli"
 
 #: DB:instrument/name:427
 msgid "Scottish smallpipes"
-msgstr "smallpipes scozzesi"
+msgstr "smallpipe scozzesi"
 
 #: DB:instrument/name:910
 msgid "Serbo-Croatian tamburica orchestra"
@@ -835,7 +840,7 @@ msgstr "rombo"
 
 #: DB:instrument/name:360
 msgid "button accordion"
-msgstr "fisarmonica a tastiera"
+msgstr "fisarmonica a bottoni"
 
 #: DB:instrument/name:655
 msgid "buzuq"
@@ -1062,11 +1067,11 @@ msgstr "claviorgano"
 
 #: DB:instrument/name:414
 msgid "concert flute"
-msgstr "flauto traverso (flauto da concerto)"
+msgstr "flauto traverso"
 
 #: DB:instrument/name:351
 msgid "concert harp"
-msgstr "arpa per concerto"
+msgstr "arpa da concerto"
 
 #: DB:instrument/name:42
 msgid "concertina"
@@ -1078,7 +1083,7 @@ msgstr "conchiglia"
 
 #: DB:instrument/name:958
 msgid "concussion idiophone"
-msgstr "idiofoni a concussione"
+msgstr "idiofono a concussione"
 
 #: DB:instrument/name:102
 msgid "congas"
@@ -1115,7 +1120,7 @@ msgstr "corno inglese"
 
 #: DB:instrument/name:510
 msgid "cornamuse"
-msgstr "cornamusa"
+msgstr "cornamusa rinascimentale"
 
 #: DB:instrument/name:25
 msgctxt "19th century brass trumpet-like"
@@ -1162,7 +1167,7 @@ msgstr "tamburo cilindrico"
 
 #: DB:instrument/name:271
 msgid "cymbal"
-msgstr "piatto"
+msgstr "piatti"
 
 #: DB:instrument/name:309
 msgid "cò ke"
@@ -1242,7 +1247,7 @@ msgstr "ding tac ta"
 
 #: DB:instrument/name:602
 msgid "disk drive"
-msgstr "drive disco"
+msgstr "drive per disco"
 
 #: DB:instrument/name:220
 msgctxt "bass gehu (huqin)"
@@ -1561,7 +1566,7 @@ msgstr "tamburo a frizione"
 
 #: DB:instrument/name:701
 msgid "friction idiophone"
-msgstr "idiofoni a frizione"
+msgstr "idiofono a frizione"
 
 #: DB:instrument/name:368
 msgid "frottoir"
@@ -1785,7 +1790,7 @@ msgstr "gusli"
 #: DB:instrument/name:567
 msgctxt "gut-stringed acoustic guitar"
 msgid "gut guitar"
-msgstr "chitarra gut"
+msgstr "chitarra con corde in budello"
 
 #: DB:instrument/name:452
 msgid "guzheng"
@@ -1834,7 +1839,7 @@ msgstr "hardingfele"
 #: DB:instrument/name:43
 msgctxt "mouth organ"
 msgid "harmonica"
-msgstr "armonica"
+msgstr "armonica (a bocca)"
 
 #: DB:instrument/name:135
 msgctxt "reed organ"
@@ -1933,7 +1938,7 @@ msgstr "härjedalspipa"
 
 #: DB:instrument/name:674
 msgid "idiophone"
-msgstr "idiofoni"
+msgstr "idiofono"
 
 #: DB:instrument/name:707
 msgid "igil"
@@ -2340,7 +2345,7 @@ msgstr "kōauau ponga ihu"
 
 #: DB:instrument/name:632
 msgid "lamellaphone"
-msgstr "lamellofoni"
+msgstr "lamellofono"
 
 #: DB:instrument/name:249
 msgid "langeleik"
@@ -2502,9 +2507,14 @@ msgctxt "Free-reed keyboard mouth-organ"
 msgid "melodica"
 msgstr "melodica"
 
+#: DB:instrument/name:1022
+msgctxt "Bellowed free reed in a lute-like casing"
+msgid "melophone"
+msgstr "melofono"
+
 #: DB:instrument/name:100
 msgid "membranophone"
-msgstr "membranofoni"
+msgstr "membranofono"
 
 #: DB:instrument/name:114
 msgid "mendoza"
@@ -2513,7 +2523,7 @@ msgstr "mendoza"
 #: DB:instrument/name:349
 msgctxt "Arrangement of struck tuned metal bars."
 msgid "metallophone"
-msgstr "metallofoni"
+msgstr "metallofono"
 
 #: DB:instrument/name:876
 msgctxt "twin bamboo single reed pipe"
@@ -2545,7 +2555,7 @@ msgstr "arpa a bocca"
 
 #: DB:instrument/name:610
 msgid "mouth organ"
-msgstr "armonica a bocca"
+msgstr "organo a bocca"
 
 #: DB:instrument/name:475
 msgid "mridangam"
@@ -2569,6 +2579,7 @@ msgid "musical box"
 msgstr "carillon (scatola musicale)"
 
 #: DB:instrument/name:145
+msgctxt "Bowed metal plaque idiophone"
 msgid "musical saw"
 msgstr "sega musicale"
 
@@ -2803,7 +2814,7 @@ msgstr "percussione"
 
 #: DB:instrument/name:959
 msgid "percussion idiophone"
-msgstr "idiofoni a percussione diretta"
+msgstr "idiofono a percussione diretta"
 
 #: DB:instrument/name:302
 msgid "phách"
@@ -2824,6 +2835,16 @@ msgstr "pianoforte"
 #: DB:instrument/name:359
 msgid "piano accordion"
 msgstr "fisarmonica a piano"
+
+#: DB:instrument/name:1024
+msgctxt "ensemble of two pianists playing on separate pianos"
+msgid "piano duo"
+msgstr "duo di pianoforti"
+
+#: DB:instrument/name:1025
+msgctxt "ensemble of two pianists playing on one piano"
+msgid "piano four hands"
+msgstr "pianoforte a quattro mani"
 
 #: DB:instrument/name:965
 msgctxt "ensemble of piano, violin, viola and cello"
@@ -2876,11 +2897,16 @@ msgstr "pkhachich"
 
 #: DB:instrument/name:930
 msgid "plucked idiophone"
-msgstr "idiofoni a pizzico"
+msgstr "idiofono a pizzico"
 
 #: DB:instrument/name:232
 msgid "plucked string instruments"
 msgstr "strumenti a corda pizzicata"
+
+#: DB:instrument/name:1026
+msgctxt "bow lute from West Africa"
+msgid "pluriarc"
+msgstr "pluriarco"
 
 #: DB:instrument/name:690
 msgid "pocket trumpet"
@@ -3250,7 +3276,7 @@ msgstr "saz"
 
 #: DB:instrument/name:953
 msgid "scraped idiophone"
-msgstr "idiofoni a raschiamento"
+msgstr "idiofono a raschiamento"
 
 #: DB:instrument/name:757
 msgctxt "Bass garifuna drum"
@@ -3273,7 +3299,7 @@ msgstr "setar"
 
 #: DB:instrument/name:954
 msgid "shaken idiophone"
-msgstr "idiofoni a scuotimento"
+msgstr "idiofono a scuotimento"
 
 #: DB:instrument/name:340
 msgctxt "Latin-American tube rattle"
@@ -3346,6 +3372,7 @@ msgid "single reed"
 msgstr "ancia singola"
 
 #: DB:instrument/name:370
+msgctxt "Ancient Egyptian rattle"
 msgid "sistrum"
 msgstr "sistro"
 
@@ -3422,7 +3449,7 @@ msgstr "sousafono"
 
 #: DB:instrument/name:1019
 msgid "spike-fiddle"
-msgstr "violino (folk) a puntale"
+msgstr "fidula"
 
 #: DB:instrument/name:513
 msgid "spilåpipa"
@@ -3449,7 +3476,7 @@ msgstr "chitarra steel"
 #: DB:instrument/name:653
 msgctxt "Modern acoustic steel string guitar"
 msgid "steel-string guitar"
-msgstr "chitarra a corde d'acciaio"
+msgstr "chitarra con corde in acciaio"
 
 #: DB:instrument/name:273
 msgid "steelpan"
@@ -3471,7 +3498,7 @@ msgstr "archi"
 
 #: DB:instrument/name:675
 msgid "struck idiophone"
-msgstr "idiofoni a percussione"
+msgstr "idiofono a percussione"
 
 #: DB:instrument/name:252
 msgid "struck string instruments"
@@ -3956,7 +3983,7 @@ msgstr "ugal"
 
 #: DB:instrument/name:187
 msgid "uilleann pipes"
-msgstr "uilleann pipes"
+msgstr "uilleann pipe"
 
 #: DB:instrument/name:631
 msgid "ukeke"
@@ -4034,6 +4061,11 @@ msgstr "viella"
 msgctxt "Spanish string instrument."
 msgid "vihuela"
 msgstr "vihuela"
+
+#: DB:instrument/name:1027
+msgctxt "ensemble of multiple viols"
+msgid "viol consort"
+msgstr "consort di viole da gamba"
 
 #: DB:instrument/name:899
 msgctxt "Viola de gamba family"

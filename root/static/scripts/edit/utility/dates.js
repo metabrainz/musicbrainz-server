@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2012-2014 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,10 +10,20 @@
 import getDaysInMonth from '../../../../utility/getDaysInMonth';
 import parseInteger from '../../common/utility/parseInteger';
 
-export const isDateValid = function (y, m, d) {
-  y = nonEmpty(y) ? parseInteger(y) : null;
-  m = nonEmpty(m) ? parseInteger(m) : null;
-  d = nonEmpty(d) ? parseInteger(d) : null;
+type PartialDateWithStringsT = {
+  +day: string | null,
+  +month: string | null,
+  +year: string | null,
+};
+
+export const isDateValid = function (
+  year: string | null,
+  month: string | null,
+  day: string | null,
+): boolean {
+  const y = nonEmpty(year) ? parseInteger(year) : null;
+  const m = nonEmpty(month) ? parseInteger(month) : null;
+  const d = nonEmpty(day) ? parseInteger(day) : null;
 
   // We couldn't parse one of the fields as a number.
   if (isNaN(y) || isNaN(m) || isNaN(d)) {
@@ -35,7 +46,10 @@ export const isDateValid = function (y, m, d) {
   }
 
   // Invalid number of days based on the year.
-  if (d < 1 || d > 31 || d > getDaysInMonth(y, m)) {
+  if (
+    d < 1 || d > 31 ||
+    (y != null && m != null && d > getDaysInMonth(y, m))
+  ) {
     return false;
   }
 
@@ -43,11 +57,14 @@ export const isDateValid = function (y, m, d) {
   return true;
 };
 
-export const isYearFourDigits = function (y) {
+export const isYearFourDigits = function (y: string): boolean {
   return (y === null || y === '' || y.length === 4);
 };
 
-export const isDatePeriodValid = function (a, b) {
+export const isDatePeriodValid = function (
+  a: PartialDateWithStringsT,
+  b: PartialDateWithStringsT,
+): boolean {
   const {year: y1, month: m1, day: d1} = a;
   const {year: y2, month: m2, day: d2} = b;
 
@@ -55,17 +72,17 @@ export const isDatePeriodValid = function (a, b) {
     return false;
   }
 
-  if (!y1 || !y2 || +y1 < +y2) {
+  if (!nonEmpty(y1) || !nonEmpty(y2) || +y1 < +y2) {
     return true;
   } else if (+y2 < +y1) {
     return false;
   }
-  if (!m1 || !m2 || +m1 < +m2) {
+  if (!nonEmpty(m1) || !nonEmpty(m2) || +m1 < +m2) {
     return true;
   } else if (+m2 < +m1) {
     return false;
   }
-  if (!d1 || !d2 || +d1 < +d2) {
+  if (!nonEmpty(d1) || !nonEmpty(d2) || +d1 < +d2) {
     return true;
   } else if (+d2 < +d1) {
     return false;

@@ -9,7 +9,9 @@
 
 import * as React from 'react';
 
-import UserAccountLayout from '../components/UserAccountLayout';
+import UserAccountLayout, {
+  sanitizedAccountLayoutUser,
+} from '../components/UserAccountLayout';
 import * as manifest from '../static/manifest';
 import EditProfileForm
   from '../static/scripts/account/components/EditProfileForm';
@@ -32,7 +34,7 @@ const EditProfile = ({
   return (
     <UserAccountLayout
       $c={$c}
-      entity={user}
+      entity={sanitizedAccountLayoutUser(user)}
       page="edit_profile"
       title={l('Edit Profile')}
     >

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-29 16:27+0000\n"
+"PO-Revision-Date: 2020-12-07 14:03+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -650,6 +650,14 @@ msgstr "De tible is een Catalaans dubbelrietinstrument dat in de negentiende eeu
 msgid "Chacha, west Indian rattle"
 msgstr "De chacha is een West-Indische ratel."
 
+#. name:Pierrot ensemble
+#: DB:instrument/description:1023
+msgid ""
+"Chamber ensemble of five players (flute, clarinet, violin, cello and piano)."
+" Originally required for Schönberg's Pierrot Lunaire, it became a fairly "
+"common combination for 20th century classical groups."
+msgstr "Een Pierrot-ensemble bestaat uit vijf spelers (fluit, klarinet, viool, cello en piano). Het ensemble was oorspronkelijk benodigd voor Schönbergs Pierrot Lunaire, en werd gedurende de 20e eeuw vrij gebruikelijk."
+
 #. name:string quartet
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)"
@@ -664,6 +672,17 @@ msgstr "Kamerensemble voor drie spelers (een piano, een viool en een cello)"
 #: DB:instrument/description:915
 msgid "Chamber ensemble of three players (one violin, one viola, one cello)"
 msgstr "Kamerensemble voor drie spelers (een viool, een altviool en een cello)"
+
+#. name:piano duo
+#: DB:instrument/description:1024
+msgid "Chamber ensemble where two pianists play on a different piano each."
+msgstr "Een pianoduo waarbij elke pianist één piano bespeelt."
+
+#. name:piano four hands
+#: DB:instrument/description:1025
+msgid ""
+"Chamber ensemble where two pianists play on the same piano at the same time."
+msgstr "Een pianoduo dat samen één piano bespeelt."
 
 #. name:chap
 #: DB:instrument/description:619
@@ -974,6 +993,13 @@ msgid ""
 "plate."
 msgstr "Een trautonium is een elektrisch instrument uit de jaren 1930, met een weerstandsdraad en een bewegende metalen plaat."
 
+#. name:viol consort
+#: DB:instrument/description:1027
+msgid ""
+"Ensemble of multiple instruments of the viol family, usually including at "
+"least treble, tenor and bass viols."
+msgstr "Een gambaconsort is een ensemble van bespelers van verschillende leden van de familie viole da gamba, waaronder vaak de discant-, tenor- en basgamba."
+
 #. name:ugal
 #: DB:instrument/description:967
 msgid ""
@@ -1089,6 +1115,13 @@ msgid ""
 "Friction idiophones are idiophones where the sound is created by the "
 "instrument being rubbed."
 msgstr "Frictie-idiofonen zijn idiofonen waarbij het geluid wordt veroorzaakt door over het instrument te wrijven."
+
+#. name:pluriarc
+#: DB:instrument/description:1026
+msgid ""
+"From West Africa, it has multiple curved necks each with one string, "
+"sometimes played a harp and sometimes with stops like a lute."
+msgstr "De boogluit of pluriarc is een West-Afrikaans instrument met meerdere gebogen halzen die elk één snaar hebben. Het instrument wordt soms als een harp en soms als een luit bespeeld."
 
 #. name:yu
 #: DB:instrument/description:891
@@ -1766,6 +1799,16 @@ msgstr "Viooloctet is een benaming voor een moderne gestroomlijnde familie van v
 msgid "Northumbrian (small)pipes"
 msgstr "Northumbrian pipes is een door de ellebogen aangeblazen doedelzak uit Northumberland."
 
+#. name:melophone
+#: DB:instrument/description:1022
+msgid ""
+"Not to be confused with <a "
+"href=\"/instrument/6a539558-5585-4803-a705-a4520f23189d\">mellophone</a>, a "
+"brass valved instrument.<br /> Wooden body shaped like a lute, it has a "
+"bellow operated by a handle at the bottom and buttons operating the reeds in"
+" the \"neck\""
+msgstr "De melofoon (niet te verwarren met de <a href=\"/instrument/6a539558-5585-4803-a705-a4520f23189d\">mellofoon</a>) is een koperblazer met ventiel.<br />Het instrument heeft een houten kast in de vorm van een luit, een blaasbalg aan de onderkant die met een hendel wordt bediend en knoppen voor het bedienen van de rieten in de hals."
+
 #. name:ghijak
 #: DB:instrument/description:932
 msgid ""
@@ -2117,6 +2160,13 @@ msgstr "De đàn tam thập lục, een recent geïntroduceerd Vietnamees instrum
 #: DB:instrument/description:13
 msgid "Reedless Aerophone, usually a tube"
 msgstr "Een fluit is een rietloze aerofoon, meestal in de vorm van een buis."
+
+#. name:musical saw
+#: DB:instrument/description:145
+msgid ""
+"Regular or specialised saw used for music, held and bent, it is bowed to "
+"produce characteristical glissando."
+msgstr "Een normale zaag of een zaag die speciaal voor muziek is bedoeld. De zaag wordt gebogen vastgehouden en met een strijkstok bespeeld om de kenmerkende glissando te creëren."
 
 #. name:kenong
 #: DB:instrument/description:985
@@ -3719,11 +3769,6 @@ msgstr "De shō is een Japans blaasinstrument met een vrij riet. Hij is gemodell
 msgid "The siku is a traditional Andean panpipe."
 msgstr "Een siku is een traditionele panfluit uit de Andes."
 
-#. name:sistrum
-#: DB:instrument/description:370
-msgid "The sistrum is a metal rattle associated with ancient Iraq and Egypt."
-msgstr "Een sistrum is een metalen ratel."
-
 #. name:kendang lanang
 #: DB:instrument/description:994
 msgid ""
@@ -4457,6 +4502,14 @@ msgid ""
 " several pieces of wood, ivory and sheets of brass between two larger pieces"
 " of wood tied together by a string at one end."
 msgstr "De krap phuang wordt tijdens koninklijke ceremonies bespeeld door het tegen de palm aan te slaan. Hij is gemaakt van meerdere stukken hout, ivoor en koperen vellen die zijn ingeklemd tussen twee grotere stukken hout die aan een uiteinde zijn samengebonden."
+
+#. name:sistrum
+#: DB:instrument/description:370
+msgid ""
+"Used in sacred rituals, it is made of metal or clay rattle with metal discs "
+"which jangle when shook. </br> Not to be confused with the West African "
+"calabash sistrum or disc rattle (n'goso m'bara)"
+msgstr "Het sistrum werd gebruikt in godsdienstige rituelen. Het is een ratel van metaal of klei met metalen schijven die rinkelen als het instrument wordt geschud.</br>Niet te verwarren met de West-Afrikaanse kalebassistrum of schijfjesratel (n’goso m’bara)."
 
 #. name:saron wayang
 #: DB:instrument/description:1010

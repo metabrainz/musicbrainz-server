@@ -138,6 +138,11 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
             {l('Instruments without an image')}
           </a>
         </li>
+        <li>
+          <a href="/report/InstrumentsWithoutWikidata">
+            {l('Instruments without a link to Wikidata')}
+          </a>
+        </li>
       </ul>
 
       <h2>{l('Labels')}</h2>

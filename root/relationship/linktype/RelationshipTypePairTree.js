@@ -87,12 +87,20 @@ const RelationshipTypeDetails = ({
           : lp('(none)', 'description')}
         <br />
 
-        <strong>{l('entity0 cardinality:')}</strong>
+        <strong>
+          {addColon(exp.l('Cardinality of {entity_placeholder}', {
+            entity_placeholder: <code>{'{entity0}'}</code>,
+          }))}
+        </strong>
         {' '}
         <Cardinality cardinality={relType.cardinality0} />
         <br />
 
-        <strong>{l('entity1 cardinality:')}</strong>
+        <strong>
+          {addColon(exp.l('Cardinality of {entity_placeholder}', {
+            entity_placeholder: <code>{'{entity1}'}</code>,
+          }))}
+        </strong>
         {' '}
         <Cardinality cardinality={relType.cardinality1} />
         <br />

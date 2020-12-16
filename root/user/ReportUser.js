@@ -10,7 +10,9 @@
 import * as React from 'react';
 
 import {CONTACT_URL} from '../constants';
-import UserAccountLayout from '../components/UserAccountLayout';
+import UserAccountLayout, {
+  type AccountLayoutUserT,
+} from '../components/UserAccountLayout';
 import FormCsrfToken from '../components/FormCsrfToken';
 import FormRow from '../components/FormRow';
 import FormRowCheckbox from '../components/FormRowCheckbox';
@@ -30,11 +32,12 @@ type ReportReasonT =
 type Props = {
   +$c: CatalystContextT,
   +form: FormT<{
+    +csrf_token: FieldT<string>,
     +message: FieldT<string>,
     +reason: FieldT<ReportReasonT>,
     +reveal_address: FieldT<boolean>,
   }>,
-  +user: EditorT,
+  +user: AccountLayoutUserT,
 };
 
 const reportReasonOptions = {
@@ -130,7 +133,7 @@ const ReportUser = ({
         </p>
 
         <form action={$c.req.uri} className="report-form" method="post">
-          <FormCsrfToken />
+          <FormCsrfToken form={form} />
 
           <FormRowSelect
             field={form.field.reason}

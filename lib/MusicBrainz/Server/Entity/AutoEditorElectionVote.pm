@@ -54,7 +54,7 @@ around TO_JSON => sub {
     return {
         %{ $self->$orig },
         vote_name => $self->vote_name,
-        voter => (defined $self->voter ? $self->voter->sanitized_json : undef),
+        voter => (defined $self->voter ? $self->voter->TO_JSON : undef),
         vote_time => datetime_to_iso8601($self->vote_time),
     };
 };

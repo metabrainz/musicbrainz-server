@@ -7,7 +7,7 @@
 
     <h1>[% l("{user}", { user => link_editor(user, undef, '', 54) }) %]</h1>
 
-    [%- React.embed(c, 'components/UserAccountTabs', { page => page, user => user }) -%]
+    [%- React.embed(c, 'components/UserAccountTabs', { page => page, user => c.unsanitized_editor_json(user) }) -%]
 
     [%- content -%]
 

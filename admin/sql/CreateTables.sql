@@ -847,6 +847,20 @@ CREATE TABLE event_type ( -- replicate
     gid                 uuid NOT NULL
 );
 
+CREATE TABLE release_first_release_date (
+    release     INTEGER NOT NULL, -- PK, references release.id CASCADE
+    year        SMALLINT,
+    month       SMALLINT,
+    day         SMALLINT
+);
+
+CREATE TABLE recording_first_release_date (
+    recording   INTEGER NOT NULL, -- PK, references recording.id CASCADE
+    year        SMALLINT,
+    month       SMALLINT,
+    day         SMALLINT
+);
+
 CREATE TABLE gender ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,

@@ -15,6 +15,7 @@ declare module.exports: {
   +DB_READ_ONLY: boolean,
   +DB_STAGING_SERVER: boolean,
   +DB_STAGING_SERVER_DESCRIPTION: string,
+  +DB_STAGING_SERVER_SANITIZED: boolean,
   +DB_STAGING_TESTING_FEATURES: boolean,
   +DEVELOPMENT_SERVER: boolean,
   +GIT_BRANCH: string,

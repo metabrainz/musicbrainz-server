@@ -280,6 +280,21 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #
 #     return \%CACHE_MANAGER_OPTIONS
 # }
+#
+# Alternatively, you may disable caching by pointing to Cache::Null:
+# sub CACHE_MANAGER_OPTIONS {
+#     my $self = shift;
+#     my %CACHE_MANAGER_OPTIONS = (
+#         profiles => {
+#             null => {
+#                 class => 'Cache::Null',
+#                 wrapped => 1,
+#             },
+#         },
+#         default_profile => 'null',
+#     );
+#     return \%CACHE_MANAGER_OPTIONS;
+# }
 
 # Sets the TTL for entities stored in Redis, in seconds. A value of 0
 # indicates that no expiration is set.
@@ -342,9 +357,6 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # This server is temporarily in read-only mode
 # for database maintainance.
 # EOF
-
-# How long an annotation is considered as being locked.
-# sub ANNOTATION_LOCK_TIME { 60*15 }
 
 # Amazon associate and developer ids
 #my %amazon_store_associate_ids = (

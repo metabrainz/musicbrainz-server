@@ -32,7 +32,7 @@ ws_test 'basic release lookup',
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
         <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
-        <quality>normal</quality>
+        <quality>high</quality>
         <text-representation>
             <language>jpn</language>
             <script>Latn</script>
@@ -142,7 +142,7 @@ ws_test 'basic release with tags',
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
         <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
-        <quality>normal</quality>
+        <quality>high</quality>
         <text-representation>
             <language>jpn</language>
             <script>Latn</script>
@@ -182,7 +182,7 @@ ws_test 'basic release with collections',
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
         <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
-        <quality>normal</quality>
+        <quality>high</quality>
         <text-representation>
             <language>jpn</language>
             <script>Latn</script>
@@ -226,7 +226,7 @@ ws_test 'basic release with private collections',
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
         <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
-        <quality>normal</quality>
+        <quality>high</quality>
         <text-representation>
             <language>jpn</language>
             <script>Latn</script>
@@ -471,7 +471,7 @@ ws_test 'release lookup with discids and recordings',
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
         <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
-        <quality>normal</quality>
+        <quality>high</quality>
         <text-representation>
             <language>jpn</language>
             <script>Latn</script>

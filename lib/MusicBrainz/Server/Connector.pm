@@ -3,6 +3,7 @@ use Moose;
 use MusicBrainz::Server::Exceptions;
 use DBIx::Connector;
 use Sql;
+use Encode qw( decode_utf8 );
 
 has 'conn' => (
     isa        => 'DBIx::Connector',
@@ -46,7 +47,7 @@ sub _build_conn
             my $exception = 'MusicBrainz::Server::Exceptions::DatabaseError';
             $exception .= '::StatementTimedOut'
                 if $state eq '57014';
-            $exception->throw( sqlstate => $state, message => $msg );
+            $exception->throw( sqlstate => $state, message => decode_utf8($msg) );
         },
         RaiseError        => 0,
         PrintError        => 0,

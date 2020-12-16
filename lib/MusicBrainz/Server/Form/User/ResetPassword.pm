@@ -4,6 +4,8 @@ use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
 
+with 'MusicBrainz::Server::Form::Role::CSRFToken';
+
 has '+name' => ( default => 'resetpassword' );
 
 has_field 'password' => (

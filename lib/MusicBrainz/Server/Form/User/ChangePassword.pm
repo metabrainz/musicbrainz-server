@@ -5,6 +5,8 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form';
 
+with 'MusicBrainz::Server::Form::Role::CSRFToken';
+
 has '+name' => ( default => 'changepassword' );
 
 has_field 'username' => (

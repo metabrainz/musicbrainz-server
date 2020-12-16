@@ -38,20 +38,17 @@ after 'load' => sub {
     )
 };
 
-sub own_collection : Chained('load') CaptureArgs(0) {
+sub own_collection : Chained('load') CaptureArgs(0) RequireAuth {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
-    $c->forward('/user/do_login') if !$c->user_exists;
     $c->detach('/error_403') if $c->user->id != $collection->editor_id;
 }
 
-sub collection_collaborator : Chained('load') CaptureArgs(0) {
+sub collection_collaborator : Chained('load') CaptureArgs(0) RequireAuth {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
-    $c->forward('/user/do_login') if !$c->user_exists;
-
     $c->detach('/error_403') if !$c->stash->{is_collection_collaborator};
 }
 

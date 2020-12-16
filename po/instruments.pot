@@ -179,6 +179,11 @@ msgctxt "an electromechanical piano"
 msgid "Pianet"
 msgstr ""
 
+#: DB:instrument/name:1023
+msgctxt "ensemble flute, clarinet, violin, cello and piano"
+msgid "Pierrot ensemble"
+msgstr ""
+
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
 msgstr ""
@@ -2487,6 +2492,11 @@ msgctxt "Free-reed keyboard mouth-organ"
 msgid "melodica"
 msgstr ""
 
+#: DB:instrument/name:1022
+msgctxt "Bellowed free reed in a lute-like casing"
+msgid "melophone"
+msgstr ""
+
 #: DB:instrument/name:100
 msgid "membranophone"
 msgstr ""
@@ -2554,6 +2564,7 @@ msgid "musical box"
 msgstr ""
 
 #: DB:instrument/name:145
+msgctxt "Bowed metal plaque idiophone"
 msgid "musical saw"
 msgstr ""
 
@@ -2810,6 +2821,16 @@ msgstr ""
 msgid "piano accordion"
 msgstr ""
 
+#: DB:instrument/name:1024
+msgctxt "ensemble of two pianists playing on separate pianos"
+msgid "piano duo"
+msgstr ""
+
+#: DB:instrument/name:1025
+msgctxt "ensemble of two pianists playing on one piano"
+msgid "piano four hands"
+msgstr ""
+
 #: DB:instrument/name:965
 msgctxt "ensemble of piano, violin, viola and cello"
 msgid "piano quartet"
@@ -2865,6 +2886,11 @@ msgstr ""
 
 #: DB:instrument/name:232
 msgid "plucked string instruments"
+msgstr ""
+
+#: DB:instrument/name:1026
+msgctxt "bow lute from West Africa"
+msgid "pluriarc"
 msgstr ""
 
 #: DB:instrument/name:690
@@ -3331,6 +3357,7 @@ msgid "single reed"
 msgstr ""
 
 #: DB:instrument/name:370
+msgctxt "Ancient Egyptian rattle"
 msgid "sistrum"
 msgstr ""
 
@@ -4018,6 +4045,11 @@ msgstr ""
 #: DB:instrument/name:262
 msgctxt "Spanish string instrument."
 msgid "vihuela"
+msgstr ""
+
+#: DB:instrument/name:1027
+msgctxt "ensemble of multiple viols"
+msgid "viol consort"
 msgstr ""
 
 #: DB:instrument/name:899

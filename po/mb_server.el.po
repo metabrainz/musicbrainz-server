@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-29 17:24+0000\n"
-"PO-Revision-Date: 2020-10-29 17:26+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2020-12-03 07:59-0600\n"
+"PO-Revision-Date: 2020-12-03 14:00+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -134,12 +134,6 @@ msgctxt "comment"
 msgid "(none)"
 msgstr "(κανένα)"
 
-#: ../root/edit/details/add_relationship_type.tt:9
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:87
-msgctxt "description"
-msgid "(none)"
-msgstr "(κανένα)"
-
 #: ../root/edit/details/remove_cover_art.tt:15
 msgctxt "type"
 msgid "(none)"
@@ -186,7 +180,7 @@ msgstr ""
 msgid "500px"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:22
+#: ../root/admin/edit_user.tt:21
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
 msgstr "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> υποβολέας"
 
@@ -281,7 +275,7 @@ msgstr "Αποδοχή επεξεργασίας"
 msgid "Accepted edits by {name}"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:29 ../root/admin/edit_user.tt:33
+#: ../root/admin/edit_user.tt:28 ../root/admin/edit_user.tt:32
 msgid "Account admin"
 msgstr "Διαχειριστής λογαριασμού"
 
@@ -347,8 +341,8 @@ msgid "Add Medium"
 msgstr ""
 
 #: ../root/admin/wikidoc/create.tt:1 ../root/admin/wikidoc/create.tt:3
-#: ../root/admin/wikidoc/CreateWikiDoc.js:30
-#: ../root/admin/wikidoc/CreateWikiDoc.js:32
+#: ../root/admin/wikidoc/CreateWikiDoc.js:31
+#: ../root/admin/wikidoc/CreateWikiDoc.js:33
 msgid "Add Page"
 msgstr "Προσθήκη σελίδας"
 
@@ -435,12 +429,12 @@ msgstr ""
 msgid "Add edit note"
 msgstr "Προσθήκη σημείωσης επεξεργασίας"
 
-#: ../root/release/edit_relationships.tt:229
+#: ../root/release/edit_relationships.tt:235
 msgid "Add related work"
 msgstr ""
 
 #: ../root/forms/relationship-editor.tt:7
-#: ../root/release/edit_relationships.tt:211
+#: ../root/release/edit_relationships.tt:217
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:28
 msgid "Add relationship"
@@ -479,7 +473,7 @@ msgstr ""
 msgid "Adjust User Account Flags"
 msgstr "Ρύθμιση σημαιών λογαριασμού χρήστη"
 
-#: ../root/admin/edit_user.tt:21
+#: ../root/admin/edit_user.tt:20
 msgid "Administration flags"
 msgstr "Σημαίες διαχείρισης"
 
@@ -510,7 +504,7 @@ msgid ""
 " doesn’t exist yet."
 msgstr ""
 
-#: ../root/admin/delete_user.tt:12
+#: ../root/admin/delete_user.tt:13
 msgid "Allow the name “{editor_name}” to be reused."
 msgstr ""
 
@@ -531,7 +525,7 @@ msgid ""
 " unique disambiguation comment."
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:187
+#: ../root/release/edit_relationships.tt:193
 msgid "An error occurred while creating the works."
 msgstr ""
 
@@ -557,7 +551,7 @@ msgstr ""
 #: ../root/report/components/WorkAnnotationList.js:31
 #: ../root/search/components/AnnotationResults.js:60
 #: ../root/search/components/SearchForm.js:42
-#: ../root/static/scripts/common/components/Annotation.js:62
+#: ../root/static/scripts/common/components/Annotation.js:57
 msgid "Annotation"
 msgstr "Σχόλιο"
 
@@ -606,13 +600,13 @@ msgid ""
 "{format} {pos} of {release} by {artist}?"
 msgstr ""
 
-#: ../root/admin/delete_user.tt:5
+#: ../root/admin/delete_user.tt:6
 msgid ""
 "Are you sure you want to delete all information about {e}? This cannot be "
 "undone!"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε όλες τις πληροφορίες σχετικά με {e}; Αυτό δεν μπορεί να αναιρεθεί!"
 
-#: ../root/admin/delete_user.tt:28
+#: ../root/admin/delete_user.tt:29
 msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε το λογαριασμό σας; Αυτό δεν μπορεί να αναιρεθεί!"
 
@@ -708,7 +702,7 @@ msgstr ""
 #: ../root/edit/details/merge_releases.tt:20 ../root/edit/search_macros.tt:387
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:150 ../root/release/edit/tracklist.tt:399
-#: ../root/release/merge.tt:13 ../root/watch/list.tt:15
+#: ../root/release/merge.tt:13 ../root/watch/list.tt:16
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:34
@@ -758,7 +752,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:19
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
-#: ../root/taglookup/Form.js:28 ../root/user/UserProfile.js:29
+#: ../root/taglookup/Form.js:28 ../root/user/UserProfile.js:32
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
@@ -801,7 +795,7 @@ msgstr "Καλλιτέχνης {n}:"
 #: ../root/edit/details/historic/ChangeReleaseArtist.js:35
 #: ../root/edit/details/historic/MoveRelease.js:41
 #: ../root/edit/details/historic/RemoveRelease.js:37
-#: ../root/layout/components/sidebar/RecordingSidebar.js:45
+#: ../root/layout/components/sidebar/RecordingSidebar.js:46
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:54
 #: ../root/static/scripts/edit/components/forms.js:21
 msgid "Artist:"
@@ -850,7 +844,6 @@ msgid "Attached to releases"
 msgstr "Επισυνάφθηκε στις κυκλοφορίες"
 
 #: ../root/components/relationship-editor.tt:141
-#: ../root/edit/details/add_relationship_type.tt:37
 #: ../root/edit/details/edit_relationship_type.tt:68
 #: ../root/relationship/linktype/form.tt:52
 msgid "Attributes:"
@@ -860,7 +853,7 @@ msgstr "Γνωρίσματα:"
 msgid "Auto-Editor"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:8
+#: ../root/admin/edit_user.tt:7
 msgid "Auto-editor"
 msgstr ""
 
@@ -877,7 +870,7 @@ msgstr ""
 msgid "Bad Request"
 msgstr "Λανθασμένο Αίτημα"
 
-#: ../root/admin/edit_user.tt:12
+#: ../root/admin/edit_user.tt:11
 msgid "Banner message editor"
 msgstr ""
 
@@ -970,9 +963,9 @@ msgid ""
 " sure to include it!"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:42
-#: ../root/static/scripts/account/components/EditProfileForm.js:271
-#: ../root/user/UserProfile.js:315
+#: ../root/admin/edit_user.tt:41
+#: ../root/static/scripts/account/components/EditProfileForm.js:273
+#: ../root/user/UserProfile.js:324
 msgid "Bio:"
 msgstr ""
 
@@ -986,7 +979,7 @@ msgstr ""
 msgid "Born:"
 msgstr "Γεννήθηκε:"
 
-#: ../root/admin/edit_user.tt:17 ../root/edit/search_macros.tt:361
+#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:361
 msgid "Bot"
 msgstr "Bot"
 
@@ -1058,7 +1051,7 @@ msgstr "Μπορεί να εγκριθεί"
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
 #: ../root/release/edit/tracklist.tt:104 ../root/release/merge.tt:134
 #: ../root/area/AreaMerge.js:55 ../root/artist/ArtistMerge.js:81
-#: ../root/components/ConfirmLayout.js:48 ../root/event/EventMerge.js:58
+#: ../root/components/ConfirmLayout.js:50 ../root/event/EventMerge.js:58
 #: ../root/instrument/InstrumentMerge.js:55 ../root/label/LabelMerge.js:55
 #: ../root/layout/components/MergeHelper.js:74 ../root/place/PlaceMerge.js:55
 #: ../root/recording/RecordingMerge.js:72
@@ -1099,6 +1092,19 @@ msgstr ""
 msgid "Captcha incorrect. Try again."
 msgstr "Ο έλεγχος captcha ήταν λανθασμένος. Δοκιμάστε ξανά."
 
+#: ../root/edit/details/edit_relationship_type.tt:50
+#: ../root/edit/details/edit_relationship_type.tt:55
+#: ../root/relationship/linktype/form.tt:26
+#: ../root/relationship/linktype/form.tt:31
+#: ../root/edit/details/AddRelationshipType.js:141
+#: ../root/edit/details/AddRelationshipType.js:154
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:118
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:126
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:91
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:100
+msgid "Cardinality of {entity_placeholder}"
+msgstr ""
+
 #: ../root/release/edit/information.tt:188
 msgid "Cat. No:"
 msgstr ""
@@ -1133,7 +1139,7 @@ msgstr ""
 #: ../root/account/change_password.tt:25 ../root/account/change_password.tt:31
 #: ../root/account/change_password.tt:32 ../root/account/change_password.tt:36
 #: ../root/account/change_password.tt:37
-#: ../root/components/UserAccountTabs.js:77
+#: ../root/components/UserAccountTabs.js:78
 msgid "Change Password"
 msgstr "Αλλαγή κωδικού πρόσβασης"
 
@@ -1148,7 +1154,7 @@ msgid "Change release data quality"
 msgstr "Αλλαγή ποιότητας δεδομένων κυκλοφορίας"
 
 #: ../root/annotation/edit.tt:24
-#: ../root/static/scripts/common/components/Annotation.js:79
+#: ../root/static/scripts/common/components/Annotation.js:74
 msgid "Changelog:"
 msgstr ""
 
@@ -1215,15 +1221,15 @@ msgstr "Σύμπτυξη Δίσκου"
 
 #: ../root/components/common-macros.tt:580
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
-#: ../root/user/UserCollections.js:91
+#: ../root/user/UserCollections.js:93
 msgid "Collection"
 msgstr "Συλλογή"
 
 #: ../root/components/common-macros.tt:597 ../root/entity/collections.tt:1
-#: ../root/entity/collections.tt:2 ../root/components/UserAccountTabs.js:49
+#: ../root/entity/collections.tt:2 ../root/components/UserAccountTabs.js:50
 #: ../root/layout/components/sidebar/CollectionLinks.js:35
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:17
-#: ../root/user/UserCollections.js:161
+#: ../root/user/UserCollections.js:166
 msgid "Collections"
 msgstr "Συλλογές"
 
@@ -1305,7 +1311,7 @@ msgid "Country:"
 msgstr "Χώρα:"
 
 #: ../root/release/cover_art.tt:1 ../root/release/cover_art.tt:2
-#: ../root/release_group/set_cover_art.tt:67 ../root/user/UserProfile.js:30
+#: ../root/release_group/set_cover_art.tt:67 ../root/user/UserProfile.js:33
 msgid "Cover Art"
 msgstr "Εξώφυλλο"
 
@@ -1314,7 +1320,7 @@ msgid "Cover art:"
 msgstr "Εξώφυλλο:"
 
 #: ../root/admin/wikidoc/create.tt:13
-#: ../root/admin/wikidoc/CreateWikiDoc.js:49
+#: ../root/admin/wikidoc/CreateWikiDoc.js:50
 msgid "Create"
 msgstr "Δημιουργία"
 
@@ -1413,7 +1419,7 @@ msgstr ""
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: ../root/admin/delete_user.tt:3 ../root/components/UserAccountTabs.js:102
+#: ../root/admin/delete_user.tt:4 ../root/components/UserAccountTabs.js:103
 msgid "Delete Account"
 msgstr "Διαγραφή λογαριασμού"
 
@@ -1421,11 +1427,11 @@ msgstr "Διαγραφή λογαριασμού"
 msgid "Delete User"
 msgstr "Διαγραφή χρήστη"
 
-#: ../root/admin/delete_user.tt:32
+#: ../root/admin/delete_user.tt:33
 msgid "Delete my account"
 msgstr "Διαγραφή του λογαριασμού μου"
 
-#: ../root/admin/delete_user.tt:16
+#: ../root/admin/delete_user.tt:17
 msgid "Delete {e}"
 msgstr "Διαγραφή {e}"
 
@@ -1438,6 +1444,7 @@ msgstr ""
 #: ../root/collection/CollectionIndex.js:183
 #: ../root/edit/details/AddInstrument.js:78
 #: ../root/edit/details/AddRelationshipAttribute.js:53
+#: ../root/edit/details/AddRelationshipType.js:79
 #: ../root/edit/details/EditRelationshipAttribute.js:79
 #: ../root/edit/details/EditRelationshipAttribute.js:85
 #: ../root/edit/details/EditUrl.js:73 ../root/instrument/InstrumentIndex.js:37
@@ -1448,7 +1455,6 @@ msgstr ""
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: ../root/edit/details/add_relationship_type.tt:8
 #: ../root/edit/details/edit_instrument.tt:23
 #: ../root/edit/details/edit_relationship_type.tt:16
 #: ../root/edit/details/remove_relationship_attribute.tt:7
@@ -1533,7 +1539,7 @@ msgid "Disc ID:"
 msgstr "Disc ID:"
 
 #: ../root/release/discids.tt:1 ../root/release/discids.tt:3
-#: ../root/components/EntityTabs.js:99 ../root/report/ReportsIndex.js:574
+#: ../root/components/EntityTabs.js:99 ../root/report/ReportsIndex.js:579
 msgid "Disc IDs"
 msgstr "Disc IDs"
 
@@ -1550,15 +1556,10 @@ msgstr "Διαλύθηκε:"
 msgid "Do not use any of the above releases as a starting point"
 msgstr "Μη χρησιμοποιήσετε καμία από τις παραπάνω κυκλοφορίες ως σημείο εκκίνησης"
 
-#: ../root/edit/details/add_relationship_type.tt:51
 #: ../root/edit/details/edit_relationship_type.tt:98
 #: ../root/relationship/linktype/form.tt:65
 msgid "Documentation:"
 msgstr ""
-
-#: ../root/user/login.tt:12
-msgid "Don't have an account? {uri|Create one now}!"
-msgstr "Δεν έχετε λογαριασμό; {uri|Δημιουργήστε έναν τώρα}!"
 
 #: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
 msgid "Donate"
@@ -1589,7 +1590,7 @@ msgstr "Κάθε κομμάτι στη βάση δεδομένων του MusicB
 #: ../root/admin/attributes/Attribute.js:122
 #: ../root/admin/attributes/Language.js:68
 #: ../root/admin/attributes/Script.js:66
-#: ../root/collection/CollectionHeader.js:84
+#: ../root/collection/CollectionHeader.js:86
 #: ../root/collection/EditCollection.js:37
 #: ../root/components/Aliases/AliasTableRow.js:62
 #: ../root/components/Aliases/ArtistCreditList.js:66
@@ -1597,9 +1598,9 @@ msgstr "Κάθε κομμάτι στη βάση δεδομένων του MusicB
 #: ../root/components/EntityTabs.js:135
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:61
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:81
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:109
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:117
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:432
-#: ../root/user/UserCollections.js:120
+#: ../root/user/UserCollections.js:124
 msgid "Edit"
 msgstr "Επεξεργασία"
 
@@ -1633,7 +1634,7 @@ msgid "Edit Cover Art"
 msgstr "Επεξεργασία εξωφύλλου"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:109
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:115
 #: ../root/components/EnterEditNote.js:26
 msgid "Edit Note"
 msgstr "Σημείωση επεξεργασίας"
@@ -1672,7 +1673,7 @@ msgstr ""
 
 #: ../root/annotation/edit.tt:2
 #: ../root/layout/components/sidebar/AnnotationLinks.js:35
-#: ../root/static/scripts/common/components/Annotation.js:105
+#: ../root/static/scripts/common/components/Annotation.js:100
 msgid "Edit annotation"
 msgstr "Επεξεργασία σχολίου"
 
@@ -1693,7 +1694,7 @@ msgstr "Σημείωση επεξεργασίας:"
 msgid "Edit notes"
 msgstr "Επεξεργασία σημειώσεων"
 
-#: ../root/admin/edit_user.tt:14
+#: ../root/admin/edit_user.tt:13
 msgid "Edit notes disabled"
 msgstr ""
 
@@ -1704,11 +1705,11 @@ msgid ""
 "writing edit notes!"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:36
+#: ../root/admin/edit_user.tt:35
 msgid "Edit profile"
 msgstr "Επεξεργασία προφίλ"
 
-#: ../root/admin/edit_user.tt:48
+#: ../root/admin/edit_user.tt:47
 msgid "Edit user"
 msgstr "Επεξεργασία χρήστη"
 
@@ -1720,7 +1721,7 @@ msgstr "Έγινε επεξεργασία"
 msgid "Editing FAQ"
 msgstr "Συχνές ερωτήσεις για την επεξεργασία"
 
-#: ../root/admin/edit_user.tt:13
+#: ../root/admin/edit_user.tt:12
 msgid "Editing/voting disabled"
 msgstr ""
 
@@ -1741,8 +1742,8 @@ msgstr ""
 msgid "Editor hidden"
 msgstr ""
 
-#: ../root/user/profile/layout.tt:1 ../root/components/UserAccountLayout.js:37
-#: ../root/components/UserAccountLayout.js:38
+#: ../root/user/profile/layout.tt:1 ../root/components/UserAccountLayout.js:65
+#: ../root/components/UserAccountLayout.js:66
 msgid "Editor “{user}”"
 msgstr "Χρήστης “{user}”"
 
@@ -1766,8 +1767,8 @@ msgstr "Τροποποιήσεις για {name}"
 msgid "Edits loaded for the page:"
 msgstr ""
 
-#: ../root/account/register.tt:35 ../root/admin/edit_user.tt:38
-#: ../root/user/UserProfile.js:160
+#: ../root/account/register.tt:35 ../root/admin/edit_user.tt:37
+#: ../root/user/UserProfile.js:169
 msgid "Email:"
 msgstr "Email:"
 
@@ -1819,8 +1820,8 @@ msgid ""
 msgstr ""
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:151
-#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:116
-#: ../root/components/EnterEdit.js:35
+#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:122
+#: ../root/components/EnterEdit.js:38
 msgid "Enter edit"
 msgstr "Εισαγωγή επεξεργασίας"
 
@@ -1877,7 +1878,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:48
 #: ../root/static/scripts/common/constants.js:20
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
-#: ../root/user/UserProfile.js:31
+#: ../root/user/UserProfile.js:34
 msgid "Event"
 msgstr "Εκδήλωση"
 
@@ -1904,7 +1905,7 @@ msgid "Events"
 msgstr ""
 
 #: ../root/relationship/linktype/form.tt:71
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:209
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:217
 msgid "Examples"
 msgstr ""
 
@@ -1982,7 +1983,7 @@ msgid ""
 "{doc|syntax documentation}."
 msgstr "Για βοήθεια με τη συγγραφή προχωρημένων ερωτημάτων αναζήτησης, διαβάστε την {doc|τεκμηρίωση σύνταξης}."
 
-#: ../root/admin/delete_user.tt:20
+#: ../root/admin/delete_user.tt:21
 msgid ""
 "For information about the account deletion process, please read the "
 "{uri|account FAQ}."
@@ -2005,10 +2006,6 @@ msgstr ""
 #: ../root/main/mirror.tt:3
 msgid "Forbidden Request"
 msgstr "Απαγορευμένο αίτημα"
-
-#: ../root/user/login.tt:40
-msgid "Forgot your {link1|username} or {link2|password}?"
-msgstr "Ξεχάσατε το {link1|όνομα χρήστη} ή τον {link2|κωδικό} σας;"
 
 #: ../root/cdtoc/list.tt:9 ../root/edit/details/edit_release_events.tt:10
 #: ../root/edit/details/merge_releases.tt:21
@@ -2042,7 +2039,7 @@ msgid "Forward"
 msgstr ""
 
 #: ../root/relationship/linktype/form.tt:13
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:139
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:147
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:62
 msgid "Forward link phrase:"
 msgstr ""
@@ -2114,8 +2111,8 @@ msgstr "Πλήρες TOC:"
 
 #: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:82
-#: ../root/static/scripts/account/components/EditProfileForm.js:220
-#: ../root/user/UserProfile.js:239
+#: ../root/static/scripts/account/components/EditProfileForm.js:222
+#: ../root/user/UserProfile.js:248
 msgid "Gender:"
 msgstr "Φύλο:"
 
@@ -2204,7 +2201,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:613
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:234
-#: ../root/static/scripts/common/constants.js:251
+#: ../root/static/scripts/common/constants.js:253
 msgid "High"
 msgstr "Υψηλή"
 
@@ -2331,7 +2328,7 @@ msgid "ISRC"
 msgstr "ISRC"
 
 #: ../root/otherlookup/form.tt:3
-#: ../root/layout/components/sidebar/RecordingSidebar.js:59
+#: ../root/layout/components/sidebar/RecordingSidebar.js:69
 msgid "ISRC:"
 msgstr "ISRC:"
 
@@ -2465,10 +2462,6 @@ msgid ""
 "{mb|https://musicbrainz.org/}."
 msgstr ""
 
-#: ../root/user/login.tt:21
-msgid "Incorrect username or password"
-msgstr "Εσφαλμένο όνομα χρήστη ή κωδικός πρόσβασης"
-
 #: ../root/search/form.tt:24
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:60
 #: ../root/search/components/SearchForm.js:57
@@ -2564,10 +2557,6 @@ msgid ""
 "before submitting."
 msgstr ""
 
-#: ../root/user/login.tt:32
-msgid "Keep me logged in"
-msgstr "Να παραμείνω συνδεδεμένος"
-
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
 #: ../root/cdtoc/lookup.tt:44 ../root/components/common-macros.tt:580
@@ -2592,7 +2581,7 @@ msgstr "Να παραμείνω συνδεδεμένος"
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:22
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
-#: ../root/user/UserProfile.js:32 ../root/utility/tableColumns.js:393
+#: ../root/user/UserProfile.js:35 ../root/utility/tableColumns.js:393
 #: ../root/utility/tableColumns.js:398
 msgid "Label"
 msgstr "Δισκογραφική εταιρεία"
@@ -2634,7 +2623,7 @@ msgstr "Δισκογαφική εταιρεία:"
 #: ../root/components/common-macros.tt:597 ../root/area/AreaLabels.js:30
 #: ../root/area/AreaLabels.js:31 ../root/components/EntityTabs.js:24
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:217
-#: ../root/report/ReportsIndex.js:143
+#: ../root/report/ReportsIndex.js:148
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
 #: ../root/tag/TagIndex.js:112 ../root/tag/TagLayout.js:31
 msgid "Labels"
@@ -2680,7 +2669,7 @@ msgstr "Διάρκεια"
 
 #: ../root/edit/details/add_track_kv.tt:7 ../root/recording/edit_form.tt:31
 #: ../root/recording/edit_form.tt:34
-#: ../root/layout/components/sidebar/RecordingSidebar.js:50
+#: ../root/layout/components/sidebar/RecordingSidebar.js:51
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:154
 msgid "Length:"
 msgstr "Διάρκεια:"
@@ -2693,8 +2682,8 @@ msgstr ""
 msgid "Lines start with a track number"
 msgstr ""
 
-#: ../root/edit/details/add_relationship_type.tt:13
 #: ../root/edit/details/edit_relationship_type.tt:21
+#: ../root/edit/details/AddRelationshipType.js:111
 msgid "Link phrase:"
 msgstr "Φράση συνδέσμου:"
 
@@ -2726,14 +2715,9 @@ msgstr "Τοπικότητα:"
 msgid "Location Editor"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:11
+#: ../root/admin/edit_user.tt:10
 msgid "Location editor"
 msgstr ""
-
-#: ../root/user/login.tt:1 ../root/user/login.tt:3 ../root/user/login.tt:35
-#: ../root/layout/components/TopMenu.js:157
-msgid "Log In"
-msgstr "Σύνδεση"
 
 #: ../root/components/common-macros.tt:531
 #: ../root/components/RequestLogin.js:18
@@ -2746,7 +2730,8 @@ msgstr "Συνδεθείτε για να αποστείλετε εξώφυλλο
 
 #: ../root/edit/details/edit_relationship_type.tt:29
 #: ../root/relationship/linktype/form.tt:15
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:149
+#: ../root/edit/details/AddRelationshipType.js:127
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:157
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:76
 msgid "Long link phrase:"
 msgstr ""
@@ -2769,11 +2754,11 @@ msgstr "Πλήθος αναζητήσεων"
 
 #: ../root/components/common-macros.tt:613
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:234
-#: ../root/static/scripts/common/constants.js:248
+#: ../root/static/scripts/common/constants.js:250
 msgid "Low"
 msgstr "Χαμηλή"
 
-#: ../root/release/edit_relationships.tt:163
+#: ../root/release/edit_relationships.tt:169
 #: ../root/edit/details/AddWork.js:81 ../root/edit/details/EditWork.js:98
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:54
@@ -2793,7 +2778,7 @@ msgid "MM"
 msgstr ""
 
 #: ../root/components/forms.tt:15 ../root/components/forms.tt:20
-#: ../root/components/EnterEdit.js:29
+#: ../root/components/EnterEdit.js:32
 msgid "Make all edits votable."
 msgstr ""
 
@@ -2900,7 +2885,7 @@ msgstr "Συγχώνευση μέσων και ηχογραφήσεων"
 msgid "Merge strategy:"
 msgstr "Στρατηγική συγχώνευσης:"
 
-#: ../root/user/contact.tt:13 ../root/user/ReportUser.js:145
+#: ../root/user/contact.tt:13 ../root/user/ReportUser.js:148
 msgid "Message"
 msgstr ""
 
@@ -2992,6 +2977,7 @@ msgstr ""
 #: ../root/edit/details/AddInstrument.js:54
 #: ../root/edit/details/AddLabel.js:61 ../root/edit/details/AddPlace.js:54
 #: ../root/edit/details/AddRelationshipAttribute.js:45
+#: ../root/edit/details/AddRelationshipType.js:71
 #: ../root/edit/details/AddReleaseGroup.js:56
 #: ../root/edit/details/AddSeries.js:46
 #: ../root/edit/details/AddStandaloneRecording.js:50
@@ -3022,17 +3008,15 @@ msgstr ""
 #: ../root/search/components/SeriesResults.js:51
 #: ../root/search/components/TagResults.js:52
 #: ../root/search/components/WorkResults.js:49
-#: ../root/static/scripts/account/components/ApplicationForm.js:79
+#: ../root/static/scripts/account/components/ApplicationForm.js:80
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:77
 #: ../root/static/scripts/common/components/FilterForm.js:96
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:44
-#: ../root/user/UserSubscriptions.js:41
+#: ../root/user/UserSubscriptions.js:43
 msgid "Name"
 msgstr "Όνομα"
 
-#: ../root/components/forms.tt:233
-#: ../root/edit/details/add_relationship_type.tt:3
-#: ../root/edit/details/add_release.tt:10
+#: ../root/components/forms.tt:233 ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/edit_instrument.tt:9
 #: ../root/edit/details/edit_medium.tt:18
 #: ../root/edit/details/edit_relationship_type.tt:11
@@ -3111,7 +3095,7 @@ msgstr "Νέα ηχογράφηση"
 
 #: ../root/edit/details/change_wikidoc.tt:23
 #: ../root/edit/details/change_wikidoc.tt:28
-#: ../root/admin/wikidoc/EditWikiDoc.js:47
+#: ../root/admin/wikidoc/EditWikiDoc.js:48
 msgid "New version:"
 msgstr "Νέα έκδοση:"
 
@@ -3151,7 +3135,7 @@ msgstr "Δεν έχουν προστεθεί σημειώματα επεξεργ
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Δε βρέθηκα τροποποιήσεις που να ταιριάζουν με το ερώτημά σας. Παρακαλούμε {search|δοκιμάστε ξανά}."
 
-#: ../root/admin/edit_user.tt:19
+#: ../root/admin/edit_user.tt:18
 msgid "No nag"
 msgstr "Χωρίς ενόχληση"
 
@@ -3211,15 +3195,15 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:613
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:234
-#: ../root/static/scripts/common/constants.js:249
-#: ../root/static/scripts/common/constants.js:250
+#: ../root/static/scripts/common/constants.js:251
+#: ../root/static/scripts/common/constants.js:252
 msgid "Normal"
 msgstr "Κανονικό"
 
 #: ../root/edit/details/edit_release.tt:59
 #: ../root/edit/details/merge_releases.tt:158
 #: ../root/edit/details/historic/MergeReleases.js:69
-#: ../root/user/ReportUser.js:114
+#: ../root/user/ReportUser.js:117
 msgid "Note"
 msgstr ""
 
@@ -3299,7 +3283,7 @@ msgstr ""
 msgid "Only show open edits"
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:146
+#: ../root/release/edit_relationships.tt:152
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -3341,10 +3325,10 @@ msgstr "Επιλογές"
 msgid "Or..."
 msgstr "Ή..."
 
-#: ../root/edit/details/add_relationship_type.tt:30
 #: ../root/edit/details/edit_relationship_type.tt:61
 #: ../root/relationship/linktype/form.tt:37
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:125
+#: ../root/edit/details/AddRelationshipType.js:166
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:133
 msgid "Orderable direction:"
 msgstr ""
 
@@ -3371,7 +3355,7 @@ msgstr "Άλλες αναζητήσεις"
 msgid "Other tags"
 msgstr ""
 
-#: ../root/cdstub/header.tt:9 ../root/collection/CollectionHeader.js:75
+#: ../root/cdstub/header.tt:9 ../root/collection/CollectionHeader.js:77
 #: ../root/components/EntityTabs.js:77 ../root/tag/TagLayout.js:25
 msgid "Overview"
 msgstr "Επισκόπηση"
@@ -3397,8 +3381,8 @@ msgstr "Η σελίδα δε βρέθηκε"
 msgid "Page removed"
 msgstr "Η σελίδα αφαιρέθηκε"
 
-#: ../root/admin/wikidoc/create.tt:9 ../root/admin/wikidoc/CreateWikiDoc.js:37
-#: ../root/admin/wikidoc/EditWikiDoc.js:38
+#: ../root/admin/wikidoc/create.tt:9 ../root/admin/wikidoc/CreateWikiDoc.js:38
+#: ../root/admin/wikidoc/EditWikiDoc.js:39
 msgid "Page:"
 msgstr "Σελίδα:"
 
@@ -3419,7 +3403,7 @@ msgid "Parse Tracks"
 msgstr "Ανάλυση κομματιών"
 
 #: ../root/account/register.tt:33 ../root/account/reset_password.tt:11
-#: ../root/user/login.tt:25
+#: ../root/user/Login.js:80
 msgid "Password:"
 msgstr "Κωδικός πρόσβασης:"
 
@@ -3439,7 +3423,7 @@ msgstr "Φράση:"
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/common/constants.js:23
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:33
+#: ../root/user/UserProfile.js:36
 msgid "Place"
 msgstr ""
 
@@ -3453,7 +3437,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:597 ../root/area/AreaPlaces.js:34
 #: ../root/area/AreaPlaces.js:35 ../root/components/EntityTabs.js:27
-#: ../root/report/ReportsIndex.js:493
+#: ../root/report/ReportsIndex.js:498
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagIndex.js:116 ../root/tag/TagLayout.js:32
 msgid "Places"
@@ -3617,8 +3601,8 @@ msgid "Rating"
 msgstr "Βαθμολογία"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:32
-#: ../root/components/UserAccountTabs.js:59 ../root/entity/Ratings.js:37
-#: ../root/entity/Ratings.js:39
+#: ../root/components/UserAccountTabs.js:60 ../root/entity/Ratings.js:38
+#: ../root/entity/Ratings.js:40
 msgid "Ratings"
 msgstr "Βαθμολογίες"
 
@@ -3681,7 +3665,7 @@ msgstr "Ηχογράφηση:"
 #: ../root/artist/ArtistRecordings.js:146 ../root/components/EntityTabs.js:28
 #: ../root/instrument/InstrumentRecordings.js:36
 #: ../root/instrument/InstrumentRecordings.js:38
-#: ../root/report/ReportsIndex.js:425
+#: ../root/report/ReportsIndex.js:430
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagIndex.js:128 ../root/tag/TagLayout.js:29
 #: ../root/work/WorkIndex.js:52
@@ -3733,7 +3717,7 @@ msgstr ""
 msgid "Relationship Type"
 msgstr "Τύπος σχέσης"
 
-#: ../root/admin/edit_user.tt:10
+#: ../root/admin/edit_user.tt:9
 msgid "Relationship editor"
 msgstr ""
 
@@ -3781,7 +3765,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:36
 #: ../root/static/scripts/common/constants.js:25
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
-#: ../root/taglookup/Form.js:33 ../root/user/UserProfile.js:34
+#: ../root/taglookup/Form.js:33 ../root/user/UserProfile.js:37
 msgid "Release"
 msgstr "Κυκλοφορία"
 
@@ -3815,7 +3799,7 @@ msgstr "Ομάδα κυκλοφοριών"
 msgid "Release Group Details"
 msgstr "Λεπτομέρειες ομάδας κυκλοφοριών"
 
-#: ../root/release/edit_relationships.tt:97
+#: ../root/release/edit_relationships.tt:103
 msgid "Release Group Relationships"
 msgstr ""
 
@@ -3847,7 +3831,7 @@ msgstr "Γλώσσα κυκλοφοριών"
 msgid "Release Quality"
 msgstr "Ποιότητα κυκλοφορίας"
 
-#: ../root/release/edit_relationships.tt:91
+#: ../root/release/edit_relationships.tt:97
 msgid "Release Relationships"
 msgstr ""
 
@@ -3920,30 +3904,30 @@ msgstr "Κυκλοφορία:"
 #: ../root/components/list/ReleaseGroupList.js:107
 #: ../root/instrument/InstrumentReleases.js:36
 #: ../root/instrument/InstrumentReleases.js:38 ../root/label/LabelIndex.js:57
-#: ../root/report/ReportsIndex.js:225
+#: ../root/report/ReportsIndex.js:230
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagIndex.js:124 ../root/tag/TagLayout.js:28
 msgid "Releases"
 msgstr "Κυκλοφορίες"
 
-#: ../root/admin/attributes/delete.tt:12 ../root/cdtoc/list.tt:59
-#: ../root/relationship/linkattributetype/delete.tt:11
-#: ../root/relationship/linktype/delete.tt:11
+#: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:59
+#: ../root/relationship/linkattributetype/delete.tt:14
+#: ../root/relationship/linktype/delete.tt:14
 #: ../root/release/add_cover_art.tt:70 ../root/release/cover_art.tt:29
 #: ../root/release/discids.tt:36 ../root/account/applications/Index.js:43
 #: ../root/admin/attributes/Attribute.js:126
 #: ../root/admin/attributes/Language.js:72
 #: ../root/admin/attributes/Script.js:70
 #: ../root/admin/wikidoc/WikiDocIndex.js:105
-#: ../root/collection/CollectionHeader.js:91
+#: ../root/collection/CollectionHeader.js:93
 #: ../root/collection/DeleteCollection.js:31
 #: ../root/components/Aliases/AliasTableRow.js:66
 #: ../root/layout/components/sidebar/RemoveLink.js:27
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:67
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:87
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:115
-#: ../root/static/scripts/account/components/EditProfileForm.js:297
-#: ../root/user/UserCollections.js:121
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:123
+#: ../root/static/scripts/account/components/EditProfileForm.js:299
+#: ../root/user/UserCollections.js:125
 msgid "Remove"
 msgstr "Κατάργηση"
 
@@ -3981,8 +3965,8 @@ msgid "Remove Label"
 msgstr "Κατάργηση δισκογραφική εταιρείας"
 
 #: ../root/admin/wikidoc/delete.tt:1 ../root/admin/wikidoc/delete.tt:3
-#: ../root/admin/wikidoc/DeleteWikiDoc.js:25
 #: ../root/admin/wikidoc/DeleteWikiDoc.js:27
+#: ../root/admin/wikidoc/DeleteWikiDoc.js:29
 msgid "Remove Page"
 msgstr "Κατάργηση Σελίδας"
 
@@ -4105,13 +4089,14 @@ msgstr "Αποτελέσματα:"
 msgid "Reuse previous recordings"
 msgstr ""
 
-#: ../root/user/contact.tt:18 ../root/user/ReportUser.js:164
+#: ../root/user/contact.tt:18 ../root/user/ReportUser.js:167
 msgid "Reveal my email address"
 msgstr "Εμφάνιση της διεύθυνσης email μου"
 
 #: ../root/edit/details/edit_relationship_type.tt:25
 #: ../root/relationship/linktype/form.tt:14
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:144
+#: ../root/edit/details/AddRelationshipType.js:119
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:152
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:69
 msgid "Reverse link phrase:"
 msgstr ""
@@ -4133,8 +4118,8 @@ msgstr "Εκτελείται: <span class=\"tooltip\" title=\"{msg}\">{branch} (
 #: ../root/admin/attributes/form.tt:82
 #: ../root/relationship/linkattributetype/form.tt:21
 #: ../root/relationship/linktype/form.tt:200
-#: ../root/static/scripts/account/components/EditProfileForm.js:317
-#: ../root/static/scripts/account/components/PreferencesForm.js:252
+#: ../root/static/scripts/account/components/EditProfileForm.js:319
+#: ../root/static/scripts/account/components/PreferencesForm.js:253
 msgid "Save"
 msgstr "Αποθήκευση"
 
@@ -4245,13 +4230,13 @@ msgstr ""
 msgid "Select images..."
 msgstr ""
 
-#: ../root/user/contact.tt:22 ../root/user/ReportUser.js:168
+#: ../root/user/contact.tt:22 ../root/user/ReportUser.js:171
 msgid "Send"
 msgstr "Αποστολή"
 
 #: ../root/user/contact.tt:1 ../root/user/contact.tt:3
-#: ../lib/MusicBrainz/Server/Controller/User.pm:246
-#: ../lib/MusicBrainz/Server/Controller/User.pm:271
+#: ../lib/MusicBrainz/Server/Controller/User.pm:295
+#: ../lib/MusicBrainz/Server/Controller/User.pm:320
 #: ../root/account/LostUsername.js:44
 msgid "Send Email"
 msgstr "Αποστολή Email"
@@ -4281,7 +4266,7 @@ msgstr ""
 #: ../root/series/SeriesHeader.js:29
 #: ../root/static/scripts/common/constants.js:27
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
-#: ../root/user/UserProfile.js:35
+#: ../root/user/UserProfile.js:38
 msgctxt "singular"
 msgid "Series"
 msgstr ""
@@ -4335,7 +4320,7 @@ msgstr ""
 msgid "Similar releases"
 msgstr "Παρόμοιες κυκλοφορίες"
 
-#: ../root/admin/edit_user.tt:39
+#: ../root/admin/edit_user.tt:38
 msgid "Skip verification"
 msgstr ""
 
@@ -4458,7 +4443,7 @@ msgstr ""
 msgid "Stop using beta site"
 msgstr ""
 
-#: ../root/watch/list.tt:29
+#: ../root/watch/list.tt:30
 msgid "Stop watching selected artists"
 msgstr "Σταμάτημα παρακολούθησης των επιλεγμένων καλλιτεχνών"
 
@@ -4492,8 +4477,8 @@ msgid "Submit votes &amp; edit notes"
 msgstr "Υποβολή ψήφων &amp; σημειώσεων επεξεργασίας"
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:120
-#: ../root/release/edit_relationships.tt:180
+#: ../root/release/edit_relationships.tt:126
+#: ../root/release/edit_relationships.tt:186
 msgid "Submitting edits..."
 msgstr ""
 
@@ -4533,7 +4518,7 @@ msgid "Tagger"
 msgstr "Ετικέτα"
 
 #: ../root/user/tags.tt:1 ../root/components/EntityTabs.js:124
-#: ../root/components/UserAccountTabs.js:55 ../root/entity/Tags.js:34
+#: ../root/components/UserAccountTabs.js:56 ../root/entity/Tags.js:34
 #: ../root/layout/components/BottomMenu.js:196 ../root/tag/TagCloud.js:49
 #: ../root/tag/TagCloud.js:51
 msgid "Tags"
@@ -4543,7 +4528,7 @@ msgstr "Ετικέτες"
 msgid "Technical Information"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:16
+#: ../root/admin/edit_user.tt:15
 msgid "Technical flags"
 msgstr "Τεχνικές σημαίες"
 
@@ -4602,11 +4587,6 @@ msgstr ""
 msgid ""
 "The disambiguation field is used to help users distinguish between "
 "identically named releases."
-msgstr ""
-
-#: ../root/components/common-macros.tt:945
-#: ../root/components/FormCsrfToken.js:21
-msgid "The form you’ve submitted has expired. Please resubmit your request."
 msgstr ""
 
 #: ../root/cdtoc/set_durations.tt:19
@@ -4863,10 +4843,6 @@ msgid ""
 "file."
 msgstr ""
 
-#: ../root/user/login.tt:28
-msgid "This is a development server; all passwords have been reset to \"mb\"."
-msgstr "Αυτός είναι ένας εξυπηρετητής ανάπτυξης, όλοι οι κωδικοί είναι \"mb\"."
-
 #: ../root/admin/attributes/form.tt:77
 msgid "This is a free text work attribute"
 msgstr ""
@@ -5020,21 +4996,21 @@ msgstr "Αυτός ο χρήστης έχει αυτοματοποιηθεί."
 msgid "This user is new to MusicBrainz."
 msgstr "Αυτός ο χρήστης είναι νέος στο MusicBrainz."
 
-#: ../root/release/edit_relationships.tt:127
+#: ../root/release/edit_relationships.tt:133
 msgid "This will add a relationship to all checked recordings."
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:136
 msgid "This will add a relationship to all checked works."
 msgstr ""
 
-#: ../root/admin/delete_user.tt:25
+#: ../root/admin/delete_user.tt:26
 msgid ""
 "This will also cancel all your open edits and change all of your votes on "
 "any edits currently open to Abstain."
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:143
+#: ../root/release/edit_relationships.tt:149
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
@@ -5097,7 +5073,7 @@ msgid ""
 "checkboxes."
 msgstr ""
 
-#: ../root/watch/list.tt:37
+#: ../root/watch/list.tt:38
 msgid ""
 "To watch an artist and be notified of new releases, {search_url|search} for "
 "them and select 'Watch this artist for new releases' from the sidebar."
@@ -5131,7 +5107,7 @@ msgstr ""
 msgid "Track Parser"
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:20
+#: ../root/release/edit_relationships.tt:19
 msgid "Track Relationships"
 msgstr ""
 
@@ -5198,7 +5174,7 @@ msgstr ""
 msgid "Tracks:"
 msgstr "Κομμάτια:"
 
-#: ../root/admin/edit_user.tt:9
+#: ../root/admin/edit_user.tt:8
 msgid "Transclusion editor"
 msgstr ""
 
@@ -5250,7 +5226,7 @@ msgstr "Twitter"
 #: ../root/search/components/ReleaseResults.js:113
 #: ../root/search/components/SeriesResults.js:52
 #: ../root/search/components/WorkResults.js:53
-#: ../root/static/scripts/account/components/ApplicationForm.js:86
+#: ../root/static/scripts/account/components/ApplicationForm.js:87
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:83
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:842
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:378
@@ -5307,7 +5283,7 @@ msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:121
-#: ../root/components/common-macros.tt:597 ../root/report/ReportsIndex.js:543
+#: ../root/components/common-macros.tt:597 ../root/report/ReportsIndex.js:548
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 msgid "URLs"
 msgstr ""
@@ -5333,7 +5309,7 @@ msgstr "Μη επιτρεπόμενο αίτημα"
 msgid "Unknown"
 msgstr "Άγνωστο"
 
-#: ../root/admin/edit_user.tt:18 ../root/edit/search_macros.tt:361
+#: ../root/admin/edit_user.tt:17 ../root/edit/search_macros.tt:361
 msgid "Untrusted"
 msgstr "Μη έμπιστο"
 
@@ -5400,12 +5376,12 @@ msgstr "Χρήση {doc|προχωρημένης σύνταξης ερωτήμα
 msgid "User name:"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:7
+#: ../root/admin/edit_user.tt:6
 msgid "User permissions"
 msgstr "Άδειες χρήστη"
 
-#: ../root/account/register.tt:29 ../root/admin/edit_user.tt:37
-#: ../root/user/login.tt:24 ../root/account/LostPassword.js:45
+#: ../root/account/register.tt:29 ../root/admin/edit_user.tt:36
+#: ../root/account/LostPassword.js:45 ../root/user/Login.js:73
 msgid "Username:"
 msgstr "Όνομα χρήστη:"
 
@@ -5431,7 +5407,7 @@ msgid "Version History"
 msgstr "Ιστορικό εκδόσεων"
 
 #: ../root/admin/wikidoc/create.tt:10
-#: ../root/admin/wikidoc/CreateWikiDoc.js:43
+#: ../root/admin/wikidoc/CreateWikiDoc.js:44
 msgid "Version:"
 msgstr "Έκδοση:"
 
@@ -5483,7 +5459,7 @@ msgid "Votes by {name}"
 msgstr ""
 
 #: ../root/edit/edit_header.tt:46 ../root/edit/components/EditSidebar.js:49
-#: ../root/elections/Show.js:36
+#: ../root/elections/Show.js:35
 msgid "Voting"
 msgstr "Ψηφοφορία"
 
@@ -5559,7 +5535,7 @@ msgid ""
 " below in order to attach this disc to another MusicBrainz release."
 msgstr "Βρήκαμε δίσκους που ταιριάζουν με τις πληροφορίες που ζητήσατε, στην παρακάτω λίστα. Αν καμία από αυτές δεν είναι η κυκλοφορία που ψάχνετε, μπορείτε να αναζητήσετε χρησιμοποιώντας την παρακάτω φόρμα έτσι ώστε να συνδέσετε αυτό το δίσκο με μία άλλη κυκλοφορία του MusicBrainz."
 
-#: ../root/release/index.tt:10
+#: ../root/release/edit_relationships.tt:93 ../root/release/index.tt:10
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
@@ -5573,7 +5549,7 @@ msgid ""
 "your request &#x2014; the problem may go away."
 msgstr "Λυπούμαστε πραγματικά για αυτό το πρόβλημα. Παρακαλούμε περιμένετε μερικά λεπτά και επαναλάβετε το αίτημά σας &#x2014; το πρόβλημα μπορεί να εξαφανιστεί."
 
-#: ../root/admin/edit_user.tt:40
+#: ../root/admin/edit_user.tt:39
 msgid "Website:"
 msgstr "Ιστοσελίδα:"
 
@@ -5610,7 +5586,7 @@ msgstr "WikiDoc:"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:29
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:36 ../root/work/WorkHeader.js:29
+#: ../root/user/UserProfile.js:39 ../root/work/WorkHeader.js:29
 #: ../root/work/WorkLayout.js:37
 msgid "Work"
 msgstr "Έργο"
@@ -5623,7 +5599,7 @@ msgstr ""
 msgid "Work Details"
 msgstr "Λεπτομέρειες έργου"
 
-#: ../root/release/edit_relationships.tt:152
+#: ../root/release/edit_relationships.tt:158
 msgid "Work Type:"
 msgstr ""
 
@@ -5637,7 +5613,7 @@ msgstr "Έργο:"
 
 #: ../root/components/common-macros.tt:597 ../root/area/AreaWorks.js:22
 #: ../root/artist/ArtistWorks.js:30 ../root/artist/ArtistWorks.js:31
-#: ../root/components/EntityTabs.js:31 ../root/report/ReportsIndex.js:523
+#: ../root/components/EntityTabs.js:31 ../root/report/ReportsIndex.js:528
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagIndex.js:136 ../root/tag/TagLayout.js:30
 msgid "Works"
@@ -5677,8 +5653,8 @@ msgctxt "vote"
 msgid "Yes"
 msgstr "Ναι"
 
-#: ../root/admin/wikidoc/delete.tt:11
-#: ../root/admin/wikidoc/DeleteWikiDoc.js:39
+#: ../root/admin/wikidoc/delete.tt:12
+#: ../root/admin/wikidoc/DeleteWikiDoc.js:41
 msgid "Yes, I'm sure"
 msgstr "Ναι, είμαι σίγουρος"
 
@@ -5718,7 +5694,7 @@ msgstr "Δεν μπορείτε να προσθέσετε σημειώσεις �
 msgid "You are not currently able to vote on this edit. ({url|Details})"
 msgstr "Δεν μπορείτε να ψηφίσετε για αυτή την επεξεργασία αυτή τη στιγμή. ({url|Λεπτομέρειες})"
 
-#: ../root/watch/list.tt:33
+#: ../root/watch/list.tt:34
 msgid "You are not currently watching any artists for new releases."
 msgstr "Δεν παρακολουθείτε κανένα καλλιτέχνη για νέες κυκλοφορίες αυτή τη στιγμή."
 
@@ -5837,10 +5813,6 @@ msgid ""
 " this topic, please see our {doc|CD submission guide}."
 msgstr ""
 
-#: ../root/user/login.tt:7
-msgid "You need to be logged in to view this page."
-msgstr "Πρέπει να είστε συνδεδεμένοι για να δείτε αυτή τη σελίδα."
-
 #: ../root/entity/alias/delete.tt:4
 msgid "You're removing the alias <em>{alias}</em>."
 msgstr ""
@@ -5902,6 +5874,7 @@ msgid "[missing media]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:265
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:111
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:82
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:183
 #: ../root/edit/details/EditAlias.js:94
@@ -5996,22 +5969,6 @@ msgstr ""
 #: ../root/utility/relationshipDateText.js:38
 msgid "ended"
 msgstr "έληξε"
-
-#: ../root/edit/details/add_relationship_type.tt:19
-#: ../root/edit/details/edit_relationship_type.tt:50
-#: ../root/relationship/linktype/form.tt:26
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:117
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:90
-msgid "entity0 cardinality:"
-msgstr ""
-
-#: ../root/edit/details/add_relationship_type.tt:23
-#: ../root/edit/details/edit_relationship_type.tt:55
-#: ../root/relationship/linktype/form.tt:31
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:121
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:95
-msgid "entity1 cardinality:"
-msgstr ""
 
 #: ../root/components/common-macros.tt:121
 msgid "events"
@@ -6252,7 +6209,7 @@ msgstr ""
 msgid "track"
 msgstr "κομμάτι"
 
-#: ../root/components/medium.tt:85
+#: ../root/components/medium.tt:96
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] ""
@@ -6372,6 +6329,12 @@ msgid_plural "{num} years ago"
 msgstr[0] ""
 msgstr[1] ""
 
+#: ../root/components/medium.tt:84
+#: ../root/components/StaticRelationshipsDisplay.js:54
+#: ../root/static/scripts/relationship-editor/common/fields.js:509
+msgid "{num}. {relationship}"
+msgstr ""
+
 #: ../root/components/common-macros.tt:278
 #: ../root/static/scripts/common/components/DescriptiveLink.js:64
 msgid "{place} in {area}"
@@ -6380,6 +6343,11 @@ msgstr ""
 #: ../root/recording/edit_form.tt:35
 msgid ""
 "{recording_length} ({length_info|derived} from the associated track lengths)"
+msgstr ""
+
+#: ../root/components/medium.tt:84
+#: ../root/components/StaticRelationshipsDisplay.js:59
+msgid "{relationship} (order: {num})"
 msgstr ""
 
 #: ../root/cdtoc/move_search.tt:33
@@ -6583,29 +6551,29 @@ msgid ""
 "please contact us at {mail|support@musicbrainz.org}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:87
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:77
 msgid "User successfully edited."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:154
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:144
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:180
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:170
 #: ../root/static/scripts/release-editor/trackParser.js:492
 msgid "Invalid regular expression."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:641
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:628
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Δεν μπορείτε να συγχωνεύσετε έναν καλλιτέχνη ειδικού σκοπού με κάποιον άλλον καλλιτέχνη"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:646
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:633
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:79
+#: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:82
 #, perl-brace-format
 msgid "'{id}' is not a valid election ID"
 msgstr "Το '{id}' δεν είναι έγκυρο ID ψηφοφορίας"
@@ -6623,21 +6591,21 @@ msgid "Could not find medium"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:156
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:355
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:349
 msgid "The provided CD TOC is not valid"
 msgstr "Το παρεχόμενο CD TOC δεν είναι έγκυρο"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:169
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:369
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:163
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:363
 msgid "The provided medium id is not valid"
 msgstr "Το παρεχόμενο id μέσου δεν είναι έγκυρο"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:185
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:377
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:179
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:371
 msgid "The selected medium cannot have disc IDs"
 msgstr "Το επιλεγμένο μέσο δεν μπορεί να έχει disc IDs"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:221
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:215
 msgid "The provided artist id is not valid"
 msgstr "Το παρεχόμενο id καλλιτέχνη δεν είναι έγκυρο"
 
@@ -6658,7 +6626,7 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "Το '{types}' δεν είναι έγκυρο ζευγάρι τύπων σχέσεων."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:517
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:489
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Αυτή η στρατηγική συγχώνευσης δεν είναι εφαρμόσιμη στις κυκλοφορίες που επιλέξατε."
@@ -6671,13 +6639,13 @@ msgstr ""
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "Τα παλιά και καινούρια ids σχολίου πρέπει να είναι μοναδικοί, θετικοί ακέραιοι."
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:86
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:82
 msgid ""
 "Language set. If you find any problems with the translation, please "
 "{url|help us improve it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:353
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:272
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -6687,42 +6655,42 @@ msgstr ""
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:247
+#: ../lib/MusicBrainz/Server/Controller/User.pm:296
 msgid ""
 "You cannot contact other users because you have not {url|verified your email"
 " address}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:272
+#: ../lib/MusicBrainz/Server/Controller/User.pm:321
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "Ο χρήστης {name} δεν έχει συνδέσει κάποια διεύθυνση email με το λογαριασμό του."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:286
+#: ../lib/MusicBrainz/Server/Controller/User.pm:335
 msgid "Email Sent"
 msgstr "Email απεστάλη"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:287
+#: ../lib/MusicBrainz/Server/Controller/User.pm:336
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr "Το μήνυμά σας στάλθηκε επιτυχώς! Κάντε κλικ {link|εδώ} για να συνεχίσετε στο προφίλ του {user}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:314
+#: ../lib/MusicBrainz/Server/Controller/User.pm:363
 msgid "Your message could not be sent"
 msgstr "Το μήνυμά σας δεν μπορούσε να σταλεί"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:454
+#: ../lib/MusicBrainz/Server/Controller/User.pm:504
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:611
+#: ../lib/MusicBrainz/Server/Controller/User.pm:661
 msgid "An error occurred while trying to send your report."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:615
+#: ../lib/MusicBrainz/Server/Controller/User.pm:665
 msgid "Your report has been sent."
 msgstr ""
 
@@ -7396,7 +7364,7 @@ msgstr ""
 msgid "Merge series"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:544
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:553
 #: ../root/utility/edit.js:40
 msgid "Open"
 msgstr ""
@@ -7429,7 +7397,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
 #: ../root/edit/details/AddEvent.js:66 ../root/edit/details/EditEvent.js:71
-#: ../root/user/UserProfile.js:534 ../root/utility/edit.js:34
+#: ../root/user/UserProfile.js:543 ../root/utility/edit.js:34
 msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
@@ -7568,12 +7536,12 @@ msgstr ""
 msgid "{attribute}: {value}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:265
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:267
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:272
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:274
 #: ../lib/MusicBrainz/Server/Translation.pm:273
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -7861,7 +7829,7 @@ msgid "Not a valid time. Must be in the format MM:SS"
 msgstr "Μη έγκυρος χρόνος. Πρέπει να είναι στη μορφή ΛΛ:ΔΔ"
 
 #: ../lib/MusicBrainz/Server/Form/Field/PartialDate.pm:65
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:96
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:92
 msgid "invalid date"
 msgstr ""
 
@@ -7910,6 +7878,11 @@ msgstr ""
 msgid "You must provide an edit note when adding a standalone recording"
 msgstr "Πρέπει να γράψετε μία σημείωση επεξεργασίας όταν προσθέτετε μια μεμονωμένη ηχογράφηση"
 
+#: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:9
+#: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:80
+msgid "The form you’ve submitted has expired. Please resubmit your request."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:23
 msgid "You must provide an edit note"
 msgstr ""
@@ -7918,6 +7891,38 @@ msgstr ""
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:25
+msgid "Invalid URL format"
+msgstr "Μη έγκυρη μορφή URL"
+
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
+#: ../root/static/scripts/common/constants.js:261
+msgid "Basic"
+msgstr "Βασικό"
+
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
+#: ../root/static/scripts/common/constants.js:262
+msgid "Intermediate"
+msgstr "Φυσιολογικό"
+
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
+#: ../root/static/scripts/common/constants.js:260
+msgid "Advanced"
+msgstr "Προχωρημένο"
+
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
+#: ../root/static/scripts/common/constants.js:263
+msgid "Native"
+msgstr "Εγγενές"
+
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:85
+msgid "You must supply a complete birth date for us to display your age."
+msgstr "Πρέπει να μας παρέχετε μία ολοκληρωμένη ημερομηνία γέννησης για να δείχνουμε την ηλικία σας."
+
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:89
+msgid "Birth year must be after 1900"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
@@ -7935,6 +7940,7 @@ msgid "Tag"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
+#: ../root/edit/details/AddRelationshipType.js:193
 #: ../root/layout/components/BottomMenu.js:261
 #: ../root/layout/components/Search.js:53
 #: ../root/search/components/SearchForm.js:53
@@ -7945,104 +7951,72 @@ msgstr "Τεκμηρίωση"
 msgid "Indexed search with advanced query syntax"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:49
+#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:51
 msgid "The old password is incorrect"
 msgstr "Ο παλιός κωδικός πρόσβασης είναι λάθος"
 
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:54
+#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:56
 msgid "An account with this name could not be found"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:29
-msgid "Invalid URL format"
-msgstr "Μη έγκυρη μορφή URL"
-
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:72
-#: ../root/static/scripts/common/constants.js:259
-msgid "Basic"
-msgstr "Βασικό"
-
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:73
-#: ../root/static/scripts/common/constants.js:260
-msgid "Intermediate"
-msgstr "Φυσιολογικό"
-
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:74
-#: ../root/static/scripts/common/constants.js:258
-msgid "Advanced"
-msgstr "Προχωρημένο"
-
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:75
-#: ../root/static/scripts/common/constants.js:261
-msgid "Native"
-msgstr "Εγγενές"
-
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:89
-msgid "You must supply a complete birth date for us to display your age."
-msgstr "Πρέπει να μας παρέχετε μία ολοκληρωμένη ημερομηνία γέννησης για να δείχνουμε την ηλικία σας."
-
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:93
-msgid "Birth year must be after 1900"
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Form/User/Login.pm:11
+#: ../lib/MusicBrainz/Server/Form/User/Login.pm:12
 msgid "Username field is required"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/User/Login.pm:19
+#: ../lib/MusicBrainz/Server/Form/User/Login.pm:20
 msgid "Password field is required"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:84
-#: ../root/static/scripts/account/components/PreferencesForm.js:78
+#: ../root/static/scripts/account/components/PreferencesForm.js:79
 msgid "Daily"
 msgstr "Καθημερινά"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:85
-#: ../root/static/scripts/account/components/PreferencesForm.js:79
+#: ../root/static/scripts/account/components/PreferencesForm.js:80
 msgid "Weekly"
 msgstr "Εβδομαδιαία"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:86
-#: ../root/static/scripts/account/components/PreferencesForm.js:80
+#: ../root/static/scripts/account/components/PreferencesForm.js:81
 msgid "Never"
 msgstr "Ποτέ"
 
-#: ../lib/MusicBrainz/Server/Form/User/Register.pm:23
+#: ../lib/MusicBrainz/Server/Form/User/Register.pm:25
 msgid "Please enter a password in this field"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/User/Register.pm:32
+#: ../lib/MusicBrainz/Server/Form/User/Register.pm:34
 msgid "The password confirmation does not match the password"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:29
-#: ../root/user/ReportUser.js:44
+#: ../root/user/ReportUser.js:47
 msgid "Editor is spamming"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:30
-#: ../root/user/ReportUser.js:48
+#: ../root/user/ReportUser.js:51
 msgid "Editor is unresponsive to edit notes"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:31
-#: ../root/user/ReportUser.js:52
+#: ../root/user/ReportUser.js:55
 msgid "Editor intentionally ignores accepted guidelines"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:32
-#: ../root/user/ReportUser.js:56
+#: ../root/user/ReportUser.js:59
 msgid "Editor is overzealous in enforcing guidelines as rules"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:33
-#: ../root/user/ReportUser.js:60
+#: ../root/user/ReportUser.js:63
 msgid "Editor engages in overzealous or abusive yes/no voting"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:34
-#: ../root/user/ReportUser.js:65
+#: ../root/user/ReportUser.js:68
 msgid "Editor has violated some other part of our Code of Conduct"
 msgstr ""
 
@@ -8214,7 +8188,7 @@ msgstr ""
 msgid "{last_list_item}"
 msgstr ""
 
-#: ../root/account/Donation.js:21 ../root/components/UserAccountTabs.js:83
+#: ../root/account/Donation.js:21 ../root/components/UserAccountTabs.js:84
 msgid "Donation Check"
 msgstr "Έλεγχος δωρεάς"
 
@@ -8243,12 +8217,12 @@ msgstr "Δε θα ενοχληθείτε για άλλες {days} μέρες."
 msgid "You will never be nagged again!"
 msgstr "Δε θα ενοχληθείτε ποτέ ξανά!"
 
-#: ../root/account/EditProfile.js:37 ../root/account/EditProfile.js:39
-#: ../root/components/UserAccountTabs.js:65
+#: ../root/account/EditProfile.js:39 ../root/account/EditProfile.js:41
+#: ../root/components/UserAccountTabs.js:66
 msgid "Edit Profile"
 msgstr "Επεξεργασία προφίλ"
 
-#: ../root/account/EditProfile.js:42
+#: ../root/account/EditProfile.js:44
 msgid ""
 "See also your {uri|user preferences}, which include your privacy settings."
 msgstr ""
@@ -8278,8 +8252,8 @@ msgstr ""
 #: ../root/account/LostPassword.js:51 ../root/account/LostUsername.js:39
 #: ../root/admin/EmailSearch.js:48 ../root/admin/components/UserList.js:28
 #: ../root/report/components/EditorList.js:34
-#: ../root/static/scripts/account/components/EditProfileForm.js:201
-#: ../root/static/scripts/account/components/PreferencesForm.js:206
+#: ../root/static/scripts/account/components/EditProfileForm.js:203
+#: ../root/static/scripts/account/components/PreferencesForm.js:207
 msgid "Email"
 msgstr "Email"
 
@@ -8313,8 +8287,8 @@ msgid ""
 "us}."
 msgstr "Σας έχουμε στείλει πληροφορίες σχετικά με το λογαριασμό σας στο MusicBrainz. Εάν δεν έχετε λάβει αυτό το email ή έχετε ακόμα προβλήματα κατά τη σύνδεσή σας, παρακαλώ {link|επικοινωνήστε μαζί μας}."
 
-#: ../root/account/Preferences.js:32 ../root/account/PreferencesSaved.js:19
-#: ../root/components/UserAccountTabs.js:71
+#: ../root/account/Preferences.js:34 ../root/account/PreferencesSaved.js:19
+#: ../root/components/UserAccountTabs.js:72
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
@@ -8329,19 +8303,19 @@ msgstr "Οι προτιμήσεις σας αποθηκεύτηκαν. Κάντ�
 msgid "Edit Application"
 msgstr ""
 
-#: ../root/account/applications/Edit.js:29 ../root/admin/EditBanner.js:39
-#: ../root/admin/wikidoc/EditWikiDoc.js:53
+#: ../root/account/applications/Edit.js:29 ../root/admin/EditBanner.js:40
+#: ../root/admin/wikidoc/EditWikiDoc.js:54
 #: ../root/admin/wikidoc/WikiDocIndex.js:99
 msgid "Update"
 msgstr "Ενημέρωση"
 
 #: ../root/account/applications/Index.js:32
-#: ../root/static/scripts/account/components/ApplicationForm.js:40
+#: ../root/static/scripts/account/components/ApplicationForm.js:41
 msgid "Web Application"
 msgstr ""
 
 #: ../root/account/applications/Index.js:33
-#: ../root/static/scripts/account/components/ApplicationForm.js:41
+#: ../root/static/scripts/account/components/ApplicationForm.js:42
 msgid "Installed Application"
 msgstr ""
 
@@ -8431,19 +8405,19 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-#: ../root/account/applications/Remove.js:23
+#: ../root/account/applications/Remove.js:26
 msgid "Are you sure you want to remove this application?"
 msgstr ""
 
-#: ../root/account/applications/Remove.js:24
+#: ../root/account/applications/Remove.js:27
 msgid "Remove Application"
 msgstr ""
 
-#: ../root/account/applications/RevokeAccess.js:24
+#: ../root/account/applications/RevokeAccess.js:27
 msgid "Are you sure you want to revoke this application's access?"
 msgstr ""
 
-#: ../root/account/applications/RevokeAccess.js:26
+#: ../root/account/applications/RevokeAccess.js:29
 msgid "Revoke Application Access"
 msgstr ""
 
@@ -8470,21 +8444,21 @@ msgstr ""
 msgid "Unverified Email Address"
 msgstr ""
 
-#: ../root/admin/EditBanner.js:25 ../root/layout/components/TopMenu.js:128
+#: ../root/admin/EditBanner.js:26 ../root/layout/components/TopMenu.js:128
 msgid "Edit Banner Message"
 msgstr ""
 
-#: ../root/admin/EditBanner.js:27
+#: ../root/admin/EditBanner.js:28
 msgid "Edit banner message"
 msgstr ""
 
-#: ../root/admin/EditBanner.js:29
+#: ../root/admin/EditBanner.js:30
 msgid ""
 "This will set the banner message that is shown at the top of each page. An "
 "empty string removes the banner."
 msgstr ""
 
-#: ../root/admin/EditBanner.js:36
+#: ../root/admin/EditBanner.js:37
 msgid "Banner message"
 msgstr ""
 
@@ -8497,7 +8471,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr ""
 
 #: ../root/admin/IpLookup.js:27 ../root/admin/IpLookup.js:29
-#: ../root/user/UserProfile.js:345
+#: ../root/user/UserProfile.js:354
 msgid "IP lookup"
 msgstr ""
 
@@ -8518,7 +8492,8 @@ msgstr ""
 #: ../root/admin/attributes/Language.js:37
 #: ../root/admin/attributes/Script.js:38
 #: ../root/components/RelationshipsTable.js:92
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:156
+#: ../root/edit/details/AddRelationshipType.js:175
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:164
 #: ../root/utility/tableColumns.js:475
 msgid "Attributes"
 msgstr "Γνωρίσματα"
@@ -8556,18 +8531,18 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: ../root/admin/wikidoc/DeleteWikiDoc.js:29
+#: ../root/admin/wikidoc/DeleteWikiDoc.js:31
 msgid ""
 "Are you sure you wish to remove the page “{page_uri|{page_name}}” from the "
 "transclusion table?"
 msgstr ""
 
-#: ../root/admin/wikidoc/EditWikiDoc.js:32
-#: ../root/admin/wikidoc/EditWikiDoc.js:34
+#: ../root/admin/wikidoc/EditWikiDoc.js:33
+#: ../root/admin/wikidoc/EditWikiDoc.js:35
 msgid "Update Page"
 msgstr "Ενημέρωση σελίδας"
 
-#: ../root/admin/wikidoc/EditWikiDoc.js:42
+#: ../root/admin/wikidoc/EditWikiDoc.js:43
 msgid "Current version:"
 msgstr ""
 
@@ -8991,39 +8966,39 @@ msgctxt "group artist"
 msgid "Dissolved"
 msgstr ""
 
-#: ../root/collection/CollectionHeader.js:35
+#: ../root/collection/CollectionHeader.js:37
 msgid "Public collection by {owner}"
 msgstr "Δημόσια συλλογή από {owner}"
 
-#: ../root/collection/CollectionHeader.js:38
+#: ../root/collection/CollectionHeader.js:40
 msgid "Private collection by {owner}"
 msgstr ""
 
-#: ../root/collection/CollectionHeader.js:53
+#: ../root/collection/CollectionHeader.js:55
 msgid "See all of your collections"
 msgstr "Δείτε όλες τις συλλογές σας"
 
-#: ../root/collection/CollectionHeader.js:55
+#: ../root/collection/CollectionHeader.js:57
 msgid "See all of {editor}'s public collections"
 msgstr "Δείτε όλες τις δημόσιες συλλογές του {editor}"
 
-#: ../root/collection/CollectionIndex.js:189 ../root/user/UserProfile.js:271
-#: ../root/user/UserProfile.js:321
+#: ../root/collection/CollectionIndex.js:188 ../root/user/UserProfile.js:280
+#: ../root/user/UserProfile.js:330
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:200
+#: ../root/collection/CollectionIndex.js:199
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:99
-#: ../root/user/UserCollections.js:103
+#: ../root/user/UserCollections.js:107
 msgid "Collaborators"
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:214
+#: ../root/collection/CollectionIndex.js:213
 msgid "Remove selected items from collection"
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:219
+#: ../root/collection/CollectionIndex.js:218
 msgid "This collection is empty."
 msgstr ""
 
@@ -9033,7 +9008,7 @@ msgstr "Συλλογή “{collection}”"
 
 #: ../root/collection/CreateCollection.js:33
 #: ../root/collection/CreateCollection.js:36
-#: ../root/user/UserCollections.js:207
+#: ../root/user/UserCollections.js:212
 msgid "Create a new collection"
 msgstr "Δημιουργία νέας συλλογής"
 
@@ -9141,7 +9116,7 @@ msgid ""
 " few days. If this is not intended, please add relationships to this work."
 msgstr "Αυτό το έργο δεν έχει σχέσεις και θα αφαιρεθεί αυτόματα μέσα στις επόμενες μέρες. Αν αυτό δεν πρέπει να γίνει, παρακαλούμε προσθέστε σχέσεις σε αυτό το έργο."
 
-#: ../root/components/ConfirmLayout.js:40
+#: ../root/components/ConfirmLayout.js:42
 msgid "Yes, I am sure"
 msgstr "Ναι, είμαι σίγουρος"
 
@@ -9207,6 +9182,10 @@ msgstr ""
 msgid "Collapse all mediums"
 msgstr ""
 
+#: ../root/components/PostParameters.js:46
+msgid "Data submitted with this request"
+msgstr ""
+
 #: ../root/components/RelatedSeries.js:30
 msgid "Related series"
 msgstr ""
@@ -9219,35 +9198,26 @@ msgstr "Σχετικά έργα"
 msgid "Credited As"
 msgstr ""
 
-#: ../root/components/StaticRelationshipsDisplay.js:54
-#: ../root/static/scripts/relationship-editor/common/fields.js:509
-msgid "{num}. {relationship}"
-msgstr ""
-
-#: ../root/components/StaticRelationshipsDisplay.js:59
-msgid "{relationship} (order: {num})"
-msgstr ""
-
-#: ../root/components/UserAccountTabs.js:30
+#: ../root/components/UserAccountTabs.js:31
 #: ../root/layout/components/TopMenu.js:31
 msgid "Profile"
 msgstr "Προφίλ"
 
-#: ../root/components/UserAccountTabs.js:35
+#: ../root/components/UserAccountTabs.js:36
 #: ../root/layout/components/TopMenu.js:38
 #: ../root/layout/components/sidebar/CollectionSidebar.js:67
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:30
 msgid "Subscriptions"
 msgstr "Λίστα παρακολουθήσεων"
 
-#: ../root/components/UserAccountTabs.js:43 ../root/entity/Subscribers.js:44
+#: ../root/components/UserAccountTabs.js:44 ../root/entity/Subscribers.js:44
 #: ../root/entity/Subscribers.js:46
 #: ../root/layout/components/sidebar/CollectionSidebar.js:90
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:48
 msgid "Subscribers"
 msgstr "Χρήστες που παρακολουθούν"
 
-#: ../root/components/UserAccountTabs.js:93
+#: ../root/components/UserAccountTabs.js:94
 msgid "Edit User"
 msgstr "Επεξεργασία χρήστη"
 
@@ -9565,6 +9535,27 @@ msgid ""
 "which no longer exist."
 msgstr ""
 
+#: ../root/edit/details/AddRelationshipType.js:87
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:87
+msgctxt "description"
+msgid "(none)"
+msgstr "(κανένα)"
+
+#: ../root/edit/details/AddRelationshipType.js:94
+#: ../root/edit/details/AddRelationshipType.js:103
+msgid "Type of {entity_placeholder}"
+msgstr ""
+
+#: ../root/edit/details/AddRelationshipType.js:134
+msgctxt "link_phrase"
+msgid "(none)"
+msgstr "(κανένα)"
+
+#: ../root/edit/details/AddRelationshipType.js:201
+msgctxt "documentation"
+msgid "(none)"
+msgstr "(κανένα)"
+
 #: ../root/edit/details/AddRemoveAlias.js:64
 #: ../root/edit/details/EditAlias.js:69
 msgid "view all aliases"
@@ -9576,7 +9567,7 @@ msgid "Primary for locale"
 msgstr ""
 
 #: ../root/edit/details/AddSeries.js:38 ../root/edit/details/EditSeries.js:47
-#: ../root/report/ReportsIndex.js:513
+#: ../root/report/ReportsIndex.js:518
 #: ../root/report/components/SeriesAnnotationList.js:30
 #: ../root/tag/TagIndex.js:132
 msgid "Series"
@@ -9853,17 +9844,17 @@ msgstr "(προσωπικό)"
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr "Για να μάθετε αν μπορείτε να ψηφίσετε για αυτόν τον υποψήφιο, παρακαλούμε {url|συνδεθείτε}."
 
-#: ../root/elections/ElectionVoting.js:28
+#: ../root/elections/ElectionVoting.js:29
 msgid ""
 "You cannot vote for this candidate, because you are not an auto-editor."
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:33
+#: ../root/elections/ElectionVoting.js:34
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:38
+#: ../root/elections/ElectionVoting.js:39
 msgid ""
 "Voting is not yet open. If you would like to support this candidate, you can"
 " second their nomination. If you do not support this candidate, please note "
@@ -9871,27 +9862,27 @@ msgid ""
 "been found."
 msgstr "Η ψηφοφορία δεν είναι ανοικτή ακόμα. Αν επιθυμείτε να στηρίξετε αυτόν τον υποψήφιο, μπορείς να υποστηρίξετε την υποψηφιότητά τους. Αν δεν επιθυμείτε να στηρίξετε αυτό τον υποψήφιο, παρακαλούμε σημειώστε ότι δεν μπορείτε να ρίξετε αρνητική (ή λευκή) ψήφο μέχρι να βρεθούν δύο υποστηρικτές."
 
-#: ../root/elections/ElectionVoting.js:45
+#: ../root/elections/ElectionVoting.js:46
 msgid "Voting is closed."
 msgstr "Η ψηφοφορία έχει κλείσει."
 
-#: ../root/elections/ElectionVoting.js:55
+#: ../root/elections/ElectionVoting.js:56
 msgid "Second this candidate"
 msgstr "Υποστήριξη αυτού του υποψηφίου"
 
-#: ../root/elections/ElectionVoting.js:66
+#: ../root/elections/ElectionVoting.js:67
 msgid "Vote YES"
 msgstr "Ψηφίστε ΝΑΙ."
 
-#: ../root/elections/ElectionVoting.js:69
+#: ../root/elections/ElectionVoting.js:70
 msgid "Vote NO"
 msgstr "Ψηφίστε ΟΧΙ"
 
-#: ../root/elections/ElectionVoting.js:72
+#: ../root/elections/ElectionVoting.js:73
 msgid "Abstain"
 msgstr "Αποχή"
 
-#: ../root/elections/ElectionVoting.js:88
+#: ../root/elections/ElectionVoting.js:89
 msgid "Cancel the election"
 msgstr "Ακύρωση ψηφοφορίας"
 
@@ -9903,25 +9894,25 @@ msgstr ""
 msgid "No elections found."
 msgstr "Δε βρέθηκαν ψηφοφορίες."
 
-#: ../root/elections/Nominate.js:27
+#: ../root/elections/Nominate.js:30
 msgid ""
 "Are you sure you want to nominate the editor {editor} for auto-editor "
 "status?"
 msgstr ""
 
-#: ../root/elections/Nominate.js:31
+#: ../root/elections/Nominate.js:34
 msgid "Nominate a candidate for auto-editor"
 msgstr ""
 
-#: ../root/elections/Show.js:28
+#: ../root/elections/Show.js:27
 msgid "Auto-editor election #{no}"
 msgstr ""
 
-#: ../root/elections/Show.js:33
+#: ../root/elections/Show.js:32
 msgid "Back to elections"
 msgstr "Πίσω στις ψηφοφορίες"
 
-#: ../root/elections/Show.js:38
+#: ../root/elections/Show.js:37
 msgid "Votes cast"
 msgstr "Ψήφοι που ρίχτηκαν"
 
@@ -10187,17 +10178,17 @@ msgid ""
 "try and {search_url|search for it} instead."
 msgstr "Λυπούμαστε, δεν μπορέσαμε να βρούμε έργο με αυτό το MusicBrainz ID. Ίσως θέλετε να κάνετε {search_url|αναζήτηση} για αυτό."
 
-#: ../root/entity/Ratings.js:61
+#: ../root/entity/Ratings.js:56
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
 msgstr[0] "{count} ιδιωτική βαθμολογία δεν εμφανίζεται."
 msgstr[1] "{count} ιδιωτικές βαθμολογίες δεν εμφανίζονται."
 
-#: ../root/entity/Ratings.js:68
+#: ../root/entity/Ratings.js:63
 msgid "Average rating:"
 msgstr ""
 
-#: ../root/entity/Ratings.js:74
+#: ../root/entity/Ratings.js:69
 msgid "{link} has no ratings."
 msgstr "{link} δεν έχει βαθμολογίες."
 
@@ -10453,7 +10444,7 @@ msgstr ""
 msgid "Privileged User Accounts"
 msgstr "Προνομιούχοι λογαριασμοί χρηστών"
 
-#: ../root/layout/components/BottomMenu.js:133 ../root/user/UserProfile.js:469
+#: ../root/layout/components/BottomMenu.js:133 ../root/user/UserProfile.js:478
 msgid "Statistics"
 msgstr "Στατιστικά"
 
@@ -10513,7 +10504,7 @@ msgstr "Αναζήτηση στις τροποποιήσεις"
 #: ../root/layout/components/sidebar/CollectionSidebar.js:46
 #: ../root/layout/components/sidebar/EditLinks.js:27
 #: ../root/layout/components/sidebar/GenreSidebar.js:26
-#: ../root/static/scripts/account/components/PreferencesForm.js:237
+#: ../root/static/scripts/account/components/PreferencesForm.js:238
 msgid "Editing"
 msgstr "Γίνεται επεξεργασία"
 
@@ -10713,12 +10704,17 @@ msgstr ""
 msgid "Email Search"
 msgstr ""
 
+#: ../root/layout/components/TopMenu.js:157 ../root/user/Login.js:44
+#: ../root/user/Login.js:45 ../root/user/Login.js:103
+msgid "Log In"
+msgstr "Σύνδεση"
+
 #: ../root/layout/components/sidebar/AnnotationLinks.js:36
 msgid "Add annotation"
 msgstr "Προσθήκη σχολίου"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:42
-#: ../root/static/scripts/common/components/Annotation.js:99
+#: ../root/static/scripts/common/components/Annotation.js:94
 msgid "View annotation history"
 msgstr "Προβολή ιστορικού σχολίων"
 
@@ -10771,12 +10767,12 @@ msgid "Add to a new collection"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:33
-#: ../root/user/UserCollections.js:184
+#: ../root/user/UserCollections.js:189
 msgid "Collaborative collections"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:37
-#: ../root/user/UserCollections.js:163
+#: ../root/user/UserCollections.js:168
 msgid "My collections"
 msgstr ""
 
@@ -10817,7 +10813,7 @@ msgstr "Ιστορικό επεξεργασίας"
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:75
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:36
-#: ../root/user/UserSubscriptions.js:205
+#: ../root/user/UserSubscriptions.js:207
 msgid "Unsubscribe"
 msgstr "Μη παρακολούθηση"
 
@@ -10842,7 +10838,7 @@ msgstr ""
 msgid "End Date:"
 msgstr ""
 
-#: ../root/layout/components/sidebar/InstrumentSidebar.js:43
+#: ../root/layout/components/sidebar/InstrumentSidebar.js:47
 msgid "Instrument information"
 msgstr ""
 
@@ -10890,9 +10886,13 @@ msgstr "Έκλεισε"
 msgid "Coordinates:"
 msgstr ""
 
-#: ../root/layout/components/sidebar/RecordingSidebar.js:41
+#: ../root/layout/components/sidebar/RecordingSidebar.js:42
 msgid "Recording information"
 msgstr "Πληροφορίες ηχογράφησης"
+
+#: ../root/layout/components/sidebar/RecordingSidebar.js:59
+msgid "First release year"
+msgstr ""
 
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:50
 msgid "Release group information"
@@ -11013,6 +11013,31 @@ msgstr ""
 msgid ""
 "Found a broken link on our site? Please {report|report a bug} and include "
 "any error message that is shown above."
+msgstr ""
+
+#: ../root/main/ConfirmSeed.js:31
+msgid "Confirm Form Submission"
+msgstr ""
+
+#: ../root/main/ConfirmSeed.js:37
+msgid ""
+"You are about to submit a request to {action} originating from {origin}. "
+"Continue?"
+msgstr ""
+
+#: ../root/main/ConfirmSeed.js:46
+msgid ""
+"This confirmation is important to ensure that no malicious actor can use "
+"your account to modify data without your knowledge. Below this line, you can"
+" review the data being sent and make any modifications if desired."
+msgstr ""
+
+#: ../root/main/components/ConfirmSeedButtons.js:18
+msgid "Continue"
+msgstr ""
+
+#: ../root/main/components/ConfirmSeedButtons.js:34
+msgid "Leave"
 msgstr ""
 
 #: ../root/main/index.js:35
@@ -11158,27 +11183,27 @@ msgstr ""
 msgid "No {mbid_doc|MBID} selected."
 msgstr ""
 
-#: ../root/oauth2/OAuth2Authorize.js:29 ../root/oauth2/OAuth2Oob.js:25
+#: ../root/oauth2/OAuth2Authorize.js:31 ../root/oauth2/OAuth2Oob.js:25
 msgid "OAuth Authorization"
 msgstr ""
 
-#: ../root/oauth2/OAuth2Authorize.js:30
+#: ../root/oauth2/OAuth2Authorize.js:32
 msgid "Authorization"
 msgstr ""
 
-#: ../root/oauth2/OAuth2Authorize.js:33
+#: ../root/oauth2/OAuth2Authorize.js:35
 msgid "{app} is requesting permission to:"
 msgstr ""
 
-#: ../root/oauth2/OAuth2Authorize.js:42
+#: ../root/oauth2/OAuth2Authorize.js:44
 msgid "Perform the above operations when I'm not using the application"
 msgstr ""
 
-#: ../root/oauth2/OAuth2Authorize.js:57
+#: ../root/oauth2/OAuth2Authorize.js:59
 msgid "No thanks"
 msgstr ""
 
-#: ../root/oauth2/OAuth2Authorize.js:60
+#: ../root/oauth2/OAuth2Authorize.js:62
 msgid "Allow access"
 msgstr ""
 
@@ -11349,40 +11374,40 @@ msgstr ""
 msgid "ID:"
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:129
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:100
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:137
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:108
 msgid "UUID:"
 msgstr "UUID:"
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:135
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:143
 msgid "Link phrases"
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:159
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:167
 msgid "This relationship type doesn't allow any attributes."
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:162
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:170
 msgid "The following attributes can be used with this relationship type:"
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:178
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:186
 msgid "start date"
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:181
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:189
 msgid "end date"
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:192
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:200
 msgid "Guidelines"
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:196
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:204
 msgid "See the general {url|guidelines for URLs}."
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:229
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:237
 msgid ""
 "This relationship type is only used for grouping other relationship types."
 msgstr ""
@@ -11398,35 +11423,35 @@ msgctxt "link phrase"
 msgid "(none)"
 msgstr "(κανένα)"
 
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:123
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:131
 msgid "{relationship_documentation_url|Documentation}"
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:163
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:171
 msgid "{type0}-{type1} Relationship Types"
 msgstr "{type0}-{type1} Τύποι σχέσεων"
 
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:174
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:182
 msgid "&lt; Back to all relationship types"
 msgstr "&lt; Πίσω σε όλους τους τύπους σχέσεων"
 
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:181
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:189
 msgid "{type0}-{type1} relationship types"
 msgstr "{type0}-{type1} τύποι σχέσεων"
 
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:190
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:198
 msgid "Create a new {type0}-{type1} relationship"
 msgstr "Δημιουργία νέας {type0}-{type1} σχέσης"
 
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:201
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:209
 msgid "Expand all descriptions"
 msgstr "Ανάπτυξη όλων των περιγραφών"
 
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:204
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:212
 msgid "Collapse all descriptions"
 msgstr "Σύμπτυξη όλων των περιγραφών"
 
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:224
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:232
 msgid "No {type0}-{type1} relationship types found."
 msgstr "Δε βρέθηκαν τύποι σχέσης {type0}-{type1} ."
 
@@ -11536,6 +11561,7 @@ msgstr "Σύνολο καλλιτεχνών: {count}"
 #: ../root/report/FeaturingReleaseGroups.js:54
 #: ../root/report/FeaturingReleases.js:57
 #: ../root/report/InstrumentsWithoutAnImage.js:37
+#: ../root/report/InstrumentsWithoutWikidata.js:36
 #: ../root/report/IsrcsWithManyRecordings.js:60
 #: ../root/report/IswcsWithManyWorks.js:50
 #: ../root/report/LabelsDisambiguationSameName.js:45
@@ -11822,7 +11848,7 @@ msgstr ""
 
 #: ../root/report/AsinsWithMultipleReleases.js:30
 #: ../root/report/AsinsWithMultipleReleases.js:32
-#: ../root/report/ReportsIndex.js:260
+#: ../root/report/ReportsIndex.js:265
 msgid "Amazon URLs linked to multiple releases"
 msgstr "Amazon URLs συνδεδεμένα με πολλαπλές κυκλοφορίες"
 
@@ -11866,7 +11892,7 @@ msgid "This release no longer exists."
 msgstr ""
 
 #: ../root/report/CDTocDubiousLength.js:24
-#: ../root/report/CDTocDubiousLength.js:25 ../root/report/ReportsIndex.js:579
+#: ../root/report/CDTocDubiousLength.js:25 ../root/report/ReportsIndex.js:584
 msgid "Disc IDs with dubious duration"
 msgstr ""
 
@@ -11879,7 +11905,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/CatNoLooksLikeAsin.js:34
-#: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:311
+#: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:316
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr "Κυκλοφορίες με αριθμούς καταλόγου που μοιάζουν με ASINs"
 
@@ -11893,7 +11919,7 @@ msgstr "Αυτή η αναφορά εμφανίζει τις κυκλοφορί�
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:34
 #: ../root/report/CatNoLooksLikeLabelCode.js:36
-#: ../root/report/ReportsIndex.js:316
+#: ../root/report/ReportsIndex.js:321
 msgid "Releases with catalog numbers that look like Label Codes"
 msgstr ""
 
@@ -11950,7 +11976,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipLabels.js:27
 #: ../root/report/DeprecatedRelationshipLabels.js:28
-#: ../root/report/ReportsIndex.js:158
+#: ../root/report/ReportsIndex.js:163
 msgid "Labels with deprecated relationships"
 msgstr ""
 
@@ -11962,7 +11988,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:27
 #: ../root/report/DeprecatedRelationshipPlaces.js:28
-#: ../root/report/ReportsIndex.js:498
+#: ../root/report/ReportsIndex.js:503
 msgid "Places with deprecated relationships"
 msgstr ""
 
@@ -11974,7 +12000,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:32
 #: ../root/report/DeprecatedRelationshipRecordings.js:34
-#: ../root/report/ReportsIndex.js:450
+#: ../root/report/ReportsIndex.js:455
 msgid "Recordings with deprecated relationships"
 msgstr ""
 
@@ -11986,7 +12012,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:32
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:34
-#: ../root/report/ReportsIndex.js:198
+#: ../root/report/ReportsIndex.js:203
 msgid "Release groups with deprecated relationships"
 msgstr ""
 
@@ -11998,7 +12024,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipReleases.js:31
 #: ../root/report/DeprecatedRelationshipReleases.js:33
-#: ../root/report/ReportsIndex.js:375
+#: ../root/report/ReportsIndex.js:380
 msgid "Releases with deprecated relationships"
 msgstr ""
 
@@ -12010,7 +12036,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipUrls.js:27
 #: ../root/report/DeprecatedRelationshipUrls.js:28
-#: ../root/report/ReportsIndex.js:548
+#: ../root/report/ReportsIndex.js:553
 msgid "URLs with deprecated relationships"
 msgstr ""
 
@@ -12026,7 +12052,7 @@ msgstr ""
 
 #: ../root/report/DeprecatedRelationshipWorks.js:27
 #: ../root/report/DeprecatedRelationshipWorks.js:28
-#: ../root/report/ReportsIndex.js:533
+#: ../root/report/ReportsIndex.js:538
 msgid "Works with deprecated relationships"
 msgstr ""
 
@@ -12048,7 +12074,7 @@ msgstr "Αυτή η αναφορά εμφανίζει Discogs URLs τα οποί
 
 #: ../root/report/DiscogsLinksWithMultipleLabels.js:30
 #: ../root/report/DiscogsLinksWithMultipleLabels.js:32
-#: ../root/report/ReportsIndex.js:148
+#: ../root/report/ReportsIndex.js:153
 msgid "Discogs URLs linked to multiple labels"
 msgstr "Discogs URLs συνδεδεμένα με πολλαπλές δισκογραφικές εταιρείες"
 
@@ -12058,7 +12084,7 @@ msgstr "Αυτή η αναφορά εμφανίζει Discogs URLs τα οποί
 
 #: ../root/report/DiscogsLinksWithMultipleReleaseGroups.js:30
 #: ../root/report/DiscogsLinksWithMultipleReleaseGroups.js:32
-#: ../root/report/ReportsIndex.js:188
+#: ../root/report/ReportsIndex.js:193
 msgid "Discogs URLs linked to multiple release groups"
 msgstr "Discogs URLs συνδεδεμένα με πολλαπλές ομάδες κυκλοφοριών"
 
@@ -12069,7 +12095,7 @@ msgstr "Αυτή η αναφορά εμφανίζει Discogs URLs τα οποί
 
 #: ../root/report/DiscogsLinksWithMultipleReleases.js:30
 #: ../root/report/DiscogsLinksWithMultipleReleases.js:32
-#: ../root/report/ReportsIndex.js:265
+#: ../root/report/ReportsIndex.js:270
 msgid "Discogs URLs linked to multiple releases"
 msgstr "Discogs URLs συνδεδεμένα με πολλαπλές κυκλοφορίες"
 
@@ -12139,7 +12165,7 @@ msgstr ""
 
 #: ../root/report/DuplicateRelationshipsLabels.js:30
 #: ../root/report/DuplicateRelationshipsLabels.js:32
-#: ../root/report/ReportsIndex.js:153
+#: ../root/report/ReportsIndex.js:158
 msgid "Labels with possible duplicate relationships"
 msgstr ""
 
@@ -12151,7 +12177,7 @@ msgstr ""
 
 #: ../root/report/DuplicateRelationshipsRecordings.js:30
 #: ../root/report/DuplicateRelationshipsRecordings.js:32
-#: ../root/report/ReportsIndex.js:440
+#: ../root/report/ReportsIndex.js:445
 msgid "Recordings with possible duplicate relationships"
 msgstr ""
 
@@ -12163,7 +12189,7 @@ msgstr ""
 
 #: ../root/report/DuplicateRelationshipsReleaseGroups.js:30
 #: ../root/report/DuplicateRelationshipsReleaseGroups.js:32
-#: ../root/report/ReportsIndex.js:193
+#: ../root/report/ReportsIndex.js:198
 msgid "Release groups with possible duplicate relationships"
 msgstr ""
 
@@ -12175,7 +12201,7 @@ msgstr ""
 
 #: ../root/report/DuplicateRelationshipsReleases.js:30
 #: ../root/report/DuplicateRelationshipsReleases.js:32
-#: ../root/report/ReportsIndex.js:360
+#: ../root/report/ReportsIndex.js:365
 msgid "Releases with possible duplicate relationships"
 msgstr ""
 
@@ -12187,7 +12213,7 @@ msgstr ""
 
 #: ../root/report/DuplicateRelationshipsWorks.js:30
 #: ../root/report/DuplicateRelationshipsWorks.js:32
-#: ../root/report/ReportsIndex.js:528
+#: ../root/report/ReportsIndex.js:533
 msgid "Works with possible duplicate relationships"
 msgstr ""
 
@@ -12200,7 +12226,7 @@ msgstr ""
 
 #: ../root/report/DuplicateReleaseGroups.js:27
 #: ../root/report/DuplicateReleaseGroups.js:28
-#: ../root/report/ReportsIndex.js:203
+#: ../root/report/ReportsIndex.js:208
 msgid "Possible duplicate release groups"
 msgstr ""
 
@@ -12228,7 +12254,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/FeaturingRecordings.js:30
-#: ../root/report/FeaturingRecordings.js:32 ../root/report/ReportsIndex.js:435
+#: ../root/report/FeaturingRecordings.js:32 ../root/report/ReportsIndex.js:440
 msgid "Recordings with titles containing featuring artists"
 msgstr "Ηχογραφήσεις με τίτλους που περιέχουν τους καλλιτέχνες που συμμετέχουν"
 
@@ -12244,7 +12270,7 @@ msgstr ""
 
 #: ../root/report/FeaturingReleaseGroups.js:30
 #: ../root/report/FeaturingReleaseGroups.js:32
-#: ../root/report/ReportsIndex.js:183
+#: ../root/report/ReportsIndex.js:188
 msgid "Release groups with titles containing featuring artists"
 msgstr "Ομάδες κυκλοφοριών με τίτλους που περιέχουν τους καλλιτέχνες που συμμετέχουν"
 
@@ -12258,7 +12284,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/FeaturingReleases.js:30
-#: ../root/report/FeaturingReleases.js:32 ../root/report/ReportsIndex.js:295
+#: ../root/report/FeaturingReleases.js:32 ../root/report/ReportsIndex.js:300
 msgid "Releases with titles containing featuring artists"
 msgstr "Κυκλοφορίες με τίτλους που περιέχουν τους καλλιτέχνες που συμμετέχουν"
 
@@ -12289,17 +12315,27 @@ msgstr ""
 
 #: ../root/report/InstrumentsWithoutAnImage.js:29
 msgid ""
-"This report shows instruments without image relationships nor Wikidata "
-"relationships."
+"This report shows instruments without an image relationship to StaticBrainz "
+"(i.e. without an IROMBOOK image)."
 msgstr ""
 
 #: ../root/report/InstrumentsWithoutAnImage.js:33
+#: ../root/report/InstrumentsWithoutWikidata.js:32
 msgid "Total instruments found: {count}"
+msgstr ""
+
+#: ../root/report/InstrumentsWithoutWikidata.js:24
+#: ../root/report/InstrumentsWithoutWikidata.js:25
+msgid "Instruments without a Wikidata link"
+msgstr ""
+
+#: ../root/report/InstrumentsWithoutWikidata.js:29
+msgid "This report shows instruments without Wikidata relationships."
 msgstr ""
 
 #: ../root/report/IsrcsWithManyRecordings.js:37
 #: ../root/report/IsrcsWithManyRecordings.js:38
-#: ../root/report/ReportsIndex.js:559
+#: ../root/report/ReportsIndex.js:564
 msgid "ISRCs with multiple recordings"
 msgstr "ISRCs με πολλαπλές ηχογραφήσεις"
 
@@ -12328,7 +12364,7 @@ msgid "This recording no longer exists."
 msgstr ""
 
 #: ../root/report/IswcsWithManyWorks.js:33
-#: ../root/report/IswcsWithManyWorks.js:34 ../root/report/ReportsIndex.js:569
+#: ../root/report/IswcsWithManyWorks.js:34 ../root/report/ReportsIndex.js:574
 msgid "ISWCs with multiple works"
 msgstr ""
 
@@ -12351,7 +12387,7 @@ msgstr ""
 
 #: ../root/report/LabelsDisambiguationSameName.js:30
 #: ../root/report/LabelsDisambiguationSameName.js:32
-#: ../root/report/ReportsIndex.js:168
+#: ../root/report/ReportsIndex.js:173
 msgid "Labels with disambiguation the same as the name"
 msgstr ""
 
@@ -12414,7 +12450,7 @@ msgid ""
 msgstr "Αυτή η αναφορά εμφανίζει τις κυκλοφορίες που έχουν περισσότερους από έναν συνδέσμους στο Discogs. Στις περισσότερες περιπτώσεις μία κυκλοφορία του MusicBrainz πρέπει να αντιστοιχεί σε μία στο Discogs, οπότε μόνο μία από αυτές είναι σωστή. Απλά ελέγξτε ποιοι δεν ταιριάζουν με την κυκλοφορία (λόγω μορφής, διαφορετικού αριθμού κομματιών, κτλ). Κάθε σελίδα \"master\" του Discogs ανήκει στο {release_group|επίπεδο ομάδας κυκλοφοριών}, όχι στο επίπεδο κυκλοφορίας, και πρέπει να αφαιρεθεί και από τις κυκλοφορίες."
 
 #: ../root/report/NoLanguage.js:27 ../root/report/NoLanguage.js:28
-#: ../root/report/ReportsIndex.js:235
+#: ../root/report/ReportsIndex.js:240
 msgid "Releases without language"
 msgstr "Κυκλοφορίες χωρίς γλώσσα"
 
@@ -12426,7 +12462,7 @@ msgid ""
 msgstr "Αυτή η αναφορά εμφανίζει τις κυκλοφορίες που δεν έχουν ρυθμισμένη γλώσσα. Αν αναγνωρίζετε τη γλώσσα, παρακαλούμε ορίστε της! Μόνο αν είστε απόλυτα σίγουροι όμως, μην μαντεύετε απλά: Όλα τα Κυριλλικά κείμενα για παράδειγμα δεν είναι Ρώσικα."
 
 #: ../root/report/NoScript.js:27 ../root/report/NoScript.js:28
-#: ../root/report/ReportsIndex.js:240
+#: ../root/report/ReportsIndex.js:245
 msgid "Releases without script"
 msgstr "Κυκλοφορίες χωρίς γραφή"
 
@@ -12454,7 +12490,7 @@ msgstr ""
 
 #: ../root/report/PlacesWithoutCoordinates.js:31
 #: ../root/report/PlacesWithoutCoordinates.js:32
-#: ../root/report/ReportsIndex.js:508
+#: ../root/report/ReportsIndex.js:513
 msgid "Places without coordinates"
 msgstr ""
 
@@ -12491,7 +12527,7 @@ msgstr ""
 
 #: ../root/report/RecordingTrackDifferentName.js:34
 #: ../root/report/RecordingTrackDifferentName.js:37
-#: ../root/report/ReportsIndex.js:483
+#: ../root/report/ReportsIndex.js:488
 msgid "Recordings with a different name than their only track"
 msgstr ""
 
@@ -12504,7 +12540,7 @@ msgstr ""
 
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:35
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:39
-#: ../root/report/ReportsIndex.js:477
+#: ../root/report/ReportsIndex.js:482
 msgid "Recordings with the same name by different artists with the same name"
 msgstr ""
 
@@ -12527,7 +12563,7 @@ msgstr ""
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:30
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:32
-#: ../root/report/ReportsIndex.js:430
+#: ../root/report/ReportsIndex.js:435
 msgid "Recordings with earliest release relationships"
 msgstr ""
 
@@ -12557,7 +12593,7 @@ msgstr ""
 
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:27
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:28
-#: ../root/report/ReportsIndex.js:445
+#: ../root/report/ReportsIndex.js:450
 msgid "Recordings with varying track times"
 msgstr ""
 
@@ -12569,7 +12605,7 @@ msgstr ""
 
 #: ../root/report/RecordingsWithoutVaCredit.js:30
 #: ../root/report/RecordingsWithoutVaCredit.js:33
-#: ../root/report/ReportsIndex.js:460
+#: ../root/report/ReportsIndex.js:465
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
@@ -12581,7 +12617,7 @@ msgstr ""
 
 #: ../root/report/RecordingsWithoutVaLink.js:30
 #: ../root/report/RecordingsWithoutVaLink.js:33
-#: ../root/report/ReportsIndex.js:466
+#: ../root/report/ReportsIndex.js:471
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
@@ -12593,7 +12629,7 @@ msgstr ""
 
 #: ../root/report/ReleaseGroupsWithoutVaCredit.js:30
 #: ../root/report/ReleaseGroupsWithoutVaCredit.js:34
-#: ../root/report/ReportsIndex.js:213
+#: ../root/report/ReportsIndex.js:218
 msgid "Release groups not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
@@ -12605,7 +12641,7 @@ msgstr ""
 
 #: ../root/report/ReleaseGroupsWithoutVaLink.js:30
 #: ../root/report/ReleaseGroupsWithoutVaLink.js:34
-#: ../root/report/ReportsIndex.js:219
+#: ../root/report/ReportsIndex.js:224
 msgid "Release groups credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
@@ -12617,7 +12653,7 @@ msgstr ""
 
 #: ../root/report/ReleaseLabelSameArtist.js:34
 #: ../root/report/ReleaseLabelSameArtist.js:36
-#: ../root/report/ReportsIndex.js:410
+#: ../root/report/ReportsIndex.js:415
 msgid "Releases where artist name and label name are the same"
 msgstr ""
 
@@ -12630,7 +12666,7 @@ msgstr ""
 
 #: ../root/report/ReleaseRgDifferentName.js:32
 #: ../root/report/ReleaseRgDifferentName.js:34
-#: ../root/report/ReportsIndex.js:415
+#: ../root/report/ReportsIndex.js:420
 msgid "Releases with a different name than their release group"
 msgstr ""
 
@@ -12651,7 +12687,7 @@ msgid "This release group no longer exists."
 msgstr ""
 
 #: ../root/report/ReleasedTooEarly.js:27 ../root/report/ReleasedTooEarly.js:28
-#: ../root/report/ReportsIndex.js:300
+#: ../root/report/ReportsIndex.js:305
 msgid "Releases released too early"
 msgstr ""
 
@@ -12665,7 +12701,7 @@ msgstr ""
 
 #: ../root/report/ReleasesConflictingDiscIds.js:27
 #: ../root/report/ReleasesConflictingDiscIds.js:28
-#: ../root/report/ReportsIndex.js:405
+#: ../root/report/ReportsIndex.js:410
 msgid "Releases with conflicting disc IDs"
 msgstr ""
 
@@ -12678,7 +12714,7 @@ msgstr ""
 
 #: ../root/report/ReleasesInCaaWithCoverArtRelationships.js:30
 #: ../root/report/ReleasesInCaaWithCoverArtRelationships.js:34
-#: ../root/report/ReportsIndex.js:327
+#: ../root/report/ReportsIndex.js:332
 msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
 msgstr "Κυκλοφορίες στο Cover Art Archive που εξακκολουθούν να έχουν σχέσεις εξωφύλλου"
@@ -12691,7 +12727,7 @@ msgstr ""
 
 #: ../root/report/ReleasesMissingDiscIds.js:27
 #: ../root/report/ReleasesMissingDiscIds.js:28
-#: ../root/report/ReportsIndex.js:400
+#: ../root/report/ReportsIndex.js:405
 msgid "Releases missing disc IDs"
 msgstr ""
 
@@ -12708,7 +12744,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesSameBarcode.js:42
-#: ../root/report/ReleasesSameBarcode.js:44 ../root/report/ReportsIndex.js:420
+#: ../root/report/ReleasesSameBarcode.js:44 ../root/report/ReportsIndex.js:425
 msgid "Releases with the same barcode in different release groups"
 msgstr ""
 
@@ -12721,7 +12757,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesToConvert.js:30
-#: ../root/report/ReleasesToConvert.js:32 ../root/report/ReportsIndex.js:230
+#: ../root/report/ReleasesToConvert.js:32 ../root/report/ReportsIndex.js:235
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr "Κυκλοφορίες που ίσως πρέπει να μετατραπούν σε \"πολλαπλών καλλιτεχνών\""
 
@@ -12735,7 +12771,7 @@ msgstr "Αυτή η αναφορά έχει ως στόχο να εντοπισ�
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:30
 #: ../root/report/ReleasesWithCaaNoTypes.js:34
-#: ../root/report/ReportsIndex.js:339
+#: ../root/report/ReportsIndex.js:344
 msgid "Releases in the Cover Art Archive where no cover art piece has types"
 msgstr ""
 
@@ -12748,7 +12784,7 @@ msgstr ""
 
 #: ../root/report/ReleasesWithDownloadRelationships.js:30
 #: ../root/report/ReleasesWithDownloadRelationships.js:33
-#: ../root/report/ReportsIndex.js:370
+#: ../root/report/ReportsIndex.js:375
 msgid "Non-digital releases with download relationships"
 msgstr ""
 
@@ -12760,7 +12796,7 @@ msgstr ""
 
 #: ../root/report/ReleasesWithNoMediums.js:27
 #: ../root/report/ReleasesWithNoMediums.js:28
-#: ../root/report/ReportsIndex.js:385
+#: ../root/report/ReportsIndex.js:390
 msgid "Releases with no mediums"
 msgstr ""
 
@@ -12770,7 +12806,7 @@ msgstr ""
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:30
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:32
-#: ../root/report/ReportsIndex.js:350
+#: ../root/report/ReportsIndex.js:355
 msgid "Releases with unlikely language/script pairs"
 msgstr "Κυκλοφορίες με όχι πιθανά ζεύγη γλώσσας/γραφής"
 
@@ -12782,7 +12818,7 @@ msgstr "Αυτή η αναφορά εμφανίζει κυκλοφορίες π�
 
 #: ../root/report/ReleasesWithoutVaCredit.js:30
 #: ../root/report/ReleasesWithoutVaCredit.js:33
-#: ../root/report/ReportsIndex.js:390
+#: ../root/report/ReportsIndex.js:395
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
@@ -12794,7 +12830,7 @@ msgstr ""
 
 #: ../root/report/ReleasesWithoutVaLink.js:30
 #: ../root/report/ReleasesWithoutVaLink.js:33
-#: ../root/report/ReportsIndex.js:395
+#: ../root/report/ReportsIndex.js:400
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
@@ -12837,109 +12873,113 @@ msgstr ""
 msgid "Possibly duplicate events"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:163
+#: ../root/report/ReportsIndex.js:143
+msgid "Instruments without a link to Wikidata"
+msgstr ""
+
+#: ../root/report/ReportsIndex.js:168
 msgid "Labels with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:173
+#: ../root/report/ReportsIndex.js:178
 msgid "Release groups"
 msgstr "Ομάδες κυκλοφοριών"
 
-#: ../root/report/ReportsIndex.js:178
+#: ../root/report/ReportsIndex.js:183
 msgid "Release groups that might need to be merged"
 msgstr "Ομάδες κυκλοφοριών που ίσως χρειάζονται συγχώνευση"
 
-#: ../root/report/ReportsIndex.js:208
+#: ../root/report/ReportsIndex.js:213
 msgid "Release groups with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:245
+#: ../root/report/ReportsIndex.js:250
 msgid "Releases which have unexpected Amazon URLs"
 msgstr "Κυκλοφορίες με απροσδόκητα Amazon URLs"
 
-#: ../root/report/ReportsIndex.js:250
+#: ../root/report/ReportsIndex.js:255
 msgid "Releases which have multiple ASINs"
 msgstr "Κυκλοφορίες με πολλαπλά ASINs"
 
-#: ../root/report/ReportsIndex.js:255
+#: ../root/report/ReportsIndex.js:260
 msgid "Releases which have multiple Discogs links"
 msgstr "Κυκλοφορίες με πολλαπλούς συνδέσμους Discogs"
 
-#: ../root/report/ReportsIndex.js:270
+#: ../root/report/ReportsIndex.js:275
 msgid "Releases which have part of set relationships"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:275
+#: ../root/report/ReportsIndex.js:280
 msgid "Discs entered as separate releases"
 msgstr "Δίσκοι καταχωρημένοι ως ξεχωριστές κυκλοφορίες"
 
-#: ../root/report/ReportsIndex.js:280
+#: ../root/report/ReportsIndex.js:285
 msgid "Tracks whose names include their sequence numbers"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:285
+#: ../root/report/ReportsIndex.js:290
 msgid "Releases with non-sequential track numbers"
 msgstr "Κυκλοφορίες με μη συνεχείς αριθμούς κομματιών"
 
-#: ../root/report/ReportsIndex.js:290
+#: ../root/report/ReportsIndex.js:295
 #: ../root/report/SuperfluousDataTracks.js:30
 #: ../root/report/SuperfluousDataTracks.js:32
 msgid "Releases with superfluous data tracks"
 msgstr "Κυκλοφορίες με περιττά κομμάτια δεδομένων"
 
-#: ../root/report/ReportsIndex.js:305
+#: ../root/report/ReportsIndex.js:310
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:321
+#: ../root/report/ReportsIndex.js:326
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Μεταφρασμένες/Μεταγλωττισμένες Ψευδο-κυκλοφορίες που δεν έχουν συνδεθεί με την πρωτότυπη έκδοση"
 
-#: ../root/report/ReportsIndex.js:333
+#: ../root/report/ReportsIndex.js:338
 msgid "Releases of any sort that still have cover art relationships"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:345
+#: ../root/report/ReportsIndex.js:350
 msgid "Releases with non-sequential mediums"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:355 ../root/report/TracksWithoutTimes.js:27
+#: ../root/report/ReportsIndex.js:360 ../root/report/TracksWithoutTimes.js:27
 #: ../root/report/TracksWithoutTimes.js:28
 msgid "Releases with unknown track times"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:365
+#: ../root/report/ReportsIndex.js:370
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:30
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:32
 msgid "Releases with a single medium that has a name"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:380
+#: ../root/report/ReportsIndex.js:385
 msgid "Releases with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:455
+#: ../root/report/ReportsIndex.js:460
 msgid "Recordings with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:488
+#: ../root/report/ReportsIndex.js:493
 msgid "Recordings with dates in the future"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:503
+#: ../root/report/ReportsIndex.js:508
 msgid "Places with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:518
+#: ../root/report/ReportsIndex.js:523
 msgid "Series with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:538
+#: ../root/report/ReportsIndex.js:543
 msgid "Works with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:554
+#: ../root/report/ReportsIndex.js:559
 #: ../root/search/components/RecordingResults.js:127
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:696
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:243
@@ -12947,7 +12987,7 @@ msgstr ""
 msgid "ISRCs"
 msgstr "ISRCs"
 
-#: ../root/report/ReportsIndex.js:564
+#: ../root/report/ReportsIndex.js:569
 msgid "ISWCs"
 msgstr ""
 
@@ -13068,7 +13108,7 @@ msgid "This Disc ID no longer exists."
 msgstr ""
 
 #: ../root/report/components/EditorList.js:33
-#: ../root/static/scripts/account/components/EditProfileForm.js:213
+#: ../root/static/scripts/account/components/EditProfileForm.js:215
 msgid "Website"
 msgstr ""
 
@@ -13190,120 +13230,120 @@ msgid ""
 " series all others should be merged into:"
 msgstr ""
 
-#: ../root/static/scripts/account/components/ApplicationForm.js:93
+#: ../root/static/scripts/account/components/ApplicationForm.js:94
 msgid "Callback URL"
 msgstr ""
 
-#: ../root/static/scripts/account/components/ApplicationForm.js:101
+#: ../root/static/scripts/account/components/ApplicationForm.js:102
 msgid ""
 "Callback URI is optional for installed applications. If set, its scheme must"
 " be a custom reverse-DNS string, as in <code>org.example.app://auth</code>, "
 "for installed applications."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:193
+#: ../root/static/scripts/account/components/EditProfileForm.js:195
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
 msgstr "Αυτός είναι ένας εξυπηρετητής ανάπτυξης. Η διεύθυνση email σας δεν είναι ούτε ιδιωτική ούτε ασφαλής. Συνεχίστε με σύνεση!"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:206
+#: ../root/static/scripts/account/components/EditProfileForm.js:208
 msgid "If you change your email address, you will be required to verify it."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:228
-#: ../root/user/UserProfile.js:245
+#: ../root/static/scripts/account/components/EditProfileForm.js:230
+#: ../root/user/UserProfile.js:254
 msgid "Location:"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:253
+#: ../root/static/scripts/account/components/EditProfileForm.js:255
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:260
+#: ../root/static/scripts/account/components/EditProfileForm.js:262
 msgid "Birth date:"
 msgstr "Ημερομηνία γέννησης:"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:264
+#: ../root/static/scripts/account/components/EditProfileForm.js:266
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
 msgstr "Θα χρησιμοποιήσουμε την ημερομηνία γέννησής σας για να εμφανίζουμε την ηλικία σας σε χρόνια στη σελίδα προφίλ σας."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:275
+#: ../root/static/scripts/account/components/EditProfileForm.js:277
 msgid "Languages Known:"
 msgstr "Ομιλούμενες γλώσσες:"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:309
+#: ../root/static/scripts/account/components/EditProfileForm.js:311
 msgid "Add a language"
 msgstr "Προσθήκη μιας γλώσσας"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:154
+#: ../root/static/scripts/account/components/PreferencesForm.js:155
 msgid "Regional settings"
 msgstr "Τοπικές ρυθμίσεις"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:163
+#: ../root/static/scripts/account/components/PreferencesForm.js:164
 msgid "Guess timezone"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:168
+#: ../root/static/scripts/account/components/PreferencesForm.js:169
 msgid "Timezone:"
 msgstr "Ζώνη ώρας:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:176
+#: ../root/static/scripts/account/components/PreferencesForm.js:177
 msgid "Date/time format:"
 msgstr "Μορφή ημερομηνίας/ώρας:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:187
-#: ../root/user/UserCollections.js:114
+#: ../root/static/scripts/account/components/PreferencesForm.js:188
+#: ../root/user/UserCollections.js:118
 msgid "Privacy"
 msgstr "Προσωπικά δεδομένα"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:190
+#: ../root/static/scripts/account/components/PreferencesForm.js:191
 msgid "Allow other users to see my subscriptions"
 msgstr "Να είναι ορατή στους άλλους χρήστες η λίστα παρακολουθήσεών μου"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:194
+#: ../root/static/scripts/account/components/PreferencesForm.js:195
 msgid "Allow other users to see my tags"
 msgstr "Να είναι ορατές στους άλλους χρήστες οι ετικέτες μου"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:198
+#: ../root/static/scripts/account/components/PreferencesForm.js:199
 msgid "Allow other users to see my ratings"
 msgstr "Να είναι ορατές στους άλλους χρήστες οι βαθμολογίες μου"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:202
+#: ../root/static/scripts/account/components/PreferencesForm.js:203
 msgid "Show my Gravatar"
 msgstr "Εμφάνισε το Gravatar μου"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:210
+#: ../root/static/scripts/account/components/PreferencesForm.js:211
 msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
 msgstr "Επικοινωνήστε μαζί μου με email όταν μια επεξεργασία μου παίρνει αρνητική ψήφο. (Σημείωση: το mail στέλνεται μόνο για την πρώτη αρνητική ψήφο και όχι για κάθε μια ξεχωριστά)"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:218
+#: ../root/static/scripts/account/components/PreferencesForm.js:219
 msgid "When I add a note to an edit, mail me all future notes for that edit."
 msgstr "Όταν προσθέτω μία σημείωση σε μία επεξεργασία, στείλτε μου μήνυμα για όλες τις μελλοντικές σημειώσεις σε αυτή την επεξεργασία."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:225
+#: ../root/static/scripts/account/components/PreferencesForm.js:226
 msgid "When I vote on an edit, mail me all future notes for that edit."
 msgstr "Όταν ψηφίζω για μία επεξεργασία, στείλτε μου μήνυμα για όλες τις μελλοντικές ψήφους για αυτή την επεξεργασία."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:231
+#: ../root/static/scripts/account/components/PreferencesForm.js:232
 msgid "Send me mails with edits to my subscriptions:"
 msgstr "Να μου στέλνετε μηνύματα με τις τροποποιήσεις στα στοιχεία που παρακολουθώ:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:240
+#: ../root/static/scripts/account/components/PreferencesForm.js:241
 msgid "Automatically subscribe me to artists I create."
 msgstr "Να παρακολουθώ αυτόματα τους καλλιτέχνες που προσθέτω."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:244
+#: ../root/static/scripts/account/components/PreferencesForm.js:245
 msgid "Automatically subscribe me to labels I create."
 msgstr "Να παρακολουθώ αυτόματα τις δισκογραφικές εταιρείες που προσθέτω."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:248
+#: ../root/static/scripts/account/components/PreferencesForm.js:249
 msgid "Automatically subscribe me to series I create."
 msgstr ""
 
@@ -13493,21 +13533,21 @@ msgstr ""
 msgid "Image {current} of {total}"
 msgstr ""
 
-#: ../root/static/scripts/common/components/Annotation.js:81
+#: ../root/static/scripts/common/components/Annotation.js:76
 msgid "(no changelog)"
 msgstr ""
 
-#: ../root/static/scripts/common/components/Annotation.js:91
+#: ../root/static/scripts/common/components/Annotation.js:86
 msgid "Annotation last modified by {user} on {date}."
 msgstr "Τελευταία τροποποίηση σχολίου από {user} στις {date}."
 
-#: ../root/static/scripts/common/components/Annotation.js:110
+#: ../root/static/scripts/common/components/Annotation.js:105
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
 msgstr "Αυτή είναι μία {history|παλιά έκδοση} αυτού του σχολίου, όπως επεξεργάστηκε από {user} στις {date}. {current|Προβολή τρέχουσας έκδοσης}."
 
-#: ../root/static/scripts/common/components/Annotation.js:122
+#: ../root/static/scripts/common/components/Annotation.js:117
 msgid "Annotation last modified on {date}."
 msgstr "Τελευταία τροποποίηση σχολίου στις {date}."
 
@@ -13668,6 +13708,10 @@ msgstr "Αποσύνδεση"
 #: ../root/static/scripts/common/components/FingerprintTable.js:86
 msgid "This recording does not have any associated AcoustIDs"
 msgstr "Αυτή η ηχογράφηση δεν έχει συνδεδεμένα AcoustIDs"
+
+#: ../root/static/scripts/common/components/IrombookImage.js:44
+msgid "IROMBOOK image/IROMBOOKのイラスト"
+msgstr ""
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:53
 msgid "Missing country"
@@ -13961,63 +14005,63 @@ msgid ""
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1626
+#: ../root/static/scripts/edit/URLCleanup.js:1627
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1643
+#: ../root/static/scripts/edit/URLCleanup.js:1644
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1687
+#: ../root/static/scripts/edit/URLCleanup.js:1688
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1713
+#: ../root/static/scripts/edit/URLCleanup.js:1714
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1778
+#: ../root/static/scripts/edit/URLCleanup.js:1788
 msgid ""
 "Only iTunes “{artist_url_pattern}” pages can be added directly to artists. "
 "Please link albums, videos, etc. to the appropriate release or recording "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2307
+#: ../root/static/scripts/edit/URLCleanup.js:2317
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3048
+#: ../root/static/scripts/edit/URLCleanup.js:3058
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3065
+#: ../root/static/scripts/edit/URLCleanup.js:3075
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3260
+#: ../root/static/scripts/edit/URLCleanup.js:3270
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3352
+#: ../root/static/scripts/edit/URLCleanup.js:3362
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3403
+#: ../root/static/scripts/edit/URLCleanup.js:3413
 msgid ""
 "Wikipedia is not a discography entry. Please add this Wikipedia link to the "
 "release group instead."
@@ -14652,6 +14696,30 @@ msgstr "Πληροφορίες URL"
 msgid "URL Details"
 msgstr "Λεπτομέρειες URL"
 
+#: ../root/user/Login.js:49
+msgid "You need to be logged in to view this page."
+msgstr "Πρέπει να είστε συνδεδεμένοι για να δείτε αυτή τη σελίδα."
+
+#: ../root/user/Login.js:55
+msgid "Don't have an account? {uri|Create one now}!"
+msgstr "Δεν έχετε λογαριασμό; {uri|Δημιουργήστε έναν τώρα}!"
+
+#: ../root/user/Login.js:66
+msgid "Incorrect username or password"
+msgstr "Εσφαλμένο όνομα χρήστη ή κωδικός πρόσβασης"
+
+#: ../root/user/Login.js:89
+msgid "This is a development server; all passwords have been reset to \"mb\"."
+msgstr "Αυτός είναι ένας εξυπηρετητής ανάπτυξης, όλοι οι κωδικοί είναι \"mb\"."
+
+#: ../root/user/Login.js:97
+msgid "Keep me logged in"
+msgstr "Να παραμείνω συνδεδεμένος"
+
+#: ../root/user/Login.js:108
+msgid "Forgot your {link1|username} or {link2|password}?"
+msgstr "Ξεχάσατε το {link1|όνομα χρήστη} ή τον {link2|κωδικό} σας;"
+
 #: ../root/user/PrivilegedUsers.js:37 ../root/user/PrivilegedUsers.js:39
 msgid "Privileged user accounts"
 msgstr ""
@@ -14748,28 +14816,28 @@ msgstr "Bots"
 msgid "The following {count} user accounts are bots:"
 msgstr "Οι παρακάτω {count} λογαριασμοί χρηστών είναι bots:"
 
-#: ../root/user/ReportUser.js:81 ../root/user/ReportUser.js:83
+#: ../root/user/ReportUser.js:84 ../root/user/ReportUser.js:86
 msgid "Report User"
 msgstr ""
 
-#: ../root/user/ReportUser.js:88
+#: ../root/user/ReportUser.js:91
 msgid ""
 "This user account has already been deleted, so there’s probably no need to "
 "report it. If you feel there’s a problem that still needs action, please "
 "{link|contact us}."
 msgstr ""
 
-#: ../root/user/ReportUser.js:99
+#: ../root/user/ReportUser.js:102
 msgid "Please review our {uri|Code of Conduct} before sending a report."
 msgstr ""
 
-#: ../root/user/ReportUser.js:107
+#: ../root/user/ReportUser.js:110
 msgid ""
 "Your report will be sent to our {uri|account administrators}, who will "
 "decide what action to take."
 msgstr ""
 
-#: ../root/user/ReportUser.js:117
+#: ../root/user/ReportUser.js:120
 msgid ""
 "Be sure to provide direct links to examples of the behaviour you’re "
 "reporting (for example, use “<code>https://musicbrainz.org/edit/23</code>” "
@@ -14781,11 +14849,11 @@ msgid ""
 "will require a lot of additional research."
 msgstr ""
 
-#: ../root/user/ReportUser.js:137
+#: ../root/user/ReportUser.js:140
 msgid "Reason"
 msgstr ""
 
-#: ../root/user/ReportUser.js:155
+#: ../root/user/ReportUser.js:158
 msgid ""
 "If you don’t want our admins to contact you further regarding this report, "
 "you can uncheck the checkbox above. <br /> We recommend leaving it checked, "
@@ -14793,354 +14861,354 @@ msgid ""
 "more information."
 msgstr ""
 
-#: ../root/user/UserCollections.js:39
+#: ../root/user/UserCollections.js:40
 msgid "Area Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:40
+#: ../root/user/UserCollections.js:41
 msgid "Artist Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:41
+#: ../root/user/UserCollections.js:42
 msgid "Event Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:42
+#: ../root/user/UserCollections.js:43
 msgid "Instrument Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:43
+#: ../root/user/UserCollections.js:44
 msgid "Label Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:44
+#: ../root/user/UserCollections.js:45
 msgid "Place Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:45
+#: ../root/user/UserCollections.js:46
 msgid "Recording Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:46
+#: ../root/user/UserCollections.js:47
 msgid "Release Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:47
+#: ../root/user/UserCollections.js:48
 msgid "Release Group Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:48
+#: ../root/user/UserCollections.js:49
 msgctxt "plural"
 msgid "Series Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:49
+#: ../root/user/UserCollections.js:50
 msgid "Work Collections"
 msgstr ""
 
-#: ../root/user/UserCollections.js:61
+#: ../root/user/UserCollections.js:62
 msgid "{collaborator_number} (including you)"
 msgstr ""
 
-#: ../root/user/UserCollections.js:73
+#: ../root/user/UserCollections.js:74
 msgid "Public"
 msgstr "Δημόσια"
 
-#: ../root/user/UserCollections.js:73
+#: ../root/user/UserCollections.js:74
 msgid "Private"
 msgstr "Προσωπικό"
 
-#: ../root/user/UserCollections.js:76
+#: ../root/user/UserCollections.js:77
 msgid "(your collection)"
 msgstr ""
 
-#: ../root/user/UserCollections.js:178
+#: ../root/user/UserCollections.js:183
 msgid "You have no collections."
 msgstr "Δεν έχετε συλλογές."
 
-#: ../root/user/UserCollections.js:180
+#: ../root/user/UserCollections.js:185
 msgid "{user} has no public collections."
 msgstr "{user} δεν έχει δημόσιες συλλογές."
 
-#: ../root/user/UserCollections.js:199
+#: ../root/user/UserCollections.js:204
 msgid "You aren’t collaborating in any collections."
 msgstr ""
 
-#: ../root/user/UserCollections.js:201
+#: ../root/user/UserCollections.js:206
 msgid "{user} isn’t collaborating in any collections."
 msgstr ""
 
-#: ../root/user/UserProfile.js:42
+#: ../root/user/UserProfile.js:45
 msgid "Deleted User"
 msgstr ""
 
-#: ../root/user/UserProfile.js:46
+#: ../root/user/UserProfile.js:49
 msgid "{doc|Auto-Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:51
+#: ../root/user/UserProfile.js:54
 msgid "Internal/Bot"
 msgstr "Εσωτερικό/Bot"
 
-#: ../root/user/UserProfile.js:55
+#: ../root/user/UserProfile.js:58
 msgid "{doc|Relationship Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:61
+#: ../root/user/UserProfile.js:64
 msgid "{doc|Transclusion Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:67
+#: ../root/user/UserProfile.js:70
 msgid "{doc|Location Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:76
+#: ../root/user/UserProfile.js:79
 msgid ""
 "User accounts must be more than 2 weeks old, have a verified email address, "
 "and more than 10 accepted edits in order to vote on others' edits."
 msgstr ""
 
-#: ../root/user/UserProfile.js:81
+#: ../root/user/UserProfile.js:84
 msgid "Beginner"
 msgstr ""
 
-#: ../root/user/UserProfile.js:87
+#: ../root/user/UserProfile.js:90
 msgid "Normal User"
 msgstr "Κανονικός Χρήστης"
 
-#: ../root/user/UserProfile.js:130
+#: ../root/user/UserProfile.js:133
 msgid "The Dawn of the Project"
 msgstr "Η αυγή του πρότζεκτ"
 
-#: ../root/user/UserProfile.js:132
+#: ../root/user/UserProfile.js:135
 msgid "The early days of the project"
 msgstr "Οι πρώτες μέρες του πρότζεκτ"
 
-#: ../root/user/UserProfile.js:140
+#: ../root/user/UserProfile.js:143
 msgid ""
 "Your homepage and biography will not show until you have completed the email"
 " verification process."
 msgstr ""
 
-#: ../root/user/UserProfile.js:157
+#: ../root/user/UserProfile.js:166
 msgid "General Information"
 msgstr "Γενικές πληροφορίες"
 
-#: ../root/user/UserProfile.js:163
+#: ../root/user/UserProfile.js:172
 msgid "(hidden)"
 msgstr "(κρυμμένο)"
 
-#: ../root/user/UserProfile.js:166
+#: ../root/user/UserProfile.js:175
 msgid "(verified at {date})"
 msgstr "(εγκρίθηκε στις {date})"
 
-#: ../root/user/UserProfile.js:171
+#: ../root/user/UserProfile.js:180
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>δεν έχει εγκριθεί!</strong>)"
 
-#: ../root/user/UserProfile.js:180
+#: ../root/user/UserProfile.js:189
 msgid "resend verification email"
 msgstr "αποστολή email επιβεβαίωσης ξανά"
 
-#: ../root/user/UserProfile.js:188
+#: ../root/user/UserProfile.js:197
 msgid "send email"
 msgstr "αποστολή email"
 
-#: ../root/user/UserProfile.js:202
+#: ../root/user/UserProfile.js:212
 msgid "find all users of this email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:213
+#: ../root/user/UserProfile.js:222
 msgctxt "email"
 msgid "(none)"
 msgstr "(κανένα)"
 
-#: ../root/user/UserProfile.js:220
+#: ../root/user/UserProfile.js:229
 msgid "User type:"
 msgstr "Τύπος χρήστη:"
 
-#: ../root/user/UserProfile.js:226
+#: ../root/user/UserProfile.js:235
 msgid "nominate for auto-editor"
 msgstr ""
 
-#: ../root/user/UserProfile.js:233
+#: ../root/user/UserProfile.js:242
 msgid "Age:"
 msgstr "Ηλικία:"
 
-#: ../root/user/UserProfile.js:250
+#: ../root/user/UserProfile.js:259
 msgid "Member since:"
 msgstr "Μέλος από:"
 
-#: ../root/user/UserProfile.js:255
+#: ../root/user/UserProfile.js:264
 msgid "Last login:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:258
+#: ../root/user/UserProfile.js:267
 msgid "Hasn't logged in yet"
 msgstr ""
 
-#: ../root/user/UserProfile.js:263
+#: ../root/user/UserProfile.js:272
 msgid "Homepage:"
 msgstr "Αρχική σελίδα:"
 
-#: ../root/user/UserProfile.js:280
+#: ../root/user/UserProfile.js:289
 msgid "Subscribers:"
 msgstr "Παρακολουθούν:"
 
-#: ../root/user/UserProfile.js:283
+#: ../root/user/UserProfile.js:292
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|προβολή λίστας})"
 
-#: ../root/user/UserProfile.js:290
+#: ../root/user/UserProfile.js:299
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:300
+#: ../root/user/UserProfile.js:309
 msgid "unsubscribe"
 msgstr "μη παρακολούθηση"
 
-#: ../root/user/UserProfile.js:306
+#: ../root/user/UserProfile.js:315
 msgid "subscribe"
 msgstr "παρακολούθηση"
 
-#: ../root/user/UserProfile.js:331
+#: ../root/user/UserProfile.js:340
 msgid "Languages:"
 msgstr "Γλώσσες:"
 
-#: ../root/user/UserProfile.js:404 ../root/user/UserProfile.js:486
-#: ../root/user/UserProfile.js:496 ../root/user/UserProfile.js:506
-#: ../root/user/UserProfile.js:516 ../root/user/UserProfile.js:526
-#: ../root/user/UserProfile.js:536 ../root/user/UserProfile.js:546
-#: ../root/user/UserProfile.js:555
+#: ../root/user/UserProfile.js:413 ../root/user/UserProfile.js:495
+#: ../root/user/UserProfile.js:505 ../root/user/UserProfile.js:515
+#: ../root/user/UserProfile.js:525 ../root/user/UserProfile.js:535
+#: ../root/user/UserProfile.js:545 ../root/user/UserProfile.js:555
+#: ../root/user/UserProfile.js:564
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|προβολή})"
 
-#: ../root/user/UserProfile.js:407
+#: ../root/user/UserProfile.js:416
 msgid "{count}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:476
+#: ../root/user/UserProfile.js:485
 msgid "Edits ({view_url|view})"
 msgstr "Τροποποιήσεις ({view_url|προβολή})"
 
-#: ../root/user/UserProfile.js:484
+#: ../root/user/UserProfile.js:493
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:494
+#: ../root/user/UserProfile.js:503
 msgid "Auto-edits"
 msgstr ""
 
-#: ../root/user/UserProfile.js:504
+#: ../root/user/UserProfile.js:513
 msgid "Total applied"
 msgstr ""
 
-#: ../root/user/UserProfile.js:514
+#: ../root/user/UserProfile.js:523
 msgid "Voted down"
 msgstr "Καταψηφίστηκαν"
 
-#: ../root/user/UserProfile.js:524
+#: ../root/user/UserProfile.js:533
 msgid "Failed"
 msgstr "Απέτυχε"
 
-#: ../root/user/UserProfile.js:554
+#: ../root/user/UserProfile.js:563
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:587
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:583
+#: ../root/user/UserProfile.js:592
 msgid "Votes ({view_url|view})"
 msgstr "Ψήφοι ({view_url|προβολή})"
 
-#: ../root/user/UserProfile.js:591
+#: ../root/user/UserProfile.js:600
 msgid "Last 28 days"
 msgstr "Τελευταίες 28 μέρες"
 
-#: ../root/user/UserProfile.js:594
+#: ../root/user/UserProfile.js:603
 msgid "Overall"
 msgstr "Συνολικά"
 
-#: ../root/user/UserProfile.js:642
+#: ../root/user/UserProfile.js:651
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:648
+#: ../root/user/UserProfile.js:657
 msgid "Added entities"
 msgstr ""
 
-#: ../root/user/UserProfile.js:718
+#: ../root/user/UserProfile.js:731
 msgid "Report this user for bad behavior"
 msgstr ""
 
-#: ../root/user/UserSubscriptions.js:20
+#: ../root/user/UserSubscriptions.js:22
 msgid "Artist Subscriptions"
 msgstr "Παρακολουθήσεις καλλιτεχνών"
 
-#: ../root/user/UserSubscriptions.js:21
+#: ../root/user/UserSubscriptions.js:23
 msgid "Collection Subscriptions"
 msgstr ""
 
-#: ../root/user/UserSubscriptions.js:22
+#: ../root/user/UserSubscriptions.js:24
 msgid "Editor Subscriptions"
 msgstr "Παρακολουθήσεις χρηστών"
 
-#: ../root/user/UserSubscriptions.js:23
+#: ../root/user/UserSubscriptions.js:25
 msgid "Label Subscriptions"
 msgstr "Παρακολουθήσεις δισκογραφικών εταιρειών"
 
-#: ../root/user/UserSubscriptions.js:24
+#: ../root/user/UserSubscriptions.js:26
 msgid "Series Subscriptions"
 msgstr ""
 
-#: ../root/user/UserSubscriptions.js:133
+#: ../root/user/UserSubscriptions.js:135
 msgid "{editor} is subscribed to:"
 msgstr ""
 
-#: ../root/user/UserSubscriptions.js:141
+#: ../root/user/UserSubscriptions.js:143
 msgid "{num} artist"
 msgid_plural "{num} artists"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/UserSubscriptions.js:152
+#: ../root/user/UserSubscriptions.js:154
 msgid "{num} collection"
 msgid_plural "{num} collections"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/UserSubscriptions.js:163
+#: ../root/user/UserSubscriptions.js:165
 msgid "{num} editor"
 msgid_plural "{num} editors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/UserSubscriptions.js:174
+#: ../root/user/UserSubscriptions.js:176
 msgid "{num} label"
 msgid_plural "{num} labels"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/UserSubscriptions.js:185
+#: ../root/user/UserSubscriptions.js:187
 msgid "{num} series"
 msgid_plural "{num} series"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/UserSubscriptions.js:217
+#: ../root/user/UserSubscriptions.js:219
 msgid "No subscriptions."
 msgstr "Καμία παρακολούθηση."
 
-#: ../root/user/UserSubscriptions.js:223
+#: ../root/user/UserSubscriptions.js:225
 msgid "You are subscribed to {n} private collection."
 msgid_plural "You are subscribed to {n} private collections."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/UserSubscriptions.js:230
+#: ../root/user/UserSubscriptions.js:232
 msgid "{editor} is subscribed to {n} private collection."
 msgid_plural "{editor} is subscribed to {n} private collections."
 msgstr[0] ""

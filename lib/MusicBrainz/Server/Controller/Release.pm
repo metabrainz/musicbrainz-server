@@ -167,19 +167,6 @@ sub show : Chained('load') PathPart('') {
     $c->stash->{template} = 'release/index.tt';
 }
 
-=head2 duplicate
-
-Duplicate a release into the add release editor
-
-=cut
-
-sub duplicate : Chained('load') {
-    my ($self, $c) = @_;
-    $c->forward('/user/login');
-    $c->forward('_load_related');
-    $c->forward('/release_editor/duplicate_release');
-}
-
 sub _load_related : Private {
     my ($self, $c) = @_;
 
@@ -187,21 +174,6 @@ sub _load_related : Private {
     $c->stash->{artist}         = $c->model('Artist')->load($release->artist);
     $c->stash->{tracks}         = $c->model('Track')->load_from_release($release);
     $c->stash->{release_events} = $c->model('Release')->load_events($release, country_id => 1);
-}
-
-=head2 rating
-
-Rate a release
-
-=cut
-
-sub rating : Chained('load') Args(2) {
-    my ($self, $c, $entity, $new_vote) = @_;
-    #Need more validation here
-
-    $c->forward('/user/login');
-    $c->forward('/rating/do_rating', ['artist', $entity, $new_vote]);
-    $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
 sub change_quality : Chained('load') PathPart('change-quality') Edit {

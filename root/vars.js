@@ -16,8 +16,8 @@
 
 // eslint-disable-next-line camelcase
 declare var __webpack_public_path__: string;
-declare var GLOBAL_CATALYST_CONTEXT_NAMESPACE: '__MB_Catalyst_Context__';
-declare var GLOBAL_DBDEFS_NAMESPACE: '__MB_DBDefs__';
+declare var __DEV__: boolean;
+declare var GLOBAL_JS_NAMESPACE: '__MB__';
 
 declare var addColon: (variable: Expand2ReactInput) => Expand2ReactOutput;
 declare var addColonText: (variable: StrOrNum) => string;

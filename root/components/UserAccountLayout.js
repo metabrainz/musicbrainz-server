@@ -11,16 +11,44 @@ import * as React from 'react';
 
 import Layout from '../layout';
 import EditorLink from '../static/scripts/common/components/EditorLink';
+import sanitizedEditor from '../utility/sanitizedEditor';
 
 import UserAccountTabs from './UserAccountTabs';
+
+export type AccountLayoutUserT = {
+  +deleted: boolean,
+  +entityType: 'editor',
+  +gravatar: string,
+  +id: number,
+  +name: string,
+  +preferences: {
+    +public_ratings: boolean,
+    +public_subscriptions: boolean,
+    +public_tags: boolean,
+  },
+};
 
 type Props = {
   +$c: CatalystContextT,
   +children: React.Node,
-  +entity: EditorT,
+  +entity: AccountLayoutUserT,
   +page: string,
   +title?: string,
 };
+
+export function sanitizedAccountLayoutUser(
+  editor: UnsanitizedEditorT,
+): AccountLayoutUserT {
+  const preferences = editor.preferences;
+  return {
+    ...sanitizedEditor(editor),
+    preferences: {
+      public_ratings: preferences.public_ratings,
+      public_subscriptions: preferences.public_subscriptions,
+      public_tags: preferences.public_tags,
+    },
+  };
+}
 
 const UserAccountLayout = ({
   $c,

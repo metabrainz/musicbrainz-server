@@ -98,14 +98,14 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
     }
 }
 
-sub delete : Chained('load') RequireAuth(relationship_editor)
+sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
 {
     my ($self, $c, $gid) = @_;
 
     my $link_attr_type = $c->stash->{link_attr_type};
     $c->detach('/error_403') if $link_attr_type->root_id == $INSTRUMENT_ROOT_ID;
     my $form = $c->form(
-        form => 'Confirm'
+        form => 'SecureConfirm'
     );
 
     if ($c->model('LinkAttributeType')->in_use($link_attr_type->id)) {

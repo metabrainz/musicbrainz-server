@@ -2706,6 +2706,12 @@ ALTER TABLE recording_attribute_type_allowed_value
    FOREIGN KEY (parent)
    REFERENCES recording_attribute_type_allowed_value(id);
 
+ALTER TABLE recording_first_release_date
+   ADD CONSTRAINT recording_first_release_date_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE recording_gid_redirect
    ADD CONSTRAINT recording_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
@@ -2850,6 +2856,12 @@ ALTER TABLE release_country
 ALTER TABLE release_coverart
    ADD CONSTRAINT release_coverart_fk_id
    FOREIGN KEY (id)
+   REFERENCES release(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE release_first_release_date
+   ADD CONSTRAINT release_first_release_date_fk_release
+   FOREIGN KEY (release)
    REFERENCES release(id)
    ON DELETE CASCADE;
 

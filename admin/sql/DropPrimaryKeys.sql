@@ -252,6 +252,7 @@ ALTER TABLE recording_annotation DROP CONSTRAINT IF EXISTS recording_annotation_
 ALTER TABLE recording_attribute DROP CONSTRAINT IF EXISTS recording_attribute_pkey;
 ALTER TABLE recording_attribute_type DROP CONSTRAINT IF EXISTS recording_attribute_type_pkey;
 ALTER TABLE recording_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS recording_attribute_type_allowed_value_pkey;
+ALTER TABLE recording_first_release_date DROP CONSTRAINT IF EXISTS recording_first_release_date_pkey;
 ALTER TABLE recording_gid_redirect DROP CONSTRAINT IF EXISTS recording_gid_redirect_pkey;
 ALTER TABLE recording_meta DROP CONSTRAINT IF EXISTS recording_meta_pkey;
 ALTER TABLE recording_rating_raw DROP CONSTRAINT IF EXISTS recording_rating_raw_pkey;
@@ -266,6 +267,7 @@ ALTER TABLE release_attribute_type DROP CONSTRAINT IF EXISTS release_attribute_t
 ALTER TABLE release_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS release_attribute_type_allowed_value_pkey;
 ALTER TABLE release_country DROP CONSTRAINT IF EXISTS release_country_pkey;
 ALTER TABLE release_coverart DROP CONSTRAINT IF EXISTS release_coverart_pkey;
+ALTER TABLE release_first_release_date DROP CONSTRAINT IF EXISTS release_first_release_date_pkey;
 ALTER TABLE release_gid_redirect DROP CONSTRAINT IF EXISTS release_gid_redirect_pkey;
 ALTER TABLE release_group DROP CONSTRAINT IF EXISTS release_group_pkey;
 ALTER TABLE release_group_alias DROP CONSTRAINT IF EXISTS release_group_alias_pkey;

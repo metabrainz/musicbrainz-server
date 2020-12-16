@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-28 21:04+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2020-12-03 14:00+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -186,6 +186,11 @@ msgstr ""
 msgctxt "an electromechanical piano"
 msgid "Pianet"
 msgstr "Πιανέτ"
+
+#: DB:instrument/name:1023
+msgctxt "ensemble flute, clarinet, violin, cello and piano"
+msgid "Pierrot ensemble"
+msgstr ""
 
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
@@ -2495,6 +2500,11 @@ msgctxt "Free-reed keyboard mouth-organ"
 msgid "melodica"
 msgstr ""
 
+#: DB:instrument/name:1022
+msgctxt "Bellowed free reed in a lute-like casing"
+msgid "melophone"
+msgstr ""
+
 #: DB:instrument/name:100
 msgid "membranophone"
 msgstr ""
@@ -2562,6 +2572,7 @@ msgid "musical box"
 msgstr "μουσικό κουτί"
 
 #: DB:instrument/name:145
+msgctxt "Bowed metal plaque idiophone"
 msgid "musical saw"
 msgstr "μουσικό πριόνι"
 
@@ -2818,6 +2829,16 @@ msgstr "πιάνο"
 msgid "piano accordion"
 msgstr "πιάνο ακορντεόν"
 
+#: DB:instrument/name:1024
+msgctxt "ensemble of two pianists playing on separate pianos"
+msgid "piano duo"
+msgstr ""
+
+#: DB:instrument/name:1025
+msgctxt "ensemble of two pianists playing on one piano"
+msgid "piano four hands"
+msgstr ""
+
 #: DB:instrument/name:965
 msgctxt "ensemble of piano, violin, viola and cello"
 msgid "piano quartet"
@@ -2874,6 +2895,11 @@ msgstr ""
 #: DB:instrument/name:232
 msgid "plucked string instruments"
 msgstr "νυκτά έγχορδα"
+
+#: DB:instrument/name:1026
+msgctxt "bow lute from West Africa"
+msgid "pluriarc"
+msgstr ""
 
 #: DB:instrument/name:690
 msgid "pocket trumpet"
@@ -3339,6 +3365,7 @@ msgid "single reed"
 msgstr ""
 
 #: DB:instrument/name:370
+msgctxt "Ancient Egyptian rattle"
 msgid "sistrum"
 msgstr "σείστρο"
 
@@ -4026,6 +4053,11 @@ msgstr ""
 #: DB:instrument/name:262
 msgctxt "Spanish string instrument."
 msgid "vihuela"
+msgstr ""
+
+#: DB:instrument/name:1027
+msgctxt "ensemble of multiple viols"
+msgid "viol consort"
 msgstr ""
 
 #: DB:instrument/name:899

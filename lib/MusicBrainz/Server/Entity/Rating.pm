@@ -24,7 +24,7 @@ sub TO_JSON {
     my $editor = $self->editor;
     my $rating = 0 + $self->rating;
     return {
-        editor => (defined $editor ? $editor->sanitized_json : undef),
+        editor => (defined $editor ? $editor->TO_JSON : undef),
         rating => $rating,
     };
 }

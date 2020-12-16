@@ -17,18 +17,20 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import bracketed from '../static/scripts/common/utility/bracketed';
 
 type Props = {
+  +$c: CatalystContextT,
   +collection: CollectionT,
   +page: string,
-  +user: ?EditorT,
 };
 
 const CollectionHeader = ({
+  $c,
   collection,
   page,
-  user,
 }: Props): React.Element<typeof React.Fragment> => {
   const owner = collection.editor;
-  const viewingOwnCollection = Boolean(user && owner && owner.id === user.id);
+  const viewingOwnCollection = Boolean(
+    $c.user && owner && owner.id === $c.user.id,
+  );
   const subHeading = (
     <>
       {collection.public ? (

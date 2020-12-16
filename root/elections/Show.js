@@ -21,7 +21,6 @@ type Props = {
 };
 
 const Show = ({$c, election}: Props): React.Element<typeof Layout> | null => {
-  const user = $c.user;
   if (!election) {
     return null;
   }
@@ -34,7 +33,7 @@ const Show = ({$c, election}: Props): React.Element<typeof Layout> | null => {
       </p>
       <ElectionDetails $c={$c} election={election} />
       <h2>{l('Voting')}</h2>
-      <ElectionVoting election={election} user={user} />
+      <ElectionVoting $c={$c} election={election} />
       <h2>{l('Votes cast')}</h2>
       <ElectionVotes $c={$c} election={election} />
     </Layout>

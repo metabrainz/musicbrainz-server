@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-28 21:04+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2020-12-03 14:00+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -646,6 +646,14 @@ msgstr ""
 msgid "Chacha, west Indian rattle"
 msgstr ""
 
+#. name:Pierrot ensemble
+#: DB:instrument/description:1023
+msgid ""
+"Chamber ensemble of five players (flute, clarinet, violin, cello and piano)."
+" Originally required for Schönberg's Pierrot Lunaire, it became a fairly "
+"common combination for 20th century classical groups."
+msgstr ""
+
 #. name:string quartet
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)"
@@ -659,6 +667,17 @@ msgstr ""
 #. name:string trio
 #: DB:instrument/description:915
 msgid "Chamber ensemble of three players (one violin, one viola, one cello)"
+msgstr ""
+
+#. name:piano duo
+#: DB:instrument/description:1024
+msgid "Chamber ensemble where two pianists play on a different piano each."
+msgstr ""
+
+#. name:piano four hands
+#: DB:instrument/description:1025
+msgid ""
+"Chamber ensemble where two pianists play on the same piano at the same time."
 msgstr ""
 
 #. name:chap
@@ -970,6 +989,13 @@ msgid ""
 "plate."
 msgstr ""
 
+#. name:viol consort
+#: DB:instrument/description:1027
+msgid ""
+"Ensemble of multiple instruments of the viol family, usually including at "
+"least treble, tenor and bass viols."
+msgstr ""
+
 #. name:ugal
 #: DB:instrument/description:967
 msgid ""
@@ -1084,6 +1110,13 @@ msgstr ""
 msgid ""
 "Friction idiophones are idiophones where the sound is created by the "
 "instrument being rubbed."
+msgstr ""
+
+#. name:pluriarc
+#: DB:instrument/description:1026
+msgid ""
+"From West Africa, it has multiple curved necks each with one string, "
+"sometimes played a harp and sometimes with stops like a lute."
 msgstr ""
 
 #. name:yu
@@ -1762,6 +1795,16 @@ msgstr ""
 msgid "Northumbrian (small)pipes"
 msgstr ""
 
+#. name:melophone
+#: DB:instrument/description:1022
+msgid ""
+"Not to be confused with <a "
+"href=\"/instrument/6a539558-5585-4803-a705-a4520f23189d\">mellophone</a>, a "
+"brass valved instrument.<br /> Wooden body shaped like a lute, it has a "
+"bellow operated by a handle at the bottom and buttons operating the reeds in"
+" the \"neck\""
+msgstr ""
+
 #. name:ghijak
 #: DB:instrument/description:932
 msgid ""
@@ -2112,6 +2155,13 @@ msgstr ""
 #. name:flute
 #: DB:instrument/description:13
 msgid "Reedless Aerophone, usually a tube"
+msgstr ""
+
+#. name:musical saw
+#: DB:instrument/description:145
+msgid ""
+"Regular or specialised saw used for music, held and bent, it is bowed to "
+"produce characteristical glissando."
 msgstr ""
 
 #. name:kenong
@@ -3715,11 +3765,6 @@ msgstr ""
 msgid "The siku is a traditional Andean panpipe."
 msgstr ""
 
-#. name:sistrum
-#: DB:instrument/description:370
-msgid "The sistrum is a metal rattle associated with ancient Iraq and Egypt."
-msgstr ""
-
 #. name:kendang lanang
 #: DB:instrument/description:994
 msgid ""
@@ -4452,6 +4497,14 @@ msgid ""
 "Used in royal ceremonies, played by striking against the palm, it is made of"
 " several pieces of wood, ivory and sheets of brass between two larger pieces"
 " of wood tied together by a string at one end."
+msgstr ""
+
+#. name:sistrum
+#: DB:instrument/description:370
+msgid ""
+"Used in sacred rituals, it is made of metal or clay rattle with metal discs "
+"which jangle when shook. </br> Not to be confused with the West African "
+"calabash sistrum or disc rattle (n'goso m'bara)"
 msgstr ""
 
 #. name:saron wayang

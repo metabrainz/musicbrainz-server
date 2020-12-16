@@ -134,7 +134,7 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
     my $page = $c->req->params->{page};
     my $version = $c->model('WikiDocIndex')->get_page_version($page);
     my $form = $c->form(
-        form => 'Confirm'
+        form => 'SecureConfirm'
     );
 
     if ($c->form_posted_and_valid($form)) {
@@ -155,6 +155,7 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
     }
 
     my %props = (
+        form    => $form,
         page    => $page,
     );
 

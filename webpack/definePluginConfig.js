@@ -8,11 +8,16 @@
 
 /* eslint-disable import/no-commonjs */
 
-const GLOBAL_CATALYST_CONTEXT_NAMESPACE = '__MB_Catalyst_Context__';
-const GLOBAL_DBDEFS_NAMESPACE = '__MB_DBDefs__';
+const {WEBPACK_MODE} = require('./constants');
+
+const GLOBAL_JS_NAMESPACE = '__MB__';
 
 module.exports = {
-  GLOBAL_CATALYST_CONTEXT_NAMESPACE:
-    JSON.stringify(GLOBAL_CATALYST_CONTEXT_NAMESPACE),
-  GLOBAL_DBDEFS_NAMESPACE: JSON.stringify(GLOBAL_DBDEFS_NAMESPACE),
+  /*
+   * Use `__DEV__` to conditionalize code that should run during
+   * testing/development only. Will be eliminated as dead code by
+   * Webpack in production.
+   */
+  __DEV__: JSON.stringify(WEBPACK_MODE === 'development'),
+  GLOBAL_JS_NAMESPACE: JSON.stringify(GLOBAL_JS_NAMESPACE),
 };

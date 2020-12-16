@@ -2,6 +2,8 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use namespace::autoclean;
+use DBDefs;
+use List::MoreUtils qw( uniq );
 use List::UtilsBy qw( rev_nsort_by sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
@@ -17,8 +19,10 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     placeholders
     load_subobjects
+    object_to_ids
     order_by
 );
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use MusicBrainz::Server::Entity::Recording;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -411,6 +415,32 @@ sub appears_on
     }
 
     return %map;
+}
+
+sub load_first_release_date {
+    my ($self, @recordings) = @_;
+
+    return unless DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26;
+
+    my %recording_map = object_to_ids(@recordings);
+    my @ids = keys %recording_map;
+    return unless @ids;
+
+    my $release_dates = $self->sql->select_list_of_hashes(
+        'SELECT * FROM recording_first_release_date ' .
+        'WHERE recording = ANY(?)',
+        [\@ids],
+    );
+
+    my %release_date_map = map {
+        $_->{recording} => PartialDate->new_from_row($_, ''),
+    } @$release_dates;
+
+    for my $id (@ids) {
+        for my $recording (@{ $recording_map{$id} }) {
+            $recording->first_release_date($release_date_map{$id});
+        }
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

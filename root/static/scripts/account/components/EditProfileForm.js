@@ -46,6 +46,7 @@ type EditProfileFormT = FormT<{
   +area_id: FieldT<number | null>,
   +biography: FieldT<string>,
   +birth_date: PartialDateFieldT,
+  +csrf_token: FieldT<string>,
   +email: FieldT<string>,
   +gender_id: FieldT<number>,
   +languages: RepeatableFieldT<UserLanguageFieldT>,
@@ -174,11 +175,12 @@ class EditProfileForm extends React.Component<Props, State> {
   }
 
   render() {
-    const field = this.state.form.field;
+    const form = this.state.form;
+    const field = form.field;
     const areaField = field.area.field;
     return (
       <form id="edit-profile-form" method="post">
-        <FormCsrfToken />
+        <FormCsrfToken form={form} />
 
         <input
           hidden

@@ -230,7 +230,7 @@ test('formatDatePeriod', function (t) {
 });
 
 test('validDate', function (t) {
-  t.plan(12);
+  t.plan(14);
 
   t.equal(dates.isDateValid('', '', ''), true, 'all empty strings are valid');
   t.equal(
@@ -255,6 +255,16 @@ test('validDate', function (t) {
     dates.isDateValid(1960, 2, 29),
     true,
     'leap years are handled correctly (MBS-5663)',
+  );
+  t.equal(
+    dates.isDateValid(null, null, 10),
+    true,
+    'just a day with nulls is valid',
+  );
+  t.equal(
+    dates.isDateValid(2010, null, 10),
+    true,
+    'just a day and year with null month is valid',
   );
 });
 

@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Add relationship type') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_TYPE }
+sub edit_template_react { 'AddRelationshipType' }
 
 has '+data' => (
     isa => Dict[
@@ -73,6 +74,17 @@ sub build_display_data {
 
     return {
         attributes => $self->_build_attributes($self->data->{attributes}, $loaded),
+        description => $self->data->{description},
+        documentation => $self->data->{documentation},
+        entity0_cardinality => $self->data->{entity0_cardinality},
+        entity0_type => $self->data->{entity0_type},
+        entity1_cardinality => $self->data->{entity1_cardinality},
+        entity1_type => $self->data->{entity1_type},
+        link_phrase => $self->data->{link_phrase},
+        long_link_phrase => $self->data->{long_link_phrase},
+        name => $self->data->{name},
+        orderable_direction => $self->data->{orderable_direction},
+        reverse_link_phrase => $self->data->{reverse_link_phrase},
     }
 }
 

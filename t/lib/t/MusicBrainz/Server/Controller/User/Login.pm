@@ -27,10 +27,13 @@ test all => sub {
     $mech->get_ok('https://localhost/login');
     html_ok($mech->content);
     $mech->submit_form( with_fields => { username => '', password => '' } );
-    $mech->content_contains('Incorrect username or password');
+    $mech->content_contains('Username field is required');
+    $mech->content_contains('Password field is required');
     $mech->submit_form( with_fields => { username => 'new_editor', password => '' } );
-    $mech->content_contains('Incorrect username or password');
+    $mech->content_contains('Password field is required');
     $mech->submit_form( with_fields => { username => '', password => 'password' } );
+    $mech->content_contains('Username field is required');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'ıaa' } );
     $mech->content_contains('Incorrect username or password');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'ıaa2' } );
     is($mech->uri->path, '/user/new_editor');

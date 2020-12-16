@@ -21,6 +21,7 @@ test 'basic recording lookup' => sub {
             length => 296026,
             disambiguation => "",
             video => JSON::false,
+            'first-release-date' => '2001-07-04',
         };
 };
 
@@ -39,6 +40,7 @@ test 'basic recording lookup, inc=annotation' => sub {
             annotation => "this is a recording annotation",
             disambiguation => "",
             video => JSON::false,
+            'first-release-date' => '1999-09-13',
         };
 };
 
@@ -54,13 +56,14 @@ test 'recording lookup with releases' => sub {
             length => 296026,
             disambiguation => "",
             video => JSON::false,
+            'first-release-date' => '2001-07-04',
             releases => [
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
                     title => "Summer Reggae! Rainbow",
                     status => "Pseudo-Release",
                     "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
-                    quality => "normal",
+                    quality => "high",
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
                     country => "JP",
@@ -123,6 +126,7 @@ test 'lookup recording with official singles' => sub {
             length => 296026,
             disambiguation => "",
             video => JSON::false,
+            'first-release-date' => '2001-07-04',
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -165,6 +169,7 @@ test 'lookup recording with official singles (+media)' => sub {
             length => 296026,
             disambiguation => "",
             video => JSON::false,
+            'first-release-date' => '2001-07-04',
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -227,6 +232,7 @@ test 'recording lookup with artists' => sub {
             disambiguation => "",
             length => 243000,
             video => JSON::false,
+            'first-release-date' => '2004-03-17',
             "artist-credit" => [
                 {
                     name => "m-flo",
@@ -269,6 +275,7 @@ test 'recording lookup with puids (no-op) and isrcs' => sub {
             length => 296026,
             video => JSON::false,
             isrcs => [ "JPA600102450" ],
+            'first-release-date' => '2001-07-04',
         };
 };
 
@@ -284,6 +291,7 @@ test 'recording lookup with release relationships' => sub {
             disambiguation => "",
             length => 86666,
             video => JSON::false,
+            'first-release-date' => '2008-04-29',
             relations => [
                 {
                     attributes => [],
@@ -346,6 +354,7 @@ test 'recording lookup with work relationships' => sub {
             disambiguation => "",
             length => 243000,
             video => JSON::false,
+            'first-release-date' => '2004-03-17',
             relations => [
                 {
                     attributes => [],
@@ -434,7 +443,24 @@ test 'recording lookup with work-level relationships' => sub {
             'target-credit' => '',
             'target-type' => 'work',
         } ],
-        title => 'Asseswaving'
+        title => 'Asseswaving',
+        'first-release-date' => '2008-04-29',
+    };
+};
+
+test 'standalone recording lookup' => sub {
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+standalone_recording');
+
+    ws_test_json 'standalone recording lookup',
+    '/recording/c289a368-867e-4ae0-a1ac-ba28a99822f3' =>
+    {
+        disambiguation => '',
+        id => 'c289a368-867e-4ae0-a1ac-ba28a99822f3',
+        length => 10000,
+        video => JSON::false,
+        title => '[silence]',
     };
 };
 

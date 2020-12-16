@@ -51,7 +51,7 @@ test 'Registering and verifying an email address' => sub {
     $mech->get_ok($verify_link, 'verify account');
     $mech->content_like(qr/Thank you, your email address has now been verified/);
 
-    $mech->get('/user/new_editor');
+    $mech->get('/user/email_editor');
     $mech->content_like(qr{\(verified at (.*)\)});
     $mech->content =~ qr{\(verified at (.*)\)};
     my $original_verification = $1;
@@ -106,7 +106,7 @@ test 'Trying to register with an existing name' => sub {
     $mech->content_contains('already taken', 'form has error message');
 };
 
-test 'Opening a new registration form invalidates the previous one due to changed CSRF token' => sub {
+test 'Opening a new registration form does not invalidate CSRF token on previous form' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -124,11 +124,7 @@ test 'Opening a new registration form invalidates the previous one due to change
         'register.confirm_password' => 'goo goo ga ga',
     });
 
-    like($mech->uri, qr{/register}, 'stays on registration page');
-    $mech->content_contains(
-        'The form you’ve submitted has expired',
-        'says the form has expired',
-    );
+    like($mech->uri, qr{/user/baby}, 'original form is submitted');
 };
 
 1;

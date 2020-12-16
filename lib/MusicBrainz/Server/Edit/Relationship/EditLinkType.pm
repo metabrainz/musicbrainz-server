@@ -34,10 +34,10 @@ sub change_fields
         description         => Nullable[Str],
         priority            => Optional[Int],
         attributes          => Optional[ArrayRef[Dict[
-            name => Optional[Str], # Used in old historic edits
+            name => Str,
             min  => Nullable[Int],
             max  => Nullable[Int],
-            type => Optional[Int], # Used in the new edits
+            type => Int,
         ]]],
         documentation => Optional[Str],
         is_deprecated => Optional[Bool],

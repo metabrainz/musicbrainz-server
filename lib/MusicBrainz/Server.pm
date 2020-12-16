@@ -5,8 +5,10 @@ BEGIN { extends 'Catalyst' }
 
 use Class::Load qw( load_class );
 use DBDefs;
+use Digest::SHA qw( sha256 );
 use Encode;
 use JSON;
+use MIME::Base64 qw( encode_base64 );
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
@@ -15,10 +17,13 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
+use Scalar::Util qw( refaddr );
 use Sys::Hostname;
+use Time::HiRes qw( clock_gettime CLOCK_REALTIME CLOCK_MONOTONIC );
 use Try::Tiny;
 use URI;
 use aliased 'MusicBrainz::Server::Translation';
+use feature 'state';
 
 # Set flags and add plugins for the application
 #
@@ -226,14 +231,17 @@ sub form
     return $form;
 }
 
-sub relative_uri
-{
-    my ($self) = @_;
-    my $uri = URI->new($self->req->uri->path);
-    $uri->path_query($self->req->uri->path_query);
-
-    return $uri;
-}
+has relative_uri => (
+    is => 'ro',
+    lazy => 1,
+    isa => 'URI',
+    default => sub {
+        my ($self) = @_;
+        my $uri = URI->new($self->req->uri->path);
+        $uri->path_query($self->req->uri->path_query);
+        return $uri;
+    },
+);
 
 sub get_relative_uri {
     my ($c, $uri_string) = @_;
@@ -261,7 +269,15 @@ sub get_collator
 
 sub set_language_cookie {
     my ($c, $lang) = @_;
-    $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/', 'expires' => time()+31536000 };
+    $c->res->cookies->{lang} = {
+        'value' => $lang,
+        'path' => '/',
+        'expires' => time()+31536000,
+        $c->req->secure ? (
+            'samesite' => 'None',
+            'secure' => '1',
+        ) : (),
+    };
 }
 
 sub handle_unicode_encoding_exception {
@@ -311,7 +327,15 @@ around dispatch => sub {
                       $c->req->cookies->{beta}->value eq 'on' &&
                       !DBDefs->IS_BETA);
     if ( $unset_beta ) {
-        $c->res->cookies->{beta} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
+        $c->res->cookies->{beta} = {
+            'value' => '',
+            'path' => '/',
+            'expires' => time()-86400,
+            $c->req->secure ? (
+                'samesite' => 'None',
+                'secure' => '1',
+            ) : (),
+        };
     }
 
     if (DBDefs->BETA_REDIRECT_HOSTNAME &&
@@ -479,14 +503,8 @@ around make_session_cookie => sub {
     my ($orig, $self, $sid, %attrs) = @_;
 
     my $cookie = $self->$orig($sid, %attrs);
-    # Browsers are starting to default to SameSite=Lax, which breaks
-    # cross-origin form submissions employed by popular userscripts. We can
-    # opt out with SameSite=None, but this requires the Secure attribute
-    # to be set too. See https://www.chromium.org/updates/same-site
-    if ($self->req->secure) {
-        $cookie->{samesite} = 'None';
-        $cookie->{secure} = 1;
-    }
+    $cookie->{samesite} = 'Lax';
+    $cookie->{secure} = 1 if $self->req->secure;
     return $cookie;
 };
 
@@ -536,47 +554,150 @@ sub form_submitted_and_valid {
         $form->process(params => $params) &&
         $form->has_params;
 
-    return 0 if
-        exists $self->action->attributes->{CSRFToken} &&
-        !$self->validate_csrf_token;
-
     return 1;
 }
 
-sub _csrf_session_key {
+sub generate_nonce {
     my ($self) = @_;
 
-    return 'csrf_token:' . $self->json_canonical->encode({
-        namespace => $self->namespace // '',
-        action => $self->action->name,
-        arguments => $self->req->arguments,
-    });
+    state $counter = 0;
+    encode_base64(
+        sha256(
+            join q(.),
+                DBDefs->NONCE_SECRET,
+                refaddr($self->req),
+                refaddr($self->res),
+                clock_gettime(CLOCK_REALTIME),
+                clock_gettime(CLOCK_MONOTONIC),
+                ($counter++)),
+        '',
+    );
+}
+
+sub get_csrf_token {
+    my ($self, $session_key) = @_;
+
+    my $existing_token;
+    if (defined $session_key) {
+        $existing_token = delete $self->session->{$session_key};
+    }
+    return $existing_token;
 }
 
 sub generate_csrf_token {
     my ($self) = @_;
 
-    my $session_key = $self->_csrf_session_key;
-    my $token = generate_token();
+    my $session_key = 'csrf_token:' . $self->generate_nonce;
+    my $token = $self->generate_nonce;
     $self->session->{$session_key} = $token;
-    $self->stash->{csrf_token} = $token;
+    $self->session_expire_key($session_key, 600); # 10 minutes
+    return ($session_key, $token);
 }
 
-sub validate_csrf_token {
+sub set_csp_headers {
     my ($self) = @_;
 
-    my $session_key = $self->_csrf_session_key;
-    my $got_token = $self->req->param('csrf_token') // '';
-    my $expected_token = $self->session->{$session_key} // '';
+    return if defined $self->res->header('Content-Security-Policy');
 
-    return 1 if (
-        $got_token && $expected_token &&
-        $got_token eq $expected_token
+    my $globals_script_nonce = $self->generate_nonce;
+    $self->stash->{globals_script_nonce} = $globals_script_nonce;
+
+    # CSP headers are generally only added where SecureForm is also used:
+    # account and admin-related forms. So there's no need to account for
+    # external origins like coverartarchive.org, archive.org,
+    # acousticbrainz.org, etc. here, as those are used on entity pages which
+    # don't have a CSP. Userscripts should continue to work for the same
+    # reason: edit and entity pages are unaffected. Avoid using the
+    # SecureForm attribute in those places.
+    my @csp_script_src = (
+        'script-src',
+        q('self'),
+        qq('nonce-$globals_script_nonce'),
+        'staticbrainz.org'
     );
 
-    $self->response->status(403);
-    $self->stash->{invalid_csrf_token} = 1;
-    return 0;
+    my @csp_style_src = (
+        'style-src',
+        q('self'),
+        'staticbrainz.org',
+    );
+
+    my @csp_img_src = (
+        'img-src',
+        q('self'),
+        'data:',
+        'staticbrainz.org',
+        'gravatar.com',
+    );
+
+    my @csp_frame_src = ('frame-src', q('self'));
+    if ($self->req->path eq 'register') {
+        my $use_captcha = ($self->req->address &&
+                           defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
+                           defined DBDefs->RECAPTCHA_PRIVATE_KEY);
+        if ($use_captcha) {
+            push @csp_script_src, qw(
+                https://www.google.com/recaptcha/
+                https://www.gstatic.com/recaptcha/
+            );
+            push @csp_frame_src, 'https://www.google.com/recaptcha/';
+        }
+    }
+
+    $self->res->header(
+        # X-Frame-Options is obsoleted by `frame-ancestors` on the
+        # Content-Security-Policy header; user agents that support
+        # the latter should ignore X-Frame-Options.
+        'X-Frame-Options' => 'DENY',
+        'Content-Security-Policy' => (
+            q(default-src 'self'; frame-ancestors 'none'; ) .
+            (join '; ', map { join ' ', @{$_} } (
+                \@csp_script_src,
+                \@csp_style_src,
+                \@csp_img_src,
+                \@csp_frame_src,
+            ))
+        ),
+    );
+}
+
+sub is_cross_origin {
+    my $self = shift;
+
+    my $origin = $self->req->header('Origin');
+    return 0 unless defined $origin;
+
+    my $mb_origin = DBDefs->SSL_REDIRECTS_ENABLED
+        ? ('https://' . DBDefs->WEB_SERVER_SSL)
+        : ('http://' . DBDefs->WEB_SERVER);
+
+    return $origin ne $mb_origin;
+}
+
+sub unsanitized_editor_json {
+    my ($self, $editor) = @_;
+
+    my $json = $editor->_unsanitized_json;
+
+    if ($self->user_exists) {
+        my $active_user = $self->user;
+
+        if ($editor->id == $active_user->id) {
+            my $birth_date = $editor->birth_date;
+            if ($birth_date) {
+                $json->{birth_date} = {
+                    year => $birth_date->year,
+                    month => $birth_date->month,
+                    day => $birth_date->day,
+                };
+            }
+            $json->{email} = $editor->email;
+        } elsif ($active_user->is_account_admin) {
+            $json->{email} = $editor->email;
+        }
+    }
+
+    return $json;
 }
 
 sub TO_JSON {
@@ -587,7 +708,6 @@ sub TO_JSON {
         collaborative_collections
         commons_image
         containment
-        csrf_token
         current_language
         current_language_html
         entity
@@ -613,7 +733,6 @@ sub TO_JSON {
 
     my @boolean_stash_keys = qw(
         hide_merge_helper
-        invalid_csrf_token
         makes_no_changes
         new_edit_notes
     );
@@ -665,7 +784,11 @@ sub TO_JSON {
         action => {
             name => $self->action->name,
         },
-        user => ($self->user_exists ? $self->user : undef),
+        user => (
+            $self->user_exists
+                ? $self->unsanitized_editor_json($self->user)
+                : undef
+        ),
         user_exists => boolean_to_json($self->user_exists),
         debug => boolean_to_json($self->debug),
         relative_uri => $self->relative_uri,

@@ -35,7 +35,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-29 14:53+0000\n"
+"PO-Revision-Date: 2020-12-07 18:58+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1806,6 +1806,14 @@ msgstr "Ceci indique l’œuvre qui a inspiré le nom de cet artiste."
 msgid "This indicates where a feed for this podcast can be found."
 msgstr "Ceci indique où le flux pour cette baladodiffusion peut être trouvé."
 
+#: DB:link_attribute_type/description:424
+msgid ""
+"This is used only for cases when someone is credited as co-[role] (co-"
+"producer, co-engineer, etc.) - which generally has a specific meaning that "
+"depends on the specific activity but is different from just \"there were "
+"several people collaborating\"."
+msgstr ""
+
 #: DB:link_type/description:17
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
@@ -1834,6 +1842,12 @@ msgid ""
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
 msgstr "Ceci est utilisé pour indiqué que le groupe de parution est un <a href=\"/doc/Mix_Terminology#mash-up\">collage</a> de deux (ou plus) groupes de parution."
+
+#: DB:link_attribute_type/description:952
+msgid ""
+"This is used to indicate this instance of mastering is a specifically a "
+"remaster."
+msgstr "Ceci est utilisé pour indiquer quand une relation de matriçage concerne un rematriçage."
 
 #: DB:link_type/description:227
 msgid ""
@@ -2265,12 +2279,8 @@ msgid ""
 msgstr "Ceci relie une œuvre de bande originale à la page <a href=\"http://www.imdb.com/\">IMDb</a> pour le film, l’émission ou le jeu dont elle est une bande originale."
 
 #: DB:link_type/description:722
-msgid ""
-"This links a subgroup to the group from which it was created. This "
-"relationship type is the functional equivalent of the <a "
-"href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
-"type</a> for group-group relationships."
-msgstr "Ceci relie un sous-groupe au groupe à partir duquel il a été créé. Ce type de relation est l’équivalent fonctionnel du <a  href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">type membre du groupe</a> pour les relations groupe-groupe."
+msgid "This links a subgroup to the group from which it was created."
+msgstr "Ceci relie un sous-groupe au groupe à partir duquel il a été créé."
 
 #: DB:link_type/description:939
 msgid "This links a work to a license under which it is available."
@@ -3585,10 +3595,6 @@ msgstr "musique classique"
 #: DB:link_attribute_type/name:424
 msgid "co"
 msgstr "co"
-
-#: DB:link_attribute_type/description:424
-msgid "co-[role]"
-msgstr "co-[role]"
 
 #: DB:link_type/long_link_phrase:102
 msgid "collaborated {minor:minorly} {additional:additionally} on"
@@ -5854,10 +5860,6 @@ msgstr "PureVolume"
 msgid "re"
 msgstr "re"
 
-#: DB:link_attribute_type/description:952
-msgid "re-[role]"
-msgstr "re-[rôle]"
-
 #: DB:link_type/link_phrase:917 DB:link_type/long_link_phrase:917
 msgid "reconstructed"
 msgstr "reconstruit"
@@ -6521,7 +6523,7 @@ msgstr "était le premier violon {guest:invité} pour"
 
 #: DB:link_type/long_link_phrase:986 DB:link_type/long_link_phrase:987
 msgid "was the {instrument:%|instruments} technician for"
-msgstr "était le technicien en {instrument:%instruments} pour"
+msgstr "était le technicien en {instrument:%|instruments} pour"
 
 #: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid ""
@@ -7444,11 +7446,11 @@ msgstr "{half:demi-}frère/{half:demie-}soeur"
 
 #: DB:link_type/reverse_link_phrase:986 DB:link_type/reverse_link_phrase:987
 msgid "{instrument:%|instruments} technician"
-msgstr "technicien en {instrument:%instruments}"
+msgstr "technicien en {instrument:%|instruments}"
 
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
-msgstr "technicien en {instrument:%instruments} pour"
+msgstr "technicien en {instrument:%|instruments} pour"
 
 #: DB:link_type/link_phrase:278
 msgid ""

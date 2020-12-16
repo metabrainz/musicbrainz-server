@@ -21,8 +21,9 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves Secu
     $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $user->id;
 
     my $form = $c->form(
-        form => 'User::AdjustFlags',
+        form => 'Admin::EditUser',
         item => {
+            # user flags
             auto_editor             => $user->is_auto_editor,
             bot                     => $user->is_bot,
             untrusted               => $user->is_untrusted,
@@ -35,40 +36,29 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves Secu
             account_admin           => $user->is_account_admin,
             editing_disabled        => $user->is_editing_disabled,
             adding_notes_disabled   => $user->is_adding_notes_disabled,
+            # user profile
+            username                => $user->name,
+            email                   => $user->email,
+            skip_verification       => 0,
+            website                 => $user->website,
+            biography               => $user->biography
         },
     );
 
-    my $form2 = $c->form(
-        form => 'User::EditProfile',
-        item => {
-            username          => $user->name,
-            email            => $user->email,
-            skip_verification => 0,
-            website            => $user->website,
-            biography        => $user->biography
-        },
-    );
-
-    if (
-        $c->form_posted_and_valid($form) &&
-        $c->form_posted_and_valid($form2)
-    ) {
+    if ($c->form_posted_and_valid($form)) {
         # When an admin views their own flags page the account admin checkbox will be disabled,
         # thus we need to manually insert a value here to keep the admin's privileges intact.
-        $form->values->{account_admin} = 1 if ($c->user->id == $user->id);
-        $c->model('Editor')->update_privileges($user, $form->values);
-
-        $c->model('Editor')->update_profile(
-            $user,
-            $form2->value
-        );
+        my $form_values = $form->value;
+        $form_values->{account_admin} = 1 if ($c->user->id == $user->id);
+        $c->model('Editor')->update_privileges($user, $form_values);
+        $c->model('Editor')->update_profile($user, $form_values);
 
         my %args = ( ok => 1 );
         my $old_email = $user->email || '';
-        my $new_email = $form2->field('email')->value || '';
+        my $new_email = $form->field('email')->value || '';
         if ($old_email ne $new_email) {
             if ($new_email) {
-                if ($form2->field('skip_verification')->value) {
+                if ($form->field('skip_verification')->value) {
                     $c->model('Editor')->update_email($user, $new_email);
                     $user->email($new_email);
                     $c->forward('/discourse/sync_sso', [$user]);
@@ -85,14 +75,13 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves Secu
         }
 
         $c->flash->{message} = l('User successfully edited.');
-        $c->response->redirect($c->uri_for_action('/user/profile', [$form2->field('username')->value]));
+        $c->response->redirect($c->uri_for_action('/user/profile', [$form->field('username')->value]));
         $c->detach;
     }
 
     $c->stash(
         user => $user,
         form => $form,
-        form2 => $form2,
         show_flags => 1,
     );
 }
@@ -101,9 +90,9 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
     my ($self, $c, $name) = @_;
 
     my $editor = $c->model('Editor')->get_by_name($name);
-    $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $editor->id;
+    $c->detach('/user/not_found') if !$editor || $editor->deleted;
 
-    $c->detach('/error_404') if !$editor || $editor->deleted;
+    $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $editor->id;
 
     my $id = $editor->id;
     if ($id != $c->user->id && !$c->user->is_account_admin) {
@@ -112,10 +101,11 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
 
     $c->stash( user => $editor );
 
-    if ($c->form_posted && $c->validate_csrf_token) {
+    my $form = $c->form(form => 'Admin::DeleteUser');
+    if ($c->form_posted_and_valid($form)) {
         my $allow_reuse = 0;
         if ($id != $c->user->id && $c->user->is_account_admin) {
-            $allow_reuse = 1 if ($c->req->params->{allow_reuse} // '') eq '1';
+            $allow_reuse = 1 if $form->field('allow_reuse')->value;
         }
 
         $c->model('Editor')->delete($id, $allow_reuse);
@@ -169,7 +159,7 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
     my $form = $c->form(form => 'Admin::EmailSearch');
     my @results;
 
-    if ($c->form_submitted_and_valid($form)) {
+    if ($c->form_posted_and_valid($form, $c->req->body_params)) {
         try {
             @results = $c->model('Editor')->search_by_email(
                 $form->field('email')->value // '',
@@ -190,7 +180,9 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
         component_path => 'admin/EmailSearch',
         component_props => {
             form => $form,
-            @results ? (results => \@results) : (),
+            @results ? (
+                results => [map { $c->unsanitized_editor_json($_) } @results],
+            ) : (),
         },
     );
 }
@@ -205,7 +197,7 @@ sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) Hidd
         component_path => 'admin/IpLookup',
         component_props => {
             ipHash => $ip_hash,
-            users => \@users,
+            users => [map { $c->unsanitized_editor_json($_) } @users],
         },
     );
 }

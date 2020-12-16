@@ -95,7 +95,7 @@ declare type AnnotationRoleT = {
 declare type AnnotationT = {
   +changelog: string,
   +creation_date: string,
-  +editor: SanitizedEditorT | null,
+  +editor: EditorT | null,
   +html: string,
   +id: number,
   +parent: CoreEntityT | null,
@@ -153,7 +153,7 @@ declare type ArtworkT = {
 
 declare type AutoEditorElectionT = {
   ...EntityRoleT<empty>,
-  +candidate: SanitizedEditorT,
+  +candidate: EditorT,
   +close_time?: string,
   +current_expiration_time: string,
   +is_closed: boolean,
@@ -162,9 +162,9 @@ declare type AutoEditorElectionT = {
   +no_votes: number,
   +open_time?: string,
   +propose_time: string,
-  +proposer: SanitizedEditorT,
-  +seconder_1?: SanitizedEditorT,
-  +seconder_2?: SanitizedEditorT,
+  +proposer: EditorT,
+  +seconder_1?: EditorT,
+  +seconder_2?: EditorT,
   +status_name: string,
   +status_name_short: string,
   +votes: $ReadOnlyArray<AutoEditorElectionVoteT>,
@@ -175,7 +175,7 @@ declare type AutoEditorElectionVoteT = {
   ...EntityRoleT<empty>,
   +vote_name: string,
   +vote_time: string,
-  +voter: SanitizedEditorT,
+  +voter: EditorT,
 };
 
 declare type BlogEntryT = {
@@ -197,7 +197,7 @@ declare type CatalystContextT = {
   +session: CatalystSessionT | null,
   +sessionid: string | null,
   +stash: CatalystStashT,
-  +user?: CatalystUserT,
+  +user?: UnsanitizedEditorT,
 };
 
 declare type CatalystRequestContextT = {
@@ -220,14 +220,12 @@ declare type CatalystStashT = {
   +containment?: {
     [collectionId: number]: ?1,
   },
-  +csrf_token?: string,
   +current_language: string,
   +current_language_html: string,
   +entity?: CoreEntityT,
   +genre_map?: {+[genreName: string]: GenreT, ...},
   +globals_script_nonce?: string,
   +hide_merge_helper?: boolean,
-  +invalid_csrf_token?: boolean,
   +jsonld_data?: {...},
   +last_replication_date?: string,
   +makes_no_changes?: boolean,
@@ -246,8 +244,6 @@ declare type CatalystStashT = {
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
   +user_tags?: $ReadOnlyArray<UserTagT>,
 };
-
-declare type CatalystUserT = EditorT;
 
 declare type CDStubT = $ReadOnly<{
   ...EntityRoleT<'cdstub'>,
@@ -272,10 +268,10 @@ declare type CDTocT = $ReadOnly<{
 declare type CollectionT = {
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
-  +collaborators: $ReadOnlyArray<SanitizedEditorT>,
+  +collaborators: $ReadOnlyArray<EditorT>,
   +description: string,
   +description_html: string,
-  +editor: SanitizedEditorT | null,
+  +editor: EditorT | null,
   +editor_is_limited: boolean,
   +entity_count: number,
   +gid: string,
@@ -323,6 +319,17 @@ declare type ReadOnlyCompoundFieldT<+F> = {
   +html_name: string,
   +id: number,
 };
+
+declare type ConfirmFormT = FormT<{
+  +cancel: ReadOnlyFieldT<string>,
+  +submit: ReadOnlyFieldT<string>,
+}>;
+
+declare type SecureConfirmFormT = FormT<{
+  +cancel: ReadOnlyFieldT<string>,
+  +csrf_token: ReadOnlyFieldT<string>,
+  +submit: ReadOnlyFieldT<string>,
+}>;
 
 declare type CoreEntityRoleT<+T> = {
   ...EntityRoleT<T>,
@@ -389,7 +396,7 @@ declare type EditableRoleT = {
 
 declare type EditExpireActionT = 1 | 2;
 
-declare type EditorPreferencesT = {
+declare type UnsanitizedEditorPreferencesT = {
   +datetime_format: string,
   +email_on_no_vote: boolean,
   +email_on_notes: boolean,
@@ -405,18 +412,19 @@ declare type EditorPreferencesT = {
   +timezone: string,
 };
 
-declare type EditorT = $ReadOnly<{
+declare type UnsanitizedEditorT = $ReadOnly<{
   ...EntityRoleT<'editor'>,
   +age: number | null,
   +area: AreaT | null,
   +biography: string | null,
   +birth_date: PartialDateT | null,
   +deleted: boolean,
-  +email: string,
+  +email: string | null,
   +email_confirmation_date: string | null,
   +gender: GenderT | null,
   +gravatar: string,
   +has_confirmed_email_address: boolean,
+  +has_email_address: boolean,
   +is_account_admin: boolean,
   +is_adding_notes_disabled: boolean,
   +is_admin: boolean,
@@ -432,7 +440,7 @@ declare type EditorT = $ReadOnly<{
   +languages: $ReadOnlyArray<EditorLanguageT> | null,
   +last_login_date: string | null,
   +name: string,
-  +preferences: EditorPreferencesT,
+  +preferences: UnsanitizedEditorPreferencesT,
   +registration_date: string,
   +website: string | null,
 }>;
@@ -445,7 +453,7 @@ declare type EditorLanguageT = {
 declare type EditorOAuthTokenT = {
   ...EntityRoleT<empty>,
   +application: ApplicationT,
-  +editor: SanitizedEditorT | null,
+  +editor: EditorT | null,
   +granted: string,
   +is_offline: boolean,
   +permissions: $ReadOnlyArray<string>,
@@ -556,10 +564,10 @@ declare type FluencyT =
   ;
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
-declare type FormT<+F> = {
-  +field: F,
-  +has_errors: boolean,
-  +name: string,
+declare type FormT<F> = {
+  field: F,
+  has_errors: boolean,
+  name: string,
 };
 
 declare type GenderT = OptionTreeT<'gender'>;
@@ -852,7 +860,7 @@ declare type RatableT =
   | WorkT;
 
 declare type RatingT = {
-  +editor: SanitizedEditorT,
+  +editor: EditorT,
   +rating: number,
 };
 
@@ -863,6 +871,7 @@ declare type RecordingT = $ReadOnly<{
   ...CoreEntityRoleT<'recording'>,
   ...RatableRoleT,
   +appearsOn?: AppearancesT<{gid: string, name: string}>,
+  +first_release_date?: PartialDateT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
   +primaryAlias?: string | null,
@@ -964,6 +973,12 @@ declare type RepeatableFieldT<F> = {
   last_index: number,
 };
 
+declare type ReadOnlyFormT<+F> = {
+  +field: F,
+  +has_errors: boolean,
+  +name: string,
+};
+
 declare type ReadOnlyRepeatableFieldT<+F> = {
   +errors: $ReadOnlyArray<string>,
   +field: $ReadOnlyArray<F>,
@@ -981,15 +996,13 @@ declare type SanitizedCatalystContextT = {
     +uri: string,
   },
   +stash: {
-    +csrf_token?: string,
     +current_language: string,
     +genre_map?: {+[genreName: string]: GenreT, ...},
-    +invalid_csrf_token?: boolean,
   },
-  +user: ActiveSanitizedEditorT | null,
+  +user: ActiveEditorT | null,
 };
 
-declare type SanitizedEditorPreferencesT = {
+declare type ActiveEditorPreferencesT = {
   +datetime_format: string,
   +timezone: string,
 };
@@ -998,16 +1011,17 @@ declare type SanitizedEditorPreferencesT = {
  * Only used in cases where the editor being sanitized is logged in;
  * exposes some preferences and misc. metadata.
  */
-declare type ActiveSanitizedEditorT = {
+declare type ActiveEditorT = {
   ...EntityRoleT<'editor'>,
   +gravatar: string,
   +has_confirmed_email_address: boolean,
   +name: string,
-  +preferences: SanitizedEditorPreferencesT,
+  +preferences: ActiveEditorPreferencesT,
 };
 
-declare type SanitizedEditorT = {
+declare type EditorT = {
   ...EntityRoleT<'editor'>,
+  +deleted: boolean,
   +gravatar: string,
   +name: string,
 };

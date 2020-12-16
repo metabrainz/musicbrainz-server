@@ -3161,6 +3161,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SOCAN"
 msgstr ""
 
+#: DB:work_attribute_type/description:53
+msgctxt "work_attribute_type"
+msgid "ID for the Canadian rights society SODRAC"
+msgstr ""
+
 #: DB:work_attribute_type/description:39
 msgctxt "work_attribute_type"
 msgid "ID for the Colombian rights society SAYCO"
@@ -5790,6 +5795,11 @@ msgstr ""
 #: DB:work_attribute_type/name:10
 msgctxt "work_attribute_type"
 msgid "SOCAN ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:53
+msgctxt "work_attribute_type"
+msgid "SODRAC ID"
 msgstr ""
 
 #: DB:work_attribute_type/name:35

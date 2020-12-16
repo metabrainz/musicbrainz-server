@@ -25,7 +25,7 @@
 
     [%- USE r = FormRenderer(register_form) -%]
     <form class="register" action="[% c.req.uri %]" method="post">
-        [% form_csrf_token %]
+        [% form_csrf_token(r) %]
         [% form_row_text(r, 'username', l('Username:')) %]
         <div class="row no-label">
             <span class="input-note">[% l('Your username will be publicly visible.') %]</span>

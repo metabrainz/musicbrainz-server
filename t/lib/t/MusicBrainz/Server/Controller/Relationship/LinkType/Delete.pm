@@ -27,7 +27,8 @@ test 'Delete an artist-artist link type' => sub {
     $mech->get_ok('/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821/delete');
     html_ok($mech->content);
     my @edits = capture_edits {
-        $mech->request(POST $mech->uri, [ 'confirm.submit' => 1 ]);
+        $mech->form_with_fields('confirm.submit');
+        $mech->click('confirm.submit');
         ok($mech->success);
     } $test->c;
 

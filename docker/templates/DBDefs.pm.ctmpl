@@ -184,7 +184,6 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "BOOLEAN_DEF" "DEVELOPMENT_SERVER"}}
 {{executeTemplate "BOOLEAN_DEF" "FORK_RENDERER"}}
 {{executeTemplate "BOOLEAN_DEF" "IS_BETA"}}
-{{executeTemplate "BOOLEAN_DEF" "OAUTH2_ENABLE_PKCE"}}
 {{executeTemplate "BOOLEAN_DEF" "SEARCH_X_ACCEL_REDIRECT"}}
 {{executeTemplate "BOOLEAN_DEF" "SSL_REDIRECTS_ENABLED"}}
 {{executeTemplate "BOOLEAN_DEF" "WIKIMEDIA_COMMONS_IMAGES_ENABLED"}}
@@ -201,10 +200,12 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "STRING_DEF" "DISCOURSE_API_USERNAME"}}
 {{executeTemplate "STRING_DEF" "DISCOURSE_SERVER"}}
 {{executeTemplate "STRING_DEF" "DISCOURSE_SSO_SECRET"}}
+{{executeTemplate "STRING_DEF" "ACTIVE_SCHEMA_SEQUENCE"}}
 {{executeTemplate "STRING_DEF" "GOOGLE_CUSTOM_SEARCH"}}
 {{executeTemplate "STRING_DEF" "GPG_ENCRYPT_KEY"}}
 {{executeTemplate "STRING_DEF" "GPG_SIGN_KEY"}}
 {{executeTemplate "STRING_DEF" "MAPBOX_ACCESS_TOKEN"}}
+{{executeTemplate "STRING_DEF" "NONCE_SECRET"}}
 {{executeTemplate "STRING_DEF" "RECAPTCHA_PRIVATE_KEY"}}
 {{executeTemplate "STRING_DEF" "RECAPTCHA_PUBLIC_KEY"}}
 {{executeTemplate "STRING_DEF" "RENDERER_SOCKET"}}

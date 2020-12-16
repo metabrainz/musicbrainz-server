@@ -18,6 +18,7 @@ import Layout from '../../layout';
 type Props = {
   +$c: CatalystContextT,
   +form: FormT<{
+    +csrf_token: FieldT<string>,
     +page: FieldT<string>,
     +version: FieldT<string>,
   }>,
@@ -31,7 +32,7 @@ const CreateWikiDoc = ({
     <div id="content">
       <h1>{l('Add Page')}</h1>
       <form action={$c.req.uri} method="post">
-        <FormCsrfToken />
+        <FormCsrfToken form={form} />
         <FormRowTextLong
           field={form.field.page}
           label={l('Page:')}

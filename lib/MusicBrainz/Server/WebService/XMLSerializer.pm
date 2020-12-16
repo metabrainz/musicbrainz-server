@@ -5,6 +5,7 @@ use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
+use DBDefs;
 use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
@@ -604,6 +605,14 @@ sub _serialize_recording
 
         $self->_serialize_artist_credit($rec_node, $recording->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artists || $inc->artist_credits;
+
+
+        if (
+            DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26 &&
+            defined $recording->first_release_date
+        ) {
+            $rec_node->appendTextChild('first-release-date', $recording->first_release_date->format);
+        }
 
         $self->_serialize_release_list($rec_node, $opts->{releases}, $inc, $stash)
             if $inc->releases;

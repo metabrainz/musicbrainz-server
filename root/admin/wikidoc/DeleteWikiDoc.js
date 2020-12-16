@@ -15,11 +15,13 @@ import Layout from '../../layout';
 
 type Props = {
   +$c: CatalystContextT,
+  +form: SecureConfirmFormT,
   +page: string,
 };
 
 const DeleteWikiDoc = ({
   $c,
+  form,
   page,
 }: Props): React.Element<typeof Layout> => (
   <Layout $c={$c} fullWidth title={l('Remove Page')}>
@@ -34,7 +36,7 @@ const DeleteWikiDoc = ({
                })}
       </p>
       <form action={$c.req.uri} method="post" name="confirm">
-        <FormCsrfToken />
+        <FormCsrfToken form={form} />
         <FormSubmit
           label={l('Yes, I\'m sure')}
           name="confirm.submit"

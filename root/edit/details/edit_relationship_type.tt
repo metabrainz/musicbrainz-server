@@ -47,12 +47,12 @@
   [% END %]
 
   [% IF edit.data.old.entity0_cardinality != edit.data.new.entity0_cardinality %]
-  [%- display_word_diff(l('entity0 cardinality:'),
+  [%- display_word_diff(add_colon(l('Cardinality of {entity_placeholder}', { entity_placeholder => '<code>{entity0}</code>' })),
                         link_type_cardinality_name(edit.data.old.entity0_cardinality),
                         link_type_cardinality_name(edit.data.new.entity0_cardinality)) -%]
   [% END %]
   [% IF edit.data.old.entity1_cardinality != edit.data.new.entity1_cardinality %]
-  [%- display_word_diff(l('entity1 cardinality:'),
+  [%- display_word_diff(add_colon(l('Cardinality of {entity_placeholder}', { entity_placeholder => '<code>{entity1}</code>' })),
                         link_type_cardinality_name(edit.data.old.entity1_cardinality),
                         link_type_cardinality_name(edit.data.new.entity1_cardinality)) -%]
   [% END %]

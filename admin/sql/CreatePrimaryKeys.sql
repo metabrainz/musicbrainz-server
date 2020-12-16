@@ -252,6 +252,7 @@ ALTER TABLE recording_annotation ADD CONSTRAINT recording_annotation_pkey PRIMAR
 ALTER TABLE recording_attribute ADD CONSTRAINT recording_attribute_pkey PRIMARY KEY (id);
 ALTER TABLE recording_attribute_type ADD CONSTRAINT recording_attribute_type_pkey PRIMARY KEY (id);
 ALTER TABLE recording_attribute_type_allowed_value ADD CONSTRAINT recording_attribute_type_allowed_value_pkey PRIMARY KEY (id);
+ALTER TABLE recording_first_release_date ADD CONSTRAINT recording_first_release_date_pkey PRIMARY KEY (recording);
 ALTER TABLE recording_gid_redirect ADD CONSTRAINT recording_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE recording_meta ADD CONSTRAINT recording_meta_pkey PRIMARY KEY (id);
 ALTER TABLE recording_rating_raw ADD CONSTRAINT recording_rating_raw_pkey PRIMARY KEY (recording, editor);
@@ -266,6 +267,7 @@ ALTER TABLE release_attribute_type ADD CONSTRAINT release_attribute_type_pkey PR
 ALTER TABLE release_attribute_type_allowed_value ADD CONSTRAINT release_attribute_type_allowed_value_pkey PRIMARY KEY (id);
 ALTER TABLE release_country ADD CONSTRAINT release_country_pkey PRIMARY KEY (release, country);
 ALTER TABLE release_coverart ADD CONSTRAINT release_coverart_pkey PRIMARY KEY (id);
+ALTER TABLE release_first_release_date ADD CONSTRAINT release_first_release_date_pkey PRIMARY KEY (release);
 ALTER TABLE release_gid_redirect ADD CONSTRAINT release_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE release_group ADD CONSTRAINT release_group_pkey PRIMARY KEY (id);
 ALTER TABLE release_group_alias ADD CONSTRAINT release_group_alias_pkey PRIMARY KEY (id);

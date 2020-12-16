@@ -222,8 +222,7 @@ sub PLUGIN_CACHE_OPTIONS {
 }
 
 # The caching options here relate to object caching in Redis - such as for
-# artists, releases, etc. in order to speed up queries. See below if you want
-# to disable caching.
+# artists, releases, etc. in order to speed up queries.
 sub CACHE_MANAGER_OPTIONS {
     my $self = shift;
     my %CACHE_MANAGER_OPTIONS = (
@@ -321,9 +320,6 @@ sub GIT_BRANCH { qx( $git_info branch ) }
 sub GIT_MSG { qx( $git_info msg ) }
 sub GIT_SHA { qx( $git_info sha ) }
 
-# How long an annotation is considered as being locked.
-sub ANNOTATION_LOCK_TIME { 60*15 }
-
 # Amazon associate and developer ids
 my %amazon_store_associate_ids = (
     'amazon.ca'         => 'music0b72-20',
@@ -364,9 +360,15 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
 sub MAPBOX_ACCESS_TOKEN { '' }
 
+# Set to 26 for the following features:
+#  * PKCE for OAuth 2.0 clients.
+#    (admin/sql/updates/20200914-oauth-pkce.sql)
+#  * recording_first_release_date table.
+#    (admin/sql/updates/20201028-mbs-1424.sql)
+sub ACTIVE_SCHEMA_SEQUENCE { 25 }
+
 # Enable PKCE for OAuth 2.0 clients.
-# Currently requires a schema change: admin/sql/updates/20200914-oauth-pkce.sql
-sub OAUTH2_ENABLE_PKCE { 0 }
+sub OAUTH2_ENABLE_PKCE { shift->ACTIVE_SCHEMA_SEQUENCE >= 26 }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
@@ -433,6 +435,12 @@ sub DISCOURSE_API_KEY { '' }
 sub DISCOURSE_API_USERNAME { '' }
 # See https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
 sub DISCOURSE_SSO_SECRET { '' }
+
+# Secret key used to generate nonce values in some contexts, e.g. CSRF tokens
+# and CSP headers. Even without a secret set, the generated nonces are very
+# unlikely to be guessed; this is mainly only useful for an additional layer
+# of security on the MusicBrainz production site.
+sub NONCE_SECRET { '' }
 
 # When enabled, if Catalyst receives a request with an `mb-set-database`
 # header, all database queries will go to the specified database instead of

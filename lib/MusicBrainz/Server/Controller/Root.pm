@@ -1,10 +1,6 @@
 package MusicBrainz::Server::Controller::Root;
 use Digest::MD5 qw( md5_hex );
-use Digest::SHA qw( sha256 );
-use MIME::Base64 qw( encode_base64 );
 use Moose;
-use Scalar::Util qw( refaddr );
-use Time::HiRes qw( clock_gettime CLOCK_REALTIME CLOCK_MONOTONIC );
 use Try::Tiny;
 use List::Util qw( max );
 use Readonly;
@@ -107,7 +103,15 @@ sub set_beta_preference : Path('set-beta-preference') Args(0)
         } elsif (!DBDefs->IS_BETA) {
             $new_url = $c->req->referer || $c->uri_for('/');
             # 1 year
-            $c->res->cookies->{beta} = { 'value' => 'on', 'path' => '/', 'expires' => time()+31536000 };
+            $c->res->cookies->{beta} = {
+                'value' => 'on',
+                'path' => '/',
+                'expires' => time()+31536000,
+                $c->req->secure ? (
+                    'samesite' => 'None',
+                    'secure' => '1',
+                ) : (),
+            };
         }
         # Munge URL to redirect server
         my $ws = DBDefs->WEB_SERVER;
@@ -200,84 +204,6 @@ sub error_mirror_404 : Private
     $c->detach;
 }
 
-sub generate_globals_script_nonce {
-    my ($c) = @_;
-
-    encode_base64(
-        sha256(
-            join q(.),
-                refaddr($c->req),
-                clock_gettime(CLOCK_REALTIME),
-                clock_gettime(CLOCK_MONOTONIC)),
-        '',
-    );
-}
-
-sub set_csp_headers {
-    my ($c) = @_;
-
-    my $globals_script_nonce = generate_globals_script_nonce($c);
-    $c->stash->{globals_script_nonce} = $globals_script_nonce;
-
-    # CSP headers are generally only added where SecureForm is also used:
-    # account and admin-related forms. So there's no need to account for
-    # external origins like coverartarchive.org, archive.org,
-    # acousticbrainz.org, etc. here, as those are used on entity pages which
-    # don't have a CSP. Userscripts should continue to work for the same
-    # reason: edit and entity pages are unaffected. Avoid using the
-    # CSPHeaders attribute in those places.
-    my @csp_script_src = (
-        'script-src',
-        q('self'),
-        qq('nonce-$globals_script_nonce'),
-        'staticbrainz.org'
-    );
-
-    my @csp_style_src = (
-        'style-src',
-        q('self'),
-        'staticbrainz.org',
-    );
-
-    my @csp_img_src = (
-        'img-src',
-        q('self'),
-        'data:',
-        'staticbrainz.org',
-        'gravatar.com',
-    );
-
-    my @csp_frame_src = ('frame-src', q('self'));
-    if ($c->req->path eq 'register') {
-        my $use_captcha = ($c->req->address &&
-                           defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
-                           defined DBDefs->RECAPTCHA_PRIVATE_KEY);
-        if ($use_captcha) {
-            push @csp_script_src, qw(
-                https://www.google.com/recaptcha/
-                https://www.gstatic.com/recaptcha/
-            );
-            push @csp_frame_src, 'https://www.google.com/recaptcha/';
-        }
-    }
-
-    $c->res->header(
-        # X-Frame-Options is obsoleted by `frame-ancestors` on the
-        # Content-Security-Policy header; user agents that support
-        # the latter should ignore X-Frame-Options.
-        'X-Frame-Options' => 'DENY',
-        'Content-Security-Policy' => (
-            q(default-src 'self'; frame-ancestors 'none'; ) .
-            (join '; ', map { join ' ', @{$_} } (
-                \@csp_script_src,
-                \@csp_style_src,
-                \@csp_img_src,
-                \@csp_frame_src,
-            ))
-        ),
-    );
-}
-
 sub begin : Private
 {
     my ($self, $c) = @_;
@@ -286,15 +212,8 @@ sub begin : Private
 
     ensure_ssl($c) if $attributes->{RequireSSL};
 
-    # 'SecureForm' only exists as a shorthand for specifying both CSRFToken
-    # and CSPHeaders, since those are commonly paired together on forms.
     if (exists $attributes->{SecureForm}) {
-        $attributes->{CSRFToken} = 1;
-        $attributes->{CSPHeaders} = 1;
-    }
-
-    if ($attributes->{CSPHeaders}) {
-        set_csp_headers($c);
+        $c->set_csp_headers;
     }
 
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
@@ -408,6 +327,22 @@ sub begin : Private
 
     if (exists $attributes->{RequireAuth})
     {
+        if ($c->form_posted && $c->is_cross_origin) {
+            my $post_params = $c->req->body_params;
+            if (defined $post_params && scalar(%$post_params)) {
+                my $external_origin = $c->req->header('Origin');
+                $c->set_csp_headers;
+                $c->stash(
+                    current_view => 'Node',
+                    component_path => 'main/ConfirmSeed',
+                    component_props => {
+                        origin => $external_origin,
+                        postParameters => $post_params,
+                    },
+                );
+                $c->detach;
+            }
+        }
         $c->forward('/user/do_login');
         my $privs = $attributes->{RequireAuth};
         if ($privs && ref($privs) eq "ARRAY") {
@@ -480,8 +415,6 @@ sub end : ActionClass('RenderView')
     my ($self, $c) = @_;
 
     my $attrs = $c->action->attributes;
-
-    $c->generate_csrf_token if exists $attrs->{CSRFToken};
 
     $c->stash->{server_details} = {
         %{ $c->stash->{server_details} // {} },

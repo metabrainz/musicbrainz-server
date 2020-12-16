@@ -593,19 +593,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
     }
 };
 
-=head2 add_release
-
-Add a new release to this artist.
-
-=cut
-
-sub add_release : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->forward('/user/login');
-    $c->forward('/release_editor/add_release');
-}
-
 =head2 merge
 
 Merge 2 artists into a single artist
@@ -649,22 +636,6 @@ around _validate_merge => sub {
 
     return 1;
 };
-
-=head2 rating
-
-Rate an artist
-
-=cut
-
-sub rating : Chained('load') Args(2)
-{
-    my ($self, $c, $entity, $new_vote) = @_;
-    #Need more validation here
-
-    $c->forward('/user/login');
-    $c->forward('/rating/do_rating', ['artist', $entity, $new_vote] );
-    $c->response->redirect($c->entity_url($self->entity, 'show'));
-}
 
 around edit => sub {
     my $orig = shift;

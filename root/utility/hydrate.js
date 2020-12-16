@@ -16,6 +16,73 @@ import {SanitizedCatalystContext} from '../context';
 
 import escapeClosingTags from './escapeClosingTags';
 
+type PropsDataT =
+  | StrOrNum
+  | $ReadOnlyArray<PropsDataT>
+  | {+[key: string]: PropsDataT, ...}
+  | null
+  | void;
+
+/*
+ * During testing or development mode, ensure that hydration props do
+ * not embed sensitive data like emails and birth dates of users. Only
+ * `sanitizedEditorProps` are allowed wherever an object with entityType
+ * "editor" appears.
+ *
+ * It may be valid to embed certain unsanitized data for the currently
+ * logged-in user, but that should be part of `$c.user` in
+ * `GLOBAL_JS_NAMESPACE`; we otherwise may need to relax this check for
+ * admin-only forms in the future.
+ */
+let checkForUnsanitizedEditorData;
+if (__DEV__) {
+  const sanitizedEditorProps = new Set([
+    'entityType',
+    'gravatar',
+    'id',
+    'name',
+  ]);
+
+  const suspectKeyPattern = /(?:birth|email|password)/;
+
+  checkForUnsanitizedEditorData = (
+    data: PropsDataT,
+  ) => {
+    if (data) {
+      if (Array.isArray(data)) {
+        data.forEach(checkForUnsanitizedEditorData);
+      } else if (typeof data === 'object') {
+        if (data.entityType === 'editor') {
+          for (const key in data) {
+            if (!sanitizedEditorProps.has(key)) {
+              throw new Error(
+                'Unsanitized editor data was found on the client: ' +
+                JSON.stringify(data),
+              );
+            }
+          }
+        } else {
+          for (const key in data) {
+            const normalizedKey =
+              key.toLowerCase().replace(/[_-]/g, '');
+            if (suspectKeyPattern.test(normalizedKey)) {
+              console.warn(
+                'Possible unsanitized editor data was found on ' +
+                'the client. If it\'s relevant to a particular *secure* ' +
+                'page, or only relates to the current authorized user, ' +
+                'you may ignore this warning; but please ensure that ' +
+                `it\'s intended (check key ${JSON.stringify(key)}): ` +
+                JSON.stringify(data),
+              );
+            }
+            checkForUnsanitizedEditorData(data[key]);
+          }
+        }
+      }
+    }
+  };
+}
+
 export default function hydrate<
   Config: {+$c?: CatalystContextT, ...},
   SanitizedConfig = Config,
@@ -42,8 +109,11 @@ export default function hydrate<
         const propString = propScript.textContent;
         if (propString) {
           const $c: SanitizedCatalystContextT =
-            window[GLOBAL_CATALYST_CONTEXT_NAMESPACE];
+            window[GLOBAL_JS_NAMESPACE].$c;
           const props: SanitizedConfig = JSON.parse(propString);
+          if (__DEV__) {
+            checkForUnsanitizedEditorData((props: any));
+          }
           ReactDOM.hydrate(
             <SanitizedCatalystContext.Provider value={$c}>
               <Component $c={$c} {...props} />

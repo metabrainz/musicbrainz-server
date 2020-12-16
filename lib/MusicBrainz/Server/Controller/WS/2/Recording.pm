@@ -69,6 +69,8 @@ sub recording_toplevel
     $c->model('Recording')->annotation->load_latest(@recordings)
         if $inc->annotation;
 
+    $c->model('Recording')->load_first_release_date(@recordings);
+
     $self->load_relationships($c, $stash, @recordings);
 
     if ($inc->releases) {

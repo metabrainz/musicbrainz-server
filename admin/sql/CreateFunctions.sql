@@ -574,6 +574,7 @@ BEGIN
     -- increment track_count in the parent medium
     UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
     PERFORM materialise_recording_length(NEW.recording);
+    PERFORM set_recordings_first_release_dates(ARRAY[NEW.recording]);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -591,6 +592,7 @@ BEGIN
     END IF;
     IF OLD.recording <> NEW.recording THEN
       PERFORM materialise_recording_length(OLD.recording);
+      PERFORM set_recordings_first_release_dates(ARRAY[OLD.recording, NEW.recording]);
     END IF;
     PERFORM materialise_recording_length(NEW.recording);
     RETURN NULL;
@@ -603,6 +605,7 @@ BEGIN
     -- decrement track_count in the parent medium
     UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
     PERFORM materialise_recording_length(OLD.recording);
+    PERFORM set_recordings_first_release_dates(ARRAY[OLD.recording]);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -879,6 +882,42 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql' IMMUTABLE;
 
+-------------------------------------------------------------------
+-- Maintain musicbrainz.release_first_release_date
+-------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION set_release_first_release_date(release_id INTEGER)
+RETURNS VOID AS $$
+BEGIN
+  INSERT INTO release_first_release_date (release, year, month, day) (
+    SELECT release_id, date_year, date_month, date_day FROM (
+      SELECT date_year, date_month, date_day
+        FROM release_country
+       WHERE release = release_id
+       UNION ALL
+      SELECT date_year, date_month, date_day
+        FROM release_unknown_country
+       WHERE release = release_id
+       UNION ALL
+      SELECT NULL, NULL, NULL
+    ) release_dates
+    ORDER BY
+      date_year NULLS LAST,
+      date_month NULLS LAST,
+      date_day NULLS LAST
+    LIMIT 1
+  )
+  ON CONFLICT (release)
+  DO UPDATE SET year = excluded.year,
+                month = excluded.month,
+                day = excluded.day;
+
+  DELETE FROM release_first_release_date
+   WHERE release = release_id
+     AND year IS NULL
+     AND month IS NULL
+     AND day IS NULL;
+END;
+$$ LANGUAGE 'plpgsql';
 
 -------------------------------------------------------------------
 -- Maintain release_group_meta.first_release_date
@@ -886,35 +925,83 @@ $$ LANGUAGE 'plpgsql' IMMUTABLE;
 CREATE OR REPLACE FUNCTION set_release_group_first_release_date(release_group_id INTEGER)
 RETURNS VOID AS $$
 BEGIN
-    UPDATE release_group_meta SET first_release_date_year = first.date_year,
-                                  first_release_date_month = first.date_month,
-                                  first_release_date_day = first.date_day
+    UPDATE release_group_meta SET first_release_date_year = first.year,
+                                  first_release_date_month = first.month,
+                                  first_release_date_day = first.day
       FROM (
-        SELECT date_year, date_month, date_day
-        FROM (
-          SELECT date_year, date_month, date_day
-          FROM release
-          LEFT JOIN release_country ON (release_country.release = release.id)
-          WHERE release.release_group = release_group_id
-          UNION
-          SELECT date_year, date_month, date_day
-          FROM release
-          LEFT JOIN release_unknown_country ON (release_unknown_country.release = release.id)
-          WHERE release.release_group = release_group_id
-        ) b
-        ORDER BY date_year NULLS LAST, date_month NULLS LAST, date_day NULLS LAST
+        SELECT rd.year, rd.month, rd.day
+        FROM release
+        LEFT JOIN release_first_release_date rd ON (rd.release = release.id)
+        WHERE release.release_group = release_group_id
+        ORDER BY
+          rd.year NULLS LAST,
+          rd.month NULLS LAST,
+          rd.day NULLS LAST
         LIMIT 1
       ) AS first
     WHERE id = release_group_id;
 END;
 $$ LANGUAGE 'plpgsql';
 
+-------------------------------------------------------------------
+-- Maintain musicbrainz.recording_first_release_date
+-------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION set_recordings_first_release_dates(recording_ids INTEGER[])
+RETURNS VOID AS $$
+BEGIN
+  INSERT INTO recording_first_release_date
+  (
+    SELECT DISTINCT ON (track.recording)
+        track.recording,
+        rd.year,
+        rd.month,
+        rd.day
+      FROM track
+      JOIN medium ON medium.id = track.medium
+      LEFT JOIN release_first_release_date rd ON rd.release = medium.release
+     WHERE track.recording = ANY(recording_ids)
+     ORDER BY
+      track.recording,
+      rd.year NULLS LAST,
+      rd.month NULLS LAST,
+      rd.day NULLS LAST
+  )
+  ON CONFLICT (recording) DO UPDATE
+  SET year = excluded.year,
+      month = excluded.month,
+      day = excluded.day;
+
+  DELETE FROM recording_first_release_date
+   WHERE recording = ANY(recording_ids)
+     AND year IS NULL
+     AND month IS NULL
+     AND day IS NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION set_releases_recordings_first_release_dates(release_ids INTEGER[])
+RETURNS VOID AS $$
+BEGIN
+  PERFORM set_recordings_first_release_dates((
+    SELECT array_agg(recording)
+      FROM track
+      JOIN medium ON medium.id = track.medium
+     WHERE medium.release = any(release_ids)
+  ));
+  RETURN;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION a_ins_release_event()
 RETURNS TRIGGER AS $$
 BEGIN
+  PERFORM set_release_first_release_date(NEW.release);
+
   PERFORM set_release_group_first_release_date(release_group)
   FROM release
   WHERE release.id = NEW.release;
+
+  PERFORM set_releases_recordings_first_release_dates(ARRAY[NEW.release]);
   RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -922,9 +1009,14 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_upd_release_event()
 RETURNS TRIGGER AS $$
 BEGIN
+  PERFORM set_release_first_release_date(OLD.release);
+  PERFORM set_release_first_release_date(NEW.release);
+
   PERFORM set_release_group_first_release_date(release_group)
   FROM release
   WHERE release.id IN (NEW.release, OLD.release);
+
+  PERFORM set_releases_recordings_first_release_dates(ARRAY[NEW.release, OLD.release]);
   RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -932,9 +1024,13 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_del_release_event()
 RETURNS TRIGGER AS $$
 BEGIN
+  PERFORM set_release_first_release_date(OLD.release);
+
   PERFORM set_release_group_first_release_date(release_group)
   FROM release
   WHERE release.id = OLD.release;
+
+  PERFORM set_releases_recordings_first_release_dates(ARRAY[OLD.release]);
   RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';

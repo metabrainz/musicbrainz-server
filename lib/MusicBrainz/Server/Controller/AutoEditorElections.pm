@@ -33,7 +33,7 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor) SecureForm
     $c->detach('/error_404')
         unless $c->user->can_nominate($candidate);
 
-    my $form = $c->form( form => 'SubmitCancel' );
+    my $form = $c->form( form => 'SecureConfirm' );
     if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             my $url = $c->uri_for_action('/user/profile', [ $candidate->name ]);
@@ -51,7 +51,10 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor) SecureForm
     $c->stash(
         current_view => 'Node',
         component_path => 'elections/Nominate.js',
-        component_props => {candidate => $candidate},
+        component_props => {
+            candidate => $candidate,
+            form => $form,
+        },
     );
 }
 
@@ -103,7 +106,7 @@ sub second : Chained('load') Args(0) RequireAuth(auto_editor)
 
     my $election = $c->stash->{election};
 
-    my $form = $c->form( form => 'Submit' );
+    my $form = $c->form( form => 'Confirm' );
     if ($c->form_posted_and_valid($form)) {
         $c->model('AutoEditorElection')->second($election, $c->user);
     }
@@ -121,7 +124,7 @@ sub cancel : Chained('load') Args(0) RequireAuth(auto_editor)
     $c->detach('/error_403')
         unless $election->proposer_id == $c->user->id;
 
-    my $form = $c->form( form => 'Submit' );
+    my $form = $c->form( form => 'Confirm' );
     if ($c->form_posted_and_valid($form)) {
         $c->model('AutoEditorElection')->cancel($election, $c->user);
     }

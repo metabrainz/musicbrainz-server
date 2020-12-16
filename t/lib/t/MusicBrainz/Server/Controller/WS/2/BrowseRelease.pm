@@ -188,7 +188,7 @@ ws_test 'browse releases via release group',
         <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
             <title>Summer Reggae! Rainbow</title>
             <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
-            <quality>normal</quality>
+            <quality>high</quality>
             <text-representation>
                 <language>jpn</language>
                 <script>Latn</script>
@@ -258,7 +258,7 @@ ws_test 'browse releases via release group with inc=tags',
         <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
             <title>Summer Reggae! Rainbow</title>
             <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
-            <quality>normal</quality>
+            <quality>high</quality>
             <text-representation>
                 <language>jpn</language>
                 <script>Latn</script>

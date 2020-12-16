@@ -1527,6 +1527,20 @@ const testData = [
             expected_clean_url: 'https://saisaibatake.ame-zaiku.com/gakki/gakki_jiten_accordion.html',
        only_valid_entity_types: ['instrument'],
   },
+  {
+                     input_url: 'https://saisaibatake.ame-zaiku.com/musical_instrument/gakki_jiten_shrutibox.html',
+             input_entity_type: 'instrument',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://saisaibatake.ame-zaiku.com/musical_instrument/gakki_jiten_shrutibox.html',
+       only_valid_entity_types: ['instrument'],
+  },
+  {
+                     input_url: 'https://saisaibatake.ame-zaiku.com/musical/instruments_concertina.html',
+             input_entity_type: 'instrument',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://saisaibatake.ame-zaiku.com/musical/instruments_concertina.html',
+       only_valid_entity_types: ['instrument'],
+  },
   // generasia
   {
                      input_url: 'http://generasia.com/wiki/Wink',
@@ -1821,6 +1835,13 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.irishtune.info/tune/1499/',
        only_valid_entity_types: ['work'],
+  },
+  // IROMBOOK images (StaticBrainz)
+  {
+                     input_url: 'https://staticbrainz.org/irombook/sitar/sitar.png',
+             input_entity_type: 'instrument',
+    expected_relationship_type: 'image',
+       only_valid_entity_types: ['instrument'],
   },
   // (Apple) iTunes
   {

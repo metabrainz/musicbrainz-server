@@ -44,9 +44,9 @@ const CollectionLayout = ({
     >
       <div id="content">
         <CollectionHeader
+          $c={$c}
           collection={collection}
           page={page}
-          user={$c.user}
         />
         {children}
       </div>

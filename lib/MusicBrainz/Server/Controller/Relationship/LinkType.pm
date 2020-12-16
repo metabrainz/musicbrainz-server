@@ -189,6 +189,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             min => $_->{min},
             max => $_->{max},
             type => $_->{type},
+            name => $attrib_names{$_->{type}},
         }, grep { $_->{active} } @{ $old_values->{attributes} }
     ];
 
@@ -218,7 +219,12 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
 
         if ($valid) {
             my $values = { map { $_->name => $_->value } $form->edit_fields };
-            $values->{attributes} = $self->_get_attribute_values($form);
+            $values->{attributes} = [
+                map {
+                    my %attr = (%{$_}, name => $attrib_names{$_->{type}});
+                    \%attr
+                } @{ $self->_get_attribute_values($form) }
+            ];
 
             # Inflate the provided example relationships so we have sufficient
             # information for edit history.
@@ -294,7 +300,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
     }
 }
 
-sub delete : Chained('load') RequireAuth(relationship_editor)
+sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
 {
     my ($self, $c, $gid) = @_;
 
@@ -309,7 +315,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
         $c->detach;
     }
 
-    my $form = $c->form( form => 'Confirm' );
+    my $form = $c->form( form => 'SecureConfirm' );
 
     if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {

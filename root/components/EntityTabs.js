@@ -50,7 +50,7 @@ const buildLink = (
 );
 
 function showEditTab(
-  user: ?EditorT,
+  user: ?UnsanitizedEditorT,
   entity: CoreEntityT,
 ): boolean {
   switch (entity.entityType) {

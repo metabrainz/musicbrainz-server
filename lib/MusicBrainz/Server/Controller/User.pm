@@ -11,7 +11,7 @@ use HTTP::Status qw( :constants );
 use List::Util 'sum';
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw( l ln );
 use Try::Tiny;
@@ -97,38 +97,80 @@ sub _perform_login {
     }
 }
 
+# Corresponds to AccountLayoutUserT in root/components/UserAccountLayout.js
+sub serialize_user {
+    my ($self, $user) = @_;
+
+    my $preferences = $user->preferences;
+    return {
+        deleted => boolean_to_json($user->deleted),
+        entityType => 'editor',
+        gravatar => $user->gravatar,
+        id => 0 + $user->id,
+        name => $user->name,
+        preferences => {
+            public_ratings => boolean_to_json($preferences->public_ratings),
+            public_subscriptions => boolean_to_json($preferences->public_ratings),
+            public_tags => boolean_to_json($preferences->public_tags),
+        },
+    };
+}
+
 sub do_login : Private
 {
     my ($self, $c) = @_;
+
+    my $post_params;
+    my %login_params;
+
+    if ($c->form_posted) {
+        $post_params = $c->req->body_params;
+
+        for my $param (qw( username password remember_me csrf_token csrf_session_key )) {
+            if (exists $post_params->{$param}) {
+                $login_params{$param} = delete $post_params->{$param};
+            }
+        }
+    }
+
     return 1 if $c->user_exists;
 
     my $form = $c->form(form => 'User::Login');
-    my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
 
-    if ($c->form_posted_and_valid($form))
-    {
-        if ($self->_perform_login($c, $form->field("username")->value, $form->field("password")->value)) {
+    if (%login_params && $c->form_submitted_and_valid($form, \%login_params)) {
+        my $username = $form->field('username')->value;
+        if (
+            $self->_perform_login(
+                $c,
+                $username,
+                $form->field('password')->value,
+            )
+        ) {
             if ($form->field('remember_me')->value) {
-                $self->_renew_login_cookie($c, $form->field('username')->value);
+                $self->_renew_login_cookie($c, $username);
             }
-
-            # Logged in OK
-            $c->response->redirect($redirect);
-            $c->detach;
+            return;
         }
     }
 
     # Form not even posted
     ensure_ssl($c);
 
-    $c->stash(
-        login_action => $c->req->uri_with({ uri => $redirect }),
-        template => 'user/login.tt',
-        login_form => $form
-    );
+    # These may not be set if the original action doesn't have the
+    # SecureForm attribute.
+    $c->set_csp_headers;
 
-    $c->stash->{required_login} = 1
-        unless exists $c->stash->{required_login};
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'user/Login',
+        component_props => {
+            loginAction => $c->relative_uri,
+            loginForm => $form,
+            isLoginBad => boolean_to_json($c->stash->{bad_login}),
+            isLoginRequired => boolean_to_json($c->stash->{required_login} // 1),
+            postParameters => ((defined $post_params && scalar(%$post_params)) ? $post_params : undef),
+        },
+    );
 
     $c->detach;
 }
@@ -145,6 +187,11 @@ sub login : Path('/login') ForbiddenOnSlaves RequireSSL SecureForm
 
     $c->stash( required_login => 0 );
     $c->forward('/user/do_login');
+
+    # Logged in OK
+    my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
+    $c->response->redirect($redirect);
+    $c->detach;
 }
 
 sub logout : Path('/logout')
@@ -211,7 +258,9 @@ sub _renew_login_cookie
         name => 'remember_me',
         value => $token
             ? encode('utf-8', join("\t", $cookie_version, $normalized_name, $token))
-            : ''
+            : '',
+        samesite => 'Lax',
+        $c->req->secure ? (secure => 1) : (),
     };
 }
 
@@ -362,8 +411,9 @@ sub collections : Chained('load') PathPart('collections')
         push @{ $collaborative_collections_by_entity_type{$collection->type->item_entity_type} }, $collection;
     }
 
+    my $preferences = $user->preferences;
     my %props = (
-        user                     => $user,
+        user                     => $self->serialize_user($user),
         ownCollections           => \%collections_by_entity_type,
         collaborativeCollections => \%collaborative_collections_by_entity_type,
     );
@@ -407,7 +457,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
         ipHashes        => \@ip_hashes,
         subscribed      => $c->stash->{subscribed},
         subscriberCount => $c->stash->{subscriber_count},
-        user            => $user,
+        user            => $c->unsanitized_editor_json($user),
         votes           => $c->stash->{votes},
         addedEntities   => $added_entities,
     );
@@ -592,7 +642,7 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves SecureForm {
         component_path => 'user/ReportUser',
         component_props => {
             form => $form,
-            user => $reported_user,
+            user => $self->serialize_user($reported_user),
         },
     );
 

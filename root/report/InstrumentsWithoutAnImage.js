@@ -26,8 +26,8 @@ const InstrumentsWithoutAnImage = ({
 
     <ul>
       <li>
-        {l(`This report shows instruments without image
-            relationships nor Wikidata relationships.`)}
+        {l(`This report shows instruments without an image relationship
+            to StaticBrainz (i.e. without an IROMBOOK image).`)}
       </li>
       <li>
         {texp.l('Total instruments found: {count}',
