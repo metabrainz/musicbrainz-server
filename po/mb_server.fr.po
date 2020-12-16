@@ -64,8 +64,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-03 07:59-0600\n"
-"PO-Revision-Date: 2020-12-03 14:00+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2020-12-07 19:36+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1144,7 +1144,7 @@ msgstr "Captcha incorrect. Essayer de nouveau."
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:91
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:100
 msgid "Cardinality of {entity_placeholder}"
-msgstr ""
+msgstr "Cardinalité de {entity_placeholder}"
 
 #: ../root/release/edit/information.tt:188
 msgid "Cat. No:"
@@ -9225,7 +9225,7 @@ msgstr "Réduire tous les supports"
 
 #: ../root/components/PostParameters.js:46
 msgid "Data submitted with this request"
-msgstr ""
+msgstr "Données envoyées avec cette requête"
 
 #: ../root/components/RelatedSeries.js:30
 msgid "Related series"
@@ -9585,7 +9585,7 @@ msgstr "(aucun)"
 #: ../root/edit/details/AddRelationshipType.js:94
 #: ../root/edit/details/AddRelationshipType.js:103
 msgid "Type of {entity_placeholder}"
-msgstr ""
+msgstr "Type de {entity_placeholder}"
 
 #: ../root/edit/details/AddRelationshipType.js:134
 msgctxt "link_phrase"
@@ -10933,7 +10933,7 @@ msgstr "Informations d’enregistrement"
 
 #: ../root/layout/components/sidebar/RecordingSidebar.js:59
 msgid "First release year"
-msgstr ""
+msgstr "Première année de parution"
 
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:50
 msgid "Release group information"
@@ -11058,28 +11058,28 @@ msgstr "Vous avez trouvé un lien brisé sur notre site ? Dites-le nous en {rep
 
 #: ../root/main/ConfirmSeed.js:31
 msgid "Confirm Form Submission"
-msgstr ""
+msgstr "Confirmer l’envoi du formulaire"
 
 #: ../root/main/ConfirmSeed.js:37
 msgid ""
 "You are about to submit a request to {action} originating from {origin}. "
 "Continue?"
-msgstr ""
+msgstr "Vous êtes sur le point d’envoyer une requête vers {action} émanant de {origin}. Continuer ?"
 
 #: ../root/main/ConfirmSeed.js:46
 msgid ""
 "This confirmation is important to ensure that no malicious actor can use "
 "your account to modify data without your knowledge. Below this line, you can"
 " review the data being sent and make any modifications if desired."
-msgstr ""
+msgstr "Cette confirmation est importante pour s’assurer qu’aucun acteur malicieux ne puisse utiliser votre compte pour modifier des données à votre insu. Ci-dessous, vous pouvez revoir les données qui sont envoyées et les modifier si désiré."
 
 #: ../root/main/components/ConfirmSeedButtons.js:18
 msgid "Continue"
-msgstr ""
+msgstr "Continuer"
 
 #: ../root/main/components/ConfirmSeedButtons.js:34
 msgid "Leave"
-msgstr ""
+msgstr "Laisser"
 
 #: ../root/main/index.js:35
 msgid "MusicBrainz - The Open Music Encyclopedia"
@@ -12358,7 +12358,7 @@ msgstr "Instruments sans image"
 msgid ""
 "This report shows instruments without an image relationship to StaticBrainz "
 "(i.e. without an IROMBOOK image)."
-msgstr ""
+msgstr "Ce rapport liste les instruments sans relation d’image à StaticBrainz (c.-à.-d.. sans image IROMBOOOK)."
 
 #: ../root/report/InstrumentsWithoutAnImage.js:33
 #: ../root/report/InstrumentsWithoutWikidata.js:32
@@ -12368,11 +12368,11 @@ msgstr "Nombre total d’instruments trouvés : {count}"
 #: ../root/report/InstrumentsWithoutWikidata.js:24
 #: ../root/report/InstrumentsWithoutWikidata.js:25
 msgid "Instruments without a Wikidata link"
-msgstr ""
+msgstr "Instruments sans relation Wikidata"
 
 #: ../root/report/InstrumentsWithoutWikidata.js:29
 msgid "This report shows instruments without Wikidata relationships."
-msgstr ""
+msgstr "Ce rapport liste les instruments sans relation Wikidata."
 
 #: ../root/report/IsrcsWithManyRecordings.js:37
 #: ../root/report/IsrcsWithManyRecordings.js:38
@@ -12916,7 +12916,7 @@ msgstr "Événements probablement en double"
 
 #: ../root/report/ReportsIndex.js:143
 msgid "Instruments without a link to Wikidata"
-msgstr ""
+msgstr "Instruments sans relation Wikidata"
 
 #: ../root/report/ReportsIndex.js:168
 msgid "Labels with annotations"
