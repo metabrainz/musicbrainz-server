@@ -247,7 +247,7 @@ relationshipEditorTest('link phrase interpolation', function (t) {
 });
 
 relationshipEditorTest('merging duplicate relationships', function (t) {
-  t.plan(7);
+  t.plan(8);
 
   var vm = setupReleaseRelationshipEditor();
 
@@ -347,6 +347,35 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
   relationshipEnded.remove();
   duplicateRelationship.remove();
   notDuplicateRelationship2.remove();
+
+  var laterRelationship = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: { year: 2001 },
+    end_date: null,
+    ended: true,
+  }, source);
+
+  var earlierRelationship = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: null,
+    end_date: { year: 2000 },
+    ended: true,
+  }, source);
+
+  laterRelationship.show();
+  earlierRelationship.show();
+
+  t.ok(
+    !source.mergeRelationship(earlierRelationship),
+    'relationships were not merged where it would lead to invalid date period',
+  );
+
+  laterRelationship.remove();
+  earlierRelationship.remove();
 });
 
 relationshipEditorTest('dialog backwardness', function (t) {
