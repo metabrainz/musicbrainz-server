@@ -523,6 +523,7 @@ class Relationship {
       deepEqual(this.entities(), other.entities()) &&
       mergeDates(this.begin_date, other.begin_date) &&
       mergeDates(this.end_date, other.end_date) &&
+      this.ended() === other.ended() &&
       attributesAreEqual(this.attributes(), other.attributes())
     );
   }
