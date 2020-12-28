@@ -4208,6 +4208,14 @@ const testData = [
             expected_clean_url: 'https://www.youtube.com/playlist?list=PL43OynbWaTMKSxLVnUF0HbHHiXEgAVm3Q',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
+  {
+                     input_url: 'https://music.youtube.com/browse/MPREb_0bOFkwXrX2x',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://music.youtube.com/browse/MPREb_0bOFkwXrX2x',
+       input_relationship_type: 'youtube',
+       only_valid_entity_types: [],
+  },
 ];
 /* eslint-enable indent, max-len, sort-keys */
 

@@ -3376,7 +3376,7 @@ const CLEANUPS = {
   },
   'youtube': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)',
+      '^(https?://)?(((?!music)[^/])+\\.)?(youtube\\.com/|youtu\\.be/)',
       'i',
     )],
     type: {...LINK_TYPES.streamingfree, ...LINK_TYPES.youtube},
