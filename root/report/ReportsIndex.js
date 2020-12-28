@@ -540,6 +540,10 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           content={l('Works with annotations')}
           reportName="AnnotationsWorks"
         />
+        <ReportsIndexEntry
+          content={l('Works with the same type as their parent')}
+          reportName="WorkSameTypeAsParent"
+        />
       </ul>
 
       <h2>{l('URLs')}</h2>

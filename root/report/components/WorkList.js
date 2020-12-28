@@ -28,15 +28,23 @@ const WorkList = ({
       <thead>
         <tr>
           <th>{l('Work')}</th>
+          <th>{l('Type')}</th>
         </tr>
       </thead>
       <tbody>
         {items.map((item, index) => (
           <tr className={loopParity(index)} key={item.work_id}>
             {item.work ? (
-              <td>
-                <EntityLink entity={item.work} />
-              </td>
+              <>
+                <td>
+                  <EntityLink entity={item.work} />
+                </td>
+                <td>
+                  {nonEmpty(item.work.typeName)
+                    ? lp_attributes(item.work.typeName, 'work_type')
+                    : l('Unknown')}
+                </td>
+              </>
             ) : (
               <td>
                 {l('This work no longer exists.')}
