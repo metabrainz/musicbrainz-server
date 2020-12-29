@@ -65,7 +65,7 @@ Images:
     flags/sx.png (https://commons.wikimedia.org/wiki/File:Icons-flag-sx.png)
     flags/xg.png (https://commons.wikimedia.org/wiki/File:Icons-flag-ddde.png)
     flags/xk.png (https://commons.wikimedia.org/wiki/File:Flag_of_Kosovo.svg)
-    flags/xw.png (https://commons.wikimedia.org/wiki/File:Icons-flag-unitednations.png)
+    flags/xw.png (author: pmepepnoute (https://tickets.metabrainz.org/browse/MBS-11292), released as CC0)
 
 ----------------------------------------------------------------------------
 
