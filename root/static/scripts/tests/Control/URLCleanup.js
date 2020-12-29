@@ -4005,6 +4005,13 @@ const testData = [
                      input_url: 'https://www.wikidata.org/wiki/Q43',
              input_entity_type: 'release',
     expected_relationship_type: undefined,
+       input_relationship_type: 'license',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.wikidata.org/wiki/Q44',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
        input_relationship_type: 'shownotes',
        only_valid_entity_types: [],
   },
@@ -4120,6 +4127,13 @@ const testData = [
   },
   {
                      input_url: 'https://en.wikipedia.org/wiki/Another_Album',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'license',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://en.wikipedia.org/wiki/Yet_Another_Album',
              input_entity_type: 'release',
     expected_relationship_type: undefined,
        input_relationship_type: 'shownotes',

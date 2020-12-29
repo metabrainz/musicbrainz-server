@@ -3470,7 +3470,7 @@ Object.values(LINK_TYPES).forEach(function (linkType) {
 });
 
 // avoid Wikipedia/Wikidata being added as release-level discography entry
-const originalRule = validationRules[LINK_TYPES.discographyentry.release];
+const discographyRule = validationRules[LINK_TYPES.discographyentry.release];
 validationRules[LINK_TYPES.discographyentry.release] = function (url) {
   if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
     return {
@@ -3490,7 +3490,31 @@ validationRules[LINK_TYPES.discographyentry.release] = function (url) {
       result: false,
     };
   }
-  return originalRule(url);
+  return discographyRule(url);
+};
+
+// avoid Wikipedia/Wikidata being added as release-level license entry
+const licenseRule = validationRules[LINK_TYPES.license.release];
+validationRules[LINK_TYPES.license.release] = function (url) {
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
+    return {
+      error: l(
+        `Wikipedia is not a license page. Please add this Wikipedia link
+         to the release group instead.`,
+      ),
+      result: false,
+    };
+  }
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
+    return {
+      error: l(
+        `Wikidata is not a license page. Please add this Wikidata link
+         to the release group instead.`,
+      ),
+      result: false,
+    };
+  }
+  return licenseRule(url);
 };
 
 // avoid Wikipedia/Wikidata being added as release-level show notes entry
