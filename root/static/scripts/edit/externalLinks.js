@@ -240,6 +240,9 @@ export class ExternalLinksEditor
             } else if (isMusicBrainz(link.url)) {
               error = l(`Links to MusicBrainz URLs are not allowed.
                          Did you mean to paste something else?`);
+            } else if (isMalware(link.url)) {
+              error = l(`Links to this website are not allowed
+                         because it is known to host malware.`);
             } else if (isShortened(link.url)) {
               error = l(`Please don’t enter bundled/shortened URLs,
                          enter the destination URL(s) instead.`);
@@ -552,6 +555,10 @@ function isValidURL(url) {
   return true;
 }
 
+const MALWARE_URLS = [
+  'decoda.com'
+].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
+
 const URL_SHORTENERS = [
   'adf.ly',
   'album.link',
@@ -618,6 +625,12 @@ const URL_SHORTENERS = [
   'untd.io',
   'yep.it',
 ].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
+
+function isMalware(url) {
+  return MALWARE_URLS.some(function (malwareRegex) {
+    return url.match(malwareRegex) !== null;
+  });
+}
 
 function isShortened(url) {
   return URL_SHORTENERS.some(function (shortenerRegex) {

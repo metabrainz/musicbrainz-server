@@ -1153,12 +1153,6 @@ const testData = [
                      input_url: 'http://www.dailymotion.com/playlist/xwvuts_who-knows_top/1#video=xyztuvw',
             expected_clean_url: 'https://www.dailymotion.com/video/xyztuvw',
   },
-  // Decoda
-  {
-                     input_url: 'http://decoda.com/robi-on-ne-meurt-plus-damour-lyrics',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-  },
   // Deezer
   {
                      input_url: 'http://www.deezer.com/artist/243332',
