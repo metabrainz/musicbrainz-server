@@ -3466,13 +3466,22 @@ Object.values(LINK_TYPES).forEach(function (linkType) {
   });
 });
 
-// avoid Wikipedia being added as release-level discography entry
+// avoid Wikipedia/Wikidata being added as release-level discography entry
 const originalRule = validationRules[LINK_TYPES.discographyentry.release];
 validationRules[LINK_TYPES.discographyentry.release] = function (url) {
   if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
     return {
       error: l(
         `Wikipedia is not a discography entry. Please add this Wikipedia link
+         to the release group instead.`,
+      ),
+      result: false,
+    };
+  }
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
+    return {
+      error: l(
+        `Wikidata is not a discography entry. Please add this Wikidata link
          to the release group instead.`,
       ),
       result: false,

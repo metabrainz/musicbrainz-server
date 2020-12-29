@@ -3994,6 +3994,13 @@ const testData = [
        input_relationship_type: 'wikidata',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.wikidata.org/wiki/Q42',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'discographyentry',
+       only_valid_entity_types: [],
+  },
   // Wikimedia Commons
   {
                      input_url: 'https://commons.wikimedia.org/wiki/File:NIN2008.jpg',
