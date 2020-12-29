@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Form::Filter::Work;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l lp );
 extends 'MusicBrainz::Server::Form::Filter::Generic';
 
 has 'types' => (
@@ -31,6 +31,7 @@ sub options_role_type {
 sub options_type_id {
     my ($self, $field) = @_;
     return [
+        { value => '-1', label => lp('[none]', 'work type') },
         map +{ value => $_->id, label => $_->l_name },
         @{ $self->types }
     ];

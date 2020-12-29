@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Form::Filter::ReleaseGroup;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation qw( lp );
 extends 'MusicBrainz::Server::Form::Filter::Generic';
 
 has 'artist_credits' => (
@@ -47,6 +48,7 @@ sub options_artist_credit_id {
 sub options_secondary_type_id {
     my ($self, $field) = @_;
     return [
+        { value => '-1', label => lp('[none]', 'release group type') },
         map +{ value => $_->id, label => $_->l_name },
         @{ $self->secondary_types }
     ];
@@ -55,6 +57,7 @@ sub options_secondary_type_id {
 sub options_type_id {
     my ($self, $field) = @_;
     return [
+        { value => '-1', label => lp('[none]', 'release group type') },
         map +{ value => $_->id, label => $_->l_name },
         @{ $self->types }
     ];

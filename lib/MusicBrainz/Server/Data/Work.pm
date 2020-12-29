@@ -113,8 +113,12 @@ sub find_by_artist
         }
 
         if (exists $filter{type_id}) {
-            push @where_query, 'work.type = ?';
-            push @where_args, $filter{type_id};
+            if ($filter{type_id} eq '-1') {
+                push @where_query, 'work.type IS NULL';
+            } else {
+                push @where_query, 'work.type = ?';
+                push @where_args, $filter{type_id};
+            }
         }
     } else {
         push @where_args, ($artist_id) x 2;

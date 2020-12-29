@@ -87,17 +87,37 @@ sub _where_filter
             push @params, $filter->{artist_credit_id};
         }
         if (exists $filter->{type_id}) {
-            if ($using_artist_release_group_table) {
-                push @query, 'arg.primary_type = ?';
+            if ($filter->{type_id} eq '-1') {
+                if ($using_artist_release_group_table) {
+                    push @query, 'arg.primary_type IS NULL';
+                } else {
+                    push @query, 'rg.type IS NULL';
+                }
             } else {
-                push @query, 'rg.type = ?';
+                if ($using_artist_release_group_table) {
+                    push @query, 'arg.primary_type = ?';
+                } else {
+                    push @query, 'rg.type = ?';
+                }
+                push @params, $filter->{type_id};
             }
-            push @params, $filter->{type_id};
         }
         if (exists $filter->{secondary_type_id}) {
-            push @query, 'st.secondary_type = ?';
-            push @params, $filter->{secondary_type_id};
-            push @joins, 'JOIN release_group_secondary_type_join st ON rg.id = st.release_group';
+            if ($filter->{secondary_type_id} eq '-1') {
+                if ($using_artist_release_group_table) {
+                    push @query, 'arg.secondary_types IS NULL';
+                } else {
+                    push @query, 'NOT EXISTS (SELECT 1 FROM release_group_secondary_type_join st WHERE rg.id = st.release_group)';
+                }
+            } else {
+                if ($using_artist_release_group_table) {
+                    push @query, '? = any(arg.secondary_types)';
+                } else {
+                    push @query, 'st.secondary_type = ?';
+                    push @joins, 'JOIN release_group_secondary_type_join st ON rg.id = st.release_group';
+                }
+                push @params, $filter->{secondary_type_id};
+            }
         }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
