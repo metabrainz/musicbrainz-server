@@ -219,6 +219,7 @@ declare type CatalystSessionT = {
 declare type CatalystStashT = {
   +alert?: string,
   +alert_mtime?: number | null,
+  +can_delete?: boolean,
   +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
   +containment?: {
