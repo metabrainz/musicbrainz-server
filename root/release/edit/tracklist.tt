@@ -210,7 +210,7 @@
     <td class="icon">
       <button type="button" class="icon guesscase-title" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
       <button type="button" class="icon guessfeat" title="[% l('Guess feat. artists') %]" data-click="guessTrackFeatArtists"></button>
-      <!-- ko ifnot: medium.hasToc() -->
+      <!-- ko ifnot: (medium.hasToc() && !isDataTrack()) -->
       <button type="button" class="icon remove-item remove-track" title="[% l('Remove track') %]" data-click="removeTrack"></button>
       <!-- /ko -->
     </td>
