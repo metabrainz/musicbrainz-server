@@ -674,6 +674,13 @@ const testData = [
             expected_clean_url: 'https://www.beatport.com/release/---/287442',
        only_valid_entity_types: ['release'],
   },
+  {                             // Used to be rejected by validation (MBS-11263)
+                     input_url: 'https://www.beatport.com/release/riva-starr-presents-square-pegs-round-holes-5-years-of-snatch%21-sampler/1520186',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.beatport.com/release/riva-starr-presents-square-pegs-round-holes-5-years-of-snatch%21-sampler/1520186',
+       only_valid_entity_types: ['release'],
+  },
   {
                      input_url: 'https://www.beatport.com/chart/eric-prydz-february-chart/32623',
              input_entity_type: 'release',
