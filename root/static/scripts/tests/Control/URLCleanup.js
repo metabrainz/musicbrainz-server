@@ -271,6 +271,12 @@ const testData = [
             expected_clean_url: 'https://www.amazon.co.uk/gp/product/B000VLR0II',
   },
   {
+                     input_url: 'https://www.amazon.se/dp/B08HG3BKQK/ref=s9_acsd_al_bw_c2_x_2_i?pf_rd_m=ANU9KP01APNAG&pf_rd_s=merchandised-search-3&pf_rd_r=10ZQ8Y1M20980ADPD73G&pf_rd_t=101&pf_rd_p=e37adbab-6466-4fa2-a8f9-10945bebd663&pf_rd_i=20513251031',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.se/gp/product/B08HG3BKQK',
+  },
+  {
                      input_url: 'http://www.amazon.co.uk/Kosheen/e/B000APRTKE',
             expected_clean_url: 'https://www.amazon.co.uk/-/e/B000APRTKE',
   },
