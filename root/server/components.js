@@ -362,6 +362,7 @@ module.exports = {
   'edit/details/historic/ChangeReleaseQuality': require('../edit/details/historic/ChangeReleaseQuality'),
   'edit/details/historic/EditRelationship': require('../edit/details/historic/EditRelationship'),
   'edit/details/historic/EditReleaseAttributes': require('../edit/details/historic/EditReleaseAttributes'),
+  'edit/details/historic/EditReleaseEvents': require('../edit/details/historic/EditReleaseEvents'),
   'edit/details/historic/EditReleaseLanguage': require('../edit/details/historic/EditReleaseLanguage'),
   'edit/details/historic/EditReleaseName': require('../edit/details/historic/EditReleaseName'),
   'edit/details/historic/EditTrack': require('../edit/details/historic/EditTrack'),
