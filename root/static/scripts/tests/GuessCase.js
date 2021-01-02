@@ -176,7 +176,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-  t.plan(22);
+  t.plan(23);
 
   const tests = [
     {
@@ -314,6 +314,14 @@ test('Work', function (t) {
       keepuppercase: false,
     },
     {
+      input: "C'est le hautbois d'amour no. cvi",
+      expected: "C'est le hautbois d'amour no. CVI",
+      bug: 'MBS-11264',
+      mode: 'French',
+      roman: true,
+      keepuppercase: false,
+    },
+    {
       input: 'My brother is a minor',
       expected: 'My Brother Is a Minor',
       bug: 'MBS-10840',
@@ -350,7 +358,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(23);
+  t.plan(24);
 
   const tests = [
     {
@@ -442,6 +450,12 @@ test('BugFixes', function (t) {
       expected: "Hey C'mon Everybody",
       bug: 'MBS-8867',
       mode: 'English',
+    },
+    {
+      input: "Hey c'Mon Everybody",
+      expected: "Hey c'mon everybody",
+      bug: 'MBS-11264',
+      mode: 'French',
     },
     {
       input: 'We Love Techno (Re‐Mode)',

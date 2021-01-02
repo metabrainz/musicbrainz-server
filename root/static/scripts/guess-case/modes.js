@@ -141,16 +141,19 @@ const DefaultMode = {
     return LOWER_CASE_WORDS.test(w);
   },
 
+  isRomanNumber(w) {
+    return getBooleanCookie('guesscase_roman') && ROMAN_NUMERALS.test(w);
+  },
+
   isSentenceCaps() {
     return true;
   },
 
   isUpperCaseWord(w) {
-    return (
-      UPPER_CASE_WORDS.test(w) ||
-      (getBooleanCookie('guesscase_roman') && ROMAN_NUMERALS.test(w))
-    );
+    return UPPER_CASE_WORDS.test(w);
   },
+
+  name: '',
 
   toLowerCase(str) {
     return str.toLowerCase();
@@ -312,6 +315,8 @@ export const English = Object.assign({}, DefaultMode, {
     return false;
   },
 
+  name: 'English',
+
   runPostProcess(is) {
     is = DefaultMode.runPostProcess(is);
     is = this.fixEnglishKeyNames(is);
@@ -329,6 +334,8 @@ export const French = Object.assign({}, DefaultMode, {
       url: {href: 'https://musicbrainz.org/doc/Style/Language/French', target: '_blank'},
     },
   )),
+
+  name: 'French',
 
   runPostProcess(is) {
     return DefaultMode.runPostProcess(is)
@@ -350,6 +357,8 @@ export const Sentence = Object.assign({}, DefaultMode, {
         {href: 'https://musicbrainz.org/doc/Style/Language', target: '_blank'},
     },
   )),
+
+  name: 'Sentence',
 });
 export const Turkish = Object.assign({}, DefaultMode, {
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
@@ -371,6 +380,8 @@ export const Turkish = Object.assign({}, DefaultMode, {
   isSentenceCaps() {
     return false;
   },
+
+  name: 'Turkish',
 
   toLowerCase: turkishLowerCase,
 
