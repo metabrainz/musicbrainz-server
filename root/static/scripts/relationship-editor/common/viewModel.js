@@ -335,7 +335,7 @@ function addRelationshipsFromQueryString(source) {
         : linkType.type0;
     }
 
-    var data = {
+    const data = {
       target: target,
       linkTypeID: linkType ? linkType.id : null,
       begin_date: parseDate(rel.begin_date || ''),
@@ -345,7 +345,7 @@ function addRelationshipsFromQueryString(source) {
       linkOrder: Number(rel.link_order) || 0,
     };
 
-    if (linkType) {
+    if (linkType && rel.attributes) {
       data.attributes = rel.attributes.reduce(function (accum, attr) {
         var attrInfo = linkedEntities.link_attribute_type[attr.type];
 
