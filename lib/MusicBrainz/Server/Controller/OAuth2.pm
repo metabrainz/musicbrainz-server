@@ -9,7 +9,7 @@ use Digest::SHA qw( sha256 );
 use URI;
 use URI::QueryParam;
 use JSON;
-use MIME::Base64 qw( decode_base64url encode_base64url );
+use MIME::Base64 qw( encode_base64url );
 use MusicBrainz::Server::Constants qw( :access_scope );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use Readonly;
@@ -527,7 +527,7 @@ sub _check_pkce_verifier {
             $code_challenge eq $code_verifier) ||
         ($code_challenge_method eq 'S256' &&
             $code_challenge eq
-            encode_base64url(sha256(decode_base64url($code_verifier))))
+            encode_base64url(sha256($code_verifier)))
     );
 }
 
