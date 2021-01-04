@@ -87,7 +87,7 @@ const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {
 
       <ExternalLinks empty entity={recording} />
 
-      <EditLinks $c={$c} entity={recording}>
+      <EditLinks entity={recording}>
         <AnnotationLinks $c={$c} entity={recording} />
 
         <MergeLink entity={recording} />

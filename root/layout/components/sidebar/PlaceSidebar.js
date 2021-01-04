@@ -106,7 +106,7 @@ const PlaceSidebar = ({$c, place}: Props): React.Element<'div'> => {
 
       <ExternalLinks empty entity={place} />
 
-      <EditLinks $c={$c} entity={place}>
+      <EditLinks entity={place}>
         <li>
           <a
             href={

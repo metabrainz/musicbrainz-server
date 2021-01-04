@@ -137,7 +137,7 @@ const ArtistSidebar = ({$c, artist}: Props): React.Element<'div'> => {
 
       <ExternalLinks empty entity={artist} />
 
-      <EditLinks $c={$c} entity={artist}>
+      <EditLinks entity={artist}>
         {isSpecialPurposeArtist ? null : (
           <>
             <li>

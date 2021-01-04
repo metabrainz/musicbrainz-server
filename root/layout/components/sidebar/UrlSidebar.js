@@ -20,7 +20,7 @@ type Props = {
 const UrlSidebar = ({$c, url}: Props): React.Element<'div'> => {
   return (
     <div id="sidebar">
-      <EditLinks $c={$c} entity={url} />
+      <EditLinks entity={url} />
 
       <LastUpdated entity={url} />
     </div>

@@ -102,7 +102,7 @@ const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
 
       <ExternalLinks empty entity={label} />
 
-      <EditLinks $c={$c} entity={label}>
+      <EditLinks entity={label}>
         <li>
           <a href={`/release/add?label=${gid}`}>
             {l('Add release')}

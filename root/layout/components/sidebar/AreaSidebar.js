@@ -104,7 +104,7 @@ const AreaSidebar = ({$c, area}: Props): React.Element<'div'> => {
 
       <ExternalLinks empty entity={area} />
 
-      <EditLinks $c={$c} entity={area}>
+      <EditLinks entity={area}>
         {isLocationEditor($c.user) ? (
           <>
             <AnnotationLinks $c={$c} entity={area} />

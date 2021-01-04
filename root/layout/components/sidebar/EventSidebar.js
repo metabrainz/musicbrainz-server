@@ -81,7 +81,7 @@ const EventSidebar = ({$c, event}: Props): React.Element<'div'> => {
 
       <ExternalLinks empty entity={event} />
 
-      <EditLinks $c={$c} entity={event}>
+      <EditLinks entity={event}>
         {$c.user ? (
           <>
             <AnnotationLinks $c={$c} entity={event} />

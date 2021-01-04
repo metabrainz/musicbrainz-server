@@ -280,7 +280,7 @@ const ReleaseSidebar = ({
         heading={l('Release group external links')}
       />
 
-      <EditLinks $c={$c} entity={release}>
+      <EditLinks entity={release}>
         <li>
           <a href={entityHref(release, 'edit-relationships')}>
             {l('Edit relationships')}
