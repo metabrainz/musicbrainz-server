@@ -239,7 +239,7 @@ const Layout = ({
       {($c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */) &&
         <MergeHelper $c={$c} merger={$c.session.merger} />}
 
-      <Footer $c={$c} />
+      <Footer />
     </body>
   </html>
 );
