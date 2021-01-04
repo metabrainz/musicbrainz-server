@@ -97,7 +97,7 @@ const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={recording} />
+      <CollectionLinks entity={recording} />
 
       <SidebarLicenses entity={recording} />
 

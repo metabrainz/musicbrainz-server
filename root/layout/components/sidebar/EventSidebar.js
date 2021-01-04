@@ -93,7 +93,7 @@ const EventSidebar = ({$c, event}: Props): React.Element<'div'> => {
         ) : null}
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={event} />
+      <CollectionLinks entity={event} />
 
       <SidebarLicenses entity={event} />
 

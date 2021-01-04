@@ -79,7 +79,7 @@ const SeriesSidebar = ({
 
       <SubscriptionLinks $c={$c} entity={series} />
 
-      <CollectionLinks $c={$c} entity={series} />
+      <CollectionLinks entity={series} />
 
       <SidebarLicenses entity={series} />
 

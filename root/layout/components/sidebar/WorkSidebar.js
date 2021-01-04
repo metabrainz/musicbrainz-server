@@ -134,7 +134,7 @@ const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={work} />
+      <CollectionLinks entity={work} />
 
       <SidebarLicenses entity={work} />
 

@@ -79,7 +79,7 @@ const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
         ) : null}
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={instrument} />
+      <CollectionLinks entity={instrument} />
 
       <SidebarLicenses entity={instrument} />
 

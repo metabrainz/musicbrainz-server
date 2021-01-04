@@ -118,7 +118,7 @@ const AreaSidebar = ({$c, area}: Props): React.Element<'div'> => {
         ) : null}
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={area} />
+      <CollectionLinks entity={area} />
 
       <SidebarLicenses entity={area} />
 

@@ -189,7 +189,7 @@ const ArtistSidebar = ({$c, artist}: Props): React.Element<'div'> => {
         <SubscriptionLinks $c={$c} entity={artist} />
       )}
 
-      <CollectionLinks $c={$c} entity={artist} />
+      <CollectionLinks entity={artist} />
 
       <SidebarLicenses entity={artist} />
 

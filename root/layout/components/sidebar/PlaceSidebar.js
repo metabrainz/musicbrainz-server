@@ -126,7 +126,7 @@ const PlaceSidebar = ({$c, place}: Props): React.Element<'div'> => {
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={place} />
+      <CollectionLinks entity={place} />
 
       <SidebarLicenses entity={place} />
 

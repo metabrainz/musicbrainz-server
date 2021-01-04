@@ -124,7 +124,7 @@ const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
         ? null
         : <SubscriptionLinks $c={$c} entity={label} />}
 
-      <CollectionLinks $c={$c} entity={label} />
+      <CollectionLinks entity={label} />
 
       <SidebarLicenses entity={label} />
 

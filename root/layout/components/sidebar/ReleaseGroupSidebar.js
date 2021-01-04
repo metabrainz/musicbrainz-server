@@ -96,7 +96,7 @@ const ReleaseGroupSidebar = ({
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={releaseGroup} />
+      <CollectionLinks entity={releaseGroup} />
 
       <SidebarLicenses entity={releaseGroup} />
 

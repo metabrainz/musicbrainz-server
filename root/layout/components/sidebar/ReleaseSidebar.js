@@ -302,7 +302,7 @@ const ReleaseSidebar = ({
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={release} />
+      <CollectionLinks entity={release} />
 
       <SidebarLicenses entity={release} />
 
