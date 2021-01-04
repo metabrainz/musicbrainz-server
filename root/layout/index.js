@@ -128,7 +128,7 @@ const Layout = ({
     />
 
     <body>
-      <Header $c={$c} />
+      <Header />
 
       {isEditingDisabled($c.user) || isAddingNotesDisabled($c.user) ? (
         <div className="banner editing-disabled">
