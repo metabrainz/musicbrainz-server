@@ -293,7 +293,7 @@ const ReleaseSidebar = ({
           </a>
         </li>
 
-        <AnnotationLinks $c={$c} entity={release} />
+        <AnnotationLinks entity={release} />
 
         <MergeLink entity={release} />
 

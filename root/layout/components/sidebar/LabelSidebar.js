@@ -111,7 +111,7 @@ const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
 
         <li className="separator" role="separator" />
 
-        <AnnotationLinks $c={$c} entity={label} />
+        <AnnotationLinks entity={label} />
 
         <MergeLink entity={label} />
 

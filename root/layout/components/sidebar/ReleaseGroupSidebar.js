@@ -89,7 +89,7 @@ const ReleaseGroupSidebar = ({
           </a>
         </li>
 
-        <AnnotationLinks $c={$c} entity={releaseGroup} />
+        <AnnotationLinks entity={releaseGroup} />
 
         <MergeLink entity={releaseGroup} />
 

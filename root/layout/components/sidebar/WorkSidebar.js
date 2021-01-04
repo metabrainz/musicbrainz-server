@@ -127,7 +127,7 @@ const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
       <ExternalLinks empty entity={work} />
 
       <EditLinks entity={work}>
-        <AnnotationLinks $c={$c} entity={work} />
+        <AnnotationLinks entity={work} />
 
         <MergeLink entity={work} />
 

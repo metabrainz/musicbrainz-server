@@ -177,7 +177,7 @@ const ArtistSidebar = ({$c, artist}: Props): React.Element<'div'> => {
         )}
 
         {isSpecialPurposeArtist ? null : (
-          <AnnotationLinks $c={$c} entity={artist} />
+          <AnnotationLinks entity={artist} />
         )}
 
         <MergeLink entity={artist} />

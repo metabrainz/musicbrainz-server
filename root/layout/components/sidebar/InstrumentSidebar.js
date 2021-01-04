@@ -68,7 +68,7 @@ const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
       <EditLinks entity={instrument}>
         {isRelationshipEditor($c.user) ? (
           <>
-            <AnnotationLinks $c={$c} entity={instrument} />
+            <AnnotationLinks entity={instrument} />
 
             <MergeLink entity={instrument} />
 

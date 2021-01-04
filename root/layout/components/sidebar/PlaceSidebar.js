@@ -119,7 +119,7 @@ const PlaceSidebar = ({$c, place}: Props): React.Element<'div'> => {
 
         <li className="separator" role="separator" />
 
-        <AnnotationLinks $c={$c} entity={place} />
+        <AnnotationLinks entity={place} />
 
         <MergeLink entity={place} />
 

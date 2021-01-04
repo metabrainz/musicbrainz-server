@@ -84,7 +84,7 @@ const EventSidebar = ({$c, event}: Props): React.Element<'div'> => {
       <EditLinks entity={event}>
         {$c.user ? (
           <>
-            <AnnotationLinks $c={$c} entity={event} />
+            <AnnotationLinks entity={event} />
 
             <MergeLink entity={event} />
 

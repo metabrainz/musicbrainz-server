@@ -70,7 +70,7 @@ const SeriesSidebar = ({
       <ExternalLinks empty entity={series} />
 
       <EditLinks entity={series}>
-        <AnnotationLinks $c={$c} entity={series} />
+        <AnnotationLinks entity={series} />
 
         <MergeLink entity={series} />
 

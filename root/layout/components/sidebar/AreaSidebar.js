@@ -107,7 +107,7 @@ const AreaSidebar = ({$c, area}: Props): React.Element<'div'> => {
       <EditLinks entity={area}>
         {isLocationEditor($c.user) ? (
           <>
-            <AnnotationLinks $c={$c} entity={area} />
+            <AnnotationLinks entity={area} />
 
             <MergeLink entity={area} />
 
