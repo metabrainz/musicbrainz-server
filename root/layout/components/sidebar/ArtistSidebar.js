@@ -186,7 +186,7 @@ const ArtistSidebar = ({$c, artist}: Props): React.Element<'div'> => {
       </EditLinks>
 
       {isSpecialPurposeArtist ? null : (
-        <SubscriptionLinks $c={$c} entity={artist} />
+        <SubscriptionLinks entity={artist} />
       )}
 
       <CollectionLinks entity={artist} />

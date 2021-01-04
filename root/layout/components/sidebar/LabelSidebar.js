@@ -122,7 +122,7 @@ const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
 
       {isSpecialPurposeLabel
         ? null
-        : <SubscriptionLinks $c={$c} entity={label} />}
+        : <SubscriptionLinks entity={label} />}
 
       <CollectionLinks entity={label} />
 

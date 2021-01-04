@@ -77,7 +77,7 @@ const SeriesSidebar = ({
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <SubscriptionLinks $c={$c} entity={series} />
+      <SubscriptionLinks entity={series} />
 
       <CollectionLinks entity={series} />
 
