@@ -1003,13 +1003,13 @@ const testData = [
                      input_url: 'www.cdjapan.co.jp/person/76324#test',
              input_entity_type: 'artist',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'http://www.cdjapan.co.jp/person/76324',
+            expected_clean_url: 'https://www.cdjapan.co.jp/person/76324',
   },
   {
-                     input_url: 'https://cdjapan.co.jp/product/COCC-72267?test',
+                     input_url: 'http://cdjapan.co.jp/product/COCC-72267?test',
              input_entity_type: 'release',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'http://www.cdjapan.co.jp/product/COCC-72267',
+            expected_clean_url: 'https://www.cdjapan.co.jp/product/COCC-72267',
   },
   // ChangeTip (Tip.Me)
   {

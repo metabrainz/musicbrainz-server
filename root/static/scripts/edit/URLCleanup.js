@@ -1076,7 +1076,7 @@ const CLEANUPS = {
     )],
     type: LINK_TYPES.mailorder,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\/(person|product)\/([^\/?#]+)(?:.*)?$/, 'http://www.cdjapan.co.jp/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\/(person|product)\/([^\/?#]+)(?:.*)?$/, 'https://www.cdjapan.co.jp/$1/$2');
       return url;
     },
   },
