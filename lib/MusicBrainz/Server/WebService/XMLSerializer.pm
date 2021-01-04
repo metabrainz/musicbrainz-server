@@ -606,7 +606,6 @@ sub _serialize_recording
         $self->_serialize_artist_credit($rec_node, $recording->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artists || $inc->artist_credits;
 
-
         if (
             DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26 &&
             defined $recording->first_release_date
@@ -621,6 +620,13 @@ sub _serialize_recording
     {
         $self->_serialize_artist_credit($rec_node, $recording->artist_credit, $inc, $stash)
             if $inc->artist_credits;
+
+        if (
+            DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26 &&
+            defined $recording->first_release_date
+        ) {
+            $rec_node->appendTextChild('first-release-date', $recording->first_release_date->format);
+        }
     }
 
     $self->_serialize_alias_list($rec_node, $opts->{aliases}, $inc, $opts)

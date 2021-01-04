@@ -482,6 +482,7 @@ test 'release lookup with labels and recordings' => sub {
                                 length => 243000,
                                 disambiguation => "",
                                 video => JSON::false,
+                                "first-release-date" => '2004-03-17',
                             }
                         },
                         {
@@ -496,6 +497,7 @@ test 'release lookup with labels and recordings' => sub {
                                 length => 222000,
                                 disambiguation => "",
                                 video => JSON::false,
+                                "first-release-date" => '2004-03-17',
                             }
                         },
                         {
@@ -510,6 +512,7 @@ test 'release lookup with labels and recordings' => sub {
                                 length => 333000,
                                 disambiguation => "",
                                 video => JSON::false,
+                                "first-release-date" => '2004-03-17',
                             }
                         }]
                 }],
@@ -778,6 +781,7 @@ test 'release lookup with discids' => sub {
                                 length => 296026,
                                 disambiguation => "",
                                 video => JSON::false,
+                                "first-release-date" => '2001-07-04',
                             }
                         },
                         {
@@ -792,6 +796,7 @@ test 'release lookup with discids' => sub {
                                 length => 213106,
                                 disambiguation => "",
                                 video => JSON::false,
+                                "first-release-date" => '2001-07-04',
                             }
                         },
                         {
@@ -806,6 +811,7 @@ test 'release lookup with discids' => sub {
                                 length => 292800,
                                 disambiguation => "",
                                 video => JSON::false,
+                                "first-release-date" => '2001-07-04',
                             }
                         }]
                 }]
@@ -1102,7 +1108,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         ],
                         tags => [],
                         genres => [],
-                        title => 'On My Bus'
+                        title => 'On My Bus',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'On My Bus'
                 },
@@ -1140,7 +1147,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
-                        title => 'Top & Low Rent'
+                        title => 'Top & Low Rent',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'Top & Low Rent'
                 },
@@ -1178,7 +1186,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
-                        title => 'Plock'
+                        title => 'Plock',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'Plock'
                 },
@@ -1216,7 +1225,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
-                        title => 'Marbles'
+                        title => 'Marbles',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'Marbles'
                 },
@@ -1254,7 +1264,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
-                        title => 'Busy Working'
+                        title => 'Busy Working',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'Busy Working'
                 },
@@ -1292,7 +1303,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
-                        title => 'The Greek Alphabet'
+                        title => 'The Greek Alphabet',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'The Greek Alphabet'
                 },
@@ -1330,7 +1342,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
-                        title => 'Press a Key'
+                        title => 'Press a Key',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'Press a Key'
                 },
@@ -1368,7 +1381,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
-                        title => 'Bibi Plone'
+                        title => 'Bibi Plone',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'Bibi Plone'
                 },
@@ -1406,7 +1420,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
-                        title => 'Be Rude to Your School'
+                        title => 'Be Rude to Your School',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'Be Rude to Your School'
                 },
@@ -1444,7 +1459,8 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
-                        title => 'Summer Plays Out'
+                        title => 'Summer Plays Out',
+                        "first-release-date" => '1999-09-13',
                     },
                     title => 'Summer Plays Out'
                 }
