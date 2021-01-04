@@ -105,6 +105,7 @@ const ServerDetailsBanner = () => {
 
 export type Props = $ReadOnly<{
   ...HeadProps,
+  +$c: CatalystContextT,
   children: React$Node,
   fullWidth?: boolean,
 }>;
@@ -120,7 +121,6 @@ const Layout = ({
 }: Props): React.Element<'html'> => (
   <html lang={$c.stash.current_language_html}>
     <Head
-      $c={$c}
       homepage={homepage}
       noIcons={noIcons}
       pager={pager}
