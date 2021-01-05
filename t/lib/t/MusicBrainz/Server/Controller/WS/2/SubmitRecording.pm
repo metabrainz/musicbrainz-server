@@ -62,6 +62,9 @@ my $content = '<?xml version="1.0" encoding="UTF-8"?>
       </isrc-list>
     </recording>
   </recording-list>
+  <edit-note>This is a testy test!
+
+This is the second paragraph of this &quot;test&quot; &amp; it is great!</edit-note>
 </metadata>';
 
 $req = xml_post('/ws/2/recording?client=test-1.0', $content);
@@ -86,8 +89,25 @@ is_deeply($edit->data->{isrcs}, [
       }
   }
 ]);
+my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $c);
+$en_data->load_for_edits($edit);
+is(@{ $edit->edit_notes }, 1, 'Edit has an edit note');
+check_note($edit->edit_notes->[0],'MusicBrainz::Server::Entity::EditNote',
+       editor_id => 1,
+       edit_id => $edit->id,
+       text => 'This is a testy test!
+
+This is the second paragraph of this "test" & it is great!');
 
 };
+
+sub check_note {
+    my ($note, $class, %attrs) = @_;
+    isa_ok($note, $class);
+    is($note->$_, $attrs{$_}, "check_note: $_ is ".$attrs{$_})
+        for keys %attrs;
+    ok(defined $note->post_time, "check_note: edit has post time");
+}
 
 1;
 
