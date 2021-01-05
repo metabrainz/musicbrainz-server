@@ -365,6 +365,35 @@ sub all_pairs
     return @all;
 }
 
+sub get_types_for_timeline
+{
+    my $self = shift;
+
+    my %rel_types;
+
+    for my $t ($self->all_pairs) {
+        my $table = join('_', 'l', @$t);
+        my $data = $self->sql->select_list_of_hashes(
+            "SELECT lt.id, lt.name, lt.parent, count(l_table.id)
+                FROM $table l_table
+                    RIGHT JOIN link ON l_table.link = link.id
+                    RIGHT JOIN
+                        (SELECT * FROM link_type WHERE entity_type0 = ? AND entity_type1 = ?)
+                    AS lt ON link.link_type = lt.id
+                GROUP BY lt.name, lt.id, lt.parent", @$t
+        );
+        for (@$data) {
+            $rel_types{ $table . '.' . $_->{name} } = {
+                entity0 => @$t[0],
+                entity1 => @$t[1],
+                name => $_->{name},
+            }
+        }
+    }
+
+    return %rel_types;
+}
+
 sub merge_entities {
     my ($self, $type, $target_id, $source_ids, %opts) = @_;
 
