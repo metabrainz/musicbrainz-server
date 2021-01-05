@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import Table from '../Table';
 import {
   defineCheckboxColumn,
@@ -18,7 +19,6 @@ import {
 } from '../../utility/tableColumns';
 
 type Props = {
-  +$c: CatalystContextT,
   +areas: $ReadOnlyArray<AreaT>,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
@@ -27,13 +27,14 @@ type Props = {
 };
 
 const AreaList = ({
-  $c,
   areas,
   checkboxes,
   mergeForm,
   order,
   sortable,
 }: Props): React.Element<typeof Table> => {
+  const $c = React.useContext(CatalystContext);
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)

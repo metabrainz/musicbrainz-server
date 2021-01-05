@@ -19,7 +19,6 @@ const TagLookupRecordingResults = (
 ): React.Element<typeof TagLookupResults> => (
   <TagLookupResults {...props}>
     <RecordingResultsInline
-      $c={props.$c}
       pager={props.pager}
       query={props.query}
       results={props.results}

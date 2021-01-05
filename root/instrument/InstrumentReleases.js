@@ -45,7 +45,6 @@ const InstrumentReleases = ({
       >
         <PaginatedResults pager={pager}>
           <ReleaseList
-            $c={$c}
             checkboxes="add-to-merge"
             instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
             releases={releases}

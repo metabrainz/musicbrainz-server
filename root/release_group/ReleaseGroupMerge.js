@@ -38,7 +38,6 @@ const ReleaseGroupMerge = ({
       </p>
       <form action={$c.req.uri} method="post">
         <ReleaseGroupListTable
-          $c={$c}
           mergeForm={form}
           releaseGroups={sortByEntityName(toMerge)}
         />

@@ -86,10 +86,7 @@ const IswcsWithManyWorks = ({
                     {item.work ? (
                       <>
                         <td />
-                        <WorkListRow
-                          $c={$c}
-                          work={item.work}
-                        />
+                        <WorkListRow work={item.work} />
                       </>
                     ) : (
                       <>

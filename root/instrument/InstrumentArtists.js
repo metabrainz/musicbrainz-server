@@ -45,7 +45,6 @@ const InstrumentArtists = ({
       >
         <PaginatedResults pager={pager}>
           <ArtistList
-            $c={$c}
             artists={artists}
             checkboxes="add-to-merge"
             instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}

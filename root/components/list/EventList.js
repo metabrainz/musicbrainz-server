@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import Table from '../Table';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList';
@@ -29,7 +30,6 @@ import {
 
 type Props = {
   ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
   +artist?: ArtistT,
   +artistRoles?: boolean,
   +checkboxes?: string,
@@ -44,7 +44,6 @@ type Props = {
 };
 
 const EventList = ({
-  $c,
   artist,
   artistRoles = false,
   checkboxes,
@@ -58,6 +57,8 @@ const EventList = ({
   showType = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
+  const $c = React.useContext(CatalystContext);
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
