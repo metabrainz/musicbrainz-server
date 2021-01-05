@@ -48,11 +48,19 @@ function showExtraInfoLine(children, className = 'comment') {
   );
 }
 
-function formatName(entity) {
+function formatName<+T: EntityItem>(entity: Item<T>) {
   return unwrapNl<string>(entity.name);
 }
 
-function formatGeneric(entity, extraInfo) {
+function formatGeneric(
+  entity: | ArtistT
+          | EventT
+          | InstrumentT
+          | PlaceT
+          | ReleaseT
+          | WorkT,
+  extraInfo: ?((Array<string>) => void),
+) {
   const name = formatName(entity);
   const info = [];
 
@@ -60,7 +68,7 @@ function formatGeneric(entity, extraInfo) {
     info.push(entity.primaryAlias);
   }
 
-  if (entity.comment) {
+  if (nonEmpty(entity.comment)) {
     info.push(entity.comment);
   }
 
@@ -78,7 +86,7 @@ function formatGeneric(entity, extraInfo) {
   );
 }
 
-function formatArtist(artist) {
+function formatArtist(artist: ArtistT) {
   const sortName = artist.sort_name;
   let extraInfo;
   if (
@@ -87,7 +95,9 @@ function formatArtist(artist) {
     !nonEmpty(artist.primaryAlias) &&
     isNonLatin(artist.name)
   ) {
-    extraInfo = (info) => info.unshift(sortName);
+    extraInfo = (info) => {
+      info.unshift(sortName);
+    };
   }
   return formatGeneric(artist, extraInfo);
 }
@@ -184,7 +194,9 @@ function formatInstrument(instrument: InstrumentT) {
 
   return (
     <>
-      {formatGeneric(instrument, (info) => info.push(...extraInfo))}
+      {formatGeneric(instrument, (info) => {
+        info.push(...extraInfo);
+      })}
       {description ? showExtraInfoLine(description) : null}
     </>
   );
