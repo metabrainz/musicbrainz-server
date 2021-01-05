@@ -80,6 +80,11 @@ sub remove : Local Edit
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
 
+    # For proper display of the Disc IDs tab
+    $c->model('Medium')->load_for_releases($release);
+    my $cdtoc_count = $c->model('MediumCDTOC')->find_count_by_release($release->id);
+    $c->stash->{release_cdtoc_count} = $cdtoc_count;
+
     my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id);
     $c->model('CDTOC')->load($cdtoc);
 

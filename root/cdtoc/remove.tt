@@ -4,7 +4,7 @@
       <li>
         [% l('Are you sure you want to remove the disc ID <code>{discid}</code> from the release
               {release} by {artist}?',
-             { discid => medium_cdtoc.cdtoc.discid, release => link_entity(release),
+             { discid => link_cdtoc(medium_cdtoc.cdtoc), release => link_entity(release),
                artist => artist_credit(release.artist_credit) }) %]
       </li>
       <li>
