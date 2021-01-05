@@ -216,11 +216,15 @@ sub merge
         "INSERT INTO $table (name, $type, sort_name)
             SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.$sortnamecol
               FROM $type old_entity
-         LEFT JOIN $table alias ON alias.name = old_entity.name
               JOIN $type new_entity ON (new_entity.id = ?)
              WHERE old_entity.id = any(?)
-               AND alias.id IS NULL
-               AND old_entity.name != new_entity.name",
+               AND old_entity.name != new_entity.name
+               AND NOT EXISTS (
+                   SELECT TRUE FROM $table
+                    WHERE $type = new_entity.id
+                      AND name = old_entity.name
+                    LIMIT 1
+               )",
         $new_id, [ @old_ids ]
     );
 }
