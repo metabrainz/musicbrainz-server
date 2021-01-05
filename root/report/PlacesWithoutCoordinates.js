@@ -19,7 +19,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportPlaceRelationshipT} from './types';
 
 const PlacesWithoutCoordinates = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -28,7 +27,6 @@ const PlacesWithoutCoordinates = ({
 }: ReportDataT<ReportPlaceRelationshipT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l('This report lists places without coordinates.')}
     entityType="place"

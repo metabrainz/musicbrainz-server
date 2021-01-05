@@ -27,7 +27,6 @@ type ReportRowT = {
 };
 
 const ReleasesSameBarcode = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -35,7 +34,6 @@ const ReleasesSameBarcode = ({
   pager,
 }: ReportDataT<ReportRowT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows non-bootleg releases which have

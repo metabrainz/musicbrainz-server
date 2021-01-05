@@ -17,7 +17,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportArtistT, ReportDataT} from './types';
 
 const ArtistsWithMultipleOccurrencesInArtistCredits = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -25,7 +24,6 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
   pager,
 }: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists artists that appear more than once

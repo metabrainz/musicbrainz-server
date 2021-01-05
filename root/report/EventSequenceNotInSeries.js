@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportEventT} from './types';
 
 const EventSequenceNotInSeries = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const EventSequenceNotInSeries = ({
   pager,
 }: ReportDataT<ReportEventT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists events where the event name indicates that it

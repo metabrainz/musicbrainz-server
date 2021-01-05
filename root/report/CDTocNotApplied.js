@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportCDTocReleaseT} from './types';
 
 const CDTocNotApplied = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const CDTocNotApplied = ({
   pager,
 }: ReportDataT<ReportCDTocReleaseT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows disc IDs attached to a release but obviously not

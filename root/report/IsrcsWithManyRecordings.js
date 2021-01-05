@@ -21,7 +21,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportIsrcT} from './types';
 
 const IsrcsWithManyRecordings = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -33,7 +32,6 @@ const IsrcsWithManyRecordings = ({
 
   return (
     <ReportLayout
-      $c={$c}
       canBeFiltered={canBeFiltered}
       description={exp.l(
         `This report lists {isrc|ISRCs} that are attached to more than

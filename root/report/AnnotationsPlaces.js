@@ -15,7 +15,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportPlaceAnnotationT} from './types';
 
 const AnnotationsPlaces = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -24,7 +23,6 @@ const AnnotationsPlaces = ({
 }: ReportDataT<ReportPlaceAnnotationT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l('This report lists places with annotations.')}
     entityType="place"

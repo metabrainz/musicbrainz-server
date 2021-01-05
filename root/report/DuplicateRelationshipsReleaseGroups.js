@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseGroupT} from './types';
 
 const DuplicateRelationshipsReleaseGroups = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const DuplicateRelationshipsReleaseGroups = ({
   pager,
 }: ReportDataT<ReportReleaseGroupT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists release groups which have multiple relationships

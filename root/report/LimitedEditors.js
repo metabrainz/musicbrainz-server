@@ -24,7 +24,6 @@ const LimitedEditors = ({
   pager,
 }: ReportDataT<ReportEditorT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={exp.l(
       'This report lists {url|beginner/limited editors}.',

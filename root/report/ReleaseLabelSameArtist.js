@@ -19,7 +19,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseLabelT} from './types';
 
 const ReleaseLabelSameArtist = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -27,7 +26,6 @@ const ReleaseLabelSameArtist = ({
   pager,
 }: ReportDataT<ReportReleaseLabelT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={exp.l(
       `This report lists releases where the label name is the same as the

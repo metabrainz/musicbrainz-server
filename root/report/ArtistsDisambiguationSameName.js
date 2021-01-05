@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportArtistT, ReportDataT} from './types';
 
 const ArtistsDisambiguationSameName = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const ArtistsDisambiguationSameName = ({
   pager,
 }: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists artists that have their disambiguation set

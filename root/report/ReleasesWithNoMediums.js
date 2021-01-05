@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const ReleasesWithNoMediums = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const ReleasesWithNoMediums = ({
   pager,
 }: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       'This report shows releases without any mediums (no tracklist).',

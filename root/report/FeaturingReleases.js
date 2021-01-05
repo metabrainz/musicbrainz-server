@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const FeaturingReleases = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const FeaturingReleases = ({
   pager,
 }: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={exp.l(
       `This report shows releases with “(feat. Artist)”

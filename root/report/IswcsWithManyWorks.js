@@ -29,7 +29,6 @@ const IswcsWithManyWorks = ({
 
   return (
     <ReportLayout
-      $c={$c}
       canBeFiltered={canBeFiltered}
       description={exp.l(
         `This report lists {iswc|ISWCs} that are attached to more than

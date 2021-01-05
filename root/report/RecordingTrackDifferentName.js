@@ -19,7 +19,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingTrackT} from './types';
 
 const RecordingTrackDifferentName = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -28,7 +27,6 @@ const RecordingTrackDifferentName = ({
 }: ReportDataT<ReportRecordingTrackT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows recordings that are linked to only one track,

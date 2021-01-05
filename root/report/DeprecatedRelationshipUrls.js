@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportUrlRelationshipT} from './types';
 
 const DeprecatedRelationshipUrls = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -23,7 +22,6 @@ const DeprecatedRelationshipUrls = ({
 }: ReportDataT<ReportUrlRelationshipT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists URLs which have relationships using

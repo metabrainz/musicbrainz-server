@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportArtistUrlT, ReportDataT} from './types';
 
 const DiscogsLinksWithMultipleArtists = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -23,7 +22,6 @@ const DiscogsLinksWithMultipleArtists = ({
 }: ReportDataT<ReportArtistUrlT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows Discogs URLs which are linked to multiple artists.`,

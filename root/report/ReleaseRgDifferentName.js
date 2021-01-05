@@ -17,7 +17,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseReleaseGroupT} from './types';
 
 const ReleaseRgDifferentName = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -26,7 +25,6 @@ const ReleaseRgDifferentName = ({
 }: ReportDataT<ReportReleaseReleaseGroupT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows releases which are the only ones in their release

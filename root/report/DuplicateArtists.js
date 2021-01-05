@@ -32,7 +32,6 @@ const DuplicateArtists = ({
 
   return (
     <ReportLayout
-      $c={$c}
       canBeFiltered={canBeFiltered}
       countText={l('Total duplicate groups: {count}')}
       description={exp.l(

@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportArtistT, ReportDataT} from './types';
 
 const PossibleCollaborations = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const PossibleCollaborations = ({
   pager,
 }: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={exp.l(
       `This report lists artists which have “&” in their names

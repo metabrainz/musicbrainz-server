@@ -20,7 +20,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingT} from './types';
 
 const RecordingsSameNameDifferentArtistsSameName = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -28,7 +27,6 @@ const RecordingsSameNameDifferentArtistsSameName = ({
   pager,
 }: ReportDataT<ReportRecordingT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={exp.l(
       `This report shows all recordings with the same name that have

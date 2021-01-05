@@ -16,7 +16,6 @@ import type {ReportDataT, ReportRecordingRelationshipT} from './types';
 
 
 const RecordingsWithFutureDates = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -25,7 +24,6 @@ const RecordingsWithFutureDates = ({
 }: ReportDataT<ReportRecordingRelationshipT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows recordings with relationships using dates in

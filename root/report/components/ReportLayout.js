@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import Layout from '../../layout';
 import expand2text from '../../static/scripts/common/i18n/expand2text';
 import formatUserDate from '../../utility/formatUserDate';
@@ -34,7 +35,6 @@ const countTextPicker = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +canBeFiltered: boolean,
   +children: React.Node,
   +countText?: string,
@@ -48,7 +48,6 @@ type Props = {
 };
 
 const ReportLayout = ({
-  $c,
   canBeFiltered,
   children,
   countText,
@@ -59,35 +58,39 @@ const ReportLayout = ({
   generated,
   title,
   totalEntries,
-}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={title}>
-    <h1>{title}</h1>
+}: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(CatalystContext);
 
-    <ul>
-      <li>
-        {description}
-      </li>
-      {nonEmpty(extraInfo) ? (
+  return (
+    <Layout $c={$c} fullWidth title={title}>
+      <h1>{title}</h1>
+
+      <ul>
         <li>
-          {extraInfo}
+          {description}
         </li>
-      ) : null}
-      <li>
-        {expand2text(
-          nonEmpty(countText) ? countText : countTextPicker[entityType](),
-          {count: totalEntries},
-        )}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
+        {nonEmpty(extraInfo) ? (
+          <li>
+            {extraInfo}
+          </li>
+        ) : null}
+        <li>
+          {expand2text(
+            nonEmpty(countText) ? countText : countTextPicker[entityType](),
+            {count: totalEntries},
+          )}
+        </li>
+        <li>
+          {texp.l('Generated on {date}',
+                  {date: formatUserDate($c, generated)})}
+        </li>
 
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
+        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
+      </ul>
 
-    {children}
-  </Layout>
-);
+      {children}
+    </Layout>
+  );
+};
 
 export default ReportLayout;

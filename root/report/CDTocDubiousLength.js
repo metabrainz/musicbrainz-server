@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportCDTocT} from './types';
 
 const CDTocDubiousLength = ({
-  $c,
   canBeFiltered,
   generated,
   filtered,
@@ -22,7 +21,6 @@ const CDTocDubiousLength = ({
   pager,
 }: ReportDataT<ReportCDTocT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows disc IDs indicating a total duration much longer

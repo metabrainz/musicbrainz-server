@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingT} from './types';
 
 const DuplicateRelationshipsRecordings = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const DuplicateRelationshipsRecordings = ({
   pager,
 }: ReportDataT<ReportRecordingT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists recordings which have multiple relationships

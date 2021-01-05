@@ -16,7 +16,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportCollaborationT, ReportDataT} from './types';
 
 const CollaborationRelationships = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -28,7 +27,6 @@ const CollaborationRelationships = ({
 
   return (
     <ReportLayout
-      $c={$c}
       canBeFiltered={canBeFiltered}
       description={exp.l(
         `This report lists artists which have collaboration relationships

@@ -15,7 +15,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseGroupRelationshipT} from './types';
 
 const DeprecatedRelationshipReleaseGroups = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -24,7 +23,6 @@ const DeprecatedRelationshipReleaseGroups = ({
 }: ReportDataT<ReportReleaseGroupRelationshipT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists release groups which have relationships using

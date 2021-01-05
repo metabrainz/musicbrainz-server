@@ -15,7 +15,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportWorkAnnotationT} from './types';
 
 const AnnotationsWorks = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -24,7 +23,6 @@ const AnnotationsWorks = ({
 }: ReportDataT<ReportWorkAnnotationT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l('This report lists works with annotations.')}
     entityType="work"

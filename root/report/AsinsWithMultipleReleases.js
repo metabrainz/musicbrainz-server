@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseUrlT} from './types';
 
 const AsinsWithMultipleReleases = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const AsinsWithMultipleReleases = ({
   pager,
 }: ReportDataT<ReportReleaseUrlT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={exp.l(
       `This report shows Amazon URLs which are linked to multiple

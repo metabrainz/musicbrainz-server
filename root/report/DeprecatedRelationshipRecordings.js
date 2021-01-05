@@ -15,7 +15,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types';
 
 const DeprecatedRelationshipRecordings = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -24,7 +23,6 @@ const DeprecatedRelationshipRecordings = ({
 }: ReportDataT<ReportRecordingRelationshipT>):
 React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists recordings which have relationships using

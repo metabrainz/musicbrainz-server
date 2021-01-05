@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportInstrumentT} from './types';
 
 const InstrumentsWithoutWikidata = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const InstrumentsWithoutWikidata = ({
   pager,
 }: ReportDataT<ReportInstrumentT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows instruments without Wikidata relationships.`,
@@ -33,7 +31,7 @@ const InstrumentsWithoutWikidata = ({
     title={l('Instruments without a Wikidata link')}
     totalEntries={pager.total_entries}
   >
-    <InstrumentList $c={$c} items={items} pager={pager} />
+    <InstrumentList items={items} pager={pager} />
   </ReportLayout>
 );
 

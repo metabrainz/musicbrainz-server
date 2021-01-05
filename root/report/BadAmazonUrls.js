@@ -19,7 +19,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseUrlT} from './types';
 
 const BadAmazonUrls = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -27,7 +26,6 @@ const BadAmazonUrls = ({
   pager,
 }: ReportDataT<ReportReleaseUrlT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows releases with Amazon URLs which don't follow

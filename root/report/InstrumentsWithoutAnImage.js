@@ -14,7 +14,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportInstrumentT} from './types';
 
 const InstrumentsWithoutAnImage = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -22,7 +21,6 @@ const InstrumentsWithoutAnImage = ({
   pager,
 }: ReportDataT<ReportInstrumentT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows instruments without an image relationship
@@ -34,7 +32,7 @@ const InstrumentsWithoutAnImage = ({
     title={l('Instruments without an image')}
     totalEntries={pager.total_entries}
   >
-    <InstrumentList $c={$c} items={items} pager={pager} />
+    <InstrumentList items={items} pager={pager} />
   </ReportLayout>
 );
 

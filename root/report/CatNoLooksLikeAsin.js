@@ -19,7 +19,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseCatNoT} from './types';
 
 const CatNoLooksLikeAsin = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -27,7 +26,6 @@ const CatNoLooksLikeAsin = ({
   pager,
 }: ReportDataT<ReportReleaseCatNoT>): React.Element<typeof ReportLayout> => (
   <ReportLayout
-    $c={$c}
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows releases which have catalog numbers that look
