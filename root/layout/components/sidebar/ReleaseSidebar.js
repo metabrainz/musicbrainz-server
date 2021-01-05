@@ -170,8 +170,9 @@ const ReleaseSidebar = ({
 
         {packagingId == null ? null : (
           <SidebarProperty className="packaging" label={l('Packaging:')}>
-            {l_attributes(
+            {lp_attributes(
               linkedEntities.release_packaging[packagingId].name,
+              'release_packaging',
             )}
           </SidebarProperty>
         )}
@@ -181,8 +182,9 @@ const ReleaseSidebar = ({
             className="status"
             label={lp('Status:', 'release status')}
           >
-            {l_attributes(
+            {lp_attributes(
               linkedEntities.release_status[statusId].name,
+              'release_status',
             )}
           </SidebarProperty>
         )}

@@ -806,7 +806,7 @@ export function buildTypeStats(typeData) {
 
   for (const key in countries) {
     const country = countries[key];
-    const countryName = l_attributes(country.name);
+    const countryName = l_countries(country.name);
     const countryArg = {country: countryName};
 
     stats[`count.artist.country.${key}`] = {
@@ -833,7 +833,7 @@ export function buildTypeStats(typeData) {
 
   for (const key in formats) {
     const format = formats[key];
-    const formatArg = {name: l_attributes(format.name)};
+    const formatArg = {name: lp_attributes(format.name, 'medium_format')};
 
     stats[`count.release.format.${key}`] = {
       category: 'formats',
@@ -852,7 +852,7 @@ export function buildTypeStats(typeData) {
 
   for (const key in languages) {
     const language = languages[key];
-    const languageName = l_attributes(language.name);
+    const languageName = l_languages(language.name);
 
     stats[`count.release.language.${key}`] = {
       category: 'release-languages',
@@ -880,7 +880,7 @@ export function buildTypeStats(typeData) {
 
   for (const key in scripts) {
     const script = scripts[key];
-    const scriptName = l_attributes(script.name);
+    const scriptName = l_scripts(script.name);
 
     stats[`count.release.script.${key}`] = {
       category: 'release-scripts',
