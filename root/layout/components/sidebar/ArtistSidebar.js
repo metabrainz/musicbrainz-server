@@ -127,13 +127,7 @@ const ArtistSidebar = ({$c, artist}: Props): React.Element<'div'> => {
 
       <SidebarRating entity={artist} />
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={artist}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={artist} />
 
       <ExternalLinks empty entity={artist} />
 

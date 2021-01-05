@@ -96,13 +96,7 @@ const PlaceSidebar = ({$c, place}: Props): React.Element<'div'> => {
         ) : null}
       </SidebarProperties>
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={place}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={place} />
 
       <ExternalLinks empty entity={place} />
 

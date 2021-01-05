@@ -264,13 +264,7 @@ const ReleaseSidebar = ({
         </>
       )}
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={release}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={release} />
 
       <ExternalLinks empty entity={release} />
 

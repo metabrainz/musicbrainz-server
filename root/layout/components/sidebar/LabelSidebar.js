@@ -92,13 +92,7 @@ const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
 
       <SidebarRating entity={label} />
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={label}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={label} />
 
       <ExternalLinks empty entity={label} />
 

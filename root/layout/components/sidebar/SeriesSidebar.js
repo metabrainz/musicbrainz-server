@@ -59,13 +59,7 @@ const SeriesSidebar = ({
         </SidebarProperty>
       </SidebarProperties>
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={series}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={series} />
 
       <ExternalLinks empty entity={series} />
 

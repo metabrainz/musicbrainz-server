@@ -71,13 +71,7 @@ const EventSidebar = ({$c, event}: Props): React.Element<'div'> => {
 
       <SidebarRating entity={event} />
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={event}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={event} />
 
       <ExternalLinks empty entity={event} />
 

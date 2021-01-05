@@ -116,13 +116,7 @@ const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
 
       <SidebarRating entity={work} />
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={work}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={work} />
 
       <ExternalLinks empty entity={work} />
 

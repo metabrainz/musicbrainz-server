@@ -64,13 +64,7 @@ const ReleaseGroupSidebar = ({
 
       <SidebarRating entity={releaseGroup} />
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={releaseGroup}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={releaseGroup} />
 
       <ExternalLinks empty entity={releaseGroup} />
 

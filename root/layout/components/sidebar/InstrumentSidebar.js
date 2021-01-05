@@ -55,13 +55,7 @@ const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
         </>
       )}
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={instrument}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={instrument} />
 
       <ExternalLinks empty entity={instrument} />
 

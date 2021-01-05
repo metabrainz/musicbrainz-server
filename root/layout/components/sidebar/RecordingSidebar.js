@@ -77,13 +77,7 @@ const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {
 
       <SidebarRating entity={recording} />
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={recording}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={recording} />
 
       <ExternalLinks empty entity={recording} />
 
