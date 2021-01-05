@@ -14,7 +14,7 @@ import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import loopParity from '../utility/loopParity';
 import LinkSearchableProperty from '../components/LinkSearchableProperty';
 
-import {formatCount, formatPercentage} from './utilities';
+import {formatCount, formatPercentage, TimelineLink} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
 type FormatsStatsT = {
@@ -64,9 +64,17 @@ const Formats = ({
         <tr>
           <td />
           <td>{l('Total')}</td>
-          <td className="t">{formatCount($c, stats['count.release'])}</td>
+          <td className="t">
+            {formatCount($c, stats['count.release'])}
+            {' '}
+            <TimelineLink statName="count.release" />
+          </td>
           <td className="t">{formatPercentage($c, 1, 0)}</td>
-          <td className="t">{formatCount($c, stats['count.medium'])}</td>
+          <td className="t">
+            {formatCount($c, stats['count.medium'])}
+            {' '}
+            <TimelineLink statName="count.medium" />
+          </td>
           <td className="t">{formatPercentage($c, 1, 0)}</td>
         </tr>
         {formatStats.map((formatStat, index) => {
@@ -87,6 +95,12 @@ const Formats = ({
               </td>
               <td className="t">
                 {formatCount($c, formatStat.release_count)}
+                {' '}
+                <TimelineLink
+                  statName={
+                    'count.release.format.' + (entity ? entity.id : 'null')
+                  }
+                />
               </td>
               <td className="t">
                 {formatPercentage(
@@ -97,6 +111,12 @@ const Formats = ({
               </td>
               <td className="t">
                 {formatCount($c, formatStat.medium_count)}
+                {' '}
+                <TimelineLink
+                  statName={
+                    'count.medium.format.' + (entity ? entity.id : 'null')
+                  }
+                />
               </td>
               <td className="t">
                 {formatPercentage(

@@ -15,7 +15,7 @@ import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import loopParity from '../utility/loopParity';
 
-import {formatCount} from './utilities';
+import {formatCount, TimelineLink} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
 type CountriesStatsT = {
@@ -94,6 +94,14 @@ const Countries = ({
                     subPath="artists"
                   />
                 ) : formatCount($c, countryStat.artist_count)}
+                {' '}
+                <TimelineLink
+                  statName={
+                    'count.artist.country.' + (hasCountryCode
+                      ? country.country_code
+                      : 'null')
+                  }
+                />
               </td>
               <td className="t">
                 {hasCountryCode ? (
@@ -104,6 +112,14 @@ const Countries = ({
                     subPath="releases"
                   />
                 ) : formatCount($c, countryStat.release_count)}
+                {' '}
+                <TimelineLink
+                  statName={
+                    'count.release.country.' + (hasCountryCode
+                      ? country.country_code
+                      : 'null')
+                  }
+                />
               </td>
               <td className="t">
                 {hasCountryCode ? (
@@ -113,6 +129,14 @@ const Countries = ({
                     subPath="labels"
                   />
                 ) : formatCount($c, countryStat.label_count)}
+                {' '}
+                <TimelineLink
+                  statName={
+                    'count.label.country.' + (hasCountryCode
+                      ? country.country_code
+                      : 'null')
+                  }
+                />
               </td>
               <td className="t">
                 {formatCount(
