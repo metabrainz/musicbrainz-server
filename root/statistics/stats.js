@@ -13,20 +13,33 @@ import {fixedWidthInteger} from '../static/scripts/common/utility/strings';
 
 const stats = {
   'category': {
+    'area-types': {label: l('Area Types')},
     'artist-countries': {label: l('Artist Countries')},
     'artist-other': {label: l('Artist Types and Genders')},
     'core-entities': {label: l('Core Entities')},
     'cover-art': {hide: true, label: l('Cover Art')},
     'edit-information': {hide: true, label: l('Edit Information')},
+    'edit-types': {label: l('Edit Types')},
+    'event-types': {label: l('Event Types')},
     'formats': {label: l('Formats')},
+    'instrument-types': {label: l('Instrument Types')},
     'label-countries': {label: l('Label Countries')},
+    'label-types': {label: l('Label Types')},
     'other': {label: lp('Other', 'stats category')},
+    'place-types': {label: l('Place Types')},
     'ratings-tags': {label: l('Ratings and Tags')},
     'relationships': {hide: true, label: l('Relationships')},
     'release-countries': {label: l('Release Countries')},
+    'release-group-types': {label: l('Release Group Types')},
     'release-languages': {label: l('Release Languages')},
+    'release-packagings': {label: l('Release Packagings')},
     'release-quality': {label: l('Release Data Quality')},
     'release-scripts': {label: l('Release Scripts')},
+    'release-statuses': {label: l('Release Statuses')},
+    'series-types': {label: l('Series Types')},
+    'work-attributes': {label: l('Work Attributes')},
+    'work-languages': {label: l('Work Languages')},
+    'work-types': {label: l('Work Types')},
   },
   'count.ar.links': {
     category: 'relationships',
@@ -37,6 +50,11 @@ const stats = {
     category: 'core-entities',
     color: '#ff0000',
     label: l('Areas'),
+  },
+  'count.area.type.null': {
+    category: 'area-types',
+    color: '#ff0000',
+    label: l('Areas with no type set'),
   },
   'count.artist': {
     category: 'core-entities',
@@ -349,6 +367,56 @@ const stats = {
     hide: true,
     label: l('Editors (current) who have ever been active'),
   },
+  'count.editor.valid.active.applications': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who have registered applications'),
+  },
+  'count.editor.valid.active.collections': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who use collections'),
+  },
+  'count.editor.valid.active.edits': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who have made edits'),
+  },
+  'count.editor.valid.active.notes': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who have written edit notes'),
+  },
+  'count.editor.valid.active.ratings': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who have added ratings'),
+  },
+  'count.editor.valid.active.subscriptions': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who use subscriptions'),
+  },
+  'count.editor.valid.active.tags': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who have added tags'),
+  },
+  'count.editor.valid.active.votes': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who have voted on edits'),
+  },
+  'count.editor.valid.inactive': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who have not been active at all'),
+  },
+  'count.editor.valid.validated_only': {
+    category: 'edit-information',
+    color: '#ff00cc',
+    label: l('Editors who have only validated their email'),
+  },
   'count.editor.votelastweek': {
     category: 'edit-information',
     color: '#cc00ff',
@@ -359,10 +427,25 @@ const stats = {
     color: '#e8ab08',
     label: l('Events'),
   },
+  'count.event.type.null': {
+    category: 'event-types',
+    color: '#ff0000',
+    label: l('Events with no type set'),
+  },
+  'count.genre': {
+    category: 'core-entities',
+    color: '#ff0000',
+    label: l('Genres'),
+  },
   'count.instrument': {
     category: 'core-entities',
     color: '#8fddc9',
     label: l('Instruments'),
+  },
+  'count.instrument.type.null': {
+    category: 'instrument-types',
+    color: '#ff0000',
+    label: l('Instruments with no type set'),
   },
   'count.ipi': {
     category: 'other',
@@ -424,6 +507,16 @@ const stats = {
     color: '#ff0000',
     label: l('Labels with no country set'),
   },
+  'count.label.type.null': {
+    category: 'label-types',
+    color: '#ff0000',
+    label: l('Labels with no type set'),
+  },
+  'count.mbid': {
+    category: 'other',
+    color: '#ff0000',
+    label: l('MBIDs'),
+  },
   'count.medium': {
     category: 'core-entities',
     color: '#00c0ff',
@@ -443,6 +536,11 @@ const stats = {
     category: 'core-entities',
     color: '#bc0a0a',
     label: l('Places'),
+  },
+  'count.place.type.null': {
+    category: 'place-types',
+    color: '#ff0000',
+    label: l('Places with no type set'),
   },
   'count.quality.release.default': {
     category: 'release-quality',
@@ -587,7 +685,12 @@ const stats = {
   'count.release.format.null': {
     category: 'formats',
     color: '#ff0000',
-    label: l('Releases with a no-format medium'),
+    label: l('Releases with a medium with no format set'),
+  },
+  'count.release.format.null.has_coverart': {
+    category: 'cover-art',
+    color: '#ff0000',
+    label: l('Releases with a medium with no format set that have cover art'),
   },
   'count.release.has_caa': {
     category: 'cover-art',
@@ -609,10 +712,30 @@ const stats = {
     color: '#ff0000',
     label: l('Releases not credited to Various Artists'),
   },
+  'count.release.packaging.null': {
+    category: 'release-packagings',
+    color: '#ff0000',
+    label: l('Releases with no packaging set'),
+  },
   'count.release.script.null': {
     category: 'release-scripts',
     color: '#ff0000',
     label: l('Releases with no script set'),
+  },
+  'count.release.status.null': {
+    category: 'release-statuses',
+    color: '#ff0000',
+    label: l('Releases with no status set'),
+  },
+  'count.release.status.null.has_coverart': {
+    category: 'cover-art',
+    color: '#ff0000',
+    label: l('Releases with no status set that have cover art'),
+  },
+  'count.release.type.null.has_coverart': {
+    category: 'cover-art',
+    color: '#ff0000',
+    label: l('Releases in groups with no type set that have cover art'),
   },
   'count.release.various': {
     category: 'other',
@@ -624,10 +747,25 @@ const stats = {
     color: '#ae00ff',
     label: l('Release Groups'),
   },
+  'count.releasegroup.caa.inferred': {
+    category: 'cover-art',
+    color: '#ff0000',
+    label: l('Release groups with automatically inferred cover art'),
+  },
+  'count.releasegroup.caa.manually_selected': {
+    category: 'cover-art',
+    color: '#ff0000',
+    label: l('Release groups with user-selected cover art'),
+  },
   'count.series': {
     category: 'core-entities',
     color: '#1a6756',
     label: lp('Series', 'plural'),
+  },
+  'count.series.type.null': {
+    category: 'series-types',
+    color: '#ff0000',
+    label: l('Series with no type set'),
   },
   'count.tag': {
     category: 'ratings-tags',
@@ -689,6 +827,16 @@ const stats = {
     color: '#ff0000',
     label: l('Tracks'),
   },
+  'count.url': {
+    category: 'core-entities',
+    color: '#1a6756',
+    label: l('URLs'),
+  },
+  'count.video': {
+    category: 'other',
+    color: '#ff0000',
+    label: l('Videos'),
+  },
   'count.vote': {
     category: 'edit-information',
     color: '#00ffff',
@@ -699,6 +847,11 @@ const stats = {
     category: 'edit-information',
     color: '#00ffff',
     label: l('Abstentions'),
+  },
+  'count.vote.approve': {
+    category: 'edit-information',
+    color: '#00ffff',
+    label: l('Approvals'),
   },
   'count.vote.no': {
     category: 'edit-information',
@@ -726,10 +879,20 @@ const stats = {
     color: '#00ffa8',
     label: l('Works'),
   },
+  'count.work.attribute.null': {
+    category: 'work-attributes',
+    color: '#ff0000',
+    label: l('Works with no attributes'),
+  },
   'count.work.has_iswc': {
     category: 'other',
     color: '#ff0000',
     label: l('Works with ISWCs'),
+  },
+  'count.work.type.null': {
+    category: 'work-types',
+    color: '#ff0000',
+    label: l('Works with no type set'),
   },
   'rateTooltipCloser': l('/day'),
 };
@@ -799,12 +962,37 @@ export function getStat(name) {
 
 export function buildTypeStats(typeData) {
   const {
+    areaTypes,
     countries,
+    editTypes,
+    eventTypes,
     formats,
+    instrumentTypes,
+    labelTypes,
     languages,
-    relationships,
+    packagings,
+    placeTypes,
+    relationshipTables,
+    relationshipTypes,
+    releaseGroupTypes,
+    releaseGroupSecondaryTypes,
     scripts,
+    seriesTypes,
+    statuses,
+    workAttributes,
+    workTypes,
   } = typeData;
+
+  for (const key in areaTypes) {
+    const type = areaTypes[key];
+    const typeName = lp_attributes(type.name, 'area_type');
+
+    stats[`count.area.type.${key}`] = {
+      category: 'area-types',
+      color: '#ff0000',
+      label: texp.l('{type} areas', {type: typeName}),
+    };
+  }
 
   for (const key in countries) {
     const country = countries[key];
@@ -830,6 +1018,28 @@ export function buildTypeStats(typeData) {
     };
   }
 
+  for (const key in editTypes) {
+    const type = editTypes[key];
+    const typeName = l(type.name);
+
+    stats[`count.edit.type.${key}`] = {
+      category: 'edit-types',
+      color: '#ff0000',
+      label: texp.l('{type} edits', {type: typeName}),
+    };
+  }
+
+  for (const key in eventTypes) {
+    const type = eventTypes[key];
+    const typeName = lp_attributes(type.name, 'event_type');
+
+    stats[`count.event.type.${key}`] = {
+      category: 'event-types',
+      color: '#ff0000',
+      label: texp.l('{type} events', {type: typeName}),
+    };
+  }
+
   for (const key in formats) {
     const format = formats[key];
     const formatArg = {name: lp_attributes(format.name, 'medium_format')};
@@ -845,6 +1055,37 @@ export function buildTypeStats(typeData) {
       color: '#ff0000',
       label: texp.l('{name} mediums', formatArg),
     };
+
+    stats[`count.release.format.${encodeURI(format.name)}.has_coverart`] = {
+      category: 'cover-art',
+      color: '#ff0000',
+      label: texp.l(
+        'Releases with a medium of format “{format}” that have cover art',
+        {format: formatArg.name},
+      ),
+    };
+  }
+
+  for (const key in instrumentTypes) {
+    const type = instrumentTypes[key];
+    const typeName = lp_attributes(type.name, 'instrument_type');
+
+    stats[`count.instrument.type.${key}`] = {
+      category: 'instrument-types',
+      color: '#ff0000',
+      label: texp.l('{type} instruments', {type: typeName}),
+    };
+  }
+
+  for (const key in labelTypes) {
+    const type = labelTypes[key];
+    const typeName = lp_attributes(type.name, 'label_type');
+
+    stats[`count.label.type.${key}`] = {
+      category: 'label-types',
+      color: '#ff0000',
+      label: texp.l('{type} labels', {type: typeName}),
+    };
   }
 
   for (const key in languages) {
@@ -856,10 +1097,41 @@ export function buildTypeStats(typeData) {
       color: '#ff0000',
       label: texp.l('{language} releases', {language: languageName}),
     };
+
+    stats[`count.work.language.${key}`] = {
+      category: 'work-languages',
+      color: '#ff0000',
+      label: texp.l('{language} works', {language: languageName}),
+    };
   }
 
-  for (let i = 0; i < relationships.length; i++) {
-    const pair = relationships[i];
+  for (const key in packagings) {
+    const packaging = packagings[key];
+    const packagingName = lp_attributes(packaging.name, 'release_packaging');
+
+    stats[`count.release.packaging.${key}`] = {
+      category: 'release-packagings',
+      color: '#ff0000',
+      label: texp.l(
+        'Releases with packaging “{packaging}”',
+        {packaging: packagingName},
+      ),
+    };
+  }
+
+  for (const key in placeTypes) {
+    const type = placeTypes[key];
+    const typeName = lp_attributes(type.name, 'place_type');
+
+    stats[`count.place.type.${key}`] = {
+      category: 'place-types',
+      color: '#ff0000',
+      label: texp.l('{type} places', {type: typeName}),
+    };
+  }
+
+  for (let i = 0; i < relationshipTables.length; i++) {
+    const pair = relationshipTables[i];
     const hex = fixedWidthInteger((i + 1) * 3, 2);
     const label = texp.l(
       '{first_entity_type}-{second_entity_type} Relationships',
@@ -876,6 +1148,74 @@ export function buildTypeStats(typeData) {
     };
   }
 
+  for (const key in relationshipTypes) {
+    const type = relationshipTypes[key];
+    const typeName = l_relationships(type.name);
+
+    const label = texp.l(
+      `{first_entity_type_name}-{second_entity_type_name}
+       “{relationship_type_name}” relationships`,
+      {
+        first_entity_type_name: formatEntityTypeName(type.entity0),
+        relationship_type_name: typeName,
+        second_entity_type_name: formatEntityTypeName(type.entity1),
+      },
+    );
+
+    stats[`count.ar.links.${encodeURI(key)}`] = {
+      category: 'relationships',
+      color: `#ff0000`,
+      label,
+    };
+
+    const labelInclusive = texp.l(
+      `{first_entity_type_name}-{second_entity_type_name}
+       “{relationship_type_name}” relationships
+       including child relationship types`,
+      {
+        first_entity_type_name: formatEntityTypeName(type.entity0),
+        relationship_type_name: typeName,
+        second_entity_type_name: formatEntityTypeName(type.entity1),
+      },
+    );
+    stats[`count.ar.links.${encodeURI(key)}.inclusive`] = {
+      category: 'relationships',
+      color: `#ff0000`,
+      label: labelInclusive,
+    };
+  }
+
+  for (const key in releaseGroupTypes) {
+    const type = releaseGroupTypes[key];
+    const typeName = lp_attributes(type.name, 'release_group_primary_type');
+
+    stats[`count.releasegroup.primary_type.${key}`] = {
+      category: 'release-group-types',
+      color: '#ff0000',
+      label: texp.l('{type} release groups', {type: typeName}),
+    };
+
+    stats[`count.release.type.${encodeURI(type.name)}.has_coverart`] = {
+      category: 'cover-art',
+      color: '#ff0000',
+      label: texp.l(
+        'Releases in groups of type “{type}” with cover art',
+        {type: typeName},
+      ),
+    };
+  }
+
+  for (const key in releaseGroupSecondaryTypes) {
+    const type = releaseGroupSecondaryTypes[key];
+    const typeName = lp_attributes(type.name, 'release_group_secondary_type');
+
+    stats[`count.releasegroup.secondary_type.${key}`] = {
+      category: 'release-group-types',
+      color: '#ff0000',
+      label: texp.l('{type} release groups', {type: typeName}),
+    };
+  }
+
   for (const key in scripts) {
     const script = scripts[key];
     const scriptName = l_scripts(script.name);
@@ -884,6 +1224,65 @@ export function buildTypeStats(typeData) {
       category: 'release-scripts',
       color: '#ff0000',
       label: texp.l('{script} releases', {script: scriptName}),
+    };
+  }
+
+  for (const key in seriesTypes) {
+    const type = seriesTypes[key];
+    const typeName = lp_attributes(type.name, 'series_type');
+
+    stats[`count.series.type.${key}`] = {
+      category: 'series-types',
+      color: '#ff0000',
+      label: texp.l('{type} series', {type: typeName}),
+    };
+  }
+
+  for (const key in statuses) {
+    const status = statuses[key];
+    const statusName = lp_attributes(status.name, 'release_status');
+
+    stats[`count.release.status.${key}`] = {
+      category: 'release-statuses',
+      color: '#ff0000',
+      label: texp.l('{status} releases', {status: statusName}),
+    };
+
+    stats[`count.release.status.${encodeURI(status.name)}.has_coverart`] = {
+      category: 'cover-art',
+      color: '#ff0000',
+      label: texp.l(
+        'Releases of status “{status}” with cover art',
+        {status: statusName},
+      ),
+    };
+  }
+
+  for (const key in workAttributes) {
+    const attribute = workAttributes[key];
+    const attributeName = lp_attributes(
+      attribute.name,
+      'work_attribute_type',
+    );
+
+    stats[`count.work.attribute.${key}`] = {
+      category: 'work-attributes',
+      color: '#ff0000',
+      label: texp.l(
+        'Works with attribute “{attribute}”',
+        {attribute: attributeName},
+      ),
+    };
+  }
+
+  for (const key in workTypes) {
+    const type = workTypes[key];
+    const typeName = lp_attributes(type.name, 'work_type');
+
+    stats[`count.work.type.${key}`] = {
+      category: 'work-types',
+      color: '#ff0000',
+      label: texp.l('{type} works', {type: typeName}),
     };
   }
 }
