@@ -13,6 +13,7 @@ import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
 import {QUALITY_UNKNOWN} from '../../../constants';
+import {CatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import ReleaseEvents
   from '../../../static/scripts/common/components/ReleaseEvents';
@@ -46,14 +47,12 @@ import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 
 type Props = {
-  +$c: CatalystContextT,
   +release: ReleaseT,
 };
 
-const ReleaseSidebar = ({
-  $c,
-  release,
-}: Props): React.Element<'div'> | null => {
+const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
+  const $c = React.useContext(CatalystContext);
+
   const releaseGroup = release.releaseGroup;
   if (!releaseGroup) {
     return null;

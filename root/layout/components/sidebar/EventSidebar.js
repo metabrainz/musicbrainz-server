@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import isDateEmpty from '../../../static/scripts/common/utility/isDateEmpty';
@@ -29,11 +30,11 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
 type Props = {
-  +$c: CatalystContextT,
   +event: EventT,
 };
 
-const EventSidebar = ({$c, event}: Props): React.Element<'div'> => {
+const EventSidebar = ({event}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const hasBegin = !isDateEmpty(event.begin_date);
   const hasEnd = !isDateEmpty(event.end_date);
 

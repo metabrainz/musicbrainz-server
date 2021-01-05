@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import {isLocationEditor}
@@ -30,11 +31,11 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
 type Props = {
-  +$c: CatalystContextT,
   +area: AreaT,
 };
 
-const AreaSidebar = ({$c, area}: Props): React.Element<'div'> => {
+const AreaSidebar = ({area}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const areaAge = age.age(area);
 
   return (

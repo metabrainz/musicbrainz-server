@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import DescriptiveLink
@@ -37,11 +38,11 @@ import SidebarType from './SidebarType';
 import SubscriptionLinks from './SubscriptionLinks';
 
 type Props = {
-  +$c: CatalystContextT,
   +label: LabelT,
 };
 
-const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
+const LabelSidebar = ({label}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const labelAge = age.age(label);
   const gid = encodeURIComponent(label.gid);
   const area = label.area;

@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import DescriptiveLink
@@ -31,11 +32,11 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
 type Props = {
-  +$c: CatalystContextT,
   +place: PlaceT,
 };
 
-const PlaceSidebar = ({$c, place}: Props): React.Element<'div'> => {
+const PlaceSidebar = ({place}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const placeAge = age.age(place);
   const gid = encodeURIComponent(place.gid);
   const {area, coordinates} = place;

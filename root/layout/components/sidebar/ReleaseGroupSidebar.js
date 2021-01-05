@@ -27,14 +27,10 @@ import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 
 type Props = {
-  +$c: CatalystContextT,
   +releaseGroup: ReleaseGroupT,
 };
 
-const ReleaseGroupSidebar = ({
-  $c,
-  releaseGroup,
-}: Props): React.Element<'div'> => {
+const ReleaseGroupSidebar = ({releaseGroup}: Props): React.Element<'div'> => {
   const gid = encodeURIComponent(releaseGroup.gid);
   const typeName = releaseGroupType(releaseGroup);
 

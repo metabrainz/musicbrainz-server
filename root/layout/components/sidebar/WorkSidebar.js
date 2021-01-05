@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
@@ -31,11 +32,11 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
 type Props = {
-  +$c: CatalystContextT,
   +work: WorkT,
 };
 
-const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
+const WorkSidebar = ({work}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const {attributes, iswcs, languages, typeID} = work;
   const showInfo = Boolean(
     attributes.length ||

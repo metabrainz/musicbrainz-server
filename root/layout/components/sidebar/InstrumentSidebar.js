@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import IrombookImage
@@ -29,11 +30,12 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
 type Props = {
-  +$c: CatalystContextT,
   +instrument: InstrumentT,
 };
 
-const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
+const InstrumentSidebar = ({instrument}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
+
   return (
     <div id="sidebar">
       <CommonsImage

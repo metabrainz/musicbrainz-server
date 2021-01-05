@@ -30,12 +30,12 @@ import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 
 type Props = {
-  +$c: CatalystContextT,
   +recording: RecordingWithArtistCreditT,
 };
 
-const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {
+const RecordingSidebar = ({recording}: Props): React.Element<'div'> => {
   const firstReleaseYear = recording.first_release_date?.year;
+
   return (
     <div id="sidebar">
       <h2 className="recording-information">

@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import {
   artistBeginAreaLabel,
   artistBeginLabel,
@@ -43,11 +44,11 @@ import SidebarType from './SidebarType';
 import SubscriptionLinks from './SubscriptionLinks';
 
 type Props = {
-  +$c: CatalystContextT,
   +artist: ArtistT,
 };
 
-const ArtistSidebar = ({$c, artist}: Props): React.Element<'div'> => {
+const ArtistSidebar = ({artist}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const artistAge = age.age(artist);
   const gid = encodeURIComponent(artist.gid);
   const isSpecialPurposeArtist = isSpecialPurpose(artist);
