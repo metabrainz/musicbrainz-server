@@ -366,6 +366,7 @@ ws_test 'release lookup with labels, recordings and tags',
                         <length>243000</length>
                         <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
                             <title>the Love Bug</title><length>243000</length>
+                            <first-release-date>2004-03-17</first-release-date>
                             <tag-list>
                                 <tag count="1"><name>kpop</name></tag>
                             </tag-list>
@@ -376,6 +377,7 @@ ws_test 'release lookup with labels, recordings and tags',
                         <length>222000</length>
                         <recording id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
                             <title>the Love Bug (Big Bug NYC remix)</title><length>222000</length>
+                            <first-release-date>2004-03-17</first-release-date>
                             <tag-list>
                                 <tag count="1"><name>jpop</name></tag>
                             </tag-list>
@@ -386,6 +388,7 @@ ws_test 'release lookup with labels, recordings and tags',
                         <length>333000</length>
                         <recording id="3f33fc37-43d0-44dc-bfd6-60efd38810c5">
                             <title>the Love Bug (cover)</title><length>333000</length>
+                            <first-release-date>2004-03-17</first-release-date>
                             <tag-list>
                                 <tag count="1"><name>c-pop</name></tag>
                             </tag-list>
@@ -510,18 +513,21 @@ ws_test 'release lookup with discids and recordings',
                         <position>1</position><number>1</number><title>Summer Reggae! Rainbow</title><length>296026</length>
                         <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
                             <title>サマーれげぇ!レインボー</title><length>296026</length>
+                            <first-release-date>2001-07-04</first-release-date>
                         </recording>
                     </track>
                     <track id="c7c21691-6f85-3ec7-9b08-e431c3b310a5">
                         <position>2</position><number>2</number><title>Hello! Mata Aou Ne (7nin Matsuri version)</title><length>213106</length>
                         <recording id="487cac92-eed5-4efa-8563-c9a818079b9a">
                             <title>HELLO! また会おうね (7人祭 version)</title><length>213106</length>
+                            <first-release-date>2001-07-04</first-release-date>
                         </recording>
                     </track>
                     <track id="e436c057-ca19-36c6-9f1e-dc4ada2604b0">
                         <position>3</position><number>3</number><title>Summer Reggae! Rainbow (Instrumental)</title><length>292800</length>
                         <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
                             <title>サマーれげぇ!レインボー (instrumental)</title><length>292800</length>
+                            <first-release-date>2001-07-04</first-release-date>
                         </recording>
                     </track>
                 </track-list>
@@ -804,6 +810,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="f38b8e31-a10d-3973-8c1f-10923ee61adc">
@@ -819,6 +826,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="d17bed32-940a-3fcc-9210-a5d7c516b4bb">
@@ -834,6 +842,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="001bc675-ba25-32bc-9914-d5d9e22c3c44">
@@ -849,6 +858,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="c009176f-ff26-3f5f-bd16-46cede30ebe6">
@@ -864,6 +874,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="70454e43-b39b-3ca7-8c50-ae235b5ef358">
@@ -879,6 +890,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="1b5da50c-e20f-3762-839c-5a0eea89d6a5">
@@ -894,6 +906,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="f1b5bd23-ad01-3c0c-a49a-cf8e99088369">
@@ -909,6 +922,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="928f2274-5694-35f9-92da-a1fc565867cf">
@@ -924,6 +938,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="40727388-237d-34b2-8a3a-288878e5c883">
@@ -939,6 +954,7 @@ ws_test 'release lookup, related artists have no tags',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
         </track-list>
@@ -1050,6 +1066,7 @@ ws_test 'release lookup, track artists have no aliases',
                   </artist>
                 </relation>
               </relation-list>
+              <first-release-date>2004-03-17</first-release-date>
             </recording>
           </track>
           <track id="2519283c-93d9-30de-a0ba-75f99ca25604">
@@ -1078,6 +1095,7 @@ ws_test 'release lookup, track artists have no aliases',
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>2004-03-17</first-release-date>
             </recording>
           </track>
           <track id="4ffc18f0-96cc-3e1f-8192-cf0d0c489beb">
@@ -1091,6 +1109,7 @@ ws_test 'release lookup, track artists have no aliases',
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>2004-03-17</first-release-date>
             </recording>
           </track>
         </track-list>
@@ -1207,6 +1226,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="f38b8e31-a10d-3973-8c1f-10923ee61adc">
@@ -1247,6 +1267,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="d17bed32-940a-3fcc-9210-a5d7c516b4bb">
@@ -1287,6 +1308,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="001bc675-ba25-32bc-9914-d5d9e22c3c44">
@@ -1327,6 +1349,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="c009176f-ff26-3f5f-bd16-46cede30ebe6">
@@ -1367,6 +1390,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="70454e43-b39b-3ca7-8c50-ae235b5ef358">
@@ -1407,6 +1431,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="1b5da50c-e20f-3762-839c-5a0eea89d6a5">
@@ -1447,6 +1472,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="f1b5bd23-ad01-3c0c-a49a-cf8e99088369">
@@ -1487,6 +1513,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="928f2274-5694-35f9-92da-a1fc565867cf">
@@ -1527,6 +1554,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
           <track id="40727388-237d-34b2-8a3a-288878e5c883">
@@ -1567,6 +1595,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   </artist>
                 </name-credit>
               </artist-credit>
+              <first-release-date>1999-09-13</first-release-date>
             </recording>
           </track>
         </track-list>

@@ -135,6 +135,7 @@ sub release_toplevel {
 
         my @recordings = $c->model('Recording')->load(@tracks);
         $c->model('Recording')->load_meta(@recordings);
+        $c->model('Recording')->load_first_release_date(@recordings);
 
         my $inc_artist_credits = $inc->artist_credits;
         if ($inc_artist_credits) {
