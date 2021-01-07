@@ -77,6 +77,23 @@ editReleaseTest((
 });
 
 editReleaseTest((
+  'Annotation trimming does not break list syntax'
+), function (t, release) {
+  t.plan(1);
+
+  release.annotation('    * A list item    ');
+
+  t.deepEqual(releaseEditor.edits.annotation(release), [
+    {
+      entity: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+      text: '    * A list item',
+      edit_type: 35,
+      hash: 'b88b6f09ec059793cb98c03c2420cf7b2a47e692',
+    },
+  ]);
+});
+
+editReleaseTest((
   'releaseDeleteReleaseLabel edit is generated for existing release'
 ), function (t, release) {
   t.plan(1);

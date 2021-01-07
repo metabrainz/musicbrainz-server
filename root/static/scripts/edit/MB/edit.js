@@ -47,8 +47,8 @@ import request from '../../common/utility/request';
       return {
         entity: nullableString(entity.gid),
 
-        // Don't clean()!
-        text: String(value(entity.annotation) || '').trim(),
+        // We trim the end only to ensure formatting doesn't break
+        text: String(value(entity.annotation) || '').trimEnd(),
       };
     },
 
