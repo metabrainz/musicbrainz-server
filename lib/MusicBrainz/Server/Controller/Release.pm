@@ -219,7 +219,13 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
     $c->model('Release')->load_meta($entity);
 
     if (!$entity->may_have_cover_art) {
-        $c->stash( template => 'release/caa_darkened.tt' );
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'release/CoverArtDarkened',
+            component_props => {
+                release => $entity,
+            }
+        );
         $c->detach;
     }
 
@@ -282,7 +288,13 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
     $c->model('Release')->load_meta($entity);
 
     if (!$entity->may_have_cover_art) {
-        $c->stash( template => 'release/caa_darkened.tt' );
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'release/CoverArtDarkened',
+            component_props => {
+                release => $entity,
+            }
+        );
         $c->detach;
     }
 
@@ -581,6 +593,16 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
             }
         );
     });
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'release/RemoveCoverArt',
+        component_props => {
+            artwork => $artwork,
+            form => $c->stash->{form},
+            release => $release,
+        }
+    );
 }
 
 sub cover_art : Chained('load') PathPart('cover-art') {
@@ -591,7 +613,16 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $artwork = $c->model('Artwork')->find_by_release($release);
     $c->model('CoverArtType')->load_for(@$artwork);
 
-    $c->stash(cover_art => $artwork);
+    $c->stash(
+        # Needed for JSON-LD
+        cover_art => $artwork,
+        current_view => 'Node',
+        component_path => 'release/CoverArt',
+        component_props => {
+            coverArt => $artwork,
+            release => $release,
+        }
+    );
 }
 
 sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {

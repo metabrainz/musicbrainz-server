@@ -75,7 +75,7 @@ END; -%]
 [%- END -%]
 
 [%- USE JavaScript -%]
-[%~ MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
+[%~ MACRO display_artwork_image(artwork, fallback, message) BLOCK -%] [% # Converted to React at root/components/Artwork.js %]
     <noscript>
         <img src="[% artwork.small_thumbnail %]" />
     </noscript>
@@ -89,7 +89,7 @@ END; -%]
     ></span>
 [% END %]
 
-[%~ MACRO display_artwork(artwork, fallback, message) BLOCK -%]
+[%~ MACRO display_artwork(artwork, fallback, message) BLOCK -%] [% # Converted to React at root/components/Artwork.js %]
     <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]" class="[% IF artwork.mime_type == "application/pdf" %]artwork-pdf[% ELSE %]artwork-image[% END %]">
         [%~ IF artwork.mime_type == "application/pdf" ~%]
             <div title="[% l("This is a PDF file, the thumbnail may not show the entire contents of the file.") %]" class="file-format-tag">[% l("PDF file") %]</div>
@@ -101,12 +101,6 @@ END; -%]
 
 [%~ MACRO display_missing_artwork BLOCK -%]
     <img src="/static/images/no-cover-art.png" title="No cover art available" />
-[%- END -%]
-
-[%~ MACRO cover_art_links(artwork) BLOCK -%]
-[% IF artwork.small_thumbnail %]<a href="[% artwork.small_thumbnail %]">[% l('250px') %]</a> |[% END %]
-[% IF artwork.large_thumbnail %]<a href="[% artwork.large_thumbnail %]">[% l('500px') %]</a> |[% END %]
-<a href="[% artwork.image %]">[% l('original') %]</a>
 [%- END -%]
 
 [%~ MACRO cover_art_url(url) BLOCK; # Converted to React at root/utility/coverArtUrl.js

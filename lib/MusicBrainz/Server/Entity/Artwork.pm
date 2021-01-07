@@ -94,10 +94,13 @@ sub TO_JSON {
 
     my $json = {
         comment => $self->comment,
+        filename => $self->filename,
         image => $self->image,
+        id => $self->id,
         large_thumbnail => $self->large_thumbnail,
         mime_type => $self->mime_type,
         small_thumbnail => $self->small_thumbnail,
+        suffix => $self->suffix,
         types => $self->types,
     };
 

@@ -22,6 +22,7 @@ sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELEASE_ADD_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{cover_art_id} }
+sub edit_template_react { 'AddCoverArt' }
 
 has '+data' => (
     isa => Dict[

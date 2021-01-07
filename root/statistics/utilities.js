@@ -8,6 +8,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
 export function formatPercentage(
   $c: CatalystContextT,
   num: number,
@@ -28,3 +30,18 @@ export function formatCount($c: CatalystContextT, num: ?number): string {
     ? num.toLocaleString($c.stash.current_language_html)
     : '';
 }
+
+export const TimelineLink = ({
+  statName,
+}: {statName: string}): React.Element<'a'> => (
+  <a
+    href={'/statistics/timeline/' + encodeURIComponent(statName)}
+    title={l('See on timeline')}
+  >
+    <img
+      alt=""
+      className="bottom"
+      src={require('../static/images/icons/timeline.png')}
+    />
+  </a>
+);

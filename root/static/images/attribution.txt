@@ -140,6 +140,7 @@ Images:
 
     icons/video.png
     icons/magnet.png
+    icons/timeline.png (original: ai-line-chart)
     icons/picture.png (original: /androidicons-1.0/assets/holo_light/hdpi/ic_action_picture.png)
     icons/pregap.png (mashup of ai-playback-rew and ai-record)
 

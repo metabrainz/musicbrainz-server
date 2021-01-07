@@ -20,8 +20,8 @@ sub query
             JOIN release r ON lru.entity0 = r.id
         WHERE
             url ~ 'amazon\.' AND
-            url !~ '^https?://www\.amazon\.(com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)/gp/product/[0-9A-Z]{10}$' AND
-            url !~ '^https?://music\.amazon\.(com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)' 
+            url !~ '^https?://www\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|se|sg|com\.tr|co\.uk)/gp/product/[0-9A-Z]{10}$' AND
+            url !~ '^https?://music\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|se|sg|com\.tr|co\.uk)' 
     };
 }
 

@@ -127,10 +127,12 @@ $(function () {
 
 
 // Search releases with the same barcode
-function searchExistingBarcode(field, barcode) {
+function searchExistingBarcode(field, barcode, releaseId) {
   utils.search('release', `barcode:${barcode}`, 1).done(data => {
-    if (data.releases.length) {
-
+    const releases = data.releases;
+    const hasBarcodeInUse = releases.length > 1 ||
+      (releases.length === 1 && releases[0].id !== releaseId);
+    if (hasBarcodeInUse) {
       const msg = l(
         `The following releases with that barcode are already in the
          MusicBrainz database. Please make sure you are not adding an
@@ -191,7 +193,7 @@ utils.withRelease(function (release) {
   } else if (barcode.length === 12) {
     if (field.validateCheckDigit('0' + barcode)) {
       field.message(l('The barcode you entered is a valid UPC code.'));
-      searchExistingBarcode(field, barcode);
+      searchExistingBarcode(field, barcode, release.gid());
     } else {
       field.error(
         l(
@@ -210,7 +212,7 @@ utils.withRelease(function (release) {
   } else if (barcode.length === 13) {
     if (field.validateCheckDigit(barcode)) {
       field.message(l('The barcode you entered is a valid EAN code.'));
-      searchExistingBarcode(field, barcode);
+      searchExistingBarcode(field, barcode, release.gid());
     } else {
       field.error(
         l('The barcode you entered is not a valid EAN code.') +

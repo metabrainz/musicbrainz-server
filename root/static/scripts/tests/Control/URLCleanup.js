@@ -271,6 +271,12 @@ const testData = [
             expected_clean_url: 'https://www.amazon.co.uk/gp/product/B000VLR0II',
   },
   {
+                     input_url: 'https://www.amazon.se/dp/B08HG3BKQK/ref=s9_acsd_al_bw_c2_x_2_i?pf_rd_m=ANU9KP01APNAG&pf_rd_s=merchandised-search-3&pf_rd_r=10ZQ8Y1M20980ADPD73G&pf_rd_t=101&pf_rd_p=e37adbab-6466-4fa2-a8f9-10945bebd663&pf_rd_i=20513251031',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.se/gp/product/B08HG3BKQK',
+  },
+  {
                      input_url: 'http://www.amazon.co.uk/Kosheen/e/B000APRTKE',
             expected_clean_url: 'https://www.amazon.co.uk/-/e/B000APRTKE',
   },
@@ -668,6 +674,13 @@ const testData = [
             expected_clean_url: 'https://www.beatport.com/release/---/287442',
        only_valid_entity_types: ['release'],
   },
+  {                             // Used to be rejected by validation (MBS-11263)
+                     input_url: 'https://www.beatport.com/release/riva-starr-presents-square-pegs-round-holes-5-years-of-snatch%21-sampler/1520186',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.beatport.com/release/riva-starr-presents-square-pegs-round-holes-5-years-of-snatch%21-sampler/1520186',
+       only_valid_entity_types: ['release'],
+  },
   {
                      input_url: 'https://www.beatport.com/chart/eric-prydz-february-chart/32623',
              input_entity_type: 'release',
@@ -990,13 +1003,13 @@ const testData = [
                      input_url: 'www.cdjapan.co.jp/person/76324#test',
              input_entity_type: 'artist',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'http://www.cdjapan.co.jp/person/76324',
+            expected_clean_url: 'https://www.cdjapan.co.jp/person/76324',
   },
   {
-                     input_url: 'https://cdjapan.co.jp/product/COCC-72267?test',
+                     input_url: 'http://cdjapan.co.jp/product/COCC-72267?test',
              input_entity_type: 'release',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'http://www.cdjapan.co.jp/product/COCC-72267',
+            expected_clean_url: 'https://www.cdjapan.co.jp/product/COCC-72267',
   },
   // ChangeTip (Tip.Me)
   {
@@ -3898,9 +3911,39 @@ const testData = [
   },
   // WhoSampled
   {
+                     input_url: 'https://www.whosampled.com/Death-Grips/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/Death-Grips/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.whosampled.com/album/Pet-Shop-Boys/Very/',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/album/Pet-Shop-Boys/Very/',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.whosampled.com/Pet-Shop-Boys/Can-You-Forgive-Her?/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/Pet-Shop-Boys/Can-You-Forgive-Her?/',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.whosampled.com/sample/127347/Death-Grips-5D-Pet-Shop-Boys-West-End-Girls/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/sample/127347/Death-Grips-5D-Pet-Shop-Boys-West-End-Girls/',
+       only_valid_entity_types: [],
   },
   // Fandom (old Wikia)
   {

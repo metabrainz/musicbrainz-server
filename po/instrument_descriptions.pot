@@ -4481,7 +4481,7 @@ msgstr ""
 #: DB:instrument/description:370
 msgid ""
 "Used in sacred rituals, it is made of metal or clay rattle with metal discs "
-"which jangle when shook. </br> Not to be confused with the West African "
+"which jangle when shook. <br/> Not to be confused with the West African "
 "calabash sistrum or disc rattle (n'goso m'bara)"
 msgstr ""
 

@@ -14,7 +14,7 @@ import {l_statistics as l, lp_statistics as lp}
   from '../static/scripts/common/i18n/statistics';
 import mapRange from '../static/scripts/common/utility/mapRange';
 
-import {formatCount, formatPercentage} from './utilities';
+import {formatCount, formatPercentage, TimelineLink} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
 type MainStatsT = {
@@ -57,9 +57,13 @@ const Index = ({
     stats['count.artist.type.character'] +
     stats['count.artist.type.other'];
 
-  // formatCount shortcut
+  // formatCount shortcut (with timeline link)
   const fc = (a) => (
-    formatCount($c, stats['count.' + a])
+    <>
+      {formatCount($c, stats['count.' + a])}
+      {' '}
+      <TimelineLink statName={'count.' + a} />
+    </>
   );
 
   // formatPercentage shortcut

@@ -25,6 +25,7 @@ sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{id} }
+sub edit_template_react { 'EditCoverArt' }
 
 sub change_fields
 {
@@ -124,15 +125,6 @@ sub foreign_keys {
     return \%fk;
 }
 
-sub display_cover_art_types
-{
-    my ($loaded, $types) = @_;
-
-    # FIXME: sort these.
-    # hardcode (front, back, alphabetical) sorting in CoverArtType somehow?
-    return join(", ", map { $loaded->{CoverArtType}->{$_}->l_name } @$types);
-}
-
 sub build_display_data {
     my ($self, $loaded) = @_;
 
@@ -154,8 +146,8 @@ sub build_display_data {
     if ($self->data->{old}->{types})
     {
         $data{types} = {
-            old => display_cover_art_types($loaded, $self->data->{old}->{types}),
-            new => display_cover_art_types($loaded, $self->data->{new}->{types}),
+            old => [ map { $loaded->{CoverArtType}{$_} } @{ $self->data->{old}->{types} // [] } ],
+            new => [ map { $loaded->{CoverArtType}{$_} } @{ $self->data->{new}->{types} // [] } ],
         }
     }
 

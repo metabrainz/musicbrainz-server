@@ -160,11 +160,14 @@ class TimelineViewModel {
       /^\/statistics\/timeline\/(.+)$/,
     )[1].split('+');
 
+    let usingDefaultLines = false;
+
     if (lines.length === 1 && lines[0] === 'main') {
       lines = defaultLines;
+      usingDefaultLines = true;
     }
 
-    self.addLines(lines);
+    self.addLines(lines, usingDefaultLines);
     self._getLocationHashSettings();
 
     function getHashPart(accum, object) {
@@ -267,7 +270,7 @@ class TimelineViewModel {
     return category;
   }
 
-  addLine(name) {
+  addLine(name, usingDefaultLines) {
     var newLine = getStat(name);
     var category = this.categories().find(x => x.name === newLine.category);
 
@@ -276,7 +279,7 @@ class TimelineViewModel {
       category = this.addCategory(new TimelineCategory(
         newLine.category,
         newCategory.label,
-        !newCategory.hide,
+        usingDefaultLines ? !newCategory.hide : true,
       ));
     }
 
@@ -284,14 +287,14 @@ class TimelineViewModel {
       name,
       newLine.label,
       newLine.color,
-      !newLine.hide,
+      usingDefaultLines ? !newLine.hide : true,
     ));
   }
 
-  addLines(names) {
+  addLines(names, usingDefaultLines) {
     var self = this;
     for (const name of names) {
-      self.addLine(name);
+      self.addLine(name, usingDefaultLines);
     }
   }
 
