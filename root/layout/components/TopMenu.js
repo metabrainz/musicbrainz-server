@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import RequestLogin from '../../components/RequestLogin';
-import returnUri from '../../utility/returnUri';
+import returnUri, {returnToCurrentPage} from '../../utility/returnUri';
 
 import Search from './Search';
 
@@ -20,7 +20,13 @@ function userLink(userName, path) {
 
 type UserProp = {+user: UnsanitizedEditorT};
 
-const AccountMenu = ({user}: UserProp) => (
+const AccountMenu = ({
+  $c,
+  user,
+}: {
+  +$c: CatalystContextT,
+  +user: UnsanitizedEditorT,
+}) => (
   <li className="account" tabIndex="-1">
     <span className="menu-header">
       {user.name}
@@ -39,7 +45,17 @@ const AccountMenu = ({user}: UserProp) => (
         </a>
       </li>
       <li>
-        <a href="/logout">{l('Log Out')}</a>
+        <a
+          href={
+            '/logout' + (
+              $c.stash.current_action_requires_auth === true
+                ? ''
+                : ('?' + returnToCurrentPage($c))
+            )
+          }
+        >
+          {l('Log Out')}
+        </a>
       </li>
     </ul>
   </li>
@@ -147,7 +163,7 @@ const UserMenu = ({$c}) => (
   <ul className="menu" tabIndex="-1">
     {$c.user ? (
       <>
-        <AccountMenu user={$c.user} />
+        <AccountMenu $c={$c} user={$c.user} />
         <DataMenu user={$c.user} />
         {$c.user.is_admin ? <AdminMenu user={$c.user} /> : null}
       </>

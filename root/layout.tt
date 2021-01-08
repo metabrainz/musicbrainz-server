@@ -116,7 +116,7 @@
                 <a href="https://blog.metabrainz.org/" class="internal">[% l('Blog') %]</a> |
                 <a href="https://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
                 [%- IF server_details.beta_redirect %] |
-                <a href="[% c.uri_for('/set-beta-preference') %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
+                <a href="[% c.uri_for('/set-beta-preference', {returnto => c.relative_uri}) %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
                 [%- END -%]
                 [% IF server_details.git.branch ~%]
                 <br/>

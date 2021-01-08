@@ -224,6 +224,7 @@ declare type CatalystStashT = {
   +containment?: {
     [collectionId: number]: ?1,
   },
+  +current_action_requires_auth?: boolean,
   +current_language: string,
   +current_language_html: string,
   +entity?: CoreEntityT,

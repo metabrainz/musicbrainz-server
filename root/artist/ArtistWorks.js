@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import WorkList from '../components/list/WorkList';
 import PaginatedResults from '../components/PaginatedResults';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import ArtistLayout from './ArtistLayout';
 
@@ -31,7 +32,10 @@ const ArtistWorks = ({
     <h2>{l('Works')}</h2>
 
     {works?.length ? (
-      <form action="/work/merge_queue" method="post">
+      <form
+        action={'/work/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <WorkList
             $c={$c}

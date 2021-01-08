@@ -10,10 +10,15 @@
 export default function returnUri(
   $c: CatalystContextT,
   path: string,
-  param?: string = 'uri',
   redirect?: string = '',
 ): string {
-  return path + '?' + param + '=' + encodeURIComponent(
-    $c.req.query_params[param] || redirect || $c.relative_uri,
+  return path + '?returnto=' + encodeURIComponent(
+    $c.req.query_params.returnto || redirect || $c.relative_uri,
   );
+}
+
+export function returnToCurrentPage(
+  $c: CatalystContextT,
+): string {
+  return 'returnto=' + encodeURIComponent($c.relative_uri);
 }

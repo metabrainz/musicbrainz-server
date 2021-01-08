@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
+import {returnToCurrentPage} from '../../utility/returnUri';
 
 type Props = {
   +$c: CatalystContextT,
@@ -19,7 +20,10 @@ type Props = {
 
 const MergeHelper = ({$c, merger}: Props): React.Element<'div'> => (
   <div id="current-editing">
-    <form action={`/${merger.type}/merge`} method="post">
+    <form
+      action={`/${merger.type}/merge?` + returnToCurrentPage($c)}
+      method="post"
+    >
       <h2>{l('Merge Process')}</h2>
       <p>
         {l('You currently have the following entities selected for merging:')}

@@ -285,6 +285,7 @@ ws_test 'release lookup with recording-level relationships',
                                     </work>
                                 </relation>
                             </relation-list>
+                            <first-release-date>2008-04-29</first-release-date>
                         </recording>
                     </track>
                     <track id="5a0b7a30-4297-3cda-ba0f-2547c4b7ae9b">
@@ -302,6 +303,7 @@ ws_test 'release lookup with recording-level relationships',
                                     </work>
                                 </relation>
                             </relation-list>
+                            <first-release-date>2008-04-29</first-release-date>
                         </recording>
                     </track>
                     <track id="a5b038bf-6e36-362b-9397-9cecda03e9bc">
@@ -319,6 +321,7 @@ ws_test 'release lookup with recording-level relationships',
                                     </work>
                                 </relation>
                             </relation-list>
+                            <first-release-date>2008-04-29</first-release-date>
                         </recording>
                     </track>
                     <track id="7c66606c-8a1b-3407-a856-21e4622da140">
@@ -336,6 +339,7 @@ ws_test 'release lookup with recording-level relationships',
                                     </work>
                                 </relation>
                             </relation-list>
+                            <first-release-date>2008-04-29</first-release-date>
                         </recording>
                     </track>
                     <track id="2d11d4ec-b9c0-3bfe-86d9-df5034e2522e">
@@ -353,6 +357,7 @@ ws_test 'release lookup with recording-level relationships',
                                     </work>
                                 </relation>
                             </relation-list>
+                            <first-release-date>2008-04-29</first-release-date>
                         </recording>
                     </track>
                     <track id="3ec79596-482b-3d1b-8f48-325a1b332366">
@@ -361,6 +366,7 @@ ws_test 'release lookup with recording-level relationships',
                         <recording id="9815c3e5-f842-41c2-bb5c-bcd0dd97dbe5">
                             <title>Discopharma</title>
                             <length>236666</length>
+                            <first-release-date>2008-04-29</first-release-date>
                         </recording>
                     </track>
                     <track id="baaa07d9-6c32-31e6-bbea-1796fd79a8f1">
@@ -378,6 +384,7 @@ ws_test 'release lookup with recording-level relationships',
                                     </work>
                                 </relation>
                             </relation-list>
+                            <first-release-date>2008-04-29</first-release-date>
                         </recording>
                     </track>
                     <track id="61add1a9-5a53-3eb3-afa6-fb503998a909">
@@ -410,6 +417,7 @@ ws_test 'release lookup with recording-level relationships',
                                     </work>
                                 </relation>
                             </relation-list>
+                            <first-release-date>2008-04-29</first-release-date>
                         </recording>
                     </track>
                     <track id="8cef791e-3363-3c36-8b29-1f5dd2982902">
@@ -418,6 +426,7 @@ ws_test 'release lookup with recording-level relationships',
                         <recording id="15918f5f-20b1-4e1a-888d-8762790017a9">
                             <title>Just Because</title>
                             <length>249653</length>
+                            <first-release-date>2008-04-29</first-release-date>
                         </recording>
                     </track>
                 </track-list>

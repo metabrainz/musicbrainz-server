@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import EditorLink from '../../../static/scripts/common/components/EditorLink';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import {returnToCurrentPage} from '../../../utility/returnUri';
 
 import {SidebarProperties, SidebarProperty} from './SidebarProperties';
 
@@ -69,8 +70,11 @@ const CollectionSidebar = ({
             {$c.stash.subscribed /*:: === true */ ? (
               <li>
                 <a
-                  href={'/account/subscriptions/collection/remove?id=' +
-                    String(collection.id)}
+                  href={
+                    '/account/subscriptions/collection/remove?id=' +
+                    String(collection.id) +
+                    '&' + returnToCurrentPage($c)
+                  }
                 >
                   {l('Unsubscribe')}
                 </a>
@@ -78,8 +82,11 @@ const CollectionSidebar = ({
             ) : (
               <li>
                 <a
-                  href={'/account/subscriptions/collection/add?id=' +
-                    String(collection.id)}
+                  href={
+                    '/account/subscriptions/collection/add?id=' +
+                    String(collection.id) +
+                    '&' + returnToCurrentPage($c)
+                  }
                 >
                   {l('Subscribe')}
                 </a>

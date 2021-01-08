@@ -16,6 +16,7 @@ import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import FormRow from '../components/FormRow';
 import FormSubmit from '../components/FormSubmit';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import FilterLink from './FilterLink';
 import type {ReportArtistT, ReportDataT} from './types';
@@ -63,7 +64,10 @@ const DuplicateArtists = ({
         {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
       </ul>
 
-      <form action="/artist/merge_queue" method="post">
+      <form
+        action={'/artist/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <table className="tbl">
             <thead>

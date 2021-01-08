@@ -27,6 +27,7 @@ import ReleaseGroupList from '../components/list/ReleaseGroupList';
 import PaginatedResults from '../components/PaginatedResults';
 import * as manifest from '../static/manifest';
 import entityHref from '../static/scripts/common/utility/entityHref';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import ArtistLayout from './ArtistLayout';
 
@@ -279,7 +280,10 @@ const ArtistIndex = ({
       />
 
       {existingReleaseGroups ? (
-        <form action="/release_group/merge_queue" method="post">
+        <form
+          action={'/release_group/merge_queue?' + returnToCurrentPage($c)}
+          method="post"
+        >
           <PaginatedResults pager={pager}>
             <ReleaseGroupList
               $c={$c}
@@ -297,7 +301,10 @@ const ArtistIndex = ({
       ) : null}
 
       {existingRecordings ? (
-        <form action="/recording/merge_queue" method="post">
+        <form
+          action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+          method="post"
+        >
           <PaginatedResults pager={pager}>
             <RecordingList
               $c={$c}

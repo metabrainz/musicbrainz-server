@@ -511,11 +511,11 @@ END -%]
 [%- END -%]
 
 [%~ MACRO login_url(redirect) BLOCK;
-    c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
+    c.uri_for_action('/user/login', { returnto => c.req.query_params.returnto || redirect || c.relative_uri });
 END -%]
 
 [%~ MACRO register_url(redirect) BLOCK;
-    c.uri_for_action('/account/register', { uri => c.req.query_params.uri || redirect || c.relative_uri });
+    c.uri_for_action('/account/register', { returnto => c.req.query_params.returnto || redirect || c.relative_uri });
 END -%]
 
 [%~ MACRO simple_link(url, text) BLOCK; # url may be a string or a URI object
@@ -929,7 +929,7 @@ END ~%]
 [%- MACRO remove_from_merge(entity_type_url, to_merge) BLOCK -%] [% # Converted to React at root/components/RemoveFromMergeTableCell.js %]
   [% IF to_merge.size > 2 %]
       <td>
-          <a href="/[% entity_type_url %]/merge?remove=[% entity.id %]&submit=remove">
+          <a href="/[% entity_type_url %]/merge?remove=[% entity.id %]&amp;submit=remove&amp;[% c.returnto_relative_uri %]">
             <button type="button" class="remove-item icon" title="[% l('Remove from merge') %]"></button>
           </a>
       </td>
