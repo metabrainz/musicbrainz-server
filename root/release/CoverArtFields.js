@@ -31,6 +31,7 @@ const CoverArtFields = ({
   <>
     {form.field.position ? (
       <input
+        id={'id-' + form.field.position.html_name}
         name={form.field.position.html_name}
         type="hidden"
         value={form.field.position.value}
