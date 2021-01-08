@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import RecordingList from '../components/list/RecordingList';
 import PaginatedResults from '../components/PaginatedResults';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import InstrumentLayout from './InstrumentLayout';
 
@@ -38,7 +39,10 @@ const InstrumentRecordings = ({
     <h2>{l('Recordings')}</h2>
 
     {recordings && recordings.length > 0 ? (
-      <form action="/recording/merge_queue" method="post">
+      <form
+        action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <RecordingList
             $c={$c}

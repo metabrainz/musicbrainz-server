@@ -58,14 +58,15 @@ role {
             if ($merger->ready_to_merge) {
                 $c->response->redirect(
                     $c->uri_for_action(
-                        $self->action_for('merge'), { returnto => $c->req->referer }));
+                        $self->action_for('merge'),
+                        {returnto => $c->req->params->{returnto} // '/'},
+                    ),
+                );
                 $c->detach;
             }
         }
 
-        $c->response->redirect(
-            $c->req->referer ||
-                $c->uri_for_action('/search/search'));
+        $c->redirect_back(fallback => $c->uri_for_action('/search/search'));
         $c->detach;
     };
 
@@ -87,8 +88,7 @@ role {
     method _merge_cancel => sub {
         my ($self, $c) = @_;
         delete $c->session->{merger};
-        $c->res->redirect(
-            $c->req->query_params->{returnto} || $c->req->referer || $c->uri_for('/'));
+        $c->redirect_back;
         $c->detach;
     };
 
@@ -105,8 +105,7 @@ role {
         $self->_merge_cancel($c)
             if $merger->entity_count == 0;
 
-        $c->res->redirect(
-            $c->req->referer || $c->uri_for('/'));
+        $c->redirect_back;
         $c->detach;
     };
 
@@ -129,9 +128,7 @@ role {
         };
 
         unless ($merger->ready_to_merge) {
-            $c->response->redirect(
-                $c->req->referer ||
-                    $c->uri_for_action('/'));
+            $c->redirect_back;
             $c->detach;
         }
 

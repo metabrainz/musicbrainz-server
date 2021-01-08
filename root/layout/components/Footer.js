@@ -13,6 +13,7 @@ import DBDefs from '../../static/scripts/common/DBDefs';
 import {DONATE_URL} from '../../constants';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';
+import {returnToCurrentPage} from '../../utility/returnUri';
 
 type Props = {
   +$c: CatalystContextT,
@@ -40,7 +41,12 @@ const Footer = ({$c}: Props): React.Element<'div'> => {
         {DBDefs.BETA_REDIRECT_HOSTNAME ? (
           <>
             {' | '}
-            <a className="internal" href="/set-beta-preference">
+            <a
+              className="internal"
+              href={
+                '/set-beta-preference?' + returnToCurrentPage($c)
+              }
+            >
               {DBDefs.IS_BETA
                 ? l('Stop using beta site')
                 : l('Use beta site')}

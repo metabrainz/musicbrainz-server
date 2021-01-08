@@ -11,14 +11,20 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context';
 import ratingTooltip from '../utility/ratingTooltip';
+import {returnToCurrentPage} from '../utility/returnUri';
 
-const ratingURL = (entity: RatableT, rating) => (
+const ratingURL = (
+  $c: CatalystContextT,
+  entity: RatableT,
+  rating: number,
+) => (
   '/rating/rate/?entity_type=' +
   encodeURIComponent(entity.entityType) +
   '&entity_id=' +
   encodeURIComponent(String(entity.id)) +
   '&rating=' +
-  encodeURIComponent(String(rating * 20))
+  encodeURIComponent(String(rating * 20)) +
+  '&' + returnToCurrentPage($c)
 );
 
 const ratingInts = [1, 2, 3, 4, 5];
@@ -85,7 +91,7 @@ const RatingStars = ({entity}: RatingStarsProps): React.Element<'span'> => {
                   className={`stars-${rating} ${isCurrentRating
                     ? 'remove-rating'
                     : 'set-rating'}`}
-                  href={ratingURL(entity, newRating)}
+                  href={ratingURL($c, entity, newRating)}
                   key={rating}
                   title={ratingTooltip(newRating)}
                 >

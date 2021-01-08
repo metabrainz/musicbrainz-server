@@ -7,10 +7,7 @@ sub add : Local RequireAuth HiddenOnSlaves DenyWhenReadonly
 
     my $entity_id = $c->request->params->{id};
     $c->model($self->{model})->subscription->subscribe($c->user->id, $entity_id);
-
-    my $url = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($url);
-    $c->detach;
+    $c->redirect_back;
 }
 
 sub remove : Local RequireAuth HiddenOnSlaves DenyWhenReadonly
@@ -20,10 +17,7 @@ sub remove : Local RequireAuth HiddenOnSlaves DenyWhenReadonly
     my $entity_id = $c->request->params->{id};
     my @entities = ref($entity_id) ? @$entity_id : ($entity_id);
     $c->model($self->{model})->subscription->unsubscribe($c->user->id, @entities);
-
-    my $url = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($url);
-    $c->detach;
+    $c->redirect_back;
 }
 
 no Moose::Role;
