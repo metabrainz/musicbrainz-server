@@ -3249,8 +3249,8 @@ const CLEANUPS = {
                 error: l(
                   `Please do not link directly to WhoSampled
                    “{unwanted_url_pattern}” pages.
-                   Link to the appropriate artist, recording
-                   or release page instead.`,
+                   Link to the appropriate WhoSampled artist, track
+                   or album page instead.`,
                   {
                     unwanted_url_pattern: (
                       <span className="url-quote">
@@ -3295,7 +3295,7 @@ const CLEANUPS = {
                 }
                 return {
                   error: l(
-                    'Please link WhoSampled song pages to recordings.',
+                    'Please link WhoSampled track pages to recordings.',
                   ),
                   result: false,
                 };
