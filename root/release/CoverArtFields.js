@@ -12,13 +12,13 @@ import * as React from 'react';
 import FormLabel from '../components/FormLabel';
 import FormRow from '../components/FormRow';
 import FormRowTextLong from '../components/FormRowTextLong';
-import SelectField from '../components/SelectField';
+import {MultipleSelectField} from '../components/SelectField';
 
 type Props = {
   +form: FormT<{
     +comment: FieldT<string | null>,
     +position?: FieldT<number>,
-    +type_id: FieldT<number>,
+    +type_id: FieldT<Array<StrOrNum>>,
     ...
   }>,
   +typeIdOptions: SelectOptionsT,
@@ -42,9 +42,8 @@ const CoverArtFields = ({
         forField={form.field.type_id}
         label={addColonText(l('Type'))}
       />
-      <SelectField
+      <MultipleSelectField
         field={form.field.type_id}
-        multiple
         options={{grouped: false, options: typeIdOptions}}
         size="5"
         style={{width: '10em'}}
