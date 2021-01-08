@@ -3242,6 +3242,8 @@ const CLEANUPS = {
         if (mp) {
           const topLevelSegment = mp[1];
           switch (topLevelSegment) {
+            case 'cover':
+            case 'remix':
             case 'sample':
               return {
                 error: l(
@@ -3251,7 +3253,9 @@ const CLEANUPS = {
                    or release page instead.`,
                   {
                     unwanted_url_pattern: (
-                      <span className="url-quote">{'/sample'}</span>
+                      <span className="url-quote">
+                        {'/' + topLevelSegment}
+                      </span>
                     ),
                   },
                 ),
