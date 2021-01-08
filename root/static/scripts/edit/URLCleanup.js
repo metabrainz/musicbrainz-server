@@ -3245,9 +3245,15 @@ const CLEANUPS = {
             case 'sample':
               return {
                 error: l(
-                  `Please do not link directly to WhoSampled sample pages.
+                  `Please do not link directly to WhoSampled
+                   “{unwanted_url_pattern}” pages.
                    Link to the appropriate artist, recording
                    or release page instead.`,
+                  {
+                    unwanted_url_pattern: (
+                      <span className="url-quote">{'/sample'}</span>
+                    ),
+                  },
                 ),
                 result: false,
               };
@@ -3256,8 +3262,14 @@ const CLEANUPS = {
                 return {result: true};
               }
               return {
-                error: l(
-                  'Please link WhoSampled album pages to release groups.',
+                error: exp.l(
+                  `Please link WhoSampled “{album_url_pattern}” pages to
+                   release groups.`,
+                  {
+                    album_url_pattern: (
+                      <span className="url-quote">{'/album'}</span>
+                    ),
+                  },
                 ),
                 result: false,
               };
