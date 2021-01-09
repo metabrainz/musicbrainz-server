@@ -7,7 +7,7 @@
 # Gioele <email address hidden>, 2012
 # theloca95 <email address hidden>, 2015
 # leofiore <email address hidden>, 2012
-# Luca Salini, 2012,2017,2020
+# Luca Salini, 2012,2017,2020-2021
 # Luca Salini, 2020
 # Monica <email address hidden>, 2014
 # Luca Salini, 2014
@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-06 12:35+0000\n"
+"PO-Revision-Date: 2021-01-07 17:02+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1786,14 +1786,6 @@ msgstr "Indica l'opera che ha ispirato il nome di questo artista."
 msgid "This indicates where a feed for this podcast can be found."
 msgstr "Indica dove si può trovare un feed per questo podcast."
 
-#: DB:link_attribute_type/description:424
-msgid ""
-"This is used only for cases when someone is credited as co-[role] (co-"
-"producer, co-engineer, etc.) - which generally has a specific meaning that "
-"depends on the specific activity but is different from just \"there were "
-"several people collaborating\"."
-msgstr "Serve solo nei casi in cui qualcuno è accreditato come co-[ruolo] (co-produttore, co-tecnico, ecc.) - che in genere ha un significato specifico a seconda dell'attività in questione, ma è diverso da \"più persone collaboravano\"."
-
 #: DB:link_type/description:17
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
@@ -1822,12 +1814,6 @@ msgid ""
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
 msgstr "Serve a indicare che il gruppo di pubblicazioni è un <a href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> di altri due (o più) gruppi di pubblicazioni."
-
-#: DB:link_attribute_type/description:952
-msgid ""
-"This is used to indicate this instance of mastering is a specifically a "
-"remaster."
-msgstr "Serve a indicare che in questo caso il mastering è nello specifico un remaster."
 
 #: DB:link_type/description:227
 msgid ""
@@ -3142,6 +3128,14 @@ msgid ""
 "or other non-numbered parts)."
 msgstr "Da usare per opere e generi simili che sono <a href=\"https://en.wikipedia.org/wiki/Number_opera\">divisi in parti numerate</a> per specificare quali parti sono numerate (per contrapposizione ai dialoghi parlati o altre parti non numerate)."
 
+#: DB:link_attribute_type/description:424
+msgid ""
+"Use this only for cases when someone is credited as co-[role] (co-producer, "
+"co-engineer, etc.) - which generally has a specific meaning that depends on "
+"the specific activity but is different from just \"there were several people"
+" collaborating\"."
+msgstr "Da usare solo nei casi in cui qualcuno è accreditato come co-[ruolo] (co-produttore, co-tecnico, ecc.) - che in genere ha un significato specifico a seconda dell'attività in questione, ma è diverso da \"più persone collaboravano\"."
+
 #: DB:link_type/description:949
 msgid ""
 "Use this relationship for credits like \"Recording was arranged by X for "
@@ -3182,6 +3176,12 @@ msgid ""
 "Use this relationship for credits like \"Release was produced by X for "
 "Label\""
 msgstr "Usa questa relazione per accreditamenti come \"Pubblicazione è stata prodotta da X per Etichetta\""
+
+#: DB:link_attribute_type/description:952
+msgid ""
+"Use this to indicate that the mastering relationship is specifically for a "
+"remaster."
+msgstr "Da usare per indicare che in questo caso il mastering è nello specifico un remaster."
 
 #: DB:link_attribute_type/description:1033
 msgid ""

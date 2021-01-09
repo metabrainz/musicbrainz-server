@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-07 14:03+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2021-01-07 10:59+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4507,9 +4507,9 @@ msgstr "De krap phuang wordt tijdens koninklijke ceremonies bespeeld door het te
 #: DB:instrument/description:370
 msgid ""
 "Used in sacred rituals, it is made of metal or clay rattle with metal discs "
-"which jangle when shook. </br> Not to be confused with the West African "
+"which jangle when shook. <br/> Not to be confused with the West African "
 "calabash sistrum or disc rattle (n'goso m'bara)"
-msgstr "Het sistrum werd gebruikt in godsdienstige rituelen. Het is een ratel van metaal of klei met metalen schijven die rinkelen als het instrument wordt geschud.</br>Niet te verwarren met de West-Afrikaanse kalebassistrum of schijfjesratel (n’goso m’bara)."
+msgstr ""
 
 #. name:saron wayang
 #: DB:instrument/description:1010

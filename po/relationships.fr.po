@@ -29,13 +29,13 @@
 # AO <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# yvanz, 2016-2020
+# yvanz, 2016-2021
 # yvanz, 2016
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-07 18:58+0000\n"
+"PO-Revision-Date: 2021-01-08 08:54+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1806,14 +1806,6 @@ msgstr "Ceci indique l’œuvre qui a inspiré le nom de cet artiste."
 msgid "This indicates where a feed for this podcast can be found."
 msgstr "Ceci indique où le flux pour cette baladodiffusion peut être trouvé."
 
-#: DB:link_attribute_type/description:424
-msgid ""
-"This is used only for cases when someone is credited as co-[role] (co-"
-"producer, co-engineer, etc.) - which generally has a specific meaning that "
-"depends on the specific activity but is different from just \"there were "
-"several people collaborating\"."
-msgstr ""
-
 #: DB:link_type/description:17
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
@@ -1842,12 +1834,6 @@ msgid ""
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
 msgstr "Ceci est utilisé pour indiqué que le groupe de parution est un <a href=\"/doc/Mix_Terminology#mash-up\">collage</a> de deux (ou plus) groupes de parution."
-
-#: DB:link_attribute_type/description:952
-msgid ""
-"This is used to indicate this instance of mastering is a specifically a "
-"remaster."
-msgstr "Ceci est utilisé pour indiquer quand une relation de matriçage concerne un rematriçage."
 
 #: DB:link_type/description:227
 msgid ""
@@ -3162,6 +3148,14 @@ msgid ""
 "or other non-numbered parts)."
 msgstr "Utilisez cet attribut pour les parties d’un opéra à numéro (par opposition à un opéra à développement) qui correspondent à un numéro (par opposition aux dialogues et aux autres parties non-numérotées)."
 
+#: DB:link_attribute_type/description:424
+msgid ""
+"Use this only for cases when someone is credited as co-[role] (co-producer, "
+"co-engineer, etc.) - which generally has a specific meaning that depends on "
+"the specific activity but is different from just \"there were several people"
+" collaborating\"."
+msgstr "Pour les cas où quelqu’un est explicitement crédité pour un co-[role] (coproductrice, coauteur, etc.) qui a généralement un sens spécifique en fonction de ce role ; c’est tout à fait différent d’une simple mention telle que « plusieurs personnes ont collaboré »."
+
 #: DB:link_type/description:949
 msgid ""
 "Use this relationship for credits like \"Recording was arranged by X for "
@@ -3202,6 +3196,12 @@ msgid ""
 "Use this relationship for credits like \"Release was produced by X for "
 "Label\""
 msgstr "Utilisez cette relation pour les crédits du type : « Enregistrement a été produit par X pour Label »."
+
+#: DB:link_attribute_type/description:952
+msgid ""
+"Use this to indicate that the mastering relationship is specifically for a "
+"remaster."
+msgstr "Indique qu’une relation de matriçage concerne plus spécifiquement un rematriçage."
 
 #: DB:link_attribute_type/description:1033
 msgid ""
