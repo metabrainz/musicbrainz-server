@@ -3235,48 +3235,73 @@ const CLEANUPS = {
           result: false,
         };
       }
-      if (/^https:\/\/www\.whosampled\.com\/sample\//.test(url)) {
-        return {
-          error: l(
-            `Please do not link directly to WhoSampled sample pages.
-             Link to the appropriate artist, recording
-             or release page instead.`,
-          ),
-          result: false,
-        };
-      }
-      if (/^https:\/\/www\.whosampled\.com\/album\//.test(url)) {
-        if (id === LINK_TYPES.otherdatabases.release_group) {
-          return {result: true};
+      const m = /^https:\/\/www\.whosampled\.com(\/[^?#]+)$/.exec(url);
+      if (m) {
+        const path = m[1];
+        const mp = /^\/([^\/]+)/.exec(path);
+        if (mp) {
+          const topLevelSegment = mp[1];
+          switch (topLevelSegment) {
+            case 'cover':
+            case 'remix':
+            case 'sample':
+              return {
+                error: l(
+                  `Please do not link directly to WhoSampled
+                   “{unwanted_url_pattern}” pages.
+                   Link to the appropriate WhoSampled artist, track
+                   or album page instead.`,
+                  {
+                    unwanted_url_pattern: (
+                      <span className="url-quote">
+                        {'/' + topLevelSegment}
+                      </span>
+                    ),
+                  },
+                ),
+                result: false,
+              };
+            case 'album':
+              if (id === LINK_TYPES.otherdatabases.release_group) {
+                return {result: true};
+              }
+              return {
+                error: exp.l(
+                  `Please link WhoSampled “{album_url_pattern}” pages to
+                   release groups.`,
+                  {
+                    album_url_pattern: (
+                      <span className="url-quote">{'/album'}</span>
+                    ),
+                  },
+                ),
+                result: false,
+              };
+            default:
+              if (/^\/[^/]+(?:\/)?$/.test(path)) {
+                if (id === LINK_TYPES.otherdatabases.artist) {
+                  return {result: true};
+                }
+                return {
+                  error: l(
+                    'Please link WhoSampled artist pages to artists.',
+                  ),
+                  result: false,
+                };
+              }
+              if (/^\/[^/]+\/[^/]+(?:\/)?$/.test(path)) {
+                if (id === LINK_TYPES.otherdatabases.recording) {
+                  return {result: true};
+                }
+                return {
+                  error: l(
+                    'Please link WhoSampled track pages to recordings.',
+                  ),
+                  result: false,
+                };
+              }
+          }
         }
-        return {
-          error: l(
-            'Please link WhoSampled album pages to release groups.',
-          ),
-          result: false,
-        };
-      }
-      if (/^https:\/\/www\.whosampled\.com\/(?!(?:album|sample))[^/]+(?:\/)?$/.test(url)) {
-        if (id === LINK_TYPES.otherdatabases.artist) {
-          return {result: true};
-        }
-        return {
-          error: l(
-            'Please link WhoSampled artist pages to artists.',
-          ),
-          result: false,
-        };
-      }
-      if (/^https:\/\/www\.whosampled\.com\/(?!(?:album|sample))[^/]+\/[^/]+(?:\/)?$/.test(url)) {
-        if (id === LINK_TYPES.otherdatabases.recording) {
-          return {result: true};
-        }
-        return {
-          error: l(
-            'Please link WhoSampled song pages to recordings.',
-          ),
-          result: false,
-        };
       }
       return {result: false};
     },
