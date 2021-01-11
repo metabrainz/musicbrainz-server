@@ -10,6 +10,12 @@ has_field 'catno' => (
 
 has_field 'barcode'  => (
     type => '+MusicBrainz::Server::Form::Field::Barcode',
+    trim => { transform => sub {
+        my $string = shift;
+        # Remove all spaces for barcode search since we don't store them
+        $string =~ s/\s+//g;
+        return $string;
+    } }
 );
 
 has_field 'url'  => (
