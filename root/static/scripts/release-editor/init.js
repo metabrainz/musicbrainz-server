@@ -402,7 +402,13 @@ releaseEditor.autoOpenTheAddMediumDialog = function (release) {
 
     if (!dialogIsOpen && release.hasOneEmptyMedium() &&
                             !release.mediums()[0].loading()) {
-      this.addMediumDialog.open();
+      if (release.mediums()[0].tracksWereUnknownToUser) {
+        // If we had a medium without tracklist, edit that tracklist
+        this.trackParserDialog.open(release.mediums()[0]);
+      } else {
+        // Otherwise, prepare to add a new medium
+        this.addMediumDialog.open();
+      }
     }
   } else if (addMediumUI) {
     addMediumUI.close();
