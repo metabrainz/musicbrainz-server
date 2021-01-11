@@ -2971,30 +2971,31 @@ const testData = [
   },
   // Resident Advisor (RA)
   {
-                     input_url: 'https://www.residentadvisor.net/dj/adamx',
+                     input_url: 'https://ra.co/dj/adamx',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
   },
   {
-                     input_url: 'https://www.residentadvisor.net/event.aspx?860109',
+                     input_url: 'https://ra.co/events/860109',
              input_entity_type: 'event',
     expected_relationship_type: 'otherdatabases',
   },
   {
-                     input_url: 'https://www.residentadvisor.net/record-label.aspx?id=2795',
+                     input_url: 'https://ra.co/labels/2795',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
   },
   {
-                     input_url: 'https://www.residentadvisor.net/track.aspx?544258',
+                     input_url: 'https://ra.co/tracks/544258',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
   },
   {
-                     input_url: 'https://www.residentadvisor.net/reviews/7636',
+                     input_url: 'http://www.ra.co/reviews/7636',
              input_entity_type: 'release_group',
     expected_relationship_type: 'review',
        input_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/reviews/7636',
        only_valid_entity_types: [],
   },
   // ReverbNation

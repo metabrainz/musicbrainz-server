@@ -138,7 +138,9 @@ export const FAVICON_CLASSES = {
   'progarchives.com': 'progarchives',
   'psydb.net': 'psydb',
   'qim.com': 'quebecinfomusique',
+  'ra.co': 'residentadvisor',
   'rateyourmusic.com': 'rateyourmusic',
+  // Remove once MBBE-31 is done
   'residentadvisor.net': 'residentadvisor',
   'reverbnation.com': 'reverbnation',
   'rock.com.ar': 'rockcomar',

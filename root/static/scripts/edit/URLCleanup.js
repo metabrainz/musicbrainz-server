@@ -2481,7 +2481,7 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
       new RegExp(
-        '^(https?://)?(www\\.)?residentadvisor\\.net/(?!review)',
+        '^(https?://)?(www\\.)?ra\\.co/(?!reviews)',
         'i',
       ),
       new RegExp('^(https?://)?(www\\.)?vkdb\\.jp', 'i'),
@@ -2650,9 +2650,12 @@ const CLEANUPS = {
   },
   'residentadvisor': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/review', 'i'),
+      new RegExp('^(https?://)?(www\\.)?ra\\.co/reviews', 'i'),
     ],
     type: LINK_TYPES.review,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(www\.)?ra\.co\//, 'https://ra.co/');
+    },
   },
   'reverbnation': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?reverbnation\\.com/', 'i')],
