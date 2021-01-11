@@ -2971,24 +2971,39 @@ const testData = [
   },
   // Resident Advisor (RA)
   {
-                     input_url: 'https://ra.co/dj/adamx',
+                     input_url: 'https://www.ra.co/dj/adamx',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/dj/adamx',
+       only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://ra.co/events/860109',
+                     input_url: 'https://ra.co/events/860109#',
              input_entity_type: 'event',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/events/860109',
+       only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'https://ra.co/labels/2795',
+                     input_url: 'http://ra.co/labels/2795',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/labels/2795',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://ra.co/clubs/5031/events',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/clubs/5031',
+       only_valid_entity_types: ['place'],
   },
   {
                      input_url: 'https://ra.co/tracks/544258',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/tracks/544258',
+       only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'http://www.ra.co/reviews/7636',

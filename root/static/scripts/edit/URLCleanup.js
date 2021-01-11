@@ -2480,10 +2480,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
-      new RegExp(
-        '^(https?://)?(www\\.)?ra\\.co/(?!reviews)',
-        'i',
-      ),
       new RegExp('^(https?://)?(www\\.)?vkdb\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?ci\\.nii\\.ac\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?iss\\.ndl\\.go\\.jp/', 'i'),
@@ -2650,11 +2646,34 @@ const CLEANUPS = {
   },
   'residentadvisor': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?ra\\.co/reviews', 'i'),
+      new RegExp('^(https?://)?(www\\.)?ra\\.co/', 'i'),
     ],
-    type: LINK_TYPES.review,
+    type: {...LINK_TYPES.otherdatabases, ...LINK_TYPES.review},
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(www\.)?ra\.co\//, 'https://ra.co/');
+      url = url.replace(/^(?:https?:\/\/)?(www\.)?ra\.co\//, 'https://ra.co/');
+      url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|reviews|tracks)\/([^\/?#]+).*$/, 'https://ra.co/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/ra\.co\/([^\/]+)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'dj'};
+          case LINK_TYPES.otherdatabases.event:
+            return {result: prefix === 'events'};
+          case LINK_TYPES.otherdatabases.label:
+            return {result: prefix === 'labels'};
+          case LINK_TYPES.otherdatabases.place:
+            return {result: prefix === 'clubs'};
+          case LINK_TYPES.otherdatabases.recording:
+            return {result: prefix === 'tracks'};
+          case LINK_TYPES.review.release_group:
+            return {result: prefix === 'reviews'};
+        }
+      }
+      return {result: false};
     },
   },
   'reverbnation': {
