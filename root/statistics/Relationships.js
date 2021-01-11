@@ -14,7 +14,7 @@ import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import formatEntityTypeName
   from '../static/scripts/common/utility/formatEntityTypeName';
 
-import {formatCount, formatPercentage} from './utilities';
+import {formatCount, formatPercentage, TimelineLink} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
 export type RelationshipsStatsT = {
@@ -50,9 +50,15 @@ const TypeRows = ({
         <th style={{paddingLeft: (indent - 1) + 'em'}}>
           {l_relationships(type.long_link_phrase)}
         </th>
-        <td>{formatCount($c, stats[base + '.' + type.name])}</td>
+        <td>
+          {formatCount($c, stats[base + '.' + type.name])}
+          {' '}
+          <TimelineLink statName={base + '.' + type.name} />
+        </td>
         <td>
           {formatCount($c, stats[base + '.' + type.name + '.inclusive'])}
+          {' '}
+          <TimelineLink statName={base + '.' + type.name + '.inclusive'} />
         </td>
         <td>
           {formatPercentage(
@@ -111,7 +117,11 @@ const Relationships = ({
           <tr>
             <th>{l('Relationships:')}</th>
             <td />
-            <td>{formatCount($c, stats['count.ar.links'])}</td>
+            <td>
+              {formatCount($c, stats['count.ar.links'])}
+              {' '}
+              <TimelineLink statName="count.ar.links" />
+            </td>
             <td />
           </tr>
           {Object.keys(types).sort().map((typeKey) => {
@@ -134,6 +144,8 @@ const Relationships = ({
                   </th>
                   <td>
                     {formatCount($c, stats['count.ar.links.' + typeKey])}
+                    {' '}
+                    <TimelineLink statName={'count.ar.links.' + typeKey} />
                   </td>
                   <td>
                     {formatPercentage(

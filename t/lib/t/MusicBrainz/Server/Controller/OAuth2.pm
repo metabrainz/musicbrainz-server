@@ -11,7 +11,7 @@ use URI::QueryParam;
 use JSON;
 use MusicBrainz::Server::Test qw( html_ok );
 use Digest::SHA qw( sha256 );
-use MIME::Base64 qw( decode_base64url encode_base64url );
+use MIME::Base64 qw( encode_base64url );
 
 with 't::Context', 't::Mechanize';
 
@@ -630,7 +630,7 @@ test 'Authorize web workflow online with PKCE' => sub {
     is($response->{error}, 'invalid_grant');
     is($response->{error_description}, 'Invalid PKCE verifier');
 
-    my $code_challenge = encode_base64url(sha256($code_verifier_raw));
+    my $code_challenge = encode_base64url(sha256($code_verifier));
     $test->mech->get($common_auth_params .
         "&code_challenge=$code_challenge&code_challenge_method=S256");
     # No confirmation since we're pre-authorized.

@@ -18,6 +18,7 @@ import linkedEntities from '../../common/linkedEntities';
 import mbEntity from '../../common/entity';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
+import * as dates from '../../edit/utility/dates';
 import deepEqual from '../../common/utility/deepEqual';
 import {displayLinkAttributesText}
   from '../../common/utility/displayLinkAttribute';
@@ -516,13 +517,18 @@ class Relationship {
   }
 
   isDuplicate(other) {
+    const mergedBeginDate = mergeDates(this.begin_date, other.begin_date);
+    const mergedEndDate = mergeDates(this.end_date, other.end_date);
+    const isDatePeriodValid = mergedBeginDate && mergedEndDate &&
+      dates.isDatePeriodValid(mergedBeginDate, mergedEndDate);
+
     return (
       this !== other &&
       this.linkTypeID() == other.linkTypeID() &&
       this.linkOrder() == other.linkOrder() &&
       deepEqual(this.entities(), other.entities()) &&
-      mergeDates(this.begin_date, other.begin_date) &&
-      mergeDates(this.end_date, other.end_date) &&
+      isDatePeriodValid &&
+      this.ended() === other.ended() &&
       attributesAreEqual(this.attributes(), other.attributes())
     );
   }

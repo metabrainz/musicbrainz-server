@@ -21,7 +21,7 @@ sub query {
         AND EXISTS (
             SELECT 1 FROM release r2
                 WHERE r.barcode = r2.barcode
-                AND r.status != 3 -- skip bootlegs
+                AND r2.status != 3 -- skip bootlegs
                 AND r.release_group != r2.release_group
         )
     "

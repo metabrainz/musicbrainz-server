@@ -3,14 +3,14 @@
 # reneweesp <email address hidden>, 2017
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2020
+# Maurits Meulenbelt <email address hidden>, 2013-2021
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Niko Strijbol <email address hidden>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-07 14:05+0000\n"
+"PO-Revision-Date: 2021-01-09 10:44+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3235,6 +3235,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Hungarian rights society ARTISJUS"
 msgstr "Een ID van de Hongaarse auteursrechtenorganisatie ARTISJUS"
 
+#: DB:work_attribute_type/description:54
+msgctxt "work_attribute_type"
+msgid "ID for the Icelandic rights society STEF"
+msgstr "Een ID van de IJslandse auteursrechtenorganisatie STEF"
+
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
 msgid "ID for the International Copyright Enterprise"
@@ -3349,6 +3354,11 @@ msgstr "Een ID van de Venezolaanse auteursrechtenorganisatie SACVEN"
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
 msgstr "Een ID van de internationale (vroeger Amerikaanse) auteursrechtenorganisatie AMRA"
+
+#: DB:work_attribute_type/description:55
+msgctxt "work_attribute_type"
+msgid "ID for the international rights society consortium LatinNet"
+msgstr "Een ID van het internationale auteursrechtenconsortium LatinNet"
 
 #: DB:work_attribute_type/description:22
 msgctxt "work_attribute_type"
@@ -4068,6 +4078,11 @@ msgstr "Lalita pancamaṁ"
 msgctxt "medium_format"
 msgid "LaserDisc"
 msgstr "LaserDisc"
+
+#: DB:work_attribute_type/name:55
+msgctxt "work_attribute_type"
+msgid "LatinNet ID"
+msgstr "LatinNet-ID"
 
 #: DB:work_attribute_type_allowed_value/value:159
 msgctxt "work_attribute_type_allowed_value"
@@ -5821,6 +5836,11 @@ msgstr "SODRAC-ID"
 msgctxt "work_attribute_type"
 msgid "SPA ID"
 msgstr "SPA-ID"
+
+#: DB:work_attribute_type/name:54
+msgctxt "work_attribute_type"
+msgid "STEF ID"
+msgstr "STEF-ID"
 
 #: DB:work_attribute_type/name:50
 msgctxt "work_attribute_type"

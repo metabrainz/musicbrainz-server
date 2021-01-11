@@ -52,8 +52,9 @@ const SeriesSidebar = ({
           className="series-code"
           label={addColonText(l('Ordering Type'))}
         >
-          {l_attributes(
+          {lp_attributes(
             linkedEntities.series_ordering_type[series.orderingTypeID].name,
+            'series_ordering_type',
           )}
         </SidebarProperty>
       </SidebarProperties>

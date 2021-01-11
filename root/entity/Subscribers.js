@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 type Props = {
   +$c: CatalystContextT,
@@ -29,9 +30,13 @@ const Subscribers = ({
 }: Props): React.MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
-  const subLink = `/account/subscriptions/${entityType}/add?id=${entity.id}`;
+  const returnTo = '&' + returnToCurrentPage($c);
+  const subLink =
+    `/account/subscriptions/${entityType}/add?id=${entity.id}` +
+    returnTo;
   const unsubLink =
-    `/account/subscriptions/${entityType}/remove?id=${entity.id}`;
+    `/account/subscriptions/${entityType}/remove?id=${entity.id}` +
+    returnTo;
   const viewingOwnProfile = Boolean($c.user &&
                             entityType === 'editor' &&
                             $c.user.id === entity.id);

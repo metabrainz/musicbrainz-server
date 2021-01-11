@@ -64,7 +64,9 @@ sub _do_add_or_remove {
 
         $c->model('Collection')->$func_name($entity_type, $collection->id, $entity_id);
 
-        $c->response->redirect($c->req->referer || $c->uri_for_action("/$entity_type/show", [ $entity->gid ]));
+        $c->redirect_back(
+            fallback => $c->uri_for_action("/$entity_type/show", [ $entity->gid ]),
+        );
         $c->detach;
     } else {
         $c->forward('show');
@@ -113,6 +115,10 @@ sub show : Chained('load') PathPart('') {
         $model->load_meta(@$entities);
     }
 
+    if ($model->does('MusicBrainz::Server::Data::Role::Rating') && $c->user_exists) {
+        $model->rating->load_user_ratings($c->user->id, @$entities);
+    }
+
     if ($entity_type eq 'area') {
         $c->model('AreaType')->load(@$entities);
         $c->model('Area')->load_containment(@$entities);
@@ -140,12 +146,8 @@ sub show : Chained('load') PathPart('') {
         $c->model('ReleaseGroupSecondaryType')->load_for_release_groups(@$entities);
     } elsif ($entity_type eq 'event') {
         $c->model('EventType')->load(@$entities);
-        $c->model('Event')->load_meta(@$entities);
         $model->load_performers(@$entities);
         $model->load_locations(@$entities);
-        if ($c->user_exists) {
-            $model->rating->load_user_ratings($c->user->id, @$entities);
-        }
     } elsif ($entity_type eq 'place') {
         $c->model('PlaceType')->load(@$entities);
         $c->model('Area')->load(@$entities);
@@ -153,10 +155,6 @@ sub show : Chained('load') PathPart('') {
     } elsif ($entity_type eq 'recording') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ISRC')->load_for_recordings(@$entities);
-        $c->model('Recording')->load_meta(@$entities);
-        if ($c->user_exists) {
-            $c->model('Recording')->rating->load_user_ratings($c->user->id, @$entities);
-        }
     } elsif ($entity_type eq 'series') {
         $c->model('SeriesType')->load(@$entities);
         $c->model('SeriesOrderingType')->load(@$entities);

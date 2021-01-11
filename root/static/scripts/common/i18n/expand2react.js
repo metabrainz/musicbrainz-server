@@ -146,6 +146,7 @@ function pushChild<T>(
   if (lastIndex >= 0 &&
       typeof match === 'string' &&
       typeof children[lastIndex] === 'string') {
+    // $FlowIssue[incompatible-type]
     children[lastIndex] += match;
   } else {
     children.push(match);
@@ -153,7 +154,15 @@ function pushChild<T>(
   return children;
 }
 
-function concatArrayMatch<T>(
+/*
+ * `MatchUpperBoundT` is used as the upper bound of `T` below, meaning
+ * `T` can be any subtype of `MatchUpperBoundT`. Generally parsers will
+ * produce strings/numbers, but they can also output React elements and
+ * other object types, so `{...}` must be included too.
+ */
+type MatchUpperBoundT = StrOrNum | {...};
+
+function concatArrayMatch<T: MatchUpperBoundT>(
   children: Array<T> | NO_MATCH,
   match: Array<T> | T,
 ): Array<T> {
@@ -170,7 +179,7 @@ function concatArrayMatch<T>(
   return children;
 }
 
-function parseContinuousArray<T, V>(
+function parseContinuousArray<T: MatchUpperBoundT, V>(
   parsers: $ReadOnlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
   args: VarArgs<V>,
 ): Array<T> {

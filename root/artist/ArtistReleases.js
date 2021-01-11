@@ -15,6 +15,7 @@ import PaginatedResults from '../components/PaginatedResults';
 import Filter from '../static/scripts/common/components/Filter';
 import {type FilterFormT}
   from '../static/scripts/common/components/FilterForm';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import ArtistLayout from './ArtistLayout';
 
@@ -50,7 +51,10 @@ const ArtistReleases = ({
     />
 
     {releases.length ? (
-      <form action="/release/merge_queue" method="post">
+      <form
+        action={'/release/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <ReleaseList
             $c={$c}

@@ -23,13 +23,13 @@
 # Paul Tremberth <email address hidden>, 2013
 # AO <email address hidden>, 2015
 # AO <email address hidden>, 2013-2015
-# yvanz, 2016-2020
+# yvanz, 2016-2021
 # yvanz, 2016,2018
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-07 18:29+0000\n"
+"PO-Revision-Date: 2021-01-08 08:39+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3254,6 +3254,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Hungarian rights society ARTISJUS"
 msgstr "ID pour l’ARTISJUS, société hongroise de gestion des droits"
 
+#: DB:work_attribute_type/description:54
+msgctxt "work_attribute_type"
+msgid "ID for the Icelandic rights society STEF"
+msgstr "ID pour la STEF, société islandaise de gestion des droits"
+
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
 msgid "ID for the International Copyright Enterprise"
@@ -3368,6 +3373,11 @@ msgstr "ID pour la SACVEN, société vénézuélienne de gestion des droits"
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
 msgstr "ID pour l’AMRA, société internationale (initialement états-unienne) de gestion des droits"
+
+#: DB:work_attribute_type/description:55
+msgctxt "work_attribute_type"
+msgid "ID for the international rights society consortium LatinNet"
+msgstr "ID pour le LatinNet, consortium international de sociétés de gestion des droits"
 
 #: DB:work_attribute_type/description:22
 msgctxt "work_attribute_type"
@@ -4087,6 +4097,11 @@ msgstr "Lalita pancamam"
 msgctxt "medium_format"
 msgid "LaserDisc"
 msgstr "LaserDisc"
+
+#: DB:work_attribute_type/name:55
+msgctxt "work_attribute_type"
+msgid "LatinNet ID"
+msgstr "ID LatinNet"
 
 #: DB:work_attribute_type_allowed_value/value:159
 msgctxt "work_attribute_type_allowed_value"
@@ -5840,6 +5855,11 @@ msgstr "ID SODRAC"
 msgctxt "work_attribute_type"
 msgid "SPA ID"
 msgstr "SPA ID"
+
+#: DB:work_attribute_type/name:54
+msgctxt "work_attribute_type"
+msgid "STEF ID"
+msgstr "ID STEF"
 
 #: DB:work_attribute_type/name:50
 msgctxt "work_attribute_type"

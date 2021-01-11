@@ -14,11 +14,12 @@
 # Shepard, 2013-2014
 # Steve Marbs <email address hidden>, 2016
 # TL, 2015-2016
+# Tobias Sarner <email address hidden>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-03 14:00+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2020-12-17 12:02+0000\n"
+"Last-Translator: Tobias Sarner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +33,7 @@ msgstr "zwölfsaitige Gitarre"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
-msgstr ""
+msgstr "17-saitige Bass-Koto"
 
 #: DB:instrument/name:108
 msgid "Afuche/Cabasa"
@@ -733,22 +734,22 @@ msgstr "Bombarde"
 #: DB:instrument/name:969
 msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
 msgid "bonang"
-msgstr ""
+msgstr "Bonang"
 
 #: DB:instrument/name:970
 msgctxt "Medium pitched gong-chime set in Javanese gamelan"
 msgid "bonang barung"
-msgstr ""
+msgstr "Bonang Barung"
 
 #: DB:instrument/name:972
 msgctxt "Lowest pitched gong-chime set in Javanese gamelan"
 msgid "bonang panembung"
-msgstr ""
+msgstr "Bonang Panembung"
 
 #: DB:instrument/name:971
 msgctxt "Highest pitched gong-chime set in Javanese gamelan"
 msgid "bonang panerus"
-msgstr ""
+msgstr "Bonang Panerus"
 
 #: DB:instrument/name:357
 msgctxt "Folk music idiophone"
@@ -1502,7 +1503,7 @@ msgstr ""
 #: DB:instrument/name:938
 msgctxt "Guitar used in flamenco"
 msgid "flamenco guitar"
-msgstr ""
+msgstr "Flamenco-Gitarre"
 
 #: DB:instrument/name:604
 msgid "floppy disk drive"
@@ -1520,7 +1521,7 @@ msgstr "Flumpet"
 #: DB:instrument/name:13
 msgctxt "Reedless aerophone"
 msgid "flute"
-msgstr ""
+msgstr "Flöte"
 
 #: DB:instrument/name:415
 msgid "flûte d'amour"
@@ -1842,12 +1843,12 @@ msgstr "Hardangerfiedel"
 #: DB:instrument/name:43
 msgctxt "mouth organ"
 msgid "harmonica"
-msgstr ""
+msgstr "Mundharmonika"
 
 #: DB:instrument/name:135
 msgctxt "reed organ"
 msgid "harmonium"
-msgstr ""
+msgstr "Harmonium"
 
 #: DB:instrument/name:58
 msgid "harp"
@@ -1973,7 +1974,7 @@ msgstr ""
 #: DB:instrument/name:214
 msgctxt "Beijing opera upmost small & high pitch huqin"
 msgid "jinghu"
-msgstr ""
+msgstr "Jinghu"
 
 #: DB:instrument/name:695
 msgid "jouhikko"
@@ -2050,12 +2051,12 @@ msgstr "Kanklės"
 #: DB:instrument/name:872
 msgctxt "Traditional Estonian plucked psaltery"
 msgid "kannel"
-msgstr ""
+msgstr "Kannel"
 
 #: DB:instrument/name:424
 msgctxt "Traditional Finnish plucked psaltery"
 msgid "kantele"
-msgstr ""
+msgstr "Kantele"
 
 #: DB:instrument/name:975
 msgctxt "High pitch gangsa used in Balinese gamelan"
@@ -2457,7 +2458,7 @@ msgstr "Mandocello"
 #: DB:instrument/name:836
 msgctxt "mandolin / electric guitar hybrid"
 msgid "mandoguitar"
-msgstr ""
+msgstr "Mandoline"
 
 #: DB:instrument/name:238
 msgid "mandola"
@@ -2842,27 +2843,27 @@ msgstr "Pianoakkordeon"
 #: DB:instrument/name:1024
 msgctxt "ensemble of two pianists playing on separate pianos"
 msgid "piano duo"
-msgstr ""
+msgstr "Klavierduo"
 
 #: DB:instrument/name:1025
 msgctxt "ensemble of two pianists playing on one piano"
 msgid "piano four hands"
-msgstr ""
+msgstr "Zu vier Händen"
 
 #: DB:instrument/name:965
 msgctxt "ensemble of piano, violin, viola and cello"
 msgid "piano quartet"
-msgstr ""
+msgstr "Klavierquartett"
 
 #: DB:instrument/name:798
 msgctxt "small drop action piano"
 msgid "piano spinet"
-msgstr ""
+msgstr "Spinet"
 
 #: DB:instrument/name:911
 msgctxt "ensemble of violin, cello and piano"
 msgid "piano trio"
-msgstr ""
+msgstr "Klaviertrio"
 
 #: DB:instrument/name:17
 msgid "piccolo"
@@ -3117,7 +3118,7 @@ msgstr ""
 
 #: DB:instrument/name:369
 msgid "rhythm sticks"
-msgstr ""
+msgstr "Rhythmus-Stöcke"
 
 #: DB:instrument/name:329
 msgid "riq"
@@ -3461,12 +3462,12 @@ msgstr ""
 #: DB:instrument/name:797
 msgctxt "A smaller harpsichord, strings at an angle"
 msgid "spinet"
-msgstr ""
+msgstr "Spinet"
 
 #: DB:instrument/name:799
 msgctxt "extralong spinet with deep bass register"
 msgid "spinettone"
-msgstr ""
+msgstr "Theater-Spinett"
 
 #: DB:instrument/name:160
 msgid "spoons"
@@ -3488,12 +3489,12 @@ msgstr "Steel Pan"
 #: DB:instrument/name:908
 msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
 msgid "string quartet"
-msgstr ""
+msgstr "Streichquartett"
 
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"
 msgid "string trio"
-msgstr ""
+msgstr "Streichtrio"
 
 #: DB:instrument/name:46
 msgid "strings"
@@ -3659,7 +3660,7 @@ msgstr ""
 
 #: DB:instrument/name:520
 msgid "tape"
-msgstr ""
+msgstr "Band"
 
 #: DB:instrument/name:669
 msgid "taphon"
@@ -4068,12 +4069,12 @@ msgstr ""
 #: DB:instrument/name:1027
 msgctxt "ensemble of multiple viols"
 msgid "viol consort"
-msgstr ""
+msgstr "Gambenkonsortium"
 
 #: DB:instrument/name:899
 msgctxt "Viola de gamba family"
 msgid "viol family"
-msgstr ""
+msgstr "Violinenfamilie"
 
 #: DB:instrument/name:63
 msgid "viola"
@@ -4082,21 +4083,21 @@ msgstr "Bratsche / Viola"
 #: DB:instrument/name:660
 msgctxt "Brazilian música caipira guitar"
 msgid "viola caipira"
-msgstr ""
+msgstr "Viola caipira"
 
 #: DB:instrument/name:94
 msgctxt "Baroque fretless similar to both viols and violins."
 msgid "viola d'amore"
-msgstr ""
+msgstr "Viola d’amore"
 
 #: DB:instrument/name:93
 msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
 msgid "viola da gamba"
-msgstr ""
+msgstr "Viola da gamba"
 
 #: DB:instrument/name:227
 msgid "viola organista"
-msgstr ""
+msgstr "Viola Organista"
 
 #: DB:instrument/name:62
 msgid "violin"
@@ -4105,12 +4106,12 @@ msgstr "Geige / Violine"
 #: DB:instrument/name:59
 msgctxt "Modern violin family"
 msgid "violin family"
-msgstr ""
+msgstr "Geigenfamilie"
 
 #: DB:instrument/name:898
 msgctxt "New modern streamlined family of violins"
 msgid "violin octet"
-msgstr ""
+msgstr "Geigenoktett"
 
 #: DB:instrument/name:661
 msgid "violino piccolo"
@@ -4119,7 +4120,7 @@ msgstr "Violino piccolo"
 #: DB:instrument/name:834
 msgctxt "cretan lyra / violin hybrid"
 msgid "viololyra"
-msgstr ""
+msgstr "Viololyra"
 
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""
@@ -4129,7 +4130,7 @@ msgstr "Violoncello piccolo"
 #: DB:instrument/name:420
 msgctxt "Contra/double-bass member of the viol family"
 msgid "violone"
-msgstr ""
+msgstr "Violone"
 
 #: DB:instrument/name:95
 msgid "violotta"
@@ -4150,7 +4151,7 @@ msgstr "Sprachsynthesizer"
 #: DB:instrument/name:877
 msgctxt "plastic horn"
 msgid "vuvuzela"
-msgstr ""
+msgstr "Vuvuzela"
 
 #: DB:instrument/name:159
 msgid "washboard"
@@ -4171,12 +4172,12 @@ msgstr "Wavedrum"
 #: DB:instrument/name:107
 msgctxt "Hinged percussion"
 msgid "whip / slapstick"
-msgstr ""
+msgstr "Peitsche / Schlagstock"
 
 #: DB:instrument/name:274
 msgctxt "small, simple, singletoned flute"
 msgid "whistle"
-msgstr ""
+msgstr "Trillerpfeife"
 
 #: DB:instrument/name:196
 msgid "willow flute"
@@ -4194,7 +4195,7 @@ msgstr "Blasinstrumente"
 #: DB:instrument/name:560
 msgctxt "synthesizer played like a wind instrument"
 msgid "wind synthesizer"
-msgstr ""
+msgstr "Windsynthesizer"
 
 #: DB:instrument/name:354
 msgid "wire-strung harp"

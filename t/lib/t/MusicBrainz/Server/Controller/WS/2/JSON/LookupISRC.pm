@@ -20,6 +20,7 @@ test 'basic isrc lookup' => sub {
                 length => 289946,
                 title => 'Hey Boy Hey Girl',
                 video => JSON::false,
+                "first-release-date" => '1999-06-21',
             },
         ],
     };

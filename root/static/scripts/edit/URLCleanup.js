@@ -464,7 +464,7 @@ const CLEANUPS = {
       '(((?!music)[^/])+\.)?' +
       '(amazon\\.(' + (
         'ae|at|com\\.au|com\\.br|ca|cn|com|de|es|fr|in' +
-        '|it|jp|co\\.jp|com\\.mx|nl|sg|com\\.tr|co\\.uk'
+        '|it|jp|co\\.jp|com\\.mx|nl|se|sg|com\\.tr|co\\.uk'
       ) + ')|amzn\\.com)',
       'i',
     )],
@@ -500,14 +500,14 @@ const CLEANUPS = {
     },
     validate: function (url) {
       // If you change this, please update the BadAmazonURLs report.
-      return {result: /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\//.test(url)};
+      return {result: /^https:\/\/www\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|se|sg|com\.tr|co\.uk)\//.test(url)};
     },
   },
   'amazonmusic': {
     match: [new RegExp(
       '^(https?://)?music\\.amazon\\.' +
       '(ae|at|com\\.au|com\\.br|ca|cn|com|de|es|fr|in' +
-      '|it|jp|co\\.jp|com\\.mx|nl|sg|com\\.tr|co\\.uk)' +
+      '|it|jp|co\\.jp|com\\.mx|nl|se|sg|com\\.tr|co\\.uk)' +
       '/(albums|artists)',
       'i',
     )],
@@ -537,7 +537,7 @@ const CLEANUPS = {
     },
     validate: function (url, id) {
       // If you change this, please update the BadAmazonURLs report.
-      const m = /^https:\/\/music\.amazon\.(?:com|ca|co\.uk|fr|ae|at|de|it|sg|co\.jp|jp|cn|es|in|nl|com\.br|com\.mx|com\.au|com\.tr)\/(albums|artists)/.exec(url);
+      const m = /^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|se|sg|com\.tr|co\.uk)\/(albums|artists)/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -816,7 +816,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/(?:sounds|www)\.beatport\.com\/([\w-]+)\/[\w!-]+\/[1-9][0-9]*$/.exec(url);
+      const m = /^https:\/\/(?:sounds|www)\.beatport\.com\/([\w-]+)\/[\w!%-]+\/[1-9][0-9]*$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -1076,7 +1076,7 @@ const CLEANUPS = {
     )],
     type: LINK_TYPES.mailorder,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\/(person|product)\/([^\/?#]+)(?:.*)?$/, 'http://www.cdjapan.co.jp/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\/(person|product)\/([^\/?#]+)(?:.*)?$/, 'https://www.cdjapan.co.jp/$1/$2');
       return url;
     },
   },
@@ -2473,7 +2473,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?lortel\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?whosampled\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
       new RegExp(
         '^(https?://)?(www\\.)?residentadvisor\\.net/(?!review)',
@@ -3217,6 +3216,94 @@ const CLEANUPS = {
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/(u\/)?([^\/?#]+)(?:.*)$/, 'https://www.weibo.com/$1$2');
+    },
+  },
+  'whosampled': {
+    match: [new RegExp('^(https?://)?(www\\.)?whosampled\\.com', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?whosampled\.com\/(.+)$/, 'https://www.whosampled.com/$1');
+    },
+    validate: function (url, id) {
+      if (/[?#]/.test(url)) {
+        return {
+          error: l(
+            `There is an unencoded “?” or “#” character in this URL.
+             Please check whether it is useless and should be removed,
+             or whether it is an error and the URL is misencoded.`,
+          ),
+          result: false,
+        };
+      }
+      const m = /^https:\/\/www\.whosampled\.com(\/[^?#]+)$/.exec(url);
+      if (m) {
+        const path = m[1];
+        const mp = /^\/([^\/]+)/.exec(path);
+        if (mp) {
+          const topLevelSegment = mp[1];
+          switch (topLevelSegment) {
+            case 'cover':
+            case 'remix':
+            case 'sample':
+              return {
+                error: l(
+                  `Please do not link directly to WhoSampled
+                   “{unwanted_url_pattern}” pages.
+                   Link to the appropriate WhoSampled artist, track
+                   or album page instead.`,
+                  {
+                    unwanted_url_pattern: (
+                      <span className="url-quote">
+                        {'/' + topLevelSegment}
+                      </span>
+                    ),
+                  },
+                ),
+                result: false,
+              };
+            case 'album':
+              if (id === LINK_TYPES.otherdatabases.release_group) {
+                return {result: true};
+              }
+              return {
+                error: exp.l(
+                  `Please link WhoSampled “{album_url_pattern}” pages to
+                   release groups.`,
+                  {
+                    album_url_pattern: (
+                      <span className="url-quote">{'/album'}</span>
+                    ),
+                  },
+                ),
+                result: false,
+              };
+            default:
+              if (/^\/[^/]+(?:\/)?$/.test(path)) {
+                if (id === LINK_TYPES.otherdatabases.artist) {
+                  return {result: true};
+                }
+                return {
+                  error: l(
+                    'Please link WhoSampled artist pages to artists.',
+                  ),
+                  result: false,
+                };
+              }
+              if (/^\/[^/]+\/[^/]+(?:\/)?$/.test(path)) {
+                if (id === LINK_TYPES.otherdatabases.recording) {
+                  return {result: true};
+                }
+                return {
+                  error: l(
+                    'Please link WhoSampled track pages to recordings.',
+                  ),
+                  result: false,
+                };
+              }
+          }
+        }
+      }
+      return {result: false};
     },
   },
   'wikidata': {

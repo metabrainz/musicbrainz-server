@@ -247,7 +247,7 @@ relationshipEditorTest('link phrase interpolation', function (t) {
 });
 
 relationshipEditorTest('merging duplicate relationships', function (t) {
-  t.plan(6);
+  t.plan(8);
 
   var vm = setupReleaseRelationshipEditor();
 
@@ -263,7 +263,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     ended: false,
   }, source);
 
-  var duplicateRelationship = vm.getRelationship({
+  var notDuplicateRelationship1 = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -273,11 +273,38 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
   }, source);
 
   relationship.show();
+  notDuplicateRelationship1.show();
+
+  t.ok(!source.mergeRelationship(notDuplicateRelationship1),
+       'relationships were not merged where ended differs');
+
+  relationship.remove();
+  notDuplicateRelationship1.remove();
+
+  var relationshipEnded = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: { year: 2001 },
+    end_date: null,
+    ended: true,
+  }, source);
+
+  var duplicateRelationship = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: null,
+    end_date: { year: 2002 },
+    ended: true,
+  }, source);
+
+  relationshipEnded.show();
   duplicateRelationship.show();
 
   t.ok(
     source.mergeRelationship(duplicateRelationship),
-    'relationships were merged',
+    'relationships were merged where ended is the same',
   );
 
   t.deepEqual(
@@ -288,9 +315,9 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
 
   t.deepEqual(
     ko.toJS({
-      begin_date: relationship.begin_date,
-      end_date: relationship.end_date,
-      ended: relationship.ended,
+      begin_date: relationshipEnded.begin_date,
+      end_date: relationshipEnded.end_date,
+      ended: relationshipEnded.ended,
     }),
     {
       begin_date: { year: 2001, month: null, day: null },
@@ -305,21 +332,50 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
 
   t.ok(duplicateRelationship.removed(), '`removed` is true for duplicate');
 
-  var notDuplicateRelationship = vm.getRelationship({
+  var notDuplicateRelationship2 = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     begin_date: { year: 2003 },
     end_date: { year: 2004 },
   }, source);
 
-  notDuplicateRelationship.show();
+  notDuplicateRelationship2.show();
 
-  t.ok(!source.mergeRelationship(notDuplicateRelationship),
+  t.ok(!source.mergeRelationship(notDuplicateRelationship2),
        'relationship with different date is not merged');
 
-  relationship.remove();
+  relationshipEnded.remove();
   duplicateRelationship.remove();
-  notDuplicateRelationship.remove();
+  notDuplicateRelationship2.remove();
+
+  var laterRelationship = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: { year: 2001 },
+    end_date: null,
+    ended: true,
+  }, source);
+
+  var earlierRelationship = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: null,
+    end_date: { year: 2000 },
+    ended: true,
+  }, source);
+
+  laterRelationship.show();
+  earlierRelationship.show();
+
+  t.ok(
+    !source.mergeRelationship(earlierRelationship),
+    'relationships were not merged where it would lead to invalid date period',
+  );
+
+  laterRelationship.remove();
+  earlierRelationship.remove();
 });
 
 relationshipEditorTest('dialog backwardness', function (t) {

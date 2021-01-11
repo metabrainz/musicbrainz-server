@@ -29,10 +29,14 @@ type AddStandaloneRecordingEditT = {
 };
 
 type Props = {
+  +allowNew?: boolean,
   +edit: AddStandaloneRecordingEditT,
 };
 
-const AddStandaloneRecording = ({edit}: Props): React.MixedElement => {
+const AddStandaloneRecording = ({
+  allowNew,
+  edit,
+}: Props): React.MixedElement => {
   const display = edit.display_data;
   return (
     <>
@@ -40,7 +44,9 @@ const AddStandaloneRecording = ({edit}: Props): React.MixedElement => {
         <tbody>
           <tr>
             <th>{addColonText(l('Recording'))}</th>
-            <td><EntityLink allowNew entity={display.recording} /></td>
+            <td>
+              <EntityLink allowNew={allowNew} entity={display.recording} />
+            </td>
           </tr>
         </tbody>
       </table>

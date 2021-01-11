@@ -36,7 +36,6 @@ sub serialize
     }
 
     if (
-        $toplevel &&
         DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26 &&
         defined $entity->first_release_date
     ) {

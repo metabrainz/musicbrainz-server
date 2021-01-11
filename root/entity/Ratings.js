@@ -29,6 +29,7 @@ const Ratings = ({
 }: Props): React.MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
+  const hasRatings = publicRatings.length || privateRatingCount > 0;
 
   return (
     <LayoutComponent
@@ -39,17 +40,19 @@ const Ratings = ({
     >
       <h2>{l('Ratings')}</h2>
 
-      {publicRatings.length ? (
+      {hasRatings ? (
         <>
-          <ul>
-            {publicRatings.map(rating => (
-              <li key={rating.editor.id}>
-                <StaticRatingStars rating={rating.rating} />
-                {' - '}
-                <EditorLink editor={rating.editor} />
-              </li>
-            ))}
-          </ul>
+          {publicRatings.length ? (
+            <ul>
+              {publicRatings.map(rating => (
+                <li key={rating.editor.id}>
+                  <StaticRatingStars rating={rating.rating} />
+                  {' - '}
+                  <EditorLink editor={rating.editor} />
+                </li>
+              ))}
+            </ul>
+          ) : null}
           {privateRatingCount > 0 ? (
             <p>
               {exp.ln(

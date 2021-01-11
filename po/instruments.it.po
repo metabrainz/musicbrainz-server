@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-14 12:01+0000\n"
+"PO-Revision-Date: 2020-12-26 17:50+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -507,7 +507,7 @@ msgstr "chitarra baritono"
 
 #: DB:instrument/name:28
 msgid "baritone horn"
-msgstr "flicorno tenore"
+msgstr "flicorno baritono"
 
 #: DB:instrument/name:23
 msgid "baritone saxophone"
@@ -1480,7 +1480,7 @@ msgstr "schiocchi di dita"
 
 #: DB:instrument/name:194
 msgid "fipple flute"
-msgstr "flauto a fessura"
+msgstr "flauto dritto"
 
 #: DB:instrument/name:523
 msgid "five-string banjo"
@@ -2449,7 +2449,7 @@ msgstr "maddale"
 
 #: DB:instrument/name:600
 msgid "mandocello"
-msgstr "mandocello"
+msgstr "mandoloncello"
 
 #: DB:instrument/name:836
 msgctxt "mandolin / electric guitar hybrid"

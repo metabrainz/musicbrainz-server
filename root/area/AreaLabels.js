@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import LabelList from '../components/list/LabelList';
 import PaginatedResults from '../components/PaginatedResults';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 import AreaLayout from './AreaLayout';
 
@@ -31,7 +32,10 @@ const AreaLabels = ({
     <h2>{l('Labels')}</h2>
 
     {labels.length > 0 ? (
-      <form action="/label/merge_queue" method="post">
+      <form
+        action={'/label/merge_queue?' + returnToCurrentPage($c)}
+        method="post"
+      >
         <PaginatedResults pager={pager}>
           <LabelList
             $c={$c}

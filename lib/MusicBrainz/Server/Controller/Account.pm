@@ -581,10 +581,7 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly S
             my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
             $c->set_authenticated($user);
 
-            my $redirect = defined $c->req->query_params->{uri}
-              ? $c->req->query_params->{uri}
-              : $c->uri_for_action('/user/profile', [ $user->name ]);
-
+            my $redirect = $c->req->query_params->{returnto} // '';
             if ($redirect =~ /^\/discourse\/sso/) {
                 $c->stash(
                     current_view => 'Node',
@@ -596,7 +593,9 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly S
                 $c->detach;
             }
 
-            $c->response->redirect($redirect);
+            $c->redirect_back(
+                fallback => $c->uri_for_action('/user/profile', [ $user->name ]),
+            );
             $c->detach;
         }
         else

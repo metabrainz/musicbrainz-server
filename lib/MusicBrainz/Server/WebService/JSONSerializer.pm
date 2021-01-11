@@ -325,6 +325,29 @@ sub autocomplete_genre {
     return encode_json($output);
 }
 
+sub user_rating {
+    my ($self, $entity, $inc, $opts) = @_;
+
+    my $user_rating = $opts->store($entity)->{user_ratings};
+
+    return encode_json({
+        'user-rating' => {value => $user_rating},
+    });
+}
+
+sub user_tag_list {
+    my ($self, $entity, $inc, $opts) = @_;
+
+    my $user_tags = $opts->store($entity)->{user_tags};
+
+    return encode_json({
+        'user-tags' => [
+            sort { $a->{name} cmp $b->{name} }
+            map +{ name => $_->tag->name }, @{ $user_tags }
+        ],
+    });
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

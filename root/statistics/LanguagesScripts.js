@@ -15,7 +15,7 @@ import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import loopParity from '../utility/loopParity';
 import LinkSearchableProperty from '../components/LinkSearchableProperty';
 
-import {formatCount} from './utilities';
+import {formatCount, TimelineLink} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
 type LanguagesScriptsStatsT = {
@@ -103,6 +103,14 @@ const LanguagesScripts = ({
                   ) : (
                     formatCount($c, languageStat.releases)
                   )}
+                  {' '}
+                  <TimelineLink
+                    statName={
+                      'count.release.language.' + (
+                        languageStat.entity?.iso_code_3 ?? 'null'
+                      )
+                    }
+                  />
                 </td>
                 <td className="t">
                   {languageStat.entity && languageStat.entity.iso_code_3 ? (
@@ -113,8 +121,16 @@ const LanguagesScripts = ({
                       text={formatCount($c, languageStat.works)}
                     />
                   ) : (
-                    formatCount($c, languageStat.releases)
+                    formatCount($c, languageStat.works)
                   )}
+                  {' '}
+                  <TimelineLink
+                    statName={
+                      'count.work.language.' + (
+                        languageStat.entity?.iso_code_3 ?? 'null'
+                      )
+                    }
+                  />
                 </td>
                 <td className="t">{formatCount($c, languageStat.total)}</td>
               </tr>
@@ -160,6 +176,14 @@ const LanguagesScripts = ({
                   ) : (
                     formatCount($c, scriptStat.count)
                   )}
+                  {' '}
+                  <TimelineLink
+                    statName={
+                      'count.release.script.' + (
+                        scriptStat.entity?.iso_code ?? 'null'
+                      )
+                    }
+                  />
                 </td>
               </tr>
             ) : null

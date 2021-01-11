@@ -24,29 +24,88 @@ const buildOptGroup = (optgroup, index) => (
   </optgroup>
 );
 
-type SelectElementProps = {
+type SharedElementProps = {
   className?: string,
-  defaultValue?: StrOrNum,
   disabled?: boolean,
   id?: string,
   name?: string,
   onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   required?: boolean,
   style?: {},
+};
+
+type MultipleSelectElementProps = {
+  defaultValue?: Array<StrOrNum>,
+  multiple: boolean,
+  value?: Array<StrOrNum>,
+  ...SharedElementProps,
+  ...
+};
+
+type SelectElementProps = {
+  defaultValue?: StrOrNum,
   value?: StrOrNum,
+  ...SharedElementProps,
+  ...
+};
+
+type SharedFieldProps = {
+  +className?: string,
+  +disabled?: boolean,
+  +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
+  +options: MaybeGroupedOptionsT,
+  +required?: boolean,
+  +uncontrolled?: boolean,
+};
+
+type MultipleSelectFieldProps = {
+  +field: ReadOnlyFieldT<?Array<StrOrNum>>,
+  ...SharedFieldProps,
   ...
 };
 
 type SelectFieldProps = {
   +allowEmpty?: boolean,
-  +className?: string,
-  +disabled?: boolean,
   +field: ReadOnlyFieldT<?StrOrNum>,
-  +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
-  +options: MaybeGroupedOptionsT,
-  +required?: boolean,
-  +uncontrolled?: boolean,
+  ...SharedFieldProps,
   ...
+};
+
+export const MultipleSelectField = ({
+  disabled = false,
+  field,
+  onChange,
+  options,
+  required,
+  uncontrolled = false,
+  ...props
+}: MultipleSelectFieldProps): React.Element<'select'> => {
+  const selectProps: MultipleSelectElementProps = {...props, multiple: true}
+;
+
+  if (selectProps.className === undefined) {
+    selectProps.className = 'with-button';
+  }
+
+  selectProps.disabled = disabled;
+  selectProps.id = 'id-' + field.html_name;
+  selectProps.name = field.html_name;
+  selectProps.required = required;
+
+  if (uncontrolled) {
+    selectProps.defaultValue = field.value || [];
+  } else {
+    selectProps.onChange = onChange;
+    selectProps.value = field.value || [];
+  }
+
+  return (
+    <select {...selectProps}>
+      {options.grouped
+        ? options.options.map(buildOptGroup)
+        : options.options.map(buildOption)}
+    </select>
+  );
 };
 
 const SelectField = ({
@@ -71,8 +130,7 @@ const SelectField = ({
   selectProps.required = required;
 
   if (uncontrolled) {
-    selectProps.defaultValue =
-      getSelectValue(field, options, allowEmpty);
+    selectProps.defaultValue = getSelectValue(field, options, allowEmpty);
   } else {
     selectProps.onChange = onChange;
     selectProps.value = getSelectValue(field, options, allowEmpty);
