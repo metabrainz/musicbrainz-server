@@ -3246,7 +3246,7 @@ const CLEANUPS = {
             case 'remix':
             case 'sample':
               return {
-                error: l(
+                error: exp.l(
                   `Please do not link directly to WhoSampled
                    “{unwanted_url_pattern}” pages.
                    Link to the appropriate WhoSampled artist, track
