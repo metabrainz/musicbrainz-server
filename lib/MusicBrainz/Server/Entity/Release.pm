@@ -201,7 +201,9 @@ has 'cover_art_presence' => (
 );
 
 sub may_have_cover_art {
-    return shift->cover_art_presence ne 'darkened';
+    my $cover_art_presence = shift->cover_art_presence;
+
+    return !defined $cover_art_presence || $cover_art_presence ne 'darkened';
 }
 
 sub may_have_discids {
