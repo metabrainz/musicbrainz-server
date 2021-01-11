@@ -3939,6 +3939,20 @@ const testData = [
        only_valid_entity_types: [],
   },
   {
+                     input_url: 'https://www.whosampled.com/cover/575868/Ghost-It%27s-a-Sin-Pet-Shop-Boys-It%27s-a-Sin/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/cover/575868/Ghost-It%27s-a-Sin-Pet-Shop-Boys-It%27s-a-Sin/',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.whosampled.com/remix/43901/Pet-Shop-Boys-Can-You-Forgive-Her%3F-(Rollo-Dub)-Pet-Shop-Boys-Can-You-Forgive-Her%3F/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.whosampled.com/remix/43901/Pet-Shop-Boys-Can-You-Forgive-Her%3F-(Rollo-Dub)-Pet-Shop-Boys-Can-You-Forgive-Her%3F/',
+       only_valid_entity_types: [],
+  },
+  {
                      input_url: 'https://www.whosampled.com/sample/127347/Death-Grips-5D-Pet-Shop-Boys-West-End-Girls/',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',

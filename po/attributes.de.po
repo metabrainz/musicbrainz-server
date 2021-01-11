@@ -47,8 +47,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-03 14:00+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2021-01-07 10:59+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3272,6 +3272,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Hungarian rights society ARTISJUS"
 msgstr "ID für die ungarische Verwertungsgesellschaft ARTISJUS"
 
+#: DB:work_attribute_type/description:54
+msgctxt "work_attribute_type"
+msgid "ID for the Icelandic rights society STEF"
+msgstr ""
+
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
 msgid "ID for the International Copyright Enterprise"
@@ -3386,6 +3391,11 @@ msgstr "ID für die venezolanische Verwertungsgesellschaft SACVEN"
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
 msgstr "ID für die internationale (ehemalige US-) Verwertungsgesellschaft AMRA"
+
+#: DB:work_attribute_type/description:55
+msgctxt "work_attribute_type"
+msgid "ID for the international rights society consortium LatinNet"
+msgstr ""
 
 #: DB:work_attribute_type/description:22
 msgctxt "work_attribute_type"
@@ -4105,6 +4115,11 @@ msgstr "Lalita pancamaṁ"
 msgctxt "medium_format"
 msgid "LaserDisc"
 msgstr "LaserDisc"
+
+#: DB:work_attribute_type/name:55
+msgctxt "work_attribute_type"
+msgid "LatinNet ID"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:159
 msgctxt "work_attribute_type_allowed_value"
@@ -5858,6 +5873,11 @@ msgstr ""
 msgctxt "work_attribute_type"
 msgid "SPA ID"
 msgstr "SPA-ID"
+
+#: DB:work_attribute_type/name:54
+msgctxt "work_attribute_type"
+msgid "STEF ID"
+msgstr ""
 
 #: DB:work_attribute_type/name:50
 msgctxt "work_attribute_type"

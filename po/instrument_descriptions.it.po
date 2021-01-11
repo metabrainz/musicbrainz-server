@@ -7,14 +7,14 @@
 # Fen0x F <email address hidden>, 2020
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini, 2020
+# Luca Salini, 2020-2021
 # Luca Salini, 2020
 # Luca Salini, 2012
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-27 13:27+0000\n"
+"PO-Revision-Date: 2021-01-07 16:54+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -4514,9 +4514,9 @@ msgstr "Usato in occasione di cerimonie reali e suonato sbattendolo contro il pa
 #: DB:instrument/description:370
 msgid ""
 "Used in sacred rituals, it is made of metal or clay rattle with metal discs "
-"which jangle when shook. </br> Not to be confused with the West African "
+"which jangle when shook. <br/> Not to be confused with the West African "
 "calabash sistrum or disc rattle (n'goso m'bara)"
-msgstr "Usato per rituali sacri, è composto da sonagli in metallo o creta con dischi in metallo che tintinnano quando vengono agitati. </br> Da non confondere con il sistro in zucca a fiasco dell'Africa occidentale, detto anche sonaglio a disco (n'goso m'bara)."
+msgstr "Usato per rituali sacri, è composto da sonagli in metallo o creta con dischi in metallo che tintinnano quando vengono agitati. <br/> Da non confondere con il sistro in zucca a fiasco dell'Africa occidentale, detto anche sonaglio a disco (n'goso m'bara)."
 
 #. name:saron wayang
 #: DB:instrument/description:1010
