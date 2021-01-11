@@ -787,6 +787,12 @@ const CLEANUPS = {
       return {result: /^https:\/\/www\.bbc\.co\.uk\/music\/artists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(url)};
     },
   },
+  'bbcreview': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?bbc\\.co\\.uk/music/reviews/', 'i'),
+    ],
+    type: LINK_TYPES.review,
+  },
   'beatport': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?beatport\\.com', 'i')],
     type: LINK_TYPES.downloadpurchase,
@@ -2642,6 +2648,12 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|artist|song)\/([a-zA-Z0-9]+)(\/)?.*$/, 'http://recochoku.jp/$1/$2/');
     },
   },
+  'residentadvisor': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/review', 'i'),
+    ],
+    type: LINK_TYPES.review,
+  },
   'reverbnation': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?reverbnation\\.com/', 'i')],
     type: LINK_TYPES.socialnetwork,
@@ -2657,13 +2669,6 @@ const CLEANUPS = {
       url = url.replace(/[?&]$/, '');
       return url;
     },
-  },
-  'review': {
-    match: [
-      new RegExp('^(https?://)?(www\\.)?bbc\\.co\\.uk/music/reviews/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/review', 'i'),
-    ],
-    type: LINK_TYPES.review,
   },
   'rockcomar': {
     match: [new RegExp('^(https?://)?(www\\.)?rock\\.com\\.ar', 'i')],
