@@ -67,7 +67,7 @@ test 'GET /relationship/attribute/edit for invalid attribute types' => sub {
         '/relationship-attribute/77a0f1d3-beee-4055-a6e7-24d7258c21f7/edit');
 
     is($mech->status, 404,
-       'Returns 404 when trying to edit a non-existant relationship attribute');
+       'Returns 404 when trying to edit a non-existent relationship attribute');
 };
 
 1;

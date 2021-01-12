@@ -13,7 +13,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
 use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-test 'Non-existant merge target' => sub {
+test 'Non-existent merge target' => sub {
     my $test = shift;
     my $c = $test->c;
 
