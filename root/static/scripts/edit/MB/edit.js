@@ -61,14 +61,16 @@ import request from '../../common/utility/request';
 
       const names = ac.names.map(function (credit, index) {
         var artist = value(credit.artist) || {};
+        const artistName = string(artist.name);
+        const creditedName = string(credit.name);
 
         var name = {
           artist: {
-            name: string(artist.name),
+            name: artistName,
             id: number(artist.id),
             gid: nullableString(artist.gid),
           },
-          name: string(credit.name),
+          name: nonEmpty(creditedName) ? creditedName : artistName,
         };
 
         var joinPhrase = value(credit.joinPhrase) || '';
