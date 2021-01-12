@@ -322,10 +322,12 @@ sub do_merge
     unless ($can_merge) {
         my $error = localized_note(
             N_l('These releases could not be merged: {reason}'),
-            {reason => localized_note(
-                $cannot_merge_reason->{message},
-                $cannot_merge_reason->{args},
-            )},
+            vars => {
+                reason => localized_note(
+                    $cannot_merge_reason->{message},
+                    vars => $cannot_merge_reason->{vars},
+                ),
+            },
         );
         MusicBrainz::Server::Edit::Exceptions::GeneralError->throw($error);
     }

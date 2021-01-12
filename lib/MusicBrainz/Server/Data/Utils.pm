@@ -685,12 +685,13 @@ sub datetime_to_iso8601 {
 }
 
 sub localized_note {
-    my ($message, $args) = @_;
+    my ($message, %opts) = @_;
 
     state $json = JSON::XS->new;
     'localize:' . $json->encode({
         message => $message,
-        defined $args ? (args => $args) : (),
+        version => 1,
+        %opts,
     });
 }
 

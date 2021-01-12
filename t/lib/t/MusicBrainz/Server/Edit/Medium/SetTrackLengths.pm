@@ -6,7 +6,11 @@ use Test::Fatal;
 with 't::Edit';
 with 't::Context';
 
-use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS $UNTRUSTED_FLAG );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_SET_TRACK_LENGTHS
+    $STATUS_FAILEDDEP
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Data::Utils qw( localized_note );
 use MusicBrainz::Server::Test;
 
@@ -104,9 +108,18 @@ test 'Fail gracefully if CD TOC has been removed' => sub {
 
     $c->sql->do("DELETE FROM cdtoc WHERE id = 1");
 
-    my $exception = exception { $edit->accept };
-    isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
-    is $exception->message, localized_note('The CD TOC the track times were being set from has been removed since this edit was entered.');
+    $c->model('Edit')->accept($edit);
+    ok(!$edit->is_open);
+    is($edit->status, $STATUS_FAILEDDEP);
+
+    $c->model('EditNote')->load_for_edits($edit);
+    is(scalar $edit->all_edit_notes, 1);
+
+    my $note = scalar($edit->all_edit_notes) ? $edit->edit_notes->[0] : undef;
+    is(
+        defined $note && $note->localize,
+        'The CD TOC the track times were being set from has been removed since this edit was entered.',
+    );
 };
 
 1;

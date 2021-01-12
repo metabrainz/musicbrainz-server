@@ -1088,7 +1088,7 @@ sub determine_recording_merges {
 
             return (0, {
                 message => $RELEASE_MERGE_ERRORS{ambiguous_recording_merge},
-                args => {
+                vars => {
                     source_recording => _link_recording($source),
                     target_recordings => comma_list(map { _link_recording($_) } @{$target}),
                 },
@@ -1116,7 +1116,7 @@ sub determine_recording_merges {
             if ($new_id == $old_id) {
                 return (0, {
                     message => $RELEASE_MERGE_ERRORS{recording_merge_cycle},
-                    args => {
+                    vars => {
                         recording1 => _link_recording($old_recording),
                         recording2 => _link_recording($new_recording),
                     },
