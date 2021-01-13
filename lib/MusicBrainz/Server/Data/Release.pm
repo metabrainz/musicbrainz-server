@@ -245,6 +245,18 @@ sub find_by_artist
     $self->query_to_list_limited($query, $params, $limit, $offset, undef, cache_hits => 1);
 }
 
+sub find_by_artist_credit
+{
+    my ($self, $artist_credit_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . ",
+                   release.name COLLATE musicbrainz AS name_collate
+                 FROM " . $self->_table . "
+                 WHERE artist_credit = ?
+                 ORDER BY release.name COLLATE musicbrainz";
+    $self->query_to_list_limited($query, [$artist_credit_id], $limit, $offset);
+}
+
 sub find_by_instrument {
     my ($self, $instrument_id, $limit, $offset, %args) = @_;
 
