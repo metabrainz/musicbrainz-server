@@ -8,19 +8,22 @@ import initializeDuplicateChecker from './edit/check-duplicates';
 $(function () {
   var $type = $('#id-edit-series\\.type_id');
   var $orderingType = $('#id-edit-series\\.ordering_type_id');
+  const $type_options = $('#id-edit-series\\.type_id > option');
 
-  // Type can be disabled, but is a required field, so use a hidden input.
-  var $hiddenType = $('<input>')
-    .attr({type: 'hidden', name: $type[0].name})
-    .val($type.val())
-    .insertAfter($type.removeAttr('name'));
+  function updateAllowedTypes(seriesHasItems) {
+    $type_options.each(function () {
+      const type = MB.seriesTypesByID[this.value];
+      if (seriesHasItems &&
+          type.item_entity_type !== series.type().item_entity_type) {
+        this.setAttribute('disabled', 'disabled');
+      } else {
+        this.removeAttribute('disabled');
+      }
+    });
+  }
 
   var series = MB.entityCache[MB.sourceEntityGID];
   series.typeID($type.val());
-
-  series.typeID.subscribe(function (typeID) {
-    $hiddenType.val(typeID);
-  });
 
   series.orderingTypeID($orderingType.val());
 
@@ -47,10 +50,13 @@ $(function () {
     return series.getSeriesItems(MB.sourceRelationshipEditor).length > 0;
   });
 
+  updateAllowedTypes(seriesHasItems());
+
+  seriesHasItems.subscribe((hasItems) => updateAllowedTypes(hasItems));
+
   ko.applyBindingsToNode($type[0], {
     value: series.typeID,
     controlsBubble: series.typeBubble,
-    disable: seriesHasItems,
   }, series);
 
   ko.applyBindingsToNode($orderingType[0], {
