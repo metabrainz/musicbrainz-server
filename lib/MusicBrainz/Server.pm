@@ -741,6 +741,7 @@ sub TO_JSON {
 
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
+        can_delete
         collaborative_collections
         commons_image
         containment

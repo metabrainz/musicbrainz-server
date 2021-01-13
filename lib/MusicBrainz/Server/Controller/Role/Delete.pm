@@ -25,7 +25,7 @@ role {
         ($params->create_edit_type ? (create_edit_type => $params->create_edit_type) : ())
     );
 
-    after 'show' => sub {
+    after 'load' => sub {
         my ($self, $c) = @_;
         my $entity_name = $self->{entity_name};
         my $entity = $c->stash->{ $entity_name };

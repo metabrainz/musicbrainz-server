@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 
 type Props = {
@@ -21,12 +22,19 @@ type Props = {
     | ReleaseT,
 };
 
-const RemoveLink = ({entity}: Props): React.Element<'li'> => (
-  <li>
-    <a href={entityHref(entity, 'delete')}>
-      {l('Remove')}
-    </a>
-  </li>
-);
+const RemoveLink = ({entity}: Props): React.Element<'li'> | null => {
+  const $c = React.useContext(CatalystContext);
+  if (!$c.stash.can_delete /*:: === true */) {
+    return null;
+  }
+
+  return (
+    <li>
+      <a href={entityHref(entity, 'delete')}>
+        {l('Remove')}
+      </a>
+    </li>
+  );
+};
 
 export default RemoveLink;
