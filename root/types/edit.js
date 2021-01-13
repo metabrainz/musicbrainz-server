@@ -39,6 +39,7 @@ declare type EditT = {
   +created_time: string,
   +data: {+[dataProp: string]: any, ...},
   +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
+  +edit_notes: $ReadOnlyArray<EditNoteT>,
   +edit_type: number,
   +editor_id: number,
   +expires_time: string,
@@ -50,4 +51,12 @@ declare type EditT = {
   +quality: QualityT,
   +status: EditStatusT,
   +votes: $ReadOnlyArray<VoteT>,
+};
+
+// MusicBrainz::Server::Entity::EditNote::TO_JSON
+declare type EditNoteT = {
+  +editor: EditorT,
+  +editor_id: number,
+  +formatted_text: string,
+  +post_time: string,
 };

@@ -7,9 +7,12 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
+use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Filters qw( format_editnote );
 use MusicBrainz::Server::Types qw( DateTime );
+
+extends 'MusicBrainz::Server::Entity';
 
 has 'editor_id' => (
     isa => 'Int',
@@ -116,6 +119,18 @@ sub localize {
 
     return $text;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{editor_id} = $self->editor_id + 0;
+    $json->{editor} = $self->editor->TO_JSON;
+    $json->{post_time} = datetime_to_iso8601($self->post_time);
+    $json->{formatted_text} = $self->editor_id == 4 ? $self->localize : format_editnote($self->text);
+
+    return $json;
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

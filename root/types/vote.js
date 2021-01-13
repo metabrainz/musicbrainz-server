@@ -21,4 +21,5 @@ declare type VoteT = {
   +editor_id: number,
   +superseded: boolean,
   +vote: VoteOptionT,
+  +vote_name: 'Abstain' | 'Approve' | 'No' | 'Yes',
 };
