@@ -13,6 +13,12 @@
 function sanitizedEditor(
   editor /*: UnsanitizedEditorT | EditorT */,
 ) /*: EditorT */ {
+  /*
+   * If you return more data here, please
+   *  - ensure it doesn't constitute private/non-public info
+   *  - add new keys to `sanitizedEditorProps` in
+   *    root/utility/hydrate.js
+   */
   return {
     deleted: editor.deleted,
     entityType: 'editor',

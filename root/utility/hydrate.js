@@ -36,7 +36,12 @@ type PropsDataT =
  */
 let checkForUnsanitizedEditorData;
 if (__DEV__) {
+  /*
+   * Please keep these keys in sync with what's returned by
+   * root/utility/sanitizedEditor.js.
+   */
   const sanitizedEditorProps = new Set([
+    'deleted',
     'entityType',
     'gravatar',
     'id',
