@@ -13,6 +13,7 @@ use MusicBrainz::Server::PagedReport;
     AnnotationsReleaseGroups
     AnnotationsSeries
     AnnotationsWorks
+    ArtistCreditsWithDubiousTrailingPhrases
     ArtistsContainingDisambiguationComments
     ArtistsDisambiguationSameName
     ArtistsWithMultipleOccurrencesInArtistCredits
@@ -100,6 +101,7 @@ use MusicBrainz::Server::PagedReport;
 
 use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use MusicBrainz::Server::Report::AnnotationReports;
+use MusicBrainz::Server::Report::ArtistCreditsWithDubiousTrailingPhrases;
 use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
 use MusicBrainz::Server::Report::ArtistsDisambiguationSameName;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;

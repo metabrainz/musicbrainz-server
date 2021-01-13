@@ -113,6 +113,15 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
         />
       </ul>
 
+      <h2>{l('Artist credits')}</h2>
+
+      <ul>
+        <ReportsIndexEntry
+          content={l('Artist credits with dubious trailing join phrases')}
+          reportName="ArtistCreditsWithDubiousTrailingPhrases"
+        />
+      </ul>
+
       {isAccountAdmin($c.user) ? (
         <>
           <h2>{l('Editors')}</h2>
