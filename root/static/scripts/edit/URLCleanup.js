@@ -2507,6 +2507,28 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.otherdatabases,
   },
+  'overture': {
+    match: [new RegExp('^(https?://)?overture\\.doremus\\.org/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?overture\.doremus\.org\/$/, 'https://overture.doremus.org/');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/overture\.doremus\.org\/(artist|expression|performance)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'artist'};
+          case LINK_TYPES.otherdatabases.event:
+            return {result: prefix === 'performance'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'expression'};
+        }
+      }
+      return {result: false};
+    },
+  },
   'ozonru': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/',

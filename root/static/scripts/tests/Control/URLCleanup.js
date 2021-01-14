@@ -2836,6 +2836,35 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
   },
+  // Overture by Doremus
+  {
+                     input_url: 'https://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://overture.doremus.org/performance/aff5ec26-2ba6-3ba5-a535-3eb3e9214987',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://overture.doremus.org/performance/aff5ec26-2ba6-3ba5-a535-3eb3e9214987',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://overture.doremus.org/performance?place=Westminster%20Cathedral',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://overture.doremus.org/performance?place=Westminster%20Cathedral',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://overture.doremus.org/expression/3913d018-4c9d-3372-89db-b6dcf1285fa3',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://overture.doremus.org/expression/3913d018-4c9d-3372-89db-b6dcf1285fa3',
+       only_valid_entity_types: ['work'],
+  },
   // Patreon
   {
                      input_url: 'https://patreon.com/example#reactTargetCreatorPage',
