@@ -11,16 +11,21 @@ import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import entityHref from '../../static/scripts/common/utility/entityHref';
+import {
+  isEditingEnabled,
+  isLocationEditor,
+  isRelationshipEditor,
+} from '../../static/scripts/common/utility/privileges';
 
 import AliasTable from './AliasTable';
 
 function canEdit($c: CatalystContextT, entityType: string) {
-  if ($c.user && !$c.user.is_editing_disabled) {
+  if (isEditingEnabled($c.user)) {
     switch (entityType) {
       case 'area':
-        return $c.user.is_location_editor;
+        return isLocationEditor($c.user);
       case 'instrument':
-        return $c.user.is_relationship_editor;
+        return isRelationshipEditor($c.user);
       default:
         return true;
     }

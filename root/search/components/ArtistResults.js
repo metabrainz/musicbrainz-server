@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import ArtistListEntry
   from '../../static/scripts/common/components/ArtistListEntry';
+import {isEditingEnabled}
+  from '../../static/scripts/common/utility/privileges';
 import type {
   InlineResultsPropsWithContextT,
   ResultsPropsWithContextT,
@@ -80,7 +82,7 @@ React.Element<typeof ResultsLayout> => (
       query={query}
       results={results}
     />
-    {$c.user && !$c.user.is_editing_disabled ? (
+    {isEditingEnabled($c.user) ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new artist}.', {
           uri: '/artist/create?edit-artist.name=' + encodeURIComponent(query),

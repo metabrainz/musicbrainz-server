@@ -433,22 +433,13 @@ declare type UnsanitizedEditorT = $ReadOnly<{
   +gravatar: string,
   +has_confirmed_email_address: boolean,
   +has_email_address: boolean,
-  +is_account_admin: boolean,
-  +is_adding_notes_disabled: boolean,
-  +is_admin: boolean,
-  +is_auto_editor: boolean,
-  +is_banner_editor: boolean,
-  +is_bot: boolean,
   +is_charter: boolean,
-  +is_editing_disabled: boolean,
   +is_limited: boolean,
-  +is_location_editor: boolean,
-  +is_relationship_editor: boolean,
-  +is_wiki_transcluder: boolean,
   +languages: $ReadOnlyArray<EditorLanguageT> | null,
   +last_login_date: string | null,
   +name: string,
   +preferences: UnsanitizedEditorPreferencesT,
+  +privileges: number,
   +registration_date: string,
   +website: string | null,
 }>;
@@ -1026,6 +1017,7 @@ declare type ActiveEditorT = {
   +has_confirmed_email_address: boolean,
   +name: string,
   +preferences: ActiveEditorPreferencesT,
+  +privileges: number,
 };
 
 declare type EditorT = {
@@ -1033,6 +1025,7 @@ declare type EditorT = {
   +deleted: boolean,
   +gravatar: string,
   +name: string,
+  +privileges: number,
 };
 
 declare type ScriptT = {

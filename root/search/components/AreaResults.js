@@ -15,6 +15,8 @@ import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import primaryAreaCode
   from '../../static/scripts/common/utility/primaryAreaCode';
+import {isLocationEditor}
+  from '../../static/scripts/common/utility/privileges';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsWithContextT} from '../types';
 
@@ -67,7 +69,7 @@ React.Element<typeof ResultsLayout> => (
       query={query}
       results={results}
     />
-    {$c.user?.is_location_editor ? (
+    {isLocationEditor($c.user) ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new area}.', {
           uri: '/area/create?edit-area.name=' + encodeURIComponent(query),

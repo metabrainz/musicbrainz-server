@@ -12,6 +12,8 @@ import * as React from 'react';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
+import {isEditingEnabled}
+  from '../../static/scripts/common/utility/privileges';
 import formatLabelCode from '../../utility/formatLabelCode';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsWithContextT} from '../types';
@@ -71,7 +73,7 @@ React.Element<typeof ResultsLayout> => (
       query={query}
       results={results}
     />
-    {$c.user && !$c.user.is_editing_disabled ? (
+    {isEditingEnabled($c.user) ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new label}.', {
           uri: '/label/create?edit-label.name=' + encodeURIComponent(query),

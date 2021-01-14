@@ -23,6 +23,7 @@ function activeSanitizedEditor(
       datetime_format: editor.preferences.datetime_format,
       timezone: editor.preferences.timezone,
     },
+    privileges: editor.privileges,
   };
 }
 

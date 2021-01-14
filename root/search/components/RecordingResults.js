@@ -13,6 +13,8 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
+import {isEditingEnabled}
+  from '../../static/scripts/common/utility/privileges';
 import loopParity from '../../utility/loopParity';
 import type {
   InlineResultsPropsWithContextT,
@@ -156,7 +158,7 @@ React.Element<typeof ResultsLayout> => {
         query={query}
         results={results}
       />
-      {$c.user && !$c.user.is_editing_disabled ? (
+      {isEditingEnabled($c.user) ? (
         <p>
           {exp.l('Alternatively, you may {uri|add a new recording}.', {
             uri: '/recording/create?edit-recording.name=' +

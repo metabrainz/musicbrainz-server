@@ -7,6 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  isAutoEditor,
+  isBot,
+} from '../static/scripts/common/utility/privileges';
+
 export function isInvolved(
   election: AutoEditorElectionT,
   user: ?UnsanitizedEditorT,
@@ -31,16 +36,16 @@ export function canVote(
   election: AutoEditorElectionT,
   user: ?UnsanitizedEditorT,
 ): boolean {
-  return (!!user && election.is_open && user.is_auto_editor &&
-    !user.is_bot && !isInvolved(election, user));
+  return (!!user && election.is_open && isAutoEditor(user) &&
+    !isBot(user) && !isInvolved(election, user));
 }
 
 export function canSecond(
   election: AutoEditorElectionT,
   user: ?UnsanitizedEditorT,
 ): boolean {
-  return (!!user && election.is_pending && user.is_auto_editor &&
-    !user.is_bot && !isInvolved(election, user));
+  return (!!user && election.is_pending && isAutoEditor(user) &&
+    !isBot(user) && !isInvolved(election, user));
 }
 
 export function canCancel(
@@ -54,6 +59,6 @@ export function canNominate(
   nominator: ?UnsanitizedEditorT,
   nominee: ?UnsanitizedEditorT,
 ): boolean {
-  return (!!nominator && !!nominee && nominator.is_auto_editor &&
-    !nominee.is_auto_editor && !nominee.deleted);
+  return (!!nominator && !!nominee && isAutoEditor(nominator) &&
+    !isAutoEditor(nominee) && !nominee.deleted);
 }
