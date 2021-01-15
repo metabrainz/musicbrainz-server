@@ -36,7 +36,7 @@ function buildResult($c, result, index) {
   return (
     <tr className={loopParity(index)} data-score={score} key={release.id}>
       <td>
-        <EntityLink entity={release} />
+        <EntityLink entity={release} showCaaPresence />
       </td>
       <td>
         <ArtistCreditLink artistCredit={release.artistCredit} />
