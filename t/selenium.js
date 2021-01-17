@@ -149,7 +149,7 @@ const driver = (x => {
       options.addArguments(
         'disable-dev-shm-usage',
         'no-sandbox',
-        'proxy-server=http://localhost:5050',
+        'proxy-server=http://localhost:5051',
       );
       x.setChromeOptions(options);
       break;
@@ -166,7 +166,7 @@ const driver = (x => {
       throw new Error('Unsupported browser: ' + argv.browser);
   }
 
-  x.setProxy(webdriverProxy.manual({http: 'localhost:5050'}));
+  x.setProxy(webdriverProxy.manual({http: 'localhost:5051'}));
 
   if (argv.headless) {
     options.headless();
@@ -638,7 +638,7 @@ async function runCommands(commands, t) {
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
     : seleniumTests;
 
-  customProxyServer.listen(5050);
+  customProxyServer.listen(5051);
 
   await testsToRun.reduce(function (accum, stest, index) {
     const {commands, plan, title} = getPlan(stest.path);
