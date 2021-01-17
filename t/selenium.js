@@ -578,57 +578,7 @@ async function runCommands(commands, t) {
 (async function runTests() {
   const TEST_TIMEOUT = 200000; // 200 seconds
 
-  const cartonPrefix = process.env.PERL_CARTON_PATH
-    ? 'carton exec -- '
-    : '';
-
-  function pgPasswordEnv(db) {
-    if (db.password) {
-      return {env: Object.assign({}, process.env, {PGPASSWORD: db.password})};
-    }
-    return {};
-  }
-
-  async function getDbConfig(name) {
-    const result = (await execFile(
-      'sh', [
-        '-c',
-        `$(${cartonPrefix}./script/database_configuration ${name}) && ` +
-        'echo "$PGHOST\n$PGPORT\n$PGDATABASE\n$PGUSER\n$PGPASSWORD"',
-      ],
-    )).stdout.split('\n').map(x => x.trim());
-
-    return {
-      host: result[0],
-      port: result[1],
-      database: result[2],
-      user: result[3],
-      password: result[4],
-    };
-  }
-
-  const seleniumDb = await getDbConfig('SELENIUM');
-  const systemDb = await getDbConfig('SYSTEM');
-  const hostPort = ['-h', seleniumDb.host, '-p', seleniumDb.port];
-
   async function cleanSeleniumDb(extraSql) {
-    // Close active sessions before dropping the database.
-    await execFile(
-      'psql',
-      [
-        ...hostPort,
-        '-U',
-        systemDb.user,
-        '-c',
-        `
-          SELECT pg_terminate_backend(pg_stat_activity.pid)
-            FROM pg_stat_activity
-           WHERE datname = '${seleniumDb.database.replace(/'/g, "''")}'
-        `,
-        'template1',
-      ],
-      pgPasswordEnv(systemDb),
-    );
     await execFile(
       path.resolve(__dirname, '../script/reset_selenium_env.sh'),
       extraSql ? [path.resolve(__dirname, 'sql', extraSql)] : [],
