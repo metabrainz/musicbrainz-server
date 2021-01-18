@@ -926,6 +926,13 @@ sub external_search
             $self->c->model('Area')->load_containment(@entities);
         }
 
+        if ($type eq 'release-group')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('ReleaseGroup')->load_ids(@entities);
+            $self->c->model('Artwork')->load_for_release_groups(@entities);
+        }
+
         my $pager = Data::Page->new;
         $pager->current_page($page);
         $pager->entries_per_page($limit);

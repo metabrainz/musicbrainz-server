@@ -193,7 +193,7 @@ has [qw( cover_art_url info_url amazon_asin amazon_store )] => (
 has 'cover_art' => (
     isa       => 'MusicBrainz::Server::CoverArt',
     is        => 'rw',
-    predicate => 'has_cover_art',
+    predicate => 'has_loaded_cover_art',
 );
 
 has 'cover_art_presence' => (

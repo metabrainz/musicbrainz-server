@@ -130,6 +130,7 @@ sub direct : Private
         }
         when ('release_group') {
             $c->model('ReleaseGroupType')->load(@entities);
+            $c->model('ReleaseGroup')->load_has_cover_art(@entities);
         }
         when ('release') {
             $c->model('Language')->load(@entities);
