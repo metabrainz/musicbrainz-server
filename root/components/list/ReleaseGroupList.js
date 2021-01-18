@@ -86,6 +86,7 @@ export const ReleaseGroupListTable = ({
       const nameColumn = defineNameColumn<ReleaseGroupT>({
         descriptive: false, // since ACs are in the next column
         order: order,
+        showCaaPresence: true,
         sortable: sortable,
         title: l('Title'),
       });

@@ -229,6 +229,8 @@ sub show : PathPart('') Chained('load')
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
     }
 
+    $c->model('Artwork')->load_for_release_groups(@$release_groups);
+
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ArtistType')->load(map { map { $_->artist } $_->artist_credit->all_names} @$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);

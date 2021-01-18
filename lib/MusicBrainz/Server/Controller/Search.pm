@@ -121,6 +121,7 @@ sub direct : Private
         }
         when ('release_group') {
             $c->model('ReleaseGroupType')->load(@entities);
+            $c->model('Artwork')->load_for_release_groups(@entities);
         }
         when ('release') {
             $c->model('Language')->load(@entities);
