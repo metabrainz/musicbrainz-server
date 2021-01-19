@@ -68,10 +68,13 @@ function compareEditDataValues(actualValue, expectedValue) {
    * Handle cases where Perl's JSON module serializes numbers in the
    * edit data as strings (something we can't fix easily).
    */
-  if (typeof actualValue === 'string' &&
-      typeof expectedValue === 'number' &&
-      actualValue === String(expectedValue)) {
-    return true;
+  if (
+    (typeof actualValue === 'string' ||
+      typeof actualValue === 'number') &&
+    (typeof expectedValue === 'string' ||
+      typeof expectedValue === 'number')
+  ) {
+    return String(actualValue) === String(expectedValue);
   }
   // Tells `deepEqual` to perform its default comparison.
   return null;
