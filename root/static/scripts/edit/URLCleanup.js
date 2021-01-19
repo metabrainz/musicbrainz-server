@@ -2647,6 +2647,7 @@ const CLEANUPS = {
   'residentadvisor': {
     match: [
       new RegExp('^(https?://)?(www\\.)?ra\\.co/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/', 'i'),
     ],
     type: {...LINK_TYPES.otherdatabases, ...LINK_TYPES.review},
     clean: function (url) {
@@ -2655,6 +2656,23 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
+      if (/^https?:\/\/(www\.)?residentadvisor\.net\//.test(url)) {
+        return {
+          error: exp.l(
+            `This is a link to the old Resident Advisor domain. Please
+             follow {ra_url|your link}, make sure the link it redirects
+             to is still the correct one and, if so, add that link instead.`,
+            {
+              ra_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+        };
+      }
       const m = /^https:\/\/ra\.co\/([^\/]+)/.exec(url);
       if (m) {
         const prefix = m[1];
