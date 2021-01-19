@@ -193,6 +193,7 @@ my %mime_types = (
     jpg => 'image/jpeg',
     pdf => 'application/pdf',
     png => 'image/png',
+    json => 'application/json',
 );
 
 sub handle_get {
@@ -216,11 +217,11 @@ sub handle_get {
     my $filename = catfile($ssssss_storage, $path_info);
 
     if (-f $filename) {
-        my ($ext) = $filename =~ m/\.($imgext)$/;
-        my $image_data = read_file($filename, {binmode => ':raw'});
+        my ($ext) = $filename =~ m/\.($imgext|json)$/;
+        my $data = read_file($filename, {binmode => ':raw'});
         my $response = $request->new_response(200);
         $response->content_type($mime_types{$ext});
-        $response->body($image_data);
+        $response->body($data);
         return $response;
     }
 
