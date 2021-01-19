@@ -553,8 +553,11 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           content={l('URLs with deprecated relationships')}
           reportName="DeprecatedRelationshipURLs"
         />
+        <ReportsIndexEntry
+          content={l('Wikidata URLs linked to multiple entities')}
+          reportName="WikidataLinksWithMultipleEntities"
+        />
       </ul>
-
 
       <h2>{l('ISRCs')}</h2>
 
