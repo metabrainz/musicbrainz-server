@@ -16,6 +16,18 @@ import DBDefs from '../DBDefs-client';
 
 import Collapsible from './Collapsible';
 
+export type CritiqueBrainzUserT = {
+  +id: string,
+  +name: string,
+};
+
+export type CritiqueBrainzReviewT = {
+  +author: CritiqueBrainzUserT,
+  +body: string,
+  +created: string,
+  +id: string,
+};
+
 type Props = {
   +review: CritiqueBrainzReviewT,
   +title: string,

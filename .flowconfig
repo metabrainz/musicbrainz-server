@@ -11,7 +11,7 @@
 [include]
 
 [libs]
-./root/types.js
+./root/types
 ./root/vars.js
 
 [lints]

@@ -40,7 +40,18 @@ function tryLoadDomain(domain) {
   }
 }
 
-export function dgettext(domain: GettextDomain): ((string) => string) {
+type GettextDomainT =
+  | 'attributes'
+  | 'countries'
+  | 'instrument_descriptions'
+  | 'instruments'
+  | 'languages'
+  | 'mb_server'
+  | 'relationships'
+  | 'scripts'
+  | 'statistics';
+
+export function dgettext(domain: GettextDomainT): ((string) => string) {
   return function (key: string) {
     tryLoadDomain(domain);
     key = cleanMsgid(key);
@@ -49,7 +60,7 @@ export function dgettext(domain: GettextDomain): ((string) => string) {
 }
 
 export function dngettext(
-  domain: GettextDomain,
+  domain: GettextDomainT,
 ): ((string, string, number) => string) {
   return function (skey: string, pkey: string, val: number) {
     tryLoadDomain(domain);
@@ -60,7 +71,7 @@ export function dngettext(
 }
 
 export function dpgettext(
-  domain: GettextDomain,
+  domain: GettextDomainT,
 ): ((string, string) => string) {
   return function (key: string, context: string) {
     tryLoadDomain(domain);
