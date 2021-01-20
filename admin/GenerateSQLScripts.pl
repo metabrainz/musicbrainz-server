@@ -4,6 +4,71 @@ use utf8;
 use warnings;
 use strict;
 
+use Getopt::Long qw( GetOptions );
+use Pod::Usage qw( pod2usage );
+
+################################################################################
+
+=head1 NAME
+
+GenerateSQLScripts.pl - Generate SQL DROP scripts for each script in DIRECTORY
+
+=head1 SYNOPSIS
+
+GenerateSQLScripts.pl [options] [--] [DIRECTORY]
+
+Generate a corresponding SQL DROP script for each SQL CREATE script in DIRECTORY
+(admin/sql/ by default).
+
+Options:
+
+    -c, --create-scripts FILE...        specify a list of FILEs to be parsed
+                                        (default: all possible Create...sql)
+
+    -h, --help                          show this help
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2012 Aurélien Mino
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
+
+################################################################################
+
+my @create_scripts;
+my $help_flag;
+
+GetOptions(
+    "create-scripts|c=s{1,}"    => \@create_scripts,
+    "help|h"                    => \$help_flag,
+);
+
+pod2usage() if $help_flag;
+
+my $extra_arguments_count = $#ARGV + 1;
+
+pod2usage(
+    -exitval => 64, # EX_USAGE
+    -message => "$0: too many arguments",
+) if $extra_arguments_count > 1;
+
+@create_scripts = qw(
+    CreateFunctions.sql
+    CreateIndexes.sql
+    CreateSearchIndexes.sql
+    CreateTables.sql
+    CreateTriggers.sql
+    CreateViews.sql
+) if scalar @create_scripts == 0;
+
+################################################################################
+
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -15,6 +80,10 @@ sub find_search_path
 {
     my $search_path = '';
     my $infile = "CreateTables.sql";
+    unless (grep { $_ eq $infile } @create_scripts) {
+        print "Use empty search_path by default\n";
+        return $search_path;
+    }
     unless (-e "$dir/$infile") {
         print "Could not find $infile, search_path might not be correct\n";
         return $search_path;
@@ -35,6 +104,9 @@ my $search_path = find_search_path();
 sub process_tables
 {
     my $infile = "CreateTables.sql";
+    unless (grep { $_ eq $infile } @create_scripts) {
+        return;
+    }
     unless (-e "$dir/$infile") {
         print "Could not find $infile, skipping\n";
         return;
@@ -103,6 +175,8 @@ sub process_tables
     }
     close $drop_fh;
     close $trunc_fh;
+    print "Generated DropTables.sql\n";
+    print "Generated TruncateTables.sql\n";
 
     if (-e "$dir/CreateViews.sql") {
         open FILE, "<$dir/CreateViews.sql";
@@ -124,8 +198,11 @@ sub process_tables
             print OUT "DROP VIEW $view;\n";
         }
         close OUT;
+        print "Generated DropViews.sql\n";
     } else {
-        print "Could not find CreateViews.sql, skipping\n";
+        unless (grep { $_ eq 'CreateViews.sql' } @create_scripts) {
+            print "Could not find CreateViews.sql, skipping\n"
+        };
     }
 
     if (@sequences) {
@@ -138,6 +215,7 @@ sub process_tables
             print OUT "SELECT setval('${table}_${col}_seq', COALESCE((SELECT MAX(${col}) FROM $table), 0) + 1, FALSE);\n";
         }
         close OUT;
+        print "Generated DropViews.sql\n";
     }
 
     if (keys %foreign_keys) {
@@ -167,6 +245,7 @@ sub process_tables
             }
         }
         close OUT;
+        print "Generated CreateFKConstraints.sql\n";
 
         open OUT, ">$dir/DropFKConstraints.sql";
         print OUT "-- Automatically generated, do not edit.\n";
@@ -181,6 +260,7 @@ sub process_tables
             }
         }
         close OUT;
+        print "Generated DropFKConstraints.sql\n";
     } else {
         print "No foreign keys, skipping\n";
     }
@@ -199,6 +279,7 @@ sub process_tables
             print OUT "PRIMARY KEY ($cols);\n";
         }
         close OUT;
+        print "Generated CreatePrimaryKeys.sql\n";
 
         open OUT, ">$dir/DropPrimaryKeys.sql";
         print OUT "-- Automatically generated, do not edit.\n";
@@ -209,6 +290,7 @@ sub process_tables
             print OUT "ALTER TABLE $table DROP CONSTRAINT IF EXISTS ${table}_pkey;\n";
         }
         close OUT;
+        print "Generated DropPrimaryKeys.sql\n";
     } else {
         print "No primary keys, skipping\n";
     }
@@ -229,6 +311,7 @@ sub process_tables
         }
         print OUT "COMMIT;\n";
         close OUT;
+        print "Generated CreateReplicationTriggers.sql\n";
     }
 }
 
@@ -262,10 +345,15 @@ sub process_indexes
         print OUT "DROP INDEX $index;\n";
     }
     close OUT;
+    print "Generated $outfile\n";
 }
 
-process_indexes("CreateIndexes.sql", "DropIndexes.sql");
-process_indexes("CreateSearchIndexes.sql", "DropSearchIndexes.sql");
+if (grep { $_ eq 'CreateIndexes.sql' } @create_scripts) {
+    process_indexes("CreateIndexes.sql", "DropIndexes.sql");
+}
+if (grep { $_ eq 'CreateSearchIndexes.sql' } @create_scripts) {
+    process_indexes("CreateSearchIndexes.sql", "DropSearchIndexes.sql");
+}
 
 sub process_functions
 {
@@ -305,9 +393,12 @@ sub process_functions
         print OUT "DROP AGGREGATE $name ($type);\n";
     }
     close OUT;
+    print "Generated $outfile\n";
 }
 
-process_functions("CreateFunctions.sql", "DropFunctions.sql");
+if (grep { $_ eq 'CreateFunctions.sql' } @create_scripts) {
+    process_functions("CreateFunctions.sql", "DropFunctions.sql");
+}
 
 sub process_triggers
 {
@@ -335,28 +426,12 @@ sub process_triggers
         print OUT "DROP TRIGGER $trigger->[0] ON $trigger->[1];\n";
     }
     close OUT;
+    print "Generated $outfile\n";
 }
 
-process_triggers("CreateTriggers.sql", "DropTriggers.sql");
-process_triggers("CreateReplicationTriggers.sql", "DropReplicationTriggers.sql");
-
-=head1 COPYRIGHT
-
-Copyright (C) 2009 Lukas Lalinsky
-Copyright (C) 2012 Aurélien Mino
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-=cut
+if (grep { $_ eq 'CreateTriggers.sql' } @create_scripts) {
+    process_triggers("CreateTriggers.sql", "DropTriggers.sql");
+}
+if (grep { $_ eq 'CreateTables.sql' } @create_scripts) {
+    process_triggers("CreateReplicationTriggers.sql", "DropReplicationTriggers.sql");
+}
