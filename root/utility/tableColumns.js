@@ -16,6 +16,7 @@ import InstrumentRelTypes from '../components/InstrumentRelTypes';
 import RatingStars from '../components/RatingStars';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import ReleaseLabelList from '../components/ReleaseLabelList';
+import ReleaseLanguageScript from '../components/ReleaseLanguageScript';
 import SortableTableHeader from '../components/SortableTableHeader';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import ArtistCreditLink
@@ -656,6 +657,13 @@ export const removeFromMergeColumn:
       'style': {width: '1em'},
     },
     id: 'remove-from-merge',
+  };
+
+export const releaseLanguageColumn:
+  ColumnOptions<ReleaseT, void> = {
+    Cell: ({row: {original}}) => <ReleaseLanguageScript release={original} />,
+    Header: N_l('Language'),
+    id: 'release_language',
   };
 
 export const seriesOrderingTypeColumn:
