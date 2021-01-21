@@ -2866,12 +2866,12 @@ const CLEANUPS = {
           case LINK_TYPES.songkick.artist:
             return {result: prefix === 'artists'};
           case LINK_TYPES.songkick.event:
-            return  {result: prefix === 'concerts' || prefix === 'festivals'};
+            return {result: prefix === 'concerts' || prefix === 'festivals'};
           case LINK_TYPES.songkick.place:
-            return  {result: prefix === 'venues'};
+            return {result: prefix === 'venues'};
         }
       }
-      return  {result: false};
+      return {result: false};
     },
   },
   'soundcloud': {
