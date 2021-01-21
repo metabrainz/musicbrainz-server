@@ -302,12 +302,6 @@ sub is_valid_partial_date
         return 0 if $year % 100 == 0 && $year % 400 != 0;
     }
 
-    if (defined $year && $month && $day) {
-        # XXX retain legacy behaviour for now:
-        # partial dates with year <= 0 are OK, but complete dates are not (don't ask)
-        return 0 unless $year > 0;
-    }
-
     return 1;
 }
 

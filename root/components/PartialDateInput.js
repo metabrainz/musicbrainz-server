@@ -22,10 +22,10 @@ const PartialDateInput = ({
       className="partial-date-year"
       defaultValue={field.field.year.value}
       id={'id-' + field.field.year.html_name}
-      maxLength={4}
+      maxLength={5}
       name={field.field.year.html_name}
       placeholder={l('YYYY')}
-      size={4}
+      size={5}
       type="text"
       {...inputProps}
     />

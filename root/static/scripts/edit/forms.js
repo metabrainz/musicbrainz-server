@@ -13,6 +13,7 @@ import {compare} from '../common/i18n';
 import MB from '../common/MB';
 import {last} from '../common/utility/arrays';
 import debounce from '../common/utility/debounce';
+import * as dates from '../edit/utility/dates';
 import {stripAttributes} from '../edit/utility/linkPhrase';
 
 const ELEMENT_NODE = window.Node.ELEMENT_NODE;
@@ -344,15 +345,14 @@ MB.initializeTooShortYearChecks = function (type) {
   function blockTooShortBeginYear() {
     const beginYear =
       $(`#id-edit-${type}\\\.period\\\.begin_date\\\.year`).val();
-    const allowed = (!beginYear || beginYear.trim().length === 4);
+    const allowed = dates.isYearFourDigits(beginYear);
     $('.submit').prop('disabled', !allowed);
     $('#too_short_begin_year').toggle(!allowed);
   }
 
   function blockTooShortEndYear() {
     const endYear = $(`#id-edit-${type}\\\.period\\\.end_date\\\.year`).val();
-    const allowed =
-      (endYear === null || endYear === '' || endYear.length === 4);
+    const allowed = dates.isYearFourDigits(endYear);
     $('.submit').prop('disabled', !allowed);
     $('#too_short_end_year').toggle(!allowed);
   }

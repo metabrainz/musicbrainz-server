@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::Field::DatePeriod;
 
 use HTML::FormHandler::Moose;
-use Date::Calc;
+use DateTime;
 use List::MoreUtils 'any';
 use MusicBrainz::Server::Translation qw( l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -46,10 +46,22 @@ after 'validate' => sub {
 sub is_date_range_valid {
     my ($a, $b) = @_;
 
-    my @a = ($a->{year}, $a->{month} || 1, $a->{day} || 1);
-    my @b = ($b->{year}, $b->{month} || 12, $b->{day} || Date::Calc::Days_in_Month($b->{year}, $b->{month} || 12));
+    my $start = DateTime->new(
+        year => $a->{year},
+        month => $a->{month} || 1,
+        day => $a->{day} || 1,
+    );
+    my $end = DateTime->new(
+        year => $b->{year},
+        month => $b->{month} || 12,
+        day => $b->{day} ||
+            DateTime->last_day_of_month(
+                year => $b->{year},
+                month => $b->{month} || 12,
+            )->day(),
+    );
 
-    return Date::Calc::Delta_Days(@a, @b) >= 0;
+    return DateTime->compare($end, $start) >= 0;
 }
 
 1;

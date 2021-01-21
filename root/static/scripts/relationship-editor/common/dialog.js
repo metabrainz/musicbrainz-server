@@ -217,8 +217,11 @@ class Dialog {
       const valid = dates.isYearFourDigits(date.year());
       return valid
         ? ''
-        : l(`The year should have four digits. If you want to enter a year
-             earlier than 1000 CE, please pad with zeros, such as “0123”.`);
+        : l(
+          `The year should have four digits (and optionally start with “-”).
+           If you want to enter a year between 1000 BCE and 1000 CE,
+           please pad with zeros, such as “0123” or “-0300”.`,
+        );
     }
 
     this.tooShortBeginYearError = debounceComputed(function () {
