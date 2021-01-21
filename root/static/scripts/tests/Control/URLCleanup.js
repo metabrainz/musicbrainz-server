@@ -3490,6 +3490,27 @@ const testData = [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://open.spotify.com/user/hitradio%C3%B63',
+             input_entity_type: 'label',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://open.spotify.com/user/hitradio%C3%B63',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://open.spotify.com/user/%21k7',
+             input_entity_type: 'label',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://open.spotify.com/user/%21k7',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://open.spotify.com/user/testspiel.de',
+             input_entity_type: 'label',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://open.spotify.com/user/testspiel.de',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
                      input_url: 'https://play.spotify.com/user/1254688529/playlist/0MRy5cv9ZktSjysDEIP72H',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
