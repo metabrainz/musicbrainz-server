@@ -96,7 +96,8 @@ releaseEditor.init = function (options) {
             : self.nextTab();
         }, 1);
       }
-    });
+    },
+  );
 
   var $pageContent = $('#release-editor').tabs({
 

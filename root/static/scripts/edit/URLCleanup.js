@@ -2150,7 +2150,7 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(
         /^(?:https?:\/\/)?(?:cdn|www\.)?music\.migu\.cn\/v3\/(live|(?:music|video)\/\w+)\/([^/?#]+).*$/,
-        'https://music.migu.cn/v3/$1/$2'
+        'https://music.migu.cn/v3/$1/$2',
       );
       url = url.replace(/\/digital_album\//, '/album/');
       return url;
@@ -2866,12 +2866,12 @@ const CLEANUPS = {
           case LINK_TYPES.songkick.artist:
             return {result: prefix === 'artists'};
           case LINK_TYPES.songkick.event:
-            return  {result: prefix === 'concerts' || prefix === 'festivals'};
+            return {result: prefix === 'concerts' || prefix === 'festivals'};
           case LINK_TYPES.songkick.place:
-            return  {result: prefix === 'venues'};
+            return {result: prefix === 'venues'};
         }
       }
-      return  {result: false};
+      return {result: false};
     },
   },
   'soundcloud': {

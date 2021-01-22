@@ -380,7 +380,7 @@ function matchAgainstRecordings(track, recordings) {
       const recordingWithoutETI = recording.name.replace(etiRegex, '');
       const nameSimilarity = Math.max(
         similarity(trackName, recording.name),
-        similarity(trackName, recordingWithoutETI)
+        similarity(trackName, recordingWithoutETI),
       );
       parts.push({score: nameSimilarity, weight: 1});
 

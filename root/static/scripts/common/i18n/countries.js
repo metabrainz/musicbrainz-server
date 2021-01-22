@@ -17,4 +17,3 @@ export const ln_countries: (string, string, number) => string =
 
 export const lp_countries: (string, string) => string =
   wrapGettext.dpgettext('countries');
-

@@ -83,7 +83,7 @@ const FooterSwitch = ({
                   {showVideosLink}
                 </>
               ) : null}
-            </>
+            </>,
           )}
         </>
       ) : videoOnly ? (
@@ -99,7 +99,7 @@ const FooterSwitch = ({
                   {showStandaloneLink}
                 </>
               ) : null}
-            </>
+            </>,
           )}
         </>
       ) : (
@@ -112,7 +112,7 @@ const FooterSwitch = ({
                 {showStandaloneLink}
                 {' / '}
                 {showVideosLink}
-              </>
+              </>,
             )
           ) : hasStandalone ? (
             bracketed(showStandaloneLink)

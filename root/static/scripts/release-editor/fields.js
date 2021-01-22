@@ -968,10 +968,10 @@ class Release extends mbEntity.Release {
         const isDuplicate = events.filter(nonEmptyEvent).length > 1;
         events.forEach(e => e.isDuplicate(isDuplicate));
       }
-    }); 
+    });
 
     this.earliestYear = ko.computed(function () {
-      return Math.min(...self.events().map(e => e.unwrapDate().year));  
+      return Math.min(...self.events().map(e => e.unwrapDate().year));
     });
 
     this.hasDuplicateCountries = errorField(this.events.any('isDuplicate'));
