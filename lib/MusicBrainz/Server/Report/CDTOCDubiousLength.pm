@@ -20,7 +20,7 @@ sub query {
             JOIN medium ON medium_cdtoc.medium = medium.id
             JOIN medium_format ON medium.format = medium_format.id
         WHERE
-            leadout_offset > 75 * 60 * 100 -- cutoff 100 minutes
+            leadout_offset > 75 * 60 * 88 -- cutoff 88 minutes
         ORDER BY
             medium_format.name,
             cdtoc.leadout_offset DESC
