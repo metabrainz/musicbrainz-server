@@ -555,6 +555,9 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{position};
 
     if ($self->data->{old}{tracklist}) {
+        # If there's no old tracklist, allow adding one as an autoedit 
+        return 1 if scalar @{ $self->data->{old}{tracklist} } == 0;
+
         my @changes =
             grep { $_->[0] ne 'u' }
             @{ sdiff(
