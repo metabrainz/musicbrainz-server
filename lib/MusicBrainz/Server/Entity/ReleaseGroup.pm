@@ -4,6 +4,7 @@ use Moose;
 
 use DBDefs;
 use List::AllUtils qw( any );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
@@ -126,6 +127,7 @@ around TO_JSON => sub {
         %{ $self->$orig },
         $self->has_cover_art ? (cover_art => $self->cover_art) : (),
         firstReleaseDate    => $self->first_release_date ? $self->first_release_date->format : undef,
+        hasCoverArt         => boolean_to_json($self->has_cover_art),
         # TODO: remove this once Autocomplete.js can use $c and releaseGroupType.js
         l_type_name         => $self->l_type_name,
         release_count       => $self->release_count,

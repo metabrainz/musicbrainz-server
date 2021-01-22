@@ -481,6 +481,29 @@ sub _hash_to_row
     return $row;
 }
 
+=method load_ids
+Load internal IDs for release group objects that only have GIDs.
+=cut
+
+sub load_ids
+{
+    my ($self, @rgs) = @_;
+
+    my @gids = map { $_->gid } @rgs;
+    return () unless @gids;
+
+    my $query = "
+        SELECT gid, id FROM release_group
+        WHERE gid IN (" . placeholders(@gids) . ")
+    ";
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $rg (@rgs) {
+        $rg->id($map{$rg->gid}) if exists $map{$rg->gid};
+    }
+}
+
 sub load_meta
 {
     my $self = shift;
