@@ -4050,6 +4050,27 @@ const testData = [
        input_relationship_type: 'wikidata',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.wikidata.org/wiki/Q42',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'discographyentry',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.wikidata.org/wiki/Q43',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'license',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.wikidata.org/wiki/Q44',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'shownotes',
+       only_valid_entity_types: [],
+  },
   // Wikimedia Commons
   {
                      input_url: 'https://commons.wikimedia.org/wiki/File:NIN2008.jpg',
@@ -4158,6 +4179,20 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: undefined,
        input_relationship_type: 'discographyentry',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://en.wikipedia.org/wiki/Another_Album',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'license',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://en.wikipedia.org/wiki/Yet_Another_Album',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'shownotes',
        only_valid_entity_types: [],
   },
   // Wikisource

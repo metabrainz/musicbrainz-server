@@ -179,6 +179,9 @@ export const LINK_TYPES = {
     place: '751e8fb1-ed8d-4a94-b71b-a38065054f5d',
     series: 'de143a8b-ea80-4b26-9246-f1ce498d4b01',
   },
+  shownotes: {
+    release: '2d24d075-9943-4c4d-a659-8ce52e6e6b57',
+  },
   socialnetwork: {
     artist: '99429741-f3f6-484b-84f8-23af51991770',
     event: '68f5fcaa-b58c-3bfe-9b7c-75c2b56e839a',
@@ -3513,8 +3516,8 @@ Object.values(LINK_TYPES).forEach(function (linkType) {
   });
 });
 
-// avoid Wikipedia being added as release-level discography entry
-const originalRule = validationRules[LINK_TYPES.discographyentry.release];
+// avoid Wikipedia/Wikidata being added as release-level discography entry
+const discographyRule = validationRules[LINK_TYPES.discographyentry.release];
 validationRules[LINK_TYPES.discographyentry.release] = function (url) {
   if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
     return {
@@ -3525,7 +3528,63 @@ validationRules[LINK_TYPES.discographyentry.release] = function (url) {
       result: false,
     };
   }
-  return originalRule(url);
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
+    return {
+      error: l(
+        `Wikidata is not a discography entry. Please add this Wikidata link
+         to the release group instead.`,
+      ),
+      result: false,
+    };
+  }
+  return discographyRule(url);
+};
+
+// avoid Wikipedia/Wikidata being added as release-level license entry
+const licenseRule = validationRules[LINK_TYPES.license.release];
+validationRules[LINK_TYPES.license.release] = function (url) {
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
+    return {
+      error: l(
+        `Wikipedia is not a license page. Please add this Wikipedia link
+         to the release group instead.`,
+      ),
+      result: false,
+    };
+  }
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
+    return {
+      error: l(
+        `Wikidata is not a license page. Please add this Wikidata link
+         to the release group instead.`,
+      ),
+      result: false,
+    };
+  }
+  return licenseRule(url);
+};
+
+// avoid Wikipedia/Wikidata being added as release-level show notes entry
+validationRules[LINK_TYPES.shownotes.release] = function (url) {
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
+    return {
+      error: l(
+        `Wikipedia is not a page of show notes. Please add this Wikipedia link
+         to the release group instead.`,
+      ),
+      result: false,
+    };
+  }
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
+    return {
+      error: l(
+        `Wikidata is not a page of show notes. Please add this Wikidata link
+         to the release group instead.`,
+      ),
+      result: false,
+    };
+  }
+  return {result: true};
 };
 
 export function guessType(sourceType, currentURL) {
