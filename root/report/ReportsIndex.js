@@ -584,6 +584,11 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
             {l('Disc IDs with dubious duration')}
           </a>
         </li>
+        <li>
+          <a href="/report/CDTOCNotApplied">
+            {l('Disc IDs attached but not applied')}
+          </a>
+        </li>
       </ul>
     </div>
   </Layout>
