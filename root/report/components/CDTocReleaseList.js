@@ -47,6 +47,7 @@ const CDTocReleaseList = ({
                   <>
                     <td>
                       <CDTocLink
+                        anchorPath={item.release.gid}
                         cdToc={item.cdtoc}
                         content={item.cdtoc.discid}
                       />
