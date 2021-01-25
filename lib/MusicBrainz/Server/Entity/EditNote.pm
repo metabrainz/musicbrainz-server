@@ -9,7 +9,6 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Filters qw( format_editnote );
-use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types qw( DateTime );
 
 has 'editor_id' => (
@@ -44,6 +43,17 @@ has 'post_time' => (
     coerce => 1
 );
 
+my %domain_classes = (
+    'attributes' => 'Attributes',
+    'countries' => 'Countries',
+    'instrument_descriptions' => 'InstrumentDescriptions',
+    'instruments' => 'Instruments',
+    'languages' => 'Languages',
+    'relationships' => 'Relationships',
+    'scripts' => 'Scripts',
+    'statistics' => 'Statistics',
+);
+
 sub _localize_text {
     my ($text, $depth) = @_;
 
@@ -52,13 +62,41 @@ sub _localize_text {
     if (my ($source) = ($text =~ m/^localize:(.+)$/)) {
         $source = $json->decode($source);
 
-        my $source_args = $source->{args} // {};
-        my %args = map {
-            my $value = $source_args->{$_};
-            $_ => (ref($value) ? $value : _localize_text($value // '', $depth + 1))
-        } keys %{$source_args};
+        my $version = $source->{version} // 0;
+        my $fn_package = 'MusicBrainz::Server::Translation';
+        my $fn_name = 'l';
+        my @args = ($source->{message} // '');
+        my $source_vars;
 
-        $text = l($source->{message} // '', \%args);
+        if ($version == 0) {
+            # old versions of `localized_note` passed substitution
+            # variables as `args`.
+            $source_vars = $source->{args};
+        } elsif ($version == 1) {
+            push @args, @{ $source->{args} // [] };
+
+            $fn_name = $source->{function} // 'l';
+            $source_vars = $source->{vars};
+
+            my $domain = $source->{domain};
+            if (defined $domain && $domain ne 'mb_server') {
+                $fn_package .= ('::' . $domain_classes{$domain});
+            }
+        }
+
+        if (defined $source_vars) {
+            my %vars = map {
+                my $value = $source_vars->{$_};
+                $_ => (ref($value) ? $value : _localize_text($value // '', $depth + 1))
+            } keys %{$source_vars};
+            push @args, \%vars;
+        }
+
+        my $fn_package_path = ($fn_package =~ s/::/\//gr) . '.pm';
+        require $fn_package_path;
+
+        my $function = \&{ "${fn_package}::${fn_name}" };
+        $text = $function->(@args);
     } elsif ($depth == 0) {
         # Otherwise, assume this message uses edit note syntax.
         $text = format_editnote($text);

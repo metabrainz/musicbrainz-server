@@ -282,8 +282,7 @@ sub accept {
                 'as an example of its relationship type in the documentation. ' .
                 'If you still think this should be removed, please ' .
                 '{contact_url|contact us}.'),
-            {contact_url => $CONTACT_URL},
-        
+            vars => {contact_url => $CONTACT_URL},
         );
         MusicBrainz::Server::Edit::Exceptions::GeneralError->throw($error);
     }
