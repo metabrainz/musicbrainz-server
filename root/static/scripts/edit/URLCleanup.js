@@ -790,6 +790,12 @@ const CLEANUPS = {
       return {result: /^https:\/\/www\.bbc\.co\.uk\/music\/artists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(url)};
     },
   },
+  'bbcreview': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?bbc\\.co\\.uk/music/reviews/', 'i'),
+    ],
+    type: LINK_TYPES.review,
+  },
   'beatport': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?beatport\\.com', 'i')],
     type: LINK_TYPES.downloadpurchase,
@@ -2477,10 +2483,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
-      new RegExp(
-        '^(https?://)?(www\\.)?residentadvisor\\.net/(?!review)',
-        'i',
-      ),
       new RegExp('^(https?://)?(www\\.)?vkdb\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?ci\\.nii\\.ac\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?iss\\.ndl\\.go\\.jp/', 'i'),
@@ -2667,6 +2669,56 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|artist|song)\/([a-zA-Z0-9]+)(\/)?.*$/, 'http://recochoku.jp/$1/$2/');
     },
   },
+  'residentadvisor': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?ra\\.co/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/', 'i'),
+    ],
+    type: {...LINK_TYPES.otherdatabases, ...LINK_TYPES.review},
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(www\.)?ra\.co\//, 'https://ra.co/');
+      url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|reviews|tracks)\/([^\/?#]+).*$/, 'https://ra.co/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/^https?:\/\/(www\.)?residentadvisor\.net\//.test(url)) {
+        return {
+          error: exp.l(
+            `This is a link to the old Resident Advisor domain. Please
+             follow {ra_url|your link}, make sure the link it redirects
+             to is still the correct one and, if so, add that link instead.`,
+            {
+              ra_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+        };
+      }
+      const m = /^https:\/\/ra\.co\/([^\/]+)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'dj'};
+          case LINK_TYPES.otherdatabases.event:
+            return {result: prefix === 'events'};
+          case LINK_TYPES.otherdatabases.label:
+            return {result: prefix === 'labels'};
+          case LINK_TYPES.otherdatabases.place:
+            return {result: prefix === 'clubs'};
+          case LINK_TYPES.otherdatabases.recording:
+            return {result: prefix === 'tracks'};
+          case LINK_TYPES.review.release_group:
+            return {result: prefix === 'reviews'};
+        }
+      }
+      return {result: false};
+    },
+  },
   'reverbnation': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?reverbnation\\.com/', 'i')],
     type: LINK_TYPES.socialnetwork,
@@ -2682,13 +2734,6 @@ const CLEANUPS = {
       url = url.replace(/[?&]$/, '');
       return url;
     },
-  },
-  'review': {
-    match: [
-      new RegExp('^(https?://)?(www\\.)?bbc\\.co\\.uk/music/reviews/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/review', 'i'),
-    ],
-    type: LINK_TYPES.review,
   },
   'rockcomar': {
     match: [new RegExp('^(https?://)?(www\\.)?rock\\.com\\.ar', 'i')],
