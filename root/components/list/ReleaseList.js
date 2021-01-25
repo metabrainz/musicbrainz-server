@@ -24,6 +24,7 @@ import {
   defineSeriesNumberColumn,
   defineTextColumn,
   ratingsColumn,
+  releaseLanguageColumn,
   taggerColumn,
 } from '../../utility/tableColumns';
 
@@ -36,7 +37,10 @@ type Props = {
   +order?: string,
   +releases: $ReadOnlyArray<ReleaseT>,
   +showInstrumentCreditsAndRelTypes?: boolean,
+  +showLanguages?: boolean,
   +showRatings?: boolean,
+  +showStatus?: boolean,
+  +showType?: boolean,
   +sortable?: boolean,
 };
 
@@ -49,7 +53,10 @@ const ReleaseList = ({
   releases,
   seriesItemNumbers,
   showInstrumentCreditsAndRelTypes = false,
+  showLanguages = false,
   showRatings = false,
+  showStatus = false,
+  showType = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
@@ -124,6 +131,22 @@ const ReleaseList = ({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
         })
         : null;
+      const typeColumn = showType
+        ? defineTextColumn<ReleaseT>({
+          columnName: 'primary-type',
+          getText: entity => entity.releaseGroup?.l_type_name || '',
+          title: l('Type'),
+        })
+        : null;
+      const statusColumn = showStatus
+        ? defineTextColumn<ReleaseT>({
+          columnName: 'status',
+          getText: entity => entity.status
+            ? lp_attributes(entity.status.name, 'release_status')
+            : '',
+          title: l('Status'),
+        })
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -136,13 +159,16 @@ const ReleaseList = ({
         ...(labelsColumn ? [labelsColumn] : []),
         catnosColumn,
         barcodeColumn,
+        ...(showLanguages ? [releaseLanguageColumn] : []),
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
+        ...(typeColumn ? [typeColumn] : []),
+        ...(statusColumn ? [statusColumn] : []),
         ...($c.session?.tport == null ? [] : [taggerColumn]),
         ...(showRatings ? [ratingsColumn] : []),
       ];
     },
     [
-      $c.session,
+      $c.session?.tport,
       $c.user,
       checkboxes,
       filterLabel,
@@ -150,7 +176,10 @@ const ReleaseList = ({
       order,
       seriesItemNumbers,
       showInstrumentCreditsAndRelTypes,
+      showLanguages,
       showRatings,
+      showStatus,
+      showType,
       sortable,
     ],
   );

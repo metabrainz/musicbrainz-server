@@ -80,7 +80,15 @@ sub search : Path('')
     }
     else
     {
-        $c->stash( template => 'search/index.tt' );
+        $c->stash(
+            component_path => 'search/SearchIndex',
+            component_props => {
+                otherLookupForm => $c->stash->{otherlookup},
+                searchForm => $c->stash->{form},
+                tagLookupForm => $c->stash->{taglookup},
+            },
+            current_view => 'Node',
+        );
     }
 }
 

@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
+import ReleaseLanguageScript from '../../components/ReleaseLanguageScript';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
 import type {ReportReleaseT} from '../types';
@@ -43,33 +44,22 @@ const ReleaseList = ({
         </thead>
         <tbody>
           {items.map((item, index) => {
-            const language = item.release?.language;
-            const script = item.release?.script;
+            const release = item.release;
             return (
               <tr className={loopParity(index)} key={item.release_id}>
-                {item.release ? (
+                {release ? (
                   <>
                     <td>
-                      <EntityLink entity={item.release} subPath={subPath} />
+                      <EntityLink entity={release} subPath={subPath} />
                     </td>
                     <td>
                       <ArtistCreditLink
-                        artistCredit={item.release.artistCredit}
+                        artistCredit={release.artistCredit}
                       />
                     </td>
                     {showLanguageAndScript ? (
                       <td>
-                        {language ? (
-                          <abbr title={l_languages(language.name)}>
-                            {language.iso_code_3}
-                          </abbr>
-                        ) : lp('-', 'missing data')}
-                        {' / '}
-                        {script ? (
-                          <abbr title={l_scripts(script.name)}>
-                            {script.iso_code}
-                          </abbr>
-                        ) : lp('-', 'missing data')}
+                        <ReleaseLanguageScript release={release} />
                       </td>
                     ) : null}
                   </>
