@@ -10,6 +10,7 @@ sub query {
     my ($self) = @_;
     my $entity_type = $self->entity_type;
     my $name_sort = $entity_type ne 'url' ? 'entity.name COLLATE musicbrainz' : 'entity.url';
+    my $extra_conditions = $entity_type eq 'url' ? ' AND link.ended IS FALSE' : '';
     my @tables = $self->c->model('Relationship')->generate_table_list($entity_type);
     my $query = "SELECT l.name AS link_name, l.gid AS link_gid, entity.id AS ${entity_type}_id, row_number() OVER (ORDER BY l.name, $name_sort)" .
                 "FROM $entity_type AS entity JOIN (";
@@ -25,7 +26,8 @@ sub query {
                    FROM link_type
                    JOIN link ON link.link_type = link_type.id
                    JOIN $table l_table ON l_table.link = link.id
-                   WHERE link_type.is_deprecated OR link_type.description = ''";
+                   WHERE (link_type.is_deprecated OR link_type.description = '')
+                   $extra_conditions";
     }
     $query .= ") l ON l.entity = entity.id";
     return $query;

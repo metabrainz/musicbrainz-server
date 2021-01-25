@@ -182,4 +182,3 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
   return ERE;
 
 }(MB.ExampleRelationshipsEditor || {}));
-

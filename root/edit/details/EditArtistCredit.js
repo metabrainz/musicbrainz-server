@@ -38,6 +38,16 @@ const EditArtistCredit = ({edit}: Props): React.Element<'table'> => {
             <ExpandedArtistCredit artistCredit={display.artist_credit.new} />
           </td>
         </tr>
+        {edit.is_open && display.artist_credit.old.id != null ? (
+          <tr>
+            <th />
+            <td colSpan="2">
+              <a href={`/artist-credit/${display.artist_credit.old.id}`}>
+                {l('See all uses of the artist credit being changed.')}
+              </a>
+            </td>
+          </tr>
+        ) : null}
       </tbody>
     </table>
   );

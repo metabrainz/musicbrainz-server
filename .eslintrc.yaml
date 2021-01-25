@@ -81,6 +81,7 @@ rules:
   no-duplicate-case: error
   no-empty-character-class: error
   no-empty: [error, {allowEmptyCatch: true}]
+  no-extra-semi: warn
   no-irregular-whitespace: warn
   no-misleading-character-class: error
   no-obj-calls: error
@@ -107,6 +108,7 @@ rules:
   no-eq-null: off
   no-floating-decimal: warn
   no-global-assign: error
+  no-multi-spaces: [error, {ignoreEOLComments: true}]
   no-useless-catch: warn
   radix: warn
 
@@ -120,11 +122,18 @@ rules:
   # Stylistic Issues
   array-bracket-newline: [warn, consistent]
   array-bracket-spacing: [warn, never]
+  array-element-newline: [warn, consistent]
   block-spacing: [warn, always]
   brace-style: [warn, 1tbs]
+  comma-dangle: [warn, {arrays: always-multiline,
+                        objects: always-multiline,
+                        imports: always-multiline,
+                        exports: always-multiline,
+                        functions: always-multiline}]
   comma-style: [warn, last]
   eol-last: [warn, always]
   func-call-spacing: [warn, never]
+  function-paren-newline: [warn, consistent]
   implicit-arrow-linebreak: [warn, beside]
   indent: [warn, 2, {CallExpression: {arguments: first}, SwitchCase: 1, ignoredNodes: ["JSXElement", "ArrowFunctionExpression"]}]
   keyword-spacing: [warn, {before: true, after: true}]
@@ -136,16 +145,19 @@ rules:
                    ignoreTemplateLiterals: false,
                    ignoreRegExpLiterals: true}]
   max-statements-per-line: [warn, {max: 1}]
+  multiline-comment-style: [warn, starred-block]
   multiline-ternary: off
   new-cap: off
   new-parens: warn
   no-mixed-spaces-and-tabs: warn
   no-multi-assign: off
+  no-multiple-empty-lines: [warn, {max: 2, maxBOF: 0, maxEOF: 0}]
   no-negated-condition: warn
   no-nested-ternary: off
   no-plusplus: off
   no-tabs: warn
   no-ternary: off
+  no-trailing-spaces: warn
   no-underscore-dangle: off
   no-unneeded-ternary: warn
   no-whitespace-before-property: warn
@@ -185,6 +197,7 @@ rules:
 
   import/export: error
   import/extensions: [warn, never]
+  import/newline-after-import: [warn, {count: 1}]
   import/no-duplicates: warn
   import/no-dynamic-require: error
   import/no-unresolved: error
@@ -238,6 +251,7 @@ rules:
   react/void-dom-elements-no-children: error
 
   # JSX-specific rules
+  react/jsx-boolean-value: [warn, never]
   react/jsx-closing-tag-location: error
   react/jsx-curly-spacing: [error, {when: never, children: true}]
   react/jsx-equals-spacing: [error, never]

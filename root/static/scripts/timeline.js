@@ -92,7 +92,7 @@ class TimelineViewModel {
         var parts = self.zoomArray();
         if (parts.filter(Boolean).length > 0) {
           return ['g'].concat(parts).join('/');
-        } 
+        }
         return null;
       },
       write: function (part) {
@@ -517,7 +517,7 @@ class TimelineLine {
   var setItemTooltip = function (item, extra, fixed) {
     if (!extra) {
       extra = '';
-    };
+    }
     removeTooltip();
     setCursor();
     const x = item.datapoint[0];

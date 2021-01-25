@@ -33,7 +33,7 @@ const WorkIndex = ({
   numberOfRevisions,
   wikipediaExtract,
   work,
-}: Props): React.Element<typeof WorkLayout>  => (
+}: Props): React.Element<typeof WorkLayout> => (
   <WorkLayout $c={$c} entity={work} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="work" />

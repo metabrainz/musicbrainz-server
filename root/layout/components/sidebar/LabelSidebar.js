@@ -115,7 +115,7 @@ const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
 
         <MergeLink entity={label} />
 
-        {isSpecialPurposeLabel ? null : <RemoveLink entity={label} />}
+        <RemoveLink entity={label} />
 
         <li className="separator" role="separator" />
       </EditLinks>

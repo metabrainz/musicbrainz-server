@@ -2836,6 +2836,35 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
   },
+  // Overture by Doremus
+  {
+                     input_url: 'https://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://overture.doremus.org/performance/aff5ec26-2ba6-3ba5-a535-3eb3e9214987',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://overture.doremus.org/performance/aff5ec26-2ba6-3ba5-a535-3eb3e9214987',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://overture.doremus.org/performance?place=Westminster%20Cathedral',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://overture.doremus.org/performance?place=Westminster%20Cathedral',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://overture.doremus.org/expression/3913d018-4c9d-3372-89db-b6dcf1285fa3',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://overture.doremus.org/expression/3913d018-4c9d-3372-89db-b6dcf1285fa3',
+       only_valid_entity_types: ['work'],
+  },
   // Patreon
   {
                      input_url: 'https://patreon.com/example#reactTargetCreatorPage',
@@ -2971,30 +3000,46 @@ const testData = [
   },
   // Resident Advisor (RA)
   {
-                     input_url: 'https://www.residentadvisor.net/dj/adamx',
+                     input_url: 'https://www.ra.co/dj/adamx',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/dj/adamx',
+       only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://www.residentadvisor.net/event.aspx?860109',
+                     input_url: 'https://ra.co/events/860109#',
              input_entity_type: 'event',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/events/860109',
+       only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'https://www.residentadvisor.net/record-label.aspx?id=2795',
+                     input_url: 'http://ra.co/labels/2795',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/labels/2795',
+       only_valid_entity_types: ['label'],
   },
   {
-                     input_url: 'https://www.residentadvisor.net/track.aspx?544258',
+                     input_url: 'https://ra.co/clubs/5031/events',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/clubs/5031',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://ra.co/tracks/544258',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/tracks/544258',
+       only_valid_entity_types: ['recording'],
   },
   {
-                     input_url: 'https://www.residentadvisor.net/reviews/7636',
+                     input_url: 'http://www.ra.co/reviews/7636',
              input_entity_type: 'release_group',
     expected_relationship_type: 'review',
        input_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/reviews/7636',
        only_valid_entity_types: [],
   },
   // ReverbNation
@@ -3458,6 +3503,27 @@ const testData = [
              input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://open.spotify.com/user/scotchbonnetrecords',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://open.spotify.com/user/hitradio%C3%B63',
+             input_entity_type: 'label',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://open.spotify.com/user/hitradio%C3%B63',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://open.spotify.com/user/%21k7',
+             input_entity_type: 'label',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://open.spotify.com/user/%21k7',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://open.spotify.com/user/testspiel.de',
+             input_entity_type: 'label',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://open.spotify.com/user/testspiel.de',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
@@ -4021,6 +4087,27 @@ const testData = [
        input_relationship_type: 'wikidata',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.wikidata.org/wiki/Q42',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'discographyentry',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.wikidata.org/wiki/Q43',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'license',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.wikidata.org/wiki/Q44',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'shownotes',
+       only_valid_entity_types: [],
+  },
   // Wikimedia Commons
   {
                      input_url: 'https://commons.wikimedia.org/wiki/File:NIN2008.jpg',
@@ -4131,6 +4218,20 @@ const testData = [
        input_relationship_type: 'discographyentry',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://en.wikipedia.org/wiki/Another_Album',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'license',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://en.wikipedia.org/wiki/Yet_Another_Album',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'shownotes',
+       only_valid_entity_types: [],
+  },
   // Wikisource
   {
                      input_url: 'https://pt.wikisource.org/wiki/A_Portuguesa',
@@ -4234,6 +4335,14 @@ const testData = [
     expected_relationship_type: 'youtube',
             expected_clean_url: 'https://www.youtube.com/playlist?list=PL43OynbWaTMKSxLVnUF0HbHHiXEgAVm3Q',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://music.youtube.com/browse/MPREb_0bOFkwXrX2x',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://music.youtube.com/browse/MPREb_0bOFkwXrX2x',
+       input_relationship_type: 'youtube',
+       only_valid_entity_types: [],
   },
 ];
 /* eslint-enable indent, max-len, sort-keys */

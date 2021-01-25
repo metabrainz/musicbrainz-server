@@ -904,6 +904,13 @@ sub external_search
             $self->c->model('Event')->load_areas(@entities);
         }
 
+        if ($type eq 'release')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('Release')->load_ids(@entities);
+            $self->c->model('Release')->load_meta(@entities);
+        }
+
         my $pager = Data::Page->new;
         $pager->current_page($page);
         $pager->entries_per_page($limit);

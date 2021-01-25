@@ -44,13 +44,27 @@ const RelatedArtists = ({children, title}: RelatedArtistsProps) => (
   </p>
 );
 
+type FooterSwitchProps = {
+  +artist: ArtistT,
+  +hasDefault: boolean,
+  +hasExtra: boolean,
+  +hasVariousArtists: boolean,
+  +hasVariousArtistsExtra: boolean,
+  +includingAllStatuses: boolean,
+  +showingVariousArtistsOnly: boolean,
+};
+
 type Props = {
   +$c: CatalystContextT,
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
   +eligibleForCleanup: boolean,
   +filterForm: ?FilterFormT,
+  +hasDefault: boolean,
+  +hasExtra: boolean,
   +hasFilter: boolean,
+  +hasVariousArtists: boolean,
+  +hasVariousArtistsExtra: boolean,
   +includingAllStatuses: boolean,
   +legalName: ?ArtistT,
   +legalNameAliases: ?$ReadOnlyArray<string>,
@@ -61,9 +75,135 @@ type Props = {
   +recordings: ?$ReadOnlyArray<RecordingT>,
   +releaseGroups: ?$ReadOnlyArray<ReleaseGroupT>,
   +showingVariousArtistsOnly: boolean,
-  +wantAllStatuses: boolean,
-  +wantVariousArtistsOnly: boolean,
   +wikipediaExtract: WikipediaExtractT,
+};
+
+const FooterSwitch = ({
+  artist,
+  hasDefault,
+  hasExtra,
+  hasVariousArtists,
+  hasVariousArtistsExtra,
+  includingAllStatuses,
+  showingVariousArtistsOnly,
+}: FooterSwitchProps): React.Element<'p' | typeof React.Fragment> => {
+  const artistLink = entityHref(artist);
+  const showingOfficialText =
+    l('Showing official release groups by this artist');
+  const showingAllText = l('Showing all release groups by this artist');
+  const showingOfficialVAText =
+    l('Showing official release groups for various artists');
+  const showingAllVAText =
+    l('Showing all release groups for various artists');
+  const hasNoVAText =
+    l('This artist does not have any various artists release groups');
+  const showOfficialLink = exp.l(
+    '{show_official|Show official release groups}',
+    {show_official: `${artistLink}`},
+  );
+  const showAllLink = exp.l(
+    '{show_all|Show all release groups}',
+    {show_all: `${artistLink}?all=1`},
+  );
+  const showOfficialVALink = exp.l(
+    '{show_official|Show official various artist release groups}',
+    {show_official: `${artistLink}?va=1`},
+  );
+  const showAllVALink = exp.l(
+    '{show_all|Show all various artist release groups}',
+    {show_all: `${artistLink}?all=1&va=1`},
+  );
+
+  function buildLinks(showDefault, showAll, showVA, showAllVA) {
+    const links = [];
+    if (showDefault) {
+      links.push(showOfficialLink);
+    }
+    if (showAll) {
+      links.push(showAllLink);
+    }
+    if (showVA) {
+      links.push(showOfficialVALink);
+    }
+    if (showAllVA) {
+      links.push(showAllVALink);
+    }
+
+    if (links.length) {
+      return (
+        <>
+          {' ('}
+          {links.map((link, index) => (
+            <>
+              {link}
+              {index === links.length - 1 ? '' : ' / '}
+            </>
+          ))}
+          {')'}
+        </>
+      );
+    }
+    // If no links are built, finish the line with a period instead
+    return '.';
+  }
+
+  return (
+    showingVariousArtistsOnly && includingAllStatuses ? (
+      <>
+        {(!hasDefault && !hasExtra && !hasVariousArtists) ? (
+          <p>
+            {l(`This artist only has unofficial release groups by
+                various artists.`)}
+          </p>
+        ) : null}
+        <p>
+          {(hasVariousArtists || hasVariousArtistsExtra)
+            ? showingAllVAText
+            : hasNoVAText}
+          {buildLinks(hasDefault, hasExtra, hasVariousArtists, false)}
+        </p>
+      </>
+    ) : showingVariousArtistsOnly ? (
+      <>
+        {(!hasDefault && !hasExtra) ? (
+          <p>
+            {l('This artist only has release groups by various artists.')}
+          </p>
+        ) : null}
+        <p>
+          {showingOfficialVAText}
+          {buildLinks(hasDefault, hasExtra, false, hasVariousArtistsExtra)}
+        </p>
+      </>
+    ) : includingAllStatuses ? (
+      <>
+        {hasDefault ? null : (
+          <p>
+            {l('This artist only has unofficial release groups.')}
+          </p>
+        )}
+        <p>
+          {showingAllText}
+          {buildLinks(
+            hasDefault,
+            false,
+            hasVariousArtists,
+            hasVariousArtistsExtra,
+          )}
+        </p>
+      </>
+    ) : (
+      <p>
+        {showingOfficialText}
+        {buildLinks(
+          false,
+          hasExtra,
+          hasVariousArtists,
+          hasVariousArtistsExtra,
+        )}
+      </p>
+    )
+  );
 };
 
 const ArtistIndex = ({
@@ -72,7 +212,11 @@ const ArtistIndex = ({
   artist,
   eligibleForCleanup,
   filterForm,
+  hasDefault,
+  hasExtra,
   hasFilter,
+  hasVariousArtists,
+  hasVariousArtistsExtra,
   includingAllStatuses,
   legalName,
   legalNameAliases,
@@ -83,147 +227,10 @@ const ArtistIndex = ({
   recordings,
   releaseGroups,
   showingVariousArtistsOnly,
-  wantAllStatuses,
-  wantVariousArtistsOnly,
   wikipediaExtract,
 }: Props): React.Element<typeof ArtistLayout> => {
   const existingRecordings = recordings?.length ? recordings : null;
   const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;
-  const artistLink = entityHref(artist);
-  let message = '';
-
-  if (existingRecordings) {
-    message = l(
-      'This artist has no release groups, only standalone recordings.',
-    );
-  } else if (!existingReleaseGroups && hasFilter) {
-    message = l('No release groups found that match this search.');
-  } else if (!wantAllStatuses && !wantVariousArtistsOnly) {
-    if (!includingAllStatuses && !showingVariousArtistsOnly) {
-      if (existingReleaseGroups) {
-        message = exp.l(
-          `Showing official release groups by this artist.
-           {show_all|Show all release groups instead}, or
-           {show_va|show various artists release groups}.`,
-          {
-            show_all: `${artistLink}?all=1`,
-            show_va: `${artistLink}?va=1`,
-          },
-        );
-      } else {
-        message = l(`This artist does not have any release groups or
-                     standalone recordings.`);
-      }
-    } else if (includingAllStatuses && !showingVariousArtistsOnly) {
-      message = (
-        <>
-          {l('This artist only has unofficial release groups.')}
-          {' '}
-          {exp.l(
-            `Showing all release groups by this artist.
-             {show_va|Show various artists release groups instead}.`,
-            {show_va: `${artistLink}?va=1`},
-          )}
-        </>
-      );
-    } else if (!includingAllStatuses && showingVariousArtistsOnly) {
-      message = (
-        <>
-          {l('This artist only has release groups by various artists.')}
-          {' '}
-          {exp.l(
-            `Showing official release groups for various artists.
-             {show_all|Show all various artists release groups instead}.`,
-            {show_all: `${artistLink}?all=1&va=1`},
-          )}
-        </>
-      );
-    } else if (includingAllStatuses && showingVariousArtistsOnly) {
-      message = (
-        l(`This artist only has unofficial release groups by
-           various artists.`) + ' ' +
-        l('Showing all release groups for various artists.')
-      );
-    }
-  } else if (wantAllStatuses && !wantVariousArtistsOnly) {
-    if (includingAllStatuses && !showingVariousArtistsOnly) {
-      message = exp.l(
-        `Showing all release groups by this artist.
-         {show_official|Show only official release groups instead}, or
-         {show_va|show various artists release groups}.`,
-        {
-          show_official: `${artistLink}?all=0`,
-          show_va: `${artistLink}?all=1&va=1`,
-        },
-      );
-    } else if (!existingReleaseGroups) {
-      message = l(`This artist does not have any release groups or
-                   standalone recordings.`);
-    } else if (includingAllStatuses && showingVariousArtistsOnly) {
-      message = (
-        <>
-          {l('This artist only has release groups by various artists.')}
-          {' '}
-          {exp.l(
-            `Showing all release groups for various artists.
-             {show_official|Show only official various artists
-                            release groups instead}.`,
-            {show_official: `${artistLink}?all=0&va=1`},
-          )}
-        </>
-      );
-    }
-  } else if (!wantAllStatuses && wantVariousArtistsOnly) {
-    if (!includingAllStatuses && showingVariousArtistsOnly) {
-      message = exp.l(
-        `Showing official release groups for various artists.
-         {show_all|Show all various artists release groups instead}, or
-         {show_non_va|show release groups by this artist}.`,
-        {
-          show_all: `${artistLink}?all=1&va=1`,
-          show_non_va: `${artistLink}?va=0`,
-        },
-      );
-    } else if (!existingReleaseGroups) {
-      message = exp.l(
-        `This artist does not have any various artists release groups.
-         {show_non_va|Show release groups by this artist instead}.`,
-        {show_non_va: `${artistLink}?va=0`},
-      );
-    } else if (includingAllStatuses && showingVariousArtistsOnly) {
-      message = (
-        <>
-          {l(`This artist only has unofficial release groups by
-              various artists.`)}
-          {' '}
-          {exp.l(
-            `Showing all release groups for various artists.
-             {show_non_va|Show release groups by this artist instead}.`,
-            {show_non_va: `${artistLink}?va=0`},
-          )}
-        </>
-      );
-    }
-  } else if (wantAllStatuses && wantVariousArtistsOnly) {
-    if (existingReleaseGroups) {
-      message = exp.l(
-        `Showing all release groups for various artists.
-         {show_official|Show only official various artists
-                        release groups instead}, or
-         {show_non_va|show release groups by this artist}.`,
-        {
-          show_non_va: `${artistLink}?all=1&va=0`,
-          show_official: `${artistLink}?all=0&va=1`,
-        },
-      );
-    } else {
-      message = exp.l(
-        `This artist does not have any various artists release groups.
-         {show_non_va|Show release groups by this artist instead}.`,
-        {show_non_va: `${artistLink}?all=1&va=0`},
-      );
-    }
-  }
 
   return (
     <ArtistLayout $c={$c} entity={artist} page="index">
@@ -321,7 +328,25 @@ const ArtistIndex = ({
         </form>
       ) : null}
 
-      <p>{message}</p>
+      {existingRecordings ? (
+        <p>
+          {l(
+            'This artist has no release groups, only standalone recordings.',
+          )}
+        </p>
+      ) : (!existingReleaseGroups && hasFilter) ? (
+        <p>{l('No release groups found that match this search.')}</p>
+      ) : (
+        <FooterSwitch
+          artist={artist}
+          hasDefault={hasDefault}
+          hasExtra={hasExtra}
+          hasVariousArtists={hasVariousArtists}
+          hasVariousArtistsExtra={hasVariousArtistsExtra}
+          includingAllStatuses={includingAllStatuses}
+          showingVariousArtistsOnly={showingVariousArtistsOnly}
+        />
+      )}
 
       {manifest.js('artist/index.js', {async: 'async'})}
     </ArtistLayout>

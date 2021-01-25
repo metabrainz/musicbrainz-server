@@ -13,7 +13,26 @@
   </tbody></table>
 
   <h2>[% l('Changes') %]</h2>
-  [%- track_duration_changes([1 .. medium.cdtoc_tracks.size], medium.cdtoc_tracks, cdtoc.track_details, 'length', 'length_time') -%]
+  [% old_lengths = BLOCK;
+       FOR track=medium.cdtoc_tracks;
+         track.length | format_length;
+         ' ';
+       END;
+     END;
+     new_lengths = BLOCK;
+       FOR track=cdtoc.track_details;
+         track.length_time | format_length;
+         ' ';
+       END;
+     END %]
+
+  [% IF old_lengths == new_lengths %]
+    <p>
+      [% l('This edit would only make subsecond changes to track lengths.') %]
+    </p>
+  [% ELSE %]
+    [%- track_duration_changes([1 .. medium.cdtoc_tracks.size], medium.cdtoc_tracks, cdtoc.track_details, 'length', 'length_time') -%]
+  [% END %]
 
   <p>
     [%~ l('The medium you are altering is part of the following release: {release}',

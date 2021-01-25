@@ -72,7 +72,7 @@ dialogTest((
 
   t.ok(
     mediums()[0].hasTracks(),
-    'first medium has tracks after using track parser'
+    'first medium has tracks after using track parser',
   );
 
   addDiscDialog.open();

@@ -255,5 +255,5 @@ console.log(
         return msgOrdering.get(a) - msgOrdering.get(b);
       },
     })
-    .toString('utf-8')
+    .toString('utf-8'),
 );

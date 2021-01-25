@@ -1,5 +1,6 @@
 /* global polyfills not provided by core-js */
 require('whatwg-fetch');
+require('./common/focusin-focusout-polyfill');
 /* end global polyfills */
 
 require('./public-path');
@@ -12,6 +13,7 @@ require('./public-path');
 require('../styles/common.less');
 
 const DBDefs = require('./common/DBDefs-client');
+
 import MB from './common/MB';
 
 if (DBDefs.DEVELOPMENT_SERVER) {

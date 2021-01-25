@@ -233,6 +233,7 @@ test 'Accept/failure conditions regarding links' => sub {
         $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
+        # Add track to medium without any tracklist
         my $edit = $c->model('Edit')->create(
             editor_id => 1,
             edit_type => $EDIT_MEDIUM_EDIT,
@@ -256,14 +257,20 @@ test 'Accept/failure conditions regarding links' => sub {
             ]
         );
 
-        ok !exception { $edit->accept };
-
         $c->model('Edit')->load_all($edit);
         is(@{ $edit->display_data->{tracklist_changes} }, 1, '1 tracklist change');
         is($edit->display_data->{tracklist_changes}->[0][0], '+', 'tracklist change is an addition');
 
         is(@{ $edit->display_data->{artist_credit_changes} }, 1, '1 artist credit change');
         is($edit->display_data->{artist_credit_changes}->[0][0], '+', 'artist credit change is an addition');
+
+        # Reload for renewed edit and track data
+        $medium = $c->model('Medium')->get_by_id(1);
+        $c->model('Track')->load_for_mediums($medium);
+
+        is($medium->edits_pending, 0, "Adding first track is an autoedit");
+        # Can't accept since it's already applied
+        ok exception { $edit->accept };
     };
 
     subtest 'Can change the recording to another existing recording' => sub {
@@ -343,6 +350,7 @@ test 'Accept/failure conditions regarding links' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
         $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
+        my $old_edits_pending = $medium->edits_pending;
 
         my $edit = $c->model('Edit')->create(
             editor_id => 1,
@@ -369,7 +377,10 @@ test 'Accept/failure conditions regarding links' => sub {
             ]
         );
 
-        $edit->accept;
+        $medium = $c->model('Medium')->get_by_id(1);
+        is($medium->edits_pending, $old_edits_pending + 1, "Adding a second track is not an autoedit");
+
+        ok !exception { $edit->accept };
 
         $c->model('Edit')->load_all($edit);
         is((grep { $_->[0] ne 'u' } @{ $edit->display_data->{tracklist_changes} }), 1, '1 tracklist change');

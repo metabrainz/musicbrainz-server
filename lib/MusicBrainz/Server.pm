@@ -257,9 +257,12 @@ sub redirect_back {
 
     if (
         $returnto eq '' ||
-        # Check that we weren't given an external URL. Only relative
-        # URLs are allowed.
-        $returnto->authority
+        # Check that we weren't given an external URL. Only URLs relative to
+        # the current domain are allowed.
+        (
+            $returnto->authority &&
+            $returnto->authority ne $c->req->uri->authority
+        )
     ) {
         $returnto->path_query('/');
         $returnto->fragment(undef);
@@ -741,6 +744,7 @@ sub TO_JSON {
 
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
+        can_delete
         collaborative_collections
         commons_image
         containment

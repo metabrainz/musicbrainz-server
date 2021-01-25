@@ -30,7 +30,7 @@ const SidebarDataQuality = ({quality}: Props): React.MixedElement | null => {
     default:
       qualityClass = '';
       break;
-  };
+  }
 
   return name ? (
     <SidebarProperty

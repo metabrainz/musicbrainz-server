@@ -15,6 +15,7 @@ import DescriptiveLink
 import EntityLink
   from '../static/scripts/common/components/EntityLink';
 import expand2text from '../static/scripts/common/i18n/expand2text';
+import {formatCount} from '../statistics/utilities';
 
 import TagLayout from './TagLayout';
 
@@ -62,7 +63,10 @@ function buildSection(
           <li key="see-all">
             <em>
               <a href={url}>
-                {expand2text(seeAllMessage(tags.count), {num: tags.count})}
+                {expand2text(
+                  seeAllMessage(tags.count),
+                  {num: formatCount(props.$c, tags.count)},
+                )}
               </a>
             </em>
           </li>

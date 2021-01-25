@@ -19,9 +19,9 @@ const definePluginConfig = require('./webpack/definePluginConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
 
 /*
-* Components must use the same context, gettext, and linkedEntities
-* instances created in the server process, so those must be externals.
-*/
+ * Components must use the same context, gettext, and linkedEntities
+ * instances created in the server process, so those must be externals.
+ */
 const externals = [
   'root/context',
   'root/server/gettext',
@@ -64,7 +64,7 @@ module.exports = {
         );
       }
       callback();
-    }
+    },
   ],
 
   mode: WEBPACK_MODE,

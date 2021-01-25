@@ -154,10 +154,16 @@ sub update {
     my $series = $self->c->model('Series')->get_by_id($series_id);
     $self->c->model('SeriesType')->load($series);
 
-    if (defined($row->{type}) && $series->type_id != $row->{type}) {
-        my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
+    if (defined($row->{type})) {
+        my $existing_entity_type = $series->type->item_entity_type;
+        my $new_series_type = $self->c->model('SeriesType')->get_by_id($row->{type});
+        my $new_entity_type = $new_series_type->item_entity_type;
 
-        die "Cannot change the type of a non-empty series" if scalar(@$items);
+        if ($existing_entity_type ne $new_entity_type) {
+            my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
+
+            die "Cannot change the entity type of a non-empty series" if scalar(@$items);
+        }
     }
 
     $self->sql->update_row('series', $row, { id => $series_id }) if %$row;
