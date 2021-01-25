@@ -104,7 +104,11 @@ sub build_display_data {
     my ($self, $loaded) = @_;
 
     my $release = $loaded->{Release}{ $self->data->{entity}{id} } ||
-        Release->new( name => $self->data->{entity}{name} );
+        Release->new(
+            gid => $self->data->{entity}{mbid},
+            id => $self->data->{entity}{id},
+            name => $self->data->{entity}{name},
+        );
 
     my $suffix = $self->data->{cover_art_mime_type}
         ? $self->c->model('CoverArt')->image_type_suffix($self->data->{cover_art_mime_type})
