@@ -2464,7 +2464,6 @@ const CLEANUPS = {
   },
   'otherdatabases': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?rateyourmusic\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?musicmoz\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?discografia\\.dds\\.it/', 'i'),
       new RegExp('^(https?://)?(www\\.)?encyclopedisque\\.fr/', 'i'),
@@ -2658,6 +2657,13 @@ const CLEANUPS = {
         }
       }
       return {result: false};
+    },
+  },
+  'rateyourmusic': {
+    match: [new RegExp('^(https?://)?(www\\.)?rateyourmusic\\.com/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
     },
   },
   'recochoku': {

@@ -2979,6 +2979,13 @@ const testData = [
             expected_clean_url: 'http://www.qim.com/oeuvres/oeuvre.asp?oeuvreid=716&albumid=16',
        only_valid_entity_types: ['work'],
   },
+  // RateYourMusic
+  {
+                     input_url: 'http://www.rateyourmusic.com/artist/johanna_beyer',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://rateyourmusic.com/artist/johanna_beyer',
+  },
   // RecoChoku
   {
                      input_url: 'http://recochoku.jp/artist/2000166063/?affiliate=4350010210',
