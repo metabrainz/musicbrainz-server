@@ -20,6 +20,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
+    $STATUS_APPLIED
     $WS_EDIT_RESPONSE_OK
     $WS_EDIT_RESPONSE_NO_CHANGES
 );
@@ -1327,6 +1328,46 @@ test 'Releases can be added without any mediums' => sub {
     } $c;
 
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Release::Create', 'release added without any mediums');
+};
+
+
+test 'Empty artist credit name defaults to the artist name' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $artist_credit = {
+        names => [
+            {
+                artist => { id => 5, name => 'David Bowie' },
+                # An empty AC name is disallowed at the DB level;
+                # this should default to the artist name.
+                name => '',
+                join_phrase => '',
+            }
+        ]
+    };
+
+    my $release_group_edits = [{
+        edit_type     => $EDIT_RELEASEGROUP_CREATE,
+        name          => 'empty AC name test',
+        artist_credit => $artist_credit,
+    }];
+
+    my ($edit) = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $release_group_edits }));
+    } $c;
+
+    isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Create', 'release group edit was created');
+    is($edit->status, $STATUS_APPLIED, 'release group edit was applied');
+
+    my $response = from_json($mech->content);
+    is($response->{edits}->[0]->{response}, $WS_EDIT_RESPONSE_OK, 'ws response says OK');
 };
 
 1;
