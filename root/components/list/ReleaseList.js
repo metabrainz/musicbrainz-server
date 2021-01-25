@@ -168,7 +168,7 @@ const ReleaseList = ({
       ];
     },
     [
-      $c.session,
+      $c.session?.tport,
       $c.user,
       checkboxes,
       filterLabel,
