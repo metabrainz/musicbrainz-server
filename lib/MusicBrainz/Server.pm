@@ -506,8 +506,8 @@ around 'finalize_error' => sub {
             try { $c->stash->{hostname} = hostname; } catch {};
             $c->stash(
                 component_path => $timed_out
-                    ? 'main/error/Timeout'
-                    : 'main/error/500',
+                    ? 'main/error/TimeoutError'
+                    : 'main/error/Error500',
                 component_props => {
                     $c->stash->{edit} ? (edits => [ $c->stash->{edit} ]) : (),
                     formattedErrors => $c->stash->{formatted_errors},

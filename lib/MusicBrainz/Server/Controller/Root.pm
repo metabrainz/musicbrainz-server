@@ -148,7 +148,7 @@ sub error_400 : Private
     );
 
     $c->stash(
-        component_path => 'main/error/400',
+        component_path => 'main/error/Error400',
         component_props => \%props,
         current_view => 'Node',
     );
@@ -160,7 +160,7 @@ sub error_401 : Private
 
     $c->response->status(401);
     $c->stash(
-        component_path => 'main/error/401',
+        component_path => 'main/error/Error401',
         current_view => 'Node',
     );
 }
@@ -171,7 +171,7 @@ sub error_403 : Private
 
     $c->response->status(403);
     $c->stash(
-        component_path => 'main/error/403',
+        component_path => 'main/error/Error403',
         current_view => 'Node',
     );
 }
@@ -181,7 +181,7 @@ sub error_404 : Private {
 
     $c->response->status(404);
     $c->stash(
-        component_path => 'main/error/404',
+        component_path => 'main/error/Error404',
         component_props => { message => $message },
         current_view => 'Node',
     );
@@ -193,7 +193,7 @@ sub error_500 : Private
 
     $c->response->status(500);
     $c->stash(
-        component_path => 'main/error/500',
+        component_path => 'main/error/Error500',
         component_props => {
             useLanguages => boolean_to_json($c->stash->{use_languages}),
         },
@@ -207,7 +207,7 @@ sub error_503 : Private
 
     $c->response->status(503);
     $c->stash(
-        component_path => 'main/error/503',
+        component_path => 'main/error/Error503',
         current_view => 'Node',
     );
 }
@@ -218,7 +218,7 @@ sub error_mirror : Private
 
     $c->response->status(403);
     $c->stash(
-        component_path => 'main/error/Mirror403',
+        component_path => 'main/error/MirrorError403',
         current_view => 'Node',
     );
 }
@@ -229,7 +229,7 @@ sub error_mirror_404 : Private
 
     $c->response->status(404);
     $c->stash(
-        component_path => 'main/error/Mirror404',
+        component_path => 'main/error/MirrorError404',
         current_view => 'Node',
     );
 }
