@@ -2665,6 +2665,29 @@ const CLEANUPS = {
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
     },
+    validate: function (url, id) {
+      const m = /^https:\/\/rateyourmusic\.com\/(\w+)\//.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'artist'};
+          case LINK_TYPES.otherdatabases.event:
+            return {result: prefix === 'concert'};
+          case LINK_TYPES.otherdatabases.label:
+            return {result: prefix === 'label'};
+          case LINK_TYPES.otherdatabases.place:
+            return {result: prefix === 'venue'};
+          case LINK_TYPES.otherdatabases.release:
+            return {result: prefix === 'release'};
+          case LINK_TYPES.otherdatabases.series:
+            return {result: prefix === 'classifiers'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'work'};
+        }
+      }
+      return {result: false};
+    },
   },
   'recochoku': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?recochoku\\.jp', 'i')],
