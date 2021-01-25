@@ -1,13 +1,13 @@
 .favicon(@quotedsite, @size: 16) {
     @site: e(@quotedsite);
     .@{site}-favicon {
-        background-image: data-uri("../images/favicons/@{site}-@{size}.png");
+        background-image: data-uri("../images/external-favicons/@{site}-@{size}.png");
         background-size: 16px;
     }
 }
 
 .no-favicon {
-    background-image: data-uri("../images/favicons/external-16.png");
+    background-image: data-uri("../images/external-favicons/external-16.png");
 }
 
 .favicon("home", 32);
