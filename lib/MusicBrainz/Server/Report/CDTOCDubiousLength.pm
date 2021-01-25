@@ -20,8 +20,12 @@ sub query {
             JOIN medium ON medium_cdtoc.medium = medium.id
             JOIN medium_format ON medium.format = medium_format.id
         WHERE
-            leadout_offset > 75 * 60 * 88 -- cutoff 88 minutes
-            AND medium_format.name != 'CD-R'
+            -- cutoff 88 minutes
+            (leadout_offset > 75 * 60 * 88
+                AND medium_format.name != 'CD-R')
+            OR
+            (medium_format.name = '8cm CD'
+                AND leadout_offset > 75 * 60 * 30)
         ORDER BY
             medium_format.name,
             cdtoc.leadout_offset DESC
