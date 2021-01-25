@@ -125,6 +125,7 @@ sub direct : Private
         when ('release') {
             $c->model('Language')->load(@entities);
             $c->model('Release')->load_related_info(@entities);
+            $c->model('Release')->load_meta(@entities);
             $c->model('Script')->load(@entities);
             $c->model('ReleaseStatus')->load(@entities);
             $c->model('ReleaseGroup')->load(@entities);

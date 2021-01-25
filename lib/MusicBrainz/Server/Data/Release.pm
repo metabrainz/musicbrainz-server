@@ -1361,6 +1361,31 @@ sub _hash_to_row
     return $row;
 }
 
+=method load_ids
+
+Load internal IDs for release objects that only have GIDs.
+
+=cut
+
+sub load_ids
+{
+    my ($self, @releases) = @_;
+
+    my @gids = map { $_->gid } @releases;
+    return () unless @gids;
+
+    my $query = "
+        SELECT gid, id FROM release
+        WHERE gid IN (" . placeholders(@gids) . ")
+    ";
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $release (@releases) {
+        $release->id($map{$release->gid}) if exists $map{$release->gid};
+    }
+}
+
 sub load_meta
 {
     my $self = shift;
