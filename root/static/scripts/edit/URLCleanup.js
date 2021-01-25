@@ -2989,11 +2989,11 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(spotify\\.com)/user', 'i')],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([a-zA-Z0-9_-]+)\/?(?:[?#].*)?$/, 'https://open.spotify.com/user/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([^\/?#]+)\/?(?:[?#].*)?$/, 'https://open.spotify.com/user/$1');
       return url;
     },
     validate: function (url) {
-      return {result: /^https:\/\/open\.spotify\.com\/user\/[a-zA-Z0-9_-]+$/.test(url)};
+      return {result: /^https:\/\/open\.spotify\.com\/user\/[^\/?#]+$/.test(url)};
     },
   },
   'thesession': {

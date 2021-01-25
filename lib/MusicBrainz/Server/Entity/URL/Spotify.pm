@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^(?:https?:)?//(?:[^/]+.)?spotify.com/user/[^/?&#]+/?}i) {
+    if ($self->url =~ m{^(?:https?:)?//(?:[^/]+.)?spotify.com/user/[^/?#]+/?}i) {
         return l('Playlists at Spotify');
     } else {
         return l('Stream at Spotify');
