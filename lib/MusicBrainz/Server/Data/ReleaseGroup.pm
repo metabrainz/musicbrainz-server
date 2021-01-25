@@ -127,6 +127,59 @@ sub find_artist_credits_by_artist
     return $self->c->model('ArtistCredit')->find_by_ids($ids);
 }
 
+sub pick_status_condition
+{
+    my ($self, $query_extra_only) = @_;
+
+    if ($query_extra_only) {
+        return '
+            AND (
+                NOT EXISTS (
+                    SELECT 1 FROM release
+                    WHERE release.release_group = rg.id
+                    AND release.status = 1
+                ) AND EXISTS (
+                    SELECT 1 FROM release
+                    WHERE release.release_group = rg.id
+                    AND release.status IS NOT NULL
+                )
+            )
+        ';
+    } else {
+        return '
+            AND (
+                EXISTS (
+                    SELECT 1 FROM release
+                    WHERE release.release_group = rg.id
+                    AND release.status = 1
+                ) OR NOT EXISTS (
+                    SELECT 1 FROM release
+                    WHERE release.release_group = rg.id
+                    AND release.status IS NOT NULL
+                )
+            )
+        ';
+    }
+}
+
+sub has_by_artist
+{
+    my ($self, $artist_id, $query_extra_only) = @_;
+
+    my $status_condition = $self->pick_status_condition($query_extra_only);
+
+    my $query ="
+        SELECT EXISTS (
+            SELECT 1
+            FROM release_group rg
+            JOIN artist_credit_name acn
+                ON acn.artist_credit = rg.artist_credit
+            WHERE acn.artist = ?
+            $status_condition
+        )";
+    $self->sql->select_single_value($query, $artist_id);
+}
+
 sub find_by_artist
 {
     my ($self, $artist_id, $show_all, $limit, $offset, %args) = @_;
@@ -182,6 +235,36 @@ sub find_by_artist
             return $rg;
         },
     );
+}
+
+sub has_by_track_artist
+{
+    my ($self, $artist_id, $query_extra_only) = @_;
+
+    my $status_condition = $self->pick_status_condition($query_extra_only);
+
+    my $query ="
+        SELECT EXISTS (
+            SELECT 1
+            FROM release_group rg
+            WHERE rg.id IN (
+                SELECT release_group FROM release
+                    JOIN medium
+                    ON medium.release = release.id
+                    JOIN track tr
+                    ON tr.medium = medium.id
+                    JOIN artist_credit_name acn
+                    ON acn.artist_credit = tr.artist_credit
+                WHERE acn.artist = ?
+            )
+            AND rg.id NOT IN (
+                SELECT id FROM release_group
+                JOIN artist_credit_name acn
+                    ON release_group.artist_credit = acn.artist_credit
+                WHERE acn.artist = ?)
+            $status_condition
+        )";
+    $self->sql->select_single_value($query, $artist_id, $artist_id);
 }
 
 sub find_by_track_artist
