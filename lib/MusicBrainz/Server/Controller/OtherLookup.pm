@@ -6,6 +6,29 @@ use Moose::Util qw( find_meta );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( entities_with );
 
+sub build_term {
+    my ($self, $value) = @_;
+
+    # We want to turn the given value into a valid Lucene term so
+    # the search server understands it properly.
+    # As such, we quote it to make it a Lucene phrase,
+    # except if it is a regular expression or the user already entered
+    # a Lucene phrase (i.e. the value is already in quotes).
+    # See https://lucene.apache.org/core/7_7_2/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#Terms
+    my $is_regex = $value =~ /^\/.*\/$/;
+    my $is_quoted = $value =~ /^".*"$/;
+
+    # We escape any quotes inside the actual value so that they are
+    # still searched for when we turn it into a phrase.
+    my $escaped_value = $value =~ s/"/\\"/gr;
+
+    my $term = ($is_regex || $is_quoted)
+        ? $value
+        : "\"$escaped_value\"";
+
+    return $term;
+}
+
 sub lookup_handler {
     my ($name, $code) = @_;
 
@@ -40,7 +63,7 @@ lookup_handler 'catno' => sub {
 
     $c->response->redirect(
         $c->uri_for_action('/search/search', {
-            query => 'catno:' . $cat_no,
+            query => 'catno:' . $self->build_term($cat_no),
             type => 'release',
             advanced => '1',
         }));
