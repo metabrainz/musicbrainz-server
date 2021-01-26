@@ -10,7 +10,7 @@ sub query
     q{
         SELECT
             i.id AS instrument_id,
-            row_number() OVER (ORDER BY i.type, i.name COLLATE musicbrainz)
+            row_number() OVER (ORDER BY i.name COLLATE musicbrainz, i.type)
         FROM instrument i
         WHERE NOT EXISTS (
             SELECT 1
