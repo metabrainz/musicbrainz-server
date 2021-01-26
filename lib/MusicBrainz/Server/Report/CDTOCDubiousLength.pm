@@ -20,11 +20,13 @@ sub query {
             JOIN medium ON medium_cdtoc.medium = medium.id
             JOIN medium_format ON medium.format = medium_format.id
         WHERE
-            -- cutoff 88 minutes
+            -- default cutoff 88 minutes
             (leadout_offset > 75 * 60 * 88
-                AND medium_format.name != 'CD-R')
+                -- no limit for CD-R
+                AND medium_format.id != 33)
             OR
-            (medium_format.name = '8cm CD'
+            -- custom cutoff 30 minutes for 8cm CDs
+            (medium_format.id = 34
                 AND leadout_offset > 75 * 60 * 30)
         ORDER BY
             medium_format.name,
