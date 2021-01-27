@@ -398,6 +398,9 @@ declare type DatePeriodRoleT = {
   +ended: boolean,
 };
 
+// From Algorithm::Diff
+declare type DiffChangeTypeT = '+' | '-' | 'c' | 'u';
+
 declare type EditableRoleT = {
   +editsPending: boolean,
 };
@@ -874,11 +877,12 @@ declare type RatingT = {
 
 declare type RecordingT = $ReadOnly<{
   ...AnnotationRoleT,
-  ...ArtistCreditRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'recording'>,
   ...RatableRoleT,
   +appearsOn?: AppearancesT<{gid: string, name: string}>,
+  +artist?: string,
+  +artistCredit?: ArtistCreditT,
   +first_release_date?: PartialDateT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
@@ -886,6 +890,9 @@ declare type RecordingT = $ReadOnly<{
   +related_works: $ReadOnlyArray<number>,
   +video: boolean,
 }>;
+
+declare type RecordingWithArtistCreditT =
+  $ReadOnly<{...RecordingT, +artistCredit: ArtistCreditT}>;
 
 declare type RelationshipT = {
   ...DatePeriodRoleT,
@@ -1124,7 +1131,7 @@ declare type TrackT = $ReadOnly<{
   +name: string,
   +number: string,
   +position: number,
-  +recording?: {+artistCredit?: ArtistCreditT} & RecordingT,
+  +recording?: RecordingT,
   +unaccented_name: string | null,
 }>;
 

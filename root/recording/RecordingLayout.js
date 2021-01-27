@@ -20,7 +20,7 @@ import RecordingHeader from './RecordingHeader';
 type Props = {
   +$c: CatalystContextT,
   +children: React.Node,
-  +entity: RecordingT,
+  +entity: RecordingWithArtistCreditT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,

@@ -17,6 +17,7 @@ import EntityLink from './EntityLink';
 type DescriptiveLinkProps = {
   +allowNew?: boolean,
   +content?: Expand2ReactOutput,
+  +customArtistCredit?: ArtistCreditT,
   +deletedCaption?: string,
   +disableLink?: boolean,
   +entity: CollectionT | CoreEntityT,
@@ -27,6 +28,7 @@ type DescriptiveLinkProps = {
 const DescriptiveLink = ({
   allowNew,
   content,
+  customArtistCredit,
   deletedCaption,
   disableLink = false,
   entity,
@@ -42,17 +44,20 @@ const DescriptiveLink = ({
     target,
   };
 
+  // $FlowFixMe
+  const artistCredit = customArtistCredit || entity.artistCredit;
+
   if (entity.entityType === 'area' && entity.gid) {
     return <AreaWithContainmentLink area={entity} {...props} />;
   }
 
   const link = <EntityLink entity={entity} {...props} />;
 
-  if (entity.artistCredit) {
+  if (artistCredit) {
     return exp.l('{entity} by {artist}', {
       artist: (
         <ArtistCreditLink
-          artistCredit={ko.unwrap(entity.artistCredit)}
+          artistCredit={ko.unwrap(artistCredit)}
           showDeleted={showDeletedArtists}
         />
       ),

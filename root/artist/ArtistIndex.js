@@ -72,7 +72,7 @@ type Props = {
   +numberOfRevisions: number,
   +otherIdentities: $ReadOnlyArray<ArtistT>,
   +pager: PagerT,
-  +recordings: ?$ReadOnlyArray<RecordingT>,
+  +recordings: ?$ReadOnlyArray<RecordingWithArtistCreditT>,
   +releaseGroups: ?$ReadOnlyArray<ReleaseGroupT>,
   +showingVariousArtistsOnly: boolean,
   +wikipediaExtract: WikipediaExtractT,
