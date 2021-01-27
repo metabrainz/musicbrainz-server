@@ -2469,7 +2469,6 @@ const CLEANUPS = {
   },
   'otherdatabases': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?rateyourmusic\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?musicmoz\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?discografia\\.dds\\.it/', 'i'),
       new RegExp('^(https?://)?(www\\.)?encyclopedisque\\.fr/', 'i'),
@@ -2656,6 +2655,36 @@ const CLEANUPS = {
                 page === 'oeuvre' &&
                 /^oeuvreid=\d+&albumid=\d+$/.test(query),
             };
+        }
+      }
+      return {result: false};
+    },
+  },
+  'rateyourmusic': {
+    match: [new RegExp('^(https?://)?(www\\.)?rateyourmusic\\.com/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/rateyourmusic\.com\/(\w+)\//.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'artist'};
+          case LINK_TYPES.otherdatabases.event:
+            return {result: prefix === 'concert'};
+          case LINK_TYPES.otherdatabases.label:
+            return {result: prefix === 'label'};
+          case LINK_TYPES.otherdatabases.place:
+            return {result: prefix === 'venue'};
+          case LINK_TYPES.otherdatabases.release:
+            return {result: prefix === 'release'};
+          case LINK_TYPES.otherdatabases.series:
+            return {result: prefix === 'classifiers'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'work'};
         }
       }
       return {result: false};
