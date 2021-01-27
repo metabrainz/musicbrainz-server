@@ -685,7 +685,8 @@ sub added_entities_counts {
 
     for my $row (@$rows) {
         my ($type, $count) = @$row;
-        $result{$type} = $count;
+        # We just ignore any edits that are not one of the desired types
+        $result{$type} = $count unless $type eq 'other';
     }
 
     $self->c->cache->set($cache_key, \%result, 60 * 60 * 24);

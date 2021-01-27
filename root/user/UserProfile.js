@@ -490,6 +490,8 @@ const UserProfileStatistics = ({
   const encodedName = encodeURIComponent(user.name);
   const allAppliedCount = editStats.accepted_count +
                           editStats.accepted_auto_count;
+  const hasAddedEntities =
+    Object.values(addedEntities).some((number) => number !== 0);
 
   return (
     <>
@@ -671,7 +673,7 @@ const UserProfileStatistics = ({
       >
         <thead>
           <tr>
-            <th colSpan="2">
+            <th colSpan={hasAddedEntities ? '2' : null}>
               <abbr title={l('Newly applied edits may ' +
                              'need 24 hours to appear')}
               >
@@ -681,20 +683,28 @@ const UserProfileStatistics = ({
           </tr>
         </thead>
         <tbody>
-          {Object.keys(ADDED_ENTITIES_TYPES)
-            .filter(type => (addedEntities[type] !== 0))
-            .map(type => [type, ADDED_ENTITIES_TYPES[type]()])
-            .sort((a, b) => compare(a[1], b[1]))
-            .map(([entityType, entityTypeName]) => (
-              <UserEditsProperty
-                $c={$c}
-                addedEntities={addedEntities[entityType]}
-                entityType={entityType}
-                key={entityType}
-                name={entityTypeName}
-                user={user}
-              />
-            ))}
+          {hasAddedEntities ? (
+            Object.keys(ADDED_ENTITIES_TYPES)
+              .filter(type => (addedEntities[type] !== 0))
+              .map(type => [type, ADDED_ENTITIES_TYPES[type]()])
+              .sort((a, b) => compare(a[1], b[1]))
+              .map(([entityType, entityTypeName]) => (
+                <UserEditsProperty
+                  $c={$c}
+                  addedEntities={addedEntities[entityType]}
+                  entityType={entityType}
+                  key={entityType}
+                  name={entityTypeName}
+                  user={user}
+                />
+              ))
+          ) : (
+            <tr>
+              <td>
+                {l('This user has not created any entities.')}
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </>
