@@ -682,7 +682,7 @@ const UserProfileStatistics = ({
         </thead>
         <tbody>
           {Object.keys(ADDED_ENTITIES_TYPES)
-            .filter(type => (type !== 'area' || user.is_location_editor))
+            .filter(type => (addedEntities[type] !== 0))
             .map(type => [type, ADDED_ENTITIES_TYPES[type]()])
             .sort((a, b) => compare(a[1], b[1]))
             .map(([entityType, entityTypeName]) => (
