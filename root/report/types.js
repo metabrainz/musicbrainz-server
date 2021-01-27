@@ -47,6 +47,14 @@ export type ReportCDTocT = {
   +row_number: number,
 };
 
+export type ReportCDTocReleaseT = {
+  +cdtoc: ?CDTocT,
+  +cdtoc_id: number,
+  +release: ?ReleaseT,
+  +release_id: number,
+  +row_number: number,
+};
+
 export type ReportCollaborationT = {
   +artist0: ?ArtistT,
   +artist1: ?ArtistT,

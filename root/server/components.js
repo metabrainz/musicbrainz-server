@@ -149,6 +149,7 @@ module.exports = {
   'report/CatNoLooksLikeAsin': require('../report/CatNoLooksLikeAsin'),
   'report/CatNoLooksLikeLabelCode': require('../report/CatNoLooksLikeLabelCode'),
   'report/CDTocDubiousLength': require('../report/CDTocDubiousLength'),
+  'report/CDTocNotApplied': require('../report/CDTocNotApplied'),
   'report/CollaborationRelationships': require('../report/CollaborationRelationships'),
   'report/CoverArtRelationships': require('../report/CoverArtRelationships'),
   'report/DeprecatedRelationshipArtists': require('../report/DeprecatedRelationshipArtists'),

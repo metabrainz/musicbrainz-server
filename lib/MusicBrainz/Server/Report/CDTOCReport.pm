@@ -13,10 +13,17 @@ around inflate_rows => sub {
         map { $_->{cdtoc_id} } @$items
     );
 
+    my $releases = $self->c->model('Release')->get_by_ids(
+        map { $_->{release_id} } @$items
+    );
+
+    $self->c->model('ArtistCredit')->load(values %$releases);
+
     return [
         map +{
             %$_,
             cdtoc => $cdtocs->{ $_->{cdtoc_id} },
+            release => $releases->{ $_->{release_id} }
         }, @$items
     ];
 };
