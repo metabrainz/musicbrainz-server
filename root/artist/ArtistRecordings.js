@@ -37,7 +37,7 @@ type Props = {
   +hasStandalone: boolean,
   +hasVideo: boolean,
   +pager: PagerT,
-  +recordings: $ReadOnlyArray<RecordingT>,
+  +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
   +standaloneOnly: boolean,
   +videoOnly: boolean,
 };

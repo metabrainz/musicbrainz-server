@@ -35,6 +35,7 @@ const entries = [
   'account/edit',
   'account/preferences',
   'area',
+  'alias',
   'area/index',
   'area/places-map',
   'artist',

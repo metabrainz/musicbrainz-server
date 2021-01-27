@@ -10,7 +10,8 @@
 import * as React from 'react';
 
 import expand2react from '../static/scripts/common/i18n/expand2react';
-import subfieldErrors, {type FieldShape} from '../utility/subfieldErrors';
+import {type AnyFieldT} from '../utility/iterSubfields';
+import subfieldErrors from '../utility/subfieldErrors';
 
 // FIXME: Use expandable object instead of HTML string for safety (MBS-10632)
 const buildErrorListItem = (error, hasHtmlErrors = false, index) => {
@@ -23,19 +24,23 @@ const buildErrorListItem = (error, hasHtmlErrors = false, index) => {
 };
 
 type Props = {
-  +field: FieldShape,
+  +field: AnyFieldT,
   +hasHtmlErrors?: boolean,
+  +includeSubFields?: boolean,
 };
 
 const FieldErrors = ({
   field,
   hasHtmlErrors,
+  includeSubFields = true,
 }: Props): React.Element<'ul'> | null => {
   if (!field) {
     return null;
   }
-  const errors = subfieldErrors(field);
-  if (errors.length) {
+  const errors = includeSubFields
+    ? subfieldErrors(field)
+    : field.errors;
+  if (errors?.length) {
     return (
       <ul className="errors">
         {errors.map(function (error, index) {

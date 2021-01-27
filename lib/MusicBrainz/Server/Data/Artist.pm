@@ -3,8 +3,13 @@ use Moose;
 use namespace::autoclean;
 
 use Carp;
-use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID $DARTIST_ID $STATUS_OPEN );
+use List::MoreUtils qw( any uniq );
+use MusicBrainz::Server::Constants qw(
+    $VARTIST_ID
+    $DARTIST_ID
+    $STATUS_OPEN
+    $ARTIST_TYPE_GROUP
+);
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::ArtistCredit;
@@ -12,6 +17,7 @@ use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
     add_partial_date_to_row
+    conditional_merge_column_query
     defined_hash
     get_area_containment_query
     hash_to_row
@@ -334,18 +340,66 @@ sub merge
     $self->c->model('Collection')->merge_entities('artist', $new_id, @$old_ids);
     $self->c->model('Relationship')->merge_entities('artist', $new_id, $old_ids, rename_credits => $opts{rename});
 
+    # We detect cases where a merged artist type or gender is dropped due to
+    # it conflicting with a type or gender on the target or elsewhere (since
+    # only persons can have a gender). In Edit::Artist::Merge, we use the
+    # result of %dropped_columns to inform users of what information was
+    # dropped. This is done as opposed to failing the edit outright, since
+    # that's arguably more annoying for the editor. See MBS-10187.
+    my %dropped_columns;
     unless (is_special_artist($new_id)) {
-        my $merge_columns = [ qw( area begin_area end_area type ) ];
-        my $artist_type = $self->sql->select_single_value('SELECT type FROM artist WHERE id = ?', $new_id);
-        my $group_type = 2;
-        my $orchestra_type = 5;
-        my $choir_type = 6;
-        if (
-            !defined $artist_type ||
-            ($artist_type != $group_type && $artist_type != $orchestra_type && $artist_type != $choir_type)
-        ) {
-            push @$merge_columns, 'gender';
+        my $merge_columns = [ qw( area begin_area end_area ) ];
+        my $target_row = $self->sql->select_single_row_hash('SELECT gender, type FROM artist WHERE id = ?', $new_id);
+        my $target_type = $target_row->{type};
+        my $target_gender = $target_row->{gender};
+        my $merged_type = $target_type;
+        my $merged_gender = $target_gender;
+
+        if (!$merged_type) {
+            my ($query, $args) = conditional_merge_column_query(
+                'artist', 'type', $new_id, [$new_id, @$old_ids], 'IS NOT NULL');
+            $merged_type = $self->c->sql->select_single_value($query, @$args);
         }
+
+        if (!$merged_gender) {
+            my ($query, $args) = conditional_merge_column_query(
+                'artist', 'gender', $new_id, [$new_id, @$old_ids], 'IS NOT NULL');
+            $merged_gender = $self->c->sql->select_single_value($query, @$args);
+        }
+
+        my $group_types = $self->sql->select_single_column_array(q{
+            WITH RECURSIVE atp(id) AS (
+                VALUES (?::int)
+                 UNION
+                SELECT artist_type.id
+                  FROM artist_type
+                  JOIN atp ON atp.id = artist_type.parent
+            ) SELECT * FROM atp
+        }, $ARTIST_TYPE_GROUP);
+
+        my $merged_type_is_group =
+            defined $merged_type &&
+            any { $merged_type eq $_ } @$group_types;
+
+        if ($merged_type_is_group && $merged_gender) {
+            my $target_type_is_group =
+                defined $target_type &&
+                any { $target_type eq $_ } @$group_types;
+
+            if ($target_type_is_group) {
+                $dropped_columns{gender} = $merged_gender;
+                push @$merge_columns, 'type';
+            } elsif ($target_gender) {
+                $dropped_columns{type} = $merged_type;
+                push @$merge_columns, 'gender';
+            } else {
+                $dropped_columns{gender} = $merged_gender;
+                $dropped_columns{type} = $merged_type;
+            }
+        } else {
+            push @$merge_columns, qw( gender type );
+        }
+
         merge_table_attributes(
             $self->sql => (
                 table => 'artist',
@@ -365,7 +419,7 @@ sub merge
     }
 
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
-    return 1;
+    return (1, \%dropped_columns);
 }
 
 sub _hash_to_row

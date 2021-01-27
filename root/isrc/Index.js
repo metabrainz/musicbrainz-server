@@ -22,7 +22,7 @@ import {returnToCurrentPage} from '../utility/returnUri';
 type PropsT = {
   +$c: CatalystContextT,
   +isrcs: $ReadOnlyArray<IsrcT>,
-  +recordings: $ReadOnlyArray<RecordingT>,
+  +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
 };
 
 const Index = ({

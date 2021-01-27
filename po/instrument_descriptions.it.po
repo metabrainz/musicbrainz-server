@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-07 16:54+0000\n"
+"PO-Revision-Date: 2021-01-25 23:31+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -755,6 +755,13 @@ msgid ""
 "href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr "Metallofono comune e popolare, solitamente composto da una serie di barrette in metallo disposte su una cassetta in legno che funge da risuonatore. <br /> Per lo strumento usato spesso nei campanili, utilizza <a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon (batteria di campane)</a>.<br /> Per lo strumento che in alcune lingue è chiamato campana da orchestra/chime, utilizza <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">campane tubolari</a>."
 
+#. name:keyed box zither
+#: DB:instrument/description:1028
+msgid ""
+"Composite chordophone, box zither where some or all strings are operated by "
+"keys or buttons (keyboard)"
+msgstr "Cordofono composito, è un salterio a cassa nel quale alcune o tutte le corde sono azionate da tasti o bottoni (tastiera)."
+
 #. name:rudra veena
 #: DB:instrument/description:501
 msgid ""
@@ -1251,6 +1258,13 @@ msgid ""
 "Highest pitched gangsa, it has 10 brass or bronze keys suspended over short "
 "resonating bamboo pipes set in an heavily ornate case."
 msgstr "Il gangsa dal tono più acuto, ha 10 barrette in ottone o in bronzo sospese sopra risuonatori corti in canna di bambù, disposti in un contenitore riccamente ornato."
+
+#. name:wooden fish
+#: DB:instrument/description:267
+msgid ""
+"Highly stylised wooden block-bell, it is used in religious ritual. Its "
+"prototype, fish board (gyoban) is more obviously shaped like a fish."
+msgstr "Blocco/campana in legno altamente stilizzato, è usato per rituali religiosi. Il suo prototipo, il gyoban (tavola a forma di pesce) ha una forma che richiama un pesce in maniera più evidente."
 
 #. name:gut guitar
 #: DB:instrument/description:567
@@ -2304,6 +2318,14 @@ msgid ""
 "has 6 bronze keys tuned for the slendro key."
 msgstr "Simile al panerus, con cui condivide un'estensione distinta ma sovrapposta, ha 6 sbarre in bronzo intonate in slendro."
 
+#. name:akkordolia
+#: DB:instrument/description:1029
+msgid ""
+"Similar to the Japanese taishogoto, it has an elongated teardrop shaped "
+"wooden body with button accordion like keys which plays the melody and sets "
+"chords.."
+msgstr "Simile al taishogoto giapponese, ha una cassa in legno a forma di goccia allungata con tasti simili a quelli di una fisarmonica a bottoni che regolano la melodia e le corde."
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -2804,11 +2826,6 @@ msgid ""
 "The buk is a Korean drum. While buk is a generic term for drum, it normally "
 "refers to a shallow barrel-shaped drum with a wooden body."
 msgstr "Tamburo coreano. Pur essendo un termine generico per indicare un tamburo, normalmente si riferisce a un tamburo a forma di barile basso con cassa in legno."
-
-#. name:bulbul tarang
-#: DB:instrument/description:528
-msgid "The bulbul tarang is a string instrument from India and Pakistan."
-msgstr "Strumento a corda proveniente da India e Pakistan."
 
 #. name:buzuq
 #: DB:instrument/description:655
@@ -3860,13 +3877,6 @@ msgid ""
 "wooden body with a metal mouthpiece and cup-shaped metal bell."
 msgstr "Strumento coreano a fiato ad ancia doppia, con corpo conico in legno, bocchino in metallo e padiglione a tazza rovesciata in metallo."
 
-#. name:taishogoto
-#: DB:instrument/description:555
-msgid ""
-"The taishōgoto is a Japanese string instrument with 2-12 strings and keys "
-"which are used to fret the strings."
-msgstr "Strumento giapponese a corda con 2-12 corde e tasti usati per premere le corde."
-
 #. name:talharpa
 #: DB:instrument/description:544
 msgid ""
@@ -4668,6 +4678,14 @@ msgid ""
 "Whirring, spinning disks of many shapes, sizes and materials. When blown on,"
 " they also create a well of different humming sounds."
 msgstr "Dischi rotanti e frullanti di molte forme, dimensioni e materiali. Quando si soffia loro sopra, diventano fonte di diversi suoni ronzanti."
+
+#. name:hummel
+#: DB:instrument/description:1030
+msgid ""
+"Whole or half-pear shaped wooden body, it is partly fretted and has two "
+"string-courses; melody and drone. The name comes from Germanic words meaning"
+" bumblebee or buzzing."
+msgstr "Con cassa in legno a forma di mezza pera o di pera intera, è parzialmente dotato di tasti e ha due ordini di corde, melodiche e bordone. Il suo nome deriva dalle parole germaniche per bombo o ronzio."
 
 #. name:haegeum
 #: DB:instrument/description:486

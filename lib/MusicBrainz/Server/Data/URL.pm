@@ -50,8 +50,6 @@ my %URL_SPECIALIZATIONS = (
     'DAHR'                => qr{^https?://adp\.library\.ucsb\.edu/}i,
     'Dailymotion'         => qr{^https?://(?:www\.)?dailymotion\.com/}i,
     'DanceDB'             => qr{^https?://(?:www\.)?tedcrane\.com/DanceDB/}i,
-    # Temporarily grey Decoda out as it has been reported to be compromised
-    # 'Decoda'              => qr{^https?://(?:www\.)?decoda\.com/}i,
     'Deezer'              => qr{^https?://(?:www\.)?deezer\.com/}i,
     'DHHU'                => qr{^https?://(?:www\.)?dhhu\.dk/}i,
     'Directlyrics'        => qr{^https?://(?:www\.)?directlyrics\.com/}i,

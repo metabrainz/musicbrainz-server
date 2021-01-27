@@ -2071,7 +2071,6 @@ const CLEANUPS = {
   'lyrics': {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?directlyrics\\.com', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?decoda\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?lieder\\.net', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?utamap\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?j-lyric\\.net', 'i'),
@@ -2470,7 +2469,6 @@ const CLEANUPS = {
   },
   'otherdatabases': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?rateyourmusic\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?musicmoz\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?discografia\\.dds\\.it/', 'i'),
       new RegExp('^(https?://)?(www\\.)?encyclopedisque\\.fr/', 'i'),
@@ -2657,6 +2655,36 @@ const CLEANUPS = {
                 page === 'oeuvre' &&
                 /^oeuvreid=\d+&albumid=\d+$/.test(query),
             };
+        }
+      }
+      return {result: false};
+    },
+  },
+  'rateyourmusic': {
+    match: [new RegExp('^(https?://)?(www\\.)?rateyourmusic\\.com/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/rateyourmusic\.com\/(\w+)\//.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'artist'};
+          case LINK_TYPES.otherdatabases.event:
+            return {result: prefix === 'concert'};
+          case LINK_TYPES.otherdatabases.label:
+            return {result: prefix === 'label'};
+          case LINK_TYPES.otherdatabases.place:
+            return {result: prefix === 'venue'};
+          case LINK_TYPES.otherdatabases.release:
+            return {result: prefix === 'release'};
+          case LINK_TYPES.otherdatabases.series:
+            return {result: prefix === 'classifiers'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'work'};
         }
       }
       return {result: false};
@@ -3561,76 +3589,49 @@ Object.values(LINK_TYPES).forEach(function (linkType) {
   });
 });
 
-// avoid Wikipedia/Wikidata being added as release-level discography entry
-const discographyRule = validationRules[LINK_TYPES.discographyentry.release];
-validationRules[LINK_TYPES.discographyentry.release] = function (url) {
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikipedia is not a discography entry. Please add this Wikipedia link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikidata is not a discography entry. Please add this Wikidata link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  return discographyRule(url);
-};
+const relationshipTypesByEntityType = Object.entries(LINK_TYPES).reduce(
+  function (
+    results,
+    [/* relationshipType */, relUuidByEntityType],
+  ) {
+    for (const entityType of Object.keys(relUuidByEntityType)) {
+      (results[entityType] || (results[entityType] = []))
+        .push(relUuidByEntityType[entityType]);
+    }
+    return results;
+  },
+  {},
+);
 
-// avoid Wikipedia/Wikidata being added as release-level license entry
-const licenseRule = validationRules[LINK_TYPES.license.release];
-validationRules[LINK_TYPES.license.release] = function (url) {
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikipedia is not a license page. Please add this Wikipedia link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikidata is not a license page. Please add this Wikidata link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  return licenseRule(url);
-};
-
-// avoid Wikipedia/Wikidata being added as release-level show notes entry
-validationRules[LINK_TYPES.shownotes.release] = function (url) {
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikipedia is not a page of show notes. Please add this Wikipedia link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikidata is not a page of show notes. Please add this Wikidata link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  return {result: true};
-};
+// Avoid Wikipedia/Wikidata being added as release-level relationship
+for (const relUuid of relationshipTypesByEntityType.release) {
+  const relRule = validationRules[relUuid];
+  validationRules[relUuid] = function (url) {
+    if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
+      return {
+        error: l(
+          `Wikipedia normally has no entries for specific releases,
+           so adding Wikipedia links to a release is currently blocked.
+           Please add this Wikipedia link to the release group instead,
+           if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
+      return {
+        error: l(
+          `Wikidata normally has no entries for specific releases,
+           so adding Wikidata links to a release is currently blocked.
+           Please add this Wikidata link to the release group instead,
+           if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    return relRule(url);
+  };
+}
 
 export function guessType(sourceType, currentURL) {
   const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {

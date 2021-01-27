@@ -22,7 +22,7 @@ type Props = {
   +$c: CatalystContextT,
   +form: MergeFormT,
   +isrcsDiffer?: boolean,
-  +toMerge: $ReadOnlyArray<RecordingT>,
+  +toMerge: $ReadOnlyArray<RecordingWithArtistCreditT>,
 };
 
 const RecordingMerge = ({

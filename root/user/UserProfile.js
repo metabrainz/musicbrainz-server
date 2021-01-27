@@ -30,14 +30,18 @@ import {canNominate} from '../utility/voting';
 import {returnToCurrentPage} from '../utility/returnUri';
 
 const ADDED_ENTITIES_TYPES = {
-  artist:    N_l('Artist'),
-  cover_art: N_l('Cover Art'),
-  event:     N_l('Event'),
-  label:     N_l('Label'),
-  place:     N_l('Place'),
-  release:   N_l('Release'),
-  series:    N_lp('Series', 'singular'),
-  work:      N_l('Work'),
+  area:         N_l('Area'),
+  artist:       N_l('Artist'),
+  cover_art:    N_l('Cover Art'),
+  event:        N_l('Event'),
+  instrument:   N_l('Instrument'),
+  label:        N_l('Label'),
+  place:        N_l('Place'),
+  recording:    N_l('Recording'),
+  release:      N_l('Release'),
+  releasegroup: N_l('Release group'),
+  series:       N_lp('Series', 'singular'),
+  work:         N_l('Work'),
 };
 
 function generateUserTypesList(user: UnsanitizedEditorT) {
@@ -412,6 +416,9 @@ const UserEditsProperty = ({
     '&conditions.1.field=type' +
     '&conditions.1.operator=%3D' +
     '&conditions.1.args=' + createEditTypes +
+    '&conditions.2.field=status' +
+    '&conditions.2.operator=%3D' +
+    '&conditions.2.args=2' +
     '&negation=0' +
     '&order=desc'
   ));
@@ -450,12 +457,16 @@ type VoteStatsT = Array<{
 }>;
 
 type EntitiesStatsT = {
+  +area: number,
   +artist: number,
   +cover_art: number,
   +event: number,
+  +instrument: number,
   +label: number,
   +place: number,
+  +recording: number,
   +release: number,
+  +releasegroup: number,
   +series: number,
   +work: number,
 };
@@ -479,6 +490,8 @@ const UserProfileStatistics = ({
   const encodedName = encodeURIComponent(user.name);
   const allAppliedCount = editStats.accepted_count +
                           editStats.accepted_auto_count;
+  const hasAddedEntities =
+    Object.values(addedEntities).some((number) => number !== 0);
 
   return (
     <>
@@ -660,25 +673,38 @@ const UserProfileStatistics = ({
       >
         <thead>
           <tr>
-            <th colSpan="2">
-              {exp.l('Added entities')}
+            <th colSpan={hasAddedEntities ? '2' : null}>
+              <abbr title={l('Newly applied edits may ' +
+                             'need 24 hours to appear')}
+              >
+                {exp.l('Added entities')}
+              </abbr>
             </th>
           </tr>
         </thead>
         <tbody>
-          {Object.keys(ADDED_ENTITIES_TYPES)
-            .map(type => [type, ADDED_ENTITIES_TYPES[type]()])
-            .sort((a, b) => compare(a[1], b[1]))
-            .map(([entityType, entityTypeName]) => (
-              <UserEditsProperty
-                $c={$c}
-                addedEntities={addedEntities[entityType]}
-                entityType={entityType}
-                key={entityType}
-                name={entityTypeName}
-                user={user}
-              />
-            ))}
+          {hasAddedEntities ? (
+            Object.keys(ADDED_ENTITIES_TYPES)
+              .filter(type => (addedEntities[type] !== 0))
+              .map(type => [type, ADDED_ENTITIES_TYPES[type]()])
+              .sort((a, b) => compare(a[1], b[1]))
+              .map(([entityType, entityTypeName]) => (
+                <UserEditsProperty
+                  $c={$c}
+                  addedEntities={addedEntities[entityType]}
+                  entityType={entityType}
+                  key={entityType}
+                  name={entityTypeName}
+                  user={user}
+                />
+              ))
+          ) : (
+            <tr>
+              <td>
+                {l('This user has not created any entities.')}
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </>

@@ -34,7 +34,7 @@ SQL
     is($medium_cdtoc->medium->release->edits_pending, 0);
 };
 
-test 'Cannot move to non-existant medium' => sub {
+test 'Cannot move to non-existent medium' => sub {
     my $test = shift;
     my $c = $test->c;
 

@@ -165,6 +165,7 @@ const ReportUser = ({
               </p>
             }
             label={l('Reveal my email address')}
+            uncontrolled
           />
 
           <FormRow hasNoLabel>

@@ -20,7 +20,7 @@ type Props = {|
   +$c: CatalystContextT,
   +instrument: InstrumentT,
   +pager: PagerT,
-  +recordings: $ReadOnlyArray<RecordingT>,
+  +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
 |};
 
 const InstrumentRecordings = ({

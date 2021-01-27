@@ -1,0 +1,83 @@
+/*
+ * @flow strict
+ * Copyright (C) 2020 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+export type SubfieldsT = {
+  +[fieldName: string]: AnyFieldT,
+};
+
+export type WritableSubfieldsT = {
+  +[fieldName: string]: WritableAnyFieldT,
+};
+
+export type AnyFieldT =
+  | {
+      +errors: $ReadOnlyArray<string>,
+      +field: SubfieldsT,
+      +pendingErrors?: $ReadOnlyArray<string>,
+      +type: 'compound_field',
+      ...
+    }
+  | {
+      +errors: $ReadOnlyArray<string>,
+      +field: $ReadOnlyArray<SubfieldsT>,
+      +pendingErrors?: $ReadOnlyArray<string>,
+      +type: 'repeatable_field',
+      ...
+    }
+  | {
+      +errors: $ReadOnlyArray<string>,
+      +pendingErrors?: $ReadOnlyArray<string>,
+      +type: 'field',
+      ...
+    };
+
+export type WritableAnyFieldT =
+  | {
+      errors: Array<string>,
+      +field: WritableSubfieldsT,
+      pendingErrors?: Array<string>,
+      +type: 'compound_field',
+      ...
+    }
+  | {
+      errors: Array<string>,
+      +field: Array<WritableSubfieldsT>,
+      pendingErrors?: Array<string>,
+      +type: 'repeatable_field',
+      ...
+    }
+  | {
+      errors: Array<string>,
+      pendingErrors?: Array<string>,
+      +type: 'field',
+      ...
+    };
+
+export type FormOrAnyFieldT =
+  | ReadOnlyFormT<SubfieldsT>
+  | AnyFieldT;
+
+export type WritableFormOrAnyFieldT =
+  /*
+   * The form is read-only here because we only care that the fields
+   * are writable. Also, in `ReadOnlyFormT` the type parameter is
+   * covariant, unlike in `FormT`. This avoids incompatibilities
+   * between `WritableSubfieldsT` (an indexed type) and other exact
+   * object types.
+   */
+  | ReadOnlyFormT<WritableSubfieldsT>
+  | WritableAnyFieldT;
+
+declare export function iterSubfields(
+  formOrField: FormOrAnyFieldT,
+): Generator<AnyFieldT, void, void>;
+
+declare export function iterWritableSubfields(
+  formOrField: WritableFormOrAnyFieldT,
+): Generator<WritableAnyFieldT, void, void>;

@@ -16,7 +16,7 @@ import RecordingLayout from './RecordingLayout';
 
 type Props = {
   +$c: CatalystContextT,
-  +recording: RecordingT,
+  +recording: RecordingWithArtistCreditT,
 };
 
 const RecordingFingerprints = ({

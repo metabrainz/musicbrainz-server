@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-03 14:00+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2021-01-25 21:20+0000\n"
+"Last-Translator: Timo Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -316,6 +316,11 @@ msgstr "ajaeng"
 #: DB:instrument/name:747
 msgctxt "set of Nyabinghi drums"
 msgid "akete"
+msgstr ""
+
+#: DB:instrument/name:1029
+msgctxt "German keyed box zither"
+msgid "akkordolia"
 msgstr ""
 
 #: DB:instrument/name:718
@@ -829,6 +834,7 @@ msgid "buk"
 msgstr "buk"
 
 #: DB:instrument/name:528
+msgctxt "Indian keyed box zither"
 msgid "bulbul tarang"
 msgstr "bulbultarang"
 
@@ -1911,6 +1917,11 @@ msgstr ""
 msgid "hulusi"
 msgstr ""
 
+#: DB:instrument/name:1030
+msgctxt "Medieval pear-shaped drone zither"
+msgid "hummel"
+msgstr ""
+
 #: DB:instrument/name:213
 msgid "huqin"
 msgstr ""
@@ -2179,6 +2190,11 @@ msgstr ""
 #: DB:instrument/name:362
 msgid "keyboard bass"
 msgstr "kosketinbasso"
+
+#: DB:instrument/name:1028
+msgctxt "Composite chordophone"
+msgid "keyed box zither"
+msgstr ""
 
 #: DB:instrument/name:154
 msgid "keyed brass instruments"
@@ -3597,6 +3613,7 @@ msgid "taiko"
 msgstr "taiko"
 
 #: DB:instrument/name:555
+msgctxt "Japanese keyed box zither"
 msgid "taishogoto"
 msgstr ""
 
@@ -4200,6 +4217,7 @@ msgid "wood block"
 msgstr ""
 
 #: DB:instrument/name:267
+msgctxt "wooden bell used in temples"
 msgid "wooden fish"
 msgstr ""
 

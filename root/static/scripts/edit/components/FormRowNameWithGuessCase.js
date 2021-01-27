@@ -10,16 +10,26 @@
 import * as React from 'react';
 
 import FormRowText from '../../../../components/FormRowText';
+import MB from '../../common/MB';
 
-import type {
-  ActionT as GuessCaseOptionsActionT,
-  StateT as GuessCaseOptionsStateT,
+import {
+  createInitialState as createGuessCaseOptionsState,
+  runReducer as runGuessCaseOptionsReducer,
+  type ActionT as GuessCaseOptionsActionT,
+  type StateT as GuessCaseOptionsStateT,
+  type WritableStateT as WritableGuessCaseOptionsStateT,
 } from './GuessCaseOptions';
 import GuessCaseOptionsPopover from './GuessCaseOptionsPopover';
 
+type NamedEntityT = {
+  +entityType: CoreEntityTypeT,
+  +name: string,
+  ...
+};
+
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =
-  | {+type: 'guess-case'}
+  | {+type: 'guess-case', +entity: NamedEntityT}
   | {+type: 'open-guess-case-options'}
   | {+type: 'close-guess-case-options'}
   | {+type: 'update-guess-case-options', +action: GuessCaseOptionsActionT}
@@ -28,6 +38,7 @@ export type ActionT =
 
 type PropsT = {
   +dispatch: (ActionT) => void,
+  +entity: NamedEntityT,
   +field: ReadOnlyFieldT<string | null>,
   +guessCaseOptions: GuessCaseOptionsStateT,
   +guessFeat?: boolean,
@@ -35,8 +46,65 @@ type PropsT = {
   +label?: string,
 };
 
+export type StateT = {
+  +field: ReadOnlyFieldT<string | null>,
+  +guessCaseOptions: GuessCaseOptionsStateT,
+  +isGuessCaseOptionsOpen: boolean,
+};
+
+export type WritableStateT = {
+  ...StateT,
+  field: FieldT<string | null>,
+  guessCaseOptions: WritableGuessCaseOptionsStateT,
+};
+
+export function createInitialState(
+  field: ReadOnlyFieldT<string | null>,
+): StateT {
+  return {
+    field,
+    guessCaseOptions: createGuessCaseOptionsState(),
+    isGuessCaseOptionsOpen: false,
+  };
+}
+
+export function runReducer(
+  newState: WritableStateT,
+  action: ActionT,
+): void {
+  switch (action.type) {
+    case 'guess-case': {
+      newState.field.value =
+        (MB.GuessCase: any)[action.entity.entityType].guess(
+          newState.field.value ?? '',
+        );
+      break;
+    }
+    case 'open-guess-case-options': {
+      newState.isGuessCaseOptionsOpen = true;
+      break;
+    }
+    case 'close-guess-case-options': {
+      newState.isGuessCaseOptionsOpen = false;
+      break;
+    }
+    case 'update-guess-case-options': {
+      runGuessCaseOptionsReducer(
+        newState.guessCaseOptions,
+        action.action,
+      );
+      break;
+    }
+    case 'set-name': {
+      newState.field.value = action.name;
+      break;
+    }
+  }
+}
+
 export const FormRowNameWithGuessCase = ({
   dispatch,
+  entity,
   field,
   guessCaseOptions,
   guessFeat = false,
@@ -51,7 +119,7 @@ export const FormRowNameWithGuessCase = ({
   }
 
   function handleGuessCase() {
-    dispatch({type: 'guess-case'});
+    dispatch({entity, type: 'guess-case'});
   }
 
   const toggleGuessCaseOptions = React.useCallback((

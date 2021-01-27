@@ -115,7 +115,7 @@ export const RecordingResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsWithContextT<RecordingT>):
+}: InlineResultsPropsWithContextT<RecordingWithArtistCreditT>):
 React.Element<typeof PaginatedSearchResults> => (
   <PaginatedSearchResults
     buildResult={result => buildResult($c, result)}
@@ -145,7 +145,7 @@ const RecordingResults = ({
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<RecordingT>):
+}: ResultsPropsWithContextT<RecordingWithArtistCreditT>):
 React.Element<typeof ResultsLayout> => {
   linenum = 0;
   return (

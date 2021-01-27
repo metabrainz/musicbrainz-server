@@ -12,13 +12,16 @@ import * as React from 'react';
 import entityHref from '../utility/entityHref';
 
 type Props = {
+  +anchorPath?: string,
   +cdToc: CDTocT,
   +content: string,
   +subPath?: string,
 };
 
-const CDTocLink = ({cdToc, content, subPath}: Props): React.Element<'a'> => (
-  <a href={entityHref(cdToc, subPath)}>
+const CDTocLink = (
+  {cdToc, content, subPath, anchorPath}: Props,
+): React.Element<'a'> => (
+  <a href={entityHref(cdToc, subPath, anchorPath)}>
     <bdi>
       {content}
     </bdi>

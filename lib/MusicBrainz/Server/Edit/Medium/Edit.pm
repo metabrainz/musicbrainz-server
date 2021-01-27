@@ -51,6 +51,8 @@ sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { N_l('Edit medium') }
 sub edit_kind { 'edit' }
 sub _edit_model { 'Medium' }
+sub edit_template_react { 'EditMedium' }
+
 sub entity_id { shift->data->{entity_id} }
 sub medium_id { shift->entity_id }
 sub release_id { shift->data->{release}{id} }
@@ -242,10 +244,16 @@ sub build_display_data
     my $data = { };
 
     my $release = $loaded->{Release}{ $self->data->{release}{id} } //
-                  Release->new( name => $self->data->{release}{name} );
+                  Release->new(
+                      id => $self->data->{release}{id},
+                      name => $self->data->{release}{name},
+                  );
 
     $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} } //
-                      Medium->new( release => $release );
+                      Medium->new(
+                          release_id => $self->data->{release}{id},
+                          release => $release,
+                      );
 
     if (exists $self->data->{new}{format_id}) {
         $data->{format} = {
@@ -306,7 +314,12 @@ sub build_display_data
         }
 
         if (any {$_->[0] ne 'u' || $_->[1]->number ne $_->[2]->number } @$tracklist_changes) {
-            $data->{tracklist_changes} = $tracklist_changes;
+            my @mapped_tracklist_changes = map +{
+                change_type => $_->[0],
+                old_track => $_->[1] eq '' ? undef : $_->[1],
+                new_track => $_->[2] eq '' ? undef : $_->[2],
+            }, @$tracklist_changes;
+            $data->{tracklist_changes} = \@mapped_tracklist_changes;
         }
 
         # Edits that predate track mbids do not store track ids at all.
@@ -317,6 +330,11 @@ sub build_display_data
         }
 
         $data->{artist_credit_changes} = [
+            map +{
+                change_type => $_->[0],
+                old_track => $_->[1] eq '' ? undef : $_->[1],
+                new_track => $_->[2],
+            },
             grep {
                 ($_->[1] && hash_artist_credit_without_join_phrases($_->[1]->artist_credit))
                     ne
@@ -324,6 +342,7 @@ sub build_display_data
             }
             grep { $_->[0] ne '-' }
             @$tracklist_changes ];
+
 
         # Generate a map of track id => old recording id, for edits that store
         # track ids, to detect if recordings have changed.
@@ -334,6 +353,11 @@ sub build_display_data
             @changes_with_track_ids;
 
         $data->{recording_changes} = [
+            map +{
+                change_type => $_->[0],
+                old_track => $_->[1] eq '' ? undef : $_->[1],
+                new_track => $_->[2],
+            },
             grep {
                 my $old = $_->[1];
                 my $new = $_->[2];
@@ -618,6 +642,12 @@ before restore => sub {
     if (exists $data->{new}{name}) {
         $data->{new}{name} //= '';
         $data->{old}{name} //= '';
+    }
+
+    for my $track (@{ $data->{new}{tracklist} }, @{ $data->{old}{tracklist} }) {
+        for my $artist_credit_name (@{ $track->{artist_credit}{names} }) {
+            $artist_credit_name->{join_phrase} //= '';
+        }
     }
 };
 

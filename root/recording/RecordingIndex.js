@@ -30,7 +30,7 @@ type Props = {
   +$c: CatalystContextT,
   +numberOfRevisions: number,
   +pager: PagerT,
-  +recording: RecordingT,
+  +recording: RecordingWithArtistCreditT,
   +tracks: $ReadOnlyArray<$ReadOnlyArray<{...TrackT, +medium: MediumT}>>,
 };
 
@@ -38,7 +38,7 @@ const RecordingAppearancesTable = ({
   recording,
   tracks,
 }: {
-  recording: RecordingT,
+  recording: RecordingWithArtistCreditT,
   tracks: $ElementType<Props, 'tracks'>,
 }) => (
   <table className="tbl">

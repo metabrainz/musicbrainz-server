@@ -259,10 +259,10 @@ test 'Accept/failure conditions regarding links' => sub {
 
         $c->model('Edit')->load_all($edit);
         is(@{ $edit->display_data->{tracklist_changes} }, 1, '1 tracklist change');
-        is($edit->display_data->{tracklist_changes}->[0][0], '+', 'tracklist change is an addition');
+        is($edit->display_data->{tracklist_changes}->[0]->{change_type}, '+', 'tracklist change is an addition');
 
         is(@{ $edit->display_data->{artist_credit_changes} }, 1, '1 artist credit change');
-        is($edit->display_data->{artist_credit_changes}->[0][0], '+', 'artist credit change is an addition');
+        is($edit->display_data->{artist_credit_changes}->[0]->{change_type}, '+', 'artist credit change is an addition');
 
         # Reload for renewed edit and track data
         $medium = $c->model('Medium')->get_by_id(1);
@@ -299,8 +299,8 @@ test 'Accept/failure conditions regarding links' => sub {
         is(@{ $edit->display_data->{artist_credit_changes} }, 0, '0 artist credit changes');
         is(@{ $edit->display_data->{recording_changes} }, 1, '1 recording change');
 
-        is($edit->display_data->{recording_changes}[0][1]->recording_id, 3, 'was recording 3');
-        is($edit->display_data->{recording_changes}[0][2]->recording_id, 1, 'now recording 1');
+        is($edit->display_data->{recording_changes}[0]->{old_track}->recording_id, 3, 'was recording 3');
+        is($edit->display_data->{recording_changes}[0]->{new_track}->recording_id, 1, 'now recording 1');
 
         ok(defined($c->model('Recording')->get_by_id(1)),
            'the new recording exists');
@@ -383,11 +383,11 @@ test 'Accept/failure conditions regarding links' => sub {
         ok !exception { $edit->accept };
 
         $c->model('Edit')->load_all($edit);
-        is((grep { $_->[0] ne 'u' } @{ $edit->display_data->{tracklist_changes} }), 1, '1 tracklist change');
-        is($edit->display_data->{tracklist_changes}->[1][0], '+', 'tracklist change is an addition');
+        is((grep { $_->{change_type} ne 'u' } @{ $edit->display_data->{tracklist_changes} }), 1, '1 tracklist change');
+        is($edit->display_data->{tracklist_changes}->[1]->{change_type}, '+', 'tracklist change is an addition');
 
         is(@{ $edit->display_data->{artist_credit_changes} }, 1, '1 artist credit change');
-        is($edit->display_data->{artist_credit_changes}->[0][0], '+', 'artist credit change is an addition');
+        is($edit->display_data->{artist_credit_changes}->[0]->{change_type}, '+', 'artist credit change is an addition');
     };
 
     subtest 'Changes that dont touch recording IDs can pass merges' => sub {
@@ -417,8 +417,8 @@ test 'Accept/failure conditions regarding links' => sub {
 
         $c->model('Edit')->load_all($edit);
         is(@{ $edit->display_data->{tracklist_changes} }, 2, '2 tracklist changes');
-        is($edit->display_data->{tracklist_changes}->[0][0], 'c', 'tracklist change 1 is a change');
-        is($edit->display_data->{tracklist_changes}->[1][0], 'c', 'tracklist change 2 is a change');
+        is($edit->display_data->{tracklist_changes}->[0]->{change_type}, 'c', 'tracklist change 1 is a change');
+        is($edit->display_data->{tracklist_changes}->[1]->{change_type}, 'c', 'tracklist change 2 is a change');
 
         is(@{ $edit->display_data->{artist_credit_changes} }, 0, '0 artist credit changes');
     };

@@ -260,6 +260,7 @@ class EditProfileForm extends React.Component<Props, State> {
         <FormRowPartialDate
           field={field.birth_date}
           label={l('Birth date:')}
+          uncontrolled
         />
         <FormRow hasNoLabel>
           {l(

@@ -153,6 +153,9 @@ sub edit_action
     $form_args{init_object} = $opts{item} if exists $opts{item};
     my $form = $c->form( form => $opts{form}, ctx => $c, %form_args );
 
+    $c->stash->{component_props}{form} = $form;
+    $opts{pre_validation}->($form) if exists $opts{pre_validation};
+
     if ($c->form_posted_and_valid($form, $c->req->body_params)) {
         return if exists $opts{pre_creation} && !$opts{pre_creation}->($form);
 

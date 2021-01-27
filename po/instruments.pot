@@ -1793,6 +1793,7 @@ msgid "güira"
 msgstr ""
 
 #: DB:instrument/name:112
+msgctxt "Latin American gourd scraper"
 msgid "güiro"
 msgstr ""
 
@@ -3015,6 +3016,7 @@ msgid "quena"
 msgstr ""
 
 #: DB:instrument/name:755
+msgctxt "Jawbone rattle"
 msgid "quijada"
 msgstr ""
 
@@ -3065,6 +3067,7 @@ msgid "rebec"
 msgstr ""
 
 #: DB:instrument/name:721
+msgctxt "Brazilian metal scraper"
 msgid "reco-reco"
 msgstr ""
 
@@ -3405,6 +3408,7 @@ msgid "slide whistle"
 msgstr ""
 
 #: DB:instrument/name:366
+msgctxt "Hollow wooden idiophone"
 msgid "slit drum"
 msgstr ""
 
