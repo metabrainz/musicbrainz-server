@@ -12,11 +12,15 @@ import * as React from 'react';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
+import formatTrackLength
+  from '../../../static/scripts/common/utility/formatTrackLength';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from
   '../../../static/scripts/common/components/CommonsImage';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import {kebabCase} from '../../../static/scripts/common/utility/strings';
+import InformationIcon
+  from '../../../static/scripts/edit/components/InformationIcon';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -36,7 +40,7 @@ type Props = {
 };
 
 const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
-  const {attributes, iswcs, languages, typeID} = work;
+  const {attributes, iswcs, languages, length, typeID} = work;
   const showInfo = Boolean(
     attributes.length ||
     iswcs.length ||
@@ -76,6 +80,26 @@ const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
                 )}
               </SidebarProperty>
             ) : null}
+
+            {length == null ? null : (
+              <SidebarProperty
+                className="work-length"
+                label={addColonText(l('Median Length'))}
+              >
+                {formatTrackLength(length)}
+                {' '}
+                <InformationIcon
+                  className="align-top"
+                  title={l(
+                    `Autocalculated from all non-partial, non-medley,
+                     non-cover recordings linked only to this work.
+                     If the data seems off, it’s likely some
+                     recording relationships need to be marked as
+                     partial or medley.`,
+                  )}
+                />
+              </SidebarProperty>
+            )}
 
             {iswcs.length ? (
               iswcs.map((iswc) => (
