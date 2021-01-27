@@ -574,7 +574,7 @@ function isValidURL(url) {
 }
 
 const MALWARE_URLS = [
-  'decoda.com'
+  'decoda.com',
 ].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
 
 const URL_SHORTENERS = [
