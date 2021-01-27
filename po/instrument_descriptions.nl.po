@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-09 10:54+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2021-01-25 21:20+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -748,6 +748,13 @@ msgid ""
 "href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr "Een glockenspiel is een populaire metallofoon die meestal bestaat uit metalen toetsen of staven op een houten resonator. <br /> Zie voor het instrument in klokkentorens <a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a> en voor het instrument dat in orkesten wordt gebruikt <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">buisklokken</a>."
 
+#. name:keyed box zither
+#: DB:instrument/description:1028
+msgid ""
+"Composite chordophone, box zither where some or all strings are operated by "
+"keys or buttons (keyboard)"
+msgstr ""
+
 #. name:rudra veena
 #: DB:instrument/description:501
 msgid ""
@@ -1244,6 +1251,13 @@ msgid ""
 "Highest pitched gangsa, it has 10 brass or bronze keys suspended over short "
 "resonating bamboo pipes set in an heavily ornate case."
 msgstr "De kantilan is het hoogst gestemde lid van de gangsafamilie. Het instrument bestaat uit tien messing of bronzen toeten die boven korte resonatoren van bamboe in een rijk gedecoreerde kast zijn opgehangen."
+
+#. name:wooden fish
+#: DB:instrument/description:267
+msgid ""
+"Highly stylised wooden block-bell, it is used in religious ritual. Its "
+"prototype, fish board (gyoban) is more obviously shaped like a fish."
+msgstr ""
 
 #. name:gut guitar
 #: DB:instrument/description:567
@@ -2297,6 +2311,14 @@ msgid ""
 "has 6 bronze keys tuned for the slendro key."
 msgstr "De saron peking lijkt sterk op de saron paneroes, maar heeft een ander bereik. Het instrument heeft zes bronzen toetsen die voor het sléndro-toongeslacht zijn gestemd."
 
+#. name:akkordolia
+#: DB:instrument/description:1029
+msgid ""
+"Similar to the Japanese taishogoto, it has an elongated teardrop shaped "
+"wooden body with button accordion like keys which plays the melody and sets "
+"chords.."
+msgstr ""
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -2797,11 +2819,6 @@ msgid ""
 "The buk is a Korean drum. While buk is a generic term for drum, it normally "
 "refers to a shallow barrel-shaped drum with a wooden body."
 msgstr "Een buk is een Koreaanse trommel. Hoewel buk een algemene term voor trommel is, verwijst de term meestal naar een ondiepe tonvormige trommel van hout."
-
-#. name:bulbul tarang
-#: DB:instrument/description:528
-msgid "The bulbul tarang is a string instrument from India and Pakistan."
-msgstr "Een bulbul tarang is een snaarinstrument uit India en Pakistan."
 
 #. name:buzuq
 #: DB:instrument/description:655
@@ -3853,13 +3870,6 @@ msgid ""
 "wooden body with a metal mouthpiece and cup-shaped metal bell."
 msgstr "Een taepyeongso is een Koreaans dubbelrietinstrument met een conisch houten vorm, een metalen mondstuk en een komvormig metalen uiteinde."
 
-#. name:taishogoto
-#: DB:instrument/description:555
-msgid ""
-"The taishōgoto is a Japanese string instrument with 2-12 strings and keys "
-"which are used to fret the strings."
-msgstr "De taishōgoto is een Japans snaarinstrument met twee tot twaalf snaren en toetsten die gebruikt worden om de snaren te fretten. Hij is ook bekend als taishō koto of Nagoyaanse harp."
-
 #. name:talharpa
 #: DB:instrument/description:544
 msgid ""
@@ -4661,6 +4671,14 @@ msgid ""
 "Whirring, spinning disks of many shapes, sizes and materials. When blown on,"
 " they also create a well of different humming sounds."
 msgstr "Porotiti zijn gonzende draaiende schijven van verschillende materialen en in verschillende vormen. Als erop wordt geblazen, kunnen ze ook veel verschillende zoemende geluiden produceren."
+
+#. name:hummel
+#: DB:instrument/description:1030
+msgid ""
+"Whole or half-pear shaped wooden body, it is partly fretted and has two "
+"string-courses; melody and drone. The name comes from Germanic words meaning"
+" bumblebee or buzzing."
+msgstr ""
 
 #. name:haegeum
 #: DB:instrument/description:486

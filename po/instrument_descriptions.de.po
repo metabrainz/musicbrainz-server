@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-07 10:59+0000\n"
+"PO-Revision-Date: 2021-01-25 21:20+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -754,6 +754,13 @@ msgid ""
 "href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr ""
 
+#. name:keyed box zither
+#: DB:instrument/description:1028
+msgid ""
+"Composite chordophone, box zither where some or all strings are operated by "
+"keys or buttons (keyboard)"
+msgstr ""
+
 #. name:rudra veena
 #: DB:instrument/description:501
 msgid ""
@@ -1249,6 +1256,13 @@ msgstr ""
 msgid ""
 "Highest pitched gangsa, it has 10 brass or bronze keys suspended over short "
 "resonating bamboo pipes set in an heavily ornate case."
+msgstr ""
+
+#. name:wooden fish
+#: DB:instrument/description:267
+msgid ""
+"Highly stylised wooden block-bell, it is used in religious ritual. Its "
+"prototype, fish board (gyoban) is more obviously shaped like a fish."
 msgstr ""
 
 #. name:gut guitar
@@ -2303,6 +2317,14 @@ msgid ""
 "has 6 bronze keys tuned for the slendro key."
 msgstr ""
 
+#. name:akkordolia
+#: DB:instrument/description:1029
+msgid ""
+"Similar to the Japanese taishogoto, it has an elongated teardrop shaped "
+"wooden body with button accordion like keys which plays the melody and sets "
+"chords.."
+msgstr ""
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -2803,11 +2825,6 @@ msgid ""
 "The buk is a Korean drum. While buk is a generic term for drum, it normally "
 "refers to a shallow barrel-shaped drum with a wooden body."
 msgstr "Buk ist zum einen die generelle koreanische Bezeichnung für Trommel (von der es traditionell mindestens 15 verschiedene Ausführungen gibt) und zum anderen eine flache zweifellige Fasstrommel aus einem Stück eines ausgehöhlten Baumstamms."
-
-#. name:bulbul tarang
-#: DB:instrument/description:528
-msgid "The bulbul tarang is a string instrument from India and Pakistan."
-msgstr "Das Bulbul Tarang ist ein indisches Zupfinstrument, das vom japanischen Taishogoto (auch Japan-Banjo) abstammt. Es handelt sich hierbei um eine Kastenzither, deren Saiten jedoch über Tasten bedient werden, welche an die einer Schreibmaschine erinnern. Die Tonabstände werden direkt auf den Tasten in Zahlen angegeben. Die Saiten werden üblicherweise mit einem Plektrum angeschlagen."
 
 #. name:buzuq
 #: DB:instrument/description:655
@@ -3859,13 +3876,6 @@ msgid ""
 "wooden body with a metal mouthpiece and cup-shaped metal bell."
 msgstr "Das Taepyeongso ist ein Holzblasinstrument mit einem kurzen Doppelrohrblatt, das in der koreanischen Musik gespielt wird."
 
-#. name:taishogoto
-#: DB:instrument/description:555
-msgid ""
-"The taishōgoto is a Japanese string instrument with 2-12 strings and keys "
-"which are used to fret the strings."
-msgstr "Die Nagoya-Harfe (jap. eigentlich: Taishōgoto) ist ein japanisches Musikinstrument und eine Art Zither. Es besteht aus einem langen Schallkörper mit darüber gespannten Saiten. Es besitzt mehrere Wirbel, die zum Stimmen des Instruments dienen und denen einer Akustikgitarre sehr ähnlich sind."
-
 #. name:talharpa
 #: DB:instrument/description:544
 msgid ""
@@ -4666,6 +4676,14 @@ msgstr ""
 msgid ""
 "Whirring, spinning disks of many shapes, sizes and materials. When blown on,"
 " they also create a well of different humming sounds."
+msgstr ""
+
+#. name:hummel
+#: DB:instrument/description:1030
+msgid ""
+"Whole or half-pear shaped wooden body, it is partly fretted and has two "
+"string-courses; melody and drone. The name comes from Germanic words meaning"
+" bumblebee or buzzing."
 msgstr ""
 
 #. name:haegeum
