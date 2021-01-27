@@ -12,7 +12,7 @@ BEGIN { extends 'Catalyst::Controller' }
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
@@ -140,8 +140,18 @@ sub error_400 : Private
     my ($self, $c) = @_;
 
     $c->response->status(400);
-    $c->stash->{template} = 'main/400.tt';
-    $c->detach;
+
+    my %props = (
+        hostname => $c->stash->{hostname},
+        message => $c->stash->{message},
+        useLanguages => boolean_to_json($c->stash->{use_languages}),
+    );
+
+    $c->stash(
+        component_path => 'main/error/Error400',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub error_401 : Private
@@ -149,8 +159,10 @@ sub error_401 : Private
     my ($self, $c) = @_;
 
     $c->response->status(401);
-    $c->stash->{template} = 'main/401.tt';
-    $c->detach;
+    $c->stash(
+        component_path => 'main/error/Error401',
+        current_view => 'Node',
+    );
 }
 
 sub error_403 : Private
@@ -158,15 +170,21 @@ sub error_403 : Private
     my ($self, $c) = @_;
 
     $c->response->status(403);
-    $c->stash->{template} = 'main/403.tt';
+    $c->stash(
+        component_path => 'main/error/Error403',
+        current_view => 'Node',
+    );
 }
 
 sub error_404 : Private {
     my ($self, $c, $message) = @_;
 
     $c->response->status(404);
-    $c->stash->{current_view} = 'Node';
-    $c->stash->{component_props}{message} = $message;
+    $c->stash(
+        component_path => 'main/error/Error404',
+        component_props => { message => $message },
+        current_view => 'Node',
+    );
 }
 
 sub error_500 : Private
@@ -174,8 +192,13 @@ sub error_500 : Private
     my ($self, $c) = @_;
 
     $c->response->status(500);
-    $c->stash->{template} = 'main/500.tt';
-    $c->detach;
+    $c->stash(
+        component_path => 'main/error/Error500',
+        component_props => {
+            useLanguages => boolean_to_json($c->stash->{use_languages}),
+        },
+        current_view => 'Node',
+    );
 }
 
 sub error_503 : Private
@@ -183,8 +206,10 @@ sub error_503 : Private
     my ($self, $c) = @_;
 
     $c->response->status(503);
-    $c->stash->{template} = 'main/503.tt';
-    $c->detach;
+    $c->stash(
+        component_path => 'main/error/Error503',
+        current_view => 'Node',
+    );
 }
 
 sub error_mirror : Private
@@ -192,8 +217,10 @@ sub error_mirror : Private
     my ($self, $c) = @_;
 
     $c->response->status(403);
-    $c->stash->{template} = 'main/mirror.tt';
-    $c->detach;
+    $c->stash(
+        component_path => 'main/error/MirrorError403',
+        current_view => 'Node',
+    );
 }
 
 sub error_mirror_404 : Private
@@ -201,8 +228,10 @@ sub error_mirror_404 : Private
     my ($self, $c) = @_;
 
     $c->response->status(404);
-    $c->stash->{template} = 'main/mirror_404.tt';
-    $c->detach;
+    $c->stash(
+        component_path => 'main/error/MirrorError404',
+        current_view => 'Node',
+    );
 }
 
 sub begin : Private
@@ -361,19 +390,19 @@ sub begin : Private
     if (exists $attributes->{Edit} && $c->user_exists &&
         (!$c->user->has_confirmed_email_address || $c->user->is_editing_disabled))
     {
-        $c->forward('/error_401');
+        $c->detach('/error_401');
     }
 
     if (DBDefs->DB_READ_ONLY && (exists $attributes->{Edit} ||
                                  exists $attributes->{DenyWhenReadonly})) {
         $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
-        $c->forward('/error_400');
+        $c->detach('/error_400');
     }
 
     # Update the tagger port
     if (defined $c->req->query_params->{tport}) {
         my ($tport) = $c->req->query_params->{tport} =~ /^([0-9]{1,5})$/
-            or $c->forward('/error_400');
+            or $c->detach('/error_400');
         $c->session->{tport} = $tport;
     }
 

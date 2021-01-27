@@ -35,6 +35,7 @@ declare type AliasT = {
 declare type AliasTypeT = OptionTreeT<'alias_type'>;
 
 declare type AnchorProps = {
+  +className?: string,
   +href: string,
   +key?: number | string,
   +target?: '_blank',
@@ -206,6 +207,7 @@ declare type CatalystContextT = {
 };
 
 declare type CatalystRequestContextT = {
+  +body_params: {+[param: string]: string},
   +headers: {+[header: string]: string},
   +query_params: {+[param: string]: string},
   +secure: boolean,
@@ -515,6 +517,7 @@ declare type EditT = {
   +expires_time: string,
   +historic_type: number | null,
   +id: number,
+  +is_loaded: boolean,
   +is_open: boolean,
   +preview?: boolean,
   +quality: QualityT,
