@@ -3589,76 +3589,49 @@ Object.values(LINK_TYPES).forEach(function (linkType) {
   });
 });
 
-// avoid Wikipedia/Wikidata being added as release-level discography entry
-const discographyRule = validationRules[LINK_TYPES.discographyentry.release];
-validationRules[LINK_TYPES.discographyentry.release] = function (url) {
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikipedia is not a discography entry. Please add this Wikipedia link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikidata is not a discography entry. Please add this Wikidata link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  return discographyRule(url);
-};
+const relationshipTypesByEntityType = Object.entries(LINK_TYPES).reduce(
+  function (
+    results,
+    [/* relationshipType */, relUuidByEntityType],
+  ) {
+    for (const entityType of Object.keys(relUuidByEntityType)) {
+      (results[entityType] || (results[entityType] = []))
+        .push(relUuidByEntityType[entityType]);
+    }
+    return results;
+  },
+  {},
+);
 
-// avoid Wikipedia/Wikidata being added as release-level license entry
-const licenseRule = validationRules[LINK_TYPES.license.release];
-validationRules[LINK_TYPES.license.release] = function (url) {
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikipedia is not a license page. Please add this Wikipedia link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikidata is not a license page. Please add this Wikidata link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  return licenseRule(url);
-};
-
-// avoid Wikipedia/Wikidata being added as release-level show notes entry
-validationRules[LINK_TYPES.shownotes.release] = function (url) {
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikipedia is not a page of show notes. Please add this Wikipedia link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikidata is not a page of show notes. Please add this Wikidata link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  return {result: true};
-};
+// Avoid Wikipedia/Wikidata being added as release-level relationship
+for (const relUuid of relationshipTypesByEntityType.release) {
+  const relRule = validationRules[relUuid];
+  validationRules[relUuid] = function (url) {
+    if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
+      return {
+        error: l(
+          `Wikipedia normally has no entries for specific releases,
+           so adding Wikipedia links to a release is currently blocked.
+           Please add this Wikipedia link to the release group instead,
+           if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
+      return {
+        error: l(
+          `Wikidata normally has no entries for specific releases,
+           so adding Wikidata links to a release is currently blocked.
+           Please add this Wikidata link to the release group instead,
+           if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    return relRule(url);
+  };
+}
 
 export function guessType(sourceType, currentURL) {
   const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
