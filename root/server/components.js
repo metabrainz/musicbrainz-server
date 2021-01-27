@@ -76,6 +76,8 @@ module.exports = {
   'elections/Index': require('../elections/Index'),
   'elections/Nominate': require('../elections/Nominate'),
   'elections/Show': require('../elections/Show'),
+  'entity/alias/AddOrEditAlias': require('../entity/alias/AddOrEditAlias'),
+  'entity/alias/DeleteAlias': require('../entity/alias/DeleteAlias'),
   'entity/Aliases': require('../entity/Aliases'),
   'entity/Details': require('../entity/Details'),
   'entity/NotFound': require('../entity/NotFound'),

@@ -8,7 +8,8 @@
  */
 
 /*
- * Types are in alphabetical order.
+ * Types are (mostly) in alphabetical order, though we may e.g. keep
+ * types Foo and WritableFoo next to each other for clarity.
  *
  * The definitions in this file are intended to model the output of the
  * TO_JSON methods under lib/MusicBrainz/Server/Entity/, those are precisely
@@ -316,6 +317,8 @@ declare type CompoundFieldT<F> = {
   has_errors: boolean,
   html_name: string,
   id: number,
+  pendingErrors?: Array<string>,
+  type: 'compound_field',
 };
 
 declare type ReadOnlyCompoundFieldT<+F> = {
@@ -324,6 +327,8 @@ declare type ReadOnlyCompoundFieldT<+F> = {
   +has_errors: boolean,
   +html_name: string,
   +id: number,
+  +pendingErrors?: $ReadOnlyArray<string>,
+  +type: 'compound_field',
 };
 
 declare type ConfirmFormT = FormT<{
@@ -391,6 +396,18 @@ declare type CritiqueBrainzUserT = {
   +id: string,
   +name: string,
 };
+
+declare type DatePeriodFieldT = ReadOnlyCompoundFieldT<{
+  +begin_date: PartialDateFieldT,
+  +end_date: PartialDateFieldT,
+  +ended: ReadOnlyFieldT<boolean>,
+}>;
+
+declare type WritableDatePeriodFieldT = CompoundFieldT<{
+  +begin_date: WritablePartialDateFieldT,
+  +end_date: WritablePartialDateFieldT,
+  +ended: FieldT<boolean>,
+}>;
 
 declare type DatePeriodRoleT = {
   +begin_date: PartialDateT | null,
@@ -556,6 +573,8 @@ declare type FieldT<V> = {
    * is for passing to `key` attributes on React elements.
    */
   id: number,
+  pendingErrors?: Array<string>,
+  type: 'field',
   value: V,
 };
 
@@ -564,6 +583,8 @@ declare type ReadOnlyFieldT<+V> = {
   +has_errors: boolean,
   +html_name: string,
   +id: number,
+  +pendingErrors?: $ReadOnlyArray<string>,
+  +type: 'field',
   +value: V,
 };
 
@@ -579,6 +600,7 @@ declare type FormT<F> = {
   field: F,
   has_errors: boolean,
   name: string,
+  +type: 'form',
 };
 
 declare type GenderT = OptionTreeT<'gender'>;
@@ -828,10 +850,16 @@ declare type PagerT = {
   +total_entries: number,
 };
 
-declare type PartialDateFieldT = CompoundFieldT<{
-  +day: FieldT<number>,
-  +month: FieldT<number>,
-  +year: FieldT<number>,
+declare type PartialDateFieldT = ReadOnlyCompoundFieldT<{
+  +day: ReadOnlyFieldT<StrOrNum | null>,
+  +month: ReadOnlyFieldT<StrOrNum | null>,
+  +year: ReadOnlyFieldT<StrOrNum | null>,
+}>;
+
+declare type WritablePartialDateFieldT = CompoundFieldT<{
+  +day: FieldT<StrOrNum | null>,
+  +month: FieldT<StrOrNum | null>,
+  +year: FieldT<StrOrNum | null>,
 }>;
 
 declare type PartialDateT = {
@@ -987,12 +1015,15 @@ declare type RepeatableFieldT<F> = {
   html_name: string,
   id: number,
   last_index: number,
+  pendingErrors?: Array<string>,
+  type: 'repeatable_field',
 };
 
 declare type ReadOnlyFormT<+F> = {
   +field: F,
   +has_errors: boolean,
   +name: string,
+  +type: 'form',
 };
 
 declare type ReadOnlyRepeatableFieldT<+F> = {
@@ -1002,6 +1033,8 @@ declare type ReadOnlyRepeatableFieldT<+F> = {
   +html_name: string,
   +id: number,
   last_index: number,
+  +pendingErrors?: $ReadOnlyArray<string>,
+  +type: 'repeatable_field',
 };
 
 declare type SanitizedCatalystContextT = {

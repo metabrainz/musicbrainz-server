@@ -67,6 +67,7 @@ const ArtistMerge = ({
           }
           label={l(`Update matching artist and relationship credits to use
                     the target artist’s name`)}
+          uncontrolled
         />
 
         <EnterEditNote field={form.field.edit_note} />

@@ -23,6 +23,7 @@ sub TO_JSON {
     if ($is_form) {
         $field_id_counter = 0;
         $json->{name} = $self->name;
+        $json->{type} = 'form';
     }
 
     if ($self->isa('HTML::FormHandler::Field')) {
@@ -30,6 +31,7 @@ sub TO_JSON {
         $json->{errors} = $self->errors;
         $json->{html_name} = $self->html_name;
         $json->{id} = ++$field_id_counter;
+        $json->{type} = 'field';
     }
 
     if ($self->can('fields')) {
@@ -37,9 +39,11 @@ sub TO_JSON {
             $json->{field} = [];
             $json->{field}[$_->name] = TO_JSON($_) for $self->fields;
             $json->{last_index} = scalar(@{ $json->{field} }) - 1;
+            $json->{type} = 'repeatable_field';
         } else {
             $json->{field} = {};
             $json->{field}{$_->name} = TO_JSON($_) for $self->fields;
+            $json->{type} = 'compound_field';
         }
     } else {
         if ($self->isa('HTML::FormHandler::Field::Checkbox')) {

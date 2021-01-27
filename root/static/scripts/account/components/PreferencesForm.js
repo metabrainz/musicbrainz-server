@@ -189,18 +189,22 @@ class PreferencesForm extends React.Component<Props, State> {
           <FormRowCheckbox
             field={field.public_subscriptions}
             label={l('Allow other users to see my subscriptions')}
+            uncontrolled
           />
           <FormRowCheckbox
             field={field.public_tags}
             label={l('Allow other users to see my tags')}
+            uncontrolled
           />
           <FormRowCheckbox
             field={field.public_ratings}
             label={l('Allow other users to see my ratings')}
+            uncontrolled
           />
           <FormRowCheckbox
             field={field.show_gravatar}
             label={l('Show my Gravatar')}
+            uncontrolled
           />
         </fieldset>
         <fieldset>
@@ -212,6 +216,7 @@ class PreferencesForm extends React.Component<Props, State> {
                (Note: the email is only sent for the first "no" vote,
                not each one)`,
             )}
+            uncontrolled
           />
           <FormRowCheckbox
             field={field.email_on_notes}
@@ -219,6 +224,7 @@ class PreferencesForm extends React.Component<Props, State> {
               `When I add a note to an edit,
                mail me all future notes for that edit.`,
             )}
+            uncontrolled
           />
           <FormRowCheckbox
             field={field.email_on_vote}
@@ -226,6 +232,7 @@ class PreferencesForm extends React.Component<Props, State> {
               `When I vote on an edit,
                mail me all future notes for that edit.`,
             )}
+            uncontrolled
           />
           <FormRowSelect
             field={field.subscriptions_email_period}
@@ -239,14 +246,17 @@ class PreferencesForm extends React.Component<Props, State> {
           <FormRowCheckbox
             field={field.subscribe_to_created_artists}
             label={l('Automatically subscribe me to artists I create.')}
+            uncontrolled
           />
           <FormRowCheckbox
             field={field.subscribe_to_created_labels}
             label={l('Automatically subscribe me to labels I create.')}
+            uncontrolled
           />
           <FormRowCheckbox
             field={field.subscribe_to_created_series}
             label={l('Automatically subscribe me to series I create.')}
+            uncontrolled
           />
         </fieldset>
         <FormRow hasNoLabel>

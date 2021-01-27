@@ -45,7 +45,8 @@ export default function chooseLayoutComponent(
   +$c: CatalystContextT,
   +children: React$Node,
   +entity: CoreEntityT | EditorT | CollectionT,
-  +page: string,
+  +fullWidth?: boolean,
+  +page?: string,
   +title: string,
 }> {
   return layoutPicker[typeName];
