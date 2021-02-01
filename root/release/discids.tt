@@ -30,12 +30,6 @@
                     <td>[% medium_cdtoc.cdtoc.length | format_length %]</td>
                     [% IF c.user_exists %]
                     <td>
-                      [%- IF !medium_cdtoc.is_perfect_match %]
-                        <a href="[% c.uri_for_action('/cdtoc/set_durations',
-                                        [ medium_cdtoc.cdtoc.discid ], { medium => medium.id }) %]">
-                          [% l('Set track durations') %]
-                        </a> |
-                      [%- END %]
                       <a href="[% c.uri_for_action('cdtoc/remove',
                                                    { cdtoc_id  => medium_cdtoc.cdtoc.id,
                                                      medium_id => medium.id }) %]">
