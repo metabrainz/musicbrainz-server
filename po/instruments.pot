@@ -305,6 +305,11 @@ msgctxt "set of Nyabinghi drums"
 msgid "akete"
 msgstr ""
 
+#: DB:instrument/name:1029
+msgctxt "German keyed box zither"
+msgid "akkordolia"
+msgstr ""
+
 #: DB:instrument/name:718
 msgid "alfaia"
 msgstr ""
@@ -816,6 +821,7 @@ msgid "buk"
 msgstr ""
 
 #: DB:instrument/name:528
+msgctxt "Indian keyed box zither"
 msgid "bulbul tarang"
 msgstr ""
 
@@ -1787,6 +1793,7 @@ msgid "güira"
 msgstr ""
 
 #: DB:instrument/name:112
+msgctxt "Latin American gourd scraper"
 msgid "güiro"
 msgstr ""
 
@@ -1896,6 +1903,11 @@ msgstr ""
 
 #: DB:instrument/name:547
 msgid "hulusi"
+msgstr ""
+
+#: DB:instrument/name:1030
+msgctxt "Medieval pear-shaped drone zither"
+msgid "hummel"
 msgstr ""
 
 #: DB:instrument/name:213
@@ -2167,11 +2179,17 @@ msgstr ""
 msgid "keyboard bass"
 msgstr ""
 
+#: DB:instrument/name:1028
+msgctxt "Composite chordophone"
+msgid "keyed box zither"
+msgstr ""
+
 #: DB:instrument/name:154
 msgid "keyed brass instruments"
 msgstr ""
 
 #: DB:instrument/name:774
+msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr ""
 
@@ -2999,6 +3017,7 @@ msgid "quena"
 msgstr ""
 
 #: DB:instrument/name:755
+msgctxt "Jawbone rattle"
 msgid "quijada"
 msgstr ""
 
@@ -3049,6 +3068,7 @@ msgid "rebec"
 msgstr ""
 
 #: DB:instrument/name:721
+msgctxt "Brazilian metal scraper"
 msgid "reco-reco"
 msgstr ""
 
@@ -3389,6 +3409,7 @@ msgid "slide whistle"
 msgstr ""
 
 #: DB:instrument/name:366
+msgctxt "Hollow wooden idiophone"
 msgid "slit drum"
 msgstr ""
 
@@ -3584,6 +3605,7 @@ msgid "taiko"
 msgstr ""
 
 #: DB:instrument/name:555
+msgctxt "Japanese keyed box zither"
 msgid "taishogoto"
 msgstr ""
 
@@ -4187,6 +4209,7 @@ msgid "wood block"
 msgstr ""
 
 #: DB:instrument/name:267
+msgctxt "wooden bell used in temples"
 msgid "wooden fish"
 msgstr ""
 

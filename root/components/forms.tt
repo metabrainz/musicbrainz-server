@@ -203,7 +203,7 @@
   </div>
 [%- END -%]
 
-[%- MACRO date_range_fieldset(r, type, ended_label) BLOCK -%]
+[%- MACRO date_range_fieldset(r, type, ended_label) BLOCK # Converted to React at root/static/scripts/edit/components/DateRangeFieldset.js -%]
     <fieldset>
       <legend>[% l('Date Period') %]</legend>
       <p>
@@ -234,7 +234,7 @@
   [% END %]
 [%- END -%]
 
-[%- MACRO form_row_sortname_with_guesscase(r) BLOCK -%]
+[%- MACRO form_row_sortname_with_guesscase(r) BLOCK # Converted to React at root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js -%]
   [% WRAPPER form_row %]
     [% r.label('sort_name', l('Sort name:')) %]
     [% r.text('sort_name', { class => 'with-guesscase' }) %]

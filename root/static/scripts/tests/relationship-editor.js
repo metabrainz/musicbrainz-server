@@ -149,7 +149,7 @@ function formData() {
     result[input.name] = input.value;
     return result;
   }, {});
-};
+}
 
 function relationshipEditorTest(name, callback) {
   test(name, function (t) {

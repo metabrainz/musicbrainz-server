@@ -651,33 +651,42 @@ sub added_entities_counts {
     return $cached_result if defined $cached_result;
 
     my %result = map { $_ => 0 }
-        qw( artist release cover_art event label place series work other );
+        qw( artist release area cover_art event instrument label place recording
+        releasegroup series work other );
 
     my $query =
         q{SELECT
               CASE
                 WHEN type = ? THEN 'artist'
                 WHEN type IN (?, ?) THEN 'release'
+                WHEN type = ? THEN 'area'
                 WHEN type = ? THEN 'cover_art'
                 WHEN type = ? THEN 'event'
+                WHEN type = ? THEN 'instrument'
                 WHEN type = ? THEN 'label'
                 WHEN type = ? THEN 'place'
+                WHEN type = ? THEN 'recording'
+                WHEN type = ? THEN 'releasegroup'
                 WHEN type = ? THEN 'series'
                 WHEN type = ? THEN 'work'
                 ELSE 'other'
               END AS type,
               COUNT(*) AS count
             FROM edit
-           WHERE editor = ?
+           WHERE edit.status = ?
+             AND editor = ?
            GROUP BY type};
-    my @params = ($EDIT_ARTIST_CREATE, $EDIT_RELEASE_CREATE, $EDIT_HISTORIC_ADD_RELEASE,
-        $EDIT_RELEASE_ADD_COVER_ART, $EDIT_EVENT_CREATE, $EDIT_LABEL_CREATE,
-        $EDIT_PLACE_CREATE, $EDIT_SERIES_CREATE, $EDIT_WORK_CREATE);
+    my @params = ($EDIT_ARTIST_CREATE, $EDIT_RELEASE_CREATE,
+        $EDIT_HISTORIC_ADD_RELEASE, $EDIT_AREA_CREATE, $EDIT_RELEASE_ADD_COVER_ART,
+        $EDIT_EVENT_CREATE, $EDIT_INSTRUMENT_CREATE, $EDIT_LABEL_CREATE,
+        $EDIT_PLACE_CREATE, $EDIT_RECORDING_CREATE, $EDIT_RELEASEGROUP_CREATE,
+        $EDIT_SERIES_CREATE, $EDIT_WORK_CREATE, $STATUS_APPLIED);
     my $rows = $self->sql->select_list_of_lists($query, @params, $editor_id);
 
     for my $row (@$rows) {
         my ($type, $count) = @$row;
-        $result{$type} = $count;
+        # We just ignore any edits that are not one of the desired types
+        $result{$type} = $count unless $type eq 'other';
     }
 
     $self->c->cache->set($cache_key, \%result, 60 * 60 * 24);

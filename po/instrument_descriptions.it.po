@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-07 16:54+0000\n"
-"Last-Translator: Luca Salini\n"
+"PO-Revision-Date: 2021-02-01 16:47+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -265,13 +265,6 @@ msgid ""
 "pūtātara"
 msgstr "Pūtātara con un lungo bocchino in legno, ha un timbro più profondo rispetto alla pūtātara."
 
-#. name:slit drum
-#: DB:instrument/description:366
-msgid ""
-"A slit drum is a hollow percussion instrument made of wood or bamboo with a "
-"slit at the top."
-msgstr "Strumento a percussione cavo in legno o bambù con una fessura nella parte superiore."
-
 #. name:spinet
 #: DB:instrument/description:797
 msgid ""
@@ -434,13 +427,6 @@ msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-"
 "like\" sounds"
 msgstr "Dispositivo per effetti da fissare sul ponte, produce suoni simili ad un sintetizzatore."
-
-#. name:keytar
-#: DB:instrument/description:774
-msgid ""
-"An electric keyboard slung over the shoulder by a strap like a guitar, it "
-"has soundcontrols placed on the neck"
-msgstr "Tastiera elettrica portata a tracolla in modo simile ad una chitarra, ha dei tasti per controlli sonori posizionati sul manico."
 
 #. name:Pianet
 #: DB:instrument/description:793
@@ -755,6 +741,13 @@ msgid ""
 "href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr "Metallofono comune e popolare, solitamente composto da una serie di barrette in metallo disposte su una cassetta in legno che funge da risuonatore. <br /> Per lo strumento usato spesso nei campanili, utilizza <a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon (batteria di campane)</a>.<br /> Per lo strumento che in alcune lingue è chiamato campana da orchestra/chime, utilizza <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">campane tubolari</a>."
 
+#. name:keyed box zither
+#: DB:instrument/description:1028
+msgid ""
+"Composite chordophone, box zither where some or all strings are operated by "
+"keys or buttons (keyboard)"
+msgstr "Cordofono composito, è un salterio a cassa nel quale alcune o tutte le corde sono azionate da tasti o bottoni (tastiera)."
+
 #. name:rudra veena
 #: DB:instrument/description:501
 msgid ""
@@ -907,6 +900,13 @@ msgid ""
 "include the violone (now a considered a viol) and bass viol (a forerunner to"
 " the violoncello). Occasionally Octobass is also included as a member."
 msgstr "Sviluppate nel XVI secolo, queste viole da braccio sono distinte dalla famiglia delle viole da gamba. <br /> I suoi membri moderni sono: <ul> <li> Violino </li> <li> Viola </li> <li> Violoncello </li> <li> Contrabbasso (che ha preso il posto del violone) </li></ul> In passato includevano il violone (oggi considerato una viola da gamba) e la viola da gamba basso (un predecessore del violoncello). Talvolta anche l'ottobasso viene incluso tra i membri."
+
+#. name:taishogoto
+#: DB:instrument/description:555
+msgid ""
+"Developed in the early Taisho period to modernise the ningenkin, it has "
+"metal strings and typewriter like keys with a wooden lid over the frets."
+msgstr ""
 
 #. name:trikiti
 #: DB:instrument/description:847
@@ -1251,6 +1251,13 @@ msgid ""
 "Highest pitched gangsa, it has 10 brass or bronze keys suspended over short "
 "resonating bamboo pipes set in an heavily ornate case."
 msgstr "Il gangsa dal tono più acuto, ha 10 barrette in ottone o in bronzo sospese sopra risuonatori corti in canna di bambù, disposti in un contenitore riccamente ornato."
+
+#. name:wooden fish
+#: DB:instrument/description:267
+msgid ""
+"Highly stylised wooden block-bell, it is used in religious ritual. Its "
+"prototype, fish board (gyoban) is more obviously shaped like a fish."
+msgstr "Blocco/campana in legno altamente stilizzato, è usato per rituali religiosi. Il suo prototipo, il gyoban (tavola a forma di pesce) ha una forma che richiama un pesce in maniera più evidente."
 
 #. name:gut guitar
 #: DB:instrument/description:567
@@ -1629,12 +1636,31 @@ msgstr "In osso o in legno, sono una coppia di bastoncini di materiale risonante
 msgid "Made of dried gourd. Struck with hands or objects."
 msgstr "Realizzato in zucca a fiasco essiccata. Percosso a mano o con oggetti."
 
+#. name:quijada
+#: DB:instrument/description:755
+msgid ""
+"Made of equusine jawbone, it is used in traditional Latin-american music as "
+"a rattle."
+msgstr "Realizzata con una mandibola equina, è usata come sonaglio nella musica tradizionale latinoamericana."
+
 #. name:njarka
 #: DB:instrument/description:936
 msgid ""
 "Made of goatskin covered dried gourd, it has a single gut string bowed with "
 "a horsehair bow."
 msgstr "Realizzato in zucca a fiasco essiccata ricoperta di pelle di capra, ha una sola corda in budello strofinata con un archetto di crine di cavallo."
+
+#. name:güiro
+#: DB:instrument/description:112
+msgid "Made of gourd or wood, it is used as a scraper in Latin American music"
+msgstr ""
+
+#. name:slit drum
+#: DB:instrument/description:366
+msgid ""
+"Made of hollowed out wood or bamboo, it has incisions or slits as "
+"soundholes. Slit drums are among the most ancient and earliest instruments."
+msgstr "Realizzato in legno o bambù cavo, ha incisioni o fessure come fori di risonanza. I tamburi a fessura sono tra gli strumenti più antichi e primordiali."
 
 #. name:güira
 #: DB:instrument/description:937
@@ -1725,6 +1751,13 @@ msgstr "Di legno, osso o metallo, questo antico strumento è il predecessore di 
 #: DB:instrument/description:211
 msgid "Made of wood, its soundbox is oblong and its neck is short"
 msgstr "Realizzato in legno, ha una cassa di risonanza oblunga e un manico corto."
+
+#. name:keytar
+#: DB:instrument/description:774
+msgid ""
+"Made portable with a shoulder-strap like a guitar, electric keyboard has "
+"soundcontrols on the neck"
+msgstr ""
 
 #. name:gemshorn
 #: DB:instrument/description:868
@@ -1906,6 +1939,13 @@ msgid ""
 "and a black lacquered wooden soundboard. Traditionally it was only played by"
 " townspeople."
 msgstr "Originariamente introdotto in Cina dalla Mongolia, ha 13 corde doppie in fil di ferro e una tavola armonica in legno laccato nero. Tradizionalmente era suonato solo dai cittadini."
+
+#. name:reco-reco
+#: DB:instrument/description:721
+msgid ""
+"Originally made of bamboo or wood, it is now metal with springs and is used "
+"in Brazilian music."
+msgstr "In origine realizzato in bambù o in legno, ora è in metallo con delle molle ed è usato nella musica brasiliana."
 
 #. name:anvil
 #: DB:instrument/description:720
@@ -2303,6 +2343,14 @@ msgid ""
 "Similar to panerus with which it has a different but overlapping range, it "
 "has 6 bronze keys tuned for the slendro key."
 msgstr "Simile al panerus, con cui condivide un'estensione distinta ma sovrapposta, ha 6 sbarre in bronzo intonate in slendro."
+
+#. name:akkordolia
+#: DB:instrument/description:1029
+msgid ""
+"Similar to the Japanese taishogoto, it has an elongated teardrop shaped "
+"wooden body with button accordion like keys which plays the melody and sets "
+"chords.."
+msgstr "Simile al taishogoto giapponese, ha una cassa in legno a forma di goccia allungata con tasti simili a quelli di una fisarmonica a bottoni che regolano la melodia e le corde."
 
 #. name:mirliton
 #: DB:instrument/description:591
@@ -2804,11 +2852,6 @@ msgid ""
 "The buk is a Korean drum. While buk is a generic term for drum, it normally "
 "refers to a shallow barrel-shaped drum with a wooden body."
 msgstr "Tamburo coreano. Pur essendo un termine generico per indicare un tamburo, normalmente si riferisce a un tamburo a forma di barile basso con cassa in legno."
-
-#. name:bulbul tarang
-#: DB:instrument/description:528
-msgid "The bulbul tarang is a string instrument from India and Pakistan."
-msgstr "Strumento a corda proveniente da India e Pakistan."
 
 #. name:buzuq
 #: DB:instrument/description:655
@@ -3562,14 +3605,6 @@ msgstr "Tamburo a cornice inuit con un manico e realizzato in pelle di caribù."
 msgid "The quena is a traditional bamboo flute from the Andes."
 msgstr "Flauto tradizionale andino in bambù."
 
-#. name:quijada
-#: DB:instrument/description:755
-msgid ""
-"The quijada is a traditional Latin percussion instrument made from the "
-"jawbone a mule, horse, or donkey that is cleaned of tissue and dried so the "
-"teeth can loosen and act as a rattle."
-msgstr "Strumento tradizionale a percussione latinoamericano composto dalla mandibola di un mulo, cavallo o asino ripulita dai tessuti ed essiccata in modo da far allentare i denti e poterli usare come sonagli."
-
 #. name:rammana
 #: DB:instrument/description:628
 msgid ""
@@ -3599,11 +3634,6 @@ msgid ""
 "suspended by cords over a boat-shaped trough resonator. It is similar to the"
 " ranat ek but lower in pitch."
 msgstr "Xilofono thailandese composto da 18 sbarre di legno sospese con delle corde sopra un trogolo risuonatore a forma di barca. È simile al ranat ek, ma ha un tono più grave."
-
-#. name:reco-reco
-#: DB:instrument/description:721
-msgid "The reco-reco is a scraped"
-msgstr "Idiofono a raschiamento usato nella musica brasiliana."
 
 #. name:repinique
 #: DB:instrument/description:722
@@ -3859,13 +3889,6 @@ msgid ""
 "The taepyeongso is a Korean double reed wind instrument which has a conical "
 "wooden body with a metal mouthpiece and cup-shaped metal bell."
 msgstr "Strumento coreano a fiato ad ancia doppia, con corpo conico in legno, bocchino in metallo e padiglione a tazza rovesciata in metallo."
-
-#. name:taishogoto
-#: DB:instrument/description:555
-msgid ""
-"The taishōgoto is a Japanese string instrument with 2-12 strings and keys "
-"which are used to fret the strings."
-msgstr "Strumento giapponese a corda con 2-12 corde e tasti usati per premere le corde."
 
 #. name:talharpa
 #: DB:instrument/description:544
@@ -4668,6 +4691,14 @@ msgid ""
 "Whirring, spinning disks of many shapes, sizes and materials. When blown on,"
 " they also create a well of different humming sounds."
 msgstr "Dischi rotanti e frullanti di molte forme, dimensioni e materiali. Quando si soffia loro sopra, diventano fonte di diversi suoni ronzanti."
+
+#. name:hummel
+#: DB:instrument/description:1030
+msgid ""
+"Whole or half-pear shaped wooden body, it is partly fretted and has two "
+"string-courses; melody and drone. The name comes from Germanic words meaning"
+" bumblebee or buzzing."
+msgstr "Con cassa in legno a forma di mezza pera o di pera intera, è parzialmente dotato di tasti e ha due ordini di corde, melodiche e bordone. Il suo nome deriva dalle parole germaniche per bombo o ronzio."
 
 #. name:haegeum
 #: DB:instrument/description:486

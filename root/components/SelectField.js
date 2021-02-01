@@ -50,6 +50,7 @@ type SelectElementProps = {
 };
 
 type SharedFieldProps = {
+  +allowEmpty?: boolean,
   +className?: string,
   +disabled?: boolean,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
@@ -65,13 +66,13 @@ type MultipleSelectFieldProps = {
 };
 
 type SelectFieldProps = {
-  +allowEmpty?: boolean,
   +field: ReadOnlyFieldT<?StrOrNum>,
   ...SharedFieldProps,
   ...
 };
 
 export const MultipleSelectField = ({
+  allowEmpty = true,
   disabled = false,
   field,
   onChange,
@@ -101,6 +102,9 @@ export const MultipleSelectField = ({
 
   return (
     <select {...selectProps}>
+      {allowEmpty
+        ? <option value="">{'\xA0'}</option>
+        : null}
       {options.grouped
         ? options.options.map(buildOptGroup)
         : options.options.map(buildOption)}

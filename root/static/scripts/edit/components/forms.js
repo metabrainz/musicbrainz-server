@@ -24,7 +24,8 @@ export const FormRowArtistCredit = ({form, entity}) => (
       entity={entity}
       forLabel="entity-artist"
       form={form}
-      hiddenInputs={true} />
+      hiddenInputs
+    />
     {form ? <FieldErrors field={form.field.artist_credit} /> : null}
   </FormRow>
 );

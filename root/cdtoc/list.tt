@@ -26,7 +26,7 @@
            classes = [];
            classes.push(loop.parity);
            classes.push('mp') IF medium_cdtoc.edits_pending > 0; %]
-        <tr class="[% classes.join(' ') %]">
+        <tr class="[% classes.join(' ') %]" id="[% release.gid %]">
             <td>
               [% medium.position %]/[% release.medium_count %]
               [% tracklist_toggle %]

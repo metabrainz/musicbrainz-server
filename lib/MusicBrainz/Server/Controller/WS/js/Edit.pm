@@ -42,7 +42,12 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Renderer qw( render_component );
 use MusicBrainz::Server::Translation qw( comma_list comma_only_list l );
-use MusicBrainz::Server::Validation qw( is_guid is_valid_url is_valid_partial_date );
+use MusicBrainz::Server::Validation qw(
+    is_database_row_id
+    is_guid
+    is_valid_url
+    is_valid_partial_date
+);
 use MusicBrainz::Server::View::Base;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
@@ -244,7 +249,7 @@ sub process_release_events {
 sub process_artist_credits {
     my ($c, $loader, @artist_credits) = @_;
 
-    my @artist_gids;
+    my @artist_ids;
 
     for my $ac (@artist_credits) {
         my @names = @{ $ac->{names} };
@@ -261,26 +266,34 @@ sub process_artist_credits {
             trim_string($name, 'name');
             trim_string($artist, 'name');
 
-            if (!$artist->{id} && is_guid($artist->{gid}))  {
-                push @artist_gids, $artist->{gid};
+            if (is_database_row_id($artist->{id}))  {
+                push @artist_ids, $artist->{id};
+            } elsif (is_guid($artist->{gid})) {
+                push @artist_ids, $artist->{gid};
             }
             $i++;
         }
     }
 
-    return unless @artist_gids;
-
-    my $artists = $c->model('Artist')->get_by_gids(@artist_gids);
+    my $artists = $c->model('Artist')->get_by_any_ids(@artist_ids);
 
     for my $ac (@artist_credits) {
         my @names = @{ $ac->{names} };
 
         for my $name (@names) {
             my $artist = $name->{artist};
-            my $gid = delete $artist->{gid};
+            my $given_id = $artist->{id};
+            my $given_gid = $artist->{gid};
+            my $entity =
+                (defined $given_id ? $artists->{$given_id} : undef) //
+                (defined $given_gid ? $artists->{$given_gid} : undef);
 
-            if ($gid and my $entity = $artists->{$gid}) {
+            if (defined $entity) {
                 $artist->{id} = $entity->id;
+                $artist->{gid} = $entity->gid;
+                $artist->{name} = $entity->name;
+                $name->{name} = $entity->name
+                    unless non_empty($name->{name});
             }
         }
     }

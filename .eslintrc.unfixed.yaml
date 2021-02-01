@@ -1,13 +1,10 @@
 rules:
   no-await-in-loop: error
-  no-extra-semi: warn
   no-unused-vars: error
   consistent-return: error
   eqeqeq: [warn, smart]
   no-else-return: warn
-  no-multi-spaces: [error, {ignoreEOLComments: true}]
   wrap-iife: warn
-  array-element-newline: [warn, consistent]
   camelcase: [warn, {properties: never,
                      allow: [
                        "l_attributes",
@@ -38,22 +35,13 @@ rules:
                        "N_ln",
                        "N_lp",
                      ]}]
-  comma-dangle: [warn, {arrays: always-multiline,
-                        objects: always-multiline,
-                        imports: always-multiline,
-                        exports: always-multiline,
-                        functions: always-multiline}]
   comma-spacing: [warn, {before: false, after: true}]
   computed-property-spacing: [warn, never, {"enforceForClassMembers": true}]
   consistent-this: [warn, self]
-  function-paren-newline: [warn, consistent]
   jsx-quotes: [warn, prefer-double]
   key-spacing: [warn, {mode: minimum}]
-  multiline-comment-style: [warn, starred-block]
   newline-per-chained-call: [warn, {ignoreChainWithDepth: 3}]
   no-lonely-if: warn
-  no-multiple-empty-lines: [warn, {max: 2, maxBOF: 0, maxEOF: 0}]
-  no-trailing-spaces: warn
   object-curly-newline: [warn, {multiline: true, consistent: true}]
   object-curly-spacing: [warn, never]
   operator-assignment: [warn, always]
@@ -72,7 +60,6 @@ rules:
   no-var: warn
   prefer-const: warn
   import/first: warn
-  import/newline-after-import: [warn, {count: 1}]
   import/no-commonjs: error
   import/order: [warn, {newlines-between: always}]
   react/no-access-state-in-setstate: error
@@ -85,7 +72,6 @@ rules:
                                    lifecycle,
                                    everything-else,
                                    render]}]
-  react/jsx-boolean-value: [warn, never]
   react/jsx-closing-bracket-location: [error, tag-aligned]
   react/jsx-first-prop-new-line: [error, multiline-multiprop]
   react/jsx-key: warn

@@ -58,7 +58,9 @@ const listPicker = ({
     case 'recording':
       return (
         <RecordingList
-          recordings={((entities: any): $ReadOnlyArray<RecordingT>)}
+          recordings={
+            ((entities: any): $ReadOnlyArray<RecordingWithArtistCreditT>)
+          }
           showRatings
           {...sharedProps}
         />

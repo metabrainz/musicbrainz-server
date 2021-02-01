@@ -257,9 +257,12 @@ sub redirect_back {
 
     if (
         $returnto eq '' ||
-        # Check that we weren't given an external URL. Only relative
-        # URLs are allowed.
-        $returnto->authority
+        # Check that we weren't given an external URL. Only URLs relative to
+        # the current domain are allowed.
+        (
+            $returnto->authority &&
+            $returnto->authority ne $c->req->uri->authority
+        )
     ) {
         $returnto->path_query('/');
         $returnto->fragment(undef);
@@ -500,19 +503,24 @@ around 'finalize_error' => sub {
         $c->$orig(@args);
 
         if (!$c->debug && scalar @{ $c->error }) {
-            $c->stash->{errors} = $errors;
-            $c->stash->{template} = $timed_out ?
-                'main/timeout.tt' : 'main/500.tt';
             try { $c->stash->{hostname} = hostname; } catch {};
+            $c->stash(
+                component_path => $timed_out
+                    ? 'main/error/TimeoutError'
+                    : 'main/error/Error500',
+                component_props => {
+                    $c->stash->{edit} ? (edits => [ $c->stash->{edit} ]) : (),
+                    formattedErrors => $c->stash->{formatted_errors},
+                    hostname => $c->stash->{hostname},
+                    useLanguages => boolean_to_json($c->stash->{use_languages}),
+                },
+                current_view => 'Node',
+            );
             $c->clear_errors;
             if ($c->stash->{error_body_in_stash}) {
                 $c->res->{body} = $c->stash->{body};
                 $c->res->{status} = $c->stash->{status};
             } else {
-                if (($c->stash->{current_view} // '') eq 'Node') {
-                    # Remove once error pages are converted to React.
-                    $c->stash(current_view => 'Default');
-                }
                 $c->view->process($c);
                 # Catalyst::Engine::finalize_error unsets $c->encoding. [1]
                 # We're rendering our own error page here, not using theirs,
@@ -741,6 +749,7 @@ sub TO_JSON {
 
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
+        can_delete
         collaborative_collections
         commons_image
         containment
@@ -830,6 +839,7 @@ sub TO_JSON {
         debug => boolean_to_json($self->debug),
         relative_uri => $self->relative_uri,
         req => {
+            body_params => $req->body_params,
             headers => \%headers,
             query_params => $req->query_params,
             secure => boolean_to_json($req->secure),

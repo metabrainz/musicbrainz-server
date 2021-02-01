@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2017 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2017 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 require('@babel/register');
 
@@ -325,7 +327,7 @@ async function handleCommand({command, file, target, value}, t) {
   t.comment(
     command +
     ' target=' + utf8.encode(JSON.stringify(target)) +
-    ' value=' + utf8.encode(JSON.stringify(value))
+    ' value=' + utf8.encode(JSON.stringify(value)),
   );
 
   let element;
@@ -392,13 +394,13 @@ async function handleCommand({command, file, target, value}, t) {
     case 'fireEvent':
       return driver.executeScript(
         `arguments[0].dispatchEvent(new Event('${value}'))`,
-        await findElement(target)
+        await findElement(target),
       );
 
     case 'focus':
       return driver.executeScript(
         'arguments[0].focus()',
-        await findElement(target)
+        await findElement(target),
       );
 
     case 'handleAlert':
@@ -542,7 +544,7 @@ async function runCommands(commands, t) {
         throw new Error(
           'Errors were found on the page ' +
           'since executing the previous command:\n' +
-          errors.join('\n\n')
+          errors.join('\n\n'),
         );
       }
 
@@ -597,8 +599,10 @@ async function runCommands(commands, t) {
       'psql',
       [
         ...hostPort,
-        '-U', systemDb.user,
-        '-c', `
+        '-U',
+        systemDb.user,
+        '-c',
+        `
           SELECT pg_terminate_backend(pg_stat_activity.pid)
             FROM pg_stat_activity
            WHERE datname = '${seleniumDb.database.replace(/'/g, "''")}'
@@ -653,7 +657,7 @@ async function runCommands(commands, t) {
           } catch (error) {
             t.fail(
               'caught exception: ' +
-              (error && error.stack ? error.stack : error.toString())
+              (error && error.stack ? error.stack : error.toString()),
             );
             throw error;
           }

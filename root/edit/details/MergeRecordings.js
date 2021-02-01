@@ -15,8 +15,8 @@ type MergeRecordingsEditT = {
   ...EditT,
   +display_data: {
     +large_spread: boolean,
-    +new: RecordingT,
-    +old: $ReadOnlyArray<RecordingT>,
+    +new: RecordingWithArtistCreditT,
+    +old: $ReadOnlyArray<RecordingWithArtistCreditT>,
   },
 };
 

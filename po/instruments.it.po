@@ -7,14 +7,14 @@
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Panfilo <email address hidden>, 2017
-# Luca Salini, 2020
+# Luca Salini, 2020-2021
 # Monica <email address hidden>, 2014
 # Luca Salini, 2012
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-26 17:50+0000\n"
+"PO-Revision-Date: 2021-02-01 16:47+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -319,6 +319,11 @@ msgstr "ajaeng"
 msgctxt "set of Nyabinghi drums"
 msgid "akete"
 msgstr "akete"
+
+#: DB:instrument/name:1029
+msgctxt "German keyed box zither"
+msgid "akkordolia"
+msgstr "akkordolia"
 
 #: DB:instrument/name:718
 msgid "alfaia"
@@ -831,6 +836,7 @@ msgid "buk"
 msgstr "buk"
 
 #: DB:instrument/name:528
+msgctxt "Indian keyed box zither"
 msgid "bulbul tarang"
 msgstr "bulbul tarang"
 
@@ -1802,6 +1808,7 @@ msgid "güira"
 msgstr "güira"
 
 #: DB:instrument/name:112
+msgctxt "Latin American gourd scraper"
 msgid "güiro"
 msgstr "güiro"
 
@@ -1912,6 +1919,11 @@ msgstr "hue puruwai"
 #: DB:instrument/name:547
 msgid "hulusi"
 msgstr "hulusi"
+
+#: DB:instrument/name:1030
+msgctxt "Medieval pear-shaped drone zither"
+msgid "hummel"
+msgstr "hummel"
 
 #: DB:instrument/name:213
 msgid "huqin"
@@ -2182,11 +2194,17 @@ msgstr "tastiera"
 msgid "keyboard bass"
 msgstr "basso-tastiera"
 
+#: DB:instrument/name:1028
+msgctxt "Composite chordophone"
+msgid "keyed box zither"
+msgstr "salterio a cassa con tasti"
+
 #: DB:instrument/name:154
 msgid "keyed brass instruments"
 msgstr "ottoni a chiavi"
 
 #: DB:instrument/name:774
+msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "keytar"
 
@@ -3014,6 +3032,7 @@ msgid "quena"
 msgstr "quena"
 
 #: DB:instrument/name:755
+msgctxt "Jawbone rattle"
 msgid "quijada"
 msgstr "quijada"
 
@@ -3064,6 +3083,7 @@ msgid "rebec"
 msgstr "ribeca"
 
 #: DB:instrument/name:721
+msgctxt "Brazilian metal scraper"
 msgid "reco-reco"
 msgstr "reco-reco"
 
@@ -3404,6 +3424,7 @@ msgid "slide whistle"
 msgstr "flauto a coulisse"
 
 #: DB:instrument/name:366
+msgctxt "Hollow wooden idiophone"
 msgid "slit drum"
 msgstr "tamburo a fessura"
 
@@ -3599,6 +3620,7 @@ msgid "taiko"
 msgstr "taiko"
 
 #: DB:instrument/name:555
+msgctxt "Japanese keyed box zither"
 msgid "taishogoto"
 msgstr "taishogoto"
 
@@ -4202,8 +4224,9 @@ msgid "wood block"
 msgstr "wood block"
 
 #: DB:instrument/name:267
+msgctxt "wooden bell used in temples"
 msgid "wooden fish"
-msgstr "pesce di legno"
+msgstr "mokugyo (pesce di legno)"
 
 #: DB:instrument/name:2
 msgid "woodwind"

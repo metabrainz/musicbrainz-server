@@ -245,6 +245,18 @@ sub find_by_artist
     $self->query_to_list_limited($query, $params, $limit, $offset, undef, cache_hits => 1);
 }
 
+sub find_by_artist_credit
+{
+    my ($self, $artist_credit_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . ",
+                   release.name COLLATE musicbrainz AS name_collate
+                 FROM " . $self->_table . "
+                 WHERE artist_credit = ?
+                 ORDER BY release.name COLLATE musicbrainz";
+    $self->query_to_list_limited($query, [$artist_credit_id], $limit, $offset);
+}
+
 sub find_by_instrument {
     my ($self, $instrument_id, $limit, $offset, %args) = @_;
 
@@ -1089,7 +1101,7 @@ sub determine_recording_merges {
 
             return (0, {
                 message => $RELEASE_MERGE_ERRORS{ambiguous_recording_merge},
-                args => {
+                vars => {
                     source_recording => _link_recording($source),
                     target_recordings => comma_list(map { _link_recording($_) } @{$target}),
                 },
@@ -1117,7 +1129,7 @@ sub determine_recording_merges {
             if ($new_id == $old_id) {
                 return (0, {
                     message => $RELEASE_MERGE_ERRORS{recording_merge_cycle},
-                    args => {
+                    vars => {
                         recording1 => _link_recording($old_recording),
                         recording2 => _link_recording($new_recording),
                     },
@@ -1347,6 +1359,31 @@ sub _hash_to_row
     });
 
     return $row;
+}
+
+=method load_ids
+
+Load internal IDs for release objects that only have GIDs.
+
+=cut
+
+sub load_ids
+{
+    my ($self, @releases) = @_;
+
+    my @gids = map { $_->gid } @releases;
+    return () unless @gids;
+
+    my $query = "
+        SELECT gid, id FROM release
+        WHERE gid IN (" . placeholders(@gids) . ")
+    ";
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $release (@releases) {
+        $release->id($map{$release->gid}) if exists $map{$release->gid};
+    }
 }
 
 sub load_meta

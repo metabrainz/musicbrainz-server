@@ -137,7 +137,7 @@ test 'Test find_by_iswc' => sub {
 
     {
         my @iswcs = $test->c->model('Work')->find_by_iswc('T-111.222.331-0');
-        is(@iswcs, 0, 'Found 0 ISWCs for non-existant ISWC');
+        is(@iswcs, 0, 'Found 0 ISWCs for non-existent ISWC');
     }
 };
 

@@ -80,7 +80,15 @@ sub search : Path('')
     }
     else
     {
-        $c->stash( template => 'search/index.tt' );
+        $c->stash(
+            component_path => 'search/SearchIndex',
+            component_props => {
+                otherLookupForm => $c->stash->{otherlookup},
+                searchForm => $c->stash->{form},
+                tagLookupForm => $c->stash->{taglookup},
+            },
+            current_view => 'Node',
+        );
     }
 }
 
@@ -125,6 +133,7 @@ sub direct : Private
         when ('release') {
             $c->model('Language')->load(@entities);
             $c->model('Release')->load_related_info(@entities);
+            $c->model('Release')->load_meta(@entities);
             $c->model('Script')->load(@entities);
             $c->model('ReleaseStatus')->load(@entities);
             $c->model('ReleaseGroup')->load(@entities);

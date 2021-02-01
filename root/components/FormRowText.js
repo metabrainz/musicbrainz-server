@@ -18,6 +18,7 @@ type InputOnChange = (SyntheticKeyboardEvent<HTMLInputElement>) => void;
 type InputProps = {
   +className?: string,
   defaultValue?: string,
+  +disabled: boolean,
   +id: string,
   +name: string,
   onChange?: InputOnChange,
@@ -30,6 +31,7 @@ type InputProps = {
 type CommonProps = {
   +children?: React.Node,
   +className?: string,
+  +disabled?: boolean,
   +field: ReadOnlyFieldT<?string>,
   +label: string,
   +required?: boolean,
@@ -54,6 +56,7 @@ const FormRowText = (props: Props): React.Element<typeof FormRow> => {
 
   const inputProps: InputProps = {
     className: props.className,
+    disabled: props.disabled ?? false,
     id: 'id-' + field.html_name,
     name: field.html_name,
     required: required,

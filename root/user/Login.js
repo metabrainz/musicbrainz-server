@@ -95,6 +95,7 @@ const Login = ({
       <FormRowCheckbox
         field={loginForm.field.remember_me}
         label={l('Keep me logged in')}
+        uncontrolled
       />
 
       {postParameters ? <PostParameters params={postParameters} /> : null}

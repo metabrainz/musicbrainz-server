@@ -240,7 +240,9 @@ function formatRecording(recording: RecordingT) {
         showExtraInfo(formatTrackLength(recording.length), 'length')
       ) : null}
 
-      {showExtraInfoLine(texp.l('by {artist}', {artist: recording.artist}))}
+      {nonEmpty(recording.artist) ? (
+        showExtraInfoLine(texp.l('by {artist}', {artist: recording.artist}))
+      ) : null}
 
       {appearsOn ? (
         appearsOn.hits > 0 ? (

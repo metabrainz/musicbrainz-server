@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,31 +7,49 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type FieldShape = {
-  // `errors` is optional too because FormT has none
-  +errors?: $ReadOnlyArray<string>,
-  +field?: FieldShape | $ReadOnlyArray<FieldShape>,
-  ...
-};
+import {
+  iterSubfields,
+  iterWritableSubfields,
+  type FormOrAnyFieldT,
+  type WritableAnyFieldT,
+  type WritableFormOrAnyFieldT,
+} from './iterSubfields';
+
+export function applyAllPendingErrors(
+  formOrField: WritableFormOrAnyFieldT,
+): void {
+  const subfields = iterWritableSubfields(formOrField);
+  for (const subfield of subfields) {
+    if (subfield.pendingErrors?.length) {
+      applyPendingErrors(subfield);
+    }
+  }
+}
+
+export function applyPendingErrors(
+  field: WritableAnyFieldT,
+): void {
+  field.errors = field.pendingErrors ?? [];
+}
+
+export function hasSubfieldErrors(formOrField: FormOrAnyFieldT): boolean {
+  for (const subfield of iterSubfields(formOrField)) {
+    if (subfield.errors?.length || subfield.pendingErrors?.length) {
+      return true;
+    }
+  }
+  return false;
+}
 
 export default function subfieldErrors(
-  field: FieldShape,
+  formOrField: FormOrAnyFieldT,
   accum: $ReadOnlyArray<string> = [],
 ): $ReadOnlyArray<string> {
-  if (field.errors && field.errors.length) {
-    accum = accum.concat(field.errors);
-  }
-  if (field.field) {
-    let subfields;
-    if (Array.isArray(field.field)) {
-      subfields = field.field;
-    } else {
-      subfields =
-        ((Object.values(field.field): any): $ReadOnlyArray<FieldShape>);
-    }
-    for (const subfield of subfields) {
-      accum = subfieldErrors(subfield, accum);
+  let result = accum;
+  for (const subfield of iterSubfields(formOrField)) {
+    if (subfield.errors?.length) {
+      result = result.concat(subfield.errors);
     }
   }
-  return accum;
+  return result;
 }

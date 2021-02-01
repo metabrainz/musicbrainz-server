@@ -27,9 +27,9 @@ const CDTocDubiousLength = ({
     <ul>
       <li>
         {l(`This report shows disc IDs indicating a total duration much longer
-        than what a standard CD allows (at least 100 minutes). This usually
-        means a disc ID was created for the wrong format (SACD) or with a
-        buggy tool. These disc IDs can safely be removed.`)}
+        than what a standard CD allows (at least 88 minutes for a CD, or 30
+        minutes for a mini-CD). This usually means a disc ID was created for
+        the wrong format (SACD) or with a buggy tool.`)}
       </li>
       <li>
         {texp.l('Total releases found: {count}',

@@ -7,6 +7,10 @@ use MusicBrainz::Server::Validation qw( is_valid_url );
 
 extends 'HTML::FormHandler::Field::Text';
 
+has '+deflate_method' => (
+    default => sub { \&deflate_url }
+);
+
 my %ALLOWED_PROTOCOLS = map { $_ => 1 } qw( http https ftp );
 
 sub validate
@@ -27,9 +31,10 @@ sub validate
     $self->_set_value($url->as_string);
 }
 
-sub deflate {
+sub deflate_url {
     my ($self, $value) = @_;
-    return $value->as_string;
+
+    return $value->as_iri;
 }
 
 __PACKAGE__->meta->make_immutable;

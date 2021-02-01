@@ -181,6 +181,16 @@ sub initialize {
     $self->data(\%opts);
 }
 
+sub alter_edit_pending
+{
+    my $self = shift;
+    my @recording_ids = map { $_->{id} } map { $_->{destination}, @{ $_->{sources} } } @{ $self->recording_merges // [] };
+    return {
+        Release => [ $self->release_ids ],
+        @recording_ids ? (Recording => [ @recording_ids ]) : (),    
+    }
+}
+
 override build_display_data => sub
 {
     my ($self, $loaded) = @_;
@@ -322,10 +332,12 @@ sub do_merge
     unless ($can_merge) {
         my $error = localized_note(
             N_l('These releases could not be merged: {reason}'),
-            {reason => localized_note(
-                $cannot_merge_reason->{message},
-                $cannot_merge_reason->{args},
-            )},
+            vars => {
+                reason => localized_note(
+                    $cannot_merge_reason->{message},
+                    vars => $cannot_merge_reason->{vars},
+                ),
+            },
         );
         MusicBrainz::Server::Edit::Exceptions::GeneralError->throw($error);
     }

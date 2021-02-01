@@ -20,6 +20,7 @@ const defaultContext = {
   flash: {},
   relative_uri: '',
   req: {
+    body_params: {},
     headers: {},
     query_params: {},
     secure: false,

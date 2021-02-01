@@ -24,6 +24,10 @@
       <legend>[% l('Recording Details') %]</legend>
       [% React.embed(c, 'static/scripts/recording/RecordingName', {
            field => form_to_json(form.field('name')),
+           recording => {
+             entityType => 'recording',
+             name => form.field('name').value,
+           },
          }) %]
       <div id="artist-credit-editor"></div>
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]

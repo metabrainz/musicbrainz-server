@@ -21,7 +21,10 @@ test all => sub {
 
     my $response = $mech->submit_form(
         with_fields => {
-            'edit-alias.name' => 'brand new alias'
+            'edit-alias.name' => 'brand new alias',
+            # HTML::Form doesn't understand selected=""
+            # so we need to specifically set this
+            'edit-alias.type_id' => '2'
         });
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);

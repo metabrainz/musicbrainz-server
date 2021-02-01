@@ -42,6 +42,7 @@ our @EXPORT_OK = qw(
     boolean_from_json
     boolean_to_json
     check_data
+    conditional_merge_column_query
     copy_escape
     coordinates_to_hash
     datetime_to_iso8601
@@ -510,32 +511,49 @@ sub _merge_attributes {
     $sql->do($query_generator->($table, $new_id, $old_ids, $all_ids, \%named_params));
 }
 
+sub conditional_merge_column_query {
+    my ($table, $column, $new_id, $all_ids, $condition, $default) = @_;
+
+    my @args = ($new_id, $all_ids);
+    my $query =
+        "(SELECT new_val
+            FROM (SELECT (id = ?) AS first, $column AS new_val
+                    FROM $table
+                   WHERE $column $condition
+                     AND id = any(?)
+                   ORDER BY first DESC
+                   LIMIT 1) s)";
+    if (defined $default) {
+        $query = "coalesce($query, ?)";
+        push @args, $default;
+    }
+    return ($query, \@args);
+}
 
 sub _conditional_merge {
     my ($condition, %opts) = @_;
 
-    my $wrap_coalesce = sub {
-        my ($inner, $wrap) = @_;
-        if ($wrap) { return "coalesce(" . $inner . ",?)" }
-        else { return $inner }
-    };
-
     return sub {
-            my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
-            my $columns = $named_params->{columns} or confess 'Missing parameter columns';
-            ("UPDATE $table SET " .
-             join(',', map {
-                 "$_ = " . $wrap_coalesce->("(SELECT new_val FROM (
-                      SELECT (id = ?) AS first, $_ AS new_val
-                        FROM $table
-                       WHERE $_ $condition
-                         AND id IN (" . placeholders(@$all_ids) . ")
-                    ORDER BY first DESC
-                       LIMIT 1
-                       ) s)", exists $opts{default});
-             } @$columns) . '
-             WHERE id = ?',
-             (@$all_ids, $new_id) x @$columns, (exists $opts{default} ? $opts{default} : ()), $new_id)}
+        my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
+        my $columns = $named_params->{columns} or confess 'Missing parameter columns';
+        my @assignment_args;
+        my $column_assignments = join(', ', map {
+            my $column = $_;
+            my ($column_query, $column_args) =
+                conditional_merge_column_query(
+                    $table,
+                    $column,
+                    $new_id,
+                    $all_ids,
+                    $condition,
+                    $opts{default},
+                );
+            push @assignment_args, @{$column_args};
+            "$column = ($column_query)"
+         } @$columns);
+        ("UPDATE $table SET $column_assignments WHERE id = ?",
+            @assignment_args, $new_id);
+    };
 }
 
 sub merge_table_attributes {
@@ -689,12 +707,13 @@ sub datetime_to_iso8601 {
 }
 
 sub localized_note {
-    my ($message, $args) = @_;
+    my ($message, %opts) = @_;
 
     state $json = JSON::XS->new;
     'localize:' . $json->encode({
         message => $message,
-        defined $args ? (args => $args) : (),
+        version => 1,
+        %opts,
     });
 }
 

@@ -156,7 +156,7 @@ test 'Parallel edits that dont conflict merge' => sub {
     is($rl->catalog_number, 'Woof!');
 };
 
-test 'Editing a non-existant release label fails' => sub {
+test 'Editing a non-existent release label fails' => sub {
     my $test = shift;
     my $c = $test->c;
 

@@ -50,8 +50,6 @@ my %URL_SPECIALIZATIONS = (
     'DAHR'                => qr{^https?://adp\.library\.ucsb\.edu/}i,
     'Dailymotion'         => qr{^https?://(?:www\.)?dailymotion\.com/}i,
     'DanceDB'             => qr{^https?://(?:www\.)?tedcrane\.com/DanceDB/}i,
-    # Temporarily grey Decoda out as it has been reported to be compromised
-    # 'Decoda'              => qr{^https?://(?:www\.)?decoda\.com/}i,
     'Deezer'              => qr{^https?://(?:www\.)?deezer\.com/}i,
     'DHHU'                => qr{^https?://(?:www\.)?dhhu\.dk/}i,
     'Directlyrics'        => qr{^https?://(?:www\.)?directlyrics\.com/}i,
@@ -127,6 +125,7 @@ my %URL_SPECIALIZATIONS = (
     'OpenLibrary'         => qr{^https?://(?:www\.)?openlibrary\.org/}i,
     'Operabase'           => qr{^https?://(?:www\.)?operabase\.com/}i,
     'Operadis'            => qr{^https?://(?:www\.)?operadis-opera-discography\.org\.uk/}i,
+    'Overture'            => qr{^https?://overture\.doremus\.org/}i,
     'Ozon'                => qr{^https?://(?:www\.)?ozon\.ru/}i,
     'Patreon'             => qr{^https?://(?:www\.)?patreon\.com/}i,
     'PayPalMe'            => qr{^https?://(?:www\.)?paypal\.me/}i,
@@ -137,7 +136,8 @@ my %URL_SPECIALIZATIONS = (
     'PsyDB'               => qr{^https?://(?:www\.)?psydb\.net/}i,
     'QuebecInfoMusique'   => qr{^https?://(?:www\.)?qim\.com/}i,
     'Rateyourmusic'       => qr{^https?://(?:www\.)?rateyourmusic\.com/}i,
-    'ResidentAdvisor'     => qr{^https?://(?:www\.)?residentadvisor\.net/}i,
+    # Remove residentadvisor.net once MBBE-31 is done
+    'ResidentAdvisor'     => qr{^https?://(?:www\.)?(ra\.co|residentadvisor\.net)/}i,
     'ReverbNation'        => qr{^https?://(?:www\.)?reverbnation\.com/}i,
     'RockComAr'           => qr{^https?://(?:www\.)?rock\.com\.ar/}i,
     'RockensDanmarkskort' => qr{^https?://(?:www\.)?rockensdanmarkskort\.dk/}i,

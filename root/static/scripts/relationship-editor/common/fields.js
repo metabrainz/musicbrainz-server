@@ -695,7 +695,7 @@ function validAttributes(relationship, attributes) {
   var linkType = relationship.getLinkType();
   if (!linkType) {
     return [];
-  } 
+  }
   return attributes.filter(function (data) {
     var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
     return attrInfo && linkType.attributes[attrInfo.root_id];

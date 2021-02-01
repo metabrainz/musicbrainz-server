@@ -16,7 +16,7 @@ import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 
 type Props = {
   +page: string,
-  +recording: RecordingT,
+  +recording: RecordingWithArtistCreditT,
 };
 
 const RecordingHeader = ({

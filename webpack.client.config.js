@@ -35,6 +35,7 @@ const entries = [
   'account/edit',
   'account/preferences',
   'area',
+  'alias',
   'area/index',
   'area/places-map',
   'artist',
@@ -212,7 +213,7 @@ if (PRODUCTION_MODE) {
   plugins.push(
     new webpack.HashedModuleIdsPlugin({
       hashDigestLength: 7,
-    })
+    }),
   );
 }
 

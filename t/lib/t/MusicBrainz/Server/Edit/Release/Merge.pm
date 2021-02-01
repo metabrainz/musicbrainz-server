@@ -159,6 +159,8 @@ test 'Linking Merge Release edits to recordings' => sub {
     # Use a set because the order can be different, but the elements should be the same.
     use Set::Scalar;
     is(Set::Scalar->new(2, 3)->compare(Set::Scalar->new(@{ $edit->related_entities->{recording} })), 'equal', "Related recordings are correct");
+    my $recording_in_merge = $c->model('Recording')->get_by_id(2);
+    is($recording_in_merge->edits_pending, 1, 'Recording has pending edits with MERGE_MERGE');
 
     $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_MERGE,

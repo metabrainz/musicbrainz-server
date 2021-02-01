@@ -179,6 +179,9 @@ export const LINK_TYPES = {
     place: '751e8fb1-ed8d-4a94-b71b-a38065054f5d',
     series: 'de143a8b-ea80-4b26-9246-f1ce498d4b01',
   },
+  shownotes: {
+    release: '2d24d075-9943-4c4d-a659-8ce52e6e6b57',
+  },
   socialnetwork: {
     artist: '99429741-f3f6-484b-84f8-23af51991770',
     event: '68f5fcaa-b58c-3bfe-9b7c-75c2b56e839a',
@@ -786,6 +789,12 @@ const CLEANUPS = {
     validate: function (url) {
       return {result: /^https:\/\/www\.bbc\.co\.uk\/music\/artists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(url)};
     },
+  },
+  'bbcreview': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?bbc\\.co\\.uk/music/reviews/', 'i'),
+    ],
+    type: LINK_TYPES.review,
   },
   'beatport': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?beatport\\.com', 'i')],
@@ -2062,7 +2071,6 @@ const CLEANUPS = {
   'lyrics': {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?directlyrics\\.com', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?decoda\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?lieder\\.net', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?utamap\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?j-lyric\\.net', 'i'),
@@ -2150,7 +2158,7 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(
         /^(?:https?:\/\/)?(?:cdn|www\.)?music\.migu\.cn\/v3\/(live|(?:music|video)\/\w+)\/([^/?#]+).*$/,
-        'https://music.migu.cn/v3/$1/$2'
+        'https://music.migu.cn/v3/$1/$2',
       );
       url = url.replace(/\/digital_album\//, '/album/');
       return url;
@@ -2461,7 +2469,6 @@ const CLEANUPS = {
   },
   'otherdatabases': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?rateyourmusic\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?musicmoz\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?discografia\\.dds\\.it/', 'i'),
       new RegExp('^(https?://)?(www\\.)?encyclopedisque\\.fr/', 'i'),
@@ -2474,10 +2481,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
-      new RegExp(
-        '^(https?://)?(www\\.)?residentadvisor\\.net/(?!review)',
-        'i',
-      ),
       new RegExp('^(https?://)?(www\\.)?vkdb\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?ci\\.nii\\.ac\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?iss\\.ndl\\.go\\.jp/', 'i'),
@@ -2506,6 +2509,28 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?triplejunearthed\\.com', 'i'),
     ],
     type: LINK_TYPES.otherdatabases,
+  },
+  'overture': {
+    match: [new RegExp('^(https?://)?overture\\.doremus\\.org/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?overture\.doremus\.org\/$/, 'https://overture.doremus.org/');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/overture\.doremus\.org\/(artist|expression|performance)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'artist'};
+          case LINK_TYPES.otherdatabases.event:
+            return {result: prefix === 'performance'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'expression'};
+        }
+      }
+      return {result: false};
+    },
   },
   'ozonru': {
     match: [new RegExp(
@@ -2635,11 +2660,91 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'rateyourmusic': {
+    match: [new RegExp('^(https?://)?(www\\.)?rateyourmusic\\.com/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/rateyourmusic\.com\/(\w+)\//.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'artist'};
+          case LINK_TYPES.otherdatabases.event:
+            return {result: prefix === 'concert'};
+          case LINK_TYPES.otherdatabases.label:
+            return {result: prefix === 'label'};
+          case LINK_TYPES.otherdatabases.place:
+            return {result: prefix === 'venue'};
+          case LINK_TYPES.otherdatabases.release:
+            return {result: prefix === 'release'};
+          case LINK_TYPES.otherdatabases.series:
+            return {result: prefix === 'classifiers'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'work'};
+        }
+      }
+      return {result: false};
+    },
+  },
   'recochoku': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?recochoku\\.jp', 'i')],
     type: LINK_TYPES.downloadpurchase,
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|artist|song)\/([a-zA-Z0-9]+)(\/)?.*$/, 'http://recochoku.jp/$1/$2/');
+    },
+  },
+  'residentadvisor': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?ra\\.co/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/', 'i'),
+    ],
+    type: {...LINK_TYPES.otherdatabases, ...LINK_TYPES.review},
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(www\.)?ra\.co\//, 'https://ra.co/');
+      url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|reviews|tracks)\/([^\/?#]+).*$/, 'https://ra.co/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/^https?:\/\/(www\.)?residentadvisor\.net\//.test(url)) {
+        return {
+          error: exp.l(
+            `This is a link to the old Resident Advisor domain. Please
+             follow {ra_url|your link}, make sure the link it redirects
+             to is still the correct one and, if so, add that link instead.`,
+            {
+              ra_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+        };
+      }
+      const m = /^https:\/\/ra\.co\/([^\/]+)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'dj'};
+          case LINK_TYPES.otherdatabases.event:
+            return {result: prefix === 'events'};
+          case LINK_TYPES.otherdatabases.label:
+            return {result: prefix === 'labels'};
+          case LINK_TYPES.otherdatabases.place:
+            return {result: prefix === 'clubs'};
+          case LINK_TYPES.otherdatabases.recording:
+            return {result: prefix === 'tracks'};
+          case LINK_TYPES.review.release_group:
+            return {result: prefix === 'reviews'};
+        }
+      }
+      return {result: false};
     },
   },
   'reverbnation': {
@@ -2657,13 +2762,6 @@ const CLEANUPS = {
       url = url.replace(/[?&]$/, '');
       return url;
     },
-  },
-  'review': {
-    match: [
-      new RegExp('^(https?://)?(www\\.)?bbc\\.co\\.uk/music/reviews/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/review', 'i'),
-    ],
-    type: LINK_TYPES.review,
   },
   'rockcomar': {
     match: [new RegExp('^(https?://)?(www\\.)?rock\\.com\\.ar', 'i')],
@@ -2844,12 +2942,12 @@ const CLEANUPS = {
           case LINK_TYPES.songkick.artist:
             return {result: prefix === 'artists'};
           case LINK_TYPES.songkick.event:
-            return  {result: prefix === 'concerts' || prefix === 'festivals'};
+            return {result: prefix === 'concerts' || prefix === 'festivals'};
           case LINK_TYPES.songkick.place:
-            return  {result: prefix === 'venues'};
+            return {result: prefix === 'venues'};
         }
       }
-      return  {result: false};
+      return {result: false};
     },
   },
   'soundcloud': {
@@ -2919,11 +3017,11 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(spotify\\.com)/user', 'i')],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([a-zA-Z0-9_-]+)\/?(?:[?#].*)?$/, 'https://open.spotify.com/user/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([^\/?#]+)\/?(?:[?#].*)?$/, 'https://open.spotify.com/user/$1');
       return url;
     },
     validate: function (url) {
-      return {result: /^https:\/\/open\.spotify\.com\/user\/[a-zA-Z0-9_-]+$/.test(url)};
+      return {result: /^https:\/\/open\.spotify\.com\/user\/[^\/?#]+$/.test(url)};
     },
   },
   'thesession': {
@@ -3401,7 +3499,7 @@ const CLEANUPS = {
   },
   'youtube': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)',
+      '^(https?://)?(((?!music)[^/])+\\.)?(youtube\\.com/|youtu\\.be/)',
       'i',
     )],
     type: {...LINK_TYPES.streamingfree, ...LINK_TYPES.youtube},
@@ -3491,20 +3589,49 @@ Object.values(LINK_TYPES).forEach(function (linkType) {
   });
 });
 
-// avoid Wikipedia being added as release-level discography entry
-const originalRule = validationRules[LINK_TYPES.discographyentry.release];
-validationRules[LINK_TYPES.discographyentry.release] = function (url) {
-  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
-    return {
-      error: l(
-        `Wikipedia is not a discography entry. Please add this Wikipedia link
-         to the release group instead.`,
-      ),
-      result: false,
-    };
-  }
-  return originalRule(url);
-};
+const relationshipTypesByEntityType = Object.entries(LINK_TYPES).reduce(
+  function (
+    results,
+    [/* relationshipType */, relUuidByEntityType],
+  ) {
+    for (const entityType of Object.keys(relUuidByEntityType)) {
+      (results[entityType] || (results[entityType] = []))
+        .push(relUuidByEntityType[entityType]);
+    }
+    return results;
+  },
+  {},
+);
+
+// Avoid Wikipedia/Wikidata being added as release-level relationship
+for (const relUuid of relationshipTypesByEntityType.release) {
+  const relRule = validationRules[relUuid];
+  validationRules[relUuid] = function (url) {
+    if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
+      return {
+        error: l(
+          `Wikipedia normally has no entries for specific releases,
+           so adding Wikipedia links to a release is currently blocked.
+           Please add this Wikipedia link to the release group instead,
+           if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    if (/^(https?:\/\/)?([^.\/]+\.)?wikidata\.org\//.test(url)) {
+      return {
+        error: l(
+          `Wikidata normally has no entries for specific releases,
+           so adding Wikidata links to a release is currently blocked.
+           Please add this Wikidata link to the release group instead,
+           if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    return relRule(url);
+  };
+}
 
 export function guessType(sourceType, currentURL) {
   const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {

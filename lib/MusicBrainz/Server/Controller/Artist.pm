@@ -179,41 +179,58 @@ sub show : PathPart('') Chained('load')
     }) };
     my $has_filter = %filter ? 1 : 0;
 
+    my $has_default = $c->model('ReleaseGroup')->has_by_artist($artist->id, 0);
+    my $has_extra = $c->model('ReleaseGroup')->has_by_artist($artist->id, 1);
+    my $has_va = $c->model('ReleaseGroup')->has_by_track_artist($artist->id, 0);
+    my $has_va_extra = $c->model('ReleaseGroup')->has_by_track_artist($artist->id, 1);
+
     my $want_va_only = $c->req->query_params->{va};
     my $want_all_statuses = $c->req->query_params->{all};
     my $including_all_statuses;
     my $showing_va_only;
 
+    my $has_release_groups = $has_default || $has_extra || $has_va || $has_va_extra;
+    my $force_release_groups = $want_va_only || $want_all_statuses || %filter;
+
     my $make_attempt = sub {
         my ($all, $va) = @_;
         my $method = $va ? 'find_by_track_artist' : 'find_by_artist';
         return $self->_load_paged($c, sub {
-            $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, $all, shift, shift, filter => \%filter);
+            if (!$all && !$va) {
+                return ([], 0) unless $has_default;
+            } elsif ($all && !$va) {
+                return ([], 0) unless ($has_default || $has_extra);
+            } elsif (!$all && $va) {
+                return ([], 0) unless $has_va;
+            } elsif ($all && $va) {
+                return ([], 0) unless ($has_va || $has_va_extra);
+            }
+            return $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, $all, shift, shift, filter => \%filter);
         });
     };
 
-    # Attempt from official non-va, to all non-va, to official va, to all va;
-    # filter out any attempt that contradicts a preference from a query param
-    my @attempts = grep {
-        ($_->[0] || !$want_all_statuses) &&
-        ($_->[1] || !$want_va_only)
-    } ([0,0], [1,0], [0,1], [1,1]);
+    if ($has_release_groups || $force_release_groups) {
+        # Attempt from official non-va, to all non-va, to official va, to all va;
+        # filter out any attempt that contradicts a preference from a query param
+        my @attempts = grep {
+            ($_->[0] || !$want_all_statuses) &&
+            ($_->[1] || !$want_va_only)
+        } ([0,0], [1,0], [0,1], [1,1]);
 
-    for my $attempt (@attempts) {
-        my $all = $attempt->[0];
-        my $va = $attempt->[1];
-        $release_groups = $make_attempt->($all, $va);
-        # If filtering, only make one attempt
-        # otherwise, attempt until we find RGs or exhaust the possibilities
-        if (scalar @$release_groups || %filter) {
+        for my $attempt (@attempts) {
+            my $all = $attempt->[0];
+            my $va = $attempt->[1];
+            $release_groups = $make_attempt->($all, $va);
             $including_all_statuses = $all;
             $showing_va_only = $va;
-            last;
+            # If filtering, only make one attempt
+            # otherwise, attempt until we find RGs or exhaust the possibilities
+            if (scalar @$release_groups || %filter) {
+                last;
+            }
         }
-    }
-
-    # If there is no expressed preference (va, filter) and no RGs, find recordings
-    if (!$showing_va_only && !%filter && scalar @$release_groups == 0) {
+    } else {
+        # If there is no expressed preference (va, filter) and no RGs, find recordings
         $recordings = $self->_load_paged($c, sub {
             $c->model('Recording')->find_standalone($artist->id, shift, shift);
         });
@@ -289,8 +306,12 @@ sub show : PathPart('') Chained('load')
             ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => $artist->id }),
             artist => $artist,
             filterForm => $c->stash->{filter_form},
+            hasDefault => boolean_to_json($has_default),
+            hasExtra => boolean_to_json($has_extra),
             hasFilter => boolean_to_json($has_filter),
-            includingAllStatuses => $including_all_statuses,
+            hasVariousArtists => boolean_to_json($has_va),
+            hasVariousArtistsExtra => boolean_to_json($has_va_extra),
+            includingAllStatuses => boolean_to_json($including_all_statuses),
             legalName => $legal_name,
             legalNameAliases => $legal_name_aliases,
             legalNameArtistAliases => $legal_name_artist_aliases,
@@ -299,9 +320,7 @@ sub show : PathPart('') Chained('load')
             pager => serialize_pager($c->stash->{pager}),
             recordings => $recordings,
             releaseGroups => $release_groups,
-            showingVariousArtistsOnly => $showing_va_only,
-            wantAllStatuses => boolean_to_json($want_all_statuses),
-            wantVariousArtistsOnly => boolean_to_json($want_va_only),
+            showingVariousArtistsOnly => boolean_to_json($showing_va_only),
             wikipediaExtract => $c->stash->{wikipedia_extract},
         },
     );

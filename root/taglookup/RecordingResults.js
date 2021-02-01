@@ -15,7 +15,7 @@ import TagLookupResults from './Results';
 import type {TagLookupResultsPropsT} from './types';
 
 const TagLookupRecordingResults = (
-  props: TagLookupResultsPropsT<RecordingT>,
+  props: TagLookupResultsPropsT<RecordingWithArtistCreditT>,
 ): React.Element<typeof TagLookupResults> => (
   <TagLookupResults {...props}>
     <RecordingResultsInline

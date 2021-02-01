@@ -69,7 +69,10 @@ const renderWorkRelationship = (relationship: RelationshipT) => {
       <dd>
         <EntityLink content={targetCredit} entity={work} />
         {' '}
-        {bracketedText(relationshipDateText(relationship))}
+        {bracketedText(relationshipDateText(
+          relationship,
+          false /* bracketEnded */,
+        ))}
         <GroupedTrackRelationships source={work} />
       </dd>
     </React.Fragment>

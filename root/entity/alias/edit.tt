@@ -1,4 +1,0 @@
-[%- WRAPPER "$entity_type/layout.tt" title=l('Edit Alias') full_width=1 -%]
-    <h2>[% l('Edit alias') %]</h2>
-    [%- INCLUDE 'entity/alias/edit_form.tt' -%]
-[%- END -%]

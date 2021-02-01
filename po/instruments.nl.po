@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-12-07 13:56+0000\n"
+"PO-Revision-Date: 2021-02-01 16:47+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -315,6 +315,11 @@ msgstr "ajaeng"
 msgctxt "set of Nyabinghi drums"
 msgid "akete"
 msgstr "akete"
+
+#: DB:instrument/name:1029
+msgctxt "German keyed box zither"
+msgid "akkordolia"
+msgstr ""
 
 #: DB:instrument/name:718
 msgid "alfaia"
@@ -827,6 +832,7 @@ msgid "buk"
 msgstr "buk"
 
 #: DB:instrument/name:528
+msgctxt "Indian keyed box zither"
 msgid "bulbul tarang"
 msgstr "bulbul tarang"
 
@@ -1798,8 +1804,9 @@ msgid "güira"
 msgstr "güira"
 
 #: DB:instrument/name:112
+msgctxt "Latin American gourd scraper"
 msgid "güiro"
-msgstr "güiro"
+msgstr "Een güiro is een slagwerkinstrument met een raspend geluid. (<a href=\"http://nl.wikipedia.org/wiki/Güiro\">Wikipedia</a>)"
 
 #: DB:instrument/name:486
 msgctxt "Korean silk-string fiddle"
@@ -1908,6 +1915,11 @@ msgstr "hue puruwai"
 #: DB:instrument/name:547
 msgid "hulusi"
 msgstr "hulusi"
+
+#: DB:instrument/name:1030
+msgctxt "Medieval pear-shaped drone zither"
+msgid "hummel"
+msgstr ""
 
 #: DB:instrument/name:213
 msgid "huqin"
@@ -2178,11 +2190,17 @@ msgstr "keyboard"
 msgid "keyboard bass"
 msgstr "baskeyboard"
 
+#: DB:instrument/name:1028
+msgctxt "Composite chordophone"
+msgid "keyed box zither"
+msgstr ""
+
 #: DB:instrument/name:154
 msgid "keyed brass instruments"
 msgstr "koperblazers met knoppen"
 
 #: DB:instrument/name:774
+msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "keytar"
 
@@ -3010,6 +3028,7 @@ msgid "quena"
 msgstr "quena"
 
 #: DB:instrument/name:755
+msgctxt "Jawbone rattle"
 msgid "quijada"
 msgstr "quijada"
 
@@ -3060,6 +3079,7 @@ msgid "rebec"
 msgstr "rebec"
 
 #: DB:instrument/name:721
+msgctxt "Brazilian metal scraper"
 msgid "reco-reco"
 msgstr "reco-reco"
 
@@ -3400,6 +3420,7 @@ msgid "slide whistle"
 msgstr "schuiffluit"
 
 #: DB:instrument/name:366
+msgctxt "Hollow wooden idiophone"
 msgid "slit drum"
 msgstr "spleettrommel"
 
@@ -3595,6 +3616,7 @@ msgid "taiko"
 msgstr "taiko"
 
 #: DB:instrument/name:555
+msgctxt "Japanese keyed box zither"
 msgid "taishogoto"
 msgstr "taishogoto"
 
@@ -4198,6 +4220,7 @@ msgid "wood block"
 msgstr "houtblok"
 
 #: DB:instrument/name:267
+msgctxt "wooden bell used in temples"
 msgid "wooden fish"
 msgstr "houten vis"
 

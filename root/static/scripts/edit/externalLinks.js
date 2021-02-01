@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import punycode from 'punycode';
+
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
@@ -103,9 +105,10 @@ export class ExternalLinksEditor
   handleUrlBlur(index: number, event: SyntheticEvent<HTMLInputElement>) {
     const url = event.currentTarget.value;
     const trimmed = url.trim();
+    const unicodeUrl = getUnicodeUrl(trimmed);
 
-    if (url !== trimmed) {
-      this.setLinkState(index, {url: trimmed});
+    if (url !== unicodeUrl) {
+      this.setLinkState(index, {url: unicodeUrl});
     }
   }
 
@@ -230,6 +233,7 @@ export class ExternalLinksEditor
             const isNewLink = !isPositiveInteger(link.relationship);
             const linkChanged = oldLink && link.url !== oldLink.url;
             const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+            link.url = getUnicodeUrl(link.url);
 
             if (isEmpty(link)) {
               error = '';
@@ -240,6 +244,9 @@ export class ExternalLinksEditor
             } else if (isMusicBrainz(link.url)) {
               error = l(`Links to MusicBrainz URLs are not allowed.
                          Did you mean to paste something else?`);
+            } else if (isMalware(link.url)) {
+              error = l(`Links to this website are not allowed
+                         because it is known to host malware.`);
             } else if (isShortened(link.url)) {
               error = l(`Please don’t enter bundled/shortened URLs,
                          enter the destination URL(s) instead.`);
@@ -527,13 +534,27 @@ export function parseRelationships(
 const protocolRegex = /^(https?|ftp):$/;
 const hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
 
+export function getUnicodeUrl(url: string): string {
+  if (!isValidURL(url)) {
+    return url;
+  }
+
+  const urlObject = new URL(url);
+  const unicodeHostname = punycode.toUnicode(urlObject.hostname);
+  const unicodeUrl = url.replace(urlObject.hostname, unicodeHostname);
+
+  return unicodeUrl;
+}
+
 function isValidURL(url) {
   const a = document.createElement('a');
   a.href = url;
 
   const hostname = a.hostname;
 
-  if (url.indexOf(hostname) < 0) {
+  // To compare with the url we need to decode the Punycode if present
+  const unicodeHostname = punycode.toUnicode(hostname);
+  if (url.indexOf(hostname) < 0 && url.indexOf(unicodeHostname) < 0) {
     return false;
   }
 
@@ -551,6 +572,10 @@ function isValidURL(url) {
 
   return true;
 }
+
+const MALWARE_URLS = [
+  'decoda.com',
+].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
 
 const URL_SHORTENERS = [
   'adf.ly',
@@ -623,6 +648,12 @@ const URL_SHORTENERS = [
   'untd.io',
   'yep.it',
 ].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
+
+function isMalware(url) {
+  return MALWARE_URLS.some(function (malwareRegex) {
+    return url.match(malwareRegex) !== null;
+  });
+}
 
 function isShortened(url) {
   return URL_SHORTENERS.some(function (shortenerRegex) {

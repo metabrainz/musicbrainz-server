@@ -18,7 +18,11 @@ sub lookup_handler {
             $self->$code($c, $form->field($name)->value);
         }
         else {
-            $c->stash( template => 'otherlookup/index.tt' );
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'otherlookup/OtherLookupIndex',
+                component_props => {form => $form},
+            );
         }
     };
 
@@ -88,26 +92,8 @@ lookup_handler 'isrc' => sub {
 lookup_handler 'iswc' => sub {
     my ($self, $c, $iswc) = @_;
 
-    my @works = $c->model('Work')->find_by_iswc($iswc);
-    if (@works == 1) {
-        my $work = $works[0];
-        $c->response->redirect(
-            $c->uri_for_action(
-                $c->controller('Work')->action_for('show'),
-                [ $work->gid ]));
-        $c->detach;
-    }
-    elsif (@works > 1) {
-        $c->model('Work')->load_writers(@works);
-        $c->model('Work')->load_recording_artists(@works);
-        $c->stash(
-            works => \@works,
-            template => 'otherlookup/results-work.tt'
-        );
-    }
-    else {
-        $self->not_found($c);
-    }
+    $c->response->redirect($c->uri_for_action('/iswc/show', [ $iswc ]));
+    $c->detach;
 };
 
 lookup_handler 'artist-ipi' => sub {
@@ -191,8 +177,9 @@ lookup_handler 'freedbid' => sub {
     $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
 
     $c->stash(
-        results => \@releases,
-        template => 'otherlookup/results-release.tt'
+        current_view => 'Node',
+        component_path => 'otherlookup/OtherLookupReleaseResults',
+        component_props => {results => \@releases},
     )
 };
 
@@ -200,6 +187,12 @@ sub index : Path('')
 {
     my ($self, $c) = @_;
     my $form = $c->form( other_lookup => 'OtherLookup' );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'otherlookup/OtherLookupIndex',
+        component_props => {form => $form},
+    );
 }
 
 1;

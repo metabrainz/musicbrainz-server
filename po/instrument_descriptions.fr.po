@@ -23,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-07 10:59+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-02-01 16:47+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -274,13 +274,6 @@ msgid ""
 "pūtātara"
 msgstr ""
 
-#. name:slit drum
-#: DB:instrument/description:366
-msgid ""
-"A slit drum is a hollow percussion instrument made of wood or bamboo with a "
-"slit at the top."
-msgstr "Un tambour à fente est un instrument à percussion creux en bois ou en bambou avec une fente sur le dessus."
-
 #. name:spinet
 #: DB:instrument/description:797
 msgid ""
@@ -443,13 +436,6 @@ msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-"
 "like\" sounds"
 msgstr "Boîtier d’effet pour guitare électrique, posé sur son chevalet, équipé de touches et de roues, il permet d’en frotter les cordes."
-
-#. name:keytar
-#: DB:instrument/description:774
-msgid ""
-"An electric keyboard slung over the shoulder by a strap like a guitar, it "
-"has soundcontrols placed on the neck"
-msgstr "Synthétiseur, attaché en bandoulière comme une guitare, dont les effets sonores sont placés sur le manche."
 
 #. name:Pianet
 #: DB:instrument/description:793
@@ -764,6 +750,13 @@ msgid ""
 "href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr ""
 
+#. name:keyed box zither
+#: DB:instrument/description:1028
+msgid ""
+"Composite chordophone, box zither where some or all strings are operated by "
+"keys or buttons (keyboard)"
+msgstr ""
+
 #. name:rudra veena
 #: DB:instrument/description:501
 msgid ""
@@ -915,6 +908,13 @@ msgid ""
 " Double Bass (replacing the violone (big viola)) </li></ul> Past members "
 "include the violone (now a considered a viol) and bass viol (a forerunner to"
 " the violoncello). Occasionally Octobass is also included as a member."
+msgstr ""
+
+#. name:taishogoto
+#: DB:instrument/description:555
+msgid ""
+"Developed in the early Taisho period to modernise the ningenkin, it has "
+"metal strings and typewriter like keys with a wooden lid over the frets."
 msgstr ""
 
 #. name:trikiti
@@ -1259,6 +1259,13 @@ msgstr ""
 msgid ""
 "Highest pitched gangsa, it has 10 brass or bronze keys suspended over short "
 "resonating bamboo pipes set in an heavily ornate case."
+msgstr ""
+
+#. name:wooden fish
+#: DB:instrument/description:267
+msgid ""
+"Highly stylised wooden block-bell, it is used in religious ritual. Its "
+"prototype, fish board (gyoban) is more obviously shaped like a fish."
 msgstr ""
 
 #. name:gut guitar
@@ -1638,11 +1645,30 @@ msgstr ""
 msgid "Made of dried gourd. Struck with hands or objects."
 msgstr ""
 
+#. name:quijada
+#: DB:instrument/description:755
+msgid ""
+"Made of equusine jawbone, it is used in traditional Latin-american music as "
+"a rattle."
+msgstr ""
+
 #. name:njarka
 #: DB:instrument/description:936
 msgid ""
 "Made of goatskin covered dried gourd, it has a single gut string bowed with "
 "a horsehair bow."
+msgstr ""
+
+#. name:güiro
+#: DB:instrument/description:112
+msgid "Made of gourd or wood, it is used as a scraper in Latin American music"
+msgstr ""
+
+#. name:slit drum
+#: DB:instrument/description:366
+msgid ""
+"Made of hollowed out wood or bamboo, it has incisions or slits as "
+"soundholes. Slit drums are among the most ancient and earliest instruments."
 msgstr ""
 
 #. name:güira
@@ -1733,6 +1759,13 @@ msgstr ""
 #. name:kemenche
 #: DB:instrument/description:211
 msgid "Made of wood, its soundbox is oblong and its neck is short"
+msgstr ""
+
+#. name:keytar
+#: DB:instrument/description:774
+msgid ""
+"Made portable with a shoulder-strap like a guitar, electric keyboard has "
+"soundcontrols on the neck"
 msgstr ""
 
 #. name:gemshorn
@@ -1914,6 +1947,13 @@ msgid ""
 "Originally introduced to Mongolia from China, it has 13 double wire-strings "
 "and a black lacquered wooden soundboard. Traditionally it was only played by"
 " townspeople."
+msgstr ""
+
+#. name:reco-reco
+#: DB:instrument/description:721
+msgid ""
+"Originally made of bamboo or wood, it is now metal with springs and is used "
+"in Brazilian music."
 msgstr ""
 
 #. name:anvil
@@ -2311,6 +2351,14 @@ msgstr ""
 msgid ""
 "Similar to panerus with which it has a different but overlapping range, it "
 "has 6 bronze keys tuned for the slendro key."
+msgstr ""
+
+#. name:akkordolia
+#: DB:instrument/description:1029
+msgid ""
+"Similar to the Japanese taishogoto, it has an elongated teardrop shaped "
+"wooden body with button accordion like keys which plays the melody and sets "
+"chords.."
 msgstr ""
 
 #. name:mirliton
@@ -2813,11 +2861,6 @@ msgid ""
 "The buk is a Korean drum. While buk is a generic term for drum, it normally "
 "refers to a shallow barrel-shaped drum with a wooden body."
 msgstr "Le buk est un tambour coréen. Bien que buk soit un terme générique pour tambour, il fait normalement référence à un tambour en tonneau peu profond avec un corps en bois."
-
-#. name:bulbul tarang
-#: DB:instrument/description:528
-msgid "The bulbul tarang is a string instrument from India and Pakistan."
-msgstr "Le bulbul tarang est instrument à cordes pincées d’Inde et du Pakistan."
 
 #. name:buzuq
 #: DB:instrument/description:655
@@ -3571,14 +3614,6 @@ msgstr "Le kilaut est un tambour inuit fait en peau de caribou tendue sur un cad
 msgid "The quena is a traditional bamboo flute from the Andes."
 msgstr "La quena est une flûte en bambou traditionnelle des Andes."
 
-#. name:quijada
-#: DB:instrument/description:755
-msgid ""
-"The quijada is a traditional Latin percussion instrument made from the "
-"jawbone a mule, horse, or donkey that is cleaned of tissue and dried so the "
-"teeth can loosen and act as a rattle."
-msgstr "Percussion traditionnelle américaine faite d’une mâchoire de cheval, ou de mulet ou d’âne, blanchie et dont les dents sont légèrement déchaussées pour être frottées avec une baguette."
-
 #. name:rammana
 #: DB:instrument/description:628
 msgid ""
@@ -3608,11 +3643,6 @@ msgid ""
 "suspended by cords over a boat-shaped trough resonator. It is similar to the"
 " ranat ek but lower in pitch."
 msgstr "Le ranat thum est un xylophone thaïlandais composé de 18 lames de bois suspendues par des cordes au-dessus d’un résonateur en forme de bateau. Il est semblable au ranat ek, mais plus grave."
-
-#. name:reco-reco
-#: DB:instrument/description:721
-msgid "The reco-reco is a scraped"
-msgstr ""
 
 #. name:repinique
 #: DB:instrument/description:722
@@ -3868,13 +3898,6 @@ msgid ""
 "The taepyeongso is a Korean double reed wind instrument which has a conical "
 "wooden body with a metal mouthpiece and cup-shaped metal bell."
 msgstr "Le taepyeongso est un instrument à vent coréen à anche double comportant un corps conique en bois avec un embout en métal et un cornet métallique en forme de coupe."
-
-#. name:taishogoto
-#: DB:instrument/description:555
-msgid ""
-"The taishōgoto is a Japanese string instrument with 2-12 strings and keys "
-"which are used to fret the strings."
-msgstr "Le taishōgoto est un instrument à cordes japonais apparu à la période Taishō comprenant de 2 à 12 cordes et des clefs utilisées pour les fretter."
 
 #. name:talharpa
 #: DB:instrument/description:544
@@ -4676,6 +4699,14 @@ msgstr ""
 msgid ""
 "Whirring, spinning disks of many shapes, sizes and materials. When blown on,"
 " they also create a well of different humming sounds."
+msgstr ""
+
+#. name:hummel
+#: DB:instrument/description:1030
+msgid ""
+"Whole or half-pear shaped wooden body, it is partly fretted and has two "
+"string-courses; melody and drone. The name comes from Germanic words meaning"
+" bumblebee or buzzing."
 msgstr ""
 
 #. name:haegeum

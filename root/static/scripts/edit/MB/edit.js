@@ -47,8 +47,8 @@ import request from '../../common/utility/request';
       return {
         entity: nullableString(entity.gid),
 
-        // Don't clean()!
-        text: String(value(entity.annotation) || '').trim(),
+        // We trim the end only to ensure formatting doesn't break
+        text: String(value(entity.annotation) || '').trimEnd(),
       };
     },
 
@@ -61,14 +61,16 @@ import request from '../../common/utility/request';
 
       const names = ac.names.map(function (credit, index) {
         var artist = value(credit.artist) || {};
+        const artistName = string(artist.name);
+        const creditedName = string(credit.name);
 
         var name = {
           artist: {
-            name: string(artist.name),
+            name: artistName,
             id: number(artist.id),
             gid: nullableString(artist.gid),
           },
-          name: string(credit.name),
+          name: nonEmpty(creditedName) ? creditedName : artistName,
         };
 
         var joinPhrase = value(credit.joinPhrase) || '';

@@ -31,7 +31,7 @@ import SidebarTags from './SidebarTags';
 
 type Props = {
   +$c: CatalystContextT,
-  +recording: RecordingT,
+  +recording: RecordingWithArtistCreditT,
 };
 
 const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {

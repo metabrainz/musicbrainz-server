@@ -19,6 +19,7 @@ import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import loopParity from '../../utility/loopParity';
 import ReleaseCatnoList from '../../components/ReleaseCatnoList';
 import ReleaseLabelList from '../../components/ReleaseLabelList';
+import ReleaseLanguageScript from '../../components/ReleaseLanguageScript';
 import type {
   InlineResultsPropsWithContextT,
   ResultsPropsWithContextT,
@@ -30,13 +31,12 @@ import ResultsLayout from './ResultsLayout';
 function buildResult($c, result, index) {
   const release = result.entity;
   const score = result.score;
-  const {language, script} = release;
   const typeName = release.releaseGroup?.typeName;
 
   return (
     <tr className={loopParity(index)} data-score={score} key={release.id}>
       <td>
-        <EntityLink entity={release} />
+        <EntityLink entity={release} showCaaPresence />
       </td>
       <td>
         <ArtistCreditLink artistCredit={release.artistCredit} />
@@ -62,17 +62,7 @@ function buildResult($c, result, index) {
       </td>
       <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
       <td>
-        {language ? (
-          <abbr title={l_languages(language.name)}>
-            {language.iso_code_3}
-          </abbr>
-        ) : null}
-        {language && script ? ' / ' : null}
-        {script ? (
-          <abbr title={l_scripts(script.name)}>
-            {script.iso_code}
-          </abbr>
-        ) : null}
+        <ReleaseLanguageScript release={release} />
       </td>
       <td>
         {nonEmpty(typeName)
