@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-27 22:05+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-02-01 16:47+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -426,13 +426,6 @@ msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-"
 "like\" sounds"
 msgstr "Ein Effektgerät, das am Steg befestigt wird. Es produziert synthesizerähnliche Klänge"
-
-#. name:keytar
-#: DB:instrument/description:774
-msgid ""
-"An electric keyboard slung over the shoulder by a strap like a guitar, it "
-"has soundcontrols placed on the neck"
-msgstr "Ein Umhängekeyboard, umgangssprachlich auch „Keytar“ (Kofferwort aus engl. keyboard und guitar), ist ein Keyboard oder Synthesizer mit einem Schultergurt. Es wird im Gegensatz zum Gitarrensynthesizer über Tasten bedient."
 
 #. name:Pianet
 #: DB:instrument/description:793
@@ -905,6 +898,13 @@ msgid ""
 " Double Bass (replacing the violone (big viola)) </li></ul> Past members "
 "include the violone (now a considered a viol) and bass viol (a forerunner to"
 " the violoncello). Occasionally Octobass is also included as a member."
+msgstr ""
+
+#. name:taishogoto
+#: DB:instrument/description:555
+msgid ""
+"Developed in the early Taisho period to modernise the ningenkin, it has "
+"metal strings and typewriter like keys with a wooden lid over the frets."
 msgstr ""
 
 #. name:trikiti
@@ -1649,6 +1649,11 @@ msgid ""
 "a horsehair bow."
 msgstr ""
 
+#. name:güiro
+#: DB:instrument/description:112
+msgid "Made of gourd or wood, it is used as a scraper in Latin American music"
+msgstr ""
+
 #. name:slit drum
 #: DB:instrument/description:366
 msgid ""
@@ -1744,6 +1749,13 @@ msgstr ""
 #. name:kemenche
 #: DB:instrument/description:211
 msgid "Made of wood, its soundbox is oblong and its neck is short"
+msgstr ""
+
+#. name:keytar
+#: DB:instrument/description:774
+msgid ""
+"Made portable with a shoulder-strap like a guitar, electric keyboard has "
+"soundcontrols on the neck"
 msgstr ""
 
 #. name:gemshorn

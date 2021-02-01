@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-27 22:05+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-02-01 16:47+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -420,13 +420,6 @@ msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-"
 "like\" sounds"
 msgstr "Een effectapparaat dat op de brug van een gitaar wordt bevestigd en synthesizerachtige geluiden produceert."
-
-#. name:keytar
-#: DB:instrument/description:774
-msgid ""
-"An electric keyboard slung over the shoulder by a strap like a guitar, it "
-"has soundcontrols placed on the neck"
-msgstr "Een keytar is een keyboard dat net als een gitaar om de nek wordt gedragen."
 
 #. name:Pianet
 #: DB:instrument/description:793
@@ -900,6 +893,13 @@ msgid ""
 "include the violone (now a considered a viol) and bass viol (a forerunner to"
 " the violoncello). Occasionally Octobass is also included as a member."
 msgstr "De vioolfamilie werd in de 16e eeuw ontwikkeld. Deze viole da braccio verschillen van de viole da gamba. <br /> Tegenwoordig bestaat de familie uit: <ul> <li>viool</li> <li> altviool </li> <li> cello </li> <li> contrabas </li></ul> Vroeger werden ook de violone (tegenwoordig als gamba beschouwd) en basviool (een voorloper van de cello) tot deze familie gerekend, en soms wordt de octobas tot de vioolfamilie gerekend."
+
+#. name:taishogoto
+#: DB:instrument/description:555
+msgid ""
+"Developed in the early Taisho period to modernise the ningenkin, it has "
+"metal strings and typewriter like keys with a wooden lid over the frets."
+msgstr ""
 
 #. name:trikiti
 #: DB:instrument/description:847
@@ -1643,6 +1643,11 @@ msgid ""
 "a horsehair bow."
 msgstr "De njarka is een snaarinstrument met een klankkast die bestaat uit een holle gedroogde kalebas die is bedekt met geitenhuid. Het instrument is voorzien van één darmsnaar en wordt met een strijkstok van paardenhaar bespeeld."
 
+#. name:güiro
+#: DB:instrument/description:112
+msgid "Made of gourd or wood, it is used as a scraper in Latin American music"
+msgstr ""
+
 #. name:slit drum
 #: DB:instrument/description:366
 msgid ""
@@ -1739,6 +1744,13 @@ msgstr "Kleppers worden gemaakt van hout, been of metaal. Dit eeuwenoude instrum
 #: DB:instrument/description:211
 msgid "Made of wood, its soundbox is oblong and its neck is short"
 msgstr "De kementsje (ook wel kemençhe) is een snaarinstrument met een langwerpige klankkast en een korte hals."
+
+#. name:keytar
+#: DB:instrument/description:774
+msgid ""
+"Made portable with a shoulder-strap like a guitar, electric keyboard has "
+"soundcontrols on the neck"
+msgstr ""
 
 #. name:gemshorn
 #: DB:instrument/description:868

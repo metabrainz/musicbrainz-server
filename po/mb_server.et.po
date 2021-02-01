@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-27 21:48+0000\n"
-"PO-Revision-Date: 2021-01-27 22:05+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2021-02-01 18:38+0200\n"
+"PO-Revision-Date: 2021-02-01 16:47+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6855,7 +6855,7 @@ msgid "Edit release group alias"
 msgstr "Väljalaskerühma aliase muutmine"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:304
+#: ../root/artist/ArtistIndex.js:308
 #: ../root/release_group/ReleaseGroupMerge.js:31
 #: ../root/release_group/ReleaseGroupMerge.js:33
 msgid "Merge release groups"
@@ -8248,63 +8248,63 @@ msgstr ""
 msgid "This artist does not have any various artists release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:101
-msgid "{show_official|Show official release groups}"
+#: ../root/artist/ArtistIndex.js:102
+msgid "Show official release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:105
-msgid "{show_all|Show all release groups}"
+#: ../root/artist/ArtistIndex.js:107
+msgid "Show all release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:109
-msgid "{show_official|Show official various artist release groups}"
+#: ../root/artist/ArtistIndex.js:112
+msgid "Show official various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:113
-msgid "{show_all|Show all various artist release groups}"
+#: ../root/artist/ArtistIndex.js:117
+msgid "Show all various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:155
+#: ../root/artist/ArtistIndex.js:159
 msgid "This artist only has unofficial release groups by various artists."
 msgstr "Sel artistil on ainult mitteametlikke väljalaskerühmi eri esitajate hulgas."
 
-#: ../root/artist/ArtistIndex.js:170
+#: ../root/artist/ArtistIndex.js:174
 msgid "This artist only has release groups by various artists."
 msgstr "Sel artistil on väljalaskerühmi ainult eri esitajate hulgas."
 
-#: ../root/artist/ArtistIndex.js:182
+#: ../root/artist/ArtistIndex.js:186
 msgid "This artist only has unofficial release groups."
 msgstr "Sel artistil on ainult mitteametlikke väljalaskerühmi."
 
-#: ../root/artist/ArtistIndex.js:239 ../root/components/CleanupBanner.js:14
+#: ../root/artist/ArtistIndex.js:243 ../root/components/CleanupBanner.js:14
 msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
 msgstr "Sel artstil pole seoseid, salvestisi, väljalaskeid ega väljalaskerühmi, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun artistile andmeid."
 
-#: ../root/artist/ArtistIndex.js:254 ../root/artist/ArtistIndex.js:262
+#: ../root/artist/ArtistIndex.js:258 ../root/artist/ArtistIndex.js:266
 msgid "Legal name"
 msgstr "Kodanikunimi"
 
-#: ../root/artist/ArtistIndex.js:268
+#: ../root/artist/ArtistIndex.js:272
 msgid "Also performs as"
 msgstr "Tegutseb ka kui"
 
-#: ../root/artist/ArtistIndex.js:282
+#: ../root/artist/ArtistIndex.js:286
 msgid "Discography"
 msgstr "Diskograafia"
 
-#: ../root/artist/ArtistIndex.js:325 ../root/artist/ArtistRecordings.js:169
+#: ../root/artist/ArtistIndex.js:329 ../root/artist/ArtistRecordings.js:169
 #: ../root/instrument/InstrumentRecordings.js:60 ../root/isrc/Index.js:100
 msgid "Add selected recordings for merging"
 msgstr "Vali märgitud salvestised mestimiseks"
 
-#: ../root/artist/ArtistIndex.js:334
+#: ../root/artist/ArtistIndex.js:338
 msgid "This artist has no release groups, only standalone recordings."
 msgstr "Sel artistil pole ühtki väljalaskerühma, üksnes eraldiseisvaid salvestisi."
 
-#: ../root/artist/ArtistIndex.js:338
+#: ../root/artist/ArtistIndex.js:342
 msgid "No release groups found that match this search."
 msgstr ""
 

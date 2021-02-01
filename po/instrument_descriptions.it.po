@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-27 22:23+0000\n"
-"Last-Translator: Luca Salini\n"
+"PO-Revision-Date: 2021-02-01 16:47+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -427,13 +427,6 @@ msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-"
 "like\" sounds"
 msgstr "Dispositivo per effetti da fissare sul ponte, produce suoni simili ad un sintetizzatore."
-
-#. name:keytar
-#: DB:instrument/description:774
-msgid ""
-"An electric keyboard slung over the shoulder by a strap like a guitar, it "
-"has soundcontrols placed on the neck"
-msgstr "Tastiera elettrica portata a tracolla in modo simile ad una chitarra, ha dei tasti per controlli sonori posizionati sul manico."
 
 #. name:Pianet
 #: DB:instrument/description:793
@@ -907,6 +900,13 @@ msgid ""
 "include the violone (now a considered a viol) and bass viol (a forerunner to"
 " the violoncello). Occasionally Octobass is also included as a member."
 msgstr "Sviluppate nel XVI secolo, queste viole da braccio sono distinte dalla famiglia delle viole da gamba. <br /> I suoi membri moderni sono: <ul> <li> Violino </li> <li> Viola </li> <li> Violoncello </li> <li> Contrabbasso (che ha preso il posto del violone) </li></ul> In passato includevano il violone (oggi considerato una viola da gamba) e la viola da gamba basso (un predecessore del violoncello). Talvolta anche l'ottobasso viene incluso tra i membri."
+
+#. name:taishogoto
+#: DB:instrument/description:555
+msgid ""
+"Developed in the early Taisho period to modernise the ningenkin, it has "
+"metal strings and typewriter like keys with a wooden lid over the frets."
+msgstr ""
 
 #. name:trikiti
 #: DB:instrument/description:847
@@ -1650,6 +1650,11 @@ msgid ""
 "a horsehair bow."
 msgstr "Realizzato in zucca a fiasco essiccata ricoperta di pelle di capra, ha una sola corda in budello strofinata con un archetto di crine di cavallo."
 
+#. name:güiro
+#: DB:instrument/description:112
+msgid "Made of gourd or wood, it is used as a scraper in Latin American music"
+msgstr ""
+
 #. name:slit drum
 #: DB:instrument/description:366
 msgid ""
@@ -1746,6 +1751,13 @@ msgstr "Di legno, osso o metallo, questo antico strumento è il predecessore di 
 #: DB:instrument/description:211
 msgid "Made of wood, its soundbox is oblong and its neck is short"
 msgstr "Realizzato in legno, ha una cassa di risonanza oblunga e un manico corto."
+
+#. name:keytar
+#: DB:instrument/description:774
+msgid ""
+"Made portable with a shoulder-strap like a guitar, electric keyboard has "
+"soundcontrols on the neck"
+msgstr ""
 
 #. name:gemshorn
 #: DB:instrument/description:868

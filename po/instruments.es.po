@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-27 22:05+0000\n"
+"PO-Revision-Date: 2021-02-01 16:47+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -2208,6 +2208,7 @@ msgid "keyed brass instruments"
 msgstr "instrumentos de viento-metal de agujeros"
 
 #: DB:instrument/name:774
+msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr ""
 

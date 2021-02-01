@@ -15,6 +15,7 @@
 # Luca Salini <email address hidden>, 2012
 # Luca Salini, 2012-2013,2016-2021
 # Luca Salini, 2020
+# Nicolás Tamargo <email address hidden>, 2021
 # nikki, 2012-2013
 # nikki, 2012-2013
 # nikki, 2013
@@ -27,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-27 21:48+0000\n"
-"PO-Revision-Date: 2021-01-31 11:05+0000\n"
-"Last-Translator: Luca Salini\n"
+"POT-Creation-Date: 2021-02-01 18:38+0200\n"
+"PO-Revision-Date: 2021-02-01 16:53+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6862,7 +6863,7 @@ msgid "Edit release group alias"
 msgstr "Modifica alias del gruppo di pubblicazioni"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:304
+#: ../root/artist/ArtistIndex.js:308
 #: ../root/release_group/ReleaseGroupMerge.js:31
 #: ../root/release_group/ReleaseGroupMerge.js:33
 msgid "Merge release groups"
@@ -8255,63 +8256,63 @@ msgstr "Sono visualizzati tutti i gruppi di pubblicazioni di artisti vari"
 msgid "This artist does not have any various artists release groups"
 msgstr "Quest'artista non ha gruppi di pubblicazioni di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:101
-msgid "{show_official|Show official release groups}"
-msgstr "{show_official|Mostra gruppi di pubblicazioni ufficiali}"
+#: ../root/artist/ArtistIndex.js:102
+msgid "Show official release groups"
+msgstr "Mostra gruppi di pubblicazioni ufficiali"
 
-#: ../root/artist/ArtistIndex.js:105
-msgid "{show_all|Show all release groups}"
-msgstr "{show_official|Mostra tutti i gruppi di pubblicazioni}"
+#: ../root/artist/ArtistIndex.js:107
+msgid "Show all release groups"
+msgstr "Mostra tutti i gruppi di pubblicazioni"
 
-#: ../root/artist/ArtistIndex.js:109
-msgid "{show_official|Show official various artist release groups}"
-msgstr "{show_official|Mostra gruppi di pubblicazioni ufficiali di artisti vari}"
+#: ../root/artist/ArtistIndex.js:112
+msgid "Show official various artist release groups"
+msgstr "Mostra gruppi di pubblicazioni ufficiali di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:113
-msgid "{show_all|Show all various artist release groups}"
-msgstr "{show_official|Mostra tutti i gruppi di pubblicazioni di artisti vari}"
+#: ../root/artist/ArtistIndex.js:117
+msgid "Show all various artist release groups"
+msgstr "Mostra tutti i gruppi di pubblicazioni di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:155
+#: ../root/artist/ArtistIndex.js:159
 msgid "This artist only has unofficial release groups by various artists."
 msgstr "Quest'artista ha solo gruppi di pubblicazioni non ufficiali di artisti vari."
 
-#: ../root/artist/ArtistIndex.js:170
+#: ../root/artist/ArtistIndex.js:174
 msgid "This artist only has release groups by various artists."
 msgstr "Quest'artista ha solo gruppi di pubblicazioni di artisti vari."
 
-#: ../root/artist/ArtistIndex.js:182
+#: ../root/artist/ArtistIndex.js:186
 msgid "This artist only has unofficial release groups."
 msgstr "Quest'artista ha solo gruppi di pubblicazioni non ufficiali."
 
-#: ../root/artist/ArtistIndex.js:239 ../root/components/CleanupBanner.js:14
+#: ../root/artist/ArtistIndex.js:243 ../root/components/CleanupBanner.js:14
 msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
 msgstr "Quest'artista non ha relazioni, registrazioni, pubblicazioni né gruppi di pubblicazioni e sarà rimosso automaticamente nei prossimi giorni. Se vuoi evitare che ciò succeda, aggiungi più dati."
 
-#: ../root/artist/ArtistIndex.js:254 ../root/artist/ArtistIndex.js:262
+#: ../root/artist/ArtistIndex.js:258 ../root/artist/ArtistIndex.js:266
 msgid "Legal name"
 msgstr "Nome all'anagrafe"
 
-#: ../root/artist/ArtistIndex.js:268
+#: ../root/artist/ArtistIndex.js:272
 msgid "Also performs as"
 msgstr "Si esibisce anche come"
 
-#: ../root/artist/ArtistIndex.js:282
+#: ../root/artist/ArtistIndex.js:286
 msgid "Discography"
 msgstr "Discografia"
 
-#: ../root/artist/ArtistIndex.js:325 ../root/artist/ArtistRecordings.js:169
+#: ../root/artist/ArtistIndex.js:329 ../root/artist/ArtistRecordings.js:169
 #: ../root/instrument/InstrumentRecordings.js:60 ../root/isrc/Index.js:100
 msgid "Add selected recordings for merging"
 msgstr "Aggiungi le registrazioni selezionate per unirle"
 
-#: ../root/artist/ArtistIndex.js:334
+#: ../root/artist/ArtistIndex.js:338
 msgid "This artist has no release groups, only standalone recordings."
 msgstr "Quest'artista non ha nessun gruppo di pubblicazioni, ma solo registrazioni a sé stanti."
 
-#: ../root/artist/ArtistIndex.js:338
+#: ../root/artist/ArtistIndex.js:342
 msgid "No release groups found that match this search."
 msgstr "Non è stato trovato nessun gruppo di pubblicazioni corrispondente a questa ricerca."
 
