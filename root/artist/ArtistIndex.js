@@ -97,21 +97,25 @@ const FooterSwitch = ({
     l('Showing all release groups for various artists');
   const hasNoVAText =
     l('This artist does not have any various artists release groups');
-  const showOfficialLink = exp.l(
-    '{show_official|Show official release groups}',
-    {show_official: `${artistLink}`},
+  const showOfficialLink = (
+    <a href={artistLink}>
+      {l('Show official release groups')}
+    </a>
   );
-  const showAllLink = exp.l(
-    '{show_all|Show all release groups}',
-    {show_all: `${artistLink}?all=1`},
+  const showAllLink = (
+    <a href={`${artistLink}?all=1`}>
+      {l('Show all release groups')}
+    </a>
   );
-  const showOfficialVALink = exp.l(
-    '{show_official|Show official various artist release groups}',
-    {show_official: `${artistLink}?va=1`},
+  const showOfficialVALink = (
+    <a href={`${artistLink}?va=1`}>
+      {l('Show official various artist release groups')}
+    </a>
   );
-  const showAllVALink = exp.l(
-    '{show_all|Show all various artist release groups}',
-    {show_all: `${artistLink}?all=1&va=1`},
+  const showAllVALink = (
+    <a href={`${artistLink}?all=1&va=1`}>
+      {l('Show all various artist release groups')}
+    </a>
   );
 
   function buildLinks(showDefault, showAll, showVA, showAllVA) {

@@ -2189,6 +2189,7 @@ msgid "keyed brass instruments"
 msgstr ""
 
 #: DB:instrument/name:774
+msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr ""
 

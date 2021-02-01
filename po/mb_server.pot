@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-27 21:48+0000\n"
+"POT-Creation-Date: 2021-02-01 20:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2648,7 +2648,7 @@ msgstr ""
 msgid "Modify count"
 msgstr ""
 
-#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:45
+#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:39
 msgid "Move"
 msgstr ""
 
@@ -3595,7 +3595,7 @@ msgstr ""
 #: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:59
 #: ../root/relationship/linkattributetype/delete.tt:14
 #: ../root/relationship/linktype/delete.tt:14
-#: ../root/release/add_cover_art.tt:70 ../root/release/discids.tt:42
+#: ../root/release/add_cover_art.tt:70 ../root/release/discids.tt:36
 #: ../root/account/applications/Index.js:43
 #: ../root/admin/attributes/Attribute.js:126
 #: ../root/admin/attributes/Language.js:72
@@ -3942,7 +3942,7 @@ msgstr ""
 msgid "Set cover art"
 msgstr ""
 
-#: ../root/cdtoc/list.tt:53 ../root/release/discids.tt:36
+#: ../root/cdtoc/list.tt:53
 msgid "Set track durations"
 msgstr ""
 
@@ -4256,7 +4256,7 @@ msgid ""
 "forms below, or you may add a new release to MusicBrainz"
 msgstr ""
 
-#: ../root/release/discids.tt:56
+#: ../root/release/discids.tt:50
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
@@ -4525,7 +4525,7 @@ msgstr ""
 msgid "This release has no media to merge."
 msgstr ""
 
-#: ../root/release/discids.tt:58
+#: ../root/release/discids.tt:52
 msgid "This release has no mediums that can have disc IDs."
 msgstr ""
 
@@ -6125,7 +6125,7 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:502
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:501
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr ""
@@ -6824,7 +6824,7 @@ msgid "Edit release group alias"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:304
+#: ../root/artist/ArtistIndex.js:308
 #: ../root/release_group/ReleaseGroupMerge.js:31
 #: ../root/release_group/ReleaseGroupMerge.js:33
 msgid "Merge release groups"
@@ -8215,63 +8215,63 @@ msgstr ""
 msgid "This artist does not have any various artists release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:101
-msgid "{show_official|Show official release groups}"
+#: ../root/artist/ArtistIndex.js:102
+msgid "Show official release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:105
-msgid "{show_all|Show all release groups}"
+#: ../root/artist/ArtistIndex.js:107
+msgid "Show all release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:109
-msgid "{show_official|Show official various artist release groups}"
+#: ../root/artist/ArtistIndex.js:112
+msgid "Show official various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:113
-msgid "{show_all|Show all various artist release groups}"
+#: ../root/artist/ArtistIndex.js:117
+msgid "Show all various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:155
+#: ../root/artist/ArtistIndex.js:159
 msgid "This artist only has unofficial release groups by various artists."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:170
+#: ../root/artist/ArtistIndex.js:174
 msgid "This artist only has release groups by various artists."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:182
+#: ../root/artist/ArtistIndex.js:186
 msgid "This artist only has unofficial release groups."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:239 ../root/components/CleanupBanner.js:14
+#: ../root/artist/ArtistIndex.js:243 ../root/components/CleanupBanner.js:14
 msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:254 ../root/artist/ArtistIndex.js:262
+#: ../root/artist/ArtistIndex.js:258 ../root/artist/ArtistIndex.js:266
 msgid "Legal name"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:268
+#: ../root/artist/ArtistIndex.js:272
 msgid "Also performs as"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:282
+#: ../root/artist/ArtistIndex.js:286
 msgid "Discography"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:325 ../root/artist/ArtistRecordings.js:169
+#: ../root/artist/ArtistIndex.js:329 ../root/artist/ArtistRecordings.js:169
 #: ../root/instrument/InstrumentRecordings.js:60 ../root/isrc/Index.js:100
 msgid "Add selected recordings for merging"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:334
+#: ../root/artist/ArtistIndex.js:338
 msgid "This artist has no release groups, only standalone recordings."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:338
+#: ../root/artist/ArtistIndex.js:342
 msgid "No release groups found that match this search."
 msgstr ""
 
