@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-25 21:20+0000\n"
+"PO-Revision-Date: 2021-01-27 22:05+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -263,13 +263,6 @@ msgid ""
 "A pūtātara with a long wooden mouth piece, it has a deeper timbre than the "
 "pūtātara"
 msgstr "Ein Pūtātara mit einem längeren Mundstück, das dadurch eine tiefere Klangfarbe als ein Pūtātara besitzt. "
-
-#. name:slit drum
-#: DB:instrument/description:366
-msgid ""
-"A slit drum is a hollow percussion instrument made of wood or bamboo with a "
-"slit at the top."
-msgstr "Die Schlitztrommel ein traditionelles idiophones Aufschlaginstrument. Sie wird aus ausgehöhlten Baumstämmen oder Bambusrohren mit einem oder mehreren Schlitzen als Öffnung hergestellt."
 
 #. name:spinet
 #: DB:instrument/description:797
@@ -1642,11 +1635,25 @@ msgstr ""
 msgid "Made of dried gourd. Struck with hands or objects."
 msgstr ""
 
+#. name:quijada
+#: DB:instrument/description:755
+msgid ""
+"Made of equusine jawbone, it is used in traditional Latin-american music as "
+"a rattle."
+msgstr ""
+
 #. name:njarka
 #: DB:instrument/description:936
 msgid ""
 "Made of goatskin covered dried gourd, it has a single gut string bowed with "
 "a horsehair bow."
+msgstr ""
+
+#. name:slit drum
+#: DB:instrument/description:366
+msgid ""
+"Made of hollowed out wood or bamboo, it has incisions or slits as "
+"soundholes. Slit drums are among the most ancient and earliest instruments."
 msgstr ""
 
 #. name:güira
@@ -1918,6 +1925,13 @@ msgid ""
 "Originally introduced to Mongolia from China, it has 13 double wire-strings "
 "and a black lacquered wooden soundboard. Traditionally it was only played by"
 " townspeople."
+msgstr ""
+
+#. name:reco-reco
+#: DB:instrument/description:721
+msgid ""
+"Originally made of bamboo or wood, it is now metal with springs and is used "
+"in Brazilian music."
 msgstr ""
 
 #. name:anvil
@@ -3578,14 +3592,6 @@ msgstr "Die Qilaut ist eine Form der Rahmentrommeln der arktischen Inuit-Kulture
 msgid "The quena is a traditional bamboo flute from the Andes."
 msgstr "Die Quena (auch Andenflöte genannt), ist ein südamerikanisches Holzblasinstrument, das aus Holz oder Bambusrohr gefertigt wird und besonders in Peru und Bolivien verbreitet ist."
 
-#. name:quijada
-#: DB:instrument/description:755
-msgid ""
-"The quijada is a traditional Latin percussion instrument made from the "
-"jawbone a mule, horse, or donkey that is cleaned of tissue and dried so the "
-"teeth can loosen and act as a rattle."
-msgstr "Quijada ist ein Perkussionsinstrument aus der Gruppe der Idiophone und findet vor allem in der lateinamerikanischen Musik Verwendung. Die Quijada besteht aus dem Unterkiefer eines Esels, in dem statt Metallstiften die losen Zähne klappern. Deshalb ist er auch unter dem Namen „Eselsmaul“ bekannt."
-
 #. name:rammana
 #: DB:instrument/description:628
 msgid ""
@@ -3615,11 +3621,6 @@ msgid ""
 "suspended by cords over a boat-shaped trough resonator. It is similar to the"
 " ranat ek but lower in pitch."
 msgstr "Das Ranat Thum ist ein thailändisches Xylophon mit tiefem Klang. Es verfügt über 18 Holzstäbe, die über einen Boot-förmigen Resonator gestreckt werden."
-
-#. name:reco-reco
-#: DB:instrument/description:721
-msgid "The reco-reco is a scraped"
-msgstr ""
 
 #. name:repinique
 #: DB:instrument/description:722

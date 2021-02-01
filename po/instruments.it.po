@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-25 23:23+0000\n"
+"PO-Revision-Date: 2021-01-27 22:05+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1808,6 +1808,7 @@ msgid "güira"
 msgstr "güira"
 
 #: DB:instrument/name:112
+msgctxt "Latin American gourd scraper"
 msgid "güiro"
 msgstr "güiro"
 
@@ -3030,6 +3031,7 @@ msgid "quena"
 msgstr "quena"
 
 #: DB:instrument/name:755
+msgctxt "Jawbone rattle"
 msgid "quijada"
 msgstr "quijada"
 
@@ -3080,6 +3082,7 @@ msgid "rebec"
 msgstr "ribeca"
 
 #: DB:instrument/name:721
+msgctxt "Brazilian metal scraper"
 msgid "reco-reco"
 msgstr "reco-reco"
 
@@ -3420,6 +3423,7 @@ msgid "slide whistle"
 msgstr "flauto a coulisse"
 
 #: DB:instrument/name:366
+msgctxt "Hollow wooden idiophone"
 msgid "slit drum"
 msgstr "tamburo a fessura"
 

@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-25 23:31+0000\n"
+"PO-Revision-Date: 2021-01-27 22:23+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -264,13 +264,6 @@ msgid ""
 "A pūtātara with a long wooden mouth piece, it has a deeper timbre than the "
 "pūtātara"
 msgstr "Pūtātara con un lungo bocchino in legno, ha un timbro più profondo rispetto alla pūtātara."
-
-#. name:slit drum
-#: DB:instrument/description:366
-msgid ""
-"A slit drum is a hollow percussion instrument made of wood or bamboo with a "
-"slit at the top."
-msgstr "Strumento a percussione cavo in legno o bambù con una fessura nella parte superiore."
 
 #. name:spinet
 #: DB:instrument/description:797
@@ -1643,12 +1636,26 @@ msgstr "In osso o in legno, sono una coppia di bastoncini di materiale risonante
 msgid "Made of dried gourd. Struck with hands or objects."
 msgstr "Realizzato in zucca a fiasco essiccata. Percosso a mano o con oggetti."
 
+#. name:quijada
+#: DB:instrument/description:755
+msgid ""
+"Made of equusine jawbone, it is used in traditional Latin-american music as "
+"a rattle."
+msgstr "Realizzata con una mandibola equina, è usata come sonaglio nella musica tradizionale latinoamericana."
+
 #. name:njarka
 #: DB:instrument/description:936
 msgid ""
 "Made of goatskin covered dried gourd, it has a single gut string bowed with "
 "a horsehair bow."
 msgstr "Realizzato in zucca a fiasco essiccata ricoperta di pelle di capra, ha una sola corda in budello strofinata con un archetto di crine di cavallo."
+
+#. name:slit drum
+#: DB:instrument/description:366
+msgid ""
+"Made of hollowed out wood or bamboo, it has incisions or slits as "
+"soundholes. Slit drums are among the most ancient and earliest instruments."
+msgstr "Realizzato in legno o bambù cavo, ha incisioni o fessure come fori di risonanza. I tamburi a fessura sono tra gli strumenti più antichi e primordiali."
 
 #. name:güira
 #: DB:instrument/description:937
@@ -1920,6 +1927,13 @@ msgid ""
 "and a black lacquered wooden soundboard. Traditionally it was only played by"
 " townspeople."
 msgstr "Originariamente introdotto in Cina dalla Mongolia, ha 13 corde doppie in fil di ferro e una tavola armonica in legno laccato nero. Tradizionalmente era suonato solo dai cittadini."
+
+#. name:reco-reco
+#: DB:instrument/description:721
+msgid ""
+"Originally made of bamboo or wood, it is now metal with springs and is used "
+"in Brazilian music."
+msgstr "In origine realizzato in bambù o in legno, ora è in metallo con delle molle ed è usato nella musica brasiliana."
 
 #. name:anvil
 #: DB:instrument/description:720
@@ -3579,14 +3593,6 @@ msgstr "Tamburo a cornice inuit con un manico e realizzato in pelle di caribù."
 msgid "The quena is a traditional bamboo flute from the Andes."
 msgstr "Flauto tradizionale andino in bambù."
 
-#. name:quijada
-#: DB:instrument/description:755
-msgid ""
-"The quijada is a traditional Latin percussion instrument made from the "
-"jawbone a mule, horse, or donkey that is cleaned of tissue and dried so the "
-"teeth can loosen and act as a rattle."
-msgstr "Strumento tradizionale a percussione latinoamericano composto dalla mandibola di un mulo, cavallo o asino ripulita dai tessuti ed essiccata in modo da far allentare i denti e poterli usare come sonagli."
-
 #. name:rammana
 #: DB:instrument/description:628
 msgid ""
@@ -3616,11 +3622,6 @@ msgid ""
 "suspended by cords over a boat-shaped trough resonator. It is similar to the"
 " ranat ek but lower in pitch."
 msgstr "Xilofono thailandese composto da 18 sbarre di legno sospese con delle corde sopra un trogolo risuonatore a forma di barca. È simile al ranat ek, ma ha un tono più grave."
-
-#. name:reco-reco
-#: DB:instrument/description:721
-msgid "The reco-reco is a scraped"
-msgstr "Idiofono a raschiamento usato nella musica brasiliana."
 
 #. name:repinique
 #: DB:instrument/description:722

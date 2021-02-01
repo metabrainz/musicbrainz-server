@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-25 21:20+0000\n"
+"PO-Revision-Date: 2021-01-27 22:05+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1800,6 +1800,7 @@ msgid "güira"
 msgstr ""
 
 #: DB:instrument/name:112
+msgctxt "Latin American gourd scraper"
 msgid "güiro"
 msgstr "guiro"
 
@@ -3022,6 +3023,7 @@ msgid "quena"
 msgstr "quena"
 
 #: DB:instrument/name:755
+msgctxt "Jawbone rattle"
 msgid "quijada"
 msgstr ""
 
@@ -3072,6 +3074,7 @@ msgid "rebec"
 msgstr "rebekk"
 
 #: DB:instrument/name:721
+msgctxt "Brazilian metal scraper"
 msgid "reco-reco"
 msgstr ""
 
@@ -3412,6 +3415,7 @@ msgid "slide whistle"
 msgstr "kulissflööt (džässflööt)"
 
 #: DB:instrument/name:366
+msgctxt "Hollow wooden idiophone"
 msgid "slit drum"
 msgstr "pilutrumm"
 

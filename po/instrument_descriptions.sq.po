@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-25 21:20+0000\n"
+"PO-Revision-Date: 2021-01-27 22:05+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -252,13 +252,6 @@ msgstr ""
 msgid ""
 "A pūtātara with a long wooden mouth piece, it has a deeper timbre than the "
 "pūtātara"
-msgstr ""
-
-#. name:slit drum
-#: DB:instrument/description:366
-msgid ""
-"A slit drum is a hollow percussion instrument made of wood or bamboo with a "
-"slit at the top."
 msgstr ""
 
 #. name:spinet
@@ -1632,11 +1625,25 @@ msgstr ""
 msgid "Made of dried gourd. Struck with hands or objects."
 msgstr ""
 
+#. name:quijada
+#: DB:instrument/description:755
+msgid ""
+"Made of equusine jawbone, it is used in traditional Latin-american music as "
+"a rattle."
+msgstr ""
+
 #. name:njarka
 #: DB:instrument/description:936
 msgid ""
 "Made of goatskin covered dried gourd, it has a single gut string bowed with "
 "a horsehair bow."
+msgstr ""
+
+#. name:slit drum
+#: DB:instrument/description:366
+msgid ""
+"Made of hollowed out wood or bamboo, it has incisions or slits as "
+"soundholes. Slit drums are among the most ancient and earliest instruments."
 msgstr ""
 
 #. name:güira
@@ -1908,6 +1915,13 @@ msgid ""
 "Originally introduced to Mongolia from China, it has 13 double wire-strings "
 "and a black lacquered wooden soundboard. Traditionally it was only played by"
 " townspeople."
+msgstr ""
+
+#. name:reco-reco
+#: DB:instrument/description:721
+msgid ""
+"Originally made of bamboo or wood, it is now metal with springs and is used "
+"in Brazilian music."
 msgstr ""
 
 #. name:anvil
@@ -3568,14 +3582,6 @@ msgstr ""
 msgid "The quena is a traditional bamboo flute from the Andes."
 msgstr ""
 
-#. name:quijada
-#: DB:instrument/description:755
-msgid ""
-"The quijada is a traditional Latin percussion instrument made from the "
-"jawbone a mule, horse, or donkey that is cleaned of tissue and dried so the "
-"teeth can loosen and act as a rattle."
-msgstr ""
-
 #. name:rammana
 #: DB:instrument/description:628
 msgid ""
@@ -3604,11 +3610,6 @@ msgid ""
 "The ranat thum is a xylophone from Thailand consisting of 18 wooden bars "
 "suspended by cords over a boat-shaped trough resonator. It is similar to the"
 " ranat ek but lower in pitch."
-msgstr ""
-
-#. name:reco-reco
-#: DB:instrument/description:721
-msgid "The reco-reco is a scraped"
 msgstr ""
 
 #. name:repinique
