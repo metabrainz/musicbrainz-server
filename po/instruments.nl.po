@@ -3,14 +3,14 @@
 # nikki, 2014
 # reneweesp <email address hidden>, 2017,2019
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2012-2020
+# Maurits Meulenbelt <email address hidden>, 2012-2021
 # nikki, 2014
 # Nikolai Prokoschenko <email address hidden>, 2011
 # reneweesp <email address hidden>, 2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-01 16:47+0000\n"
+"PO-Revision-Date: 2021-02-03 17:26+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -319,7 +319,7 @@ msgstr "akete"
 #: DB:instrument/name:1029
 msgctxt "German keyed box zither"
 msgid "akkordolia"
-msgstr ""
+msgstr "akkordolia"
 
 #: DB:instrument/name:718
 msgid "alfaia"
@@ -1806,7 +1806,7 @@ msgstr "güira"
 #: DB:instrument/name:112
 msgctxt "Latin American gourd scraper"
 msgid "güiro"
-msgstr "Een güiro is een slagwerkinstrument met een raspend geluid. (<a href=\"http://nl.wikipedia.org/wiki/Güiro\">Wikipedia</a>)"
+msgstr "güiro"
 
 #: DB:instrument/name:486
 msgctxt "Korean silk-string fiddle"
@@ -1919,7 +1919,7 @@ msgstr "hulusi"
 #: DB:instrument/name:1030
 msgctxt "Medieval pear-shaped drone zither"
 msgid "hummel"
-msgstr ""
+msgstr "hommel"
 
 #: DB:instrument/name:213
 msgid "huqin"
@@ -2193,7 +2193,7 @@ msgstr "baskeyboard"
 #: DB:instrument/name:1028
 msgctxt "Composite chordophone"
 msgid "keyed box zither"
-msgstr ""
+msgstr "doosciter met toetsen"
 
 #: DB:instrument/name:154
 msgid "keyed brass instruments"

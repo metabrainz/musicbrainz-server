@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-01 16:47+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-02-03 17:26+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -739,7 +739,7 @@ msgstr "Een glockenspiel is een populaire metallofoon die meestal bestaat uit me
 msgid ""
 "Composite chordophone, box zither where some or all strings are operated by "
 "keys or buttons (keyboard)"
-msgstr ""
+msgstr "Een doosciter met toetsen is een samengesteld snaarinstrument waarvan een paar of alle snaren via toetsen of knoppen (toetsenbord) worden bespeeld."
 
 #. name:rudra veena
 #: DB:instrument/description:501
@@ -899,7 +899,7 @@ msgstr "De vioolfamilie werd in de 16e eeuw ontwikkeld. Deze viole da braccio ve
 msgid ""
 "Developed in the early Taisho period to modernise the ningenkin, it has "
 "metal strings and typewriter like keys with a wooden lid over the frets."
-msgstr ""
+msgstr "Een taishogoto is een Japanse citer die in de vroege Taisho-periode werd ontwikkeld om de ningenkin te moderniseren. Het instrument heeft metalen snaren, toetsen die lijken op die van een typemachine en een houten afdekking boven de fretten."
 
 #. name:trikiti
 #: DB:instrument/description:847
@@ -1250,7 +1250,7 @@ msgstr "De kantilan is het hoogst gestemde lid van de gangsafamilie. Het instrum
 msgid ""
 "Highly stylised wooden block-bell, it is used in religious ritual. Its "
 "prototype, fish board (gyoban) is more obviously shaped like a fish."
-msgstr ""
+msgstr "Een houten vis is een gestileerde houten bel die bij religieuze ceremonies wordt gebruikt. Het prototype van dit instrument, het visbord (gyoban) heeft duidelijker de vorm van een vis."
 
 #. name:gut guitar
 #: DB:instrument/description:567
@@ -1634,7 +1634,7 @@ msgstr "Een kalebas is een instrument dat gemaakt is van een gedroogde en uitgeh
 msgid ""
 "Made of equusine jawbone, it is used in traditional Latin-american music as "
 "a rattle."
-msgstr ""
+msgstr "Een quijada is een ratel, gemaakt van de onderkaak van een paard, dat wordt gebruikt in traditionele Latijns-Amerikaanse muziek."
 
 #. name:njarka
 #: DB:instrument/description:936
@@ -1646,14 +1646,14 @@ msgstr "De njarka is een snaarinstrument met een klankkast die bestaat uit een h
 #. name:güiro
 #: DB:instrument/description:112
 msgid "Made of gourd or wood, it is used as a scraper in Latin American music"
-msgstr ""
+msgstr "Een güiro is een schraper van kalebas of hout die in de Latijns-Amerikaanse muziek wordt gebruikt."
 
 #. name:slit drum
 #: DB:instrument/description:366
 msgid ""
 "Made of hollowed out wood or bamboo, it has incisions or slits as "
 "soundholes. Slit drums are among the most ancient and earliest instruments."
-msgstr ""
+msgstr "Een spleettrommel is een trommel gemaakt van uitgehold hout of bamboe met sleuven die als klankgaten dienen. Spleettrommels behoren tot de oudste instrumenten."
 
 #. name:güira
 #: DB:instrument/description:937
@@ -1750,7 +1750,7 @@ msgstr "De kementsje (ook wel kemençhe) is een snaarinstrument met een langwerp
 msgid ""
 "Made portable with a shoulder-strap like a guitar, electric keyboard has "
 "soundcontrols on the neck"
-msgstr ""
+msgstr "Een keytar is een elektrisch keyboard dat met een schouderband, net als een gitaar, draagbaar is gemaakt. "
 
 #. name:gemshorn
 #: DB:instrument/description:868
@@ -1938,7 +1938,7 @@ msgstr "De jootsjin werd vanuit China in Mongolië geïntroduceerd. Het heeft de
 msgid ""
 "Originally made of bamboo or wood, it is now metal with springs and is used "
 "in Brazilian music."
-msgstr ""
+msgstr "Een reco-reco is een idiofoon, oorspronkelijk van bamboe of hout, maar tegenwoordig vaak gemaakt van metaal met veren. Het wordt gebruikt in Braziliaanse muziek."
 
 #. name:anvil
 #: DB:instrument/description:720
@@ -2343,7 +2343,7 @@ msgid ""
 "Similar to the Japanese taishogoto, it has an elongated teardrop shaped "
 "wooden body with button accordion like keys which plays the melody and sets "
 "chords.."
-msgstr ""
+msgstr "Een akkordolia is een citer met een houten klankkast in de vorm van een uitgerekte druppel. De snaren worden bespeeld met knoppen die lijken op de knoppen van een knopaccordeon."
 
 #. name:mirliton
 #: DB:instrument/description:591
@@ -4691,7 +4691,7 @@ msgid ""
 "Whole or half-pear shaped wooden body, it is partly fretted and has two "
 "string-courses; melody and drone. The name comes from Germanic words meaning"
 " bumblebee or buzzing."
-msgstr ""
+msgstr "Een hommel is een citer met een (deels) peervormige klankkast. Sommige snaren hebben fretten, en er zijn twee koren: melodie en bourdon. Het instrument is vernoemd naar het gelijknamige insect."
 
 #. name:haegeum
 #: DB:instrument/description:486

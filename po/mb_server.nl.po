@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-01 20:21+0200\n"
-"PO-Revision-Date: 2021-02-01 19:39+0000\n"
+"PO-Revision-Date: 2021-02-03 16:57+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -4384,7 +4384,7 @@ msgstr "Deze bewerking verandert de duur van nummers met minder dan een seconde.
 
 #: ../root/cdtoc/set_durations.tt:31
 msgid "This edit would only make subsecond changes to track lengths."
-msgstr ""
+msgstr "Deze bewerking zou de duur van nummers met minder dan een seconde veranderen."
 
 #: ../root/components/common-macros.tt:259
 #: ../root/static/scripts/common/components/EntityLink.js:34
@@ -8239,39 +8239,39 @@ msgstr "Deze artiest is momenteel niet gekoppeld aan evenementen."
 
 #: ../root/artist/ArtistIndex.js:92
 msgid "Showing official release groups by this artist"
-msgstr ""
+msgstr "Officiële uitgavegroepen van deze artiest worden weergegeven"
 
 #: ../root/artist/ArtistIndex.js:93
 msgid "Showing all release groups by this artist"
-msgstr ""
+msgstr "Alle uitgavegroepen van deze artiest worden weergegeven"
 
 #: ../root/artist/ArtistIndex.js:95
 msgid "Showing official release groups for various artists"
-msgstr ""
+msgstr "Officiële uitgavegroepen van diverse artiesten worden weergegeven"
 
 #: ../root/artist/ArtistIndex.js:97
 msgid "Showing all release groups for various artists"
-msgstr ""
+msgstr "Alle uitgavegroepen van diverse artiesten worden weergegeven"
 
 #: ../root/artist/ArtistIndex.js:99
 msgid "This artist does not have any various artists release groups"
-msgstr ""
+msgstr "De artiest heeft geen uitgavegroepen van diverse artiesten"
 
 #: ../root/artist/ArtistIndex.js:102
 msgid "Show official release groups"
-msgstr ""
+msgstr "Alle officiële uitgavegroepen weergeven"
 
 #: ../root/artist/ArtistIndex.js:107
 msgid "Show all release groups"
-msgstr ""
+msgstr "Alle uitgavegroepen weergeven"
 
 #: ../root/artist/ArtistIndex.js:112
 msgid "Show official various artist release groups"
-msgstr ""
+msgstr "Officiële uitgavegroepen van diverse artiesten weergeven"
 
 #: ../root/artist/ArtistIndex.js:117
 msgid "Show all various artist release groups"
-msgstr ""
+msgstr "Alle uitgavegroepen van diverse artiesten weergeven"
 
 #: ../root/artist/ArtistIndex.js:159
 msgid "This artist only has unofficial release groups by various artists."
@@ -8489,15 +8489,15 @@ msgstr "Opgeheven"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:88
 msgid "This artist credit is composed of the following artists:"
-msgstr ""
+msgstr "Deze artiestvermelding bestaat uit de volgende artiesten:"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:98
 msgid "credited as “{credit}”"
-msgstr ""
+msgstr "vermeld als  “{credit}”"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:106
 msgid "Uses"
-msgstr ""
+msgstr "Gebruikt in"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:116 ../root/tag/TagIndex.js:125
 msgid "See all {num} release groups"
@@ -8520,14 +8520,14 @@ msgstr[1] "Bekijk alle {num} opnames"
 #: ../root/artist_credit/ArtistCreditIndex.js:128
 msgid "See all {num} tracks"
 msgid_plural "See all {num} tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bekijk nummer"
+msgstr[1] "Bekijk alle {num} nummers"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:46
 #: ../root/artist_credit/ArtistCreditLayout.js:50
 #: ../root/artist_credit/ArtistCreditLayout.js:59
 msgid "Artist credit “{artist_credit}”"
-msgstr ""
+msgstr "Artiestvermelding “{artist_credit}”"
 
 #: ../root/artist_credit/EntityList.js:21 ../root/tag/EntityList.js:27
 msgid "{num} recording found"
@@ -8550,24 +8550,24 @@ msgstr[1] "{num} uitgavegroepen gevonden"
 #: ../root/artist_credit/EntityList.js:27
 msgid "{num} track found"
 msgid_plural "{num} tracks found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Eén nummer gevonden"
+msgstr[1] "{num} opnames gevonden"
 
 #: ../root/artist_credit/EntityList.js:31
 msgid "No recordings with this artist credit were found."
-msgstr ""
+msgstr "Geen opnames met deze artiestvermelding gevonden."
 
 #: ../root/artist_credit/EntityList.js:32
 msgid "No releases with this artist credit were found."
-msgstr ""
+msgstr "Geen uitgaves met deze artiestvermelding gevonden."
 
 #: ../root/artist_credit/EntityList.js:33
 msgid "No release groups with this artist credit were found."
-msgstr ""
+msgstr "Geen uitgavegroepen met deze artiestvermelding gevonden."
 
 #: ../root/artist_credit/EntityList.js:34
 msgid "No tracks with this artist credit were found."
-msgstr ""
+msgstr "Geen nummers met deze artiestvermelding gevonden."
 
 #: ../root/collection/CollectionHeader.js:37
 msgid "Public collection by {owner}"
@@ -8672,7 +8672,7 @@ msgstr "Dit is een lijst van alle verschillende manieren waarop {artist} wordt v
 
 #: ../root/components/Aliases/ArtistCreditList.js:66
 msgid "see uses"
-msgstr ""
+msgstr "gebruik bekijken"
 
 #: ../root/components/Aliases/index.js:42 ../root/components/EntityTabs.js:120
 #: ../root/entity/Aliases.js:37
@@ -8801,7 +8801,7 @@ msgstr "Alle media inklappen"
 
 #: ../root/components/PartialDateInput.js:57
 msgid "The date you've entered is not valid"
-msgstr ""
+msgstr "De datum die je hebt ingevoerd, is niet geldig"
 
 #: ../root/components/PostParameters.js:46
 msgid "Data submitted with this request"
@@ -9250,7 +9250,7 @@ msgstr "Vermelding"
 
 #: ../root/edit/details/EditArtistCredit.js:46
 msgid "See all uses of the artist credit being changed."
-msgstr ""
+msgstr "Bekijk alle plekken waar de artiestvermelding die wordt veranderd, wordt gebruikt."
 
 #: ../root/edit/details/EditLabel.js:150
 msgid "IPI codes"
@@ -10890,7 +10890,7 @@ msgstr "volledig geladen"
 msgid ""
 "We’re terribly sorry for this problem. Please wait a few minutes and repeat "
 "your request — the problem may go away."
-msgstr ""
+msgstr "Dit probleem spijt ons enorm. Wacht een paar minuten en herhaal dan je verzoek. Het probleem kan ondertussen verholpen zijn."
 
 #: ../root/main/error/Error500.js:84
 msgid ""
@@ -10918,7 +10918,7 @@ msgstr "Je kan dit helaas niet doen op een spiegelserver."
 msgid ""
 "In order to log in or make changes to the database you must visit the main "
 "server at {mb|https://musicbrainz.org/}."
-msgstr ""
+msgstr "Om je aan te melden of om veranderingen te maken in de database, moet je de hoofdserver op {mb|https://musicbrainz.org/} gebruiken."
 
 #: ../root/main/error/MirrorError404.js:25
 msgid ""
@@ -11934,12 +11934,12 @@ msgid ""
 " a standard CD allows (at least 88 minutes for a CD, or 30 minutes for a "
 "mini-CD). This usually means a disc ID was created for the wrong format "
 "(SACD) or with a buggy tool."
-msgstr ""
+msgstr "In dit rapport staan disc-ID’s met een totale duur die veel langer is dan volgens de cd-standaard mogelijk is (meer dan 88 minuten voor een cd of 30 minuten voor een mini-cd). Meestal betekent dit dat de disc-ID is aangemaakt voor het verkeerde soort medium (SACD) of met een slecht werkend programma."
 
 #: ../root/report/CDTocNotApplied.js:27 ../root/report/CDTocNotApplied.js:28
 #: ../root/report/ReportsIndex.js:589
 msgid "Disc IDs attached but not applied"
-msgstr ""
+msgstr "Disc-ID’s die zijn toegevoegd, maar niet zijn toegepast"
 
 #: ../root/report/CDTocNotApplied.js:32
 msgid ""
@@ -11949,11 +11949,11 @@ msgid ""
 "highly likely that the disc ID can be applied without any worries. Do make "
 "sure though that no existing durations clash with the disc ID, or that any "
 "clashes are clear mistakes."
-msgstr ""
+msgstr "In dit rapport staan disc-ID’s die aan een uitgave zijn toegevoegd, maar blijkbaar niet zijn toegepast, omdat ten minste één duur van een nummer op de uitgave niet bekend is. Het rapport wordt beperkt tot media waar maar één disc-ID aan is toegevoegd, dus heel waarschijnlijk kan de disc-ID zonder problemen worden toegepast. Let wel op dat er geen bestaande duren van de disc-ID afwijken, of dat afwijkingen duidelijke fouten zijn."
 
 #: ../root/report/CDTocNotApplied.js:40
 msgid "Total discIDs found: {count}"
-msgstr ""
+msgstr "Totaal aantal gevonden disc-ID’s: {count}"
 
 #: ../root/report/CatNoLooksLikeAsin.js:34
 #: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:316
@@ -14124,7 +14124,7 @@ msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
-msgstr ""
+msgstr "Dit is een link naar het oude domein van Resident Advisor. Volg {ra_url|je link} controleer of de link waarnaar wordt doorverwezen nog steeds klopt, en voeg vervolgens die link toe."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3155
 msgid "Please link to Twitter profiles, not tweets."
@@ -14174,14 +14174,14 @@ msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
-msgstr ""
+msgstr "Wikipedia heeft normaal gesproken geen lemma’s voor specifieke uitgaves, dus het toevoegen van Wikipedia-links aan een uitgave wordt geblokkeerd. Voeg de Wikipedia-link, als hij relevant is, toe aan de uitgavegroep."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3624
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
-msgstr ""
+msgstr "Wikidata heeft normaal gesproken geen lemma’s voor specifieke uitgaves, dus het toevoegen van Wikidata-links aan een uitgave wordt geblokkeerd. Voeg de Wikidata-link, als hij relevant is, toe aan de uitgavegroep."
 
 #: ../root/static/scripts/edit/check-duplicates.js:146
 #: ../root/static/scripts/edit/externalLinks.js:241
@@ -14241,7 +14241,7 @@ msgstr "Vermelding van artiest verwijderen"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:188
 msgid "Copy date"
-msgstr ""
+msgstr "Datum kopiëren"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:17
 msgid "Possible Duplicates"
@@ -14276,7 +14276,7 @@ msgstr "Links naar MusicBrainz-URL’s zijn niet toegestaan. Misschien wilde je 
 #: ../root/static/scripts/edit/externalLinks.js:248
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
-msgstr ""
+msgstr "Links naar deze website zijn niet toegestaan, omdat hij bekend staat voor het hosten van malware."
 
 #: ../root/static/scripts/edit/externalLinks.js:251
 msgid ""
@@ -15227,7 +15227,7 @@ msgstr "In deze tabel zie je een samenvatting van de objecten die door deze reda
 
 #: ../root/user/UserProfile.js:677
 msgid "Newly applied edits may need 24 hours to appear"
-msgstr ""
+msgstr "Het kan zijn dat doorgevoerde bewerkingen pas na 24 uur verschijnen"
 
 #: ../root/user/UserProfile.js:680
 msgid "Added entities"
@@ -15235,7 +15235,7 @@ msgstr "Toegevoegde objecten"
 
 #: ../root/user/UserProfile.js:704
 msgid "This user has not created any entities."
-msgstr ""
+msgstr "Deze gebruiker heeft nog geen objecten gecreëerd."
 
 #: ../root/user/UserProfile.js:764
 msgid "Report this user for bad behavior"
