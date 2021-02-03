@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-01 16:47+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-02-01 18:02+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -906,7 +906,7 @@ msgstr "Sviluppate nel XVI secolo, queste viole da braccio sono distinte dalla f
 msgid ""
 "Developed in the early Taisho period to modernise the ningenkin, it has "
 "metal strings and typewriter like keys with a wooden lid over the frets."
-msgstr ""
+msgstr "Sviluppato agli inizi del periodo Taishō per modernizzare il ningenkin, ha corde in metallo e tasti simili a quelli di una macchina da scrivere, con un coperchio in legno sopra la tastiera."
 
 #. name:trikiti
 #: DB:instrument/description:847
@@ -1653,7 +1653,7 @@ msgstr "Realizzato in zucca a fiasco essiccata ricoperta di pelle di capra, ha u
 #. name:güiro
 #: DB:instrument/description:112
 msgid "Made of gourd or wood, it is used as a scraper in Latin American music"
-msgstr ""
+msgstr "Realizzato in zucca a fiasco o in legno, è usato come idiofono a raschiamento nella musica latinoamericana."
 
 #. name:slit drum
 #: DB:instrument/description:366
@@ -1757,7 +1757,7 @@ msgstr "Realizzato in legno, ha una cassa di risonanza oblunga e un manico corto
 msgid ""
 "Made portable with a shoulder-strap like a guitar, electric keyboard has "
 "soundcontrols on the neck"
-msgstr ""
+msgstr "Resa trasportabile con una tracolla come una chitarra, è una tastiera elettrica con controlli sonori posizionati sul manico."
 
 #. name:gemshorn
 #: DB:instrument/description:868
