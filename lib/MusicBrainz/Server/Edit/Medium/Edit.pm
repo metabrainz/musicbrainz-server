@@ -644,9 +644,21 @@ before restore => sub {
         $data->{old}{name} //= '';
     }
 
-    for my $track (@{ $data->{new}{tracklist} }, @{ $data->{old}{tracklist} }) {
-        for my $artist_credit_name (@{ $track->{artist_credit}{names} }) {
-            $artist_credit_name->{join_phrase} //= '';
+    # Some old edits have undef join phrases. Two loops and checks to avoid
+    # autovivification causing weird issues.
+    if (exists $data->{new}{tracklist}) {
+        for my $new_track (@{ $data->{new}{tracklist} }) {
+            for my $artist_credit_name (@{ $new_track->{artist_credit}{names} }) {
+                $artist_credit_name->{join_phrase} //= '';
+            }
+        }
+    }
+
+    if (exists $data->{old}{tracklist}) {
+        for my $old_track (@{ $data->{old}{tracklist} }) {
+            for my $artist_credit_name (@{ $old_track->{artist_credit}{names} }) {
+                $artist_credit_name->{join_phrase} //= '';
+            }
         }
     }
 };
