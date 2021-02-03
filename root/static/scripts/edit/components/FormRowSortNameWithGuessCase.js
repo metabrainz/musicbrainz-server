@@ -31,6 +31,7 @@ type PropsT = {
   +entity: SortNamedEntityT,
   +field: ReadOnlyFieldT<string | null>,
   +label?: string,
+  +required?: boolean,
 };
 
 export type StateT = {
@@ -75,6 +76,7 @@ export const FormRowSortNameWithGuessCase = ({
   entity,
   field,
   label = addColonText(l('Sort name')),
+  required = false,
 }: PropsT): React.Element<typeof FormRowText> => {
   const handleSortNameChange = React.useCallback((
     event: SyntheticKeyboardEvent<HTMLInputElement>,
@@ -100,7 +102,7 @@ export const FormRowSortNameWithGuessCase = ({
       field={field}
       label={label}
       onChange={handleSortNameChange}
-      required
+      required={required}
     >
       <button
         className="guesscase-title icon"
