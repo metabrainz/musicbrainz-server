@@ -273,10 +273,7 @@ const AliasEditForm = ({
     dispatch({action, type: 'update-date-range'});
   }, [dispatch]);
 
-  const missingRequired = state.isTypeSearchHint
-    ? isBlank(state.form.field.name.value)
-    : isBlank(state.form.field.name.value) ||
-      isBlank(state.form.field.sort_name.value);
+  const missingRequired = isBlank(state.form.field.name.value);
 
   const hasErrors = missingRequired || hasSubfieldErrors(state.form);
 
