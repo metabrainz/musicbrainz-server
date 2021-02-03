@@ -3004,10 +3004,17 @@ const testData = [
   },
   {
                      input_url: 'https://rateyourmusic.com/release/single/tori_amos/a_sorta_fairytale/',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://rateyourmusic.com/release/single/tori_amos/a_sorta_fairytale/',
-        only_valid_entity_types: ['release'],
+        only_valid_entity_types: ['release', 'release_group'],
+  },
+  {
+                     input_url: 'https://rateyourmusic.com/release/single/tori_amos/a_sorta_fairytale.p/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://rateyourmusic.com/release/single/tori_amos/a_sorta_fairytale.p/',
+        only_valid_entity_types: ['release', 'release_group'],
   },
   {
                      input_url: 'https://rateyourmusic.com/classifiers/Nonesuch+Explorer+Series/',

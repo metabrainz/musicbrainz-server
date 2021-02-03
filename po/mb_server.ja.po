@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-01 18:38+0200\n"
+"POT-Creation-Date: 2021-02-01 20:21+0200\n"
 "PO-Revision-Date: 2021-02-01 16:47+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
@@ -2668,7 +2668,7 @@ msgstr "メッセージ"
 msgid "Modify count"
 msgstr "編集回数"
 
-#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:45
+#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:39
 msgid "Move"
 msgstr "移動"
 
@@ -3617,7 +3617,7 @@ msgstr "リリース"
 #: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:59
 #: ../root/relationship/linkattributetype/delete.tt:14
 #: ../root/relationship/linktype/delete.tt:14
-#: ../root/release/add_cover_art.tt:70 ../root/release/discids.tt:42
+#: ../root/release/add_cover_art.tt:70 ../root/release/discids.tt:36
 #: ../root/account/applications/Index.js:43
 #: ../root/admin/attributes/Attribute.js:126
 #: ../root/admin/attributes/Language.js:72
@@ -3965,7 +3965,7 @@ msgstr ""
 msgid "Set cover art"
 msgstr "カバーアートを設定"
 
-#: ../root/cdtoc/list.tt:53 ../root/release/discids.tt:36
+#: ../root/cdtoc/list.tt:53
 msgid "Set track durations"
 msgstr ""
 
@@ -4280,7 +4280,7 @@ msgid ""
 "forms below, or you may add a new release to MusicBrainz"
 msgstr ""
 
-#: ../root/release/discids.tt:56
+#: ../root/release/discids.tt:50
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
@@ -4549,7 +4549,7 @@ msgstr "このリリースグループは、リリースや関係がなくなる
 msgid "This release has no media to merge."
 msgstr ""
 
-#: ../root/release/discids.tt:58
+#: ../root/release/discids.tt:52
 msgid "This release has no mediums that can have disc IDs."
 msgstr ""
 
@@ -6153,7 +6153,7 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:502
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:501
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "このマージ方法は選択されたリリースに適用できません。"

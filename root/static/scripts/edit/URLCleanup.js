@@ -2680,6 +2680,7 @@ const CLEANUPS = {
           case LINK_TYPES.otherdatabases.place:
             return {result: prefix === 'venue'};
           case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return {result: prefix === 'release'};
           case LINK_TYPES.otherdatabases.series:
             return {result: prefix === 'classifiers'};

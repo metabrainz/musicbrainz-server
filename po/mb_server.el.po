@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-01 18:38+0200\n"
+"POT-Creation-Date: 2021-02-01 20:21+0200\n"
 "PO-Revision-Date: 2021-02-01 16:47+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
@@ -2660,7 +2660,7 @@ msgstr ""
 msgid "Modify count"
 msgstr "Αριθμός τροποποιήσεων"
 
-#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:45
+#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:39
 msgid "Move"
 msgstr "Μετακίνηση"
 
@@ -3610,7 +3610,7 @@ msgstr "Κυκλοφορίες"
 #: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:59
 #: ../root/relationship/linkattributetype/delete.tt:14
 #: ../root/relationship/linktype/delete.tt:14
-#: ../root/release/add_cover_art.tt:70 ../root/release/discids.tt:42
+#: ../root/release/add_cover_art.tt:70 ../root/release/discids.tt:36
 #: ../root/account/applications/Index.js:43
 #: ../root/admin/attributes/Attribute.js:126
 #: ../root/admin/attributes/Language.js:72
@@ -3958,7 +3958,7 @@ msgstr "Ορίστε ένα νέο κωδικό πρόσβασης για το �
 msgid "Set cover art"
 msgstr ""
 
-#: ../root/cdtoc/list.tt:53 ../root/release/discids.tt:36
+#: ../root/cdtoc/list.tt:53
 msgid "Set track durations"
 msgstr "Ορισμός διάρκειας κομματιών"
 
@@ -4273,7 +4273,7 @@ msgid ""
 "forms below, or you may add a new release to MusicBrainz"
 msgstr "Δεν υπάρχουν δίσκοι στο MusicBrainz που να σχετίζονται με τις πληροφορίες που παρείχατε.  Μπορείτε να αναζητήσετε το δίσκο που ψάχνετε χρησιμοποιώντας την παρακάτω φόρμα, ή να προσθέσετε μία νέα κυκλοφορία στο MusicBrainz"
 
-#: ../root/release/discids.tt:56
+#: ../root/release/discids.tt:50
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
@@ -4542,7 +4542,7 @@ msgstr ""
 msgid "This release has no media to merge."
 msgstr ""
 
-#: ../root/release/discids.tt:58
+#: ../root/release/discids.tt:52
 msgid "This release has no mediums that can have disc IDs."
 msgstr ""
 
@@ -6157,7 +6157,7 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "Το '{types}' δεν είναι έγκυρο ζευγάρι τύπων σχέσεων."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:502
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:501
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Αυτή η στρατηγική συγχώνευσης δεν είναι εφαρμόσιμη στις κυκλοφορίες που επιλέξατε."

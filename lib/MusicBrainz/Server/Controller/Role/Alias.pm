@@ -72,9 +72,10 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
     my $entity = $c->stash->{ $type };
     my $form_type = 'add';
     my $alias_model = $c->model( $self->{model} )->alias;
+    my $entity_type = $type eq 'rg' ? 'release_group' : $type;
 
     my %props = (
-        type => $type,
+        type => $entity_type,
         entity => $entity,
         formType => $form_type,
     );
@@ -156,8 +157,9 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
     my $entity = $c->stash->{ $type };
     my $form_type = 'edit';
     my $alias_model = $c->model( $self->{model} )->alias;
+    my $entity_type = $type eq 'rg' ? 'release_group' : $type;
     my %props = (
-        type => $type,
+        type => $entity_type,
         entity => $entity,
         formType => $form_type
     );

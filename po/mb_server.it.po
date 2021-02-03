@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-01 18:38+0200\n"
+"POT-Creation-Date: 2021-02-01 20:21+0200\n"
 "PO-Revision-Date: 2021-02-01 16:53+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
@@ -2666,7 +2666,7 @@ msgstr "Messaggio"
 msgid "Modify count"
 msgstr "Numero di modifiche"
 
-#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:45
+#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:39
 msgid "Move"
 msgstr "Sposta"
 
@@ -3616,7 +3616,7 @@ msgstr "Pubblicazioni"
 #: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:59
 #: ../root/relationship/linkattributetype/delete.tt:14
 #: ../root/relationship/linktype/delete.tt:14
-#: ../root/release/add_cover_art.tt:70 ../root/release/discids.tt:42
+#: ../root/release/add_cover_art.tt:70 ../root/release/discids.tt:36
 #: ../root/account/applications/Index.js:43
 #: ../root/admin/attributes/Attribute.js:126
 #: ../root/admin/attributes/Language.js:72
@@ -3964,7 +3964,7 @@ msgstr "Imposta una nuova password per il tuo account di MusicBrainz."
 msgid "Set cover art"
 msgstr "Imposta copertina"
 
-#: ../root/cdtoc/list.tt:53 ../root/release/discids.tt:36
+#: ../root/cdtoc/list.tt:53
 msgid "Set track durations"
 msgstr "Imposta durata tracce"
 
@@ -4279,7 +4279,7 @@ msgid ""
 "forms below, or you may add a new release to MusicBrainz"
 msgstr "Al momento non c'è nessun disco su MusicBrainz associato alle informazioni che hai fornito. Puoi cercare il disco utilizzando il modulo qui sotto, oppure puoi aggiungere una nuova pubblicazione su MusicBrainz."
 
-#: ../root/release/discids.tt:56
+#: ../root/release/discids.tt:50
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
@@ -4548,7 +4548,7 @@ msgstr "Questo gruppo di pubblicazioni sarà rimosso automaticamente non appena 
 msgid "This release has no media to merge."
 msgstr "Questa pubblicazione non ha supporti da unire."
 
-#: ../root/release/discids.tt:58
+#: ../root/release/discids.tt:52
 msgid "This release has no mediums that can have disc IDs."
 msgstr "Questa pubblicazione non ha supporti che possono possedere un ID disco."
 
@@ -6163,7 +6163,7 @@ msgstr "Non puoi unire con Etichetta eliminata."
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "'{types}' non è una coppia di tipi valida per le relazioni."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:502
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:501
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Questa strategia di unione non è applicabile alle pubblicazioni che hai selezionato."
