@@ -560,9 +560,9 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         JSON.stringify(recentEntities),
       );
       return undefined;
-    } else {
-      return recentEntities[entityType] || [];
     }
+
+    return recentEntities[entityType] || [];
   },
 });
 

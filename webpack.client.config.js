@@ -85,9 +85,8 @@ function mtime(fpath) {
   } catch (err) {
     if (err.code === 'ENOENT') {
       return null;
-    } else {
-      throw err;
     }
+    throw err;
   }
 }
 

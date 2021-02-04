@@ -106,6 +106,7 @@ rules:
   dot-location: [warn, property]
   dot-notation: [warn, {allowKeywords: true}]
   no-alert: off
+  no-else-return: warn
   no-eq-null: off
   no-floating-decimal: warn
   no-global-assign: error
