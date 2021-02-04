@@ -1,6 +1,5 @@
 rules:
   no-await-in-loop: error
-  no-unused-vars: error
   consistent-return: error
   eqeqeq: [warn, smart]
   no-else-return: warn

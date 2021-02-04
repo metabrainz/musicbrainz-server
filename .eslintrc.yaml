@@ -93,6 +93,7 @@ rules:
   no-unreachable: error
   no-unsafe-finally: error
   no-unsafe-negation: error
+  no-unused-vars: error
   no-with: error
   require-atomic-updates: error
   use-isnan: error
