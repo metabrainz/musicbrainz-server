@@ -36,7 +36,6 @@ rules:
   comma-spacing: [warn, {before: false, after: true}]
   computed-property-spacing: [warn, never, {"enforceForClassMembers": true}]
   consistent-this: [warn, self]
-  jsx-quotes: [warn, prefer-double]
   key-spacing: [warn, {mode: minimum}]
   newline-per-chained-call: [warn, {ignoreChainWithDepth: 3}]
   no-lonely-if: warn

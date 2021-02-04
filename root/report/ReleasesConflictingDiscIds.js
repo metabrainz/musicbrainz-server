@@ -46,7 +46,7 @@ const ReleasesConflictingDiscIds = ({
       {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
     </ul>
 
-    <ReleaseList items={items} pager={pager} subPath='discids' />
+    <ReleaseList items={items} pager={pager} subPath="discids" />
 
   </Layout>
 );
