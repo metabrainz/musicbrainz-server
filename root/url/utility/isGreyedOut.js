@@ -8,8 +8,8 @@
  */
 
 const MALWARE_URLS = [
-  'decoda.com',
-  'starzik.com',
+  'decoda\\.com',
+  'starzik\\.com',
 ].map(host => new RegExp(
   '^https?://(?:[^/]+\\.)?' + host + '(?:/.*)?$',
   'i',
