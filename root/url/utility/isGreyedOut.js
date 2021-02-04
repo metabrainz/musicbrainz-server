@@ -7,10 +7,20 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const greyRegExp = new RegExp('^https?://(?:www\.)?decoda\.com/');
+const MALWARE_URLS = [
+  'decoda.com',
+].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
+
+export function isMalware(
+  url: string,
+): boolean {
+  return MALWARE_URLS.some(function (malwareRegex) {
+    return url.match(malwareRegex) !== null;
+  });
+}
 
 export default function isGreyedOut(
   url: string,
 ): boolean {
-  return greyRegExp.test(url);
+  return isMalware(url);
 }
