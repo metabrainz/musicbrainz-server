@@ -152,6 +152,7 @@ rules:
   multiline-ternary: off
   new-cap: off
   new-parens: warn
+  no-lonely-if: warn
   no-mixed-spaces-and-tabs: warn
   no-multi-assign: off
   no-multiple-empty-lines: [warn, {max: 2, maxBOF: 0, maxEOF: 0}]

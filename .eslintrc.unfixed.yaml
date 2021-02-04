@@ -38,7 +38,6 @@ rules:
   consistent-this: [warn, self]
   key-spacing: [warn, {mode: minimum}]
   newline-per-chained-call: [warn, {ignoreChainWithDepth: 3}]
-  no-lonely-if: warn
   object-curly-newline: [warn, {multiline: true, consistent: true}]
   object-curly-spacing: [warn, never]
   operator-assignment: [warn, always]
