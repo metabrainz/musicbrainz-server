@@ -34,7 +34,7 @@ __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2017 MetaBrainz Foundation
 
