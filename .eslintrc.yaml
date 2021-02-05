@@ -294,6 +294,7 @@ rules:
   # eslint-plugin-flowtype #
   ##########################
 
+  flowtype/boolean-style: [warn, boolean]
   flowtype/define-flow-type: warn
   flowtype/generic-spacing: [warn, never]
   flowtype/no-dupe-keys: error

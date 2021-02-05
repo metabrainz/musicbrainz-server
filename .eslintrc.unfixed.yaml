@@ -69,7 +69,6 @@ rules:
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
   react/jsx-no-literals: warn
   react/jsx-sort-props: warn
-  flowtype/boolean-style: [warn, boolean]
   flowtype/delimiter-dangle: [warn, always-multiline]
   flowtype/no-types-missing-file-annotation: error
   flowtype/no-weak-types: warn

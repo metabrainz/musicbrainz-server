@@ -15,7 +15,7 @@
 import * as React from 'react';
 
 type TooltipProps = {
-  +hoverCallback: (bool) => void,
+  +hoverCallback: (boolean) => void,
   +content: React.Node,
 };
 
