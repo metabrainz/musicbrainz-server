@@ -44,7 +44,8 @@ class Tooltip extends React.Component<TooltipProps> {
       <div className="tooltip-container"
         onMouseEnter={() => hoverCallback(true)}
         onMouseLeave={() => hoverCallback(false)}
-        ref={this.containerRef}>
+        ref={this.containerRef}
+      >
         <div className="tooltip-triangle" />
         <div className="tooltip-content">{this.props.content}</div>
       </div>

@@ -66,7 +66,6 @@ rules:
                                    lifecycle,
                                    everything-else,
                                    render]}]
-  react/jsx-closing-bracket-location: [error, tag-aligned]
   react/jsx-first-prop-new-line: [error, multiline-multiprop]
   react/jsx-key: warn
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]

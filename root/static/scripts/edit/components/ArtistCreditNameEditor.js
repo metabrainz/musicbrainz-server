@@ -105,7 +105,8 @@ class ArtistCreditNameEditor extends React.Component {
             currentSelection={name.artist || {name: name.name}}
             entity="artist"
             inputID={`${id}-artist-${index}`}
-            onChange={this.handleArtistChange} />
+            onChange={this.handleArtistChange}
+          />
         </td>
         <td>
           <input
@@ -113,7 +114,8 @@ class ArtistCreditNameEditor extends React.Component {
             onBlur={this.handleNameBlur}
             onChange={this.handleNameChange}
             type="text"
-            value={nonEmpty(name.name) ? name.name : ''} />
+            value={nonEmpty(name.name) ? name.name : ''}
+          />
         </td>
         <td>
           <input
@@ -121,13 +123,15 @@ class ArtistCreditNameEditor extends React.Component {
             onBlur={this.handleJoinPhraseBlur}
             onChange={this.handleJoinPhraseChange}
             type="text"
-            value={nonEmpty(name.joinPhrase) ? name.joinPhrase : ''} />
+            value={nonEmpty(name.joinPhrase) ? name.joinPhrase : ''}
+          />
         </td>
         <td className="align-right">
           <button className="icon remove-item remove-artist-credit"
             onClick={this.props.onRemove}
             title={l('Remove Artist Credit')}
-            type="button" />
+            type="button"
+          />
         </td>
       </tr>
     );
