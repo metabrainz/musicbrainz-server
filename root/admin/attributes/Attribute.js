@@ -33,8 +33,7 @@ type AttributeT =
   | ReleaseStatusT
   | SeriesTypeT
   | WorkAttributeTypeT
-  | WorkTypeT
-  ;
+  | WorkTypeT;
 
 type Props = {
   +$c: CatalystContextT,

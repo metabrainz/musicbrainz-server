@@ -47,7 +47,6 @@ rules:
   quotes: [warn, single, {avoidEscape: true,
                           allowTemplateLiterals: true}]
   semi: [warn, always, {omitLastInOneLineBlock: true}]
-  semi-style: [warn, last]
   sort-keys: [warn, asc, {caseSensitive: false, natural: true}]
   space-before-function-paren: [warn, {anonymous: always,
                                        named: never,

@@ -39,8 +39,7 @@ export type RelationshipInfoT = {
 export type LinkPhraseProp =
   | 'link_phrase'
   | 'long_link_phrase'
-  | 'reverse_link_phrase'
-  ;
+  | 'reverse_link_phrase';
 
 function _getResultCache<T>(
   resultCache: WeakMap<RelationshipInfoT, CachedLinkData<T>>,
