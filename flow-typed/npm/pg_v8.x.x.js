@@ -75,6 +75,7 @@ declare module 'pg' {
 
   declare module.exports: {
     Client: typeof Client,
+    Connection: typeof Connection,
     Query: typeof Query,
   };
 }
