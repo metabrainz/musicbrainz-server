@@ -65,7 +65,6 @@ rules:
                                    lifecycle,
                                    everything-else,
                                    render]}]
-  react/jsx-key: warn
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
   react/jsx-sort-props: warn
   flowtype/delimiter-dangle: [warn, always-multiline]
