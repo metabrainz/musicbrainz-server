@@ -167,6 +167,7 @@ rules:
   no-whitespace-before-property: warn
   object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
   one-var: [warn, never]
+  semi: [warn, always, {omitLastInOneLineBlock: true}]
   semi-spacing: [warn, {before: false, after: true}]
   semi-style: [warn, last]
   space-before-blocks: [warn, always]

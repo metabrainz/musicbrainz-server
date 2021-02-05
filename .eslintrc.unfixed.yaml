@@ -46,7 +46,6 @@ rules:
   quote-props: [warn, consistent-as-needed, {numbers: true}]
   quotes: [warn, single, {avoidEscape: true,
                           allowTemplateLiterals: true}]
-  semi: [warn, always, {omitLastInOneLineBlock: true}]
   sort-keys: [warn, asc, {caseSensitive: false, natural: true}]
   space-before-function-paren: [warn, {anonymous: always,
                                        named: never,

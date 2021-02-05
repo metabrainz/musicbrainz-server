@@ -51,5 +51,5 @@ GETTEXT_DOMAINS.forEach(domain => {
   ['l', 'ln', 'lp'].forEach(func => {
     const domainFunc = func + '_' + domain;
     module.exports[domainFunc] = [domainPath, domainFunc];
-  })
+  });
 });
