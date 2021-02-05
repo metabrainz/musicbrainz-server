@@ -20,19 +20,19 @@ const hasOwnPropPath = path.resolve(commonPath, 'utility/hasOwnProp');
 const nonEmptyPath = path.resolve(commonPath, 'utility/nonEmpty');
 
 module.exports = {
-  addColon: [addColonPath, 'default'],
-  addColonText: [addColonPath, 'addColonText'],
-  hasOwnProp: [hasOwnPropPath, 'default'],
-  hyphenateTitle: [hyphenateTitlePath, 'default'],
-  nonEmpty: [nonEmptyPath, 'default'],
+  'addColon': [addColonPath, 'default'],
+  'addColonText': [addColonPath, 'addColonText'],
+  'hasOwnProp': [hasOwnPropPath, 'default'],
+  'hyphenateTitle': [hyphenateTitlePath, 'default'],
+  'nonEmpty': [nonEmptyPath, 'default'],
 
-  l: [i18nPath, 'l'],
-  ln: [i18nPath, 'ln'],
-  lp: [i18nPath, 'lp'],
+  'l': [i18nPath, 'l'],
+  'ln': [i18nPath, 'ln'],
+  'lp': [i18nPath, 'lp'],
 
-  N_l: [i18nPath, 'N_l'],
-  N_ln: [i18nPath, 'N_ln'],
-  N_lp: [i18nPath, 'N_lp'],
+  'N_l': [i18nPath, 'N_l'],
+  'N_ln': [i18nPath, 'N_ln'],
+  'N_lp': [i18nPath, 'N_lp'],
 
   'exp.l': [expandPath, 'l'],
   'exp.ln': [expandPath, 'ln'],

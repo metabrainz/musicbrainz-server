@@ -169,6 +169,7 @@ rules:
   no-whitespace-before-property: warn
   object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
   one-var: [warn, never]
+  quote-props: [warn, consistent-as-needed, {numbers: true}]
   semi: [warn, always, {omitLastInOneLineBlock: true}]
   semi-spacing: [warn, {before: false, after: true}]
   semi-style: [warn, last]
