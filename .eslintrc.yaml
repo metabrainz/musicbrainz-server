@@ -299,6 +299,7 @@ rules:
 
   flowtype/boolean-style: [warn, boolean]
   flowtype/define-flow-type: warn
+  flowtype/delimiter-dangle: [warn, always-multiline]
   flowtype/generic-spacing: [warn, never]
   flowtype/no-dupe-keys: error
   flowtype/no-flow-fix-me-comments: off

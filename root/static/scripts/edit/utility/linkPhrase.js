@@ -204,7 +204,7 @@ export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
 const requiredAttributesCache: {
   __proto__: null,
   [linkTypeId: number]: {+[attributeName: string]: LinkAttrT, ...},
-  ...,
+  ...
 } = Object.create(null);
 
 function _getRequiredAttributes(

@@ -14,7 +14,7 @@ import type {JedOptions} from 'jed';
 type JedData = {
   locale: string,
   [string]: JedOptions,
-  ...,
+  ...
 };
 */
 /* eslint-enable  multiline-comment-style */

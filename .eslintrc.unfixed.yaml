@@ -66,7 +66,6 @@ rules:
                                    everything-else,
                                    render]}]
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
-  flowtype/delimiter-dangle: [warn, always-multiline]
   flowtype/no-types-missing-file-annotation: error
   flowtype/no-weak-types: warn
   flowtype/sort-keys: [warn, asc]

@@ -12,7 +12,7 @@ declare module 'react-table' {
     +Cell?: React$AbstractComponent<CellRenderProps<D, V>, mixed>,
     +Header?: Renderer<HeaderProps<D>>,
     +id?: string,
-    ...,
+    ...
   };
 
   declare export type ColumnInstance = {
