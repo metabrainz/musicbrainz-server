@@ -271,6 +271,7 @@ rules:
   react/jsx-max-props-per-line: [error, {maximum: 1, when: multiline}]
   react/jsx-no-comment-textnodes: warn
   react/jsx-no-duplicate-props: [error, {ignoreCase: true}]
+  react/jsx-no-literals: warn
   react/jsx-no-target-blank: error
   react/jsx-no-undef: [error, {allowGlobals: true}]
   react/jsx-one-expression-per-line: [warn, {allow: single-child}]

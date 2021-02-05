@@ -90,9 +90,9 @@ $(function () {
     return (
       <>
         <div>
-          <h2>Entity autocomplete</h2>
+          <h2>{'Entity autocomplete'}</h2>
           <p>
-            Current entity type:
+            {'Current entity type:'}
             {' '}
             <select
               value={state.entityAutocomplete.entityType}
@@ -101,17 +101,17 @@ $(function () {
                 entityType: event.target.value,
               })}
             >
-              <option value="area">Area</option>
-              <option value="artist">Artist</option>
-              <option value="event">Event</option>
-              <option value="instrument">Instrument</option>
-              <option value="label">Label</option>
-              <option value="place">Place</option>
-              <option value="recording">Recording</option>
-              <option value="release">Release</option>
-              <option value="release_group">Release Group</option>
-              <option value="series">Series</option>
-              <option value="work">Work</option>
+              <option value="area">{'Area'}</option>
+              <option value="artist">{'Artist'}</option>
+              <option value="event">{'Event'}</option>
+              <option value="instrument">{'Instrument'}</option>
+              <option value="label">{'Label'}</option>
+              <option value="place">{'Place'}</option>
+              <option value="recording">{'Recording'}</option>
+              <option value="release">{'Release'}</option>
+              <option value="release_group">{'Release Group'}</option>
+              <option value="series">{'Series'}</option>
+              <option value="work">{'Work'}</option>
             </select>
           </p>
           <Autocomplete2
@@ -120,7 +120,7 @@ $(function () {
           />
         </div>
         <div>
-          <h2>Vocal autocomplete</h2>
+          <h2>{'Vocal autocomplete'}</h2>
           <Autocomplete2
             dispatch={vocalAutocompleteDispatch}
             {...state.vocalAutocomplete}

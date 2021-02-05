@@ -67,7 +67,6 @@ rules:
                                    render]}]
   react/jsx-key: warn
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
-  react/jsx-no-literals: warn
   react/jsx-sort-props: warn
   flowtype/delimiter-dangle: [warn, always-multiline]
   flowtype/no-types-missing-file-annotation: error
