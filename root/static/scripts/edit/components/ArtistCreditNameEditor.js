@@ -127,7 +127,8 @@ class ArtistCreditNameEditor extends React.Component {
           />
         </td>
         <td className="align-right">
-          <button className="icon remove-item remove-artist-credit"
+          <button
+            className="icon remove-item remove-artist-credit"
             onClick={this.props.onRemove}
             title={l('Remove Artist Credit')}
             type="button"
