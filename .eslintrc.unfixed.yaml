@@ -68,5 +68,4 @@ rules:
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
   flowtype/no-types-missing-file-annotation: error
   flowtype/no-weak-types: warn
-  flowtype/sort-keys: [warn, asc]
   react-hooks/exhaustive-deps: warn

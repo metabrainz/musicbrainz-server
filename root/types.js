@@ -73,8 +73,8 @@ declare type AreaT = $ReadOnly<{
   +iso_3166_1_codes: $ReadOnlyArray<string>,
   +iso_3166_2_codes: $ReadOnlyArray<string>,
   +iso_3166_3_codes: $ReadOnlyArray<string>,
-  +primaryAlias?: string | null,
   +primary_code: string,
+  +primaryAlias?: string | null,
 }>;
 
 declare type AnnotatedEntityT =

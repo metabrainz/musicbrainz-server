@@ -112,8 +112,8 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
 export type LinkPhraseI18n<T> = {
   cache: WeakMap<RelationshipInfoT, CachedLinkData<T>>,
   commaList: ($ReadOnlyArray<T>) => T,
-  expand: (string, PhraseVarArgs<T>) => T,
   displayLinkAttribute: (LinkAttrT) => T,
+  expand: (string, PhraseVarArgs<T>) => T,
 };
 
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {

@@ -312,6 +312,7 @@ rules:
   flowtype/require-return-type: off
   flowtype/require-valid-file-annotation: off
   flowtype/semi: [warn, always]
+  flowtype/sort-keys: [warn, asc]
   flowtype/space-after-type-colon: [warn, always, {allowLineBreak: true}]
   flowtype/space-before-generic-bracket: [warn, never]
   flowtype/space-before-type-colon: [warn, never]
