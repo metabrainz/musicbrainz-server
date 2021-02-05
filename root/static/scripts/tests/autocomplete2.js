@@ -95,11 +95,11 @@ $(function () {
             {'Current entity type:'}
             {' '}
             <select
-              value={state.entityAutocomplete.entityType}
               onChange={(event) => entityAutocompleteDispatch({
                 type: 'change-entity-type',
                 entityType: event.target.value,
               })}
+              value={state.entityAutocomplete.entityType}
             >
               <option value="area">{'Area'}</option>
               <option value="artist">{'Artist'}</option>

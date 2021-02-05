@@ -279,6 +279,7 @@ rules:
   react/jsx-curly-brace-presence: [error, {props: never, children: ignore}]
   react/jsx-pascal-case: error
   react/jsx-sort-default-props: warn
+  react/jsx-sort-props: warn
   react/jsx-tag-spacing: [error, {beforeClosing: never}]
   # jsx-uses-react is not implied since
   # https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html

@@ -234,10 +234,10 @@ class ArtistCreditEditor extends React.Component {
       <ArtistCreditBubble
         addName={this.addName}
         artistCredit={this.state.artistCredit}
-        initialArtistText={this.initialArtistText}
         copyArtistCredit={this.copyArtistCredit}
         done={this.done}
         hide={this.hide}
+        initialArtistText={this.initialArtistText}
         onNameChange={this.handleNameChange}
         pasteArtistCredit={this.pasteArtistCredit}
         removeName={this.removeName}
@@ -391,8 +391,8 @@ class ArtistCreditEditor extends React.Component {
     return (
       <>
         <table
-          key="artist-credit-editor"
           className="artist-credit-editor"
+          key="artist-credit-editor"
           ref={node => {
             if (node) {
               $(node).data('componentInst', this);
@@ -427,9 +427,9 @@ class ArtistCreditEditor extends React.Component {
               <td className="open-ac-cell">
                 <button
                   className="open-ac"
+                  onClick={this.handleBubbleToggle}
                   ref={button => this._editButton = button}
                   type="button"
-                  onClick={this.handleBubbleToggle}
                 >
                   {l('Edit')}
                 </button>

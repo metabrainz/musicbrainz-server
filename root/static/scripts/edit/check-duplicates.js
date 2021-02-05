@@ -41,8 +41,8 @@ function renderDuplicates(name, duplicates, container) {
 
   ReactDOM.render(
     <PossibleDuplicates
-      name={name}
       duplicates={duplicates}
+      name={name}
       onCheckboxChange={event => isConfirmed(event.target.checked)}
     />,
     container,
