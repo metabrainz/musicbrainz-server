@@ -46,8 +46,7 @@ function js(
     <script
       src={pathTo(manifest)}
       {...extraAttrs}
-    >
-    </script>
+    />
   );
 }
 

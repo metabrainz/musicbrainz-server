@@ -60,7 +60,6 @@ rules:
   react/no-multi-comp: [warn, {ignoreStateless: true}]
   react/no-render-return-value: warn
   react/prefer-stateless-function: warn
-  react/self-closing-comp: error
   react/sort-comp: [warn, {order: [type-annotations,
                                    static-methods,
                                    lifecycle,
