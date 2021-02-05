@@ -36,7 +36,6 @@ rules:
   comma-spacing: [warn, {before: false, after: true}]
   computed-property-spacing: [warn, never, {"enforceForClassMembers": true}]
   consistent-this: [warn, self]
-  key-spacing: [warn, {mode: minimum}]
   object-curly-newline: [warn, {multiline: true, consistent: true}]
   object-curly-spacing: [warn, never]
   operator-assignment: [warn, always]

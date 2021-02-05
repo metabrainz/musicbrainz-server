@@ -139,6 +139,7 @@ rules:
   implicit-arrow-linebreak: [warn, beside]
   indent: [warn, 2, {CallExpression: {arguments: first}, SwitchCase: 1, ignoredNodes: ["JSXElement", "ArrowFunctionExpression"]}]
   jsx-quotes: [warn, prefer-double]
+  key-spacing: [warn, {mode: minimum}]
   keyword-spacing: [warn, {before: true, after: true}]
   linebreak-style: [warn, unix]
   lines-between-class-members: [warn, always]
