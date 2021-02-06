@@ -401,8 +401,8 @@ const UserEditsProperty = ({
     : entityType === 'release' ? (
       // Also list historical edits
       [
-        TYPES.EDIT_RELEASE_CREATE,
         TYPES.EDIT_HISTORIC_ADD_RELEASE,
+        TYPES.EDIT_RELEASE_CREATE,
       ].join(',')
     ) : TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`];
   const searchEditsURL = (createEditTypes => (
