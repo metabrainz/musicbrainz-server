@@ -62,13 +62,6 @@ msgid ""
 "veena and the Hawaiian guitar."
 msgstr ""
 
-#. name:dulce melos 
-#: DB:instrument/description:773
-msgid ""
-"A European mediaeval struck string instrument, similar to the psaltery and a "
-"possible ancestor of the piano. Essentially it is a dulcimer with keys."
-msgstr ""
-
 #. name:kös 
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
@@ -206,6 +199,11 @@ msgid ""
 "A longer version of the kōauau, it is from 30-40 cm up towards 60 cm in "
 "length and often made of bone and hardwoods such as porokaiwhiria, mataī and "
 "tutu."
+msgstr ""
+
+#. name:ngɔni 
+#: DB:instrument/description:729
+msgid "A lute from West Africa, made of wood or gourd."
 msgstr ""
 
 #. name:mandolute 
@@ -591,6 +589,14 @@ msgstr ""
 msgid "Besides being used for writing, it has also been used in percussion."
 msgstr ""
 
+#. name:Anglo concertina 
+#: DB:instrument/description:839
+msgid ""
+"Bisonoric and button layout like the German, reeds and hexagonal ends like "
+"the english, this concertina was created to rival the popular German variant "
+"imported into England."
+msgstr ""
+
 #. name:cajón 
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
@@ -714,6 +720,14 @@ msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr ""
 
+#. name:stick zither 
+#: DB:instrument/description:1031
+msgid ""
+"Class of instruments where the body is a simple stick with one to many "
+"strings attached, may also have up to several usually gourd or wood "
+"resonators."
+msgstr ""
+
 #. name:glockenspiel 
 #: DB:instrument/description:165
 msgid ""
@@ -729,7 +743,7 @@ msgstr ""
 #: DB:instrument/description:1028
 msgid ""
 "Composite chordophone, box zither where some or all strings are operated by "
-"keys or buttons (keyboard)"
+"typewriter-keys or buttons (keyboard)"
 msgstr ""
 
 #. name:rudra veena 
@@ -867,6 +881,13 @@ msgid ""
 "fastened with pins. The back can be rounded or flat."
 msgstr ""
 
+#. name:cabasa 
+#: DB:instrument/description:108
+msgid ""
+"Developed from the African agbe, a small shaker not unlike shekere, it is "
+"made of wood and metal, with metal beads."
+msgstr ""
+
 #. name:seni rebab 
 #: DB:instrument/description:1014
 msgid ""
@@ -989,6 +1010,13 @@ msgstr ""
 msgid ""
 "Ensemble of multiple instruments of the viol family, usually including at "
 "least treble, tenor and bass viols."
+msgstr ""
+
+#. name:dulce melos 
+#: DB:instrument/description:773
+msgid ""
+"European mediaeval struck string instrument, similar to the psaltery and a "
+"possible ancestor of the piano. Basically it is a dulcimer with keys."
 msgstr ""
 
 #. name:ugal 
@@ -1597,6 +1625,14 @@ msgid ""
 "rhythmic accompaniment in Yakshagana."
 msgstr ""
 
+#. name:żummara 
+#: DB:instrument/description:592
+msgid ""
+"Made of bamboo with one end covered with grease-paper, it is a \"side-blown"
+"\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara which "
+"is an instrument similar to a chalumeau."
+msgstr ""
+
 #. name:suling 
 #: DB:instrument/description:725
 msgid ""
@@ -1777,6 +1813,19 @@ msgstr ""
 #. name:kendhang wayangan 
 #: DB:instrument/description:993
 msgid "Middle sized kendang, it was traditionally used for the wayang dance."
+msgstr ""
+
+#. name:kamale ngɔni 
+#: DB:instrument/description:817
+msgid ""
+"Modern derivative of the donso ngɔni, it comes with more strings and is made "
+"of calabash. It became an important instrument in the rise of the Wassoulou "
+"music in the 80's and 90's."
+msgstr ""
+
+#. name:German concertina 
+#: DB:instrument/description:838
+msgid "More usually square than hexagonal, with long plate reeds"
 msgstr ""
 
 #. name:bass viol 
@@ -2117,11 +2166,6 @@ msgid ""
 "that are plucked in various ways to produce sound."
 msgstr ""
 
-#. name:ngɔni 
-#: DB:instrument/description:729
-msgid "Plucked string instrument made of wood or gourd from West Africa."
-msgstr ""
-
 #. name:melodica 
 #: DB:instrument/description:44
 msgid ""
@@ -2143,6 +2187,15 @@ msgstr ""
 msgid ""
 "Popular in the renaissance, it was small and portable with two bellows and "
 "brass reeds."
+msgstr ""
+
+#. name:đàn bầu 
+#: DB:instrument/description:251
+msgid ""
+"Possibly ancient Vietnamese tube zither. It was originally made of bamboo "
+"with one silken string, today it is usually wooden with a metal string. "
+"Fastened in one end to a movable device and resonator, the melody comes from "
+"changing the string's tension."
 msgstr ""
 
 #. name:komuz 
@@ -2463,6 +2516,14 @@ msgid ""
 "Special version of the gendèr used in Gamelan gendèr wayang performances. "
 "Tuned in Slendro, one to two pairs are played using the same hand to both "
 "play and dampen the keys."
+msgstr ""
+
+#. name:jantar 
+#: DB:instrument/description:1032
+msgid ""
+"Stick zither made of wood, which has strings and two large gourd resonators. "
+"<br /><br /> Not to be confused with the 13th century tritantri-vina which "
+"evolved into the bin via a five-string stick-zither also known as \"jantar\"."
 msgstr ""
 
 #. name:struck idiophone 
@@ -3718,13 +3779,6 @@ msgid ""
 "Okinawan sanshin."
 msgstr ""
 
-#. name:shekere 
-#: DB:instrument/description:381
-msgid ""
-"The shekere is a shaker from West Africa consisting of a gourd with beads "
-"woven into a net which covers the gourd."
-msgstr ""
-
 #. name:sheng 
 #: DB:instrument/description:45
 msgid ""
@@ -4107,11 +4161,6 @@ msgid ""
 "highlands of Vietnam."
 msgstr ""
 
-#. name:đàn bầu 
-#: DB:instrument/description:251
-msgid "The đàn bầu is a one-stringed Vietnamese zither."
-msgstr ""
-
 #. name:đàn nguyệt 
 #: DB:instrument/description:242
 msgid ""
@@ -4188,16 +4237,6 @@ msgid ""
 "The żaqq is a Maltese bagpipe made from the complete skin of an animal "
 "(typically a premature calf, goat or dog). The chanter consists of two side-"
 "by-side pipes and a bull's horn is normally attached to the end."
-msgstr ""
-
-#. name:żummara 
-#: DB:instrument/description:592
-msgid ""
-"The żummara is a Maltese instrument similar to a kazoo. It is made out of a "
-"piece of bamboo reed covered on one end by greaseproof paper tied with "
-"string. A melody is then hummed into a hole in the reed producing a rough "
-"raspy sound. Not to be confused with the Egyptian/Iraqi zummara which is an "
-"instrument similar to a chalemeau."
 msgstr ""
 
 #. name:theatre organ 
@@ -4349,6 +4388,11 @@ msgid ""
 "Two rods, one is held in the mouth, which works as a resonance chamber while "
 "chanting and singing, the other is used for tapping and scraping, creating "
 "rhythm."
+msgstr ""
+
+#. name:English concertina 
+#: DB:instrument/description:837
+msgid "Unisonoric concertina with hexagonal sides and concertina reeds."
 msgstr ""
 
 #. name:slentho 
@@ -4630,6 +4674,11 @@ msgstr ""
 msgid "Violone, The largest/deepest member of the Viol family"
 msgstr ""
 
+#. name:shekere 
+#: DB:instrument/description:381
+msgid "West African gourd-shaker, a net of beads covers it."
+msgstr ""
+
 #. name:concert flute 
 #: DB:instrument/description:414
 msgid ""
@@ -4761,14 +4810,6 @@ msgstr ""
 #. name:disk drive 
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
-msgstr ""
-
-#. name:Anglo concertina 
-#: DB:instrument/description:839
-msgid ""
-"bisonoric and button layout like the german and reeds and hexagonal ends "
-"like the english, this concertina was created to rival the popular german "
-"variant imported into england."
 msgstr ""
 
 #. name:bugarija 
@@ -4944,25 +4985,12 @@ msgid ""
 "it produces a deep, loud whizzing sound that can be heard from far away."
 msgstr ""
 
-#. name:kamalen ngɔni 
-#: DB:instrument/description:817
-msgid ""
-"modern derivative of the donso ngɔni, it comes with more strings and is made "
-"of calabash, it became an important instrument in the rise of the Wassoulou "
-"music in the 80's and 90's"
-msgstr ""
-
 #. name:oval spinet 
 #: DB:instrument/description:879
 msgid ""
 "more accurately a virginals, its strings were arranged in a pattern creating "
 "an oval shape, allowing for a stronger, more compact configuration. 2 "
 "examples survive today."
-msgstr ""
-
-#. name:German concertina 
-#: DB:instrument/description:838
-msgid "more usually square than hexagonal, with long plate reeds"
 msgstr ""
 
 #. name:chirimía and drum 
@@ -5117,11 +5145,6 @@ msgid ""
 "unison course tuned 12 stringed electric guitar body with mandolin neck, it "
 "is tuned an octave higher than a conventional guitar, thus having the tonal "
 "range of the mandolin."
-msgstr ""
-
-#. name:English concertina 
-#: DB:instrument/description:837
-msgid "unisonoric concertina with hexagonal sides and concertina reeds."
 msgstr ""
 
 #. name:khulsan khuur 

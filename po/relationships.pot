@@ -128,11 +128,11 @@ msgstr ""
 msgid "CPDL page for"
 msgstr ""
 
-#: DB:link_type/name:8 DB:link_type/name:227
+#: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
 msgstr ""
 
-#: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
+#: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
 msgstr ""
 
@@ -1300,6 +1300,12 @@ msgstr ""
 
 #: DB:link_type/description:927
 msgid "This indicates a person or agency who did illustration for the release."
+msgstr ""
+
+#: DB:link_type/description:993
+msgid ""
+"This indicates a person or agency who provided artwork for the release when "
+"no more specific information is available."
 msgstr ""
 
 #: DB:link_type/description:723
@@ -3370,6 +3376,10 @@ msgstr ""
 msgid "artists and repertoire"
 msgstr ""
 
+#: DB:link_type/name:993
+msgid "artwork"
+msgstr ""
+
 #: DB:link_attribute_type/name:526
 msgid "assistant"
 msgstr ""
@@ -4610,7 +4620,7 @@ msgstr ""
 msgid "involved with"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
+#: DB:link_type/long_link_phrase:227 DB:link_type/long_link_phrase:8
 msgid "is a DJ-mix of"
 msgstr ""
 
@@ -5737,6 +5747,10 @@ msgstr ""
 msgid "provided {additional} art direction on"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:993
+msgid "provided {additional} artwork on"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
 msgid "provided {additional} creative direction on"
 msgstr ""
@@ -6797,6 +6811,10 @@ msgstr ""
 #: DB:link_type/link_phrase:137 DB:link_type/link_phrase:18
 #: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:18
 msgid "{additional} art direction"
+msgstr ""
+
+#: DB:link_type/link_phrase:993 DB:link_type/reverse_link_phrase:993
+msgid "{additional} artwork"
 msgstr ""
 
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
