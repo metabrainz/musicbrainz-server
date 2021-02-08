@@ -77,12 +77,12 @@ END; -%]
 [%- USE JavaScript -%]
 [%~ MACRO display_artwork_image(artwork, fallback, message) BLOCK -%] [% # Converted to React at root/components/Artwork.js %]
     <noscript>
-        <img src="[% artwork.small_thumbnail %]" />
+        <img src="[% artwork.small_ia_thumbnail %]" />
     </noscript>
 
     <span class="cover-art-image"
-        data-small-thumbnail="[% artwork.small_thumbnail %]"
-        data-large-thumbnail="[% artwork.large_thumbnail %]"
+        data-small-thumbnail="[% artwork.small_ia_thumbnail %]"
+        data-large-thumbnail="[% artwork.large_ia_thumbnail %]"
         data-fallback="[% fallback %]"
         data-title="[% artwork_hover(artwork) %]"
         data-message="[% message ? message : l('Image not available yet, please try again in a few minutes.') | html %]"

@@ -69,11 +69,24 @@ has release => (
     isa => 'Release',
 );
 
-sub _urlprefix
+sub _url_prefix
 {
     my $self = shift;
 
     return join('/', DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX, 'release', $self->release->gid, $self->id)
+}
+
+sub _ia_url_prefix {
+    my $self = shift;
+
+    my $mbid_part = 'mbid-' . $self->release->gid;
+
+    return join(
+        '/',
+        DBDefs->COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX,
+        $mbid_part,
+        ($mbid_part . '-' . $self->id),
+    );
 }
 
 sub filename
@@ -85,9 +98,18 @@ sub filename
     return sprintf("mbid-%s-%d.%s", $self->release->gid, $self->id, $self->suffix);
 }
 
-sub image { my $self = shift; return $self->_urlprefix . "." . $self->suffix; }
-sub small_thumbnail { my $self = shift; return $self->_urlprefix . "-250.jpg"; }
-sub large_thumbnail { my $self = shift; return $self->_urlprefix . "-500.jpg"; }
+sub image { my $self = shift; return $self->_url_prefix . "." . $self->suffix; }
+sub small_thumbnail { my $self = shift; return $self->_url_prefix . "-250.jpg"; }
+sub large_thumbnail { my $self = shift; return $self->_url_prefix . "-500.jpg"; }
+
+# These accessors allow for requesting thumbnails directly from the IA,
+# bypassing our artwork redirect service. These are suitable for any <img>
+# tags in our templates, avoiding a pointless 307 redirect and preventing
+# our redirect service from becoming overloaded. The "250px"/"500px"/
+# "original" links still point to the public API at coverartarchive.org via
+# small_thumbnail, large_thumbnail, etc.
+sub small_ia_thumbnail { shift->_ia_url_prefix . '_thumb250.jpg' }
+sub large_ia_thumbnail { shift->_ia_url_prefix . '_thumb500.jpg' }
 
 sub TO_JSON {
     my ($self) = @_;
@@ -97,8 +119,10 @@ sub TO_JSON {
         filename => $self->filename,
         image => $self->image,
         id => $self->id,
+        large_ia_thumbnail => $self->large_ia_thumbnail,
         large_thumbnail => $self->large_thumbnail,
         mime_type => $self->mime_type,
+        small_ia_thumbnail => $self->small_ia_thumbnail,
         small_thumbnail => $self->small_thumbnail,
         suffix => $self->suffix,
         types => $self->types,

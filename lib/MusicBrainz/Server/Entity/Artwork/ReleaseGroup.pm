@@ -16,7 +16,7 @@ has release_group => (
     isa => 'ReleaseGroup',
 );
 
-sub _urlprefix
+sub _url_prefix
 {
     my $self = shift;
 
