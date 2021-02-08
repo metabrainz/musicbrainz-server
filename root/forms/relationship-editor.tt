@@ -29,7 +29,7 @@
           <div>
             <button type="button" class="icon remove-item" data-click="removeRelationship"></button>
             <button type="button" class="icon edit-item" data-bind="disable: removed" data-click="openEditDialog"></button>
-            <!-- ko if: $parent.canBeOrdered() -->
+            <!-- ko if: $parent.canBeOrdered() && $parent.hasOrdering() -->
               <button type="button" class="icon move-down" title="[% l('Move entity down') %]" data-click="moveEntityDown"></button>
               <button type="button" class="icon move-up" title="[% l('Move entity up') %]" data-click="moveEntityUp"></button>
             <!-- /ko -->
