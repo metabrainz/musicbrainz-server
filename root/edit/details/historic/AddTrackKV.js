@@ -35,13 +35,6 @@ type Props = {
 const AddTrackKV = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const artist = display.artist;
-  /*
-   * Some lengths of -1 or 0 ms are stored, which is nonsensical
-   * and probably meant as a placeholder for unknown duration
-   */
-  const length = (display.length != null && display.length <= 0)
-    ? null
-    : display.length;
 
   return (
     <table className="details add-track">
@@ -73,7 +66,7 @@ const AddTrackKV = ({edit}: Props): React.Element<'table'> => {
 
       <tr>
         <th>{addColonText(l('Length'))}</th>
-        <td>{formatTrackLength(length)}</td>
+        <td>{formatTrackLength(display.length)}</td>
       </tr>
     </table>
   );
