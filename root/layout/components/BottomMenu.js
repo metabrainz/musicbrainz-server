@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';
 import {capitalize} from '../../static/scripts/common/utility/strings';
 import {returnToCurrentPage} from '../../utility/returnUri';

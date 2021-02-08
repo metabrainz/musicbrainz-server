@@ -237,7 +237,7 @@ type HtmlAttrs = {
   rel?: string,
   target?: string,
   title?: string,
-  ...,
+  ...
 };
 
 function parseHtmlAttr(args) {

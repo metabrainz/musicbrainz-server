@@ -25,8 +25,8 @@ $(function () {
         }
       })
       .attr({
-        'src': thumbnailUrl,
-        'title': $e.data('title'),
+        src: thumbnailUrl,
+        title: $e.data('title'),
       })
       .appendTo(this);
   });

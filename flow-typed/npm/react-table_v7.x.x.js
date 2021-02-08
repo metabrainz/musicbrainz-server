@@ -7,12 +7,17 @@ declare module 'react-table' {
     +row: Row<D>,
   };
 
+  declare export type HeaderProps<D> = $ReadOnly<{
+    ...UseTableInstance<D>,
+    +column: ColumnInstance,
+  }>;
+
   declare export type ColumnOptions<D, V> = {
     +accessor?: $Keys<D> | ((D) => V),
     +Cell?: React$AbstractComponent<CellRenderProps<D, V>, mixed>,
-    +Header?: Renderer<HeaderProps<D>>,
+    +Header?: React$ComponentType<mixed> | React$Node,
     +id?: string,
-    ...,
+    ...
   };
 
   declare export type ColumnInstance = {

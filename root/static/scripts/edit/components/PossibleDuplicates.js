@@ -25,7 +25,7 @@ class PossibleDuplicates extends React.Component {
         </ul>
         <p>
           <label>
-            <input type="checkbox" onChange={this.props.onCheckboxChange} />
+            <input onChange={this.props.onCheckboxChange} type="checkbox" />
             {' '}
             {texp.l(
               'Yes, I still want to enter “{entity_name}”.',

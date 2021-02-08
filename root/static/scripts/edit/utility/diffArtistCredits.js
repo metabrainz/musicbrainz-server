@@ -136,8 +136,8 @@ export default function diffArtistCredits(
       }
 
       case DELETE:
-        oldNames.push(...oldItems.map(credit => (
-          <span className={CLASS_MAP[DELETE]}>
+        oldNames.push(...oldItems.map((credit, index) => (
+          <span className={CLASS_MAP[DELETE]} key={'old-' + index}>
             <ArtistLink credit={credit} />
             {credit.joinPhrase}
           </span>
@@ -145,8 +145,8 @@ export default function diffArtistCredits(
         break;
 
       case INSERT:
-        newNames.push(...newItems.map(credit => (
-          <span className={CLASS_MAP[INSERT]}>
+        newNames.push(...newItems.map((credit, index) => (
+          <span className={CLASS_MAP[INSERT]} key={'new-' + index}>
             <ArtistLink credit={credit} />
             {credit.joinPhrase}
           </span>

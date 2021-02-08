@@ -81,8 +81,7 @@ export const MultipleSelectField = ({
   uncontrolled = false,
   ...props
 }: MultipleSelectFieldProps): React.Element<'select'> => {
-  const selectProps: MultipleSelectElementProps = {...props, multiple: true}
-;
+  const selectProps: MultipleSelectElementProps = {...props, multiple: true};
 
   if (selectProps.className === undefined) {
     selectProps.className = 'with-button';

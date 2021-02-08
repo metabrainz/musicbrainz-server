@@ -29,9 +29,9 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     ERE.viewModel = new ViewModel();
 
     var autocomplete = MB.Control.EntityAutocomplete({
-      'inputs': $('span.autocomplete'),
-      'entity': type0,
-      'setEntity': ERE.viewModel.selectedEntityType,
+      inputs: $('span.autocomplete'),
+      entity: type0,
+      setEntity: ERE.viewModel.selectedEntityType,
     });
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
 

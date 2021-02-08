@@ -305,15 +305,15 @@ async function writePreviousSeleniumCoverage() {
   }
 }
 
-async function handleCommandAndWait({command, file, target, value}, t) {
+async function handleCommandAndWait({command, target, value}, t) {
   const newCommand = command.replace(/AndWait$/, '');
 
   const html = await findElement('css=html');
-  await handleCommand({command: newCommand, file, target, value}, t);
+  await handleCommand({command: newCommand, target, value}, t);
   return driver.wait(until.stalenessOf(html), 30000);
 }
 
-async function handleCommand({command, file, target, value}, t) {
+async function handleCommand({command, target, value}, t) {
   if (/AndWait$/.test(command)) {
     return handleCommandAndWait.apply(null, arguments);
   }

@@ -15,8 +15,8 @@
 import * as React from 'react';
 
 type TooltipProps = {
-  +hoverCallback: (bool) => void,
   +content: React.Node,
+  +hoverCallback: (boolean) => void,
 };
 
 class Tooltip extends React.Component<TooltipProps> {
@@ -41,10 +41,12 @@ class Tooltip extends React.Component<TooltipProps> {
   render(): React.Element<'div'> {
     var hoverCallback = this.props.hoverCallback;
     return (
-      <div className="tooltip-container"
+      <div
+        className="tooltip-container"
         onMouseEnter={() => hoverCallback(true)}
         onMouseLeave={() => hoverCallback(false)}
-        ref={this.containerRef}>
+        ref={this.containerRef}
+      >
         <div className="tooltip-triangle" />
         <div className="tooltip-content">{this.props.content}</div>
       </div>

@@ -85,9 +85,8 @@ function mtime(fpath) {
   } catch (err) {
     if (err.code === 'ENOENT') {
       return null;
-    } else {
-      throw err;
     }
+    throw err;
   }
 }
 
@@ -149,7 +148,7 @@ function loadNewerPo(domain, lang, bundleMtime) {
   }
   let jedData;
   if (domain === 'mb_server') {
-    jedData = createJsPo(srcPo, lang)
+    jedData = createJsPo(srcPo, lang);
   } else {
     jedData = poFile.loadFromPath(srcPo, domain);
     jedData.domain = 'mb_server';

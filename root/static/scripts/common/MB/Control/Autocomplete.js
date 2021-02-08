@@ -560,9 +560,9 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         JSON.stringify(recentEntities),
       );
       return undefined;
-    } else {
-      return recentEntities[entityType] || [];
     }
+
+    return recentEntities[entityType] || [];
   },
 });
 
@@ -789,7 +789,7 @@ MB.Control.autocomplete_formatters = {
     return $('<li>').append(a).appendTo(ul);
   },
 
-  series: function (ul, item) {
+  'series': function (ul, item) {
     var a = $('<a>').text(item.name);
 
     if (item.comment) {

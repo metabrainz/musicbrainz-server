@@ -21,7 +21,7 @@ type WSLinkProps = {
     aliases: {[edit_type: string]: number},
     artist_credits: boolean,
     url: string,
-    ...,
+    ...
   },
   +entityType: CoreEntityTypeT,
   +isJson?: boolean,

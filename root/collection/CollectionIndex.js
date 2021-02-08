@@ -50,8 +50,7 @@ type Props =
   | PropsForEntity<ReleaseGroupT>
   | PropsForEntity<ReleaseT>
   | PropsForEntity<SeriesT>
-  | PropsForEntity<WorkT>
-  ;
+  | PropsForEntity<WorkT>;
 
 const listPicker = (
   $c: CatalystContextT,
