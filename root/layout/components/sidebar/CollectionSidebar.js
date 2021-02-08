@@ -104,6 +104,6 @@ const CollectionSidebar = ({
       ) : null}
     </div>
   );
-}
+};
 
 export default CollectionSidebar;

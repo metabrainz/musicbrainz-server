@@ -1,7 +1,7 @@
-/* global polyfills not provided by core-js */
+/* Global polyfills not provided by core-js */
 require('whatwg-fetch');
 require('./common/focusin-focusout-polyfill');
-/* end global polyfills */
+/* End of global polyfills */
 
 require('./public-path');
 

@@ -32,7 +32,7 @@ const PaginatedResults = ({
 }: Props): React.Element<typeof React.Fragment> => {
   const paginator = (
     <CatalystContext.Consumer>
-      {$c => <Paginator $c={$c} pager={pager} pageVar={pageVar} />}
+      {$c => <Paginator $c={$c} pageVar={pageVar} pager={pager} />}
     </CatalystContext.Consumer>
   );
   return (

@@ -133,6 +133,6 @@ const GroupedTrackRelationships = ({
   }
 
   return arsList;
-}
+};
 
 export default GroupedTrackRelationships;

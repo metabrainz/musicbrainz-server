@@ -11,7 +11,7 @@ import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
 import MB from '../common/MB';
-import DescriptiveLink from '../common/components/DescriptiveLink'
+import DescriptiveLink from '../common/components/DescriptiveLink';
 import expand2text from '../common/i18n/expand2text';
 import {errorsExist} from '../edit/validation';
 

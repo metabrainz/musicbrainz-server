@@ -651,18 +651,14 @@ MB.GuessCase.Handler.Base = function (gc) {
             tmp[tmp.length] = '.'; // Do dot
             flags.context.gotPeriod = true;
             flags.context.expectWord = true;
-          } else {
-            if (flags.context.gotPeriod && cw == ' ') {
-              flags.context.expectWord = true; // Do a single whitespace
-            } else {
-              if (tmp[tmp.length-1] != '.') {
-                tmp.pop(); // Lose last of the acronym
-                subIndex--; // It's for example "P.S. I" love you
-              }
-              // Found something which is not part of the acronym
-              break acronymloop;
-            }
+          } else if (flags.context.gotPeriod && cw == ' ') {
+            flags.context.expectWord = true; // Do a single whitespace
+          } else if (tmp[tmp.length-1] != '.') {
+            tmp.pop(); // Lose last of the acronym
+            subIndex--; // It's for example "P.S. I" love you
           }
+          // Found something which is not part of the acronym
+          break acronymloop;
         }
         subIndex++;
       }
@@ -711,44 +707,40 @@ MB.GuessCase.Handler.Base = function (gc) {
           } else {
             break numberloop;
           }
-        } else {
-          // Look for a group of 3 digits
-          if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_TRIPLE)) {
-            if (flags.context.numberSplitChar == null) {
-              // Confirmed number split
-              flags.context.numberSplitChar = tmp[tmp.length - 1];
-            }
-            tmp.push(gc.i.getWordAtIndex(subIndex));
-            flags.context.numberSplitExpect = true;
-          } else {
-            if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_DUPLE)) {
-              if (tmp.length > 2 &&
-                  flags.context.numberSplitChar != tmp[tmp.length - 1]) {
-                /*
-                 * Check for the opposite number splitter (, or .)
-                 * because numbers are generally either
-                 * 1,000,936.00 or 1.300.402,00 depending on
-                 * the country
-                 */
-                tmp.push(gc.i.getWordAtIndex(subIndex++));
-              } else {
-                tmp.pop(); // stand-alone number pair
-                subIndex--;
-              }
-            } else {
-              if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_NTUPLE)) {
-                /*
-                 * Big number at the end, probably a decimal point,
-                 * end of number in any case
-                 */
-                tmp.push(gc.i.getWordAtIndex(subIndex++));
-              } else {
-                tmp.pop(); // Last number split was not
-                subIndex--; // actually a number split
-              }
-            }
-            break numberloop;
+        } else if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_TRIPLE)) {
+          // Found for a group of 3 digits
+          if (flags.context.numberSplitChar == null) {
+            // Confirmed number split
+            flags.context.numberSplitChar = tmp[tmp.length - 1];
           }
+          tmp.push(gc.i.getWordAtIndex(subIndex));
+          flags.context.numberSplitExpect = true;
+        } else {
+          if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_DUPLE)) {
+            if (tmp.length > 2 &&
+                flags.context.numberSplitChar != tmp[tmp.length - 1]) {
+              /*
+               * Check for the opposite number splitter (, or .)
+               * because numbers are generally either
+               * 1,000,936.00 or 1.300.402,00 depending on
+               * the country
+               */
+              tmp.push(gc.i.getWordAtIndex(subIndex++));
+            } else {
+              tmp.pop(); // stand-alone number pair
+              subIndex--;
+            }
+          } else if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_NTUPLE)) {
+            /*
+             * Big number at the end, probably a decimal point,
+             * end of number in any case
+             */
+            tmp.push(gc.i.getWordAtIndex(subIndex++));
+          } else {
+            tmp.pop(); // Last number split was not
+            subIndex--; // actually a number split
+          }
+          break numberloop;
         }
         subIndex++;
       }

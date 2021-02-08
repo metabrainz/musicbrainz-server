@@ -99,7 +99,7 @@ const Index = ({
 
     {tokens.length
       ? (
-        <PaginatedResults pager={tokensPager} pageVar="tokens_page">
+        <PaginatedResults pageVar="tokens_page" pager={tokensPager}>
           <table className="tbl">
             <thead>
               <tr>
@@ -135,7 +135,7 @@ const Index = ({
 
     {applications.length
       ? (
-        <PaginatedResults pager={appsPager} pageVar="apps_page">
+        <PaginatedResults pageVar="apps_page" pager={appsPager}>
           <table className="tbl">
             <thead>
               <tr>

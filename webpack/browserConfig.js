@@ -10,7 +10,6 @@ const path = require('path');
 const webpack = require('webpack');
 
 const definePluginConfig = require('./definePluginConfig');
-const dirs = require('./dirs');
 
 module.exports = {
   node: {

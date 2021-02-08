@@ -39,8 +39,7 @@ export type RelationshipInfoT = {
 export type LinkPhraseProp =
   | 'link_phrase'
   | 'long_link_phrase'
-  | 'reverse_link_phrase'
-  ;
+  | 'reverse_link_phrase';
 
 function _getResultCache<T>(
   resultCache: WeakMap<RelationshipInfoT, CachedLinkData<T>>,
@@ -113,8 +112,8 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
 export type LinkPhraseI18n<T> = {
   cache: WeakMap<RelationshipInfoT, CachedLinkData<T>>,
   commaList: ($ReadOnlyArray<T>) => T,
-  expand: (string, PhraseVarArgs<T>) => T,
   displayLinkAttribute: (LinkAttrT) => T,
+  expand: (string, PhraseVarArgs<T>) => T,
 };
 
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
@@ -205,7 +204,7 @@ export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
 const requiredAttributesCache: {
   __proto__: null,
   [linkTypeId: number]: {+[attributeName: string]: LinkAttrT, ...},
-  ...,
+  ...
 } = Object.create(null);
 
 function _getRequiredAttributes(

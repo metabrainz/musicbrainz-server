@@ -93,6 +93,7 @@ rules:
   no-unreachable: error
   no-unsafe-finally: error
   no-unsafe-negation: error
+  no-unused-vars: error
   no-with: error
   require-atomic-updates: error
   use-isnan: error
@@ -105,6 +106,7 @@ rules:
   dot-location: [warn, property]
   dot-notation: [warn, {allowKeywords: true}]
   no-alert: off
+  no-else-return: warn
   no-eq-null: off
   no-floating-decimal: warn
   no-global-assign: error
@@ -136,6 +138,8 @@ rules:
   function-paren-newline: [warn, consistent]
   implicit-arrow-linebreak: [warn, beside]
   indent: [warn, 2, {CallExpression: {arguments: first}, SwitchCase: 1, ignoredNodes: ["JSXElement", "ArrowFunctionExpression"]}]
+  jsx-quotes: [warn, prefer-double]
+  key-spacing: [warn, {mode: minimum}]
   keyword-spacing: [warn, {before: true, after: true}]
   linebreak-style: [warn, unix]
   lines-between-class-members: [warn, always]
@@ -149,6 +153,8 @@ rules:
   multiline-ternary: off
   new-cap: off
   new-parens: warn
+  newline-per-chained-call: [warn, {ignoreChainWithDepth: 3}]
+  no-lonely-if: warn
   no-mixed-spaces-and-tabs: warn
   no-multi-assign: off
   no-multiple-empty-lines: [warn, {max: 2, maxBOF: 0, maxEOF: 0}]
@@ -163,7 +169,10 @@ rules:
   no-whitespace-before-property: warn
   object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
   one-var: [warn, never]
+  quote-props: [warn, consistent-as-needed, {numbers: true}]
+  semi: [warn, always, {omitLastInOneLineBlock: true}]
   semi-spacing: [warn, {before: false, after: true}]
+  semi-style: [warn, last]
   space-before-blocks: [warn, always]
   space-in-parens: [warn, never]
   space-unary-ops: [warn, {words: true, nonwords: false}]
@@ -246,28 +255,34 @@ rules:
   react/require-default-props: off
   react/require-optimization: off
   react/require-render-return: error
+  react/self-closing-comp: error
   react/sort-prop-types: off
   react/style-prop-object: error
   react/void-dom-elements-no-children: error
 
   # JSX-specific rules
   react/jsx-boolean-value: [warn, never]
+  react/jsx-closing-bracket-location: [error, tag-aligned]
   react/jsx-closing-tag-location: error
   react/jsx-curly-spacing: [error, {when: never, children: true}]
   react/jsx-equals-spacing: [error, never]
   react/jsx-filename-extension: [error, {extensions: [.js]}]
+  react/jsx-first-prop-new-line: [error, multiline-multiprop]
   react/jsx-handler-names: warn
   react/jsx-indent: [error, 2]
   react/jsx-indent-props: [error, 2]
+  react/jsx-key: warn
   react/jsx-max-props-per-line: [error, {maximum: 1, when: multiline}]
   react/jsx-no-comment-textnodes: warn
   react/jsx-no-duplicate-props: [error, {ignoreCase: true}]
+  react/jsx-no-literals: warn
   react/jsx-no-target-blank: error
   react/jsx-no-undef: [error, {allowGlobals: true}]
   react/jsx-one-expression-per-line: [warn, {allow: single-child}]
   react/jsx-curly-brace-presence: [error, {props: never, children: ignore}]
   react/jsx-pascal-case: error
   react/jsx-sort-default-props: warn
+  react/jsx-sort-props: warn
   react/jsx-tag-spacing: [error, {beforeClosing: never}]
   # jsx-uses-react is not implied since
   # https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
@@ -285,7 +300,9 @@ rules:
   # eslint-plugin-flowtype #
   ##########################
 
+  flowtype/boolean-style: [warn, boolean]
   flowtype/define-flow-type: warn
+  flowtype/delimiter-dangle: [warn, always-multiline]
   flowtype/generic-spacing: [warn, never]
   flowtype/no-dupe-keys: error
   flowtype/no-flow-fix-me-comments: off
@@ -298,6 +315,7 @@ rules:
   flowtype/require-return-type: off
   flowtype/require-valid-file-annotation: off
   flowtype/semi: [warn, always]
+  flowtype/sort-keys: [warn, asc]
   flowtype/space-after-type-colon: [warn, always, {allowLineBreak: true}]
   flowtype/space-before-generic-bracket: [warn, never]
   flowtype/space-before-type-colon: [warn, never]

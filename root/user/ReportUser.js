@@ -26,8 +26,7 @@ type ReportReasonT =
   | 'other'
   | 'spam'
   | 'unresponsiveness'
-  | 'voting'
-  ;
+  | 'voting';
 
 type Props = {
   +$c: CatalystContextT,

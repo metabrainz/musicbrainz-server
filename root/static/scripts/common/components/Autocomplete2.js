@@ -596,8 +596,8 @@ export default function Autocomplete2<+T: EntityItem>(
             dispatch={dispatch}
             highlightedItem={props.highlightedItem}
             items={props.items}
-            selectedItem={props.selectedItem}
             selectItem={selectItem}
+            selectedItem={props.selectedItem}
           />
         )}
       </ul>
