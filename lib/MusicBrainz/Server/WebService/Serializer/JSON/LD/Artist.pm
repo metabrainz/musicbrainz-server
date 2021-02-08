@@ -37,7 +37,18 @@ around serialize => sub {
             $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash);
         }
 
-        my @members = grep { $_->direction == 2 } @{ $entity->relationships_by_link_type_names('member of band') };
+        my $member_rels = $entity->relationships_by_link_type_names('member of band');
+        my @members;
+        my @member_ofs;
+
+        for my $member_rel (@{ $member_rels }) {
+            if ($member_rel->direction == 1) {
+                push(@member_ofs, $member_rel);
+            } elsif ($member_rel->direction == 2) {
+                push(@members, $member_rel);
+            }
+        }
+
         if (@members) {
             my %seen_members;
             for my $member (@members) {
@@ -52,9 +63,17 @@ around serialize => sub {
                 if ($end_date && $end_date->defined_run) {
                     $key .= '-end-' . join('-', $end_date->defined_run);
                 }
-                $seen_members{$key} = member_relationship($member, $inc, $stash, $seen_members{$key});
+                $seen_members{$key} = member_relationship($member, 'member', $inc, $stash, $seen_members{$key});
             }
             $ret->{member} = [ map { $seen_members{$_} } sort keys %seen_members ];
+        }
+
+        if (@member_ofs) {
+            my %seen_members_of;
+            for my $member_of (@member_ofs) {
+                $seen_members_of{$member_of->target->gid} = member_relationship($member_of, 'memberOf', $inc, $stash, $seen_members_of{$member_of->target->gid});
+            }
+            $ret->{memberOf} = [ map { $seen_members_of{$_} } sort keys %seen_members_of ];
         }
 
         if ($stash->store($entity)->{release_groups}) {
@@ -84,12 +103,12 @@ around serialize => sub {
 };
 
 sub member_relationship {
-    my ($relationship, $inc, $stash, $ret) = @_;
+    my ($relationship, $type, $inc, $stash, $ret) = @_;
     my $is_new = 0;
     if (!$ret) {
         $ret = {
             '@type' => 'OrganizationRole',
-            member => serialize_entity($relationship->target, $inc, $stash)
+            $type => serialize_entity($relationship->target, $inc, $stash)
         };
         $is_new = 1;
     }
