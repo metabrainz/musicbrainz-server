@@ -30,7 +30,7 @@ around inflate_rows => sub {
 
 1;
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2020 Jerome Roy
 
