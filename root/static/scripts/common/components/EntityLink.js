@@ -96,9 +96,19 @@ const AreaDisambiguation = ({area}: {+area: AreaT}) => {
   return <Comment className="historical" comment={comment} />;
 };
 
+const disabledLinkText = N_l(`This link has been temporarily disabled because
+                              it has been reported as potentially harmful.`);
+
 const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
   <>
-    <a href={url}>{url}</a>
+    {isGreyedOut(url) ? (
+      <span
+        className="deleted"
+        title={disabledLinkText()}
+      >
+        {isolateText(url)}
+      </span>
+    ) : <a href={url}>{url}</a>}
     {' '}
     <DeletedLink
       allowNew={allowNew}
@@ -218,8 +228,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
       <span
         className="deleted"
         title={entity.entityType === 'url' && isGreyedOut(href)
-          ? l(`This link has been temporarily disabled because
-               it has been reported as potentially harmful.`)
+          ? disabledLinkText()
           : null}
       >
         {isolateText(content)}
