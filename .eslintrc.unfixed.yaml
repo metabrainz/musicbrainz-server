@@ -35,8 +35,6 @@ rules:
   consistent-this: [warn, self]
   operator-assignment: [warn, always]
   operator-linebreak: [warn, after, {overrides: {?: before, :: before}}]
-  quotes: [warn, single, {avoidEscape: true,
-                          allowTemplateLiterals: true}]
   sort-keys: [warn, asc, {caseSensitive: false, natural: true}]
   space-before-function-paren: [warn, {anonymous: always,
                                        named: never,
