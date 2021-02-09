@@ -102,6 +102,7 @@ rules:
   # Best Practices
   block-scoped-var: warn
   class-methods-use-this: off
+  consistent-return: error
   curly: [error, all]
   dot-location: [warn, property]
   dot-notation: [warn, {allowKeywords: true}]

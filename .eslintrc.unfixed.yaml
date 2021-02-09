@@ -1,6 +1,5 @@
 rules:
   no-await-in-loop: error
-  consistent-return: error
   eqeqeq: [warn, smart]
   wrap-iife: warn
   camelcase: [warn, {properties: never,
