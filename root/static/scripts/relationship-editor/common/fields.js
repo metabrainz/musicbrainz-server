@@ -38,7 +38,6 @@ var fields = RE.fields = RE.fields || {};
 
 
 class Relationship {
-
   constructor(data, source, parent) {
     var self = this;
 

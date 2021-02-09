@@ -196,7 +196,6 @@ MB.GuessCase.Handler.Base = function (gc) {
           featIndex > 0 &&
           gc.o.getWordAtIndex(featIndex) == 'feat.' &&
           (role = gc.o.getLastWord()) != '') {
-
         gc.o.setWordAtIndex(gc.o.getLength() - 1, role.toLowerCase());
       } else {
         /*
@@ -801,7 +800,6 @@ MB.GuessCase.Handler.Base = function (gc) {
        * enough words after the keyword
        */
       if (gc.i.getPos() < gc.i.getLength() - 2) {
-
         const featWord = gc.i.getCurrentWord() + (
           gc.i.isNextWord('.') || gc.i.isNextWord('/') ? gc.i.getNextWord() :
           // Special case (feat), fix typo by adding a "." if missing

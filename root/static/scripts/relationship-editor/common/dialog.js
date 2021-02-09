@@ -179,7 +179,6 @@ ko.bindingHandlers.instrumentSelect = {
 
 
 class Dialog {
-
   constructor(options) {
     var self = this;
 
@@ -714,7 +713,6 @@ function addRelationships(relationships, source, viewModel) {
 }
 
 export class AddDialog extends Dialog {
-
   _accept() {
     addRelationships(
       splitByCreditableAttributes(this.relationship()),
@@ -737,7 +735,6 @@ Object.assign(AddDialog.prototype, {
 });
 
 export class EditDialog extends Dialog {
-
   constructor(options) {
     /*
      * originalRelationship is a copy of the relationship when the dialog
@@ -780,7 +777,6 @@ Object.assign(EditDialog.prototype, {
 });
 
 export class BatchRelationshipDialog extends Dialog {
-
   constructor(options) {
     options.source = MB.entity({}, options.sources[0].entityType);
     options.target = options.target || new MB.entity.Artist({});
@@ -819,7 +815,6 @@ Object.assign(BatchRelationshipDialog.prototype, {
 });
 
 export class BatchCreateWorksDialog extends BatchRelationshipDialog {
-
   constructor(options) {
     super(Object.assign(options, { target: new MB.entity.Work({}) }));
     this.error = ko.observable(false);

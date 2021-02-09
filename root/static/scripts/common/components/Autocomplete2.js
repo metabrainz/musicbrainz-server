@@ -413,7 +413,6 @@ export default function Autocomplete2<+T: EntityItem>(
 
       lookupXhr.open('GET', '/ws/js/entity/' + mbidMatch[0]);
       lookupXhr.send();
-
     } else if (clean(props.inputValue) !== newCleanInputValue) {
       stopRequests();
       doSearchOrFilter<T>(dispatch, props.staticItems, newCleanInputValue);

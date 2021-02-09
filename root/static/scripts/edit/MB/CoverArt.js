@@ -333,7 +333,6 @@ MB.CoverArt.submit_edit = function (
   xhr.send(formdata);
 
   return deferred.promise();
-
 };
 
 MB.CoverArt.FileUpload = function (file) {
@@ -443,7 +442,6 @@ MB.CoverArt.FileUpload = function (file) {
           });
         });
       });
-
     });
 
     return deferred.promise();
@@ -471,7 +469,6 @@ MB.CoverArt.FileUpload = function (file) {
         break;
     }
   };
-
 };
 
 MB.CoverArt.UploadProcessViewModel = function () {
@@ -497,7 +494,6 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
 
 MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
-
   var queue = upvm.files_to_upload().map(function (item) {
     return function () {
       return item.doUpload(gid, pos++);

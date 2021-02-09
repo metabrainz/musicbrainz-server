@@ -91,7 +91,6 @@ parserTest((
     { position: 4, name: 'Never Can Wait',  formattedLength: '3:24' },
   ]);
   /* eslint-enable no-multi-spaces */
-
 });
 
 parserTest((

@@ -13,7 +13,6 @@ import MB from '../../../common/MB';
 import deferFocus from '../../utility/deferFocus';
 
 class BubbleBase {
-
   /*
    * The default observable equality comparer returns false if the values
    * aren't primitive, even if the values are equal.
@@ -121,7 +120,6 @@ BubbleBase.prototype.activeBubbles = {};
  * input to the left of it.
  */
 class BubbleDoc extends BubbleBase {
-
   show(control) {
     super.show(control);
 
@@ -162,7 +160,6 @@ ko.bindingHandlers.bubble = {
 
   init: function (element, valueAccessor, allBindingsAccessor,
     viewModel, bindingContext) {
-
     var bubble = valueAccessor();
     element.bubbleDoc = bubble;
     bubble.$bubble = $(element);
@@ -277,7 +274,6 @@ function bubbleControlHandler(event) {
 
     if (buttonClicked && wasOpen) {
       bubble.hide();
-
     } else if (inputFocused || (buttonClicked && !wasOpen)) {
       bubble.show(control);
     }

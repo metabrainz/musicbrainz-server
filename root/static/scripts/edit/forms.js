@@ -324,7 +324,6 @@ ko.bindingHandlers.withLabel = {
 
   update: function (element, valueAccessor, allBindings,
     viewModel, bindingContext) {
-
     var name = valueAccessor() + '-' + bindingContext.$index();
 
     $(element)

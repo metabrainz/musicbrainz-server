@@ -96,7 +96,6 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     if (!wasClosed) {
       if (!this._prevImageLink && hadFocus === this.$prev[0]) {
         this.$next.focus();
-
       } else if (!this._nextImageLink && hadFocus === this.$next[0]) {
         this.$prev.focus();
       }
@@ -221,7 +220,6 @@ $(function () {
     $(container).on('click', 'a.artwork-image', function (event) {
       if (!(event.which > 1 || event.shiftKey || event.altKey ||
           event.metaKey || event.ctrlKey)) {
-
         event.preventDefault();
         $activeDialog = $artworkViewer.artworkViewer('open', this, true);
       }
@@ -236,7 +234,6 @@ $(function () {
 
       if (event.keyCode === 37) { // Left arrow
         $activeDialog.artworkViewer('prevImage');
-
       } else if (event.keyCode === 39) { // Right Arrow
         $activeDialog.artworkViewer('nextImage');
       }

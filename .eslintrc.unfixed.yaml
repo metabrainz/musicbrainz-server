@@ -40,7 +40,6 @@ rules:
   object-curly-spacing: [warn, never]
   operator-assignment: [warn, always]
   operator-linebreak: [warn, after, {overrides: {?: before, :: before}}]
-  padded-blocks: [warn, never]
   quotes: [warn, single, {avoidEscape: true,
                           allowTemplateLiterals: true}]
   sort-keys: [warn, asc, {caseSensitive: false, natural: true}]

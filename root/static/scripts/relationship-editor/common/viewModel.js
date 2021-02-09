@@ -116,7 +116,6 @@ RE.exportTypeInfo = function (typeInfo, attrInfo) {
 
 
 export class ViewModel {
-
   constructor(options) {
     this.source = options.source;
     this.uniqueID = uniqueId('relationship-editor-');

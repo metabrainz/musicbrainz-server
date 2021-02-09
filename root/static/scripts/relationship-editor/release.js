@@ -23,7 +23,6 @@ var UI = RE.UI = RE.UI || {};
 
 
 export class ReleaseViewModel extends ViewModel {
-
   constructor(options) {
     super(options);
 
@@ -303,7 +302,6 @@ export class ReleaseViewModel extends ViewModel {
   }
 
   _sortedRelationships(relationships, source) {
-
     return relationships
       .filter(function (relationship) {
         return relationship.entityTypes !== 'recording-work';

@@ -1,11 +1,9 @@
 import $ from 'jquery';
 
 $(function () {
-
   $('.reldetails').hide();
 
   $('.toggle').click(function () {
-
     $(this)
       .parent()
       .next('.reldetails')
@@ -19,7 +17,6 @@ $(function () {
     } else {
       $(this).text('less');
     }
-
   });
 
   $('#showAll').click(function () {
@@ -33,5 +30,4 @@ $(function () {
     $('#showAll').show();
     $('.toggle').text('more');
   });
-
 });
