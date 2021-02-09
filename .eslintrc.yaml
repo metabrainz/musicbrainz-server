@@ -132,6 +132,7 @@ rules:
                         imports: always-multiline,
                         exports: always-multiline,
                         functions: always-multiline}]
+  comma-spacing: [warn, {before: false, after: true}]
   comma-style: [warn, last]
   eol-last: [warn, always]
   func-call-spacing: [warn, never]

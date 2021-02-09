@@ -33,7 +33,6 @@ rules:
                        "N_ln",
                        "N_lp",
                      ]}]
-  comma-spacing: [warn, {before: false, after: true}]
   computed-property-spacing: [warn, never, {"enforceForClassMembers": true}]
   consistent-this: [warn, self]
   operator-assignment: [warn, always]
