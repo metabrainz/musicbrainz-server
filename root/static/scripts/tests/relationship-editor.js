@@ -1196,9 +1196,11 @@ relationshipEditorTest((
         id: 188961,
         gid: 'd0dd466b-3385-356b-bdf0-856737c6baf7',
         name: '3 Great Piano Sonatas',
-        artistCredit: {names: [
-          {artist: beethoven, joinPhrase: '; ', name: 'Beethoven'},
-        ]},
+        artistCredit: {
+          names: [
+            {artist: beethoven, joinPhrase: '; ', name: 'Beethoven'},
+          ],
+        },
       },
     },
   });

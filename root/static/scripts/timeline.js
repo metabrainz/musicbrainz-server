@@ -63,10 +63,14 @@ class TimelineViewModel {
      * recalculated, and to ensure graph doesn't need repeated redrawing
      */
     self.zoom = {
-      xaxis: {min: debounceComputed(ko.observable(null), 50),
-        max: debounceComputed(ko.observable(null), 50)},
-      yaxis: {min: debounceComputed(ko.observable(null), 50),
-        max: debounceComputed(ko.observable(null), 50)},
+      xaxis: {
+        max: debounceComputed(ko.observable(null), 50),
+        min: debounceComputed(ko.observable(null), 50),
+      },
+      yaxis: {
+        max: debounceComputed(ko.observable(null), 50),
+        min: debounceComputed(ko.observable(null), 50),
+      },
     };
     self.zoomArray = ko.computed({
       read: function () {
@@ -453,8 +457,10 @@ class TimelineLine {
       return sum + toSquare * toSquare;
     }, 0);
     var standardDeviation = Math.sqrt(deviationSum / count);
-    var thresholds = {min: mean - 3 * standardDeviation,
-      max: mean + 3 * standardDeviation};
+    var thresholds = {
+      max: mean + 3 * standardDeviation,
+      min: mean - 3 * standardDeviation,
+    };
 
     return {data: weekData, thresholds: thresholds};
   }

@@ -167,6 +167,7 @@ rules:
   no-underscore-dangle: off
   no-unneeded-ternary: warn
   no-whitespace-before-property: warn
+  object-curly-newline: [warn, {multiline: true, consistent: true}]
   object-curly-spacing: [warn, never]
   object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
   one-var: [warn, never]
