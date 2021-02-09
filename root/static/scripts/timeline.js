@@ -63,10 +63,10 @@ class TimelineViewModel {
      * recalculated, and to ensure graph doesn't need repeated redrawing
      */
     self.zoom = {
-      xaxis: { min: debounceComputed(ko.observable(null), 50),
-        max: debounceComputed(ko.observable(null), 50) },
-      yaxis: { min: debounceComputed(ko.observable(null), 50),
-        max: debounceComputed(ko.observable(null), 50) },
+      xaxis: {min: debounceComputed(ko.observable(null), 50),
+        max: debounceComputed(ko.observable(null), 50)},
+      yaxis: {min: debounceComputed(ko.observable(null), 50),
+        max: debounceComputed(ko.observable(null), 50)},
     };
     self.zoomArray = ko.computed({
       read: function () {
@@ -653,7 +653,7 @@ class TimelineLine {
          * events, line size)
          */
         if (graph === 'main' || graph === 'rate') {
-          options.grid = { hoverable: true };
+          options.grid = {hoverable: true};
           options.xaxis = {
             minTickSize: [7, 'day'],
             mode: 'time',
@@ -673,16 +673,16 @@ class TimelineLine {
             };
           }
         } else if (graph === 'overview') {
-          options.series = { lines: { lineWidth: 1 }, shadowSize: 0 };
-          options.xaxis = { mode: 'time', minTickSize: [1, 'year'] };
-          options.yaxis = { tickFormatter: () => '' };
+          options.series = {lines: {lineWidth: 1}, shadowSize: 0};
+          options.xaxis = {mode: 'time', minTickSize: [1, 'year']};
+          options.yaxis = {tickFormatter: () => ''};
         }
 
         // Selection mode
         if (graph === 'main' || graph === 'overview') {
-          options.selection = { mode: 'xy' };
+          options.selection = {mode: 'xy'};
         } else if (graph === 'rate') {
-          options.selection = { mode: 'x' };
+          options.selection = {mode: 'x'};
         }
 
         // zoom

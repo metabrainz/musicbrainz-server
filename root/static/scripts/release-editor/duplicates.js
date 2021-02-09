@@ -63,7 +63,7 @@ releaseEditor.findReleaseDuplicates = function () {
     loadingFromRG = true;
     toggleLoadingIndicator(true);
 
-    request({ url: url })
+    request({url: url})
       .always(function () {
         loadingFromRG = false;
         toggleLoadingIndicator(false);
@@ -154,7 +154,7 @@ function formatReleaseData(release) {
   clean.labels = labels ? compactMap(labels, function (info) {
     const label = info.label;
     if (label) {
-      return new MB.entity.Label({ gid: label.id, name: label.name });
+      return new MB.entity.Label({gid: label.id, name: label.name});
     }
     return null;
   }) : [];

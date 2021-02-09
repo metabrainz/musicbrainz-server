@@ -285,7 +285,7 @@ class Relationship {
   }
 
   loadWorkRelationships(work) {
-    var args = { url: '/ws/js/entity/' + work.gid + '?inc=rels' };
+    var args = {url: '/ws/js/entity/' + work.gid + '?inc=rels'};
 
     request(args).done(function (data) {
       work.parseRelationships(data.relationships);
@@ -322,7 +322,7 @@ class Relationship {
         return linkAttribute;
       }
     }
-    return new fields.LinkAttribute({ type: { gid: typeGID }});
+    return new fields.LinkAttribute({type: {gid: typeGID}});
   }
 
   setAttributes(attributes) {
@@ -332,7 +332,7 @@ class Relationship {
   }
 
   addAttribute(typeGID) {
-    var attribute = new fields.LinkAttribute({ type: { gid: typeGID } });
+    var attribute = new fields.LinkAttribute({type: {gid: typeGID}});
     this.attributes.push(attribute);
     return attribute;
   }
@@ -633,7 +633,7 @@ fields.LinkAttribute.prototype.identity = function () {
 
 fields.LinkAttribute.prototype.toJS = function () {
   var type = this.type;
-  var output = { type: { gid: type.gid } };
+  var output = {type: {gid: type.gid}};
 
   if (type.creditable) {
     output.credited_as = clean(this.creditedAs());
@@ -660,7 +660,7 @@ ko.bindingHandlers.textAttribute = {
       }
       currentValue = newValue;
     });
-    ko.applyBindingsToNode(element, { value: linkAttribute.textValue });
+    ko.applyBindingsToNode(element, {value: linkAttribute.textValue});
   },
 };
 

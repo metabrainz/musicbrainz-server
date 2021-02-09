@@ -192,7 +192,7 @@ ko.bindingHandlers.loop = {
               if (node.parentNode) {
                 node.parentNode.removeChild(node);
               }
-              removals.push({ node: node, itemID: itemID });
+              removals.push({node: node, itemID: itemID});
             }
           }
           /*
@@ -285,10 +285,10 @@ ko.bindingHandlers.loop = {
     ko.utils.domNodeDisposal.addDisposeCallback(parentNode, nodeDisposal);
 
     update(observableArray.peek().map(function (value, index) {
-      return { status: 'added', value: value, index: index };
+      return {status: 'added', value: value, index: index};
     }));
 
-    return { controlsDescendantBindings: true };
+    return {controlsDescendantBindings: true};
   },
 };
 

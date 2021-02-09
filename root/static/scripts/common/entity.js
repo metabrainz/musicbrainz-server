@@ -265,7 +265,7 @@ import formatTrackLength from './utility/formatTrackLength';
       return ReactDOMServer.renderToStaticMarkup(
         exp.l(
           'You selected {area}.',
-          {area: this.reactElement({ target: '_blank'})},
+          {area: this.reactElement({target: '_blank'})},
         ),
       );
     }
@@ -314,7 +314,7 @@ import formatTrackLength from './utility/formatTrackLength';
     toJSON() {
       return Object.assign(
         super.toJSON(),
-        { isrcs: this.isrcs, appearsOn: this.appearsOn },
+        {isrcs: this.isrcs, appearsOn: this.appearsOn},
       );
     }
   }
@@ -439,7 +439,7 @@ import formatTrackLength from './utility/formatTrackLength';
 
   class Work extends CoreEntity {
     toJSON() {
-      return Object.assign(super.toJSON(), { artists: this.artists });
+      return Object.assign(super.toJSON(), {artists: this.artists});
     }
   }
 

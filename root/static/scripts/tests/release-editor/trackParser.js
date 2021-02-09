@@ -53,13 +53,13 @@ parserTest('track numbers', function (t) {
     .join('\n');
 
   common.trackParserTest(t, input, [
-    { position: 1, number: 'a1', name: 'Kermis' },
-    { position: 2, number: 'a2', name: 'Glitch' },
-    { position: 3, number: 'a3', name: 'Afrik Slang' },
-    { position: 4, number: '4', name: 'Rot Beat' },
-    { position: 5, number: '5', name: 'Pruik' },
-    { position: 6, number: '6', name: 'In Je Graff' },
-    { position: 7, number: '7', name: 'Ｈｉｌｌｗｏｏｄ' },
+    {position: 1, number: 'a1', name: 'Kermis'},
+    {position: 2, number: 'a2', name: 'Glitch'},
+    {position: 3, number: 'a3', name: 'Afrik Slang'},
+    {position: 4, number: '4', name: 'Rot Beat'},
+    {position: 5, number: '5', name: 'Pruik'},
+    {position: 6, number: '6', name: 'In Je Graff'},
+    {position: 7, number: '7', name: 'Ｈｉｌｌｗｏｏｄ'},
   ]);
 });
 
@@ -85,10 +85,10 @@ parserTest((
 
   /* eslint-disable no-multi-spaces */
   common.trackParserTest(t, input, [
-    { position: 1, name: 'Forgotten Child', formattedLength: '3:39' },
-    { position: 2, name: 'Dirty Looks',     formattedLength: '4:34' },
-    { position: 3, name: 'Private Life',    formattedLength: '3:29' },
-    { position: 4, name: 'Never Can Wait',  formattedLength: '3:24' },
+    {position: 1, name: 'Forgotten Child', formattedLength: '3:39'},
+    {position: 2, name: 'Dirty Looks',     formattedLength: '4:34'},
+    {position: 3, name: 'Private Life',    formattedLength: '3:29'},
+    {position: 4, name: 'Never Can Wait',  formattedLength: '3:24'},
   ]);
   /* eslint-enable no-multi-spaces */
 });
@@ -112,8 +112,8 @@ parserTest((
     .join('\n');
 
   common.trackParserTest(t, input, [
-    { position: 1, name: 'Criminology 2.5', formattedLength: '' },
-    { position: 2, name: 'Love On A .45', formattedLength: '' },
+    {position: 1, name: 'Criminology 2.5', formattedLength: ''},
+    {position: 2, name: 'Love On A .45', formattedLength: ''},
   ]);
 });
 
@@ -157,7 +157,7 @@ parserTest('XX:XX:XX track times (MBS-3353)', function (t) {
   var input = '1. Love On A .45  05:22:31';
 
   common.trackParserTest(t, input, [
-    { position: 1, name: 'Love On A .45', formattedLength: '5:22:31' },
+    {position: 1, name: 'Love On A .45', formattedLength: '5:22:31'},
   ]);
 });
 
@@ -242,7 +242,7 @@ parserTest((
       tracks: [{
         number: '1',
         name: 'foo',
-        artistCredit: {names: [{ name: 'bar' }]},
+        artistCredit: {names: [{name: 'bar'}]},
         length: 180000,
       }],
     }],
@@ -444,7 +444,7 @@ parserTest('parsing fullwidth numbers', function (t) {
   var input = '１ Ｆｏｏ ２：３４';
 
   common.trackParserTest(t, input, [
-    { position: 1, name: 'Ｆｏｏ', formattedLength: '2:34' },
+    {position: 1, name: 'Ｆｏｏ', formattedLength: '2:34'},
   ]);
 });
 

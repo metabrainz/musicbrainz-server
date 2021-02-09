@@ -181,7 +181,7 @@ MB.initRelationshipEditors = function (args) {
   MB.sourceEntity = MB.entity(sourceData);
 
   var source = MB.sourceEntity;
-  var vmArgs = { source: source, formName: args.formName };
+  var vmArgs = {source: source, formName: args.formName};
 
   let {vmClass} = args;
   if (!vmClass) {
@@ -325,8 +325,8 @@ function addRelationshipsFromQueryString(source) {
     }
 
     var target = targetIsUUID
-      ? (MB.entityCache[rel.target] || { gid: rel.target })
-      : { name: rel.target };
+      ? (MB.entityCache[rel.target] || {gid: rel.target})
+      : {name: rel.target};
 
     if (linkType && !target.entityType) {
       target.entityType = source.entityType === linkType.type0
@@ -350,7 +350,7 @@ function addRelationshipsFromQueryString(source) {
 
         if (attrInfo && linkType.attributes[attrInfo.id]) {
           accum.push({
-            type: { gid: attr.type },
+            type: {gid: attr.type},
             credit: attr.credited_as,
             textValue: attr.text_value,
           });

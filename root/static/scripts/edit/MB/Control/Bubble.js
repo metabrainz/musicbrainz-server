@@ -166,10 +166,10 @@ ko.bindingHandlers.bubble = {
 
     var childContext = bindingContext.createChildContext(bubble);
 
-    ko.applyBindingsToNode(element, { show: bubble.visible }, childContext);
+    ko.applyBindingsToNode(element, {show: bubble.visible}, childContext);
     ko.applyBindingsToDescendants(childContext, element);
 
-    return { controlsDescendantBindings: true };
+    return {controlsDescendantBindings: true};
   },
 };
 
@@ -236,7 +236,7 @@ ko.bindingHandlers.affectsBubble = {
       }
     });
 
-    observer.observe(element, { childList: true, subtree: true });
+    observer.observe(element, {childList: true, subtree: true});
 
     ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
       observer.disconnect();
@@ -339,8 +339,8 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
     bubbleDoc.canBeShown = canBeShown;
   }
 
-  ko.applyBindingsToNode($(bubble)[0], { bubble: bubbleDoc }, vm);
-  ko.applyBindingsToNode($(control)[0], { controlsBubble: bubbleDoc }, vm);
+  ko.applyBindingsToNode($(bubble)[0], {bubble: bubbleDoc}, vm);
+  ko.applyBindingsToNode($(control)[0], {controlsBubble: bubbleDoc}, vm);
 
   return bubbleDoc;
 };

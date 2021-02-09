@@ -273,24 +273,24 @@ test('parseDate', function (t) {
   t.plan(16);
 
   var parseDateTests = [
-    { date: '', expected: { year: null, month: null, day: null} },
-    { date: '0000', expected: { year: 0, month: null, day: null} },
-    { date: '1999-01-02', expected: { year: 1999, month: 1, day: 2 } },
-    { date: '1999-01', expected: { year: 1999, month: 1, day: null } },
-    { date: '1999', expected: { year: 1999, month: null, day: null } },
-    { date: '????-01-02', expected: { year: null, month: 1, day: 2 } },
-    { date: '????-??-02', expected: { year: null, month: null, day: 2 } },
-    { date: '1999-??-02', expected: { year: 1999, month: null, day: 2 } },
+    {date: '', expected: {year: null, month: null, day: null}},
+    {date: '0000', expected: {year: 0, month: null, day: null}},
+    {date: '1999-01-02', expected: {year: 1999, month: 1, day: 2}},
+    {date: '1999-01', expected: {year: 1999, month: 1, day: null}},
+    {date: '1999', expected: {year: 1999, month: null, day: null}},
+    {date: '????-01-02', expected: {year: null, month: 1, day: 2}},
+    {date: '????-??-02', expected: {year: null, month: null, day: 2}},
+    {date: '1999-??-02', expected: {year: 1999, month: null, day: 2}},
 
     // Relationship editor seeding format (via URL query params).
-    { date: '-----', expected: { year: null, month: null, day: null} },
-    { date: '----02', expected: { year: null, month: null, day: 2 } },
-    { date: '--01--', expected: { year: null, month: 1, day: null } },
-    { date: '--01-02', expected: { year: null, month: 1, day: 2 } },
-    { date: '1999--', expected: { year: 1999, month: null, day: null } },
-    { date: '1999----', expected: { year: 1999, month: null, day: null } },
-    { date: '1999---02', expected: { year: 1999, month: null, day: 2 } },
-    { date: '1999-01--', expected: { year: 1999, month: 1, day: null } },
+    {date: '-----', expected: {year: null, month: null, day: null}},
+    {date: '----02', expected: {year: null, month: null, day: 2}},
+    {date: '--01--', expected: {year: null, month: 1, day: null}},
+    {date: '--01-02', expected: {year: null, month: 1, day: 2}},
+    {date: '1999--', expected: {year: 1999, month: null, day: null}},
+    {date: '1999----', expected: {year: 1999, month: null, day: null}},
+    {date: '1999---02', expected: {year: 1999, month: null, day: 2}},
+    {date: '1999-01--', expected: {year: 1999, month: 1, day: null}},
   ];
 
   for (const test of parseDateTests) {
@@ -305,23 +305,23 @@ test('formatDate', function (t) {
   t.equal(formatDate(null), '');
   t.equal(formatDate(undefined), '');
   t.equal(formatDate({}), '');
-  t.equal(formatDate({ year: 0 }), '0000');
-  t.equal(formatDate({ year: 1999 }), '1999');
-  t.equal(formatDate({ year: 1999, month: 1 }), '1999-01');
-  t.equal(formatDate({ year: 1999, month: 1, day: 1 }), '1999-01-01');
-  t.equal(formatDate({ year: 1999, day: 1 }), '1999-??-01');
-  t.equal(formatDate({ month: 1 }), '????-01');
-  t.equal(formatDate({ month: 1, day: 1 }), '????-01-01');
-  t.equal(formatDate({ day: 1 }), '????-??-01');
-  t.equal(formatDate({ year: 0, month: 1, day: 1 }), '0000-01-01');
-  t.equal(formatDate({ year: -1, month: 1, day: 1 }), '-0001-01-01');
+  t.equal(formatDate({year: 0}), '0000');
+  t.equal(formatDate({year: 1999}), '1999');
+  t.equal(formatDate({year: 1999, month: 1}), '1999-01');
+  t.equal(formatDate({year: 1999, month: 1, day: 1}), '1999-01-01');
+  t.equal(formatDate({year: 1999, day: 1}), '1999-??-01');
+  t.equal(formatDate({month: 1}), '????-01');
+  t.equal(formatDate({month: 1, day: 1}), '????-01-01');
+  t.equal(formatDate({day: 1}), '????-??-01');
+  t.equal(formatDate({year: 0, month: 1, day: 1}), '0000-01-01');
+  t.equal(formatDate({year: -1, month: 1, day: 1}), '-0001-01-01');
 });
 
 test('formatDatePeriod', function (t) {
   t.plan(8);
 
-  var a = { year: 1999 };
-  var b = { year: 2000 };
+  var a = {year: 1999};
+  var b = {year: 2000};
 
   t.equal(
     formatDatePeriod({begin_date: a, end_date: a, ended: false}),
@@ -409,38 +409,38 @@ test('validDatePeriod', function (t) {
       expected: true,
     },
     {
-      a: { year: 2000, month: null, day: 11 },
-      b: { year: 2000, month: null, day: 10 },
+      a: {year: 2000, month: null, day: 11},
+      b: {year: 2000, month: null, day: 10},
       expected: true,
     },
     {
-      a: { year: 2000, month: 11, day: 11 },
-      b: { year: 2000, month: 12, day: 12 },
+      a: {year: 2000, month: 11, day: 11},
+      b: {year: 2000, month: 12, day: 12},
       expected: true,
     },
     {
-      a: { year: 2000, month: 11, day: 11 },
-      b: { year: 1999, month: 12, day: 12 },
+      a: {year: 2000, month: 11, day: 11},
+      b: {year: 1999, month: 12, day: 12},
       expected: false,
     },
     {
-      a: { year: 2000, month: 11, day: 11 },
-      b: { year: 2000, month: 10, day: 12 },
+      a: {year: 2000, month: 11, day: 11},
+      b: {year: 2000, month: 10, day: 12},
       expected: false,
     },
     {
-      a: { year: 2000, month: 11, day: 11 },
-      b: { year: 2000, month: 11, day: 10 },
+      a: {year: 2000, month: 11, day: 11},
+      b: {year: 2000, month: 11, day: 10},
       expected: false,
     },
     {
-      a: { year: '2000', month: '3', day: '1' },
-      b: { year: '2000', month: '10', day: '1' },
+      a: {year: '2000', month: '3', day: '1'},
+      b: {year: '2000', month: '10', day: '1'},
       expected: true,
     },
     {
-      a: { year: 1961, month: 2, day: 28 },
-      b: { year: 1961, month: 2, day: 29 },
+      a: {year: 1961, month: 2, day: 28},
+      b: {year: 1961, month: 2, day: 29},
       expected: false,
     },
   ];

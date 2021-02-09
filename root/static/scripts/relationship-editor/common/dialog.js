@@ -95,7 +95,7 @@ ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
         dialog.autocomplete.currentSelection(target);
       } else {
         // Fills in the recording name in the add-related-work dialog.
-        dialog.autocomplete.currentSelection({ name: target.name });
+        dialog.autocomplete.currentSelection({name: target.name});
       }
     },
   };
@@ -173,7 +173,7 @@ ko.bindingHandlers.instrumentSelect = {
     var childBindingContext = bindingContext.createChildContext(vm);
     ko.applyBindingsToDescendants(childBindingContext, element);
 
-    return { controlsDescendantBindings: true };
+    return {controlsDescendantBindings: true};
   },
 };
 
@@ -413,7 +413,7 @@ class Dialog {
       description = ReactDOMServer.renderToStaticMarkup(
         exp.l('{description} ({url|more documentation})', {
           description: expand2react(l_relationships(linkType.description)),
-          url: { href: '/relationship/' + linkType.gid, target: '_blank' },
+          url: {href: '/relationship/' + linkType.gid, target: '_blank'},
         }),
       );
     }
@@ -473,7 +473,7 @@ class Dialog {
     }
 
     var options = targetTypes.map(function (type) {
-      return { value: type, text: ENTITY_NAMES[type]() };
+      return {value: type, text: ENTITY_NAMES[type]()};
     });
 
     options.sort(function (a, b) {
@@ -492,7 +492,7 @@ class Dialog {
     var currentTarget = currentRelationship.target(this.source);
 
     var data = currentRelationship.editData();
-    data.target = MB.entity({ name: currentTarget.name }, newType);
+    data.target = MB.entity({name: currentTarget.name}, newType);
 
     /*
      * Always keep any existing dates, even if the new relationship
@@ -816,7 +816,7 @@ Object.assign(BatchRelationshipDialog.prototype, {
 
 export class BatchCreateWorksDialog extends BatchRelationshipDialog {
   constructor(options) {
-    super(Object.assign(options, { target: new MB.entity.Work({}) }));
+    super(Object.assign(options, {target: new MB.entity.Work({})}));
     this.error = ko.observable(false);
   }
 
@@ -854,7 +854,7 @@ export class BatchCreateWorksDialog extends BatchRelationshipDialog {
   }
 
   createEdits(edits) {
-    return MB.edit.create({ editNote: '', makeVotable: false, edits: edits });
+    return MB.edit.create({editNote: '', makeVotable: false, edits: edits});
   }
 
   targetEntityError() {

@@ -280,7 +280,7 @@ export class ReleaseViewModel extends ViewModel {
 
   openRelateToWorkDialog(track) {
     var source = track.recording;
-    var target = new MB.entity.Work({ name: source.name });
+    var target = new MB.entity.Work({name: source.name});
 
     new UI.AddDialog({
       source: source,
