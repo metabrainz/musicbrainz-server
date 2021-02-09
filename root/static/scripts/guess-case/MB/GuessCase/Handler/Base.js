@@ -42,7 +42,7 @@ MB.GuessCase.Handler.Base = function (gc) {
   self.SPECIALCASE_UNTITLED = 32;         // [untitled]
   self.SPECIALCASE_CROWD_NOISE = 33;      // [crowd noise]
   self.SPECIALCASE_GUITAR_SOLO = 34;      // [guitar solo]
-  self.SPECIALCASE_DIALOGUE= 35;          // [dialogue]
+  self.SPECIALCASE_DIALOGUE = 35;          // [dialogue]
 
   // Member functions
 
@@ -190,14 +190,14 @@ MB.GuessCase.Handler.Base = function (gc) {
        * Capitalize the last word before the colon (it's a line stop)
        * -- handle special case feat. "role" lowercase.
        */
-      var featIndex = gc.o.getLength()-3;
+      var featIndex = gc.o.getLength() - 3;
       var role;
       if (flags.context.slurpExtraTitleInformation &&
           featIndex > 0 &&
           gc.o.getWordAtIndex(featIndex) == 'feat.' &&
           (role = gc.o.getLastWord()) != '') {
 
-        gc.o.setWordAtIndex(gc.o.getLength()-1, role.toLowerCase());
+        gc.o.setWordAtIndex(gc.o.getLength() - 1, role.toLowerCase());
       } else {
         /*
          * Force capitalization of the last word,
@@ -210,9 +210,9 @@ MB.GuessCase.Handler.Base = function (gc) {
       var skip = false;
       var pos = gc.i.getPos();
       var len = gc.i.getLength();
-      if (pos < len-2) {
-        var nword = gc.i.getWordAtIndex(pos+1);
-        var naword = gc.i.getWordAtIndex(pos+2);
+      if (pos < len - 2) {
+        var nword = gc.i.getWordAtIndex(pos + 1);
+        var naword = gc.i.getWordAtIndex(pos + 2);
         if (nword.match(gc.re.OPENBRACKET)) {
           skip = true;
           flags.context.spaceNextWord = true;
@@ -482,7 +482,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       flags.pushBracket(gc.i.getCurrentWord());
       var cb = flags.getCurrentCloseBracket();
       var forcelowercase = false;
-      var pos = gc.i.getPos()+1;
+      var pos = gc.i.getPos() + 1;
       for (var i = pos; i < gc.i.getLength(); i++) {
         var w = (gc.i.getWordAtIndex(i) || '');
         if (w != ' ') {
@@ -653,7 +653,7 @@ MB.GuessCase.Handler.Base = function (gc) {
             flags.context.expectWord = true;
           } else if (flags.context.gotPeriod && cw == ' ') {
             flags.context.expectWord = true; // Do a single whitespace
-          } else if (tmp[tmp.length-1] != '.') {
+          } else if (tmp[tmp.length - 1] != '.') {
             tmp.pop(); // Lose last of the acronym
             subIndex--; // It's for example "P.S. I" love you
           }
@@ -675,7 +675,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       flags.context.acronym = true;
       flags.context.spaceNextWord = true;
       flags.context.forceCaps = false;
-      gc.i.setPos(subIndex-1); // Set pointer to after acronym
+      gc.i.setPos(subIndex - 1); // Set pointer to after acronym
       return true;
     }
     return false;
@@ -744,7 +744,7 @@ MB.GuessCase.Handler.Base = function (gc) {
         }
         subIndex++;
       }
-      gc.i.setPos(subIndex-1);
+      gc.i.setPos(subIndex - 1);
 
       gc.o.appendSpaceIfNeeded();
       gc.o.appendWord(tmp.join(''));
@@ -815,7 +815,7 @@ MB.GuessCase.Handler.Base = function (gc) {
               // Close brackets that were opened before
               var cb = flags.popBracket();
               gc.o.appendWord(cb);
-              if (gc.i.getWordAtIndex(gc.i.getLength()-1) == cb) {
+              if (gc.i.getWordAtIndex(gc.i.getLength() - 1) == cb) {
                 gc.i.dropLastWord();
                 /*
                  * Get rid of duplicate bracket at the end (will be
@@ -849,7 +849,7 @@ MB.GuessCase.Handler.Base = function (gc) {
            * We got a part, but not until the end of the string
            * close feat. part, and add space to next set of brackets
            */
-          if (i != pos && i < len-1) {
+          if (i != pos && i < len - 1) {
             gc.i.insertWordsAtIndex(i, [')', ' ']);
           }
           gc.i.updateCurrentWord('(');

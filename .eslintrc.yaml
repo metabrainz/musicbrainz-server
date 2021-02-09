@@ -175,6 +175,7 @@ rules:
   semi-style: [warn, last]
   space-before-blocks: [warn, always]
   space-in-parens: [warn, never]
+  space-infix-ops: [warn, {int32Hint: true}]
   space-unary-ops: [warn, {words: true, nonwords: false}]
   spaced-comment: [warn, always, {block: {balanced: true}, markers: [":", "::"]}]
   switch-colon-spacing: [warn, {after: true, before: false}]

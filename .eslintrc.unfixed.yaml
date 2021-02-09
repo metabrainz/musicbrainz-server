@@ -47,7 +47,6 @@ rules:
   space-before-function-paren: [warn, {anonymous: always,
                                        named: never,
                                        asyncArrow: always}]
-  space-infix-ops: [warn, {int32Hint: true}]
   no-var: warn
   prefer-const: warn
   import/first: warn

@@ -497,7 +497,7 @@ trackParser.customDelimiterError = debounceComputed(function () {
     : l('Invalid regular expression.');
 });
 
-function optionCookie(name, defaultValue, checkbox=true) {
+function optionCookie(name, defaultValue, checkbox = true) {
   const existingValue = getCookie(name);
 
   const observable = checkbox
