@@ -1,0 +1,72 @@
+parser: "@babel/eslint-parser"
+
+plugins:
+  - import
+  - react
+  - flowtype
+  - react-hooks
+
+env:
+  browser: true
+  node: true
+  es2020: true
+
+globals:
+  # Real globals
+  $: readonly
+  jQuery: readonly
+
+  # Fake globals; these are auto-imported upon use by Webpack's
+  # ProvidePlugin, but look like real globals to eslint
+  __webpack_public_path__: writable
+  __DEV__: readonly
+  GLOBAL_JS_NAMESPACE: readonly
+  addColon: readonly
+  addColonText: readonly
+  hasOwnProp: readonly
+  hyphenateTitle: readonly
+  nonEmpty: readonly
+  l: readonly
+  ln: readonly
+  lp: readonly
+  N_l: readonly
+  N_ln: readonly
+  N_lp: readonly
+  exp: readonly
+  texp: readonly
+  l_attributes: readonly
+  ln_attributes: readonly
+  lp_attributes: readonly
+  l_countries: readonly
+  ln_countries: readonly
+  lp_countries: readonly
+  l_instrument_descriptions: readonly
+  ln_instrument_descriptions: readonly
+  lp_instrument_descriptions: readonly
+  l_instruments: readonly
+  ln_instruments: readonly
+  lp_instruments: readonly
+  l_languages: readonly
+  ln_languages: readonly
+  lp_languages: readonly
+  l_relationships: readonly
+  ln_relationships: readonly
+  lp_relationships: readonly
+  l_scripts: readonly
+  ln_scripts: readonly
+  lp_scripts: readonly
+  l_statistics: readonly
+  ln_statistics: readonly
+  lp_statistics: readonly
+
+settings:
+  flowtype:
+    onlyFilesWithFlowAnnotation: true
+  react:
+    version: detect
+    flowVersion: 0.144.0
+
+rules:
+  flowtype/define-flow-type: warn
+  flowtype/use-flow-type: warn
+  react/jsx-uses-vars: warn
