@@ -2401,7 +2401,9 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?ocremix\.org\//, 'https://ocremix.org/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ocremix\.org\//, 'https://ocremix.org/');
+      url = url.replace(/^https:\/\/ocremix\.org\/(album|artist|game|org|remix|song)\/([^\/?#]+).*$/, 'https://ocremix.org/$1/$2/');
+      return url;
     },
   },
   'offiziellecharts': {
