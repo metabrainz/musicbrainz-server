@@ -2743,6 +2743,13 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://trove.nla.gov.au/work/9438679',
   },
+  // OC ReMix
+  {
+                     input_url: 'http://www.ocremix.org/artist/4792/oneup',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ocremix.org/artist/4792/oneup',
+  },
   // Offizielle Deutsche Charts
   {
                      input_url: 'http://offiziellecharts.de/album-details-392697/?ref=foo',

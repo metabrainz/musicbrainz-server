@@ -2397,6 +2397,13 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'ocremix': {
+    match: [new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?ocremix\.org\//, 'https://ocremix.org/');
+    },
+  },
   'offiziellecharts': {
     match: [new RegExp(
       '^(https?://)?([^/]+\\.)?offiziellecharts\\.de/',
@@ -2479,7 +2486,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?spirit-of-metal\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?lortel\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?vkdb\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?ci\\.nii\\.ac\\.jp', 'i'),
