@@ -2520,7 +2520,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?overture\\.doremus\\.org/', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?overture\.doremus\.org\/$/, 'https://overture.doremus.org/');
+      return url.replace(/^(?:https?:\/\/)?overture\.doremus\.org\//, 'https://overture.doremus.org/');
     },
     validate: function (url, id) {
       const m = /^https:\/\/overture\.doremus\.org\/(artist|expression|performance)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.exec(url);

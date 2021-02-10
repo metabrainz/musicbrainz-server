@@ -2839,7 +2839,7 @@ const testData = [
   },
   // Overture by Doremus
   {
-                     input_url: 'https://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
+                     input_url: 'http://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
