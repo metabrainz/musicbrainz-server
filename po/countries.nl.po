@@ -1,4 +1,4 @@
-# Translators:
+# 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2014-2015

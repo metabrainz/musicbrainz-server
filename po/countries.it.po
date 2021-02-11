@@ -1,4 +1,4 @@
-# Translators:
+# 
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
