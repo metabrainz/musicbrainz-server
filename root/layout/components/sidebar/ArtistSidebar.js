@@ -80,7 +80,7 @@ const ArtistSidebar = ({$c, artist}: Props): React.Element<'div'> => {
 
         {gender ? (
           <SidebarProperty className="gender" label={l('Gender:')}>
-            {l(gender.name)}
+            {lp_attributes(gender.name, 'gender')}
           </SidebarProperty>
         ) : null}
 
