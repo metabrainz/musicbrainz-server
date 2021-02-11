@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import {isRelationshipEditor}
+  from '../../../static/scripts/common/utility/privileges';
 
 import LastUpdated from './LastUpdated';
 import RemoveLink from './RemoveLink';
@@ -21,7 +23,7 @@ type Props = {
 const GenreSidebar = ({$c, genre}: Props): React.Element<'div'> => {
   return (
     <div id="sidebar">
-      {$c.user?.is_relationship_editor ? (
+      {isRelationshipEditor($c.user) ? (
         <>
           <h2 className="editing">{l('Editing')}</h2>
           <ul className="links">

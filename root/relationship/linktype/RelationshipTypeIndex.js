@@ -22,6 +22,8 @@ import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
+import {isRelationshipEditor}
+  from '../../static/scripts/common/utility/privileges';
 import {upperFirst} from '../../static/scripts/common/utility/strings';
 
 type Props = {
@@ -75,7 +77,7 @@ const RelationshipTypeIndex = ({
           </p>
         ) : null}
 
-        {$c.user?.is_relationship_editor ? (
+        {isRelationshipEditor($c.user) ? (
           <span className="buttons" style={{float: 'right'}}>
             <a href={'/relationship/' + relType.gid + '/edit'}>
               {l('Edit')}
@@ -106,7 +108,7 @@ const RelationshipTypeIndex = ({
               {' '}
               {relType.id}
               <br />
-              {$c.user?.is_relationship_editor ? (
+              {isRelationshipEditor($c.user) ? (
                 <>
                   <strong>{l('Child order:')}</strong>
                   {' '}

@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context';
 import DBDefs from '../static/scripts/common/DBDefs';
+import {isAccountAdmin} from '../static/scripts/common/utility/privileges';
 import buildTab from '../utility/buildTab';
 
 import Tabs from './Tabs';
@@ -22,7 +23,7 @@ function buildTabs(
   page: string,
 ): $ReadOnlyArray<React.Element<'li'>> {
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
-  const showAdmin = Boolean($c.user && $c.user.is_account_admin);
+  const showAdmin = isAccountAdmin($c.user);
   const showPrivate = showAdmin || viewingOwnProfile;
 
   const userName = encodeURIComponent(user.name);

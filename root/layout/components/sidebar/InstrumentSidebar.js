@@ -13,6 +13,8 @@ import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import IrombookImage
   from '../../../static/scripts/common/components/IrombookImage';
+import {isRelationshipEditor}
+  from '../../../static/scripts/common/utility/privileges';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -64,7 +66,7 @@ const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
       <ExternalLinks empty entity={instrument} />
 
       <EditLinks $c={$c} entity={instrument}>
-        {$c.user?.is_relationship_editor ? (
+        {isRelationshipEditor($c.user) ? (
           <>
             <AnnotationLinks $c={$c} entity={instrument} />
 

@@ -16,6 +16,8 @@ import expand2react from '../../static/scripts/common/i18n/expand2react';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
+import {isRelationshipEditor}
+  from '../../static/scripts/common/utility/privileges';
 import compareChildren from '../utility/compareChildren';
 import RelationshipsHeader from '../RelationshipsHeader';
 
@@ -50,7 +52,7 @@ const RelationshipTypeDetails = ({
         className="reldetails"
         style={{marginLeft: '20px', padding: '3px'}}
       >
-        {$c.user?.is_relationship_editor ? (
+        {isRelationshipEditor($c.user) ? (
           <>
             <strong>{l('Child order:')}</strong>
             {' '}
@@ -111,7 +113,7 @@ const RelationshipTypeDetails = ({
         <br />
 
         {'[ '}
-        {$c.user?.is_relationship_editor ? (
+        {isRelationshipEditor($c.user) ? (
           <>
             <a href={'/relationship/' + relType.gid + '/edit'}>
               {l('Edit')}
@@ -191,7 +193,7 @@ const RelationshipTypePairTree = ({
           )}
         </h2>
 
-        {$c.user?.is_relationship_editor ? (
+        {isRelationshipEditor($c.user) ? (
           <p>
             <a href={'/relationships/' + type0 + '-' + type1 + '/create'}>
               {exp.l(

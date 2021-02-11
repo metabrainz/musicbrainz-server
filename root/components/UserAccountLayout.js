@@ -26,6 +26,7 @@ export type AccountLayoutUserT = {
     +public_subscriptions: boolean,
     +public_tags: boolean,
   },
+  +privileges: number,
 };
 
 type Props = {

@@ -12,6 +12,8 @@ import * as React from 'react';
 import Layout from '../../layout';
 import Table from '../../components/Table';
 import bracketed from '../../static/scripts/common/utility/bracketed';
+import {isWikiTranscluder}
+  from '../../static/scripts/common/utility/privileges';
 
 import type {WikiDocT} from './types';
 
@@ -45,7 +47,7 @@ const WikiDocTable = ({
         accessor: 'version',
         cellProps: {
           className: 'c transcluded-version',
-          style: (updatesRequired && $c.user?.is_wiki_transcluder)
+          style: (updatesRequired && isWikiTranscluder($c.user))
             ? {textAlign: 'right'}
             : null,
         },
@@ -123,7 +125,7 @@ const WikiDocTable = ({
         nameColumn,
         transcludedVersionColumn,
         wikiVersionColumn,
-        ...($c.user?.is_wiki_transcluder ? [actionsColumn] : []),
+        ...(isWikiTranscluder($c.user) ? [actionsColumn] : []),
       ];
     },
     [
@@ -153,7 +155,7 @@ const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => (
           {doc: '/doc/WikiDocs'},
         )}
       </p>
-      {props.$c.user?.is_wiki_transcluder ? (
+      {isWikiTranscluder(props.$c.user) ? (
         <>
           <ul>
             <li key="create">
