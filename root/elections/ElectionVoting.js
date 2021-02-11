@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import {canCancel, canSecond, canVote, isInvolved}
   from '../utility/voting';
+import {
+  isAutoEditor,
+} from '../static/scripts/common/utility/privileges';
 
 type PropsT = {
   +$c: CatalystContextT,
@@ -24,7 +27,7 @@ const ElectionVoting = ({$c, election}: PropsT): React.MixedElement => {
   );
   const user = $c.user;
   if (user) {
-    if (!user.is_auto_editor) {
+    if (!isAutoEditor(user)) {
       message = l(
         `You cannot vote for this candidate,
          because you are not an auto-editor.`,

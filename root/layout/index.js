@@ -13,6 +13,10 @@ import {formatUserDateObject} from '../utility/formatUserDate';
 import getRequestCookie from '../utility/getRequestCookie';
 import {RT_SLAVE} from '../static/scripts/common/constants';
 import DBDefs from '../static/scripts/common/DBDefs';
+import {
+  isAddingNotesDisabled,
+  isEditingDisabled,
+} from '../static/scripts/common/utility/privileges';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -126,11 +130,11 @@ const Layout = ({
     <body>
       <Header $c={$c} />
 
-      {$c.user?.is_editing_disabled || $c.user?.is_adding_notes_disabled ? (
+      {isEditingDisabled($c.user) || isAddingNotesDisabled($c.user) ? (
         <div className="banner editing-disabled">
           <p>
-            {$c.user?.is_editing_disabled ? (
-              $c.user?.is_adding_notes_disabled ? (
+            {isEditingDisabled($c.user) ? (
+              isAddingNotesDisabled($c.user) ? (
                 exp.l(
                   `You’re currently not allowed to edit, vote or leave edit
                    notes because an admin has revoked your privileges.

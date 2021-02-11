@@ -11,6 +11,14 @@ import * as React from 'react';
 
 import RequestLogin from '../../components/RequestLogin';
 import returnUri, {returnToCurrentPage} from '../../utility/returnUri';
+import {
+  isAccountAdmin,
+  isAdmin,
+  isBannerEditor,
+  isLocationEditor,
+  isRelationshipEditor,
+  isWikiTranscluder,
+} from '../../static/scripts/common/utility/privileges';
 
 import Search from './Search';
 
@@ -111,13 +119,13 @@ const AdminMenu = ({user}: UserProp) => (
       {'\xA0\u25BE'}
     </span>
     <ul>
-      {user.is_location_editor ? (
+      {isLocationEditor(user) ? (
         <li>
           <a href="/area/create">{lp('Add Area', 'button/menu')}</a>
         </li>
       ) : null}
 
-      {user.is_relationship_editor ? (
+      {isRelationshipEditor(user) ? (
         <>
           <li>
             <a href="/instrument/create">
@@ -133,19 +141,19 @@ const AdminMenu = ({user}: UserProp) => (
         </>
       ) : null}
 
-      {user.is_wiki_transcluder ? (
+      {isWikiTranscluder(user) ? (
         <li>
           <a href="/admin/wikidoc">{l('Transclude WikiDocs')}</a>
         </li>
       ) : null}
 
-      {user.is_banner_editor ? (
+      {isBannerEditor(user) ? (
         <li>
           <a href="/admin/banner/edit">{l('Edit Banner Message')}</a>
         </li>
       ) : null}
 
-      {user.is_account_admin ? (
+      {isAccountAdmin(user) ? (
         <>
           <li>
             <a href="/admin/attributes">{l('Edit Attributes')}</a>
@@ -165,7 +173,7 @@ const UserMenu = ({$c}) => (
       <>
         <AccountMenu $c={$c} user={$c.user} />
         <DataMenu user={$c.user} />
-        {$c.user.is_admin ? <AdminMenu user={$c.user} /> : null}
+        {isAdmin($c.user) ? <AdminMenu user={$c.user} /> : null}
       </>
     ) : (
       <>

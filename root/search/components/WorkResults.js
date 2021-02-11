@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import WorkListEntry
   from '../../static/scripts/common/components/WorkListEntry';
+import {isEditingEnabled}
+  from '../../static/scripts/common/utility/privileges';
 import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
@@ -58,7 +60,7 @@ React.Element<typeof ResultsLayout> => (
       query={query}
       results={results}
     />
-    {$c.user && !$c.user.is_editing_disabled ? (
+    {isEditingEnabled($c.user) ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new work}.', {
           uri: '/work/create?edit-work.name=' + encodeURIComponent(query),

@@ -45,6 +45,12 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     my @release_ids = @{ $self->data->{release_ids} };
+
+    # Some lengths of -1 or 0 ms are stored, which is nonsensical
+    # and probably meant as a placeholder for unknown duration
+    my $length = $self->data->{length};
+    my $display_length = $length <= 0 ? undef : $length;
+
     return {
         releases => [
             map {
@@ -55,7 +61,7 @@ sub build_display_data
         ],
         position  => $self->data->{position},
         name      => $self->data->{name},
-        length    => $self->data->{length},
+        length    => $display_length,
         artist    => $loaded->{Artist}->{ $self->data->{artist_id} },
         recording => $loaded->{Recording}->{ $self->data->{recording_id} }
             || Recording->new( name => $self->data->{name} ),

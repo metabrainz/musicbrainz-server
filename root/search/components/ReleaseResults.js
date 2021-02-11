@@ -16,6 +16,8 @@ import ReleaseEvents
   from '../../static/scripts/common/components/ReleaseEvents';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
+import {isEditingEnabled}
+  from '../../static/scripts/common/utility/privileges';
 import loopParity from '../../utility/loopParity';
 import ReleaseCatnoList from '../../components/ReleaseCatnoList';
 import ReleaseLabelList from '../../components/ReleaseLabelList';
@@ -129,7 +131,7 @@ React.Element<typeof ResultsLayout> => (
       query={query}
       results={results}
     />
-    {$c.user && !$c.user.is_editing_disabled ? (
+    {isEditingEnabled($c.user) ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new release}.', {
           uri: '/release/add',

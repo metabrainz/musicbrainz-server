@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import {isEditingEnabled}
+  from '../../static/scripts/common/utility/privileges';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsWithContextT} from '../types';
 
@@ -56,7 +58,7 @@ React.Element<typeof ResultsLayout> => (
       query={query}
       results={results}
     />
-    {$c.user && !$c.user.is_editing_disabled ? (
+    {isEditingEnabled($c.user) ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new series}.', {
           uri: '/series/create?edit-series.name=' + encodeURIComponent(query),

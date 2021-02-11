@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import Layout from '../layout';
+import {isAccountAdmin} from '../static/scripts/common/utility/privileges';
 
 type Props = {
   +$c: CatalystContextT,
@@ -101,7 +102,7 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
         </li>
       </ul>
 
-      {$c.user?.is_account_admin ? (
+      {isAccountAdmin($c.user) ? (
         <>
           <h2>{l('Editors')}</h2>
 

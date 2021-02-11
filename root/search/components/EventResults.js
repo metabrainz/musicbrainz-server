@@ -15,6 +15,8 @@ import EventLocations
   from '../../static/scripts/common/components/EventLocations';
 import formatDatePeriod
   from '../../static/scripts/common/utility/formatDatePeriod';
+import {isEditingEnabled}
+  from '../../static/scripts/common/utility/privileges';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsWithContextT} from '../types';
 
@@ -73,7 +75,7 @@ React.Element<typeof ResultsLayout> => (
       query={query}
       results={results}
     />
-    {$c.user && !$c.user.is_editing_disabled ? (
+    {isEditingEnabled($c.user) ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new event}.', {
           uri: '/event/create?edit-event.name=' + encodeURIComponent(query),

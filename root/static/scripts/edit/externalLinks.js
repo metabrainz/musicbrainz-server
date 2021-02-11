@@ -26,6 +26,7 @@ import MB from '../common/MB';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
 import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
+import {isMalware} from '../../../url/utility/isGreyedOut';
 
 import isPositiveInteger from './utility/isPositiveInteger';
 import HelpIcon from './components/HelpIcon';
@@ -573,10 +574,6 @@ function isValidURL(url) {
   return true;
 }
 
-const MALWARE_URLS = [
-  'decoda.com',
-].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
-
 const URL_SHORTENERS = [
   'adf.ly',
   'album.link',
@@ -648,12 +645,6 @@ const URL_SHORTENERS = [
   'untd.io',
   'yep.it',
 ].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
-
-function isMalware(url) {
-  return MALWARE_URLS.some(function (malwareRegex) {
-    return url.match(malwareRegex) !== null;
-  });
-}
 
 function isShortened(url) {
   return URL_SHORTENERS.some(function (shortenerRegex) {

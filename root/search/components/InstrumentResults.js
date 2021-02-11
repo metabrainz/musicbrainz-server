@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import InstrumentListEntry
   from '../../static/scripts/common/components/InstrumentListEntry';
+import {isRelationshipEditor}
+  from '../../static/scripts/common/utility/privileges';
 import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
@@ -54,7 +56,7 @@ React.Element<typeof ResultsLayout> => (
       query={query}
       results={results}
     />
-    {$c.user?.is_relationship_editor ? (
+    {isRelationshipEditor($c.user) ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new instrument}.', {
           uri: '/instrument/create?edit-instrument.name=' +

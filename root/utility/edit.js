@@ -23,6 +23,11 @@ import {
   EDIT_RELATIONSHIP_DELETE,
   EDIT_SERIES_EDIT,
 } from '../static/scripts/common/constants/editTypes';
+import {
+  isAutoEditor,
+  isBot,
+  isEditingEnabled,
+} from '../static/scripts/common/utility/privileges';
 
 const EXPIRE_ACTIONS = {
   [EDIT_EXPIRE_ACCEPT]:   N_l('Accept upon closing'),
@@ -110,8 +115,8 @@ export function editorMayApprove(
   const minimalRequirements = (
     !!editor &&
     edit.status === EDIT_STATUS_OPEN &&
-    editor.is_auto_editor &&
-    !editor.is_editing_disabled
+    isAutoEditor(editor) &&
+    isEditingEnabled(editor)
   );
 
   if (!minimalRequirements) {
@@ -161,8 +166,8 @@ export function editorMayVote(
     edit.status === EDIT_STATUS_OPEN &&
     editor.id !== edit.editor_id &&
     !editor.is_limited &&
-    !editor.is_bot &&
-    !editor.is_editing_disabled
+    !isBot(editor) &&
+    isEditingEnabled(editor)
   );
 }
 
