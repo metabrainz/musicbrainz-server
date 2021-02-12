@@ -160,6 +160,11 @@ const AdminMenu = ({user}: UserProp) => (
             <a href="/admin/attributes">{l('Edit Attributes')}</a>
           </li>
           <li>
+            <a href="/admin/statistics-events">
+              {l('Edit Statistics Events')}
+            </a>
+          </li>
+          <li>
             <a href="/admin/email-search">{l('Email Search')}</a>
           </li>
         </>
