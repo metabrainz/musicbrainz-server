@@ -77,6 +77,7 @@ export type ActionItem<+T> = {
   +name: string | () => string,
   +level?: number,
   +separator?: boolean,
+  +disabled?: boolean,
 };
 
 export type OptionItem<+T> = {
@@ -86,6 +87,7 @@ export type OptionItem<+T> = {
   +entity: T,
   +level?: number,
   +separator?: boolean,
+  +disabled?: boolean,
 };
 
 export type HeaderItem = {

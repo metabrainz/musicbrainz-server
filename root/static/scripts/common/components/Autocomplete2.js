@@ -244,6 +244,7 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
   selectItem,
 }: AutocompleteItemProps<T>) => {
   const itemId = `${autocompleteId}-item-${item.id}`;
+  const isDisabled = !!item.disabled;
 
   let style = item.level
     ? {paddingLeft: String((item.level - 1) * 8) + 'px'}
@@ -254,17 +255,23 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
   }
 
   function handleItemClick() {
-    selectItem(item);
+    if (!item.disabled) {
+      selectItem(item);
+    }
   }
 
   function handleItemMouseOver() {
-    dispatch({item, type: 'highlight-item'});
+    if (!item.disabled) {
+      dispatch({item, type: 'highlight-item'});
+    }
   }
 
   return (
     <li
+      aria-disabled={isDisabled ? 'true' : 'false'}
       aria-selected={isHighlighted ? 'true' : 'false'}
       className={
+        (isDisabled ? 'disabled ' : '') +
         (isHighlighted ? 'highlighted ' : '') +
         (isSelected ? 'selected ' : '') +
         (item.separator ? 'separator ' : '') +
@@ -280,12 +287,6 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
     >
       {formatItem<T>(item)}
     </li>
-  );
-}, (a, b) => {
-  return (
-    a.item.id === b.item.id &&
-    a.isHighlighted === b.isHighlighted &&
-    a.isSelected === b.isSelected
   );
 });
 
@@ -363,8 +364,10 @@ export default function Autocomplete2<+T: EntityItem>(
   }, [dispatch]);
 
   const selectItem = React.useCallback((item) => {
-    stopRequests();
-    dispatch({item, type: 'select-item'});
+    if (!item.disabled) {
+      stopRequests();
+      dispatch({item, type: 'select-item'});
+    }
   }, [stopRequests, dispatch]);
 
   function handleButtonClick() {

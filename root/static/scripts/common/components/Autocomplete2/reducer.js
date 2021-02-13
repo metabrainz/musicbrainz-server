@@ -95,6 +95,32 @@ function showError<+T: EntityItem>(
   state.statusMessage = unwrapNl<string>(error.name);
 }
 
+function highlightNextItem<+T: EntityItem>(
+  state: {...State<T>},
+  startingIndex: number,
+) {
+  const items = state.items;
+  let index = startingIndex;
+  let count = items.length;
+
+  while (true) {
+    if (index >= items.length) {
+      index = 0;
+    }
+    const item = items[index];
+    // $FlowIgnore[sketchy-null-bool]
+    if (!item.disabled) {
+      state.highlightedItem = item;
+      break;
+    }
+    count--;
+    if (count <= 0) {
+      break;
+    }
+    index++;
+  }
+}
+
 // `runReducer` should only be run on a copy of the existing state.
 export function runReducer<+T: EntityItem>(
   state: {...State<T>},
@@ -116,25 +142,40 @@ export function runReducer<+T: EntityItem>(
 
     case 'highlight-next-item': {
       const {highlightedItem} = state;
-      let index = highlightedItem
-        ? state.items.findIndex(item => item.id === highlightedItem.id) + 1
+      const items = state.items;
+      const index = highlightedItem
+        ? items.indexOf(highlightedItem) + 1
         : 0;
-      if (index >= state.items.length) {
-        index = 0;
-      }
-      state.highlightedItem = state.items[index];
+      highlightNextItem<T>(state, index);
       break;
     }
 
     case 'highlight-previous-item': {
       const {highlightedItem} = state;
+      const items = state.items;
+
+      let count = items.length;
       let index = highlightedItem
-        ? state.items.findIndex(item => item.id === highlightedItem.id) - 1
-        : 0;
-      if (index < 0) {
-        index = state.items.length - 1;
+        ? state.items.indexOf(highlightedItem) - 1
+        : (count - 1);
+
+      while (true) {
+        if (index < 0) {
+          index = items.length - 1;
+        }
+        const item = items[index];
+        // $FlowIgnore[sketchy-null-bool]
+        if (!item.disabled) {
+          state.highlightedItem = item;
+          break;
+        }
+        count--;
+        if (count <= 0) {
+          break;
+        }
+        index--;
       }
-      state.highlightedItem = state.items[index];
+
       break;
     }
 
@@ -167,14 +208,15 @@ export function runReducer<+T: EntityItem>(
     case 'show-results': {
       const {items, page, resultCount} = action;
 
+      state.items = items;
+
       if (page === 1) {
-        state.highlightedItem = items[0];
+        highlightNextItem<T>(state, 0);
       }
 
       const highlightedItem = state.highlightedItem;
 
       state.isOpen = true;
-      state.items = items;
       state.page = page;
       state.pendingSearch = null;
       state.statusMessage = items.length ? (

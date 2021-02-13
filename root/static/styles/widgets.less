@@ -337,6 +337,10 @@ div.autocomplete2 {
             border-style: solid;
             cursor: pointer;
             padding: 4px;
+            &.disabled {
+                color: #666;
+                cursor: default;
+            }
             &.highlighted {
                 background: lighten(@musicbrainz-orange, 30%);
                 border-color: lighten(@musicbrainz-orange, 20%);
