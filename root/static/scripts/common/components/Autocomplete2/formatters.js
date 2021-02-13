@@ -53,7 +53,7 @@ function showExtraInfoLine(children, className = 'comment') {
   );
 }
 
-function formatName<+T: EntityItem>(entity: Item<T>) {
+function formatName<+T: EntityItem>(entity: T) {
   return unwrapNl<string>(entity.name);
 }
 
@@ -444,45 +444,52 @@ function formatWork(work: WorkT) {
 export default function formatItem<+T: EntityItem>(
   item: Item<T>,
 ): Expand2ReactOutput {
-  if (item.action) {
-    return unwrapNl<string>(item.name);
+  switch (item.type) {
+    case 'action':
+    case 'header': {
+      return unwrapNl<string>(item.name);
+    }
+    case 'option': {
+      const entity = item.entity;
+
+      switch (entity.entityType) {
+        case 'area':
+          return formatArea(entity);
+
+        case 'artist':
+          return formatArtist(entity);
+
+        case 'event':
+          return formatEvent(entity);
+
+        case 'instrument':
+          return formatInstrument(entity);
+
+        case 'link_attribute_type':
+          return formatLinkAttributeType(entity);
+
+        case 'place':
+          return formatPlace(entity);
+
+        case 'recording':
+          return formatRecording(entity);
+
+        case 'release':
+          return formatRelease(entity);
+
+        case 'release_group':
+          return formatReleaseGroup(entity);
+
+        case 'series':
+          return formatSeries(entity);
+
+        case 'work':
+          return formatWork(entity);
+
+        default:
+          return formatName(entity);
+      }
+    }
   }
-
-  switch (item.entityType) {
-    case 'area':
-      return formatArea(item);
-
-    case 'artist':
-      return formatArtist(item);
-
-    case 'event':
-      return formatEvent(item);
-
-    case 'instrument':
-      return formatInstrument(item);
-
-    case 'link_attribute_type':
-      return formatLinkAttributeType(item);
-
-    case 'place':
-      return formatPlace(item);
-
-    case 'recording':
-      return formatRecording(item);
-
-    case 'release':
-      return formatRelease(item);
-
-    case 'release_group':
-      return formatReleaseGroup(item);
-
-    case 'series':
-      return formatSeries(item);
-
-    case 'work':
-      return formatWork(item);
-
-    default:
-      return formatName(item);
-  }
+  return '';
 }

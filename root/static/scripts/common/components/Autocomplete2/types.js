@@ -26,8 +26,8 @@ export type State<+T: EntityItem> = {
   +page: number,
   +pendingSearch: string | null,
   +placeholder?: string,
-  +selectedItem: T | null,
-  +staticItems?: $ReadOnlyArray<T>,
+  +selectedEntity: T | null,
+  +staticItems?: $ReadOnlyArray<Item<T>>,
   +statusMessage: string,
   +width?: string,
 };
@@ -69,15 +69,39 @@ export type Actions<+T: EntityItem> =
   | { +type: 'stop-search' }
   | { +type: 'toggle-indexed-search' }
   | { +type: 'type-value', +value: string };
-/* eslint-enable flowtype/sort-keys */
 
-export type ActionItem<+T: EntityItem> = {
+export type ActionItem<+T> = {
+  +type: 'action',
   +action: Actions<T>,
   +id: number | string,
-  +level?: number,
   +name: string | () => string,
+  +level?: number,
   +separator?: boolean,
 };
+
+export type OptionItem<+T> = {
+  +type: 'option',
+  +id: number | string,
+  +name: string | () => string,
+  +entity: T,
+  +level?: number,
+  +separator?: boolean,
+};
+
+export type HeaderItem = {
+  +type: 'header',
+  +id: number | string,
+  +name: string | () => string,
+  +disabled: true,
+  +separator?: boolean,
+};
+
+export type Item<+T: EntityItem> =
+  | ActionItem<T>
+  | OptionItem<T>
+  | HeaderItem;
+
+/* eslint-enable flowtype/sort-keys */
 
 /*
  * This is basically CoreEntityT without UrlT (since those aren't
@@ -99,5 +123,3 @@ export type EntityItem =
   | ReleaseT
   | SeriesT
   | WorkT;
-
-export type Item<+T: EntityItem> = T | ActionItem<T>;

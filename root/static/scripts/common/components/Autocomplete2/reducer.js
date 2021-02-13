@@ -64,20 +64,25 @@ function selectItem<+T: EntityItem>(
   item: Item<T>,
   unwrapProxy: <V>(V) => V,
 ) {
-  if (item.action) {
-    runReducer<T>(state, item.action, unwrapProxy);
-    return;
+  switch (item.type) {
+    case 'action': {
+      runReducer<T>(state, item.action, unwrapProxy);
+      return;
+    }
+    case 'option': {
+      const entity = item.entity;
+      state.selectedEntity = entity;
+      state.statusMessage = entity.name;
+
+      if (item.name !== state.inputValue) {
+        state.inputValue = entity.name;
+        resetPage<T>(state);
+      }
+    }
   }
 
   state.isOpen = false;
-  state.selectedItem = item;
-  state.statusMessage = item.name;
   state.pendingSearch = null;
-
-  if (item.name !== state.inputValue) {
-    state.inputValue = item.name;
-    resetPage<T>(state);
-  }
 }
 
 function showError<+T: EntityItem>(
@@ -99,7 +104,7 @@ export function runReducer<+T: EntityItem>(
   switch (action.type) {
     case 'change-entity-type': {
       state.entityType = action.entityType;
-      state.selectedItem = null;
+      state.selectedEntity = null;
       resetPage<T>(state);
       break;
     }
@@ -219,7 +224,7 @@ export function runReducer<+T: EntityItem>(
     case 'type-value':
       state.inputValue = action.value;
       state.pendingSearch = null;
-      state.selectedItem = null;
+      state.selectedEntity = null;
       state.statusMessage = '';
 
       if (!state.inputValue) {

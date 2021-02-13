@@ -40,57 +40,68 @@ export const DISPLAY_NONE_STYLE = {display: 'none'};
 
 export const EMPTY_ARRAY: $ReadOnlyArray<empty> = Object.freeze([]);
 
+/* eslint-disable sort-keys */
 export const MENU_ITEMS: {+[name: string]: ActionItem<empty>, ...} = {
   ERROR_TRY_AGAIN_DIRECT: {
+    type: 'action',
     action: TOGGLE_INDEXED_SEARCH,
     id: 'error-try-again-direct',
     name: N_l('Try again with direct search.'),
   },
   ERROR_TRY_AGAIN_INDEXED: {
+    type: 'action',
     action: TOGGLE_INDEXED_SEARCH,
     id: 'error-try-again-indexed',
     name: N_l('Try again with indexed search.'),
   },
   LOOKUP_ERROR: {
+    type: 'action',
     action: NOOP,
     id: 'lookup-error',
     name: N_l('An error occurred while looking up the MBID you entered.'),
   },
   LOOKUP_TYPE_ERROR: {
+    type: 'action',
     action: NOOP,
     id: 'lookup-type-error',
     name: N_l('The type of entity you pasted isn’t supported here.'),
   },
   NO_RESULTS: {
+    type: 'action',
     action: NOOP,
     id: 'no-results',
     name: () => bracketedText(l('No results')),
   },
   SEARCH_ERROR: {
+    type: 'action',
     action: SEARCH_AGAIN,
     id: 'try-again',
     name: N_l('An error occurred while searching. Click here to try again.'),
     separator: true,
   },
   SHOW_MORE: {
+    type: 'action',
     action: SHOW_MORE_RESULTS,
     id: 'show-more',
     name: N_l('Show more...'),
     separator: true,
   },
   TRY_AGAIN_DIRECT: {
+    type: 'action',
     action: TOGGLE_INDEXED_SEARCH,
     id: 'try-again-direct',
     name: N_l('Not found? Try again with direct search.'),
     separator: true,
   },
   TRY_AGAIN_INDEXED: {
+    type: 'action',
     action: TOGGLE_INDEXED_SEARCH,
     id: 'try-again-indexed',
     name: N_l('Slow? Switch back to indexed search.'),
     separator: true,
   },
 };
+/* eslint-enable sort-keys */
 
 export const SEARCH_PLACEHOLDERS: {
   +[type: SearchableType]: () => string,

@@ -37,6 +37,7 @@ import type {
   Actions,
   EntityItem,
   Item,
+  OptionItem,
   Props,
   State,
 } from './Autocomplete2/types';
@@ -95,10 +96,17 @@ function doSearch<T: EntityItem>(
     }
 
     const actions = [];
-    let newItems = JSON.parse(searchXhr.responseText);
-    const pager = newItems.pop();
+    const entities = JSON.parse(searchXhr.responseText);
+    const pager = entities.pop();
     const newPage = parseInt(pager.current, 10);
     const totalPages = parseInt(pager.pages, 10);
+
+    let newItems: Array<Item<T>> = entities.map((entity: T) => ({
+      entity,
+      id: entity.id,
+      name: entity.name,
+      type: 'option',
+    }));
 
     if (newItems.length) {
       if (newPage < totalPages) {
@@ -112,7 +120,7 @@ function doSearch<T: EntityItem>(
       ? MENU_ITEMS.TRY_AGAIN_DIRECT
       : MENU_ITEMS.TRY_AGAIN_INDEXED);
 
-    const prevItems: Array<T> = [];
+    const prevItems: Array<Item<T>> = [];
     const prevItemIds = new Set();
     for (const item of props.items) {
       if (!item.action) {
@@ -194,25 +202,25 @@ type InitialPropsT<+T: EntityItem> = {
   +id: string,
   +inputValue?: string,
   +placeholder?: string,
-  +selectedItem?: T | null,
-  +staticItems?: $ReadOnlyArray<T>,
+  +selectedEntity?: T | null,
+  +staticItems?: $ReadOnlyArray<Item<T>>,
   +width?: string,
 };
 
 export function createInitialState<+T: EntityItem>(
   props: InitialPropsT<T>,
 ): {...State<T>} {
-  const {inputValue, selectedItem, ...restProps} = props;
+  const {inputValue, selectedEntity, ...restProps} = props;
   return {
     entityType: props.entityType,
     highlightedItem: null,
     indexedSearch: true,
-    inputValue: inputValue ?? selectedItem?.name ?? '',
+    inputValue: inputValue ?? selectedEntity?.name ?? '',
     isOpen: false,
     items: EMPTY_ARRAY,
     page: 1,
     pendingSearch: null,
-    selectedItem: selectedItem ?? null,
+    selectedEntity: selectedEntity ?? null,
     statusMessage: '',
     ...restProps,
   };
@@ -259,7 +267,8 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
       className={
         (isHighlighted ? 'highlighted ' : '') +
         (isSelected ? 'selected ' : '') +
-        (item.separator ? 'separator ' : '')
+        (item.separator ? 'separator ' : '') +
+        `${item.type}-item `
       }
       id={itemId}
       key={item.id}
@@ -285,7 +294,7 @@ type AutocompleteItemsProps<T: EntityItem> = {
   dispatch: (Actions<T>) => void,
   highlightedItem: Item<T> | null,
   items: $ReadOnlyArray<Item<T>>,
-  selectedItem: Item<T> | null,
+  selectedEntity: T | null,
   selectItem: (Item<T>) => void,
 };
 
@@ -297,7 +306,7 @@ function AutocompleteItems<T: EntityItem>({
   dispatch,
   highlightedItem,
   items,
-  selectedItem,
+  selectedEntity,
   selectItem,
 }: AutocompleteItemsProps<T>):
   $ReadOnlyArray<React.Element<AutocompleteItemComponent<T>>> {
@@ -313,7 +322,7 @@ function AutocompleteItems<T: EntityItem>({
         autocompleteId={autocompleteId}
         dispatch={dispatch}
         isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
-        isSelected={!!(selectedItem && item.id === selectedItem.id)}
+        isSelected={!!(selectedEntity && item.id === selectedEntity.id)}
         item={item}
         key={item.id}
         selectItem={selectItem}
@@ -398,14 +407,21 @@ export default function Autocomplete2<+T: EntityItem>(
         }
 
         const entity = JSON.parse(lookupXhr.responseText);
+        const option: OptionItem<T> = {
+          entity,
+          id: entity.id,
+          name: entity.name,
+          type: 'option',
+        };
+
         if (entity.entityType === entityType) {
-          selectItem(entity);
+          selectItem(option);
         } else if (canChangeType && canChangeType(entity.entityType)) {
           dispatch({
             entityType: entity.entityType,
             type: 'change-entity-type',
           });
-          selectItem(entity);
+          selectItem(option);
         } else {
           dispatch(SHOW_LOOKUP_TYPE_ERROR);
         }
@@ -543,7 +559,7 @@ export default function Autocomplete2<+T: EntityItem>(
           className={
             (
               props.isLookupPerformed == null
-                ? props.selectedItem
+                ? props.selectedEntity
                 : props.isLookupPerformed
             )
               ? 'lookup-performed'
@@ -596,7 +612,7 @@ export default function Autocomplete2<+T: EntityItem>(
             highlightedItem={props.highlightedItem}
             items={props.items}
             selectItem={selectItem}
-            selectedItem={props.selectedItem}
+            selectedEntity={props.selectedEntity}
           />
         )}
       </ul>
