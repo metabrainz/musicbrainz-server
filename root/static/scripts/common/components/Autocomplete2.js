@@ -246,8 +246,17 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
   const itemId = `${autocompleteId}-item-${item.id}`;
   const isDisabled = !!item.disabled;
 
-  let style = item.level
-    ? {paddingLeft: String((item.level - 1) * 8) + 'px'}
+  /*
+   * `item.level` allows showing a hierarchy by indenting each option.
+   * The first level (with normal padding) is 0. Each level increment
+   * adds 8px to the left padding.
+   */
+  if (__DEV__) {
+    invariant(item.level == null || item.level >= 0);
+  }
+
+  let style = (item.level && item.level > 0)
+    ? {paddingLeft: String(4 + (item.level * 8)) + 'px'}
     : null;
 
   if (item.action) {
