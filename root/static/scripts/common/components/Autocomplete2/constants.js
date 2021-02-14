@@ -113,6 +113,7 @@ export const SEARCH_PLACEHOLDERS: {
   event: N_l('Search for an event'),
   instrument: N_l('Search for an instrument'),
   label: N_l('Search for a label'),
+  link_type: N_l('Search for a relationship type'),
   place: N_l('Search for a place'),
   recording: N_l('Search for a recording'),
   release: N_l('Search for a release'),

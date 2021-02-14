@@ -48,6 +48,14 @@ declare type LinkTypeT = {
   }>,
   +has_dates: boolean,
   +id: number,
+  /*
+   * The l_* properties are not sent by the server, but cached client-
+   * side by the relationship editor.
+   */
+  l_description?: string,
+  l_link_phrase?: string,
+  l_name?: string,
+  l_reverse_link_phrase?: string,
   +link_phrase: string,
   +long_link_phrase: string,
   +orderable_direction: number,

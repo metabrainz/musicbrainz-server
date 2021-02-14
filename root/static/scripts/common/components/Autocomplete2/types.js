@@ -120,6 +120,7 @@ export type EntityItem =
   | InstrumentT
   | LabelT
   | LinkAttrTypeT
+  | LinkTypeT
   | PlaceT
   | RecordingT
   | ReleaseGroupT

@@ -24,7 +24,10 @@ import formatDate from '../../utility/formatDate';
 import formatDatePeriod from '../../utility/formatDatePeriod';
 import formatTrackLength from '../../utility/formatTrackLength';
 
-import type {EntityItem, Item} from './types';
+import type {
+  EntityItem,
+  Item,
+} from './types';
 
 const nonLatinRegExp = /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/;
 
@@ -234,6 +237,23 @@ function formatLinkAttributeType(type: LinkAttrTypeT) {
     <>
       {localizeLinkAttributeTypeName(type)}
       {description ? showExtraInfoLine(description) : null}
+    </>
+  );
+}
+
+function formatLinkType(linkType: LinkTypeT) {
+  let description = linkType.l_description;
+  if (description != null) {
+    // We want to strip html from the non-clickable description
+    const div = document.createElement('div');
+    div.innerHTML = description;
+    description = div.textContent;
+  }
+
+  return (
+    <>
+      {linkType.l_name}
+      {nonEmpty(description) ? showExtraInfoLine(description) : null}
     </>
   );
 }
@@ -467,6 +487,9 @@ export default function formatItem<+T: EntityItem>(
 
         case 'link_attribute_type':
           return formatLinkAttributeType(entity);
+
+        case 'link_type':
+          return formatLinkType(entity);
 
         case 'place':
           return formatPlace(entity);
