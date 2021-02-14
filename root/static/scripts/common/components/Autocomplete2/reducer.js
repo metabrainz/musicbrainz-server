@@ -121,6 +121,18 @@ function highlightNextItem<+T: EntityItem>(
   }
 }
 
+export function defaultStaticItemsFilter<+T: EntityItem>(
+  item: Item<T>,
+  searchTerm: string,
+): boolean {
+  if (item.type === 'option') {
+    return unwrapNl<string>(item.name)
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+  }
+  return true;
+}
+
 // `runReducer` should only be run on a copy of the existing state.
 export function runReducer<+T: EntityItem>(
   state: {...State<T>},

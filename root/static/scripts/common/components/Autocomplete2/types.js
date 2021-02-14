@@ -9,7 +9,7 @@
 
 export type SearchableType = $ElementType<EntityItem, 'entityType'>;
 
-export type State<+T: EntityItem> = {
+export type State<T: EntityItem> = {
   +canChangeType?: (string) => boolean,
   +children?: React$Node,
   +containerClass?: string,
@@ -28,6 +28,7 @@ export type State<+T: EntityItem> = {
   +placeholder?: string,
   +selectedEntity: T | null,
   +staticItems?: $ReadOnlyArray<Item<T>>,
+  +staticItemsFilter?: (Item<T>, string) => boolean,
   +statusMessage: string,
   +width?: string,
 };

@@ -12,7 +12,6 @@ import * as React from 'react';
 import ENTITIES from '../../../../../entities';
 import {MBID_REGEXP} from '../constants';
 import useOutsideClickEffect from '../hooks/useOutsideClickEffect';
-import {unwrapNl} from '../i18n';
 import clean from '../utility/clean';
 
 import {
@@ -41,6 +40,9 @@ import type {
   Props,
   State,
 } from './Autocomplete2/types';
+import {
+  defaultStaticItemsFilter,
+} from './Autocomplete2/reducer';
 
 /*
  * If the autocomplete is provided an `items` prop, it's assumed that it
@@ -51,15 +53,14 @@ function doFilter<T: EntityItem>(
   dispatch: (Actions<T>) => void,
   items: $ReadOnlyArray<Item<T>>,
   searchTerm: string,
+  filter?: ((OptionItem<T>, string) => boolean) = defaultStaticItemsFilter,
 ) {
   let results = items;
   let resultCount = results.length;
 
   if (searchTerm) {
     results = items.filter(item => (
-      unwrapNl<string>(item.name)
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
+      item.type === 'option' && filter(item, searchTerm)
     ));
     resultCount = results.length;
     if (!resultCount) {
@@ -154,11 +155,12 @@ function doSearch<T: EntityItem>(
 
 function doSearchOrFilter<T: EntityItem>(
   dispatch: (Actions<T>) => void,
-  items: ?$ReadOnlyArray<Item<T>>,
+  props: Props<T>,
   searchTerm: string,
 ) {
+  const {staticItems: items, staticItemsFilter} = props;
   if (items) {
-    doFilter<T>(dispatch, items, searchTerm);
+    doFilter<T>(dispatch, items, searchTerm, staticItemsFilter);
   } else if (searchTerm) {
     dispatch({searchTerm, type: 'search-after-timeout'});
   }
@@ -196,7 +198,7 @@ function setScrollPosition(
   }
 }
 
-type InitialPropsT<+T: EntityItem> = {
+type InitialPropsT<T: EntityItem> = {
   +canChangeType?: (string) => boolean,
   +entityType: $ElementType<T, 'entityType'>,
   +id: string,
@@ -204,6 +206,7 @@ type InitialPropsT<+T: EntityItem> = {
   +placeholder?: string,
   +selectedEntity?: T | null,
   +staticItems?: $ReadOnlyArray<Item<T>>,
+  +staticItemsFilter?: (Item<T>, string) => boolean,
   +width?: string,
 };
 
@@ -387,7 +390,7 @@ export default function Autocomplete2<+T: EntityItem>(
     } else if (props.items.length) {
       dispatch(SHOW_MENU);
     } else if (props.inputValue) {
-      doSearchOrFilter<T>(dispatch, props.staticItems, props.inputValue);
+      doSearchOrFilter<T>(dispatch, props, props.inputValue);
     }
   }
 
@@ -443,7 +446,7 @@ export default function Autocomplete2<+T: EntityItem>(
       lookupXhr.send();
     } else if (clean(props.inputValue) !== newCleanInputValue) {
       stopRequests();
-      doSearchOrFilter<T>(dispatch, props.staticItems, newCleanInputValue);
+      doSearchOrFilter<T>(dispatch, props, newCleanInputValue);
     }
   }
 
@@ -465,7 +468,7 @@ export default function Autocomplete2<+T: EntityItem>(
         } else if (isMenuNonEmpty) {
           dispatch(SHOW_MENU);
         } else if (isInputNonEmpty) {
-          doSearchOrFilter<T>(dispatch, props.staticItems, props.inputValue);
+          doSearchOrFilter<T>(dispatch, props, props.inputValue);
         }
         break;
 
