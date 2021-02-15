@@ -2,6 +2,7 @@
 -- 20200512-mbs-10821-orphaned-recording-collection.sql
 -- 20200914-oauth-pkce.sql
 -- 20201028-mbs-1424.sql
+-- 20210215-mbs-11268.sql
 -- 20210309-mbs-11431.sql
 -- 20210319-mbs-11453.sql
 -- 20210319-mbs-11464.sql
@@ -336,6 +337,20 @@ BEGIN
   RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
+
+--------------------------------------------------------------------------------
+SELECT '20210215-mbs-11268.sql';
+
+
+CREATE OR REPLACE VIEW medium_track_durations AS
+    SELECT
+        medium.id AS medium,
+        array_agg(track.length ORDER BY track.position) FILTER (WHERE track.position = 0) AS pregap_length,
+        array_agg(track.length ORDER BY track.position) FILTER (WHERE track.position > 0 AND track.is_data_track = false) AS cdtoc_track_lengths,
+        array_agg(track.length ORDER BY track.position) FILTER (WHERE track.is_data_track = true) AS data_track_lengths
+    FROM medium
+    JOIN track ON track.medium = medium.id
+    GROUP BY medium.id;
 
 --------------------------------------------------------------------------------
 SELECT '20210309-mbs-11431.sql';
