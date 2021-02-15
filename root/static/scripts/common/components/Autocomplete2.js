@@ -410,6 +410,19 @@ export default function Autocomplete2<+T: EntityItem>(
        */
       stopRequests();
 
+      if (props.staticItems) {
+        const option = props.staticItems.find((item) => (
+          item.type === 'option' &&
+          hasOwnProp(item.entity, 'gid') &&
+          // $FlowIgnore[prop-missing]
+          item.entity.gid === mbidMatch[0]
+        ));
+        if (option) {
+          selectItem(option);
+        }
+        return;
+      }
+
       const lookupXhr = new XMLHttpRequest();
       xhr.current = lookupXhr;
 
