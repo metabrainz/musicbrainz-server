@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-08 22:20+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-02-12 12:40+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -219,7 +219,7 @@ msgstr "Versione più lunga del kōauau, può andare dai 30-40 cm fino ai 60 cm 
 #. name:ngɔni
 #: DB:instrument/description:729
 msgid "A lute from West Africa, made of wood or gourd."
-msgstr ""
+msgstr "Liuto originario dell'Africa occidentale, realizzato in legno o in zucca a fiasco."
 
 #. name:mandolute
 #: DB:instrument/description:766
@@ -611,7 +611,7 @@ msgid ""
 "Bisonoric and button layout like the German, reeds and hexagonal ends like "
 "the english, this concertina was created to rival the popular German variant"
 " imported into England."
-msgstr ""
+msgstr "Bitonale e con la disposizione dei bottoni del modello tedesco, ma con le ance e i lati esagonali del modello inglese, questa concertina fu creata per rivaleggiare con la popolarità della variante tedesca importata in Inghilterra."
 
 #. name:cajón
 #: DB:instrument/description:336
@@ -742,7 +742,7 @@ msgid ""
 "Class of instruments where the body is a simple stick with one to many "
 "strings attached, may also have up to several usually gourd or wood "
 "resonators."
-msgstr ""
+msgstr "Classe di strumenti la cui cassa è costituita da un semplice bastone con attaccate da una a molte corde; può avere anche più risuonatori, solitamente in zucca a fiasco o in legno."
 
 #. name:glockenspiel
 #: DB:instrument/description:165
@@ -760,7 +760,7 @@ msgstr "Metallofono comune e popolare, solitamente composto da una serie di barr
 msgid ""
 "Composite chordophone, box zither where some or all strings are operated by "
 "typewriter-keys or buttons (keyboard)"
-msgstr ""
+msgstr "Cordofono composito, è un salterio a cassa nel quale alcune o tutte le corde sono azionate da tasti da macchina da scrivere o bottoni (tastiera)."
 
 #. name:rudra veena
 #: DB:instrument/description:501
@@ -902,7 +902,16 @@ msgstr "Sviluppata principalmente come uno strumento folclorico per accompagnare
 msgid ""
 "Developed from the African agbe, a small shaker not unlike shekere, it is "
 "made of wood and metal, with metal beads."
-msgstr ""
+msgstr "Sviluppata a partire dall'agbe africano, è un piccolo shaker simile allo shekere realizzato in legno e metallo con perline metalliche."
+
+#. name:bulbul tarang
+#: DB:instrument/description:528
+msgid ""
+"Developed from the Japanese <a "
+"href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>, it"
+" is made of wood, often an integral case. It has two courses of strings; "
+"drone and melody strings operated by buttons or keys."
+msgstr "Sviluppato a partire dal <a href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a> giapponese, è realizzato in legno e spesso ha un contenitore integrale. Ha due ordini di corde, melodiche e bordone, azionate attraverso bottoni o tasti."
 
 #. name:seni rebab
 #: DB:instrument/description:1014
@@ -1033,7 +1042,7 @@ msgstr "Ensemble di più strumenti della famiglia delle viole da gamba, di solit
 msgid ""
 "European mediaeval struck string instrument, similar to the psaltery and a "
 "possible ancestor of the piano. Basically it is a dulcimer with keys."
-msgstr ""
+msgstr "Strumento musicale a corde percosse dell'Europa medievale, simile al salterio e possibile antenato del pianoforte. Sostanzialmente un dulcimer con i tasti."
 
 #. name:ugal
 #: DB:instrument/description:967
@@ -1595,7 +1604,7 @@ msgstr "Il più grande o \"ageng\" dei kendang, è comunque più piccolo del <a 
 msgid ""
 "Like (and developed from) the Northumbrian smallpipes, but with Great "
 "Highland Bagpipe fingering."
-msgstr "Simili (e sviluppate a partire dalla) cornamusa del Northumberland, ma con la diteggiatura della grande cornamusa delle Highland."
+msgstr "Simili alla (e sviluppate a partire dalla) cornamusa del Northumberland, ma con la diteggiatura della grande cornamusa delle Highland."
 
 #. name:The Great Stalacpipe Organ
 #: DB:instrument/description:934
@@ -1650,7 +1659,7 @@ msgid ""
 "Made of bamboo with one end covered with grease-paper, it is a \"side-"
 "blown\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara "
 "which is an instrument similar to a chalumeau."
-msgstr ""
+msgstr "Realizzato in bambù con un'estremità coperta con carta impermeabile, è un mirliton \"traverso\". <br /> Da non confondere con la zummara egiziana/irachena, uno strumento simile al salmoè."
 
 #. name:suling
 #: DB:instrument/description:725
@@ -1840,12 +1849,12 @@ msgid ""
 "Modern derivative of the donso ngɔni, it comes with more strings and is made"
 " of calabash. It became an important instrument in the rise of the Wassoulou"
 " music in the 80's and 90's."
-msgstr ""
+msgstr "Derivato moderno del donso ngɔni, ha più corde ed è realizzato in zucca a fiasco. Divenne uno strumento importante nell'ascesa della musica wassoulou negli anni 1980-1990."
 
 #. name:German concertina
 #: DB:instrument/description:838
 msgid "More usually square than hexagonal, with long plate reeds"
-msgstr ""
+msgstr "Di forma più comunemente quadrata che esagonale, con ance a piastra lunga."
 
 #. name:bass viol
 #: DB:instrument/description:916
@@ -2217,7 +2226,7 @@ msgid ""
 "with one silken string, today it is usually wooden with a metal string. "
 "Fastened in one end to a movable device and resonator, the melody comes from"
 " changing the string's tension."
-msgstr ""
+msgstr "Cetra a tubo vietnamita, forse di origine antica. In origine realizzata in bambù con una corda in seta, oggi è solitamente in legno con una corda in metallo. La melodia è prodotta dal cambiamento nella tensione della corda, che a un'estremità è fissata a un dispositivo mobile e risuonatore."
 
 #. name:komuz
 #: DB:instrument/description:543
@@ -2542,11 +2551,11 @@ msgstr "Versione speciale del gendèr usato in esibizioni di gamelan gendèr way
 #. name:jantar
 #: DB:instrument/description:1032
 msgid ""
-"Stick zither made of wood, which has strings and two large gourd resonators."
-" <br /><br /> Not to be confused with the 13th century tritantri-vina which "
-"evolved into the bin via a five-string stick-zither also known as "
-"\"jantar\"."
-msgstr ""
+"Stick zither from Rajasthan. It is made of wood with at least two large "
+"gourd resonators, the strings rest on very high frets. <br /><br /> Not to "
+"be confused with the 13th century tritantri-vina which evolved into the bin "
+"via a five-string stick-zither also known as \"jantar\"."
+msgstr "Cetra a bastone proveniente dal Rajasthan. È realizzata in legno, ha almeno due grandi risuonatori in zucca a fiasco e corde che poggiano su tasti molto alti. <br /><br /> Da non confondere con la tritantri vina del XIII secolo, che si è evoluta nel bin attraverso una cetra a bastone a cinque corde, anch'essa conosciuta come \"jantar\"."
 
 #. name:struck idiophone
 #: DB:instrument/description:675
@@ -3081,7 +3090,7 @@ msgid ""
 " it is sometimes just called 笛 (di), but in Japanese 笛 (fue) is a more "
 "generic word referring to a whole class of flutes rather than this specific "
 "instrument."
-msgstr "Flauto traverso cinese solitamente realizzato in bambù. In cinese è chiamato a volte solo 笛 (di), ma in giapponese 笛 (fue) è un termine generico che si riferisce ad un'intera famiglia di flauti anziché a questo strumento in particolare."
+msgstr "Flauto traverso cinese solitamente realizzato in bambù. In cinese è chiamato a volte solo 笛 (di), ma in giapponese 笛 (fue) è un termine generico che si riferisce ad un'intera classe di flauti anziché a questo strumento in particolare."
 
 #. name:dohol
 #: DB:instrument/description:399
@@ -4427,7 +4436,7 @@ msgstr "Composto da due bastoncini, di cui uno è tenuto in bocca e funge da cas
 #. name:English concertina
 #: DB:instrument/description:837
 msgid "Unisonoric concertina with hexagonal sides and concertina reeds."
-msgstr ""
+msgstr "Concertina monotonale con lati esagonali e ance da concertina."
 
 #. name:slentho
 #: DB:instrument/description:964
@@ -4711,7 +4720,7 @@ msgstr "Il membro più grande e dal suono più grave della famiglia delle viole 
 #. name:shekere
 #: DB:instrument/description:381
 msgid "West African gourd-shaker, a net of beads covers it."
-msgstr ""
+msgstr "Shaker in zucca a fiasco originario dell'Africa occidentale avvolto in una rete decorata con perline."
 
 #. name:concert flute
 #: DB:instrument/description:414
