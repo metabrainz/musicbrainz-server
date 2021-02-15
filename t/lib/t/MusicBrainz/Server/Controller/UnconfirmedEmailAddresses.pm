@@ -502,6 +502,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::WS::js::cdstub_search",
   "Controller::WS::js::cover_art_upload",
   "Controller::WS::js::default",
+  "Controller::WS::js::entities",
   "Controller::WS::js::entity",
   "Controller::WS::js::events",
   "Controller::WS::js::medium",
