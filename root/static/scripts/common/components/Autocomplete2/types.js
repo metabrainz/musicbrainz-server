@@ -68,8 +68,7 @@ export type Actions<+T: EntityItem> =
   | { +type: 'show-search-error' }
   | { +type: 'stop-search' }
   | { +type: 'toggle-indexed-search' }
-  | { +type: 'type-value', +value: string }
-  ;
+  | { +type: 'type-value', +value: string };
 /* eslint-enable flowtype/sort-keys */
 
 export type ActionItem<+T: EntityItem> = {

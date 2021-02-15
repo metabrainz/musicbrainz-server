@@ -10,6 +10,18 @@
 // NOTE: Don't convert to an ES module; this is used by root/server.js.
 /* eslint-disable import/no-commonjs */
 
+const publicFlags = 1 & // AUTO_EDITOR_FLAG
+                    2 & // BOT_FLAG
+                    8 & // RELATIONSHIP_EDITOR_FLAG
+                    32 & // WIKI_TRANSCLUSION_FLAG
+                    128 & // ACCOUNT_ADMIN_FLAG
+                    256 & // LOCATION_EDITOR_FLAG
+                    512; // BANNER_EDITOR_FLAG
+
+function sanitizePrivileges(privileges /*: number */) /*: number */ {
+  return (privileges & publicFlags);
+}
+
 function sanitizedEditor(
   editor /*: UnsanitizedEditorT | EditorT */,
 ) /*: EditorT */ {
@@ -25,6 +37,7 @@ function sanitizedEditor(
     gravatar: editor.gravatar,
     id: editor.id,
     name: editor.name,
+    privileges: sanitizePrivileges(editor.privileges),
   };
 }
 

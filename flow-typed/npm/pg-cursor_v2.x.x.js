@@ -10,7 +10,7 @@
 /* eslint-disable flowtype/sort-keys */
 
 declare module 'pg-cursor' {
-  import type {PgResultSet, Submittable} from 'pg';
+  import type {Connection, PgResultSet, Submittable} from 'pg';
 
   declare type CursorQueryConfig = {
     +rowMode?: 'array',
@@ -26,6 +26,7 @@ declare module 'pg-cursor' {
       rowCount: number,
       callback: (Error, Array<R>, PgResultSet<R>) => void,
     ): void,
+    submit: (Connection) => void,
     close((Error) => void): void,
     // shim for pg.Result class
     _result: {

@@ -19,8 +19,8 @@ import ArtistCreditLink
 type Props = {
   +items: $ReadOnlyArray<ReportRecordingRelationshipT>,
   +pager: PagerT,
-  +showDates?: boolean,
   +showArtist?: boolean,
+  +showDates?: boolean,
 };
 
 const RecordingRelationshipList = ({

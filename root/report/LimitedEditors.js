@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import Layout from '../layout';
+import {isAccountAdmin} from '../static/scripts/common/utility/privileges';
 import formatUserDate from '../utility/formatUserDate';
 
 import EditorList from './components/EditorList';
@@ -39,7 +40,7 @@ const LimitedEditors = ({
       </li>
     </ul>
 
-    {$c.user?.is_account_admin ? (
+    {isAccountAdmin($c.user) ? (
       <EditorList items={items} pager={pager} />
     ) : (
       <p>{l('Sorry, you are not authorized to view this page.')}</p>

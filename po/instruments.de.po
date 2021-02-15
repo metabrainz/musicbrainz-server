@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-01 16:47+0000\n"
-"Last-Translator: TL\n"
+"PO-Revision-Date: 2021-02-08 22:19+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,12 +35,8 @@ msgstr "zwölfsaitige Gitarre"
 msgid "17-string bass koto"
 msgstr "17-saitige Bass-Koto"
 
-#: DB:instrument/name:108
-msgid "Afuche/Cabasa"
-msgstr "Cabasa"
-
 #: DB:instrument/name:839
-msgctxt "historical hybrid between English and German style concertinas"
+msgctxt "Historical hybrid between English and German style concertinas"
 msgid "Anglo concertina"
 msgstr "Deutsch-englische Konzertina"
 
@@ -97,7 +93,7 @@ msgid "EWI"
 msgstr "EWI"
 
 #: DB:instrument/name:837
-msgctxt "unisonoric concertina"
+msgctxt "Unisonoric concertina"
 msgid "English concertina"
 msgstr "Englische Konzertina"
 
@@ -111,7 +107,7 @@ msgid "French horn"
 msgstr "Waldhorn"
 
 #: DB:instrument/name:838
-msgctxt "bisonoric concertina"
+msgctxt "Bisonoric concertina"
 msgid "German concertina"
 msgstr "Deutsche Konzertina"
 
@@ -861,6 +857,11 @@ msgctxt "Family of ancient Indian stick zither chordophones"
 msgid "bīn"
 msgstr ""
 
+#: DB:instrument/name:108
+msgctxt "Modern wood and metal-bead shaker"
+msgid "cabasa"
+msgstr ""
+
 #: DB:instrument/name:903
 msgctxt "Brazilian Samba snare-drum"
 msgid "caixa"
@@ -1298,6 +1299,7 @@ msgid "domra"
 msgstr "Domra"
 
 #: DB:instrument/name:776
+msgctxt "West African calabash lute-harp"
 msgid "donso ngɔni"
 msgstr ""
 
@@ -1964,6 +1966,11 @@ msgstr "Igil"
 msgid "janggu"
 msgstr "Changgu"
 
+#: DB:instrument/name:1032
+msgctxt "Rajasthani stick zither"
+msgid "jantar"
+msgstr ""
+
 #: DB:instrument/name:979
 msgctxt "Deepest pitch gangsa used in Balinese gamelan"
 msgid "jegogan"
@@ -2042,8 +2049,8 @@ msgid "kagurabue"
 msgstr ""
 
 #: DB:instrument/name:817
-msgctxt "modern ngoni made of calabash with more strings"
-msgid "kamalen ngɔni"
+msgctxt "Modern ngoni made of calabash with more strings"
+msgid "kamale ngɔni"
 msgstr ""
 
 #: DB:instrument/name:503
@@ -2653,6 +2660,7 @@ msgid "nguru"
 msgstr ""
 
 #: DB:instrument/name:729
+msgctxt "West African gourd-lute"
 msgid "ngɔni"
 msgstr ""
 
@@ -3347,6 +3355,7 @@ msgid "shehnai"
 msgstr "Shehnai"
 
 #: DB:instrument/name:381
+msgctxt "Large West African gourd-shaker"
 msgid "shekere"
 msgstr "Shékere"
 
@@ -3506,6 +3515,10 @@ msgstr "Stahlsaitengitarre"
 #: DB:instrument/name:273
 msgid "steelpan"
 msgstr "Steel Pan"
+
+#: DB:instrument/name:1031
+msgid "stick zither"
+msgstr ""
 
 #: DB:instrument/name:908
 msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
@@ -4074,7 +4087,7 @@ msgid "vibraslap"
 msgstr "Vibraslap"
 
 #: DB:instrument/name:612
-msgctxt "Large North Indian fretless sliding stick zither"
+msgctxt "Large North Indian fretless sliding tube zither"
 msgid "vichitra veena"
 msgstr "Vichitra Vina"
 
@@ -4368,6 +4381,7 @@ msgid "đing năm"
 msgstr ""
 
 #: DB:instrument/name:251
+msgctxt "One-string Vietnamese tube zither"
 msgid "đàn bầu"
 msgstr "Đàn bầu"
 
@@ -4425,5 +4439,6 @@ msgid "żaqq"
 msgstr "Żaqq"
 
 #: DB:instrument/name:592
+msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""

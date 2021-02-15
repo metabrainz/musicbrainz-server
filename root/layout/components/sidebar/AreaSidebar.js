@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
+import {isLocationEditor}
+  from '../../../static/scripts/common/utility/privileges';
 import * as age from '../../../utility/age';
 import ExternalLinks from '../ExternalLinks';
 
@@ -103,7 +105,7 @@ const AreaSidebar = ({$c, area}: Props): React.Element<'div'> => {
       <ExternalLinks empty entity={area} />
 
       <EditLinks $c={$c} entity={area}>
-        {$c.user && $c.user.is_location_editor ? (
+        {isLocationEditor($c.user) ? (
           <>
             <AnnotationLinks $c={$c} entity={area} />
 

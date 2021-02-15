@@ -10,13 +10,14 @@
 # Luca Salini, 2012,2017,2020-2021
 # Luca Salini, 2020
 # Monica <email address hidden>, 2014
+# Nicolás Tamargo <email address hidden>, 2021
 # Luca Salini, 2014
 # Luca Salini, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-07 17:02+0000\n"
-"Last-Translator: Luca Salini\n"
+"PO-Revision-Date: 2021-02-15 13:50+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -147,17 +148,17 @@ msgstr "CPDL"
 msgid "CPDL page for"
 msgstr "pagina di CPDL su"
 
-#: DB:link_type/name:8 DB:link_type/name:227
+#: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
 msgstr "DJ mix"
 
-#: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
+#: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
 msgstr "DJ mix di"
 
 #: DB:link_type/link_phrase:155 DB:link_type/long_link_phrase:155
 msgid "DJ-mixed"
-msgstr "mixato da DJ"
+msgstr "è il DJ che ha mixato"
 
 #: DB:link_type/reverse_link_phrase:8
 msgid "DJ-mixed versions"
@@ -165,11 +166,11 @@ msgstr "versioni mixate da DJ"
 
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr "{medium:% di} mixato da DJ"
+msgstr "è il DJ che ha mixato {medium:% di}"
 
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr "{medium:supporto} mixato da DJ"
+msgstr "è il DJ che ha mixato {medium:supporto}"
 
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
@@ -1324,6 +1325,12 @@ msgstr "Indica una persona o un'agenzia che curato la grafica o le illustrazioni
 msgid ""
 "This indicates a person or agency who did illustration for the release."
 msgstr "Indica una persona o un'agenzia che curato le illustrazioni della pubblicazione."
+
+#: DB:link_type/description:993
+msgid ""
+"This indicates a person or agency who provided artwork for the release when "
+"no more specific information is available."
+msgstr "Indica una persona o un'agenzia che ha curato le copertine della pubblicazione quando non sono disponibili informazioni più specifiche."
 
 #: DB:link_type/description:723
 msgid ""
@@ -3288,7 +3295,7 @@ msgstr "Canali YouTube"
 
 #: DB:link_attribute_type/name:1030
 msgid "act"
-msgstr "artista"
+msgstr "atto"
 
 #: DB:link_attribute_type/name:1
 msgid "additional"
@@ -3383,6 +3390,10 @@ msgstr "direttore artistico di"
 #: DB:link_type/name:135 DB:link_type/name:62
 msgid "artists and repertoire"
 msgstr "artisti e repertorio (A&R)"
+
+#: DB:link_type/name:993
+msgid "artwork"
+msgstr "copertine"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -4624,7 +4635,7 @@ msgstr "inventato da"
 msgid "involved with"
 msgstr "in una relazione con"
 
-#: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
+#: DB:link_type/long_link_phrase:227 DB:link_type/long_link_phrase:8
 msgid "is a DJ-mix of"
 msgstr "è un DJ mix di"
 
@@ -5751,6 +5762,10 @@ msgstr "ha fornito rappresentanza legale per"
 msgid "provided {additional} art direction on"
 msgstr "ha fornito direzione artistica {additional:aggiuntiva} su"
 
+#: DB:link_type/long_link_phrase:993
+msgid "provided {additional} artwork on"
+msgstr "ha curato le copertine {additional:in aggiunta} di"
+
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
 msgid "provided {additional} creative direction on"
 msgstr "ha fornito direzione creativa {additional:aggiuntiva} su"
@@ -6654,7 +6669,7 @@ msgstr "registrata {additional:in aggiunta} a"
 #: DB:link_type/link_phrase:47 DB:link_type/link_phrase:153
 #: DB:link_type/long_link_phrase:47 DB:link_type/long_link_phrase:153
 msgid "{additional:additionally} remixed"
-msgstr "remixata {additional:in aggiunta}"
+msgstr "ha remixato {additional:in aggiunta}"
 
 #: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
 msgid "{additional:additionally} remixed at"
@@ -6814,6 +6829,10 @@ msgstr "luogo {additional:aggiuntivo} di arrangiamento per"
 #: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:18
 msgid "{additional} art direction"
 msgstr "direzione artistica {additional:aggiuntiva}"
+
+#: DB:link_type/link_phrase:993 DB:link_type/reverse_link_phrase:993
+msgid "{additional} artwork"
+msgstr "copertine {additional:aggiuntive}"
 
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
 #: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53

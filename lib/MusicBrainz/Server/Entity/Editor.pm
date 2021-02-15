@@ -163,18 +163,6 @@ sub is_newbie
       ) == -1;
 }
 
-sub is_admin
-{
-    my $self = shift;
-    return (
-        $self->is_account_admin ||
-        $self->is_banner_editor ||
-        $self->is_location_editor ||
-        $self->is_relationship_editor ||
-        $self->is_wiki_transcluder
-    );
-}
-
 has 'preferences' => (
     is => 'rw',
     lazy => 1,
@@ -307,21 +295,12 @@ sub _unsanitized_json {
         gender                      => $self->gender,
         has_confirmed_email_address => boolean_to_json($self->has_confirmed_email_address),
         has_email_address           => boolean_to_json($self->has_email_address),
-        is_account_admin            => boolean_to_json($self->is_account_admin),
-        is_adding_notes_disabled    => boolean_to_json($self->is_adding_notes_disabled),
-        is_admin                    => boolean_to_json($self->is_admin),
-        is_auto_editor              => boolean_to_json($self->is_auto_editor),
-        is_banner_editor            => boolean_to_json($self->is_banner_editor),
-        is_bot                      => boolean_to_json($self->is_bot),
         is_charter                  => boolean_to_json($self->is_charter),
-        is_editing_disabled         => boolean_to_json($self->is_editing_disabled),
         is_limited                  => boolean_to_json($self->is_limited),
-        is_location_editor          => boolean_to_json($self->is_location_editor),
-        is_relationship_editor      => boolean_to_json($self->is_relationship_editor),
-        is_wiki_transcluder         => boolean_to_json($self->is_wiki_transcluder),
         languages                   => $self->languages,
         last_login_date             => datetime_to_iso8601($self->last_login_date),
         preferences                 => $self->preferences->TO_JSON,
+        privileges                  => $self->privileges,
         registration_date           => datetime_to_iso8601($self->registration_date),
         website                     => $self->website,
     };
@@ -456,23 +435,13 @@ The editor is able to change the banner message
 
 Returns a dummy instance with high editing privileges.
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2009 Oliver Charles
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 =cut
 

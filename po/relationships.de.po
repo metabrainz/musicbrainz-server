@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-07 11:00+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-02-08 22:20+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -150,11 +150,11 @@ msgstr "CPDL"
 msgid "CPDL page for"
 msgstr "CPDL-Seite für"
 
-#: DB:link_type/name:8 DB:link_type/name:227
+#: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
 msgstr "DJ-Mix"
 
-#: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
+#: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
 msgstr "DJ-Mix von"
 
@@ -1326,6 +1326,12 @@ msgstr ""
 #: DB:link_type/description:927
 msgid ""
 "This indicates a person or agency who did illustration for the release."
+msgstr ""
+
+#: DB:link_type/description:993
+msgid ""
+"This indicates a person or agency who provided artwork for the release when "
+"no more specific information is available."
 msgstr ""
 
 #: DB:link_type/description:723
@@ -3387,6 +3393,10 @@ msgstr ""
 msgid "artists and repertoire"
 msgstr ""
 
+#: DB:link_type/name:993
+msgid "artwork"
+msgstr ""
+
 #: DB:link_attribute_type/name:526
 msgid "assistant"
 msgstr "Assistent"
@@ -4627,7 +4637,7 @@ msgstr "erfunden von"
 msgid "involved with"
 msgstr "in einer Beziehung mit"
 
-#: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
+#: DB:link_type/long_link_phrase:227 DB:link_type/long_link_phrase:8
 msgid "is a DJ-mix of"
 msgstr "ist ein DJ-Mix von"
 
@@ -5754,6 +5764,10 @@ msgstr "hat rechtliche Vertretung übernommen für"
 msgid "provided {additional} art direction on"
 msgstr "war {additional:zusätzlicher} Artdirector auf"
 
+#: DB:link_type/long_link_phrase:993
+msgid "provided {additional} artwork on"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
 msgid "provided {additional} creative direction on"
 msgstr "war {additional:zusätzlicher} künstlerische(r) Leiter(in) auf"
@@ -6817,6 +6831,10 @@ msgstr "{additional} Arrangement-Örtlichkeit für"
 #: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:18
 msgid "{additional} art direction"
 msgstr "{additional:zusätzliche} Artdirection"
+
+#: DB:link_type/link_phrase:993 DB:link_type/reverse_link_phrase:993
+msgid "{additional} artwork"
+msgstr ""
 
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
 #: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53

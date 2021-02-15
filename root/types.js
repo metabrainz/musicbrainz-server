@@ -73,8 +73,8 @@ declare type AreaT = $ReadOnly<{
   +iso_3166_1_codes: $ReadOnlyArray<string>,
   +iso_3166_2_codes: $ReadOnlyArray<string>,
   +iso_3166_3_codes: $ReadOnlyArray<string>,
-  +primaryAlias?: string | null,
   +primary_code: string,
+  +primaryAlias?: string | null,
 }>;
 
 declare type AnnotatedEntityT =
@@ -149,9 +149,11 @@ declare type ArtworkT = {
   +filename: string | null,
   +id: number,
   +image: string,
+  +large_ia_thumbnail: string,
   +large_thumbnail: string,
   +mime_type: string,
   +release?: ReleaseT,
+  +small_ia_thumbnail: string,
   +small_thumbnail: string,
   +suffix: string,
   +types: $ReadOnlyArray<string>,
@@ -382,8 +384,7 @@ declare type CoreEntityTypeT =
   | 'release'
   | 'series'
   | 'url'
-  | 'work'
-  ;
+  | 'work';
 
 declare type CoverArtTypeT = OptionTreeT<'cover_art_type'>;
 
@@ -455,22 +456,13 @@ declare type UnsanitizedEditorT = $ReadOnly<{
   +gravatar: string,
   +has_confirmed_email_address: boolean,
   +has_email_address: boolean,
-  +is_account_admin: boolean,
-  +is_adding_notes_disabled: boolean,
-  +is_admin: boolean,
-  +is_auto_editor: boolean,
-  +is_banner_editor: boolean,
-  +is_bot: boolean,
   +is_charter: boolean,
-  +is_editing_disabled: boolean,
   +is_limited: boolean,
-  +is_location_editor: boolean,
-  +is_relationship_editor: boolean,
-  +is_wiki_transcluder: boolean,
   +languages: $ReadOnlyArray<EditorLanguageT> | null,
   +last_login_date: string | null,
   +name: string,
   +preferences: UnsanitizedEditorPreferencesT,
+  +privileges: number,
   +registration_date: string,
   +website: string | null,
 }>;
@@ -498,8 +490,7 @@ declare type EditStatusT =
   | 5 // ERROR
   | 6 // FAILEDPREREQ
   | 7 // NOVOTES
-  | 9 // DELETED
-  ;
+  | 9; // DELETED
 
 declare type EditT = {
   +close_time: string,
@@ -595,8 +586,7 @@ declare type FluencyT =
   | 'basic'
   | 'intermediate'
   | 'advanced'
-  | 'native'
-  ;
+  | 'native';
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
 declare type FormT<F> = {
@@ -1069,6 +1059,7 @@ declare type ActiveEditorT = {
   +has_confirmed_email_address: boolean,
   +name: string,
   +preferences: ActiveEditorPreferencesT,
+  +privileges: number,
 };
 
 declare type EditorT = {
@@ -1076,6 +1067,7 @@ declare type EditorT = {
   +deleted: boolean,
   +gravatar: string,
   +name: string,
+  +privileges: number,
 };
 
 declare type ScriptT = {
@@ -1203,8 +1195,7 @@ declare type VoteOptionT =
   | -1   // Abstain
   |  0   // No
   |  1   // Yes
-  |  2   // Approve
-  ;
+  |  2;   // Approve
 /* eslint-enable no-multi-spaces */
 
 declare type VoteT = {

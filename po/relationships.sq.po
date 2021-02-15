@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-07 11:00+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-02-08 22:20+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -135,11 +135,11 @@ msgstr ""
 msgid "CPDL page for"
 msgstr ""
 
-#: DB:link_type/name:8 DB:link_type/name:227
+#: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
 msgstr "Miks DJ-i"
 
-#: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
+#: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
 msgstr "Miks DJ-i i"
 
@@ -1311,6 +1311,12 @@ msgstr ""
 #: DB:link_type/description:927
 msgid ""
 "This indicates a person or agency who did illustration for the release."
+msgstr ""
+
+#: DB:link_type/description:993
+msgid ""
+"This indicates a person or agency who provided artwork for the release when "
+"no more specific information is available."
 msgstr ""
 
 #: DB:link_type/description:723
@@ -3372,6 +3378,10 @@ msgstr "drejtor artistik për"
 msgid "artists and repertoire"
 msgstr "artistë dhe repertor"
 
+#: DB:link_type/name:993
+msgid "artwork"
+msgstr ""
+
 #: DB:link_attribute_type/name:526
 msgid "assistant"
 msgstr "asistent"
@@ -4612,7 +4622,7 @@ msgstr "shpikur nga"
 msgid "involved with"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
+#: DB:link_type/long_link_phrase:227 DB:link_type/long_link_phrase:8
 msgid "is a DJ-mix of"
 msgstr ""
 
@@ -5739,6 +5749,10 @@ msgstr ""
 msgid "provided {additional} art direction on"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:993
+msgid "provided {additional} artwork on"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
 msgid "provided {additional} creative direction on"
 msgstr ""
@@ -6801,6 +6815,10 @@ msgstr ""
 #: DB:link_type/link_phrase:137 DB:link_type/link_phrase:18
 #: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:18
 msgid "{additional} art direction"
+msgstr ""
+
+#: DB:link_type/link_phrase:993 DB:link_type/reverse_link_phrase:993
+msgid "{additional} artwork"
 msgstr ""
 
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53

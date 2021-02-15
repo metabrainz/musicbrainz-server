@@ -13,6 +13,10 @@ import {CatalystContext} from '../context';
 import {ENTITIES} from '../static/scripts/common/constants';
 import isSpecialPurpose
   from '../static/scripts/common/utility/isSpecialPurpose';
+import {
+  isLocationEditor,
+  isRelationshipEditor,
+} from '../static/scripts/common/utility/privileges';
 
 import Tabs from './Tabs';
 import EntityTabLink from './EntityTabLink';
@@ -55,12 +59,12 @@ function showEditTab(
 ): boolean {
   switch (entity.entityType) {
     case 'area':
-      return user ? user.is_location_editor : false;
+      return isLocationEditor(user);
     case 'artist':
       return !isSpecialPurpose(entity);
     case 'genre':
     case 'instrument':
-      return user ? user.is_relationship_editor : false;
+      return isRelationshipEditor(user);
     case 'label':
       return !isSpecialPurpose(entity);
     default:

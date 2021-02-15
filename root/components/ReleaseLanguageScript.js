@@ -30,6 +30,6 @@ const ReleaseLanguageScript = ({
       ) : lp('-', 'missing data')}
     </>
   );
-}
+};
 
 export default ReleaseLanguageScript;

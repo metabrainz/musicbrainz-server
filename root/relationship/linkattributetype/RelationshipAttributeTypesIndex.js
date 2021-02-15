@@ -13,6 +13,8 @@ import Layout from '../../layout';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 import bracketed, {bracketedText}
   from '../../static/scripts/common/utility/bracketed';
+import {isRelationshipEditor}
+  from '../../static/scripts/common/utility/privileges';
 import {upperFirst} from '../../static/scripts/common/utility/strings';
 import compareChildren from '../utility/compareChildren';
 import RelationshipsHeader from '../RelationshipsHeader';
@@ -47,7 +49,7 @@ const AttributeDetails = ({
     : bracketed(translatedDescription);
 
   return (
-    $c.user?.is_relationship_editor ? (
+    isRelationshipEditor($c.user) ? (
       <>
         {descriptionSection}
         {' '}
@@ -159,7 +161,7 @@ const RelationshipAttributeTypesIndex = ({
   <Layout $c={$c} fullWidth noIcons title={l('Relationship Attributes')}>
     <div id="content">
       <RelationshipsHeader page="attributes" />
-      {$c.user?.is_relationship_editor ? (
+      {isRelationshipEditor($c.user) ? (
         <p>
           <a href="/relationship-attributes/create">
             {l('Create a new relationship attribute')}

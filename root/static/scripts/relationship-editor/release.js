@@ -311,7 +311,8 @@ export class ReleaseViewModel extends ViewModel {
       .sortBy(function (relationship) {
         return relationship.lowerCaseTargetName(source);
       })
-      .sortBy('linkOrder').sortBy(function (relationship) {
+      .sortBy('linkOrder')
+      .sortBy(function (relationship) {
         return relationship.lowerCasePhrase(source);
       });
   }

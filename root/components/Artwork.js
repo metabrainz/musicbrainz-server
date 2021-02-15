@@ -40,16 +40,16 @@ export const ArtworkImage = ({
 }: Props): React.Element<typeof React.Fragment> => (
   <>
     <noscript>
-      <img src={artwork.small_thumbnail} />
+      <img src={artwork.small_ia_thumbnail} />
     </noscript>
     <span
       className="cover-art-image"
       data-fallback={fallback || ''}
-      data-large-thumbnail={artwork.large_thumbnail}
+      data-large-thumbnail={artwork.large_ia_thumbnail}
       data-message={nonEmpty(message)
         ? message
         : l('Image not available yet, please try again in a few minutes.')}
-      data-small-thumbnail={artwork.small_thumbnail}
+      data-small-thumbnail={artwork.small_ia_thumbnail}
       data-title={nonEmpty(hover) ? hover : artworkHover(artwork)}
     />
   </>

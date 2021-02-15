@@ -257,6 +257,7 @@ const TracklistChangesChange = ({
         <EntityLink
           content={oldNameDiff}
           entity={oldTrack.recording}
+          nameVariation={oldTrack.name !== oldTrack.recording.name}
         />
       </td>
       <td>
@@ -286,6 +287,7 @@ const TracklistChangesChange = ({
           allowNew={newTrack && !newTrack.recording.id}
           content={newNameDiff}
           entity={newTrack.recording}
+          nameVariation={newTrack.name !== newTrack.recording.name}
         />
       </td>
       <td>

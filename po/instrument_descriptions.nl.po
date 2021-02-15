@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-03 17:26+0000\n"
+"PO-Revision-Date: 2021-02-11 17:49+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -69,13 +69,6 @@ msgid ""
 "sliding block of hardwood to vary pitch much like the North Indian vichitra "
 "veena and the Hawaiian guitar."
 msgstr "De chitra-vina is een fretloze Zuid-Indiase luit die voor Carnatische muziek wordt gebruikt. De holle klankkast is gemaakt van een nangkavrucht en het instrument heeft een secundaire resonator gemaakt van een uitgeholde kalebas. Het heeft zes hoofdsnaren, drie bourdonsnaren en elf tot twaalf resonantiesnaren. De toonhoogte wordt veranderd door met een hardhouten blok te schuiven."
-
-#. name:dulce melos
-#: DB:instrument/description:773
-msgid ""
-"A European mediaeval struck string instrument, similar to the psaltery and a"
-" possible ancestor of the piano. Essentially it is a dulcimer with keys."
-msgstr "Een doulce melos of doulcemele is een Middeleeuws snaarinstrument dat lijkt op een psalterium en mogelijk een voorloper is van de piano. Het instrument is eigenlijk een hakkebord met toetsen."
 
 #. name:kös
 #: DB:instrument/description:739
@@ -215,6 +208,11 @@ msgid ""
 "length and often made of bone and hardwoods such as porokaiwhiria, mataī and"
 " tutu."
 msgstr "Een poorutu is een lange kooauau met een lengte van 30 tot 60 cm. Hij wordt gemaakt van bot of hardhouten zoals porokaiwhiria, matai en tutu."
+
+#. name:ngɔni
+#: DB:instrument/description:729
+msgid "A lute from West Africa, made of wood or gourd."
+msgstr "Een ngɔni is een West-Afrikaanse luit, gemaakt van hout of kalebas."
 
 #. name:mandolute
 #: DB:instrument/description:766
@@ -360,7 +358,7 @@ msgstr "De altgamba is de alt van de familie viole da gamba. Niet te verwarren m
 msgid ""
 "Although originally built like a cittern, its 6-7 courses of strings were "
 "tuned more like a lute."
-msgstr "Hoewel de bandora oorspronkelijk als een cister werd gebouwd, waren de zes of zeven snaren meer als een luit gestemd."
+msgstr "Hoewel de bandora oorspronkelijk als een cister werd gebouwd, waren de zes of zeven koren meer als een luit gestemd."
 
 #. name:kokyu
 #: DB:instrument/description:223
@@ -600,6 +598,14 @@ msgstr "De kemanak bestaat uit twee kromme bronzen spleettrommels die met taboeh
 msgid "Besides being used for writing, it has also been used in percussion."
 msgstr "Typemachines worden niet alleen gebruikt om mee te schrijven, maar ook voor percussie."
 
+#. name:Anglo concertina
+#: DB:instrument/description:839
+msgid ""
+"Bisonoric and button layout like the German, reeds and hexagonal ends like "
+"the english, this concertina was created to rival the popular German variant"
+" imported into England."
+msgstr "De Engels-Duitse concertina is een wisseltonige concertina met de knoppen van de Duitse en de rieten en uiteinden van de Engelse concertina."
+
 #. name:cajón
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
@@ -723,6 +729,14 @@ msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr "Ching zijn een paar kleine handbekkens die worden gebruikt voor muziek uit Thailand en Cambodja."
 
+#. name:stick zither
+#: DB:instrument/description:1031
+msgid ""
+"Class of instruments where the body is a simple stick with one to many "
+"strings attached, may also have up to several usually gourd or wood "
+"resonators."
+msgstr "Stokciters zijn instrumenten met een kast in de vorm van een eenvoudige stok en een of meerdere snaren. Sommige instrumenten uit deze groep hebben één of meer resonatoren van kalebas of hout."
+
 #. name:glockenspiel
 #: DB:instrument/description:165
 msgid ""
@@ -738,7 +752,7 @@ msgstr "Een glockenspiel is een populaire metallofoon die meestal bestaat uit me
 #: DB:instrument/description:1028
 msgid ""
 "Composite chordophone, box zither where some or all strings are operated by "
-"keys or buttons (keyboard)"
+"typewriter-keys or buttons (keyboard)"
 msgstr "Een doosciter met toetsen is een samengesteld snaarinstrument waarvan een paar of alle snaren via toetsen of knoppen (toetsenbord) worden bespeeld."
 
 #. name:rudra veena
@@ -876,6 +890,22 @@ msgid ""
 "fastened with pins. The back can be rounded or flat."
 msgstr "De chitarra battente werd vooral ontwikkeld als volks instrument voor het begeleiden van zang en dans. De voorkant is voorzien van een fijn gesneden klankgat. De vijf dubbelkorige (soms driedubbel) dunne stalen snaren zijn aan de onderkant met pennen bevestigd. De achterkant kan bol of vlak zijn."
 
+#. name:cabasa
+#: DB:instrument/description:108
+msgid ""
+"Developed from the African agbe, a small shaker not unlike shekere, it is "
+"made of wood and metal, with metal beads."
+msgstr "De kabassa is ontstaan uit de Afrikaanse agbe. Het is een kleine shaker die lijkt op de shekere, gemaakt van hout en metaal met metalen kogeltjes."
+
+#. name:bulbul tarang
+#: DB:instrument/description:528
+msgid ""
+"Developed from the Japanese <a "
+"href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>, it"
+" is made of wood, often an integral case. It has two courses of strings; "
+"drone and melody strings operated by buttons or keys."
+msgstr "De bulbul tarang is ontwikkeld uit de Japanse </a>taishogoto</a>. Het instrument is gemaakt van hout en de bourdon- en melodiesnaren worden met knoppen of toetsen bespeeld."
+
 #. name:seni rebab
 #: DB:instrument/description:1014
 msgid ""
@@ -999,6 +1029,13 @@ msgid ""
 "Ensemble of multiple instruments of the viol family, usually including at "
 "least treble, tenor and bass viols."
 msgstr "Een gambaconsort is een ensemble van bespelers van verschillende leden van de familie viole da gamba, waaronder vaak de discant-, tenor- en basgamba."
+
+#. name:dulce melos
+#: DB:instrument/description:773
+msgid ""
+"European mediaeval struck string instrument, similar to the psaltery and a "
+"possible ancestor of the piano. Basically it is a dulcimer with keys."
+msgstr "Een dulce melos is een middeleeuws Europees tokkelinstrument dat lijkt op een psalterium en een mogelijke voorouder van de piano is. Het is eigenlijk een dulcimer met toetsen."
 
 #. name:ugal
 #: DB:instrument/description:967
@@ -1609,6 +1646,14 @@ msgid ""
 "rhythmic accompaniment in Yakshagana."
 msgstr "De maddale is een tweevellige trommel uit Karnata, India. Samen met de chande zorgt de maddale voor ritmische begeleiding in Yakshagana."
 
+#. name:żummara
+#: DB:instrument/description:592
+msgid ""
+"Made of bamboo with one end covered with grease-paper, it is a \"side-"
+"blown\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara "
+"which is an instrument similar to a chalumeau."
+msgstr "De żummara is een mirliton van bamboe waarvan één uiteinde is bedekt met vetvrij papier.<br />Het instrument moet niet worden verward met de Egyptische/Irakese zummara, een instrument dat lijkt op een chalumeau."
+
 #. name:suling
 #: DB:instrument/description:725
 msgid ""
@@ -1790,6 +1835,19 @@ msgstr "De kendang batangan is een middelgrote kendang die wordt gebruikt voor h
 #: DB:instrument/description:993
 msgid "Middle sized kendang, it was traditionally used for the wayang dance."
 msgstr "De kendang wajang is een middelgrote kendang die traditioneel bij wajangvoorstellingen wordt gebruikt."
+
+#. name:kamale ngɔni
+#: DB:instrument/description:817
+msgid ""
+"Modern derivative of the donso ngɔni, it comes with more strings and is made"
+" of calabash. It became an important instrument in the rise of the Wassoulou"
+" music in the 80's and 90's."
+msgstr "De kamale ngɔni is een moderne variant op de donso ngɔni, met meer snaren. Het instrument is gemaakt van kalebas en werd populair met de opkomst van Wassoulou-muziek in de jaren 1980 en 1990."
+
+#. name:German concertina
+#: DB:instrument/description:838
+msgid "More usually square than hexagonal, with long plate reeds"
+msgstr "De Duitse concertina heeft vaak vierkante uiteinden en lange metalen rieten."
 
 #. name:bass viol
 #: DB:instrument/description:916
@@ -2131,11 +2189,6 @@ msgid ""
 "that are plucked in various ways to produce sound."
 msgstr "Getokkelde idiofonen hebben pinnen, nagels of flexibele tongen (lamellen) die op verschillende manieren worden getokkeld om geluid te maken."
 
-#. name:ngɔni
-#: DB:instrument/description:729
-msgid "Plucked string instrument made of wood or gourd from West Africa."
-msgstr "Een ngoni is een tokkelinstrument gemaakt van hout of kalebas uit West-Afrika."
-
 #. name:melodica
 #: DB:instrument/description:44
 msgid ""
@@ -2158,6 +2211,15 @@ msgid ""
 "Popular in the renaissance, it was small and portable with two bellows and "
 "brass reeds."
 msgstr "De regaal was een klein en draagbaar orgel met twee balgen en tongetjes van messing, populair tijdens de renaissance."
+
+#. name:đàn bầu
+#: DB:instrument/description:251
+msgid ""
+"Possibly ancient Vietnamese tube zither. It was originally made of bamboo "
+"with one silken string, today it is usually wooden with a metal string. "
+"Fastened in one end to a movable device and resonator, the melody comes from"
+" changing the string's tension."
+msgstr "Een đàn bầu is een mogelijk antieke Vietnamese buisciter. Oorspronkelijk gemaakt van bamboe met één snaar van zijde, maar tegenwoordig vaak van hout met een metalen snaar. De snaar zit aan één kant vast aan een beweegbare boom met resonator, en de melodie wordt gevormd door de spanning van de snaar te variëren."
 
 #. name:komuz
 #: DB:instrument/description:543
@@ -2478,6 +2540,15 @@ msgid ""
 "Tuned in Slendro, one to two pairs are played using the same hand to both "
 "play and dampen the keys."
 msgstr "De gendèr wajang is een gendèr die specifiek wordt bespeeld bij wajangspelen, waarbij over het algemeen twee paren gendèrs met verschillende toonhoogtes door twee spelers worden bespeeld. Elke speler speelt met twee hamers en moet ook toetsen dempen."
+
+#. name:jantar
+#: DB:instrument/description:1032
+msgid ""
+"Stick zither from Rajasthan. It is made of wood with at least two large "
+"gourd resonators, the strings rest on very high frets. <br /><br /> Not to "
+"be confused with the 13th century tritantri-vina which evolved into the bin "
+"via a five-string stick-zither also known as \"jantar\"."
+msgstr "Een jantar is een stokciter uit Rajastan. Het instrument is gemaakt van hout, heeft ten minste twee grote resonatoren van kalebas en de snaren liggen op hele hoge fretten.<br /><br />Dit instrument moet niet worden verward met de 13e eeuwse tritantri-vina, die evolueerde naar de bin via een tussenvorm die ook ‘jantar’ wordt genoemd."
 
 #. name:struck idiophone
 #: DB:instrument/description:675
@@ -3742,13 +3813,6 @@ msgid ""
 "Okinawan sanshin."
 msgstr "Een shamisen of samisen, ook wel sangen genoemd, is een instrument met drie snaren uit Japan dat wordt bespeeld met een grote driehoekige plectrum dat een bachi wordt genoemd. Voor de klankkast wordt meestal katten- of hondenhuid gebruikt, in tegenstelling tot de Chinese sanxian of de sanshin uit Okinawa."
 
-#. name:shekere
-#: DB:instrument/description:381
-msgid ""
-"The shekere is a shaker from West Africa consisting of a gourd with beads "
-"woven into a net which covers the gourd."
-msgstr "De shekere is een shaker uit West-Afrika bestaande uit een kalebas waarover een net is gespannen waarin kralen zijn geweven."
-
 #. name:sheng
 #: DB:instrument/description:45
 msgid ""
@@ -4132,11 +4196,6 @@ msgid ""
 "Vietnam."
 msgstr "Een đing năm, ook bekend als ku puốt, m’boắt of m’buốt, is een <a href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ\">van een kalebas gemaakt mondorgel</a> dat wordt gebruikt door minderheden in de centrale hooglanden van Vietnam."
 
-#. name:đàn bầu
-#: DB:instrument/description:251
-msgid "The đàn bầu is a one-stringed Vietnamese zither."
-msgstr "De đàn bầu is een Vietnamese citer met één snaar."
-
 #. name:đàn nguyệt
 #: DB:instrument/description:242
 msgid ""
@@ -4215,16 +4274,6 @@ msgid ""
 "(typically a premature calf, goat or dog). The chanter consists of two side-"
 "by-side pipes and a bull's horn is normally attached to the end."
 msgstr "De żaqq is een Maltese doedelzak die gemaakt is van de hele huid van een dier. De chanter bestaat uit twee pijpen naast elkaar met aan het uiteinde vaak een hoorn van een stier. "
-
-#. name:żummara
-#: DB:instrument/description:592
-msgid ""
-"The żummara is a Maltese instrument similar to a kazoo. It is made out of a "
-"piece of bamboo reed covered on one end by greaseproof paper tied with "
-"string. A melody is then hummed into a hole in the reed producing a rough "
-"raspy sound. Not to be confused with the Egyptian/Iraqi zummara which is an "
-"instrument similar to a chalemeau."
-msgstr "Een żummara is een Maltees instrument dat lijkt op de kazoo. Hij wordt gemaakt uit een stuk bamboe met aan één kant vetvrij papier. Een melodie wordt in een gat in het bamboe geneuried waardoor een raspend geluid ontstaat. Dit instrument moet niet verward worden met de Egyptische/Iraakse zummara (een soort dubbele klarinet)."
 
 #. name:theatre organ
 #: DB:instrument/description:347
@@ -4376,6 +4425,11 @@ msgid ""
 " chanting and singing, the other is used for tapping and scraping, creating "
 "rhythm."
 msgstr "De paakuru bestaat uit twee staven, waarvan er een in de mond wordt gehouden als klankkast tijdens het zingen, terwijl de andere staaf wordt gebruikt om met tikken en schrapen ritme te creëren."
+
+#. name:English concertina
+#: DB:instrument/description:837
+msgid "Unisonoric concertina with hexagonal sides and concertina reeds."
+msgstr "De Engelse concertina is een gelijktonige concertina met zeshoekige uiteinden en de rieten van een concertina."
 
 #. name:slentho
 #: DB:instrument/description:964
@@ -4656,6 +4710,11 @@ msgstr "Een Blaster Beam is een lange metalen balk met snaren en elektrische git
 msgid "Violone, The largest/deepest member of the Viol family"
 msgstr "De violone is het grootste en laagst klinkende lid van de viole da gamba-familie."
 
+#. name:shekere
+#: DB:instrument/description:381
+msgid "West African gourd-shaker, a net of beads covers it."
+msgstr "Een shekere is een West-Afrikaanse shaker, bestaande uit een kalebas, bedekt met een net van kraaltjes."
+
 #. name:concert flute
 #: DB:instrument/description:414
 msgid ""
@@ -4691,7 +4750,7 @@ msgid ""
 "Whole or half-pear shaped wooden body, it is partly fretted and has two "
 "string-courses; melody and drone. The name comes from Germanic words meaning"
 " bumblebee or buzzing."
-msgstr "Een hommel is een citer met een (deels) peervormige klankkast. Sommige snaren hebben fretten, en er zijn twee koren: melodie en bourdon. Het instrument is vernoemd naar het gelijknamige insect."
+msgstr "Een hommel is een citer met een (deels) peervormige klankkast. Sommige snaren hebben fretten, en het instrument heeft zowel bourdon- als melodiesnaren. Het instrument is vernoemd naar het gelijknamige insect."
 
 #. name:haegeum
 #: DB:instrument/description:486
@@ -4789,14 +4848,6 @@ msgstr "De barbat is een antiek snaarinstrument uit Centraal-Azië of Perzië en
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr "Het gebruik van schijfstations van computers om muziek te maken."
-
-#. name:Anglo concertina
-#: DB:instrument/description:839
-msgid ""
-"bisonoric and button layout like the german and reeds and hexagonal ends "
-"like the english, this concertina was created to rival the popular german "
-"variant imported into england."
-msgstr "De Engels-Duitse concertina is een wisseltonige concertina met de knoppen van de Duitse en de rieten en uiteinden van de Engelse concertina."
 
 #. name:bugarija
 #: DB:instrument/description:826
@@ -4971,14 +5022,6 @@ msgid ""
 "it produces a deep, loud whizzing sound that can be heard from far away."
 msgstr "De puurerehua wordt gemaakt van hout, bot of steen en zit vast aan een lang koord. Als het instrument aan het koord wordt rondgeslingerd, maakt het een diep en luid zoevend geluid dat tot op grote afstand kan worden gehoord."
 
-#. name:kamalen ngɔni
-#: DB:instrument/description:817
-msgid ""
-"modern derivative of the donso ngɔni, it comes with more strings and is made"
-" of calabash, it became an important instrument in the rise of the Wassoulou"
-" music in the 80's and 90's"
-msgstr "Een kamalen ngoni is een moderne afgeleide van de donso ngoni. Het heeft meer snaren en is gemaakt van een kalebas. Tijdens de jaren 1980 en 1990 werd het een belangrijk instrument in de opmars van de Wassoulou-muziek."
-
 #. name:oval spinet
 #: DB:instrument/description:879
 msgid ""
@@ -4986,11 +5029,6 @@ msgid ""
 " an oval shape, allowing for a stronger, more compact configuration. 2 "
 "examples survive today."
 msgstr "Een ovale spinet (eigenlijk een virginaal) is een toetsinstrument waarvan de snaren in een ovaal zijn opgesteld, waardoor een sterkere en compactere constructie mogelijk was. Er zijn twee exemplaren bewaard gebleven."
-
-#. name:German concertina
-#: DB:instrument/description:838
-msgid "more usually square than hexagonal, with long plate reeds"
-msgstr "De Duitse concertina heeft vaak vierkante uiteinden en lange metalen rieten."
 
 #. name:chirimía and drum
 #: DB:instrument/description:822
@@ -5145,11 +5183,6 @@ msgid ""
 "is tuned an octave higher than a conventional guitar, thus having the tonal "
 "range of the mandolin."
 msgstr "De mandogitaar is een twaalfsnarige gitaar met de klankkast van een gitaar en de hals van een mandoline."
-
-#. name:English concertina
-#: DB:instrument/description:837
-msgid "unisonoric concertina with hexagonal sides and concertina reeds."
-msgstr "De Engelse concertina is een gelijktonige concertina met zeshoekige uiteinden en de rieten van een concertina."
 
 #. name:khulsan khuur
 #: DB:instrument/description:811

@@ -35,7 +35,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-01-08 08:54+0000\n"
+"PO-Revision-Date: 2021-02-09 07:18+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -167,11 +167,11 @@ msgstr "CPDL"
 msgid "CPDL page for"
 msgstr "Page CPDL pour"
 
-#: DB:link_type/name:8 DB:link_type/name:227
+#: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
 msgstr "DJ-mix"
 
-#: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
+#: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
 msgstr "DJ-mix de"
 
@@ -1344,6 +1344,12 @@ msgstr "Ceci indique une personne ou agence qui a fait de la conception ou de l�
 msgid ""
 "This indicates a person or agency who did illustration for the release."
 msgstr "Ceci indique une personne ou agence qui a fait de l’illustration pour cette parution."
+
+#: DB:link_type/description:993
+msgid ""
+"This indicates a person or agency who provided artwork for the release when "
+"no more specific information is available."
+msgstr ""
 
 #: DB:link_type/description:723
 msgid ""
@@ -3404,6 +3410,10 @@ msgstr "directeur artistique de"
 msgid "artists and repertoire"
 msgstr "artiste et répertoire"
 
+#: DB:link_type/name:993
+msgid "artwork"
+msgstr ""
+
 #: DB:link_attribute_type/name:526
 msgid "assistant"
 msgstr "assistant"
@@ -4644,7 +4654,7 @@ msgstr "inventé par"
 msgid "involved with"
 msgstr "impliqué avec"
 
-#: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
+#: DB:link_type/long_link_phrase:227 DB:link_type/long_link_phrase:8
 msgid "is a DJ-mix of"
 msgstr "est un DJ-mix de"
 
@@ -5771,6 +5781,10 @@ msgstr "a assuré la représentation juridique pour"
 msgid "provided {additional} art direction on"
 msgstr "a assuré la direction artistique {additional:supplémentaire} sur"
 
+#: DB:link_type/long_link_phrase:993
+msgid "provided {additional} artwork on"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
 msgid "provided {additional} creative direction on"
 msgstr "a assuré la direction créative {additional:supplémentaire} sur"
@@ -6834,6 +6848,10 @@ msgstr "lieu {additional:supplémentaire} d’arrangement de"
 #: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:18
 msgid "{additional} art direction"
 msgstr "direction artistique {additional:supplémentaire}"
+
+#: DB:link_type/link_phrase:993 DB:link_type/reverse_link_phrase:993
+msgid "{additional} artwork"
+msgstr ""
 
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
 #: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53

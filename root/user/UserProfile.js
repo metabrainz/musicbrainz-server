@@ -23,6 +23,14 @@ import bracketed, {bracketedText}
 import * as TYPES from '../static/scripts/common/constants/editTypes';
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty';
+import {
+  isAccountAdmin,
+  isAutoEditor,
+  isBot,
+  isLocationEditor,
+  isRelationshipEditor,
+  isWikiTranscluder,
+} from '../static/scripts/common/utility/privileges';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import {formatCount, formatPercentage} from '../statistics/utilities';
 import formatUserDate from '../utility/formatUserDate';
@@ -49,28 +57,28 @@ function generateUserTypesList(user: UnsanitizedEditorT) {
   if (user.deleted) {
     typesList.push(l('Deleted User'));
   }
-  if (user.is_auto_editor) {
+  if (isAutoEditor(user)) {
     typesList.push(exp.l(
       '{doc|Auto-Editor}',
       {doc: '/doc/Editor#Auto-editors'},
     ));
   }
-  if (user.is_bot) {
+  if (isBot(user)) {
     typesList.push(l('Internal/Bot'));
   }
-  if (user.is_relationship_editor) {
+  if (isRelationshipEditor(user)) {
     typesList.push(exp.l(
       '{doc|Relationship Editor}',
       {doc: '/doc/Editor#Relationship_editors'},
     ));
   }
-  if (user.is_wiki_transcluder) {
+  if (isWikiTranscluder(user)) {
     typesList.push(exp.l(
       '{doc|Transclusion Editor}',
       {doc: '/doc/Editor#Transclusion_editors'},
     ));
   }
-  if (user.is_location_editor) {
+  if (isLocationEditor(user)) {
     typesList.push(exp.l(
       '{doc|Location Editor}',
       {doc: '/doc/Editor#Location_editors'},
@@ -160,11 +168,7 @@ const UserProfileInformation = ({
     languages,
   } = user;
 
-  /*
-   * Whether the user making the request is an account admin (not
-   * the user whose profile is being viewed).
-   */
-  const isAccountAdmin = !!($c.user?.is_account_admin);
+  const viewingUser = $c.user;
 
   return (
     <>
@@ -202,7 +206,7 @@ const UserProfileInformation = ({
                         {l('send email')}
                       </a>,
                     )}
-                    {(nonEmpty(email) && isAccountAdmin) ? (
+                    {(nonEmpty(email) && isAccountAdmin(viewingUser)) ? (
                       <form action="/admin/email-search" method="post">
                         <input
                           name="emailsearch.email"
@@ -265,7 +269,7 @@ const UserProfileInformation = ({
           {memberSince}
         </UserProfileProperty>
 
-        {(viewingOwnProfile || isAccountAdmin) ? (
+        {(viewingOwnProfile || isAccountAdmin(viewingUser)) ? (
           <UserProfileProperty name={l('Last login:')}>
             {nonEmpty(user.last_login_date)
               ? formatUserDate($c, user.last_login_date)
@@ -361,7 +365,7 @@ const UserProfileInformation = ({
           </UserProfileProperty>
         ) : null}
 
-        {$c.user?.is_account_admin && ipHashes.length ? (
+        {isAccountAdmin($c.user) && ipHashes.length ? (
           <UserProfileProperty name={addColonText(l('IP lookup'))}>
             <ul className="inline">
               {commaOnlyList(ipHashes.map(ipHash => (

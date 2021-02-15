@@ -12,6 +12,8 @@ import * as React from 'react';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
+import {isEditingEnabled}
+  from '../../static/scripts/common/utility/privileges';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsWithContextT} from '../types';
 
@@ -66,7 +68,7 @@ React.Element<typeof ResultsLayout> => (
       query={query}
       results={results}
     />
-    {$c.user && !$c.user.is_editing_disabled ? (
+    {isEditingEnabled($c.user) ? (
       <p>
         {exp.l('Alternatively, you may {uri|add a new release group}.', {
           uri: '/release-group/create?edit-release-group.name=' +

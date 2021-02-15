@@ -557,7 +557,7 @@ msgstr "Ceco"
 msgid "Dakota"
 msgstr "Dakota"
 
-#. frequency:2 iso_code_3:dan
+#. frequency:1 iso_code_3:dan
 #: DB:language/name:100
 msgid "Danish"
 msgstr "Danese"
@@ -972,7 +972,7 @@ msgstr "Ittita"
 msgid "Hmong"
 msgstr "Hmong"
 
-#. frequency:1 iso_code_3:hun
+#. frequency:2 iso_code_3:hun
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr "Ungherese"

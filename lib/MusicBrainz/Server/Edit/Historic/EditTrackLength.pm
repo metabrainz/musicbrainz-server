@@ -34,12 +34,20 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
+
+    # Some lengths of -1 or 0 ms are stored, which is nonsensical
+    # and probably meant as a placeholder for unknown duration
+    my $old_length = $self->data->{old}->{length};
+    my $old_display_length = $old_length <= 0 ? undef : $old_length;
+    my $new_length = $self->data->{new}->{length};
+    my $new_display_length = $new_length <= 0 ? undef : $new_length;
+
     return {
         recording => $loaded->{Recording}->{ $self->data->{recording_id} } ||
                     Recording->new( id => $self->data->{recording_id} ),
         length => {
-            old => $self->data->{old}->{length},
-            new => $self->data->{new}->{length},
+            old => $old_display_length,
+            new => $new_display_length,
         }
     };
 }

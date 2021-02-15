@@ -2703,10 +2703,14 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?ra\\.co/', 'i'),
       new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/', 'i'),
     ],
-    type: {...LINK_TYPES.otherdatabases, ...LINK_TYPES.review},
+    type: {
+      ...LINK_TYPES.otherdatabases,
+      ...LINK_TYPES.review,
+      ...LINK_TYPES.discographyentry,
+    },
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(www\.)?ra\.co\//, 'https://ra.co/');
-      url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|reviews|tracks)\/([^\/?#]+).*$/, 'https://ra.co/$1/$2');
+      url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|podcast|reviews|tracks)\/([^\/?#]+).*$/, 'https://ra.co/$1/$2');
       return url;
     },
     validate: function (url, id) {
@@ -2731,6 +2735,8 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         switch (id) {
+          case LINK_TYPES.discographyentry.release:
+            return {result: prefix === 'podcast'};
           case LINK_TYPES.otherdatabases.artist:
             return {result: prefix === 'dj'};
           case LINK_TYPES.otherdatabases.event:
