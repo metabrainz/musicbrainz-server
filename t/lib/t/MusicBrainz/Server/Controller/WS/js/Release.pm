@@ -54,7 +54,6 @@ test all => sub {
             last_updated => ignore,
             name => 'BoA',
             sort_name => 'BoA',
-            unaccented_name => undef,
             typeID => 1,
             rating => undef,
             rating_count => 0,

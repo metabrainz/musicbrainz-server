@@ -40,7 +40,6 @@ test all => sub {
                 "rating_count" => 0,
                 "sort_name" => "David Bowie",
                 "typeID" => undef,
-                "unaccented_name" => undef,
                 "user_rating" => undef,
               }, { "current" => 1, "pages" => 1 } ];
 
@@ -65,7 +64,6 @@ test all => sub {
                 "rating" => undef,
                 "rating_count" => 0,
                 "typeID" => 4,
-                "unaccented_name" => undef,
                 "user_rating" => undef,
               }, { "current" => 1, "pages" => 1 } ];
 

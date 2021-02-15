@@ -27,18 +27,12 @@ has 'name' => (
     isa => 'Str'
 );
 
-has 'unaccented_name' => (
-    is => 'rw',
-    isa => 'Maybe[Str]'
-);
-
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
     $json->{gid} = $self->gid;
     $json->{name} = $self->name;
-    $json->{unaccented_name} = $self->unaccented_name;
     return $json;
 };
 

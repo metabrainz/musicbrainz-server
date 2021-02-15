@@ -16,6 +16,7 @@ import clean from '../common/utility/clean';
 import debounce from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
+import {unaccent} from '../common/utility/strings';
 
 import PossibleDuplicates from './components/PossibleDuplicates';
 import validation from './validation';
@@ -130,7 +131,7 @@ function isCommentRequired(type, name, duplicates) {
   }
 
   return duplicates.some(function (duplicate) {
-    return name.toUpperCase() === duplicate.unaccented_name.toUpperCase();
+    return name.toUpperCase() === unaccent(duplicate.name).toUpperCase();
   });
 }
 
