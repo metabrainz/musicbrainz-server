@@ -21,8 +21,9 @@ sub entity_type { 'area' }
 
 sub l_name {
     my $self = shift;
-    my $type = defined $self->type ? $self->type->id : $self->type_id;
-    if (defined $type && $type == $AREA_TYPE_COUNTRY) {
+    # Areas with iso_3166_1 codes are the ones we export for translation
+    # in the countries domain. See po/extract_pot_db.
+    if (scalar $self->iso_3166_1_codes > 0) {
         return l($self->name);
     } else {
         return $self->name;
