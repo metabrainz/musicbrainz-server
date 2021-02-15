@@ -58,27 +58,28 @@ fieldset {
 
 fieldset legend { margin-top: 0; }
 
-form div.row {
-    clear: left;
-    margin: 6px 0;
-}
+form, div.form {
+    div.row {
+        clear: left;
+        margin: 6px 0;
+    }
 
-form div.row label,
-form div.row div.label,
-form fieldset.row legend {
-    float: left;
-    text-align: right;
-    min-width: @form-label-width;
-    margin-right: @form-margin;
-}
+    div.row label,
+    div.row div.label {
+        float: left;
+        text-align: right;
+        min-width: @form-label-width;
+        margin-right: @form-margin;
+    }
 
-form div.row.no-label label {
-    float: none;
-}
+    div.row.no-label label {
+        float: none;
+    }
 
-form div.row button.icon {
-    margin-left: 2px;
-    vertical-align: text-top;
+    div.row button.icon {
+        margin-left: 2px;
+        vertical-align: text-top;
+    }
 }
 
 div.form-row-text-list, div.form-row-select-list {
