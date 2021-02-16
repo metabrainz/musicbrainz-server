@@ -1,3 +1,5 @@
+// @flow
+
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -8,37 +10,47 @@ const {
 const {
   default: autocompleteReducer,
 } = require('../common/components/Autocomplete2/reducer');
+const {keyBy} = require('../common/utility/arrays');
 
-const vocals = [
-  {id: 3, name: 'vocal', level: 0},
-  {id: 4, name: 'lead vocals', level: 1},
-  {id: 5, name: 'alto vocals', level: 2},
-  {id: 6, name: 'baritone vocals', level: 2},
-  {id: 7, name: 'bass vocals', level: 2},
-  {id: 8, name: 'countertenor vocals', level: 2},
-  {id: 9, name: 'mezzo-soprano vocals', level: 2},
-  {id: 10, name: 'soprano vocals', level: 2},
-  {id: 11, name: 'tenor vocals', level: 2},
-  {id: 230, name: 'contralto vocals', level: 2},
-  {id: 231, name: 'bass-baritone vocals', level: 2},
-  {id: 834, name: 'treble vocals', level: 2},
-  {id: 1060, name: 'meane vocals', level: 2},
-  {id: 12, name: 'background vocals', level: 1},
-  {id: 13, name: 'choir vocals', level: 1},
-  {id: 461, name: 'other vocals', level: 1},
-  {id: 561, name: 'spoken vocals', level: 2},
-];
+const {linkAttributeTypes} = require('./typeInfo');
+
+const attributeTypesById = keyBy(
+  (linkAttributeTypes: $ReadOnlyArray<LinkAttrTypeT>),
+  x => String(x.id),
+);
+
+const attributeTypeOptions = (
+  linkAttributeTypes: $ReadOnlyArray<LinkAttrTypeT>
+).map((type) => {
+  let level = 0;
+  let parentId = type.parent_id;
+  let parentType =
+    parentId == null ? null : attributeTypesById[String(parentId)];
+  while (parentType) {
+    level++;
+    parentId = parentType.parent_id;
+    parentType =
+      parentId == null ? null : attributeTypesById[String(parentId)];
+  }
+  return {
+    entity: type,
+    id: type.id,
+    level,
+    name: type.name,
+    type: 'option',
+  };
+});
 
 $(function () {
   const container = document.createElement('div');
-  document.body.insertBefore(container, document.getElementById('page'));
+  document.body?.insertBefore(container, document.getElementById('page'));
 
   function reducer(state, action) {
     switch (action.type) {
       case 'update-autocomplete':
         state = {...state};
         state[action.prop] = autocompleteReducer(
-          state[action.prop],
+          (state[action.prop]: any),
           action.action,
         );
         break;
@@ -48,17 +60,17 @@ $(function () {
 
   function createInitialState() {
     return {
-      entityAutocomplete: createInitialAutocompleteState({
+      entityAutocomplete: createInitialAutocompleteState<NonUrlCoreEntityT>({
         canChangeType: () => true,
         entityType: 'artist',
         id: 'entity-test',
         width: '200px',
       }),
-      vocalAutocomplete: createInitialAutocompleteState({
+      vocalAutocomplete: createInitialAutocompleteState<LinkAttrTypeT>({
         entityType: 'link_attribute_type',
         id: 'vocal-test',
-        placeholder: 'Choose a vocal',
-        staticItems: vocals,
+        placeholder: 'Choose an attribute type',
+        staticItems: attributeTypeOptions,
         width: '200px',
       }),
     };
@@ -121,6 +133,7 @@ $(function () {
         </div>
         <div>
           <h2>{'Vocal autocomplete'}</h2>
+          {/* $FlowIssue[incompatible-type] */}
           <Autocomplete2
             dispatch={vocalAutocompleteDispatch}
             {...state.vocalAutocomplete}

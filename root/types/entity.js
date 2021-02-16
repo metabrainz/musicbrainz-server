@@ -27,7 +27,7 @@ declare type CoreEntityRoleT<+T> = {
   +relationships?: $ReadOnlyArray<RelationshipT>,
 };
 
-declare type CoreEntityT =
+declare type NonUrlCoreEntityT =
   | AreaT
   | ArtistT
   | EventT
@@ -39,8 +39,11 @@ declare type CoreEntityT =
   | ReleaseGroupT
   | ReleaseT
   | SeriesT
-  | UrlT
   | WorkT;
+
+declare type CoreEntityT =
+  | NonUrlCoreEntityT
+  | UrlT;
 
 declare type CoreEntityTypeT =
   | 'area'
