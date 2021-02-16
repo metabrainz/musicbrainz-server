@@ -29,6 +29,10 @@ export type State<T: EntityItem> = {
   +selectedEntity: T | null,
   +staticItems?: $ReadOnlyArray<Item<T>>,
   +staticItemsFilter?: (Item<T>, string) => boolean,
+  +staticItemsFilterResult?: {
+    +items: $ReadOnlyArray<Item<T>>,
+    +searchTerm: string,
+  },
   +statusMessage: string,
   +width?: string,
 };
@@ -51,6 +55,7 @@ export type Actions<+T: EntityItem> =
       +type: 'change-entity-type',
       +entityType: SearchableType,
     }
+  | { +type: 'filter-static-items', +searchTerm: string }
   | { +type: 'highlight-item', +item: Item<T> }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
@@ -58,10 +63,10 @@ export type Actions<+T: EntityItem> =
   | { +type: 'select-item', +item: Item<T> }
   | { +type: 'set-menu-visibility', +value: boolean }
   | {
-      +type: 'show-results',
-      +items: $ReadOnlyArray<Item<T>>,
+      +type: 'show-ws-results',
+      +entities: $ReadOnlyArray<T>,
       +page: number,
-      +resultCount: number,
+      +totalPages: number,
     }
   | { +type: 'show-lookup-error' }
   | { +type: 'show-lookup-type-error' }

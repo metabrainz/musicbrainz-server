@@ -103,6 +103,8 @@ export const MENU_ITEMS: {+[name: string]: ActionItem<empty>, ...} = {
 };
 /* eslint-enable sort-keys */
 
+export const PAGE_SIZE: number = 25;
+
 export const SEARCH_PLACEHOLDERS: {
   +[type: SearchableType]: () => string,
   ...

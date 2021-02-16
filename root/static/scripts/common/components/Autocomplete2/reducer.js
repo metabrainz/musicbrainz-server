@@ -14,7 +14,7 @@ import {unwrapNl} from '../../i18n';
 import {
   SEARCH_AGAIN,
 } from './actions';
-import {EMPTY_ARRAY, MENU_ITEMS} from './constants';
+import {EMPTY_ARRAY, MENU_ITEMS, PAGE_SIZE} from './constants';
 import type {
   Actions,
   ActionItem,
@@ -45,11 +45,9 @@ function initSearch<+T: EntityItem>(
     searchTerm = state.inputValue;
   }
 
-  if (!nonEmpty(searchTerm)) {
-    return;
+  if (nonEmpty(searchTerm)) {
+    state.pendingSearch = searchTerm;
   }
-
-  state.pendingSearch = searchTerm;
 }
 
 function resetPage<+T: EntityItem>(state: {...State<T>}) {
@@ -121,6 +119,71 @@ function highlightNextItem<+T: EntityItem>(
   }
 }
 
+function showFilteredItems<T: EntityItem>(
+  state: {...State<T>},
+  filteredItems: $ReadOnlyArray<Item<T>>,
+): void {
+  const page = state.page;
+  const resultCount = filteredItems.length;
+
+  showResults<T>(
+    state,
+    filteredItems.slice(0, page * PAGE_SIZE),
+    page,
+    resultCount,
+    Math.ceil(resultCount / PAGE_SIZE),
+  );
+}
+
+function showResults<T: EntityItem>(
+  state: {...State<T>},
+  items: Array<Item<T>>,
+  page: number,
+  resultCount: number,
+  totalPages: number,
+) {
+  if (items.length) {
+    if (page < totalPages) {
+      items.push(MENU_ITEMS.SHOW_MORE);
+    }
+  } else if (page === 1) {
+    items.push(MENU_ITEMS.NO_RESULTS);
+  }
+
+  if (!state.staticItems) {
+    items.push(state.indexedSearch
+      ? MENU_ITEMS.TRY_AGAIN_DIRECT
+      : MENU_ITEMS.TRY_AGAIN_INDEXED);
+  }
+
+  state.items = items;
+
+  if (page === 1) {
+    highlightNextItem<T>(state, 0);
+  }
+
+  const highlightedItem = state.highlightedItem;
+
+  state.isOpen = true;
+  state.page = page;
+  state.pendingSearch = null;
+  state.statusMessage = items.length ? (
+    (highlightedItem
+      ? unwrapNl<string>(highlightedItem.name) + '. '
+      : '') +
+    texp.ln(
+      `1 result found.
+        Press enter to select, or
+        use the up and down arrow keys to navigate.`,
+      `{n} results found.
+        Press enter to select, or
+        use the up and down arrow keys to navigate.`,
+      items.length,
+      {n: resultCount},
+    )
+  ) : '';
+}
+
 export function defaultStaticItemsFilter<+T: EntityItem>(
   item: Item<T>,
   searchTerm: string,
@@ -144,6 +207,65 @@ export function runReducer<+T: EntityItem>(
       state.entityType = action.entityType;
       state.selectedEntity = null;
       resetPage<T>(state);
+      break;
+    }
+
+    case 'filter-static-items': {
+      const {
+        staticItems,
+        staticItemsFilter: filter = defaultStaticItemsFilter,
+        staticItemsFilterResult: previousResult,
+      } = state;
+
+      invariant(staticItems);
+
+      const searchTerm = action.searchTerm;
+      const prevSearchTerm = previousResult?.searchTerm;
+
+      /*
+       * If the new search term starts with the previous one,
+       * we can filter the existing items rather than starting
+       * anew.
+       */
+      let filteredItems: ?$ReadOnlyArray<Item<T>>;
+      let itemsToFilter;
+      if (
+        nonEmpty(prevSearchTerm) &&
+        /*:: previousResult && */ /* implied by prevSearchTerm */
+        searchTerm.startsWith(prevSearchTerm)
+      ) {
+        if (searchTerm.length === prevSearchTerm.length) {
+          // The string hasn't changed; we can use the previous results.
+          filteredItems = unwrapProxy(previousResult.items);
+        } else {
+          itemsToFilter = unwrapProxy(previousResult.items);
+        }
+      }
+
+      if (!filteredItems) {
+        if (!itemsToFilter) {
+          itemsToFilter = unwrapProxy(staticItems);
+        }
+        filteredItems = searchTerm
+          ? (itemsToFilter.reduce(
+            (accum: Array<Item<T>>, item: Item<T>) => {
+              if (filter(item, searchTerm)) {
+                accum.push(item);
+              }
+              return accum;
+            },
+            [],
+          ): $ReadOnlyArray<Item<T>>)
+          : itemsToFilter;
+      }
+
+      state.staticItemsFilterResult = {
+        items: filteredItems,
+        searchTerm,
+      };
+
+      showFilteredItems<T>(state, filteredItems);
+
       break;
     }
 
@@ -205,6 +327,9 @@ export function runReducer<+T: EntityItem>(
 
     case 'set-menu-visibility':
       state.isOpen = action.value;
+      if (!state.isOpen) {
+        state.highlightedItem = null;
+      }
       break;
 
     case 'show-lookup-error': {
@@ -217,35 +342,31 @@ export function runReducer<+T: EntityItem>(
       break;
     }
 
-    case 'show-results': {
-      const {items, page, resultCount} = action;
+    case 'show-ws-results': {
+      const {entities, page, totalPages} = action;
 
-      state.items = items;
+      let newItems: Array<Item<T>> = entities.map((entity: T) => ({
+        entity,
+        id: entity.id,
+        name: entity.name,
+        type: 'option',
+      }));
 
-      if (page === 1) {
-        highlightNextItem<T>(state, 0);
+      const prevItems: Array<Item<T>> = [];
+      const prevItemIds = new Set();
+      for (const item of unwrapProxy(state.items)) {
+        if (!item.action) {
+          prevItems.push(item);
+          prevItemIds.add(item.id);
+        }
       }
 
-      const highlightedItem = state.highlightedItem;
+      newItems = page > 1
+        ? prevItems.concat(newItems.filter(x => !prevItemIds.has(x.id)))
+        : newItems;
 
-      state.isOpen = true;
-      state.page = page;
-      state.pendingSearch = null;
-      state.statusMessage = items.length ? (
-        (highlightedItem
-          ? unwrapNl<string>(highlightedItem.name) + '. '
-          : '') +
-        texp.ln(
-          `1 result found.
-            Press enter to select, or
-            use the up and down arrow keys to navigate.`,
-          `{n} results found.
-            Press enter to select, or
-            use the up and down arrow keys to navigate.`,
-          items.length,
-          {n: resultCount},
-        )
-      ) : '';
+      showResults<T>(state, newItems, page, newItems.length, totalPages);
+
       break;
     }
 
@@ -262,7 +383,14 @@ export function runReducer<+T: EntityItem>(
 
     case 'show-more-results':
       state.page++;
-      initSearch<T>(state, SEARCH_AGAIN);
+      if (state.staticItems) {
+        showFilteredItems(
+          state,
+          unwrapProxy(state.staticItemsFilterResult?.items) ?? [],
+        );
+      } else {
+        initSearch<T>(state, SEARCH_AGAIN);
+      }
       break;
 
     case 'stop-search':
@@ -283,6 +411,16 @@ export function runReducer<+T: EntityItem>(
 
       if (!state.inputValue) {
         resetPage<T>(state);
+
+        const staticItems = unwrapProxy(state.staticItems);
+        if (staticItems) {
+          // Show a paged listing of all available options.
+          state.staticItemsFilterResult = {
+            items: staticItems,
+            searchTerm: '',
+          };
+          showFilteredItems<T>(state, staticItems);
+        }
       }
 
       break;

@@ -28,7 +28,6 @@ import {
   ARIA_LIVE_STYLE,
   DISPLAY_NONE_STYLE,
   EMPTY_ARRAY,
-  MENU_ITEMS,
   SEARCH_PLACEHOLDERS,
 } from './Autocomplete2/constants';
 import formatItem from './Autocomplete2/formatters';
@@ -40,41 +39,6 @@ import type {
   Props,
   State,
 } from './Autocomplete2/types';
-import {
-  defaultStaticItemsFilter,
-} from './Autocomplete2/reducer';
-
-/*
- * If the autocomplete is provided an `items` prop, it's assumed that it
- * contains the complete list of searchable options. In that case, we filter
- * them based on a simple substring match via `doFilter`.
- */
-function doFilter<T: EntityItem>(
-  dispatch: (Actions<T>) => void,
-  items: $ReadOnlyArray<Item<T>>,
-  searchTerm: string,
-  filter?: ((OptionItem<T>, string) => boolean) = defaultStaticItemsFilter,
-) {
-  let results = items;
-  let resultCount = results.length;
-
-  if (searchTerm) {
-    results = items.filter(item => (
-      item.type === 'option' && filter(item, searchTerm)
-    ));
-    resultCount = results.length;
-    if (!resultCount) {
-      results.push(MENU_ITEMS.NO_RESULTS);
-    }
-  }
-
-  dispatch({
-    items: results,
-    page: 1,
-    resultCount,
-    type: 'show-results',
-  });
-}
 
 /*
  * `doSearch` performs a direct or indexed search (via /ws/js). This is the
@@ -96,49 +60,16 @@ function doSearch<T: EntityItem>(
       return;
     }
 
-    const actions = [];
     const entities = JSON.parse(searchXhr.responseText);
     const pager = entities.pop();
     const newPage = parseInt(pager.current, 10);
     const totalPages = parseInt(pager.pages, 10);
 
-    let newItems: Array<Item<T>> = entities.map((entity: T) => ({
-      entity,
-      id: entity.id,
-      name: entity.name,
-      type: 'option',
-    }));
-
-    if (newItems.length) {
-      if (newPage < totalPages) {
-        actions.push(MENU_ITEMS.SHOW_MORE);
-      }
-    } else if (newPage === 1) {
-      actions.push(MENU_ITEMS.NO_RESULTS);
-    }
-
-    actions.push(props.indexedSearch
-      ? MENU_ITEMS.TRY_AGAIN_DIRECT
-      : MENU_ITEMS.TRY_AGAIN_INDEXED);
-
-    const prevItems: Array<Item<T>> = [];
-    const prevItemIds = new Set();
-    for (const item of props.items) {
-      if (!item.action) {
-        prevItems.push(item);
-        prevItemIds.add(item.id);
-      }
-    }
-
-    newItems = newPage > 1
-      ? prevItems.concat(newItems.filter(x => !prevItemIds.has(x.id)))
-      : newItems;
-
     dispatch({
-      items: newItems.concat(actions),
+      entities,
       page: newPage,
-      resultCount: newItems.length,
-      type: 'show-results',
+      totalPages,
+      type: 'show-ws-results',
     });
   });
 
@@ -151,19 +82,6 @@ function doSearch<T: EntityItem>(
 
   searchXhr.open('GET', url);
   searchXhr.send();
-}
-
-function doSearchOrFilter<T: EntityItem>(
-  dispatch: (Actions<T>) => void,
-  props: Props<T>,
-  searchTerm: string,
-) {
-  const {staticItems: items, staticItemsFilter} = props;
-  if (items) {
-    doFilter<T>(dispatch, items, searchTerm, staticItemsFilter);
-  } else if (searchTerm) {
-    dispatch({searchTerm, type: 'search-after-timeout'});
-  }
 }
 
 function handleItemMouseDown(event) {
@@ -382,7 +300,11 @@ export default function Autocomplete2<+T: EntityItem>(
     }
   }, [stopRequests, dispatch]);
 
-  function handleButtonClick() {
+  function handleButtonClick(
+    event: SyntheticMouseEvent<HTMLButtonElement>,
+  ) {
+    event.currentTarget.focus();
+
     stopRequests();
 
     if (props.isOpen) {
@@ -390,7 +312,10 @@ export default function Autocomplete2<+T: EntityItem>(
     } else if (props.items.length) {
       dispatch(SHOW_MENU);
     } else if (props.inputValue) {
-      doSearchOrFilter<T>(dispatch, props, props.inputValue);
+      dispatch({
+        searchTerm: props.inputValue,
+        type: 'search-after-timeout',
+      });
     }
   }
 
@@ -459,7 +384,10 @@ export default function Autocomplete2<+T: EntityItem>(
       lookupXhr.send();
     } else if (clean(props.inputValue) !== newCleanInputValue) {
       stopRequests();
-      doSearchOrFilter<T>(dispatch, props, newCleanInputValue);
+      dispatch({
+        searchTerm: newCleanInputValue,
+        type: 'search-after-timeout',
+      });
     }
   }
 
@@ -481,7 +409,10 @@ export default function Autocomplete2<+T: EntityItem>(
         } else if (isMenuNonEmpty) {
           dispatch(SHOW_MENU);
         } else if (isInputNonEmpty) {
-          doSearchOrFilter<T>(dispatch, props, props.inputValue);
+          dispatch({
+            searchTerm: props.inputValue,
+            type: 'search-after-timeout',
+          });
         }
         break;
 
@@ -536,17 +467,30 @@ export default function Autocomplete2<+T: EntityItem>(
     if (
       props.pendingSearch &&
       !inputTimeout.current &&
-      !xhr.current &&
-      !props.staticItems
+      !xhr.current
     ) {
+      /*
+       * Use a smaller delay for static lists, since no network
+       * requests are needed in that case; updates are fast.
+       */
+      const delay = props.staticItems ? 75 : 300;
+
       inputTimeout.current = setTimeout(() => {
         inputTimeout.current = null;
 
+        const pendingSearchTerm = clean(props.pendingSearch);
         // Check if the input value has changed before proceeding.
-        if (clean(props.pendingSearch) === clean(props.inputValue)) {
-          doSearch<T>(dispatch, props, xhr);
+        if (pendingSearchTerm === clean(props.inputValue)) {
+          if (props.staticItems) {
+            dispatch({
+              searchTerm: pendingSearchTerm,
+              type: 'filter-static-items',
+            });
+          } else if (nonEmpty(pendingSearchTerm)) {
+            doSearch<T>(dispatch, props, xhr);
+          }
         }
-      }, 300);
+      }, delay);
     }
   });
 
@@ -610,7 +554,16 @@ export default function Autocomplete2<+T: EntityItem>(
           aria-label={l('Search')}
           className={
             'search' +
-            (props.pendingSearch && !props.disabled ? ' loading' : '')}
+            ((
+              props.pendingSearch &&
+              !props.disabled &&
+              /*
+               * Lookups for static item lists complete near-instantly,
+               * so flashing a loading spinner is obnoxious.
+               */
+              !props.staticItems
+            ) ? ' loading' : '')
+          }
           data-toggle="true"
           disabled={props.disabled}
           onClick={handleButtonClick}
