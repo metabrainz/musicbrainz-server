@@ -6,8 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import './typeInfo';
-
 import $ from 'jquery';
 import ko from 'knockout';
 import test from 'tape';
@@ -27,6 +25,14 @@ import {
   prepareSubmission,
 } from '../relationship-editor/generic';
 import {ReleaseViewModel} from '../relationship-editor/release';
+import '../relationship-editor/common/viewModel';
+
+import {linkTypeTree, linkAttributeTypes} from './typeInfo';
+
+MB.relationshipEditor.exportTypeInfo(
+  linkTypeTree,
+  linkAttributeTypes,
+);
 
 class FakeRelationship extends fields.Relationship {}
 

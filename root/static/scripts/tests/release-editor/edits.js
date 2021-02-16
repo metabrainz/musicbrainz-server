@@ -6,16 +6,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import '../typeInfo';
-
 import ko from 'knockout';
 import test from 'tape';
 
 import MB from '../../common/MB';
 import validation from '../../edit/validation';
+import '../../relationship-editor/common/viewModel';
 import fields from '../../release-editor/fields';
+import {linkTypeTree, linkAttributeTypes} from '../typeInfo';
 
 import * as common from './common';
+
+MB.relationshipEditor.exportTypeInfo(
+  linkTypeTree,
+  linkAttributeTypes,
+);
 
 var releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];
