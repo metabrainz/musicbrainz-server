@@ -50,6 +50,7 @@ test all => sub {
         ],
         '@type' => 'MusicRelease',
         'catalogNumber' => '343 960 2',
+        'duration' => 'PT1H20M05S',
         '@id' => 'http://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80',
         'name' => 'Aerial',
         'musicReleaseFormat' => 'http://schema.org/CDFormat',

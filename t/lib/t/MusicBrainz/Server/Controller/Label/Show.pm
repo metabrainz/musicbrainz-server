@@ -38,12 +38,14 @@ page_test_jsonld $mech => {
         {
             'name' => 'Aerial',
             '@id' => 'http://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80',
-            '@type' => 'MusicRelease'
+            '@type' => 'MusicRelease',
+            'duration' => 'PT1H20M05S',
         },
         {
             '@id' => 'http://musicbrainz.org/release/9b3d9383-3d2a-417f-bfbb-56f7c15f075b',
             '@type' => 'MusicRelease',
-            'name' => 'Aerial'
+            'name' => 'Aerial',
+            'duration' => 'PT1H20M05S',
         },
         {
             'name' => 'Arrival',
