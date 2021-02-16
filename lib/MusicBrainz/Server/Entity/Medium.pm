@@ -143,6 +143,21 @@ has 'cdtoc_track_count' => (
     isa => 'Int',
 );
 
+has 'cdtoc_track_lengths' => (
+    is => 'rw',
+    isa => 'ArrayRef[Maybe[Int]]'
+);
+
+has 'data_track_lengths' => (
+    is => 'rw',
+    isa => 'ArrayRef[Maybe[Int]]'
+);
+
+has 'pregap_length' => (
+    is => 'rw',
+    isa => 'ArrayRef[Maybe[Int]]'
+);
+
 sub audio_tracks {
     my ($self) = @_;
     return [ grep { !$_->is_data_track } $self->all_tracks ];

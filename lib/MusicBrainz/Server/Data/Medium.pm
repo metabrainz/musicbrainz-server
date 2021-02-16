@@ -18,13 +18,14 @@ use Scalar::Util qw( weaken );
 
 sub _table
 {
-    return 'medium';
+    return 'medium LEFT JOIN medium_track_durations mtd ON mtd.medium = medium.id';
 }
 
 sub _columns
 {
     return 'medium.id, release, position, format, medium.name,
             medium.edits_pending, track_count,
+            mtd.pregap_length, mtd.cdtoc_track_lengths, mtd.data_track_lengths,
             COALESCE((SELECT true FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap,
             (SELECT count(*) FROM track WHERE medium = medium.id AND position > 0 AND is_data_track = false) AS cdtoc_track_count';
 }
@@ -46,6 +47,9 @@ sub _column_mapping
         edits_pending       => 'edits_pending',
         has_pregap          => 'has_pregap',
         cdtoc_track_count   => 'cdtoc_track_count',
+        cdtoc_track_lengths => 'cdtoc_track_lengths',
+        data_track_lengths  => 'data_track_lengths',
+        pregap_length       => 'pregap_length',
     };
 }
 
