@@ -10,9 +10,14 @@
 import * as React from 'react';
 
 import CountryAbbr from '../../../../../components/CountryAbbr';
+import {INSTRUMENT_ROOT_ID} from '../../constants';
 import {commaOnlyListText} from '../../i18n/commaOnlyList';
 import {unwrapNl} from '../../i18n';
 import {addColonText} from '../../i18n/addColon';
+import localizeLinkAttributeTypeDescription
+  from '../../i18n/localizeLinkAttributeTypeDescription';
+import localizeLinkAttributeTypeName
+  from '../../i18n/localizeLinkAttributeTypeName';
 import {reduceArtistCredit} from '../../immutable-entities';
 import bracketed, {bracketedText} from '../../utility/bracketed';
 import formatDate from '../../utility/formatDate';
@@ -197,6 +202,37 @@ function formatInstrument(instrument: InstrumentT) {
       {formatGeneric(instrument, (info) => {
         info.push(...extraInfo);
       })}
+      {description ? showExtraInfoLine(description) : null}
+    </>
+  );
+}
+
+function formatLinkAttributeType(type: LinkAttrTypeT) {
+  if (type.root_id === INSTRUMENT_ROOT_ID) {
+    return formatInstrument({
+      comment: type.instrument_comment ?? '',
+      description: type.description,
+      entityType: 'instrument',
+      gid: type.gid,
+      id: 0,
+      last_updated: null,
+      name: type.name,
+      typeID: type.instrument_type_id ?? null,
+      typeName: type.instrument_type_name,
+    });
+  }
+
+  let description = localizeLinkAttributeTypeDescription(type);
+  if (description) {
+    // We want to strip html from the non-clickable description
+    const div = document.createElement('div');
+    div.innerHTML = description;
+    description = div.textContent;
+  }
+
+  return (
+    <>
+      {localizeLinkAttributeTypeName(type)}
       {description ? showExtraInfoLine(description) : null}
     </>
   );
@@ -424,6 +460,9 @@ export default function formatItem<+T: EntityItem>(
 
     case 'instrument':
       return formatInstrument(item);
+
+    case 'link_attribute_type':
+      return formatLinkAttributeType(item);
 
     case 'place':
       return formatPlace(item);

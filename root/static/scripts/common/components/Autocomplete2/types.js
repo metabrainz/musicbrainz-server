@@ -92,6 +92,7 @@ export type EntityItem =
   | GenreT
   | InstrumentT
   | LabelT
+  | LinkAttrTypeT
   | PlaceT
   | RecordingT
   | ReleaseGroupT
