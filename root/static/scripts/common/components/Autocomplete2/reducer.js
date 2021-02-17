@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import mutate from 'mutate-cow';
-
 import {unwrapNl} from '../../i18n';
 
 import {
@@ -60,11 +58,10 @@ function resetPage<+T: EntityItem>(state: {...State<T>}) {
 function selectItem<+T: EntityItem>(
   state: {...State<T>},
   item: Item<T>,
-  unwrapProxy: <V>(V) => V,
 ) {
   switch (item.type) {
     case 'action': {
-      runReducer<T>(state, item.action, unwrapProxy);
+      runReducer<T>(state, item.action);
       return;
     }
     case 'option': {
@@ -200,7 +197,6 @@ export function defaultStaticItemsFilter<+T: EntityItem>(
 export function runReducer<+T: EntityItem>(
   state: {...State<T>},
   action: Actions<T>,
-  unwrapProxy: <V>(V) => V,
 ): void {
   switch (action.type) {
     case 'change-entity-type': {
@@ -236,15 +232,15 @@ export function runReducer<+T: EntityItem>(
       ) {
         if (searchTerm.length === prevSearchTerm.length) {
           // The string hasn't changed; we can use the previous results.
-          filteredItems = unwrapProxy(previousResult.items);
+          filteredItems = previousResult.items;
         } else {
-          itemsToFilter = unwrapProxy(previousResult.items);
+          itemsToFilter = previousResult.items;
         }
       }
 
       if (!filteredItems) {
         if (!itemsToFilter) {
-          itemsToFilter = unwrapProxy(staticItems);
+          itemsToFilter = staticItems;
         }
         filteredItems = searchTerm
           ? (itemsToFilter.reduce(
@@ -322,7 +318,7 @@ export function runReducer<+T: EntityItem>(
       break;
 
     case 'select-item':
-      selectItem<T>(state, action.item, unwrapProxy);
+      selectItem<T>(state, action.item);
       break;
 
     case 'set-menu-visibility':
@@ -354,7 +350,7 @@ export function runReducer<+T: EntityItem>(
 
       const prevItems: Array<Item<T>> = [];
       const prevItemIds = new Set();
-      for (const item of unwrapProxy(state.items)) {
+      for (const item of state.items) {
         if (!item.action) {
           prevItems.push(item);
           prevItemIds.add(item.id);
@@ -372,7 +368,7 @@ export function runReducer<+T: EntityItem>(
 
     case 'show-search-error': {
       showError<T>(state, MENU_ITEMS.SEARCH_ERROR);
-      state.items = unwrapProxy(state.items).concat(
+      state.items = state.items.concat(
         state.indexedSearch
           ? MENU_ITEMS.ERROR_TRY_AGAIN_DIRECT
           : MENU_ITEMS.ERROR_TRY_AGAIN_INDEXED,
@@ -386,7 +382,7 @@ export function runReducer<+T: EntityItem>(
       if (state.staticItems) {
         showFilteredItems(
           state,
-          unwrapProxy(state.staticItemsFilterResult?.items) ?? [],
+          (state.staticItemsFilterResult?.items) ?? [],
         );
       } else {
         initSearch<T>(state, SEARCH_AGAIN);
@@ -412,7 +408,7 @@ export function runReducer<+T: EntityItem>(
       if (!state.inputValue) {
         resetPage<T>(state);
 
-        const staticItems = unwrapProxy(state.staticItems);
+        const staticItems = state.staticItems;
         if (staticItems) {
           // Show a paged listing of all available options.
           state.staticItemsFilterResult = {
@@ -439,10 +435,7 @@ export default function reducer<+T: EntityItem>(
     return state;
   }
 
-  return mutate<{...State<T>}, State<T>>(
-    state,
-    (nextState, unwrapProxy) => {
-      runReducer<T>(nextState, action, unwrapProxy);
-    },
-  );
+  const nextState = {...state};
+  runReducer<T>(nextState, action);
+  return nextState;
 }
