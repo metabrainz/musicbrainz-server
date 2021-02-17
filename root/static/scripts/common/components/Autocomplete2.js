@@ -88,10 +88,7 @@ function handleItemMouseDown(event) {
   event.preventDefault();
 }
 
-function setScrollPosition(
-  menuId: string,
-  siblingAccessor: 'nextElementSibling' | 'previousElementSibling',
-) {
+function setScrollPosition(menuId: string) {
   const menu = document.getElementById(menuId);
   if (!menu) {
     return;
@@ -100,13 +97,9 @@ function setScrollPosition(
   if (!selectedItem) {
     return;
   }
-  // $FlowIssue[prop-missing]
-  const item = selectedItem[siblingAccessor];
-  if (!item) {
-    return;
-  }
   const position =
-    (item.offsetTop + (item.offsetHeight / 2)) - menu.scrollTop;
+    (selectedItem.offsetTop + (selectedItem.offsetHeight / 2)) -
+    menu.scrollTop;
   const middle = menu.offsetHeight / 2;
   if (position < middle) {
     menu.scrollTop -= (middle - position);
@@ -278,6 +271,7 @@ export default function Autocomplete2<+T: EntityItem>(
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const inputTimeout = React.useRef<TimeoutID | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
+  const shouldUpdateScrollPositionRef = React.useRef<boolean>(false);
 
   const stopRequests = React.useCallback(() => {
     if (xhr.current) {
@@ -404,7 +398,7 @@ export default function Autocomplete2<+T: EntityItem>(
         event.preventDefault();
 
         if (isMenuOpen) {
-          setScrollPosition(menuId, 'nextElementSibling');
+          shouldUpdateScrollPositionRef.current = true;
           dispatch(HIGHLIGHT_NEXT_ITEM);
         } else if (isMenuNonEmpty) {
           dispatch(SHOW_MENU);
@@ -419,7 +413,7 @@ export default function Autocomplete2<+T: EntityItem>(
       case 'ArrowUp':
         if (isMenuOpen) {
           event.preventDefault();
-          setScrollPosition(menuId, 'previousElementSibling');
+          shouldUpdateScrollPositionRef.current = true;
           dispatch(HIGHLIGHT_PREVIOUS_ITEM);
         }
         break;
@@ -464,6 +458,11 @@ export default function Autocomplete2<+T: EntityItem>(
   );
 
   React.useEffect(() => {
+    if (shouldUpdateScrollPositionRef.current) {
+      setScrollPosition(menuId);
+      shouldUpdateScrollPositionRef.current = false;
+    }
+
     if (
       props.pendingSearch &&
       !inputTimeout.current &&
