@@ -385,13 +385,35 @@ export default function Autocomplete2<+T: EntityItem>(
     }
   }
 
+  function handleInputFocus() {
+    /*
+     * If there are otherwise no pending requests, show a list of all
+     * options.
+     */
+    if (!(
+      props.pendingSearch ||
+      inputTimeout.current ||
+      xhr.current
+    )) {
+      if (props.staticItems) {
+        if (props.items.length > 0) {
+          dispatch(SHOW_MENU);
+        } else {
+          dispatch({
+            searchTerm: props.inputValue,
+            type: 'filter-static-items',
+          });
+        }
+      }
+    }
+  }
+
   function handleInputKeyDown(
     event: SyntheticKeyboardEvent<HTMLInputElement | HTMLButtonElement>,
   ) {
     const isInputNonEmpty = !!props.inputValue;
     const isMenuNonEmpty = props.items.length > 0;
     const isMenuOpen = props.isOpen;
-    const menuId = id + '-menu';
 
     switch (event.key) {
       case 'ArrowDown':
@@ -538,6 +560,7 @@ export default function Autocomplete2<+T: EntityItem>(
           disabled={props.disabled}
           id={inputId}
           onChange={handleInputChange}
+          onFocus={handleInputFocus}
           onKeyDown={handleInputKeyDown}
           placeholder={
             props.placeholder || l('Type to search, or paste an MBID')
