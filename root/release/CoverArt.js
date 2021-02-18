@@ -157,7 +157,7 @@ const CoverArt = ({
             <h2>{l('Cannot Add Cover Art')}</h2>
             <p>
               {l(
-                `The Cover Art Archive has had a take down request
+                `The Cover Art Archive has had a takedown request
                  in the past for this release,
                  so we are unable to allow any more uploads.`,
               )}
