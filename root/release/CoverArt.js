@@ -52,9 +52,18 @@ const CoverArt = ({
 
   return (
     <ReleaseLayout $c={$c} entity={release} page="cover-art" title={title}>
-      <h2>{title}</h2>
+      <h2>
+        {release.cover_art_presence === 'darkened'
+          ? l('Cannot show cover art')
+          : title}
+      </h2>
 
-      {coverArt.length ? (
+      {release.cover_art_presence === 'darkened' ? (
+        <p>
+          {l(`Cover art for this release has been hidden
+              by the Internet Archive because of a takedown request.`)}
+        </p>
+      ) : coverArt.length ? (
         <>
           {coverArt.map(artwork => (
             <div
@@ -136,8 +145,8 @@ const CoverArt = ({
         </>
       )}
 
-      {$c.user ? (
-        release.may_have_cover_art /*:: === true */ ? (
+      {release.may_have_cover_art /*:: === true */ ? (
+        $c.user ? (
           <div className="buttons ui-helper-clearfix">
             <EntityLink
               content={lp('Add Cover Art', 'button/menu')}
@@ -153,22 +162,11 @@ const CoverArt = ({
             ) : null}
           </div>
         ) : (
-          <>
-            <h2>{l('Cannot Add Cover Art')}</h2>
-            <p>
-              {l(
-                `The Cover Art Archive has had a takedown request
-                 in the past for this release,
-                 so we are unable to allow any more uploads.`,
-              )}
-            </p>
-          </>
+          <p>
+            <RequestLogin $c={$c} text={l('Log in to upload cover art')} />
+          </p>
         )
-      ) : (
-        <p>
-          <RequestLogin $c={$c} text={l('Log in to upload cover art')} />
-        </p>
-      )}
+      ) : null}
     </ReleaseLayout>
   );
 };
