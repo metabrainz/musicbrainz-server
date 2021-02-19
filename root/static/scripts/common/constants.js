@@ -114,6 +114,7 @@ export const FAVICON_CLASSES = {
   'mainlynorfolk.info': 'mainlynorfolk',
   'metal-archives.com': 'metalarchives',
   'mixcloud.com': 'mixcloud',
+  'mora.jp': 'mora',
   'music.amazon': 'amazonmusic',
   'music.apple.com': 'applemusic',
   'music.migu.cn': 'migumusic',
