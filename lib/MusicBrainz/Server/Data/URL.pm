@@ -137,6 +137,7 @@ my %URL_SPECIALIZATIONS = (
     'PsyDB'               => qr{^https?://(?:www\.)?psydb\.net/}i,
     'QuebecInfoMusique'   => qr{^https?://(?:www\.)?qim\.com/}i,
     'Rateyourmusic'       => qr{^https?://(?:www\.)?rateyourmusic\.com/}i,
+    'Recochoku'           => qr{^https?://(?:www\.)?recochoku\.jp/}i,
     # Remove residentadvisor.net once MBBE-31 is done
     'ResidentAdvisor'     => qr{^https?://(?:www\.)?(ra\.co|residentadvisor\.net)/}i,
     'ReverbNation'        => qr{^https?://(?:www\.)?reverbnation\.com/}i,

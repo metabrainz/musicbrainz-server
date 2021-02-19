@@ -141,6 +141,7 @@ export const FAVICON_CLASSES = {
   'qim.com': 'quebecinfomusique',
   'ra.co': 'residentadvisor',
   'rateyourmusic.com': 'rateyourmusic',
+  'recochoku.jp': 'recochoku',
   // Remove once MBBE-31 is done
   'residentadvisor.net': 'residentadvisor',
   'reverbnation.com': 'reverbnation',
