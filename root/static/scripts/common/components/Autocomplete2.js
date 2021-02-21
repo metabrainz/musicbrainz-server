@@ -313,6 +313,18 @@ export default function Autocomplete2<+T: EntityItem>(
     }
   }
 
+  function handleBlur() {
+    if (props.isOpen) {
+      setTimeout(() => {
+        const container = containerRef.current;
+        if (container && !container.contains(document.activeElement)) {
+          stopRequests();
+          dispatch(HIDE_MENU);
+        }
+      }, 1);
+    }
+  }
+
   function handleInputChange(
     event: SyntheticKeyboardEvent<HTMLInputElement>,
   ) {
@@ -463,8 +475,10 @@ export default function Autocomplete2<+T: EntityItem>(
 
   const handleOuterClick = React.useCallback(() => {
     stopRequests();
-    dispatch(HIDE_MENU);
-  }, [stopRequests, dispatch]);
+    if (props.isOpen) {
+      dispatch(HIDE_MENU);
+    }
+  }, [stopRequests, props.isOpen, dispatch]);
 
   const activeDescendant = props.highlightedItem
     ? `${id}-item-${props.highlightedItem.id}`
@@ -524,6 +538,7 @@ export default function Autocomplete2<+T: EntityItem>(
     <div
       className={
         'autocomplete2' + (containerClass ? ' ' + containerClass : '')}
+      onBlur={handleBlur}
       ref={node => {
         containerRef.current = node;
       }}
