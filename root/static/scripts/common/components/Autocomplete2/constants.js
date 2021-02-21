@@ -17,6 +17,7 @@ import {
 } from './actions';
 import type {
   ActionItem,
+  HeaderItem,
   SearchableType,
 } from './types';
 
@@ -41,6 +42,20 @@ export const DISPLAY_NONE_STYLE = {display: 'none'};
 export const EMPTY_ARRAY: $ReadOnlyArray<empty> = Object.freeze([]);
 
 /* eslint-disable sort-keys */
+export const CLEAR_RECENT_ITEMS: ActionItem<empty> = {
+  type: 'action',
+  action: {type: 'clear-recent-items'},
+  id: 'clear-recent-items',
+  name: N_l('Clear recent items'),
+};
+
+export const RECENT_ITEMS_HEADER: HeaderItem = {
+  type: 'header',
+  id: 'recent-items-header',
+  name: N_l('Recent items'),
+  disabled: true,
+};
+
 export const MENU_ITEMS: {+[name: string]: ActionItem<empty>, ...} = {
   ERROR_TRY_AGAIN_DIRECT: {
     type: 'action',

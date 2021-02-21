@@ -31,6 +31,7 @@ import {
   SEARCH_PLACEHOLDERS,
 } from './Autocomplete2/constants';
 import formatItem from './Autocomplete2/formatters';
+import {getOrFetchRecentItems} from './Autocomplete2/recentItems';
 import type {
   Actions,
   EntityItem,
@@ -115,6 +116,7 @@ type InitialPropsT<T: EntityItem> = {
   +id: string,
   +inputValue?: string,
   +placeholder?: string,
+  +recentItemsKey?: string,
   +selectedEntity?: T | null,
   +staticItems?: $ReadOnlyArray<Item<T>>,
   +staticItemsFilter?: (Item<T>, string) => boolean,
@@ -124,9 +126,15 @@ type InitialPropsT<T: EntityItem> = {
 export function createInitialState<+T: EntityItem>(
   props: InitialPropsT<T>,
 ): {...State<T>} {
-  const {inputValue, selectedEntity, ...restProps} = props;
+  const {
+    entityType,
+    inputValue,
+    recentItemsKey,
+    selectedEntity,
+    ...restProps
+  } = props;
   return {
-    entityType: props.entityType,
+    entityType,
     highlightedItem: null,
     indexedSearch: true,
     inputValue: inputValue ?? selectedEntity?.name ?? '',
@@ -134,6 +142,7 @@ export function createInitialState<+T: EntityItem>(
     items: EMPTY_ARRAY,
     page: 1,
     pendingSearch: null,
+    recentItemsKey: recentItemsKey ?? entityType,
     selectedEntity: selectedEntity ?? null,
     statusMessage: '',
     ...restProps,
@@ -159,6 +168,7 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
 }: AutocompleteItemProps<T>) => {
   const itemId = `${autocompleteId}-item-${item.id}`;
   const isDisabled = !!item.disabled;
+  const isSeparator = !!item.separator;
 
   /*
    * `item.level` allows showing a hierarchy by indenting each option.
@@ -197,7 +207,7 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
         (isDisabled ? 'disabled ' : '') +
         (isHighlighted ? 'highlighted ' : '') +
         (isSelected ? 'selected ' : '') +
-        (item.separator ? 'separator ' : '') +
+        (isSeparator ? 'separator ' : '') +
         `${item.type}-item `
       }
       id={itemId}
@@ -246,7 +256,11 @@ function AutocompleteItems<T: EntityItem>({
         autocompleteId={autocompleteId}
         dispatch={dispatch}
         isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
-        isSelected={!!(selectedEntity && item.id === selectedEntity.id)}
+        isSelected={!!(
+          selectedEntity &&
+          item.type === 'option' &&
+          item.entity.id === selectedEntity.id
+        )}
         item={item}
         key={item.id}
         selectItem={selectItem}
@@ -272,6 +286,8 @@ export default function Autocomplete2<+T: EntityItem>(
   const inputTimeout = React.useRef<TimeoutID | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const shouldUpdateScrollPositionRef = React.useRef<boolean>(false);
+  const recentItemsRef =
+    React.useRef<$ReadOnlyArray<OptionItem<T>> | null>(null);
 
   const stopRequests = React.useCallback(() => {
     if (xhr.current) {
@@ -303,13 +319,8 @@ export default function Autocomplete2<+T: EntityItem>(
 
     if (props.isOpen) {
       dispatch(HIDE_MENU);
-    } else if (props.items.length) {
-      dispatch(SHOW_MENU);
-    } else if (props.inputValue) {
-      dispatch({
-        searchTerm: props.inputValue,
-        type: 'search-after-timeout',
-      });
+    } else {
+      showAvailableItems(props.inputValue);
     }
   }
 
@@ -332,6 +343,12 @@ export default function Autocomplete2<+T: EntityItem>(
     const newCleanInputValue = clean(newInputValue);
 
     dispatch({type: 'type-value', value: newInputValue});
+
+    if (!newInputValue) {
+      stopRequests();
+      showAvailableItems('');
+      return;
+    }
 
     const mbidMatch = newCleanInputValue.match(MBID_REGEXP);
     if (mbidMatch) {
@@ -398,24 +415,54 @@ export default function Autocomplete2<+T: EntityItem>(
   }
 
   function handleInputFocus() {
-    /*
-     * If there are otherwise no pending requests, show a list of all
-     * options.
-     */
-    if (!(
-      props.pendingSearch ||
+    showAvailableItems(props.inputValue);
+  }
+
+  function showAvailableItems(inputValue: string) {
+    const {
+      items,
+      staticItems,
+    } = props;
+
+    const cleanInputValue = clean(inputValue);
+
+    if (
       inputTimeout.current ||
       xhr.current
-    )) {
-      if (props.staticItems) {
-        if (props.items.length > 0) {
-          dispatch(SHOW_MENU);
-        } else {
-          dispatch({
-            searchTerm: props.inputValue,
-            type: 'filter-static-items',
-          });
-        }
+    ) {
+      return;
+    } else if (
+      items.length > 0 &&
+      cleanInputValue === clean(props.inputValue)
+    ) {
+      dispatch(SHOW_MENU);
+    } else if (nonEmpty(cleanInputValue)) {
+      if (staticItems) {
+        dispatch({
+          searchTerm: inputValue,
+          type: 'filter-static-items',
+        });
+      } else {
+        dispatch({
+          searchTerm: inputValue,
+          type: 'search-after-timeout',
+        });
+      }
+    } else {
+      const recentItems = recentItemsRef.current;
+      if (staticItems) {
+        dispatch({
+          recentItems,
+          searchTerm: inputValue,
+          type: 'filter-static-items',
+        });
+      } else if (recentItems?.length) {
+        dispatch({
+          items: recentItems,
+          type: 'show-recent-items',
+        });
+      } else {
+        dispatch({type: 'reset-menu'});
       }
     }
   }
@@ -423,8 +470,6 @@ export default function Autocomplete2<+T: EntityItem>(
   function handleInputKeyDown(
     event: SyntheticKeyboardEvent<HTMLInputElement | HTMLButtonElement>,
   ) {
-    const isInputNonEmpty = !!props.inputValue;
-    const isMenuNonEmpty = props.items.length > 0;
     const isMenuOpen = props.isOpen;
 
     switch (event.key) {
@@ -434,13 +479,8 @@ export default function Autocomplete2<+T: EntityItem>(
         if (isMenuOpen) {
           shouldUpdateScrollPositionRef.current = true;
           dispatch(HIGHLIGHT_NEXT_ITEM);
-        } else if (isMenuNonEmpty) {
-          dispatch(SHOW_MENU);
-        } else if (isInputNonEmpty) {
-          dispatch({
-            searchTerm: props.inputValue,
-            type: 'search-after-timeout',
-          });
+        } else {
+          showAvailableItems(props.inputValue);
         }
         break;
 
@@ -497,6 +537,15 @@ export default function Autocomplete2<+T: EntityItem>(
     if (shouldUpdateScrollPositionRef.current) {
       setScrollPosition(menuId);
       shouldUpdateScrollPositionRef.current = false;
+    }
+
+    if (!recentItemsRef.current) {
+      getOrFetchRecentItems<T>(
+        entityType,
+        props.recentItemsKey,
+      ).then((loadedRecentItems) => {
+        recentItemsRef.current = loadedRecentItems;
+      });
     }
 
     if (

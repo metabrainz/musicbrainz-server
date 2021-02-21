@@ -12,7 +12,13 @@ import {unwrapNl} from '../../i18n';
 import {
   SEARCH_AGAIN,
 } from './actions';
-import {EMPTY_ARRAY, MENU_ITEMS, PAGE_SIZE} from './constants';
+import {
+  CLEAR_RECENT_ITEMS,
+  EMPTY_ARRAY,
+  MENU_ITEMS,
+  PAGE_SIZE,
+  RECENT_ITEMS_HEADER,
+} from './constants';
 import type {
   Actions,
   ActionItem,
@@ -21,6 +27,10 @@ import type {
   SearchAction,
   State,
 } from './types';
+import {
+  clearRecentItems,
+  pushRecentItem,
+} from './recentItems';
 
 function initSearch<+T: EntityItem>(
   state: {...State<T>},
@@ -48,7 +58,9 @@ function initSearch<+T: EntityItem>(
   }
 }
 
-function resetPage<+T: EntityItem>(state: {...State<T>}) {
+export function resetPage<+T: EntityItem>(
+  state: {...State<T>},
+): void {
   state.highlightedItem = null;
   state.isOpen = false;
   state.items = EMPTY_ARRAY;
@@ -73,6 +85,8 @@ function selectItem<+T: EntityItem>(
         state.inputValue = entity.name;
         resetPage<T>(state);
       }
+
+      pushRecentItem(item);
     }
   }
 
@@ -114,22 +128,6 @@ function highlightNextItem<+T: EntityItem>(
     }
     index++;
   }
-}
-
-function showFilteredItems<T: EntityItem>(
-  state: {...State<T>},
-  filteredItems: $ReadOnlyArray<Item<T>>,
-): void {
-  const page = state.page;
-  const resultCount = filteredItems.length;
-
-  showResults<T>(
-    state,
-    filteredItems.slice(0, page * PAGE_SIZE),
-    page,
-    resultCount,
-    Math.ceil(resultCount / PAGE_SIZE),
-  );
 }
 
 function showResults<T: EntityItem>(
@@ -200,14 +198,19 @@ export function runReducer<+T: EntityItem>(
 ): void {
   switch (action.type) {
     case 'change-entity-type': {
+      const oldEntityType = state.entityType;
       state.entityType = action.entityType;
       state.selectedEntity = null;
+      if (state.recentItemsKey === oldEntityType) {
+        state.recentItemsKey = action.entityType;
+      }
       resetPage<T>(state);
       break;
     }
 
     case 'filter-static-items': {
       const {
+        page,
         staticItems,
         staticItemsFilter: filter = defaultStaticItemsFilter,
         staticItemsFilterResult: previousResult,
@@ -215,7 +218,7 @@ export function runReducer<+T: EntityItem>(
 
       invariant(staticItems);
 
-      const searchTerm = action.searchTerm;
+      const {recentItems, searchTerm} = action;
       const prevSearchTerm = previousResult?.searchTerm;
 
       /*
@@ -242,8 +245,8 @@ export function runReducer<+T: EntityItem>(
         if (!itemsToFilter) {
           itemsToFilter = staticItems;
         }
-        filteredItems = searchTerm
-          ? (itemsToFilter.reduce(
+        if (searchTerm) {
+          filteredItems = (itemsToFilter.reduce(
             (accum: Array<Item<T>>, item: Item<T>) => {
               if (filter(item, searchTerm)) {
                 accum.push(item);
@@ -251,8 +254,10 @@ export function runReducer<+T: EntityItem>(
               return accum;
             },
             [],
-          ): $ReadOnlyArray<Item<T>>)
-          : itemsToFilter;
+          ): $ReadOnlyArray<Item<T>>);
+        } else {
+          filteredItems = itemsToFilter;
+        }
       }
 
       state.staticItemsFilterResult = {
@@ -260,7 +265,29 @@ export function runReducer<+T: EntityItem>(
         searchTerm,
       };
 
-      showFilteredItems<T>(state, filteredItems);
+      const resultCount = filteredItems.length;
+
+      if (!searchTerm && recentItems?.length) {
+        const [firstItem, ...restItems] = filteredItems;
+
+        filteredItems = [
+          RECENT_ITEMS_HEADER,
+          ...recentItems,
+          CLEAR_RECENT_ITEMS,
+          // $FlowIssue[incompatible-type]
+          {...firstItem, separator: true},
+          ...restItems,
+        ];
+      }
+
+      showResults<T>(
+        state,
+        // $FlowIssue[incompatible-call]
+        filteredItems.slice(0, page * PAGE_SIZE),
+        page,
+        resultCount,
+        Math.ceil(resultCount / PAGE_SIZE),
+      );
 
       break;
     }
@@ -366,6 +393,42 @@ export function runReducer<+T: EntityItem>(
       break;
     }
 
+    case 'show-recent-items': {
+      const recentItems = action.items;
+      if (recentItems.length) {
+        const items: $ReadOnlyArray<Item<T>> = [
+          RECENT_ITEMS_HEADER,
+          ...recentItems,
+          CLEAR_RECENT_ITEMS,
+        ];
+        state.highlightedItem = null;
+        state.isOpen = true;
+        state.items = items;
+        state.page = 1;
+        state.pendingSearch = null;
+        state.statusMessage = l('Recent items');
+      }
+      break;
+    }
+
+    case 'clear-recent-items': {
+      clearRecentItems(state.recentItemsKey);
+
+      const startIndex = state.items.indexOf(CLEAR_RECENT_ITEMS);
+      if (startIndex >= 0) {
+        const newItems = state.items.slice(startIndex + 1);
+        let firstItem = null;
+        if (newItems.length) {
+          firstItem =
+            newItems[0] =
+            {...newItems[0], separator: false};
+        }
+        state.items = newItems;
+        state.highlightedItem = firstItem;
+      }
+      break;
+    }
+
     case 'show-search-error': {
       showError<T>(state, MENU_ITEMS.SEARCH_ERROR);
       state.items = state.items.concat(
@@ -380,10 +443,7 @@ export function runReducer<+T: EntityItem>(
     case 'show-more-results':
       state.page++;
       if (state.staticItems) {
-        showFilteredItems(
-          state,
-          (state.staticItemsFilterResult?.items) ?? [],
-        );
+        // FIXME
       } else {
         initSearch<T>(state, SEARCH_AGAIN);
       }
@@ -399,26 +459,16 @@ export function runReducer<+T: EntityItem>(
       initSearch<T>(state, SEARCH_AGAIN);
       break;
 
+    case 'reset-menu': {
+      resetPage<T>(state);
+      break;
+    }
+
     case 'type-value':
       state.inputValue = action.value;
       state.pendingSearch = null;
       state.selectedEntity = null;
       state.statusMessage = '';
-
-      if (!state.inputValue) {
-        resetPage<T>(state);
-
-        const staticItems = state.staticItems;
-        if (staticItems) {
-          // Show a paged listing of all available options.
-          state.staticItemsFilterResult = {
-            items: staticItems,
-            searchTerm: '',
-          };
-          showFilteredItems<T>(state, staticItems);
-        }
-      }
-
       break;
 
     default:

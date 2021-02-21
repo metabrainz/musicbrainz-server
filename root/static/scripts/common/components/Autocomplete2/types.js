@@ -26,6 +26,7 @@ export type State<T: EntityItem> = {
   +page: number,
   +pendingSearch: string | null,
   +placeholder?: string,
+  +recentItemsKey: string,
   +selectedEntity: T | null,
   +staticItems?: $ReadOnlyArray<Item<T>>,
   +staticItemsFilter?: (Item<T>, string) => boolean,
@@ -55,11 +56,17 @@ export type Actions<+T: EntityItem> =
       +type: 'change-entity-type',
       +entityType: SearchableType,
     }
-  | { +type: 'filter-static-items', +searchTerm: string }
+  | { +type: 'clear-recent-items' }
+  | {
+      +type: 'filter-static-items',
+      +recentItems?: $ReadOnlyArray<OptionItem<T>> | null,
+      +searchTerm: string,
+    }
   | { +type: 'highlight-item', +item: Item<T> }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
   | { +type: 'noop' }
+  | { +type: 'reset-menu' }
   | { +type: 'select-item', +item: Item<T> }
   | { +type: 'set-menu-visibility', +value: boolean }
   | {
@@ -71,6 +78,7 @@ export type Actions<+T: EntityItem> =
   | { +type: 'show-lookup-error' }
   | { +type: 'show-lookup-type-error' }
   | { +type: 'show-more-results' }
+  | { +type: 'show-recent-items', +items: $ReadOnlyArray<OptionItem<T>> }
   | { +type: 'show-search-error' }
   | { +type: 'stop-search' }
   | { +type: 'toggle-indexed-search' }
