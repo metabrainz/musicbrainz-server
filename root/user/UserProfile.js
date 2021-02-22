@@ -255,7 +255,7 @@ const UserProfileInformation = ({
 
         {gender ? (
           <UserProfileProperty name={l('Gender:')}>
-            {l(gender.name)}
+            {lp_attributes(gender.name, 'gender')}
           </UserProfileProperty>
         ) : null}
 
