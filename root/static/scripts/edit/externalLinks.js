@@ -617,6 +617,7 @@ const URL_SHORTENERS = [
   'lnk.site',
   'lnk.to',
   'lsnto.me',
+  'many.link',
   'mcaf.ee',
   'moourl.com',
   'musics.link',
