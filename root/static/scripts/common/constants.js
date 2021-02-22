@@ -114,6 +114,7 @@ export const FAVICON_CLASSES = {
   'mainlynorfolk.info': 'mainlynorfolk',
   'metal-archives.com': 'metalarchives',
   'mixcloud.com': 'mixcloud',
+  'mora.jp': 'mora',
   'music.amazon': 'amazonmusic',
   'music.apple.com': 'applemusic',
   'music.migu.cn': 'migumusic',
@@ -141,6 +142,7 @@ export const FAVICON_CLASSES = {
   'qim.com': 'quebecinfomusique',
   'ra.co': 'residentadvisor',
   'rateyourmusic.com': 'rateyourmusic',
+  'recochoku.jp': 'recochoku',
   // Remove once MBBE-31 is done
   'residentadvisor.net': 'residentadvisor',
   'reverbnation.com': 'reverbnation',
