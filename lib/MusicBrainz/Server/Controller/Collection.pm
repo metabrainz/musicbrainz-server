@@ -26,6 +26,7 @@ after 'load' => sub {
             $c->user->id, $collection->id);
     }
 
+    $c->model('Collection')->load_entity_count($collection);
     # Load editor and collaborators
     $c->model('Editor')->load_for_collection($collection);
     $c->model('CollectionType')->load($collection);
@@ -273,8 +274,6 @@ sub edit : Chained('own_collection') RequireAuth {
     my $collection = $c->stash->{collection};
 
     my $form = $c->form( form => 'Collection', init_object => $collection );
-
-    $c->model('Collection')->load_entity_count($collection);
 
     if ($c->form_posted_and_valid($form)) {
         my %update = $self->_form_to_hash($form);
