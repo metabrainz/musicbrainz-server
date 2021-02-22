@@ -443,6 +443,7 @@ export default function Autocomplete2<+T: EntityItem>(
 
   function showAvailableItems() {
     if (items.length && !isOpen) {
+      shouldUpdateScrollPositionRef.current = true;
       dispatch(SHOW_MENU);
     }
   }
