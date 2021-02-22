@@ -110,9 +110,11 @@ function buildLinks(
 
   if (entityProperties.cover_art) {
     links.push(buildLink(
-      texp.l(
-        'Cover Art ({num})',
-        {num: $c.stash.release_artwork_count || 0},
+      entity.cover_art_presence === 'darkened' ? l('Cover Art') : (
+        texp.l(
+          'Cover Art ({num})',
+          {num: $c.stash.release_artwork_count || 0},
+        )
       ),
       entity,
       'cover-art',

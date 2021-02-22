@@ -86,11 +86,13 @@ after 'load' => sub {
         }
     }
 
-    my $artwork = $c->model('Artwork')->find_front_cover_by_release($release);
-    $c->stash->{release_artwork} = $artwork->[0];
+    if ($release->may_have_cover_art) {
+        my $artwork = $c->model('Artwork')->find_front_cover_by_release($release);
+        $c->stash->{release_artwork} = $artwork->[0];
 
-    my $artwork_count = $c->model('Artwork')->find_count_by_release($release->id);
-    $c->stash->{release_artwork_count} = $artwork_count;
+        my $artwork_count = $c->model('Artwork')->find_count_by_release($release->id);
+        $c->stash->{release_artwork_count} = $artwork_count;
+    }
 
     my $cdtoc_count = $c->model('MediumCDTOC')->find_count_by_release($release->id);
     $c->stash->{release_cdtoc_count} = $cdtoc_count;
@@ -610,8 +612,12 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    my $artwork = $c->model('Artwork')->find_by_release($release);
-    $c->model('CoverArtType')->load_for(@$artwork);
+    my $artwork = [];
+
+    if ($release->may_have_cover_art) {
+        $artwork = $c->model('Artwork')->find_by_release($release);
+        $c->model('CoverArtType')->load_for(@$artwork);
+    }
 
     $c->stash(
         # Needed for JSON-LD
