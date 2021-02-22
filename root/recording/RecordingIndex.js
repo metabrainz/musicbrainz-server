@@ -23,6 +23,7 @@ import isolateText from '../static/scripts/common/utility/isolateText';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../utility/loopParity';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 
 import RecordingLayout from './RecordingLayout';
 
@@ -35,9 +36,11 @@ type Props = {
 };
 
 const RecordingAppearancesTable = ({
+  $c,
   recording,
   tracks,
 }: {
+  $c: CatalystContextT,
   recording: RecordingWithArtistCreditT,
   tracks: $ElementType<Props, 'tracks'>,
 }) => (
@@ -54,6 +57,9 @@ const RecordingAppearancesTable = ({
         <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
         <th>{l('Label')}</th>
         <th>{l('Catalog#')}</th>
+        {$c?.session?.tport == null
+          ? null
+          : <th>{l('Tagger')}</th>}
       </tr>
     </thead>
     <tbody>
@@ -66,7 +72,7 @@ const RecordingAppearancesTable = ({
         return (
           <React.Fragment key={status ? status.name : 'no-status'}>
             <tr className="subh">
-              <th colSpan="10">
+              <th colSpan={$c?.session?.tport == null ? 10 : 11}>
                 {status
                   ? lp_attributes(status.name, 'release_status')
                   : lp('(unknown)', 'release status')
@@ -126,6 +132,9 @@ const RecordingAppearancesTable = ({
                   <td>
                     <ReleaseCatnoList labels={release.labels} />
                   </td>
+                  {$c?.session?.tport == null
+                    ? null
+                    : <td><TaggerIcon entity={release} /></td>}
                 </tr>
               );
             })}
@@ -153,7 +162,11 @@ const RecordingIndex = ({
     <h2 className="appears-on-releases">{l('Appears on releases')}</h2>
     <PaginatedResults pager={pager}>
       {tracks?.length ? (
-        <RecordingAppearancesTable recording={recording} tracks={tracks} />
+        <RecordingAppearancesTable
+          $c={$c}
+          recording={recording}
+          tracks={tracks}
+        />
       ) : (
         <p>{l('No releases found which feature this recording.')}</p>
       )}
