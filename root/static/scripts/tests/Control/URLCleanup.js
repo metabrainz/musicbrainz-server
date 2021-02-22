@@ -2532,7 +2532,7 @@ const testData = [
             expected_clean_url: 'https://musopen.org/music/7887/',
        only_valid_entity_types: ['work'],
   },
-  // muziekweb.eu (National Dutch music library)
+  // muziekweb (National Dutch music library)
   {
                      input_url: 'https://www.muziekweb.eu/en/Link/M00000052618/POPULAR/Eminem',
              input_entity_type: 'artist',
