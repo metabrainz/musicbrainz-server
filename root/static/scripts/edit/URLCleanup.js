@@ -325,6 +325,47 @@ function findAmazonTld(url) {
   return tld;
 }
 
+const TRACKING_PARAMS = [
+  // https://en.wikipedia.org/wiki/Click_identifier
+  'dclid',
+  'gclid',
+  'gclsrc',
+  'msclkid',
+  'zanpid',
+  // https://fbclid.com
+  'fbclid',
+  // https://support.google.com/analytics/answer/1033863#parameters
+  'utm_campaign',
+  'utm_content',
+  'utm_medium',
+  'utm_source',
+  'utm_term',
+];
+
+function stripTrackingParams(url) {
+  let urlObject;
+
+  // do nothing if the URL is invalid or URL() is unsupported (IE11)
+  try {
+    urlObject = new URL(url);
+  } catch (_) {
+    return url;
+  }
+
+  const params = urlObject.searchParams;
+  const paramKeys = new Set(params.keys());
+  let changed = false;
+
+  for (const param of paramKeys) {
+    if (TRACKING_PARAMS.includes(param)) {
+      params.delete(param);
+      changed = true;
+    }
+  }
+
+  return changed ? urlObject.href : url;
+}
+
 const linkToChannelMsg = N_l(
   `Please link to a channel, not a specific video.
    Videos should be linked to the appropriate
@@ -3650,7 +3691,7 @@ export function guessType(sourceType, currentURL) {
 }
 
 export function cleanURL(dirtyURL) {
-  dirtyURL = dirtyURL.trim().replace(/(%E2%80%8E|\u200E)$/, '');
+  dirtyURL = stripTrackingParams(dirtyURL.trim().replace(/(%E2%80%8E|\u200E)$/, ''));
 
   const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
     return cleanup.clean && testAll(cleanup.match, dirtyURL);

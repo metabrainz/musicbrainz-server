@@ -4402,6 +4402,35 @@ const testData = [
        input_relationship_type: 'youtube',
        only_valid_entity_types: [],
   },
+  // Tracking parameter removal
+  {
+                     input_url: 'https://example.com/track/rotational-squelch?from=fanpub_fnb_trk&utm_source=track_release&utm_medium=email&utm_content=fanpub_fnb_trk&utm_campaign=pyecorneraudio+track+rotational-squelch',
+            expected_clean_url: 'https://example.com/track/rotational-squelch?from=fanpub_fnb_trk',
+  },
+  {
+                     input_url: 'https://example.com/foo/?fbclid=IwAR2wZYFDYjeQMBFKyI06in-7NH3fNSFpc6bborfUrMwwjQVFOnMMXIzHR6k',
+            expected_clean_url: 'https://example.com/foo/',
+  },
+  {
+                     input_url: 'https://www.demorgen.be/tv-cultuur/studio-brussel-presentator-christophe-lambrecht-overleden~bc83b530/?utm_medium=email&utm_content=breaking&utm_userid=&ctm_ctid=5a536e7b4c4b6ead8590b8a296ff5796',
+            expected_clean_url: 'https://www.demorgen.be/tv-cultuur/studio-brussel-presentator-christophe-lambrecht-overleden~bc83b530/?utm_userid=&ctm_ctid=5a536e7b4c4b6ead8590b8a296ff5796',
+  },
+  {
+                     input_url: 'https://example.com/release/110221-dopplereffekt-athanatos?utm_source=Bleep&utm_campaign=1f6171e682-Dopplereffekt+-+Athanatos+(Leisure+System)&utm_medium=email&utm_term=0_db8ca97389-1f6171e682-1595401',
+            expected_clean_url: 'https://example.com/release/110221-dopplereffekt-athanatos',
+  },
+  {
+                     input_url: 'https://www.animate-onlineshop.jp/pd/1651937/?utm_source=Official&utm_medium=banner&utm_campaign=audio_pd1651937_190523',
+            expected_clean_url: 'https://www.animate-onlineshop.jp/pd/1651937/',
+  },
+  {
+                     input_url: 'https://song.link/s/06R9ZdwT1LavtD2X0AgVK4?fbclid=IwAR298WbFpP4fPP32zAzc6QiGf37EvBxTkBDcaYMA9EHdnLWXw5yZ2hktTNc',
+            expected_clean_url: 'https://song.link/s/06R9ZdwT1LavtD2X0AgVK4',
+  },
+  {
+                     input_url: 'https://preorder.pl/muzyka/polska/elwis-picasso-deluxe?gclid=EAIaIQobChMIu6mmte-C5QIVjLHtCh0f8w1SEAAYASAAEgKCzvD_BwE&gclsrc=aw.ds',
+           expected_clean_url: 'https://preorder.pl/muzyka/polska/elwis-picasso-deluxe',
+  },
 ];
 /* eslint-enable indent, max-len, sort-keys */
 
