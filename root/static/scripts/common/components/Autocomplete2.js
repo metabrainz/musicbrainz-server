@@ -276,9 +276,17 @@ export default function Autocomplete2<+T: EntityItem>(
   const {
     canChangeType,
     containerClass,
+    disabled,
     dispatch,
     entityType,
+    highlightedItem,
     id,
+    inputValue,
+    isOpen,
+    items,
+    pendingSearch,
+    selectedEntity,
+    staticItems,
   } = props;
 
   const xhr = React.useRef<XMLHttpRequest | null>(null);
@@ -317,15 +325,15 @@ export default function Autocomplete2<+T: EntityItem>(
 
     stopRequests();
 
-    if (props.isOpen) {
+    if (isOpen) {
       dispatch(HIDE_MENU);
     } else {
-      showAvailableItems(props.inputValue);
+      showAvailableItems(inputValue);
     }
   }
 
   function handleBlur() {
-    if (props.isOpen) {
+    if (isOpen) {
       setTimeout(() => {
         const container = containerRef.current;
         if (container && !container.contains(document.activeElement)) {
@@ -358,8 +366,8 @@ export default function Autocomplete2<+T: EntityItem>(
        */
       stopRequests();
 
-      if (props.staticItems) {
-        const option = props.staticItems.find((item) => (
+      if (staticItems) {
+        const option = staticItems.find((item) => (
           item.type === 'option' &&
           hasOwnProp(item.entity, 'gid') &&
           // $FlowIgnore[prop-missing]
@@ -405,7 +413,7 @@ export default function Autocomplete2<+T: EntityItem>(
 
       lookupXhr.open('GET', '/ws/js/entity/' + mbidMatch[0]);
       lookupXhr.send();
-    } else if (clean(props.inputValue) !== newCleanInputValue) {
+    } else if (clean(inputValue) !== newCleanInputValue) {
       stopRequests();
       dispatch({
         searchTerm: newCleanInputValue,
@@ -415,16 +423,11 @@ export default function Autocomplete2<+T: EntityItem>(
   }
 
   function handleInputFocus() {
-    showAvailableItems(props.inputValue);
+    showAvailableItems(inputValue);
   }
 
-  function showAvailableItems(inputValue: string) {
-    const {
-      items,
-      staticItems,
-    } = props;
-
-    const cleanInputValue = clean(inputValue);
+  function showAvailableItems(newInputValue: string) {
+    const cleanInputValue = clean(newInputValue);
 
     if (
       inputTimeout.current ||
@@ -433,18 +436,18 @@ export default function Autocomplete2<+T: EntityItem>(
       return;
     } else if (
       items.length > 0 &&
-      cleanInputValue === clean(props.inputValue)
+      cleanInputValue === clean(inputValue)
     ) {
       dispatch(SHOW_MENU);
     } else if (nonEmpty(cleanInputValue)) {
       if (staticItems) {
         dispatch({
-          searchTerm: inputValue,
+          searchTerm: newInputValue,
           type: 'filter-static-items',
         });
       } else {
         dispatch({
-          searchTerm: inputValue,
+          searchTerm: newInputValue,
           type: 'search-after-timeout',
         });
       }
@@ -453,7 +456,7 @@ export default function Autocomplete2<+T: EntityItem>(
       if (staticItems) {
         dispatch({
           recentItems,
-          searchTerm: inputValue,
+          searchTerm: newInputValue,
           type: 'filter-static-items',
         });
       } else if (recentItems?.length) {
@@ -470,22 +473,20 @@ export default function Autocomplete2<+T: EntityItem>(
   function handleInputKeyDown(
     event: SyntheticKeyboardEvent<HTMLInputElement | HTMLButtonElement>,
   ) {
-    const isMenuOpen = props.isOpen;
-
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
 
-        if (isMenuOpen) {
+        if (isOpen) {
           shouldUpdateScrollPositionRef.current = true;
           dispatch(HIGHLIGHT_NEXT_ITEM);
         } else {
-          showAvailableItems(props.inputValue);
+          showAvailableItems(inputValue);
         }
         break;
 
       case 'ArrowUp':
-        if (isMenuOpen) {
+        if (isOpen) {
           event.preventDefault();
           shouldUpdateScrollPositionRef.current = true;
           dispatch(HIGHLIGHT_PREVIOUS_ITEM);
@@ -493,11 +494,10 @@ export default function Autocomplete2<+T: EntityItem>(
         break;
 
       case 'Enter': {
-        if (isMenuOpen) {
+        if (isOpen) {
           event.preventDefault();
-          const item = props.highlightedItem;
-          if (item) {
-            selectItem(item);
+          if (highlightedItem) {
+            selectItem(highlightedItem);
           }
         }
         break;
@@ -505,7 +505,7 @@ export default function Autocomplete2<+T: EntityItem>(
 
       case 'Escape':
         stopRequests();
-        if (isMenuOpen) {
+        if (isOpen) {
           event.preventDefault();
           dispatch(HIDE_MENU);
         }
@@ -515,13 +515,13 @@ export default function Autocomplete2<+T: EntityItem>(
 
   const handleOuterClick = React.useCallback(() => {
     stopRequests();
-    if (props.isOpen) {
+    if (isOpen) {
       dispatch(HIDE_MENU);
     }
-  }, [stopRequests, props.isOpen, dispatch]);
+  }, [stopRequests, isOpen, dispatch]);
 
-  const activeDescendant = props.highlightedItem
-    ? `${id}-item-${props.highlightedItem.id}`
+  const activeDescendant = highlightedItem
+    ? `${id}-item-${highlightedItem.id}`
     : null;
   const inputId = `${id}-input`;
   const labelId = `${id}-label`;
@@ -549,7 +549,7 @@ export default function Autocomplete2<+T: EntityItem>(
     }
 
     if (
-      props.pendingSearch &&
+      pendingSearch &&
       !inputTimeout.current &&
       !xhr.current
     ) {
@@ -557,15 +557,15 @@ export default function Autocomplete2<+T: EntityItem>(
        * Use a smaller delay for static lists, since no network
        * requests are needed in that case; updates are fast.
        */
-      const delay = props.staticItems ? 75 : 300;
+      const delay = staticItems ? 75 : 300;
 
       inputTimeout.current = setTimeout(() => {
         inputTimeout.current = null;
 
-        const pendingSearchTerm = clean(props.pendingSearch);
+        const pendingSearchTerm = clean(pendingSearch);
         // Check if the input value has changed before proceeding.
-        if (pendingSearchTerm === clean(props.inputValue)) {
-          if (props.staticItems) {
+        if (pendingSearchTerm === clean(inputValue)) {
+          if (staticItems) {
             dispatch({
               searchTerm: pendingSearchTerm,
               type: 'filter-static-items',
@@ -602,7 +602,7 @@ export default function Autocomplete2<+T: EntityItem>(
         {props.placeholder || SEARCH_PLACEHOLDERS[entityType]()}
       </label>
       <div
-        aria-expanded={props.isOpen ? 'true' : 'false'}
+        aria-expanded={isOpen ? 'true' : 'false'}
         aria-haspopup="listbox"
         aria-owns={menuId}
         role="combobox"
@@ -616,12 +616,12 @@ export default function Autocomplete2<+T: EntityItem>(
           className={
             (
               props.isLookupPerformed == null
-                ? props.selectedEntity
+                ? selectedEntity
                 : props.isLookupPerformed
             )
               ? 'lookup-performed'
               : ''}
-          disabled={props.disabled}
+          disabled={disabled}
           id={inputId}
           onChange={handleInputChange}
           onFocus={handleInputFocus}
@@ -630,7 +630,7 @@ export default function Autocomplete2<+T: EntityItem>(
             props.placeholder || l('Type to search, or paste an MBID')
           }
           ref={inputRef}
-          value={props.inputValue}
+          value={inputValue}
         />
         <button
           aria-activedescendant={activeDescendant}
@@ -641,17 +641,17 @@ export default function Autocomplete2<+T: EntityItem>(
           className={
             'search' +
             ((
-              props.pendingSearch &&
-              !props.disabled &&
+              pendingSearch &&
+              !disabled &&
               /*
                * Lookups for static item lists complete near-instantly,
                * so flashing a loading spinner is obnoxious.
                */
-              !props.staticItems
+              !staticItems
             ) ? ' loading' : '')
           }
           data-toggle="true"
-          disabled={props.disabled}
+          disabled={disabled}
           onClick={handleButtonClick}
           onKeyDown={handleInputKeyDown}
           role="button"
@@ -667,19 +667,19 @@ export default function Autocomplete2<+T: EntityItem>(
         id={menuId}
         role="listbox"
         style={{
-          visibility: (props.isOpen && !props.disabled)
+          visibility: (isOpen && !disabled)
             ? 'visible'
             : 'hidden',
         }}
       >
-        {props.disabled ? null : (
+        {disabled ? null : (
           <AutocompleteItemsWithType
             autocompleteId={id}
             dispatch={dispatch}
-            highlightedItem={props.highlightedItem}
-            items={props.items}
+            highlightedItem={highlightedItem}
+            items={items}
             selectItem={selectItem}
-            selectedEntity={props.selectedEntity}
+            selectedEntity={selectedEntity}
           />
         )}
       </ul>
