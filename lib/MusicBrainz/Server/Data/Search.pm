@@ -5,6 +5,7 @@ use Try::Tiny;
 use Moose;
 use Class::Load qw( load_class );
 use JSON;
+use POSIX qw( ceil );
 use Sql;
 use Readonly;
 use Data::Page;
@@ -790,7 +791,7 @@ sub external_search
     load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
-    $query = uri_escape_utf8($query);
+    my $escaped_query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
 
     my $search_url_string;
@@ -816,7 +817,7 @@ sub external_search
     my $search_url = sprintf($search_url_string,
                                  DBDefs->SEARCH_SERVER,
                                  $type,
-                                 $query,
+                                 $escaped_query,
                                  $offset,
                                  $limit);
 
@@ -878,6 +879,17 @@ sub external_search
                 );
         }
         my ($total_hits) = $data->{count};
+
+        # If the requested page number is larger than the last one that still has results,
+        # repeat the search, but request that last page instead.
+        my $largest_available_page = ceil($total_hits / $limit);
+        if ($page > $largest_available_page) {
+            return $self->external_search($type,
+                                          $query,
+                                          $limit,
+                                          $largest_available_page,
+                                          $adv);
+        }
 
         # If the user searches for annotations, they will get the results in wikiformat - we need to
         # convert this to HTML.
