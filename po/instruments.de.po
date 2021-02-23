@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-08 22:19+0000\n"
-"Last-Translator: Shepard\n"
+"PO-Revision-Date: 2021-02-23 07:18+0000\n"
+"Last-Translator: S.Brandt <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3104,6 +3104,7 @@ msgid "recorder"
 msgstr "Blockflöte"
 
 #: DB:instrument/name:204
+msgctxt "Organ with free reeds"
 msgid "reed organ"
 msgstr "Harmonium"
 

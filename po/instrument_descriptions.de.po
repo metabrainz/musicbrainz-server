@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-15 20:07+0000\n"
+"PO-Revision-Date: 2021-02-23 07:17+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1569,6 +1569,13 @@ msgstr ""
 msgid ""
 "Large square spring-containing bellows operated by the feet, it was used by "
 "accordion players as bass accompaniment in early 20th century Wallonia."
+msgstr ""
+
+#. name:reed organ
+#: DB:instrument/description:204
+msgid ""
+"Large, looking like an upright piano, it has pedals attached to bellows with"
+" reeds. Sound is produced by playing the keyboard."
 msgstr ""
 
 #. name:baandu
@@ -4967,13 +4974,6 @@ msgid ""
 "guitar-bouzouki hybrid with guitar body and 4 pairs of strings like the "
 "bouzouki, developed separately several different luthiers, among them Stefan"
 " Sobell (bouzar) and Davy Stuart (gouzouki)"
-msgstr ""
-
-#. name:reed organ
-#: DB:instrument/description:204
-msgid ""
-"having pedals attached to bellows with reeds. sound is produced by playing "
-"the keyboard."
 msgstr ""
 
 #. name:elektronium

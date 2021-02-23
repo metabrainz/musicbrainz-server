@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-16 00:56+0000\n"
-"Last-Translator: Luca Salini\n"
+"PO-Revision-Date: 2021-02-23 07:17+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1571,6 +1571,13 @@ msgid ""
 "Large square spring-containing bellows operated by the feet, it was used by "
 "accordion players as bass accompaniment in early 20th century Wallonia."
 msgstr "Grande mantice di forma squadrata contenente delle molle e azionato con i piedi, era usato dai suonatori di fisarmonica come accompagnamento di basso nella Vallonia del primo XX secolo."
+
+#. name:reed organ
+#: DB:instrument/description:204
+msgid ""
+"Large, looking like an upright piano, it has pedals attached to bellows with"
+" reeds. Sound is produced by playing the keyboard."
+msgstr ""
 
 #. name:baandu
 #: DB:instrument/description:880
@@ -4969,13 +4976,6 @@ msgid ""
 "bouzouki, developed separately several different luthiers, among them Stefan"
 " Sobell (bouzar) and Davy Stuart (gouzouki)"
 msgstr "Ibrido di chitarra e bouzouki con la cassa di una chitarra e 4 coppie di corde come il bouzouki, sviluppato separatamente da più liutai, tra cui Stefan Sobell (bouzar) e Davy Stuart (gouzouki)."
-
-#. name:reed organ
-#: DB:instrument/description:204
-msgid ""
-"having pedals attached to bellows with reeds. sound is produced by playing "
-"the keyboard."
-msgstr "Con pedali collegati a mantici con ance, il suono è generato suonando la tastiera."
 
 #. name:elektronium
 #: DB:instrument/description:848
