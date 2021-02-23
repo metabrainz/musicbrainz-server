@@ -31,13 +31,14 @@
 # yvanz, 2018
 # yvanz, 2018
 # 和田篤 <email address hidden>, 2019
+# 工藤零大 <email address hidden>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-11 11:58+0200\n"
-"PO-Revision-Date: 2021-02-01 16:47+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2021-02-15 22:06+0200\n"
+"PO-Revision-Date: 2021-02-16 13:53+0000\n"
+"Last-Translator: 工藤零大 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1055,7 +1056,7 @@ msgstr "カタログ番号"
 
 #: ../root/release_group/set_cover_art.tt:56
 msgid "Catalog#:"
-msgstr ""
+msgstr "カタログ番号:"
 
 #: ../root/account/change_password.tt:25 ../root/account/change_password.tt:31
 #: ../root/account/change_password.tt:32 ../root/account/change_password.tt:36
