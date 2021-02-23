@@ -356,12 +356,6 @@ export function runReducer<+T: EntityItem>(
       break;
     }
 
-    case 'highlight-index': {
-      state.highlightedIndex = action.index;
-      updateStatusMessage = true;
-      break;
-    }
-
     case 'highlight-next-item': {
       highlightNextItem<T>(state, action.items, state.highlightedIndex + 1);
       updateStatusMessage = true;

@@ -341,7 +341,7 @@ div.autocomplete2 {
                 color: #666;
                 cursor: default;
             }
-            &.highlighted {
+            &.highlighted, &:hover:not(.disabled) {
                 background: lighten(@musicbrainz-orange, 30%);
                 border-color: lighten(@musicbrainz-orange, 20%);
             }

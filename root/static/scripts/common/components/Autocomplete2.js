@@ -160,8 +160,6 @@ export function createInitialState<+T: EntityItem>(
 
 type AutocompleteItemProps<T: EntityItem> = {
   autocompleteId: string,
-  dispatch: (Actions<T>) => void,
-  index: number,
   isHighlighted: boolean,
   isSelected: boolean,
   item: Item<T>,
@@ -170,8 +168,6 @@ type AutocompleteItemProps<T: EntityItem> = {
 
 const AutocompleteItem = React.memo(<+T: EntityItem>({
   autocompleteId,
-  dispatch,
-  index,
   isHighlighted,
   isSelected,
   item,
@@ -204,12 +200,6 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
     }
   }
 
-  function handleItemMouseOver() {
-    if (!item.disabled) {
-      dispatch({index, type: 'highlight-index'});
-    }
-  }
-
   return (
     <li
       aria-disabled={isDisabled ? 'true' : 'false'}
@@ -225,7 +215,6 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
       key={item.id}
       onClick={handleItemClick}
       onMouseDown={handleItemMouseDown}
-      onMouseOver={handleItemMouseOver}
       role="option"
       style={style}
     >
@@ -236,7 +225,6 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
 
 type AutocompleteItemsProps<T: EntityItem> = {
   autocompleteId: string,
-  dispatch: (Actions<T>) => void,
   highlightedItem: Item<T> | null,
   items: $ReadOnlyArray<Item<T>>,
   selectedEntity: T | null,
@@ -248,7 +236,6 @@ type AutocompleteItemComponent<T> =
 
 function AutocompleteItems<T: EntityItem>({
   autocompleteId,
-  dispatch,
   highlightedItem,
   items,
   selectedEntity,
@@ -265,8 +252,6 @@ function AutocompleteItems<T: EntityItem>({
     children.push(
       <AutocompleteItemWithType
         autocompleteId={autocompleteId}
-        dispatch={dispatch}
-        index={index}
         isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
         isSelected={!!(
           selectedEntity &&
@@ -656,7 +641,6 @@ export default function Autocomplete2<+T: EntityItem>(
         {disabled ? null : (
           <AutocompleteItemsWithType
             autocompleteId={id}
-            dispatch={dispatch}
             highlightedItem={highlightedItem}
             items={items}
             selectItem={selectItem}
