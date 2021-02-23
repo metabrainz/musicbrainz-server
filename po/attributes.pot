@@ -305,6 +305,11 @@ msgctxt "series_type"
 msgid "A series of related concerts by an artist in different locations."
 msgstr ""
 
+#: DB:series_type/description:12
+msgctxt "series_type"
+msgid "A series of related concerts by an artist in the same location."
+msgstr ""
+
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "A series of release groups."
@@ -5584,6 +5589,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:516
 msgctxt "work_attribute_type_allowed_value"
 msgid "Reng-i Dil"
+msgstr ""
+
+#: DB:series_type/name:12
+msgctxt "series_type"
+msgid "Residency"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:517
