@@ -75,8 +75,8 @@ License:     CC-NC-ND-BY/3.0 (see: http://creativecommons.org/licenses/by-nc-nd/
 Download:    http://gentleface.com/free_icon_set.html
 Images:
 
-    favicons/home-32.png (original: black/png/home_icon&32.png)
-    favicons/blog-32.png (original: black/png/speechbubble_sq_line_icon&32.png)
+    external-favicons/home-32.png (original: black/png/home_icon&32.png)
+    external-favicons/blog-32.png (original: black/png/speechbubble_sq_line_icon&32.png)
 
 ----------------------------------------------------------------------------
 

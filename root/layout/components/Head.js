@@ -14,6 +14,7 @@ import DBDefs from '../../static/scripts/common/DBDefs';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 
 import globalsScript from './globalsScript';
+import FaviconLinks from './FaviconLinks';
 import MetaDescription from './MetaDescription';
 
 export type HeadProps = {
@@ -66,6 +67,8 @@ const Head = ({$c, ...props}: HeadProps): React.Element<'head'> => (
     <meta charSet="utf-8" />
     <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <FaviconLinks />
+
     <MetaDescription entity={$c.stash.entity} />
 
     <title>{getTitle(props)}</title>
