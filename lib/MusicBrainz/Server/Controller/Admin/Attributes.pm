@@ -115,7 +115,16 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
     $c->stash->{attribute} = $attr;
 
     if ($c->model($model)->in_use($id)) {
-        $c->stash->{template} = 'admin/attributes/in_use.tt';
+        my $error_message = l('You cannot remove the attribute "{name}" because it is still in use.', { name => $attr->name });
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'admin/attributes/CannotRemoveAttribute',
+            component_props => {message => $error_message}
+        );
+        
+        $c->detach;
+    }
         $c->detach;
     }
 
