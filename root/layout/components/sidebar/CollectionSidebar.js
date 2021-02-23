@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import EditorLink from '../../../static/scripts/common/components/EditorLink';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import {formatCount} from '../../../statistics/utilities';
 import {returnToCurrentPage} from '../../../utility/returnUri';
 
 import {SidebarProperties, SidebarProperty} from './SidebarProperties';
@@ -42,6 +43,13 @@ const CollectionSidebar = ({
             {lp_attributes(typeName, 'collection_type')}
           </SidebarProperty>
         ) : null}
+
+        <SidebarProperty
+          className=""
+          label={addColonText(l('Number of entities'))}
+        >
+          {formatCount($c, collection.entity_count)}
+        </SidebarProperty>
       </SidebarProperties>
 
       <h2 className="editing">{l('Editing')}</h2>

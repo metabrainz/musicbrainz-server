@@ -30,7 +30,9 @@ const Footer = ({$c}: Props): React.Element<'div'> => {
         {' | '}
         <a className="internal" href="https://community.metabrainz.org/">{l('Forums')}</a>
         {' | '}
-        <a className="internal" href="/doc/Communication/IRC">{l('IRC')}</a>
+        <a className="internal" href="/doc/Communication/IRC">
+          {l('Chat (IRC)')}
+        </a>
         {' | '}
         <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
         {' | '}

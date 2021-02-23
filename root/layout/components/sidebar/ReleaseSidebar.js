@@ -98,39 +98,40 @@ const ReleaseSidebar = ({
               {all: entityHref(release, 'cover-art')},
             ))}
           />
-        ) : (
-          release.cover_art_presence !== 'darkened' &&
-            releaseCoverUrl
-            /* flow-include && releaseCoverHost === true */ ? (
-              <>
-                <img src={releaseCoverUrl} />
-                <span className="cover-art-note">
-                  {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
-                    exp.l('Cover art from {cover|Amazon}', {
-                      cover: releaseCoverUrl,
-                    })
-                  ) : (
-                    exp.l('Cover art from {cover|{host}}', {
-                      cover: releaseCoverUrl,
-                      host: releaseCoverHost,
-                    })
-                  )}
-                </span>
-              </>
-            ) : (
-              <p className="cover-art-note" style={{textAlign: 'left'}}>
-                {release.cover_art_presence === 'present' ? (
-                  <>
-                    {l('No front cover image available.')}
-                    <br />
-                    <a href={entityHref(release, 'cover-art')}>
-                      {l('View all artwork')}
-                    </a>
-                  </>
-                ) : l('No cover art available.')}
-              </p>
-            )
-        )}
+        ) : release.cover_art_presence === 'darkened' ? (
+          l(`Cover art for this release has been hidden
+             by the Internet Archive because of a takedown request.`)
+        ) : releaseCoverUrl
+          /* flow-include && releaseCoverHost === true */ ? (
+            <>
+              <img src={releaseCoverUrl} />
+              <span className="cover-art-note">
+                {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
+                  exp.l('Cover art from {cover|Amazon}', {
+                    cover: releaseCoverUrl,
+                  })
+                ) : (
+                  exp.l('Cover art from {cover|{host}}', {
+                    cover: releaseCoverUrl,
+                    host: releaseCoverHost,
+                  })
+                )}
+              </span>
+            </>
+          ) : (
+            <p className="cover-art-note" style={{textAlign: 'left'}}>
+              {release.cover_art_presence === 'present' ? (
+                <>
+                  {l('No front cover image available.')}
+                  <br />
+                  <a href={entityHref(release, 'cover-art')}>
+                    {l('View all artwork')}
+                  </a>
+                </>
+              ) : l('No cover art available.')}
+            </p>
+          )
+        }
       </div>
 
       <h2 className="release-information">

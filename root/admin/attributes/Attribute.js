@@ -74,7 +74,7 @@ const renderAttributes = (attribute) => {
     }
     case 'series_type':
     case 'collection_type': {
-      return <td>{attribute.entityType}</td>;
+      return <td>{attribute.item_entity_type}</td>;
     }
     case 'work_attribute_type': {
       return <td>{yesNo(attribute.free_text)}</td>;

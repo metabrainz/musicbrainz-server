@@ -35,8 +35,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-09 07:18+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-02-23 07:18+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -528,6 +528,10 @@ msgstr "Indique le librettiste pour cette parution."
 #: DB:link_type/description:169
 msgid "Indicates the librettist for this work."
 msgstr "Indique le librettiste pour cette œuvre."
+
+#: DB:link_type/description:995
+msgid "Indicates the location a run or residency was held at."
+msgstr ""
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
@@ -2722,6 +2726,13 @@ msgid ""
 "relationship type."
 msgstr "Cette relation est utilisée pour relier une œuvre à l’artiste responsable de l’écriture de la musique et/ou des mots (paroles, livret, etc.) quand plus aucune information spécifique n’est proposée. Si possible, les types plus spécifiques de compositeur, parolier et/ou librettiste devraient être utilisés plutôt que ce type de relation."
 
+#: DB:link_type/description:994
+msgid ""
+"This relationship links a <a "
+"href=\"https://en.wikipedia.org/wiki/Concert_residency\">concert "
+"residency</a> to the artist(s) who held the residency."
+msgstr ""
+
 #: DB:link_type/description:859
 msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
@@ -4505,7 +4516,8 @@ msgstr "a des échantillons {additional:additionnels} provenant de"
 msgid "has {half:half-}{step}sibling"
 msgstr "a pour {half:demi-}{step:demi-}frère ou {half:demi-}{step:demi-}sœur"
 
-#: DB:link_type/link_phrase:794 DB:link_type/name:794
+#: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
+#: DB:link_type/reverse_link_phrase:995
 msgid "held at"
 msgstr "tenu à"
 
@@ -4985,6 +4997,10 @@ msgstr "interprétation en public de"
 #: DB:link_type/reverse_link_phrase:17
 msgid "live performances"
 msgstr "interprétations en public"
+
+#: DB:link_type/link_phrase:995
+msgid "location for"
+msgstr ""
 
 #: DB:link_type/name:213
 msgid "logo"
@@ -6007,6 +6023,18 @@ msgstr "renommé"
 #: DB:link_type/link_phrase:836 DB:link_type/name:836
 msgid "rescheduled as"
 msgstr "reprogrammé comme"
+
+#: DB:link_type/link_phrase:994
+msgid "residencies"
+msgstr ""
+
+#: DB:link_type/name:994
+msgid "residency"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:994
+msgid "residency by"
+msgstr ""
 
 #: DB:link_type/name:842 DB:link_type/name:94
 msgid "review"
@@ -7226,6 +7254,10 @@ msgstr "{entity1} est un flux de baladodiffusion de {entity0}"
 msgid "{entity1} is a part of  {entity0}"
 msgstr "{entity1} est une partie de {entity0}"
 
+#: DB:link_type/long_link_phrase:994
+msgid "{entity1} is a residency by {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:859
 msgid "{entity1} is a tour by {entity0}"
 msgstr "{entity1} est une tournée de {entity0}"
@@ -7279,6 +7311,10 @@ msgstr "{entity1} était disponible à {entity0}"
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
 msgstr "{entity1} a été matricé en verre à {entity0}"
+
+#: DB:link_type/long_link_phrase:995
+msgid "{entity1} was held at {entity0}"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:793
 msgid "{entity1} was held in {entity0}"

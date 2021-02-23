@@ -10,11 +10,27 @@ with 'MusicBrainz::Server::Form::Role::CSRFToken';
 
 has '+name' => ( default => 'register' );
 
+my $text_too_long_message = N_l('The value of this field cannot be longer than {max} characters, but you entered {actual}.');
+
+sub localize_method_with_text_maxlength {
+    my ($self, $message, @args) = @_;
+    
+    if ($message eq $text_too_long_message) {
+        return l($message, { max => $args[0], actual => $args[1] });
+    }
+
+    return l($message);
+}
+
 has_field 'username' => (
     type      => 'Text',
     required  => 1,
     maxlength => 64,
     validate_method => \&validate_username,
+    messages  => {
+        text_maxlength => $text_too_long_message,
+    },
+    localize_meth => \&localize_method_with_text_maxlength,
 );
 
 has_field 'password' => (
@@ -22,8 +38,11 @@ has_field 'password' => (
     required  => 1,
     minlength => 1,
     maxlength => 64,
-    messages  => { required => N_l('Please enter a password in this field') },
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
+    messages  => {
+        required => N_l('Please enter a password in this field'),
+        text_maxlength => $text_too_long_message,
+    },
+    localize_meth => \&localize_method_with_text_maxlength,
 );
 
 has_field 'confirm_password' => (

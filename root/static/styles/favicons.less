@@ -1,13 +1,13 @@
 .favicon(@quotedsite, @size: 16) {
     @site: e(@quotedsite);
     .@{site}-favicon {
-        background-image: data-uri("../images/favicons/@{site}-@{size}.png");
+        background-image: data-uri("../images/external-favicons/@{site}-@{size}.png");
         background-size: 16px;
     }
 }
 
 .no-favicon {
-    background-image: data-uri("../images/favicons/external-16.png");
+    background-image: data-uri("../images/external-favicons/external-16.png");
 }
 
 .favicon("home", 32);
@@ -90,6 +90,7 @@
 .favicon("metalarchives");
 .favicon("migumusic", 32);
 .favicon("mixcloud", 32);
+.favicon("mora", 32);
 .favicon("musicapopularcl", 32);
 .favicon("musiksammler", 32);
 .favicon("musixmatch", 32);
@@ -114,6 +115,7 @@
 .favicon("psydb");
 .favicon("quebecinfomusique");
 .favicon("rateyourmusic", 32);
+.favicon("recochoku", 32);
 .favicon("residentadvisor", 32);
 .favicon("reverbnation", 32);
 .favicon("ric");

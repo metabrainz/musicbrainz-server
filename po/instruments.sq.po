@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-08 22:19+0000\n"
-"Last-Translator: Besnik Bleta <email address hidden>\n"
+"PO-Revision-Date: 2021-02-23 07:17+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3089,6 +3089,7 @@ msgid "recorder"
 msgstr ""
 
 #: DB:instrument/name:204
+msgctxt "Organ with free reeds"
 msgid "reed organ"
 msgstr ""
 
