@@ -19,6 +19,13 @@ sub _column_mapping {
     };
 }
 
+sub has_children {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM ' . $self->_table . ' WHERE parent = ? LIMIT 1',
+        $id);
+}
+
 no Moose;
 1;
 
