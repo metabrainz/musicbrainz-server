@@ -353,17 +353,12 @@ function stripTrackingParams(url) {
   }
 
   const params = urlObject.searchParams;
-  const paramKeys = new Set(params.keys());
-  let changed = false;
 
-  for (const param of paramKeys) {
-    if (TRACKING_PARAMS.includes(param)) {
-      params.delete(param);
-      changed = true;
-    }
-  }
+  TRACKING_PARAMS.forEach(function (param) {
+    params.delete(param);
+  });
 
-  return changed ? urlObject.href : url;
+  return urlObject.href;
 }
 
 const linkToChannelMsg = N_l(
