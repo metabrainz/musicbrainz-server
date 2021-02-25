@@ -260,8 +260,11 @@ sub error {
     my $status = $args{status} || 500;
     $c->response->status($status);
     $c->stash(
-        template => "main/$status.tt",
-        message => $args{message}
+        current_view => 'Node',
+        component_path => "main/error/Error$status",
+        component_props => {
+            message => $args{message}
+        }
     );
     $c->detach;
 }
