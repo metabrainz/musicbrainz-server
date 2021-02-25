@@ -237,7 +237,7 @@ test 'Embedded JSON-LD sameAs & performsAs' => sub {
             'http://musicbrainz.org/artist/f90e8b26-9e52-4669-a5c9-e28529c47894',
             'http://snooplion.com/',
             'http://www.discogs.com/artist/2859872',
-            'http://www.wikidata.org/wiki/Q6096',
+            'http://www.wikidata.org/entity/Q6096',
             'https://www.allmusic.com/artist/mn0002979185',
         ]
     };
@@ -282,7 +282,7 @@ test 'Embedded JSON-LD dates & origins for people' => sub {
             'http://viaf.org/viaf/263782738',
             'http://viaf.org/viaf/32197206',
             'http://www.discogs.com/artist/95546',
-            'http://www.wikidata.org/wiki/Q254',
+            'http://www.wikidata.org/entity/Q254',
             'https://www.allmusic.com/artist/mn0000026350',
             'https://www.bbc.co.uk/music/artists/b972f589-fb0e-474e-b64a-803b0364fa75',
             'https://www.imdb.com/name/nm0003665/',
@@ -393,7 +393,7 @@ test 'Embedded JSON-LD for groups' => sub {
             'http://www.secondhandsongs.com/artist/41',
             'http://www.thebeatles.com/',
             'http://www.whosampled.com/The-Beatles/',
-            'http://www.wikidata.org/wiki/Q1299',
+            'http://www.wikidata.org/entity/Q1299',
             'https://www.allmusic.com/artist/mn0000754032',
             'https://www.bbc.co.uk/music/artists/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d',
             'https://www.imdb.com/name/nm1397313/',

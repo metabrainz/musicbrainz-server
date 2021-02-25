@@ -87,7 +87,13 @@ sub sameas_url {
     if ($acceptable{$rel->link->type->gid // ''} ||
         $acceptable_parents{$rel->link->type->parent_id // ''} ||
         $acceptable_parents{$rel->link->type->id // ''}) {
-        return $rel->target->url->as_string;
+
+        my $url = $rel->target->url->as_string;
+
+        # Use the Wikidata RDF concept URIs rather than the default site URL (MBS-9987)
+        $url =~ s/^https?:\/\/(?:www\.)?wikidata\.org\/wiki\//http:\/\/www\.wikidata\.org\/entity\//;
+
+        return $url;
     }
 }
 
