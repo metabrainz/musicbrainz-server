@@ -24,7 +24,7 @@ $mech->content_contains('/recording/123c079d-374e-4436-9448-da92dedef3ce');
 page_test_jsonld $mech => {
     'location' => {
         'name' => 'United Kingdom',
-        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+        '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         '@type' => 'Country'
     },
     '@context' => 'http://schema.org',
@@ -32,17 +32,17 @@ page_test_jsonld $mech => {
     'birthDate' => '2008-01-02',
     'birthPlace' => {
         '@type' => 'Country',
-        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+        '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         'name' => 'United Kingdom'
     },
     'name' => 'Test Artist',
     'deathDate' => '2009-03-04',
     'deathPlace' => {
         'name' => 'United Kingdom',
-        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+        '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         '@type' => 'Country'
     },
-    '@id' => 'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce'
+    '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce'
 };
 
 };

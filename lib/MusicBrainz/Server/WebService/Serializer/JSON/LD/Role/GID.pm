@@ -13,7 +13,7 @@ around serialize => sub {
     my $entity_type = ref_to_type($entity);
     my $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
 
-    $ret->{'@id'} = DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $entity->gid;
+    $ret->{'@id'} = DBDefs->JSON_LD_ID_BASE_URI . '/' . $entity_url . '/' . $entity->gid;
 
     return $ret;
 };

@@ -23,12 +23,12 @@ around serialize => sub {
     my $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
 
     if ($entity->can('all_gid_redirects') && $entity->all_gid_redirects) {
-        push(@urls, map { DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $_ } $entity->all_gid_redirects);
+        push(@urls, map { DBDefs->JSON_LD_ID_BASE_URI . '/' . $entity_url . '/' . $_ } $entity->all_gid_redirects);
     }
 
     if ($stash->store($entity)->{identities}) {
         my @identities = @{ $stash->store($entity)->{identities} };
-        push(@urls, map { DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $_->gid } @identities);
+        push(@urls, map { DBDefs->JSON_LD_ID_BASE_URI . '/' . $entity_url . '/' . $_->gid } @identities);
     }
 
     if (@urls) {

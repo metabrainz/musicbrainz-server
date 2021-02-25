@@ -16,7 +16,7 @@ test all => sub {
     html_ok($mech->content);
 
     page_test_jsonld $mech => {
-        '@id' => 'https://musicbrainz.org/area/106e0bec-b638-3b37-b731-f53d507dc00e',
+        '@id' => 'http://musicbrainz.org/area/106e0bec-b638-3b37-b731-f53d507dc00e',
         'alternateName' => ["\x{30aa}\x{30fc}\x{30b9}\x{30c8}\x{30e9}\x{30ea}\x{30a2}"],
         '@context' => 'http://schema.org',
         'name' => 'Australia',

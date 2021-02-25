@@ -116,6 +116,9 @@ sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 sub IS_BETA                   { 0 }
 sub BETA_REDIRECT_HOSTNAME    { '' }
 
+# The base URI to use for JSON-LD (RDF) identifiers. Includes scheme.
+sub JSON_LD_ID_BASE_URI       { "http://musicbrainz.org" }
+
 # The server to use for rel="canonical" links. Includes scheme.
 sub CANONICAL_SERVER          { "https://musicbrainz.org" }
 
