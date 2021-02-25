@@ -480,7 +480,13 @@ function newLinkState(state: $Shape<LinkStateT>) {
 }
 
 function linkTypeAndUrlString(link) {
-  return (link.type || '') + '\0' + link.url;
+  /*
+   * There's no reason why we should allow adding the same relationship
+   * twice when the only difference is http vs https, so normalize this
+   * for the check.
+   */
+  const httpUrl = link.url.replace(/^https/, 'http');
+  return (link.type || '') + '\0' + httpUrl;
 }
 
 function isEmpty(link) {
