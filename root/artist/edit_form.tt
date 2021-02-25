@@ -90,6 +90,9 @@
     [%- area_bubble() -%]
 
     [%- type_bubble(form.field('type_id'), artist_types) -%]
+
+    [%- ipi_bubble() -%]
+    [%- isni_bubble() -%]
   </div>
 
 </form>
@@ -104,5 +107,8 @@
     MB.initializeDuplicateChecker('artist');
 
     MB.initializeTooShortYearChecks('artist');
+
+    MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-artist\\.ipi_codes\\.0]");
+    MB.Control.initializeBubble("#isni-bubble", "input[name=edit-artist\\.isni_codes\\.0]");
   }());
 </script>
