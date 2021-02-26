@@ -76,6 +76,7 @@ our @EXPORT_OK = qw(
     take_while
     trim
     trim_comment
+    trim_multiline_text
     type_to_model
     split_relationship_by_attributes
 );
@@ -359,6 +360,16 @@ sub trim_comment {
     $t =~ s/^\s*\(([^()]+)\)\s*$/$1/;
 
     return trim($t);
+}
+
+sub trim_multiline_text {
+    my $t = shift;
+
+    # Not trimming starting spaces to avoid breaking list formatting,
+    # consider trimming again once this uses Markdown
+    $t =~ s/\s+$//;
+
+    return $t;
 }
 
 sub remove_direction_marks {

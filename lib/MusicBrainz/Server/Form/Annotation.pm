@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Form::Annotation;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Data::Utils qw( trim_multiline_text );
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
@@ -7,13 +8,7 @@ has '+name' => (default => 'edit-annotation');
 
 has_field 'text' => (
     type     => 'Text',
-    trim => { transform => sub {
-        my $string = shift;
-        # Not trimming starting spaces to avoid breaking list formatting,
-        # consider trimming again once this uses Markdown 
-        $string =~ s/\s+$//;
-        return $string;
-    } }
+    trim => { transform => sub { trim_multiline_text(shift) } }
 );
 
 has_field 'changelog' => (
