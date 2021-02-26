@@ -28,11 +28,11 @@ const VotingPeriod = ({
 
   if (date > now) {
     const durationSeconds = Math.floor((date - now) / 1000);
-    const durationMinutes = Math.floor(durationSeconds / 60);
-    const durationHours = Math.floor(durationMinutes / 60);
-    const durationDays = Math.floor(durationHours / 24);
+    const durationMinutes = Math.round(durationSeconds / 60);
+    const durationHours = Math.round(durationMinutes / 60);
+    const durationDays = Math.round(durationHours / 24);
 
-    if (durationDays > 0) {
+    if (durationHours > 23) {
       return exp.ln(
         `Closes in
          <span class="tooltip" title="{exactdate}">{num} day</span>`,
@@ -41,7 +41,7 @@ const VotingPeriod = ({
         durationDays,
         {exactdate: userDate, num: durationDays},
       );
-    } else if (durationHours > 0) {
+    } else if (durationMinutes > 59) {
       return exp.ln(
         `Closes in
          <span class="tooltip" title="{exactdate}">{num} hour</span>`,
