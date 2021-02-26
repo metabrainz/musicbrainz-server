@@ -660,7 +660,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     my $annotation_edits = [ {
         edit_type       => $EDIT_RELEASE_ADD_ANNOTATION,
         entity          => $release_id,
-        text            => "    * Test annotation in release editor  \r\n    * This annotation has two bullets  \t\t",
+        text            => "    * Test annotation\x{0007} in release editor  \r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
     } ];
 
     @edits = capture_edits {
@@ -674,10 +674,9 @@ test 'previewing/creating/editing a release group and release' => sub {
     cmp_deeply($edits[0]->data, {
         editor_id       => 1,
         entity          => { id => $release_id, name => 'Vision Creation Newsun' },
-        text            => "    * Test annotation in release editor\n    * This annotation has two bullets",
+        text            => "    * Test annotation in release editor\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
     });
 };
-
 
 test 'adding a relationship' => sub {
     my $test = shift;

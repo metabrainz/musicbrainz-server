@@ -365,6 +365,8 @@ sub trim_comment {
 sub trim_multiline_text {
     my $t = shift;
 
+    $t = NFC($t);
+    $t = remove_invalid_characters($t);
     # Not trimming starting spaces to avoid breaking
     # either list formatting in Wikitext
     # or block in Markdown.
