@@ -138,6 +138,21 @@ test 'Changing URL scheme from HTTP to HTTPS is an auto-edit (MBS-9439)' => sub 
     is $edit->status, $STATUS_OPEN, 'Moving from HTTPS to HTTP is not an auto edit';
 };
 
+test 'Merging HTTP URL into HTTPS is an auto-edit (MBS-9857)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    # First we make URL 2 relevant to our merging plans - URL 1 is already the HTTP version
+    my $prep_edit = _build_edit($test, 'https://musicbrainz.org/', 2);
+    $prep_edit->accept;
+
+    my $to_http_edit = _build_edit($test, 'http://musicbrainz.org/', 2);
+    is $to_http_edit->status, $STATUS_OPEN, 'Merging HTTPS into HTTP is not an auto edit';
+
+    my $to_https_edit = _build_edit($test, 'https://musicbrainz.org/', 1);
+    is $to_https_edit->status, $STATUS_APPLIED, 'Merging HTTP into HTTPS is an auto edit';
+};
+
 sub _build_edit {
     my ($test, $url, $url_to_edit) = @_;
     $test->c->model('Edit')->create(
