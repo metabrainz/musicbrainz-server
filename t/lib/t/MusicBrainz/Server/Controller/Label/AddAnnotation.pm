@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/label/4b4ccf60-658e-11de-8a39-0800200c9a66/edit_annotation');
 $mech->submit_form(
     with_fields => {
-        'edit-annotation.text' => 'Test annotation 2. This is my annotation',
+        'edit-annotation.text' => "    * Test annotation for a label\r\n    * This annotation has two bullets  \t\t",
         'edit-annotation.changelog' => 'Changelog here',
     });
 
@@ -32,7 +32,7 @@ is_deeply($edit->data, {
         id => 3,
         name => 'Another Label'
     },
-    text => 'Test annotation 2. This is my annotation',
+    text => "    * Test annotation for a label\r\n    * This annotation has two bullets",
     changelog => 'Changelog here',
     editor_id => 1
 });
