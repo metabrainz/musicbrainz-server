@@ -20,7 +20,7 @@ test all => sub {
         'foundingDate' => '2013',
         'containedIn' => {
             '@type' => 'Country',
-            '@id' => 'https://musicbrainz.org/area/89a675c2-3e37-3518-b83c-418bad59a85a',
+            '@id' => 'http://musicbrainz.org/area/89a675c2-3e37-3518-b83c-418bad59a85a',
             'name' => 'Europe'
         },
         'alternateName' => ['A Test Alias'],
@@ -32,7 +32,7 @@ test all => sub {
         'name' => 'A Test Place',
         '@context' => 'http://schema.org',
         '@type' => 'Place',
-        '@id' => 'https://musicbrainz.org/place/df9269dd-0470-4ea2-97e8-c11e46080edd'
+        '@id' => 'http://musicbrainz.org/place/df9269dd-0470-4ea2-97e8-c11e46080edd'
     };
 };
 

@@ -23,16 +23,16 @@ test all => sub {
             'albumProductionType' => 'http://schema.org/StudioAlbum',
             'byArtist' => {
                 'name' => 'Artist',
-                '@id' => 'https://musicbrainz.org/artist/945c079d-374e-4436-9448-da92dedef3cf',
+                '@id' => 'http://musicbrainz.org/artist/945c079d-374e-4436-9448-da92dedef3cf',
                 '@type' => 'MusicGroup',
             },
             'creditedTo' => 'Artist',
-            '@id' => 'https://musicbrainz.org/release-group/54b9d183-7dab-42ba-94a3-7388a66604b8',
+            '@id' => 'http://musicbrainz.org/release-group/54b9d183-7dab-42ba-94a3-7388a66604b8',
             'name' => 'Release'
         },
         'name' => 'Release',
         'creditedTo' => 'Artist',
-        '@id' => 'https://musicbrainz.org/release/14b9d183-7dab-42ba-94a3-7388a66604b8',
+        '@id' => 'http://musicbrainz.org/release/14b9d183-7dab-42ba-94a3-7388a66604b8',
         '@type' => 'MusicRelease',
         'image' => {
             'contentUrl' => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/14b9d183-7dab-42ba-94a3-7388a66604b8/12345.jpg',
