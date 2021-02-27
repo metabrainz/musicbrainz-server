@@ -544,10 +544,6 @@ sub create {
     $edit->auto_edit(1)
         if ($edit->editor_id == $EDITOR_MODBOT && $edit->modbot_auto_edit);
 
-    # Serialize transactions per-editor. Should only be necessary for autoedits,
-    # since only they update the editor table but for now we've enabled it for everything
-    $self->c->model('Editor')->lock_row($edit->editor_id);
-
     $edit->insert;
 
     my $duration = DateTime::Duration->new( days => $conditions->{duration} );
