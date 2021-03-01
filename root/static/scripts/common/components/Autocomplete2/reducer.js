@@ -229,6 +229,7 @@ export function runReducer<+T: EntityItem>(
       break;
 
     default:
+      /*:: exhaustive(action); */
       throw new Error('Unknown action: ' + action.type);
   }
 }
