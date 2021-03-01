@@ -24,6 +24,7 @@ export type ActionT =
 type CommonProps = {
   +disabled?: boolean,
   +field: PartialDateFieldT,
+  +yearInputRef?: {current: HTMLInputElement | null},
 };
 
 type Props =
@@ -96,6 +97,7 @@ export function runReducer(
 const PartialDateInput = (props: Props): React.Element<'span'> => {
   const disabled = props.disabled ?? false;
   const field = props.field;
+  const yearInputRef = props.yearInputRef;
 
   const yearProps = {};
   const monthProps = {};
@@ -152,6 +154,7 @@ const PartialDateInput = (props: Props): React.Element<'span'> => {
         maxLength={4}
         name={field.field.year.html_name}
         placeholder={l('YYYY')}
+        ref={yearInputRef}
         size={4}
         type="text"
         {...yearProps}
