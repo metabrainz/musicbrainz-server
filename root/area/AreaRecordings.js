@@ -16,19 +16,26 @@ import AreaLayout from './AreaLayout';
 type Props = {
   +$c: CatalystContextT,
   +area: AreaT,
+  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  +pager: ?PagerT,
 };
 
 const AreaRecordings = ({
   $c,
   area,
+  pagedLinkTypeGroup,
+  pager,
 }: Props): React.Element<typeof AreaLayout> => (
   <AreaLayout $c={$c} entity={area} page="recordings" title={l('Recordings')}>
     <RelationshipsTable
+      $c={$c}
       entity={area}
       fallbackMessage={l(
         'This area has no relationships to any recordings.',
       )}
       heading={l('Relationships')}
+      pagedLinkTypeGroup={pagedLinkTypeGroup}
+      pager={pager}
     />
   </AreaLayout>
 );

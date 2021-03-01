@@ -348,11 +348,28 @@ declare type SecureConfirmFormT = FormT<{
   +submit: ReadOnlyFieldT<string>,
 }>;
 
+declare type PagedLinkTypeGroupT = {
+  +direction: 'backward' | 'forward',
+  +is_loaded: boolean,
+  +limit: number,
+  +link_type_id: number,
+  +offset: number,
+  +relationships: $ReadOnlyArray<RelationshipT>,
+  +total_relationships: number,
+};
+
+declare type PagedTargetTypeGroupT = {
+  +[linkTypeIdAndSourceColumn: string]: PagedLinkTypeGroupT,
+};
+
 declare type CoreEntityRoleT<+T> = {
   ...EntityRoleT<T>,
   ...LastUpdateRoleT,
   +gid: string,
   +name: string,
+  +paged_relationship_groups?: {
+    +[targetType: CoreEntityTypeT]: PagedTargetTypeGroupT | void,
+  },
   +relationships?: $ReadOnlyArray<RelationshipT>,
 };
 

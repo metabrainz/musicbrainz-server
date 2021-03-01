@@ -9,10 +9,16 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Artist',
     relationships   => {
-        all         => ['relationships'],
         cardinal    => ['edit'],
-        subset      => { split => ['artist'], show => ['artist', 'url'] },
-        default     => ['url']
+        subset => {
+            split => ['artist'],
+            show => ['artist', 'url'],
+            relationships => [qw( area artist event instrument label place series url )],
+        },
+        default     => ['url'],
+        paged_subset => {
+            relationships => [qw( recording release release_group work )],
+        },
     },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
@@ -331,9 +337,17 @@ sub show : PathPart('') Chained('load')
 sub relationships : Chained('load') PathPart('relationships') {
     my ($self, $c) = @_;
 
+    my $stash = $c->stash;
+    my $pager = defined $stash->{pager}
+        ? serialize_pager($stash->{pager})
+        : undef;
     $c->stash(
         component_path => 'artist/ArtistRelationships',
-        component_props => { artist => $c->stash->{artist}->TO_JSON },
+        component_props => {
+            artist => $stash->{artist}->TO_JSON,
+            pagedLinkTypeGroup => to_json_object($stash->{paged_link_type_group}),
+            pager => $pager,
+        },
         current_view => 'Node',
     );
 }

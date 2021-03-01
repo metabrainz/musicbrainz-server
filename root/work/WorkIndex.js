@@ -23,6 +23,8 @@ type Props = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +numberOfRevisions: number,
+  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  +pager: ?PagerT,
   +wikipediaExtract: WikipediaExtractT | null,
   +work: WorkT,
 };
@@ -31,6 +33,8 @@ const WorkIndex = ({
   $c,
   eligibleForCleanup,
   numberOfRevisions,
+  pagedLinkTypeGroup,
+  pager,
   wikipediaExtract,
   work,
 }: Props): React.Element<typeof WorkLayout> => (
@@ -49,7 +53,13 @@ const WorkIndex = ({
       entity={work}
     />
     <Relationships source={work} />
-    <RelationshipsTable entity={work} heading={l('Recordings')} />
+    <RelationshipsTable
+      $c={$c}
+      entity={work}
+      heading={l('Recordings')}
+      pagedLinkTypeGroup={pagedLinkTypeGroup}
+      pager={pager}
+    />
     {manifest.js('work/index.js', {async: 'async'})}
   </WorkLayout>
 );
