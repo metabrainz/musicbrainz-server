@@ -251,6 +251,10 @@ export class ExternalLinksEditor
             } else if (isShortened(link.url)) {
               error = l(`Please don’t enter bundled/shortened URLs,
                          enter the destination URL(s) instead.`);
+            } else if (isGoogleAmp(link.url)) {
+              error = l(`Please don’t enter Google AMP links,
+                         since they are effectively an extra redirect.
+                         Enter the destination URL instead.`);
             } else if (!link.type) {
               error = l(`Please select a link type for the URL
                          you’ve entered.`);
@@ -650,6 +654,10 @@ function isShortened(url) {
   return URL_SHORTENERS.some(function (shortenerRegex) {
     return url.match(shortenerRegex) !== null;
   });
+}
+
+function isGoogleAmp(url) {
+  return /^https?:\/\/([^/]+\.)?google\.[^/]+\/amp/.test(url);
 }
 
 function isMusicBrainz(url) {

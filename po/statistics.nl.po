@@ -5,12 +5,13 @@
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2013-2021
 # Nikolai Prokoschenko <email address hidden>, 2011
+# Remko de Keijzer <email address hidden>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-01-09 10:50+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2021-02-27 08:48+0000\n"
+"Last-Translator: Remko de Keijzer <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1131,11 +1132,11 @@ msgstr "Artiesten die geen groep zijn:"
 
 #: ../root/statistics/Index.js:299
 msgid "Male:"
-msgstr "man:"
+msgstr "Mannelijk:"
 
 #: ../root/statistics/Index.js:310
 msgid "Female:"
-msgstr "vrouw:"
+msgstr "Vrouwelijk:"
 
 #: ../root/statistics/Index.js:321
 msgid "Other gender:"
@@ -1582,7 +1583,7 @@ msgstr "Artiesten waarvan het land niet is ingesteld"
 
 #: ../root/statistics/stats.js:62
 msgid "Artists with gender set to female"
-msgstr "Artiesten met het geslacht vrouw"
+msgstr "Artiesten met het vrouwelijk geslacht"
 
 #: ../root/statistics/stats.js:63
 msgid "Female Artists"
@@ -1590,7 +1591,7 @@ msgstr "Vrouwelijke artiesten"
 
 #: ../root/statistics/stats.js:68
 msgid "Artists with gender set to male"
-msgstr "Artiesten met het geslacht man"
+msgstr "Artiesten met het mannelijk geslacht"
 
 #: ../root/statistics/stats.js:69
 msgid "Male Artists"

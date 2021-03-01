@@ -21,6 +21,15 @@ sub l_name {
     return lp($self->name, 'collection_type')
 }
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        item_entity_type => $self->item_entity_type,
+    };
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

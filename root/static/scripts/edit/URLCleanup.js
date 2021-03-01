@@ -2397,6 +2397,15 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'ocremix': {
+    match: [new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ocremix\.org\//, 'https://ocremix.org/');
+      url = url.replace(/^https:\/\/ocremix\.org\/(album|artist|game|org|remix|song)\/([^\/?#]+).*$/, 'https://ocremix.org/$1/$2/');
+      return url;
+    },
+  },
   'offiziellecharts': {
     match: [new RegExp(
       '^(https?://)?([^/]+\\.)?offiziellecharts\\.de/',
@@ -2479,7 +2488,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?spirit-of-metal\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?lortel\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?imvdb\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?vkdb\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?ci\\.nii\\.ac\\.jp', 'i'),
@@ -2514,7 +2522,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?overture\\.doremus\\.org/', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?overture\.doremus\.org\/$/, 'https://overture.doremus.org/');
+      return url.replace(/^(?:https?:\/\/)?overture\.doremus\.org\//, 'https://overture.doremus.org/');
     },
     validate: function (url, id) {
       const m = /^https:\/\/overture\.doremus\.org\/(artist|expression|performance)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.exec(url);
@@ -2695,7 +2703,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?recochoku\\.jp', 'i')],
     type: LINK_TYPES.downloadpurchase,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|artist|song)\/([a-zA-Z0-9]+)(\/)?.*$/, 'http://recochoku.jp/$1/$2/');
+      return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|artist|song)\/([a-zA-Z0-9]+)(\/)?.*$/, 'https://recochoku.jp/$1/$2/');
     },
   },
   'residentadvisor': {

@@ -2532,7 +2532,7 @@ const testData = [
             expected_clean_url: 'https://musopen.org/music/7887/',
        only_valid_entity_types: ['work'],
   },
-  // muziekweb.eu (National Dutch music library)
+  // muziekweb (National Dutch music library)
   {
                      input_url: 'https://www.muziekweb.eu/en/Link/M00000052618/POPULAR/Eminem',
              input_entity_type: 'artist',
@@ -2743,6 +2743,43 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://trove.nla.gov.au/work/9438679',
   },
+  // OC ReMix
+  {
+                     input_url: 'http://www.ocremix.org/artist/4792/oneup',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ocremix.org/artist/4792/',
+  },
+  {
+                     input_url: 'https://ocremix.org/org/2/nintendo',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ocremix.org/org/2/',
+  },
+  {
+                     input_url: 'https://ocremix.org/album/46/final-fantasy-vi-balance-and-ruin',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ocremix.org/album/46/',
+  },
+  {
+                     input_url: 'https://ocremix.org/remix/OCR00002#tab-details',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ocremix.org/remix/OCR00002/',
+  },
+  {
+                     input_url: 'http://ocremix.org/game/512/jade-cocoon-story-of-the-tamamayu-ps1',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ocremix.org/game/512/',
+  },
+  {
+                     input_url: 'http://ocremix.org/song/1033',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ocremix.org/song/1033/',
+  },
   // Offizielle Deutsche Charts
   {
                      input_url: 'http://offiziellecharts.de/album-details-392697/?ref=foo',
@@ -2832,7 +2869,7 @@ const testData = [
   },
   // Overture by Doremus
   {
-                     input_url: 'https://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
+                     input_url: 'http://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
@@ -3063,19 +3100,19 @@ const testData = [
                      input_url: 'http://recochoku.jp/artist/2000166063/?affiliate=4350010210',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'http://recochoku.jp/artist/2000166063/',
+            expected_clean_url: 'https://recochoku.jp/artist/2000166063/',
   },
   {
                      input_url: 'recochoku.jp/song/S21893898/',
              input_entity_type: 'recording',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'http://recochoku.jp/song/S21893898/',
+            expected_clean_url: 'https://recochoku.jp/song/S21893898/',
   },
   {
                      input_url: 'https://www.recochoku.jp/album/30282664?test',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'http://recochoku.jp/album/30282664/',
+            expected_clean_url: 'https://recochoku.jp/album/30282664/',
   },
   // Resident Advisor (RA)
   {

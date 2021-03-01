@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-11 10:05+0000\n"
+"PO-Revision-Date: 2021-02-23 07:17+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -72,8 +72,12 @@ msgid ""
 "13th century or earlier South Indian fretless slide lute used in Carnatic "
 "music. Hollow body made of jack-fruit with a secondary resonator of hollowed"
 " out gourd, it has 6 main, 3 drone and 11-12 sympathetic strings with a "
-"sliding block of hardwood to vary pitch much like the North Indian vichitra "
-"veena and the Hawaiian guitar."
+"sliding block of hardwood to vary pitch. Much like the North Indian <a "
+"href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a>"
+" is to the <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-"
+"d78697472f29\">rudra veena</a>, chitra veena is to the <a "
+"href=\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati "
+"veena</a>."
 msgstr ""
 
 #. name:kös
@@ -1565,6 +1569,13 @@ msgstr ""
 msgid ""
 "Large square spring-containing bellows operated by the feet, it was used by "
 "accordion players as bass accompaniment in early 20th century Wallonia."
+msgstr ""
+
+#. name:reed organ
+#: DB:instrument/description:204
+msgid ""
+"Large, looking like an upright piano, it has pedals attached to bellows with"
+" reeds. Sound is produced by playing the keyboard."
 msgstr ""
 
 #. name:baandu
@@ -4963,13 +4974,6 @@ msgid ""
 "guitar-bouzouki hybrid with guitar body and 4 pairs of strings like the "
 "bouzouki, developed separately several different luthiers, among them Stefan"
 " Sobell (bouzar) and Davy Stuart (gouzouki)"
-msgstr ""
-
-#. name:reed organ
-#: DB:instrument/description:204
-msgid ""
-"having pedals attached to bellows with reeds. sound is produced by playing "
-"the keyboard."
 msgstr ""
 
 #. name:elektronium

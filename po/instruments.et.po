@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-08 22:19+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"PO-Revision-Date: 2021-02-23 07:17+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3092,6 +3092,7 @@ msgid "recorder"
 msgstr "plokkflööt"
 
 #: DB:instrument/name:204
+msgctxt "Organ with free reeds"
 msgid "reed organ"
 msgstr ""
 

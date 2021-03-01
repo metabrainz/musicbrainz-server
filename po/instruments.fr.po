@@ -23,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-08 22:19+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-02-23 07:18+0000\n"
+"Last-Translator: AO <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3109,6 +3109,7 @@ msgid "recorder"
 msgstr "flûte à bec"
 
 #: DB:instrument/name:204
+msgctxt "Organ with free reeds"
 msgid "reed organ"
 msgstr "harmonium"
 

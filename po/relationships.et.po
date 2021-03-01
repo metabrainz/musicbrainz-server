@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-08 22:20+0000\n"
+"PO-Revision-Date: 2021-02-23 07:18+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -499,6 +499,10 @@ msgstr ""
 
 #: DB:link_type/description:169
 msgid "Indicates the librettist for this work."
+msgstr ""
+
+#: DB:link_type/description:995
+msgid "Indicates the location a run or residency was held at."
 msgstr ""
 
 #: DB:link_type/description:56
@@ -2694,6 +2698,13 @@ msgid ""
 "relationship type."
 msgstr ""
 
+#: DB:link_type/description:994
+msgid ""
+"This relationship links a <a "
+"href=\"https://en.wikipedia.org/wiki/Concert_residency\">concert "
+"residency</a> to the artist(s) who held the residency."
+msgstr ""
+
 #: DB:link_type/description:859
 msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
@@ -4477,7 +4488,8 @@ msgstr ""
 msgid "has {half:half-}{step}sibling"
 msgstr ""
 
-#: DB:link_type/link_phrase:794 DB:link_type/name:794
+#: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
+#: DB:link_type/reverse_link_phrase:995
 msgid "held at"
 msgstr ""
 
@@ -4957,6 +4969,10 @@ msgstr "Kontsertsalvestis teosest"
 #: DB:link_type/reverse_link_phrase:17
 msgid "live performances"
 msgstr "Kontsertesitused"
+
+#: DB:link_type/link_phrase:995
+msgid "location for"
+msgstr ""
 
 #: DB:link_type/name:213
 msgid "logo"
@@ -5978,6 +5994,18 @@ msgstr ""
 
 #: DB:link_type/link_phrase:836 DB:link_type/name:836
 msgid "rescheduled as"
+msgstr ""
+
+#: DB:link_type/link_phrase:994
+msgid "residencies"
+msgstr ""
+
+#: DB:link_type/name:994
+msgid "residency"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:994
+msgid "residency by"
 msgstr ""
 
 #: DB:link_type/name:842 DB:link_type/name:94
@@ -7198,6 +7226,10 @@ msgstr ""
 msgid "{entity1} is a part of  {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:994
+msgid "{entity1} is a residency by {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:859
 msgid "{entity1} is a tour by {entity0}"
 msgstr ""
@@ -7250,6 +7282,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:995
+msgid "{entity1} was held at {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:793

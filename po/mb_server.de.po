@@ -35,6 +35,7 @@
 # Mark Spike, 2019
 # Mineo <email address hidden>, 2011
 # Wieland Hoffmann <email address hidden>, 2011
+# Nicolás Tamargo <email address hidden>, 2021
 # nikki, 2013
 # nikki2 <email address hidden>, 2012
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -68,8 +69,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-11 11:58+0200\n"
-"PO-Revision-Date: 2021-02-01 16:47+0000\n"
+"POT-Creation-Date: 2021-02-23 09:15+0200\n"
+"PO-Revision-Date: 2021-02-23 07:21+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +121,7 @@ msgstr "„YY“ sind die letzten zwei Ziffern des Registrierungsjahrs."
 #: ../root/edit/details/EditMedium.js:564
 #: ../root/edit/details/EditMedium.js:622
 #: ../root/edit/details/historic/AddRelease.js:115
-#: ../root/recording/RecordingIndex.js:47 ../root/utility/tableColumns.js:415
+#: ../root/recording/RecordingIndex.js:50 ../root/utility/tableColumns.js:415
 msgid "#"
 msgstr "Nr."
 
@@ -183,7 +184,7 @@ msgstr "(war Medium {position}: {name} auf Veröffentlichung {release})"
 #: ../root/edit/details/merge_releases.tt:6
 #: ../root/components/ReleaseLanguageScript.js:24
 #: ../root/components/ReleaseLanguageScript.js:30
-#: ../root/components/list/ReleaseList.js:99 ../root/release/CoverArt.js:77
+#: ../root/components/list/ReleaseList.js:99 ../root/release/CoverArt.js:86
 #: ../root/release_group/ReleaseGroupIndex.js:76
 #: ../root/search/components/ReleaseResults.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:55
@@ -196,7 +197,7 @@ msgstr "-"
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/edit/details/merge_releases.tt:23 ../root/release/merge.tt:16
-#: ../root/recording/RecordingIndex.js:54
+#: ../root/recording/RecordingIndex.js:57
 #: ../root/release_group/ReleaseGroupIndex.js:144
 #: ../root/search/components/ReleaseResults.js:100
 #: ../root/utility/tableColumns.js:373 ../root/utility/tableColumns.js:381
@@ -861,7 +862,7 @@ msgstr "Strichcode"
 #: ../root/release/edit/information.tt:216
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/layout/components/sidebar/CDStubSidebar.js:76
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:142
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:143
 msgid "Barcode:"
 msgstr "Strichcode:"
 
@@ -935,7 +936,7 @@ msgid "Bio:"
 msgstr "Über mich:"
 
 #: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:119
-#: ../root/layout/components/Footer.js:37
+#: ../root/layout/components/Footer.js:39
 msgid "Blog"
 msgstr "Blog"
 
@@ -954,13 +955,13 @@ msgid ""
 "should be used for scripts in Unicode which are unlikely to be used."
 msgstr ""
 
-#: ../root/layout.tt:136 ../root/layout/components/Footer.js:90
+#: ../root/layout.tt:136 ../root/layout/components/Footer.js:92
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgstr "Bereitgestellt von der {MeB|MetaBrainz-Stiftung} und unseren {spon|Sponsoren} und {supp|Unterstützern}. Cover-Art zur Verfügung gestellt vom {caa|Cover-Art-Archiv}."
 
-#: ../root/layout.tt:115 ../root/layout/components/Footer.js:35
+#: ../root/layout.tt:115 ../root/layout/components/Footer.js:37
 #: ../root/main/index.js:205
 msgid "Bug Tracker"
 msgstr "Bug-Tracker"
@@ -1080,7 +1081,7 @@ msgstr "Katalognummer:"
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
 #: ../root/cdtoc/lookup.tt:45 ../root/edit/details/merge_releases.tt:25
 #: ../root/release/edit/duplicates.tt:16 ../root/release/merge.tt:18
-#: ../root/recording/RecordingIndex.js:56
+#: ../root/recording/RecordingIndex.js:59
 #: ../root/release_group/ReleaseGroupIndex.js:146
 #: ../root/search/components/ReleaseResults.js:102
 #: ../root/utility/tableColumns.js:350 ../root/utility/tableColumns.js:355
@@ -1248,7 +1249,7 @@ msgstr "Kopiere zu Enddatum"
 #: ../root/release/edit/duplicates.tt:14 ../root/release/merge.tt:16
 #: ../root/edit/details/historic/AddRelease.js:149
 #: ../root/edit/details/historic/EditReleaseEvents.js:135
-#: ../root/recording/RecordingIndex.js:54
+#: ../root/recording/RecordingIndex.js:57
 #: ../root/release_group/ReleaseGroupIndex.js:144
 #: ../root/search/components/ReleaseResults.js:100
 #: ../root/static/scripts/common/components/FilterForm.js:110
@@ -1262,7 +1263,8 @@ msgstr "Land"
 msgid "Country:"
 msgstr "Land:"
 
-#: ../root/release_group/set_cover_art.tt:67 ../root/release/CoverArt.js:51
+#: ../root/release_group/set_cover_art.tt:67
+#: ../root/components/EntityTabs.js:113 ../root/release/CoverArt.js:51
 #: ../root/user/UserProfile.js:43
 msgid "Cover Art"
 msgstr "Cover-Art"
@@ -1336,7 +1338,7 @@ msgstr "Daten:"
 #: ../root/edit/details/historic/AddRelease.js:148
 #: ../root/edit/details/historic/EditReleaseEvents.js:134
 #: ../root/elections/ElectionVotes.js:26
-#: ../root/recording/RecordingIndex.js:54
+#: ../root/recording/RecordingIndex.js:57
 #: ../root/release_group/ReleaseGroupIndex.js:144
 #: ../root/report/components/EventList.js:39
 #: ../root/search/components/EventResults.js:67
@@ -1419,7 +1421,7 @@ msgstr "Beschreibung"
 msgid "Description:"
 msgstr "Beschreibung:"
 
-#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:132
+#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:134
 #: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:76
 #: ../root/entity/Details.js:78
 msgid "Details"
@@ -1545,11 +1547,11 @@ msgstr "Jeder Titel in MusicBrainz muss mit einer Aufnahme verbunden sein. Wähl
 #: ../root/components/Aliases/AliasTableRow.js:62
 #: ../root/components/Aliases/ArtistCreditList.js:75
 #: ../root/components/Aliases/ArtistCreditList.js:76
-#: ../root/components/EntityTabs.js:139
+#: ../root/components/EntityTabs.js:141
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:63
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:83
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:119
-#: ../root/release/CoverArt.js:95
+#: ../root/release/CoverArt.js:104
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:434
 #: ../root/user/UserCollections.js:124
 msgid "Edit"
@@ -1937,7 +1939,7 @@ msgstr "Format"
 #: ../root/release/edit/tracklist.tt:292
 #: ../root/release_group/set_cover_art.tt:46
 #: ../root/edit/details/AddMedium.js:149
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:148
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:149
 msgid "Format:"
 msgstr "Format:"
 
@@ -2105,7 +2107,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:256
+#: ../root/static/scripts/common/constants.js:258
 msgid "High"
 msgstr "Hoch"
 
@@ -2154,7 +2156,7 @@ msgstr "IPI-Code"
 msgid "IPI codes:"
 msgstr "IPI-Codes:"
 
-#: ../root/layout.tt:114 ../root/layout/components/Footer.js:33
+#: ../root/layout.tt:114
 msgid "IRC"
 msgstr "IRC"
 
@@ -2420,7 +2422,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:150
 #: ../root/edit/details/historic/EditReleaseEvents.js:136
 #: ../root/label/LabelHeader.js:27 ../root/layout/components/Search.js:39
-#: ../root/recording/RecordingIndex.js:55
+#: ../root/recording/RecordingIndex.js:58
 #: ../root/release_group/ReleaseGroupIndex.js:145
 #: ../root/report/ReleaseLabelSameArtist.js:68
 #: ../root/report/components/LabelAnnotationList.js:30
@@ -2464,7 +2466,7 @@ msgstr "Label:"
 
 #: ../root/components/common-macros.tt:591 ../root/area/AreaLabels.js:31
 #: ../root/area/AreaLabels.js:32 ../root/components/EntityTabs.js:28
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:219
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:220
 #: ../root/report/ReportsIndex.js:149
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
 #: ../root/tag/TagIndex.js:116 ../root/tag/TagLayout.js:31
@@ -2474,11 +2476,11 @@ msgstr "Labels"
 #: ../root/edit/details/add_release.tt:46
 #: ../root/edit/details/edit_release.tt:33
 #: ../root/release/edit/information.tt:110
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:193
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:194
 msgid "Language:"
 msgstr "Sprache:"
 
-#: ../root/layout.tt:130 ../root/layout/components/Footer.js:79
+#: ../root/layout.tt:130 ../root/layout/components/Footer.js:81
 msgid "Last replication packet received at {datetime}"
 msgstr "Letztes Replikations-Paket erhalten am {datetime}"
 
@@ -2494,7 +2496,7 @@ msgstr "Letztes Replikations-Paket erhalten am {datetime}"
 #: ../root/edit/details/EditRecording.js:72
 #: ../root/edit/details/historic/AddRelease.js:118
 #: ../root/edit/details/historic/AddTrackKV.js:68 ../root/isrc/Index.js:69
-#: ../root/recording/RecordingIndex.js:49
+#: ../root/recording/RecordingIndex.js:52
 #: ../root/report/IsrcsWithManyRecordings.js:74
 #: ../root/report/components/CDTocList.js:38
 #: ../root/search/components/RecordingResults.js:127
@@ -2503,7 +2505,7 @@ msgstr "Länge"
 
 #: ../root/recording/edit_form.tt:35 ../root/recording/edit_form.tt:38
 #: ../root/layout/components/sidebar/RecordingSidebar.js:51
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:154
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:155
 msgid "Length:"
 msgstr "Länge:"
 
@@ -2575,7 +2577,7 @@ msgstr "Anzahl Aufrufe"
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:253
+#: ../root/static/scripts/common/constants.js:255
 msgid "Low"
 msgstr "Niedrig"
 
@@ -2987,8 +2989,8 @@ msgstr "Keinem der Medien auf dieser Veröffentlichung kann die angegebene CD-TO
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:254
-#: ../root/static/scripts/common/constants.js:255
+#: ../root/static/scripts/common/constants.js:256
+#: ../root/static/scripts/common/constants.js:257
 msgid "Normal"
 msgstr "Normal"
 
@@ -3080,7 +3082,7 @@ msgid "Open Edits for {name}"
 msgstr "Offene Bearbeitungen für {name}"
 
 #: ../root/edit/list_header.tt:16
-#: ../root/layout/components/sidebar/CollectionSidebar.js:52
+#: ../root/layout/components/sidebar/CollectionSidebar.js:60
 #: ../root/layout/components/sidebar/EditLinks.js:39
 msgid "Open edits"
 msgstr "Offene Bearbeitungen"
@@ -3128,7 +3130,7 @@ msgstr "PDF-Datei"
 #: ../root/edit/details/add_release.tt:60
 #: ../root/edit/details/edit_release.tt:49
 #: ../root/release/edit/information.tt:234
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:172
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:173
 msgid "Packaging:"
 msgstr "Verpackung:"
 
@@ -3609,7 +3611,7 @@ msgid "Release group:"
 msgstr "Veröffentlichungsgruppe:"
 
 #: ../root/release/edit/information.tt:3
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:137
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:138
 msgid "Release information"
 msgstr "Veröffentlichungsinformationen"
 
@@ -3669,7 +3671,7 @@ msgstr "Veröffentlichungen"
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:69
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:89
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:125
-#: ../root/release/CoverArt.js:101
+#: ../root/release/CoverArt.js:110
 #: ../root/static/scripts/account/components/EditProfileForm.js:300
 #: ../root/user/UserCollections.js:125
 msgid "Remove"
@@ -3841,7 +3843,7 @@ msgstr "Speichern"
 #: ../root/edit/details/add_release.tt:53
 #: ../root/edit/details/edit_release.tt:37
 #: ../root/release/edit/information.tt:112
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:202
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:203
 msgid "Script:"
 msgstr "Schrift:"
 
@@ -4118,12 +4120,12 @@ msgstr "Status:"
 #: ../root/edit/details/add_release.tt:39
 #: ../root/edit/details/edit_release.tt:29
 #: ../root/edit/details/historic/AddRelease.js:83
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:183
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:184
 msgctxt "release status"
 msgid "Status:"
 msgstr "Status:"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:51
+#: ../root/layout.tt:119 ../root/layout/components/Footer.js:53
 msgid "Stop using beta site"
 msgstr "Beta-Seite nicht mehr benutzen"
 
@@ -4184,6 +4186,7 @@ msgstr "Titelnamen mit Künstlernennungen vertauschen"
 
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
+#: ../root/recording/RecordingIndex.js:62
 #: ../root/release_group/ReleaseGroupIndex.js:149
 #: ../root/search/components/RecordingResults.js:131
 #: ../root/search/components/ReleaseResults.js:109
@@ -4192,7 +4195,7 @@ msgstr "Titelnamen mit Künstlernennungen vertauschen"
 msgid "Tagger"
 msgstr "Tagger"
 
-#: ../root/user/tags.tt:1 ../root/components/EntityTabs.js:128
+#: ../root/user/tags.tt:1 ../root/components/EntityTabs.js:130
 #: ../root/components/UserAccountTabs.js:57 ../root/entity/Tags.js:34
 #: ../root/layout/components/BottomMenu.js:204 ../root/tag/TagCloud.js:49
 #: ../root/tag/TagCloud.js:51
@@ -4672,7 +4675,7 @@ msgstr "Zeit:"
 #: ../root/components/list/ReleaseGroupList.js:90
 #: ../root/edit/details/EditMedium.js:360
 #: ../root/edit/details/EditMedium.js:364 ../root/isrc/Index.js:67
-#: ../root/iswc/Index.js:56 ../root/recording/RecordingIndex.js:48
+#: ../root/iswc/Index.js:56 ../root/recording/RecordingIndex.js:51
 msgid "Title"
 msgstr "Titel"
 
@@ -4807,7 +4810,7 @@ msgstr "Transklusionsbearbeiter"
 msgid "Turkish"
 msgstr "Türkisch"
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:39
+#: ../root/layout.tt:117 ../root/layout/components/Footer.js:41
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -4868,9 +4871,9 @@ msgstr "Typ"
 #: ../root/place/edit_form.tt:15 ../root/release/add_cover_art.tt:81
 #: ../root/release/edit/information.tt:99 ../root/search/form.tt:5
 #: ../root/series/edit_form.tt:15 ../root/work/edit_form.tt:14
-#: ../root/layout/components/sidebar/CollectionSidebar.js:41
+#: ../root/layout/components/sidebar/CollectionSidebar.js:42
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:59
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:166
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:167
 #: ../root/layout/components/sidebar/SidebarType.js:26
 #: ../root/search/components/SearchForm.js:81
 msgid "Type:"
@@ -4880,7 +4883,7 @@ msgstr "Typ:"
 #: ../root/release_group/set_cover_art.tt:69
 #: ../root/edit/details/AddCoverArt.js:44
 #: ../root/edit/details/EditCoverArt.js:70
-#: ../root/edit/details/RemoveCoverArt.js:42 ../root/release/CoverArt.js:71
+#: ../root/edit/details/RemoveCoverArt.js:42 ../root/release/CoverArt.js:80
 msgid "Types:"
 msgstr "Typen:"
 
@@ -4959,7 +4962,7 @@ msgstr "Bild wird hochgeladen ..."
 msgid "Uppercase Roman numerals"
 msgstr "Großgeschriebene römische Zahlen"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:52
+#: ../root/layout.tt:119 ../root/layout/components/Footer.js:54
 msgid "Use beta site"
 msgstr "Beta-Seite benutzen"
 
@@ -6203,7 +6206,7 @@ msgstr "Du kannst Label nicht mit dem Gelöschten Label vereinen."
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "„{types}“ ist keine gültige Kombination von Typen für Beziehungen."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:501
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:503
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Dieses Vereinigungsverfahren ist nicht auf die von dir gewählten Veröffentlichungen anwendbar."
@@ -7477,22 +7480,22 @@ msgid "Invalid URL format"
 msgstr "Ungültiges URL-Format"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
-#: ../root/static/scripts/common/constants.js:264
+#: ../root/static/scripts/common/constants.js:266
 msgid "Basic"
 msgstr "Anfänger"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
-#: ../root/static/scripts/common/constants.js:265
+#: ../root/static/scripts/common/constants.js:267
 msgid "Intermediate"
 msgstr "Fortgeschrittener Anfänger"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:263
+#: ../root/static/scripts/common/constants.js:265
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:266
+#: ../root/static/scripts/common/constants.js:268
 msgid "Native"
 msgstr "Muttersprachler"
 
@@ -7561,11 +7564,18 @@ msgstr "Wöchentlich"
 msgid "Never"
 msgstr "Nie"
 
-#: ../lib/MusicBrainz/Server/Form/User/Register.pm:25
+#: ../lib/MusicBrainz/Server/Form/User/Register.pm:13
+#, perl-brace-format
+msgid ""
+"The value of this field cannot be longer than {max} characters, but you "
+"entered {actual}."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Register.pm:42
 msgid "Please enter a password in this field"
 msgstr "Bitte gib ein Passwort in dieses Feld ein"
 
-#: ../lib/MusicBrainz/Server/Form/User/Register.pm:34
+#: ../lib/MusicBrainz/Server/Form/User/Register.pm:53
 msgid "The password confirmation does not match the password"
 msgstr "Die Passwortbestätigung stimmt nicht mit dem Passwort überein"
 
@@ -8713,7 +8723,7 @@ msgstr "Dies ist eine Liste aller Schreibweisen und Nennungen von {artist} in de
 msgid "see uses"
 msgstr ""
 
-#: ../root/components/Aliases/index.js:47 ../root/components/EntityTabs.js:124
+#: ../root/components/Aliases/index.js:47 ../root/components/EntityTabs.js:126
 #: ../root/entity/Aliases.js:37
 msgid "Aliases"
 msgstr "Aliasse"
@@ -8818,11 +8828,11 @@ msgstr "Aufführungen"
 msgid "Disc IDs ({num})"
 msgstr ""
 
-#: ../root/components/EntityTabs.js:114
+#: ../root/components/EntityTabs.js:115
 msgid "Cover Art ({num})"
 msgstr "Cover-Art ({num})"
 
-#: ../root/components/EntityTabs.js:145
+#: ../root/components/EntityTabs.js:147
 msgid "Edit Relationships"
 msgstr "Beziehungen bearbeiten"
 
@@ -8865,14 +8875,14 @@ msgstr "Profil"
 
 #: ../root/components/UserAccountTabs.js:37
 #: ../root/layout/components/TopMenu.js:52
-#: ../root/layout/components/sidebar/CollectionSidebar.js:68
+#: ../root/layout/components/sidebar/CollectionSidebar.js:76
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:31
 msgid "Subscriptions"
 msgstr "Abonnements"
 
 #: ../root/components/UserAccountTabs.js:45 ../root/entity/Subscribers.js:49
 #: ../root/entity/Subscribers.js:51
-#: ../root/layout/components/sidebar/CollectionSidebar.js:97
+#: ../root/layout/components/sidebar/CollectionSidebar.js:105
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:57
 msgid "Subscribers"
 msgstr "Abonnenten"
@@ -10301,7 +10311,7 @@ msgid "Search Edits"
 msgstr "Bearbeitungen suchen"
 
 #: ../root/layout/components/BottomMenu.js:216
-#: ../root/layout/components/sidebar/CollectionSidebar.js:47
+#: ../root/layout/components/sidebar/CollectionSidebar.js:55
 #: ../root/layout/components/sidebar/EditLinks.js:27
 #: ../root/layout/components/sidebar/GenreSidebar.js:28
 #: ../root/static/scripts/account/components/PreferencesForm.js:245
@@ -10405,27 +10415,31 @@ msgstr "Externe Links"
 msgid "View all relationships"
 msgstr "Alle Beziehungen ansehen"
 
-#: ../root/layout/components/Footer.js:60
+#: ../root/layout/components/Footer.js:34
+msgid "Chat (IRC)"
+msgstr ""
+
+#: ../root/layout/components/Footer.js:62
 msgid "Running: {git_details}"
 msgstr "Serverversion: {git_details}"
 
-#: ../root/layout/components/Head.js:46
+#: ../root/layout/components/Head.js:47
 msgid "Page {n}"
 msgstr "Seite {n}"
 
-#: ../root/layout/components/Head.js:92
+#: ../root/layout/components/Head.js:95
 msgid "MusicBrainz: Artist"
 msgstr "MusicBrainz: Künstler"
 
-#: ../root/layout/components/Head.js:98
+#: ../root/layout/components/Head.js:101
 msgid "MusicBrainz: Label"
 msgstr "MusicBrainz: Label"
 
-#: ../root/layout/components/Head.js:104
+#: ../root/layout/components/Head.js:107
 msgid "MusicBrainz: Release"
 msgstr "MusicBrainz: Veröffentlichung"
 
-#: ../root/layout/components/Head.js:110
+#: ../root/layout/components/Head.js:113
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Titel"
 
@@ -10598,26 +10612,30 @@ msgstr "Aus Sammlung {collection} entfernen"
 msgid "Add to {collection}"
 msgstr "Zu Sammlung {collection} hinzufügen"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:32
+#: ../root/layout/components/sidebar/CollectionSidebar.js:33
 msgid "Collection information"
 msgstr "Sammlungsinformationen"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:36
+#: ../root/layout/components/sidebar/CollectionSidebar.js:37
 msgid "Owner:"
 msgstr "Besitzer:"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:59
+#: ../root/layout/components/sidebar/CollectionSidebar.js:49
+msgid "Number of entities"
+msgstr ""
+
+#: ../root/layout/components/sidebar/CollectionSidebar.js:67
 #: ../root/layout/components/sidebar/EditLinks.js:46
 msgid "Editing history"
 msgstr "Bearbeitungshistorie"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:79
+#: ../root/layout/components/sidebar/CollectionSidebar.js:87
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:41
 #: ../root/user/UserSubscriptions.js:207
 msgid "Unsubscribe"
 msgstr "Abbestellen"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:91
+#: ../root/layout/components/sidebar/CollectionSidebar.js:99
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:51
 msgid "Subscribe"
 msgstr "Abonnieren"
@@ -10707,52 +10725,59 @@ msgid ""
 "Front cover image failed to load correctly.<br/>{all|View all artwork}."
 msgstr "Das vordere Cover-Bild wurde nicht korrekt geladen.<br />{all|Anderes Artwork ansehen}."
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:109
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:102
+#: ../root/release/CoverArt.js:63
+msgid ""
+"Cover art for this release has been hidden by the Internet Archive because "
+"of a takedown request."
+msgstr ""
+
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:110
 msgid "Cover art from {cover|Amazon}"
 msgstr "Cover-Art von {cover|Amazon}"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:113
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:114
 msgid "Cover art from {cover|{host}}"
 msgstr "Cover-Art von {cover|{host}}"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:124
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:125
 msgid "No front cover image available."
 msgstr "Kein vorderes Cover-Bild verfügbar."
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:127
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:128
 msgid "View all artwork"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:130
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:131
 msgid "No cover art available."
 msgstr "Kein Cover-Art verfügbar."
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:161
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:162
 msgid "Additional details"
 msgstr "Zusätzliche Details"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:245
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:246
 #: ../root/static/scripts/common/components/ReleaseEvents.js:102
 msgid "Release events"
 msgstr "Veröffentlichungsereignisse"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:252
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:253
 msgid "Release group rating"
 msgstr "Veröffentlichungsgruppenbewertung"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:258
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:259
 msgid "Release group reviews"
 msgstr "Rezensionen der Veröffentlichungsgruppe"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:279
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:280
 msgid "Release group external links"
 msgstr "Externe Links der Veröffentlichungsgruppe"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:285
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:286
 msgid "Edit relationships"
 msgstr "Beziehungen bearbeiten"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:291
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:292
 msgid "Change data quality"
 msgstr "Datenqualität ändern"
 
@@ -11267,37 +11292,37 @@ msgstr "Video von {artist}"
 msgid "Recording by {artist}"
 msgstr "Aufnahme von {artist}"
 
-#: ../root/recording/RecordingIndex.js:50
+#: ../root/recording/RecordingIndex.js:53
 msgid "Track Artist"
 msgstr "Titelinterpret"
 
-#: ../root/recording/RecordingIndex.js:51
+#: ../root/recording/RecordingIndex.js:54
 msgid "Release Title"
 msgstr "Veröffentlichungstitel"
 
-#: ../root/recording/RecordingIndex.js:52
+#: ../root/recording/RecordingIndex.js:55
 msgid "Release Artist"
 msgstr "Veröffentlichungskünstler"
 
-#: ../root/recording/RecordingIndex.js:53
+#: ../root/recording/RecordingIndex.js:56
 msgid "Release Group Type"
 msgstr "Veröffentlichungsgruppen-Typ"
 
-#: ../root/recording/RecordingIndex.js:72
+#: ../root/recording/RecordingIndex.js:78
 #: ../root/release_group/ReleaseGroupIndex.js:57
 msgctxt "release status"
 msgid "(unknown)"
 msgstr "(unbekannt)"
 
-#: ../root/recording/RecordingIndex.js:85
+#: ../root/recording/RecordingIndex.js:91
 msgid "Medium {medium_num}, track {track_num}"
 msgstr ""
 
-#: ../root/recording/RecordingIndex.js:153
+#: ../root/recording/RecordingIndex.js:162
 msgid "Appears on releases"
 msgstr "Erscheint in Veröffentlichungen"
 
-#: ../root/recording/RecordingIndex.js:158
+#: ../root/recording/RecordingIndex.js:171
 msgid "No releases found which feature this recording."
 msgstr "Es wurden keine Veröffentlichungen gefunden, die diese Aufnahme enthalten."
 
@@ -11365,7 +11390,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:75
-#: ../root/static/scripts/edit/externalLinks.js:260
+#: ../root/static/scripts/edit/externalLinks.js:264
 #: ../root/static/scripts/relationship-editor/common/dialog.js:549
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Dieser Beziehungstyp ist veraltet und sollte nicht verwendet werden."
@@ -11471,49 +11496,53 @@ msgstr "500 px"
 msgid "original"
 msgstr "Original"
 
-#: ../root/release/CoverArt.js:85
+#: ../root/release/CoverArt.js:57
+msgid "Cannot show cover art"
+msgstr ""
+
+#: ../root/release/CoverArt.js:94
 msgid "All sizes:"
 msgstr "Alle Größen:"
 
-#: ../root/release/CoverArt.js:110
+#: ../root/release/CoverArt.js:119
 msgid ""
 "These images provided by the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr "Diese Bilder wurden vom {caa|Cover-Art-Archiv} zur Verfügung gestellt. Du kannst sie auch beim {ia|Internet Archive} sehen."
 
-#: ../root/release/CoverArt.js:123
+#: ../root/release/CoverArt.js:132
 msgid "We do not currently have any cover art for {release}."
 msgstr "Wir haben derzeit noch kein Cover-Art für {release}."
 
-#: ../root/release/CoverArt.js:130
+#: ../root/release/CoverArt.js:139
 msgid ""
 "The artwork in the sidebar is being provided by a {relationships|URL "
 "relationship}."
 msgstr "Das Artwork in der Seitenleiste wird durch eine {relationships|URL-Beziehung} geliefert."
 
-#: ../root/release/CoverArt.js:143
+#: ../root/release/CoverArt.js:152
 msgctxt "button/menu"
 msgid "Add Cover Art"
 msgstr "Cover-Art hinzufügen"
 
-#: ../root/release/CoverArt.js:149
+#: ../root/release/CoverArt.js:158
 msgctxt "button/menu"
 msgid "Reorder Cover Art"
 msgstr "Cover-Art umsortieren"
 
-#: ../root/release/CoverArt.js:157 ../root/release/CoverArtDarkened.js:23
+#: ../root/release/CoverArt.js:166
+msgid "Log in to upload cover art"
+msgstr "Einloggen, um Cover-Art hochzuladen"
+
+#: ../root/release/CoverArtDarkened.js:23
 msgid "Cannot Add Cover Art"
 msgstr "Kann kein Cover-Art hinzufügen"
 
-#: ../root/release/CoverArt.js:160 ../root/release/CoverArtDarkened.js:29
+#: ../root/release/CoverArtDarkened.js:29
 msgid ""
-"The Cover Art Archive has had a take down request in the past for this "
+"The Cover Art Archive has had a takedown request in the past for this "
 "release, so we are unable to allow any more uploads."
 msgstr "Das Cover-Art-Archiv hatte in der Vergangenheit eine Aufforderung erhalten, das Artwork für diese Veröffentlichung zu entfernen. Daher können wir keine weiteren Dateien hierfür annehmen."
-
-#: ../root/release/CoverArt.js:169
-msgid "Log in to upload cover art"
-msgstr "Einloggen, um Cover-Art hochzuladen"
 
 #: ../root/release/CoverArtFields.js:57
 msgid "Choose one or more cover art types for this image"
@@ -14063,159 +14092,159 @@ msgstr "Gegründet in:"
 msgid "Dissolved in:"
 msgstr "Aufgelöst in:"
 
-#: ../root/static/scripts/edit/URLCleanup.js:329
+#: ../root/static/scripts/edit/URLCleanup.js:370
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr "Bitte verlinke auf einen Kanal, nicht auf ein bestimmtes Video. Videos sollten stattdessen mit den entsprechenden Aufnahmen oder Veröffentlichungen verlinkt werden."
 
-#: ../root/static/scripts/edit/URLCleanup.js:335
+#: ../root/static/scripts/edit/URLCleanup.js:376
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr "Bitte verlinke auf ein bestimmtes Video. Füge Kanalseiten stattdessen zu dem entsprechenden Künstler, Label usw. hinzu."
 
-#: ../root/static/scripts/edit/URLCleanup.js:433
+#: ../root/static/scripts/edit/URLCleanup.js:474
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
 "Releases tab from {album_url|your link}."
 msgstr "Allmusic „{album_url_pattern}” Links sollten zu Veröffentlichungsgruppen hinzugefügt werden. Um den entsprechenden Veröffentlichungslink für diese Veröffentlichung zu finden, prüfe bitte den Reiter Veröffentlichungen {album_url|deines Links}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:619
+#: ../root/static/scripts/edit/URLCleanup.js:660
 msgid ""
 "Only Apple Books “{artist_url_pattern}” pages can be added directly to "
 "artists. Please link audiobooks to the appropriate release instead."
 msgstr "Nur Apple Books „{artist_url_pattern}” Seiten können direkt zu Künstlern hinzugefügt werden. Bitte verknüpfe Hörbücher stattdessen mit der entsprechenden Veröffentlichung."
 
-#: ../root/static/scripts/edit/URLCleanup.js:634
+#: ../root/static/scripts/edit/URLCleanup.js:675
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr "Nur Apple Books Hörbücher können zu MusicBrainz hinzugefügt werden. Erwäge stattdessen, Bücher zu {bookbrainz_url|BookBrainz} hinzuzufügen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:715
+#: ../root/static/scripts/edit/URLCleanup.js:756
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr "Bitte verlinke auf die Hauptseite des Künstlers, nicht auf ein bestimmtes Album oder einen bestimmten Titel."
 
-#: ../root/static/scripts/edit/URLCleanup.js:726
+#: ../root/static/scripts/edit/URLCleanup.js:767
 msgid ""
 "Please link to the main page for the label, not to a specific album or "
 "track."
 msgstr "Bitte verlinke auf die Hauptseite des Labels, nicht auf ein bestimmtes Album oder einen bestimmten Titel."
 
-#: ../root/static/scripts/edit/URLCleanup.js:878
+#: ../root/static/scripts/edit/URLCleanup.js:919
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr "Bitte verlinke auf die Hauptseite des Künstlers, nicht auf ein bestimmtes Produkt."
 
-#: ../root/static/scripts/edit/URLCleanup.js:880
+#: ../root/static/scripts/edit/URLCleanup.js:921
 msgid "Please link to the main page for the label, not a specific product."
 msgstr "Bitte verlinke auf die Hauptseite des Labels, nicht auf ein bestimmtes Produkt."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1300
+#: ../root/static/scripts/edit/URLCleanup.js:1341
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr "Discogs „{master_url_pattern}” Links gruppieren mehrere Veröffentlichungen, daher sollte dieser stattdessen zur Veröffentlichungsgruppe hinzugefügt werden."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1636
+#: ../root/static/scripts/edit/URLCleanup.js:1677
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr "Für Künstler sind nur IMSLP „{category_url_pattern}” Links erlaubt. Bitte verlinke Werk-Seiten mit dem jeweiligen Werk."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1653
+#: ../root/static/scripts/edit/URLCleanup.js:1694
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr "IMSLP „{category_url_pattern}” Links sind nur für Künstler erlaubt. Bitte verlinke stattdessen die spezifische Seite des Werks mit diesem Werk, falls verfügbar."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1697
+#: ../root/static/scripts/edit/URLCleanup.js:1738
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr "Instagram „{explore_url_pattern}” Links sind nicht erlaubt. Bitte verlinke stattdessen auf ein Profil, falls es eines gibt."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1723
+#: ../root/static/scripts/edit/URLCleanup.js:1764
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr "Bitte verlinke nicht direkt auf Bilder, sondern verlinke stattdessen auf die entsprechende Instagram-Profilseite. Wenn du ein Video verlinken möchtest, solltest du dafür stattdessen eine {url|alleinstehende Aufnahme hinzufügen}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1797
+#: ../root/static/scripts/edit/URLCleanup.js:1838
 msgid ""
 "Only iTunes “{artist_url_pattern}” pages can be added directly to artists. "
 "Please link albums, videos, etc. to the appropriate release or recording "
 "instead."
 msgstr "Nur iTunes „{artist_url_pattern}” Seiten können direkt zu Künstlern hinzugefügt werden. Bitte verknüpfe Alben, Videos usw. stattdessen mit der entsprechenden Veröffentlichung oder Aufnahme."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2325
+#: ../root/static/scripts/edit/URLCleanup.js:2366
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr "Dies ist ein Weiterleitungs-Link. Bitte folge {redirect_url|deinem Link} und füge stattdessen den Link hinzu, auf den er umleitet."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2720
+#: ../root/static/scripts/edit/URLCleanup.js:2769
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3162
+#: ../root/static/scripts/edit/URLCleanup.js:3211
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Bitte verlinke auf Twitter-Profile, nicht auf Tweets."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3179
+#: ../root/static/scripts/edit/URLCleanup.js:3228
 msgid "This site does not allow direct links to their images."
 msgstr "Diese Website erlaubt keine direkten Links zu ihren Bildern."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3336
+#: ../root/static/scripts/edit/URLCleanup.js:3385
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3355
+#: ../root/static/scripts/edit/URLCleanup.js:3404
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3375
+#: ../root/static/scripts/edit/URLCleanup.js:3424
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3392
+#: ../root/static/scripts/edit/URLCleanup.js:3441
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3403
+#: ../root/static/scripts/edit/URLCleanup.js:3452
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3462
+#: ../root/static/scripts/edit/URLCleanup.js:3511
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3554
+#: ../root/static/scripts/edit/URLCleanup.js:3603
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Bei Veröffentlichungen sind nur Links zu Videos und Wiedergabelisten erlaubt."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3620
+#: ../root/static/scripts/edit/URLCleanup.js:3669
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3631
+#: ../root/static/scripts/edit/URLCleanup.js:3680
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
@@ -14324,38 +14353,44 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:255
+msgid ""
+"Please don’t enter Google AMP links, since they are effectively an extra "
+"redirect. Enter the destination URL instead."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:259
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Wähle bitte einen Linktyp für die von dir eingegebene URL aus."
 
-#: ../root/static/scripts/edit/externalLinks.js:265
+#: ../root/static/scripts/edit/externalLinks.js:269
 msgid "This relationship already exists."
 msgstr "Diese Beziehung besteht bereits,"
 
-#: ../root/static/scripts/edit/externalLinks.js:272
+#: ../root/static/scripts/edit/externalLinks.js:276
 #: ../root/static/scripts/relationship-editor/common/dialog.js:559
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "Diese URL ist für den ausgewählten Beziehungstyp nicht zugelassen, oder sie ist falsch formatiert."
 
-#: ../root/static/scripts/edit/externalLinks.js:364
+#: ../root/static/scripts/edit/externalLinks.js:368
 #: ../root/static/scripts/relationship-editor/common/dialog.js:415
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|more documentation})"
 
-#: ../root/static/scripts/edit/externalLinks.js:423
+#: ../root/static/scripts/edit/externalLinks.js:427
 msgid "Add link:"
 msgstr "Link hinzufügen:"
 
-#: ../root/static/scripts/edit/externalLinks.js:424
+#: ../root/static/scripts/edit/externalLinks.js:428
 msgid "Add another link:"
 msgstr "Noch einen Link hinzufügen:"
 
-#: ../root/static/scripts/edit/externalLinks.js:450
+#: ../root/static/scripts/edit/externalLinks.js:454
 msgid "video"
 msgstr "Video"
 
-#: ../root/static/scripts/edit/externalLinks.js:459
+#: ../root/static/scripts/edit/externalLinks.js:463
 msgid "Remove Link"
 msgstr "Link entfernen"
 

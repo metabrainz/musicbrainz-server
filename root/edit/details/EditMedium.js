@@ -138,7 +138,7 @@ const TracklistChangesAdd = ({
 }: TracklistChangesAddProps): React.Element<'tr'> => {
   const track = change.new_track;
   return (
-    <tr className="diff-addition">
+    <tr className="diff-addition edit-medium-track">
       <td colSpan="4" />
       <td className="pos t">
         {track.number}
@@ -237,7 +237,7 @@ const TracklistChangesChange = ({
   );
 
   return (
-    <tr className={loopParity(index)}>
+    <tr className={'edit-medium-track ' + loopParity(index)}>
       <td className="pos t">
         {oldNumberDiff}
       </td>
@@ -311,7 +311,7 @@ const TracklistChangesRemove = ({
 }: TracklistChangesRemoveProps): React.Element<'tr'> => {
   const track = change.old_track;
   return (
-    <tr className="diff-removal">
+    <tr className="diff-removal edit-medium-track">
       <td className="pos t">
         {track.number}
       </td>

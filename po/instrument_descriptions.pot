@@ -1552,6 +1552,13 @@ msgid ""
 "accordion players as bass accompaniment in early 20th century Wallonia."
 msgstr ""
 
+#. name:reed organ 
+#: DB:instrument/description:204
+msgid ""
+"Large, looking like an upright piano, it has pedals attached to bellows with "
+"reeds. Sound is produced by playing the keyboard."
+msgstr ""
+
 #. name:baandu 
 #: DB:instrument/description:880
 msgid ""
@@ -4933,13 +4940,6 @@ msgid ""
 "guitar-bouzouki hybrid with guitar body and 4 pairs of strings like the "
 "bouzouki, developed separately several different luthiers, among them Stefan "
 "Sobell (bouzar) and Davy Stuart (gouzouki)"
-msgstr ""
-
-#. name:reed organ 
-#: DB:instrument/description:204
-msgid ""
-"having pedals attached to bellows with reeds. sound is produced by playing "
-"the keyboard."
 msgstr ""
 
 #. name:elektronium 
