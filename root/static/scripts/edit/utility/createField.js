@@ -37,6 +37,20 @@ export function createCompoundFieldFromObject<
   };
 }
 
+export function createCompoundField<+T>(
+  name: string,
+  fieldValues: T,
+): ReadOnlyCompoundFieldT<T> {
+  return {
+    errors: [],
+    field: fieldValues,
+    has_errors: false,
+    html_name: name,
+    id: ++LAST_FIELD_ID,
+    type: 'compound_field',
+  };
+}
+
 export function createField<T>(
   name: string,
   value: T,
