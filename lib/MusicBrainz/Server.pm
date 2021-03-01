@@ -873,6 +873,7 @@ sub TO_JSON {
         req => {
             body_params => $req->body_params,
             headers => \%headers,
+            method => uc($req->method),
             query_params => $req->query_params,
             secure => boolean_to_json($req->secure),
             uri => '' . $req->uri,

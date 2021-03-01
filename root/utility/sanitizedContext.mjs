@@ -19,13 +19,15 @@ export default function sanitizedContext(
   const session = $c.session;
   const stash = $c.stash;
   const user = $c.user;
+  const req = $c.req;
   return {
     action: {
       name: $c.action.name,
     },
     relative_uri: $c.relative_uri,
     req: {
-      uri: $c.req.uri,
+      method: req.method,
+      uri: req.uri,
     },
     session: session ? {
       ...(session.tport == null ? null : {tport: session.tport}),

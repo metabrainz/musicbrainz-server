@@ -18,6 +18,7 @@ const defaultContext = {
   req: {
     body_params: {},
     headers: {},
+    method: '',
     query_params: {},
     secure: false,
     uri: '',
@@ -36,6 +37,7 @@ const defaultSanitizedContext = {
   },
   relative_uri: '',
   req: {
+    method: '',
     uri: '',
   },
   session: null,
