@@ -201,7 +201,7 @@ export function generateStatusMessage<+T: EntityItem>(
   return '';
 }
 
-function filterStaticItems<+T: EntityItem>(
+export function filterStaticItems<+T: EntityItem>(
   state: {...State<T>},
   newInputValue: string,
 ): void {

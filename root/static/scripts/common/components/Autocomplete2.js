@@ -30,6 +30,7 @@ import {
 import formatItem from './Autocomplete2/formatters';
 import {getOrFetchRecentItems} from './Autocomplete2/recentItems';
 import {
+  defaultStaticItemsFilter,
   generateItems,
   generateStatusMessage,
 } from './Autocomplete2/reducer';
@@ -127,27 +128,40 @@ export function createInitialState<+T: EntityItem>(
 ): {...State<T>} {
   const {
     entityType,
-    inputValue,
+    inputValue: initialInputValue,
     recentItemsKey,
     selectedEntity,
     staticItems,
+    staticItemsFilter,
     ...restProps
   } = props;
+
+  const inputValue =
+    initialInputValue ?? (selectedEntity?.name) ?? '';
+
+  let staticResults = staticItems ?? null;
+  if (staticResults && nonEmpty(inputValue)) {
+    const filter = staticItemsFilter || defaultStaticItemsFilter;
+    staticResults = staticResults.filter(
+      (item) => filter(item, inputValue),
+    );
+  }
 
   const initialState: $Shape<{...State<T>}> = {
     entityType,
     error: 0,
     highlightedIndex: -1,
     indexedSearch: true,
-    inputValue: inputValue ?? selectedEntity?.name ?? '',
+    inputValue,
     isOpen: false,
     page: 1,
     pendingSearch: null,
     recentItems: null,
     recentItemsKey: recentItemsKey ?? entityType,
-    results: staticItems ?? null,
+    results: staticResults,
     selectedEntity: selectedEntity ?? null,
     staticItems,
+    staticItemsFilter,
     statusMessage: '',
     ...restProps,
   };
