@@ -17,7 +17,7 @@ import type {
 } from '../externalLinks.js';
 import {copyDatePeriodField} from '../utility/copyFieldData.js';
 import {
-  createCompoundField,
+  createCompoundFieldFromObject,
   createField,
 } from '../utility/createField.js';
 import {
@@ -68,7 +68,7 @@ const createInitialState = (props: PropsT): StateT => {
     errors: [],
     has_errors: false,
     field: {
-      begin_date: createCompoundField(
+      begin_date: createCompoundFieldFromObject(
         'period.begin_date',
         {
           day: beginDate?.day ?? null,
@@ -76,7 +76,7 @@ const createInitialState = (props: PropsT): StateT => {
           year: beginDate?.year ?? null,
         },
       ),
-      end_date: createCompoundField(
+      end_date: createCompoundFieldFromObject(
         'period.end_date',
         {
           day: endDate?.day ?? null,
