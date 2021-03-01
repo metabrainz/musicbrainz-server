@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Edit::Relationship::EditLinkAttribute;
 use Moose;
 use MooseX::Types::Structured qw( Dict Optional );
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
+use Data::Compare;
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ATTRIBUTE );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -23,8 +25,24 @@ sub change_fields
         name        => Optional[Str],
         description => Nullable[Str],
         parent_id   => Nullable[Int],
-        child_order => Optional[Int]
+        child_order => Optional[Int],
+        creditable => Optional[Bool],
+        free_text => Optional[Bool],
     ]
+}
+
+sub to_hash {
+    my $data = shift->data;
+
+    for ($data->{old}, $data->{new}) {
+        $_->{creditable} = boolean_to_json($_->{creditable}) if exists $_->{creditable};
+        $_->{free_text} = boolean_to_json($_->{free_text}) if exists $_->{free_text};
+    }
+
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if Compare($data->{old}, $data->{new});
+
+    return $data;
 }
 
 has '+data' => (
@@ -52,6 +70,8 @@ sub build_display_data
         name        => 'name',
         description => 'description',
         child_order => 'child_order',
+        creditable  => 'creditable',
+        free_text   => 'free_text',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);

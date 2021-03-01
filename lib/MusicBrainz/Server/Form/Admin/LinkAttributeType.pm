@@ -8,7 +8,7 @@ use MusicBrainz::Server::Translation qw( l );
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
-sub edit_field_names { qw( parent_id child_order name description ) }
+sub edit_field_names { qw( parent_id child_order name description creditable free_text ) }
 
 has '+name' => ( default => 'linkattrtype' );
 
@@ -29,6 +29,14 @@ has_field 'name' => (
 
 has_field 'description' => (
     type => 'Text',
+);
+
+has_field creditable => (
+    type => 'Boolean'
+);
+
+has_field free_text => (
+    type => 'Boolean'
 );
 
 sub options_parent_id
