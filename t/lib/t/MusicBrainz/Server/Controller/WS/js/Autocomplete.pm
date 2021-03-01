@@ -36,11 +36,8 @@ test all => sub {
                 "last_updated" => ignore,
                 "name" => "David Bowie",
                 "primaryAlias" => undef,
-                "rating" => undef,
-                "rating_count" => 0,
                 "sort_name" => "David Bowie",
                 "typeID" => undef,
-                "user_rating" => undef,
               }, { "current" => 1, "pages" => 1 } ];
 
     ws_test 'label autocomplete response',
@@ -61,10 +58,7 @@ test all => sub {
                 "last_updated" => ignore,
                 "name" => 'Warp Records',
                 "primaryAlias" => undef,
-                "rating" => undef,
-                "rating_count" => 0,
                 "typeID" => 4,
-                "user_rating" => undef,
               }, { "current" => 1, "pages" => 1 } ];
 
 };

@@ -9,9 +9,9 @@
 
 // MusicBrainz::Server::Entity::Role::Rating::TO_JSON
 declare type RatableRoleT = {
-  +rating: number | null,
-  +rating_count: number,
-  +user_rating: number | null,
+  +rating?: number,
+  +rating_count?: number,
+  +user_rating?: number,
 };
 
 declare type RatableT =
