@@ -51,7 +51,6 @@ const RelationshipDiff = ({
     : {};
 
   const i18nConfig: LinkPhraseI18n<Expand2ReactOutput> = {
-    cache: Object.create(null),
     commaList,
     displayLinkAttribute: function (attr: LinkAttrT) {
       const typeId = String(attr.typeID);

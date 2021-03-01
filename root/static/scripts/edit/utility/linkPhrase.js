@@ -31,40 +31,10 @@ type LinkAttrsByRootName = {
   ...
 };
 
-type ResultCache<T> = {
-  __proto__: null,
-  [linkTypeId: number]:
-    WeakMap<$ReadOnlyArray<LinkAttrT>, CachedLinkData<T>>,
-  ...
-};
-
-type CachedLinkData<T> = {
-  attributesByRootName: ?LinkAttrsByRootName,
-  phraseAndExtraAttributes: {[phraseKey: string]: [T, Array<LinkAttrT>], ...},
-};
-
 export type LinkPhraseProp =
   | 'link_phrase'
   | 'long_link_phrase'
   | 'reverse_link_phrase';
-
-function _getCachedLinkData<T>(
-  resultCache: ResultCache<T>,
-  linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
-): CachedLinkData<T> {
-  const cacheByAttributes = resultCache[linkType.id] ??
-    (resultCache[linkType.id] = new WeakMap());
-  let result = cacheByAttributes.get(attributes);
-  if (!result) {
-    result = {
-      attributesByRootName: null,
-      phraseAndExtraAttributes: {},
-    };
-    cacheByAttributes.set(attributes, result);
-  }
-  return result;
-}
 
 class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
   +i18n: LinkPhraseI18n<T>;
@@ -120,35 +90,29 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
 }
 
 export type LinkPhraseI18n<T> = {
-  cache: ResultCache<T>,
   commaList: ($ReadOnlyArray<T>) => T,
   displayLinkAttribute: (LinkAttrT) => T,
   expand: (string, PhraseVarArgs<T>) => T,
 };
 
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
-  cache: Object.create(null),
   commaList,
-  expand: expand2react,
   displayLinkAttribute,
+  expand: expand2react,
 };
 
 const textI18n: LinkPhraseI18n<string> = {
-  cache: Object.create(null),
   commaList: commaListText,
-  expand: expand2text,
   displayLinkAttribute: displayLinkAttributeText,
+  expand: expand2text,
 };
 
-function _setAttributeValues<T>(
+function _getAttributesByRootName<T>(
   i18n: LinkPhraseI18n<T | string>,
   linkType: LinkTypeT,
   attributes: $ReadOnlyArray<LinkAttrT>,
-  cache: CachedLinkData<T>,
-) {
+): LinkAttrsByRootName {
   const values: LinkAttrsByRootName = Object.create(null);
-
-  cache.attributesByRootName = values;
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
@@ -175,6 +139,8 @@ function _setAttributeValues<T>(
       }
     }
   }
+
+  return values;
 }
 
 export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
@@ -242,30 +208,16 @@ export function getPhraseAndExtraAttributes<T>(
   entity0?: T,
   entity1?: T,
 ): [T | string, Array<LinkAttrT>] {
-  const cache =
-    _getCachedLinkData<T | string>(i18n.cache, linkType, attributes);
-  const key = phraseProp + '\0' + (forGrouping ? '1' : '0');
-
-  let result = cache.phraseAndExtraAttributes[key];
-  if (result) {
-    return result;
-  }
-
   let phraseSource = l_relationships(linkType[phraseProp]);
   if (!phraseSource) {
     return emptyResult;
   }
 
-  if (!cache.attributesByRootName) {
-    _setAttributeValues<T | string>(
-      i18n,
-      linkType,
-      attributes,
-      cache,
-    );
-  }
-
-  const attributesByRootName = cache.attributesByRootName;
+  const attributesByRootName = _getAttributesByRootName<T | string>(
+    i18n,
+    linkType,
+    attributes,
+  );
 
   /* flow-include if (!attributesByRootName) throw 'impossible'; */
 
@@ -332,9 +284,7 @@ export function getPhraseAndExtraAttributes<T>(
   }
 
   extraAttributes.sort(cmpLinkAttrs);
-  result = [phrase, extraAttributes];
-  cache.phraseAndExtraAttributes[key] = result;
-  return result;
+  return [phrase, extraAttributes];
 }
 
 export const getPhraseAndExtraAttributesText = (
