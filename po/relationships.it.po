@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 07:18+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-02-23 17:34+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -512,7 +512,7 @@ msgstr "Indica il librettista per quest'opera."
 
 #: DB:link_type/description:995
 msgid "Indicates the location a run or residency was held at."
-msgstr ""
+msgstr "Indica la location presso cui si è tenuta una serie o residency di concerti."
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
@@ -2712,7 +2712,7 @@ msgid ""
 "This relationship links a <a "
 "href=\"https://en.wikipedia.org/wiki/Concert_residency\">concert "
 "residency</a> to the artist(s) who held the residency."
-msgstr ""
+msgstr "Questa relazione collega una <a href=\"https://it.wikipedia.org/wiki/Residency_show\">residency di concerti</a> all'artista (o agli artisti) che l'ha tenuta."
 
 #: DB:link_type/description:859
 msgid ""
@@ -4981,7 +4981,7 @@ msgstr "esibizioni dal vivo"
 
 #: DB:link_type/link_phrase:995
 msgid "location for"
-msgstr ""
+msgstr "location per"
 
 #: DB:link_type/name:213
 msgid "logo"
@@ -6007,15 +6007,15 @@ msgstr "riprogrammato come"
 
 #: DB:link_type/link_phrase:994
 msgid "residencies"
-msgstr ""
+msgstr "residency"
 
 #: DB:link_type/name:994
 msgid "residency"
-msgstr ""
+msgstr "residency"
 
 #: DB:link_type/reverse_link_phrase:994
 msgid "residency by"
-msgstr ""
+msgstr "residency di"
 
 #: DB:link_type/name:842 DB:link_type/name:94
 msgid "review"
@@ -7237,7 +7237,7 @@ msgstr "{entity1} è una parte di {entity0}"
 
 #: DB:link_type/long_link_phrase:994
 msgid "{entity1} is a residency by {entity0}"
-msgstr ""
+msgstr "{entity1} è una residency di {entity0}"
 
 #: DB:link_type/long_link_phrase:859
 msgid "{entity1} is a tour by {entity0}"
@@ -7295,7 +7295,7 @@ msgstr "Il master in vetro per {entity1} è stato creato presso {entity0}"
 
 #: DB:link_type/long_link_phrase:995
 msgid "{entity1} was held at {entity0}"
-msgstr ""
+msgstr "{entity1} si è tenuto presso {entity0}"
 
 #: DB:link_type/long_link_phrase:793
 msgid "{entity1} was held in {entity0}"

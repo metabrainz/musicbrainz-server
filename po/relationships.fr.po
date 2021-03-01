@@ -35,8 +35,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 07:18+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-03-01 14:55+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -531,7 +531,7 @@ msgstr "Indique le librettiste pour cette œuvre."
 
 #: DB:link_type/description:995
 msgid "Indicates the location a run or residency was held at."
-msgstr ""
+msgstr "Indique le lieu où s’est tenu un concert en résidence ou un cycle de concerts."
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
@@ -2731,7 +2731,7 @@ msgid ""
 "This relationship links a <a "
 "href=\"https://en.wikipedia.org/wiki/Concert_residency\">concert "
 "residency</a> to the artist(s) who held the residency."
-msgstr ""
+msgstr "Cette relation lie un <a href=\"https://fr.wikipedia.org/wiki/Spectacle_en_r%C3%A9sidence\">spectacle en résidence</a> à l’artiste résidant."
 
 #: DB:link_type/description:859
 msgid ""
@@ -5000,7 +5000,7 @@ msgstr "interprétations en public"
 
 #: DB:link_type/link_phrase:995
 msgid "location for"
-msgstr ""
+msgstr "lieu de"
 
 #: DB:link_type/name:213
 msgid "logo"
@@ -6026,15 +6026,15 @@ msgstr "reprogrammé comme"
 
 #: DB:link_type/link_phrase:994
 msgid "residencies"
-msgstr ""
+msgstr "résidences"
 
 #: DB:link_type/name:994
 msgid "residency"
-msgstr ""
+msgstr "résidence"
 
 #: DB:link_type/reverse_link_phrase:994
 msgid "residency by"
-msgstr ""
+msgstr "résidence de"
 
 #: DB:link_type/name:842 DB:link_type/name:94
 msgid "review"
@@ -7256,7 +7256,7 @@ msgstr "{entity1} est une partie de {entity0}"
 
 #: DB:link_type/long_link_phrase:994
 msgid "{entity1} is a residency by {entity0}"
-msgstr ""
+msgstr "{entity1} est une résidence de {entity0}"
 
 #: DB:link_type/long_link_phrase:859
 msgid "{entity1} is a tour by {entity0}"
@@ -7314,7 +7314,7 @@ msgstr "{entity1} a été matricé en verre à {entity0}"
 
 #: DB:link_type/long_link_phrase:995
 msgid "{entity1} was held at {entity0}"
-msgstr ""
+msgstr "{entity1} a été tenu à {entity0}"
 
 #: DB:link_type/long_link_phrase:793
 msgid "{entity1} was held in {entity0}"
