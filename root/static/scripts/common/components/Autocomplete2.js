@@ -309,8 +309,10 @@ export default function Autocomplete2<+T: EntityItem>(
       inputTimeout.current = null;
     }
 
-    dispatch(STOP_SEARCH);
-  }, [dispatch]);
+    if (nonEmpty(pendingSearch)) {
+      dispatch(STOP_SEARCH);
+    }
+  }, [dispatch, pendingSearch]);
 
   const selectItem = React.useCallback((item) => {
     if (!item.disabled) {
