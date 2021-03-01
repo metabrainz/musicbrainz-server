@@ -186,8 +186,6 @@ sub _load
             $order .= ", ${target}.name COLLATE musicbrainz";
         }
 
-        $order .= ', lt.child_order';
-
         $query = "SELECT $select
                     JOIN $target ON $target_id = ${target}.id
                    WHERE " . join(" AND ", @cond) . "

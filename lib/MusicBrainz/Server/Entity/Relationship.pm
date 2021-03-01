@@ -256,10 +256,10 @@ sub _cmp {
     my $b_sortname = $b->target->can('sort_name')
         ? $b->target->sort_name
         : $b->target->name;
+    $a->link->type_id           <=> $b->link->type_id ||
     $a->link_order              <=> $b->link_order ||
     $a->link->begin_date        <=> $b->link->begin_date ||
     $a->link->end_date          <=> $b->link->end_date   ||
-    $a->link->type->child_order <=> $b->link->type->child_order ||
     $a_sortname cmp $b_sortname;
 }
 
