@@ -25,6 +25,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Constants qw(
+    :direction
     $PART_OF_AREA_LINK_TYPE
     %ENTITIES
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
@@ -71,14 +72,14 @@ sub _new_from_row
         if ($matching_entity_type == 0 && $entity0 == $obj->id) {
             $weaken = 'entity0';
             $info{entity0} = $obj;
-            $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD;
+            $info{direction} = $DIRECTION_FORWARD;
             $info{source_credit} = $info{entity0_credit};
             $info{target_credit} = $info{entity1_credit};
         }
         elsif ($matching_entity_type == 1 && $entity1 == $obj->id) {
             $weaken = 'entity1';
             $info{entity1} = $obj;
-            $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD;
+            $info{direction} = $DIRECTION_BACKWARD;
             $info{source_credit} = $info{entity1_credit};
             $info{target_credit} = $info{entity0_credit};
         }
@@ -246,7 +247,7 @@ sub load_entities
             if (defined $obj) {
                 $rel->entity0($obj);
 
-                if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD) {
+                if ($rel->direction == $DIRECTION_BACKWARD) {
                     $rel->target($obj);
                     $rel->target_type($type);
                 } elsif (!defined $rel->source) {
@@ -262,7 +263,7 @@ sub load_entities
             if (defined $obj) {
                 $rel->entity1($obj);
 
-                if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD) {
+                if ($rel->direction == $DIRECTION_FORWARD) {
                     $rel->target($obj);
                     $rel->target_type($type);
                 } elsif (!defined $rel->source) {

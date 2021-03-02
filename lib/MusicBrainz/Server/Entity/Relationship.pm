@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::Relationship;
 
 use Moose;
 use Readonly;
+use MusicBrainz::Server::Constants qw( :direction );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l comma_list comma_only_list );
@@ -9,9 +10,6 @@ use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json partial_date_to_hash );
 
 use overload '<=>' => \&_cmp, fallback => 1;
-
-Readonly our $DIRECTION_FORWARD  => 1;
-Readonly our $DIRECTION_BACKWARD => 2;
 
 extends 'MusicBrainz::Server::Entity';
 with  'MusicBrainz::Server::Entity::Role::Editable';

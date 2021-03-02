@@ -50,6 +50,7 @@ use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
 );
 use MusicBrainz::Server::Constants qw(
+    :direction
     $DARTIST_ID
     $EDITOR_MODBOT
     $EDIT_ARTIST_MERGE
@@ -261,7 +262,7 @@ sub show : PathPart('') Chained('load')
     my $legal_name_artist_aliases;
     my $legal_name_aliases;
     my ($legal_name) = map { $_->target }
-                       grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD }
+                       grep { $_->direction == $DIRECTION_BACKWARD }
                        grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $artist->relationships };
     if (defined $legal_name) {
         $c->model('Relationship')->load_subset(['artist'], $legal_name);
@@ -293,7 +294,7 @@ sub show : PathPart('') Chained('load')
                            grep { $_->id != $artist->id }
                            uniq
                            map { $_->target }
-                           grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD }
+                           grep { $_->direction == $DIRECTION_FORWARD }
                            grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' }
                            @{ ($legal_name // $artist)->relationships };
     push(@identities, @other_identities);

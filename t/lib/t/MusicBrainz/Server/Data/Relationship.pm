@@ -5,6 +5,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
+use MusicBrainz::Server::Constants qw( :direction );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::Recording;
@@ -315,7 +316,7 @@ ok( $rel->link->has_attribute('instrument') );
 is( $rel->link->get_attribute('instrument')->[0], 'guitar' );
 is( $rel->entity1->name, 'Track 1' );
 is( $rel->edits_pending, 1 );
-is( $rel->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD );
+is( $rel->direction, $DIRECTION_FORWARD );
 
 for my $rel ($artist1->all_relationships) {
     if ($rel->link_id == 2) {
@@ -326,7 +327,7 @@ for my $rel ($artist1->all_relationships) {
         is( $rel->link->get_attribute('instrument')->[0], 'plucked string instruments' );
         is( $rel->entity1->name, 'Track 2' );
         is( $rel->edits_pending, 0 );
-        is( $rel->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD );
+        is( $rel->direction, $DIRECTION_FORWARD );
     }
     else {
         isnt( $rel->link, undef );
@@ -335,15 +336,15 @@ for my $rel ($artist1->all_relationships) {
         is( $rel->link->get_attribute('instrument')->[0], 'guitar' );
         is( $rel->entity1->name, 'Track 1' );
         is( $rel->edits_pending, 0 );
-        is( $rel->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD );
+        is( $rel->direction, $DIRECTION_FORWARD );
     }
 }
 
 my $recording1 = MusicBrainz::Server::Entity::Recording->new(id => 1);
 $rel_data->load($recording1);
 is( scalar($recording1->all_relationships), 2 );
-is( $recording1->relationships->[0]->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD );
-is( $recording1->relationships->[1]->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD );
+is( $recording1->relationships->[0]->direction, $DIRECTION_BACKWARD );
+is( $recording1->relationships->[1]->direction, $DIRECTION_BACKWARD );
 
 my $sql = $test->c->sql;
 $sql->begin;
