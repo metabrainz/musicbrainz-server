@@ -168,19 +168,5 @@ MB.GuessCase.Handler.Artist = function (gc) {
     });
   };
 
-  var baseProcess = self.process;
-
-  self.process = function (is) {
-    var isLowerCaseWord = gc.mode.isLowerCaseWord;
-
-    gc.mode.isLowerCaseWord = function (w) {
-      return w === 'the' ? false : isLowerCaseWord.call(gc.mode, w);
-    };
-
-    var os = baseProcess.call(self, is);
-    gc.mode.isLowerCaseWord = isLowerCaseWord;
-    return os;
-  };
-
   return self;
 };
