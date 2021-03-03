@@ -10,13 +10,18 @@
 import * as React from 'react';
 
 import TagLink from '../../static/scripts/common/components/TagLink';
+import {bracketedText} from '../../static/scripts/common/utility/bracketed';
+import {formatPluralEntityTypeName}
+  from '../../static/scripts/common/utility/formatEntityTypeName';
 
 type Props = {
+  +entityType?: string,
   +showDownvoted: boolean,
   +tag: TagT,
 };
 
 const UserTagHeading = ({
+  entityType,
   showDownvoted,
   tag,
 }: Props): React.Element<'h2'> => {
@@ -26,6 +31,8 @@ const UserTagHeading = ({
       {showDownvoted
         ? exp.l('Votes against tag “{tag}”', {tag: tagElement})
         : exp.l('Votes for tag “{tag}”', {tag: tagElement})}
+      {' '}
+      {bracketedText(formatPluralEntityTypeName(entityType))}
     </h2>
   );
 };

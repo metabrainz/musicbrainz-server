@@ -42,10 +42,15 @@ const UserTagEntity = ({
   user,
 }: UserTagEntityProps): React.Element<typeof UserAccountLayout> => (
   <UserAccountLayout $c={$c} entity={user} page={page}>
-    <UserTagHeading showDownvoted={showDownvoted} tag={tag} />
+    <UserTagHeading
+      entityType={entityType}
+      showDownvoted={showDownvoted}
+      tag={tag}
+    />
 
     <DownvotedSwitch
       $c={$c}
+      entityType={entityType}
       showDownvoted={showDownvoted}
       tag={tag}
       user={user}
