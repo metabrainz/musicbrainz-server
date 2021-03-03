@@ -56,6 +56,28 @@ const UserTagEntity = ({
       user={user}
     />
 
+    <p>
+      {showDownvoted ? (
+        exp.l(
+          'See {tag_link|all votes against tag “{tag}” by {user}}',
+          {
+            tag: tag.name,
+            tag_link: `/user/${user.name}/tag/${tag.name}`,
+            user: user.name,
+          },
+        )
+      ) : (
+        exp.l(
+          'See {tag_link|all uses of tag “{tag}” by {user}}',
+          {
+            tag: tag.name,
+            tag_link: `/user/${user.name}/tag/${tag.name}`,
+            user: user.name,
+          },
+        )
+      )}
+    </p>
+
     {entityTags.length > 0 ? (
       <EntityListContent
         entityTags={entityTags}
