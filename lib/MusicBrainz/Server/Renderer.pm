@@ -21,7 +21,7 @@ sub send_to_renderer {
 
     require bytes;
 
-    state $body_json = JSON->new->utf8->allow_unknown->allow_blessed->convert_blessed;
+    state $body_json = JSON->new->utf8->allow_unknown(0)->allow_blessed(0);
     my $encoded_body = encode_with_linked_entities($body_json, $message);
 
     my $socket = $c->stash->{renderer_socket};
