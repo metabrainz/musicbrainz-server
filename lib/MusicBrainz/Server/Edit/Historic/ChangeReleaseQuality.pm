@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -45,10 +46,13 @@ sub build_display_data
             +{
                 releases => [
                     map {
-                        $loaded->{Release}{ $_ } ||
-                        Release->new( 
-                            id => $_,
-                            name => $change->{release_name} )
+                        to_json_object(
+                            $loaded->{Release}{ $_ } ||
+                            Release->new(
+                                id => $_,
+                                name => $change->{release_name},
+                            )
+                        )
                     } @{ $_->{release_ids} }
                 ],
                 quality => {

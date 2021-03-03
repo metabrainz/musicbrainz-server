@@ -3,7 +3,7 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use List::UtilsBy qw( rev_nsort_by );
 use namespace::autoclean;
 
-after show => sub {
+before show => sub {
     my ($self, $c) = @_;
 
     $c->stash->{wikipedia_extract} = $self->_get_extract($c, 1);

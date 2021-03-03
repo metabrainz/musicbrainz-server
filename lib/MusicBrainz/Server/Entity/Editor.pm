@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
 use MusicBrainz::Server::Filters qw( format_wikitext );
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
@@ -284,20 +285,21 @@ sub gravatar {
 sub _unsanitized_json {
     my ($self) = @_;
 
+    my $age = $self->age;
     my $json = {
         %{$self->TO_JSON},
-        age                         => $self->age ? $self->age : undef,
-        area                        => $self->area,
+        age                         => $age ? ($age + 0) : undef,
+        area                        => to_json_object($self->area),
         biography                   => format_wikitext($self->biography),
         birth_date                  => undef,
         email                       => undef,
         email_confirmation_date     => datetime_to_iso8601($self->email_confirmation_date),
-        gender                      => $self->gender,
+        gender                      => to_json_object($self->gender),
         has_confirmed_email_address => boolean_to_json($self->has_confirmed_email_address),
         has_email_address           => boolean_to_json($self->has_email_address),
         is_charter                  => boolean_to_json($self->is_charter),
         is_limited                  => boolean_to_json($self->is_limited),
-        languages                   => $self->languages,
+        languages                   => to_json_array($self->languages),
         last_login_date             => datetime_to_iso8601($self->last_login_date),
         preferences                 => $self->preferences->TO_JSON,
         privileges                  => $self->privileges,

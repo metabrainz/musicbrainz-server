@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::SearchResult;
 
 use Moose;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use aliased 'MusicBrainz::Server::Entity::Release';
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Int );
@@ -39,7 +40,7 @@ sub TO_JSON {
     my ($self) = @_;
 
     return {
-        entity => $self->entity,
+        entity => to_json_object($self->entity),
         position => $self->position,
         score => $self->score,
         extra   => [map +{

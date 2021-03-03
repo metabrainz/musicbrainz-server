@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
@@ -80,18 +81,21 @@ sub build_display_data
 
     my $type = $self->data->{type_id};
     my $gender = $self->data->{gender_id};
+    my $artist = to_json_object(
+        ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
+        Artist->new( name => $self->data->{name} )
+    );
 
     return {
         ( map { $_ => $self->data->{$_} // '' } qw( name sort_name comment ) ),
-        type       => $type ? $loaded->{ArtistType}->{$type} : undef,
-        gender     => $gender ? $loaded->{Gender}->{$gender} : undef,
-        ( map { $_ => $self->data->{$_ . '_id'} && ($loaded->{Area}->{$self->data->{$_ . '_id'}} // Area->new()) } qw( area begin_area end_area ) ),
-        begin_date => PartialDate->new($self->data->{begin_date}),
-        end_date   => PartialDate->new($self->data->{end_date}),
-        artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
-            Artist->new( name => $self->data->{name} ),
+        type       => $type ? to_json_object($loaded->{ArtistType}{$type}) : undef,
+        gender     => $gender ? to_json_object($loaded->{Gender}{$gender}) : undef,
+        ( map { $_ => $self->data->{$_ . '_id'} && to_json_object($loaded->{Area}{$self->data->{$_ . '_id'}} // Area->new()) } qw( area begin_area end_area ) ),
+        begin_date => to_json_object(PartialDate->new($self->data->{begin_date})),
+        end_date   => to_json_object(PartialDate->new($self->data->{end_date})),
+        artist     => $artist,
         ipi_codes  => $self->data->{ipi_codes},
-        isni_codes   => $self->data->{isni_codes},
+        isni_codes => $self->data->{isni_codes},
         ended      => boolean_to_json($self->data->{ended})
     };
 }

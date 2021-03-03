@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
@@ -51,14 +52,17 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my $type = $self->data->{type_id};
+    my $event = to_json_object(
+        ($self->entity_id && $loaded->{Event}->{ $self->entity_id }) ||
+        Event->new( name => $self->data->{name} )
+    );
 
     return {
         name        => $self->data->{name} // '',
-        type        => $type ? $loaded->{EventType}->{$type} : '',
-        begin_date  => PartialDate->new($self->data->{begin_date}),
-        end_date    => PartialDate->new($self->data->{end_date}),
-        event       => ($self->entity_id && $loaded->{Event}->{ $self->entity_id }) ||
-            Event->new( name => $self->data->{name} ),
+        type        => $type ? to_json_object($loaded->{EventType}{$type}) : undef,
+        begin_date  => to_json_object(PartialDate->new($self->data->{begin_date})),
+        end_date    => to_json_object(PartialDate->new($self->data->{end_date})),
+        event       => $event,
         ended       => boolean_to_json($self->data->{ended}),
         cancelled   => boolean_to_json($self->data->{cancelled}),
         comment     => $self->data->{comment},

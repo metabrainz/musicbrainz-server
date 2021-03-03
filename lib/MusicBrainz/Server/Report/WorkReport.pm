@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::WorkReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
@@ -20,7 +21,7 @@ around inflate_rows => sub {
     return [
         map +{
             %$_,
-            work => $works->{ $_->{work_id} },
+            work => to_json_object($works->{ $_->{work_id} }),
         }, @$items
     ];
 };

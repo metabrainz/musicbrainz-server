@@ -68,7 +68,7 @@ SQL
     is($edit->display_data->{name}, 'Junior Boys', "Name is correct in display data.");
     is($edit->display_data->{gender}->{name}, 'Male', "Gender is correct in display data.");
     is($edit->display_data->{comment}, 'Canadian electronica duo', "Comment is correct in display data.");
-    is($edit->display_data->{begin_date}->format, "1981-05", "Begin date is correct in display data." );
+    is($edit->display_data->{begin_date}{year}, 1981, "Begin date is correct in display data." );
     is($edit->display_data->{ended}, boolean_to_json(1), "Has 'ended' set in display data.");
 
     is($edit->status, $STATUS_APPLIED, 'add artist edits should be autoedits');

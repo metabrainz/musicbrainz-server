@@ -41,8 +41,8 @@
 
   [%- IF edit.display_data.events -%]
     [%- React.embed(c, 'static/scripts/edit/components/edit/ReleaseEventsDiff', {
-          oldEvents => edit.display_data.events.old,
-          newEvents => edit.display_data.events.new,
+          oldEvents => React.to_json_array(edit.display_data.events.old),
+          newEvents => React.to_json_array(edit.display_data.events.new),
         }) -%]
   [%- END -%]
 

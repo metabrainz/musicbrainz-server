@@ -1,10 +1,11 @@
 [%~ WRAPPER "layout.tt" title=title ? event.name _ " - ${title}" : event.name ~%]
+    [%- event_json_obj = React.to_json_object(event) -%]
     <div id="content">
-        [%~ React.embed(c, 'event/EventHeader', { event => event, page => page }) ~%]
+        [%~ React.embed(c, 'event/EventHeader', { event => event_json_obj, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ React.embed(c, 'layout/components/sidebar/EventSidebar', {event => event}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/EventSidebar', {event => event_json_obj}) ~%]
     [%~ END ~%]
 [%~ END ~%]

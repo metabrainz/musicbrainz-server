@@ -4,6 +4,7 @@ use MooseX::ABC;
 
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -52,22 +53,40 @@ sub foreign_keys
     }
 }
 
+sub _build_missing_entity {
+    my ($self, $loaded, $data) = @_;
+
+    my $model = $self->_merge_model;
+    return $self->c->model($model)->_entity_class->new($data);
+}
+
 sub build_display_data
 {
     my ($self, $loaded) = @_;
     my $model = $self->_merge_model;
 
+    my $new_entity = (
+        $loaded->{ $model }->{ $self->new_entity->{id} } ||
+        $self->_build_missing_entity($loaded, $self->new_entity)
+    );
+
+    # XXX: root/edit/details/merge_releases.tt is not converted to React yet.
+    if ($model ne 'Release') {
+        $new_entity = to_json_object($new_entity);
+    }
+
     my $data = {
-        new => $loaded->{ $model }->{ $self->new_entity->{id} } ||
-            $self->c->model($model)->_entity_class->new($self->new_entity),
+        new => $new_entity,
         old => []
     };
 
     for my $old (@{ $self->data->{old_entities} }) {
         my $ent = $loaded->{ $model }->{ $old->{id} } ||
-            $self->c->model($model)->_entity_class->new($old);
+            $self->_build_missing_entity($loaded, $old);
 
-        push @{ $data->{old} }, $ent;
+        push @{ $data->{old} }, (
+            $model ne 'Release' ? to_json_object($ent) : $ent
+        );
     }
 
     return $data;

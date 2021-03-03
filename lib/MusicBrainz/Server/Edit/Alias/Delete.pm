@@ -6,6 +6,7 @@ use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Alias';
@@ -43,9 +44,9 @@ sub build_display_data
         alias => $self->data->{name},
         locale => $self->data->{locale},
         sort_name => $self->data->{sort_name},
-        type => $self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id}),
-        begin_date => PartialDate->new($self->data->{begin_date}),
-        end_date => $end_date,
+        type => to_json_object($self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id})),
+        begin_date => to_json_object(PartialDate->new($self->data->{begin_date})),
+        end_date => to_json_object($end_date),
         # `ended` info was not stored prior to fixing MBS-10460
         ended => boolean_to_json($end_date->is_empty ? $self->data->{ended} : 1),
         primary_for_locale => boolean_to_json($self->data->{primary_for_locale})

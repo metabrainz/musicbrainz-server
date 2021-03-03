@@ -81,7 +81,7 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
 
     $c->stash(
         component_path => 'admin/wikidoc/CreateWikiDoc',
-        component_props => {form => $form},
+        component_props => {form => $form->TO_JSON},
         current_view => 'Node',
     );
 }
@@ -116,7 +116,7 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
 
     my %props = (
         currentVersion => $current_version,
-        form            => $form,
+        form            => $form->TO_JSON,
         page            => $page,
     );
 
@@ -155,7 +155,7 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
     }
 
     my %props = (
-        form    => $form,
+        form    => $form->TO_JSON,
         page    => $page,
     );
 

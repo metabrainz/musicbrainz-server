@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw( $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Translation::Countries qw( l );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use List::Util qw( first );
 use List::UtilsBy qw( nsort_by );
 
@@ -113,7 +114,7 @@ around TO_JSON => sub {
 
     my $containment = $self->containment;
     if (defined $containment) {
-        $json->{containment} = [map { $_->TO_JSON } @{$containment}];
+        $json->{containment} = to_json_array($containment);
     }
 
     return $json;

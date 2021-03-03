@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::PlaceReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
@@ -25,7 +26,7 @@ around inflate_rows => sub {
     return [
         map +{
             %$_,
-            place => $places->{ $_->{place_id} }
+            place => to_json_object($places->{ $_->{place_id} }),
         }, @$items
     ];
 };

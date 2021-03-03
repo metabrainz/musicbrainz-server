@@ -55,7 +55,7 @@ test 'Can build_display_data for accepted edits' => sub {
     accept_edit($test->c, $test->edit);
 
     $test->c->model('Edit')->load_all($test->edit);
-    is($test->edit->display_data->{iswc}->iswc, 'T-000.000.001-0');
+    is($test->edit->display_data->{iswc}{iswc}, 'T-000.000.001-0');
 };
 
 sub _build_edit {

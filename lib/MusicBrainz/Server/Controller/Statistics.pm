@@ -5,6 +5,7 @@ use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::CountryArea;
 use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Form::Utils qw( build_type_info );
 use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
@@ -42,18 +43,18 @@ sub statistics : Path('')
 
     my %props = (
         dateCollected => $latest_stats->{date_collected},
-        statuses => \@statuses,
-        packagings => \@packagings,
-        primaryTypes => \@primary_types,
-        secondaryTypes => \@secondary_types,
-        labelTypes => \@label_types,
-        workTypes => \@work_types,
-        areaTypes => \@area_types,
-        placeTypes => \@place_types,
-        seriesTypes => \@series_types,
-        instrumentTypes => \@instrument_types,
-        eventTypes => \@event_types,
-        workAttributeTypes => \@work_attribute_types,
+        statuses => to_json_array(\@statuses),
+        packagings => to_json_array(\@packagings),
+        primaryTypes => to_json_array(\@primary_types),
+        secondaryTypes => to_json_array(\@secondary_types),
+        labelTypes => to_json_array(\@label_types),
+        workTypes => to_json_array(\@work_types),
+        areaTypes => to_json_array(\@area_types),
+        placeTypes => to_json_array(\@place_types),
+        seriesTypes => to_json_array(\@series_types),
+        instrumentTypes => to_json_array(\@instrument_types),
+        eventTypes => to_json_array(\@event_types),
+        workAttributeTypes => to_json_array(\@work_attribute_types),
         stats => $latest_stats->{data},
     );
 
@@ -139,7 +140,7 @@ sub countries : Local
             my $release_stat = $stat_name =~ s/$artist_country_prefix/$release_country_prefix/r;
             my $label_stat = $stat_name =~ s/$artist_country_prefix/$label_country_prefix/r;
             push(@$country_stats, ({
-                'entity' => $countries{$iso_code},
+                'entity' => to_json_object($countries{$iso_code}),
                 'artist_count' => $stats->statistic($stat_name),
                 'release_count' => $stats->statistic($release_stat),
                 'label_count' => $stats->statistic($label_stat)
@@ -229,7 +230,7 @@ sub languages_scripts : Path('languages-scripts')
         next unless $total > 0;
 
         push @language_stats, {
-            entity => $languages{$iso_code},
+            entity => to_json_object($languages{$iso_code}),
             %counts,
             total => $total
         };
@@ -238,7 +239,7 @@ sub languages_scripts : Path('languages-scripts')
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
         if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) {
-            push(@$script_stats, ({'entity' => $scripts{$iso_code}, 'count' => $stats->statistic($stat_name)}));
+            push(@$script_stats, ({'entity' => to_json_object($scripts{$iso_code}), 'count' => $stats->statistic($stat_name)}));
         }
     }
 
@@ -270,7 +271,7 @@ sub formats : Path('formats')
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
         if (my ($format_id) = $stat_name =~ /^$medium_format_prefix\.(.*)$/) {
             my $release_stat = $stat_name =~ s/$medium_format_prefix/$release_format_prefix/r;
-            push(@$format_stats, ({'entity' => $formats{$format_id}, 'medium_count' => $stats->statistic($stat_name), 'medium_stat' => $stat_name, 'release_count' => $stats->statistic($release_stat), 'release_stat' => $release_stat}));
+            push(@$format_stats, ({'entity' => to_json_object($formats{$format_id}), 'medium_count' => $stats->statistic($stat_name), 'medium_stat' => $stat_name, 'release_count' => $stats->statistic($release_stat), 'release_stat' => $release_stat}));
         }
     }
 
@@ -310,7 +311,7 @@ sub editors : Path('editors') {
 
     my $editors = $c->model('Editor')->get_by_ids(map { $_->{editor_id} } @data_points);
     for my $data_point (@data_points) {
-        $data_point->{editor} = $editors->{ delete $data_point->{editor_id} };
+        $data_point->{editor} = to_json_object($editors->{ delete $data_point->{editor_id} });
     }
 
     my %props = (

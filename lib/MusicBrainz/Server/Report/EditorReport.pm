@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::EditorReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
@@ -16,7 +17,7 @@ around inflate_rows => sub {
     return [
         map +{
             %$_,
-            editor => $editors->{ $_->{id} }
+            editor => to_json_object($editors->{ $_->{id} }),
         }, @$items
     ];
 };

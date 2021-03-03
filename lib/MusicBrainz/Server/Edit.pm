@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Constants qw(
     :edit_status
     :expire_action
@@ -341,7 +342,7 @@ sub TO_JSON {
         is_open => boolean_to_json($self->is_open),
         $can_preview ? (preview => boolean_to_json($self->preview)) : (),
         status => $self->status + 0,
-        votes => [map { $_->TO_JSON } $self->all_votes],
+        votes => to_json_array($self->votes),
     };
 }
 

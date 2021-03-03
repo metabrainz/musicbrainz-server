@@ -4,6 +4,7 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK_KV );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -54,17 +55,19 @@ sub build_display_data
     return {
         releases => [
             map {
-                $_ == -42
+                to_json_object($_ == -42
                     ? Release->new( name => '[non-album tracks]' )
-                    : $loaded->{Release}->{ $_ }
+                    : $loaded->{Release}->{ $_ })
             } $self->release_ids
         ],
         position  => $self->data->{position},
         name      => $self->data->{name},
         length    => $display_length,
-        artist    => $loaded->{Artist}->{ $self->data->{artist_id} },
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} }
-            || Recording->new( name => $self->data->{name} ),
+        artist    => to_json_object($loaded->{Artist}->{ $self->data->{artist_id} }),
+        recording => to_json_object(
+            $loaded->{Recording}->{ $self->data->{recording_id} }
+            || Recording->new( name => $self->data->{name} )
+        ),
     }
 }
 

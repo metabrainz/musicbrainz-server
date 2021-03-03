@@ -6,6 +6,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -103,13 +104,17 @@ sub build_display_data {
     };
 
     unless ($self->preview) {
-        $display_data->{release} = $loaded->{Release}->{gid_or_id($data->{release})} //
-            Release->new(name => $data->{release}{name});
+        $display_data->{release} = to_json_object(
+            $loaded->{Release}->{gid_or_id($data->{release})} //
+            Release->new(name => $data->{release}{name})
+        );
     }
 
     if ($data->{label}) {
-        $display_data->{label} = $loaded->{Label}->{gid_or_id($data->{label})} //
-            Label->new(name => $data->{label}{name});
+        $display_data->{label} = to_json_object(
+            $loaded->{Label}->{gid_or_id($data->{label})} //
+            Label->new(name => $data->{label}{name})
+        );
     }
 
     return $display_data;

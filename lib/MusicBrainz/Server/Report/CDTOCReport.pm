@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::CDTOCReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
@@ -22,8 +23,8 @@ around inflate_rows => sub {
     return [
         map +{
             %$_,
-            cdtoc => $cdtocs->{ $_->{cdtoc_id} },
-            release => $releases->{ $_->{release_id} }
+            cdtoc => to_json_object($cdtocs->{ $_->{cdtoc_id} }),
+            release => to_json_object($releases->{ $_->{release_id} }),
         }, @$items
     ];
 };

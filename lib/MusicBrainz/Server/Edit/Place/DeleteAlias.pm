@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Place::DeleteAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PLACE_DELETE_ALIAS );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
@@ -46,8 +47,10 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig($loaded);
-    $data->{place} = $loaded->{Place}->{ $self->place_id }
-        || Place->new(name => $self->data->{entity}{name});
+    $data->{place} = to_json_object(
+        $loaded->{Place}->{ $self->place_id } ||
+        Place->new(name => $self->data->{entity}{name})
+    );
 
     return $data;
 };

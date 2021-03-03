@@ -3,6 +3,7 @@ package MusicBrainz::Server::Entity::Work;
 use List::UtilsBy qw( sort_by );
 use Moose;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use aliased 'MusicBrainz::Server::Entity::WorkAttribute';
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
@@ -95,13 +96,13 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        attributes => [map { $_->TO_JSON } $self->sorted_attributes],
-        languages => [map { $_->TO_JSON } $self->all_languages],
-        iswcs => [map { $_->TO_JSON } $self->all_iswcs],
-        artists => [map { $_->TO_JSON } $self->all_artists],
+        attributes => to_json_array([$self->sorted_attributes]),
+        languages => to_json_array($self->languages),
+        iswcs => to_json_array($self->iswcs),
+        artists => to_json_array($self->artists),
         writers => [map +{
             credit => $_->{credit},
-            entity => $_->{entity},
+            entity => to_json_object($_->{entity}),
             roles => $_->{roles},
         }, $self->all_writers],
     };

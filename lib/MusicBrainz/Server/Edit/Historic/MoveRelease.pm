@@ -4,6 +4,7 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -69,12 +70,12 @@ sub build_display_data
     return {
         releases => [
             map {
-                $loaded->{Release}->{ $_ }
+                to_json_object($loaded->{Release}{$_})
             } $self->release_ids
         ],
         artist => {
-            new => $new_artist,
-            old => $old_artist
+            new => to_json_object($new_artist),
+            old => to_json_object($old_artist),
         },
         move_tracks => boolean_to_json($self->data->{move_tracks}),
     }

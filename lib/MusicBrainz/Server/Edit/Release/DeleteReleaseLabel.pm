@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Label';
@@ -80,13 +81,17 @@ sub build_display_data {
 
     my $display_data = {
         catalog_number => $data->{catalog_number},
-        release => ($loaded->{Release}->{gid_or_id($data->{release})} //
-                    Release->new(name => $data->{release}{name})),
+        release => to_json_object(
+            $loaded->{Release}->{gid_or_id($data->{release})} //
+            Release->new(name => $data->{release}{name})
+        ),
     };
 
     if ($label) {
-        $display_data->{label} = $loaded->{Label}{gid_or_id($label)} //
-                                 Label->new(name => $label->{name});
+        $display_data->{label} = to_json_object(
+            $loaded->{Label}{gid_or_id($label)} //
+            Label->new(name => $label->{name})
+        );
     }
 
     return $display_data;

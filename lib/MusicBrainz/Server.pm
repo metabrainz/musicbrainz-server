@@ -15,7 +15,9 @@ use MusicBrainz::Server::Data::Utils qw(
     datetime_to_iso8601
     generate_token
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( logger );
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 use POSIX qw(SIGALRM);
 use Scalar::Util qw( refaddr );
 use Sys::Hostname;
@@ -431,6 +433,11 @@ before dispatch => sub {
         # remember to disconnect at the end.
         $ctx->connector->refresh;
     }
+
+    # Any time `TO_JSON` is called on an Entity, it may add other
+    # entity data it references into the `$linked_entities` hash. This
+    # must be reset per-request.
+    $MusicBrainz::Server::Entity::Util::JSON::linked_entities = {};
 };
 
 
@@ -453,6 +460,8 @@ after dispatch => sub {
         *DBDefs::CACHE_NAMESPACE = $ORIG_CACHE_NAMESPACE;
         *DBDefs::ENTITY_CACHE_TTL = $ORIG_ENTITY_CACHE_TTL;
     }
+
+    $MusicBrainz::Server::Entity::Util::JSON::linked_entities = undef;
 };
 
 # Timeout long running requests
@@ -509,7 +518,7 @@ around 'finalize_error' => sub {
                     ? 'main/error/TimeoutError'
                     : 'main/error/Error500',
                 component_props => {
-                    $c->stash->{edit} ? (edits => [ $c->stash->{edit} ]) : (),
+                    $c->stash->{edit} ? (edits => [ $c->stash->{edit}->TO_JSON ]) : (),
                     formattedErrors => $c->stash->{formatted_errors},
                     hostname => $c->stash->{hostname},
                     useLanguages => boolean_to_json($c->stash->{use_languages}),
@@ -820,10 +829,32 @@ sub TO_JSON {
         $stash{alert_mtime} = $server_details->{alert_mtime};
     }
 
+    if (my $to_merge = delete $stash{to_merge}) {
+        $stash{to_merge} = to_json_array($to_merge);
+    }
+
+    if (my $release_artwork = delete $stash{release_artwork}) {
+        $stash{release_artwork} = to_json_object($release_artwork);
+    }
+
     my $req = $self->req;
     my %headers;
     for my $name ($req->headers->header_field_names) {
         $headers{lc($name)} = $req->headers->header($name);
+    }
+
+    my $session = $self->session;
+    if ($session) {
+        my $tport = $session->{tport};
+        my $merger = $session->{merger};
+
+        $session = {};
+        if (is_positive_integer($tport)) {
+            $session->{tport} = $tport + 0;
+        }
+        if (defined $merger) {
+            $session->{merger} = $merger->TO_JSON;
+        }
     }
 
     return {
@@ -837,17 +868,17 @@ sub TO_JSON {
         ),
         user_exists => boolean_to_json($self->user_exists),
         debug => boolean_to_json($self->debug),
-        relative_uri => $self->relative_uri,
+        relative_uri => '' . $self->relative_uri,
         req => {
             body_params => $req->body_params,
             headers => \%headers,
             query_params => $req->query_params,
             secure => boolean_to_json($req->secure),
-            uri => $req->uri,
+            uri => '' . $req->uri,
         },
         stash => \%stash,
         sessionid => scalar($self->sessionid),
-        session => $self->session,
+        session => $session,
         flash => $self->flash,
     };
 }

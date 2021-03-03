@@ -34,7 +34,7 @@ sub process {
 
     my %message = (
         begin => \1,
-        context => $c,
+        context => $c->TO_JSON,
     );
 
     send_to_renderer($c, \%message);

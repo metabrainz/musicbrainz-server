@@ -44,7 +44,7 @@ around build_display_data => sub {
 
     my $data = $self->$orig(@args);
 
-    my @recording_lengths = map { $_->length } (@{ $data->{old} }, $data->{new});
+    my @recording_lengths = map { $_->{length} } (@{ $data->{old} }, $data->{new});
     $data->{large_spread} = boolean_to_json(large_spread(@recording_lengths));
 
     return $data;

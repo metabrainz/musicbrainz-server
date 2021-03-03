@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -69,20 +70,22 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my $data = {
-        label      => ($self->entity_id && $loaded->{Label}{ $self->entity_id })
-            || Label->new( name => $self->data->{name} ),
+        label      => ($self->entity_id && to_json_object(
+            $loaded->{Label}{ $self->entity_id }) ||
+            Label->new( name => $self->data->{name} )
+        ),
         name       => $self->data->{name},
         sort_name  => $self->data->{sort_name} // '',
         type       => defined($self->data->{type_id}) &&
-                        $loaded->{LabelType}->{ $self->data->{type_id} },
+                        to_json_object($loaded->{LabelType}->{ $self->data->{type_id} }),
         label_code => $self->data->{label_code},
         area       => defined($self->data->{area_id}) &&
-                      ($loaded->{Area}->{ $self->data->{area_id} } // Area->new()),
+                      to_json_object($loaded->{Area}->{ $self->data->{area_id} } // Area->new()),
         comment    => $self->data->{comment} // '',
         ipi_codes  => $self->data->{ipi_codes},
         isni_codes => $self->data->{isni_codes},
-        begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{begin_date}),
-        end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{end_date}),
+        begin_date => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{begin_date})),
+        end_date   => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{end_date})),
         ended      => boolean_to_json($self->data->{ended})
     };
 }

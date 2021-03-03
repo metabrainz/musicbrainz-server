@@ -132,7 +132,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(editing_enabl
             $c->stash(
                 current_view => 'Node',
                 component_path => 'edit/CannotApproveEdit',
-                component_props => {edit => $edit},
+                component_props => {edit => $edit->TO_JSON},
             );
             return;
         }
@@ -150,7 +150,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(editing_enabl
                     $c->stash(
                         current_view => 'Node',
                         component_path => 'edit/NoteIsRequired',
-                        component_props => {edit => $edit},
+                        component_props => {edit => $edit->TO_JSON},
                     );
                     return;
                 };
@@ -173,7 +173,7 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
         $c->stash(
             current_view => 'Node',
             component_path => 'edit/CannotCancelEdit',
-            component_props => {edit => $edit},
+            component_props => {edit => $edit->TO_JSON},
         );
         $c->detach;
     }

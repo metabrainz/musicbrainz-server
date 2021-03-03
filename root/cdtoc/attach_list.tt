@@ -3,7 +3,7 @@
       <td>[% artist_credit(release.artist_credit) %]</td>
     [% END %]
     <td>
-      [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => release.events}) %]
+      [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => React.to_json_array(release.events)}) %]
     </td>
     <td>[% release_label_list(release.labels) %]</td>
     <td>[% release_catno_list(release.labels) %]</td>

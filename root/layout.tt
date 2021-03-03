@@ -3,7 +3,7 @@
     [%- React.embed(c, 'layout/components/Head', {
             homepage => homepage,
             noIcons => boolean_to_json(no_icons),
-            pager => pager,
+            pager => React.serialize_pager(pager),
             title => title,
         })
     -%]

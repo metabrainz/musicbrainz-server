@@ -10,7 +10,7 @@
     </div>
 
     [%- React.embed(c, 'release/CoverArtFields', {
-      form => form,
+      form => React.to_json_object(form),
       typeIdOptions => form.options_type_id,
     }) -%]
 

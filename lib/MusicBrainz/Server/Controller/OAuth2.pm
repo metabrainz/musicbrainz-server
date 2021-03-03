@@ -175,8 +175,8 @@ sub authorize : Local Args(0) RequireAuth SecureForm
         current_view => 'Node',
         component_path => 'oauth2/OAuth2Authorize',
         component_props => {
-            application => $application,
-            form => $form,
+            application => $application->TO_JSON,
+            form => $form->TO_JSON,
             offline => boolean_to_json($offline),
             permissions => $perms,
         },
@@ -205,7 +205,7 @@ sub oob : Local Args(0)
         component_path => 'oauth2/OAuth2Oob',
         component_props => {
             code => $code,
-            application => $token->application,
+            application => $token->application->TO_JSON,
         },
     );
 }
@@ -424,7 +424,7 @@ sub _send_redirect_response
             component_props => {
                 applicationName => $c->stash->{application_name},
                 fields => $response,
-                redirectUri => $uri,
+                redirectUri => '' . $uri,
             },
         );
     } else {

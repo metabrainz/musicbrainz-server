@@ -39,6 +39,7 @@ use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use Data::Page;
 use MusicBrainz::Server::Data::Utils qw( is_special_label );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( l );
 use HTTP::Status qw( :constants );
 use List::AllUtils qw( any );
@@ -118,11 +119,11 @@ sub show : PathPart('') Chained('load')
     $c->model('ReleaseLabel')->load(@$releases);
  
     my %props = (
-        label             => $c->stash->{label},
+        label             => $c->stash->{label}->TO_JSON,
         numberOfRevisions => $c->stash->{number_of_revisions},
         pager             => serialize_pager($c->stash->{pager}),
-        releases          => $releases,
-        wikipediaExtract  => $c->stash->{wikipedia_extract},
+        releases          => to_json_array($releases),
+        wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
     );
 
     $c->stash(
@@ -138,7 +139,7 @@ sub relationships : Chained('load') PathPart('relationships') {
 
     $c->stash(
         component_path => 'label/LabelRelationships',
-        component_props => {label => $c->stash->{label}},
+        component_props => {label => $c->stash->{label}->TO_JSON},
         current_view => 'Node',
     );
 }
@@ -185,7 +186,7 @@ around edit => sub {
     my $label = $c->stash->{label};
     if ($label->is_special_purpose) {
         my %props = (
-            label => $label,
+            label => $label->TO_JSON,
         );
         $c->stash(
             component_path => 'label/SpecialPurpose',

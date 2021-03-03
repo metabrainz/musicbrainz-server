@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::ReleaseReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
@@ -24,7 +25,7 @@ around inflate_rows => sub {
     return [
         map +{
             %$_,
-            release => $releases->{ $_->{release_id} }
+            release => to_json_object($releases->{ $_->{release_id} }),
         }, @$items
     ];
 };

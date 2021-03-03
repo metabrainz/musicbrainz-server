@@ -75,7 +75,7 @@
     <td>
       [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {
            abbreviated => boolean_to_json(0),
-           events => edit.display_data.events,
+           events => React.to_json_array(edit.display_data.events),
          }) %]
     </td>
   </tr>

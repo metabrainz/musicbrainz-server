@@ -22,7 +22,7 @@ type AddInstrumentEditT = {
     +description: string | null,
     +instrument: InstrumentT,
     +name: string,
-    +type: InstrumentTypeT,
+    +type: InstrumentTypeT | null,
   },
 };
 
@@ -34,6 +34,7 @@ type Props = {
 const AddInstrument = ({allowNew, edit}: Props): React.MixedElement => {
   const display = edit.display_data;
   const description = display.description;
+  const instrumentType = display.type;
 
   return (
     <>
@@ -66,10 +67,10 @@ const AddInstrument = ({allowNew, edit}: Props): React.MixedElement => {
           </tr>
         ) : null}
 
-        {display.type ? (
+        {instrumentType ? (
           <tr>
             <th>{addColonText(l('Type'))}</th>
-            <td>{lp_attributes(display.type.name, 'instrument_type')}</td>
+            <td>{lp_attributes(instrumentType.name, 'instrument_type')}</td>
           </tr>
         ) : null}
 

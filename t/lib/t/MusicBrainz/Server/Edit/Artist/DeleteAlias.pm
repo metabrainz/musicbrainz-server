@@ -33,14 +33,14 @@ is(@$edits, 1);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->display_data->{artist}->id, 1);
+is($edit->display_data->{artist}{id}, 1);
 is($edit->display_data->{alias}, 'Alias 1');
-is($edit->display_data->{begin_date}->year, 2000);
-is($edit->display_data->{begin_date}->month, 1);
-is($edit->display_data->{begin_date}->day, 2);
-is($edit->display_data->{end_date}->year, 2003);
-is($edit->display_data->{end_date}->month, 4);
-is($edit->display_data->{end_date}->day, 5);
+is($edit->display_data->{begin_date}{year}, 2000);
+is($edit->display_data->{begin_date}{month}, 1);
+is($edit->display_data->{begin_date}{day}, 2);
+is($edit->display_data->{end_date}{year}, 2003);
+is($edit->display_data->{end_date}{month}, 4);
+is($edit->display_data->{end_date}{day}, 5);
 
 $alias = $c->model('Artist')->alias->get_by_id(1);
 is($alias->edits_pending, 1);

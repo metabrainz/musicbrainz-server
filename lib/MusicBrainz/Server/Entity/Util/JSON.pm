@@ -34,9 +34,12 @@ sub to_json_object {
     return $obj;
 }
 
-# Shadowed via local during serialization. Used by TO_JSON methods to store
-# linked entities which might be duplicated many times in the output,
-# allowing them to be serialized just once.
+# Used by TO_JSON methods to store linked entities which might be
+# duplicated many times in the output, allowing them to be serialized
+# just once.
+#
+# This is set and unset per request. See the dispatch methods in
+# MusicBrainz::Server.
 our $linked_entities;
 
 sub add_linked_entity {
@@ -66,11 +69,11 @@ sub encode_with_linked_entities {
 
     die 'Expected a hash ref' unless ref($data) eq 'HASH';
 
-    local $linked_entities = {};
-
     my $encoded = $json_encoder->encode($data);
-    my $linked_entities = $json_encoder->encode($linked_entities);
-    $encoded =~ s/}$/,"linked_entities":$linked_entities}/;
+    if (defined $linked_entities) {
+        my $encoded_linked_entities = $json_encoder->encode($linked_entities);
+        $encoded =~ s/}$/,"linked_entities":$encoded_linked_entities}/;
+    }
 
     return $encoded;
 }

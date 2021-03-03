@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -98,19 +99,24 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        medium_cdtoc => $loaded->{MediumCDTOC}->{ $self->data->{medium_cdtoc}{id} }
-            || MediumCDTOC->new(
+        medium_cdtoc => to_json_object(
+            $loaded->{MediumCDTOC}->{ $self->data->{medium_cdtoc}{id} } ||
+            MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{medium_cdtoc}{toc})
-            ),
-        map { $_ => $loaded->{Medium}->{ $self->data->{$_}{id} } //
-                    Medium->new(
-                        release_id => $self->data->{$_}{release}{id},
-                        release => $loaded->{Release}{ $self->data->{$_}{release}{id} } //
-                            Release->new(
-                                id => $self->data->{$_}{release}{id},
-                                name => $self->data->{$_}{release}{name},
-                            ),
-                    )
+            )
+        ),
+        map {
+            $_ => to_json_object(
+                $loaded->{Medium}->{ $self->data->{$_}{id} } //
+                Medium->new(
+                    release_id => $self->data->{$_}{release}{id},
+                    release => $loaded->{Release}{ $self->data->{$_}{release}{id} } //
+                        Release->new(
+                            id => $self->data->{$_}{release}{id},
+                            name => $self->data->{$_}{release}{name},
+                        ),
+                )
+            )
         } qw( new_medium old_medium ),
     }
 }

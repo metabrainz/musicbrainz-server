@@ -4,6 +4,7 @@ use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( model_to_type non_empty boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 parameter model => ( isa => 'Str', required => 1 );
@@ -134,18 +135,22 @@ role {
     method build_display_data => sub {
         my ($self, $loaded) = @_;
 
+        my $entity = to_json_object(
+            $loaded->{$model}->{$self->$entity_id} //
+            $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name})
+        );
+
         return {
             alias               => $self->data->{name},
             locale              => $self->data->{locale},
             sort_name           => $self->data->{sort_name},
-            type                => $self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id}),
-            begin_date          => PartialDate->new($self->data->{begin_date}),
-            end_date            => PartialDate->new($self->data->{end_date}),
+            type                => to_json_object($self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id})),
+            begin_date          => to_json_object(PartialDate->new($self->data->{begin_date})),
+            end_date            => to_json_object(PartialDate->new($self->data->{end_date})),
             primary_for_locale  => boolean_to_json($self->data->{primary_for_locale}),
             ended               => boolean_to_json($self->data->{ended}),
             entity_type         => $entity_type,
-            $entity_type        => $loaded->{$model}->{$self->$entity_id} //
-                                    $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name}),
+            $entity_type        => $entity,
         };
     };
 };

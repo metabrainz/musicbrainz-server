@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities' => {
@@ -75,9 +76,11 @@ sub build_display_data
     return {
         additions => [
             map { +{
-                work => $loaded->{Work}{ $_->{work}{id} }
-                    || Work->new( id => $_->{work}{id}, name => $_->{work}{name} ),
-                iswc => ISWC->new( iswc => $_->{iswc} ),
+                work => to_json_object(
+                    $loaded->{Work}{ $_->{work}{id} } ||
+                    Work->new( id => $_->{work}{id}, name => $_->{work}{name} )
+                ),
+                iswc => to_json_object(ISWC->new( iswc => $_->{iswc} )),
             } } @{ $self->data->{iswcs} }
         ]
     }

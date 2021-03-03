@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id merge_value );
 use MusicBrainz::Server::Entity::Area;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l l lp );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 use Scalar::Util qw( looks_like_number );
@@ -135,6 +136,13 @@ sub build_display_data {
             $event_display->{date} = MusicBrainz::Server::Entity::PartialDate->new($_->{date});
             $event_display;
         } @{ $display_data->{extra}{events} // [] }
+    ];
+
+    $display_data->{extra}{events_json} = [
+        map +{
+            country => to_json_object($_->{country}),
+            date => to_json_object($_->{date}),
+        }, @{ $display_data->{extra}{events} }
     ];
 
     for (qw( new old )) {

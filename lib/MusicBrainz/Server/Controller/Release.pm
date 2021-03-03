@@ -33,6 +33,7 @@ use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( :edit_type $MAX_INITIAL_MEDIUMS );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
     select_options
@@ -226,7 +227,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
             current_view => 'Node',
             component_path => 'release/CoverArtDarkened',
             component_props => {
-                release => $entity,
+                release => $entity->TO_JSON,
             }
         );
         $c->detach;
@@ -295,7 +296,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
             current_view => 'Node',
             component_path => 'release/CoverArtDarkened',
             component_props => {
-                release => $entity,
+                release => $entity->TO_JSON,
             }
         );
         $c->detach;
@@ -601,9 +602,9 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
         current_view => 'Node',
         component_path => 'release/RemoveCoverArt',
         component_props => {
-            artwork => $artwork,
-            form => $c->stash->{form},
-            release => $release,
+            artwork => $artwork->TO_JSON,
+            form => $c->stash->{form}->TO_JSON,
+            release => $release->TO_JSON,
         }
     );
 }
@@ -626,8 +627,8 @@ sub cover_art : Chained('load') PathPart('cover-art') {
         current_view => 'Node',
         component_path => 'release/CoverArt',
         component_props => {
-            coverArt => $artwork,
-            release => $release,
+            coverArt => to_json_array($artwork),
+            release => $release->TO_JSON,
         }
     );
 }

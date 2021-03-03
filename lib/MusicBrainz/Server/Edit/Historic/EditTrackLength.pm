@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACK_LENGTH );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -43,8 +44,10 @@ sub build_display_data
     my $new_display_length = $new_length <= 0 ? undef : $new_length;
 
     return {
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} } ||
-                    Recording->new( id => $self->data->{recording_id} ),
+        recording => to_json_object(
+            $loaded->{Recording}->{ $self->data->{recording_id} } ||
+            Recording->new( id => $self->data->{recording_id} )
+        ),
         length => {
             old => $old_display_length,
             new => $new_display_length,

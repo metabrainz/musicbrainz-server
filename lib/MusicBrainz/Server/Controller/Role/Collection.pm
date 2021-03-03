@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Collection;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 parameter 'entity_name' => (
     isa => 'Str',
@@ -86,8 +87,8 @@ role
         }
 
         $c->stash
-          (own_collections => $own_collections,
-           collaborative_collections => $collaborative_collections,
+          (own_collections => to_json_array($own_collections),
+           collaborative_collections => to_json_array($collaborative_collections),
            containment => \%containment,
            number_of_collections => $number_of_visible_collections + $number_of_non_visible_collections,
           );

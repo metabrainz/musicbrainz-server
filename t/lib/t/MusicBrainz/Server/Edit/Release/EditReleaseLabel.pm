@@ -260,7 +260,7 @@ test 'Can apply after labels are merged' => sub {
 
     # Check that the new label loads correctly.
     $c->model('Edit')->load_all($edit);
-    is($edit->display_data->{label}{new}->id, 3);
+    is($edit->display_data->{label}{new}{id}, 3);
 };
 
 test 'Can apply after release is merged' => sub {

@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -75,8 +76,8 @@ sub build_display_data
                  );
 
     return {
-        medium => $medium,
-        tracks => display_tracklist($loaded, $self->data->{tracklist}),
+        medium => to_json_object($medium),
+        tracks => to_json_array(display_tracklist($loaded, $self->data->{tracklist})),
     }
 }
 

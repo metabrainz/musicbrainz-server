@@ -7,6 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Filters qw( format_wikitext );
 use JSON::XS;
 
@@ -75,8 +76,10 @@ role {
             my $entity_properties = $ENTITIES{$entity_type};
             my $entity = $loaded->{$model}->{$self->$entity_id};
             $self->c->model('ArtistCredit')->load($entity) if $entity_properties->{artist_credits};
-            $data->{$entity_type} = $entity //
-                $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name}),
+            $data->{$entity_type} = to_json_object(
+                $entity //
+                $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name})
+            );
         }
 
         return $data;

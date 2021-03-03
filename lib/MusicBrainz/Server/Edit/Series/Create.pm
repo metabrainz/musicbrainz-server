@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_SERIES_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw ( N_l );
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
@@ -55,15 +56,17 @@ sub build_display_data {
     return {
         name                => $name,
         comment             => $comment,
-        series              => $loaded->{Series}{$self->entity_id} //
+        series              => to_json_object(
+                                $loaded->{Series}{$self->entity_id} //
                                 Series->new(
                                     name => $name,
                                     comment => $comment,
                                     type_id => $type_id,
                                     ordering_type_id => $ordering_type_id,
                                 ),
-        type                => $loaded->{SeriesType}{$type_id},
-        ordering_type       => $loaded->{SeriesOrderingType}{$ordering_type_id},
+                               ),
+        type                => to_json_object($loaded->{SeriesType}{$type_id}),
+        ordering_type       => to_json_object($loaded->{SeriesOrderingType}{$ordering_type_id}),
     };
 }
 

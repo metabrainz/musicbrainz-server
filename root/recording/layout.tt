@@ -2,12 +2,13 @@
 
 [%~ main_title = recording.video ? l('Video “{name}” by {artist}', title_args) : l('Recording “{name}” by {artist}', title_args) ~%]
 [%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title ~%]
+    [%- recording_json_obj = React.to_json_object(recording) -%]
     <div id="content">
-        [%~ React.embed(c, 'recording/RecordingHeader', { recording => recording, page => page }) ~%]
+        [%~ React.embed(c, 'recording/RecordingHeader', { recording => recording_json_obj, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ React.embed(c, 'layout/components/sidebar/RecordingSidebar', {recording => recording}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/RecordingSidebar', {recording => recording_json_obj}) ~%]
     [%~ END ~%]
 [%~ END ~%]
