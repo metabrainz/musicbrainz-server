@@ -5,11 +5,24 @@ use warnings;
 
 use base 'Exporter';
 use feature 'state';
+use Scalar::Util qw( blessed );
 
 our @EXPORT_OK = qw(
     add_linked_entity
     encode_with_linked_entities
+    to_json_object
 );
+
+sub to_json_object {
+    my $obj = shift;
+    if (blessed $obj) {
+        my $to_json = $obj->can('TO_JSON');
+        if ($to_json) {
+            return $to_json->($obj);
+        }
+    }
+    return $obj;
+}
 
 # Shadowed via local during serialization. Used by TO_JSON methods to store
 # linked entities which might be duplicated many times in the output,
@@ -22,7 +35,7 @@ sub add_linked_entity {
     my $entities = ($linked_entities->{$entity_type} //= {});
     # schema fixup creates type instances without id
     unless (!defined $id || defined $entities->{$id}) {
-        $entities->{$id} = $entity;
+        $entities->{$id} = to_json_object($entity);
     }
     return;
 }
