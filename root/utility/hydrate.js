@@ -46,7 +46,7 @@ if (__DEV__) {
     'gravatar',
     'id',
     'name',
-    'privileged',
+    'privileges',
   ]);
 
   const suspectKeyPattern = /(?:birth|email|password)/;
