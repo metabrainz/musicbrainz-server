@@ -5,13 +5,23 @@ use warnings;
 
 use base 'Exporter';
 use feature 'state';
-use Scalar::Util qw( blessed );
+use Scalar::Util qw( blessed reftype );
 
 our @EXPORT_OK = qw(
     add_linked_entity
     encode_with_linked_entities
+    to_json_array
     to_json_object
 );
+
+sub to_json_array {
+    my $arr = shift;
+    my $reftype = reftype $arr;
+    if (defined $reftype && $reftype eq 'ARRAY') {
+        return [map { to_json_object($_) } @$arr]
+    }
+    return undef;
+}
 
 sub to_json_object {
     my $obj = shift;
