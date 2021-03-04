@@ -68,6 +68,7 @@ has 'places' => (
     is => 'ro',
     isa => ArrayRef[
         Dict[
+            credit => Str,
             entity => Object
         ]
     ],
@@ -83,6 +84,7 @@ has 'areas' => (
     is => 'ro',
     isa => ArrayRef[
         Dict[
+            credit => Str,
             entity => Object
         ]
     ],
@@ -114,6 +116,7 @@ around TO_JSON => sub {
     return {
         %{ $self->$orig },
         areas => [map +{
+            credit => $_->{credit},
             entity => $_->{entity},
         }, $self->all_areas],
         cancelled => boolean_to_json($self->cancelled),
@@ -123,6 +126,7 @@ around TO_JSON => sub {
             roles => $_->{roles},
         }, $self->all_performers],
         places => [map +{
+            credit => $_->{credit},
             entity => $_->{entity},
         }, $self->all_places],
         related_series => [map { $_->id } @related_series],
