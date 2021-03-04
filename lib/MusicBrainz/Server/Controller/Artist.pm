@@ -758,8 +758,13 @@ sub split : Chained('load') Edit {
 
     my $ac = $c->model('ArtistCredit')->find_for_artist($artist);
 
+    my @collaborators = map { $_->target } grep {
+        $_->link->type->gid eq $ARTIST_ARTIST_COLLABORATION
+    } $artist->all_relationships;
+
     $c->stash(
-        in_use => $c->model('ArtistCredit')->in_use($ac)
+        in_use => $c->model('ArtistCredit')->in_use($ac),
+        collaborators => \@collaborators,
     );
 
     my $edit = $self->edit_action(

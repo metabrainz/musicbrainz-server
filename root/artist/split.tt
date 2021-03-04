@@ -31,6 +31,16 @@
                updated, and collaboration relationships will be removed',
                { artist => link_entity(artist) } ) %]
        </p>
+
+       [% IF collaborators.size %]
+         <h3>[% add_colon(l('Collaborators on this artist')) %]</h3>
+         <ul>
+         [% FOR collaborator=collaborators %]
+           <li>[% link_entity(collaborator) %]</li>
+         [% END %]
+         </ul>
+       [% END %]
+
        <fieldset>
          <legend>[% l('New Artist Credit') %]</legend>
          <div id="artist-credit-editor"></div>
