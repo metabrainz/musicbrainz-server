@@ -43,8 +43,19 @@ sub add_linked_entity {
     my ($entity_type, $id, $entity) = @_;
 
     my $entities = ($linked_entities->{$entity_type} //= {});
-    # schema fixup creates type instances without id
-    unless (!defined $id || defined $entities->{$id}) {
+    unless (
+        # schema fixup creates type instances without id
+        !defined $id ||
+        # Ignore cases where `$entity` is undef. There's no situation
+        # where we'd want to store an undefined value; that would also
+        # block defined additions for the same entity later.
+        !defined $entity ||
+        # We set this key to `undef` before calling to_json_object
+        # below to avoid infinite recursion. With the key added, the
+        # `exists` check will fail.
+        exists $entities->{$id}
+    ) {
+        $entities->{$id} = undef;
         $entities->{$id} = to_json_object($entity);
     }
     return;
