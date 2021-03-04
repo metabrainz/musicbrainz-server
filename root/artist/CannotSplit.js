@@ -13,19 +13,25 @@ import ArtistLayout from './ArtistLayout';
 
 type Props = {
   +artist: ArtistT,
+  +isEmpty?: boolean,
 };
 
 const CannotSplit = ({
   artist,
+  isEmpty,
 }: Props): React.Element<typeof ArtistLayout> => (
   <ArtistLayout entity={artist} page="cannot_split">
     <h2>{l('Split Into Separate Artists')}</h2>
     <p>
-      {exp.l(
-        `This artist has relationships other than collaboration
-         relationships, and cannot be split until these are
-         removed. {relationships|View all relationships}.`,
-        {relationships: `/artist/${artist.gid}/relationships`},
+      {isEmpty /*:: === true */ ? (
+        l(`This artist is already empty and is awaiting automatic deletion.`)
+      ) : (
+        exp.l(
+          `This artist has relationships other than collaboration
+           relationships, and cannot be split until these are
+           removed. {relationships|View all relationships}.`,
+          {relationships: `/artist/${artist.gid}/relationships`},
+        )
       )}
     </p>
   </ArtistLayout>

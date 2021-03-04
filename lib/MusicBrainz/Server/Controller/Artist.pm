@@ -741,6 +741,21 @@ sub split : Chained('load') Edit {
         $c->detach;
     }
 
+    my $is_empty = $c->model('Artist')->is_empty($artist->id);
+
+    if ($is_empty) {
+        my %props = (
+            artist => $artist,
+            isEmpty => \1
+        );
+        $c->stash(
+            component_path => 'artist/CannotSplit',
+            component_props => \%props,
+            current_view => 'Node',
+        );
+        $c->detach;
+    }
+
     my $ac = $c->model('ArtistCredit')->find_for_artist($artist);
 
     $c->stash(

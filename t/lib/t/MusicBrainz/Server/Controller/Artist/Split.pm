@@ -57,6 +57,17 @@ EOSQL
 test 'Test splitting an artist' => sub {
     my $test = shift;
 
+    my $c = $test->c;
+
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist_credit (id, name, artist_count)
+            VALUES (100, 'Bob & David', 1);
+        INSERT INTO artist_credit_name (artist_credit, position, artist, name)
+            VALUES (100, 0, 10, 'Bob & David');
+        INSERT INTO recording (id, gid, name, artist_credit, length)
+            VALUES (1, '123c079d-374e-4436-9448-da92dedef3cd', 'Bobbing and Daviding', 100, 123456);
+        EOSQL
+
     my @edits = perform_split($test);
 
     is(@edits, 1, 'created 1 edit');
