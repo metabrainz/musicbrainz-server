@@ -727,7 +727,9 @@ sub split : Chained('load') Edit {
     my $artist = $c->stash->{artist};
     $self->_stash_collections($c);
 
-    if (!can_split($artist)) {
+    my $can_split = $c->model('Artist')->can_split($artist->id);
+
+    if (!$can_split) {
         my %props = (
             artist => $artist->TO_JSON,
         );
@@ -787,13 +789,6 @@ sub split : Chained('load') Edit {
                 $c->uri_for_action('/artist/show', [ $artist->gid ]))
         }
     );
-}
-
-sub can_split {
-    my $artist = shift;
-    return (grep {
-        $_->link->type->gid ne $ARTIST_ARTIST_COLLABORATION
-    } $artist->all_relationships) == 0;
 }
 
 sub credit : Chained('load') PathPart('credit') CaptureArgs(1) {
