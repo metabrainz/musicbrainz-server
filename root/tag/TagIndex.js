@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import TagList from '../components/TagList';
+import TagEntitiesList from '../components/TagEntitiesList';
 import EntityLink
   from '../static/scripts/common/components/EntityLink';
 
@@ -43,7 +43,7 @@ const TagIndex = (props: Props): React.Element<typeof TagLayout> => {
           </p>
         </>
       ) : null}
-      <TagList {...props} />
+      <TagEntitiesList {...props} />
     </TagLayout>
   );
 };

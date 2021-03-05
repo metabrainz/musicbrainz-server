@@ -350,3 +350,26 @@ div.autocomplete2 {
         }
     }
 }
+
+.breadcrumb {
+    ol {
+        list-style: none;
+        padding: 0;
+        li {
+            display: inline-block;
+            height: 1em;
+            & + li {
+                padding-left: 0.5em;
+                &::before {
+                    border-left: 1px solid @text-black;
+                    content: '';
+                    display: inline-block;
+                    height: 1em;
+                    padding-left: 0.5em;
+                    transform: rotate(15deg);
+                    transform-origin: -0.5em;
+                }
+            }
+        }
+    }
+}

@@ -11,15 +11,13 @@ import * as React from 'react';
 
 import UserAccountLayout, {type AccountLayoutUserT}
   from '../components/UserAccountLayout';
-import TagList from '../components/TagList';
+import TagEntitiesList from '../components/TagEntitiesList';
 
-import DownvotedSwitch from './components/DownvotedSwitch';
-import UserHasNotUsedTag from './components/UserHasNotUsedTag';
-import UserTagHeading from './components/UserTagHeading';
+import {getTagListHeading, getTagListUrl} from './UserTagList';
 
 type Props = {
   +$c: CatalystContextT,
-  +showDownvoted: boolean,
+  +showDownvoted?: boolean,
   +tag: TagT,
   +taggedEntities: {
     +[entityType: string]: {
@@ -31,30 +29,38 @@ type Props = {
       }>,
     },
   },
-  +tagInUse: boolean,
   +user: AccountLayoutUserT,
 };
 
-const UserTag = (props: Props): React.Element<typeof UserAccountLayout> => (
-  <UserAccountLayout $c={props.$c} entity={props.user} page="tags">
-    <UserTagHeading showDownvoted={props.showDownvoted} tag={props.tag} />
-
-    <DownvotedSwitch
-      $c={props.$c}
-      showDownvoted={props.showDownvoted}
-      tag={props.tag}
-      user={props.user}
+const UserTag = ({
+  $c,
+  showDownvoted = false,
+  tag,
+  taggedEntities,
+  user,
+}: Props): React.Element<typeof UserAccountLayout> => (
+  <UserAccountLayout $c={$c} entity={user} page="tags">
+    <nav className="breadcrumb">
+      <ol>
+        <li>
+          <a href={getTagListUrl(user.name, showDownvoted)}>
+            {getTagListHeading(user.name, showDownvoted)}
+          </a>
+        </li>
+        <li>
+          {tag.name}
+        </li>
+      </ol>
+    </nav>
+    <TagEntitiesList
+      $c={$c}
+      showDownvoted={showDownvoted}
+      showLink
+      showVotesSelect
+      tag={tag}
+      taggedEntities={taggedEntities}
+      user={user}
     />
-
-    {props.tagInUse ? (
-      <TagList {...props} />
-    ) : (
-      <UserHasNotUsedTag
-        showDownvoted={props.showDownvoted}
-        tag={props.tag}
-        user={props.user}
-      />
-    )}
   </UserAccountLayout>
 );
 

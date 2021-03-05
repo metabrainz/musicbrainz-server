@@ -37,7 +37,7 @@ EOSQL
 
     $mech->get('/user/alice/tags');
     is($mech->status, 200, "alice can view her own tags");
-    $mech->content_contains('Alice</bdi></a> has not tagged anything', "alice has not tagged anything");
+    $mech->content_contains('Alice</bdi></a> has not upvoted any tags', "alice has not tagged anything");
 };
 
 1;

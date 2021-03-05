@@ -14,9 +14,36 @@ import UserAccountLayout, {
 } from '../components/UserAccountLayout';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import {UserTagLink} from '../static/scripts/common/components/TagLink';
+import expand2react from '../static/scripts/common/i18n/expand2react';
 import loopParity from '../utility/loopParity';
 
-import {AllDownvotedSwitch} from './components/DownvotedSwitch';
+import UserTagVoteSelection from './components/UserTagVoteSelection';
+
+const headingsText: {+[vote: string]: () => string} = {
+  down: N_l('Tags {user} downvoted'),
+  up: N_l('Tags {user} upvoted'),
+};
+
+export function getTagListHeading(
+  user: string,
+  showDownvoted: boolean,
+): Expand2ReactOutput {
+  return expand2react(
+    headingsText[showDownvoted ? 'down' : 'up'](),
+    {user},
+  );
+}
+
+export function getTagListUrl(
+  user: string,
+  showDownvoted: boolean,
+): string {
+  return (
+    '/user/' +
+    encodeURIComponent(user) +
+    '/tags?show_downvoted=' + (showDownvoted ? '1' : '0')
+  );
+}
 
 type Props = {
   +$c: CatalystContextT,
@@ -34,13 +61,16 @@ const UserTagList = ({
   user,
 }: Props): React.Element<typeof UserAccountLayout> => (
   <UserAccountLayout $c={$c} entity={user} page="tags" title={l('Tags')}>
+    <h2>
+      {getTagListHeading(user.name, showDownvoted)}
+    </h2>
 
-    <AllDownvotedSwitch $c={$c} showDownvoted={showDownvoted} user={user} />
+    <UserTagVoteSelection $c={$c} showDownvoted={showDownvoted} />
 
     <div id="all-tags">
       {(genres.length > 0 || tags.length > 0) ? (
         <>
-          <h2>{l('Genres')}</h2>
+          <h3>{l('Genres')}</h3>
 
           <div id="genres">
             {genres.length > 0 ? (
@@ -61,7 +91,7 @@ const UserTagList = ({
             ) : <p>{l('There are no genres to show.')}</p>}
           </div>
 
-          <h2>{l('Other tags')}</h2>
+          <h3>{l('Other tags')}</h3>
 
           <div id="tags">
             {tags.length > 0 ? (
@@ -86,21 +116,20 @@ const UserTagList = ({
         showDownvoted ? (
           <p>
             {exp.l(
-              '{user} has not voted against any tags.',
+              '{user} has not downvoted any tags.',
               {user: <EditorLink editor={user} />},
             )}
           </p>
         ) : (
           <p>
             {exp.l(
-              '{user} has not tagged anything.',
+              '{user} has not upvoted any tags.',
               {user: <EditorLink editor={user} />},
             )}
           </p>
         )
       )}
     </div>
-
   </UserAccountLayout>
 );
 

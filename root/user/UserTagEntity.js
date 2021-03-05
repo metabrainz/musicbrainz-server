@@ -11,11 +11,12 @@ import * as React from 'react';
 
 import UserAccountLayout, {type AccountLayoutUserT}
   from '../components/UserAccountLayout';
+import {
+  formatPluralEntityTypeName,
+} from '../static/scripts/common/utility/formatEntityTypeName';
 import {EntityListContent} from '../tag/EntityList';
 
-import DownvotedSwitch from './components/DownvotedSwitch';
-import UserHasNotUsedTag from './components/UserHasNotUsedTag';
-import UserTagHeading from './components/UserTagHeading';
+import {getTagListHeading, getTagListUrl} from './UserTagList';
 
 type UserTagEntityProps = {
   +$c: CatalystContextT,
@@ -24,74 +25,67 @@ type UserTagEntityProps = {
     +entity_id: number,
   }>,
   +entityType: string,
-  +page: string,
   +pager: PagerT,
-  +showDownvoted: boolean,
+  +showDownvoted?: boolean,
   +tag: TagT,
   +user: AccountLayoutUserT,
 };
+
+function getAllEntitiesTagUrl(
+  user: string,
+  tag: string,
+  showDownvoted: boolean,
+): Expand2ReactOutput {
+  return (
+    '/user/' + encodeURIComponent(user) +
+    '/tag/' + encodeURIComponent(tag) +
+    '?show_downvoted=' + (showDownvoted ? '1' : '0')
+  );
+}
 
 const UserTagEntity = ({
   $c,
   entityTags,
   entityType,
-  page,
   pager,
-  showDownvoted,
+  showDownvoted = false,
   tag,
   user,
 }: UserTagEntityProps): React.Element<typeof UserAccountLayout> => (
-  <UserAccountLayout $c={$c} entity={user} page={page}>
-    <UserTagHeading
-      entityType={entityType}
-      showDownvoted={showDownvoted}
-      tag={tag}
-    />
-
-    <DownvotedSwitch
+  <UserAccountLayout $c={$c} entity={user} page="tags">
+    <nav className="breadcrumb">
+      <ol>
+        <li>
+          <a href={getTagListUrl(user.name, showDownvoted)}>
+            {getTagListHeading(user.name, showDownvoted)}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getAllEntitiesTagUrl(
+              user.name,
+              tag.name,
+              showDownvoted,
+            )}
+          >
+            {tag.name}
+          </a>
+        </li>
+        <li>
+          {formatPluralEntityTypeName(entityType)}
+        </li>
+      </ol>
+    </nav>
+    <EntityListContent
       $c={$c}
+      entityTags={entityTags}
       entityType={entityType}
+      pager={pager}
       showDownvoted={showDownvoted}
-      tag={tag}
+      showVotesSelect
+      tag={tag.name}
       user={user}
     />
-
-    <p>
-      {showDownvoted ? (
-        exp.l(
-          'See {tag_link|all votes against tag “{tag}” by {user}}',
-          {
-            tag: tag.name,
-            tag_link: `/user/${user.name}/tag/${tag.name}`,
-            user: user.name,
-          },
-        )
-      ) : (
-        exp.l(
-          'See {tag_link|all uses of tag “{tag}” by {user}}',
-          {
-            tag: tag.name,
-            tag_link: `/user/${user.name}/tag/${tag.name}`,
-            user: user.name,
-          },
-        )
-      )}
-    </p>
-
-    {entityTags.length > 0 ? (
-      <EntityListContent
-        entityTags={entityTags}
-        entityType={entityType}
-        pager={pager}
-      />
-    ) : (
-      <UserHasNotUsedTag
-        entityType={entityType}
-        showDownvoted={showDownvoted}
-        tag={tag}
-        user={user}
-      />
-    )}
   </UserAccountLayout>
 );
 

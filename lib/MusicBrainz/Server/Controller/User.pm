@@ -591,7 +591,6 @@ sub tag : Chained('load_tag') PathPart('')
             my ($entities, $total) = $c->model(type_to_model($_))->tags->find_editor_entities(
                 $user->id, $tag->id, $show_downvoted, 10, 0);
             $c->model('ArtistCredit')->load(map { $_->entity } @$entities);
-            $tag_in_use = 1 if $total > 0;
 
             ("$_" => {
                 count => $total,
@@ -609,7 +608,6 @@ sub tag : Chained('load_tag') PathPart('')
             name => $c->stash->{tag_name},
         )),
         taggedEntities => \%tagged_entities,
-        tagInUse => boolean_to_json($tag_in_use),
         user => $self->serialize_user($user),
     );
 
@@ -648,7 +646,6 @@ map {
                     entity_id => $_->{entity_id},
                 }, @$entity_tags],
                 entityType => $entity_type,
-                page => "/$url",
                 pager => serialize_pager($c->stash->{pager}),
                 showDownvoted => boolean_to_json($show_downvoted),
                 tag => to_json_object($tag // MusicBrainz::Server::Entity::Tag->new(
