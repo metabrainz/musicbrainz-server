@@ -3,6 +3,8 @@ use Moose::Role;
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
+sub _load_extra_work_info {}
+
 around inflate_rows => sub {
     my $orig = shift;
     my $self = shift;
@@ -12,6 +14,8 @@ around inflate_rows => sub {
     my $works = $self->c->model('Work')->get_by_ids(
         map { $_->{work_id} } @$items
     );
+
+    $self->_load_extra_work_info(values %$works);
 
     return [
         map +{

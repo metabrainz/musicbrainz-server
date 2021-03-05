@@ -3,6 +3,13 @@ use Moose::Role;
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
+sub _load_extra_place_info {
+    my ($self, @places) = @_;
+
+    $self->c->model('Area')->load(@places);
+    $self->c->model('Area')->load_containment(map { $_->area } @places);
+}
+
 around inflate_rows => sub {
     my $orig = shift;
     my $self = shift;
@@ -13,8 +20,7 @@ around inflate_rows => sub {
         map { $_->{place_id} } @$items
     );
 
-    $self->c->model('Area')->load(values %$places);
-    $self->c->model('Area')->load_containment(map { $_->area } values %$places);
+    $self->_load_extra_place_info(values %$places);
 
     return [
         map +{

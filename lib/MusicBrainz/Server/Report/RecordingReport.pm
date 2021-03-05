@@ -3,6 +3,12 @@ use Moose::Role;
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
+sub _load_extra_recording_info {
+    my ($self, @recordings) = @_;
+
+    $self->c->model('ArtistCredit')->load(@recordings);
+}
+
 around inflate_rows => sub {
     my $orig = shift;
     my $self = shift;
@@ -13,7 +19,7 @@ around inflate_rows => sub {
         map { $_->{recording_id} } @$items
     );
 
-    $self->c->model('ArtistCredit')->load(values %$recordings);
+    $self->_load_extra_recording_info(values %$recordings);
 
     return [
         map +{

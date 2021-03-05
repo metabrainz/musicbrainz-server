@@ -3,6 +3,13 @@ use Moose::Role;
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
+sub _load_extra_release_group_info {
+    my ($self, @release_groups) = @_;
+
+    $self->c->model('ArtistCredit')->load(@release_groups);
+    $self->c->model('ReleaseGroupType')->load(@release_groups);
+}
+
 around inflate_rows => sub {
     my $orig = shift;
     my $self = shift;
@@ -12,8 +19,8 @@ around inflate_rows => sub {
     my $releasegroups = $self->c->model('ReleaseGroup')->get_by_ids(
         map { $_->{release_group_id} } @$items
     );
-    $self->c->model('ArtistCredit')->load(values %$releasegroups);
-    $self->c->model('ReleaseGroupType')->load(values %$releasegroups);
+
+    $self->_load_extra_release_group_info(values %$releasegroups);
 
     return [
         map +{
