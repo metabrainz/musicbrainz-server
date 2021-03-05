@@ -38,6 +38,7 @@ use MusicBrainz::Server::Data::Utils qw(
     sanitize
     trim
     trim_comment
+    trim_multiline_text
     non_empty
 );
 use MusicBrainz::Server::Renderer qw( render_component );
@@ -131,7 +132,7 @@ our $data_processors = {
     $EDIT_RELEASE_ADD_ANNOTATION => sub {
         my ($c, $loader, $data) = @_;
 
-        process_release_label($c, $loader, $data);
+        process_annotation($c, $loader, $data);
         load_entity_prop($loader, $data, 'entity', 'Release');
     },
 
@@ -211,6 +212,17 @@ our $data_processors = {
 sub trim_string {
     my ($data, $name) = @_;
     $data->{$name} = trim($data->{$name}) if $data->{$name};
+}
+
+sub trim_multiline_string {
+    my ($data, $name) = @_;
+    $data->{$name} = trim_multiline_text($data->{$name}) if $data->{$name};
+}
+
+sub process_annotation {
+    my ($c, $loader, $data) = @_;
+
+    trim_multiline_string($data, 'text');
 }
 
 sub process_entity {

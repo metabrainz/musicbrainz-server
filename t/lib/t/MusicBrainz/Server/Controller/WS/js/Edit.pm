@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
+    $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_RELEASEGROUP_EDIT
@@ -651,6 +652,29 @@ test 'previewing/creating/editing a release group and release' => sub {
         release         => { name => 'Vision Creation Newsun', id => 4, gid => ignore() },
         label           => { name => 'Warp Records', id => 2, gid => '46f0f4cd-8aab-4b33-b698-f459faf64190' },
         catalog_number  => undef,
+    });
+
+
+    # Add release annotation.
+
+    my $annotation_edits = [ {
+        edit_type       => $EDIT_RELEASE_ADD_ANNOTATION,
+        entity          => $release_id,
+        text            => "    * Test annotation in release editor\n    * This annotation has two bullets  \t\t",
+    } ];
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $annotation_edits }));
+    } $c;
+
+    is(scalar(@edits), 1);
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Release::AddAnnotation');
+
+    cmp_deeply($edits[0]->data, {
+        editor_id       => 1,
+        entity          => { id => $release_id, name => 'Vision Creation Newsun' },
+        text            => "    * Test annotation in release editor\n    * This annotation has two bullets",
     });
 };
 
