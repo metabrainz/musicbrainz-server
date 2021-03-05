@@ -65,7 +65,7 @@ sub build_display_data
     return {
         ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name ) ),
         comment    => $self->data->{comment},
-        type       => $type ? $loaded->{AreaType}->{$type} : '',
+        type       => $type ? $loaded->{AreaType}->{$type} : undef,
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
         area       => ($self->entity_id && $loaded->{Area}->{ $self->entity_id }) ||
