@@ -44,14 +44,14 @@ sub build_display_data
         releases => [
             map {
                 to_json_object(
-                    $loaded->{Release}->{$_} ||
+                    $loaded->{Release}{$_} ||
                     Release->new( name => $self->data->{name} )
                 )
             } @{ $self->data->{release_ids} }
         ]
     };
 
-    if (my $artist = $loaded->{Artist}->{ $self->data->{artist_id} }) {
+    if (my $artist = $loaded->{Artist}{ $self->data->{artist_id} }) {
         $data->{artist_credit} = to_json_object(ArtistCredit->new( names => [
             ArtistCreditName->new(
                 name   => $artist->name,

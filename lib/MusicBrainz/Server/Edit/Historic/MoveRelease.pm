@@ -49,18 +49,18 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     my @release_ids = @{ $self->data->{release_ids} };
-    my $new_artist = defined $loaded->{Artist}->{ $self->data->{artist_id} }
+    my $new_artist = defined $loaded->{Artist}{ $self->data->{artist_id} }
         ? Artist->meta->clone_object(
-            $loaded->{Artist}->{ $self->data->{artist_id} },
+            $loaded->{Artist}{ $self->data->{artist_id} },
             name => $self->data->{artist_name},
         )
         : Artist->new(
             id => $self->data->{artist_id},
             name => $self->data->{artist_name} );
 
-    my $old_artist = defined $loaded->{Artist}->{ $self->data->{old_artist_id} }
+    my $old_artist = defined $loaded->{Artist}{ $self->data->{old_artist_id} }
         ? Artist->meta->clone_object(
-            $loaded->{Artist}->{ $self->data->{old_artist_id} },
+            $loaded->{Artist}{ $self->data->{old_artist_id} },
             name => $self->data->{old_artist_name},
         )
         : Artist->new(

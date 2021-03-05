@@ -46,7 +46,7 @@ sub build_display_data
     return {
         name => $self->data->{name},
         recording => to_json_object(
-            $loaded->{Recording}->{ $self->data->{recording_id} } ||
+            $loaded->{Recording}{ $self->data->{recording_id} } ||
             Recording->new( name => $self->data->{name} )
         ),
         releases => [

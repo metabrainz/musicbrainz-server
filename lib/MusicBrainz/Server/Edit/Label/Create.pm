@@ -77,10 +77,10 @@ sub build_display_data
         name       => $self->data->{name},
         sort_name  => $self->data->{sort_name} // '',
         type       => defined($self->data->{type_id}) &&
-                        to_json_object($loaded->{LabelType}->{ $self->data->{type_id} }),
+                        to_json_object($loaded->{LabelType}{ $self->data->{type_id} }),
         label_code => $self->data->{label_code},
         area       => defined($self->data->{area_id}) &&
-                      to_json_object($loaded->{Area}->{ $self->data->{area_id} } // Area->new()),
+                      to_json_object($loaded->{Area}{ $self->data->{area_id} } // Area->new()),
         comment    => $self->data->{comment} // '',
         ipi_codes  => $self->data->{ipi_codes},
         isni_codes => $self->data->{isni_codes},

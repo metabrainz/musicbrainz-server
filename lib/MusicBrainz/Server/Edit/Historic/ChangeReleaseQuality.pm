@@ -47,7 +47,7 @@ sub build_display_data
                 releases => [
                     map {
                         to_json_object(
-                            $loaded->{Release}{ $_ } ||
+                            $loaded->{Release}{$_} ||
                             Release->new(
                                 id => $_,
                                 name => $change->{release_name},

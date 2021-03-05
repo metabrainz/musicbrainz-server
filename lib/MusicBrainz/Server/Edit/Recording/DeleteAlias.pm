@@ -45,7 +45,7 @@ around 'build_display_data' => sub {
 
     my $data = $self->$orig($loaded);
     $data->{recording} = to_json_object(
-        $loaded->{Recording}->{ $self->recording_id } ||
+        $loaded->{Recording}{ $self->recording_id } ||
         Recording->new(name => $self->data->{entity}{name})
     );
 

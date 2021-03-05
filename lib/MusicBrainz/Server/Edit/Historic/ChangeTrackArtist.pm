@@ -39,21 +39,21 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         recording => to_json_object(
-            $loaded->{Recording}->{ $self->data->{recording_id} } ||
+            $loaded->{Recording}{ $self->data->{recording_id} } ||
             Recording->new(
                 id => $self->data->{recording_id},
             )
         ),
         artist => {
             old => to_json_object(
-                $loaded->{Artist}->{ $self->data->{old_artist_id} } ||
+                $loaded->{Artist}{ $self->data->{old_artist_id} } ||
                 Artist->new(
                     id => $self->data->{old_artist_id},
                     name => $self->data->{old_artist_name}
                 )
             ),
             new => to_json_object(
-                $loaded->{Artist}->{ $self->data->{new_artist_id} } ||
+                $loaded->{Artist}{ $self->data->{new_artist_id} } ||
                 Artist->new(
                     id => $self->data->{new_artist_id},
                     name => $self->data->{new_artist_name}

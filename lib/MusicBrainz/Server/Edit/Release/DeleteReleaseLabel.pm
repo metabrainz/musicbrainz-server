@@ -82,7 +82,7 @@ sub build_display_data {
     my $display_data = {
         catalog_number => $data->{catalog_number},
         release => to_json_object(
-            $loaded->{Release}->{gid_or_id($data->{release})} //
+            $loaded->{Release}{ gid_or_id($data->{release}) } //
             Release->new(name => $data->{release}{name})
         ),
     };

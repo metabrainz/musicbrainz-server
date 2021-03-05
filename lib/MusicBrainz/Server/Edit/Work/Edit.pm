@@ -170,7 +170,7 @@ sub build_display_data
             my @old_values = map { $_->l_value } @{ $old{$type} //= [] };
 
             unless (Set::Scalar->new(@new_values) == Set::Scalar->new(@old_values)) {
-                $display->{attributes}->{$type} = { new => \@new_values, old => \@old_values };
+                $display->{attributes}{$type} = { new => \@new_values, old => \@old_values };
             }
         }
     }

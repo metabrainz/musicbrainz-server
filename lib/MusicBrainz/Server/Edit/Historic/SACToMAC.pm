@@ -56,9 +56,9 @@ sub build_display_data
             } $self->release_ids
         ],
         artist => {
-            new => to_json_object($loaded->{Artist}->{ $VARTIST_ID }),
+            new => to_json_object($loaded->{Artist}{$VARTIST_ID}),
             old => to_json_object(
-                $loaded->{Artist}->{ $self->data->{old_artist_id} } ||
+                $loaded->{Artist}{ $self->data->{old_artist_id} } ||
                 Artist->new( name => $self->data->{old_artist_name} )
             ),
         }

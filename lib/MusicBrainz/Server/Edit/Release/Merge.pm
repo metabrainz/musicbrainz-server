@@ -200,7 +200,7 @@ sub _build_missing_entity {
     $new_data{artist_credit} = ArtistCredit->from_array([
         map +{
             artist => (
-                $loaded->{Artist}->{$_->{artist}{id}} //
+                $loaded->{Artist}{ $_->{artist}{id} } //
                 Artist->new($_->{artist})
             ),
             join_phrase => $_->{join_phrase},
@@ -226,7 +226,7 @@ sub _build_missing_entity {
 
     $new_data{labels} = [map { ReleaseLabel->new(
         label => $_->{label} &&
-            ($loaded->{Label}->{$_->{label}{id}} //
+            ($loaded->{Label}{ $_->{label}{id} } //
                 ($_->{label}{name} ? Label->new(name => $_->{label}{name}) : undef)),
         catalog_number => $_->{catalog_number}
     ) } @{ delete $data->{labels} }] if $data->{labels};

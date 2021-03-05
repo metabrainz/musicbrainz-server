@@ -106,8 +106,8 @@ sub build_display_data
 
     for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
         if (exists $self->data->{new}{$prop}) {
-            $data->{$prop}->{old} = $self->data->{old}{$prop};
-            $data->{$prop}->{new} = $self->data->{new}{$prop};
+            $data->{$prop}{old} = $self->data->{old}{$prop};
+            $data->{$prop}{new} = $self->data->{new}{$prop};
         }
     }
 

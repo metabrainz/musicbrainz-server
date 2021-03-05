@@ -136,7 +136,7 @@ role {
         my ($self, $loaded) = @_;
 
         my $entity = to_json_object(
-            $loaded->{$model}->{$self->$entity_id} //
+            $loaded->{$model}{ $self->$entity_id } //
             $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name})
         );
 

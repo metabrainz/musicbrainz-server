@@ -70,7 +70,7 @@ sub build_display_data
         begin_date => to_json_object(PartialDate->new($self->data->{begin_date})),
         end_date   => to_json_object(PartialDate->new($self->data->{end_date})),
         area       => to_json_object(
-            ($self->entity_id && $loaded->{Area}->{ $self->entity_id }) ||
+            ($self->entity_id && $loaded->{Area}{ $self->entity_id }) ||
             Area->new( name => $self->data->{name} )
         ),
         ended      => boolean_to_json($self->data->{ended}),

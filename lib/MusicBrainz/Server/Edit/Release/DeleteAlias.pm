@@ -45,7 +45,7 @@ around 'build_display_data' => sub {
 
     my $data = $self->$orig($loaded);
     $data->{release} = to_json_object(
-        $loaded->{Release}->{ $self->release_id } ||
+        $loaded->{Release}{ $self->release_id } ||
         Release->new(name => $self->data->{entity}{name})
     );
 

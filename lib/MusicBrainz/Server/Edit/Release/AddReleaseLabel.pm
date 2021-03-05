@@ -105,14 +105,14 @@ sub build_display_data {
 
     unless ($self->preview) {
         $display_data->{release} = to_json_object(
-            $loaded->{Release}->{gid_or_id($data->{release})} //
+            $loaded->{Release}{ gid_or_id($data->{release}) } //
             Release->new(name => $data->{release}{name})
         );
     }
 
     if ($data->{label}) {
         $display_data->{label} = to_json_object(
-            $loaded->{Label}->{gid_or_id($data->{label})} //
+            $loaded->{Label}{ gid_or_id($data->{label}) } //
             Label->new(name => $data->{label}{name})
         );
     }

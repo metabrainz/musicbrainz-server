@@ -100,14 +100,14 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         medium_cdtoc => to_json_object(
-            $loaded->{MediumCDTOC}->{ $self->data->{medium_cdtoc}{id} } ||
+            $loaded->{MediumCDTOC}{ $self->data->{medium_cdtoc}{id} } ||
             MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{medium_cdtoc}{toc})
             )
         ),
         map {
             $_ => to_json_object(
-                $loaded->{Medium}->{ $self->data->{$_}{id} } //
+                $loaded->{Medium}{ $self->data->{$_}{id} } //
                 Medium->new(
                     release_id => $self->data->{$_}{release}{id},
                     release => $loaded->{Release}{ $self->data->{$_}{release}{id} } //

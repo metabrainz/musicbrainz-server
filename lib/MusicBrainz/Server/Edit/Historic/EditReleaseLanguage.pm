@@ -59,7 +59,7 @@ sub build_display_data
                     releases => [
                         map {
                             to_json_object(
-                                $loaded->{Release}{ $_ } ||
+                                $loaded->{Release}{$_} ||
                                 Release->new(
                                     id => $_,
                                     name => $release_name,
@@ -70,8 +70,8 @@ sub build_display_data
                 }
             } @{ $self->data->{old} }
         ],
-        language => to_json_object($loaded->{Language}->{ $self->data->{language_id} }),
-        script   => to_json_object($loaded->{Script}->{ $self->data->{script_id} }),
+        language => to_json_object($loaded->{Language}{ $self->data->{language_id} }),
+        script   => to_json_object($loaded->{Script}{ $self->data->{script_id} }),
     }
 }
 

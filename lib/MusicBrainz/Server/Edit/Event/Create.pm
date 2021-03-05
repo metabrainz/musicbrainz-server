@@ -53,7 +53,7 @@ sub build_display_data
 
     my $type = $self->data->{type_id};
     my $event = to_json_object(
-        ($self->entity_id && $loaded->{Event}->{ $self->entity_id }) ||
+        ($self->entity_id && $loaded->{Event}{ $self->entity_id }) ||
         Event->new( name => $self->data->{name} )
     );
 

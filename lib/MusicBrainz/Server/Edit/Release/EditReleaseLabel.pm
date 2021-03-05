@@ -109,7 +109,7 @@ sub build_display_data {
     my $data = $self->data;
 
     my $display_data = {
-        release => $loaded->{Release}->{gid_or_id($data->{release})} // Release->new(name => $data->{release}{name}),
+        release => $loaded->{Release}{ gid_or_id($data->{release}) } // Release->new(name => $data->{release}{name}),
         catalog_number => {
             new => $data->{new}{catalog_number},
             old => $data->{old}{catalog_number},
@@ -129,7 +129,7 @@ sub build_display_data {
                 my $country = $_->{country};
                 my $country_gid_or_id = gid_or_id($country);
 
-                $event_display->{country} = defined $country_gid_or_id && $loaded->{Area}->{$country_gid_or_id};
+                $event_display->{country} = defined $country_gid_or_id && $loaded->{Area}{$country_gid_or_id};
                 $event_display->{country} //= defined $country->{name} && MusicBrainz::Server::Entity::Area->new($country);
             }
 

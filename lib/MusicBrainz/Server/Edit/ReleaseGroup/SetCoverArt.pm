@@ -118,16 +118,16 @@ sub build_display_data {
     }
 
     $data{release_group} = to_json_object(
-        $loaded->{ReleaseGroup}->{ $self->data->{entity}{id} } ||
+        $loaded->{ReleaseGroup}{ $self->data->{entity}{id} } ||
         ReleaseGroup->new( name => $self->data->{entity}{name} )
     );
 
-    my $old_id = $self->data->{old}->{release_id};
-    my $new_id = $self->data->{new}->{release_id};
+    my $old_id = $self->data->{old}{release_id};
+    my $new_id = $self->data->{new}{release_id};
 
     $data{artwork} = { };
-    $data{artwork}->{old} = to_json_object($artwork_by_release_id{$old_id}) if $old_id;
-    $data{artwork}->{new} = to_json_object($artwork_by_release_id{$new_id}) if $new_id;
+    $data{artwork}{old} = to_json_object($artwork_by_release_id{$old_id}) if $old_id;
+    $data{artwork}{new} = to_json_object($artwork_by_release_id{$new_id}) if $new_id;
 
     return \%data;
 }

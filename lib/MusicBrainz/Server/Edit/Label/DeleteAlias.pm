@@ -58,7 +58,7 @@ around 'build_display_data' => sub
 
     my $data = $self->$orig($loaded);
     $data->{label} = to_json_object(
-        $loaded->{Label}->{ $self->label_id } ||
+        $loaded->{Label}{ $self->label_id } ||
         Label->new(name => $self->data->{entity}{name})
     );
 

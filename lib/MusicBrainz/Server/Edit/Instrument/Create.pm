@@ -48,7 +48,7 @@ sub build_display_data {
         ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name ) ),
         type        => $type ? to_json_object($loaded->{InstrumentType}{$type}) : undef,
         instrument  => ($self->entity_id && to_json_object(
-            $loaded->{Instrument}->{ $self->entity_id } ||
+            $loaded->{Instrument}{ $self->entity_id } ||
             Instrument->new( id => $self->entity_id, name => $self->data->{name} )
         )),
         comment     => $self->data->{comment},

@@ -63,13 +63,13 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $medium = $loaded->{Medium}->{ $self->medium_id } //
+    my $medium = $loaded->{Medium}{ $self->medium_id } //
                  Medium->new(
-                     format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
+                     format => $loaded->{MediumFormat}{ $self->data->{format_id} },
                      name => $self->data->{name},
                      position => $self->data->{position},
                      release_id => $self->data->{release_id},
-                     release => $loaded->{Release}->{ $self->data->{release_id} } //
+                     release => $loaded->{Release}{ $self->data->{release_id} } //
                                 Release->new(
                                     id => $self->data->{release_id},
                                 ),

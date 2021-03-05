@@ -63,7 +63,7 @@ sub build_display_data
         begin_date  => to_json_object(PartialDate->new($self->data->{begin_date})),
         end_date    => to_json_object(PartialDate->new($self->data->{end_date})),
         place       => ($self->entity_id && to_json_object(
-            $loaded->{Place}->{ $self->entity_id }) ||
+            $loaded->{Place}{ $self->entity_id }) ||
             Place->new( name => $self->data->{name} )
         ),
         ended       => boolean_to_json($self->data->{ended}),
@@ -72,7 +72,7 @@ sub build_display_data
         coordinates => defined $self->data->{coordinates} &&
                        to_json_object(Coordinates->new($self->data->{coordinates})),
         area        => defined($self->data->{area_id}) &&
-                       to_json_object($loaded->{Area}->{ $self->data->{area_id} } // Area->new())
+                       to_json_object($loaded->{Area}{ $self->data->{area_id} } // Area->new())
     };
 }
 

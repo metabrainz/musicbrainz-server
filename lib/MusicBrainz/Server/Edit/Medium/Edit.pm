@@ -261,9 +261,9 @@ sub build_display_data
     if (exists $self->data->{new}{format_id}) {
         $data->{format} = {
             new => defined($self->data->{new}{format_id}) &&
-                     to_json_object($loaded->{MediumFormat}->{ $self->data->{new}{format_id} }),
+                     to_json_object($loaded->{MediumFormat}{ $self->data->{new}{format_id} }),
             old => defined($self->data->{old}{format_id}) &&
-                     to_json_object($loaded->{MediumFormat}->{ $self->data->{old}{format_id} }),
+                     to_json_object($loaded->{MediumFormat}{ $self->data->{old}{format_id} }),
         };
     }
 

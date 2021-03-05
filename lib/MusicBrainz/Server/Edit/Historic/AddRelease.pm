@@ -91,7 +91,7 @@ sub build_display_data
 
     my $artist = defined($self->data->{artist_id})
         ? to_json_object(
-            $loaded->{Artist}->{ $self->data->{artist_id} } ||
+            $loaded->{Artist}{ $self->data->{artist_id} } ||
             Artist->new(
                 id => $self->data->{artist_id},
                 name => $self->data->{artist_name},
@@ -107,25 +107,25 @@ sub build_display_data
             grep { defined } $self->_release_ids
         ],
         status         => defined($self->data->{status_id}) &&
-                            to_json_object($loaded->{ReleaseStatus}->{ $self->data->{status_id} }),
+                            to_json_object($loaded->{ReleaseStatus}{ $self->data->{status_id} }),
         type           => defined($self->data->{type_id}) &&
-                            to_json_object($loaded->{ReleaseGroupType}->{ $self->data->{type_id} }),
+                            to_json_object($loaded->{ReleaseGroupType}{ $self->data->{type_id} }),
         language       => defined($self->data->{language_id}) &&
-                            to_json_object($loaded->{Language}->{ $self->data->{language_id} }),
+                            to_json_object($loaded->{Language}{ $self->data->{language_id} }),
         script         => defined($self->data->{script_id}) &&
-                            to_json_object($loaded->{Script}->{ $self->data->{script_id} }),
+                            to_json_object($loaded->{Script}{ $self->data->{script_id} }),
         release_events => [
             map { +{
                 country        => defined($_->{country_id}) &&
-                                    to_json_object($loaded->{Area}->{ $_->{country_id} }),
+                                    to_json_object($loaded->{Area}{ $_->{country_id} }),
                 date           => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row( $_->{date} )),
                 label          => $_->{label_id}
-                    ? to_json_object($loaded->{Label}->{ $_->{label_id} } || Label->new( id => $_->{label_id} ))
+                    ? to_json_object($loaded->{Label}{ $_->{label_id} } || Label->new( id => $_->{label_id} ))
                     : undef,
                 catalog_number => $_->{catalog_number},
                 barcode        => $_->{barcode},
                 format         => defined($_->{format_id}) &&
-                                    to_json_object($loaded->{MediumFormat}->{ $_->{format_id} })
+                                    to_json_object($loaded->{MediumFormat}{ $_->{format_id} })
             } } $self->_release_events
         ],
         tracks => [
@@ -135,7 +135,7 @@ sub build_display_data
                     ? Artist->new(
                         id => $_->{artist_id},
                         name => $_->{artist_name},
-                    ) : $loaded->{Artist}->{ $_->{artist_id} }
+                    ) : $loaded->{Artist}{ $_->{artist_id} }
                         || Artist->new( id => $_->{artist_id} ));
 
                 # Our code expects undef, not 0, for length unknown, but older edits have 0
@@ -149,10 +149,9 @@ sub build_display_data
                     length    => $track_length,
                     position  => $_->{position},
                     recording => to_json_object(defined($_->{recording_id}) &&
-                                   $loaded->{Recording}->{ $_->{recording_id} }
-                                   || Recording->new(
-                                       id => $_->{recording_id},
-                                       name => $_->{name},
+                                    $loaded->{Recording}{ $_->{recording_id} } || Recording->new(
+                                        id => $_->{recording_id},
+                                        name => $_->{name},
                                     )),
                 } } sort { $a->{position} <=> $b->{position} } $self->_tracks
         ]

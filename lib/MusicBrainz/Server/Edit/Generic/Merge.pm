@@ -66,7 +66,7 @@ sub build_display_data
     my $model = $self->_merge_model;
 
     my $new_entity = (
-        $loaded->{ $model }->{ $self->new_entity->{id} } ||
+        $loaded->{$model}{ $self->new_entity->{id} } ||
         $self->_build_missing_entity($loaded, $self->new_entity)
     );
 
@@ -81,7 +81,7 @@ sub build_display_data
     };
 
     for my $old (@{ $self->data->{old_entities} }) {
-        my $ent = $loaded->{ $model }->{ $old->{id} } ||
+        my $ent = $loaded->{$model}{ $old->{id} } ||
             $self->_build_missing_entity($loaded, $old);
 
         push @{ $data->{old} }, (

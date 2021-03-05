@@ -77,7 +77,7 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         release => to_json_object(
-            $loaded->{Release}->{ $self->data->{release}{id} } ||
+            $loaded->{Release}{ $self->data->{release}{id} } ||
             Release->new(
                 id => $self->data->{release}{id},
                 name => $self->data->{release}{name},
@@ -85,14 +85,14 @@ sub build_display_data
         ),
         release_group => {
             old => to_json_object(
-                $loaded->{ReleaseGroup}->{ $self->data->{old_release_group}{id} } ||
+                $loaded->{ReleaseGroup}{ $self->data->{old_release_group}{id} } ||
                 ReleaseGroup->new(
                     id => $self->data->{old_release_group}{id},
                     name => $self->data->{old_release_group}{name},
                 )
             ),
             new => to_json_object(
-                $loaded->{ReleaseGroup}->{ $self->data->{new_release_group}{id} } ||
+                $loaded->{ReleaseGroup}{ $self->data->{new_release_group}{id} } ||
                 ReleaseGroup->new(
                     id => $self->data->{new_release_group}{id},
                     name => $self->data->{new_release_group}{name},

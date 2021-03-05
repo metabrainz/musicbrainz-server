@@ -140,31 +140,31 @@ sub build_display_data {
         $loaded->{Artwork}{ $self->data->{id} } ||
         Artwork->new(release => $data{release},
                      id => $self->data->{id},
-                     comment => $self->data->{new}->{comment} // '',
+                     comment => $self->data->{new}{comment} // '',
                      cover_art_types => [ map {
                          $loaded->{CoverArtType}{$_}
-                     } @{ $self->data->{new}->{types} // [] }]
+                     } @{ $self->data->{new}{types} // [] }]
         )
     );
 
 
-    if ($self->data->{old}->{types})
+    if ($self->data->{old}{types})
     {
         $data{types} = {
             old => [ map {
                 to_json_object($loaded->{CoverArtType}{$_})
-            } @{ $self->data->{old}->{types} // [] } ],
+            } @{ $self->data->{old}{types} // [] } ],
             new => [ map {
                 to_json_object($loaded->{CoverArtType}{$_})
-            } @{ $self->data->{new}->{types} // [] } ],
+            } @{ $self->data->{new}{types} // [] } ],
         }
     }
 
-    if (exists $self->data->{old}->{comment})
+    if (exists $self->data->{old}{comment})
     {
         $data{comment} = {
-            old => $self->data->{old}->{comment},
-            new => $self->data->{new}->{comment}
+            old => $self->data->{old}{comment},
+            new => $self->data->{new}{comment}
         }
     }
 

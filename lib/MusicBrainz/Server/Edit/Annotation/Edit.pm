@@ -74,7 +74,7 @@ role {
 
         unless ($self->preview) {
             my $entity_properties = $ENTITIES{$entity_type};
-            my $entity = $loaded->{$model}->{$self->$entity_id};
+            my $entity = $loaded->{$model}{ $self->$entity_id };
             $self->c->model('ArtistCredit')->load($entity) if $entity_properties->{artist_credits};
             $data->{$entity_type} = to_json_object(
                 $entity //

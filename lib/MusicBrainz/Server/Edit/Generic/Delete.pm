@@ -69,7 +69,7 @@ sub build_display_data
     my $entity_type = model_to_type($model);
     return {
         entity => to_json_object(
-            $loaded->{$model}->{$self->data->{entity_id}} ||
+            $loaded->{$model}{ $self->data->{entity_id} } ||
             $self->c->model($model)->_entity_class->new(
                 name => $self->data->{name}
             )

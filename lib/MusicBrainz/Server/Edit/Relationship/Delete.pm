@@ -150,12 +150,12 @@ sub build_display_data
 
     my $entity0_data = $relationship->{entity0};
     my $entity1_data = $relationship->{entity1};
-    my $entity0 = $loaded->{ $self->model0 }->{gid_or_id($entity0_data)} ||
+    my $entity0 = $loaded->{ $self->model0 }{ gid_or_id($entity0_data) } ||
         $self->c->model($self->model0)->_entity_class->new(
             id => $entity0_data->{id},
             name => $entity0_data->{name}
         );
-    my $entity1 = $loaded->{ $self->model1 }->{gid_or_id($entity1_data)} ||
+    my $entity1 = $loaded->{ $self->model1 }{ gid_or_id($entity1_data) } ||
         $self->c->model($self->model1)->_entity_class->new(
             id => $entity1_data->{id},
             name => $entity1_data->{name}

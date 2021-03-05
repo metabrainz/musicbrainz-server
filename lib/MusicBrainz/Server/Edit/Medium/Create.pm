@@ -146,7 +146,7 @@ sub build_display_data
 
     if (!$self->preview) {
         $data->{release} = to_json_object(
-            $loaded->{Release}->{ $self->data->{release}{id} } ||
+            $loaded->{Release}{ $self->data->{release}{id} } ||
             Release->new(
                 id => $self->data->{release}{id},
                 name => $self->data->{release}{name}

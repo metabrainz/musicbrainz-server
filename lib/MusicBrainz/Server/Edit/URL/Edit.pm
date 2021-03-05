@@ -66,7 +66,7 @@ sub build_display_data
         description => 'description'
     );
     $data->{url} = to_json_object(
-        $loaded->{URL}->{ $self->url_id } ||
+        $loaded->{URL}{ $self->url_id } ||
         URL->new(
             id => $self->url_id,
             url => $self->data->{entity}{name},

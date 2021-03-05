@@ -47,12 +47,12 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         recording => to_json_object(
-            $loaded->{Recording}->{ $self->data->{recording_id} } ||
+            $loaded->{Recording}{ $self->data->{recording_id} } ||
             Recording->new( id => $self->data->{recording_id} )
         ),
         name => {
-            old => $self->data->{old}->{name},
-            new => $self->data->{new}->{name},
+            old => $self->data->{old}{name},
+            new => $self->data->{new}{name},
         }
     };
 }

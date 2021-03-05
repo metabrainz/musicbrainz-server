@@ -148,8 +148,8 @@ sub build_display_data
 
     for my $prop (qw( ipi_codes isni_codes )) {
         if (exists $self->data->{new}{$prop}) {
-            $data->{$prop}->{old} = $self->data->{old}{$prop};
-            $data->{$prop}->{new} = $self->data->{new}{$prop};
+            $data->{$prop}{old} = $self->data->{old}{$prop};
+            $data->{$prop}{new} = $self->data->{new}{$prop};
         }
     }
 

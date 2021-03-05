@@ -59,7 +59,7 @@ sub build_display_data
         changes => [ map {
             releases => [ do {
                 if (my @ids = @{ $_->{release_ids} }) {
-                    map { to_json_object($loaded->{Release}->{$_}) } @ids
+                    map { to_json_object($loaded->{Release}{$_}) } @ids
                 }
                 else {
                     to_json_object(Release->new(name => $_->{release_name})),

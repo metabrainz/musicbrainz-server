@@ -57,16 +57,16 @@ sub build_display_data
             map {
                 to_json_object($_ == -42
                     ? Release->new( name => '[non-album tracks]' )
-                    : $loaded->{Release}->{ $_ })
+                    : $loaded->{Release}{$_})
             } $self->release_ids
         ],
         position  => $self->data->{position},
         name      => $self->data->{name},
         length    => $display_length,
-        artist    => to_json_object($loaded->{Artist}->{ $self->data->{artist_id} }),
+        artist    => to_json_object($loaded->{Artist}{ $self->data->{artist_id} }),
         recording => to_json_object(
-            $loaded->{Recording}->{ $self->data->{recording_id} }
-            || Recording->new( name => $self->data->{name} )
+            $loaded->{Recording}{ $self->data->{recording_id} } ||
+            Recording->new( name => $self->data->{name} )
         ),
     }
 }

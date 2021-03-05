@@ -39,8 +39,8 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     return {
-        mediums => [ map { Medium->new( release => $loaded->{Release}->{$_} // Release->new() ) } @{ $self->data->{release_ids} } ],
-        cdtoc => $loaded->{CDTOC}->{$self->data->{cdtoc}},
+        mediums => [ map { Medium->new( release => $loaded->{Release}{$_} // Release->new() ) } @{ $self->data->{release_ids} } ],
+        cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc} },
         length => {
             map {
                 $_ => [ map { MusicBrainz::Server::Track::UnformatTrackLength($_) }

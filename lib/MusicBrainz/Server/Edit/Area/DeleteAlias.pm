@@ -48,7 +48,7 @@ around 'build_display_data' => sub
 
     my $data = $self->$orig($loaded);
     $data->{area} = to_json_object(
-        $loaded->{Area}->{ $self->area_id } ||
+        $loaded->{Area}{ $self->area_id } ||
         Area->new(name => $self->data->{entity}{name})
     );
 
