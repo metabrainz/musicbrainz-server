@@ -660,7 +660,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     my $annotation_edits = [ {
         edit_type       => $EDIT_RELEASE_ADD_ANNOTATION,
         entity          => $release_id,
-        text            => "    * Test annotation in release editor\n    * This annotation has two bullets  \t\t",
+        text            => "    * Test annotation in release editor  \r\n    * This annotation has two bullets  \t\t",
     } ];
 
     @edits = capture_edits {

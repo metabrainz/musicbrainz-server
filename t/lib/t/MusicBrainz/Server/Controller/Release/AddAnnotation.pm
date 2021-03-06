@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80/edit_annotation');
 $mech->submit_form(
     with_fields => {
-        'edit-annotation.text' => "    * Test annotation for a release\r\n    * This annotation has two bullets  \t\t",
+        'edit-annotation.text' => "    * Test annotation for a release  \r\n    * This annotation has two bullets  \t\t",
         'edit-annotation.changelog' => 'Changelog here',
     });
 
@@ -30,7 +30,7 @@ is_deeply($edit->data, {
         id => 2,
         name => 'Aerial'
     },
-    text => "    * Test annotation for a release\r\n    * This annotation has two bullets",
+    text => "    * Test annotation for a release\n    * This annotation has two bullets",
     changelog => 'Changelog here',
     editor_id => 1
 });

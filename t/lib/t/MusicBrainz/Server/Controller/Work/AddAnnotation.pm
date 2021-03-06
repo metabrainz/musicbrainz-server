@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation");
 $mech->submit_form(
     with_fields => {
-        'edit-annotation.text' => "    * Test annotation for a work\r\n    * This annotation has two bullets  \t\t",
+        'edit-annotation.text' => "    * Test annotation for a work  \r\n    * This annotation has two bullets  \t\t",
         'edit-annotation.changelog' => 'Changelog here',
     }
 );
@@ -33,7 +33,7 @@ is_deeply(
             id => 1,
             name => 'Dancing Queen'
         },
-        text => "    * Test annotation for a work\r\n    * This annotation has two bullets",
+        text => "    * Test annotation for a work\n    * This annotation has two bullets",
         changelog => 'Changelog here',
         editor_id => 1
     }

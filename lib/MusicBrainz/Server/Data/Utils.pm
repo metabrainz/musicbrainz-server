@@ -365,9 +365,10 @@ sub trim_comment {
 sub trim_multiline_text {
     my $t = shift;
 
-    # Not trimming starting spaces to avoid breaking list formatting,
-    # consider trimming again once this uses Markdown
-    $t =~ s/\s+$//;
+    # Not trimming starting spaces to avoid breaking
+    # either list formatting in Wikitext
+    # or block in Markdown.
+    $t =~ s/\s+$//gm;
 
     return $t;
 }
