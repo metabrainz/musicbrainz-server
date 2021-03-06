@@ -334,6 +334,7 @@ sub sanitize {
     # into U+0020 (or else they'll be removed).
     $t = collapse_whitespace($t);
     $t = remove_invalid_characters($t);
+    $t = remove_lineformatting_characters($t);
     $t = remove_direction_marks($t);
     # Collapse spaces again, since characters may have been removed.
     $t = collapse_whitespace($t);
@@ -397,17 +398,23 @@ my $noncharacter_pattern = '\x{FDD0}-\x{FDEF}\x{FFFE}\x{FFFF}';
 
 sub remove_invalid_characters {
     shift
-    # trim XML-invalid characters
+    # trim XML-invalid characters, among them:
+    # - Other, surrogate (which are UTF-16, not valid UTF-8)
     =~ s/[^\x09\x0A\x0D\x20-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]//gor
     # trim other undesirable characters:
-    # - zwsp
-    # - shy
     # - bom
-    # - Other, control
-    # - Other, surrogate
     # - Supplementary private use areas
     # - Noncharacters
-    =~ s/[\x{200B}\x{00AD}\x{FEFF}\p{Cc}\x{F0000}-\x{FFFFF}\x{100000}-\x{10FFFF}${noncharacter_pattern}]//gr
+    =~ s/[\x{FEFF}\x{F0000}-\x{FFFFF}\x{100000}-\x{10FFFF}${noncharacter_pattern}]//gr
+}
+
+sub remove_lineformatting_characters {
+    shift
+    # trim lasting line-formatting characters:
+    # - zwsp
+    # - shy
+    # - Other, control (including TAB \x09, LF \x0A, and CR \x0D)
+    =~ s/[\x{200B}\x{00AD}\p{Cc}]//gr
 }
 
 sub type_to_model
