@@ -135,9 +135,13 @@ role {
     method build_display_data => sub {
         my ($self, $loaded) = @_;
 
+        my $entity_id = $self->$entity_id;
         my $entity = to_json_object(
-            $loaded->{$model}{ $self->$entity_id } //
-            $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name})
+            $loaded->{$model}{$entity_id} //
+            $self->c->model($model)->_entity_class->new(
+                id => $entity_id,
+                name => $self->data->{entity}{name},
+            )
         );
 
         return {
