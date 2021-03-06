@@ -199,6 +199,17 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
         $suffix_info->{base}{paginated} = "release_count";
     }
 
+    if ($entity_type eq 'work') {
+        $suffix_info->{recordings} = {
+            extra_sql => {columns => "(SELECT recordings_count FROM tmp_sitemaps_work_recordings_count WHERE work = work.id) recordings_count"},
+            paginated => "recordings_count",
+            suffix => 'direction=2&link_type_id=278',
+            suffix_delimiter => '?',
+            filename_suffix => 'recordings',
+            priority => priority_by_count('recordings_count'),
+        };
+    }
+
     if ($entity_properties->{aliases}) {
         $suffix_info->{aliases} = {
             suffix => 'aliases',

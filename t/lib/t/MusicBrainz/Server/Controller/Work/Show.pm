@@ -108,6 +108,25 @@ test 'Embedded JSON-LD' => sub {
         ],
         'inLanguage' => 'en'
     };
+
+    $mech->get_ok('/work/559be0c1-2c87-45d6-ba43-1b1feb8f831e?direction=2&link_type_id=278');
+    html_ok($mech->content);
+
+    page_test_jsonld $mech => {
+        '@type' => 'MusicComposition',
+        '@id' => 'http://musicbrainz.org/work/559be0c1-2c87-45d6-ba43-1b1feb8f831e',
+        'name' => 'W1',
+        'recordedAs' => {
+            '@type' => 'MusicRecording',
+            '@id' => 'http://musicbrainz.org/recording/aeb9b50a-e14a-4330-a2e6-7c8a311a9822',
+            'name' => 'R',
+            'duration' => 'PT05M00S'
+        },
+        'sameAs' => 'http://musicbrainz.org/work/a30a4245-a7ec-4979-8b1e-b549f2782239',
+        '@context' => 'http://schema.org',
+        'iswcCode' => ['T-000.000.001-0', 'T-000.000.002-0'],
+        'inLanguage' => 'en'
+    };
 };
 
 1;
