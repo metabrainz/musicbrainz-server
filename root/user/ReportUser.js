@@ -35,6 +35,7 @@ type Props = {
     +message: FieldT<string>,
     +reason: FieldT<ReportReasonT>,
     +reveal_address: FieldT<boolean>,
+    +send_to_self: FieldT<boolean>,
   }>,
   +user: AccountLayoutUserT,
 };
@@ -164,6 +165,12 @@ const ReportUser = ({
               </p>
             }
             label={l('Reveal my email address')}
+            uncontrolled
+          />
+
+          <FormRowCheckbox
+            field={form.field.send_to_self}
+            label={l('Send a copy to my own email address')}
             uncontrolled
           />
 

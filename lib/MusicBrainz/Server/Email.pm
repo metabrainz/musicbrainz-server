@@ -579,19 +579,34 @@ sub send_editor_report {
 
     my $reporter = $opts{reporter};
     my $reported_user = $opts{reported_user};
-    my $subject = 'Editor ' . $reported_user->name . ' has been reported by ' . $reporter->name;
+    my $reported_user_name = $reported_user->name;
+    my $subject = 'Editor ' . $reported_user_name . ' has been reported by ' . $reporter->name;
     my $reason = $MusicBrainz::Server::Form::User::Report::REASONS{$opts{reason}};
     my $reporter_tolink = uri_escape_utf8($reporter->name);
     my $reported_user_tolink = uri_escape_utf8($reported_user->name);
-    my $body .= <<EOF;
-$subject for the following reason:
+    my $report_content = <<~"EOF";
+        $subject for the following reason:
 
-“$reason”
+        “$reason”
 
-Reporter’s account: https://musicbrainz.org/user/$reporter_tolink
-Reported user’s account: https://musicbrainz.org/user/$reported_user_tolink
+        Reporter’s account: https://musicbrainz.org/user/$reporter_tolink
+        Reported user’s account: https://musicbrainz.org/user/$reported_user_tolink
 
-EOF
+        EOF
+
+    my $message = $opts{message};
+    if ($message) {
+        $report_content .= <<~"EOF";
+            ------------------------------------------------------------------------
+            $message
+            EOF
+    }
+
+    # We keep the report content without reply info for a possible "send copy" email
+    my $body = <<~"EOF";
+        $report_content
+        ------------------------------------------------------------------------
+        EOF
 
     if ($opts{reveal_address}) {
         $body .= "You can reply to this message directly.\n";
@@ -600,13 +615,6 @@ EOF
         $body .= "You’ll have to contact them through their user page if necessary.\n";
     }
 
-    my $message = $opts{message};
-    if ($message) {
-        $body .= <<EOF;
-------------------------------------------------------------------------
-$message
-EOF
-    }
 
     my @headers = (
         'To'          => $EMAIL_ACCOUNT_ADMINS_ADDRESS,
@@ -624,6 +632,30 @@ EOF
 
     my $email = $self->_create_email(\@headers, $body);
     $self->_send_email($email);
+
+    if ($opts{send_to_self}) {
+        my $copy_subject = 'Copy of your report of ' . $reported_user_name;
+
+        my @copy_headers = (
+            'To'          => _user_address($reporter}),
+            'Sender'      => $EMAIL_NOREPLY_ADDRESS,
+            'Subject'     => _encode_header($copy_subject),
+            'Message-Id'  => _message_id('editor-report-copy-%s-%s-%d', $reporter->id, $reported_user->id, time),
+        );
+
+        push @copy_headers, 'From', _user_address($reporter, 1);
+
+        my $copy_body = <<~"EOF";
+            This is a copy of your report of MusicBrainz editor '$reported_user_name':
+            ------------------------------------------------------------------------
+            $report_content
+            ------------------------------------------------------------------------
+            Please do not respond to this e-mail.
+            EOF
+
+        my $copy = $self->_create_email(\@copy_headers, $copy_body);
+        $self->_send_email($copy);
+    }
 }
 
 has 'transport' => (
