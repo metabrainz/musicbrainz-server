@@ -280,12 +280,13 @@ function formatReleaseEvent(event: ReleaseEventT) {
 }
 
 function formatRelease(release: ReleaseT) {
+  const releaseLabels = release.labels;
   const releaseLabelDisplay = [];
 
-  if (release.labels) {
+  if (releaseLabels) {
     const catNosByLabel = new Map<string, Array<string>>();
 
-    for (const releaseLabel of release.labels) {
+    for (const releaseLabel of releaseLabels) {
       const labelName = releaseLabel.label ? releaseLabel.label.name : '';
 
       let catNos = catNosByLabel.get(labelName);
