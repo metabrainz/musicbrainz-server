@@ -405,9 +405,9 @@ sub remove_invalid_characters {
     # - bom
     # - Other, control
     # - Other, surrogate
-    # - Other, private use
+    # - Supplementary private use areas
     # - Noncharacters
-    =~ s/[\x{200B}\x{00AD}\x{FEFF}\p{Cc}\p{Co}${noncharacter_pattern}]//gr
+    =~ s/[\x{200B}\x{00AD}\x{FEFF}\p{Cc}\x{F0000}-\x{FFFFF}\x{100000}-\x{10FFFF}${noncharacter_pattern}]//gr
 }
 
 sub type_to_model
