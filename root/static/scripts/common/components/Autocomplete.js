@@ -47,7 +47,6 @@ class Autocomplete extends React.Component {
     const nextProps = this.props;
 
     this._subscription.dispose();
-    this._subscription = this._currentSelection.subscribe(nextProps.onChange);
 
     const prev = prevProps.currentSelection;
     const next = nextProps.currentSelection;
@@ -60,6 +59,8 @@ class Autocomplete extends React.Component {
         autocomplete._dataToEntity(nextProps.currentSelection),
       );
     }
+
+    this._subscription = this._currentSelection.subscribe(nextProps.onChange);
 
     autocomplete.element.prop('disabled', !!nextProps.disabled);
     if (next && autocomplete.element.val() !== next.name) {
