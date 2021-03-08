@@ -217,6 +217,9 @@ function reducer(state: StateT, action: ActionT): StateT {
         applyAllPendingErrors(newState.form);
         break;
       }
+      default: {
+        /*:: exhaustive(action); */
+      }
     }
   });
 }
