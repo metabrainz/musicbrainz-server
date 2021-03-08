@@ -18,46 +18,95 @@
 
       <fieldset>
         <legend>Release information</legend>
+        <label>Release name:</label>
         <input name="name" type="text" value="the Love Bug" /><br />
-        <input name="language" type="text" value="jpn" /><br />
-        <input name="type" type="text" value="single" />
+        <label>Release artists:</label><br />
+        <input name="artist_credit.names.0.mbid" placeholder="artist MBID" type="text" value="22dd2db3-88ea-4428-a7a8-5cd3acf23175" />
+        <input name="artist_credit.names.0.artist.name" placeholder="artist name" type="text" />
+        <input name="artist_credit.names.0.name" placeholder="name as credited" type="text" />
+        <input name="artist_credit.names.0.join_phrase" placeholder="join phrase" type="text" value=" & " /><br />
+        <input name="artist_credit.names.1.mbid" placeholder="artist MBID" type="text" />
+        <input name="artist_credit.names.1.artist.name" placeholder="artist name" type="text" value="JAY-Z" />
+        <input name="artist_credit.names.1.name" placeholder="name as credited" type="text" value="JAYZ" />
+        <input name="artist_credit.names.1.join_phrase" placeholder="join phrase" type="text" /><br />
+        <label>Release status:</label>
         <input name="status" type="text" value="official" /><br />
-        <input name="barcode" type="text" value="4988064451180" /><br />
-        <input name="events.0.country" type="text" value="JP" />
-        <input name="events.0.date.year" type="text" value="2011" />
-        <input name="events.0.date.month" type="text" value="05" />
-        <input name="events.0.date.day" type="text" value="06" /><br />
-        <input name="comment" type="text" value="Seed release editor test" /><br />
-        <input name="artist_credit.names.0.mbid" type="text" value="22dd2db3-88ea-4428-a7a8-5cd3acf23175" /><br />
+        <label>Release language / script:</label>
+        <input name="language" type="text" value="jpn" />
+        <input name="script" type="text" value="Latn" /><br />
+        <label>Release group types (ignored if MBID also seeded):</label>
+        <input name="type" type="text" value="single" />
+        <input name="type" type="text" value="soundtrack" />
+        <input name="type" type="text" value="demo" /><br />
+        <label>Release group MBID (empty this to test seeding types):</label>
         <input name="release_group" type="text" value="153f0a09-fead-3370-9b17-379ebd09446b" /><br />
-        <input name="labels.0.mbid" type="text" value="72a46579-e9a0-405a-8ee1-e6e6b63b8212" />
-        <input name="labels.0.catalog_number" type="text" value="RZCD-45118" /><br />
-      </fieldset>
-
-      <fieldset>
-        <legend>Tracklist</legend>
-        <input name="mediums.0.track.0.name" type="text" value="the Love Bug"/>
-        <input name="mediums.0.track.0.length" type="text" value="242226"/><br />
-        <input name="mediums.0.track.1.name" type="text" value="the Love Bug (Big Bug NYC remix)"/>
-        <input name="mediums.0.track.1.length" type="text" value="222000"/><br />
-        <input name="mediums.0.track.2.name" type="text" value="the Love Bug (cover)"/>
-        <input name="mediums.0.track.2.length" type="text" value="333000"/><br />
-        <input name="mediums.1.track.0.name" type="text" value="Second disc seed test"/>
-      </fieldset>
-
-      <fieldset>
-        <legend>Recordings</legend>
-        <input name="mediums.0.track.0.recording" type="text" value="0cf3008f-e246-428f-abc1-35f87d584d60"/><br />
-        <input name="mediums.0.track.1.recording" type="text" value="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d"/><br />
-        <input name="mediums.0.track.2.recording" type="text" value="3f33fc37-43d0-44dc-bfd6-60efd38810c5"/><br />
+        <label>Release events:</label><br/>
+        <input name="events.0.country" placeholder="country code" type="text" value="JP" />
+        <input name="events.0.date.year" placeholder="YYYY" type="text" value="2011" />
+        <input name="events.0.date.month" placeholder="MM" type="text" value="05" />
+        <input name="events.0.date.day" placeholder="DD" type="text" value="06" /><br />
+        <input name="events.1.country" placeholder="country code" type="text" value="GB" />
+        <input name="events.1.date.year" placeholder="YYYY" type="text" value="2011" />
+        <input name="events.1.date.month" placeholder="MM" type="text" value="" />
+        <input name="events.1.date.day" placeholder="DD" type="text" value="" /><br />
+        <label>Release labels:</label><br />
+        <input name="labels.0.mbid" placeholder="label MBID" type="text" value="72a46579-e9a0-405a-8ee1-e6e6b63b8212" />
+        <input name="labels.0.name" placeholder="label name" type="text" />
+        <input name="labels.0.catalog_number" placeholder="catalog number" type="text" value="RZCD-45118" /><br />
+        <input name="labels.1.mbid" placeholder="label MBID" type="text" />
+        <input name="labels.1.name" placeholder="label name" type="text" value="Sony Classical" />
+        <input name="labels.1.catalog_number" placeholder="catalog number" type="text" /><br />
+        <label>Release barcode:</label>
+        <input name="barcode" type="text" value="4988064451180" /><br />
+        <label>Release packaging:</label>
+        <input name="packaging" type="text" value="slim jewel case" /><br />
+        <label>Release annotation:</label><br />
+        <textarea cols=80 name="annotation" rows=5 ></textarea><br />
+        <label>Release disambiguation:</label>
+        <input name="comment" type="text" value="Seed release editor test" /><br />
       </fieldset>
 
       <fieldset>
         <legend>External links</legend>
-        <input name="urls.0.url" type="text" value="https://www.amazon.co.jp/Love-Bug-M-Flo-Loves-Boa/dp/B0001FAD2O/ref=sr_1_1?ie=UTF8&amp;qid=1466612275&amp;sr=8-1&amp;keywords=4988064451180"/>
-        <input name="urls.0.link_type" type="text" value="77"/><br />
+        <input name="urls.0.url" placeholder="link" type="text" value="https://www.amazon.co.jp/Love-Bug-M-Flo-Loves-Boa/dp/B0001FAD2O/ref=sr_1_1?ie=UTF8&amp;qid=1466612275&amp;sr=8-1&amp;keywords=4988064451180" />
+        <input name="urls.0.link_type" placeholder="link type ID" type="text" value="77" /><br />
+        <input name="urls.1.url" placeholder="link" type="text" />
+        <input name="urls.1.link_type" placeholder="link type ID" type="text" /><br />
       </fieldset>
-      <input name="mediums.0.toc" type="text" value="1 3 57895 150 18402 35080"/>
+
+      <fieldset>
+        <legend>Tracklist</legend>
+        <label>First medium:</label><br />
+        <input name="mediums.0.format" placeholder="medium format" type="text" value="digital media" /><br />
+        <input name="mediums.0.track.0.name" placeholder="track name" type="text" value="the Love Bug" />
+        <input name="mediums.0.track.0.length" placeholder="duration in ms" type="text" value="242226" /><br />
+        <input name="mediums.0.track.1.name" placeholder="track name" type="text" value="the Love Bug (Big Bug NYC remix)" />
+        <input name="mediums.0.track.1.length" placeholder="duration in ms" type="text" value="222000" /><br />
+        <input name="mediums.0.track.2.name" placeholder="track name" type="text" value="the Love Bug (cover)" />
+        <input name="mediums.0.track.2.length" placeholder="duration in ms" type="text" value="333000" /><br />
+        <input name="mediums.0.toc" placeholder="cd toc" type="text" value="1 3 57895 150 18402 35080" /><br />
+        <label>Second medium:</label><br />
+        <input name="mediums.1.format" placeholder="medium format" type="text" value="7&quot; vinyl" /><br />
+        <input name="mediums.1.track.0.name" type="text" value="Second disc seed test" />
+        <input name="mediums.1.track.0.length" placeholder="duration in ms" type="text" /><br />
+        <input name="mediums.1.toc" placeholder="cd toc" type="text" /><br />
+      </fieldset>
+
+      <fieldset>
+        <legend>Recordings</legend>
+        <label>First medium:</label><br />
+        <input name="mediums.0.track.0.recording" placeholder="recording MBID"  type="text" value="0cf3008f-e246-428f-abc1-35f87d584d60" /><br />
+        <input name="mediums.0.track.1.recording" placeholder="recording MBID"  type="text" value="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d" /><br />
+        <input name="mediums.0.track.2.recording" placeholder="recording MBID"  type="text" value="3f33fc37-43d0-44dc-bfd6-60efd38810c5" /><br />
+        <label>Second medium:</label><br />
+        <input name="mediums.1.track.0.recording" placeholder="recording MBID" type="text" /><br />
+      </fieldset>
+
+      <fieldset>
+        <legend>Edit note</legend>
+        <textarea cols=80 name="edit_note" placeholder="write an edit note" rows=5 type="text">This is an edit note. &#xA;&#xA;It should contain all your sources.</textarea><br />
+      </fieldset>
+
       <input type="submit" value="seed">
 
 </form></body>
