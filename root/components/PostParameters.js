@@ -13,7 +13,7 @@ import {compareStrings} from '../static/scripts/common/utility/compare';
 import hydrate from '../utility/hydrate';
 
 export type PostParametersT = {
-  +[param: string]: string,
+  +[param: string]: string | $ReadOnlyArray<string>,
   ...
 };
 
@@ -28,9 +28,12 @@ const PostParameters = ({
 }: PropsT): React.MixedElement => {
   const [expanded, setExpanded] = React.useState(false);
 
-  const sortedParams = Object.entries(params).sort(
-    (a, b) => compareStrings(a[0], b[0]),
-  );
+  const sortedParams:
+    $ReadOnlyArray<[string, string | $ReadOnlyArray<string>]> =
+    // $FlowIgnore[incompatible-type]
+    Object.entries(params).sort(
+      (a, b) => compareStrings(a[0], b[0]),
+    );
 
   return (
     <>
@@ -64,6 +67,16 @@ const PostParameters = ({
                       name={param}
                       rows="10"
                     />
+                  ) : Array.isArray(value) ? (
+                    value.map((subValue, index) => (
+                      <input
+                        defaultValue={subValue}
+                        id={id}
+                        key={param + index}
+                        name={param}
+                        type="text"
+                      />
+                    ))
                   ) : (
                     <input
                       defaultValue={value}
