@@ -28,6 +28,8 @@ export function artistBeginLabel(typeId: ?number): string {
     case 5:
     case 6:
       return addColonText(lp('Founded', 'group artist'));
+    case 4:
+      return addColonText(lp('Created', 'character artist'));
     default:
       return l('Begin date:');
   }
