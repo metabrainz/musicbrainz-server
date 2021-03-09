@@ -129,6 +129,7 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'label', 'Label') if $data->{label};
     },
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::Annotation
     $EDIT_RELEASE_ADD_ANNOTATION => sub {
         my ($c, $loader, $data) = @_;
 
@@ -177,6 +178,7 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'release', 'Release');
     },
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::Recording
     $EDIT_RECORDING_EDIT => sub {
         my ($c, $loader, $data) = @_;
 
@@ -194,8 +196,10 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'release', 'Release');
     },
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::ReleaseGroup
     $EDIT_RELEASEGROUP_CREATE => \&process_entity,
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::ReleaseGroup
     $EDIT_RELEASEGROUP_EDIT => sub {
         my ($c, $loader, $data) = @_;
 
@@ -205,6 +209,7 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'to_edit', 'ReleaseGroup');
     },
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::Work
     $EDIT_WORK_CREATE => \&process_entity,
 };
 

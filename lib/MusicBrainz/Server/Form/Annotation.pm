@@ -4,6 +4,9 @@ use MusicBrainz::Server::Data::Utils qw( trim_multiline_text );
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
+# MBS-11428: When making changes to this module, please make sure to
+# keep MusicBrainz::Server::Controller::WS::js::Edit in sync with it
+
 has '+name' => (default => 'edit-annotation');
 
 has_field 'text' => (

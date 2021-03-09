@@ -10,6 +10,9 @@ extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::Relationships';
 
+# MBS-11428: When making changes to this module, please make sure to
+# keep MusicBrainz::Server::Controller::WS::js::Edit in sync with it
+
 has '+name' => ( default => 'edit-work' );
 
 has_field 'type_id' => (
