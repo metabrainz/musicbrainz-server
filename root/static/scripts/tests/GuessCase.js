@@ -114,8 +114,8 @@ test('Artist', function (t) {
     },
     {
       input: 'Peggy Sue And The Pirates',
-      expected: 'Peggy Sue and The Pirates',
-      bug: 'MBS-1370',
+      expected: 'Peggy Sue and the Pirates',
+      bug: 'MBS-1370 / MBS-9836',
       mode: 'Artist',
     },
   ];
