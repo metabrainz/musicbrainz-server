@@ -611,9 +611,15 @@ CREATE INDEX work_tag_raw_idx_tag ON work_tag_raw (tag);
 
 CREATE UNIQUE INDEX work_type_idx_gid ON work_type (gid);
 
--- lowercase indexes for javascript autocomplete
-CREATE INDEX artist_idx_lower_name ON artist (lower(name));
-CREATE INDEX label_idx_lower_name ON label (lower(name));
+-- indexes for /ws/js/check_duplicates
+CREATE INDEX artist_idx_lower_unaccent_name_comment ON artist (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
+CREATE INDEX label_idx_lower_unaccent_name_comment ON label (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
+CREATE INDEX place_idx_lower_unaccent_name_comment ON place (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
+CREATE INDEX series_idx_lower_unaccent_name_comment ON series (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
+CREATE INDEX artist_alias_idx_lower_unaccent_name ON artist_alias (lower(musicbrainz_unaccent(name)));
+CREATE INDEX label_alias_idx_lower_unaccent_name ON label_alias (lower(musicbrainz_unaccent(name)));
+CREATE INDEX place_alias_idx_lower_unaccent_name ON place_alias (lower(musicbrainz_unaccent(name)));
+CREATE INDEX series_alias_idx_lower_unaccent_name ON series_alias (lower(musicbrainz_unaccent(name)));
 
 -- collated name indexes for unicode sorting
 CREATE INDEX release_idx_musicbrainz_collate ON release (name COLLATE musicbrainz.musicbrainz);
