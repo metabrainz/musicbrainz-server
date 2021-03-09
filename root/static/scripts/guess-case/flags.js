@@ -89,6 +89,9 @@ export function init() {
   // Flag used for the number splitting routine (i.e. 10,000,000).
   context.number = false;
 
+  // Defines whether we are inside a single-quoted section of a string.
+  context.openedSingleQuote = false;
+
   /*
    * Defines the current number split. Note that this will not be cleared,
    * which has the side-effect of forcing the first type of number split

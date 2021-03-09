@@ -585,3 +585,29 @@ test('vinyl numbers are fixed', function (t) {
     t.equal(MB.GuessCase.track.guess(test.input), test.expected);
   }
 });
+
+test('no "quote blocks" over multiple track titles (MBS-8621)', function (t) {
+  t.plan(3);
+
+  setCookie('guesscase_roman', 'false');
+  gc.mode = modes.English;
+
+  const tests = [
+    {
+      input: 'Boot ’Em Up',
+      expected: 'Boot ’em Up',
+    },
+    {
+      input: 'Look, no apostrophes!',
+      expected: 'Look, No Apostrophes!',
+    },
+    {
+      input: 'Tryin’ To Get To You',
+      expected: 'Tryin’ to Get to You',
+    },
+  ];
+
+  for (const test of tests) {
+    t.equal(MB.GuessCase.track.guess(test.input), test.expected);
+  }
+});
