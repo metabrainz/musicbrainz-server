@@ -114,8 +114,8 @@ test('Artist', function (t) {
     },
     {
       input: 'Peggy Sue And The Pirates',
-      expected: 'Peggy Sue and The Pirates',
-      bug: 'MBS-1370',
+      expected: 'Peggy Sue and the Pirates',
+      bug: 'MBS-1370 / MBS-9836',
       mode: 'Artist',
     },
   ];
@@ -209,7 +209,7 @@ test('Work', function (t) {
     },
     {
       input: 'acte 1, no. 7: chœur: «voyons brigadier»',
-      expected: 'Acte 1, no. 7 : Chœur : « voyons brigadier »',
+      expected: 'Acte 1, no. 7 : Chœur : « Voyons brigadier »',
       mode: 'French',
       roman: false,
       keepuppercase: false,
@@ -358,7 +358,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(24);
+  t.plan(26);
 
   const tests = [
     {
@@ -505,7 +505,18 @@ test('BugFixes', function (t) {
       bug: 'MBS-10138',
       mode: 'English',
     },
-
+    {
+      input: '«quoted stuff»',
+      expected: '« Quoted stuff »',
+      bug: 'MBS-8232',
+      mode: 'French',
+    },
+    {
+      input: '“quoted stuff”',
+      expected: '“Quoted Stuff”',
+      bug: 'MBS-8232',
+      mode: 'English',
+    },
     /*
      * There is no fix for these yet.
      * {
@@ -567,6 +578,32 @@ test('vinyl numbers are fixed', function (t) {
     {
       input: "greatest 80's hits",
       expected: "Greatest 80's Hits",
+    },
+  ];
+
+  for (const test of tests) {
+    t.equal(MB.GuessCase.track.guess(test.input), test.expected);
+  }
+});
+
+test('no "quote blocks" over multiple track titles (MBS-8621)', function (t) {
+  t.plan(3);
+
+  setCookie('guesscase_roman', 'false');
+  gc.mode = modes.English;
+
+  const tests = [
+    {
+      input: 'Boot ’Em Up',
+      expected: 'Boot ’em Up',
+    },
+    {
+      input: 'Look, no apostrophes!',
+      expected: 'Look, No Apostrophes!',
+    },
+    {
+      input: 'Tryin’ To Get To You',
+      expected: 'Tryin’ to Get to You',
     },
   ];
 

@@ -9,30 +9,39 @@
 
 /* eslint-disable sort-keys */
 const NULL_DATE: PartialDateT = Object.freeze({
-  year: -Infinity,
-  month: 1,
-  day: 1,
+  year: null,
+  month: null,
+  day: null,
+});
+
+const NULL_DATE_PERIOD: DatePeriodRoleT = Object.freeze({
+  begin_date: NULL_DATE,
+  end_date: NULL_DATE,
+  ended: false,
 });
 /* eslint-enable sort-keys */
+
+function compareNullableNumbers(a, b) {
+  // Sort null values first
+  if (a == null) {
+    return b == null ? 0 : -1;
+  } else if (b == null) {
+    return 1;
+  }
+  return a - b;
+}
 
 export default function compareDates(
   a: ?PartialDateT,
   b: ?PartialDateT,
 ): number {
-  a = a || NULL_DATE;
-  b = b || NULL_DATE;
-
-  const result = (a.year || -Infinity) - (b.year || -Infinity);
-  // Both have no year
-  if (isNaN(result)) {
-    return 0;
-  } else if (result) {
-    return result;
-  }
+  a = a ?? NULL_DATE;
+  b = b ?? NULL_DATE;
 
   return (
-    ((a.month || 1) - (b.month || 1)) ||
-    ((a.day || 1) - (b.day || 1))
+    compareNullableNumbers(a.year, b.year) ||
+    compareNullableNumbers(a.month, b.month) ||
+    compareNullableNumbers(a.day, b.day)
   );
 }
 
@@ -40,15 +49,21 @@ export function compareDatePeriods(
   a: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
   b: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
 ): number {
-  // Sort null values first
-  if (!a) {
-    return b ? -1 : 0;
-  } else if (!b) {
-    return 1;
-  }
+  a = a ?? NULL_DATE_PERIOD;
+  b = b ?? NULL_DATE_PERIOD;
+
+  const beginDateA = a.begin_date ?? NULL_DATE;
+  const beginDateB = b.begin_date ?? NULL_DATE;
+  const endDateA = a.end_date ?? NULL_DATE;
+  const endDateB = b.end_date ?? NULL_DATE;
+
   return (
-    compareDates(a.begin_date, b.begin_date) ||
-    compareDates(a.end_date, b.end_date) ||
+    compareNullableNumbers(beginDateA.year, beginDateB.year) ||
+    compareNullableNumbers(endDateA.year, endDateB.year) ||
+    compareNullableNumbers(beginDateA.month, beginDateB.month) ||
+    compareNullableNumbers(endDateA.month, endDateB.month) ||
+    compareNullableNumbers(beginDateA.day, beginDateB.day) ||
+    compareNullableNumbers(endDateA.day, endDateB.day) ||
     // Sort ended dates before non-ended ones
     ((a.ended ? 0 : 1) - (b.ended ? 0 : 1))
   );

@@ -39,6 +39,7 @@ module.exports = {
   'admin/EmailSearch': require('../admin/EmailSearch'),
   'admin/IpLookup': require('../admin/IpLookup'),
   'admin/attributes/Attribute': require('../admin/attributes/Attribute'),
+  'admin/attributes/CannotRemoveAttribute': require('../admin/attributes/CannotRemoveAttribute'),
   'admin/attributes/Index': require('../admin/attributes/Index'),
   'admin/attributes/Language': require('../admin/attributes/Language'),
   'admin/attributes/Script': require('../admin/attributes/Script'),

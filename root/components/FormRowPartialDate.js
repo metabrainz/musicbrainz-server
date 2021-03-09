@@ -47,12 +47,9 @@ export const runReducer = runPartialDateInputReducer;
 const FormRowPartialDate = ({
   children,
   disabled = false,
-  // $FlowIssue[prop-missing]
-  dispatch,
   field,
   label,
   required = false,
-  uncontrolled = false,
   ...inputProps
 }: Props): React.Element<typeof FormRow> => (
   <FormRow>
@@ -63,9 +60,7 @@ const FormRowPartialDate = ({
     />
     <PartialDateInput
       disabled={disabled}
-      dispatch={dispatch}
       field={field}
-      uncontrolled={uncontrolled}
       {...inputProps}
     />
     {children}

@@ -16,7 +16,7 @@ test all => sub {
     html_ok($mech->content);
 
     page_test_jsonld $mech => {
-        '@id' => 'https://musicbrainz.org/recording/54b9d183-7dab-42ba-94a3-7388a66604b8',
+        '@id' => 'http://musicbrainz.org/recording/54b9d183-7dab-42ba-94a3-7388a66604b8',
         'alternateName' => ['King of the Mt.'],
         'isrcCode' => 'DEE250800230',
         '@type' => 'MusicRecording',

@@ -37,17 +37,17 @@ page_test_jsonld $mech => {
     'releasePublished' => [
         {
             'name' => 'Aerial',
-            '@id' => 'https://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80',
+            '@id' => 'http://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80',
             '@type' => 'MusicRelease'
         },
         {
-            '@id' => 'https://musicbrainz.org/release/9b3d9383-3d2a-417f-bfbb-56f7c15f075b',
+            '@id' => 'http://musicbrainz.org/release/9b3d9383-3d2a-417f-bfbb-56f7c15f075b',
             '@type' => 'MusicRelease',
             'name' => 'Aerial'
         },
         {
             'name' => 'Arrival',
-            '@id' => 'https://musicbrainz.org/release/f34c079d-374e-4436-9448-da92dedef3ce',
+            '@id' => 'http://musicbrainz.org/release/f34c079d-374e-4436-9448-da92dedef3ce',
             '@type' => 'MusicRelease'
         }
     ],
@@ -55,7 +55,7 @@ page_test_jsonld $mech => {
         {
             '@type' => 'Role',
             'artistSigned' => {
-                '@id' => 'https://musicbrainz.org/artist/fa263cb3-205f-4a7f-91e1-94e3df52abe8',
+                '@id' => 'http://musicbrainz.org/artist/fa263cb3-205f-4a7f-91e1-94e3df52abe8',
                 '@type' => ['Person', 'MusicGroup'],
                 'name' => 'Jimmy Edgar',
             },
@@ -64,7 +64,7 @@ page_test_jsonld $mech => {
         {
             '@type' => 'Role',
             'artistSigned' => {
-                '@id' => 'https://musicbrainz.org/artist/e4787c4e-0b1a-48bd-b9a0-b0427391d293',
+                '@id' => 'http://musicbrainz.org/artist/e4787c4e-0b1a-48bd-b9a0-b0427391d293',
                 '@type' => ['Person', 'MusicGroup'],
                 'name' => 'patten',
             },
@@ -73,14 +73,14 @@ page_test_jsonld $mech => {
     ],
     'foundingLocation' => {
         'name' => 'United Kingdom',
-        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+        '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         '@type' => 'Country'
     },
     'name' => 'Warp Records',
     'foundingDate' => '1989-02-03',
     'dissolutionDate' => '2008-05-19',
-    'sameAs' => 'https://musicbrainz.org/label/efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592',
-    '@id' => 'https://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
+    'sameAs' => 'http://musicbrainz.org/label/efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592',
+    '@id' => 'http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
     '@type' => 'MusicLabel'
 };
 

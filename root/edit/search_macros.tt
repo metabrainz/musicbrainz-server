@@ -337,14 +337,25 @@
 [% END %]
 
 [% MACRO predicate_user(field, field_contents) WRAPPER wfield predicate="user" %]
-  [% operators([ [ '=', l('is') ]
-                 [ '!=', l('is not') ]
-                 [ 'me', l('is me') ]
-                 [ 'not_me', l('is not me') ]
-                 [ 'subscribed', l('is in my subscriptions') ]
-                 [ 'not_subscribed', l('is not in my subscriptions') ]
-                 [ 'limited', l('is a beginner') ]
-               ], field_contents) %]
+  [% IF field == 'edit_note_author' # Edit note authors can be many, so we give clearer descriptions %]
+    [% operators([ [ '=', l('include') ]
+                   [ '!=', l('do not include') ]
+                   [ 'me', l('include me') ]
+                   [ 'not_me', l('do not include me') ]
+                   [ 'subscribed', l('include an editor in my subscriptions') ]
+                   [ 'not_subscribed', l('do not include editors in my subscriptions') ]
+                   [ 'limited', l('include a beginner editor') ]
+                ], field_contents) %]
+  [% ELSE %]
+    [% operators([ [ '=', l('is') ]
+                   [ '!=', l('is not') ]
+                   [ 'me', l('is me') ]
+                   [ 'not_me', l('is not me') ]
+                   [ 'subscribed', l('is in my subscriptions') ]
+                   [ 'not_subscribed', l('is not in my subscriptions') ]
+                   [ 'limited', l('is a beginner') ]
+                ], field_contents) %]
+  [% END %]  
   <span class="arg autocomplete editor">
     [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
     <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
@@ -391,7 +402,7 @@
                    [ 'status', lp('Status', 'edit status') ],
                    [ 'type', l('Type') ],
                    [ 'vote_count', l('Vote tally') ],
-                   [ 'edit_note_author', l('Edit Note Author'), {requires_login => 1} ],
+                   [ 'edit_note_author', l('Edit Note Authors'), {requires_login => 1} ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
                    [ 'event', l('Event') ],

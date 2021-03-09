@@ -22,14 +22,20 @@ import formatDatePeriod from '../../utility/formatDatePeriod';
 import formatTrackLength from '../../utility/formatTrackLength';
 import isBlank from '../../utility/isBlank';
 import primaryAreaCode from '../../utility/primaryAreaCode';
+import {
+  isLocationEditor,
+  isRelationshipEditor,
+} from '../../utility/privileges';
 import {localStorage} from '../../utility/storage';
 import bracketed from '../../utility/bracketed';
 
 import '../../../../lib/jquery-ui';
 
 const addNewEntityLabels = {
+  area: N_l('Add a new area'),
   artist: N_l('Add a new artist'),
   event: N_l('Add a new event'),
+  instrument: N_l('Add a new instrument'),
   label: N_l('Add a new label'),
   place: N_l('Add a new place'),
   recording: N_l('Add a new recording'),
@@ -466,10 +472,22 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
       action: this._searchAgain.bind(this, true),
     });
 
-    const allowCreation = window === window.top;
     const entity = this.entity.replace('-', '_');
 
-    if (allowCreation && addNewEntityLabels[entity]) {
+    const isTopWindow = window === window.top;
+    const user = window.__MB__?.$c.user;
+    let userCanAdd = false;
+    if (isTopWindow) {
+      if (entity === 'area') {
+        userCanAdd = isLocationEditor(user);
+      } else if (entity === 'instrument') {
+        userCanAdd = isRelationshipEditor(user);
+      } else {
+        userCanAdd = true;
+      }
+    }
+
+    if (userCanAdd && addNewEntityLabels[entity]) {
       const label = addNewEntityLabels[entity]();
       results.push({
         label,

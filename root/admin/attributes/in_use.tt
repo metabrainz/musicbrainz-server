@@ -1,4 +1,0 @@
-[% WRAPPER 'layout.tt' title=l('Cannot Remove Attribute') full_width=1 %]
-  <h1>[% l('Cannot Remove Attribute') %]</h1>
-  <p>[% l('You cannot remove the attribute "{name}" because it is still in use.' { name => attribute.name }) %]</p>
-[% END %]

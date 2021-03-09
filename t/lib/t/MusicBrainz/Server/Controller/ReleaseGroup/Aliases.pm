@@ -17,11 +17,11 @@ test all => sub {
     html_ok($mech->content);
 
     page_test_jsonld $mech => {
-        '@id' => 'https://musicbrainz.org/release-group/ecc33260-454c-11de-8a39-0800200c9a66',
+        '@id' => 'http://musicbrainz.org/release-group/ecc33260-454c-11de-8a39-0800200c9a66',
         'albumReleaseType' => 'http://schema.org/AlbumRelease',
         'byArtist' => {
             '@type' => ['Person', 'MusicGroup'],
-            '@id' => 'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
+            '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
             'name' => 'Test Artist'
         },
         'creditedTo' => 'Test Artist',
