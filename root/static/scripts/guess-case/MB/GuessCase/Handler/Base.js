@@ -113,7 +113,7 @@ MB.GuessCase.Handler.Base = function (gc) {
        */
       var handled = false;
       if (!gc.re.SPECIALCASES) {
-        gc.re.SPECIALCASES = /(&|¿|¡|\?|\!|;|:|'|‘|’|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
+        gc.re.SPECIALCASES = /(&|¿|¡|\?|\!|;|:|'|‘|’|‹|›|"|“|”|„|“|«|»|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
       }
       if (gc.i.matchCurrentWord(gc.re.SPECIALCASES)) {
         handled = !!(
@@ -389,7 +389,7 @@ MB.GuessCase.Handler.Base = function (gc) {
   // Deal with double quotes (")
   self.doDoubleQuote = function () {
     if (!gc.re.DOUBLEQUOTE) {
-      gc.re.DOUBLEQUOTE = '"';
+      gc.re.DOUBLEQUOTE = /["“”„“«»]/;
     }
     if (gc.i.matchCurrentWord(gc.re.DOUBLEQUOTE)) {
       // Changed 05/2006: do not force capitalization before quotes
@@ -412,7 +412,7 @@ MB.GuessCase.Handler.Base = function (gc) {
    */
   self.doSingleQuote = function () {
     if (!gc.re.SINGLEQUOTE) {
-      gc.re.SINGLEQUOTE = /['‘’]/;
+      gc.re.SINGLEQUOTE = /['‘’‹›]/;
     }
 
     if (gc.i.matchCurrentWord(gc.re.SINGLEQUOTE)) {

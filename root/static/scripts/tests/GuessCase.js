@@ -209,7 +209,7 @@ test('Work', function (t) {
     },
     {
       input: 'acte 1, no. 7: chœur: «voyons brigadier»',
-      expected: 'Acte 1, no. 7 : Chœur : « voyons brigadier »',
+      expected: 'Acte 1, no. 7 : Chœur : « Voyons brigadier »',
       mode: 'French',
       roman: false,
       keepuppercase: false,
@@ -358,7 +358,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(24);
+  t.plan(26);
 
   const tests = [
     {
@@ -505,7 +505,18 @@ test('BugFixes', function (t) {
       bug: 'MBS-10138',
       mode: 'English',
     },
-
+    {
+      input: '«quoted stuff»',
+      expected: '« Quoted stuff »',
+      bug: 'MBS-8232',
+      mode: 'French',
+    },
+    {
+      input: '“quoted stuff”',
+      expected: '“Quoted Stuff”',
+      bug: 'MBS-8232',
+      mode: 'English',
+    },
     /*
      * There is no fix for these yet.
      * {
