@@ -607,6 +607,7 @@ const URL_SHORTENERS = [
   'fty.li',
   'fur.ly',
   'g.co',
+  'gate.fm',
   'geni.us',
   'goo.gl',
   'hyperurl.co',
