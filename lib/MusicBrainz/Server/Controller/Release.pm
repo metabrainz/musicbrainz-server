@@ -119,7 +119,8 @@ before show => sub {
         my @mediums = $c->stash->{release}->all_mediums;
 
         if (@mediums > $MAX_INITIAL_MEDIUMS) {
-            my $medium = $mediums[$position - 1] if looks_like_number($position);
+            my %mediums_by_position = map { $_->position => $_ } @mediums;
+            my $medium = $mediums_by_position{$position} if looks_like_number($position);
 
             if ($medium) {
                 my $user_id = $c->user->id if $c->user_exists;
