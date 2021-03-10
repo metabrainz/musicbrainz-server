@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Label::DeleteAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_DELETE_ALIAS );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
@@ -56,8 +57,10 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig($loaded);
-    $data->{label} = $loaded->{Label}->{ $self->label_id }
-        || Label->new(name => $self->data->{entity}{name});
+    $data->{label} = to_json_object(
+        $loaded->{Label}{ $self->label_id } ||
+        Label->new(name => $self->data->{entity}{name})
+    );
 
     return $data;
 };

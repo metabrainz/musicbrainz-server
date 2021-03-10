@@ -6,6 +6,7 @@ use MusicBrainz::Server::Form::TagLookup;
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use constant LOOKUPS_PER_NAG => 5;
 
@@ -202,7 +203,7 @@ sub index : Path('')
         current_view => 'Node',
         component_path => 'taglookup/Index',
         component_props => {
-            form => $form,
+            form => $form->TO_JSON,
             nag => $nag,
         },
     );
@@ -219,11 +220,11 @@ sub index : Path('')
         current_view => 'Node',
         component_path => "taglookup/${model}Results",
         component_props => {
-            form => $form,
+            form => $form->TO_JSON,
             nag => $nag,
             pager => serialize_pager($c->stash->{pager}),
             query => $c->stash->{query},
-            results => $c->stash->{results},
+            results => to_json_array($c->stash->{results}),
         },
     );
 }

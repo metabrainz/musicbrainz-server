@@ -30,7 +30,7 @@ my ($edits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->display_data->{artist}->id, 1);
+is($edit->display_data->{artist}{id}, 1);
 is($edit->display_data->{changelog}, 'A changelog');
 
 my $artist = $c->model('Artist')->get_by_id(1);

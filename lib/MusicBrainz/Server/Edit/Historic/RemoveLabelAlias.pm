@@ -4,6 +4,7 @@ use warnings;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LABEL_ALIAS );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -23,7 +24,7 @@ sub build_display_data
 {
     my $self = shift;
     return {
-        alias => $self->data->{alias}
+        alias => to_json_object($self->data->{alias}),
     }
 }
 

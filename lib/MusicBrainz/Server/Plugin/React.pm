@@ -4,7 +4,9 @@ use strict;
 use warnings;
 
 use base 'Template::Plugin';
+use MusicBrainz::Server::ControllerUtils::JSON;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Entity::Util::JSON;
 use MusicBrainz::Server::Renderer qw( render_component );
 
 sub embed {
@@ -22,6 +24,24 @@ sub embed {
 sub bool {
     my ($self, $bool) = @_;
     boolean_to_json($bool);
+}
+
+sub to_json_array {
+    my ($self, $value) = @_;
+    MusicBrainz::Server::Entity::Util::JSON::to_json_array($value);
+}
+
+sub to_json_object {
+    my ($self, $value) = @_;
+    MusicBrainz::Server::Entity::Util::JSON::to_json_object($value);
+}
+
+sub serialize_pager {
+    my ($self, $pager) = @_;
+    if (((ref $pager) // '') eq 'Data::Page') {
+        return MusicBrainz::Server::ControllerUtils::JSON::serialize_pager($pager);
+    }
+    return undef;
 }
 
 1;

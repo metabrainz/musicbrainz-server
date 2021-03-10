@@ -8,6 +8,6 @@
   </div>
 
   [%- IF !full_width -%]
-    [%- React.embed(c, 'layout/components/sidebar/CDStubSidebar', {cdstub => cdstub}) -%]
+    [%- React.embed(c, 'layout/components/sidebar/CDStubSidebar', {cdstub => React.to_json_object(cdstub)}) -%]
   [%- END -%]
 [% END %]

@@ -1,10 +1,11 @@
 [%~ WRAPPER "layout.tt" title=title ? area.l_name _ " - ${title}" : area.l_name ~%]
+    [%- area_json_obj = React.to_json_object(area) -%]
     <div id="content">
-        [%~ React.embed(c, 'area/AreaHeader', { area => area, page => page }) ~%]
+        [%~ React.embed(c, 'area/AreaHeader', { area => area_json_obj, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ React.embed(c, 'layout/components/sidebar/AreaSidebar', {area => area}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/AreaSidebar', {area => area_json_obj}) ~%]
     [%~ END ~%]
 [%~ END ~%]

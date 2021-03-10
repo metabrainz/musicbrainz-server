@@ -1,7 +1,14 @@
 package MusicBrainz::Server::Report::RecordingReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
+
+sub _load_extra_recording_info {
+    my ($self, @recordings) = @_;
+
+    $self->c->model('ArtistCredit')->load(@recordings);
+}
 
 around inflate_rows => sub {
     my $orig = shift;
@@ -13,12 +20,12 @@ around inflate_rows => sub {
         map { $_->{recording_id} } @$items
     );
 
-    $self->c->model('ArtistCredit')->load(values %$recordings);
+    $self->_load_extra_recording_info(values %$recordings);
 
     return [
         map +{
             %$_,
-            recording => $recordings->{ $_->{recording_id} }
+            recording => to_json_object($recordings->{ $_->{recording_id} }),
         }, @$items
     ];
 };

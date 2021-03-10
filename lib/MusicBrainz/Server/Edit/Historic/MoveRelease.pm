@@ -4,6 +4,7 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -48,18 +49,18 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     my @release_ids = @{ $self->data->{release_ids} };
-    my $new_artist = defined $loaded->{Artist}->{ $self->data->{artist_id} }
+    my $new_artist = defined $loaded->{Artist}{ $self->data->{artist_id} }
         ? Artist->meta->clone_object(
-            $loaded->{Artist}->{ $self->data->{artist_id} },
+            $loaded->{Artist}{ $self->data->{artist_id} },
             name => $self->data->{artist_name},
         )
         : Artist->new(
             id => $self->data->{artist_id},
             name => $self->data->{artist_name} );
 
-    my $old_artist = defined $loaded->{Artist}->{ $self->data->{old_artist_id} }
+    my $old_artist = defined $loaded->{Artist}{ $self->data->{old_artist_id} }
         ? Artist->meta->clone_object(
-            $loaded->{Artist}->{ $self->data->{old_artist_id} },
+            $loaded->{Artist}{ $self->data->{old_artist_id} },
             name => $self->data->{old_artist_name},
         )
         : Artist->new(
@@ -69,12 +70,12 @@ sub build_display_data
     return {
         releases => [
             map {
-                $loaded->{Release}->{ $_ }
+                to_json_object($loaded->{Release}{$_})
             } $self->release_ids
         ],
         artist => {
-            new => $new_artist,
-            old => $old_artist
+            new => to_json_object($new_artist),
+            old => to_json_object($old_artist),
         },
         move_tracks => boolean_to_json($self->data->{move_tracks}),
     }

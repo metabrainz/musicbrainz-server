@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Role::Rating;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 requires 'load';
 
@@ -24,8 +25,8 @@ sub ratings : Chained('load') PathPart('ratings')
     }
 
     my %props = (
-        entity => $entity,
-        publicRatings => \@public_ratings,
+        entity => $entity->TO_JSON,
+        publicRatings => to_json_array(\@public_ratings),
         privateRatingCount => $private_rating_count,
     );
 

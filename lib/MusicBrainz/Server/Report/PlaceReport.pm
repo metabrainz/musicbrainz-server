@@ -1,7 +1,15 @@
 package MusicBrainz::Server::Report::PlaceReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
+
+sub _load_extra_place_info {
+    my ($self, @places) = @_;
+
+    $self->c->model('Area')->load(@places);
+    $self->c->model('Area')->load_containment(map { $_->area } @places);
+}
 
 around inflate_rows => sub {
     my $orig = shift;
@@ -13,13 +21,12 @@ around inflate_rows => sub {
         map { $_->{place_id} } @$items
     );
 
-    $self->c->model('Area')->load(values %$places);
-    $self->c->model('Area')->load_containment(map { $_->area } values %$places);
+    $self->_load_extra_place_info(values %$places);
 
     return [
         map +{
             %$_,
-            place => $places->{ $_->{place_id} }
+            place => to_json_object($places->{ $_->{place_id} }),
         }, @$items
     ];
 };

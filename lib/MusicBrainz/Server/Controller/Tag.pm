@@ -7,6 +7,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Tag',
@@ -48,7 +49,14 @@ sub cloud : Path('/tags')
         component_props => {
             %{$c->stash->{component_props}},
             tagMaxCount => $hits ? $cloud->[0]->{count} : 0,
-            tags => $hits ? [sort { $a->{tag}->name cmp $b->{tag}->name } @$cloud] : [],
+            tags => $hits ? [
+                map +{
+                    count => $_->{count},
+                    tag => to_json_object($_->{tag}),
+                },
+                sort { $a->{tag}->name cmp $b->{tag}->name }
+                @$cloud
+            ] : [],
         },
     );
 }
@@ -62,7 +70,7 @@ sub show : Chained('load') PathPart('')
         component_path => 'tag/TagIndex',
         component_props => {
             %{$c->stash->{component_props}},
-            tag => $tag,
+            tag => $tag->TO_JSON,
             taggedEntities => {
                 map {
                     my ($entities, $total) = $c->model(type_to_model($_))->tags->find_entities(
@@ -73,7 +81,7 @@ sub show : Chained('load') PathPart('')
                         count => $total,
                         tags => [map +{
                             count => $_->{count},
-                            entity => $_->{entity},
+                            entity => $_->{entity}->TO_JSON,
                             entity_id => $_->{entity_id},
                         }, @$entities],
                     })
@@ -104,13 +112,13 @@ map {
                 %{$c->stash->{component_props}},
                 entityTags => [map +{
                     count => $_->{count},
-                    entity => $_->{entity},
+                    entity => $_->{entity}->TO_JSON,
                     entity_id => $_->{entity_id},
                 }, @$entity_tags],
                 entityType => $entity_type,
                 page => "/$url",
                 pager => serialize_pager($c->stash->{pager}),
-                tag => $c->stash->{tag},
+                tag => $c->stash->{tag}->TO_JSON,
             },
         );
     };

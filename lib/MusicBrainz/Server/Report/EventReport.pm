@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::EventReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
@@ -19,7 +20,7 @@ around inflate_rows => sub {
     return [
         map +{
             %$_,
-            event => $events->{ $_->{event_id} }
+            event => to_json_object($events->{ $_->{event_id} }),
         }, @$items
     ];
 };

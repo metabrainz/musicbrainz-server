@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use List::UtilsBy qw( sort_by );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -39,8 +40,8 @@ sub show : Chained('load') PathPart('')
         component_path => 'isrc/Index.js',
         component_props => {
             %{$c->stash->{component_props}},
-            isrcs => $isrcs,
-            recordings => \@recordings
+            isrcs => to_json_array($isrcs),
+            recordings => to_json_array(\@recordings),
         }
     );
 }

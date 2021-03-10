@@ -1,10 +1,11 @@
 [%~ WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name ~%]
+    [%- label_json_obj = React.to_json_object(label) -%]
     <div id="content">
-        [%~ React.embed(c, 'label/LabelHeader', { label => label, page => page }) ~%]
+        [%~ React.embed(c, 'label/LabelHeader', { label => label_json_obj, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ React.embed(c, 'layout/components/sidebar/LabelSidebar', {label => label}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/LabelSidebar', {label => label_json_obj}) ~%]
     [%~ END ~%]
 [%~ END ~%]

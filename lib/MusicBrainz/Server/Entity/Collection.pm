@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters qw( format_wikitext );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
@@ -64,7 +65,7 @@ around TO_JSON => sub {
     $json->{description} = $self->description;
     $json->{description_html} = format_wikitext($self->description);
     $json->{editor_is_limited} = boolean_to_json(defined $editor ? $editor->is_limited : 0);
-    $json->{collaborators} = [map { $_->TO_JSON } $self->all_collaborators];
+    $json->{collaborators} = to_json_array($self->collaborators);
 
     if ($self->loaded_entity_count) {
         $json->{entity_count} = $self->entity_count;

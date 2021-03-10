@@ -4,6 +4,7 @@ use MooseX::Types::Moose qw( Bool Int Str ArrayRef );
 use MooseX::Types::Structured qw( Dict  Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_TYPE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -92,14 +93,14 @@ sub _build_attributes {
     my ($self, $list, $loaded) = @_;
     return [
         map {
-            MusicBrainz::Server::Entity::LinkTypeAttribute->new(
+            to_json_object(MusicBrainz::Server::Entity::LinkTypeAttribute->new(
                 min => $_->{min},
                 max => $_->{max},
                 type => $loaded->{LinkAttributeType}{ $_->{type} } ||
                     MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => $_->{name}
                     )
-                  )
+                  ))
           } @$list
     ]
 }

@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data changed_relations );
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 use MooseX::Types::Moose qw( Int Str );
@@ -80,8 +81,20 @@ sub build_display_data {
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
-    $data->{series} = $loaded->{Series}{ $self->data->{entity}{id} }
-        || Series->new( name => $self->data->{entity}{name} );
+    $data->{series} = to_json_object(
+        $loaded->{Series}{ $self->data->{entity}{id} } ||
+        Series->new( name => $self->data->{entity}{name} )
+    );
+
+    if (exists $data->{type}) {
+        $data->{type}{old} = to_json_object($data->{type}{old});
+        $data->{type}{new} = to_json_object($data->{type}{new});
+    }
+
+    if (exists $data->{ordering_type}) {
+        $data->{ordering_type}{old} = to_json_object($data->{ordering_type}{old});
+        $data->{ordering_type}{new} = to_json_object($data->{ordering_type}{new});
+    }
 
     return $data;
 }

@@ -8,7 +8,7 @@ sub details : Chained('load') PathPart {
 
     $c->stash(
         component_path  => 'entity/Details.js',
-        component_props => {entity => $entity},
+        component_props => {entity => $entity->TO_JSON},
         current_view    => 'Node',
     );
 }

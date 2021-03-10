@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::DuplicateArtists;
 use Moose;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report',
      'MusicBrainz::Server::Report::FilterForEditor';
@@ -84,7 +85,7 @@ sub inflate_rows
     return [
         map +{
             %$_,
-            artist => $artists->{ $_->{artist_id} }
+            artist => to_json_object($artists->{ $_->{artist_id} }),
         }, @$dupes
     ];
 }

@@ -32,7 +32,7 @@ my $hard_mock_edit_class = $mock_edit_class + 1;
             entity => MusicBrainz::Server::Entity::Label->new(
                 name => "Testy",
                 id => 1,
-            ),
+            )->TO_JSON,
         }
     }
     use MusicBrainz::Server::Constants qw( :expire_action );

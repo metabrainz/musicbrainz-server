@@ -16,6 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
 );
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -108,14 +109,16 @@ sub build_display_data
         my $field = $period . '_date';
         if (exists $self->data->{new}{$field}) {
             $data->{$field} = {
-                new => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{$field}),
-                old => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{$field}),
+                new => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{$field})),
+                old => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{$field})),
             };
         }
     }
 
-    $data->{label} = $loaded->{Label}{ $self->data->{entity}{id} }
-        || Label->new( name => $self->data->{entity}{name} );
+    $data->{label} = to_json_object(
+        $loaded->{Label}{ $self->data->{entity}{id} } ||
+        Label->new( name => $self->data->{entity}{name} )
+    );
 
     if (exists $self->data->{new}{ipi_codes}) {
         $data->{ipi_codes}{old} = $self->data->{old}{ipi_codes};
@@ -133,8 +136,13 @@ sub build_display_data
     }
 
     for my $side (qw( old new )) {
-        $data->{area}{$side} //= Area->new()
+        $data->{area}{$side} = to_json_object($data->{area}{$side} // Area->new())
             if defined $self->data->{$side}{area_id};
+    }
+
+    if (exists $data->{type}) {
+        $data->{type}{old} = to_json_object($data->{type}{old});
+        $data->{type}{new} = to_json_object($data->{type}{new});
     }
 
     return $data;

@@ -73,7 +73,7 @@
 
       [% IF artist_credits.size %]
       [% React.embed(c, 'static/scripts/artist/components/ArtistCreditRenamer', {
-        artistCredits => artist_credits,
+        artistCredits => React.to_json_array(artist_credits),
         artistMbid => artist.gid,
         artistName => artist.name,
         initialArtistName => form.field('name').value,

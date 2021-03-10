@@ -1,7 +1,14 @@
 package MusicBrainz::Server::Report::ReleaseReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
+
+sub _load_extra_release_info {
+    my ($self, @releases) = @_;
+
+    $self->c->model('ArtistCredit')->load(@releases);
+}
 
 around inflate_rows => sub {
     my $orig = shift;
@@ -13,12 +20,12 @@ around inflate_rows => sub {
         map { $_->{release_id} } @$items
     );
 
-    $self->c->model('ArtistCredit')->load(values %$releases);
+    $self->_load_extra_release_info(values %$releases);
 
     return [
         map +{
             %$_,
-            release => $releases->{ $_->{release_id} }
+            release => to_json_object($releases->{ $_->{release_id} }),
         }, @$items
     ];
 };

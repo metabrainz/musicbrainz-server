@@ -4,6 +4,7 @@ use Method::Signatures::Simple;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 sub edit_name { N_l('Remove disc ID') }
@@ -88,17 +89,21 @@ method foreign_keys
 method build_display_data ($loaded)
 {
     return {
-        medium  => $loaded->{Medium}{ $self->data->{medium}{id} } //
-                   Medium->new(
-                       release_id => $self->release_id,
-                       release => $loaded->{Release}{ $self->release_id } //
-                                           Release->new(
-                                               id => $self->release_id,
-                                               name => $self->data->{medium}{release}{name},
-                                           ),
-                   ),
-        cdtoc   => $loaded->{CDTOC}{ $self->data->{medium_cdtoc}{cdtoc}{id} }
-            || CDTOC->new_from_toc($self->data->{medium_cdtoc}{cdtoc}{toc})
+        medium => to_json_object(
+            $loaded->{Medium}{ $self->data->{medium}{id} } //
+            Medium->new(
+                release_id => $self->release_id,
+                release => $loaded->{Release}{ $self->release_id } //
+                                    Release->new(
+                                        id => $self->release_id,
+                                        name => $self->data->{medium}{release}{name},
+                                    ),
+            ),
+        ),
+        cdtoc => to_json_object(
+            $loaded->{CDTOC}{ $self->data->{medium_cdtoc}{cdtoc}{id} } ||
+            CDTOC->new_from_toc($self->data->{medium_cdtoc}{cdtoc}{toc})
+        ),
     }
 }
 

@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw(
     $QUALITY_HIGH
 );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -62,11 +63,13 @@ method foreign_keys
 method build_display_data ($loaded)
 {
     return {
-        release => $loaded->{Release}{ $self->release_id }
-            || Release->new(
+        release => to_json_object(
+            $loaded->{Release}{ $self->release_id } ||
+            Release->new(
                 id => $self->release_id,
                 name => $self->data->{release}{name},
             ),
+        ),
         quality => {
             old => $self->data->{old}{quality} + 0,
             new => $self->data->{new}{quality} + 0,

@@ -3,12 +3,13 @@
         name => release.name
 }) ~%]
 [%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title ~%]
+    [%- release_json_obj = React.to_json_object(release) -%]
     <div id="content">
-        [%~ React.embed(c, 'release/ReleaseHeader', { release => release, page => page }) ~%]
+        [%~ React.embed(c, 'release/ReleaseHeader', { release => release_json_obj, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ React.embed(c, 'layout/components/sidebar/ReleaseSidebar', {release => release}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/ReleaseSidebar', {release => release_json_obj}) ~%]
     [%~ END ~%]
 [%~ END ~%]

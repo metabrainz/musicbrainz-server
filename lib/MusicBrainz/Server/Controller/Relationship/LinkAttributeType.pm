@@ -34,7 +34,7 @@ sub index : Path('/relationship-attributes') Args(0)
 
     $c->stash(
         component_path  => 'relationship/linkattributetype/RelationshipAttributeTypesIndex',
-        component_props => {root => $c->stash->{root}},
+        component_props => {root => $c->stash->{root}->TO_JSON},
         current_view    => 'Node',
     );
 }
@@ -111,7 +111,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
     if ($c->model('LinkAttributeType')->in_use($link_attr_type->id)) {
         $c->stash(
             component_path  => 'relationship/linkattributetype/RelationshipAttributeTypeInUse',
-            component_props => {type => $link_attr_type},
+            component_props => {type => $link_attr_type->TO_JSON},
             current_view    => 'Node',
         );
         $c->detach;

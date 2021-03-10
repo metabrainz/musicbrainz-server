@@ -27,7 +27,7 @@ type AddAreaEditT = {
     +iso_3166_3: $ReadOnlyArray<string>,
     +name: string,
     +sort_name: string | null,
-    +type: AreaTypeT,
+    +type: AreaTypeT | null,
   },
 };
 
@@ -37,6 +37,7 @@ type Props = {
 
 const AddArea = ({edit}: Props): React.MixedElement => {
   const display = edit.display_data;
+  const areaType = display.type;
 
   return (
     <>
@@ -71,10 +72,10 @@ const AddArea = ({edit}: Props): React.MixedElement => {
           </tr>
         ) : null}
 
-        {display.type ? (
+        {areaType ? (
           <tr>
             <th>{addColon(l('Type'))}</th>
-            <td>{lp_attributes(display.type.name, 'area_type')}</td>
+            <td>{lp_attributes(areaType.name, 'area_type')}</td>
           </tr>
         ) : null}
 

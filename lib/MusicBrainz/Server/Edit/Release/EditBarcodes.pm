@@ -58,8 +58,8 @@ sub build_display_data
     return {
         submissions => [
             map +{
-                release => $loaded->{Release}->{ $_->{release}{id} }
-                    || Release->new( name => $_->{release}{name} ),
+                release => ($loaded->{Release}{ $_->{release}{id} } ||
+                    Release->new( name => $_->{release}{name} )),
                 new_barcode => Barcode->new($_->{barcode}),
                 exists $_->{old_barcode} ?
                     (old_barcode => Barcode->new($_->{old_barcode})) : ()

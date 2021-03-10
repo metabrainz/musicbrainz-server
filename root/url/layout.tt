@@ -1,10 +1,11 @@
 [% WRAPPER 'layout.tt' %]
+    [%- url_json_obj = React.to_json_object(url) -%]
     <div id="content">
-        [%~ React.embed(c, 'url/UrlHeader', { url => url, page => page }) ~%]
+        [%~ React.embed(c, 'url/UrlHeader', { url => url_json_obj, page => page }) ~%]
         [% content %]
     </div>
 
     [%- IF !full_width -%]
-        [%~ React.embed(c, 'layout/components/sidebar/UrlSidebar', {url => url}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/UrlSidebar', {url => url_json_obj}) ~%]
     [%- END -%]
 [% END %]

@@ -41,6 +41,7 @@ use MusicBrainz::Server::Data::Utils qw(
     trim_multiline_text
     non_empty
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Renderer qw( render_component );
 use MusicBrainz::Server::Translation qw( comma_list comma_only_list l );
 use MusicBrainz::Server::Validation qw(
@@ -762,7 +763,7 @@ sub preview : Chained('edit') PathPart('preview') Edit {
             my $response = render_component(
                 $c,
                 "edit/details/$edit_template_react",
-                {edit => $edit, allowNew => \1},
+                {edit => to_json_object($edit), allowNew => \1},
             );
             my $body = $response->{body} // '';
             my $content_type = $response->{content_type} // '';

@@ -13,6 +13,7 @@ use DBDefs;
 use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
@@ -59,7 +60,7 @@ sub index : Path Args(0)
         component_path => 'main/index.js',
         component_props => {
             blogEntries => $c->model('Blog')->get_latest_entries,
-            newestReleases => \@newest_releases,
+            newestReleases => to_json_array(\@newest_releases),
         },
     );
 }

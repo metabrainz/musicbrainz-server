@@ -21,13 +21,13 @@ sub table {
 }
 
 sub load {
-    my ($self, $limit, $offset) = @_;
+    my ($self, $c, $limit, $offset) = @_;
 
-    $self->_load('', $limit, $offset);
+    $self->_load($c, '', $limit, $offset);
 }
 
 sub _load {
-    my ($self, $join_sql, $limit, $offset, @params) = @_;
+    my ($self, $c, $join_sql, $limit, $offset, @params) = @_;
 
     my $qualified_table = $self->qualified_table;
     my $ordering = $self->ordering;
@@ -40,7 +40,7 @@ sub _load {
         sub { $_[1] },
     );
 
-    ($self->inflate_rows($rows), $hits);
+    ($self->inflate_rows($rows, $c), $hits);
 }
 
 sub ordering { "row_number" }

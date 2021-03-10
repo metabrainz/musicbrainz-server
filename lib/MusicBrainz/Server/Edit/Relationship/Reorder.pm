@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash LinkAttributesArray );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw ( N_l );
 use Try::Tiny;
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -108,7 +109,7 @@ sub _build_relationship {
     my $entity1 = $loaded->{$model1}{ $data->{entity1}{id} } ||
         $self->c->model($model1)->_entity_class->new(name => $data->{entity1}{name});
 
-    return Relationship->new(
+    return to_json_object(Relationship->new(
         link => Link->new(
             type       => $loaded->{LinkType}{$lt->{id}} || LinkType->new($lt),
             type_id    => $lt->{id},
@@ -142,7 +143,7 @@ sub _build_relationship {
         target => $entity1,
         source_type => $entity0->entity_type,
         target_type => $entity1->entity_type,
-    );
+    ));
 }
 
 sub directly_related_entities {

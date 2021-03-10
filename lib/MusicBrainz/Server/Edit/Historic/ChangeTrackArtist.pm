@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_TRACK_ARTIST );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -37,21 +38,27 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} } ||
-                Recording->new(
-                    id => $self->data->{recording_id},
-                ),
+        recording => to_json_object(
+            $loaded->{Recording}{ $self->data->{recording_id} } ||
+            Recording->new(
+                id => $self->data->{recording_id},
+            )
+        ),
         artist => {
-            old => $loaded->{Artist}->{ $self->data->{old_artist_id} } ||
+            old => to_json_object(
+                $loaded->{Artist}{ $self->data->{old_artist_id} } ||
                 Artist->new(
                     id => $self->data->{old_artist_id},
                     name => $self->data->{old_artist_name}
-                ),
-            new => $loaded->{Artist}->{ $self->data->{new_artist_id} } ||
+                )
+            ),
+            new => to_json_object(
+                $loaded->{Artist}{ $self->data->{new_artist_id} } ||
                 Artist->new(
                     id => $self->data->{new_artist_id},
                     name => $self->data->{new_artist_name}
-                ),
+                )
+            ),
         }
     }
 }

@@ -82,12 +82,10 @@ test 'The display data works even if and endpoint or link type is deleted' => su
     $c->model('Edit')->load_all($edit);
 
     ok(defined $edit->display_data->{old});
-    is($edit->display_data->{old}->entity0->name, 'Artist 1');
-    is($edit->display_data->{old}->entity1->name, 'Artist 2');
-    is($edit->display_data->{old}->phrase, 'additional member of');
-    is($edit->display_data->{new}->entity0->name, 'Artist 1');
-    is($edit->display_data->{new}->entity1->name, 'Artist 3');
-    is($edit->display_data->{new}->phrase, 'additional collaborator on');
+    is($edit->display_data->{old}{target}{name}, 'Artist 2');
+    is($edit->display_data->{old}{verbosePhrase}, 'is/was an additional member of');
+    is($edit->display_data->{new}{target}{name}, 'Artist 3');
+    is($edit->display_data->{new}{verbosePhrase}, 'collaborated additionally on');
 };
 
 test 'Editing a relationship more than once fails subsequent edits' => sub {

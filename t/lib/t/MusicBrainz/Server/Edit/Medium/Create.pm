@@ -65,9 +65,9 @@ $c->model('Edit')->load_all($edit);
 ok($edit->display_data);
 is($edit->display_data->{name}, 'Studio');
 is($edit->display_data->{position}, 1);
-is($edit->display_data->{format}->id, 1);
-is($edit->display_data->{release}->id, 1);
-is($edit->display_data->{release}->artist_credit->name, 'Tosca');
+is($edit->display_data->{format}{id}, 1);
+is($edit->display_data->{release}{id}, 1);
+is($edit->display_data->{release}{artistCredit}{names}[0]{name}, 'Tosca');
 
 my $medium = $c->model('Medium')->get_by_id($edit->medium_id);
 is($medium->edits_pending, 1);
@@ -133,7 +133,7 @@ $edit = $c->model('Edit')->create(
 
 $c->model('Edit')->load_all($edit);
 ok($edit->display_data);
-ok(defined $edit->display_data->{tracks}->[0]->{recording_id}, "New recording was created");
+ok(defined $edit->display_data->{tracks}->[0]->{recording}{id}, "New recording was created");
 
 };
 

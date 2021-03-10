@@ -8,6 +8,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use List::UtilsBy 'nsort_by';
@@ -132,8 +133,10 @@ sub build_display_data {
     my @old = nsort_by { $_->{position} } @{ $self->data->{old} };
     my @new = nsort_by { $_->{position} } @{ $self->data->{new} };
 
-    $data{old} = [ map { $artwork_by_id{$_->{id}} } @old ];
-    $data{new} = [ map { $artwork_by_id{$_->{id}} } @new ];
+    $data{old} = [ map { to_json_object($artwork_by_id{$_->{id}}) } @old ];
+    $data{new} = [ map { to_json_object($artwork_by_id{$_->{id}}) } @new ];
+
+    $data{release} = to_json_object($data{release});
 
     return \%data;
 }

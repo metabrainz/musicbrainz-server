@@ -31,7 +31,7 @@ my ($edits) = $c->model('Edit')->find({ label => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->display_data->{label}->id, 1);
+is($edit->display_data->{label}{id}, 1);
 is($edit->display_data->{changelog}, 'A changelog');
 
 $label = $c->model('Label')->get_by_id(1);

@@ -4,6 +4,7 @@ use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 parameter 'type' => (
     required => 1
@@ -41,7 +42,7 @@ role {
             current_view => 'Node',
             component_path => 'user/UserSubscriptions',
             component_props => {
-                entities  => $entities,
+                entities  => to_json_array($entities),
                 user      => $c->controller('User')->serialize_user($user),
                 summary   => $c->model('Editor')->subscription_summary($user->id),
                 type      => $type,

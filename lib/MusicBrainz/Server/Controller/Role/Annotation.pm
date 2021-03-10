@@ -78,13 +78,11 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
     );
 }
 
-after 'show' => sub
+before 'show' => sub
 {
     my ($self, $c) = @_;
-    my $entity = $c->stash->{entity};
-    my $model = $self->{model};
 
-    my $annotation = $c->stash->{entity}->{latest_annotation};
+    my $annotation = $c->stash->{entity}{latest_annotation};
     $c->model('Editor')->load($annotation);
 };
 

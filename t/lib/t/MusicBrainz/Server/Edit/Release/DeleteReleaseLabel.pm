@@ -66,7 +66,7 @@ test 'Displays correctly following label merges' => sub {
 
     # Check that the new label loads correctly.
     $c->model('Edit')->load_all($edit);
-    is($edit->display_data->{label}->id, 3);
+    is($edit->display_data->{label}{id}, 3);
 };
 
 test 'Displays correctly following release merges' => sub {
@@ -91,7 +91,7 @@ test 'Displays correctly following release merges' => sub {
 
     # Check that the new release loads correctly.
     $c->model('Edit')->load_all($edit);
-    is($edit->display_data->{release}->id, 2);
+    is($edit->display_data->{release}{id}, 2);
 };
 
 test 'Loads correctly when there\'s just a catalog number' => sub {

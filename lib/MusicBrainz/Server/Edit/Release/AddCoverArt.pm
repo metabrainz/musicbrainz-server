@@ -7,6 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -122,8 +123,8 @@ sub build_display_data {
                                cover_art_types => [map {$loaded->{CoverArtType}{$_}} @{ $self->data->{cover_art_types} }]);
 
     return {
-        release => $release,
-        artwork => $artwork,
+        release => to_json_object($release),
+        artwork => to_json_object($artwork),
         position => $self->data->{cover_art_position},
     };
 }

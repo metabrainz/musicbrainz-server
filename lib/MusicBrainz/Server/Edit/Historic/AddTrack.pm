@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use Scalar::Util qw( looks_like_number );
 
@@ -41,7 +42,7 @@ sub build_display_data
     return {
         releases => [
             map {
-                $loaded->{Release}->{ $_ }
+                to_json_object($loaded->{Release}{$_})
             } $self->release_ids
         ],
         position    => $self->data->{position},
