@@ -21,6 +21,8 @@ import {addColonText} from '../static/scripts/common/i18n/addColon';
 import commaOnlyList, {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
+import CleanupBanner from '../components/CleanupBanner';
+import CleanupDangerBanner from '../components/CleanupDangerBanner';
 import FormSubmit from '../components/FormSubmit';
 import RecordingList from '../components/list/RecordingList';
 import ReleaseGroupList from '../components/list/ReleaseGroupList';
@@ -65,6 +67,7 @@ type Props = {
   +hasFilter: boolean,
   +hasVariousArtists: boolean,
   +hasVariousArtistsExtra: boolean,
+  +inCleanupDanger: boolean,
   +includingAllStatuses: boolean,
   +legalName: ?ArtistT,
   +legalNameAliases: ?$ReadOnlyArray<string>,
@@ -204,6 +207,7 @@ const ArtistIndex = ({
   ajaxFilterFormUrl,
   artist,
   eligibleForCleanup,
+  inCleanupDanger,
   filterForm,
   hasDefault,
   hasExtra,
@@ -228,12 +232,11 @@ const ArtistIndex = ({
   return (
     <ArtistLayout $c={$c} entity={artist} page="index">
       {eligibleForCleanup ? (
-        <p className="cleanup">
-          {l(`This artist has no relationships, recordings, releases or
-              release groups, and will be removed automatically in the next
-              few days. If this is not intended, please add more data to
-              this artist.`)}
-        </p>
+        <CleanupBanner entityType="artist" />
+      ) : null}
+
+      {inCleanupDanger ? (
+        <CleanupDangerBanner entityType="artist" />
       ) : null}
 
       <Annotation

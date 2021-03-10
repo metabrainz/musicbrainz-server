@@ -482,19 +482,22 @@ sub load_for_artist_credits {
 };
 
 sub is_empty {
-    my ($self, $artist_id) = @_;
+    my ($self, $artist_id, %args) = @_;
 
+    my $edits_pending_condition = 'AND edits_pending = 0' unless $args{ignore_edits};
+    my $open_edits_condition = 
+        'EXISTS (
+          SELECT TRUE FROM edit_artist
+          WHERE status = ' . $STATUS_OPEN . ' AND artist = artist_row.id
+        ) OR' unless $args{ignore_edits};
     my $used_in_relationship = used_in_relationship($self->c, artist => 'artist_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $artist_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<EOSQL, $artist_id);
         SELECT TRUE
         FROM artist artist_row
         WHERE id = ?
-        AND edits_pending = 0
+        $edits_pending_condition
         AND NOT (
-          EXISTS (
-            SELECT TRUE FROM edit_artist
-            WHERE status = ? AND artist = artist_row.id
-          ) OR
+          $open_edits_condition
           EXISTS (
             SELECT TRUE FROM artist_credit_name
             WHERE artist = artist_row.id

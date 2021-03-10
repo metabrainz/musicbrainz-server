@@ -273,19 +273,23 @@ sub load_meta
 }
 
 sub is_empty {
-    my ($self, $label_id) = @_;
+    my ($self, $label_id, %args) = @_;
 
+    my $edits_pending_condition = 'AND edits_pending = 0' unless $args{ignore_edits};
+    my $open_edits_condition = 
+        'EXISTS (
+          SELECT TRUE
+          FROM edit_label
+          WHERE status = ' . $STATUS_OPEN . ' AND label = label_row.id
+        ) OR' unless $args{ignore_edits};
     my $used_in_relationship = used_in_relationship($self->c, label => 'label_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $label_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<EOSQL, $label_id);
         SELECT TRUE
         FROM label label_row
         WHERE id = ?
-        AND edits_pending = 0
+        $edits_pending_condition
         AND NOT (
-          EXISTS (
-            SELECT TRUE FROM edit_label
-            WHERE status = ? AND label = label_row.id
-          ) OR
+          $open_edits_condition
           EXISTS (
             SELECT TRUE FROM release_label
             WHERE label = label_row.id

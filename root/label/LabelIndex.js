@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import CleanupBanner from '../components/CleanupBanner';
+import CleanupDangerBanner from '../components/CleanupDangerBanner';
 import FormRow from '../components/FormRow';
 import FormSubmit from '../components/FormSubmit';
 import PaginatedResults from '../components/PaginatedResults';
@@ -25,6 +26,7 @@ import LabelLayout from './LabelLayout';
 type Props = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
+  +inCleanupDanger: boolean,
   +label: LabelT,
   +numberOfRevisions: number,
   +pager: PagerT,
@@ -35,6 +37,7 @@ type Props = {
 const LabelIndex = ({
   $c,
   eligibleForCleanup,
+  inCleanupDanger,
   label,
   numberOfRevisions,
   pager,
@@ -44,6 +47,9 @@ const LabelIndex = ({
   <LabelLayout $c={$c} entity={label} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="label" />
+    ) : null}
+    {inCleanupDanger ? (
+      <CleanupDangerBanner entityType="label" />
     ) : null}
     <Annotation
       annotation={label.latest_annotation}
