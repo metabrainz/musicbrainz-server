@@ -441,13 +441,14 @@ sub _find_places
     return unless @$ids;
 
     my $query = "
-        SELECT lep.entity0 AS event, lep.entity1 AS place
+        SELECT lep.entity0 AS event, lep.entity1 AS place,
+            lep.entity1_credit AS credit
         FROM l_event_place lep
         JOIN link l ON lep.link = l.id
         JOIN link_type lt ON l.link_type = lt.id
         WHERE lep.entity0 IN (" . placeholders(@$ids) . ")
-        GROUP BY lep.entity0, lep.entity1
-        ORDER BY count(*) DESC, place
+        GROUP BY lep.entity0, lep.entity1, lep.entity1_credit
+        ORDER BY count(*) DESC, place, credit
     ";
 
     my $rows = $self->sql->select_list_of_lists($query, @$ids);
@@ -456,9 +457,10 @@ sub _find_places
     my $places = $self->c->model('Place')->get_by_ids(@place_ids);
 
     for my $row (@$rows) {
-        my ($event_id, $place_id) = @$row;
+        my ($event_id, $place_id, $credit) = @$row;
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
+            credit => $credit,
             entity => $places->{$place_id}
         }
     }
@@ -470,13 +472,14 @@ sub _find_areas
     return unless @$ids;
 
     my $query = "
-        SELECT lare.entity1 AS event, lare.entity0 AS area
+        SELECT lare.entity1 AS event, lare.entity0 AS area,
+            lare.entity0_credit AS credit
         FROM l_area_event lare
         JOIN link l ON lare.link = l.id
         JOIN link_type lt ON l.link_type = lt.id
         WHERE lare.entity1 IN (" . placeholders(@$ids) . ")
-        GROUP BY lare.entity1, lare.entity0
-        ORDER BY count(*) DESC, area
+        GROUP BY lare.entity1, lare.entity0, lare.entity0_credit
+        ORDER BY count(*) DESC, area, credit
     ";
 
     my $rows = $self->sql->select_list_of_lists($query, @$ids);
@@ -485,9 +488,10 @@ sub _find_areas
     my $areas = $self->c->model('Area')->get_by_ids(@area_ids);
 
     for my $row (@$rows) {
-        my ($event_id, $area_id) = @$row;
+        my ($event_id, $area_id, $credit) = @$row;
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
+            credit => $credit,
             entity => $areas->{$area_id}
         }
     }
