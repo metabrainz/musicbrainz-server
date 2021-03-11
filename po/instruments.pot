@@ -610,6 +610,7 @@ msgid "bayan"
 msgstr ""
 
 #: DB:instrument/name:741
+msgctxt "telescoping brass tube"
 msgid "bazooka"
 msgstr ""
 
