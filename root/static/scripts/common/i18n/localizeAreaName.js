@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,11 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {AREA_TYPE_COUNTRY} from '../constants';
-
 function localizeAreaName(area: AreaT): string {
-  const areaType = area.typeID;
-  if (areaType === AREA_TYPE_COUNTRY) {
+  /*
+   * Areas with iso_3166_1 codes are the ones we export for translation
+   * in the countries domain. See po/extract_pot_db.
+   */
+  if (area.iso_3166_1_codes.length) {
     return l_countries(area.name);
   }
   return area.name;
