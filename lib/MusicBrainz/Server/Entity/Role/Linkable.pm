@@ -75,19 +75,19 @@ sub relationships_by_link_type_names
     } $self->all_relationships ];
 }
 
-my $_serialize_relationships = 1;
+our $_relationships_depth = 0;
 
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
 
-    if ($_serialize_relationships && $self->has_loaded_relationships) {
+    # Allow a depth of up to 2, which should cover work relationships
+    # linked via a release.
+    if ($_relationships_depth < 2 && $self->has_loaded_relationships) {
         $json->{relationships} = [map {
-            $_serialize_relationships = 0;
-            my $result = $_->TO_JSON;
-            $_serialize_relationships = 1;
-            $result;
+            local $_relationships_depth = $_relationships_depth + 1;
+            $_->TO_JSON
         } $self->all_relationships];
     }
 

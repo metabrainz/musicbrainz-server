@@ -114,14 +114,14 @@ sub build_display_data {
             new => $data->{new}{catalog_number},
             old => $data->{old}{catalog_number},
         },
-        extra => $data->{release}
+        barcode => $data->{release}{barcode}
     };
 
-    if ($display_data->{extra}{medium_formats}) {
-        $display_data->{extra}{combined_format} = $self->process_medium_formats($data->{extra}{medium_formats});
+    if ($data->{release}{medium_formats}) {
+        $display_data->{combined_format} = $self->process_medium_formats($data->{release}{medium_formats});
     }
 
-    $display_data->{extra}{events} = [
+    $display_data->{events} = [
         map {
             my $event_display = {};
 
@@ -135,14 +135,14 @@ sub build_display_data {
 
             $event_display->{date} = MusicBrainz::Server::Entity::PartialDate->new($_->{date});
             $event_display;
-        } @{ $display_data->{extra}{events} // [] }
+        } @{ $data->{release}{events} // [] }
     ];
 
-    $display_data->{extra}{events_json} = [
+    $display_data->{events_json} = [
         map +{
             country => to_json_object($_->{country}),
             date => to_json_object($_->{date}),
-        }, @{ $display_data->{extra}{events} }
+        }, @{ $display_data->{events} }
     ];
 
     for (qw( new old )) {
