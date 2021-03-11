@@ -36,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-09 15:26+0200\n"
-"PO-Revision-Date: 2021-03-09 13:28+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2021-03-11 09:21+0200\n"
+"PO-Revision-Date: 2021-03-11 07:23+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +81,7 @@ msgstr "「YY」は登録された年の最後の2桁です。"
 #: ../root/cdstub/cdstub.tt:4 ../root/cdtoc/attach_confirm.tt:11
 #: ../root/components/medium.tt:44 ../root/release/edit/tracklist.tt:148
 #: ../root/release/edit/tracklist.tt:397
-#: ../root/release/edit_relationships.tt:48
+#: ../root/release/edit_relationships.tt:49
 #: ../root/edit/details/AddMedium.js:180
 #: ../root/edit/details/EditMedium.js:359
 #: ../root/edit/details/EditMedium.js:363
@@ -258,7 +258,7 @@ msgstr "棄権"
 msgid "Accept"
 msgstr "承認"
 
-#: ../root/edit/index.tt:63 ../root/edit/components/EditSummary.js:87
+#: ../root/edit/index.tt:65 ../root/edit/components/EditSummary.js:87
 msgid "Accept edit"
 msgstr "編集を承認"
 
@@ -312,7 +312,7 @@ msgstr "レーベルを追加"
 
 #: ../root/release/edit/information.tt:209
 #: ../root/release/edit/information.tt:210
-#: ../root/layout/components/BottomMenu.js:224
+#: ../root/layout/components/BottomMenu.js:227
 msgctxt "button/menu"
 msgid "Add Label"
 msgstr "レーベルを追加"
@@ -407,14 +407,14 @@ msgstr "別の楽器を追加"
 msgid "Add edit note"
 msgstr "編集メモを追加"
 
-#: ../root/release/edit_relationships.tt:235
+#: ../root/release/edit_relationships.tt:236
 msgid "Add related work"
 msgstr "関係する作品を追加"
 
 #: ../root/forms/relationship-editor.tt:7
-#: ../root/release/edit_relationships.tt:217
+#: ../root/release/edit_relationships.tt:218
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:28
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:29
 msgid "Add relationship"
 msgstr "関係を追加"
 
@@ -480,11 +480,11 @@ msgid ""
 " unique disambiguation comment."
 msgstr "同じ名前の区別不能な項目が既に存在しています。他の項目と区別できるように一意な曖昧さ回避コメントを入力してください。"
 
-#: ../root/release/edit_relationships.tt:193
+#: ../root/release/edit_relationships.tt:194
 msgid "An error occurred while creating the works."
 msgstr "作品の作成中にエラーが発生しました。"
 
-#: ../root/edit/index.tt:14 ../root/edit/list.tt:65
+#: ../root/edit/index.tt:16 ../root/edit/list.tt:71
 #: ../root/edit/details/historic/RemoveRelationship.js:44
 msgid "An error occurred while loading this edit."
 msgstr "編集の読み込み中にエラーが発生しました。"
@@ -607,7 +607,7 @@ msgstr "本当にMusicBrainzから{entity}を削除しますか?"
 #: ../root/area/AreaHeader.js:27 ../root/components/list/AreaList.js:45
 #: ../root/components/list/ArtistList.js:85
 #: ../root/components/list/LabelList.js:74
-#: ../root/components/list/PlaceList.js:67 ../root/edit/details/AddArea.js:45
+#: ../root/components/list/PlaceList.js:67 ../root/edit/details/AddArea.js:46
 #: ../root/edit/details/AddArtist.js:103 ../root/edit/details/AddLabel.js:100
 #: ../root/edit/details/AddPlace.js:77 ../root/edit/details/EditArea.js:61
 #: ../root/edit/details/EditArtist.js:129
@@ -845,15 +845,15 @@ msgid ""
 "release on an existing release, select it below."
 msgstr "既にMusicBrainzに入ってるリリースが提出した情報と似ています。目的のリリースを既存のリリースに基づいて作成する場合は、以下で選択してください。"
 
-#: ../root/release/edit_relationships.tt:27
+#: ../root/release/edit_relationships.tt:28
 msgid "Batch-add a relationship to recordings"
 msgstr "レコーディングに関係を一括追加"
 
-#: ../root/release/edit_relationships.tt:39
+#: ../root/release/edit_relationships.tt:40
 msgid "Batch-add a relationship to works"
 msgstr "作品に関係を一括追加"
 
-#: ../root/release/edit_relationships.tt:33
+#: ../root/release/edit_relationships.tt:34
 msgid "Batch-create new works"
 msgstr "新しい作品を一括作成"
 
@@ -928,7 +928,7 @@ msgid ""
 msgstr ""
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:37
-#: ../root/main/index.js:205
+#: ../root/main/index.js:208
 msgid "Bug Tracker"
 msgstr "バグ管理"
 
@@ -1066,8 +1066,8 @@ msgid "Change direction"
 msgstr "向きを入れ替える"
 
 #: ../root/release/change_quality.tt:1 ../root/release/change_quality.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:12
-#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:25
 msgid "Change release data quality"
 msgstr "リリース品質を変更"
 
@@ -1076,7 +1076,7 @@ msgstr "リリース品質を変更"
 msgid "Changelog:"
 msgstr "更新履歴:"
 
-#: ../root/cdtoc/set_durations.tt:15 ../root/edit/index.tt:6
+#: ../root/cdtoc/set_durations.tt:15 ../root/edit/index.tt:7
 msgid "Changes"
 msgstr "変更"
 
@@ -1359,7 +1359,7 @@ msgstr "廃止:"
 #: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
 #: ../root/admin/attributes/Attribute.js:101
 #: ../root/collection/CollectionIndex.js:182
-#: ../root/edit/details/AddInstrument.js:78
+#: ../root/edit/details/AddInstrument.js:79
 #: ../root/edit/details/AddRelationshipAttribute.js:53
 #: ../root/edit/details/AddRelationshipType.js:79
 #: ../root/edit/details/EditInstrument.js:84
@@ -1411,9 +1411,9 @@ msgstr "データベースの直接検索"
 #: ../root/place/edit_form.tt:13 ../root/recording/edit_form.tt:33
 #: ../root/release/edit/information.tt:252
 #: ../root/release_group/edit_form.tt:15 ../root/series/edit_form.tt:13
-#: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:69
-#: ../root/edit/details/AddArtist.js:82 ../root/edit/details/AddEvent.js:60
-#: ../root/edit/details/AddInstrument.js:64
+#: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:70
+#: ../root/edit/details/AddArtist.js:82 ../root/edit/details/AddEvent.js:61
+#: ../root/edit/details/AddInstrument.js:65
 #: ../root/edit/details/AddLabel.js:74 ../root/edit/details/AddPlace.js:59
 #: ../root/edit/details/AddReleaseGroup.js:71
 #: ../root/edit/details/AddSeries.js:51
@@ -1545,7 +1545,7 @@ msgid "Edit Cover Art"
 msgstr "カバーアートを編集"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:115
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:116
 #: ../root/components/EnterEditNote.js:26
 msgid "Edit Note"
 msgstr "メモを編集"
@@ -1570,11 +1570,11 @@ msgstr "{release}の関係を編集"
 
 #: ../root/doc/edit_type.tt:18 ../root/doc/edit_types.tt:1
 #: ../root/doc/edit_types.tt:3 ../root/edit/components/EditSidebar.js:95
-#: ../root/layout/components/BottomMenu.js:291
+#: ../root/layout/components/BottomMenu.js:294
 msgid "Edit Types"
 msgstr "タイプを編集"
 
-#: ../root/url/edit_form.tt:3 ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:24
+#: ../root/url/edit_form.tt:3 ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:25
 msgid "Edit URL"
 msgstr "URLを編集"
 
@@ -1597,7 +1597,7 @@ msgstr "編集 #{id} のデータを編集"
 msgid "Edit note:"
 msgstr "メモを編集:"
 
-#: ../root/edit/index.tt:74
+#: ../root/edit/index.tt:76
 msgid "Edit notes"
 msgstr "メモを編集"
 
@@ -1719,7 +1719,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:154
-#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:122
+#: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:123
 #: ../root/components/EnterEdit.js:48
 msgid "Enter edit"
 msgstr "編集を送信"
@@ -1760,7 +1760,7 @@ msgstr "一つか二つのURLだけでも有用です！！より詳しくは{do
 #: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:398
 #: ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:49
-#: ../root/components/list/EventList.js:73 ../root/edit/details/AddEvent.js:43
+#: ../root/components/list/EventList.js:73 ../root/edit/details/AddEvent.js:44
 #: ../root/edit/details/EditEvent.js:52 ../root/event/EventHeader.js:29
 #: ../root/layout/components/Search.js:29
 #: ../root/report/components/EventList.js:35
@@ -1906,7 +1906,7 @@ msgid "Format:"
 msgstr "フォーマット:"
 
 #: ../root/layout.tt:113 ../root/layout/components/Footer.js:31
-#: ../root/main/index.js:208
+#: ../root/main/index.js:211
 msgid "Forums"
 msgstr "フォーラム"
 
@@ -2065,7 +2065,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:258
+#: ../root/static/scripts/common/constants.js:259
 msgid "High"
 msgstr "高"
 
@@ -2140,7 +2140,7 @@ msgstr ""
 msgid "ISNI codes:"
 msgstr "ISNIコード:"
 
-#: ../root/area/edit_form.tt:12 ../root/edit/details/AddArea.js:83
+#: ../root/area/edit_form.tt:12 ../root/edit/details/AddArea.js:84
 #: ../root/edit/details/EditArea.js:100
 msgid "ISO 3166-1"
 msgstr "ISO 3166-1"
@@ -2150,7 +2150,7 @@ msgstr "ISO 3166-1"
 msgid "ISO 3166-1:"
 msgstr "ISO 3166-1:"
 
-#: ../root/area/edit_form.tt:13 ../root/edit/details/AddArea.js:90
+#: ../root/area/edit_form.tt:13 ../root/edit/details/AddArea.js:91
 #: ../root/edit/details/EditArea.js:107
 msgid "ISO 3166-2"
 msgstr "ISO 3166-2"
@@ -2160,7 +2160,7 @@ msgstr "ISO 3166-2"
 msgid "ISO 3166-2:"
 msgstr "ISO 3166-2:"
 
-#: ../root/area/edit_form.tt:14 ../root/edit/details/AddArea.js:97
+#: ../root/area/edit_form.tt:14 ../root/edit/details/AddArea.js:98
 #: ../root/edit/details/EditArea.js:114
 msgid "ISO 3166-3"
 msgstr "ISO 3166-3"
@@ -2315,7 +2315,7 @@ msgstr "{doc|高度なクエリ構文}を使ったインデックス検索"
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 #: ../root/components/list/InstrumentList.js:46
-#: ../root/edit/details/AddInstrument.js:42
+#: ../root/edit/details/AddInstrument.js:43
 #: ../root/edit/details/EditInstrument.js:50
 #: ../root/instrument/InstrumentLayout.js:41
 #: ../root/layout/components/Search.js:38
@@ -2509,7 +2509,7 @@ msgstr "リスト:"
 msgid "Loading edit previews..."
 msgstr "編集プレビューを読込み中…"
 
-#: ../root/release/edit_relationships.tt:88
+#: ../root/release/edit_relationships.tt:89
 #: ../root/static/scripts/common/MB/release.js:63
 #: ../root/static/scripts/common/components/FingerprintTable.js:87
 #: ../root/static/scripts/common/dialogs.js:15
@@ -2552,11 +2552,11 @@ msgstr "検索件数"
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:255
+#: ../root/static/scripts/common/constants.js:256
 msgid "Low"
 msgstr "低"
 
-#: ../root/release/edit_relationships.tt:169
+#: ../root/release/edit_relationships.tt:170
 #: ../root/edit/details/AddWork.js:81 ../root/edit/details/EditWork.js:98
 #: ../root/layout/components/sidebar/WorkSidebar.js:66
 #: ../root/search/components/WorkResults.js:56
@@ -2740,7 +2740,7 @@ msgid ""
 "or label, please use the above form to create an account."
 msgstr ""
 
-#: ../root/edit/index.tt:31
+#: ../root/edit/index.tt:33
 msgid "My vote:"
 msgstr "自分の投票:"
 
@@ -2760,9 +2760,9 @@ msgstr "なし"
 #: ../root/admin/attributes/Script.js:46
 #: ../root/components/Aliases/ArtistCreditList.js:48
 #: ../root/components/list/RecordingList.js:77
-#: ../root/edit/details/AddArea.js:56 ../root/edit/details/AddArtist.js:71
-#: ../root/edit/details/AddEvent.js:54
-#: ../root/edit/details/AddInstrument.js:54
+#: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:71
+#: ../root/edit/details/AddEvent.js:55
+#: ../root/edit/details/AddInstrument.js:55
 #: ../root/edit/details/AddLabel.js:61 ../root/edit/details/AddPlace.js:54
 #: ../root/edit/details/AddRelationshipAttribute.js:45
 #: ../root/edit/details/AddRelationshipType.js:71
@@ -2903,7 +2903,7 @@ msgstr ""
 msgid "No edit notes have been added."
 msgstr ""
 
-#: ../root/edit/list.tt:89
+#: ../root/edit/list.tt:95
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr ""
 
@@ -2964,8 +2964,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:256
 #: ../root/static/scripts/common/constants.js:257
+#: ../root/static/scripts/common/constants.js:258
 msgid "Normal"
 msgstr "中"
 
@@ -3036,7 +3036,7 @@ msgstr "ディスクIDが接続してるリリースと同じトラック数（{
 msgid "Only show open edits"
 msgstr "オープン中編集のみを表示"
 
-#: ../root/release/edit_relationships.tt:152
+#: ../root/release/edit_relationships.tt:153
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -3319,7 +3319,7 @@ msgstr "評価"
 msgid "Ratings"
 msgstr "評価"
 
-#: ../root/edit/index.tt:15
+#: ../root/edit/index.tt:17
 msgid "Raw edit data may be available."
 msgstr ""
 
@@ -3329,7 +3329,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:574
 #: ../root/edit/details/merge_releases.tt:108
-#: ../root/edit/search_macros.tt:398 ../root/release/edit_relationships.tt:50
+#: ../root/edit/search_macros.tt:398 ../root/release/edit_relationships.tt:51
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/edit/details/AddStandaloneRecording.js:46
@@ -3375,8 +3375,8 @@ msgid "Recording:"
 msgstr "レコーディング:"
 
 #: ../root/components/common-macros.tt:591 ../root/release/edit/layout.tt:17
-#: ../root/area/AreaRecordings.js:25 ../root/artist/ArtistRecordings.js:145
-#: ../root/artist/ArtistRecordings.js:147
+#: ../root/area/AreaRecordings.js:25 ../root/artist/ArtistRecordings.js:142
+#: ../root/artist/ArtistRecordings.js:144
 #: ../root/artist_credit/ArtistCreditIndex.js:123
 #: ../root/artist_credit/ArtistCreditLayout.js:29
 #: ../root/components/EntityTabs.js:32 ../root/edit/details/EditMedium.js:559
@@ -3397,7 +3397,7 @@ msgstr "検索を絞り込む"
 msgid "Reject"
 msgstr "拒否"
 
-#: ../root/edit/index.tt:64 ../root/edit/components/EditSummary.js:93
+#: ../root/edit/index.tt:66 ../root/edit/components/EditSummary.js:93
 msgid "Reject edit"
 msgstr "編集を拒否"
 
@@ -3405,7 +3405,7 @@ msgstr "編集を拒否"
 msgid "Rejected edits by {name}"
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:55
+#: ../root/release/edit_relationships.tt:56
 msgid "Related Works"
 msgstr "関係する作品"
 
@@ -3445,7 +3445,7 @@ msgstr "関係編集者"
 msgid "Relationships"
 msgstr "関係一覧"
 
-#: ../root/release/edit_relationships.tt:10
+#: ../root/release/edit_relationships.tt:11
 msgid ""
 "Relationships highlighted <span class=\"rel-edit\">yellow</span> will be "
 "edited, relationships highlighted <span class=\"rel-remove\">red</span> will"
@@ -3518,7 +3518,7 @@ msgstr "リリースグループ"
 msgid "Release Group Details"
 msgstr "リリースグループの詳細"
 
-#: ../root/release/edit_relationships.tt:103
+#: ../root/release/edit_relationships.tt:104
 msgid "Release Group Relationships"
 msgstr "リリースグループの関連"
 
@@ -3552,7 +3552,7 @@ msgstr "リリースの言語"
 msgid "Release Quality"
 msgstr "リリースの品質"
 
-#: ../root/release/edit_relationships.tt:97
+#: ../root/release/edit_relationships.tt:98
 msgid "Release Relationships"
 msgstr "リリースの関連"
 
@@ -3733,7 +3733,7 @@ msgid "Remove selected entities"
 msgstr "選択されたエンティティを削除"
 
 #: ../root/release/edit/tracklist.tt:214
-#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:10
+#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:11
 msgid "Remove track"
 msgstr "トラックを削除"
 
@@ -3827,7 +3827,7 @@ msgstr "文字:"
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:106
 #: ../root/release/edit/tracklist.tt:104 ../root/search/form.tt:42
 #: ../root/admin/EmailSearch.js:55 ../root/doc/components/DocSearchBox.js:24
-#: ../root/layout/components/BottomMenu.js:193
+#: ../root/layout/components/BottomMenu.js:196
 #: ../root/layout/components/Search.js:98
 #: ../root/otherlookup/OtherLookupForm.js:46 ../root/search/SearchIndex.js:33
 #: ../root/search/SearchIndex.js:35 ../root/search/components/SearchForm.js:97
@@ -3917,8 +3917,8 @@ msgid "Send"
 msgstr "送信"
 
 #: ../root/user/contact.tt:1 ../root/user/contact.tt:3
-#: ../lib/MusicBrainz/Server/Controller/User.pm:294
-#: ../lib/MusicBrainz/Server/Controller/User.pm:319
+#: ../lib/MusicBrainz/Server/Controller/User.pm:295
+#: ../lib/MusicBrainz/Server/Controller/User.pm:320
 #: ../root/account/LostUsername.js:44
 msgid "Send Email"
 msgstr "emilを送信"
@@ -3975,7 +3975,7 @@ msgid "Set a new password for your MusicBrainz account."
 msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:4
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:21
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:88
 msgid "Set cover art"
 msgstr "カバーアートを設定"
@@ -4107,7 +4107,7 @@ msgstr "ベータサイトの使用を止める"
 msgid "Stop watching selected artists"
 msgstr ""
 
-#: ../root/edit/list_header.tt:32 ../root/main/index.js:176
+#: ../root/edit/list_header.tt:32 ../root/main/index.js:179
 msgid "Style guidelines"
 msgstr "スタイル指針"
 
@@ -4120,7 +4120,7 @@ msgstr "件名:"
 msgid "Submit"
 msgstr "提出"
 
-#: ../root/edit/index.tt:80
+#: ../root/edit/index.tt:82
 msgid "Submit note"
 msgstr "メモを提出"
 
@@ -4128,17 +4128,17 @@ msgstr "メモを提出"
 msgid "Submit this CD using the simple method."
 msgstr ""
 
-#: ../root/edit/index.tt:78 ../root/edit/components/Vote.js:112
+#: ../root/edit/index.tt:80 ../root/edit/components/Vote.js:112
 msgid "Submit vote and note"
 msgstr "投票とノートを提出"
 
-#: ../root/edit/list.tt:81
+#: ../root/edit/list.tt:87
 msgid "Submit votes &amp; edit notes"
 msgstr "投票と編集ノートを提出"
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:126
-#: ../root/release/edit_relationships.tt:186
+#: ../root/release/edit_relationships.tt:127
+#: ../root/release/edit_relationships.tt:187
 msgid "Submitting edits..."
 msgstr ""
 
@@ -4171,7 +4171,7 @@ msgstr "タグ者"
 
 #: ../root/user/tags.tt:1 ../root/components/EntityTabs.js:130
 #: ../root/components/UserAccountTabs.js:57 ../root/entity/Tags.js:34
-#: ../root/layout/components/BottomMenu.js:204 ../root/tag/TagCloud.js:49
+#: ../root/layout/components/BottomMenu.js:207 ../root/tag/TagCloud.js:49
 #: ../root/tag/TagCloud.js:51
 msgid "Tags"
 msgstr "タグ"
@@ -4180,7 +4180,7 @@ msgstr "タグ"
 msgid "Technical flags"
 msgstr ""
 
-#: ../root/edit/index.tt:60
+#: ../root/edit/index.tt:62
 msgid "Testing features"
 msgstr "テスト中の機能"
 
@@ -4268,7 +4268,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/medium.tt:38 ../root/release/edit/recordings.tt:22
-#: ../root/release/edit_relationships.tt:77
+#: ../root/release/edit_relationships.tt:78
 #: ../root/edit/details/AddMedium.js:167
 msgid "The tracklist for this medium is unknown."
 msgstr ""
@@ -4607,11 +4607,11 @@ msgstr "このユーザーはボットです。"
 msgid "This user is new to MusicBrainz."
 msgstr "MusicBrainzの初心者です。"
 
-#: ../root/release/edit_relationships.tt:133
+#: ../root/release/edit_relationships.tt:134
 msgid "This will add a relationship to all checked recordings."
 msgstr "選択されたレコーディングすべてに関係を追加します。"
 
-#: ../root/release/edit_relationships.tt:136
+#: ../root/release/edit_relationships.tt:137
 msgid "This will add a relationship to all checked works."
 msgstr "選択した作品すべてに関係を追加します。"
 
@@ -4621,14 +4621,14 @@ msgid ""
 "any edits currently open to Abstain."
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:149
+#: ../root/release/edit_relationships.tt:150
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
 msgstr ""
 
 #: ../root/cdtoc/info.tt:37 ../root/cdtoc/info.tt:39 ../root/cdtoc/info.tt:41
-#: ../root/components/list/EventList.js:88 ../root/edit/details/AddEvent.js:93
+#: ../root/components/list/EventList.js:88 ../root/edit/details/AddEvent.js:94
 #: ../root/edit/details/EditEvent.js:105
 #: ../root/report/components/EventList.js:40
 #: ../root/search/components/EventResults.js:68
@@ -4657,13 +4657,13 @@ msgstr "タイトル"
 msgid "Title:"
 msgstr "タイトル:"
 
-#: ../root/release/edit_relationships.tt:15
+#: ../root/release/edit_relationships.tt:16
 msgid ""
 "To <span class=\"rel-edit\">edit</span> a relationship, click on its name "
 "(e.g. \"composer\")."
 msgstr ""
 
-#: ../root/edit/index.tt:61
+#: ../root/edit/index.tt:63
 msgid ""
 "To aid in testing, the following features have been made available on "
 "testing servers:"
@@ -4679,7 +4679,7 @@ msgstr "新しいトラックリストを作成するには、既存のメディ
 msgid "To edit types, please {edit_page|edit the release group}."
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:17
+#: ../root/release/edit_relationships.tt:18
 msgid ""
 "To use the batch tools, select some recordings or works using the "
 "checkboxes."
@@ -4692,7 +4692,7 @@ msgid ""
 msgstr ""
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
-#: ../root/layout/components/BottomMenu.js:207
+#: ../root/layout/components/BottomMenu.js:210
 msgid "Top CD Stubs"
 msgstr ""
 
@@ -4719,7 +4719,7 @@ msgstr "トラック #"
 msgid "Track Parser"
 msgstr "トラックパーサ"
 
-#: ../root/release/edit_relationships.tt:19
+#: ../root/release/edit_relationships.tt:20
 msgid "Track Relationships"
 msgstr "トラックの関係"
 
@@ -4793,9 +4793,9 @@ msgstr "Twitter"
 #: ../root/components/Aliases/AliasTable.js:28
 #: ../root/components/list/ReleaseGroupList.js:102
 #: ../root/components/list/ReleaseList.js:138
-#: ../root/edit/details/AddArea.js:76 ../root/edit/details/AddArtist.js:89
-#: ../root/edit/details/AddEvent.js:72
-#: ../root/edit/details/AddInstrument.js:71
+#: ../root/edit/details/AddArea.js:77 ../root/edit/details/AddArtist.js:89
+#: ../root/edit/details/AddEvent.js:73
+#: ../root/edit/details/AddInstrument.js:72
 #: ../root/edit/details/AddLabel.js:107 ../root/edit/details/AddPlace.js:65
 #: ../root/edit/details/AddRemoveAlias.js:101
 #: ../root/edit/details/AddSeries.js:57 ../root/edit/details/AddWork.js:69
@@ -5041,7 +5041,7 @@ msgstr ""
 msgid "View this version"
 msgstr "このバージョンを表示"
 
-#: ../root/edit/edit_header.tt:36 ../root/edit/index.tt:25
+#: ../root/edit/edit_header.tt:36 ../root/edit/index.tt:27
 #: ../root/edit/search_macros.tt:398
 msgid "Vote tally"
 msgstr "投票数"
@@ -5050,7 +5050,7 @@ msgstr "投票数"
 msgid "Voter"
 msgstr "投票者"
 
-#: ../root/doc/edit_type.tt:35 ../root/edit/index.tt:18
+#: ../root/doc/edit_type.tt:35 ../root/edit/index.tt:20
 msgid "Votes"
 msgstr "投票数"
 
@@ -5131,7 +5131,7 @@ msgid ""
 " below in order to attach this disc to another MusicBrainz release."
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:93 ../root/release/index.tt:10
+#: ../root/release/edit_relationships.tt:94 ../root/release/index.tt:10
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
@@ -5164,7 +5164,7 @@ msgid "WikiDoc:"
 msgstr "WikiDoc:"
 
 #: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:398
-#: ../lib/MusicBrainz/Server/Edit/Work.pm:8
+#: ../lib/MusicBrainz/Server/Edit/Work.pm:9
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
 #: ../root/components/list/WorkList.js:59 ../root/edit/details/AddWork.js:46
 #: ../root/edit/details/EditWork.js:59 ../root/edit/details/RemoveIswc.js:40
@@ -5189,7 +5189,7 @@ msgstr "作品属性"
 msgid "Work Details"
 msgstr "作品の詳細"
 
-#: ../root/release/edit_relationships.tt:158
+#: ../root/release/edit_relationships.tt:159
 msgid "Work Type:"
 msgstr "作品タイプ:"
 
@@ -5271,7 +5271,7 @@ msgstr ""
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr ""
 
-#: ../root/edit/index.tt:53
+#: ../root/edit/index.tt:55
 msgid "You are not currently able to vote on this edit. ({url|Details})"
 msgstr "あなたは現在この編集に投票することができません。（{url|詳細}）"
 
@@ -5336,7 +5336,7 @@ msgid ""
 "statement}."
 msgstr ""
 
-#: ../root/edit/index.tt:84
+#: ../root/edit/index.tt:86
 msgid "You must be logged in to see edit notes."
 msgstr ""
 
@@ -5344,7 +5344,7 @@ msgstr ""
 msgid "You must be logged in to use this option."
 msgstr ""
 
-#: ../root/edit/index.tt:69
+#: ../root/edit/index.tt:71
 msgid "You must be logged in to vote on edits."
 msgstr ""
 
@@ -5442,8 +5442,8 @@ msgstr "[missing media]"
 
 #: ../root/components/common-macros.tt:259
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:111
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:82
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:183
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:84
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:186
 #: ../root/edit/details/EditAlias.js:94
 #: ../root/static/scripts/common/components/EntityLink.js:41
 msgid "[removed]"
@@ -5843,7 +5843,7 @@ msgstr "{doc|ディスクID}:"
 msgid "{entity_type} by {artist}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:272 ../root/main/index.js:264
+#: ../root/components/common-macros.tt:272 ../root/main/index.js:267
 #: ../root/static/scripts/common/components/DescriptiveLink.js:57
 #: ../root/static/scripts/release-editor/dialogs.js:152
 msgid "{entity} by {artist}"
@@ -6026,79 +6026,79 @@ msgid_plural ""
 "automatically accepted and applied."
 msgstr[0] "ありがとうございます、{num_edits}つの{edit_url|編集} ({edit_ids}) はピアレビューのために{num_open_edits}で編集キューに入りました。残りは自動的に同意・適用されます。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:56
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:57
 msgid "The user ID is missing or is in an invalid format."
 msgstr "ユーザーIDが入力されていないか、形式が不正です。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:66
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:67
 msgid "The email address is missing."
 msgstr "email アドレスの入力がありません。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:76
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:77
 msgid "The time is missing or is in an invalid format."
 msgstr "時間の入力がないか、形式が誤っています。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:87
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:88
 msgid "The verification key is missing."
 msgstr "検証キーの入力がありません。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:98
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:269
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:270
 msgid "The checksum is invalid, please double check your email."
 msgstr "チェックサムが不正です。あなたのemailを再確認してください。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:109
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:110
 msgid "Sorry, this email verification link has expired."
 msgstr "申し訳ありません。この email 確認リンクは有効期限切れです。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:121
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:281
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:122
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:282
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr "ID が '{user_id}' のユーザーが見つかりません。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:168
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:169
 msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
 msgstr "あなたの email アドレスにログイン情報を送信できません。もう一度登録してください。しかし問題が続く場合には、support@musicbrainz.org まで連絡してください。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:194
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:195
 msgid "There is no user with this username"
 msgstr "このユーザー名のユーザーはいません"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:199
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:200
 msgid "There is no user with this username and email"
 msgstr "このユーザー名とemail のユーザーはいません"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
 msgstr "このユーザーにメールアドレスが登録してないため、パスワードリセットのメールは送信できません。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:232
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:233
 msgid "Your password has been reset."
 msgstr "パスワードはリセットされました。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:247
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:248
 msgid "Missing one or more required parameters."
 msgstr "必須パラメータが入力がありません。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:258
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:259
 msgid "Sorry, this password reset link has expired."
 msgstr "申し訳ありません。このパスワードリセットリンクは有効期限切れです。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:324
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:325
 msgid "There is no user with this email"
 msgstr "このemailのユーザーはいません"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:407
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:408
 msgid "Your profile has been updated."
 msgstr "プロフィール更新しました。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:411
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:412
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
@@ -6106,11 +6106,11 @@ msgid ""
 "address."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:450
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:451
 msgid "Your password has been changed."
 msgstr "パスワード変更されました。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:674
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:675
 msgid ""
 "<strong>We were unable to send a verification email to "
 "you.</strong><br/>Please confirm that you have entered a valid address by "
@@ -6132,27 +6132,27 @@ msgstr "バナーが更新されました。それぞれのサーバーのバナ
 msgid "Invalid regular expression."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:120
+#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:124
 #, perl-brace-format
 msgid "You cannot remove the attribute \"{name}\" because it is still in use."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:132
+#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:136
 #, perl-brace-format
 msgid ""
 "You cannot remove the attribute “{name}” because it is the parent of other "
 "attributes."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:647
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:648
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "特殊目的のアーティストを他のアーティストとマージ出来ません。"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:652
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:653
 msgid "You cannot merge into Deleted Artist"
 msgstr "削除されたアーティストにマージできません。"
 
-#: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:82
+#: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:83
 #, perl-brace-format
 msgid "'{id}' is not a valid election ID"
 msgstr "選挙ID {id} は無効です。"
@@ -6192,11 +6192,11 @@ msgstr "与えたアーティストIDは無効です。"
 msgid "Default"
 msgstr "標準"
 
-#: ../lib/MusicBrainz/Server/Controller/Label.pm:209
+#: ../lib/MusicBrainz/Server/Controller/Label.pm:210
 msgid "You cannot merge a special purpose label into another label."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Label.pm:214
+#: ../lib/MusicBrainz/Server/Controller/Label.pm:215
 msgid "You cannot merge into Deleted Label."
 msgstr ""
 
@@ -6205,7 +6205,7 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:503
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:505
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "このマージ方法は選択されたリリースに適用できません。"
@@ -6214,62 +6214,62 @@ msgstr "このマージ方法は選択されたリリースに適用できませ
 msgid "The annotation revision ID must be a positive integer"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:175
+#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:173
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "新旧の注釈 ID は、ユニークな正の整数でなければなりません。"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:83
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:84
 msgid ""
 "Language set. If you find any problems with the translation, please "
 "{url|help us improve it}!"
 msgstr "言語が設定されました。翻訳に問題がある場合は{url|翻訳にご協力ください}！"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:302
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:303
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
 msgstr "Redisサーバーが使えなくなっています。このため、いくつかの機能が正しく動かない可能性があります。"
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:145
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:146
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:295
+#: ../lib/MusicBrainz/Server/Controller/User.pm:296
 msgid ""
 "You cannot contact other users because you have not {url|verified your email"
 " address}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:320
+#: ../lib/MusicBrainz/Server/Controller/User.pm:321
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "この編集者 {name} は、アカウントにメールアドレスを登録していません。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:334
+#: ../lib/MusicBrainz/Server/Controller/User.pm:335
 msgid "Email Sent"
 msgstr "メール送信しました"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:335
+#: ../lib/MusicBrainz/Server/Controller/User.pm:336
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:362
+#: ../lib/MusicBrainz/Server/Controller/User.pm:363
 msgid "Your message could not be sent"
 msgstr "あなたのメッセージを送信できません"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:503
+#: ../lib/MusicBrainz/Server/Controller/User.pm:505
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:660
+#: ../lib/MusicBrainz/Server/Controller/User.pm:662
 msgid "An error occurred while trying to send your report."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:664
+#: ../lib/MusicBrainz/Server/Controller/User.pm:666
 msgid "Your report has been sent."
 msgstr ""
 
@@ -6277,7 +6277,7 @@ msgstr ""
 msgid "Invalid TOC"
 msgstr "不正なTOCです"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:615
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:633
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
@@ -6338,9 +6338,9 @@ msgid "There is already a CD stub with this disc ID"
 msgstr "このディスク ID に対する CD スタブが、既にあります"
 
 #: ../lib/MusicBrainz/Server/Data/Language.pm:63
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:71
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:80
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:181
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:72
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:82
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:184
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:48
 msgid "[No lyrics]"
 msgstr ""
@@ -6398,7 +6398,7 @@ msgstr "地域の別名を追加"
 msgid "Add area annotation"
 msgstr "地域の注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:22
 msgid "Add area"
 msgstr "地域を追加"
 
@@ -6406,11 +6406,11 @@ msgstr "地域を追加"
 msgid "Remove area"
 msgstr "地域を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 msgid "Remove area alias"
 msgstr "地域の別名を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:32
+#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:33
 msgid "Edit area"
 msgstr "地域を編集"
 
@@ -6431,7 +6431,7 @@ msgstr "アーティストの別名を追加"
 msgid "Add artist annotation"
 msgstr "アーティストの注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:27
+#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:28
 msgid "Add artist"
 msgstr "アーティストを追加"
 
@@ -6439,11 +6439,11 @@ msgstr "アーティストを追加"
 msgid "Remove artist"
 msgstr "アーティストを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:15
 msgid "Remove artist alias"
 msgstr "アーティストの別名を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:44
 msgid "Edit artist"
 msgstr "アーティストを編集"
 
@@ -6451,7 +6451,7 @@ msgstr "アーティストを編集"
 msgid "Edit artist alias"
 msgstr "アーティストの別名を編集"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:25
+#: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
 msgid "Edit artist credit"
 msgstr "アーティストクレジットを編集"
 
@@ -6468,7 +6468,7 @@ msgstr "イベントの別名を追加"
 msgid "Add event annotation"
 msgstr "イベントの注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:22
 #: ../root/layout/components/sidebar/ArtistSidebar.js:165
 #: ../root/layout/components/sidebar/PlaceSidebar.js:116
 msgid "Add event"
@@ -6478,11 +6478,11 @@ msgstr "イベントを追加"
 msgid "Remove event"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:15
 msgid "Remove event alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:41
+#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:42
 msgid "Edit event"
 msgstr "イベントを編集"
 
@@ -6495,12 +6495,12 @@ msgstr "イベントの別名を編集"
 msgid "Merge events"
 msgstr "イベントをマージ"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:10
+#: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
 msgid "Add disc ID"
 msgstr "ディスクIDを追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:19
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
 #: ../root/layout/components/sidebar/ArtistSidebar.js:150
 #: ../root/layout/components/sidebar/LabelSidebar.js:108
@@ -6508,7 +6508,7 @@ msgstr "ディスクIDを追加"
 msgid "Add release"
 msgstr "リリースを追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:12
 msgid "Add release annotation"
 msgstr "リリースの注釈を追加"
@@ -6517,78 +6517,78 @@ msgstr "リリースの注釈を追加"
 msgid "Add release events (historic)"
 msgstr "リリースイベントを追加 (歴史的)"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/AddTrack.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Historic/AddTrackKV.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Historic/AddTrack.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Historic/AddTrackKV.pm:12
 msgid "Add track (historic)"
 msgstr "トラックを追加（歴史的）"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeArtistQuality.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeArtistQuality.pm:13
 msgid "Change artist quality (historic)"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseGroup.pm:12
-#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseAttrs.pm:15
-#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseLanguage.pm:14
-#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:10
-#: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:13
-#: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseGroup.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseAttrs.pm:16
+#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseLanguage.pm:15
+#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:18
 #: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:49
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:32
 msgid "Edit release"
 msgstr "リリースを編集"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:13
-#: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:14
 msgid "Edit track (historic)"
 msgstr "トラックを編集（歴史的）"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:17
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:35
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:36
 msgid "Edit relationship"
 msgstr "関係を編集"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEvents.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEventsOld.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEventsOld.pm:18
 msgid "Edit release events (historic)"
 msgstr "リリースイベントを編集（歴史的）"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:12
-#: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:22
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:44
+#: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:45
 msgid "Edit recording"
 msgstr "レコーディングを編集"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:13
 msgid "Convert release to single artist (historic)"
 msgstr "リリースをシングルアーティストへ変換（歴史的）"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/MergeRelease.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Historic/MergeRelease.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:9
-#: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:139
+#: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:140
 msgid "Merge releases"
 msgstr "リリースをマージ"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:21
 msgid "Move disc ID"
 msgstr "ディスク ID を移動"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:9
+#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:10
 msgid "Remove disc ID"
 msgstr "ディスク ID を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:15
 msgid "Remove label alias"
 msgstr "レーベルの別名を削除"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:10
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:32
 msgid "Remove relationship"
 msgstr "関係を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveRelease.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveRelease.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Release/Delete.pm:12
 msgid "Remove release"
 msgstr "リリースを削除"
@@ -6597,11 +6597,11 @@ msgstr "リリースを削除"
 msgid "Remove release events (historic)"
 msgstr "リリースイベントを削除（歴史的）"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleases.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleases.pm:12
 msgid "Remove releases (historic)"
 msgstr "リリースを削除（歴史的）"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/SACToMAC.pm:15
+#: ../lib/MusicBrainz/Server/Edit/Historic/SACToMAC.pm:16
 msgid "Convert release to multiple artists (historic)"
 msgstr "リリースを複数アーティストへ変換（歴史的）"
 
@@ -6618,7 +6618,7 @@ msgstr "楽器の別名を追加"
 msgid "Add instrument annotation"
 msgstr "楽器の注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:19
 msgid "Add instrument"
 msgstr "楽器を追加"
 
@@ -6626,11 +6626,11 @@ msgstr "楽器を追加"
 msgid "Remove instrument"
 msgstr "楽器を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:15
 msgid "Remove instrument alias"
 msgstr "楽器の別名を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:27
 msgid "Edit instrument"
 msgstr "楽器を編集"
 
@@ -6652,7 +6652,7 @@ msgstr "レーベルの別名を追加"
 msgid "Add label annotation"
 msgstr "レーベルの注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:28
+#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:29
 msgid "Add label"
 msgstr "レーベルを追加"
 
@@ -6660,7 +6660,7 @@ msgstr "レーベルを追加"
 msgid "Remove label"
 msgstr "レーベルを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:44
 msgid "Edit label"
 msgstr "レーベルを編集"
 
@@ -6673,15 +6673,15 @@ msgstr "レーベルの別名を編集"
 msgid "Merge labels"
 msgstr "レーベルをマージ"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
+#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:35
 msgid "Add medium"
 msgstr "メディアを追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:23
 msgid "Remove medium"
 msgstr "メディアを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:51
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:52
 msgid "Edit medium"
 msgstr "メディアを編集"
 
@@ -6699,7 +6699,7 @@ msgstr "場所の別名を追加"
 msgid "Add place annotation"
 msgstr "場所の注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:25
 msgid "Add place"
 msgstr "場所を追加"
 
@@ -6707,11 +6707,11 @@ msgstr "場所を追加"
 msgid "Remove place"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 msgid "Remove place alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:44
+#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:45
 msgid "Edit place"
 msgstr "場所を編集"
 
@@ -6732,11 +6732,11 @@ msgstr "レコーディングの別名を追加"
 msgid "Add recording annotation"
 msgstr "レコーディングの注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:24
 msgid "Add ISRCs"
 msgstr "ISRCを追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:27
 msgid "Add standalone recording"
 msgstr "スタンドアロンレコーディングを追加"
 
@@ -6744,7 +6744,7 @@ msgstr "スタンドアロンレコーディングを追加"
 msgid "Remove recording"
 msgstr "レコーディングを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
 msgid "Remove recording alias"
 msgstr ""
 
@@ -6758,7 +6758,7 @@ msgstr "レコーディングの別名を編集"
 msgid "Merge recordings"
 msgstr "レコーディングをマージ"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:21
 msgid "Remove ISRC"
 msgstr "ISRC を削除"
 
@@ -6767,29 +6767,29 @@ msgstr "ISRC を削除"
 msgid "Relationship"
 msgstr "関係"
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkAttribute.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkAttribute.pm:15
 msgid "Add relationship attribute"
 msgstr "関係属性を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkType.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkType.pm:15
 msgid "Add relationship type"
 msgstr "関係タイプを追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:281
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:282
 msgid ""
 "This edit would remove a relationship that is set as an example of its "
 "relationship type in the documentation. If you still think this should be "
 "removed, please {contact_url|contact us}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:418
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:419
 #, perl-brace-format
 msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
 "already exists."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:15
 msgid "Edit relationship attribute"
 msgstr "関係属性を編集"
 
@@ -6805,7 +6805,7 @@ msgstr "関係属性を削除"
 msgid "Remove relationship type"
 msgstr "関係タイプを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:24
 msgid "Reorder relationships"
 msgstr ""
 
@@ -6813,19 +6813,19 @@ msgstr ""
 msgid "Add release alias"
 msgstr "リリースの別名を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:21
 msgid "Add cover art"
 msgstr "カバーアートを追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:19
 msgid "Add release label"
 msgstr "リリースレーベルを追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
 msgid "Remove release alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
 msgid "Remove release label"
 msgstr "リリースレーベルを削除"
 
@@ -6837,31 +6837,31 @@ msgstr "リリースの別名を編集"
 msgid "Edit barcodes"
 msgstr "バーコードを編集"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:24
 msgid "Edit cover art"
 msgstr "カバーアートを編集"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:28
 msgid "Edit release label"
 msgstr "リリースレーベルを編集"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:97
-#: ../lib/MusicBrainz/Server/Entity/Release.pm:184
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:98
+#: ../lib/MusicBrainz/Server/Entity/Release.pm:185
 #: ../root/static/scripts/release-editor/duplicates.js:186
 msgctxt "medium format"
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:334
+#: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:347
 #, perl-brace-format
 msgid "These releases could not be merged: {reason}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:20
 msgid "Remove cover art"
 msgstr "カバーアートを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:25
 msgid "Reorder cover art"
 msgstr "カバーアートを並べ替え"
 
@@ -6883,7 +6883,7 @@ msgstr "リリースグループの別名を追加"
 msgid "Add release group annotation"
 msgstr "リリースグループの注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:25
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:26
 #: ../root/layout/components/sidebar/ArtistSidebar.js:145
 msgid "Add release group"
 msgstr "リリースグループを追加"
@@ -6892,11 +6892,11 @@ msgstr "リリースグループを追加"
 msgid "Remove release group"
 msgstr "リリースグループを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
 msgid "Remove release group alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:46
 msgid "Edit release group"
 msgstr "リリースグループを編集"
 
@@ -6905,7 +6905,7 @@ msgid "Edit release group alias"
 msgstr "リリースグループの別名を編集"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:308
+#: ../root/artist/ArtistIndex.js:297
 #: ../root/release_group/ReleaseGroupMerge.js:31
 #: ../root/release_group/ReleaseGroupMerge.js:33
 msgid "Merge release groups"
@@ -6919,7 +6919,7 @@ msgstr "シリーズの別名を追加"
 msgid "Add series annotation"
 msgstr "シリーズの注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:23
 msgid "Add series"
 msgstr "シリーズを追加"
 
@@ -6927,11 +6927,11 @@ msgstr "シリーズを追加"
 msgid "Remove series"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:15
 msgid "Remove series alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:32
 msgid "Edit series"
 msgstr "シリーズを編集"
 
@@ -6976,7 +6976,7 @@ msgid "No votes"
 msgstr "投票なし"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
-#: ../root/edit/details/AddEvent.js:66 ../root/edit/details/EditEvent.js:71
+#: ../root/edit/details/AddEvent.js:67 ../root/edit/details/EditEvent.js:71
 #: ../root/user/UserProfile.js:567 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr "キャンセル済"
@@ -6997,11 +6997,11 @@ msgstr "作品の別名を追加"
 msgid "Add work annotation"
 msgstr "作品の注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:24
 msgid "Add ISWCs"
 msgstr "ISWCを追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:18
 #: ../root/layout/components/sidebar/ArtistSidebar.js:160
 msgid "Add work"
 msgstr "作品を追加"
@@ -7010,11 +7010,11 @@ msgstr "作品を追加"
 msgid "Remove work"
 msgstr "作品を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:15
+#: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:16
 msgid "Remove work alias"
 msgstr "作品の別名を削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:87
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:88
 msgid "Edit work"
 msgstr "作品を編集"
 
@@ -7027,7 +7027,7 @@ msgstr "作品の別名を編集"
 msgid "Merge works"
 msgstr "作品をマージ"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:23
 msgid "Remove ISWC"
 msgstr "ISWC を削除"
 
@@ -7116,12 +7116,12 @@ msgstr ""
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:267
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:268
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:274
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:275
 #: ../lib/MusicBrainz/Server/Translation.pm:273
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -7201,6 +7201,10 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Wikisource.pm:9
 msgid "Wikisource"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
+msgid "Stream at YouTube Music"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Admin/Attributes/Language.pm:49
@@ -7418,6 +7422,10 @@ msgstr "無効な日付"
 msgid "Please ensure all lines start with @, * or #, followed by a space."
 msgstr ""
 
+#: ../lib/MusicBrainz/Server/Form/Field/Text.pm:18
+msgid "The characters you’ve entered are invalid or not allowed."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Form/Field/Time.pm:16
 msgid "This is not a valid time."
 msgstr ""
@@ -7449,7 +7457,7 @@ msgstr "この位置に既に他のメディアがあります。"
 msgid "Positions must be greater than 0"
 msgstr "位置は 0 より大きくなければなりません"
 
-#: ../lib/MusicBrainz/Server/Form/Recording.pm:62
+#: ../lib/MusicBrainz/Server/Form/Recording.pm:65
 msgid ""
 "This recording’s duration is determined by the tracks that are linked to it,"
 " and cannot be changed directly."
@@ -7479,22 +7487,22 @@ msgid "Invalid URL format"
 msgstr "URL 形式が不正です"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
-#: ../root/static/scripts/common/constants.js:266
+#: ../root/static/scripts/common/constants.js:267
 msgid "Basic"
 msgstr "基礎的"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
-#: ../root/static/scripts/common/constants.js:267
+#: ../root/static/scripts/common/constants.js:268
 msgid "Intermediate"
 msgstr "中級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:265
+#: ../root/static/scripts/common/constants.js:266
 msgid "Advanced"
 msgstr "上級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:268
+#: ../root/static/scripts/common/constants.js:269
 msgid "Native"
 msgstr "母語"
 
@@ -7522,7 +7530,7 @@ msgstr "タグ"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
 #: ../root/edit/details/AddRelationshipType.js:193
-#: ../root/layout/components/BottomMenu.js:269
+#: ../root/layout/components/BottomMenu.js:272
 #: ../root/layout/components/Search.js:53
 #: ../root/search/components/SearchForm.js:53
 msgid "Documentation"
@@ -7642,34 +7650,34 @@ msgstr ""
 msgid "Please choose another username, this one is already taken."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:55
+#: ../lib/MusicBrainz/Server/Form/Work.pm:58
 msgid "Please select a work attribute type."
 msgstr "作品属性タイプを選択してください。"
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:62
+#: ../lib/MusicBrainz/Server/Form/Work.pm:65
 msgid "Please enter a work attribute value."
 msgstr "作品属性値を入力してください。"
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:89
+#: ../lib/MusicBrainz/Server/Form/Work.pm:92
 msgid ""
 "You cannot select “[Multiple languages]” and specific languages at the same "
 "time."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:94
+#: ../lib/MusicBrainz/Server/Form/Work.pm:97
 msgid ""
 "You cannot select “[No lyrics]” and a lyrics language at the same time."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:99
+#: ../lib/MusicBrainz/Server/Form/Work.pm:102
 msgid "You cannot select the same language more than once."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:140
+#: ../lib/MusicBrainz/Server/Form/Work.pm:143
 msgid "Unknown work attribute type."
 msgstr "不明な作品属性タイプです。"
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:147
+#: ../lib/MusicBrainz/Server/Form/Work.pm:150
 msgid "This value is not allowed for this work attribute type."
 msgstr "この値は作品属性タイプに使用できません。"
 
@@ -8129,7 +8137,7 @@ msgid "Last login"
 msgstr ""
 
 #: ../root/admin/components/UserList.js:41
-#: ../root/report/components/EditorList.js:51
+#: ../root/report/components/EditorList.js:54
 msgid "delete"
 msgstr ""
 
@@ -8289,83 +8297,83 @@ msgstr ""
 msgid "This artist is not currently associated with any events."
 msgstr "このアーティストは現在、どのイベントにも関連付けられていません。"
 
-#: ../root/artist/ArtistIndex.js:92
-msgid "Showing official release groups by this artist"
-msgstr ""
-
-#: ../root/artist/ArtistIndex.js:93
-msgid "Showing all release groups by this artist"
-msgstr ""
-
-#: ../root/artist/ArtistIndex.js:95
-msgid "Showing official release groups for various artists"
-msgstr ""
-
 #: ../root/artist/ArtistIndex.js:97
-msgid "Showing all release groups for various artists"
-msgstr ""
-
-#: ../root/artist/ArtistIndex.js:99
-msgid "This artist does not have any various artists release groups"
-msgstr ""
-
-#: ../root/artist/ArtistIndex.js:102
 msgid "Show official release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:107
+#: ../root/artist/ArtistIndex.js:104
 msgid "Show all release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:112
+#: ../root/artist/ArtistIndex.js:111
 msgid "Show official various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:117
+#: ../root/artist/ArtistIndex.js:118
 msgid "Show all various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:159
+#: ../root/artist/ArtistIndex.js:147
 msgid "This artist only has unofficial release groups by various artists."
 msgstr "このアーティストは、さまざまなアーティストによる非公式のリリースグループのみがあります。"
 
-#: ../root/artist/ArtistIndex.js:174
+#: ../root/artist/ArtistIndex.js:153
+msgid "Showing all release groups for various artists"
+msgstr ""
+
+#: ../root/artist/ArtistIndex.js:154
+msgid "This artist does not have any various artists release groups"
+msgstr ""
+
+#: ../root/artist/ArtistIndex.js:163
 msgid "This artist only has release groups by various artists."
 msgstr "このアーティストは、さまざまなアーティストによるリリースグループのみがあります。"
 
-#: ../root/artist/ArtistIndex.js:186
+#: ../root/artist/ArtistIndex.js:167
+msgid "Showing official release groups for various artists"
+msgstr ""
+
+#: ../root/artist/ArtistIndex.js:175
 msgid "This artist only has unofficial release groups."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:243 ../root/components/CleanupBanner.js:14
+#: ../root/artist/ArtistIndex.js:179
+msgid "Showing all release groups by this artist"
+msgstr ""
+
+#: ../root/artist/ArtistIndex.js:190
+msgid "Showing official release groups by this artist"
+msgstr ""
+
+#: ../root/artist/ArtistIndex.js:232 ../root/components/CleanupBanner.js:14
 msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
 msgstr "このアーティストは関係、レコーディング、リリース、リリースグループのいずれも持たないため、数日のうちに自動的に削除されます。止めるためには、このアーティストに関するデータをさらに追加してください。"
 
-#: ../root/artist/ArtistIndex.js:258 ../root/artist/ArtistIndex.js:266
+#: ../root/artist/ArtistIndex.js:247 ../root/artist/ArtistIndex.js:255
 msgid "Legal name"
 msgstr "正式名称"
 
-#: ../root/artist/ArtistIndex.js:272
+#: ../root/artist/ArtistIndex.js:261
 msgid "Also performs as"
 msgstr "他の活動名"
 
-#: ../root/artist/ArtistIndex.js:286
+#: ../root/artist/ArtistIndex.js:275
 msgid "Discography"
 msgstr "ディスコグラフィー"
 
-#: ../root/artist/ArtistIndex.js:329 ../root/artist/ArtistRecordings.js:169
+#: ../root/artist/ArtistIndex.js:318 ../root/artist/ArtistRecordings.js:166
 #: ../root/instrument/InstrumentRecordings.js:60 ../root/isrc/Index.js:100
 msgid "Add selected recordings for merging"
 msgstr "選択されたレコーディングをマージ"
 
-#: ../root/artist/ArtistIndex.js:338
+#: ../root/artist/ArtistIndex.js:327
 msgid "This artist has no release groups, only standalone recordings."
 msgstr "このアーティストには独立したレコーディングだけが登録されており、リリースグループはありません。"
 
-#: ../root/artist/ArtistIndex.js:342
+#: ../root/artist/ArtistIndex.js:331
 msgid "No release groups found that match this search."
 msgstr ""
 
@@ -8392,35 +8400,35 @@ msgid ""
 "name"
 msgstr ""
 
-#: ../root/artist/ArtistRecordings.js:52
-msgid "Showing all recordings"
-msgstr ""
-
-#: ../root/artist/ArtistRecordings.js:53
-msgid "Showing only standalone recordings"
-msgstr ""
-
 #: ../root/artist/ArtistRecordings.js:54
-msgid "Showing only videos"
-msgstr ""
-
-#: ../root/artist/ArtistRecordings.js:57
 msgid "Show all recordings"
 msgstr ""
 
-#: ../root/artist/ArtistRecordings.js:62
+#: ../root/artist/ArtistRecordings.js:59
 msgid "Show only standalone recordings"
 msgstr ""
 
-#: ../root/artist/ArtistRecordings.js:67
+#: ../root/artist/ArtistRecordings.js:64
 msgid "Show only videos"
 msgstr ""
 
-#: ../root/artist/ArtistRecordings.js:176
+#: ../root/artist/ArtistRecordings.js:72
+msgid "Showing only standalone recordings"
+msgstr ""
+
+#: ../root/artist/ArtistRecordings.js:88
+msgid "Showing only videos"
+msgstr ""
+
+#: ../root/artist/ArtistRecordings.js:104
+msgid "Showing all recordings"
+msgstr ""
+
+#: ../root/artist/ArtistRecordings.js:173
 msgid "No recordings found that match this search."
 msgstr ""
 
-#: ../root/artist/ArtistRecordings.js:177
+#: ../root/artist/ArtistRecordings.js:174
 #: ../root/instrument/InstrumentRecordings.js:68
 msgid "No recordings found."
 msgstr "レコーディングは見つかりませんでした。"
@@ -8680,7 +8688,7 @@ msgid "Alias"
 msgstr "別名"
 
 #: ../root/components/Aliases/AliasTable.js:25
-#: ../root/edit/details/AddArea.js:62 ../root/edit/details/AddArtist.js:76
+#: ../root/edit/details/AddArea.js:63 ../root/edit/details/AddArtist.js:76
 #: ../root/edit/details/AddLabel.js:67
 #: ../root/edit/details/AddRemoveAlias.js:81
 #: ../root/edit/details/EditAlias.js:105 ../root/edit/details/EditArea.js:77
@@ -8851,11 +8859,11 @@ msgstr ""
 msgid "The date you've entered is not valid"
 msgstr ""
 
-#: ../root/components/PostParameters.js:46
+#: ../root/components/PostParameters.js:49
 msgid "Data submitted with this request"
 msgstr ""
 
-#: ../root/components/RelatedSeries.js:30
+#: ../root/components/RelatedSeries.js:29
 msgid "Related series"
 msgstr ""
 
@@ -9146,7 +9154,7 @@ msgstr ""
 msgid "Summary"
 msgstr "概要"
 
-#: ../root/edit/details/AddArea.js:104 ../root/edit/details/AddEvent.js:79
+#: ../root/edit/details/AddArea.js:105 ../root/edit/details/AddEvent.js:80
 #: ../root/edit/details/AddLabel.js:81 ../root/edit/details/AddPlace.js:89
 #: ../root/edit/details/AddRemoveAlias.js:108
 #: ../root/edit/details/EditAlias.js:129 ../root/edit/details/EditArea.js:121
@@ -9157,7 +9165,7 @@ msgstr "概要"
 msgid "Begin date"
 msgstr "開始日"
 
-#: ../root/edit/details/AddArea.js:111 ../root/edit/details/AddEvent.js:86
+#: ../root/edit/details/AddArea.js:112 ../root/edit/details/AddEvent.js:87
 #: ../root/edit/details/AddLabel.js:88 ../root/edit/details/AddPlace.js:95
 #: ../root/edit/details/AddRemoveAlias.js:115
 #: ../root/edit/details/EditAlias.js:136 ../root/edit/details/EditArea.js:129
@@ -9169,7 +9177,7 @@ msgstr "開始日"
 msgid "End date"
 msgstr "終了日"
 
-#: ../root/edit/details/AddArea.js:117 ../root/edit/details/AddArtist.js:149
+#: ../root/edit/details/AddArea.js:118 ../root/edit/details/AddArtist.js:149
 #: ../root/edit/details/AddLabel.js:94 ../root/edit/details/AddPlace.js:100
 #: ../root/edit/details/AddRemoveAlias.js:122
 #: ../root/edit/details/EditAlias.js:143 ../root/edit/details/EditArea.js:137
@@ -9189,7 +9197,7 @@ msgstr "ファイル名:"
 msgid "Medium:"
 msgstr "メディア:"
 
-#: ../root/edit/details/AddEvent.js:100 ../root/edit/details/EditEvent.js:112
+#: ../root/edit/details/AddEvent.js:101 ../root/edit/details/EditEvent.js:112
 #: ../root/event/EventIndex.js:57
 msgid "Setlist"
 msgstr "セットリスト"
@@ -10091,7 +10099,7 @@ msgid "Primary tag"
 msgstr "プライマリタグ"
 
 #: ../root/genre/GenreListPage.js:24 ../root/genre/GenreListPage.js:26
-#: ../root/layout/components/BottomMenu.js:300
+#: ../root/layout/components/BottomMenu.js:303
 msgid "Genre List"
 msgstr "ジャンル一覧"
 
@@ -10127,7 +10135,7 @@ msgid ""
 msgstr ""
 
 #: ../root/instrument/List.js:47 ../root/instrument/List.js:49
-#: ../root/layout/components/BottomMenu.js:297
+#: ../root/layout/components/BottomMenu.js:300
 msgid "Instrument List"
 msgstr "楽器リスト"
 
@@ -10261,42 +10269,46 @@ msgid "AudioRanger"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:164 ../root/main/index.js:159
+msgid "Mp3tag"
+msgstr ""
+
+#: ../root/layout/components/BottomMenu.js:167 ../root/main/index.js:162
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
-#: ../root/layout/components/BottomMenu.js:168
+#: ../root/layout/components/BottomMenu.js:171
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz for Android"
 
-#: ../root/layout/components/BottomMenu.js:172
+#: ../root/layout/components/BottomMenu.js:175
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz Server"
 
-#: ../root/layout/components/BottomMenu.js:175 ../root/main/index.js:214
+#: ../root/layout/components/BottomMenu.js:178 ../root/main/index.js:217
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz データベース"
 
-#: ../root/layout/components/BottomMenu.js:178
+#: ../root/layout/components/BottomMenu.js:181
 msgid "Developer Resources"
 msgstr "開発者リソース"
 
-#: ../root/layout/components/BottomMenu.js:181
+#: ../root/layout/components/BottomMenu.js:184
 msgid "MusicBrainz API"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:184
+#: ../root/layout/components/BottomMenu.js:187
 msgid "Live Data Feed"
 msgstr "ライブデータフィード"
 
-#: ../root/layout/components/BottomMenu.js:198
+#: ../root/layout/components/BottomMenu.js:201
 msgid "Search Entities"
 msgstr "項目を検索"
 
-#: ../root/layout/components/BottomMenu.js:201
+#: ../root/layout/components/BottomMenu.js:204
 msgid "Search Edits"
 msgstr "編集を検索"
 
-#: ../root/layout/components/BottomMenu.js:216
+#: ../root/layout/components/BottomMenu.js:219
 #: ../root/layout/components/sidebar/CollectionSidebar.js:55
 #: ../root/layout/components/sidebar/EditLinks.js:27
 #: ../root/layout/components/sidebar/GenreSidebar.js:28
@@ -10304,80 +10316,80 @@ msgstr "編集を検索"
 msgid "Editing"
 msgstr "編集"
 
-#: ../root/layout/components/BottomMenu.js:221
+#: ../root/layout/components/BottomMenu.js:224
 msgctxt "button/menu"
 msgid "Add Artist"
 msgstr "アーティストを追加"
 
-#: ../root/layout/components/BottomMenu.js:228
+#: ../root/layout/components/BottomMenu.js:231
 msgctxt "button/menu"
 msgid "Add Release Group"
 msgstr "リリースグループを追加"
 
-#: ../root/layout/components/BottomMenu.js:232
+#: ../root/layout/components/BottomMenu.js:235
 msgctxt "button/menu"
 msgid "Add Release"
 msgstr "リリースを追加"
 
-#: ../root/layout/components/BottomMenu.js:236
+#: ../root/layout/components/BottomMenu.js:239
 msgid "Add Various Artists Release"
 msgstr "複数アーティストのリリースを追加"
 
-#: ../root/layout/components/BottomMenu.js:241
+#: ../root/layout/components/BottomMenu.js:244
 msgctxt "button/menu"
 msgid "Add Standalone Recording"
 msgstr "スタンドアロンレコーディングを追加"
 
-#: ../root/layout/components/BottomMenu.js:245
+#: ../root/layout/components/BottomMenu.js:248
 msgctxt "button/menu"
 msgid "Add Work"
 msgstr "作品を追加"
 
-#: ../root/layout/components/BottomMenu.js:248
+#: ../root/layout/components/BottomMenu.js:251
 msgctxt "button/menu"
 msgid "Add Place"
 msgstr "場所を追加"
 
-#: ../root/layout/components/BottomMenu.js:251
+#: ../root/layout/components/BottomMenu.js:254
 msgctxt "button/menu"
 msgid "Add Series"
 msgstr "シリーズを追加"
 
-#: ../root/layout/components/BottomMenu.js:254
+#: ../root/layout/components/BottomMenu.js:257
 msgctxt "button/menu"
 msgid "Add Event"
 msgstr "イベントを追加"
 
-#: ../root/layout/components/BottomMenu.js:257
+#: ../root/layout/components/BottomMenu.js:260
 msgid "Vote on Edits"
 msgstr "編集の投票"
 
-#: ../root/layout/components/BottomMenu.js:260
+#: ../root/layout/components/BottomMenu.js:263
 #: ../root/report/ReportsIndex.js:20 ../root/report/ReportsIndex.js:22
 msgid "Reports"
 msgstr "レポート"
 
-#: ../root/layout/components/BottomMenu.js:274
+#: ../root/layout/components/BottomMenu.js:277
 msgid "Beginners Guide"
 msgstr "初心者ガイド"
 
-#: ../root/layout/components/BottomMenu.js:277
+#: ../root/layout/components/BottomMenu.js:280
 msgid "Style Guidelines"
 msgstr "スタイル指針"
 
-#: ../root/layout/components/BottomMenu.js:280
+#: ../root/layout/components/BottomMenu.js:283
 msgid "How Tos"
 msgstr "どうやるか"
 
-#: ../root/layout/components/BottomMenu.js:283 ../root/main/index.js:179
+#: ../root/layout/components/BottomMenu.js:286 ../root/main/index.js:182
 msgid "FAQs"
 msgstr "よくある質問"
 
-#: ../root/layout/components/BottomMenu.js:287
+#: ../root/layout/components/BottomMenu.js:290
 msgid "Documentation Index"
 msgstr "ドキュメントの目次"
 
-#: ../root/layout/components/BottomMenu.js:294
+#: ../root/layout/components/BottomMenu.js:297
 #: ../root/relationship/RelationshipsHeader.js:19
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:60
 #: ../root/relationship/linktype/RelationshipTypesList.js:64
@@ -10385,7 +10397,7 @@ msgstr "ドキュメントの目次"
 msgid "Relationship Types"
 msgstr "関係タイプ"
 
-#: ../root/layout/components/BottomMenu.js:303
+#: ../root/layout/components/BottomMenu.js:306
 msgid "Development"
 msgstr "開発"
 
@@ -11083,52 +11095,52 @@ msgstr "ブログにアクセスできない状態です。"
 msgid "Tag Your Music"
 msgstr ""
 
-#: ../root/main/index.js:165
+#: ../root/main/index.js:168
 msgid "Quick Start"
 msgstr ""
 
-#: ../root/main/index.js:168
+#: ../root/main/index.js:171
 msgid "Beginners guide"
 msgstr "初心者ガイド"
 
-#: ../root/main/index.js:172
+#: ../root/main/index.js:175
 msgid "Editing introduction"
 msgstr "編集のはじめに"
 
-#: ../root/main/index.js:183
+#: ../root/main/index.js:186
 msgid "How to add artists"
 msgstr ""
 
-#: ../root/main/index.js:188
+#: ../root/main/index.js:191
 msgid "How to add releases"
 msgstr ""
 
-#: ../root/main/index.js:199
+#: ../root/main/index.js:202
 msgid "Community"
 msgstr "コミュニティ"
 
-#: ../root/main/index.js:202
+#: ../root/main/index.js:205
 msgid "How to Contribute"
 msgstr "貢献するには"
 
-#: ../root/main/index.js:218
+#: ../root/main/index.js:221
 msgid ""
 "The majority of the data in the <strong>MusicBrainz Database</strong> is "
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
 msgstr "MusicBrainz データベースのデータの大半は、<strong>パブリックドメイン</strong>でリリースされ、<strong>自由に</strong>ダウンロードして利用できます。"
 
-#: ../root/main/index.js:228
+#: ../root/main/index.js:231
 msgid "Developers"
 msgstr "開発者"
 
-#: ../root/main/index.js:232
+#: ../root/main/index.js:235
 msgid ""
 "Use our <strong>XML web service</strong> or <strong>development "
 "libraries</strong> to create your own MusicBrainz-enabled applications."
 msgstr "<strong>XML Webサービス</strong>や<strong>開発用ライブラリ</strong>を用いてMusicBrainzを利用したアプリケーションを作りましょう。"
 
-#: ../root/main/index.js:242
+#: ../root/main/index.js:245
 msgid "Recent Additions"
 msgstr "最近の追加"
 

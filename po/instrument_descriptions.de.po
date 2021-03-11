@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 07:17+0000\n"
+"PO-Revision-Date: 2021-03-11 07:23+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -230,13 +230,6 @@ msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings"
 msgstr "Die Mandolaute ist ein Zupfinstrument, die sich aus dem Oud entwickelte. Sie hat zehn Saiten und wird manchmal auch Mandoluth oder Mandol genannt. Sie ist etwas größer als eine Mandola."
-
-#. name:marimba lumina
-#: DB:instrument/description:767
-msgid ""
-"A marimba lumina is a MIDI controller that lets a musician play music via a "
-"control surface based on the layout of a marimba."
-msgstr "Marimba Lumina ist ein MIDI-Controller, dank der Musiker über eine Steueroberfläche (die dem Aussehen einer Marimba ähnelt),  Töne erzeugen können."
 
 #. name:mouth organ
 #: DB:instrument/description:610
@@ -1571,6 +1564,14 @@ msgid ""
 "accordion players as bass accompaniment in early 20th century Wallonia."
 msgstr ""
 
+#. name:bazooka
+#: DB:instrument/description:741
+msgid ""
+"Large wide tube with a very strongly flaring bell, the telescoping creates "
+"only subtle fluctuating overtones. It inspired the name of the anti-tank "
+"weapon."
+msgstr ""
+
 #. name:reed organ
 #: DB:instrument/description:204
 msgid ""
@@ -1650,6 +1651,11 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
 msgstr "Der Practice Chanter (PC) ist ein Musikinstrument, das zum Erlernen des Spiels auf der Sackpfeife, speziell der schottischen Hochlandsackpfeife verwendet wird, ähnlich einer Blockflöte."
+
+#. name:marimba lumina
+#: DB:instrument/description:767
+msgid "MIDI controller with a marimba-layout inspired control deck"
+msgstr ""
 
 #. name:madal
 #: DB:instrument/description:186
@@ -2893,13 +2899,6 @@ msgid ""
 "actually a free reed instrument, with a single metal reed. It is played in a"
 " transverse (horizontal) manner."
 msgstr "Das Bawu ist ein chinesisches Musikinstrument. Es sieht aus wie eine Holzquerflöte, verwendet aber zur Tonerzeugung eine durchschlagende Stimmzunge und wird deshalb zu den Mundorgeln gezählt. Der Klang ist ähnlich dem der Klarinette."
-
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"The bazooka is a brass musical instrument several feet in length which "
-"incorporates telescopic tubing."
-msgstr ""
 
 #. name:bin-sasara
 #: DB:instrument/description:380
