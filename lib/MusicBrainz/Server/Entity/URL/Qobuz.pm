@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::GeoNames;
+package MusicBrainz::Server::Entity::URL::Qobuz;
 
 use Moose;
 use utf8;
@@ -6,7 +6,7 @@ use utf8;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'GeoNames' }
+sub sidebar_name { 'Qobuz' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

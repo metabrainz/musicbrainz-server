@@ -169,6 +169,7 @@ import formatTrackLength from './utility/formatTrackLength';
               entityType: json.entityType,
               gid: json.gid,
               href_url: json.href_url,
+              iso_3166_1_codes: json.iso_3166_1_codes,
               name: json.name,
               pretty_name: json.pretty_name,
               sort_name: json.sort_name,
@@ -256,6 +257,13 @@ import formatTrackLength from './utility/formatTrackLength';
   Label.prototype.entityType = 'label';
 
   class Area extends CoreEntity {
+    toJSON() {
+      return Object.assign(
+        super.toJSON(),
+        {iso_3166_1_codes: this.iso_3166_1_codes},
+      );
+    }
+
     selectionMessage() {
       return ReactDOMServer.renderToStaticMarkup(
         exp.l(

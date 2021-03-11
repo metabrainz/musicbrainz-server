@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 07:17+0000\n"
+"PO-Revision-Date: 2021-03-11 07:23+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -224,13 +224,6 @@ msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings"
 msgstr "Een mandoluit is een Noord-Afrikaans snaarinstrument met fretten. Het instrument is een combinatie van een traditionele oed met vijf paar metalen snaren."
-
-#. name:marimba lumina
-#: DB:instrument/description:767
-msgid ""
-"A marimba lumina is a MIDI controller that lets a musician play music via a "
-"control surface based on the layout of a marimba."
-msgstr "Een marimba lumina is een MIDI-controller waarmee een muzikant een oppervlak kan bespelen met de indeling van een marimba."
 
 #. name:mouth organ
 #: DB:instrument/description:610
@@ -1565,6 +1558,14 @@ msgid ""
 "accordion players as bass accompaniment in early 20th century Wallonia."
 msgstr "De voetenbas is een grote, rechthoekige blaasbalg die met de voeten wordt bespeeld. Het instrument werd begin 20e eeuw door accordeonspelers in Wallonië gebruikt als begeleidingsinstrument voor bastonen."
 
+#. name:bazooka
+#: DB:instrument/description:741
+msgid ""
+"Large wide tube with a very strongly flaring bell, the telescoping creates "
+"only subtle fluctuating overtones. It inspired the name of the anti-tank "
+"weapon."
+msgstr ""
+
 #. name:reed organ
 #: DB:instrument/description:204
 msgid ""
@@ -1644,6 +1645,11 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
 msgstr "De practice chanter ziet eruit als een blokfluit, maar met dubbelriet en het vingersysteem van een doedelzak. Het instrument wordt vooral gebruikt om de doedelzak te leren bespelen, maar soms ook op zichzelf."
+
+#. name:marimba lumina
+#: DB:instrument/description:767
+msgid "MIDI controller with a marimba-layout inspired control deck"
+msgstr ""
 
 #. name:madal
 #: DB:instrument/description:186
@@ -2887,13 +2893,6 @@ msgid ""
 "actually a free reed instrument, with a single metal reed. It is played in a"
 " transverse (horizontal) manner."
 msgstr "Een bawu is een Chinees blaasinstrument. Hoewel hij de vorm heeft van een fluit, is het een vrijrietinstrument, met een enkel metalen riet. Hij wordt dwars bespeeld."
-
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"The bazooka is a brass musical instrument several feet in length which "
-"incorporates telescopic tubing."
-msgstr "Een bazooka is een koperblazer met een lengte van ongeveer een meter en een telescopische buis."
 
 #. name:bin-sasara
 #: DB:instrument/description:380
