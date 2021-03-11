@@ -141,6 +141,7 @@ export const FAVICON_CLASSES = {
   'progarchives.com': 'progarchives',
   'psydb.net': 'psydb',
   'qim.com': 'quebecinfomusique',
+  'qobuz.com': 'qobuz',
   'ra.co': 'residentadvisor',
   'rateyourmusic.com': 'rateyourmusic',
   'recochoku.jp': 'recochoku',
