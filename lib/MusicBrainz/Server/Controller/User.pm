@@ -12,6 +12,7 @@ use List::Util 'sum';
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw( l ln );
 use Try::Tiny;
@@ -164,8 +165,8 @@ sub do_login : Private
         current_view => 'Node',
         component_path => 'user/Login',
         component_props => {
-            loginAction => $c->relative_uri,
-            loginForm => $form,
+            loginAction => '' . $c->relative_uri,
+            loginForm => $form->TO_JSON,
             isLoginBad => boolean_to_json($c->stash->{bad_login}),
             isLoginRequired => boolean_to_json($c->stash->{required_login} // 1),
             postParameters => ((defined $post_params && scalar(%$post_params)) ? $post_params : undef),
@@ -389,7 +390,8 @@ sub collections : Chained('load') PathPart('collections')
                 $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id),
             );
         }
-        push @{ $collections_by_entity_type{$collection->type->item_entity_type} }, $collection;
+        push @{ $collections_by_entity_type{$collection->type->item_entity_type} },
+            $collection->TO_JSON;
     }
 
     my ($collaborative_collections) = $c->model('Collection')->find_by({
@@ -407,10 +409,10 @@ sub collections : Chained('load') PathPart('collections')
                 $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id),
             );
         }
-        push @{ $collaborative_collections_by_entity_type{$collection->type->item_entity_type} }, $collection;
+        push @{ $collaborative_collections_by_entity_type{$collection->type->item_entity_type} },
+            $collection->TO_JSON;
     }
 
-    my $preferences = $user->preferences;
     my %props = (
         user                     => $self->serialize_user($user),
         ownCollections           => \%collections_by_entity_type,
@@ -604,13 +606,13 @@ sub privileged : Path('/privileged')
     $c->model('Editor')->load_preferences(@account_admins);
 
     my %props = (
-        bots => [ @bots ],
-        autoEditors => [ @auto_editors ],
-        transclusionEditors => [ @transclusion_editors ],
-        relationshipEditors => [ @relationship_editors ],
-        locationEditors => [ @location_editors ],
-        bannerEditors => [ @banner_editors ],
-        accountAdmins => [ @account_admins ],
+        bots => to_json_array(\@bots),
+        autoEditors => to_json_array(\@auto_editors),
+        transclusionEditors => to_json_array(\@transclusion_editors),
+        relationshipEditors => to_json_array(\@relationship_editors),
+        locationEditors => to_json_array(\@location_editors),
+        bannerEditors => to_json_array(\@banner_editors),
+        accountAdmins => to_json_array(\@account_admins),
     );
 
     $c->stash(
@@ -640,7 +642,7 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves SecureForm {
         current_view => 'Node',
         component_path => 'user/ReportUser',
         component_props => {
-            form => $form,
+            form => $form->TO_JSON,
             user => $self->serialize_user($reported_user),
         },
     );

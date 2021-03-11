@@ -28,6 +28,7 @@ use MusicBrainz::Server::Edit::Types qw(
 );
 use MusicBrainz::Server::Edit::Medium::Util qw( check_track_hash );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( N_l );
@@ -249,18 +250,20 @@ sub build_display_data
                       name => $self->data->{release}{name},
                   );
 
-    $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} } //
-                      Medium->new(
-                          release_id => $self->data->{release}{id},
-                          release => $release,
-                      );
+    $data->{medium} = to_json_object(
+        $loaded->{Medium}{ $self->data->{entity_id} } //
+        Medium->new(
+            release_id => $self->data->{release}{id},
+            release => $release,
+        )
+    );
 
     if (exists $self->data->{new}{format_id}) {
         $data->{format} = {
             new => defined($self->data->{new}{format_id}) &&
-                     $loaded->{MediumFormat}->{ $self->data->{new}{format_id} },
+                     to_json_object($loaded->{MediumFormat}{ $self->data->{new}{format_id} }),
             old => defined($self->data->{old}{format_id}) &&
-                     $loaded->{MediumFormat}->{ $self->data->{old}{format_id} }
+                     to_json_object($loaded->{MediumFormat}{ $self->data->{old}{format_id} }),
         };
     }
 
@@ -274,13 +277,16 @@ sub build_display_data
     }
 
     if ($self->data->{new}{tracklist}) {
-        $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
-        $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
+        my $new_tracklist = display_tracklist($loaded, $self->data->{new}{tracklist});
+        my $old_tracklist = display_tracklist($loaded, $self->data->{old}{tracklist});
+
+        $data->{new}{tracklist} = to_json_array($new_tracklist);
+        $data->{old}{tracklist} = to_json_array($old_tracklist);
 
         my $tracklist_changes = [
             @{ sdiff(
-                $data->{old}{tracklist},
-                $data->{new}{tracklist},
+                $old_tracklist,
+                $new_tracklist,
                 sub {
                     my $track = shift;
                     return join(
@@ -316,8 +322,8 @@ sub build_display_data
         if (any {$_->[0] ne 'u' || $_->[1]->number ne $_->[2]->number } @$tracklist_changes) {
             my @mapped_tracklist_changes = map +{
                 change_type => $_->[0],
-                old_track => $_->[1] eq '' ? undef : $_->[1],
-                new_track => $_->[2] eq '' ? undef : $_->[2],
+                old_track => $_->[1] eq '' ? undef : to_json_object($_->[1]),
+                new_track => $_->[2] eq '' ? undef : to_json_object($_->[2]),
             }, @$tracklist_changes;
             $data->{tracklist_changes} = \@mapped_tracklist_changes;
         }
@@ -332,8 +338,8 @@ sub build_display_data
         $data->{artist_credit_changes} = [
             map +{
                 change_type => $_->[0],
-                old_track => $_->[1] eq '' ? undef : $_->[1],
-                new_track => $_->[2],
+                old_track => $_->[1] eq '' ? undef : to_json_object($_->[1]),
+                new_track => to_json_object($_->[2]),
             },
             grep {
                 ($_->[1] && hash_artist_credit_without_join_phrases($_->[1]->artist_credit))
@@ -355,8 +361,8 @@ sub build_display_data
         $data->{recording_changes} = [
             map +{
                 change_type => $_->[0],
-                old_track => $_->[1] eq '' ? undef : $_->[1],
-                new_track => $_->[2],
+                old_track => $_->[1] eq '' ? undef : to_json_object($_->[1]),
+                new_track => to_json_object($_->[2]),
             },
             grep {
                 my $old = $_->[1];

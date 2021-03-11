@@ -7,6 +7,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 __PACKAGE__->config(
     namespace   => 'artist_credit',
@@ -34,14 +35,14 @@ sub show : Chained('load') PathPart('')
         component_path => 'artist_credit/ArtistCreditIndex',
         component_props => {
             %{$c->stash->{component_props}},
-            artistCredit => $artist_credit,
+            artistCredit => $artist_credit->TO_JSON,
             creditedEntities => {
                 map {
                     my ($entities, $total) = $c->model(type_to_model($_))->find_by_artist_credit($artist_credit->id, 10, 0);
 
                     ("$_" => {
                         count => $total,
-                        entities => $entities,
+                        entities => to_json_array($entities),
                     })
                 } entities_with('artist_credits')
             },
@@ -69,11 +70,11 @@ map {
             component_path => 'artist_credit/EntityList',
             component_props => {
                 %{$c->stash->{component_props}},
-                entities => $entities,
+                entities => to_json_array($entities),
                 entityType => $entity_type,
                 page => "/$url",
                 pager => serialize_pager($c->stash->{pager}),
-                artistCredit => $artist_credit,
+                artistCredit => $artist_credit->TO_JSON,
             },
         );
     };

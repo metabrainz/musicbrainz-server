@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use Moose::Util qw( find_meta );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( entities_with );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 sub lookup_handler {
     my ($name, $code) = @_;
@@ -21,7 +22,7 @@ sub lookup_handler {
             $c->stash(
                 current_view => 'Node',
                 component_path => 'otherlookup/OtherLookupIndex',
-                component_props => {form => $form},
+                component_props => {form => $form->TO_JSON},
             );
         }
     };
@@ -179,7 +180,7 @@ lookup_handler 'freedbid' => sub {
     $c->stash(
         current_view => 'Node',
         component_path => 'otherlookup/OtherLookupReleaseResults',
-        component_props => {results => \@releases},
+        component_props => {results => to_json_array(\@releases)},
     )
 };
 
@@ -191,7 +192,7 @@ sub index : Path('')
     $c->stash(
         current_view => 'Node',
         component_path => 'otherlookup/OtherLookupIndex',
-        component_props => {form => $form},
+        component_props => {form => $form->TO_JSON},
     );
 }
 

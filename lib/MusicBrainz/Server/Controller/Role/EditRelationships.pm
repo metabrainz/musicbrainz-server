@@ -6,6 +6,7 @@ use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim non_empty );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Utils qw( build_type_info );
 
 role {
@@ -78,7 +79,7 @@ role {
 
                 } sort { $a <=> $b } $source->all_relationships;
 
-            $source_entity->{relationships} = [map { $_->TO_JSON } @existing_relationships];
+            $source_entity->{relationships} = to_json_array(\@existing_relationships);
         }
 
         my $form_name = "edit-$source_type";

@@ -8,6 +8,7 @@ use JSON;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
     language_options
@@ -214,7 +215,7 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves SecureForm
         current_view => 'Node',
         component_path => 'account/LostPassword',
         component_props => {
-            form => $form,
+            form => $form->TO_JSON,
         },
     );
     $c->detach;
@@ -337,7 +338,7 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves SecureForm
         current_view => 'Node',
         component_path => 'account/LostUsername',
         component_props => {
-            form => $form,
+            form => $form->TO_JSON,
         },
     );
     $c->detach;
@@ -422,7 +423,7 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
             current_view => 'Node',
             component_path => 'account/EditProfile',
             component_props => {
-                form => $form,
+                form => $form->TO_JSON,
                 language_options => {
                     grouped => JSON::true,
                     options => build_grouped_options($c, language_options($c, 'editor')),
@@ -510,7 +511,7 @@ sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly Secu
             current_view => 'Node',
             component_path => 'account/Preferences',
             component_props => {
-                form => $form,
+                form => $form->TO_JSON,
                 timezone_options => {
                     grouped => JSON::false,
                     options => [ map { {
@@ -727,9 +728,9 @@ sub applications : Path('/account/applications') RequireAuth RequireSSL
         current_view => 'Node',
         component_path => 'account/applications/Index.js',
         component_props => {
-            applications => $applications,
+            applications => to_json_array($applications),
             appsPager => serialize_pager($c->stash->{apps_pager}),
-            tokens => $tokens,
+            tokens => to_json_array($tokens),
             tokensPager => serialize_pager($c->stash->{tokens_pager}),
         },
     );
@@ -756,7 +757,7 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
             current_view => 'Node',
             component_path => 'account/applications/RevokeAccess',
             component_props => {
-                form => $form,
+                form => $form->TO_JSON,
             },
         );
         $c->detach;
@@ -783,7 +784,7 @@ sub register_application : Path('/account/applications/register') RequireAuth Re
             current_view => 'Node',
             component_path => 'account/applications/Register',
             component_props => {
-                form => $form,
+                form => $form->TO_JSON,
             },
         );
         $c->detach;
@@ -816,7 +817,7 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth Re
             current_view => 'Node',
             component_path => 'account/applications/Edit',
             component_props => {
-                form => $form,
+                form => $form->TO_JSON,
             },
         );
         $c->detach;
@@ -848,7 +849,7 @@ sub remove_application : Path('/account/applications/remove') Args(1) RequireAut
             current_view => 'Node',
             component_path => 'account/applications/Remove',
             component_props => {
-                form => $form,
+                form => $form->TO_JSON,
             },
         );
         $c->detach;

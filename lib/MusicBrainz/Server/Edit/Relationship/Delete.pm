@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MooseX::Types::Moose qw( Int Str ArrayRef Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 
@@ -149,12 +150,12 @@ sub build_display_data
 
     my $entity0_data = $relationship->{entity0};
     my $entity1_data = $relationship->{entity1};
-    my $entity0 = $loaded->{ $self->model0 }->{gid_or_id($entity0_data)} ||
+    my $entity0 = $loaded->{ $self->model0 }{ gid_or_id($entity0_data) } ||
         $self->c->model($self->model0)->_entity_class->new(
             id => $entity0_data->{id},
             name => $entity0_data->{name}
         );
-    my $entity1 = $loaded->{ $self->model1 }->{gid_or_id($entity1_data)} ||
+    my $entity1 = $loaded->{ $self->model1 }{ gid_or_id($entity1_data) } ||
         $self->c->model($self->model1)->_entity_class->new(
             id => $entity1_data->{id},
             name => $entity1_data->{name}
@@ -185,9 +186,9 @@ sub build_display_data
     }
 
     return {
-        relationship => MusicBrainz::Server::Entity::Relationship->new(
+        relationship => to_json_object(MusicBrainz::Server::Entity::Relationship->new(
             %relationship_opts
-        )
+        ))
     }
 }
 

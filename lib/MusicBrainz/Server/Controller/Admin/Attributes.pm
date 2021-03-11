@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Admin::Attributes;
 use Moose;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -62,7 +63,10 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
     $c->stash(
         current_view => 'Node',
         component_path => $component_path,
-        component_props => {attributes => \@attr, model => $model}
+        component_props => {
+            attributes => to_json_array(\@attr),
+            model => $model,
+        }
     );
 }
 

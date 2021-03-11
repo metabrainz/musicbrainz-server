@@ -60,10 +60,6 @@ sub build_display_data
     $old_rel->{link_id} = $self->data->{link_id};
     my $new_rel = $self->data->{new};
     $new_rel->{link_id} = $self->data->{link_id};
-    # Since the link phrase with attributes to display is hacked
-    # onto the link type phrase, we need to pass them separately
-    # to linkedEntities.
-    $new_rel->{link_type_id} = $new_rel->{link_type_id} + 10000;
     return {
         relationship => {
             old => $self->_display_relationships($old_rel, $loaded),

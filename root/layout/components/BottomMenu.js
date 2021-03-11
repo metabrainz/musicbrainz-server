@@ -161,6 +161,9 @@ const ProductsMenu = () => (
         <a href="/doc/AudioRanger">{l('AudioRanger')}</a>
       </li>
       <li>
+        <a href="/doc/Mp3tag">{l('Mp3tag')}</a>
+      </li>
+      <li>
         <a href="/doc/Yate_Music_Tagger">{l('Yate Music Tagger')}</a>
       </li>
       <li className="separator">

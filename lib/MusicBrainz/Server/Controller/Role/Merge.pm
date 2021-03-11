@@ -4,6 +4,7 @@ use MooseX::Role::Parameterized;
 
 use List::UtilsBy qw( nsort_by );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
@@ -154,12 +155,16 @@ role {
             $self->_merge_form_arguments($c, @entities)
         );
 
+        # Needs to run before calling $form->TO_JSON, otherwise
+        # field errors won't be encoded.
+        my $is_merge_valid = $self->_validate_merge($c, $form);
+
         if ($c->namespace =~ /^(?:area|artist|event|instrument|label|place|recording|release_group|series|work)$/) {
             my %props = (
                 isrcsDiffer => $c->stash->{isrcs_differ},
                 iswcsDiffer => $c->stash->{iswcs_differ},
-                form => $form,
-                toMerge => \@entities,
+                form => $form->TO_JSON,
+                toMerge => to_json_array(\@entities),
             );
             $c->stash(
                 component_path => $c->namespace . '/'. type_to_model($c->namespace) . 'Merge.js',
@@ -168,7 +173,7 @@ role {
             );
         }
 
-        if ($self->_validate_merge($c, $form)) {
+        if ($is_merge_valid) {
             $self->_merge_submit($c, $form, \@entities);
         }
     };

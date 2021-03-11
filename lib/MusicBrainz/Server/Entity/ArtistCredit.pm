@@ -3,6 +3,7 @@ use Moose;
 
 use Scalar::Util qw( refaddr );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 
@@ -147,7 +148,7 @@ around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
-    $json->{names} = [map { $_->TO_JSON } @{$self->names}];
+    $json->{names} = to_json_array($self->names);
     return $json;
 };
 

@@ -9,6 +9,7 @@ use MusicBrainz::Server::Translation qw( l lp );
 
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
@@ -277,12 +278,12 @@ around TO_JSON => sub {
         %{ $self->$orig },
         barcode     => $self->barcode->code,
         languageID  => $self->language_id,
-        language    => $self->language,
+        language    => to_json_object($self->language),
         packagingID => $self->packaging_id,
         scriptID    => $self->script_id,
-        script      => $self->script,
+        script      => to_json_object($self->script),
         statusID    => $self->status_id,
-        status      => $self->status,
+        status      => to_json_object($self->status),
         cover_art_presence => $self->cover_art_presence,
         cover_art_url => $self->cover_art_url,
         may_have_cover_art => boolean_to_json($self->may_have_cover_art),
@@ -310,15 +311,15 @@ around TO_JSON => sub {
     }
 
     if ($self->all_events) {
-        $data->{events} = [map { $_->TO_JSON } $self->all_events];
+        $data->{events} = to_json_array($self->events);
     }
 
     if ($self->all_labels) {
-        $data->{labels} = [map { $_->TO_JSON } $self->all_labels];
+        $data->{labels} = to_json_array($self->labels);
     }
 
     if ($self->all_mediums) {
-        $data->{mediums} = [map { $_->TO_JSON } $self->all_mediums];
+        $data->{mediums} = to_json_array($self->mediums);
         $data->{combined_format_name} = $self->combined_format_name;
         $data->{combined_track_count} = $self->combined_track_count;
     }

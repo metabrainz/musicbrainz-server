@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -57,19 +58,20 @@ sub build_display_data
     my $display = {
         name          => $data->{name},
         comment       => $data->{comment} // '',
-        type          => $data->{type_id} && $loaded->{WorkType}->{ $data->{type_id} },
+        type          => $data->{type_id} && to_json_object($loaded->{WorkType}{ $data->{type_id} }),
         iswc          => $data->{iswc} // '',
-        work          => $loaded->{Work}{ $self->entity_id } || Work->new( name => $data->{name} ),
+        work          => to_json_object($loaded->{Work}{ $self->entity_id } || Work->new( name => $data->{name} )),
         ($data->{attributes} && @{ $data->{attributes} } ?
-         ( attributes => { $self->grouped_attributes_by_type($data->{attributes}) } ) : ()
+         ( attributes => { $self->grouped_attributes_by_type($data->{attributes}, 1) } ) : ()
         ),
     };
 
     if (defined $data->{language_id}) {
-        $display->{language} = $loaded->{Language}->{$data->{language_id}};
-        if ($display->{language}->iso_code_3 eq "zxx") {
-            $display->{language}->name(l("[No lyrics]"));
+        my $language = $loaded->{Language}{$data->{language_id}};
+        if ($language->iso_code_3 eq "zxx") {
+            $language->name(l("[No lyrics]"));
         }
+        $display->{language} = $language;
     }
 
     if (defined $data->{languages}) {

@@ -49,9 +49,6 @@ const FooterSwitch = ({
   standaloneOnly,
   videoOnly,
 }: FooterSwitchProps): React.Element<'p'> => {
-  const showingAllText = l('Showing all recordings');
-  const showingStandaloneText = l('Showing only standalone recordings');
-  const showingVideosText = l('Showing only videos');
   const showAllLink = (
     <a href={`/artist/${artist.gid}/recordings`}>
       {l('Show all recordings')}
@@ -72,7 +69,7 @@ const FooterSwitch = ({
     <p>
       {standaloneOnly ? (
         <>
-          {showingStandaloneText}
+          {l('Showing only standalone recordings')}
           {' '}
           {bracketed(
             <>
@@ -88,7 +85,7 @@ const FooterSwitch = ({
         </>
       ) : videoOnly ? (
         <>
-          {showingVideosText}
+          {l('Showing only videos')}
           {' '}
           {bracketed(
             <>
@@ -104,7 +101,7 @@ const FooterSwitch = ({
         </>
       ) : (
         <>
-          {showingAllText}
+          {l('Showing all recordings')}
           {' '}
           {hasStandalone && hasVideo ? (
             bracketed(

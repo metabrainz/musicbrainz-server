@@ -38,6 +38,9 @@ const EditorList = ({
       <tbody>
         {items.map((item, index) => {
           const editor = item.editor;
+          if (!editor) {
+            return null;
+          }
           return (
             <tr className={loopParity(index)} key={editor.name}>
               <td>

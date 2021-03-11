@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Subscribe;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use namespace::autoclean;
 
 use List::MoreUtils qw( part );
@@ -27,8 +29,9 @@ sub subscribers : Chained('load') RequireAuth {
     my %props = (
         entity => $entity_json,
         privateEditors => scalar @$private,
-        publicEditors => $public,
-        subscribed => $c->model($model)->subscription->check_subscription($c->user->id, $entity->id),
+        publicEditors => to_json_array($public),
+        subscribed => boolean_to_json(
+            $c->model($model)->subscription->check_subscription($c->user->id, $entity->id)),
     );
 
      $c->stash(

@@ -18,6 +18,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
 );
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
@@ -101,27 +102,33 @@ sub build_display_data
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
-    $data->{place} = $loaded->{Place}{ $self->data->{entity}{id} }
-        || Place->new( name => $self->data->{entity}{name} );
+    $data->{place} = to_json_object(
+        $loaded->{Place}{ $self->data->{entity}{id} } ||
+        Place->new( name => $self->data->{entity}{name} )
+    );
 
     for my $side (qw( old new )) {
-        $data->{area}{$side} //= Area->new()
+        $data->{area}{$side} = to_json_object($data->{area}{$side} // Area->new())
             if defined $self->data->{$side}{area_id};
     }
 
     for my $date_prop (qw( begin_date end_date )) {
         if (exists $self->data->{new}{$date_prop}) {
             $data->{$date_prop} = {
-                new => PartialDate->new($self->data->{new}{$date_prop}),
-                old => PartialDate->new($self->data->{old}{$date_prop}),
+                new => to_json_object(PartialDate->new($self->data->{new}{$date_prop})),
+                old => to_json_object(PartialDate->new($self->data->{old}{$date_prop})),
             };
         }
     }
 
     if (exists $self->data->{new}{coordinates}) {
         $data->{coordinates} = {
-            new => defined $self->data->{new}{coordinates} ? Coordinates->new($self->data->{new}{coordinates}) : undef,
-            old => defined $self->data->{old}{coordinates} ? Coordinates->new($self->data->{old}{coordinates}) : undef,
+            new => defined $self->data->{new}{coordinates}
+                ? to_json_object(Coordinates->new($self->data->{new}{coordinates}))
+                : undef,
+            old => defined $self->data->{old}{coordinates}
+                ? to_json_object(Coordinates->new($self->data->{old}{coordinates}))
+                : undef,
         };
     }
 
@@ -130,6 +137,11 @@ sub build_display_data
             new => boolean_to_json($self->data->{new}{ended}),
             old => boolean_to_json($self->data->{old}{ended}),
         };
+    }
+
+    if (exists $data->{type}) {
+        $data->{type}{old} = to_json_object($data->{type}{old});
+        $data->{type}{new} = to_json_object($data->{type}{new});
     }
 
     return $data;

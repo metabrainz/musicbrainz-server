@@ -4,6 +4,7 @@ use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE $EDIT_RECORDING_REMOVE_ISRC );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
@@ -66,7 +67,7 @@ method build_display_data ($loaded)
             recording_id => $self->data->{recording}{id},
         );
 
-    return { isrc => $isrc };
+    return { isrc => to_json_object($isrc) };
 }
 
 sub initialize

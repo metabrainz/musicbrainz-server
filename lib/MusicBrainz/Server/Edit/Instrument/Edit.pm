@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
 );
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
@@ -73,8 +74,15 @@ sub build_display_data {
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
-    $data->{instrument} = $loaded->{Instrument}{ $self->data->{entity}{id} }
-        || Instrument->new( name => $self->data->{entity}{name} );
+    $data->{instrument} = to_json_object(
+        $loaded->{Instrument}{ $self->data->{entity}{id} } ||
+        Instrument->new( name => $self->data->{entity}{name} )
+    );
+
+    if (defined $data->{type}) {
+        $data->{type}{old} = to_json_object($data->{type}{old});
+        $data->{type}{new} = to_json_object($data->{type}{new});
+    }
 
     return $data;
 }

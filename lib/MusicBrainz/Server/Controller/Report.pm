@@ -53,7 +53,7 @@ sub show : Path Args(1)
             }
         }
         else {
-            $report->load(shift, shift);
+            $report->load($c, shift, shift);
         }
     });
 

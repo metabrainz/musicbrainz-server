@@ -39,6 +39,7 @@ use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use List::AllUtils qw( any );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Recording;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Translation qw( l );
 use Set::Scalar;
 
@@ -114,10 +115,13 @@ sub show : Chained('load') PathPart('') {
     my %props = (
         numberOfRevisions => $c->stash->{number_of_revisions},
         pager             => serialize_pager($c->stash->{pager}),
-        recording         => $c->stash->{recording},
-        tracks            => group_by_release_status_nested(
-                                sub { shift->medium->release },
-                                @$tracks),
+        recording         => $c->stash->{recording}->TO_JSON,
+        tracks            => [
+            map { to_json_array($_) }
+                @{ group_by_release_status_nested(
+                    sub { shift->medium->release },
+                    @$tracks) }
+        ],
     );
     $c->stash(
         component_path => 'recording/RecordingIndex',
@@ -131,7 +135,7 @@ sub fingerprints : Chained('load') PathPart('fingerprints') {
 
     $c->stash(
         component_path => 'recording/RecordingFingerprints',
-        component_props => { recording => $c->stash->{recording} },
+        component_props => { recording => $c->stash->{recording}->TO_JSON },
         current_view => 'Node',
     );
 }

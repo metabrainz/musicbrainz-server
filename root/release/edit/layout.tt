@@ -2,7 +2,7 @@
 
 [%- WRAPPER 'layout.tt' full_width=1 edit=1 -%]
   [% IF release.name %]
-    [%- React.embed(c, 'release/ReleaseHeader', { release => release, page => 'edit' }) -%]
+    [%- React.embed(c, 'release/ReleaseHeader', { release => React.to_json_object(release), page => 'edit' }) -%]
   [% ELSE %]
     <h1>[% lp('Add Release', 'header') %]</h1>
   [% END %]

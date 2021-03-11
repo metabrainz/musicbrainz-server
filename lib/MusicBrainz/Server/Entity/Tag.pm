@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::Tag;
 
 use Moose;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -28,7 +29,7 @@ around TO_JSON => sub {
     $json->{name} = $self->name;
 
     if ($self->genre) {
-        $json->{genre} = $self->genre;
+        $json->{genre} = to_json_object($self->genre);
     }
 
     return $json;

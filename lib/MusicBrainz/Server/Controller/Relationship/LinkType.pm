@@ -31,7 +31,7 @@ sub show : PathPart('') Chained('load')
     $c->model('LinkType')->load_documentation($relationship_type);
     $c->stash(
         component_path  => 'relationship/linktype/RelationshipTypeIndex',
-        component_props => { relType => $relationship_type },
+        component_props => { relType => $relationship_type->TO_JSON },
         current_view => 'Node',
     );
 }
@@ -93,7 +93,7 @@ sub tree : Chained('type_specific') PathPart('')
 
     $c->stash(
         component_path  => 'relationship/linktype/RelationshipTypePairTree',
-        component_props => {root => $root},
+        component_props => {root => $root->TO_JSON},
         current_view    => 'Node',
     );
 }
@@ -309,7 +309,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
     if ($c->model('LinkType')->in_use($link_type->id)) {
         $c->stash(
             component_path  => 'relationship/linktype/RelationshipTypeInUse',
-            component_props => {type => $link_type},
+            component_props => {type => $link_type->TO_JSON},
             current_view    => 'Node',
         );
         $c->detach;

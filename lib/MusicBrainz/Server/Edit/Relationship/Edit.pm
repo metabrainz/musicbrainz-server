@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
@@ -187,7 +188,7 @@ sub _build_relationship {
     my $entity0_credit = $change->{entity0_credit} // $data->{entity0_credit} // '';
     my $entity1_credit = $change->{entity1_credit} // $data->{entity1_credit} // '';
 
-    return Relationship->new(
+    return to_json_object(Relationship->new(
         id => $data->{relationship_id},
         link => Link->new(
             type       => $loaded->{LinkType}{ $lt->{id} } ||
@@ -231,7 +232,7 @@ sub _build_relationship {
         target_type => $type1,
         source_credit => $entity0_credit,
         target_credit => $entity1_credit,
-    );
+    ));
 }
 
 sub build_display_data {

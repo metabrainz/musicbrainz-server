@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
@@ -64,11 +65,13 @@ sub build_display_data
         uri => 'url',
         description => 'description'
     );
-    $data->{url} = $loaded->{URL}->{ $self->url_id }
-        || URL->new(
+    $data->{url} = to_json_object(
+        $loaded->{URL}{ $self->url_id } ||
+        URL->new(
             id => $self->url_id,
             url => $self->data->{entity}{name},
-        );
+        )
+    );
     $data->{isMerge} = boolean_to_json($self->data->{is_merge});
     $data->{affects} = $self->data->{affects};
 

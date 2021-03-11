@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::CollaborationRelationships;
 use Moose;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport',
      'MusicBrainz::Server::Report::FilterForEditor';
@@ -34,8 +35,8 @@ sub inflate_rows
     return [
         map +{
             %$_,
-            artist0 => $artists->{$_->{id0}},
-            artist1 => $artists->{$_->{id1}}
+            artist0 => to_json_object($artists->{ $_->{id0} }),
+            artist1 => to_json_object($artists->{ $_->{id1} }),
         }, @$items
     ];
 }

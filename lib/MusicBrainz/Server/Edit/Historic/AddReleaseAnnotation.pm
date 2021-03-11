@@ -4,6 +4,7 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Filters qw( format_wikitext );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -48,7 +49,7 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         releases => [ map {
-            $loaded->{Release}{$_}
+            to_json_object($loaded->{Release}{$_})
         } @{ $self->data->{release_ids} } ],
         text => $self->data->{text},
         html => format_wikitext($self->data->{text}),

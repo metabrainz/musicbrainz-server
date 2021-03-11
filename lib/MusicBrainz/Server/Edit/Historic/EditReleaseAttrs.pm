@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_type_and_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -58,17 +59,17 @@ sub build_display_data
         changes => [ map {
             releases => [ do {
                 if (my @ids = @{ $_->{release_ids} }) {
-                    map { $loaded->{Release}->{$_} } @ids
+                    map { to_json_object($loaded->{Release}{$_}) } @ids
                 }
                 else {
-                    Release->new(name => $_->{release_name}),
+                    to_json_object(Release->new(name => $_->{release_name})),
                 }
             } ],
-            status => $_->{old_status_id} && $loaded->{ReleaseStatus}{ $_->{old_status_id} },
-            type   => $_->{old_type_id}   && $loaded->{ReleaseGroupType}{ $_->{old_type_id} },
+            status => $_->{old_status_id} && to_json_object($loaded->{ReleaseStatus}{ $_->{old_status_id} }),
+            type   => $_->{old_type_id}   && to_json_object($loaded->{ReleaseGroupType}{ $_->{old_type_id} }),
         }, $self->_changes ],
-        status => $self->data->{new_status_id} && $loaded->{ReleaseStatus}{ $self->data->{new_status_id} },
-        type   => $self->data->{new_type_id}   && $loaded->{ReleaseGroupType}{ $self->data->{new_type_id} },
+        status => $self->data->{new_status_id} && to_json_object($loaded->{ReleaseStatus}{ $self->data->{new_status_id} }),
+        type   => $self->data->{new_type_id}   && to_json_object($loaded->{ReleaseGroupType}{ $self->data->{new_type_id} }),
     };
 }
 

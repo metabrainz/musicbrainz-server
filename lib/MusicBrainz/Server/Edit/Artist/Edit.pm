@@ -17,6 +17,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
 );
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
@@ -124,12 +125,14 @@ sub build_display_data
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
-    $data->{artist} = $loaded->{Artist}{ $self->data->{entity}{id} }
-        || Artist->new( name => $self->data->{entity}{name} );
+    $data->{artist} = to_json_object(
+        $loaded->{Artist}{ $self->data->{entity}{id} } ||
+        Artist->new( name => $self->data->{entity}{name} )
+    );
 
     for my $area (@areas) {
         for my $side (qw( old new )) {
-            $data->{$area}->{$side} //= Area->new()
+            $data->{$area}{$side} = to_json_object($data->{$area}{$side} // Area->new())
                 if defined $self->data->{$side}{$area . '_id'};
         }
     }
@@ -137,22 +140,32 @@ sub build_display_data
     for my $date_prop (qw( begin_date end_date )) {
         if (exists $self->data->{new}{$date_prop}) {
             $data->{$date_prop} = {
-                new => PartialDate->new($self->data->{new}{$date_prop}),
-                old => PartialDate->new($self->data->{old}{$date_prop}),
+                new => to_json_object(PartialDate->new($self->data->{new}{$date_prop})),
+                old => to_json_object(PartialDate->new($self->data->{old}{$date_prop})),
             };
         }
     }
 
     for my $prop (qw( ipi_codes isni_codes )) {
         if (exists $self->data->{new}{$prop}) {
-            $data->{$prop}->{old} = $self->data->{old}{$prop};
-            $data->{$prop}->{new} = $self->data->{new}{$prop};
+            $data->{$prop}{old} = $self->data->{old}{$prop};
+            $data->{$prop}{new} = $self->data->{new}{$prop};
         }
     }
 
     if (exists $data->{ended}) {
         $data->{ended}{old} = boolean_to_json($data->{ended}{old});
         $data->{ended}{new} = boolean_to_json($data->{ended}{new});
+    }
+
+    if (exists $data->{type}) {
+        $data->{type}{old} = to_json_object($data->{type}{old});
+        $data->{type}{new} = to_json_object($data->{type}{new});
+    }
+
+    if (exists $data->{gender}) {
+        $data->{gender}{old} = to_json_object($data->{gender}{old});
+        $data->{gender}{new} = to_json_object($data->{gender}{new});
     }
 
     return $data;

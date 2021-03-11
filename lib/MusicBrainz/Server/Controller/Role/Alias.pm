@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Alias;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 requires 'load';
 
@@ -44,8 +45,8 @@ sub aliases : Chained('load') PathPart('aliases')
     $m->alias_type->load(@$aliases);
 
     my %props = (
-        aliases => $aliases,
-        entity => $entity,
+        aliases => to_json_array($aliases),
+        entity => $entity->TO_JSON,
     );
 
     $c->stash(
@@ -76,7 +77,7 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
 
     my %props = (
         type => $entity_type,
-        entity => $entity,
+        entity => $entity->TO_JSON,
         formType => $form_type,
     );
 
@@ -104,7 +105,7 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
         on_creation => sub { $self->_redir_to_aliases($c) },
         pre_validation => sub {
             my $form = shift;
-            $props{form} = $form;
+            $props{form} = $form->TO_JSON;
             $props{aliasTypes} = $form->options_type_id;
             $props{locales} = $form->options_locale;
         }
@@ -120,8 +121,8 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
     my $edit = $c->model('Edit')->find_creation_edit($model_to_edit_type{add}->{ $self->{model} }, $alias->id, id_field => 'alias_id');
 
     my %props = (
-        alias => $alias,
-        entity => $entity,
+        alias => $alias->TO_JSON,
+        entity => $entity->TO_JSON,
         type => $type,
     );
 
@@ -143,7 +144,7 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
             on_creation => sub { $self->_redir_to_aliases($c) },
             pre_validation => sub {
                 my $form = shift;
-                $props{form} = $form;
+                $props{form} = $form->TO_JSON;
             }
         );
     });
@@ -160,7 +161,7 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
     my $entity_type = $type eq 'rg' ? 'release_group' : $type;
     my %props = (
         type => $entity_type,
-        entity => $entity,
+        entity => $entity->TO_JSON,
         formType => $form_type
     );
 
@@ -187,7 +188,7 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
         on_creation => sub { $self->_redir_to_aliases($c) },
         pre_validation => sub {
             my $form = shift;
-            $props{form} = $form;
+            $props{form} = $form->TO_JSON;
             $props{aliasTypes} = $form->options_type_id;
             $props{locales} = $form->options_locale;
         }

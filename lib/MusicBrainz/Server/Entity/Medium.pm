@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::Medium;
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Entity';
@@ -291,7 +292,7 @@ around TO_JSON => sub {
     };
 
     if ($self->all_tracks) {
-        $data->{tracks} = [map { $_->TO_JSON } $self->all_tracks];
+        $data->{tracks} = to_json_array($self->tracks);
     }
 
     if ($self->release) {

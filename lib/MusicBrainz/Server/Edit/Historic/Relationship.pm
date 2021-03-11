@@ -4,6 +4,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_type );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -213,6 +214,12 @@ my $fake_entity_id = 1000000000;
 
 sub _display_relationships {
     my ($self, $data, $loaded) = @_;
+
+    # Since the link phrase with attributes to display is hacked
+    # onto the link type phrase, we need to pass them separately
+    # to linkedEntities.
+    my $link_type_id = $fake_entity_id++;
+
     return [
         map {
             my $entity0_type = $_->{entity0_type};
@@ -233,24 +240,25 @@ sub _display_relationships {
                     name => $_->{entity1_name},
                 );
 
-            Relationship->new(
+            to_json_object(Relationship->new(
                 entity0_id => $entity0_id,
+                entity1_id => $entity1_id,
                 source => $entity0,
                 target => $entity1,
                 link    => Link->new(
                     id         => $data->{link_id},
                     begin_date => PartialDate->new($data->{begin_date}),
                     end_date   => PartialDate->new($data->{end_date}),
-                    type_id    => $data->{link_type_id},
+                    type_id    => $link_type_id,
                     type       => LinkType->new(
                         entity0_type => $entity0_type,
                         entity1_type => $entity1_type,
-                        id           => $data->{link_type_id},
+                        id           => $link_type_id,
                         link_phrase  => $_->{link_type_phrase}
                     )
                 ),
                 direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD
-            ),
+            ));
         } @{ $data->{links} }
     ];
 }

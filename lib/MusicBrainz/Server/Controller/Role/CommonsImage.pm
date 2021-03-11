@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Role::CommonsImage;
 use DBDefs;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use List::UtilsBy qw( sort_by );
 use namespace::autoclean;
@@ -15,7 +16,7 @@ after load => sub {
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{entity};
-    $c->stash->{commons_image} = $self->_get_commons_image($c, 1);
+    $c->stash->{commons_image} = to_json_object($self->_get_commons_image($c, 1));
 };
 
 sub commons_image : Chained('load') PathPart('commons-image') {

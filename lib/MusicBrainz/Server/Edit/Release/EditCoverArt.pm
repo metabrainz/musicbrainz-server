@@ -8,6 +8,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
@@ -130,32 +131,40 @@ sub build_display_data {
 
     my %data;
 
-    $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
-        Release->new( name => $self->data->{entity}{name} );
+    $data{release} = to_json_object(
+        $loaded->{Release}{ $self->data->{entity}{id} } ||
+        Release->new( name => $self->data->{entity}{name} )
+    );
 
-    $data{artwork} = $loaded->{Artwork}{ $self->data->{id} } ||
+    $data{artwork} = to_json_object(
+        $loaded->{Artwork}{ $self->data->{id} } ||
         Artwork->new(release => $data{release},
                      id => $self->data->{id},
-                     comment => $self->data->{new}->{comment} // '',
+                     comment => $self->data->{new}{comment} // '',
                      cover_art_types => [ map {
                          $loaded->{CoverArtType}{$_}
-                     } @{ $self->data->{new}->{types} // [] }]
-        );
+                     } @{ $self->data->{new}{types} // [] }]
+        )
+    );
 
 
-    if ($self->data->{old}->{types})
+    if ($self->data->{old}{types})
     {
         $data{types} = {
-            old => [ map { $loaded->{CoverArtType}{$_} } @{ $self->data->{old}->{types} // [] } ],
-            new => [ map { $loaded->{CoverArtType}{$_} } @{ $self->data->{new}->{types} // [] } ],
+            old => [ map {
+                to_json_object($loaded->{CoverArtType}{$_})
+            } @{ $self->data->{old}{types} // [] } ],
+            new => [ map {
+                to_json_object($loaded->{CoverArtType}{$_})
+            } @{ $self->data->{new}{types} // [] } ],
         }
     }
 
-    if (exists $self->data->{old}->{comment})
+    if (exists $self->data->{old}{comment})
     {
         $data{comment} = {
-            old => $self->data->{old}->{comment},
-            new => $self->data->{new}->{comment}
+            old => $self->data->{old}{comment},
+            new => $self->data->{new}{comment}
         }
     }
 

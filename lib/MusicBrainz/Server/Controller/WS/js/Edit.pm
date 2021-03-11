@@ -38,8 +38,10 @@ use MusicBrainz::Server::Data::Utils qw(
     sanitize
     trim
     trim_comment
+    trim_multiline_text
     non_empty
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Renderer qw( render_component );
 use MusicBrainz::Server::Translation qw( comma_list comma_only_list l );
 use MusicBrainz::Server::Validation qw(
@@ -128,10 +130,11 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'label', 'Label') if $data->{label};
     },
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::Annotation
     $EDIT_RELEASE_ADD_ANNOTATION => sub {
         my ($c, $loader, $data) = @_;
 
-        process_release_label($c, $loader, $data);
+        process_annotation($c, $loader, $data);
         load_entity_prop($loader, $data, 'entity', 'Release');
     },
 
@@ -176,6 +179,7 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'release', 'Release');
     },
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::Recording
     $EDIT_RECORDING_EDIT => sub {
         my ($c, $loader, $data) = @_;
 
@@ -193,8 +197,10 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'release', 'Release');
     },
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::ReleaseGroup
     $EDIT_RELEASEGROUP_CREATE => \&process_entity,
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::ReleaseGroup
     $EDIT_RELEASEGROUP_EDIT => sub {
         my ($c, $loader, $data) = @_;
 
@@ -204,6 +210,7 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'to_edit', 'ReleaseGroup');
     },
 
+    # MBS-11428: Keep it synced with MusicBrainz::Server::Form::Work
     $EDIT_WORK_CREATE => \&process_entity,
 };
 
@@ -211,6 +218,17 @@ our $data_processors = {
 sub trim_string {
     my ($data, $name) = @_;
     $data->{$name} = trim($data->{$name}) if $data->{$name};
+}
+
+sub trim_multiline_string {
+    my ($data, $name) = @_;
+    $data->{$name} = trim_multiline_text($data->{$name}) if $data->{$name};
+}
+
+sub process_annotation {
+    my ($c, $loader, $data) = @_;
+
+    trim_multiline_string($data, 'text');
 }
 
 sub process_entity {
@@ -745,7 +763,7 @@ sub preview : Chained('edit') PathPart('preview') Edit {
             my $response = render_component(
                 $c,
                 "edit/details/$edit_template_react",
-                {edit => $edit, allowNew => \1},
+                {edit => to_json_object($edit), allowNew => \1},
             );
             my $body = $response->{body} // '';
             my $content_type = $response->{content_type} // '';

@@ -18,6 +18,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     date_closure
     merge_partial_date
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
@@ -98,21 +99,22 @@ sub build_display_data
             new => $self->data->{new}{locale},
             old => $self->data->{old}{locale}
         },
-        $type => $loaded->{$model}{ $self->data->{entity}{id} }
+        $type => to_json_object(
+            $loaded->{$model}{ $self->data->{entity}{id} }
             || $self->c->model($model)->_entity_class->new(
                 name => $self->data->{entity}{name}
-            ),
+            )),
         type => {
-            new => $self->_alias_model->parent->alias_type->get_by_id($self->data->{new}{type_id}),
-            old => $self->_alias_model->parent->alias_type->get_by_id($self->data->{old}{type_id}),
+            new => to_json_object($self->_alias_model->parent->alias_type->get_by_id($self->data->{new}{type_id})),
+            old => to_json_object($self->_alias_model->parent->alias_type->get_by_id($self->data->{old}{type_id})),
         },
         begin_date => {
-            new => PartialDate->new_from_row($self->data->{new}{begin_date}),
-            old => PartialDate->new_from_row($self->data->{old}{begin_date}),
+            new => to_json_object(PartialDate->new_from_row($self->data->{new}{begin_date})),
+            old => to_json_object(PartialDate->new_from_row($self->data->{old}{begin_date})),
         },
         end_date => {
-            new => PartialDate->new_from_row($self->data->{new}{end_date}),
-            old => PartialDate->new_from_row($self->data->{old}{end_date}),
+            new => to_json_object(PartialDate->new_from_row($self->data->{new}{end_date})),
+            old => to_json_object(PartialDate->new_from_row($self->data->{old}{end_date})),
         },
         primary_for_locale => {
             new => boolean_to_json($self->data->{new}{primary_for_locale}),

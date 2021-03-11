@@ -51,7 +51,7 @@
            <td colspan="2">
              [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {
                   abbreviated => boolean_to_json(0),
-                  events => edit.display_data.extra.events,
+                  events => edit.display_data.extra.events_json,
                 }) %]
            </td>
          </tr>

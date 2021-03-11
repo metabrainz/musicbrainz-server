@@ -4,7 +4,11 @@ use DBDefs;
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity );
+use MusicBrainz::Server::Entity::Util::JSON qw(
+    add_linked_entity
+    to_json_array
+    to_json_object
+);
 use List::UtilsBy qw( uniq_by );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
@@ -73,12 +77,12 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        isrcs   => [map { $_->TO_JSON } $self->all_isrcs],
+        isrcs   => to_json_array($self->isrcs),
         length  => $self->length,
         video   => boolean_to_json($self->video),
         related_works => [map { $_->id } @related_works],
         DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26
-            ? (first_release_date => $self->first_release_date)
+            ? (first_release_date => to_json_object($self->first_release_date))
             : (),
     };
 };

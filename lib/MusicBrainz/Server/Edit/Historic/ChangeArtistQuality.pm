@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -35,8 +36,10 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        artist => $loaded->{Artist}{ $self->data->{artist_id} } ||
-                    Artist->new( id => $self->data->{artist_id} ),
+        artist => to_json_object(
+            $loaded->{Artist}{ $self->data->{artist_id} } ||
+            Artist->new( id => $self->data->{artist_id} )
+        ),
         quality => {
             old => $self->data->{old}{quality} + 0, # force number
             new => $self->data->{new}{quality} + 0, # force number

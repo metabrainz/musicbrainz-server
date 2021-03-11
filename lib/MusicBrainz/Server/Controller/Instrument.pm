@@ -13,6 +13,7 @@ use MusicBrainz::Server::Translation qw( l );
 use List::MoreUtils qw( uniq );
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Instrument',
@@ -38,9 +39,9 @@ sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
     my %props = (
-        instrument        => $c->stash->{instrument},
+        instrument        => $c->stash->{instrument}->TO_JSON,
         numberOfRevisions => $c->stash->{number_of_revisions},
-        wikipediaExtract  => $c->stash->{wikipedia_extract},
+        wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
     );
 
     $c->stash(
@@ -82,8 +83,8 @@ sub artists : Chained('load') {
     }
 
     my %props = (
-        artists => \@artists,
-        instrument => $c->stash->{instrument},
+        artists => to_json_array(\@artists),
+        instrument => $c->stash->{instrument}->TO_JSON,
         instrumentCreditsAndRelTypes => \%instrument_credits_and_rel_types,
         pager => serialize_pager($c->stash->{pager}),
     );
@@ -121,10 +122,10 @@ sub recordings : Chained('load') {
     $c->model('ArtistCredit')->load(@recordings);
 
     my %props = (
-        instrument => $c->stash->{instrument},
+        instrument => $c->stash->{instrument}->TO_JSON,
         instrumentCreditsAndRelTypes => \%instrument_credits_and_rel_types,
         pager => serialize_pager($c->stash->{pager}),
-        recordings => \@recordings,
+        recordings => to_json_array(\@recordings),
     );
 
     $c->stash(
@@ -154,10 +155,10 @@ sub releases : Chained('load') {
     $c->model('Release')->load_related_info(@releases);
 
     my %props = (
-        instrument => $c->stash->{instrument},
+        instrument => $c->stash->{instrument}->TO_JSON,
         instrumentCreditsAndRelTypes => \%instrument_credits_and_rel_types,
         pager => serialize_pager($c->stash->{pager}),
-        releases => \@releases,
+        releases => to_json_array(\@releases),
     );
 
     $c->stash(
@@ -216,8 +217,8 @@ sub list : Path('/instruments') Args(0) {
 
     my $entities = {};
     for my $i (@sorted) {
-        my $type = $i->{type_id} || "unknown";
-        push @{ $entities->{$type} }, $i;
+        my $type = $i->type_id || "unknown";
+        push @{ $entities->{$type} }, $i->TO_JSON;
     }
 
     $c->stash(
@@ -226,7 +227,7 @@ sub list : Path('/instruments') Args(0) {
         component_props => {
             %{$c->stash->{component_props}},
             instruments_by_type => $entities,
-            instrument_types => \@types
+            instrument_types => to_json_array(\@types),
         }
     );
 }

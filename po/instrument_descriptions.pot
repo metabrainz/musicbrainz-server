@@ -216,13 +216,6 @@ msgid ""
 "traditional oud string format with five pairs of metal strings"
 msgstr ""
 
-#. name:marimba lumina 
-#: DB:instrument/description:767
-msgid ""
-"A marimba lumina is a MIDI controller that lets a musician play music via a "
-"control surface based on the layout of a marimba."
-msgstr ""
-
 #. name:mouth organ 
 #: DB:instrument/description:610
 msgid ""
@@ -1552,6 +1545,14 @@ msgid ""
 "accordion players as bass accompaniment in early 20th century Wallonia."
 msgstr ""
 
+#. name:bazooka 
+#: DB:instrument/description:741
+msgid ""
+"Large wide tube with a very strongly flaring bell, the telescoping creates "
+"only subtle fluctuating overtones. It inspired the name of the anti-tank "
+"weapon."
+msgstr ""
+
 #. name:reed organ 
 #: DB:instrument/description:204
 msgid ""
@@ -1630,6 +1631,11 @@ msgid ""
 "Looks like a recorder, but with double reeds and bagpipe fingering system. "
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
+msgstr ""
+
+#. name:marimba lumina 
+#: DB:instrument/description:767
+msgid "MIDI controller with a marimba-layout inspired control deck"
 msgstr ""
 
 #. name:madal 
@@ -2866,13 +2872,6 @@ msgid ""
 "The bawu is a Chinese wind instrument. Although shaped like a flute, it is "
 "actually a free reed instrument, with a single metal reed. It is played in a "
 "transverse (horizontal) manner."
-msgstr ""
-
-#. name:bazooka 
-#: DB:instrument/description:741
-msgid ""
-"The bazooka is a brass musical instrument several feet in length which "
-"incorporates telescopic tubing."
 msgstr ""
 
 #. name:bin-sasara 

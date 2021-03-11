@@ -528,14 +528,20 @@ declare type EventT = $ReadOnly<{
   ...DatePeriodRoleT,
   ...RatableRoleT,
   ...TypeRoleT<EventTypeT>,
-  +areas: $ReadOnlyArray<{+entity: AreaT}>,
+  +areas: $ReadOnlyArray<{
+    +credit: string,
+    +entity: AreaT,
+  }>,
   +cancelled: boolean,
   +performers: $ReadOnlyArray<{
     +credit: string,
     +entity: ArtistT,
     +roles: $ReadOnlyArray<string>,
   }>,
-  +places: $ReadOnlyArray<{+entity: PlaceT}>,
+  +places: $ReadOnlyArray<{
+    +credit: string,
+    +entity: PlaceT,
+  }>,
   +primaryAlias?: string | null,
   +related_entities?: {
     +areas: AppearancesT<string>,

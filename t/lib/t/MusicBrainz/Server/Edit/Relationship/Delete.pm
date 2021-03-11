@@ -136,7 +136,7 @@ test 'Entities load correctly after being merged (MBS-2477)' => sub {
     $c->model('Artist')->merge(4, [3]);
     $c->model('Edit')->load_all($edit);
 
-    is($edit->display_data->{relationship}{entity0}->gid, '75a40343-ff6e-45d6-a5d2-110388d34858');
+    is($edit->display_data->{relationship}{entity0_id}, 4);
 };
 
 test 'Deleting a release-url relationship' => sub {

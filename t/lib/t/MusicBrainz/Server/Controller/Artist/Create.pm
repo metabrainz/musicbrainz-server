@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::Artist::Create;
+use utf8;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -18,6 +19,8 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 # Test creating new artists via the create artist form
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+my $artist_page_regexp = qr{/artist/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})};
 
 subtest 'Create artists with all fields' => sub {
     $mech->get_ok('/artist/create');
@@ -41,7 +44,7 @@ subtest 'Create artists with all fields' => sub {
         }
     );
     ok($mech->success);
-    ok($mech->uri =~ qr{/artist/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})}, 'should redirect to artist page via gid');
+    ok($mech->uri =~ $artist_page_regexp, 'should redirect to artist page via gid');
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Create');
@@ -111,7 +114,7 @@ subtest 'Creating artists with only the minimal amount of fields' => sub {
         }
     );
     ok($mech->success);
-    ok($mech->uri =~ qr{/artist/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})}, 'should redirect to artist page via gid');
+    ok($mech->uri =~ $artist_page_regexp, 'should redirect to artist page via gid');
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Create');
@@ -133,6 +136,52 @@ subtest 'Creating artists with only the minimal amount of fields' => sub {
     html_ok($mech->content);
     $mech->content_contains('Alice Artist', '.. contains artist name');
     $mech->content_contains('Artist, Alice', '.. contains sort name');
+
+    # Cleaning up.
+    _delete_artist($c, $edit->entity_id);
+
+    done_testing;
+};
+
+subtest 'MBS-10976: No ISE if only invalid characters are submitted' => sub {
+    $mech->get_ok('/artist/create');
+
+    my $invalid = "\x{200B}\x{00AD}\x{FEFF}";
+
+    my $response = $mech->submit_form(
+        with_fields => {
+            'edit-artist.name' => $invalid,
+            'edit-artist.sort_name' => $invalid,
+        }
+    );
+    ok($mech->success);
+    ok($mech->uri =~ qr{/artist/create$}, 'is still on the create page');
+
+    $mech->content_contains(
+        'The characters you’ve entered are invalid or not allowed.',
+        'contains error for invalid characters',
+    );
+
+    done_testing;
+};
+
+subtest 'MBS-10976: Private use characters U+E000..U+F8FF are allowed' => sub {
+    $mech->get_ok('/artist/create');
+
+    my $klingon = "\x{F8D3}\x{F8D4}\x{F8D5}";
+    my $other_private_use = "\x{E000}\x{F8FF}";
+
+    my $response = $mech->submit_form(
+        with_fields => {
+            'edit-artist.name' => $klingon,
+            'edit-artist.sort_name' => $other_private_use,
+        }
+    );
+    ok($mech->uri =~ $artist_page_regexp, 'should redirect to artist page via gid');
+
+    my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    is($edit->data->{name}, $klingon);
+    is($edit->data->{sort_name}, $other_private_use);
 
     # Cleaning up.
     _delete_artist($c, $edit->entity_id);

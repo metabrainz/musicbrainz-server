@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::Tag;
 use List::MoreUtils qw( uniq );
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use MusicBrainz::Server::Data::Utils qw( trim );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use Readonly;
 
 requires 'load';
@@ -19,13 +20,13 @@ after load => sub {
         if $c->user_exists;
 
     $c->model('Genre')->load(map { $_->tag } (@tags, @user_tags));
-    my %genre_map = map { $_->name => $_ } $c->model('Genre')->get_all;
+    my %genre_map = map { $_->name => $_->TO_JSON } $c->model('Genre')->get_all;
 
     $c->stash(
         genre_map => \%genre_map,
-        top_tags => \@tags,
+        top_tags => to_json_array(\@tags),
         more_tags => $count > @tags,
-        user_tags => \@user_tags,
+        user_tags => to_json_array(\@user_tags),
         user_tags_json => $c->json->encode(\@user_tags),
     );
 };
@@ -38,8 +39,8 @@ sub tags : Chained('load') PathPart('tags') {
     $c->model('Genre')->load(map { $_->tag } @tags);
 
     my %props = (
-        entity        => $entity,
-        allTags       => \@tags,
+        entity        => $entity->TO_JSON,
+        allTags       => to_json_array(\@tags),
         userTags      => $c->stash->{user_tags},
         moreTags      => $c->stash->{more_tags},
     );

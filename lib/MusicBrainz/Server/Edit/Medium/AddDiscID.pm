@@ -5,6 +5,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_ADD_DISCID );
 use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 sub edit_name { N_l('Add disc ID') }
@@ -98,7 +99,8 @@ method build_display_data ($loaded)
     my $pos = $self->data->{medium_position};
 
     return {
-        medium => $loaded->{Medium}{ $self->data->{medium_id} // -1 } //
+        medium => to_json_object(
+            $loaded->{Medium}{ $self->data->{medium_id} // -1 } //
                   Medium->new( release_id => $self->release_id,
                                release => $loaded->{Release}{ $self->release_id } //
                                            Release->new(
@@ -107,10 +109,13 @@ method build_display_data ($loaded)
                                             ),
                                $pos ? ( position => $pos ) : (),
                   ),
-        medium_cdtoc => $loaded->{MediumCDTOC}{ $self->entity_id } ||
+        ),
+        medium_cdtoc => to_json_object(
+            ($self->entity_id && $loaded->{MediumCDTOC}{ $self->entity_id }) ||
             MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{cdtoc})
             )
+        ),
     }
 }
 

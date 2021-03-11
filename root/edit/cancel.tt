@@ -7,7 +7,7 @@
      <h2>[% edit.l_edit_name | html %]</h2>
      <div class="edit-details">
        [% IF edit.edit_template_react %]
-         [%~ React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => edit}) ~%]
+         [%~ React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => React.to_json_object(edit)}) ~%]
        [% ELSE %]
          [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
        [% END %]

@@ -4,6 +4,7 @@ use warnings;
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_DISCID );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -41,9 +42,9 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        old_releases => [ map { $loaded->{Release}->{$_} } @{ $self->data->{release_ids} } ],
-        new_releases => [ map { $loaded->{Release}->{$_} } @{ $self->data->{new_release_ids} } ],
-        cdtoc        => CDTOC->new( discid => $self->data->{disc_id} )
+        old_releases => [ map { to_json_object($loaded->{Release}{$_}) } @{ $self->data->{release_ids} } ],
+        new_releases => [ map { to_json_object($loaded->{Release}{$_}) } @{ $self->data->{new_release_ids} } ],
+        cdtoc        => to_json_object(CDTOC->new( discid => $self->data->{disc_id} )),
     }
 }
 

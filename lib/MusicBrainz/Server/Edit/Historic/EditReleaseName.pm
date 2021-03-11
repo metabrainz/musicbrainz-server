@@ -6,6 +6,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_NAME );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 sub edit_name     { N_l('Edit release') }
 sub edit_kind     { 'edit' }
@@ -33,7 +34,9 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        releases => [ map { $loaded->{Release}->{$_} } @{ $self->data->{release_ids} } ],
+        releases => [ map {
+            to_json_object($loaded->{Release}{$_})
+        } @{ $self->data->{release_ids} } ],
         name => {
             new => $self->data->{new}{name},
             old => $self->data->{old}{name},

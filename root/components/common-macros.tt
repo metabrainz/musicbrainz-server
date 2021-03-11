@@ -192,7 +192,7 @@ END -%]
 -%]
     [%- IF ac.names -%]
         [%- React.embed(c, 'static/scripts/common/components/ArtistCreditLink', {
-            artistCredit => ac,
+            artistCredit => React.to_json_object(ac),
         }) -%]
     [%- END -%]
 [%- END -%]
@@ -527,7 +527,7 @@ END -%]
 END -%]
 
 [%~ MACRO tagger_icon(entity) BLOCK -%]
-    [%- React.embed(c, 'static/scripts/common/components/TaggerIcon', {entity => entity}) -%]
+    [%- React.embed(c, 'static/scripts/common/components/TaggerIcon', {entity => React.to_json_object(entity)}) -%]
 [%- END -%]
 
 [%~ MACRO release_label_list(labels) BLOCK; # Converted to React at root/components/ReleaseLabelList.js
@@ -726,7 +726,7 @@ END ~%]
 -%]
     [%- React.embed(c, 'static/scripts/common/components/WikipediaExtract', {
         entity => {entityType => entity.entity_type, gid => entity.gid},
-        cachedWikipediaExtract => wikipedia_extract,
+        cachedWikipediaExtract => React.to_json_object(wikipedia_extract),
     }) -%]
 [%- END -%]
 
