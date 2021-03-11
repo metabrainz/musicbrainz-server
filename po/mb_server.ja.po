@@ -36,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-01 19:21+0200\n"
-"PO-Revision-Date: 2021-02-23 07:17+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2021-03-09 15:26+0200\n"
+"PO-Revision-Date: 2021-03-09 13:28+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -382,7 +382,7 @@ msgid ""
 msgstr "下の「メディアを追加」ボタンをクリックしてメディアを追加するか、トラックリストが不明である場合はチェックボックスを選択するかしてください。"
 
 #: ../root/release/edit/recordings.tt:204
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:35
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:41
 msgid "Add a new recording"
 msgstr "新しいレコーディングを追加"
 
@@ -535,7 +535,7 @@ msgstr ""
 msgid "Append mediums to target release"
 msgstr "ターゲットリリースにメディアを追加"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Applied Edit Count of Editor"
 msgstr "編集者の適用回数"
 
@@ -597,11 +597,11 @@ msgstr "本当に<strong>{link_type}</strong>という関係タイプを削除�
 msgid "Are you sure you wish to remove the <strong>{name}</strong> attribute?"
 msgstr "本当に属性<strong>{name}</strong>削除しますか？"
 
-#: ../root/components/forms.tt:365
+#: ../root/components/forms.tt:383
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
 msgstr "本当にMusicBrainzから{entity}を削除しますか?"
 
-#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:387
+#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:398
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/area/AreaHeader.js:27 ../root/components/list/AreaList.js:45
@@ -647,7 +647,7 @@ msgstr "地域\t"
 #: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:574
 #: ../root/components/medium.tt:47 ../root/edit/details/merge_releases.tt:20
-#: ../root/edit/search_macros.tt:387 ../root/release/edit/tracklist.tt:150
+#: ../root/edit/search_macros.tt:398 ../root/release/edit/tracklist.tt:150
 #: ../root/release/edit/tracklist.tt:399 ../root/release/merge.tt:13
 #: ../root/watch/list.tt:16 ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
@@ -705,7 +705,7 @@ msgstr "地域\t"
 msgid "Artist"
 msgstr "アーティスト"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Artist Area"
 msgstr "アーティストの地域"
 
@@ -747,8 +747,8 @@ msgstr "アーティスト:"
 #: ../root/report/components/EventList.js:37
 #: ../root/search/components/EventResults.js:70
 #: ../root/search/components/WorkResults.js:53
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:863
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:400
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:881
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:401
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
 #: ../root/tag/TagIndex.js:104 ../root/tag/TagLayout.js:26
 #: ../root/utility/tableColumns.js:698
@@ -785,7 +785,7 @@ msgstr "リリースの関連"
 msgid "Attributes:"
 msgstr "属性:"
 
-#: ../root/edit/search_macros.tt:361
+#: ../root/edit/search_macros.tt:372
 msgid "Auto-Editor"
 msgstr "自動編集者"
 
@@ -883,7 +883,7 @@ msgstr "開始地域:"
 #: ../root/artist/edit_form.tt:38 ../root/components/common-macros.tt:718
 #: ../root/components/forms.tt:212
 #: ../root/components/relationship-editor.tt:156 ../root/event/edit_form.tt:33
-#: ../root/artist/utils.js:32
+#: ../root/artist/utils.js:34
 #: ../root/layout/components/sidebar/AreaSidebar.js:57
 msgid "Begin date:"
 msgstr "開始日:"
@@ -911,7 +911,7 @@ msgstr "ブログ"
 msgid "Born:"
 msgstr "出生:"
 
-#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:361
+#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:372
 msgid "Bot"
 msgstr "ボット"
 
@@ -1006,10 +1006,6 @@ msgstr "編集をキャンセル"
 #: ../root/user/edits.tt:1
 msgid "Cancelled edits by {name}"
 msgstr "{name} による編集のキャンセル"
-
-#: ../root/admin/attributes/in_use.tt:1 ../root/admin/attributes/in_use.tt:2
-msgid "Cannot Remove Attribute"
-msgstr "属性を削除できません"
 
 #: ../root/account/register.tt:41
 msgid "Captcha"
@@ -1129,7 +1125,7 @@ msgstr "クライアント:"
 msgid "Close"
 msgstr "閉じる"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Closed"
 msgstr "終了"
 
@@ -1252,7 +1248,7 @@ msgstr "アカウント作成"
 msgid "Create an Account"
 msgstr "アカウント作成"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Created"
 msgstr "作成時刻"
 
@@ -1393,7 +1389,7 @@ msgstr "説明:"
 msgid "Details"
 msgstr "詳細"
 
-#: ../root/components/common-macros.tt:722 ../root/artist/utils.js:55
+#: ../root/components/common-macros.tt:722 ../root/artist/utils.js:57
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:62
 msgid "Died:"
 msgstr "死没:"
@@ -1554,9 +1550,9 @@ msgstr "カバーアートを編集"
 msgid "Edit Note"
 msgstr "メモを編集"
 
-#: ../root/edit/search_macros.tt:387
-msgid "Edit Note Author"
-msgstr "編集ノートの著者"
+#: ../root/edit/search_macros.tt:398
+msgid "Edit Note Authors"
+msgstr ""
 
 #: ../root/relationship/linkattributetype/edit.tt:1
 #: ../root/relationship/linkattributetype/edit.tt:3
@@ -1632,7 +1628,7 @@ msgstr "編集の際によくある質問"
 msgid "Editing/voting disabled"
 msgstr "編集・投票が無効です"
 
-#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:387
+#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:398
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
 #: ../root/admin/components/UserList.js:26
 #: ../root/layout/components/Search.js:50
@@ -1641,7 +1637,7 @@ msgstr "編集・投票が無効です"
 msgid "Editor"
 msgstr "編集者"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Editor Flag"
 msgstr "フラグを編集"
 
@@ -1698,7 +1694,7 @@ msgstr "終了地域:"
 #: ../root/artist/edit_form.tt:51 ../root/components/common-macros.tt:722
 #: ../root/components/forms.tt:214
 #: ../root/components/relationship-editor.tt:160 ../root/event/edit_form.tt:35
-#: ../root/artist/utils.js:63
+#: ../root/artist/utils.js:65
 #: ../root/layout/components/sidebar/AreaSidebar.js:63
 msgid "End date:"
 msgstr "終了日:"
@@ -1761,7 +1757,7 @@ msgid ""
 "{doc_how_to|our guide for writing good edit notes}."
 msgstr "一つか二つのURLだけでも有用です！！より詳しくは{doc_how_to|優れた編集ノートを書くための手引き}をご覧ください。"
 
-#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:387
+#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:398
 #: ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:49
 #: ../root/components/list/EventList.js:73 ../root/edit/details/AddEvent.js:43
@@ -2102,7 +2098,7 @@ msgstr ""
 msgid "I have no information about this release’s media and tracklist."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:387 ../root/admin/attributes/Attribute.js:99
+#: ../root/edit/search_macros.tt:398 ../root/admin/attributes/Attribute.js:99
 #: ../root/admin/attributes/Language.js:43
 #: ../root/admin/attributes/Script.js:45
 msgid "ID"
@@ -2112,6 +2108,12 @@ msgstr "ID"
 #: ../root/edit/details/AddArtist.js:156 ../root/edit/details/AddLabel.js:122
 msgid "IPI code"
 msgstr "IPI コード"
+
+#: ../root/components/forms.tt:333
+msgid ""
+"IPI codes are assigned by CISAC to “interested parties” in musical rights "
+"management. Check {ipi_doc|the documentation} for more info."
+msgstr ""
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:183
@@ -2126,6 +2128,12 @@ msgstr "IRC"
 #: ../root/edit/details/AddArtist.js:165 ../root/edit/details/AddLabel.js:131
 msgid "ISNI code"
 msgstr "ISNIコード"
+
+#: ../root/components/forms.tt:342
+msgid ""
+"ISNI codes are an ISO standard used to uniquely identify persons and "
+"organizations. Check {isni_doc|the documentation} for more info."
+msgstr ""
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:191
@@ -2209,7 +2217,7 @@ msgstr "ISWC"
 msgid "ISWCs:"
 msgstr "ISWC:"
 
-#: ../root/components/forms.tt:368
+#: ../root/components/forms.tt:386
 msgid ""
 "If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it"
 " just has some small errors, it’s usually better to just fix those."
@@ -2257,6 +2265,11 @@ msgid ""
 "one, using this CD TOC:"
 msgstr "探しているリリースが見つからない場合でも、このCD TOCを元に新しいリリースを追加することができます。"
 
+#: ../root/components/forms.tt:336 ../root/components/forms.tt:345
+msgid ""
+"If you don’t know the code for this entity, just leave the field blank."
+msgstr ""
+
 #: ../root/release/edit/information.tt:50
 msgid ""
 "If you don’t select an existing release group, a new one will be created "
@@ -2298,7 +2311,7 @@ msgstr "インデックス検索"
 msgid "Indexed search with {doc|advanced query syntax}"
 msgstr "{doc|高度なクエリ構文}を使ったインデックス検索"
 
-#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:387
+#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:398
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 #: ../root/components/list/InstrumentList.js:46
@@ -2375,7 +2388,7 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
 #: ../root/cdtoc/lookup.tt:44 ../root/components/common-macros.tt:574
-#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:387
+#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:398
 #: ../root/release/edit/duplicates.tt:15 ../root/release/merge.tt:17
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
@@ -2400,7 +2413,7 @@ msgstr ""
 msgid "Label"
 msgstr "レーベル"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Label Area"
 msgstr "レーベルの地域"
 
@@ -2504,7 +2517,7 @@ msgstr "編集プレビューを読込み中…"
 msgid "Loading..."
 msgstr "ロード中..."
 
-#: ../root/edit/search_macros.tt:361
+#: ../root/edit/search_macros.tt:372
 msgid "Location Editor"
 msgstr "地域編集者"
 
@@ -2882,7 +2895,7 @@ msgctxt "vote"
 msgid "No"
 msgstr "反対"
 
-#: ../root/components/forms.tt:351
+#: ../root/components/forms.tt:369
 msgid "No description available."
 msgstr ""
 
@@ -2907,7 +2920,7 @@ msgid "No releases have cover art marked as \"Front\", cannot set cover art."
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:127 ../root/admin/IpLookup.js:37
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:450
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:456
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:67
 msgid "No results"
 msgstr "結果がありません"
@@ -3130,7 +3143,7 @@ msgstr "パスワード:"
 msgid "Phrase:"
 msgstr "句:"
 
-#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:387
+#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:398
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
 #: ../root/components/list/PlaceList.js:50 ../root/edit/details/AddPlace.js:46
@@ -3172,7 +3185,7 @@ msgid ""
 "see {blog|the recent blog post}."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:385
+#: ../root/edit/search_macros.tt:396
 msgid "Please choose a condition"
 msgstr "条件を選択してください"
 
@@ -3316,7 +3329,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:574
 #: ../root/edit/details/merge_releases.tt:108
-#: ../root/edit/search_macros.tt:387 ../root/release/edit_relationships.tt:50
+#: ../root/edit/search_macros.tt:398 ../root/release/edit_relationships.tt:50
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/edit/details/AddStandaloneRecording.js:46
@@ -3400,11 +3413,11 @@ msgstr "関係する作品"
 msgid "Related entities:"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:361
+#: ../root/edit/search_macros.tt:372
 msgid "Relationship Editor"
 msgstr "関係編集者"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:40
 #: ../root/report/components/ArtistRelationshipList.js:30
 #: ../root/report/components/LabelRelationshipList.js:30
@@ -3443,7 +3456,7 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:15
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:39
 #: ../root/components/common-macros.tt:574
-#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:387
+#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:398
 #: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:51
 #: ../root/release/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
@@ -3475,7 +3488,7 @@ msgstr ""
 msgid "Release"
 msgstr "リリース"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Release Country"
 msgstr "リリース国"
 
@@ -3483,7 +3496,7 @@ msgstr "リリース国"
 msgid "Release Duplicates"
 msgstr "リリースが重複"
 
-#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:387
+#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:398
 #: ../root/release/index.tt:58
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
 #: ../root/edit/details/AddReleaseGroup.js:43
@@ -3531,11 +3544,11 @@ msgstr "リリースグループ"
 msgid "Release Information"
 msgstr "リリースの情報"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Release Language"
 msgstr "リリースの言語"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Release Quality"
 msgstr "リリースの品質"
 
@@ -3889,7 +3902,7 @@ msgid ""
 " to."
 msgstr ""
 
-#: ../root/components/forms.tt:342
+#: ../root/components/forms.tt:360
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
@@ -3926,7 +3939,7 @@ msgctxt "plural"
 msgid "Series"
 msgstr "シリーズ"
 
-#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:387
+#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:398
 #: ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
 #: ../root/components/list/SeriesList.js:46
@@ -4069,7 +4082,7 @@ msgstr "別のアーティストに分割"
 msgid "Start"
 msgstr "スタート"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgctxt "edit status"
 msgid "Status"
 msgstr "ステータス"
@@ -4516,7 +4529,7 @@ msgid "This recording cannot be removed because it is still used on releases."
 msgstr "このレコーディングはリリースで使用されているため削除できません。"
 
 #: ../root/components/common-macros.tt:302
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:664
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:682
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:232
 #: ../root/static/scripts/common/components/EntityLink.js:264
 msgid "This recording is a video"
@@ -4776,7 +4789,7 @@ msgid "Twitter"
 msgstr "Twitter"
 
 #: ../root/components/relationship-editor.tt:98
-#: ../root/edit/search_macros.tt:387 ../root/account/applications/Index.js:143
+#: ../root/edit/search_macros.tt:398 ../root/account/applications/Index.js:143
 #: ../root/components/Aliases/AliasTable.js:28
 #: ../root/components/list/ReleaseGroupList.js:102
 #: ../root/components/list/ReleaseList.js:138
@@ -4817,10 +4830,10 @@ msgstr "Twitter"
 #: ../root/search/components/SeriesResults.js:54
 #: ../root/search/components/WorkResults.js:55
 #: ../root/static/scripts/account/components/ApplicationForm.js:87
-#: ../root/static/scripts/alias/AliasEditForm.js:354
+#: ../root/static/scripts/alias/AliasEditForm.js:357
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:83
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:842
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:392
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:860
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:393
 #: ../root/static/scripts/common/components/FilterForm.js:63
 #: ../root/utility/tableColumns.js:464 ../root/utility/tableColumns.js:469
 msgid "Type"
@@ -4896,7 +4909,7 @@ msgstr ""
 msgid "Unknown"
 msgstr "不明"
 
-#: ../root/admin/edit_user.tt:17 ../root/edit/search_macros.tt:361
+#: ../root/admin/edit_user.tt:17 ../root/edit/search_macros.tt:372
 msgid "Untrusted"
 msgstr "信頼されない"
 
@@ -5029,11 +5042,11 @@ msgid "View this version"
 msgstr "このバージョンを表示"
 
 #: ../root/edit/edit_header.tt:36 ../root/edit/index.tt:25
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Vote tally"
 msgstr "投票数"
 
-#: ../root/edit/search_macros.tt:387 ../root/elections/ElectionVotes.js:24
+#: ../root/edit/search_macros.tt:398 ../root/elections/ElectionVotes.js:24
 msgid "Voter"
 msgstr "投票者"
 
@@ -5054,7 +5067,7 @@ msgstr "投票"
 msgid "Voting FAQ"
 msgstr "投票のよくある質問"
 
-#: ../root/edit/search_macros.tt:387
+#: ../root/edit/search_macros.tt:398
 msgid "Voting closed"
 msgstr ""
 
@@ -5142,7 +5155,7 @@ msgstr ""
 msgid "Wiki"
 msgstr "Wiki"
 
-#: ../root/edit/search_macros.tt:361
+#: ../root/edit/search_macros.tt:372
 msgid "Wiki Transcluder"
 msgstr ""
 
@@ -5150,7 +5163,7 @@ msgstr ""
 msgid "WikiDoc:"
 msgstr "WikiDoc:"
 
-#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:387
+#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:398
 #: ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
 #: ../root/components/list/WorkList.js:59 ../root/edit/details/AddWork.js:46
@@ -5286,10 +5299,6 @@ msgid ""
 " a new release instead}."
 msgstr ""
 
-#: ../root/admin/attributes/in_use.tt:3
-msgid "You cannot remove the attribute \"{name}\" because it is still in use."
-msgstr ""
-
 #: ../root/release/edit/information.tt:159
 msgid "You cannot use the same country more than once."
 msgstr ""
@@ -5331,7 +5340,7 @@ msgstr ""
 msgid "You must be logged in to see edit notes."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:378
+#: ../root/edit/search_macros.tt:389
 msgid "You must be logged in to use this option."
 msgstr ""
 
@@ -5506,6 +5515,18 @@ msgstr ""
 msgid "credited as"
 msgstr ""
 
+#: ../root/edit/search_macros.tt:341
+msgid "do not include"
+msgstr ""
+
+#: ../root/edit/search_macros.tt:341
+msgid "do not include editors in my subscriptions"
+msgstr ""
+
+#: ../root/edit/search_macros.tt:341
+msgid "do not include me"
+msgstr ""
+
 #: ../root/edit/search_macros.tt:28
 msgid "do not match"
 msgstr ""
@@ -5581,6 +5602,22 @@ msgstr ""
 msgid "in {date}"
 msgstr ""
 
+#: ../root/edit/search_macros.tt:341
+msgid "include"
+msgstr ""
+
+#: ../root/edit/search_macros.tt:341
+msgid "include a beginner editor"
+msgstr ""
+
+#: ../root/edit/search_macros.tt:341
+msgid "include an editor in my subscriptions"
+msgstr ""
+
+#: ../root/edit/search_macros.tt:341
+msgid "include me"
+msgstr ""
+
 #: ../root/components/common-macros.tt:226
 #: ../root/components/common-macros.tt:302
 #: ../root/static/scripts/common/components/EntityLink.js:115
@@ -5596,12 +5633,12 @@ msgstr ""
 #: ../root/edit/search_macros.tt:185 ../root/edit/search_macros.tt:200
 #: ../root/edit/search_macros.tt:222 ../root/edit/search_macros.tt:240
 #: ../root/edit/search_macros.tt:262 ../root/edit/search_macros.tt:312
-#: ../root/edit/search_macros.tt:327 ../root/edit/search_macros.tt:340
-#: ../root/edit/search_macros.tt:357
+#: ../root/edit/search_macros.tt:327 ../root/edit/search_macros.tt:350
+#: ../root/edit/search_macros.tt:368
 msgid "is"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:340
+#: ../root/edit/search_macros.tt:350
 msgid "is a beginner"
 msgstr ""
 
@@ -5618,7 +5655,7 @@ msgid "is between"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:262 ../root/edit/search_macros.tt:312
-#: ../root/edit/search_macros.tt:340
+#: ../root/edit/search_macros.tt:350
 msgid "is in my subscriptions"
 msgstr ""
 
@@ -5626,7 +5663,7 @@ msgstr ""
 msgid "is less than"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:262 ../root/edit/search_macros.tt:340
+#: ../root/edit/search_macros.tt:262 ../root/edit/search_macros.tt:350
 msgid "is me"
 msgstr ""
 
@@ -5639,16 +5676,16 @@ msgstr ""
 #: ../root/edit/search_macros.tt:200 ../root/edit/search_macros.tt:222
 #: ../root/edit/search_macros.tt:240 ../root/edit/search_macros.tt:262
 #: ../root/edit/search_macros.tt:312 ../root/edit/search_macros.tt:327
-#: ../root/edit/search_macros.tt:340 ../root/edit/search_macros.tt:357
+#: ../root/edit/search_macros.tt:350 ../root/edit/search_macros.tt:368
 msgid "is not"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:262 ../root/edit/search_macros.tt:312
-#: ../root/edit/search_macros.tt:340
+#: ../root/edit/search_macros.tt:350
 msgid "is not in my subscriptions"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:262 ../root/edit/search_macros.tt:340
+#: ../root/edit/search_macros.tt:262 ../root/edit/search_macros.tt:350
 msgid "is not me"
 msgstr ""
 
@@ -6093,6 +6130,18 @@ msgstr "バナーが更新されました。それぞれのサーバーのバナ
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:170
 #: ../root/static/scripts/release-editor/trackParser.js:492
 msgid "Invalid regular expression."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:120
+#, perl-brace-format
+msgid "You cannot remove the attribute \"{name}\" because it is still in use."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:132
+#, perl-brace-format
+msgid ""
+"You cannot remove the attribute “{name}” because it is the parent of other "
+"attributes."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:647
@@ -8047,6 +8096,11 @@ msgstr ""
 msgid "Add new attribute"
 msgstr "新しい属性を追加"
 
+#: ../root/admin/attributes/CannotRemoveAttribute.js:23
+#: ../root/admin/attributes/CannotRemoveAttribute.js:24
+msgid "Cannot Remove Attribute"
+msgstr "属性を削除できません"
+
 #: ../root/admin/attributes/Language.js:35
 #: ../root/admin/attributes/Language.js:38 ../root/edit/details/AddWork.js:75
 #: ../root/edit/details/historic/AddRelease.js:101 ../root/iswc/Index.js:60
@@ -8460,27 +8514,32 @@ msgctxt "group artist"
 msgid "Founded"
 msgstr ""
 
-#: ../root/artist/utils.js:39
+#: ../root/artist/utils.js:32
+msgctxt "character artist"
+msgid "Created"
+msgstr "作成時刻"
+
+#: ../root/artist/utils.js:41
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
 msgid "Died in:"
 msgstr "死没:"
 
-#: ../root/artist/utils.js:43
+#: ../root/artist/utils.js:45
 msgctxt "group artist"
 msgid "Dissolved in"
 msgstr ""
 
-#: ../root/artist/utils.js:45
+#: ../root/artist/utils.js:47
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:55
 msgid "End area:"
 msgstr "終了地域:"
 
-#: ../root/artist/utils.js:60
+#: ../root/artist/utils.js:62
 msgctxt "group artist"
 msgid "Dissolving"
 msgstr ""
 
-#: ../root/artist/utils.js:61
+#: ../root/artist/utils.js:63
 msgctxt "group artist"
 msgid "Dissolved"
 msgstr ""
@@ -8642,7 +8701,7 @@ msgstr "終了日"
 #: ../root/components/Aliases/AliasTable.js:29
 #: ../root/edit/details/AddRemoveAlias.js:89
 #: ../root/edit/details/EditAlias.js:111
-#: ../root/static/scripts/alias/AliasEditForm.js:335
+#: ../root/static/scripts/alias/AliasEditForm.js:338
 msgid "Locale"
 msgstr "ロケール"
 
@@ -8670,7 +8729,7 @@ msgid "Aliases"
 msgstr "別名"
 
 #: ../root/components/Aliases/index.js:50
-#: ../root/static/scripts/alias/AliasEditForm.js:299
+#: ../root/static/scripts/alias/AliasEditForm.js:302
 msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "misspellings or variations of the name and are also used to improve search "
@@ -8903,8 +8962,8 @@ msgstr "ステータス"
 #: ../root/components/list/WorkList.js:64 ../root/iswc/Index.js:57
 #: ../root/report/IswcsWithManyWorks.js:63
 #: ../root/search/components/WorkResults.js:52
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:862
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:399
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:880
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:400
 msgid "Writers"
 msgstr "作者"
 
@@ -11493,7 +11552,7 @@ msgid ""
 msgstr "本当に{artist}の{release}から以下のカバーアートを削除しますか？"
 
 #: ../root/release_group/ReleaseGroupHeader.js:30
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:349
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:350
 msgid "Release group by {artist}"
 msgstr "{artist}のリリースグループ"
 
@@ -13024,7 +13083,7 @@ msgstr "注釈のある作品"
 
 #: ../root/report/ReportsIndex.js:560
 #: ../root/search/components/RecordingResults.js:129
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:696
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:714
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:257
 #: ../root/utility/tableColumns.js:505
 msgid "ISRCs"
@@ -13162,7 +13221,7 @@ msgstr ""
 
 #: ../root/report/components/EventList.js:38
 #: ../root/search/components/EventResults.js:71
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1012
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1030
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:175
 #: ../root/utility/tableColumns.js:618
 msgid "Location"
@@ -13399,19 +13458,19 @@ msgstr "自分が追加したレーベルを自動的に購読する。"
 msgid "Automatically subscribe me to series I create."
 msgstr "自分が追加したシリーズを自動的に購読する。"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:316
+#: ../root/static/scripts/alias/AliasEditForm.js:319
 msgid "Alias Details"
 msgstr "別名の詳細"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:323
+#: ../root/static/scripts/alias/AliasEditForm.js:326
 msgid "Alias name:"
 msgstr "別名:"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:347
+#: ../root/static/scripts/alias/AliasEditForm.js:350
 msgid "This is the primary alias for this locale"
 msgstr "このロケールの一次エイリアスです"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:362
+#: ../root/static/scripts/alias/AliasEditForm.js:365
 msgid "This alias is no longer current."
 msgstr ""
 
@@ -13462,7 +13521,7 @@ msgid "Show more artist credits"
 msgstr ""
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:254
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:457
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:463
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:78
 #: ../root/static/scripts/common/components/Collapsible.js:76
 msgid "Show more..."
@@ -13492,82 +13551,90 @@ msgstr "コレクションを作成"
 msgid "Update collection"
 msgstr "コレクションを更新"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:31
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:35
+msgid "Add a new area"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:36
 msgid "Add a new artist"
 msgstr "新しいアーティストを追加"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:32
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:37
 msgid "Add a new event"
 msgstr "新しいイベントを追加"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:33
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:38
+msgid "Add a new instrument"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:39
 msgid "Add a new label"
 msgstr "新しいレーベルを追加"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:34
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:40
 msgid "Add a new place"
 msgstr "新しい場所を追加"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:36
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:42
 msgid "Add a new release group"
 msgstr "新しいリリースグループを追加"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:37
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:43
 msgid "Add a new series"
 msgstr "新しいシリーズを追加"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:38
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:44
 msgid "Add a new work"
 msgstr "新しい作品を追加"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:85
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:91
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:72
 msgid "An error occurred while searching. Click here to try again."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:90
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:96
 msgid "Try with direct search instead."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:91
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:97
 msgid "Try with indexed search instead."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:123
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:129
 #: ../root/static/scripts/common/components/Autocomplete2.js:557
 msgid "Type to search, or paste an MBID"
 msgstr "検索するか、MBIDを貼り付け"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:205
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:211
 msgid "Clear recent items"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:464
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:470
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:84
 msgid "Not found? Try again with direct search."
 msgstr "見つかりませんか？ 直接検索を試す"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:465
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:471
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:90
 msgid "Slow? Switch back to indexed search."
 msgstr "遅いですか？ インデックス検索に戻す"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:683
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:701
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:249
 msgid "appears on"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:707
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:253
 msgid "standalone recording"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:783
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:344
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:801
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:345
 msgid "{release_group_type} by {artist}"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1011
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1029
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:172
 msgid "Performers"
 msgstr ""
@@ -13690,7 +13757,7 @@ msgstr ""
 msgid "by {artist}"
 msgstr ""
 
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:307
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:308
 msgid "{first_list_item} … {last_list_item}"
 msgstr ""
 
