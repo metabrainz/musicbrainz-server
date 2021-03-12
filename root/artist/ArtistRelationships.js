@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import Relationships from '../components/Relationships';
 import RelationshipsTable from '../components/RelationshipsTable';
-import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import ArtistLayout from './ArtistLayout';
 
@@ -34,19 +33,7 @@ const ArtistRelationships = ({
     title={l('Relationships')}
   >
     {pagedLinkTypeGroup ? null : (
-      artist.relationships?.length ? (
-        <Relationships source={artist} />
-      ) : (
-        <>
-          <h2 className="relationships">{l('Relationships')}</h2>
-          <p>
-            {exp.l(
-              '{link} has no relationships.',
-              {link: <EntityLink entity={artist} />},
-            )}
-          </p>
-        </>
-      )
+      <Relationships showIfEmpty source={artist} />
     )}
     <RelationshipsTable
       $c={$c}
