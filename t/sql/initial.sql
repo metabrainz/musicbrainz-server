@@ -113,7 +113,9 @@ INSERT INTO language VALUES (145, 'deu', 'ger', 'de', 'German', 2, 'deu');
 INSERT INTO language VALUES (171, 'hin', 'hin', 'hi', 'Hindi', 1, 'hin');
 INSERT INTO language VALUES (195, 'ita', 'ita', 'it', 'Italian', 2, 'ita');
 INSERT INTO language VALUES (198, 'jpn', 'jpn', 'ja', 'Japanese', 2, 'jpn');
+INSERT INTO language VALUES (284, 'mul', 'mul', '', '[Multiple languages]', 2, 'mul');
 INSERT INTO language VALUES (393, 'spa', 'spa', 'es', 'Spanish', 2, 'spa');
+INSERT INTO language VALUES (455, 'cym', 'wel', 'cy', 'Welsh', 1, 'cym');
 INSERT INTO language VALUES (486, 'zxx', 'zxx', NULL, 'No linguistic content', 1, 'zxx');
 
 INSERT INTO link_attribute_type VALUES (1, NULL, 1, 0, '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f', 'additional', 'This attribute describes if a particular role was considered normal or additional.', '2014-03-30 09:53:32.715353+00');
@@ -916,6 +918,7 @@ INSERT INTO release_group_secondary_type VALUES (10, 'Demo', NULL, 0, NULL, '815
 INSERT INTO release_packaging VALUES (1, 'Jewel Case', NULL, 0, 'The traditional CD case, made of hard, brittle plastic.', 'ec27701a-4a22-37f4-bfac-6616e0f9750a');
 INSERT INTO release_packaging VALUES (2, 'Slim Jewel Case', NULL, 0, 'A thinner jewel case, commonly used for CD singles.', '36327bc2-f691-3d66-80e5-bd03cec6060a');
 INSERT INTO release_packaging VALUES (3, 'Digipak', NULL, 0, NULL, '8f931351-d2e2-310f-afc6-37b89ddba246');
+INSERT INTO release_packaging VALUES (4, 'Cardboard/Paper Sleeve', NULL, 0, NULL, 'f7101ce3-0384-39ce-9fde-fbbd0044d35f');
 INSERT INTO release_packaging VALUES (5, 'Other', NULL, 1, NULL, '815b7785-8284-3926-8f04-e48bc6c4d102');
 INSERT INTO release_packaging VALUES (7, 'None', NULL, 2, NULL, '119eba76-b343-3e02-a292-f0f00644bb9b');
 

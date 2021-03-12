@@ -406,6 +406,74 @@ CREATE TABLE artist_type ( -- replicate
     gid                 uuid NOT NULL
 );
 
+CREATE TABLE artist_release (
+    -- `is_track_artist` is TRUE only if the artist came from a track
+    -- AC and does not also appear in the release AC. Track artists
+    -- that appear in the release AC are not stored.
+    is_track_artist                     BOOLEAN NOT NULL,
+    artist                              INTEGER NOT NULL, -- references artist.id, CASCADE
+    first_release_date                  INTEGER,
+    catalog_numbers                     TEXT[],
+    country_code                        CHAR(2),
+    barcode                             BIGINT,
+    -- Prior to adding these materialized tables, we'd order releases
+    -- by name only if all other attributes where equal. It's not too
+    -- common that an artist will have tons of releases with no dates,
+    -- catalog numbers, countries, or barcodes (though it can be seen
+    -- on some big composers). As a compromise between dropping the
+    -- name sorting and having to store the entire name here (which,
+    -- as a reminder, is duplicated for every artist on the release),
+    -- we only store the first character of the name for sorting.
+    sort_character                      CHAR(1) COLLATE musicbrainz NOT NULL,
+    release                             INTEGER NOT NULL -- references release.id, CASCADE
+) PARTITION BY LIST (is_track_artist);
+
+CREATE TABLE artist_release_nonva
+    PARTITION OF artist_release FOR VALUES IN (FALSE);
+
+CREATE TABLE artist_release_va
+    PARTITION OF artist_release FOR VALUES IN (TRUE);
+
+-- The set of triggers keeping the `artist_release` table up-to-date
+-- (which can be found in admin/sql/CreateSlaveOnlyTriggers.sql) don't
+-- update the table directly. The query to do that for a particular
+-- release can be moderately heavy if there are a lot of tracks, so it
+-- would degrade performance if identical updates to the same release
+-- were triggered many times in the same transaction (which is very
+-- easy to trigger when adding, editing, or removing tracks). The
+-- strategy we use is to instead push release IDs that need updating
+-- to the `artist_release_pending_update` table, and perform the
+-- actual updates in a DEFERRED trigger at the end of the transaction.
+-- (For where this happens, see the apply_*_pending_updates functions.)
+CREATE TABLE artist_release_pending_update (
+    release INTEGER NOT NULL
+);
+
+CREATE TABLE artist_release_group (
+    -- See comment for `artist_release.is_track_artist`.
+    is_track_artist                     BOOLEAN NOT NULL,
+    artist                              INTEGER NOT NULL, -- references artist.id, CASCADE
+    unofficial                          BOOLEAN NOT NULL,
+    primary_type                        SMALLINT,
+    secondary_types                     SMALLINT[],
+    first_release_date                  INTEGER,
+    -- See comment for `artist_release.sort_character`.
+    sort_character                      CHAR(1) COLLATE musicbrainz NOT NULL,
+    release_group                       INTEGER NOT NULL -- references release_group.id, CASCADE
+) PARTITION BY LIST (is_track_artist);
+
+CREATE TABLE artist_release_group_nonva
+    PARTITION OF artist_release_group FOR VALUES IN (FALSE);
+
+CREATE TABLE artist_release_group_va
+    PARTITION OF artist_release_group FOR VALUES IN (TRUE);
+
+-- Please see the comment above `artist_release_pending_update`
+-- (the same idea applies).
+CREATE TABLE artist_release_group_pending_update (
+    release_group INTEGER NOT NULL
+);
+
 CREATE TABLE autoeditor_election
 (
     id                  SERIAL,

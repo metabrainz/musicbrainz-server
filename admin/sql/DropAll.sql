@@ -5,6 +5,7 @@
 
 \i admin/sql/DropReplicationTriggers.sql
 \i admin/sql/DropTriggers.sql
+\i admin/sql/DropSlaveOnlyTriggers.sql
 \i admin/sql/DropFunctions.sql
 \i admin/sql/DropViews.sql
 \i admin/sql/DropFKConstraints.sql

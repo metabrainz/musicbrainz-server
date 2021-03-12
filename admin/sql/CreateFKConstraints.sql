@@ -289,6 +289,30 @@ ALTER TABLE artist_rating_raw
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
+ALTER TABLE artist_release
+   ADD CONSTRAINT artist_release_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE artist_release
+   ADD CONSTRAINT artist_release_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE artist_release_group
+   ADD CONSTRAINT artist_release_group_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE artist_release_group
+   ADD CONSTRAINT artist_release_group_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE artist_tag
    ADD CONSTRAINT artist_tag_fk_artist
    FOREIGN KEY (artist)

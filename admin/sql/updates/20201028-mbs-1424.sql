@@ -212,4 +212,16 @@ ALTER TABLE recording_first_release_date
   ADD CONSTRAINT recording_first_release_date_pkey
   PRIMARY KEY (recording);
 
+-- **NOTE**: The new triggers overlap with ones created in
+-- admin/sql/updates/20210311-mbs-11438.sql,
+-- so somes changes have been consolidated into there.
+--
+-- This includes the following functions:
+--   a_ins_release_event
+--   a_upd_release_event
+--   a_del_release_event
+--   a_ins_track
+--   a_upd_track
+--   a_del_track
+
 COMMIT;
