@@ -429,6 +429,20 @@ sub set_collaborators {
         }, @$collaborators
     );
 
+    # Remove non-owner, no-longer-collaborator subscriptions if collection is private
+    $self->sql->do(
+        'DELETE FROM editor_subscribe_collection esc
+         USING editor_collection ec
+         WHERE esc.collection = ?
+         AND esc.collection = ec.id
+         AND ec.public IS FALSE
+         AND esc.editor != ec.editor
+         AND esc.editor NOT IN (
+             SELECT editor FROM editor_collection_collaborator
+             WHERE collection = esc.collection
+        )',
+        $collection_id);
+
     $self->sql->commit;
 }
 
