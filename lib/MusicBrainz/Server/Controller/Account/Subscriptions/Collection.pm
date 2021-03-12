@@ -3,6 +3,8 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
+use MusicBrainz::Server::Translation qw( l );
+
 with 'MusicBrainz::Server::Controller::Account::SubscriptionsRole';
 
 __PACKAGE__->config( model => 'Collection' );
@@ -14,7 +16,15 @@ before add => sub
     my $entity_id = $c->request->params->{id};
     my $entity = $c->model($self->{model})->get_by_id($entity_id);
 
-    $c->detach('/error_404') if (!$entity || (!$entity->public && $c->user->id != $entity->editor_id));
+    if (!$entity) {
+        $c->stash(
+            message  => l('The provided collection ID doesn’t exist.')
+        );
+        $c->detach('/error_400');
+    }
+
+    $c->detach('/error_403')
+        if (!$entity->public && $c->user->id != $entity->editor_id);
 };
 
 __PACKAGE__->meta->make_immutable;
