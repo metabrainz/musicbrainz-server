@@ -942,10 +942,13 @@ RETURNS trigger AS $$
   BEGIN
     IF NEW.public = FALSE AND OLD.public = TRUE THEN
       UPDATE editor_subscribe_collection sub
-       SET available = FALSE, last_seen_name = OLD.name
-       FROM editor_collection coll
-       WHERE sub.collection = OLD.id AND sub.collection = coll.id
-       AND sub.editor != coll.editor;
+         SET available = FALSE,
+             last_seen_name = OLD.name
+       WHERE sub.collection = OLD.id
+         AND sub.editor != NEW.editor
+         AND sub.editor NOT IN (SELECT ecc.editor
+                                  FROM editor_collection_collaborator ecc
+                                 WHERE ecc.collection = sub.collection);
     END IF;
 
     RETURN NEW;

@@ -429,6 +429,22 @@ sub set_collaborators {
         }, @$collaborators
     );
 
+    # Remove non-owner, no-longer-collaborator subscriptions if collection is private
+    $self->sql->do(<<~'SQL', $collection_id);
+        UPDATE editor_subscribe_collection esc
+           SET available = FALSE,
+               last_seen_name = ec.name
+          FROM editor_collection ec
+         WHERE esc.collection = ?
+           AND esc.collection = ec.id
+           AND ec.public IS FALSE
+           AND esc.available IS TRUE
+           AND esc.editor != ec.editor
+           AND esc.editor NOT IN (SELECT editor
+                                    FROM editor_collection_collaborator
+                                   WHERE collection = esc.collection)
+        SQL
+
     $self->sql->commit;
 }
 

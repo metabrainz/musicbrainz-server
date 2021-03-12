@@ -23,8 +23,16 @@ before add => sub
         $c->detach('/error_400');
     }
 
-    $c->detach('/error_403')
-        if (!$entity->public && $c->user->id != $entity->editor_id);
+    my $is_authorized = (
+        $entity->public ||
+        $c->user->id == $entity->editor_id ||
+        $c->model('Collection')->is_collection_collaborator(
+            $c->user->id,
+            $entity->id,
+        )
+    );
+
+    $c->detach('/error_403') if (!$is_authorized);
 };
 
 __PACKAGE__->meta->make_immutable;
