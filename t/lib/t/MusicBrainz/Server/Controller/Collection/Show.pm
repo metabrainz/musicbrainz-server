@@ -87,6 +87,20 @@ test 'Collection view does not include description when there is none' => sub {
 
 };
 
+test 'Private collection pages are private' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3cb');
+    is($mech->status, 403, "main collection page is private");
+    $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3cb/subscribers');
+    is($mech->status, 403, "subscribers page is private");
+
+    $mech->get('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
+    is($mech->status, 200, "main collection page is visible to owner");
+    $mech->get('/collection/f34c079d-374e-4436-9448-da92dedef3cd/subscribers');
+    is($mech->status, 200, "subscribers page is visible to owner");
+};
 
 test 'Unknown collection' => sub {
     my $test = shift;
