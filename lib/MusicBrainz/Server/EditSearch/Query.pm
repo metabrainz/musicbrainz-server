@@ -67,7 +67,7 @@ has combinator => (
 );
 
 has order => (
-    isa => enum([qw( asc desc closed_asc closed_desc vote_closing_asc vote_closing_desc rand )]),
+    isa => enum([qw( asc desc closed_asc closed_desc vote_closing_asc vote_closing_desc latest_note rand )]),
     is => 'ro',
     required => 1,
     default => 'desc'
@@ -150,6 +150,7 @@ sub as_string {
 
     my $order = '';
     my $extra_conditions = '';
+    my $extra_joins = '';
     if ($self->order eq 'asc') {
         $order = 'ORDER BY edit.id ASC';
     } elsif ($self->order eq 'desc') {
@@ -166,10 +167,19 @@ sub as_string {
     } elsif ($self->order eq 'vote_closing_desc') {
         $order = 'ORDER BY edit.expire_time DESC';
         $extra_conditions = ' AND edit.close_time IS NULL';
+    } elsif ($self->order eq 'latest_note') {
+        $order = 'ORDER BY s.latest_note DESC';
+        $extra_conditions = ' AND s.latest_note IS NOT NULL';
+        $extra_joins = 'JOIN (
+            SELECT edit, MAX(post_time) AS latest_note
+            FROM edit_note
+            GROUP BY edit
+            ) s ON s.edit = edit.id '
     }
 
     return 'SELECT edit.*, edit_data.data ' .
         'FROM edit JOIN edit_data ON edit.id = edit_data.edit ' .
+        $extra_joins .
         'WHERE ' . $ae_predicate . ($self->negate ? 'NOT ' : '') . '(' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
