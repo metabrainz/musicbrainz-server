@@ -20,7 +20,7 @@ test all => sub {
     $mech->get_ok('/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/edit_annotation');
     $mech->submit_form(
         with_fields => {
-            'edit-annotation.text' => "    * Test annotation\x{0007} for a series  \r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+            'edit-annotation.text' => "    * Test annotation\x{0007} for a series  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
             'edit-annotation.changelog' => 'And a changelog',
         });
 

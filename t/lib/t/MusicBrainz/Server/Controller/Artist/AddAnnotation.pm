@@ -22,7 +22,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
 $mech->submit_form(
     with_fields => {
-        'edit-annotation.text' => "    * Test annotation\x{0007} for an artist  \r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+        'edit-annotation.text' => "    * Test annotation\x{0007} for an artist  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
         'edit-annotation.changelog' => 'Changelog here',
     });
 

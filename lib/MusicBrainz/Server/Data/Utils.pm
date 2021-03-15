@@ -375,6 +375,9 @@ sub trim_multiline_text {
     # - Splitting on \n so that \s doesn’t match any \n
     $t = join ("\n", map { $_ =~ s/\s+$//r } (split "\n", $t));
 
+    # Merge consecutive blank lines together
+    $t =~ s/\n+(\n\n)/$1/g;
+
     return $t;
 }
 

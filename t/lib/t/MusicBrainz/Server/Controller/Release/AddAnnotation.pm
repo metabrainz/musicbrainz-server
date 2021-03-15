@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80/edit_annotation');
 $mech->submit_form(
     with_fields => {
-        'edit-annotation.text' => "    * Test annotation\x{0007} for a release  \r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+        'edit-annotation.text' => "    * Test annotation\x{0007} for a release  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
         'edit-annotation.changelog' => 'Changelog here',
     });
 
