@@ -367,10 +367,13 @@ sub trim_multiline_text {
 
     $t = NFC($t);
     $t = remove_invalid_characters($t);
-    # Not trimming starting spaces to avoid breaking
-    # either list formatting in Wikitext
-    # or block in Markdown.
-    $t =~ s/\s+$//gm;
+
+    # Trimming each line to remove trailing spaces (or similar)
+    # - Not trimming starting spaces to avoid breaking
+    #   either list formatting in Wikitext
+    #   or block in Markdown.
+    # - Splitting on \n so that \s doesn’t match any \n
+    $t = join ("\n", map { $_ =~ s/\s+$//r } (split "\n", $t));
 
     return $t;
 }
