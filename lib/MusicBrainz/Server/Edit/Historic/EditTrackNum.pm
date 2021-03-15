@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNUM );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -36,13 +37,15 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} } ||
-                Recording->new(
-                    id => $self->data->{recording_id},
-                ),
+        recording => to_json_object(
+            $loaded->{Recording}{ $self->data->{recording_id} } ||
+            Recording->new(
+                id => $self->data->{recording_id},
+            )
+        ),
         position => {
-            old => $self->data->{old}->{position},
-            new => $self->data->{new}->{position},
+            old => $self->data->{old}{position},
+            new => $self->data->{new}{position},
         }
     };
 }

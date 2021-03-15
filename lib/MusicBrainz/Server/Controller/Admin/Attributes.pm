@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Controller::Admin::Attributes;
 use Moose;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+
+use MusicBrainz::Server::Translation qw( l ln );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -60,7 +63,10 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
     $c->stash(
         current_view => 'Node',
         component_path => $component_path,
-        component_props => {attributes => \@attr, model => $model}
+        component_props => {
+            attributes => to_json_array(\@attr),
+            model => $model,
+        }
     );
 }
 
@@ -115,10 +121,28 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
     $c->stash->{attribute} = $attr;
 
     if ($c->model($model)->in_use($id)) {
-        $c->stash->{template} = 'admin/attributes/in_use.tt';
+        my $error_message = l('You cannot remove the attribute "{name}" because it is still in use.', { name => $attr->name });
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'admin/attributes/CannotRemoveAttribute',
+            component_props => {message => $error_message}
+        );
+        
         $c->detach;
     }
 
+    if ($c->model($model)->has_children($id)) {
+        my $error_message = l('You cannot remove the attribute “{name}” because it is the parent of other attributes.', { name => $attr->name });
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'admin/attributes/CannotRemoveAttribute',
+            component_props => {message => $error_message}
+        );
+        
+        $c->detach;
+    }
     if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $c->model($model)->delete($id);

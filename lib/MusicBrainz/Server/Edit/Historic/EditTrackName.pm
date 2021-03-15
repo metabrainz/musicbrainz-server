@@ -7,6 +7,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNAME );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 sub deserialize_previous_value {
@@ -45,11 +46,13 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} } ||
-                    Recording->new( id => $self->data->{recording_id} ),
+        recording => to_json_object(
+            $loaded->{Recording}{ $self->data->{recording_id} } ||
+            Recording->new( id => $self->data->{recording_id} )
+        ),
         name => {
-            old => $self->data->{old}->{name},
-            new => $self->data->{new}->{name},
+            old => $self->data->{old}{name},
+            new => $self->data->{new}{name},
         }
     };
 }

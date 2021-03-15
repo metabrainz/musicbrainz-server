@@ -5,6 +5,7 @@ use warnings;
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MAC_TO_SAC );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -41,7 +42,7 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    my $new_artist = $loaded->{Artist}->{ $self->data->{new_artist_id} } ||
+    my $new_artist = $loaded->{Artist}{ $self->data->{new_artist_id} } ||
         Artist->new();
 
     $new_artist = $new_artist->meta->clone_object(
@@ -50,10 +51,12 @@ sub build_display_data
     );
 
     return {
-        releases => [ map { $loaded->{Release}->{ $_ } } $self->_release_ids ],
+        releases => [ map {
+            to_json_object($loaded->{Release}{$_})
+        } $self->_release_ids ],
         artist => {
-            old => $loaded->{Artist}->{ $self->data->{old_artist_id} },
-            new => $new_artist
+            old => to_json_object($loaded->{Artist}{ $self->data->{old_artist_id} }),
+            new => to_json_object($new_artist),
         }
     }
 }

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::User::Subscriptions;
 use Moose;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -21,16 +22,6 @@ with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
 
 with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
     type => 'series',
-};
-
-after collection => sub {
-    my ($self, $c) = @_;
-
-    my $private_collection_count = scalar(grep { !$_->public } @{ $c->stash->{component_props}{entities} });
-    $c->stash->{component_props}{privateCollectionCount} = $private_collection_count;
-
-    my @public_collections = grep { $_->public } @{ $c->stash->{component_props}{entities} };
-    $c->stash->{component_props}{entities} = \@public_collections;
 };
 
 sub subscriptions : Chained('/user/load') {

@@ -13,9 +13,8 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import groupRelationships from '../utility/groupRelationships';
 
+import {isNotSeriesPart} from './Relationships';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
-
-const targetEntityTypes = ['url'];
 
 type Props = {
   +seriesIds: $ReadOnlyArray<number>,
@@ -38,7 +37,11 @@ const RelatedSeries = ({seriesIds}: Props): React.MixedElement => {
       </h3>,
       <StaticRelationshipsDisplay
         relationships={
-          groupRelationships(series.relationships, targetEntityTypes)
+          groupRelationships(
+            series.relationships,
+            undefined,
+            isNotSeriesPart,
+          )
         }
       />,
     );

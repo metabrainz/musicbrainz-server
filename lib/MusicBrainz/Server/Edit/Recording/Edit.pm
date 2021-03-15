@@ -22,6 +22,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
     merge_artist_credit
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -140,8 +141,8 @@ sub build_display_data
 
     if (exists $self->data->{new}{artist_credit}) {
         $data->{artist_credit} = {
-            new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
-            old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
+            new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit})),
+            old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})),
         }
     }
 
@@ -152,8 +153,10 @@ sub build_display_data
         };
     }
 
-    $data->{recording} = $loaded->{Recording}{ $self->data->{entity}{id} }
-        || Recording->new( name => $self->data->{entity}{name} );
+    $data->{recording} = to_json_object(
+        $loaded->{Recording}{ $self->data->{entity}{id} } ||
+        Recording->new( name => $self->data->{entity}{name} )
+    );
 
     return $data;
 }

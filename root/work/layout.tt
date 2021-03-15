@@ -3,12 +3,13 @@
         work => work.name
 }) ~%]
 [%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title ~%]
+    [%- work_json_obj = React.to_json_object(work) -%]
     <div id="content">
-        [%~ React.embed(c, 'work/WorkHeader', { work => work, page => page }) ~%]
+        [%~ React.embed(c, 'work/WorkHeader', { work => work_json_obj, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ React.embed(c, 'layout/components/sidebar/WorkSidebar', {work => work}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/WorkSidebar', {work => work_json_obj}) ~%]
     [%~ END ~%]
 [%~ END ~%]

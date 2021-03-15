@@ -24,6 +24,7 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
 };
 
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE $EDIT_EVENT_DELETE $EDIT_EVENT_EDIT $EDIT_EVENT_MERGE );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 use Sql;
 
@@ -70,9 +71,9 @@ sub show : PathPart('') Chained('load') {
     $c->model('Relationship')->load($event->related_series);
 
     my %props = (
-        event             => $c->stash->{event},
+        event             => $c->stash->{event}->TO_JSON,
         numberOfRevisions => $c->stash->{number_of_revisions},
-        wikipediaExtract  => $c->stash->{wikipedia_extract},
+        wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
     );
 
     $c->stash(

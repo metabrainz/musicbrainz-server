@@ -136,6 +136,7 @@ my %URL_SPECIALIZATIONS = (
     'Pomus'               => qr{^https?://(?:www\.)?pomus\.net/}i,
     'ProgArchives'        => qr{^https?://(?:www\.)?progarchives\.com/}i,
     'PsyDB'               => qr{^https?://(?:www\.)?psydb\.net/}i,
+    'Qobuz'               => qr{^https?://(?:www\.)?qobuz\.com/}i,
     'QuebecInfoMusique'   => qr{^https?://(?:www\.)?qim\.com/}i,
     'Rateyourmusic'       => qr{^https?://(?:www\.)?rateyourmusic\.com/}i,
     'Recochoku'           => qr{^https?://(?:www\.)?recochoku\.jp/}i,
@@ -190,6 +191,7 @@ my %URL_SPECIALIZATIONS = (
     'Wikisource'          => qr{^https?://([\w-]{2,})\.wikisource\.org/wiki/}i,
     'Worldcat'            => qr{^https?://(?:www\.)?worldcat\.org/}i,
     'YouTube'             => qr{^https?://(?:www\.)?youtube\.com/}i,
+    'YouTubeMusic'        => qr{^https?://music\.youtube\.com/}i,
     'Yunisan'             => qr{^https?://(?:www22\.)?big\.or\.jp/}i,
 
     # License links

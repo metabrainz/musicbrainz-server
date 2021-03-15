@@ -61,7 +61,7 @@ const seriesPartLinkTypes = new Set(
   Object.values(PART_OF_SERIES_LINK_TYPES),
 );
 
-function isNotSeriesPart(r: RelationshipT) {
+export function isNotSeriesPart(r: RelationshipT): boolean {
   return !seriesPartLinkTypes.has(linkedEntities.link_type[r.linkTypeID].gid);
 }
 

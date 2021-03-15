@@ -106,3 +106,6 @@ declare var texp: {
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,
 };
+
+// https://flow.org/en/docs/tips/switch-statement-exhaustiveness/
+declare var exhaustive: (action: empty) => void;

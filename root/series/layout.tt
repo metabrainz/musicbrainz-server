@@ -1,10 +1,11 @@
 [%~ WRAPPER "layout.tt" title=title ? series.name _ " - ${title}" : series.name ~%]
+    [%- series_json_obj = React.to_json_object(series) -%]
     <div id="content">
-        [%~ React.embed(c, 'series/SeriesHeader', { series => series, page => page }) ~%]
+        [%~ React.embed(c, 'series/SeriesHeader', { series => series_json_obj, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ React.embed(c, 'layout/components/sidebar/SeriesSidebar', {series => series}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/SeriesSidebar', {series => series_json_obj}) ~%]
     [%~ END ~%]
 [%~ END ~%]

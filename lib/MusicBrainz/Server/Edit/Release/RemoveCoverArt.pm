@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Str Int ArrayRef );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -107,8 +108,8 @@ sub build_display_data {
     ]);
 
     return {
-        release => $release,
-        artwork => $artwork,
+        release => to_json_object($release),
+        artwork => to_json_object($artwork),
     };
 }
 

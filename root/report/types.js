@@ -75,7 +75,7 @@ export type ReportDataT<T> = {
 };
 
 export type ReportEditorT = {
-  +editor: UnsanitizedEditorT,
+  +editor: ?UnsanitizedEditorT,
   +id: number,
   +row_number: number,
 };

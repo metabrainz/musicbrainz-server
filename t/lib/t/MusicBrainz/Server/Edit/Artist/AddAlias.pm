@@ -30,7 +30,7 @@ is(@$edits, 1);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->display_data->{artist}->id, 1);
+is($edit->display_data->{artist}{id}, 1);
 is($edit->display_data->{alias}, 'Another alias');
 
 my $artist = $c->model('Artist')->get_by_id(1);

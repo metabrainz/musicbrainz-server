@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Recording::DeleteAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_DELETE_ALIAS );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
@@ -43,8 +44,10 @@ around 'build_display_data' => sub {
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig($loaded);
-    $data->{recording} = $loaded->{Recording}->{ $self->recording_id }
-        || Recording->new(name => $self->data->{entity}{name});
+    $data->{recording} = to_json_object(
+        $loaded->{Recording}{ $self->recording_id } ||
+        Recording->new(name => $self->data->{entity}{name})
+    );
 
     return $data;
 };

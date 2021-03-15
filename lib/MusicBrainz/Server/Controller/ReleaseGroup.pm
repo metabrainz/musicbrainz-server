@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
     %ENTITIES
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -82,12 +83,12 @@ sub show : Chained('load') PathPart('') {
 
     my %props = (
         numberOfRevisions => $c->stash->{number_of_revisions},
-        mostPopularReview => $rg->most_popular_review,
-        mostRecentReview  => $rg->most_recent_review,
+        mostPopularReview => to_json_object($rg->most_popular_review),
+        mostRecentReview  => to_json_object($rg->most_recent_review),
         pager             => serialize_pager($c->stash->{pager}),
-        releases          => group_by_release_status(@$releases),
-        releaseGroup      => $c->stash->{rg},
-        wikipediaExtract  => $c->stash->{wikipedia_extract},
+        releases          => [map { to_json_array($_) } @{group_by_release_status(@$releases)}],
+        releaseGroup      => $c->stash->{rg}->TO_JSON,
+        wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
     );
 
     $c->stash(

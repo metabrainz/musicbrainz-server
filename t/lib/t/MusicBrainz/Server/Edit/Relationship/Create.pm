@@ -162,7 +162,7 @@ test 'Entities load correctly after being merged (MBS-2477)' => sub {
     $c->model('Artist')->merge(5, [4]);
     $c->model('Edit')->load_all($edit);
 
-    is($edit->display_data->{relationship}{entity1}->gid, '15a40343-ff6e-45d6-a5d2-110388d34858');
+    is($edit->display_data->{relationship}{entity1_id}, 5);
 };
 
 sub _create_edit {

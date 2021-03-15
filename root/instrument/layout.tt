@@ -4,12 +4,13 @@
 }) ~%]
 [%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title # Converted to React at root/instrument/InstrumentLayout.js
 ~%]
+    [%- instrument_json_obj = React.to_json_object(instrument) -%]
     <div id="content">
-        [%~ React.embed(c, 'instrument/InstrumentHeader', { instrument => instrument, page => page }) ~%]
+        [%~ React.embed(c, 'instrument/InstrumentHeader', { instrument => instrument_json_obj, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ React.embed(c, 'layout/components/sidebar/InstrumentSidebar', {instrument => instrument}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/InstrumentSidebar', {instrument => instrument_json_obj}) ~%]
     [%~ END ~%]
 [%~ END ~%]

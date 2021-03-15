@@ -6,6 +6,7 @@ use DBDefs;
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
@@ -124,7 +125,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        $self->has_cover_art ? (cover_art => $self->cover_art) : (),
+        $self->has_cover_art ? (cover_art => to_json_object($self->cover_art)) : (),
         firstReleaseDate    => $self->first_release_date ? $self->first_release_date->format : undef,
         # TODO: remove this once Autocomplete.js can use $c and releaseGroupType.js
         l_type_name         => $self->l_type_name,

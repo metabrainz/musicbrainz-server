@@ -17,7 +17,7 @@
         </div>
       [% END %]
       <div class="ars" style="display: none;">
-        [% React.embed(c, 'components/GroupedTrackRelationships', {source => track.recording}) %]
+        [% React.embed(c, 'components/GroupedTrackRelationships', {source => React.to_json_object(track.recording)}) %]
       </div>
     </td>
     [% IF show_artists %]

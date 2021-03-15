@@ -23,10 +23,10 @@ test all => sub {
     page_test_jsonld $mech => {
         '@type' => 'MusicComposition',
         'iswcCode' => 'T-000.000.001-0',
-        'sameAs' => 'https://musicbrainz.org/work/28e73402-5666-4d74-80ab-c3734dc699ea',
+        'sameAs' => 'http://musicbrainz.org/work/28e73402-5666-4d74-80ab-c3734dc699ea',
         '@context' => 'http://schema.org',
         'name' => 'Dancing Queen',
-        '@id' => 'https://musicbrainz.org/work/745c079d-374e-4436-9448-da92dedef3ce'
+        '@id' => 'http://musicbrainz.org/work/745c079d-374e-4436-9448-da92dedef3ce'
     };
 
     # Missing
@@ -49,41 +49,41 @@ test 'Embedded JSON-LD' => sub {
 
     page_test_jsonld $mech => {
         '@type' => 'MusicComposition',
-        '@id' => 'https://musicbrainz.org/work/559be0c1-2c87-45d6-ba43-1b1feb8f831e',
+        '@id' => 'http://musicbrainz.org/work/559be0c1-2c87-45d6-ba43-1b1feb8f831e',
         'name' => 'W1',
         'recordedAs' => {
             '@type' => 'MusicRecording',
-            '@id' => 'https://musicbrainz.org/recording/aeb9b50a-e14a-4330-a2e6-7c8a311a9822',
+            '@id' => 'http://musicbrainz.org/recording/aeb9b50a-e14a-4330-a2e6-7c8a311a9822',
             'name' => 'R',
             'duration' => 'PT05M00S'
         },
-        'sameAs' => 'https://musicbrainz.org/work/a30a4245-a7ec-4979-8b1e-b549f2782239',
+        'sameAs' => 'http://musicbrainz.org/work/a30a4245-a7ec-4979-8b1e-b549f2782239',
         '@context' => 'http://schema.org',
         'musicArrangement' => [
             {
-                '@id' => 'https://musicbrainz.org/work/a72c9be6-5ef9-4bdf-afa1-6a3db697ff62',
+                '@id' => 'http://musicbrainz.org/work/a72c9be6-5ef9-4bdf-afa1-6a3db697ff62',
                 'name' => 'W4',
                 '@type' => 'MusicComposition'
             },
             {
-              '@id' => 'https://musicbrainz.org/work/5c089ef8-ada9-4dc0-a2bc-f4d7e84df840',
+              '@id' => 'http://musicbrainz.org/work/5c089ef8-ada9-4dc0-a2bc-f4d7e84df840',
               '@type' => 'MusicComposition',
               'name' => 'W5',
             },
         ],
         'publisher' => {
             '@type' => 'MusicGroup',
-            '@id' => 'https://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
+            '@id' => 'http://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
             'name' => 'A'
         },
         'composer' => [
             {
-                '@id' => 'https://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
+                '@id' => 'http://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
                 '@type' => 'MusicGroup',
                 'name' => 'A',
             },
             {
-                '@id' => 'https://musicbrainz.org/artist/213d688f-2a10-463a-86b8-d50a1ae624ee',
+                '@id' => 'http://musicbrainz.org/artist/213d688f-2a10-463a-86b8-d50a1ae624ee',
                 '@type' => 'MusicGroup',
                 'name' => 'B',
             },
@@ -91,18 +91,18 @@ test 'Embedded JSON-LD' => sub {
         'iswcCode' => ['T-000.000.001-0', 'T-000.000.002-0'],
         'lyricist' => {
             'name' => 'A',
-            '@id' => 'https://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
+            '@id' => 'http://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
             '@type' => 'MusicGroup'
         },
         'includedComposition' => [
             {
                 '@type' => 'MusicComposition',
-                '@id' => 'https://musicbrainz.org/work/aff4e1f7-d3dd-4621-bd4c-25d1b87bb286',
+                '@id' => 'http://musicbrainz.org/work/aff4e1f7-d3dd-4621-bd4c-25d1b87bb286',
                 'name' => 'W2'
             },
             {
                 '@type' => 'MusicComposition',
-                '@id' => 'https://musicbrainz.org/work/11d4a39f-ee76-459f-aaf5-b84131d867f2',
+                '@id' => 'http://musicbrainz.org/work/11d4a39f-ee76-459f-aaf5-b84131d867f2',
                 'name' => 'W3'
             },
         ],

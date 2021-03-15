@@ -4,7 +4,8 @@
     [% PROCESS 'components/relationship-editor.tt' %]
 
     <div id="content" class="rel-editor" data-bind="delegatedHandler: 'click'">
-      [%- React.embed(c, 'release/ReleaseHeader', { release => release, page => 'edit-relationships' }) -%]
+      [%- release_json_obj = React.to_json_object(release) -%]
+      [%- React.embed(c, 'release/ReleaseHeader', { release => release_json_obj, page => 'edit-relationships' }) -%]
 
       <p>
         [% l('Relationships highlighted <span class="rel-edit">yellow</span> will be edited,

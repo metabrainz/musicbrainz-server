@@ -37,6 +37,7 @@ use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_CREATE $EDIT_AREA_EDIT $EDIT_AREA_DELETE $EDIT_AREA_MERGE );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use Sql;
 
 =head1 NAME
@@ -92,9 +93,9 @@ sub show : PathPart('') Chained('load')
     my ($self, $c) = @_;
 
     my %props = (
-        area              => $c->stash->{area},
+        area              => $c->stash->{area}->TO_JSON,
         numberOfRevisions => $c->stash->{number_of_revisions},
-        wikipediaExtract  => $c->stash->{wikipedia_extract},
+        wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
     );
 
     $c->stash(
@@ -126,8 +127,8 @@ sub artists : Chained('load')
     }
 
     my %props = (
-        area        => $c->stash->{area},
-        artists     => $artists,
+        area        => $c->stash->{area}->TO_JSON,
+        artists     => to_json_array($artists),
         pager       => serialize_pager($c->stash->{pager}),
     );
 
@@ -158,8 +159,8 @@ sub events : Chained('load')
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
     my %props = (
-        area       => $c->stash->{area},
-        events      => $events,
+        area       => $c->stash->{area}->TO_JSON,
+        events      => to_json_array($events),
         pager       => serialize_pager($c->stash->{pager}),
     );
 
@@ -191,8 +192,8 @@ sub labels : Chained('load')
     }
 
     my %props = (
-        area         => $c->stash->{area},
-        labels       => $labels,
+        area         => $c->stash->{area}->TO_JSON,
+        labels       => to_json_array($labels),
         pager        => serialize_pager($c->stash->{pager}),
     );
 
@@ -221,8 +222,8 @@ sub releases : Chained('load')
     $c->model('Release')->load_related_info(@$releases);
 
     my %props = (
-        area        => $c->stash->{area},
-        releases    => $releases,
+        area        => $c->stash->{area}->TO_JSON,
+        releases    => to_json_array($releases),
         pager       => serialize_pager($c->stash->{pager}),
     );
 
@@ -250,7 +251,7 @@ sub places : Chained('load')
     $c->model('Area')->load_containment(map { $_->area } @$places);
 
     my %props = (
-        area        => $c->stash->{area},
+        area        => $c->stash->{area}->TO_JSON,
         mapDataArgs => $c->json->encode({
             places => [
                 map {
@@ -262,7 +263,7 @@ sub places : Chained('load')
                 } grep { $_->coordinates } @$places
             ],
         }),
-        places      => $places,
+        places      => to_json_array($places),
         pager       => serialize_pager($c->stash->{pager}),
     );
 
@@ -288,8 +289,8 @@ sub users : Chained('load') {
     });
 
     my %props = (
-        area        => $c->stash->{area},
-        editors     => $editors,
+        area        => $c->stash->{area}->TO_JSON,
+        editors     => to_json_array($editors),
         pager       => serialize_pager($c->stash->{pager}),
     );
 
@@ -311,7 +312,7 @@ sub recordings : Chained('load') {
 
     $c->stash(
         component_path => 'area/AreaRecordings',
-        component_props => { area => $c->stash->{area} },
+        component_props => { area => $c->stash->{area}->TO_JSON },
         current_view => 'Node',
     );
 }
@@ -327,7 +328,7 @@ sub works : Chained('load') {
 
     $c->stash(
         component_path => 'area/AreaWorks',
-        component_props => { area => $c->stash->{area} },
+        component_props => { area => $c->stash->{area}->TO_JSON },
         current_view => 'Node',
     );
 }
@@ -344,6 +345,7 @@ after [qw( show collections details tags aliases artists labels releases recordi
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Area',
     edit_type => $EDIT_AREA_CREATE,
+    dialog_template => 'area/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {

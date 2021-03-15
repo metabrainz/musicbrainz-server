@@ -36,7 +36,7 @@ sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
     $c->stash(
         component_path => 'url/UrlIndex',
-        component_props => {url => $c->stash->{url}},
+        component_props => {url => $c->stash->{url}->TO_JSON},
         current_view => 'Node',
     );
 }

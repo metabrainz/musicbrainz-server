@@ -34,7 +34,7 @@
                   <td>[% html_escape(entity.combined_format_name) or "-" %]</td>
                   <td>[% entity.combined_track_count or "-" %]</td>
                   <td>
-                    [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => entity.events}) %]
+                    [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => React.to_json_array(entity.events)}) %]
                   </td>
                   [%- IF filter_label -%]
                       <td>[% release_catno_list(entity.filter_labels(filter_label)) %]</td>

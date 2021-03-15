@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw( $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Translation::Countries qw( l );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use List::Util qw( first );
 use List::UtilsBy qw( nsort_by );
 
@@ -21,8 +22,9 @@ sub entity_type { 'area' }
 
 sub l_name {
     my $self = shift;
-    my $type = defined $self->type ? $self->type->id : $self->type_id;
-    if (defined $type && $type == $AREA_TYPE_COUNTRY) {
+    # Areas with iso_3166_1 codes are the ones we export for translation
+    # in the countries domain. See po/extract_pot_db.
+    if (scalar $self->iso_3166_1_codes > 0) {
         return l($self->name);
     } else {
         return $self->name;
@@ -113,7 +115,7 @@ around TO_JSON => sub {
 
     my $containment = $self->containment;
     if (defined $containment) {
-        $json->{containment} = [map { $_->TO_JSON } @{$containment}];
+        $json->{containment} = to_json_array($containment);
     }
 
     return $json;

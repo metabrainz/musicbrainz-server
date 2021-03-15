@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::AutoEditorElections;
 BEGIN { use Moose; extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use Try::Tiny;
 
 __PACKAGE__->config( namespace => 'elections' );
@@ -21,7 +22,7 @@ sub index : Path('')
     $c->stash(
         current_view => 'Node',
         component_path => 'elections/Index.js',
-        component_props => {elections => \@elections},
+        component_props => {elections => to_json_array(\@elections)},
     );
 }
 
@@ -52,8 +53,8 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor) SecureForm
         current_view => 'Node',
         component_path => 'elections/Nominate.js',
         component_props => {
-            candidate => $candidate,
-            form => $form,
+            candidate => $candidate->TO_JSON,
+            form => $form->TO_JSON,
         },
     );
 }
@@ -95,7 +96,7 @@ sub show : Chained('load') PathPart('') Args(0)
     $c->stash(
         current_view => 'Node',
         component_path => 'elections/Show.js',
-        component_props => {election => $election},
+        component_props => {election => $election->TO_JSON},
 
     );
 }

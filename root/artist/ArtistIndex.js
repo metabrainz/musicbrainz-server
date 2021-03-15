@@ -88,61 +88,49 @@ const FooterSwitch = ({
   showingVariousArtistsOnly,
 }: FooterSwitchProps): React.Element<'p' | typeof React.Fragment> => {
   const artistLink = entityHref(artist);
-  const showingOfficialText =
-    l('Showing official release groups by this artist');
-  const showingAllText = l('Showing all release groups by this artist');
-  const showingOfficialVAText =
-    l('Showing official release groups for various artists');
-  const showingAllVAText =
-    l('Showing all release groups for various artists');
-  const hasNoVAText =
-    l('This artist does not have any various artists release groups');
-  const showOfficialLink = (
-    <a href={artistLink}>
-      {l('Show official release groups')}
-    </a>
-  );
-  const showAllLink = (
-    <a href={`${artistLink}?all=1`}>
-      {l('Show all release groups')}
-    </a>
-  );
-  const showOfficialVALink = (
-    <a href={`${artistLink}?va=1`}>
-      {l('Show official various artist release groups')}
-    </a>
-  );
-  const showAllVALink = (
-    <a href={`${artistLink}?all=1&va=1`}>
-      {l('Show all various artist release groups')}
-    </a>
-  );
 
   function buildLinks(showDefault, showAll, showVA, showAllVA) {
     const links = [];
     if (showDefault) {
-      links.push(showOfficialLink);
+      links.push(
+        <a href={artistLink} key="show-default">
+          {l('Show official release groups')}
+        </a>,
+      );
     }
     if (showAll) {
-      links.push(showAllLink);
+      links.push(
+        <a href={`${artistLink}?all=1`} key="show-all">
+          {l('Show all release groups')}
+        </a>,
+      );
     }
     if (showVA) {
-      links.push(showOfficialVALink);
+      links.push(
+        <a href={`${artistLink}?va=1`} key="show-va">
+          {l('Show official various artist release groups')}
+        </a>,
+      );
     }
     if (showAllVA) {
-      links.push(showAllVALink);
+      links.push(
+        <a href={`${artistLink}?all=1&va=1`} key="show-all-va">
+          {l('Show all various artist release groups')}
+        </a>,
+      );
     }
 
     if (links.length) {
       return (
         <>
           {' ('}
-          {links.map((link, index) => (
-            <>
-              {link}
-              {index === links.length - 1 ? '' : ' / '}
-            </>
-          ))}
+          {links.reduce((accum, link, index) => {
+            accum.push(link);
+            if (index < (links.length - 1)) {
+              accum.push(' / ');
+            }
+            return accum;
+          }, [])}
           {')'}
         </>
       );
@@ -162,8 +150,9 @@ const FooterSwitch = ({
         ) : null}
         <p>
           {(hasVariousArtists || hasVariousArtistsExtra)
-            ? showingAllVAText
-            : hasNoVAText}
+            ? l('Showing all release groups for various artists')
+            : l(`This artist does not have any various artists
+                 release groups`)}
           {buildLinks(hasDefault, hasExtra, hasVariousArtists, false)}
         </p>
       </>
@@ -175,7 +164,7 @@ const FooterSwitch = ({
           </p>
         ) : null}
         <p>
-          {showingOfficialVAText}
+          {l('Showing official release groups for various artists')}
           {buildLinks(hasDefault, hasExtra, false, hasVariousArtistsExtra)}
         </p>
       </>
@@ -187,7 +176,7 @@ const FooterSwitch = ({
           </p>
         )}
         <p>
-          {showingAllText}
+          {l('Showing all release groups by this artist')}
           {buildLinks(
             hasDefault,
             false,
@@ -198,7 +187,7 @@ const FooterSwitch = ({
       </>
     ) : (
       <p>
-        {showingOfficialText}
+        {l('Showing official release groups by this artist')}
         {buildLinks(
           false,
           hasExtra,

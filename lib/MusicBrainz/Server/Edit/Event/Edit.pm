@@ -18,6 +18,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     time_closure
 );
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
@@ -100,14 +101,16 @@ sub build_display_data
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
-    $data->{event} = $loaded->{Event}{ $self->data->{entity}{id} }
-        || Event->new( name => $self->data->{entity}{name} );
+    $data->{event} = to_json_object(
+        $loaded->{Event}{ $self->data->{entity}{id} } ||
+        Event->new( name => $self->data->{entity}{name} )
+    );
 
     for my $date_prop (qw( begin_date end_date )) {
         if (exists $self->data->{new}{$date_prop}) {
             $data->{$date_prop} = {
-                new => PartialDate->new($self->data->{new}{$date_prop}),
-                old => PartialDate->new($self->data->{old}{$date_prop}),
+                new => to_json_object(PartialDate->new($self->data->{new}{$date_prop})),
+                old => to_json_object(PartialDate->new($self->data->{old}{$date_prop})),
             };
         }
     }
@@ -115,6 +118,11 @@ sub build_display_data
     if (exists $data->{cancelled}) {
         $data->{cancelled}{old} = boolean_to_json($data->{cancelled}{old});
         $data->{cancelled}{new} = boolean_to_json($data->{cancelled}{new});
+    }
+
+    if (exists $data->{type}) {
+        $data->{type}{old} = to_json_object($data->{type}{old});
+        $data->{type}{new} = to_json_object($data->{type}{new});
     }
 
     return $data;

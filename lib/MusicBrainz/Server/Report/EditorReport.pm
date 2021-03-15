@@ -1,23 +1,32 @@
 package MusicBrainz::Server::Report::EditorReport;
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
 around inflate_rows => sub {
-    my $orig = shift;
-    my $self = shift;
+    my ($orig, $self, $rows, $c) = @_;
 
-    my $items = $self->$orig(@_);
+    my $items = $self->$orig($rows, $c);
 
     my $editors = $self->c->model('Editor')->get_by_ids(
         map { $_->{id} } @$items
     );
 
     return [
-        map +{
-            %$_,
-            editor => $editors->{ $_->{id} }
-        }, @$items
+        map {
+            my $item = $_;
+            my $editor = $editors->{ $item->{id} };
+            my $result = {
+                %{$item},
+                editor => (defined $editor && $c->user_exists) ? (
+                    $c->user->is_account_admin
+                        ? $c->unsanitized_editor_json($editor)
+                        : to_json_object($editor)
+                ) : undef,
+            };
+            $result
+        } @$items
     ];
 };
 

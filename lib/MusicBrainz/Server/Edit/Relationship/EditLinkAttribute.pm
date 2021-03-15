@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ATTRIBUTE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -54,6 +55,12 @@ sub build_display_data
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
+
+    if (exists $data->{parent}) {
+        $data->{parent}{old} = to_json_object($data->{parent}{old});
+        $data->{parent}{new} = to_json_object($data->{parent}{new});
+    }
+
     return $data;
 }
 

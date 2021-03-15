@@ -33,7 +33,7 @@ my $label = $c->model('Label')->get_by_id(1);
 is($label->edits_pending, 0, "Adding aliases is an autoedit");
 
 $c->model('Edit')->load_all($edit);
-is($edit->display_data->{label}->id, 1);
+is($edit->display_data->{label}{id}, 1);
 is($edit->display_data->{alias}, 'Another alias');
 
 $alias_set = $c->model('Label')->alias->find_by_entity_id(1);

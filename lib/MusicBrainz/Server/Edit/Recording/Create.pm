@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     verify_artist_credits
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -52,13 +53,15 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     return {
-        artist_credit => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
+        artist_credit => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit})),
         name          => $self->data->{name},
         comment       => $self->data->{comment},
         length        => $self->data->{length},
         video         => boolean_to_json($self->data->{video}),
-        recording => $loaded->{Recording}{ $self->entity_id } ||
+        recording => to_json_object(
+            $loaded->{Recording}{ $self->entity_id } ||
             Recording->new( name => $self->data->{name} )
+        ),
     };
 }
 

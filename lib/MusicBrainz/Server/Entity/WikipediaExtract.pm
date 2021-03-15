@@ -29,6 +29,18 @@ has 'url' => (
     isa => 'Str',
 );
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        title       => $self->title,
+        content     => $self->content,
+        canonical   => $self->canonical,
+        language    => $self->language,
+        url         => $self->url,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

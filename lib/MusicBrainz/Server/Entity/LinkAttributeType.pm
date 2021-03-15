@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Translation::Relationships;
 use MusicBrainz::Server::Translation::Instruments;
 use MusicBrainz::Server::Translation::InstrumentDescriptions;
@@ -75,7 +76,7 @@ around TO_JSON => sub {
         $self->link_entity('link_attribute_type', $root->id, $root);
     }
 
-    my @children = map { $_->TO_JSON } $self->all_children;
+    my $children = to_json_array($self->children);
 
     return {
         %{ $self->$orig },
@@ -85,7 +86,7 @@ around TO_JSON => sub {
         free_text => boolean_to_json($self->free_text),
         creditable => boolean_to_json($self->creditable),
         $self->instrument_comment ? (instrument_comment => $self->instrument_comment) : (),
-        @children ? (children => \@children) : (),
+        (defined $children && @$children) ? (children => $children) : (),
     };
 };
 

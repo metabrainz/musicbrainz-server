@@ -75,13 +75,20 @@ sub relationships_by_link_type_names
     } $self->all_relationships ];
 }
 
+our $_relationships_depth = 0;
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
 
-    if ($self->has_loaded_relationships) {
-        $json->{relationships} = [map { $_->TO_JSON } $self->all_relationships];
+    # Allow a depth of up to 2, which should cover work relationships
+    # linked via a release.
+    if ($_relationships_depth < 2 && $self->has_loaded_relationships) {
+        $json->{relationships} = [map {
+            local $_relationships_depth = $_relationships_depth + 1;
+            $_->TO_JSON
+        } $self->all_relationships];
     }
 
     return $json;

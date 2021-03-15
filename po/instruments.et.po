@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 07:17+0000\n"
+"PO-Revision-Date: 2021-03-11 07:23+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -617,6 +617,7 @@ msgid "bayan"
 msgstr "bajaan"
 
 #: DB:instrument/name:741
+msgctxt "telescoping brass tube"
 msgid "bazooka"
 msgstr ""
 

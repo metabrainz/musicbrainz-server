@@ -25,7 +25,7 @@ type AddEventEditT = {
     +name: string,
     +setlist: string,
     +time: string | null,
-    +type: EventTypeT,
+    +type: EventTypeT | null,
   },
 };
 
@@ -35,6 +35,7 @@ type Props = {
 
 const AddEvent = ({edit}: Props): React.MixedElement => {
   const display = edit.display_data;
+  const eventType = display.type;
 
   return (
     <>
@@ -67,10 +68,10 @@ const AddEvent = ({edit}: Props): React.MixedElement => {
           <td>{yesNo(display.cancelled)}</td>
         </tr>
 
-        {display.type ? (
+        {eventType ? (
           <tr>
             <th>{addColon(l('Type'))}</th>
-            <td>{lp_attributes(display.type.name, 'event_type')}</td>
+            <td>{lp_attributes(eventType.name, 'event_type')}</td>
           </tr>
         ) : null}
 

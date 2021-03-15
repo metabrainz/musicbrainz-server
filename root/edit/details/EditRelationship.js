@@ -12,7 +12,7 @@ import * as React from 'react';
 import RelationshipDiff
   from '../../static/scripts/edit/components/edit/RelationshipDiff';
 
-type AddRelationshipEditT = {
+type EditRelationshipEditT = {
   ...EditT,
   +display_data: {
     +new: RelationshipT,
@@ -22,10 +22,10 @@ type AddRelationshipEditT = {
 };
 
 type Props = {
-  +edit: AddRelationshipEditT,
+  +edit: EditRelationshipEditT,
 };
 
-const AddRelationship = ({edit}: Props): React.MixedElement => (
+const EditRelationship = ({edit}: Props): React.MixedElement => (
   <table className="details edit-relationship">
     <RelationshipDiff
       newRelationship={edit.display_data.new}
@@ -44,4 +44,4 @@ const AddRelationship = ({edit}: Props): React.MixedElement => (
 );
 
 
-export default AddRelationship;
+export default EditRelationship;

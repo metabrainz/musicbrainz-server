@@ -148,7 +148,7 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
         $c->stash(
             current_view => 'Node',
             component_path => 'admin/EditBanner',
-            component_props => {form => $form},
+            component_props => {form => $form->TO_JSON},
         );
     }
 }
@@ -179,7 +179,7 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
         current_view => 'Node',
         component_path => 'admin/EmailSearch',
         component_props => {
-            form => $form,
+            form => $form->TO_JSON,
             @results ? (
                 results => [map { $c->unsanitized_editor_json($_) } @results],
             ) : (),

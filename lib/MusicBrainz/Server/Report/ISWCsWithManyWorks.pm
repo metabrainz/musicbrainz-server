@@ -4,17 +4,13 @@ use Moose;
 with 'MusicBrainz::Server::Report::WorkReport',
      'MusicBrainz::Server::Report::FilterForEditor::WorkID';
 
-around inflate_rows => sub {
-    my $orig = shift;
-    my $self = shift;
+after _load_extra_work_info => sub {
+    my ($self, @works) = @_;
 
-    my $rows = $self->$orig(@_);
-    $self->c->model('Work')->load_writers(map { $_->{work} } @$rows);
-    $self->c->model('Work')->load_recording_artists(map { $_->{work} } @$rows);
-    $self->c->model('WorkType')->load(map { $_->{work} } @$rows);
-    $self->c->model('Language')->load_for_works(map { $_->{work} } @$rows);
-
-    return $rows;
+    $self->c->model('Work')->load_writers(@works);
+    $self->c->model('Work')->load_recording_artists(@works);
+    $self->c->model('WorkType')->load(@works);
+    $self->c->model('Language')->load_for_works(@works);
 };
 
 sub table { 'iswc_with_many_works' }

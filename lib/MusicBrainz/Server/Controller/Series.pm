@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_MERGE
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( l );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
@@ -101,12 +102,12 @@ sub show : PathPart('') Chained('load') {
     }
 
     my %props = (
-        entities          => \@entities,
+        entities          => to_json_array(\@entities),
         numberOfRevisions => $c->stash->{number_of_revisions},
         pager             => serialize_pager($c->stash->{pager}),
-        series            => $series,
+        series            => $series->TO_JSON,
         seriesItemNumbers => \@item_numbers,
-        wikipediaExtract  => $c->stash->{wikipedia_extract},
+        wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
     );
 
     $c->stash(

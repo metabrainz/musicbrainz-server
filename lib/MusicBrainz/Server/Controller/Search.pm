@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use List::Util qw( min max );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 model_to_type type_to_model );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
 use Scalar::Util qw( looks_like_number );
@@ -64,11 +65,11 @@ sub search : Path('')
             my $stash = $c->stash;
 
             my %props = (
-                form => $stash->{form},
+                form => $stash->{form}->TO_JSON,
                 lastUpdated => datetime_to_iso8601($stash->{last_updated}),
                 pager => serialize_pager($stash->{pager}),
                 query => $stash->{query},
-                results => $stash->{results},
+                results => to_json_array($stash->{results}),
             );
 
             $c->stash(
@@ -83,9 +84,9 @@ sub search : Path('')
         $c->stash(
             component_path => 'search/SearchIndex',
             component_props => {
-                otherLookupForm => $c->stash->{otherlookup},
-                searchForm => $c->stash->{form},
-                tagLookupForm => $c->stash->{taglookup},
+                otherLookupForm => $c->stash->{otherlookup}->TO_JSON,
+                searchForm => $c->stash->{form}->TO_JSON,
+                tagLookupForm => $c->stash->{taglookup}->TO_JSON,
             },
             current_view => 'Node',
         );

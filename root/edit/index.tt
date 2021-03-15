@@ -2,14 +2,16 @@
     <div id="content">
 
         [% INCLUDE 'edit/edit_header.tt' %]
+        [%- edit_json_obj = React.to_json_object(edit) -%]
 
         <h2>[% l('Changes') %]</h2>
         [% IF edit.data.defined %]
           [% IF edit.edit_template_react %]
-            [%~ React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => edit}) ~%]
+            [%~ React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => edit_json_obj}) ~%]
           [% ELSE %]
             [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
           [% END %]
+          [%- edit_json_obj.delete('display_data') -%]
         [% ELSE %]
           <p>[% l('An error occurred while loading this edit.') %]</p>
           <p>[% link_edit(edit, 'data', l('Raw edit data may be available.')) %]</p>
@@ -30,7 +32,7 @@
                     <tr class="noborder">
                             <th>[% l('My vote:') %]</th>
                             <td class="vote">
-                                [% React.embed(c, 'edit/components/Vote', {edit => edit}) %]
+                                [% React.embed(c, 'edit/components/Vote', {edit => edit_json_obj}) %]
                             </td>
                     </tr>
                 [% END %]
@@ -90,6 +92,6 @@
     </div>
 
   [%- IF !full_width -%]
-    [%- React.embed(c, 'edit/components/EditSidebar', {edit => edit}) -%]
+    [%- React.embed(c, 'edit/components/EditSidebar', {edit => edit_json_obj}) -%]
   [%- END -%]
 [%- END -%]

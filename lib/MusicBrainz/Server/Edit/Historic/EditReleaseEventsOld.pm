@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Historic::Utils qw(
     upgrade_id
 );
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -67,14 +68,14 @@ sub foreign_keys
 sub _build_re {
     my ($re, $loaded) = @_;
     return {
-        release        => $re->{release_id} && $loaded->{Release}{ $re->{release_id} },
-        country        => $re->{country_id} && $loaded->{Area}{ $re->{country_id} },
-        label          => $re->{label_id}   && $loaded->{Label}{ $re->{label_id} },
-        format         => $re->{format_id}  && $loaded->{MediumFormat}{ $re->{format_id} },
+        release        => $re->{release_id} && to_json_object($loaded->{Release}{ $re->{release_id} }),
+        country        => $re->{country_id} && to_json_object($loaded->{Area}{ $re->{country_id} }),
+        label          => $re->{label_id}   && to_json_object($loaded->{Label}{ $re->{label_id} }),
+        format         => $re->{format_id}  && to_json_object($loaded->{MediumFormat}{ $re->{format_id} }),
         label_id       => $re->{label_id},
         catalog_number => $re->{catalog_number},
         barcode        => $re->{barcode},
-        date           => MusicBrainz::Server::Entity::PartialDate->new_from_row( $re->{date} )
+        date           => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row( $re->{date} )),
     }
 }
 
@@ -87,26 +88,26 @@ sub build_display_data
         removals  => [ map { _build_re($_, $loaded) } $self->_removals  ],
         edits => [
             map { +{
-                release => $_->{release_id} && $loaded->{Release}{ $_->{release_id} },
+                release => $_->{release_id} && to_json_object($loaded->{Release}{ $_->{release_id} }),
                 label   => {
-                    old => $_->{old}{label_id} && $loaded->{Label}{ $_->{old}{label_id} },
-                    new => $_->{new}{label_id} && $loaded->{Label}{ $_->{new}{label_id} },
+                    old => $_->{old}{label_id} && to_json_object($loaded->{Label}{ $_->{old}{label_id} }),
+                    new => $_->{new}{label_id} && to_json_object($loaded->{Label}{ $_->{new}{label_id} }),
                 },
                 label_id => {
                     old => $_->{old}{label_id},
                     new => $_->{new}{label_id}
                 },
                 date    => {
-                    old => MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{old}{date}),
-                    new => MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{new}{date})
+                    old => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{old}{date})),
+                    new => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{new}{date}))
                 },
                 country => {
-                    old => $loaded->{Area}{ $_->{old}{country_id} },
-                    new => $loaded->{Area}{ $_->{new}{country_id} },
+                    old => to_json_object($loaded->{Area}{ $_->{old}{country_id} }),
+                    new => to_json_object($loaded->{Area}{ $_->{new}{country_id} }),
                 },
                 format => {
-                    old => $_->{old}{format_id} && $loaded->{MediumFormat}{ $_->{old}{format_id} },
-                    new => $_->{new}{format_id} && $loaded->{MediumFormat}{ $_->{new}{format_id} },
+                    old => $_->{old}{format_id} && to_json_object($loaded->{MediumFormat}{ $_->{old}{format_id} }),
+                    new => $_->{new}{format_id} && to_json_object($loaded->{MediumFormat}{ $_->{new}{format_id} }),
                 },
                 barcode => {
                     old => $_->{old}{barcode},

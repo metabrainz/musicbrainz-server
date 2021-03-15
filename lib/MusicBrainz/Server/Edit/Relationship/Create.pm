@@ -17,6 +17,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model non_empty );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -187,7 +188,7 @@ sub build_display_data
     my $entity1_credit = $self->data->{entity1_credit} // '';
 
     return {
-        relationship => Relationship->new(
+        relationship => to_json_object(Relationship->new(
             link => Link->new(
                 type_id => $self->data->{link_type}{id},
                 type       => $loaded->{LinkType}{ $self->data->{link_type}{id} }
@@ -225,15 +226,15 @@ sub build_display_data
             source_credit => $entity0_credit,
             target_credit => $entity1_credit,
             link_order => $self->data->{link_order} // 0,
-        ),
+        )),
         unknown_attributes => boolean_to_json(scalar(
             grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
                 @{ $self->data->{attributes} // [] }
         )),
         source_type => $type0,
         target_type => $type1,
-        entity0 => defined $entity0->id ? undef : $entity0,
-        entity1 => defined $entity1->id ? undef : $entity1,
+        entity0 => defined $entity0->id ? undef : to_json_object($entity0),
+        entity1 => defined $entity1->id ? undef : to_json_object($entity1),
     }
 }
 

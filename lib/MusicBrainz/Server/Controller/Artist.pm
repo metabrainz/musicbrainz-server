@@ -61,6 +61,7 @@ use MusicBrainz::Server::Constants qw(
     $ARTIST_ARTIST_COLLABORATION
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
@@ -154,7 +155,7 @@ after 'aliases' => sub
 
     my $artist = $c->stash->{artist};
     my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
-    $c->stash->{component_props}{artistCredits} = [map { $_->TO_JSON } @{$artist_credits}];
+    $c->stash->{component_props}{artistCredits} = to_json_array($artist_credits);
 };
 
 =head2 show
@@ -303,25 +304,25 @@ sub show : PathPart('') Chained('load')
         current_view => 'Node',
         component_path => 'artist/ArtistIndex',
         component_props => {
-            ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => $artist->id }),
-            artist => $artist,
-            filterForm => $c->stash->{filter_form},
+            ajaxFilterFormUrl => '' . $c->uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => $artist->id }),
+            artist => $artist->TO_JSON,
+            filterForm => to_json_object($c->stash->{filter_form}),
             hasDefault => boolean_to_json($has_default),
             hasExtra => boolean_to_json($has_extra),
             hasFilter => boolean_to_json($has_filter),
             hasVariousArtists => boolean_to_json($has_va),
             hasVariousArtistsExtra => boolean_to_json($has_va_extra),
             includingAllStatuses => boolean_to_json($including_all_statuses),
-            legalName => $legal_name,
-            legalNameAliases => $legal_name_aliases,
-            legalNameArtistAliases => $legal_name_artist_aliases,
+            legalName => to_json_object($legal_name),
+            legalNameAliases => to_json_array($legal_name_aliases),
+            legalNameArtistAliases => to_json_array($legal_name_artist_aliases),
             numberOfRevisions => $c->stash->{number_of_revisions},
-            otherIdentities => \@other_identities,
+            otherIdentities => to_json_array(\@other_identities),
             pager => serialize_pager($c->stash->{pager}),
-            recordings => $recordings,
-            releaseGroups => $release_groups,
+            recordings => to_json_array($recordings),
+            releaseGroups => to_json_array($release_groups),
             showingVariousArtistsOnly => boolean_to_json($showing_va_only),
-            wikipediaExtract => $c->stash->{wikipedia_extract},
+            wikipediaExtract => to_json_object($c->stash->{wikipedia_extract}),
         },
     );
 }
@@ -331,7 +332,7 @@ sub relationships : Chained('load') PathPart('relationships') {
 
     $c->stash(
         component_path => 'artist/ArtistRelationships',
-        component_props => { artist => $c->stash->{artist} },
+        component_props => { artist => $c->stash->{artist}->TO_JSON },
         current_view => 'Node',
     );
 }
@@ -353,9 +354,9 @@ sub works : Chained('load')
     $c->model('Work')->rating->load_user_ratings($c->user->id, @$works) if $c->user_exists;
 
     my %props = (
-        artist       => $c->stash->{artist},
+        artist       => $c->stash->{artist}->TO_JSON,
         pager        => serialize_pager($c->stash->{pager}),
-        works        => $works,
+        works        => to_json_array($works),
     );
 
     $c->stash(
@@ -423,14 +424,14 @@ sub recordings : Chained('load')
         current_view => 'Node',
         component_path => 'artist/ArtistRecordings',
         component_props => {
-            ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_recordings_form', { artist_id => $artist->id }),
-            artist => $artist,
-            filterForm => $c->stash->{filter_form},
+            ajaxFilterFormUrl => '' . $c->uri_for_action('/ajax/filter_artist_recordings_form', { artist_id => $artist->id }),
+            artist => $artist->TO_JSON,
+            filterForm => to_json_object($c->stash->{filter_form}),
             hasFilter => boolean_to_json($has_filter),
             hasStandalone => boolean_to_json($has_standalone),
             hasVideo => boolean_to_json($has_video),
             pager => serialize_pager($c->stash->{pager}),
-            recordings => $recordings,
+            recordings => to_json_array($recordings),
             standaloneOnly => boolean_to_json($standalone_only),
             videoOnly => boolean_to_json($video_only),
         },
@@ -455,8 +456,8 @@ sub events : Chained('load')
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
     my %props = (
-        artist       => $c->stash->{artist},
-        events       => $events,
+        artist       => $c->stash->{artist}->TO_JSON,
+        events       => to_json_array($events),
         pager        => serialize_pager($c->stash->{pager}),
     );
 
@@ -513,12 +514,12 @@ sub releases : Chained('load')
         current_view => 'Node',
         component_path => 'artist/ArtistReleases',
         component_props => {
-            ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_releases_form', { artist_id => $artist->id }),
-            artist => $artist,
-            filterForm => $c->stash->{filter_form},
+            ajaxFilterFormUrl => '' . $c->uri_for_action('/ajax/filter_artist_releases_form', { artist_id => $artist->id }),
+            artist => $artist->TO_JSON,
+            filterForm => to_json_object($c->stash->{filter_form}),
             hasFilter => boolean_to_json($has_filter),
             pager => serialize_pager($pager),
-            releases => $releases,
+            releases => to_json_array($releases),
             showingVariousArtistsOnly => boolean_to_json($showing_va_only),
             wantVariousArtistsOnly => boolean_to_json($want_va_only),
         },
@@ -663,7 +664,7 @@ around edit => sub {
     my $artist = $c->stash->{artist};
     if ($artist->is_special_purpose) {
         my %props = (
-            artist => $artist,
+            artist => $artist->TO_JSON,
         );
         $c->stash(
             component_path => 'artist/SpecialPurpose',
@@ -713,7 +714,7 @@ sub split : Chained('load') Edit {
 
     if (!can_split($artist)) {
         my %props = (
-            artist => $artist,
+            artist => $artist->TO_JSON,
         );
         $c->stash(
             component_path => 'artist/CannotSplit',

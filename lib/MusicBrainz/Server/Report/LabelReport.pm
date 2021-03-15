@@ -3,6 +3,7 @@ package MusicBrainz::Server::Report::LabelReport;
 use utf8;
 
 use Moose::Role;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
@@ -20,7 +21,7 @@ around inflate_rows => sub {
     return [
         map +{
             %$_,
-            label => $labels->{ $_->{label_id} }
+            label => to_json_object($labels->{ $_->{label_id} }),
         }, @$items
     ];
 };

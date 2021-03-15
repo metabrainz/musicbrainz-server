@@ -20,6 +20,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_value
     verify_artist_credits
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
@@ -122,14 +123,15 @@ sub build_display_data
 
     if (exists $self->data->{new}{artist_credit}) {
         $data->{artist_credit} = {
-            new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
-            old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
-        }
+            new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit})),
+            old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})),
+        };
     }
 
-    $data->{release_group} = $loaded->{ReleaseGroup}{
-        $self->data->{entity}{id}
-    } || ReleaseGroup->new( name => $self->data->{entity}{name} );
+    $data->{release_group} = to_json_object(
+        $loaded->{ReleaseGroup}{$self->data->{entity}{id}} ||
+        ReleaseGroup->new( name => $self->data->{entity}{name} )
+    );
 
     $data->{secondary_types} = {
         map {
@@ -137,6 +139,11 @@ sub build_display_data
                            @{ $self->data->{$_}{secondary_type_ids} })
         } qw( old new )
     };
+
+    if (exists $data->{type}) {
+        $data->{type}{old} = to_json_object($data->{type}{old});
+        $data->{type}{new} = to_json_object($data->{type}{new});
+    }
 
     return $data;
 }

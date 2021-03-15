@@ -6,6 +6,7 @@ use List::MoreUtils qw( uniq );
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
 
@@ -82,9 +83,11 @@ sub build_display_data
     return {
         additions => [
             map { +{
-                recording => $loaded->{Recording}{ $_->{recording}{id} }
-                    || Recording->new( id => $_->{recording}{id}, name => $_->{recording}{name} ),
-                isrc      => ISRC->new( isrc => $_->{isrc} ),
+                recording => to_json_object(
+                    $loaded->{Recording}{ $_->{recording}{id} } ||
+                    Recording->new( id => $_->{recording}{id}, name => $_->{recording}{name} )
+                ),
+                isrc      => to_json_object(ISRC->new( isrc => $_->{isrc} )),
                 source    => $_->{source}
             } } @{ $self->data->{isrcs} }
         ],

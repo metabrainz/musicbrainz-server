@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_ADD_ISWCS
     $EDIT_WORK_REMOVE_ISWC
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
     build_json
@@ -72,8 +73,8 @@ sub show : PathPart('') Chained('load')
 
     my %props = (
         numberOfRevisions => $c->stash->{number_of_revisions},
-        wikipediaExtract  => $c->stash->{wikipedia_extract},
-        work              => $c->stash->{work},
+        wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
+        work              => $c->stash->{work}->TO_JSON,
     );
 
     $c->stash(

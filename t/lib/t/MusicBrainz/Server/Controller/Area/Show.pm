@@ -16,12 +16,12 @@ test all => sub {
     html_ok($mech->content);
 
     page_test_jsonld $mech => {
-        '@id' => 'https://musicbrainz.org/area/3f179da4-83c6-4a28-a627-e46b4a8ff1ed',
+        '@id' => 'http://musicbrainz.org/area/3f179da4-83c6-4a28-a627-e46b4a8ff1ed',
         '@context' => 'http://schema.org',
         'name' => 'Sydney',
         '@type' => 'City',
         'containedIn' => {
-            '@id' => 'https://musicbrainz.org/area/106e0bec-b638-3b37-b731-f53d507dc00e',
+            '@id' => 'http://musicbrainz.org/area/106e0bec-b638-3b37-b731-f53d507dc00e',
             '@type' => 'Country',
             'name' => 'Australia',
         },

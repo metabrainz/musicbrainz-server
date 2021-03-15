@@ -49,14 +49,14 @@
         [%- IF release.relationships.size -%]
           <div id="release-relationships">
             <h3>[% l('Release') %]</h3>
-            [% React.embed(c, 'components/Relationships', {source => release, noRelationshipsHeading => 1}) %]
+            [% React.embed(c, 'components/Relationships', {source => React.to_json_object(release), noRelationshipsHeading => 1}) %]
           </div>
         [%- END -%]
 
         [%- IF release.release_group.relationships.size -%]
           <div id="release-group-relationships">
             <h3>[% l('Release Group') %]</h3>
-            [% React.embed(c, 'components/Relationships', {source => release.release_group, noRelationshipsHeading => 1}) %]
+            [% React.embed(c, 'components/Relationships', {source => React.to_json_object(release.release_group), noRelationshipsHeading => 1}) %]
           </div>
         [%- END -%]
       </div>

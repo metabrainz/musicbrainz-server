@@ -20,14 +20,14 @@ test all => sub {
     page_test_jsonld $mech => {
         'foundingDate' => '1989-02-03',
         'dissolutionDate' => '2008-05-19',
-        'sameAs' => 'https://musicbrainz.org/label/efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592',
+        'sameAs' => 'http://musicbrainz.org/label/efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592',
         'name' => 'Warp Records',
         'foundingLocation' => {
             'name' => 'United Kingdom',
-            '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+            '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
             '@type' => 'Country'
         },
-        '@id' => 'https://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
+        '@id' => 'http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
         '@type' => 'MusicLabel',
         '@context' => 'http://schema.org',
         'alternateName' => ['Test Label Alias']

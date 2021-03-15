@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MERGE_RELEASE );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -70,19 +71,29 @@ sub build_display_data
                 map {
                     my $old_release = $_;
                     if (my @ids = @{ $_->{release_ids} }) {
-                        map { $loaded->{Release}->{ $_ } // Release->new(name => $old_release->{name}) } @ids;
+                        map {
+                            to_json_object(
+                                $loaded->{Release}{$_} //
+                                Release->new(name => $old_release->{name})
+                            )
+                        } @ids;
                     }
                     else {
-                        Release->new(name => $_->{name} )
+                        to_json_object(Release->new(name => $_->{name} ))
                     }
                 } $self->_old_releases
             ],
             new => [ do {
                 if (my @ids = $self->_new_release_ids) {
-                    map { $loaded->{Release}->{ $_ } // Release->new(name => $self->data->{new_release}{name}) } @ids;
+                    map {
+                        to_json_object(
+                            $loaded->{Release}{$_} //
+                            Release->new(name => $self->data->{new_release}{name})
+                        )
+                    } @ids;
                 }
                 else {
-                    Release->new(name => $self->data->{new_release}{name})
+                    to_json_object(Release->new(name => $self->data->{new_release}{name}))
                 }
             } ],
         },

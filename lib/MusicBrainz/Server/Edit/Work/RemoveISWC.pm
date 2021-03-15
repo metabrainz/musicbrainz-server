@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE
     $EDIT_WORK_REMOVE_ISWC
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -69,7 +70,7 @@ sub build_display_data {
             work_id => $self->data->{work}{id},
         );
 
-    return { iswc => $iswc };
+    return { iswc => to_json_object($iswc) };
 }
 
 sub initialize {

@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 07:17+0000\n"
+"PO-Revision-Date: 2021-03-11 07:23+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -240,13 +240,6 @@ msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings"
 msgstr "Le mandole, mondole ou mandoluth est un instrument à cordes pincées d’Afrique du Nord, à mi-chemin entre la mandole et le oud."
-
-#. name:marimba lumina
-#: DB:instrument/description:767
-msgid ""
-"A marimba lumina is a MIDI controller that lets a musician play music via a "
-"control surface based on the layout of a marimba."
-msgstr "Contrôleur MIDI pouvant être joué via une surface de contrôle disposée comme un marimba."
 
 #. name:mouth organ
 #: DB:instrument/description:610
@@ -1581,6 +1574,14 @@ msgid ""
 "accordion players as bass accompaniment in early 20th century Wallonia."
 msgstr ""
 
+#. name:bazooka
+#: DB:instrument/description:741
+msgid ""
+"Large wide tube with a very strongly flaring bell, the telescoping creates "
+"only subtle fluctuating overtones. It inspired the name of the anti-tank "
+"weapon."
+msgstr ""
+
 #. name:reed organ
 #: DB:instrument/description:204
 msgid ""
@@ -1660,6 +1661,11 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
 msgstr "Ressemble à une flûte à bec, mais à anche double et un doigté de cornemuse. Utilisé principalement pour apprendre à jouer de la cornemuse, mais parfois utilisée comme instrument à part entière"
+
+#. name:marimba lumina
+#: DB:instrument/description:767
+msgid "MIDI controller with a marimba-layout inspired control deck"
+msgstr ""
 
 #. name:madal
 #: DB:instrument/description:186
@@ -2903,13 +2909,6 @@ msgid ""
 "actually a free reed instrument, with a single metal reed. It is played in a"
 " transverse (horizontal) manner."
 msgstr "Le bawu est un instrument à vent chinois. Bien qu’en forme de flûte, c’est un instrument à anche libre avec une seule anche en métal. Il est traversier."
-
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"The bazooka is a brass musical instrument several feet in length which "
-"incorporates telescopic tubing."
-msgstr "Le bazooka est un instrument de la famille des cuivres, de plusieurs dizaines de centimètres de long doté d’un tube télescopique."
 
 #. name:bin-sasara
 #: DB:instrument/description:380

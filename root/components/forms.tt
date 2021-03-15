@@ -328,6 +328,24 @@
     </div>
 [%- END -%]
 
+[%- MACRO ipi_bubble BLOCK -%]
+    <div class="bubble" id="ipi-bubble">
+      <p>[% l('IPI codes are assigned by CISAC to “interested parties” in musical rights management.
+               Check {ipi_doc|the documentation} for more info.',
+            { ipi_doc => doc_link('IPI') }) %]</p>
+      <p>[% l('If you don’t know the code for this entity, just leave the field blank.') %]</p>
+    </div>
+[%- END -%]
+
+[%- MACRO isni_bubble BLOCK -%]
+    <div class="bubble" id="isni-bubble">
+      <p>[% l('ISNI codes are an ISO standard used to uniquely identify persons and organizations.
+               Check {isni_doc|the documentation} for more info.',
+            { isni_doc => doc_link('ISNI') }) %]</p>
+      <p>[% l('If you don’t know the code for this entity, just leave the field blank.') %]</p>
+    </div>
+[%- END -%]
+
 [%- MACRO area_bubble BLOCK -%]
     <div class="bubble" id="area-bubble">
       <!-- ko with: target() && target().area -->

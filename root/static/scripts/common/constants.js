@@ -118,6 +118,7 @@ export const FAVICON_CLASSES = {
   'music.amazon': 'amazonmusic',
   'music.apple.com': 'applemusic',
   'music.migu.cn': 'migumusic',
+  'music.youtube.com': 'youtubemusic',
   'musicapopular.cl': 'musicapopularcl',
   'musik-sammler.de': 'musiksammler',
   'musixmatch.com': 'musixmatch',
@@ -140,6 +141,7 @@ export const FAVICON_CLASSES = {
   'progarchives.com': 'progarchives',
   'psydb.net': 'psydb',
   'qim.com': 'quebecinfomusique',
+  'qobuz.com': 'qobuz',
   'ra.co': 'residentadvisor',
   'rateyourmusic.com': 'rateyourmusic',
   'recochoku.jp': 'recochoku',
@@ -195,8 +197,8 @@ export const FAVICON_CLASSES = {
   'wikisource.org': 'wikisource',
   'worldcat.org': 'worldcat',
   'www.amazon': 'amazon',
+  'www.youtube.com': 'youtube',
   'www5.atwiki.jp/hmiku/': 'hmikuwiki',
-  'youtube.com': 'youtube',
 };
 
 export const PART_OF_SERIES_LINK_TYPES = {

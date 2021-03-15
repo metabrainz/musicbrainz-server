@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id merge_value );
 use MusicBrainz::Server::Entity::Area;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l l lp );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 use Scalar::Util qw( looks_like_number );
@@ -108,19 +109,19 @@ sub build_display_data {
     my $data = $self->data;
 
     my $display_data = {
-        release => $loaded->{Release}->{gid_or_id($data->{release})} // Release->new(name => $data->{release}{name}),
+        release => $loaded->{Release}{ gid_or_id($data->{release}) } // Release->new(name => $data->{release}{name}),
         catalog_number => {
             new => $data->{new}{catalog_number},
             old => $data->{old}{catalog_number},
         },
-        extra => $data->{release}
+        barcode => $data->{release}{barcode}
     };
 
-    if ($display_data->{extra}{medium_formats}) {
-        $display_data->{extra}{combined_format} = $self->process_medium_formats($data->{extra}{medium_formats});
+    if ($data->{release}{medium_formats}) {
+        $display_data->{combined_format} = $self->process_medium_formats($data->{release}{medium_formats});
     }
 
-    $display_data->{extra}{events} = [
+    $display_data->{events} = [
         map {
             my $event_display = {};
 
@@ -128,13 +129,20 @@ sub build_display_data {
                 my $country = $_->{country};
                 my $country_gid_or_id = gid_or_id($country);
 
-                $event_display->{country} = defined $country_gid_or_id && $loaded->{Area}->{$country_gid_or_id};
+                $event_display->{country} = defined $country_gid_or_id && $loaded->{Area}{$country_gid_or_id};
                 $event_display->{country} //= defined $country->{name} && MusicBrainz::Server::Entity::Area->new($country);
             }
 
             $event_display->{date} = MusicBrainz::Server::Entity::PartialDate->new($_->{date});
             $event_display;
-        } @{ $display_data->{extra}{events} // [] }
+        } @{ $data->{release}{events} // [] }
+    ];
+
+    $display_data->{events_json} = [
+        map +{
+            country => to_json_object($_->{country}),
+            date => to_json_object($_->{date}),
+        }, @{ $display_data->{events} }
     ];
 
     for (qw( new old )) {

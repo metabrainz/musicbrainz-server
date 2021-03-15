@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Constants qw( :edit_status entities_with %ENTITIES );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
 
@@ -162,9 +163,9 @@ sub show : Chained('load') PathPart('') {
     }
 
     my %props = (
-        collection           => $collection,
+        collection           => $collection->TO_JSON,
         collectionEntityType => $entity_type,
-        entities             => $entities,
+        entities             => to_json_array($entities),
         order                => $order,
         pager                => serialize_pager($c->stash->{pager}),
     );
@@ -258,7 +259,7 @@ sub create : Local RequireAuth {
 
     my %props = (
         collectionTypes => $form->options_type_id,
-        form => $form,
+        form => $form->TO_JSON,
     );
 
     $c->stash(
@@ -283,9 +284,9 @@ sub edit : Chained('own_collection') RequireAuth {
     }
 
     my %props = (
-        collection => $collection,
+        collection => $collection->TO_JSON,
         collectionTypes => $form->options_type_id,
-        form => $form,
+        form => $form->TO_JSON,
     );
 
     $c->stash(
@@ -307,7 +308,7 @@ sub delete : Chained('own_collection') RequireAuth {
             $c->uri_for_action('/user/collections', [ $c->user->name ]));
     }
     my %props = (
-        collection => $collection,
+        collection => $collection->TO_JSON,
     );
 
     $c->stash(

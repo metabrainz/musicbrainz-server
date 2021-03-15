@@ -3,12 +3,13 @@
     name => rg.name
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+    [%- release_group_json_obj = React.to_json_object(rg) -%]
     <div id="content">
-        [%~ React.embed(c, 'release_group/ReleaseGroupHeader', { releaseGroup => rg, page => page }) ~%]
+        [%~ React.embed(c, 'release_group/ReleaseGroupHeader', { releaseGroup => release_group_json_obj, page => page }) ~%]
         [%- content -%]
     </div>
 
     [%- IF !full_width -%]
-        [%~ React.embed(c, 'layout/components/sidebar/ReleaseGroupSidebar', {releaseGroup => rg}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/ReleaseGroupSidebar', {releaseGroup => release_group_json_obj}) ~%]
     [%~ END ~%]
 [%- END -%]

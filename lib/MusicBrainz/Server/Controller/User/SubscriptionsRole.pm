@@ -4,6 +4,7 @@ use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 parameter 'type' => (
     required => 1
@@ -36,16 +37,23 @@ role {
         my $entities = $self->_load_paged($c, sub {
             $c->model(type_to_model($type))->find_by_subscribed_editor($user->id, shift, shift);
         });
+        my %extra_props;
+
+        if ($type eq 'collection') {
+            $extra_props{privateCollectionCount} = scalar(grep { !$_->public } @{$entities});
+            $entities = [grep { $_->public } @{$entities}]
+        }
 
         $c->stash(
             current_view => 'Node',
             component_path => 'user/UserSubscriptions',
             component_props => {
-                entities  => $entities,
+                entities  => to_json_array($entities),
                 user      => $c->controller('User')->serialize_user($user),
                 summary   => $c->model('Editor')->subscription_summary($user->id),
                 type      => $type,
                 pager     => serialize_pager($c->stash->{pager}),
+                %extra_props,
             },
         );
     };

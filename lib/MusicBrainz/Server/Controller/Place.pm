@@ -36,6 +36,7 @@ use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( $EDIT_PLACE_CREATE $EDIT_PLACE_EDIT $EDIT_PLACE_MERGE );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use Sql;
 
 =head1 NAME
@@ -90,8 +91,8 @@ sub show : PathPart('') Chained('load') {
 
     my %props = (
         numberOfRevisions => $c->stash->{number_of_revisions},
-        place             => $c->stash->{place},
-        wikipediaExtract  => $c->stash->{wikipedia_extract},
+        place             => $c->stash->{place}->TO_JSON,
+        wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
     );
 
     $c->stash(
@@ -118,8 +119,8 @@ sub events : Chained('load')
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
     my %props = (
-        events      => $events,
-        place       => $c->stash->{place},
+        events      => to_json_array($events),
+        place       => $c->stash->{place}->TO_JSON,
         pager       => serialize_pager($c->stash->{pager}),
     );
 
@@ -141,7 +142,7 @@ sub performances : Chained('load') {
 
     $c->stash(
         component_path  => 'place/PlacePerformances',
-        component_props => {place => $c->stash->{place}},
+        component_props => {place => $c->stash->{place}->TO_JSON},
         current_view    => 'Node',
     );
 }
@@ -159,14 +160,14 @@ sub map : Chained('load') {
     my $map_data_args = $c->json->encode({
         draggable => \0,
         place => {
-            coordinates => $place->coordinates,
+            coordinates => to_json_object($place->coordinates),
             name => $place->name,
         },
     });
 
     my %props = (
         mapDataArgs => $map_data_args,
-        place       => $place,
+        place       => $place->TO_JSON,
     );
 
     $c->stash(

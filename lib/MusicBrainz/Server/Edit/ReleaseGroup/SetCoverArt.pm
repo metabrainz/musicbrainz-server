@@ -8,6 +8,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_SET_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
@@ -116,15 +117,17 @@ sub build_display_data {
         $artwork_by_release_id{$image->release_id} = $image;
     }
 
-    $data{release_group} = $loaded->{ReleaseGroup}->{ $self->data->{entity}{id} } ||
-        ReleaseGroup->new( name => $self->data->{entity}{name} );
+    $data{release_group} = to_json_object(
+        $loaded->{ReleaseGroup}{ $self->data->{entity}{id} } ||
+        ReleaseGroup->new( name => $self->data->{entity}{name} )
+    );
 
-    my $old_id = $self->data->{old}->{release_id};
-    my $new_id = $self->data->{new}->{release_id};
+    my $old_id = $self->data->{old}{release_id};
+    my $new_id = $self->data->{new}{release_id};
 
     $data{artwork} = { };
-    $data{artwork}->{old} = $artwork_by_release_id{$old_id} if $old_id;
-    $data{artwork}->{new} = $artwork_by_release_id{$new_id} if $new_id;
+    $data{artwork}{old} = to_json_object($artwork_by_release_id{$old_id}) if $old_id;
+    $data{artwork}{new} = to_json_object($artwork_by_release_id{$new_id}) if $new_id;
 
     return \%data;
 }

@@ -1,10 +1,11 @@
 [%~ WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name ~%]
+    [%- artist_json_obj = React.to_json_object(artist) -%]
     <div id="content">
-        [%~ React.embed(c, 'artist/ArtistHeader', { artist => artist, page => page }) ~%]
+        [%~ React.embed(c, 'artist/ArtistHeader', { artist => artist_json_obj, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ React.embed(c, 'layout/components/sidebar/ArtistSidebar', {artist => artist}) ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/ArtistSidebar', {artist => artist_json_obj}) ~%]
     [%~ END ~%]
 [%~ END ~%]

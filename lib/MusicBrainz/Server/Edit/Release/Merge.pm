@@ -36,6 +36,7 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::ReleaseLabel';
 use aliased 'MusicBrainz::Server::Entity::Label';
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
@@ -191,39 +192,51 @@ sub alter_edit_pending
     }
 }
 
+sub _build_missing_entity {
+    my ($self, $loaded, $data) = @_;
+
+    my %new_data = %{$data};
+
+    $new_data{artist_credit} = ArtistCredit->from_array([
+        map +{
+            artist => (
+                $loaded->{Artist}{ $_->{artist}{id} } //
+                Artist->new($_->{artist})
+            ),
+            join_phrase => $_->{join_phrase},
+            name => $_->{name},
+        }, @{ $data->{artist_credit}{names} }
+    ]) if $data->{artist_credit};
+
+    $new_data{mediums} = [map { Medium->new(
+        track_count => $_->{track_count},
+        format => ($_->{format_name} ? MediumFormat->new( name => $_->{format_name}) : undef)
+    ) } @{ delete $data->{mediums} }] if $data->{mediums};
+
+    $new_data{events} = [map { ReleaseEvent->new(
+        country => defined($_->{country_id})
+            ? $loaded->{Area}{ $_->{country_id} }
+            : undef,
+        date => PartialDate->new({
+            year => $_->{date}{year},
+            month => $_->{date}{month},
+            day => $_->{date}{day}
+        })
+    ) } @{ delete $data->{events} }] if $data->{events};
+
+    $new_data{labels} = [map { ReleaseLabel->new(
+        label => $_->{label} &&
+            ($loaded->{Label}{ $_->{label}{id} } //
+                ($_->{label}{name} ? Label->new(name => $_->{label}{name}) : undef)),
+        catalog_number => $_->{catalog_number}
+    ) } @{ delete $data->{labels} }] if $data->{labels};
+
+    return Release->new(\%new_data);
+}
+
 override build_display_data => sub
 {
     my ($self, $loaded) = @_;
-
-    for my $entity ($self->new_entity, @{ $self->{data}{old_entities} }) {
-        if (!defined $loaded->{Release}->{ $entity->{id} }) {
-            $entity->{mediums} = [map { Medium->new(
-                    track_count => $_->{track_count},
-                    format => ($_->{format_name} ? MediumFormat->new( name => $_->{format_name}) : undef)
-                ) } @{ delete $entity->{mediums} }] if $entity->{mediums};
-            $entity->{events} = [map { ReleaseEvent->new(
-                    country => defined($_->{country_id})
-                        ? $loaded->{Area}{ $_->{country_id} }
-                        : undef,
-                    date => PartialDate->new({
-                        year => $_->{date}{year},
-                        month => $_->{date}{month},
-                        day => $_->{date}{day}
-                    })
-                ) } @{ delete $entity->{events} }] if $entity->{events};
-            $entity->{labels} = [map { ReleaseLabel->new(
-                    label => $_->{label} &&
-                        ($loaded->{Label}->{$_->{label}{id}} //
-                         ($_->{label}{name} ? Label->new(name => $_->{label}{name}) : undef)),
-                    catalog_number => $_->{catalog_number}
-                ) } @{ delete $entity->{labels} }] if $entity->{labels};
-            $entity->{artist_credit} = ArtistCredit->from_array(
-                [map { my $name = $_;
-                       $name->{artist} = $loaded->{Artist}->{$_->{artist}->{id}} // $_->{artist};
-                       $name } @{ $entity->{artist_credit}{names} }]
-            ) if $entity->{artist_credit};
-        }
-    }
 
     my $data = super();
 
