@@ -62,7 +62,7 @@ sub build_display_data
         type        => $type ? to_json_object($loaded->{PlaceType}{$type}) : undef,
         begin_date  => to_json_object(PartialDate->new($self->data->{begin_date})),
         end_date    => to_json_object(PartialDate->new($self->data->{end_date})),
-        place       => ($self->entity_id && to_json_object(
+        place       => to_json_object(($self->entity_id &&
             $loaded->{Place}{ $self->entity_id }) ||
             Place->new( name => $self->data->{name} )
         ),
