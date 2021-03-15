@@ -56,15 +56,15 @@ sub build_display_data {
     return {
         name                => $name,
         comment             => $comment,
-        series              => to_json_object(
-                                $loaded->{Series}{$self->entity_id} //
+        series              => to_json_object((defined($self->entity_id) &&
+                                $loaded->{Series}{$self->entity_id}) ||
                                 Series->new(
                                     name => $name,
                                     comment => $comment,
                                     type_id => $type_id,
                                     ordering_type_id => $ordering_type_id,
                                 ),
-                               ),
+                            ),
         type                => to_json_object($loaded->{SeriesType}{$type_id}),
         ordering_type       => to_json_object($loaded->{SeriesOrderingType}{$ordering_type_id}),
     };

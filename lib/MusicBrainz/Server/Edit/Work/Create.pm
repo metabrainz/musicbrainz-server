@@ -60,7 +60,10 @@ sub build_display_data
         comment       => $data->{comment} // '',
         type          => $data->{type_id} && to_json_object($loaded->{WorkType}{ $data->{type_id} }),
         iswc          => $data->{iswc} // '',
-        work          => to_json_object($loaded->{Work}{ $self->entity_id } || Work->new( name => $data->{name} )),
+        work          => to_json_object((defined($self->entity_id) &&
+            $loaded->{Work}{ $self->entity_id }) ||
+            Work->new( name => $self->data->{name} )
+        ),
         ($data->{attributes} && @{ $data->{attributes} } ?
          ( attributes => { $self->grouped_attributes_by_type($data->{attributes}, 1) } ) : ()
         ),
