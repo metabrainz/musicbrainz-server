@@ -293,7 +293,10 @@ $(document).on(
   function () {
     if (!submissionInProgress) {
       submissionInProgress = true;
-      prepareSubmission($('#relationship-editor').data('form-name'));
+      const formName = $('#relationship-editor').data('form-name');
+      if (formName) {
+        prepareSubmission(formName);
+      }
     }
   },
 );
