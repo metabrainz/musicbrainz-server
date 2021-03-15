@@ -70,7 +70,7 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my $data = {
-        label      => ($self->entity_id && to_json_object(
+        label      => to_json_object(($self->entity_id &&
             $loaded->{Label}{ $self->entity_id }) ||
             Label->new( name => $self->data->{name} )
         ),

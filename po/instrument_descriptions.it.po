@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 07:23+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-03-11 22:07+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1571,7 +1571,7 @@ msgid ""
 "Large wide tube with a very strongly flaring bell, the telescoping creates "
 "only subtle fluctuating overtones. It inspired the name of the anti-tank "
 "weapon."
-msgstr ""
+msgstr "Tubo grande e largo con un padiglione a campana molto svasato, manipolandone la lunghezza si creano tenui armoniche superiori fluttuanti. Ha ispirato il nome dell'arma anticarro."
 
 #. name:reed organ
 #: DB:instrument/description:204
@@ -1656,7 +1656,7 @@ msgstr "Assomiglia ad un flauto dolce, ma ha ance doppie e il sistema di diteggi
 #. name:marimba lumina
 #: DB:instrument/description:767
 msgid "MIDI controller with a marimba-layout inspired control deck"
-msgstr ""
+msgstr "Controller MIDI con una superficie di controllo ispirata alla struttura di una marimba."
 
 #. name:madal
 #: DB:instrument/description:186

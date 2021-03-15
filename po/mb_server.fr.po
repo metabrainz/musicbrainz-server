@@ -64,9 +64,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-11 09:21+0200\n"
-"PO-Revision-Date: 2021-03-11 07:23+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2021-03-11 22:21+0200\n"
+"PO-Revision-Date: 2021-03-15 08:09+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -853,7 +853,7 @@ msgstr "Code-barres"
 #: ../root/edit/details/edit_barcodes.tt:17
 #: ../root/edit/details/edit_barcodes.tt:21
 #: ../root/edit/details/edit_release.tt:53
-#: ../root/edit/details/edit_release_label.tt:61
+#: ../root/edit/details/edit_release_label.tt:60
 #: ../root/release/edit/information.tt:216
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/layout/components/sidebar/CDStubSidebar.js:76
@@ -1248,7 +1248,7 @@ msgstr "Copier en date de fin"
 msgid "Country"
 msgstr "Pays"
 
-#: ../root/edit/details/edit_release_label.tt:44
+#: ../root/edit/details/edit_release_label.tt:43
 #: ../root/release/edit/information.tt:150
 #: ../root/release_group/set_cover_art.tt:41
 msgid "Country:"
@@ -1346,7 +1346,7 @@ msgstr "Date"
 msgid "Date Period"
 msgstr "Période de dates"
 
-#: ../root/edit/details/edit_release_label.tt:38
+#: ../root/edit/details/edit_release_label.tt:37
 #: ../root/release/edit/information.tt:124
 #: ../root/release_group/set_cover_art.tt:37
 #: ../root/layout/components/sidebar/EventSidebar.js:56
@@ -1926,7 +1926,7 @@ msgstr "Pour plus d’informations, consultez la {doc_doc|documentation}."
 msgid "Format"
 msgstr "Format"
 
-#: ../root/edit/details/edit_release_label.tt:67
+#: ../root/edit/details/edit_release_label.tt:66
 #: ../root/release/edit/tracklist.tt:292
 #: ../root/release_group/set_cover_art.tt:46
 #: ../root/edit/details/AddMedium.js:149
@@ -2098,7 +2098,7 @@ msgstr "« Masquée » devrait être utilisé pour les langues des signes et l
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:259
+#: ../root/static/scripts/common/constants.js:260
 msgid "High"
 msgstr "Haute"
 
@@ -2585,7 +2585,7 @@ msgstr "Nombre de recherches"
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:256
+#: ../root/static/scripts/common/constants.js:257
 msgid "Low"
 msgstr "Bas"
 
@@ -2997,8 +2997,8 @@ msgstr "Aucun des supports de cette parution ne peut être lié à cette TOC (ta
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:257
 #: ../root/static/scripts/common/constants.js:258
+#: ../root/static/scripts/common/constants.js:259
 msgid "Normal"
 msgstr "Normal"
 
@@ -3596,7 +3596,7 @@ msgid "Release event"
 msgstr "Événement de parution"
 
 #: ../root/edit/details/add_release.tt:74
-#: ../root/edit/details/edit_release_label.tt:50
+#: ../root/edit/details/edit_release_label.tt:49
 #: ../root/static/scripts/edit/components/edit/ReleaseEventsDiff.js:120
 msgid "Release events:"
 msgstr "Événements de parution :"
@@ -7250,7 +7250,7 @@ msgstr "Wikisource"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
 msgid "Stream at YouTube Music"
-msgstr ""
+msgstr "Diffusion en flux YouTube Music"
 
 #: ../lib/MusicBrainz/Server/Form/Admin/Attributes/Language.pm:49
 #: ../root/admin/attributes/Language.js:18
@@ -7469,7 +7469,7 @@ msgstr "Veuillez vous assurer que toutes les lignes commencent par @, * ou #, su
 
 #: ../lib/MusicBrainz/Server/Form/Field/Text.pm:18
 msgid "The characters you’ve entered are invalid or not allowed."
-msgstr ""
+msgstr "Les caractères saisis sont invalides ou non autorisés."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Time.pm:16
 msgid "This is not a valid time."
@@ -7532,22 +7532,22 @@ msgid "Invalid URL format"
 msgstr "Format d’URL invalide"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
-#: ../root/static/scripts/common/constants.js:267
+#: ../root/static/scripts/common/constants.js:268
 msgid "Basic"
 msgstr "De base"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
-#: ../root/static/scripts/common/constants.js:268
+#: ../root/static/scripts/common/constants.js:269
 msgid "Intermediate"
 msgstr "Intermédiaire"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:266
+#: ../root/static/scripts/common/constants.js:267
 msgid "Advanced"
 msgstr "Avancé"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:269
+#: ../root/static/scripts/common/constants.js:270
 msgid "Native"
 msgstr "Natif"
 
@@ -10338,7 +10338,7 @@ msgstr "AudioRanger"
 
 #: ../root/layout/components/BottomMenu.js:164 ../root/main/index.js:159
 msgid "Mp3tag"
-msgstr ""
+msgstr "Mp3tag"
 
 #: ../root/layout/components/BottomMenu.js:167 ../root/main/index.js:162
 msgid "Yate Music Tagger"
@@ -14090,19 +14090,19 @@ msgstr "BPM :"
 msgid "Automatic suggestion from entry #1/{count}"
 msgstr "Suggestion automatique de l’entrée no. 1 sur {count}"
 
-#: ../root/static/scripts/common/entity.js:241
+#: ../root/static/scripts/common/entity.js:242
 msgid "You selected {label}."
 msgstr "Vous avez sélectionné {label}."
 
-#: ../root/static/scripts/common/entity.js:247
+#: ../root/static/scripts/common/entity.js:248
 msgid "Label code: {code}"
 msgstr "Code du label : {code}"
 
-#: ../root/static/scripts/common/entity.js:262
+#: ../root/static/scripts/common/entity.js:270
 msgid "You selected {area}."
 msgstr "Vous avez choisi {area}."
 
-#: ../root/static/scripts/common/entity.js:356
+#: ../root/static/scripts/common/entity.js:364
 msgid "You selected {releasegroup}."
 msgstr "Vous avez sélectionné {releasegroup}."
 
