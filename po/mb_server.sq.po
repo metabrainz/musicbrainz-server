@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-11 09:21+0200\n"
+"POT-Creation-Date: 2021-03-11 22:21+0200\n"
 "PO-Revision-Date: 2021-03-11 07:23+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
@@ -797,7 +797,7 @@ msgstr "Kod me vija"
 #: ../root/edit/details/edit_barcodes.tt:17
 #: ../root/edit/details/edit_barcodes.tt:21
 #: ../root/edit/details/edit_release.tt:53
-#: ../root/edit/details/edit_release_label.tt:61
+#: ../root/edit/details/edit_release_label.tt:60
 #: ../root/release/edit/information.tt:216
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/layout/components/sidebar/CDStubSidebar.js:76
@@ -1192,7 +1192,7 @@ msgstr ""
 msgid "Country"
 msgstr "Vend"
 
-#: ../root/edit/details/edit_release_label.tt:44
+#: ../root/edit/details/edit_release_label.tt:43
 #: ../root/release/edit/information.tt:150
 #: ../root/release_group/set_cover_art.tt:41
 msgid "Country:"
@@ -1290,7 +1290,7 @@ msgstr "Datë"
 msgid "Date Period"
 msgstr "Periudhë Datash"
 
-#: ../root/edit/details/edit_release_label.tt:38
+#: ../root/edit/details/edit_release_label.tt:37
 #: ../root/release/edit/information.tt:124
 #: ../root/release_group/set_cover_art.tt:37
 #: ../root/layout/components/sidebar/EventSidebar.js:56
@@ -1870,7 +1870,7 @@ msgstr "Për më tepër të dhëna, kontrolloni {doc_doc|dokumentimin}."
 msgid "Format"
 msgstr "Format"
 
-#: ../root/edit/details/edit_release_label.tt:67
+#: ../root/edit/details/edit_release_label.tt:66
 #: ../root/release/edit/tracklist.tt:292
 #: ../root/release_group/set_cover_art.tt:46
 #: ../root/edit/details/AddMedium.js:149
@@ -2042,7 +2042,7 @@ msgstr "E fshehur duhet përdorur për gjuhë me shenja dhe gjuhë pa kod ISO 63
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:259
+#: ../root/static/scripts/common/constants.js:260
 msgid "High"
 msgstr ""
 
@@ -2529,7 +2529,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:256
+#: ../root/static/scripts/common/constants.js:257
 msgid "Low"
 msgstr ""
 
@@ -2941,8 +2941,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:257
 #: ../root/static/scripts/common/constants.js:258
+#: ../root/static/scripts/common/constants.js:259
 msgid "Normal"
 msgstr "Normal"
 
@@ -3540,7 +3540,7 @@ msgid "Release event"
 msgstr "Veprimtari hedhjeje në qarkullim"
 
 #: ../root/edit/details/add_release.tt:74
-#: ../root/edit/details/edit_release_label.tt:50
+#: ../root/edit/details/edit_release_label.tt:49
 #: ../root/static/scripts/edit/components/edit/ReleaseEventsDiff.js:120
 msgid "Release events:"
 msgstr "Veprimtari hedhjeje në qarkullim:"
@@ -7476,22 +7476,22 @@ msgid "Invalid URL format"
 msgstr "Format URL-je i pavlefshëm"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
-#: ../root/static/scripts/common/constants.js:267
+#: ../root/static/scripts/common/constants.js:268
 msgid "Basic"
 msgstr "Fillestar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
-#: ../root/static/scripts/common/constants.js:268
+#: ../root/static/scripts/common/constants.js:269
 msgid "Intermediate"
 msgstr "Mesatar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:266
+#: ../root/static/scripts/common/constants.js:267
 msgid "Advanced"
 msgstr "I përparuar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:269
+#: ../root/static/scripts/common/constants.js:270
 msgid "Native"
 msgstr ""
 
@@ -14034,19 +14034,19 @@ msgstr ""
 msgid "Automatic suggestion from entry #1/{count}"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:241
+#: ../root/static/scripts/common/entity.js:242
 msgid "You selected {label}."
 msgstr "Përzgjodhët {label}."
 
-#: ../root/static/scripts/common/entity.js:247
+#: ../root/static/scripts/common/entity.js:248
 msgid "Label code: {code}"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:262
+#: ../root/static/scripts/common/entity.js:270
 msgid "You selected {area}."
 msgstr "Përzgjodhët {area}."
 
-#: ../root/static/scripts/common/entity.js:356
+#: ../root/static/scripts/common/entity.js:364
 msgid "You selected {releasegroup}."
 msgstr "Përzgjodhët {releasegroup}."
 

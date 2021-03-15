@@ -11,7 +11,7 @@
 # Marta PD <email address hidden>, 2014
 # Maurizio Corripio <email address hidden>, 2019
 # Nicolás Tamargo <email address hidden>, 2011-2013
-# Peter Cuevas H <email address hidden>, 2020
+# Peter Cuevas <email address hidden>, 2020
 # Salvador Morales León <email address hidden>, 2016
 # t0n3t <email address hidden>, 2012
 # Kevin Doncam Demian López Brante <email address hidden>, 2012

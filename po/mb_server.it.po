@@ -28,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-11 09:21+0200\n"
-"PO-Revision-Date: 2021-03-11 07:23+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2021-03-11 22:21+0200\n"
+"PO-Revision-Date: 2021-03-11 21:08+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -817,7 +817,7 @@ msgstr "Codice a barre"
 #: ../root/edit/details/edit_barcodes.tt:17
 #: ../root/edit/details/edit_barcodes.tt:21
 #: ../root/edit/details/edit_release.tt:53
-#: ../root/edit/details/edit_release_label.tt:61
+#: ../root/edit/details/edit_release_label.tt:60
 #: ../root/release/edit/information.tt:216
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/layout/components/sidebar/CDStubSidebar.js:76
@@ -1212,7 +1212,7 @@ msgstr "Copia come data finale"
 msgid "Country"
 msgstr "Paese"
 
-#: ../root/edit/details/edit_release_label.tt:44
+#: ../root/edit/details/edit_release_label.tt:43
 #: ../root/release/edit/information.tt:150
 #: ../root/release_group/set_cover_art.tt:41
 msgid "Country:"
@@ -1310,7 +1310,7 @@ msgstr "Data"
 msgid "Date Period"
 msgstr "Periodo di tempo"
 
-#: ../root/edit/details/edit_release_label.tt:38
+#: ../root/edit/details/edit_release_label.tt:37
 #: ../root/release/edit/information.tt:124
 #: ../root/release_group/set_cover_art.tt:37
 #: ../root/layout/components/sidebar/EventSidebar.js:56
@@ -1545,7 +1545,7 @@ msgstr "Nota di modifica"
 
 #: ../root/edit/search_macros.tt:398
 msgid "Edit Note Authors"
-msgstr ""
+msgstr "Autori delle note di modifica"
 
 #: ../root/relationship/linkattributetype/edit.tt:1
 #: ../root/relationship/linkattributetype/edit.tt:3
@@ -1890,7 +1890,7 @@ msgstr "Per maggiori informazioni, controlla la {doc_doc|documentazione}."
 msgid "Format"
 msgstr "Formato"
 
-#: ../root/edit/details/edit_release_label.tt:67
+#: ../root/edit/details/edit_release_label.tt:66
 #: ../root/release/edit/tracklist.tt:292
 #: ../root/release_group/set_cover_art.tt:46
 #: ../root/edit/details/AddMedium.js:149
@@ -2062,7 +2062,7 @@ msgstr "Nascosto va utilizzato per le lingue dei segni e per le lingue senza un 
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:259
+#: ../root/static/scripts/common/constants.js:260
 msgid "High"
 msgstr "Alta"
 
@@ -2110,7 +2110,7 @@ msgstr "Codice IPI"
 msgid ""
 "IPI codes are assigned by CISAC to “interested parties” in musical rights "
 "management. Check {ipi_doc|the documentation} for more info."
-msgstr ""
+msgstr "I codici IPI sono assegnati dalla CISAC a \"parti interessate\" nella gestione dei diritti musicali. Controlla la {ipi_doc|documentazione} per maggiori informazioni."
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:183
@@ -2130,7 +2130,7 @@ msgstr "Codice ISNI"
 msgid ""
 "ISNI codes are an ISO standard used to uniquely identify persons and "
 "organizations. Check {isni_doc|the documentation} for more info."
-msgstr ""
+msgstr "I codici ISNI sono una norma tecnica ISO utilizzata per identificare persone e organizzazioni in modo univoco. Controlla la {isni_doc|documentazione} per maggiori informazioni."
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:191
@@ -2265,7 +2265,7 @@ msgstr "Se non vedi la pubblicazione che stavi cercando, puoi aggiungerne una nu
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid ""
 "If you don’t know the code for this entity, just leave the field blank."
-msgstr ""
+msgstr "Se non conosci il codice di questa entità, lascia vuoto questo campo."
 
 #: ../root/release/edit/information.tt:50
 msgid ""
@@ -2549,7 +2549,7 @@ msgstr "Numero di ricerche"
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:256
+#: ../root/static/scripts/common/constants.js:257
 msgid "Low"
 msgstr "Bassa"
 
@@ -2961,8 +2961,8 @@ msgstr "Nessuno dei supporti su questa pubblicazione può essere collegato a que
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:236
-#: ../root/static/scripts/common/constants.js:257
 #: ../root/static/scripts/common/constants.js:258
+#: ../root/static/scripts/common/constants.js:259
 msgid "Normal"
 msgstr "Normale"
 
@@ -3560,7 +3560,7 @@ msgid "Release event"
 msgstr "Evento di pubblicazione"
 
 #: ../root/edit/details/add_release.tt:74
-#: ../root/edit/details/edit_release_label.tt:50
+#: ../root/edit/details/edit_release_label.tt:49
 #: ../root/static/scripts/edit/components/edit/ReleaseEventsDiff.js:120
 msgid "Release events:"
 msgstr "Eventi di pubblicazione:"
@@ -5515,15 +5515,15 @@ msgstr "accreditato come"
 
 #: ../root/edit/search_macros.tt:341
 msgid "do not include"
-msgstr ""
+msgstr "non comprende"
 
 #: ../root/edit/search_macros.tt:341
 msgid "do not include editors in my subscriptions"
-msgstr ""
+msgstr "non comprende editor nelle mie iscrizioni"
 
 #: ../root/edit/search_macros.tt:341
 msgid "do not include me"
-msgstr ""
+msgstr "non comprende me"
 
 #: ../root/edit/search_macros.tt:28
 msgid "do not match"
@@ -5602,19 +5602,19 @@ msgstr "nel {date}"
 
 #: ../root/edit/search_macros.tt:341
 msgid "include"
-msgstr ""
+msgstr "comprende"
 
 #: ../root/edit/search_macros.tt:341
 msgid "include a beginner editor"
-msgstr ""
+msgstr "comprende un editor principiante"
 
 #: ../root/edit/search_macros.tt:341
 msgid "include an editor in my subscriptions"
-msgstr ""
+msgstr "comprende un editor nelle mie iscrizioni"
 
 #: ../root/edit/search_macros.tt:341
 msgid "include me"
-msgstr ""
+msgstr "comprende me"
 
 #: ../root/components/common-macros.tt:226
 #: ../root/components/common-macros.tt:302
@@ -6151,7 +6151,7 @@ msgstr "Non puoi rimuovere l'attributo \"{name}\" perché è ancora in uso."
 msgid ""
 "You cannot remove the attribute “{name}” because it is the parent of other "
 "attributes."
-msgstr ""
+msgstr "Non puoi rimuovere l'attributo \"{name}\" perché è l'attributo di livello superiore di altri attributi."
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:648
 msgid "You cannot merge a special purpose artist into another artist"
@@ -7214,7 +7214,7 @@ msgstr "Wikisource"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
 msgid "Stream at YouTube Music"
-msgstr ""
+msgstr "Streaming su YouTube Music"
 
 #: ../lib/MusicBrainz/Server/Form/Admin/Attributes/Language.pm:49
 #: ../root/admin/attributes/Language.js:18
@@ -7433,7 +7433,7 @@ msgstr "Assicurati che tutte le righe inizino con @, * o # seguito da uno spazio
 
 #: ../lib/MusicBrainz/Server/Form/Field/Text.pm:18
 msgid "The characters you’ve entered are invalid or not allowed."
-msgstr ""
+msgstr "I caratteri che hai inserito non sono validi o non sono permessi."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Time.pm:16
 msgid "This is not a valid time."
@@ -7496,22 +7496,22 @@ msgid "Invalid URL format"
 msgstr "Formato URL non valido"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
-#: ../root/static/scripts/common/constants.js:267
+#: ../root/static/scripts/common/constants.js:268
 msgid "Basic"
 msgstr "Elementare"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
-#: ../root/static/scripts/common/constants.js:268
+#: ../root/static/scripts/common/constants.js:269
 msgid "Intermediate"
 msgstr "Intermedio"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:266
+#: ../root/static/scripts/common/constants.js:267
 msgid "Advanced"
 msgstr "Avanzato"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:269
+#: ../root/static/scripts/common/constants.js:270
 msgid "Native"
 msgstr "Madrelingua"
 
@@ -10302,7 +10302,7 @@ msgstr "AudioRanger"
 
 #: ../root/layout/components/BottomMenu.js:164 ../root/main/index.js:159
 msgid "Mp3tag"
-msgstr ""
+msgstr "Mp3tag"
 
 #: ../root/layout/components/BottomMenu.js:167 ../root/main/index.js:162
 msgid "Yate Music Tagger"
@@ -13601,7 +13601,7 @@ msgstr "Aggiorna collezione"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:35
 msgid "Add a new area"
-msgstr ""
+msgstr "Aggiungi una nuova area"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:36
 msgid "Add a new artist"
@@ -13613,7 +13613,7 @@ msgstr "Aggiungi un nuovo evento"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:38
 msgid "Add a new instrument"
-msgstr ""
+msgstr "Aggiungi un nuovo strumento"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:39
 msgid "Add a new label"
@@ -14054,19 +14054,19 @@ msgstr "BPM:"
 msgid "Automatic suggestion from entry #1/{count}"
 msgstr "Suggerimento automatico dalla voce #1/{count}"
 
-#: ../root/static/scripts/common/entity.js:241
+#: ../root/static/scripts/common/entity.js:242
 msgid "You selected {label}."
 msgstr "Hai selezionato {label}."
 
-#: ../root/static/scripts/common/entity.js:247
+#: ../root/static/scripts/common/entity.js:248
 msgid "Label code: {code}"
 msgstr "Label code: {code}"
 
-#: ../root/static/scripts/common/entity.js:262
+#: ../root/static/scripts/common/entity.js:270
 msgid "You selected {area}."
 msgstr "Hai selezionato {area}."
 
-#: ../root/static/scripts/common/entity.js:356
+#: ../root/static/scripts/common/entity.js:364
 msgid "You selected {releasegroup}."
 msgstr "Hai selezionato {releasegroup}."
 
