@@ -8,6 +8,7 @@ use MusicBrainz::Server::Types qw( DateTime );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -118,7 +119,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        application => $self->application,
+        application => to_json_object($self->application),
         editor      => defined $self->editor ? $self->editor->TO_JSON : undef,
         granted     => datetime_to_iso8601($self->granted),
         is_offline  => boolean_to_json($self->is_offline),
