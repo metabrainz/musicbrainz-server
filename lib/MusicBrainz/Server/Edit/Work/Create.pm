@@ -74,7 +74,7 @@ sub build_display_data
         if ($language->iso_code_3 eq "zxx") {
             $language->name(l("[No lyrics]"));
         }
-        $display->{language} = $language;
+        $display->{language} = to_json_object($language);
     }
 
     if (defined $data->{languages}) {
