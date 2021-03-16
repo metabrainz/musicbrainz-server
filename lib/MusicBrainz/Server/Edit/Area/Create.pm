@@ -69,8 +69,8 @@ sub build_display_data
         type       => $type ? to_json_object($loaded->{AreaType}{$type}) : undef,
         begin_date => to_json_object(PartialDate->new($self->data->{begin_date})),
         end_date   => to_json_object(PartialDate->new($self->data->{end_date})),
-        area       => to_json_object(
-            ($self->entity_id && $loaded->{Area}{ $self->entity_id }) ||
+        area       => to_json_object((defined($self->entity_id) &&
+            $loaded->{Area}{ $self->entity_id }) ||
             Area->new( name => $self->data->{name} )
         ),
         ended      => boolean_to_json($self->data->{ended}),

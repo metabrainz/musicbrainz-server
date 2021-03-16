@@ -58,8 +58,8 @@ sub build_display_data
         comment       => $self->data->{comment},
         length        => $self->data->{length},
         video         => boolean_to_json($self->data->{video}),
-        recording => to_json_object(
-            $loaded->{Recording}{ $self->entity_id } ||
+        recording     => to_json_object((defined($self->entity_id) &&
+            $loaded->{Recording}{ $self->entity_id }) ||
             Recording->new( name => $self->data->{name} )
         ),
     };
