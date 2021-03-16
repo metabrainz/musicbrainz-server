@@ -81,9 +81,9 @@ sub build_display_data
 
     my $type = $self->data->{type_id};
     my $gender = $self->data->{gender_id};
-    my $artist = to_json_object(
-        ($self->entity_id && $loaded->{Artist}{ $self->entity_id }) ||
-        Artist->new( name => $self->data->{name} )
+    my $artist = to_json_object((defined($self->entity_id) &&
+            $loaded->{Artist}{ $self->entity_id }) ||
+            Artist->new( name => $self->data->{name} )
     );
 
     return {
