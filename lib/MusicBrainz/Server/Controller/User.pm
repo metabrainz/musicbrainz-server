@@ -111,7 +111,7 @@ sub serialize_user {
         name => $user->name,
         preferences => {
             public_ratings => boolean_to_json($preferences->public_ratings),
-            public_subscriptions => boolean_to_json($preferences->public_ratings),
+            public_subscriptions => boolean_to_json($preferences->public_subscriptions),
             public_tags => boolean_to_json($preferences->public_tags),
         },
     };
