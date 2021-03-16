@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :election_status );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Types qw( DateTime AutoEditorElectionStatus );
 use MusicBrainz::Server::Translation qw( N_lp );
 
@@ -191,7 +192,7 @@ around TO_JSON => sub {
         seconder_2 => editor_to_json($self->seconder_2),
         status_name => $self->status_name,
         status_name_short => $self->status_name_short,
-        votes => $self->votes,
+        votes => to_json_array($self->votes),
         yes_votes => $self->yes_votes,
     };
 };
