@@ -505,87 +505,101 @@ const UserProfileStatistics = ({
         <thead>
           <tr>
             <th colSpan="2">
-              {exp.l(
+              {$c.user ? exp.l(
                 'Edits ({view_url|view})',
                 {view_url: `/user/${encodedName}/edits`},
-              )}
+              ) : l('Edits')}
             </th>
           </tr>
         </thead>
 
         <tbody>
           <UserProfileProperty name={lp('Accepted', 'edit descriptor')}>
-            {exp.l(
+            {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
                 count: formatCount($c, editStats.accepted_count),
                 view_url: `/user/${encodedName}/edits/accepted`,
               },
-            )}
+            ) : (exp.l('{count}', {
+              count: formatCount($c, editStats.accepted_count),
+            }))}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Auto-edits')}>
-            {exp.l(
+            {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
                 count: formatCount($c, editStats.accepted_auto_count),
                 view_url: `/user/${encodedName}/edits/autoedits`,
               },
-            )}
+            ) : (exp.l('{count}', {
+              count: formatCount($c, editStats.accepted_auto_count),
+            }))}
           </UserProfileProperty>
 
           <UserProfileProperty className="positive" name={l('Total applied')}>
-            {exp.l(
+            {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
                 count: formatCount($c, allAppliedCount),
                 view_url: `/user/${encodedName}/edits/applied`,
               },
-            )}
+            ) : (exp.l('{count}', {
+              count: formatCount($c, allAppliedCount),
+            }))}
           </UserProfileProperty>
 
           <UserProfileProperty className="negative" name={l('Voted down')}>
-            {exp.l(
+            {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
                 count: formatCount($c, editStats.rejected_count),
                 view_url: `/user/${encodedName}/edits/rejected`,
               },
-            )}
+            ) : (exp.l('{count}', {
+              count: formatCount($c, editStats.rejected_count),
+            }))}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Failed')}>
-            {exp.l(
+            {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
                 count: formatCount($c, editStats.failed_count),
                 view_url: `/user/${encodedName}/edits/failed`,
               },
-            )}
+            ) : (exp.l('{count}', {
+              count: formatCount($c, editStats.failed_count),
+            }))}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Cancelled')}>
-            {exp.l(
+            {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
                 count: formatCount($c, editStats.cancelled_count),
                 view_url: `/user/${encodedName}/edits/cancelled`,
               },
-            )}
+            ) : (exp.l('{count}', {
+              count: formatCount($c, editStats.cancelled_count),
+            }))}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Open')}>
-            {exp.l(
+            {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
                 count: formatCount($c, editStats.open_count),
                 view_url: `/user/${encodedName}/edits/open`,
               },
-            )}
+            ) : (exp.l('{count}', {
+              count: formatCount($c, editStats.open_count),
+            }))}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Last 24 hours')}>
-            {exp.l('{count} ({view_url|view})', {
+            {$c.user ? exp.l('{count} ({view_url|view})', {
               count: formatCount($c, editStats.last_day_count),
               view_url: (
                 '/search/edits' +
@@ -601,7 +615,9 @@ const UserProfileStatistics = ({
                 '&negation=0' +
                 '&auto_edit_filter='
               ),
-            })}
+            }) : (exp.l('{count}', {
+              count: formatCount($c, editStats.last_day_count),
+            }))}
           </UserProfileProperty>
         </tbody>
       </table>
@@ -613,9 +629,9 @@ const UserProfileStatistics = ({
         <thead>
           <tr>
             <th colSpan="3">
-              {exp.l('Votes ({view_url|view})', {
+              {$c.user ? exp.l('Votes ({view_url|view})', {
                 view_url: `/user/${encodedName}/votes`,
-              })}
+              }) : l('Votes')}
             </th>
           </tr>
           <tr>
