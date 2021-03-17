@@ -131,14 +131,16 @@ sub build_display_data {
 
     my %data;
 
-    $data{release} = to_json_object(
+    my $release = (
         $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} )
     );
 
+    $data{release} = to_json_object($release);
+
     $data{artwork} = to_json_object(
         $loaded->{Artwork}{ $self->data->{id} } ||
-        Artwork->new(release => $data{release},
+        Artwork->new(release => $release,
                      id => $self->data->{id},
                      comment => $self->data->{new}{comment} // '',
                      cover_art_types => [ map {
@@ -146,7 +148,6 @@ sub build_display_data {
                      } @{ $self->data->{new}{types} // [] }]
         )
     );
-
 
     if ($self->data->{old}{types})
     {

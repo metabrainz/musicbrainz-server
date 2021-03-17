@@ -116,7 +116,7 @@ sub build_display_data
         $data->{ended}{new} = boolean_to_json($data->{ended}{new});
     }
 
-    if (exists $self->data->{new}{type}) {
+    if (exists $self->data->{new}{type_id}) {
         $data->{type}{old} = to_json_object($data->{type}{old});
         $data->{type}{new} = to_json_object($data->{type}{new});
     }
