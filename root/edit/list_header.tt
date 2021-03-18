@@ -24,11 +24,11 @@
                 |
             <a href="[% c.uri_for('/edit/open') %]">[% l('Open edits') %]</a>
             [% END %]
-            [%- IF page != 'subscribed' -%]
+            [%- IF c.user_exists && page != 'subscribed' -%]
             |
             <a href="[% c.uri_for_action('/edit/subscribed') %]">[% l('Subscribed entities') %]</a>
             [% END %]
-            [%- IF page != 'subscribed_editors' -%]
+            [%- IF c.user_exists && page != 'subscribed_editors' -%]
             |
             <a href="[% c.uri_for_action('/edit/subscribed_editors') %]">[% l('Subscribed editors') %]</a>
             [% END %]
