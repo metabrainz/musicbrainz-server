@@ -12,6 +12,14 @@
                 [%- refine_url_args.form_only = 'yes' -%]
                 <a href="[% c.uri_for('/search/edits', refine_url_args) %]">[% l('Refine this search') %]</a>
             [%- END -%]
+            [%- IF user && page == 'user_all' -%]
+                |
+            <a href="[% c.uri_for_action('user/edits/open', [user]) %]">[% l('Open edits for {user}', { user => user }) %]</a>
+            [% END %]
+            [%- IF user && page != 'user_all' -%]
+                |
+            <a href="[% c.uri_for_action('user/edits/all', [user]) %]">[% l('All edits for {user}', { user => user }) %]</a>
+            [% END %]
             [%- IF page != 'open' -%]
                 |
             <a href="[% c.uri_for('/edit/open') %]">[% l('Open edits') %]</a>
