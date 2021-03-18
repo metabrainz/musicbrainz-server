@@ -29,5 +29,5 @@
 
 [% WRAPPER 'layout.tt' title=page_title %]
    <h2>[% page_heading %]</h2>
-   [% INCLUDE 'edit/list.tt' guess_search=1 %]
+   [% INCLUDE 'edit/list.tt' guess_search=1 page=('user_' _ c.action.name) user=user.name %]
 [% END %]
