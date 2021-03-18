@@ -17,7 +17,6 @@ sub _edits {
     $c->stash(
         edits => $edits, # stash early in case an ISE occurs
         template => 'user/edits.tt',
-        search => 0,
     );
 
     load_everything_for_edits($c, $edits);
