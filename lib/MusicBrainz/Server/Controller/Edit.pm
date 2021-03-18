@@ -235,7 +235,20 @@ sub open : Local
         }
     });
 
-    $c->stash( edits => $edits ); # stash early in case an ISE occurs
+    $c->stash(
+        edits => $edits, # stash early in case an ISE occurs
+        refine_url_args =>
+            { auto_edit_filter => '', order=> 'asc', negation=> 0,
+              combinator=>'and',
+              'conditions.0.field' => 'status',
+              'conditions.0.operator' => '=',
+              'conditions.0.args' => '1',
+              'conditions.1.field' => 'editor',
+              'conditions.1.operator' => 'not_me',
+              'conditions.2.field' => 'voter',
+              'conditions.2.operator' => 'me',
+              'conditions.2.args' => 'no', },
+    );
 
     load_everything_for_edits($c, $edits);
     $c->form(add_edit_note => 'EditNote');
@@ -327,6 +340,14 @@ sub subscribed_editors : Local RequireAuth {
     $c->stash(
         edits => $edits, # stash early in case an ISE occurs
         template => 'edit/subscribed-editors.tt',
+        refine_url_args =>
+            { auto_edit_filter => '', order=> 'asc', negation=> 0,
+              combinator=>'and',
+              'conditions.0.field' => 'editor',
+              'conditions.0.operator' => 'subscribed',
+              'conditions.1.field' => 'open_time',
+              'conditions.1.operator' => '>',
+              'conditions.1.args.0' => $c->model('Edit')->_max_open_duration_search_format },
     );
 
     load_everything_for_edits($c, $edits);

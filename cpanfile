@@ -24,6 +24,7 @@ requires 'Data::OptList'                              => '0.109';
 requires 'Data::Page'                                 => '2.02';
 requires 'Data::UUID::MT'                             => '1.000';
 requires 'Date::Calc'                                 => '6.3';
+requires 'DateTime::Format::Duration'                 => '1.04';
 requires 'DateTime::Format::ISO8601'                  => '0.08';
 requires 'DateTime::Format::Natural'                  => '1.08';
 requires 'DateTime::Format::Pg'                       => '0.16013';
