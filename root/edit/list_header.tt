@@ -20,6 +20,22 @@
                 |
             <a href="[% c.uri_for_action('user/edits/all', [user]) %]">[% l('All edits for {user}', { user => user }) %]</a>
             [% END %]
+            [%- IF page == 'subscribed' && !(c.req.query_params.open == 1) -%]
+                |
+            <a href="[% c.uri_for_action('edit/subscribed', { open => 1 }) %]">[% l('Open edits for your subscribed entities') %]</a>
+            [% END %]
+            [%- IF page == 'subscribed' && c.req.query_params.open == 1 -%]
+                |
+            <a href="[% c.uri_for_action('edit/subscribed', { open => 0 }) %]">[% l('All edits for your subscribed entities') %]</a>
+            [% END %]
+            [%- IF page == 'subscribed_editors' && !(c.req.query_params.open == 1) -%]
+                |
+            <a href="[% c.uri_for_action('edit/subscribed_editors', { open => 1 }) %]">[% l('Open edits for your subscribed editors') %]</a>
+            [% END %]
+            [%- IF page == 'subscribed_editors' && c.req.query_params.open == 1 -%]
+                |
+            <a href="[% c.uri_for_action('edit/subscribed_editors', { open => 0 }) %]">[% l('All edits for your subscribed editors') %]</a>
+            [% END %]
             [%- IF page != 'open' -%]
                 |
             <a href="[% c.uri_for('/edit/open') %]">[% l('Open edits') %]</a>
