@@ -32,6 +32,10 @@
             |
             <a href="[% c.uri_for_action('/edit/subscribed_editors') %]">[% l('Subscribed editors') %]</a>
             [% END %]
+            [%- IF c.user_exists -%]
+            |
+            <a href="[% c.uri_for_action('/vote/index') %]">[% l('Voting suggestions') %]</a>
+            [% END %]
         </td>
     </tr>
     <tr>
