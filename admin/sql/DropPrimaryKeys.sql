@@ -242,6 +242,8 @@ ALTER TABLE place_attribute DROP CONSTRAINT IF EXISTS place_attribute_pkey;
 ALTER TABLE place_attribute_type DROP CONSTRAINT IF EXISTS place_attribute_type_pkey;
 ALTER TABLE place_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS place_attribute_type_allowed_value_pkey;
 ALTER TABLE place_gid_redirect DROP CONSTRAINT IF EXISTS place_gid_redirect_pkey;
+ALTER TABLE place_meta DROP CONSTRAINT IF EXISTS place_meta_pkey;
+ALTER TABLE place_rating_raw DROP CONSTRAINT IF EXISTS place_rating_raw_pkey;
 ALTER TABLE place_tag DROP CONSTRAINT IF EXISTS place_tag_pkey;
 ALTER TABLE place_tag_raw DROP CONSTRAINT IF EXISTS place_tag_raw_pkey;
 ALTER TABLE place_type DROP CONSTRAINT IF EXISTS place_type_pkey;

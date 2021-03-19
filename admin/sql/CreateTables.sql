@@ -2655,6 +2655,19 @@ CREATE TABLE place_gid_redirect ( -- replicate (verbose)
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE place_meta ( -- replicate
+    id                  INTEGER NOT NULL, -- PK, references place.id CASCADE
+    rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
+    rating_count        INTEGER
+);
+
+CREATE TABLE place_rating_raw
+(
+    place               INTEGER NOT NULL, -- PK, references place.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
+);
+
 CREATE TABLE place_tag ( -- replicate (verbose)
     place               INTEGER NOT NULL, -- PK, references place.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id

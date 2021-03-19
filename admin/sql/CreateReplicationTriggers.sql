@@ -735,6 +735,10 @@ CREATE TRIGGER "reptg_place_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "place_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_place_meta"
+AFTER INSERT OR DELETE OR UPDATE ON "place_meta"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_place_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "place_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

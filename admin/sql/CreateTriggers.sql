@@ -373,6 +373,9 @@ CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium
 CREATE TRIGGER b_upd_medium_cdtoc BEFORE UPDATE ON medium_cdtoc
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER a_ins_place AFTER INSERT ON place
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_place();
+
 CREATE TRIGGER b_upd_place BEFORE UPDATE ON place
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 

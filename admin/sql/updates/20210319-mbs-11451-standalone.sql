@@ -1,0 +1,9 @@
+\set ON_ERROR_STOP 1
+BEGIN;
+
+DROP TRIGGER IF EXISTS a_ins_place ON place;
+
+CREATE TRIGGER a_ins_place AFTER INSERT ON place
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_place();
+
+COMMIT;

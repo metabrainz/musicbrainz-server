@@ -242,6 +242,8 @@ ALTER TABLE place_attribute ADD CONSTRAINT place_attribute_pkey PRIMARY KEY (id)
 ALTER TABLE place_attribute_type ADD CONSTRAINT place_attribute_type_pkey PRIMARY KEY (id);
 ALTER TABLE place_attribute_type_allowed_value ADD CONSTRAINT place_attribute_type_allowed_value_pkey PRIMARY KEY (id);
 ALTER TABLE place_gid_redirect ADD CONSTRAINT place_gid_redirect_pkey PRIMARY KEY (gid);
+ALTER TABLE place_meta ADD CONSTRAINT place_meta_pkey PRIMARY KEY (id);
+ALTER TABLE place_rating_raw ADD CONSTRAINT place_rating_raw_pkey PRIMARY KEY (place, editor);
 ALTER TABLE place_tag ADD CONSTRAINT place_tag_pkey PRIMARY KEY (place, tag);
 ALTER TABLE place_tag_raw ADD CONSTRAINT place_tag_raw_pkey PRIMARY KEY (place, editor, tag);
 ALTER TABLE place_type ADD CONSTRAINT place_type_pkey PRIMARY KEY (id);

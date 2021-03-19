@@ -456,6 +456,8 @@ CREATE UNIQUE INDEX place_attribute_type_allowed_value_idx_gid ON place_attribut
 
 CREATE UNIQUE INDEX place_alias_type_idx_gid ON place_alias_type (gid);
 
+CREATE INDEX place_rating_raw_idx_editor ON place_rating_raw (editor);
+
 CREATE INDEX place_tag_idx_tag ON place_tag (tag);
 
 CREATE INDEX place_tag_raw_idx_tag ON place_tag_raw (tag);
