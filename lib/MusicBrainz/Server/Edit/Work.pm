@@ -3,7 +3,7 @@ use List::UtilsBy qw( partition_by );
 use Moose::Role;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Translation 'l';
 
 sub edit_category { l('Work') }
@@ -21,16 +21,21 @@ sub grouped_attributes_by_type {
         grep { $_ } map { $_->{attribute_value_id} } @$attributes
     );
 
-    return partition_by { $_->type->l_name } map {
-        my $attr = MusicBrainz::Server::Entity::WorkAttribute->new(
+    my %partitioned_attributes = partition_by { $_->type->l_name } map {
+        MusicBrainz::Server::Entity::WorkAttribute->new(
             id => $_->{id},
             type_id => $_->{attribute_type_id},
             type => $attribute_types->{$_->{attribute_type_id}},
             value => $_->{attribute_text} // $attribute_values->{$_->{attribute_value_id}}->value,
             value_id => $_->{attribute_value_id}
         );
-        $to_json ? to_json_object($attr) : $attr;
     } @$attributes;
+
+    if ($to_json) {
+        %partitioned_attributes = map { $_ => to_json_array($partitioned_attributes{$_}) } keys %partitioned_attributes;
+    }
+
+    return %partitioned_attributes;
 }
 
 1;
