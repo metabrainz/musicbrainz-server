@@ -65,6 +65,7 @@ TRUNCATE TABLE editor_collection_artist RESTART IDENTITY CASCADE;
 TRUNCATE TABLE editor_collection_collaborator RESTART IDENTITY CASCADE;
 TRUNCATE TABLE editor_collection_deleted_entity RESTART IDENTITY CASCADE;
 TRUNCATE TABLE editor_collection_event RESTART IDENTITY CASCADE;
+TRUNCATE TABLE editor_collection_gid_redirect RESTART IDENTITY CASCADE;
 TRUNCATE TABLE editor_collection_instrument RESTART IDENTITY CASCADE;
 TRUNCATE TABLE editor_collection_label RESTART IDENTITY CASCADE;
 TRUNCATE TABLE editor_collection_place RESTART IDENTITY CASCADE;

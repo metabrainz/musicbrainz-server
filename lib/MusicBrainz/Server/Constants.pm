@@ -774,6 +774,7 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     editor_collection_artist
     editor_collection_collaborator
     editor_collection_event
+    editor_collection_gid_redirect
     editor_collection_instrument
     editor_collection_label
     editor_collection_place

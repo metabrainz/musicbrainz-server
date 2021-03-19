@@ -4,6 +4,7 @@
 -- 20201028-mbs-1424.sql
 -- 20210215-mbs-11268.sql
 -- 20210309-mbs-11431.sql
+-- 20210319-mbs-10208.sql
 -- 20210319-mbs-11451.sql
 -- 20210319-mbs-11453.sql
 -- 20210319-mbs-11464.sql
@@ -389,6 +390,22 @@ CREATE INDEX IF NOT EXISTS series_alias_idx_lower_unaccent_name ON series_alias 
 
 DROP INDEX IF EXISTS artist_idx_lower_name;
 DROP INDEX IF EXISTS label_idx_lower_name;
+
+--------------------------------------------------------------------------------
+SELECT '20210319-mbs-10208.sql';
+
+
+CREATE TABLE editor_collection_gid_redirect (
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references editor_collection.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE editor_collection_gid_redirect
+    ADD CONSTRAINT editor_collection_gid_redirect_pkey
+    PRIMARY KEY (gid);
+
+CREATE INDEX editor_collection_gid_redirect_idx_new_id ON editor_collection_gid_redirect (new_id);
 
 --------------------------------------------------------------------------------
 SELECT '20210319-mbs-11451.sql';

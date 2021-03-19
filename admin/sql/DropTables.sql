@@ -65,6 +65,7 @@ DROP TABLE editor_collection_artist;
 DROP TABLE editor_collection_collaborator;
 DROP TABLE editor_collection_deleted_entity;
 DROP TABLE editor_collection_event;
+DROP TABLE editor_collection_gid_redirect;
 DROP TABLE editor_collection_instrument;
 DROP TABLE editor_collection_label;
 DROP TABLE editor_collection_place;

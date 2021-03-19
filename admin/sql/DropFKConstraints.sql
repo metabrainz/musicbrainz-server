@@ -117,6 +117,7 @@ ALTER TABLE editor_collection_deleted_entity DROP CONSTRAINT IF EXISTS editor_co
 ALTER TABLE editor_collection_deleted_entity DROP CONSTRAINT IF EXISTS editor_collection_deleted_entity_fk_gid;
 ALTER TABLE editor_collection_event DROP CONSTRAINT IF EXISTS editor_collection_event_fk_collection;
 ALTER TABLE editor_collection_event DROP CONSTRAINT IF EXISTS editor_collection_event_fk_event;
+ALTER TABLE editor_collection_gid_redirect DROP CONSTRAINT IF EXISTS editor_collection_gid_redirect_fk_new_id;
 ALTER TABLE editor_collection_instrument DROP CONSTRAINT IF EXISTS editor_collection_instrument_fk_collection;
 ALTER TABLE editor_collection_instrument DROP CONSTRAINT IF EXISTS editor_collection_instrument_fk_instrument;
 ALTER TABLE editor_collection_label DROP CONSTRAINT IF EXISTS editor_collection_label_fk_collection;

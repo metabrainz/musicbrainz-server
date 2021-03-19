@@ -65,6 +65,7 @@ ALTER TABLE editor_collection_artist DROP CONSTRAINT IF EXISTS editor_collection
 ALTER TABLE editor_collection_collaborator DROP CONSTRAINT IF EXISTS editor_collection_collaborator_pkey;
 ALTER TABLE editor_collection_deleted_entity DROP CONSTRAINT IF EXISTS editor_collection_deleted_entity_pkey;
 ALTER TABLE editor_collection_event DROP CONSTRAINT IF EXISTS editor_collection_event_pkey;
+ALTER TABLE editor_collection_gid_redirect DROP CONSTRAINT IF EXISTS editor_collection_gid_redirect_pkey;
 ALTER TABLE editor_collection_instrument DROP CONSTRAINT IF EXISTS editor_collection_instrument_pkey;
 ALTER TABLE editor_collection_label DROP CONSTRAINT IF EXISTS editor_collection_label_pkey;
 ALTER TABLE editor_collection_place DROP CONSTRAINT IF EXISTS editor_collection_place_pkey;

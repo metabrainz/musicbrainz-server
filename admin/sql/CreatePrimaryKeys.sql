@@ -65,6 +65,7 @@ ALTER TABLE editor_collection_artist ADD CONSTRAINT editor_collection_artist_pke
 ALTER TABLE editor_collection_collaborator ADD CONSTRAINT editor_collection_collaborator_pkey PRIMARY KEY (collection, editor);
 ALTER TABLE editor_collection_deleted_entity ADD CONSTRAINT editor_collection_deleted_entity_pkey PRIMARY KEY (collection, gid);
 ALTER TABLE editor_collection_event ADD CONSTRAINT editor_collection_event_pkey PRIMARY KEY (collection, event);
+ALTER TABLE editor_collection_gid_redirect ADD CONSTRAINT editor_collection_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE editor_collection_instrument ADD CONSTRAINT editor_collection_instrument_pkey PRIMARY KEY (collection, instrument);
 ALTER TABLE editor_collection_label ADD CONSTRAINT editor_collection_label_pkey PRIMARY KEY (collection, label);
 ALTER TABLE editor_collection_place ADD CONSTRAINT editor_collection_place_pkey PRIMARY KEY (collection, place);

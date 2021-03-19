@@ -82,6 +82,7 @@ DROP INDEX edit_release_idx;
 DROP INDEX edit_series_idx;
 DROP INDEX edit_url_idx;
 DROP INDEX edit_work_idx;
+DROP INDEX editor_collection_gid_redirect_idx_new_id;
 DROP INDEX editor_collection_idx_editor;
 DROP INDEX editor_collection_idx_gid;
 DROP INDEX editor_collection_type_idx_gid;
