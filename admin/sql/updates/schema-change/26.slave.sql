@@ -3,6 +3,7 @@
 -- 20200914-oauth-pkce.sql
 -- 20201028-mbs-1424.sql
 -- 20210309-mbs-11431.sql
+-- 20210319-mbs-11464.sql
 -- 20210406-mbs-11459.sql
 \set ON_ERROR_STOP 1
 BEGIN;
@@ -349,6 +350,11 @@ CREATE INDEX CONCURRENTLY series_alias_idx_lower_unaccent_name ON series_alias (
 
 DROP INDEX CONCURRENTLY IF EXISTS artist_idx_lower_name;
 DROP INDEX CONCURRENTLY IF EXISTS label_idx_lower_name;
+
+--------------------------------------------------------------------------------
+SELECT '20210319-mbs-11464.sql';
+
+DROP TABLE IF EXISTS statistics.log_statistic;
 
 --------------------------------------------------------------------------------
 SELECT '20210406-mbs-11459.sql';
