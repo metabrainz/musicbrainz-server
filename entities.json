@@ -430,6 +430,7 @@
         "model": "Place",
         "plural": "places",
         "plural_url": "places",
+        "ratings": true,
         "removal": {
             "automatic": {}
         },

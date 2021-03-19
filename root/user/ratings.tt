@@ -2,6 +2,7 @@
   titles = { 'artist' => l('Artist ratings'),
              'event' => l('Event ratings'),
              'label' => l('Label ratings'),
+             'place' => l('Place ratings'),
              'recording' => l('Recording ratings'),
              'release_group' => l('Release group ratings'),
              'work' => l('Work ratings')

@@ -1639,6 +1639,26 @@ my %stats = (
         PREREQ => [qw[ count.rating.label ]],
         PREREQ_ONLY => 1,
     },
+    "count.rating.place" => {
+        DESC => "Count of place ratings",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_single_row_array(
+                "SELECT COUNT(*), SUM(rating_count) FROM place_meta WHERE rating_count > 0",
+            );
+
+            +{
+                "count.rating.place"        => $data->[0]   || 0,
+                "count.rating.raw.place"    => $data->[1]   || 0,
+            };
+        },
+    },
+    "count.rating.raw.place" => {
+        DESC => "Count of all place raw ratings",
+        PREREQ => [qw[ count.rating.place ]],
+        PREREQ_ONLY => 1,
+    },
     "count.rating.work" => {
         DESC => "Count of work ratings",
         CALC => sub {
