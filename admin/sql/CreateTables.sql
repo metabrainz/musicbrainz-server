@@ -2175,7 +2175,7 @@ CREATE TABLE language ( -- replicate
     iso_code_2b         CHAR(3), -- ISO 639-2 (B)
     iso_code_1          CHAR(2), -- ISO 639
     name                VARCHAR(100) NOT NULL,
-    frequency           INTEGER NOT NULL DEFAULT 0,
+    frequency           SMALLINT NOT NULL DEFAULT 0,
     iso_code_3          CHAR(3)  -- ISO 639-3
 );
 
@@ -3166,7 +3166,7 @@ CREATE TABLE script ( -- replicate
     iso_code            CHAR(4) NOT NULL, -- ISO 15924
     iso_number          CHAR(3) NOT NULL, -- ISO 15924
     name                VARCHAR(100) NOT NULL,
-    frequency           INTEGER NOT NULL DEFAULT 0
+    frequency           SMALLINT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE series ( -- replicate (verbose)

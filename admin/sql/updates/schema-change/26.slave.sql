@@ -4,6 +4,7 @@
 -- 20201028-mbs-1424.sql
 -- 20210309-mbs-11431.sql
 -- 20210319-mbs-11464.sql
+-- 20210319-mbs-11466.sql
 -- 20210406-mbs-11459.sql
 \set ON_ERROR_STOP 1
 BEGIN;
@@ -355,6 +356,15 @@ DROP INDEX CONCURRENTLY IF EXISTS label_idx_lower_name;
 SELECT '20210319-mbs-11464.sql';
 
 DROP TABLE IF EXISTS statistics.log_statistic;
+
+--------------------------------------------------------------------------------
+SELECT '20210319-mbs-11466.sql';
+
+ALTER TABLE language
+    ALTER COLUMN frequency SET DATA TYPE SMALLINT;
+
+ALTER TABLE script
+    ALTER COLUMN frequency SET DATA TYPE SMALLINT;
 
 --------------------------------------------------------------------------------
 SELECT '20210406-mbs-11459.sql';
