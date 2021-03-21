@@ -56,7 +56,7 @@ const Homepage = ({
                by allowing anyone to contribute and releasing the {doc|data}
                under {doc2|open licenses}.`,
               {
-                doc: '/doc/MusicBrainz_Documentation',
+                doc: '/doc/MusicBrainz_Database',
                 doc2: '/doc/About/Data_License',
               },
             )}
