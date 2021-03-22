@@ -285,7 +285,7 @@
     <table class="advanced-format">
       <tr>
         <td class="icon">
-          <button type="button" class="icon collapse-disc" data-click="toggleMedium" data-bind="css: { 'expand-disc': collapsed, 'collapse-disc': !collapsed() }, attr: { title: collapsed() ? '[% l('Expand Disc') %]' : '[% l('Collapse Disc') %]' }"></button>
+          <button type="button" class="icon collapse-disc" data-click="toggleMedium" data-bind="css: { 'expand-disc': collapsed, 'collapse-disc': !collapsed() }, attr: { title: collapsed() ? '[% l('Expand medium') %]' : '[% l('Collapse medium') %]' }"></button>
         </td>
 
         <td class="format">
@@ -302,9 +302,9 @@
           </label>
           (<a href="[% c.uri_for('/doc/Release/Format') %]" target="_blank">[% l('help') %]</a>)
           <!-- ko if: release.mediums().length > 1 || name() -->
-            <label data-bind="attr: { for: 'disc-title-' + uniqueID }">[% l('Disc title:') %]</label>
+            <label data-bind="attr: { for: 'disc-title-' + uniqueID }">[% l('Medium title:') %]</label>
             <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + uniqueID }" />
-            <button type="button" class="icon guesscase-title" title="[% l('Guess case disc title') %]" data-click="guessCaseMediumName"></button>
+            <button type="button" class="icon guesscase-title" title="[% l('Guess case medium title') %]" data-click="guessCaseMediumName"></button>
           <!-- /ko -->
           <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: needsFormat">
             [%~ l('A format is required. If you don’t know it, tick the “I don’t know” checkbox next to the format dropdown.') %]
@@ -312,9 +312,9 @@
         </td>
 
         <td class="align-right icon" >
-          <button type="button" class="icon disc-down" title="[% l('Move disc down') %]" data-click="moveMediumDown"></button>
-          <button type="button" class="icon disc-up" title="[% l('Move disc up') %]" data-click="moveMediumUp"></button>
-          <button type="button" class="icon remove-item" title="[% l('Remove disc') %]" style="margin-left: 16px" data-click="removeMedium"></button>
+          <button type="button" class="icon disc-down" title="[% l('Move medium down') %]" data-click="moveMediumDown"></button>
+          <button type="button" class="icon disc-up" title="[% l('Move medium up') %]" data-click="moveMediumUp"></button>
+          <button type="button" class="icon remove-item" title="[% l('Remove medium') %]" style="margin-left: 16px" data-click="removeMedium"></button>
         </td>
       </tr>
 
