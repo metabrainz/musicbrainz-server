@@ -652,6 +652,7 @@ const URL_SHORTENERS = [
   'tiny.cc',
   'tinyurl.com',
   'tourlink.to',
+  'trac.co', // Host links can be legitimate; non-root paths are aggregators
   'u.nu',
   'unitedmasters.com',
   'untd.io',
