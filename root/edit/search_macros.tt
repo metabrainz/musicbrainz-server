@@ -345,6 +345,7 @@
                    [ 'subscribed', l('include an editor in my subscriptions') ]
                    [ 'not_subscribed', l('do not include editors in my subscriptions') ]
                    [ 'limited', l('include a beginner editor') ]
+                   [ 'not_edit_author', l('include someone other than the edit author') ]
                 ], field_contents) %]
   [% ELSE %]
     [% operators([ [ '=', l('is') ]
