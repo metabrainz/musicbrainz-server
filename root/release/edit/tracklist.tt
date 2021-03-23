@@ -1,5 +1,5 @@
 <script type="text/html" id="template.track-parser">
-  [%# the track-parser-dialog is a simplified version of the add-disc-dialog. %]
+  [%# the track-parser-dialog is a simplified version of the add-medium-dialog. %]
   <p>[% l('Enter a tracklist below:') %]</p>
 
   <textarea class="tracklist" data-bind="value: toBeParsed"></textarea>
@@ -226,32 +226,32 @@
   </div>
 </div>
 
-<div id="add-disc-dialog" style="display: none;" data-bind="with: $root.addDiscDialog, delegatedHandler: ['click', 'keydown']">
+<div id="add-medium-dialog" style="display: none;" data-bind="with: $root.addMediumDialog, delegatedHandler: ['click', 'keydown']">
   <p>[% l('To create a new tracklist, use an existing medium or import a disc from a CD stub, select the appropriate tab.') %]</p>
 
   <ul>
-    <li><a href="#add-disc-parser">[% l('Manual entry') %]</a></li>
-    <li><a href="#add-disc-medium">[% l('Existing medium') %]</a></li>
-    <li><a href="#add-disc-cdstub">[% l('CD stub import') %]</a></li>
+    <li><a href="#add-medium-parser">[% l('Manual entry') %]</a></li>
+    <li><a href="#add-medium-existing">[% l('Existing medium') %]</a></li>
+    <li><a href="#add-medium-cdstub">[% l('CD stub import') %]</a></li>
   </ul>
 
-  <div id="add-disc-parser">
+  <div id="add-medium-parser">
     <!-- ko template: { name: "template.track-parser", data: trackParser } --><!-- /ko -->
   </div>
 
-  <div id="add-disc-medium">
+  <div id="add-medium-existing">
     <p>[% l('Use the following fields to search for an existing medium.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: mediumSearch } --><!-- /ko -->
   </div>
 
-  <div id="add-disc-cdstub">
+  <div id="add-medium-cdstub">
     <p>[% l('Use the following fields to search for a CD stub.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: cdstubSearch } --><!-- /ko -->
   </div>
 
   <div class="buttons">
     <button type="button" class="negative" id="close-add-medium" data-click="close">[% l('Close') %]</button>
-    <button type="button" style="float: right" class="positive" data-click="addDisc" data-bind="enable: currentTab().result()">[% l('Add Medium') %]</button>
+    <button type="button" style="float: right" class="positive" data-click="addMedium" data-bind="enable: currentTab().result()">[% l('Add Medium') %]</button>
   </div>
 </div>
 
@@ -279,18 +279,18 @@
   <!-- /ko -->
 
   <!-- ko loop: { items: mediums, id: 'uniqueID' } -->
-  <fieldset class="advanced-disc">
+  <fieldset class="advanced-medium">
     <legend data-bind="text: formattedName()"></legend>
 
     <table class="advanced-format">
       <tr>
         <td class="icon">
-          <button type="button" class="icon collapse-disc" data-click="toggleMedium" data-bind="css: { 'expand-disc': collapsed, 'collapse-disc': !collapsed() }, attr: { title: collapsed() ? '[% l('Expand medium') %]' : '[% l('Collapse medium') %]' }"></button>
+          <button type="button" class="icon collapse-medium" data-click="toggleMedium" data-bind="css: { 'expand-medium': collapsed, 'collapse-medium': !collapsed() }, attr: { title: collapsed() ? '[% l('Expand medium') %]' : '[% l('Collapse medium') %]' }"></button>
         </td>
 
         <td class="format">
-          <label data-bind="attr: { for: 'disc-format-' + uniqueID }">[% l('Format:') %]</label>
-          <select data-bind="value: formatID, attr: { id: 'disc-format-' + uniqueID }">
+          <label data-bind="attr: { for: 'medium-format-' + uniqueID }">[% l('Format:') %]</label>
+          <select data-bind="value: formatID, attr: { id: 'medium-format-' + uniqueID }">
             <option value="" selected="selected">—</option>
             [%- FOR format=formats %]
             <option value="[% format.value %]">[% format.label %]</option>
@@ -302,8 +302,8 @@
           </label>
           (<a href="[% c.uri_for('/doc/Release/Format') %]" target="_blank">[% l('help') %]</a>)
           <!-- ko if: release.mediums().length > 1 || name() -->
-            <label data-bind="attr: { for: 'disc-title-' + uniqueID }">[% l('Medium title:') %]</label>
-            <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + uniqueID }" />
+            <label data-bind="attr: { for: 'medium-title-' + uniqueID }">[% l('Medium title:') %]</label>
+            <input type="text" data-bind="value: name, attr: { id: 'medium-title-' + uniqueID }" />
             <button type="button" class="icon guesscase-title" title="[% l('Guess case medium title') %]" data-click="guessCaseMediumName"></button>
           <!-- /ko -->
           <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: needsFormat">
@@ -312,8 +312,8 @@
         </td>
 
         <td class="align-right icon" >
-          <button type="button" class="icon disc-down" title="[% l('Move medium down') %]" data-click="moveMediumDown"></button>
-          <button type="button" class="icon disc-up" title="[% l('Move medium up') %]" data-click="moveMediumUp"></button>
+          <button type="button" class="icon medium-down" title="[% l('Move medium down') %]" data-click="moveMediumDown"></button>
+          <button type="button" class="icon medium-up" title="[% l('Move medium up') %]" data-click="moveMediumUp"></button>
           <button type="button" class="icon remove-item" title="[% l('Remove medium') %]" style="margin-left: 16px" data-click="removeMedium"></button>
         </td>
       </tr>

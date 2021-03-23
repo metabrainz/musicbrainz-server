@@ -226,12 +226,12 @@ releaseEditor.init = function (options) {
   });
 
   /*
-   * Handle showing/hiding the AddDisc dialog when the user switches to/from
+   * Handle showing/hiding the AddMedium dialog when the user switches to/from
    * the tracklist tab.
    */
 
   utils.withRelease(function (release) {
-    self.autoOpenTheAddDiscDialog(release);
+    self.autoOpenTheAddMediumDialog(release);
   });
 
   // Keep track of recordings associated with the current release group.
@@ -391,21 +391,21 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
   return this.externalLinks;
 };
 
-releaseEditor.autoOpenTheAddDiscDialog = function (release) {
-  var addDiscUI = $(this.addDiscDialog.element).data('ui-dialog');
+releaseEditor.autoOpenTheAddMediumDialog = function (release) {
+  var addMediumUI = $(this.addMediumDialog.element).data('ui-dialog');
   var trackParserUI = $(this.trackParserDialog.element).data('ui-dialog');
 
   // Show the dialog if there's no non-empty disc.
   if (this.activeTabID() === '#tracklist') {
-    var dialogIsOpen = (addDiscUI && addDiscUI.isOpen()) ||
+    var dialogIsOpen = (addMediumUI && addMediumUI.isOpen()) ||
         (trackParserUI && trackParserUI.isOpen());
 
     if (!dialogIsOpen && release.hasOneEmptyMedium() &&
                             !release.mediums()[0].loading()) {
-      this.addDiscDialog.open();
+      this.addMediumDialog.open();
     }
-  } else if (addDiscUI) {
-    addDiscUI.close();
+  } else if (addMediumUI) {
+    addMediumUI.close();
   }
 };
 

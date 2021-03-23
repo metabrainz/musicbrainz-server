@@ -65,7 +65,7 @@ Object.assign(trackParserDialog, {
     !error && medium.tracks(newTracks);
   },
 
-  addDisc: function () {
+  addMedium: function () {
     this.parse();
     return this.error() ? null : this.medium;
   },
@@ -251,14 +251,14 @@ class SearchTab {
     this.searchResults(results.map(x => new SearchResult(this, x)));
   }
 
-  addDisc() {
+  addMedium() {
     const release = releaseEditor.rootField.release();
     const medium = new fields.Medium(this.result(), release);
 
     medium.name('');
 
-    if (this._addDisc) {
-      this._addDisc(medium);
+    if (this._addMedium) {
+      this._addMedium(medium);
     }
 
     return medium;
@@ -287,7 +287,7 @@ Object.assign(mediumSearchTab, {
     return [this.endpoint, result.medium_id].join('/');
   },
 
-  _addDisc(medium) {
+  _addMedium(medium) {
     medium.loaded(true);
     medium.collapsed(false);
   },
@@ -305,10 +305,10 @@ Object.assign(cdstubSearchTab, {
 });
 
 
-export const addDiscDialog = releaseEditor.addDiscDialog = new Dialog();
+export const addMediumDialog = releaseEditor.addMediumDialog = new Dialog();
 
-Object.assign(addDiscDialog, {
-  element: '#add-disc-dialog',
+Object.assign(addMediumDialog, {
+  element: '#add-medium-dialog',
   title: l('Add Medium'),
 
   trackParser: trackParserDialog,
@@ -336,15 +336,15 @@ Object.assign(addDiscDialog, {
     Dialog.prototype.open.apply(this, arguments);
   },
 
-  addDisc: function () {
-    var medium = this.currentTab().addDisc();
+  addMedium: function () {
+    var medium = this.currentTab().addMedium();
     if (!medium) {
       return;
     }
 
     var release = releaseEditor.rootField.release();
 
-    // If there's only one empty disc, replace it.
+    // If there's only one empty medium, replace it.
     if (release.hasOneEmptyMedium()) {
       medium.position(1);
 
@@ -372,13 +372,13 @@ Object.assign(addDiscDialog, {
 
 
 $(function () {
-  $('#add-disc-parser').data('model', addDiscDialog.trackParser);
-  $('#add-disc-medium').data('model', mediumSearchTab);
-  $('#add-disc-cdstub').data('model', cdstubSearchTab);
+  $('#add-medium-parser').data('model', addMediumDialog.trackParser);
+  $('#add-medium-existing').data('model', mediumSearchTab);
+  $('#add-medium-cdstub').data('model', cdstubSearchTab);
 
-  $(addDiscDialog.element).tabs({
+  $(addMediumDialog.element).tabs({
     activate: function (event, ui) {
-      addDiscDialog.currentTab(ui.newPanel.data('model'));
+      addMediumDialog.currentTab(ui.newPanel.data('model'));
     },
   });
 });

@@ -214,47 +214,47 @@
     // Paste half of the tracklist into the track parser.
     {
       command: 'type',
-      target: "xpath=//div[@id='add-disc-parser']//textarea[contains(@class, 'tracklist')]",
+      target: "xpath=//div[@id='add-medium-parser']//textarea[contains(@class, 'tracklist')]",
       value: 'A1 Mr Self Destruct - nin 4:31\nA2 Piggy - nin 4:24\nA3 Heresy - nin 3:54\nA4 March of the Pigs - nin 2:58\nA5 Closer - nin 6:13\nA6 Ruiner - nin 4:59\nA7 The Becoming - nin 5:32',
     },
     {
       command: 'check',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-numbers']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='lines-have-numbers']",
       value: '',
     },
     {
       command: 'check',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='enable-vinyl-numbers']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='enable-vinyl-numbers']",
       value: '',
     },
     {
       command: 'check',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-artists']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='lines-have-artists']",
       value: '',
     },
     {
       command: 'check',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-numbers']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='use-numbers']",
       value: '',
     },
     {
       command: 'check',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-artists']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='use-artists']",
       value: '',
     },
     {
       command: 'check',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-titles']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='use-titles']",
       value: '',
     },
     {
       command: 'check',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-lengths']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='use-lengths']",
       value: '',
     },
     {
       command: 'click',
-      target: "xpath=//div[@id='add-disc-dialog']//button[contains(text(), 'Add Medium')]",
+      target: "xpath=//div[@id='add-medium-dialog']//button[contains(text(), 'Add Medium')]",
       value: '',
     },
     // Fill in the track artists.
@@ -1160,7 +1160,7 @@
     },
     {
       command: 'select',
-      target: 'id=disc-format-1',
+      target: 'id=medium-format-1',
       value: 'label=CD',
     },
     {

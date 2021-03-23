@@ -38,42 +38,42 @@
     },
     {
       command: 'uncheck',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-numbers']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='lines-have-numbers']",
       value: '',
     },
     {
       command: 'uncheck',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-artists']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='lines-have-artists']",
       value: '',
     },
     {
       command: 'uncheck',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-numbers']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='use-numbers']",
       value: '',
     },
     {
       command: 'check',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-titles']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='use-titles']",
       value: '',
     },
     {
       command: 'uncheck',
-      target: "xpath=//div[@id='add-disc-dialog']//input[@name='use-lengths']",
+      target: "xpath=//div[@id='add-medium-dialog']//input[@name='use-lengths']",
       value: '',
     },
     {
       command: 'type',
-      target: "xpath=//div[@id='add-disc-parser']//textarea[contains(@class, 'tracklist')]",
+      target: "xpath=//div[@id='add-medium-parser']//textarea[contains(@class, 'tracklist')]",
       value: 'test',
     },
     {
       command: 'click',
-      target: "xpath=//div[@id='add-disc-dialog']//button[contains(text(), 'Add Medium')]",
+      target: "xpath=//div[@id='add-medium-dialog']//button[contains(text(), 'Add Medium')]",
       value: '',
     },
     {
       command: 'select',
-      target: "xpath=(//select[contains(@id, 'disc-format-')])[1]",
+      target: "xpath=(//select[contains(@id, 'medium-format-')])[1]",
       value: 'label=Vinyl',
     },
     // Check that the parsed track does use "Various Artists" from the release artist.
