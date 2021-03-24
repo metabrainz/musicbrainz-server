@@ -12,7 +12,7 @@ import test from 'tape';
 import '../../../lib/jquery-ui';
 
 import {
-  addDiscDialog,
+  addMediumDialog,
   mediumSearchTab,
   trackParserDialog,
 } from '../../release-editor/dialogs';
@@ -45,7 +45,7 @@ function dialogTest(name, callback) {
       .attr('id', 'fixture')
       .appendTo('body')
       .append(
-        $('<div>').attr('id', 'add-disc-dialog').hide(),
+        $('<div>').attr('id', 'add-medium-dialog').hide(),
         $('<div>').attr('id', 'track-parser-dialog').hide(),
       );
 
@@ -58,7 +58,7 @@ function dialogTest(name, callback) {
 }
 
 dialogTest((
-  'adding an empty medium via the add-disc dialog is allowed (MBS-7221)'
+  'adding an empty medium via the add-medium dialog is allowed (MBS-7221)'
 ), function (t, release) {
   t.plan(3);
 
@@ -75,35 +75,35 @@ dialogTest((
     'first medium has tracks after using track parser',
   );
 
-  addDiscDialog.open();
-  addDiscDialog.currentTab(trackParserDialog);
-  addDiscDialog.trackParser.toBeParsed('\n\t\n');
-  addDiscDialog.addDisc();
+  addMediumDialog.open();
+  addMediumDialog.currentTab(trackParserDialog);
+  addMediumDialog.trackParser.toBeParsed('\n\t\n');
+  addMediumDialog.addMedium();
 
   t.ok(!mediums()[1].hasTracks(), 'new empty medium was added');
 });
 
 dialogTest((
-  'switching to the tracklist tab opens the add-disc dialog if there’s only one empty medium'
+  'switching to the tracklist tab opens the add-medium dialog if there’s only one empty medium'
 ), function (t, release) {
   t.plan(3);
 
   releaseEditor.activeTabID('#tracklist');
-  releaseEditor.autoOpenTheAddDiscDialog(release);
+  releaseEditor.autoOpenTheAddMediumDialog(release);
 
-  var uiDialog = $(addDiscDialog.element).data('ui-dialog');
+  var uiDialog = $(addMediumDialog.element).data('ui-dialog');
 
   t.ok(
     uiDialog.isOpen(),
-    'add-disc dialog is open after switching to the tracklist tab',
+    'add-medium dialog is open after switching to the tracklist tab',
   );
 
   releaseEditor.activeTabID('#information');
-  releaseEditor.autoOpenTheAddDiscDialog(release);
+  releaseEditor.autoOpenTheAddMediumDialog(release);
 
   t.ok(
     !uiDialog.isOpen(),
-    'add-disc dialog is closed after switching back to the information tab',
+    'add-medium dialog is closed after switching back to the information tab',
   );
 
   release.mediums()[0].tracks.push(
@@ -111,16 +111,16 @@ dialogTest((
   );
 
   releaseEditor.activeTabID('#information');
-  releaseEditor.autoOpenTheAddDiscDialog(release);
+  releaseEditor.autoOpenTheAddMediumDialog(release);
 
   t.ok(
     !uiDialog.isOpen(),
-    'add-disc dialog remains closed after switching to the tracklist tab with a non-empty medium',
+    'add-medium dialog remains closed after switching to the tracklist tab with a non-empty medium',
   );
 });
 
 dialogTest((
-  'clearing the tracks of an existing medium via the track parser doesn’t cause the add-disc dialog to open'
+  'clearing the tracks of an existing medium via the track parser doesn’t cause the add-medium dialog to open'
 ), function (t, release) {
   t.plan(3);
 
@@ -136,12 +136,12 @@ dialogTest((
   trackParserDialog.open(medium);
   trackParserDialog.toBeParsed('');
   trackParserDialog.parse();
-  releaseEditor.autoOpenTheAddDiscDialog(release);
+  releaseEditor.autoOpenTheAddMediumDialog(release);
 
   t.ok(!medium.hasTracks(), 'medium does not have tracks');
 
-  var uiDialog = $(addDiscDialog.element).data('ui-dialog');
-  t.ok(!uiDialog, 'add-disc dialog is not open');
+  var uiDialog = $(addMediumDialog.element).data('ui-dialog');
+  t.ok(!uiDialog, 'add-medium dialog is not open');
 });
 
 dialogTest((
@@ -155,10 +155,10 @@ dialogTest((
   delete testMediumCopy.id;
 
   release.mediums([new fields.Medium(testMediumCopy, release)]);
-  addDiscDialog.open();
-  addDiscDialog.currentTab(mediumSearchTab);
+  addMediumDialog.open();
+  addMediumDialog.currentTab(mediumSearchTab);
   mediumSearchTab.result({ position: 1, tracks: [{ name: 'foo' }] });
-  addDiscDialog.addDisc();
+  addMediumDialog.addMedium();
 
   common.createMediums(release);
 
