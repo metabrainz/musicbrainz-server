@@ -431,9 +431,7 @@ const UserEditsProperty = ({
       {$c.user ? (exp.l('{count} ({view_url|view})', {
         count: formatCount($c, addedEntities),
         view_url: searchEditsURL(createEditTypes),
-      })) : (exp.l('{count}', {
-        count: formatCount($c, addedEntities),
-      }))}
+      })) : formatCount($c, addedEntities)}
     </UserProfileProperty>
   );
 };
@@ -521,9 +519,7 @@ const UserProfileStatistics = ({
                 count: formatCount($c, editStats.accepted_count),
                 view_url: `/user/${encodedName}/edits/accepted`,
               },
-            ) : (exp.l('{count}', {
-              count: formatCount($c, editStats.accepted_count),
-            }))}
+            ) : formatCount($c, editStats.accepted_count)}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Auto-edits')}>
@@ -533,9 +529,7 @@ const UserProfileStatistics = ({
                 count: formatCount($c, editStats.accepted_auto_count),
                 view_url: `/user/${encodedName}/edits/autoedits`,
               },
-            ) : (exp.l('{count}', {
-              count: formatCount($c, editStats.accepted_auto_count),
-            }))}
+            ) : formatCount($c, editStats.accepted_auto_count)}
           </UserProfileProperty>
 
           <UserProfileProperty className="positive" name={l('Total applied')}>
@@ -545,9 +539,7 @@ const UserProfileStatistics = ({
                 count: formatCount($c, allAppliedCount),
                 view_url: `/user/${encodedName}/edits/applied`,
               },
-            ) : (exp.l('{count}', {
-              count: formatCount($c, allAppliedCount),
-            }))}
+            ) : formatCount($c, allAppliedCount)}
           </UserProfileProperty>
 
           <UserProfileProperty className="negative" name={l('Voted down')}>
@@ -557,9 +549,7 @@ const UserProfileStatistics = ({
                 count: formatCount($c, editStats.rejected_count),
                 view_url: `/user/${encodedName}/edits/rejected`,
               },
-            ) : (exp.l('{count}', {
-              count: formatCount($c, editStats.rejected_count),
-            }))}
+            ) : formatCount($c, editStats.rejected_count)}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Failed')}>
@@ -569,9 +559,7 @@ const UserProfileStatistics = ({
                 count: formatCount($c, editStats.failed_count),
                 view_url: `/user/${encodedName}/edits/failed`,
               },
-            ) : (exp.l('{count}', {
-              count: formatCount($c, editStats.failed_count),
-            }))}
+            ) : formatCount($c, editStats.failed_count)}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Cancelled')}>
@@ -581,9 +569,7 @@ const UserProfileStatistics = ({
                 count: formatCount($c, editStats.cancelled_count),
                 view_url: `/user/${encodedName}/edits/cancelled`,
               },
-            ) : (exp.l('{count}', {
-              count: formatCount($c, editStats.cancelled_count),
-            }))}
+            ) : formatCount($c, editStats.cancelled_count)}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Open')}>
@@ -593,9 +579,7 @@ const UserProfileStatistics = ({
                 count: formatCount($c, editStats.open_count),
                 view_url: `/user/${encodedName}/edits/open`,
               },
-            ) : (exp.l('{count}', {
-              count: formatCount($c, editStats.open_count),
-            }))}
+            ) : formatCount($c, editStats.open_count)}
           </UserProfileProperty>
 
           <UserProfileProperty name={l('Last 24 hours')}>
@@ -615,9 +599,7 @@ const UserProfileStatistics = ({
                 '&negation=0' +
                 '&auto_edit_filter='
               ),
-            }) : (exp.l('{count}', {
-              count: formatCount($c, editStats.last_day_count),
-            }))}
+            }) : formatCount($c, editStats.last_day_count)}
           </UserProfileProperty>
         </tbody>
       </table>
