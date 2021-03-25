@@ -20,6 +20,7 @@ type SetCoverArtEditT = {
   ...EditT,
   +display_data: {
     +artwork: CompT<ArtworkT>,
+    +isOldArtworkAutomatic: boolean,
     +release_group: ReleaseGroupT,
   },
 };
@@ -42,10 +43,10 @@ const SetCoverArt = ({edit}: Props): React.Element<'table'> => {
         </td>
       </tr>
 
-      {oldArt ? (
-        <tr>
-          <th>{l('Old cover art:')}</th>
-          <td>
+      <tr>
+        <th>{l('Old cover art:')}</th>
+        <td>
+          {oldArt ? (
             <div className="editimage">
               <div className="cover-image">
                 <Artwork artwork={oldArt} />
@@ -63,14 +64,17 @@ const SetCoverArt = ({edit}: Props): React.Element<'table'> => {
                 {oldArt.comment}
               </p>
             </div>
-          </td>
-        </tr>
-      ) : null}
+          ) : display.isOldArtworkAutomatic ? (
+            l(`The old image was selected automatically
+               from the earliest release in the release group.`)
+          ) : l(`We are unable to display this cover art.`)}
+        </td>
+      </tr>
 
-      {newArt ? (
-        <tr>
-          <th>{l('New cover art:')}</th>
-          <td>
+      <tr>
+        <th>{l('New cover art:')}</th>
+        <td>
+          {newArt ? (
             <div className="editimage">
               <div className="cover-image">
                 <Artwork artwork={newArt} />
@@ -88,9 +92,9 @@ const SetCoverArt = ({edit}: Props): React.Element<'table'> => {
                 {newArt.comment}
               </p>
             </div>
-          </td>
-        </tr>
-      ) : null}
+          ) : l(`We are unable to display this cover art.`)}
+        </td>
+      </tr>
     </table>
   );
 };

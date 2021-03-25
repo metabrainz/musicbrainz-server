@@ -131,6 +131,8 @@ sub build_display_data {
     $data{artwork}{old} = to_json_object($artwork_by_release_id{$old_id}) if $old_id;
     $data{artwork}{new} = to_json_object($artwork_by_release_id{$new_id}) if $new_id;
 
+    $data{isOldArtworkAutomatic} = !$old_id;
+
     return \%data;
 }
 
