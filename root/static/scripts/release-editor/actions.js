@@ -221,7 +221,7 @@ const actions = {
 
   removeTrack: function (track) {
     var focus = track.next() || track.previous();
-    var $medium = $('#' + track.elementID).parents('.advanced-disc');
+    var $medium = $('#' + track.elementID).parents('.advanced-medium');
     var medium = track.medium;
     var tracks = medium.tracks;
     var index = tracks.indexOf(track);

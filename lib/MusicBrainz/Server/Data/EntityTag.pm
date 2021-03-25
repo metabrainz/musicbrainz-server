@@ -476,18 +476,26 @@ sub find_entities
 
 sub find_editor_entities
 {
-    my ($self, $editor_id, $tag_id, $limit, $offset) = @_;
+    my ($self, $editor_id, $tag_id, $show_downvoted, $limit, $offset) = @_;
 
     my $type = $self->type;
-    my $tag_table = $self->tag_table;
+    my $tag_table = $self->tag_table . '_raw';
+    my $is_upvote = $show_downvoted ? 0 : 1;
 
-    my @tags = @{ $self->c->sql->select_single_column_array(
-        'SELECT ' . $type . ' FROM ' . $type . '_tag_raw
-          WHERE editor = ? AND tag = ?',
-        $editor_id, $tag_id) };
+    my $query = "SELECT " . $self->parent->_columns . "
+                 FROM " . $self->parent->_table . "
+                     JOIN $tag_table ttr ON " . $self->parent->_id_column . " = ttr.$type
+                 WHERE editor = ? AND tag = ? AND is_upvote = ?
+                 ORDER BY name COLLATE musicbrainz, " . $self->parent->_id_column;
+    $self->query_to_list_limited($query, [$editor_id, $tag_id, $is_upvote], $limit, $offset, sub {
+        my ($model, $row) = @_;
 
-    my $objs = $self->parent->get_by_ids_sorted_by_name(@tags);
-    return @$objs;
+        my $entity = $model->parent->_new_from_row($row);
+        return MusicBrainz::Server::Entity::UserTag->new(
+            entity_id => $entity->id,
+            entity => $entity,
+        );
+    });
 }
 
 no Moose;

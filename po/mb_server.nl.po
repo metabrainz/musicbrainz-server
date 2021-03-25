@@ -31,8 +31,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-11 22:21+0200\n"
-"PO-Revision-Date: 2021-03-11 07:23+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-03-23 14:31+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1547,7 +1547,7 @@ msgstr "Bewerkingsnotitie"
 
 #: ../root/edit/search_macros.tt:398
 msgid "Edit Note Authors"
-msgstr ""
+msgstr "Auteurs van bewerkingsnotities"
 
 #: ../root/relationship/linkattributetype/edit.tt:1
 #: ../root/relationship/linkattributetype/edit.tt:3
@@ -2112,7 +2112,7 @@ msgstr "IPI-code"
 msgid ""
 "IPI codes are assigned by CISAC to “interested parties” in musical rights "
 "management. Check {ipi_doc|the documentation} for more info."
-msgstr ""
+msgstr "IPI-codes worden door CISAC aan ‘belanghebbende partijen’ voor het beheren van muziekrechten toegewezen. Zie {ipi_doc|de documentatie} voor meer informatie."
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:183
@@ -2132,7 +2132,7 @@ msgstr "ISNI-code"
 msgid ""
 "ISNI codes are an ISO standard used to uniquely identify persons and "
 "organizations. Check {isni_doc|the documentation} for more info."
-msgstr ""
+msgstr "ISNI-codes zijn een ISO-standaard en worden gebruikt om personen en organisaties ondubbelzinnig te identificeren. Zie {isni_doc|de documentatie} voor meer informatie."
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:191
@@ -2267,7 +2267,7 @@ msgstr "Als je de uitgave die je zoekt niet kan vinden, kan je een nieuwe toevoe
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid ""
 "If you don’t know the code for this entity, just leave the field blank."
-msgstr ""
+msgstr "Als je de code voor dit object niet weet, kun je het veld leeg laten."
 
 #: ../root/release/edit/information.tt:50
 msgid ""
@@ -5517,15 +5517,15 @@ msgstr "vermeld als"
 
 #: ../root/edit/search_macros.tt:341
 msgid "do not include"
-msgstr ""
+msgstr "zonder"
 
 #: ../root/edit/search_macros.tt:341
 msgid "do not include editors in my subscriptions"
-msgstr ""
+msgstr "zonder redacteurs waarop ik ben geabonneerd"
 
 #: ../root/edit/search_macros.tt:341
 msgid "do not include me"
-msgstr ""
+msgstr "zonder mij"
 
 #: ../root/edit/search_macros.tt:28
 msgid "do not match"
@@ -5604,19 +5604,19 @@ msgstr "in {date}"
 
 #: ../root/edit/search_macros.tt:341
 msgid "include"
-msgstr ""
+msgstr "waaronder"
 
 #: ../root/edit/search_macros.tt:341
 msgid "include a beginner editor"
-msgstr ""
+msgstr "waaronder een beginnende redacteur"
 
 #: ../root/edit/search_macros.tt:341
 msgid "include an editor in my subscriptions"
-msgstr ""
+msgstr "waaronder een redacteur waarop ik ben geaboneerd"
 
 #: ../root/edit/search_macros.tt:341
 msgid "include me"
-msgstr ""
+msgstr "waaronder ikzelf"
 
 #: ../root/components/common-macros.tt:226
 #: ../root/components/common-macros.tt:302
@@ -6127,7 +6127,7 @@ msgid ""
 "you.</strong><br/>Please confirm that you have entered a valid address by "
 "editing your {settings|account settings}. If the problem still persists, "
 "please contact us at {mail|support@musicbrainz.org}."
-msgstr "<strong>We konden je geen verificatiemail sturen.</strong><br/>Bevestig dat je een geldig e-mailadres hebt ingevuld door je {settings|gebruikersinstellingen} te wijzigen. Neem contact op met {mail|support@musicbrainz.org} als het probleem zich blijft voordoen."
+msgstr "<strong>We konden je geen bevestigingsmail sturen.</strong><br/>Bevestig dat je een geldig e-mailadres hebt ingevuld door je {settings|gebruikersinstellingen} te wijzigen. Neem contact op met {mail|support@musicbrainz.org} als het probleem zich blijft voordoen."
 
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:77
 msgid "User successfully edited."
@@ -6153,7 +6153,7 @@ msgstr "Je kan de eigenschap ‘{name}’ niet verwijderen omdat ze nog steeds w
 msgid ""
 "You cannot remove the attribute “{name}” because it is the parent of other "
 "attributes."
-msgstr ""
+msgstr "Je kunt de eigenschap ‘{name}’ niet verwijderen omdat het de ouder van andere eigenschappen is."
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:648
 msgid "You cannot merge a special purpose artist into another artist"
@@ -7216,7 +7216,7 @@ msgstr "Wikisource"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
 msgid "Stream at YouTube Music"
-msgstr ""
+msgstr "Stream op YouTube Music"
 
 #: ../lib/MusicBrainz/Server/Form/Admin/Attributes/Language.pm:49
 #: ../root/admin/attributes/Language.js:18
@@ -7435,7 +7435,7 @@ msgstr "Zorg ervoor dat alle regels beginnen met @, * of #, gevolgd door een spa
 
 #: ../lib/MusicBrainz/Server/Form/Field/Text.pm:18
 msgid "The characters you’ve entered are invalid or not allowed."
-msgstr ""
+msgstr "De tekens die je hebt ingevoerd, zijn niet geldig of niet toegestaan."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Time.pm:16
 msgid "This is not a valid time."
@@ -10304,7 +10304,7 @@ msgstr "AudioRanger"
 
 #: ../root/layout/components/BottomMenu.js:164 ../root/main/index.js:159
 msgid "Mp3tag"
-msgstr ""
+msgstr "Mp3tag"
 
 #: ../root/layout/components/BottomMenu.js:167 ../root/main/index.js:162
 msgid "Yate Music Tagger"
@@ -11574,7 +11574,7 @@ msgstr "Kan geen afbeelding toevoegen"
 msgid ""
 "The Cover Art Archive has had a takedown request in the past for this "
 "release, so we are unable to allow any more uploads."
-msgstr "Het Cover Art Archive heeft in het verleden het verzoek gekregen om afbeeldingen voor deze uitgave te verwijderen, dus we kunnen je niet meer toestaan om deze toe te voegen."
+msgstr "Het Cover Art Archive heeft in het verleden het verzoek gekregen om afbeeldingen voor deze uitgave te verwijderen, dus we kunnen ze je niet meer laten toevoegen."
 
 #: ../root/release/CoverArtFields.js:57
 msgid "Choose one or more cover art types for this image"
@@ -13603,7 +13603,7 @@ msgstr "Collectie bijwerken"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:35
 msgid "Add a new area"
-msgstr ""
+msgstr "Een nieuw gebied toevoegen"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:36
 msgid "Add a new artist"
@@ -13615,7 +13615,7 @@ msgstr "Nieuw evenement toevoegen"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:38
 msgid "Add a new instrument"
-msgstr ""
+msgstr "Een nieuw instrument toevoegen"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:39
 msgid "Add a new label"

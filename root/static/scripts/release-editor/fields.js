@@ -1042,9 +1042,6 @@ class Release extends mbEntity.Release {
     this.hasUnconfirmedVariousArtists = errorField(
       this.mediums.any('hasUnconfirmedVariousArtists'),
     );
-    this.hasTooEarlyFormat = errorField(
-      this.mediums.any('hasTooEarlyFormat'),
-    );
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());
     });

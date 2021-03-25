@@ -9,41 +9,33 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import CDTocList from './components/CDTocList';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportCDTocT} from './types';
 
 const CDTocDubiousLength = ({
-  $c,
+  canBeFiltered,
   generated,
+  filtered,
   items,
   pager,
-}: ReportDataT<ReportCDTocT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Disc IDs with dubious duration')}>
-    <h1>{l('Disc IDs with dubious duration')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report shows disc IDs indicating a total duration much longer
-        than what a standard CD allows (at least 88 minutes for a CD, or 30
-        minutes for a mini-CD). This usually means a disc ID was created for
-        the wrong format (SACD) or with a buggy tool.`)}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-    </ul>
-
+}: ReportDataT<ReportCDTocT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows disc IDs indicating a total duration much longer
+       than what a standard CD allows (at least 88 minutes for a CD, or 30
+       minutes for a mini-CD). This usually means a disc ID was created for
+       the wrong format (SACD) or with a buggy tool.`,
+    )}
+    entityType="discId"
+    filtered={filtered}
+    generated={generated}
+    title={l('Disc IDs with dubious duration')}
+    totalEntries={pager.total_entries}
+  >
     <CDTocList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default CDTocDubiousLength;

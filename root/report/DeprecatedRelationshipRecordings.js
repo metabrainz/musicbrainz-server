@@ -9,50 +9,33 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import RecordingRelationshipList
   from './components/RecordingRelationshipList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types';
 
 const DeprecatedRelationshipRecordings = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
 }: ReportDataT<ReportRecordingRelationshipT>):
-React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists recordings which have relationships using
+       deprecated and grouping-only relationship types.`,
+    )}
+    entityType="recording"
+    filtered={filtered}
+    generated={generated}
     title={l('Recordings with deprecated relationships')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Recordings with deprecated relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists recordings which have relationships using
-            deprecated and grouping-only relationship types.`)}
-      </li>
-      <li>
-        {texp.l('Total recordings found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <RecordingRelationshipList items={items} pager={pager} showArtist />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DeprecatedRelationshipRecordings;

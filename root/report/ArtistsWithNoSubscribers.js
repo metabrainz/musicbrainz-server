@@ -9,45 +9,32 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ArtistList from './components/ArtistList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportArtistT, ReportDataT} from './types';
 
 const ArtistsWithNoSubscribers = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Artists with no subscribers')}>
-    <h1>{l('Artists with no subscribers')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists artists that have no editors subscribed to them,
-            and whose changes may therefore be under-reviewed. Artists with
-            more release groups and more open edits are listed first.`)}
-      </li>
-      <li>
-        {texp.l('Total artists found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists artists that have no editors subscribed to them,
+       and whose changes may therefore be under-reviewed. Artists with
+       more release groups and more open edits are listed first.`,
+    )}
+    entityType="artist"
+    filtered={filtered}
+    generated={generated}
+    title={l('Artists with no subscribers')}
+    totalEntries={pager.total_entries}
+  >
     <ArtistList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default ArtistsWithNoSubscribers;

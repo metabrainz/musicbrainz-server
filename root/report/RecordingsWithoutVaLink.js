@@ -9,50 +9,31 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import RecordingList from './components/RecordingList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingT} from './types';
 
 const RecordingsWithoutVaLink = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportRecordingT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows recordings with "Various Artists" as the
+       credited name but not linked to the Various Artists entity.`,
+    )}
+    entityType="recording"
+    filtered={filtered}
+    generated={generated}
     title={l('Recordings credited to "Various Artists" but not linked to VA')}
+    totalEntries={pager.total_entries}
   >
-    <h1>
-      {l('Recordings credited to "Various Artists" but not linked to VA')}
-    </h1>
-
-    <ul>
-      <li>
-        {l(`This report shows recordings with "Various Artists" as the
-            credited name but not linked to the Various Artists entity.`)}
-      </li>
-      <li>
-        {texp.l('Total recordings found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <RecordingList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default RecordingsWithoutVaLink;

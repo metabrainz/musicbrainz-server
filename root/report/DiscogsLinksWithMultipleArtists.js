@@ -9,48 +9,31 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ArtistUrlList from './components/ArtistUrlList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportArtistUrlT, ReportDataT} from './types';
 
 const DiscogsLinksWithMultipleArtists = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistUrlT>): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportArtistUrlT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows Discogs URLs which are linked to multiple artists.`,
+    )}
+    entityType="artist"
+    filtered={filtered}
+    generated={generated}
     title={l('Discogs URLs linked to multiple artists')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Discogs URLs linked to multiple artists')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report shows Discogs URLs which are linked
-            to multiple artists.`)}
-      </li>
-      <li>
-        {texp.l('Total artists found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ArtistUrlList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DiscogsLinksWithMultipleArtists;

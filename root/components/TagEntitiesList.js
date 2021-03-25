@@ -1,0 +1,202 @@
+/*
+ * @flow strict-local
+ * Copyright (C) 2019 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import * as React from 'react';
+
+import {type AccountLayoutUserT} from '../components/UserAccountLayout';
+import {ENTITIES} from '../static/scripts/common/constants';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
+import TagLink, {UserTagLink}
+  from '../static/scripts/common/components/TagLink';
+import expand2text from '../static/scripts/common/i18n/expand2text';
+import {formatCount} from '../statistics/utilities';
+import UserTagVoteSelection from '../user/components/UserTagVoteSelection';
+
+type Props = {
+  +$c: CatalystContextT,
+  +showDownvoted?: boolean,
+  +showLink?: boolean,
+  +showVotesSelect?: boolean,
+  +tag: TagT,
+  +taggedEntities: {
+    +[entityType: string]: {
+      +count: number,
+      +tags: $ReadOnlyArray<{
+        +count: number,
+        +entity: CoreEntityT,
+        +entity_id: number,
+      }>,
+    },
+  },
+  +user?: AccountLayoutUserT | EditorT,
+};
+
+const TagEntitiesList = ({
+  $c,
+  showDownvoted = false,
+  showLink = false,
+  showVotesSelect = false,
+  tag,
+  taggedEntities,
+  user,
+}: Props): React.Element<typeof React.Fragment> => {
+  const totalCount = Object.values(taggedEntities)
+    // $FlowIssue[incompatible-use]
+    .reduce((count, info) => count + info.count, 0);
+
+  const tagContent = showLink
+    ? <TagLink tag={tag.name} />
+    : tag.name;
+
+  if (showDownvoted && !user) {
+    throw new Error('A user must be specified to show downvoted tags');
+  }
+
+  const buildTagEntitiesListSection = (
+    entityType: string,
+    title: string,
+    seeAllMessage: $Call<typeof N_ln, string, string>,
+  ) => {
+    const tags = taggedEntities[entityType];
+
+    if (!tags || !tags.count) {
+      return null;
+    }
+
+    const url = ENTITIES[entityType].url;
+
+    return (
+      <React.Fragment key={entityType}>
+        <h3>{title}</h3>
+        <ul>
+          {tags.tags.map(tag => (
+            <li key={tag.entity_id}>
+              <DescriptiveLink entity={tag.entity} />
+            </li>
+          ))}
+          {tags.count > tags.tags.length ? (
+            <li key="see-all">
+              <em>
+                {user ? (
+                  <UserTagLink
+                    content={expand2text(
+                      seeAllMessage(tags.count),
+                      {num: formatCount($c, tags.count)},
+                    )}
+                    subPath={url}
+                    tag={tag.name}
+                    username={user.name}
+                  />
+                ) : (
+                  <TagLink
+                    content={expand2text(
+                      seeAllMessage(tags.count),
+                      {num: formatCount($c, tags.count)},
+                    )}
+                    subPath={url}
+                    tag={tag.name}
+                  />
+                )}
+              </em>
+            </li>
+          ) : null}
+        </ul>
+      </React.Fragment>
+    );
+  };
+
+  return (
+    <>
+      <h2>
+        {user ? (
+          showDownvoted
+            ? exp.l(
+              'Entities where {user} downvoted “{tag}”',
+              {tag: tagContent, user: user.name},
+            )
+            : exp.l(
+              'Entities {user} tagged as “{tag}”',
+              {tag: tagContent, user: user.name},
+            )
+        ) : (
+          exp.l('Entities tagged as “{tag}”', {tag: tagContent})
+        )}
+      </h2>
+      {showVotesSelect ? (
+        <UserTagVoteSelection
+          $c={$c}
+          showDownvoted={showDownvoted}
+        />
+      ) : null}
+      <p>
+        {texp.ln(
+          '{num} entity found',
+          '{num} entities found',
+          totalCount,
+          {num: formatCount($c, totalCount)},
+        )}
+      </p>
+      {/*
+        * The below use N_ln so languages with non-Germanic pluralization
+        * rules (i.e., any that make number distinctions above the
+        * threshold where we'll actually show the string) can translate
+        * properly. However, the strings are the same in English because
+        * we do not make a distinction other than for 1, which will never
+        * show in this case.
+      */}
+      {buildTagEntitiesListSection('area', l('Areas'), N_ln(
+        'See all {num} areas',
+        'See all {num} areas',
+      ))}
+      {buildTagEntitiesListSection('artist', l('Artists'), N_ln(
+        'See all {num} artists',
+        'See all {num} artists',
+      ))}
+      {buildTagEntitiesListSection('event', l('Events'), N_ln(
+        'See all {num} events',
+        'See all {num} events',
+      ))}
+      {buildTagEntitiesListSection('instrument', l('Instruments'), N_ln(
+        'See all {num} instruments',
+        'See all {num} instruments',
+      ))}
+      {buildTagEntitiesListSection('label', l('Labels'), N_ln(
+        'See all {num} labels',
+        'See all {num} labels',
+      ))}
+      {buildTagEntitiesListSection('place', l('Places'), N_ln(
+        'See all {num} places',
+        'See all {num} places',
+      ))}
+      {buildTagEntitiesListSection('release_group', l('Release Groups'), N_ln(
+        'See all {num} release groups',
+        'See all {num} release groups',
+      ))}
+      {buildTagEntitiesListSection('release', l('Releases'), N_ln(
+        'See all {num} releases',
+        'See all {num} releases',
+      ))}
+      {buildTagEntitiesListSection('recording', l('Recordings'), N_ln(
+        'See all {num} recordings',
+        'See all {num} recordings',
+      ))}
+      {buildTagEntitiesListSection('series', l('Series'), N_ln(
+        'See all {num} series',
+        'See all {num} series',
+      ))}
+      {buildTagEntitiesListSection('work', l('Works'), N_ln(
+        'See all {num} works',
+        'See all {num} works',
+      ))}
+    </>
+  );
+};
+
+export default TagEntitiesList;

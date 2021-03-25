@@ -15,11 +15,15 @@ import PlaceLayout from './PlaceLayout';
 
 type Props = {
   +$c: CatalystContextT,
+  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  +pager: ?PagerT,
   +place: PlaceT,
 };
 
 const PlacePerformances = ({
   $c,
+  pagedLinkTypeGroup,
+  pager,
   place,
 }: Props): React.Element<typeof PlaceLayout> => (
   <PlaceLayout
@@ -29,11 +33,14 @@ const PlacePerformances = ({
     title={l('Performances')}
   >
     <RelationshipsTable
+      $c={$c}
       entity={place}
       fallbackMessage={l(
         'No recordings, releases or release groups are linked to this place.',
       )}
       heading={l('Performances')}
+      pagedLinkTypeGroup={pagedLinkTypeGroup}
+      pager={pager}
     />
   </PlaceLayout>
 );

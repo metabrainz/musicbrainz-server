@@ -23,7 +23,7 @@
 # PATATE12, 2014
 # Shunsuke Shimizu <email address hidden>, 2016
 # Shunsuke Shimizu <email address hidden>, 2016,2019
-# Sky Jaython <email address hidden>, 2021
+# Skyjaython [JP] <email address hidden>, 2021
 # th1rtyf0ur, 2013
 # th1rtyf0ur, 2013
 # wa2c <email address hidden>, 2018
