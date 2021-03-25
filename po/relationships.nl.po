@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 07:18+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-03-15 13:55+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -509,7 +509,7 @@ msgstr "Geeft de librettist van deze compositie aan."
 
 #: DB:link_type/description:995
 msgid "Indicates the location a run or residency was held at."
-msgstr ""
+msgstr "Deze relatie geeft de locatie van een reeks optredens of concertresidentie aan."
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
@@ -1331,7 +1331,7 @@ msgstr "Deze relatie geeft aan welke persoon of welk bureau illustraties voor de
 msgid ""
 "This indicates a person or agency who provided artwork for the release when "
 "no more specific information is available."
-msgstr ""
+msgstr "Deze relatie geeft aan welke persoon of welk bureau kunst voor deze uitgave heeft geleverd. Gebruik deze relatie als meer specifieke informatie niet beschikbaar is."
 
 #: DB:link_type/description:723
 msgid ""
@@ -2709,7 +2709,7 @@ msgid ""
 "This relationship links a <a "
 "href=\"https://en.wikipedia.org/wiki/Concert_residency\">concert "
 "residency</a> to the artist(s) who held the residency."
-msgstr ""
+msgstr "Met deze relatie wordt een <a href=\"https://en.wikipedia.org/wiki/Concert_residency\">concertresidentie</a> gekoppeld aan de artiest(en) die de concertresidentie hield(en)."
 
 #: DB:link_type/description:859
 msgid ""
@@ -3401,7 +3401,7 @@ msgstr "artiesten en repertoire"
 
 #: DB:link_type/name:993
 msgid "artwork"
-msgstr ""
+msgstr "kunst"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -4978,7 +4978,7 @@ msgstr "live-uitvoering"
 
 #: DB:link_type/link_phrase:995
 msgid "location for"
-msgstr ""
+msgstr "locatie van"
 
 #: DB:link_type/name:213
 msgid "logo"
@@ -5777,7 +5777,7 @@ msgstr "verzorgde {additional:aanvullende} artistieke leiding op"
 
 #: DB:link_type/long_link_phrase:993
 msgid "provided {additional} artwork on"
-msgstr ""
+msgstr "leverde {additional:aanvullende} kunst voor"
 
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
 msgid "provided {additional} creative direction on"
@@ -6004,15 +6004,15 @@ msgstr "opnieuw gepland als"
 
 #: DB:link_type/link_phrase:994
 msgid "residencies"
-msgstr ""
+msgstr "concertresidenties"
 
 #: DB:link_type/name:994
 msgid "residency"
-msgstr ""
+msgstr "concertresidentie"
 
 #: DB:link_type/reverse_link_phrase:994
 msgid "residency by"
-msgstr ""
+msgstr "concertresidentie van"
 
 #: DB:link_type/name:842 DB:link_type/name:94
 msgid "review"
@@ -6857,7 +6857,7 @@ msgstr "{additional:aanvullende} artistieke leiding"
 
 #: DB:link_type/link_phrase:993 DB:link_type/reverse_link_phrase:993
 msgid "{additional} artwork"
-msgstr ""
+msgstr "{additional:aanvullende} kunst"
 
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
 #: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
@@ -7234,7 +7234,7 @@ msgstr "{entity1} is een deel van {entity0}"
 
 #: DB:link_type/long_link_phrase:994
 msgid "{entity1} is a residency by {entity0}"
-msgstr ""
+msgstr "{entity1} is een concertresidentie van {entity0}"
 
 #: DB:link_type/long_link_phrase:859
 msgid "{entity1} is a tour by {entity0}"
@@ -7292,7 +7292,7 @@ msgstr "de glasmaster van {entity1} werd gemaakt bij {entity0}"
 
 #: DB:link_type/long_link_phrase:995
 msgid "{entity1} was held at {entity0}"
-msgstr ""
+msgstr "{entity1} werd gehouden bij {entity0}"
 
 #: DB:link_type/long_link_phrase:793
 msgid "{entity1} was held in {entity0}"

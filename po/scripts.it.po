@@ -2,11 +2,12 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
+# Luca Salini, 2021
 # Luca Salini, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-19 12:54+0000\n"
+"PO-Revision-Date: 2021-03-18 00:00+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -808,4 +809,4 @@ msgstr "Yi"
 #. frequency:2 iso_code:Qaaa
 #: DB:script/name:160
 msgid "[Multiple scripts]"
-msgstr "[Script multipli]"
+msgstr "[Più script]"

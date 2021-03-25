@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 07:23+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-03-15 13:45+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1564,14 +1564,14 @@ msgid ""
 "Large wide tube with a very strongly flaring bell, the telescoping creates "
 "only subtle fluctuating overtones. It inspired the name of the anti-tank "
 "weapon."
-msgstr ""
+msgstr "Een bazooka is een grote wijde buis met een wijd uitlopende beker. Het uitschuiven produceert alleen subtiel veranderende boventonen. Het instrument was de inspiratie voor de naam van het antitankwapen."
 
 #. name:reed organ
 #: DB:instrument/description:204
 msgid ""
 "Large, looking like an upright piano, it has pedals attached to bellows with"
 " reeds. Sound is produced by playing the keyboard."
-msgstr ""
+msgstr "Een rietorgel lijkt op een grote buffetpiano, maar heeft blaasbalgen die met pedalen worden aangedreven en lucht langs vrije rieten blazen. Het instrument wordt met het toetsenbord bespeeld."
 
 #. name:baandu
 #: DB:instrument/description:880
@@ -1649,7 +1649,7 @@ msgstr "De practice chanter ziet eruit als een blokfluit, maar met dubbelriet en
 #. name:marimba lumina
 #: DB:instrument/description:767
 msgid "MIDI controller with a marimba-layout inspired control deck"
-msgstr ""
+msgstr "Een Marimba Lumina is een MIDI-controller met een bedieningsoppervlak dat is geïnspireerd op de marimba."
 
 #. name:madal
 #: DB:instrument/description:186
