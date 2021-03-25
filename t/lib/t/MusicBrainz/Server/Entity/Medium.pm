@@ -4,6 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Deep qw( cmp_deeply ignore );
 
+use MusicBrainz::Server::Constants qw( :direction );
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -61,7 +62,7 @@ test 'combined_track_relationships' => sub {
 
         $medium->tracks->[$i]->recording->add_relationship(
             Relationship->new(
-                direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD,
+                direction => $DIRECTION_BACKWARD,
                 link => $link,
                 entity0 => $artist,
                 entity1 => $recording,

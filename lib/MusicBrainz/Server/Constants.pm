@@ -25,6 +25,7 @@ sub _get
 }
 
 our %EXPORT_TAGS = (
+    direction          => _get(qr/^DIRECTION_/),
     edit_type          => _get(qr/^EDIT_/),
     expire_action      => _get(qr/^EXPIRE_/),
     quality            => _get(qr/^QUALITY_/),
@@ -103,6 +104,9 @@ Readonly our $VARTIST_ID  => 1;
 
 Readonly our $NOLABEL_GID => '157afde4-4bf5-4039-8ad2-5a15acc85176';
 Readonly our $NOLABEL_ID  => 3267;
+
+Readonly our $DIRECTION_FORWARD => 1;
+Readonly our $DIRECTION_BACKWARD => 2;
 
 Readonly our $EXPIRE_ACCEPT => 1;
 Readonly our $EXPIRE_REJECT => 2;

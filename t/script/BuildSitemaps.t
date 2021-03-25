@@ -485,6 +485,7 @@ EOSQL
         {loc => 'https://musicbrainz.org/sitemap-work-1-aliases.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1-details.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1.xml', lastmod => $build_time5},
+        {loc => 'https://musicbrainz.org/sitemap-work-1-recordings.xml', lastmod => $build_time5},
         # -----
 
         {loc => 'https://musicbrainz.org/sitemap-artist-1-all.xml', lastmod => $build_time1},
@@ -530,6 +531,7 @@ EOSQL
         {loc => 'https://musicbrainz.org/sitemap-work-1-aliases.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1-details.xml', lastmod => $build_time5},
+        {loc => 'https://musicbrainz.org/sitemap-work-1-recordings.xml', lastmod => $build_time5},
     ]);
 
     $exec_sql->(<<EOSQL);

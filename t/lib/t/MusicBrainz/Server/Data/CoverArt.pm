@@ -7,6 +7,7 @@ use DBDefs;
 use List::Util qw( first );
 use LWP::UserAgent;
 use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Constants qw( :direction );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -152,7 +153,7 @@ sub make_release
             target => $url,
             source_type => 'release',
             target_type => 'url',
-            direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
+            direction => $DIRECTION_FORWARD,
         )
     );
 
