@@ -9,48 +9,32 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ArtistRelationshipList from './components/ArtistRelationshipList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportArtistRelationshipT, ReportDataT} from './types';
 
 const DeprecatedRelationshipArtists = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistRelationshipT>): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportArtistRelationshipT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists artists which have relationships using
+       deprecated and grouping-only relationship types.`,
+    )}
+    entityType="artist"
+    filtered={filtered}
+    generated={generated}
     title={l('Artists with deprecated relationships')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Artists with deprecated relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists artists which have relationships using
-            deprecated and grouping-only relationship types.`)}
-      </li>
-      <li>
-        {texp.l('Total artists found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ArtistRelationshipList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DeprecatedRelationshipArtists;

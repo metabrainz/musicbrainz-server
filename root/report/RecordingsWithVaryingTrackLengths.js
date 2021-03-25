@@ -9,44 +9,31 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import RecordingList from './components/RecordingList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingT} from './types';
 
 const RecordingsWithVaryingTrackLengths = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Recordings with varying track times')}>
-    <h1>{l('Recordings with varying track times')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report shows recordings where the linked tracks have times
-            that vary by more than 30 seconds.`)}
-      </li>
-      <li>
-        {texp.l('Total recordings found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportRecordingT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows recordings where the linked tracks
+       have times that vary by more than 30 seconds.`,
+    )}
+    entityType="recording"
+    filtered={filtered}
+    generated={generated}
+    title={l('Recordings with varying track times')}
+    totalEntries={pager.total_entries}
+  >
     <RecordingList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default RecordingsWithVaryingTrackLengths;

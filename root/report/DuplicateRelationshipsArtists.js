@@ -9,50 +9,33 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ArtistList from './components/ArtistList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportArtistT, ReportDataT} from './types';
 
 const DuplicateRelationshipsArtists = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists artists which have multiple relatonships to
+       the same artist, label or URL using the same relationship type.
+       For multiple relationships to release groups, recordings or works,
+       see the reports for those entities.`,
+    )}
+    entityType="artist"
+    filtered={filtered}
+    generated={generated}
     title={l('Artists with possible duplicate relationships')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Artists with possible duplicate relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists artists which have multiple relatonships to
-            the same artist, label or URL using the same relationship type.
-            For multiple relationships to release groups, recordings or works,
-            see the reports for those entities.`)}
-      </li>
-      <li>
-        {texp.l('Total artists found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ArtistList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DuplicateRelationshipsArtists;

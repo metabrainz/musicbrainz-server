@@ -9,44 +9,32 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import WorkRelationshipList from './components/WorkRelationshipList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportWorkRelationshipT} from './types';
 
 const DeprecatedRelationshipWorks = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportWorkRelationshipT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Works with deprecated relationships')}>
-    <h1>{l('Works with deprecated relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists works which have relationships using
-            deprecated and grouping-only relationship types.`)}
-      </li>
-      <li>
-        {texp.l('Total works found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportWorkRelationshipT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists works which have relationships using
+       deprecated and grouping-only relationship types.`,
+    )}
+    entityType="work"
+    filtered={filtered}
+    generated={generated}
+    title={l('Works with deprecated relationships')}
+    totalEntries={pager.total_entries}
+  >
     <WorkRelationshipList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DeprecatedRelationshipWorks;

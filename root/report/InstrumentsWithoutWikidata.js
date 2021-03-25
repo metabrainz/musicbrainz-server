@@ -9,39 +9,30 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import InstrumentList from './components/InstrumentList';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportInstrumentT} from './types';
 
 const InstrumentsWithoutWikidata = ({
-  $c,
+  canBeFiltered,
+  filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportInstrumentT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Instruments without a Wikidata link')}>
-    <h1>{l('Instruments without a Wikidata link')}</h1>
-
-    <ul>
-      <li>
-        {l('This report shows instruments without Wikidata relationships.')}
-      </li>
-      <li>
-        {texp.l('Total instruments found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-    </ul>
-
-    <InstrumentList $c={$c} items={items} pager={pager} />
-
-  </Layout>
+}: ReportDataT<ReportInstrumentT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows instruments without Wikidata relationships.`,
+    )}
+    entityType="instrument"
+    filtered={filtered}
+    generated={generated}
+    title={l('Instruments without a Wikidata link')}
+    totalEntries={pager.total_entries}
+  >
+    <InstrumentList items={items} pager={pager} />
+  </ReportLayout>
 );
 
 export default InstrumentsWithoutWikidata;

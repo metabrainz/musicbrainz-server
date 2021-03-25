@@ -9,56 +9,39 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportCollaborationT, ReportDataT} from './types';
 
 const CollaborationRelationships = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportCollaborationT>): React.Element<typeof Layout> => {
+}: ReportDataT<ReportCollaborationT>): React.Element<typeof ReportLayout> => {
   let lastID = 0;
   let currentID = 0;
 
   return (
-    <Layout
-      $c={$c}
-      fullWidth
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={exp.l(
+        `This report lists artists which have collaboration relationships
+         but no URL relationships. If the collaboration has its own
+         independent name, do nothing. If it is in a format like
+         "X with Y" or "X & Y", you should probably split it.
+         See {how_to_split_artists|How to Split Artists}.`,
+        {how_to_split_artists: '/doc/How_to_Split_Artists'},
+      )}
+      entityType="artist"
+      filtered={filtered}
+      generated={generated}
       title={l('Artists with collaboration relationships')}
+      totalEntries={pager.total_entries}
     >
-      <h1>{l('Artists with collaboration relationships')}</h1>
-
-      <ul>
-        <li>
-          {exp.l(
-            `This report lists artists which have collaboration relationships
-             but no URL relationships. If the collaboration has its own
-             independent name, do nothing. If it is in a format like
-             "X with Y" or "X & Y", you should probably split it.
-             See {how_to_split_artists|How to Split Artists}.`,
-            {how_to_split_artists: '/doc/How_to_Split_Artists'},
-          )}
-        </li>
-        <li>
-          {texp.l('Total artists found: {count}',
-                  {count: pager.total_entries})}
-        </li>
-        <li>
-          {texp.l('Generated on {date}',
-                  {date: formatUserDate($c, generated)})}
-        </li>
-
-        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-      </ul>
-
       <PaginatedResults pager={pager}>
         <table className="tbl">
           <thead>
@@ -103,7 +86,7 @@ const CollaborationRelationships = ({
           </tbody>
         </table>
       </PaginatedResults>
-    </Layout>
+    </ReportLayout>
   );
 };
 

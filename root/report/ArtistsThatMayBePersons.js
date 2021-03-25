@@ -9,48 +9,35 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ArtistList from './components/ArtistList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportArtistT, ReportDataT} from './types';
 
 const ArtistsThatMayBePersons = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Artists that may be persons')}>
-    <h1>{l('Artists that may be persons')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists artists that have their type set to other
-            than Person, but may be a person, based on their relationships.
-            For example, an artist will appear here if it is listed
-            as a member of another. If you find that an artist here is indeed
-            a person, change its type. If it is not, please make sure that
-            all the relationships are correct and make sense.`)}
-      </li>
-      <li>
-        {texp.l('Total artists found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists artists that have their type set to other
+       than Person, but may be a person, based on their relationships.
+       For example, an artist will appear here if it is listed
+       as a member of another. If you find that an artist here is indeed
+       a person, change its type. If it is not, please make sure that
+       all the relationships are correct and make sense.`,
+    )}
+    entityType="artist"
+    filtered={filtered}
+    generated={generated}
+    title={l('Artists that may be persons')}
+    totalEntries={pager.total_entries}
+  >
     <ArtistList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default ArtistsThatMayBePersons;
