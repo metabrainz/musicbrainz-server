@@ -1,0 +1,98 @@
+/*
+ * @flow strict-local
+ * Copyright (C) 2021 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import * as React from 'react';
+
+import {Artwork} from '../../components/Artwork';
+import DescriptiveLink
+  from '../../static/scripts/common/components/DescriptiveLink';
+import ReleaseEvents
+  from '../../static/scripts/common/components/ReleaseEvents';
+import commaList from '../../static/scripts/common/i18n/commaList';
+
+type SetCoverArtEditT = {
+  ...EditT,
+  +display_data: {
+    +artwork: CompT<ArtworkT>,
+    +release_group: ReleaseGroupT,
+  },
+};
+
+type Props = {
+  +edit: SetCoverArtEditT,
+};
+
+const SetCoverArt = ({edit}: Props): React.Element<'table'> => {
+  const display = edit.display_data;
+  const oldArt = display.artwork.old;
+  const newArt = display.artwork.new;
+
+  return (
+    <table className="details set-cover-art">
+      <tr>
+        <th>{addColonText(l('Release group'))}</th>
+        <td>
+          <DescriptiveLink entity={display.release_group} />
+        </td>
+      </tr>
+
+      {oldArt ? (
+        <tr>
+          <th>{l('Old cover art:')}</th>
+          <td>
+            <div className="editimage">
+              <div className="cover-image">
+                <Artwork artwork={oldArt} />
+              </div>
+              {oldArt.release ? (
+                <p>
+                  <DescriptiveLink entity={oldArt.release} />
+                  <br />
+                  <ReleaseEvents events={oldArt.release.events} />
+                </p>
+              ) : null}
+              <p>
+                {commaList(oldArt.types) || '-'}
+                <br />
+                {oldArt.comment}
+              </p>
+            </div>
+          </td>
+        </tr>
+      ) : null}
+
+      {newArt ? (
+        <tr>
+          <th>{l('New cover art:')}</th>
+          <td>
+            <div className="editimage">
+              <div className="cover-image">
+                <Artwork artwork={newArt} />
+              </div>
+              {newArt.release ? (
+                <p>
+                  <DescriptiveLink entity={newArt.release} />
+                  <br />
+                  <ReleaseEvents events={newArt.release.events} />
+                </p>
+              ) : null}
+              <p>
+                {commaList(newArt.types) || '-'}
+                <br />
+                {newArt.comment}
+              </p>
+            </div>
+          </td>
+        </tr>
+      ) : null}
+    </table>
+  );
+};
+
+export default SetCoverArt;

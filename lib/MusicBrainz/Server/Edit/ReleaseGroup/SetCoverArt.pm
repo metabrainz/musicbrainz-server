@@ -22,6 +22,7 @@ sub edit_name { N_l('Set cover art') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASEGROUP_SET_COVER_ART }
 sub release_group_ids { shift->data->{entity}->{id} }
+sub edit_template_react { 'SetCoverArt' }
 
 sub alter_edit_pending {
     my $self = shift;
@@ -110,6 +111,7 @@ sub build_display_data {
     my $artwork = $self->c->model('Artwork')->find_front_cover_by_release(
         @releases);
     $self->c->model('CoverArtType')->load_for(@$artwork);
+    $self->c->model('Release')->load_release_events(@releases);
 
     my %artwork_by_release_id;
     for my $image (@$artwork)
