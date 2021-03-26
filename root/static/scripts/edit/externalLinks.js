@@ -626,6 +626,7 @@ const URL_SHORTENERS = [
   'many.link',
   'mcaf.ee',
   'moourl.com',
+  'music.indiefy.net',
   'musics.link',
   'mylink.page',
   'odesli.co',
