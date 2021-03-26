@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 type FullChangeDiffProps = {
-  +label: string,
+  +label: React.Node,
   +newContent: React$Node,
   +oldContent: React$Node,
 };
