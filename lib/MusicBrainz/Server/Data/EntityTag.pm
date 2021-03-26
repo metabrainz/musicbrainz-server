@@ -456,12 +456,15 @@ sub find_entities
 {
     my ($self, $tag_id, $limit, $offset) = @_;
     my $type = $self->type;
+    my $ordering_condition = $type eq 'artist'
+        ? 'sort_name COLLATE musicbrainz'
+        : 'name COLLATE musicbrainz';
     my $tag_table = $self->tag_table;
     my $query = "SELECT tt.count AS tt_count, " . $self->parent->_columns . "
                  FROM " . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
-                 ORDER BY tt.count DESC, name COLLATE musicbrainz, " . $self->parent->_id_column;
+                 ORDER BY tt.count DESC, $ordering_condition, " . $self->parent->_id_column;
     $self->query_to_list_limited($query, [$tag_id], $limit, $offset, sub {
         my ($model, $row) = @_;
 

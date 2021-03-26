@@ -128,11 +128,15 @@ sub get_by_ids_sorted_by_name
     @ids = grep { defined && $_ } @ids;
     return [] unless @ids;
 
+    my $ordering_condition = $self->_type eq 'artist'
+        ? 'sort_name COLLATE musicbrainz'
+        : 'name COLLATE musicbrainz';
+
     my $key = $self->_id_column;
     my $query = "SELECT " . $self->_columns .
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ") " .
-                " ORDER BY name COLLATE musicbrainz";
+                " ORDER BY $ordering_condition";
 
     my @result;
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
