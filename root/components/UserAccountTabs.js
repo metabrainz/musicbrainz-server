@@ -24,14 +24,13 @@ function buildTabs(
 ): $ReadOnlyArray<React.Element<'li'>> {
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
   const showAdmin = isAccountAdmin($c.user);
-  const showPrivate = showAdmin || viewingOwnProfile;
 
   const userName = encodeURIComponent(user.name);
   const userPath = '/user/' + userName;
 
   const tabs = [buildTab(page, l('Profile'), userPath, 'index')];
 
-  if (showPrivate || user.preferences.public_subscriptions) {
+  if (viewingOwnProfile || user.preferences.public_subscriptions) {
     tabs.push(buildTab(
       page,
       l('Subscriptions'),
@@ -53,11 +52,11 @@ function buildTabs(
     'collections',
   ));
 
-  if (showPrivate || user.preferences.public_tags) {
+  if (viewingOwnProfile || user.preferences.public_tags) {
     tabs.push(buildTab(page, l('Tags'), userPath + '/tags', 'tags'));
   }
 
-  if (showPrivate || user.preferences.public_ratings) {
+  if (viewingOwnProfile || user.preferences.public_ratings) {
     tabs.push(buildTab(page, l('Ratings'), userPath + '/ratings', 'ratings'));
   }
 
@@ -98,7 +97,7 @@ function buildTabs(
     ));
   }
 
-  if (showPrivate && !user.deleted) {
+  if ((showAdmin || viewingOwnProfile) && !user.deleted) {
     tabs.push(buildTab(
       page,
       l('Delete Account'),
