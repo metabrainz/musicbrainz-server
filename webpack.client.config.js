@@ -55,6 +55,7 @@ const entries = [
   'place/map',
   'recording/form',
   'recording/merge',
+  'release/index',
   'release-editor',
   'release-group/index',
   'series',
