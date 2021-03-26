@@ -285,7 +285,7 @@
     <table class="advanced-format">
       <tr>
         <td class="icon">
-          <button type="button" class="icon collapse-medium" data-click="toggleMedium" data-bind="css: { 'expand-medium': collapsed, 'collapse-medium': !collapsed() }, attr: { title: collapsed() ? '[% l('Expand medium') %]' : '[% l('Collapse medium') %]' }"></button>
+          <button type="button" class="icon collapse-medium" data-click="toggleMedium" data-bind="css: { 'expand-re-medium': collapsed, 'collapse-re-medium': !collapsed() }, attr: { title: collapsed() ? '[% l('Expand medium') %]' : '[% l('Collapse medium') %]' }"></button>
         </td>
 
         <td class="format">
