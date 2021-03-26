@@ -19,7 +19,9 @@ type LinkableEntity =
   | {+entityType: 'editor', +name: string, ...}
   | {+entityType: 'isrc', +isrc: string, ...}
   | {+entityType: 'iswc', +iswc: string, ...}
-  | {+entityType: CoreEntityTypeT | 'collection', +gid: string, ...};
+  | {+entityType: CoreEntityTypeT, +gid: string, ...}
+  | {+entityType: 'collection', +gid: string, ...}
+  | {+entityType: 'link_type', +gid: string, ...};
 
 function generateHref(path, id, subPath, anchorPath) {
   let href = '/' + path + '/';

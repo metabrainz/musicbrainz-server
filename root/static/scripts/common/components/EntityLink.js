@@ -123,7 +123,7 @@ type EntityLinkProps = {
   +content?: ?Expand2ReactOutput,
   +deletedCaption?: string,
   +disableLink?: boolean,
-  +entity: CoreEntityT | CollectionT,
+  +entity: CoreEntityT | CollectionT | LinkTypeT,
   +hover?: string,
   +nameVariation?: boolean,
   +showCaaPresence?: boolean,
@@ -172,6 +172,8 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     content = content || localizeAreaName(entity);
   } else if (entity.entityType === 'instrument') {
     content = content || localizeInstrumentName(entity);
+  } else if (entity.entityType === 'link_type') {
+    content = content || l_relationships(entity.name);
   }
 
   content = content || ko.unwrap(entity.name);
