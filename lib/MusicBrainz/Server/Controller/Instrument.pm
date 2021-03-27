@@ -168,7 +168,7 @@ sub releases : Chained('load') {
     );
 }
 
-after [qw( show collections details tags aliases recordings releases )] => sub {
+after [qw( show collections details tags aliases artists releases recordings )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };
