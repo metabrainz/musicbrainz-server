@@ -541,7 +541,7 @@ sub releases : Chained('load')
     );
 }
 
-after [qw( show collections details tags aliases releases recordings works events relationships )] => sub {
+after [qw( show collections details tags aliases subscribers releases recordings works events relationships )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };
