@@ -8,9 +8,9 @@
 
 import $ from 'jquery';
 
-import request from '../utility/request';
-import getBooleanCookie from '../utility/getBooleanCookie';
-import setCookie from '../utility/setCookie';
+import request from '../common/utility/request';
+import getBooleanCookie from '../common/utility/getBooleanCookie';
+import setCookie from '../common/utility/setCookie';
 
 $(function () {
   var $bottomCredits = $('#bottom-credits');

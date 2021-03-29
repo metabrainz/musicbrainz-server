@@ -56,6 +56,7 @@ const entries = [
   'recording/form',
   'recording/merge',
   'release/coverart',
+  'release/index',
   'release-editor',
   'release-group/index',
   'series',

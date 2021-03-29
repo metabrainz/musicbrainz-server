@@ -61,4 +61,6 @@
         [%- END -%]
       </div>
     [% END %]
+
+    [% script_manifest('release/index.js', {async => 'async'}) %]
 [%- END -%]
