@@ -344,8 +344,12 @@ Object.assign(addMediumDialog, {
 
     var release = releaseEditor.rootField.release();
 
-    // If there's only one empty medium, replace it.
-    if (release.hasOneEmptyMedium()) {
+    /*
+     * If there's only one empty medium, replace it
+     * (unless it was a previously existing medium with unknown tracklist)
+     */
+    if (release.hasOneEmptyMedium() &&
+        !release.mediums()[0].tracksWereUnknownToUser) {
       medium.position(1);
 
       // Keep the existing formatID if there's not a new one.
