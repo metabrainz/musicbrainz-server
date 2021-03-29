@@ -58,7 +58,7 @@ has edit => (
     lazy => 1,
     default => sub {
         shift->c->model('Edit')->create(
-            editor_id => 1,
+            editor_id => 200,
             edit_type => $mock_edit_class
         );
     }

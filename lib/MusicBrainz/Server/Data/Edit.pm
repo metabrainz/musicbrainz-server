@@ -307,6 +307,7 @@ sub find_open_for_editor
         'SELECT ' . $self->_columns . '
            FROM ' . $self->_table . '
           WHERE status = ?
+            AND editor != ?
             AND NOT EXISTS (
                 SELECT TRUE FROM vote
                  WHERE vote.edit = edit.id
@@ -318,7 +319,7 @@ sub find_open_for_editor
 
     $self->query_to_list_limited(
         $query,
-        [$STATUS_OPEN, $editor_id],
+        [$STATUS_OPEN, $editor_id, $editor_id],
         $limit,
         $offset,
     );
