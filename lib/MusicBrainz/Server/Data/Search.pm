@@ -911,6 +911,13 @@ sub external_search
             $self->c->model('Release')->load_meta(@entities);
         }
 
+        if ($type eq 'area')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('Area')->load_ids(@entities);
+            $self->c->model('Area')->load_containment(@entities);
+        }
+
         my $pager = Data::Page->new;
         $pager->current_page($page);
         $pager->entries_per_page($limit);
