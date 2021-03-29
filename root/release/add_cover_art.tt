@@ -1,5 +1,5 @@
 [%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
-  [%- script_manifest('edit.js') -%]
+  [%- script_manifest('release/coverart.js') -%]
 
   <script type="text/javascript">
     MB.cover_art_types_json = [% cover_art_types_json %];
