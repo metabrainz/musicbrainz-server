@@ -63,6 +63,7 @@ const TagEntitiesList = ({
     entityType: string,
     title: string,
     seeAllMessage: $Call<typeof N_ln, string, string>,
+    showDownvoted: boolean,
   ) => {
     const tags = taggedEntities[entityType];
 
@@ -70,7 +71,10 @@ const TagEntitiesList = ({
       return null;
     }
 
-    const url = ENTITIES[entityType].url;
+    const url = showDownvoted
+      ? ENTITIES[entityType].url + '?show_downvoted=1'
+      : ENTITIES[entityType].url;
+
 
     return (
       <React.Fragment key={entityType}>
@@ -154,47 +158,47 @@ const TagEntitiesList = ({
       {buildTagEntitiesListSection('area', l('Areas'), N_ln(
         'See all {num} areas',
         'See all {num} areas',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('artist', l('Artists'), N_ln(
         'See all {num} artists',
         'See all {num} artists',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('event', l('Events'), N_ln(
         'See all {num} events',
         'See all {num} events',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('instrument', l('Instruments'), N_ln(
         'See all {num} instruments',
         'See all {num} instruments',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('label', l('Labels'), N_ln(
         'See all {num} labels',
         'See all {num} labels',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('place', l('Places'), N_ln(
         'See all {num} places',
         'See all {num} places',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('release_group', l('Release Groups'), N_ln(
         'See all {num} release groups',
         'See all {num} release groups',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('release', l('Releases'), N_ln(
         'See all {num} releases',
         'See all {num} releases',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('recording', l('Recordings'), N_ln(
         'See all {num} recordings',
         'See all {num} recordings',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('series', l('Series'), N_ln(
         'See all {num} series',
         'See all {num} series',
-      ))}
+      ), showDownvoted)}
       {buildTagEntitiesListSection('work', l('Works'), N_ln(
         'See all {num} works',
         'See all {num} works',
-      ))}
+      ), showDownvoted)}
     </>
   );
 };
