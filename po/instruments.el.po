@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 07:24+0000\n"
-"Last-Translator: Marios Pizinas <email address hidden>\n"
+"PO-Revision-Date: 2021-03-25 07:22+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1373,10 +1373,6 @@ msgstr ""
 msgid "effects"
 msgstr ""
 
-#: DB:instrument/name:643
-msgid "ektara"
-msgstr ""
-
 #: DB:instrument/name:51
 msgid "electric bass guitar"
 msgstr "ηλεκτρικό μπάσο"
@@ -1715,6 +1711,11 @@ msgstr ""
 #: DB:instrument/name:981
 msgctxt "Arrangement of kettle shaped gongs"
 msgid "gong-chime"
+msgstr ""
+
+#: DB:instrument/name:643
+msgctxt "Indian drum-zither"
+msgid "gopichant"
 msgstr ""
 
 #: DB:instrument/name:582

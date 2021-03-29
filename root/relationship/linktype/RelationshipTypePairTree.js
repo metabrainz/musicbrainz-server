@@ -12,6 +12,7 @@ import * as React from 'react';
 import Layout from '../../layout';
 import * as manifest from '../../static/manifest';
 import Cardinality from '../../static/scripts/common/components/Cardinality';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatEntityTypeName
@@ -115,15 +116,15 @@ const RelationshipTypeDetails = ({
         {'[ '}
         {isRelationshipEditor($c.user) ? (
           <>
-            <a href={'/relationship/' + relType.gid + '/edit'}>
-              {l('Edit')}
-            </a>
+            <EntityLink content={l('Edit')} entity={relType} subPath="edit" />
             {childrenTypes.length ? null : (
               <>
                 {' | '}
-                <a href={'/relationship/' + relType.gid + '/delete'}>
-                  {l('Remove')}
-                </a>
+                <EntityLink
+                  content={l('Remove')}
+                  entity={relType}
+                  subPath="delete"
+                />
               </>
             )}
             {' | '}

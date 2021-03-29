@@ -298,6 +298,31 @@ sub _hash_to_row
     return $row;
 }
 
+=method load_ids
+
+Load internal IDs for area objects that only have GIDs.
+
+=cut
+
+sub load_ids
+{
+    my ($self, @areas) = @_;
+
+    my @gids = map { $_->gid } @areas;
+    return () unless @gids;
+
+    my $query = "
+        SELECT gid, id FROM area
+        WHERE gid IN (" . placeholders(@gids) . ")
+    ";
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $area (@areas) {
+        $area->id($map{$area->gid}) if exists $map{$area->gid};
+    }
+}
+
 sub get_by_iso_3166_1 {
     shift->_get_by_iso('iso_3166_1', @_);
 }

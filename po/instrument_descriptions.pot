@@ -329,9 +329,9 @@ msgstr ""
 #: DB:instrument/description:643
 msgid ""
 "Also known as ektara, it has a body of wood or coconut with a membrane at "
-"bottom, on the sides attaced a handle-like neck of split bamboo where a "
-"single string is suspended and attached to the membrane. <br /> For the one "
-"string lute also called \"ektar\" see <a href=\"/instrument/b0edfd1a-"
+"the bottom. Attached to the sides is a handle-like neck of split bamboo from "
+"which a single string is suspended and attached to the membrane. <br /> For "
+"the one string lute also called \"ektar\" see <a href=\"/instrument/b0edfd1a-"
 "e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />"
 msgstr ""
 
@@ -347,7 +347,7 @@ msgstr ""
 #. name:reed organ 
 #: DB:instrument/description:204
 msgid ""
-"Also known as pump organ, it is large, looks like an upright piano hand has "
+"Also known as pump organ, it is large, looks like an upright piano and has "
 "pedals attached to bellows with reeds. Sound is produced by playing the "
 "keyboard."
 msgstr ""

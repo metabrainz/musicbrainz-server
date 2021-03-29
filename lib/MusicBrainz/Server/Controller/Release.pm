@@ -132,8 +132,8 @@ before show => sub {
 };
 
 # Stuff that has the side bar and thus needs to display collection information
-after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
-           show collections details discids tags )] => sub {
+after [qw( show collections details tags aliases
+           discids cover_art add_cover_art edit_cover_art reorder_cover_art )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

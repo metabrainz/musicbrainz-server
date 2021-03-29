@@ -25,7 +25,6 @@ require('./edit/components/forms');
 require('./edit/MB/Control/ArtistEdit');
 require('./edit/MB/Control/Bubble');
 require('./edit/URLCleanup');
-require('./edit/MB/CoverArt');
 require('./edit/MB/edit');
 require('./edit/MB/reltypeslist');
 require('./edit/MB/TextList');

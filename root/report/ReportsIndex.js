@@ -377,6 +377,10 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           reportName="ReleasesWithNoMediums"
         />
         <ReportsIndexEntry
+          content={l('Releases with empty mediums')}
+          reportName="ReleasesWithEmptyMediums"
+        />
+        <ReportsIndexEntry
           content={l(
             'Releases not credited to "Various Artists" but linked to VA',
           )}

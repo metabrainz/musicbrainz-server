@@ -24,6 +24,7 @@ import {displayLinkAttributesText}
   from '../../common/utility/displayLinkAttribute';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
+import {isDateObservableEmpty} from '../../common/utility/isDateEmpty';
 import request from '../../common/utility/request';
 import {fixedWidthInteger, uniqueId} from '../../common/utility/strings';
 import mbEdit from '../../edit/MB/edit';
@@ -521,6 +522,18 @@ class Relationship {
     const mergedEndDate = mergeDates(this.end_date, other.end_date);
     const isDatePeriodValid = mergedBeginDate && mergedEndDate &&
       dates.isDatePeriodValid(mergedBeginDate, mergedEndDate);
+    /*
+     * We want to avoid merging dates if one is ended and the other isn't,
+     * unless one of them is empty and can safely be overwritten.
+     */
+    const isOneDateEmpty =
+      (isDateObservableEmpty(this.begin_date) &&
+       isDateObservableEmpty(this.end_date) &&
+       !this.ended()) ||
+      (isDateObservableEmpty(other.begin_date) &&
+       isDateObservableEmpty(other.end_date) &&
+       !other.ended());
+    const isEndedSame = this.ended() === other.ended();
 
     return (
       this !== other &&
@@ -528,7 +541,7 @@ class Relationship {
       this.linkOrder() == other.linkOrder() &&
       deepEqual(this.entities(), other.entities()) &&
       isDatePeriodValid &&
-      this.ended() === other.ended() &&
+      (isOneDateEmpty || isEndedSame) &&
       attributesAreEqual(this.attributes(), other.attributes())
     );
   }

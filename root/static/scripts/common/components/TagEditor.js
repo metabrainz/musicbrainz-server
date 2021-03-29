@@ -213,6 +213,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   genreNames: $ReadOnlyArray<string>;
 
+  handleChange: () => void;
+
   handleSubmit: (SyntheticEvent<HTMLFormElement>) => void;
 
   onBeforeUnload: () => void;
@@ -232,6 +234,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.flushPendingVotes = this.flushPendingVotes.bind(this);
     this.onBeforeUnload = this.onBeforeUnload.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.setTagsInput = this.setTagsInput.bind(this);
 
     this.genreMap = props.genreMap ?? {};
@@ -365,6 +368,20 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     input.value = '';
   }
 
+  handleChange() {
+    /*
+     * MBS-9862: jQuery UI disables the browser's builtin autocomplete
+     * history in a non-configurable way, but we want it to show here
+     * if the user hasn't typed anything yet, so flip it back on.
+     * Turn it off again if something has been typed (activating
+     * the jQuery autocomplete).
+     */
+    this.tagsInput?.setAttribute(
+      'autocomplete',
+      this.tagsInput.value ? 'off' : 'on',
+    );
+  }
+
   updateVote(index: number, vote: VoteT) {
     const newCount = this.getNewCount(index, vote);
     const tags = this.state.tags.slice(0);
@@ -460,13 +477,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         response(filteredTerms);
       },
     });
-
-    /*
-     * MBS-9862: jQuery UI disables the browser's builtin autocomplete
-     * history in a non-configurable way, but we want it to show here
-     * if the user hasn't typed anything yet, so flip it back on.
-     */
-    input.setAttribute('autocomplete', 'on');
   }
 }
 
@@ -630,6 +640,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
               <input
                 className="tag-input"
                 name="tags"
+                onChange={this.handleChange}
                 ref={this.setTagsInput}
                 style={{flexGrow: 2}}
                 type="text"

@@ -81,6 +81,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesToConvert
     ReleasesWithCAANoTypes
     ReleasesWithDownloadRelationships
+    ReleasesWithEmptyMediums
     ReleasesWithNoMediums
     ReleasesWithoutVACredit
     ReleasesWithoutVALink
@@ -169,6 +170,7 @@ use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ReleasesSameBarcode;
 use MusicBrainz::Server::Report::ReleasesWithCAANoTypes;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
+use MusicBrainz::Server::Report::ReleasesWithEmptyMediums;
 use MusicBrainz::Server::Report::ReleasesWithNoMediums;
 use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
 use MusicBrainz::Server::Report::ReleasesWithoutVALink;

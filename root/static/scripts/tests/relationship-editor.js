@@ -247,7 +247,7 @@ relationshipEditorTest('link phrase interpolation', function (t) {
 });
 
 relationshipEditorTest('merging duplicate relationships', function (t) {
-  t.plan(8);
+  t.plan(10);
 
   var vm = setupReleaseRelationshipEditor();
 
@@ -376,6 +376,64 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
 
   laterRelationship.remove();
   earlierRelationship.remove();
+
+  var emptyDatesRelationship = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: null,
+    end_date: null,
+    ended: false,
+  }, source);
+
+  var newDatedRelationship = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: { year: 2000 },
+    end_date: { year: 2000 },
+    ended: true,
+  }, source);
+
+  emptyDatesRelationship.show();
+  newDatedRelationship.show();
+
+  t.ok(
+    source.mergeRelationship(newDatedRelationship),
+    'relationships were merged when one date period was empty',
+  );
+
+  emptyDatesRelationship.remove();
+  newDatedRelationship.remove();
+
+  var emptyDatesEndedRelationship = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: null,
+    end_date: null,
+    ended: true,
+  }, source);
+
+  var newDatedNonEndedRelationship = vm.getRelationship({
+    target: target,
+    linkTypeID: 148,
+    attributes: ids2attrs([123, 194, 277]),
+    begin_date: { year: 2000 },
+    end_date: null,
+    ended: false,
+  }, source);
+
+  emptyDatesEndedRelationship.show();
+  newDatedNonEndedRelationship.show();
+
+  t.ok(
+    !source.mergeRelationship(newDatedNonEndedRelationship),
+    'relationships were not merged when original was ended even if date period is empty',
+  );
+
+  emptyDatesEndedRelationship.remove();
+  newDatedNonEndedRelationship.remove();
 });
 
 relationshipEditorTest('dialog backwardness', function (t) {
