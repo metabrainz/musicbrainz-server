@@ -18,6 +18,7 @@ import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseLanguageScript from '../components/ReleaseLanguageScript';
 import SortableTableHeader from '../components/SortableTableHeader';
+import * as manifest from '../static/manifest';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
@@ -624,7 +625,17 @@ export function defineTypeColumn(
 
 export const attributesColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
-    Cell: ({row: {original}}) => <AttributeList entity={original} />,
+    Cell: ({row: {original}}) => (
+      original.attributes ? (
+        <ul>
+          <AttributeList attributes={original.attributes} />
+          {manifest.js(
+            'common/components/AttributeList',
+            {async: 'async'},
+          )}
+        </ul>
+      ) : null
+    ),
     Header: N_l('Attributes'),
     id: 'attributes',
   };

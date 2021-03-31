@@ -45,6 +45,7 @@ const entries = [
   'collection/edit',
   'common',
   'common/components/AcoustIdCell',
+  'common/components/AttributeList',
   'common/components/TaggerIcon',
   'confirm-seed',
   'edit',
