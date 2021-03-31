@@ -639,6 +639,7 @@ const URL_SHORTENERS = [
   'rb.gy',
   'rubyurl.com',
   'smarturl.it',
+  'snd.click',
   'song.link',
   'songwhip.com',
   'spinnup.link',
