@@ -3172,6 +3172,13 @@ const testData = [
             expected_clean_url: 'https://ra.co/podcast/491',
        only_valid_entity_types: ['release'],
   },
+  {
+                     input_url: 'http://www.ra.co/exchange/552',
+             input_entity_type: 'release',
+    expected_relationship_type: 'shownotes',
+            expected_clean_url: 'https://ra.co/exchange/552',
+       only_valid_entity_types: ['release'],
+  },
   // ReverbNation
   {
                      input_url: 'https://reverbnation.com/negator',

@@ -2717,7 +2717,7 @@ const CLEANUPS = {
   },
   'residentadvisor': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?ra\\.co/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?ra\\.co/(?!exchange)', 'i'),
       new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/', 'i'),
     ],
     type: {
@@ -2769,6 +2769,14 @@ const CLEANUPS = {
         }
       }
       return {result: false};
+    },
+  },
+  // TODO: Merge with residentadvisor after MBS-9902 is implemented
+  'residentadvisorexchange': {
+    match: [new RegExp('^(https?://)?(www\\.)?ra\\.co/exchange', 'i')],
+    type: LINK_TYPES.shownotes,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?ra\.co\/exchange\/([^\/?#]+).*$/, 'https://ra.co/exchange/$1');
     },
   },
   'reverbnation': {
