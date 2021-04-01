@@ -14,9 +14,12 @@ use List::MoreUtils qw( part );
 use List::UtilsBy qw( nsort_by partition_by );
 use MusicBrainz::Server::Constants qw(
     :quality
+    $AUTO_EDITOR_FLAG
     $EDIT_RELEASE_CREATE
     $STATUS_APPLIED
     $VARTIST_ID
+    $VOTE_YES
+    $VOTE_APPROVE
 );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -1488,27 +1491,41 @@ sub newest_releases_with_artwork {
         ON (cover_art.id = cover_art_type.id)
       JOIN edit_release ON edit_release.release = release.id
       JOIN edit ON edit.id = edit_release.edit
+      JOIN vote ON vote.edit = cover_art.edit
+      JOIN editor voter ON voter.id = vote.editor
       WHERE cover_art_type.type_id = ?
         AND cover_art.ordering = 1
         AND edit.type = ?
         AND cover_art.date_uploaded < NOW() - INTERVAL \'10 minutes\'
+        AND (voter.privs & ?) > 0
+        AND vote.vote IN (?, ?)
       ORDER BY edit.id DESC
       LIMIT 10';
 
     my $FRONT = 1;
-    $self->query_to_list($query, [$FRONT, $EDIT_RELEASE_CREATE], sub {
-        my ($model, $row) = @_;
+    $self->query_to_list(
+        $query,
+        [
+            $FRONT,
+            $EDIT_RELEASE_CREATE,
+            $AUTO_EDITOR_FLAG,
+            $VOTE_YES,
+            $VOTE_APPROVE
+        ],
+        sub {
+            my ($model, $row) = @_;
 
-        my $release = $model->_new_from_row($row);
-        my $mbid = $release->gid;
-        my $caa_id = $row->{cover_art_id};
+            my $release = $model->_new_from_row($row);
+            my $mbid = $release->gid;
+            my $caa_id = $row->{cover_art_id};
 
-        Artwork->new(
-            id => $caa_id,
-            release => $release,
-            suffix => 'spoof',
-        );
-    });
+            Artwork->new(
+                id => $caa_id,
+                release => $release,
+                suffix => 'spoof',
+            );
+        }
+    );
 }
 
 sub load_release_events {
