@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-25 20:38+0000\n"
+"PO-Revision-Date: 2021-03-29 22:17+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -345,11 +345,11 @@ msgstr "Conosciuta anche come melodeon, ha 1 o 2 file di bottoni ognuno dei qual
 #: DB:instrument/description:643
 msgid ""
 "Also known as ektara, it has a body of wood or coconut with a membrane at "
-"bottom, on the sides attaced a handle-like neck of split bamboo where a "
-"single string is suspended and attached to the membrane. <br /> For the one "
-"string lute also called \"ektar\" see <a "
+"the bottom. Attached to the sides is a handle-like neck of split bamboo from"
+" which a single string is suspended and attached to the membrane. <br /> For"
+" the one string lute also called \"ektar\" see <a "
 "href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />"
-msgstr "Conosciuto anche come ektara, ha una cassa in legno o in cocco con una membrana sul fondo e un manico in sezione di bambù, fissato ai lati della cassa, su cui è sospesa una sola corda, attaccata alla membrana. <br /> Per il liuto a una corda chiamato anche \"ektar\", utilizza <a href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />."
+msgstr "Conosciuto anche come ektara, ha una cassa in legno o in cocco con una membrana sul fondo. Fissato ai lati della cassa ha un manico in sezione di bambù, su cui è sospesa una sola corda, attaccata alla membrana. <br /> Per il liuto a una corda chiamato anche \"ektar\", utilizza <a href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />."
 
 #. name:repeater
 #: DB:instrument/description:882
@@ -363,10 +363,10 @@ msgstr "Conosciuto anche come kette o keteh, è il tamburo nyabinghi di dimensio
 #. name:reed organ
 #: DB:instrument/description:204
 msgid ""
-"Also known as pump organ, it is large, looks like an upright piano hand has "
+"Also known as pump organ, it is large, looks like an upright piano and has "
 "pedals attached to bellows with reeds. Sound is produced by playing the "
 "keyboard."
-msgstr "Conosciuto anche come organo ad ance, è grande e dall'aspetto simile ad un pianoforte verticale, ha pedali collegati a mantici con ance. Il suono è generato suonando la tastiera."
+msgstr "Conosciuto anche come organo ad ance, è grande, dall'aspetto simile ad un pianoforte verticale e ha pedali collegati a mantici con ance. Il suono è generato suonando la tastiera."
 
 #. name:alto viol
 #: DB:instrument/description:923
