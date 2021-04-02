@@ -1330,11 +1330,13 @@ const testData = [
   // DNB
   {
                      input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D129802433',
+             input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/129802433',
   },
   {
                      input_url: 'http://d-nb.info/gnd/129802433',
+             input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
   },
   // DRAM
