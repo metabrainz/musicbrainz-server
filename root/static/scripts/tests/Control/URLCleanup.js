@@ -1327,6 +1327,16 @@ const testData = [
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9',
   },
+  // DNB
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D129802433',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/129802433',
+  },
+  {
+                     input_url: 'http://d-nb.info/gnd/129802433',
+    expected_relationship_type: 'otherdatabases',
+  },
   // DRAM
   {
                      input_url: 'http://www.dramonline.org/composers/buren-john-van',

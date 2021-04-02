@@ -1317,6 +1317,19 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'dnb': {
+    match: [
+      new RegExp('^(https?://)?([^/]+\\.)?d-nb\\.info', 'i'),
+      new RegExp('^(https?://)?([^/]+\\.)?dnb\\.de', 'i'),
+    ],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(\d+).*$/, 'http://d-nb.info/gnd/$1');
+    },
+    validate: function (url) {
+      return {result: /^http:\/\/d-nb\.info\/gnd\/(\d+)$/.test(url)};
+    },
+  },
   'downloadpurchase': {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?junodownload\\.com', 'i'),
