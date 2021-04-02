@@ -13,7 +13,7 @@ import FormRowText from '../components/FormRowText';
 import FormSubmit from '../components/FormSubmit';
 import PostParameters, {
   type PostParametersT,
-} from '../components/PostParameters';
+} from '../static/scripts/common/components/PostParameters';
 import Layout from '../layout';
 import * as manifest from '../static/manifest';
 import DBDefs from '../static/scripts/common/DBDefs';
