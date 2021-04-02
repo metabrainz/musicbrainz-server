@@ -1333,11 +1333,26 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/129802433',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=idn%3D1227621485',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/1227621485',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://d-nb.info/gnd/129802433',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://d-nb.info/1227621485',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist'],
   },
   // DRAM
   {

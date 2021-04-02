@@ -1324,10 +1324,12 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(\d+).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(\d+).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D(\d+).*$/, 'http://d-nb.info/$1');
+      return url;
     },
-    validate: function (url) {
-      return {result: /^http:\/\/d-nb\.info\/gnd\/(\d+)$/.test(url)};
+    validate: function (url, id) {
+      return {result: id === LINK_TYPES.otherdatabases.artist};
     },
   },
   'downloadpurchase': {
