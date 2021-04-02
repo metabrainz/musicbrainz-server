@@ -1334,11 +1334,6 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/129802433',
   },
-  {
-                     input_url: 'http://d-nb.info/gnd/129802433',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'otherdatabases',
-  },
   // DRAM
   {
                      input_url: 'http://www.dramonline.org/composers/buren-john-van',
