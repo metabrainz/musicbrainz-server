@@ -1027,9 +1027,15 @@ const testData = [
   // Classical Archives
   {
                      input_url: 'http://www.classicalarchives.com/artist/27956.html',
-             input_entity_type: 'release',
+             input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.classicalarchives.com/artist/27956.html',
+  },
+  {
+                     input_url: 'https://www.classicalarchives.com/newca/#!/Performer/p28471',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/artist/28471.html',
   },
   {
                      input_url: 'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
@@ -1038,10 +1044,22 @@ const testData = [
             expected_clean_url: 'https://www.classicalarchives.com/composer/2806.html',
   },
   {
+                     input_url: 'http://www.classicalarchives.com/newca/#!/Composer/3411',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/composer/3411.html',
+  },
+  {
                      input_url: 'https://www.classicalarchives.com/ensemble/10.html',
-             input_entity_type: 'release',
+             input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.classicalarchives.com/ensemble/10.html',
+  },
+  {
+                     input_url: 'www.classicalarchives.com/newca/#!/Performer/e5425',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/ensemble/5425.html',
   },
   {
                      input_url: 'http://classicalarchives.com/album/menlo-201409.html?test',
@@ -1050,10 +1068,22 @@ const testData = [
             expected_clean_url: 'https://www.classicalarchives.com/album/menlo-201409.html',
   },
   {
+                     input_url: 'http://www.classicalarchives.com/newca/#!/Album/21779#',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/newca/#!/Album/21779',
+  },
+  {
                      input_url: 'https://www.classicalarchives.com/work/1119282.html',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.classicalarchives.com/work/1119282.html',
+  },
+  {
+                     input_url: 'https://www.classicalarchives.com/newca/#!/Work/296312',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/work/296312.html',
   },
   // CPDL (Choral Public Domain Library)
   {
