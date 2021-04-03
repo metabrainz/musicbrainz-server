@@ -1134,6 +1134,23 @@ const CLEANUPS = {
       url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, '$1/$2/$3');
       return url;
     },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.classicalarchives\.com\/(?:newca\/#!\/)?([Aa]lbum|artist|composer|ensemble|work)\/([^\/?#]+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: ['artist', 'composer', 'ensemble'].includes(prefix),
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {result: prefix === 'album' || prefix === 'Album'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'work'};
+        }
+      }
+      return {result: false};
+    },
   },
   'cpdl': {
     match: [new RegExp('^(https?://)?(www[0-9]?\\.)?cpdl\\.org', 'i')],
