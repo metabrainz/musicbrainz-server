@@ -1324,12 +1324,18 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(\d+).*$/, 'http://d-nb.info/gnd/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D(\d+).*$/, 'http://d-nb.info/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D([\d-]+).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D([\d-]+).*$/, 'http://d-nb.info/$1');
       return url;
     },
     validate: function (url, id) {
-      return {result: id === LINK_TYPES.otherdatabases.artist};
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return {result: /^http:\/\/d-nb\.info\/gnd\/[\d-]+$/.test(url)};
+        case LINK_TYPES.otherdatabases.release:
+          return {result: /^http:\/\/d-nb\.info\/[\d-]+$/.test(url)};
+      }
+      return {result: false};
     },
   },
   'downloadpurchase': {
