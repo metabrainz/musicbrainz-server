@@ -28,7 +28,7 @@ const AreaEvents = ({
   events,
   pager,
 }: Props): React.Element<typeof AreaLayout> => (
-  <AreaLayout $c={$c} entity={area} page="events" title={l('Events')}>
+  <AreaLayout entity={area} page="events" title={l('Events')}>
     <h2>{l('Events')}</h2>
 
     {events.length > 0 ? (

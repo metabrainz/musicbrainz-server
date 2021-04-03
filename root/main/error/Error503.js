@@ -11,14 +11,8 @@ import * as React from 'react';
 
 import ErrorLayout from './ErrorLayout';
 
-type Props = {
-  +$c: CatalystContextT,
-};
-
-const Error503 = ({
-  $c,
-}: Props): React.Element<typeof ErrorLayout> => (
-  <ErrorLayout $c={$c} title={l('System Busy')}>
+const Error503 = (): React.Element<typeof ErrorLayout> => (
+  <ErrorLayout title={l('System Busy')}>
     <p>
       <strong>
         {l('The system is overloaded or you are making requests too fast.')}

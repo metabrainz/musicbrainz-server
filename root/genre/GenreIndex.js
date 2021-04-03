@@ -14,16 +14,13 @@ import TagLink from '../static/scripts/common/components/TagLink';
 import GenreLayout from './GenreLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +genre: GenreT,
 };
 
 const GenreIndex = ({
-  $c,
   genre,
 }: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
-    $c={$c}
     entity={genre}
     page="index"
     title={l('Genre information')}

@@ -28,7 +28,7 @@ const AreaArtists = ({
   artists,
   pager,
 }: Props): React.Element<typeof AreaLayout> => (
-  <AreaLayout $c={$c} entity={area} page="artists" title={l('Artists')}>
+  <AreaLayout entity={area} page="artists" title={l('Artists')}>
     <h2>{l('Artists')}</h2>
 
     {artists?.length ? (

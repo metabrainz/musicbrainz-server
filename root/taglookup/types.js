@@ -17,13 +17,11 @@ export type TagLookupFormT = FormT<{
 }>;
 
 export type TagLookupPropsT = {
-  +$c: CatalystContextT,
   +form: TagLookupFormT,
   +nag: boolean,
 };
 
 export type TagLookupResultsPropsT<T> = {
-  +$c: CatalystContextT,
   +children: React$Node,
   +form: TagLookupFormT,
   +nag: boolean,

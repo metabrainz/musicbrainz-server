@@ -15,7 +15,6 @@ import formatEntityTypeName
 import RelationshipsHeader from '../RelationshipsHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +table: $ReadOnlyArray<$ReadOnlyArray<$ReadOnlyArray<string>>>,
   +types: $ReadOnlyArray<string>,
 };
@@ -57,14 +56,13 @@ const TypesTable = ({table, types}: Props) => (
 );
 
 const RelationshipTypesList = ({
-  $c,
   table,
   types,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth noIcons title={l('Relationship Types')}>
+  <Layout fullWidth noIcons title={l('Relationship Types')}>
     <div className="wikicontent" id="content">
       <RelationshipsHeader page="relationships" />
-      <TypesTable $c={$c} table={table} types={types} />
+      <TypesTable table={table} types={types} />
     </div>
   </Layout>
 );

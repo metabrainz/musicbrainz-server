@@ -27,7 +27,7 @@ const Error404 = ({
   $c,
   message,
 }: Props): React.Element<typeof ErrorLayout> => (
-  <ErrorLayout $c={$c} title={l('Page Not Found')}>
+  <ErrorLayout title={l('Page Not Found')}>
     <p>
       <strong>
         {l(`Sorry, the page you're looking for does not exist.`)}

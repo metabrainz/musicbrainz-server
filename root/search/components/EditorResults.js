@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsWithContextT} from '../types';
+import type {ResultsPropsT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -30,15 +30,14 @@ function buildResult(result, index) {
 }
 
 const EditorResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<EditorT>):
+}: ResultsPropsT<EditorT>):
 React.Element<typeof ResultsLayout> => (
-  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
+  <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={

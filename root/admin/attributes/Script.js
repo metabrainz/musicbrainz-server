@@ -23,17 +23,15 @@ const frequencyLabels = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +attributes: Array<ScriptT>,
   +model: string,
 };
 
 const Script = ({
-  $c,
   model,
   attributes,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={model || l('Script')}>
+  <Layout fullWidth title={model || l('Script')}>
     <h1>
       <a href="/admin/attributes">{l('Attributes')}</a>
       {' / ' + l('Script')}

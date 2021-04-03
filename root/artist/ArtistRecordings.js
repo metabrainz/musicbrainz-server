@@ -136,7 +136,6 @@ const ArtistRecordings = ({
   videoOnly,
 }: Props): React.Element<typeof ArtistLayout> => (
   <ArtistLayout
-    $c={$c}
     entity={artist}
     page="recordings"
     title={l('Recordings')}

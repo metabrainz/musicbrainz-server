@@ -12,15 +12,13 @@ import * as React from 'react';
 import Layout from '../../layout';
 
 type Props = {
-  +$c: CatalystContextT,
   +type: LinkTypeT,
 };
 
 const RelationshipTypeInUse = ({
-  $c,
   type,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Relationship Type In Use')}>
+  <Layout fullWidth title={l('Relationship Type In Use')}>
     <div className="content">
       <h1>{l('Relationship Type In Use')}</h1>
       <p>

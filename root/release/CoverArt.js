@@ -57,7 +57,7 @@ const CoverArt = ({
   const title = l('Cover Art');
 
   return (
-    <ReleaseLayout $c={$c} entity={release} page="cover-art" title={title}>
+    <ReleaseLayout entity={release} page="cover-art" title={title}>
       <h2>
         {release.cover_art_presence === 'darkened'
           ? l('Cannot show cover art')

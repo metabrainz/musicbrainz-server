@@ -28,7 +28,7 @@ const PlaceEvents = ({
   pager,
   place,
 }: Props): React.Element<typeof PlaceLayout> => (
-  <PlaceLayout $c={$c} entity={place} page="events" title={l('Events')}>
+  <PlaceLayout entity={place} page="events" title={l('Events')}>
     <h2>{l('Events')}</h2>
 
     {events.length > 0 ? (

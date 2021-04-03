@@ -33,7 +33,7 @@ type Props = {
 const TagIndex = (props: Props): React.Element<typeof TagLayout> => {
   const genre = props.tag.genre;
   return (
-    <TagLayout $c={props.$c} page="" tag={props.tag}>
+    <TagLayout page="" tag={props.tag}>
       {genre ? (
         <>
           <h2>{l('Genre')}</h2>

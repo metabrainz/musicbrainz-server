@@ -44,7 +44,6 @@ const LanguagesScripts = ({
   scriptStats,
 }: LanguagesScriptsStatsT): React.Element<typeof StatisticsLayout> => (
   <StatisticsLayout
-    $c={$c}
     fullWidth
     page="languages-scripts"
     title={l('Languages and Scripts')}

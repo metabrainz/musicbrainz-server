@@ -63,7 +63,7 @@ const CoverArt = ({
   stats,
   typeStats,
 }: CoverArtStatsT): React.Element<typeof StatisticsLayout> => (
-  <StatisticsLayout $c={$c} fullWidth page="coverart" title={l('Cover Art')}>
+  <StatisticsLayout fullWidth page="coverart" title={l('Cover Art')}>
     <p>
       {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>

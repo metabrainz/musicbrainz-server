@@ -32,7 +32,7 @@ const Error500 = ({
   hostname,
   useLanguages,
 }: Props): React.Element<typeof ErrorLayout> => (
-  <ErrorLayout $c={$c} title={l('Internal Server Error')}>
+  <ErrorLayout title={l('Internal Server Error')}>
     <p>
       <strong>
         {l('Oops, something went wrong!')}

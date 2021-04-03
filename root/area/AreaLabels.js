@@ -28,7 +28,7 @@ const AreaLabels = ({
   labels,
   pager,
 }: Props): React.Element<typeof AreaLayout> => (
-  <AreaLayout $c={$c} entity={area} page="labels" title={l('Labels')}>
+  <AreaLayout entity={area} page="labels" title={l('Labels')}>
     <h2>{l('Labels')}</h2>
 
     {labels.length > 0 ? (

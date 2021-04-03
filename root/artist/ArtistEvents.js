@@ -28,7 +28,7 @@ const ArtistEvents = ({
   events,
   pager,
 }: Props): React.Element<typeof ArtistLayout> => (
-  <ArtistLayout $c={$c} entity={artist} page="events" title={l('Events')}>
+  <ArtistLayout entity={artist} page="events" title={l('Events')}>
     <h2>{l('Events')}</h2>
 
     {events.length > 0 ? (

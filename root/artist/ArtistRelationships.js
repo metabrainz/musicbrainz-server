@@ -29,7 +29,6 @@ const ArtistRelationships = ({
   pager,
 }: Props): React.Element<typeof ArtistLayout> => (
   <ArtistLayout
-    $c={$c}
     entity={artist}
     page="relationships"
     title={l('Relationships')}

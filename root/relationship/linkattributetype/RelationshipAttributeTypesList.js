@@ -169,7 +169,7 @@ const RelationshipAttributeTypesList = ({
   $c,
   root,
 }: AttributesListProps): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth noIcons title={l('Relationship Attributes')}>
+  <Layout fullWidth noIcons title={l('Relationship Attributes')}>
     <div id="content">
       <RelationshipsHeader page="attributes" />
       {isRelationshipEditor($c.user) ? (

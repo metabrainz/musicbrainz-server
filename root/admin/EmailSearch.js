@@ -17,7 +17,6 @@ import expand2react from '../static/scripts/common/i18n/expand2react';
 import UserList from './components/UserList';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: FormT<{
     +email: ReadOnlyFieldT<string>,
   }>,
@@ -25,11 +24,10 @@ type Props = {
 };
 
 const EmailSearch = ({
-  $c,
   form,
   results,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Search users by email')}>
+  <Layout fullWidth title={l('Search users by email')}>
     <div id="content">
       <h1>{l('Search users by email')}</h1>
 

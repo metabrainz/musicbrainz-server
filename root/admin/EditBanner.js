@@ -15,15 +15,14 @@ import FormSubmit from '../components/FormSubmit';
 import Layout from '../layout';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: ReadOnlyFormT<{
     +csrf_token: ReadOnlyFieldT<string>,
     +message: ReadOnlyFieldT<string>,
   }>,
 };
 
-const EditBanner = ({$c, form}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Edit Banner Message')}>
+const EditBanner = ({form}: Props): React.Element<typeof Layout> => (
+  <Layout fullWidth title={l('Edit Banner Message')}>
     <div id="content">
       <h1>{l('Edit banner message')}</h1>
       <p>

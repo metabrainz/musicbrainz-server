@@ -26,7 +26,7 @@ const TimeoutError = ({
   hostname,
   useLanguages,
 }: Props): React.Element<typeof ErrorLayout> => (
-  <ErrorLayout $c={$c} title={l('Request Timed Out')}>
+  <ErrorLayout title={l('Request Timed Out')}>
     <p>
       <strong>
         {l('Processing your request took too long and timed out.')}

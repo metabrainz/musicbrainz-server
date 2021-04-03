@@ -14,13 +14,10 @@ import EditLink from '../static/scripts/common/components/EditLink';
 import {EDIT_STATUS_DELETED} from '../constants';
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: {...EditT, +id: number},
 };
 
-const CannotApproveEdit = (
-  {$c, edit}: Props,
-): React.Element<typeof Layout> => {
+const CannotApproveEdit = ({edit}: Props): React.Element<typeof Layout> => {
   const editDisplay = 'edit #' + edit.id;
   const editLink = <EditLink content={editDisplay} edit={edit} />;
   const editIsClosed = !edit.is_open;
@@ -36,7 +33,7 @@ const CannotApproveEdit = (
     )
   );
   return (
-    <Layout $c={$c} fullWidth title={l('Error Approving Edit')}>
+    <Layout fullWidth title={l('Error Approving Edit')}>
       <h1>{l('Error Approving Edit')}</h1>
       <p>
         {exp.l(

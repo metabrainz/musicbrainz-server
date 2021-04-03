@@ -31,7 +31,7 @@ const AreaReleases = ({
   pager,
   releases,
 }: Props): React.Element<typeof AreaLayout> => (
-  <AreaLayout $c={$c} entity={area} page="releases" title={l('Releases')}>
+  <AreaLayout entity={area} page="releases" title={l('Releases')}>
     {pagedLinkTypeGroup ? null : (
       <>
         <h2>{l('Releases')}</h2>

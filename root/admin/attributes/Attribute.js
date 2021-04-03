@@ -36,7 +36,6 @@ type AttributeT =
   | WorkTypeT;
 
 type Props = {
-  +$c: CatalystContextT,
   +attributes: Array<AttributeT>,
   +model: string,
 };
@@ -84,11 +83,10 @@ const renderAttributes = (attribute) => {
 };
 
 const Attribute = ({
-  $c,
   attributes,
   model,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={model}>
+  <Layout fullWidth title={model}>
     <h1>
       <a href="/admin/attributes">{l('Attributes')}</a>
       {' / ' + model}

@@ -37,7 +37,7 @@ const ReportsIndexEntry = ({
 );
 
 const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Reports')}>
+  <Layout fullWidth title={l('Reports')}>
     <div id="content">
       <h1>{l('Reports')}</h1>
 

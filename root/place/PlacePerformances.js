@@ -27,7 +27,6 @@ const PlacePerformances = ({
   place,
 }: Props): React.Element<typeof PlaceLayout> => (
   <PlaceLayout
-    $c={$c}
     entity={place}
     page="performances"
     title={l('Performances')}

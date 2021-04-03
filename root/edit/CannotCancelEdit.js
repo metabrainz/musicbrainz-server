@@ -13,18 +13,15 @@ import Layout from '../layout';
 import EditLink from '../static/scripts/common/components/EditLink';
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: {...EditT, +id: number},
 };
 
-const CannotCancelEdit = (
-  {$c, edit}: Props,
-): React.Element<typeof Layout> => {
+const CannotCancelEdit = ({edit}: Props): React.Element<typeof Layout> => {
   const editDisplay = 'edit #' + edit.id;
   const editIsClosed = !edit.is_open;
   const editLink = <EditLink content={editDisplay} edit={edit} />;
   return (
-    <Layout $c={$c} fullWidth title={l('Error Cancelling Edit')}>
+    <Layout fullWidth title={l('Error Cancelling Edit')}>
       <h1>{l('Error Cancelling Edit')}</h1>
       <p>
         {exp.l(

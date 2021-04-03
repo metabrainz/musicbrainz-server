@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context';
 import Layout from '../layout';
 import CollectionSidebar
   from '../layout/components/sidebar/CollectionSidebar';
@@ -16,7 +17,6 @@ import CollectionSidebar
 import CollectionHeader from './CollectionHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: CollectionT,
   +fullWidth?: boolean,
@@ -25,13 +25,13 @@ type Props = {
 };
 
 const CollectionLayout = ({
-  $c,
   children,
   entity: collection,
   fullWidth = false,
   page,
   title,
 }: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(CatalystContext);
   const mainTitle = texp.l(
     'Collection “{collection}”',
     {collection: collection.name},
@@ -39,7 +39,6 @@ const CollectionLayout = ({
 
   return (
     <Layout
-      $c={$c}
       title={nonEmpty(title) ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">
