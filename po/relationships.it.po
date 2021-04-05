@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 17:34+0000\n"
+"PO-Revision-Date: 2021-04-02 16:43+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3296,13 +3296,13 @@ msgstr "pagina di Wikipedia su"
 #: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:225
 #: DB:link_type/reverse_link_phrase:528
 msgid "YouTube channel for"
-msgstr "Canale YouTube per"
+msgstr "canale YouTube per"
 
 #: DB:link_type/link_phrase:791 DB:link_type/link_phrase:792
 #: DB:link_type/link_phrase:193 DB:link_type/link_phrase:225
 #: DB:link_type/link_phrase:528
 msgid "YouTube channels"
-msgstr "Canali YouTube"
+msgstr "canali YouTube"
 
 #: DB:link_attribute_type/name:1030
 msgid "act"
@@ -4379,7 +4379,7 @@ msgstr "ha un'intervista su"
 #: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:225
 #: DB:link_type/long_link_phrase:528
 msgid "has an official YouTube channel at"
-msgstr "ha il canale ufficiale di YouTube"
+msgstr "ha un canale YouTube ufficiale su"
 
 #: DB:link_type/long_link_phrase:745 DB:link_type/long_link_phrase:782
 #: DB:link_type/long_link_phrase:183 DB:link_type/long_link_phrase:219

@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-29 21:45+0300\n"
+"POT-Creation-Date: 2021-04-01 22:03+0300\n"
 "PO-Revision-Date: 2021-04-01 12:42+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
@@ -632,7 +632,7 @@ msgid "Area:"
 msgstr "Gebied:"
 
 #: ../root/components/common-macros.tt:591
-#: ../root/components/TagEntitiesList.js:154
+#: ../root/components/TagEntitiesList.js:158
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:13
 #: ../root/tag/TagLayout.js:33
 msgid "Areas"
@@ -736,7 +736,7 @@ msgstr "Artiest:"
 
 #: ../root/components/common-macros.tt:591 ../root/area/AreaArtists.js:31
 #: ../root/area/AreaArtists.js:32 ../root/components/EntityTabs.js:25
-#: ../root/components/TagEntitiesList.js:158
+#: ../root/components/TagEntitiesList.js:162
 #: ../root/components/list/EventList.js:83
 #: ../root/instrument/InstrumentArtists.js:37
 #: ../root/instrument/InstrumentArtists.js:39 ../root/iswc/Index.js:58
@@ -1778,7 +1778,7 @@ msgstr "Evenement:"
 #: ../root/components/common-macros.tt:591 ../root/area/AreaEvents.js:31
 #: ../root/area/AreaEvents.js:32 ../root/artist/ArtistEvents.js:31
 #: ../root/artist/ArtistEvents.js:32 ../root/components/EntityTabs.js:26
-#: ../root/components/TagEntitiesList.js:162 ../root/place/PlaceEvents.js:31
+#: ../root/components/TagEntitiesList.js:166 ../root/place/PlaceEvents.js:31
 #: ../root/place/PlaceEvents.js:32 ../root/report/ReportsIndex.js:129
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:19
 #: ../root/tag/TagLayout.js:36
@@ -2325,7 +2325,7 @@ msgid "Instrument:"
 msgstr "Instrument:"
 
 #: ../root/components/common-macros.tt:591
-#: ../root/components/TagEntitiesList.js:166
+#: ../root/components/TagEntitiesList.js:170
 #: ../root/report/ReportsIndex.js:144
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:21
 #: ../root/tag/TagLayout.js:34
@@ -2432,7 +2432,7 @@ msgstr "Platenmaatschappij:"
 
 #: ../root/components/common-macros.tt:591 ../root/area/AreaLabels.js:31
 #: ../root/area/AreaLabels.js:32 ../root/components/EntityTabs.js:28
-#: ../root/components/TagEntitiesList.js:170
+#: ../root/components/TagEntitiesList.js:174
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:220
 #: ../root/report/ReportsIndex.js:159
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
@@ -2502,9 +2502,9 @@ msgid "Loading edit previews..."
 msgstr "Voorvertoningen van de bewerkingen worden geladen …"
 
 #: ../root/release/edit_relationships.tt:89
-#: ../root/static/scripts/common/MB/release.js:63
 #: ../root/static/scripts/common/components/FingerprintTable.js:87
 #: ../root/static/scripts/common/dialogs.js:15
+#: ../root/static/scripts/release/index.js:63
 #: ../root/utility/tableColumns.js:524
 msgid "Loading..."
 msgstr "Aan het laden …"
@@ -3158,7 +3158,7 @@ msgstr "Plaats:"
 
 #: ../root/components/common-macros.tt:591 ../root/area/AreaPlaces.js:35
 #: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:31
-#: ../root/components/TagEntitiesList.js:174
+#: ../root/components/TagEntitiesList.js:178
 #: ../root/report/ReportsIndex.js:489
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:32
@@ -3371,7 +3371,7 @@ msgstr "Opname:"
 #: ../root/artist_credit/ArtistCreditIndex.js:123
 #: ../root/artist_credit/ArtistCreditLayout.js:29
 #: ../root/components/EntityTabs.js:32
-#: ../root/components/TagEntitiesList.js:186
+#: ../root/components/TagEntitiesList.js:190
 #: ../root/edit/details/EditMedium.js:559
 #: ../root/instrument/InstrumentRecordings.js:37
 #: ../root/instrument/InstrumentRecordings.js:39
@@ -3528,7 +3528,7 @@ msgstr "Uitgavegroep: {release_group_link}"
 #: ../root/components/common-macros.tt:591
 #: ../root/artist_credit/ArtistCreditIndex.js:115
 #: ../root/artist_credit/ArtistCreditLayout.js:27
-#: ../root/components/TagEntitiesList.js:178
+#: ../root/components/TagEntitiesList.js:182
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
 #: ../root/tag/TagLayout.js:27
 msgid "Release Groups"
@@ -3614,7 +3614,7 @@ msgstr "Uitgave:"
 #: ../root/artist_credit/ArtistCreditIndex.js:119
 #: ../root/artist_credit/ArtistCreditLayout.js:28
 #: ../root/components/EntityTabs.js:33
-#: ../root/components/TagEntitiesList.js:182
+#: ../root/components/TagEntitiesList.js:186
 #: ../root/components/list/ReleaseGroupList.js:107
 #: ../root/instrument/InstrumentReleases.js:37
 #: ../root/instrument/InstrumentReleases.js:39 ../root/label/LabelIndex.js:58
@@ -5185,7 +5185,7 @@ msgstr "Compositie:"
 #: ../root/components/common-macros.tt:591 ../root/area/AreaWorks.js:29
 #: ../root/artist/ArtistWorks.js:31 ../root/artist/ArtistWorks.js:32
 #: ../root/components/EntityTabs.js:35
-#: ../root/components/TagEntitiesList.js:194
+#: ../root/components/TagEntitiesList.js:198
 #: ../root/report/ReportsIndex.js:515
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagLayout.js:30
@@ -8552,21 +8552,21 @@ msgid "Uses"
 msgstr "Gebruikt in"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:116
-#: ../root/components/TagEntitiesList.js:179
+#: ../root/components/TagEntitiesList.js:183
 msgid "See all {num} release groups"
 msgid_plural "See all {num} release groups"
 msgstr[0] "Bekijk alle {num} uitgavegroepen"
 msgstr[1] "Bekijk alle {num} uitgavegroepen"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:120
-#: ../root/components/TagEntitiesList.js:183
+#: ../root/components/TagEntitiesList.js:187
 msgid "See all {num} releases"
 msgid_plural "See all {num} releases"
 msgstr[0] "Bekijk alle {num} uitgaves"
 msgstr[1] "Bekijk alle {num} uitgaves"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:124
-#: ../root/components/TagEntitiesList.js:187
+#: ../root/components/TagEntitiesList.js:191
 msgid "See all {num} recordings"
 msgid_plural "See all {num} recordings"
 msgstr[0] "Bekijk alle {num} opnames"
@@ -8889,74 +8889,74 @@ msgstr "Vermeld als"
 msgid "“{link_phrase}” relationships"
 msgstr "Relaties voor ‘{link_phrase}’"
 
-#: ../root/components/TagEntitiesList.js:121
+#: ../root/components/TagEntitiesList.js:125
 msgid "Entities where {user} downvoted “{tag}”"
 msgstr "Objecten waarbij {user} de tag ‘{tag}’ omlaag heeft gestemd"
 
-#: ../root/components/TagEntitiesList.js:125
+#: ../root/components/TagEntitiesList.js:129
 msgid "Entities {user} tagged as “{tag}”"
 msgstr "Objecten die {user] de tag ‘{tag}’ heeft gegeven."
 
-#: ../root/components/TagEntitiesList.js:129
+#: ../root/components/TagEntitiesList.js:133
 msgid "Entities tagged as “{tag}”"
 msgstr "Objecten met de tag ‘{tag}’"
 
-#: ../root/components/TagEntitiesList.js:140
+#: ../root/components/TagEntitiesList.js:144
 msgid "{num} entity found"
 msgid_plural "{num} entities found"
 msgstr[0] "{num} object gevonden"
 msgstr[1] "{num} objecten gevonden"
 
-#: ../root/components/TagEntitiesList.js:155
+#: ../root/components/TagEntitiesList.js:159
 msgid "See all {num} areas"
 msgid_plural "See all {num} areas"
 msgstr[0] "Bekijk {num} gebied"
 msgstr[1] "Bekijk alle {num} gebieden"
 
-#: ../root/components/TagEntitiesList.js:159
+#: ../root/components/TagEntitiesList.js:163
 msgid "See all {num} artists"
 msgid_plural "See all {num} artists"
 msgstr[0] "Bekijk alle {num}artiesten"
 msgstr[1] "Bekijk alle {num} artiesten"
 
-#: ../root/components/TagEntitiesList.js:163
+#: ../root/components/TagEntitiesList.js:167
 msgid "See all {num} events"
 msgid_plural "See all {num} events"
 msgstr[0] "Bekijk {num} evenement"
 msgstr[1] "Bekijk alle {num} evenementen"
 
-#: ../root/components/TagEntitiesList.js:167
+#: ../root/components/TagEntitiesList.js:171
 msgid "See all {num} instruments"
 msgid_plural "See all {num} instruments"
 msgstr[0] "Bekijk {num} instrument"
 msgstr[1] "Bekijk alle {num} instrumenten"
 
-#: ../root/components/TagEntitiesList.js:171
+#: ../root/components/TagEntitiesList.js:175
 msgid "See all {num} labels"
 msgid_plural "See all {num} labels"
 msgstr[0] "Bekijk alle {num} platenmaatschappijen"
 msgstr[1] "Bekijk alle {num} platenmaatschappijen"
 
-#: ../root/components/TagEntitiesList.js:175
+#: ../root/components/TagEntitiesList.js:179
 msgid "See all {num} places"
 msgid_plural "See all {num} places"
 msgstr[0] "Bekijk alle {num} plaatsen"
 msgstr[1] "Bekijk alle {num} plaatsen"
 
-#: ../root/components/TagEntitiesList.js:190
+#: ../root/components/TagEntitiesList.js:194
 #: ../root/edit/details/AddSeries.js:38 ../root/edit/details/EditSeries.js:47
 #: ../root/report/ReportsIndex.js:506
 #: ../root/report/components/SeriesAnnotationList.js:30
 msgid "Series"
 msgstr "Series"
 
-#: ../root/components/TagEntitiesList.js:191
+#: ../root/components/TagEntitiesList.js:195
 msgid "See all {num} series"
 msgid_plural "See all {num} series"
 msgstr[0] "Bekijk {num} serie"
 msgstr[1] "Bekijk alle {num} series"
 
-#: ../root/components/TagEntitiesList.js:195
+#: ../root/components/TagEntitiesList.js:199
 msgid "See all {num} works"
 msgid_plural "See all {num} works"
 msgstr[0] "Bekijk alle {num} composities"
@@ -13532,18 +13532,6 @@ msgstr "Op alle bewerkingen stemmen:"
 msgid "Delete Note"
 msgstr "Notitie verwijderen"
 
-#: ../root/static/scripts/common/MB/release.js:26
-msgid "Display Credits at Bottom"
-msgstr "Relaties onderaan weergeven"
-
-#: ../root/static/scripts/common/MB/release.js:35
-msgid "Display Credits Inline"
-msgstr "Relaties onder de nummers weergeven"
-
-#: ../root/static/scripts/common/MB/release.js:100
-msgid "Failed to load the medium."
-msgstr "Medium laden is mislukt."
-
 #: ../root/static/scripts/common/artworkViewer.js:76
 msgid "Image {current} of {total}"
 msgstr "Afbeelding {current} van {total}"
@@ -14494,6 +14482,18 @@ msgstr "De streepjescode die je hebt ingevoerd, is geen geldige EAN-code."
 #: ../root/static/scripts/release-editor/validation.js:225
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr "De streepjescode die je hebt ingevoerd, is geen geldige UPC of EAN-code."
+
+#: ../root/static/scripts/release/index.js:26
+msgid "Display Credits at Bottom"
+msgstr "Relaties onderaan weergeven"
+
+#: ../root/static/scripts/release/index.js:35
+msgid "Display Credits Inline"
+msgstr "Relaties onder de nummers weergeven"
+
+#: ../root/static/scripts/release/index.js:100
+msgid "Failed to load the medium."
+msgstr "Medium laden is mislukt."
 
 #: ../root/static/scripts/work.js:281
 msgid "Add Language"
