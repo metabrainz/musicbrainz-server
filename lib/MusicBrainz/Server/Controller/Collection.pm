@@ -320,7 +320,10 @@ sub _merge_load_entities {
     }
 
     my @entity_types = uniq map { $_->type->item_entity_type } @collections;
+    my @privacy_settings = uniq map { $_->public } @collections;
+
     $c->stash(
+        privacies_differ => @privacy_settings > 1,
         types_differ => @entity_types > 1,
     );
 }

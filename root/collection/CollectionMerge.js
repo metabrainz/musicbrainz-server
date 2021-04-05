@@ -27,6 +27,7 @@ import {
 type Props = {
   +$c: CatalystContextT,
   +form: MergeFormT,
+  +privacyDiffers?: boolean,
   +toMerge: $ReadOnlyArray<CollectionT>,
   +typesDiffer?: boolean,
 };
@@ -92,6 +93,7 @@ const CollectionMergeTable = ({
 const CollectionMerge = ({
   $c,
   form,
+  privacyDiffers,
   toMerge,
   typesDiffer,
 }: Props): React.Element<typeof Layout> => {
@@ -129,6 +131,19 @@ const CollectionMerge = ({
                   for different entity types. Only collections
                   for the same entity type can be merged.`,
                 )
+              )}
+            </p>
+          </div>
+        ) : null}
+        {privacyDiffers /*:: === true */ ? (
+          <div className="warning warning-privacy-differs">
+            <p>
+              {exp.l(
+                `<strong>Warning:</strong> Some of these collections are
+                 public and some are private. Keep in mind the privacy
+                 setting of the destination collection will apply. If you
+                 merge your private collections into a public one, the
+                 final result will be visible to other users.`,
               )}
             </p>
           </div>

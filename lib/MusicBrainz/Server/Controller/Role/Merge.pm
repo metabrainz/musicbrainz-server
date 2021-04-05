@@ -172,6 +172,7 @@ role {
             my %props = (
                 isrcsDiffer => $c->stash->{isrcs_differ},
                 iswcsDiffer => $c->stash->{iswcs_differ},
+                privaciesDiffer => $c->stash->{privacies_differ},
                 typesDiffer => $c->stash->{types_differ},
                 form => $form->TO_JSON,
                 toMerge => to_json_array(\@entities),
