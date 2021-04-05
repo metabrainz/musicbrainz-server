@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Controller::Role::Load;
+
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use MusicBrainz::Server::Data::Utils 'model_to_type';
 use MusicBrainz::Server::Validation qw( is_guid is_positive_integer );
-use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Constants qw( :direction %ENTITIES );
+use Readonly;
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -32,6 +34,8 @@ parameter 'allow_integer_ids' => (
     required => 0,
     default => sub { 1 },
 );
+
+Readonly our $RELATIONSHIP_PAGE_SIZE => 250;
 
 role
 {
@@ -66,14 +70,72 @@ role
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
             my $relationships = $params->relationships;
+            my $loaded = 0;
 
             if ($action ~~ $relationships->{all}) {
                 $c->model('Relationship')->load($entity);
+                $loaded = 1;
             } elsif ($action ~~ $relationships->{cardinal}) {
                 $c->model('Relationship')->load_cardinal($entity);
-            } else {
-                my $types = $relationships->{subset}->{$action} // $relationships->{default};
+                $loaded = 1;
+            }
 
+            my $paged_types = $relationships->{paged_subset}{$action};
+            if ($paged_types) {
+                my $params = $c->req->query_params;
+                my $link_type_id = $params->{link_type_id};
+                my $pager;
+                my %opts;
+
+                if (is_positive_integer($link_type_id)) {
+                    $opts{link_type_id} = $link_type_id;
+                    $opts{limit} = $RELATIONSHIP_PAGE_SIZE;
+
+                    my $direction = $params->{direction};
+                    if (
+                        is_positive_integer($direction) &&
+                        ($direction == $DIRECTION_FORWARD ||
+                            $direction == $DIRECTION_BACKWARD)
+                    ) {
+                        $opts{direction} = $direction;
+                    }
+
+                    my $page = is_positive_integer($params->{page})
+                        ? $params->{page} : 1;
+                    $opts{offset} = ($page - 1) * $RELATIONSHIP_PAGE_SIZE;
+
+                    $pager = Data::Page->new;
+                    $pager->entries_per_page($RELATIONSHIP_PAGE_SIZE);
+                    $pager->current_page($page);
+                }
+
+                my $lt_groups = $c->model('Relationship')->load_paged(
+                    $entity,
+                    $paged_types,
+                    %opts,
+                );
+
+                if (defined $pager) {
+                    if (!scalar @$lt_groups) {
+                        $c->detach('/error_400');
+                    }
+                    if (scalar @$lt_groups > 1) {
+                        die 'Expected only one link type group';
+                    }
+                    my $lt_group = $lt_groups->[0];
+                    $pager->total_entries($lt_group->total_relationships);
+                    $c->stash->{pager} = $pager;
+                    $c->stash->{paged_link_type_group} = $lt_group;
+                }
+
+                $loaded = 1;
+            }
+
+            unless (defined $c->stash->{paged_link_type_group}) {
+                my $types = $relationships->{subset}{$action};
+                if (!defined $types && !$loaded) {
+                    $types = $relationships->{default};
+                }
                 if ($types) {
                     $c->model('Relationship')->load_subset($types, $entity);
                 }

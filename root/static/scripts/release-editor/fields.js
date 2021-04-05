@@ -358,6 +358,7 @@ class Medium {
     var tracks = data.tracks;
     this.tracks = ko.observableArray(utils.mapChild(this, tracks, Track));
     this.tracksUnknownToUser = ko.observable(false);
+    this.tracksWereUnknownToUser = false;
 
     var self = this;
 
@@ -695,6 +696,7 @@ class Medium {
 
     if (this.tracks().length === 0) {
       this.tracksUnknownToUser(true);
+      this.tracksWereUnknownToUser = true;
     }
     this.loaded(true);
     this.loading(false);
@@ -1041,9 +1043,6 @@ class Release extends mbEntity.Release {
       errorField(this.mediums.any('hasUnconfirmedEarlyFormat'));
     this.hasUnconfirmedVariousArtists = errorField(
       this.mediums.any('hasUnconfirmedVariousArtists'),
-    );
-    this.hasTooEarlyFormat = errorField(
-      this.mediums.any('hasTooEarlyFormat'),
     );
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());

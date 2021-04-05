@@ -307,7 +307,7 @@
     },
     {
       command: 'click',
-      target: 'css=.ui-dialog[aria-describedby=add-disc-dialog] button.ui-dialog-titlebar-close',
+      target: 'css=.ui-dialog[aria-describedby=add-medium-dialog] button.ui-dialog-titlebar-close',
       value: '',
     },
     {

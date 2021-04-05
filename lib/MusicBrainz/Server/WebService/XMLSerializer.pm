@@ -6,7 +6,7 @@ use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
 use DBDefs;
-use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality %ENTITIES );
+use MusicBrainz::Server::Constants qw( :direction $VARTIST_ID :quality %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
@@ -1109,7 +1109,7 @@ sub _serialize_relation
     }
 
     $rel_node->appendTextChild('ordering-key', $rel->link_order) if $rel->link_order;
-    if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD) {
+    if ($rel->direction == $DIRECTION_BACKWARD) {
         $rel_node->appendTextChild('direction', 'backward');
     } else {
         $rel_node->appendTextChild('direction', 'forward');

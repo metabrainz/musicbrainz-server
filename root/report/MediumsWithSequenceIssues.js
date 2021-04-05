@@ -9,44 +9,31 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseList from './components/ReleaseList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const MediumsWithSequenceIssues = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Releases with medium number issues')}>
-    <h1>{l('Releases with medium number issues')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists all releases with gaps in the medium numbers
-            (e.g. there is a medium 1 and 3 but no medium 2).`)}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists all releases with gaps in the medium numbers
+       (e.g. there is a medium 1 and 3 but no medium 2).`,
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
+    title={l('Releases with medium number issues')}
+    totalEntries={pager.total_entries}
+  >
     <ReleaseList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default MediumsWithSequenceIssues;

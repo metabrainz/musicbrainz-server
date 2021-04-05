@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 07:23+0000\n"
+"PO-Revision-Date: 2021-03-29 18:47+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -333,6 +333,16 @@ msgid ""
 "tones (bisonoric)."
 msgstr ""
 
+#. name:gopichant
+#: DB:instrument/description:643
+msgid ""
+"Also known as ektara, it has a body of wood or coconut with a membrane at "
+"the bottom. Attached to the sides is a handle-like neck of split bamboo from"
+" which a single string is suspended and attached to the membrane. <br /> For"
+" the one string lute also called \"ektar\" see <a "
+"href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />"
+msgstr ""
+
 #. name:repeater
 #: DB:instrument/description:882
 msgid ""
@@ -340,6 +350,14 @@ msgid ""
 "tight goat skin membrane and it is struck with the fingertips. Important in "
 "the Jamaican Burru music and Rastafari movement, it is part of the "
 "Nyabinghi/Akete drums."
+msgstr ""
+
+#. name:reed organ
+#: DB:instrument/description:204
+msgid ""
+"Also known as pump organ, it is large, looks like an upright piano and has "
+"pedals attached to bellows with reeds. Sound is produced by playing the "
+"keyboard."
 msgstr ""
 
 #. name:alto viol
@@ -1565,13 +1583,6 @@ msgid ""
 "weapon."
 msgstr ""
 
-#. name:reed organ
-#: DB:instrument/description:204
-msgid ""
-"Large, looking like an upright piano, it has pedals attached to bellows with"
-" reeds. Sound is produced by playing the keyboard."
-msgstr ""
-
 #. name:baandu
 #: DB:instrument/description:880
 msgid ""
@@ -2388,7 +2399,8 @@ msgstr ""
 #: DB:instrument/description:890
 msgid ""
 "Shaped like an eighth-note with a cute face, it is played with one hand "
-"fingering the neck and the other squeezing the head to create wah-wah."
+"fingering the neck and the other squeezing the head to create wavering "
+"sound."
 msgstr ""
 
 #. name:shawm
@@ -3145,13 +3157,6 @@ msgstr ""
 msgid ""
 "The duxianqin is a one-string zither which is likely derived from the "
 "Vietnamese đàn bầu."
-msgstr ""
-
-#. name:ektara
-#: DB:instrument/description:643
-msgid ""
-"The ektara is a one-string instrument used in traditional music from "
-"Bangladesh, India, Egypt, and Pakistan."
 msgstr ""
 
 #. name:erhu

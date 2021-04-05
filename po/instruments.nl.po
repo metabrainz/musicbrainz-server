@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 07:24+0000\n"
+"PO-Revision-Date: 2021-03-25 13:42+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1376,10 +1376,6 @@ msgstr "e-bow"
 msgid "effects"
 msgstr "effecten"
 
-#: DB:instrument/name:643
-msgid "ektara"
-msgstr "ektara"
-
 #: DB:instrument/name:51
 msgid "electric bass guitar"
 msgstr "elektrische basgitaar"
@@ -1719,6 +1715,11 @@ msgstr "grote gongtrom"
 msgctxt "Arrangement of kettle shaped gongs"
 msgid "gong-chime"
 msgstr "gongrek"
+
+#: DB:instrument/name:643
+msgctxt "Indian drum-zither"
+msgid "gopichant"
+msgstr "ektara"
 
 #: DB:instrument/name:582
 msgid "gralla"

@@ -2467,13 +2467,22 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?operabase\\.com', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/(?:a\/[^\/?#]+|artists)\/(?:[^0-9]+)?([0-9]+).*$/, 'https://operabase.com/artists/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/(artists|venues\/[\w-]+|works)\/(?:[^0-9]+)?([0-9]+).*$/, 'https://operabase.com/$1/$2');
     },
     validate: function (url, id) {
-      return {
-        result: id === LINK_TYPES.otherdatabases.artist &&
-          /^https:\/\/operabase\.com\/artists\/[0-9]+$/.test(url),
-      };
+      const m = /^https:\/\/operabase\.com\/(artists|venues|works)\//.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'artists'};
+          case LINK_TYPES.otherdatabases.place:
+            return {result: prefix === 'venues'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'works'};
+        }
+      }
+      return {result: false};
     },
   },
   'otherdatabases': {

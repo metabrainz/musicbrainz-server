@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
+use MusicBrainz::Server::Constants qw( :direction $INSTRUMENT_ROOT_ID );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
@@ -21,7 +21,7 @@ my $link_type = MusicBrainz::Server::Entity::LinkType->new(
 my $rel;
 
 $rel = MusicBrainz::Server::Entity::Relationship->new(
-    direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
+    direction => $DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
         attributes => [],
@@ -30,7 +30,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
 is( $rel->phrase, 'was arranged by' );
 
 $rel = MusicBrainz::Server::Entity::Relationship->new(
-    direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
+    direction => $DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
         attributes => [
@@ -49,7 +49,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
 is( $rel->phrase, 'was additionally arranged by' );
 
 $rel = MusicBrainz::Server::Entity::Relationship->new(
-    direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
+    direction => $DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
         attributes => [
@@ -68,7 +68,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
 is( $rel->phrase, 'has orchestra arranged by' );
 
 $rel = MusicBrainz::Server::Entity::Relationship->new(
-    direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
+    direction => $DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
         attributes => [
@@ -96,7 +96,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
 is( $rel->phrase, 'has orchestra and piano arranged by' );
 
 $rel = MusicBrainz::Server::Entity::Relationship->new(
-    direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
+    direction => $DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
         attributes => [
@@ -129,7 +129,7 @@ my $member_link_type = MusicBrainz::Server::Entity::LinkType->new(
 );
 
 $rel = MusicBrainz::Server::Entity::Relationship->new(
-    direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
+    direction => $DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $member_link_type,
         attributes => [

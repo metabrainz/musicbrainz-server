@@ -4,9 +4,9 @@ use Moose::Role;
 requires 'filter_sql';
 
 sub load_filtered {
-    my ($self, $editor_id, $limit, $offset) = @_;
+    my ($self, $c, $editor_id, $limit, $offset) = @_;
     my ($query, @params) = $self->filter_sql($editor_id);
-    return $self->_load($query, $limit, $offset, @params);
+    return $self->_load($c, $query, $limit, $offset, @params);
 }
 
 1;

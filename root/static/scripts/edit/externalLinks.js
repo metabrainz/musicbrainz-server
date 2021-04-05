@@ -233,6 +233,7 @@ export class ExternalLinksEditor
             const oldLink = oldLinks[link.relationship];
             const isNewLink = !isPositiveInteger(link.relationship);
             const linkChanged = oldLink && link.url !== oldLink.url;
+            const isNewOrChangedLink = (isNewLink || linkChanged);
             const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
             link.url = getUnicodeUrl(link.url);
 
@@ -240,18 +241,18 @@ export class ExternalLinksEditor
               error = '';
             } else if (!link.url) {
               error = l('Required field.');
-            } else if (!isValidURL(link.url)) {
+            } else if (isNewOrChangedLink && !isValidURL(link.url)) {
               error = l('Enter a valid url e.g. "http://google.com/"');
-            } else if (isMusicBrainz(link.url)) {
+            } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
               error = l(`Links to MusicBrainz URLs are not allowed.
                          Did you mean to paste something else?`);
-            } else if (isMalware(link.url)) {
+            } else if (isNewOrChangedLink && isMalware(link.url)) {
               error = l(`Links to this website are not allowed
                          because it is known to host malware.`);
-            } else if (isShortened(link.url)) {
+            } else if (isNewOrChangedLink && isShortened(link.url)) {
               error = l(`Please don’t enter bundled/shortened URLs,
                          enter the destination URL(s) instead.`);
-            } else if (isGoogleAmp(link.url)) {
+            } else if (isNewOrChangedLink && isGoogleAmp(link.url)) {
               error = l(`Please don’t enter Google AMP links,
                          since they are effectively an extra redirect.
                          Enter the destination URL instead.`);
@@ -267,9 +268,7 @@ export class ExternalLinksEditor
               (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1
             ) {
               error = l('This relationship already exists.');
-            } else if (
-              (isNewLink || linkChanged) && checker
-            ) {
+            } else if (isNewOrChangedLink && checker) {
               const check = checker(link.url);
               if (!check.result) {
                 error = check.error ||
@@ -652,6 +651,7 @@ const URL_SHORTENERS = [
   'tiny.cc',
   'tinyurl.com',
   'tourlink.to',
+  'trac.co', // Host links can be legitimate; non-root paths are aggregators
   'u.nu',
   'unitedmasters.com',
   'untd.io',

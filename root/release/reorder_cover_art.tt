@@ -1,5 +1,5 @@
 [% WRAPPER "release/layout.tt" title=lp('Reorder Cover Art', 'header') page='reorder_cover_art' %]
-  [%- script_manifest('edit.js') -%]
+  [%- script_manifest('release/coverart.js') -%]
 
   <h2>[%- lp('Reorder Cover Art', 'header') -%]</h2>
 

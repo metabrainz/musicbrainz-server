@@ -9,10 +9,16 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Artist',
     relationships   => {
-        all         => ['relationships'],
         cardinal    => ['edit'],
-        subset      => { split => ['artist'], show => ['artist', 'url'] },
-        default     => ['url']
+        subset => {
+            split => ['artist'],
+            show => ['artist', 'url'],
+            relationships => [qw( area artist event instrument label place series url )],
+        },
+        default     => ['url'],
+        paged_subset => {
+            relationships => [qw( recording release release_group work )],
+        },
     },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
@@ -50,6 +56,7 @@ use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
 );
 use MusicBrainz::Server::Constants qw(
+    :direction
     $DARTIST_ID
     $EDITOR_MODBOT
     $EDIT_ARTIST_MERGE
@@ -261,7 +268,7 @@ sub show : PathPart('') Chained('load')
     my $legal_name_artist_aliases;
     my $legal_name_aliases;
     my ($legal_name) = map { $_->target }
-                       grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD }
+                       grep { $_->direction == $DIRECTION_BACKWARD }
                        grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $artist->relationships };
     if (defined $legal_name) {
         $c->model('Relationship')->load_subset(['artist'], $legal_name);
@@ -293,7 +300,7 @@ sub show : PathPart('') Chained('load')
                            grep { $_->id != $artist->id }
                            uniq
                            map { $_->target }
-                           grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD }
+                           grep { $_->direction == $DIRECTION_FORWARD }
                            grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' }
                            @{ ($legal_name // $artist)->relationships };
     push(@identities, @other_identities);
@@ -330,9 +337,17 @@ sub show : PathPart('') Chained('load')
 sub relationships : Chained('load') PathPart('relationships') {
     my ($self, $c) = @_;
 
+    my $stash = $c->stash;
+    my $pager = defined $stash->{pager}
+        ? serialize_pager($stash->{pager})
+        : undef;
     $c->stash(
         component_path => 'artist/ArtistRelationships',
-        component_props => { artist => $c->stash->{artist}->TO_JSON },
+        component_props => {
+            artist => $stash->{artist}->TO_JSON,
+            pagedLinkTypeGroup => to_json_object($stash->{paged_link_type_group}),
+            pager => $pager,
+        },
         current_view => 'Node',
     );
 }
@@ -526,7 +541,7 @@ sub releases : Chained('load')
     );
 }
 
-after [qw( show collections details tags aliases releases recordings works events relationships )] => sub {
+after [qw( show collections details tags aliases subscribers releases recordings works events relationships )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

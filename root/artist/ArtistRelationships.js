@@ -18,11 +18,15 @@ import ArtistLayout from './ArtistLayout';
 type Props = {
   +$c: CatalystContextT,
   +artist: ArtistT,
+  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  +pager: ?PagerT,
 };
 
 const ArtistRelationships = ({
   $c,
   artist,
+  pagedLinkTypeGroup,
+  pager,
 }: Props): React.Element<typeof ArtistLayout> => (
   <ArtistLayout
     $c={$c}
@@ -30,22 +34,27 @@ const ArtistRelationships = ({
     page="relationships"
     title={l('Relationships')}
   >
-    {artist.relationships?.length ? (
-      <Relationships source={artist} />
-    ) : (
-      <>
-        <h2 className="relationships">{l('Relationships')}</h2>
-        <p>
-          {exp.l(
-            '{link} has no relationships.',
-            {link: <EntityLink entity={artist} />},
-          )}
-        </p>
-      </>
+    {pagedLinkTypeGroup ? null : (
+      artist.relationships?.length ? (
+        <Relationships source={artist} />
+      ) : (
+        <>
+          <h2 className="relationships">{l('Relationships')}</h2>
+          <p>
+            {exp.l(
+              '{link} has no relationships.',
+              {link: <EntityLink entity={artist} />},
+            )}
+          </p>
+        </>
+      )
     )}
     <RelationshipsTable
+      $c={$c}
       entity={artist}
       heading={l('Appearances')}
+      pagedLinkTypeGroup={pagedLinkTypeGroup}
+      pager={pager}
     />
   </ArtistLayout>
 );

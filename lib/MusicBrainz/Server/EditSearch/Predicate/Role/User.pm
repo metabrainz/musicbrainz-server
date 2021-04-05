@@ -32,6 +32,7 @@ role {
             'me' => 0,
             'not_me' => 0,
             'limited' => 0,
+            'not_edit_author' => 0,
         );
     };
 
@@ -76,6 +77,15 @@ role {
               )
             ";
             $query->add_where([ $sql, [ $EDITOR_MODBOT, $STATUS_APPLIED ] ]);
+        } elsif ($self->operator eq 'not_edit_author') {
+            $query->add_where([
+                'EXISTS (
+                    SELECT TRUE FROM edit_note
+                        WHERE edit_note.edit = edit.id
+                        AND edit_note.editor != edit.editor
+                )',
+                [ ]
+            ]);
         } else {
             $query->add_where([ $sql, [ $self->arguments ] ]);
         }

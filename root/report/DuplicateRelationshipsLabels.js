@@ -9,48 +9,31 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import LabelList from './components/LabelList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportLabelT} from './types';
 
 const DuplicateRelationshipsLabels = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportLabelT>): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportLabelT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists labels which have multiple relationships
+       to the same entity using the same relationship type.`,
+    )}
+    entityType="label"
+    filtered={filtered}
+    generated={generated}
     title={l('Labels with possible duplicate relationships')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Labels with possible duplicate relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists labels which have multiple relationships
-            to the same entity using the same relationship type.`)}
-      </li>
-      <li>
-        {texp.l('Total labels found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <LabelList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DuplicateRelationshipsLabels;

@@ -9,58 +9,39 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ReleaseUrlList from './components/ReleaseUrlList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseUrlT} from './types';
 
 const AsinsWithMultipleReleases = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseUrlT>): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportReleaseUrlT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={exp.l(
+      `This report shows Amazon URLs which are linked to multiple
+       releases. In most cases Amazon ASINs should map to MusicBrainz
+       releases 1:1, so only one of the links will be correct. Just check
+       which MusicBrainz release fits the release in Amazon (look at the
+       format, tracklist, etc). If the release has a barcode, you can also
+       search Amazon for it and see which ASIN matches.  You might also
+       find some ASINs linked to several discs of a multi-disc release:
+       just merge those (see
+       {how_to_merge_releases|How to Merge Releases}).`,
+      {how_to_merge_releases: '/doc/How_to_Merge_Releases'},
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
     title={l('Amazon URLs linked to multiple releases')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Amazon URLs linked to multiple releases')}</h1>
-
-    <ul>
-      <li>
-        {exp.l(
-          `This report shows Amazon URLs which are linked to multiple
-           releases. In most cases Amazon ASINs should map to MusicBrainz
-           releases 1:1, so only one of the links will be correct. Just check
-           which MusicBrainz release fits the release in Amazon (look at the
-           format, tracklist, etc). If the release has a barcode, you can also
-           search Amazon for it and see which ASIN matches.  You might also
-           find some ASINs linked to several discs of a multi-disc release:
-           just merge those (see
-           {how_to_merge_releases|How to Merge Releases}).`,
-          {how_to_merge_releases: '/doc/How_to_Merge_Releases'},
-        )}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ReleaseUrlList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default AsinsWithMultipleReleases;

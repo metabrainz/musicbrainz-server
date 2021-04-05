@@ -2836,18 +2836,25 @@ const testData = [
   },
   // Operabase
   {
-                     input_url: 'www.operabase.com/a/Risto_Joost/21715/future',
-             input_entity_type: 'label',
-    expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://operabase.com/artists/21715',
-       only_valid_entity_types: ['artist'],
-  },
-  {
                      input_url: 'https://www.operabase.com/artists/megan-esther-grey-101303/en',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://operabase.com/artists/101303',
        only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'operabase.com/venues/united-states/abravanel-hall-5916/en',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://operabase.com/venues/united-states/5916',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.operabase.com/works/porgupohja-uus-vanapagan-7623/en',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://operabase.com/works/7623',
+       only_valid_entity_types: ['work'],
   },
   {
                      input_url: 'http://operabase.com/listart.cgi?name=Risto+Joost&acts=+Schedule+',

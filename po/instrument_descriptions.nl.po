@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 07:23+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-04-01 12:32+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -334,6 +334,16 @@ msgid ""
 "tones (bisonoric)."
 msgstr "De trekharmonica of trekzak is een diatonische accordeon met één, twee of drie rijen knoppen."
 
+#. name:gopichant
+#: DB:instrument/description:643
+msgid ""
+"Also known as ektara, it has a body of wood or coconut with a membrane at "
+"the bottom. Attached to the sides is a handle-like neck of split bamboo from"
+" which a single string is suspended and attached to the membrane. <br /> For"
+" the one string lute also called \"ektar\" see <a "
+"href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />"
+msgstr "Een ektara, ook ektar of ektara genoemd, is een snaarinstrument met een klankkast van hout of kokosnoot met een membraan aan de onderkant. De hals van gespleten bamboe zit vast aan de zijkant van de kast en er loopt één snaar van de hals naar het membraan.<br />De luit met één snaar die ook ektar wordt genoemd, kun je vinden onder <a href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br />"
+
 #. name:repeater
 #: DB:instrument/description:882
 msgid ""
@@ -342,6 +352,14 @@ msgid ""
 "the Jamaican Burru music and Rastafari movement, it is part of the "
 "Nyabinghi/Akete drums."
 msgstr "Een keteh, ook bekend als kette of repeater is de kleinste trommel van het akete-trio. Het heeft een strak membraan van geitenhuid en wordt met de vingertoppen bespeeld."
+
+#. name:reed organ
+#: DB:instrument/description:204
+msgid ""
+"Also known as pump organ, it is large, looks like an upright piano and has "
+"pedals attached to bellows with reeds. Sound is produced by playing the "
+"keyboard."
+msgstr "Een rietorgel, ook wel traporgel, lijkt op een grote buffetpiano, maar heeft blaasbalgen die met pedalen worden aangedreven en lucht langs vrije rieten blazen. Het instrument wordt met het toetsenbord bespeeld."
 
 #. name:alto viol
 #: DB:instrument/description:923
@@ -1564,14 +1582,7 @@ msgid ""
 "Large wide tube with a very strongly flaring bell, the telescoping creates "
 "only subtle fluctuating overtones. It inspired the name of the anti-tank "
 "weapon."
-msgstr ""
-
-#. name:reed organ
-#: DB:instrument/description:204
-msgid ""
-"Large, looking like an upright piano, it has pedals attached to bellows with"
-" reeds. Sound is produced by playing the keyboard."
-msgstr ""
+msgstr "Een bazooka is een grote wijde buis met een wijd uitlopende beker. Het uitschuiven produceert alleen subtiel veranderende boventonen. Het instrument was de inspiratie voor de naam van het antitankwapen."
 
 #. name:baandu
 #: DB:instrument/description:880
@@ -1649,7 +1660,7 @@ msgstr "De practice chanter ziet eruit als een blokfluit, maar met dubbelriet en
 #. name:marimba lumina
 #: DB:instrument/description:767
 msgid "MIDI controller with a marimba-layout inspired control deck"
-msgstr ""
+msgstr "Een Marimba Lumina is een MIDI-controller met een bedieningsoppervlak dat is geïnspireerd op de marimba."
 
 #. name:madal
 #: DB:instrument/description:186
@@ -2389,8 +2400,9 @@ msgstr "Geschudde idiofoon of ratel. Het geluid wordt geproduceerd door vele, me
 #: DB:instrument/description:890
 msgid ""
 "Shaped like an eighth-note with a cute face, it is played with one hand "
-"fingering the neck and the other squeezing the head to create wah-wah."
-msgstr "Een Otamatone is een elektronische synthesizer in de vorm van een achtste noot. Met één hand wordt de hals bespeeld terwijl de andere hand wordt gebruikt om in het bolvormige uiteinde te knijpen, waardoor een wah-wah-geluid ontstaat."
+"fingering the neck and the other squeezing the head to create wavering "
+"sound."
+msgstr "Een Otamatone is een elektronische synthesizer in de vorm van een achtste noot. Met één hand wordt de hals bespeeld terwijl de andere hand wordt gebruikt om in het bolvormige uiteinde te knijpen, waardoor een haperend geluid ontstaat."
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -3147,13 +3159,6 @@ msgid ""
 "The duxianqin is a one-string zither which is likely derived from the "
 "Vietnamese đàn bầu."
 msgstr "Een duxianqin, ook wel yixianqin genoemd, is een citer met één snaar. Hij is waarschijnlijk afgeleid van de Vietnamese đàn bầu."
-
-#. name:ektara
-#: DB:instrument/description:643
-msgid ""
-"The ektara is a one-string instrument used in traditional music from "
-"Bangladesh, India, Egypt, and Pakistan."
-msgstr "Een ektara is een instrument met één snaar en wordt gebruikt voor traditionele muziek uit Bangladesh, India, Pakistan en Egypte."
 
 #. name:erhu
 #: DB:instrument/description:215

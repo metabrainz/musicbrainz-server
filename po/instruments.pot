@@ -1365,10 +1365,6 @@ msgstr ""
 msgid "effects"
 msgstr ""
 
-#: DB:instrument/name:643
-msgid "ektara"
-msgstr ""
-
 #: DB:instrument/name:51
 msgid "electric bass guitar"
 msgstr ""
@@ -1707,6 +1703,11 @@ msgstr ""
 #: DB:instrument/name:981
 msgctxt "Arrangement of kettle shaped gongs"
 msgid "gong-chime"
+msgstr ""
+
+#: DB:instrument/name:643
+msgctxt "Indian drum-zither"
+msgid "gopichant"
 msgstr ""
 
 #: DB:instrument/name:582

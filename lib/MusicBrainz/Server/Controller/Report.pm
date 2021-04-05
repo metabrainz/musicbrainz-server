@@ -42,7 +42,7 @@ sub show : Path Args(1)
         if ($filtered) {
             if ($can_be_filtered) {
                 if ($c->user_exists) {
-                    return $report->load_filtered($c->user->id, shift, shift);
+                    return $report->load_filtered($c, $c->user->id, shift, shift);
                 }
                 else {
                     $c->forward('/user/login')

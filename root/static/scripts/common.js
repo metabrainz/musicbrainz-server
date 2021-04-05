@@ -54,7 +54,6 @@ import(/* webpackChunkName: "common-menu" */ './common/MB/Control/Menu');
 import(
   /* webpackChunkName: "common-edit-search" */ './common/MB/edit_search'
 );
-import(/* webpackChunkName: "common-release" */ './common/MB/release');
 import(/* webpackChunkName: "common-ratings" */ './common/ratings');
 import(/* webpackChunkName: "common-tagger" */ './common/tagger');
 import(/* webpackChunkName: "common-cover-art" */ './common/coverart');

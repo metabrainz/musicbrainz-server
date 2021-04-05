@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 07:24+0000\n"
-"Last-Translator: Marc Rodrigues <email address hidden>\n"
+"PO-Revision-Date: 2021-03-25 07:22+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1384,10 +1384,6 @@ msgstr "E-Bow"
 msgid "effects"
 msgstr "Effektgerät"
 
-#: DB:instrument/name:643
-msgid "ektara"
-msgstr "Ektara"
-
 #: DB:instrument/name:51
 msgid "electric bass guitar"
 msgstr "E-Bass"
@@ -1726,6 +1722,11 @@ msgstr "Bass-Gong (Trommel)"
 #: DB:instrument/name:981
 msgctxt "Arrangement of kettle shaped gongs"
 msgid "gong-chime"
+msgstr ""
+
+#: DB:instrument/name:643
+msgctxt "Indian drum-zither"
+msgid "gopichant"
 msgstr ""
 
 #: DB:instrument/name:582

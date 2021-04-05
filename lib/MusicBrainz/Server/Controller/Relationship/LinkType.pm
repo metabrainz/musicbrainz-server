@@ -8,6 +8,7 @@ use List::UtilsBy qw( partition_by sort_by );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
 use MusicBrainz::Server::Constants qw(
+    :direction
     $EDIT_RELATIONSHIP_ADD_TYPE
     $EDIT_RELATIONSHIP_EDIT_LINK_TYPE
     $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE
@@ -237,7 +238,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
 
                 # We have to store relationships in the forward direction.
                 my ($e0, $e1) =
-                    $relationship->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD
+                    $relationship->direction == $DIRECTION_FORWARD
                         ? ($relationship->entity0, $relationship->entity1)
                         : ($relationship->entity1, $relationship->entity0);
 

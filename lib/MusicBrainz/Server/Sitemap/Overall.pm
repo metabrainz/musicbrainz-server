@@ -96,6 +96,13 @@ sub create_temporary_tables {
 
               PRIMARY KEY (instrument, release))
           ON COMMIT DELETE ROWS");
+
+    $sql->do(
+         "CREATE TEMPORARY TABLE tmp_sitemaps_work_recordings_count
+             (work INTEGER,
+              recordings_count INTEGER,
+              PRIMARY KEY (work))
+          ON COMMIT DELETE ROWS");
     $sql->commit;
 }
 
@@ -205,6 +212,24 @@ sub fill_temporary_tables {
 
     log('Analyzing tmp_sitemaps_instrument_releases');
     $sql->do("ANALYZE tmp_sitemaps_instrument_releases");
+
+    # Recordings linked to works via performance / "recording of"
+    # relationships, but only where the number of recordings per work
+    # exceeds 100 (`DEFAULT_LOAD_PAGED_LIMIT`). We already output the
+    # first such 100 recordings on the work index page.
+    log('Filling tmp_sitemaps_work_recordings_count');
+    $sql->do("INSERT INTO tmp_sitemaps_work_recordings_count (work, recordings_count)
+                SELECT DISTINCT q.work, q.recordings_count FROM
+                    (SELECT lrw.entity1 AS work,
+                            count(lrw.entity0) OVER (PARTITION BY lrw.entity1) AS recordings_count
+                       FROM l_recording_work lrw
+                       JOIN link l ON l.id = lrw.link
+                      WHERE l.link_type = 278) q
+                 WHERE q.recordings_count > ?",
+             $MusicBrainz::Server::Data::Relationship::DEFAULT_LOAD_PAGED_LIMIT);
+
+    log('Analyzing tmp_sitemaps_work_recordings_count');
+    $sql->do("ANALYZE tmp_sitemaps_work_recordings_count");
 }
 
 sub drop_temporary_tables {

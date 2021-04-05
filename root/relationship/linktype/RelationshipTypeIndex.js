@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import Layout from '../../layout';
 import Cardinality from '../../static/scripts/common/components/Cardinality';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
 import OrderableDirection
   from '../../static/scripts/common/components/OrderableDirection';
 import Relationship
@@ -79,15 +80,13 @@ const RelationshipTypeIndex = ({
 
         {isRelationshipEditor($c.user) ? (
           <span className="buttons" style={{float: 'right'}}>
-            <a href={'/relationship/' + relType.gid + '/edit'}>
-              {l('Edit')}
-            </a>
+            <EntityLink content={l('Edit')} entity={relType} subPath="edit" />
             {childrenTypes.length ? null : (
-              <a
-                href={'/relationship/' + relType.gid + '/delete'}
-              >
-                {l('Remove')}
-              </a>
+              <EntityLink
+                content={l('Remove')}
+                entity={relType}
+                subPath="delete"
+              />
             )}
           </span>
         ) : null}

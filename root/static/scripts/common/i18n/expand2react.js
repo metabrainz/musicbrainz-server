@@ -52,7 +52,7 @@ const htmlSelfClosingTagEnd = /^\s*\/>/;
 const htmlAttrStart = /^\s+(?=[a-z])/;
 const htmlAttrName = /^(class|href|id|key|rel|target|title)="/;
 const htmlAttrTextContent = /^[^{}"]+/;
-const hrefValueStart = /^(?:\/|https?:\/\/)/;
+const hrefValueStart = /^(?:\/|https?:\/\/|ircs?:\/\/)/;
 
 function handleTextContentText(text: string) {
   if (typeof state.replacement === 'string') {

@@ -132,6 +132,7 @@ my %URL_SPECIALIZATIONS = (
     'Patreon'             => qr{^https?://(?:www\.)?patreon\.com/}i,
     'PayPalMe'            => qr{^https?://(?:www\.)?paypal\.me/}i,
     'PetitLyrics'         => qr{^https?://(?:www\.)?petitlyrics\.com/}i,
+    'Pinterest'           => qr{^https?://(?:www\.)?pinterest\.com/}i,
     'Piosenki'            => qr{^https?://(?:www\.)?bibliotekapiosenki\.pl/}i,
     'Pomus'               => qr{^https?://(?:www\.)?pomus\.net/}i,
     'ProgArchives'        => qr{^https?://(?:www\.)?progarchives\.com/}i,

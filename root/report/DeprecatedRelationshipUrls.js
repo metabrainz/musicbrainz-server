@@ -9,44 +9,32 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import UrlRelationshipList from './components/UrlRelationshipList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportUrlRelationshipT} from './types';
 
 const DeprecatedRelationshipUrls = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportUrlRelationshipT>): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('URLs with deprecated relationships')}>
-    <h1>{l('URLs with deprecated relationships')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists URLs which have relationships using
-            deprecated and grouping-only relationship types.`)}
-      </li>
-      <li>
-        {texp.l('Total URLs found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+}: ReportDataT<ReportUrlRelationshipT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists URLs which have relationships using
+       deprecated and grouping-only relationship types.`,
+    )}
+    entityType="url"
+    filtered={filtered}
+    generated={generated}
+    title={l('URLs with deprecated relationships')}
+    totalEntries={pager.total_entries}
+  >
     <UrlRelationshipList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default DeprecatedRelationshipUrls;

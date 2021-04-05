@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_ADD_ISWCS
     $EDIT_WORK_REMOVE_ISWC
 );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
@@ -23,7 +24,17 @@ use List::AllUtils qw( any );
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Work',
     entity_name     => 'work',
-    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
+    relationships   => {
+        cardinal => ['edit'],
+        default => ['url'],
+        subset => {
+            show => [qw( area artist label place release release_group
+                         url work series instrument )],
+        },
+        paged_subset => {
+            show => [qw( recording )],
+        },
+    },
 };
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
@@ -69,12 +80,19 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
-    $c->model('Work')->load_writers($c->stash->{work});
+    my $stash = $c->stash;
+    $c->model('Work')->load_writers($stash->{work});
+
+    my $pager = defined $stash->{pager}
+        ? serialize_pager($stash->{pager})
+        : undef;
 
     my %props = (
-        numberOfRevisions => $c->stash->{number_of_revisions},
-        wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
-        work              => $c->stash->{work}->TO_JSON,
+        numberOfRevisions => $stash->{number_of_revisions},
+        pagedLinkTypeGroup => to_json_object($stash->{paged_link_type_group}),
+        pager => $pager,
+        wikipediaExtract => to_json_object($stash->{wikipedia_extract}),
+        work => $stash->{work}->TO_JSON,
     );
 
     $c->stash(
@@ -85,7 +103,7 @@ sub show : PathPart('') Chained('load')
 }
 
 # Stuff that has the side bar and thus needs to display collection information
-after [qw( show collections details tags )] => sub {
+after [qw( show collections details tags aliases )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

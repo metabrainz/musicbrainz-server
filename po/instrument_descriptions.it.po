@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 22:07+0000\n"
+"PO-Revision-Date: 2021-03-29 22:17+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -341,6 +341,16 @@ msgid ""
 "tones (bisonoric)."
 msgstr "Conosciuta anche come melodeon, ha 1 o 2 file di bottoni ognuno dei quali produce due toni (bitonale)."
 
+#. name:gopichant
+#: DB:instrument/description:643
+msgid ""
+"Also known as ektara, it has a body of wood or coconut with a membrane at "
+"the bottom. Attached to the sides is a handle-like neck of split bamboo from"
+" which a single string is suspended and attached to the membrane. <br /> For"
+" the one string lute also called \"ektar\" see <a "
+"href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />"
+msgstr "Conosciuto anche come ektara, ha una cassa in legno o in cocco con una membrana sul fondo. Fissato ai lati della cassa ha un manico in sezione di bambù, su cui è sospesa una sola corda, attaccata alla membrana. <br /> Per il liuto a una corda chiamato anche \"ektar\", utilizza <a href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />."
+
 #. name:repeater
 #: DB:instrument/description:882
 msgid ""
@@ -349,6 +359,14 @@ msgid ""
 "the Jamaican Burru music and Rastafari movement, it is part of the "
 "Nyabinghi/Akete drums."
 msgstr "Conosciuto anche come kette o keteh, è il tamburo nyabinghi di dimensione più piccola e tono più acuto. Ha una membrana tesa in pelle di capra e viene percosso con la punta delle dita. Importante per la musica burru giamaicana e per il movimento rastafari, forma parte dei tamburi nyabinghi/akete."
+
+#. name:reed organ
+#: DB:instrument/description:204
+msgid ""
+"Also known as pump organ, it is large, looks like an upright piano and has "
+"pedals attached to bellows with reeds. Sound is produced by playing the "
+"keyboard."
+msgstr "Conosciuto anche come organo ad ance, è grande, dall'aspetto simile ad un pianoforte verticale e ha pedali collegati a mantici con ance. Il suono è generato suonando la tastiera."
 
 #. name:alto viol
 #: DB:instrument/description:923
@@ -1573,13 +1591,6 @@ msgid ""
 "weapon."
 msgstr "Tubo grande e largo con un padiglione a campana molto svasato, manipolandone la lunghezza si creano tenui armoniche superiori fluttuanti. Ha ispirato il nome dell'arma anticarro."
 
-#. name:reed organ
-#: DB:instrument/description:204
-msgid ""
-"Large, looking like an upright piano, it has pedals attached to bellows with"
-" reeds. Sound is produced by playing the keyboard."
-msgstr "Grande e dall'aspetto simile ad un pianoforte verticale, ha pedali collegati a mantici con ance. Il suono è generato suonando la tastiera."
-
 #. name:baandu
 #: DB:instrument/description:880
 msgid ""
@@ -2396,8 +2407,9 @@ msgstr "Detti anche sonagli, producono suono tramite lo scontrarsi di piccoli og
 #: DB:instrument/description:890
 msgid ""
 "Shaped like an eighth-note with a cute face, it is played with one hand "
-"fingering the neck and the other squeezing the head to create wah-wah."
-msgstr "A forma di croma con una faccia carina, è suonato diteggiando il collo con una mano e schiacciando la testa con l'altra mano, creando un effetto wah-wah."
+"fingering the neck and the other squeezing the head to create wavering "
+"sound."
+msgstr "A forma di croma con una faccia carina, è suonato diteggiando il collo con una mano e schiacciando la testa con l'altra mano per creare un suono tremolante."
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -3154,13 +3166,6 @@ msgid ""
 "The duxianqin is a one-string zither which is likely derived from the "
 "Vietnamese đàn bầu."
 msgstr "Cetra (zither) a una corda probabilmente derivata dal đàn bầu vietnamita."
-
-#. name:ektara
-#: DB:instrument/description:643
-msgid ""
-"The ektara is a one-string instrument used in traditional music from "
-"Bangladesh, India, Egypt, and Pakistan."
-msgstr "Strumento a una corda usato nella musica tradizionale di Bangladesh, India, Egitto e Pakistan."
 
 #. name:erhu
 #: DB:instrument/description:215

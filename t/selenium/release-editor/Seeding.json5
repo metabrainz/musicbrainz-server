@@ -391,5 +391,21 @@
       target: "window.document.getElementById('barcode').disabled",
       value: 'true',
     },
+    // seeding 0 as the release title
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/title_is_0.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=name',
+      value: '0',
+    },
   ],
 }
