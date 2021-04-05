@@ -104,7 +104,13 @@ sub foreign_keys {
 sub build_display_data {
     my ($self, $loaded) = @_;
 
-    my $release = $loaded->{Release}{ $self->data->{entity}{id} } ||
+    my $loaded_release = $loaded->{Release}{ $self->data->{entity}{id} };
+    my $release = $loaded_release ||
+        Release->new(
+            id => $self->data->{entity}{id},
+            name => $self->data->{entity}{name},
+        );
+    my $artwork_release = $loaded_release ||
         Release->new(
             gid => $self->data->{entity}{mbid},
             id => $self->data->{entity}{id},
@@ -115,7 +121,7 @@ sub build_display_data {
         ? $self->c->model('CoverArt')->image_type_suffix($self->data->{cover_art_mime_type})
         : "jpg";
 
-    my $artwork = Artwork->new(release => $release,
+    my $artwork = Artwork->new(release => $artwork_release,
                                id => $self->data->{cover_art_id},
                                comment => $self->data->{cover_art_comment},
                                mime_type => $self->data->{cover_art_mime_type},

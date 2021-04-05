@@ -54,8 +54,7 @@ const AddCoverArt = ({edit}: Props): React.Element<'table'> => {
         <th>{l('Filename:')}</th>
         <td>
           <code>
-            {'mbid-' + display.release.gid + '-' +
-              display.artwork.id + '.' + display.artwork.suffix}
+            {display.artwork.filename}
           </code>
         </td>
       </tr>
