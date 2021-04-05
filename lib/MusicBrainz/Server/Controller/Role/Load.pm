@@ -35,7 +35,7 @@ parameter 'allow_integer_ids' => (
     default => sub { 1 },
 );
 
-Readonly our $RELATIONSHIP_PAGE_SIZE => 100;
+Readonly our $RELATIONSHIP_PAGE_SIZE => 250;
 
 role
 {
