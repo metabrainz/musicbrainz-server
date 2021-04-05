@@ -233,12 +233,14 @@ sub _load_related_info {
     $self->load_entities(@rels);
 }
 
+Readonly our $DEFAULT_LOAD_PAGED_LIMIT => 100;
+
 sub load_paged {
     my ($self, $source, $target_types, %opts) = @_;
 
     my $source_type = $source->entity_type;
     my $source_id = $source->id;
-    my $limit = $opts{limit} // 25;
+    my $limit = $opts{limit} // $DEFAULT_LOAD_PAGED_LIMIT;
     my $offset = $opts{offset} // 0;
     my $link_type_filter = $opts{link_type_id};
     my $direction_filter = $opts{direction};

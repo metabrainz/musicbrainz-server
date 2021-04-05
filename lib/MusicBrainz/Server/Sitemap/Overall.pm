@@ -215,9 +215,8 @@ sub fill_temporary_tables {
 
     # Recordings linked to works via performance / "recording of"
     # relationships, but only where the number of recordings per work
-    # exceeds 25. We already output the first such 25 recordings on the
-    # work index page. ("25" is simply the default limit of
-    # Data::Relationship::load_paged.)
+    # exceeds 100 (`DEFAULT_LOAD_PAGED_LIMIT`). We already output the
+    # first such 100 recordings on the work index page.
     log('Filling tmp_sitemaps_work_recordings_count');
     $sql->do("INSERT INTO tmp_sitemaps_work_recordings_count (work, recordings_count)
                 SELECT DISTINCT q.work, q.recordings_count FROM
@@ -226,7 +225,8 @@ sub fill_temporary_tables {
                        FROM l_recording_work lrw
                        JOIN link l ON l.id = lrw.link
                       WHERE l.link_type = 278) q
-                 WHERE q.recordings_count > 25");
+                 WHERE q.recordings_count > ?",
+             $MusicBrainz::Server::Data::Relationship::DEFAULT_LOAD_PAGED_LIMIT);
 
     log('Analyzing tmp_sitemaps_work_recordings_count');
     $sql->do("ANALYZE tmp_sitemaps_work_recordings_count");
