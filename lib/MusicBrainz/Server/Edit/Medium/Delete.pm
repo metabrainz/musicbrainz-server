@@ -51,7 +51,7 @@ sub foreign_keys
     my %fk;
 
     $fk{Medium} = { $self->medium_id => [ 'MediumFormat', 'Release ArtistCredit' ] };
-    $fk{MediumFormat} = { $self->data->{format_id} => [] };
+    $fk{MediumFormat} = { $self->data->{format_id} => [] } if $self->data->{format_id};;
     $fk{Release} = { $self->data->{release_id} => [qw( ArtistCredit )] };
 
     tracklist_foreign_keys(\%fk, $self->data->{tracklist});
