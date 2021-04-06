@@ -65,7 +65,15 @@ sub build_display_data
 
     my $format = $self->data->{format_id};
 
-    my $medium = $loaded->{Medium}{ $self->medium_id } //
+    my $loaded_medium = $loaded->{Medium}{ $self->medium_id };
+    if ($loaded_medium && $self->is_open) {
+        $self->c->model('Track')->load_for_mediums($loaded_medium);
+        my @tracks = $loaded_medium->all_tracks;
+        $self->c->model('ArtistCredit')->load(@tracks);
+        $self->c->model('Recording')->load(@tracks);
+    }
+
+    my $medium = $loaded_medium //
                  Medium->new(
                      format => $format ? $loaded->{MediumFormat}{$format} : undef,
                      name => $self->data->{name},
