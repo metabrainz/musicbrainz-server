@@ -63,7 +63,15 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $medium = $loaded->{Medium}{ $self->medium_id } //
+    my $loaded_medium = $loaded->{Medium}{ $self->medium_id };
+    if ($loaded_medium && $self->is_open) {
+        $self->c->model('Track')->load_for_mediums($loaded_medium);
+        my @tracks = $loaded_medium->all_tracks;
+        $self->c->model('ArtistCredit')->load(@tracks);
+        $self->c->model('Recording')->load(@tracks);
+    }
+
+    my $medium = $loaded_medium //
                  Medium->new(
                      format => $loaded->{MediumFormat}{ $self->data->{format_id} },
                      name => $self->data->{name},
