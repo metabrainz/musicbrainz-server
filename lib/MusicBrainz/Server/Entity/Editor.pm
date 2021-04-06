@@ -109,6 +109,10 @@ sub is_adding_notes_disabled {
     (shift->privileges & $ADDING_NOTES_DISABLED_FLAG) > 0;
 }
 
+sub public_privileges {
+    shift->privileges & $PUBLIC_PRIVILEGE_FLAGS;
+}
+
 has 'email' => (
     is        => 'rw',
     isa       => 'Str',
@@ -324,6 +328,7 @@ sub TO_JSON {
         gravatar => $self->gravatar,
         id => $self->id,
         name => $self->name,
+        privileges => $self->public_privileges,
     };
 }
 
