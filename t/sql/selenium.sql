@@ -151,8 +151,8 @@ INSERT INTO medium (id, release, position, format, name, edits_pending, last_upd
 INSERT INTO release_gid_redirect (gid, new_id, created) VALUES
     ('190542dd-e12b-3a84-a95b-9640a8de8b9f', 26, '2012-04-09 20:07:05.161415+00');
 
-INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type, edits_pending, last_updated) VALUES
-    (3238, 'e4ac76d6-712b-4ef5-b84a-9c37e63e05d3', 'Post Marked Stamps', '', 1, 788, 1, 0, '2015-05-19 04:24:35.787606+00');
+INSERT INTO series (id, gid, name, comment, type, ordering_type, edits_pending, last_updated) VALUES
+    (3238, 'e4ac76d6-712b-4ef5-b84a-9c37e63e05d3', 'Post Marked Stamps', '', 1, 1, 0, '2015-05-19 04:24:35.787606+00');
 
 INSERT INTO series_gid_redirect (gid, new_id, created) VALUES
     ('6d67ca4e-b217-5fe4-a48b-3d50e36e73c9', 3238, '2012-04-09 20:07:05.161415+00');

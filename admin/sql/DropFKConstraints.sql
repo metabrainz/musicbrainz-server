@@ -660,7 +660,6 @@ ALTER TABLE release_tag_raw DROP CONSTRAINT IF EXISTS release_tag_raw_fk_editor;
 ALTER TABLE release_tag_raw DROP CONSTRAINT IF EXISTS release_tag_raw_fk_tag;
 ALTER TABLE release_unknown_country DROP CONSTRAINT IF EXISTS release_unknown_country_fk_release;
 ALTER TABLE series DROP CONSTRAINT IF EXISTS series_fk_type;
-ALTER TABLE series DROP CONSTRAINT IF EXISTS series_fk_ordering_attribute;
 ALTER TABLE series DROP CONSTRAINT IF EXISTS series_fk_ordering_type;
 ALTER TABLE series_alias DROP CONSTRAINT IF EXISTS series_alias_fk_series;
 ALTER TABLE series_alias DROP CONSTRAINT IF EXISTS series_alias_fk_type;
