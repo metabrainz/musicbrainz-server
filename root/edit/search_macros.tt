@@ -183,7 +183,7 @@
   </span>
 
   <span>
-    (<a href="[% c.uri_for('/doc/How_to_Search_for_Edits#Date_format') %]" target="_blank">[% l('help') %]</a>)
+    (<a href="[% c.uri_for('/doc/How_to_Use_the_Edit_Search#Dates') %]" target="_blank">[% l('help') %]</a>)
   </span>
 [% END %]
 
