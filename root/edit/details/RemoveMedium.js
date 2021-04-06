@@ -39,21 +39,22 @@ const RemoveMedium = ({edit}: Props): React.Element<'table'> => {
         </td>
       </tr>
 
-      {display.tracks ? (
-        <tr>
-          <th>{addColon(l('Tracklist'))}</th>
-          <td>
-            <table className="tbl">
-              <tbody>
+      <tr>
+        <th>{l('Tracklist:')}</th>
+        <td>
+          <table className="tbl">
+            <tbody>
+              {display.tracks?.length ? (
                 <MediumTracklist
                   showArtists
                   tracks={display.tracks}
                 />
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      ) : null}
+              ) : l('The tracklist for this medium is unknown.')}
+            </tbody>
+          </table>
+        </td>
+      </tr>
+
     </table>
   );
 };
