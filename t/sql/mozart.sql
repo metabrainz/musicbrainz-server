@@ -104,12 +104,12 @@ INSERT INTO artist_tag (artist, count, last_updated, tag) VALUES
 	(91209, 1, '2011-05-16 14:57:06.530063+00', 1600);
 INSERT INTO l_artist_artist (edits_pending, entity0, entity0_credit, entity1, entity1_credit, id, last_updated, link, link_order) VALUES
 	(0, 91209, '', 11285, '', 124738, '2013-10-12 18:01:32.387222+00', 6358, 0);
-INSERT INTO series (comment, edits_pending, gid, id, last_updated, name, ordering_attribute, ordering_type, type) VALUES
-	('original numbering', 0, '793b0ca8-a301-4b08-8692-25999b32d34f', 12, '2014-06-11 19:00:34.654293+00', 'Köchelverzeichnis', 788, 1, 5),
-	('', 0, 'b13f2233-9ba1-4fdb-8775-3e9bb0668805', 777, '2014-06-11 21:01:05.866626+00', 'Nannerl Notenbuch', 788, 1, 4),
-	('sixth edition, 1964, K⁶', 0, 'b2ebc151-25b5-4522-9d01-402d3ebfb2d7', 778, '2014-06-12 00:00:12.971562+00', 'Köchelverzeichnis', 788, 1, 5),
-	('third edition, 1937, K³', 0, '13016d44-1ce5-4bc7-8b01-853ce19e74dc', 1007, '2014-06-16 22:15:02.050568+00', 'Köchelverzeichnis', 788, 1, 5),
-	('second edition, 1905, K²', 0, '3e32505b-0eea-464c-a009-eae16ba88517', 1008, '2014-06-16 22:14:07.661735+00', 'Köchelverzeichnis', 788, 1, 5);
+INSERT INTO series (comment, edits_pending, gid, id, last_updated, name, ordering_type, type) VALUES
+	('original numbering', 0, '793b0ca8-a301-4b08-8692-25999b32d34f', 12, '2014-06-11 19:00:34.654293+00', 'Köchelverzeichnis', 1, 5),
+	('', 0, 'b13f2233-9ba1-4fdb-8775-3e9bb0668805', 777, '2014-06-11 21:01:05.866626+00', 'Nannerl Notenbuch', 1, 4),
+	('sixth edition, 1964, K⁶', 0, 'b2ebc151-25b5-4522-9d01-402d3ebfb2d7', 778, '2014-06-12 00:00:12.971562+00', 'Köchelverzeichnis', 1, 5),
+	('third edition, 1937, K³', 0, '13016d44-1ce5-4bc7-8b01-853ce19e74dc', 1007, '2014-06-16 22:15:02.050568+00', 'Köchelverzeichnis', 1, 5),
+	('second edition, 1905, K²', 0, '3e32505b-0eea-464c-a009-eae16ba88517', 1008, '2014-06-16 22:14:07.661735+00', 'Köchelverzeichnis', 1, 5);
 INSERT INTO series_alias (begin_date_day, begin_date_month, begin_date_year, edits_pending, end_date_day, end_date_month, end_date_year, ended, id, last_updated, locale, name, primary_for_locale, series, sort_name, type) VALUES
 	(NULL, NULL, NULL, 0, NULL, NULL, NULL, '0', 1, '2014-05-14 18:28:59.030601+00', 'en', 'Köchel catalogue', '1', 12, 'Köchel catalogue', 1),
 	(NULL, NULL, NULL, 0, NULL, NULL, NULL, '0', 4, '2014-05-14 18:28:59.030601+00', 'de', 'Köchelverzeichnis', '1', 12, 'Köchelverzeichnis', 1),

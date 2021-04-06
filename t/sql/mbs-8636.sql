@@ -1,5 +1,5 @@
-INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type, edits_pending, last_updated)
-    VALUES (25, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582', 'Bach-Werke-Verzeichnis', '', 5, 788, 1, 0, '2014-05-14 18:28:59.030601+00');
+INSERT INTO series (id, gid, name, comment, type, ordering_type, edits_pending, last_updated)
+    VALUES (25, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582', 'Bach-Werke-Verzeichnis', '', 5, 1, 0, '2014-05-14 18:28:59.030601+00');
 
 INSERT INTO work (id, gid, name, type, comment, edits_pending, last_updated)
     VALUES (10465539, '9deecf21-8d3f-3bbd-8f36-6331c9fd6d35', '9 kleine Präludien: Präludium D-Dur, BWV 925', NULL, '', 0, '2014-01-08 21:17:20.377241+00'),
