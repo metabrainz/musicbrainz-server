@@ -804,6 +804,13 @@ sub insert
         $self->c->model('Series')->automatically_reorder($values->{entity1_id});
     }
 
+    $self->delete_entity_link_type_counts(
+        $type0,
+        $type1,
+        $row->{entity0},
+        $row->{entity1},
+    );
+
     return $self->_entity_class->new( id => $id );
 }
 
