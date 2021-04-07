@@ -166,6 +166,8 @@ sub as_string {
     } elsif ($self->order eq 'vote_closing_desc') {
         $order = 'ORDER BY edit.expire_time DESC';
         $extra_conditions = ' AND edit.close_time IS NULL';
+    } elsif ($self->order eq 'rand') {
+        $order = 'ORDER BY RANDOM()';
     }
 
     return 'SELECT edit.*, edit_data.data ' .
