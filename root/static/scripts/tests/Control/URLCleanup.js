@@ -2718,6 +2718,12 @@ const testData = [
             expected_clean_url: 'https://ch.nicovideo.jp/maverickdci',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
+  // Niconi Commons (excluded from Niconico autoselect)
+  {
+                     input_url: 'https://commons.nicovideo.jp/material/nc216831',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
+  },
   // NLA (National Library of Australia)
   {
                      input_url: 'http://nla.gov.au/nla.party-548358/',
