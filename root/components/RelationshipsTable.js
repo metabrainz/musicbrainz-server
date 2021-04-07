@@ -255,16 +255,20 @@ const RelationshipsTable = ({
     }
   };
 
+  const pagedRelationshipGroups = entity.paged_relationship_groups;
   if (pagedLinkTypeGroup) {
     getRelationshipRows(pagedLinkTypeGroup, tableRows);
-  } else if (entity.paged_relationship_groups) {
-    for (
-      const [targetType, targetTypeGroup] of
-      // $FlowIgnore[incompatible-cast]
-      (Object.entries(entity.paged_relationship_groups):
-        $ReadOnlyArray<[string, PagedTargetTypeGroupT]>)
-    ) {
+  } else if (pagedRelationshipGroups) {
+    const sortedTargetTypes =
+      Object.keys(pagedRelationshipGroups).sort();
+    for (const targetType of sortedTargetTypes) {
       if (!appearanceTypes.includes(targetType)) {
+        continue;
+      }
+
+      const targetTypeGroup: ?PagedTargetTypeGroupT =
+        pagedRelationshipGroups[targetType];
+      if (!targetTypeGroup) {
         continue;
       }
 
