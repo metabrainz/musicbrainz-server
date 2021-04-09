@@ -3627,7 +3627,10 @@ const relationshipTypesByEntityType = Object.entries(LINK_TYPES).reduce(
   {},
 );
 
-// Avoid Wikipedia/Wikidata being added as release-level relationship
+/*
+ * Avoid Wikipedia/Wikidata being added as release-level relationship
+ * Disallow https://*.bandcamp.com/ URLs at release level
+ */
 for (const relUuid of relationshipTypesByEntityType.release) {
   const relRule = validationRules[relUuid];
   validationRules[relUuid] = function (url) {
@@ -3648,6 +3651,38 @@ for (const relUuid of relationshipTypesByEntityType.release) {
           `Wikidata normally has no entries for specific releases,
            so adding Wikidata links to a release is currently blocked.
            Please add this Wikidata link to the release group instead,
+           if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+      return {
+        error: l(
+          `The artist page of Bandcamp normally has no entries
+           for specific releases,
+           so adding these links to a release is currently blocked.
+           Please add this Bandcamp link to the artist instead,
+           if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    return relRule(url);
+  };
+}
+
+// Disallow https://*.bandcamp.com/ URLs at release group level
+for (const relUuid of relationshipTypesByEntityType.release_group) {
+  const relRule = validationRules[relUuid];
+  validationRules[relUuid] = function (url) {
+    if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+      return {
+        error: l(
+          `The artist page of Bandcamp normally has no entries
+           for specific release groups,
+           so adding these links to a release group is currently blocked.
+           Please add this Bandcamp link to the artist instead,
            if appropriate.`,
         ),
         result: false,

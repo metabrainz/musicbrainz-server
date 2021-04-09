@@ -535,6 +535,18 @@ const testData = [
             expected_clean_url: 'https://davidmandelberg.bandcamp.com/track/maybe-it-s',
        only_valid_entity_types: ['work'],
   },
+  {
+                     input_url: 'https://thepenitentman.bandcamp.com/',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://davidmandelberg.bandcamp.com/',
+             input_entity_type: 'release_group',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
   // Bandsintown
   {
                      input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
