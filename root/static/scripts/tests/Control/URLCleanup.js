@@ -539,12 +539,14 @@ const testData = [
                      input_url: 'https://thepenitentman.bandcamp.com/',
              input_entity_type: 'release',
     expected_relationship_type: undefined,
+       input_relationship_type: 'downloadpurchase',
        only_valid_entity_types: [],
   },
   {
                      input_url: 'https://davidmandelberg.bandcamp.com/',
              input_entity_type: 'release_group',
     expected_relationship_type: undefined,
+       input_relationship_type: 'review',
        only_valid_entity_types: [],
   },
   // Bandsintown
