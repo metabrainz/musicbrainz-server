@@ -549,6 +549,13 @@ const testData = [
        input_relationship_type: 'review',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://idiotsikker.bandcamp.com/',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'mailorder',
+       only_valid_entity_types: [],
+  },
   // Bandsintown
   {
                      input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",

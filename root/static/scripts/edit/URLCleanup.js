@@ -3682,18 +3682,25 @@ for (const relUuid of relationshipTypesByEntityType.release) {
   };
 }
 
-// Disallow https://*.bandcamp.com/ URLs at release group level
-for (const relUuid of relationshipTypesByEntityType.release_group) {
+// Disallow https://*.bandcamp.com/ URLs at recording level
+for (const relUuid of relationshipTypesByEntityType.recording) {
   const relRule = validationRules[relUuid];
   validationRules[relUuid] = function (url) {
     if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
       return {
-        error: l(
-          `The artist page of Bandcamp normally has no entries
-           for specific release groups,
-           so adding these links to a release group is currently blocked.
-           Please add this Bandcamp link to the artist instead,
-           if appropriate.`,
+        error: exp.l(
+          `This is a Bandcamp profile, not a page for a specific
+           recording. Even if it shows a single recording right now,
+           that can change when the artist releases another.
+           Please find and add the appropriate recording page
+           “{single_url_pattern}”
+           instead, and feel free to add this profile link
+           to the appropriate artist or label.`,
+          {
+            single_url_pattern: (
+              <span className="url-quote">{'/track'}</span>
+            ),
+          },
         ),
         result: false,
       };
