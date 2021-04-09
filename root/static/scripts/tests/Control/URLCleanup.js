@@ -539,7 +539,7 @@ const testData = [
                      input_url: 'https://thepenitentman.bandcamp.com/',
              input_entity_type: 'release',
     expected_relationship_type: undefined,
-       input_relationship_type: 'downloadpurchase',
+       input_relationship_type: 'mailorder',
        only_valid_entity_types: [],
   },
   {
