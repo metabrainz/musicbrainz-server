@@ -3658,12 +3658,22 @@ for (const relUuid of relationshipTypesByEntityType.release) {
     }
     if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
       return {
-        error: l(
-          `The artist page of Bandcamp normally has no entries
-           for specific releases,
-           so adding these links to a release is currently blocked.
-           Please add this Bandcamp link to the artist instead,
-           if appropriate.`,
+        error: exp.l(
+          `This is a Bandcamp profile, not a page for a specific
+           release. Even if it shows this release right now,
+           that can change when the artist releases another.
+           Please find and add the appropriate release page
+           (“{album_url_pattern}” or “{single_url_pattern}”)
+           instead, and feel free to add this profile link
+           to the appropriate artist or label.`,
+          {
+            album_url_pattern: (
+              <span className="url-quote">{'/album'}</span>
+            ),
+            single_url_pattern: (
+              <span className="url-quote">{'/track'}</span>
+            ),
+          },
         ),
         result: false,
       };
