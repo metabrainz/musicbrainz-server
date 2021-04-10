@@ -38,15 +38,6 @@ ALTER TABLE artist_alias
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
-ALTER TABLE editor_collection_type
-      ADD CONSTRAINT allowed_collection_entity_type CHECK (
-          entity_type IN (
-            'area', 'artist', 'event', 'instrument', 'label',
-            'place', 'recording', 'release', 'release_group',
-            'series', 'work'
-          )
-      );
-
 ALTER TABLE event
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name));
 

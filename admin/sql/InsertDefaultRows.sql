@@ -13,6 +13,19 @@ INSERT INTO editor (id, name, password, ha1) VALUES (1, 'Anonymous', '', '');
 INSERT INTO editor (id, name, password, ha1) VALUES (2, 'FreeDB', '', '');
 INSERT INTO editor (id, name, password, ha1) VALUES (4, 'ModBot', '', '');
 
+INSERT INTO editor_collection_type_allowed_entity_type (entity_type) VALUES
+    ('area'),
+    ('artist'),
+    ('event'),
+    ('instrument'),
+    ('label'),
+    ('place'),
+    ('recording'),
+    ('release'),
+    ('release_group'),
+    ('series'),
+    ('work');
+
 INSERT INTO replication_control VALUES (
     1,   -- fixed primary key
     1,   -- schema #1

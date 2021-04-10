@@ -53,6 +53,18 @@ INSERT INTO cover_art_archive.image_type VALUES ('image/png', 'png');
 INSERT INTO cover_art_archive.image_type VALUES ('image/gif', 'gif');
 INSERT INTO cover_art_archive.image_type VALUES ('application/pdf', 'pdf');
 
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('area');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('artist');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('event');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('instrument');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('label');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('place');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('recording');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('release');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('release_group');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('series');
+INSERT INTO editor_collection_type_allowed_entity_type VALUES ('work');
+
 INSERT INTO editor_collection_type VALUES (1, 'Release', 'release', NULL, 1, NULL, 'd94659b2-4ce5-3a98-b4b8-da1131cf33ee');
 INSERT INTO editor_collection_type VALUES (2, 'Owned music', 'release', 1, 1, NULL, 'c26c6ec4-17f0-32de-95c5-fa724dbdb308');
 INSERT INTO editor_collection_type VALUES (3, 'Wishlist', 'release', 1, 2, NULL, '5feda0f8-14cf-38fd-89d0-ac2d48ad3324');

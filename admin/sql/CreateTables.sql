@@ -2290,11 +2290,15 @@ CREATE TABLE editor_collection
 CREATE TABLE editor_collection_type ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
-    entity_type         VARCHAR(50) NOT NULL,
+    entity_type         VARCHAR(50) NOT NULL, -- references editor_collection_type_allowed_entity_type.entity_type
     parent              INTEGER, -- references editor_collection_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
     description         TEXT,
     gid                 uuid NOT NULL
+);
+
+CREATE TABLE editor_collection_type_allowed_entity_type (
+    entity_type         VARCHAR(50) NOT NULL -- PK
 );
 
 CREATE TABLE editor_collection_collaborator (
