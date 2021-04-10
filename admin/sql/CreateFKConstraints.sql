@@ -667,6 +667,11 @@ ALTER TABLE editor_collection_series
    REFERENCES series(id);
 
 ALTER TABLE editor_collection_type
+   ADD CONSTRAINT editor_collection_type_fk_entity_type
+   FOREIGN KEY (entity_type)
+   REFERENCES editor_collection_type_allowed_entity_type(entity_type);
+
+ALTER TABLE editor_collection_type
    ADD CONSTRAINT editor_collection_type_fk_parent
    FOREIGN KEY (parent)
    REFERENCES editor_collection_type(id);
@@ -3161,6 +3166,11 @@ ALTER TABLE series_tag_raw
    ADD CONSTRAINT series_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
+
+ALTER TABLE series_type
+   ADD CONSTRAINT series_type_fk_entity_type
+   FOREIGN KEY (entity_type)
+   REFERENCES series_type_allowed_entity_type(entity_type);
 
 ALTER TABLE series_type
    ADD CONSTRAINT series_type_fk_parent

@@ -73,6 +73,7 @@ ALTER TABLE editor_collection_release DROP CONSTRAINT IF EXISTS editor_collectio
 ALTER TABLE editor_collection_release_group DROP CONSTRAINT IF EXISTS editor_collection_release_group_pkey;
 ALTER TABLE editor_collection_series DROP CONSTRAINT IF EXISTS editor_collection_series_pkey;
 ALTER TABLE editor_collection_type DROP CONSTRAINT IF EXISTS editor_collection_type_pkey;
+ALTER TABLE editor_collection_type_allowed_entity_type DROP CONSTRAINT IF EXISTS editor_collection_type_allowed_entity_type_pkey;
 ALTER TABLE editor_collection_work DROP CONSTRAINT IF EXISTS editor_collection_work_pkey;
 ALTER TABLE editor_language DROP CONSTRAINT IF EXISTS editor_language_pkey;
 ALTER TABLE editor_oauth_token DROP CONSTRAINT IF EXISTS editor_oauth_token_pkey;
@@ -306,6 +307,7 @@ ALTER TABLE series_ordering_type DROP CONSTRAINT IF EXISTS series_ordering_type_
 ALTER TABLE series_tag DROP CONSTRAINT IF EXISTS series_tag_pkey;
 ALTER TABLE series_tag_raw DROP CONSTRAINT IF EXISTS series_tag_raw_pkey;
 ALTER TABLE series_type DROP CONSTRAINT IF EXISTS series_type_pkey;
+ALTER TABLE series_type_allowed_entity_type DROP CONSTRAINT IF EXISTS series_type_allowed_entity_type_pkey;
 ALTER TABLE tag DROP CONSTRAINT IF EXISTS tag_pkey;
 ALTER TABLE tag_relation DROP CONSTRAINT IF EXISTS tag_relation_pkey;
 ALTER TABLE track DROP CONSTRAINT IF EXISTS track_pkey;

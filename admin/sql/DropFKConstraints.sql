@@ -131,6 +131,7 @@ ALTER TABLE editor_collection_release_group DROP CONSTRAINT IF EXISTS editor_col
 ALTER TABLE editor_collection_release_group DROP CONSTRAINT IF EXISTS editor_collection_release_group_fk_release_group;
 ALTER TABLE editor_collection_series DROP CONSTRAINT IF EXISTS editor_collection_series_fk_collection;
 ALTER TABLE editor_collection_series DROP CONSTRAINT IF EXISTS editor_collection_series_fk_series;
+ALTER TABLE editor_collection_type DROP CONSTRAINT IF EXISTS editor_collection_type_fk_entity_type;
 ALTER TABLE editor_collection_type DROP CONSTRAINT IF EXISTS editor_collection_type_fk_parent;
 ALTER TABLE editor_collection_work DROP CONSTRAINT IF EXISTS editor_collection_work_fk_collection;
 ALTER TABLE editor_collection_work DROP CONSTRAINT IF EXISTS editor_collection_work_fk_work;
@@ -627,6 +628,7 @@ ALTER TABLE series_tag DROP CONSTRAINT IF EXISTS series_tag_fk_tag;
 ALTER TABLE series_tag_raw DROP CONSTRAINT IF EXISTS series_tag_raw_fk_series;
 ALTER TABLE series_tag_raw DROP CONSTRAINT IF EXISTS series_tag_raw_fk_editor;
 ALTER TABLE series_tag_raw DROP CONSTRAINT IF EXISTS series_tag_raw_fk_tag;
+ALTER TABLE series_type DROP CONSTRAINT IF EXISTS series_type_fk_entity_type;
 ALTER TABLE series_type DROP CONSTRAINT IF EXISTS series_type_fk_parent;
 ALTER TABLE tag_relation DROP CONSTRAINT IF EXISTS tag_relation_fk_tag1;
 ALTER TABLE tag_relation DROP CONSTRAINT IF EXISTS tag_relation_fk_tag2;

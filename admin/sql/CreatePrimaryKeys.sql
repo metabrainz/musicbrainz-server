@@ -73,6 +73,7 @@ ALTER TABLE editor_collection_release ADD CONSTRAINT editor_collection_release_p
 ALTER TABLE editor_collection_release_group ADD CONSTRAINT editor_collection_release_group_pkey PRIMARY KEY (collection, release_group);
 ALTER TABLE editor_collection_series ADD CONSTRAINT editor_collection_series_pkey PRIMARY KEY (collection, series);
 ALTER TABLE editor_collection_type ADD CONSTRAINT editor_collection_type_pkey PRIMARY KEY (id);
+ALTER TABLE editor_collection_type_allowed_entity_type ADD CONSTRAINT editor_collection_type_allowed_entity_type_pkey PRIMARY KEY (entity_type);
 ALTER TABLE editor_collection_work ADD CONSTRAINT editor_collection_work_pkey PRIMARY KEY (collection, work);
 ALTER TABLE editor_language ADD CONSTRAINT editor_language_pkey PRIMARY KEY (editor, language);
 ALTER TABLE editor_oauth_token ADD CONSTRAINT editor_oauth_token_pkey PRIMARY KEY (id);
@@ -306,6 +307,7 @@ ALTER TABLE series_ordering_type ADD CONSTRAINT series_ordering_type_pkey PRIMAR
 ALTER TABLE series_tag ADD CONSTRAINT series_tag_pkey PRIMARY KEY (series, tag);
 ALTER TABLE series_tag_raw ADD CONSTRAINT series_tag_raw_pkey PRIMARY KEY (series, editor, tag);
 ALTER TABLE series_type ADD CONSTRAINT series_type_pkey PRIMARY KEY (id);
+ALTER TABLE series_type_allowed_entity_type ADD CONSTRAINT series_type_allowed_entity_type_pkey PRIMARY KEY (entity_type);
 ALTER TABLE tag ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
 ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag2);
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);
