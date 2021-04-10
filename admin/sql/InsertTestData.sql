@@ -6,6 +6,14 @@ INSERT INTO area (id, gid, name, type) VALUES
 INSERT INTO country_area (area) VALUES (221), (222);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB'), (222, 'US');
 
+-- Musicbrainz series allowed entity types
+INSERT INTO series_type_allowed_entity_type (entity_type) VALUES
+    ('event'),
+    ('recording'),
+    ('release'),
+    ('release_group'),
+    ('work');
+
 -- MusicBrainz System Entities
 INSERT INTO artist (id, gid, name, sort_name, type) VALUES
     (1, '89ad4ac3-39f7-470e-963a-56509c546377', 'Various Artists', 'Various Artists', 3),

@@ -25,6 +25,13 @@ INSERT INTO release_group_primary_type VALUES (2, 'Single', null, 2, null, 'd603
 
 INSERT INTO release_status VALUES (1, 'Official', null, 1, null, '4e304316-386d-3409-af2e-78857eec5cfe');
 
+INSERT INTO series_type_allowed_entity_type (entity_type) VALUES
+    ('event'),
+    ('recording'),
+    ('release'),
+    ('release_group'),
+    ('work');
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

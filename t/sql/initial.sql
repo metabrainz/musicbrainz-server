@@ -935,6 +935,12 @@ INSERT INTO series_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '8950366b
 INSERT INTO series_ordering_type VALUES (1, 'Automatic', NULL, 0, 'Sorts the items in the series automatically by their number attributes, using a natural sort order.', 'ec5fa247-c37a-39b3-b31d-bdac6207344e');
 INSERT INTO series_ordering_type VALUES (2, 'Manual', NULL, 1, 'Allows for manually setting the position of each item in the series.', '2950ba43-3532-39e9-a7d1-7dc7e271fa25');
 
+INSERT INTO series_type_allowed_entity_type VALUES ('event');
+INSERT INTO series_type_allowed_entity_type VALUES ('recording');
+INSERT INTO series_type_allowed_entity_type VALUES ('release');
+INSERT INTO series_type_allowed_entity_type VALUES ('release_group');
+INSERT INTO series_type_allowed_entity_type VALUES ('work');
+
 INSERT INTO series_type VALUES (1, 'Release group', 'release_group', NULL, 0, 'A series of release groups.', '4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77');
 INSERT INTO series_type VALUES (2, 'Release', 'release', NULL, 1, 'A series of releases.', '52b90f1e-ff62-3bd0-b254-5d91ced5d757');
 INSERT INTO series_type VALUES (3, 'Recording', 'recording', NULL, 2, 'A series of recordings.', 'dd968243-7128-30a2-81f0-79843430a8e2');

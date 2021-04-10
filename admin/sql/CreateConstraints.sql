@@ -136,17 +136,6 @@ ALTER TABLE series
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
 
-ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
-  CHECK (
-    entity_type IN (
-      'event',
-      'recording',
-      'release',
-      'release_group',
-      'work'
-    )
-  );
-
 ALTER TABLE work
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');

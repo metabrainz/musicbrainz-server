@@ -3184,11 +3184,15 @@ CREATE TABLE series ( -- replicate (verbose)
 CREATE TABLE series_type ( -- replicate (verbose)
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
-    entity_type         VARCHAR(50) NOT NULL,
+    entity_type         VARCHAR(50) NOT NULL, -- references series_type_allowed_entity_type.entity_type
     parent              INTEGER, -- references series_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
     description         TEXT,
     gid                 uuid NOT NULL
+);
+
+CREATE TABLE series_type_allowed_entity_type (
+    entity_type         VARCHAR(50) NOT NULL -- PK
 );
 
 CREATE TABLE series_ordering_type ( -- replicate (verbose)
