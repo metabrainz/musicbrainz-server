@@ -83,6 +83,7 @@
               "20200914-oauth-pkce.sql",
               "20201028-mbs-1424.sql",
               "20210309-mbs-11431.sql"],
-    "standalone": ["20201028-mbs-1424-fks.sql"]
+    "standalone": ["20201028-mbs-1424-fks.sql",
+                   "20210410-mbs-10566-allowed-entity-type.sql"]
   }
 }
