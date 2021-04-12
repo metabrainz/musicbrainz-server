@@ -3627,7 +3627,10 @@ const relationshipTypesByEntityType = Object.entries(LINK_TYPES).reduce(
   {},
 );
 
-// Avoid Wikipedia/Wikidata being added as release-level relationship
+/*
+ * Avoid Wikipedia/Wikidata being added as release-level relationship
+ * Disallow https://*.bandcamp.com/ URLs at release level
+ */
 for (const relUuid of relationshipTypesByEntityType.release) {
   const relRule = validationRules[relUuid];
   validationRules[relUuid] = function (url) {
@@ -3649,6 +3652,55 @@ for (const relUuid of relationshipTypesByEntityType.release) {
            so adding Wikidata links to a release is currently blocked.
            Please add this Wikidata link to the release group instead,
            if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+      return {
+        error: exp.l(
+          `This is a Bandcamp profile, not a page for a specific
+           release. Even if it shows this release right now,
+           that can change when the artist releases another.
+           Please find and add the appropriate release page
+           (“{album_url_pattern}” or “{single_url_pattern}”)
+           instead, and feel free to add this profile link
+           to the appropriate artist or label.`,
+          {
+            album_url_pattern: (
+              <span className="url-quote">{'/album'}</span>
+            ),
+            single_url_pattern: (
+              <span className="url-quote">{'/track'}</span>
+            ),
+          },
+        ),
+        result: false,
+      };
+    }
+    return relRule(url);
+  };
+}
+
+// Disallow https://*.bandcamp.com/ URLs at recording level
+for (const relUuid of relationshipTypesByEntityType.recording) {
+  const relRule = validationRules[relUuid];
+  validationRules[relUuid] = function (url) {
+    if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+      return {
+        error: exp.l(
+          `This is a Bandcamp profile, not a page for a specific
+           recording. Even if it shows a single recording right now,
+           that can change when the artist releases another.
+           Please find and add the appropriate recording page
+           (“{single_url_pattern}”)
+           instead, and feel free to add this profile link
+           to the appropriate artist or label.`,
+          {
+            single_url_pattern: (
+              <span className="url-quote">{'/track'}</span>
+            ),
+          },
         ),
         result: false,
       };
