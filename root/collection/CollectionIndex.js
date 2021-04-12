@@ -33,6 +33,7 @@ import CollectionLayout from './CollectionLayout.js';
 
 type PropsForEntity<T: CollectableEntityT> = {
   +collection: CollectionT,
+  +collectionComments?: {+[entityGid: string]: string},
   +collectionEntityType: T['entityType'],
   +entities: $ReadOnlyArray<T>,
   +order: string,
@@ -54,11 +55,15 @@ type Props =
 
 const listPicker = (
   props: Props,
-  canRemoveFromCollection: boolean,
+  hasEditingRights: boolean,
 ) => {
   const sharedProps = {
-    checkboxes: canRemoveFromCollection ? 'remove' : '',
+    canEditCollectionComments: hasEditingRights,
+    checkboxes: hasEditingRights ? 'remove' : '',
+    collectionComments: props.collectionComments,
+    collectionId: props.collection.id,
     order: props.order,
+    showCollectionComments: true,
     sortable: true,
   };
 
@@ -168,7 +173,7 @@ React$Element<typeof CollectionLayout> => {
   } = props;
 
   const user = $c.user;
-  const canRemoveFromCollection = !!user && !!collection.editor &&
+  const hasEditingRights = !!user && !!collection.editor &&
     (user.id === collection.editor.id ||
       collection.collaborators.some(x => x.id === user.id));
 
@@ -211,9 +216,9 @@ React$Element<typeof CollectionLayout> => {
       {entities.length > 0 ? (
         <form method="post">
           <PaginatedResults pager={pager}>
-            {listPicker(props, canRemoveFromCollection)}
+            {listPicker(props, hasEditingRights)}
           </PaginatedResults>
-          {canRemoveFromCollection ? (
+          {hasEditingRights ? (
             <FormRow>
               <FormSubmit
                 label={l('Remove selected items from collection')}

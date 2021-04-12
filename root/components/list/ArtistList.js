@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
+import * as manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineBeginDateColumn,
   defineCheckboxColumn,
@@ -26,6 +29,7 @@ import {
 } from '../../utility/tableColumns.js';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   ...InstrumentCreditsAndRelTypesRoleT,
   ...SeriesItemNumbersRoleT,
   +artists: $ReadOnlyArray<ArtistT>,
@@ -33,6 +37,7 @@ type Props = {
   +mergeForm?: MergeFormT,
   +order?: string,
   +showBeginEnd?: boolean,
+  +showCollectionComments?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
   +showSortName?: boolean,
@@ -41,17 +46,21 @@ type Props = {
 
 const ArtistList = ({
   artists,
+  canEditCollectionComments,
   checkboxes,
+  collectionComments,
+  collectionId,
   instrumentCreditsAndRelTypes,
   mergeForm,
   order,
   seriesItemNumbers,
   showBeginEnd = false,
+  showCollectionComments = false,
   showInstrumentCreditsAndRelTypes = false,
   showRatings = false,
   showSortName = false,
   sortable,
-}: Props): React$Element<'table'> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -62,11 +71,24 @@ const ArtistList = ({
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<ArtistT>({
-        order: order,
-        sortable: sortable,
-        title: l('Artist'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<ArtistT>({
+          canEditCollectionComments: canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId: collectionId,
+          order: order,
+          sortable: sortable,
+          title: l('Artist'),
+        })
+      ) : (
+        defineNameColumn<ArtistT>({
+          order: order,
+          sortable: sortable,
+          title: l('Artist'),
+        })
+      );
       const sortNameColumn = showSortName ? defineTextColumn<ArtistT>({
         columnName: 'sort_name',
         getText: entity => entity.sort_name,
@@ -140,12 +162,16 @@ const ArtistList = ({
     [
       $c.user,
       artists,
+      canEditCollectionComments,
       checkboxes,
+      collectionComments,
+      collectionId,
       instrumentCreditsAndRelTypes,
       mergeForm,
       order,
       seriesItemNumbers,
       showBeginEnd,
+      showCollectionComments,
       showInstrumentCreditsAndRelTypes,
       showRatings,
       showSortName,
@@ -153,7 +179,14 @@ const ArtistList = ({
     ],
   );
 
-  return useTable<ArtistT>({columns, data: artists});
+  const table = useTable<ArtistT>({columns, data: artists});
+
+  return (
+    <>
+      {table}
+      {manifest.js('common/components/NameWithCommentCell', {async: 'async'})}
+    </>
+  );
 };
 
 export default ArtistList;

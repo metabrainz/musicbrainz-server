@@ -12,6 +12,8 @@ import * as React from 'react';
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
 import * as manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   attributesColumn,
   defineArtistRolesColumn,
@@ -27,20 +29,26 @@ import {
 } from '../../utility/tableColumns.js';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   ...SeriesItemNumbersRoleT,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
+  +showCollectionComments?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
   +works: $ReadOnlyArray<WorkT>,
 };
 
 const WorkList = ({
+  canEditCollectionComments,
   checkboxes,
+  collectionComments,
+  collectionId,
   mergeForm,
   order,
   seriesItemNumbers,
+  showCollectionComments = false,
   showRatings = false,
   sortable,
   works,
@@ -55,11 +63,24 @@ const WorkList = ({
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<WorkT>({
-        order: order,
-        sortable: sortable,
-        title: l('Work'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<WorkT>({
+          canEditCollectionComments: canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId: collectionId,
+          order: order,
+          sortable: sortable,
+          title: l('Work'),
+        })
+      ) : (
+        defineNameColumn<WorkT>({
+          order: order,
+          sortable: sortable,
+          title: l('Work'),
+        })
+      );
       const writersColumn = defineArtistRolesColumn<WorkT>({
         columnName: 'writers',
         getRoles: entity => entity.writers,
@@ -90,10 +111,14 @@ const WorkList = ({
     },
     [
       $c.user,
+      canEditCollectionComments,
       checkboxes,
+      collectionComments,
+      collectionId,
       mergeForm,
       order,
       seriesItemNumbers,
+      showCollectionComments,
       showRatings,
       sortable,
       works,
@@ -108,6 +133,7 @@ const WorkList = ({
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
       {manifest.js('common/components/AttributeList', {async: 'async'})}
       {manifest.js('common/components/IswcList', {async: 'async'})}
+      {manifest.js('common/components/NameWithCommentCell', {async: 'async'})}
       {manifest.js('common/components/WorkArtists', {async: 'async'})}
     </>
   );

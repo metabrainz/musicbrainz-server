@@ -16,6 +16,8 @@ import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
 import localizeArtistRoles
   from '../../static/scripts/common/i18n/localizeArtistRoles.js';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
@@ -30,6 +32,7 @@ import {
 } from '../../utility/tableColumns.js';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   ...SeriesItemNumbersRoleT,
   +artist?: ArtistT,
   +artistRoles?: boolean,
@@ -38,6 +41,7 @@ type Props = {
   +mergeForm?: MergeFormT,
   +order?: string,
   +showArtists?: boolean,
+  +showCollectionComments?: boolean,
   +showLocation?: boolean,
   +showRatings?: boolean,
   +showType?: boolean,
@@ -47,12 +51,16 @@ type Props = {
 const EventList = ({
   artist,
   artistRoles = false,
+  canEditCollectionComments,
   checkboxes,
+  collectionComments,
+  collectionId,
   events,
   mergeForm,
   order,
   seriesItemNumbers,
   showArtists = false,
+  showCollectionComments = false,
   showLocation = false,
   showRatings = false,
   showType = false,
@@ -68,12 +76,26 @@ const EventList = ({
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<EventT>({
-        descriptive: false, // since dates have their own column
-        order: order,
-        sortable: sortable,
-        title: l('Event'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<EventT>({
+          canEditCollectionComments: canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId: collectionId,
+          descriptive: false, // since dates have their own column
+          order: order,
+          sortable: sortable,
+          title: l('Event'),
+        })
+      ) : (
+        defineNameColumn<EventT>({
+          descriptive: false, // since dates have their own column
+          order: order,
+          sortable: sortable,
+          title: l('Event'),
+        })
+      );
       const typeColumn = defineTypeColumn({
         order: order,
         sortable: sortable,
@@ -134,14 +156,18 @@ const EventList = ({
     },
     [
       $c.user,
+      canEditCollectionComments,
       artist,
       artistRoles,
       checkboxes,
+      collectionComments,
+      collectionId,
       events,
       mergeForm,
       order,
       seriesItemNumbers,
       showArtists,
+      showCollectionComments,
       showLocation,
       showRatings,
       showType,
@@ -155,6 +181,7 @@ const EventList = ({
     <>
       {table}
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
+      {manifest.js('common/components/NameWithCommentCell', {async: 'async'})}
     </>
   );
 };

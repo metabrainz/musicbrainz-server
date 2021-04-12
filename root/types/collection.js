@@ -26,6 +26,14 @@ declare type CollectionT = $ReadOnly<{
   +subscribed?: boolean,
 }>;
 
+declare type CollectionCommentsRoleT = {
+  +canEditCollectionComments?: boolean,
+  +collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  +collectionId?: number,
+};
+
 declare type CollectionTypeT = {
   ...OptionTreeT<'collection_type'>,
   item_entity_type: string,

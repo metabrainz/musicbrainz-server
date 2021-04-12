@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
+import * as manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -19,20 +22,26 @@ import {
 } from '../../utility/tableColumns.js';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   +areas: $ReadOnlyArray<AreaT>,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
+  +showCollectionComments?: boolean,
   +sortable?: boolean,
 };
 
 const AreaList = ({
   areas,
+  canEditCollectionComments,
   checkboxes,
+  collectionComments,
+  collectionId,
   mergeForm,
   order,
+  showCollectionComments = false,
   sortable,
-}: Props): React$Element<'table'> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -40,11 +49,24 @@ const AreaList = ({
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
         : null;
-      const nameColumn = defineNameColumn<AreaT>({
-        order: order,
-        sortable: sortable,
-        title: l('Area'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<AreaT>({
+          canEditCollectionComments: canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId: collectionId,
+          order: order,
+          sortable: sortable,
+          title: l('Area'),
+        })
+      ) : (
+        defineNameColumn<AreaT>({
+          order: order,
+          sortable: sortable,
+          title: l('Area'),
+        })
+      );
       const typeColumn = defineTypeColumn({
         order: order,
         sortable: sortable,
@@ -58,10 +80,28 @@ const AreaList = ({
         ...(mergeForm && areas.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user, areas, checkboxes, mergeForm, order, sortable],
+    [
+      $c.user,
+      areas,
+      canEditCollectionComments,
+      checkboxes,
+      collectionComments,
+      collectionId,
+      mergeForm,
+      order,
+      showCollectionComments,
+      sortable,
+    ],
   );
 
-  return useTable<AreaT>({columns, data: areas});
+  const table = useTable<AreaT>({columns, data: areas});
+
+  return (
+    <>
+      {table}
+      {manifest.js('common/components/NameWithCommentCell', {async: 'async'})}
+    </>
+  );
 };
 
 export default AreaList;

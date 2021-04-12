@@ -17,8 +17,10 @@ import ReleaseGroupAppearances
   from '../../static/scripts/common/components/ReleaseGroupAppearances.js';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength.js';
-import {acoustIdsColumn}
-  from '../../static/scripts/common/utility/tableColumns.js';
+import {
+  acoustIdsColumn,
+  defineNameAndCommentColumn,
+} from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
@@ -32,6 +34,7 @@ import {
 } from '../../utility/tableColumns.js';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   ...InstrumentCreditsAndRelTypesRoleT,
   ...ReleaseGroupAppearancesRoleT,
   ...SeriesItemNumbersRoleT,
@@ -41,6 +44,7 @@ type Props = {
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
   +showAcoustIds?: boolean,
+  +showCollectionComments?: boolean,
   +showExpandedArtistCredits?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
@@ -65,7 +69,10 @@ function defineReleaseGroupAppearancesColumn(
 }
 
 const RecordingList = ({
+  canEditCollectionComments,
   checkboxes,
+  collectionComments,
+  collectionId,
   instrumentCreditsAndRelTypes,
   lengthClass,
   mergeForm,
@@ -74,6 +81,7 @@ const RecordingList = ({
   releaseGroupAppearances,
   seriesItemNumbers,
   showAcoustIds = false,
+  showCollectionComments = false,
   showExpandedArtistCredits = false,
   showInstrumentCreditsAndRelTypes = false,
   showRatings = false,
@@ -90,12 +98,26 @@ const RecordingList = ({
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<RecordingWithArtistCreditT>({
-        descriptive: false, // since ACs are in the next column
-        order: order,
-        sortable: sortable,
-        title: l('Name'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<RecordingWithArtistCreditT>({
+          canEditCollectionComments: canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId: collectionId,
+          descriptive: false, // since ACs are in the next column
+          order: order,
+          sortable: sortable,
+          title: l('Name'),
+        })
+      ) : (
+        defineNameColumn<RecordingWithArtistCreditT>({
+          descriptive: false, // since ACs are in the next column
+          order: order,
+          sortable: sortable,
+          title: l('Name'),
+        })
+      );
       const artistCreditColumn =
         defineArtistCreditColumn<RecordingWithArtistCreditT>({
           columnName: 'artist',
@@ -146,7 +168,10 @@ const RecordingList = ({
     },
     [
       $c.user,
+      canEditCollectionComments,
       checkboxes,
+      collectionComments,
+      collectionId,
       instrumentCreditsAndRelTypes,
       lengthClass,
       mergeForm,
@@ -155,6 +180,7 @@ const RecordingList = ({
       releaseGroupAppearances,
       seriesItemNumbers,
       showAcoustIds,
+      showCollectionComments,
       showExpandedArtistCredits,
       showInstrumentCreditsAndRelTypes,
       showRatings,
@@ -173,6 +199,7 @@ const RecordingList = ({
       {table}
       {manifest.js('common/components/AcoustIdCell', {async: 'async'})}
       {manifest.js('common/components/IsrcList', {async: 'async'})}
+      {manifest.js('common/components/NameWithCommentCell', {async: 'async'})}
     </>
   );
 };
