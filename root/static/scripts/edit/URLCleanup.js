@@ -3693,7 +3693,7 @@ for (const relUuid of relationshipTypesByEntityType.recording) {
            recording. Even if it shows a single recording right now,
            that can change when the artist releases another.
            Please find and add the appropriate recording page
-           “{single_url_pattern}”
+           (“{single_url_pattern}”)
            instead, and feel free to add this profile link
            to the appropriate artist or label.`,
           {
