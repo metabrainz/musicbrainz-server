@@ -55,7 +55,7 @@ import {formatCount} from '../statistics/utilities.js';
 
 import {returnToCurrentPage} from './returnUri.js';
 
-type OrderableProps = {
+export type OrderableProps = {
   +order?: string,
   +sortable?: boolean,
 };

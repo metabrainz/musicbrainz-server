@@ -26,12 +26,13 @@ sub browse_by_collection {
     }
 
     my $model = $c->model(type_to_model($entity_type));
-    my ($entities, $hits) = $model->find_by_collection(
+    my ($results, $hits) = $model->find_by_collection(
         $collection->id,
         $limit,
         $offset,
     );
-    $self->make_list($entities, $hits, $offset);
+    my @entities = map { $_->{entity} } @$results;
+    $self->make_list(\@entities, $hits, $offset);
 }
 
 1;

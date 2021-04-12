@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
+import manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineBeginDateColumn,
   defineCheckboxColumn,
@@ -24,10 +27,16 @@ import {
 } from '../../utility/tableColumns.js';
 
 component PlaceList(
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   mergeForm?: MergeFormT,
   order?: string,
   places: $ReadOnlyArray<PlaceT>,
+  showCollectionComments: boolean = false,
   showRatings: boolean = false,
   sortable?: boolean,
 ) {
@@ -38,12 +47,26 @@ component PlaceList(
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
-      const nameColumn = defineNameColumn<PlaceT>({
-        descriptive: false, // since area has its own column
-        order,
-        sortable,
-        title: l('Place'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<PlaceT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          descriptive: false, // since area has its own column
+          order,
+          sortable,
+          title: l('Place'),
+        })
+      ) : (
+        defineNameColumn<PlaceT>({
+          descriptive: false, // since area has its own column
+          order,
+          sortable,
+          title: l('Place'),
+        })
+      );
       const typeColumn = defineTypeColumn({
         order,
         sortable,
@@ -81,16 +104,27 @@ component PlaceList(
     },
     [
       $c.user,
+      canEditCollectionComments,
+      collectionId,
       checkboxes,
       mergeForm,
       order,
       places,
       showRatings,
+      collectionComments,
+      showCollectionComments,
       sortable,
     ],
   );
 
-  return useTable<PlaceT>({columns, data: places});
+  const table = useTable<PlaceT>({columns, data: places});
+
+  return (
+    <>
+      {table}
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
+    </>
+  );
 }
 
 export default PlaceList;

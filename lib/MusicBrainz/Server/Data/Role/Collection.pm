@@ -18,7 +18,7 @@ sub find_by_collection {
       FROM (
       SELECT DISTINCT ON (' . $self->_id_column . ')
         ' . $self->_columns .
-          ($also_select ? ", $also_select" : '') . "
+          ($also_select ? ", $also_select" : '') . ", ec.comment AS collection_comment
         FROM $table
         JOIN editor_collection_$type ec ON " . $self->_id_column . " = ec.$type
         $extra_join
@@ -27,7 +27,12 @@ sub find_by_collection {
       ) $type
       ORDER BY $order_by, id";
 
-    $self->query_to_list_limited($query, [$collection_id], $limit, $offset);
+    $self->query_to_list_limited($query, [$collection_id], $limit, $offset, sub {
+        my ($model, $row) = @_;
+
+        my $collection_comment = delete $row->{collection_comment};
+        { entity => $model->_new_from_row($row), collection_comment => $collection_comment };
+    });
 }
 
 no Moose::Role;

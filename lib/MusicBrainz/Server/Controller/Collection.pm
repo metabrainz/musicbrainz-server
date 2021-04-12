@@ -120,71 +120,80 @@ sub show : Chained('load') PathPart('') {
     my $order = $c->req->params->{order};
 
     my $model = $c->model(type_to_model($entity_type));
-    my $entities = $self->_load_paged($c, sub {
+
+    my ($results, @entities, %collection_comments);
+
+    $results = $self->_load_paged($c, sub {
         $model->find_by_collection($collection->id, shift, shift, $order);
     });
+
+    for my $item (@$results) {
+        push @entities, $item->{entity};
+        $collection_comments{$item->{entity}->gid} = $item->{collection_comment} // '';
+    }
 
     if ($model->can('load_related_info')) {
         if ($entity_type eq 'artist') {
             my $lang = $c->stash->{current_language} // 'en';
-            $model->load_related_info($entities, $lang);
+            $model->load_related_info(\@entities, $lang);
         } else {
-            $model->load_related_info(@$entities);
+            $model->load_related_info(@entities);
         }
     }
 
     if ($model->can('load_meta')) {
-        $model->load_meta(@$entities);
+        $model->load_meta(@entities);
     }
 
     if ($model->does('MusicBrainz::Server::Data::Role::Rating') && $c->user_exists) {
-        $model->rating->load_user_ratings($c->user->id, @$entities);
+        $model->rating->load_user_ratings($c->user->id, @entities);
     }
 
     if ($entity_type eq 'area') {
-        $c->model('AreaType')->load(@$entities);
-        $c->model('Area')->load_containment(@$entities);
+        $c->model('AreaType')->load(@entities);
+        $c->model('Area')->load_containment(@entities);
     } elsif ($entity_type eq 'artist') {
-        $c->model('ArtistType')->load(@$entities);
-        $c->model('Gender')->load(@$entities);
-        $c->model('Area')->load(@$entities);
-        $c->model('Area')->load_containment(map { $_->area } @$entities);
+        $c->model('ArtistType')->load(@entities);
+        $c->model('Gender')->load(@entities);
+        $c->model('Area')->load(@entities);
+        $c->model('Area')->load_containment(map { $_->area } @entities);
     } elsif ($entity_type eq 'instrument') {
-        $c->model('InstrumentType')->load(@$entities);
+        $c->model('InstrumentType')->load(@entities);
     } elsif ($entity_type eq 'label') {
-        $c->model('LabelType')->load(@$entities);
-        $c->model('Area')->load(@$entities);
-        $c->model('Area')->load_containment(map { $_->{area} } @$entities);
+        $c->model('LabelType')->load(@entities);
+        $c->model('Area')->load(@entities);
+        $c->model('Area')->load_containment(map { $_->{area} } @entities);
     } elsif ($entity_type eq 'release') {
-        $c->model('ArtistCredit')->load(@$entities);
-        $c->model('ReleaseGroup')->load(@$entities);
-        $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @$entities);
+        $c->model('ArtistCredit')->load(@entities);
+        $c->model('ReleaseGroup')->load(@entities);
+        $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @entities);
         if ($c->user_exists) {
-            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, map { $_->release_group } @$entities);
+            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, map { $_->release_group } @entities);
         }
     } elsif ($entity_type eq 'release_group') {
-        $c->model('ArtistCredit')->load(@$entities);
-        $c->model('ReleaseGroupType')->load(@$entities);
-        $c->model('ReleaseGroupSecondaryType')->load_for_release_groups(@$entities);
-        $c->model('ReleaseGroup')->load_has_cover_art(@$entities);
+        $c->model('ArtistCredit')->load(@entities);
+        $c->model('ReleaseGroupType')->load(@entities);
+        $c->model('ReleaseGroupSecondaryType')->load_for_release_groups(@entities);
+        $c->model('ReleaseGroup')->load_has_cover_art(@entities);
     } elsif ($entity_type eq 'event') {
-        $c->model('Event')->load_areas(@$entities);
+        $c->model('Event')->load_areas(@entities);
     } elsif ($entity_type eq 'place') {
-        $c->model('PlaceType')->load(@$entities);
-        $c->model('Area')->load(@$entities);
-        $c->model('Area')->load_containment(map { $_->area } @$entities);
+        $c->model('PlaceType')->load(@entities);
+        $c->model('Area')->load(@entities);
+        $c->model('Area')->load_containment(map { $_->area } @entities);
     } elsif ($entity_type eq 'recording') {
-        $c->model('ArtistCredit')->load(@$entities);
-        $c->model('ISRC')->load_for_recordings(@$entities);
+        $c->model('ArtistCredit')->load(@entities);
+        $c->model('ISRC')->load_for_recordings(@entities);
     } elsif ($entity_type eq 'series') {
-        $c->model('SeriesType')->load(@$entities);
-        $c->model('SeriesOrderingType')->load(@$entities);
+        $c->model('SeriesType')->load(@entities);
+        $c->model('SeriesOrderingType')->load(@entities);
     }
 
     my %props = (
         collection           => $collection->TO_JSON,
+        collectionComments   => \%collection_comments,
         collectionEntityType => $entity_type,
-        entities             => to_json_array($entities),
+        entities             => to_json_array(\@entities),
         order                => $order,
         pager                => serialize_pager($c->stash->{pager}),
     );

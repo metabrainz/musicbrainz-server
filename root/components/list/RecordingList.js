@@ -17,8 +17,10 @@ import ReleaseGroupAppearances
   from '../../static/scripts/common/components/ReleaseGroupAppearances.js';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength.js';
-import {acoustIdsColumn}
-  from '../../static/scripts/common/utility/tableColumns.js';
+import {
+  acoustIdsColumn,
+  defineNameAndCommentColumn,
+} from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
@@ -47,7 +49,12 @@ function defineReleaseGroupAppearancesColumn(
 }
 
 component RecordingList(
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
   lengthClass?: string,
   mergeForm?: MergeFormT,
@@ -56,6 +63,7 @@ component RecordingList(
   releaseGroupAppearances?: ReleaseGroupAppearancesMapT,
   seriesItemNumbers?: $ReadOnlyArray<string>,
   showAcoustIds: boolean = false,
+  showCollectionComments: boolean = false,
   showExpandedArtistCredits: boolean = false,
   showInstrumentCreditsAndRelTypes: boolean = false,
   showRatings: boolean = false,
@@ -72,12 +80,26 @@ component RecordingList(
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<RecordingWithArtistCreditT>({
-        descriptive: false, // since ACs are in the next column
-        order,
-        sortable,
-        title: l('Name'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<RecordingWithArtistCreditT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          descriptive: false, // since ACs are in the next column
+          order,
+          sortable,
+          title: l('Name'),
+        })
+      ) : (
+        defineNameColumn<RecordingWithArtistCreditT>({
+          descriptive: false, // since ACs are in the next column
+          order,
+          sortable,
+          title: l('Name'),
+        })
+      );
       const artistCreditColumn =
         defineArtistCreditColumn<RecordingWithArtistCreditT>({
           columnName: 'artist',
@@ -128,7 +150,10 @@ component RecordingList(
     },
     [
       $c.user,
+      canEditCollectionComments,
       checkboxes,
+      collectionComments,
+      collectionId,
       instrumentCreditsAndRelTypes,
       lengthClass,
       mergeForm,
@@ -137,6 +162,7 @@ component RecordingList(
       releaseGroupAppearances,
       seriesItemNumbers,
       showAcoustIds,
+      showCollectionComments,
       showExpandedArtistCredits,
       showInstrumentCreditsAndRelTypes,
       showRatings,
@@ -155,6 +181,7 @@ component RecordingList(
       {table}
       {manifest('common/components/AcoustIdCell', {async: 'async'})}
       {manifest('common/components/IsrcList', {async: 'async'})}
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
     </>
   );
 }

@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
+import manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineBeginDateColumn,
   defineCheckboxColumn,
@@ -27,12 +30,18 @@ import {
 
 component ArtistList(
   artists: $ReadOnlyArray<ArtistT>,
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
   mergeForm?: MergeFormT,
   order?: string,
   seriesItemNumbers?: $ReadOnlyArray<string>,
   showBeginEnd: boolean = false,
+  showCollectionComments: boolean = false,
   showInstrumentCreditsAndRelTypes: boolean = false,
   showRatings: boolean = false,
   showSortName: boolean = false,
@@ -48,11 +57,24 @@ component ArtistList(
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<ArtistT>({
-        order,
-        sortable,
-        title: l('Artist'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<ArtistT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          order,
+          sortable,
+          title: l('Artist'),
+        })
+      ) : (
+        defineNameColumn<ArtistT>({
+          order,
+          sortable,
+          title: l('Artist'),
+        })
+      );
       const sortNameColumn = showSortName ? defineTextColumn<ArtistT>({
         columnName: 'sort_name',
         getText: entity => entity.sort_name,
@@ -126,12 +148,16 @@ component ArtistList(
     [
       $c.user,
       artists,
+      canEditCollectionComments,
       checkboxes,
+      collectionComments,
+      collectionId,
       instrumentCreditsAndRelTypes,
       mergeForm,
       order,
       seriesItemNumbers,
       showBeginEnd,
+      showCollectionComments,
       showInstrumentCreditsAndRelTypes,
       showRatings,
       showSortName,
@@ -139,7 +165,14 @@ component ArtistList(
     ],
   );
 
-  return useTable<ArtistT>({columns, data: artists});
+  const table = useTable<ArtistT>({columns, data: artists});
+
+  return (
+    <>
+      {table}
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
+    </>
+  );
 }
 
 export default ArtistList;
