@@ -13,6 +13,7 @@ import Table from '../Table';
 import formatLabelCode from '../../utility/formatLabelCode';
 import {
   defineCheckboxColumn,
+  defineCollectionCommentsColumn,
   defineNameColumn,
   defineTextColumn,
   defineTypeColumn,
@@ -24,11 +25,13 @@ import {
 } from '../../utility/tableColumns';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +labels: $ReadOnlyArray<LabelT>,
   +mergeForm?: MergeFormT,
   +order?: string,
+  +showCollectionComments?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
 };
@@ -36,9 +39,11 @@ type Props = {
 const LabelList = ({
   $c,
   checkboxes,
+  collectionComments,
   labels,
   mergeForm,
   order,
+  showCollectionComments = false,
   showRatings = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
@@ -81,6 +86,11 @@ const LabelList = ({
         order: order,
         sortable: sortable,
       });
+      const collectionCommentsColumn = showCollectionComments
+        ? defineCollectionCommentsColumn({
+          collectionComments: collectionComments,
+        })
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -91,15 +101,18 @@ const LabelList = ({
         beginDateColumn,
         endDateColumn,
         ...(showRatings ? [ratingsColumn] : []),
+        ...(collectionCommentsColumn ? [collectionCommentsColumn] : []),
         ...(mergeForm && labels.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
     [
       $c.user,
       checkboxes,
-      labels,
+      collectionComments,
+      labels.length,
       mergeForm,
       order,
+      showCollectionComments,
       showRatings,
       sortable,
     ],

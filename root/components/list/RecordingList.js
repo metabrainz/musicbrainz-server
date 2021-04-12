@@ -15,6 +15,7 @@ import formatTrackLength
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
+  defineCollectionCommentsColumn,
   defineInstrumentUsageColumn,
   defineNameColumn,
   defineSeriesNumberColumn,
@@ -27,6 +28,7 @@ import {
 import hydrate from '../../utility/hydrate';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   ...InstrumentCreditsAndRelTypesRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
@@ -36,6 +38,7 @@ type Props = {
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
   +showAcoustIds?: boolean,
+  +showCollectionComments?: boolean,
   +showExpandedArtistCredits?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
@@ -45,6 +48,7 @@ type Props = {
 const RecordingList = ({
   $c,
   checkboxes,
+  collectionComments,
   instrumentCreditsAndRelTypes,
   lengthClass,
   mergeForm,
@@ -52,6 +56,7 @@ const RecordingList = ({
   recordings,
   seriesItemNumbers,
   showAcoustIds = false,
+  showCollectionComments = false,
   showExpandedArtistCredits = false,
   showInstrumentCreditsAndRelTypes = false,
   showRatings = false,
@@ -99,6 +104,11 @@ const RecordingList = ({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
         })
         : null;
+      const collectionCommentsColumn = showCollectionComments
+        ? defineCollectionCommentsColumn({
+          collectionComments: collectionComments,
+        })
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -110,6 +120,7 @@ const RecordingList = ({
         ...(acoustIdsColumn ? [acoustIdsColumn] : []),
         lengthColumn,
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
+        ...(collectionCommentsColumn ? [collectionCommentsColumn] : []),
         ...(mergeForm && recordings.length > 2
           ? [removeFromMergeColumn]
           : []),
@@ -118,6 +129,7 @@ const RecordingList = ({
     [
       $c.user,
       checkboxes,
+      collectionComments,
       instrumentCreditsAndRelTypes,
       lengthClass,
       mergeForm,
@@ -125,6 +137,7 @@ const RecordingList = ({
       recordings,
       seriesItemNumbers,
       acoustIdsColumn,
+      showCollectionComments,
       showExpandedArtistCredits,
       showInstrumentCreditsAndRelTypes,
       showRatings,

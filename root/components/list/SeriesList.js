@@ -12,6 +12,7 @@ import * as React from 'react';
 import Table from '../Table';
 import {
   defineCheckboxColumn,
+  defineCollectionCommentsColumn,
   defineNameColumn,
   defineTypeColumn,
   removeFromMergeColumn,
@@ -19,20 +20,24 @@ import {
 } from '../../utility/tableColumns';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
   +series: $ReadOnlyArray<SeriesT>,
+  +showCollectionComments?: boolean,
   +sortable?: boolean,
 };
 
 const SeriesList = ({
   $c,
   checkboxes,
+  collectionComments,
   mergeForm,
   order,
   series,
+  showCollectionComments = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
@@ -50,16 +55,31 @@ const SeriesList = ({
         sortable: sortable,
         typeContext: 'series_type',
       });
+      const collectionCommentsColumn = showCollectionComments
+        ? defineCollectionCommentsColumn({
+          collectionComments: collectionComments,
+        })
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
         nameColumn,
         typeColumn,
         seriesOrderingTypeColumn,
+        ...(collectionCommentsColumn ? [collectionCommentsColumn] : []),
         ...(mergeForm && series.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user, checkboxes, mergeForm, order, series, sortable],
+    [
+      $c.user,
+      checkboxes,
+      collectionComments,
+      mergeForm,
+      order,
+      series.length,
+      showCollectionComments,
+      sortable,
+    ],
   );
 
   return <Table columns={columns} data={series} />;

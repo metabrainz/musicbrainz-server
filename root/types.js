@@ -276,6 +276,12 @@ declare type CDTocT = $ReadOnly<{
   +discid: string,
 }>;
 
+declare type CollectionCommentsRoleT = {
+  +collectionComments?: {
+    +[entityGid: string]: string,
+  },
+};
+
 declare type CollectionT = {
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
