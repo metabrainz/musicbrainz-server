@@ -101,15 +101,17 @@ sub filename
 sub image { my $self = shift; return $self->_url_prefix . "." . $self->suffix; }
 sub small_thumbnail { my $self = shift; return $self->_url_prefix . "-250.jpg"; }
 sub large_thumbnail { my $self = shift; return $self->_url_prefix . "-500.jpg"; }
+sub huge_thumbnail { my $self = shift; return $self->_url_prefix . "-1200.jpg"; }
 
 # These accessors allow for requesting thumbnails directly from the IA,
 # bypassing our artwork redirect service. These are suitable for any <img>
 # tags in our templates, avoiding a pointless 307 redirect and preventing
-# our redirect service from becoming overloaded. The "250px"/"500px"/
+# our redirect service from becoming overloaded. The "250px"/"500px"/"1200px"
 # "original" links still point to the public API at coverartarchive.org via
 # small_thumbnail, large_thumbnail, etc.
 sub small_ia_thumbnail { shift->_ia_url_prefix . '_thumb250.jpg' }
 sub large_ia_thumbnail { shift->_ia_url_prefix . '_thumb500.jpg' }
+sub huge_ia_thumbnail { shift->_ia_url_prefix . '_thumb1200.jpg' }
 
 sub TO_JSON {
     my ($self) = @_;
@@ -117,6 +119,8 @@ sub TO_JSON {
     my $json = {
         comment => $self->comment,
         filename => $self->filename,
+        huge_ia_thumbnail => $self->huge_ia_thumbnail,
+        huge_thumbnail => $self->huge_thumbnail,
         image => $self->image,
         id => $self->id,
         large_ia_thumbnail => $self->large_ia_thumbnail,

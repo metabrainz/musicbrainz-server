@@ -39,6 +39,12 @@ const CoverArtLinks = ({
         {' | '}
       </>
     ) : null}
+    {artwork.huge_thumbnail ? (
+      <>
+        <a href={artwork.huge_thumbnail}>{l('1200px')}</a>
+        {' | '}
+      </>
+    ) : null}
     <a href={artwork.image}>{l('original')}</a>
   </>
 );
