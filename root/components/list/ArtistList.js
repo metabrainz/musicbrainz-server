@@ -12,6 +12,7 @@ import * as React from 'react';
 import Table from '../Table';
 import {
   defineCheckboxColumn,
+  defineCollectionCommentsColumn,
   defineNameColumn,
   defineTextColumn,
   defineTypeColumn,
@@ -24,6 +25,7 @@ import {
 } from '../../utility/tableColumns';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   ...InstrumentCreditsAndRelTypesRoleT,
   +$c: CatalystContextT,
   +artists: $ReadOnlyArray<ArtistT>,
@@ -31,6 +33,7 @@ type Props = {
   +mergeForm?: MergeFormT,
   +order?: string,
   +showBeginEnd?: boolean,
+  +showCollectionComments?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
   +showSortName?: boolean,
@@ -41,10 +44,12 @@ const ArtistList = ({
   $c,
   artists,
   checkboxes,
+  collectionComments,
   instrumentCreditsAndRelTypes,
   mergeForm,
   order,
   showBeginEnd = false,
+  showCollectionComments = false,
   showInstrumentCreditsAndRelTypes = false,
   showRatings = false,
   showSortName = false,
@@ -109,6 +114,11 @@ const ArtistList = ({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
         })
         : null;
+      const collectionCommentsColumn = showCollectionComments
+        ? defineCollectionCommentsColumn({
+          collectionComments: collectionComments,
+        })
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -123,6 +133,7 @@ const ArtistList = ({
         ...(endAreaColumn ? [endAreaColumn] : []),
         ...(showRatings ? [ratingsColumn] : []),
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
+        ...(collectionCommentsColumn ? [collectionCommentsColumn] : []),
         ...(mergeForm && artists.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
@@ -130,10 +141,12 @@ const ArtistList = ({
       $c.user,
       artists,
       checkboxes,
+      collectionComments,
       instrumentCreditsAndRelTypes,
       mergeForm,
       order,
       showBeginEnd,
+      showCollectionComments,
       showInstrumentCreditsAndRelTypes,
       showRatings,
       showSortName,

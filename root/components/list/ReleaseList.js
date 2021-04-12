@@ -16,6 +16,7 @@ import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
+  defineCollectionCommentsColumn,
   defineInstrumentUsageColumn,
   defineNameColumn,
   defineReleaseCatnosColumn,
@@ -29,6 +30,7 @@ import {
 } from '../../utility/tableColumns';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   ...InstrumentCreditsAndRelTypesRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
@@ -36,6 +38,7 @@ type Props = {
   +filterLabel?: LabelT,
   +order?: string,
   +releases: $ReadOnlyArray<ReleaseT>,
+  +showCollectionComments?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showLanguages?: boolean,
   +showRatings?: boolean,
@@ -47,11 +50,13 @@ type Props = {
 const ReleaseList = ({
   $c,
   checkboxes,
+  collectionComments,
   filterLabel,
   instrumentCreditsAndRelTypes,
   order,
   releases,
   seriesItemNumbers,
+  showCollectionComments = false,
   showInstrumentCreditsAndRelTypes = false,
   showLanguages = false,
   showRatings = false,
@@ -147,6 +152,11 @@ const ReleaseList = ({
           title: l('Status'),
         })
         : null;
+      const collectionCommentsColumn = showCollectionComments
+        ? defineCollectionCommentsColumn({
+          collectionComments: collectionComments,
+        })
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -165,16 +175,19 @@ const ReleaseList = ({
         ...(statusColumn ? [statusColumn] : []),
         ...($c.session?.tport == null ? [] : [taggerColumn]),
         ...(showRatings ? [ratingsColumn] : []),
+        ...(collectionCommentsColumn ? [collectionCommentsColumn] : []),
       ];
     },
     [
       $c.session?.tport,
       $c.user,
       checkboxes,
+      collectionComments,
       filterLabel,
       instrumentCreditsAndRelTypes,
       order,
       seriesItemNumbers,
+      showCollectionComments,
       showInstrumentCreditsAndRelTypes,
       showLanguages,
       showRatings,

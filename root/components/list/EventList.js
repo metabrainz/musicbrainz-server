@@ -17,6 +17,7 @@ import localizeArtistRoles
 import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
+  defineCollectionCommentsColumn,
   defineDatePeriodColumn,
   defineNameColumn,
   defineSeriesNumberColumn,
@@ -28,6 +29,7 @@ import {
 } from '../../utility/tableColumns';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +artist?: ArtistT,
@@ -37,6 +39,7 @@ type Props = {
   +mergeForm?: MergeFormT,
   +order?: string,
   +showArtists?: boolean,
+  +showCollectionComments?: boolean,
   +showLocation?: boolean,
   +showRatings?: boolean,
   +showType?: boolean,
@@ -48,11 +51,13 @@ const EventList = ({
   artist,
   artistRoles = false,
   checkboxes,
+  collectionComments,
   events,
   mergeForm,
   order,
   seriesItemNumbers,
   showArtists = false,
+  showCollectionComments = false,
   showLocation = false,
   showRatings = false,
   showType = false,
@@ -105,6 +110,11 @@ const EventList = ({
         order: order,
         sortable: sortable,
       });
+      const collectionCommentsColumn = showCollectionComments
+        ? defineCollectionCommentsColumn({
+          collectionComments: collectionComments,
+        })
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -117,6 +127,7 @@ const EventList = ({
         dateColumn,
         timeColumn,
         ...(showRatings ? [ratingsColumn] : []),
+        ...(collectionCommentsColumn ? [collectionCommentsColumn] : []),
         ...(mergeForm && events.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
@@ -125,11 +136,13 @@ const EventList = ({
       artist,
       artistRoles,
       checkboxes,
+      collectionComments,
       events,
       mergeForm,
       order,
       seriesItemNumbers,
       showArtists,
+      showCollectionComments,
       showLocation,
       showRatings,
       showType,

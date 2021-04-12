@@ -16,6 +16,7 @@ import parseDate from '../../static/scripts/common/utility/parseDate';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
+  defineCollectionCommentsColumn,
   defineNameColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
@@ -25,24 +26,28 @@ import {
 } from '../../utility/tableColumns';
 
 type ReleaseGroupListTableProps = {
+  ...CollectionCommentsRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
   +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
+  +showCollectionComments?: boolean,
   +showRatings?: boolean,
   +showType?: boolean,
   +sortable?: boolean,
 };
 
 type ReleaseGroupListProps = {
+  ...CollectionCommentsRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
   +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
+  +showCollectionComments?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
 };
@@ -50,10 +55,12 @@ type ReleaseGroupListProps = {
 export const ReleaseGroupListTable = ({
   $c,
   checkboxes,
+  collectionComments,
   mergeForm,
   order,
   releaseGroups,
   seriesItemNumbers,
+  showCollectionComments = false,
   showRatings = false,
   showType = true,
   sortable,
@@ -106,6 +113,11 @@ export const ReleaseGroupListTable = ({
         getCount: entity => entity.release_count,
         title: l('Releases'),
       });
+      const collectionCommentsColumn = showCollectionComments
+        ? defineCollectionCommentsColumn({
+          collectionComments: collectionComments,
+        })
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -116,6 +128,7 @@ export const ReleaseGroupListTable = ({
         ...(showType ? [typeColumn] : []),
         ...(showRatings ? [ratingsColumn] : []),
         releaseNumberColumn,
+        ...(collectionCommentsColumn ? [collectionCommentsColumn] : []),
         ...(mergeForm && releaseGroups.length > 2
           ? [removeFromMergeColumn]
           : []),
@@ -124,10 +137,12 @@ export const ReleaseGroupListTable = ({
     [
       $c.user,
       checkboxes,
+      collectionComments,
       mergeForm,
       order,
       releaseGroups,
       seriesItemNumbers,
+      showCollectionComments,
       showRatings,
       showType,
       sortable,

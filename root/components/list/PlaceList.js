@@ -12,6 +12,7 @@ import * as React from 'react';
 import Table from '../Table';
 import {
   defineCheckboxColumn,
+  defineCollectionCommentsColumn,
   defineNameColumn,
   defineTypeColumn,
   defineTextColumn,
@@ -22,20 +23,24 @@ import {
 } from '../../utility/tableColumns';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
   +places: $ReadOnlyArray<PlaceT>,
+  +showCollectionComments?: boolean,
   +sortable?: boolean,
 };
 
 const PlaceList = ({
   $c,
   checkboxes,
+  collectionComments,
   mergeForm,
   order,
   places,
+  showCollectionComments = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
   const columns = React.useMemo(
@@ -68,6 +73,11 @@ const PlaceList = ({
       });
       const beginDateColumn = defineBeginDateColumn({});
       const endDateColumn = defineEndDateColumn({});
+      const collectionCommentsColumn = showCollectionComments
+        ? defineCollectionCommentsColumn({
+          collectionComments: collectionComments,
+        })
+        : null;
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -77,10 +87,20 @@ const PlaceList = ({
         areaColumn,
         beginDateColumn,
         endDateColumn,
+        ...(collectionCommentsColumn ? [collectionCommentsColumn] : []),
         ...(mergeForm && places.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user, checkboxes, mergeForm, order, places, sortable],
+    [
+      $c.user,
+      checkboxes,
+      collectionComments,
+      mergeForm,
+      order,
+      places.length,
+      showCollectionComments,
+      sortable,
+    ],
   );
 
   return <Table columns={columns} data={places} />;
