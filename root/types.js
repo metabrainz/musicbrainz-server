@@ -524,7 +524,7 @@ declare type EditT = {
   +editor_id: number,
   +expires_time: string,
   +historic_type: number | null,
-  +id: number,
+  +id: number | null, // id is missing in previews
   +is_loaded: boolean,
   +is_open: boolean,
   +preview?: boolean,
