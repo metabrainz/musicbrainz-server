@@ -174,12 +174,16 @@ sub build_display_data
     my $type1 = $self->data->{type1};
     my $model0 = type_to_model($type0);
     my $model1 = type_to_model($type1);
-    my $entity0 = $loaded->{$model0}{gid_or_id($self->data->{entity0})} ||
+    my $entity0_gid_or_id = gid_or_id($self->data->{entity0});
+    my $loaded_entity_0 = $loaded->{$model0}{$entity0_gid_or_id} if $entity0_gid_or_id;
+    my $entity0 = $loaded_entity_0 ||
         $self->c->model($model0)->_entity_class->new(
             id => 0,
             name => $self->data->{entity0}{name}
         );
-    my $entity1 = $loaded->{$model1}{gid_or_id($self->data->{entity1})} ||
+    my $entity1_gid_or_id = gid_or_id($self->data->{entity1});
+    my $loaded_entity_1 = $loaded->{$model1}{$entity1_gid_or_id} if $entity1_gid_or_id;
+    my $entity1 = $loaded_entity_1 ||
         $self->c->model($model1)->_entity_class->new(
             id => 0,
             name => $self->data->{entity1}{name}
