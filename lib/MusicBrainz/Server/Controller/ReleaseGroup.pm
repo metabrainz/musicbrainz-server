@@ -169,9 +169,11 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my ($releases, $hits) = $c->model('Release')->find_by_release_group(
         $entity->id);
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('Release')->load_meta(@$releases);
     $c->model('ArtistCredit')->load(@$releases);
 
-    my $artwork = $c->model('Artwork')->find_front_cover_by_release(@$releases);
+    my @non_darkened_releases = grep { $_->may_have_cover_art } @$releases;
+    my $artwork = $c->model('Artwork')->find_front_cover_by_release(@non_darkened_releases);
     $c->model('CoverArtType')->load_for(@$artwork);
     my %artwork_map = map { $_->release->id => $_ } @$artwork;
 
