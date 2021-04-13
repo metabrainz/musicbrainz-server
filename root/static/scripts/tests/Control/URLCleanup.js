@@ -1348,6 +1348,35 @@ const testData = [
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9',
   },
+  // DNB
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D129802433',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/129802433',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=idn%3D1227621485',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/1227621485',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://d-nb.info/gnd/2026867-1',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/2026867-1',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://d-nb.info/1181136512',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/1181136512',
+       only_valid_entity_types: ['release'],
+  },
   // DRAM
   {
                      input_url: 'http://www.dramonline.org/composers/buren-john-van',

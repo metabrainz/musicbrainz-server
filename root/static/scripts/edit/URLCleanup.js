@@ -1317,6 +1317,27 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'dnb': {
+    match: [
+      new RegExp('^(https?://)?([^/]+\\.)?d-nb\\.info', 'i'),
+      new RegExp('^(https?://)?([^/]+\\.)?dnb\\.de', 'i'),
+    ],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D([\d-]+).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D([\d-]+).*$/, 'http://d-nb.info/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return {result: /^http:\/\/d-nb\.info\/gnd\/[\d-]+$/.test(url)};
+        case LINK_TYPES.otherdatabases.release:
+          return {result: /^http:\/\/d-nb\.info\/[\d-]+$/.test(url)};
+      }
+      return {result: false};
+    },
+  },
   'downloadpurchase': {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?junodownload\\.com', 'i'),
@@ -2507,7 +2528,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?stage48\\.net/wiki/index.php', 'i'),
       new RegExp('^(https?://)?(www22\\.)?big\\.or\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?japanesemetal\\.gooside\\.com', 'i'),
-      new RegExp('^(https?://)?(www\\.)?d-nb\\.info', 'i'),
       new RegExp('^(https?://)?(www\\.)?tedcrane\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?thedancegypsy\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?bibliotekapiosenki\\.pl', 'i'),
