@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import Table from '../Table';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
@@ -29,7 +30,6 @@ import hydrate from '../../utility/hydrate';
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
   ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
   +checkboxes?: string,
   +lengthClass?: string,
   +mergeForm?: MergeFormT,
@@ -43,7 +43,6 @@ type Props = {
 };
 
 const RecordingList = ({
-  $c,
   checkboxes,
   instrumentCreditsAndRelTypes,
   lengthClass,
@@ -57,6 +56,8 @@ const RecordingList = ({
   showRatings = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
+  const $c = React.useContext(CatalystContext);
+
   const acoustIdsColumn = useAcoustIdsColumn(
     recordings,
     showAcoustIds,

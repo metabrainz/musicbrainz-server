@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
@@ -83,37 +84,40 @@ function buildResult($c, result, index) {
 }
 
 export const ReleaseResultsInline = ({
-  $c,
   pager,
   query,
   results,
 }: InlineResultsPropsWithContextT<ReleaseT>):
-React.Element<typeof PaginatedSearchResults> => (
-  <PaginatedSearchResults
-    buildResult={(result, index) => buildResult($c, result, index)}
-    columns={
-      <>
-        <th>{l('Name')}</th>
-        <th>{l('Artist')}</th>
-        <th>{l('Format')}</th>
-        <th>{l('Tracks')}</th>
-        <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
-        <th>{l('Label')}</th>
-        <th>{l('Catalog#')}</th>
-        <th>{l('Barcode')}</th>
-        <th>{l('Language')}</th>
-        <th>{l('Type')}</th>
-        <th>{l('Status')}</th>
-        {$c?.session?.tport == null
-          ? null
-          : <th>{l('Tagger')}</th>}
-      </>
-    }
-    pager={pager}
-    query={query}
-    results={results}
-  />
-);
+React.Element<typeof PaginatedSearchResults> => {
+  const $c = React.useContext(CatalystContext);
+
+  return (
+    <PaginatedSearchResults
+      buildResult={(result, index) => buildResult($c, result, index)}
+      columns={
+        <>
+          <th>{l('Name')}</th>
+          <th>{l('Artist')}</th>
+          <th>{l('Format')}</th>
+          <th>{l('Tracks')}</th>
+          <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
+          <th>{l('Label')}</th>
+          <th>{l('Catalog#')}</th>
+          <th>{l('Barcode')}</th>
+          <th>{l('Language')}</th>
+          <th>{l('Type')}</th>
+          <th>{l('Status')}</th>
+          {$c?.session?.tport == null
+            ? null
+            : <th>{l('Tagger')}</th>}
+        </>
+      }
+      pager={pager}
+      query={query}
+      results={results}
+    />
+  );
+};
 
 const ReleaseResults = ({
   $c,
@@ -126,7 +130,6 @@ const ReleaseResults = ({
 React.Element<typeof ResultsLayout> => (
   <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <ReleaseResultsInline
-      $c={$c}
       pager={pager}
       query={query}
       results={results}

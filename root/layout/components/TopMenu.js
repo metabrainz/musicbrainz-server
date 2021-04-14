@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import RequestLogin from '../../components/RequestLogin';
 import returnUri, {returnToCurrentPage} from '../../utility/returnUri';
 import {
@@ -167,37 +168,36 @@ const AdminMenu = ({user}: UserProp) => (
   </li>
 );
 
-const UserMenu = ({$c}) => (
-  <ul className="menu" tabIndex="-1">
-    {$c.user ? (
-      <>
-        <AccountMenu $c={$c} user={$c.user} />
-        <DataMenu user={$c.user} />
-        {isAdmin($c.user) ? <AdminMenu user={$c.user} /> : null}
-      </>
-    ) : (
-      <>
-        <li>
-          <RequestLogin $c={$c} text={l('Log In')} />
-        </li>
-        <li>
-          <a href={returnUri($c, '/register')}>
-            {l('Create Account')}
-          </a>
-        </li>
-      </>
-    )}
-  </ul>
-);
-
-type Props = {
-  +$c: CatalystContextT,
+const UserMenu = () => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ul className="menu" tabIndex="-1">
+      {$c.user ? (
+        <>
+          <AccountMenu $c={$c} user={$c.user} />
+          <DataMenu user={$c.user} />
+          {isAdmin($c.user) ? <AdminMenu user={$c.user} /> : null}
+        </>
+      ) : (
+        <>
+          <li>
+            <RequestLogin $c={$c} text={l('Log In')} />
+          </li>
+          <li>
+            <a href={returnUri($c, '/register')}>
+              {l('Create Account')}
+            </a>
+          </li>
+        </>
+      )}
+    </ul>
+  );
 };
 
-const TopMenu = ({$c}: Props): React.Element<'div'> => (
+const TopMenu = (): React.Element<'div'> => (
   <div className="top">
     <div className="links-container">
-      <UserMenu $c={$c} />
+      <UserMenu />
     </div>
     <div className="search-container">
       <Search />

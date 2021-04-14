@@ -47,9 +47,7 @@ const ReleaseGroupLayout = ({
         <ReleaseGroupHeader page={page} releaseGroup={releaseGroup} />
         {children}
       </div>
-      {fullWidth ? null : (
-        <ReleaseGroupSidebar $c={$c} releaseGroup={releaseGroup} />
-      )}
+      {fullWidth ? null : <ReleaseGroupSidebar releaseGroup={releaseGroup} />}
     </Layout>
   );
 };

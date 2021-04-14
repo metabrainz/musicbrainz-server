@@ -51,9 +51,7 @@ const InstrumentLayout = ({
         <InstrumentHeader instrument={instrument} page={page} />
         {children}
       </div>
-      {fullWidth ? null : (
-        <InstrumentSidebar $c={$c} instrument={instrument} />
-      )}
+      {fullWidth ? null : <InstrumentSidebar instrument={instrument} />}
     </Layout>
   );
 };

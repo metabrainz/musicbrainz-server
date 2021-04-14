@@ -13,6 +13,7 @@ import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
 import {QUALITY_UNKNOWN} from '../../../constants';
+import {CatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import ReleaseEvents
   from '../../../static/scripts/common/components/ReleaseEvents';
@@ -46,14 +47,12 @@ import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 
 type Props = {
-  +$c: CatalystContextT,
   +release: ReleaseT,
 };
 
-const ReleaseSidebar = ({
-  $c,
-  release,
-}: Props): React.Element<'div'> | null => {
+const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
+  const $c = React.useContext(CatalystContext);
+
   const releaseGroup = release.releaseGroup;
   if (!releaseGroup) {
     return null;
@@ -264,13 +263,7 @@ const ReleaseSidebar = ({
         </>
       )}
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={release}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={release} />
 
       <ExternalLinks empty entity={release} />
 
@@ -280,7 +273,7 @@ const ReleaseSidebar = ({
         heading={l('Release group external links')}
       />
 
-      <EditLinks $c={$c} entity={release}>
+      <EditLinks entity={release}>
         <li>
           <a href={entityHref(release, 'edit-relationships')}>
             {l('Edit relationships')}
@@ -293,7 +286,7 @@ const ReleaseSidebar = ({
           </a>
         </li>
 
-        <AnnotationLinks $c={$c} entity={release} />
+        <AnnotationLinks entity={release} />
 
         <MergeLink entity={release} />
 
@@ -302,7 +295,7 @@ const ReleaseSidebar = ({
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={release} />
+      <CollectionLinks entity={release} />
 
       <SidebarLicenses entity={release} />
 

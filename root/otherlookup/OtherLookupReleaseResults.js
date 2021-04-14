@@ -27,7 +27,6 @@ const OtherLookupReleaseResults = ({
     <h1>{l('Search Results')}</h1>
     {results.length ? (
       <ReleaseList
-        $c={$c}
         releases={results}
         showLanguages
         showStatus

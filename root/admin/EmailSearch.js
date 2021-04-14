@@ -59,7 +59,7 @@ const EmailSearch = ({
         </div>
 
         {results?.length ? (
-          <UserList $c={$c} users={results} />
+          <UserList users={results} />
         ) : null}
       </form>
     </div>

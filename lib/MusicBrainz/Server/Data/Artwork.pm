@@ -181,6 +181,8 @@ sub load_for_release_groups
         FROM cover_art_archive.index_listing
         JOIN musicbrainz.release
           ON musicbrainz.release.id = cover_art_archive.index_listing.release
+        JOIN musicbrainz.release_meta
+          ON musicbrainz.release_meta.id = musicbrainz.release.id
         LEFT JOIN (
           SELECT release, date_year, date_month, date_day
           FROM release_country
@@ -194,6 +196,7 @@ sub load_for_release_groups
         ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
         WHERE release.release_group IN (" . placeholders(@ids) . ")
         AND is_front = true
+        AND cover_art_presence != 'darkened'
         ORDER BY release.release_group, release_group_cover_art.release,
           release_event.date_year, release_event.date_month,
           release_event.date_day";

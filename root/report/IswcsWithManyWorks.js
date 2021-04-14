@@ -17,7 +17,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportIswcT} from './types';
 
 const IswcsWithManyWorks = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
@@ -74,10 +73,7 @@ const IswcsWithManyWorks = ({
                     {item.work ? (
                       <>
                         <td />
-                        <WorkListRow
-                          $c={$c}
-                          work={item.work}
-                        />
+                        <WorkListRow work={item.work} />
                       </>
                     ) : (
                       <>

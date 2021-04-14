@@ -47,7 +47,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-01 22:03+0300\n"
+"POT-Creation-Date: 2021-04-05 20:17+0300\n"
 "PO-Revision-Date: 2021-03-29 18:47+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
@@ -10915,27 +10915,27 @@ msgid "see all ratings"
 msgstr "ver todas las valoraciones"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:43
-#: ../root/static/scripts/common/components/TagEditor.js:615
+#: ../root/static/scripts/common/components/TagEditor.js:605
 msgctxt "genre"
 msgid "(none)"
 msgstr "(ninguno)"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:43
-#: ../root/static/scripts/common/components/TagEditor.js:625
+#: ../root/static/scripts/common/components/TagEditor.js:615
 msgctxt "tag"
 msgid "(none)"
 msgstr "(ninguno)"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:69
-#: ../root/static/scripts/common/components/TagEditor.js:504
-#: ../root/static/scripts/common/components/TagEditor.js:608
+#: ../root/static/scripts/common/components/TagEditor.js:494
+#: ../root/static/scripts/common/components/TagEditor.js:598
 #: ../root/user/UserTagList.js:73
 msgid "Genres"
 msgstr "Géneros"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:80
-#: ../root/static/scripts/common/components/TagEditor.js:514
-#: ../root/static/scripts/common/components/TagEditor.js:618
+#: ../root/static/scripts/common/components/TagEditor.js:504
+#: ../root/static/scripts/common/components/TagEditor.js:608
 #: ../root/user/UserTagList.js:94
 msgid "Other tags"
 msgstr "Otras etiquetas"
@@ -13783,66 +13783,66 @@ msgstr "Tu has votado en contra de esta etiqueta"
 msgid "Downvote"
 msgstr "Votar en contra"
 
-#: ../root/static/scripts/common/components/TagEditor.js:511
+#: ../root/static/scripts/common/components/TagEditor.js:501
 #: ../root/user/UserTagList.js:91
 msgid "There are no genres to show."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:521
+#: ../root/static/scripts/common/components/TagEditor.js:511
 #: ../root/user/UserTagList.js:112
 msgid "There are no other tags to show."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:525
+#: ../root/static/scripts/common/components/TagEditor.js:515
 msgid "Nobody has tagged this yet."
 msgstr "Nadie ha etiquetado esto todavía."
 
-#: ../root/static/scripts/common/components/TagEditor.js:533
+#: ../root/static/scripts/common/components/TagEditor.js:523
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:539
+#: ../root/static/scripts/common/components/TagEditor.js:529
 msgid "Tags with a score of zero or below are hidden."
 msgstr "Las etiquetas con una puntuación de cero o menor están ocultas."
 
-#: ../root/static/scripts/common/components/TagEditor.js:544
+#: ../root/static/scripts/common/components/TagEditor.js:534
 msgid "Show all tags."
 msgstr "Mostrar todas las etiquetas."
 
-#: ../root/static/scripts/common/components/TagEditor.js:553
+#: ../root/static/scripts/common/components/TagEditor.js:543
 msgid "All tags are being shown."
 msgstr "Se están mostrando todas las etiquetas."
 
-#: ../root/static/scripts/common/components/TagEditor.js:559
+#: ../root/static/scripts/common/components/TagEditor.js:549
 msgid ""
 "Hide tags with a score of zero or below, and tags that you’ve downvoted."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:567
+#: ../root/static/scripts/common/components/TagEditor.js:557
 msgid "Hide tags with a score of zero or below."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:576
+#: ../root/static/scripts/common/components/TagEditor.js:566
 msgid "Add Tags"
 msgstr "Añadir etiquetas"
 
-#: ../root/static/scripts/common/components/TagEditor.js:579
+#: ../root/static/scripts/common/components/TagEditor.js:569
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:589
+#: ../root/static/scripts/common/components/TagEditor.js:579
 msgid "Submit tags"
 msgstr "Enviar etiquetas"
 
-#: ../root/static/scripts/common/components/TagEditor.js:632
+#: ../root/static/scripts/common/components/TagEditor.js:622
 msgid "see all tags"
 msgstr "ver todas las etiquetas"
 
-#: ../root/static/scripts/common/components/TagEditor.js:649
+#: ../root/static/scripts/common/components/TagEditor.js:638
 msgctxt "verb"
 msgid "Tag"
 msgstr ""

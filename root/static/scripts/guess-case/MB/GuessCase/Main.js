@@ -123,11 +123,14 @@ MB.GuessCase.work = {
 MB.GuessCase.series = MB.GuessCase.work;
 MB.GuessCase.event = MB.GuessCase.work;
 
-// lol
+// For instruments, all we need to do is lowercase the string
+function lowercaseInstrumentName(name) {
+  return name.toLowerCase();
+}
+
 MB.GuessCase.instrument = {
-  guess: function (string) {
-    return string.toLowerCase();
-  },
+  guess: lowercaseInstrumentName,
+  sortname: lowercaseInstrumentName,
 };
 
 export default self;

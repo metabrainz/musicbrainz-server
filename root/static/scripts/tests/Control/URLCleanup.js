@@ -535,6 +535,27 @@ const testData = [
             expected_clean_url: 'https://davidmandelberg.bandcamp.com/track/maybe-it-s',
        only_valid_entity_types: ['work'],
   },
+  {
+                     input_url: 'https://thepenitentman.bandcamp.com/',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'mailorder',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://davidmandelberg.bandcamp.com/',
+             input_entity_type: 'release_group',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'review',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://idiotsikker.bandcamp.com/',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'mailorder',
+       only_valid_entity_types: [],
+  },
   // Bandsintown
   {
                      input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
@@ -1326,6 +1347,35 @@ const testData = [
              input_entity_type: 'work',
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9',
+  },
+  // DNB
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D129802433',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/129802433',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=idn%3D1227621485',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/1227621485',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://d-nb.info/gnd/2026867-1',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/2026867-1',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://d-nb.info/1181136512',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/1181136512',
+       only_valid_entity_types: ['release'],
   },
   // DRAM
   {
@@ -2717,6 +2767,12 @@ const testData = [
     expected_relationship_type: 'videochannel',
             expected_clean_url: 'https://ch.nicovideo.jp/maverickdci',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  // Niconi Commons (excluded from Niconico autoselect)
+  {
+                     input_url: 'https://commons.nicovideo.jp/material/nc216831',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
   },
   // NLA (National Library of Australia)
   {

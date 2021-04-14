@@ -38,7 +38,6 @@ const ArtistMerge = ({
       </p>
       <form action={$c.req.uri} method="post">
         <ArtistList
-          $c={$c}
           artists={sortByEntityName(toMerge)}
           mergeForm={form}
         />

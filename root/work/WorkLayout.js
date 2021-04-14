@@ -46,7 +46,7 @@ const WorkLayout = ({
         <WorkHeader page={page} work={work} />
         {children}
       </div>
-      {fullWidth ? null : <WorkSidebar $c={$c} work={work} />}
+      {fullWidth ? null : <WorkSidebar work={work} />}
     </Layout>
   );
 };

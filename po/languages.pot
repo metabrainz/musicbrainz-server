@@ -148,6 +148,11 @@ msgstr ""
 msgid "Athapascan languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:atj 
+#: DB:language/name:866
+msgid "Atikamekw"
+msgstr ""
+
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:29
 msgid "Australian languages"
@@ -2241,6 +2246,11 @@ msgstr ""
 #. frequency:1 iso_code_3:sus 
 #: DB:language/name:400
 msgid "Susu"
+msgstr ""
+
+#. frequency:1 iso_code_3:sva 
+#: DB:language/name:6216
+msgid "Svan"
 msgstr ""
 
 #. frequency:1 iso_code_3:swa 

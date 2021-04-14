@@ -14,7 +14,7 @@ import EditLink from '../static/scripts/common/components/EditLink';
 
 type Props = {
   +$c: CatalystContextT,
-  +edit: EditT,
+  +edit: {...EditT, +id: number},
 };
 
 const NoteIsRequired = (

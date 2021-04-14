@@ -28,26 +28,22 @@ import SeriesLayout from './SeriesLayout';
 
 type ListPickerProps = {
   ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
   +entities: $ReadOnlyArray<CoreEntityT>,
   +seriesEntityType: CoreEntityTypeT,
 };
 
 const listPicker = ({
-  $c,
   entities,
   seriesEntityType,
   seriesItemNumbers,
 }: ListPickerProps) => {
   const sharedProps = {
-    $c,
     seriesItemNumbers: seriesItemNumbers,
   };
   switch (seriesEntityType) {
     case 'event':
       return (
         <EventList
-          $c={$c}
           events={((entities: any): $ReadOnlyArray<EventT>)}
           showArtists
           showLocation
@@ -137,7 +133,6 @@ const SeriesIndex = ({
       {existingEntities ? (
         <PaginatedResults pager={pager}>
           {listPicker({
-            $c,
             entities: existingEntities,
             seriesEntityType,
             seriesItemNumbers,

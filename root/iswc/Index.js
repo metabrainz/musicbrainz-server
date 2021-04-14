@@ -63,7 +63,6 @@ const Index = ({$c, iswcs, works}: Props): React.Element<typeof Layout> => {
           <tbody>
             {works.map((work, index) => (
               <WorkListEntry
-                $c={$c}
                 checkboxes="add-to-merge"
                 index={index}
                 key={work.id}
