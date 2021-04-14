@@ -2385,7 +2385,10 @@ const CLEANUPS = {
     type: LINK_TYPES.score,
   },
   'niconicovideo': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(nicovideo\\.jp/)', 'i')],
+    match: [new RegExp(
+      '^(https?://)?((?!commons)[^/]+\\.)?(nicovideo\\.jp/)',
+      'i',
+    )],
     type: {...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel},
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?ch\.nicovideo\.jp\/([^\/]+).*$/, 'https://ch.nicovideo.jp/$1');
