@@ -15,7 +15,7 @@ import {EDIT_STATUS_DELETED} from '../constants';
 
 type Props = {
   +$c: CatalystContextT,
-  +edit: EditT,
+  +edit: {...EditT, +id: number},
 };
 
 const CannotApproveEdit = (
