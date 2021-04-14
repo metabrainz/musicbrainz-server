@@ -7,6 +7,7 @@
 # Alfredo Briones <email address hidden>, 2016
 # Antony Duran <email address hidden>, 2017
 # César Martín <email address hidden>, 2019
+# Edson Armando <email address hidden>, 2021
 #   <email address hidden>, 2012
 # Fermin Rodriguez <email address hidden>, 2018
 # Francisco Godoy <email address hidden>, 2018
@@ -37,8 +38,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-25 07:22+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-04-09 04:48+0000\n"
+"Last-Translator: Edson Armando <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -184,7 +185,7 @@ msgctxt "artist_type"
 msgid ""
 "A grouping of multiple musicians who perform together (in some cases, some "
 "or all of the members might differ in different performances or recordings)."
-msgstr ""
+msgstr "Agrupaciones de varios músicos que actúan juntos (en algunos casos, algunos o todos los miembros pueden diferir en diferentes interpretaciones o grabaciones)."
 
 #: DB:instrument_type/description:7
 msgctxt "instrument_type"
@@ -245,7 +246,7 @@ msgid ""
 "similar works for the stage in their staged form (as opposed to a <a "
 "href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
 "performance</a> without staging)."
-msgstr ""
+msgstr "Una interpretación de una o más obras, musicales, óperas, ballets u otras piezas de escenario similares en su forma escenificada (a diferencia de una <a href=\"https://en.wikipedia.org/wiki/Concert_performance\">representación de concierto</a> sin puesta en escena)."
 
 #: DB:place_type/description:8
 msgctxt "place_type"
@@ -347,7 +348,7 @@ msgstr "Una serie de conciertos relacionados realizados por un artista en difere
 #: DB:series_type/description:12
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
-msgstr ""
+msgstr "Una serie de conciertos relacionados de un artista en el mismo sitio."
 
 #: DB:series_type/description:1
 msgctxt "series_type"
@@ -3200,17 +3201,17 @@ msgstr "ID de ICE"
 #: DB:work_attribute_type/description:24
 msgctxt "work_attribute_type"
 msgid "ID for the Argentinean rights society SADAIC"
-msgstr ""
+msgstr "Cédula de la sociedad argentina de derechos SADAIC"
 
 #: DB:work_attribute_type/description:13
 msgctxt "work_attribute_type"
 msgid "ID for the Australasian rights society APRA"
-msgstr ""
+msgstr "ID de la sociedad de derechos de Australasia APRA"
 
 #: DB:work_attribute_type/description:23
 msgctxt "work_attribute_type"
 msgid "ID for the Austrian rights society AKM"
-msgstr ""
+msgstr "ID de la sociedad austriaca de derechos AKM"
 
 #: DB:work_attribute_type/description:28
 msgctxt "work_attribute_type"
@@ -3220,12 +3221,12 @@ msgstr "Identificación de la sociedad belga de derechos SABAM"
 #: DB:work_attribute_type/description:61
 msgctxt "work_attribute_type"
 msgid "ID for the Bolivian rights society SOBODAYCOM"
-msgstr ""
+msgstr "ID de la sociedad boliviana de derechos SOBODAYCOM"
 
 #: DB:work_attribute_type/description:37
 msgctxt "work_attribute_type"
 msgid "ID for the Brazilian rights society ECAD"
-msgstr ""
+msgstr "ID de la sociedad brasileña de derechos ECAD"
 
 #: DB:work_attribute_type/description:34
 msgctxt "work_attribute_type"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-01 12:32+0000\n"
+"PO-Revision-Date: 2021-04-11 09:49+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -453,7 +453,7 @@ msgstr "Een idiofoon is een muziekinstrument dat geluid produceert door in zijn 
 msgid ""
 "Ancestor of the modern horn, it consists of a coiled tubing with a large "
 "flared bell. Bugles, posthorns and hunting horns are all natural horns"
-msgstr "De natuurhoorn is een voorloper van de moderne hoorn. Het bestaat (vaak) uit een opgerolde buis en heeft een weid uitlopende beker. Natuurbugels, posthoornen en jachthoornen zijn natuurhoornen."
+msgstr "De natuurhoorn is een voorloper van de moderne hoorn. Het bestaat (vaak) uit een opgerolde buis en heeft een weid uitlopende beker. Klaroenen, posthoornen en jachthoornen zijn natuurhoornen."
 
 #. name:natural trumpet
 #: DB:instrument/description:913
