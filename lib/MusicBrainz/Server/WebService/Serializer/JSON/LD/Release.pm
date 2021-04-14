@@ -100,9 +100,10 @@ sub medium_format {
     # case of it not being one of these few formats. I'm not sure of the
     # best mitigation for either problem.
     my $name;
+    my $parent_format_id = $format->parent ? $format->parent->id : $format->parent_id;
     if ($name = $map{$format->id}) {
         return "http://schema.org/${name}Format";
-    } elsif ($name = $map{$format->parent ? $format->parent->id : $format->parent_id}) {
+    } elsif ($parent_format_id && ($name = $map{$parent_format_id})) {
         return "http://schema.org/${name}Format";
     }
 }
