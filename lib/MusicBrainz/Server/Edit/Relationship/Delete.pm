@@ -133,13 +133,14 @@ sub build_display_data
 
     # If no link type exists, we use the fake ID and ensure the next one doesn't clash
     my $link_type_id = $link_type->{id} // $link_type_fake_id++;
+    my $loaded_link_type = $loaded->{LinkType}{ $link_type->{id} } if $link_type->{id};
 
     my $link = MusicBrainz::Server::Entity::Link->new(
         type_id => $link_type_id,
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{begin_date}),
         end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{end_date}),
         ended => $relationship->{link}{ended},
-        type => $loaded->{LinkType}{$link_type->{id}} // MusicBrainz::Server::Entity::LinkType->new(
+        type => $loaded_link_type // MusicBrainz::Server::Entity::LinkType->new(
             id => $link_type_id,
             entity0_type => $entity0_type,
             entity1_type => $entity1_type,
