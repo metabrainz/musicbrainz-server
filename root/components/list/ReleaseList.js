@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import Table from '../Table';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels';
@@ -31,7 +32,6 @@ import {
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
   ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
   +checkboxes?: string,
   +filterLabel?: LabelT,
   +order?: string,
@@ -45,7 +45,6 @@ type Props = {
 };
 
 const ReleaseList = ({
-  $c,
   checkboxes,
   filterLabel,
   instrumentCreditsAndRelTypes,
@@ -59,6 +58,8 @@ const ReleaseList = ({
   showType = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
+  const $c = React.useContext(CatalystContext);
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && nonEmpty(checkboxes)

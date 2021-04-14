@@ -21,13 +21,12 @@ import type {
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult($c, result, index) {
+function buildResult(result, index) {
   const artist = result.entity;
   const score = result.score;
 
   return (
     <ArtistListEntry
-      $c={$c}
       artist={artist}
       index={index}
       key={artist.id}
@@ -39,14 +38,13 @@ function buildResult($c, result, index) {
 }
 
 export const ArtistResultsInline = ({
-  $c,
   pager,
   query,
   results,
 }: InlineResultsPropsWithContextT<ArtistT>):
 React.Element<typeof PaginatedSearchResults> => (
   <PaginatedSearchResults
-    buildResult={(result, index) => buildResult($c, result, index)}
+    buildResult={(result, index) => buildResult(result, index)}
     columns={
       <>
         <th>{l('Name')}</th>
@@ -77,7 +75,6 @@ const ArtistResults = ({
 React.Element<typeof ResultsLayout> => (
   <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <ArtistResultsInline
-      $c={$c}
       pager={pager}
       query={query}
       results={results}

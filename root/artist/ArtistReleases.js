@@ -56,11 +56,7 @@ const ArtistReleases = ({
         method="post"
       >
         <PaginatedResults pager={pager}>
-          <ReleaseList
-            $c={$c}
-            checkboxes="add-to-merge"
-            releases={releases}
-          />
+          <ReleaseList checkboxes="add-to-merge" releases={releases} />
         </PaginatedResults>
         {$c.user ? (
           <div className="row">

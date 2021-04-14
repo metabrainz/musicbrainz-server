@@ -30,12 +30,12 @@ import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 
 type Props = {
-  +$c: CatalystContextT,
   +recording: RecordingWithArtistCreditT,
 };
 
-const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {
+const RecordingSidebar = ({recording}: Props): React.Element<'div'> => {
   const firstReleaseYear = recording.first_release_date?.year;
+
   return (
     <div id="sidebar">
       <h2 className="recording-information">
@@ -77,18 +77,12 @@ const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {
 
       <SidebarRating entity={recording} />
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={recording}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={recording} />
 
       <ExternalLinks empty entity={recording} />
 
-      <EditLinks $c={$c} entity={recording}>
-        <AnnotationLinks $c={$c} entity={recording} />
+      <EditLinks entity={recording}>
+        <AnnotationLinks entity={recording} />
 
         <MergeLink entity={recording} />
 
@@ -97,7 +91,7 @@ const RecordingSidebar = ({$c, recording}: Props): React.Element<'div'> => {
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={recording} />
+      <CollectionLinks entity={recording} />
 
       <SidebarLicenses entity={recording} />
 

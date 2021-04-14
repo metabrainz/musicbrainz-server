@@ -51,7 +51,6 @@ const WorkMerge = ({
       ) : null}
       <form action={$c.req.uri} method="post">
         <WorkList
-          $c={$c}
           mergeForm={form}
           works={sortByEntityName(toMerge)}
         />

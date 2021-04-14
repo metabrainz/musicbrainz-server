@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';
 import {capitalize} from '../../static/scripts/common/utility/strings';
 import {returnToCurrentPage} from '../../utility/returnUri';
@@ -309,11 +310,8 @@ const DocumentationMenu = () => (
   </li>
 );
 
-type Props = {
-  +$c: CatalystContextT,
-};
-
-const BottomMenu = ({$c}: Props): React.Element<'div'> => {
+const BottomMenu = (): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const serverLanguages = $c.stash.server_languages;
   return (
     <div className="bottom">

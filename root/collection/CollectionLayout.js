@@ -50,9 +50,7 @@ const CollectionLayout = ({
         />
         {children}
       </div>
-      {fullWidth ? null : (
-        <CollectionSidebar $c={$c} collection={collection} />
-      )}
+      {fullWidth ? null : <CollectionSidebar collection={collection} />}
     </Layout>
   );
 };

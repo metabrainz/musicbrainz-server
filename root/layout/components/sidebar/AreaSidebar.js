@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import {isLocationEditor}
@@ -30,11 +31,11 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
 type Props = {
-  +$c: CatalystContextT,
   +area: AreaT,
 };
 
-const AreaSidebar = ({$c, area}: Props): React.Element<'div'> => {
+const AreaSidebar = ({area}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const areaAge = age.age(area);
 
   return (
@@ -94,20 +95,14 @@ const AreaSidebar = ({$c, area}: Props): React.Element<'div'> => {
         ))}
       </SidebarProperties>
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={area}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={area} />
 
       <ExternalLinks empty entity={area} />
 
-      <EditLinks $c={$c} entity={area}>
+      <EditLinks entity={area}>
         {isLocationEditor($c.user) ? (
           <>
-            <AnnotationLinks $c={$c} entity={area} />
+            <AnnotationLinks entity={area} />
 
             <MergeLink entity={area} />
 
@@ -118,7 +113,7 @@ const AreaSidebar = ({$c, area}: Props): React.Element<'div'> => {
         ) : null}
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={area} />
+      <CollectionLinks entity={area} />
 
       <SidebarLicenses entity={area} />
 

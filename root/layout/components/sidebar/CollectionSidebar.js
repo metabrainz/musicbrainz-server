@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import EditorLink from '../../../static/scripts/common/components/EditorLink';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import {formatCount} from '../../../statistics/utilities';
@@ -17,14 +18,13 @@ import {returnToCurrentPage} from '../../../utility/returnUri';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties';
 
 type Props = {
-  +$c: CatalystContextT,
   +collection: CollectionT,
 };
 
 const CollectionSidebar = ({
-  $c,
   collection,
 }: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const typeName = collection.typeName;
 
   return (

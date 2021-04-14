@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import IrombookImage
@@ -29,11 +30,12 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
 type Props = {
-  +$c: CatalystContextT,
   +instrument: InstrumentT,
 };
 
-const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
+const InstrumentSidebar = ({instrument}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
+
   return (
     <div id="sidebar">
       <CommonsImage
@@ -55,20 +57,14 @@ const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
         </>
       )}
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={instrument}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={instrument} />
 
       <ExternalLinks empty entity={instrument} />
 
-      <EditLinks $c={$c} entity={instrument}>
+      <EditLinks entity={instrument}>
         {isRelationshipEditor($c.user) ? (
           <>
-            <AnnotationLinks $c={$c} entity={instrument} />
+            <AnnotationLinks entity={instrument} />
 
             <MergeLink entity={instrument} />
 
@@ -79,7 +75,7 @@ const InstrumentSidebar = ({$c, instrument}: Props): React.Element<'div'> => {
         ) : null}
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={instrument} />
+      <CollectionLinks entity={instrument} />
 
       <SidebarLicenses entity={instrument} />
 

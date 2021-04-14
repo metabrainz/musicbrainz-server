@@ -38,7 +38,6 @@ const ArtistEvents = ({
       >
         <PaginatedResults pager={pager}>
           <EventList
-            $c={$c}
             artist={artist}
             artistRoles
             checkboxes="add-to-merge"

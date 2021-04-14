@@ -37,7 +37,6 @@ const LabelMerge = ({
       </p>
       <form action={$c.req.uri} method="post">
         <LabelList
-          $c={$c}
           labels={sortByEntityName(toMerge)}
           mergeForm={form}
         />

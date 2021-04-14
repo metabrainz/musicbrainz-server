@@ -37,7 +37,6 @@ const InstrumentMerge = ({
       </p>
       <form action={$c.req.uri} method="post">
         <InstrumentList
-          $c={$c}
           instruments={sortByEntityName(toMerge)}
           mergeForm={form}
         />

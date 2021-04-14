@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import Table from '../Table';
 import {
   defineCheckboxColumn,
@@ -25,7 +26,6 @@ import {
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
-  +$c: CatalystContextT,
   +artists: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
@@ -38,7 +38,6 @@ type Props = {
 };
 
 const ArtistList = ({
-  $c,
   artists,
   checkboxes,
   instrumentCreditsAndRelTypes,
@@ -50,6 +49,8 @@ const ArtistList = ({
   showSortName = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
+  const $c = React.useContext(CatalystContext);
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)

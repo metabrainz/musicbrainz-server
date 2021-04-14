@@ -39,7 +39,7 @@ const EventLayout = ({
       <EventHeader event={event} page={page} />
       {children}
     </div>
-    {fullWidth ? null : <EventSidebar $c={$c} event={event} />}
+    {fullWidth ? null : <EventSidebar event={event} />}
   </Layout>
 );
 

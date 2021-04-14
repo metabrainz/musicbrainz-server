@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
@@ -31,11 +32,11 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
 type Props = {
-  +$c: CatalystContextT,
   +work: WorkT,
 };
 
-const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
+const WorkSidebar = ({work}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const {attributes, iswcs, languages, typeID} = work;
   const showInfo = Boolean(
     attributes.length ||
@@ -116,25 +117,19 @@ const WorkSidebar = ({$c, work}: Props): React.Element<'div'> => {
 
       <SidebarRating entity={work} />
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={work}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={work} />
 
       <ExternalLinks empty entity={work} />
 
-      <EditLinks $c={$c} entity={work}>
-        <AnnotationLinks $c={$c} entity={work} />
+      <EditLinks entity={work}>
+        <AnnotationLinks entity={work} />
 
         <MergeLink entity={work} />
 
         <li className="separator" role="separator" />
       </EditLinks>
 
-      <CollectionLinks $c={$c} entity={work} />
+      <CollectionLinks entity={work} />
 
       <SidebarLicenses entity={work} />
 

@@ -39,7 +39,7 @@ const LabelLayout = ({
       <LabelHeader label={label} page={page} />
       {children}
     </div>
-    {fullWidth ? null : <LabelSidebar $c={$c} label={label} />}
+    {fullWidth ? null : <LabelSidebar label={label} />}
   </Layout>
 );
 

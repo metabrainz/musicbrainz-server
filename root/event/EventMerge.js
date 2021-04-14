@@ -37,7 +37,6 @@ const EventMerge = ({
       </p>
       <form action={$c.req.uri} method="post">
         <EventList
-          $c={$c}
           events={sortByEntityName(toMerge)}
           mergeForm={form}
           showArtists

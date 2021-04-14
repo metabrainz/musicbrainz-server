@@ -38,7 +38,6 @@ const ArtistWorks = ({
       >
         <PaginatedResults pager={pager}>
           <WorkList
-            $c={$c}
             checkboxes="add-to-merge"
             showRatings
             works={works}
