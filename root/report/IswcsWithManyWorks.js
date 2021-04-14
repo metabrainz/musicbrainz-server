@@ -17,7 +17,6 @@ import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportIswcT} from './types';
 
 const IswcsWithManyWorks = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
