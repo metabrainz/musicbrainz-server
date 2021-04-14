@@ -240,21 +240,26 @@ sub create : Local RequireAuth {
 
     my $form;
     if ($initial_entity_type) {
-        $form = $c->form( form => 'Collection', init_object => { type_id => $initial_entity_type->id } );
+        $form = $c->form( form => 'Collection', init_object => { allowed_entity_type => $initial_entity_type->item_entity_type, type_id => $initial_entity_type->id } );
     } else {
         $form = $c->form( form => 'Collection' );
     }
 
     if ($c->form_posted_and_valid($form)) {
         my %insert = $self->_form_to_hash($form);
-        my $collection = $c->model('Collection')->insert($c->user->id, \%insert);
+        my $collection_ids = $c->model('Collection')->insert($c->user->id, \%insert);
         if ($initial_entity_id) {
-            $c->model('Collection')->add_entities_to_collection(
-                $initial_entity_type->item_entity_type, $collection->{id}, $initial_entity_id
-            );
+            my $collection = $c->model('Collection')->get_by_gid($collection_ids->{gid});
+            $c->model('CollectionType')->load($collection);
+            # Avoid adding the entity if the collection entity type has changed somehow (MBS-11569)
+            if ($initial_entity_type->item_entity_type eq $collection->type->item_entity_type) {
+                $c->model('Collection')->add_entities_to_collection(
+                    $initial_entity_type->item_entity_type, $collection->{id}, $initial_entity_id
+                );
+            }
         }
 
-        $self->_redirect_to_collection($c, $collection->{gid});
+        $self->_redirect_to_collection($c, $collection_ids->{gid});
     }
 
     my %props = (
