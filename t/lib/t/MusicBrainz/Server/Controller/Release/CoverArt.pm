@@ -49,6 +49,11 @@ test all => sub {
                     'encodingFormat' => 'jpg',
                     'contentUrl' => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/14b9d183-7dab-42ba-94a3-7388a66604b8/12345-500.jpg',
                     '@type' => 'ImageObject'
+                },
+                {
+                    'encodingFormat' => 'jpg',
+                    'contentUrl' => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/14b9d183-7dab-42ba-94a3-7388a66604b8/12345-1200.jpg',
+                    '@type' => 'ImageObject'
                 }
             ]
         }

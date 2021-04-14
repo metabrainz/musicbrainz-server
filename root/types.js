@@ -147,6 +147,8 @@ declare type ArtworkT = {
   ...EditableRoleT,
   +comment: string,
   +filename: string | null,
+  +huge_ia_thumbnail: string,
+  +huge_thumbnail: string,
   +id: number,
   +image: string,
   +large_ia_thumbnail: string,
