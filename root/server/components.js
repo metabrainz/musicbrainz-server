@@ -158,6 +158,7 @@ module.exports = {
   'report/AsinsWithMultipleReleases': require('../report/AsinsWithMultipleReleases'),
   'report/BadAmazonUrls': require('../report/BadAmazonUrls'),
   'report/CatNoLooksLikeAsin': require('../report/CatNoLooksLikeAsin'),
+  'report/CatNoLooksLikeIsrc': require('../report/CatNoLooksLikeIsrc'),
   'report/CatNoLooksLikeLabelCode': require('../report/CatNoLooksLikeLabelCode'),
   'report/CDTocDubiousLength': require('../report/CDTocDubiousLength'),
   'report/CDTocNotApplied': require('../report/CDTocNotApplied'),
