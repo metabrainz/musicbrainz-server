@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {SanitizedCatalystContext} from '../../context';
 import Table from '../Table';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
@@ -56,7 +56,7 @@ const RecordingList = ({
   showRatings = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
-  const $c = React.useContext(CatalystContext);
+  const $c = React.useContext(SanitizedCatalystContext);
 
   const acoustIdsColumn = useAcoustIdsColumn(
     recordings,
