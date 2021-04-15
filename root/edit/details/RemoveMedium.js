@@ -40,7 +40,7 @@ const RemoveMedium = ({edit}: Props): React.Element<'table'> => {
       </tr>
 
       <tr>
-        <th>{l('Tracklist:')}</th>
+        <th>{addColonText(l('Tracklist'))}</th>
         <td>
           <table className="tbl">
             <tbody>
