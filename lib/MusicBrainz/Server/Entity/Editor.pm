@@ -306,7 +306,7 @@ sub _unsanitized_json {
         languages                   => to_json_array($self->languages),
         last_login_date             => datetime_to_iso8601($self->last_login_date),
         preferences                 => $self->preferences->TO_JSON,
-        privileges                  => $self->privileges,
+        privileges                  => 0 + $self->privileges,
         registration_date           => datetime_to_iso8601($self->registration_date),
         website                     => $self->website,
     };
@@ -328,7 +328,7 @@ sub TO_JSON {
         gravatar => $self->gravatar,
         id => $self->id,
         name => $self->name,
-        privileges => $self->public_privileges,
+        privileges => 0 + $self->public_privileges,
     };
 }
 
