@@ -1102,15 +1102,54 @@ const CLEANUPS = {
     },
   },
   'classicalarchives': {
-    match: [new RegExp(
-      '^(https?://)?(www\\.)?classicalarchives\\.com/' +
-      '(album|artist|composer|ensemble|work)/',
-      'i',
-    )],
+    match: [
+      new RegExp(
+        '^(https?://)?(www\\.)?classicalarchives\\.com/' +
+        '(album|artist|composer|ensemble|work)/',
+        'i',
+      ),
+      new RegExp(
+        '^(https?://)?(www\\.)?classicalarchives\\.com/newca/#!/' +
+        '(Album|Composer|Performer|Work)/',
+        'i',
+      ),
+    ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, 'https://www.classicalarchives.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\//, 'https://www.classicalarchives.com/');
+      /*
+       * Both newca and "old-style" links work, old redirects to new
+       * unless requested otherwise. CA claimed they'll support both
+       * going forward, so mapping all to old-style for now.
+       * newca entities match except Performer, where the old type
+       * is determined by the first letter of the ID: ensemble (e)
+       * or artist (p)
+       * newca Album links are allowed since they can't be autoconverted
+       */
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Composer\/([^\/?#]+)/, '$1/composer/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Work\/([^\/?#]+)/, '$1/work/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/e([^\/?#]+)/, '$1/ensemble/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/p([^\/?#]+)/, '$1/artist/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Album\/([^\/?#]+)(?:.*)?$/, '$1/newca/#!/Album/$2');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, '$1/$2/$3');
       return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.classicalarchives\.com\/(?:newca\/#!\/)?([Aa]lbum|artist|composer|ensemble|work)\/([^\/?#]+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: ['artist', 'composer', 'ensemble'].includes(prefix),
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {result: prefix === 'album' || prefix === 'Album'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'work'};
+        }
+      }
+      return {result: false};
     },
   },
   'cpdl': {
