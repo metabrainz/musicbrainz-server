@@ -10,8 +10,12 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  defineTextHtmlColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import type {ReportLabelAnnotationT} from '../types';
 
 type Props = {
@@ -22,35 +26,47 @@ type Props = {
 const LabelAnnotationList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Label')}</th>
-          <th>{l('Annotation')}</th>
-          <th style={{width: '10em'}}>{l('Last edited')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.label_id}>
-            {item.label ? (
-              <td>
-                <EntityLink entity={item.label} />
-              </td>
-            ) : (
-              <td>
-                {l('This label no longer exists.')}
-              </td>
-            )}
-            <td dangerouslySetInnerHTML={{__html: item.text}} />
-            <td>{item.created}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingLabelItems = items.reduce((result, item) => {
+    if (item.label != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportLabelAnnotationT>({
+        columnName: 'label',
+        getEntity: result => result.label ?? null,
+        title: l('Label'),
+      });
+      const annotationColumn = defineTextHtmlColumn<ReportLabelAnnotationT>({
+        columnName: 'annotation',
+        getText: result => result.text,
+        title: l('Annotation'),
+      });
+      const editedColumn = defineTextColumn<ReportLabelAnnotationT>({
+        columnName: 'created',
+        getText: result => result.created,
+        headerProps: {className: 'last-edited-heading'},
+        title: l('Last edited'),
+      });
+
+      return [
+        nameColumn,
+        annotationColumn,
+        editedColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingLabelItems} />
+    </PaginatedResults>
+  );
+};
 
 export default LabelAnnotationList;
