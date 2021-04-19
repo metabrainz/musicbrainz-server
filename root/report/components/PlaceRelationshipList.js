@@ -10,8 +10,11 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  relTypeColumn,
+} from '../../utility/tableColumns';
 import type {ReportPlaceRelationshipT} from '../types';
 
 type Props = {
@@ -22,36 +25,35 @@ type Props = {
 const PlaceRelationshipList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Relationship Type')}</th>
-          <th>{l('Place')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.place_id}>
-            <td>
-              <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
-                {l_relationships(item.link_name)}
-              </a>
-            </td>
-            <td>
-              {item.place ? (
-                <EntityLink entity={item.place} />
-              ) : (
-                l('This place no longer exists.')
-              )}
-            </td>
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingPlaceItems = items.reduce((result, item) => {
+    if (item.place != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
 
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportPlaceRelationshipT>({
+        columnName: 'place',
+        getEntity: result => result.place ?? null,
+        title: l('Place'),
+      });
+
+      return [
+        relTypeColumn,
+        nameColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingPlaceItems} />
+    </PaginatedResults>
+  );
+};
 
 export default PlaceRelationshipList;
