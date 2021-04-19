@@ -241,11 +241,17 @@ export function defineCountColumn<D>(
   };
 }
 
-export function defineDatePeriodColumn(
-  props: OrderableProps,
-): ColumnOptions<{...DatePeriodRoleT, ...}, string> {
+export function defineDatePeriodColumn<D>(
+  props: {
+    ...OrderableProps,
+    +getEntity: (D) => EventT | null,
+  },
+): ColumnOptions<D, string> {
   return {
-    Cell: ({row: {original}}) => formatDatePeriod(original),
+    Cell: ({row: {original}}) => {
+      const entity = props.getEntity(original);
+      return entity ? formatDatePeriod(entity) : null;
+    },
     Header: (props.sortable
       ? (
         <SortableTableHeader
@@ -296,7 +302,13 @@ export function defineEntityColumn<D>(
       return (entity
         ? descriptive
           ? <DescriptiveLink entity={entity} />
-          : <EntityLink entity={entity} />
+          : (
+            <EntityLink
+              entity={entity}
+              // Event lists show date in its own column
+              showEventDate={false}
+            />
+          )
         : null);
     },
     Header: (props.sortable
@@ -329,6 +341,21 @@ export function defineInstrumentUsageColumn(
     Header: l('Relationship Types'),
     accessor: x => x.id,
     id: 'instrument-usage',
+  };
+}
+
+export function defineLocationColumn<D>(
+  props: {
+    +getEntity: (D) => EventT | null,
+  },
+): ColumnOptions<D, string> {
+  return {
+    Cell: ({row: {original}}) => {
+      const entity = props.getEntity(original);
+      return entity ? <EventLocations event={entity} /> : null;
+    },
+    Header: N_l('Location'),
+    id: 'location',
   };
 }
 
@@ -681,13 +708,6 @@ export const iswcsColumn:
     accessor: x => x.iswcs,
     cellProps: {className: 'iswc'},
     id: 'iswcs',
-  };
-
-export const locationColumn:
-  ColumnOptions<EventT, number> = {
-    Cell: ({row: {original}}) => <EventLocations event={original} />,
-    Header: N_l('Location'),
-    id: 'location',
   };
 
 export const ratingsColumn:
