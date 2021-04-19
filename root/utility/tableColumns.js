@@ -485,6 +485,36 @@ export function defineTextColumn<D>(
   };
 }
 
+export function defineTextHtmlColumn<D>(
+  props: {
+    ...OrderableProps,
+    +cellProps?: {className: string, ...},
+    +columnName: string,
+    +getText: (D) => string,
+    +headerProps?: {className: string, ...},
+    +title: string,
+  },
+): ColumnOptions<D, StrOrNum> {
+  return {
+    Cell: ({row: {original}}) => (
+      <div dangerouslySetInnerHTML={{__html: props.getText(original)}} />
+    ),
+    Header: (props.sortable
+      ? (
+        <SortableTableHeader
+          label={props.title}
+          name={props.columnName}
+          order={props.order ?? ''}
+        />
+      )
+      : props.title),
+    accessor: row => props.getText(row) ?? '',
+    cellProps: props.cellProps,
+    headerProps: props.headerProps,
+    id: props.columnName,
+  };
+}
+
 export function defineTypeColumn(
   props: {
     ...OrderableProps,

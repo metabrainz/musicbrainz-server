@@ -10,8 +10,12 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  defineTextHtmlColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import type {ReportArtistAnnotationT} from '../types';
 
 type Props = {
@@ -22,43 +26,59 @@ type Props = {
 const ArtistAnnotationList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Artist')}</th>
-          <th>{l('Type')}</th>
-          <th>{l('Annotation')}</th>
-          <th style={{width: '10em'}}>{l('Last edited')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.artist_id}>
-            {item.artist ? (
-              <>
-                <td>
-                  <EntityLink entity={item.artist} />
-                </td>
-                <td>
-                  {nonEmpty(item.artist.typeName)
-                    ? lp_attributes(item.artist.typeName, 'artist_type')
-                    : l('Unknown')}
-                </td>
-              </>
-            ) : (
-              <td colSpan="2">
-                {l('This artist no longer exists.')}
-              </td>
-            )}
-            <td dangerouslySetInnerHTML={{__html: item.text}} />
-            <td>{item.created}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingArtistItems = items.reduce((result, item) => {
+    if (item.artist != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportArtistAnnotationT>({
+        columnName: 'artist',
+        getEntity: result => result.artist ?? null,
+        title: l('Artist'),
+      });
+      const typeColumn = defineTextColumn<ReportArtistAnnotationT>({
+        columnName: 'type',
+        getText: result => {
+          const typeName = result.artist?.typeName;
+          return (nonEmpty(typeName)
+            ? lp_attributes(typeName, 'artist_type')
+            : l('Unknown')
+          );
+        },
+        title: l('Type'),
+      });
+      const annotationColumn = defineTextHtmlColumn<ReportArtistAnnotationT>({
+        columnName: 'annotation',
+        getText: result => result.text,
+        title: l('Annotation'),
+      });
+      const editedColumn = defineTextColumn<ReportArtistAnnotationT>({
+        columnName: 'created',
+        getText: result => result.created,
+        headerProps: {className: 'last-edited-heading'},
+        title: l('Last edited'),
+      });
+
+      return [
+        nameColumn,
+        typeColumn,
+        annotationColumn,
+        editedColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingArtistItems} />
+    </PaginatedResults>
+  );
+};
 
 export default ArtistAnnotationList;
