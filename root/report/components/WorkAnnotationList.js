@@ -12,6 +12,7 @@ import * as React from 'react';
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
 import {
+  defineArtistRolesColumn,
   defineEntityColumn,
   defineTextHtmlColumn,
   defineTextColumn,
@@ -41,6 +42,22 @@ const WorkAnnotationList = ({
         getEntity: result => result.work ?? null,
         title: l('Work'),
       });
+      const writersColumn = defineArtistRolesColumn<ReportWorkAnnotationT>({
+        columnName: 'writers',
+        getRoles: result => result.work?.writers ?? [],
+        title: l('Writers'),
+      });
+      const typeColumn = defineTextColumn<ReportWorkAnnotationT>({
+        columnName: 'type',
+        getText: result => {
+          const typeName = result.work?.typeName;
+          return (nonEmpty(typeName)
+            ? lp_attributes(typeName, 'work_type')
+            : l('Unknown')
+          );
+        },
+        title: l('Type'),
+      });
       const annotationColumn = defineTextHtmlColumn<ReportWorkAnnotationT>({
         columnName: 'annotation',
         getText: result => result.text,
@@ -55,6 +72,8 @@ const WorkAnnotationList = ({
 
       return [
         nameColumn,
+        writersColumn,
+        typeColumn,
         annotationColumn,
         editedColumn,
       ];

@@ -12,7 +12,9 @@ import * as React from 'react';
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
 import {
+  defineArtistRolesColumn,
   defineEntityColumn,
+  defineTextColumn,
   relTypeColumn,
 } from '../../utility/tableColumns';
 import type {ReportWorkRelationshipT} from '../types';
@@ -40,10 +42,28 @@ const WorkRelationshipList = ({
         getEntity: result => result.work ?? null,
         title: l('Work'),
       });
+      const writersColumn = defineArtistRolesColumn<ReportWorkRelationshipT>({
+        columnName: 'writers',
+        getRoles: result => result.work?.writers ?? [],
+        title: l('Writers'),
+      });
+      const typeColumn = defineTextColumn<ReportWorkRelationshipT>({
+        columnName: 'type',
+        getText: result => {
+          const typeName = result.work?.typeName;
+          return (nonEmpty(typeName)
+            ? lp_attributes(typeName, 'work_type')
+            : l('Unknown')
+          );
+        },
+        title: l('Type'),
+      });
 
       return [
         relTypeColumn,
         nameColumn,
+        writersColumn,
+        typeColumn,
       ];
     },
     [],
