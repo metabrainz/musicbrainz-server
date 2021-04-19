@@ -9,10 +9,12 @@
 
 import * as React from 'react';
 
-import {l_relationships}
-  from '../../static/scripts/common/i18n/relationships';
 import PaginatedResults from '../../components/PaginatedResults';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineLinkColumn,
+  relTypeColumn,
+} from '../../utility/tableColumns';
 import type {ReportUrlRelationshipT} from '../types';
 
 type Props = {
@@ -23,47 +25,43 @@ type Props = {
 const UrlRelationshipList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Relationship Type')}</th>
-          <th>{l('URL')}</th>
-          <th>{l('URL Entity')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.url_id}>
-            <td>
-              <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
-                {l_relationships(item.link_name)}
-              </a>
-            </td>
-            {item.url ? (
-              <>
-                <td>
-                  <a href={item.url.name}>
-                    {item.url.name}
-                  </a>
-                </td>
-                <td>
-                  <a href={'/url/' + item.url.gid}>
-                    {item.url.gid}
-                  </a>
-                </td>
-              </>
-            ) : (
-              <td colSpan="2">
-                {l('This URL no longer exists.')}
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingUrlItems = items.reduce((result, item) => {
+    if (item.url != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineLinkColumn<ReportUrlRelationshipT>({
+        columnName: 'url',
+        getContent: result => result.url?.name ?? '',
+        getHref: result => result.url?.name ?? '',
+        title: l('URL'),
+      });
+      const urlEntityColumn = defineLinkColumn<ReportUrlRelationshipT>({
+        columnName: 'url_entity',
+        getContent: result => result.url?.gid ?? '',
+        getHref: result => result.url?.gid ? '/url/' + result.url.gid : '',
+        title: l('URL Entity'),
+      });
+
+      return [
+        relTypeColumn,
+        nameColumn,
+        urlEntityColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingUrlItems} />
+    </PaginatedResults>
+  );
+};
 
 export default UrlRelationshipList;

@@ -360,6 +360,26 @@ export function defineLocationColumn<D>(
   };
 }
 
+export function defineLinkColumn<D>(
+  props: {
+    +columnName: string,
+    getContent: (D) => string,
+    getHref: (D) => string,
+    +title: string,
+  },
+): ColumnOptions<D, string> {
+  return {
+    Cell: ({row: {original}}) => (
+      <a href={props.getHref(original)}>
+        {props.getContent(original)}
+      </a>
+    ),
+    Header: props.title,
+    accessor: row => props.getContent(row) ?? '',
+    id: props.columnName,
+  };
+}
+
 export function defineNameColumn<T: CoreEntityT | CollectionT>(
   props: {
     ...OrderableProps,
