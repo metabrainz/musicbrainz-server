@@ -10,8 +10,12 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  defineTextHtmlColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import type {ReportPlaceAnnotationT} from '../types';
 
 type Props = {
@@ -22,35 +26,47 @@ type Props = {
 const PlaceAnnotationList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Place')}</th>
-          <th>{l('Annotation')}</th>
-          <th style={{width: '10em'}}>{l('Last edited')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.place_id}>
-            {item.place ? (
-              <td>
-                <EntityLink entity={item.place} />
-              </td>
-            ) : (
-              <td>
-                {l('This place no longer exists.')}
-              </td>
-            )}
-            <td dangerouslySetInnerHTML={{__html: item.text}} />
-            <td>{item.created}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingPlaceItems = items.reduce((result, item) => {
+    if (item.place != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportPlaceAnnotationT>({
+        columnName: 'place',
+        getEntity: result => result.place ?? null,
+        title: l('Place'),
+      });
+      const annotationColumn = defineTextHtmlColumn<ReportPlaceAnnotationT>({
+        columnName: 'annotation',
+        getText: result => result.text,
+        title: l('Annotation'),
+      });
+      const editedColumn = defineTextColumn<ReportPlaceAnnotationT>({
+        columnName: 'created',
+        getText: result => result.created,
+        headerProps: {className: 'last-edited-heading'},
+        title: l('Last edited'),
+      });
+
+      return [
+        nameColumn,
+        annotationColumn,
+        editedColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingPlaceItems} />
+    </PaginatedResults>
+  );
+};
 
 export default PlaceAnnotationList;
