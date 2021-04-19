@@ -290,6 +290,7 @@ export function defineEntityColumn<D>(
     +columnName: string,
     +descriptive?: boolean,
     +getEntity: (D) => CoreEntityT | null,
+    +subPath?: string,
     +title: string,
   },
 ): ColumnOptions<D, string> {
@@ -297,17 +298,22 @@ export function defineEntityColumn<D>(
     hasOwnProp(props, 'descriptive')
       ? props.descriptive
       : true;
+  const subPath =
+    hasOwnProp(props, 'subPath')
+      ? props.subPath
+      : '';
   return {
     Cell: ({row: {original}}) => {
       const entity = props.getEntity(original);
       return (entity
         ? descriptive
-          ? <DescriptiveLink entity={entity} />
+          ? <DescriptiveLink entity={entity} subPath={subPath} />
           : (
             <EntityLink
               entity={entity}
               // Event lists show date in its own column
               showEventDate={false}
+              subPath={subPath}
             />
           )
         : null);
@@ -487,6 +493,21 @@ export function defineReleaseLabelsColumn(
     ),
     accessor: x => x.labels,
     id: 'labels',
+  };
+}
+
+export function defineReleaseLanguageColumn<D>(
+  props: {
+    +getEntity: (D) => ReleaseT | null,
+  },
+): ColumnOptions<D, void> {
+  return {
+    Cell: ({row: {original}}) => {
+      const entity = props.getEntity(original);
+      return entity ? <ReleaseLanguageScript release={entity} /> : null;
+    },
+    Header: N_l('Language'),
+    id: 'release_language',
   };
 }
 
@@ -769,13 +790,6 @@ export const removeFromMergeColumn:
       'style': {width: '1em'},
     },
     id: 'remove-from-merge',
-  };
-
-export const releaseLanguageColumn:
-  ColumnOptions<ReleaseT, void> = {
-    Cell: ({row: {original}}) => <ReleaseLanguageScript release={original} />,
-    Header: N_l('Language'),
-    id: 'release_language',
   };
 
 export const relTypeColumn:

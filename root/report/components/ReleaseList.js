@@ -10,12 +10,13 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import ReleaseLanguageScript from '../../components/ReleaseLanguageScript';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineArtistCreditColumn,
+  defineEntityColumn,
+  defineReleaseLanguageColumn,
+} from '../../utility/tableColumns';
 import type {ReportReleaseT} from '../types';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
 
 type Props = {
   +items: $ReadOnlyArray<ReportReleaseT>,
@@ -30,49 +31,46 @@ const ReleaseList = ({
   showLanguageAndScript = false,
   subPath,
 }: Props): React.Element<typeof PaginatedResults> => {
-  const colSpan = showLanguageAndScript ? 3 : 2;
+  const existingReleaseItems = items.reduce((result, item) => {
+    if (item.release != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const releaseColumn = defineEntityColumn<ReportReleaseT>({
+        columnName: 'release',
+        descriptive: false,
+        getEntity: result => result.release ?? null,
+        subPath: subPath,
+        title: l('Release'),
+      });
+      const artistCreditColumn =
+        defineArtistCreditColumn<ReportReleaseT>({
+          columnName: 'artist',
+          getArtistCredit: result => result.release?.artistCredit ?? null,
+          title: l('Artist'),
+        });
+      const releaseLanguageColumn = showLanguageAndScript
+        ? defineReleaseLanguageColumn<ReportReleaseT>({
+          getEntity: result => result.release ?? null,
+        })
+        : null;
+
+      return [
+        releaseColumn,
+        artistCreditColumn,
+        ...(showLanguageAndScript ? [releaseLanguageColumn] : []),
+      ];
+    },
+    [showLanguageAndScript, subPath],
+  );
 
   return (
     <PaginatedResults pager={pager}>
-      <table className="tbl">
-        <thead>
-          <tr>
-            <th>{l('Release')}</th>
-            <th>{l('Artist')}</th>
-            {showLanguageAndScript ? <th>{l('Language/Script')}</th> : null}
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => {
-            const release = item.release;
-            return (
-              <tr className={loopParity(index)} key={item.release_id}>
-                {release ? (
-                  <>
-                    <td>
-                      <EntityLink entity={release} subPath={subPath} />
-                    </td>
-                    <td>
-                      <ArtistCreditLink
-                        artistCredit={release.artistCredit}
-                      />
-                    </td>
-                    {showLanguageAndScript ? (
-                      <td>
-                        <ReleaseLanguageScript release={release} />
-                      </td>
-                    ) : null}
-                  </>
-                ) : (
-                  <td colSpan={colSpan}>
-                    {l('This release no longer exists.')}
-                  </td>
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table columns={columns} data={existingReleaseItems} />
     </PaginatedResults>
   );
 };

@@ -22,6 +22,7 @@ type DescriptiveLinkProps = {
   +disableLink?: boolean,
   +entity: CollectionT | CoreEntityT,
   +showDeletedArtists?: boolean,
+  +subPath?: string,
   +target?: '_blank',
 };
 
@@ -33,6 +34,7 @@ const DescriptiveLink = ({
   disableLink = false,
   entity,
   showDeletedArtists = true,
+  subPath,
   target,
 }: DescriptiveLinkProps): Expand2ReactOutput | React.Node => {
   const props = {
@@ -41,6 +43,7 @@ const DescriptiveLink = ({
     deletedCaption,
     disableLink,
     showDisambiguation: true,
+    subPath,
     target,
   };
 
