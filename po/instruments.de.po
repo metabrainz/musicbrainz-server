@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-25 07:22+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-04-14 20:05+0000\n"
+"Last-Translator: nikki2 <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -208,6 +208,7 @@ msgid "Reactable"
 msgstr "Reactable"
 
 #: DB:instrument/name:139
+msgctxt "Electric keyboard tuning fork idiophone"
 msgid "Rhodes piano"
 msgstr "Rhodes Piano"
 
@@ -904,6 +905,7 @@ msgid "caxixi"
 msgstr "Caxixi"
 
 #: DB:instrument/name:129
+msgctxt "Struck metal plate keyboard instrument"
 msgid "celesta"
 msgstr "Celesta"
 
@@ -1059,6 +1061,7 @@ msgid "clavichord"
 msgstr "Clavichord"
 
 #: DB:instrument/name:175
+msgctxt "Electro-mechanical amplified clavichord"
 msgid "clavinet"
 msgstr "Clavinet"
 
@@ -1356,7 +1359,7 @@ msgid "dulcian"
 msgstr "Dulzian"
 
 #: DB:instrument/name:841
-msgctxt "idiophone keyboard instrument with tuning forks"
+msgctxt "Acoustic keyboard tuning fork idiophone"
 msgid "dulcitone"
 msgstr ""
 
