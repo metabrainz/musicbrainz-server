@@ -10,8 +10,11 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import type {ReportWorkT} from '../types';
 
 type Props = {
@@ -22,39 +25,46 @@ type Props = {
 const WorkList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Work')}</th>
-          <th>{l('Type')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.work_id}>
-            {item.work ? (
-              <>
-                <td>
-                  <EntityLink entity={item.work} />
-                </td>
-                <td>
-                  {nonEmpty(item.work.typeName)
-                    ? lp_attributes(item.work.typeName, 'work_type')
-                    : l('Unknown')}
-                </td>
-              </>
-            ) : (
-              <td>
-                {l('This work no longer exists.')}
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingWorkItems = items.reduce((result, item) => {
+    if (item.work != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportWorkT>({
+        columnName: 'work',
+        getEntity: result => result.work ?? null,
+        title: l('Work'),
+      });
+      const typeColumn = defineTextColumn<ReportWorkT>({
+        columnName: 'type',
+        getText: result => {
+          const typeName = result.work?.typeName;
+          return (nonEmpty(typeName)
+            ? lp_attributes(typeName, 'work_type')
+            : l('Unknown')
+          );
+        },
+        title: l('Type'),
+      });
+
+      return [
+        nameColumn,
+        typeColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingWorkItems} />
+    </PaginatedResults>
+  );
+};
 
 export default WorkList;
