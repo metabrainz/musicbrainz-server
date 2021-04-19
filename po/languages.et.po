@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-19 14:01+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-04-14 20:04+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -153,6 +153,11 @@ msgstr "astuuria"
 #: DB:language/name:28
 msgid "Athapascan languages"
 msgstr "atapaski keeled"
+
+#. frequency:1 iso_code_3:atj
+#: DB:language/name:866
+msgid "Atikamekw"
+msgstr ""
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:29
@@ -2248,6 +2253,11 @@ msgstr "sunda"
 #: DB:language/name:400
 msgid "Susu"
 msgstr "susu"
+
+#. frequency:1 iso_code_3:sva
+#: DB:language/name:6216
+msgid "Svan"
+msgstr ""
 
 #. frequency:1 iso_code_3:swa
 #: DB:language/name:402

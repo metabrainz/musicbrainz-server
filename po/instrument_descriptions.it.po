@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-29 22:17+0000\n"
+"PO-Revision-Date: 2021-04-15 22:25+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1629,6 +1629,11 @@ msgid ""
 "Highland Bagpipe fingering."
 msgstr "Simili alla (e sviluppate a partire dalla) cornamusa del Northumberland, ma con la diteggiatura della grande cornamusa delle Highland."
 
+#. name:dulcitone
+#: DB:instrument/description:841
+msgid "Like a piano, but here keyed hammers hit tuning forks."
+msgstr "Simile a un pianoforte, ma con martelletti azionati dai tasti che percuotono diapason a forchetta."
+
 #. name:The Great Stalacpipe Organ
 #: DB:instrument/description:934
 msgid ""
@@ -2033,6 +2038,14 @@ msgid ""
 "in Brazilian music."
 msgstr "In origine realizzato in bambù o in legno, ora è in metallo con delle molle ed è usato nella musica brasiliana."
 
+#. name:clavinet
+#: DB:instrument/description:175
+msgid ""
+"Originally produced by Hohner from 1964 to 1982, it had keys with rubber-"
+"clad metal tines that tapped metal strings and two electric pickups. Its "
+"sound has been recreated in many modern synths."
+msgstr "Prodotto in origine dalla Hohner tra il 1964 e il 1982, aveva tasti con rebbi in metallo rivestiti di gomma che percuotevano corde in metallo e due pickup elettrici. Il suo suono è stato riprodotto in molti sintetizzatori moderni."
+
 #. name:anvil
 #: DB:instrument/description:720
 msgid ""
@@ -2427,6 +2440,13 @@ msgid ""
 "Side drum, often with one or more snares, worn by one person and beaten by "
 "one hand, it is often combined with tabor pipes."
 msgstr "Tipo di rullante, spesso con una o più corde, portato a tracolla e suonato a una mano; compare spesso in combinazione con il flauto a tre fori."
+
+#. name:celesta
+#: DB:instrument/description:129
+msgid ""
+"Similar to how a piano works, here keys operate hammers that strike metal "
+"plates, creating a soft bell sound."
+msgstr "Simile a un pianoforte nel funzionamento, i suoi tasti azionano martelletti che percuotono lamelle metalliche, creando un suono ovattato simile a una campanella."
 
 #. name:saron peking
 #: DB:instrument/description:1009
@@ -5007,13 +5027,6 @@ msgid ""
 "name means coconut or acorn, while originally made of walnut, it is today of"
 " coconut and fish-skin or heart-membrane."
 msgstr "Con origini che possono essere tracciate a quasi 5000 anni fa, questo strumento a corda iracheno è l'antenato di diversi strumenti in giro per il mondo. Il suo nome significa noce di cocco o ghianda; originariamente realizzato in noce, oggi è in cocco e pelle di pesce o membrana cardiaca."
-
-#. name:dulcitone
-#: DB:instrument/description:841
-msgid ""
-"keyboard instrument where keyed hammers hit tuning forks - making this tuned"
-" percussion"
-msgstr "Strumento a tastiera in cui i martelletti azionati dai tasti percuotono diapason a forchetta, rendendolo uno strumento a percussione intonata."
 
 #. name:hue puruhau
 #: DB:instrument/description:858

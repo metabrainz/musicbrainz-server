@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-25 13:31+0000\n"
+"PO-Revision-Date: 2021-04-15 14:06+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3483,6 +3483,11 @@ msgid ""
 "play."
 msgstr "Toneelmuziek is achtergrondmuziek die wordt geschreven voor toneel of ander theater."
 
+#: DB:area_type/name:9
+msgctxt "area_type"
+msgid "Indigenous territory / reserve"
+msgstr ""
+
 #: DB:place_type/name:5
 msgctxt "place_type"
 msgid "Indoor arena"
@@ -4439,6 +4444,11 @@ msgstr "Mevlidişerif"
 msgctxt "medium_format"
 msgid "Microcassette"
 msgstr "microcassette"
+
+#: DB:area_type/name:8
+msgctxt "area_type"
+msgid "Military base"
+msgstr "Militaire basis"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -6952,6 +6962,21 @@ msgid ""
 "Use for images that need work to be used for tagging (but can possibly "
 "already be used for reference)"
 msgstr "Gebruik deze eigenschap voor afbeeldingen die bewerkt moeten worden voordat ze voor het taggen kunnen worden gebruikt (maar die misschien al als referentie kunnen worden gebruikt)"
+
+#: DB:area_type/description:8
+msgctxt "area_type"
+msgid ""
+"Used for any military bases that are large enough to be considered an area, "
+"not just a place."
+msgstr "Dit type gebied wordt gebruikt voor militaire bases die zo groot zijn dat ze als gebied in plaats van een plaats kunnen worden beschouwd."
+
+#: DB:area_type/description:9
+msgctxt "area_type"
+msgid ""
+"Used for semi-autonomous territories governed by indigenous peoples, such as"
+" Indian reserves/reservations in North America and indigenous territories in"
+" Central and South America."
+msgstr ""
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"
