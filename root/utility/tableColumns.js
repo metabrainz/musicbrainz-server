@@ -24,6 +24,7 @@ import ArtistCreditLink
 import ArtistRoles
   from '../static/scripts/common/components/ArtistRoles';
 import AttributeList from '../static/scripts/common/components/AttributeList';
+import CDTocLink from '../static/scripts/common/components/CDTocLink';
 import CodeLink from '../static/scripts/common/components/CodeLink';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
@@ -84,7 +85,7 @@ export function defineArtistCreditColumn<D>(
   props: {
     ...OrderableProps,
     +columnName: string,
-    +getArtistCredit: (D) => ArtistCreditT,
+    +getArtistCredit: (D) => ArtistCreditT | null,
     +showExpandedArtistCredits?: boolean,
     +title: string,
   },
@@ -155,6 +156,36 @@ export function defineBeginDateColumn(
       : l('Begin')),
     accessor: x => x.begin_date,
     id: 'begin_date',
+  };
+}
+
+export function defineCDTocColumn<D>(
+  props: {
+    ...OrderableProps,
+    +getCDToc: (D) => CDTocT | null,
+  },
+): ColumnOptions<D, string> {
+  return {
+    Cell: ({row: {original}}) => {
+      const cdToc = props.getCDToc(original);
+      return (cdToc ? (
+        <CDTocLink
+          cdToc={cdToc}
+          content={cdToc.discid}
+        />
+      ) : null);
+    },
+    Header: (props.sortable
+      ? (
+        <SortableTableHeader
+          label={l('Disc ID')}
+          name="cd-toc"
+          order={props.order ?? ''}
+        />
+      )
+      : l('Disc ID')),
+    accessor: row => props.getCDToc(row)?.discid ?? '',
+    id: 'cd-toc',
   };
 }
 
@@ -250,15 +281,22 @@ export function defineEntityColumn<D>(
   props: {
     ...OrderableProps,
     +columnName: string,
+    +descriptive?: boolean,
     +getEntity: (D) => CoreEntityT | null,
     +title: string,
   },
 ): ColumnOptions<D, string> {
+  const descriptive =
+    hasOwnProp(props, 'descriptive')
+      ? props.descriptive
+      : true;
   return {
     Cell: ({row: {original}}) => {
       const entity = props.getEntity(original);
       return (entity
-        ? <DescriptiveLink entity={entity} />
+        ? descriptive
+          ? <DescriptiveLink entity={entity} />
+          : <EntityLink entity={entity} />
         : null);
     },
     Header: (props.sortable

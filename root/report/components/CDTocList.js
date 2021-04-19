@@ -10,12 +10,14 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import loopParity from '../../utility/loopParity';
-import type {ReportCDTocT} from '../types';
-import CDTocLink
-  from '../../static/scripts/common/components/CDTocLink';
+import Table from '../../components/Table';
+import {
+  defineCDTocColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
+import type {ReportCDTocT} from '../types';
 
 type Props = {
   +items: $ReadOnlyArray<ReportCDTocT>,
@@ -26,47 +28,41 @@ const CDTocList = ({
   items,
   pager,
 }: Props): React.Element<typeof PaginatedResults> => {
-  const colSpan = 3;
+  const existingCDTocItems = items.reduce((result, item) => {
+    if (item.cdtoc != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const cdTocColumn = defineCDTocColumn<ReportCDTocT>({
+        getCDToc: result => result.cdtoc ?? null,
+      });
+      const formatColumn = defineTextColumn<ReportCDTocT>({
+        columnName: 'format',
+        getText: result => result.format,
+        title: l('Format'),
+      });
+      const lengthColumn = defineTextColumn<ReportCDTocT>({
+        columnName: 'length',
+        getText: result => formatTrackLength(1000 * result.length),
+        title: l('Length'),
+      });
+
+      return [
+        cdTocColumn,
+        formatColumn,
+        lengthColumn,
+      ];
+    },
+    [],
+  );
 
   return (
     <PaginatedResults pager={pager}>
-      <table className="tbl">
-        <thead>
-          <tr>
-            <th>{l('Disc ID')}</th>
-            <th>{l('Format')}</th>
-            <th>{l('Length')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => {
-            return (
-              <tr className={loopParity(index)} key={item.cdtoc_id}>
-                {item.cdtoc ? (
-                  <>
-                    <td>
-                      <CDTocLink
-                        cdToc={item.cdtoc}
-                        content={item.cdtoc.discid}
-                      />
-                    </td>
-                    <td>
-                      {item.format}
-                    </td>
-                    <td>
-                      {formatTrackLength(1000 * item.length)}
-                    </td>
-                  </>
-                ) : (
-                  <td colSpan={colSpan}>
-                    {l('This Disc ID no longer exists.')}
-                  </td>
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table columns={columns} data={existingCDTocItems} />
     </PaginatedResults>
   );
 };

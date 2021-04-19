@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineCDTocColumn,
+  defineEntityColumn,
+  defineArtistCreditColumn,
+} from '../../utility/tableColumns';
 import type {ReportCDTocReleaseT} from '../types';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
-import CDTocLink
-  from '../../static/scripts/common/components/CDTocLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
 
 type Props = {
   +items: $ReadOnlyArray<ReportCDTocReleaseT>,
@@ -27,50 +27,43 @@ const CDTocReleaseList = ({
   items,
   pager,
 }: Props): React.Element<typeof PaginatedResults> => {
-  const colSpan = 3;
+  const existingCDTocItems = items.reduce((result, item) => {
+    if (item.cdtoc != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const cdTocColumn = defineCDTocColumn<ReportCDTocReleaseT>({
+        getCDToc: result => result.cdtoc ?? null,
+      });
+      const releaseColumn = defineEntityColumn<ReportCDTocReleaseT>({
+        columnName: 'release',
+        descriptive: false,
+        getEntity: result => result.release ?? null,
+        title: l('Release'),
+      });
+      const artistCreditColumn =
+        defineArtistCreditColumn<ReportCDTocReleaseT>({
+          columnName: 'artist',
+          getArtistCredit: result => result.release?.artistCredit ?? null,
+          title: l('Artist'),
+        });
+
+      return [
+        cdTocColumn,
+        releaseColumn,
+        artistCreditColumn,
+      ];
+    },
+    [],
+  );
 
   return (
     <PaginatedResults pager={pager}>
-      <table className="tbl">
-        <thead>
-          <tr>
-            <th>{l('Disc ID')}</th>
-            <th>{l('Release')}</th>
-            <th>{l('Artist')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => {
-            return (
-              <tr className={loopParity(index)} key={item.cdtoc_id}>
-                {item.cdtoc && item.release ? (
-                  <>
-                    <td>
-                      <CDTocLink
-                        anchorPath={item.release.gid}
-                        cdToc={item.cdtoc}
-                        content={item.cdtoc.discid}
-                      />
-                    </td>
-                    <td>
-                      <EntityLink entity={item.release} />
-                    </td>
-                    <td>
-                      <ArtistCreditLink
-                        artistCredit={item.release.artistCredit}
-                      />
-                    </td>
-                  </>
-                ) : (
-                  <td colSpan={colSpan}>
-                    {l('This Disc ID no longer exists.')}
-                  </td>
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table columns={columns} data={existingCDTocItems} />
     </PaginatedResults>
   );
 };
