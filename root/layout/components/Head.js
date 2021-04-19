@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import * as manifest from '../../static/manifest';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import escapeClosingTags from '../../utility/escapeClosingTags';
@@ -18,7 +19,6 @@ import FaviconLinks from './FaviconLinks';
 import MetaDescription from './MetaDescription';
 
 export type HeadProps = {
-  +$c: CatalystContextT,
   +homepage?: boolean,
   +noIcons?: boolean,
   +pager?: PagerT,
@@ -62,93 +62,97 @@ const CanonicalLink = ({requestUri}) => {
   return null;
 };
 
-const Head = ({$c, ...props}: HeadProps): React.Element<'head'> => (
-  <head>
-    <meta charSet="utf-8" />
-    <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <FaviconLinks />
+const Head = ({...props}: HeadProps): React.Element<'head'> => {
+  const $c = React.useContext(CatalystContext);
 
-    <MetaDescription entity={$c.stash.entity} />
+  return (
+    <head>
+      <meta charSet="utf-8" />
+      <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
+      <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <FaviconLinks />
 
-    <title>{getTitle(props)}</title>
+      <MetaDescription entity={$c.stash.entity} />
 
-    <CanonicalLink requestUri={$c.req.uri} />
+      <title>{getTitle(props)}</title>
 
-    <link
-      href={require('../../static/styles/common.less')}
-      rel="stylesheet"
-      type="text/css"
-    />
+      <CanonicalLink requestUri={$c.req.uri} />
 
-    {props.noIcons ? null : (
       <link
-        href={require('../../static/styles/icons.less')}
+        href={require('../../static/styles/common.less')}
         rel="stylesheet"
         type="text/css"
       />
-    )}
 
-    <link
-      href="/static/search_plugins/opensearch/musicbrainz_artist.xml"
-      rel="search"
-      title={l('MusicBrainz: Artist')}
-      type="application/opensearchdescription+xml"
-    />
-    <link
-      href="/static/search_plugins/opensearch/musicbrainz_label.xml"
-      rel="search"
-      title={l('MusicBrainz: Label')}
-      type="application/opensearchdescription+xml"
-    />
-    <link
-      href="/static/search_plugins/opensearch/musicbrainz_release.xml"
-      rel="search"
-      title={l('MusicBrainz: Release')}
-      type="application/opensearchdescription+xml"
-    />
-    <link
-      href="/static/search_plugins/opensearch/musicbrainz_track.xml"
-      rel="search"
-      title={l('MusicBrainz: Track')}
-      type="application/opensearchdescription+xml"
-    />
+      {props.noIcons ? null : (
+        <link
+          href={require('../../static/styles/icons.less')}
+          rel="stylesheet"
+          type="text/css"
+        />
+      )}
 
-    <noscript>
       <link
-        href={require('../../static/styles/noscript.less')}
-        rel="stylesheet"
-        type="text/css"
+        href="/static/search_plugins/opensearch/musicbrainz_artist.xml"
+        rel="search"
+        title={l('MusicBrainz: Artist')}
+        type="application/opensearchdescription+xml"
       />
-    </noscript>
-
-    {globalsScript}
-
-    {manifest.js('runtime')}
-
-    {manifest.js('common-chunks')}
-
-    {manifest.js('jed-data')}
-
-    {$c.stash.current_language === 'en'
-      ? null
-      : manifest.js('jed-' + $c.stash.current_language)}
-
-    {manifest.js('common', {
-      'data-args': JSON.stringify({
-        user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,
-      }),
-    })}
-
-    {$c.stash.jsonld_data ? (
-      <script
-        dangerouslySetInnerHTML={
-          {__html: escapeClosingTags(JSON.stringify($c.stash.jsonld_data))}
-        }
-        type="application/ld+json"
+      <link
+        href="/static/search_plugins/opensearch/musicbrainz_label.xml"
+        rel="search"
+        title={l('MusicBrainz: Label')}
+        type="application/opensearchdescription+xml"
       />
-    ) : null}
-  </head>
-);
+      <link
+        href="/static/search_plugins/opensearch/musicbrainz_release.xml"
+        rel="search"
+        title={l('MusicBrainz: Release')}
+        type="application/opensearchdescription+xml"
+      />
+      <link
+        href="/static/search_plugins/opensearch/musicbrainz_track.xml"
+        rel="search"
+        title={l('MusicBrainz: Track')}
+        type="application/opensearchdescription+xml"
+      />
+
+      <noscript>
+        <link
+          href={require('../../static/styles/noscript.less')}
+          rel="stylesheet"
+          type="text/css"
+        />
+      </noscript>
+
+      {globalsScript}
+
+      {manifest.js('runtime')}
+
+      {manifest.js('common-chunks')}
+
+      {manifest.js('jed-data')}
+
+      {$c.stash.current_language === 'en'
+        ? null
+        : manifest.js('jed-' + $c.stash.current_language)}
+
+      {manifest.js('common', {
+        'data-args': JSON.stringify({
+          user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,
+        }),
+      })}
+
+      {$c.stash.jsonld_data ? (
+        <script
+          dangerouslySetInnerHTML={
+            {__html: escapeClosingTags(JSON.stringify($c.stash.jsonld_data))}
+          }
+          type="application/ld+json"
+        />
+      ) : null}
+    </head>
+  );
+};
 
 export default Head;

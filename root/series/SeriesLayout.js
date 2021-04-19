@@ -39,7 +39,7 @@ const SeriesLayout = ({
       <SeriesHeader page={page} series={series} />
       {children}
     </div>
-    {fullWidth ? null : <SeriesSidebar $c={$c} series={series} />}
+    {fullWidth ? null : <SeriesSidebar series={series} />}
   </Layout>
 );
 

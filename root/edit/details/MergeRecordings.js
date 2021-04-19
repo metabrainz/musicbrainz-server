@@ -21,17 +21,15 @@ type MergeRecordingsEditT = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: MergeRecordingsEditT,
 };
 
-const MergeRecordings = ({$c, edit}: Props): React.Element<'table'> => (
+const MergeRecordings = ({edit}: Props): React.Element<'table'> => (
   <table className="details merge-recordings">
     <tr>
       <th>{l('Merge:')}</th>
       <td>
         <RecordingList
-          $c={$c}
           lengthClass={edit.display_data.large_spread ? 'warn-lengths' : ''}
           recordings={edit.display_data.old}
           showExpandedArtistCredits
@@ -42,7 +40,6 @@ const MergeRecordings = ({$c, edit}: Props): React.Element<'table'> => (
       <th>{l('Into:')}</th>
       <td>
         <RecordingList
-          $c={$c}
           lengthClass={edit.display_data.large_spread ? 'warn-lengths' : ''}
           recordings={[edit.display_data.new]}
           showExpandedArtistCredits

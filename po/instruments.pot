@@ -189,6 +189,7 @@ msgid "Reactable"
 msgstr ""
 
 #: DB:instrument/name:139
+msgctxt "Electric keyboard tuning fork idiophone"
 msgid "Rhodes piano"
 msgstr ""
 
@@ -885,6 +886,7 @@ msgid "caxixi"
 msgstr ""
 
 #: DB:instrument/name:129
+msgctxt "Struck metal plate keyboard instrument"
 msgid "celesta"
 msgstr ""
 
@@ -1040,6 +1042,7 @@ msgid "clavichord"
 msgstr ""
 
 #: DB:instrument/name:175
+msgctxt "Electro-mechanical amplified clavichord"
 msgid "clavinet"
 msgstr ""
 
@@ -1337,7 +1340,7 @@ msgid "dulcian"
 msgstr ""
 
 #: DB:instrument/name:841
-msgctxt "idiophone keyboard instrument with tuning forks"
+msgctxt "Acoustic keyboard tuning fork idiophone"
 msgid "dulcitone"
 msgstr ""
 

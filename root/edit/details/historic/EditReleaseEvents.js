@@ -46,9 +46,9 @@ type Props = {
   +edit: EditReleaseEventsEditT,
 };
 
-function buildEventComp(event): React.Element<'tr'> {
+function buildEventComp(event, key): React.Element<'tr'> {
   return (
-    <tr>
+    <tr key={key}>
       <td>
         {event.release
           ? <EntityLink entity={event.release} />
@@ -100,9 +100,9 @@ function buildEventComp(event): React.Element<'tr'> {
   );
 }
 
-function buildEvent(event): React.Element<'tr'> {
+function buildEvent(event, key): React.Element<'tr'> {
   return (
-    <tr>
+    <tr key={key}>
       <td>
         {event.release
           ? <EntityLink entity={event.release} />
@@ -147,7 +147,9 @@ const EditReleaseEvents = ({edit}: Props): React.Element<'table'> => (
           </tr>
         </thead>
         <tbody>
-          {edit.display_data.additions.map(buildEvent)}
+          {edit.display_data.additions.map(
+            (event, index) => buildEvent(event, 'additions' + index),
+          )}
         </tbody>
       </>
     ) : null}
@@ -159,7 +161,9 @@ const EditReleaseEvents = ({edit}: Props): React.Element<'table'> => (
           </tr>
         </thead>
         <tbody>
-          {edit.display_data.removals.map(buildEvent)}
+          {edit.display_data.removals.map(
+            (event, index) => buildEvent(event, 'removals' + index),
+          )}
         </tbody>
       </>
     ) : null}
@@ -171,7 +175,9 @@ const EditReleaseEvents = ({edit}: Props): React.Element<'table'> => (
           </tr>
         </thead>
         <tbody>
-          {edit.display_data.edits.map(buildEventComp)}
+          {edit.display_data.edits.map(
+            (event, index) => buildEventComp(event, 'edits' + index),
+          )}
         </tbody>
       </>
     ) : null}

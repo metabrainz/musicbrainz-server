@@ -3467,6 +3467,11 @@ msgid ""
 "Incidental music is music written as background for (usually) a theatre play."
 msgstr ""
 
+#: DB:area_type/name:9
+msgctxt "area_type"
+msgid "Indigenous territory / reserve"
+msgstr ""
+
 #: DB:place_type/name:5
 msgctxt "place_type"
 msgid "Indoor arena"
@@ -4422,6 +4427,11 @@ msgstr ""
 #: DB:medium_format/name:83
 msgctxt "medium_format"
 msgid "Microcassette"
+msgstr ""
+
+#: DB:area_type/name:8
+msgctxt "area_type"
+msgid "Military base"
 msgstr ""
 
 #: DB:medium_format/name:6
@@ -6935,6 +6945,21 @@ msgctxt "cover_art_type"
 msgid ""
 "Use for images that need work to be used for tagging (but can possibly "
 "already be used for reference)"
+msgstr ""
+
+#: DB:area_type/description:8
+msgctxt "area_type"
+msgid ""
+"Used for any military bases that are large enough to be considered an area, "
+"not just a place."
+msgstr ""
+
+#: DB:area_type/description:9
+msgctxt "area_type"
+msgid ""
+"Used for semi-autonomous territories governed by indigenous peoples, such as "
+"Indian reserves/reservations in North America and indigenous territories in "
+"Central and South America."
 msgstr ""
 
 #: DB:work_attribute_type/name:17

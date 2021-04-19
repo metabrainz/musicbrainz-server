@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-29 18:47+0000\n"
+"PO-Revision-Date: 2021-04-14 20:04+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -1636,6 +1636,11 @@ msgid ""
 "Highland Bagpipe fingering."
 msgstr ""
 
+#. name:dulcitone
+#: DB:instrument/description:841
+msgid "Like a piano, but here keyed hammers hit tuning forks."
+msgstr ""
+
 #. name:The Great Stalacpipe Organ
 #: DB:instrument/description:934
 msgid ""
@@ -2040,6 +2045,14 @@ msgid ""
 "in Brazilian music."
 msgstr ""
 
+#. name:clavinet
+#: DB:instrument/description:175
+msgid ""
+"Originally produced by Hohner from 1964 to 1982, it had keys with rubber-"
+"clad metal tines that tapped metal strings and two electric pickups. Its "
+"sound has been recreated in many modern synths."
+msgstr ""
+
 #. name:anvil
 #: DB:instrument/description:720
 msgid ""
@@ -2433,6 +2446,13 @@ msgstr ""
 msgid ""
 "Side drum, often with one or more snares, worn by one person and beaten by "
 "one hand, it is often combined with tabor pipes."
+msgstr ""
+
+#. name:celesta
+#: DB:instrument/description:129
+msgid ""
+"Similar to how a piano works, here keys operate hammers that strike metal "
+"plates, creating a soft bell sound."
 msgstr ""
 
 #. name:saron peking
@@ -5014,13 +5034,6 @@ msgid ""
 "name means coconut or acorn, while originally made of walnut, it is today of"
 " coconut and fish-skin or heart-membrane."
 msgstr "sus orígenes se remontan hacia casi unos 5000 años; este instrumento de cuerdas iraquí es el antecesor de varios instrumentos de todo el mundo. Su nombre significa coco o bellota; aunque en un principio estaba hecho de nogal, hoy en día es de coco y piel de pescado o membrana del corazón."
-
-#. name:dulcitone
-#: DB:instrument/description:841
-msgid ""
-"keyboard instrument where keyed hammers hit tuning forks - making this tuned"
-" percussion"
-msgstr ""
 
 #. name:hue puruhau
 #: DB:instrument/description:858

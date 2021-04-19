@@ -155,7 +155,6 @@ const ArtistRecordings = ({
       >
         <PaginatedResults pager={pager}>
           <RecordingList
-            $c={$c}
             checkboxes="add-to-merge"
             recordings={recordings}
             showRatings

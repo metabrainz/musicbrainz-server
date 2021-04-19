@@ -9,11 +9,11 @@
 # Raphaël Fery <email address hidden>, 2017
 # AO <email address hidden>, 2015
 # AO <email address hidden>, 2014-2015
-# yvanz, 2016-2020
+# yvanz, 2016-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-29 14:55+0000\n"
+"PO-Revision-Date: 2021-04-19 15:15+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -161,6 +161,11 @@ msgstr "Asturien"
 #: DB:language/name:28
 msgid "Athapascan languages"
 msgstr "Athapascanes, langues"
+
+#. frequency:1 iso_code_3:atj
+#: DB:language/name:866
+msgid "Atikamekw"
+msgstr "Atikamekw"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:29
@@ -2256,6 +2261,11 @@ msgstr "Sundanais"
 #: DB:language/name:400
 msgid "Susu"
 msgstr "Soussou"
+
+#. frequency:1 iso_code_3:sva
+#: DB:language/name:6216
+msgid "Svan"
+msgstr "Svane"
 
 #. frequency:1 iso_code_3:swa
 #: DB:language/name:402

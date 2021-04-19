@@ -7,6 +7,7 @@ use JSON;
 use Text::Markdown qw( markdown );
 use Text::Trim qw( trim );
 use URI;
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities );
 use aliased 'MusicBrainz::Server::Entity::CritiqueBrainz::Review';
@@ -63,7 +64,7 @@ sub _parse_review {
     return Review->new(
         id => $data->{id},
         created => DateTime->from_epoch(epoch => str2time($data->{created})),
-        body => markdown($data->{text}),
+        body => non_empty($data->{text}) ? markdown($data->{text}) : '',
         author => User->new(id => $data->{user}{id}, name => $data->{user}{display_name})
     );
 }

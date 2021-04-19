@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-25 13:42+0000\n"
+"PO-Revision-Date: 2021-04-14 20:05+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -200,6 +200,7 @@ msgid "Reactable"
 msgstr "Reactable"
 
 #: DB:instrument/name:139
+msgctxt "Electric keyboard tuning fork idiophone"
 msgid "Rhodes piano"
 msgstr "Rhodes-piano"
 
@@ -818,7 +819,7 @@ msgstr "bugarija"
 
 #: DB:instrument/name:36
 msgid "bugle"
-msgstr "natuurbugel"
+msgstr "klaroen"
 
 #: DB:instrument/name:762
 msgid "buisine"
@@ -896,6 +897,7 @@ msgid "caxixi"
 msgstr "caxixi"
 
 #: DB:instrument/name:129
+msgctxt "Struck metal plate keyboard instrument"
 msgid "celesta"
 msgstr "celesta"
 
@@ -1051,6 +1053,7 @@ msgid "clavichord"
 msgstr "klavichord"
 
 #: DB:instrument/name:175
+msgctxt "Electro-mechanical amplified clavichord"
 msgid "clavinet"
 msgstr "Een clavinet is een toetsinstrument dat behoort tot de snaarinstrumenten en is een soort elektrisch klavichord. (<a href=\"http://nl.wikipedia.org/wiki/Clavinet\">Wikipedia</a>)"
 
@@ -1348,7 +1351,7 @@ msgid "dulcian"
 msgstr "dulciaan"
 
 #: DB:instrument/name:841
-msgctxt "idiophone keyboard instrument with tuning forks"
+msgctxt "Acoustic keyboard tuning fork idiophone"
 msgid "dulcitone"
 msgstr "dulcitone"
 

@@ -46,7 +46,7 @@ const ReleaseLayout = ({
         <ReleaseHeader page={page} release={release} />
         {children}
       </div>
-      {fullWidth ? null : <ReleaseSidebar $c={$c} release={release} />}
+      {fullWidth ? null : <ReleaseSidebar release={release} />}
     </Layout>
   );
 };

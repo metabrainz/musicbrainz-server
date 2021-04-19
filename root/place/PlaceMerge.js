@@ -37,7 +37,6 @@ const PlaceMerge = ({
       </p>
       <form action={$c.req.uri} method="post">
         <PlaceList
-          $c={$c}
           mergeForm={form}
           places={sortByEntityName(toMerge)}
         />

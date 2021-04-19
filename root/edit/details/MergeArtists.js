@@ -22,22 +22,21 @@ type MergeArtistsEditT = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: MergeArtistsEditT,
 };
 
-const MergeArtists = ({$c, edit}: Props): React.Element<'table'> => (
+const MergeArtists = ({edit}: Props): React.Element<'table'> => (
   <table className="details merge-artists">
     <tr>
       <th>{l('Merge:')}</th>
       <td>
-        <ArtistList $c={$c} artists={edit.display_data.old} showBeginEnd />
+        <ArtistList artists={edit.display_data.old} showBeginEnd />
       </td>
     </tr>
     <tr>
       <th>{l('Into:')}</th>
       <td>
-        <ArtistList $c={$c} artists={[edit.display_data.new]} showBeginEnd />
+        <ArtistList artists={[edit.display_data.new]} showBeginEnd />
       </td>
     </tr>
     <tr className="rename-artist-credits">

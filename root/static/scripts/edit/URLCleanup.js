@@ -1102,15 +1102,54 @@ const CLEANUPS = {
     },
   },
   'classicalarchives': {
-    match: [new RegExp(
-      '^(https?://)?(www\\.)?classicalarchives\\.com/' +
-      '(album|artist|composer|ensemble|work)/',
-      'i',
-    )],
+    match: [
+      new RegExp(
+        '^(https?://)?(www\\.)?classicalarchives\\.com/' +
+        '(album|artist|composer|ensemble|work)/',
+        'i',
+      ),
+      new RegExp(
+        '^(https?://)?(www\\.)?classicalarchives\\.com/newca/#!/' +
+        '(Album|Composer|Performer|Work)/',
+        'i',
+      ),
+    ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, 'https://www.classicalarchives.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\//, 'https://www.classicalarchives.com/');
+      /*
+       * Both newca and "old-style" links work, old redirects to new
+       * unless requested otherwise. CA claimed they'll support both
+       * going forward, so mapping all to old-style for now.
+       * newca entities match except Performer, where the old type
+       * is determined by the first letter of the ID: ensemble (e)
+       * or artist (p)
+       * newca Album links are allowed since they can't be autoconverted
+       */
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Composer\/([^\/?#]+)/, '$1/composer/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Work\/([^\/?#]+)/, '$1/work/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/e([^\/?#]+)/, '$1/ensemble/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/p([^\/?#]+)/, '$1/artist/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Album\/([^\/?#]+)(?:.*)?$/, '$1/newca/#!/Album/$2');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, '$1/$2/$3');
       return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.classicalarchives\.com\/(?:newca\/#!\/)?([Aa]lbum|artist|composer|ensemble|work)\/([^\/?#]+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: ['artist', 'composer', 'ensemble'].includes(prefix),
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {result: prefix === 'album' || prefix === 'Album'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'work'};
+        }
+      }
+      return {result: false};
     },
   },
   'cpdl': {
@@ -1313,6 +1352,27 @@ const CLEANUPS = {
           case LINK_TYPES.discogs.work:
             return {result: prefix === 'composition'};
         }
+      }
+      return {result: false};
+    },
+  },
+  'dnb': {
+    match: [
+      new RegExp('^(https?://)?([^/]+\\.)?d-nb\\.info', 'i'),
+      new RegExp('^(https?://)?([^/]+\\.)?dnb\\.de', 'i'),
+    ],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D([\d-]+).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D([\d-]+).*$/, 'http://d-nb.info/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return {result: /^http:\/\/d-nb\.info\/gnd\/[\d-]+$/.test(url)};
+        case LINK_TYPES.otherdatabases.release:
+          return {result: /^http:\/\/d-nb\.info\/[\d-]+$/.test(url)};
       }
       return {result: false};
     },
@@ -2364,7 +2424,10 @@ const CLEANUPS = {
     type: LINK_TYPES.score,
   },
   'niconicovideo': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(nicovideo\\.jp/)', 'i')],
+    match: [new RegExp(
+      '^(https?://)?((?!commons)[^/]+\\.)?(nicovideo\\.jp/)',
+      'i',
+    )],
     type: {...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel},
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?ch\.nicovideo\.jp\/([^\/]+).*$/, 'https://ch.nicovideo.jp/$1');
@@ -2507,7 +2570,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?stage48\\.net/wiki/index.php', 'i'),
       new RegExp('^(https?://)?(www22\\.)?big\\.or\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?japanesemetal\\.gooside\\.com', 'i'),
-      new RegExp('^(https?://)?(www\\.)?d-nb\\.info', 'i'),
       new RegExp('^(https?://)?(www\\.)?tedcrane\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?thedancegypsy\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?bibliotekapiosenki\\.pl', 'i'),
@@ -3627,7 +3689,10 @@ const relationshipTypesByEntityType = Object.entries(LINK_TYPES).reduce(
   {},
 );
 
-// Avoid Wikipedia/Wikidata being added as release-level relationship
+/*
+ * Avoid Wikipedia/Wikidata being added as release-level relationship
+ * Disallow https://*.bandcamp.com/ URLs at release level
+ */
 for (const relUuid of relationshipTypesByEntityType.release) {
   const relRule = validationRules[relUuid];
   validationRules[relUuid] = function (url) {
@@ -3649,6 +3714,55 @@ for (const relUuid of relationshipTypesByEntityType.release) {
            so adding Wikidata links to a release is currently blocked.
            Please add this Wikidata link to the release group instead,
            if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+      return {
+        error: exp.l(
+          `This is a Bandcamp profile, not a page for a specific
+           release. Even if it shows this release right now,
+           that can change when the artist releases another.
+           Please find and add the appropriate release page
+           (“{album_url_pattern}” or “{single_url_pattern}”)
+           instead, and feel free to add this profile link
+           to the appropriate artist or label.`,
+          {
+            album_url_pattern: (
+              <span className="url-quote">{'/album'}</span>
+            ),
+            single_url_pattern: (
+              <span className="url-quote">{'/track'}</span>
+            ),
+          },
+        ),
+        result: false,
+      };
+    }
+    return relRule(url);
+  };
+}
+
+// Disallow https://*.bandcamp.com/ URLs at recording level
+for (const relUuid of relationshipTypesByEntityType.recording) {
+  const relRule = validationRules[relUuid];
+  validationRules[relUuid] = function (url) {
+    if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+      return {
+        error: exp.l(
+          `This is a Bandcamp profile, not a page for a specific
+           recording. Even if it shows a single recording right now,
+           that can change when the artist releases another.
+           Please find and add the appropriate recording page
+           (“{single_url_pattern}”)
+           instead, and feel free to add this profile link
+           to the appropriate artist or label.`,
+          {
+            single_url_pattern: (
+              <span className="url-quote">{'/track'}</span>
+            ),
+          },
         ),
         result: false,
       };

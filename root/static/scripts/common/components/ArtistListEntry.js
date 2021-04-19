@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../../context';
 import InstrumentRelTypes
   from '../../../../components/InstrumentRelTypes';
 import RemoveFromMergeTableCell
@@ -24,7 +25,6 @@ import DescriptiveLink from './DescriptiveLink';
 
 type ArtistListRowProps = {
   ...InstrumentCreditsAndRelTypesRoleT,
-  +$c: CatalystContextT,
   +artist: ArtistT,
   +artistList?: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
@@ -38,7 +38,6 @@ type ArtistListRowProps = {
 
 type ArtistListEntryProps = {
   ...InstrumentCreditsAndRelTypesRoleT,
-  +$c: CatalystContextT,
   +artist: ArtistT,
   +artistList?: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
@@ -52,7 +51,6 @@ type ArtistListEntryProps = {
 };
 
 const ArtistListRow = ({
-  $c,
   artist,
   artistList,
   checkboxes,
@@ -63,79 +61,82 @@ const ArtistListRow = ({
   showInstrumentCreditsAndRelTypes = false,
   showRatings = false,
   showSortName = false,
-}: ArtistListRowProps) => (
-  <>
-    {$c.user && (nonEmpty(checkboxes) || mergeForm) ? (
-      <td>
-        {mergeForm
-          ? renderMergeCheckboxElement(artist, mergeForm, index)
-          : (
-            <input
-              name={checkboxes}
-              type="checkbox"
-              value={artist.id}
-            />
-          )}
-      </td>
-    ) : null}
-    <td>
-      <DescriptiveLink entity={artist} />
-    </td>
-    {showSortName ? <td>{artist.sort_name}</td> : null}
-    <td>
-      {nonEmpty(artist.typeName)
-        ? lp_attributes(artist.typeName, 'artist_type')
-        : null}
-    </td>
-    <td>
-      {artist.gender
-        ? lp_attributes(artist.gender.name, 'gender')
-        : null}
-    </td>
-    <td>
-      {artist.area ? <DescriptiveLink entity={artist.area} /> : null}
-    </td>
-    {showBeginEnd ? (
-      <>
-        <td>{formatDate(artist.begin_date)}</td>
+}: ArtistListRowProps) => {
+  const $c = React.useContext(CatalystContext);
+
+  return (
+    <>
+      {$c.user && (nonEmpty(checkboxes) || mergeForm) ? (
         <td>
-          {artist.begin_area
-            ? <DescriptiveLink entity={artist.begin_area} />
-            : null}
+          {mergeForm
+            ? renderMergeCheckboxElement(artist, mergeForm, index)
+            : (
+              <input
+                name={checkboxes}
+                type="checkbox"
+                value={artist.id}
+              />
+            )}
         </td>
-        <td>{formatEndDate(artist)}</td>
-        <td>
-          {artist.end_area
-            ? <DescriptiveLink entity={artist.end_area} />
-            : null}
-        </td>
-      </>
-    ) : null}
-    {showRatings ? (
+      ) : null}
       <td>
-        <RatingStars entity={artist} />
+        <DescriptiveLink entity={artist} />
       </td>
-    ) : null}
-    {showInstrumentCreditsAndRelTypes ? (
+      {showSortName ? <td>{artist.sort_name}</td> : null}
       <td>
-        <InstrumentRelTypes
+        {nonEmpty(artist.typeName)
+          ? lp_attributes(artist.typeName, 'artist_type')
+          : null}
+      </td>
+      <td>
+        {artist.gender
+          ? lp_attributes(artist.gender.name, 'gender')
+          : null}
+      </td>
+      <td>
+        {artist.area ? <DescriptiveLink entity={artist.area} /> : null}
+      </td>
+      {showBeginEnd ? (
+        <>
+          <td>{formatDate(artist.begin_date)}</td>
+          <td>
+            {artist.begin_area
+              ? <DescriptiveLink entity={artist.begin_area} />
+              : null}
+          </td>
+          <td>{formatEndDate(artist)}</td>
+          <td>
+            {artist.end_area
+              ? <DescriptiveLink entity={artist.end_area} />
+              : null}
+          </td>
+        </>
+      ) : null}
+      {showRatings ? (
+        <td>
+          <RatingStars entity={artist} />
+        </td>
+      ) : null}
+      {showInstrumentCreditsAndRelTypes ? (
+        <td>
+          <InstrumentRelTypes
+            entity={artist}
+            instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+          />
+        </td>
+      ) : null}
+      {mergeForm && artistList ? (
+        <RemoveFromMergeTableCell
+          $c={$c}
           entity={artist}
-          instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+          toMerge={artistList}
         />
-      </td>
-    ) : null}
-    {mergeForm && artistList ? (
-      <RemoveFromMergeTableCell
-        $c={$c}
-        entity={artist}
-        toMerge={artistList}
-      />
-    ) : null}
-  </>
-);
+      ) : null}
+    </>
+  );
+};
 
 const ArtistListEntry = ({
-  $c,
   artist,
   artistList,
   checkboxes,
@@ -150,7 +151,6 @@ const ArtistListEntry = ({
 }: ArtistListEntryProps): React.Element<'tr'> => (
   <tr className={loopParity(index)} data-score={score ?? null}>
     <ArtistListRow
-      $c={$c}
       artist={artist}
       artistList={artistList}
       checkboxes={checkboxes}

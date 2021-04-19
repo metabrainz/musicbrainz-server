@@ -50,9 +50,7 @@ const RecordingLayout = ({
         <RecordingHeader page={page} recording={recording} />
         {children}
       </div>
-      {fullWidth
-        ? null
-        : <RecordingSidebar $c={$c} recording={recording} />}
+      {fullWidth ? null : <RecordingSidebar recording={recording} />}
     </Layout>
   );
 };

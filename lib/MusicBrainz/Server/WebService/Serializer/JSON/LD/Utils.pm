@@ -87,7 +87,8 @@ sub artwork {
              ($artwork->is_front ? (representativeOfPage => 'True') : ()),
              thumbnail => [
                  {'@type' => 'ImageObject', contentUrl => $artwork->small_thumbnail, encodingFormat => 'jpg'},
-                 {'@type' => 'ImageObject', contentUrl => $artwork->large_thumbnail, encodingFormat => 'jpg'}
+                 {'@type' => 'ImageObject', contentUrl => $artwork->large_thumbnail, encodingFormat => 'jpg'},
+                 {'@type' => 'ImageObject', contentUrl => $artwork->huge_thumbnail, encodingFormat => 'jpg'}
              ]
            };
 }

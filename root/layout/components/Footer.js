@@ -9,17 +9,15 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import {DONATE_URL} from '../../constants';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';
 import {returnToCurrentPage} from '../../utility/returnUri';
 
-type Props = {
-  +$c: CatalystContextT,
-};
-
-const Footer = ({$c}: Props): React.Element<'div'> => {
+const Footer = (): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const stash = $c.stash;
   return (
     <div id="footer">

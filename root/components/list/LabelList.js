@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import Table from '../Table';
 import formatLabelCode from '../../utility/formatLabelCode';
 import {
@@ -24,7 +25,6 @@ import {
 } from '../../utility/tableColumns';
 
 type Props = {
-  +$c: CatalystContextT,
   +checkboxes?: string,
   +labels: $ReadOnlyArray<LabelT>,
   +mergeForm?: MergeFormT,
@@ -34,7 +34,6 @@ type Props = {
 };
 
 const LabelList = ({
-  $c,
   checkboxes,
   labels,
   mergeForm,
@@ -42,6 +41,8 @@ const LabelList = ({
   showRatings = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
+  const $c = React.useContext(CatalystContext);
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)

@@ -38,7 +38,6 @@ const AreaLabels = ({
       >
         <PaginatedResults pager={pager}>
           <LabelList
-            $c={$c}
             checkboxes="add-to-merge"
             labels={labels}
             showRatings

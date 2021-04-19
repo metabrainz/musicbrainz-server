@@ -15,7 +15,6 @@ export type InlineResultsPropsT<T> = {
 };
 
 export type InlineResultsPropsWithContextT<T> = {
-  +$c: CatalystContextT,
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,

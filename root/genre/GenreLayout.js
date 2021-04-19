@@ -36,7 +36,7 @@ const GenreLayout = ({
       <GenreHeader genre={genre} page={page} />
       {children}
     </div>
-    {fullWidth ? null : <GenreSidebar $c={$c} genre={genre} />}
+    {fullWidth ? null : <GenreSidebar genre={genre} />}
   </Layout>
 );
 

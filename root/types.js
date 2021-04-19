@@ -147,6 +147,8 @@ declare type ArtworkT = {
   ...EditableRoleT,
   +comment: string,
   +filename: string | null,
+  +huge_ia_thumbnail: string,
+  +huge_thumbnail: string,
   +id: number,
   +image: string,
   +large_ia_thumbnail: string,
@@ -524,7 +526,7 @@ declare type EditT = {
   +editor_id: number,
   +expires_time: string,
   +historic_type: number | null,
-  +id: number,
+  +id: number | null, // id is missing in previews
   +is_loaded: boolean,
   +is_open: boolean,
   +preview?: boolean,
