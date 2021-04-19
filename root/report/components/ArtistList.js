@@ -10,8 +10,11 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import type {ReportArtistT} from '../types';
 
 type Props = {
@@ -19,42 +22,49 @@ type Props = {
   +pager: PagerT,
 };
 
-const ArtistList = ({
+const ArtistReportList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Artist')}</th>
-          <th>{l('Type')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.artist_id}>
-            {item.artist ? (
-              <>
-                <td>
-                  <EntityLink entity={item.artist} />
-                </td>
-                <td>
-                  {nonEmpty(item.artist.typeName)
-                    ? lp_attributes(item.artist.typeName, 'artist_type')
-                    : l('Unknown')}
-                </td>
-              </>
-            ) : (
-              <td colSpan="2">
-                {l('This artist no longer exists.')}
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingArtistItems = items.reduce((result, item) => {
+    if (item.artist != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
 
-export default ArtistList;
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportArtistT>({
+        columnName: 'artist',
+        getEntity: result => result.artist ?? null,
+        title: l('Artist'),
+      });
+      const typeColumn = defineTextColumn<ReportArtistT>({
+        columnName: 'type',
+        getText: result => {
+          const typeName = result.artist?.typeName;
+          return (nonEmpty(typeName)
+            ? lp_attributes(typeName, 'artist_type')
+            : l('Unknown')
+          );
+        },
+        title: l('Type'),
+      });
+
+      return [
+        nameColumn,
+        typeColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingArtistItems} />
+    </PaginatedResults>
+  );
+};
+
+export default ArtistReportList;
