@@ -10,8 +10,10 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+} from '../../utility/tableColumns';
 import type {ReportLabelT} from '../types';
 
 type Props = {
@@ -22,29 +24,34 @@ type Props = {
 const LabelList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Label')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.label_id}>
-            <td>
-              {item.label ? (
-                <EntityLink entity={item.label} />
-              ) : (
-                l('This label no longer exists.')
-              )}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingLabelItems = items.reduce((result, item) => {
+    if (item.label != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportLabelT>({
+        columnName: 'label',
+        getEntity: result => result.label ?? null,
+        title: l('Label'),
+      });
+
+      return [
+        nameColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingLabelItems} />
+    </PaginatedResults>
+  );
+};
 
 export default LabelList;
