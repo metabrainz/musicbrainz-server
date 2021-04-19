@@ -10,8 +10,12 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  defineTextHtmlColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import type {ReportSeriesAnnotationT} from '../types';
 
 type Props = {
@@ -22,35 +26,47 @@ type Props = {
 const SeriesAnnotationList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Series')}</th>
-          <th>{l('Annotation')}</th>
-          <th style={{width: '10em'}}>{l('Last edited')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.series_id}>
-            {item.series ? (
-              <td>
-                <EntityLink entity={item.series} />
-              </td>
-            ) : (
-              <td>
-                {l('This series no longer exists.')}
-              </td>
-            )}
-            <td dangerouslySetInnerHTML={{__html: item.text}} />
-            <td>{item.created}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingSeriesItems = items.reduce((result, item) => {
+    if (item.series != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportSeriesAnnotationT>({
+        columnName: 'series',
+        getEntity: result => result.series ?? null,
+        title: l('Series'),
+      });
+      const annotationColumn = defineTextHtmlColumn<ReportSeriesAnnotationT>({
+        columnName: 'annotation',
+        getText: result => result.text,
+        title: l('Annotation'),
+      });
+      const editedColumn = defineTextColumn<ReportSeriesAnnotationT>({
+        columnName: 'created',
+        getText: result => result.created,
+        headerProps: {className: 'last-edited-heading'},
+        title: l('Last edited'),
+      });
+
+      return [
+        nameColumn,
+        annotationColumn,
+        editedColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingSeriesItems} />
+    </PaginatedResults>
+  );
+};
 
 export default SeriesAnnotationList;
