@@ -7,6 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+export type ReportRelationshipRoleT = {
+  +link_gid: string,
+  +link_name: string,
+};
 
 export type ReportArtistAnnotationT = {
   +artist: ?ArtistT,
@@ -24,10 +28,9 @@ export type ReportArtistCreditT = {
 };
 
 export type ReportArtistRelationshipT = {
+  ...ReportRelationshipRoleT,
   +artist: ?ArtistT,
   +artist_id: number,
-  +link_gid: string,
-  +link_name: string,
   +row_number: number,
 };
 
@@ -128,10 +131,9 @@ export type ReportLabelAnnotationT = {
 };
 
 export type ReportLabelRelationshipT = {
+  ...ReportRelationshipRoleT,
   +label: ?LabelT,
   +label_id: number,
-  +link_gid: string,
-  +link_name: string,
   +row_number: number,
 };
 
@@ -157,8 +159,7 @@ export type ReportPlaceAnnotationT = {
 };
 
 export type ReportPlaceRelationshipT = {
-  +link_gid: string,
-  +link_name: string,
+  ...ReportRelationshipRoleT,
   +place: ?PlaceT,
   +place_id: number,
   +row_number: number,
@@ -173,10 +174,9 @@ export type ReportRecordingAnnotationT = {
 };
 
 export type ReportRecordingRelationshipT = {
+  ...ReportRelationshipRoleT,
   +begin?: number,
   +end?: number,
-  +link_gid: string,
-  +link_name: string,
   +recording: ?RecordingWithArtistCreditT,
   +recording_id: number,
   +row_number: number,
@@ -219,8 +219,7 @@ export type ReportReleaseGroupAnnotationT = {
 };
 
 export type ReportReleaseGroupRelationshipT = {
-  +link_gid: string,
-  +link_name: string,
+  ...ReportRelationshipRoleT,
   +release_group: ?ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,
@@ -249,8 +248,7 @@ export type ReportReleaseLabelT = {
 };
 
 export type ReportReleaseRelationshipT = {
-  +link_gid: string,
-  +link_name: string,
+  ...ReportRelationshipRoleT,
   +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
@@ -286,8 +284,7 @@ export type ReportSeriesAnnotationT = {
 };
 
 export type ReportUrlRelationshipT = {
-  +link_gid: string,
-  +link_name: string,
+  ...ReportRelationshipRoleT,
   +row_number: number,
   +url: ?UrlT,
   +url_id: number,
@@ -302,8 +299,7 @@ export type ReportWorkAnnotationT = {
 };
 
 export type ReportWorkRelationshipT = {
-  +link_gid: string,
-  +link_name: string,
+  ...ReportRelationshipRoleT,
   +row_number: number,
   +work: ?WorkT,
   +work_id: number,

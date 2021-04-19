@@ -10,8 +10,11 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  relTypeColumn,
+} from '../../utility/tableColumns';
 import type {ReportWorkRelationshipT} from '../types';
 
 type Props = {
@@ -22,35 +25,35 @@ type Props = {
 const WorkRelationshipList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Relationship Type')}</th>
-          <th>{l('Work')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.work_id}>
-            <td>
-              <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
-                {l_relationships(item.link_name)}
-              </a>
-            </td>
-            <td>
-              {item.work ? (
-                <EntityLink entity={item.work} />
-              ) : (
-                l('This work no longer exists.')
-              )}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingWorkItems = items.reduce((result, item) => {
+    if (item.work != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportWorkRelationshipT>({
+        columnName: 'work',
+        getEntity: result => result.work ?? null,
+        title: l('Work'),
+      });
+
+      return [
+        relTypeColumn,
+        nameColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingWorkItems} />
+    </PaginatedResults>
+  );
+};
 
 export default WorkRelationshipList;

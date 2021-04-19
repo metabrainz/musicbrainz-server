@@ -47,6 +47,7 @@ import renderMergeCheckboxElement
   from '../static/scripts/common/utility/renderMergeCheckboxElement';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import yesNo from '../static/scripts/common/utility/yesNo';
+import type {ReportRelationshipRoleT} from '../report/types';
 
 import {returnToCurrentPage} from './returnUri';
 
@@ -755,6 +756,17 @@ export const releaseLanguageColumn:
     Cell: ({row: {original}}) => <ReleaseLanguageScript release={original} />,
     Header: N_l('Language'),
     id: 'release_language',
+  };
+
+export const relTypeColumn:
+  ColumnOptions<$ReadOnly<{...ReportRelationshipRoleT, ...}>, void> = {
+    Cell: ({row: {original}}) => (
+      <a href={'/relationship/' + encodeURIComponent(original.link_gid)}>
+        {l_relationships(original.link_name)}
+      </a>
+    ),
+    Header: N_l('Relationship Type'),
+    id: 'relationship_type',
   };
 
 export const seriesOrderingTypeColumn:
