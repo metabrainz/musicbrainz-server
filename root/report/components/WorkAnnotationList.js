@@ -10,8 +10,12 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  defineTextHtmlColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import type {ReportWorkAnnotationT} from '../types';
 
 type Props = {
@@ -22,35 +26,47 @@ type Props = {
 const WorkAnnotationList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Work')}</th>
-          <th>{l('Annotation')}</th>
-          <th style={{width: '10em'}}>{l('Last edited')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.work_id}>
-            {item.work ? (
-              <td>
-                <EntityLink entity={item.work} />
-              </td>
-            ) : (
-              <td>
-                {l('This work no longer exists.')}
-              </td>
-            )}
-            <td dangerouslySetInnerHTML={{__html: item.text}} />
-            <td>{item.created}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingWorkItems = items.reduce((result, item) => {
+    if (item.work != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<ReportWorkAnnotationT>({
+        columnName: 'work',
+        getEntity: result => result.work ?? null,
+        title: l('Work'),
+      });
+      const annotationColumn = defineTextHtmlColumn<ReportWorkAnnotationT>({
+        columnName: 'annotation',
+        getText: result => result.text,
+        title: l('Annotation'),
+      });
+      const editedColumn = defineTextColumn<ReportWorkAnnotationT>({
+        columnName: 'created',
+        getText: result => result.created,
+        headerProps: {className: 'last-edited-heading'},
+        title: l('Last edited'),
+      });
+
+      return [
+        nameColumn,
+        annotationColumn,
+        editedColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingWorkItems} />
+    </PaginatedResults>
+  );
+};
 
 export default WorkAnnotationList;
