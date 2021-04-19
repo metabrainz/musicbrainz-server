@@ -10,11 +10,14 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineArtistCreditColumn,
+  defineEntityColumn,
+  defineTextHtmlColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import type {ReportReleaseAnnotationT} from '../types';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
 
 type Props = {
   +items: $ReadOnlyArray<ReportReleaseAnnotationT>,
@@ -24,43 +27,56 @@ type Props = {
 const ReleaseAnnotationList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Release')}</th>
-          <th>{l('Artist')}</th>
-          <th>{l('Annotation')}</th>
-          <th style={{width: '10em'}}>{l('Last edited')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.release_id}>
-            {item.release ? (
-              <>
-                <td>
-                  <EntityLink entity={item.release} />
-                </td>
-                <td>
-                  <ArtistCreditLink
-                    artistCredit={item.release.artistCredit}
-                  />
-                </td>
-              </>
-            ) : (
-              <td colSpan="2">
-                {l('This release no longer exists.')}
-              </td>
-            )}
-            <td dangerouslySetInnerHTML={{__html: item.text}} />
-            <td>{item.created}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingReleaseItems = items.reduce((result, item) => {
+    if (item.release != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const releaseColumn = defineEntityColumn<ReportReleaseAnnotationT>({
+        columnName: 'release',
+        descriptive: false,
+        getEntity: result => result.release ?? null,
+        title: l('Release'),
+      });
+      const artistCreditColumn =
+        defineArtistCreditColumn<ReportReleaseAnnotationT>({
+          columnName: 'artist',
+          getArtistCredit: result => result.release?.artistCredit ?? null,
+          title: l('Artist'),
+        });
+      const annotationColumn =
+        defineTextHtmlColumn<ReportReleaseAnnotationT>({
+          columnName: 'annotation',
+          getText: result => result.text,
+          title: l('Annotation'),
+        });
+      const editedColumn = defineTextColumn<ReportReleaseAnnotationT>({
+        columnName: 'created',
+        getText: result => result.created,
+        headerProps: {className: 'last-edited-heading'},
+        title: l('Last edited'),
+      });
+
+      return [
+        releaseColumn,
+        artistCreditColumn,
+        annotationColumn,
+        editedColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingReleaseItems} />
+    </PaginatedResults>
+  );
+};
 
 export default ReleaseAnnotationList;
