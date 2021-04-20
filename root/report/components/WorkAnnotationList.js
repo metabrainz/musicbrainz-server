@@ -14,9 +14,9 @@ import Table from '../../components/Table';
 import {
   defineArtistRolesColumn,
   defineEntityColumn,
-  defineTextHtmlColumn,
   defineTextColumn,
 } from '../../utility/tableColumns';
+import useAnnotationColumns from '../hooks/useAnnotationColumns';
 import type {ReportWorkAnnotationT} from '../types';
 
 type Props = {
@@ -34,6 +34,7 @@ const WorkAnnotationList = ({
     }
     return result;
   }, []);
+  const annotationColumns = useAnnotationColumns();
 
   const columns = React.useMemo(
     () => {
@@ -58,27 +59,15 @@ const WorkAnnotationList = ({
         },
         title: l('Type'),
       });
-      const annotationColumn = defineTextHtmlColumn<ReportWorkAnnotationT>({
-        columnName: 'annotation',
-        getText: result => result.text,
-        title: l('Annotation'),
-      });
-      const editedColumn = defineTextColumn<ReportWorkAnnotationT>({
-        columnName: 'created',
-        getText: result => result.created,
-        headerProps: {className: 'last-edited-heading'},
-        title: l('Last edited'),
-      });
 
       return [
         nameColumn,
         writersColumn,
         typeColumn,
-        annotationColumn,
-        editedColumn,
+        ...annotationColumns,
       ];
     },
-    [],
+    [annotationColumns],
   );
 
   return (

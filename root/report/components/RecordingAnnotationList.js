@@ -14,9 +14,8 @@ import Table from '../../components/Table';
 import {
   defineArtistCreditColumn,
   defineEntityColumn,
-  defineTextColumn,
-  defineTextHtmlColumn,
 } from '../../utility/tableColumns';
+import useAnnotationColumns from '../hooks/useAnnotationColumns';
 import type {ReportRecordingAnnotationT} from '../types';
 
 type Props = {
@@ -34,6 +33,7 @@ const RecordingAnnotationList = ({
     }
     return result;
   }, []);
+  const annotationColumns = useAnnotationColumns();
 
   const columns = React.useMemo(
     () => {
@@ -49,27 +49,14 @@ const RecordingAnnotationList = ({
           getArtistCredit: result => result.recording?.artistCredit ?? null,
           title: l('Artist'),
         });
-      const annotationColumn =
-        defineTextHtmlColumn<ReportRecordingAnnotationT>({
-          columnName: 'annotation',
-          getText: result => result.text,
-          title: l('Annotation'),
-        });
-      const editedColumn = defineTextColumn<ReportRecordingAnnotationT>({
-        columnName: 'created',
-        getText: result => result.created,
-        headerProps: {className: 'last-edited-heading'},
-        title: l('Last edited'),
-      });
 
       return [
         recordingColumn,
         artistCreditColumn,
-        annotationColumn,
-        editedColumn,
+        ...annotationColumns,
       ];
     },
-    [],
+    [annotationColumns],
   );
 
   return (

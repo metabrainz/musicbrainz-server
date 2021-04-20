@@ -13,9 +13,8 @@ import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
 import {
   defineEntityColumn,
-  defineTextHtmlColumn,
-  defineTextColumn,
 } from '../../utility/tableColumns';
+import useAnnotationColumns from '../hooks/useAnnotationColumns';
 import type {ReportLabelAnnotationT} from '../types';
 
 type Props = {
@@ -33,6 +32,7 @@ const LabelAnnotationList = ({
     }
     return result;
   }, []);
+  const annotationColumns = useAnnotationColumns();
 
   const columns = React.useMemo(
     () => {
@@ -41,25 +41,13 @@ const LabelAnnotationList = ({
         getEntity: result => result.label ?? null,
         title: l('Label'),
       });
-      const annotationColumn = defineTextHtmlColumn<ReportLabelAnnotationT>({
-        columnName: 'annotation',
-        getText: result => result.text,
-        title: l('Annotation'),
-      });
-      const editedColumn = defineTextColumn<ReportLabelAnnotationT>({
-        columnName: 'created',
-        getText: result => result.created,
-        headerProps: {className: 'last-edited-heading'},
-        title: l('Last edited'),
-      });
 
       return [
         nameColumn,
-        annotationColumn,
-        editedColumn,
+        ...annotationColumns,
       ];
     },
-    [],
+    [annotationColumns],
   );
 
   return (

@@ -7,17 +7,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+export type ReportAnnotationRoleT = {
+  +created: string,
+  +text: string,
+};
+
 export type ReportRelationshipRoleT = {
   +link_gid: string,
   +link_name: string,
 };
 
 export type ReportArtistAnnotationT = {
+  ...ReportAnnotationRoleT,
   +artist: ?ArtistT,
   +artist_id: number,
-  +created: string,
   +row_number: number,
-  +text: string,
 };
 
 export type ReportArtistCreditT = {
@@ -123,11 +127,10 @@ export type ReportIswcT = {
 };
 
 export type ReportLabelAnnotationT = {
-  +created: string,
+  ...ReportAnnotationRoleT,
   +label: ?LabelT,
   +label_id: number,
   +row_number: number,
-  +text: string,
 };
 
 export type ReportLabelRelationshipT = {
@@ -151,11 +154,10 @@ export type ReportLabelUrlT = {
 };
 
 export type ReportPlaceAnnotationT = {
-  +created: string,
+  ...ReportAnnotationRoleT,
   +place: ?PlaceT,
   +place_id: number,
   +row_number: number,
-  +text: string,
 };
 
 export type ReportPlaceRelationshipT = {
@@ -166,11 +168,10 @@ export type ReportPlaceRelationshipT = {
 };
 
 export type ReportRecordingAnnotationT = {
-  +created: string,
+  ...ReportAnnotationRoleT,
   +recording: ?RecordingWithArtistCreditT,
   +recording_id: number,
   +row_number: number,
-  +text: string,
 };
 
 export type ReportRecordingRelationshipT = {
@@ -196,11 +197,10 @@ export type ReportRecordingTrackT = {
 };
 
 export type ReportReleaseAnnotationT = {
-  +created: string,
+  ...ReportAnnotationRoleT,
   +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
-  +text: string,
 };
 
 export type ReportReleaseCatNoT = {
@@ -211,11 +211,10 @@ export type ReportReleaseCatNoT = {
 };
 
 export type ReportReleaseGroupAnnotationT = {
-  +created: string,
+  ...ReportAnnotationRoleT,
   +release_group: ?ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,
-  +text: string,
 };
 
 export type ReportReleaseGroupRelationshipT = {
@@ -275,11 +274,10 @@ export type ReportReleaseUrlT = {
 };
 
 export type ReportSeriesAnnotationT = {
-  +created: string,
+  ...ReportAnnotationRoleT,
   +row_number: number,
   +series: ?SeriesT,
   +series_id: number,
-  +text: string,
 };
 
 export type ReportUrlRelationshipT = {
@@ -290,9 +288,8 @@ export type ReportUrlRelationshipT = {
 };
 
 export type ReportWorkAnnotationT = {
-  +created: string,
+  ...ReportAnnotationRoleT,
   +row_number: number,
-  +text: string,
   +work: ?WorkT,
   +work_id: number,
 };

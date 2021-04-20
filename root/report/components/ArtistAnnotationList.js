@@ -13,9 +13,9 @@ import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
 import {
   defineEntityColumn,
-  defineTextHtmlColumn,
   defineTextColumn,
 } from '../../utility/tableColumns';
+import useAnnotationColumns from '../hooks/useAnnotationColumns';
 import type {ReportArtistAnnotationT} from '../types';
 
 type Props = {
@@ -33,6 +33,7 @@ const ArtistAnnotationList = ({
     }
     return result;
   }, []);
+  const annotationColumns = useAnnotationColumns();
 
   const columns = React.useMemo(
     () => {
@@ -52,26 +53,14 @@ const ArtistAnnotationList = ({
         },
         title: l('Type'),
       });
-      const annotationColumn = defineTextHtmlColumn<ReportArtistAnnotationT>({
-        columnName: 'annotation',
-        getText: result => result.text,
-        title: l('Annotation'),
-      });
-      const editedColumn = defineTextColumn<ReportArtistAnnotationT>({
-        columnName: 'created',
-        getText: result => result.created,
-        headerProps: {className: 'last-edited-heading'},
-        title: l('Last edited'),
-      });
 
       return [
         nameColumn,
         typeColumn,
-        annotationColumn,
-        editedColumn,
+        ...annotationColumns,
       ];
     },
-    [],
+    [annotationColumns],
   );
 
   return (

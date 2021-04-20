@@ -15,8 +15,8 @@ import {
   defineArtistCreditColumn,
   defineEntityColumn,
   defineTextColumn,
-  defineTextHtmlColumn,
 } from '../../utility/tableColumns';
+import useAnnotationColumns from '../hooks/useAnnotationColumns';
 import type {ReportReleaseGroupAnnotationT} from '../types';
 
 type Props = {
@@ -34,6 +34,7 @@ const ReleaseGroupAnnotationList = ({
     }
     return result;
   }, []);
+  const annotationColumns = useAnnotationColumns();
 
   const columns = React.useMemo(
     () => {
@@ -59,28 +60,15 @@ const ReleaseGroupAnnotationList = ({
         },
         title: l('Type'),
       });
-      const annotationColumn =
-        defineTextHtmlColumn<ReportReleaseGroupAnnotationT>({
-          columnName: 'annotation',
-          getText: result => result.text,
-          title: l('Annotation'),
-        });
-      const editedColumn = defineTextColumn<ReportReleaseGroupAnnotationT>({
-        columnName: 'created',
-        getText: result => result.created,
-        headerProps: {className: 'last-edited-heading'},
-        title: l('Last edited'),
-      });
 
       return [
         releaseGroupColumn,
         artistCreditColumn,
         typeColumn,
-        annotationColumn,
-        editedColumn,
+        ...annotationColumns,
       ];
     },
-    [],
+    [annotationColumns],
   );
 
   return (
