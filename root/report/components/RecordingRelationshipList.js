@@ -10,16 +10,18 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineArtistCreditColumn,
+  defineEntityColumn,
+  defineTextColumn,
+  relTypeColumn,
+} from '../../utility/tableColumns';
 import type {ReportRecordingRelationshipT} from '../types';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
 
 type Props = {
   +items: $ReadOnlyArray<ReportRecordingRelationshipT>,
   +pager: PagerT,
-  +showArtist?: boolean,
   +showDates?: boolean,
 };
 
@@ -27,66 +29,62 @@ const RecordingRelationshipList = ({
   items,
   pager,
   showDates = false,
-  showArtist = false,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          {showDates ? (
-            <>
-              <th>{l('Begin date')}</th>
-              <th>{l('End date')}</th>
-            </>
-          ) : null}
-          <th>{l('Relationship Type')}</th>
-          {showArtist ? (
-            <th>{l('Artist')}</th>
-          ) : null}
-          <th>{l('Recording')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.recording_id}>
-            {showDates ? (
-              <>
-                <td>
-                  {item.begin}
-                </td>
-                <td>
-                  {item.end}
-                </td>
-              </>
-            ) : null}
-            <td>
-              <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
-                {l_relationships(item.link_name)}
-              </a>
-            </td>
-            {item.recording ? (
-              <>
-                {showArtist ? (
-                  <td>
-                    <ArtistCreditLink
-                      artistCredit={item.recording.artistCredit}
-                    />
-                  </td>
-                ) : null}
-                <td>
-                  <EntityLink entity={item.recording} />
-                </td>
-              </>
-            ) : (
-              <td colSpan="2">
-                {l('This recording no longer exists.')}
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingRecordingItems = items.reduce((result, item) => {
+    if (item.recording != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const beginDateColumn = showDates
+        ? (
+          defineTextColumn<ReportRecordingRelationshipT>({
+            columnName: 'begin_date',
+            getText: result => result.begin?.toString() ?? '',
+            title: l('Begin date'),
+          })
+        ) : null;
+      const endDateColumn = showDates
+        ? (
+          defineTextColumn<ReportRecordingRelationshipT>({
+            columnName: 'end_date',
+            getText: result => result.end?.toString() ?? '',
+            title: l('End date'),
+          })
+        ) : null;
+      const recordingColumn =
+        defineEntityColumn<ReportRecordingRelationshipT>({
+          columnName: 'recording',
+          descriptive: false,
+          getEntity: result => result.recording ?? null,
+          title: l('Recording'),
+        });
+      const artistCreditColumn =
+        defineArtistCreditColumn<ReportRecordingRelationshipT>({
+          columnName: 'artist',
+          getArtistCredit: result => result.recording?.artistCredit ?? null,
+          title: l('Artist'),
+        });
+
+      return [
+        ...(beginDateColumn ? [beginDateColumn] : []),
+        ...(endDateColumn ? [endDateColumn] : []),
+        relTypeColumn,
+        recordingColumn,
+        artistCreditColumn,
+      ];
+    },
+    [showDates],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingRecordingItems} />
+    </PaginatedResults>
+  );
+};
 
 export default RecordingRelationshipList;

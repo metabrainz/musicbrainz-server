@@ -34,7 +34,7 @@ React.Element<typeof ReportLayout> => (
     title={l('Recordings with deprecated relationships')}
     totalEntries={pager.total_entries}
   >
-    <RecordingRelationshipList items={items} pager={pager} showArtist />
+    <RecordingRelationshipList items={items} pager={pager} />
   </ReportLayout>
 );
 
