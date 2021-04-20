@@ -10,11 +10,12 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineArtistCreditColumn,
+  defineEntityColumn,
+} from '../../utility/tableColumns';
 import type {ReportRecordingT} from '../types';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
 
 type Props = {
   +items: $ReadOnlyArray<ReportRecordingT>,
@@ -24,39 +25,42 @@ type Props = {
 const RecordingList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Artist')}</th>
-          <th>{l('Recording')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.recording_id}>
-            {item.recording ? (
-              <>
-                <td>
-                  <ArtistCreditLink
-                    artistCredit={item.recording.artistCredit}
-                  />
-                </td>
-                <td>
-                  <EntityLink entity={item.recording} />
-                </td>
-              </>
-            ) : (
-              <td colSpan="2">
-                {l('This recording no longer exists.')}
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingRecordingItems = items.reduce((result, item) => {
+    if (item.recording != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const recordingColumn = defineEntityColumn<ReportRecordingT>({
+        columnName: 'recording',
+        descriptive: false,
+        getEntity: result => result.recording ?? null,
+        title: l('Recording'),
+      });
+      const artistCreditColumn =
+        defineArtistCreditColumn<ReportRecordingT>({
+          columnName: 'artist',
+          getArtistCredit: result => result.recording?.artistCredit ?? null,
+          title: l('Artist'),
+        });
+
+      return [
+        recordingColumn,
+        artistCreditColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingRecordingItems} />
+    </PaginatedResults>
+  );
+};
 
 export default RecordingList;
