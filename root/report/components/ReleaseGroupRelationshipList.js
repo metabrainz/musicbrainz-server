@@ -10,11 +10,14 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineArtistCreditColumn,
+  defineEntityColumn,
+  defineTextColumn,
+  relTypeColumn,
+} from '../../utility/tableColumns';
 import type {ReportReleaseGroupRelationshipT} from '../types';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
 
 type Props = {
   +items: $ReadOnlyArray<ReportReleaseGroupRelationshipT>,
@@ -24,51 +27,54 @@ type Props = {
 const ReleaseGroupRelationshipList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Relationship Type')}</th>
-          <th>{l('Artist')}</th>
-          <th>{l('Release Group')}</th>
-          <th>{l('Type')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.release_group_id}>
-            <td>
-              <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
-                {l_relationships(item.link_name)}
-              </a>
-            </td>
-            {item.release_group ? (
-              <>
-                <td>
-                  <ArtistCreditLink
-                    artistCredit={item.release_group.artistCredit}
-                  />
-                </td>
-                <td>
-                  <EntityLink entity={item.release_group} />
-                </td>
-                <td>
-                  {nonEmpty(item.release_group.l_type_name)
-                    ? item.release_group.l_type_name
-                    : l('Unknown')}
-                </td>
-              </>
-            ) : (
-              <td colSpan="3">
-                {l('This release group no longer exists.')}
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingReleaseGroupItems = items.reduce((result, item) => {
+    if (item.release_group != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const releaseGroupColumn =
+        defineEntityColumn<ReportReleaseGroupRelationshipT>({
+          columnName: 'release_group',
+          descriptive: false,
+          getEntity: result => result.release_group ?? null,
+          title: l('Release Group'),
+        });
+      const artistCreditColumn =
+        defineArtistCreditColumn<ReportReleaseGroupRelationshipT>({
+          columnName: 'artist',
+          getArtistCredit:
+            result => result.release_group?.artistCredit ?? null,
+          title: l('Artist'),
+        });
+      const typeColumn = defineTextColumn<ReportReleaseGroupRelationshipT>({
+        columnName: 'type',
+        getText: result => {
+          const typeName = result.release_group?.l_type_name;
+          return nonEmpty(typeName) ? typeName : l('Unknown');
+        },
+        title: l('Type'),
+      });
+
+      return [
+        relTypeColumn,
+        releaseGroupColumn,
+        artistCreditColumn,
+        typeColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingReleaseGroupItems} />
+    </PaginatedResults>
+  );
+};
 
 export default ReleaseGroupRelationshipList;
