@@ -10,11 +10,14 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
+import Table from '../../components/Table';
+import {
+  defineArtistCreditColumn,
+  defineEntityColumn,
+  defineTextColumn,
+  defineTextHtmlColumn,
+} from '../../utility/tableColumns';
 import type {ReportRecordingAnnotationT} from '../types';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
 
 type Props = {
   +items: $ReadOnlyArray<ReportRecordingAnnotationT>,
@@ -24,43 +27,56 @@ type Props = {
 const RecordingAnnotationList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Artist')}</th>
-          <th>{l('Recording')}</th>
-          <th>{l('Annotation')}</th>
-          <th style={{width: '10em'}}>{l('Last edited')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.recording_id}>
-            {item.recording ? (
-              <>
-                <td>
-                  <ArtistCreditLink
-                    artistCredit={item.recording.artistCredit}
-                  />
-                </td>
-                <td>
-                  <EntityLink entity={item.recording} />
-                </td>
-              </>
-            ) : (
-              <td colSpan="2">
-                {l('This recording no longer exists.')}
-              </td>
-            )}
-            <td dangerouslySetInnerHTML={{__html: item.text}} />
-            <td>{item.created}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingRecordingItems = items.reduce((result, item) => {
+    if (item.recording != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const recordingColumn = defineEntityColumn<ReportRecordingAnnotationT>({
+        columnName: 'recording',
+        descriptive: false,
+        getEntity: result => result.recording ?? null,
+        title: l('Recording'),
+      });
+      const artistCreditColumn =
+        defineArtistCreditColumn<ReportRecordingAnnotationT>({
+          columnName: 'artist',
+          getArtistCredit: result => result.recording?.artistCredit ?? null,
+          title: l('Artist'),
+        });
+      const annotationColumn =
+        defineTextHtmlColumn<ReportRecordingAnnotationT>({
+          columnName: 'annotation',
+          getText: result => result.text,
+          title: l('Annotation'),
+        });
+      const editedColumn = defineTextColumn<ReportRecordingAnnotationT>({
+        columnName: 'created',
+        getText: result => result.created,
+        headerProps: {className: 'last-edited-heading'},
+        title: l('Last edited'),
+      });
+
+      return [
+        recordingColumn,
+        artistCreditColumn,
+        annotationColumn,
+        editedColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingRecordingItems} />
+    </PaginatedResults>
+  );
+};
 
 export default RecordingAnnotationList;
