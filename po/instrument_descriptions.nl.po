@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-14 20:04+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-04-21 07:44+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1625,7 +1625,7 @@ msgstr "Scottisch smallpipes lijken op (en zijn afgeleid van) de Northumbrian sm
 #. name:dulcitone
 #: DB:instrument/description:841
 msgid "Like a piano, but here keyed hammers hit tuning forks."
-msgstr ""
+msgstr "De dulcitone lijkt op een piano, maar bij dit instrument worden stemvorken door vilten hamertjes aangeslagen."
 
 #. name:The Great Stalacpipe Organ
 #: DB:instrument/description:934
@@ -2037,7 +2037,7 @@ msgid ""
 "Originally produced by Hohner from 1964 to 1982, it had keys with rubber-"
 "clad metal tines that tapped metal strings and two electric pickups. Its "
 "sound has been recreated in many modern synths."
-msgstr ""
+msgstr "De clavinet werd tussen 1964 en 1982 door Horner geproduceerd. De toetsen hebben met rubber bekleedde metalen hamers die metalen snaren aanslaan en twee elektrische opnemers. Veel moderne synthesizers kunnen het geluid van de clavinet nabootsen."
 
 #. name:anvil
 #: DB:instrument/description:720
@@ -2439,7 +2439,7 @@ msgstr "Een tabor is een trommel met een of twee snaren die met één hand wordt
 msgid ""
 "Similar to how a piano works, here keys operate hammers that strike metal "
 "plates, creating a soft bell sound."
-msgstr ""
+msgstr "De celesta werkt ongeveer hetzelfde als een piano, maar bij dit instrument bedienen de toetsen metalen hamertjes die tegen metalen plaatjes aanslaan, waardoor een zacht belachtig geluid ontstaat."
 
 #. name:saron peking
 #: DB:instrument/description:1009
