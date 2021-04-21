@@ -17,6 +17,23 @@ with 'MusicBrainz::Server::Entity::Role::Editable';
 
 sub entity_type { 'artist_credit' }
 
+has 'gid' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+has 'gid_redirects' => (
+    is => 'rw',
+    isa => 'ArrayRef[Str]',
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        add_gid_redirect => 'push',
+        clear_gid_redirects => 'clear',
+        all_gid_redirects => 'elements',
+    }
+);
+
 has 'names' => (
     is => 'rw',
     isa => 'ArrayRef[ArtistCreditName]',

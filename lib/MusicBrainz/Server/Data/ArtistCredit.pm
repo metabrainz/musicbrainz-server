@@ -8,7 +8,7 @@ use Carp qw( cluck );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_model sanitize );
+use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_model sanitize generate_gid );
 use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -16,15 +16,20 @@ with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::Editable' => {
     table => 'artist_credit',
 };
+with 'MusicBrainz::Server::Data::Role::GetByGID';
 
 sub _type { 'artist_credit' }
+
+sub _table { shift->_type }
+
+sub _gid_redirect_table { shift->_table . '_gid_redirect' }
 
 sub get_by_ids
 {
     my ($self, @ids) = @_;
     my $artist_columns = $self->c->model('Artist')->_columns;
     my $query = "SELECT artist, artist_credit_name.name AS ac_name, join_phrase, artist_credit,
-                $artist_columns, ac.edits_pending AS ac_edits_pending
+                $artist_columns, ac.edits_pending AS ac_edits_pending, ac.gid AS ac_gid
                 FROM artist_credit_name
                 JOIN artist ON artist.id=artist_credit_name.artist
                 JOIN artist_credit ac ON ac.id = artist_credit_name.artist_credit
@@ -39,6 +44,7 @@ sub get_by_ids
         $result{$id} //= MusicBrainz::Server::Entity::ArtistCredit->new(
             id => $id,
             edits_pending => $row->{ac_edits_pending},
+            gid => $row->{ac_gid},
         );
 
         my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
@@ -171,6 +177,7 @@ sub find_or_insert
     {
         $id = $self->sql->insert_row('artist_credit', {
             name => $name,
+            gid => generate_gid(),
             artist_count => scalar @$credits,
         }, 'id');
         for my $i (@$positions)
@@ -352,6 +359,76 @@ sub related_entities {
     push @{ $related->{release} }, @{ $track_ac_releases };
 
     return $related;
+}
+
+sub load_gid_redirects {
+    my ($self, @entities) = @_;
+    my $table = $self->_gid_redirect_table;
+
+    my %entities_by_id = object_to_ids(@entities);
+
+    my $query = "SELECT new_id, array_agg(gid) AS gid_redirects FROM $table WHERE new_id = any(?) GROUP BY new_id";
+    my $results = $self->c->sql->select_list_of_hashes($query, [map { $_->id } @entities]);
+
+    for my $row (@$results) {
+        for my $entity (@{ $entities_by_id{$row->{new_id}} }) {
+            $entity->gid_redirects($row->{gid_redirects});
+        }
+    }
+}
+
+sub remove_gid_redirects
+{
+    my ($self, @ids) = @_;
+    my $table = $self->_gid_redirect_table;
+    $self->sql->do("DELETE FROM $table WHERE new_id IN (" . placeholders(@ids) . ')', @ids);
+}
+
+sub add_gid_redirects
+{
+    my ($self, %redirects) = @_;
+    my $table = $self->_gid_redirect_table;
+    my $query = "INSERT INTO $table (gid, new_id) VALUES " .
+                (join ', ', ('(?, ?)') x keys %redirects);
+    $self->sql->do($query, %redirects);
+}
+
+sub update_gid_redirects
+{
+    my ($self, $new_id, @old_ids) = @_;
+    my $table = $self->_gid_redirect_table;
+    $self->sql->do("
+        UPDATE $table SET new_id = ?
+        WHERE new_id IN (".placeholders(@old_ids).')', $new_id, @old_ids);
+}
+
+sub _delete_and_redirect_gids
+{
+    my ($self, $table, $new_id, @old_ids) = @_;
+
+    # Update all GID redirects from @old_ids to $new_id
+    $self->update_gid_redirects($new_id, @old_ids);
+
+    # Delete the recording and select current GIDs
+    my $old_gids = $self->delete_returning_gids(@old_ids);
+
+    # Add redirects from GIDs of the deleted recordings to $new_id
+    $self->add_gid_redirects(map { $_ => $new_id } @$old_gids);
+
+    if ($self->can('_delete_from_cache')) {
+        $self->_delete_from_cache(
+            $new_id, @old_ids,
+            @$old_gids
+        );
+    }
+}
+
+sub delete_returning_gids {
+    my ($self, @ids) = @_;
+    return $self->sql->select_single_column_array('
+        DELETE FROM ' . $self->_table . '
+        WHERE id IN ('.placeholders(@ids).')
+        RETURNING gid', @ids);
 }
 
 __PACKAGE__->meta->make_immutable;
