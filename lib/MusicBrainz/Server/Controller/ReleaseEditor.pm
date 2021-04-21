@@ -393,7 +393,7 @@ sub _seeded_label
         $result->{label} = { name => trim($name) };
     }
 
-    $result->{catalogNumber} = trim($params->{catalog_number} // '');
+    $result->{catalogNumber} = trim($params->{catalog_number});
     return $result;
 }
 
@@ -542,7 +542,7 @@ sub _seeded_artist_credit_name
     my $result = {};
 
     my $name = _seeded_string($params->{name}, "$field_name.name", $errors);
-    $result->{name} = trim($name // '');
+    $result->{name} = trim($name);
 
     if (my $gid = $params->{mbid}) {
         my $entity = $c->model('Artist')->get_by_gid($gid);
@@ -556,7 +556,7 @@ sub _seeded_artist_credit_name
     }
 
     my $join = _seeded_string($params->{join_phrase}, "$field_name.join_phrase", $errors);
-    $result->{joinPhrase} = sanitize($join // '');
+    $result->{joinPhrase} = sanitize($join);
 
     $result->{artist} //= _seeded_hash($c, \&_seeded_artist, $params->{artist},
         "$field_name.artist", $errors);
