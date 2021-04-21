@@ -158,7 +158,11 @@ sub attach : Local DenyWhenReadonly Edit
     my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($toc)
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('The provided CD TOC is not valid')
+            message => l(
+                'The provided CD TOC is not valid. This is probably an issue
+                 with the software you used to generate it. Try again
+                 and please report the error to your software maker if it persists,
+                 including the technical information below.')
         );
 
     $c->stash( cdtoc => $cdtoc );
@@ -351,7 +355,7 @@ sub move : Local Edit
     my $medium_cdtoc = $c->model('MediumCDTOC')->get_by_id($medium_cdtoc_id)
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('The provided CD TOC is not valid')
+            message => l('The provided CD TOC ID doesn’t exist.')
         );
 
     $c->model('CDTOC')->load($medium_cdtoc);
