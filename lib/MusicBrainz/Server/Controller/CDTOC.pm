@@ -159,10 +159,7 @@ sub attach : Local DenyWhenReadonly Edit
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
             message => l(
-                'The provided CD TOC is not valid. This is probably an issue
-                 with the software you used to generate it. Try again
-                 and please report the error to your software maker if it persists,
-                 including the technical information below.')
+                'The provided CD TOC is not valid. This is probably an issue with the software you used to generate it. Try again and please report the error to your software maker if it persists, including the technical information below.')
         );
 
     $c->stash( cdtoc => $cdtoc );
