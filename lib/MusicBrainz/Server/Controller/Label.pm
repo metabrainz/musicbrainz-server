@@ -157,7 +157,7 @@ sub relationships : Chained('load') PathPart('relationships') {
     );
 }
 
-after [qw( show collections details tags aliases subscribers relationships )] => sub {
+after [qw( show collections details tags ratings aliases subscribers relationships )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

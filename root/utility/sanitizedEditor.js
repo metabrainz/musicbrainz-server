@@ -10,6 +10,7 @@
 // NOTE: Don't convert to an ES module; this is used by root/server.js.
 /* eslint-disable import/no-commonjs */
 
+// If you update this, also update $PUBLIC_PRIVILEGE_FLAGS in Constants.pm
 const publicFlags = 1 & // AUTO_EDITOR_FLAG
                     2 & // BOT_FLAG
                     8 & // RELATIONSHIP_EDITOR_FLAG

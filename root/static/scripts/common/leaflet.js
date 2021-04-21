@@ -17,6 +17,10 @@ const iconsUrls = {
     require('../../images/leaflet/arena-marker-icon-2x.png'),
   'cluster-marker-icon.png':
     require('../../images/leaflet/cluster-marker-icon.png'),
+  'ended-marker-icon.png':
+    require('../../images/leaflet/ended-marker-icon.png'),
+  'ended-marker-icon-2x.png':
+    require('../../images/leaflet/ended-marker-icon-2x.png'),
   'marker-icon.png': require('../../images/leaflet/marker-icon.png'),
   'marker-icon-2x.png': require('../../images/leaflet/marker-icon-2x.png'),
   'religious-marker-icon.png':

@@ -660,7 +660,7 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/(www.)?archive.org\//, 'https://archive.org/');
       // clean up links to files
       url = url.replace(/\?cnt=\d+$/, '');
-      url = url.replace(/^https?:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, 'https://archive.org/download/$2/$3');
+      url = url.replace(/^https?:\/\/(?:.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, 'https://archive.org/download/$1/$2');
       // clean up links to items
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, '$1');
     },
@@ -910,7 +910,7 @@ const CLEANUPS = {
       'i',
     )],
     clean: function (url) {
-      return url.replace(/(www\.)?([^.\/]+)\.blogspot\.([a-z]{2,3}\.)?[a-z]{2,3}(\/)?/, '$2.blogspot.com/');
+      return url.replace(/(?:www\.)?([^.\/]+)\.blogspot\.(?:[a-z]{2,3}\.)?[a-z]{2,3}(?:\/)?/, '$1.blogspot.com/');
     },
   },
   'bnfcatalogue': {
@@ -1240,7 +1240,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(deezer\\.com)', 'i')],
     type: LINK_TYPES.streamingfree,
     clean: function (url) {
-      url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(?:[a-z]{2}\/)?(\w+)\/(\d+).*$/, 'https://www.deezer.com/$2/$3');
+      url = url.replace(/^https?:\/\/(?:www\.)?deezer\.com\/(?:[a-z]{2}\/)?(\w+)\/(\d+).*$/, 'https://www.deezer.com/$1/$2');
       return url;
     },
     validate: function (url, id) {
@@ -1263,7 +1263,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?dhhu\\.dk', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(www\.)?dhhu\.dk\/w\/(.*)+$/, 'http://www.dhhu.dk/w/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?dhhu\.dk\/w\/(.*)+$/, 'http://www.dhhu.dk/w/$1');
       return url;
     },
   },
@@ -1363,16 +1363,16 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D([\d-]+).*$/, 'http://d-nb.info/gnd/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D([\d-]+).*$/, 'http://d-nb.info/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
       return url;
     },
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
-          return {result: /^http:\/\/d-nb\.info\/gnd\/[\d-]+$/.test(url)};
+          return {result: /^http:\/\/d-nb\.info\/gnd\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
         case LINK_TYPES.otherdatabases.release:
-          return {result: /^http:\/\/d-nb\.info\/[\d-]+$/.test(url)};
+          return {result: /^http:\/\/d-nb\.info\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
       }
       return {result: false};
     },
@@ -1573,7 +1573,7 @@ const CLEANUPS = {
     )],
     type: LINK_TYPES.geonames,
     clean: function (url) {
-      return url.replace(/^https?:\/\/([a-z]+\.)?geonames.org\/([0-9]+)\/.*$/, 'http://sws.geonames.org/$2/');
+      return url.replace(/^https?:\/\/(?:[a-z]+\.)?geonames.org\/([0-9]+)\/.*$/, 'http://sws.geonames.org/$1/');
     },
   },
   'googleplay': {
@@ -1644,7 +1644,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?ibdb\\.com/', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, 'https://www.ibdb.com');
+      url = url.replace(/^(https?:\/\/)?(?:www\.)?ibdb\.com/, 'https://www.ibdb.com');
       return url;
     },
   },
@@ -2522,7 +2522,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?openlibrary\\.org', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, 'https://openlibrary.org/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, 'https://openlibrary.org/$1/$2');
       return url;
     },
   },
@@ -2779,7 +2779,7 @@ const CLEANUPS = {
   },
   'residentadvisor': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?ra\\.co/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?ra\\.co/(?!exchange)', 'i'),
       new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/', 'i'),
     ],
     type: {
@@ -2788,12 +2788,12 @@ const CLEANUPS = {
       ...LINK_TYPES.discographyentry,
     },
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(www\.)?ra\.co\//, 'https://ra.co/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ra\.co\//, 'https://ra.co/');
       url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|podcast|reviews|tracks)\/([^\/?#]+).*$/, 'https://ra.co/$1/$2');
       return url;
     },
     validate: function (url, id) {
-      if (/^https?:\/\/(www\.)?residentadvisor\.net\//.test(url)) {
+      if (/^https?:\/\/(?:www\.)?residentadvisor\.net\//.test(url)) {
         return {
           error: exp.l(
             `This is a link to the old Resident Advisor domain. Please
@@ -2831,6 +2831,14 @@ const CLEANUPS = {
         }
       }
       return {result: false};
+    },
+  },
+  // TODO: Merge with residentadvisor after MBS-9902 is implemented
+  'residentadvisorexchange': {
+    match: [new RegExp('^(https?://)?(www\\.)?ra\\.co/exchange', 'i')],
+    type: LINK_TYPES.shownotes,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?ra\.co\/exchange\/([^\/?#]+).*$/, 'https://ra.co/exchange/$1');
     },
   },
   'reverbnation': {
@@ -2904,7 +2912,7 @@ const CLEANUPS = {
     )],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(wiki|www)\.rockinchina\.com\/w\/(.*)+$/, 'http://www.rockinchina.com/w/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:wiki|www)\.rockinchina\.com\/w\/(.*)+$/, 'http://www.rockinchina.com/w/$1');
       return url;
     },
   },
@@ -3509,7 +3517,7 @@ const CLEANUPS = {
     type: {...LINK_TYPES.score, ...LINK_TYPES.image},
     clean: function (url) {
       url = url.replace(/\/wiki\/[^#]+#(?:mediaviewer|\/media)\/(.*)/, '\/wiki\/$1');
-      url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, 'https://commons.wikimedia.org/wiki/File:$2');
+      url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(?:thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, 'https://commons.wikimedia.org/wiki/File:$1');
       url = url.replace(/\?uselang=[a-z-]+$/, '');
       url = url.replace(/#.*$/, '');
       url = reencodeMediawikiLocalPart(url);
