@@ -1363,16 +1363,16 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D([\d-]+).*$/, 'http://d-nb.info/gnd/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D([\d-]+).*$/, 'http://d-nb.info/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
       return url;
     },
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
-          return {result: /^http:\/\/d-nb\.info\/gnd\/[\d-]+$/.test(url)};
+          return {result: /^http:\/\/d-nb\.info\/gnd\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
         case LINK_TYPES.otherdatabases.release:
-          return {result: /^http:\/\/d-nb\.info\/[\d-]+$/.test(url)};
+          return {result: /^http:\/\/d-nb\.info\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
       }
       return {result: false};
     },
