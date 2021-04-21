@@ -57,6 +57,11 @@ const trackParser = releaseEditor.trackParser = {
     trackParser.delimiterHelpVisible(!trackParser.delimiterHelpVisible());
   },
 
+  parserHelpVisible: ko.observable(false),
+  toggleParserHelp: function () {
+    trackParser.parserHelpVisible(!trackParser.parserHelpVisible());
+  },
+
   parse: function (str, medium) {
     var self = this;
 
