@@ -224,6 +224,8 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
+    $self->check_login($c, 'not logged in');
+
     my $id = $c->request->params->{image_id} // $c->model('CoverArtArchive')->fresh_id;
     my $bucket = 'mbid-' . $gid;
 
