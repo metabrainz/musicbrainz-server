@@ -8,6 +8,7 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
@@ -16,17 +17,20 @@ import {
   defineEntityColumn,
   defineTextColumn,
 } from '../../utility/tableColumns';
-import type {ReportWorkT} from '../types';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportWorkT>,
+type Props<D: {+work: ?WorkT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const WorkList = ({
+const WorkList = <D: {+work: ?WorkT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingWorkItems = items.reduce((result, item) => {
     if (item.work != null) {
       result.push(item);
@@ -36,17 +40,17 @@ const WorkList = ({
 
   const columns = React.useMemo(
     () => {
-      const nameColumn = defineEntityColumn<ReportWorkT>({
+      const nameColumn = defineEntityColumn<D>({
         columnName: 'work',
         getEntity: result => result.work ?? null,
         title: l('Work'),
       });
-      const writersColumn = defineArtistRolesColumn<ReportWorkT>({
+      const writersColumn = defineArtistRolesColumn<D>({
         columnName: 'writers',
         getRoles: result => result.work?.writers ?? [],
         title: l('Writers'),
       });
-      const typeColumn = defineTextColumn<ReportWorkT>({
+      const typeColumn = defineTextColumn<D>({
         columnName: 'type',
         getText: result => {
           const typeName = result.work?.typeName;
@@ -59,12 +63,14 @@ const WorkList = ({
       });
 
       return [
+        ...(columnsBefore ? [...columnsBefore] : []),
         nameColumn,
         writersColumn,
         typeColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [],
+    [columnsAfter, columnsBefore],
   );
 
   return (

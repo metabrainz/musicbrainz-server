@@ -8,29 +8,30 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
 import {
   defineArtistCreditColumn,
   defineEntityColumn,
-  defineReleaseLanguageColumn,
 } from '../../utility/tableColumns';
-import type {ReportReleaseT} from '../types';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportReleaseT>,
+type Props<D: {+release: ?ReleaseT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
-  +showLanguageAndScript?: boolean,
   +subPath?: string,
 };
 
-const ReleaseList = ({
+const ReleaseList = <D: {+release: ?ReleaseT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-  showLanguageAndScript = false,
   subPath,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingReleaseItems = items.reduce((result, item) => {
     if (item.release != null) {
       result.push(item);
@@ -40,7 +41,7 @@ const ReleaseList = ({
 
   const columns = React.useMemo(
     () => {
-      const releaseColumn = defineEntityColumn<ReportReleaseT>({
+      const releaseColumn = defineEntityColumn<D>({
         columnName: 'release',
         descriptive: false,
         getEntity: result => result.release ?? null,
@@ -48,24 +49,20 @@ const ReleaseList = ({
         title: l('Release'),
       });
       const artistCreditColumn =
-        defineArtistCreditColumn<ReportReleaseT>({
+        defineArtistCreditColumn<D>({
           columnName: 'artist',
           getArtistCredit: result => result.release?.artistCredit ?? null,
           title: l('Artist'),
         });
-      const releaseLanguageColumn = showLanguageAndScript
-        ? defineReleaseLanguageColumn<ReportReleaseT>({
-          getEntity: result => result.release ?? null,
-        })
-        : null;
 
       return [
+        ...(columnsBefore ? [...columnsBefore] : []),
         releaseColumn,
         artistCreditColumn,
-        ...(showLanguageAndScript ? [releaseLanguageColumn] : []),
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [showLanguageAndScript, subPath],
+    [columnsAfter, columnsBefore, subPath],
   );
 
   return (

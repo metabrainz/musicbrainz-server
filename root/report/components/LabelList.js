@@ -8,23 +8,27 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
 import {
   defineEntityColumn,
 } from '../../utility/tableColumns';
-import type {ReportLabelT} from '../types';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportLabelT>,
+type Props<D: {+label: ?LabelT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const LabelList = ({
+const LabelList = <D: {+label: ?LabelT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingLabelItems = items.reduce((result, item) => {
     if (item.label != null) {
       result.push(item);
@@ -34,17 +38,19 @@ const LabelList = ({
 
   const columns = React.useMemo(
     () => {
-      const nameColumn = defineEntityColumn<ReportLabelT>({
+      const nameColumn = defineEntityColumn<D>({
         columnName: 'label',
         getEntity: result => result.label ?? null,
         title: l('Label'),
       });
 
       return [
+        ...(columnsBefore ? [...columnsBefore] : []),
         nameColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [],
+    [columnsAfter, columnsBefore],
   );
 
   return (

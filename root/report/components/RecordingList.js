@@ -8,6 +8,7 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
@@ -17,15 +18,19 @@ import {
 } from '../../utility/tableColumns';
 import type {ReportRecordingT} from '../types';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportRecordingT>,
+type Props<D: {+recording: ?RecordingT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const RecordingList = ({
+const RecordingList = <D: {+recording: ?RecordingT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingRecordingItems = items.reduce((result, item) => {
     if (item.recording != null) {
       result.push(item);
@@ -49,11 +54,13 @@ const RecordingList = ({
         });
 
       return [
+        ...(columnsBefore ? [...columnsBefore] : []),
         recordingColumn,
         artistCreditColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [],
+    [columnsAfter, columnsBefore],
   );
 
   return (

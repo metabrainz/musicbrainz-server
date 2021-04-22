@@ -8,6 +8,7 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
@@ -15,17 +16,20 @@ import {
   defineEntityColumn,
   defineTextColumn,
 } from '../../utility/tableColumns';
-import type {ReportArtistT} from '../types';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportArtistT>,
+type Props<D: {+artist: ?ArtistT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const ArtistReportList = ({
+const ArtistList = <D: {+artist: ?ArtistT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingArtistItems = items.reduce((result, item) => {
     if (item.artist != null) {
       result.push(item);
@@ -35,12 +39,12 @@ const ArtistReportList = ({
 
   const columns = React.useMemo(
     () => {
-      const nameColumn = defineEntityColumn<ReportArtistT>({
+      const nameColumn = defineEntityColumn<D>({
         columnName: 'artist',
         getEntity: result => result.artist ?? null,
         title: l('Artist'),
       });
-      const typeColumn = defineTextColumn<ReportArtistT>({
+      const typeColumn = defineTextColumn<D>({
         columnName: 'type',
         getText: result => {
           const typeName = result.artist?.typeName;
@@ -53,11 +57,13 @@ const ArtistReportList = ({
       });
 
       return [
+        ...(columnsBefore ? [...columnsBefore] : []),
         nameColumn,
         typeColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [],
+    [columnsAfter, columnsBefore],
   );
 
   return (
@@ -67,4 +73,4 @@ const ArtistReportList = ({
   );
 };
 
-export default ArtistReportList;
+export default ArtistList;

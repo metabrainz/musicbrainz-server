@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import ReleaseList from './components/ReleaseList';
 import ReportLayout from './components/ReportLayout';
+import useReleaseLanguageColumn from './hooks/useReleaseLanguageColumn';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const NoLanguage = ({
@@ -19,23 +20,31 @@ const NoLanguage = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases that have no language set. If you
-       recognize the language, please set it! Do it only if you are
-       pretty sure, don't just guess: not everything written in Cyrillic
-       is Russian, for example.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases without language')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} showLanguageAndScript />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => {
+  const releaseLanguageColumn = useReleaseLanguageColumn<ReportReleaseT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases that have no language set. If you
+        recognize the language, please set it! Do it only if you are
+        pretty sure, don't just guess: not everything written in Cyrillic
+        is Russian, for example.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases without language')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList
+        columnsAfter={releaseLanguageColumn}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default NoLanguage;

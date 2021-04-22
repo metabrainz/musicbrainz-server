@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import ReleaseAnnotationList from './components/ReleaseAnnotationList';
+import ReleaseList from './components/ReleaseList';
 import ReportLayout from './components/ReportLayout';
+import useAnnotationColumns from './hooks/useAnnotationColumns';
 import type {ReportDataT, ReportReleaseAnnotationT} from './types';
 
 const AnnotationsReleases = ({
@@ -21,19 +22,27 @@ const AnnotationsReleases = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseAnnotationT>):
-React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l('This report lists releases with annotations.')}
-    entityType="release"
-    extraInfo={ANNOTATION_REPORT_TEXT()}
-    filtered={filtered}
-    generated={generated}
-    title={l('Release annotations')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseAnnotationList items={items} pager={pager} />
-  </ReportLayout>
-);
+React.Element<typeof ReportLayout> => {
+  const annotationColumns = useAnnotationColumns<ReportReleaseAnnotationT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l('This report lists releases with annotations.')}
+      entityType="release"
+      extraInfo={ANNOTATION_REPORT_TEXT()}
+      filtered={filtered}
+      generated={generated}
+      title={l('Release annotations')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList
+        columnsAfter={annotationColumns}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default AnnotationsReleases;

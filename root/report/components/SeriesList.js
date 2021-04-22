@@ -8,46 +8,49 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
 import {
   defineEntityColumn,
 } from '../../utility/tableColumns';
-import useAnnotationColumns from '../hooks/useAnnotationColumns';
-import type {ReportSeriesAnnotationT} from '../types';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportSeriesAnnotationT>,
+type Props<D: {+series: ?SeriesT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const SeriesAnnotationList = ({
+const SeriesList = <D: {+series: ?SeriesT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingSeriesItems = items.reduce((result, item) => {
     if (item.series != null) {
       result.push(item);
     }
     return result;
   }, []);
-  const annotationColumns = useAnnotationColumns();
 
   const columns = React.useMemo(
     () => {
-      const nameColumn = defineEntityColumn<ReportSeriesAnnotationT>({
+      const nameColumn = defineEntityColumn<D>({
         columnName: 'series',
         getEntity: result => result.series ?? null,
         title: l('Series'),
       });
 
       return [
+        ...(columnsBefore ? [...columnsBefore] : []),
         nameColumn,
-        ...annotationColumns,
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [annotationColumns],
+    [columnsAfter, columnsBefore],
   );
 
   return (
@@ -57,4 +60,4 @@ const SeriesAnnotationList = ({
   );
 };
 
-export default SeriesAnnotationList;
+export default SeriesList;

@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import ArtistAnnotationList from './components/ArtistAnnotationList';
+import ArtistList from './components/ArtistList';
 import ReportLayout from './components/ReportLayout';
+import useAnnotationColumns from './hooks/useAnnotationColumns';
 import type {ReportArtistAnnotationT, ReportDataT} from './types';
 
 const AnnotationsArtists = ({
@@ -21,19 +22,27 @@ const AnnotationsArtists = ({
   items,
   pager,
 }: ReportDataT<ReportArtistAnnotationT>):
-React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l('This report lists artists with annotations.')}
-    entityType="artist"
-    extraInfo={ANNOTATION_REPORT_TEXT()}
-    filtered={filtered}
-    generated={generated}
-    title={l('Artist annotations')}
-    totalEntries={pager.total_entries}
-  >
-    <ArtistAnnotationList items={items} pager={pager} />
-  </ReportLayout>
-);
+React.Element<typeof ReportLayout> => {
+  const annotationColumns = useAnnotationColumns<ReportArtistAnnotationT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l('This report lists artists with annotations.')}
+      entityType="artist"
+      extraInfo={ANNOTATION_REPORT_TEXT()}
+      filtered={filtered}
+      generated={generated}
+      title={l('Artist annotations')}
+      totalEntries={pager.total_entries}
+    >
+      <ArtistList
+        columnsAfter={annotationColumns}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default AnnotationsArtists;

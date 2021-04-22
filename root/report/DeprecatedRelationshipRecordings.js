@@ -9,8 +9,11 @@
 
 import * as React from 'react';
 
-import RecordingRelationshipList
-  from './components/RecordingRelationshipList';
+import {
+  relTypeColumn,
+} from '../utility/tableColumns';
+
+import RecordingList from './components/RecordingList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types';
 
@@ -34,7 +37,11 @@ React.Element<typeof ReportLayout> => (
     title={l('Recordings with deprecated relationships')}
     totalEntries={pager.total_entries}
   >
-    <RecordingRelationshipList items={items} pager={pager} />
+    <RecordingList
+      columnsBefore={[relTypeColumn]}
+      items={items}
+      pager={pager}
+    />
   </ReportLayout>
 );
 

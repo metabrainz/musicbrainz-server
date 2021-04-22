@@ -8,24 +8,25 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
-import {
-  defineLinkColumn,
-  relTypeColumn,
-} from '../../utility/tableColumns';
-import type {ReportUrlRelationshipT} from '../types';
+import {defineLinkColumn} from '../../utility/tableColumns';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportUrlRelationshipT>,
+type Props<D: {+url: ?UrlT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const UrlRelationshipList = ({
+const UrlList = <D: {+url: ?UrlT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingUrlItems = items.reduce((result, item) => {
     if (item.url != null) {
       result.push(item);
@@ -35,13 +36,13 @@ const UrlRelationshipList = ({
 
   const columns = React.useMemo(
     () => {
-      const nameColumn = defineLinkColumn<ReportUrlRelationshipT>({
+      const nameColumn = defineLinkColumn<D>({
         columnName: 'url',
         getContent: result => result.url?.name ?? '',
         getHref: result => result.url?.name ?? '',
         title: l('URL'),
       });
-      const urlEntityColumn = defineLinkColumn<ReportUrlRelationshipT>({
+      const urlEntityColumn = defineLinkColumn<D>({
         columnName: 'url_entity',
         getContent: result => result.url?.gid ?? '',
         getHref: result => result.url?.gid ? '/url/' + result.url.gid : '',
@@ -49,12 +50,13 @@ const UrlRelationshipList = ({
       });
 
       return [
-        relTypeColumn,
+        ...(columnsBefore ? [...columnsBefore] : []),
         nameColumn,
         urlEntityColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [],
+    [columnsAfter, columnsBefore],
   );
 
   return (
@@ -64,4 +66,4 @@ const UrlRelationshipList = ({
   );
 };
 
-export default UrlRelationshipList;
+export default UrlList;

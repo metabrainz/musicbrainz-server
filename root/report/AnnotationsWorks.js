@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import WorkAnnotationList from './components/WorkAnnotationList';
+import WorkList from './components/WorkList';
 import ReportLayout from './components/ReportLayout';
+import useAnnotationColumns from './hooks/useAnnotationColumns';
 import type {ReportDataT, ReportWorkAnnotationT} from './types';
 
 const AnnotationsWorks = ({
@@ -21,19 +22,27 @@ const AnnotationsWorks = ({
   items,
   pager,
 }: ReportDataT<ReportWorkAnnotationT>):
-React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l('This report lists works with annotations.')}
-    entityType="work"
-    extraInfo={ANNOTATION_REPORT_TEXT()}
-    filtered={filtered}
-    generated={generated}
-    title={l('Work annotations')}
-    totalEntries={pager.total_entries}
-  >
-    <WorkAnnotationList items={items} pager={pager} />
-  </ReportLayout>
-);
+React.Element<typeof ReportLayout> => {
+  const annotationColumns = useAnnotationColumns<ReportWorkAnnotationT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l('This report lists works with annotations.')}
+      entityType="work"
+      extraInfo={ANNOTATION_REPORT_TEXT()}
+      filtered={filtered}
+      generated={generated}
+      title={l('Work annotations')}
+      totalEntries={pager.total_entries}
+    >
+      <WorkList
+        columnsAfter={annotationColumns}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default AnnotationsWorks;

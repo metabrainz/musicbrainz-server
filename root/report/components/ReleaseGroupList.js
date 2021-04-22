@@ -8,6 +8,7 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
@@ -16,17 +17,20 @@ import {
   defineEntityColumn,
   defineTextColumn,
 } from '../../utility/tableColumns';
-import type {ReportReleaseGroupT} from '../types';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportReleaseGroupT>,
+type Props<D: {+release_group: ?ReleaseGroupT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const ReleaseGroupList = ({
+const ReleaseGroupList = <D: {+release_group: ?ReleaseGroupT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingReleaseGroupItems = items.reduce((result, item) => {
     if (item.release_group != null) {
       result.push(item);
@@ -36,20 +40,20 @@ const ReleaseGroupList = ({
 
   const columns = React.useMemo(
     () => {
-      const releaseGroupColumn = defineEntityColumn<ReportReleaseGroupT>({
+      const releaseColumn = defineEntityColumn<D>({
         columnName: 'release_group',
         descriptive: false,
         getEntity: result => result.release_group ?? null,
         title: l('Release Group'),
       });
       const artistCreditColumn =
-        defineArtistCreditColumn<ReportReleaseGroupT>({
+        defineArtistCreditColumn<D>({
           columnName: 'artist',
           getArtistCredit:
             result => result.release_group?.artistCredit ?? null,
           title: l('Artist'),
         });
-      const typeColumn = defineTextColumn<ReportReleaseGroupT>({
+      const typeColumn = defineTextColumn<D>({
         columnName: 'type',
         getText: result => {
           const typeName = result.release_group?.l_type_name;
@@ -59,12 +63,14 @@ const ReleaseGroupList = ({
       });
 
       return [
-        releaseGroupColumn,
+        ...(columnsBefore ? [...columnsBefore] : []),
+        releaseColumn,
         artistCreditColumn,
         typeColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [],
+    [columnsAfter, columnsBefore],
   );
 
   return (

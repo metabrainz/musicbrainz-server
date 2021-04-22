@@ -8,24 +8,28 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
 import {
   defineEntityColumn,
-  relTypeColumn,
 } from '../../utility/tableColumns';
 import type {ReportPlaceRelationshipT} from '../types';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportPlaceRelationshipT>,
+type Props<D: {+place: ?PlaceT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const PlaceRelationshipList = ({
+const PlaceList = <D: {+place: ?PlaceT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingPlaceItems = items.reduce((result, item) => {
     if (item.place != null) {
       result.push(item);
@@ -42,11 +46,12 @@ const PlaceRelationshipList = ({
       });
 
       return [
-        relTypeColumn,
+        ...(columnsBefore ? [...columnsBefore] : []),
         nameColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [],
+    [columnsAfter, columnsBefore],
   );
 
   return (
@@ -56,4 +61,4 @@ const PlaceRelationshipList = ({
   );
 };
 
-export default PlaceRelationshipList;
+export default PlaceList;
