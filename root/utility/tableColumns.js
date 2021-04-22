@@ -73,7 +73,7 @@ export function defineActionsColumn(
       </>
     ),
     Header: l('Actions'),
-    accessor: 'id',
+    accessor: x => x.id,
     cellProps: {className: 'actions'},
     headerProps: {className: 'actions'},
     id: 'actions',
@@ -153,7 +153,7 @@ export function defineBeginDateColumn(
         />
       )
       : l('Begin')),
-    accessor: 'begin_date',
+    accessor: x => x.begin_date,
     id: 'begin_date',
   };
 }
@@ -230,7 +230,7 @@ export function defineDatePeriodColumn(
 
 export function defineEndDateColumn(
   props: OrderableProps,
-): ColumnOptions<{...DatePeriodRoleT, ...}, PartialDateT> {
+): ColumnOptions<{...DatePeriodRoleT, ...}, PartialDateT | null> {
   return {
     Cell: ({row: {original}}) => formatEndDate(original),
     Header: (props.sortable
@@ -242,7 +242,6 @@ export function defineEndDateColumn(
         />
       )
       : l('End')),
-    accessor: 'end_date',
     id: 'end_date',
   };
 }
@@ -290,7 +289,7 @@ export function defineInstrumentUsageColumn(
       />
     ),
     Header: l('Relationship Types'),
-    accessor: 'id',
+    accessor: x => x.id,
     id: 'instrument-usage',
   };
 }
@@ -329,7 +328,7 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
         />
       )
       : props.title),
-    accessor: 'name',
+    accessor: x => x.name,
     id: 'name',
   };
 }
@@ -359,7 +358,7 @@ export function defineReleaseCatnosColumn<D>(
 
 export function defineReleaseEventsColumn(
   props: OrderableProps,
-): ColumnOptions<ReleaseT, $ReadOnlyArray<ReleaseEventT>> {
+): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseEventT>> {
   return {
     Cell: ({cell: {value}}) => <ReleaseEvents events={value} />,
     Header: (props.sortable
@@ -380,14 +379,14 @@ export function defineReleaseEventsColumn(
       )
       : l('Country') + lp('/', 'and') + l('Date')
     ),
-    accessor: 'events',
+    accessor: x => x.events,
     id: 'events',
   };
 }
 
 export function defineReleaseLabelsColumn(
   props: OrderableProps,
-): ColumnOptions<ReleaseT, $ReadOnlyArray<ReleaseLabelT>> {
+): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseLabelT>> {
   return {
     Cell: ({cell: {value}}) => <ReleaseLabelList labels={value} />,
     Header: (props.sortable
@@ -400,7 +399,7 @@ export function defineReleaseLabelsColumn(
       )
       : l('Label')
     ),
-    accessor: 'labels',
+    accessor: x => x.labels,
     id: 'labels',
   };
 }
@@ -413,7 +412,7 @@ export function defineSeriesNumberColumn(
   return {
     Cell: ({row: {index}}) => props.seriesItemNumbers[index],
     Header: l('#'),
-    accessor: 'id',
+    accessor: x => x.id,
     cellProps: {className: 'number-column'},
     headerProps: {className: 'number-column'},
     id: 'series-number',
@@ -467,7 +466,7 @@ export function defineTypeColumn(
         />
       )
       : l('Type')),
-    accessor: 'typeName',
+    accessor: x => x.typeName,
     id: 'type',
   };
 }
@@ -476,7 +475,8 @@ export const attributesColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
     Cell: ({row: {original}}) => <AttributeList entity={original} />,
     Header: N_l('Attributes'),
-    accessor: 'attributes',
+    accessor: x => x.attributes,
+    id: 'attributes',
   };
 
 export const instrumentDescriptionColumn:
@@ -485,7 +485,8 @@ export const instrumentDescriptionColumn:
       ? expand2react(l_instrument_descriptions(value))
       : null),
     Header: N_l('Description'),
-    accessor: 'description',
+    accessor: x => x.description ?? '',
+    id: 'instrument-description',
   };
 
 export const isrcsColumn:
@@ -503,7 +504,8 @@ export const isrcsColumn:
       </ul>
     ),
     Header: N_l('ISRCs'),
-    accessor: 'isrcs',
+    accessor: x => x.isrcs,
+    id: 'isrcs',
   };
 
 type AcoustIdTrackT = {
@@ -588,7 +590,7 @@ export const useAcoustIdsColumn = (
       />
     ),
     Header: N_l('AcoustIDs'),
-    accessor: 'gid',
+    accessor: x => x.gid ?? '',
     id: 'acoustid',
   };
 };
@@ -608,8 +610,9 @@ export const iswcsColumn:
       </ul>
     ),
     Header: N_l('ISWC'),
-    accessor: 'iswcs',
+    accessor: x => x.iswcs,
     cellProps: {className: 'iswc'},
+    id: 'iswcs',
   };
 
 export const locationColumn:
@@ -623,9 +626,9 @@ export const ratingsColumn:
   ColumnOptions<RatableT, number> = {
     Cell: ({row: {original}}) => <RatingStars entity={original} />,
     Header: N_l('Rating'),
-    accessor: 'rating',
     cellProps: {className: 'c'},
     headerProps: {className: 'rating c'},
+    id: 'rating',
   };
 
 export const removeFromMergeColumn:
@@ -667,22 +670,26 @@ export const releaseLanguageColumn:
   };
 
 export const seriesOrderingTypeColumn:
-  ColumnOptions<{+orderingTypeID?: number, ...}, number> = {
+  ColumnOptions<{+orderingTypeID?: number, ...}, ?number> = {
     Cell: ({cell: {value}}) => {
-      const orderingType = linkedEntities.series_ordering_type[value];
+      const orderingType = value ?
+        linkedEntities.series_ordering_type[value]
+        : null;
       return orderingType
         ? lp_attributes(orderingType.name, 'series_ordering_type')
         : null;
     },
     Header: N_l('Ordering Type'),
-    accessor: 'orderingTypeID',
+    accessor: x => x.orderingTypeID,
+    id: 'ordering-type',
   };
 
 export const subscriptionColumn:
   ColumnOptions<{+subscribed: boolean, ...}, boolean> = {
     Cell: ({cell: {value}}) => yesNo(value),
     Header: N_l('Subscribed'),
-    accessor: 'subscribed',
+    accessor: x => x.subscribed,
+    id: 'subscribed',
   };
 
 export const taggerColumn:
@@ -696,7 +703,8 @@ export const workArtistsColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
     Cell: ({cell: {value}}) => <WorkArtists artists={value} />,
     Header: N_l('Artists'),
-    accessor: 'artists',
+    accessor: x => x.artists,
+    id: 'work-artists',
   };
 
 export const workLanguagesColumn:
@@ -714,5 +722,6 @@ export const workLanguagesColumn:
       </ul>
     ),
     Header: N_l('Lyrics Languages'),
-    accessor: 'languages',
+    accessor: x => x.languages,
+    id: 'lyrics-languages',
   };

@@ -52,20 +52,20 @@ const CollectionMergeTable = ({
       });
       const sizeColumn:
         ColumnOptions<CollectionT, number> = {
-          accessor: 'entity_count',
+          accessor: x => x.entity_count,
           Header: l('Entities'),
           id: 'size',
         };
       const collaboratorsColumn:
         ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
-          accessor: 'collaborators',
+          accessor: x => x.collaborators,
           Cell: ({cell: {value}}) => value.length,
           Header: l('Collaborators'),
           id: 'collaborators',
         };
       const privacyColumn:
         ColumnOptions<CollectionT, boolean> = {
-          accessor: 'public',
+          accessor: x => x.public,
           Cell: ({row: {original}}) => original.public
             ? l('Public')
             : l('Private'),
