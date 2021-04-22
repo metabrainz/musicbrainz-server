@@ -1,7 +1,7 @@
 // @flow strict
 
 declare module 'react-table' {
-  declare export type CellRenderProps<D, +V> = {
+  declare export type CellRenderProps<+D, +V> = {
     +cell: Cell<V>,
     +column: ColumnInstance,
     +row: Row<D>,
