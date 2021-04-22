@@ -28,6 +28,14 @@ declare module 'react-table' {
     ...
   };
 
+  declare export type ColumnOptionsNoValue<-D> = {
+    +accessor?: (D) => mixed,
+    +Cell?: React$AbstractComponent<CellRenderProps<D, empty>, mixed>,
+    +Header?: React$ComponentType<mixed> | React$Node,
+    +id?: string,
+    ...
+  };
+
   declare export type ColumnInstance = {
     +cellProps?: {[attribute: string]: string},
     +getCellProps: (props?: {...}) => {...},
