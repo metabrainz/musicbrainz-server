@@ -2465,7 +2465,7 @@ const CLEANUPS = {
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ocremix\.org\//, 'https://ocremix.org/');
-      url = url.replace(/^https:\/\/ocremix\.org\/(album|artist|game|org|remix|song)\/([^\/?#]+).*$/, 'https://ocremix.org/$1/$2/');
+      url = url.replace(/^https:\/\/ocremix\.org\/(album|artist|game|org|remix|song)\/([^\/?#]+).*$/, 'https://ocremix.org/$1/$2');
       return url;
     },
   },
