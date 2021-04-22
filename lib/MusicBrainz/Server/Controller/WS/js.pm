@@ -226,11 +226,16 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 
     $self->check_login($c, 'not logged in');
 
+    my $mime_type = $c->request->params->{mime_type};
+    unless ($c->model('CoverArtArchive')->is_valid_mime_type($mime_type)) {
+        $self->detach_with_error($c, 'invalid mime_type');
+    }
+
     my $id = $c->request->params->{image_id} // $c->model('CoverArtArchive')->fresh_id;
     my $bucket = 'mbid-' . $gid;
 
     my %s3_policy;
-    $s3_policy{mime_type} = $c->request->params->{mime_type};
+    $s3_policy{mime_type} = $mime_type;
     $s3_policy{redirect} = $c->uri_for_action('/release/cover_art_uploaded', [ $gid ])->as_string()
         if $c->request->params->{redirect};
 

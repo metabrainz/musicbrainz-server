@@ -27,6 +27,14 @@ sub get_stats_for_releases {
     };
 }
 
+sub is_valid_mime_type {
+    my ($self, $mime_type) = @_;
+    $self->sql->select_single_value(
+        'SELECT 1 FROM cover_art_archive.image_type WHERE mime_type = ?',
+        $mime_type,
+    );
+}
+
 sub fresh_id {
     return int((time() - 1327528905) * 100);
 }
