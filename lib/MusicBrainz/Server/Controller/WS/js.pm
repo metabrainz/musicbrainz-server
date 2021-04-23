@@ -3,18 +3,26 @@ package MusicBrainz::Server::Controller::WS::js;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 
+use utf8;
 use Data::OptList;
+use DBDefs;
+use HTTP::Request;
 use JSON qw( encode_json decode_json );
 use List::UtilsBy qw( uniq_by );
+use MusicBrainz::Errors qw( capture_exceptions );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Constants qw( entities_with %ENTITIES );
+use MusicBrainz::Server::Constants qw( entities_with %ENTITIES $CONTACT_URL );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Scalar::Util qw( blessed );
 use Text::Trim;
 use Time::Piece;
+use Try::Tiny;
+use URI;
+use XML::XPath;
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
@@ -220,6 +228,19 @@ sub cdstub_search : Chained('root') PathPart('cdstub') Args(0) {
     return $self->disc_search($c, 'cdstub');
 };
 
+sub _detach_with_ia_server_error {
+    my ($self, $c, $error) = @_;
+
+    $self->detach_with_error($c, {
+        message => l(
+            'An error occurred trying to communicate with the ' .
+            'Internet Archive servers. Please wait a few moments ' .
+            'and try again.',
+        ),
+        error_details => "$error",
+    });
+}
+
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {
     my ($self, $c, $gid) = @_;
@@ -231,8 +252,136 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         $self->detach_with_error($c, 'invalid mime_type');
     }
 
-    my $id = $c->request->params->{image_id} // $c->model('CoverArtArchive')->fresh_id;
     my $bucket = 'mbid-' . $gid;
+
+    # It's not currently possible for the IA to reserve the mbid-*
+    # identifer space for the CAA account, so we're creating the bucket
+    # before any edits can be submitted to ensure that we're the
+    # owner. If it already exists, we ensure that we're the owner of
+    # the existing bucket. Anomalies here should produce an error
+    # informing the user to contact us; in that case we'll have to
+    # contact the IA to transfer ownership and deal with any malicious
+    # activity.
+
+    my $context = $c->model('MB')->context;
+
+    unless ($c->model('CoverArtArchive')->exists_for_release_gid($gid)) {
+        my $bucket_uri = URI->new(DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket));
+        $bucket_uri->scheme('https');
+
+        if (
+            DBDefs->DEVELOPMENT_SERVER &&
+            $bucket_uri->authority !~ m/\.archive\.org$/
+        ) {
+            # This allows using contrib/ssssss.psgi for testing, but
+            # we have two checks to make sure we're not leaking
+            # credentials over HTTP in production.
+            $bucket_uri->scheme('http');
+        }
+
+        my $s3_request = HTTP::Request->new(PUT => $bucket_uri->as_string);
+        $s3_request->header(
+            'authorization' => sprintf(
+                'LOW %s:%s',
+                DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY,
+                DBDefs->COVER_ART_ARCHIVE_SECRET_KEY,
+            ),
+        );
+        $s3_request->header('x-archive-meta-collection' => 'coverartarchive');
+        $s3_request->header('x-archive-auto-make-bucket' => '1');
+        $s3_request->header('x-archive-meta-mediatype' => 'image');
+        $s3_request->header('x-archive-meta-noindex' => 'true');
+
+        my $response = $context->lwp->request($s3_request);
+        if ($response->code == 200) {
+            # The bucket was created succesfully.
+        } elsif ($response->code == 409) {
+            my $s3_error_code;
+            my $xp_error;
+
+            capture_exceptions(sub {
+                my $xp = XML::XPath->new(xml => $response->decoded_content);
+                $s3_error_code = $xp->find('/Error/Code')->string_value;
+            }, sub {
+                $xp_error = shift;
+            });
+
+            if (!defined $s3_error_code || defined $xp_error) {
+                $self->_detach_with_ia_server_error($c, $xp_error);
+            }
+
+            if ($s3_error_code eq 'BucketAlreadyExists') {
+                # Check that we're the owner of the existing bucket.
+                my $ia_metadata_uri = DBDefs->COVER_ART_ARCHIVE_IA_METADATA_PREFIX . "/$bucket";
+                $response = $context->lwp->request(HTTP::Request->new(GET => $ia_metadata_uri));
+
+                my $item_metadata;
+                my $json_decode_error;
+
+                if ($response->code == 200) {
+                    capture_exceptions(sub {
+                        $item_metadata = $c->json->decode($response->decoded_content);
+                    }, sub {
+                        $json_decode_error = shift;
+                    });
+                } else {
+                    $self->_detach_with_ia_server_error($c, $response->decoded_content);
+                }
+
+                if (
+                    !defined $item_metadata ||
+                    ref($item_metadata) ne 'HASH' ||
+                    defined $json_decode_error
+                ) {
+                    $self->_detach_with_ia_server_error($c, $json_decode_error);
+                }
+
+                if ($item_metadata->{is_dark}) {
+                    $self->detach_with_error(
+                        $c,
+                        {
+                            # Uses the same string as in root/release/CoverArtDarkened.js
+                            message => l(
+                                'The Cover Art Archive has had a takedown ' .
+                                'request in the past for this release, so we ' .
+                                'are unable to allow any more uploads.',
+                            ),
+                        },
+                    );
+                }
+
+                my $uploader = $item_metadata->{metadata}{uploader};
+                if (!defined $uploader || $uploader ne 'caa@musicbrainz.org') {
+                    $self->detach_with_error(
+                        $c,
+                        {
+                            message => l(
+                                'Cover art can’t be uploaded to this release ' .
+                                'because we don’t own the associated item at ' .
+                                'the Internet Archive. Please contact us at ' .
+                                '{contact_url} so we can resolve this.',
+                                {contact_url => $CONTACT_URL},
+                            ),
+                        },
+                    );
+                }
+            }
+        } else {
+            $self->_detach_with_ia_server_error($c, $response->decoded_content);
+        }
+    }
+
+    my $id = $c->request->params->{image_id} // $c->model('CoverArtArchive')->fresh_id;
+
+    # Create a nonce associated with this image ID which we'll later
+    # use to verify that the user went through this endpoint to
+    # initiate the upload. This is necessary to ensure we're the owner
+    # of the bucket (see above) before allowing any edit submission.
+    my $nonce_key = 'cover_art_upload_nonce:' . $id;
+    my $nonce = $c->generate_nonce;
+    $context->store->set($nonce_key, $nonce);
+    # Expire the nonce in 1 hour.
+    $context->store->expire($nonce_key, 60 * 60);
 
     my %s3_policy;
     $s3_policy{mime_type} = $mime_type;
@@ -245,7 +394,8 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
     my $data = {
         action => DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),
         image_id => "$id",
-        formdata => $c->model('CoverArtArchive')->post_fields($bucket, $gid, $id, \%s3_policy)
+        formdata => $c->model('CoverArtArchive')->post_fields($bucket, $gid, $id, \%s3_policy),
+        nonce => $nonce,
     };
 
     $c->res->headers->header( 'Cache-Control' => 'no-cache', 'Pragma' => 'no-cache' );

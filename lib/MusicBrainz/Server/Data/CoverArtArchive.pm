@@ -214,6 +214,16 @@ sub exists {
     ) or return undef;
 }
 
+sub exists_for_release_gid {
+    my ($self, $release_gid) = @_;
+    $self->c->sql->select_single_value(
+        'SELECT 1 FROM cover_art_archive.cover_art ca ' .
+        'JOIN release r ON r.id = ca.release ' .
+        'WHERE r.gid = ?',
+        $release_gid,
+    );
+}
+
 1;
 
 =head1 COPYRIGHT AND LICENSE
