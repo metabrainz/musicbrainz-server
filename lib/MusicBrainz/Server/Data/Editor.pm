@@ -195,7 +195,7 @@ sub search_by_email {
     my $query = 'SELECT ' . $self->_columns .
         ' FROM ' . $self->_table .
         q" WHERE regexp_replace(regexp_replace(email, '(\+.*@)', '@'), '\.(.*@)', '\1', 'g') ~ ?" .
-        ' ORDER BY member_since LIMIT 100';
+        ' ORDER BY member_since DESC LIMIT 100';
 
     $self->query_to_list($query, [$email]);
 }
