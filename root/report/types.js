@@ -226,7 +226,6 @@ export type ReportReleaseGroupRelationshipT = {
 };
 
 export type ReportReleaseGroupT = {
-  +key?: string,
   +release_group: ?ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,
