@@ -22,6 +22,7 @@ type Props<D: {+artist: ?ArtistT, ...}> = {
   +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
   +items: $ReadOnlyArray<D>,
   +pager: PagerT,
+  +subPath?: string,
 };
 
 const ArtistList = <D: {+artist: ?ArtistT, ...}>({
@@ -29,6 +30,7 @@ const ArtistList = <D: {+artist: ?ArtistT, ...}>({
   columnsAfter,
   items,
   pager,
+  subPath,
 }: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingArtistItems = items.reduce((result, item) => {
     if (item.artist != null) {
@@ -42,6 +44,7 @@ const ArtistList = <D: {+artist: ?ArtistT, ...}>({
       const nameColumn = defineEntityColumn<D>({
         columnName: 'artist',
         getEntity: result => result.artist ?? null,
+        subPath: subPath,
         title: l('Artist'),
       });
       const typeColumn = defineTextColumn<D>({
@@ -63,7 +66,7 @@ const ArtistList = <D: {+artist: ?ArtistT, ...}>({
         ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [columnsAfter, columnsBefore],
+    [columnsAfter, columnsBefore, subPath],
   );
 
   return (
