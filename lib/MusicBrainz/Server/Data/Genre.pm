@@ -47,7 +47,7 @@ sub update {
     $self->sql->update_row('genre', $row, { id => $genre_id });
 }
 
-sub can_delete {1}
+sub can_delete { 1 }
 
 sub delete {
     my ($self, $genre_id) = @_;
