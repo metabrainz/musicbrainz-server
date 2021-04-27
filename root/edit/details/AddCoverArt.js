@@ -39,16 +39,16 @@ const AddCoverArt = ({edit}: Props): React.Element<'table'> => {
         </td>
       </tr>
 
-      {display.artwork.types?.length ? (
-        <tr>
-          <th>{l('Types:')}</th>
-          <td>
-            {commaOnlyList(display.artwork.types.map(
+      <tr>
+        <th>{l('Types:')}</th>
+        <td>
+          {display.artwork.types?.length ? (
+            commaOnlyList(display.artwork.types.map(
               type => lp_attributes(type, 'cover_art_type'),
-            ))}
-          </td>
-        </tr>
-      ) : null}
+            ))
+          ) : lp('(none)', 'type')}
+        </td>
+      </tr>
 
       <tr>
         <th>{l('Filename:')}</th>
