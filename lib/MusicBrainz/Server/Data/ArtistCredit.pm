@@ -162,7 +162,7 @@ sub find_or_insert
     my ($self, $artist_credit) = @_;
 
     for my $name (@{ $artist_credit->{names} }) {
-        $name->{join_phrase} = sanitize($name->{join_phrase} // '');
+        $name->{join_phrase} = sanitize($name->{join_phrase});
     }
 
     my ($id, $name, $positions, $credits, $artists, $join_phrases) =

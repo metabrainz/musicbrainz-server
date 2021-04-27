@@ -56,7 +56,7 @@ sub initialize {
     my $entity_properties = $ENTITIES{model_to_type($self->_edit_model)};
 
     if ($entity_properties->{disambiguation} && exists $opts{comment}) {
-        $opts{comment} = trim($opts{comment} // '');
+        $opts{comment} = trim($opts{comment});
     }
 
     $self->data({
