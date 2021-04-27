@@ -609,6 +609,7 @@ const URL_SHORTENERS = [
   'gate.fm',
   'geni.us',
   'goo.gl',
+  'hypel.ink',
   'hyperurl.co',
   'is.gd',
   'kl.am',
