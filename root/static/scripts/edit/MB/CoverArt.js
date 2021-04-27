@@ -9,6 +9,7 @@
 import filesize from 'filesize';
 import $ from 'jquery';
 import ko from 'knockout';
+import * as Sentry from '@sentry/browser';
 
 import MB from '../../common/MB';
 
@@ -196,7 +197,7 @@ MB.CoverArt.file_data_uri = function (file) {
   return deferred.promise();
 };
 
-MB.CoverArt.sign_upload = function (file, gid, mimeType) {
+MB.CoverArt.sign_upload = function (fileUpload, gid, mimeType) {
   var deferred = $.Deferred();
 
   var postfields = $.ajax({
@@ -207,6 +208,13 @@ MB.CoverArt.sign_upload = function (file, gid, mimeType) {
   });
 
   postfields.fail(function (jqxhr, status, error) {
+    const errorInfo = jqxhr.responseJSON?.error;
+    if (errorInfo && typeof errorInfo === 'object') {
+      fileUpload.signErrorMessage(errorInfo.message);
+      if (errorInfo.error_details) {
+        fileUpload.signErrorDetails(errorInfo.error_details);
+      }
+    }
     deferred.reject('error obtaining signature: ' + status + ' ' + error);
   });
 
@@ -275,6 +283,7 @@ MB.CoverArt.submit_edit = function (
 
   var formdata = new window.FormData();
   formdata.append('add-cover-art.id', postfields.image_id);
+  formdata.append('add-cover-art.nonce', postfields.nonce);
   formdata.append('add-cover-art.position', position);
   formdata.append('add-cover-art.mime_type', mimeType);
   formdata.append('add-cover-art.comment', fileUpload.comment());
@@ -294,6 +303,17 @@ MB.CoverArt.submit_edit = function (
     if (xhr.status === 200) {
       deferred.resolve();
     } else {
+      try {
+        const form = JSON.parse(xhr.responseText);
+        for (const [, field] of Object.entries(form.field)) {
+          if (field.has_errors) {
+            fileUpload.editErrorMessage(field.errors[0]);
+            break;
+          }
+        }
+      } catch (e) {
+        Sentry.captureException(e);
+      }
       deferred.reject(
         'error creating edit: ' + xhr.status + ' ' + xhr.statusText,
       );
@@ -309,6 +329,7 @@ MB.CoverArt.submit_edit = function (
   });
 
   xhr.open('POST', $('#add-cover-art').attr('action'));
+  xhr.setRequestHeader('Accept', 'application/json');
   xhr.send(formdata);
 
   return deferred.promise();
@@ -350,6 +371,9 @@ MB.CoverArt.FileUpload = function (file) {
             self.status() === 'uploading' ||
             self.status() === 'submitting');
   });
+  self.signErrorMessage = ko.observable('');
+  self.signErrorDetails = ko.observable('');
+  self.editErrorMessage = ko.observable('');
 
   self.validating = MB.CoverArt.validate_file(self.data)
     .fail(function () {
@@ -378,7 +402,7 @@ MB.CoverArt.FileUpload = function (file) {
     self.validating.done(function (mimeType) {
       self.status(statuses.signing);
 
-      var signing = MB.CoverArt.sign_upload(self.data, gid, mimeType);
+      var signing = MB.CoverArt.sign_upload(self, gid, mimeType);
       signing.fail(function (msg) {
         self.status(statuses.sign_error);
         deferred.reject(msg);

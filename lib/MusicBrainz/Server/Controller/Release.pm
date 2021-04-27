@@ -263,6 +263,10 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
         }
     );
 
+    my $accept = $c->req->header('Accept');
+    my $returning_json = defined $accept &&
+        $accept =~ m{\bapplication/json\b};
+
     if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
@@ -280,8 +284,17 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
             );
         });
 
-        $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
-        $c->detach;
+        unless ($returning_json) {
+            $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
+            $c->detach;
+        }
+    } elsif ($c->form_posted) {
+        $c->response->status(500);
+    }
+
+    if ($returning_json) {
+        $c->response->body($c->json_utf8->encode($form->TO_JSON));
+        $c->response->content_type('application/json; charset=utf-8');
     }
 }
 
