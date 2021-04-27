@@ -2,7 +2,7 @@
 [% PROCESS 'edit/search_macros.tt' %]
 [% WRAPPER 'layout.tt' title=l('Search for Edits') full_width=1 %]
     <div id="content">
-        <h1>[% l('Search for Edits') %]</h1>
+        [% PROCESS search_heading %]
 
         [% WRAPPER search_form %]
 

@@ -41,6 +41,9 @@ use Plack::Request;
 use Plack::Response;
 use Log::Dispatch;
 
+use lib "$FindBin::Bin/../lib";
+use DBDefs;
+
 my $log = Log::Dispatch->new(outputs => [[ 'Screen', min_level => 'info' ]] );
 my $imgext = 'gif|jpg|pdf|png';
 my $ssssss_storage = $ENV{SSSSSS_STORAGE}
@@ -72,6 +75,16 @@ sub create_bucket
     return $bucketdir;
 }
 
+sub bucket_exists
+{
+    my $bucket = shift;
+    my $bucketdir = catfile($ssssss_storage, $bucket);
+    if (-d $bucketdir) {
+        return 1;
+    }
+    return 0;
+}
+
 sub handle_options
 {
     my $response = shift->new_response(200);
@@ -80,17 +93,53 @@ sub handle_options
     return $response;
 }
 
+sub check_authorization_header
+{
+    my ($request) = @_;
+    my $auth = $request->header('authorization');
+
+    my ($user, $pass) = $auth =~ /^LOW ([^:]+):(.+)$/;
+    if (
+        !defined $user ||
+        !defined $pass ||
+        $user ne DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY ||
+        $pass ne DBDefs->COVER_ART_ARCHIVE_SECRET_KEY
+    ) {
+        my $response = $request->new_response(403);
+        $response->content_type('text/xml');
+        $response->body(q{<?xml version='1.0' encoding='UTF-8'?>
+            <Error><Code>AccessDenied</Code></Error>});
+        return $response;
+    }
+}
+
 sub handle_put
 {
     my ($request) = @_;
 
-    my $bucketdir = create_bucket($request->path_info);
-    my $dest = catfile($bucketdir, $request->param('file'));
-    $log->info("PUT, storing upload at $dest\n");
+    my $response = check_authorization_header($request);
+    if ($response) {
+        return $response;
+    }
 
-    open(my $fh, ">", $dest);
-    print $fh $request->content;
-    close($fh);
+    my $file = $request->param('file');
+    if ($file) {
+        my $bucketdir = create_bucket($request->path_info);
+        my $dest = catfile($bucketdir, $file);
+        $log->info("PUT, storing upload at $dest\n");
+
+        open(my $fh, ">", $dest);
+        print $fh $request->content;
+        close($fh);
+    } elsif (bucket_exists($request->path_info)) {
+        $response = $request->new_response(409);
+        $response->content_type('text/xml');
+        $response->body(q{<?xml version='1.0' encoding='UTF-8'?>
+            <Error><Code>BucketAlreadyExists</Code></Error>});
+        return $response;
+    } else {
+        create_bucket($request->path_info);
+    }
 
     return $request->new_response(204);
 }
@@ -149,7 +198,22 @@ my %mime_types = (
 sub handle_get {
     my ($request) = @_;
 
-    my $filename = catfile($ssssss_storage, $request->path_info);
+    my $path_info = $request->path_info;
+
+    # Simulate the only bits from
+    # https://archive.org/services/docs/api/metadata.html that we need.
+    #
+    # This doesn't exactly belong in an "S3 simulator" service, but
+    # it's simpler to have it here than to create a whole 'nother file
+    # that has to run on a different port.
+    if ($path_info =~ m{^/metadata/}) {
+        my $response = $request->new_response(200);
+        $response->content_type('application/json; charset=UTF-8');
+        $response->body(q({"is_dark":false,"metadata":{"uploader":"caa@musicbrainz.org"}}));
+        return $response;
+    }
+
+    my $filename = catfile($ssssss_storage, $path_info);
 
     if (-f $filename) {
         my ($ext) = $filename =~ m/\.($imgext)$/;

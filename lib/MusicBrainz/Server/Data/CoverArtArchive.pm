@@ -27,6 +27,14 @@ sub get_stats_for_releases {
     };
 }
 
+sub is_valid_mime_type {
+    my ($self, $mime_type) = @_;
+    $self->sql->select_single_value(
+        'SELECT 1 FROM cover_art_archive.image_type WHERE mime_type = ?',
+        $mime_type,
+    );
+}
+
 sub fresh_id {
     return int((time() - 1327528905) * 100);
 }
@@ -204,6 +212,16 @@ sub exists {
     my $row = $self->c->sql->select_single_value(
         'SELECT TRUE FROM cover_art_archive.cover_art WHERE id = ?', $id
     ) or return undef;
+}
+
+sub exists_for_release_gid {
+    my ($self, $release_gid) = @_;
+    $self->c->sql->select_single_value(
+        'SELECT 1 FROM cover_art_archive.cover_art ca ' .
+        'JOIN release r ON r.id = ca.release ' .
+        'WHERE r.gid = ?',
+        $release_gid,
+    );
 }
 
 1;

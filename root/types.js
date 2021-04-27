@@ -150,7 +150,7 @@ declare type ArtworkT = {
   +huge_ia_thumbnail: string,
   +huge_thumbnail: string,
   +id: number,
-  +image: string,
+  +image: string | null,
   +large_ia_thumbnail: string,
   +large_thumbnail: string,
   +mime_type: string,

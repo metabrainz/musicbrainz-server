@@ -98,7 +98,16 @@ sub filename
     return sprintf("mbid-%s-%d.%s", $self->release->gid, $self->id, $self->suffix);
 }
 
-sub image { my $self = shift; return $self->_url_prefix . "." . $self->suffix; }
+sub image {
+    my $self = shift;
+    
+    # If the file has been removed from CAA the suffix will not exist,
+    # but we still call this for edit display 
+    return undef unless $self->suffix;
+    
+    return $self->_url_prefix . "." . $self->suffix;
+}
+
 sub small_thumbnail { my $self = shift; return $self->_url_prefix . "-250.jpg"; }
 sub large_thumbnail { my $self = shift; return $self->_url_prefix . "-500.jpg"; }
 sub huge_thumbnail { my $self = shift; return $self->_url_prefix . "-1200.jpg"; }

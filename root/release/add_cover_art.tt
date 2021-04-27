@@ -24,6 +24,9 @@
     <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ]) %]"
                 class="without-formdata" width="500" height="100" style="border: 0; display: none"></iframe>
     [%- r.hidden('id') -%]
+
+    [% field_errors(form, 'nonce') %]
+
     <div style="display: none">[% r.select('mime_type') %]</div>
 
     <div style="display: none" class="add-files row with-formdata">
@@ -62,9 +65,25 @@
               <span data-bind="visible: status() == 'done'" class="msg success">[%- l('&#x2713; Success') -%]</span>
               <span data-bind="visible: status() == 'validate_error'" class="msg error">[%- l('&#x26a0; Unrecognized file') -%]</span>
               <span data-bind="visible: status() == 'sign_error'" class="msg error">[%- l('&#x26a0; Error requesting signature') -%]</span>
+              <!-- ko if: signErrorMessage -->
+                <p data-bind="text: signErrorMessage"></p>
+              <!-- /ko -->
+              <!-- ko if: signErrorDetails -->
+                <p>
+                  [%# This message is identical to the one used in root/search/error/internal-error.tt %]
+                  [%- l('Below is the error information. If you wish to file a bug report, you may do
+                         so at {bugs|our bug tracker}. The information below will help, so please be
+                         sure to include it!',
+                        {bugs => 'http://tickets.metabrainz.org/'}) -%]
+                </p>
+                <p data-bind="text: signErrorDetails"></p>
+              <!-- /ko -->
               <span data-bind="visible: status() == 'upload_error'" class="msg error">[%- l('&#x26a0; Error uploading image') -%]</span>
               <span data-bind="visible: status() == 'slowdown_error'" class="msg error">[%- l('&#x26a0; Server busy, try again later') -%]</span>
               <span data-bind="visible: status() == 'submit_error'" class="msg error">[%- l('&#x26a0; Error creating edit') -%]</span>
+              <!-- ko if: editErrorMessage -->
+                <p data-bind="text: editErrorMessage"></p>
+              <!-- /ko -->
               <br />
               <span class="buttons" data-bind="visible: !busy() && status() != 'done'" style="float: right;">
                  <button type="button" class="cancel-file negative">[%- l('Remove') -%]</button>
