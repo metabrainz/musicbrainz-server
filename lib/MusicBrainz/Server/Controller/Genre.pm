@@ -15,6 +15,15 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 
 sub base : Chained('/') PathPart('genre') CaptureArgs(0) { }
 
+after 'load' => sub {
+    my ($self, $c) = @_;
+    my $entity_name = $self->{entity_name};
+    my $entity = $c->stash->{ $entity_name };
+    $c->stash(
+        can_delete => $c->model('Genre')->can_delete($entity->id)
+    );
+};
+
 sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
