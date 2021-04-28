@@ -292,6 +292,8 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         $s3_request->header('x-archive-meta-mediatype' => 'image');
         $s3_request->header('x-archive-meta-noindex' => 'true');
 
+        $context->lwp->timeout(30);
+
         my $response = $context->lwp->request($s3_request);
         if ($response->code == 200) {
             # The bucket was created succesfully.
