@@ -1411,7 +1411,7 @@ const testData = [
        only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'http://d-nb.info/gnd/2026867-1',
+                     input_url: 'https://d-nb.info/gnd/2026867-1',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/2026867-1',
