@@ -3980,10 +3980,17 @@ const testData = [
             expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
   },
   {
+                     input_url: 'https://twitter.com/i/web/status/1062342708470132738',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://twitter.com/i/web/status/1062342708470132738',
+       only_valid_entity_types: ['recording'],
+  },
+  {
                      input_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
-            expected_clean_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
+            expected_clean_url: 'https://twitter.com/i/web/status/1062342708470132738',
        only_valid_entity_types: ['recording'],
   },
   // Universal Music

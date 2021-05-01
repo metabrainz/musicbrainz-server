@@ -3230,13 +3230,21 @@ const CLEANUPS = {
         'https://twitter.com/',
       );
       url = url.replace(
-        /^(https:\/\/twitter\.com)\/@?([^\/?#]+(?:\/status\/\d+)?)(?:[\/?#].*)?$/,
-        '$1/$2',
+        /^(https:\/\/twitter\.com\/)@?(?:i\/web|([^\/?#]+))?(\/status\/\d+)?(?:[\/?#].*)?$/,
+        function(_, website, username, status) {
+          if (status) {
+            return website + "i/web"+ status;
+          }
+          if (username) {
+            return website + username;
+          }
+          return website;
+        },
       );
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/twitter\.com\/[^\/?#]+(\/status\/\d+)?$/.exec(url);
+      const m = /^https:\/\/twitter\.com\/(?:[^\/?#]+|(i\/web\/status\/\d+)?)$$/.exec(url);
       if (m) {
         const isATweet = !!m[1];
         if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
