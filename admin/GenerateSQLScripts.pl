@@ -48,13 +48,13 @@ sub process_tables
     my %primary_keys;
     my @sequences;
     my @replication_triggers;
-    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(--.*?replicate(?: ?\(verbose\))?)?\s*(.*?)\s*\);/gsi) {
+    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(-- replicate(?: ?\(verbose\))?)?\s*(.*?)\s*\);/gsi) {
         my $name = $1;
         my $replicate = $2;
         my @lines = split /\n/, $3;
         my @fks;
         foreach my $line (@lines) {
-            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?(weakly |separately )?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
+            if ($line =~ m/([a-z0-9_]+).*?\s*-- (?:PK, |FK, )?(weakly |separately )?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
                 next if (defined $2 && $2 eq 'weakly '); # weak reference
                 my @fk = ($1, ($3 || '') . $4, $5);
                 my $cascade = ($line =~ m/CASCADE/) ? 1 : 0;
