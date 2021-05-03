@@ -3222,7 +3222,7 @@ const CLEANUPS = {
     },
   },
   'twitter': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i')],
+    match: [new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com', 'i')],
     type: {...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork},
     clean: function (url) {
       url = url.replace(
