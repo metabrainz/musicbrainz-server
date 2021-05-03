@@ -3244,7 +3244,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/twitter\.com\/(?:[^\/?#]+|(i\/web\/status\/\d+)?)$$/.exec(url);
+      const m = /^https:\/\/twitter\.com\/(?:[^\/?#]+|(i\/web\/status\/\d+))$/.exec(url);
       if (m) {
         const isATweet = !!m[1];
         if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
