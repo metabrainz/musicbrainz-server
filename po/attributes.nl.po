@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-15 14:06+0000\n"
+"PO-Revision-Date: 2021-04-28 13:41+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,11 @@ msgstr "12″-vinyl"
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
 msgstr "3,5″-floppy"
+
+#: DB:medium_format/name:91
+msgctxt "medium_format"
+msgid "5.25\" Floppy Disk"
+msgstr "5,25″-floppy"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -2681,6 +2686,12 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Gerdaniyekürdi"
 msgstr "Gerdaniyekürdi"
 
+#: DB:medium_format/description:90
+msgctxt "medium_format"
+msgid ""
+"German tape cartridge format, using grooved tape rather than magnetic tape."
+msgstr "Tefifon was een Duits opslagmedium dat bestond uit een lint in een cassette, maar in plaats van een magneetband werd het geluid in groeven op het lint geschreven."
+
 #: DB:work_attribute_type_allowed_value/value:380
 msgctxt "work_attribute_type_allowed_value"
 msgid "Geveşt"
@@ -3346,6 +3357,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Nicaraguan rights society NICAUTOR"
 msgstr "Een ID van de Nicaraguaanse auteursrechtenorganisatie NICAUTOR"
 
+#: DB:work_attribute_type/description:67
+msgctxt "work_attribute_type"
+msgid "ID for the Norwegian rights society TONO"
+msgstr "Een ID van de Noorse auteursrechtenorganisatie TONO"
+
 #: DB:work_attribute_type/description:62
 msgctxt "work_attribute_type"
 msgid "ID for the Panamanian rights society SPAC"
@@ -3486,7 +3502,7 @@ msgstr "Toneelmuziek is achtergrondmuziek die wordt geschreven voor toneel of an
 #: DB:area_type/name:9
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
-msgstr ""
+msgstr "Inheems gebied / reservaat"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -6552,6 +6568,11 @@ msgctxt "work_attribute_type"
 msgid "TEOSTO ID"
 msgstr "TEOSTO-ID"
 
+#: DB:work_attribute_type/name:67
+msgctxt "work_attribute_type"
+msgid "TONO ID"
+msgstr "TONO-ID"
+
 #: DB:work_attribute_type_allowed_value/value:573
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tahir"
@@ -6606,6 +6627,11 @@ msgstr "Tavşanca"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tebriz"
 msgstr "Tebriz"
+
+#: DB:medium_format/name:90
+msgctxt "medium_format"
+msgid "Tefifon"
+msgstr "Tefifon"
 
 #: DB:work_attribute_type_allowed_value/value:774
 msgctxt "work_attribute_type_allowed_value"
@@ -6976,7 +7002,7 @@ msgid ""
 "Used for semi-autonomous territories governed by indigenous peoples, such as"
 " Indian reserves/reservations in North America and indigenous territories in"
 " Central and South America."
-msgstr ""
+msgstr "Inheemse gebieden zijn semiautonome gebieden die door inheemse bevolkingsgroepen worden bestuurd, zoals de indianenreservaten in Noord-Amerika en de inheemse gebieden in Centraal- en Zuid-Amerika."
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"

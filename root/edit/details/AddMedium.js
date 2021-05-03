@@ -154,7 +154,7 @@ const AddMedium = ({allowNew, edit}: Props): React.MixedElement => {
       ) : null}
 
       <tr>
-        <th>{l('Tracklist:')}</th>
+        <th>{addColonText(l('Tracklist'))}</th>
         <td>
           <table className="tbl">
             <tbody>

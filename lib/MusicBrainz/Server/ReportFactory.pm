@@ -21,6 +21,7 @@ use MusicBrainz::Server::PagedReport;
     ArtistsWithNoSubscribers
     BadAmazonURLs
     CatNoLooksLikeASIN
+    CatNoLooksLikeISRC
     CatNoLooksLikeLabelCode
     CDTOCDubiousLength
     CDTOCNotApplied
@@ -109,6 +110,7 @@ use MusicBrainz::Server::Report::ArtistsWithMultipleOccurrencesInArtistCredits;
 use MusicBrainz::Server::Report::ArtistsWithNoSubscribers;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
+use MusicBrainz::Server::Report::CatNoLooksLikeISRC;
 use MusicBrainz::Server::Report::CatNoLooksLikeLabelCode;
 use MusicBrainz::Server::Report::CDTOCDubiousLength;
 use MusicBrainz::Server::Report::CDTOCNotApplied;

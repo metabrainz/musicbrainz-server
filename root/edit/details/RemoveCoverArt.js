@@ -60,14 +60,12 @@ const RemoveCoverArt = ({edit}: Props): React.Element<'table'> => {
         </tr>
       ) : null}
 
-      <tr>
-        <th>{l('Comment:')}</th>
-        <td>
-          {nonEmpty(display.artwork.comment)
-            ? display.artwork.comment
-            : lp('(none)', 'comment')}
-        </td>
-      </tr>
+      {display.artwork.comment ? (
+        <tr>
+          <th>{l('Comment:')}</th>
+          <td>{display.artwork.comment}</td>
+        </tr>
+      ) : null}
 
       <EditArtwork artwork={display.artwork} release={display.release} />
     </table>

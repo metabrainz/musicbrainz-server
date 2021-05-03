@@ -1,7 +1,20 @@
 <script type="text/html" id="template.track-parser">
   [%# the track-parser-dialog is a simplified version of the add-medium-dialog. %]
-  <p>[% l('Enter a tracklist below:') %]</p>
-
+  <p>[% l('Enter a tracklist below:') %] (<a href="#" data-bind="click: $root.trackParser.toggleParserHelp">[% l('help') %]</a>)</p>
+  <div data-bind="visible: $root.trackParser.parserHelpVisible">
+    <p>[% l('If you have a tracklist you can copy and paste, you can input it here.') %]</p>
+    <p>[% l('By default, the parser expects the following format:') %]</p>
+    <ul>
+      <li>1. Love Me Do - The Beatles (2:23)</li>
+      <li>2. P.S. I Love You - The Beatles (2:03)</li>
+    </ul>
+    <p>
+      [% l('You can use the checkboxes under the parser to deactivate some sections. For example, you can deactivate “{lines_have_artists}” if your data has no track artists, or “{use_track_lengths}” if you have track durations but want the parser to ignore them.', {lines_have_artists => l('Lines contain track artists'), use_track_lengths => l('Use track lengths')}) %]
+    </p>
+    <p>
+      [% l('If you select “{enable_vinyl_numbers}”, the parser will also accept strings such as “A1” as track numbers.', {enable_vinyl_numbers => l('Enable vinyl track numbers')}) %]
+    </p>
+    </div>
   <textarea class="tracklist" data-bind="value: toBeParsed"></textarea>
 
   <!-- ko if: error -->

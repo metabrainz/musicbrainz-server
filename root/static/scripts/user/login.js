@@ -7,4 +7,4 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import '../../../components/PostParameters';
+import '../common/components/PostParameters';

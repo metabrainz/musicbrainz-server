@@ -31,7 +31,10 @@ const GenreLayout = ({
   page,
   title,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} title={title}>
+  <Layout
+    $c={$c}
+    title={nonEmpty(title) ? hyphenateTitle(genre.name, title) : genre.name}
+  >
     <div id="content">
       <GenreHeader genre={genre} page={page} />
       {children}

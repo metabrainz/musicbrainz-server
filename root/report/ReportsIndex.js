@@ -307,6 +307,10 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           reportName="CatNoLooksLikeASIN"
         />
         <ReportsIndexEntry
+          content={l('Releases with catalog numbers that look like ISRCs')}
+          reportName="CatNoLooksLikeISRC"
+        />
+        <ReportsIndexEntry
           content={l(
             'Releases with catalog numbers that look like Label Codes',
           )}

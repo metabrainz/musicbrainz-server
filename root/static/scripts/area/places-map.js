@@ -38,6 +38,7 @@ if (places.length) {
   const buildIcon = iconUrl => new LeafIcon({iconUrl});
 
   const icons = {
+    0: buildIcon(require('../../images/leaflet/ended-marker-icon.png')),
     1: buildIcon(require('../../images/leaflet/studio-marker-icon.png')),
     2: buildIcon(require('../../images/leaflet/venue-marker-icon.png')),
     3: buildIcon(require('../../images/leaflet/marker-icon.png')),
@@ -88,6 +89,12 @@ if (places.length) {
   const bounds = [];
   places.forEach(function (place) {
     const placeType = place.typeName || l('No type');
+    const placeName = place.ended
+      ? exp.l('{place_name} (closed)', {place_name: place.name})
+      : place.name;
+    const icon = place.ended
+      ? icons['0']
+      : icons[place.typeID] ?? icons['3'];
     const coordinates = [
       place.coordinates.latitude,
       place.coordinates.longitude,
@@ -95,13 +102,20 @@ if (places.length) {
     const marker = L.marker(coordinates, {
       clickable: true,
       draggable: false,
-      icon: icons[place.typeID] ?? icons['3'],
-      title: place.name,
+      icon: icon,
+      title: placeName,
     }).bindPopup(
-      texp.l('{place_type}: {place_link}', {
-        place_link: placeLink(place),
-        place_type: placeType,
-      }),
+      place.ended ? (
+        texp.l('{place_type}: {place_link} (closed)', {
+          place_link: placeLink(place),
+          place_type: placeType,
+        })
+      ) : (
+        texp.l('{place_type}: {place_link}', {
+          place_link: placeLink(place),
+          place_type: placeType,
+        })
+      ),
     );
     bounds.push(coordinates);
     markers.addLayer(marker);

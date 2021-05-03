@@ -52,7 +52,7 @@ after 'load' => sub {
 };
 
 # Stuff that has the side bar and thus needs to display collection information
-after [qw( show collections details tags aliases )] => sub {
+after [qw( show collections details tags ratings aliases )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

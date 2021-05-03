@@ -109,6 +109,10 @@ sub is_adding_notes_disabled {
     (shift->privileges & $ADDING_NOTES_DISABLED_FLAG) > 0;
 }
 
+sub public_privileges {
+    shift->privileges & $PUBLIC_PRIVILEGE_FLAGS;
+}
+
 has 'email' => (
     is        => 'rw',
     isa       => 'Str',
@@ -302,7 +306,7 @@ sub _unsanitized_json {
         languages                   => to_json_array($self->languages),
         last_login_date             => datetime_to_iso8601($self->last_login_date),
         preferences                 => $self->preferences->TO_JSON,
-        privileges                  => $self->privileges,
+        privileges                  => 0 + $self->privileges,
         registration_date           => datetime_to_iso8601($self->registration_date),
         website                     => $self->website,
     };
@@ -324,6 +328,7 @@ sub TO_JSON {
         gravatar => $self->gravatar,
         id => $self->id,
         name => $self->name,
+        privileges => 0 + $self->public_privileges,
     };
 }
 

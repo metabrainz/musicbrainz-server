@@ -17,6 +17,7 @@ import {MultipleSelectField} from '../components/SelectField';
 type Props = {
   +form: FormT<{
     +comment: FieldT<string | null>,
+    +nonce: FieldT<string>,
     +position?: FieldT<number>,
     +type_id: FieldT<Array<StrOrNum>>,
     ...
@@ -35,6 +36,14 @@ const CoverArtFields = ({
         name={form.field.position.html_name}
         type="hidden"
         value={form.field.position.value}
+      />
+    ) : null}
+    {form.field.nonce ? (
+      <input
+        id={'id-' + form.field.nonce.html_name}
+        name={form.field.nonce.html_name}
+        type="hidden"
+        value={form.field.nonce.value}
       />
     ) : null}
     <FormRow>

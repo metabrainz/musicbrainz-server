@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import PostParameters, {
   type PostParametersT,
-} from '../components/PostParameters';
+} from '../static/scripts/common/components/PostParameters';
 import Layout from '../layout';
 import * as manifest from '../static/manifest';
 

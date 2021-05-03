@@ -186,9 +186,16 @@ sub find_by_ip {
 sub search_by_email {
     my ($self, $email) = @_;
 
+    # Remove periods (\.), and anything preceded by a + sign on the user side
+    # for email matching, since both of these are often used as "free aliases"
+    # by email providers
+    $email =~ s/\\\+.*@/@/;
+    $email =~ s/\\\.(.*@)/$1/g;
+
     my $query = 'SELECT ' . $self->_columns .
-        ' FROM ' . $self->_table . ' WHERE email ~ ?' .
-        ' ORDER BY member_since LIMIT 100';
+        ' FROM ' . $self->_table .
+        q" WHERE regexp_replace(regexp_replace(email, '(\+.*@)', '@'), '\.(.*@)', '\1', 'g') ~ ?" .
+        ' ORDER BY member_since DESC LIMIT 100';
 
     $self->query_to_list($query, [$email]);
 }

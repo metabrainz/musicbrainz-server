@@ -1397,6 +1397,13 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D119194901X',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/119194901X',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=idn%3D1227621485',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
@@ -2844,37 +2851,37 @@ const testData = [
                      input_url: 'http://www.ocremix.org/artist/4792/oneup',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/artist/4792/',
+            expected_clean_url: 'https://ocremix.org/artist/4792',
   },
   {
                      input_url: 'https://ocremix.org/org/2/nintendo',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/org/2/',
+            expected_clean_url: 'https://ocremix.org/org/2',
   },
   {
                      input_url: 'https://ocremix.org/album/46/final-fantasy-vi-balance-and-ruin',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/album/46/',
+            expected_clean_url: 'https://ocremix.org/album/46',
   },
   {
                      input_url: 'https://ocremix.org/remix/OCR00002#tab-details',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/remix/OCR00002/',
+            expected_clean_url: 'https://ocremix.org/remix/OCR00002',
   },
   {
                      input_url: 'http://ocremix.org/game/512/jade-cocoon-story-of-the-tamamayu-ps1',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/game/512/',
+            expected_clean_url: 'https://ocremix.org/game/512',
   },
   {
                      input_url: 'http://ocremix.org/song/1033',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/song/1033/',
+            expected_clean_url: 'https://ocremix.org/song/1033',
   },
   // Offizielle Deutsche Charts
   {
@@ -3266,6 +3273,13 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
             expected_clean_url: 'https://ra.co/podcast/491',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://www.ra.co/exchange/552',
+             input_entity_type: 'release',
+    expected_relationship_type: 'shownotes',
+            expected_clean_url: 'https://ra.co/exchange/552',
        only_valid_entity_types: ['release'],
   },
   // ReverbNation

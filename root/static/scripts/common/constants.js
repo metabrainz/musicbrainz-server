@@ -146,8 +146,6 @@ export const FAVICON_CLASSES = {
   'ra.co': 'residentadvisor',
   'rateyourmusic.com': 'rateyourmusic',
   'recochoku.jp': 'recochoku',
-  // Remove once MBBE-31 is done
-  'residentadvisor.net': 'residentadvisor',
   'reverbnation.com': 'reverbnation',
   'rock.com.ar': 'rockcomar',
   'rockensdanmarkskort.dk': 'rockensdanmarkskort',
