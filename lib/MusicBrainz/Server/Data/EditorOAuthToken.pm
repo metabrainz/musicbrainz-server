@@ -4,7 +4,6 @@ use namespace::autoclean;
 
 use DateTime;
 use DateTime::Duration;
-#use MusicBrainz::Server::Entity::OAuthAuthorization;
 use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Data::Utils qw(
     generate_token
