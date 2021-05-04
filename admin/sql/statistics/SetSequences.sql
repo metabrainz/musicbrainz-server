@@ -3,4 +3,4 @@
 
 SET search_path = 'statistics';
 
-SELECT setval('statistic_id_seq', (SELECT MAX(id) FROM statistic));
+SELECT setval('statistic_id_seq', COALESCE((SELECT MAX(id) FROM statistic), 0) + 1, FALSE);
