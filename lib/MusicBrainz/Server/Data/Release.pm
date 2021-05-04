@@ -55,6 +55,7 @@ Readonly::Hash our %RELEASE_MERGE_ERRORS => (
     medium_missing              => N_l('Some mediums being merged don’t have an equivalent on the target release: either the target release has less mediums, or the positions don’t match.'),
     medium_positions            => N_l('The medium positions conflict.'),
     medium_track_counts         => N_l('The track counts on at least one set of corresponding mediums do not match.'),
+    merging_into_empty          => N_l('Merging a medium with tracks into one without them is not currently supported. You can always merge in the other direction!'),
     pregaps                     => N_l('Mediums with a pregap track can only be merged with other mediums with a pregap track.'),
     recording_merge_cycle       => N_l('A merge cycle exists whereby two recordings ({recording1} and {recording2}) each want to merge into the other. This is likely because the tracks or recordings are in an inconsistent order on the releases.'),
 );
@@ -898,11 +899,25 @@ sub can_merge {
             });
         }
 
-        my $medium_track_counts_differ = $self->sql->select_single_value(
-            "$mediums_query
-             WHERE new_medium.track_count <> s.track_count
-             LIMIT 1",
-            \@old_ids, $new_id);
+        my $merging_into_empty_medium = $self->sql->select_single_value(<<~"EOSQL", \@old_ids, $new_id);
+            $mediums_query
+            WHERE s.track_count > 0
+            AND new_medium.track_count = 0
+            LIMIT 1
+            EOSQL
+
+        if ($merging_into_empty_medium) {
+            return (0, {
+                message => $RELEASE_MERGE_ERRORS{merging_into_empty},
+            });
+        }
+
+        my $medium_track_counts_differ = $self->sql->select_single_value(<<~"EOSQL", \@old_ids, $new_id);
+            $mediums_query
+            WHERE new_medium.track_count <> s.track_count
+            AND s.track_count > 0
+            LIMIT 1
+            EOSQL
 
         if ($medium_track_counts_differ) {
             return (0, {
