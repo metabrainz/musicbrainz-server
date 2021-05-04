@@ -1,5 +1,4 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Recording;
-use DBDefs;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     boolean
@@ -35,10 +34,7 @@ sub serialize
         ];
     }
 
-    if (
-        DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26 &&
-        defined $entity->first_release_date
-    ) {
+    if (defined $entity->first_release_date) {
         $body{'first-release-date'} = $entity->first_release_date->format;
     }
 

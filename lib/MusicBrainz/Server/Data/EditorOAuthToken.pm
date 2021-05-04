@@ -4,7 +4,6 @@ use namespace::autoclean;
 
 use DateTime;
 use DateTime::Duration;
-use DBDefs;
 #use MusicBrainz::Server::Entity::OAuthAuthorization;
 use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Data::Utils qw(
@@ -21,9 +20,9 @@ sub _table
 
 sub _columns
 {
-    my $columns = 'id, editor, application, authorization_code, access_token, refresh_token, expire_time, scope';
-    $columns .= ', code_challenge, code_challenge_method' if DBDefs->OAUTH2_ENABLE_PKCE;
-    return $columns;
+    return 'id, editor, application, authorization_code, ' .
+           'access_token, refresh_token, expire_time, scope, ' .
+           'code_challenge, code_challenge_method';
 }
 
 sub _column_mapping
@@ -34,10 +33,8 @@ sub _column_mapping
         application_id => 'application',
         authorization_code => 'authorization_code',
         access_token => 'access_token',
-        DBDefs->OAUTH2_ENABLE_PKCE ? (
-            code_challenge => 'code_challenge',
-            code_challenge_method => 'code_challenge_method',
-        ) : (),
+        code_challenge => 'code_challenge',
+        code_challenge_method => 'code_challenge_method',
         refresh_token => 'refresh_token',
         expire_time => 'expire_time',
         scope => 'scope',
@@ -119,10 +116,8 @@ sub create_authorization_code
         editor => $editor_id,
         application => $application_id,
         authorization_code => generate_token(),
-        DBDefs->OAUTH2_ENABLE_PKCE ? (
-            code_challenge => $code_challenge,
-            code_challenge_method => $code_challenge_method,
-        ) : (),
+        code_challenge => $code_challenge,
+        code_challenge_method => $code_challenge_method,
         granted => DateTime->now,
         expire_time => DateTime->now->add( hours => 1 ),
         scope => $scope,
@@ -143,10 +138,8 @@ sub grant_access_token
 
     my $update = {
         authorization_code => undef,
-        DBDefs->OAUTH2_ENABLE_PKCE ? (
-            code_challenge => undef,
-            code_challenge_method => undef,
-        ) : (),
+        code_challenge => undef,
+        code_challenge_method => undef,
         access_token => generate_token(),
         expire_time => DateTime->now->add( hours => 1 ),
     };
