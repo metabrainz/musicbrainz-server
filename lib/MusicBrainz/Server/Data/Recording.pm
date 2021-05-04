@@ -2,7 +2,6 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use namespace::autoclean;
-use DBDefs;
 use List::MoreUtils qw( uniq );
 use List::UtilsBy qw( rev_nsort_by sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
@@ -431,8 +430,6 @@ sub appears_on
 
 sub load_first_release_date {
     my ($self, @recordings) = @_;
-
-    return unless DBDefs->ACTIVE_SCHEMA_SEQUENCE == 26;
 
     my %recording_map = object_to_ids(@recordings);
     my @ids = keys %recording_map;
