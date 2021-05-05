@@ -308,6 +308,7 @@ sub process_functions
 }
 
 process_functions("CreateFunctions.sql", "DropFunctions.sql");
+process_functions("CreateSlaveOnlyFunctions.sql", "DropSlaveOnlyFunctions.sql");
 
 sub process_triggers
 {
@@ -338,6 +339,7 @@ sub process_triggers
 }
 
 process_triggers("CreateTriggers.sql", "DropTriggers.sql");
+process_triggers("CreateSlaveOnlyTriggers.sql", "DropSlaveOnlyTriggers.sql");
 process_triggers("CreateReplicationTriggers.sql", "DropReplicationTriggers.sql");
 
 =head1 COPYRIGHT AND LICENSE

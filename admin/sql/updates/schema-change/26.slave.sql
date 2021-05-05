@@ -155,6 +155,8 @@ $$ LANGUAGE 'plpgsql' STRICT;
 CREATE OR REPLACE FUNCTION set_release_first_release_date(release_id INTEGER)
 RETURNS VOID AS $$
 BEGIN
+  -- DO NOT modify any replicated tables in this function; it's used
+  -- by a trigger on slaves.
   DELETE FROM release_first_release_date
   WHERE release = release_id;
 
@@ -206,6 +208,8 @@ $$ LANGUAGE 'plpgsql' STRICT;
 CREATE OR REPLACE FUNCTION set_recordings_first_release_dates(recording_ids INTEGER[])
 RETURNS VOID AS $$
 BEGIN
+  -- DO NOT modify any replicated tables in this function; it's used
+  -- by a trigger on slaves.
   DELETE FROM recording_first_release_date
   WHERE recording = ANY(recording_ids);
 
