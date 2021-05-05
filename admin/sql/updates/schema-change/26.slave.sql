@@ -115,6 +115,9 @@ $$;
 SELECT '20201028-mbs-1424.sql';
 
 
+DROP TABLE IF EXISTS release_first_release_date CASCADE;
+DROP TABLE IF EXISTS recording_first_release_date CASCADE;
+
 CREATE TABLE release_first_release_date (
     release     INTEGER NOT NULL,
     year        SMALLINT,
