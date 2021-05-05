@@ -34,6 +34,8 @@ DROP INDEX artist_attribute_idx_artist;
 DROP INDEX artist_attribute_type_allowed_value_idx_gid;
 DROP INDEX artist_attribute_type_allowed_value_idx_name;
 DROP INDEX artist_attribute_type_idx_gid;
+DROP INDEX artist_credit_gid_redirect_idx_new_id;
+DROP INDEX artist_credit_idx_gid;
 DROP INDEX artist_credit_idx_musicbrainz_collate;
 DROP INDEX artist_credit_name_idx_artist;
 DROP INDEX artist_credit_name_idx_musicbrainz_collate;

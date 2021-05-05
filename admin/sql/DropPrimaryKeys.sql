@@ -27,6 +27,7 @@ ALTER TABLE artist_attribute DROP CONSTRAINT IF EXISTS artist_attribute_pkey;
 ALTER TABLE artist_attribute_type DROP CONSTRAINT IF EXISTS artist_attribute_type_pkey;
 ALTER TABLE artist_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS artist_attribute_type_allowed_value_pkey;
 ALTER TABLE artist_credit DROP CONSTRAINT IF EXISTS artist_credit_pkey;
+ALTER TABLE artist_credit_gid_redirect DROP CONSTRAINT IF EXISTS artist_credit_gid_redirect_pkey;
 ALTER TABLE artist_credit_name DROP CONSTRAINT IF EXISTS artist_credit_name_pkey;
 ALTER TABLE artist_gid_redirect DROP CONSTRAINT IF EXISTS artist_gid_redirect_pkey;
 ALTER TABLE artist_ipi DROP CONSTRAINT IF EXISTS artist_ipi_pkey;

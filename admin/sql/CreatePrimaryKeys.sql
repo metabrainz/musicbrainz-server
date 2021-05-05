@@ -27,6 +27,7 @@ ALTER TABLE artist_attribute ADD CONSTRAINT artist_attribute_pkey PRIMARY KEY (i
 ALTER TABLE artist_attribute_type ADD CONSTRAINT artist_attribute_type_pkey PRIMARY KEY (id);
 ALTER TABLE artist_attribute_type_allowed_value ADD CONSTRAINT artist_attribute_type_allowed_value_pkey PRIMARY KEY (id);
 ALTER TABLE artist_credit ADD CONSTRAINT artist_credit_pkey PRIMARY KEY (id);
+ALTER TABLE artist_credit_gid_redirect ADD CONSTRAINT artist_credit_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE artist_credit_name ADD CONSTRAINT artist_credit_name_pkey PRIMARY KEY (artist_credit, position);
 ALTER TABLE artist_gid_redirect ADD CONSTRAINT artist_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE artist_ipi ADD CONSTRAINT artist_ipi_pkey PRIMARY KEY (artist, ipi);
