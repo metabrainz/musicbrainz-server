@@ -35,13 +35,13 @@
               </select>
             </td>
             <td>
-              <!-- ko if: allowsFreeText() -->
+              <!-- ko if: allowsFreeText(typeID()) -->
               <input type="text" data-bind="
                   value: attributeValue,
                   attr: { name: 'edit-work.attributes.' + $index() + '.value' }
               " />
               <!-- /ko -->
-              <!-- ko if: !allowsFreeText() && !isGroupingType() -->
+              <!-- ko if: !allowsFreeText(typeID()) && !isGroupingType() -->
               <select data-bind="
                   value: attributeValue,
                   options: allowedValues,

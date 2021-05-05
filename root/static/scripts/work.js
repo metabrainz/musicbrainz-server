@@ -110,6 +110,8 @@ class WorkAttribute {
 
   parent: ViewModel;
 
+  previousTypeID: number | null;
+
   previousValue: string | null;
 
   typeHasFocus: KnockoutObservable<boolean>;
@@ -123,6 +125,7 @@ class WorkAttribute {
     this.attributeValue = ko.observable(data.field.value.value);
     this.errors = ko.observableArray(subfieldErrors(data));
     this.parent = parent;
+    this.previousTypeID = null;
     this.previousValue = null;
     this.typeHasFocus = ko.observable(false);
     this.typeID = ko.observable(data.field.type_id.value);
@@ -130,16 +133,24 @@ class WorkAttribute {
     this.allowedValues = ko.computed(() => {
       const typeID = this.typeID();
 
-      if (!typeID || this.allowsFreeText()) {
+      if (this.allowsFreeText(typeID)) {
         return [];
       }
       return this.parent.allowedValuesByTypeID[typeID] ?? [];
     });
 
+    this.typeID.subscribe((previousTypeID => {
+      this.previousTypeID = previousTypeID;
+    }), this, 'beforeChange');
+
     this.typeID.subscribe(newTypeID => {
       // != is used intentionally for type coercion.
-      if (this.typeID() != newTypeID) { // eslint-disable-line eqeqeq
-        this.attributeValue('');
+      if (this.previousTypeID != newTypeID) { // eslint-disable-line eqeqeq
+        // Don't blank text value if user e.g. misclicked and corrects type
+        if (!(this.allowsFreeText(this.previousTypeID) &&
+              this.allowsFreeText(newTypeID))) {
+          this.attributeValue('');
+        }
         this.resetErrors();
       }
     });
@@ -156,13 +167,14 @@ class WorkAttribute {
     });
   }
 
-  allowsFreeText() {
-    return !this.typeID() ||
-      this.parent.attributeTypesByID[this.typeID()].free_text;
+  allowsFreeText(typeID) {
+    return !typeID ||
+      this.parent.attributeTypesByID[typeID].free_text;
   }
 
   isGroupingType() {
-    return !this.allowsFreeText() && this.allowedValues().length === 0;
+    return !this.allowsFreeText(this.typeID()) &&
+           this.allowedValues().length === 0;
   }
 
   remove() {
