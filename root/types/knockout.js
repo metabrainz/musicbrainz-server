@@ -11,7 +11,11 @@ declare type KnockoutObservable<T> = {
   // eslint-disable-next-line no-undef
   [[call]]: (() => T) & ((T) => empty),
   peek: () => T,
-  subscribe: ((T) => void) => {dispose: () => empty},
+  subscribe: (
+    (T) => void,
+    target?: mixed,
+    event?: string
+  ) => {dispose: () => empty},
 };
 
 declare type KnockoutObservableArray<T> =

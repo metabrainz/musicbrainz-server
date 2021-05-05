@@ -110,6 +110,8 @@ class WorkAttribute {
 
   parent: ViewModel;
 
+  previousValue: string | null;
+
   typeHasFocus: KnockoutObservable<boolean>;
 
   typeID: KnockoutObservable<number>;
@@ -121,6 +123,7 @@ class WorkAttribute {
     this.attributeValue = ko.observable(data.field.value.value);
     this.errors = ko.observableArray(subfieldErrors(data));
     this.parent = parent;
+    this.previousValue = null;
     this.typeHasFocus = ko.observable(false);
     this.typeID = ko.observable(data.field.type_id.value);
 
@@ -141,7 +144,16 @@ class WorkAttribute {
       }
     });
 
-    this.attributeValue.subscribe(() => this.resetErrors());
+    this.attributeValue.subscribe((previousValue => {
+      this.previousValue = previousValue;
+    }), this, 'beforeChange');
+
+    this.attributeValue.subscribe(newValue => {
+      // != is used intentionally for type coercion.
+      if (this.previousValue != newValue) { // eslint-disable-line eqeqeq
+        this.resetErrors();
+      }
+    });
   }
 
   allowsFreeText() {
