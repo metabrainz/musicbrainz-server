@@ -60,7 +60,6 @@ CREATE UNIQUE INDEX artist_type_idx_gid ON artist_type (gid);
 
 CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
 
-CREATE INDEX artist_rating_raw_idx_artist ON artist_rating_raw (artist);
 CREATE INDEX artist_rating_raw_idx_editor ON artist_rating_raw (editor);
 
 CREATE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
@@ -164,7 +163,6 @@ CREATE UNIQUE INDEX event_attribute_type_idx_gid ON event_attribute_type (gid);
 CREATE INDEX event_attribute_type_allowed_value_idx_name ON event_attribute_type_allowed_value (event_attribute_type);
 CREATE UNIQUE INDEX event_attribute_type_allowed_value_idx_gid ON event_attribute_type_allowed_value (gid);
 
-CREATE INDEX event_rating_raw_idx_event ON event_rating_raw (event);
 CREATE INDEX event_rating_raw_idx_editor ON event_rating_raw (editor);
 
 CREATE INDEX event_tag_idx_tag ON event_tag (tag);
@@ -408,7 +406,6 @@ CREATE INDEX label_tag_idx_tag ON label_tag (tag);
 CREATE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
 CREATE INDEX label_tag_raw_idx_editor ON label_tag_raw (editor);
 
-CREATE INDEX label_rating_raw_idx_label ON label_rating_raw (label);
 CREATE INDEX label_rating_raw_idx_editor ON label_rating_raw (editor);
 
 CREATE UNIQUE INDEX label_type_idx_gid ON label_type (gid);
@@ -534,7 +531,6 @@ CREATE UNIQUE INDEX release_group_attribute_type_allowed_value_idx_gid ON releas
 
 CREATE INDEX release_group_tag_idx_tag ON release_group_tag (tag);
 
-CREATE INDEX release_group_rating_raw_idx_release_group ON release_group_rating_raw (release_group);
 CREATE INDEX release_group_rating_raw_idx_editor ON release_group_rating_raw (editor);
 
 CREATE INDEX release_group_tag_raw_idx_tag ON release_group_tag_raw (tag);
