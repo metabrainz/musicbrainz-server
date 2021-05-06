@@ -49,7 +49,7 @@ BEGIN
     format('release = %L', release_id)
   );
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE OR REPLACE FUNCTION set_release_group_first_release_date(release_group_id INTEGER)
 RETURNS VOID AS $$
@@ -100,7 +100,7 @@ BEGIN
     format('track.recording = any(%L)', recording_ids)
   );
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE OR REPLACE FUNCTION set_releases_recordings_first_release_dates(release_ids INTEGER[])
 RETURNS VOID AS $$
@@ -113,7 +113,7 @@ BEGIN
   ));
   RETURN;
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE OR REPLACE FUNCTION a_ins_track() RETURNS trigger AS $$
 BEGIN

@@ -923,7 +923,7 @@ BEGIN
     format('release = %L', release_id)
   );
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' STRICT;
 
 -------------------------------------------------------------------
 -- Maintain release_group_meta.first_release_date
@@ -980,7 +980,7 @@ BEGIN
     format('track.recording = any(%L)', recording_ids)
   );
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE OR REPLACE FUNCTION set_releases_recordings_first_release_dates(release_ids INTEGER[])
 RETURNS VOID AS $$
@@ -993,7 +993,7 @@ BEGIN
   ));
   RETURN;
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE OR REPLACE FUNCTION a_ins_release_event()
 RETURNS TRIGGER AS $$
