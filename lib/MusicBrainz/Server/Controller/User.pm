@@ -584,7 +584,6 @@ sub tag : Chained('load_tag') PathPart('')
     my $tag = $c->stash->{tag};
     my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
     my %tagged_entities;
-    my $tag_in_use = 0;
 
     # Determine whether this tag exists in the database
     if ($tag) {
