@@ -279,6 +279,7 @@ module.exports = {
   'statistics/LanguagesScripts': require('../statistics/LanguagesScripts'),
   'statistics/NoStatistics': require('../statistics/NoStatistics'),
   'statistics/Relationships': require('../statistics/Relationships'),
+  'tag/DeleteTag': require('../tag/DeleteTag'),
   'tag/EntityList': require('../tag/EntityList'),
   'tag/NotFound': require('../tag/NotFound'),
   'tag/TagCloud': require('../tag/TagCloud'),

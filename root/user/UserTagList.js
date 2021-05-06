@@ -15,6 +15,7 @@ import UserAccountLayout, {
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import {UserTagLink} from '../static/scripts/common/components/TagLink';
 import expand2react from '../static/scripts/common/i18n/expand2react';
+import bracketed from '../static/scripts/common/utility/bracketed';
 import loopParity from '../utility/loopParity';
 
 import UserTagVoteSelection from './components/UserTagVoteSelection';
@@ -45,6 +46,31 @@ export function getTagListUrl(
   );
 }
 
+const ManageTagLinks = ({
+  showDownvoted,
+  tag,
+}) => (
+  bracketed(
+    showDownvoted ? (
+      <a
+        href={
+          '/tag/' + encodeURIComponent(tag.name) +
+          '/delete?delete_downvoted=1'}
+      >
+        {l('delete')}
+      </a>
+    ) : (
+      <a
+        href={
+          '/tag/' + encodeURIComponent(tag.name) +
+          '/delete'}
+      >
+        {l('delete')}
+      </a>
+    ),
+  )
+);
+
 type Props = {
   +$c: CatalystContextT,
   +genres: $ReadOnlyArray<UserTagT>,
@@ -59,78 +85,107 @@ const UserTagList = ({
   showDownvoted = false,
   tags,
   user,
-}: Props): React.Element<typeof UserAccountLayout> => (
-  <UserAccountLayout entity={user} page="tags" title={l('Tags')}>
-    <h2>
-      {getTagListHeading(user.name, showDownvoted)}
-    </h2>
+}: Props): React.Element<typeof UserAccountLayout> => {
+  const viewingOwnTags = Boolean($c.user && user &&
+                                 $c.user.id === user.id);
 
-    <UserTagVoteSelection $c={$c} showDownvoted={showDownvoted} />
+  return (
+    <UserAccountLayout entity={user} page="tags" title={l('Tags')}>
+      <h2>
+        {getTagListHeading(user.name, showDownvoted)}
+      </h2>
 
-    <div id="all-tags">
-      {(genres.length > 0 || tags.length > 0) ? (
-        <>
-          <h3>{l('Genres')}</h3>
+      <UserTagVoteSelection $c={$c} showDownvoted={showDownvoted} />
 
-          <div id="genres">
-            {genres.length > 0 ? (
-              <ul className="genre-list">
-                {genres.map((tag, index) => (
-                  <li className={loopParity(index)} key={tag.tag.id}>
-                    <UserTagLink
-                      showDownvoted={showDownvoted}
-                      tag={tag.tag.name}
-                      username={user.name}
-                    />
-                    <span className="tag-vote-buttons">
-                      <span className="tag-count">{tag.count}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            ) : <p>{l('There are no genres to show.')}</p>}
-          </div>
+      <div id="all-tags">
+        {(genres.length > 0 || tags.length > 0) ? (
+          <>
+            <h3>{l('Genres')}</h3>
 
-          <h3>{l('Other tags')}</h3>
+            <div id="genres">
+              {genres.length > 0 ? (
+                <ul className="genre-list">
+                  {genres.map((tag, index) => (
+                    <li className={loopParity(index)} key={tag.tag.id}>
+                      <span className="flexgrow">
+                        <UserTagLink
+                          showDownvoted={showDownvoted}
+                          tag={tag.tag.name}
+                          username={user.name}
+                        />
+                        {viewingOwnTags ? (
+                          <>
+                            {' '}
+                            <ManageTagLinks
+                              showDownvoted={showDownvoted}
+                              tag={tag.tag}
+                            />
+                          </>
+                        ) : null}
+                      </span>
+                      <span className="tag-vote-buttons">
+                        <span className="tag-count">{tag.count}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : <p>{l('There are no genres to show.')}</p>}
+            </div>
 
-          <div id="tags">
-            {tags.length > 0 ? (
-              <ul className="tag-list">
-                {tags.map((tag, index) => (
-                  <li className={loopParity(index)} key={tag.tag.id}>
-                    <UserTagLink
-                      showDownvoted={showDownvoted}
-                      tag={tag.tag.name}
-                      username={user.name}
-                    />
-                    <span className="tag-vote-buttons">
-                      <span className="tag-count">{tag.count}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            ) : <p>{l('There are no other tags to show.')}</p>}
-          </div>
-        </>
-      ) : (
-        showDownvoted ? (
-          <p>
-            {exp.l(
-              '{user} has not downvoted any tags.',
-              {user: <EditorLink editor={user} />},
-            )}
-          </p>
+            <h3>{l('Other tags')}</h3>
+
+            <div id="tags">
+              {tags.length > 0 ? (
+                <ul className="tag-list">
+                  {tags.map((tag, index) => (
+                    <li className={loopParity(index)} key={tag.tag.id}>
+                      <span className="flexgrow">
+                        <UserTagLink
+                          showDownvoted={showDownvoted}
+                          tag={tag.tag.name}
+                          username={user.name}
+                        />
+                        {viewingOwnTags ? (
+                          <>
+                            {' '}
+                            <ManageTagLinks
+                              showDownvoted={showDownvoted}
+                              tag={tag.tag}
+                            />
+                          </>
+                        ) : null}
+                      </span>
+                      <span className="tag-vote-buttons">
+                        <span className="tag-count">
+                          {tag.count}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : <p>{l('There are no other tags to show.')}</p>}
+            </div>
+          </>
         ) : (
-          <p>
-            {exp.l(
-              '{user} has not upvoted any tags.',
-              {user: <EditorLink editor={user} />},
-            )}
-          </p>
-        )
-      )}
-    </div>
-  </UserAccountLayout>
-);
+          showDownvoted ? (
+            <p>
+              {exp.l(
+                '{user} has not downvoted any tags.',
+                {user: <EditorLink editor={user} />},
+              )}
+            </p>
+          ) : (
+            <p>
+              {exp.l(
+                '{user} has not upvoted any tags.',
+                {user: <EditorLink editor={user} />},
+              )}
+            </p>
+          )
+        )}
+      </div>
+    </UserAccountLayout>
+  );
+};
 
 export default UserTagList;

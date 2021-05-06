@@ -4,7 +4,7 @@ use Moose::Util qw( find_meta );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -58,6 +58,33 @@ sub cloud : Path('/tags')
                 @$cloud
             ] : [],
         },
+    );
+}
+
+sub delete : Chained('load') RequireAuth{
+    my ($self, $c) = @_;
+
+    my $tag = $c->stash->{tag};
+    my $delete_downvoted = $c->req->params->{delete_downvoted} ? 1 : 0;
+
+    if ($c->form_posted) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Tag')->delete_for_user($tag->id, $c->user->id, $delete_downvoted);
+        });
+
+        $c->response->redirect($c->uri_for_action('user/tags',
+                                                  [ $c->user->name ]));
+    }
+
+    my %props = (
+        deleteDownvoted => boolean_to_json($delete_downvoted),
+        tag => $tag->TO_JSON,
+    );
+
+    $c->stash(
+        component_path => 'tag/DeleteTag',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
