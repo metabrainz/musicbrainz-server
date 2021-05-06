@@ -314,12 +314,6 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-INSERT INTO release_first_release_date
-    SELECT * FROM get_release_first_release_date_rows('TRUE');
-
-INSERT INTO recording_first_release_date
-    SELECT * FROM get_recording_first_release_date_rows('TRUE');
-
 ALTER TABLE release_first_release_date
   ADD CONSTRAINT release_first_release_date_pkey
   PRIMARY KEY (release);
