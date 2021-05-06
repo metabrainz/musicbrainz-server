@@ -53,6 +53,9 @@ component TagEntitiesList(
     throw new Error('A user must be specified to show downvoted tags');
   }
 
+  const viewingOwnTag = Boolean($c.user && user &&
+                                $c.user.id === user.id);
+
   const buildTagEntitiesListSection = (
     entityType: TaggableEntityTypeT,
     title: string,
@@ -132,6 +135,26 @@ component TagEntitiesList(
           showDownvoted={showDownvoted}
           showVotesSelect
         />
+      ) : null}
+      {viewingOwnTag && totalCount > 0 ? (
+        <p>
+          {addColonText(lp('Manage tag', 'folksonomy'))}
+          {' '}
+          {showDownvoted ? (
+            <a href={
+              '/tag/' + encodeURIComponent(tag.name) +
+              '/delete?delete_downvoted=1'}
+            >
+              {lp('delete my downvotes', 'folksonomy tags')}
+            </a>
+          ) : (
+            <a
+              href={'/tag/' + encodeURIComponent(tag.name) + '/delete'}
+            >
+              {lp('delete my upvotes', 'folksonomy tags')}
+            </a>
+          )}
+        </p>
       ) : null}
       <p>
         {texp.ln(

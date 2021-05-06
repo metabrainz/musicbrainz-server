@@ -363,6 +363,7 @@ export default {
   'statistics/MusicBrainzHistory': (): Promise<mixed> => import('../statistics/MusicBrainzHistory.js'),
   'statistics/NoStatistics': (): Promise<mixed> => import('../statistics/NoStatistics.js'),
   'statistics/Relationships': (): Promise<mixed> => import('../statistics/Relationships.js'),
+  'tag/DeleteTag': (): Promise<mixed> => import('../tag/DeleteTag.js'),
   'tag/EntityList': (): Promise<mixed> => import('../tag/EntityList.js'),
   'tag/NotFound': (): Promise<mixed> => import('../tag/NotFound.js'),
   'tag/TagCloud': (): Promise<mixed> => import('../tag/TagCloud.js'),

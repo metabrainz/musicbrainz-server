@@ -132,6 +132,16 @@ sub get_cloud
     return $data;
 }
 
+sub delete_for_user {
+    my ($self, $tag_id, $editor_id, $delete_downvotes) = @_;
+
+    for my $entity_type (entities_with('tags')) {
+        $self->sql->do("DELETE FROM ${entity_type}_tag_raw
+                        WHERE editor = ? AND tag = ? AND is_upvote = ?",
+                       $editor_id, $tag_id, $delete_downvotes ? 'FALSE' : 'TRUE');
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

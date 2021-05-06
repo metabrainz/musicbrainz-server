@@ -78,6 +78,34 @@ sub cloud : Path('/tags')
     );
 }
 
+sub delete : Chained('load') RequireAuth{
+    my ($self, $c) = @_;
+
+    my $tag = $c->stash->{tag};
+    my $delete_downvoted = $c->req->params->{delete_downvoted} ? 1 : 0;
+
+    if ($c->form_posted) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Tag')->delete_for_user($tag->id, $c->user->id, $delete_downvoted);
+        });
+
+        $c->response->redirect($c->uri_for_action('user/tags',
+                                                  [ $c->user->name ],
+                                                  { show_downvoted => $delete_downvoted }));
+    }
+
+    my %props = (
+        deleteDownvoted => boolean_to_json($delete_downvoted),
+        tag => $tag->TO_JSON,
+    );
+
+    $c->stash(
+        component_path => 'tag/DeleteTag',
+        component_props => \%props,
+        current_view => 'Node',
+    );
+}
+
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
