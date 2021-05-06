@@ -70,6 +70,8 @@ DROP FUNCTION ensure_work_attribute_type_allows_text();
 DROP FUNCTION from_hex(t text);
 DROP FUNCTION generate_uuid_v3(namespace varchar, name varchar);
 DROP FUNCTION generate_uuid_v4();
+DROP FUNCTION get_recording_first_release_date_rows(condition TEXT);
+DROP FUNCTION get_release_first_release_date_rows(condition TEXT);
 DROP FUNCTION inc_nullable_artist_credit(row_id integer);
 DROP FUNCTION inc_ref_count(tbl varchar, row_id integer, val integer);
 DROP FUNCTION inserting_edits_requires_confirmed_email_address();
