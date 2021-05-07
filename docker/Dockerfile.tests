@@ -114,7 +114,7 @@ RUN curl -sLO http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOL
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
     systemctl disable solr
 
-ENV MB_SOLR_TAG v3.3.1
+ENV MB_SOLR_TAG v3.4.1
 
 # Steps taken from https://github.com/metabrainz/mb-solr/blob/master/Dockerfile
 RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recursive https://github.com/metabrainz/mb-solr.git && \
