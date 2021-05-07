@@ -6,7 +6,7 @@ use HTTP::Status qw( :constants );
 
 extends 'MusicBrainz::Server::Controller';
 
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json parse_tags );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -75,6 +75,36 @@ sub cloud : Path('/tags')
                 @$tags,
             ] : [],
         },
+    );
+}
+
+sub move : Chained('load') RequireAuth{
+    my ($self, $c) = @_;
+
+    my $tag = $c->stash->{tag};
+
+    my $form = $c->form( form => 'MoveTag' );
+
+    if ($c->form_posted_and_valid($form)) {
+        my @new_tags = parse_tags($form->field('tags')->value);
+
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Tag')->rename_for_user($tag->id, $c->user->id, \@new_tags);
+        });
+
+        if (scalar @new_tags == 1) {
+            $c->response->redirect($c->uri_for_action('user/tag',
+                                                    [ $c->user->name, $new_tags[0] ]));
+        } else {
+            $c->response->redirect($c->uri_for_action('user/tags',
+                                                    [ $c->user->name ]));
+        }
+    }
+
+    $c->stash(
+        component_path => 'tag/MoveTag',
+        component_props => {form => $form->TO_JSON, tag => $tag->TO_JSON},
+        current_view => 'Node',
     );
 }
 

@@ -365,6 +365,7 @@ export default {
   'statistics/Relationships': (): Promise<mixed> => import('../statistics/Relationships.js'),
   'tag/DeleteTag': (): Promise<mixed> => import('../tag/DeleteTag.js'),
   'tag/EntityList': (): Promise<mixed> => import('../tag/EntityList.js'),
+  'tag/MoveTag': (): Promise<mixed> => import('../tag/MoveTag.js'),
   'tag/NotFound': (): Promise<mixed> => import('../tag/NotFound.js'),
   'tag/TagCloud': (): Promise<mixed> => import('../tag/TagCloud.js'),
   'tag/TagIndex': (): Promise<mixed> => import('../tag/TagIndex.js'),

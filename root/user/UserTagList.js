@@ -63,14 +63,25 @@ component ManageTagLinks(
           {lp('delete', 'interactive, folksonomy tag')}
         </a>
       ) : (
-        <a
-          href={
-            '/tag/' + encodeURIComponent(tag.name) +
-            '/delete'
-          }
-        >
-          {lp('delete', 'interactive, folksonomy tag')}
-        </a>
+        <>
+          <a
+            href={
+              '/tag/' + encodeURIComponent(tag.name) +
+              '/move'
+            }
+          >
+            {lp('change', 'interactive, folksonomy tag')}
+          </a>
+          {' / '}
+          <a
+            href={
+              '/tag/' + encodeURIComponent(tag.name) +
+              '/delete'
+            }
+          >
+            {lp('delete', 'interactive, folksonomy tag')}
+          </a>
+        </>
       ),
     )
   );

@@ -143,16 +143,28 @@ component TagEntitiesList(
           {showDownvoted ? (
             <a href={
               '/tag/' + encodeURIComponent(tag.name) +
-              '/delete?delete_downvoted=1'}
+              '/delete?delete_downvoted=1'
+            }
             >
               {lp('delete my downvotes', 'folksonomy tags')}
             </a>
           ) : (
-            <a
-              href={'/tag/' + encodeURIComponent(tag.name) + '/delete'}
-            >
-              {lp('delete my upvotes', 'folksonomy tags')}
-            </a>
+            <>
+              <a
+                href={
+                  '/tag/' + encodeURIComponent(tag.name) +
+                  '/move'
+                }
+              >
+                {lp('change tag', 'folksonomy')}
+              </a>
+              {' / '}
+              <a
+                href={'/tag/' + encodeURIComponent(tag.name) + '/delete'}
+              >
+                {lp('delete my upvotes', 'folksonomy tags')}
+              </a>
+            </>
           )}
         </p>
       ) : null}

@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Tag;
 use HTTP::Status qw( :constants );
-use List::AllUtils qw( uniq );
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
-use MusicBrainz::Server::Data::Utils qw( trim );
+use MusicBrainz::Server::Data::Utils qw( parse_tags );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use Readonly;
 
@@ -54,13 +53,6 @@ sub tags : Chained('load') PathPart('tags') {
         component_props => \%props,
         current_view    => 'Node',
     );
-}
-
-sub parse_tags {
-    my ($input) = @_;
-
-    # make sure the list contains only unique tags
-    uniq grep { $_ } map { lc trim $_ } split /,/, $input;
 }
 
 sub _vote_on_tags {
