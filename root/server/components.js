@@ -281,6 +281,7 @@ module.exports = {
   'statistics/Relationships': require('../statistics/Relationships'),
   'tag/DeleteTag': require('../tag/DeleteTag'),
   'tag/EntityList': require('../tag/EntityList'),
+  'tag/MoveTag': require('../tag/MoveTag'),
   'tag/NotFound': require('../tag/NotFound'),
   'tag/TagCloud': require('../tag/TagCloud'),
   'tag/TagIndex': require('../tag/TagIndex'),

@@ -68,6 +68,7 @@ our @EXPORT_OK = qw(
     non_empty
     object_to_ids
     order_by
+    parse_tags
     partial_date_to_hash
     placeholders
     ref_to_type
@@ -325,6 +326,13 @@ sub collapse_whitespace {
 
     # Compress whitespace
     =~ s/\s{2,}/ /gr
+}
+
+sub parse_tags {
+    my ($input) = @_;
+
+    # make sure the list contains only unique tags
+    uniq grep { $_ } map { lc trim($_) } split ',', $input;
 }
 
 sub sanitize {

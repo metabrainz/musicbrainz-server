@@ -10,8 +10,6 @@
 import * as React from 'react';
 
 import FormSubmit from '../components/FormSubmit';
-import TagLink from '../static/scripts/common/components/TagLink';
-import bracketed from '../static/scripts/common/utility/bracketed';
 
 import TagLayout from './TagLayout';
 
@@ -32,33 +30,23 @@ const DeleteTag = ({
   const user = $c.user;
 
   return user ? (
-    <TagLayout
-      $c={$c}
-      page="delete"
-      tag={tag}
-      title={title}
-    >
+    <TagLayout page="delete" tag={tag} title={title}>
       <h2>{title}</h2>
       <p>
         {exp.l(
           deleteDownvoted ? (
             `Are you sure you want to remove
-             all your votes against the tag “{tag}”?`
+             {tag_list|all your votes against the tag “{tag}”}?`
           ) : (
             `Are you sure you want to remove
-             all your uses of the tag “{tag}”?`
+             {tag_list|all your uses of the tag “{tag}”}?`
           ),
-          {tag: <TagLink tag={tag.name} />},
-        )}
-        {' '}
-        {bracketed(
-          <a
-            href={'/user/' + encodeURIComponent(user.name) +
-                  '/tag/' + encodeURIComponent(tag.name) +
-                  '?show_downvoted=' + (deleteDownvoted ? '1' : '0')}
-          >
-            {l('see list')}
-          </a>,
+          {
+            tag: tag.name,
+            tag_list: '/user/' + encodeURIComponent(user.name) +
+                      '/tag/' + encodeURIComponent(tag.name) +
+                      '?show_downvoted=' + (deleteDownvoted ? '1' : '0'),
+          },
         )}
       </p>
       <form action={$c.req.uri} method="post">

@@ -96,6 +96,45 @@ sub get_cloud
     return $data;
 }
 
+sub rename_for_user {
+    my ($self, $tag_id, $editor_id, $new_tags) = @_;
+    my @new_tag_ids;
+
+    for my $new_tag (@$new_tags) {
+        my $tag_entity = $self->get_by_name($new_tag);
+        if ($tag_entity) {
+            push @new_tag_ids, $tag_entity->id;
+        } else {
+            my $new_tag_id = $self->sql->select_single_value(
+                'INSERT INTO tag (name)
+                 VALUES (?)
+                 RETURNING id',
+                $new_tag);
+            push @new_tag_ids, $new_tag_id;
+        }
+    }
+
+    for my $entity_type (entities_with('tags')) {
+        my $entity_ids = $self->sql->select_single_column_array(
+            "DELETE FROM ${entity_type}_tag_raw
+             WHERE editor = ? AND tag = ? AND is_upvote = TRUE
+             RETURNING $entity_type",
+            $editor_id, $tag_id
+        );
+
+        for my $new_tag_id (@new_tag_ids) {
+            for my $entity_id (@$entity_ids) {
+                $self->sql->do("INSERT INTO ${entity_type}_tag_raw
+                                ($entity_type, editor, tag, is_upvote)
+                                VALUES (?, ?, ?, TRUE)
+                                ON CONFLICT ($entity_type, editor, tag) DO UPDATE
+                                SET is_upvote = TRUE",
+                               $entity_id, $editor_id, $new_tag_id);
+            }
+        }
+    }
+}
+
 sub delete_for_user {
     my ($self, $tag_id, $editor_id, $delete_downvotes) = @_;
 

@@ -154,11 +154,21 @@ const TagEntitiesList = ({
               {l('delete my downvotes')}
             </a>
           ) : (
-            <a
-              href={'/tag/' + encodeURIComponent(tag.name) + '/delete'}
-            >
-              {l('delete my upvotes')}
-            </a>
+            <>
+              <a
+                href={
+                  '/tag/' + encodeURIComponent(tag.name) +
+                  '/move'}
+              >
+                {l('change tag')}
+              </a>
+              {' / '}
+              <a
+                href={'/tag/' + encodeURIComponent(tag.name) + '/delete'}
+              >
+                {l('delete my upvotes')}
+              </a>
+            </>
           )}
         </p>
       ) : null}

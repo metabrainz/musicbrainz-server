@@ -60,13 +60,23 @@ const ManageTagLinks = ({
         {l('delete')}
       </a>
     ) : (
-      <a
-        href={
-          '/tag/' + encodeURIComponent(tag.name) +
-          '/delete'}
-      >
-        {l('delete')}
-      </a>
+      <>
+        <a
+          href={
+            '/tag/' + encodeURIComponent(tag.name) +
+            '/move'}
+        >
+          {l('change')}
+        </a>
+        {' / '}
+        <a
+          href={
+            '/tag/' + encodeURIComponent(tag.name) +
+            '/delete'}
+        >
+          {l('delete')}
+        </a>
+      </>
     ),
   )
 );
