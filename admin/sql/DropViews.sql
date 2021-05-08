@@ -2,6 +2,7 @@
 \unset ON_ERROR_STOP
 
 DROP VIEW event_series;
+DROP VIEW medium_track_durations;
 DROP VIEW recording_series;
 DROP VIEW release_event;
 DROP VIEW release_group_series;

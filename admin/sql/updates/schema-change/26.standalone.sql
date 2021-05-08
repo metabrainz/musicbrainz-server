@@ -8,8 +8,6 @@ SET LOCAL statement_timeout = 0;
 --------------------------------------------------------------------------------
 SELECT '20201028-mbs-1424-fks.sql';
 
-SET search_path = musicbrainz;
-
 
 ALTER TABLE release_first_release_date
    ADD CONSTRAINT release_first_release_date_fk_release
