@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.11
+FROM phusion/baseimage:focal-1.0.0-alpha1-amd64
 
 RUN useradd --create-home --shell /bin/bash musicbrainz
 
@@ -21,14 +21,14 @@ RUN apt-get update && \
     echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    curl -sLO https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/nodejs_10.17.0-1nodesource1_amd64.deb && \
+    curl -sLO https://deb.nodesource.com/node_16.x/pool/main/n/nodejs/nodejs_16.1.0-deb-1nodesource1_amd64.deb && \
     apt-get update && \
     apt-get install \
         --no-install-recommends \
         --no-install-suggests \
         -y \
         ./google-chrome-stable_current_amd64.deb \
-        ./nodejs_10.17.0-1nodesource1_amd64.deb \
+        ./nodejs_16.1.0-deb-1nodesource1_amd64.deb \
         build-essential \
         bzip2 \
         gcc \
@@ -50,12 +50,12 @@ RUN apt-get update && \
         libexpat1 \
         libexpat1-dev \
         libicu-dev \
-        libicu60 \
+        libicu66 \
         libperl-dev \
         libpq-dev \
         libpq5 \
         libssl-dev \
-        libssl1.0.0 \
+        libssl1.1 \
         libxml2 \
         libxml2-dev \
         locales \
@@ -70,8 +70,8 @@ RUN apt-get update && \
         postgresql-12 \
         postgresql-12-pgtap \
         postgresql-server-dev-12 \
-        python2.7-dev \
-        python2.7-minimal \
+        python2 \
+        python2-dev \
         rabbitmq-server \
         redis-server \
         runit \
@@ -79,10 +79,12 @@ RUN apt-get update && \
         sudo \
         unzip \
         virtualenv \
-        yarn && \
+        wget \
+        yarn \
+        zlib1g-dev && \
     rm -rf /var/lib/apt/lists/* && \
     rm google-chrome-stable_current_amd64.deb && \
-    rm nodejs_10.17.0-1nodesource1_amd64.deb && \
+    rm nodejs_16.1.0-deb-1nodesource1_amd64.deb && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server
 
@@ -98,10 +100,11 @@ RUN sudo -E -H -u musicbrainz carton install --deployment && \
     rm cpanfile cpanfile.snapshot
 
 RUN mkdir musicbrainz-server
-ENV PG_AMQP_TAG v0.4.1
+ENV PG_AMQP_COMMIT 240d477
 
-RUN git clone --branch $PG_AMQP_TAG --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
+RUN git clone --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
     cd pg_amqp && \
+    git reset --hard $PG_AMQP_COMMIT && \
     make && \
     make install && \
     cd /home/musicbrainz
@@ -139,7 +142,7 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/sir.git &&
     sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install -r requirements.txt; pip install git+git://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
     cd /home/musicbrainz
 
-RUN curl -sLO https://chromedriver.storage.googleapis.com/81.0.4044.138/chromedriver_linux64.zip && \
+RUN curl -sLO https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
     chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver_linux64.zip

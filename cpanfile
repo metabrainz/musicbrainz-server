@@ -1,4 +1,4 @@
-requires 'perl' => '5.18.2';
+requires 'perl' => '5.30.0';
 
 # Mandatory modules
 requires 'Algorithm::Diff'                            => '1.1902';
@@ -126,7 +126,6 @@ author_requires 'Test::NoTabs';
 test_requires 'Cache::Null';
 test_requires 'Catalyst::Plugin::Static::Simple';
 test_requires 'HTML::HTML5::Parser';
-test_requires 'HTML::HTML5::Sanity';
 test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Perl::Critic';

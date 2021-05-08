@@ -22,7 +22,7 @@ Prerequisites
     **This document will assume you are using Ubuntu (at least 14.04) for its
     instructions.**
 
-2.  Perl (at least version 5.18.2)
+2.  Perl (at least version 5.30)
 
     Perl comes bundled with most Linux operating systems, you can check your
     installed version of Perl with:
@@ -68,7 +68,7 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
-6.  Node.js (at least version 10.15) and Yarn
+6.  Node.js (at least version 16) and Yarn
 
     Node.js is required to build (and optionally minify) our JavaScript and CSS.
     If you plan on accessing musicbrainz-server inside a web browser, you should
