@@ -2,8 +2,6 @@
 
 BEGIN;
 
-SET search_path = musicbrainz, public;
-
 CREATE TYPE oauth_code_challenge_method AS ENUM ('plain', 'S256');
 ALTER TABLE editor_oauth_token ADD COLUMN code_challenge TEXT;
 ALTER TABLE editor_oauth_token ADD COLUMN code_challenge_method oauth_code_challenge_method;

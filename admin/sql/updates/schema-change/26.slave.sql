@@ -81,8 +81,6 @@ $$ LANGUAGE 'plpgsql';
 SELECT '20200914-oauth-pkce.sql';
 
 
-SET search_path = musicbrainz, public;
-
 CREATE TYPE oauth_code_challenge_method AS ENUM ('plain', 'S256');
 ALTER TABLE editor_oauth_token ADD COLUMN code_challenge TEXT;
 ALTER TABLE editor_oauth_token ADD COLUMN code_challenge_method oauth_code_challenge_method;
@@ -93,8 +91,6 @@ ALTER TABLE editor_oauth_token ADD CONSTRAINT valid_code_challenge CHECK (
 
 --------------------------------------------------------------------------------
 SELECT '20201028-mbs-1424.sql';
-
-SET search_path = musicbrainz;
 
 
 CREATE TABLE release_first_release_date (
