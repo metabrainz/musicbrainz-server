@@ -7,6 +7,7 @@
 -- 20210319-mbs-11464.sql
 -- 20210319-mbs-11466.sql
 -- 20210406-mbs-11459.sql
+-- 20210505-mbs-11641.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -408,5 +409,14 @@ BEGIN
     RETURN '';
 END;
 $$ LANGUAGE plpgsql IMMUTABLE PARALLEL SAFE STRICT;
+
+--------------------------------------------------------------------------------
+SELECT '20210505-mbs-11641.sql';
+
+
+DROP INDEX IF EXISTS artist_rating_raw_idx_artist;
+DROP INDEX IF EXISTS event_rating_raw_idx_event;
+DROP INDEX IF EXISTS label_rating_raw_idx_label;
+DROP INDEX IF EXISTS release_group_rating_raw_idx_release_group;
 
 COMMIT;
