@@ -28,7 +28,7 @@ INSERT INTO artist_alias
      end_date_year, end_date_month, end_date_day)
     VALUES (1, 'Test Alias', 'Test Alias', 3, 2, 2000, 1, 1, 2005, 5, 6);
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Test Artist', 1);
+INSERT INTO artist_credit (id, name, artist_count, gid) VALUES (1, 'Test Artist', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 3, 'Test Artist', '');
 
 INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES

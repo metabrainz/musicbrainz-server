@@ -70,8 +70,8 @@ test 'A matching CD stub searches for possible releases' => sub {
 
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, '7bcffca6-e8f5-11e0-866d-00508db50876', 'Artist name', 'Artist name');
-        INSERT INTO artist_credit (id, name, artist_count)
-            VALUES (1, 'Artist name', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'Artist name', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
         INSERT INTO artist_credit_name (artist_credit, name, artist, position)
             VALUES (1, 'Artist name', 1, 1);
 

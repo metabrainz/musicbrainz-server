@@ -3,8 +3,8 @@ SET client_min_messages TO 'warning';
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year, begin_date_month, begin_date_day, type)
 VALUES (7, '4b585938-f271-45e2-b19a-91c634b5e396', 'Kate Bush', 'Bush, Kate', 1958, 7, 30, 1);
 
-INSERT INTO artist_credit (id, name, artist_count)
-VALUES (1, 'Kate Bush', 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+VALUES (1, 'Kate Bush', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name)
 VALUES (1, 0, 7, 'Kate Bush');

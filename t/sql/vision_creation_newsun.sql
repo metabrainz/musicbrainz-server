@@ -8,8 +8,8 @@ INSERT INTO musicbrainz.area (id, gid, name, type, edits_pending, last_updated, 
 INSERT INTO musicbrainz.artist (id, gid, name, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, type, area, gender, comment, edits_pending, last_updated, ended, begin_area, end_area) VALUES
     (39282, '0798d15b-64e2-499f-9969-70167b1d8617', 'Boredoms', 'Boredoms', 1986, NULL, NULL, NULL, NULL, NULL, 2, 107, NULL, '', 0, '2015-11-20 12:30:26.835169+00', '0', 7282, NULL);
 
-INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created) VALUES
-    (39282, 'Boredoms', 1, 715, '2011-05-16 16:32:11.963929+00');
+INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, gid) VALUES
+    (39282, 'Boredoms', 1, 715, '2011-05-16 16:32:11.963929+00', '0de31471-0548-340e-a14b-da214260d66d');
 
 INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
     (39282, 0, 39282, 'Boredoms', '');

@@ -54,7 +54,8 @@ SELECT lives_ok(
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''A comment'')');
 
 --------------------------------------------------------------------------------
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'James Blake', 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+  VALUES (1, 'James Blake', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
 -- Comments
 SELECT throws_ok(

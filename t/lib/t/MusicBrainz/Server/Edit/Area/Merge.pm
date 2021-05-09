@@ -43,7 +43,8 @@ test 'Can merge country areas' => sub {
     $c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, '8469c1b7-04a1-4ca7-a090-a5ed2df2e7ac', 'Artist', 'Artist');
-        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'Artist', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
         INSERT INTO release_group (id, gid, name, artist_credit)
             VALUES (1, '14928cab-363c-4457-951e-9b1c3ca404cd', 'Release', 1);
