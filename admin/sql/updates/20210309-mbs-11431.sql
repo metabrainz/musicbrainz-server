@@ -2,17 +2,17 @@
 
 BEGIN;
 
-CREATE INDEX CONCURRENTLY artist_idx_lower_unaccent_name_comment ON artist (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
-CREATE INDEX CONCURRENTLY label_idx_lower_unaccent_name_comment ON label (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
-CREATE INDEX CONCURRENTLY place_idx_lower_unaccent_name_comment ON place (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
-CREATE INDEX CONCURRENTLY series_idx_lower_unaccent_name_comment ON series (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
+CREATE INDEX artist_idx_lower_unaccent_name_comment ON artist (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
+CREATE INDEX label_idx_lower_unaccent_name_comment ON label (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
+CREATE INDEX place_idx_lower_unaccent_name_comment ON place (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
+CREATE INDEX series_idx_lower_unaccent_name_comment ON series (lower(musicbrainz_unaccent(name)), lower(musicbrainz_unaccent(comment)));
 
-CREATE INDEX CONCURRENTLY artist_alias_idx_lower_unaccent_name ON artist_alias (lower(musicbrainz_unaccent(name)));
-CREATE INDEX CONCURRENTLY label_alias_idx_lower_unaccent_name ON label_alias (lower(musicbrainz_unaccent(name)));
-CREATE INDEX CONCURRENTLY place_alias_idx_lower_unaccent_name ON place_alias (lower(musicbrainz_unaccent(name)));
-CREATE INDEX CONCURRENTLY series_alias_idx_lower_unaccent_name ON series_alias (lower(musicbrainz_unaccent(name)));
+CREATE INDEX artist_alias_idx_lower_unaccent_name ON artist_alias (lower(musicbrainz_unaccent(name)));
+CREATE INDEX label_alias_idx_lower_unaccent_name ON label_alias (lower(musicbrainz_unaccent(name)));
+CREATE INDEX place_alias_idx_lower_unaccent_name ON place_alias (lower(musicbrainz_unaccent(name)));
+CREATE INDEX series_alias_idx_lower_unaccent_name ON series_alias (lower(musicbrainz_unaccent(name)));
 
-DROP INDEX CONCURRENTLY IF EXISTS artist_idx_lower_name;
-DROP INDEX CONCURRENTLY IF EXISTS label_idx_lower_name;
+DROP INDEX IF EXISTS artist_idx_lower_name;
+DROP INDEX IF EXISTS label_idx_lower_name;
 
 COMMIT;
