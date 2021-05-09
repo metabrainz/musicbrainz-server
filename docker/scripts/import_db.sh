@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -o errexit
 cd /home/musicbrainz/musicbrainz-server
 

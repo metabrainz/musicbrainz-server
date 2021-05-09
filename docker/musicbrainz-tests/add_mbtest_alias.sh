@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # As noted in docker/musicbrainz-tests/DBDefs.pm, CircleCI
 # sets NO_PROXY=127.0.0.1,localhost in every container, so

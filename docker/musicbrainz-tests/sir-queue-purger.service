@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # In the CircleCI environment, script/reset_selenium_env.sh runs as the
 # musicbrainz user because it's invoked by t/selenium.js. The

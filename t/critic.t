@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This file is part of MusicBrainz, the open internet music database.
 # Copyright (C) 2017 MetaBrainz Foundation

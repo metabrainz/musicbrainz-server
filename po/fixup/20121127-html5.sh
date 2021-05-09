@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 sed -i 's/&ndash;/\&#x2013;/g' mb_server.*.po
 sed -i 's/&mdash;/\&#x2014;/g' mb_server.*.po
 sed -i 's/&nbsp;/\&#xa0;/g' mb_server.*.po

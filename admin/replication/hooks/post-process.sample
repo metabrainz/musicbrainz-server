@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This is a sample post-process hook file. If moved to 'post-process' it
 # will run after every packet and clear recently-updated entities from
 # Redis. It might be useful to add calls to other scripts you'd like run,

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 pg_ctl -o "-c listen_addresses='localhost'" -w restart
 cd /home/musicbrainz/musicbrainz-server
