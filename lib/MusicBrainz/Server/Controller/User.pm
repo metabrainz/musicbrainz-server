@@ -447,6 +447,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     my $edit_stats = $c->model('Editor')->various_edit_counts($user->id);
     $edit_stats->{last_day_count} = $c->model('Editor')->last_24h_edit_count($user->id);
     my $added_entities = $c->model('Editor')->added_entities_counts($user->id);
+    my $secondary_stats = $c->model('Editor')->secondary_counts($user->id, $c->stash->{viewing_own_profile});
 
     my @ip_hashes;
     if ($c->user_exists && $c->user->is_account_admin && !(
@@ -465,6 +466,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
         user            => $c->unsanitized_editor_json($user),
         votes           => $c->stash->{votes},
         addedEntities   => $added_entities,
+        secondaryStats  => $secondary_stats,
     );
 
     $c->stash(
