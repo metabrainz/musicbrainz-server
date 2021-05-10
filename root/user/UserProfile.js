@@ -679,7 +679,7 @@ const UserProfileStatistics = ({
               <abbr title={l('Newly applied edits may ' +
                              'need 24 hours to appear')}
               >
-                {exp.l('Added entities')}
+                {l('Added entities')}
               </abbr>
             </th>
           </tr>
