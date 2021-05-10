@@ -283,6 +283,7 @@ around TO_JSON => sub {
         id              => $self->id ? $self->id + 0 : undef,
         linkOrder       => $self->link_order ? $self->link_order + 0 : 0,
         linkTypeID      => $link->type_id ? $link->type_id + 0 : undef,
+        source          => $self->source->TO_JSON,
         source_type     => $self->source_type,
         target          => $self->target->TO_JSON,
         target_type     => $self->target_type,

@@ -349,6 +349,7 @@ module.exports = {
   'edit/details/EditRecording': require('../edit/details/EditRecording'),
   'edit/details/EditRelationship': require('../edit/details/EditRelationship'),
   'edit/details/EditRelationshipAttribute': require('../edit/details/EditRelationshipAttribute'),
+  'edit/details/EditRelationshipType': require('../edit/details/EditRelationshipType'),
   'edit/details/EditReleaseGroup': require('../edit/details/EditReleaseGroup'),
   'edit/details/EditSeries': require('../edit/details/EditSeries'),
   'edit/details/EditUrl': require('../edit/details/EditUrl'),
