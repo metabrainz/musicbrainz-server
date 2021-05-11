@@ -28,6 +28,7 @@ with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'place' };
+with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Merge';
@@ -100,6 +101,7 @@ sub delete
     $self->c->model('Relationship')->delete_entities('place', @place_ids);
     $self->annotation->delete(@place_ids);
     $self->alias->delete_entities(@place_ids);
+    $self->rating->delete(@place_ids);
     $self->tags->delete(@place_ids);
     $self->remove_gid_redirects(@place_ids);
     $self->delete_returning_gids(@place_ids);
@@ -112,6 +114,7 @@ sub _merge_impl
 
     $self->alias->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
+    $self->rating->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('place', $new_id, @old_ids);
     $self->c->model('Collection')->merge_entities('place', $new_id, @old_ids);
@@ -147,6 +150,16 @@ sub _hash_to_row
     add_coordinates_to_row($row, $place->{coordinates}, 'coordinates')
         if exists $place->{coordinates};
     return $row;
+}
+
+sub load_meta
+{
+    my $self = shift;
+    MusicBrainz::Server::Data::Utils::load_meta($self->c, "place_meta", sub {
+        my ($obj, $row) = @_;
+        $obj->rating($row->{rating}) if defined $row->{rating};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+    }, @_);
 }
 
 sub is_empty {

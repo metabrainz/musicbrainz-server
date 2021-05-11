@@ -872,6 +872,7 @@ declare type PlaceT = $ReadOnly<{
   ...CommentRoleT,
   ...CoreEntityRoleT<'place'>,
   ...DatePeriodRoleT,
+  ...RatableRoleT,
   ...TypeRoleT<PlaceTypeT>,
   +address: string,
   +area: AreaT | null,
@@ -893,6 +894,7 @@ declare type RatableT =
   | ArtistT
   | EventT
   | LabelT
+  | PlaceT
   | RecordingT
   | ReleaseGroupT
   | WorkT;

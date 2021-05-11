@@ -346,6 +346,14 @@ $$ LANGUAGE 'plpgsql';
 -- place triggers
 -----------------------------------------------------------------------
 
+CREATE OR REPLACE FUNCTION a_ins_place() RETURNS trigger AS $$
+BEGIN
+    -- add a new entry to the place_meta table
+    INSERT INTO place_meta (id) VALUES (NEW.id);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 -- Ensure attribute type allows free text if free text is added
 CREATE OR REPLACE FUNCTION ensure_place_attribute_type_allows_text()
 RETURNS trigger AS $$

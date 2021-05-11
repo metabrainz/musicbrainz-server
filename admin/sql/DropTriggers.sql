@@ -125,6 +125,7 @@ DROP TRIGGER b_upd_link_type ON link_type;
 DROP TRIGGER b_upd_link_type_attribute_type ON link_type_attribute_type;
 DROP TRIGGER b_upd_medium ON medium;
 DROP TRIGGER b_upd_medium_cdtoc ON medium_cdtoc;
+DROP TRIGGER a_ins_place ON place;
 DROP TRIGGER b_upd_place ON place;
 DROP TRIGGER end_date_implies_ended ON place;
 DROP TRIGGER end_date_implies_ended ON place_alias;

@@ -243,6 +243,8 @@ DROP TABLE place_attribute;
 DROP TABLE place_attribute_type;
 DROP TABLE place_attribute_type_allowed_value;
 DROP TABLE place_gid_redirect;
+DROP TABLE place_meta;
+DROP TABLE place_rating_raw;
 DROP TABLE place_tag;
 DROP TABLE place_tag_raw;
 DROP TABLE place_type;

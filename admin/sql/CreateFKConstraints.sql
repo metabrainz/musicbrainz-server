@@ -2616,6 +2616,22 @@ ALTER TABLE place_gid_redirect
    FOREIGN KEY (new_id)
    REFERENCES place(id);
 
+ALTER TABLE place_meta
+   ADD CONSTRAINT place_meta_fk_id
+   FOREIGN KEY (id)
+   REFERENCES place(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE place_rating_raw
+   ADD CONSTRAINT place_rating_raw_fk_place
+   FOREIGN KEY (place)
+   REFERENCES place(id);
+
+ALTER TABLE place_rating_raw
+   ADD CONSTRAINT place_rating_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
 ALTER TABLE place_tag
    ADD CONSTRAINT place_tag_fk_place
    FOREIGN KEY (place)

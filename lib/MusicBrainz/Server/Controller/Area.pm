@@ -249,6 +249,8 @@ sub places : Chained('load')
     $c->model('PlaceType')->load(@$places);
     $c->model('Area')->load(@$places);
     $c->model('Area')->load_containment(map { $_->area } @$places);
+    $c->model('Place')->load_meta(@$places);
+    $c->model('Place')->rating->load_user_ratings($c->user->id, @$places) if $c->user_exists;
 
     my %props = (
         area        => $c->stash->{area}->TO_JSON,

@@ -352,6 +352,7 @@ DROP INDEX place_idx_geo;
 DROP INDEX place_idx_gid;
 DROP INDEX place_idx_lower_unaccent_name_comment;
 DROP INDEX place_idx_name;
+DROP INDEX place_rating_raw_idx_editor;
 DROP INDEX place_tag_idx_tag;
 DROP INDEX place_tag_raw_idx_editor;
 DROP INDEX place_tag_raw_idx_tag;

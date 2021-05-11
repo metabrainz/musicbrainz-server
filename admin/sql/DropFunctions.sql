@@ -18,6 +18,7 @@ DROP FUNCTION a_ins_editor();
 DROP FUNCTION a_ins_event();
 DROP FUNCTION a_ins_instrument();
 DROP FUNCTION a_ins_label();
+DROP FUNCTION a_ins_place();
 DROP FUNCTION a_ins_recording();
 DROP FUNCTION a_ins_release();
 DROP FUNCTION a_ins_release_event();

@@ -519,6 +519,9 @@ ALTER TABLE place_attribute_type DROP CONSTRAINT IF EXISTS place_attribute_type_
 ALTER TABLE place_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS place_attribute_type_allowed_value_fk_place_attribute_type;
 ALTER TABLE place_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS place_attribute_type_allowed_value_fk_parent;
 ALTER TABLE place_gid_redirect DROP CONSTRAINT IF EXISTS place_gid_redirect_fk_new_id;
+ALTER TABLE place_meta DROP CONSTRAINT IF EXISTS place_meta_fk_id;
+ALTER TABLE place_rating_raw DROP CONSTRAINT IF EXISTS place_rating_raw_fk_place;
+ALTER TABLE place_rating_raw DROP CONSTRAINT IF EXISTS place_rating_raw_fk_editor;
 ALTER TABLE place_tag DROP CONSTRAINT IF EXISTS place_tag_fk_place;
 ALTER TABLE place_tag DROP CONSTRAINT IF EXISTS place_tag_fk_tag;
 ALTER TABLE place_tag_raw DROP CONSTRAINT IF EXISTS place_tag_raw_fk_place;
