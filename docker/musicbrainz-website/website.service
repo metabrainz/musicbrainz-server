@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 exec run-consul-template -config /etc/consul-template-website.conf

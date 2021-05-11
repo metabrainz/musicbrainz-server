@@ -1,4 +1,4 @@
-#!/bin/bash -u
+#!/usr/bin/env bash -u
 
 export PATH=/usr/local/bin:$PATH
 export PERL_CARTON_PATH=~/carton-local

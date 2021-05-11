@@ -19,6 +19,7 @@ ALTER TABLE place_rating_raw ADD CONSTRAINT place_rating_raw_pkey PRIMARY KEY (p
 
 CREATE OR REPLACE FUNCTION a_ins_place() RETURNS trigger AS $$
 BEGIN
+    -- add a new entry to the place_meta table
     INSERT INTO place_meta (id) VALUES (NEW.id);
     RETURN NULL;
 END;

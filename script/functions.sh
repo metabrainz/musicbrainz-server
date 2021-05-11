@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 trap_jobs_nowait() {
     trap 'kill -TERM $(jobs -p); wait; exit' SIGTERM
