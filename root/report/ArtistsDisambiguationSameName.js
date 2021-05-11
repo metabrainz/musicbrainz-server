@@ -9,49 +9,32 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import ArtistList from './components/ArtistList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportArtistT, ReportDataT} from './types';
 
 const ArtistsDisambiguationSameName = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists artists that have their disambiguation set
+       to be the same as their name.
+       The disambiguation should be removed or, if it is needed, improved.`,
+    )}
+    entityType="artist"
+    filtered={filtered}
+    generated={generated}
     title={l('Artists with disambiguation the same as the name')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Artists with disambiguation the same as the name')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists artists that have their disambiguation set
-            to be the same as their name. Disambiguation should
-            not be filled in this case.`)}
-      </li>
-      <li>
-        {texp.l('Total artists found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <ArtistList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default ArtistsDisambiguationSameName;

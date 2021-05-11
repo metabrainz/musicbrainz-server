@@ -9,51 +9,38 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import {WorkListRow} from '../static/scripts/common/components/WorkListEntry';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportIswcT} from './types';
 
 const IswcsWithManyWorks = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportIswcT>): React.Element<typeof Layout> => {
+}: ReportDataT<ReportIswcT>): React.Element<typeof ReportLayout> => {
   let lastIswc = 0;
   let currentIswc = 0;
 
   return (
-    <Layout $c={$c} fullWidth title={l('ISWCs with multiple works')}>
-      <h1>{l('ISWCs with multiple works')}</h1>
-
-      <ul>
-        <li>
-          {exp.l(
-            `This report lists {iswc|ISWCs} that are attached to more than
-             one work. If the works are the same, this usually means
-             they should be merged.`,
-            {iswc: '/doc/ISWC'},
-          )}
-        </li>
-        <li>
-          {texp.l('Total ISWCs found: {count}',
-                  {count: pager.total_entries})}
-        </li>
-        <li>
-          {texp.l('Generated on {date}',
-                  {date: formatUserDate($c, generated)})}
-        </li>
-
-        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-      </ul>
-
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={exp.l(
+        `This report lists {iswc|ISWCs} that are attached to more than
+         one work. If the works are the same, this usually means
+         they should be merged.`,
+        {iswc: '/doc/ISWC'},
+      )}
+      entityType="iswc"
+      filtered={filtered}
+      generated={generated}
+      title={l('ISWCs with multiple works')}
+      totalEntries={pager.total_entries}
+    >
       <PaginatedResults pager={pager}>
         <table className="tbl">
           <thead>
@@ -86,10 +73,7 @@ const IswcsWithManyWorks = ({
                     {item.work ? (
                       <>
                         <td />
-                        <WorkListRow
-                          $c={$c}
-                          work={item.work}
-                        />
+                        <WorkListRow work={item.work} />
                       </>
                     ) : (
                       <>
@@ -106,7 +90,7 @@ const IswcsWithManyWorks = ({
           </tbody>
         </table>
       </PaginatedResults>
-    </Layout>
+    </ReportLayout>
   );
 };
 

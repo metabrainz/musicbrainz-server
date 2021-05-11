@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 07:23+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-04-14 20:05+0000\n"
+"Last-Translator: Timo Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -202,6 +202,7 @@ msgid "Reactable"
 msgstr "Reactable"
 
 #: DB:instrument/name:139
+msgctxt "Electric keyboard tuning fork idiophone"
 msgid "Rhodes piano"
 msgstr "Rhodes-sähköpiano"
 
@@ -898,6 +899,7 @@ msgid "caxixi"
 msgstr "caxixi"
 
 #: DB:instrument/name:129
+msgctxt "Struck metal plate keyboard instrument"
 msgid "celesta"
 msgstr "celesta"
 
@@ -1053,6 +1055,7 @@ msgid "clavichord"
 msgstr "klavikordi"
 
 #: DB:instrument/name:175
+msgctxt "Electro-mechanical amplified clavichord"
 msgid "clavinet"
 msgstr "klavinetti"
 
@@ -1350,7 +1353,7 @@ msgid "dulcian"
 msgstr "dulcian"
 
 #: DB:instrument/name:841
-msgctxt "idiophone keyboard instrument with tuning forks"
+msgctxt "Acoustic keyboard tuning fork idiophone"
 msgid "dulcitone"
 msgstr ""
 
@@ -1376,10 +1379,6 @@ msgstr ""
 
 #: DB:instrument/name:677
 msgid "effects"
-msgstr ""
-
-#: DB:instrument/name:643
-msgid "ektara"
 msgstr ""
 
 #: DB:instrument/name:51
@@ -1720,6 +1719,11 @@ msgstr ""
 #: DB:instrument/name:981
 msgctxt "Arrangement of kettle shaped gongs"
 msgid "gong-chime"
+msgstr ""
+
+#: DB:instrument/name:643
+msgctxt "Indian drum-zither"
+msgid "gopichant"
 msgstr ""
 
 #: DB:instrument/name:582

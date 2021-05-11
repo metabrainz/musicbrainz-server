@@ -2148,7 +2148,7 @@ msgstr ""
 msgid "Ati"
 msgstr ""
 
-#. frequency:0 iso_code_3:atj 
+#. frequency:1 iso_code_3:atj 
 #: DB:language/name:866
 msgid "Atikamekw"
 msgstr ""
@@ -32468,7 +32468,7 @@ msgstr ""
 msgid "Suyá"
 msgstr ""
 
-#. frequency:0 iso_code_3:sva 
+#. frequency:1 iso_code_3:sva 
 #: DB:language/name:6216
 msgid "Svan"
 msgstr ""

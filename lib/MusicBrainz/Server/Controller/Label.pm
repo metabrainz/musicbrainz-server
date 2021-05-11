@@ -7,10 +7,15 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Label',
     entity_name     => 'label',
     relationships   => {
-        all => ['relationships'],
         cardinal => ['edit'],
         default => ['url'],
-        subset => { show => ['artist', 'url'] }
+        subset => {
+            show => ['artist', 'url'],
+            relationships => [qw( area artist event instrument label place series url )],
+        },
+        paged_subset => {
+            relationships => [qw( recording release release_group work )],
+        },
     },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
@@ -137,14 +142,22 @@ sub show : PathPart('') Chained('load')
 sub relationships : Chained('load') PathPart('relationships') {
     my ($self, $c) = @_;
 
+    my $stash = $c->stash;
+    my $pager = defined $stash->{pager}
+        ? serialize_pager($stash->{pager})
+        : undef;
     $c->stash(
         component_path => 'label/LabelRelationships',
-        component_props => {label => $c->stash->{label}->TO_JSON},
+        component_props => {
+            label => $stash->{label}->TO_JSON,
+            pagedLinkTypeGroup => to_json_object($stash->{paged_link_type_group}),
+            pager => $pager,
+        },
         current_view => 'Node',
     );
 }
 
-after [qw( show collections details tags aliases relationships )] => sub {
+after [qw( show collections details tags ratings aliases subscribers relationships )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

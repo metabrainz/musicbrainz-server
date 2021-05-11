@@ -105,28 +105,30 @@ sub summarize_ratings
 
 sub _get_tags_for_type
 {
-    my ($self, $id, $type) = @_;
+    my ($self, $id, $type, $show_downvoted) = @_;
+
+    my $is_upvote = $show_downvoted ? 0 : 1;
 
     my $query = "SELECT tag, count(tag)
         FROM ${type}_tag_raw
-        WHERE editor = ? AND is_upvote
+        WHERE editor = ? AND is_upvote = ?
         GROUP BY tag";
 
-    my $results = $self->c->sql->select_list_of_hashes($query, $id);
+    my $results = $self->c->sql->select_list_of_hashes($query, $id, $is_upvote);
 
     return { map { $_->{tag} => $_ } @$results };
 }
 
 sub get_tags
 {
-    my ($self, $user) = @_;
+    my ($self, $user, $show_downvoted) = @_;
 
 
     my $tags = {};
     my $max = 0;
     foreach my $entity (entities_with('tags'))
     {
-        my $data = $self->_get_tags_for_type($user->id, $entity);
+        my $data = $self->_get_tags_for_type($user->id, $entity, $show_downvoted);
 
         foreach (keys %$data)
         {
@@ -184,9 +186,16 @@ sub find_by_ip {
 sub search_by_email {
     my ($self, $email) = @_;
 
+    # Remove periods (\.), and anything preceded by a + sign on the user side
+    # for email matching, since both of these are often used as "free aliases"
+    # by email providers
+    $email =~ s/\\\+.*@/@/;
+    $email =~ s/\\\.(.*@)/$1/g;
+
     my $query = 'SELECT ' . $self->_columns .
-        ' FROM ' . $self->_table . ' WHERE email ~ ?' .
-        ' ORDER BY member_since LIMIT 100';
+        ' FROM ' . $self->_table .
+        q" WHERE regexp_replace(regexp_replace(email, '(\+.*@)', '@'), '\.(.*@)', '\1', 'g') ~ ?" .
+        ' ORDER BY member_since DESC LIMIT 100';
 
     $self->query_to_list($query, [$email]);
 }

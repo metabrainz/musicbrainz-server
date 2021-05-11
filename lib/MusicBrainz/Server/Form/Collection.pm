@@ -45,15 +45,22 @@ sub options_type_id {
 
     my $types = select_options_tree($self->ctx, 'CollectionType');
     my $collection = $self->init_object;
+    my $type_filter;
 
     if ($collection && blessed $collection) {
         my $entity_type = $collection->type->item_entity_type;
         unless ($self->ctx->model('Collection')->is_empty($entity_type, $collection->{id})) {
-            my %valid_types =
-                map { $_->id => 1 }
-                    $self->ctx->model('CollectionType')->find_by_entity_type($entity_type);
-            $types = [grep {$valid_types{$_->{value}}} @$types];
+            $type_filter = $entity_type;
         }
+    } elsif ($collection && $collection->{allowed_entity_type}) {
+        $type_filter = $collection->{allowed_entity_type};
+    }
+
+    if (defined $type_filter) {
+        my %valid_types =
+            map { $_->id => 1 }
+                $self->ctx->model('CollectionType')->find_by_entity_type($type_filter);
+        $types = [grep {$valid_types{$_->{value}}} @$types];
     }
 
     return $types;

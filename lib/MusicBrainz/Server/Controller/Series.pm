@@ -117,7 +117,7 @@ sub show : PathPart('') Chained('load') {
     );
 }
 
-after [qw( show collections details tags aliases )] => sub {
+after [qw( show collections details tags aliases subscribers )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

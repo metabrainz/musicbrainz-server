@@ -63,7 +63,7 @@
       <!-- For release adds, we want to make sure the user at least sees release duplicates -->
       <button type="button" data-bind="visible: (activeTabIndex() > 0 || action === 'edit') && (activeTabIndex() < tabCount - 1)" data-click="lastTab">[% l('Finish') | html_entity %]</button>
 
-      <!-- ko template: { if: activeTabID() === "#tracklist", data: addDiscDialog } -->
+      <!-- ko template: { if: activeTabID() === "#tracklist", data: addMediumDialog } -->
         <button type="button" data-click="open">[% l('Add Medium') %]</button>
       <!-- /ko -->
 

@@ -282,6 +282,24 @@ sub find_by_voter
     );
 }
 
+sub find_all_open
+{
+    my ($self, $limit, $offset) = @_;
+    my $query =
+        'SELECT ' . $self->_columns . '
+           FROM ' . $self->_table . '
+          WHERE status = ?
+       ORDER BY id ASC
+          LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+
+    $self->query_to_list_limited(
+        $query,
+        [$STATUS_OPEN],
+        $limit,
+        $offset,
+    );
+}
+
 sub find_open_for_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
@@ -289,6 +307,7 @@ sub find_open_for_editor
         'SELECT ' . $self->_columns . '
            FROM ' . $self->_table . '
           WHERE status = ?
+            AND editor != ?
             AND NOT EXISTS (
                 SELECT TRUE FROM vote
                  WHERE vote.edit = edit.id
@@ -300,7 +319,7 @@ sub find_open_for_editor
 
     $self->query_to_list_limited(
         $query,
-        [$STATUS_OPEN, $editor_id],
+        [$STATUS_OPEN, $editor_id, $editor_id],
         $limit,
         $offset,
     );

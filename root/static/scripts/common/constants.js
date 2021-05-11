@@ -138,6 +138,7 @@ export const FAVICON_CLASSES = {
   'patreon.com': 'patreon',
   'paypal.me': 'paypal',
   'petitlyrics.com': 'petitlyrics',
+  'pinterest.com': 'pinterest',
   'progarchives.com': 'progarchives',
   'psydb.net': 'psydb',
   'qim.com': 'quebecinfomusique',
@@ -145,8 +146,6 @@ export const FAVICON_CLASSES = {
   'ra.co': 'residentadvisor',
   'rateyourmusic.com': 'rateyourmusic',
   'recochoku.jp': 'recochoku',
-  // Remove once MBBE-31 is done
-  'residentadvisor.net': 'residentadvisor',
   'reverbnation.com': 'reverbnation',
   'rock.com.ar': 'rockcomar',
   'rockensdanmarkskort.dk': 'rockensdanmarkskort',

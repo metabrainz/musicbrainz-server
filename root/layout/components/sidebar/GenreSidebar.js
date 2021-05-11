@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import {isRelationshipEditor}
   from '../../../static/scripts/common/utility/privileges';
 
@@ -16,11 +17,12 @@ import LastUpdated from './LastUpdated';
 import RemoveLink from './RemoveLink';
 
 type Props = {
-  +$c: CatalystContextT,
   +genre: GenreT,
 };
 
-const GenreSidebar = ({$c, genre}: Props): React.Element<'div'> => {
+const GenreSidebar = ({genre}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
+
   return (
     <div id="sidebar">
       {isRelationshipEditor($c.user) ? (

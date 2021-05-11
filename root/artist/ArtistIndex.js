@@ -286,7 +286,6 @@ const ArtistIndex = ({
         >
           <PaginatedResults pager={pager}>
             <ReleaseGroupList
-              $c={$c}
               checkboxes="add-to-merge"
               releaseGroups={existingReleaseGroups}
               showRatings
@@ -307,7 +306,6 @@ const ArtistIndex = ({
         >
           <PaginatedResults pager={pager}>
             <RecordingList
-              $c={$c}
               checkboxes="add-to-merge"
               recordings={existingRecordings}
               showRatings

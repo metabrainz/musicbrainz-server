@@ -18,13 +18,12 @@ import type {ResultsPropsWithContextT} from '../types';
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult($c, result, index) {
+function buildResult(result, index) {
   const work = result.entity;
   const score = result.score;
 
   return (
     <WorkListEntry
-      $c={$c}
       index={index}
       key={work.id}
       score={score}
@@ -45,7 +44,7 @@ const WorkResults = ({
 React.Element<typeof ResultsLayout> => (
   <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
-      buildResult={(result, index) => buildResult($c, result, index)}
+      buildResult={(result, index) => buildResult(result, index)}
       columns={
         <>
           <th>{l('Name')}</th>

@@ -37,7 +37,6 @@ const SeriesMerge = ({
       </p>
       <form action={$c.req.uri} method="post">
         <SeriesList
-          $c={$c}
           mergeForm={form}
           series={sortByEntityName(toMerge)}
         />

@@ -9,49 +9,34 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import RecordingRelationshipList
   from './components/RecordingRelationshipList';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types';
 
-type Props = ReportDataT<ReportRecordingRelationshipT>;
 
 const RecordingsWithFutureDates = ({
-  $c,
+  canBeFiltered,
+  filtered,
   generated,
   items,
   pager,
-}: Props): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportRecordingRelationshipT>):
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows recordings with relationships using dates in
+       the future. Those are probably typos (e.g. 2109 instead of 2019).`,
+    )}
+    entityType="relationship"
+    filtered={filtered}
+    generated={generated}
     title={l('Recordings with relationships having dates in the future')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Recordings with relationships having dates in the future')}</h1>
-
-    <ul>
-      <li>
-        {exp.l(
-          `This report shows recordings with relationships using dates in
-           the future. Those are probably typos
-           (e.g. 2109 instead of 2019).`,
-        )}
-      </li>
-      <li>
-        {texp.l('Total relationships found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-    </ul>
-
     <RecordingRelationshipList items={items} pager={pager} showDates />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default RecordingsWithFutureDates;

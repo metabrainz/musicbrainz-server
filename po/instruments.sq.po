@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-11 07:24+0000\n"
+"PO-Revision-Date: 2021-04-14 20:05+0000\n"
 "Last-Translator: Besnik Bleta <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -193,6 +193,7 @@ msgid "Reactable"
 msgstr ""
 
 #: DB:instrument/name:139
+msgctxt "Electric keyboard tuning fork idiophone"
 msgid "Rhodes piano"
 msgstr "Piano Rhodes"
 
@@ -889,6 +890,7 @@ msgid "caxixi"
 msgstr ""
 
 #: DB:instrument/name:129
+msgctxt "Struck metal plate keyboard instrument"
 msgid "celesta"
 msgstr ""
 
@@ -1044,6 +1046,7 @@ msgid "clavichord"
 msgstr "klavikord"
 
 #: DB:instrument/name:175
+msgctxt "Electro-mechanical amplified clavichord"
 msgid "clavinet"
 msgstr ""
 
@@ -1341,7 +1344,7 @@ msgid "dulcian"
 msgstr ""
 
 #: DB:instrument/name:841
-msgctxt "idiophone keyboard instrument with tuning forks"
+msgctxt "Acoustic keyboard tuning fork idiophone"
 msgid "dulcitone"
 msgstr "dulçiton"
 
@@ -1368,10 +1371,6 @@ msgstr ""
 #: DB:instrument/name:677
 msgid "effects"
 msgstr "efekte"
-
-#: DB:instrument/name:643
-msgid "ektara"
-msgstr ""
 
 #: DB:instrument/name:51
 msgid "electric bass guitar"
@@ -1711,6 +1710,11 @@ msgstr ""
 #: DB:instrument/name:981
 msgctxt "Arrangement of kettle shaped gongs"
 msgid "gong-chime"
+msgstr ""
+
+#: DB:instrument/name:643
+msgctxt "Indian drum-zither"
+msgid "gopichant"
 msgstr ""
 
 #: DB:instrument/name:582

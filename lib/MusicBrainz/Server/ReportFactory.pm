@@ -21,6 +21,7 @@ use MusicBrainz::Server::PagedReport;
     ArtistsWithNoSubscribers
     BadAmazonURLs
     CatNoLooksLikeASIN
+    CatNoLooksLikeISRC
     CatNoLooksLikeLabelCode
     CDTOCDubiousLength
     CDTOCNotApplied
@@ -81,6 +82,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesToConvert
     ReleasesWithCAANoTypes
     ReleasesWithDownloadRelationships
+    ReleasesWithEmptyMediums
     ReleasesWithNoMediums
     ReleasesWithoutVACredit
     ReleasesWithoutVALink
@@ -108,6 +110,7 @@ use MusicBrainz::Server::Report::ArtistsWithMultipleOccurrencesInArtistCredits;
 use MusicBrainz::Server::Report::ArtistsWithNoSubscribers;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
+use MusicBrainz::Server::Report::CatNoLooksLikeISRC;
 use MusicBrainz::Server::Report::CatNoLooksLikeLabelCode;
 use MusicBrainz::Server::Report::CDTOCDubiousLength;
 use MusicBrainz::Server::Report::CDTOCNotApplied;
@@ -169,6 +172,7 @@ use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ReleasesSameBarcode;
 use MusicBrainz::Server::Report::ReleasesWithCAANoTypes;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
+use MusicBrainz::Server::Report::ReleasesWithEmptyMediums;
 use MusicBrainz::Server::Report::ReleasesWithNoMediums;
 use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
 use MusicBrainz::Server::Report::ReleasesWithoutVALink;

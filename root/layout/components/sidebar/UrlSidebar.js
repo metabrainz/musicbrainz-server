@@ -13,14 +13,13 @@ import EditLinks from './EditLinks';
 import LastUpdated from './LastUpdated';
 
 type Props = {
-  +$c: CatalystContextT,
   +url: UrlT,
 };
 
-const UrlSidebar = ({$c, url}: Props): React.Element<'div'> => {
+const UrlSidebar = ({url}: Props): React.Element<'div'> => {
   return (
     <div id="sidebar">
-      <EditLinks $c={$c} entity={url} />
+      <EditLinks entity={url} />
 
       <LastUpdated entity={url} />
     </div>

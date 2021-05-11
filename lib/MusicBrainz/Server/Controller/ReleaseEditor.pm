@@ -14,7 +14,7 @@ use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Data::Utils qw( sanitize trim );
+use MusicBrainz::Server::Data::Utils qw( non_empty sanitize trim );
 use MusicBrainz::Server::Form::Utils qw(
     language_options
     script_options
@@ -140,19 +140,19 @@ sub _process_seeded_data
 
     _report_unknown_fields('', $params, \@errors, @known_fields);
 
-    if (my $name = _seeded_string($params->{name}, 'name', \@errors)) {
+    if (non_empty(my $name = _seeded_string($params->{name}, 'name', \@errors))) {
         $result->{name} = trim($name);
     }
 
-    if (my $comment = _seeded_string($params->{comment}, 'comment', \@errors)) {
+    if (non_empty(my $comment = _seeded_string($params->{comment}, 'comment', \@errors))) {
         $result->{comment} = trim($comment);
     }
 
-    if (my $annotation = _seeded_string($params->{annotation}, 'annotation', \@errors)) {
+    if (non_empty(my $annotation = _seeded_string($params->{annotation}, 'annotation', \@errors))) {
         $result->{annotation} = $annotation;
     }
 
-    if (my $barcode = _seeded_string($params->{barcode}, 'barcode', \@errors)) {
+    if (non_empty(my $barcode = _seeded_string($params->{barcode}, 'barcode', \@errors))) {
         $result->{barcode} = trim($barcode) || undef;
     }
 
@@ -389,11 +389,11 @@ sub _seeded_label
             push @$errors, "Invalid $field_name.mbid: “$gid”."
         }
     }
-    elsif (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
+    elsif (non_empty(my $name = _seeded_string($params->{name}, "$field_name.name", $errors))) {
         $result->{label} = { name => trim($name) };
     }
 
-    $result->{catalogNumber} = trim($params->{catalog_number} // '');
+    $result->{catalogNumber} = trim($params->{catalog_number});
     return $result;
 }
 
@@ -416,7 +416,7 @@ sub _seeded_medium
         }
     }
 
-    if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
+    if (non_empty(my $name = _seeded_string($params->{name}, "$field_name.name", $errors))) {
         $result->{name} = trim($name);
     }
 
@@ -473,11 +473,11 @@ sub _seeded_track
 
     my $result = {};
 
-    if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
+    if (non_empty(my $name = _seeded_string($params->{name}, "$field_name.name", $errors))) {
         $result->{name} = trim($name);
     }
 
-    if (my $number = _seeded_string($params->{number}, "$field_name.number", $errors)) {
+    if (non_empty(my $number = _seeded_string($params->{number}, "$field_name.number", $errors))) {
         $result->{number} = trim($number) =~ s/^0+(\d+)/$1/gr;
     }
 
@@ -542,7 +542,7 @@ sub _seeded_artist_credit_name
     my $result = {};
 
     my $name = _seeded_string($params->{name}, "$field_name.name", $errors);
-    $result->{name} = trim($name // '');
+    $result->{name} = trim($name);
 
     if (my $gid = $params->{mbid}) {
         my $entity = $c->model('Artist')->get_by_gid($gid);
@@ -556,7 +556,7 @@ sub _seeded_artist_credit_name
     }
 
     my $join = _seeded_string($params->{join_phrase}, "$field_name.join_phrase", $errors);
-    $result->{joinPhrase} = sanitize($join // '');
+    $result->{joinPhrase} = sanitize($join);
 
     $result->{artist} //= _seeded_hash($c, \&_seeded_artist, $params->{artist},
         "$field_name.artist", $errors);
@@ -573,7 +573,7 @@ sub _seeded_artist
 
     my $result = {};
 
-    if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
+    if (non_empty(my $name = _seeded_string($params->{name}, "$field_name.name", $errors))) {
         $result->{name} = trim($name);
     }
 
@@ -591,11 +591,11 @@ sub _seeded_url
         target => { name => '', entityType => 'url' },
     };
 
-    if (my $url = _seeded_string($params->{url}, "$field_name.url", $errors)) {
+    if (non_empty(my $url = _seeded_string($params->{url}, "$field_name.url", $errors))) {
         $result->{target}->{name} = trim($url);
     }
 
-    if (my $id = _seeded_string($params->{link_type}, "$field_name.link_type", $errors)) {
+    if (non_empty(my $id = _seeded_string($params->{link_type}, "$field_name.link_type", $errors))) {
         my $link_type = $c->model('LinkType')->get_by_id($id);
 
         if ($link_type && !$link_type->is_deprecated &&

@@ -9,12 +9,36 @@
 
 import * as React from 'react';
 
-type Props = {
+type UserTagLinkProps = {
+  +content?: string,
+  +showDownvoted?: boolean,
+  +subPath?: string,
+  +tag: string,
+  +username: string,
+};
+
+type TagLinkProps = {
+  +content?: string,
+  +subPath?: string,
   +tag: string,
 };
 
-const TagLink = ({tag}: Props): React.Element<'a'> => (
-  <a href={`/tag/${encodeURIComponent(tag)}`}>{tag}</a>
-);
+export const UserTagLink = (
+  {content, showDownvoted = false, subPath, tag, username}: UserTagLinkProps,
+): React.Element<'a'> => {
+  const url = '/user/' + encodeURIComponent(username) +
+              '/tag/' + encodeURIComponent(tag) +
+              (subPath == null ? '' : '/' + subPath) +
+              (showDownvoted ? '?show_downvoted=1' : '');
+  return <a href={url}>{content == null ? tag : content}</a>;
+};
+
+const TagLink = (
+  {content, subPath, tag}: TagLinkProps,
+): React.Element<'a'> => {
+  const url = '/tag/' + encodeURIComponent(tag) +
+              (subPath == null ? '' : '/' + subPath);
+  return <a href={url}>{content == null ? tag : content}</a>;
+};
 
 export default TagLink;

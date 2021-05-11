@@ -63,7 +63,6 @@ const LabelIndex = ({
       >
         <PaginatedResults pager={pager}>
           <ReleaseList
-            $c={$c}
             checkboxes="add-to-merge"
             filterLabel={label}
             releases={releases}

@@ -37,7 +37,6 @@ const AreaMerge = ({
       </p>
       <form action={$c.req.uri} method="post">
         <AreaList
-          $c={$c}
           areas={sortByEntityName(toMerge)}
           mergeForm={form}
         />

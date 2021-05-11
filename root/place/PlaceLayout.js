@@ -39,7 +39,7 @@ const PlaceLayout = ({
       <PlaceHeader page={page} place={place} />
       {children}
     </div>
-    {fullWidth ? null : <PlaceSidebar $c={$c} place={place} />}
+    {fullWidth ? null : <PlaceSidebar place={place} />}
   </Layout>
 );
 

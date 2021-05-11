@@ -52,7 +52,6 @@ const RecordingMerge = ({
       ) : null}
       <form action={$c.req.uri} method="post">
         <RecordingList
-          $c={$c}
           mergeForm={form}
           recordings={sortByEntityName(toMerge)}
           showAcoustIds

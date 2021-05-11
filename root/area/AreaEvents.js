@@ -38,7 +38,6 @@ const AreaEvents = ({
       >
         <PaginatedResults pager={pager}>
           <EventList
-            $c={$c}
             checkboxes="add-to-merge"
             events={events}
             showArtists

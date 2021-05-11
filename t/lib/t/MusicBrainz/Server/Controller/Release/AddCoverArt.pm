@@ -33,6 +33,8 @@ EOSQL
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
+    $test->cache_aware_c->store->set('cover_art_upload_nonce:12345', 'xyz');
+
     $mech->get_ok('/release/14b9d183-7dab-42ba-94a3-7388a66604b8/add-cover-art');
     my @edits = capture_edits {
         $mech->submit_form(
@@ -40,6 +42,7 @@ EOSQL
                 'add-cover-art.position' => 1,
                 'add-cover-art.id' => 12345,
                 'add-cover-art.comment' => $long_comment_string,
+                'add-cover-art.nonce' => 'xyz',
             }
         );
     } $c;

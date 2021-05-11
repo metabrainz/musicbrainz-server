@@ -42,7 +42,7 @@ const AreaLayout = ({
       <AreaHeader area={area} page={page} />
       {children}
     </div>
-    {fullWidth ? null : <AreaSidebar $c={$c} area={area} />}
+    {fullWidth ? null : <AreaSidebar area={area} />}
   </Layout>
 );
 

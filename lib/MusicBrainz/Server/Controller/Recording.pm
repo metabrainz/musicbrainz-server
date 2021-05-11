@@ -141,7 +141,7 @@ sub fingerprints : Chained('load') PathPart('fingerprints') {
 }
 
 # Stuff that has the sidebar and needs collection info
-after [qw( show collections details tags aliases fingerprints )] => sub {
+after [qw( show collections details tags ratings aliases fingerprints )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

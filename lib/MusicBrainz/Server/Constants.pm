@@ -25,6 +25,7 @@ sub _get
 }
 
 our %EXPORT_TAGS = (
+    direction          => _get(qr/^DIRECTION_/),
     edit_type          => _get(qr/^EDIT_/),
     expire_action      => _get(qr/^EXPIRE_/),
     quality            => _get(qr/^QUALITY_/),
@@ -36,7 +37,7 @@ our %EXPORT_TAGS = (
     vote               => _get(qr/^VOTE_/),
     edit_status        => _get(qr/^STATUS_/),
     access_scope       => _get(qr/^ACCESS_SCOPE_/),
-    privileges         => _get(qr/_FLAG$/),
+    privileges         => _get(qr/_FLAGS?$/),
     language_frequency => _get(qr/^LANGUAGE_FREQUENCY/),
     script_frequency   => _get(qr/^SCRIPT_FREQUENCY/),
     election_status => [
@@ -103,6 +104,9 @@ Readonly our $VARTIST_ID  => 1;
 
 Readonly our $NOLABEL_GID => '157afde4-4bf5-4039-8ad2-5a15acc85176';
 Readonly our $NOLABEL_ID  => 3267;
+
+Readonly our $DIRECTION_FORWARD => 1;
+Readonly our $DIRECTION_BACKWARD => 2;
 
 Readonly our $EXPIRE_ACCEPT => 1;
 Readonly our $EXPIRE_REJECT => 2;
@@ -341,6 +345,14 @@ Readonly our $LOCATION_EDITOR_FLAG          => 256;
 Readonly our $BANNER_EDITOR_FLAG            => 512;
 Readonly our $EDITING_DISABLED_FLAG         => 1024;
 Readonly our $ADDING_NOTES_DISABLED_FLAG    => 2048;
+# If you update this, also update root/utility/sanitizedEditor.js
+Readonly our $PUBLIC_PRIVILEGE_FLAGS        => $AUTO_EDITOR_FLAG &
+                                               $BOT_FLAG &
+                                               $RELATIONSHIP_EDITOR_FLAG &
+                                               $WIKI_TRANSCLUSION_FLAG &
+                                               $ACCOUNT_ADMIN_FLAG &
+                                               $LOCATION_EDITOR_FLAG &
+                                               $BANNER_EDITOR_FLAG;
 
 Readonly our $ELECTION_VOTE_NO      => -1;
 Readonly our $ELECTION_VOTE_ABSTAIN => 0;

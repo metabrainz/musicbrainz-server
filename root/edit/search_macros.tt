@@ -4,6 +4,12 @@
 </span>
 [% END %]
 
+[% BLOCK search_heading %]
+  <h1>[% l('Search for Edits') %]</h1>
+  <p>[% l('The filters below allow you to find only edits fulfilling specific criteria. See the {doc_link|documentation} for more info about using the filters.', {doc_link => doc_link('How to Use the Edit Search')}) %]</p>
+  <p>[% l('If you want to save an edit search for future use, you can just bookmark it!') %]</p>
+[% END %]
+
 [% BLOCK search_form %]
 <form action="[% c.req.uri.path %]" method="get" id="edit-search">
   <p>
@@ -177,7 +183,7 @@
   </span>
 
   <span>
-    (<a href="[% c.uri_for('/doc/How_to_Search_for_Edits#Date_format') %]" target="_blank">[% l('help') %]</a>)
+    (<a href="[% c.uri_for('/doc/How_to_Use_the_Edit_Search#Dates') %]" target="_blank">[% l('help') %]</a>)
   </span>
 [% END %]
 
@@ -345,6 +351,7 @@
                    [ 'subscribed', l('include an editor in my subscriptions') ]
                    [ 'not_subscribed', l('do not include editors in my subscriptions') ]
                    [ 'limited', l('include a beginner editor') ]
+                   [ 'not_edit_author', l('include someone other than the edit author') ]
                 ], field_contents) %]
   [% ELSE %]
     [% operators([ [ '=', l('is') ]

@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import DescriptiveLink
@@ -37,11 +38,11 @@ import SidebarType from './SidebarType';
 import SubscriptionLinks from './SubscriptionLinks';
 
 type Props = {
-  +$c: CatalystContextT,
   +label: LabelT,
 };
 
-const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
+const LabelSidebar = ({label}: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const labelAge = age.age(label);
   const gid = encodeURIComponent(label.gid);
   const area = label.area;
@@ -92,17 +93,11 @@ const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
 
       <SidebarRating entity={label} />
 
-      <SidebarTags
-        $c={$c}
-        aggregatedTags={$c.stash.top_tags}
-        entity={label}
-        more={!!$c.stash.more_tags}
-        userTags={$c.stash.user_tags}
-      />
+      <SidebarTags entity={label} />
 
       <ExternalLinks empty entity={label} />
 
-      <EditLinks $c={$c} entity={label}>
+      <EditLinks entity={label}>
         <li>
           <a href={`/release/add?label=${gid}`}>
             {l('Add release')}
@@ -111,7 +106,7 @@ const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
 
         <li className="separator" role="separator" />
 
-        <AnnotationLinks $c={$c} entity={label} />
+        <AnnotationLinks entity={label} />
 
         <MergeLink entity={label} />
 
@@ -122,9 +117,9 @@ const LabelSidebar = ({$c, label}: Props): React.Element<'div'> => {
 
       {isSpecialPurposeLabel
         ? null
-        : <SubscriptionLinks $c={$c} entity={label} />}
+        : <SubscriptionLinks entity={label} />}
 
-      <CollectionLinks $c={$c} entity={label} />
+      <CollectionLinks entity={label} />
 
       <SidebarLicenses entity={label} />
 

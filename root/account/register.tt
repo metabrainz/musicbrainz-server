@@ -1,4 +1,5 @@
 [% WRAPPER "layout.tt" title=l("Create an Account") full_width=1 %]
+[% script_manifest('register.js') %]
 <div id="content">
 
      [%- IF invalid_captcha_response -%]
@@ -29,6 +30,9 @@
         [% form_row_text(r, 'username', l('Username:')) %]
         <div class="row no-label">
             <span class="input-note">[% l('Your username will be publicly visible.') %]</span>
+        </div>
+        <div class="row no-label" id="email-username-warning">
+            [% warning(l('The username you have entered looks like an email address. This is allowed, but please keep in mind that everyone will be able to see it. Only use an email address as your username if you are completely sure you are happy with that.')) %]
         </div>
         [% form_row_password(r, 'password', l('Password:')) %]
         [% form_row_password(r, 'confirm_password', l('Confirm password:')) %]

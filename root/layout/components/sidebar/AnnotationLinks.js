@@ -9,40 +9,43 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../../context';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import returnUri from '../../../utility/returnUri';
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: CoreEntityT,
 };
 
 const AnnotationLinks = ({
-  $c,
   entity,
-}: Props): React.Element<typeof React.Fragment> => (
-  <>
-    <li>
-      <a
-        href={returnUri(
-          $c,
-          entityHref(entity, 'edit_annotation'),
-          $c.req.uri,
-        )}
-      >
-        {entity.latest_annotation && entity.latest_annotation.text
-          ? l('Edit annotation')
-          : l('Add annotation')}
-      </a>
-    </li>
-    {$c.stash.number_of_revisions ? (
+}: Props): React.Element<typeof React.Fragment> => {
+  const $c = React.useContext(CatalystContext);
+
+  return (
+    <>
       <li>
-        <a href={entityHref(entity, 'annotations')}>
-          {l('View annotation history')}
+        <a
+          href={returnUri(
+            $c,
+            entityHref(entity, 'edit_annotation'),
+            $c.req.uri,
+          )}
+        >
+          {entity.latest_annotation && entity.latest_annotation.text
+            ? l('Edit annotation')
+            : l('Add annotation')}
         </a>
       </li>
-    ) : null}
-  </>
-);
+      {$c.stash.number_of_revisions ? (
+        <li>
+          <a href={entityHref(entity, 'annotations')}>
+            {l('View annotation history')}
+          </a>
+        </li>
+      ) : null}
+    </>
+  );
+};
 
 export default AnnotationLinks;

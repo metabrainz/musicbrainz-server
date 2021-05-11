@@ -56,7 +56,6 @@ const AreaPlaces = ({
         >
           <PaginatedResults pager={pager}>
             <PlaceList
-              $c={$c}
               checkboxes="add-to-merge"
               places={places}
               showRatings

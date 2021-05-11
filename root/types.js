@@ -147,8 +147,10 @@ declare type ArtworkT = {
   ...EditableRoleT,
   +comment: string,
   +filename: string | null,
+  +huge_ia_thumbnail: string,
+  +huge_thumbnail: string,
   +id: number,
-  +image: string,
+  +image: string | null,
   +large_ia_thumbnail: string,
   +large_thumbnail: string,
   +mime_type: string,
@@ -348,11 +350,28 @@ declare type SecureConfirmFormT = FormT<{
   +submit: ReadOnlyFieldT<string>,
 }>;
 
+declare type PagedLinkTypeGroupT = {
+  +direction: 'backward' | 'forward',
+  +is_loaded: boolean,
+  +limit: number,
+  +link_type_id: number,
+  +offset: number,
+  +relationships: $ReadOnlyArray<RelationshipT>,
+  +total_relationships: number,
+};
+
+declare type PagedTargetTypeGroupT = {
+  +[linkTypeIdAndSourceColumn: string]: PagedLinkTypeGroupT,
+};
+
 declare type CoreEntityRoleT<+T> = {
   ...EntityRoleT<T>,
   ...LastUpdateRoleT,
   +gid: string,
   +name: string,
+  +paged_relationship_groups?: {
+    +[targetType: CoreEntityTypeT]: PagedTargetTypeGroupT | void,
+  },
   +relationships?: $ReadOnlyArray<RelationshipT>,
 };
 
@@ -507,7 +526,7 @@ declare type EditT = {
   +editor_id: number,
   +expires_time: string,
   +historic_type: number | null,
-  +id: number,
+  +id: number | null, // id is missing in previews
   +is_loaded: boolean,
   +is_open: boolean,
   +preview?: boolean,

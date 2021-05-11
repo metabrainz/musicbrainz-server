@@ -9,47 +9,32 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportArtistT, ReportDataT} from './types';
 
 const ArtistsWithMultipleOccurrencesInArtistCredits = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report lists artists that appear more than once
+       in different positions within the same artist credit.`,
+    )}
+    entityType="artist"
+    filtered={filtered}
+    generated={generated}
     title={l('Artists occurring multiple times in the same artist credit')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Artists occurring multiple times in the same artist credit')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report lists artists that appear more than once in different
-            positions within the same artist credit.`)}
-      </li>
-      <li>
-        {texp.l('Total artists found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <PaginatedResults pager={pager}>
       <table className="tbl">
         <thead>
@@ -82,7 +67,7 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
         </tbody>
       </table>
     </PaginatedResults>
-  </Layout>
+  </ReportLayout>
 );
 
 export default ArtistsWithMultipleOccurrencesInArtistCredits;

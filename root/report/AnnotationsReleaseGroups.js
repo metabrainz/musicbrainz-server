@@ -9,47 +9,32 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
-
 import {ANNOTATION_REPORT_TEXT} from './constants';
 import ReleaseGroupAnnotationList
   from './components/ReleaseGroupAnnotationList';
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseGroupAnnotationT} from './types';
 
 const AnnotationsReleaseGroups = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
 }: ReportDataT<ReportReleaseGroupAnnotationT>):
-React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Release group annotations')}>
-    <h1>{l('Release group annotations')}</h1>
-
-    <ul>
-      <li>
-        {l('This report lists release groups with annotations.')}
-      </li>
-      <li>{ANNOTATION_REPORT_TEXT()}</li>
-      <li>
-        {texp.l('Total release groups found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
+React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l('This report lists release groups with annotations.')}
+    entityType="release_group"
+    extraInfo={ANNOTATION_REPORT_TEXT()}
+    filtered={filtered}
+    generated={generated}
+    title={l('Release group annotations')}
+    totalEntries={pager.total_entries}
+  >
     <ReleaseGroupAnnotationList items={items} pager={pager} />
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default AnnotationsReleaseGroups;

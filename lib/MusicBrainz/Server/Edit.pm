@@ -337,7 +337,7 @@ sub TO_JSON {
         editor_id => $self->editor_id + 0,
         expires_time => datetime_to_iso8601($self->expires_time),
         historic_type => $self->can('historic_type') ? $self->historic_type + 0 : undef,
-        id => $self->id + 0,
+        id => $self->id ? $self->id + 0 : undef,
         is_loaded => boolean_to_json($self->is_loaded),
         is_open => boolean_to_json($self->is_open),
         $can_preview ? (preview => boolean_to_json($self->preview)) : (),

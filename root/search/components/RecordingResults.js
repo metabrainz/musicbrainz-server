@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatTrackLength
@@ -113,32 +114,35 @@ function buildResult($c, result) {
 }
 
 export const RecordingResultsInline = ({
-  $c,
   pager,
   query,
   results,
 }: InlineResultsPropsWithContextT<RecordingWithArtistCreditT>):
-React.Element<typeof PaginatedSearchResults> => (
-  <PaginatedSearchResults
-    buildResult={result => buildResult($c, result)}
-    columns={
-      <>
-        <th>{l('Name')}</th>
-        <th className="treleases">{l('Length')}</th>
-        <th>{l('Artist')}</th>
-        <th>{l('ISRCs')}</th>
-        <th>{l('Release')}</th>
-        {$c?.session?.tport == null ? null : <th>{l('Tagger')}</th>}
-        <th className="t pos">{l('Track')}</th>
-        <th>{l('Medium')}</th>
-        <th>{l('Type')}</th>
-      </>
-    }
-    pager={pager}
-    query={query}
-    results={results}
-  />
-);
+React.Element<typeof PaginatedSearchResults> => {
+  const $c = React.useContext(CatalystContext);
+
+  return (
+    <PaginatedSearchResults
+      buildResult={result => buildResult($c, result)}
+      columns={
+        <>
+          <th>{l('Name')}</th>
+          <th className="treleases">{l('Length')}</th>
+          <th>{l('Artist')}</th>
+          <th>{l('ISRCs')}</th>
+          <th>{l('Release')}</th>
+          {$c?.session?.tport == null ? null : <th>{l('Tagger')}</th>}
+          <th className="t pos">{l('Track')}</th>
+          <th>{l('Medium')}</th>
+          <th>{l('Type')}</th>
+        </>
+      }
+      pager={pager}
+      query={query}
+      results={results}
+    />
+  );
+};
 
 const RecordingResults = ({
   $c,
@@ -153,7 +157,6 @@ React.Element<typeof ResultsLayout> => {
   return (
     <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
       <RecordingResultsInline
-        $c={$c}
         pager={pager}
         query={query}
         results={results}

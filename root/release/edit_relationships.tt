@@ -17,6 +17,8 @@
 
       <p>[% l('To use the batch tools, select some recordings or works using the checkboxes.') %]</p>
 
+      <p>[% l('Please read {relationships_doc|our guidelines for relationships} if you haven’t already.', { relationships_doc => { href => doc_link('Style/Relationships'), target => '_blank' } }) %]</p>
+
       <h2>[% l('Track Relationships') %]</h2>
 
       <!-- ko if: source.mediums().length -->

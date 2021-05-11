@@ -535,6 +535,27 @@ const testData = [
             expected_clean_url: 'https://davidmandelberg.bandcamp.com/track/maybe-it-s',
        only_valid_entity_types: ['work'],
   },
+  {
+                     input_url: 'https://thepenitentman.bandcamp.com/',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'mailorder',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://davidmandelberg.bandcamp.com/',
+             input_entity_type: 'release_group',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'review',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://idiotsikker.bandcamp.com/',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'mailorder',
+       only_valid_entity_types: [],
+  },
   // Bandsintown
   {
                      input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
@@ -1027,33 +1048,73 @@ const testData = [
   // Classical Archives
   {
                      input_url: 'http://www.classicalarchives.com/artist/27956.html',
-             input_entity_type: 'release',
+             input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.classicalarchives.com/artist/27956.html',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.classicalarchives.com/newca/#!/Performer/p28471',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/artist/28471.html',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.classicalarchives.com/composer/2806.html',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.classicalarchives.com/newca/#!/Composer/3411',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/composer/3411.html',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://www.classicalarchives.com/ensemble/10.html',
-             input_entity_type: 'release',
+             input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.classicalarchives.com/ensemble/10.html',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'www.classicalarchives.com/newca/#!/Performer/e5425',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/ensemble/5425.html',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://classicalarchives.com/album/menlo-201409.html?test',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.classicalarchives.com/album/menlo-201409.html',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://www.classicalarchives.com/newca/#!/Album/21779#',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/newca/#!/Album/21779',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://www.classicalarchives.com/work/1119282.html',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.classicalarchives.com/work/1119282.html',
+       only_valid_entity_types: ['work'],
+  },
+  {
+                     input_url: 'https://www.classicalarchives.com/newca/#!/Work/296312',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.classicalarchives.com/work/296312.html',
+       only_valid_entity_types: ['work'],
   },
   // CPDL (Choral Public Domain Library)
   {
@@ -1326,6 +1387,42 @@ const testData = [
              input_entity_type: 'work',
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9',
+  },
+  // DNB
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D129802433',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/129802433',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D119194901X',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/119194901X',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=idn%3D1227621485',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/1227621485',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://d-nb.info/gnd/2026867-1',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/2026867-1',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://d-nb.info/1181136512',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/1181136512',
+       only_valid_entity_types: ['release'],
   },
   // DRAM
   {
@@ -2718,6 +2815,12 @@ const testData = [
             expected_clean_url: 'https://ch.nicovideo.jp/maverickdci',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
+  // Niconi Commons (excluded from Niconico autoselect)
+  {
+                     input_url: 'https://commons.nicovideo.jp/material/nc216831',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
+  },
   // NLA (National Library of Australia)
   {
                      input_url: 'http://nla.gov.au/nla.party-548358/',
@@ -2748,37 +2851,37 @@ const testData = [
                      input_url: 'http://www.ocremix.org/artist/4792/oneup',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/artist/4792/',
+            expected_clean_url: 'https://ocremix.org/artist/4792',
   },
   {
                      input_url: 'https://ocremix.org/org/2/nintendo',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/org/2/',
+            expected_clean_url: 'https://ocremix.org/org/2',
   },
   {
                      input_url: 'https://ocremix.org/album/46/final-fantasy-vi-balance-and-ruin',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/album/46/',
+            expected_clean_url: 'https://ocremix.org/album/46',
   },
   {
                      input_url: 'https://ocremix.org/remix/OCR00002#tab-details',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/remix/OCR00002/',
+            expected_clean_url: 'https://ocremix.org/remix/OCR00002',
   },
   {
                      input_url: 'http://ocremix.org/game/512/jade-cocoon-story-of-the-tamamayu-ps1',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/game/512/',
+            expected_clean_url: 'https://ocremix.org/game/512',
   },
   {
                      input_url: 'http://ocremix.org/song/1033',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://ocremix.org/song/1033/',
+            expected_clean_url: 'https://ocremix.org/song/1033',
   },
   // Offizielle Deutsche Charts
   {
@@ -2836,18 +2939,25 @@ const testData = [
   },
   // Operabase
   {
-                     input_url: 'www.operabase.com/a/Risto_Joost/21715/future',
-             input_entity_type: 'label',
-    expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://operabase.com/artists/21715',
-       only_valid_entity_types: ['artist'],
-  },
-  {
                      input_url: 'https://www.operabase.com/artists/megan-esther-grey-101303/en',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://operabase.com/artists/101303',
        only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'operabase.com/venues/united-states/abravanel-hall-5916/en',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://operabase.com/venues/united-states/5916',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.operabase.com/works/porgupohja-uus-vanapagan-7623/en',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://operabase.com/works/7623',
+       only_valid_entity_types: ['work'],
   },
   {
                      input_url: 'http://operabase.com/listart.cgi?name=Risto+Joost&acts=+Schedule+',
@@ -3163,6 +3273,13 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
             expected_clean_url: 'https://ra.co/podcast/491',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://www.ra.co/exchange/552',
+             input_entity_type: 'release',
+    expected_relationship_type: 'shownotes',
+            expected_clean_url: 'https://ra.co/exchange/552',
        only_valid_entity_types: ['release'],
   },
   // ReverbNation

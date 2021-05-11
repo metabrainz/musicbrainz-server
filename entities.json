@@ -392,7 +392,11 @@
             "id": 18
         },
         "last_updated_column": true,
-        "model": "LinkType"
+        "mbid": {
+            "relatable": false
+        },
+        "model": "LinkType",
+        "url": "relationship"
     },
     "medium": {"model": "Medium"},
     "medium_cdtoc": {"model": "MediumCDTOC"},

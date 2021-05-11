@@ -660,7 +660,7 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/(www.)?archive.org\//, 'https://archive.org/');
       // clean up links to files
       url = url.replace(/\?cnt=\d+$/, '');
-      url = url.replace(/^https?:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, 'https://archive.org/download/$2/$3');
+      url = url.replace(/^https?:\/\/(?:.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, 'https://archive.org/download/$1/$2');
       // clean up links to items
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, '$1');
     },
@@ -910,7 +910,7 @@ const CLEANUPS = {
       'i',
     )],
     clean: function (url) {
-      return url.replace(/(www\.)?([^.\/]+)\.blogspot\.([a-z]{2,3}\.)?[a-z]{2,3}(\/)?/, '$2.blogspot.com/');
+      return url.replace(/(?:www\.)?([^.\/]+)\.blogspot\.(?:[a-z]{2,3}\.)?[a-z]{2,3}(?:\/)?/, '$1.blogspot.com/');
     },
   },
   'bnfcatalogue': {
@@ -1102,15 +1102,54 @@ const CLEANUPS = {
     },
   },
   'classicalarchives': {
-    match: [new RegExp(
-      '^(https?://)?(www\\.)?classicalarchives\\.com/' +
-      '(album|artist|composer|ensemble|work)/',
-      'i',
-    )],
+    match: [
+      new RegExp(
+        '^(https?://)?(www\\.)?classicalarchives\\.com/' +
+        '(album|artist|composer|ensemble|work)/',
+        'i',
+      ),
+      new RegExp(
+        '^(https?://)?(www\\.)?classicalarchives\\.com/newca/#!/' +
+        '(Album|Composer|Performer|Work)/',
+        'i',
+      ),
+    ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, 'https://www.classicalarchives.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\//, 'https://www.classicalarchives.com/');
+      /*
+       * Both newca and "old-style" links work, old redirects to new
+       * unless requested otherwise. CA claimed they'll support both
+       * going forward, so mapping all to old-style for now.
+       * newca entities match except Performer, where the old type
+       * is determined by the first letter of the ID: ensemble (e)
+       * or artist (p)
+       * newca Album links are allowed since they can't be autoconverted
+       */
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Composer\/([^\/?#]+)/, '$1/composer/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Work\/([^\/?#]+)/, '$1/work/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/e([^\/?#]+)/, '$1/ensemble/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/p([^\/?#]+)/, '$1/artist/$2.html');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Album\/([^\/?#]+)(?:.*)?$/, '$1/newca/#!/Album/$2');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, '$1/$2/$3');
       return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.classicalarchives\.com\/(?:newca\/#!\/)?([Aa]lbum|artist|composer|ensemble|work)\/([^\/?#]+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: ['artist', 'composer', 'ensemble'].includes(prefix),
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {result: prefix === 'album' || prefix === 'Album'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'work'};
+        }
+      }
+      return {result: false};
     },
   },
   'cpdl': {
@@ -1201,7 +1240,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(deezer\\.com)', 'i')],
     type: LINK_TYPES.streamingfree,
     clean: function (url) {
-      url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(?:[a-z]{2}\/)?(\w+)\/(\d+).*$/, 'https://www.deezer.com/$2/$3');
+      url = url.replace(/^https?:\/\/(?:www\.)?deezer\.com\/(?:[a-z]{2}\/)?(\w+)\/(\d+).*$/, 'https://www.deezer.com/$1/$2');
       return url;
     },
     validate: function (url, id) {
@@ -1224,7 +1263,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?dhhu\\.dk', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(www\.)?dhhu\.dk\/w\/(.*)+$/, 'http://www.dhhu.dk/w/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?dhhu\.dk\/w\/(.*)+$/, 'http://www.dhhu.dk/w/$1');
       return url;
     },
   },
@@ -1313,6 +1352,27 @@ const CLEANUPS = {
           case LINK_TYPES.discogs.work:
             return {result: prefix === 'composition'};
         }
+      }
+      return {result: false};
+    },
+  },
+  'dnb': {
+    match: [
+      new RegExp('^(https?://)?([^/]+\\.)?d-nb\\.info', 'i'),
+      new RegExp('^(https?://)?([^/]+\\.)?dnb\\.de', 'i'),
+    ],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return {result: /^http:\/\/d-nb\.info\/gnd\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
+        case LINK_TYPES.otherdatabases.release:
+          return {result: /^http:\/\/d-nb\.info\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
       }
       return {result: false};
     },
@@ -1513,7 +1573,7 @@ const CLEANUPS = {
     )],
     type: LINK_TYPES.geonames,
     clean: function (url) {
-      return url.replace(/^https?:\/\/([a-z]+\.)?geonames.org\/([0-9]+)\/.*$/, 'http://sws.geonames.org/$2/');
+      return url.replace(/^https?:\/\/(?:[a-z]+\.)?geonames.org\/([0-9]+)\/.*$/, 'http://sws.geonames.org/$1/');
     },
   },
   'googleplay': {
@@ -1584,7 +1644,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?ibdb\\.com/', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, 'https://www.ibdb.com');
+      url = url.replace(/^(https?:\/\/)?(?:www\.)?ibdb\.com/, 'https://www.ibdb.com');
       return url;
     },
   },
@@ -2364,7 +2424,10 @@ const CLEANUPS = {
     type: LINK_TYPES.score,
   },
   'niconicovideo': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(nicovideo\\.jp/)', 'i')],
+    match: [new RegExp(
+      '^(https?://)?((?!commons)[^/]+\\.)?(nicovideo\\.jp/)',
+      'i',
+    )],
     type: {...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel},
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?ch\.nicovideo\.jp\/([^\/]+).*$/, 'https://ch.nicovideo.jp/$1');
@@ -2402,7 +2465,7 @@ const CLEANUPS = {
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ocremix\.org\//, 'https://ocremix.org/');
-      url = url.replace(/^https:\/\/ocremix\.org\/(album|artist|game|org|remix|song)\/([^\/?#]+).*$/, 'https://ocremix.org/$1/$2/');
+      url = url.replace(/^https:\/\/ocremix\.org\/(album|artist|game|org|remix|song)\/([^\/?#]+).*$/, 'https://ocremix.org/$1/$2');
       return url;
     },
   },
@@ -2459,7 +2522,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?openlibrary\\.org', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, 'https://openlibrary.org/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, 'https://openlibrary.org/$1/$2');
       return url;
     },
   },
@@ -2467,13 +2530,22 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?(www\\.)?operabase\\.com', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/(?:a\/[^\/?#]+|artists)\/(?:[^0-9]+)?([0-9]+).*$/, 'https://operabase.com/artists/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/(artists|venues\/[\w-]+|works)\/(?:[^0-9]+)?([0-9]+).*$/, 'https://operabase.com/$1/$2');
     },
     validate: function (url, id) {
-      return {
-        result: id === LINK_TYPES.otherdatabases.artist &&
-          /^https:\/\/operabase\.com\/artists\/[0-9]+$/.test(url),
-      };
+      const m = /^https:\/\/operabase\.com\/(artists|venues|works)\//.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: prefix === 'artists'};
+          case LINK_TYPES.otherdatabases.place:
+            return {result: prefix === 'venues'};
+          case LINK_TYPES.otherdatabases.work:
+            return {result: prefix === 'works'};
+        }
+      }
+      return {result: false};
     },
   },
   'otherdatabases': {
@@ -2498,7 +2570,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?stage48\\.net/wiki/index.php', 'i'),
       new RegExp('^(https?://)?(www22\\.)?big\\.or\\.jp', 'i'),
       new RegExp('^(https?://)?(www\\.)?japanesemetal\\.gooside\\.com', 'i'),
-      new RegExp('^(https?://)?(www\\.)?d-nb\\.info', 'i'),
       new RegExp('^(https?://)?(www\\.)?tedcrane\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?thedancegypsy\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?bibliotekapiosenki\\.pl', 'i'),
@@ -2708,7 +2779,7 @@ const CLEANUPS = {
   },
   'residentadvisor': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?ra\\.co/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?ra\\.co/(?!exchange)', 'i'),
       new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/', 'i'),
     ],
     type: {
@@ -2717,12 +2788,12 @@ const CLEANUPS = {
       ...LINK_TYPES.discographyentry,
     },
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(www\.)?ra\.co\//, 'https://ra.co/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ra\.co\//, 'https://ra.co/');
       url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|podcast|reviews|tracks)\/([^\/?#]+).*$/, 'https://ra.co/$1/$2');
       return url;
     },
     validate: function (url, id) {
-      if (/^https?:\/\/(www\.)?residentadvisor\.net\//.test(url)) {
+      if (/^https?:\/\/(?:www\.)?residentadvisor\.net\//.test(url)) {
         return {
           error: exp.l(
             `This is a link to the old Resident Advisor domain. Please
@@ -2760,6 +2831,14 @@ const CLEANUPS = {
         }
       }
       return {result: false};
+    },
+  },
+  // TODO: Merge with residentadvisor after MBS-9902 is implemented
+  'residentadvisorexchange': {
+    match: [new RegExp('^(https?://)?(www\\.)?ra\\.co/exchange', 'i')],
+    type: LINK_TYPES.shownotes,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?ra\.co\/exchange\/([^\/?#]+).*$/, 'https://ra.co/exchange/$1');
     },
   },
   'reverbnation': {
@@ -2833,7 +2912,7 @@ const CLEANUPS = {
     )],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(wiki|www)\.rockinchina\.com\/w\/(.*)+$/, 'http://www.rockinchina.com/w/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:wiki|www)\.rockinchina\.com\/w\/(.*)+$/, 'http://www.rockinchina.com/w/$1');
       return url;
     },
   },
@@ -3438,7 +3517,7 @@ const CLEANUPS = {
     type: {...LINK_TYPES.score, ...LINK_TYPES.image},
     clean: function (url) {
       url = url.replace(/\/wiki\/[^#]+#(?:mediaviewer|\/media)\/(.*)/, '\/wiki\/$1');
-      url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, 'https://commons.wikimedia.org/wiki/File:$2');
+      url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(?:thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, 'https://commons.wikimedia.org/wiki/File:$1');
       url = url.replace(/\?uselang=[a-z-]+$/, '');
       url = url.replace(/#.*$/, '');
       url = reencodeMediawikiLocalPart(url);
@@ -3618,7 +3697,10 @@ const relationshipTypesByEntityType = Object.entries(LINK_TYPES).reduce(
   {},
 );
 
-// Avoid Wikipedia/Wikidata being added as release-level relationship
+/*
+ * Avoid Wikipedia/Wikidata being added as release-level relationship
+ * Disallow https://*.bandcamp.com/ URLs at release level
+ */
 for (const relUuid of relationshipTypesByEntityType.release) {
   const relRule = validationRules[relUuid];
   validationRules[relUuid] = function (url) {
@@ -3640,6 +3722,55 @@ for (const relUuid of relationshipTypesByEntityType.release) {
            so adding Wikidata links to a release is currently blocked.
            Please add this Wikidata link to the release group instead,
            if appropriate.`,
+        ),
+        result: false,
+      };
+    }
+    if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+      return {
+        error: exp.l(
+          `This is a Bandcamp profile, not a page for a specific
+           release. Even if it shows this release right now,
+           that can change when the artist releases another.
+           Please find and add the appropriate release page
+           (“{album_url_pattern}” or “{single_url_pattern}”)
+           instead, and feel free to add this profile link
+           to the appropriate artist or label.`,
+          {
+            album_url_pattern: (
+              <span className="url-quote">{'/album'}</span>
+            ),
+            single_url_pattern: (
+              <span className="url-quote">{'/track'}</span>
+            ),
+          },
+        ),
+        result: false,
+      };
+    }
+    return relRule(url);
+  };
+}
+
+// Disallow https://*.bandcamp.com/ URLs at recording level
+for (const relUuid of relationshipTypesByEntityType.recording) {
+  const relRule = validationRules[relUuid];
+  validationRules[relUuid] = function (url) {
+    if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+      return {
+        error: exp.l(
+          `This is a Bandcamp profile, not a page for a specific
+           recording. Even if it shows a single recording right now,
+           that can change when the artist releases another.
+           Please find and add the appropriate recording page
+           (“{single_url_pattern}”)
+           instead, and feel free to add this profile link
+           to the appropriate artist or label.`,
+          {
+            single_url_pattern: (
+              <span className="url-quote">{'/track'}</span>
+            ),
+          },
         ),
         result: false,
       };

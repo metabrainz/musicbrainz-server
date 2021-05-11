@@ -18,11 +18,15 @@ import LabelLayout from './LabelLayout';
 type Props = {
   +$c: CatalystContextT,
   +label: LabelT,
+  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  +pager: ?PagerT,
 };
 
 const LabelRelationships = ({
   $c,
   label,
+  pagedLinkTypeGroup,
+  pager,
 }: Props): React.Element<typeof LabelLayout> => (
   <LabelLayout
     $c={$c}
@@ -30,20 +34,28 @@ const LabelRelationships = ({
     page="relationships"
     title={l('Relationships')}
   >
-    {label.relationships?.length ? (
-      <Relationships source={label} />
-    ) : (
-      <>
-        <h2 className="relationships">{l('Relationships')}</h2>
-        <p>
-          {exp.l(
-            '{link} has no relationships.',
-            {link: <EntityLink entity={label} />},
-          )}
-        </p>
-      </>
+    {pagedLinkTypeGroup ? null : (
+      label.relationships?.length ? (
+        <Relationships source={label} />
+      ) : (
+        <>
+          <h2 className="relationships">{l('Relationships')}</h2>
+          <p>
+            {exp.l(
+              '{link} has no relationships.',
+              {link: <EntityLink entity={label} />},
+            )}
+          </p>
+        </>
+      )
     )}
-    <RelationshipsTable entity={label} heading={l('Appearances')} />
+    <RelationshipsTable
+      $c={$c}
+      entity={label}
+      heading={l('Appearances')}
+      pagedLinkTypeGroup={pagedLinkTypeGroup}
+      pager={pager}
+    />
   </LabelLayout>
 );
 

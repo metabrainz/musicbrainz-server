@@ -161,7 +161,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'css=#add-disc-dialog a[href="#add-disc-parser"]',
+      target: 'css=#add-medium-dialog a[href="#add-medium-parser"]',
       value: '${KEY_ESC}',
     },
     {

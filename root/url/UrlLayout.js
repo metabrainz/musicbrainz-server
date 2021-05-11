@@ -36,7 +36,7 @@ const UrlLayout = ({
       <UrlHeader page={page} url={url} />
       {children}
     </div>
-    {fullWidth ? null : <UrlSidebar $c={$c} url={url} />}
+    {fullWidth ? null : <UrlSidebar url={url} />}
   </Layout>
 );
 

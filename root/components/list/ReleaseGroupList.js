@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import Table from '../Table';
 import releaseGroupType from '../../utility/releaseGroupType';
 import {groupBy} from '../../static/scripts/common/utility/arrays';
@@ -26,7 +27,6 @@ import {
 
 type ReleaseGroupListTableProps = {
   ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
@@ -38,7 +38,6 @@ type ReleaseGroupListTableProps = {
 
 type ReleaseGroupListProps = {
   ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
   +order?: string,
@@ -48,7 +47,6 @@ type ReleaseGroupListProps = {
 };
 
 export const ReleaseGroupListTable = ({
-  $c,
   checkboxes,
   mergeForm,
   order,
@@ -58,6 +56,8 @@ export const ReleaseGroupListTable = ({
   showType = true,
   sortable,
 }: ReleaseGroupListTableProps): React.Element<typeof Table> => {
+  const $c = React.useContext(CatalystContext);
+
   function getFirstReleaseYear(entity: ReleaseGroupT) {
     if (!nonEmpty(entity.firstReleaseDate)) {
       return '—';
@@ -144,7 +144,6 @@ export const ReleaseGroupListTable = ({
 };
 
 const ReleaseGroupList = ({
-  $c,
   checkboxes,
   mergeForm,
   order,
@@ -166,7 +165,6 @@ const ReleaseGroupList = ({
             }
           </h3>
           <ReleaseGroupListTable
-            $c={$c}
             checkboxes={checkboxes}
             mergeForm={mergeForm}
             order={order}

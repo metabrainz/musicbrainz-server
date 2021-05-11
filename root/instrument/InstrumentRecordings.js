@@ -45,7 +45,6 @@ const InstrumentRecordings = ({
       >
         <PaginatedResults pager={pager}>
           <RecordingList
-            $c={$c}
             checkboxes="add-to-merge"
             instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
             recordings={recordings}

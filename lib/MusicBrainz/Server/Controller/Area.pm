@@ -9,6 +9,8 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         cardinal    => ['edit'],
         subset      => {
             show => [qw( area artist label place series instrument release_group url )],
+        },
+        paged_subset => {
             recordings => ['recording'],
             releases => ['release'],
             works => ['work'],
@@ -214,17 +216,27 @@ sub releases : Chained('load')
 {
     my  ($self, $c) = @_;
 
-    my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_by_country($c->stash->{area}->id, shift, shift);
-        });
+    my $stash = $c->stash;
+    my $paged_link_type_group = $stash->{paged_link_type_group};
+    my $releases;
 
-    $c->model('ArtistCredit')->load(@$releases);
-    $c->model('Release')->load_related_info(@$releases);
+    unless ($paged_link_type_group) {
+        $releases = $self->_load_paged($c, sub {
+            $c->model('Release')->find_by_country($stash->{area}->id, shift, shift);
+        });
+        $c->model('ArtistCredit')->load(@$releases);
+        $c->model('Release')->load_related_info(@$releases);
+    }
+
+    my $pager = defined $stash->{pager}
+        ? serialize_pager($stash->{pager})
+        : undef;
 
     my %props = (
-        area        => $c->stash->{area}->TO_JSON,
-        releases    => to_json_array($releases),
-        pager       => serialize_pager($c->stash->{pager}),
+        area => $stash->{area}->TO_JSON,
+        releases => to_json_array($releases),
+        pagedLinkTypeGroup => to_json_object($paged_link_type_group),
+        pager => $pager,
     );
 
     $c->stash(
@@ -312,9 +324,17 @@ Shows recordings related to this area.
 sub recordings : Chained('load') {
     my ($self, $c) = @_;
 
+    my $stash = $c->stash;
+    my $pager = defined $stash->{pager}
+        ? serialize_pager($stash->{pager})
+        : undef;
     $c->stash(
         component_path => 'area/AreaRecordings',
-        component_props => { area => $c->stash->{area}->TO_JSON },
+        component_props => {
+            area => $stash->{area}->TO_JSON,
+            pagedLinkTypeGroup => to_json_object($stash->{paged_link_type_group}),
+            pager => $pager,
+        },
         current_view => 'Node',
     );
 }
@@ -328,14 +348,22 @@ Shows works related to this area.
 sub works : Chained('load') {
     my ($self, $c) = @_;
 
+    my $stash = $c->stash;
+    my $pager = defined $stash->{pager}
+        ? serialize_pager($stash->{pager})
+        : undef;
     $c->stash(
         component_path => 'area/AreaWorks',
-        component_props => { area => $c->stash->{area}->TO_JSON },
+        component_props => {
+            area => $stash->{area}->TO_JSON,
+            pagedLinkTypeGroup => to_json_object($stash->{paged_link_type_group}),
+            pager => $pager,
+        },
         current_view => 'Node',
     );
 }
 
-after [qw( show collections details tags aliases artists labels releases recordings places users works )] => sub {
+after [qw( show collections details tags aliases artists events labels releases recordings places users works )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

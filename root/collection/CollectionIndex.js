@@ -53,12 +53,10 @@ type Props =
   | PropsForEntity<WorkT>;
 
 const listPicker = (
-  $c: CatalystContextT,
   props: Props,
   canRemoveFromCollection: boolean,
 ) => {
   const sharedProps = {
-    $c,
     checkboxes: canRemoveFromCollection ? 'remove' : '',
     order: props.order,
     sortable: true,
@@ -84,7 +82,6 @@ const listPicker = (
     case 'event':
       return (
         <EventList
-          $c={$c}
           events={props.entities}
           showArtists
           showLocation
@@ -205,7 +202,7 @@ React.Element<typeof CollectionLayout> => {
       {entities.length > 0 ? (
         <form action={$c.req.uri} method="post">
           <PaginatedResults pager={pager}>
-            {listPicker($c, props, canRemoveFromCollection)}
+            {listPicker(props, canRemoveFromCollection)}
           </PaginatedResults>
           {canRemoveFromCollection ? (
             <FormRow>

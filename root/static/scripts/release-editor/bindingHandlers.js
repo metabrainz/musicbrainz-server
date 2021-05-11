@@ -28,7 +28,7 @@ ko.bindingHandlers.disableBecauseDiscIDs = {
         disabled
           ? l(`This medium has one or more discids
                which prevent this information from being changed.`)
-          : '',
+          : element.title,
       );
   },
 };

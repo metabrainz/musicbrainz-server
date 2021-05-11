@@ -10,8 +10,11 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         default     => ['url'],
         subset      => {
             show => [qw( area artist label place url work series instrument )],
-            performances => [qw( release release_group recording work url )],
-        }
+            performances => [qw( url )],
+        },
+        paged_subset => {
+            performances => [qw( recording release release_group work )],
+        },
     },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
@@ -150,10 +153,18 @@ Shows performances linked to a place.
 sub performances : Chained('load') { 
     my ($self, $c) = @_;
 
+    my $stash = $c->stash;
+    my $pager = defined $stash->{pager}
+        ? serialize_pager($stash->{pager})
+        : undef;
     $c->stash(
-        component_path  => 'place/PlacePerformances',
-        component_props => {place => $c->stash->{place}->TO_JSON},
-        current_view    => 'Node',
+        component_path => 'place/PlacePerformances',
+        component_props => {
+            place => $stash->{place}->TO_JSON,
+            pagedLinkTypeGroup => to_json_object($stash->{paged_link_type_group}),
+            pager => $pager,
+        },
+        current_view => 'Node',
     );
 }
 

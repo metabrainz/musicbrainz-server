@@ -48,6 +48,7 @@ has '+data' => (
 sub foreign_keys {
     my $self = shift;
     return {
+        LinkType => [ $self->entity_id ],
         LinkAttributeType => [
             grep { defined }
             map { $_->{type} }
@@ -85,6 +86,10 @@ sub build_display_data {
         long_link_phrase => $self->data->{long_link_phrase},
         name => $self->data->{name},
         orderable_direction => $self->data->{orderable_direction},
+        defined($self->entity_id) ? (relationship_type => to_json_object(
+            $loaded->{LinkType}{ $self->entity_id } ||
+            MusicBrainz::Server::Entity::LinkType->new( name => $self->data->{name} ))
+        ) : (),
         reverse_link_phrase => $self->data->{reverse_link_phrase},
     }
 }

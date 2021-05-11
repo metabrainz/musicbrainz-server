@@ -105,6 +105,7 @@ const ServerDetailsBanner = () => {
 
 export type Props = $ReadOnly<{
   ...HeadProps,
+  +$c: CatalystContextT,
   children: React$Node,
   fullWidth?: boolean,
 }>;
@@ -120,7 +121,6 @@ const Layout = ({
 }: Props): React.Element<'html'> => (
   <html lang={$c.stash.current_language_html}>
     <Head
-      $c={$c}
       homepage={homepage}
       noIcons={noIcons}
       pager={pager}
@@ -128,7 +128,7 @@ const Layout = ({
     />
 
     <body>
-      <Header $c={$c} />
+      <Header />
 
       {isEditingDisabled($c.user) || isAddingNotesDisabled($c.user) ? (
         <div className="banner editing-disabled">
@@ -237,9 +237,9 @@ const Layout = ({
       </div>
 
       {($c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */) &&
-        <MergeHelper $c={$c} merger={$c.session.merger} />}
+        <MergeHelper merger={$c.session.merger} />}
 
-      <Footer $c={$c} />
+      <Footer />
     </body>
   </html>
 );

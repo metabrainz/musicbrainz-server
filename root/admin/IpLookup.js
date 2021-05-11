@@ -31,7 +31,7 @@ const IpLookup = ({
         {l('IP hash:') + ' ' + ipHash}
       </p>
       {users.length ? (
-        <UserList $c={$c} users={users} />
+        <UserList users={users} />
       ) : (
         <p>
           {l('No results')}

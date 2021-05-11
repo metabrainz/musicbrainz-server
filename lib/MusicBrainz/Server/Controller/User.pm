@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::User;
 use Moose;
+use Moose::Util qw( find_meta );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -10,9 +11,10 @@ use Encode;
 use HTTP::Status qw( :constants );
 use List::Util 'sum';
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw( l ln );
 use Try::Tiny;
@@ -27,6 +29,7 @@ use MusicBrainz::Server::Constants qw(
     $LOCATION_EDITOR_FLAG
     $BANNER_EDITOR_FLAG
     $ACCOUNT_ADMIN_FLAG
+    %ENTITIES
     entities_with
 );
 
@@ -111,7 +114,7 @@ sub serialize_user {
         name => $user->name,
         preferences => {
             public_ratings => boolean_to_json($preferences->public_ratings),
-            public_subscriptions => boolean_to_json($preferences->public_ratings),
+            public_subscriptions => boolean_to_json($preferences->public_subscriptions),
             public_tags => boolean_to_json($preferences->public_tags),
         },
     };
@@ -533,6 +536,7 @@ sub tags : Chained('load') PathPart('tags')
     my ($self, $c) = @_;
 
     my $user = $c->stash->{user};
+    my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
 
     if (!defined $c->user || $c->user->id != $user->id)
     {
@@ -541,49 +545,120 @@ sub tags : Chained('load') PathPart('tags')
             unless $user->preferences->public_tags;
     }
 
-    my $tags = $c->model('Editor')->get_tags($user);
-    my @display_tags = grep { !$_->{tag}->genre_id } @{ $tags->{tags} };
-    my @display_genres = grep { $_->{tag}->genre_id } @{ $tags->{tags} };
+    my $tags = $c->model('Editor')->get_tags($user, $show_downvoted);
+    my @display_tags = map +{
+        %{$_},
+        tag => to_json_object($_->{tag}),
+    }, grep { !$_->{tag}->genre_id } @{ $tags->{tags} };
+    my @display_genres = map +{
+        %{$_},
+        tag => to_json_object($_->{tag}),
+    }, grep { $_->{tag}->genre_id } @{ $tags->{tags} };
+
+    my %props = (
+        showDownvoted => boolean_to_json($show_downvoted),
+        tags => to_json_array(\@display_tags),
+        genres => to_json_array(\@display_genres),
+        user => $self->serialize_user($user),
+    );
 
     $c->stash(
-        user => $user,
-        display_tags => \@display_tags,
-        display_genres => \@display_genres,
-        tag_max_count => sum(map { $_->{count} } @{ $tags->{tags} }),
-        template => 'user/tags.tt',
+        component_path  => 'user/UserTagList',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
-sub tag : Chained('load') PathPart('tag') Args(1)
+sub load_tag : Chained('load') PathPart('tag') CaptureArgs(1)
 {
     my ($self, $c, $tag_name) = @_;
+    $c->stash->{tag} = $c->model('Tag')->get_by_name($tag_name);
+    $c->stash->{tag_name} = $tag_name;
+}
+
+sub tag : Chained('load_tag') PathPart('')
+{
+    my ($self, $c) = @_;
     my $user = $c->stash->{user};
-    my $tag = $c->model('Tag')->get_by_name($tag_name);
-    my %tags = ();
+    my $tag = $c->stash->{tag};
+    my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
+    my %tagged_entities;
     my $tag_in_use = 0;
-    my @entities_with_tags = sort { $a cmp $b } entities_with('tags');
 
     # Determine whether this tag exists in the database
     if ($tag) {
-        %tags = map {
-            $_ => [ $c->model(type_to_model($_))
-                        ->tags->find_editor_entities($user->id, $tag->id)
-                    ]
-        } @entities_with_tags;
+        %tagged_entities = map {
+            my ($entities, $total) = $c->model(type_to_model($_))->tags->find_editor_entities(
+                $user->id, $tag->id, $show_downvoted, 10, 0);
+            $c->model('ArtistCredit')->load(map { $_->entity } @$entities);
 
-        foreach my $entity_tags (values %tags) {
-            $tag_in_use = 1 if @$entity_tags;
-        }
+            ("$_" => {
+                count => $total,
+                tags => [map +{
+                    entity => to_json_object($_->{entity}),
+                    entity_id => $_->{entity_id},
+                }, @$entities],
+            })
+        } entities_with('tags');
     }
-    $c->model('ArtistCredit')->load(map { @$_ } values %tags);
+
+    my %props = (
+        showDownvoted => boolean_to_json($show_downvoted),
+        tag => to_json_object($tag // MusicBrainz::Server::Entity::Tag->new(
+            name => $c->stash->{tag_name},
+        )),
+        taggedEntities => \%tagged_entities,
+        user => $self->serialize_user($user),
+    );
 
     $c->stash(
-        tag_name => $tag_name,
-        tags => \%tags,
-        tag_in_use => $tag_in_use,
-        entities_with_tags => \@entities_with_tags
+        component_path  => 'user/UserTag',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
+
+map {
+    my $entity_type = $_;
+    my $entity_properties = $ENTITIES{$entity_type};
+    my $url = $entity_properties->{url};
+
+    my $method = sub {
+        my ($self, $c) = @_;
+
+        my $tag = $c->stash->{tag};
+        my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
+
+        my $entity_tags = $self->_load_paged($c, sub {
+            return ([], 0) unless $tag;
+            return $c->model($entity_properties->{model})->tags->find_editor_entities(
+                $c->stash->{user}->id, $c->stash->{tag}->id, $show_downvoted, shift, shift);
+        });
+        $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags) if $entity_properties->{artist_credits};
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'user/UserTagEntity',
+            component_props => {
+                %{$c->stash->{component_props}},
+                entityTags => [map +{
+                    entity => to_json_object($_->{entity}),
+                    entity_id => $_->{entity_id},
+                }, @$entity_tags],
+                entityType => $entity_type,
+                pager => serialize_pager($c->stash->{pager}),
+                showDownvoted => boolean_to_json($show_downvoted),
+                tag => to_json_object($tag // MusicBrainz::Server::Entity::Tag->new(
+                    name => $c->stash->{tag_name},
+                )),
+                user => $self->serialize_user($c->stash->{user}),
+            },
+        );
+    };
+
+    find_meta(__PACKAGE__)->add_method($entity_type . '_tag' => $method);
+    find_meta(__PACKAGE__)->register_method_attributes($method, ["Chained('load_tag')", "PathPart('$url')"]);
+} entities_with('tags');
 
 sub privileged : Path('/privileged')
 {

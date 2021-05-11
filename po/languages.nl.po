@@ -1,13 +1,13 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2020
+# Maurits Meulenbelt <email address hidden>, 2013-2021
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2020-10-19 18:52+0000\n"
+"PO-Revision-Date: 2021-04-21 07:39+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -155,6 +155,11 @@ msgstr "Asturisch"
 #: DB:language/name:28
 msgid "Athapascan languages"
 msgstr "Athabaskaanse talen"
+
+#. frequency:1 iso_code_3:atj
+#: DB:language/name:866
+msgid "Atikamekw"
+msgstr "Atikamekw"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:29
@@ -2250,6 +2255,11 @@ msgstr "Soendanees"
 #: DB:language/name:400
 msgid "Susu"
 msgstr "Susu"
+
+#. frequency:1 iso_code_3:sva
+#: DB:language/name:6216
+msgid "Svan"
+msgstr "Svanetisch"
 
 #. frequency:1 iso_code_3:swa
 #: DB:language/name:402

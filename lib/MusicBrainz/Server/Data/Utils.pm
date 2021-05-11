@@ -330,6 +330,8 @@ sub collapse_whitespace {
 sub sanitize {
     my $t = shift;
 
+    return '' unless non_empty($t);
+
     $t = NFC($t);
     # Before removing invalid characters, convert space control characters
     # into U+0020 (or else they'll be removed).
@@ -346,6 +348,8 @@ sub sanitize {
 sub trim {
     my $t = shift;
 
+    return '' unless non_empty($t);
+
     $t = sanitize($t);
 
     # Remove leading and trailing space
@@ -357,6 +361,8 @@ sub trim {
 sub trim_comment {
     my $t = shift;
 
+    return '' unless non_empty($t);
+
     $t =~ s/^\s*\(([^()]+)\)\s*$/$1/;
 
     return trim($t);
@@ -364,6 +370,8 @@ sub trim_comment {
 
 sub trim_multiline_text {
     my $t = shift;
+
+    return '' unless non_empty($t);
 
     $t = NFC($t);
     $t = remove_invalid_characters($t);

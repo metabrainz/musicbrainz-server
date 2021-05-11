@@ -9,14 +9,12 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import formatBarcode from '../static/scripts/common/utility/formatBarcode';
 
-import FilterLink from './FilterLink';
+import ReportLayout from './components/ReportLayout';
 import type {ReportDataT} from './types';
 
 type ReportRowT = {
@@ -29,39 +27,26 @@ type ReportRowT = {
 };
 
 const ReleasesSameBarcode = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRowT>): React.Element<typeof Layout> => (
-  <Layout
-    $c={$c}
-    fullWidth
+}: ReportDataT<ReportRowT>): React.Element<typeof ReportLayout> => (
+  <ReportLayout
+    canBeFiltered={canBeFiltered}
+    description={l(
+      `This report shows non-bootleg releases which have
+       the same barcode, yet are placed in different release groups.
+       Chances are that the releases are duplicates or parts of a set,
+       or at least that the release groups should be merged.`,
+    )}
+    entityType="release"
+    filtered={filtered}
+    generated={generated}
     title={l('Releases with the same barcode in different release groups')}
+    totalEntries={pager.total_entries}
   >
-    <h1>{l('Releases with the same barcode in different release groups')}</h1>
-
-    <ul>
-      <li>
-        {l(`This report shows non-bootleg releases which have
-            the same barcode, yet are placed in different release groups.
-            Chances are that the releases are duplicates or parts of a set,
-            or at least that the release groups should be merged.`)}
-      </li>
-      <li>
-        {texp.l('Total releases found: {count}',
-                {count: pager.total_entries})}
-      </li>
-      <li>
-        {texp.l('Generated on {date}',
-                {date: formatUserDate($c, generated)})}
-      </li>
-
-      {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
-    </ul>
-
     <PaginatedResults pager={pager}>
       <table className="tbl">
         <thead>
@@ -100,8 +85,7 @@ const ReleasesSameBarcode = ({
         </tbody>
       </table>
     </PaginatedResults>
-
-  </Layout>
+  </ReportLayout>
 );
 
 export default ReleasesSameBarcode;

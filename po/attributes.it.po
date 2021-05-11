@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-03-01 19:58+0000\n"
+"PO-Revision-Date: 2021-04-28 20:57+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,11 @@ msgstr "Vinile 12\""
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
 msgstr "Floppy disk 3,5\""
+
+#: DB:medium_format/name:91
+msgctxt "medium_format"
+msgid "5.25\" Floppy Disk"
+msgstr "Floppy disk 5,25\""
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -1460,6 +1465,11 @@ msgctxt "work_attribute_type"
 msgid "COMPASS ID"
 msgstr "ID COMPASS"
 
+#: DB:work_attribute_type/name:65
+msgctxt "work_attribute_type"
+msgid "COTT ID"
+msgstr "ID COTT"
+
 #: DB:work_attribute_type_allowed_value/value:63
 msgctxt "work_attribute_type_allowed_value"
 msgid "Cakravākaṁ"
@@ -2677,6 +2687,12 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Gerdaniyekürdi"
 msgstr "Gerdaniyekürdi"
 
+#: DB:medium_format/description:90
+msgctxt "medium_format"
+msgid ""
+"German tape cartridge format, using grooved tape rather than magnetic tape."
+msgstr "Formato tedesco di cartuccia a nastro, utilizzava un nastro con solchi anziché magnetico."
+
 #: DB:work_attribute_type_allowed_value/value:380
 msgctxt "work_attribute_type_allowed_value"
 msgid "Geveşt"
@@ -3252,6 +3268,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Ecuadorian rights society SAYCE"
 msgstr "ID per la società di diritti ecuadoriana SAYCE"
 
+#: DB:work_attribute_type/description:66
+msgctxt "work_attribute_type"
+msgid "ID for the Finnish rights society TEOSTO"
+msgstr "ID per la società di diritti finlandese TEOSTO"
+
 #: DB:work_attribute_type/description:21
 msgctxt "work_attribute_type"
 msgid "ID for the French rights society Sacem"
@@ -3337,6 +3358,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Nicaraguan rights society NICAUTOR"
 msgstr "ID per la società di diritti nicaraguense NICAUTOR"
 
+#: DB:work_attribute_type/description:67
+msgctxt "work_attribute_type"
+msgid "ID for the Norwegian rights society TONO"
+msgstr "ID per la società di diritti norvegese TONO"
+
 #: DB:work_attribute_type/description:62
 msgctxt "work_attribute_type"
 msgid "ID for the Panamanian rights society SPAC"
@@ -3391,6 +3417,11 @@ msgstr "ID per la società di diritti svizzera SUISA"
 msgctxt "work_attribute_type"
 msgid "ID for the Taiwanese rights society MÜST"
 msgstr "ID per la società di diritti taiwanese MÜST"
+
+#: DB:work_attribute_type/description:65
+msgctxt "work_attribute_type"
+msgid "ID for the Trinidadian and Tobagonian rights society COTT"
+msgstr "ID per la società di diritti trinidadiana COTT"
 
 #: DB:work_attribute_type/description:6
 msgctxt "work_attribute_type"
@@ -3468,6 +3499,11 @@ msgid ""
 "Incidental music is music written as background for (usually) a theatre "
 "play."
 msgstr "La musica di scena è musica composta, in genere, per fare da sfondo a una rappresentazione teatrale."
+
+#: DB:area_type/name:9
+msgctxt "area_type"
+msgid "Indigenous territory / reserve"
+msgstr "Territorio/Riserva indigena"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -4425,6 +4461,11 @@ msgstr "Mevlidişerif"
 msgctxt "medium_format"
 msgid "Microcassette"
 msgstr "Microcassetta"
+
+#: DB:area_type/name:8
+msgctxt "area_type"
+msgid "Military base"
+msgstr "Base militare"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -6523,6 +6564,16 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Sūltāl"
 msgstr "Sūltāl"
 
+#: DB:work_attribute_type/name:66
+msgctxt "work_attribute_type"
+msgid "TEOSTO ID"
+msgstr "ID TEOSTO"
+
+#: DB:work_attribute_type/name:67
+msgctxt "work_attribute_type"
+msgid "TONO ID"
+msgstr "ID TONO"
+
 #: DB:work_attribute_type_allowed_value/value:573
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tahir"
@@ -6577,6 +6628,11 @@ msgstr "Tavşanca"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tebriz"
 msgstr "Tebriz"
+
+#: DB:medium_format/name:90
+msgctxt "medium_format"
+msgid "Tefifon"
+msgstr "Tefifon"
 
 #: DB:work_attribute_type_allowed_value/value:774
 msgctxt "work_attribute_type_allowed_value"
@@ -6932,7 +6988,22 @@ msgctxt "cover_art_type"
 msgid ""
 "Use for images that need work to be used for tagging (but can possibly "
 "already be used for reference)"
-msgstr "Usalo per immagini che richiedono lavorazione per essere utilizzabili per il tagging (ma che possono già essere usate come riferimento)"
+msgstr "Da usare per immagini che richiedono lavorazione per essere utilizzabili per il tagging (ma che possono già essere usate come riferimento)"
+
+#: DB:area_type/description:8
+msgctxt "area_type"
+msgid ""
+"Used for any military bases that are large enough to be considered an area, "
+"not just a place."
+msgstr "Utilizzato per basi militari sufficientemente grandi da essere considerate un'area e non solo un luogo."
+
+#: DB:area_type/description:9
+msgctxt "area_type"
+msgid ""
+"Used for semi-autonomous territories governed by indigenous peoples, such as"
+" Indian reserves/reservations in North America and indigenous territories in"
+" Central and South America."
+msgstr "Utilizzato per territori semi-autonomi amministrati da popolazioni indigene, come per es. le riserve indiane in Nord America e i territori indigeni in Centro e Sud America."
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"

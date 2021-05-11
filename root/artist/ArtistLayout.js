@@ -39,7 +39,7 @@ const ArtistLayout = ({
       <ArtistHeader artist={artist} page={page} />
       {children}
     </div>
-    {fullWidth ? null : <ArtistSidebar $c={$c} artist={artist} />}
+    {fullWidth ? null : <ArtistSidebar artist={artist} />}
   </Layout>
 );
 
