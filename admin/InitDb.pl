@@ -473,6 +473,8 @@ Options are:
                          (Should only be used, when an import without the option
                          fails with an "ERROR:  invalid UTF-8 byte sequence detected"!
                          see also `MBImport.pl --help')
+     --reptype=TYPE      Override the REPLICATION_TYPE set in DBDefs. This only
+                         exists for testing purposes.
 
 Less commonly used options:
 
@@ -508,7 +510,8 @@ GetOptions(
     "fix-broken-utf8"     => \$fFixUTF8,
     "install-extension=s" => \$fInstallExtension,
     "extension-schema=s"  => \$fExtensionSchema,
-    "tmp-dir=s"           => \$tmp_dir
+    "tmp-dir=s"           => \$tmp_dir,
+    "reptype=s"           => \$REPTYPE,
 ) or exit 2;
 
 my $DB = Databases->get($databaseName);
