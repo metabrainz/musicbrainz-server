@@ -2287,6 +2287,12 @@ CREATE TABLE editor_collection
     type                INTEGER NOT NULL -- references editor_collection_type.id
 );
 
+CREATE TABLE editor_collection_gid_redirect (
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references editor_collection.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE editor_collection_type ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,

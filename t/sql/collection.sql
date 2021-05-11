@@ -41,8 +41,11 @@ INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 3), (2, 2), (2, 4);
 
-INSERT INTO editor_collection_event (collection, event)
-    VALUES (3, 2), (4, 3), (3, 4), (4, 4);
+INSERT INTO editor_collection_event (collection, event, added, position, comment)
+    VALUES (3, 2, NOW(), 1, ''),
+           (4, 3, NOW(), 1, ''),
+           (3, 4, NOW(), 1, 'testy1'),
+           (4, 4, '2014-11-05 03:00:13.359654+00', 2, 'testy2');
 
 INSERT INTO editor_collection_work (collection, work)
     VALUES (5, 1), (5, 2);

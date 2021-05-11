@@ -134,6 +134,7 @@
     },
     "collection": {
         "mbid": {
+            "multiple": true,
             "relatable": false
         },
         "model": "Collection",
