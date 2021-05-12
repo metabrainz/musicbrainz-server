@@ -93,6 +93,7 @@
             }
         },
         "report_filter": true,
+        "series": true,
         "sitemaps_lastmod_table": true,
         "sort_name": true,
         "subscriptions": {

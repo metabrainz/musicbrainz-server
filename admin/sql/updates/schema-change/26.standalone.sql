@@ -4,6 +4,7 @@
 -- 20210319-mbs-10208-standalone.sql
 -- 20210319-mbs-10647.sql
 -- 20210319-mbs-11451-standalone.sql
+-- 20210507-mbs-11652-artist-series-fks.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -113,5 +114,24 @@ ALTER TABLE ONLY musicbrainz.place_rating_raw
     ADD CONSTRAINT place_rating_raw_fk_place
     FOREIGN KEY (place)
     REFERENCES musicbrainz.place(id);
+
+--------------------------------------------------------------------------------
+SELECT '20210507-mbs-11652-artist-series-fks.sql';
+
+------------------
+-- constraints  --
+------------------
+
+ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
+  CHECK (
+    entity_type IN (
+      'artist',
+      'event',
+      'recording',
+      'release',
+      'release_group',
+      'work'
+    )
+  );
 
 COMMIT;

@@ -1,6 +1,7 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+DROP VIEW artist_series;
 DROP VIEW event_series;
 DROP VIEW medium_track_durations;
 DROP VIEW recording_series;
