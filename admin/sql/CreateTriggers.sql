@@ -28,6 +28,9 @@ CREATE TRIGGER a_ins_artist AFTER INSERT ON artist
 CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_artist_credit_name BEFORE UPDATE ON artist_credit_name
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_artist_credit_name();
+
 CREATE TRIGGER b_del_artist_special BEFORE DELETE ON artist
     FOR EACH ROW WHEN (OLD.id IN (1, 2)) EXECUTE PROCEDURE deny_special_purpose_deletion();
 
@@ -469,6 +472,15 @@ CREATE TRIGGER a_del_release_event AFTER DELETE ON release_unknown_country
 CREATE TRIGGER b_upd_release_label BEFORE UPDATE ON release_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER a_ins_release_label AFTER INSERT ON release_label
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_release_label();
+
+CREATE TRIGGER a_upd_release_label AFTER UPDATE ON release_label
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_release_label();
+
+CREATE TRIGGER a_del_release_label AFTER DELETE ON release_label
+    FOR EACH ROW EXECUTE PROCEDURE a_del_release_label();
+
 CREATE TRIGGER a_ins_release_group AFTER INSERT ON release_group
     FOR EACH ROW EXECUTE PROCEDURE a_ins_release_group();
 
@@ -480,6 +492,15 @@ CREATE TRIGGER a_del_release_group AFTER DELETE ON release_group
 
 CREATE TRIGGER b_upd_release_group BEFORE UPDATE ON release_group
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER a_ins_release_group_secondary_type_join AFTER INSERT ON release_group_secondary_type_join
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_release_group_secondary_type_join();
+
+CREATE TRIGGER a_del_release_group_secondary_type_join AFTER DELETE ON release_group_secondary_type_join
+    FOR EACH ROW EXECUTE PROCEDURE a_del_release_group_secondary_type_join();
+
+CREATE TRIGGER b_upd_release_group_secondary_type_join BEFORE UPDATE ON release_group_secondary_type_join
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_release_group_secondary_type_join();
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON release_group_alias
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();

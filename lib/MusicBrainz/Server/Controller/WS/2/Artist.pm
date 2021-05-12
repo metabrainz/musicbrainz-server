@@ -81,7 +81,9 @@ sub artist_toplevel
             my $opts = $stash->store($artist);
             my @results;
             if ($inc->various_artists) {
-                @results = $c->model('Release')->find_for_various_artists(
+                # Note: `find_by_track_artist` excludes releases where
+                # `$artist->id` appears in the release artist credit.
+                @results = $c->model('Release')->find_by_track_artist(
                     $artist->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type}});
             } else {
                 @results = $c->model('Release')->find_by_artist(

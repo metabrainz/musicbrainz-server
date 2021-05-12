@@ -69,21 +69,28 @@ sub _id_column
 
 sub _where_filter
 {
-    my ($filter) = @_;
+    my ($filter, $using_artist_release_group_table) = @_;
 
     my (@query, @joins, @params);
 
     if (defined $filter) {
+        my $needs_rg_table = 0;
         if (exists $filter->{name}) {
+            $needs_rg_table = 1 if $using_artist_release_group_table;
             push @query, "(mb_simple_tsvector(rg.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR rg.name = ?)";
             push @params, $filter->{name}, $filter->{name};
         }
         if (exists $filter->{artist_credit_id}) {
-            push @query, "rg.artist_credit = ?";
+            $needs_rg_table = 1 if $using_artist_release_group_table;
+            push @query, 'rg.artist_credit = ?';
             push @params, $filter->{artist_credit_id};
         }
         if (exists $filter->{type_id}) {
-            push @query, "rg.type = ?";
+            if ($using_artist_release_group_table) {
+                push @query, 'arg.primary_type = ?';
+            } else {
+                push @query, 'rg.type = ?';
+            }
             push @params, $filter->{type_id};
         }
         if (exists $filter->{type} && $filter->{type}) {
@@ -93,15 +100,26 @@ sub _where_filter
             } @types;
 
             if (my $primary = $partitioned_types{primary}) {
-                push @query, 'rg.type = any(?)';
+                if ($using_artist_release_group_table) {
+                    push @query, 'arg.primary_type = any(?)';
+                } else {
+                    push @query, 'rg.type = any(?)';
+                }
                 push @params, $primary;
             }
 
             if (my $secondary = $partitioned_types{secondary}) {
-                push @query, 'st.secondary_type = any(?)';
+                if ($using_artist_release_group_table) {
+                    push @query, 'arg.secondary_types @> any(?)';
+                } else {
+                    push @query, 'st.secondary_type = any(?)';
+                    push @joins, 'JOIN release_group_secondary_type_join st ON rg.id = st.release_group';
+                }
                 push @params, [ map { substr($_, 3) } @$secondary ];
-                push @joins, 'JOIN release_group_secondary_type_join st ON rg.id = st.release_group';
             }
+        }
+        if ($needs_rg_table) {
+            unshift @joins, 'JOIN release_group rg ON rg.id = arg.release_group';
         }
     }
 
@@ -125,6 +143,18 @@ sub find_artist_credits_by_artist
                  WHERE acn.artist = ?";
     my $ids = $self->sql->select_single_column_array($query, $artist_id);
     return $self->c->model('ArtistCredit')->find_by_ids($ids);
+}
+
+sub has_materialized_artist_release_group_data {
+    my ($self) = @_;
+    CORE::state $has_data;
+    if (defined $has_data) {
+        return $has_data;
+    }
+    $has_data = $self->sql->select_single_value(
+        'SELECT 1 FROM artist_release_group LIMIT 1',
+    ) ? 1 : 0;
+    return $has_data;
 }
 
 sub pick_status_condition
@@ -162,7 +192,7 @@ sub pick_status_condition
     }
 }
 
-sub has_by_artist
+sub _has_by_artist_slow
 {
     my ($self, $artist_id, $query_extra_only) = @_;
 
@@ -180,11 +210,38 @@ sub has_by_artist
     $self->sql->select_single_value($query, $artist_id);
 }
 
-sub find_by_artist
+sub _has_by_artist_fast
+{
+    my ($self, $artist_id, $query_extra_only) = @_;
+
+    my $status_condition = 'arg.unofficial = ' .
+        ($query_extra_only ? 'TRUE' : 'FALSE');
+
+    my $query ="
+        SELECT EXISTS (
+            SELECT 1
+            FROM artist_release_group arg
+            WHERE arg.artist = ?
+            AND $status_condition
+        )";
+    $self->sql->select_single_value($query, $artist_id);
+}
+
+sub has_by_artist
+{
+    my ($self, $artist_id, $query_extra_only) = @_;
+
+    if ($self->has_materialized_artist_release_group_data) {
+        return $self->_has_by_artist_fast($artist_id, $query_extra_only);
+    }
+    return $self->_has_by_artist_slow($artist_id, $query_extra_only);
+}
+
+sub _find_by_artist_slow
 {
     my ($self, $artist_id, $show_all, $limit, $offset, %args) = @_;
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, "acn.artist = ?";
     # Show only RGs with official releases by default, plus all-status-less ones so people fix the status
@@ -237,7 +294,64 @@ sub find_by_artist
     );
 }
 
-sub has_by_track_artist
+sub _find_by_artist_fast {
+    my ($self, $artist_id, $show_all, $va, $limit, $offset, %args) = @_;
+
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 1);
+
+    push @$conditions, 'arg.is_track_artist = ' . ($va ? 'TRUE' : 'FALSE');
+
+    # Show only RGs with official releases by default,
+    # plus all-status-less ones so people fix the status.
+    unless ($show_all) {
+        push @$conditions, 'unofficial = FALSE';
+    }
+    push @$conditions, 'arg.artist = ?';
+    push @$params, $artist_id;
+
+    my $inner_query = "FROM artist_release_group arg " .
+        join(' ', @$extra_joins) . ' ' .
+        'WHERE ' . join(' AND ', @$conditions);
+
+    my $count_query = 'SELECT count(*) ' . $inner_query;
+    my $total_row_count = $self->sql->select_single_value($count_query, @$params);
+
+    my $results_query = 'SELECT release_group ' .
+        $inner_query . ' ' .
+        # Do NOT modify the `ORDER BY` here. We're returning things in
+        # index order (`artist_release_group_*_idx_sort`) to avoid a
+        # sort operation. Changing the order is a schema change.
+        'ORDER BY arg.artist, ' .
+            'arg.unofficial, ' .
+            'arg.primary_type NULLS FIRST, ' .
+            'arg.secondary_types NULLS FIRST, ' .
+            'arg.first_release_date NULLS LAST, ' .
+            'arg.sort_character, ' .
+            'arg.release_group ' .
+        'LIMIT ? OFFSET ?';
+
+    my $release_group_ids = $self->sql->select_single_column_array(
+        $results_query, @$params, $limit, $offset,
+    );
+    my $release_groups_by_id = $self->get_by_ids(@$release_group_ids);
+
+    my @release_groups = map { $release_groups_by_id->{$_} } @$release_group_ids;
+    $self->load_meta(@release_groups);
+
+    return (\@release_groups, $total_row_count);
+}
+
+sub find_by_artist
+{
+    my ($self, $artist_id, $show_all, $limit, $offset, %args) = @_;
+
+    if ($self->has_materialized_artist_release_group_data) {
+        return $self->_find_by_artist_fast($artist_id, $show_all, 0, $limit, $offset, %args);
+    }
+    return $self->_find_by_artist_slow($artist_id, $show_all, $limit, $offset, %args);
+}
+
+sub _has_by_track_artist_slow
 {
     my ($self, $artist_id, $query_extra_only) = @_;
 
@@ -267,7 +381,35 @@ sub has_by_track_artist
     $self->sql->select_single_value($query, $artist_id, $artist_id);
 }
 
-sub find_by_track_artist
+sub _has_by_track_artist_fast
+{
+    my ($self, $artist_id, $query_extra_only) = @_;
+
+    my $status_condition =  'targ.unofficial = ' .
+        ($query_extra_only ? 'TRUE' : 'FALSE');
+
+    my $query ="
+        SELECT EXISTS (
+            SELECT 1
+            FROM artist_release_group targ
+            WHERE targ.is_track_artist = TRUE
+            AND targ.artist = ?
+            AND $status_condition
+        )";
+    $self->sql->select_single_value($query, $artist_id);
+}
+
+sub has_by_track_artist
+{
+    my ($self, $artist_id, $query_extra_only) = @_;
+
+    if ($self->has_materialized_artist_release_group_data) {
+        return $self->_has_by_track_artist_fast($artist_id, $query_extra_only);
+    }
+    return $self->_has_by_track_artist_slow($artist_id, $query_extra_only);
+}
+
+sub _find_by_track_artist_slow
 {
     my ($self, $artist_id, $show_all, $limit, $offset) = @_;
 
@@ -333,6 +475,18 @@ sub find_by_track_artist
             return $rg;
         },
     );
+}
+
+sub find_by_track_artist
+{
+    my ($self, $artist_id, $show_all, $limit, $offset) = @_;
+
+    # Note: This excludes release groups where $artist_id appears in
+    # the release group artist credit.
+    if ($self->has_materialized_artist_release_group_data) {
+        return $self->_find_by_artist_fast($artist_id, $show_all, 1, $limit, $offset);
+    }
+    return $self->_find_by_track_artist_slow($artist_id, $show_all, $limit, $offset);
 }
 
 sub find_by_artist_credit

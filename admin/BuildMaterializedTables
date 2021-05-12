@@ -1,0 +1,183 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Getopt::Long qw( GetOptions );
+use List::AllUtils qw( uniq );
+use Pod::Usage qw( pod2usage );
+
+use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_info );
+
+my $database = 'READWRITE';
+my $show_help = 0;
+my $force = 0;
+
+GetOptions(
+    'database=s' => \$database,
+    'force!' => \$force,
+    'help' => \$show_help,
+) or exit 2;
+
+pod2usage() if $show_help;
+pod2usage(
+    -exitval => 64, # EX_USAGE
+    -message => "$0: missing arguments",
+) unless @ARGV;
+
+my $c = MusicBrainz::Server::Context->create_script_context(
+    database => $database,
+);
+
+my %VALID_OPTIONS = (
+    artist_release => 1,
+    artist_release_group => 1,
+    recording_first_release_date => 1,
+    release_first_release_date => 1,
+    all => 1,
+);
+
+my %options;
+for my $opt (uniq @ARGV) {
+    if ($VALID_OPTIONS{$opt}) {
+        $options{$opt} = 1;
+    } else {
+        pod2usage(
+            -exitval => 64, # EX_USAGE
+            -message => "$0: invalid argument: $opt",
+        );
+    }
+}
+
+my $build_all = $options{all};
+
+if ($options{recording_first_release_date}) {
+    $options{release_first_release_date} = 1;
+}
+
+$c->sql->begin;
+$c->sql->do('SET LOCAL statement_timeout = 0');
+
+if ($build_all || $options{artist_release}) {
+    log_info { 'Building artist_release ...' };
+    if (
+        !$force &&
+        $c->sql->select_single_value('SELECT 1 FROM artist_release LIMIT 1')
+    ) {
+        log_info { 'Table not empty, skipping.' };
+    } else {
+        $c->sql->do('TRUNCATE artist_release');
+        $c->sql->do('INSERT INTO artist_release SELECT * FROM get_artist_release_rows(NULL)');
+        $c->sql->do('CLUSTER artist_release_nonva USING artist_release_nonva_idx_sort');
+        $c->sql->do('CLUSTER artist_release_va USING artist_release_va_idx_sort');
+        log_info { 'Done.' };
+    }
+}
+
+if ($build_all || $options{artist_release_group}) {
+    log_info { 'Building artist_release_group ...' };
+    if (
+        !$force &&
+        $c->sql->select_single_value('SELECT 1 FROM artist_release_group LIMIT 1')
+    ) {
+        log_info { 'Table not empty, skipping.' };
+    } else {
+        $c->sql->do('TRUNCATE artist_release_group');
+        $c->sql->do('INSERT INTO artist_release_group SELECT * FROM get_artist_release_group_rows(NULL)');
+        $c->sql->do('CLUSTER artist_release_group_nonva USING artist_release_group_nonva_idx_sort');
+        $c->sql->do('CLUSTER artist_release_group_va USING artist_release_group_va_idx_sort');
+        log_info { 'Done.' };
+    }
+}
+
+if ($build_all || $options{release_first_release_date}) {
+    log_info { 'Building release_first_release_date ...' };
+    if (
+        !$force &&
+        $c->sql->select_single_value('SELECT 1 FROM release_first_release_date LIMIT 1')
+    ) {
+        log_info { 'Table not empty, skipping.' };
+    } else {
+        $c->sql->do('TRUNCATE release_first_release_date');
+        $c->sql->do(q"INSERT INTO release_first_release_date SELECT * FROM get_release_first_release_date_rows('TRUE')");
+        $c->sql->do('CLUSTER release_first_release_date USING release_first_release_date_pkey');
+        log_info { 'Done.' };
+    }
+}
+
+if ($build_all || $options{recording_first_release_date}) {
+    if (
+        !$force &&
+        $c->sql->select_single_value('SELECT 1 FROM recording_first_release_date LIMIT 1')
+    ) {
+        log_info { 'Table not empty, skipping.' };
+    } else {
+        $c->sql->do('TRUNCATE recording_first_release_date');
+        $c->sql->do(q"INSERT INTO recording_first_release_date SELECT * FROM get_recording_first_release_date_rows('TRUE')");
+        $c->sql->do('CLUSTER recording_first_release_date USING recording_first_release_date_pkey');
+        log_info { 'Done.' };
+    }
+}
+
+$c->sql->commit;
+
+=head1 SYNOPSIS
+
+This script will populate the requested materialized tables if they're
+empty (or --force is supplied). Currently, the following tables/options
+are supported. You may pass multiple separated by whitespace.
+
+  * artist_release
+
+    Speeds up the listing of artists' releases: on the website, from an
+    artist's "Releases" tab, and in the web service when making a
+    browse query of this type.
+
+  * artist_release_group
+
+    Speeds up the listing of artists' release groups. This greatly
+    improves the performance of large artist index (discography) pages,
+    and browse queries of this type in the web service.
+
+  * recording_first_release_date
+
+    Used to provide the `first-release-date` field for recordings in
+    the web service (MBS-1424). The same info is displayed on recording
+    pages on the website.
+
+    This option implies `release_first_release_date`.
+
+  * release_first_release_date
+
+    This table stores the first release date for every release (by
+    looking at each's set of release events and picking the earliest
+    one). It's used to optimize the queries needed to keep
+    `recording_first_release_date` and the first_release_date_* columns
+    in `release_group_meta` updated.
+
+  * all
+
+    Pseudo-option to rebuild all of the above tables. (This overrides
+    any more-specific options.)
+
+Options:
+
+    --help          show this help
+    --database      database to use (default: READWRITE)
+    --force         force rebuilding the tables, even if non-empty
+
+=cut
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2021 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

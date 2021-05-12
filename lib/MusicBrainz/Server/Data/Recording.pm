@@ -428,6 +428,18 @@ sub appears_on
     return %map;
 }
 
+sub has_materialized_recording_first_release_date_data {
+    my ($self) = @_;
+    CORE::state $has_data;
+    if (defined $has_data) {
+        return $has_data;
+    }
+    $has_data = $self->sql->select_single_value(
+        'SELECT 1 FROM recording_first_release_date LIMIT 1',
+    ) ? 1 : 0;
+    return $has_data;
+}
+
 sub load_first_release_date {
     my ($self, @recordings) = @_;
 
@@ -435,11 +447,33 @@ sub load_first_release_date {
     my @ids = keys %recording_map;
     return unless @ids;
 
-    my $release_dates = $self->sql->select_list_of_hashes(
-        'SELECT * FROM recording_first_release_date ' .
-        'WHERE recording = ANY(?)',
-        [\@ids],
-    );
+    my $release_dates;
+    if ($self->has_materialized_recording_first_release_date_data) {
+        $release_dates = $self->sql->select_list_of_hashes(
+            'SELECT * FROM recording_first_release_date ' .
+            'WHERE recording = ANY(?)',
+            [\@ids],
+        );
+    } else {
+        $release_dates = $self->sql->select_list_of_hashes(q{
+            SELECT DISTINCT ON (track.recording) track.recording,
+                rd.date_year AS year,
+                rd.date_month AS month,
+                rd.date_day AS day
+            FROM track
+            JOIN medium ON medium.id = track.medium
+            LEFT JOIN (
+                SELECT release, date_year, date_month, date_day FROM release_country
+                UNION ALL
+                SELECT release, date_year, date_month, date_day FROM release_unknown_country
+            ) rd ON rd.release = medium.release
+            WHERE track.recording = ANY(?)
+            ORDER BY track.recording,
+                rd.date_year NULLS LAST,
+                rd.date_month NULLS LAST,
+                rd.date_day NULLS LAST
+        }, [\@ids]);
+    }
 
     my %release_date_map = map {
         $_->{recording} => PartialDate->new_from_row($_, ''),
@@ -447,7 +481,10 @@ sub load_first_release_date {
 
     for my $id (@ids) {
         for my $recording (@{ $recording_map{$id} }) {
-            $recording->first_release_date($release_date_map{$id});
+            my $release_date = $release_date_map{$id};
+            if (defined $release_date && !$release_date->is_empty) {
+                $recording->first_release_date($release_date);
+            }
         }
     }
 }

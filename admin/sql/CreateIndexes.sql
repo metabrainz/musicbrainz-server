@@ -65,6 +65,22 @@ CREATE INDEX artist_rating_raw_idx_editor ON artist_rating_raw (editor);
 CREATE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
 CREATE INDEX artist_tag_raw_idx_editor ON artist_tag_raw (editor);
 
+CREATE INDEX artist_release_nonva_idx_sort ON artist_release_nonva (artist, first_release_date NULLS LAST, catalog_numbers NULLS LAST, country_code NULLS LAST, barcode NULLS LAST, sort_character, release);
+CREATE INDEX artist_release_va_idx_sort ON artist_release_va (artist, first_release_date NULLS LAST, catalog_numbers NULLS LAST, country_code NULLS LAST, barcode NULLS LAST, sort_character, release);
+
+CREATE UNIQUE INDEX artist_release_nonva_idx_uniq ON artist_release_nonva (release, artist);
+CREATE UNIQUE INDEX artist_release_va_idx_uniq ON artist_release_va (release, artist);
+
+CREATE INDEX artist_release_pending_update_idx_release ON artist_release_pending_update USING HASH (release);
+
+CREATE INDEX artist_release_group_nonva_idx_sort ON artist_release_group_nonva (artist, unofficial, primary_type NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
+CREATE INDEX artist_release_group_va_idx_sort ON artist_release_group_va (artist, unofficial, primary_type NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
+
+CREATE UNIQUE INDEX artist_release_group_nonva_idx_uniq ON artist_release_group_nonva (release_group, artist);
+CREATE UNIQUE INDEX artist_release_group_va_idx_uniq ON artist_release_group_va (release_group, artist);
+
+CREATE INDEX artist_release_group_pending_update_idx_release_group ON artist_release_group_pending_update USING HASH (release_group);
+
 CREATE INDEX cdtoc_raw_discid ON cdtoc_raw (discid);
 CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, track_offset);
 
