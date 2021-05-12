@@ -48,16 +48,19 @@ const EmailSearch = ({
             `Since periods (<code>.</code>) and tags preceded with a
              <code>+</code> sign on the user side of the address (that is,
              before the <code>@</code> sign) are often used as “free aliases”
-             by email providers, both of these are ignored by this search
-             to help you find address aliases. This will only get triggered
-             if your query includes <code>@</code> (so, both
-             <code>example@example\\.com</code> and <code>example\\+mb@</code>
-             will match the address <code>exam.ple+mb@example.com</code>,
-             but simply <code>example\\+mb</code> will not).
-             <br/>
-             Don’t forget you still need to escape these symbols
-             (<code>\\.</code> and <code>\\+</code> respectively), otherwise
-             they’ll be understood as special regular expression characters!`,
+             by email providers, both of these are ignored from the registered
+             email addresses by this search to help you find address aliases.
+             Please remove these parts from the user side of the address.
+             Don’t forget you still need to escape periods with a backslash
+             (<code>\\.</code>) in the host side of your search, otherwise
+             they’ll be understood as special regular expression characters!
+             For example, <code>user@host\\.name</code> search will match both
+             <code>user@host.name</code> and
+             <code>us.er+alias@host.name</code>, but neither
+             <code>user@sub.host.name</code> nor <code>user@host-name</code>.
+             Counter-example: <code>us\\.er\\+alias@host\\.name</code> search
+             will match neither <code>us.er+alias@host.name</code> nor
+             <code>user@host.name</code> email addresses.`,
           )}
         </p>
 
