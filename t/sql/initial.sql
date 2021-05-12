@@ -898,8 +898,8 @@ INSERT INTO release_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '02939c8
 INSERT INTO release_group_alias_type VALUES (1, 'Release group name', NULL, 0, NULL, '156e24ca-8746-3cfc-99ae-0a867c765c67');
 INSERT INTO release_group_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, 'abc2db8a-7386-354d-82f4-252c0213cbe4');
 
-INSERT INTO release_group_primary_type VALUES (1, 'Album', NULL, 1, NULL, 'f529b476-6e62-324f-b0aa-1f3e33d313fc');
-INSERT INTO release_group_primary_type VALUES (2, 'Single', NULL, 2, NULL, 'd6038452-8ee0-3f68-affc-2de9a1ede0b9');
+INSERT INTO release_group_primary_type VALUES (1, 'Album', NULL, 1, NULL, 'f529b476-6e62-324f-b0aa-1f3e33d313fc') ON CONFLICT (id) DO NOTHING;
+INSERT INTO release_group_primary_type VALUES (2, 'Single', NULL, 2, NULL, 'd6038452-8ee0-3f68-affc-2de9a1ede0b9') ON CONFLICT (id) DO NOTHING;
 INSERT INTO release_group_primary_type VALUES (3, 'EP', NULL, 3, NULL, '6d0c5bf6-7a33-3420-a519-44fc63eedebf');
 INSERT INTO release_group_primary_type VALUES (11, 'Other', NULL, 99, NULL, '4fc3be2b-de1e-396b-a933-beb8f1607a22');
 INSERT INTO release_group_primary_type VALUES (12, 'Broadcast', NULL, 4, NULL, '3b2e49e1-2875-37b8-9fa9-1f7cf3f49900');
@@ -922,7 +922,7 @@ INSERT INTO release_packaging VALUES (4, 'Cardboard/Paper Sleeve', NULL, 0, NULL
 INSERT INTO release_packaging VALUES (5, 'Other', NULL, 1, NULL, '815b7785-8284-3926-8f04-e48bc6c4d102');
 INSERT INTO release_packaging VALUES (7, 'None', NULL, 2, NULL, '119eba76-b343-3e02-a292-f0f00644bb9b');
 
-INSERT INTO release_status VALUES (1, 'Official', NULL, 1, 'Any release officially sanctioned by the artist and/or their record company. Most releases will fit into this category.', '4e304316-386d-3409-af2e-78857eec5cfe');
+INSERT INTO release_status VALUES (1, 'Official', NULL, 1, 'Any release officially sanctioned by the artist and/or their record company. Most releases will fit into this category.', '4e304316-386d-3409-af2e-78857eec5cfe') ON CONFLICT (id) DO NOTHING;
 INSERT INTO release_status VALUES (2, 'Promotion', NULL, 2, 'A give-away release or a release intended to promote an upcoming official release (e.g. pre-release versions, releases included with a magazine, versions supplied to radio DJs for air-play).', '518ffc83-5cde-34df-8627-81bff5093d92');
 INSERT INTO release_status VALUES (3, 'Bootleg', NULL, 3, 'An unofficial/underground release that was not sanctioned by the artist and/or the record company. This includes unofficial live recordings and pirated releases.', '1156806e-d06a-38bd-83f0-cf2284a808b9');
 INSERT INTO release_status VALUES (4, 'Pseudo-Release', NULL, 4, 'An alternate version of a release where the titles have been changed. These don''t correspond to any real release and should be linked to the original release using the transl(iter)ation relationship.', '41121bb9-3413-3818-8a9a-9742318349aa');
@@ -992,7 +992,7 @@ INSERT INTO work_type VALUES (28, 'Play', NULL, 2, 'A play is a form of literatu
 INSERT INTO work_type VALUES (29, 'Musical', NULL, 2, 'Musical theatre is a form of theatrical performance that combines songs, spoken dialogue, acting, and dance.', '9ca5e067-acf7-3cd6-baa4-92bf1975bf24');
 INSERT INTO work_type VALUES (30, 'Incidental music', NULL, 2, 'Incidental music is music written as background for (usually) a theatre play.', '3cd7c402-444a-3d04-a154-4fa7d13e4ec6');
 
-INSERT INTO editor (id, name, privs, email, bio, email_confirm_date, password, ha1) VALUES (4, 'ModBot', 2, 'support@musicbrainz.org', 'ModBot is a bot used by the MusicBrainz Server to perform a variety of automated functions. \r+', '2013-07-26 11:48:31.088042+00', '{CLEARTEXT}mb', '03503a81a03bdbb6055f4a6c8b86b5b8');
+INSERT INTO editor (id, name, privs, email, bio, email_confirm_date, password, ha1) VALUES (4, 'ModBot', 2, 'support@musicbrainz.org', 'ModBot is a bot used by the MusicBrainz Server to perform a variety of automated functions. \r+', '2013-07-26 11:48:31.088042+00', '{CLEARTEXT}mb', '03503a81a03bdbb6055f4a6c8b86b5b8') ON CONFLICT (id) DO NOTHING;
 
 -- Restore FK constraints.
 ALTER TABLE link_attribute_type ADD CONSTRAINT link_attribute_type_fk_parent FOREIGN KEY (parent) REFERENCES link_attribute_type(id);

@@ -50,6 +50,8 @@ DB2='MIGRATION_TEST2'
 git restore --source=production -- admin/sql
 git restore --source=production -- admin/InitDb.pl
 ./admin/InitDb.pl --database $DB2 --createdb --clean --reptype $REPLICATION_TYPE
+./admin/psql $DB2 < t/sql/initial.sql
+./admin/psql $DB2 < admin/sql/SetSequences.sql
 git restore admin/sql
 git restore admin/InitDb.pl
 
