@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-27 23:19+0300\n"
+"POT-Creation-Date: 2021-05-03 16:28+0300\n"
 "PO-Revision-Date: 2021-04-28 13:51+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
@@ -6333,14 +6333,14 @@ msgid ""
 "Please wait a few moments and try again."
 msgstr "Bij de communicatie met de servers van het Internet Archive is een fout opgetreden. Wacht even en probeer het dan nog een keer."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:345
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:347
 #: ../root/release/CoverArtDarkened.js:29
 msgid ""
 "The Cover Art Archive has had a takedown request in the past for this "
 "release, so we are unable to allow any more uploads."
 msgstr "Het Cover Art Archive heeft in het verleden het verzoek gekregen om afbeeldingen voor deze uitgave te verwijderen, dus we kunnen ze je niet meer laten toevoegen."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:359
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:361
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "

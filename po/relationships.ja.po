@@ -5,6 +5,7 @@
 # Mitsuharu Kurita, 2016
 # Mitsuharu Kurita, 2016
 # Nozomu KURASAWA <email address hidden>, 2012-2013
+# ffff23 <email address hidden>, 2021
 # Osamu Takahashi, 2014
 # Osamu Takahashi, 2014
 # Shunsuke Shimizu <email address hidden>, 2016,2019
@@ -13,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 07:18+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-05-11 14:16+0000\n"
+"Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,15 +140,15 @@ msgstr "次のCD Babyページ"
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
-msgstr ""
+msgstr "次のCPDLページ"
 
 #: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
-msgstr ""
+msgstr "DJミックス"
 
 #: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
@@ -163,23 +164,23 @@ msgstr "DJミックス版"
 
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr ""
+msgstr "DJミックス{medium:% of}"
 
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr ""
+msgstr "DJミックス{medium}"
 
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
-msgstr ""
+msgstr "DJミキサー"
 
 #: DB:link_type/reverse_link_phrase:43
 msgid "DJ-mixer {medium}"
-msgstr ""
+msgstr "DJミキサー{medium}"
 
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
-msgstr ""
+msgstr "DJミックス"
 
 #: DB:link_type/description:704
 msgid ""
@@ -3316,7 +3317,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:5 DB:link_attribute_type/name:5
 msgid "alto vocals"
-msgstr ""
+msgstr "アルトヴォーカル"
 
 #: DB:link_type/name:77
 msgid "amazon asin"
@@ -3401,7 +3402,7 @@ msgstr ""
 
 #: DB:link_type/name:993
 msgid "artwork"
-msgstr ""
+msgstr "アートワーク"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -3687,11 +3688,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:806
 msgid "conductors"
-msgstr ""
+msgstr "指揮者"
 
 #: DB:link_type/reverse_link_phrase:925
 msgid "connected with"
-msgstr ""
+msgstr "繋がりのある"
 
 #: DB:link_type/link_phrase:739
 msgid "consists of"
@@ -3739,7 +3740,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:230 DB:link_attribute_type/name:230
 msgid "contralto vocals"
-msgstr ""
+msgstr "コントラルトヴォーカル"
 
 #: DB:link_type/name:708 DB:link_type/name:709
 msgid "copyright"
@@ -3751,11 +3752,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
 msgid "countertenor vocals"
-msgstr ""
+msgstr "カウンターテナーヴォーカル"
 
 #: DB:link_attribute_type/name:567 DB:link_type/name:15
 msgid "cover"
-msgstr ""
+msgstr "カバー"
 
 #: DB:link_type/link_phrase:78
 msgid "cover art"
@@ -3767,7 +3768,7 @@ msgstr "次のカバーアート"
 
 #: DB:link_type/name:78
 msgid "cover art link"
-msgstr ""
+msgstr "カバーアートリンク"
 
 #: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/name:233
 #: DB:link_type/long_link_phrase:12
@@ -3856,7 +3857,7 @@ msgstr ""
 
 #: DB:link_type/name:19 DB:link_type/name:130
 msgid "design/illustration"
-msgstr ""
+msgstr "デザイン/イラスト"
 
 #: DB:link_type/long_link_phrase:962
 msgid "directed the video"
@@ -3893,7 +3894,7 @@ msgstr "ディスコグラフィーページ"
 #: DB:link_type/name:971 DB:link_type/name:90 DB:link_type/name:747
 #: DB:link_type/name:705
 msgid "discogs"
-msgstr ""
+msgstr "discogs"
 
 #: DB:link_type/link_phrase:361 DB:link_type/name:361
 #: DB:link_type/long_link_phrase:361
@@ -3937,7 +3938,7 @@ msgstr "楽曲の無料ダウンロード"
 #: DB:link_type/reverse_link_phrase:959 DB:link_type/reverse_link_phrase:254
 #: DB:link_type/reverse_link_phrase:74 DB:link_type/reverse_link_phrase:176
 msgid "download purchase page for"
-msgstr ""
+msgstr "次のダウンロード販売ページ"
 
 #: DB:link_type/link_phrase:912
 msgid "download purchase page for the score of"
@@ -3981,7 +3982,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
-msgstr ""
+msgstr "編集"
 
 #: DB:link_type/link_phrase:925 DB:link_type/name:925
 msgid "educational institution connection"
@@ -3989,7 +3990,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:924
 msgid "educators"
-msgstr ""
+msgstr "教育者"
 
 #: DB:link_attribute_type/name:1127
 msgid "electronic music"
@@ -4112,7 +4113,7 @@ msgstr "楽曲の取得"
 #: DB:link_type/link_phrase:911 DB:link_type/name:911
 #: DB:link_type/reverse_link_phrase:911 DB:link_type/long_link_phrase:911
 msgid "get the score"
-msgstr ""
+msgstr "楽譜の取得"
 
 #: DB:link_type/link_phrase:955 DB:link_type/name:955
 #: DB:link_type/long_link_phrase:955
@@ -4137,7 +4138,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:194
 msgid "guest"
-msgstr ""
+msgstr "ゲスト"
 
 #: DB:link_type/name:800
 msgid "guest performer"
@@ -4149,7 +4150,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:800
 msgid "guest performers"
-msgstr ""
+msgstr "ゲストパフォーマー"
 
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
@@ -4541,7 +4542,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:801
 msgid "hosts"
-msgstr ""
+msgstr "ホスト"
 
 #: DB:link_type/link_phrase:916 DB:link_type/name:916
 msgid "hybrid of"
@@ -4549,7 +4550,7 @@ msgstr ""
 
 #: DB:link_type/name:927
 msgid "illustration"
-msgstr ""
+msgstr "イラスト"
 
 #: DB:link_type/description:732 DB:link_type/name:173 DB:link_type/name:396
 #: DB:link_type/name:732
@@ -4558,7 +4559,7 @@ msgstr ""
 
 #: DB:link_type/name:725
 msgid "imprint"
-msgstr ""
+msgstr "インプリント"
 
 #: DB:link_type/reverse_link_phrase:725
 msgid "imprint of"
@@ -4593,7 +4594,7 @@ msgstr ""
 
 #: DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
-msgstr "インストゥルメント"
+msgstr "楽器"
 
 #: DB:link_type/name:158 DB:link_type/name:41 DB:link_type/name:282
 msgid "instrument arranger"
@@ -4617,19 +4618,19 @@ msgstr ""
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
-msgstr ""
+msgstr "楽器"
 
 #: DB:link_type/name:707
 msgid "interview"
-msgstr ""
+msgstr "インタビュー"
 
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
-msgstr ""
+msgstr "インタビュー"
 
 #: DB:link_type/link_phrase:707
 msgid "interviews"
-msgstr ""
+msgstr "インタビュー"
 
 #: DB:link_type/link_phrase:896 DB:link_type/name:896 DB:link_type/name:918
 #: DB:link_type/reverse_link_phrase:918 DB:link_type/long_link_phrase:896
@@ -4862,7 +4863,7 @@ msgstr "ここでラッカー原版製造されたリリース"
 #: DB:link_type/name:837 DB:link_type/name:840 DB:link_type/name:839
 #: DB:link_type/name:838
 msgid "last.fm"
-msgstr ""
+msgstr "last.fm"
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"
@@ -4982,11 +4983,11 @@ msgstr ""
 
 #: DB:link_type/name:213
 msgid "logo"
-msgstr ""
+msgstr "ロゴ"
 
 #: DB:link_type/reverse_link_phrase:213
 msgid "logo of"
-msgstr ""
+msgstr "次のロゴ"
 
 #: DB:link_type/link_phrase:213
 msgid "logos"
@@ -5022,7 +5023,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
 #: DB:link_type/reverse_link_phrase:79
 msgid "mail-order purchase page for"
-msgstr ""
+msgstr "次の通信販売ページ"
 
 #: DB:link_type/link_phrase:913
 msgid "mail-order purchase page for the score of"
@@ -5038,7 +5039,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:798
 msgid "main performers"
-msgstr ""
+msgstr "メインパフォーマー"
 
 #: DB:link_type/link_phrase:360 DB:link_type/name:360
 #: DB:link_type/long_link_phrase:360
@@ -5089,7 +5090,7 @@ msgstr ""
 
 #: DB:link_type/name:10 DB:link_type/name:232
 msgid "mashes up"
-msgstr ""
+msgstr "マッシュアップ"
 
 #: DB:link_type/name:697
 msgid "mastered at"
@@ -5101,11 +5102,11 @@ msgstr ""
 
 #: DB:link_type/name:136 DB:link_type/name:42
 msgid "mastering"
-msgstr ""
+msgstr "マスタリング"
 
 #: DB:link_type/name:704
 msgid "mastering engineer position"
-msgstr ""
+msgstr "マスタリングエンジニアポジション"
 
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
@@ -5113,7 +5114,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:704
 msgid "mastering engineers"
-msgstr ""
+msgstr "マスタリングエンジニア"
 
 #: DB:link_attribute_type/name:1136
 msgid "master’s degree"
@@ -5228,7 +5229,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:703
 msgid "mixing engineers"
-msgstr ""
+msgstr "ミキシングエンジニア"
 
 #: DB:link_attribute_type/name:1031
 msgid "movement"
@@ -5305,18 +5306,18 @@ msgstr ""
 
 #: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
-msgstr ""
+msgstr "番号"
 
 #: DB:link_type/name:745 DB:link_type/name:782 DB:link_type/name:287
 #: DB:link_type/name:183 DB:link_type/name:363
 msgid "official homepage"
-msgstr ""
+msgstr "公式ホームページ"
 
 #: DB:link_type/reverse_link_phrase:745 DB:link_type/reverse_link_phrase:782
 #: DB:link_type/reverse_link_phrase:183 DB:link_type/reverse_link_phrase:219
 #: DB:link_type/reverse_link_phrase:363
 msgid "official homepage for"
-msgstr ""
+msgstr "次の公式ホームページ"
 
 #: DB:link_type/link_phrase:745 DB:link_type/link_phrase:782
 #: DB:link_type/link_phrase:183 DB:link_type/link_phrase:219
@@ -5330,7 +5331,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:185
 msgid "online communities"
-msgstr ""
+msgstr "オンラインコミュニティ"
 
 #: DB:link_type/name:185
 msgid "online community"
@@ -5338,7 +5339,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:185
 msgid "online community page for"
-msgstr ""
+msgstr "次のオンラインコミュニティページ"
 
 #: DB:link_type/link_phrase:841 DB:link_type/link_phrase:221
 #: DB:link_type/link_phrase:660 DB:link_type/name:841 DB:link_type/name:221
@@ -5347,7 +5348,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:841 DB:link_type/long_link_phrase:221
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
-msgstr ""
+msgstr "オンラインデータ"
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
@@ -5367,7 +5368,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:807
 msgid "orchestras"
-msgstr ""
+msgstr "オーケストラ"
 
 #: DB:link_type/name:316
 msgid "orchestration"
@@ -5391,7 +5392,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:525
 msgid "original"
-msgstr ""
+msgstr "オリジナル"
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
@@ -5436,7 +5437,7 @@ msgstr "他のヴォーカル"
 #: DB:link_type/reverse_link_phrase:988 DB:link_type/reverse_link_phrase:989
 #: DB:link_type/reverse_link_phrase:991
 msgid "owner"
-msgstr ""
+msgstr "オーナー"
 
 #: DB:link_type/link_phrase:990 DB:link_type/name:990
 #: DB:link_type/reverse_link_phrase:990 DB:link_type/long_link_phrase:990
@@ -5481,7 +5482,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:579
 msgid "partial"
-msgstr ""
+msgstr "部分的な"
 
 #: DB:link_type/description:739 DB:link_type/link_phrase:818
 #: DB:link_type/link_phrase:717 DB:link_type/link_phrase:281
@@ -5499,13 +5500,13 @@ msgstr ""
 #: DB:link_type/link_phrase:898 DB:link_type/link_phrase:899
 #: DB:link_type/link_phrase:897
 msgid "patronage page"
-msgstr ""
+msgstr "支援ページ"
 
 #: DB:link_type/reverse_link_phrase:901 DB:link_type/reverse_link_phrase:900
 #: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:899
 #: DB:link_type/reverse_link_phrase:897
 msgid "patronage page for"
-msgstr ""
+msgstr "次の支援ページ"
 
 #: DB:link_type/link_phrase:34 DB:link_type/link_phrase:122
 #: DB:link_type/name:278 DB:link_type/name:34 DB:link_type/name:122
@@ -5602,7 +5603,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
 #: DB:link_type/reverse_link_phrase:732
 msgid "picture of"
-msgstr ""
+msgstr "次の画像"
 
 #: DB:link_type/link_phrase:915 DB:link_type/name:915
 msgid "podcast feed"
@@ -5618,11 +5619,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:808 DB:link_type/name:808
 msgid "poster"
-msgstr ""
+msgstr "ポスター"
 
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
-msgstr ""
+msgstr "次のポスター"
 
 #: DB:link_type/name:845 DB:link_type/name:716 DB:link_type/name:715
 #: DB:link_type/name:956
@@ -5748,7 +5749,7 @@ msgstr "プロダクション"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
-msgstr ""
+msgstr "プログラミング"
 
 #: DB:link_type/link_phrase:359 DB:link_type/name:359
 #: DB:link_type/long_link_phrase:359
@@ -5846,11 +5847,11 @@ msgstr "通信販売"
 
 #: DB:link_type/link_phrase:959 DB:link_type/link_phrase:176
 msgid "purchase music for download"
-msgstr ""
+msgstr "楽曲のダウンロード販売"
 
 #: DB:link_type/link_phrase:960 DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
-msgstr ""
+msgstr "楽曲の通信販売"
 
 #: DB:link_type/reverse_link_phrase:912
 msgid "purchase score for download"
@@ -5904,7 +5905,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:702
 msgid "recording engineers"
-msgstr ""
+msgstr "レコーディングエンジニア"
 
 #: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
 msgid "recording location for"
@@ -6020,7 +6021,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
 msgid "review page for"
-msgstr ""
+msgstr "次のレビューページ"
 
 #: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
 msgid "reviews"
@@ -6082,12 +6083,12 @@ msgstr ""
 #: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
 #: DB:link_type/link_phrase:817 DB:link_type/link_phrase:938
 msgid "setlist.fm"
-msgstr ""
+msgstr "setlist.fm"
 
 #: DB:link_type/reverse_link_phrase:811 DB:link_type/reverse_link_phrase:816
 #: DB:link_type/reverse_link_phrase:817 DB:link_type/reverse_link_phrase:938
 msgid "setlist.fm page for"
-msgstr ""
+msgstr "次のsetlist.fmページ"
 
 #: DB:link_type/name:811 DB:link_type/name:816 DB:link_type/name:817
 #: DB:link_type/name:938
@@ -6112,7 +6113,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:121
 msgid "signed by"
-msgstr ""
+msgstr "所属"
 
 #: DB:link_attribute_type/name:1199
 msgid "singing"
@@ -6135,17 +6136,17 @@ msgstr ""
 #: DB:link_type/link_phrase:192 DB:link_type/link_phrase:218
 #: DB:link_type/link_phrase:429
 msgid "social networking"
-msgstr ""
+msgstr "ソーシャルネットワーキング"
 
 #: DB:link_type/reverse_link_phrase:784 DB:link_type/reverse_link_phrase:783
 #: DB:link_type/reverse_link_phrase:192 DB:link_type/reverse_link_phrase:218
 #: DB:link_type/reverse_link_phrase:429
 msgid "social networking page for"
-msgstr ""
+msgstr "次のソーシャルネットワーキングページ"
 
 #: DB:link_attribute_type/name:596
 msgid "solo"
-msgstr ""
+msgstr "ソロ"
 
 #: DB:link_type/name:289
 msgid "songfacts"
@@ -6157,7 +6158,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:10 DB:link_attribute_type/name:10
 msgid "soprano vocals"
-msgstr ""
+msgstr "ソプラノヴォーカル"
 
 #: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
@@ -6174,11 +6175,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:287
 msgid "standalone website"
-msgstr ""
+msgstr "スタンドアロンウェブサイト"
 
 #: DB:link_type/reverse_link_phrase:287
 msgid "standalone website for"
-msgstr ""
+msgstr "次のスタンドアロンウェブサイト"
 
 #: DB:link_attribute_type/name:1020
 msgid "step"
@@ -6199,12 +6200,12 @@ msgstr ""
 #: DB:link_type/link_phrase:978 DB:link_type/link_phrase:979
 #: DB:link_type/link_phrase:980
 msgid "streaming page"
-msgstr ""
+msgstr "ストリーミングページ"
 
 #: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:979
 #: DB:link_type/reverse_link_phrase:980
 msgid "streaming page for"
-msgstr ""
+msgstr "次のストリーミングページ"
 
 #: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
@@ -6249,7 +6250,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:736
 msgid "subtypes"
-msgstr ""
+msgstr "サブタイプ"
 
 #: DB:link_type/name:799
 msgid "support act"
@@ -6323,7 +6324,7 @@ msgstr "教師"
 
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
-msgstr ""
+msgstr "テノールヴォーカル"
 
 #: DB:link_attribute_type/name:830
 msgid "time"
@@ -6380,7 +6381,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:834
 msgid "treble vocals"
-msgstr ""
+msgstr "トレブルヴォーカル"
 
 #: DB:link_type/name:728 DB:link_type/name:65 DB:link_type/name:970
 msgid "tribute"
@@ -6428,13 +6429,13 @@ msgstr ""
 #: DB:link_type/link_phrase:495 DB:link_type/name:804 DB:link_type/name:805
 #: DB:link_type/name:303 DB:link_type/name:304 DB:link_type/name:495
 msgid "video channel"
-msgstr ""
+msgstr "動画チャンネル"
 
 #: DB:link_type/reverse_link_phrase:804 DB:link_type/reverse_link_phrase:805
 #: DB:link_type/reverse_link_phrase:303 DB:link_type/reverse_link_phrase:304
 #: DB:link_type/reverse_link_phrase:495
 msgid "video channel for"
-msgstr ""
+msgstr "次の動画チャンネル"
 
 #: DB:link_type/name:962
 msgid "video director"
@@ -6454,7 +6455,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:3 DB:link_type/name:60 DB:link_type/name:149
 msgid "vocal"
-msgstr ""
+msgstr "ヴォーカル"
 
 #: DB:link_type/name:298 DB:link_type/name:296 DB:link_type/name:294
 msgid "vocal arranger"
@@ -6572,11 +6573,11 @@ msgstr "wikipedia"
 
 #: DB:link_type/name:921 DB:link_type/reverse_link_phrase:921
 msgid "work list entry"
-msgstr ""
+msgstr "作品リスト"
 
 #: DB:link_type/link_phrase:921
 msgid "work list entry for"
-msgstr ""
+msgstr "次の作品リスト"
 
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"
@@ -6907,7 +6908,7 @@ msgstr "{additional:補助的な}グラフィックデザイン"
 
 #: DB:link_type/link_phrase:927 DB:link_type/reverse_link_phrase:927
 msgid "{additional} illustration"
-msgstr "{additional:補助的な}イラストレーション"
+msgstr "{additional:補助的な}イラスト"
 
 #: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22
 msgid "{additional} legal representation"

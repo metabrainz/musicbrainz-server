@@ -12,6 +12,7 @@
 # nikki, 2013-2014
 # Nozomu Kurasawa <email address hidden>, 2012
 # Nozomu KURASAWA <email address hidden>, 2012-2014
+# ffff23 <email address hidden>, 2021
 # Osamu Takahashi, 2014
 # Osamu Takahashi, 2014
 # PATATE12, 2014
@@ -25,8 +26,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-27 20:20+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-05-12 12:49+0000\n"
+"Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,7 +83,7 @@ msgstr "3.5インチ フロッピーディスク"
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5.25インチ フロッピーディスク"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -622,7 +623,7 @@ msgstr "アルバム"
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr "シリーズの各要素の配置をマニュアルで設定できます。"
+msgstr "シリーズの各要素の配置を手動で設定できます。"
 
 #: DB:work_attribute_type_allowed_value/value:854
 msgctxt "work_attribute_type_allowed_value"
@@ -1320,7 +1321,7 @@ msgstr "海賊版作品"
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
 msgid "Box"
-msgstr ""
+msgstr "ボックス"
 
 #: DB:work_attribute_type_allowed_value/value:607
 msgctxt "work_attribute_type_allowed_value"
@@ -1623,7 +1624,7 @@ msgstr "コンピレーション"
 #: DB:event_type/name:1
 msgctxt "event_type"
 msgid "Concert"
-msgstr ""
+msgstr "コンサート"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
@@ -1799,17 +1800,17 @@ msgstr "DVDplus"
 #: DB:medium_format/name:70
 msgctxt "medium_format"
 msgid "DVDplus (CD side)"
-msgstr ""
+msgstr "DVDplus (CD面)"
 
 #: DB:medium_format/name:68
 msgctxt "medium_format"
 msgid "DVDplus (DVD-Audio side)"
-msgstr ""
+msgstr "DVDplus (DVD-Audio面)"
 
 #: DB:medium_format/name:69
 msgctxt "medium_format"
 msgid "DVDplus (DVD-Video side)"
-msgstr ""
+msgstr "DVDplus (DVD-Video面)"
 
 #: DB:work_attribute_type_allowed_value/value:343
 msgctxt "work_attribute_type_allowed_value"
@@ -2266,7 +2267,7 @@ msgstr "エジソンダイヤモンドディスク"
 #: DB:place_type/name:7
 msgctxt "place_type"
 msgid "Educational institution"
-msgstr ""
+msgstr "教育施設"
 
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
@@ -2311,7 +2312,7 @@ msgstr "イベント名"
 #: DB:series_type/name:6
 msgctxt "series_type"
 msgid "Event series"
-msgstr ""
+msgstr "イベントのシリーズ"
 
 #: DB:work_attribute_type_allowed_value/value:729
 msgctxt "work_attribute_type_allowed_value"
@@ -2476,12 +2477,12 @@ msgstr ""
 #: DB:event_type/name:2
 msgctxt "event_type"
 msgid "Festival"
-msgstr ""
+msgstr "フェスティバル"
 
 #: DB:series_type/name:8
 msgctxt "series_type"
 msgid "Festival"
-msgstr ""
+msgstr "フェスティバル"
 
 #: DB:work_attribute_type_allowed_value/value:372
 msgctxt "work_attribute_type_allowed_value"
@@ -2531,7 +2532,7 @@ msgstr ""
 #: DB:medium_format/name:76
 msgctxt "medium_format"
 msgid "Floppy Disk"
-msgstr ""
+msgstr "フロッピードライブ"
 
 #: DB:gender/description:4
 msgctxt "gender"
@@ -3114,12 +3115,12 @@ msgstr " ハイブリッドSACD (SACD部)"
 #: DB:medium_format/name:87
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, 2 channels)"
-msgstr ""
+msgstr " ハイブリッドSACD (SACD部, 2チャンネル)"
 
 #: DB:medium_format/name:86
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, multichannel)"
-msgstr ""
+msgstr " ハイブリッドSACD (SACD部, マルチチャンネル)"
 
 #: DB:work_attribute_type_allowed_value/value:418
 msgctxt "work_attribute_type_allowed_value"
@@ -3499,12 +3500,12 @@ msgstr ""
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
-msgstr ""
+msgstr "インプリント"
 
 #: DB:work_type/name:30
 msgctxt "work_type"
 msgid "Incidental music"
-msgstr ""
+msgstr "付随音楽"
 
 #: DB:work_type/description:30
 msgctxt "work_type"
@@ -3521,7 +3522,7 @@ msgstr ""
 #: DB:place_type/name:5
 msgctxt "place_type"
 msgid "Indoor arena"
-msgstr ""
+msgstr "室内アリーナ"
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
@@ -4353,7 +4354,7 @@ msgstr ""
 #: DB:series_ordering_type/name:2
 msgctxt "series_ordering_type"
 msgid "Manual"
-msgstr ""
+msgstr "手動"
 
 #: DB:label_type/name:10
 msgctxt "label_type"
@@ -4473,12 +4474,12 @@ msgstr ""
 #: DB:medium_format/name:83
 msgctxt "medium_format"
 msgid "Microcassette"
-msgstr ""
+msgstr "マイクロカセット"
 
 #: DB:area_type/name:8
 msgctxt "area_type"
 msgid "Military base"
-msgstr ""
+msgstr "軍事基地"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -4661,7 +4662,7 @@ msgstr "MUSIC CARD"
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr ""
+msgstr "ミュージカル"
 
 #: DB:work_type/description:29
 msgctxt "work_type"
@@ -5108,7 +5109,7 @@ msgstr "なし"
 #: DB:gender/name:4
 msgctxt "gender"
 msgid "Not applicable"
-msgstr ""
+msgstr "該当なし"
 
 #: DB:work_attribute_type_allowed_value/value:491
 msgctxt "work_attribute_type_allowed_value"
@@ -5389,7 +5390,7 @@ msgstr ""
 #: DB:medium_format/name:73
 msgctxt "medium_format"
 msgid "Phonograph record"
-msgstr ""
+msgstr "レコード盤"
 
 #: DB:medium_format/name:15
 msgctxt "medium_format"
@@ -5414,7 +5415,7 @@ msgstr ""
 #: DB:release_packaging/name:18
 msgctxt "release_packaging"
 msgid "Plastic Sleeve"
-msgstr ""
+msgstr "クリアファイル"
 
 #: DB:work_type/name:28
 msgctxt "work_type"
@@ -5454,7 +5455,7 @@ msgstr ""
 #: DB:place_type/name:8
 msgctxt "place_type"
 msgid "Pressing plant"
-msgstr ""
+msgstr "プレス工場"
 
 #: DB:label_type/name:3
 msgctxt "label_type"
@@ -5660,7 +5661,7 @@ msgstr "レコーディング名"
 #: DB:series_type/name:3
 msgctxt "series_type"
 msgid "Recording series"
-msgstr ""
+msgstr "レコーディングのシリーズ"
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
@@ -5700,7 +5701,7 @@ msgstr "リリースグループ名"
 #: DB:series_type/name:1
 msgctxt "series_type"
 msgid "Release group series"
-msgstr ""
+msgstr "リリースグループのシリーズ"
 
 #: DB:release_alias_type/name:1
 msgctxt "alias_type"
@@ -5710,12 +5711,12 @@ msgstr "リリース名"
 #: DB:series_type/name:2
 msgctxt "series_type"
 msgid "Release series"
-msgstr ""
+msgstr "リリースのシリーズ"
 
 #: DB:place_type/name:6
 msgctxt "place_type"
 msgid "Religious building"
-msgstr ""
+msgstr "宗教建築物"
 
 #: DB:work_attribute_type_allowed_value/value:765
 msgctxt "work_attribute_type_allowed_value"
@@ -5881,12 +5882,12 @@ msgstr "SACD"
 #: DB:medium_format/name:84
 msgctxt "medium_format"
 msgid "SACD (2 channels)"
-msgstr ""
+msgstr "SACD (2チャンネル)"
 
 #: DB:medium_format/name:85
 msgctxt "medium_format"
 msgid "SACD (multichannel)"
-msgstr ""
+msgstr "SACD (マルチチャンネル)"
 
 #: DB:work_attribute_type/name:21
 msgctxt "work_attribute_type"
@@ -5956,12 +5957,12 @@ msgstr "SHM-SACD"
 #: DB:medium_format/name:89
 msgctxt "medium_format"
 msgid "SHM-SACD (2 channels)"
-msgstr ""
+msgstr "SHM-SACD (2チャンネル)"
 
 #: DB:medium_format/name:88
 msgctxt "medium_format"
 msgid "SHM-SACD (multichannel)"
-msgstr ""
+msgstr "SHM-SACD (マルチチャンネル)"
 
 #: DB:work_attribute_type/name:36
 msgctxt "work_attribute_type"
@@ -6270,7 +6271,7 @@ msgstr ""
 #: DB:release_packaging/name:20
 msgctxt "release_packaging"
 msgid "Slidepack"
-msgstr ""
+msgstr "スライドパック"
 
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"
@@ -6337,7 +6338,7 @@ msgstr "スタジアム"
 #: DB:event_type/name:6
 msgctxt "event_type"
 msgid "Stage performance"
-msgstr ""
+msgstr "ステージパフォーマンス"
 
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
@@ -6645,7 +6646,7 @@ msgstr ""
 #: DB:medium_format/name:90
 msgctxt "medium_format"
 msgid "Tefifon"
-msgstr ""
+msgstr "Tefifon"
 
 #: DB:work_attribute_type_allowed_value/value:774
 msgctxt "work_attribute_type_allowed_value"
@@ -7131,7 +7132,7 @@ msgstr ""
 #: DB:place_type/name:2
 msgctxt "place_type"
 msgid "Venue"
-msgstr ""
+msgstr "会場"
 
 #: DB:medium_format/description:59
 msgctxt "medium_format"
@@ -7163,22 +7164,22 @@ msgstr "ビニール盤"
 #: DB:medium_format/name:48
 msgctxt "medium_format"
 msgid "VinylDisc"
-msgstr "ビニール盤"
+msgstr "VinylDisc"
 
 #: DB:medium_format/name:82
 msgctxt "medium_format"
 msgid "VinylDisc (CD side)"
-msgstr ""
+msgstr "VinylDisc (CD面)"
 
 #: DB:medium_format/name:80
 msgctxt "medium_format"
 msgid "VinylDisc (DVD side)"
-msgstr ""
+msgstr "VinylDisc (DVD面)"
 
 #: DB:medium_format/name:81
 msgctxt "medium_format"
 msgid "VinylDisc (Vinyl side)"
-msgstr ""
+msgstr "VinylDisc (Vinyl面)"
 
 #: DB:work_attribute_type_allowed_value/value:259
 #: DB:work_attribute_type_allowed_value/value:1047
@@ -7244,7 +7245,7 @@ msgstr "ワーク名"
 #: DB:series_type/name:4
 msgctxt "series_type"
 msgid "Work series"
-msgstr ""
+msgstr "作品のシリーズ"
 
 #: DB:work_attribute_type_allowed_value/value:277
 msgctxt "work_attribute_type_allowed_value"
