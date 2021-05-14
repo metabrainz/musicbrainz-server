@@ -68,7 +68,7 @@ bzip2 m4_dnl
 ca-certificates m4_dnl
 libdb5.3 m4_dnl
 libexpat1 m4_dnl
-libicu55 m4_dnl
+libicu66 m4_dnl
 libpq5 m4_dnl
 libssl1.1 m4_dnl
 libxml2 m4_dnl
