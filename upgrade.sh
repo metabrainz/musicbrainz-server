@@ -1,5 +1,6 @@
-#!/usr/bin/env bash -u
+#!/usr/bin/env bash
 
+set -u
 set -o errexit
 
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
