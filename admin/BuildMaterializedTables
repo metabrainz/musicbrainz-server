@@ -110,6 +110,7 @@ if ($build_all || $options{release_first_release_date}) {
 }
 
 if ($build_all || $options{recording_first_release_date}) {
+    log_info { 'Building recording_first_release_date ...' };
     if (
         !$force &&
         $c->sql->select_single_value('SELECT 1 FROM recording_first_release_date LIMIT 1')
