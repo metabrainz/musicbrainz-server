@@ -11,8 +11,8 @@ INSERT INTO area (begin_date_day, begin_date_month, begin_date_year, comment, ed
 	(NULL, NULL, NULL, '', 0, NULL, NULL, NULL, '0', 'bbc88d72-1f32-4936-8dc6-b62b3318e1c4', 5107, '2013-05-24 20:28:52.632131+00', 'Ottawa', 3);
 INSERT INTO artist (area, begin_area, begin_date_day, begin_date_month, begin_date_year, comment, edits_pending, end_area, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES
 	(38, 5107, 30, 7, 1941, '', 0, NULL, NULL, NULL, NULL, '0', 1, '420c6768-0885-415a-bb59-d6a275121125', 11617, '2013-07-12 03:53:14.46208+00', 'Paul Anka', 'Anka, Paul', 1);
-INSERT INTO artist_credit (artist_count, created, id, name, ref_count) VALUES
-	(1, '2011-05-16 16:32:11.963929+00', 11617, 'Paul Anka', 3011);
+INSERT INTO artist_credit (artist_count, created, id, name, ref_count, gid) VALUES
+	(1, '2011-05-16 16:32:11.963929+00', 11617, 'Paul Anka', 3011, 'e1d4e43b-0a0d-302c-be90-8a23bd2c7e27');
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES
 	(11617, 11617, '', 'Paul Anka', 0);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES

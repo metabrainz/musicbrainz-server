@@ -246,6 +246,11 @@ ALTER TABLE artist_attribute_type_allowed_value
    FOREIGN KEY (parent)
    REFERENCES artist_attribute_type_allowed_value(id);
 
+ALTER TABLE artist_credit_gid_redirect
+   ADD CONSTRAINT artist_credit_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
+   REFERENCES artist_credit(id);
+
 ALTER TABLE artist_credit_name
    ADD CONSTRAINT artist_credit_name_fk_artist_credit
    FOREIGN KEY (artist_credit)

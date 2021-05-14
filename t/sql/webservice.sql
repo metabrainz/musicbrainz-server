@@ -105,19 +105,19 @@ INSERT INTO artist_alias (artist, begin_date_day, begin_date_month, begin_date_y
 
 -- Artist Credits
 
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (242, 1, '2011-01-18 16:24:02.551922+00', 'The Chemical Brothers', 2654);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (9496, 1, '2011-01-18 16:24:02.551922+00', 'BoA', 2401);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (11545, 1, '2011-01-18 16:24:02.551922+00', 'Plone', 115);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (135345, 1, '2011-01-18 16:24:02.551922+00', 'm-flo', 764);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (180273, 1, '2011-01-18 16:24:02.551922+00', 'SKC & Bratwa', 13);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (265420, 1, '2011-01-18 16:24:02.551922+00', '7人祭', 32);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (265421, 1, '2011-01-18 16:24:02.551922+00', 'Testy', 32);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (283833, 1, '2011-01-18 16:24:02.551922+00', 'BAGDAD CAFE THE trench town', 53);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (398438, 1, '2011-01-18 16:24:02.551922+00', 'Wedlock', 175);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (398598, 1, '2011-01-18 16:24:02.551922+00', 'Paul Allgood', 68);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (427385, 1, '2011-01-18 16:24:02.551922+00', 'Distance', 293);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (792488, 2, '2011-01-18 16:24:02.551922+00', 'm-flo♥BoA', 21);
-INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (305, 1, '2011-05-16 11:32:11.963929-05', 'Blind Melon', 1148);
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (242, 1, '2011-01-18 16:24:02.551922+00', 'The Chemical Brothers', 2654, 'a17fe3a6-c6e7-3559-b2df-917fb52e65ff');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (9496, 1, '2011-01-18 16:24:02.551922+00', 'BoA', 2401, 'd47ef84c-318d-327b-8920-00ee48937224');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (11545, 1, '2011-01-18 16:24:02.551922+00', 'Plone', 115, '68734848-cbfb-3d65-9e0c-d4e2870650bf');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (135345, 1, '2011-01-18 16:24:02.551922+00', 'm-flo', 764, '2e12df5b-963e-38f7-9be3-d78adef836c3');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (180273, 1, '2011-01-18 16:24:02.551922+00', 'SKC & Bratwa', 13, '34279919-4d79-35e8-be13-c999873970e1');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (265420, 1, '2011-01-18 16:24:02.551922+00', '7人祭', 32, 'cc604781-0597-35e7-80c8-892cd7e70c24');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (265421, 1, '2011-01-18 16:24:02.551922+00', 'Testy', 32, 'f6daf4dc-acb7-3085-b18c-a14eab9eacfc');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (283833, 1, '2011-01-18 16:24:02.551922+00', 'BAGDAD CAFE THE trench town', 53, '174aaa1a-8beb-3d6c-94eb-fcb9aa58d50d');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (398438, 1, '2011-01-18 16:24:02.551922+00', 'Wedlock', 175, 'b6810eae-d108-3940-9b62-1667531589e6');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (398598, 1, '2011-01-18 16:24:02.551922+00', 'Paul Allgood', 68, '84d4a3ec-0e1a-30ec-b650-643f9ffaf25b');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (427385, 1, '2011-01-18 16:24:02.551922+00', 'Distance', 293, '76cd8b1c-c129-3631-81cd-c03679516925');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (792488, 2, '2011-01-18 16:24:02.551922+00', 'm-flo♥BoA', 21, '8df9a1df-24aa-3457-b994-15a715777ff6');
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count, gid) VALUES (305, 1, '2011-05-16 11:32:11.963929-05', 'Blind Melon', 1148, 'c891596f-5584-3022-804b-717f04c64edf');
 
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (242, 242, '', 'The Chemical Brothers', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (9496, 9496, '', 'BoA', 0);

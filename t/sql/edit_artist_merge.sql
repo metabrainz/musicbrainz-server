@@ -15,7 +15,8 @@ INSERT INTO artist_isni (artist, isni) VALUES (3, '0000000106750994');
 INSERT INTO artist_isni (artist, isni) VALUES (3, '1422458635730477');
 INSERT INTO artist_isni (artist, isni) VALUES (3, '0000000106750995');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (101, 'Old Artist', 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (101, 'Old Artist', 1, '4f5d90c2-808e-3d8e-bf3c-e1ec4ce0f702');
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (101, 1, 3, 'Old Artist', '');
 
 INSERT INTO recording (id, gid, name, artist_credit, length)

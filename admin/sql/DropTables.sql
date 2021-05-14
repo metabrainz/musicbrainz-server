@@ -27,6 +27,7 @@ DROP TABLE artist_attribute;
 DROP TABLE artist_attribute_type;
 DROP TABLE artist_attribute_type_allowed_value;
 DROP TABLE artist_credit;
+DROP TABLE artist_credit_gid_redirect;
 DROP TABLE artist_credit_name;
 DROP TABLE artist_gid_redirect;
 DROP TABLE artist_ipi;

@@ -18,9 +18,9 @@ INSERT INTO musicbrainz.artist_ipi (artist, ipi, edits_pending, created) VALUES
 	(804408, '00686537595', 0, '2014-11-05 03:00:13.359654+00');
 INSERT INTO musicbrainz.artist_isni (artist, isni, edits_pending, created) VALUES
 	(288820, '0000000406679798', 0, '2015-07-15 23:29:08.652546+00');
-INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, edits_pending) VALUES
-	(2088588, 'Hamilton Leithauser featuring Angel Olsen', 2, 4, '2017-10-13 17:53:24.63341+00', 0),
-	(2091168, 'Hamilton Leithauser & Angel Olsen', 2, 4, '2017-10-17 22:10:19.31387+00', 0);
+INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, edits_pending, gid) VALUES
+	(2088588, 'Hamilton Leithauser featuring Angel Olsen', 2, 4, '2017-10-13 17:53:24.63341+00', 0, '8b6c7da9-1264-335d-80e5-769f7be59c0f'),
+	(2091168, 'Hamilton Leithauser & Angel Olsen', 2, 4, '2017-10-17 22:10:19.31387+00', 0, '5467a9c8-e453-394e-be12-6aa8a764dfe7');
 INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
 	(2088588, 0, 288820, 'Hamilton Leithauser', ' featuring '),
 	(2088588, 1, 804408, 'Angel Olsen', ''),

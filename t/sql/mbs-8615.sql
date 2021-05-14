@@ -4,7 +4,8 @@ VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834', 'edi
 INSERT INTO artist (id, gid, name, sort_name)
 VALUES (1, 'c4c692f3-6e92-43cd-aad0-5d149e07960a', 'Artist', 'Artist');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist', 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+VALUES (1, 'Artist', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
 VALUES (1, 1, 'Artist', 0, '');

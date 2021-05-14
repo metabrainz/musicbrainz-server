@@ -10,7 +10,8 @@ INSERT INTO editor (id, name, password, ha1) VALUES (1, 'acid2', '{CLEARTEXT}xxx
 INSERT INTO editor_watch_artist (editor, artist)
     VALUES (1, 1), (1, 2);
 
-INSERT INTO artist_credit (name, artist_count, id) VALUES ('Spor', 1, 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (1, 'Spor', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 INSERT INTO artist_credit_name
     (artist, artist_credit, join_phrase, position, name)
         VALUES (1, 1, '', 1, 'Spor');

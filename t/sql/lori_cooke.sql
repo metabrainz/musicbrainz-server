@@ -16,8 +16,8 @@ INSERT INTO musicbrainz.artist_tag (artist, tag, count, last_updated) VALUES
 	(1744798, 1440, 1, '2019-02-12 04:16:25.750749+00');
 INSERT INTO musicbrainz.artist_tag_raw (artist, editor, tag, is_upvote) VALUES
 	(1744798, 58244, 1440, '1');
-INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created) VALUES
-	(2319047, 'Lori Cooke', 1, 1, '2019-02-12 04:14:14.831564+00');
+INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, gid) VALUES
+	(2319047, 'Lori Cooke', 1, 1, '2019-02-12 04:14:14.831564+00', '649c6252-0b9a-3c0b-ae32-57e7a8070566');
 INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
 	(2319047, 0, 1744798, 'Lori Cooke', '');
 INSERT INTO musicbrainz.artist (id, gid, name, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, type, area, gender, comment, edits_pending, last_updated, ended, begin_area, end_area) VALUES
@@ -28,8 +28,8 @@ INSERT INTO musicbrainz.artist_tag (artist, tag, count, last_updated) VALUES
 	(1744799, 714, 1, '2019-02-12 04:15:51.75995+00');
 INSERT INTO musicbrainz.artist_tag_raw (artist, editor, tag, is_upvote) VALUES
 	(1744799, 58244, 714, '1');
-INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created) VALUES
-	(2319049, 'Lori Cooke & Frances Jones', 2, 1, '2019-02-12 04:14:46.076201+00');
+INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, gid) VALUES
+	(2319049, 'Lori Cooke & Frances Jones', 2, 1, '2019-02-12 04:14:46.076201+00', '9a245340-2bc7-3981-b386-992d4d27c9d4');
 INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
 	(2319049, 0, 1744798, 'Lori Cooke', ' & '),
 	(2319049, 1, 1744799, 'Frances Jones', '');
@@ -53,8 +53,8 @@ INSERT INTO musicbrainz.artist_tag (artist, tag, count, last_updated) VALUES
 	(1744801, 117022, 1, '2019-02-12 04:16:11.591278+00');
 INSERT INTO musicbrainz.artist_tag_raw (artist, editor, tag, is_upvote) VALUES
 	(1744801, 58244, 117022, '1');
-INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created) VALUES
-	(2319052, 'Lori Cooke, Frances Jones & Leslie Rice', 3, 1, '2019-02-12 05:15:49.014985+00');
+INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, gid) VALUES
+	(2319052, 'Lori Cooke, Frances Jones & Leslie Rice', 3, 1, '2019-02-12 05:15:49.014985+00', '79781832-6f41-3d46-b287-31898336b696');
 INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
 	(2319052, 0, 1744798, 'Lori Cooke', ', '),
 	(2319052, 1, 1744799, 'Frances Jones', ' & '),
@@ -75,8 +75,8 @@ INSERT INTO musicbrainz.artist_tag (artist, tag, count, last_updated) VALUES
 	(1744800, 1434, 1, '2019-02-12 04:16:01.949144+00');
 INSERT INTO musicbrainz.artist_tag_raw (artist, editor, tag, is_upvote) VALUES
 	(1744800, 58244, 1434, '1');
-INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created) VALUES
-	(2319051, 'Lori Cooke, Frances Jones & Lavone Grimm', 3, 1, '2019-02-12 05:15:19.278941+00');
+INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, gid) VALUES
+	(2319051, 'Lori Cooke, Frances Jones & Lavone Grimm', 3, 1, '2019-02-12 05:15:19.278941+00', '1b8dba09-51b9-3aef-8d97-97019f7654ea');
 INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
 	(2319051, 0, 1744798, 'Lori Cooke', ', '),
 	(2319051, 1, 1744799, 'Frances Jones', ' & '),

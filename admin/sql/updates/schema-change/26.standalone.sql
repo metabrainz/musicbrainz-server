@@ -4,6 +4,7 @@
 -- 20210319-mbs-10208-standalone.sql
 -- 20210319-mbs-10647.sql
 -- 20210319-mbs-11451-standalone.sql
+-- 20210419-mbs-11456-fks.sql
 -- 20210507-mbs-11652-artist-series-fks.sql
 \set ON_ERROR_STOP 1
 BEGIN;
@@ -114,6 +115,17 @@ ALTER TABLE ONLY musicbrainz.place_rating_raw
     ADD CONSTRAINT place_rating_raw_fk_place
     FOREIGN KEY (place)
     REFERENCES musicbrainz.place(id);
+
+--------------------------------------------------------------------------------
+SELECT '20210419-mbs-11456-fks.sql';
+
+SET search_path = musicbrainz;
+
+
+ALTER TABLE artist_credit_gid_redirect
+   ADD CONSTRAINT artist_credit_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
+   REFERENCES artist_credit(id);
 
 --------------------------------------------------------------------------------
 SELECT '20210507-mbs-11652-artist-series-fks.sql';

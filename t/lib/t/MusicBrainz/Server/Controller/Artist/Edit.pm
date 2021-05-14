@@ -155,7 +155,8 @@ test 'Test updating artist credits' => sub {
 INSERT INTO editor (id, name, password, email, email_confirm_date, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 'example@example.com', '2005-10-20', 'e1dd8fee8ee728b0ddc8027d3a3db478');
 INSERT INTO artist (id, gid, name, sort_name) VALUES (10, '9f0b3e1a-2431-400f-b6ff-2bcebbf0971a', 'Artist name', 'Artist name');
 
-INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Alternative Name');
+INSERT INTO artist_credit (id, artist_count, name, gid)
+  VALUES (1, 1, 'Alternative Name', '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
   VALUES (1, 10, 'Alternative Name', 1, '');
 EOSQL

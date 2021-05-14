@@ -50,6 +50,7 @@ ALTER TABLE artist_attribute DROP CONSTRAINT IF EXISTS artist_attribute_fk_artis
 ALTER TABLE artist_attribute_type DROP CONSTRAINT IF EXISTS artist_attribute_type_fk_parent;
 ALTER TABLE artist_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS artist_attribute_type_allowed_value_fk_artist_attribute_type;
 ALTER TABLE artist_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS artist_attribute_type_allowed_value_fk_parent;
+ALTER TABLE artist_credit_gid_redirect DROP CONSTRAINT IF EXISTS artist_credit_gid_redirect_fk_new_id;
 ALTER TABLE artist_credit_name DROP CONSTRAINT IF EXISTS artist_credit_name_fk_artist_credit;
 ALTER TABLE artist_credit_name DROP CONSTRAINT IF EXISTS artist_credit_name_fk_artist;
 ALTER TABLE artist_gid_redirect DROP CONSTRAINT IF EXISTS artist_gid_redirect_fk_new_id;

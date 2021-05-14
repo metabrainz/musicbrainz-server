@@ -6,7 +6,8 @@ SELECT no_plan();
 INSERT INTO artist (id, gid, name, sort_name)
   VALUES (1, 'c63ecb0c-89af-4c26-928b-807402b1d701', 'Artist', 'Artist');
 
-INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Artist');
+INSERT INTO artist_credit (id, artist_count, name, gid)
+    VALUES (1, 1, 'Artist', '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 INSERT INTO artist_credit_name
     (artist_credit, artist, name, join_phrase, position)
   VALUES (1, 1, 'Artist', '', 1);

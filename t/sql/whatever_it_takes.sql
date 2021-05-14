@@ -12,9 +12,9 @@ INSERT INTO artist (id, gid, name, sort_name, begin_date_year, begin_date_month,
     (679159, 'd1fc999f-6184-41a6-bcb1-7c59bf74a6e1', 'K.Flay', 'K.Flay', 1985, 6, 30, NULL, NULL, NULL, 1, 222, 2, '', 0, '2017-07-13 06:00:22.322448+00', '0', 38137, NULL),
     (870909, '012151a8-0f9a-44c9-997f-ebd68b5389f9', 'Imagine Dragons', 'Imagine Dragons', 2008, NULL, NULL, NULL, NULL, NULL, 2, 222, NULL, '', 0, '2015-02-05 03:45:57.476136+00', '0', 23187, NULL);
 
-INSERT INTO artist_credit (id, name, artist_count, ref_count, created, edits_pending) VALUES
-    (950778, 'Imagine Dragons', 1, 2, '2012-02-28 10:57:22.111172+00', 0),
-    (2064806, 'Imagine Dragons & K.Flay', 2, 5, '2017-09-07 14:49:11.631089+00', 0);
+INSERT INTO artist_credit (id, name, artist_count, ref_count, created, edits_pending, gid) VALUES
+    (950778, 'Imagine Dragons', 1, 2, '2012-02-28 10:57:22.111172+00', 0, '1c681b7d-d556-3e03-81ff-2558cbc34d50'),
+    (2064806, 'Imagine Dragons & K.Flay', 2, 5, '2017-09-07 14:49:11.631089+00', 0, 'a3036839-22ae-38c5-9b35-1cc39d176746');
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
     (950778, 0, 870909, 'Imagine Dragons', ''),

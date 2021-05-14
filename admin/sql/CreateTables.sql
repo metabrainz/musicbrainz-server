@@ -380,7 +380,14 @@ CREATE TABLE artist_credit ( -- replicate
     artist_count        SMALLINT NOT NULL,
     ref_count           INTEGER DEFAULT 0,
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0)
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    gid                 UUID NOT NULL
+);
+
+CREATE TABLE artist_credit_gid_redirect ( -- replicate (verbose)
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references artist_credit.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_credit_name ( -- replicate (verbose)

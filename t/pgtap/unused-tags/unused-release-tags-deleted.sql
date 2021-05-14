@@ -4,7 +4,8 @@ SET search_path = 'musicbrainz', 'public';
 BEGIN;
 SELECT no_plan();
 
-INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Artist');
+INSERT INTO artist_credit (id, artist_count, name, gid)
+  VALUES (1, 1, 'Artist', '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
 INSERT INTO release_group (id, gid, name, artist_credit)
   VALUES (1, '82ac9811-db47-4c05-9792-83cf4208afd0', 'Release group', 1);

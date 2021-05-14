@@ -37,10 +37,10 @@ INSERT INTO musicbrainz.artist (id, gid, name, sort_name, begin_date_year, begin
 	(276197, '9a3dc805-9d47-4d67-b59d-47e1bfb82537', 'Chitra Singh', 'Singh, Chitra', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2, '', 0, '2011-12-28 11:24:13.362251+00', '0', NULL, NULL);
 INSERT INTO musicbrainz.artist_isni (artist, isni, edits_pending, created) VALUES
 	(40043, '0000000109340667', 0, '2019-02-06 17:22:03.709705+00');
-INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, edits_pending) VALUES
-	(40043, 'Jagjit Singh', 1, 2162, '2011-05-16 16:32:11.963929+00', 0),
-	(276197, 'Chitra Singh', 1, 193, '2011-05-16 16:32:11.963929+00', 0),
-	(869200, 'Jagjit Singh & Chitra Singh', 2, 605, '2011-10-12 15:49:48.884022+00', 0);
+INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, edits_pending, gid) VALUES
+	(40043, 'Jagjit Singh', 1, 2162, '2011-05-16 16:32:11.963929+00', 0, '227a031b-c9bc-3220-b76f-c02a12e7daf6'),
+	(276197, 'Chitra Singh', 1, 193, '2011-05-16 16:32:11.963929+00', 0, 'a4614a50-859e-36a5-abf9-96ab2caa8cea'),
+	(869200, 'Jagjit Singh & Chitra Singh', 2, 605, '2011-10-12 15:49:48.884022+00', 0, 'b8facf9f-4bf7-3db5-a50f-622dfbb9b186');
 INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
 	(40043, 0, 40043, 'Jagjit Singh', ''),
 	(276197, 0, 276197, 'Chitra Singh', ''),
@@ -91,8 +91,8 @@ INSERT INTO musicbrainz.medium (id, release, position, format, name, edits_pendi
 	(1691721, 1608636, 1, 31, '', 0, '2015-05-20 15:37:10.87034+00', 10);
 INSERT INTO musicbrainz.medium_index (medium, toc) VALUES
 	(1077041, '(552000, 467000, 292000, 437000, 526000, 238000)');
-INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, edits_pending) VALUES
-	(2414262, 'Jagjit & Chitra Singh', 1, 2, '2019-05-01 06:00:19.792215+00', 0);
+INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, edits_pending, gid) VALUES
+	(2414262, 'Jagjit & Chitra Singh', 1, 2, '2019-05-01 06:00:19.792215+00', 0, '9276e041-1d85-3e46-aaf4-1a7381ab136b');
 INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
 	(2414262, 0, 40043, 'Jagjit & Chitra Singh', '');
 INSERT INTO musicbrainz.track (id, gid, recording, medium, position, number, name, artist_credit, length, edits_pending, last_updated, is_data_track) VALUES
