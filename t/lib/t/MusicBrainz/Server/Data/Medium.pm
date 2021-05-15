@@ -54,6 +54,7 @@ test 'Insert medium' => sub {
     my $medium = $c->model('Medium')->get_by_id($created->{id});
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
+    $c->model('Medium')->load_track_durations($medium);
     is($medium->length, 330160 + 262000, "inserted medium has expected length");
 
     my $trackoffset0 = 150;

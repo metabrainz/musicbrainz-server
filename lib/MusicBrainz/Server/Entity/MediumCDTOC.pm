@@ -33,7 +33,7 @@ sub is_perfect_match {
     my ($self) = @_;
 
     my @cdtoc_info = @{ $self->cdtoc->track_details };
-    my @medium_track_lengths = @{ $self->medium->cdtoc_track_lengths };
+    my @medium_track_lengths = @{ $self->medium->cdtoc_track_lengths // [] };
 
     return (@cdtoc_info == @medium_track_lengths) && all {
       defined $_->[1] && $_->[0]{length_time} == $_->[1]

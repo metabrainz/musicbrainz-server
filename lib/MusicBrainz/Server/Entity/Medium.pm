@@ -132,17 +132,23 @@ has 'cdtoc_track_count' => (
 
 has 'cdtoc_track_lengths' => (
     is => 'rw',
-    isa => 'ArrayRef[Maybe[Int]]'
+    isa => 'Maybe[ArrayRef[Maybe[Int]]]'
 );
 
 has 'data_track_lengths' => (
     is => 'rw',
-    isa => 'ArrayRef[Maybe[Int]]'
+    isa => 'Maybe[ArrayRef[Maybe[Int]]]'
 );
 
 has 'pregap_length' => (
     is => 'rw',
-    isa => 'ArrayRef[Maybe[Int]]'
+    isa => 'Maybe[ArrayRef[Maybe[Int]]]'
+);
+
+has 'durations_loaded' => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 0,
 );
 
 sub audio_tracks {

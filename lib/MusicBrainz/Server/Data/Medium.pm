@@ -18,14 +18,13 @@ use Scalar::Util qw( weaken );
 
 sub _table
 {
-    return 'medium LEFT JOIN medium_track_durations mtd ON mtd.medium = medium.id';
+    return 'medium';
 }
 
 sub _columns
 {
     return 'medium.id, release, position, format, medium.name,
             medium.edits_pending, track_count,
-            mtd.pregap_length, mtd.cdtoc_track_lengths, mtd.data_track_lengths,
             COALESCE((SELECT true FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap,
             (SELECT count(*) FROM track WHERE medium = medium.id AND position > 0 AND is_data_track = false) AS cdtoc_track_count';
 }
@@ -47,9 +46,6 @@ sub _column_mapping
         edits_pending       => 'edits_pending',
         has_pregap          => 'has_pregap',
         cdtoc_track_count   => 'cdtoc_track_count',
-        cdtoc_track_lengths => 'cdtoc_track_lengths',
-        data_track_lengths  => 'data_track_lengths',
-        pregap_length       => 'pregap_length',
     };
 }
 
@@ -62,6 +58,32 @@ sub load
 {
     my ($self, @objs) = @_;
     return load_subobjects($self, 'medium', @objs);
+}
+
+sub load_track_durations {
+    my ($self, @mediums) = @_;
+
+    @mediums = grep { !$_->durations_loaded } @mediums;
+    return unless @mediums;
+
+    my %id_to_medium = object_to_ids(@mediums);
+    my @ids = keys %id_to_medium;
+    return unless @ids;
+
+    my $query =
+        'SELECT medium, pregap_length, cdtoc_track_lengths, data_track_lengths ' .
+        'FROM medium_track_durations ' .
+        'WHERE medium = any(?)';
+
+    my $duration_rows = $self->sql->select_list_of_hashes($query, [\@ids]);
+    for my $row (@$duration_rows) {
+        for my $medium (@{ $id_to_medium{ $row->{medium} } }) {
+            $medium->pregap_length($row->{pregap_length});
+            $medium->cdtoc_track_lengths($row->{cdtoc_track_lengths});
+            $medium->data_track_lengths($row->{data_track_lengths});
+            $medium->durations_loaded(1);
+        }
+    }
 }
 
 sub load_for_releases
@@ -89,6 +111,7 @@ sub load_for_releases
         }
     }
 
+    $self->load_track_durations(@mediums);
     $_->mediums_loaded(1) for @releases;
 }
 

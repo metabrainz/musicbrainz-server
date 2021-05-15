@@ -145,6 +145,7 @@ sub discids : Chained('load') {
     my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums);
     $c->model('CDTOC')->load(@medium_cdtocs);
     $c->model('Medium')->load(@medium_cdtocs);
+    $c->model('Medium')->load_track_durations(map { $_->medium } @medium_cdtocs);
     $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
 }
 
