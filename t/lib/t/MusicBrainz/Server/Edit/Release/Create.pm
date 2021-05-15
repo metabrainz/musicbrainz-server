@@ -125,6 +125,7 @@ sub prepare {
     MusicBrainz::Server::Test->prepare_test_database($c, '+releasestatus');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
     SET client_min_messages TO warning;
+    SET CONSTRAINTS ALL IMMEDIATE;
     TRUNCATE release CASCADE;
 SQL
 
