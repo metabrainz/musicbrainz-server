@@ -74,6 +74,46 @@ CREATE TRIGGER a_upd_release_label AFTER UPDATE ON release_label
 CREATE TRIGGER a_del_release_label AFTER DELETE ON release_label
     FOR EACH ROW EXECUTE PROCEDURE a_del_release_label();
 
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release_country DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release_first_release_date DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER UPDATE ON release_group_meta DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER INSERT OR DELETE ON release_group_secondary_type_join DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release_label DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON track DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON track DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
+
 --------------------------------------------------------------------------------
 SELECT '20210319-mbs-10208-standalone.sql';
 
