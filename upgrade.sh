@@ -58,6 +58,16 @@ then
 fi
 
 ################################################################################
+# Scripts that should run on *all* nodes (master/slave/standalone)
+
+echo `date` : 'Running upgrade scripts for all nodes'
+if [ -e "$EXTENSIONS_SQL" ]
+then
+    ./admin/psql --system "$DATABASE" < "$EXTENSIONS_SQL" || exit 1
+fi
+./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
+
+################################################################################
 # Migrations that apply for only slaves
 if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
 then
@@ -67,16 +77,6 @@ then
         ./admin/psql "$DATABASE" < "$SLAVE_ONLY_SQL" || exit 1
     fi
 fi
-
-################################################################################
-# Scripts that should run on *all* nodes (master/slave/standalone)
-
-echo `date` : 'Running upgrade scripts for all nodes'
-if [ -e "$EXTENSIONS_SQL" ]
-then
-    ./admin/psql --system "$DATABASE" < "$EXTENSIONS_SQL" || exit 1
-fi
-./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
 
 ################################################################################
 # Re-enable replication
