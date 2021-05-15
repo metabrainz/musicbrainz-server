@@ -27,7 +27,7 @@ import {
 type Props = {
   +$c: CatalystContextT,
   +form: MergeFormT,
-  +privacyDiffers?: boolean,
+  +privaciesDiffer?: boolean,
   +toMerge: $ReadOnlyArray<CollectionT>,
   +typesDiffer?: boolean,
 };
@@ -93,7 +93,7 @@ const CollectionMergeTable = ({
 const CollectionMerge = ({
   $c,
   form,
-  privacyDiffers,
+  privaciesDiffer,
   toMerge,
   typesDiffer,
 }: Props): React.Element<typeof Layout> => {
@@ -135,7 +135,7 @@ const CollectionMerge = ({
             </p>
           </div>
         ) : null}
-        {privacyDiffers /*:: === true */ ? (
+        {privaciesDiffer /*:: === true */ ? (
           <div className="warning warning-privacy-differs">
             <p>
               {exp.l(
