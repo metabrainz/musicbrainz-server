@@ -30,6 +30,11 @@ RUN chmod 755 \
 COPY \
     docker/scripts/start_musicbrainz_server.sh \
     docker/scripts/start_template_renderer.sh \
+    docker/musicbrainz-website/dbdefs_to_js.sh \
     /usr/local/bin/
+RUN chmod 755 \
+        /usr/local/bin/start_musicbrainz_server.sh \
+        /usr/local/bin/start_template_renderer.sh \
+        /usr/local/bin/dbdefs_to_js.sh
 
 copy_mb(`docker/templates/DBDefs.pm.ctmpl lib/')
