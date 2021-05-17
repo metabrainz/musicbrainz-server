@@ -13,11 +13,13 @@ use Pod::Usage qw( pod2usage );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info );
 
+my $cluster = 0;
 my $database = 'READWRITE';
 my $show_help = 0;
 my $force = 0;
 
 GetOptions(
+    'cluster!' => \$cluster,
     'database=s' => \$database,
     'force!' => \$force,
     'help' => \$show_help,
@@ -72,8 +74,10 @@ if ($build_all || $options{artist_release}) {
     } else {
         $c->sql->do('TRUNCATE artist_release');
         $c->sql->do('INSERT INTO artist_release SELECT * FROM get_artist_release_rows(NULL)');
-        $c->sql->do('CLUSTER artist_release_nonva USING artist_release_nonva_idx_sort');
-        $c->sql->do('CLUSTER artist_release_va USING artist_release_va_idx_sort');
+        if ($cluster) {
+            $c->sql->do('CLUSTER artist_release_nonva USING artist_release_nonva_idx_sort');
+            $c->sql->do('CLUSTER artist_release_va USING artist_release_va_idx_sort');
+        }
         log_info { 'Done.' };
     }
 }
@@ -88,8 +92,10 @@ if ($build_all || $options{artist_release_group}) {
     } else {
         $c->sql->do('TRUNCATE artist_release_group');
         $c->sql->do('INSERT INTO artist_release_group SELECT * FROM get_artist_release_group_rows(NULL)');
-        $c->sql->do('CLUSTER artist_release_group_nonva USING artist_release_group_nonva_idx_sort');
-        $c->sql->do('CLUSTER artist_release_group_va USING artist_release_group_va_idx_sort');
+        if ($cluster) {
+            $c->sql->do('CLUSTER artist_release_group_nonva USING artist_release_group_nonva_idx_sort');
+            $c->sql->do('CLUSTER artist_release_group_va USING artist_release_group_va_idx_sort');
+        }
         log_info { 'Done.' };
     }
 }
@@ -102,9 +108,14 @@ if ($build_all || $options{release_first_release_date}) {
     ) {
         log_info { 'Table not empty, skipping.' };
     } else {
+        $c->sql->do('ALTER TABLE release_first_release_date DISABLE TRIGGER apply_artist_release_pending_updates');
         $c->sql->do('TRUNCATE release_first_release_date');
         $c->sql->do(q"INSERT INTO release_first_release_date SELECT * FROM get_release_first_release_date_rows('TRUE')");
-        $c->sql->do('CLUSTER release_first_release_date USING release_first_release_date_pkey');
+        if ($cluster) {
+            $c->sql->do('CLUSTER release_first_release_date USING release_first_release_date_pkey');
+        }
+        $c->sql->do('ALTER TABLE release_first_release_date ENABLE TRIGGER apply_artist_release_pending_updates');
+        $c->sql->do('TRUNCATE artist_release_pending_update');
         log_info { 'Done.' };
     }
 }
@@ -119,7 +130,9 @@ if ($build_all || $options{recording_first_release_date}) {
     } else {
         $c->sql->do('TRUNCATE recording_first_release_date');
         $c->sql->do(q"INSERT INTO recording_first_release_date SELECT * FROM get_recording_first_release_date_rows('TRUE')");
-        $c->sql->do('CLUSTER recording_first_release_date USING recording_first_release_date_pkey');
+        if ($cluster) {
+            $c->sql->do('CLUSTER recording_first_release_date USING recording_first_release_date_pkey');
+        }
         log_info { 'Done.' };
     }
 }
