@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Were to put database exports, and replication data, for public consumption;
 # who should own them, and what mode they should have.

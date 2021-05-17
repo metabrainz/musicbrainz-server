@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Collection;
 use Moose;
 use Scalar::Util qw( looks_like_number );
 use List::Util qw( first );
+use List::AllUtils qw( uniq );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -298,6 +299,32 @@ sub edit : Chained('own_collection') RequireAuth {
         component_path => 'collection/EditCollection',
         component_props => \%props,
         current_view => 'Node',
+    );
+}
+
+with 'MusicBrainz::Server::Controller::Role::Merge';
+
+sub _merge_form_arguments {
+    my ($self, $c, @collections) = @_;
+
+    return (requires_edit_note => 0);
+}
+
+sub _merge_load_entities {
+    my ($self, $c, @collections) = @_;
+    $c->model('Collection')->load_entity_count(@collections);
+    $c->model('CollectionType')->load(@collections);
+
+    for my $collection (@collections) {
+        $c->model('Editor')->load_for_collection($collection);
+    }
+
+    my @entity_types = uniq map { $_->type->item_entity_type } @collections;
+    my @privacy_settings = uniq map { $_->public } @collections;
+
+    $c->stash(
+        privacies_differ => @privacy_settings > 1,
+        types_differ => @entity_types > 1,
     );
 }
 

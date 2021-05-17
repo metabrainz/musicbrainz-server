@@ -4,14 +4,15 @@
 # john doe, 2016
 # mai inoue, 2015
 # Nozomu KURASAWA <email address hidden>, 2013
+# ffff23 <email address hidden>, 2021
 # Shunsuke Shimizu <email address hidden>, 2017,2019
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-01-07 11:00+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-05-16 16:26+0000\n"
+"Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +50,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
-msgstr ""
+msgstr "高度な関係"
 
 #: DB:statistics.statistic_event/description:2005-04-10
 msgid ""
@@ -65,7 +66,7 @@ msgstr "アルバムの言語"
 #: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
-msgstr ""
+msgstr "アルバム言語・大文字小文字の推測を改善・編集フォームの改良をリリース"
 
 #: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon Coverart"
@@ -121,7 +122,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
-msgstr ""
+msgstr "BBCとMetaBrainzが提携"
 
 #: DB:statistics.statistic_event/description:2003-03-02
 #: DB:statistics.statistic_event/description:2003-07-25
@@ -142,7 +143,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2012-10-10
 msgid "CAA official release"
-msgstr ""
+msgstr "CAAが公式リリース"
 
 #: DB:statistics.statistic_event/description:2004-03-09
 msgid "Caching (memcached) and bugs fixed."
@@ -165,7 +166,7 @@ msgstr "クリーンアップリリース。"
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
-msgstr ""
+msgstr "コレクション・評価・CDスタブ"
 
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
@@ -187,11 +188,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-12-28
 msgid "Edit note notifications"
-msgstr ""
+msgstr "編集ノート通知"
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
-msgstr ""
+msgstr "編集の検索"
 
 #: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
@@ -250,11 +251,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
-msgstr ""
+msgstr "投票の改善"
 
 #: DB:statistics.statistic_event/title:2003-04-05
 msgid "Improved search"
-msgstr ""
+msgstr "検索の改善"
 
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "Improved search/cleanup."
@@ -279,7 +280,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
-msgstr ""
+msgstr "インデックス検索/XML WS"
 
 #: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
@@ -287,7 +288,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2004-01-17
 msgid "Inline edits"
-msgstr ""
+msgstr "インライン編集"
 
 #: DB:statistics.statistic_event/description:2004-01-17
 msgid "Inline edits, new reports, improved data import scripts."
@@ -303,11 +304,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2009-12-14
 msgid "Kuno Woudt hired as full-time developer"
-msgstr ""
+msgstr "Kuno Woudtをフルタイム開発者として雇用"
 
 #: DB:statistics.statistic_event/title:2007-04-01
 msgid "Labels/data quality"
-msgstr ""
+msgstr "レーベル/データ品質"
 
 #: DB:statistics.statistic_event/title:2007-11-07
 msgid "Last.fm"
@@ -402,7 +403,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-03-12
 msgid "MusicIP PUID"
-msgstr ""
+msgstr "MusicIP PUID"
 
 #: DB:statistics.statistic_event/title:2011-05-12
 msgid "NGS No-Editing Phase"
@@ -414,7 +415,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2011-05-18
 msgid "NGS Release"
-msgstr ""
+msgstr "NGSリリース"
 
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
@@ -422,7 +423,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2016-02-22
 msgid "New MusicBrainz design"
-msgstr ""
+msgstr "新しいMusicBrainzのデザイン"
 
 #: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
@@ -456,7 +457,7 @@ msgstr "関係編集者"
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
-msgstr ""
+msgstr "リリースグループ・ISRC・CDスタブ検索"
 
 #: DB:statistics.statistic_event/title:2006-07-12
 #: DB:statistics.statistic_event/title:2003-10-19
@@ -470,7 +471,7 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
-msgstr ""
+msgstr "リリースグループ・ISRCサポート・CDスタブ検索・検索の修正をリリース"
 
 #: DB:statistics.statistic_event/title:2015-09-04
 msgid "Roman Tsukanov joins the MetaBrainz team"
@@ -478,7 +479,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
-msgstr ""
+msgstr "SG5の修正"
 
 #: DB:statistics.statistic_event/title:2018-06-30
 msgid "SOLR-based search server deployed"
@@ -486,7 +487,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
-msgstr ""
+msgstr "検索の改善"
 
 #: DB:statistics.statistic_event/title:2015-11-16
 msgid "Several new auto-edit types and translations"
@@ -494,7 +495,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
-msgstr ""
+msgstr "SoC 2008"
 
 #: DB:statistics.statistic_event/description:2006-01-08
 msgid ""
@@ -511,7 +512,7 @@ msgid "TRM collisions"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-10-17
-#: ../root/statistics/stats.js:615
+#: ../root/statistics/stats.js:627
 msgid "Tags"
 msgstr "タグ"
 
@@ -530,7 +531,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released"
-msgstr ""
+msgstr "Cover Art Archiveが正式リリース"
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
@@ -622,7 +623,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2017-03-13
 msgid "Yvanzo joins MusicBrainz as a developer"
-msgstr ""
+msgstr "YvanzoがMusicBrainzに開発者として参加"
 
 #: DB:statistics.statistic_event/description:2017-03-13
 msgid ""
@@ -648,7 +649,7 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:14
 msgid "Controls"
-msgstr ""
+msgstr "コントロール"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
 #: ../root/statistics/StatisticsLayout.js:52
@@ -664,11 +665,11 @@ msgstr "カバーアート"
 #: ../root/statistics/StatisticsLayout.js:99
 #: ../root/statistics/StatisticsLayout.js:113
 msgid "Database Statistics"
-msgstr ""
+msgstr "データベース統計"
 
 #: ../root/statistics/layout.tt:15
 msgid "Database Statistics - {title}"
-msgstr ""
+msgstr "データベース統計 - {title}"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Draw a rectangle on either graph"
@@ -678,7 +679,7 @@ msgstr ""
 #: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:909
 #: ../root/statistics/StatisticsLayout.js:82
 msgid "Editors"
-msgstr "エディタ"
+msgstr "編集者"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:36
 #: ../root/statistics/Edits.js:40 ../root/statistics/Edits.js:49
@@ -689,12 +690,12 @@ msgstr "編集"
 
 #: ../root/statistics/timeline.tt:28
 msgid "Exact Values (items vs. day)"
-msgstr ""
+msgstr "正確な値(items vs. day)"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
 #: ../root/statistics/stats.js:19
 msgid "Formats"
-msgstr ""
+msgstr "フォーマット"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Hover and click on vertical lines"
@@ -702,19 +703,19 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:57
 msgid "Languages/Scripts"
-msgstr ""
+msgstr "言語/文字"
 
 #: ../root/statistics/timeline.tt:2
 msgid "Legend"
-msgstr ""
+msgstr "凡例"
 
 #: ../root/statistics/timeline.tt:6
 msgid "MusicBrainz Events"
-msgstr ""
+msgstr "MusicBrainzイベント"
 
 #: ../root/statistics/timeline.tt:19
 msgid "MusicBrainz Events:"
-msgstr ""
+msgstr "MusicBrainzイベント:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:81
 #: ../root/statistics/StatisticsLayout.js:47
@@ -764,7 +765,7 @@ msgstr "最終更新日: {date}"
 #: ../root/statistics/Formats.js:55 ../root/statistics/LanguagesScripts.js:66
 #: ../root/statistics/LanguagesScripts.js:147
 msgid "Rank"
-msgstr ""
+msgstr "ランク"
 
 #: ../root/statistics/Countries.js:49
 msgid "Country"
@@ -778,7 +779,7 @@ msgstr "アーティスト"
 #: ../root/statistics/Countries.js:57 ../root/statistics/CoverArt.js:105
 #: ../root/statistics/Formats.js:57 ../root/statistics/Index.js:359
 #: ../root/statistics/LanguagesScripts.js:72
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:525
+#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:537
 msgid "Releases"
 msgstr "リリース"
 
@@ -793,7 +794,7 @@ msgid "Total"
 msgstr "合計"
 
 #: ../root/statistics/Countries.js:87 ../root/statistics/stats.js:57
-#: ../root/statistics/stats.js:381 ../root/statistics/stats.js:531
+#: ../root/statistics/stats.js:381 ../root/statistics/stats.js:543
 msgid "Unknown Country"
 msgstr "不明な国"
 
@@ -850,7 +851,7 @@ msgstr ""
 
 #: ../root/statistics/CoverArt.js:237
 msgid "manually selected:"
-msgstr ""
+msgstr "手動選択:"
 
 #: ../root/statistics/CoverArt.js:259
 msgid "automatically inferred:"
@@ -885,11 +886,11 @@ msgstr "表示するデータがありません。"
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are"
 " not counted."
-msgstr ""
+msgstr "投票統計では、賛成か反対の投票のみカウントされ、棄権投票はカウントされません。"
 
 #: ../root/statistics/Editors.js:112
 msgid "Open and applied edits in past week"
-msgstr ""
+msgstr "過去1週間の適用・未確定の編集"
 
 #: ../root/statistics/Editors.js:114 ../root/statistics/Editors.js:121
 msgid "Editor"
@@ -897,23 +898,23 @@ msgstr "編集者"
 
 #: ../root/statistics/Editors.js:115
 msgid "Most active editors in the past week"
-msgstr ""
+msgstr "過去1週間で最もアクティブな編集者"
 
 #: ../root/statistics/Editors.js:119
 msgid "Total applied edits"
-msgstr ""
+msgstr "合計適用編集数"
 
 #: ../root/statistics/Editors.js:122
 msgid "Top editors overall"
-msgstr ""
+msgstr "上位の編集者"
 
 #: ../root/statistics/Editors.js:128
 msgid "Voters"
-msgstr ""
+msgstr "投票者"
 
 #: ../root/statistics/Editors.js:131
 msgid "Votes in past week"
-msgstr ""
+msgstr "過去1週間の投票"
 
 #: ../root/statistics/Editors.js:133 ../root/statistics/Editors.js:140
 msgid "Voter"
@@ -921,7 +922,7 @@ msgstr ""
 
 #: ../root/statistics/Editors.js:134
 msgid "Most active voters in the past week"
-msgstr ""
+msgstr "過去1週間で最もアクティブな投票者"
 
 #: ../root/statistics/Editors.js:138
 msgid "Total votes"
@@ -929,7 +930,7 @@ msgstr "総投票数"
 
 #: ../root/statistics/Editors.js:141
 msgid "Top voters overall"
-msgstr ""
+msgstr "上位の投票者"
 
 #: ../root/statistics/Edits.js:43
 msgid "No edit statistics available."
@@ -937,7 +938,7 @@ msgstr ""
 
 #: ../root/statistics/Formats.js:45 ../root/statistics/Formats.js:51
 msgid "Release/Medium Formats"
-msgstr ""
+msgstr "リリース/メディアフォーマット"
 
 #: ../root/statistics/Formats.js:56
 msgid "Format"
@@ -957,7 +958,7 @@ msgstr ""
 
 #: ../root/statistics/Formats.js:94
 msgid "Unknown Format"
-msgstr ""
+msgstr "不明なフォーマット"
 
 #: ../root/statistics/Index.js:85
 msgid "Basic metadata"
@@ -1151,35 +1152,35 @@ msgstr "未指定"
 
 #: ../root/statistics/Index.js:355
 msgid "Releases, Data Quality, and Disc IDs"
-msgstr ""
+msgstr "リリース・データ品質・ディスクID"
 
 #: ../root/statistics/Index.js:368
 msgid "by various artists:"
-msgstr ""
+msgstr "さまざまなアーティスト:"
 
 #: ../root/statistics/Index.js:374
 msgid "by a single artist:"
-msgstr ""
+msgstr "シングルアーティスト:"
 
 #: ../root/statistics/Index.js:381
 msgid "Release Status"
-msgstr ""
+msgstr "リリースステータス"
 
 #: ../root/statistics/Index.js:400
 msgid "No status set"
-msgstr ""
+msgstr "未指定"
 
 #: ../root/statistics/Index.js:407
 msgid "Release Packaging"
-msgstr ""
+msgstr "リリースパッケージング"
 
 #: ../root/statistics/Index.js:426
 msgid "No packaging set"
-msgstr ""
+msgstr "未指定"
 
 #: ../root/statistics/Index.js:433
 msgid "Cover Art Sources"
-msgstr ""
+msgstr "カバーアートのソース"
 
 #: ../root/statistics/Index.js:442
 msgid "CAA:"
@@ -1195,7 +1196,7 @@ msgstr "URL関連："
 
 #: ../root/statistics/Index.js:460
 msgid "No front cover art:"
-msgstr ""
+msgstr "カバーアートがない:"
 
 #: ../root/statistics/Index.js:467
 msgid "Data Quality"
@@ -1203,27 +1204,27 @@ msgstr "データ品質"
 
 #: ../root/statistics/Index.js:476
 msgid "High Data Quality:"
-msgstr ""
+msgstr "高いデータ品質:"
 
 #: ../root/statistics/Index.js:482
 msgid "Default Data Quality:"
-msgstr ""
+msgstr "デフォルトのデータ品質:"
 
 #: ../root/statistics/Index.js:489
 msgid "Normal Data Quality:"
-msgstr ""
+msgstr "標準のデータ品質:"
 
 #: ../root/statistics/Index.js:496
 msgid "Unknown Data Quality:"
-msgstr ""
+msgstr "データ品質が不明:"
 
 #: ../root/statistics/Index.js:504
 msgid "Low Data Quality:"
-msgstr ""
+msgstr "低いデータ品質:"
 
 #: ../root/statistics/Index.js:511 ../root/statistics/stats.js:177
 msgid "Disc IDs"
-msgstr ""
+msgstr "ディスクID"
 
 #: ../root/statistics/Index.js:525
 msgid "Releases with no disc IDs:"
@@ -1250,7 +1251,7 @@ msgstr ""
 msgid "Mediums with at least one disc ID:"
 msgstr ""
 
-#: ../root/statistics/Index.js:607 ../root/statistics/stats.js:603
+#: ../root/statistics/Index.js:607 ../root/statistics/stats.js:615
 msgid "Release Groups"
 msgstr "リリースグループ"
 
@@ -1263,7 +1264,7 @@ msgid "Secondary Types"
 msgstr "二次タイプ"
 
 #: ../root/statistics/Index.js:665 ../root/statistics/Index.js:669
-#: ../root/statistics/stats.js:513
+#: ../root/statistics/stats.js:525
 msgid "Recordings"
 msgstr "レコーディング"
 
@@ -1276,7 +1277,7 @@ msgstr "ビデオ:"
 #: ../root/statistics/Index.js:829 ../root/statistics/Index.js:851
 #: ../root/statistics/Index.js:881
 msgid "Types"
-msgstr ""
+msgstr "タイプ"
 
 #: ../root/statistics/Index.js:705 ../root/statistics/Index.js:733
 #: ../root/statistics/Index.js:762 ../root/statistics/Index.js:790
@@ -1286,7 +1287,7 @@ msgid "None"
 msgstr "なし"
 
 #: ../root/statistics/Index.js:712 ../root/statistics/LanguagesScripts.js:76
-#: ../root/statistics/stats.js:725
+#: ../root/statistics/stats.js:737
 msgid "Works"
 msgstr "作品"
 
@@ -1302,7 +1303,7 @@ msgstr "地域"
 msgid "Places"
 msgstr "場所"
 
-#: ../root/statistics/Index.js:825 ../root/statistics/stats.js:609
+#: ../root/statistics/Index.js:825 ../root/statistics/stats.js:621
 msgctxt "plural"
 msgid "Series"
 msgstr "シリーズ"
@@ -1317,7 +1318,7 @@ msgstr "イベント"
 
 #: ../root/statistics/Index.js:905
 msgid "Editors, Edits, and Votes"
-msgstr ""
+msgstr "編集者・編集・投票"
 
 #: ../root/statistics/Index.js:912
 msgid "Editors (valid):"
@@ -1377,23 +1378,23 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1021
 msgid "inactive:"
-msgstr ""
+msgstr "活動していない:"
 
 #: ../root/statistics/Index.js:1026
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "編集者(削除済):"
 
 #: ../root/statistics/Index.js:1036 ../root/statistics/Index.js:1083
 msgid "Edits:"
-msgstr ""
+msgstr "編集:"
 
 #: ../root/statistics/Index.js:1042
 msgid "Open:"
-msgstr ""
+msgstr "未確定:"
 
 #: ../root/statistics/Index.js:1048
 msgid "Applied:"
-msgstr ""
+msgstr "適用:"
 
 #: ../root/statistics/Index.js:1054
 msgid "Voted down:"
@@ -1423,13 +1424,13 @@ msgstr "最近7日間"
 msgid "Yesterday:"
 msgstr "昨日："
 
-#: ../root/statistics/Index.js:1103 ../root/statistics/stats.js:688
+#: ../root/statistics/Index.js:1103 ../root/statistics/stats.js:700
 msgid "Votes"
 msgstr "投票数"
 
 #: ../root/statistics/Index.js:1106 ../root/statistics/Index.js:1135
 msgid "Votes:"
-msgstr ""
+msgstr "投票数:"
 
 #: ../root/statistics/Index.js:1112
 msgctxt "vote"
@@ -1470,7 +1471,7 @@ msgstr "不明な言語"
 
 #: ../root/statistics/LanguagesScripts.js:143
 msgid "Scripts"
-msgstr ""
+msgstr "文字"
 
 #: ../root/statistics/LanguagesScripts.js:149
 msgid "Script"
@@ -1499,7 +1500,7 @@ msgstr ""
 #: ../root/statistics/Relationships.js:113
 msgctxt "relationships"
 msgid "This type only"
-msgstr ""
+msgstr "このタイプのみ"
 
 #: ../root/statistics/Relationships.js:114
 msgctxt "relationships"
@@ -1524,7 +1525,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:18
 msgid "Edit Information"
-msgstr ""
+msgstr "編集情報"
 
 #: ../root/statistics/stats.js:20
 msgid "Label Countries"
@@ -1601,7 +1602,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:75
 msgid "Gender Not Applicable"
-msgstr ""
+msgstr "該当なし"
 
 #: ../root/statistics/stats.js:80
 msgid "Artists with gender unset (non-group artists)"
@@ -1665,7 +1666,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:123
 msgid "Orchestras"
-msgstr ""
+msgstr "オーケストラ"
 
 #: ../root/statistics/stats.js:128
 msgid "Artists with type set to other"
@@ -1817,7 +1818,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:252
 msgid "Editors (all)"
-msgstr ""
+msgstr "編集者(すべて)"
 
 #: ../root/statistics/stats.js:258
 msgid "Count of active editors (editing or voting) during the last week"
@@ -1833,7 +1834,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:267
 msgid "Editors (deleted)"
-msgstr ""
+msgstr "編集者(削除済)"
 
 #: ../root/statistics/stats.js:273
 msgid "Count of editors who have submitted edits during the last 7 days"
@@ -1965,7 +1966,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:393
 msgid "Unknown Format (medium)"
-msgstr ""
+msgstr "不明なフォーマット(メディア)"
 
 #: ../root/statistics/stats.js:398
 msgid "Count of all Mediums with Disc IDs"
@@ -1985,7 +1986,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:411
 msgid "Default Data Quality"
-msgstr ""
+msgstr "デフォルトのデータ品質"
 
 #: ../root/statistics/stats.js:416
 msgid "Count of all Releases at High Data Quality"
@@ -1993,7 +1994,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:417
 msgid "High Data Quality"
-msgstr ""
+msgstr "高いデータ品質"
 
 #: ../root/statistics/stats.js:422
 msgid "Count of all Releases at Low Data Quality"
@@ -2001,7 +2002,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:423
 msgid "Low Data Quality"
-msgstr ""
+msgstr "低いデータ品質"
 
 #: ../root/statistics/stats.js:428
 msgid "Count of all Releases at Normal Data Quality"
@@ -2009,7 +2010,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:429
 msgid "Normal Data Quality"
-msgstr ""
+msgstr "標準のデータ品質"
 
 #: ../root/statistics/stats.js:434
 msgid "Count of all Releases at Unknown Data Quality"
@@ -2017,7 +2018,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:435
 msgid "Unknown Data Quality"
-msgstr ""
+msgstr "データ品質が不明"
 
 #: ../root/statistics/stats.js:440
 msgid "Count of all Ratings"
@@ -2044,383 +2045,399 @@ msgid "Label Ratings"
 msgstr ""
 
 #: ../root/statistics/stats.js:458
-msgid "Count of all Ratings (raw)"
+msgid "Count of all Place Ratings"
 msgstr ""
 
 #: ../root/statistics/stats.js:459
-msgid "Ratings (raw)"
+msgid "Place Ratings"
 msgstr ""
 
 #: ../root/statistics/stats.js:464
-msgid "Count of all Artist Ratings (raw)"
+msgid "Count of all Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:465
-msgid "Artist Ratings (raw)"
+msgid "Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:470
-msgid "Count of all Label Ratings (raw)"
+msgid "Count of all Artist Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:471
-msgid "Label Ratings (raw)"
+msgid "Artist Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:476
-msgid "Count of all Recording Ratings (raw)"
+msgid "Count of all Label Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:477
-msgid "Recording Ratings (raw)"
+msgid "Label Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:482
-msgid "Count of all Release Group Ratings (raw)"
+msgid "Count of all Place Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:483
-msgid "Release Group Ratings (raw)"
+msgid "Place Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:488
-msgid "Count of all Work Ratings (raw)"
+msgid "Count of all Recording Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:489
-msgid "Work Ratings (raw)"
+msgid "Recording Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:494
-msgid "Count of all Recording Ratings"
+msgid "Count of all Release Group Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:495
-msgid "Recording Ratings"
+msgid "Release Group Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:500
-msgid "Count of all Release Group Ratings"
+msgid "Count of all Work Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:501
-msgid "Release Group Ratings"
+msgid "Work Ratings (raw)"
 msgstr ""
 
 #: ../root/statistics/stats.js:506
-msgid "Count of all Work Ratings"
+msgid "Count of all Recording Ratings"
 msgstr ""
 
 #: ../root/statistics/stats.js:507
-msgid "Work Ratings"
-msgstr "作品の評価"
+msgid "Recording Ratings"
+msgstr ""
 
 #: ../root/statistics/stats.js:512
-msgid "Count of all recordings"
+msgid "Count of all Release Group Ratings"
+msgstr ""
+
+#: ../root/statistics/stats.js:513
+msgid "Release Group Ratings"
 msgstr ""
 
 #: ../root/statistics/stats.js:518
-msgid "Count of all Recordings with ISRCs"
+msgid "Count of all Work Ratings"
 msgstr ""
 
 #: ../root/statistics/stats.js:519
-msgid "Recordings with ISRCs"
-msgstr ""
+msgid "Work Ratings"
+msgstr "作品の評価"
 
 #: ../root/statistics/stats.js:524
-msgid "Count of all releases"
+msgid "Count of all recordings"
 msgstr ""
 
 #: ../root/statistics/stats.js:530
+msgid "Count of all Recordings with ISRCs"
+msgstr ""
+
+#: ../root/statistics/stats.js:531
+msgid "Recordings with ISRCs"
+msgstr ""
+
+#: ../root/statistics/stats.js:536
+msgid "Count of all releases"
+msgstr ""
+
+#: ../root/statistics/stats.js:542
 msgid "Releases with no country set"
 msgstr ""
 
-#: ../root/statistics/stats.js:536 ../root/statistics/stats.js:537
-#: ../root/statistics/stats.js:554
+#: ../root/statistics/stats.js:548 ../root/statistics/stats.js:549
+#: ../root/statistics/stats.js:566
 msgid "Releases with Amazon Cover Art"
 msgstr ""
 
-#: ../root/statistics/stats.js:542 ../root/statistics/stats.js:543
+#: ../root/statistics/stats.js:554 ../root/statistics/stats.js:555
 msgid "Releases with CAA Cover Art"
 msgstr ""
 
-#: ../root/statistics/stats.js:548 ../root/statistics/stats.js:549
+#: ../root/statistics/stats.js:560 ../root/statistics/stats.js:561
 msgid "Releases with No Cover Art"
 msgstr ""
 
-#: ../root/statistics/stats.js:555
+#: ../root/statistics/stats.js:567
 msgid "Releases with Cover Art from Relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:560
+#: ../root/statistics/stats.js:572
 msgid "Releases with a no-format medium"
 msgstr ""
 
-#: ../root/statistics/stats.js:561
+#: ../root/statistics/stats.js:573
 msgid "Unknown Format (release)"
-msgstr ""
+msgstr "不明なフォーマット(リリース)"
 
-#: ../root/statistics/stats.js:566 ../root/statistics/stats.js:567
+#: ../root/statistics/stats.js:578 ../root/statistics/stats.js:579
 msgid "Releases with Cover Art"
 msgstr ""
 
-#: ../root/statistics/stats.js:572
+#: ../root/statistics/stats.js:584
 msgid "Count of all Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:573
+#: ../root/statistics/stats.js:585
 msgid "Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:578
+#: ../root/statistics/stats.js:590
 msgid "Releases with no language set"
 msgstr ""
 
-#: ../root/statistics/stats.js:579
+#: ../root/statistics/stats.js:591
 msgid "Unknown Language"
 msgstr "不明な言語"
 
-#: ../root/statistics/stats.js:584
+#: ../root/statistics/stats.js:596
 msgid "Count of all Releases not V.A."
 msgstr ""
 
-#: ../root/statistics/stats.js:585
+#: ../root/statistics/stats.js:597
 msgid "Releases not VA"
 msgstr ""
 
-#: ../root/statistics/stats.js:590
+#: ../root/statistics/stats.js:602
 msgid "Releases with no script set"
 msgstr ""
 
-#: ../root/statistics/stats.js:591
+#: ../root/statistics/stats.js:603
 msgid "Unknown Script"
 msgstr ""
 
-#: ../root/statistics/stats.js:596
+#: ../root/statistics/stats.js:608
 msgid "Count of all Releases by Various Artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:597
+#: ../root/statistics/stats.js:609
 msgid "Releases (VA)"
 msgstr ""
 
-#: ../root/statistics/stats.js:602
+#: ../root/statistics/stats.js:614
 msgid "Count of all release groups"
 msgstr ""
 
-#: ../root/statistics/stats.js:608
+#: ../root/statistics/stats.js:620
 msgid "Count of all series"
 msgstr ""
 
-#: ../root/statistics/stats.js:614
+#: ../root/statistics/stats.js:626
 msgid "Count of all Tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:620
+#: ../root/statistics/stats.js:632
 msgid "Count of all Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:621
+#: ../root/statistics/stats.js:633
 msgid "Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:626
+#: ../root/statistics/stats.js:638
 msgid "Count of all Area Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:627
+#: ../root/statistics/stats.js:639
 msgid "Area Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:632
+#: ../root/statistics/stats.js:644
 msgid "Count of all Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:633
+#: ../root/statistics/stats.js:645
 msgid "Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:638
+#: ../root/statistics/stats.js:650
 msgid "Count of all Instrument Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:639
+#: ../root/statistics/stats.js:651
 msgid "Instrument Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:644
+#: ../root/statistics/stats.js:656
 msgid "Count of all Label Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:645
+#: ../root/statistics/stats.js:657
 msgid "Label Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:650
+#: ../root/statistics/stats.js:662
 msgid "Count of all Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:651
+#: ../root/statistics/stats.js:663
 msgid "Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:656
+#: ../root/statistics/stats.js:668
 msgid "Count of all Release Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:657
+#: ../root/statistics/stats.js:669
 msgid "Release Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:662
+#: ../root/statistics/stats.js:674
 msgid "Count of all Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:663
+#: ../root/statistics/stats.js:675
 msgid "Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:668
+#: ../root/statistics/stats.js:680
 msgid "Count of all Series Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:669
+#: ../root/statistics/stats.js:681
 msgid "Series Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:674
+#: ../root/statistics/stats.js:686
 msgid "Count of all Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:675
+#: ../root/statistics/stats.js:687
 msgid "Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:680
+#: ../root/statistics/stats.js:692
 msgid "Count of all Tracks"
 msgstr ""
 
-#: ../root/statistics/stats.js:681
+#: ../root/statistics/stats.js:693
 msgid "Tracks"
 msgstr "トラック"
 
-#: ../root/statistics/stats.js:686
+#: ../root/statistics/stats.js:698
 msgid "Count of all votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:693
+#: ../root/statistics/stats.js:705
 msgid "Count of all Abstain votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:694
+#: ../root/statistics/stats.js:706
 msgid "Abstentions"
 msgstr ""
 
-#: ../root/statistics/stats.js:699
+#: ../root/statistics/stats.js:711
 msgid "Count of all No votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:700
+#: ../root/statistics/stats.js:712
 msgid "No Votes"
 msgstr "投票なし"
 
-#: ../root/statistics/stats.js:705
+#: ../root/statistics/stats.js:717
 msgid "Count of votes per day"
 msgstr ""
 
-#: ../root/statistics/stats.js:707
+#: ../root/statistics/stats.js:719
 msgid "Votes per day"
 msgstr ""
 
-#: ../root/statistics/stats.js:712
+#: ../root/statistics/stats.js:724
 msgid "Count of votes per week"
 msgstr ""
 
-#: ../root/statistics/stats.js:713
+#: ../root/statistics/stats.js:725
 msgid "Votes per week"
 msgstr ""
 
-#: ../root/statistics/stats.js:718
+#: ../root/statistics/stats.js:730
 msgid "Count of all Yes votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:719
+#: ../root/statistics/stats.js:731
 msgid "Yes Votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:724
+#: ../root/statistics/stats.js:736
 msgid "Count of all works"
 msgstr ""
 
-#: ../root/statistics/stats.js:727
+#: ../root/statistics/stats.js:739
 msgid "/day"
 msgstr ""
 
-#: ../root/statistics/stats.js:736
+#: ../root/statistics/stats.js:748
 msgid "Count of all Releases with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:738
+#: ../root/statistics/stats.js:750
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] ""
 
-#: ../root/statistics/stats.js:748
+#: ../root/statistics/stats.js:760
 msgid "Count of all Mediums with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:750
+#: ../root/statistics/stats.js:762
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] ""
 
-#: ../root/statistics/stats.js:760
+#: ../root/statistics/stats.js:772
 msgid "Count of all Recordings with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:762
+#: ../root/statistics/stats.js:774
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] ""
 
-#: ../root/statistics/stats.js:772
+#: ../root/statistics/stats.js:784
 msgid "Count of all Release Groups with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:774
+#: ../root/statistics/stats.js:786
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] ""
 
-#: ../root/statistics/stats.js:816
+#: ../root/statistics/stats.js:828
 msgid "{country} artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:823
+#: ../root/statistics/stats.js:835
 msgid "{country} labels"
 msgstr ""
 
-#: ../root/statistics/stats.js:830
+#: ../root/statistics/stats.js:842
 msgid "{country} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:842
+#: ../root/statistics/stats.js:854
 msgid "{name} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:849
+#: ../root/statistics/stats.js:861
 msgid "{name} mediums"
 msgstr ""
 
-#: ../root/statistics/stats.js:861
+#: ../root/statistics/stats.js:873
 msgid "{language} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:868
+#: ../root/statistics/stats.js:880
 msgid "l_{first}_{second} Relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:889
+#: ../root/statistics/stats.js:901
 msgid "{script} releases"
 msgstr ""
 

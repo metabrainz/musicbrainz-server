@@ -14,19 +14,6 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
-test 'length' => sub {
-
-    my $medium = Medium->new();
-
-    ok(!defined $medium->length, "empty medium has no length");
-
-    $medium->add_track(Track->new(name => 'Courtesy', length => 193000));
-    $medium->add_track(Track->new(name => 'Otis',     length => 156000));
-    $medium->add_track(Track->new(name => 'Focus',    length => 162000));
-
-    is($medium->length, 511000, "medium has correct length from tracks");
-};
-
 test 'combined_track_relationships' => sub {
     my $medium = Medium->new();
 

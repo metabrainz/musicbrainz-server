@@ -100,6 +100,7 @@ sub initialize {
     $self->c->model('Release')->load($medium);
     $self->c->model('ArtistCredit')->load($medium->release);
     $self->c->model('Track')->load_for_mediums($medium);
+    $self->c->model('Medium')->load_track_durations($medium);
 
     my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id);
 

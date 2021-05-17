@@ -4,6 +4,7 @@
         [l("Artist ratings"), "artist"],
         [l("Event ratings"), "event"],
         [l("Label ratings"), "label"],
+        [l("Place ratings"), "place"],
         [l("Release group ratings"), "release_group"],
         [l("Recording ratings"), "recording"],
         [l("Work ratings"), "work"],

@@ -25,25 +25,25 @@ our @EXPORT_OK = qw(
 #        Series
 #        URL
 
-my %serializers =
-    map {
-        my $class = "MusicBrainz::Server::WebService::Serializer::JSON::LD::$_";
-        load_class($class);
-        "MusicBrainz::Server::Entity::$_" => $class->new
-    } qw(
-        Area
-        Artist
-        Label
-        Place
-        Recording
-        Release
-        ReleaseGroup
-        Work
-    );
-
 sub serializer
 {
     my $entity = shift;
+
+    CORE::state %serializers =
+        map {
+            my $class = "MusicBrainz::Server::WebService::Serializer::JSON::LD::$_";
+            load_class($class);
+            "MusicBrainz::Server::Entity::$_" => $class->new
+        } qw(
+            Area
+            Artist
+            Label
+            Place
+            Recording
+            Release
+            ReleaseGroup
+            Work
+        );
 
     for my $class (keys %serializers) {
         if ($entity->isa($class)) {

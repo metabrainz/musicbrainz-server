@@ -452,6 +452,12 @@ const stats = {
     description: l('Count of all Label Ratings'),
     label: l('Label Ratings'),
   },
+  'count.rating.place': {
+    category: 'ratings-tags',
+    color: '#ff0000',
+    description: l('Count of all Place Ratings'),
+    label: l('Place Ratings'),
+  },
   'count.rating.raw': {
     category: 'ratings-tags',
     color: '#ff0000',
@@ -469,6 +475,12 @@ const stats = {
     color: '#ff0000',
     description: l('Count of all Label Ratings (raw)'),
     label: l('Label Ratings (raw)'),
+  },
+  'count.rating.raw.place': {
+    category: 'ratings-tags',
+    color: '#ff0000',
+    description: l('Count of all Place Ratings (raw)'),
+    label: l('Place Ratings (raw)'),
   },
   'count.rating.raw.recording': {
     category: 'ratings-tags',

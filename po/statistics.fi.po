@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-01-07 11:00+0000\n"
+"PO-Revision-Date: 2021-05-14 20:46+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -514,7 +514,7 @@ msgid "TRM collisions"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-10-17
-#: ../root/statistics/stats.js:615
+#: ../root/statistics/stats.js:627
 msgid "Tags"
 msgstr "Luokitukset"
 
@@ -781,7 +781,7 @@ msgstr "Artistit"
 #: ../root/statistics/Countries.js:57 ../root/statistics/CoverArt.js:105
 #: ../root/statistics/Formats.js:57 ../root/statistics/Index.js:359
 #: ../root/statistics/LanguagesScripts.js:72
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:525
+#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:537
 msgid "Releases"
 msgstr "Julkaisut"
 
@@ -796,7 +796,7 @@ msgid "Total"
 msgstr "Yhteensä"
 
 #: ../root/statistics/Countries.js:87 ../root/statistics/stats.js:57
-#: ../root/statistics/stats.js:381 ../root/statistics/stats.js:531
+#: ../root/statistics/stats.js:381 ../root/statistics/stats.js:543
 msgid "Unknown Country"
 msgstr "Tuntematon maa"
 
@@ -1255,7 +1255,7 @@ msgstr "Tallenteet, joissa ei levyn tunnistetta:"
 msgid "Mediums with at least one disc ID:"
 msgstr "Tallenteet, joissa ainakin yksi levyn tunniste:"
 
-#: ../root/statistics/Index.js:607 ../root/statistics/stats.js:603
+#: ../root/statistics/Index.js:607 ../root/statistics/stats.js:615
 msgid "Release Groups"
 msgstr "Julkaisuryhmät"
 
@@ -1268,7 +1268,7 @@ msgid "Secondary Types"
 msgstr "Toissijaiset tyypit"
 
 #: ../root/statistics/Index.js:665 ../root/statistics/Index.js:669
-#: ../root/statistics/stats.js:513
+#: ../root/statistics/stats.js:525
 msgid "Recordings"
 msgstr "Äänitteet"
 
@@ -1291,7 +1291,7 @@ msgid "None"
 msgstr "Ei mitään"
 
 #: ../root/statistics/Index.js:712 ../root/statistics/LanguagesScripts.js:76
-#: ../root/statistics/stats.js:725
+#: ../root/statistics/stats.js:737
 msgid "Works"
 msgstr "Teokset"
 
@@ -1307,7 +1307,7 @@ msgstr "Alueet"
 msgid "Places"
 msgstr "Paikat"
 
-#: ../root/statistics/Index.js:825 ../root/statistics/stats.js:609
+#: ../root/statistics/Index.js:825 ../root/statistics/stats.js:621
 msgctxt "plural"
 msgid "Series"
 msgstr "Sarjat"
@@ -1428,7 +1428,7 @@ msgstr "Viimeiset 7 päivää:"
 msgid "Yesterday:"
 msgstr "Eilinen:"
 
-#: ../root/statistics/Index.js:1103 ../root/statistics/stats.js:688
+#: ../root/statistics/Index.js:1103 ../root/statistics/stats.js:700
 msgid "Votes"
 msgstr "Annetut äänet"
 
@@ -2049,387 +2049,403 @@ msgid "Label Ratings"
 msgstr ""
 
 #: ../root/statistics/stats.js:458
+msgid "Count of all Place Ratings"
+msgstr ""
+
+#: ../root/statistics/stats.js:459
+msgid "Place Ratings"
+msgstr ""
+
+#: ../root/statistics/stats.js:464
 msgid "Count of all Ratings (raw)"
 msgstr "Kaikkien arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:459
+#: ../root/statistics/stats.js:465
 msgid "Ratings (raw)"
 msgstr "Arvostelut (käsittelemätön)"
 
-#: ../root/statistics/stats.js:464
+#: ../root/statistics/stats.js:470
 msgid "Count of all Artist Ratings (raw)"
 msgstr "Kaikkien artistien arvostelujen määrä (käsittelemätön) "
 
-#: ../root/statistics/stats.js:465
+#: ../root/statistics/stats.js:471
 msgid "Artist Ratings (raw)"
 msgstr "Artistien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/stats.js:470
+#: ../root/statistics/stats.js:476
 msgid "Count of all Label Ratings (raw)"
 msgstr "Kaikkien levymerkkien arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:471
+#: ../root/statistics/stats.js:477
 msgid "Label Ratings (raw)"
 msgstr "Levymerkkien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/stats.js:476
+#: ../root/statistics/stats.js:482
+msgid "Count of all Place Ratings (raw)"
+msgstr ""
+
+#: ../root/statistics/stats.js:483
+msgid "Place Ratings (raw)"
+msgstr ""
+
+#: ../root/statistics/stats.js:488
 msgid "Count of all Recording Ratings (raw)"
 msgstr "Kaikkien äänitteiden arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:477
+#: ../root/statistics/stats.js:489
 msgid "Recording Ratings (raw)"
 msgstr "Äänitteiden arvostelut (käsittelemätön)"
 
-#: ../root/statistics/stats.js:482
+#: ../root/statistics/stats.js:494
 msgid "Count of all Release Group Ratings (raw)"
 msgstr "Kaikkien julkaisuryhmien arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:483
+#: ../root/statistics/stats.js:495
 msgid "Release Group Ratings (raw)"
 msgstr "Julkaisuryhmien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/stats.js:488
+#: ../root/statistics/stats.js:500
 msgid "Count of all Work Ratings (raw)"
 msgstr "Kaikkien teoksien arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:489
+#: ../root/statistics/stats.js:501
 msgid "Work Ratings (raw)"
 msgstr "Teoksien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/stats.js:494
+#: ../root/statistics/stats.js:506
 msgid "Count of all Recording Ratings"
 msgstr "Kaikkien äänitteiden arvostelujen määrä"
 
-#: ../root/statistics/stats.js:495
+#: ../root/statistics/stats.js:507
 msgid "Recording Ratings"
 msgstr "Äänitteiden arvostelut"
 
-#: ../root/statistics/stats.js:500
+#: ../root/statistics/stats.js:512
 msgid "Count of all Release Group Ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:501
+#: ../root/statistics/stats.js:513
 msgid "Release Group Ratings"
 msgstr "Julkaisuryhmän arvostelut"
 
-#: ../root/statistics/stats.js:506
+#: ../root/statistics/stats.js:518
 msgid "Count of all Work Ratings"
 msgstr "Kaikkien teoksien arvostelujen määrä"
 
-#: ../root/statistics/stats.js:507
+#: ../root/statistics/stats.js:519
 msgid "Work Ratings"
 msgstr "Teosten arvostelut"
 
-#: ../root/statistics/stats.js:512
+#: ../root/statistics/stats.js:524
 msgid "Count of all recordings"
 msgstr "Kaikkien äänitteiden määrä"
 
-#: ../root/statistics/stats.js:518
+#: ../root/statistics/stats.js:530
 msgid "Count of all Recordings with ISRCs"
 msgstr "Kaikkien äänitteiden, joilla on ISRC-tunnuksia määrä"
 
-#: ../root/statistics/stats.js:519
+#: ../root/statistics/stats.js:531
 msgid "Recordings with ISRCs"
 msgstr ""
 
-#: ../root/statistics/stats.js:524
+#: ../root/statistics/stats.js:536
 msgid "Count of all releases"
 msgstr "Kaikkien julkaisujen määrä"
 
-#: ../root/statistics/stats.js:530
+#: ../root/statistics/stats.js:542
 msgid "Releases with no country set"
 msgstr "Julkaisut, joissa maata ei valittu"
 
-#: ../root/statistics/stats.js:536 ../root/statistics/stats.js:537
-#: ../root/statistics/stats.js:554
+#: ../root/statistics/stats.js:548 ../root/statistics/stats.js:549
+#: ../root/statistics/stats.js:566
 msgid "Releases with Amazon Cover Art"
 msgstr "Julkaisut, joille löytää kansitaide Amazonista"
 
-#: ../root/statistics/stats.js:542 ../root/statistics/stats.js:543
+#: ../root/statistics/stats.js:554 ../root/statistics/stats.js:555
 msgid "Releases with CAA Cover Art"
 msgstr "Kansitaiteelliset julkaisut"
 
-#: ../root/statistics/stats.js:548 ../root/statistics/stats.js:549
+#: ../root/statistics/stats.js:560 ../root/statistics/stats.js:561
 msgid "Releases with No Cover Art"
 msgstr "Julkaisut joilla ei kansitaidetta"
 
-#: ../root/statistics/stats.js:555
+#: ../root/statistics/stats.js:567
 msgid "Releases with Cover Art from Relationships"
 msgstr "Julkaisut, joilta löydyy kansitaide-yhteyksiä"
 
-#: ../root/statistics/stats.js:560
+#: ../root/statistics/stats.js:572
 msgid "Releases with a no-format medium"
 msgstr "Julkaisut, joiden formaatti on tuntematon"
 
-#: ../root/statistics/stats.js:561
+#: ../root/statistics/stats.js:573
 msgid "Unknown Format (release)"
 msgstr "Tuntematon formaatti (julkaisu)"
 
-#: ../root/statistics/stats.js:566 ../root/statistics/stats.js:567
+#: ../root/statistics/stats.js:578 ../root/statistics/stats.js:579
 msgid "Releases with Cover Art"
 msgstr "Julkaisut, joissa kansitaidetta"
 
-#: ../root/statistics/stats.js:572
+#: ../root/statistics/stats.js:584
 msgid "Count of all Releases with Disc IDs"
 msgstr "Kaikkien julkaisujen, joilla levyn tunniste, määrä"
 
-#: ../root/statistics/stats.js:573
+#: ../root/statistics/stats.js:585
 msgid "Releases with Disc IDs"
 msgstr "Julkaisuja, joilla Disc ID"
 
-#: ../root/statistics/stats.js:578
+#: ../root/statistics/stats.js:590
 msgid "Releases with no language set"
 msgstr "Julkaisut, joissa ei ole kieltä asetttuna"
 
-#: ../root/statistics/stats.js:579
+#: ../root/statistics/stats.js:591
 msgid "Unknown Language"
 msgstr "Tuntematon kieli"
 
-#: ../root/statistics/stats.js:584
+#: ../root/statistics/stats.js:596
 msgid "Count of all Releases not V.A."
 msgstr "Kaikkien julkaisujen, jotka eivät ole eri artistien, määrä"
 
-#: ../root/statistics/stats.js:585
+#: ../root/statistics/stats.js:597
 msgid "Releases not VA"
 msgstr "Julkaisut (ei eri esittäjiä)"
 
-#: ../root/statistics/stats.js:590
+#: ../root/statistics/stats.js:602
 msgid "Releases with no script set"
 msgstr "Julkaisut, joissa ei ole merkistöä asetettuna"
 
-#: ../root/statistics/stats.js:591
+#: ../root/statistics/stats.js:603
 msgid "Unknown Script"
 msgstr "Tuntematon merkistö"
 
-#: ../root/statistics/stats.js:596
+#: ../root/statistics/stats.js:608
 msgid "Count of all Releases by Various Artists"
 msgstr "Kaikkien eri esittäjien julkaisujen määrä"
 
-#: ../root/statistics/stats.js:597
+#: ../root/statistics/stats.js:609
 msgid "Releases (VA)"
 msgstr "Julkaisut (eri esittäjiä)"
 
-#: ../root/statistics/stats.js:602
+#: ../root/statistics/stats.js:614
 msgid "Count of all release groups"
 msgstr "Kaikkien julkaisuryhmien määrä"
 
-#: ../root/statistics/stats.js:608
+#: ../root/statistics/stats.js:620
 msgid "Count of all series"
 msgstr "Kaikkien sarjojen määrä"
 
-#: ../root/statistics/stats.js:614
+#: ../root/statistics/stats.js:626
 msgid "Count of all Tags"
 msgstr "Kaikki luokituksien määrä"
 
-#: ../root/statistics/stats.js:620
+#: ../root/statistics/stats.js:632
 msgid "Count of all Tags (raw)"
 msgstr "Kaikkien luokituksien määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:621
+#: ../root/statistics/stats.js:633
 msgid "Tags (raw)"
 msgstr "Luokitukset (käsittelemätön)"
 
-#: ../root/statistics/stats.js:626
+#: ../root/statistics/stats.js:638
 msgid "Count of all Area Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:627
+#: ../root/statistics/stats.js:639
 msgid "Area Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:632
+#: ../root/statistics/stats.js:644
 msgid "Count of all Artist Tags (raw)"
 msgstr "Kaikkien artistien luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:633
+#: ../root/statistics/stats.js:645
 msgid "Artist Tags (raw)"
 msgstr "Artistien luokitukset (käsittelemätön)"
 
-#: ../root/statistics/stats.js:638
+#: ../root/statistics/stats.js:650
 msgid "Count of all Instrument Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:639
+#: ../root/statistics/stats.js:651
 msgid "Instrument Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:644
+#: ../root/statistics/stats.js:656
 msgid "Count of all Label Tags (raw)"
 msgstr "Kaikkien levymerkkien luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:645
+#: ../root/statistics/stats.js:657
 msgid "Label Tags (raw)"
 msgstr "Levymerkkien luokitukset (käsittelemätön)"
 
-#: ../root/statistics/stats.js:650
+#: ../root/statistics/stats.js:662
 msgid "Count of all Recording Tags (raw)"
 msgstr "Kaikkien äänitteiden luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:651
+#: ../root/statistics/stats.js:663
 msgid "Recording Tags (raw)"
 msgstr "Äänitteiden luokittelut (käsittelemätön)"
 
-#: ../root/statistics/stats.js:656
+#: ../root/statistics/stats.js:668
 msgid "Count of all Release Tags (raw)"
 msgstr "Kaikkien julkaisujen luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:657
+#: ../root/statistics/stats.js:669
 msgid "Release Tags (raw)"
 msgstr "Julkaisujen luokitukset (käsittelemätön)"
 
-#: ../root/statistics/stats.js:662
+#: ../root/statistics/stats.js:674
 msgid "Count of all Release Group Tags (raw)"
 msgstr "Kaikkien julkaisuryhmien luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:663
+#: ../root/statistics/stats.js:675
 msgid "Release Group Tags (raw)"
 msgstr "Julkaisuryhmien luokittelut (käsittelemätön)"
 
-#: ../root/statistics/stats.js:668
+#: ../root/statistics/stats.js:680
 msgid "Count of all Series Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:669
+#: ../root/statistics/stats.js:681
 msgid "Series Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:674
+#: ../root/statistics/stats.js:686
 msgid "Count of all Work Tags (raw)"
 msgstr "Kaikkien teoksien luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/stats.js:675
+#: ../root/statistics/stats.js:687
 msgid "Work Tags (raw)"
 msgstr "Teoksien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/stats.js:680
+#: ../root/statistics/stats.js:692
 msgid "Count of all Tracks"
 msgstr "Kaikkien kappaleiden määrä"
 
-#: ../root/statistics/stats.js:681
+#: ../root/statistics/stats.js:693
 msgid "Tracks"
 msgstr "Kappaleet"
 
-#: ../root/statistics/stats.js:686
+#: ../root/statistics/stats.js:698
 msgid "Count of all votes"
 msgstr "Kaikkien äänien määrä"
 
-#: ../root/statistics/stats.js:693
+#: ../root/statistics/stats.js:705
 msgid "Count of all Abstain votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:694
+#: ../root/statistics/stats.js:706
 msgid "Abstentions"
 msgstr ""
 
-#: ../root/statistics/stats.js:699
+#: ../root/statistics/stats.js:711
 msgid "Count of all No votes"
 msgstr "Kaikkien Ei äänien määrä"
 
-#: ../root/statistics/stats.js:700
+#: ../root/statistics/stats.js:712
 msgid "No Votes"
 msgstr "Ei-äänet"
 
-#: ../root/statistics/stats.js:705
+#: ../root/statistics/stats.js:717
 msgid "Count of votes per day"
 msgstr "Ääniä päivässä yhteensä"
 
-#: ../root/statistics/stats.js:707
+#: ../root/statistics/stats.js:719
 msgid "Votes per day"
 msgstr "Päiväkohtaiset äänet"
 
-#: ../root/statistics/stats.js:712
+#: ../root/statistics/stats.js:724
 msgid "Count of votes per week"
 msgstr "Ääniä viikossa yhteensä"
 
-#: ../root/statistics/stats.js:713
+#: ../root/statistics/stats.js:725
 msgid "Votes per week"
 msgstr "Viikkokohtaiset äänet"
 
-#: ../root/statistics/stats.js:718
+#: ../root/statistics/stats.js:730
 msgid "Count of all Yes votes"
 msgstr "Kaikkien Kyllä äänien määrä"
 
-#: ../root/statistics/stats.js:719
+#: ../root/statistics/stats.js:731
 msgid "Yes Votes"
 msgstr "Kyllä-äänet"
 
-#: ../root/statistics/stats.js:724
+#: ../root/statistics/stats.js:736
 msgid "Count of all works"
 msgstr "Kaikkien teoksien määrä"
 
-#: ../root/statistics/stats.js:727
+#: ../root/statistics/stats.js:739
 msgid "/day"
 msgstr "/päivä"
 
-#: ../root/statistics/stats.js:736
+#: ../root/statistics/stats.js:748
 msgid "Count of all Releases with {n} Disc IDs"
 msgstr "Kaikkien julkaisujen, joilla {n} levyn tunnistetta määrä"
 
-#: ../root/statistics/stats.js:738
+#: ../root/statistics/stats.js:750
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/stats.js:748
+#: ../root/statistics/stats.js:760
 msgid "Count of all Mediums with {n} Disc IDs"
 msgstr "Kaikkien tallenteiden, joilla {n} levyn tunnistetta määrä"
 
-#: ../root/statistics/stats.js:750
+#: ../root/statistics/stats.js:762
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Tallenteet, joissa {n} levyn tunnistetta"
 msgstr[1] "Tallenteet, joissa {n} levyn tunnistetta"
 
-#: ../root/statistics/stats.js:760
+#: ../root/statistics/stats.js:772
 msgid "Count of all Recordings with {n} Releases"
 msgstr "Kaikkien äänitteiden, jotka liittyy {n} julkaisuun määrä"
 
-#: ../root/statistics/stats.js:762
+#: ../root/statistics/stats.js:774
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/stats.js:772
+#: ../root/statistics/stats.js:784
 msgid "Count of all Release Groups with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:774
+#: ../root/statistics/stats.js:786
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Julkaisuryhmät joissa {n} julkaisu"
 msgstr[1] "Julkaisuryhmät joissa {n} julkaisua"
 
-#: ../root/statistics/stats.js:816
+#: ../root/statistics/stats.js:828
 msgid "{country} artists"
 msgstr "{country} artistit"
 
-#: ../root/statistics/stats.js:823
+#: ../root/statistics/stats.js:835
 msgid "{country} labels"
 msgstr "{country} levymerkit"
 
-#: ../root/statistics/stats.js:830
+#: ../root/statistics/stats.js:842
 msgid "{country} releases"
 msgstr "{country} julkaisut"
 
-#: ../root/statistics/stats.js:842
+#: ../root/statistics/stats.js:854
 msgid "{name} releases"
 msgstr "{name} julkaisut"
 
-#: ../root/statistics/stats.js:849
+#: ../root/statistics/stats.js:861
 msgid "{name} mediums"
 msgstr "{name} tallenteet"
 
-#: ../root/statistics/stats.js:861
+#: ../root/statistics/stats.js:873
 msgid "{language} releases"
 msgstr "{language} julkaisut"
 
-#: ../root/statistics/stats.js:868
+#: ../root/statistics/stats.js:880
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} yhteydet"
 
-#: ../root/statistics/stats.js:889
+#: ../root/statistics/stats.js:901
 msgid "{script} releases"
 msgstr "{script} julkaisut"
 

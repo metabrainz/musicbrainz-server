@@ -2920,14 +2920,6 @@ DISTRIBUTIONS
       XML::LibXML 1.94
       XML::LibXML::Devel 0
       perl 5.008001
-  HTML-HTML5-Sanity-0.105
-    pathname: T/TO/TOBYINK/HTML-HTML5-Sanity-0.105.tar.gz
-    provides:
-      HTML::HTML5::Sanity 0.105
-    requirements:
-      ExtUtils::MakeMaker 6.17
-      Locale::Country 0
-      XML::LibXML 1.70
   HTML-Parser-3.72
     pathname: G/GA/GAAS/HTML-Parser-3.72.tar.gz
     provides:

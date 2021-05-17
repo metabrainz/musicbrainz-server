@@ -311,6 +311,8 @@ sub CreateRelations
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
     RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating CAA functions ...");
     RunSQLScript($DB, "eaa/CreateFunctions.sql", "Creating EAA functions ...");
+    RunSQLScript($DB, "CreateSlaveOnlyFunctions.sql", "Creating slave-only functions ...")
+        if $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
@@ -358,6 +360,9 @@ sub CreateRelations
 
     RunSQLScript($DB, "eaa/CreateTriggers.sql", "Creating EAA triggers ...")
         unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "CreateSlaveOnlyTriggers.sql", "Creating slave-only triggers ...")
+        if $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateSearchIndexes.sql", "Creating search indexes ...");
 
@@ -473,6 +478,8 @@ Options are:
                          (Should only be used, when an import without the option
                          fails with an "ERROR:  invalid UTF-8 byte sequence detected"!
                          see also `MBImport.pl --help')
+     --reptype=TYPE      Override the REPLICATION_TYPE set in DBDefs. This only
+                         exists for testing purposes.
 
 Less commonly used options:
 
@@ -508,7 +515,8 @@ GetOptions(
     "fix-broken-utf8"     => \$fFixUTF8,
     "install-extension=s" => \$fInstallExtension,
     "extension-schema=s"  => \$fExtensionSchema,
-    "tmp-dir=s"           => \$tmp_dir
+    "tmp-dir=s"           => \$tmp_dir,
+    "reptype=s"           => \$REPTYPE,
 ) or exit 2;
 
 my $DB = Databases->get($databaseName);

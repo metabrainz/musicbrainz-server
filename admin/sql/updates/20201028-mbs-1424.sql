@@ -1,8 +1,9 @@
 \set ON_ERROR_STOP 1
 
-SET search_path = musicbrainz;
-
 BEGIN;
+
+DROP TABLE IF EXISTS release_first_release_date CASCADE;
+DROP TABLE IF EXISTS recording_first_release_date CASCADE;
 
 CREATE TABLE release_first_release_date (
     release     INTEGER NOT NULL,
@@ -18,80 +19,39 @@ CREATE TABLE recording_first_release_date (
   day         SMALLINT
 );
 
-INSERT INTO release_first_release_date (
-  SELECT DISTINCT ON (release)
-    release, date_year, date_month, date_day
-    FROM (
-      SELECT release, date_year, date_month, date_day
-        FROM release_country
-       UNION ALL
-      SELECT release, date_year, date_month, date_day
-        FROM release_unknown_country
-    ) all_dates
-    ORDER BY
-      release,
-      date_year NULLS LAST,
-      date_month NULLS LAST,
-      date_day NULLS LAST
-);
-
-INSERT INTO recording_first_release_date (
-  SELECT DISTINCT ON (track.recording)
-      track.recording,
-      rd.year,
-      rd.month,
-      rd.day
-    FROM track
-    JOIN medium ON medium.id = track.medium
-    JOIN release_first_release_date rd ON rd.release = medium.release
-    ORDER BY
-      track.recording,
-      rd.year NULLS LAST,
-      rd.month NULLS LAST,
-      rd.day NULLS LAST
-);
-
-ALTER TABLE release_first_release_date
-  ADD CONSTRAINT release_first_release_date_pkey
-  PRIMARY KEY (release);
-
-ALTER TABLE recording_first_release_date
-  ADD CONSTRAINT recording_first_release_date_pkey
-  PRIMARY KEY (recording);
+CREATE OR REPLACE FUNCTION get_release_first_release_date_rows(condition TEXT)
+RETURNS SETOF release_first_release_date AS $$
+BEGIN
+    RETURN QUERY EXECUTE '
+        SELECT DISTINCT ON (release) release,
+            date_year AS year,
+            date_month AS month,
+            date_day AS day
+        FROM (
+            SELECT release, date_year, date_month, date_day FROM release_country
+            WHERE (date_year IS NOT NULL OR date_month IS NOT NULL OR date_day IS NOT NULL)
+            UNION ALL
+            SELECT release, date_year, date_month, date_day FROM release_unknown_country
+        ) all_dates
+        WHERE ' || condition ||
+        ' ORDER BY release, year NULLS LAST, month NULLS LAST, day NULLS LAST';
+END;
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE OR REPLACE FUNCTION set_release_first_release_date(release_id INTEGER)
 RETURNS VOID AS $$
 BEGIN
-  INSERT INTO release_first_release_date (release, year, month, day) (
-    SELECT release_id, date_year, date_month, date_day FROM (
-      SELECT date_year, date_month, date_day
-        FROM release_country
-       WHERE release = release_id
-       UNION ALL
-      SELECT date_year, date_month, date_day
-        FROM release_unknown_country
-       WHERE release = release_id
-       UNION ALL
-      SELECT NULL, NULL, NULL
-    ) release_dates
-    ORDER BY
-      date_year NULLS LAST,
-      date_month NULLS LAST,
-      date_day NULLS LAST
-    LIMIT 1
-  )
-  ON CONFLICT (release)
-  DO UPDATE SET year = excluded.year,
-                month = excluded.month,
-                day = excluded.day;
-
+  -- DO NOT modify any replicated tables in this function; it's used
+  -- by a trigger on slaves.
   DELETE FROM release_first_release_date
-   WHERE release = release_id
-     AND year IS NULL
-     AND month IS NULL
-     AND day IS NULL;
+  WHERE release = release_id;
+
+  INSERT INTO release_first_release_date
+  SELECT * FROM get_release_first_release_date_rows(
+    format('release = %L', release_id)
+  );
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE OR REPLACE FUNCTION set_release_group_first_release_date(release_group_id INTEGER)
 RETURNS VOID AS $$
@@ -114,38 +74,37 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION get_recording_first_release_date_rows(condition TEXT)
+RETURNS SETOF recording_first_release_date AS $$
+BEGIN
+    RETURN QUERY EXECUTE '
+        SELECT DISTINCT ON (track.recording)
+            track.recording, rd.year, rd.month, rd.day
+        FROM track
+        JOIN medium ON medium.id = track.medium
+        JOIN release_first_release_date rd ON rd.release = medium.release
+        WHERE ' || condition || '
+        ORDER BY track.recording,
+            rd.year NULLS LAST,
+            rd.month NULLS LAST,
+            rd.day NULLS LAST';
+END;
+$$ LANGUAGE 'plpgsql' STRICT;
+
 CREATE OR REPLACE FUNCTION set_recordings_first_release_dates(recording_ids INTEGER[])
 RETURNS VOID AS $$
 BEGIN
-  INSERT INTO recording_first_release_date
-  (
-    SELECT DISTINCT ON (track.recording)
-        track.recording,
-        rd.year,
-        rd.month,
-        rd.day
-      FROM track
-      JOIN medium ON medium.id = track.medium
-      LEFT JOIN release_first_release_date rd ON rd.release = medium.release
-     WHERE track.recording = ANY(recording_ids)
-     ORDER BY
-      track.recording,
-      rd.year NULLS LAST,
-      rd.month NULLS LAST,
-      rd.day NULLS LAST
-  )
-  ON CONFLICT (recording) DO UPDATE
-  SET year = excluded.year,
-      month = excluded.month,
-      day = excluded.day;
-
+  -- DO NOT modify any replicated tables in this function; it's used
+  -- by a trigger on slaves.
   DELETE FROM recording_first_release_date
-   WHERE recording = ANY(recording_ids)
-     AND year IS NULL
-     AND month IS NULL
-     AND day IS NULL;
+  WHERE recording = ANY(recording_ids);
+
+  INSERT INTO recording_first_release_date
+  SELECT * FROM get_recording_first_release_date_rows(
+    format('track.recording = any(%L)', recording_ids)
+  );
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE OR REPLACE FUNCTION set_releases_recordings_first_release_dates(release_ids INTEGER[])
 RETURNS VOID AS $$
@@ -158,7 +117,7 @@ BEGIN
   ));
   RETURN;
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE OR REPLACE FUNCTION a_ins_track() RETURNS trigger AS $$
 BEGIN
@@ -244,5 +203,25 @@ BEGIN
   RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
+
+ALTER TABLE release_first_release_date
+  ADD CONSTRAINT release_first_release_date_pkey
+  PRIMARY KEY (release);
+
+ALTER TABLE recording_first_release_date
+  ADD CONSTRAINT recording_first_release_date_pkey
+  PRIMARY KEY (recording);
+
+-- **NOTE**: The new triggers overlap with ones created in
+-- admin/sql/updates/20210311-mbs-11438.sql,
+-- so somes changes have been consolidated into there.
+--
+-- This includes the following functions:
+--   a_ins_release_event
+--   a_upd_release_event
+--   a_del_release_event
+--   a_ins_track
+--   a_upd_track
+--   a_del_track
 
 COMMIT;

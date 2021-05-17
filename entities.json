@@ -93,6 +93,7 @@
             }
         },
         "report_filter": true,
+        "series": true,
         "sitemaps_lastmod_table": true,
         "sort_name": true,
         "subscriptions": {
@@ -134,6 +135,7 @@
     },
     "collection": {
         "mbid": {
+            "multiple": true,
             "relatable": false
         },
         "model": "Collection",
@@ -434,6 +436,7 @@
         "model": "Place",
         "plural": "places",
         "plural_url": "places",
+        "ratings": true,
         "removal": {
             "automatic": {}
         },
