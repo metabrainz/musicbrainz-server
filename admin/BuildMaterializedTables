@@ -10,8 +10,10 @@ use Getopt::Long qw( GetOptions );
 use List::AllUtils qw( uniq );
 use Pod::Usage qw( pod2usage );
 
+use DBDefs;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info );
+use MusicBrainz::Server::Replication qw( :replication_type );
 
 my $cluster = 0;
 my $database = 'READWRITE';
@@ -108,13 +110,17 @@ if ($build_all || $options{release_first_release_date}) {
     ) {
         log_info { 'Table not empty, skipping.' };
     } else {
-        $c->sql->do('ALTER TABLE release_first_release_date DISABLE TRIGGER apply_artist_release_pending_updates');
+        my $pending_updates_trigger = 'apply_artist_release_pending_updates';
+        if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
+            $pending_updates_trigger .= '_slave';
+        }
+        $c->sql->do("ALTER TABLE release_first_release_date DISABLE TRIGGER $pending_updates_trigger");
         $c->sql->do('TRUNCATE release_first_release_date');
         $c->sql->do(q"INSERT INTO release_first_release_date SELECT * FROM get_release_first_release_date_rows('TRUE')");
         if ($cluster) {
             $c->sql->do('CLUSTER release_first_release_date USING release_first_release_date_pkey');
         }
-        $c->sql->do('ALTER TABLE release_first_release_date ENABLE TRIGGER apply_artist_release_pending_updates');
+        $c->sql->do("ALTER TABLE release_first_release_date ENABLE TRIGGER $pending_updates_trigger");
         $c->sql->do('TRUNCATE artist_release_pending_update');
         log_info { 'Done.' };
     }
