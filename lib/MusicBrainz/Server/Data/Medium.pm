@@ -60,6 +60,32 @@ sub load
     return load_subobjects($self, 'medium', @objs);
 }
 
+sub load_track_durations {
+    my ($self, @mediums) = @_;
+
+    @mediums = grep { !$_->durations_loaded } @mediums;
+    return unless @mediums;
+
+    my %id_to_medium = object_to_ids(@mediums);
+    my @ids = keys %id_to_medium;
+    return unless @ids;
+
+    my $query =
+        'SELECT medium, pregap_length, cdtoc_track_lengths, data_track_lengths ' .
+        'FROM medium_track_durations ' .
+        'WHERE medium = any(?)';
+
+    my $duration_rows = $self->sql->select_list_of_hashes($query, [\@ids]);
+    for my $row (@$duration_rows) {
+        for my $medium (@{ $id_to_medium{ $row->{medium} } }) {
+            $medium->pregap_length($row->{pregap_length});
+            $medium->cdtoc_track_lengths($row->{cdtoc_track_lengths});
+            $medium->data_track_lengths($row->{data_track_lengths});
+            $medium->durations_loaded(1);
+        }
+    }
+}
+
 sub load_for_releases
 {
     my ($self, @releases) = @_;
@@ -85,6 +111,7 @@ sub load_for_releases
         }
     }
 
+    $self->load_track_durations(@mediums);
     $_->mediums_loaded(1) for @releases;
 }
 

@@ -712,6 +712,7 @@ Readonly our @DERIVED_TABLE_LIST => qw(
     label_tag
     medium_index
     place_annotation
+    place_meta
     place_tag
     recording_annotation
     recording_meta
@@ -773,6 +774,7 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     editor_collection_artist
     editor_collection_collaborator
     editor_collection_event
+    editor_collection_gid_redirect
     editor_collection_instrument
     editor_collection_label
     editor_collection_place
@@ -799,6 +801,7 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     label_rating_raw
     label_tag_raw
     old_editor_name
+    place_rating_raw
     place_tag_raw
     recording_rating_raw
     recording_tag_raw

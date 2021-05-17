@@ -184,6 +184,7 @@ DROP TRIGGER reptg_place_attribute ON place_attribute;
 DROP TRIGGER reptg_place_attribute_type ON place_attribute_type;
 DROP TRIGGER reptg_place_attribute_type_allowed_value ON place_attribute_type_allowed_value;
 DROP TRIGGER reptg_place_gid_redirect ON place_gid_redirect;
+DROP TRIGGER reptg_place_meta ON place_meta;
 DROP TRIGGER reptg_place_tag ON place_tag;
 DROP TRIGGER reptg_place_type ON place_type;
 DROP TRIGGER reptg_recording ON recording;

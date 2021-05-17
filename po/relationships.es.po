@@ -19,8 +19,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-02-23 07:18+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-05-14 20:46+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1151,7 +1151,7 @@ msgid ""
 msgstr "Este atributo indica que el contenido en streaming no es audio, sino vídeo."
 
 #: DB:link_attribute_type/description:788
-msgid "This attribute indicates the number of a work in a series."
+msgid "This attribute indicates the number of an entity in a series."
 msgstr ""
 
 #: DB:link_attribute_type/description:425
@@ -3102,8 +3102,9 @@ msgstr ""
 
 #: DB:link_attribute_type/description:1150
 msgid ""
-"This specifies the credited task(s) for a \"miscellaneous support\" "
-"relationship."
+"This specifies the credited task(s) for a relationship that can be credited "
+"in many different ways, such as \"producer\", or one that is otherwise "
+"generic \"miscellaneous support\"."
 msgstr ""
 
 #: DB:link_attribute_type/description:568

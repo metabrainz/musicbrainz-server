@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Medium;
 use Moose;
 
+use List::AllUtils qw( any sum );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Translation qw( l );
@@ -96,40 +97,26 @@ sub may_have_discids {
 
 =head2 length
 
-Attempt to return the duration of the medium in microseconds.  This
-will return the length of the disc, by looking at the associated
-discids or tracklists.
-
-This will not load any data from the database, so make sure you load
-either the associated tracklists + tracks, the MediumCDTOC +
-CDTOC, or both.
+Returns the duration of the medium in microseconds, including
+possible pregap and data tracks.
+If we have some tracks for which we are missing the durations,
+returns undefined (since we don't actually know the true
+duration of the medium).
 
 =cut
 
 sub length {
     my $self = shift;
 
-    if (scalar $self->all_tracks > 0)
-    {
-        my $length = 0;
+    my @track_times = (
+        @{ $self->pregap_length // [] },
+        @{ $self->cdtoc_track_lengths // [] },
+        @{ $self->data_track_lengths // [] },
+    );
 
-        for my $trk ($self->all_tracks)
-        {
-            return undef unless defined $trk->length;
+    return undef if any { !defined $_ } @track_times;
 
-            $length += $trk->length;
-        }
-
-        return $length;
-    }
-    elsif ($self->cdtocs->[0] && $self->cdtocs->[0]->cdtoc)
-    {
-        return $self->cdtocs->[0]->cdtoc->length;
-    }
-    else
-    {
-        return undef;
-    }
+    return sum @track_times;
 }
 
 has 'has_pregap' => (
@@ -141,6 +128,27 @@ has 'has_pregap' => (
 has 'cdtoc_track_count' => (
     is => 'rw',
     isa => 'Int',
+);
+
+has 'cdtoc_track_lengths' => (
+    is => 'rw',
+    isa => 'Maybe[ArrayRef[Maybe[Int]]]'
+);
+
+has 'data_track_lengths' => (
+    is => 'rw',
+    isa => 'Maybe[ArrayRef[Maybe[Int]]]'
+);
+
+has 'pregap_length' => (
+    is => 'rw',
+    isa => 'Maybe[ArrayRef[Maybe[Int]]]'
+);
+
+has 'durations_loaded' => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 0,
 );
 
 sub audio_tracks {

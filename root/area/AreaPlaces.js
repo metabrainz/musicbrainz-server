@@ -58,6 +58,7 @@ const AreaPlaces = ({
             <PlaceList
               checkboxes="add-to-merge"
               places={places}
+              showRatings
             />
           </PaginatedResults>
           {$c.user ? (

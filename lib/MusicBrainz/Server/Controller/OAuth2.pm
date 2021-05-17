@@ -120,18 +120,14 @@ sub authorize : Local Args(0) RequireAuth SecureForm
         $scope |= $ACCESS_SCOPE_BY_NAME{$name};
     }
 
-
-    my ($code_challenge, $code_challenge_method);
-    if (DBDefs->OAUTH2_ENABLE_PKCE) {
-        $code_challenge = $params{code_challenge};
-        $code_challenge_method = $params{code_challenge_method};
-        $self->_check_pkce_challenge(
-            $c,
-            $redirect_uri,
-            $code_challenge,
-            $code_challenge_method,
-        );
-    }
+    my $code_challenge = $params{code_challenge};
+    my $code_challenge_method = $params{code_challenge_method};
+    $self->_check_pkce_challenge(
+        $c,
+        $redirect_uri,
+        $code_challenge,
+        $code_challenge_method,
+    );
 
     my $offline = 1;
     my $pre_authorized = 0;

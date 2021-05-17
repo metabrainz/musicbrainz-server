@@ -83,6 +83,11 @@ msgstr ""
 msgid "Algonquian languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:alq 
+#: DB:language/name:709
+msgid "Algonquin"
+msgstr ""
+
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:434
 msgid "Altaic languages"

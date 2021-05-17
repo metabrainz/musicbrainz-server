@@ -3,6 +3,5 @@
 
 SET search_path = 'statistics';
 
-ALTER TABLE log_statistic DROP CONSTRAINT IF EXISTS log_statistic_pkey;
 ALTER TABLE statistic DROP CONSTRAINT IF EXISTS statistic_pkey;
 ALTER TABLE statistic_event DROP CONSTRAINT IF EXISTS statistic_event_pkey;

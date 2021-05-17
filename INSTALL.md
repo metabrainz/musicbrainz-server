@@ -22,7 +22,7 @@ Prerequisites
     **This document will assume you are using Ubuntu (at least 14.04) for its
     instructions.**
 
-2.  Perl (at least version 5.18.2)
+2.  Perl (at least version 5.30)
 
     Perl comes bundled with most Linux operating systems, you can check your
     installed version of Perl with:
@@ -68,7 +68,7 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
-6.  Node.js (at least version 10.15) and Yarn
+6.  Node.js (at least version 16) and Yarn
 
     Node.js is required to build (and optionally minify) our JavaScript and CSS.
     If you plan on accessing musicbrainz-server inside a web browser, you should
@@ -307,6 +307,23 @@ Creating the database
         For example: http://ftp.musicbrainz.org/pub/musicbrainz/data/sample/.
 
         You can import this sample dump in the same way as the full dump above.
+
+    4.  Build materialized tables (optional but recommended)
+
+        MusicBrainz Server makes use of materialized (or denormalized) tables in
+        production to improve the performance of certain pages and features. These
+        tables duplicate primary table data and can take up several additional
+        gigabytes of space, so they're optional but recommended. If you don't populate
+        these tables, we'll generally fall back to slower queries in their place.
+
+        In order to build them initially, run the following script:
+
+            ./admin/BuildMaterializedTables --database=MAINTENANCE all
+
+        Once this is done, the tables will be kept up-to-date automatically via
+        triggers. (This is true even on replicated slaves. Generally, triggers
+        are not created on slaves, but since these materialized tables aren't
+        replicated, we install a set of slave-only triggers to manage them.)
 
     If this process gets interrupted or fails, you will need to manually drop the
     musicbrainz_db database in order to be able to run `./admin/InitDb.pl --createdb`

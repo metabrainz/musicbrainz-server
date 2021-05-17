@@ -1,0 +1,8 @@
+\set ON_ERROR_STOP 1
+BEGIN;
+
+ALTER TABLE link_type
+    ALTER COLUMN entity0_cardinality SET DATA TYPE SMALLINT,
+    ALTER COLUMN entity1_cardinality SET DATA TYPE SMALLINT;
+
+COMMIT;

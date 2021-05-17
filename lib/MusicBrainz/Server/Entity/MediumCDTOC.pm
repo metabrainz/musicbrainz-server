@@ -33,11 +33,11 @@ sub is_perfect_match {
     my ($self) = @_;
 
     my @cdtoc_info = @{ $self->cdtoc->track_details };
-    my @medium_tracks = @{ $self->medium->cdtoc_tracks };
+    my @medium_track_lengths = @{ $self->medium->cdtoc_track_lengths // [] };
 
-    return (@cdtoc_info == @medium_tracks) && all {
-      defined $_->[1]->length && $_->[0]{length_time} == $_->[1]->length
-    } (pairs (zip @cdtoc_info, @medium_tracks));
+    return (@cdtoc_info == @medium_track_lengths) && all {
+      defined $_->[1] && $_->[0]{length_time} == $_->[1]
+    } (pairs (zip @cdtoc_info, @medium_track_lengths));
 }
 
 around TO_JSON => sub {

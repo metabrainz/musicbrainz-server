@@ -127,6 +127,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
             message => l('Could not find medium')
         );
 
+    $c->model('Medium')->load_track_durations($medium);
     $c->model('Release')->load($medium);
 
     $c->model('Track')->load_for_mediums($medium);
@@ -378,6 +379,7 @@ sub move : Local Edit
         ) unless $medium->may_have_discids;
 
         $c->model('Medium')->load($medium_cdtoc);
+        $c->model('Medium')->load_track_durations($medium_cdtoc->medium);
 
         $c->model('Track')->load_for_mediums($medium);
         $c->model('Recording')->load($medium->all_tracks);

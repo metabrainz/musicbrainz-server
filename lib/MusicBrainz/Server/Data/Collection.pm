@@ -11,6 +11,8 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
 use List::MoreUtils qw( zip );
+use List::AllUtils qw( any uniq );
+use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -109,6 +111,89 @@ sub is_empty {
     );
 
     return $non_empty ? 0 : 1;
+}
+
+sub merge {
+    my ($self, $new_id, $old_ids, $user_id) = @_;
+
+    my @ids = ($new_id, @$old_ids);
+
+    my @collections = values %{ $self->c->model('Collection')->get_by_ids(@ids) };
+    my @collection_owners = uniq map { $_->editor_id } @collections;
+    if (any { $_ != $user_id } @collection_owners) {
+        confess('Attempt to merge collections by a different user');
+    }
+
+    $self->c->model('CollectionType')->load(@collections);
+    my @entity_types = uniq map { $_->type->item_entity_type } @collections;
+
+    if (@entity_types > 1) {
+        confess('Attempt to merge collections of different entity types');
+    }
+
+    my $type = $entity_types[0];
+
+    # Update duplicate entities: for all entities that exist in multiple
+    # collections, standardize the data to that what we want to keep.
+    $self->sql->do(
+        "UPDATE editor_collection_$type ec
+         SET added = x.added, comment = x.comment
+         FROM (
+            SELECT $type, min(added) AS added, string_agg(comment, '\n\n-------\n\n') as comment
+            FROM editor_collection_$type
+            WHERE collection = any(?)
+            GROUP BY $type
+         ) x 
+         WHERE x.$type = ec.$type AND ec.collection = any(?)",
+        \@ids, \@ids);
+
+    # Move all entities to the destination collection, ignore repeats
+    $self->sql->do(
+        "INSERT INTO editor_collection_$type
+         SELECT ? AS collection, $type, added, position, comment
+         FROM editor_collection_$type ec1
+         WHERE ec1.collection = any(?)
+         ON CONFLICT (collection, $type) DO NOTHING",
+        $new_id, $old_ids);
+
+    # Remove entries for old collections
+    $self->sql->do(
+        "DELETE FROM editor_collection_$type
+         WHERE collection = any(?)",
+        $old_ids);
+
+    for my $collection (@collections) {
+        $self->c->model('Editor')->load_for_collection($collection);
+    }
+
+    my @collaborators = uniq_by { $_->id } map { $_->all_collaborators } @collections;
+
+    # Move all collaborators to the destination collection
+    $self->set_collaborators(
+        $new_id, \@collaborators
+    ) if @collaborators;
+
+    # Remove all collaborators from the collection(s) being merged
+    $self->sql->do('DELETE FROM editor_collection_collaborator
+                    WHERE collection IN (' . placeholders(@$old_ids) . ')', @$old_ids);
+
+    # Append all descriptions to the destination one, for user improvement if needed
+    my $new_description = join("\n\n-------\n\n",
+                          uniq
+                          grep { $_ ne '' }
+                          map { $_->description }
+                          @collections);
+    if ($new_description ne '') {
+        $self->sql->do("UPDATE editor_collection SET description = ?
+                WHERE id = ?",
+                $new_description,
+                $new_id);
+    }
+
+    # Finally, delete the now empty collections
+    $self->_delete_and_redirect_gids('editor_collection', $new_id, @$old_ids);
+
+    return 1;
 }
 
 sub merge_entities {
@@ -299,6 +384,7 @@ sub delete {
     return unless @collection_ids;
 
     $self->sql->begin;
+    $self->remove_gid_redirects(@collection_ids);
 
     # Remove all entities associated with the collection(s)
     map {
