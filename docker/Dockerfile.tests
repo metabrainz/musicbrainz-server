@@ -134,7 +134,7 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
     chown -R solr:solr /opt/solr/ && \
     cd /home/musicbrainz
 
-ENV SIR_COMMIT 908e776
+ENV SIR_COMMIT 0d137b9
 
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/sir.git && \
     cd sir && \
