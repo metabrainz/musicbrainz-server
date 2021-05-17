@@ -94,8 +94,11 @@ function buildLinks(
   }
 
   if (entity.entityType === 'release') {
+    // Drop # + grey out if can't have discIDs unless it has them due to bug
+    const enabledDiscIdTab = entity.may_have_discids /*:: === true */ ||
+      ($c.stash.release_cdtoc_count || 0) > 0;
     links.push(buildLink(
-      entity.may_have_discids /*:: === true */
+      enabledDiscIdTab
         ? texp.l(
           'Disc IDs ({num})',
           {num: $c.stash.release_cdtoc_count || 0},
@@ -104,7 +107,7 @@ function buildLinks(
       entity,
       'discids',
       page,
-      !entity.may_have_discids, /* disable if can't have discids */
+      !enabledDiscIdTab, /* disable tab if irrelevant */
     ));
   }
 
