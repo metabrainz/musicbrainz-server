@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 exec sudo -E -H -u musicbrainz google-chrome-stable \
     --headless \

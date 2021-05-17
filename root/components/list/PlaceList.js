@@ -19,6 +19,7 @@ import {
   defineEntityColumn,
   defineBeginDateColumn,
   defineEndDateColumn,
+  ratingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
@@ -27,6 +28,7 @@ type Props = {
   +mergeForm?: MergeFormT,
   +order?: string,
   +places: $ReadOnlyArray<PlaceT>,
+  +showRatings?: boolean,
   +sortable?: boolean,
 };
 
@@ -35,6 +37,7 @@ const PlaceList = ({
   mergeForm,
   order,
   places,
+  showRatings = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
   const $c = React.useContext(CatalystContext);
@@ -78,10 +81,19 @@ const PlaceList = ({
         areaColumn,
         beginDateColumn,
         endDateColumn,
+        ...(showRatings ? [ratingsColumn] : []),
         ...(mergeForm && places.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user, checkboxes, mergeForm, order, places, sortable],
+    [
+      $c.user,
+      checkboxes,
+      mergeForm,
+      order,
+      places,
+      showRatings,
+      sortable,
+    ],
   );
 
   return <Table columns={columns} data={places} />;

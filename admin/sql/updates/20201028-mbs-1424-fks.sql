@@ -1,7 +1,5 @@
 \set ON_ERROR_STOP 1
 
-SET search_path = musicbrainz;
-
 BEGIN;
 
 ALTER TABLE release_first_release_date

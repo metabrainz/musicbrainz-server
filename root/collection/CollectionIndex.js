@@ -109,6 +109,7 @@ const listPicker = (
       return (
         <PlaceList
           places={props.entities}
+          showRatings
           {...sharedProps}
         />
       );

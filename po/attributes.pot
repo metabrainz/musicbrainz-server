@@ -3382,6 +3382,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Singaporean rights society COMPASS"
 msgstr ""
 
+#: DB:work_attribute_type/description:68
+msgctxt "work_attribute_type"
+msgid "ID for the South African rights society SAMRO"
+msgstr ""
+
 #: DB:work_attribute_type/description:20
 msgctxt "work_attribute_type"
 msgid "ID for the Spanish rights society SGAE"
@@ -5881,6 +5886,11 @@ msgstr ""
 #: DB:work_attribute_type/name:24
 msgctxt "work_attribute_type"
 msgid "SADAIC ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:68
+msgctxt "work_attribute_type"
+msgid "SAMRO ID"
 msgstr ""
 
 #: DB:work_attribute_type/name:40

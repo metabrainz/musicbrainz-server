@@ -288,6 +288,7 @@ declare type CollectionT = {
   +editor_is_limited: boolean,
   +entity_count: number,
   +gid: string,
+  +item_entity_type?: CoreEntityTypeT,
   +name: string,
   +public: boolean,
   +subscribed?: boolean,
@@ -891,6 +892,7 @@ declare type PlaceT = $ReadOnly<{
   ...CommentRoleT,
   ...CoreEntityRoleT<'place'>,
   ...DatePeriodRoleT,
+  ...RatableRoleT,
   ...TypeRoleT<PlaceTypeT>,
   +address: string,
   +area: AreaT | null,
@@ -912,6 +914,7 @@ declare type RatableT =
   | ArtistT
   | EventT
   | LabelT
+  | PlaceT
   | RecordingT
   | ReleaseGroupT
   | WorkT;

@@ -126,7 +126,7 @@ test 'TOC lookup for disc with pregap track' => sub {
     my $medium = $c->model('Medium')->get_by_id($created->{id});
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
-    $c->model('Track')->load_for_mediums($medium);
+    $c->model('Medium')->load_track_durations($medium);
     is($medium->length, 1122 + 330160, "inserted medium has expected length");
 
     my ($durationlookup, $hits) = $c->model('DurationLookup')->lookup("1 1 39872 15110", 1);

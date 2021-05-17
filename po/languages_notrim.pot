@@ -948,7 +948,7 @@ msgstr ""
 msgid "Algonquian languages"
 msgstr ""
 
-#. frequency:0 iso_code_3:alq 
+#. frequency:1 iso_code_3:alq 
 #: DB:language/name:709
 msgid "Algonquin"
 msgstr ""

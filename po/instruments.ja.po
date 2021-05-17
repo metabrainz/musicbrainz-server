@@ -6,6 +6,7 @@
 # john doe, 2016
 # mai inoue, 2015
 # Nozomu KURASAWA <email address hidden>, 2013,2016
+# ffff23 <email address hidden>, 2021
 # Osamu Takahashi, 2014
 # Shunsuke Shimizu <email address hidden>, 2016
 # th1rtyf0ur, 2013
@@ -13,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-14 20:05+0000\n"
-"Last-Translator: nikki2 <email address hidden>\n"
+"PO-Revision-Date: 2021-05-17 15:36+0000\n"
+"Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1004,7 +1005,7 @@ msgstr ""
 #: DB:instrument/name:256
 msgctxt "European hammered dulcimer"
 msgid "cimbalom"
-msgstr ""
+msgstr "ツィンバロム"
 
 #: DB:instrument/name:929
 msgctxt "19th century bass trombone"
@@ -1330,7 +1331,7 @@ msgstr "ドラムマシン"
 #: DB:instrument/name:101
 msgctxt "Set of drums in modern music"
 msgid "drums (drum set)"
-msgstr ""
+msgstr "ドラム(ドラムセット)"
 
 #: DB:instrument/name:649
 msgid "duck call"
@@ -2226,7 +2227,7 @@ msgstr "ケーン"
 #: DB:instrument/name:287
 msgctxt "Thai and Cambodian hammered dulcimer"
 msgid "khim"
-msgstr ""
+msgstr "キム"
 
 #: DB:instrument/name:666
 msgctxt "Vertical bamboo duct flute"
@@ -2648,7 +2649,7 @@ msgstr "ナチュラル・ホルン"
 #: DB:instrument/name:913
 msgctxt "Brass valveless ancestor of the modern trumpet"
 msgid "natural trumpet"
-msgstr ""
+msgstr "ナチュラル・トランペット"
 
 #: DB:instrument/name:540
 msgid "ney"
@@ -2737,7 +2738,7 @@ msgstr ""
 #: DB:instrument/name:935
 msgctxt "Extralarge 3-string Bass"
 msgid "octobass"
-msgstr ""
+msgstr "オクトバス"
 
 #: DB:instrument/name:759
 msgid "oktawka"
@@ -2869,27 +2870,27 @@ msgstr "ピアノアコーディオン"
 #: DB:instrument/name:1024
 msgctxt "ensemble of two pianists playing on separate pianos"
 msgid "piano duo"
-msgstr ""
+msgstr "ピアノ二重奏"
 
 #: DB:instrument/name:1025
 msgctxt "ensemble of two pianists playing on one piano"
 msgid "piano four hands"
-msgstr ""
+msgstr "ピアノ連弾"
 
 #: DB:instrument/name:965
 msgctxt "ensemble of piano, violin, viola and cello"
 msgid "piano quartet"
-msgstr ""
+msgstr "ピアノ四重奏"
 
 #: DB:instrument/name:798
 msgctxt "small drop action piano"
 msgid "piano spinet"
-msgstr ""
+msgstr "スピネット・ピアノ"
 
 #: DB:instrument/name:911
 msgctxt "ensemble of violin, cello and piano"
 msgid "piano trio"
-msgstr ""
+msgstr "ピアノ三重奏"
 
 #: DB:instrument/name:17
 msgid "piccolo"
@@ -3226,7 +3227,7 @@ msgstr "サントゥール"
 #: DB:instrument/name:255
 msgctxt "Persian/Iran hammered dulcimer"
 msgid "santur"
-msgstr ""
+msgstr "サントゥール"
 
 #: DB:instrument/name:244
 msgid "sanxian"
@@ -3524,7 +3525,7 @@ msgstr ""
 #: DB:instrument/name:908
 msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
 msgid "string quartet"
-msgstr ""
+msgstr "弦楽四重奏"
 
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"

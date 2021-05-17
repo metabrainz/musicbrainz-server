@@ -311,6 +311,8 @@ sub CreateRelations
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
     RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating CAA functions ...");
     RunSQLScript($DB, "eaa/CreateFunctions.sql", "Creating EAA functions ...");
+    RunSQLScript($DB, "CreateSlaveOnlyFunctions.sql", "Creating slave-only functions ...")
+        if $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
@@ -358,6 +360,9 @@ sub CreateRelations
 
     RunSQLScript($DB, "eaa/CreateTriggers.sql", "Creating EAA triggers ...")
         unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "CreateSlaveOnlyTriggers.sql", "Creating slave-only triggers ...")
+        if $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateSearchIndexes.sql", "Creating search indexes ...");
 

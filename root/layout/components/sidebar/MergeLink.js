@@ -13,7 +13,7 @@ import {CatalystContext} from '../../../context';
 import {returnToCurrentPage} from '../../../utility/returnUri';
 
 type Props = {
-  +entity: CoreEntityT,
+  +entity: CoreEntityT | CollectionT,
 };
 
 const mergeUrl = ($c, entity) => {

@@ -101,7 +101,7 @@ sub _column_mapping
 
 sub _where_filter
 {
-    my ($filter) = @_;
+    my ($filter, $using_artist_release_table) = @_;
 
     my (@query, @joins, @params);
 
@@ -117,7 +117,7 @@ sub _where_filter
         if (exists $filter->{status} && $filter->{status}) {
             my @statuses = ref($filter->{status}) ? @{ $filter->{status} } : ( $filter->{status} );
             if (@statuses) {
-                push @query, 'status IN (' . placeholders(@statuses) . ')';
+                push @query, 'release.status IN (' . placeholders(@statuses) . ')';
                 push @params, @statuses;
             }
         }
@@ -166,6 +166,9 @@ sub _where_filter
             $country_date_query .= (join ' AND ', @country_date_conditions) . ')';
             push @query, $country_date_query;
         }
+        if ($using_artist_release_table) {
+            unshift @joins, 'JOIN release ON release.id = ar.release';
+        }
     }
 
     return (\@query, \@joins, \@params);
@@ -202,11 +205,23 @@ sub find_by_area {
     $self->query_to_list_limited($query, [$area_id], $limit, $offset);
 }
 
-sub find_by_artist
+sub has_materialized_artist_release_data {
+    my ($self) = @_;
+    CORE::state $has_data;
+    if (defined $has_data) {
+        return $has_data;
+    }
+    $has_data = $self->sql->select_single_value(
+        'SELECT 1 FROM artist_release LIMIT 1',
+    ) ? 1 : 0;
+    return $has_data;
+}
+
+sub _find_by_artist_slow
 {
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, "acn.artist = ?";
     push @$params, $artist_id;
@@ -245,6 +260,57 @@ sub find_by_artist
     $self->query_to_list_limited($query, $params, $limit, $offset, undef, cache_hits => 1);
 }
 
+sub _find_by_artist_fast {
+    my ($self, $artist_id, $va, $limit, $offset, %args) = @_;
+
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 1);
+
+    push @$conditions, 'ar.is_track_artist = ' . ($va ? 'TRUE' : 'FALSE');
+    push @$conditions, 'ar.artist = ?';
+    push @$params, $artist_id;
+
+    my $inner_query = "FROM artist_release ar " .
+        join(' ', @$extra_joins) . ' ' .
+        'WHERE ' . join(' AND ', @$conditions);
+
+    my $count_query = 'SELECT count(*) ' . $inner_query;
+    my $total_row_count = $self->sql->select_single_value($count_query, @$params);
+
+    my $results_query = 'SELECT release ' .
+        $inner_query . ' ' .
+        # Do NOT modify the `ORDER BY` here. We're returning things in
+        # index order (`artist_release_*_idx_sort`) to avoid a sort
+        # operation. Changing the order is a schema change.
+        'ORDER BY ar.artist, ' .
+            'ar.first_release_date NULLS LAST, ' .
+            'ar.catalog_numbers NULLS LAST, ' .
+            'ar.country_code NULLS LAST, ' .
+            'ar.barcode NULLS LAST, ' .
+            'ar.sort_character, ' .
+            'ar.release ' .
+        'LIMIT ? OFFSET ?';
+
+    my $release_ids = $self->sql->select_single_column_array(
+        $results_query, @$params, $limit, $offset,
+    );
+    my $releases_by_id = $self->get_by_ids(@$release_ids);
+
+    my @releases = map { $releases_by_id->{$_} } @$release_ids;
+    $self->load_meta(@releases);
+
+    return (\@releases, $total_row_count);
+}
+
+sub find_by_artist
+{
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
+
+    if ($self->has_materialized_artist_release_data) {
+        return $self->_find_by_artist_fast($artist_id, 0, $limit, $offset, %args);
+    }
+    return $self->_find_by_artist_slow($artist_id, $limit, $offset, %args);
+}
+
 sub find_by_artist_credit
 {
     my ($self, $artist_credit_id, $limit, $offset) = @_;
@@ -260,7 +326,7 @@ sub find_by_artist_credit
 sub find_by_instrument {
     my ($self, $instrument_id, $limit, $offset, %args) = @_;
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, "instrument.id = ?";
     push @$params, $instrument_id;
@@ -309,7 +375,7 @@ sub find_by_label
 {
     my ($self, $label_id, $limit, $offset, %args) = @_;
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, "release_label.label = ?";
     push @$params, $label_id;
@@ -367,7 +433,7 @@ sub find_by_release_group
     my ($self, $ids, $limit, $offset, %args) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, "release_group IN (" . placeholders(@ids) . ")";
     push @$params, @ids;
@@ -392,11 +458,11 @@ sub find_by_release_group
     $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
-sub find_by_track_artist
+sub _find_by_track_artist_slow
 {
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, "
         release.id IN (
@@ -433,41 +499,16 @@ sub find_by_track_artist
     $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
-sub find_for_various_artists
+sub find_by_track_artist
 {
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
-
-    push @$conditions, "
-        acn.artist != ?
-        AND release.id IN (
-            SELECT release FROM medium
-                JOIN track tr
-                ON tr.medium = medium.id
-                JOIN artist_credit_name acn
-                ON acn.artist_credit = tr.artist_credit
-            WHERE acn.artist = ?)";
-    push @$params, $artist_id, $artist_id;
-
-    my $query = "
-      SELECT *
-      FROM (
-        SELECT DISTINCT ON (release.id)
-          " . $self->_columns . ",
-          date_year, date_month, date_day
-        FROM " . $self->_table . "
-        JOIN artist_credit_name acn
-          ON acn.artist_credit = release.artist_credit
-        " . join(' ', @$extra_joins) . "
-        LEFT JOIN release_event ON release_event.release = release.id
-        WHERE " . join(" AND ", @$conditions) . "
-        ORDER BY release.id,
-          date_year, date_month, date_day, release.name COLLATE musicbrainz
-      ) release
-      ORDER BY date_year, date_month, date_day, name COLLATE musicbrainz";
-
-    $self->query_to_list_limited($query, $params, $limit, $offset);
+    # Note: This excludes releases where $artist_id appears in the
+    # release artist credit.
+    if ($self->has_materialized_artist_release_data) {
+        return $self->_find_by_artist_fast($artist_id, 1, $limit, $offset, %args);
+    }
+    return $self->_find_by_track_artist_slow($artist_id, $limit, $offset, %args);
 }
 
 sub find_by_recording
@@ -476,7 +517,7 @@ sub find_by_recording
     my @ids = ref $ids ? @$ids : ( $ids );
     return ([], 0) unless @ids;
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, "track.recording IN (" . placeholders(@ids) . ")";
     push @$params, @ids;
@@ -536,7 +577,7 @@ sub find_by_country
 {
     my ($self, $country_id, $limit, $offset, %args) = @_;
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, "release_event.country = ?";
     push @$params, $country_id;
@@ -618,7 +659,7 @@ sub load_with_medium_for_recording
 {
     my ($self, $recording_id, $limit, $offset, %args) = @_;
 
-    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, "track.recording = ?";
     push @$params, $recording_id;

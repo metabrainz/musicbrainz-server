@@ -23,6 +23,7 @@ with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
@@ -77,6 +78,15 @@ after 'load' => sub {
     my ($self, $c) = @_;
 
     my $place = $c->stash->{place};
+    my $returning_jsonld = $self->should_return_jsonld($c);
+
+    unless ($returning_jsonld) {
+        $c->model('Place')->load_meta($place);
+
+        if ($c->user_exists) {
+            $c->model('Place')->rating->load_user_ratings($c->user->id, $place);
+        }
+    }
 
     $c->model('PlaceType')->load($place);
     $c->model('Area')->load($place);
@@ -189,7 +199,7 @@ sub map : Chained('load') {
 
 }
 
-after [qw( show collections details tags aliases events performances map )] => sub {
+after [qw( show collections details tags ratings aliases events performances map )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
 };

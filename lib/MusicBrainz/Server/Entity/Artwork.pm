@@ -100,11 +100,11 @@ sub filename
 
 sub image {
     my $self = shift;
-    
+
     # If the file has been removed from CAA the suffix will not exist,
-    # but we still call this for edit display 
+    # but we still call this for edit display.
     return undef unless $self->suffix;
-    
+
     return $self->_url_prefix . "." . $self->suffix;
 }
 

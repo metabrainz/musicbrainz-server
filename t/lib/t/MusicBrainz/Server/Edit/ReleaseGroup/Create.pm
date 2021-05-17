@@ -20,6 +20,7 @@ MusicBrainz::Server::Test->prepare_test_database($c);
 MusicBrainz::Server::Test->prepare_test_database($c, '+releasegrouptype');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
     SET client_min_messages TO warning;
+    SET CONSTRAINTS ALL IMMEDIATE;
     TRUNCATE release_group CASCADE;
 SQL
 

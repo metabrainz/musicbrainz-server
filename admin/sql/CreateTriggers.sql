@@ -28,6 +28,9 @@ CREATE TRIGGER a_ins_artist AFTER INSERT ON artist
 CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_artist_credit_name BEFORE UPDATE ON artist_credit_name
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_artist_credit_name();
+
 CREATE TRIGGER b_del_artist_special BEFORE DELETE ON artist
     FOR EACH ROW WHEN (OLD.id IN (1, 2)) EXECUTE PROCEDURE deny_special_purpose_deletion();
 
@@ -323,7 +326,7 @@ CREATE TRIGGER a_ins_label AFTER INSERT ON label
     FOR EACH ROW EXECUTE PROCEDURE a_ins_label();
 
 CREATE TRIGGER b_del_label_special BEFORE DELETE ON label
-    FOR EACH ROW WHEN (OLD.id = 1) EXECUTE PROCEDURE deny_special_purpose_deletion();
+    FOR EACH ROW WHEN (OLD.id IN (1, 3267)) EXECUTE PROCEDURE deny_special_purpose_deletion();
 
 CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
@@ -372,6 +375,9 @@ CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium
 
 CREATE TRIGGER b_upd_medium_cdtoc BEFORE UPDATE ON medium_cdtoc
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER a_ins_place AFTER INSERT ON place
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_place();
 
 CREATE TRIGGER b_upd_place BEFORE UPDATE ON place
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
@@ -466,6 +472,15 @@ CREATE TRIGGER a_del_release_event AFTER DELETE ON release_unknown_country
 CREATE TRIGGER b_upd_release_label BEFORE UPDATE ON release_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER a_ins_release_label AFTER INSERT ON release_label
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_release_label();
+
+CREATE TRIGGER a_upd_release_label AFTER UPDATE ON release_label
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_release_label();
+
+CREATE TRIGGER a_del_release_label AFTER DELETE ON release_label
+    FOR EACH ROW EXECUTE PROCEDURE a_del_release_label();
+
 CREATE TRIGGER a_ins_release_group AFTER INSERT ON release_group
     FOR EACH ROW EXECUTE PROCEDURE a_ins_release_group();
 
@@ -477,6 +492,15 @@ CREATE TRIGGER a_del_release_group AFTER DELETE ON release_group
 
 CREATE TRIGGER b_upd_release_group BEFORE UPDATE ON release_group
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER a_ins_release_group_secondary_type_join AFTER INSERT ON release_group_secondary_type_join
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_release_group_secondary_type_join();
+
+CREATE TRIGGER a_del_release_group_secondary_type_join AFTER DELETE ON release_group_secondary_type_join
+    FOR EACH ROW EXECUTE PROCEDURE a_del_release_group_secondary_type_join();
+
+CREATE TRIGGER b_upd_release_group_secondary_type_join BEFORE UPDATE ON release_group_secondary_type_join
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_release_group_secondary_type_join();
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON release_group_alias
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
@@ -1039,6 +1063,47 @@ FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
 CREATE CONSTRAINT TRIGGER delete_unused_tag
 AFTER DELETE ON series_tag DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
+
+--------------------------------------------------------------------------------
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release_country DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release_first_release_date DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER UPDATE ON release_group_meta DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER INSERT OR DELETE ON release_group_secondary_type_join DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON release_label DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON track DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_pending_updates
+    AFTER INSERT OR UPDATE OR DELETE ON track DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_pending_updates();
 
 COMMIT;
 

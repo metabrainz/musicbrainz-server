@@ -60,11 +60,26 @@ CREATE UNIQUE INDEX artist_type_idx_gid ON artist_type (gid);
 
 CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
 
-CREATE INDEX artist_rating_raw_idx_artist ON artist_rating_raw (artist);
 CREATE INDEX artist_rating_raw_idx_editor ON artist_rating_raw (editor);
 
 CREATE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
 CREATE INDEX artist_tag_raw_idx_editor ON artist_tag_raw (editor);
+
+CREATE INDEX artist_release_nonva_idx_sort ON artist_release_nonva (artist, first_release_date NULLS LAST, catalog_numbers NULLS LAST, country_code NULLS LAST, barcode NULLS LAST, sort_character, release);
+CREATE INDEX artist_release_va_idx_sort ON artist_release_va (artist, first_release_date NULLS LAST, catalog_numbers NULLS LAST, country_code NULLS LAST, barcode NULLS LAST, sort_character, release);
+
+CREATE UNIQUE INDEX artist_release_nonva_idx_uniq ON artist_release_nonva (release, artist);
+CREATE UNIQUE INDEX artist_release_va_idx_uniq ON artist_release_va (release, artist);
+
+CREATE INDEX artist_release_pending_update_idx_release ON artist_release_pending_update USING HASH (release);
+
+CREATE INDEX artist_release_group_nonva_idx_sort ON artist_release_group_nonva (artist, unofficial, primary_type NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
+CREATE INDEX artist_release_group_va_idx_sort ON artist_release_group_va (artist, unofficial, primary_type NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
+
+CREATE UNIQUE INDEX artist_release_group_nonva_idx_uniq ON artist_release_group_nonva (release_group, artist);
+CREATE UNIQUE INDEX artist_release_group_va_idx_uniq ON artist_release_group_va (release_group, artist);
+
+CREATE INDEX artist_release_group_pending_update_idx_release_group ON artist_release_group_pending_update USING HASH (release_group);
 
 CREATE INDEX cdtoc_raw_discid ON cdtoc_raw (discid);
 CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, track_offset);
@@ -164,7 +179,6 @@ CREATE UNIQUE INDEX event_attribute_type_idx_gid ON event_attribute_type (gid);
 CREATE INDEX event_attribute_type_allowed_value_idx_name ON event_attribute_type_allowed_value (event_attribute_type);
 CREATE UNIQUE INDEX event_attribute_type_allowed_value_idx_gid ON event_attribute_type_allowed_value (gid);
 
-CREATE INDEX event_rating_raw_idx_event ON event_rating_raw (event);
 CREATE INDEX event_rating_raw_idx_editor ON event_rating_raw (editor);
 
 CREATE INDEX event_tag_idx_tag ON event_tag (tag);
@@ -408,7 +422,6 @@ CREATE INDEX label_tag_idx_tag ON label_tag (tag);
 CREATE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
 CREATE INDEX label_tag_raw_idx_editor ON label_tag_raw (editor);
 
-CREATE INDEX label_rating_raw_idx_label ON label_rating_raw (label);
 CREATE INDEX label_rating_raw_idx_editor ON label_rating_raw (editor);
 
 CREATE UNIQUE INDEX label_type_idx_gid ON label_type (gid);
@@ -455,6 +468,8 @@ CREATE INDEX place_attribute_type_allowed_value_idx_name ON place_attribute_type
 CREATE UNIQUE INDEX place_attribute_type_allowed_value_idx_gid ON place_attribute_type_allowed_value (gid);
 
 CREATE UNIQUE INDEX place_alias_type_idx_gid ON place_alias_type (gid);
+
+CREATE INDEX place_rating_raw_idx_editor ON place_rating_raw (editor);
 
 CREATE INDEX place_tag_idx_tag ON place_tag (tag);
 
@@ -534,7 +549,6 @@ CREATE UNIQUE INDEX release_group_attribute_type_allowed_value_idx_gid ON releas
 
 CREATE INDEX release_group_tag_idx_tag ON release_group_tag (tag);
 
-CREATE INDEX release_group_rating_raw_idx_release_group ON release_group_rating_raw (release_group);
 CREATE INDEX release_group_rating_raw_idx_editor ON release_group_rating_raw (editor);
 
 CREATE INDEX release_group_tag_raw_idx_tag ON release_group_tag_raw (tag);
@@ -642,6 +656,7 @@ CREATE INDEX alternative_track_idx_artist_credit ON alternative_track (artist_cr
 
 CREATE INDEX area_gid_redirect_idx_new_id ON area_gid_redirect (new_id);
 CREATE INDEX artist_gid_redirect_idx_new_id ON artist_gid_redirect (new_id);
+CREATE INDEX editor_collection_gid_redirect_idx_new_id ON editor_collection_gid_redirect (new_id);
 CREATE INDEX event_gid_redirect_idx_new_id ON event_gid_redirect (new_id);
 CREATE INDEX instrument_gid_redirect_idx_new_id ON instrument_gid_redirect (new_id);
 CREATE INDEX label_gid_redirect_idx_new_id ON label_gid_redirect (new_id);

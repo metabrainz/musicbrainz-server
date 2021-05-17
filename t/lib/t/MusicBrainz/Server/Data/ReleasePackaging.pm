@@ -29,8 +29,8 @@ ok(!exists $lts->{666});
 
 does_ok($lt_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @types = $lt_data->get_all;
-is(@types, 5);
-is_deeply([sort { $a <=> $b } map { $_->id } @types], [1, 2, 3, 5, 7]);
+is(@types, 6);
+is_deeply([sort { $a <=> $b } map { $_->id } @types], [1, 2, 3, 4, 5, 7]);
 
 };
 

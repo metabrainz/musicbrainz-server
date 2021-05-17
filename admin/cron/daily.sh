@@ -1,4 +1,6 @@
-#!/bin/bash -u
+#!/usr/bin/env bash
+
+set -u
 
 export PATH=/usr/local/bin:$PATH
 

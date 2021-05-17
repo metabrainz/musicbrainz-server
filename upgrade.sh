@@ -1,5 +1,6 @@
-#!/bin/bash -u
+#!/usr/bin/env bash
 
+set -u
 set -o errexit
 
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
@@ -7,10 +8,11 @@ cd "$MB_SERVER_ROOT"
 
 source admin/config.sh
 
-DB_SCHEMA_SEQUENCE=$(perl -Ilib -e 'use DBDefs; print DBDefs->DB_SCHEMA_SEQUENCE;')
-REPLICATION_TYPE=$(perl -Ilib -e 'use DBDefs; print DBDefs->REPLICATION_TYPE;')
+: ${DB_SCHEMA_SEQUENCE:=$(perl -Ilib -e 'use DBDefs; print DBDefs->DB_SCHEMA_SEQUENCE;')}
+: ${REPLICATION_TYPE:=$(perl -Ilib -e 'use DBDefs; print DBDefs->REPLICATION_TYPE;')}
+: ${DATABASE:=MAINTENANCE}
 
-NEW_SCHEMA_SEQUENCE=25
+NEW_SCHEMA_SEQUENCE=26
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 
 RT_MASTER=1
@@ -39,12 +41,12 @@ then
     ./admin/RunExport
 
     echo `date` : 'Drop replication triggers (musicbrainz)'
-    ./admin/psql MAINTENANCE < ./admin/sql/DropReplicationTriggers.sql
+    ./admin/psql "$DATABASE" < ./admin/sql/DropReplicationTriggers.sql
 
     for schema in caa documentation statistics wikidocs
     do
         echo `date` : "Drop replication triggers ($schema)"
-        ./admin/psql MAINTENANCE < ./admin/sql/$schema/DropReplicationTriggers.sql
+        ./admin/psql "$DATABASE" < ./admin/sql/$schema/DropReplicationTriggers.sql
     done
 
 fi
@@ -52,18 +54,7 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Disabling last_updated triggers
-    ./admin/sql/DisableLastUpdatedTriggers.pl
-fi
-
-################################################################################
-# Migrations that apply for only slaves
-if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
-then
-    if [ -e "$SLAVE_ONLY_SQL" ]
-    then
-        echo `date` : 'Running upgrade scripts for slave nodes'
-        ./admin/psql MAINTENANCE < "$SLAVE_ONLY_SQL" || exit 1
-    fi
+    OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/DisableLastUpdatedTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
@@ -72,9 +63,20 @@ fi
 echo `date` : 'Running upgrade scripts for all nodes'
 if [ -e "$EXTENSIONS_SQL" ]
 then
-    ./admin/psql --system MAINTENANCE < "$EXTENSIONS_SQL" || exit 1
+    ./admin/psql --system "$DATABASE" < "$EXTENSIONS_SQL" || exit 1
 fi
-./admin/psql MAINTENANCE < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
+./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
+
+################################################################################
+# Migrations that apply for only slaves
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+then
+    if [ -e "$SLAVE_ONLY_SQL" ]
+    then
+        echo `date` : 'Running upgrade scripts for slave nodes'
+        ./admin/psql "$DATABASE" < "$SLAVE_ONLY_SQL" || exit 1
+    fi
+fi
 
 ################################################################################
 # Re-enable replication
@@ -82,12 +84,12 @@ fi
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : 'Create replication triggers (musicbrainz)'
-    OUTPUT=`./admin/psql MAINTENANCE < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     for schema in caa documentation statistics wikidocs
     do
         echo `date` : "Create replication triggers ($schema)"
-        OUTPUT=`./admin/psql MAINTENANCE < ./admin/sql/$schema/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+        OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/$schema/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
     done
 fi
 
@@ -97,17 +99,17 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : 'Running upgrade scripts for master/standalone nodes'
-    ./admin/psql MAINTENANCE < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
+    ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
 
     echo `date` : Enabling last_updated triggers
-    ./admin/sql/EnableLastUpdatedTriggers.pl
+    OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/EnableLastUpdatedTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
 # Bump schema sequence
 
 echo `date` : Going to schema sequence $NEW_SCHEMA_SEQUENCE
-echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql MAINTENANCE
+echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql "$DATABASE"
 
 # ignore superuser-only vacuum tables
 echo `date` : Vacuuming DB.
