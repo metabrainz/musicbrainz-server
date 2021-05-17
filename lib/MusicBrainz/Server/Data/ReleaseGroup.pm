@@ -110,7 +110,7 @@ sub _where_filter
 
             if (my $secondary = $partitioned_types{secondary}) {
                 if ($using_artist_release_group_table) {
-                    push @query, 'arg.secondary_types @> any(?)';
+                    push @query, 'arg.secondary_types @> ?';
                 } else {
                     push @query, 'st.secondary_type = any(?)';
                     push @joins, 'JOIN release_group_secondary_type_join st ON rg.id = st.release_group';
