@@ -231,6 +231,7 @@ module.exports = {
   'report/ReportsIndex': require('../report/ReportsIndex'),
   'report/SeparateDiscs': require('../report/SeparateDiscs'),
   'report/SetInDifferentRg': require('../report/SetInDifferentRg'),
+  'report/ShouldNotHaveDiscIds': require('../report/ShouldNotHaveDiscIds'),
   'report/SingleMediumReleasesWithMediumTitles': require('../report/SingleMediumReleasesWithMediumTitles'),
   'report/SomeFormatsUnset': require('../report/SomeFormatsUnset'),
   'report/SuperfluousDataTracks': require('../report/SuperfluousDataTracks'),
