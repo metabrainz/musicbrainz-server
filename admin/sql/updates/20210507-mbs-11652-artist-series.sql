@@ -1,6 +1,8 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+\set ARTIST_PART_OF_SERIES_ID '996'
+
 -- generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/artist/series/part_of')
 \set ARTIST_PART_OF_SERIES_GID '''d1a845d1-8c03-3191-9454-e4e8d37fa5e0'''
 
@@ -31,10 +33,11 @@ CREATE OR REPLACE VIEW artist_series AS
 
 -- Part-of-series rel
 
-INSERT INTO link_type (gid, entity_type0, entity_type1, entity0_cardinality,
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, entity0_cardinality,
                        entity1_cardinality, name, description, link_phrase,
                        reverse_link_phrase, long_link_phrase) VALUES
     (
+        :ARTIST_PART_OF_SERIES_ID,
         :ARTIST_PART_OF_SERIES_GID,
         'artist', 'series', 0, 0, 'part of',
         'Indicates that the artist is part of a series.',
@@ -43,14 +46,14 @@ INSERT INTO link_type (gid, entity_type0, entity_type1, entity0_cardinality,
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES
     (
-        (SELECT id FROM link_type WHERE gid = :ARTIST_PART_OF_SERIES_GID),
+        :ARTIST_PART_OF_SERIES_ID,
         :LINK_ATTRIBUTE_TYPE_NUMBER_ID,
         0,
         1
     );
 
 INSERT INTO orderable_link_type (link_type, direction) VALUES
-    ((SELECT id FROM link_type WHERE gid = :ARTIST_PART_OF_SERIES_GID), 2);
+    (:ARTIST_PART_OF_SERIES_ID, 2);
 
 ALTER TABLE series_type DROP CONSTRAINT IF EXISTS allowed_series_entity_type;
 
