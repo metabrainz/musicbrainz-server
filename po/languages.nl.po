@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-21 07:39+0000\n"
+"PO-Revision-Date: 2021-05-17 06:43+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -90,6 +90,11 @@ msgstr "Aleut"
 #: DB:language/name:14
 msgid "Algonquian languages"
 msgstr "Algonquiaanse talen"
+
+#. frequency:1 iso_code_3:alq
+#: DB:language/name:709
+msgid "Algonquin"
+msgstr "Algonkisch"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:434

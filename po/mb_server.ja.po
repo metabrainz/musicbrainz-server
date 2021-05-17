@@ -37,8 +37,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 16:28+0300\n"
-"PO-Revision-Date: 2021-05-14 17:16+0000\n"
+"POT-Creation-Date: 2021-05-14 20:29+0000\n"
+"PO-Revision-Date: 2021-05-17 15:02+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -212,7 +212,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:656 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
-msgstr "<strong>警告</strong>"
+msgstr "<strong>警告</strong>:"
 
 #: ../root/annotation/edit.tt:48
 msgid ""
@@ -440,7 +440,7 @@ msgid "Additional information"
 msgstr "その他の情報"
 
 #: ../root/place/edit_form.tt:16
-#: ../root/layout/components/sidebar/PlaceSidebar.js:80
+#: ../root/layout/components/sidebar/PlaceSidebar.js:81
 msgid "Address:"
 msgstr "住所:"
 
@@ -608,7 +608,7 @@ msgstr "本当にMusicBrainzから{entity}を削除しますか?"
 #: ../root/area/AreaHeader.js:27 ../root/components/list/AreaList.js:46
 #: ../root/components/list/ArtistList.js:86
 #: ../root/components/list/LabelList.js:75
-#: ../root/components/list/PlaceList.js:68 ../root/edit/details/AddArea.js:46
+#: ../root/components/list/PlaceList.js:71 ../root/edit/details/AddArea.js:46
 #: ../root/edit/details/AddArtist.js:103 ../root/edit/details/AddLabel.js:100
 #: ../root/edit/details/AddPlace.js:77 ../root/edit/details/EditArea.js:61
 #: ../root/edit/details/EditArtist.js:129
@@ -633,7 +633,7 @@ msgstr "地域の詳細"
 #: ../root/label/edit_form.tt:18 ../root/place/edit_form.tt:19
 #: ../root/layout/components/sidebar/ArtistSidebar.js:119
 #: ../root/layout/components/sidebar/LabelSidebar.js:88
-#: ../root/layout/components/sidebar/PlaceSidebar.js:86
+#: ../root/layout/components/sidebar/PlaceSidebar.js:87
 msgid "Area:"
 msgstr "地域:"
 
@@ -992,6 +992,7 @@ msgstr "承認できる"
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
 #: ../root/release/edit/tracklist.tt:117 ../root/release/merge.tt:134
 #: ../root/area/AreaMerge.js:54 ../root/artist/ArtistMerge.js:81
+#: ../root/collection/CollectionMerge.js:187
 #: ../root/components/ConfirmLayout.js:50 ../root/event/EventMerge.js:57
 #: ../root/instrument/InstrumentMerge.js:54 ../root/label/LabelMerge.js:54
 #: ../root/layout/components/MergeHelper.js:82 ../root/place/PlaceMerge.js:54
@@ -1143,6 +1144,7 @@ msgid "Collapse medium"
 msgstr "メディアを折りたたむ"
 
 #: ../root/components/common-macros.tt:574
+#: ../root/collection/CollectionMerge.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
 #: ../root/user/UserCollections.js:93
 msgid "Collection"
@@ -1367,7 +1369,7 @@ msgstr "廃止:"
 
 #: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
 #: ../root/admin/attributes/Attribute.js:101
-#: ../root/collection/CollectionIndex.js:179
+#: ../root/collection/CollectionIndex.js:180
 #: ../root/edit/details/AddInstrument.js:79
 #: ../root/edit/details/AddRelationshipAttribute.js:53
 #: ../root/edit/details/AddRelationshipType.js:96
@@ -2703,7 +2705,7 @@ msgstr "メッセージ"
 msgid "Modify count"
 msgstr "編集回数"
 
-#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:39
+#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:45
 msgid "Move"
 msgstr "移動"
 
@@ -2931,7 +2933,7 @@ msgstr ""
 msgid "No nag"
 msgstr ""
 
-#: ../root/user/ratings.tt:24
+#: ../root/user/ratings.tt:25
 msgid "No ratings."
 msgstr "評価ありません"
 
@@ -2994,7 +2996,7 @@ msgstr "中"
 #: ../root/edit/details/historic/MergeReleases.js:69
 #: ../root/user/ReportUser.js:116
 msgid "Note"
-msgstr ""
+msgstr "ノート"
 
 #: ../root/release/edit/information.tt:279
 msgid ""
@@ -3077,7 +3079,7 @@ msgid "Open Edits for {name}"
 msgstr "{name}に対する未確定の編集"
 
 #: ../root/edit/list_header.tt:16
-#: ../root/layout/components/sidebar/CollectionSidebar.js:60
+#: ../root/layout/components/sidebar/CollectionSidebar.js:65
 #: ../root/layout/components/sidebar/EditLinks.js:41
 msgid "Open edits"
 msgstr "未確定の編集"
@@ -3159,7 +3161,7 @@ msgstr "句:"
 #: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:405
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
-#: ../root/components/list/PlaceList.js:51 ../root/edit/details/AddPlace.js:46
+#: ../root/components/list/PlaceList.js:54 ../root/edit/details/AddPlace.js:46
 #: ../root/edit/details/EditPlace.js:58 ../root/layout/components/Search.js:40
 #: ../root/place/PlaceHeader.js:29
 #: ../root/report/PlacesWithoutCoordinates.js:42
@@ -3175,6 +3177,10 @@ msgstr "場所"
 #: ../root/place/edit_form.tt:10
 msgid "Place Details"
 msgstr "場所の詳細"
+
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+msgid "Place ratings"
+msgstr ""
 
 #: ../root/components/common-macros.tt:557
 msgid "Place:"
@@ -3333,7 +3339,7 @@ msgstr[0] "評価: {rating}つ星"
 msgid "Rating"
 msgstr "評価"
 
-#: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:32
+#: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:60 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:41
 msgid "Ratings"
@@ -3380,7 +3386,7 @@ msgstr "レコーディングをマージ"
 
 #: ../root/components/medium.tt:15
 msgid "Recording artist:"
-msgstr ""
+msgstr "レコーディングアーティスト:"
 
 #: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Recording ratings"
@@ -3657,7 +3663,7 @@ msgstr "リリース"
 #: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:59
 #: ../root/relationship/linkattributetype/delete.tt:14
 #: ../root/relationship/linktype/delete.tt:14
-#: ../root/release/add_cover_art.tt:89 ../root/release/discids.tt:36
+#: ../root/release/add_cover_art.tt:89 ../root/release/discids.tt:42
 #: ../root/account/applications/Index.js:43
 #: ../root/admin/attributes/Attribute.js:125
 #: ../root/admin/attributes/Language.js:72
@@ -4006,7 +4012,7 @@ msgstr ""
 msgid "Set cover art"
 msgstr "カバーアートを設定"
 
-#: ../root/cdtoc/list.tt:53
+#: ../root/cdtoc/list.tt:53 ../root/release/discids.tt:36
 msgid "Set track durations"
 msgstr ""
 
@@ -4089,7 +4095,7 @@ msgstr ""
 
 #: ../root/search/error/uri-too-large.tt:3
 msgid "Sorry, your query was too large."
-msgstr ""
+msgstr "申し訳ありません。クエリが大きすぎました。"
 
 #: ../root/components/forms.tt:239
 #: ../root/layout/components/sidebar/ArtistSidebar.js:75
@@ -4331,7 +4337,7 @@ msgid ""
 "forms below, or you may add a new release to MusicBrainz"
 msgstr ""
 
-#: ../root/release/discids.tt:50
+#: ../root/release/discids.tt:56
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
@@ -4590,7 +4596,7 @@ msgstr "このリリースグループは、リリースや関係がなくなる
 msgid "This release has no media to merge."
 msgstr ""
 
-#: ../root/release/discids.tt:52
+#: ../root/release/discids.tt:58
 msgid "This release has no mediums that can have disc IDs."
 msgstr ""
 
@@ -4871,7 +4877,7 @@ msgstr "タイプ"
 #: ../root/place/edit_form.tt:15 ../root/release/add_cover_art.tt:100
 #: ../root/release/edit/information.tt:99 ../root/search/form.tt:5
 #: ../root/series/edit_form.tt:15 ../root/work/edit_form.tt:14
-#: ../root/layout/components/sidebar/CollectionSidebar.js:42
+#: ../root/layout/components/sidebar/CollectionSidebar.js:47
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:166
 #: ../root/layout/components/sidebar/SidebarType.js:26
@@ -4910,7 +4916,7 @@ msgstr "URL:"
 
 #: ../root/annotation/edit.tt:58
 msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
-msgstr ""
+msgstr "URL; [URL]; [URL|レーベル]; [entity-type:MBID|レーベル]"
 
 #: ../root/components/common-macros.tt:115
 #: ../root/components/common-macros.tt:591 ../root/report/ReportsIndex.js:536
@@ -5047,7 +5053,7 @@ msgstr "ビデオ"
 msgid "Video “{name}” by {artist}"
 msgstr "{artist}のビデオ「{name}」"
 
-#: ../root/user/ratings_summary.tt:26
+#: ../root/user/ratings_summary.tt:27
 msgid "View all ratings"
 msgstr "全評価を表示"
 
@@ -5786,7 +5792,7 @@ msgstr ""
 #: ../root/entity/collections.tt:15
 msgid "plus {n} other private collection"
 msgid_plural "plus {n} other private collections"
-msgstr[0] ""
+msgstr[0] "その他{n}件の非公開コレクション"
 
 #: ../root/edit/search_macros.tt:25
 msgid "randomly"
@@ -5908,7 +5914,7 @@ msgstr "あなたの編集に{link|新しいメモ}が残されています。�
 #: ../root/components/common-macros.tt:686
 #: ../root/static/scripts/common/components/MediumDescription.js:19
 msgid "{medium_format} {position}"
-msgstr ""
+msgstr "{medium_format} {position}"
 
 #: ../root/components/common-macros.tt:698
 #: ../root/static/scripts/common/components/MediumLink.js:21
@@ -5944,7 +5950,7 @@ msgstr[0] "{num}年前"
 #: ../root/components/StaticRelationshipsDisplay.js:54
 #: ../root/static/scripts/relationship-editor/common/fields.js:511
 msgid "{num}. {relationship}"
-msgstr ""
+msgstr "{num}. {relationship}"
 
 #: ../root/components/common-macros.tt:272
 #: ../root/static/scripts/common/components/DescriptiveLink.js:69
@@ -5967,7 +5973,7 @@ msgstr "{artist}の{release}"
 
 #: ../root/instrument/layout.tt:1 ../root/instrument/InstrumentLayout.js:37
 msgid "{type} “{instrument}”"
-msgstr ""
+msgstr "{type} 「{instrument}」"
 
 #: ../root/work/layout.tt:1 ../root/work/WorkLayout.js:34
 msgid "{type} “{work}”"
@@ -5981,7 +5987,7 @@ msgstr "{uri|musicbrainz.org に戻る}。"
 msgid "{user}"
 msgstr "{user}"
 
-#: ../root/user/ratings_summary.tt:33
+#: ../root/user/ratings_summary.tt:34
 msgid "{user} has not rated anything."
 msgstr "{user}の評価は何もありません。"
 
@@ -6245,7 +6251,7 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:518
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:519
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "このマージ方法は選択されたリリースに適用できません。"
@@ -6531,7 +6537,7 @@ msgstr "イベントの注釈を追加"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:22
 #: ../root/layout/components/sidebar/ArtistSidebar.js:160
-#: ../root/layout/components/sidebar/PlaceSidebar.js:111
+#: ../root/layout/components/sidebar/PlaceSidebar.js:114
 msgid "Add event"
 msgstr "イベントを追加"
 
@@ -7173,12 +7179,12 @@ msgstr ""
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:268
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:270
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr "{start_track}&#x2013;{end_track}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:275
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:277
 #: ../lib/MusicBrainz/Server/Translation.pm:273
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -8104,7 +8110,7 @@ msgstr "バナーメッセージの編集"
 
 #: ../root/admin/EditBanner.js:28
 msgid "Edit banner message"
-msgstr ""
+msgstr "バナーメッセージの編集"
 
 #: ../root/admin/EditBanner.js:30
 msgid ""
@@ -8184,7 +8190,7 @@ msgstr "文字"
 #: ../root/admin/components/UserList.js:30
 #: ../root/report/components/EditorList.js:32
 msgid "Member since"
-msgstr ""
+msgstr "登録日"
 
 #: ../root/admin/components/UserList.js:32
 msgid "Verified on"
@@ -8291,7 +8297,7 @@ msgstr ""
 msgid "{area_type} in {parent_areas}"
 msgstr ""
 
-#: ../root/area/AreaLabels.js:50 ../root/area/AreaPlaces.js:67
+#: ../root/area/AreaLabels.js:50 ../root/area/AreaPlaces.js:68
 msgid "Add selected labels for merging"
 msgstr ""
 
@@ -8311,7 +8317,7 @@ msgid ""
 "this server."
 msgstr ""
 
-#: ../root/area/AreaPlaces.js:76
+#: ../root/area/AreaPlaces.js:77
 msgid "This area is not currently associated with any places."
 msgstr ""
 
@@ -8703,29 +8709,97 @@ msgstr "自分のすべてのコレクションを表示"
 msgid "See all of {editor}'s public collections"
 msgstr "{editor}の公開コレクションをすべて表示"
 
-#: ../root/collection/CollectionIndex.js:184 ../root/user/UserProfile.js:289
+#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:289
 #: ../root/user/UserProfile.js:345
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "スパム回避のため内容は表示されません。表示するには{url|ログイン}してください。"
 
-#: ../root/collection/CollectionIndex.js:195
+#: ../root/collection/CollectionIndex.js:196
+#: ../root/collection/CollectionMerge.js:63
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:100
 #: ../root/user/UserCollections.js:107
 msgid "Collaborators"
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:209
+#: ../root/collection/CollectionIndex.js:210
 msgid "Remove selected items from collection"
 msgstr "コレクションから選択した項目を削除"
 
-#: ../root/collection/CollectionIndex.js:214
+#: ../root/collection/CollectionIndex.js:215
 msgid "This collection is empty."
 msgstr "コレクションが空です。"
 
 #: ../root/collection/CollectionLayout.js:36
 msgid "Collection “{collection}”"
 msgstr "「{collection}」のコレクション"
+
+#: ../root/collection/CollectionMerge.js:51
+msgid "Entity Type"
+msgstr ""
+
+#: ../root/collection/CollectionMerge.js:56
+msgid "Entities"
+msgstr ""
+
+#: ../root/collection/CollectionMerge.js:70 ../root/user/UserCollections.js:74
+msgid "Public"
+msgstr "公開"
+
+#: ../root/collection/CollectionMerge.js:71 ../root/user/UserCollections.js:74
+msgid "Private"
+msgstr "非公開"
+
+#: ../root/collection/CollectionMerge.js:72
+#: ../root/static/scripts/account/components/PreferencesForm.js:188
+#: ../root/user/UserCollections.js:118
+msgid "Privacy"
+msgstr "プライバシー"
+
+#: ../root/collection/CollectionMerge.js:110
+#: ../root/collection/CollectionMerge.js:112
+msgid "Merge collections"
+msgstr ""
+
+#: ../root/collection/CollectionMerge.js:114
+msgid ""
+"You are about to merge all these collections into a single one. Please "
+"select the collection all others should be merged into:"
+msgstr ""
+
+#: ../root/collection/CollectionMerge.js:123
+msgid ""
+"<strong>Warning:</strong> These collections are for different entity types. "
+"Please remove some collections from the merge queue until you only have "
+"collections for the same entity type."
+msgstr ""
+
+#: ../root/collection/CollectionMerge.js:130
+msgid ""
+"<strong>Warning:</strong> These collections are for different entity types. "
+"Only collections for the same entity type can be merged."
+msgstr ""
+
+#: ../root/collection/CollectionMerge.js:142
+msgid ""
+"<strong>Warning:</strong> Some of these collections are public and some are "
+"private. Keep in mind the privacy setting of the destination collection will"
+" apply. If you merge your private collections into a public one, the final "
+"result will be visible to other users."
+msgstr ""
+
+#: ../root/collection/CollectionMerge.js:157
+msgid "The merged collection will have the following collaborators:"
+msgstr ""
+
+#: ../root/collection/CollectionMerge.js:168
+msgid ""
+"This process cannot be reverted. Are you sure you want to enter a merge?"
+msgstr ""
+
+#: ../root/collection/CollectionMerge.js:178
+msgid "Confirm"
+msgstr ""
 
 #: ../root/collection/CreateCollection.js:33
 #: ../root/collection/CreateCollection.js:36
@@ -9018,14 +9092,14 @@ msgstr "プロフィール"
 
 #: ../root/components/UserAccountTabs.js:36
 #: ../root/layout/components/TopMenu.js:53
-#: ../root/layout/components/sidebar/CollectionSidebar.js:76
+#: ../root/layout/components/sidebar/CollectionSidebar.js:84
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:31
 msgid "Subscriptions"
 msgstr "購読中"
 
 #: ../root/components/UserAccountTabs.js:44 ../root/entity/Subscribers.js:49
 #: ../root/entity/Subscribers.js:51
-#: ../root/layout/components/sidebar/CollectionSidebar.js:105
+#: ../root/layout/components/sidebar/CollectionSidebar.js:113
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:57
 msgid "Subscribers"
 msgstr "購読者"
@@ -9087,7 +9161,7 @@ msgstr "役割"
 msgid "Code"
 msgstr "コード"
 
-#: ../root/components/list/PlaceList.js:63 ../root/edit/details/AddPlace.js:71
+#: ../root/components/list/PlaceList.js:66 ../root/edit/details/AddPlace.js:71
 #: ../root/edit/details/EditPlace.js:86
 #: ../root/report/PlacesWithoutCoordinates.js:43
 #: ../root/search/components/PlaceResults.js:63
@@ -9283,7 +9357,7 @@ msgstr ""
 #: ../root/edit/details/AddAnnotation.js:70
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:47
 msgid "This annotation is empty."
-msgstr ""
+msgstr "注釈が空です。"
 
 #: ../root/edit/details/AddAnnotation.js:78
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:55
@@ -9493,7 +9567,7 @@ msgstr ""
 
 #: ../root/edit/details/EditUrl.js:93
 msgid "This edit was a merge."
-msgstr ""
+msgstr "この編集はマージされました。"
 
 #: ../root/edit/details/EditUrl.js:97
 msgid "Search for the target URL."
@@ -10125,7 +10199,7 @@ msgstr[0] "{num}名のユーザーが{entity}を購読しています。"
 #: ../root/entity/Subscribers.js:102
 msgid "Plus {n} other anonymous user"
 msgid_plural "Plus {n} other anonymous users"
-msgstr[0] ""
+msgstr[0] "その他{n}名の匿名ユーザー"
 
 #: ../root/entity/Subscribers.js:112
 msgid "An anonymous user"
@@ -10431,7 +10505,7 @@ msgid "Search Edits"
 msgstr "編集を検索"
 
 #: ../root/layout/components/BottomMenu.js:220
-#: ../root/layout/components/sidebar/CollectionSidebar.js:55
+#: ../root/layout/components/sidebar/CollectionSidebar.js:60
 #: ../root/layout/components/sidebar/EditLinks.js:29
 #: ../root/layout/components/sidebar/GenreSidebar.js:30
 #: ../root/static/scripts/account/components/PreferencesForm.js:245
@@ -10731,30 +10805,30 @@ msgstr "{collection}から外しました"
 msgid "Add to {collection}"
 msgstr "{collection} に追加"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:33
+#: ../root/layout/components/sidebar/CollectionSidebar.js:38
 msgid "Collection information"
 msgstr "コレクションの情報"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:37
+#: ../root/layout/components/sidebar/CollectionSidebar.js:42
 msgid "Owner:"
 msgstr "オーナー:"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:49
+#: ../root/layout/components/sidebar/CollectionSidebar.js:54
 msgid "Number of entities"
 msgstr ""
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:67
+#: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:48
 msgid "Editing history"
 msgstr "編集履歴"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:87
+#: ../root/layout/components/sidebar/CollectionSidebar.js:95
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:41
 #: ../root/user/UserSubscriptions.js:207
 msgid "Unsubscribe"
 msgstr "購読解除"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:99
+#: ../root/layout/components/sidebar/CollectionSidebar.js:107
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:51
 msgid "Subscribe"
 msgstr "購読"
@@ -10795,31 +10869,31 @@ msgstr "{date} に最終更新"
 msgid "Last updated on an unknown date"
 msgstr ""
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:53
+#: ../root/layout/components/sidebar/PlaceSidebar.js:54
 msgid "Place information"
 msgstr "場所の情報"
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:64
+#: ../root/layout/components/sidebar/PlaceSidebar.js:65
 msgctxt "place"
 msgid "Opening"
 msgstr ""
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:65
+#: ../root/layout/components/sidebar/PlaceSidebar.js:66
 msgctxt "place"
 msgid "Opened"
 msgstr ""
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:74
+#: ../root/layout/components/sidebar/PlaceSidebar.js:75
 msgctxt "place"
 msgid "Closing"
 msgstr ""
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:75
+#: ../root/layout/components/sidebar/PlaceSidebar.js:76
 msgctxt "place"
 msgid "Closed"
 msgstr "終了"
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:92
+#: ../root/layout/components/sidebar/PlaceSidebar.js:93
 msgid "Coordinates:"
 msgstr "座標:"
 
@@ -10965,7 +11039,7 @@ msgstr "ISWC:"
 
 #: ../root/layout/index.js:35
 msgid "Birthday cakes"
-msgstr ""
+msgstr "バースデーケーキ"
 
 #: ../root/layout/index.js:190
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
@@ -11077,7 +11151,7 @@ msgstr ""
 
 #: ../root/main/error/Error500.js:58
 msgid "raw edit data"
-msgstr ""
+msgstr "生の編集データ"
 
 #: ../root/main/error/Error500.js:63
 msgid "fully loaded"
@@ -11150,7 +11224,7 @@ msgstr "インターフェース言語:"
 
 #: ../root/main/error/components/ErrorEnvironment.js:53
 msgid "Request data:"
-msgstr ""
+msgstr "リクエストデータ:"
 
 #: ../root/main/error/components/ErrorInfo.js:23
 msgid "Error:"
@@ -11855,7 +11929,7 @@ msgstr ""
 #: ../root/report/components/ArtistRelationshipList.js:56
 #: ../root/report/components/ArtistUrlList.js:65
 msgid "This artist no longer exists."
-msgstr ""
+msgstr "このアーティストはもう存在していません。"
 
 #: ../root/report/ArtistsWithNoSubscribers.js:26
 msgid ""
@@ -11899,7 +11973,7 @@ msgstr "不正なAmazon URL"
 #: ../root/report/BadAmazonUrls.js:71
 #: ../root/report/components/UrlRelationshipList.js:48
 msgid "This URL no longer exists."
-msgstr ""
+msgstr "このURLはもう存在していません。"
 
 #: ../root/report/BadAmazonUrls.js:77 ../root/report/CatNoLooksLikeAsin.js:68
 #: ../root/report/CatNoLooksLikeIsrc.js:72
@@ -12362,7 +12436,7 @@ msgstr "複数レコーディングの ISRC"
 #: ../root/report/components/RecordingList.js:52
 #: ../root/report/components/RecordingRelationshipList.js:82
 msgid "This recording no longer exists."
-msgstr ""
+msgstr "このレコーディングはもう存在していません。"
 
 #: ../root/report/IswcsWithManyWorks.js:33
 msgid ""
@@ -12379,7 +12453,7 @@ msgstr "複数の作品に対するISWC"
 #: ../root/report/components/WorkList.js:42
 #: ../root/report/components/WorkRelationshipList.js:46
 msgid "This work no longer exists."
-msgstr ""
+msgstr "この作品はもう存在していません。"
 
 #: ../root/report/LabelsDisambiguationSameName.js:26
 msgid ""
@@ -12422,7 +12496,7 @@ msgstr ""
 
 #: ../root/report/MultipleAsins.js:36
 msgid "Releases with multiple ASINs"
-msgstr ""
+msgstr "ASINが複数あるリリース"
 
 #: ../root/report/MultipleDiscogsLinks.js:26
 msgid ""
@@ -12491,7 +12565,7 @@ msgstr ""
 #: ../root/report/components/PlaceAnnotationList.js:44
 #: ../root/report/components/PlaceRelationshipList.js:46
 msgid "This place no longer exists."
-msgstr ""
+msgstr "この場所はもう存在していません。"
 
 #: ../root/report/PossibleCollaborations.js:26
 msgid ""
@@ -12648,7 +12722,7 @@ msgstr ""
 #: ../root/report/components/ReleaseGroupRelationshipList.js:64
 #: ../root/report/components/ReleaseGroupUrlList.js:73
 msgid "This release group no longer exists."
-msgstr ""
+msgstr "このリリースグループはもう存在していません。"
 
 #: ../root/report/ReleasedTooEarly.js:26
 msgid ""
@@ -13063,7 +13137,7 @@ msgstr "最終編集"
 #: ../root/report/components/CDTocList.js:62
 #: ../root/report/components/CDTocReleaseList.js:66
 msgid "This Disc ID no longer exists."
-msgstr ""
+msgstr "このディスクIDはもう存在していません。"
 
 #: ../root/report/components/EditorList.js:33
 #: ../root/static/scripts/account/components/EditProfileForm.js:215
@@ -13072,7 +13146,7 @@ msgstr "ウェブサイト"
 
 #: ../root/report/components/EditorList.js:35
 msgid "Bio"
-msgstr ""
+msgstr "プロフィール"
 
 #: ../root/report/components/EventList.js:38
 #: ../root/search/components/EventResults.js:71
@@ -13084,18 +13158,18 @@ msgstr "地域"
 
 #: ../root/report/components/EventList.js:73
 msgid "This event no longer exists."
-msgstr ""
+msgstr "このイベントはもう存在していません。"
 
 #: ../root/report/components/InstrumentList.js:65
 msgid "This instrument no longer exists."
-msgstr ""
+msgstr "この楽器はもう存在していません。"
 
 #: ../root/report/components/LabelAnnotationList.js:44
 #: ../root/report/components/LabelList.js:40
 #: ../root/report/components/LabelRelationshipList.js:46
 #: ../root/report/components/LabelUrlList.js:65
 msgid "This label no longer exists."
-msgstr ""
+msgstr "このレーベルはもう存在していません。"
 
 #: ../root/report/components/ReleaseList.js:42
 msgid "Language/Script"
@@ -13111,15 +13185,15 @@ msgstr "ディスクID合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:21
 msgid "Total editors found: {count}"
-msgstr ""
+msgstr "編集者合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:22
 msgid "Total events found: {count}"
-msgstr ""
+msgstr "イベント合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:23
 msgid "Total instruments found: {count}"
-msgstr ""
+msgstr "楽器合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:24
 msgid "Total ISRCs found: {count}"
@@ -13131,11 +13205,11 @@ msgstr "ISWC合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:26
 msgid "Total labels found: {count}"
-msgstr ""
+msgstr "レーベル合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:27
 msgid "Total places found: {count}"
-msgstr ""
+msgstr "場所合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:28
 msgid "Total recordings found: {count}"
@@ -13155,15 +13229,15 @@ msgstr "リリースグループ合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:32
 msgid "Total series found: {count}"
-msgstr ""
+msgstr "シリーズ合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:33
 msgid "Total URLs found: {count}"
-msgstr ""
+msgstr "URL合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:34
 msgid "Total works found: {count}"
-msgstr ""
+msgstr "作品合計: {count}"
 
 #: ../root/report/components/ReportLayout.js:84
 msgid "Generated on {date}"
@@ -13171,7 +13245,7 @@ msgstr "{date} に生成された"
 
 #: ../root/report/components/SeriesAnnotationList.js:44
 msgid "This series no longer exists."
-msgstr ""
+msgstr "このシリーズはもう存在していません。"
 
 #: ../root/report/constants.js:11
 msgid ""
@@ -13329,11 +13403,6 @@ msgstr "タイムゾーン:"
 #: ../root/static/scripts/account/components/PreferencesForm.js:177
 msgid "Date/time format:"
 msgstr "日時表示形式:"
-
-#: ../root/static/scripts/account/components/PreferencesForm.js:188
-#: ../root/user/UserCollections.js:118
-msgid "Privacy"
-msgstr "プライバシー"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:191
 msgid "Allow other users to see my subscriptions"
@@ -13558,7 +13627,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:707
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:253
 msgid "standalone recording"
-msgstr ""
+msgstr " スタンドアロンレコーディング"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:801
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:345
@@ -13678,7 +13747,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:308
 msgid "{first_list_item} … {last_list_item}"
-msgstr ""
+msgstr "{first_list_item} … {last_list_item}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:180
 msgid ""
@@ -14869,7 +14938,7 @@ msgstr "{link1|ユーザー名}あるいは{link2|パスワード}を忘れた�
 
 #: ../root/user/PrivilegedUsers.js:37 ../root/user/PrivilegedUsers.js:39
 msgid "Privileged user accounts"
-msgstr ""
+msgstr " 特権ユーザーアカウント"
 
 #: ../root/user/PrivilegedUsers.js:41
 msgid "Auto-editors"
@@ -15057,14 +15126,6 @@ msgstr "作品のコレクション"
 msgid "{collaborator_number} (including you)"
 msgstr ""
 
-#: ../root/user/UserCollections.js:74
-msgid "Public"
-msgstr "公開"
-
-#: ../root/user/UserCollections.js:74
-msgid "Private"
-msgstr "非公開"
-
 #: ../root/user/UserCollections.js:77
 msgid "(your collection)"
 msgstr "(あなたのコレクション)"
@@ -15075,7 +15136,7 @@ msgstr "コレクションがありません。"
 
 #: ../root/user/UserCollections.js:185
 msgid "{user} has no public collections."
-msgstr ""
+msgstr "{user}の公開コレクションはありません。"
 
 #: ../root/user/UserCollections.js:204
 msgid "You aren’t collaborating in any collections."
@@ -15103,7 +15164,7 @@ msgstr "{doc|関連編集者}"
 
 #: ../root/user/UserProfile.js:77
 msgid "{doc|Transclusion Editor}"
-msgstr ""
+msgstr "{doc|トランスクルージョン編集者}"
 
 #: ../root/user/UserProfile.js:83
 msgid "{doc|Location Editor}"

@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-14 20:05+0000\n"
+"PO-Revision-Date: 2021-05-17 06:46+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1055,7 +1055,7 @@ msgstr "klavichord"
 #: DB:instrument/name:175
 msgctxt "Electro-mechanical amplified clavichord"
 msgid "clavinet"
-msgstr "Een clavinet is een toetsinstrument dat behoort tot de snaarinstrumenten en is een soort elektrisch klavichord. (<a href=\"http://nl.wikipedia.org/wiki/Clavinet\">Wikipedia</a>)"
+msgstr "clavinet"
 
 #: DB:instrument/name:780
 msgctxt "free reed aerophone with pitching pipes."

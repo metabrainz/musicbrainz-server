@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-12 12:49+0000\n"
+"PO-Revision-Date: 2021-05-17 14:51+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -1291,7 +1291,7 @@ msgstr "Blu-ray"
 #: DB:medium_format/name:79
 msgctxt "medium_format"
 msgid "Blu-ray-R"
-msgstr ""
+msgstr "Blu-ray-R"
 
 #: DB:medium_format/name:35
 msgctxt "medium_format"
@@ -3200,127 +3200,127 @@ msgstr "ICE ID"
 #: DB:work_attribute_type/description:24
 msgctxt "work_attribute_type"
 msgid "ID for the Argentinean rights society SADAIC"
-msgstr ""
+msgstr "アルゼンチンの権利者団体SADAICのID"
 
 #: DB:work_attribute_type/description:13
 msgctxt "work_attribute_type"
 msgid "ID for the Australasian rights society APRA"
-msgstr ""
+msgstr " オーストラレーシアの権利者団体APRAのID"
 
 #: DB:work_attribute_type/description:23
 msgctxt "work_attribute_type"
 msgid "ID for the Austrian rights society AKM"
-msgstr ""
+msgstr " オーストリアの権利者団体AKMのID"
 
 #: DB:work_attribute_type/description:28
 msgctxt "work_attribute_type"
 msgid "ID for the Belgian rights society SABAM"
-msgstr ""
+msgstr "ベルギーの権利者団体SABAMのID"
 
 #: DB:work_attribute_type/description:61
 msgctxt "work_attribute_type"
 msgid "ID for the Bolivian rights society SOBODAYCOM"
-msgstr ""
+msgstr "ボリビアの権利者団体SOBODAYCOMのID"
 
 #: DB:work_attribute_type/description:37
 msgctxt "work_attribute_type"
 msgid "ID for the Brazilian rights society ECAD"
-msgstr ""
+msgstr "ブラジルの権利者団体ECADのID"
 
 #: DB:work_attribute_type/description:34
 msgctxt "work_attribute_type"
 msgid "ID for the British rights society PRS for Music"
-msgstr ""
+msgstr "イギリスの権利者団体PRSのID"
 
 #: DB:work_attribute_type/description:10
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SOCAN"
-msgstr ""
+msgstr "カナダの権利者団体SOCANのID"
 
 #: DB:work_attribute_type/description:53
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SODRAC"
-msgstr ""
+msgstr "カナダの権利者団体SODRACのID"
 
 #: DB:work_attribute_type/description:39
 msgctxt "work_attribute_type"
 msgid "ID for the Colombian rights society SAYCO"
-msgstr ""
+msgstr "コロンビアの権利者団体SAYCOのID"
 
 #: DB:work_attribute_type/description:44
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
-msgstr ""
+msgstr "コスタリカの権利者団体ACAMのID"
 
 #: DB:work_attribute_type/description:47
 msgctxt "work_attribute_type"
 msgid "ID for the Cuban rights society ACDAM"
-msgstr ""
+msgstr "キューバの権利者団体ACDAMのID"
 
 #: DB:work_attribute_type/description:25
 msgctxt "work_attribute_type"
 msgid "ID for the Czech rights society OSA"
-msgstr ""
+msgstr "チェコの権利者団体OSAのID"
 
 #: DB:work_attribute_type/description:51
 msgctxt "work_attribute_type"
 msgid "ID for the Danish rights society KODA"
-msgstr ""
+msgstr "デンマークの権利者団体KODAのID"
 
 #: DB:work_attribute_type/description:60
 msgctxt "work_attribute_type"
 msgid "ID for the Dominican rights society SGACEDOM"
-msgstr ""
+msgstr "ドミニカの権利者団体SGACEDOMのID"
 
 #: DB:work_attribute_type/description:26
 msgctxt "work_attribute_type"
 msgid "ID for the Dutch rights society BUMA/STEMRA"
-msgstr ""
+msgstr "オランダの権利者団体BUMA/STEMRAのID"
 
 #: DB:work_attribute_type/description:40
 msgctxt "work_attribute_type"
 msgid "ID for the Ecuadorian rights society SAYCE"
-msgstr ""
+msgstr "エクアドルの権利者団体SAYCEのID"
 
 #: DB:work_attribute_type/description:66
 msgctxt "work_attribute_type"
 msgid "ID for the Finnish rights society TEOSTO"
-msgstr ""
+msgstr "フィンランドの権利者団体TEOSTOのID"
 
 #: DB:work_attribute_type/description:21
 msgctxt "work_attribute_type"
 msgid "ID for the French rights society Sacem"
-msgstr ""
+msgstr "フランスの権利者団体SacemのID"
 
 #: DB:work_attribute_type/description:9
 msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
-msgstr ""
+msgstr "ドイツの権利者団体GEMAのID"
 
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
 msgid "ID for the Guatemalan rights society AEI"
-msgstr ""
+msgstr "グアテマラの権利者団体AEIのID"
 
 #: DB:work_attribute_type/description:57
 msgctxt "work_attribute_type"
 msgid "ID for the Honduran rights society AACIMH"
-msgstr ""
+msgstr " ホンジュラスの権利者団体AACIMHのID"
 
 #: DB:work_attribute_type/description:19
 msgctxt "work_attribute_type"
 msgid "ID for the Hong Kong rights society CASH"
-msgstr ""
+msgstr "香港の権利者団体CASHのID"
 
 #: DB:work_attribute_type/description:48
 msgctxt "work_attribute_type"
 msgid "ID for the Hungarian rights society ARTISJUS"
-msgstr ""
+msgstr "ハンガリーの権利者団体ARTISJUSのID"
 
 #: DB:work_attribute_type/description:54
 msgctxt "work_attribute_type"
 msgid "ID for the Icelandic rights society STEF"
-msgstr ""
+msgstr "アイスランドの権利者団体STEFのID"
 
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
@@ -3330,147 +3330,152 @@ msgstr ""
 #: DB:work_attribute_type/description:52
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
-msgstr ""
+msgstr "アイルランドの権利者団体IMROのID"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
 msgid "ID for the Italian rights society SIAE"
-msgstr ""
+msgstr "イタリアの権利者団体SIAEのID"
 
 #: DB:work_attribute_type/description:3
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society JASRAC"
-msgstr ""
+msgstr "日本の権利者団体JASRACのID"
 
 #: DB:work_attribute_type/description:33
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society NexTone"
-msgstr ""
+msgstr "日本の権利者団体NexToneのID"
 
 #: DB:work_attribute_type/description:11
 msgctxt "work_attribute_type"
 msgid "ID for the Korean rights society KOMCA"
-msgstr ""
+msgstr "韓国の権利者団体KOMCAのID"
 
 #: DB:work_attribute_type/description:63
 msgctxt "work_attribute_type"
 msgid "ID for the Latvian rights society AKKA/LAA"
-msgstr ""
+msgstr " ラトビアの権利者団体AKKA/LAAのID"
 
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
 msgid "ID for the Malaysian rights society MACP"
-msgstr ""
+msgstr "マレーシアの権利者団体MACPのID"
 
 #: DB:work_attribute_type/description:27
 msgctxt "work_attribute_type"
 msgid "ID for the Mexican rights society SACM"
-msgstr ""
+msgstr "メキシコの権利者団体SACMのID"
 
 #: DB:work_attribute_type/description:59
 msgctxt "work_attribute_type"
 msgid "ID for the Nicaraguan rights society NICAUTOR"
-msgstr ""
+msgstr "ニカラグアの権利者団体NICAUTORのID"
 
 #: DB:work_attribute_type/description:67
 msgctxt "work_attribute_type"
 msgid "ID for the Norwegian rights society TONO"
-msgstr ""
+msgstr "ノルウェーの権利者団体TONOのID"
 
 #: DB:work_attribute_type/description:62
 msgctxt "work_attribute_type"
 msgid "ID for the Panamanian rights society SPAC"
-msgstr ""
+msgstr "パナマの権利者団体SPACのID"
 
 #: DB:work_attribute_type/description:46
 msgctxt "work_attribute_type"
 msgid "ID for the Paraguayan rights society APA"
-msgstr ""
+msgstr "パラグアイの権利者団体APAのID"
 
 #: DB:work_attribute_type/description:41
 msgctxt "work_attribute_type"
 msgid "ID for the Peruvian rights society APDAYC"
-msgstr ""
+msgstr "ペルーの権利者団体APDAYCのID"
 
 #: DB:work_attribute_type/description:30
 msgctxt "work_attribute_type"
 msgid "ID for the Polish rights society ZAiKS"
-msgstr ""
+msgstr "ポーランドの権利者団体ZAiKSのID"
 
 #: DB:work_attribute_type/description:35
 msgctxt "work_attribute_type"
 msgid "ID for the Portuguese rights society SPA"
-msgstr ""
+msgstr "ポルトガルの権利者団体SPAのID"
 
 #: DB:work_attribute_type/description:56
 msgctxt "work_attribute_type"
 msgid "ID for the Salvadoran rights society SACIM"
-msgstr ""
+msgstr "エルサルバドルの権利者団体SACIMのID"
 
 #: DB:work_attribute_type/description:45
 msgctxt "work_attribute_type"
 msgid "ID for the Singaporean rights society COMPASS"
-msgstr ""
+msgstr "シンガポールの権利者団体COMPASSのID"
+
+#: DB:work_attribute_type/description:68
+msgctxt "work_attribute_type"
+msgid "ID for the South African rights society SAMRO"
+msgstr " 南アフリカの権利者団体SAMROのID"
 
 #: DB:work_attribute_type/description:20
 msgctxt "work_attribute_type"
 msgid "ID for the Spanish rights society SGAE"
-msgstr ""
+msgstr "スペインの権利者団体SGAEのID"
 
 #: DB:work_attribute_type/description:50
 msgctxt "work_attribute_type"
 msgid "ID for the Swedish rights society STIM"
-msgstr ""
+msgstr "スウェーデンの権利者団体STIMのID"
 
 #: DB:work_attribute_type/description:18
 msgctxt "work_attribute_type"
 msgid "ID for the Swiss rights society SUISA"
-msgstr ""
+msgstr "スイスの権利者団体SUISAのID"
 
 #: DB:work_attribute_type/description:12
 msgctxt "work_attribute_type"
 msgid "ID for the Taiwanese rights society MÜST"
-msgstr ""
+msgstr "台湾の権利者団体MÜSTのID"
 
 #: DB:work_attribute_type/description:65
 msgctxt "work_attribute_type"
 msgid "ID for the Trinidadian and Tobagonian rights society COTT"
-msgstr ""
+msgstr "トリニダードの権利者団体COTTのID"
 
 #: DB:work_attribute_type/description:6
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society ASCAP"
-msgstr ""
+msgstr "アメリカの権利者団体ASCAPのID"
 
 #: DB:work_attribute_type/description:7
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society BMI"
-msgstr ""
+msgstr "アメリカの権利者団体BMIのID"
 
 #: DB:work_attribute_type/description:8
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society SESAC"
-msgstr ""
+msgstr "アメリカの権利者団体SESACのID"
 
 #: DB:work_attribute_type/description:43
 msgctxt "work_attribute_type"
 msgid "ID for the Uruguayan rights society AGADU"
-msgstr ""
+msgstr "ウルグアイの権利者団体AGADUのID"
 
 #: DB:work_attribute_type/description:42
 msgctxt "work_attribute_type"
 msgid "ID for the Venezuelan rights society SACVEN"
-msgstr ""
+msgstr "ベネズエラの権利者団体SACVENのID"
 
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
-msgstr ""
+msgstr " 国際的な(かつてはアメリカの)権利者団体AMRAのID"
 
 #: DB:work_attribute_type/description:55
 msgctxt "work_attribute_type"
 msgid "ID for the international rights society consortium LatinNet"
-msgstr ""
+msgstr " 国際的な権利者団体LatinNetのID"
 
 #: DB:work_attribute_type/description:22
 msgctxt "work_attribute_type"
@@ -5009,7 +5014,7 @@ msgstr ""
 #: DB:work_attribute_type/name:33
 msgctxt "work_attribute_type"
 msgid "NexTone ID"
-msgstr ""
+msgstr "NexTone ID"
 
 #: DB:work_attribute_type_allowed_value/value:471
 msgctxt "work_attribute_type_allowed_value"
@@ -5646,7 +5651,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:14
 msgctxt "cover_art_type"
 msgid "Raw/Unedited"
-msgstr ""
+msgstr "生/未編集"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
@@ -5913,6 +5918,11 @@ msgstr ""
 msgctxt "work_attribute_type"
 msgid "SADAIC ID"
 msgstr "SADAIC ID"
+
+#: DB:work_attribute_type/name:68
+msgctxt "work_attribute_type"
+msgid "SAMRO ID"
+msgstr ""
 
 #: DB:work_attribute_type/name:40
 msgctxt "work_attribute_type"

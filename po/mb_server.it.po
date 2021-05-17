@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 16:28+0300\n"
-"PO-Revision-Date: 2021-04-28 21:20+0000\n"
+"POT-Creation-Date: 2021-05-14 20:29+0000\n"
+"PO-Revision-Date: 2021-05-15 10:25+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -432,7 +432,7 @@ msgid "Additional information"
 msgstr "Più informazioni"
 
 #: ../root/place/edit_form.tt:16
-#: ../root/layout/components/sidebar/PlaceSidebar.js:80
+#: ../root/layout/components/sidebar/PlaceSidebar.js:81
 msgid "Address:"
 msgstr "Indirizzo:"
 
@@ -600,7 +600,7 @@ msgstr "Sei sicuro di voler rimuovere {entity} da MusicBrainz?"
 #: ../root/area/AreaHeader.js:27 ../root/components/list/AreaList.js:46
 #: ../root/components/list/ArtistList.js:86
 #: ../root/components/list/LabelList.js:75
-#: ../root/components/list/PlaceList.js:68 ../root/edit/details/AddArea.js:46
+#: ../root/components/list/PlaceList.js:71 ../root/edit/details/AddArea.js:46
 #: ../root/edit/details/AddArtist.js:103 ../root/edit/details/AddLabel.js:100
 #: ../root/edit/details/AddPlace.js:77 ../root/edit/details/EditArea.js:61
 #: ../root/edit/details/EditArtist.js:129
@@ -625,7 +625,7 @@ msgstr "Dettagli area"
 #: ../root/label/edit_form.tt:18 ../root/place/edit_form.tt:19
 #: ../root/layout/components/sidebar/ArtistSidebar.js:119
 #: ../root/layout/components/sidebar/LabelSidebar.js:88
-#: ../root/layout/components/sidebar/PlaceSidebar.js:86
+#: ../root/layout/components/sidebar/PlaceSidebar.js:87
 msgid "Area:"
 msgstr "Area:"
 
@@ -984,6 +984,7 @@ msgstr "Può essere approvato"
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
 #: ../root/release/edit/tracklist.tt:117 ../root/release/merge.tt:134
 #: ../root/area/AreaMerge.js:54 ../root/artist/ArtistMerge.js:81
+#: ../root/collection/CollectionMerge.js:187
 #: ../root/components/ConfirmLayout.js:50 ../root/event/EventMerge.js:57
 #: ../root/instrument/InstrumentMerge.js:54 ../root/label/LabelMerge.js:54
 #: ../root/layout/components/MergeHelper.js:82 ../root/place/PlaceMerge.js:54
@@ -1135,6 +1136,7 @@ msgid "Collapse medium"
 msgstr "Comprimi supporto"
 
 #: ../root/components/common-macros.tt:574
+#: ../root/collection/CollectionMerge.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
 #: ../root/user/UserCollections.js:93
 msgid "Collection"
@@ -1359,7 +1361,7 @@ msgstr "Obsoleto:"
 
 #: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
 #: ../root/admin/attributes/Attribute.js:101
-#: ../root/collection/CollectionIndex.js:179
+#: ../root/collection/CollectionIndex.js:180
 #: ../root/edit/details/AddInstrument.js:79
 #: ../root/edit/details/AddRelationshipAttribute.js:53
 #: ../root/edit/details/AddRelationshipType.js:96
@@ -2699,7 +2701,7 @@ msgstr "Messaggio"
 msgid "Modify count"
 msgstr "Numero di modifiche"
 
-#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:39
+#: ../root/cdtoc/list.tt:62 ../root/release/discids.tt:45
 msgid "Move"
 msgstr "Sposta"
 
@@ -2927,7 +2929,7 @@ msgstr "Non è stata trovata nessuna modifica corrispondente alla tua ricerca. {
 msgid "No nag"
 msgstr "Nessuna scocciatura"
 
-#: ../root/user/ratings.tt:24
+#: ../root/user/ratings.tt:25
 msgid "No ratings."
 msgstr "Nessuna valutazione."
 
@@ -3073,7 +3075,7 @@ msgid "Open Edits for {name}"
 msgstr "Modifiche in corso per {name}"
 
 #: ../root/edit/list_header.tt:16
-#: ../root/layout/components/sidebar/CollectionSidebar.js:60
+#: ../root/layout/components/sidebar/CollectionSidebar.js:65
 #: ../root/layout/components/sidebar/EditLinks.js:41
 msgid "Open edits"
 msgstr "Modifiche in corso"
@@ -3155,7 +3157,7 @@ msgstr "Frase:"
 #: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:405
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
-#: ../root/components/list/PlaceList.js:51 ../root/edit/details/AddPlace.js:46
+#: ../root/components/list/PlaceList.js:54 ../root/edit/details/AddPlace.js:46
 #: ../root/edit/details/EditPlace.js:58 ../root/layout/components/Search.js:40
 #: ../root/place/PlaceHeader.js:29
 #: ../root/report/PlacesWithoutCoordinates.js:42
@@ -3171,6 +3173,10 @@ msgstr "Luogo"
 #: ../root/place/edit_form.tt:10
 msgid "Place Details"
 msgstr "Dettagli del luogo"
+
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+msgid "Place ratings"
+msgstr "Valutazioni di luoghi"
 
 #: ../root/components/common-macros.tt:557
 msgid "Place:"
@@ -3330,7 +3336,7 @@ msgstr[1] "Valuta: {rating} stelle"
 msgid "Rating"
 msgstr "Valutazione"
 
-#: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:32
+#: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:60 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:41
 msgid "Ratings"
@@ -3654,7 +3660,7 @@ msgstr "Pubblicazioni"
 #: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:59
 #: ../root/relationship/linkattributetype/delete.tt:14
 #: ../root/relationship/linktype/delete.tt:14
-#: ../root/release/add_cover_art.tt:89 ../root/release/discids.tt:36
+#: ../root/release/add_cover_art.tt:89 ../root/release/discids.tt:42
 #: ../root/account/applications/Index.js:43
 #: ../root/admin/attributes/Attribute.js:125
 #: ../root/admin/attributes/Language.js:72
@@ -4003,7 +4009,7 @@ msgstr "Imposta una nuova password per il tuo account di MusicBrainz."
 msgid "Set cover art"
 msgstr "Imposta copertina"
 
-#: ../root/cdtoc/list.tt:53
+#: ../root/cdtoc/list.tt:53 ../root/release/discids.tt:36
 msgid "Set track durations"
 msgstr "Imposta durata tracce"
 
@@ -4328,7 +4334,7 @@ msgid ""
 "forms below, or you may add a new release to MusicBrainz"
 msgstr "Al momento non c'è nessun disco su MusicBrainz associato alle informazioni che hai fornito. Puoi cercare il disco utilizzando il modulo qui sotto, oppure puoi aggiungere una nuova pubblicazione su MusicBrainz."
 
-#: ../root/release/discids.tt:50
+#: ../root/release/discids.tt:56
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
@@ -4587,7 +4593,7 @@ msgstr "Questo gruppo di pubblicazioni sarà rimosso automaticamente non appena 
 msgid "This release has no media to merge."
 msgstr "Questa pubblicazione non ha supporti da unire."
 
-#: ../root/release/discids.tt:52
+#: ../root/release/discids.tt:58
 msgid "This release has no mediums that can have disc IDs."
 msgstr "Questa pubblicazione non ha supporti che possono possedere un ID disco."
 
@@ -4868,7 +4874,7 @@ msgstr "Tipo"
 #: ../root/place/edit_form.tt:15 ../root/release/add_cover_art.tt:100
 #: ../root/release/edit/information.tt:99 ../root/search/form.tt:5
 #: ../root/series/edit_form.tt:15 ../root/work/edit_form.tt:14
-#: ../root/layout/components/sidebar/CollectionSidebar.js:42
+#: ../root/layout/components/sidebar/CollectionSidebar.js:47
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:166
 #: ../root/layout/components/sidebar/SidebarType.js:26
@@ -5044,7 +5050,7 @@ msgstr "Video"
 msgid "Video “{name}” by {artist}"
 msgstr "Video “{name}” di {artist}"
 
-#: ../root/user/ratings_summary.tt:26
+#: ../root/user/ratings_summary.tt:27
 msgid "View all ratings"
 msgstr "Visualizza tutte le valutazioni"
 
@@ -5986,7 +5992,7 @@ msgstr "{uri|Ritorna a musicbrainz.org}."
 msgid "{user}"
 msgstr "{user}"
 
-#: ../root/user/ratings_summary.tt:33
+#: ../root/user/ratings_summary.tt:34
 msgid "{user} has not rated anything."
 msgstr "{user} non ha valutato nulla."
 
@@ -6253,7 +6259,7 @@ msgstr "Non puoi unire con Etichetta eliminata."
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "'{types}' non è una coppia di tipi valida per le relazioni."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:518
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:519
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Questa strategia di unione non è applicabile alle pubblicazioni che hai selezionato."
@@ -6539,7 +6545,7 @@ msgstr "Aggiungi annotazione all'evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:22
 #: ../root/layout/components/sidebar/ArtistSidebar.js:160
-#: ../root/layout/components/sidebar/PlaceSidebar.js:111
+#: ../root/layout/components/sidebar/PlaceSidebar.js:114
 msgid "Add event"
 msgstr "Aggiungi evento"
 
@@ -7181,12 +7187,12 @@ msgstr "{attribute} [{credited_as}]"
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:268
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:270
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr "{start_track}&#x2013;{end_track}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:275
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:277
 #: ../lib/MusicBrainz/Server/Translation.pm:273
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -8299,7 +8305,7 @@ msgstr "Quest'area non è al momento associata a nessun evento."
 msgid "{area_type} in {parent_areas}"
 msgstr "{area_type} in {parent_areas}"
 
-#: ../root/area/AreaLabels.js:50 ../root/area/AreaPlaces.js:67
+#: ../root/area/AreaLabels.js:50 ../root/area/AreaPlaces.js:68
 msgid "Add selected labels for merging"
 msgstr "Aggiungi le etichette selezionate per unirle"
 
@@ -8319,7 +8325,7 @@ msgid ""
 "this server."
 msgstr "Impossibile visualizzare una cartina poiché su questo server non è stato impostato alcun token di accesso ad un servizio mappe."
 
-#: ../root/area/AreaPlaces.js:76
+#: ../root/area/AreaPlaces.js:77
 msgid "This area is not currently associated with any places."
 msgstr "Quest'area non è al momento associata a nessun luogo."
 
@@ -8720,29 +8726,97 @@ msgstr "Visualizza tutte le tue collezioni"
 msgid "See all of {editor}'s public collections"
 msgstr "Visualizza tutte le collezioni pubbliche di {editor}"
 
-#: ../root/collection/CollectionIndex.js:184 ../root/user/UserProfile.js:289
+#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:289
 #: ../root/user/UserProfile.js:345
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "Questo contenuto è nascosto per prevenire lo spam. {url|Accedi} per visualizzarlo."
 
-#: ../root/collection/CollectionIndex.js:195
+#: ../root/collection/CollectionIndex.js:196
+#: ../root/collection/CollectionMerge.js:63
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:100
 #: ../root/user/UserCollections.js:107
 msgid "Collaborators"
 msgstr "Collaboratori"
 
-#: ../root/collection/CollectionIndex.js:209
+#: ../root/collection/CollectionIndex.js:210
 msgid "Remove selected items from collection"
 msgstr "Rimuovi gli elementi selezionati dalla collezione"
 
-#: ../root/collection/CollectionIndex.js:214
+#: ../root/collection/CollectionIndex.js:215
 msgid "This collection is empty."
 msgstr "Questa collezione è vuota."
 
 #: ../root/collection/CollectionLayout.js:36
 msgid "Collection “{collection}”"
 msgstr "Collezione “{collection}”"
+
+#: ../root/collection/CollectionMerge.js:51
+msgid "Entity Type"
+msgstr "Tipo di entità"
+
+#: ../root/collection/CollectionMerge.js:56
+msgid "Entities"
+msgstr "Entità"
+
+#: ../root/collection/CollectionMerge.js:70 ../root/user/UserCollections.js:74
+msgid "Public"
+msgstr "Pubblica"
+
+#: ../root/collection/CollectionMerge.js:71 ../root/user/UserCollections.js:74
+msgid "Private"
+msgstr "Privata"
+
+#: ../root/collection/CollectionMerge.js:72
+#: ../root/static/scripts/account/components/PreferencesForm.js:188
+#: ../root/user/UserCollections.js:118
+msgid "Privacy"
+msgstr "Privacy"
+
+#: ../root/collection/CollectionMerge.js:110
+#: ../root/collection/CollectionMerge.js:112
+msgid "Merge collections"
+msgstr "Unisci collezioni"
+
+#: ../root/collection/CollectionMerge.js:114
+msgid ""
+"You are about to merge all these collections into a single one. Please "
+"select the collection all others should be merged into:"
+msgstr "Stai per unire tutte queste collezioni in una collezione unica. Seleziona la collezione in cui unire tutte le altre:"
+
+#: ../root/collection/CollectionMerge.js:123
+msgid ""
+"<strong>Warning:</strong> These collections are for different entity types. "
+"Please remove some collections from the merge queue until you only have "
+"collections for the same entity type."
+msgstr "<strong>Attenzione:</strong> queste collezioni sono per tipi di entità diversi. Rimuovi alcune collezioni dalla coda di unione finché non hai solo collezioni per lo stesso tipo di entità."
+
+#: ../root/collection/CollectionMerge.js:130
+msgid ""
+"<strong>Warning:</strong> These collections are for different entity types. "
+"Only collections for the same entity type can be merged."
+msgstr "<strong>Attenzione:</strong> queste collezioni sono per tipi di entità diversi. È possibile unire solo collezioni per lo stesso tipo di entità."
+
+#: ../root/collection/CollectionMerge.js:142
+msgid ""
+"<strong>Warning:</strong> Some of these collections are public and some are "
+"private. Keep in mind the privacy setting of the destination collection will"
+" apply. If you merge your private collections into a public one, the final "
+"result will be visible to other users."
+msgstr "<strong>Attenzione:</strong> alcune di queste collezioni sono pubbliche e altre sono private. Tieni presente che le impostazioni di privacy della collezione di destinazione saranno mantenute. Se unisci le tue collezioni private in una collezione pubblica, il risultato finale sarà visibile agli altri utenti."
+
+#: ../root/collection/CollectionMerge.js:157
+msgid "The merged collection will have the following collaborators:"
+msgstr "La collezione unita avrà i seguenti collaboratori:"
+
+#: ../root/collection/CollectionMerge.js:168
+msgid ""
+"This process cannot be reverted. Are you sure you want to enter a merge?"
+msgstr "Questo processo non è reversibile. Sei sicuro di voler procedere con l'unione?"
+
+#: ../root/collection/CollectionMerge.js:178
+msgid "Confirm"
+msgstr "Conferma"
 
 #: ../root/collection/CreateCollection.js:33
 #: ../root/collection/CreateCollection.js:36
@@ -9045,14 +9119,14 @@ msgstr "Profilo"
 
 #: ../root/components/UserAccountTabs.js:36
 #: ../root/layout/components/TopMenu.js:53
-#: ../root/layout/components/sidebar/CollectionSidebar.js:76
+#: ../root/layout/components/sidebar/CollectionSidebar.js:84
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:31
 msgid "Subscriptions"
 msgstr "Iscrizioni"
 
 #: ../root/components/UserAccountTabs.js:44 ../root/entity/Subscribers.js:49
 #: ../root/entity/Subscribers.js:51
-#: ../root/layout/components/sidebar/CollectionSidebar.js:105
+#: ../root/layout/components/sidebar/CollectionSidebar.js:113
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:57
 msgid "Subscribers"
 msgstr "Iscritti"
@@ -9117,7 +9191,7 @@ msgstr "Ruolo"
 msgid "Code"
 msgstr "Codice"
 
-#: ../root/components/list/PlaceList.js:63 ../root/edit/details/AddPlace.js:71
+#: ../root/components/list/PlaceList.js:66 ../root/edit/details/AddPlace.js:71
 #: ../root/edit/details/EditPlace.js:86
 #: ../root/report/PlacesWithoutCoordinates.js:43
 #: ../root/search/components/PlaceResults.js:63
@@ -10471,7 +10545,7 @@ msgid "Search Edits"
 msgstr "Cerca modifiche"
 
 #: ../root/layout/components/BottomMenu.js:220
-#: ../root/layout/components/sidebar/CollectionSidebar.js:55
+#: ../root/layout/components/sidebar/CollectionSidebar.js:60
 #: ../root/layout/components/sidebar/EditLinks.js:29
 #: ../root/layout/components/sidebar/GenreSidebar.js:30
 #: ../root/static/scripts/account/components/PreferencesForm.js:245
@@ -10772,30 +10846,30 @@ msgstr "Rimuovi da {collection}"
 msgid "Add to {collection}"
 msgstr "Aggiungi a {collection}"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:33
+#: ../root/layout/components/sidebar/CollectionSidebar.js:38
 msgid "Collection information"
 msgstr "Informazioni sulla collezione"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:37
+#: ../root/layout/components/sidebar/CollectionSidebar.js:42
 msgid "Owner:"
 msgstr "Proprietario:"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:49
+#: ../root/layout/components/sidebar/CollectionSidebar.js:54
 msgid "Number of entities"
 msgstr "Numero di entità"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:67
+#: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:48
 msgid "Editing history"
 msgstr "Cronologia modifiche"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:87
+#: ../root/layout/components/sidebar/CollectionSidebar.js:95
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:41
 #: ../root/user/UserSubscriptions.js:207
 msgid "Unsubscribe"
 msgstr "Disiscriviti"
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:99
+#: ../root/layout/components/sidebar/CollectionSidebar.js:107
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:51
 msgid "Subscribe"
 msgstr "Iscriviti"
@@ -10836,31 +10910,31 @@ msgstr "Ultimo aggiornamento il {date}"
 msgid "Last updated on an unknown date"
 msgstr "Ultimo aggiornamento in data sconosciuta"
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:53
+#: ../root/layout/components/sidebar/PlaceSidebar.js:54
 msgid "Place information"
 msgstr "Informazioni sul luogo"
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:64
+#: ../root/layout/components/sidebar/PlaceSidebar.js:65
 msgctxt "place"
 msgid "Opening"
 msgstr "In apertura"
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:65
+#: ../root/layout/components/sidebar/PlaceSidebar.js:66
 msgctxt "place"
 msgid "Opened"
 msgstr "Aperto"
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:74
+#: ../root/layout/components/sidebar/PlaceSidebar.js:75
 msgctxt "place"
 msgid "Closing"
 msgstr "In chiusura"
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:75
+#: ../root/layout/components/sidebar/PlaceSidebar.js:76
 msgctxt "place"
 msgid "Closed"
 msgstr "Chiuse"
 
-#: ../root/layout/components/sidebar/PlaceSidebar.js:92
+#: ../root/layout/components/sidebar/PlaceSidebar.js:93
 msgid "Coordinates:"
 msgstr "Coordinate:"
 
@@ -13373,11 +13447,6 @@ msgstr "Fuso orario:"
 msgid "Date/time format:"
 msgstr "Formato di data/ora:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:188
-#: ../root/user/UserCollections.js:118
-msgid "Privacy"
-msgstr "Privacy"
-
 #: ../root/static/scripts/account/components/PreferencesForm.js:191
 msgid "Allow other users to see my subscriptions"
 msgstr "Permetti agli altri utenti di vedere le mie iscrizioni"
@@ -15111,14 +15180,6 @@ msgstr "Collezioni di opere"
 #: ../root/user/UserCollections.js:62
 msgid "{collaborator_number} (including you)"
 msgstr "{collaborator_number} (te compreso)"
-
-#: ../root/user/UserCollections.js:74
-msgid "Public"
-msgstr "Pubblica"
-
-#: ../root/user/UserCollections.js:74
-msgid "Private"
-msgstr "Privata"
 
 #: ../root/user/UserCollections.js:77
 msgid "(your collection)"

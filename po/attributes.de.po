@@ -47,8 +47,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-28 08:22+0000\n"
-"Last-Translator: Philipp Wolfer <email address hidden>\n"
+"PO-Revision-Date: 2021-05-14 20:46+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3433,6 +3433,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Singaporean rights society COMPASS"
 msgstr "ID für die singapurische Verwertungsgesellschaft COMPASS"
 
+#: DB:work_attribute_type/description:68
+msgctxt "work_attribute_type"
+msgid "ID for the South African rights society SAMRO"
+msgstr ""
+
 #: DB:work_attribute_type/description:20
 msgctxt "work_attribute_type"
 msgid "ID for the Spanish rights society SGAE"
@@ -5934,6 +5939,11 @@ msgstr "SACVEN-ID"
 msgctxt "work_attribute_type"
 msgid "SADAIC ID"
 msgstr "SADAIC ID"
+
+#: DB:work_attribute_type/name:68
+msgctxt "work_attribute_type"
+msgid "SAMRO ID"
+msgstr ""
 
 #: DB:work_attribute_type/name:40
 msgctxt "work_attribute_type"
