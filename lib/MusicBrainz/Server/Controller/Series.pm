@@ -69,6 +69,12 @@ sub show : PathPart('') Chained('load') {
         push @item_numbers, $_->{ordering_key};
     }
 
+    if ($series->type->item_entity_type eq 'artist') {
+        $c->model('Artist')->load_related_info(@entities);
+        $c->model('Artist')->load_meta(@entities);
+        $c->model('Artist')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
+    }
+
     if ($series->type->item_entity_type eq 'event') {
         $c->model('Event')->load_related_info(@entities);
         $c->model('Event')->load_areas(@entities);
