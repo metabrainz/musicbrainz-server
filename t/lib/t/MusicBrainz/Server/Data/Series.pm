@@ -12,9 +12,9 @@ test 'Items should be ordered by relationship date' => sub {
     $c->sql->do(<<EOSQL);
       UPDATE link_type SET has_dates = TRUE WHERE id = 743;
 
-      INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
+      INSERT INTO series (id, gid, name, type, ordering_type)
         VALUES
-          (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 4, 788, 1);
+          (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 4, 1);
 
       INSERT INTO work (id, gid, name, type)
         VALUES
@@ -82,9 +82,9 @@ test 'Events should be ordered by event date, then name (MBS-7557, MBS-7987)' =>
     MusicBrainz::Server::Test->prepare_test_database($c, '+series');
 
     $c->sql->do(<<EOSQL);
-      INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
+      INSERT INTO series (id, gid, name, type, ordering_type)
         VALUES
-          (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 8, 788, 1);
+          (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 8, 1);
 
       INSERT INTO event (id, gid, name, type)
         VALUES
@@ -174,8 +174,8 @@ test 'Releases should be ordered by date, then catalog number, then name (MBS-75
     MusicBrainz::Server::Test->prepare_test_database($c, '+series');
 
     $c->sql->do(<<EOSQL);
-      INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
-        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 2, 788, 1);
+      INSERT INTO series (id, gid, name, type, ordering_type)
+        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 2, 1);
 
       INSERT INTO area (id, gid, name, type)
         VALUES
@@ -270,8 +270,8 @@ test 'Release groups should be ordered by first release date, then name (MBS-755
     MusicBrainz::Server::Test->prepare_test_database($c, '+series');
 
     $c->sql->do(<<EOSQL);
-      INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
-        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 1, 788, 1);
+      INSERT INTO series (id, gid, name, type, ordering_type)
+        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 1, 1);
 
       INSERT INTO area (id, gid, name, type)
         VALUES
@@ -382,8 +382,8 @@ test 'Can reorder series with multiple of the same item without conflicts (MBS-8
     MusicBrainz::Server::Test->prepare_test_database($c, '+series');
 
     $c->sql->do(<<EOSQL);
-      INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
-        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 2, 788, 1);
+      INSERT INTO series (id, gid, name, type, ordering_type)
+        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 2, 1);
 
       INSERT INTO release_group (id, gid, name, artist_credit, type)
         VALUES (1, 'b11f4f4d-9feb-4487-85ee-79a3be288e2c', 'RG', 1, 1);
