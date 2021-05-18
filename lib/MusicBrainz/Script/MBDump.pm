@@ -127,6 +127,8 @@ sub gpg_sign {
            '--default-key', $sign_with,
            '--detach-sign',
            '--armor',
+           '--batch',
+           '--yes',
            $file_to_be_signed;
 
     if ($? != 0) {
@@ -197,16 +199,15 @@ sub write_file {
 }
 
 sub write_checksum_files {
-    my ($self) = @_;
+    my ($compression, $output_dir) = @_;
 
-    my $compression = $self->compression;
     return unless $compression;
 
     my $tar_ext = $compression eq 'bzip2'
         ? 'bz2'
         : $compression;
 
-    my $output_dir = shell_quote($self->output_dir);
+    $output_dir = shell_quote($output_dir);
     for my $hash_program ('md5sum', 'sha256sum') {
         my $hash_output_file = uc($hash_program . 's');
         chomp (my $hash_bin = `which g$hash_program` || `which $hash_program`);
