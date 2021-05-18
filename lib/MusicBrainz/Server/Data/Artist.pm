@@ -449,6 +449,15 @@ sub _hash_to_row
     return $row;
 }
 
+sub load_related_info {
+    my ($self, @artists) = @_;
+
+    my $c = $self->c;
+    $c->model('ArtistType')->load(@artists);
+    $c->model('Gender')->load(@artists);
+    $c->model('Area')->load(@artists);
+}
+
 sub load_meta
 {
     my $self = shift;
