@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import Annotation from '../static/scripts/common/components/Annotation';
+import ArtistList from '../components/list/ArtistList';
 import EventList from '../components/list/EventList';
 import RecordingList from '../components/list/RecordingList';
 import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList';
@@ -41,6 +42,15 @@ const listPicker = ({
     seriesItemNumbers: seriesItemNumbers,
   };
   switch (seriesEntityType) {
+    case 'artist':
+      return (
+        <ArtistList
+          artists={((entities: any): $ReadOnlyArray<ArtistT>)}
+          showBeginEnd
+          showRatings
+          {...sharedProps}
+        />
+      );
     case 'event':
       return (
         <EventList

@@ -20,12 +20,14 @@ import {
   defineBeginDateColumn,
   defineEndDateColumn,
   defineInstrumentUsageColumn,
+  defineSeriesNumberColumn,
   ratingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
+  ...SeriesItemNumbersRoleT,
   +artists: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
   +mergeForm?: MergeFormT,
@@ -43,6 +45,7 @@ const ArtistList = ({
   instrumentCreditsAndRelTypes,
   mergeForm,
   order,
+  seriesItemNumbers,
   showBeginEnd = false,
   showInstrumentCreditsAndRelTypes = false,
   showRatings = false,
@@ -55,6 +58,9 @@ const ArtistList = ({
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        : null;
+      const seriesNumberColumn = seriesItemNumbers
+        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
       const nameColumn = defineNameColumn<ArtistT>({
         order: order,
@@ -113,6 +119,7 @@ const ArtistList = ({
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
+        ...(seriesNumberColumn ? [seriesNumberColumn] : []),
         nameColumn,
         ...(sortNameColumn ? [sortNameColumn] : []),
         typeColumn,
@@ -134,6 +141,7 @@ const ArtistList = ({
       instrumentCreditsAndRelTypes,
       mergeForm,
       order,
+      seriesItemNumbers,
       showBeginEnd,
       showInstrumentCreditsAndRelTypes,
       showRatings,
