@@ -630,6 +630,7 @@ const URL_SHORTENERS = [
   'music.indiefy.net',
   'musics.link',
   'mylink.page',
+  'myurls.bio',
   'odesli.co',
   'orcd.co',
   'owl.ly',
