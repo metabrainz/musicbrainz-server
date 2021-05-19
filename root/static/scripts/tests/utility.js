@@ -10,6 +10,7 @@ import test from 'tape';
 
 import formatDate from '../common/utility/formatDate';
 import * as age from '../../../utility/age';
+import formatUserDate from '../../../utility/formatUserDate';
 import compareDates, {
   compareDatePeriods,
 } from '../common/utility/compareDates';
@@ -539,5 +540,26 @@ test('fullwidthLatin', function (t) {
     fullwidthLatin.toFullwidthLatin(' feat. '),
     '　ｆｅａｔ．　',
     'fully converted toFullwidthLatin',
+  );
+});
+
+test('formatUserDate', function (t) {
+  t.plan(1);
+
+  t.equal(
+    formatUserDate(
+      {
+        stash: {current_language: 'en'},
+        user: {
+          preferences: {
+            datetime_format: '%Y-%m-%d %H:%M %Z',
+            timezone: 'Africa/Cairo',
+          },
+        },
+      },
+      '2021-05-12T22:05:05.640Z',
+    ),
+    '2021-05-13 00:05 GMT+2',
+    '%H ranges from 00-23',
   );
 });
