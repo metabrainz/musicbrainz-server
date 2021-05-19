@@ -16,7 +16,7 @@ use MusicBrainz::Server::Log qw( log_info );
 use MusicBrainz::Server::Replication qw( :replication_type );
 
 my $cluster = 0;
-my $database = 'READWRITE';
+my $database = 'MAINTENANCE';
 my $show_help = 0;
 my $force = 0;
 
@@ -63,16 +63,18 @@ if ($options{recording_first_release_date}) {
     $options{release_first_release_date} = 1;
 }
 
-$c->sql->begin;
-$c->sql->do('SET LOCAL statement_timeout = 0');
+$c->sql->auto_commit;
+$c->sql->do('SET statement_timeout = 0');
 
 if ($build_all || $options{release_first_release_date}) {
     log_info { 'Building release_first_release_date ...' };
+    $c->sql->begin;
     if (
         !$force &&
         $c->sql->select_single_value('SELECT 1 FROM release_first_release_date LIMIT 1')
     ) {
         log_info { 'Table not empty, skipping.' };
+        $c->sql->rollback;
     } else {
         my $pending_updates_trigger = 'apply_artist_release_pending_updates';
         if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
@@ -86,34 +88,40 @@ if ($build_all || $options{release_first_release_date}) {
         }
         $c->sql->do("ALTER TABLE release_first_release_date ENABLE TRIGGER $pending_updates_trigger");
         $c->sql->do('TRUNCATE artist_release_pending_update');
+        $c->sql->commit;
         log_info { 'Done.' };
     }
 }
 
 if ($build_all || $options{recording_first_release_date}) {
     log_info { 'Building recording_first_release_date ...' };
+    $c->sql->begin;
     if (
         !$force &&
         $c->sql->select_single_value('SELECT 1 FROM recording_first_release_date LIMIT 1')
     ) {
         log_info { 'Table not empty, skipping.' };
+        $c->sql->rollback;
     } else {
         $c->sql->do('TRUNCATE recording_first_release_date');
         $c->sql->do(q"INSERT INTO recording_first_release_date SELECT * FROM get_recording_first_release_date_rows('TRUE')");
         if ($cluster) {
             $c->sql->do('CLUSTER recording_first_release_date USING recording_first_release_date_pkey');
         }
+        $c->sql->commit;
         log_info { 'Done.' };
     }
 }
 
 if ($build_all || $options{artist_release}) {
     log_info { 'Building artist_release ...' };
+    $c->sql->begin;
     if (
         !$force &&
         $c->sql->select_single_value('SELECT 1 FROM artist_release LIMIT 1')
     ) {
         log_info { 'Table not empty, skipping.' };
+        $c->sql->rollback;
     } else {
         $c->sql->do('TRUNCATE artist_release');
         $c->sql->do('INSERT INTO artist_release SELECT * FROM get_artist_release_rows(NULL)');
@@ -121,17 +129,20 @@ if ($build_all || $options{artist_release}) {
             $c->sql->do('CLUSTER artist_release_nonva USING artist_release_nonva_idx_sort');
             $c->sql->do('CLUSTER artist_release_va USING artist_release_va_idx_sort');
         }
+        $c->sql->commit;
         log_info { 'Done.' };
     }
 }
 
 if ($build_all || $options{artist_release_group}) {
     log_info { 'Building artist_release_group ...' };
+    $c->sql->begin;
     if (
         !$force &&
         $c->sql->select_single_value('SELECT 1 FROM artist_release_group LIMIT 1')
     ) {
         log_info { 'Table not empty, skipping.' };
+        $c->sql->rollback;
     } else {
         $c->sql->do('TRUNCATE artist_release_group');
         $c->sql->do('INSERT INTO artist_release_group SELECT * FROM get_artist_release_group_rows(NULL)');
@@ -139,11 +150,10 @@ if ($build_all || $options{artist_release_group}) {
             $c->sql->do('CLUSTER artist_release_group_nonva USING artist_release_group_nonva_idx_sort');
             $c->sql->do('CLUSTER artist_release_group_va USING artist_release_group_va_idx_sort');
         }
+        $c->sql->commit;
         log_info { 'Done.' };
     }
 }
-
-$c->sql->commit;
 
 =head1 SYNOPSIS
 
@@ -187,7 +197,7 @@ are supported. You may pass multiple separated by whitespace.
 Options:
 
     --help          show this help
-    --database      database to use (default: READWRITE)
+    --database      database to use (default: MAINTENANCE)
     --force         force rebuilding the tables, even if non-empty
 
 =cut
