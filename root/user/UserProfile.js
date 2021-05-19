@@ -191,16 +191,10 @@ const UserProfileInformation = ({
                   {noEmailWarning}
                 </>
               )}
-              {' '}
-              {viewingOwnProfile ? (
-                bracketed(
-                  <a href="/account/resend-verification">
-                    {l('resend verification email')}
-                  </a>,
-                )
-              ) : (
+              {viewingOwnProfile ? null : (
                 $c.user ? (
                   <>
+                    {' '}
                     {bracketed(
                       <a href={`/user/${encodedName}/contact`}>
                         {l('send email')}
