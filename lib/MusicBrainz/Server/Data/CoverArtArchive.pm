@@ -35,6 +35,15 @@ sub is_valid_mime_type {
     );
 }
 
+sub is_id_in_use {
+    my ($self, $id) = @_;
+
+    $self->sql->select_single_value(
+        'SELECT 1 FROM cover_art_archive.cover_art WHERE id = ?',
+        $id,
+    );
+}
+
 sub fresh_id {
     return int((time() - 1327528905) * 100);
 }

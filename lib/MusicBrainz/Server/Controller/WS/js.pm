@@ -417,11 +417,19 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 
     my $id = $c->request->params->{image_id} // $c->model('CoverArtArchive')->fresh_id;
 
+    if ($c->model('CoverArtArchive')->is_id_in_use($id)) {
+        $self->detach_with_error($c, {message => "The ID $id is already in use."});
+    }
+
     # Create a nonce associated with this image ID which we'll later
     # use to verify that the user went through this endpoint to
     # initiate the upload. This is necessary to ensure we're the owner
     # of the bucket (see above) before allowing any edit submission.
     my $nonce_key = 'cover_art_upload_nonce:' . $id;
+    my $existing_nonce = $context->store->get($nonce_key);
+    if ($existing_nonce) {
+        $self->detach_with_error($c, {message => "The ID $id is already in use."});
+    }
     my $nonce = $c->generate_nonce;
     $context->store->set($nonce_key, $nonce);
     # Expire the nonce in 1 hour.
