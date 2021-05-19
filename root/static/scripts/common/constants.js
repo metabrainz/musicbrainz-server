@@ -201,6 +201,7 @@ export const FAVICON_CLASSES = {
 };
 
 export const PART_OF_SERIES_LINK_TYPES = {
+  artist: 'd1a845d1-8c03-3191-9454-e4e8d37fa5e0',
   event: '707d947d-9563-328a-9a7d-0c5b9c3a9791',
   recording: 'ea6f0698-6782-30d6-b16d-293081b66774',
   release: '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
