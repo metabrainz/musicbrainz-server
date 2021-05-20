@@ -398,7 +398,7 @@ sub _find_recording_artists
         SELECT lrw.entity1 AS work, r.artist_credit
         FROM l_recording_work lrw
         JOIN recording r ON lrw.entity0 = r.id
-        LEFT JOIN track t on r.id = t.recording
+        LEFT JOIN track t ON r.id = t.recording
         WHERE lrw.entity1 IN (" . placeholders(@$ids) . ")
         GROUP BY lrw.entity1, r.artist_credit
         ORDER BY count(*) DESC, artist_credit

@@ -220,7 +220,7 @@ sub _merge_impl
          SELECT DISTINCT ?::int
          FROM country_area
          WHERE area = any(?) AND NOT EXISTS (
-           SELECT TRUE from country_area WHERE area = ?
+           SELECT TRUE FROM country_area WHERE area = ?
          )',
          $new_id, \@old_ids, $new_id
     );

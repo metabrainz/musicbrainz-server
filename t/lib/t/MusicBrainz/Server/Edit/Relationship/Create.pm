@@ -55,7 +55,7 @@ is($rel->link->end_date->year, 1995);
 subtest 'creating cover art relationships should update the releases coverart' => sub {
     my $url = 'http://web.archive.org/web/20100820183338/wiki.jpopstop.com/images/8/8d/alan_-_Kaze_ni_Mukau_Hana_CDDVD_mu-mo.jpg';
 
-    $c->sql->do('UPDATE link_type SET is_deprecated = FALSE where id = 78');
+    $c->sql->do('UPDATE link_type SET is_deprecated = FALSE WHERE id = 78');
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_CREATE,
@@ -68,7 +68,7 @@ subtest 'creating cover art relationships should update the releases coverart' =
         ended => 0,
     );
 
-    $c->sql->do('UPDATE link_type SET is_deprecated = TRUE where id = 78');
+    $c->sql->do('UPDATE link_type SET is_deprecated = TRUE WHERE id = 78');
 
     my $release = $c->model('Release')->get_by_id(1);
     $c->model('Release')->load_meta($release);

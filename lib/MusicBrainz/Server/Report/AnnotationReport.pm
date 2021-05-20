@@ -10,17 +10,17 @@ sub query {
     my ($self) = @_;
     my $entity_type = $self->entity_type;
 
-    my $query = "SELECT s.text, substr(s.created::text, 0, 17) AS created, e.id AS ${entity_type}_id, row_number() OVER (order by s.created DESC, e.name COLLATE musicbrainz)
+    my $query = "SELECT s.text, substr(s.created::text, 0, 17) AS created, e.id AS ${entity_type}_id, row_number() OVER (ORDER BY s.created DESC, e.name COLLATE musicbrainz)
                     FROM (
-                        select *, row_number() over (partition by $entity_type order by created desc)
-                        from ${entity_type}_annotation ea
-                        join annotation an on ea.annotation = an.id
-                        join $entity_type e on e.id = ea.$entity_type
+                        SELECT *, row_number() OVER (PARTITION BY $entity_type ORDER BY created desc)
+                        FROM ${entity_type}_annotation ea
+                        JOIN annotation an ON ea.annotation = an.id
+                        JOIN $entity_type e ON e.id = ea.$entity_type
                     ) s
-                    join $entity_type e on e.gid = s.gid
-                    where row_number = 1
-                    and s.text != ''
-                    order by s.created DESC, s.text";
+                    JOIN $entity_type e ON e.gid = s.gid
+                    WHERE row_number = 1
+                    AND s.text != ''
+                    ORDER BY s.created DESC, s.text";
 
     return $query;
 }

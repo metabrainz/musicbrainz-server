@@ -64,7 +64,7 @@ SELECT q.entity AS release_id, row_number() OVER (ORDER BY release.name COLLATE 
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
 ) AS q
-JOIN release on q.entity = release.id
+JOIN release ON q.entity = release.id
 GROUP BY q.entity, release.name
 
     ";

@@ -57,7 +57,7 @@ SELECT q.entity AS work_id, row_number() OVER (ORDER BY work.name COLLATE musicb
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
 ) AS q
-JOIN work on q.entity = work.id
+JOIN work ON q.entity = work.id
 GROUP BY q.entity, work.name
 
     ";

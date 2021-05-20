@@ -333,8 +333,8 @@ test 'Open edits expire in 7 days (MBS-8681)' => sub {
     is($edit->edit_conditions->{duration}, 7);
 
     my ($expire_time) = @{ $c->sql->select_list_of_hashes(<<'EOSQL', $edit->id) };
-SELECT expire_time as got,
-       (open_time + interval '@ 7 days') as expected
+SELECT expire_time AS got,
+       (open_time + interval '@ 7 days') AS expected
   FROM edit WHERE id = ?
 EOSQL
 

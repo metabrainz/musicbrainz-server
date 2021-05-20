@@ -218,7 +218,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
                 return $SECONDARY_PAGE_PRIORITY if $opts{has_aliases};
                 return $EMPTY_PAGE_PRIORITY;
             },
-            extra_sql => {columns => "EXISTS (SELECT true FROM ${entity_type}_alias a WHERE a.$entity_type = ${entity_type}.id) AS has_aliases"},
+            extra_sql => {columns => "EXISTS (SELECT TRUE FROM ${entity_type}_alias a WHERE a.$entity_type = ${entity_type}.id) AS has_aliases"},
             jsonld_markup => ($entity_properties->{sitemaps_lastmod_table} ? 1 : 0),
         };
     }
