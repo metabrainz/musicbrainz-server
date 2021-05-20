@@ -36,6 +36,7 @@ import * as URLCleanup from './URLCleanup';
 import validation from './validation';
 
 type LinkStateT = {
+  ended: boolean,
   relationship: number | string | null,
   type: number | null,
   url: string,
@@ -283,6 +284,7 @@ export class ExternalLinksEditor
 
             return (
               <ExternalLink
+                ended={link.ended}
                 errorMessage={error || ''}
                 handleUrlBlur={
                   this.handleUrlBlur.bind(this, index)
@@ -340,6 +342,7 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
 }
 
 type LinkProps = {
+  ended: boolean,
   errorMessage: React.Node,
   handleUrlBlur: (number, SyntheticEvent<HTMLInputElement>) => void,
   handleUrlChange: (number, SyntheticEvent<HTMLInputElement>) => void,
@@ -436,6 +439,12 @@ export class ExternalLink extends React.Component<LinkProps> {
             type="url"
             value={props.url}
           />
+          {props.ended &&
+            <div className="notification" data-visible="1">
+              {l(`This link has been marked as no longer valid (‘ended’)
+                  and is kept for archival purposes only.
+                  There's generally no need to remove these links.`)}
+            </div>}
           {props.errorMessage &&
             <div className="error field-error" data-visible="1">
               {props.errorMessage}
@@ -468,6 +477,7 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 const defaultLinkState: LinkStateT = {
+  ended: false,
   relationship: null,
   type: null,
   url: '',
@@ -528,6 +538,7 @@ export function parseRelationships(
 
     if (target.entityType === 'url') {
       accum.push({
+        ended: data.ended,
         relationship: data.id,
         type: data.linkTypeID,
         url: target.name,
