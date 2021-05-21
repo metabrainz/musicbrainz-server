@@ -33,7 +33,7 @@
 
     <table style="width: 100%">
       <tbody data-bind="foreach: files_to_upload">
-        <tr>
+        <tr style="display: flex;">
           <td class="uploader-preview-column">
               <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}, visible: data_uri() != ''" />
               <button type="button" class="icon file-up"
@@ -41,47 +41,7 @@
               <button type="button" class="icon file-down"
                      title="[% l('Move file down') %]" style="clear: right; float: right"></button>
           </td>
-          <td>
-            <div class="status" style="float: right; width: 264px;">
-              <div role="progressbar"
-                   class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
-                <div class="ui-progressbar-value ui-widget-header ui-corner-left"
-                     data-bind="style: { width: progress() + '%' }">&nbsp;
-                </div>
-              </div>
-              <span data-bind="visible: status() == 'validating'" class="msg">[%- l('Validating file...') -%]</span>
-              <span data-bind="visible: status() == 'waiting'" class="msg">&nbsp;</span>
-              <span data-bind="visible: status() == 'signing'" class="msg">[%- l('Request signature...') -%]</span>
-              <span data-bind="visible: status() == 'uploading'" class="msg">[%- l('Uploading image...') -%]</span>
-              <span data-bind="visible: status() == 'submitting'" class="msg">[%- l('Creating edit...') -%]</span>
-              <span data-bind="visible: status() == 'done'" class="msg success">[%- l('&#x2713; Success') -%]</span>
-              <span data-bind="visible: status() == 'validate_error'" class="msg error">[%- l('&#x26a0; Unrecognized file') -%]</span>
-              <span data-bind="visible: status() == 'sign_error'" class="msg error">[%- l('&#x26a0; Error requesting signature') -%]</span>
-              <!-- ko if: signErrorMessage -->
-                <p data-bind="text: signErrorMessage"></p>
-              <!-- /ko -->
-              <!-- ko if: signErrorDetails -->
-                <p>
-                  [%# This message is identical to the one used in root/search/error/internal-error.tt %]
-                  [%- l('Below is the error information. If you wish to file a bug report, you may do
-                         so at {bugs|our bug tracker}. The information below will help, so please be
-                         sure to include it!',
-                        {bugs => 'http://tickets.metabrainz.org/'}) -%]
-                </p>
-                <p data-bind="text: signErrorDetails"></p>
-              <!-- /ko -->
-              <span data-bind="visible: status() == 'upload_error'" class="msg error">[%- l('&#x26a0; Error uploading image') -%]</span>
-              <span data-bind="visible: status() == 'slowdown_error'" class="msg error">[%- l('&#x26a0; Server busy, try again later') -%]</span>
-              <span data-bind="visible: status() == 'submit_error'" class="msg error">[%- l('&#x26a0; Error creating edit') -%]</span>
-              <!-- ko if: editErrorMessage -->
-                <p data-bind="text: editErrorMessage"></p>
-              <!-- /ko -->
-              <br />
-              <span class="buttons" data-bind="visible: !busy() && status() != 'done'" style="float: right;">
-                 <button type="button" class="cancel-file negative">[%- l('Remove') -%]</button>
-              </span>
-            </div>
-
+          <td style="width: 65%;">
             <div class="file-info row">
               <label>[%- l("File:") -%]</label>
               <span data-bind="text: name"></span>
@@ -90,26 +50,63 @@
 
             <div class="cover-art-types row" data-bind="visible: status() == 'waiting'">
               <label>[%- l("Type:") -%]</label>
-              <ul class="checkboxes" data-bind="foreach: types">
+              <ul class="cover-art-type-checkboxes" data-bind="foreach: types">
                 <li>
                   <label>
-                    <span style="white-space:nowrap;">
-                      <input type="checkbox" class="type" data-bind="checked: checked, value: id" />
-                      <span style="white-space:normal;" data-bind="text: name" />
-                    </span>
+                    <input type="checkbox" class="type" data-bind="checked: checked, value: id" />
+                    <span data-bind="text: name" />
                   </label>
                 </li>
               </ul>
             </div>
             <div class="cover-art-types-help row" data-bind="visible: status() == 'waiting'">
               <label>&nbsp;</label>
-              <p>[%- l('Please see the {doc|Cover Art Types} documentation for a description of these types.', { doc => { href => doc_link('Cover_Art/Types'), target => '_blank' } }) -%]</p>
+              <p style="margin-left: 162px;">[%- l('Please see the {doc|Cover Art Types} documentation for a description of these types.', { doc => { href => doc_link('Cover_Art/Types'), target => '_blank' } }) -%]</p>
             </div>
             <div class="comment row" data-bind="visible: status() == 'waiting'">
               <label>[%- l('Comment:') -%]</label>
               <input class="comment" type="text" size="47" data-bind="value: comment" />
             </div>
-
+          </td>
+          <td style="flex-grow: 1;">
+            <div role="progressbar"
+                 class="ui-progressbar ui-widget ui-widget-content ui-corner-all"
+                 style="width: 100%;">
+              <div class="ui-progressbar-value ui-widget-header ui-corner-left"
+                   data-bind="style: { width: progress() + '%' }">&nbsp;
+              </div>
+            </div>
+            <span data-bind="visible: status() == 'validating'" class="msg">[%- l('Validating file...') -%]</span>
+            <span data-bind="visible: status() == 'waiting'" class="msg">&nbsp;</span>
+            <span data-bind="visible: status() == 'signing'" class="msg">[%- l('Request signature...') -%]</span>
+            <span data-bind="visible: status() == 'uploading'" class="msg">[%- l('Uploading image...') -%]</span>
+            <span data-bind="visible: status() == 'submitting'" class="msg">[%- l('Creating edit...') -%]</span>
+            <span data-bind="visible: status() == 'done'" class="msg success">[%- l('&#x2713; Success') -%]</span>
+            <span data-bind="visible: status() == 'validate_error'" class="msg error">[%- l('&#x26a0; Unrecognized file') -%]</span>
+            <span data-bind="visible: status() == 'sign_error'" class="msg error">[%- l('&#x26a0; Error requesting signature') -%]</span>
+            <!-- ko if: signErrorMessage -->
+              <p data-bind="text: signErrorMessage"></p>
+            <!-- /ko -->
+            <!-- ko if: signErrorDetails -->
+              <p>
+                [%# This message is identical to the one used in root/search/error/internal-error.tt %]
+                [%- l('Below is the error information. If you wish to file a bug report, you may do
+                       so at {bugs|our bug tracker}. The information below will help, so please be
+                       sure to include it!',
+                      {bugs => 'http://tickets.metabrainz.org/'}) -%]
+              </p>
+              <p data-bind="text: signErrorDetails"></p>
+            <!-- /ko -->
+            <span data-bind="visible: status() == 'upload_error'" class="msg error">[%- l('&#x26a0; Error uploading image') -%]</span>
+            <span data-bind="visible: status() == 'slowdown_error'" class="msg error">[%- l('&#x26a0; Server busy, try again later') -%]</span>
+            <span data-bind="visible: status() == 'submit_error'" class="msg error">[%- l('&#x26a0; Error creating edit') -%]</span>
+            <!-- ko if: editErrorMessage -->
+              <p data-bind="text: editErrorMessage"></p>
+            <!-- /ko -->
+            <br />
+            <span class="buttons" data-bind="visible: !busy() && status() != 'done'" style="float: right;">
+               <button type="button" class="cancel-file negative">[%- l('Remove') -%]</button>
+            </span>
           </td>
         </tr>
       </tbody>
