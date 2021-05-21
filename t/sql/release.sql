@@ -81,7 +81,7 @@ INSERT INTO recording (id, gid, name, artist_credit)
 INSERT INTO medium (id, release, track_count, position)
     VALUES (2, 6, 0, 1), (3, 7, 0, 1),
            (4, 8, 0, 1), (5, 9, 0, 1),
-           (60, 100, 1, 1), (70, 110, 1, 1),
+           (60, 100, 0, 1), (70, 110, 0, 1),
            (80, 101, 0, 1), (81, 101, 0, 2),
            (90, 111, 0, 1), (91, 111, 0, 2);
 INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recording)
