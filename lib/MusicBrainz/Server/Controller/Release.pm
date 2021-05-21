@@ -374,6 +374,7 @@ sub _merge_form_arguments {
             push @mediums, {
                 id => $medium->id,
                 release_id => $medium->release_id,
+                release => $medium->release,
                 position => $position,
                 name => $name
             };

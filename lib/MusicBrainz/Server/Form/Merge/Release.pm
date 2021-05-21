@@ -6,6 +6,7 @@ extends 'MusicBrainz::Server::Form::Merge';
 
 has_field 'merge_strategy' => (
     type => 'Select',
+    default => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
     required => 1
 );
 

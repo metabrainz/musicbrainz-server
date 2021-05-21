@@ -21,6 +21,7 @@ require('./edit/utility/guessFeat');
 require('./edit/utility/toggleEnded');
 require('./edit/MB/Control/Area');
 require('./edit/components/ArtistCreditEditor');
+require('./edit/components/ReleaseMergeStrategy');
 require('./edit/components/forms');
 require('./edit/MB/Control/ArtistEdit');
 require('./edit/MB/Control/Bubble');

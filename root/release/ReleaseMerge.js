@@ -1,0 +1,82 @@
+/*
+ * @flow
+ * Copyright (C) 2020 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import * as React from 'react';
+
+import linkedEntities from '../static/scripts/common/linkedEntities';
+import ReleaseMergeStrategy
+  from '../static/scripts/edit/components/ReleaseMergeStrategy';
+import sortByEntityName
+  from '../static/scripts/common/utility/sortByEntityName';
+import EnterEdit from '../components/EnterEdit';
+import EnterEditNote from '../components/EnterEditNote';
+import FieldErrors from '../components/FieldErrors';
+import ReleaseList from '../components/list/ReleaseList';
+import Layout from '../layout';
+import * as manifest from '../static/manifest';
+
+type Props = {
+  +$c: CatalystContextT,
+  +badRecordingMerges?:
+    $ReadOnlyArray<$ReadOnlyArray<RecordingWithArtistCreditT>>,
+  +form: MergeReleasesFormT,
+  +mediums: $ReadOnlyArray<MediumT>,
+  +toMerge: $ReadOnlyArray<ReleaseT>,
+};
+
+const ReleaseMerge = ({
+  $c,
+  badRecordingMerges,
+  form,
+  mediums,
+  toMerge,
+}: Props): React.Element<typeof Layout> => (
+  <Layout $c={$c} fullWidth title={l('Merge releases')}>
+    <div id="content">
+      <h1>{l('Merge releases')}</h1>
+      <p>
+        {l(`You are about to merge the following releases into a single
+            release. Please select the release which you would
+            like other releases to be merged into:`)}
+      </p>
+      <form action={$c.req.uri} method="post">
+        <ReleaseList
+          mergeForm={form}
+          releases={sortByEntityName(toMerge)}
+        />
+        <FieldErrors field={form.field.target} />
+
+        <ReleaseMergeStrategy
+          badRecordingMerges={badRecordingMerges}
+          form={form}
+          mediums={mediums}
+          releases={linkedEntities.release}
+        />
+
+        <EnterEditNote field={form.field.edit_note} />
+
+        <EnterEdit form={form}>
+          <button
+            className="negative"
+            name="submit"
+            type="submit"
+            value="cancel"
+          >
+            {l('Cancel')}
+          </button>
+        </EnterEdit>
+      </form>
+    </div>
+
+    {manifest.js('edit.js')}
+
+  </Layout>
+);
+
+export default ReleaseMerge;

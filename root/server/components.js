@@ -139,6 +139,7 @@ module.exports = {
   'relationship/linktype/RelationshipTypesList': require('../relationship/linktype/RelationshipTypesList'),
   'release/CoverArt': require('../release/CoverArt'),
   'release/CoverArtDarkened': require('../release/CoverArtDarkened'),
+  'release/ReleaseMerge': require('../release/ReleaseMerge'),
   'release/RemoveCoverArt': require('../release/RemoveCoverArt'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
   'release_group/ReleaseGroupMerge': require('../release_group/ReleaseGroupMerge'),

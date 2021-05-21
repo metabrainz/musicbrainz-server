@@ -9,7 +9,7 @@
 
 export default function renderMergeCheckboxElement(
   entity: CoreEntityT,
-  form: MergeFormT,
+  form: MergeFormT | MergeReleasesFormT,
   index: number,
 ): React$MixedElement {
   return (
