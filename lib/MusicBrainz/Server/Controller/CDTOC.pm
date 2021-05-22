@@ -42,6 +42,7 @@ sub _load_releases
     my ($self, $c, $cdtoc) = @_;
     my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
+    $c->model('Medium')->load_track_durations(@mediums);
     $c->model('Track')->load_for_mediums(@mediums);
     my @tracks = map { $_->all_tracks } @mediums;
     $c->model('Recording')->load(@tracks);
