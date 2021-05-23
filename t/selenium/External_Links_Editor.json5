@@ -24,7 +24,12 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//label[1]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//label[1]",
+      value: '1',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][1]//label[2]",
       value: 'Wikipedia',
     },
     // invalid URL detection
@@ -62,13 +67,13 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'error')]",
       value: 'Enter a valid url e.g. "http://google.com/"',
     },
     {
-      command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}',
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
     },
     // shortened URL detection
     {
@@ -83,13 +88,13 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'error')]",
       value: 'Please don’t enter bundled/shortened URLs, enter the destination URL(s) instead.',
     },
     {
-      command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}',
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
     },
     // deprecated link type detection for new links
     {
@@ -109,12 +114,12 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'error')]",
       value: 'This relationship type is deprecated and should not be used.',
     },
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
       value: '',
     },
     // URLInputPopover tests
@@ -233,7 +238,7 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][1]//div[contains(@class, 'error')]",
       value: 'This relationship type is deprecated and should not be used.',
     },
     // relationshipCreate edit for external link is generated for existing release
@@ -378,7 +383,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'remove-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'remove-item')]",
       value: '',
     },
     // check that edits are not generated for links that duplicate removed ones
@@ -389,7 +394,7 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'field-error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'field-error')]",
       value: 'This relationship already exists.',
     },
     {
@@ -410,7 +415,7 @@
     // duplicate the first URL again by editing the other existing URL
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
       value: '',
     },
     // Open popover
@@ -437,7 +442,7 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//div[contains(@class, 'field-error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][1]//div[contains(@class, 'field-error')]",
       value: 'This relationship already exists.',
     },
     // revert above edit

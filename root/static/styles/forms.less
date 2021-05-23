@@ -627,11 +627,24 @@ table.artist-credit-editor {
         padding-right: 0;
     }
 
-    .relationship-item > td.relationship-name {
-        padding-left: 30px;
+    .relationship-item {
+        td {
+            padding-top: @form-margin / 4;
+            padding-bottom: @form-margin / 2;
+        }
 
-        select {
-            width: 100%;
+        td.relationship-name {
+            label {
+                margin-right: @form-margin / 2;
+            }
+
+            select {
+                width: auto;
+            }
+
+            .attribute-container {
+                display: inline-block;
+            }
         }
     }
 }

@@ -493,7 +493,7 @@ export class ExternalLink
 
     return (
       <React.Fragment>
-        <tr>
+        <tr className="external-link-item">
           <td>
             <label>
               {props.isOnlyLink
@@ -552,6 +552,7 @@ export class ExternalLink
         <tr className="relationship-item">
           <td />
           <td className="relationship-name">
+            <label>{l('Type:')}</label>
             {/* If the URL matches its type or is just empty, display either a
                 favicon or a prompt for a new link as appropriate. */
               showTypeSelection
@@ -590,6 +591,10 @@ export class ExternalLink
                   {' '}
                   {l('video')}
                 </label>
+              </div>}
+            {props.errorMessage &&
+              <div className="error field-error" data-visible="1">
+                {props.errorMessage}
               </div>}
           </td>
           <td className="link-actions" style={{minWidth: '51px'}}>
