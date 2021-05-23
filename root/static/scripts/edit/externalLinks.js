@@ -314,6 +314,8 @@ export class ExternalLinksEditor
                 handleVideoChange={
                   this.handleVideoChange.bind(this, index)
                 }
+                index={index}
+                isLastLink={index === this.state.links.length - 1}
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
                 onRemove={this.removeLink.bind(this, index)}
@@ -369,6 +371,8 @@ type LinkProps = {
   handleUrlChange: (number, SyntheticEvent<HTMLInputElement>) => void,
   handleVideoChange:
     (number, SyntheticEvent<HTMLInputElement>) => void,
+  index: number,
+  isLastLink: boolean,
   isOnlyLink: boolean,
   onRemove: (number) => void,
   type: number | null,
@@ -380,7 +384,7 @@ type LinkProps = {
 };
 
 export class ExternalLink extends React.Component<LinkProps> {
-  render(): React.Element<'tr'> {
+  render(): React.Element<typeof React.Fragment> {
     const props = this.props;
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
     let typeDescription = '';
@@ -425,72 +429,86 @@ export class ExternalLink extends React.Component<LinkProps> {
     }
 
     return (
-      <tr>
-        <td>
-          {/* If the URL matches its type or is just empty, display either a
-              favicon or a prompt for a new link as appropriate. */
-            showTypeSelection
-              ? (
-                <LinkTypeSelect
-                  handleTypeChange={props.typeChangeCallback}
-                  type={props.type}
-                >
-                  {props.typeOptions}
-                </LinkTypeSelect>
-              ) : (
+      <React.Fragment>
+        <tr>
+          <td>
+            <label>
+              {props.isOnlyLink
+                ? l('Add link:')
+                : (
+                  props.isLastLink
+                    ? l('Add another link:')
+                    : props.index + 1
+                )}
+            </label>
+          </td>
+          <td>
+            <input
+              className="value with-button"
+              onBlur={props.handleUrlBlur}
+              onChange={props.handleUrlChange}
+              type="url"
+              value={props.url}
+            />
+            {props.errorMessage &&
+              <div className="error field-error" data-visible="1">
+                {props.errorMessage}
+              </div>}
+          </td>
+          <td style={{minWidth: '34px'}}>
+            {isEmpty(props) ||
+              <RemoveButton
+                onClick={props.onRemove}
+                title={l('Remove Link')}
+              />}
+          </td>
+        </tr>
+        <tr className="relationship-item">
+          <td />
+          <td className="relationship-name">
+            {/* If the URL matches its type or is just empty, display either a
+                favicon or a prompt for a new link as appropriate. */
+              showTypeSelection
+                ? (
+                  <LinkTypeSelect
+                    handleTypeChange={props.typeChangeCallback}
+                    type={props.type}
+                  >
+                    {props.typeOptions}
+                  </LinkTypeSelect>
+                ) : (
+                  <label>
+                    {faviconClass &&
+                    <span
+                      className={'favicon ' + faviconClass + '-favicon'}
+                    />}
+                    {linkType ? (
+                      backward
+                        ? l_relationships(linkType.reverse_link_phrase)
+                        : l_relationships(linkType.link_phrase)
+                    ) : null}
+                  </label>
+                )
+            }
+            {linkType &&
+              hasOwnProp(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
+              <div className="attribute-container">
                 <label>
-                  {faviconClass &&
-                  <span className={'favicon ' + faviconClass + '-favicon'} />}
-                  {(linkType ? (
-                    backward
-                      ? l_relationships(linkType.reverse_link_phrase)
-                      : l_relationships(linkType.link_phrase)
-                  ) : null) ||
-                  (props.isOnlyLink
-                    ? l('Add link:')
-                    : l('Add another link:'))}
-                </label>)
-          }
-        </td>
-        <td>
-          <input
-            className="value with-button"
-            onBlur={props.handleUrlBlur}
-            onChange={props.handleUrlChange}
-            type="url"
-            value={props.url}
-          />
-          {props.errorMessage &&
-            <div
-              className={`error field-error target-${props.errorTarget}`}
-              data-visible="1"
-            >
-              {props.errorMessage}
-            </div>
-          }
-          {linkType &&
-            hasOwnProp(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
-            <div className="attribute-container">
-              <label>
-                <input
-                  checked={props.video}
-                  onChange={props.handleVideoChange}
-                  type="checkbox"
-                />
-                {' '}
-                {l('video')}
-              </label>
-            </div>}
-        </td>
-        <td style={{minWidth: '34px'}}>
-          {typeDescription && <HelpIcon content={typeDescription} />}
-          {isEmpty(props) ||
-            <RemoveButton
-              onClick={props.onRemove}
-              title={l('Remove Link')}
-            />}
-        </td>
-      </tr>
+                  <input
+                    checked={props.video}
+                    onChange={props.handleVideoChange}
+                    type="checkbox"
+                  />
+                  {' '}
+                  {l('video')}
+                </label>
+              </div>}
+          </td>
+          <td>
+            {typeDescription && <HelpIcon content={typeDescription} />}
+          </td>
+        </tr>
+      </React.Fragment>
     );
   }
 }
