@@ -450,10 +450,6 @@ export class ExternalLink extends React.Component<LinkProps> {
               type="url"
               value={props.url}
             />
-            {props.errorMessage &&
-              <div className="error field-error" data-visible="1">
-                {props.errorMessage}
-              </div>}
           </td>
           <td style={{minWidth: '34px'}}>
             {isEmpty(props) ||
@@ -467,6 +463,7 @@ export class ExternalLink extends React.Component<LinkProps> {
         <tr className="relationship-item">
           <td />
           <td className="relationship-name">
+            <label>{l('Type:')}</label>
             {/* If the URL matches its type or is just empty, display either a
                 favicon or a prompt for a new link as appropriate. */
               showTypeSelection
@@ -503,6 +500,10 @@ export class ExternalLink extends React.Component<LinkProps> {
                   {' '}
                   {l('video')}
                 </label>
+              </div>}
+            {props.errorMessage &&
+              <div className="error field-error" data-visible="1">
+                {props.errorMessage}
               </div>}
           </td>
           <td>
