@@ -548,6 +548,7 @@ export class ExternalLink
               />}
           </td>
         </tr>
+        {isEmpty(props) ||
         <tr className="relationship-item">
           <td />
           <td className="relationship-name">
@@ -601,6 +602,7 @@ export class ExternalLink
               />}
           </td>
         </tr>
+        }
       </React.Fragment>
     );
   }
