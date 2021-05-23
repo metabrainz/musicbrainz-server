@@ -463,6 +463,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               />}
           </td>
         </tr>
+        {isEmpty(props) ||
         <tr className="relationship-item">
           <td />
           <td className="relationship-name">
@@ -508,6 +509,7 @@ export class ExternalLink extends React.Component<LinkProps> {
             {typeDescription && <HelpIcon content={typeDescription} />}
           </td>
         </tr>
+        }
       </React.Fragment>
     );
   }
