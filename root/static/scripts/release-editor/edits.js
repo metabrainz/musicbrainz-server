@@ -608,7 +608,11 @@ releaseEditor.orderedEditSubmissions = [
     callback: function (release, edits) {
       var edit = edits[0];
 
-      if (edit.edit_type == MB.edit.TYPES.EDIT_RELEASEGROUP_CREATE) {
+      /*
+       * edit can be undef if the only change is RG rename
+       * and the RG has already been renamed to the same name in the meantime
+       */
+      if (edit?.edit_type == MB.edit.TYPES.EDIT_RELEASEGROUP_CREATE) {
         release.releaseGroup(
           new releaseEditor.fields.ReleaseGroup(edits[0].entity),
         );
