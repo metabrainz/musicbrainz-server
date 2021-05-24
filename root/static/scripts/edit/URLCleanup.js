@@ -1363,6 +1363,7 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?d-nb\.info\//, 'http://d-nb.info/');
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
       return url;
