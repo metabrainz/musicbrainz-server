@@ -1371,7 +1371,10 @@ const CLEANUPS = {
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
+        case LINK_TYPES.otherdatabases.place:
           return {result: /^http:\/\/d-nb\.info\/gnd\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
+        case LINK_TYPES.otherdatabases.label:
+          return {result: /^http:\/\/d-nb\.info\/(dnbn|gnd)\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
         case LINK_TYPES.otherdatabases.release:
           return {result: /^http:\/\/d-nb\.info\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
       }
