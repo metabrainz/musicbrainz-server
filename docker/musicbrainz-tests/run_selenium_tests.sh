@@ -26,11 +26,6 @@ rabbitmqctl add_user sir sir
 rabbitmqctl add_vhost /sir-test
 rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
 
-sudo -u postgres psql -U musicbrainz -d musicbrainz_selenium -c <<'EOSQL'
-ALTER SCHEMA amqp OWNER TO musicbrainz;
-ALTER TABLE amqp.broker OWNER TO musicbrainz;
-EOSQL
-
 # Install the sir triggers into musicbrainz_selenium.
 export SIR_DIR=/home/musicbrainz/sir
 cd "$SIR_DIR"
