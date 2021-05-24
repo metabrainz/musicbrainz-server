@@ -262,4 +262,20 @@ RUN touch \
     /etc/service/vnu/down \
     /etc/service/website/down
 
+COPY docker/scripts/install_svlogd_services.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/install_svlogd_services.sh && \
+    install_svlogd_services.sh \
+        artwork-indexer \
+        artwork-redirect \
+        chrome \
+        postgresql \
+        redis \
+        sir-queue-purger \
+        solr \
+        ssssss \
+        template-renderer \
+        vnu \
+        website && \
+    rm /usr/local/bin/install_svlogd_services.sh
+
 LABEL com.circleci.preserve-entrypoint=true
