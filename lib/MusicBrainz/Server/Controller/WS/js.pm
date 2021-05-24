@@ -337,7 +337,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         $context->lwp->timeout(30);
 
         my $response = $context->lwp->request($s3_request);
-        if ($response->code == 200) {
+        if ($response->is_success) {
             # The bucket was created succesfully.
         } elsif ($response->code == 409) {
             my $s3_error_code;
@@ -362,7 +362,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 my $item_metadata;
                 my $json_decode_error;
 
-                if ($response->code == 200) {
+                if ($response->is_success) {
                     capture_exceptions(sub {
                         $item_metadata = $c->json->decode($response->decoded_content);
                     }, sub {
