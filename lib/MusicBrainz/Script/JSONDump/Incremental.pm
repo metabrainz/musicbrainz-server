@@ -221,17 +221,22 @@ sub run_impl {
         });
 
         if ($did_update_anything) {
-            for my $entity_type (@{ $self->dumped_entity_types }) {
-                # Output each replication sequence in its own dir.
-                my $output_dir = catdir(
-                    $self->output_dir, "json-dump-$start_sequence");
+            # Output each replication sequence in its own dir.
+            my $output_dir = catdir(
+                $self->output_dir, "json-dump-$start_sequence");
 
+            for my $entity_type (@{ $self->dumped_entity_types }) {
                 $self->create_json_dump(
                     $c,
                     $entity_type,
                     output_dir => $output_dir,
                     replication_sequence => $start_sequence,
                 );
+            }
+
+            if ($self->compression_enabled) {
+                log('Writing checksum files');
+                MusicBrainz::Script::MBDump::write_checksum_files('xz', $output_dir);
             }
         } else {
             last;
