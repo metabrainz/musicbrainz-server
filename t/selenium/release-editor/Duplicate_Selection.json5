@@ -28,6 +28,11 @@
       value: '',
     },
     {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
       command: 'type',
       target: 'css=span.artist input.name',
       value: 'imagine',
