@@ -430,7 +430,7 @@ export class ExternalLink extends React.Component<LinkProps> {
 
     return (
       <React.Fragment>
-        <tr>
+        <tr className="external-link-item">
           <td>
             <label>
               {props.isOnlyLink
