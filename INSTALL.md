@@ -445,7 +445,7 @@ If you intend to run a server with translations, there are a few steps to follow
 Troubleshooting
 ---------------
 
-If you have any difficulties, feel free to ask in #metabrainz on irc.freenode.net,
+If you have any difficulties, feel free to ask in #metabrainz on irc.libera.chat,
 or ask on [our forums](https://community.metabrainz.org/c/musicbrainz).
 
 Please report any issues on our [bug tracker](http://tickets.metabrainz.org/).

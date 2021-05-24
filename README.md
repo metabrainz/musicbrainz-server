@@ -8,7 +8,7 @@ MusicBrainz is a user-maintained open community that collects music metadata
 and makes it available to the public in the form of a relational database.
 For more information, [visit our website](https://musicbrainz.org/doc/About).
 
-To get help, please join #metabrainz on irc.freenode.net
+To get help, please join #metabrainz on irc.libera.chat
 
 Breaking changes to the database schema or our API / web service will be announced on
 [our blog](https://blog.metabrainz.org/category/musicbrainz+breaking-changes/),
