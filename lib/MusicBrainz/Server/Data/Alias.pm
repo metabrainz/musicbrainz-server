@@ -197,7 +197,7 @@ sub merge
     # preferring primary_for_locale and the target entity
     # therefore, partition by everything except primary_by_locale
     $self->sql->do(
-        "DELETE FROM $table WHERE id in (
+        "DELETE FROM $table WHERE id IN (
              SELECT a.id FROM (
                  SELECT id, rank() OVER (PARTITION BY $type, name, locale, type, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day
                                          ORDER BY primary_for_locale DESC, ($type = ?) DESC) > 1 AS redundant

@@ -21,9 +21,9 @@ sub query {
             ) events ON (events.release = r.id)
             JOIN medium m ON m.release = r.id
             LEFT JOIN medium_format mf ON mf.id = m.format
-            LEFT JOIN medium_cdtoc mcd on mcd.medium = m.id
+            LEFT JOIN medium_cdtoc mcd ON mcd.medium = m.id
             WHERE
-              (mcd.id IS NOT NULL AND date_year < (select min(year) from medium_format where has_discids = 't')) OR
+              (mcd.id IS NOT NULL AND date_year < (SELECT min(year) FROM medium_format WHERE has_discids = 't')) OR
               (mcd.id IS NOT NULL AND mf.year IS NOT NULL AND mf.has_discids = 'f') OR
               (mf.year IS NOT NULL AND date_year < mf.year)
           ) r

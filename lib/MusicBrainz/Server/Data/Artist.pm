@@ -192,7 +192,7 @@ sub find_by_release
                      FROM artist
                      JOIN artist_credit_name acn ON acn.artist = artist.id
                      JOIN release ON release.artist_credit = acn.artist_credit
-                     wHERE release.id = ?)
+                     WHERE release.id = ?)
                  ORDER BY artist.name COLLATE musicbrainz, artist.id";
     $self->query_to_list_limited($query, [($release_id) x 2], $limit, $offset);
 }

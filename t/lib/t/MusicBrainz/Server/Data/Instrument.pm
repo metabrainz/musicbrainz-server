@@ -67,7 +67,7 @@ test 'Create, update, delete instruments' => sub {
     is($instrument->comment, 'Instrument comment', 'newly-created instrument is correct');
     is($instrument->description, '', 'newly-created instrument is correct');
     ok(defined $instrument->gid, 'newly-created instrument has an MBID');
-    ok($test->c->sql->select_single_value('SELECT true from link_attribute_type where gid = ?', $instrument->gid),
+    ok($test->c->sql->select_single_value('SELECT TRUE FROM link_attribute_type WHERE gid = ?', $instrument->gid),
        'link_attribute_type row was inserted too');
 
     # ---
@@ -85,7 +85,7 @@ test 'Create, update, delete instruments' => sub {
     is($instrument->type_id, undef, 'updated instrument data is correct');
     is($instrument->comment, 'Updated comment', 'updated instrument data is correct');
     is($instrument->description, 'Newly-created description', 'updated instrument data is correct');
-    is($test->c->sql->select_single_value('SELECT description from link_attribute_type where gid = ?', $instrument->gid),
+    is($test->c->sql->select_single_value('SELECT description FROM link_attribute_type WHERE gid = ?', $instrument->gid),
        'Newly-created description',
        'link_attribute_type row was updated');
 
@@ -93,7 +93,7 @@ test 'Create, update, delete instruments' => sub {
     $instrument_data->delete($instrument->id);
     $instrument = $instrument_data->get_by_id($instrument->id);
     ok(!defined $instrument, 'instrument was deleted');
-    ok(!defined $test->c->sql->select_single_value('SELECT true from link_attribute_type where gid = ?', $gid),
+    ok(!defined $test->c->sql->select_single_value('SELECT TRUE FROM link_attribute_type WHERE gid = ?', $gid),
        'link_attribute_type row was deleted too');
 };
 
@@ -108,13 +108,13 @@ test 'Merge instruments' => sub {
 
     my $instrument = $instrument_data->get_by_id(4);
     ok(!defined $instrument);
-    is($c->sql->select_single_value('SELECT id from link_attribute_type where gid = ?', "945c079d-374e-4436-9448-da92dedef3cf"),
+    is($c->sql->select_single_value('SELECT id FROM link_attribute_type WHERE gid = ?', "945c079d-374e-4436-9448-da92dedef3cf"),
        undef, "No link_attribute_type exists for merged-away instrument");
 
     $instrument = $instrument_data->get_by_id(3);
     ok(defined $instrument);
     is($instrument->name, 'Test Instrument');
-    ok($c->sql->select_single_value('SELECT id from link_attribute_type where gid = ?', $instrument->gid),
+    ok($c->sql->select_single_value('SELECT id FROM link_attribute_type WHERE gid = ?', $instrument->gid),
        "Still have a link_attribute_type row for merged-into instrument");
 
     my $recording = $c->model('Recording')->get_by_id(1);

@@ -18,7 +18,7 @@ sub component_name { 'IswcsWithManyWorks' }
 
 sub query {
     "
-        SELECT i.iswc, workcount, w.id as work_id,
+        SELECT i.iswc, workcount, w.id AS work_id,
           row_number() OVER (ORDER BY i.iswc)
         FROM iswc i
           JOIN work w ON (w.id = i.work)

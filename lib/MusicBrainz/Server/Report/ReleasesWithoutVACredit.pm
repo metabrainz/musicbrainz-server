@@ -14,16 +14,16 @@ sub query {
         FROM (
             SELECT r.id, r.artist_credit, r.name
             FROM release r
-            JOIN artist_credit_name acn on acn.artist_credit = r.artist_credit
+            JOIN artist_credit_name acn ON acn.artist_credit = r.artist_credit
             WHERE acn.artist = $VARTIST_ID AND acn.name != 'Various Artists'
 
             UNION
 
             SELECT r.id, r.artist_credit, r.name
             FROM track
-            JOIN artist_credit_name acn on acn.artist_credit = track.artist_credit
-            JOIN medium on medium.id = track.medium
-            JOIN release r on r.id = medium.release
+            JOIN artist_credit_name acn ON acn.artist_credit = track.artist_credit
+            JOIN medium PN medium.id = track.medium
+            JOIN release r ON r.id = medium.release
             WHERE acn.artist = $VARTIST_ID AND acn.name != 'Various Artists'
         ) r
     ";

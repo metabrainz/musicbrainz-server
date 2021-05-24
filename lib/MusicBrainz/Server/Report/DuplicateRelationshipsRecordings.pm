@@ -65,7 +65,7 @@ SELECT q.entity AS recording_id, row_number() OVER (ORDER BY recording.name COLL
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
 ) AS q
-JOIN recording on q.entity = recording.id
+JOIN recording ON q.entity = recording.id
 GROUP BY q.entity, recording.name
 
     ";

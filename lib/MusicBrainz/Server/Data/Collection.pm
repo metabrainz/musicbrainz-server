@@ -139,7 +139,7 @@ sub merge {
         "UPDATE editor_collection_$type ec
          SET added = x.added, comment = x.comment
          FROM (
-            SELECT $type, min(added) AS added, string_agg(comment, '\n\n-------\n\n') as comment
+            SELECT $type, min(added) AS added, string_agg(comment, '\n\n-------\n\n') AS comment
             FROM editor_collection_$type
             WHERE collection = any(?)
             GROUP BY $type

@@ -33,12 +33,12 @@ sub _columns
            '(SELECT r.name FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_name, ' .
            '(SELECT r.gid FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_gid, ' .
            'COALESCE(
-                (SELECT true FROM link_text_attribute_type
+                (SELECT TRUE FROM link_text_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
                 false
             ) AS free_text, ' .
            'COALESCE(
-                (SELECT true FROM link_creditable_attribute_type
+                (SELECT TRUE FROM link_creditable_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
                 false
             ) AS creditable, ' .
@@ -201,7 +201,7 @@ sub merge_instrument_attributes {
           LEFT JOIN link_attribute_credit lac ON (lac.link = la.link AND lac.attribute_type = la.attribute_type)
           JOIN link_type ON link.link_type = link_type.id
           WHERE link.id IN (
-              SELECT link from link_attribute where attribute_type = any(?)
+              SELECT link FROM link_attribute WHERE attribute_type = any(?)
           )
       GROUP BY link.id, link_type,
                begin_date_year, begin_date_month, begin_date_day,
