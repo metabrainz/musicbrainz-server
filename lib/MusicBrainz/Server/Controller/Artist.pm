@@ -858,6 +858,11 @@ sub process_filter
 
 =head1 COPYRIGHT AND LICENSE
 
+Copyright (C) 2008 MetaBrainz Foundation
+Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2013 Jesse Weinstein
+Copyright (C) 2014 Ulrich Klauer
+
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any
 later version: http://www.gnu.org/licenses/gpl-2.0.txt
