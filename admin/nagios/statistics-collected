@@ -15,9 +15,9 @@ my $c = MusicBrainz::Server::Context->create_script_context;
 my $res = $c->sql->select_single_row_array(
     "
 SELECT date_collected,
-        date_trunc('day', now())::date - date_collected as days_old
+        date_trunc('day', now())::date - date_collected AS days_old
 FROM statistics.statistic
-order by id desc limit 1
+ORDER BY id desc LIMIT 1
      ")
     or critical('Failed to collect statistics');
 

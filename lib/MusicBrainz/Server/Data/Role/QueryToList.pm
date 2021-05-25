@@ -59,7 +59,7 @@ sub query_to_list_limited {
         $query = qq{
             WITH x AS ($query)
             SELECT x.*, c.count AS total_row_count
-            FROM x, (SELECT count(*) from x) c
+            FROM x, (SELECT count(*) FROM x) c
         };
     }
 

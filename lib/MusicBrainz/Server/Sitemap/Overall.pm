@@ -109,7 +109,7 @@ sub create_temporary_tables {
 sub fill_temporary_tables {
     my ($self, $sql) = @_;
 
-    my $is_official = "(EXISTS (SELECT TRUE FROM release where release.release_group = q.rg AND release.status = '1')
+    my $is_official = "(EXISTS (SELECT TRUE FROM release WHERE release.release_group = q.rg AND release.status = '1')
                         OR NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = q.rg AND release.status IS NOT NULL))";
 
     # Release groups that will appear on the non-VA listings, per artist
@@ -266,7 +266,7 @@ sub build_one_entity {
 
     # Find the counts in each potential batch of 50,000
     my $raw_batches = $sql->select_list_of_hashes(
-        "SELECT batch, count(id) from (SELECT id, ceil(id / ?::float) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC",
+        "SELECT batch, count(id) FROM (SELECT id, ceil(id / ?::float) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC",
         $MAX_SITEMAP_SIZE
     );
 

@@ -772,7 +772,7 @@ sub _order_by {
         },
         "catno" => sub {
             $extra_join = "LEFT OUTER JOIN
-                (SELECT release, array_agg(catalog_number) AS catnos from release_label
+                (SELECT release, array_agg(catalog_number) AS catnos FROM release_label
                   WHERE catalog_number IS NOT NULL GROUP BY release) rl
                 ON rl.release = release.id";
             $also_select = "catnos";
@@ -1007,7 +1007,7 @@ sub can_merge {
                  FROM changes
                  JOIN medium changed_m ON changed_m.id = changes.id
                  JOIN medium all_m ON all_m.release = changed_m.release
-                 WHERE all_m.id not in (select id from changes)
+                 WHERE all_m.id NOT IN (SELECT id FROM changes)
                )
              ) s
              GROUP BY position

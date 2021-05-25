@@ -44,7 +44,7 @@ my $domain = $domain[0];
 # and ctx, which specifies a column to use for a msgctxt entry (unused at present).
 my @DBDEFS = (
               {'domain' => 'statistics', 'table' => 'statistics.statistic_event', 'columns' => ['title', 'description'], 'id' => 'date'},
-              {'domain' => 'countries', 'table' => 'area JOIN iso_3166_1 iso on iso.area = area.id', 'columns' => ['area.name'], 'comment' => ['iso.code']},
+              {'domain' => 'countries', 'table' => 'area JOIN iso_3166_1 iso ON iso.area = area.id', 'columns' => ['area.name'], 'comment' => ['iso.code']},
               {'domain' => 'languages', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3'], 'where' => 'iso_code_2t IS NOT NULL OR frequency > 0'},
               {'domain' => 'languages_notrim', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3']},
               {'domain' => 'scripts', 'table' => 'script', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code']},
@@ -125,7 +125,7 @@ sub parse_db {
                 $select_cols .= ", COALESCE(" . $col . "::text, 'null')";
             }
         }
-        my $query = "SELECT $select_cols from $table";
+        my $query = "SELECT $select_cols FROM $table";
         if ($where) {
             $query .= " WHERE $where";
         }

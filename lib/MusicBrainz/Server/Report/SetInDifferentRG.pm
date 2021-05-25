@@ -21,7 +21,7 @@ sub query {
                 JOIN release r1 ON l.entity1 = r1.id
                 JOIN link ON l.link = link.id
                 JOIN link_type ON link.link_type = link_type.id
-            WHERE link_type.gid in ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
+            WHERE link_type.gid IN ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
                 AND r0.release_group <> r1.release_group
             UNION
             SELECT r1.id
@@ -30,7 +30,7 @@ sub query {
                 JOIN release r1 ON l.entity1 = r1.id
                 JOIN link ON l.link = link.id
                 JOIN link_type ON link.link_type = link_type.id
-            WHERE link_type.gid in ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
+            WHERE link_type.gid IN ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
                 AND r0.release_group <> r1.release_group
         )
     ";

@@ -106,5 +106,5 @@ INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recor
            (7, 'b98ad21e-b1fb-4036-912e-3737636d270c', 'Track on recording', 3, 7, 1, 1, 2);
 
 -- release_meta
-UPDATE release_meta SET cover_art_presence = 'present' WHERE id in (7, 8);
+UPDATE release_meta SET cover_art_presence = 'present' WHERE id IN (7, 8);
 UPDATE release_meta SET cover_art_presence = 'darkened' WHERE id = 9;

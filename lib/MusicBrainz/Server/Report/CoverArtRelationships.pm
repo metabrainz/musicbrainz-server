@@ -13,7 +13,7 @@ sub query {
         FROM release r
             JOIN l_release_url l_ru ON r.id = l_ru.entity0
             JOIN link l ON l_ru.link = l.id
-            JOIN artist_credit ac on ac.id = r.artist_credit
+            JOIN artist_credit ac ON ac.id = r.artist_credit
         WHERE l.link_type = 78 AND l_ru.edits_pending = 0
     ";
 }

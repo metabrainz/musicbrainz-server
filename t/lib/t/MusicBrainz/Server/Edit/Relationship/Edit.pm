@@ -218,9 +218,9 @@ UPDATE release_coverart
 INSERT INTO url (id, gid, url)
   VALUES (1, '24332737-b876-4d5e-9c30-e414b4570bda', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 
-UPDATE link_type SET is_deprecated = FALSE where id = 78;
+UPDATE link_type SET is_deprecated = FALSE WHERE id = 78;
 INSERT INTO link (id, link_type) VALUES (1, 78);
-UPDATE link_type SET is_deprecated = TRUE where id = 78;
+UPDATE link_type SET is_deprecated = TRUE WHERE id = 78;
 INSERT INTO l_release_url (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
 EOSQL
 

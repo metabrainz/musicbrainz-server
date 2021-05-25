@@ -25,7 +25,7 @@ sub _columns
 {
     return 'medium.id, release, position, format, medium.name,
             medium.edits_pending, track_count,
-            COALESCE((SELECT true FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap,
+            COALESCE((SELECT TRUE FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap,
             (SELECT count(*) FROM track WHERE medium = medium.id AND position > 0 AND is_data_track = false) AS cdtoc_track_count';
 }
 

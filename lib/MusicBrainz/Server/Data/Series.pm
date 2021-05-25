@@ -240,7 +240,7 @@ sub automatically_reorder {
     my ($self, $series_id) = @_;
 
     return unless $self->c->sql->select_single_value(
-        'SELECT true FROM series WHERE id = ? AND ordering_type = ?',
+        'SELECT TRUE FROM series WHERE id = ? AND ordering_type = ?',
         $series_id, $SERIES_ORDERING_TYPE_AUTOMATIC
     );
 

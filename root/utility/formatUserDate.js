@@ -32,7 +32,7 @@ const formatterCache = new Map();
 const patterns = {
   '%A': ['weekday', {weekday: 'long'}],
   '%B': ['month', {month: 'long'}],
-  '%H': ['hour', {hour: '2-digit', hour12: false}],
+  '%H': ['hour', {hour: '2-digit', hourCycle: 'h23'}],
   '%M': ['minute', {minute: '2-digit', hour: '2-digit'}],
   '%S': ['second', {second: '2-digit', minute: '2-digit'}],
   '%X': [null, {

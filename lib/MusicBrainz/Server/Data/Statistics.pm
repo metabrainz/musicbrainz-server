@@ -1141,7 +1141,7 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT type.id, COUNT(rg.id) AS count
                  FROM release_group_primary_type type
-                 LEFT JOIN release_group rg on rg.type = type.id
+                 LEFT JOIN release_group rg ON rg.type = type.id
                  GROUP BY type.id",
             );
 
@@ -1164,7 +1164,7 @@ my %stats = (
                  FROM release_group_secondary_type type
                  LEFT JOIN release_group_secondary_type_join type_join
                      ON type.id = type_join.secondary_type
-                 JOIN release_group rg on rg.id = type_join.release_group
+                 JOIN release_group rg ON rg.id = type_join.release_group
                  GROUP BY type.id",
             );
 
@@ -1835,11 +1835,11 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT c, COUNT(*) AS freq
                 FROM (
-                    SELECT r.id, count(distinct release.id) as c
+                    SELECT r.id, count(distinct release.id) AS c
                         FROM recording r
                         LEFT JOIN track t ON t.recording = r.id
                         LEFT JOIN medium m ON t.medium = m.id
-                        LEFT JOIN release on m.release = release.id
+                        LEFT JOIN release ON m.release = release.id
                     GROUP BY r.id
                 ) AS t
                 GROUP BY c

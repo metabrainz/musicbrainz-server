@@ -35,7 +35,7 @@ SELECT q.entity AS artist_id, row_number() OVER (ORDER BY artist.name COLLATE mu
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
 ) AS q
-JOIN artist on q.entity = artist.id
+JOIN artist ON q.entity = artist.id
 GROUP BY q.entity, artist.name
 
     ";

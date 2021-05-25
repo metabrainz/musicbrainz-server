@@ -74,10 +74,10 @@ INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phra
            (2, 1, 3, 'David Bowie', '');
 EOSQL
 
-    is($c->sql->select_single_value('SELECT count(*) from artist_credit'), 2, 'Two artist credits before merge');
+    is($c->sql->select_single_value('SELECT count(*) FROM artist_credit'), 2, 'Two artist credits before merge');
     $c->model('ArtistCredit')->merge_artists(2, [ 3 ]);
-    is($c->sql->select_single_value('SELECT count(*) from artist_credit'), 1, 'One artist credit after merge');
-    is($c->sql->select_single_value('SELECT count(*) from artist_credit_name'), 2, 'AC after merge has two artists');
+    is($c->sql->select_single_value('SELECT count(*) FROM artist_credit'), 1, 'One artist credit after merge');
+    is($c->sql->select_single_value('SELECT count(*) FROM artist_credit_name'), 2, 'AC after merge has two artists');
 };
 
 test 'Merging updates matching names' => sub {

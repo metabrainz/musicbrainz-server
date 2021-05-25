@@ -63,9 +63,9 @@ sub _load_attributes
                 root_attr.gid AS root_gid,
                 root_attr.name AS root_name,
                 COALESCE(text_value, '') AS text_value,
-                COALESCE((SELECT true FROM link_text_attribute_type ltat
+                COALESCE((SELECT TRUE FROM link_text_attribute_type ltat
                           WHERE ltat.attribute_type = attr.id), false) AS free_text,
-                COALESCE((SELECT true FROM link_creditable_attribute_type lcat
+                COALESCE((SELECT TRUE FROM link_creditable_attribute_type lcat
                           WHERE lcat.attribute_type = attr.id), false) AS creditable,
                 COALESCE((SELECT comment FROM instrument
                           WHERE instrument.gid = attr.gid), '') AS instrument_comment

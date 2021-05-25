@@ -290,7 +290,7 @@ test 'preserve track MBIDs on merge' => sub {
         old_ids => [ 9 ]
     );
 
-    my $redirects = $c->sql->select_list_of_hashes('SELECT gid, new_id from track_gid_redirect');
+    my $redirects = $c->sql->select_list_of_hashes('SELECT gid, new_id FROM track_gid_redirect');
 
     cmp_deeply($redirects, [{'gid'=> 'a833f5c7-dd13-40ba-bb5b-dc4e35d2bb90', 'new_id' => 4}], 'gid redirect for deleted track exists');
 };

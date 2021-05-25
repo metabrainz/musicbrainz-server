@@ -459,4 +459,58 @@ EOSQL
                 series => 0 });
 };
 
+
+test 'Searching editor by email (for admin only)' => sub {
+    my $test = shift;
+
+    $test->c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password, ha1, email) VALUES
+  (1, 'z', '{CLEARTEXT}password', '12345678901234567890123456789012', 'abc@f.g.h'),
+  (2, 'y', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f.g.h'),
+  (3, 'x', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f-g.h'),
+  -- Reminder: Editor #4 is ModBot
+  (5, 'w', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d@e.f.g.h');
+EOSQL
+
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+
+    my @editors;
+
+    # Bounded search with trimmed user info and escaped host name (recommended)
+    @editors = $editor_data->search_by_email('^abc@f\.g\.h$');
+    is(@editors => 2, 'found 2 editors');
+    is($editors[0]->id => 1, 'is editor #1');
+    is($editors[1]->id => 2, 'is editor #2');
+
+    # Search with trimmed user info suffix and escaped host name prefix
+    @editors = $editor_data->search_by_email('bc@f\.g');
+    is(@editors => 2, 'found 2 editors');
+    is($editors[0]->id => 1, 'is editor #1');
+    is($editors[1]->id => 2, 'is editor #2');
+
+    # Search with trimmed user info and unescaped host name
+    @editors = $editor_data->search_by_email('abc@f.g.h');
+    is(@editors => 3, 'found 3 editors');
+    is($editors[0]->id => 1, 'is editor #1');
+    is($editors[1]->id => 2, 'is editor #2');
+    # Special character '.' matches '-'
+    is($editors[2]->id => 3, 'is editor #3');
+
+    # Search with trimmed user info only
+    @editors = $editor_data->search_by_email('abc@');
+    is(@editors => 4, 'found 4 editors');
+    is($editors[0]->id => 1, 'is editor #1');
+    is($editors[1]->id => 2, 'is editor #2');
+    is($editors[2]->id => 3, 'is editor #3');
+    is($editors[3]->id => 5, 'is editor #5');
+
+    # Search with untrimmed unescaped user info only
+    @editors = $editor_data->search_by_email('a.b.c+d.e@');
+    is(@editors => 0, 'found 0 editor');
+
+    # Search with untrimmed escaped user info only
+    @editors = $editor_data->search_by_email('a\.b\.c\+d\.e@');
+    is(@editors => 0, 'found 0 editor');
+};
+
 1;

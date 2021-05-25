@@ -61,6 +61,8 @@ const preBracketSingleWordsList = [
   'takes',
   'techno',
   'trance',
+  'unknown',
+  'untitled',
   'version',
   'video',
   'vocal',

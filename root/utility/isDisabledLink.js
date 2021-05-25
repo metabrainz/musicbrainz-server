@@ -8,12 +8,20 @@
  */
 
 import isGreyedOut from '../url/utility/isGreyedOut';
+import isFutureDate from '../utility/isFutureDate';
 
 export default function isDisabledLink(
-  relationshipOrLinkDatePeriod: {+ended: boolean, ...},
+  relationshipOrLinkDatePeriod: {
+    +end_date: PartialDateT | null,
+    +ended: boolean,
+    ...
+  },
   entity: CoreEntityT,
 ): boolean {
+  const isEnded = relationshipOrLinkDatePeriod.ended &&
+                  !isFutureDate(relationshipOrLinkDatePeriod.end_date);
+
   return entity.entityType === 'url' && (
-    relationshipOrLinkDatePeriod.ended || isGreyedOut(entity.href_url)
+    isEnded || isGreyedOut(entity.href_url)
   );
 }

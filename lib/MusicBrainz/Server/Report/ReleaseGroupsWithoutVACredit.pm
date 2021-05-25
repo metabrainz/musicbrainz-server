@@ -12,7 +12,7 @@ sub query {
             rg.id AS release_group_id,
             row_number() OVER (ORDER BY rg.artist_credit, rg.name)
         FROM release_group rg
-        JOIN artist_credit_name acn on acn.artist_credit = rg.artist_credit
+        JOIN artist_credit_name acn ON acn.artist_credit = rg.artist_credit
         WHERE acn.artist = $VARTIST_ID AND acn.name != 'Various Artists'
     ";
 }
