@@ -44,25 +44,25 @@ test 'test recalculate_all' => sub {
 
 test 'top_recently_active_editors' => sub {
     my $test = shift;
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
-  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(11, 14) s(x);
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+            SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(11, 14) s(x);
 
-INSERT INTO edit (id, status, type, open_time, expire_time, editor)
-VALUES
--- Edits that should count
-  (1, 1, 1, now(), now(), 11),
-  (2, 2, 1, now(), now(), 11),
-  (3, 1, 1, now(), now(), 12),
+        INSERT INTO edit (id, status, type, open_time, expire_time, editor)
+            VALUES
+              -- Edits that should count
+                (1, 1, 1, now(), now(), 11),
+                (2, 2, 1, now(), now(), 11),
+                (3, 1, 1, now(), now(), 12),
 
--- Failed edits dont count
-  (4, 4, 1, now(), now(), 13),
+              -- Failed edits don't count
+                (4, 4, 1, now(), now(), 13),
 
--- Old edits dont count
-  (5, 2, 1, '1970-01-01', now(), 14);
+              -- Old edits don't count
+                (5, 2, 1, '1970-01-01', now(), 14);
 
-INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
-EOSQL
+        INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
+        EOSQL
 
     ok !exception { $test->c->model('Statistics')->recalculate_all };
     my $stats = $test->c->model('Statistics::ByDate')->get_latest_statistics();
@@ -78,25 +78,25 @@ EOSQL
 
 test 'top_editors' => sub {
     my $test = shift;
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
-  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(11, 14) s(x);
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+            SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(11, 14) s(x);
 
-INSERT INTO edit (id, status, type, open_time, expire_time, editor)
-VALUES
--- Edits that should count
-  (1, 2, 1, now(), now(), 11),
-  (2, 2, 1, now(), now(), 11),
-  (3, 2, 1, now() - '5 day'::interval, now(), 12),
+        INSERT INTO edit (id, status, type, open_time, expire_time, editor)
+            VALUES
+              -- Edits that should count
+                (1, 2, 1, now(), now(), 11),
+                (2, 2, 1, now(), now(), 11),
+                (3, 2, 1, now() - '5 day'::interval, now(), 12),
 
--- Failed edits dont count
-  (4, 4, 1, now(), now(), 13),
+              -- Failed edits don't count
+                (4, 4, 1, now(), now(), 13),
 
--- Old edits do count
-  (5, 2, 1, '1970-01-01', now(), 14);
+              -- Old edits do count
+                (5, 2, 1, '1970-01-01', now(), 14);
 
-INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
-EOSQL
+        INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
+        EOSQL
 
     ok !exception { $test->c->model('Statistics')->recalculate_all };
     my $stats = $test->c->model('Statistics::ByDate')->get_latest_statistics();
@@ -113,30 +113,30 @@ EOSQL
 
 test 'top_recently_active_voters' => sub {
     my $test = shift;
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
-  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(11, 15) s(x);
-INSERT INTO edit (id, status, type, open_time, expire_time, editor)
-  SELECT x, 2, 1, now(), now(), 11 FROM generate_series(1, 4) s(x);
-INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+            SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(11, 15) s(x);
+        INSERT INTO edit (id, status, type, open_time, expire_time, editor)
+            SELECT x, 2, 1, now(), now(), 11 FROM generate_series(1, 4) s(x);
+        INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
 
-INSERT INTO vote (id, edit, vote, vote_time, editor, superseded)
-VALUES
--- Votes that should count
-  (1, 1, 0, now(), 11, FALSE),
-  (2, 2, 1, now(), 11, FALSE),
-  (3, 1, 2, now() - '5 day'::interval, 12, FALSE),
+        INSERT INTO vote (id, edit, vote, vote_time, editor, superseded)
+        VALUES
+            -- Votes that should count
+              (1, 1, 0, now(), 11, FALSE),
+              (2, 2, 1, now(), 11, FALSE),
+              (3, 1, 2, now() - '5 day'::interval, 12, FALSE),
 
--- Abstains don't count
-  (4, 1, -1, now(), 13, FALSE),
+            -- Abstains don't count
+              (4, 1, -1, now(), 13, FALSE),
 
--- Old votes dont count
-  (5, 1, 1, now() - '8 day'::interval, 14, FALSE),
+            -- Old votes don't count
+              (5, 1, 1, now() - '8 day'::interval, 14, FALSE),
 
--- Superseded votes don't count
-  (6, 1,  1, now(), 15, TRUE),
-  (7, 1, -1, now(), 15, FALSE);
-EOSQL
+            -- Superseded votes don't count
+              (6, 1,  1, now(), 15, TRUE),
+              (7, 1, -1, now(), 15, FALSE);
+        EOSQL
 
     ok !exception { $test->c->model('Statistics')->recalculate_all };
     my $stats = $test->c->model('Statistics::ByDate')->get_latest_statistics();
@@ -152,30 +152,30 @@ EOSQL
 
 test 'top_voters' => sub {
     my $test = shift;
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
-  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(11, 15) s(x);
-INSERT INTO edit (id, status, type, open_time, expire_time, editor)
-  SELECT x, 2, 1, now(), now(), 11 FROM generate_series(1, 4) s(x);
-INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+            SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(11, 15) s(x);
+        INSERT INTO edit (id, status, type, open_time, expire_time, editor)
+            SELECT x, 2, 1, now(), now(), 11 FROM generate_series(1, 4) s(x);
+        INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
 
-INSERT INTO vote (id, edit, vote, vote_time, editor, superseded)
-VALUES
--- Votes that should count
-  (1, 1, 0, now(), 11, FALSE),
-  (2, 2, 1, now(), 11, FALSE),
-  (3, 1, 2, now() - '5 day'::interval, 12, FALSE),
+        INSERT INTO vote (id, edit, vote, vote_time, editor, superseded)
+            VALUES
+              -- Votes that should count
+                (1, 1, 0, now(), 11, FALSE),
+                (2, 2, 1, now(), 11, FALSE),
+                (3, 1, 2, now() - '5 day'::interval, 12, FALSE),
 
--- Abstains don't count
-  (4, 1, -1, now(), 13, FALSE),
+              -- Abstains don't count
+                (4, 1, -1, now(), 13, FALSE),
 
--- Old votes do count
-  (5, 1, 1, now() - '8 day'::interval, 14, FALSE),
+              -- Old votes do count
+                (5, 1, 1, now() - '8 day'::interval, 14, FALSE),
 
--- Superseded votes don't count
-  (6, 1,  1, now(), 15, TRUE),
-  (7, 1, -1, now(), 15, FALSE);
-EOSQL
+              -- Superseded votes don't count
+                (6, 1,  1, now(), 15, TRUE),
+                (7, 1, -1, now(), 15, FALSE);
+        EOSQL
 
     ok !exception { $test->c->model('Statistics')->recalculate_all };
     my $stats = $test->c->model('Statistics::ByDate')->get_latest_statistics();

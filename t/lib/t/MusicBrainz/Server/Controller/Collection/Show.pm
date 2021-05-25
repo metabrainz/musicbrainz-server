@@ -57,20 +57,20 @@ test 'Collection view includes description when there is one' => sub {
     $tx->not_ok('//div[@id=collection]/p[@class=deleted and starts-with(text(), "This content is hidden to prevent spam.")]',
         'collection description of beginner/limited user hides for not-logged-in user');
 
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO edit (id, editor, type, status, expire_time, autoedit) VALUES
-    (11, 2, 1, $STATUS_APPLIED, now(), 0),
-    (12, 2, 1, $STATUS_APPLIED, now(), 0),
-    (13, 2, 1, $STATUS_APPLIED, now(), 0),
-    (14, 2, 1, $STATUS_APPLIED, now(), 0),
-    (15, 2, 1, $STATUS_APPLIED, now(), 0),
-    (16, 2, 1, $STATUS_APPLIED, now(), 0),
-    (17, 2, 1, $STATUS_APPLIED, now(), 0),
-    (18, 2, 1, $STATUS_APPLIED, now(), 0),
-    (19, 2, 1, $STATUS_APPLIED, now(), 0),
-    (20, 2, 1, $STATUS_APPLIED, now(), 0);
-UPDATE editor SET member_since = '2007-07-23' WHERE id = 2;
-EOSQL
+    $test->c->sql->do(<<~"EOSQL");
+        INSERT INTO edit (id, editor, type, status, expire_time, autoedit)
+            VALUES (11, 2, 1, $STATUS_APPLIED, now(), 0),
+                   (12, 2, 1, $STATUS_APPLIED, now(), 0),
+                   (13, 2, 1, $STATUS_APPLIED, now(), 0),
+                   (14, 2, 1, $STATUS_APPLIED, now(), 0),
+                   (15, 2, 1, $STATUS_APPLIED, now(), 0),
+                   (16, 2, 1, $STATUS_APPLIED, now(), 0),
+                   (17, 2, 1, $STATUS_APPLIED, now(), 0),
+                   (18, 2, 1, $STATUS_APPLIED, now(), 0),
+                   (19, 2, 1, $STATUS_APPLIED, now(), 0),
+                   (20, 2, 1, $STATUS_APPLIED, now(), 0);
+        UPDATE editor SET member_since = '2007-07-23' WHERE id = 2;
+        EOSQL
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
     $mech->content_like(qr/Testy!/, 'collection description of (not beginner/limited) user shows for everyone');

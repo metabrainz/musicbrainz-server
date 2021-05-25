@@ -166,20 +166,20 @@ sub is_empty {
     my ($self, $place_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, place => 'place_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $place_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"EOSQL", $place_id, $STATUS_OPEN);
         SELECT TRUE
         FROM place place_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
-          EXISTS (
-            SELECT TRUE
-            FROM edit_place JOIN edit ON edit_place.edit = edit.id
-            WHERE status = ? AND place = place_row.id
-          ) OR
-          $used_in_relationship
+            EXISTS (
+                SELECT TRUE
+                FROM edit_place JOIN edit ON edit_place.edit = edit.id
+                WHERE status = ? AND place = place_row.id
+            ) OR
+            $used_in_relationship
         )
-EOSQL
+        EOSQL
 }
 
 sub find_by_area {

@@ -152,34 +152,34 @@ sub can_delete
     return 0 if $self->is_release_country_area($area_id);
 
     my $used_in_relationship = used_in_relationship($self->c, area => 'area_row.id');
-    return 1 if $self->sql->select_single_value(<<EOSQL, $area_id, $STATUS_OPEN);
+    return 1 if $self->sql->select_single_value(<<~"EOSQL", $area_id, $STATUS_OPEN);
         SELECT TRUE
         FROM area area_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
-          EXISTS (
-            SELECT TRUE FROM edit_area
-            JOIN edit ON edit_area.edit = edit.id
-            WHERE edit.status = ? AND edit_area.area = area_row.id
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM artist
-            WHERE area = area_row.id
-            OR begin_area = area_row.id
-            OR end_area = area_row.id
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM label
-            WHERE area = area_row.id
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM place
-            WHERE area = area_row.id
-          ) OR
-          $used_in_relationship
+            EXISTS (
+                SELECT TRUE FROM edit_area
+                JOIN edit ON edit_area.edit = edit.id
+                WHERE edit.status = ? AND edit_area.area = area_row.id
+            ) OR
+            EXISTS (
+                SELECT TRUE FROM artist
+                WHERE area = area_row.id
+                OR begin_area = area_row.id
+                OR end_area = area_row.id
+            ) OR
+            EXISTS (
+                SELECT TRUE FROM label
+                WHERE area = area_row.id
+            ) OR
+            EXISTS (
+                SELECT TRUE FROM place
+                WHERE area = area_row.id
+            ) OR
+            $used_in_relationship
         )
-EOSQL
+        EOSQL
 
     return 0;
 }

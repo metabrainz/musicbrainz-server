@@ -244,10 +244,10 @@ sub drop_temporary_tables {
                        artist_works
                        instrument_recordings
                        instrument_releases )) {
-        $sql->do(<<EOSQL);
-          SET client_min_messages TO WARNING;
-          DROP TABLE IF EXISTS tmp_sitemaps_$table;
-EOSQL
+        $sql->do(<<~"EOSQL");
+            SET client_min_messages TO WARNING;
+            DROP TABLE IF EXISTS tmp_sitemaps_$table;
+            EOSQL
     }
     $sql->commit;
 }

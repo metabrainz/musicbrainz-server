@@ -113,22 +113,22 @@ test 'Rejected edits are applied if the label can\'t be deleted' => sub {
     my $edit = create_edit($c, privileges => $UNTRUSTED_FLAG);
     my $label_id = $edit->entity_id;
 
-    $c->sql->do(<<EOSQL);
-    INSERT INTO artist (id, gid, name, sort_name)
-        VALUES (1, '01aa077b-ea92-437a-833f-4bf617dac3e7', 'A', 'A');
+    $c->sql->do(<<~"EOSQL");
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, '01aa077b-ea92-437a-833f-4bf617dac3e7', 'A', 'A');
 
-    INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'AC', 1);
-    INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-        VALUES (1, 1, 'AC', 0, '');
+        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'AC', 1);
+        INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+            VALUES (1, 1, 'AC', 0, '');
 
-    INSERT INTO release_group (id, gid, name, artist_credit)
-        VALUES (1, 'b654bda0-4304-47d5-83a6-fd9cafc85cf3', 'RG', 1);
+        INSERT INTO release_group (id, gid, name, artist_credit)
+            VALUES (1, 'b654bda0-4304-47d5-83a6-fd9cafc85cf3', 'RG', 1);
 
-    INSERT INTO release (id, gid, name, artist_credit, release_group)
-        VALUES (1, '357cfecb-8afd-41b7-a357-c1fde7ce46cd', 'R', 1, 1);
+        INSERT INTO release (id, gid, name, artist_credit, release_group)
+            VALUES (1, '357cfecb-8afd-41b7-a357-c1fde7ce46cd', 'R', 1, 1);
 
-    INSERT INTO release_label (release, label, catalog_number) VALUES (1, $label_id, '');
-EOSQL
+        INSERT INTO release_label (release, label, catalog_number) VALUES (1, $label_id, '');
+        EOSQL
 
     reject_edit($c, $edit);
     is($edit->status, $STATUS_APPLIED);

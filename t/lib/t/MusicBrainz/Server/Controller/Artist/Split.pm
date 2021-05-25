@@ -30,10 +30,10 @@ test 'Split artist remove all collaboration relationships for that artist' => su
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<EOSQL);
-INSERT INTO link (id, link_type) VALUES (1, 102);
-INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 11, 10);
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO link (id, link_type) VALUES (1, 102);
+        INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 11, 10);
+        EOSQL
 
     my @edits = perform_split($test);
 
