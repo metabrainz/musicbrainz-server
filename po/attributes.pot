@@ -290,6 +290,16 @@ msgid ""
 "but not only, one where music is taught)"
 msgstr ""
 
+#: DB:series_type/description:14
+msgctxt "series_type"
+msgid "A series of artists honoured by the same award."
+msgstr ""
+
+#: DB:series_type/description:13
+msgctxt "series_type"
+msgid "A series of artists."
+msgstr ""
+
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
@@ -777,9 +787,19 @@ msgctxt "collection_type"
 msgid "Artist"
 msgstr ""
 
+#: DB:series_type/name:14
+msgctxt "series_type"
+msgid "Artist award"
+msgstr ""
+
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
 msgid "Artist name"
+msgstr ""
+
+#: DB:series_type/name:13
+msgctxt "series_type"
+msgid "Artist series"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:693
