@@ -115,16 +115,15 @@ sub main {
     my ($entity_type, @ids) = @ARGV;
     my $arguments_string = $entity_type . ' ' . join(' ', @ids);
 
-    print <<"EOSQL";
--- Automatically generated, do not edit.
--- $arguments_string
+    print <<~"EOSQL";
+        -- Automatically generated, do not edit.
+        -- $arguments_string
 
-SET client_min_messages TO 'warning';
+        SET client_min_messages TO 'warning';
 
--- Temporarily drop triggers.
-DROP TRIGGER deny_deprecated ON link;
-
-EOSQL
+        -- Temporarily drop triggers.
+        DROP TRIGGER deny_deprecated ON link;
+        EOSQL
 
     my $dump_method = $DUMP_METHODS{$entity_type} // sub {
         my ($c, $gids) = @_;
