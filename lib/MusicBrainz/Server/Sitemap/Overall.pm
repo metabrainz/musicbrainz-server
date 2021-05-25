@@ -433,10 +433,10 @@ sub run {
     # `sitemaps.control` so that the incremental sitemap builds know what
     # changes to include.
     $sql->auto_commit(1);
-    $sql->do(<<'EOSQL');
-UPDATE sitemaps.control
-   SET overall_sitemaps_replication_sequence = last_processed_replication_sequence
-EOSQL
+    $sql->do(<<~'EOSQL');
+        UPDATE sitemaps.control
+        SET overall_sitemaps_replication_sequence = last_processed_replication_sequence
+        EOSQL
 
     # Finally, ping search engines (if the option is turned on) and finish.
     $self->ping_search_engines($c);

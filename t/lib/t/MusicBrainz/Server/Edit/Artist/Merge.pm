@@ -34,10 +34,10 @@ test 'Merging a person with a gender into a group' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
-    $c->sql->do(<<'EOSQL');
-UPDATE artist SET type = 2, gender = NULL WHERE id = 4;
-UPDATE artist SET type = 1, gender = 2 WHERE id = 3;
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        UPDATE artist SET type = 2, gender = NULL WHERE id = 4;
+        UPDATE artist SET type = 1, gender = 2 WHERE id = 3;
+        EOSQL
 
     # merge 3 -> 4
     my $edit = create_edit($c);
@@ -67,10 +67,10 @@ test 'Merging an artist with no type and a gender into a group' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
-    $c->sql->do(<<'EOSQL');
-UPDATE artist SET type = 2, gender = NULL WHERE id = 4;
-UPDATE artist SET type = NULL, gender = 2 WHERE id = 3;
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        UPDATE artist SET type = 2, gender = NULL WHERE id = 4;
+        UPDATE artist SET type = NULL, gender = 2 WHERE id = 3;
+        EOSQL
 
     # merge 3 -> 4
     my $edit = create_edit($c);
@@ -100,10 +100,10 @@ test 'Merging a group into an artist with no type and a gender' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
-    $c->sql->do(<<'EOSQL');
-UPDATE artist SET type = NULL, gender = 2 WHERE id = 4;
-UPDATE artist SET type = 2, gender = NULL WHERE id = 3;
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        UPDATE artist SET type = NULL, gender = 2 WHERE id = 4;
+        UPDATE artist SET type = 2, gender = NULL WHERE id = 3;
+        EOSQL
 
     # merge 3 -> 4
     my $edit = create_edit($c);
@@ -133,10 +133,10 @@ test 'Merging a group into a person with a gender' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
-    $c->sql->do(<<'EOSQL');
-UPDATE artist SET type = 1, gender = 2 WHERE id = 4;
-UPDATE artist SET type = 2, gender = NULL WHERE id = 3;
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        UPDATE artist SET type = 1, gender = 2 WHERE id = 4;
+        UPDATE artist SET type = 2, gender = NULL WHERE id = 3;
+        EOSQL
 
     # merge 3 -> 4
     my $edit = create_edit($c);
@@ -157,11 +157,11 @@ test 'Merging a group, and an artist with no type and a gender, into an artist w
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
-    $c->sql->do(<<'EOSQL');
-UPDATE artist SET type = NULL, gender = NULL WHERE id = 4;
-UPDATE artist SET type = 2, gender = NULL WHERE id = 3;
-UPDATE artist SET type = NULL, gender = 1 WHERE id = 5;
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        UPDATE artist SET type = NULL, gender = NULL WHERE id = 4;
+        UPDATE artist SET type = 2, gender = NULL WHERE id = 3;
+        UPDATE artist SET type = NULL, gender = 1 WHERE id = 5;
+        EOSQL
 
     # merge 3 & 5 -> 4
     my $edit = $c->model('Edit')->create(
@@ -284,11 +284,12 @@ test 'Downvoted tags are preserved post-merge (MBS-8524)' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO tag (id, name, ref_count) VALUES (1, 'electronic', 0);
-INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (3, 1, 1, FALSE);
-INSERT INTO artist_tag (artist, count, tag) VALUES (3, -1, 1);
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO tag (id, name, ref_count) VALUES (1, 'electronic', 0);
+        INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote)
+            VALUES (3, 1, 1, FALSE);
+        INSERT INTO artist_tag (artist, count, tag) VALUES (3, -1, 1);
+        EOSQL
 
     my $edit = create_edit($c);
     accept_edit($c, $edit);

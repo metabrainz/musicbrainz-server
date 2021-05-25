@@ -132,11 +132,11 @@ sub main {
 
     $dump_method->($c, \@ids);
 
-    print <<'EOSQL';
-
--- Restore triggers.
-CREATE TRIGGER deny_deprecated BEFORE UPDATE OR INSERT ON link FOR EACH ROW EXECUTE PROCEDURE deny_deprecated_links();
-EOSQL
+    print <<~'EOSQL';
+        -- Restore triggers.
+        CREATE TRIGGER deny_deprecated BEFORE UPDATE OR INSERT ON link
+            FOR EACH ROW EXECUTE PROCEDURE deny_deprecated_links();
+        EOSQL
 
 }
 

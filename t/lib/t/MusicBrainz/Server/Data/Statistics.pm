@@ -15,10 +15,16 @@ test 'get_statistic works as expected' => sub {
 
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
-INSERT INTO statistics.statistic (id, date_collected, name, value) VALUES (1, '2011-03-27', 'count.artist', 300000),(2, '2011-03-28', 'count.artist', 400000),(3, '2011-03-29', 'count.artist', 500000);
-INSERT INTO statistics.statistic (id, date_collected, name, value) VALUES (4, '2011-03-27', 'count.release', 50000),(5, '2011-03-28', 'count.release', 50001),(6, '2011-03-29', 'count.release', 50002);
-EOSQL
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+        INSERT INTO statistics.statistic (id, date_collected, name, value)
+            VALUES (1, '2011-03-27', 'count.artist', 300000),
+                   (2, '2011-03-28', 'count.artist', 400000),
+                   (3, '2011-03-29', 'count.artist', 500000);
+        INSERT INTO statistics.statistic (id, date_collected, name, value)
+            VALUES (4, '2011-03-27', 'count.release', 50000),
+                   (5, '2011-03-28', 'count.release', 50001),
+                   (6, '2011-03-29', 'count.release', 50002);
+        EOSQL
 
     my $tc1 = $c->model('Statistics::ByName')->get_statistic('count.artist');
     is($tc1->statistic_for('2011-03-27') => 300000);

@@ -18,18 +18,22 @@ with 't::Context';
 
 test 'filter_barcode_changes' => sub {
     my $test = shift;
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name) VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (1, 1, 'Name', 0, '');
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
+        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+        INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+            VALUES (1, 1, 'Name', 0, '');
 
-INSERT INTO release_group (id, gid, name, artist_credit) VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1);
-INSERT INTO release (id, gid, name, artist_credit, release_group, barcode)
-    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, '796122009228'),
-           (2, '5b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, '600116802422'),
-           (3, '6b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, NULL);
-INSERT INTO release_gid_redirect (gid, new_id) VALUES ('1b4faa80-72d9-11de-8a39-0800200c9a66', 1);
-EOSQL
+        INSERT INTO release_group (id, gid, name, artist_credit)
+            VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1);
+        INSERT INTO release (id, gid, name, artist_credit, release_group, barcode)
+            VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, '796122009228'),
+                   (2, '5b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, '600116802422'),
+                   (3, '6b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, NULL);
+        INSERT INTO release_gid_redirect (gid, new_id)
+            VALUES ('1b4faa80-72d9-11de-8a39-0800200c9a66', 1);
+        EOSQL
 
     {
         my @in = ();
@@ -193,25 +197,25 @@ test 'can_merge for the merge strategy' => sub {
 
 test 'can_merge for the append strategy' => sub {
     my $test = shift;
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-    VALUES (1, 1, 'Name', 0, '');
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
+        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+        INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+            VALUES (1, 1, 'Name', 0, '');
 
- INSERT INTO release_group (id, gid, name, artist_credit)
-    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Release', 1);
-INSERT INTO release (id, gid, name, artist_credit, release_group)
-    VALUES (1, '1a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1),
-           (2, '2a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1),
-           (3, '3a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1);
+        INSERT INTO release_group (id, gid, name, artist_credit)
+            VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Release', 1);
+        INSERT INTO release (id, gid, name, artist_credit, release_group)
+            VALUES (1, '1a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1),
+                   (2, '2a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1),
+                   (3, '3a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1);
 
-INSERT INTO medium (id, release, position, track_count)
-    VALUES (1, 1, 1, 1),
-           (2, 2, 1, 1),
-           (3, 3, 1, 1);
-EOSQL
+        INSERT INTO medium (id, release, position, track_count)
+            VALUES (1, 1, 1, 1),
+                   (2, 2, 1, 1),
+                   (3, 3, 1, 1);
+        EOSQL
 
     my $can_merge;
 
@@ -688,28 +692,28 @@ test 'merge release events' => sub {
     my $test = shift;
     my $c = $test->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
-    $c->sql->do(<<'EOSQL');
-INSERT INTO area (id, gid, name, type) VALUES
-    (  5, 'e01da61e-99a8-3c76-a27d-774c3f4982f0', 'Andorra', 1),
-    (122, 'd2007481-eefe-37c0-be71-2256dfe148cb', 'Liechtenstein', 1),
-    (132, '050c94f7-1413-3a34-bb90-4a94f3bb2084', 'Malta', 1),
-    (182, 'd4dd44b6-fa46-30f5-b331-ce9e88d06242', 'San Marino', 1);
-INSERT INTO country_area (area) VALUES (5), (122), (132), (182);
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO area (id, gid, name, type)
+            VALUES (5, 'e01da61e-99a8-3c76-a27d-774c3f4982f0', 'Andorra', 1),
+                   (122, 'd2007481-eefe-37c0-be71-2256dfe148cb', 'Liechtenstein', 1),
+                   (132, '050c94f7-1413-3a34-bb90-4a94f3bb2084', 'Malta', 1),
+                   (182, 'd4dd44b6-fa46-30f5-b331-ce9e88d06242', 'San Marino', 1);
+        INSERT INTO country_area (area) VALUES (5), (122), (132), (182);
 
-INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES
-    (8, 221, 2010,  2, NULL),
-    (9, 221, 2009, 12, 11),
-    (8, 182, 2008,  8, NULL),
-    (9, 182, NULL,  7,  6),
-    (8, 132, 2012, 10,  9),
-    (9, 132, 2011,  9, 10),
-    (8, 122, 2005,  4, 17),
-    (9,   5, 2007, NULL, NULL);
+        INSERT INTO release_country (release, country, date_year, date_month, date_day)
+            VALUES (8, 221, 2010, 2, NULL),
+                   (9, 221, 2009, 12, 11),
+                   (8, 182, 2008, 8, NULL),
+                   (9, 182, NULL, 7, 6),
+                   (8, 132, 2012, 10, 9),
+                   (9, 132, 2011, 9, 10),
+                   (8, 122, 2005, 4, 17),
+                   (9, 5, 2007, NULL, NULL);
 
-INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES
-    (8, 2013, 11, 22),
-    (9, 2014,  1,  5);
-EOSQL
+        INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
+            VALUES (8, 2013, 11, 22),
+                   (9, 2014, 1, 5);
+        EOSQL
 
     $c->model('Release')->merge(
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,

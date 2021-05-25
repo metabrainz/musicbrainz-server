@@ -14,28 +14,27 @@ use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 around run_test => sub {
     my ($orig, $test, @args) = @_;
 
-    $test->c->sql->do(<<'EOSQL');
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
 
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
+        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+        INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+            VALUES (1, 1, 'Name', 0, '');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-    VALUES (1, 1, 'Name', 0, '');
+        INSERT INTO release_group (id, gid, name, artist_credit)
+            VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Arrival', 1);
 
-INSERT INTO release_group (id, gid, name, artist_credit)
-    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Arrival', 1);
+        INSERT INTO release (id, gid, name, artist_credit, release_group)
+            VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 1, 1);
 
-INSERT INTO release (id, gid, name, artist_credit, release_group)
-    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 1, 1);
-
-INSERT INTO medium (id, release, track_count, position)
-    VALUES (101, 1, 1, 1),
-           (102, 1, 1, 2),
-           (103, 1, 1, 3),
-           (104, 1, 1, 4),
-           (105, 1, 1, 5);
-EOSQL
+        INSERT INTO medium (id, release, track_count, position)
+            VALUES (101, 1, 1, 1),
+                   (102, 1, 1, 2),
+                   (103, 1, 1, 3),
+                   (104, 1, 1, 4),
+                   (105, 1, 1, 5);
+        EOSQL
 
     $test->clear_edit;
     $test->clear_release;
@@ -129,10 +128,10 @@ test 'MBS-8580' => sub {
 
     ok($edit->is_open);
 
-    $c->sql->do(<<'EOSQL');
+    $c->sql->do(<<~'EOSQL');
         INSERT INTO medium (id, release, position, format, name)
-        VALUES (106, 1, 6, NULL, '');
-EOSQL
+            VALUES (106, 1, 6, NULL, '');
+        EOSQL
 
     isa_ok exception { $edit->accept },
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
