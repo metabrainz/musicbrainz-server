@@ -205,6 +205,7 @@ export const LINK_TYPES = {
   },
   streamingfree: {
     artist: '769085a1-c2f7-4c24-a532-2375a77693bd',
+    label: '5b3d2907-5cd0-459b-9a33-d4398a544388',
     recording: '7e41ef12-a124-4324-afdb-fdbae687a89c',
     release: '08445ccf-7b99-4438-9f9a-fb9ac18099ee',
   },
