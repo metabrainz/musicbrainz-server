@@ -79,6 +79,22 @@ const renderWorkRelationship = (relationship: RelationshipT) => {
   );
 };
 
+const irrelevantLinkTypes = new Map([
+  // [id, is backward (direction)]
+  [239, true], // medleys including this
+  [241, false], // generic later versions
+  [281, false], // parts
+  [314, false], // works based on this
+  [315, false], // revisions
+  [316, false], // orchestrations
+  [350, false], // arrangements
+]);
+
+function isIrrelevantLinkType(relationship) {
+  return irrelevantLinkTypes.get(relationship.linkTypeID) ===
+    (relationship.direction === 'backward');
+}
+
 const GroupedTrackRelationships = ({
   source,
 }: Props): Array<React.Element<'dl'>> => {
@@ -94,11 +110,11 @@ const GroupedTrackRelationships = ({
     ) => {
       if (targetType === 'work') {
         /*
-         * Specifically ignore work parts, but still keep works this
-         * work is a part of.
+         * Specifically ignore rels that do not give information
+         * relevant to this track, such as other arrangements of the work
+         * or all the parts of the work linked.
          */
-        if (relationship.linkTypeID !== 281 ||
-            relationship.direction === 'backward') {
+        if (!isIrrelevantLinkType(relationship)) {
           workRelationships.push(relationship);
         }
         return false;
