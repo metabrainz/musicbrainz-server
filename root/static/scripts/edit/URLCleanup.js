@@ -1382,6 +1382,70 @@ const CLEANUPS = {
       return {result: false};
     },
   },
+  'dogmazic': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?(dogmazic\\.net)', 'i')],
+    type: LINK_TYPES.streamingfree,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/(?:(?:play|www)\.)?dogmazic\.net\//, 'https://play.dogmazic.net/');
+      // Drop one-word fragments such as '#albums' used for list display
+      url = url.replace(/^(https:\/\/play\.dogmazic\.net)\/([^#]+)#(?:\w+)?$/, '$1/$2');
+      // Drop current path when fragment contains a path to a PHP script
+      url = url.replace(/^(https:\/\/play\.dogmazic\.net)\/(?:[^#]+)#(\w+\.php)/, '$1/$2');
+      // Drop parents in path
+      url = url.replace(/^(https:\/\/play\.dogmazic\.net)\/(?:[^?#]+)\/(\w+\.php)/, '$1/$2');
+      // Overwrite path and query after query parameter with numeric value
+      const m = /^(https:\/\/play\.dogmazic\.net)\/\w+\.php\?(?:[^#]+&)?[\w%]+=([\w%]+)&([\w%]+)=(\d+)/.exec(url);
+      if (m) {
+        const host = m[1];
+        const type = m[2];
+        const key = m[3];
+        const value = m[4];
+        switch (key) {
+          case 'album':
+            return `${host}/albums.php?action=show&${key}=${value}`;
+          case 'artist':
+            return `${host}/artists.php?action=show&${key}=${value}`;
+          case 'label':
+            return `${host}/labels.php?action=show&${key}=${value}`;
+          case 'song_id':
+            return `${host}/song.php?action=show&${key}=${value}`;
+          case 'id':
+          case 'id%5B0%5D':
+          case 'object_id':
+          case 'oid':
+            switch (type) {
+              case 'album':
+                return `${host}/albums.php?action=show&${type}=${value}`;
+              case 'artist':
+                return `${host}/artists.php?action=show&${type}=${value}`;
+              case 'label':
+                return `${host}/labels.php?action=show&${type}=${value}`;
+              case 'song':
+                return `${host}/song.php?action=show&song_id=${value}`;
+            }
+        }
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/play\.dogmazic\.net\/(\w+)\.php\?action=show&(\w+)=\d+$/.exec(url);
+      if (m) {
+        const path = m[1];
+        const query = m[2];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {result: path === 'artists' && query === 'artist'};
+          case LINK_TYPES.streamingfree.label:
+            return {result: path === 'labels' && query === 'label'};
+          case LINK_TYPES.streamingfree.release:
+            return {result: path === 'albums' && query === 'album'};
+          case LINK_TYPES.streamingfree.recording:
+            return {result: path === 'song' && query === 'song_id'};
+        }
+      }
+      return {result: false};
+    },
+  },
   'downloadpurchase': {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?junodownload\\.com', 'i'),
