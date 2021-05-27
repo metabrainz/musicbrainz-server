@@ -14,8 +14,9 @@ export type State<T: EntityItem> = {
   +children?: React$Node,
   +containerClass?: string,
   +disabled?: boolean,
-  +entityType: SearchableType,
-  +highlightedItem: Item<T> | null,
+  +entityType: $ElementType<T, 'entityType'>,
+  +error: number,
+  +highlightedIndex: number,
   +id: string,
   +indexedSearch: boolean,
   +inputValue: string,
@@ -26,14 +27,12 @@ export type State<T: EntityItem> = {
   +page: number,
   +pendingSearch: string | null,
   +placeholder?: string,
+  +recentItems: $ReadOnlyArray<Item<T>> | null,
   +recentItemsKey: string,
+  +results: $ReadOnlyArray<Item<T>> | null,
   +selectedEntity: T | null,
   +staticItems?: $ReadOnlyArray<Item<T>>,
   +staticItemsFilter?: (Item<T>, string) => boolean,
-  +staticItemsFilterResult?: {
-    +items: $ReadOnlyArray<Item<T>>,
-    +searchTerm: string,
-  },
   +statusMessage: string,
   +width?: string,
 };
@@ -57,14 +56,9 @@ export type Actions<+T: EntityItem> =
       +entityType: SearchableType,
     }
   | { +type: 'clear-recent-items' }
-  | {
-      +type: 'filter-static-items',
-      +recentItems?: $ReadOnlyArray<OptionItem<T>> | null,
-      +searchTerm: string,
-    }
-  | { +type: 'highlight-item', +item: Item<T> }
-  | { +type: 'highlight-next-item' }
-  | { +type: 'highlight-previous-item' }
+  | { +type: 'highlight-index', +index: number }
+  | { +type: 'highlight-next-item', +items: $ReadOnlyArray<Item<T>> }
+  | { +type: 'highlight-previous-item', +items: $ReadOnlyArray<Item<T>> }
   | { +type: 'noop' }
   | { +type: 'reset-menu' }
   | { +type: 'select-item', +item: Item<T> }
@@ -73,12 +67,11 @@ export type Actions<+T: EntityItem> =
       +type: 'show-ws-results',
       +entities: $ReadOnlyArray<T>,
       +page: number,
-      +totalPages: number,
     }
   | { +type: 'show-lookup-error' }
   | { +type: 'show-lookup-type-error' }
   | { +type: 'show-more-results' }
-  | { +type: 'show-recent-items', +items: $ReadOnlyArray<OptionItem<T>> }
+  | { +type: 'set-recent-items', +items: $ReadOnlyArray<OptionItem<T>> }
   | { +type: 'show-search-error' }
   | { +type: 'stop-search' }
   | { +type: 'toggle-indexed-search' }

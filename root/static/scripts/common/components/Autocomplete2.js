@@ -16,8 +16,6 @@ import clean from '../utility/clean';
 
 import {
   HIDE_MENU,
-  HIGHLIGHT_NEXT_ITEM,
-  HIGHLIGHT_PREVIOUS_ITEM,
   SHOW_LOOKUP_ERROR,
   SHOW_LOOKUP_TYPE_ERROR,
   SHOW_MENU,
@@ -27,11 +25,14 @@ import {
 import {
   ARIA_LIVE_STYLE,
   DISPLAY_NONE_STYLE,
-  EMPTY_ARRAY,
   SEARCH_PLACEHOLDERS,
 } from './Autocomplete2/constants';
 import formatItem from './Autocomplete2/formatters';
 import {getOrFetchRecentItems} from './Autocomplete2/recentItems';
+import {
+  generateItems,
+  generateStatusMessage,
+} from './Autocomplete2/reducer';
 import type {
   Actions,
   EntityItem,
@@ -64,12 +65,10 @@ function doSearch<T: EntityItem>(
     const entities = JSON.parse(searchXhr.responseText);
     const pager = entities.pop();
     const newPage = parseInt(pager.current, 10);
-    const totalPages = parseInt(pager.pages, 10);
 
     dispatch({
       entities,
       page: newPage,
-      totalPages,
       type: 'show-ws-results',
     });
   });
@@ -131,27 +130,38 @@ export function createInitialState<+T: EntityItem>(
     inputValue,
     recentItemsKey,
     selectedEntity,
+    staticItems,
     ...restProps
   } = props;
-  return {
+
+  const initialState: $Shape<{...State<T>}> = {
     entityType,
-    highlightedItem: null,
+    error: 0,
+    highlightedIndex: -1,
     indexedSearch: true,
     inputValue: inputValue ?? selectedEntity?.name ?? '',
     isOpen: false,
-    items: EMPTY_ARRAY,
     page: 1,
     pendingSearch: null,
+    recentItems: null,
     recentItemsKey: recentItemsKey ?? entityType,
+    results: staticItems ?? null,
     selectedEntity: selectedEntity ?? null,
+    staticItems,
     statusMessage: '',
     ...restProps,
   };
+
+  initialState.items = generateItems(initialState);
+  initialState.statusMessage = generateStatusMessage(initialState);
+
+  return initialState;
 }
 
 type AutocompleteItemProps<T: EntityItem> = {
   autocompleteId: string,
   dispatch: (Actions<T>) => void,
+  index: number,
   isHighlighted: boolean,
   isSelected: boolean,
   item: Item<T>,
@@ -161,6 +171,7 @@ type AutocompleteItemProps<T: EntityItem> = {
 const AutocompleteItem = React.memo(<+T: EntityItem>({
   autocompleteId,
   dispatch,
+  index,
   isHighlighted,
   isSelected,
   item,
@@ -195,7 +206,7 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
 
   function handleItemMouseOver() {
     if (!item.disabled) {
-      dispatch({item, type: 'highlight-item'});
+      dispatch({index, type: 'highlight-index'});
     }
   }
 
@@ -255,6 +266,7 @@ function AutocompleteItems<T: EntityItem>({
       <AutocompleteItemWithType
         autocompleteId={autocompleteId}
         dispatch={dispatch}
+        index={index}
         isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
         isSelected={!!(
           selectedEntity &&
@@ -279,14 +291,16 @@ export default function Autocomplete2<+T: EntityItem>(
     disabled,
     dispatch,
     entityType,
-    highlightedItem,
+    highlightedIndex,
     id,
     inputValue,
     isOpen,
     items,
     pendingSearch,
+    recentItems,
     selectedEntity,
     staticItems,
+    statusMessage,
   } = props;
 
   const xhr = React.useRef<XMLHttpRequest | null>(null);
@@ -294,8 +308,10 @@ export default function Autocomplete2<+T: EntityItem>(
   const inputTimeout = React.useRef<TimeoutID | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const shouldUpdateScrollPositionRef = React.useRef<boolean>(false);
-  const recentItemsRef =
-    React.useRef<$ReadOnlyArray<OptionItem<T>> | null>(null);
+
+  const highlightedItem = highlightedIndex >= 0
+    ? (items[highlightedIndex] ?? null)
+    : null;
 
   const stopRequests = React.useCallback(() => {
     if (xhr.current) {
@@ -328,7 +344,7 @@ export default function Autocomplete2<+T: EntityItem>(
     if (isOpen) {
       dispatch(HIDE_MENU);
     } else {
-      showAvailableItems(inputValue);
+      showAvailableItems();
     }
   }
 
@@ -354,7 +370,6 @@ export default function Autocomplete2<+T: EntityItem>(
 
     if (!newInputValue) {
       stopRequests();
-      showAvailableItems('');
       return;
     }
 
@@ -423,50 +438,12 @@ export default function Autocomplete2<+T: EntityItem>(
   }
 
   function handleInputFocus() {
-    showAvailableItems(inputValue);
+    showAvailableItems();
   }
 
-  function showAvailableItems(newInputValue: string) {
-    const cleanInputValue = clean(newInputValue);
-
-    if (
-      inputTimeout.current ||
-      xhr.current
-    ) {
-      return;
-    } else if (
-      items.length > 0 &&
-      cleanInputValue === clean(inputValue)
-    ) {
+  function showAvailableItems() {
+    if (items.length && !isOpen) {
       dispatch(SHOW_MENU);
-    } else if (nonEmpty(cleanInputValue)) {
-      if (staticItems) {
-        dispatch({
-          searchTerm: newInputValue,
-          type: 'filter-static-items',
-        });
-      } else {
-        dispatch({
-          searchTerm: newInputValue,
-          type: 'search-after-timeout',
-        });
-      }
-    } else {
-      const recentItems = recentItemsRef.current;
-      if (staticItems) {
-        dispatch({
-          recentItems,
-          searchTerm: newInputValue,
-          type: 'filter-static-items',
-        });
-      } else if (recentItems?.length) {
-        dispatch({
-          items: recentItems,
-          type: 'show-recent-items',
-        });
-      } else {
-        dispatch({type: 'reset-menu'});
-      }
     }
   }
 
@@ -479,9 +456,12 @@ export default function Autocomplete2<+T: EntityItem>(
 
         if (isOpen) {
           shouldUpdateScrollPositionRef.current = true;
-          dispatch(HIGHLIGHT_NEXT_ITEM);
+          dispatch({
+            items,
+            type: 'highlight-next-item',
+          });
         } else {
-          showAvailableItems(inputValue);
+          showAvailableItems();
         }
         break;
 
@@ -489,7 +469,10 @@ export default function Autocomplete2<+T: EntityItem>(
         if (isOpen) {
           event.preventDefault();
           shouldUpdateScrollPositionRef.current = true;
-          dispatch(HIGHLIGHT_PREVIOUS_ITEM);
+          dispatch({
+            items,
+            type: 'highlight-previous-item',
+          });
         }
         break;
 
@@ -539,42 +522,36 @@ export default function Autocomplete2<+T: EntityItem>(
       shouldUpdateScrollPositionRef.current = false;
     }
 
-    if (!recentItemsRef.current) {
+    if (!recentItems) {
       getOrFetchRecentItems<T>(
         entityType,
         props.recentItemsKey,
       ).then((loadedRecentItems) => {
-        recentItemsRef.current = loadedRecentItems;
+        dispatch({
+          items: loadedRecentItems,
+          type: 'set-recent-items',
+        });
       });
     }
 
     if (
+      !staticItems &&
       pendingSearch &&
       !inputTimeout.current &&
       !xhr.current
     ) {
-      /*
-       * Use a smaller delay for static lists, since no network
-       * requests are needed in that case; updates are fast.
-       */
-      const delay = staticItems ? 75 : 300;
-
       inputTimeout.current = setTimeout(() => {
         inputTimeout.current = null;
 
         const pendingSearchTerm = clean(pendingSearch);
         // Check if the input value has changed before proceeding.
-        if (pendingSearchTerm === clean(inputValue)) {
-          if (staticItems) {
-            dispatch({
-              searchTerm: pendingSearchTerm,
-              type: 'filter-static-items',
-            });
-          } else if (nonEmpty(pendingSearchTerm)) {
-            doSearch<T>(dispatch, props, xhr);
-          }
+        if (
+          nonEmpty(pendingSearchTerm) &&
+          pendingSearchTerm === clean(inputValue)
+        ) {
+          doSearch<T>(dispatch, props, xhr);
         }
-      }, delay);
+      }, 300);
     }
   });
 
@@ -691,7 +668,7 @@ export default function Autocomplete2<+T: EntityItem>(
         role="status"
         style={ARIA_LIVE_STYLE}
       >
-        {props.statusMessage}
+        {statusMessage}
       </div>
     </div>
   );

@@ -14,14 +14,15 @@ import {
 } from './actions';
 import {
   CLEAR_RECENT_ITEMS,
-  EMPTY_ARRAY,
+  ERROR_LOOKUP,
+  ERROR_LOOKUP_TYPE,
+  ERROR_SEARCH,
   MENU_ITEMS,
   PAGE_SIZE,
   RECENT_ITEMS_HEADER,
 } from './constants';
 import type {
   Actions,
-  ActionItem,
   EntityItem,
   Item,
   SearchAction,
@@ -40,8 +41,6 @@ function initSearch<+T: EntityItem>(
     state.indexedSearch = action.indexed;
   }
 
-  state.statusMessage = '';
-
   let searchTerm;
   if (hasOwnProp(action, 'searchTerm')) {
     searchTerm = action.searchTerm;
@@ -58,13 +57,193 @@ function initSearch<+T: EntityItem>(
   }
 }
 
+export function generateItems<+T: EntityItem>(
+  state: State<T>,
+): $ReadOnlyArray<Item<T>> {
+  const items = [];
+
+  if (state.error) {
+    switch (state.error) {
+      case ERROR_LOOKUP:
+        items.push(MENU_ITEMS.LOOKUP_ERROR);
+        break;
+      case ERROR_LOOKUP_TYPE:
+        items.push(MENU_ITEMS.LOOKUP_TYPE_ERROR);
+        break;
+      case ERROR_SEARCH:
+        items.push(MENU_ITEMS.SEARCH_ERROR);
+        if (state.indexedSearch) {
+          items.push(MENU_ITEMS.ERROR_TRY_AGAIN_DIRECT);
+        } else {
+          items.push(MENU_ITEMS.ERROR_TRY_AGAIN_INDEXED);
+        }
+        break;
+    }
+    return items;
+  }
+
+  const {
+    page,
+    recentItems,
+    results,
+  } = state;
+
+  const isInputValueNonEmpty = nonEmpty(state.inputValue);
+  const hasStaticItems = !!state.staticItems;
+  const hasSelection = !!state.selectedEntity;
+  const showingRecentItems = !!(
+    !isInputValueNonEmpty && recentItems?.length
+  );
+
+  if (showingRecentItems /*:: && recentItems */) {
+    items.push(RECENT_ITEMS_HEADER);
+    items.push(...recentItems);
+    items.push(CLEAR_RECENT_ITEMS);
+  }
+
+  if (__DEV__) {
+    if (hasSelection) {
+      invariant(isInputValueNonEmpty);
+    }
+  }
+
+  if (results != null) {
+    const resultCount = results.length;
+
+    if (resultCount > 0) {
+      const visibleResults = Math.min(resultCount, page * PAGE_SIZE);
+      const totalPages = Math.ceil(resultCount / PAGE_SIZE);
+
+      if (showingRecentItems) {
+        items.push({...results[0], separator: true});
+      } else {
+        items.push(results[0]);
+      }
+
+      for (let i = 1; i < visibleResults; i++) {
+        items.push(results[i]);
+      }
+
+      if (page < totalPages) {
+        items.push(MENU_ITEMS.SHOW_MORE);
+      }
+    } else if (isInputValueNonEmpty && !hasSelection) {
+      items.push(MENU_ITEMS.NO_RESULTS);
+    }
+
+    if (!hasStaticItems) {
+      if (state.indexedSearch) {
+        items.push(MENU_ITEMS.TRY_AGAIN_DIRECT);
+      } else {
+        items.push(MENU_ITEMS.TRY_AGAIN_INDEXED);
+      }
+    }
+  }
+
+  return items;
+}
+
+function getFirstHighlightableIndex<+T: EntityItem>(
+  state: State<T>,
+): number {
+  const items = state.items;
+  let index = 0;
+  for (const item of items) {
+    // $FlowIgnore[sketchy-null-bool]
+    if (!item.disabled) {
+      return index;
+    }
+    index++;
+  }
+  return -1;
+}
+
+export function generateStatusMessage<+T: EntityItem>(
+  state: State<T>,
+): string {
+  if (state.isOpen) {
+    if (state.error) {
+      switch (state.error) {
+        case ERROR_LOOKUP:
+          return unwrapNl<string>(MENU_ITEMS.LOOKUP_ERROR.name);
+        case ERROR_LOOKUP_TYPE:
+          return unwrapNl<string>(MENU_ITEMS.LOOKUP_TYPE_ERROR.name);
+        case ERROR_SEARCH:
+          return unwrapNl<string>(MENU_ITEMS.SEARCH_ERROR.name);
+      }
+    }
+
+    const resultCount = state.results?.length;
+    if (resultCount /*:: != null && resultCount > 0 */) {
+      const highlightedItem = state.highlightedIndex >= 0
+        ? (state.items[state.highlightedIndex] ?? null)
+        : null;
+      return (
+        (highlightedItem
+          ? unwrapNl<string>(highlightedItem.name) + '. '
+          : '') +
+        texp.ln(
+          `1 result found.
+            Press enter to select, or
+            use the up and down arrow keys to navigate.`,
+          `{n} results found.
+            Press enter to select, or
+            use the up and down arrow keys to navigate.`,
+          resultCount,
+          {n: resultCount},
+        )
+      );
+    }
+  } else if (state.selectedEntity) {
+    return state.selectedEntity.name;
+  }
+
+  return '';
+}
+
+function filterStaticItems<+T: EntityItem>(
+  state: {...State<T>},
+  newInputValue: string,
+): void {
+  const {
+    inputValue: prevInputValue,
+    results: prevResults,
+    staticItems,
+    staticItemsFilter: filter = defaultStaticItemsFilter,
+  } = state;
+
+  invariant(staticItems);
+
+  /*
+   * If the new search term starts with the previous one,
+   * we can filter the existing items rather than starting
+   * anew.
+   */
+  const itemsToFilter = (
+    nonEmpty(prevInputValue) &&
+    newInputValue.startsWith(prevInputValue)
+  ) ? prevResults : staticItems;
+
+  state.results = (itemsToFilter && nonEmpty(newInputValue))
+    ? (itemsToFilter.reduce(
+        (accum: Array<Item<T>>, item: Item<T>) => {
+          if (filter(item, newInputValue)) {
+            accum.push(item);
+          }
+          return accum;
+        },
+        [],
+    ): $ReadOnlyArray<Item<T>>)
+    : itemsToFilter;
+}
+
 export function resetPage<+T: EntityItem>(
   state: {...State<T>},
 ): void {
-  state.highlightedItem = null;
+  state.highlightedIndex = -1;
   state.isOpen = false;
-  state.items = EMPTY_ARRAY;
   state.page = 1;
+  state.error = 0;
 }
 
 function selectItem<+T: EntityItem>(
@@ -78,15 +257,27 @@ function selectItem<+T: EntityItem>(
     }
     case 'option': {
       const entity = item.entity;
-      state.selectedEntity = entity;
-      state.statusMessage = entity.name;
+      const entityName = entity.name;
 
-      if (item.name !== state.inputValue) {
-        state.inputValue = entity.name;
-        resetPage<T>(state);
+      state.selectedEntity = entity;
+
+      if (entityName !== state.inputValue) {
+        if (state.staticItems) {
+          filterStaticItems<T>(state, entityName);
+        }
+        state.inputValue = entityName;
       }
 
-      pushRecentItem(item);
+      if (!state.staticItems) {
+        state.results = null;
+      }
+
+      resetPage<T>(state);
+
+      state.recentItems = pushRecentItem(
+        item,
+        state.recentItemsKey,
+      );
     }
   }
 
@@ -94,21 +285,19 @@ function selectItem<+T: EntityItem>(
   state.pendingSearch = null;
 }
 
-function showError<+T: EntityItem>(
+function setError<+T: EntityItem>(
   state: {...State<T>},
-  error: ActionItem<T>,
+  error: number,
 ) {
-  state.highlightedItem = null;
+  state.error = error;
   state.isOpen = true;
-  state.items = [error];
-  state.statusMessage = unwrapNl<string>(error.name);
 }
 
 function highlightNextItem<+T: EntityItem>(
   state: {...State<T>},
+  items: $ReadOnlyArray<Item<T>>,
   startingIndex: number,
 ) {
-  const items = state.items;
   let index = startingIndex;
   let count = items.length;
 
@@ -119,7 +308,7 @@ function highlightNextItem<+T: EntityItem>(
     const item = items[index];
     // $FlowIgnore[sketchy-null-bool]
     if (!item.disabled) {
-      state.highlightedItem = item;
+      state.highlightedIndex = index;
       break;
     }
     count--;
@@ -128,55 +317,6 @@ function highlightNextItem<+T: EntityItem>(
     }
     index++;
   }
-}
-
-function showResults<T: EntityItem>(
-  state: {...State<T>},
-  items: Array<Item<T>>,
-  page: number,
-  resultCount: number,
-  totalPages: number,
-) {
-  if (items.length) {
-    if (page < totalPages) {
-      items.push(MENU_ITEMS.SHOW_MORE);
-    }
-  } else if (page === 1) {
-    items.push(MENU_ITEMS.NO_RESULTS);
-  }
-
-  if (!state.staticItems) {
-    items.push(state.indexedSearch
-      ? MENU_ITEMS.TRY_AGAIN_DIRECT
-      : MENU_ITEMS.TRY_AGAIN_INDEXED);
-  }
-
-  state.items = items;
-
-  if (page === 1) {
-    highlightNextItem<T>(state, 0);
-  }
-
-  const highlightedItem = state.highlightedItem;
-
-  state.isOpen = true;
-  state.page = page;
-  state.pendingSearch = null;
-  state.statusMessage = items.length ? (
-    (highlightedItem
-      ? unwrapNl<string>(highlightedItem.name) + '. '
-      : '') +
-    texp.ln(
-      `1 result found.
-        Press enter to select, or
-        use the up and down arrow keys to navigate.`,
-      `{n} results found.
-        Press enter to select, or
-        use the up and down arrow keys to navigate.`,
-      items.length,
-      {n: resultCount},
-    )
-  ) : '';
 }
 
 export function defaultStaticItemsFilter<+T: EntityItem>(
@@ -196,124 +336,44 @@ export function runReducer<+T: EntityItem>(
   state: {...State<T>},
   action: Actions<T>,
 ): void {
+  const wasOpen = state.isOpen;
+  let updateItems = false;
+  let updateStatusMessage = false;
+
   switch (action.type) {
     case 'change-entity-type': {
       const oldEntityType = state.entityType;
       state.entityType = action.entityType;
       state.selectedEntity = null;
+      state.recentItems = null;
       if (state.recentItemsKey === oldEntityType) {
         state.recentItemsKey = action.entityType;
       }
+      state.results = null;
       resetPage<T>(state);
+      updateItems = true;
+      updateStatusMessage = true;
       break;
     }
 
-    case 'filter-static-items': {
-      const {
-        page,
-        staticItems,
-        staticItemsFilter: filter = defaultStaticItemsFilter,
-        staticItemsFilterResult: previousResult,
-      } = state;
-
-      invariant(staticItems);
-
-      const {recentItems, searchTerm} = action;
-      const prevSearchTerm = previousResult?.searchTerm;
-
-      /*
-       * If the new search term starts with the previous one,
-       * we can filter the existing items rather than starting
-       * anew.
-       */
-      let filteredItems: ?$ReadOnlyArray<Item<T>>;
-      let itemsToFilter;
-      if (
-        nonEmpty(prevSearchTerm) &&
-        /*:: previousResult && */ /* implied by prevSearchTerm */
-        searchTerm.startsWith(prevSearchTerm)
-      ) {
-        if (searchTerm.length === prevSearchTerm.length) {
-          // The string hasn't changed; we can use the previous results.
-          filteredItems = previousResult.items;
-        } else {
-          itemsToFilter = previousResult.items;
-        }
-      }
-
-      if (!filteredItems) {
-        if (!itemsToFilter) {
-          itemsToFilter = staticItems;
-        }
-        if (searchTerm) {
-          filteredItems = (itemsToFilter.reduce(
-            (accum: Array<Item<T>>, item: Item<T>) => {
-              if (filter(item, searchTerm)) {
-                accum.push(item);
-              }
-              return accum;
-            },
-            [],
-          ): $ReadOnlyArray<Item<T>>);
-        } else {
-          filteredItems = itemsToFilter;
-        }
-      }
-
-      state.staticItemsFilterResult = {
-        items: filteredItems,
-        searchTerm,
-      };
-
-      const resultCount = filteredItems.length;
-
-      if (!searchTerm && recentItems?.length) {
-        const [firstItem, ...restItems] = filteredItems;
-
-        filteredItems = [
-          RECENT_ITEMS_HEADER,
-          ...recentItems,
-          CLEAR_RECENT_ITEMS,
-          // $FlowIssue[incompatible-type]
-          {...firstItem, separator: true},
-          ...restItems,
-        ];
-      }
-
-      showResults<T>(
-        state,
-        // $FlowIssue[incompatible-call]
-        filteredItems.slice(0, page * PAGE_SIZE),
-        page,
-        resultCount,
-        Math.ceil(resultCount / PAGE_SIZE),
-      );
-
-      break;
-    }
-
-    case 'highlight-item': {
-      state.highlightedItem = action.item;
+    case 'highlight-index': {
+      state.highlightedIndex = action.index;
+      updateStatusMessage = true;
       break;
     }
 
     case 'highlight-next-item': {
-      const {highlightedItem} = state;
-      const items = state.items;
-      const index = highlightedItem
-        ? items.indexOf(highlightedItem) + 1
-        : 0;
-      highlightNextItem<T>(state, index);
+      highlightNextItem<T>(state, action.items, state.highlightedIndex + 1);
+      updateStatusMessage = true;
       break;
     }
 
     case 'highlight-previous-item': {
-      const {highlightedItem} = state;
-      const items = state.items;
+      const items = action.items;
 
       let count = items.length;
-      let index = highlightedItem
-        ? state.items.indexOf(highlightedItem) - 1
+      let index = state.highlightedIndex >= 0
+        ? (state.highlightedIndex - 1)
         : (count - 1);
 
       while (true) {
@@ -323,7 +383,7 @@ export function runReducer<+T: EntityItem>(
         const item = items[index];
         // $FlowIgnore[sketchy-null-bool]
         if (!item.disabled) {
-          state.highlightedItem = item;
+          state.highlightedIndex = index;
           break;
         }
         count--;
@@ -333,6 +393,7 @@ export function runReducer<+T: EntityItem>(
         index--;
       }
 
+      updateStatusMessage = true;
       break;
     }
 
@@ -346,105 +407,85 @@ export function runReducer<+T: EntityItem>(
 
     case 'select-item':
       selectItem<T>(state, action.item);
+      updateItems = true;
+      updateStatusMessage = true;
       break;
 
     case 'set-menu-visibility':
       state.isOpen = action.value;
-      if (!state.isOpen) {
-        state.highlightedItem = null;
-      }
+      updateStatusMessage = true;
       break;
 
     case 'show-lookup-error': {
-      showError<T>(state, MENU_ITEMS.LOOKUP_ERROR);
+      setError<T>(state, ERROR_LOOKUP);
+      updateItems = true;
+      updateStatusMessage = true;
       break;
     }
 
     case 'show-lookup-type-error': {
-      showError<T>(state, MENU_ITEMS.LOOKUP_TYPE_ERROR);
+      setError<T>(state, ERROR_LOOKUP_TYPE);
+      updateItems = true;
+      updateStatusMessage = true;
       break;
     }
 
     case 'show-ws-results': {
-      const {entities, page, totalPages} = action;
+      const {entities, page} = action;
 
-      let newItems: Array<Item<T>> = entities.map((entity: T) => ({
+      let newResults: Array<Item<T>> = entities.map((entity: T) => ({
         entity,
         id: entity.id,
         name: entity.name,
         type: 'option',
       }));
 
-      const prevItems: Array<Item<T>> = [];
-      const prevItemIds = new Set();
-      for (const item of state.items) {
-        if (!item.action) {
-          prevItems.push(item);
-          prevItemIds.add(item.id);
-        }
+      const prevResults = state.results;
+      if (page > 1 && prevResults) {
+        const prevIds = new Set(prevResults.map(item => item.id));
+
+        newResults = prevResults.concat(
+          newResults.filter(x => !prevIds.has(x.id)),
+        );
       }
 
-      newItems = page > 1
-        ? prevItems.concat(newItems.filter(x => !prevItemIds.has(x.id)))
-        : newItems;
+      state.results = newResults;
+      state.isOpen = true;
+      state.page = page;
+      state.pendingSearch = null;
+      state.error = 0;
+      state.highlightedIndex = 0;
 
-      showResults<T>(state, newItems, page, newItems.length, totalPages);
-
+      updateItems = true;
+      updateStatusMessage = true;
       break;
     }
 
-    case 'show-recent-items': {
-      const recentItems = action.items;
-      if (recentItems.length) {
-        const items: $ReadOnlyArray<Item<T>> = [
-          RECENT_ITEMS_HEADER,
-          ...recentItems,
-          CLEAR_RECENT_ITEMS,
-        ];
-        state.highlightedItem = null;
-        state.isOpen = true;
-        state.items = items;
-        state.page = 1;
-        state.pendingSearch = null;
-        state.statusMessage = l('Recent items');
-      }
+    case 'set-recent-items': {
+      state.recentItems = action.items;
+      updateItems = true;
       break;
     }
 
     case 'clear-recent-items': {
       clearRecentItems(state.recentItemsKey);
-
-      const startIndex = state.items.indexOf(CLEAR_RECENT_ITEMS);
-      if (startIndex >= 0) {
-        const newItems = state.items.slice(startIndex + 1);
-        let firstItem = null;
-        if (newItems.length) {
-          firstItem =
-            newItems[0] =
-            {...newItems[0], separator: false};
-        }
-        state.items = newItems;
-        state.highlightedItem = firstItem;
-      }
+      state.recentItems = [];
+      state.highlightedIndex = -1;
+      updateItems = true;
       break;
     }
 
     case 'show-search-error': {
-      showError<T>(state, MENU_ITEMS.SEARCH_ERROR);
-      state.items = state.items.concat(
-        state.indexedSearch
-          ? MENU_ITEMS.ERROR_TRY_AGAIN_DIRECT
-          : MENU_ITEMS.ERROR_TRY_AGAIN_INDEXED,
-      );
+      setError<T>(state, ERROR_SEARCH);
       state.pendingSearch = null;
+      updateItems = true;
+      updateStatusMessage = true;
       break;
     }
 
     case 'show-more-results':
       state.page++;
-      if (state.staticItems) {
-        // FIXME
-      } else {
+      if (!state.staticItems) {
         initSearch<T>(state, SEARCH_AGAIN);
       }
       break;
@@ -456,6 +497,7 @@ export function runReducer<+T: EntityItem>(
     case 'toggle-indexed-search':
       state.indexedSearch = !state.indexedSearch;
       state.page = 1;
+      state.isOpen = false;
       initSearch<T>(state, SEARCH_AGAIN);
       break;
 
@@ -464,16 +506,48 @@ export function runReducer<+T: EntityItem>(
       break;
     }
 
-    case 'type-value':
-      state.inputValue = action.value;
-      state.pendingSearch = null;
+    case 'type-value': {
+      const newInputValue = action.value;
+      const staticItems = state.staticItems;
+
+      if (staticItems) {
+        filterStaticItems<T>(state, newInputValue);
+      } else {
+        state.results = null;
+      }
+
+      state.error = 0;
+      state.inputValue = newInputValue;
       state.selectedEntity = null;
-      state.statusMessage = '';
+      state.highlightedIndex = getFirstHighlightableIndex(state);
+      if (state.highlightedIndex >= 0) {
+        state.isOpen = true;
+      }
+
+      updateItems = true;
+      updateStatusMessage = true;
       break;
+    }
 
     default:
       /*:: exhaustive(action); */
       throw new Error('Unknown action: ' + action.type);
+  }
+
+  if (updateItems) {
+    state.items = generateItems(state);
+  }
+
+  if (updateStatusMessage) {
+    state.statusMessage = generateStatusMessage(state);
+  }
+
+  // Highlight the first item by default.
+  const isOpen = state.isOpen;
+  if (isOpen && (!wasOpen || state.highlightedIndex < 0)) {
+    state.highlightedIndex = getFirstHighlightableIndex(state);
+  } else if (wasOpen && !isOpen) {
+    state.highlightedIndex = -1;
   }
 }
 

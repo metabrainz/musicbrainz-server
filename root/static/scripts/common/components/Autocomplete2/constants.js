@@ -41,6 +41,10 @@ export const DISPLAY_NONE_STYLE = {display: 'none'};
 
 export const EMPTY_ARRAY: $ReadOnlyArray<empty> = Object.freeze([]);
 
+export const ERROR_LOOKUP: 1 = 1;
+export const ERROR_LOOKUP_TYPE: 2 = 2;
+export const ERROR_SEARCH: 3 = 3;
+
 /* eslint-disable sort-keys */
 export const CLEAR_RECENT_ITEMS: ActionItem<empty> = {
   type: 'action',
