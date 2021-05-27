@@ -185,6 +185,16 @@ function formatEvent(event: EventT) {
   );
 }
 
+function stripHtml(description: ?string) {
+  if (nonEmpty(description)) {
+    // We want to strip html from the non-clickable description
+    const div = document.createElement('div');
+    div.innerHTML = description;
+    return div.textContent;
+  }
+  return description;
+}
+
 function formatInstrument(instrument: InstrumentT) {
   const extraInfo = [];
 
@@ -192,20 +202,18 @@ function formatInstrument(instrument: InstrumentT) {
     extraInfo.push(lp_attributes(instrument.typeName, 'instrument_type'));
   }
 
-  let description = instrument.description;
-  if (description) {
-    // We want to strip html from the non-clickable description
-    const div = document.createElement('div');
-    div.innerHTML = l_instrument_descriptions(instrument.description);
-    description = div.textContent;
-  }
+  const description = stripHtml(
+    instrument.description
+      ? l_instrument_descriptions(instrument.description)
+      : null,
+  );
 
   return (
     <>
       {formatGeneric(instrument, (info) => {
         info.push(...extraInfo);
       })}
-      {description ? showExtraInfoLine(description) : null}
+      {nonEmpty(description) ? showExtraInfoLine(description) : null}
     </>
   );
 }
@@ -225,30 +233,20 @@ function formatLinkAttributeType(type: LinkAttrTypeT) {
     });
   }
 
-  let description = localizeLinkAttributeTypeDescription(type);
-  if (description) {
-    // We want to strip html from the non-clickable description
-    const div = document.createElement('div');
-    div.innerHTML = description;
-    description = div.textContent;
-  }
+  const description = stripHtml(
+    localizeLinkAttributeTypeDescription(type),
+  );
 
   return (
     <>
       {localizeLinkAttributeTypeName(type)}
-      {description ? showExtraInfoLine(description) : null}
+      {nonEmpty(description) ? showExtraInfoLine(description) : null}
     </>
   );
 }
 
 function formatLinkType(linkType: LinkTypeT) {
-  let description = linkType.l_description;
-  if (description != null) {
-    // We want to strip html from the non-clickable description
-    const div = document.createElement('div');
-    div.innerHTML = description;
-    description = div.textContent;
-  }
+  const description = stripHtml(linkType.l_description);
 
   return (
     <>
