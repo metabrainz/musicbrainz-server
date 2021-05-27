@@ -332,12 +332,15 @@ function highlightNextItem<+T: EntityItem>(
   state: {...State<T>},
   items: $ReadOnlyArray<Item<T>>,
   startingIndex: number,
+  offset: number,
 ) {
   let index = startingIndex;
   let count = items.length;
 
   while (true) {
-    if (index >= items.length) {
+    if (index < 0) {
+      index = items.length - 1;
+    } else if (index >= items.length) {
       index = 0;
     }
     const item = items[index];
@@ -350,7 +353,7 @@ function highlightNextItem<+T: EntityItem>(
     if (count <= 0) {
       break;
     }
-    index++;
+    index += offset;
   }
 }
 
@@ -392,36 +395,25 @@ export function runReducer<+T: EntityItem>(
     }
 
     case 'highlight-next-item': {
-      highlightNextItem<T>(state, action.items, state.highlightedIndex + 1);
+      highlightNextItem<T>(
+        state,
+        action.items,
+        state.highlightedIndex + 1,
+        1,
+      );
       updateStatusMessage = true;
       break;
     }
 
     case 'highlight-previous-item': {
-      const items = action.items;
-
-      let count = items.length;
-      let index = state.highlightedIndex >= 0
-        ? (state.highlightedIndex - 1)
-        : (count - 1);
-
-      while (true) {
-        if (index < 0) {
-          index = items.length - 1;
-        }
-        const item = items[index];
-        // $FlowIgnore[sketchy-null-bool]
-        if (!item.disabled) {
-          state.highlightedIndex = index;
-          break;
-        }
-        count--;
-        if (count <= 0) {
-          break;
-        }
-        index--;
-      }
-
+      highlightNextItem<T>(
+        state,
+        action.items,
+        state.highlightedIndex >= 0
+          ? (state.highlightedIndex - 1)
+          : (action.items.length - 1),
+        -1,
+      );
       updateStatusMessage = true;
       break;
     }
