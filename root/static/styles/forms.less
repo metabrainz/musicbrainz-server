@@ -524,7 +524,8 @@ button.add-item {
 }
 
 .remove-artist-credit,
-button.remove-item {
+button.remove-item,
+button.close-dialog {
     /* The !important overrides .nobutton:hover. */
     background-image: data-uri('../images/icons/delete_row.png') !important;
 }
@@ -786,6 +787,22 @@ button.guess-timezone {
 
         @media @wide {
             max-width: 700px;
+        }
+
+        @media @wide900px {
+            max-width: 800px;
+        }
+
+        .title-bar {
+            display: flex;
+            padding: 8px;
+            h1 {
+                flex-grow: 1;
+                margin-bottom: 0em;
+            }
+            button.close-dialog {
+                padding: 4px;
+            }
         }
     }
 

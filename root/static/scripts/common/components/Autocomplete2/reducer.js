@@ -7,9 +7,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  TITLES as ADD_NEW_ENTITY_TITLES,
+} from '../../../edit/components/AddEntityDialog';
 import {unwrapNl} from '../../i18n';
+import {
+  isLocationEditor,
+  isRelationshipEditor,
+} from '../../utility/privileges';
 
 import {
+  OPEN_ADD_ENTITY_DIALOG,
   SEARCH_AGAIN,
 } from './actions';
 import {
@@ -17,6 +25,7 @@ import {
   ERROR_LOOKUP,
   ERROR_LOOKUP_TYPE,
   ERROR_SEARCH,
+  IS_TOP_WINDOW,
   MENU_ITEMS,
   PAGE_SIZE,
   RECENT_ITEMS_HEADER,
@@ -137,10 +146,36 @@ export function generateItems<+T: EntityItem>(
       } else {
         items.push(MENU_ITEMS.TRY_AGAIN_INDEXED);
       }
+      if (determineIfUserCanAddEntities(state)) {
+        items.push({
+          action: OPEN_ADD_ENTITY_DIALOG,
+          id: 'add-new-entity',
+          name: ADD_NEW_ENTITY_TITLES[state.entityType](),
+          type: 'action',
+        });
+      }
     }
   }
 
   return items;
+}
+
+export function determineIfUserCanAddEntities<+T: EntityItem>(
+  state: State<T>,
+): boolean {
+  const user = state.activeUser;
+
+  if (!user || !IS_TOP_WINDOW) {
+    return false;
+  }
+  switch (state.entityType) {
+    case 'area':
+      return isLocationEditor(user);
+    case 'instrument':
+      return isRelationshipEditor(user);
+    default:
+      return true;
+  }
 }
 
 function getFirstHighlightableIndex<+T: EntityItem>(
@@ -393,6 +428,11 @@ export function runReducer<+T: EntityItem>(
 
     case 'noop':
       break;
+
+    case 'toggle-add-entity-dialog': {
+      state.isAddEntityDialogOpen = action.isOpen;
+      break;
+    }
 
     case 'search-after-timeout':
       state.page = 1;

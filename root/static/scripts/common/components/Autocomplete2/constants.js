@@ -140,3 +140,7 @@ export const SEARCH_PLACEHOLDERS: {
   series: N_l('Search for a series'),
   work: N_l('Search for a work'),
 };
+
+export const IS_TOP_WINDOW: boolean =
+  typeof window !== 'undefined' &&
+  window === window.top;

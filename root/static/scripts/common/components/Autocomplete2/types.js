@@ -10,6 +10,7 @@
 export type SearchableType = $ElementType<EntityItem, 'entityType'>;
 
 export type State<T: EntityItem> = {
+  +activeUser: ActiveEditorT | null,
   +canChangeType?: (string) => boolean,
   +children?: React$Node,
   +containerClass?: string,
@@ -20,6 +21,7 @@ export type State<T: EntityItem> = {
   +id: string,
   +indexedSearch: boolean,
   +inputValue: string,
+  +isAddEntityDialogOpen?: boolean,
   +isLookupPerformed?: boolean,
   +isOpen: boolean,
   +items: $ReadOnlyArray<Item<T>>,
@@ -73,6 +75,7 @@ export type Actions<+T: EntityItem> =
   | { +type: 'set-recent-items', +items: $ReadOnlyArray<OptionItem<T>> }
   | { +type: 'show-search-error' }
   | { +type: 'stop-search' }
+  | { +type: 'toggle-add-entity-dialog', +isOpen: boolean }
   | { +type: 'toggle-indexed-search' }
   | { +type: 'type-value', +value: string };
 

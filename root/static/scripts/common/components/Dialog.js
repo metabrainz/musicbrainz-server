@@ -28,7 +28,10 @@ export type PropsT = $ReadOnly<{
   ...RequiredPropsT,
   +activeElementRef?: {-current: HTMLElement},
   +className?: string,
+  +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => void,
   +siblings?: React.Node,
+  // Set `title` to a non-null value to show the title bar.
+  +title?: string,
   +trapFocus?: boolean,
 }>;
 
@@ -66,8 +69,10 @@ const Dialog = ({
   className,
   dialogRef,
   id,
+  onClick,
   onEscape,
   siblings,
+  title,
   trapFocus = false,
 }: PropsT): React.Element<'div'> => {
   const tabbableElementRef = React.useRef(null);
@@ -156,6 +161,7 @@ const Dialog = ({
     <div
       className={'dialog' + (nonEmpty(className) ? ' ' + className : '')}
       id={id}
+      onClick={onClick}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
@@ -167,6 +173,16 @@ const Dialog = ({
        */
       tabIndex="-1"
     >
+      {title == null ? null : (
+        <div className="title-bar">
+          <h1>{title}</h1>
+          <button
+            className="close-dialog icon"
+            onClick={onEscape}
+            type="button"
+          />
+        </div>
+      )}
       <div className="dialog-content">
         <ErrorBoundary>
           {children}

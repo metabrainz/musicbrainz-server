@@ -9,7 +9,11 @@
 import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
+import * as ReactDOM from 'react-dom';
 
+import AddEntityDialog, {
+  TITLES as ADD_NEW_ENTITY_TITLES,
+} from '../../../edit/components/AddEntityDialog';
 import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 import mbEntity from '../../entity';
 import commaOnlyList from '../../i18n/commaOnlyList';
@@ -30,19 +34,6 @@ import {localStorage} from '../../utility/storage';
 import bracketed from '../../utility/bracketed';
 
 import '../../../../lib/jquery-ui';
-
-const addNewEntityLabels = {
-  area: N_l('Add a new area'),
-  artist: N_l('Add a new artist'),
-  event: N_l('Add a new event'),
-  instrument: N_l('Add a new instrument'),
-  label: N_l('Add a new label'),
-  place: N_l('Add a new place'),
-  recording: N_l('Add a new recording'),
-  release_group: N_l('Add a new release group'),
-  series: N_l('Add a new series'),
-  work: N_l('Add a new work'),
-};
 
 $.widget('mb.entitylookup', $.ui.autocomplete, {
 
@@ -245,6 +236,16 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     } catch (e) {
       return data;
     }
+  },
+
+  _getAddEntityContainer() {
+    let $container = $('#add-entity-dialog-container');
+    if (!$container.length) {
+      $container = $('<div>')
+        .attr('id', 'add-entity-dialog-container')
+        .appendTo('body');
+    }
+    return $container;
   },
 
   /*
@@ -487,19 +488,32 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
       }
     }
 
-    if (userCanAdd && addNewEntityLabels[entity]) {
-      const label = addNewEntityLabels[entity]();
+    if (userCanAdd && ADD_NEW_ENTITY_TITLES[entity]) {
+      const label = ADD_NEW_ENTITY_TITLES[entity]();
       results.push({
         label,
         action: function () {
-          $('<div>').appendTo('body').createEntityDialog({
-            name: self._value(),
-            entity: entity,
-            title: label,
-            callback: function (item) {
-              self.options.select(null, {item: item});
-            },
-          });
+          const containerNode = self._getAddEntityContainer()[0];
+
+          const closeAndReturnFocus = () => {
+            ReactDOM.unmountComponentAtNode(containerNode);
+            self.element.focus();
+          };
+
+          /* eslint-disable react/jsx-no-bind */
+          ReactDOM.render(
+            <AddEntityDialog
+              callback={(item) => {
+                self.options.select(null, {item});
+                closeAndReturnFocus();
+              }}
+              close={closeAndReturnFocus}
+              entityType={entity}
+              name={self._value()}
+            />,
+            containerNode,
+          );
+          /* eslint-enable react/jsx-no-bind */
         },
       });
     }

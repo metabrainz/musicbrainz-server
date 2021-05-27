@@ -18,8 +18,19 @@ import Dialog, {
   type RequiredPropsT as DialogPropsT,
 } from './Dialog';
 
-const Modal = (props: DialogPropsT): React.Portal => {
-  const {dialogRef, id} = props;
+type PropsT = $ReadOnly<{
+  ...DialogPropsT,
+  +className?: string,
+  +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => void,
+  +title: string,
+}>;
+
+const Modal = (props: PropsT): React.Portal => {
+  const {
+    className,
+    dialogRef,
+    id,
+  } = props;
 
   const activeElementRef = React.useRef<HTMLElement | null>(null);
 
@@ -45,9 +56,9 @@ const Modal = (props: DialogPropsT): React.Portal => {
   React.useLayoutEffect(() => {
     const {scrollX, scrollY} = window;
 
-    const dialogNode = getElementFromRef(dialogRef);
-    dialogNode.style.left = String(scrollX + 16) + 'px';
-    dialogNode.style.top = String(scrollY + 16) + 'px';
+    const dialogNodeStyle = getElementFromRef(dialogRef).style;
+    dialogNodeStyle.left = String(scrollX + 16) + 'px';
+    dialogNodeStyle.top = String(scrollY + 16) + 'px';
   });
 
   return createPortal(
@@ -59,7 +70,7 @@ const Modal = (props: DialogPropsT): React.Portal => {
       <Dialog
         {...props}
         activeElementRef={activeElementRef}
-        className="modal"
+        className={'modal ' + (className ?? '')}
         trapFocus
       />
     </>,

@@ -10,11 +10,13 @@
 import * as React from 'react';
 
 import ENTITIES from '../../../../../entities';
+import AddEntityDialog from '../../edit/components/AddEntityDialog';
 import {MBID_REGEXP} from '../constants';
 import useOutsideClickEffect from '../hooks/useOutsideClickEffect';
 import clean from '../utility/clean';
 
 import {
+  CLOSE_ADD_ENTITY_DIALOG,
   HIDE_MENU,
   SHOW_LOOKUP_ERROR,
   SHOW_LOOKUP_TYPE_ERROR,
@@ -111,6 +113,7 @@ function setScrollPosition(menuId: string) {
 }
 
 type InitialPropsT<T: EntityItem> = {
+  +activeUser?: ActiveEditorT,
   +canChangeType?: (string) => boolean,
   +entityType: $ElementType<T, 'entityType'>,
   +id: string,
@@ -148,6 +151,7 @@ export function createInitialState<+T: EntityItem>(
   }
 
   const initialState: $Shape<{...State<T>}> = {
+    activeUser: null,
     entityType,
     error: 0,
     highlightedIndex: -1,
@@ -293,6 +297,7 @@ export default function Autocomplete2<+T: EntityItem>(
     highlightedIndex,
     id,
     inputValue,
+    isAddEntityDialogOpen,
     isOpen,
     items,
     pendingSearch,
@@ -304,6 +309,7 @@ export default function Autocomplete2<+T: EntityItem>(
 
   const xhr = React.useRef<XMLHttpRequest | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   const inputTimeout = React.useRef<TimeoutID | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const shouldUpdateScrollPositionRef = React.useRef<boolean>(false);
@@ -505,6 +511,32 @@ export default function Autocomplete2<+T: EntityItem>(
     }
   }, [stopRequests, isOpen, dispatch]);
 
+  const closeAddEntityDialog = React.useCallback(() => {
+    dispatch(CLOSE_ADD_ENTITY_DIALOG);
+    setTimeout(function () {
+      const input = inputRef.current;
+      if (input) {
+        input.focus();
+      }
+    }, 1);
+  }, [dispatch, inputRef]);
+
+  const addEntityDialogCallback = React.useCallback((entity: CoreEntityT) => {
+    invariant(
+      entity?.entityType === entityType,
+      'Wrong type of entity received',
+    );
+    const item = {
+      // $FlowIgnore[incompatible-cast]
+      entity: (entity: T),
+      id: entity.id,
+      name: entity.name,
+      type: 'option',
+    };
+    dispatch({item, type: 'select-item'});
+    closeAddEntityDialog();
+  }, [closeAddEntityDialog, dispatch, entityType]);
+
   const activeDescendant = highlightedItem
     ? `${id}-item-${highlightedItem.id}`
     : null;
@@ -551,7 +583,6 @@ export default function Autocomplete2<+T: EntityItem>(
       }, 300);
     }
   });
-
 
   React.useLayoutEffect(() => {
     if (shouldUpdateScrollPositionRef.current) {
@@ -636,6 +667,7 @@ export default function Autocomplete2<+T: EntityItem>(
           disabled={disabled}
           onClick={handleButtonClick}
           onKeyDown={handleInputKeyDown}
+          ref={buttonRef}
           role="button"
           title={l('Search')}
           type="button"
@@ -674,6 +706,15 @@ export default function Autocomplete2<+T: EntityItem>(
       >
         {statusMessage}
       </div>
+
+      {isAddEntityDialogOpen ? (
+        <AddEntityDialog
+          callback={addEntityDialogCallback}
+          close={closeAddEntityDialog}
+          entityType={entityType}
+          name={inputValue}
+        />
+      ) : null}
     </div>
   );
 }

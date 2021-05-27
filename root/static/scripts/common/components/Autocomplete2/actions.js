@@ -48,3 +48,13 @@ export const STOP_SEARCH = {
 export const TOGGLE_INDEXED_SEARCH = {
   type: 'toggle-indexed-search',
 };
+
+export const OPEN_ADD_ENTITY_DIALOG = {
+  isOpen: true,
+  type: 'toggle-add-entity-dialog',
+};
+
+export const CLOSE_ADD_ENTITY_DIALOG = {
+  isOpen: false,
+  type: 'toggle-add-entity-dialog',
+};

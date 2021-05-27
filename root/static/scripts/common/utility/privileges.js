@@ -22,7 +22,7 @@ import {
   WIKI_TRANSCLUSION_FLAG,
 } from '../../../../constants';
 
-type EditorPropT = ?(EditorT | UnsanitizedEditorT);
+type EditorPropT = ?{+privileges: number, ...};
 
 export function isAutoEditor(editor: EditorPropT): boolean {
   if (editor == null) {

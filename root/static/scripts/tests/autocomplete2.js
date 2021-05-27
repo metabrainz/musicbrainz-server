@@ -4,6 +4,10 @@ const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const {
+  LOCATION_EDITOR_FLAG,
+  RELATIONSHIP_EDITOR_FLAG,
+} = require('../../../constants');
+const {
   default: Autocomplete2,
   createInitialState: createInitialAutocompleteState,
 } = require('../common/components/Autocomplete2');
@@ -68,15 +72,30 @@ $(function () {
     return state;
   }
 
+  const activeUser = {
+    entityType: 'editor',
+    gravatar: '',
+    has_confirmed_email_address: true,
+    id: 1,
+    name: 'user',
+    preferences: {
+      datetime_format: '',
+      timezone: 'UTC',
+    },
+    privileges: LOCATION_EDITOR_FLAG | RELATIONSHIP_EDITOR_FLAG,
+  };
+
   function createInitialState() {
     return {
       entityAutocomplete: createInitialAutocompleteState<NonUrlCoreEntityT>({
+        activeUser,
         canChangeType: () => true,
         entityType: 'artist',
         id: 'entity-test',
         width: '200px',
       }),
       vocalAutocomplete: createInitialAutocompleteState<LinkAttrTypeT>({
+        activeUser,
         entityType: 'link_attribute_type',
         id: 'vocal-test',
         placeholder: 'Choose an attribute type',
