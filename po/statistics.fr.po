@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-05-14 20:46+0000\n"
+"PO-Revision-Date: 2021-05-27 09:46+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -2053,11 +2053,11 @@ msgstr "Évaluations des labels"
 
 #: ../root/statistics/stats.js:458
 msgid "Count of all Place Ratings"
-msgstr ""
+msgstr "Total de toutes les évaluations de lieux"
 
 #: ../root/statistics/stats.js:459
 msgid "Place Ratings"
-msgstr ""
+msgstr "Évaluations des lieux"
 
 #: ../root/statistics/stats.js:464
 msgid "Count of all Ratings (raw)"
@@ -2085,11 +2085,11 @@ msgstr "Évaluations des labels (brut)"
 
 #: ../root/statistics/stats.js:482
 msgid "Count of all Place Ratings (raw)"
-msgstr ""
+msgstr "Total de toutes les évaluations de lieux (brut)"
 
 #: ../root/statistics/stats.js:483
 msgid "Place Ratings (raw)"
-msgstr ""
+msgstr "Évaluations des lieux (brut)"
 
 #: ../root/statistics/stats.js:488
 msgid "Count of all Recording Ratings (raw)"
