@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-14 20:29+0000\n"
+"POT-Creation-Date: 2021-05-25 20:23+0300\n"
 "PO-Revision-Date: 2021-05-15 10:25+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
@@ -598,7 +598,7 @@ msgstr "Sei sicuro di voler rimuovere {entity} da MusicBrainz?"
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/area/AreaHeader.js:27 ../root/components/list/AreaList.js:46
-#: ../root/components/list/ArtistList.js:86
+#: ../root/components/list/ArtistList.js:92
 #: ../root/components/list/LabelList.js:75
 #: ../root/components/list/PlaceList.js:71 ../root/edit/details/AddArea.js:46
 #: ../root/edit/details/AddArtist.js:103 ../root/edit/details/AddLabel.js:100
@@ -647,7 +647,7 @@ msgstr "Aree"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:34
 #: ../root/components/RelationshipsTable.js:318
-#: ../root/components/list/ArtistList.js:62
+#: ../root/components/list/ArtistList.js:68
 #: ../root/components/list/RecordingList.js:87
 #: ../root/components/list/ReleaseGroupList.js:95
 #: ../root/components/list/ReleaseList.js:83
@@ -898,7 +898,7 @@ msgstr "Qui sotto trovi le informazioni sull'errore. Se desideri segnalare un bu
 msgid "Bio:"
 msgstr "Biografia:"
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:119
+#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:120
 #: ../root/layout/components/Footer.js:37
 msgid "Blog"
 msgstr "Blog"
@@ -2061,7 +2061,7 @@ msgstr "Nascosto va utilizzato per le lingue dei segni e per le lingue senza un 
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:259
+#: ../root/static/scripts/common/constants.js:260
 msgid "High"
 msgstr "Alta"
 
@@ -2566,7 +2566,7 @@ msgstr "Numero di ricerche"
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:256
+#: ../root/static/scripts/common/constants.js:257
 msgid "Low"
 msgstr "Bassa"
 
@@ -2982,8 +2982,8 @@ msgstr "Nessuno dei supporti su questa pubblicazione può essere collegato a que
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:257
 #: ../root/static/scripts/common/constants.js:258
+#: ../root/static/scripts/common/constants.js:259
 msgid "Normal"
 msgstr "Normale"
 
@@ -3855,7 +3855,7 @@ msgstr "Script:"
 #: ../root/cdtoc/lookup.tt:86 ../root/cdtoc/move_search.tt:17
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:112
 #: ../root/release/edit/tracklist.tt:117 ../root/search/form.tt:42
-#: ../root/admin/EmailSearch.js:73 ../root/doc/components/DocSearchBox.js:24
+#: ../root/admin/EmailSearch.js:76 ../root/doc/components/DocSearchBox.js:24
 #: ../root/layout/components/BottomMenu.js:197
 #: ../root/layout/components/Search.js:98
 #: ../root/otherlookup/OtherLookupForm.js:46 ../root/search/SearchIndex.js:33
@@ -6208,15 +6208,15 @@ msgstr "'{id}' non è un ID elezione valido"
 msgid "The required TOC parameter was invalid or not present"
 msgstr "Il parametro obbligatorio TOC non è valido o è assente"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:122
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:123
 msgid "Please provide a medium ID"
 msgstr "Inserisci un ID supporto"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:127
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:128
 msgid "Could not find medium"
 msgstr "Impossibile trovare il supporto"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:162
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:164
 msgid ""
 "The provided CD TOC is not valid. This is probably an issue with the "
 "software you used to generate it. Try again and please report the error to "
@@ -6224,21 +6224,21 @@ msgid ""
 "below."
 msgstr "Il CD TOC fornito non è valido. È probabile che si tratti di un problema del software che hai usato per generarlo. Riprova e se il problema persiste segnalalo al creatore del software includendo le informazioni tecniche di seguito."
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:169
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:369
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:171
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:371
 msgid "The provided medium id is not valid"
 msgstr "L'ID supporto fornito non è valido"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:185
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:377
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:187
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:379
 msgid "The selected medium cannot have disc IDs"
 msgstr "Il supporto selezionato non può possedere un ID disco"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:221
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:223
 msgid "The provided artist id is not valid"
 msgstr "L'ID artista fornito non è valido"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:355
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:357
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr "L'ID del CD TOC fornito non esiste."
 
@@ -6259,7 +6259,7 @@ msgstr "Non puoi unire con Etichetta eliminata."
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "'{types}' non è una coppia di tipi valida per le relazioni."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:519
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:520
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Questa strategia di unione non è applicabile alle pubblicazioni che hai selezionato."
@@ -6284,7 +6284,7 @@ msgid ""
 "or expected."
 msgstr "Il nostro server Redis sembra essere inattivo; alcune funzionalità potrebbero non funzionare come previsto."
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:146
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:152
 msgid "Series that have different entity types cannot be merged."
 msgstr "Le serie con tipi di entità diversi non possono essere unite."
 
@@ -6756,7 +6756,7 @@ msgstr "Aggiungi supporto"
 msgid "Edit medium"
 msgstr "Modifica supporto"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:141
+#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:142
 msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
@@ -7187,12 +7187,12 @@ msgstr "{attribute} [{credited_as}]"
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:270
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:276
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr "{start_track}&#x2013;{end_track}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:277
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:283
 #: ../lib/MusicBrainz/Server/Translation.pm:273
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -7559,22 +7559,22 @@ msgid "Invalid URL format"
 msgstr "Formato URL non valido"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
-#: ../root/static/scripts/common/constants.js:267
+#: ../root/static/scripts/common/constants.js:268
 msgid "Basic"
 msgstr "Elementare"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
-#: ../root/static/scripts/common/constants.js:268
+#: ../root/static/scripts/common/constants.js:269
 msgid "Intermediate"
 msgstr "Intermedio"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:266
+#: ../root/static/scripts/common/constants.js:267
 msgid "Advanced"
 msgstr "Avanzato"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:269
+#: ../root/static/scripts/common/constants.js:270
 msgid "Native"
 msgstr "Madrelingua"
 
@@ -7918,7 +7918,7 @@ msgid ""
 msgstr "Inserisci il tuo nome utente e la tua email qui sotto. Ti manderemo una email con un link per reimpostare la tua password. Se ti sei dimenticato il tuo nome utente, per prima cosa {link|recuperalo} e poi reimposta la tua password."
 
 #: ../root/account/LostPassword.js:51 ../root/account/LostUsername.js:39
-#: ../root/admin/EmailSearch.js:66 ../root/admin/components/UserList.js:31
+#: ../root/admin/EmailSearch.js:69 ../root/admin/components/UserList.js:31
 #: ../root/report/components/EditorList.js:34
 #: ../root/static/scripts/account/components/EditProfileForm.js:203
 #: ../root/static/scripts/account/components/PreferencesForm.js:211
@@ -9160,23 +9160,23 @@ msgstr[1] "Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti
 msgid "About to close"
 msgstr "Prossimo alla chiusura"
 
-#: ../root/components/list/ArtistList.js:67
+#: ../root/components/list/ArtistList.js:73
 #: ../root/search/components/ArtistResults.js:51
 msgid "Sort Name"
 msgstr "Nome di ordinamento"
 
-#: ../root/components/list/ArtistList.js:81
+#: ../root/components/list/ArtistList.js:87
 #: ../root/edit/details/AddArtist.js:96 ../root/edit/details/EditArtist.js:116
 #: ../root/search/components/ArtistResults.js:53
 msgid "Gender"
 msgstr "Sesso"
 
-#: ../root/components/list/ArtistList.js:96
+#: ../root/components/list/ArtistList.js:102
 #: ../root/search/components/ArtistResults.js:56
 msgid "Begin Area"
 msgstr "Area iniziale"
 
-#: ../root/components/list/ArtistList.js:106
+#: ../root/components/list/ArtistList.js:112
 #: ../root/search/components/ArtistResults.js:58
 msgid "End Area"
 msgstr "Area finale"
@@ -10637,15 +10637,15 @@ msgstr "Tipi di relazione"
 msgid "Development"
 msgstr "Sviluppo"
 
-#: ../root/layout/components/ExternalLinks.js:109
+#: ../root/layout/components/ExternalLinks.js:110
 msgid "Official homepage"
 msgstr "Pagina ufficiale"
 
-#: ../root/layout/components/ExternalLinks.js:156
+#: ../root/layout/components/ExternalLinks.js:157
 msgid "External links"
 msgstr "Collegamenti esterni"
 
-#: ../root/layout/components/ExternalLinks.js:163
+#: ../root/layout/components/ExternalLinks.js:164
 msgid "View all relationships"
 msgstr "Visualizza tutte le relazioni"
 
@@ -13371,7 +13371,7 @@ msgstr "In alternativa, puoi {uri|aggiungere una nuova serie}."
 msgid "Alternatively, you may {uri|add a new work}."
 msgstr "In alternativa, puoi {uri|aggiungere una nuova opera}."
 
-#: ../root/series/SeriesIndex.js:143
+#: ../root/series/SeriesIndex.js:153
 msgid "This series is currently empty."
 msgstr "Al momento questa serie è vuota."
 
@@ -14185,109 +14185,109 @@ msgid ""
 "be added to the release group instead."
 msgstr "I collegamenti Discogs “{master_url_pattern}” raggruppano diverse pubblicazioni e di conseguenza vanno aggiunti al gruppo di pubblicazioni."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1696
+#: ../root/static/scripts/edit/URLCleanup.js:1700
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr "Solo collegamenti IMSLP “{category_url_pattern}” sono permessi per gli artisti. Collega le pagine riferite a un'opera alla specifica opera in questione."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1713
+#: ../root/static/scripts/edit/URLCleanup.js:1717
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr "I collegamenti IMSLP “{category_url_pattern}” sono permessi solo per gli artisti. Aggiungi un collegamento alla specifica pagina su quest'opera, se esiste."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1757
+#: ../root/static/scripts/edit/URLCleanup.js:1761
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr "I collegamenti Instagram “{explore_url_pattern}” non sono permessi. Aggiungi un collegamento a un profilo, se esiste."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1783
+#: ../root/static/scripts/edit/URLCleanup.js:1787
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr "Non aggiungere collegamenti diretti a immagini, aggiungi un collegamento alla pagina di profilo Instagram appropriata. Se vuoi aggiungere un collegamento a un video, {url|aggiungi una registrazione a sé stante} per il video."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1857
+#: ../root/static/scripts/edit/URLCleanup.js:1861
 msgid ""
 "Only iTunes “{artist_url_pattern}” pages can be added directly to artists. "
 "Please link albums, videos, etc. to the appropriate release or recording "
 "instead."
 msgstr "Solo pagine iTunes “{artist_url_pattern}” possono essere aggiunte direttamente agli artisti. Aggiungi collegamenti ad album, video, ecc. alla pubblicazione o registrazione appropriata."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2385
+#: ../root/static/scripts/edit/URLCleanup.js:2389
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr "Questo è un link di reindirizzamento. Segui {redirect_url|il tuo collegamento} e aggiungi il link a cui reindirizza invece di questo."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2799
+#: ../root/static/scripts/edit/URLCleanup.js:2803
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
 msgstr "Questo è un collegamento al vecchio dominio di Resident Advisor. Segui {ra_url|il tuo collegamento}, assicurati che il collegamento a cui reindirizza sia ancora quello corretto e, se è così, aggiungi quest'ultimo."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3249
+#: ../root/static/scripts/edit/URLCleanup.js:3253
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Inserisci collegamenti a profili Twitter, non a tweet."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3266
+#: ../root/static/scripts/edit/URLCleanup.js:3270
 msgid "This site does not allow direct links to their images."
 msgstr "Questo sito non consente collegamenti diretti alle sue immagini."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3423
+#: ../root/static/scripts/edit/URLCleanup.js:3427
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr "Quest'URL contiene un carattere “?” o “#” non codificato. Controlla se va rimosso perché inutile o se è un errore e l'URL è codificato in modo errato."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3442
+#: ../root/static/scripts/edit/URLCleanup.js:3446
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr "Non aggiungere collegamenti diretti a pagine “{unwanted_url_pattern}” di WhoSampled. Aggiungi collegamenti alla pagina artista, traccia o album di WhoSampled appropriata."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3462
+#: ../root/static/scripts/edit/URLCleanup.js:3466
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "Collega le pagine “{album_url_pattern}” di WhoSampled ai gruppi di pubblicazioni."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3479
+#: ../root/static/scripts/edit/URLCleanup.js:3483
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "Collega le pagine artista di WhoSampled agli artisti."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3490
+#: ../root/static/scripts/edit/URLCleanup.js:3494
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "Collega le pagine traccia di WhoSampled alle registrazioni."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3549
+#: ../root/static/scripts/edit/URLCleanup.js:3553
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "I link a specifiche sezioni di articoli di Wikipedia non sono permessi. Se l'articolo rimane pertinente, rimuovi “{fragment}”. Consulta le {url|linee guida}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3641
+#: ../root/static/scripts/edit/URLCleanup.js:3645
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Solo collegamenti video e playlist sono consentiti sulle pubblicazioni."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3710
+#: ../root/static/scripts/edit/URLCleanup.js:3714
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr "Wikipedia non ha solitamente voci su pubblicazioni specifiche, perciò al momento non è permesso aggiungere collegamenti a Wikipedia ad una pubblicazione. Aggiungi questo collegamento a Wikipedia al gruppo di pubblicazioni, se appropriato."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3721
+#: ../root/static/scripts/edit/URLCleanup.js:3725
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr "Wikidata non ha solitamente voci su pubblicazioni specifiche, perciò al momento non è permesso aggiungere collegamenti a Wikidata ad una pubblicazione. Aggiungi questo collegamento a Wikidata al gruppo di pubblicazioni, se appropriato."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3732
+#: ../root/static/scripts/edit/URLCleanup.js:3736
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14296,7 +14296,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr "Questo è un profilo di Bandcamp e non una pagina per una pubblicazione specifica. Anche se in questo momento mostra questa pubblicazione, ciò potrebbe cambiare quando l'artista ne pubblicherà un'altra. Ti chiediamo perciò di trovare e aggiungere la pagina corretta per la pubblicazione (“{album_url_pattern}” o “{single_url_pattern}”). Aggiungi pure questo collegamento di profilo all'artista o all'etichetta corretta."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3762
+#: ../root/static/scripts/edit/URLCleanup.js:3766
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"

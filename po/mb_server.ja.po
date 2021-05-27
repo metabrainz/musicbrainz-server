@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-14 20:29+0000\n"
+"POT-Creation-Date: 2021-05-25 20:23+0300\n"
 "PO-Revision-Date: 2021-05-23 18:00+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
@@ -606,7 +606,7 @@ msgstr "本当にMusicBrainzから{entity}を削除しますか?"
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/area/AreaHeader.js:27 ../root/components/list/AreaList.js:46
-#: ../root/components/list/ArtistList.js:86
+#: ../root/components/list/ArtistList.js:92
 #: ../root/components/list/LabelList.js:75
 #: ../root/components/list/PlaceList.js:71 ../root/edit/details/AddArea.js:46
 #: ../root/edit/details/AddArtist.js:103 ../root/edit/details/AddLabel.js:100
@@ -655,7 +655,7 @@ msgstr "地域\t"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:34
 #: ../root/components/RelationshipsTable.js:318
-#: ../root/components/list/ArtistList.js:62
+#: ../root/components/list/ArtistList.js:68
 #: ../root/components/list/RecordingList.js:87
 #: ../root/components/list/ReleaseGroupList.js:95
 #: ../root/components/list/ReleaseList.js:83
@@ -906,7 +906,7 @@ msgstr ""
 msgid "Bio:"
 msgstr "プロフィール:"
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:119
+#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:120
 #: ../root/layout/components/Footer.js:37
 msgid "Blog"
 msgstr "ブログ"
@@ -2065,7 +2065,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:259
+#: ../root/static/scripts/common/constants.js:260
 msgid "High"
 msgstr "高"
 
@@ -2570,7 +2570,7 @@ msgstr "検索件数"
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:256
+#: ../root/static/scripts/common/constants.js:257
 msgid "Low"
 msgstr "低"
 
@@ -2986,8 +2986,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:257
 #: ../root/static/scripts/common/constants.js:258
+#: ../root/static/scripts/common/constants.js:259
 msgid "Normal"
 msgstr "中"
 
@@ -3858,7 +3858,7 @@ msgstr "文字:"
 #: ../root/cdtoc/lookup.tt:86 ../root/cdtoc/move_search.tt:17
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:112
 #: ../root/release/edit/tracklist.tt:117 ../root/search/form.tt:42
-#: ../root/admin/EmailSearch.js:73 ../root/doc/components/DocSearchBox.js:24
+#: ../root/admin/EmailSearch.js:76 ../root/doc/components/DocSearchBox.js:24
 #: ../root/layout/components/BottomMenu.js:197
 #: ../root/layout/components/Search.js:98
 #: ../root/otherlookup/OtherLookupForm.js:46 ../root/search/SearchIndex.js:33
@@ -6200,15 +6200,15 @@ msgstr "選挙ID {id} は無効です。"
 msgid "The required TOC parameter was invalid or not present"
 msgstr "必須のTOCパラメータが無効、あるいは指定されませんでした。"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:122
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:123
 msgid "Please provide a medium ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:127
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:128
 msgid "Could not find medium"
 msgstr "メディアが見つかりません"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:162
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:164
 msgid ""
 "The provided CD TOC is not valid. This is probably an issue with the "
 "software you used to generate it. Try again and please report the error to "
@@ -6216,21 +6216,21 @@ msgid ""
 "below."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:169
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:369
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:171
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:371
 msgid "The provided medium id is not valid"
 msgstr "与えられたメディアIDは有効ではありません。"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:185
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:377
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:187
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:379
 msgid "The selected medium cannot have disc IDs"
 msgstr "選択されたメディアはディスクIDに与えられません。"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:221
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:223
 msgid "The provided artist id is not valid"
 msgstr "与えたアーティストIDは無効です。"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:355
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:357
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr ""
 
@@ -6251,7 +6251,7 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:519
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:520
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "このマージ方法は選択されたリリースに適用できません。"
@@ -6276,7 +6276,7 @@ msgid ""
 "or expected."
 msgstr "Redisサーバーが使えなくなっています。このため、いくつかの機能が正しく動かない可能性があります。"
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:146
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:152
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 
@@ -6748,7 +6748,7 @@ msgstr "メディアを追加"
 msgid "Edit medium"
 msgstr "メディアを編集"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:141
+#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:142
 msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
@@ -7179,12 +7179,12 @@ msgstr ""
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:270
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:276
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr "{start_track}&#x2013;{end_track}"
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:277
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:283
 #: ../lib/MusicBrainz/Server/Translation.pm:273
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -7551,22 +7551,22 @@ msgid "Invalid URL format"
 msgstr "URL 形式が不正です"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
-#: ../root/static/scripts/common/constants.js:267
+#: ../root/static/scripts/common/constants.js:268
 msgid "Basic"
 msgstr "基礎的"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
-#: ../root/static/scripts/common/constants.js:268
+#: ../root/static/scripts/common/constants.js:269
 msgid "Intermediate"
 msgstr "中級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:266
+#: ../root/static/scripts/common/constants.js:267
 msgid "Advanced"
 msgstr "上級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:269
+#: ../root/static/scripts/common/constants.js:270
 msgid "Native"
 msgstr "母語"
 
@@ -7910,7 +7910,7 @@ msgid ""
 msgstr ""
 
 #: ../root/account/LostPassword.js:51 ../root/account/LostUsername.js:39
-#: ../root/admin/EmailSearch.js:66 ../root/admin/components/UserList.js:31
+#: ../root/admin/EmailSearch.js:69 ../root/admin/components/UserList.js:31
 #: ../root/report/components/EditorList.js:34
 #: ../root/static/scripts/account/components/EditProfileForm.js:203
 #: ../root/static/scripts/account/components/PreferencesForm.js:211
@@ -9130,23 +9130,23 @@ msgstr[0] "<span class=\"tooltip\" title=\"{exactdate}\">{num} 分</span>で終�
 msgid "About to close"
 msgstr ""
 
-#: ../root/components/list/ArtistList.js:67
+#: ../root/components/list/ArtistList.js:73
 #: ../root/search/components/ArtistResults.js:51
 msgid "Sort Name"
 msgstr "ソート名"
 
-#: ../root/components/list/ArtistList.js:81
+#: ../root/components/list/ArtistList.js:87
 #: ../root/edit/details/AddArtist.js:96 ../root/edit/details/EditArtist.js:116
 #: ../root/search/components/ArtistResults.js:53
 msgid "Gender"
 msgstr "性別"
 
-#: ../root/components/list/ArtistList.js:96
+#: ../root/components/list/ArtistList.js:102
 #: ../root/search/components/ArtistResults.js:56
 msgid "Begin Area"
 msgstr "開始地域"
 
-#: ../root/components/list/ArtistList.js:106
+#: ../root/components/list/ArtistList.js:112
 #: ../root/search/components/ArtistResults.js:58
 msgid "End Area"
 msgstr "終了地域"
@@ -10597,15 +10597,15 @@ msgstr "関係タイプ"
 msgid "Development"
 msgstr "開発"
 
-#: ../root/layout/components/ExternalLinks.js:109
+#: ../root/layout/components/ExternalLinks.js:110
 msgid "Official homepage"
 msgstr "公式ホームページ"
 
-#: ../root/layout/components/ExternalLinks.js:156
+#: ../root/layout/components/ExternalLinks.js:157
 msgid "External links"
 msgstr "外部リンク"
 
-#: ../root/layout/components/ExternalLinks.js:163
+#: ../root/layout/components/ExternalLinks.js:164
 msgid "View all relationships"
 msgstr "全関連を表示"
 
@@ -13328,7 +13328,7 @@ msgstr "または、{uri|新しいシリーズを追加}します。"
 msgid "Alternatively, you may {uri|add a new work}."
 msgstr "または、{uri|新しい作品を追加}します。"
 
-#: ../root/series/SeriesIndex.js:143
+#: ../root/series/SeriesIndex.js:153
 msgid "This series is currently empty."
 msgstr "このシリーズは現在空です。"
 
@@ -14140,109 +14140,109 @@ msgid ""
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1696
+#: ../root/static/scripts/edit/URLCleanup.js:1700
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1713
+#: ../root/static/scripts/edit/URLCleanup.js:1717
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1757
+#: ../root/static/scripts/edit/URLCleanup.js:1761
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1783
+#: ../root/static/scripts/edit/URLCleanup.js:1787
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1857
+#: ../root/static/scripts/edit/URLCleanup.js:1861
 msgid ""
 "Only iTunes “{artist_url_pattern}” pages can be added directly to artists. "
 "Please link albums, videos, etc. to the appropriate release or recording "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2385
+#: ../root/static/scripts/edit/URLCleanup.js:2389
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2799
+#: ../root/static/scripts/edit/URLCleanup.js:2803
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3249
+#: ../root/static/scripts/edit/URLCleanup.js:3253
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "ツイートではなくTwitterプロフィールにリンクしてください。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3266
+#: ../root/static/scripts/edit/URLCleanup.js:3270
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3423
+#: ../root/static/scripts/edit/URLCleanup.js:3427
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3442
+#: ../root/static/scripts/edit/URLCleanup.js:3446
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3462
+#: ../root/static/scripts/edit/URLCleanup.js:3466
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3479
+#: ../root/static/scripts/edit/URLCleanup.js:3483
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3490
+#: ../root/static/scripts/edit/URLCleanup.js:3494
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3549
+#: ../root/static/scripts/edit/URLCleanup.js:3553
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3641
+#: ../root/static/scripts/edit/URLCleanup.js:3645
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3710
+#: ../root/static/scripts/edit/URLCleanup.js:3714
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3721
+#: ../root/static/scripts/edit/URLCleanup.js:3725
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3732
+#: ../root/static/scripts/edit/URLCleanup.js:3736
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14251,7 +14251,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3762
+#: ../root/static/scripts/edit/URLCleanup.js:3766
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"

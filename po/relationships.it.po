@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-15 10:38+0000\n"
+"PO-Revision-Date: 2021-05-25 17:37+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -413,6 +413,10 @@ msgstr "Indica che un evento era inteso come esibizione di uno specifico gruppo 
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
 msgstr "Indica che un'entità è una cover di un'altra entità."
+
+#: DB:link_type/description:996
+msgid "Indicates that the artist is part of a series."
+msgstr "Indica che l'artista è parte di una serie."
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
@@ -4454,7 +4458,8 @@ msgstr "ha la parte"
 
 #: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:802
 #: DB:link_type/reverse_link_phrase:742 DB:link_type/reverse_link_phrase:740
-#: DB:link_type/reverse_link_phrase:741 DB:link_type/long_link_phrase:818
+#: DB:link_type/reverse_link_phrase:741 DB:link_type/reverse_link_phrase:996
+#: DB:link_type/long_link_phrase:818
 msgid "has parts"
 msgstr "ha le parti"
 
@@ -4678,6 +4683,7 @@ msgstr "è una pagina di database su"
 
 #: DB:link_type/long_link_phrase:802 DB:link_type/long_link_phrase:742
 #: DB:link_type/long_link_phrase:740 DB:link_type/long_link_phrase:741
+#: DB:link_type/long_link_phrase:996
 msgid "is a part of"
 msgstr "è una parte di"
 
@@ -5467,8 +5473,9 @@ msgstr "parodia"
 
 #: DB:link_type/link_phrase:802 DB:link_type/link_phrase:742
 #: DB:link_type/link_phrase:740 DB:link_type/link_phrase:741
-#: DB:link_type/name:802 DB:link_type/name:356 DB:link_type/name:743
-#: DB:link_type/name:742 DB:link_type/name:740 DB:link_type/name:741
+#: DB:link_type/link_phrase:996 DB:link_type/name:802 DB:link_type/name:356
+#: DB:link_type/name:743 DB:link_type/name:742 DB:link_type/name:740
+#: DB:link_type/name:741 DB:link_type/name:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
 #: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
