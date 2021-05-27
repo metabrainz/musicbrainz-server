@@ -351,7 +351,7 @@ export default function Autocomplete2<+T: EntityItem>(
     if (isOpen) {
       dispatch(HIDE_MENU);
     } else {
-      showAvailableItems();
+      showAvailableItemsOrBeginLookupOrSearch();
     }
   }
 
@@ -375,11 +375,15 @@ export default function Autocomplete2<+T: EntityItem>(
 
     dispatch({type: 'type-value', value: newInputValue});
 
-    if (!newInputValue) {
+    if (!newCleanInputValue) {
       stopRequests();
       return;
     }
 
+    beginLookupOrSearch(inputValue, newCleanInputValue);
+  }
+
+  function beginLookupOrSearch(oldInputValue, newCleanInputValue) {
     const mbidMatch = newCleanInputValue.match(MBID_REGEXP);
     if (mbidMatch) {
       /*
@@ -435,7 +439,7 @@ export default function Autocomplete2<+T: EntityItem>(
 
       lookupXhr.open('GET', '/ws/js/entity/' + mbidMatch[0]);
       lookupXhr.send();
-    } else if (clean(inputValue) !== newCleanInputValue) {
+    } else if (clean(oldInputValue) !== newCleanInputValue) {
       stopRequests();
       dispatch({
         searchTerm: newCleanInputValue,
@@ -452,6 +456,24 @@ export default function Autocomplete2<+T: EntityItem>(
     if (items.length && !isOpen) {
       shouldUpdateScrollPositionRef.current = true;
       dispatch(SHOW_MENU);
+      return true;
+    }
+    return false;
+  }
+
+  function showAvailableItemsOrBeginLookupOrSearch() {
+    if (showAvailableItems()) {
+      return;
+    }
+    /*
+     * If there's an existing search term, there should be at least one
+     * item even if there are no results (saying so). If there isn't,
+     * the entity type probably changed; re-initiate the search with
+     * the existing input value.
+     */
+    const cleanInputValue = clean(inputValue);
+    if (cleanInputValue) {
+      beginLookupOrSearch('', cleanInputValue);
     }
   }
 
@@ -469,7 +491,7 @@ export default function Autocomplete2<+T: EntityItem>(
             type: 'highlight-next-item',
           });
         } else {
-          showAvailableItems();
+          showAvailableItemsOrBeginLookupOrSearch();
         }
         break;
 
