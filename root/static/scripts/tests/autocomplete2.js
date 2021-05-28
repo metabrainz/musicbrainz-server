@@ -157,7 +157,7 @@ $(function () {
           </p>
           <Autocomplete2
             dispatch={entityAutocompleteDispatch}
-            {...state.entityAutocomplete}
+            state={state.entityAutocomplete}
           />
         </div>
         <div>
@@ -165,7 +165,7 @@ $(function () {
           {/* $FlowIssue[incompatible-use] */}
           <Autocomplete2
             dispatch={vocalAutocompleteDispatch}
-            {...state.vocalAutocomplete}
+            state={state.vocalAutocomplete}
           />
         </div>
       </>

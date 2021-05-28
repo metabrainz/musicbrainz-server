@@ -12,7 +12,6 @@ export type SearchableTypeT = $ElementType<EntityItemT, 'entityType'>;
 export type StateT<T: EntityItemT> = {
   +activeUser: ActiveEditorT | null,
   +canChangeType?: (string) => boolean,
-  +children?: React$Node,
   +containerClass?: string,
   +disabled?: boolean,
   +entityType: $ElementType<T, 'entityType'>,
@@ -39,10 +38,11 @@ export type StateT<T: EntityItemT> = {
   +width?: string,
 };
 
-export type PropsT<+T: EntityItemT> = $ReadOnly<{
-  ...StateT<T>,
+export type PropsT<T: EntityItemT> = {
+  +children?: React$Node,
   +dispatch: (ActionT<T>) => void,
-}>;
+  +state: StateT<T>,
+};
 
 export type SearchActionT = {
   +indexed?: boolean,

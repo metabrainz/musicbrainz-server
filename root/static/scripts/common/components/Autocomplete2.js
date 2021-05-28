@@ -51,7 +51,7 @@ import type {
  */
 function doSearch<T: EntityItemT>(
   dispatch: (ActionT<T>) => void,
-  props: PropsT<T>,
+  state: StateT<T>,
   xhr: {current: XMLHttpRequest | null},
 ) {
   const searchXhr = new XMLHttpRequest();
@@ -77,10 +77,10 @@ function doSearch<T: EntityItemT>(
   });
 
   const url = (
-    '/ws/js/' + ENTITIES[props.entityType].url +
-    '/?q=' + encodeURIComponent(props.inputValue || '') +
-    '&page=' + String(props.page) +
-    '&direct=' + (props.indexedSearch ? 'false' : 'true')
+    '/ws/js/' + ENTITIES[state.entityType].url +
+    '/?q=' + encodeURIComponent(state.inputValue || '') +
+    '&page=' + String(state.page) +
+    '&direct=' + (state.indexedSearch ? 'false' : 'true')
   );
 
   searchXhr.open('GET', url);
@@ -112,7 +112,7 @@ function setScrollPosition(menuId: string) {
   }
 }
 
-type InitialPropsT<T: EntityItemT> = {
+type InitialStateT<T: EntityItemT> = {
   +activeUser?: ActiveEditorT,
   +canChangeType?: (string) => boolean,
   +entityType: $ElementType<T, 'entityType'>,
@@ -127,7 +127,7 @@ type InitialPropsT<T: EntityItemT> = {
 };
 
 export function createInitialState<+T: EntityItemT>(
-  props: InitialPropsT<T>,
+  initialState: InitialStateT<T>,
 ): {...StateT<T>} {
   const {
     entityType,
@@ -137,7 +137,7 @@ export function createInitialState<+T: EntityItemT>(
     staticItems,
     staticItemsFilter,
     ...restProps
-  } = props;
+  } = initialState;
 
   const inputValue =
     initialInputValue ?? (selectedEntity?.name) ?? '';
@@ -150,7 +150,7 @@ export function createInitialState<+T: EntityItemT>(
     );
   }
 
-  const initialState: $Shape<{...StateT<T>}> = {
+  const state: $Shape<{...StateT<T>}> = {
     activeUser: null,
     entityType,
     error: 0,
@@ -170,10 +170,10 @@ export function createInitialState<+T: EntityItemT>(
     ...restProps,
   };
 
-  initialState.items = generateItems(initialState);
-  initialState.statusMessage = generateStatusMessage(initialState);
+  state.items = generateItems(state);
+  state.statusMessage = generateStatusMessage(state);
 
-  return initialState;
+  return state;
 }
 
 type AutocompleteItemPropsT<T: EntityItemT> = {
@@ -241,14 +241,15 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
   );
 });
 
-export default function Autocomplete2<+T: EntityItemT>(
+const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   props: PropsT<T>,
-): React.Element<'div'> {
+): React.Element<'div'> => {
+  const {dispatch, state} = props;
+
   const {
     canChangeType,
     containerClass,
     disabled,
-    dispatch,
     entityType,
     highlightedIndex,
     id,
@@ -261,7 +262,7 @@ export default function Autocomplete2<+T: EntityItemT>(
     selectedEntity,
     staticItems,
     statusMessage,
-  } = props;
+  } = state;
 
   const xhr = React.useRef<XMLHttpRequest | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
@@ -532,7 +533,7 @@ export default function Autocomplete2<+T: EntityItemT>(
     if (!recentItems) {
       getOrFetchRecentItems<T>(
         entityType,
-        props.recentItemsKey,
+        state.recentItemsKey,
       ).then((loadedRecentItems) => {
         dispatch({
           items: loadedRecentItems,
@@ -556,7 +557,7 @@ export default function Autocomplete2<+T: EntityItemT>(
           nonEmpty(pendingSearchTerm) &&
           pendingSearchTerm === clean(inputValue)
         ) {
-          doSearch<T>(dispatch, props, xhr);
+          doSearch<T>(dispatch, state, xhr);
         }
       }, 300);
     }
@@ -608,15 +609,15 @@ export default function Autocomplete2<+T: EntityItemT>(
       ref={node => {
         containerRef.current = node;
       }}
-      style={props.width ? {width: props.width} : null}
+      style={state.width ? {width: state.width} : null}
     >
       <label
-        className={props.labelClass}
+        className={state.labelClass}
         htmlFor={inputId}
         id={labelId}
         style={DISPLAY_NONE_STYLE}
       >
-        {props.placeholder || SEARCH_PLACEHOLDERS[entityType]()}
+        {state.placeholder || SEARCH_PLACEHOLDERS[entityType]()}
       </label>
       <div
         aria-expanded={isOpen ? 'true' : 'false'}
@@ -632,9 +633,9 @@ export default function Autocomplete2<+T: EntityItemT>(
           autoComplete="off"
           className={
             (
-              props.isLookupPerformed == null
+              state.isLookupPerformed == null
                 ? selectedEntity
-                : props.isLookupPerformed
+                : state.isLookupPerformed
             )
               ? 'lookup-performed'
               : ''}
@@ -644,7 +645,7 @@ export default function Autocomplete2<+T: EntityItemT>(
           onFocus={handleInputFocus}
           onKeyDown={handleInputKeyDown}
           placeholder={
-            props.placeholder || l('Type to search, or paste an MBID')
+            state.placeholder || l('Type to search, or paste an MBID')
           }
           ref={inputRef}
           value={inputValue}
@@ -713,4 +714,6 @@ export default function Autocomplete2<+T: EntityItemT>(
       ) : null}
     </div>
   );
-}
+}): React$AbstractComponent<PropsT<any>, void>);
+
+export default Autocomplete2;
