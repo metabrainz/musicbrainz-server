@@ -12,6 +12,14 @@ export const HIDE_MENU = {
   value: false,
 };
 
+export const HIGHLIGHT_NEXT_ITEM = {
+  type: 'highlight-next-item',
+};
+
+export const HIGHLIGHT_PREVIOUS_ITEM = {
+  type: 'highlight-previous-item',
+};
+
 export const NOOP = {
   type: 'noop',
 };

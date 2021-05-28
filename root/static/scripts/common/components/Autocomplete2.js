@@ -18,6 +18,8 @@ import clean from '../utility/clean';
 import {
   CLOSE_ADD_ENTITY_DIALOG,
   HIDE_MENU,
+  HIGHLIGHT_NEXT_ITEM,
+  HIGHLIGHT_PREVIOUS_ITEM,
   SHOW_LOOKUP_ERROR,
   SHOW_LOOKUP_TYPE_ERROR,
   SHOW_MENU,
@@ -443,10 +445,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
 
         if (isOpen) {
           shouldUpdateScrollPositionRef.current = true;
-          dispatch({
-            items,
-            type: 'highlight-next-item',
-          });
+          dispatch(HIGHLIGHT_NEXT_ITEM);
         } else {
           showAvailableItemsOrBeginLookupOrSearch();
         }
@@ -456,10 +455,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         if (isOpen) {
           event.preventDefault();
           shouldUpdateScrollPositionRef.current = true;
-          dispatch({
-            items,
-            type: 'highlight-previous-item',
-          });
+          dispatch(HIGHLIGHT_PREVIOUS_ITEM);
         }
         break;
 

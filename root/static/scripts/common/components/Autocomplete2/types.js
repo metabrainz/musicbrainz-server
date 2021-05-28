@@ -58,8 +58,8 @@ export type ActionT<+T: EntityItemT> =
       +entityType: SearchableTypeT,
     }
   | { +type: 'clear-recent-items' }
-  | { +type: 'highlight-next-item', +items: $ReadOnlyArray<ItemT<T>> }
-  | { +type: 'highlight-previous-item', +items: $ReadOnlyArray<ItemT<T>> }
+  | { +type: 'highlight-next-item' }
+  | { +type: 'highlight-previous-item' }
   | { +type: 'noop' }
   | { +type: 'reset-menu' }
   | { +type: 'select-item', +item: ItemT<T> }

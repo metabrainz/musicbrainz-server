@@ -330,10 +330,10 @@ function setError<+T: EntityItemT>(
 
 function highlightNextItem<+T: EntityItemT>(
   state: {...StateT<T>},
-  items: $ReadOnlyArray<ItemT<T>>,
   startingIndex: number,
   offset: number,
 ) {
+  const items = state.items;
   let index = startingIndex;
   let count = items.length;
 
@@ -397,7 +397,6 @@ export function runReducer<+T: EntityItemT>(
     case 'highlight-next-item': {
       highlightNextItem<T>(
         state,
-        action.items,
         state.highlightedIndex + 1,
         1,
       );
@@ -408,10 +407,9 @@ export function runReducer<+T: EntityItemT>(
     case 'highlight-previous-item': {
       highlightNextItem<T>(
         state,
-        action.items,
         state.highlightedIndex >= 0
           ? (state.highlightedIndex - 1)
-          : (action.items.length - 1),
+          : (state.items.length - 1),
         -1,
       );
       updateStatusMessage = true;
