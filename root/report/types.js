@@ -16,6 +16,13 @@ export type ReportArtistAnnotationT = {
   +text: string,
 };
 
+export type ReportArtistCreditT = {
+  +artist_credit: ?ArtistCreditT,
+  +artist_credit_id: number,
+  +key?: string,
+  +row_number: number,
+};
+
 export type ReportArtistRelationshipT = {
   +artist: ?ArtistT,
   +artist_id: number,

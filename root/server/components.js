@@ -150,6 +150,7 @@ module.exports = {
   'report/AnnotationsReleases': require('../report/AnnotationsReleases'),
   'report/AnnotationsSeries': require('../report/AnnotationsSeries'),
   'report/AnnotationsWorks': require('../report/AnnotationsWorks'),
+  'report/ArtistCreditsWithDubiousTrailingPhrases': require('../report/ArtistCreditsWithDubiousTrailingPhrases'),
   'report/ArtistsContainingDisambiguationComments': require('../report/ArtistsContainingDisambiguationComments'),
   'report/ArtistsDisambiguationSameName': require('../report/ArtistsDisambiguationSameName'),
   'report/ArtistsThatMayBeGroups': require('../report/ArtistsThatMayBeGroups'),

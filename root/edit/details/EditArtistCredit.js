@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import ArtistCreditUsageLink
+  from '../../static/scripts/common/components/ArtistCreditUsageLink';
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit';
 
@@ -42,9 +44,12 @@ const EditArtistCredit = ({edit}: Props): React.Element<'table'> => {
           <tr>
             <th />
             <td colSpan="2">
-              <a href={`/artist-credit/${display.artist_credit.old.id}`}>
-                {l('See all uses of the artist credit being changed.')}
-              </a>
+              <ArtistCreditUsageLink
+                artistCredit={display.artist_credit.old}
+                content={l(
+                  'See all uses of the artist credit being changed.',
+                )}
+              />
             </td>
           </tr>
         ) : null}
