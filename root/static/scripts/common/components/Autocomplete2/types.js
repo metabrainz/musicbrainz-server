@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type SearchableType = $ElementType<EntityItem, 'entityType'>;
+export type SearchableTypeT = $ElementType<EntityItemT, 'entityType'>;
 
-export type State<T: EntityItem> = {
+export type StateT<T: EntityItemT> = {
   +activeUser: ActiveEditorT | null,
   +canChangeType?: (string) => boolean,
   +children?: React$Node,
@@ -24,45 +24,45 @@ export type State<T: EntityItem> = {
   +isAddEntityDialogOpen?: boolean,
   +isLookupPerformed?: boolean,
   +isOpen: boolean,
-  +items: $ReadOnlyArray<Item<T>>,
+  +items: $ReadOnlyArray<ItemT<T>>,
   +labelClass?: string,
   +page: number,
   +pendingSearch: string | null,
   +placeholder?: string,
-  +recentItems: $ReadOnlyArray<Item<T>> | null,
+  +recentItems: $ReadOnlyArray<ItemT<T>> | null,
   +recentItemsKey: string,
-  +results: $ReadOnlyArray<Item<T>> | null,
+  +results: $ReadOnlyArray<ItemT<T>> | null,
   +selectedEntity: T | null,
-  +staticItems?: $ReadOnlyArray<Item<T>>,
-  +staticItemsFilter?: (Item<T>, string) => boolean,
+  +staticItems?: $ReadOnlyArray<ItemT<T>>,
+  +staticItemsFilter?: (ItemT<T>, string) => boolean,
   +statusMessage: string,
   +width?: string,
 };
 
-export type Props<+T: EntityItem> = $ReadOnly<{
-  ...State<T>,
-  +dispatch: (Actions<T>) => void,
+export type PropsT<+T: EntityItemT> = $ReadOnly<{
+  ...StateT<T>,
+  +dispatch: (ActionT<T>) => void,
 }>;
 
-export type SearchAction = {
+export type SearchActionT = {
   +indexed?: boolean,
   +searchTerm?: string,
   +type: 'search-after-timeout',
 };
 
 /* eslint-disable flowtype/sort-keys */
-export type Actions<+T: EntityItem> =
-  | SearchAction
+export type ActionT<+T: EntityItemT> =
+  | SearchActionT
   | {
       +type: 'change-entity-type',
-      +entityType: SearchableType,
+      +entityType: SearchableTypeT,
     }
   | { +type: 'clear-recent-items' }
-  | { +type: 'highlight-next-item', +items: $ReadOnlyArray<Item<T>> }
-  | { +type: 'highlight-previous-item', +items: $ReadOnlyArray<Item<T>> }
+  | { +type: 'highlight-next-item', +items: $ReadOnlyArray<ItemT<T>> }
+  | { +type: 'highlight-previous-item', +items: $ReadOnlyArray<ItemT<T>> }
   | { +type: 'noop' }
   | { +type: 'reset-menu' }
-  | { +type: 'select-item', +item: Item<T> }
+  | { +type: 'select-item', +item: ItemT<T> }
   | { +type: 'set-menu-visibility', +value: boolean }
   | {
       +type: 'show-ws-results',
@@ -72,16 +72,16 @@ export type Actions<+T: EntityItem> =
   | { +type: 'show-lookup-error' }
   | { +type: 'show-lookup-type-error' }
   | { +type: 'show-more-results' }
-  | { +type: 'set-recent-items', +items: $ReadOnlyArray<OptionItem<T>> }
+  | { +type: 'set-recent-items', +items: $ReadOnlyArray<OptionItemT<T>> }
   | { +type: 'show-search-error' }
   | { +type: 'stop-search' }
   | { +type: 'toggle-add-entity-dialog', +isOpen: boolean }
   | { +type: 'toggle-indexed-search' }
   | { +type: 'type-value', +value: string };
 
-export type ActionItem<+T> = {
+export type ActionItemT<+T> = {
   +type: 'action',
-  +action: Actions<T>,
+  +action: ActionT<T>,
   +id: number | string,
   +name: string | () => string,
   +level?: number,
@@ -89,7 +89,7 @@ export type ActionItem<+T> = {
   +disabled?: boolean,
 };
 
-export type OptionItem<+T> = {
+export type OptionItemT<+T> = {
   +type: 'option',
   +id: number | string,
   +name: string | () => string,
@@ -99,7 +99,7 @@ export type OptionItem<+T> = {
   +disabled?: boolean,
 };
 
-export type HeaderItem = {
+export type HeaderItemT = {
   +type: 'header',
   +id: number | string,
   +name: string | () => string,
@@ -107,10 +107,10 @@ export type HeaderItem = {
   +separator?: boolean,
 };
 
-export type Item<+T: EntityItem> =
-  | ActionItem<T>
-  | OptionItem<T>
-  | HeaderItem;
+export type ItemT<+T: EntityItemT> =
+  | ActionItemT<T>
+  | OptionItemT<T>
+  | HeaderItemT;
 
 /* eslint-enable flowtype/sort-keys */
 
@@ -119,7 +119,7 @@ export type Item<+T: EntityItem> =
  * searchable), plus EditorT (which isn't a core entity, but is
  * searchable).
  */
-export type EntityItem =
+export type EntityItemT =
   | AreaT
   | ArtistT
   | EditorT

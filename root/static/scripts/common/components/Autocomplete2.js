@@ -37,21 +37,21 @@ import {
   generateStatusMessage,
 } from './Autocomplete2/reducer';
 import type {
-  Actions,
-  EntityItem,
-  Item,
-  OptionItem,
-  Props,
-  State,
+  ActionT,
+  EntityItemT,
+  ItemT,
+  OptionItemT,
+  PropsT,
+  StateT,
 } from './Autocomplete2/types';
 
 /*
  * `doSearch` performs a direct or indexed search (via /ws/js). This is the
  * default behavior if no `items` prop is given.
  */
-function doSearch<T: EntityItem>(
-  dispatch: (Actions<T>) => void,
-  props: Props<T>,
+function doSearch<T: EntityItemT>(
+  dispatch: (ActionT<T>) => void,
+  props: PropsT<T>,
   xhr: {current: XMLHttpRequest | null},
 ) {
   const searchXhr = new XMLHttpRequest();
@@ -112,7 +112,7 @@ function setScrollPosition(menuId: string) {
   }
 }
 
-type InitialPropsT<T: EntityItem> = {
+type InitialPropsT<T: EntityItemT> = {
   +activeUser?: ActiveEditorT,
   +canChangeType?: (string) => boolean,
   +entityType: $ElementType<T, 'entityType'>,
@@ -121,14 +121,14 @@ type InitialPropsT<T: EntityItem> = {
   +placeholder?: string,
   +recentItemsKey?: string,
   +selectedEntity?: T | null,
-  +staticItems?: $ReadOnlyArray<Item<T>>,
-  +staticItemsFilter?: (Item<T>, string) => boolean,
+  +staticItems?: $ReadOnlyArray<ItemT<T>>,
+  +staticItemsFilter?: (ItemT<T>, string) => boolean,
   +width?: string,
 };
 
-export function createInitialState<+T: EntityItem>(
+export function createInitialState<+T: EntityItemT>(
   props: InitialPropsT<T>,
-): {...State<T>} {
+): {...StateT<T>} {
   const {
     entityType,
     inputValue: initialInputValue,
@@ -150,7 +150,7 @@ export function createInitialState<+T: EntityItem>(
     );
   }
 
-  const initialState: $Shape<{...State<T>}> = {
+  const initialState: $Shape<{...StateT<T>}> = {
     activeUser: null,
     entityType,
     error: 0,
@@ -176,21 +176,21 @@ export function createInitialState<+T: EntityItem>(
   return initialState;
 }
 
-type AutocompleteItemProps<T: EntityItem> = {
+type AutocompleteItemPropsT<T: EntityItemT> = {
   autocompleteId: string,
   isHighlighted: boolean,
   isSelected: boolean,
-  item: Item<T>,
-  selectItem: (Item<T>) => void,
+  item: ItemT<T>,
+  selectItem: (ItemT<T>) => void,
 };
 
-const AutocompleteItem = React.memo(<+T: EntityItem>({
+const AutocompleteItem = React.memo(<+T: EntityItemT>({
   autocompleteId,
   isHighlighted,
   isSelected,
   item,
   selectItem,
-}: AutocompleteItemProps<T>) => {
+}: AutocompleteItemPropsT<T>) => {
   const itemId = `${autocompleteId}-item-${item.id}`;
   const isDisabled = !!item.disabled;
   const isSeparator = !!item.separator;
@@ -241,8 +241,8 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
   );
 });
 
-export default function Autocomplete2<+T: EntityItem>(
-  props: Props<T>,
+export default function Autocomplete2<+T: EntityItemT>(
+  props: PropsT<T>,
 ): React.Element<'div'> {
   const {
     canChangeType,
@@ -373,7 +373,7 @@ export default function Autocomplete2<+T: EntityItem>(
         }
 
         const entity = JSON.parse(lookupXhr.responseText);
-        const option: OptionItem<T> = {
+        const option: OptionItemT<T> = {
           entity,
           id: entity.id,
           name: entity.name,
@@ -570,7 +570,7 @@ export default function Autocomplete2<+T: EntityItem>(
   });
 
   type AutocompleteItemComponent<T> =
-    React$AbstractComponent<AutocompleteItemProps<T>, void>;
+    React$AbstractComponent<AutocompleteItemPropsT<T>, void>;
 
   // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
   const AutocompleteItemWithType: AutocompleteItemComponent<T> =

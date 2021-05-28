@@ -16,9 +16,9 @@ import {
   TOGGLE_INDEXED_SEARCH,
 } from './actions';
 import type {
-  ActionItem,
-  HeaderItem,
-  SearchableType,
+  ActionItemT,
+  HeaderItemT,
+  SearchableTypeT,
 } from './types';
 
 export const ARIA_LIVE_STYLE: {
@@ -44,21 +44,21 @@ export const ERROR_LOOKUP_TYPE: 2 = 2;
 export const ERROR_SEARCH: 3 = 3;
 
 /* eslint-disable sort-keys */
-export const CLEAR_RECENT_ITEMS: ActionItem<empty> = {
+export const CLEAR_RECENT_ITEMS: ActionItemT<empty> = {
   type: 'action',
   action: {type: 'clear-recent-items'},
   id: 'clear-recent-items',
   name: N_l('Clear recent items'),
 };
 
-export const RECENT_ITEMS_HEADER: HeaderItem = {
+export const RECENT_ITEMS_HEADER: HeaderItemT = {
   type: 'header',
   id: 'recent-items-header',
   name: N_l('Recent items'),
   disabled: true,
 };
 
-export const MENU_ITEMS: {+[name: string]: ActionItem<empty>, ...} = {
+export const MENU_ITEMS: {+[name: string]: ActionItemT<empty>, ...} = {
   ERROR_TRY_AGAIN_DIRECT: {
     type: 'action',
     action: TOGGLE_INDEXED_SEARCH,
@@ -123,7 +123,7 @@ export const MENU_ITEMS: {+[name: string]: ActionItem<empty>, ...} = {
 export const PAGE_SIZE: number = 25;
 
 export const SEARCH_PLACEHOLDERS: {
-  +[type: SearchableType]: () => string,
+  +[type: SearchableTypeT]: () => string,
   ...
 } = {
   area: N_l('Search for an area'),

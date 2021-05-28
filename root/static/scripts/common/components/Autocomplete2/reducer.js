@@ -31,20 +31,20 @@ import {
   RECENT_ITEMS_HEADER,
 } from './constants';
 import type {
-  Actions,
-  EntityItem,
-  Item,
-  SearchAction,
-  State,
+  ActionT,
+  EntityItemT,
+  ItemT,
+  SearchActionT,
+  StateT,
 } from './types';
 import {
   clearRecentItems,
   pushRecentItem,
 } from './recentItems';
 
-function initSearch<+T: EntityItem>(
-  state: {...State<T>},
-  action: SearchAction,
+function initSearch<+T: EntityItemT>(
+  state: {...StateT<T>},
+  action: SearchActionT,
 ) {
   if (action.indexed !== undefined) {
     state.indexedSearch = action.indexed;
@@ -66,9 +66,9 @@ function initSearch<+T: EntityItem>(
   }
 }
 
-export function generateItems<+T: EntityItem>(
-  state: State<T>,
-): $ReadOnlyArray<Item<T>> {
+export function generateItems<+T: EntityItemT>(
+  state: StateT<T>,
+): $ReadOnlyArray<ItemT<T>> {
   const items = [];
 
   if (state.error) {
@@ -160,8 +160,8 @@ export function generateItems<+T: EntityItem>(
   return items;
 }
 
-export function determineIfUserCanAddEntities<+T: EntityItem>(
-  state: State<T>,
+export function determineIfUserCanAddEntities<+T: EntityItemT>(
+  state: StateT<T>,
 ): boolean {
   const user = state.activeUser;
 
@@ -178,8 +178,8 @@ export function determineIfUserCanAddEntities<+T: EntityItem>(
   }
 }
 
-function getFirstHighlightableIndex<+T: EntityItem>(
-  state: State<T>,
+function getFirstHighlightableIndex<+T: EntityItemT>(
+  state: StateT<T>,
 ): number {
   const items = state.items;
   let index = 0;
@@ -193,8 +193,8 @@ function getFirstHighlightableIndex<+T: EntityItem>(
   return -1;
 }
 
-export function generateStatusMessage<+T: EntityItem>(
-  state: State<T>,
+export function generateStatusMessage<+T: EntityItemT>(
+  state: StateT<T>,
 ): string {
   if (state.isOpen) {
     if (state.error) {
@@ -236,8 +236,8 @@ export function generateStatusMessage<+T: EntityItem>(
   return '';
 }
 
-export function filterStaticItems<+T: EntityItem>(
-  state: {...State<T>},
+export function filterStaticItems<+T: EntityItemT>(
+  state: {...StateT<T>},
   newInputValue: string,
 ): void {
   const {
@@ -261,19 +261,19 @@ export function filterStaticItems<+T: EntityItem>(
 
   state.results = (itemsToFilter && nonEmpty(newInputValue))
     ? (itemsToFilter.reduce(
-        (accum: Array<Item<T>>, item: Item<T>) => {
+        (accum: Array<ItemT<T>>, item: ItemT<T>) => {
           if (filter(item, newInputValue)) {
             accum.push(item);
           }
           return accum;
         },
         [],
-    ): $ReadOnlyArray<Item<T>>)
+    ): $ReadOnlyArray<ItemT<T>>)
     : itemsToFilter;
 }
 
-export function resetPage<+T: EntityItem>(
-  state: {...State<T>},
+export function resetPage<+T: EntityItemT>(
+  state: {...StateT<T>},
 ): void {
   state.highlightedIndex = -1;
   state.isOpen = false;
@@ -281,9 +281,9 @@ export function resetPage<+T: EntityItem>(
   state.error = 0;
 }
 
-function selectItem<+T: EntityItem>(
-  state: {...State<T>},
-  item: Item<T>,
+function selectItem<+T: EntityItemT>(
+  state: {...StateT<T>},
+  item: ItemT<T>,
 ) {
   switch (item.type) {
     case 'action': {
@@ -320,17 +320,17 @@ function selectItem<+T: EntityItem>(
   state.pendingSearch = null;
 }
 
-function setError<+T: EntityItem>(
-  state: {...State<T>},
+function setError<+T: EntityItemT>(
+  state: {...StateT<T>},
   error: number,
 ) {
   state.error = error;
   state.isOpen = true;
 }
 
-function highlightNextItem<+T: EntityItem>(
-  state: {...State<T>},
-  items: $ReadOnlyArray<Item<T>>,
+function highlightNextItem<+T: EntityItemT>(
+  state: {...StateT<T>},
+  items: $ReadOnlyArray<ItemT<T>>,
   startingIndex: number,
   offset: number,
 ) {
@@ -357,8 +357,8 @@ function highlightNextItem<+T: EntityItem>(
   }
 }
 
-export function defaultStaticItemsFilter<+T: EntityItem>(
-  item: Item<T>,
+export function defaultStaticItemsFilter<+T: EntityItemT>(
+  item: ItemT<T>,
   searchTerm: string,
 ): boolean {
   if (item.type === 'option') {
@@ -370,9 +370,9 @@ export function defaultStaticItemsFilter<+T: EntityItem>(
 }
 
 // `runReducer` should only be run on a copy of the existing state.
-export function runReducer<+T: EntityItem>(
-  state: {...State<T>},
-  action: Actions<T>,
+export function runReducer<+T: EntityItemT>(
+  state: {...StateT<T>},
+  action: ActionT<T>,
 ): void {
   const wasOpen = state.isOpen;
   let updateItems = false;
@@ -459,7 +459,7 @@ export function runReducer<+T: EntityItem>(
     case 'show-ws-results': {
       const {entities, page} = action;
 
-      let newResults: Array<Item<T>> = entities.map((entity: T) => ({
+      let newResults: Array<ItemT<T>> = entities.map((entity: T) => ({
         entity,
         id: entity.id,
         name: entity.name,
@@ -577,10 +577,10 @@ export function runReducer<+T: EntityItem>(
   }
 }
 
-export default function reducer<+T: EntityItem>(
-  state: State<T>,
-  action: Actions<T>,
-): State<T> {
+export default function reducer<+T: EntityItemT>(
+  state: StateT<T>,
+  action: ActionT<T>,
+): StateT<T> {
   if (action.type === 'noop') {
     return state;
   }

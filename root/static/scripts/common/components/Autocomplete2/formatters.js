@@ -25,8 +25,8 @@ import formatDatePeriod from '../../utility/formatDatePeriod';
 import formatTrackLength from '../../utility/formatTrackLength';
 
 import type {
-  EntityItem,
-  Item,
+  EntityItemT,
+  ItemT,
 } from './types';
 
 const nonLatinRegExp = /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/;
@@ -56,7 +56,7 @@ function showExtraInfoLine(children, className = 'comment') {
   );
 }
 
-function formatName<+T: EntityItem>(entity: T) {
+function formatName<+T: EntityItemT>(entity: T) {
   return unwrapNl<string>(entity.name);
 }
 
@@ -459,8 +459,8 @@ function formatWork(work: WorkT) {
   );
 }
 
-export default function formatItem<+T: EntityItem>(
-  item: Item<T>,
+export default function formatItem<+T: EntityItemT>(
+  item: ItemT<T>,
 ): Expand2ReactOutput {
   switch (item.type) {
     case 'action':

@@ -14,8 +14,8 @@ import linkedEntities from '../../linkedEntities';
 import {localStorage} from '../../utility/storage';
 
 import type {
-  EntityItem,
-  OptionItem,
+  EntityItemT,
+  OptionItemT,
 } from './types';
 
 /*
@@ -30,7 +30,7 @@ import type {
 type RecentEntitiesT = {[entityTypeKey: string]: mixed};
 
 type WsJsEntitiesDataT = {
-  +results: {+[id: string]: ?EntityItem},
+  +results: {+[id: string]: ?EntityItemT},
 };
 
 function _getStoredMap(): RecentEntitiesT {
@@ -127,19 +127,19 @@ export function clearRecentItems(
 }
 
 const _recentItemsCache =
-  new Map<string, $ReadOnlyArray<OptionItem<EntityItem>>>();
+  new Map<string, $ReadOnlyArray<OptionItemT<EntityItemT>>>();
 
-export function getRecentItems<+T: EntityItem>(
+export function getRecentItems<+T: EntityItemT>(
   key: string,
-): $ReadOnlyArray<OptionItem<T>> {
+): $ReadOnlyArray<OptionItemT<T>> {
   // $FlowIgnore[incompatible-return]
   return _recentItemsCache.get(key) ?? [];
 }
 
-export async function getOrFetchRecentItems<+T: EntityItem>(
+export async function getOrFetchRecentItems<+T: EntityItemT>(
   entityType: string,
   key?: string = entityType,
-): Promise<$ReadOnlyArray<OptionItem<T>>> {
+): Promise<$ReadOnlyArray<OptionItemT<T>>> {
   const ids = _getRecentEntityIds(key);
   const cachedList = [...getRecentItems(key)];
 
@@ -155,7 +155,7 @@ export async function getOrFetchRecentItems<+T: EntityItem>(
   if (ids.size) {
     // Convert ids to an array since we delete in the loop.
     for (const id of Array.from(ids)) {
-      const entity: ?EntityItem = linkedEntities[entityType]?.[id];
+      const entity: ?EntityItemT = linkedEntities[entityType]?.[id];
       if (entity) {
         cachedList.push({
           // $FlowIgnore[incompatible-call]
@@ -207,10 +207,10 @@ export async function getOrFetchRecentItems<+T: EntityItem>(
   return Promise.resolve(cachedList);
 }
 
-export function pushRecentItem<+T: EntityItem>(
-  item: OptionItem<EntityItem>,
+export function pushRecentItem<+T: EntityItemT>(
+  item: OptionItemT<EntityItemT>,
   key?: string = item.entity.entityType,
-): $ReadOnlyArray<OptionItem<T>> {
+): $ReadOnlyArray<OptionItemT<T>> {
   const entity = item.entity;
   const entityId = _getGidOrId(entity);
 
