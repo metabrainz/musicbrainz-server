@@ -1,0 +1,89 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Encode qw( encode );
+use File::Spec;
+use Getopt::Long;
+use MusicBrainz::Server::Context;
+
+my $show_help = 0;
+my $database = 'MAINTENANCE';
+my $output_dir = '.';
+my $compress = 0;
+
+GetOptions(
+    'help' => \$show_help,
+    'database=s' => \$database,
+    'output=s' => \$output_dir,
+    'compress!' => \$compress,
+) or exit 2;
+
+sub usage {
+    print <<~'EOF';
+        Usage: DumpGenresTxt [options]
+
+            Dumps a list of all genres names to genres.txt, separated
+            by newlines (\n).
+
+            --help              show this help
+            --database          name of database to connect to
+                                (default: MAINTENANCE)
+            --output            output directory for genres.txt
+                                (default: .)
+            --compress          compress the output with zopfli
+                                (default: false)
+        EOF
+}
+
+usage(), exit if $show_help;
+
+my $c = MusicBrainz::Server::Context->create_script_context(
+    database => $database,
+);
+
+print localtime() . " : Fetching genre names from $database\n";
+
+$c->sql->begin;
+
+my $genre_names = $c->sql->select_single_column_array(<<~'SQL');
+      SELECT name
+        FROM genre
+    ORDER BY name COLLATE musicbrainz ASC
+    SQL
+
+$c->sql->rollback;
+
+print localtime() . " : Dumping genre names to genres.txt\n";
+
+my $genres_txt_path = File::Spec->catfile($output_dir, 'genres.txt');
+open my $fh, '>', $genres_txt_path;
+print $fh encode('utf-8', join("\n", @$genre_names) . "\n");
+close $fh;
+
+if ($compress) {
+    print localtime() . " : Running zopfli -v genres.txt\n";
+
+    system 'zopfli', $genres_txt_path;
+
+    $? == 0 or die "zopfli returned $?";
+
+    unlink $genres_txt_path;
+}
+
+print localtime() . " : Done\n";
+
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2021 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
