@@ -241,50 +241,6 @@ const AutocompleteItem = React.memo(<+T: EntityItem>({
   );
 });
 
-type AutocompleteItemsProps<T: EntityItem> = {
-  autocompleteId: string,
-  highlightedItem: Item<T> | null,
-  items: $ReadOnlyArray<Item<T>>,
-  selectedEntity: T | null,
-  selectItem: (Item<T>) => void,
-};
-
-type AutocompleteItemComponent<T> =
-  React$AbstractComponent<AutocompleteItemProps<T>, void>;
-
-function AutocompleteItems<T: EntityItem>({
-  autocompleteId,
-  highlightedItem,
-  items,
-  selectedEntity,
-  selectItem,
-}: AutocompleteItemsProps<T>):
-  $ReadOnlyArray<React.Element<AutocompleteItemComponent<T>>> {
-  // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
-  const AutocompleteItemWithType: AutocompleteItemComponent<T> =
-    (AutocompleteItem: any);
-
-  const children = [];
-  for (let index = 0; index < items.length; index++) {
-    const item = items[index];
-    children.push(
-      <AutocompleteItemWithType
-        autocompleteId={autocompleteId}
-        isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
-        isSelected={!!(
-          selectedEntity &&
-          item.type === 'option' &&
-          item.entity.id === selectedEntity.id
-        )}
-        item={item}
-        key={item.id}
-        selectItem={selectItem}
-      />,
-    );
-  }
-  return children;
-}
-
 export default function Autocomplete2<+T: EntityItem>(
   props: Props<T>,
 ): React.Element<'div'> {
@@ -613,10 +569,36 @@ export default function Autocomplete2<+T: EntityItem>(
     }
   });
 
+  type AutocompleteItemComponent<T> =
+    React$AbstractComponent<AutocompleteItemProps<T>, void>;
+
   // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
-  const AutocompleteItemsWithType:
-    React$AbstractComponent<AutocompleteItemsProps<T>, void> =
-    (AutocompleteItems: any);
+  const AutocompleteItemWithType: AutocompleteItemComponent<T> =
+    (AutocompleteItem: any);
+
+  const menuItemElements = React.useMemo(
+    () => items.map((item) => (
+      <AutocompleteItemWithType
+        autocompleteId={id}
+        isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
+        isSelected={!!(
+          selectedEntity &&
+          item.type === 'option' &&
+          item.entity.id === selectedEntity.id
+        )}
+        item={item}
+        key={item.id}
+        selectItem={selectItem}
+      />
+    )),
+    [
+      highlightedItem,
+      id,
+      items,
+      selectItem,
+      selectedEntity,
+    ],
+  );
 
   return (
     <div
@@ -708,15 +690,7 @@ export default function Autocomplete2<+T: EntityItem>(
             : 'hidden',
         }}
       >
-        {disabled ? null : (
-          <AutocompleteItemsWithType
-            autocompleteId={id}
-            highlightedItem={highlightedItem}
-            items={items}
-            selectItem={selectItem}
-            selectedEntity={selectedEntity}
-          />
-        )}
+        {disabled ? null : menuItemElements}
       </ul>
 
       <div
