@@ -536,6 +536,11 @@ export function runReducer<+T: EntityItemT>(
 
       if (staticItems) {
         filterStaticItems<T>(state, newInputValue);
+
+        if (nonEmpty(newInputValue)) {
+          // We'll display "(No results)" even if `results` is null.
+          state.isOpen = true;
+        }
       } else {
         state.results = null;
       }
@@ -543,10 +548,7 @@ export function runReducer<+T: EntityItemT>(
       state.error = 0;
       state.inputValue = newInputValue;
       state.selectedEntity = null;
-      state.highlightedIndex = getFirstHighlightableIndex(state);
-      if (state.highlightedIndex >= 0) {
-        state.isOpen = true;
-      }
+      state.highlightedIndex = -1;
 
       updateItems = true;
       updateStatusMessage = true;
@@ -560,6 +562,10 @@ export function runReducer<+T: EntityItemT>(
 
   if (updateItems) {
     state.items = generateItems(state);
+
+    if (!state.items.length) {
+      state.isOpen = false;
+    }
   }
 
   if (updateStatusMessage) {
