@@ -463,15 +463,18 @@ const CLEANUPS = {
     },
   },
   'amazon': {
-    match: [new RegExp(
-      '^(https?://)?' +
-      '(((?!music)[^/])+\.)?' +
-      '(amazon\\.(' + (
-        'ae|at|com\\.au|com\\.br|ca|cn|com|de|es|fr|in' +
-        '|it|jp|co\\.jp|com\\.mx|nl|se|sg|com\\.tr|co\\.uk'
-      ) + ')|amzn\\.com)',
-      'i',
-    )],
+    match: [
+      new RegExp(
+        '^(https?://)?' +
+        '(((?!music)[^/])+\.)?' +
+        '(amazon\\.(' + (
+          'ae|at|com\\.au|com\\.br|ca|cn|com|de|es|fr|in' +
+          '|it|jp|co\\.jp|com\\.mx|nl|se|sg|com\\.tr|co\\.uk'
+        ) + ')|amzn\\.com)',
+        'i',
+      ),
+      new RegExp('^(https?://)?([^/]+\\.)?amzn\\.to', 'i'),
+    ],
     type: LINK_TYPES.amazon,
     clean: function (url) {
       /*
@@ -503,6 +506,23 @@ const CLEANUPS = {
       return null;
     },
     validate: function (url) {
+      if (/amzn\.to\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+        };
+      }
+
       // If you change this, please update the BadAmazonURLs report.
       return {result: /^https:\/\/www\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|se|sg|com\.tr|co\.uk)\//.test(url)};
     },
@@ -644,6 +664,27 @@ const CLEANUPS = {
         }
       }
       return {result: false};
+    },
+  },
+  'appleco': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?apple\\.co/', 'i')],
+    type: LINK_TYPES.downloadpurchase,
+    validate: function (url) {
+      console.log('hi!');
+      return {
+        error: exp.l(
+          `This is a redirect link. Please follow {redirect_url|your link}
+            and add the link it redirects to instead.`,
+          {
+            redirect_url: {
+              href: url,
+              rel: 'noopener noreferrer',
+              target: '_blank',
+            },
+          },
+        ),
+        result: false,
+      };
     },
   },
   'applemusic': {
