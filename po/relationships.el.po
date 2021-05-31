@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-25 17:25+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-05-27 14:33+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,11 +90,11 @@ msgstr ""
 msgid "BBC Music page for"
 msgstr "Σελίδα του BBC Music για"
 
-#: DB:link_type/link_phrase:719 DB:link_type/link_phrase:718
+#: DB:link_type/link_phrase:718 DB:link_type/link_phrase:719
 msgid "Bandcamp"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
+#: DB:link_type/reverse_link_phrase:718 DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
 msgstr ""
 
@@ -2863,6 +2863,12 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:997
+msgid ""
+"This relationship type is used to link a label to a site where music can be "
+"legally streamed for free, e.g. Spotify."
+msgstr ""
+
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
 msgstr ""
@@ -3445,7 +3451,7 @@ msgstr ""
 msgid "balance"
 msgstr ""
 
-#: DB:link_type/name:719 DB:link_type/name:718
+#: DB:link_type/name:718 DB:link_type/name:719
 msgid "bandcamp"
 msgstr ""
 
@@ -3865,7 +3871,7 @@ msgid "directed video"
 msgstr ""
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
-#: DB:link_type/name:88 DB:link_type/name:171 DB:link_type/name:184
+#: DB:link_type/name:88 DB:link_type/name:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
 #: DB:link_type/long_link_phrase:88 DB:link_type/long_link_phrase:171
 msgid "discography"
@@ -3878,6 +3884,10 @@ msgstr "καταχώριση δισκογραφίας"
 #: DB:link_type/reverse_link_phrase:288
 msgid "discography entry for"
 msgstr "καταχώριση δισκογραφίας για"
+
+#: DB:link_type/name:184
+msgid "discography page"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:184
 msgid "discography page for"
@@ -4076,7 +4086,7 @@ msgstr "σελίδα δωρεάν λήψης για"
 msgid "free download page for the score of"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:194
+#: DB:link_type/reverse_link_phrase:997 DB:link_type/reverse_link_phrase:194
 msgid "free music streaming page for"
 msgstr ""
 
@@ -4084,7 +4094,8 @@ msgstr ""
 msgid "free music {video} streaming page for"
 msgstr ""
 
-#: DB:link_type/name:85 DB:link_type/name:268 DB:link_type/name:194
+#: DB:link_type/name:997 DB:link_type/name:85 DB:link_type/name:268
+#: DB:link_type/name:194
 msgid "free streaming"
 msgstr ""
 
@@ -4181,7 +4192,7 @@ msgstr ""
 msgid "has Amazon ASIN"
 msgstr "έχει Amazon ASIN"
 
-#: DB:link_type/long_link_phrase:719 DB:link_type/long_link_phrase:718
+#: DB:link_type/long_link_phrase:718 DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
 msgstr ""
 
@@ -5246,7 +5257,7 @@ msgstr "η μουσική μπορεί να κατέβει με πληρωμή �
 msgid "music can be purchased for mail-order at"
 msgstr "η μουσική μπορεί να αγοραστεί μέσω αλληλογραφίας στο"
 
-#: DB:link_type/long_link_phrase:194
+#: DB:link_type/long_link_phrase:997 DB:link_type/long_link_phrase:194
 msgid "music can be streamed for free at"
 msgstr ""
 
@@ -6185,7 +6196,7 @@ msgstr ""
 msgid "step"
 msgstr ""
 
-#: DB:link_type/link_phrase:194
+#: DB:link_type/link_phrase:997 DB:link_type/link_phrase:194
 msgid "stream for free"
 msgstr ""
 

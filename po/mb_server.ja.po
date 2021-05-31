@@ -37,8 +37,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-25 20:23+0300\n"
-"PO-Revision-Date: 2021-05-23 18:00+0000\n"
+"POT-Creation-Date: 2021-05-27 14:25+0000\n"
+"PO-Revision-Date: 2021-05-31 15:34+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -2065,7 +2065,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:260
+#: ../root/static/scripts/common/constants.js:261
 msgid "High"
 msgstr "高"
 
@@ -2268,7 +2268,7 @@ msgstr "探しているリリースが見つからない場合でも、このCD 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid ""
 "If you don’t know the code for this entity, just leave the field blank."
-msgstr ""
+msgstr "この項目のコードがわからない場合は、フィールドを空白のままにしておいてください。"
 
 #: ../root/release/edit/information.tt:50
 msgid ""
@@ -2570,7 +2570,7 @@ msgstr "検索件数"
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:257
+#: ../root/static/scripts/common/constants.js:258
 msgid "Low"
 msgstr "低"
 
@@ -2986,8 +2986,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:258
 #: ../root/static/scripts/common/constants.js:259
+#: ../root/static/scripts/common/constants.js:260
 msgid "Normal"
 msgstr "中"
 
@@ -3479,7 +3479,7 @@ msgid ""
 "edited, relationships highlighted <span class=\"rel-remove\">red</span> will"
 " be removed, and relationships highlighted <span class=\"rel-"
 "add\">green</span> will be added."
-msgstr ""
+msgstr "<span class=\"rel-edit\">黄色</span>で強調された関係が編集され、<span class=\"rel-remove\">赤色</span>で強調された関係が削除、<span class=\"rel-add\">緑色</span>で強調された関係が追加されます。"
 
 #: ../root/cdtoc/attach_artist_releases.tt:15
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:39
@@ -5067,7 +5067,7 @@ msgstr "差分を表示"
 
 #: ../root/edit/data.tt:32
 msgid "View the human-readable rendering instead."
-msgstr ""
+msgstr "代わりに人間が読める状態で表示。"
 
 #: ../root/annotation/history.tt:32
 msgid "View this version"
@@ -5899,7 +5899,7 @@ msgstr "{artist}の{entity}"
 #: ../root/entity/collections.tt:4
 msgid "{entity} has been added to {num} collection:"
 msgid_plural "{entity} has been added to {num} collections:"
-msgstr[0] ""
+msgstr[0] "{entity} は{num}件のコレクションに追加されました:"
 
 #: ../root/entity/collections.tt:23
 msgid "{entity} has not been added to any collections."
@@ -7112,7 +7112,7 @@ msgstr "第二賛成者待ち"
 #, perl-brace-format
 msgctxt "autoeditor election status"
 msgid "Voting open since {date}"
-msgstr ""
+msgstr "{date} まで投票中"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:94
 #, perl-brace-format
@@ -7145,7 +7145,7 @@ msgstr "第二賛成者待ち"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:102
 msgctxt "autoeditor election status (short)"
 msgid "Voting open"
-msgstr ""
+msgstr "投票中"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:103
 msgctxt "autoeditor election status (short)"
@@ -7229,6 +7229,10 @@ msgstr "CPDLの楽譜"
 #: ../lib/MusicBrainz/Server/Entity/URL/Deezer.pm:10
 msgid "Stream at Deezer"
 msgstr "Deezerでの配信"
+
+#: ../lib/MusicBrainz/Server/Entity/URL/Dogmazic.pm:10
+msgid "Stream at Dogmazic"
+msgstr "Dogmazicでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Gutenberg.pm:9
 msgid "Project Gutenberg"
@@ -7506,7 +7510,7 @@ msgstr "URL のプロトコルは HTTP, HTTPS, FTP でなければなりませ�
 msgid ""
 "Must be a valid date or partial date. Examples: 2006-05-25, 1990-01, "
 "????-01, ..."
-msgstr ""
+msgstr "完全な日付か部分的な日付が必要です。例: 2006-05-25, 1990-01, ????-01, ..."
 
 #: ../lib/MusicBrainz/Server/Form/Merge.pm:18
 msgid "Please pick the entity you want the others merged into."
@@ -7551,22 +7555,22 @@ msgid "Invalid URL format"
 msgstr "URL 形式が不正です"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
-#: ../root/static/scripts/common/constants.js:268
+#: ../root/static/scripts/common/constants.js:269
 msgid "Basic"
 msgstr "基礎的"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
-#: ../root/static/scripts/common/constants.js:269
+#: ../root/static/scripts/common/constants.js:270
 msgid "Intermediate"
 msgstr "中級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:267
+#: ../root/static/scripts/common/constants.js:268
 msgid "Advanced"
 msgstr "上級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:270
+#: ../root/static/scripts/common/constants.js:271
 msgid "Native"
 msgstr "母語"
 
@@ -7576,7 +7580,7 @@ msgstr "あなたの年齢を表示するため、生年月日を入力してく
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:89
 msgid "Birth year must be after 1900"
-msgstr ""
+msgstr "誕生年は1900年より後でなければいけません"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
 #: ../root/layout/components/Search.js:47
@@ -7602,7 +7606,7 @@ msgstr "ドキュメント"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:61
 msgid "Indexed search with advanced query syntax"
-msgstr ""
+msgstr "高度なクエリ構文を使ったインデックス検索"
 
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:51
 msgid "The old password is incorrect"
@@ -8102,7 +8106,7 @@ msgstr ""
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:21
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:22
 msgid "Unverified Email Address"
-msgstr ""
+msgstr "未確認のメールアドレス"
 
 #: ../root/admin/EditBanner.js:26 ../root/layout/components/TopMenu.js:153
 msgid "Edit Banner Message"
@@ -8323,7 +8327,7 @@ msgstr ""
 
 #: ../root/area/AreaRecordings.js:34
 msgid "This area has no relationships to any recordings."
-msgstr ""
+msgstr "この地域に関係のあるレコーディングはありません。"
 
 #: ../root/area/AreaReleases.js:51 ../root/artist/ArtistReleases.js:63
 #: ../root/instrument/InstrumentReleases.js:58 ../root/label/LabelIndex.js:73
@@ -8337,7 +8341,7 @@ msgstr ""
 
 #: ../root/area/AreaReleases.js:69
 msgid "This area has no relationships to any releases."
-msgstr ""
+msgstr "この地域に関係のあるリリースはありません。"
 
 #: ../root/area/AreaUsers.js:30 ../root/area/AreaUsers.js:31
 #: ../root/components/EntityTabs.js:34
@@ -8355,7 +8359,7 @@ msgstr ""
 
 #: ../root/area/AreaWorks.js:34
 msgid "This area has no relationships to any works."
-msgstr ""
+msgstr "この地域に関係のある作品はありません。"
 
 #: ../root/artist/ArtistEvents.js:62
 msgid "This artist is not currently associated with any events."
@@ -9830,7 +9834,7 @@ msgstr "(非公開)"
 
 #: ../root/elections/ElectionVoting.js:25
 msgid "To find out if you can vote for this candidate, please {url|log in}."
-msgstr ""
+msgstr "この候補に投票できるか確認するために、{url|ログイン}してください。"
 
 #: ../root/elections/ElectionVoting.js:32
 msgid ""
@@ -10338,7 +10342,7 @@ msgstr "楽器リスト"
 #: ../root/instrument/List.js:63
 #: ../root/report/components/InstrumentList.js:55
 msgid "Unclassified instrument"
-msgstr ""
+msgstr "未分類の楽器"
 
 #: ../root/instrument/List.js:74
 msgid ""
@@ -10462,7 +10466,7 @@ msgstr "MusicBrainz Picard"
 
 #: ../root/layout/components/BottomMenu.js:162 ../root/main/index.js:156
 msgid "AudioRanger"
-msgstr ""
+msgstr "AudioRanger"
 
 #: ../root/layout/components/BottomMenu.js:165 ../root/main/index.js:159
 msgid "Mp3tag"
@@ -11372,7 +11376,7 @@ msgstr ""
 
 #: ../root/mbid/NotFound.js:41
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
-msgstr ""
+msgstr "{mbid} は有効な{mbid_doc|MBID}ではありません。"
 
 #: ../root/mbid/NotFound.js:49
 msgid "No {mbid_doc|MBID} selected."
@@ -11388,7 +11392,7 @@ msgstr "許可"
 
 #: ../root/oauth2/OAuth2Authorize.js:35
 msgid "{app} is requesting permission to:"
-msgstr ""
+msgstr "{app} は次の許可を要求しています:"
 
 #: ../root/oauth2/OAuth2Authorize.js:44
 msgid "Perform the above operations when I'm not using the application"
@@ -11636,7 +11640,7 @@ msgstr "ガイドライン"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:205
 msgid "See the general {url|guidelines for URLs}."
-msgstr ""
+msgstr "全般的な{url|指針}を見る。"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:238
 msgid ""
@@ -12038,7 +12042,7 @@ msgstr ""
 
 #: ../root/report/CatNoLooksLikeIsrc.js:43 ../root/report/ReportsIndex.js:310
 msgid "Releases with catalog numbers that look like ISRCs"
-msgstr ""
+msgstr "カタログ番号がISRCの形式になっているリリース"
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:31
 msgid ""
@@ -12052,7 +12056,7 @@ msgstr ""
 #: ../root/report/CatNoLooksLikeLabelCode.js:42
 #: ../root/report/ReportsIndex.js:315
 msgid "Releases with catalog numbers that look like Label Codes"
-msgstr ""
+msgstr "カタログ番号がレーベルコードの形式になっているリリース"
 
 #: ../root/report/CollaborationRelationships.js:32
 msgid ""
@@ -12064,7 +12068,7 @@ msgstr ""
 
 #: ../root/report/CollaborationRelationships.js:42
 msgid "Artists with collaboration relationships"
-msgstr ""
+msgstr "コラボ関係があるアーティスト"
 
 #: ../root/report/CollaborationRelationships.js:49
 msgid "Collaboration"
@@ -12080,7 +12084,7 @@ msgstr ""
 
 #: ../root/report/CoverArtRelationships.js:32
 msgid "Releases with cover art relationships"
-msgstr ""
+msgstr "カバーアートと関係のあるリリース"
 
 #: ../root/report/DeprecatedRelationshipArtists.js:27
 msgid ""
@@ -12113,7 +12117,7 @@ msgstr ""
 #: ../root/report/DeprecatedRelationshipPlaces.js:33
 #: ../root/report/ReportsIndex.js:497
 msgid "Places with deprecated relationships"
-msgstr ""
+msgstr "旧形式の関係がある場所"
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:28
 msgid ""
@@ -12124,7 +12128,7 @@ msgstr ""
 #: ../root/report/DeprecatedRelationshipRecordings.js:34
 #: ../root/report/ReportsIndex.js:447
 msgid "Recordings with deprecated relationships"
-msgstr ""
+msgstr "旧形式の関係があるレコーディング"
 
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:28
 msgid ""
@@ -12135,7 +12139,7 @@ msgstr ""
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:34
 #: ../root/report/ReportsIndex.js:206
 msgid "Release groups with deprecated relationships"
-msgstr ""
+msgstr "旧形式の関係があるリリースグループ"
 
 #: ../root/report/DeprecatedRelationshipReleases.js:27
 msgid ""
@@ -12172,7 +12176,7 @@ msgstr "旧形式の関係がある作品"
 
 #: ../root/report/DiscogsLinksWithMultipleArtists.js:27
 msgid "This report shows Discogs URLs which are linked to multiple artists."
-msgstr ""
+msgstr "このレポートは複数のアーティストに付いてるDiscogsリンクを表示します。"
 
 #: ../root/report/DiscogsLinksWithMultipleArtists.js:32
 #: ../root/report/ReportsIndex.js:89
@@ -12181,7 +12185,7 @@ msgstr "複数のアーティストに結合されたDiscogsのURL"
 
 #: ../root/report/DiscogsLinksWithMultipleLabels.js:27
 msgid "This report shows Discogs URLs which are linked to multiple labels."
-msgstr ""
+msgstr "このレポートは複数のレーベルに付いてるDiscogsリンクを表示します。"
 
 #: ../root/report/DiscogsLinksWithMultipleLabels.js:32
 #: ../root/report/ReportsIndex.js:163
@@ -14083,166 +14087,166 @@ msgstr "結成:"
 msgid "Dissolved in:"
 msgstr "解散:"
 
-#: ../root/static/scripts/edit/URLCleanup.js:329
+#: ../root/static/scripts/edit/URLCleanup.js:330
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:335
+#: ../root/static/scripts/edit/URLCleanup.js:336
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:433
+#: ../root/static/scripts/edit/URLCleanup.js:434
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
 "Releases tab from {album_url|your link}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:619
+#: ../root/static/scripts/edit/URLCleanup.js:620
 msgid ""
 "Only Apple Books “{artist_url_pattern}” pages can be added directly to "
 "artists. Please link audiobooks to the appropriate release instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:634
+#: ../root/static/scripts/edit/URLCleanup.js:635
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:715
+#: ../root/static/scripts/edit/URLCleanup.js:716
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:726
+#: ../root/static/scripts/edit/URLCleanup.js:727
 msgid ""
 "Please link to the main page for the label, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:878
+#: ../root/static/scripts/edit/URLCleanup.js:879
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:880
+#: ../root/static/scripts/edit/URLCleanup.js:881
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1339
+#: ../root/static/scripts/edit/URLCleanup.js:1340
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1700
+#: ../root/static/scripts/edit/URLCleanup.js:1765
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1717
+#: ../root/static/scripts/edit/URLCleanup.js:1782
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1761
+#: ../root/static/scripts/edit/URLCleanup.js:1826
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1787
+#: ../root/static/scripts/edit/URLCleanup.js:1852
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1861
+#: ../root/static/scripts/edit/URLCleanup.js:1926
 msgid ""
 "Only iTunes “{artist_url_pattern}” pages can be added directly to artists. "
 "Please link albums, videos, etc. to the appropriate release or recording "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2389
+#: ../root/static/scripts/edit/URLCleanup.js:2454
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2803
+#: ../root/static/scripts/edit/URLCleanup.js:2868
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3253
+#: ../root/static/scripts/edit/URLCleanup.js:3318
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "ツイートではなくTwitterプロフィールにリンクしてください。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3270
+#: ../root/static/scripts/edit/URLCleanup.js:3335
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3427
+#: ../root/static/scripts/edit/URLCleanup.js:3492
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3446
+#: ../root/static/scripts/edit/URLCleanup.js:3511
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3466
+#: ../root/static/scripts/edit/URLCleanup.js:3531
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3483
+#: ../root/static/scripts/edit/URLCleanup.js:3548
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3494
+#: ../root/static/scripts/edit/URLCleanup.js:3559
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3553
+#: ../root/static/scripts/edit/URLCleanup.js:3618
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3645
+#: ../root/static/scripts/edit/URLCleanup.js:3710
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3714
+#: ../root/static/scripts/edit/URLCleanup.js:3779
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3725
+#: ../root/static/scripts/edit/URLCleanup.js:3790
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3736
+#: ../root/static/scripts/edit/URLCleanup.js:3801
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14251,7 +14255,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3766
+#: ../root/static/scripts/edit/URLCleanup.js:3831
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -15535,11 +15539,11 @@ msgstr "購読"
 
 #: ../root/vote/VotingIndex.js:36
 msgid "…related to artists in my subscriptions"
-msgstr ""
+msgstr "…購読中のアーティストに関係のある"
 
 #: ../root/vote/VotingIndex.js:50 ../root/vote/VotingIndex.js:52
 msgid "Voting suggestions"
-msgstr ""
+msgstr "投票の提案"
 
 #: ../root/vote/VotingIndex.js:56
 msgid ""
@@ -15589,23 +15593,23 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:107
 msgid "All open destructive edits"
-msgstr ""
+msgstr "すべての未確定の破壊的な編集"
 
 #: ../root/vote/VotingIndex.js:116
 msgid "All open entity merges and removals"
-msgstr ""
+msgstr "すべての未確定な項目のマージと削除"
 
 #: ../root/vote/VotingIndex.js:125
 msgid "All open relationship removals"
-msgstr ""
+msgstr "すべての未確定な関係の削除"
 
 #: ../root/vote/VotingIndex.js:134
 msgid "All open destructive changes to releases"
-msgstr ""
+msgstr "すべての未確定の破壊的なリリースの変更"
 
 #: ../root/vote/VotingIndex.js:145
 msgid "Unreviewed and potentially problematic edits"
-msgstr ""
+msgstr "未審査及び潜在的に問題のある編集"
 
 #: ../root/vote/VotingIndex.js:148
 msgid ""
@@ -15619,21 +15623,21 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:159
 msgid "Unreviewed edits (0 votes) that will close in less than a day"
-msgstr ""
+msgstr "今日中に終了する未審査の編集(投票0)"
 
 #: ../root/vote/VotingIndex.js:170
 msgid "All open unreviewed edits (0 votes)"
-msgstr ""
+msgstr "すべての未確定で未審査の編集(投票0)"
 
 #: ../root/vote/VotingIndex.js:180
 msgid ""
 "All open unconfirmed edits (“Abstain” votes only) that will close in less "
 "than a day"
-msgstr ""
+msgstr "今日中に終了するすべての未確定で未確認の編集(「棄権」投票のみ)"
 
 #: ../root/vote/VotingIndex.js:190
 msgid "All open unconfirmed edits (“Abstain” votes only)"
-msgstr ""
+msgstr "すべての未確定で未確認の編集(「棄権」投票のみ)"
 
 #: ../root/vote/VotingIndex.js:202
 msgid ""
@@ -15723,11 +15727,11 @@ msgstr "初心者編集者による2週間未満に作成されたすべての�
 
 #: ../root/vote/VotingIndex.js:330
 msgid "All open destructive edits by beginner editors"
-msgstr ""
+msgstr "初心者編集者によるすべての未確定の破壊的な編集"
 
 #: ../root/vote/VotingIndex.js:339
 msgid "All open unreviewed edits (0 votes) by beginner editors"
-msgstr ""
+msgstr "初心者編集者によるすべての未確定で未審査の編集(投票0)"
 
 #: ../root/vote/VotingIndex.js:351 ../root/vote/VotingIndex.js:373
 msgid "All edits"

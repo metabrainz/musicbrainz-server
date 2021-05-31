@@ -36,7 +36,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-27 10:30+0000\n"
+"PO-Revision-Date: 2021-05-27 14:33+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -120,11 +120,11 @@ msgstr "page BBC Music"
 msgid "BBC Music page for"
 msgstr "page BBC Music pour"
 
-#: DB:link_type/link_phrase:719 DB:link_type/link_phrase:718
+#: DB:link_type/link_phrase:718 DB:link_type/link_phrase:719
 msgid "Bandcamp"
 msgstr "Bandcamp"
 
-#: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
+#: DB:link_type/reverse_link_phrase:718 DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
 msgstr "Page Bandcamp pour"
 
@@ -2893,6 +2893,12 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr "Ce type de relation est utilisé pour indiquer qu’un groupe de parution est une reprise d’un autre groupe de parution, c.-à-d. quand un artiste fait une nouvelle interprétation de l’album d’un autre artiste."
 
+#: DB:link_type/description:997
+msgid ""
+"This relationship type is used to link a label to a site where music can be "
+"legally streamed for free, e.g. Spotify."
+msgstr ""
+
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
 msgstr "Ce type de relation est utilisé pour relier un label à son blogue."
@@ -3475,7 +3481,7 @@ msgstr "voix d’accompagnement"
 msgid "balance"
 msgstr "régisseur musical"
 
-#: DB:link_type/name:719 DB:link_type/name:718
+#: DB:link_type/name:718 DB:link_type/name:719
 msgid "bandcamp"
 msgstr "bandcamp"
 
@@ -3895,7 +3901,7 @@ msgid "directed video"
 msgstr "réalisé le clip"
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
-#: DB:link_type/name:88 DB:link_type/name:171 DB:link_type/name:184
+#: DB:link_type/name:88 DB:link_type/name:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
 #: DB:link_type/long_link_phrase:88 DB:link_type/long_link_phrase:171
 msgid "discography"
@@ -3908,6 +3914,10 @@ msgstr "entrée discographique"
 #: DB:link_type/reverse_link_phrase:288
 msgid "discography entry for"
 msgstr "entrée discographique pour"
+
+#: DB:link_type/name:184
+msgid "discography page"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:184
 msgid "discography page for"
@@ -4106,7 +4116,7 @@ msgstr "page de téléchargement gratuit pour"
 msgid "free download page for the score of"
 msgstr "page de téléchargement gratuit pour la partition de"
 
-#: DB:link_type/reverse_link_phrase:194
+#: DB:link_type/reverse_link_phrase:997 DB:link_type/reverse_link_phrase:194
 msgid "free music streaming page for"
 msgstr "page de diffusion gratuite en flux continu de la musique de"
 
@@ -4114,7 +4124,8 @@ msgstr "page de diffusion gratuite en flux continu de la musique de"
 msgid "free music {video} streaming page for"
 msgstr "page de diffusion {video:vidéo} gratuite en flux continu pour"
 
-#: DB:link_type/name:85 DB:link_type/name:268 DB:link_type/name:194
+#: DB:link_type/name:997 DB:link_type/name:85 DB:link_type/name:268
+#: DB:link_type/name:194
 msgid "free streaming"
 msgstr "diffusion gratuite en flux continu"
 
@@ -4211,7 +4222,7 @@ msgstr "demi"
 msgid "has Amazon ASIN"
 msgstr "a un ASIN d’Amazon"
 
-#: DB:link_type/long_link_phrase:719 DB:link_type/long_link_phrase:718
+#: DB:link_type/long_link_phrase:718 DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
 msgstr "a une page Bandcamp sur"
 
@@ -5276,7 +5287,7 @@ msgstr "la musique peut être achetée pour téléchargement sur"
 msgid "music can be purchased for mail-order at"
 msgstr "la musique peut être achetée par correspondance sur"
 
-#: DB:link_type/long_link_phrase:194
+#: DB:link_type/long_link_phrase:997 DB:link_type/long_link_phrase:194
 msgid "music can be streamed for free at"
 msgstr "musique diffusée gratuitement en flux continu à"
 
@@ -6215,7 +6226,7 @@ msgstr "site Web autonome pour"
 msgid "step"
 msgstr "par alliance"
 
-#: DB:link_type/link_phrase:194
+#: DB:link_type/link_phrase:997 DB:link_type/link_phrase:194
 msgid "stream for free"
 msgstr "diffuse gratuitement en flux continu la musique de"
 
