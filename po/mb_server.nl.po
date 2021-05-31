@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-25 20:23+0300\n"
-"PO-Revision-Date: 2021-05-14 20:46+0000\n"
+"POT-Creation-Date: 2021-05-27 14:25+0000\n"
+"PO-Revision-Date: 2021-05-27 14:33+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2063,7 +2063,7 @@ msgstr "Verborgen moet worden gebruikt voor gebarentalen en talen zonder ISO 639
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:260
+#: ../root/static/scripts/common/constants.js:261
 msgid "High"
 msgstr "Hoog"
 
@@ -2568,7 +2568,7 @@ msgstr "Aantal keer opgevraagd"
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:257
+#: ../root/static/scripts/common/constants.js:258
 msgid "Low"
 msgstr "Laag"
 
@@ -2984,8 +2984,8 @@ msgstr "De opgegeven TOC kan aan geen van de media van deze uitgave worden toege
 
 #: ../root/components/common-macros.tt:607
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:258
 #: ../root/static/scripts/common/constants.js:259
+#: ../root/static/scripts/common/constants.js:260
 msgid "Normal"
 msgstr "Normaal"
 
@@ -7240,6 +7240,10 @@ msgstr "Bladmuziek op CPDL"
 msgid "Stream at Deezer"
 msgstr "Stream op Deezer"
 
+#: ../lib/MusicBrainz/Server/Entity/URL/Dogmazic.pm:10
+msgid "Stream at Dogmazic"
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Entity/URL/Gutenberg.pm:9
 msgid "Project Gutenberg"
 msgstr "Project Gutenberg"
@@ -7561,22 +7565,22 @@ msgid "Invalid URL format"
 msgstr "Ongeldige URL-opmaak"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:68
-#: ../root/static/scripts/common/constants.js:268
+#: ../root/static/scripts/common/constants.js:269
 msgid "Basic"
 msgstr "Basis"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
-#: ../root/static/scripts/common/constants.js:269
+#: ../root/static/scripts/common/constants.js:270
 msgid "Intermediate"
 msgstr "Gemiddeld"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:267
+#: ../root/static/scripts/common/constants.js:268
 msgid "Advanced"
 msgstr "Gevorderd"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:270
+#: ../root/static/scripts/common/constants.js:271
 msgid "Native"
 msgstr "Moedertaal"
 
@@ -14130,166 +14134,166 @@ msgstr "Opgericht in:"
 msgid "Dissolved in:"
 msgstr "Opgeheven in:"
 
-#: ../root/static/scripts/edit/URLCleanup.js:329
+#: ../root/static/scripts/edit/URLCleanup.js:330
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr "Dit object moet aan een kanaal worden gekoppeld, in plaats van aan een specifieke video. Video’s moeten aan de bijbehorende opnames of uitgaves worden gekoppeld."
 
-#: ../root/static/scripts/edit/URLCleanup.js:335
+#: ../root/static/scripts/edit/URLCleanup.js:336
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr "Voeg een link naar een specifieke video toe. Kanalen moeten aan de relevante artiest, platenmaatschappij etc. worden gekoppeld."
 
-#: ../root/static/scripts/edit/URLCleanup.js:433
+#: ../root/static/scripts/edit/URLCleanup.js:434
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
 "Releases tab from {album_url|your link}."
 msgstr "Allmusic-URL’s met “{album_url_pattern}” moeten aan uitgavegroepen worden toegevoegd. Je kan de juiste link voor deze uitgave vinden in het tabblad “Releases” op {album_url|de pagina die je wilde toevoegen}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:619
+#: ../root/static/scripts/edit/URLCleanup.js:620
 msgid ""
 "Only Apple Books “{artist_url_pattern}” pages can be added directly to "
 "artists. Please link audiobooks to the appropriate release instead."
 msgstr "Alleen pagina’s van Apple Books “{artist_url_pattern}” kunnen rechtstreeks aan artiesten worden toegevoegd. Koppel audioboeken aan de bijbehorende uitgave."
 
-#: ../root/static/scripts/edit/URLCleanup.js:634
+#: ../root/static/scripts/edit/URLCleanup.js:635
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr "Alleen Apple Books-audioboeken kunnen aan MusicBrainz worden toegevoegd. Je kunt boeken wel aan {bookbrainz_url|BookBrainz} toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:715
+#: ../root/static/scripts/edit/URLCleanup.js:716
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr "Voeg een link naar de hoofdpagina van de artiest toe in plaats van een specifiek album of nummer."
 
-#: ../root/static/scripts/edit/URLCleanup.js:726
+#: ../root/static/scripts/edit/URLCleanup.js:727
 msgid ""
 "Please link to the main page for the label, not to a specific album or "
 "track."
 msgstr "Voeg een link naar de hoofdpagina van de platenmaatschappij toe in plaats van een specifiek album of nummer."
 
-#: ../root/static/scripts/edit/URLCleanup.js:878
+#: ../root/static/scripts/edit/URLCleanup.js:879
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr "Voeg een link naar de hoofdpagina van de artiest toe in plaats van een specifiek product."
 
-#: ../root/static/scripts/edit/URLCleanup.js:880
+#: ../root/static/scripts/edit/URLCleanup.js:881
 msgid "Please link to the main page for the label, not a specific product."
 msgstr "Voer een link naar de hoofdpagina van de platenmaatschappij toe in plaats van een specifiek product."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1339
+#: ../root/static/scripts/edit/URLCleanup.js:1340
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr "Discogs-URL’s met “{master_url_pattern}” verwijzen naar pagina’s waarop verschillende uitgaves worden gegroepeerd, dus deze link moet aan de uitgavegroep worden toegevoegd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1700
+#: ../root/static/scripts/edit/URLCleanup.js:1765
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr "Alleen IMSLP-links met de vorm “{category_url_pattern}” mogen aan artiesten worden toegevoegd. Koppel compositiepagina’s aan de specifieke compositie."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1717
+#: ../root/static/scripts/edit/URLCleanup.js:1782
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr "IMSLP-links met de vorm “{category_url_pattern}” mogen alleen aan artiesten worden toegevoegd. Koppel de compositiepagina aan de specifieke compositie."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1761
+#: ../root/static/scripts/edit/URLCleanup.js:1826
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr "Instagram-links met de vorm “{explore_url_pattern}” zijn niet toegestaan. Je kan eventueel een link naar een profiel toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1787
+#: ../root/static/scripts/edit/URLCleanup.js:1852
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr "Voeg geen rechtstreekse link naar een afbeelding toe, maar een link naar de relevante Instagram-profielpagina. Als je een link naar een video wil toevoegen, moet je {url|een losse opname toevoegen}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1861
+#: ../root/static/scripts/edit/URLCleanup.js:1926
 msgid ""
 "Only iTunes “{artist_url_pattern}” pages can be added directly to artists. "
 "Please link albums, videos, etc. to the appropriate release or recording "
 "instead."
 msgstr "Alleen iTunes-URL’s met “{artist_url_pattern}” kunnen aan artiesten worden gekoppeld. Koppel albums, video’s etc. aan de bijbehorende uitgave of opname."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2389
+#: ../root/static/scripts/edit/URLCleanup.js:2454
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr "Dit is een omleidings-URL. Volg {redirect_url|je link} en voer het doeladres in."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2803
+#: ../root/static/scripts/edit/URLCleanup.js:2868
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
 msgstr "Dit is een link naar het oude domein van Resident Advisor. Volg {ra_url|je link} controleer of de link waarnaar wordt doorverwezen nog steeds klopt, en voeg vervolgens die link toe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3253
+#: ../root/static/scripts/edit/URLCleanup.js:3318
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Voeg alleen links naar Twitter-profielen toe, en niet naar afzonderlijke berichten."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3270
+#: ../root/static/scripts/edit/URLCleanup.js:3335
 msgid "This site does not allow direct links to their images."
 msgstr "Deze website staat geen rechtstreekse links naar afbeeldingen toe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3427
+#: ../root/static/scripts/edit/URLCleanup.js:3492
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr "Deze URL bevat een niet-gecodeerde ‘?’ of ‘#’. Controleer de URL om te bepalen of het teken overbodig is en moet worden verwijderd, of dat de URL verkeerd is gecodeerd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3446
+#: ../root/static/scripts/edit/URLCleanup.js:3511
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr "Je kan geen links naar WhoSampled-pagina’s met de vorm “{unwanted_url_pattern}” toevoegen. Gebruik in plaats daarvan de WhoSampled-pagina’s voor artiesten, nummers of uitgaves."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3466
+#: ../root/static/scripts/edit/URLCleanup.js:3531
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "Je kan WhoSampled-pagina’s met de vorm “{album_url_pattern}” alleen aan uitgavegroepen koppelen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3483
+#: ../root/static/scripts/edit/URLCleanup.js:3548
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "Je kan WhoSampled-pagina’s voor artiesten alleen aan artiesten toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3494
+#: ../root/static/scripts/edit/URLCleanup.js:3559
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "Je kan WhoSampled-pagina’s over nummers alleen aan opnames koppelen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3553
+#: ../root/static/scripts/edit/URLCleanup.js:3618
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "Links naar specifieke delen van Wikipedia-pagina’s zijn niet toegestaan. Verwijder “{fragment}” of verwijder de link als de hele pagina niet relevant is voor dit object. Zie onze {url|richtlijnen}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3645
+#: ../root/static/scripts/edit/URLCleanup.js:3710
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Alleen links naar video’s en speellijsten mogen aan uitgaves worden toegevoegd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3714
+#: ../root/static/scripts/edit/URLCleanup.js:3779
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr "Wikipedia heeft normaal gesproken geen lemma’s voor specifieke uitgaves, dus het toevoegen van Wikipedia-links aan een uitgave wordt geblokkeerd. Voeg de Wikipedia-link, als hij relevant is, toe aan de uitgavegroep."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3725
+#: ../root/static/scripts/edit/URLCleanup.js:3790
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr "Wikidata heeft normaal gesproken geen lemma’s voor specifieke uitgaves, dus het toevoegen van Wikidata-links aan een uitgave wordt geblokkeerd. Voeg de Wikidata-link, als hij relevant is, toe aan de uitgavegroep."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3736
+#: ../root/static/scripts/edit/URLCleanup.js:3801
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14298,7 +14302,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr "Dit is een Bandcamp-profiel en geen pagina voor een specifieke uitgave. Zelfs als de uitgave hier nu wordt weergegeven, kan dit veranderen zodra de artiest een nieuwe uitgeeft. Voeg de juiste pagina voor de uitgave ({album_url_pattern} of {single_url_pattern}) toe. Je kunt dit profiel wel aan de bijbehorende platenmaatschappij of artiest toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3766
+#: ../root/static/scripts/edit/URLCleanup.js:3831
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"

@@ -116,7 +116,6 @@ EOF
             "mbdump/$dump_fname",
             'JSON_DUMPS_SCHEMA_NUMBER',
         );
-        $mbdump->write_checksum_files;
     } else {
         move($mbdump->export_dir,
              catdir($mbdump->output_dir, $dump_fname)) or die $!;
