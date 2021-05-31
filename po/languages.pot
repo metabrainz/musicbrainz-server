@@ -398,6 +398,11 @@ msgstr ""
 msgid "Central Okinawan"
 msgstr ""
 
+#. frequency:1 iso_code_3:esu 
+#: DB:language/name:2243
+msgid "Central Yupik"
+msgstr ""
+
 #. frequency:1 iso_code_3:chg 
 #: DB:language/name:75
 msgid "Chagatai"
