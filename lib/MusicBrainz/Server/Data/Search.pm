@@ -183,7 +183,7 @@ sub search
                 r.rank
             FROM
                 (
-                    SELECT name, ts_rank_cd(mb_simple_tsvector(name), query, 2) as rank
+                    SELECT name, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank
                     FROM
                         (SELECT name              FROM ${type}       UNION ALL
                          SELECT name              FROM ${type}_alias UNION ALL
@@ -301,7 +301,7 @@ sub search
 
     elsif ($type eq "tag") {
         $query = "
-            SELECT tag.id, tag.name, genre.id as genre_id,
+            SELECT tag.id, tag.name, genre.id AS genre_id,
                    ts_rank_cd(mb_simple_tsvector(tag.name), query, 2) AS rank
             FROM tag LEFT JOIN genre USING (name), plainto_tsquery('mb_simple', mb_lower(?)) AS query
             WHERE mb_simple_tsvector(tag.name) @@ query OR tag.name = ?

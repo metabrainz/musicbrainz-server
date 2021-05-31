@@ -12,7 +12,7 @@ sub query {
         FROM
             release r
             JOIN artist_credit ac ON r.artist_credit = ac.id
-            JOIN release_group rg on rg.id = r.release_group
+            JOIN release_group rg ON rg.id = r.release_group
             LEFT JOIN release_country ON r.id = release_country.release
         WHERE
             r.name ~ E'\\\\((disc [0-9]+|bonus disc)(: .*)?\\\\)'

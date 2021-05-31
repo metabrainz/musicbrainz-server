@@ -64,7 +64,7 @@ SELECT q.entity AS label_id, row_number() OVER (ORDER BY label.name COLLATE musi
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
 ) AS q
-JOIN label on q.entity = label.id
+JOIN label ON q.entity = label.id
 GROUP BY q.entity, label.name
 
     ";

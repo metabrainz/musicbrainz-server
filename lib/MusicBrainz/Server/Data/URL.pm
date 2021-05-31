@@ -55,6 +55,7 @@ my %URL_SPECIALIZATIONS = (
     'Directlyrics'        => qr{^https?://(?:www\.)?directlyrics\.com/}i,
     'Discogs'             => qr{^https?://(?:www\.)?discogs\.com/}i,
     'DiscosDoBrasil'      => qr{^https?://(?:www\.)?discosdobrasil\.com\.br/}i,
+    'Dogmazic'            => qr{^https?://(?:[^/]+\.)?dogmazic\.net/}i,
     'DNB'                 => qr{^https?://(?:www\.)?d-nb\.info/}i,
     'DRAM'                => qr{^https?://(?:www\.)?dramonline\.org/}i,
     'DynamicRangeDB'      => qr{^https?://dr\.loudness-war\.info/}i,

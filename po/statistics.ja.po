@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-05-16 16:26+0000\n"
+"PO-Revision-Date: 2021-05-31 15:57+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -918,7 +918,7 @@ msgstr "過去1週間の投票"
 
 #: ../root/statistics/Editors.js:133 ../root/statistics/Editors.js:140
 msgid "Voter"
-msgstr ""
+msgstr "投票者"
 
 #: ../root/statistics/Editors.js:134
 msgid "Most active voters in the past week"
@@ -1184,11 +1184,11 @@ msgstr "カバーアートのソース"
 
 #: ../root/statistics/Index.js:442
 msgid "CAA:"
-msgstr ""
+msgstr "CAA:"
 
 #: ../root/statistics/Index.js:448
 msgid "Amazon:"
-msgstr ""
+msgstr "Amazon:"
 
 #: ../root/statistics/Index.js:454
 msgid "URL Relationships:"
@@ -1322,7 +1322,7 @@ msgstr "編集者・編集・投票"
 
 #: ../root/statistics/Index.js:912
 msgid "Editors (valid):"
-msgstr ""
+msgstr "編集者 (有効):"
 
 #: ../root/statistics/Index.js:918
 msgid "active ever:"
@@ -1330,15 +1330,15 @@ msgstr ""
 
 #: ../root/statistics/Index.js:926
 msgid "who edited and/or voted in the last 7 days:"
-msgstr ""
+msgstr "最近7日間に編集か投票もしくは両方した人:"
 
 #: ../root/statistics/Index.js:935
 msgid "who edited in the last 7 days:"
-msgstr ""
+msgstr "最近7日間に編集した人:"
 
 #: ../root/statistics/Index.js:943
 msgid "who voted in the last 7 days:"
-msgstr ""
+msgstr "最近7日間に投票した人:"
 
 #: ../root/statistics/Index.js:950
 msgid "who edit:"
@@ -1374,7 +1374,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1015
 msgid "validated email only:"
-msgstr ""
+msgstr "メール認証のみ:"
 
 #: ../root/statistics/Index.js:1021
 msgid "inactive:"
@@ -1398,7 +1398,7 @@ msgstr "適用:"
 
 #: ../root/statistics/Index.js:1054
 msgid "Voted down:"
-msgstr ""
+msgstr "反対投票:"
 
 #: ../root/statistics/Index.js:1060
 msgid "Failed (dependency):"
@@ -1479,7 +1479,7 @@ msgstr "文字"
 
 #: ../root/statistics/LanguagesScripts.js:166
 msgid "Unknown script"
-msgstr ""
+msgstr "不明な文字"
 
 #: ../root/statistics/NoStatistics.js:23 ../root/statistics/NoStatistics.js:24
 msgid "No Statistics"
@@ -1505,7 +1505,7 @@ msgstr "このタイプのみ"
 #: ../root/statistics/Relationships.js:114
 msgctxt "relationships"
 msgid "Including subtypes"
-msgstr ""
+msgstr "サブタイプを含む"
 
 #: ../root/statistics/Relationships.js:135
 msgid "{type0}-{type1}"
@@ -1538,7 +1538,7 @@ msgstr "その他"
 
 #: ../root/statistics/stats.js:22
 msgid "Ratings and Tags"
-msgstr "レーティングとタグ"
+msgstr "評価とタグ"
 
 #: ../root/statistics/stats.js:24
 msgid "Release Countries"
@@ -2026,7 +2026,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:441
 msgid "Ratings"
-msgstr "レーティング"
+msgstr "評価"
 
 #: ../root/statistics/stats.js:446
 msgid "Count of all Artist Ratings"
@@ -2034,7 +2034,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:447
 msgid "Artist Ratings"
-msgstr ""
+msgstr "アーティストの評価"
 
 #: ../root/statistics/stats.js:452
 msgid "Count of all Label Ratings"
@@ -2042,7 +2042,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:453
 msgid "Label Ratings"
-msgstr ""
+msgstr "レーベルの評価"
 
 #: ../root/statistics/stats.js:458
 msgid "Count of all Place Ratings"
@@ -2050,7 +2050,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:459
 msgid "Place Ratings"
-msgstr ""
+msgstr "場所の評価"
 
 #: ../root/statistics/stats.js:464
 msgid "Count of all Ratings (raw)"
@@ -2114,7 +2114,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:507
 msgid "Recording Ratings"
-msgstr ""
+msgstr "レコーディングの評価"
 
 #: ../root/statistics/stats.js:512
 msgid "Count of all Release Group Ratings"
@@ -2122,7 +2122,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:513
 msgid "Release Group Ratings"
-msgstr ""
+msgstr "リリースグループの評価"
 
 #: ../root/statistics/stats.js:518
 msgid "Count of all Work Ratings"
@@ -2211,7 +2211,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:603
 msgid "Unknown Script"
-msgstr ""
+msgstr "不明な文字"
 
 #: ../root/statistics/stats.js:608
 msgid "Count of all Releases by Various Artists"
@@ -2443,4 +2443,4 @@ msgstr ""
 
 #: ../root/statistics/utilities.js:39
 msgid "See on timeline"
-msgstr ""
+msgstr "タイムラインで見る"

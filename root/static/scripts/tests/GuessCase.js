@@ -358,7 +358,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(26);
+  t.plan(27);
 
   const tests = [
     {
@@ -515,6 +515,12 @@ test('BugFixes', function (t) {
       input: '“quoted stuff”',
       expected: '“Quoted Stuff”',
       bug: 'MBS-8232',
+      mode: 'English',
+    },
+    {
+      input: '[Unknown] / This track is / [Untitled]',
+      expected: '[unknown] / This Track Is / [untitled]',
+      bug: 'MBS-11662',
       mode: 'English',
     },
     /*

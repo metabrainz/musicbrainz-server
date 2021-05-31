@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-17 15:42+0000\n"
+"PO-Revision-Date: 2021-05-31 15:43+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -98,11 +98,11 @@ msgstr "BBC Musicページ"
 msgid "BBC Music page for"
 msgstr "次のBBC Musicページ"
 
-#: DB:link_type/link_phrase:719 DB:link_type/link_phrase:718
+#: DB:link_type/link_phrase:718 DB:link_type/link_phrase:719
 msgid "Bandcamp"
 msgstr "Bandcamp"
 
-#: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
+#: DB:link_type/reverse_link_phrase:718 DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
 msgstr "次のBandcampページ"
 
@@ -411,6 +411,10 @@ msgstr "イベントが特定のリリースグループ (普通はアルバム)
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
 msgstr "片方がもう片方のカバーであることを示します。"
+
+#: DB:link_type/description:996
+msgid "Indicates that the artist is part of a series."
+msgstr ""
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
@@ -2867,6 +2871,12 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:997
+msgid ""
+"This relationship type is used to link a label to a site where music can be "
+"legally streamed for free, e.g. Spotify."
+msgstr ""
+
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
 msgstr ""
@@ -3076,7 +3086,7 @@ msgstr "この関係タイプは、イベントを対応するLast.fmページ�
 #: DB:link_type/description:786
 msgid ""
 "This relationship type links an event to its corresponding page at Songkick."
-msgstr ""
+msgstr "この関係タイプは、イベントを対応するSongkickページへリンクします。"
 
 #: DB:link_type/description:811
 msgid ""
@@ -3431,7 +3441,7 @@ msgstr ""
 
 #: DB:link_type/name:795 DB:link_type/reverse_link_phrase:795
 msgid "available at"
-msgstr ""
+msgstr "入手可能"
 
 #: DB:link_type/link_phrase:795
 msgid "available releases"
@@ -3449,7 +3459,7 @@ msgstr "バックグラウンドヴォーカル"
 msgid "balance"
 msgstr "バランス"
 
-#: DB:link_type/name:719 DB:link_type/name:718
+#: DB:link_type/name:718 DB:link_type/name:719
 msgid "bandcamp"
 msgstr "bandcamp"
 
@@ -3542,11 +3552,11 @@ msgstr "を通信販売しているURLは"
 #: DB:link_type/long_link_phrase:978 DB:link_type/long_link_phrase:979
 #: DB:link_type/long_link_phrase:980
 msgid "can be streamed at"
-msgstr ""
+msgstr "の曲を配信しているURLは"
 
 #: DB:link_attribute_type/name:921
 msgid "cancelled"
-msgstr ""
+msgstr "中止された"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
@@ -3869,7 +3879,7 @@ msgid "directed video"
 msgstr ""
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
-#: DB:link_type/name:88 DB:link_type/name:171 DB:link_type/name:184
+#: DB:link_type/name:88 DB:link_type/name:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
 #: DB:link_type/long_link_phrase:88 DB:link_type/long_link_phrase:171
 msgid "discography"
@@ -3882,6 +3892,10 @@ msgstr "ディスコグラフィー項目"
 #: DB:link_type/reverse_link_phrase:288
 msgid "discography entry for"
 msgstr "次のディスコグラフィー項目"
+
+#: DB:link_type/name:184
+msgid "discography page"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:184
 msgid "discography page for"
@@ -4027,7 +4041,7 @@ msgstr "エンジニア"
 
 #: DB:link_attribute_type/name:1094
 msgid "eponymous"
-msgstr ""
+msgstr "由来"
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
@@ -4080,7 +4094,7 @@ msgstr "無料ダウンロードページ"
 msgid "free download page for the score of"
 msgstr "楽譜の無料ダウンロードページ"
 
-#: DB:link_type/reverse_link_phrase:194
+#: DB:link_type/reverse_link_phrase:997 DB:link_type/reverse_link_phrase:194
 msgid "free music streaming page for"
 msgstr "無料楽曲配信ページ"
 
@@ -4088,7 +4102,8 @@ msgstr "無料楽曲配信ページ"
 msgid "free music {video} streaming page for"
 msgstr "{video}の無料楽曲配信ページ"
 
-#: DB:link_type/name:85 DB:link_type/name:268 DB:link_type/name:194
+#: DB:link_type/name:997 DB:link_type/name:85 DB:link_type/name:268
+#: DB:link_type/name:194
 msgid "free streaming"
 msgstr ""
 
@@ -4185,7 +4200,7 @@ msgstr ""
 msgid "has Amazon ASIN"
 msgstr "のAmazon ASINは"
 
-#: DB:link_type/long_link_phrase:719 DB:link_type/long_link_phrase:718
+#: DB:link_type/long_link_phrase:718 DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
 msgstr "のBandcampページのURLは"
 
@@ -4452,7 +4467,8 @@ msgstr ""
 
 #: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:802
 #: DB:link_type/reverse_link_phrase:742 DB:link_type/reverse_link_phrase:740
-#: DB:link_type/reverse_link_phrase:741 DB:link_type/long_link_phrase:818
+#: DB:link_type/reverse_link_phrase:741 DB:link_type/reverse_link_phrase:996
+#: DB:link_type/long_link_phrase:818
 msgid "has parts"
 msgstr ""
 
@@ -4676,6 +4692,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:802 DB:link_type/long_link_phrase:742
 #: DB:link_type/long_link_phrase:740 DB:link_type/long_link_phrase:741
+#: DB:link_type/long_link_phrase:996
 msgid "is a part of"
 msgstr ""
 
@@ -4699,7 +4716,7 @@ msgstr ""
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
 "recording of"
-msgstr ""
+msgstr "で{live} {medley:medley including a} {partial} {instrumental} {cover}レコーディングした作品は"
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -5192,12 +5209,12 @@ msgstr ""
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
 #: DB:link_type/link_phrase:25
 msgid "miscellaneous roles"
-msgstr ""
+msgstr "その他の役割"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
 #: DB:link_type/reverse_link_phrase:25
 msgid "miscellaneous support"
-msgstr ""
+msgstr "その他のサポート"
 
 #: DB:link_type/name:143 DB:link_type/name:26
 msgid "mix"
@@ -5242,13 +5259,13 @@ msgstr "楽曲の無料ダウンロード"
 
 #: DB:link_type/long_link_phrase:959 DB:link_type/long_link_phrase:176
 msgid "music can be purchased for download at"
-msgstr ""
+msgstr "の曲をダウンロード販売しているURLは"
 
 #: DB:link_type/long_link_phrase:960 DB:link_type/long_link_phrase:175
 msgid "music can be purchased for mail-order at"
-msgstr ""
+msgstr "の曲を通信販売しているURLは"
 
-#: DB:link_type/long_link_phrase:194
+#: DB:link_type/long_link_phrase:997 DB:link_type/long_link_phrase:194
 msgid "music can be streamed for free at"
 msgstr "楽曲の無料配信先"
 
@@ -5324,7 +5341,7 @@ msgstr "次の公式ホームページ"
 #: DB:link_type/link_phrase:183 DB:link_type/link_phrase:219
 #: DB:link_type/link_phrase:363
 msgid "official homepages"
-msgstr ""
+msgstr "公式ホームページ"
 
 #: DB:link_type/name:219
 msgid "official site"
@@ -5465,8 +5482,9 @@ msgstr "パロディー"
 
 #: DB:link_type/link_phrase:802 DB:link_type/link_phrase:742
 #: DB:link_type/link_phrase:740 DB:link_type/link_phrase:741
-#: DB:link_type/name:802 DB:link_type/name:356 DB:link_type/name:743
-#: DB:link_type/name:742 DB:link_type/name:740 DB:link_type/name:741
+#: DB:link_type/link_phrase:996 DB:link_type/name:802 DB:link_type/name:356
+#: DB:link_type/name:743 DB:link_type/name:742 DB:link_type/name:740
+#: DB:link_type/name:741 DB:link_type/name:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
 #: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
@@ -5534,11 +5552,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
 msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
-msgstr ""
+msgstr "が{additional:補助的に} {guest} {solo} {instrument:%|instruments}を演奏した"
 
 #: DB:link_type/long_link_phrase:60 DB:link_type/long_link_phrase:149
 msgid "performed {additional} {guest} {solo} {vocal:%|vocals} on"
-msgstr ""
+msgstr "が{additional:補助的に} {guest} {solo} {vocal:%|歌唱}した"
 
 #: DB:link_type/name:51 DB:link_type/name:156
 msgid "performer"
@@ -5645,7 +5663,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:845
 msgid "premieres"
-msgstr ""
+msgstr "初演"
 
 #: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
 msgid "premieres hosted"
@@ -5731,11 +5749,11 @@ msgstr "プロデューサー"
 
 #: DB:link_type/link_phrase:117 DB:link_type/name:117
 msgid "producer position"
-msgstr ""
+msgstr "プロデューサーポジション"
 
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
-msgstr ""
+msgstr "プロデューサー"
 
 #: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
 #: DB:link_type/link_phrase:59 DB:link_type/link_phrase:72
@@ -6186,7 +6204,7 @@ msgstr "次のスタンドアロンウェブサイト"
 msgid "step"
 msgstr ""
 
-#: DB:link_type/link_phrase:194
+#: DB:link_type/link_phrase:997 DB:link_type/link_phrase:194
 msgid "stream for free"
 msgstr "無料配信"
 
@@ -6782,13 +6800,13 @@ msgstr ""
 #: DB:link_type/link_phrase:143 DB:link_type/link_phrase:26
 #: DB:link_type/long_link_phrase:143 DB:link_type/long_link_phrase:26
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
-msgstr ""
+msgstr "が{additional:補助的に} {assistant} {associate} {co:co-}mixしたのは"
 
 #: DB:link_type/link_phrase:133 DB:link_type/link_phrase:29
 #: DB:link_type/long_link_phrase:133 DB:link_type/long_link_phrase:29
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
-msgstr ""
+msgstr "{additional:補助的な} {assistant} {associate} {co:co-}サウンドエンジニア"
 
 #: DB:link_type/link_phrase:138 DB:link_type/link_phrase:28
 #: DB:link_type/long_link_phrase:138 DB:link_type/long_link_phrase:28
@@ -6802,7 +6820,7 @@ msgstr ""
 msgid ""
 "{additional:additionally} {assistant} {associate} "
 "{co:co-}{executive:executive }produced"
-msgstr ""
+msgstr "が{additional:補助的に} {assistant} {associate} {co:co-}{executive:executive }プロデュースしているのは"
 
 #: DB:link_type/long_link_phrase:42
 msgid "{additional:additionally} {assistant} {associate} {co:co-}{re}mastered"
@@ -6812,7 +6830,7 @@ msgstr ""
 #: DB:link_type/link_phrase:293 DB:link_type/long_link_phrase:297
 #: DB:link_type/long_link_phrase:295 DB:link_type/long_link_phrase:293
 msgid "{additional:additionally} {co:co-}arranged"
-msgstr ""
+msgstr "が{additional:補助的に} {co:co-}編曲したのは"
 
 #: DB:link_type/long_link_phrase:158 DB:link_type/long_link_phrase:41
 #: DB:link_type/long_link_phrase:282
@@ -7164,7 +7182,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:312
 msgid "{entity1} has VIAF ID at {entity0}"
-msgstr ""
+msgstr "{entity1}のVIAF IDは{entity0}です"
 
 #: DB:link_type/long_link_phrase:854
 msgid "{entity1} has a BookBrainz page at {entity0}"
@@ -7184,7 +7202,7 @@ msgstr "{entity1}のSongfactsページは{entity0}です"
 
 #: DB:link_type/long_link_phrase:992
 msgid "{entity1} has a VGMdb page at {entity0}"
-msgstr ""
+msgstr "{entity1}のIMDbページは{entity0}です"
 
 #: DB:link_type/long_link_phrase:351
 msgid "{entity1} has a Wikidata page at {entity0}"

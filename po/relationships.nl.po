@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-14 20:46+0000\n"
+"PO-Revision-Date: 2021-05-27 14:33+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -97,11 +97,11 @@ msgstr "BBC Music-pagina"
 msgid "BBC Music page for"
 msgstr "BBC Music-pagina over"
 
-#: DB:link_type/link_phrase:719 DB:link_type/link_phrase:718
+#: DB:link_type/link_phrase:718 DB:link_type/link_phrase:719
 msgid "Bandcamp"
 msgstr "Bandcamp"
 
-#: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
+#: DB:link_type/reverse_link_phrase:718 DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
 msgstr "Bandcamppagina van"
 
@@ -410,6 +410,10 @@ msgstr "Geeft aan dat een evenement een uitvoering van een specifieke uitgavegro
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
 msgstr "Geeft aan dat één object een cover is van een ander object."
+
+#: DB:link_type/description:996
+msgid "Indicates that the artist is part of a series."
+msgstr ""
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
@@ -2866,6 +2870,12 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr "Deze relatie wordt gebruikt om aan te geven dat een uitgavegroep een coverversie van een andere uitgavegroep is, bijvoorbeeld als een artiest een nieuwe versie van het album van een andere artiest maakt.<br/>\nZie voor individuele nummers de <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">relatie voor de uitvoering van een compositie</a>."
 
+#: DB:link_type/description:997
+msgid ""
+"This relationship type is used to link a label to a site where music can be "
+"legally streamed for free, e.g. Spotify."
+msgstr ""
+
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
 msgstr "Deze relatie koppelt een platenmaatschappij aan haar weblog."
@@ -3448,7 +3458,7 @@ msgstr "achtergrondvocalen"
 msgid "balance"
 msgstr "balans"
 
-#: DB:link_type/name:719 DB:link_type/name:718
+#: DB:link_type/name:718 DB:link_type/name:719
 msgid "bandcamp"
 msgstr "Bandcamp"
 
@@ -3868,7 +3878,7 @@ msgid "directed video"
 msgstr "regisseerde videoclip"
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
-#: DB:link_type/name:88 DB:link_type/name:171 DB:link_type/name:184
+#: DB:link_type/name:88 DB:link_type/name:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
 #: DB:link_type/long_link_phrase:88 DB:link_type/long_link_phrase:171
 msgid "discography"
@@ -3881,6 +3891,10 @@ msgstr "discografisch lemma"
 #: DB:link_type/reverse_link_phrase:288
 msgid "discography entry for"
 msgstr "discografisch lemma over"
+
+#: DB:link_type/name:184
+msgid "discography page"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:184
 msgid "discography page for"
@@ -4079,7 +4093,7 @@ msgstr "gratis downloadpagina van"
 msgid "free download page for the score of"
 msgstr "gratis downloadpagina voor de bladmuziek van"
 
-#: DB:link_type/reverse_link_phrase:194
+#: DB:link_type/reverse_link_phrase:997 DB:link_type/reverse_link_phrase:194
 msgid "free music streaming page for"
 msgstr "gratis muziekstreamingpagina van"
 
@@ -4087,7 +4101,8 @@ msgstr "gratis muziekstreamingpagina van"
 msgid "free music {video} streaming page for"
 msgstr "gratis muziek{video} streamingpagina van"
 
-#: DB:link_type/name:85 DB:link_type/name:268 DB:link_type/name:194
+#: DB:link_type/name:997 DB:link_type/name:85 DB:link_type/name:268
+#: DB:link_type/name:194
 msgid "free streaming"
 msgstr "gratis streamen"
 
@@ -4184,7 +4199,7 @@ msgstr "half"
 msgid "has Amazon ASIN"
 msgstr "heeft Amazon-ASIN"
 
-#: DB:link_type/long_link_phrase:719 DB:link_type/long_link_phrase:718
+#: DB:link_type/long_link_phrase:718 DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
 msgstr "heeft een Bandcamppagina op"
 
@@ -4451,7 +4466,8 @@ msgstr "heeft deel"
 
 #: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:802
 #: DB:link_type/reverse_link_phrase:742 DB:link_type/reverse_link_phrase:740
-#: DB:link_type/reverse_link_phrase:741 DB:link_type/long_link_phrase:818
+#: DB:link_type/reverse_link_phrase:741 DB:link_type/reverse_link_phrase:996
+#: DB:link_type/long_link_phrase:818
 msgid "has parts"
 msgstr "heeft delen"
 
@@ -4675,6 +4691,7 @@ msgstr "is een pagina in een database van"
 
 #: DB:link_type/long_link_phrase:802 DB:link_type/long_link_phrase:742
 #: DB:link_type/long_link_phrase:740 DB:link_type/long_link_phrase:741
+#: DB:link_type/long_link_phrase:996
 msgid "is a part of"
 msgstr "is een deel van"
 
@@ -5247,7 +5264,7 @@ msgstr "muziek kan tegen betaling worden gedownload van"
 msgid "music can be purchased for mail-order at"
 msgstr "muziek kan worden gekocht voor postorder op"
 
-#: DB:link_type/long_link_phrase:194
+#: DB:link_type/long_link_phrase:997 DB:link_type/long_link_phrase:194
 msgid "music can be streamed for free at"
 msgstr "muziek kan gratis worden gestreamd op"
 
@@ -5464,8 +5481,9 @@ msgstr "parodie"
 
 #: DB:link_type/link_phrase:802 DB:link_type/link_phrase:742
 #: DB:link_type/link_phrase:740 DB:link_type/link_phrase:741
-#: DB:link_type/name:802 DB:link_type/name:356 DB:link_type/name:743
-#: DB:link_type/name:742 DB:link_type/name:740 DB:link_type/name:741
+#: DB:link_type/link_phrase:996 DB:link_type/name:802 DB:link_type/name:356
+#: DB:link_type/name:743 DB:link_type/name:742 DB:link_type/name:740
+#: DB:link_type/name:741 DB:link_type/name:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
 #: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
@@ -6185,7 +6203,7 @@ msgstr "eigen website van"
 msgid "step"
 msgstr "stief"
 
-#: DB:link_type/link_phrase:194
+#: DB:link_type/link_phrase:997 DB:link_type/link_phrase:194
 msgid "stream for free"
 msgstr "gratis streamen"
 

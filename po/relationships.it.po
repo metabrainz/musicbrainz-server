@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-15 10:38+0000\n"
+"PO-Revision-Date: 2021-05-27 22:57+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -100,11 +100,11 @@ msgstr "pagina di BBC Music"
 msgid "BBC Music page for"
 msgstr "pagina di BBC Music su"
 
-#: DB:link_type/link_phrase:719 DB:link_type/link_phrase:718
+#: DB:link_type/link_phrase:718 DB:link_type/link_phrase:719
 msgid "Bandcamp"
 msgstr "Bandcamp"
 
-#: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
+#: DB:link_type/reverse_link_phrase:718 DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
 msgstr "pagina di Bandcamp su"
 
@@ -413,6 +413,10 @@ msgstr "Indica che un evento era inteso come esibizione di uno specifico gruppo 
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
 msgstr "Indica che un'entità è una cover di un'altra entità."
+
+#: DB:link_type/description:996
+msgid "Indicates that the artist is part of a series."
+msgstr "Indica che l'artista è parte di una serie."
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
@@ -2869,6 +2873,12 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr "Questo tipo di relazione serve a indicare che un gruppo di pubblicazioni è una cover di un altro gruppo di pubblicazioni, cioè che un artista ha eseguito una nuova interpretazione dell'album di un altro artista.<br/>\nPer canzoni singole, utilizza il <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">tipo di relazione esecuzione registrazione-opera</a>."
 
+#: DB:link_type/description:997
+msgid ""
+"This relationship type is used to link a label to a site where music can be "
+"legally streamed for free, e.g. Spotify."
+msgstr "Questo tipo di relazione serve a collegare un'etichetta ad un sito su cui la sua musica è disponibile in streaming gratuito in modo legale, per es. Spotify."
+
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
 msgstr "Questo tipo di relazione può essere usato per collegare un'etichetta al suo blog."
@@ -3451,7 +3461,7 @@ msgstr "vocali di sottofondo"
 msgid "balance"
 msgstr "bilanciamento"
 
-#: DB:link_type/name:719 DB:link_type/name:718
+#: DB:link_type/name:718 DB:link_type/name:719
 msgid "bandcamp"
 msgstr "bandcamp"
 
@@ -3871,7 +3881,7 @@ msgid "directed video"
 msgstr "ha diretto il video"
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
-#: DB:link_type/name:88 DB:link_type/name:171 DB:link_type/name:184
+#: DB:link_type/name:88 DB:link_type/name:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
 #: DB:link_type/long_link_phrase:88 DB:link_type/long_link_phrase:171
 msgid "discography"
@@ -3884,6 +3894,10 @@ msgstr "voce della discografia"
 #: DB:link_type/reverse_link_phrase:288
 msgid "discography entry for"
 msgstr "voce della discografia per"
+
+#: DB:link_type/name:184
+msgid "discography page"
+msgstr "pagina di discografia"
 
 #: DB:link_type/reverse_link_phrase:184
 msgid "discography page for"
@@ -4082,7 +4096,7 @@ msgstr "pagina di download gratuito per"
 msgid "free download page for the score of"
 msgstr "pagina di download gratuito per la partitura di"
 
-#: DB:link_type/reverse_link_phrase:194
+#: DB:link_type/reverse_link_phrase:997 DB:link_type/reverse_link_phrase:194
 msgid "free music streaming page for"
 msgstr "pagina di streaming musicale gratuito per"
 
@@ -4090,7 +4104,8 @@ msgstr "pagina di streaming musicale gratuito per"
 msgid "free music {video} streaming page for"
 msgstr "pagina di streaming {video} musicale gratuito per"
 
-#: DB:link_type/name:85 DB:link_type/name:268 DB:link_type/name:194
+#: DB:link_type/name:997 DB:link_type/name:85 DB:link_type/name:268
+#: DB:link_type/name:194
 msgid "free streaming"
 msgstr "streaming gratuito"
 
@@ -4187,7 +4202,7 @@ msgstr "-astro (con legame di sangue)"
 msgid "has Amazon ASIN"
 msgstr "ha l'ASIN di Amazon"
 
-#: DB:link_type/long_link_phrase:719 DB:link_type/long_link_phrase:718
+#: DB:link_type/long_link_phrase:718 DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
 msgstr "ha la pagina di Bandcamp"
 
@@ -4454,7 +4469,8 @@ msgstr "ha la parte"
 
 #: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:802
 #: DB:link_type/reverse_link_phrase:742 DB:link_type/reverse_link_phrase:740
-#: DB:link_type/reverse_link_phrase:741 DB:link_type/long_link_phrase:818
+#: DB:link_type/reverse_link_phrase:741 DB:link_type/reverse_link_phrase:996
+#: DB:link_type/long_link_phrase:818
 msgid "has parts"
 msgstr "ha le parti"
 
@@ -4678,6 +4694,7 @@ msgstr "è una pagina di database su"
 
 #: DB:link_type/long_link_phrase:802 DB:link_type/long_link_phrase:742
 #: DB:link_type/long_link_phrase:740 DB:link_type/long_link_phrase:741
+#: DB:link_type/long_link_phrase:996
 msgid "is a part of"
 msgstr "è una parte di"
 
@@ -5250,7 +5267,7 @@ msgstr "musica scaricabile a pagamento su"
 msgid "music can be purchased for mail-order at"
 msgstr "musica acquistabile per corrispondenza su"
 
-#: DB:link_type/long_link_phrase:194
+#: DB:link_type/long_link_phrase:997 DB:link_type/long_link_phrase:194
 msgid "music can be streamed for free at"
 msgstr "musica disponibile in streaming gratuito su"
 
@@ -5467,8 +5484,9 @@ msgstr "parodia"
 
 #: DB:link_type/link_phrase:802 DB:link_type/link_phrase:742
 #: DB:link_type/link_phrase:740 DB:link_type/link_phrase:741
-#: DB:link_type/name:802 DB:link_type/name:356 DB:link_type/name:743
-#: DB:link_type/name:742 DB:link_type/name:740 DB:link_type/name:741
+#: DB:link_type/link_phrase:996 DB:link_type/name:802 DB:link_type/name:356
+#: DB:link_type/name:743 DB:link_type/name:742 DB:link_type/name:740
+#: DB:link_type/name:741 DB:link_type/name:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
 #: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
@@ -6188,7 +6206,7 @@ msgstr "sito web a sé stante per"
 msgid "step"
 msgstr "-astro (senza legame di sangue)"
 
-#: DB:link_type/link_phrase:194
+#: DB:link_type/link_phrase:997 DB:link_type/link_phrase:194
 msgid "stream for free"
 msgstr "streaming gratuito"
 

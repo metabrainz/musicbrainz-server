@@ -976,7 +976,7 @@ sub get_entity_link_type_counts {
     return $data if defined $data;
 
     my $rows = $self->sql->select_list_of_hashes(
-        'SELECT link.link_type, count(*) as l_count ' .
+        'SELECT link.link_type, count(*) AS l_count ' .
         "FROM l_${type0}_${type1} r " .
         'JOIN link ON r.link = link.id ' .
         "WHERE r.$side = ? " .

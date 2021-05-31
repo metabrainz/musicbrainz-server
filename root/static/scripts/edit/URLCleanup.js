@@ -205,6 +205,7 @@ export const LINK_TYPES = {
   },
   streamingfree: {
     artist: '769085a1-c2f7-4c24-a532-2375a77693bd',
+    label: '5b3d2907-5cd0-459b-9a33-d4398a544388',
     recording: '7e41ef12-a124-4324-afdb-fdbae687a89c',
     release: '08445ccf-7b99-4438-9f9a-fb9ac18099ee',
   },
@@ -1363,6 +1364,7 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?d-nb\.info\//, 'http://d-nb.info/');
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
       return url;
@@ -1370,9 +1372,76 @@ const CLEANUPS = {
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
+        case LINK_TYPES.otherdatabases.place:
           return {result: /^http:\/\/d-nb\.info\/gnd\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
+        case LINK_TYPES.otherdatabases.label:
+          return {result: /^http:\/\/d-nb\.info\/(dnbn|gnd)\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
         case LINK_TYPES.otherdatabases.release:
           return {result: /^http:\/\/d-nb\.info\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url)};
+      }
+      return {result: false};
+    },
+  },
+  'dogmazic': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?(dogmazic\\.net)', 'i')],
+    type: LINK_TYPES.streamingfree,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/(?:(?:play|www)\.)?dogmazic\.net\//, 'https://play.dogmazic.net/');
+      // Drop one-word fragments such as '#albums' used for list display
+      url = url.replace(/^(https:\/\/play\.dogmazic\.net)\/([^#]+)#(?:\w+)?$/, '$1/$2');
+      // Drop current path when fragment contains a path to a PHP script
+      url = url.replace(/^(https:\/\/play\.dogmazic\.net)\/(?:[^#]+)#(\w+\.php)/, '$1/$2');
+      // Drop parents in path
+      url = url.replace(/^(https:\/\/play\.dogmazic\.net)\/(?:[^?#]+)\/(\w+\.php)/, '$1/$2');
+      // Overwrite path and query after query parameter with numeric value
+      const m = /^(https:\/\/play\.dogmazic\.net)\/\w+\.php\?(?:[^#]+&)?[\w%]+=([\w%]+)&([\w%]+)=(\d+)/.exec(url);
+      if (m) {
+        const host = m[1];
+        const type = m[2];
+        const key = m[3];
+        const value = m[4];
+        switch (key) {
+          case 'album':
+            return `${host}/albums.php?action=show&${key}=${value}`;
+          case 'artist':
+            return `${host}/artists.php?action=show&${key}=${value}`;
+          case 'label':
+            return `${host}/labels.php?action=show&${key}=${value}`;
+          case 'song_id':
+            return `${host}/song.php?action=show&${key}=${value}`;
+          case 'id':
+          case 'id%5B0%5D':
+          case 'object_id':
+          case 'oid':
+            switch (type) {
+              case 'album':
+                return `${host}/albums.php?action=show&${type}=${value}`;
+              case 'artist':
+                return `${host}/artists.php?action=show&${type}=${value}`;
+              case 'label':
+                return `${host}/labels.php?action=show&${type}=${value}`;
+              case 'song':
+                return `${host}/song.php?action=show&song_id=${value}`;
+            }
+        }
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/play\.dogmazic\.net\/(\w+)\.php\?action=show&(\w+)=\d+$/.exec(url);
+      if (m) {
+        const path = m[1];
+        const query = m[2];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {result: path === 'artists' && query === 'artist'};
+          case LINK_TYPES.streamingfree.label:
+            return {result: path === 'labels' && query === 'label'};
+          case LINK_TYPES.streamingfree.release:
+            return {result: path === 'albums' && query === 'album'};
+          case LINK_TYPES.streamingfree.recording:
+            return {result: path === 'song' && query === 'song_id'};
+        }
       }
       return {result: false};
     },

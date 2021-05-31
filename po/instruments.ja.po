@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-17 15:36+0000\n"
+"PO-Revision-Date: 2021-05-23 09:12+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -320,7 +320,7 @@ msgstr "アケテ"
 #: DB:instrument/name:1029
 msgctxt "German keyed box zither"
 msgid "akkordolia"
-msgstr ""
+msgstr "アコルドリア"
 
 #: DB:instrument/name:718
 msgid "alfaia"
@@ -2218,7 +2218,7 @@ msgstr "キー式金管楽器"
 #: DB:instrument/name:774
 msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
-msgstr ""
+msgstr "ショルダーキーボード"
 
 #: DB:instrument/name:611
 msgid "khene"
@@ -2585,7 +2585,7 @@ msgstr ""
 
 #: DB:instrument/name:610
 msgid "mouth organ"
-msgstr ""
+msgstr "ハーモニカ"
 
 #: DB:instrument/name:475
 msgid "mridangam"
@@ -2606,7 +2606,7 @@ msgstr "楽弓"
 
 #: DB:instrument/name:464
 msgid "musical box"
-msgstr ""
+msgstr "オルゴール"
 
 #: DB:instrument/name:145
 msgctxt "Bowed metal plaque idiophone"
@@ -2653,7 +2653,7 @@ msgstr "ナチュラル・トランペット"
 
 #: DB:instrument/name:540
 msgid "ney"
-msgstr ""
+msgstr "ナーイ"
 
 #: DB:instrument/name:783
 msgctxt "Māori taonga pūoro small vessel flute"
@@ -4015,7 +4015,7 @@ msgstr ""
 
 #: DB:instrument/name:330
 msgid "udu"
-msgstr ""
+msgstr "ウドゥ"
 
 #: DB:instrument/name:967
 msgctxt "Deep pitch gangsa used in Balinese gamelan"
@@ -4196,11 +4196,11 @@ msgstr "ウォッシュボード"
 
 #: DB:instrument/name:96
 msgid "washtub bass"
-msgstr ""
+msgstr "ウォッシュタブ・ベース"
 
 #: DB:instrument/name:280
 msgid "waterphone"
-msgstr ""
+msgstr "ウォーターフォン"
 
 #: DB:instrument/name:374
 msgid "wavedrum"

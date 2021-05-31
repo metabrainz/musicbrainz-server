@@ -88,16 +88,16 @@ test 'All tests' => sub {
 
     {
         # Do with autocommit
-        like(exception { $sql->do('SELECT 1 from tag') },
+        like(exception { $sql->do('SELECT 1 FROM tag') },
            qr/do called while not in transaction, or marked to auto commit/,
            'must be in some sort of transaction');
 
         $sql->auto_commit(1);
-        ok !exception { $sql->do('SELECT 1 from tag') }, 'can do queries with auto commit';
+        ok !exception { $sql->do('SELECT 1 FROM tag') }, 'can do queries with auto commit';
         is($sql->_auto_commit, 0, 'do should invalidate autocommit');
 
         $sql->auto_commit(1);
-        ok !exception { $sql->do('SELECT 1 from tag WHERE id = ?', 1) }, 'can do queries with binds';
+        ok !exception { $sql->do('SELECT 1 FROM tag WHERE id = ?', 1) }, 'can do queries with binds';
 
         $sql->auto_commit(1);
         ok exception { $sql->do('Absolute nonsense') }, 'do throws on an SQL exception';

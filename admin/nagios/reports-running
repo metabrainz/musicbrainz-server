@@ -14,7 +14,7 @@ use Pod::Usage;
 my $c = MusicBrainz::Server::Context->create_script_context;
 my $res = $c->sql->select_single_row_array(
     "
-SELECT extract(day from date_trunc('day', now() - min(generated_at))) as days_old
+SELECT extract(day FROM date_trunc('day', now() - min(generated_at))) AS days_old
 FROM report.index
      ")
     or critical('Failed to determine when reports last ran');

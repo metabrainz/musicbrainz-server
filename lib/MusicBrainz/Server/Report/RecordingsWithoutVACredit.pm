@@ -12,7 +12,7 @@ sub query {
             r.id AS recording_id,
             row_number() OVER (ORDER BY r.artist_credit, r.name)
         FROM recording r
-        JOIN artist_credit_name acn on acn.artist_credit = r.artist_credit
+        JOIN artist_credit_name acn ON acn.artist_credit = r.artist_credit
         WHERE acn.artist = $VARTIST_ID AND acn.name != 'Various Artists'
     ";
 }

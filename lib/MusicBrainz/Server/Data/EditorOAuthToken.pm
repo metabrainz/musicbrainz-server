@@ -103,7 +103,7 @@ sub delete_editor
     my ($self, $editor_id) = @_;
     $self->sql->do("DELETE FROM editor_oauth_token WHERE editor = ?", $editor_id);
     $self->sql->do("DELETE FROM editor_oauth_token WHERE application IN ".
-        "(SELECT id from application WHERE owner = ?)", $editor_id);
+        "(SELECT id FROM application WHERE owner = ?)", $editor_id);
 }
 
 sub create_authorization_code
