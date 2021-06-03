@@ -199,6 +199,7 @@ module.exports = {
   'report/IswcsWithManyWorks': require('../report/IswcsWithManyWorks'),
   'report/LabelsDisambiguationSameName': require('../report/LabelsDisambiguationSameName'),
   'report/LimitedEditors': require('../report/LimitedEditors'),
+  'report/LinksWithMultipleEntities': require('../report/LinksWithMultipleEntities'),
   'report/MediumsWithSequenceIssues': require('../report/MediumsWithSequenceIssues'),
   'report/MultipleAsins': require('../report/MultipleAsins'),
   'report/MultipleDiscogsLinks': require('../report/MultipleDiscogsLinks'),
