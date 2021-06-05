@@ -227,6 +227,7 @@ export class ExternalLinksEditor
         <tbody>
           {linksArray.map((link, index) => {
             let error;
+            let errorTarget: ErrorTarget;
             const linkType = link.type
               ? linkedEntities.link_type[link.type] : {};
             const checker = URLCleanup.validationRules[linkType.gid];
@@ -241,39 +242,55 @@ export class ExternalLinksEditor
               error = '';
             } else if (!link.url) {
               error = l('Required field.');
+              errorTarget = URLCleanup.ERROR_TARGETS.URL;
             } else if (isNewOrChangedLink && !isValidURL(link.url)) {
               error = l('Enter a valid url e.g. "http://google.com/"');
+              errorTarget = URLCleanup.ERROR_TARGETS.URL;
             } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
               error = l(`Links to MusicBrainz URLs are not allowed.
                          Did you mean to paste something else?`);
+              errorTarget = URLCleanup.ERROR_TARGETS.URL;
             } else if (isNewOrChangedLink && isMalware(link.url)) {
               error = l(`Links to this website are not allowed
                          because it is known to host malware.`);
+              errorTarget = URLCleanup.ERROR_TARGETS.URL;
             } else if (isNewOrChangedLink && isShortened(link.url)) {
               error = l(`Please don’t enter bundled/shortened URLs,
                          enter the destination URL(s) instead.`);
+              errorTarget = URLCleanup.ERROR_TARGETS.URL;
             } else if (isNewOrChangedLink && isGoogleAmp(link.url)) {
               error = l(`Please don’t enter Google AMP links,
                          since they are effectively an extra redirect.
                          Enter the destination URL instead.`);
+              errorTarget = URLCleanup.ERROR_TARGETS.URL;
             } else if (!link.type) {
               error = l(`Please select a link type for the URL
                          you’ve entered.`);
+              errorTarget = URLCleanup.ERROR_TARGETS.RELATIONSHIP;
             } else if (
               linkType.deprecated && (isNewLink || linkTypeChanged)
             ) {
               error = l(`This relationship type is deprecated 
                          and should not be used.`);
+              errorTarget = URLCleanup.ERROR_TARGETS.RELATIONSHIP;
             } else if (
               (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1
             ) {
               error = l('This relationship already exists.');
+              errorTarget = URLCleanup.ERROR_TARGETS.RELATIONSHIP;
             } else if (isNewOrChangedLink && checker) {
               const check = checker(link.url);
               if (!check.result) {
-                error = check.error ||
-                  l(`This URL is not allowed for the selected link type, 
-                     or is incorrectly formatted.`);
+                errorTarget = check.target ||
+                  URLCleanup.ERROR_TARGETS.NONE;
+                if (errorTarget === URLCleanup.ERROR_TARGETS.URL) {
+                  error = l(`This URL is incorrectly formatted.`);
+                }
+                if (errorTarget === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
+                  error = l(`This URL is not allowed 
+                             for the selected link type.`);
+                }
+                error = check.error || error;
               }
             }
 
@@ -284,6 +301,7 @@ export class ExternalLinksEditor
             return (
               <ExternalLink
                 errorMessage={error || ''}
+                errorTarget={errorTarget}
                 handleUrlBlur={
                   this.handleUrlBlur.bind(this, index)
                 }
@@ -339,8 +357,11 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
   }
 }
 
+type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
+
 type LinkProps = {
   errorMessage: React.Node,
+  errorTarget: ErrorTarget,
   handleUrlBlur: (number, SyntheticEvent<HTMLInputElement>) => void,
   handleUrlChange: (number, SyntheticEvent<HTMLInputElement>) => void,
   handleVideoChange:
@@ -437,9 +458,14 @@ export class ExternalLink extends React.Component<LinkProps> {
             value={props.url}
           />
           {props.errorMessage &&
-            <div className="error field-error" data-visible="1">
-              {props.errorMessage}
-            </div>}
+            <>
+              <div className="error field-error" data-visible="1">
+                {props.errorMessage}
+              </div>
+              <div className="error-target">
+                {`(${props.errorTarget})`}
+              </div>
+            </>}
           {linkType &&
             hasOwnProp(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
             <div className="attribute-container">
