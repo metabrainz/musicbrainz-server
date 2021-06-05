@@ -41,7 +41,18 @@ around serialize => sub {
         if (@members) {
             my %seen_members;
             for my $member (@members) {
-                $seen_members{$member->target->gid} = member_relationship($member, $inc, $stash, $seen_members{$member->target->gid});
+                # We separate different dates, but keep together
+                # different roles with the same dates
+                my $key = $member->target->gid;
+                my $begin_date = $member->link->begin_date;
+                my $end_date = $member->link->end_date;
+                if ($begin_date && $begin_date->defined_run) {
+                    $key .= '-begin-' . join('-', $begin_date->defined_run);
+                }
+                if ($end_date && $end_date->defined_run) {
+                    $key .= '-end-' . join('-', $end_date->defined_run);
+                }
+                $seen_members{$key} = member_relationship($member, $inc, $stash, $seen_members{$key});
             }
             $ret->{member} = [ map { $seen_members{$_} } sort keys %seen_members ];
         }
@@ -83,20 +94,15 @@ sub member_relationship {
         $is_new = 1;
     }
 
-    # XXX: given two rels with different dates, this assumes it should take the
-    # earliest start date and the latest end date, assuming undef as
-    # indefinitely in the future. This may not be correct, as different roles
-    # may have different dates associated with them, but it seems likely to be
-    # the most accurate representation of the membership dates
-    if ($relationship->link->begin_date && $relationship->link->begin_date->defined_run) {
+    if ($is_new && $relationship->link->begin_date && $relationship->link->begin_date->defined_run) {
         my @run = $relationship->link->begin_date->defined_run;
         my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
-        $ret->{startDate} = $date->format if ($is_new || !$ret->{startDate} || PartialDate->new($ret->{startDate}) > $date);
+        $ret->{startDate} = $date->format;
     }
-    if ($relationship->link->end_date && $relationship->link->end_date->defined_run) {
+    if ($is_new && $relationship->link->end_date && $relationship->link->end_date->defined_run) {
         my @run = $relationship->link->end_date->defined_run;
         my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
-        $ret->{endDate} = $date->format if ($is_new || ($ret->{endDate} && PartialDate->new($ret->{endDate}) < $date));
+        $ret->{endDate} = $date->format;
     }
 
     # XXX: role names are instruments (or, where available, credits), not

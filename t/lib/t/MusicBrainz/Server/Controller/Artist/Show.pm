@@ -120,10 +120,15 @@ test 'Embedded JSON-LD `member` property' => sub {
                (3, 'efac67ce-33ae-4949-8fc8-3d2aeafcbefb', 'Person B', 'Person B');
 
     INSERT INTO link (id, link_type, begin_date_year, end_date_year)
-        VALUES (1, 103, 2001, 2002), (2, 103, 1999, 2002);
+        VALUES (1, 103, 2001, 2002), (2, 103, 1999, 2002),
+               (3, 103, 1999, 2002), (4, 103, 2005, NULL);
 
     INSERT INTO l_artist_artist (id, link, entity0, entity1, entity0_credit)
-        VALUES (1, 1, 2, 1, 'A.'), (2, 2, 3, 1, 'B.');
+        VALUES (1, 1, 2, 1, 'A.'), (2, 2, 3, 1, 'B.'),
+               (3, 3, 3, 1, 'B.'), (4, 4, 3, 1, 'B.');
+
+    INSERT INTO link_attribute (link, attribute_type)
+        VALUES (2, 229), (3, 125), (4, 229);
 EOSQL
 
     $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
@@ -152,7 +157,17 @@ EOSQL
                 'endDate' => '2002',
                 '@type' => 'OrganizationRole',
                 'startDate' => '1999',
-                'roleName' => []
+                'roleName' => ['guitar','drums']
+            },
+            {
+                'member' => {
+                    '@id' => 'http://musicbrainz.org/artist/efac67ce-33ae-4949-8fc8-3d2aeafcbefb',
+                    'name' => 'Person B',
+                    '@type' => 'MusicGroup'
+                },
+                '@type' => 'OrganizationRole',
+                'startDate' => '2005',
+                'roleName' => 'guitar'
             }
         ],
         '@context' => 'http://schema.org'
