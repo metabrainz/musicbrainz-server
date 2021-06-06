@@ -56,10 +56,10 @@ const AddRelationshipType = ({
 
   // Always display entity placeholders for ease of understanding
   let longLinkPhrase = display.long_link_phrase;
-  if (longLinkPhrase && !longLinkPhrase.match('{entity0}')) {
+  if (longLinkPhrase && !longLinkPhrase.includes('{entity0}')) {
     longLinkPhrase = '{entity0} ' + longLinkPhrase;
   }
-  if (longLinkPhrase && !longLinkPhrase.match('{entity1}')) {
+  if (longLinkPhrase && !longLinkPhrase.includes('{entity1}')) {
     longLinkPhrase += ' {entity1}';
   }
 
