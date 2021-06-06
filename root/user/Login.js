@@ -41,7 +41,7 @@ const Login = ({
   loginForm,
   postParameters,
 }: PropsT): React$Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Log In')}>
+  <Layout fullWidth title={l('Log In')}>
     <h1>{l('Log In')}</h1>
 
     {isLoginRequired ? (

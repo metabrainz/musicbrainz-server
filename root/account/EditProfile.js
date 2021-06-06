@@ -33,7 +33,6 @@ const EditProfile = ({
   }
   return (
     <UserAccountLayout
-      $c={$c}
       entity={sanitizedAccountLayoutUser(user)}
       page="edit_profile"
       title={l('Edit Profile')}

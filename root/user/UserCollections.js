@@ -160,7 +160,6 @@ const UserCollections = ({
 
   return (
     <UserAccountLayout
-      $c={$c}
       entity={user}
       page="collections"
       title={l('Collections')}

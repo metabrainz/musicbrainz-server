@@ -17,7 +17,6 @@ import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities';
 
 type Props = {
-  +$c: CatalystContextT,
   +artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
   +children: React.Node,
   +page: string,
@@ -33,14 +32,12 @@ const tabLinks: $ReadOnlyArray<[string, () => string]> = [
 ];
 
 const ArtistCreditLayout = ({
-  $c,
   artistCredit,
   children,
   page,
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
-    $c={$c}
     fullWidth
     title={
       nonEmpty(title)

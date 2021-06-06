@@ -77,7 +77,6 @@ const ReportUser = ({
   user,
 }: Props): React.Element<typeof UserAccountLayout> => (
   <UserAccountLayout
-    $c={$c}
     entity={user}
     page="report"
     title={l('Report User')}

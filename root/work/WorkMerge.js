@@ -30,7 +30,7 @@ const WorkMerge = ({
   iswcsDiffer = false,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Merge works')}>
+  <Layout fullWidth title={l('Merge works')}>
     <div id="content">
       <h1>{l('Merge works')}</h1>
       <p>

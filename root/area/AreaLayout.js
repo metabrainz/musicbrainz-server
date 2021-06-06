@@ -16,7 +16,6 @@ import localizeAreaName from '../static/scripts/common/i18n/localizeAreaName';
 import AreaHeader from './AreaHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: AreaT,
   +fullWidth?: boolean,
@@ -25,7 +24,6 @@ type Props = {
 };
 
 const AreaLayout = ({
-  $c,
   children,
   entity: area,
   fullWidth = false,
@@ -33,7 +31,6 @@ const AreaLayout = ({
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
-    $c={$c}
     title={nonEmpty(title)
       ? hyphenateTitle(localizeAreaName(area), title)
       : localizeAreaName(area)}

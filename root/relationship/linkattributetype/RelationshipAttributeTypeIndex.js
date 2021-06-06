@@ -77,7 +77,7 @@ const RelationshipAttributeTypeIndex = ({
     : linkedEntities.link_attribute_type[attribute.parent_id];
 
   return (
-    <Layout $c={$c} fullWidth noIcons title={title}>
+    <Layout fullWidth noIcons title={title}>
       <div id="content">
         <h1 className="hierarchy-links">
           <a href="/relationship-attributes">

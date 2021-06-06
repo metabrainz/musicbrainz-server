@@ -15,7 +15,6 @@ import EventSidebar from '../layout/components/sidebar/EventSidebar';
 import EventHeader from './EventHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: EventT,
   +fullWidth?: boolean,
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const EventLayout = ({
-  $c,
   children,
   entity: event,
   fullWidth = false,
@@ -32,7 +30,6 @@ const EventLayout = ({
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
-    $c={$c}
     title={nonEmpty(title) ? hyphenateTitle(event.name, title) : event.name}
   >
     <div id="content">

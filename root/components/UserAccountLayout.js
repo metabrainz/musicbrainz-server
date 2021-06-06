@@ -30,7 +30,6 @@ export type AccountLayoutUserT = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: AccountLayoutUserT,
   +page: string,
@@ -52,7 +51,6 @@ export function sanitizedAccountLayoutUser(
 }
 
 const UserAccountLayout = ({
-  $c,
   children,
   entity: user,
   page,
@@ -60,7 +58,6 @@ const UserAccountLayout = ({
   ...layoutProps
 }: Props): React.Element<typeof Layout> => (
   <Layout
-    $c={$c}
     fullWidth
     title={nonEmpty(title)
       ? hyphenateTitle(texp.l('Editor “{user}”', {user: user.name}), title)

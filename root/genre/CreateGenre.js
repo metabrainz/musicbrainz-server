@@ -20,7 +20,7 @@ type Props = {
 };
 
 const CreateGenre = ({$c, form}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Add a new genre')}>
+  <Layout fullWidth title={l('Add a new genre')}>
     <div id="content">
       <h1>{l('Add a new genre')}</h1>
       <GenreEditForm $c={$c} form={form} />

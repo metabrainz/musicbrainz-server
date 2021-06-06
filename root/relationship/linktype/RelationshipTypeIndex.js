@@ -54,7 +54,7 @@ const RelationshipTypeIndex = ({
   let lastExampleName = '';
 
   return (
-    <Layout $c={$c} fullWidth noIcons title={title}>
+    <Layout fullWidth noIcons title={title}>
       <div id="content">
         <h1 className="hierarchy-links">
           <a href="/relationships">

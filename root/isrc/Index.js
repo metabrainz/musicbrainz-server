@@ -34,7 +34,6 @@ const Index = ({
   const isrc = isrcs[0];
   return (
     <Layout
-      $c={$c}
       fullWidth
       title={texp.l('ISRC “{isrc}”', {isrc: isrc.isrc})}
     >

@@ -17,7 +17,6 @@ import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 import loopParity from '../../utility/loopParity';
 
 type Props = {
-  +$c: CatalystContextT,
   +applications: $ReadOnlyArray<ApplicationT>,
   +appsPager: PagerT,
   +tokens: $ReadOnlyArray<EditorOAuthTokenT>,
@@ -76,13 +75,12 @@ function formatScopes(token: EditorOAuthTokenT) {
 }
 
 const Index = ({
-  $c,
   applications,
   appsPager,
   tokens,
   tokensPager,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Applications')}>
+  <Layout fullWidth title={l('Applications')}>
     <h1>{l('Applications')}</h1>
 
     <h2>{l('Authorized Applications')}</h2>

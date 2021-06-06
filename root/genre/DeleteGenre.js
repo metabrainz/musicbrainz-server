@@ -24,7 +24,6 @@ const DeleteGenre = ({
   genre,
 }: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
-    $c={$c}
     entity={genre}
     fullWidth
     page="delete"

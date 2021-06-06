@@ -26,7 +26,7 @@ const Show = ({$c, election}: Props): React.Element<typeof Layout> | null => {
   }
   const title = texp.l('Auto-editor election #{no}', {no: election.id});
   return (
-    <Layout $c={$c} fullWidth title={title}>
+    <Layout fullWidth title={title}>
       <h1>{title}</h1>
       <p>
         <a href="/elections">{l('Back to elections')}</a>

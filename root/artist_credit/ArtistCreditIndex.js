@@ -82,7 +82,6 @@ const ArtistCreditIndex = (
   props: Props,
 ): React.Element<typeof ArtistCreditLayout> => (
   <ArtistCreditLayout
-    $c={props.$c}
     artistCredit={props.artistCredit}
     page=""
   >

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,17 +13,14 @@ import Layout from '../layout';
 import EditLink from '../static/scripts/common/components/EditLink';
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: {...EditT, +id: number},
 };
 
-const NoteIsRequired = (
-  {$c, edit}: Props,
-): React.Element<typeof Layout> => {
+const NoteIsRequired = ({edit}: Props): React.Element<typeof Layout> => {
   const editDisplay = 'edit #' + edit.id;
   const editLink = <EditLink content={editDisplay} edit={edit} />;
   return (
-    <Layout $c={$c} fullWidth title={l('Error Approving Edit')}>
+    <Layout fullWidth title={l('Error Approving Edit')}>
       <h1>{l('Error Approving Edit')}</h1>
       <p>
         {exp.l(

@@ -145,7 +145,7 @@ const WikiDocTable = ({
 };
 
 const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => (
-  <Layout $c={props.$c} fullWidth title={l('Transclusion Table')}>
+  <Layout fullWidth title={l('Transclusion Table')}>
     <div className="content">
       <h1>{l('Transclusion Table')}</h1>
       <p>

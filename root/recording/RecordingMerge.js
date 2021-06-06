@@ -31,7 +31,7 @@ const RecordingMerge = ({
   isrcsDiffer = false,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Merge recordings')}>
+  <Layout fullWidth title={l('Merge recordings')}>
     <div id="content">
       <h1>{l('Merge recordings')}</h1>
       <p>

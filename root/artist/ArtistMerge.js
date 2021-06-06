@@ -29,7 +29,7 @@ const ArtistMerge = ({
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Merge artists')}>
+  <Layout fullWidth title={l('Merge artists')}>
     <div id="content">
       <h1>{l('Merge artists')}</h1>
       <p>

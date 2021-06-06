@@ -97,7 +97,6 @@ const UserSubscriptions = ({
 
   return (
     <UserAccountLayout
-      $c={$c}
       entity={user}
       page="subscriptions"
       title={title}

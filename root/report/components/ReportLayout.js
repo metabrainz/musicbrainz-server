@@ -63,7 +63,7 @@ const ReportLayout = ({
   const $c = React.useContext(CatalystContext);
 
   return (
-    <Layout $c={$c} fullWidth title={title}>
+    <Layout fullWidth title={title}>
       <h1>{title}</h1>
 
       <ul>

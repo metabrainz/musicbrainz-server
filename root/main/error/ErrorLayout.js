@@ -12,17 +12,15 @@ import * as React from 'react';
 import Layout from '../../layout';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +title: string,
 };
 
 const ErrorLayout = ({
-  $c,
   children,
   title,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={title}>
+  <Layout fullWidth title={title}>
     <div id="content">
       <h1>{title}</h1>
       {children}

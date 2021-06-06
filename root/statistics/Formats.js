@@ -39,7 +39,6 @@ const Formats = ({
   stats,
 }: FormatsStatsT): React.Element<typeof StatisticsLayout> => (
   <StatisticsLayout
-    $c={$c}
     fullWidth
     page="formats"
     title={l('Release/Medium Formats')}

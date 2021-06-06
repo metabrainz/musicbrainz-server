@@ -42,7 +42,6 @@ const layoutPicker = {
 export default function chooseLayoutComponent(
   typeName: string,
 ): React$ComponentType<{
-  +$c: CatalystContextT,
   +children: React$Node,
   +entity: CoreEntityT | EditorT | CollectionT,
   +fullWidth?: boolean,

@@ -12,15 +12,13 @@ import * as React from 'react';
 import Layout from '../../layout';
 
 type Props = {
-  +$c: CatalystContextT,
   +message: string,
 };
 
 const CannotRemoveAttribute = ({
-  $c,
   message,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Cannot Remove Attribute')}>
+  <Layout fullWidth title={l('Cannot Remove Attribute')}>
     <h1>{l('Cannot Remove Attribute')}</h1>
     <p>
       {message}

@@ -36,7 +36,7 @@ const Countries = ({
   countryStats,
   dateCollected,
 }: CountriesStatsT): React.Element<typeof StatisticsLayout> => (
-  <StatisticsLayout $c={$c} fullWidth page="countries" title={l('Countries')}>
+  <StatisticsLayout fullWidth page="countries" title={l('Countries')}>
     <p>
       {texp.l('Last updated: {date}',
               {date: dateCollected})}

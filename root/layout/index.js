@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context';
 import {formatUserDateObject} from '../utility/formatUserDate';
 import getRequestCookie from '../utility/getRequestCookie';
 import {RT_SLAVE} from '../static/scripts/common/constants';
@@ -105,143 +106,149 @@ const ServerDetailsBanner = () => {
 
 export type Props = $ReadOnly<{
   ...HeadProps,
-  +$c: CatalystContextT,
   children: React$Node,
   fullWidth?: boolean,
 }>;
 
 const Layout = ({
-  $c,
   children,
   fullWidth = false,
   homepage = false,
   noIcons,
   pager,
   title,
-}: Props): React.Element<'html'> => (
-  <html lang={$c.stash.current_language_html}>
-    <Head
-      homepage={homepage}
-      noIcons={noIcons}
-      pager={pager}
-      title={title}
-    />
+}: Props): React.Element<'html'> => {
+  const $c = React.useContext(CatalystContext);
 
-    <body>
-      <Header />
+  return (
+    <html lang={$c.stash.current_language_html}>
+      <Head
+        homepage={homepage}
+        noIcons={noIcons}
+        pager={pager}
+        title={title}
+      />
 
-      {isEditingDisabled($c.user) || isAddingNotesDisabled($c.user) ? (
-        <div className="banner editing-disabled">
-          <p>
-            {isEditingDisabled($c.user) ? (
-              isAddingNotesDisabled($c.user) ? (
-                exp.l(
-                  `You’re currently not allowed to edit, vote or leave edit
-                   notes because an admin has revoked your privileges.
-                   If you haven’t already been contacted
-                   about why, please {uri|send us a message}.`,
-                  {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
+      <body>
+        <Header />
+
+        {isEditingDisabled($c.user) || isAddingNotesDisabled($c.user) ? (
+          <div className="banner editing-disabled">
+            <p>
+              {isEditingDisabled($c.user) ? (
+                isAddingNotesDisabled($c.user) ? (
+                  exp.l(
+                    `You’re currently not allowed to edit, vote or leave edit
+                     notes because an admin has revoked your privileges.
+                     If you haven’t already been contacted
+                     about why, please {uri|send us a message}.`,
+                    {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
+                  )
+                ) : (
+                  exp.l(
+                    `You’re currently not allowed to edit or vote because an
+                     admin has revoked your privileges. If you haven’t already
+                     been contacted about why,
+                     please {uri|send us a message}.`,
+                    {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
+                  )
                 )
               ) : (
                 exp.l(
-                  `You’re currently not allowed to edit or vote because an
-                   admin has revoked your privileges. If you haven’t already
-                   been contacted about why, please {uri|send us a message}.`,
+                  `You’re currently not allowed to leave edit notes because
+                   an admin has revoked your privileges. If you haven’t
+                   already been contacted about why,
+                   please {uri|send us a message}.`,
                   {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
                 )
-              )
-            ) : (
-              exp.l(
-                `You’re currently not allowed to leave edit notes because
-                 an admin has revoked your privileges. If you haven’t already
-                 been contacted about why, please {uri|send us a message}.`,
-                {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
-              )
-            )}
-          </p>
-        </div>
-      ) : null}
-
-      {!getRequestCookie($c.req, 'server_details_dismissed_mtime') &&
-        <ServerDetailsBanner />}
-
-      {!!(nonEmpty($c.stash.alert) && ($c.stash.alert_mtime ?? Infinity) >
-        Number(getRequestCookie($c.req, 'alert_dismissed_mtime', '0'))) &&
-        <div className="banner warning-header">
-          <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
-          <DismissBannerButton bannerName="alert" />
-        </div>}
-
-      {!!DBDefs.DB_READ_ONLY &&
-        <div className="banner server-details">
-          <p>
-            {l(
-              `The server is temporarily in read-only mode
-               for database maintenance.`,
-            )}
-          </p>
-        </div>}
-
-      {showBirthdayBanner($c) &&
-        <div className="banner birthday-message">
-          <p>
-            <BirthdayCakes />
-            {' '}
-            {l('Happy birthday, and thanks for contributing to MusicBrainz!')}
-            {' '}
-            <BirthdayCakes />
-          </p>
-          <DismissBannerButton bannerName="birthday_message" />
-        </div>}
-
-      {!!($c.stash.new_edit_notes /*:: === true */ &&
-          ($c.stash.new_edit_notes_mtime ?? Infinity) >
-          Number(
-            getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', '0'),
-          ) &&
-          ($c.user?.is_limited ||
-          getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !==
-          'false')) &&
-          <div className="banner new-edit-notes">
-            <p>
-              {exp.l(
-                `{link|New notes} have been left on some of your edits.
-                 Please make sure to read them and respond if necessary.`,
-                {link: '/edit/notes-received'},
               )}
             </p>
-            <DismissBannerButton bannerName="new_edit_notes" />
+          </div>
+        ) : null}
+
+        {!getRequestCookie($c.req, 'server_details_dismissed_mtime') &&
+          <ServerDetailsBanner />}
+
+        {!!(nonEmpty($c.stash.alert) && ($c.stash.alert_mtime ?? Infinity) >
+          Number(getRequestCookie($c.req, 'alert_dismissed_mtime', '0'))) &&
+          <div className="banner warning-header">
+            <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
+            <DismissBannerButton bannerName="alert" />
           </div>}
 
-      {!!$c.stash.makes_no_changes /*:: === true */ &&
-        <div className="banner warning-header">
-          <p>
-            {l(
-              `The data you have submitted does not make any changes
-               to the data already present.`,
-            )}
-          </p>
-        </div>}
+        {!!DBDefs.DB_READ_ONLY &&
+          <div className="banner server-details">
+            <p>
+              {l(
+                `The server is temporarily in read-only mode
+                 for database maintenance.`,
+              )}
+            </p>
+          </div>}
 
-      {!!(nonEmpty($c.sessionid) && nonEmpty($c.flash.message)) &&
-        <div className="banner flash">
-          <p dangerouslySetInnerHTML={{__html: $c.flash.message}} />
-        </div>}
+        {showBirthdayBanner($c) &&
+          <div className="banner birthday-message">
+            <p>
+              <BirthdayCakes />
+              {' '}
+              {l(`Happy birthday, and thanks
+                  for contributing to MusicBrainz!`)}
+              {' '}
+              <BirthdayCakes />
+            </p>
+            <DismissBannerButton bannerName="birthday_message" />
+          </div>}
 
-      <div
-        className={(fullWidth ? 'fullwidth ' : '') +
-          (homepage ? 'homepage' : '')}
-        id="page"
-      >
-        {children}
-      </div>
+        {!!($c.stash.new_edit_notes /*:: === true */ &&
+            ($c.stash.new_edit_notes_mtime ?? Infinity) >
+            Number(
+              getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', '0'),
+            ) &&
+            ($c.user?.is_limited ||
+            getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !==
+            'false')) &&
+            <div className="banner new-edit-notes">
+              <p>
+                {exp.l(
+                  `{link|New notes} have been left on some of your edits.
+                   Please make sure to read them and respond if necessary.`,
+                  {link: '/edit/notes-received'},
+                )}
+              </p>
+              <DismissBannerButton bannerName="new_edit_notes" />
+            </div>}
 
-      {($c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */) &&
-        <MergeHelper merger={$c.session.merger} />}
+        {!!$c.stash.makes_no_changes /*:: === true */ &&
+          <div className="banner warning-header">
+            <p>
+              {l(
+                `The data you have submitted does not make any changes
+                 to the data already present.`,
+              )}
+            </p>
+          </div>}
 
-      <Footer />
-    </body>
-  </html>
-);
+        {!!(nonEmpty($c.sessionid) && nonEmpty($c.flash.message)) &&
+          <div className="banner flash">
+            <p dangerouslySetInnerHTML={{__html: $c.flash.message}} />
+          </div>}
+
+        <div
+          className={(fullWidth ? 'fullwidth ' : '') +
+            (homepage ? 'homepage' : '')}
+          id="page"
+        >
+          {children}
+        </div>
+
+        {($c.session?.merger &&
+          !$c.stash.hide_merge_helper /*:: === true */) &&
+          <MergeHelper merger={$c.session.merger} />}
+
+        <Footer />
+      </body>
+    </html>
+  );
+};
 
 export default Layout;

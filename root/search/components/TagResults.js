@@ -12,7 +12,7 @@ import * as React from 'react';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TagLink from '../../static/scripts/common/components/TagLink';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsWithContextT} from '../types';
+import type {ResultsPropsT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -36,15 +36,14 @@ function buildResult(result, index) {
 }
 
 const TagResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<TagT>):
+}: ResultsPropsT<TagT>):
 React.Element<typeof ResultsLayout> => (
-  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
+  <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={

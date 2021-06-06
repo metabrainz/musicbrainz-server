@@ -31,7 +31,6 @@ const InstrumentReleases = ({
   releases,
 }: Props): React.Element<typeof InstrumentLayout> => (
   <InstrumentLayout
-    $c={$c}
     entity={instrument}
     page="releases"
     title={l('Releases')}

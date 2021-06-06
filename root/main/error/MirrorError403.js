@@ -11,14 +11,8 @@ import * as React from 'react';
 
 import ErrorLayout from './ErrorLayout';
 
-type Props = {
-  +$c: CatalystContextT,
-};
-
-const MirrorError403 = ({
-  $c,
-}: Props): React.Element<typeof ErrorLayout> => (
-  <ErrorLayout $c={$c} title={l('Forbidden Request')}>
+const MirrorError403 = (): React.Element<typeof ErrorLayout> => (
+  <ErrorLayout title={l('Forbidden Request')}>
     <p>
       <strong>
         {l(`Sorry, you are unable to perform that action
