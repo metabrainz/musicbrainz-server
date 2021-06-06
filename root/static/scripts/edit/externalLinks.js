@@ -556,7 +556,7 @@ export function getUnicodeUrl(url: string): string {
   return unicodeUrl;
 }
 
-function isValidURL(url) {
+function isValidURL(url: string) {
   const a = document.createElement('a');
   a.href = url;
 
@@ -576,7 +576,12 @@ function isValidURL(url) {
     return false;
   }
 
-  if (!protocolRegex.test(a.protocol)) {
+  /*
+   * Check if protocol string is in URL and is valid
+   * Protocol of URL like "//google.com" is inferred as "https:"
+   * but the URL is invalid
+   */
+  if (!url.startsWith(a.protocol) || !protocolRegex.test(a.protocol)) {
     return false;
   }
 
