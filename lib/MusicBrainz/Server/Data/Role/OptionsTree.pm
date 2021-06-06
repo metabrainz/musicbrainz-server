@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Data::Role::Context';
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub get_tree {
-    my ($self, $filter) = @_;
+    my ($self, $filter, $root_id) = @_;
 
     my @objects;
 
@@ -26,6 +26,8 @@ sub get_tree {
         my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
         $parent->add_child($obj);
     }
+
+    return $id_to_obj{$root_id} if defined $root_id;
 
     return $root;
 }

@@ -40,7 +40,7 @@ test 'Can create new relationship attribute' => sub {
         ok($mech->success);
 
         my @redir = $response->redirects;
-        like($redir[0]->content, qr{http://localhost/relationship-attributes}, "Redirect contains link to main relationship-attributes page.");
+        like($redir[0]->content, qr{http://localhost/relationship-attribute/}, "Redirect contains link to attribute page.");
     } $test->c;
 
     is(@edits, 1);

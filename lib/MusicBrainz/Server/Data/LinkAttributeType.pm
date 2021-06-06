@@ -31,7 +31,9 @@ sub _columns
 {
     return 'id, parent, child_order, gid, name, description, root, ' .
            '(SELECT r.name FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_name, ' .
+           '(SELECT r.name FROM link_attribute_type r WHERE r.id = link_attribute_type.parent) parent_name, ' .
            '(SELECT r.gid FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_gid, ' .
+           '(SELECT r.gid FROM link_attribute_type r WHERE r.id = link_attribute_type.parent) parent_gid, ' .
            'COALESCE(
                 (SELECT TRUE FROM link_text_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
@@ -62,6 +64,18 @@ sub _column_mapping
         description => 'description',
         free_text   => 'free_text',
         creditable  => 'creditable',
+        parent => sub {
+            my ($row) = @_;
+            if ($row->{parent}) {
+                MusicBrainz::Server::Entity::LinkAttributeType->new({
+                    id => $row->{parent},
+                    gid => $row->{parent_gid},
+                    name => $row->{parent_name},
+                    root_id => $row->{root},
+                    root_gid => $row->{root_gid},
+                });
+            }
+        },
         root => sub {
             my ($row) = @_;
             MusicBrainz::Server::Entity::LinkAttributeType->new({

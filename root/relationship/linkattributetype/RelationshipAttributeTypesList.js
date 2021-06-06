@@ -70,13 +70,24 @@ const AttributeDetails = ({
             </a>
           </>
         )}
+        {' | '}
+        <a href={'/relationship-attribute/' + attribute.gid}>
+          {l('Documentation')}
+        </a>
         {' ]'}
 
       </>
     ) : (
-      attribute.description && attribute.description !== attribute.name
-        ? descriptionSection
-        : null
+      <>
+        {attribute.description && attribute.description !== attribute.name
+          ? descriptionSection
+          : null}
+        {' [ '}
+        <a href={'/relationship-attribute/' + attribute.gid}>
+          {l('Documentation')}
+        </a>
+        {' ]'}
+      </>
     )
   );
 };
@@ -154,7 +165,7 @@ const AttributesList = ({$c, root}: AttributesListProps) => {
   );
 };
 
-const RelationshipAttributeTypesIndex = ({
+const RelationshipAttributeTypesList = ({
   $c,
   root,
 }: AttributesListProps): React.Element<typeof Layout> => (
@@ -173,4 +184,4 @@ const RelationshipAttributeTypesIndex = ({
   </Layout>
 );
 
-export default RelationshipAttributeTypesIndex;
+export default RelationshipAttributeTypesList;
