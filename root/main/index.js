@@ -17,6 +17,11 @@ import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities';
 import entityHref from '../static/scripts/common/utility/entityHref';
 
+type BlogEntryT = {
+  +title: string,
+  +url: string,
+};
+
 type Props = {
   +blogEntries: $ReadOnlyArray<BlogEntryT> | null,
   +newestReleases: $ReadOnlyArray<ArtworkT>,
