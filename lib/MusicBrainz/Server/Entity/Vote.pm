@@ -41,6 +41,7 @@ has 'vote' => (
     is => 'rw',
 );
 
+# Converted to JavaScript at root/static/scripts/edit/utility/getVoteName.js
 sub vote_name
 {
     my $self = shift;
@@ -60,7 +61,6 @@ around TO_JSON => sub {
     $json->{editor_id} = $self->editor_id + 0;
     $json->{superseded} = boolean_to_json($self->superseded);
     $json->{vote} = $self->vote + 0;
-    $json->{vote_name} = $self->vote_name;
 
     return $json;
 };

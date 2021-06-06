@@ -17,6 +17,7 @@ import {
 import {CatalystContext} from '../../context';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
+import getVoteName from '../../static/scripts/edit/utility/getVoteName';
 import formatUserDate from '../../utility/formatUserDate';
 
 import EditorTypeInfo from './EditorTypeInfo';
@@ -35,7 +36,7 @@ function returnVoteClass(vote, isOwner) {
   let className = '';
 
   if (vote) {
-    className = vote.vote_name;
+    className = getVoteName(vote.vote);
   }
 
   if (isOwner) {
