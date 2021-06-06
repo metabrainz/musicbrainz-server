@@ -18,7 +18,7 @@ import '../../release-editor/seeding';
 export function setupReleaseAdd(data) {
   releaseEditor.action = 'add';
   // seed() sets rootField.release() for us when action === 'add'
-  releaseEditor.seed({ seed: data || {} });
+  releaseEditor.seed({seed: data || {}});
   return releaseEditor.rootField.release();
 }
 
@@ -54,7 +54,7 @@ export function createMediums(release) {
   var nextID = 666;
 
   submission.callback(release, createEdits.map(function (data) {
-    return { entity: { id: nextID++, position: data.position } };
+    return {entity: {id: nextID++, position: data.position}};
   }));
 }
 

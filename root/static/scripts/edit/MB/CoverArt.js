@@ -202,7 +202,7 @@ MB.CoverArt.sign_upload = function (fileUpload, gid, mimeType) {
 
   var postfields = $.ajax({
     url: '/ws/js/cover-art-upload/' + gid,
-    data: { mime_type: mimeType },
+    data: {mime_type: mimeType},
     dataType: 'json',
     cache: false,
   });
@@ -333,7 +333,6 @@ MB.CoverArt.submit_edit = function (
   xhr.send(formdata);
 
   return deferred.promise();
-
 };
 
 MB.CoverArt.FileUpload = function (file) {
@@ -341,7 +340,7 @@ MB.CoverArt.FileUpload = function (file) {
   var statuses = MB.CoverArt.upload_status_enum;
 
   self.name = file.name;
-  self.size = filesize(file.size, { round: 1, bits: false });
+  self.size = filesize(file.size, {round: 1, bits: false});
   self.comment = ko.observable('');
   self.types = MB.CoverArt.cover_art_types();
   self.data = file;
@@ -443,7 +442,6 @@ MB.CoverArt.FileUpload = function (file) {
           });
         });
       });
-
     });
 
     return deferred.promise();
@@ -471,7 +469,6 @@ MB.CoverArt.FileUpload = function (file) {
         break;
     }
   };
-
 };
 
 MB.CoverArt.UploadProcessViewModel = function () {
@@ -497,7 +494,6 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
 
 MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
-
   var queue = upvm.files_to_upload().map(function (item) {
     return function () {
       return item.doUpload(gid, pos++);

@@ -60,7 +60,7 @@ $.widget('mb.iframeDialog', $.ui.dialog, {
 
     this._setOptions({
       title: this.options.title,
-      position: { my: 'center', at: 'center', of: window },
+      position: {my: 'center', at: 'center', of: window},
     });
   },
 

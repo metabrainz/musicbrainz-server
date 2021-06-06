@@ -65,8 +65,8 @@ settings:
   flowtype:
     onlyFilesWithFlowAnnotation: true
   react:
-    version: 16.3.2
-    flowVersion: 0.81.0
+    version: detect
+    flowVersion: 0.152.0
 
 rules:
   # Possible Errors
@@ -102,6 +102,7 @@ rules:
   # Best Practices
   block-scoped-var: warn
   class-methods-use-this: off
+  consistent-return: error
   curly: [error, all]
   dot-location: [warn, property]
   dot-notation: [warn, {allowKeywords: true}]
@@ -132,7 +133,9 @@ rules:
                         imports: always-multiline,
                         exports: always-multiline,
                         functions: always-multiline}]
+  comma-spacing: [warn, {before: false, after: true}]
   comma-style: [warn, last]
+  computed-property-spacing: [warn, never, {"enforceForClassMembers": true}]
   eol-last: [warn, always]
   func-call-spacing: [warn, never]
   function-paren-newline: [warn, consistent]
@@ -167,14 +170,20 @@ rules:
   no-underscore-dangle: off
   no-unneeded-ternary: warn
   no-whitespace-before-property: warn
+  object-curly-newline: [warn, {multiline: true, consistent: true}]
+  object-curly-spacing: [warn, never]
   object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
   one-var: [warn, never]
+  padded-blocks: [warn, never]
   quote-props: [warn, consistent-as-needed, {numbers: true}]
+  quotes: [warn, single, {avoidEscape: true,
+                          allowTemplateLiterals: true}]
   semi: [warn, always, {omitLastInOneLineBlock: true}]
   semi-spacing: [warn, {before: false, after: true}]
   semi-style: [warn, last]
   space-before-blocks: [warn, always]
   space-in-parens: [warn, never]
+  space-infix-ops: [warn, {int32Hint: true}]
   space-unary-ops: [warn, {words: true, nonwords: false}]
   spaced-comment: [warn, always, {block: {balanced: true}, markers: [":", "::"]}]
   switch-colon-spacing: [warn, {after: true, before: false}]
@@ -256,6 +265,7 @@ rules:
   react/require-optimization: off
   react/require-render-return: error
   react/self-closing-comp: error
+  react/sort-comp: off
   react/sort-prop-types: off
   react/style-prop-object: error
   react/void-dom-elements-no-children: error

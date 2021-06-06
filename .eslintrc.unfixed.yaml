@@ -1,6 +1,5 @@
 rules:
   no-await-in-loop: error
-  consistent-return: error
   eqeqeq: [warn, smart]
   wrap-iife: warn
   camelcase: [warn, {properties: never,
@@ -33,21 +32,13 @@ rules:
                        "N_ln",
                        "N_lp",
                      ]}]
-  comma-spacing: [warn, {before: false, after: true}]
-  computed-property-spacing: [warn, never, {"enforceForClassMembers": true}]
   consistent-this: [warn, self]
-  object-curly-newline: [warn, {multiline: true, consistent: true}]
-  object-curly-spacing: [warn, never]
   operator-assignment: [warn, always]
   operator-linebreak: [warn, after, {overrides: {?: before, :: before}}]
-  padded-blocks: [warn, never]
-  quotes: [warn, single, {avoidEscape: true,
-                          allowTemplateLiterals: true}]
   sort-keys: [warn, asc, {caseSensitive: false, natural: true}]
   space-before-function-paren: [warn, {anonymous: always,
                                        named: never,
                                        asyncArrow: always}]
-  space-infix-ops: [warn, {int32Hint: true}]
   no-var: warn
   prefer-const: warn
   import/first: warn
@@ -57,11 +48,6 @@ rules:
   react/no-multi-comp: [warn, {ignoreStateless: true}]
   react/no-render-return-value: warn
   react/prefer-stateless-function: warn
-  react/sort-comp: [warn, {order: [type-annotations,
-                                   static-methods,
-                                   lifecycle,
-                                   everything-else,
-                                   render]}]
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
   flowtype/no-types-missing-file-annotation: error
   flowtype/no-weak-types: warn

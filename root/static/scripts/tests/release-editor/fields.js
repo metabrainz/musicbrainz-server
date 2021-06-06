@@ -62,12 +62,12 @@ fieldTest((
   var mediums = release.mediums;
 
   mediums([
-    new fields.Medium({ tracks: [] }),
-    new fields.Medium({ tracks: [{}] }),
-    new fields.Medium({ id: 1, tracks: [] }),
-    new fields.Medium({ originalID: 1, tracks: [] }),
-    new fields.Medium({ id: 1, tracks: [{}] }),
-    new fields.Medium({ originalID: 1, tracks: [{}] }),
+    new fields.Medium({tracks: []}),
+    new fields.Medium({tracks: [{}]}),
+    new fields.Medium({id: 1, tracks: []}),
+    new fields.Medium({originalID: 1, tracks: []}),
+    new fields.Medium({id: 1, tracks: [{}]}),
+    new fields.Medium({originalID: 1, tracks: [{}]}),
   ]);
 
   t.equal(
@@ -130,7 +130,7 @@ fieldTest((
   t.equal(original.name, 'foo', 'original name is foo');
 
   medium.tracksLoaded({
-    tracks: [{ position: 1, name: '~fooo~', length: 12345 }],
+    tracks: [{position: 1, name: '~fooo~', length: 12345}],
   });
 
   t.ok(medium.loaded(), 'medium is loaded');
@@ -153,7 +153,7 @@ fieldTest((
 ), function (t, release) {
   t.plan(1);
 
-  var medium = new fields.Medium({ tracks: [] }, release);
+  var medium = new fields.Medium({tracks: []}, release);
   medium.hasPregap(true);
   medium.hasDataTracks(true);
 
@@ -167,7 +167,7 @@ fieldTest((
 
   function lengthsAndPositions() {
     return medium.tracks().map(function (t) {
-      return { length: t.length(), position: t.position() };
+      return {length: t.length(), position: t.position()};
     });
   }
 
@@ -175,24 +175,24 @@ fieldTest((
   var toc2 = '1 5 180562 150 28552 55959 88371 125305';
 
   var tocData1 = [
-    { length: 294000, position: 1 },
-    { length: 370000, position: 2 },
-    { length: 259000, position: 3 },
-    { length: 359000, position: 4 },
-    { length: 333000, position: 5 },
-    { length: 296000, position: 6 },
-    { length: 372000, position: 7 },
+    {length: 294000, position: 1},
+    {length: 370000, position: 2},
+    {length: 259000, position: 3},
+    {length: 359000, position: 4},
+    {length: 333000, position: 5},
+    {length: 296000, position: 6},
+    {length: 372000, position: 7},
   ];
 
   var tocData2 = [
-    { length: 379000, position: 1 },
-    { length: 365000, position: 2 },
-    { length: 432000, position: 3 },
-    { length: 492000, position: 4 },
-    { length: 737000, position: 5 },
+    {length: 379000, position: 1},
+    {length: 365000, position: 2},
+    {length: 432000, position: 3},
+    {length: 492000, position: 4},
+    {length: 737000, position: 5},
   ];
 
-  var medium = new fields.Medium({ tracks: [] }, release);
+  var medium = new fields.Medium({tracks: []}, release);
 
   // 7 tracks added
   medium.toc(toc1);
@@ -244,7 +244,7 @@ fieldTest((
 ), function (t, release) {
   t.plan(11);
 
-  var medium = new fields.Medium({ tracks: [{}] }, release);
+  var medium = new fields.Medium({tracks: [{}]}, release);
 
   const tests = [
     {input: '5', output: '0:05'},

@@ -58,10 +58,11 @@ module.exports = {
          * Output a path relative to the build dir, since that's where
          * the server-components bundle will be.
          */
-        return callback(
+        callback(
           null,
           'commonjs ' + path.relative(dirs.BUILD, resolvedRequest),
         );
+        return;
       }
       callback();
     },

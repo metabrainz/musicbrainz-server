@@ -273,7 +273,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
      */
 
     if (currentSelection.id) {
-      this.currentSelection(this._dataToEntity({ name: name }));
+      this.currentSelection(this._dataToEntity({name: name}));
     } else if (currentSelection.name !== name) {
       currentSelection.name = name;
       this.currentSelection.notifySubscribers(currentSelection);
@@ -421,7 +421,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
             return;
           }
         }
-        self.options.select(null, { item: data });
+        self.options.select(null, {item: data});
       },
 
       error: this.clear.bind(this),
@@ -497,7 +497,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
             entity: entity,
             title: label,
             callback: function (item) {
-              self.options.select(null, { item: item });
+              self.options.select(null, {item: item});
             },
           });
         },
@@ -621,7 +621,7 @@ $.widget('ui.menu', $.ui.menu, {
 
   _create: function () {
     this._super();
-    this._on({ 'click .ui-menu-item > a': this._selectAction });
+    this._on({'click .ui-menu-item > a': this._selectAction});
   },
 
   select: function (event) {
@@ -927,7 +927,7 @@ MB.Control.autocomplete_formatters = {
 
     var area = item.area;
     if (item.typeName || area) {
-      var items =[];
+      var items = [];
       if (item.typeName) {
         items.push(lp_attributes(item.typeName, 'place_type'));
       }
