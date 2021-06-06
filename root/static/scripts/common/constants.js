@@ -18,6 +18,7 @@ export const ENTITY_NAMES: {
   area: N_l('Area'),
   artist: N_l('Artist'),
   event: N_l('Event'),
+  genre: N_l('Genre'),
   instrument: N_l('Instrument'),
   label: N_l('Label'),
   place: N_l('Place'),
@@ -202,11 +203,18 @@ export const FAVICON_CLASSES = {
 };
 
 export const PART_OF_SERIES_LINK_TYPES = {
+  area: null,
   artist: 'd1a845d1-8c03-3191-9454-e4e8d37fa5e0',
   event: '707d947d-9563-328a-9a7d-0c5b9c3a9791',
+  genre: null,
+  instrument: null,
+  label: null,
+  place: null,
   recording: 'ea6f0698-6782-30d6-b16d-293081b66774',
   release: '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
   release_group: '01018437-91d8-36b9-bf89-3f885d53b5bd',
+  series: null,
+  url: null,
   work: 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
 };
 
@@ -249,9 +257,17 @@ export const MIN_NAME_SIMILARITY = 0.75;
 export const ENTITIES_WITH_RELATIONSHIP_CREDITS = {
   area: true,
   artist: true,
+  event: false,
+  genre: false,
   instrument: true,
   label: true,
   place: true,
+  recording: false,
+  release: false,
+  release_group: false,
+  series: false,
+  url: false,
+  work: false,
 };
 
 export const QUALITY_NAMES: Map<QualityT, () => string> = new Map([

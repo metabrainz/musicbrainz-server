@@ -51,8 +51,8 @@ declare type LinkTypeT = {
   +orderable_direction: number,
   +reverse_link_phrase: string,
   +root_id: number | null,
-  +type0: string,
-  +type1: string,
+  +type0: CoreEntityTypeT,
+  +type1: CoreEntityTypeT,
 };
 
 declare type PagedLinkTypeGroupT = {
@@ -69,11 +69,10 @@ declare type PagedTargetTypeGroupT = {
   +[linkTypeIdAndSourceColumn: string]: PagedLinkTypeGroupT,
 };
 
-declare type RelationshipT = {
+declare type RelationshipT = $ReadOnly<{
   ...DatePeriodRoleT,
   ...EditableRoleT,
-  // `attributes` may not exist when seeding.
-  +attributes?: $ReadOnlyArray<LinkAttrT>,
+  +attributes: $ReadOnlyArray<LinkAttrT>,
   +direction?: 'backward',
   +entity0?: CoreEntityT,
   +entity0_credit: string,
@@ -87,4 +86,4 @@ declare type RelationshipT = {
   +source_type: string,
   +target: CoreEntityT,
   +target_type: string,
-};
+}>;
