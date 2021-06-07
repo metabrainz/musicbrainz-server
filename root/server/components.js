@@ -314,6 +314,8 @@ module.exports = {
   'edit/CannotCancelEdit': require('../edit/CannotCancelEdit'),
   'edit/CannotVote': require('../edit/CannotVote'),
   'edit/NoteIsRequired': require('../edit/NoteIsRequired'),
+  'edit/components/EditNote': require('../edit/components/EditNote'),
+  'edit/components/EditNotes': require('../edit/components/EditNotes'),
   'edit/components/EditSidebar': require('../edit/components/EditSidebar'),
   'edit/components/EditSummary': require('../edit/components/EditSummary'),
   'edit/components/Vote': require('../edit/components/Vote'),

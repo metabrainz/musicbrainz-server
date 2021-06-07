@@ -20,6 +20,7 @@ export type AccountLayoutUserT = {
   +entityType: 'editor',
   +gravatar: string,
   +id: number,
+  +is_limited: boolean,
   +name: string,
   +preferences: {
     +public_ratings: boolean,

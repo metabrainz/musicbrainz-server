@@ -35,6 +35,7 @@ declare type EditorT = {
   ...EntityRoleT<'editor'>,
   +deleted: boolean,
   +gravatar: string,
+  +is_limited: boolean,
   +name: string,
   +privileges: number,
 };
