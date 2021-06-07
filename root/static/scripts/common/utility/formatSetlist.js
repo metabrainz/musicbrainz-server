@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import expand2react from '../i18n/expand2react';
+import * as React from 'react';
 
 function setlistLink(entityType, entityGid, content) {
   let formattedContent = content;
@@ -15,69 +15,98 @@ function setlistLink(entityType, entityGid, content) {
     formattedContent = entityType + ':' + entityGid;
   }
 
-  return `<a href="/${entityType}/${entityGid}">${formattedContent}</a>`;
-}
-
-function replaceSetlistMbids(entityType, setlistLine) {
-  const formattedLine = setlistLine.replace(
-    /\[([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:\|([^\]]+))?\]/ig,
-    function (match, p1, p2) {
-      return setlistLink(entityType, p1, p2);
-    },
+  return (
+    <a href={`/${entityType}/${entityGid}`}>
+      {formattedContent}
+    </a>
   );
-
-  return formattedLine;
 }
 
-function formatSetlistArtist(setlistLine) {
-  const artistLineLabel = addColonText(l('Artist'));
-  const artistLineContent = replaceSetlistMbids('artist', setlistLine);
+const linkRegExp =
+  /^\[([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:\|([^\]]+))?\]/i;
 
-  const artistLine =
-    `<strong>${artistLineLabel} ${artistLineContent}</strong>`;
-
-  return artistLine;
+function formatSetlistArtist(entityGid, content) {
+  return (
+    <strong>
+      {addColonText(l('Artist'))}
+      {' '}
+      {setlistLink('artist', entityGid, content)}
+    </strong>
+  );
 }
 
-function formatSetlistWork(setlistLine) {
-  return replaceSetlistMbids('work', setlistLine);
+function formatSetlistWork(entityGid, content) {
+  return setlistLink('work', entityGid, content);
 }
 
 export default function formatSetlist(
   setlistText: string,
 ): Expand2ReactOutput {
-  let formattedText = setlistText;
+  const rawLines = setlistText.split(/(?:\r\n|\n\r|\r|\n)/);
+  const elements = [];
 
-  // Encode < and >
-  formattedText = formattedText.replace(/</g, '&lt;');
-  formattedText = formattedText.replace(/>/g, '&gt;');
+  for (const rawLine of rawLines) {
+    if (!nonEmpty(rawLine)) {
+      elements.push(<br />);
+      continue;
+    }
 
-  // Lines starting with @ are artists
-  formattedText = formattedText.replace(
-    /^@ ([^\r\n]*)/gm,
-    function (match, p1) {
-      return formatSetlistArtist(p1);
-    },
-  );
+    const symbol = rawLine.substring(0, 2);
+    const line = rawLine.substring(2);
+    let entityType;
 
-  // Lines starting with * are works
-  formattedText = formattedText.replace(
-    /^\* ([^\r\n]*)/gm,
-    function (match, p1) {
-      return formatSetlistWork(p1);
-    },
-  );
+    switch (symbol) {
+      // Lines starting with @ are artists
+      case '@ ':
+        entityType = 'artist';
+        break;
 
-  // Lines starting with # are comments
-  formattedText = formattedText.replace(
-    /^# ([^\r\n]*)/gm,
-    function (match, p1) {
-      return '<span class=\"comment\">' + p1 + '<\/span>';
-    },
-  );
+      // Lines starting with * are works
+      case '* ':
+        entityType = 'work';
+        break;
 
-  // Fix newlines
-  formattedText = formattedText.replace(/(\015\012|\012\015|\012|\015)/g, '<br \/>');
+      // Lines starting with # are comments
+      case '# ':
+        elements.push(<span className="comment">{line}</span>);
+        break;
 
-  return expand2react(formattedText);
+      // Lines that don't start with a symbol are ignored
+    }
+
+    if (entityType) {
+      const startingBracketRegExp = /\[/g;
+
+      let match;
+      let lastIndex = 0;
+
+      while ((match = startingBracketRegExp.exec(line))) {
+        const textBeforeMatch = line.substring(lastIndex, match.index);
+        elements.push(textBeforeMatch);
+        lastIndex = match.index;
+
+        const remainder = line.substring(match.index);
+        const linkMatch = remainder.match(linkRegExp);
+
+        if (linkMatch) {
+          const [linkMatchText, entityGid, content] = linkMatch;
+          switch (entityType) {
+            case 'artist':
+              elements.push(formatSetlistArtist(entityGid, content));
+              break;
+            case 'work':
+              elements.push(formatSetlistWork(entityGid, content));
+              break;
+          }
+          lastIndex += linkMatchText.length;
+        }
+      }
+
+      elements.push(line.substring(lastIndex));
+    }
+
+    elements.push(<br />);
+  }
+
+  return React.createElement(React.Fragment, null, ...elements);
 }
