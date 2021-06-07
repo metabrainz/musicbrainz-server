@@ -412,7 +412,8 @@ export default function groupRelationships(
         hasAttributes,
         isOrderable,
         key: String(target.id) + UNIT_SEP + targetCredit + UNIT_SEP +
-          (linkOrder ?? ''),
+          (linkOrder ?? '') + UNIT_SEP +
+          (hasAttributes ? '1' : '0'),
         linkOrder,
         target,
         targetCredit,
