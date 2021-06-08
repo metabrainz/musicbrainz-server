@@ -114,18 +114,18 @@ test 'Embedded JSON-LD `member` property' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<'EOSQL');
-    INSERT INTO artist (id, gid, name, sort_name)
-        VALUES (1, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group'),
-               (2, '2a62773a-cdbf-44c6-a700-50f931504054', 'Person A', 'Person A'),
-               (3, 'efac67ce-33ae-4949-8fc8-3d2aeafcbefb', 'Person B', 'Person B');
+    INSERT INTO artist (id, gid, name, sort_name, type)
+        VALUES (100, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group', 2),
+               (22, '2a62773a-cdbf-44c6-a700-50f931504054', 'Person A', 'Person A', 1),
+               (3, 'efac67ce-33ae-4949-8fc8-3d2aeafcbefb', 'Person B', 'Person B', 1);
 
     INSERT INTO link (id, link_type, begin_date_year, end_date_year)
         VALUES (1, 103, 2001, 2002), (2, 103, 1999, 2002),
                (3, 103, 1999, 2002), (4, 103, 2005, NULL);
 
     INSERT INTO l_artist_artist (id, link, entity0, entity1, entity0_credit)
-        VALUES (1, 1, 2, 1, 'A.'), (2, 2, 3, 1, 'B.'),
-               (3, 3, 3, 1, 'B.'), (4, 4, 3, 1, 'B.');
+        VALUES (1, 1, 22, 100, 'A.'), (2, 2, 3, 100, 'B.'),
+               (3, 3, 3, 100, 'B.'), (4, 4, 3, 100, 'B.');
 
     INSERT INTO link_attribute (link, attribute_type)
         VALUES (2, 229), (3, 125), (4, 229);
@@ -144,7 +144,7 @@ EOSQL
                 '@type' => 'OrganizationRole',
                 'member' => {
                     'name' => 'Person A',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     '@id' => 'http://musicbrainz.org/artist/2a62773a-cdbf-44c6-a700-50f931504054'
                 }
             },
@@ -152,7 +152,7 @@ EOSQL
                 'member' => {
                     '@id' => 'http://musicbrainz.org/artist/efac67ce-33ae-4949-8fc8-3d2aeafcbefb',
                     'name' => 'Person B',
-                    '@type' => 'MusicGroup'
+                    '@type' => ['Person', 'MusicGroup']
                 },
                 'endDate' => '2002',
                 '@type' => 'OrganizationRole',
@@ -163,12 +163,33 @@ EOSQL
                 'member' => {
                     '@id' => 'http://musicbrainz.org/artist/efac67ce-33ae-4949-8fc8-3d2aeafcbefb',
                     'name' => 'Person B',
-                    '@type' => 'MusicGroup'
+                    '@type' => ['Person', 'MusicGroup'],
                 },
                 '@type' => 'OrganizationRole',
                 'startDate' => '2005',
                 'roleName' => 'guitar'
             }
+        ],
+        '@context' => 'http://schema.org'
+    };
+
+    $mech->get_ok('/artist/2a62773a-cdbf-44c6-a700-50f931504054');
+    page_test_jsonld $mech => {
+        'name' => 'Person A',
+        '@type' => ['Person', 'MusicGroup'],
+        '@id' => 'http://musicbrainz.org/artist/2a62773a-cdbf-44c6-a700-50f931504054',
+        'memberOf' => [
+            {
+                'roleName' => [],
+                'endDate' => '2002',
+                'startDate' => '2001',
+                '@type' => 'OrganizationRole',
+                'memberOf' => {
+                    'name' => 'Group',
+                    '@type' => 'MusicGroup',
+                    '@id' => 'http://musicbrainz.org/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9'
+                }
+            },
         ],
         '@context' => 'http://schema.org'
     };
