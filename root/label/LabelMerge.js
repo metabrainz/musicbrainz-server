@@ -28,7 +28,7 @@ const LabelMerge = ({
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Merge labels')}>
+  <Layout fullWidth title={l('Merge labels')}>
     <div id="content">
       <h1>{l('Merge labels')}</h1>
       <p>

@@ -24,7 +24,7 @@ const DeleteWikiDoc = ({
   form,
   page,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Remove Page')}>
+  <Layout fullWidth title={l('Remove Page')}>
     <div id="content">
       <h1>{l('Remove Page')}</h1>
       <p>

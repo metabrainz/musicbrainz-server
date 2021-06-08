@@ -327,6 +327,7 @@ sub TO_JSON {
         entityType => 'editor',
         gravatar => $self->gravatar,
         id => $self->id,
+        is_limited => boolean_to_json($self->is_limited),
         name => $self->name,
         privileges => 0 + $self->public_privileges,
     };

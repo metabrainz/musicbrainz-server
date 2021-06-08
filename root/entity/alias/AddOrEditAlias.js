@@ -45,7 +45,6 @@ const AddOrEditAlias = ({
 
   return (
     <LayoutComponent
-      $c={$c}
       entity={entity}
       fullWidth
       title={header}

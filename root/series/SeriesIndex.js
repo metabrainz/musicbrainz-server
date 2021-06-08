@@ -101,7 +101,6 @@ const listPicker = ({
 
 type SeriesIndexProps = {
   ...SeriesItemNumbersRoleT,
-  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +entities: ?$ReadOnlyArray<CoreEntityT>,
   +numberOfRevisions: number,
@@ -111,7 +110,6 @@ type SeriesIndexProps = {
 };
 
 const SeriesIndex = ({
-  $c,
   eligibleForCleanup,
   entities,
   numberOfRevisions,
@@ -123,7 +121,7 @@ const SeriesIndex = ({
   const seriesEntityType = series.type.item_entity_type;
   const existingEntities = entities?.length ? entities : null;
   return (
-    <SeriesLayout $c={$c} entity={series} page="index">
+    <SeriesLayout entity={series} page="index">
       {eligibleForCleanup ? (
         <CleanupBanner entityType="series" />
       ) : null}

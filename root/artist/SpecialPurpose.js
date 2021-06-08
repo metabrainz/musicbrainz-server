@@ -12,16 +12,13 @@ import * as React from 'react';
 import ArtistLayout from './ArtistLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +artist: ArtistT,
 };
 
 const SpecialPurpose = ({
-  $c,
   artist,
 }: Props): React.Element<typeof ArtistLayout> => (
   <ArtistLayout
-    $c={$c}
     entity={artist}
     fullWidth
     page="special_purpose"

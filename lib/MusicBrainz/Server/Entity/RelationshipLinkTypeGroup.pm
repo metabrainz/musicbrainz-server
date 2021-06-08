@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::RelationshipLinkTypeGroup;
 
 use Moose;
-use MusicBrainz::Server::Constants qw( :direction );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity );
@@ -16,9 +15,9 @@ has 'link_type' => (
     isa => 'Maybe[LinkType]',
 );
 
-has 'direction' => (
+has 'backward' => (
     is => 'ro',
-    isa => 'Int',
+    isa => 'Bool',
 );
 
 has 'relationships' => (
@@ -61,7 +60,6 @@ sub TO_JSON {
     my ($self) = @_;
 
     my $link_type_id = $self->link_type_id + 0;
-    my $direction = $self->direction == $DIRECTION_BACKWARD ? 'backward' : 'forward';
     my $is_loaded = boolean_to_json($self->is_loaded);
     my $total_relationships = $self->total_relationships + 0;
     my $limit = $self->limit + 0;
@@ -72,7 +70,7 @@ sub TO_JSON {
 
     return {
         link_type_id => $link_type_id,
-        direction => $direction,
+        backward => boolean_to_json($self->backward),
         relationships => [map { $_->TO_JSON } $self->all_relationships],
         is_loaded => $is_loaded,
         total_relationships => $total_relationships,

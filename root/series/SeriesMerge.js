@@ -28,7 +28,7 @@ const SeriesMerge = ({
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Merge series')}>
+  <Layout fullWidth title={l('Merge series')}>
     <div id="content">
       <h1>{l('Merge series')}</h1>
       <p>

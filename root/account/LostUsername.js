@@ -21,12 +21,11 @@ type LostUsernameFormT = FormT<{
 }>;
 
 type Props = {
-  +$c: CatalystContextT,
   +form: LostUsernameFormT,
 };
 
 const LostUsername = (props: Props): React.Element<typeof Layout> => (
-  <Layout $c={props.$c} fullWidth title={l('Lost Username')}>
+  <Layout fullWidth title={l('Lost Username')}>
     <h1>{l('Lost Username')}</h1>
     <p>
       {l(`Enter your email address below and we will send you an email with

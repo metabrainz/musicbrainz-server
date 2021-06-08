@@ -17,7 +17,6 @@ import {reduceArtistCredit}
 import ReleaseHeader from './ReleaseHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: ReleaseT,
   +fullWidth?: boolean,
@@ -26,7 +25,6 @@ type Props = {
 };
 
 const ReleaseLayout = ({
-  $c,
   children,
   entity: release,
   fullWidth = false,
@@ -39,7 +37,6 @@ const ReleaseLayout = ({
   });
   return (
     <Layout
-      $c={$c}
       title={nonEmpty(title) ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">

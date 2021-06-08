@@ -1184,14 +1184,23 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_upd_release_event()
 RETURNS TRIGGER AS $$
 BEGIN
-  PERFORM set_release_first_release_date(OLD.release);
-  PERFORM set_release_first_release_date(NEW.release);
+  IF (
+    NEW.release != OLD.release OR
+    NEW.date_year IS DISTINCT FROM OLD.date_year OR
+    NEW.date_month IS DISTINCT FROM OLD.date_month OR
+    NEW.date_day IS DISTINCT FROM OLD.date_day
+  ) THEN
+    PERFORM set_release_first_release_date(OLD.release);
+    IF NEW.release != OLD.release THEN
+        PERFORM set_release_first_release_date(NEW.release);
+    END IF;
 
-  PERFORM set_release_group_first_release_date(release_group)
-  FROM release
-  WHERE release.id IN (NEW.release, OLD.release);
+    PERFORM set_release_group_first_release_date(release_group)
+    FROM release
+    WHERE release.id IN (NEW.release, OLD.release);
 
-  PERFORM set_releases_recordings_first_release_dates(ARRAY[NEW.release, OLD.release]);
+    PERFORM set_releases_recordings_first_release_dates(ARRAY[NEW.release, OLD.release]);
+  END IF;
 
   IF TG_TABLE_NAME = 'release_country' THEN
     IF NEW.country != OLD.country THEN
@@ -1822,9 +1831,13 @@ DECLARE
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
     -- by a trigger on slaves.
+    WITH pending AS (
+        DELETE FROM artist_release_pending_update
+        RETURNING release
+    )
     SELECT array_agg(DISTINCT release)
     INTO release_ids
-    FROM artist_release_pending_update;
+    FROM pending;
 
     IF coalesce(array_length(release_ids, 1), 0) > 0 THEN
         -- If the user hasn't generated `artist_release`, then we
@@ -1846,7 +1859,6 @@ BEGIN
         END IF;
     END IF;
 
-    TRUNCATE artist_release_pending_update;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -1912,9 +1924,13 @@ DECLARE
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
     -- by a trigger on slaves.
+    WITH pending AS (
+        DELETE FROM artist_release_group_pending_update
+        RETURNING release_group
+    )
     SELECT array_agg(DISTINCT release_group)
     INTO release_group_ids
-    FROM artist_release_group_pending_update;
+    FROM pending;
 
     IF coalesce(array_length(release_group_ids, 1), 0) > 0 THEN
         -- If the user hasn't generated `artist_release_group`, then we
@@ -1936,7 +1952,6 @@ BEGIN
         END IF;
     END IF;
 
-    TRUNCATE artist_release_group_pending_update;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';

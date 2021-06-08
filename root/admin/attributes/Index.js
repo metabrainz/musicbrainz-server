@@ -13,12 +13,11 @@ import * as React from 'react';
 import Layout from '../../layout';
 
 type Props = {
-  +$c: CatalystContextT,
   +models: Array<string>,
 };
 
-const Attributes = ({$c, models}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Attributes')}>
+const Attributes = ({models}: Props): React.Element<typeof Layout> => (
+  <Layout fullWidth title={l('Attributes')}>
     <h1>{l('Attributes')}</h1>
     <ul>
       {models.sort().map((item) => (

@@ -14,7 +14,6 @@ import clean from '../../common/utility/clean';
 import deferFocus from '../../edit/utility/deferFocus';
 
 class Multiselect {
-
   constructor(params, $element) {
     this.$element = $element;
     this.$menu = $element.find('div.menu').data('multiselect', this);
@@ -234,5 +233,5 @@ ko.components.register('multiselect', {
       return new Multiselect(params, $(componentInfo.element));
     },
   },
-  template: { fromScript: 'template.multiselect' },
+  template: {fromScript: 'template.multiselect'},
 });

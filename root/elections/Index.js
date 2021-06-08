@@ -19,7 +19,7 @@ type Props = {
 };
 
 const Index = ({$c, elections}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Auto-editor elections')}>
+  <Layout fullWidth title={l('Auto-editor elections')}>
     <h1>{l('Auto-editor elections')}</h1>
     {elections.length
       ? <ElectionTable $c={$c} elections={elections} />

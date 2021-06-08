@@ -28,7 +28,7 @@ const ReleaseGroupMerge = ({
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Merge release groups')}>
+  <Layout fullWidth title={l('Merge release groups')}>
     <div id="content">
       <h1>{l('Merge release groups')}</h1>
       <p>

@@ -7,23 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type TagLookupFormT = FormT<{
-  +artist: ReadOnlyFieldT<string>,
-  +duration: ReadOnlyFieldT<string>,
-  +filename: ReadOnlyFieldT<string>,
-  +release: ReadOnlyFieldT<string>,
-  +track: ReadOnlyFieldT<string>,
-  +tracknum: ReadOnlyFieldT<string>,
-}>;
+import {type SearchResultT} from '../search/types';
 
 export type TagLookupPropsT = {
-  +$c: CatalystContextT,
   +form: TagLookupFormT,
   +nag: boolean,
 };
 
 export type TagLookupResultsPropsT<T> = {
-  +$c: CatalystContextT,
   +children: React$Node,
   +form: TagLookupFormT,
   +nag: boolean,

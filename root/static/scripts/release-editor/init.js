@@ -287,7 +287,7 @@ releaseEditor.init = function (options) {
     this.releaseLoaded(options.release);
   } else {
     releaseEditor.createExternalLinksEditor(
-      { entityType: 'release' },
+      {entityType: 'release'},
       $('#external-links-editor-container')[0],
     );
   }
@@ -310,7 +310,7 @@ releaseEditor.init = function (options) {
 releaseEditor.loadRelease = function (gid, callback) {
   var args = {
     url: '/ws/js/release/' + gid,
-    data: { inc: 'rels' },
+    data: {inc: 'rels'},
   };
 
   return request(args, this)
@@ -325,7 +325,6 @@ releaseEditor.loadRelease = function (gid, callback) {
 
       this.loadError(error);
     });
-
 };
 
 releaseEditor.releaseLoaded = function (data) {

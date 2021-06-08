@@ -15,15 +15,13 @@ import OtherLookupForm from './OtherLookupForm';
 import type {OtherLookupFormT} from './types';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: OtherLookupFormT,
 };
 
 const OtherLookupIndex = ({
-  $c,
   form,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Other Lookups')}>
+  <Layout fullWidth title={l('Other Lookups')}>
     <div className="content">
       <h1>{l('Other Lookups')}</h1>
       <OtherLookupForm form={form} />

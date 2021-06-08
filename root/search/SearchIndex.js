@@ -13,24 +13,21 @@ import Layout from '../layout';
 import TagLookupForm from '../taglookup/Form';
 import OtherLookupForm from '../otherlookup/OtherLookupForm';
 import type {OtherLookupFormT} from '../otherlookup/types';
-import type {TagLookupFormT} from '../taglookup/types';
 
 import SearchForm from './components/SearchForm';
 
 type Props = {
-  +$c: CatalystContextT,
   +otherLookupForm: OtherLookupFormT,
   +searchForm: SearchFormT,
   +tagLookupForm: TagLookupFormT,
 };
 
 const SearchIndex = ({
-  $c,
   otherLookupForm,
   searchForm,
   tagLookupForm,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Search')}>
+  <Layout fullWidth title={l('Search')}>
     <div id="content">
       <h1>{l('Search')}</h1>
       <SearchForm form={searchForm} />

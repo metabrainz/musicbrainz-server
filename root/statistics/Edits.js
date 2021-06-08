@@ -33,7 +33,7 @@ const Edits = ({
   stats,
   statsByCategory,
 }: EditsStatsT): React.Element<typeof StatisticsLayout> => (
-  <StatisticsLayout $c={$c} fullWidth page="edits" title={l('Edits')}>
+  <StatisticsLayout fullWidth page="edits" title={l('Edits')}>
     <p>
       {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>

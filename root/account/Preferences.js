@@ -28,7 +28,6 @@ const Preferences = ({
   ...props
 }: Props): React.Element<typeof UserAccountLayout> => (
   <UserAccountLayout
-    $c={$c}
     entity={sanitizedAccountLayoutUser($c.user)}
     page="preferences"
     title={l('Preferences')}

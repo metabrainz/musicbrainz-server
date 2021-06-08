@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ATTRIBUTE
     $INSTRUMENT_ROOT_ID
 );
-
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Validation qw( is_guid );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -26,14 +26,36 @@ sub _load_tree
 
 sub base : Chained('/') PathPart('relationship-attribute') CaptureArgs(0) { }
 
-sub index : Path('/relationship-attributes') Args(0)
+sub show : PathPart('') Chained('load')
+{
+    my ($self, $c) = @_;
+
+    my $attribute = $c->model('LinkAttributeType')->get_tree(
+        undef, # don't filter
+        $c->stash->{link_attr_type}->{id}
+    );
+    my @relationships = $c->model('LinkType')->find_by_attribute($attribute->{id});
+
+    my %props = (
+        attribute => $attribute->TO_JSON,
+        relationships => to_json_array(\@relationships),
+    );
+
+    $c->stash(
+        component_path  => 'relationship/linkattributetype/RelationshipAttributeTypeIndex',
+        component_props => \%props,
+        current_view => 'Node',
+    );
+}
+
+sub list : Path('/relationship-attributes') Args(0)
 {
     my ($self, $c) = @_;
 
     $self->_load_tree($c);
 
     $c->stash(
-        component_path  => 'relationship/linkattributetype/RelationshipAttributeTypesIndex',
+        component_path  => 'relationship/linkattributetype/RelationshipAttributeTypesList',
         component_props => {root => $c->stash->{root}->TO_JSON},
         current_view    => 'Node',
     );
@@ -54,7 +76,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
         if $parent_link_attr_type;
 
     if ($c->form_posted_and_valid($form)) {
-        $c->model('MB')->with_transaction(sub {
+        my $attribute_edit = $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
                 $c, $form,
                 edit_type => $EDIT_RELATIONSHIP_ADD_ATTRIBUTE,
@@ -62,7 +84,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
             );
         });
 
-        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/index'));
+        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/show', [ $attribute_edit->entity_gid ]));
         $c->detach;
     }
 }
@@ -93,7 +115,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             );
         });
 
-        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/index'));
+        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/show', [ $link_attr_type->gid ]));
         $c->detach;
     }
 }
@@ -130,7 +152,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
             );
         });
 
-        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/index'));
+        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/list'));
         $c->detach;
     }
 }

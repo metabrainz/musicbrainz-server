@@ -32,7 +32,7 @@ const AreaPlaces = ({
   pager,
   places,
 }: Props): React.Element<typeof AreaLayout> => (
-  <AreaLayout $c={$c} entity={area} page="places" title={l('Places')}>
+  <AreaLayout entity={area} page="places" title={l('Places')}>
     <h2>{l('Places')}</h2>
 
     {places?.length ? (

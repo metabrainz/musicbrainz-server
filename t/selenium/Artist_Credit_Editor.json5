@@ -348,7 +348,7 @@
     // close the dialog
     {
       command: 'click',
-      target: "xpath=//span[contains(@class, 'ui-dialog-title')][contains(., 'Add a new artist')]/following-sibling::button[contains(@class, 'ui-dialog-titlebar-close')]",
+      target: "css=#add-artist-dialog button.close-dialog",
       value: '',
     },
     // bubble is visible after dialog is closed

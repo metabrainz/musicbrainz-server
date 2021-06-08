@@ -9,7 +9,10 @@
 
 import parseInteger from './parseInteger';
 
-export default function parseIntegerOrNull(str: string): number | null {
-  const integer = parseInteger(str);
+export default function parseIntegerOrNull(value: ?StrOrNum): number | null {
+  if (value == null) {
+    return null;
+  }
+  const integer = parseInteger(String(value));
   return isNaN(integer) ? null : integer;
 }

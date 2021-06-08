@@ -18,19 +18,17 @@ import * as manifest from '../static/manifest';
 import AreaLayout from './AreaLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +area: AreaT,
   +numberOfRevisions: number,
   +wikipediaExtract: WikipediaExtractT | null,
 };
 
 const AreaIndex = ({
-  $c,
   area,
   numberOfRevisions,
   wikipediaExtract,
 }: Props): React.Element<typeof AreaLayout> => (
-  <AreaLayout $c={$c} entity={area} page="index">
+  <AreaLayout entity={area} page="index">
     <Annotation
       annotation={area.latest_annotation}
       collapse

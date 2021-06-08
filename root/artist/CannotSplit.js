@@ -12,15 +12,13 @@ import * as React from 'react';
 import ArtistLayout from './ArtistLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +artist: ArtistT,
 };
 
 const CannotSplit = ({
-  $c,
   artist,
 }: Props): React.Element<typeof ArtistLayout> => (
-  <ArtistLayout $c={$c} entity={artist} page="cannot_split">
+  <ArtistLayout entity={artist} page="cannot_split">
     <h2>{l('Split Into Separate Artists')}</h2>
     <p>
       {exp.l(

@@ -116,7 +116,6 @@ RE.exportTypeInfo = function (typeInfo, attrInfo) {
 
 
 export class ViewModel {
-
   constructor(options) {
     this.source = options.source;
     this.uniqueID = uniqueId('relationship-editor-');
@@ -182,7 +181,7 @@ MB.initRelationshipEditors = function (args) {
   MB.sourceEntity = MB.entity(sourceData);
 
   var source = MB.sourceEntity;
-  var vmArgs = { source: source, formName: args.formName };
+  var vmArgs = {source: source, formName: args.formName};
 
   let {vmClass} = args;
   if (!vmClass) {
@@ -220,7 +219,7 @@ MB.getRelationship = function (data, source) {
   let backward = source.entityType > target.entityType;
 
   if (source.entityType === target.entityType) {
-    backward = (data.direction === 'backward');
+    backward = !!data.backward;
   }
 
   data.entities = backward ? [target, source] : [source, target];
@@ -326,8 +325,8 @@ function addRelationshipsFromQueryString(source) {
     }
 
     var target = targetIsUUID
-      ? (MB.entityCache[rel.target] || { gid: rel.target })
-      : { name: rel.target };
+      ? (MB.entityCache[rel.target] || {gid: rel.target})
+      : {name: rel.target};
 
     if (linkType && !target.entityType) {
       target.entityType = source.entityType === linkType.type0
@@ -341,7 +340,7 @@ function addRelationshipsFromQueryString(source) {
       begin_date: parseDate(rel.begin_date || ''),
       end_date: parseDate(rel.end_date || ''),
       ended: !!Number(rel.ended),
-      direction: rel.direction,
+      backward: !!rel.backward,
       linkOrder: Number(rel.link_order) || 0,
     };
 
@@ -351,7 +350,7 @@ function addRelationshipsFromQueryString(source) {
 
         if (attrInfo && linkType.attributes[attrInfo.id]) {
           accum.push({
-            type: { gid: attr.type },
+            type: {gid: attr.type},
             credit: attr.credited_as,
             textValue: attr.text_value,
           });

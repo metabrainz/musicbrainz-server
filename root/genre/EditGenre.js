@@ -25,7 +25,6 @@ const EditGenre = ({
   genre,
 }: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
-    $c={$c}
     entity={genre}
     fullWidth
     page="edit"

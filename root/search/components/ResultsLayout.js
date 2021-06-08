@@ -9,39 +9,42 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import Layout from '../../layout';
 import formatUserDate from '../../utility/formatUserDate';
 
 import SearchForm from './SearchForm';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +form: SearchFormT,
   +lastUpdated?: string,
 };
 
 const ResultsLayout = ({
-  $c,
   children,
   form,
   lastUpdated,
-}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Search Results')}>
-    <div id="content">
-      <h1>{l('Search Results')}</h1>
-      {nonEmpty(lastUpdated) ? (
-        <p>
-          {exp.l(
-            'Last updated: {date}',
-            {date: formatUserDate($c, lastUpdated)},
-          )}
-        </p>
-      ) : null}
-      {children}
-      <SearchForm form={form} />
-    </div>
-  </Layout>
-);
+}: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(CatalystContext);
+
+  return (
+    <Layout fullWidth title={l('Search Results')}>
+      <div id="content">
+        <h1>{l('Search Results')}</h1>
+        {nonEmpty(lastUpdated) ? (
+          <p>
+            {exp.l(
+              'Last updated: {date}',
+              {date: formatUserDate($c, lastUpdated)},
+            )}
+          </p>
+        ) : null}
+        {children}
+        <SearchForm form={form} />
+      </div>
+    </Layout>
+  );
+};
 
 export default ResultsLayout;

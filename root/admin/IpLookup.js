@@ -14,17 +14,15 @@ import Layout from '../layout';
 import UserList from './components/UserList';
 
 type Props = {
-  +$c: CatalystContextT,
   +ipHash: string,
   +users: $ReadOnlyArray<UnsanitizedEditorT>,
 };
 
 const IpLookup = ({
-  $c,
   ipHash,
   users,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('IP lookup')}>
+  <Layout fullWidth title={l('IP lookup')}>
     <div id="content">
       <h1>{l('IP lookup')}</h1>
       <p>

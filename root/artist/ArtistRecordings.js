@@ -29,6 +29,7 @@ type FooterSwitchProps = {
 };
 
 type Props = {
+  ...ReleaseGroupAppearancesRoleT,
   +$c: CatalystContextT,
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
@@ -132,11 +133,11 @@ const ArtistRecordings = ({
   hasVideo,
   pager,
   recordings,
+  releaseGroupAppearances,
   standaloneOnly,
   videoOnly,
 }: Props): React.Element<typeof ArtistLayout> => (
   <ArtistLayout
-    $c={$c}
     entity={artist}
     page="recordings"
     title={l('Recordings')}
@@ -157,7 +158,9 @@ const ArtistRecordings = ({
           <RecordingList
             checkboxes="add-to-merge"
             recordings={recordings}
+            releaseGroupAppearances={releaseGroupAppearances}
             showRatings
+            showReleaseGroups
           />
         </PaginatedResults>
         {$c.user ? (

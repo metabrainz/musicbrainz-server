@@ -29,7 +29,6 @@ const LabelRelationships = ({
   pager,
 }: Props): React.Element<typeof LabelLayout> => (
   <LabelLayout
-    $c={$c}
     entity={label}
     page="relationships"
     title={l('Relationships')}

@@ -30,7 +30,7 @@ const EditWikiDoc = ({
   form,
   page,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Update Page')}>
+  <Layout fullWidth title={l('Update Page')}>
     <div id="content">
       <h1>{l('Update Page')}</h1>
       <form action={$c.req.uri} method="post">

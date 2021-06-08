@@ -24,7 +24,6 @@ const DeleteCollection = ({
   collection,
 }: Props): React.Element<typeof CollectionLayout> => (
   <CollectionLayout
-    $c={$c}
     entity={collection}
     fullWidth
     page="delete"

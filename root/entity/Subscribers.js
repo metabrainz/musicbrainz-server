@@ -43,7 +43,6 @@ const Subscribers = ({
 
   return (
     <LayoutComponent
-      $c={$c}
       entity={entity}
       page="subscribers"
       title={l('Subscribers')}

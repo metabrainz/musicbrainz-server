@@ -35,7 +35,6 @@ const DeleteAlias = ({
 
   return (
     <LayoutComponent
-      $c={$c}
       entity={entity}
       fullWidth
       title={header}

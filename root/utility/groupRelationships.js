@@ -224,7 +224,7 @@ const getSortName = x => x.entityType === 'artist' ? x.sort_name : x.name;
 
 function targetIsOrderable(relationship: RelationshipT) {
   const linkType = linkedEntities.link_type[relationship.linkTypeID];
-  const backward = relationship.direction === 'backward';
+  const backward = relationship.backward;
   // `backward` indicates that the relationship target is entity0
   return (linkType.orderable_direction === 1 && !backward) ||
           (linkType.orderable_direction === 2 && backward);
@@ -272,7 +272,7 @@ export default function groupRelationships(
       }
     }
 
-    const backward = relationship.direction === 'backward';
+    const backward = relationship.backward;
     const linkType = linkedEntities.link_type[relationship.linkTypeID];
 
     /*
@@ -369,7 +369,7 @@ export default function groupRelationships(
       }
     }
 
-    const targetCredit = relationship.direction === 'backward'
+    const targetCredit = relationship.backward
       ? relationship.entity0_credit
       : relationship.entity1_credit;
     const isOrderable = targetIsOrderable(relationship);

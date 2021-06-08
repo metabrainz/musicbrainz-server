@@ -14,27 +14,51 @@
 
 /*::
 type LinkedEntities = {
+  area: {
+    [areaId: number]: AreaT,
+  },
+  artist: {
+    [artistId: number]: ArtistT,
+  },
   artist_type: {
     [artistId: number]: ArtistTypeT,
+  },
+  event: {
+    [eventId: number]: EventT,
+  },
+  genre: {
+    [genreId: number]: GenreT,
+  },
+  instrument: {
+    [instrumentId: number]: InstrumentT,
+  },
+  label: {
+    [labelId: number]: LabelT,
   },
   language: {
     [languageId: number]: LanguageT,
   },
   link_attribute_type: {
-    [linkAttributeTypeId: number]: LinkAttrTypeT,
+    [linkAttributeTypeIdOrGid: StrOrNum]: LinkAttrTypeT,
   },
   link_type: {
-    [linkTypeId: number]: LinkTypeT,
+    [linkTypeIdOrGid: StrOrNum]: LinkTypeT,
   },
   link_type_tree: {
     [entityTypes: string]: $ReadOnlyArray<LinkTypeT>,
   },
   mergeLinkedEntities: (update: ?$Shape<LinkedEntities>) => void,
+  place: {
+    [placeId: number]: PlaceT,
+  },
   recording: {
     [recordingId: number]: RecordingT,
   },
   release: {
     [releaseId: number]: ReleaseT,
+  },
+  release_group: {
+    [releaseGroupId: number]: ReleaseGroupT,
   },
   release_group_primary_type: {
     [releaseGroupPrimaryTypeId: number]: ReleaseGroupTypeT,
@@ -59,6 +83,9 @@ type LinkedEntities = {
   },
   series_type: {
     [seriesTypeId: number]: SeriesTypeT,
+  },
+  url: {
+    [urlId: number]: UrlT,
   },
   work: {
     [workId: number]: WorkT,

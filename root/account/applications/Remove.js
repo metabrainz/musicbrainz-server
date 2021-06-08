@@ -12,16 +12,13 @@ import * as React from 'react';
 import ConfirmLayout from '../../components/ConfirmLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: SecureConfirmFormT,
 };
 
 const RemoveApplication = ({
-  $c,
   form,
 }: Props): React.Element<typeof ConfirmLayout> => (
   <ConfirmLayout
-    $c={$c}
     form={form}
     question={l('Are you sure you want to remove this application?')}
     title={l('Remove Application')}

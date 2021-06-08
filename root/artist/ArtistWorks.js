@@ -28,7 +28,7 @@ const ArtistWorks = ({
   pager,
   works,
 }: Props): React.Element<typeof ArtistLayout> => (
-  <ArtistLayout $c={$c} entity={artist} page="works" title={l('Works')}>
+  <ArtistLayout entity={artist} page="works" title={l('Works')}>
     <h2>{l('Works')}</h2>
 
     {works?.length ? (

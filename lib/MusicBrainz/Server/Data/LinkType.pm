@@ -94,6 +94,18 @@ around get_by_gid => sub
     return $obj;
 };
 
+sub find_by_attribute
+{
+    my ($self, $attribute_id) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN link_type_attribute_type ltat ON ltat.link_type = link_type.id
+                 WHERE ltat.attribute_type = ?
+                 ORDER BY link_type.name COLLATE musicbrainz";
+
+    $self->query_to_list($query, [$attribute_id]);
+}
+
 sub load
 {
     my ($self, @objs) = @_;

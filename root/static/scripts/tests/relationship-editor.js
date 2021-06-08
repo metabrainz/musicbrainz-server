@@ -6,8 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import './typeInfo';
-
 import $ from 'jquery';
 import ko from 'knockout';
 import test from 'tape';
@@ -27,6 +25,14 @@ import {
   prepareSubmission,
 } from '../relationship-editor/generic';
 import {ReleaseViewModel} from '../relationship-editor/release';
+import '../relationship-editor/common/viewModel';
+
+import {linkTypeTree, linkAttributeTypes} from './typeInfo';
+
+MB.relationshipEditor.exportTypeInfo(
+  linkTypeTree,
+  linkAttributeTypes,
+);
 
 class FakeRelationship extends fields.Relationship {}
 
@@ -118,7 +124,7 @@ var testRelease = {
 };
 
 function id2attr(id) {
-  return { type: linkedEntities.link_attribute_type[id] };
+  return {type: linkedEntities.link_attribute_type[id]};
 }
 
 function ids2attrs(ids) {
@@ -177,8 +183,8 @@ relationshipEditorTest('link phrase interpolation', function (t) {
 
   var vm = setupReleaseRelationshipEditor();
 
-  var source = MB.entity({ entityType: 'recording' });
-  var target = MB.entity({ entityType: 'artist' });
+  var source = MB.entity({entityType: 'recording'});
+  var target = MB.entity({entityType: 'artist'});
 
   var relationship = vm.getRelationship({
     target: target,
@@ -251,14 +257,14 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
 
   var vm = setupReleaseRelationshipEditor();
 
-  var source = MB.entity({ entityType: 'recording', name: 'foo' });
-  var target = MB.entity({ entityType: 'artist', name: 'bar' });
+  var source = MB.entity({entityType: 'recording', name: 'foo'});
+  var target = MB.entity({entityType: 'artist', name: 'bar'});
 
   var relationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
-    begin_date: { year: 2001 },
+    begin_date: {year: 2001},
     end_date: null,
     ended: false,
   }, source);
@@ -268,7 +274,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
     begin_date: null,
-    end_date: { year: 2002 },
+    end_date: {year: 2002},
     ended: true,
   }, source);
 
@@ -285,7 +291,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
-    begin_date: { year: 2001 },
+    begin_date: {year: 2001},
     end_date: null,
     ended: true,
   }, source);
@@ -295,7 +301,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
     begin_date: null,
-    end_date: { year: 2002 },
+    end_date: {year: 2002},
     ended: true,
   }, source);
 
@@ -320,8 +326,8 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
       ended: relationshipEnded.ended,
     }),
     {
-      begin_date: { year: 2001, month: null, day: null },
-      end_date: { year: 2002, month: null, day: null },
+      begin_date: {year: 2001, month: null, day: null},
+      end_date: {year: 2002, month: null, day: null},
       ended: true,
     },
     'date period is merged correctly',
@@ -335,8 +341,8 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
   var notDuplicateRelationship2 = vm.getRelationship({
     target: target,
     linkTypeID: 148,
-    begin_date: { year: 2003 },
-    end_date: { year: 2004 },
+    begin_date: {year: 2003},
+    end_date: {year: 2004},
   }, source);
 
   notDuplicateRelationship2.show();
@@ -352,7 +358,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
-    begin_date: { year: 2001 },
+    begin_date: {year: 2001},
     end_date: null,
     ended: true,
   }, source);
@@ -362,7 +368,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
     begin_date: null,
-    end_date: { year: 2000 },
+    end_date: {year: 2000},
     ended: true,
   }, source);
 
@@ -390,8 +396,8 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
-    begin_date: { year: 2000 },
-    end_date: { year: 2000 },
+    begin_date: {year: 2000},
+    end_date: {year: 2000},
     ended: true,
   }, source);
 
@@ -419,7 +425,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
-    begin_date: { year: 2000 },
+    begin_date: {year: 2000},
     end_date: null,
     ended: false,
   }, source);
@@ -441,9 +447,9 @@ relationshipEditorTest('dialog backwardness', function (t) {
 
   var vm = setupReleaseRelationshipEditor();
 
-  var release = MB.entity({ entityType: 'release' });
-  var recording0 = MB.entity({ entityType: 'recording' });
-  var recording1 = MB.entity({ entityType: 'recording' });
+  var release = MB.entity({entityType: 'release'});
+  var recording0 = MB.entity({entityType: 'recording'});
+  var recording1 = MB.entity({entityType: 'recording'});
 
   var tests = [
     {
@@ -480,7 +486,7 @@ relationshipEditorTest('dialog backwardness', function (t) {
       input: {
         source: recording1,
         target: recording0,
-        direction: 'backward',
+        backward: true,
       },
       expected: {
         backward: true,
@@ -506,7 +512,7 @@ relationshipEditorTest('AddDialog', function (t) {
   var vm = setupReleaseRelationshipEditor();
 
   var source = vm.source.mediums()[0].tracks[0].recording;
-  var target = MB.entity({ entityType: 'artist', gid: fakeGID0 });
+  var target = MB.entity({entityType: 'artist', gid: fakeGID0});
 
   var dialog = new AddDialog(
     {source: source, target: target, viewModel: vm},
@@ -527,7 +533,7 @@ relationshipEditorTest('BatchRelationshipDialog', function (t) {
 
   var vm = setupReleaseRelationshipEditor();
 
-  var target = MB.entity({ entityType: 'artist', gid: fakeGID0 });
+  var target = MB.entity({entityType: 'artist', gid: fakeGID0});
   var recordings = vm.source.mediums()[0].tracks.map(x => x.recording);
 
   var dialog = new BatchRelationshipDialog({
@@ -588,8 +594,8 @@ relationshipEditorTest('BatchCreateWorksDialog', function (t) {
   dialog.createEdits = function () {
     return $.Deferred().resolve({
       edits: [
-        { entity: { name: 'WorkFoo', gid: fakeGID0, entityType: 'work' } },
-        { entity: { name: 'WorkBar', gid: fakeGID1, entityType: 'work' } },
+        {entity: {name: 'WorkFoo', gid: fakeGID0, entityType: 'work'}},
+        {entity: {name: 'WorkBar', gid: fakeGID1, entityType: 'work'}},
       ],
     });
   };
@@ -597,11 +603,11 @@ relationshipEditorTest('BatchCreateWorksDialog', function (t) {
   dialog.accept();
 
   t.deepEqual(recordings[0].relationships()[0].entities(), [
-    recordings[0], MB.entity({ gid: fakeGID0 }, 'work'),
+    recordings[0], MB.entity({gid: fakeGID0}, 'work'),
   ]);
 
   t.deepEqual(recordings[1].relationships()[0].entities(), [
-    recordings[1], MB.entity({ gid: fakeGID1 }, 'work'),
+    recordings[1], MB.entity({gid: fakeGID1}, 'work'),
   ]);
 });
 
@@ -705,13 +711,13 @@ relationshipEditorTest((
       linkTypeID: 234,
       target: target,
       entities: [target, source],
-      direction: 'backward',
+      backward: true,
     },
   ]));
 
   // Pretend the form was posted.
   MB.formWasPosted = true;
-  var vm = setupGenericRelationshipEditor({ sourceData: source });
+  var vm = setupGenericRelationshipEditor({sourceData: source});
   MB.formWasPosted = false;
 
   var entities = vm.source.relationships()[0].entities();
@@ -751,7 +757,7 @@ relationshipEditorTest((
   relationship2.show();
 
   vm._createEdit = function (data, context) {
-    return $.Deferred().resolveWith(context, [{ edits: [] }, data]);
+    return $.Deferred().resolveWith(context, [{edits: []}, data]);
   };
 
   vm.submissionDone = function (data, submitted) {
@@ -821,7 +827,7 @@ relationshipEditorTest((
       relationships: [
         {
           linkTypeID: 103,
-          direction: 'backward',
+          backward: true,
           ended: true,
           target: {
             entityType: 'artist',
@@ -837,7 +843,7 @@ relationshipEditorTest((
         },
         {
           linkTypeID: 103,
-          direction: 'backward',
+          backward: true,
           ended: true,
           target: {
             entityType: 'artist',
@@ -857,7 +863,7 @@ relationshipEditorTest((
 
   var newRelationship = vm.getRelationship({
     linkTypeID: 103,
-    direction: 'backward',
+    backward: true,
     ended: true,
     target: {
       entityType: 'artist',
@@ -941,7 +947,7 @@ relationshipEditorTest((
 
   var newRelationship1 = vm.getRelationship({
     linkTypeID: 742,
-    direction: 'backward',
+    backward: true,
     target: {
       entityType: 'release_group',
       name: '「神のみぞ知るセカイ」キャラクターCD.0',
@@ -954,7 +960,7 @@ relationshipEditorTest((
 
   var newRelationship2 = vm.getRelationship({
     linkTypeID: 742,
-    direction: 'backward',
+    backward: true,
     target: {
       entityType: 'release_group',
       name: '「神のみぞ知るセカイ」キャラクターCD.1',
@@ -967,7 +973,7 @@ relationshipEditorTest((
 
   var newRelationship3 = vm.getRelationship({
     linkTypeID: 742,
-    direction: 'backward',
+    backward: true,
     target: {
       entityType: 'release_group',
       name: '「神のみぞ知るセカイ」キャラクターCD.2',
@@ -1059,7 +1065,7 @@ var loveMeDo = {
   relationships: [
     {
       linkTypeID: 44,
-      direction: 'backward',
+      backward: true,
       target: {
         entityType: 'artist',
         name: 'Ringo Starr',
@@ -1124,7 +1130,7 @@ relationshipEditorTest((
 
   relationship.attributes.push(
     new fields.LinkAttribute(
-      { type: { gid: 'ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1' } },
+      {type: {gid: 'ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1'}},
     ),
   );
 
@@ -1175,7 +1181,7 @@ relationshipEditorTest((
   var compositionData = {
     id: 666,
     linkTypeID: 168,
-    direction: 'backward',
+    backward: true,
     target: beethoven,
     linkOrder: 0,
     attributes: [],
@@ -1196,9 +1202,11 @@ relationshipEditorTest((
         id: 188961,
         gid: 'd0dd466b-3385-356b-bdf0-856737c6baf7',
         name: '3 Great Piano Sonatas',
-        artistCredit: {names: [
-          {artist: beethoven, joinPhrase: '; ', name: 'Beethoven'},
-        ]},
+        artistCredit: {
+          names: [
+            {artist: beethoven, joinPhrase: '; ', name: 'Beethoven'},
+          ],
+        },
       },
     },
   });
@@ -1265,7 +1273,7 @@ relationshipEditorTest((
   var relData = [
     {
       attributes:  [],
-      direction: 'backward',
+      backward: true,
       id: 55536,
       linkOrder: 15,
       linkTypeID: 281,

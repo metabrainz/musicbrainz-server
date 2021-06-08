@@ -7,13 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import he from 'he';
 import * as React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {unwrapNl} from '../i18n';
 import {keyBy, sortByNumber} from '../utility/arrays';
-import bracketed from '../utility/bracketed';
+import bracketed, {bracketedText} from '../utility/bracketed';
 import {compareStrings} from '../utility/compare';
 import debounce from '../utility/debounce';
 import isBlank from '../utility/isBlank';
@@ -36,6 +37,18 @@ const VOTE_DELAY = 1000;
 const cmpTags = (a, b) => (
   (b.count - a.count) || compareStrings(a.tag.name, b.tag.name)
 );
+
+function formatGenreLabel(genre) {
+  let output = he.encode(genre.name);
+  if (genre.comment) {
+    output += (
+      '<span class="small"> ' +
+      he.encode(bracketedText(genre.comment)) +
+      '</span>'
+    );
+  }
+  return output;
+}
 
 function getTagsPath(entity) {
   const type = entity.entityType.replace('_', '-');
@@ -211,7 +224,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   genreMap: {+[genreName: string]: GenreT, ...};
 
-  genreNames: $ReadOnlyArray<string>;
+  genreOptions: $ReadOnlyArray<{+label: string, +value: string}>;
 
   handleSubmit: (SyntheticEvent<HTMLFormElement>) => void;
 
@@ -235,7 +248,14 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.setTagsInput = this.setTagsInput.bind(this);
 
     this.genreMap = props.genreMap ?? {};
-    this.genreNames = Object.keys(this.genreMap);
+    this.genreOptions =
+      ((Object.values(this.genreMap): any): $ReadOnlyArray<GenreT>)
+        .map(genre => {
+          return {
+            label: formatGenreLabel(genre),
+            value: genre.name,
+          };
+        });
 
     this.pendingVotes = new Map();
     this.debouncePendingVotes = debounce(
@@ -451,15 +471,19 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         const filteredTerms: $ReadOnlyArray<string> =
           sortByNumber(
             $.ui.autocomplete.filter(
-              self.genreNames.filter(x => !previousTerms.has(x)),
+              self.genreOptions.filter(x => !previousTerms.has(x.value)),
               last,
             ).sort(),
-            x => x.startsWith(last) ? 0 : 1,
+            x => x.value.startsWith(last) ? 0 : 1,
           );
 
         response(filteredTerms);
       },
-    });
+    }).data('ui-autocomplete')._renderItem = function (ul, item) {
+      return $('<li></li>')
+        .append('<a>' + item.label + '</a>')
+        .appendTo(ul);
+    };
 
     /*
      * MBS-9862: jQuery UI disables the browser's builtin autocomplete

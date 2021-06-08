@@ -13,6 +13,7 @@ use MusicBrainz::Server::PagedReport;
     AnnotationsReleaseGroups
     AnnotationsSeries
     AnnotationsWorks
+    ArtistCreditsWithDubiousTrailingPhrases
     ArtistsContainingDisambiguationComments
     ArtistsDisambiguationSameName
     ArtistsWithMultipleOccurrencesInArtistCredits
@@ -98,10 +99,12 @@ use MusicBrainz::Server::PagedReport;
     TracksWithoutTimes
     TracksWithSequenceIssues
     UnlinkedPseudoReleases
+    WorkSameTypeAsParent
 );
 
 use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use MusicBrainz::Server::Report::AnnotationReports;
+use MusicBrainz::Server::Report::ArtistCreditsWithDubiousTrailingPhrases;
 use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
 use MusicBrainz::Server::Report::ArtistsDisambiguationSameName;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
@@ -188,6 +191,7 @@ use MusicBrainz::Server::Report::TracksNamedWithSequence;
 use MusicBrainz::Server::Report::TracksWithoutTimes;
 use MusicBrainz::Server::Report::TracksWithSequenceIssues;
 use MusicBrainz::Server::Report::UnlinkedPseudoReleases;
+use MusicBrainz::Server::Report::WorkSameTypeAsParent;
 
 my %all = map { $_ => 1 } @all;
 

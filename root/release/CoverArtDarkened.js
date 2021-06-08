@@ -12,18 +12,16 @@ import * as React from 'react';
 import ReleaseLayout from './ReleaseLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +release: ReleaseT,
 };
 
 const CoverArtDarkened = ({
-  $c,
   release,
 }: Props): React.Element<typeof ReleaseLayout> => {
   const title = l('Cannot Add Cover Art');
 
   return (
-    <ReleaseLayout $c={$c} entity={release} page="cover-art" title={title}>
+    <ReleaseLayout entity={release} page="cover-art" title={title}>
       <h2>{title}</h2>
       <p>
         {l(`The Cover Art Archive has had a takedown request in the past

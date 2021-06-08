@@ -67,20 +67,20 @@ const RelationshipContent = ({
   allowNewEntity1,
   relationship,
 }: Props) => {
-  const direction = relationship.direction;
+  const backward = relationship.backward;
   const linkType = linkedEntities.link_type[relationship.linkTypeID];
   let entity0 = relationship.entity0;
   let entity1 = relationship.entity1;
   const type0 = linkType.type0 ||
-    (direction === 'backward'
+    (backward
       ? relationship.target_type
       : relationship.source_type);
   const type1 = linkType.type1 ||
-    (direction === 'backward'
+    (backward
       ? relationship.source_type
       : relationship.target_type);
   if (!entity0 || !entity1) {
-    if (direction === 'backward') {
+    if (backward) {
       entity0 = relationship.target;
       entity1 = linkedEntities[type1][relationship.entity1_id] ||
         {entityType: type1, id: relationship.entity1_id};

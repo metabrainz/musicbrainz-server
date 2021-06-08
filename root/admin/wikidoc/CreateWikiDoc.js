@@ -28,7 +28,7 @@ const CreateWikiDoc = ({
   $c,
   form,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Add Page')}>
+  <Layout fullWidth title={l('Add Page')}>
     <div id="content">
       <h1>{l('Add Page')}</h1>
       <form action={$c.req.uri} method="post">

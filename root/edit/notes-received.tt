@@ -24,7 +24,8 @@
                   [%~ link_edit(edit, show, l('Edit #{id} - {name}', { id => edit.id, name => edit.l_edit_name})) ~%]
                 </h2>
               </div>
-              [% edit_note_display(note) %]
+              [%- edit_json_obj = React.to_json_object(edit); edit_json_obj.delete('display_data') -%]
+              [%- React.embed(c, 'edit/components/EditNote', {edit => edit_json_obj, editNote => React.to_json_object(note), index => 0}) -%]
             </div>
           [% END %]
         [% END %]

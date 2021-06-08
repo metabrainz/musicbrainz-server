@@ -30,7 +30,6 @@ module.exports = function (api) {
     ['@babel/plugin-transform-react-jsx', {
       runtime: 'automatic',
     }],
-    '@babel/plugin-transform-react-constant-elements',
     ['@babel/plugin-transform-runtime', {
       corejs: false,
       helpers: true,

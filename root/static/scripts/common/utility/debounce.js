@@ -29,6 +29,6 @@ export function debounceComputed(value, delay) {
     return value;
   }
   return value.extend({
-    rateLimit: { method: 'notifyWhenChangesStop', timeout: delay || 500 },
+    rateLimit: {method: 'notifyWhenChangesStop', timeout: delay || 500},
   });
 }

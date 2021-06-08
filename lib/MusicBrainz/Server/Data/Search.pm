@@ -117,7 +117,7 @@ sub search
                          SELECT name              FROM ${type}_alias UNION ALL
                          SELECT sort_name AS name FROM ${type}_alias) names,
                         plainto_tsquery('mb_simple', mb_lower(?)) AS query
-                    WHERE mb_simple_tsvector(name) @@ query OR name = ?
+                    WHERE mb_simple_tsvector(name) @@ query
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
@@ -172,15 +172,16 @@ sub search
                 push @where_args, "%".$where->{artist}."%";
             }
         }
+        my $extra_groupby_columns = $extra_columns =~ s/[^ ,]+ AS //gr;
 
         $query = "
-            SELECT DISTINCT
+            SELECT
                 entity.id,
                 entity.gid,
                 entity.name,
                 entity.comment,
                 $extra_columns
-                r.rank
+                MAX(rank) AS rank
             FROM
                 (
                     SELECT name, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank
@@ -189,14 +190,16 @@ sub search
                          SELECT name              FROM ${type}_alias UNION ALL
                          SELECT sort_name AS name FROM ${type}_alias) names,
                         plainto_tsquery('mb_simple', mb_lower(?)) AS query
-                    WHERE mb_simple_tsvector(name) @@ query OR name = ?
+                    WHERE mb_simple_tsvector(name) @@ query
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
                 $join_sql
                 $where_sql
+            GROUP BY
+                $extra_groupby_columns entity.id, entity.gid, entity.name, entity.comment
             ORDER BY
-                r.rank DESC, entity.name
+                rank DESC, entity.name
                 ${extra_ordering}, entity.gid
             OFFSET
                 ?
@@ -251,7 +254,7 @@ sub search
                          SELECT name              FROM ${type}_alias UNION ALL
                          SELECT sort_name AS name FROM ${type}_alias) names,
                         plainto_tsquery('mb_simple', mb_lower(?)) AS query
-                    WHERE mb_simple_tsvector(name) @@ query OR name = ?
+                    WHERE mb_simple_tsvector(name) @@ query
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
@@ -284,7 +287,7 @@ sub search
                     SELECT name, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank
                     FROM genre,
                         plainto_tsquery('mb_simple', mb_lower(?)) AS query
-                    WHERE mb_simple_tsvector(name) @@ query OR name = ?
+                    WHERE mb_simple_tsvector(name) @@ query
                     ORDER BY rank DESC
                 ) AS r
                 JOIN genre AS entity ON r.name = entity.name
@@ -304,7 +307,7 @@ sub search
             SELECT tag.id, tag.name, genre.id AS genre_id,
                    ts_rank_cd(mb_simple_tsvector(tag.name), query, 2) AS rank
             FROM tag LEFT JOIN genre USING (name), plainto_tsquery('mb_simple', mb_lower(?)) AS query
-            WHERE mb_simple_tsvector(tag.name) @@ query OR tag.name = ?
+            WHERE mb_simple_tsvector(tag.name) @@ query
             ORDER BY rank DESC, tag.name
             OFFSET ?
         ";
@@ -314,7 +317,7 @@ sub search
         $query = "SELECT id, name, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank,
                     email
                   FROM editor, plainto_tsquery('mb_simple', mb_lower(?)) AS query
-                  WHERE mb_simple_tsvector(name) @@ query OR name = ?
+                  WHERE mb_simple_tsvector(name) @@ query
                   ORDER BY rank DESC
                   OFFSET ?";
         $use_hard_search_limit = 0;
@@ -337,7 +340,7 @@ sub search
 
     Sql::run_in_transaction(sub {
         $self->sql->do('SET LOCAL gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
-        @rows = @{ $self->sql->select_list_of_hashes($query, $query_str, $query_str, @query_args) };
+        @rows = @{ $self->sql->select_list_of_hashes($query, $query_str, @query_args) };
     }, $self->sql);
 
     for my $row (@rows) {

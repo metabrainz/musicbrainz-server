@@ -22,12 +22,11 @@ type LostPasswordFormT = FormT<{
 }>;
 
 type Props = {
-  +$c: CatalystContextT,
   +form: LostPasswordFormT,
 };
 
 const LostPassword = (props: Props): React.Element<typeof Layout> => (
-  <Layout $c={props.$c} fullWidth title={l('Lost Password')}>
+  <Layout fullWidth title={l('Lost Password')}>
     <h1>{l('Lost Password')}</h1>
     <p>
       {exp.l(

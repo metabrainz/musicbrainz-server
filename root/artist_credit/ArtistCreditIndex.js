@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import ENTITIES from '../../entities';
+import ArtistCreditUsageLink
+  from '../static/scripts/common/components/ArtistCreditUsageLink';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink
@@ -43,8 +45,6 @@ function buildSection(
   }
 
   const entityUrlFragment = ENTITIES[entityType].url;
-  const url = '/artist-credit/' + props.artistCredit.id +
-              '/' + entityUrlFragment;
 
   return (
     <React.Fragment key={entityType}>
@@ -62,12 +62,14 @@ function buildSection(
         {entities.count > entities.entities.length ? (
           <li key="see-all">
             <em>
-              <a href={url}>
-                {expand2text(
+              <ArtistCreditUsageLink
+                artistCredit={props.artistCredit}
+                content={expand2text(
                   seeAllMessage(entities.count),
                   {num: formatCount(props.$c, entities.count)},
                 )}
-              </a>
+                subPath={entityUrlFragment}
+              />
             </em>
           </li>
         ) : null}
@@ -80,7 +82,6 @@ const ArtistCreditIndex = (
   props: Props,
 ): React.Element<typeof ArtistCreditLayout> => (
   <ArtistCreditLayout
-    $c={props.$c}
     artistCredit={props.artistCredit}
     page=""
   >

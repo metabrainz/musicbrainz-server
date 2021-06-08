@@ -25,7 +25,6 @@ const Index = ({$c, iswcs, works}: Props): React.Element<typeof Layout> => {
   const iswc = iswcs[0];
   return (
     <Layout
-      $c={$c}
       fullWidth
       title={texp.l('ISWC “{iswc}”', {iswc: iswc.iswc})}
     >

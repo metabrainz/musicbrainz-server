@@ -23,13 +23,17 @@ const ReleasesWithDownloadRelationships = ({
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(
-      `This report shows releases that have download relationships,
-       but have media whose format is not “Digital Media”.`,
+      `This report shows releases that have relationships
+       that only apply to digital media releases (download/streaming),
+       but have media whose format is not “Digital Media”.
+       Generally, these should be moved to the appropriate
+       digital media release. If one doesn’t exist yet,
+       feel free to create it.`,
     )}
     entityType="release"
     filtered={filtered}
     generated={generated}
-    title={l('Non-digital releases with download relationships')}
+    title={l('Non-digital releases with digital relationships')}
     totalEntries={pager.total_entries}
   >
     <ReleaseList items={items} pager={pager} />

@@ -173,7 +173,7 @@ React.Element<typeof CollectionLayout> => {
       collection.collaborators.some(x => x.id === user.id));
 
   return (
-    <CollectionLayout $c={$c} entity={collection} page="index">
+    <CollectionLayout entity={collection} page="index">
       <div className="description">
         {collection.description_html ? (
           <>

@@ -28,7 +28,7 @@ const AreaMerge = ({
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Merge areas')}>
+  <Layout fullWidth title={l('Merge areas')}>
     <div id="content">
       <h1>{l('Merge areas')}</h1>
       <p>

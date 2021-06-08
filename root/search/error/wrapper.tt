@@ -1,8 +1,0 @@
-[% WRAPPER "layout.tt" title=l("Search Error") full_width=1 %]
-    <h1>[% l("Search Error") %]</h1>
-    [% content %]
-    <p>
-        [% l('For assistance in writing effective advanced search queries, read the {doc|syntax documentation}.', { doc => doc_link('Indexed_Search_Syntax') }) %]
-    </p>
-    [% INCLUDE "search/form.tt" %]
-[% END %]

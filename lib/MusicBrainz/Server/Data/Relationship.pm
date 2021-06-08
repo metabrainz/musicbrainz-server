@@ -290,7 +290,7 @@ sub load_paged {
                 my $lt_group = RelationshipLinkTypeGroup->new(
                     link_type => $link_types->{$link_type_id},
                     link_type_id => $link_type_id,
-                    direction => $direction,
+                    backward => ($direction == $DIRECTION_BACKWARD),
                     total_relationships => $total_relationships,
                     limit => $limit,
                     offset => $offset,
@@ -361,7 +361,7 @@ sub load_paged {
                 $link_type_groups->{$group_key} = RelationshipLinkTypeGroup->new(
                     link_type => $link_types->{$link_type_filter},
                     link_type_id => $link_type_filter,
-                    direction => $direction,
+                    backward => ($direction == $DIRECTION_BACKWARD),
                     total_relationships => 0,
                     limit => $limit,
                     offset => $offset,

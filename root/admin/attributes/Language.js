@@ -21,18 +21,16 @@ const frequencyLabels = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +attributes: Array<LanguageT>,
   +model: string,
 };
 
 const Language = ({
-  $c,
   model,
   attributes,
 }: Props): React.Element<typeof Layout> => {
   return (
-    <Layout $c={$c} fullWidth title={model || l('Language')}>
+    <Layout fullWidth title={model || l('Language')}>
       <h1>
         <a href="/admin/attributes">{l('Attributes')}</a>
         {' / ' + l('Language')}

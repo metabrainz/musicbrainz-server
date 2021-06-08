@@ -17,19 +17,21 @@ import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities';
 import entityHref from '../static/scripts/common/utility/entityHref';
 
+type BlogEntryT = {
+  +title: string,
+  +url: string,
+};
+
 type Props = {
-  +$c: CatalystContextT,
   +blogEntries: $ReadOnlyArray<BlogEntryT> | null,
   +newestReleases: $ReadOnlyArray<ArtworkT>,
 };
 
 const Homepage = ({
-  $c,
   blogEntries,
   newestReleases,
 }: Props): React.Element<typeof Layout> => (
   <Layout
-    $c={$c}
     fullWidth
     homepage
     title={l('MusicBrainz - The Open Music Encyclopedia')}

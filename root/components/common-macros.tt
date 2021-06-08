@@ -876,44 +876,6 @@ END -%]
   [%- END -%]
 [%~ END ~%]
 
-[%- MACRO note_anchor(edit, loop) BLOCK -%]
-note-[%- edit.id -%]-[%- loop.count() -%]
-[%- END -%]
-
-[% MACRO votename(note) BLOCK %]
-  [%- edit = note.edit -%]
-  [%- is_owner = edit.editor_id == note.editor_id -%]
-  [%- FOR vote=edit.votes -%]
-    [%- show_class = (vote.editor_id == note.editor_id) && !vote.superseded -%]
-    [%- vote.vote_name IF show_class -%]
-    [%- ' ' IF show_class && is_owner -%]
-  [%- END -%]
-  [%- 'owner' IF is_owner -%]
-[% END %]
-
-[%~ MACRO edit_note_display(edit_note) BLOCK ~%]
-  <div class="edit-note" id="[% note_anchor(note.edit, loop) %]">
-    <h3 class="[%- votename(note) -%]">
-      [%- link_entity(note.editor) -%]
-      [%- FOR vote=note.edit.votes;
-        IF (vote.editor_id == note.editor_id) &&
-           !vote.superseded &&
-           (vote.vote_name == 'Approve' || vote.vote_name == 'No' || vote.vote_name == 'Yes');
-        '<div class="voting-icon"></div>'; LAST;
-      END; END; -%]
-      <a href="#[% note_anchor(note.edit, loop) %]" class="date">[%- UserDate.format(note.post_time) -%]</a>
-      [%- editor_type_info(note.editor) -%]
-    </h3>
-    <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
-      [%- IF note.editor_id == 4;
-            note.localize;
-          ELSE;
-            note.text | format_editnote;
-          END; -%]
-    </div>
-  </div>
-[%~ END ~%]
-
 [%~ MACRO bugtracker_url(description) BLOCK; # Converted to React at root/static/scripts/common/utility/bugTrackerURL.js
     'http://tickets.metabrainz.org/secure/CreateIssueDetails!init.jspa?' _
     'pid=10000&issuetype=1' _

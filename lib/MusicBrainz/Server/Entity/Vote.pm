@@ -41,6 +41,7 @@ has 'vote' => (
     is => 'rw',
 );
 
+# Converted to JavaScript at root/static/scripts/edit/utility/getVoteName.js
 sub vote_name
 {
     my $self = shift;

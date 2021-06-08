@@ -219,7 +219,7 @@ async function setChecked(element, wantChecked) {
   const checked = await element.isSelected();
 
   if (checked !== wantChecked) {
-    return element.click();
+    await element.click();
   }
 }
 
@@ -339,16 +339,16 @@ async function handleCommand({command, target, value}, t) {
       element = await findElement(locator);
 
       t.equal(await element.getAttribute(attribute), value);
-      return;
+      break;
 
     case 'assertElementPresent':
       const elements = await driver.findElements(makeLocator(target));
       t.ok(elements.length > 0);
-      return;
+      break;
 
     case 'assertEval':
       t.equal(await driver.executeScript(`return String(${target})`), value);
-      return;
+      break;
 
     case 'assertEditData':
       const actualEditData = JSON.parse(await driver.executeAsyncScript(`
@@ -360,28 +360,28 @@ async function handleCommand({command, target, value}, t) {
         }).then(x => x.text().then(callback));
       `));
       t.deepEqual2(actualEditData, value);
-      return;
+      break;
 
     case 'assertLocationMatches':
       t.ok(new RegExp(target).test(await driver.getCurrentUrl()));
-      return;
+      break;
 
     case 'assertText':
       target = await getElementText(target);
       t.equal(target, value.trim());
-      return;
+      break;
 
     case 'assertTextMatches':
       t.ok(new RegExp(value).test(await getElementText(target)));
-      return;
+      break;
 
     case 'assertTitle':
       t.equal(await driver.getTitle(), target);
-      return;
+      break;
 
     case 'assertValue':
       t.equal(await findElement(target).getAttribute('value'), value);
-      return;
+      break;
 
     case 'check':
       return setChecked(findElement(target), true);
@@ -389,46 +389,56 @@ async function handleCommand({command, target, value}, t) {
     case 'click':
       element = await findElement(target);
       await driver.executeScript('arguments[0].scrollIntoView()', element);
-      return element.click();
+      await element.click();
+      break;
 
     case 'fireEvent':
-      return driver.executeScript(
+      await driver.executeScript(
         `arguments[0].dispatchEvent(new Event('${value}'))`,
         await findElement(target),
       );
+      break;
 
     case 'focus':
-      return driver.executeScript(
+      await driver.executeScript(
         'arguments[0].focus()',
         await findElement(target),
       );
+      break;
 
     case 'handleAlert':
-      return driver.switchTo().alert()[target]();
+      await driver.switchTo().alert()[target]();
+      break;
 
     case 'mouseOver':
-      return driver.actions()
+      await driver.actions()
         .move({origin: await findElement(target)})
         .perform();
+      break;
 
     case 'open':
-      return driver.get('http://' + DBDefs.WEB_SERVER + target);
+      await driver.get('http://' + DBDefs.WEB_SERVER + target);
+      break;
 
     case 'pause':
-      return driver.sleep(target);
+      await driver.sleep(target);
+      break;
 
     case 'runScript':
-      return driver.executeScript(target);
+      await driver.executeScript(target);
+      break;
 
     case 'select':
-      return selectOption(await findElement(target), value);
+      await selectOption(await findElement(target), value);
+      break;
 
     case 'sendKeys':
       value = value.split(/(\$\{[A-Z_]+\})/)
         .filter(x => x)
         .map(x => KEY_CODES[x] || x);
       element = await findElement(target);
-      return element.sendKeys.apply(element, value);
+      await element.sendKeys.apply(element, value);
+      break;
 
     case 'type':
       element = await findElement(target);
@@ -445,19 +455,23 @@ async function handleCommand({command, target, value}, t) {
        */
       await element.clear();
       await driver.executeScript('arguments[0].value = ""', element);
-      return element.sendKeys(value);
+      await element.sendKeys(value);
+      break;
 
     case 'uncheck':
-      return setChecked(findElement(target), false);
+      await setChecked(findElement(target), false);
+      break;
 
     case 'waitUntilUrlIs':
-      return driver.wait(until.urlIs(
+      await driver.wait(until.urlIs(
         'http://' + DBDefs.WEB_SERVER + target,
       ), 30000);
+      break;
 
     default:
       throw 'Unsupported command: ' + command;
   }
+  return null;
 }
 
 const seleniumTests = [
