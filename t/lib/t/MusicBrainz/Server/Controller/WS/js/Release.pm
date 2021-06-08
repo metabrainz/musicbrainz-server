@@ -30,7 +30,7 @@ test all => sub {
 
     cmp_deeply($vocal_performance, {
         linkTypeID => 149,
-        direction => 'backward',
+        backward => JSON::true,
         ended => JSON::false,
         target => {
             area => undef,
