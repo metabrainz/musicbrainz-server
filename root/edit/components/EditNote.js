@@ -26,6 +26,7 @@ type PropsT = {
   +edit: $ReadOnly<{...EditT, +id: number}>,
   +editNote: EditNoteT,
   +index: number,
+  +isOnEditPage?: boolean,
 };
 
 function returnNoteAnchor(edit, index) {
@@ -53,6 +54,7 @@ const EditNote = ({
   edit,
   editNote,
   index,
+  isOnEditPage = false,
 }: PropsT): React.Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const isModBot = editNote.editor_id === 4;
@@ -77,7 +79,12 @@ const EditNote = ({
           : null}
         {' '}
         <EditorTypeInfo editor={editNote.editor} />
-        <a className="date" href={`#${anchor}`}>
+        <a
+          className="date"
+          href={(isOnEditPage ? '' : `/edit/${edit.id}`) + `#${anchor}`}
+          rel={isOnEditPage ? null : 'noopener noreferrer'}
+          target={isOnEditPage ? null : '_blank'}
+        >
           {formatUserDate($c, editNote.post_time)}
         </a>
       </h3>
