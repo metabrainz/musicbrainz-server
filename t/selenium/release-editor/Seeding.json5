@@ -289,7 +289,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#external-links-editor tr')).slice(0, 3).map(x => [x.querySelector('select').value, x.querySelector('input').value, x.querySelector('.error').textContent].join('\\t')).join('\\n')",
-      value: '\thttp://foo.bar.baz/\tPlease select a link type for the URL you’ve entered.\n77\t\tRequired field.\n76\thttp://foo.bar.baz/foo/\tThis URL is not allowed for the selected link type, or is incorrectly formatted.',
+      value: '\thttp://foo.bar.baz/\trelationship: Please select a link type for the URL you’ve entered.\n77\t\turl: Required field.\n76\thttp://foo.bar.baz/foo/\turl: This URL is incorrectly formatted.',
     },
     // MBS-7250: seeding empty date parts gives an ISE
     {

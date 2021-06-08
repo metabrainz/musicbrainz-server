@@ -460,10 +460,8 @@ export class ExternalLink extends React.Component<LinkProps> {
           {props.errorMessage &&
             <>
               <div className="error field-error" data-visible="1">
+                {`${props.errorTarget}: `}
                 {props.errorMessage}
-              </div>
-              <div className="error-target">
-                {`(${props.errorTarget})`}
               </div>
             </>}
           {linkType &&

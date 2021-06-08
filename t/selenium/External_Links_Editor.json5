@@ -41,7 +41,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
-      value: 'Enter a valid url e.g. "http://google.com/"',
+      value: 'url: Enter a valid url e.g. "http://google.com/"',
     },
     {
       command: 'click',
@@ -83,7 +83,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
-      value: 'Please don’t enter bundled/shortened URLs, enter the destination URL(s) instead.',
+      value: 'url: Please don’t enter bundled/shortened URLs, enter the destination URL(s) instead.',
     },
     {
       command: 'click',
@@ -109,7 +109,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
-      value: 'This relationship type is deprecated and should not be used.',
+      value: 'relationship: This relationship type is deprecated and should not be used.',
     },
     {
       command: 'click',
@@ -156,7 +156,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[1]//div[contains(@class, 'error')]",
-      value: 'This relationship type is deprecated and should not be used.',
+      value: 'relationship: This relationship type is deprecated and should not be used.',
     },
     // relationshipCreate edit for external link is generated for existing release
     {
@@ -300,7 +300,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'field-error')]",
-      value: 'This relationship already exists.',
+      value: 'relationship: This relationship already exists.',
     },
     {
       command: 'click',
@@ -336,7 +336,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[1]//div[contains(@class, 'field-error')]",
-      value: 'This relationship already exists.',
+      value: 'relationship: This relationship already exists.',
     },
     // revert above edit
     {
