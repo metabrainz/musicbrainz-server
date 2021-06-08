@@ -23,7 +23,7 @@ sub query {
                 l_release_url lru
                 JOIN link ON lru.link = link.id
             WHERE lru.entity0 = r.id 
-              AND link.link_type IN (74, 75)
+              AND link.link_type IN (74, 75, 85, 980) -- paid/free download, free/paid streaming
         )
     ";
 }
