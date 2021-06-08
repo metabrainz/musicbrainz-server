@@ -172,15 +172,16 @@ sub search
                 push @where_args, "%".$where->{artist}."%";
             }
         }
+        my $extra_groupby_columns = $extra_columns =~ s/[^ ,]+ AS //gr;
 
         $query = "
-            SELECT DISTINCT
+            SELECT
                 entity.id,
                 entity.gid,
                 entity.name,
                 entity.comment,
                 $extra_columns
-                r.rank
+                MAX(rank) AS rank
             FROM
                 (
                     SELECT name, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank
@@ -195,8 +196,10 @@ sub search
                 ) AS r
                 $join_sql
                 $where_sql
+            GROUP BY
+                $extra_groupby_columns entity.id, entity.gid, entity.name, entity.comment
             ORDER BY
-                r.rank DESC, entity.name
+                rank DESC, entity.name
                 ${extra_ordering}, entity.gid
             OFFSET
                 ?
