@@ -58,5 +58,5 @@ declare type EditNoteT = {
   +editor: EditorT,
   +editor_id: number,
   +formatted_text: string,
-  +post_time: string,
+  +post_time: string | null,
 };
