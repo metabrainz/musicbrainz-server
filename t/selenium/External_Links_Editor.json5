@@ -62,7 +62,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
-      value: 'Enter a valid url e.g. "http://google.com/"',
+      value: 'url: Enter a valid url e.g. "http://google.com/"',
     },
     {
       command: 'click',
