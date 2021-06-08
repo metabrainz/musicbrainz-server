@@ -126,6 +126,7 @@ after 'validate' => sub {
         values %$attribute_types
     );
 
+    my %used_attributes;
     for my $attribute_field ($attributes->fields) {
         next if is_empty_attribute($attribute_field);
         next if
@@ -145,11 +146,22 @@ after 'validate' => sub {
             next;
         }
 
+        my $used_attribute_values = ($used_attributes{$attribute_type} //= []);
+
+        if (scalar @$used_attribute_values > 0 && grep(/^$value$/, @$used_attribute_values)) {
+            $attribute_field->add_error(
+                l('You cannot enter the same attribute and value more than once.')
+            );
+            next;
+        }
+
         unless ($attribute_type->allows_value($value)) {
             $attribute_field->field('value')->add_error(
                 l('This value is not allowed for this work attribute type.')
             );
         }
+
+        push (@$used_attribute_values, $value // $type_id);
     }
 
     unless ($self->has_errors) {
