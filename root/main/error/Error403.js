@@ -20,7 +20,7 @@ type Props = {
 const Error403 = ({
   $c,
 }: Props): React.Element<typeof ErrorLayout> => (
-  <ErrorLayout $c={$c} title={l('Forbidden Request')}>
+  <ErrorLayout title={l('Forbidden Request')}>
     <p>
       <strong>
         {l('The page you requested is private.')}

@@ -17,6 +17,7 @@ import FilterLink from '../FilterLink';
 
 const countTextPicker = {
   artist: N_l('Total artists found: {count}'),
+  artist_credit: N_l('Total artist credits found: {count}'),
   discId: N_l('Total discIDs found: {count}'),
   editor: N_l('Total editors found: {count}'),
   event: N_l('Total events found: {count}'),
@@ -62,7 +63,7 @@ const ReportLayout = ({
   const $c = React.useContext(CatalystContext);
 
   return (
-    <Layout $c={$c} fullWidth title={title}>
+    <Layout fullWidth title={title}>
       <h1>{title}</h1>
 
       <ul>

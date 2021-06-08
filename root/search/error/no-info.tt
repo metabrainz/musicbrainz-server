@@ -1,5 +1,0 @@
-[% WRAPPER "search/error/wrapper.tt" %]
-    <p>
-        [% l('Sorry, your query (<code>{query}</code>) does not contain enough information to carry out a search.', { query => html_escape(query) }) %]
-    </p>
-[% END %]

@@ -23,7 +23,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 var UI = RE.UI = RE.UI || {};
 
 export class GenericEntityViewModel extends ViewModel {
-
   constructor(options) {
     super(options);
 

@@ -739,7 +739,6 @@ const UserProfile = ({
 
   return (
     <UserAccountLayout
-      $c={$c}
       entity={sanitizedAccountLayoutUser(user)}
       page="index"
     >

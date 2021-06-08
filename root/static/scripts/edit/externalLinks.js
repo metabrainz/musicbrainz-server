@@ -518,7 +518,14 @@ function withOneEmptyLink(links, dontRemove) {
 const isVideoAttribute = attr => attr.type.gid === VIDEO_ATTRIBUTE_GID;
 
 export function parseRelationships(
-  relationships?: $ReadOnlyArray<RelationshipT>,
+  relationships?: $ReadOnlyArray<RelationshipT | {
+    +id: null,
+    +linkTypeID?: number,
+    +target: {
+      +entityType: 'url',
+      +name: string,
+    },
+  }>,
 ): Array<LinkStateT> {
   if (!relationships) {
     return [];
@@ -529,7 +536,7 @@ export function parseRelationships(
     if (target.entityType === 'url') {
       accum.push({
         relationship: data.id,
-        type: data.linkTypeID,
+        type: data.linkTypeID ?? null,
         url: target.name,
         video: data.attributes
           ? data.attributes.some(isVideoAttribute)
@@ -556,7 +563,7 @@ export function getUnicodeUrl(url: string): string {
   return unicodeUrl;
 }
 
-function isValidURL(url) {
+function isValidURL(url: string) {
   const a = document.createElement('a');
   a.href = url;
 
@@ -576,7 +583,12 @@ function isValidURL(url) {
     return false;
   }
 
-  if (!protocolRegex.test(a.protocol)) {
+  /*
+   * Check if protocol string is in URL and is valid
+   * Protocol of URL like "//google.com" is inferred as "https:"
+   * but the URL is invalid
+   */
+  if (!url.startsWith(a.protocol) || !protocolRegex.test(a.protocol)) {
     return false;
   }
 

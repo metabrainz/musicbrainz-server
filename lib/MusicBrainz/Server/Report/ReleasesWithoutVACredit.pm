@@ -22,7 +22,7 @@ sub query {
             SELECT r.id, r.artist_credit, r.name
             FROM track
             JOIN artist_credit_name acn ON acn.artist_credit = track.artist_credit
-            JOIN medium PN medium.id = track.medium
+            JOIN medium ON medium.id = track.medium
             JOIN release r ON r.id = medium.release
             WHERE acn.artist = $VARTIST_ID AND acn.name != 'Various Artists'
         ) r

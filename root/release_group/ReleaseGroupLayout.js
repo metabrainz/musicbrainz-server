@@ -27,7 +27,6 @@ type Props = {
 };
 
 const ReleaseGroupLayout = ({
-  $c,
   children,
   entity: releaseGroup,
   fullWidth = false,
@@ -40,7 +39,6 @@ const ReleaseGroupLayout = ({
   });
   return (
     <Layout
-      $c={$c}
       title={nonEmpty(title) ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">

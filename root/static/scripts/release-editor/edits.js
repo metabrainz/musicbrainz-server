@@ -279,7 +279,7 @@ releaseEditor.edits = {
 
     for (const m of release.mediums.original()) {
       if (m.id && m.removed) {
-        edits.push(MB.edit.mediumDelete({ medium: m.id }));
+        edits.push(MB.edit.mediumDelete({medium: m.id}));
       }
     }
 
@@ -492,7 +492,7 @@ releaseEditor.getEditPreviews = function () {
       previewRequest.abort();
     }
 
-    previewRequest = MB.edit.preview({ edits: addedEdits })
+    previewRequest = MB.edit.preview({edits: addedEdits})
       .done(function (data) {
         const newPreviews = data.previews;
         for (let i = 0; i < addedEdits.length; i++) {
@@ -555,7 +555,7 @@ function chainEditSubmissions(release, submissions) {
     let submitted = null;
 
     if (edits.length) {
-      submitted = MB.edit.create($.extend({ edits: edits }, args));
+      submitted = MB.edit.create($.extend({edits: edits}, args));
     }
 
     const submissionDone = function (data) {

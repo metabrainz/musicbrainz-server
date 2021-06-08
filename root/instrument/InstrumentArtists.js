@@ -31,7 +31,6 @@ const InstrumentArtists = ({
   pager,
 }: Props): React.Element<typeof InstrumentLayout> => (
   <InstrumentLayout
-    $c={$c}
     entity={instrument}
     page="artists"
     title={l('Artists')}

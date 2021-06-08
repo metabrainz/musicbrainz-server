@@ -103,6 +103,7 @@
   },
 
   "27": {
-    "slave": ["20210526-a_upd_release_event.sql"]
+    "slave": ["20210526-a_upd_release_event.sql",
+              "20210606-mbs-11682.sql"]
   }
 }

@@ -42,7 +42,7 @@ const ArtistReleases = ({
   showingVariousArtistsOnly,
   wantVariousArtistsOnly,
 }: Props): React.Element<typeof ArtistLayout> => (
-  <ArtistLayout $c={$c} entity={artist} page="releases" title={l('Releases')}>
+  <ArtistLayout entity={artist} page="releases" title={l('Releases')}>
     <h2>{l('Releases')}</h2>
 
     <Filter

@@ -284,7 +284,7 @@ const actions = {
         const oldTitle = track.name();
 
         track.name(reduceArtistCredit(track.artistCredit()));
-        track.artistCredit({names: [{ name: oldTitle }]});
+        track.artistCredit({names: [{name: oldTitle}]});
         track.artistCreditEditorInst.setState({
           artistCredit: track.artistCredit.peek(),
         });
@@ -298,7 +298,7 @@ const actions = {
     var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
     for (let i = 0; i < addTrackCount; i++) {
-      medium.pushTrack({ artistCredit: defaultAC });
+      medium.pushTrack({artistCredit: defaultAC});
     }
   },
 

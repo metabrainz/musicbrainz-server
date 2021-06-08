@@ -13,14 +13,8 @@ import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 
 import StatisticsLayout from './StatisticsLayout';
 
-type Props = {
-  +$c: CatalystContextT,
-};
-
-const NoStatistics = ({
-  $c,
-}: Props): React.Element<typeof StatisticsLayout> => (
-  <StatisticsLayout $c={$c} fullWidth page="index" title={l('No Statistics')}>
+const NoStatistics = (): React.Element<typeof StatisticsLayout> => (
+  <StatisticsLayout fullWidth page="index" title={l('No Statistics')}>
     <h2>{l('No Statistics')}</h2>
     <p>
       {exp.l(

@@ -14,7 +14,6 @@ import Layout from '../layout';
 import UserInlineList from './components/UserInlineList';
 
 type Props = {
-  +$c: CatalystContextT,
   +accountAdmins: $ReadOnlyArray<EditorT>,
   +autoEditors: $ReadOnlyArray<EditorT>,
   +bannerEditors: $ReadOnlyArray<EditorT>,
@@ -25,7 +24,6 @@ type Props = {
 };
 
 const PrivilegedUsers = ({
-  $c,
   accountAdmins,
   autoEditors,
   bannerEditors,
@@ -34,7 +32,7 @@ const PrivilegedUsers = ({
   relationshipEditors,
   transclusionEditors,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Privileged user accounts')}>
+  <Layout fullWidth title={l('Privileged user accounts')}>
     <div id="content">
       <h1>{l('Privileged user accounts')}</h1>
 

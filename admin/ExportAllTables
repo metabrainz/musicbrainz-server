@@ -296,7 +296,10 @@ if ($fCompress and $fDoFullExport)
     $mbdump->make_tar("mbdump-wikidocs.tar.bz2", @WIKIDOCS_TABLE_LIST);
     $mbdump->make_tar("mbdump-documentation.tar.bz2", @DOCUMENTATION_TABLE_LIST);
 
-    $mbdump->write_checksum_files;
+    MusicBrainz::Script::MBDump::write_checksum_files(
+        $mbdump->compression,
+        $mbdump->output_dir,
+    );
 
     my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY;
     if ($encrypt_for) {

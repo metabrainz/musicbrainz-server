@@ -15,7 +15,6 @@ import WorkSidebar from '../layout/components/sidebar/WorkSidebar';
 import WorkHeader from './WorkHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: WorkT,
   +fullWidth?: boolean,
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const WorkLayout = ({
-  $c,
   children,
   entity: work,
   fullWidth = false,
@@ -39,7 +37,6 @@ const WorkLayout = ({
   });
   return (
     <Layout
-      $c={$c}
       title={nonEmpty(title) ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">

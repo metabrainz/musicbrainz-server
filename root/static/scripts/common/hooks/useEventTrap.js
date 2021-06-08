@@ -41,6 +41,13 @@ function setupEventHandler(eventType) {
       if (action == null) {
         continue;
       }
+      /*
+       * Similar to the note above, action() can also potentially remove the
+       * event target from the page.
+       */
+      if (!document.contains(eventTarget)) {
+        break;
+      }
       const target = ref.current;
       if (target && !target.contains(eventTarget)) {
         action(event);

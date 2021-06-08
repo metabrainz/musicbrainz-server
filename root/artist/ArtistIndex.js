@@ -226,7 +226,7 @@ const ArtistIndex = ({
   const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;
 
   return (
-    <ArtistLayout $c={$c} entity={artist} page="index">
+    <ArtistLayout entity={artist} page="index">
       {eligibleForCleanup ? (
         <p className="cleanup">
           {l(`This artist has no relationships, recordings, releases or

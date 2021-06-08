@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-17 14:51+0000\n"
+"PO-Revision-Date: 2021-05-31 15:47+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -318,6 +318,16 @@ msgid ""
 "but not only, one where music is taught)"
 msgstr ""
 
+#: DB:series_type/description:14
+msgctxt "series_type"
+msgid "A series of artists honoured by the same award."
+msgstr ""
+
+#: DB:series_type/description:13
+msgctxt "series_type"
+msgid "A series of artists."
+msgstr "アーティストのシリーズ"
+
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
@@ -453,32 +463,32 @@ msgstr "嬰イ短調"
 #: DB:work_attribute_type/name:57
 msgctxt "work_attribute_type"
 msgid "AACIMH ID"
-msgstr ""
+msgstr "AACIMH ID"
 
 #: DB:work_attribute_type/name:44
 msgctxt "work_attribute_type"
 msgid "ACAM ID"
-msgstr ""
+msgstr "ACAM ID"
 
 #: DB:work_attribute_type/name:47
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
-msgstr ""
+msgstr "ACDAM ID"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
 msgid "AEI ID"
-msgstr ""
+msgstr "AEI ID"
 
 #: DB:work_attribute_type/name:43
 msgctxt "work_attribute_type"
 msgid "AGADU ID"
-msgstr ""
+msgstr "AGADU ID"
 
 #: DB:work_attribute_type/name:63
 msgctxt "work_attribute_type"
 msgid "AKKA/LAA ID"
-msgstr ""
+msgstr "AKKA/LAA ID"
 
 #: DB:work_attribute_type/name:23
 msgctxt "work_attribute_type"
@@ -488,17 +498,17 @@ msgstr "AKM ID"
 #: DB:work_attribute_type/name:38
 msgctxt "work_attribute_type"
 msgid "AMRA ID"
-msgstr ""
+msgstr "AMRA ID"
 
 #: DB:work_attribute_type/name:46
 msgctxt "work_attribute_type"
 msgid "APA ID"
-msgstr ""
+msgstr "APA ID"
 
 #: DB:work_attribute_type/name:41
 msgctxt "work_attribute_type"
 msgid "APDAYC ID"
-msgstr ""
+msgstr "APDAYC ID"
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
@@ -508,7 +518,7 @@ msgstr "APRA ID"
 #: DB:work_attribute_type/name:48
 msgctxt "work_attribute_type"
 msgid "ARTISJUS ID"
-msgstr ""
+msgstr "ARTISJUS ID"
 
 #: DB:work_attribute_type/name:6
 msgctxt "work_attribute_type"
@@ -805,10 +815,20 @@ msgctxt "collection_type"
 msgid "Artist"
 msgstr "アーティスト"
 
+#: DB:series_type/name:14
+msgctxt "series_type"
+msgid "Artist award"
+msgstr ""
+
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
 msgid "Artist name"
 msgstr "アーティスト名"
+
+#: DB:series_type/name:13
+msgctxt "series_type"
+msgid "Artist series"
+msgstr "アーティストのシリーズ"
 
 #: DB:work_attribute_type_allowed_value/value:693
 msgctxt "work_attribute_type_allowed_value"
@@ -993,7 +1013,7 @@ msgstr "BMI ID"
 #: DB:work_attribute_type/name:26
 msgctxt "work_attribute_type"
 msgid "BUMA/STEMRA ID"
-msgstr ""
+msgstr "BUMA/STEMRA ID"
 
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
@@ -1477,12 +1497,12 @@ msgstr ""
 #: DB:work_attribute_type/name:45
 msgctxt "work_attribute_type"
 msgid "COMPASS ID"
-msgstr ""
+msgstr "COMPASS ID"
 
 #: DB:work_attribute_type/name:65
 msgctxt "work_attribute_type"
 msgid "COTT ID"
-msgstr ""
+msgstr "COTT ID"
 
 #: DB:work_attribute_type_allowed_value/value:63
 msgctxt "work_attribute_type_allowed_value"
@@ -2252,7 +2272,7 @@ msgstr "嬰ホ短調"
 #: DB:work_attribute_type/name:37
 msgctxt "work_attribute_type"
 msgid "ECAD ID"
-msgstr ""
+msgstr "ECAD ID"
 
 #: DB:release_group_primary_type/name:3
 msgctxt "release_group_primary_type"
@@ -2830,7 +2850,7 @@ msgstr "HDCD"
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
-msgstr ""
+msgstr "HFA ID"
 
 #: DB:medium_format/name:37
 msgctxt "medium_format"
@@ -3490,7 +3510,7 @@ msgstr ""
 #: DB:work_attribute_type/name:52
 msgctxt "work_attribute_type"
 msgid "IMRO ID"
-msgstr ""
+msgstr "IMRO ID"
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
@@ -3736,7 +3756,7 @@ msgstr ""
 #: DB:work_attribute_type/name:51
 msgctxt "work_attribute_type"
 msgid "KODA ID"
-msgstr ""
+msgstr "KODA ID"
 
 #: DB:work_attribute_type/name:11
 msgctxt "work_attribute_type"
@@ -4209,7 +4229,7 @@ msgstr "レーザーディスク"
 #: DB:work_attribute_type/name:55
 msgctxt "work_attribute_type"
 msgid "LatinNet ID"
-msgstr ""
+msgstr "LatinNet ID"
 
 #: DB:work_attribute_type_allowed_value/value:159
 msgctxt "work_attribute_type_allowed_value"
@@ -4259,7 +4279,7 @@ msgstr ""
 #: DB:work_attribute_type/name:49
 msgctxt "work_attribute_type"
 msgid "MACP ID"
-msgstr ""
+msgstr "MACP ID"
 
 #: DB:work_attribute_type_allowed_value/value:963
 msgctxt "work_attribute_type_allowed_value"
@@ -4834,7 +4854,7 @@ msgstr ""
 #: DB:work_attribute_type/name:59
 msgctxt "work_attribute_type"
 msgid "NICAUTOR ID"
-msgstr ""
+msgstr "NICAUTOR ID"
 
 #: DB:work_attribute_type_allowed_value/value:647
 msgctxt "work_attribute_type_allowed_value"
@@ -5902,7 +5922,7 @@ msgstr "SACEM ID"
 #: DB:work_attribute_type/name:56
 msgctxt "work_attribute_type"
 msgid "SACIM ID"
-msgstr ""
+msgstr "SACIM ID"
 
 #: DB:work_attribute_type/name:27
 msgctxt "work_attribute_type"
@@ -5912,7 +5932,7 @@ msgstr "SACM ID"
 #: DB:work_attribute_type/name:42
 msgctxt "work_attribute_type"
 msgid "SACVEN ID"
-msgstr ""
+msgstr "SACVEN ID"
 
 #: DB:work_attribute_type/name:24
 msgctxt "work_attribute_type"
@@ -5922,17 +5942,17 @@ msgstr "SADAIC ID"
 #: DB:work_attribute_type/name:68
 msgctxt "work_attribute_type"
 msgid "SAMRO ID"
-msgstr ""
+msgstr "SAMRO ID"
 
 #: DB:work_attribute_type/name:40
 msgctxt "work_attribute_type"
 msgid "SAYCE ID"
-msgstr ""
+msgstr "SAYCE ID"
 
 #: DB:work_attribute_type/name:39
 msgctxt "work_attribute_type"
 msgid "SAYCO ID"
-msgstr ""
+msgstr "SAYCO ID"
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"
@@ -5947,7 +5967,7 @@ msgstr "SESAC ID"
 #: DB:work_attribute_type/name:60
 msgctxt "work_attribute_type"
 msgid "SGACEDOM ID"
-msgstr ""
+msgstr "SGACEDOM ID"
 
 #: DB:work_attribute_type/name:20
 msgctxt "work_attribute_type"
@@ -5977,12 +5997,12 @@ msgstr "SHM-SACD (マルチチャンネル)"
 #: DB:work_attribute_type/name:36
 msgctxt "work_attribute_type"
 msgid "SIAE ID"
-msgstr ""
+msgstr "SIAE ID"
 
 #: DB:work_attribute_type/name:61
 msgctxt "work_attribute_type"
 msgid "SOBODAYCOM ID"
-msgstr ""
+msgstr "SOBODAYCOM ID"
 
 #: DB:work_attribute_type/name:10
 msgctxt "work_attribute_type"
@@ -5992,27 +6012,27 @@ msgstr "SOCAN ID"
 #: DB:work_attribute_type/name:53
 msgctxt "work_attribute_type"
 msgid "SODRAC ID"
-msgstr ""
+msgstr "SODRAC ID"
 
 #: DB:work_attribute_type/name:35
 msgctxt "work_attribute_type"
 msgid "SPA ID"
-msgstr ""
+msgstr "SPA ID"
 
 #: DB:work_attribute_type/name:62
 msgctxt "work_attribute_type"
 msgid "SPAC ID"
-msgstr ""
+msgstr "SPAC ID"
 
 #: DB:work_attribute_type/name:54
 msgctxt "work_attribute_type"
 msgid "STEF ID"
-msgstr ""
+msgstr "STEF ID"
 
 #: DB:work_attribute_type/name:50
 msgctxt "work_attribute_type"
 msgid "STIM ID"
-msgstr ""
+msgstr "STIM ID"
 
 #: DB:work_attribute_type/name:18
 msgctxt "work_attribute_type"
@@ -6591,12 +6611,12 @@ msgstr ""
 #: DB:work_attribute_type/name:66
 msgctxt "work_attribute_type"
 msgid "TEOSTO ID"
-msgstr ""
+msgstr "TEOSTO ID"
 
 #: DB:work_attribute_type/name:67
 msgctxt "work_attribute_type"
 msgid "TONO ID"
-msgstr ""
+msgstr "TONO ID"
 
 #: DB:work_attribute_type_allowed_value/value:573
 msgctxt "work_attribute_type_allowed_value"

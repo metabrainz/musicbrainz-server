@@ -60,7 +60,7 @@ const UserTagList = ({
   tags,
   user,
 }: Props): React.Element<typeof UserAccountLayout> => (
-  <UserAccountLayout $c={$c} entity={user} page="tags" title={l('Tags')}>
+  <UserAccountLayout entity={user} page="tags" title={l('Tags')}>
     <h2>
       {getTagListHeading(user.name, showDownvoted)}
     </h2>

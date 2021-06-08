@@ -333,6 +333,7 @@ sub TO_JSON {
         display_data => $self->display_data,
         data => $self->data,
         edit_kind => $self->edit_kind,
+        edit_notes => to_json_array($self->edit_notes),
         edit_type => $self->edit_type + 0,
         editor_id => $self->editor_id + 0,
         expires_time => datetime_to_iso8601($self->expires_time),

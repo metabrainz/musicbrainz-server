@@ -48,11 +48,11 @@ after _load_entities => sub {
 
 around _format_output => sub {
     my ($orig, $self, $c, @entities) = @_;
-    my %appears_on = $c->model('Recording')->appears_on(\@entities, 3);
+    my $appears_on = $c->model('Recording')->appears_on(\@entities, 3);
 
     return map +{
         %$_,
-        appearsOn => $appears_on{$_->{entity}->id}
+        appearsOn => $appears_on->{$_->{entity}->id}
     }, $self->$orig($c, @entities);
 };
 

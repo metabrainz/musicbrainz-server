@@ -45,6 +45,7 @@ if (__DEV__) {
     'entityType',
     'gravatar',
     'id',
+    'is_limited',
     'name',
     'privileges',
   ]);

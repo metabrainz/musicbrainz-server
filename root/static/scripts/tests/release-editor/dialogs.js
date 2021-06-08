@@ -107,7 +107,7 @@ dialogTest((
   );
 
   release.mediums()[0].tracks.push(
-    new fields.Track({ name: '~fooo~', position: 1, length: 12345 }),
+    new fields.Track({name: '~fooo~', position: 1, length: 12345}),
   );
 
   releaseEditor.activeTabID('#information');
@@ -127,7 +127,7 @@ dialogTest((
   var medium = release.mediums()[0];
 
   medium.tracks.push(
-    new fields.Track({ name: '~fooo~', position: 1, length: 12345 }),
+    new fields.Track({name: '~fooo~', position: 1, length: 12345}),
   );
 
   t.ok(medium.hasTracks(), 'medium has tracks');
@@ -157,9 +157,8 @@ dialogTest((
   release.mediums([new fields.Medium(testMediumCopy, release)]);
   addMediumDialog.open();
   addMediumDialog.currentTab(mediumSearchTab);
-  mediumSearchTab.result({ position: 1, tracks: [{ name: 'foo' }] });
+  mediumSearchTab.result({position: 1, tracks: [{name: 'foo'}]});
   addMediumDialog.addMedium();
-
   common.createMediums(release);
 
   t.equal(

@@ -37,7 +37,7 @@ const ReportsIndexEntry = ({
 );
 
 const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Reports')}>
+  <Layout fullWidth title={l('Reports')}>
     <div id="content">
       <h1>{l('Reports')}</h1>
 
@@ -110,6 +110,15 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
         <ReportsIndexEntry
           content={l('Artists with disambiguation the same as the name')}
           reportName="ArtistsDisambiguationSameName"
+        />
+      </ul>
+
+      <h2>{l('Artist credits')}</h2>
+
+      <ul>
+        <ReportsIndexEntry
+          content={l('Artist credits with dubious trailing join phrases')}
+          reportName="ArtistCreditsWithDubiousTrailingPhrases"
         />
       </ul>
 
@@ -530,6 +539,10 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
         <ReportsIndexEntry
           content={l('Works with annotations')}
           reportName="AnnotationsWorks"
+        />
+        <ReportsIndexEntry
+          content={l('Works with the same type as their parent')}
+          reportName="WorkSameTypeAsParent"
         />
       </ul>
 

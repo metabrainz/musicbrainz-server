@@ -13,18 +13,15 @@ import ConfirmLayout from '../components/ConfirmLayout';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 
 type Props = {
-  +$c: CatalystContextT,
   +candidate: EditorT,
   +form: SecureConfirmFormT,
 };
 
 const Nominate = ({
-  $c,
   candidate,
   form,
 }: Props): React.Element<typeof ConfirmLayout> => (
   <ConfirmLayout
-    $c={$c}
     form={form}
     question={exp.l(
       `Are you sure you want to nominate the editor {editor}

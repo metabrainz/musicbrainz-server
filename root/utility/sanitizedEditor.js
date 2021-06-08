@@ -37,6 +37,7 @@ function sanitizedEditor(
     entityType: 'editor',
     gravatar: editor.gravatar,
     id: editor.id,
+    is_limited: editor.is_limited,
     name: editor.name,
     privileges: sanitizePrivileges(editor.privileges),
   };

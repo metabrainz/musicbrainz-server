@@ -15,19 +15,17 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 import AreaLayout from './AreaLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +area: AreaT,
   +editors: $ReadOnlyArray<EditorT>,
   +pager: PagerT,
 };
 
 const AreaUsers = ({
-  $c,
   area,
   editors,
   pager,
 }: Props): React.Element<typeof AreaLayout> => (
-  <AreaLayout $c={$c} entity={area} page="users" title={l('Users')}>
+  <AreaLayout entity={area} page="users" title={l('Users')}>
     <h2>{l('Users')}</h2>
 
     {pager.total_entries ? (

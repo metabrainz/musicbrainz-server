@@ -22,9 +22,8 @@ import utils from './utils';
 import releaseEditor from './viewModel';
 
 class Dialog {
-
   open() {
-    $(this.element).dialog({ title: this.title, width: 700 });
+    $(this.element).dialog({title: this.title, width: 700});
   }
 
   close() {
@@ -73,7 +72,6 @@ Object.assign(trackParserDialog, {
 
 
 class SearchResult {
-
   constructor(tab, data) {
     Object.assign(this, data);
 
@@ -137,7 +135,7 @@ class SearchResult {
       if (track.artist === releaseArtistName) {
         track.artistCredit = releaseArtistCredit;
       } else {
-        track.artistCredit = {names: [{ name: track.artist }]};
+        track.artistCredit = {names: [{name: track.artist}]};
       }
     }
   }
@@ -165,7 +163,6 @@ class SearchResult {
 
 
 class SearchTab {
-
   constructor() {
     this.releaseName = ko.observable('');
     this.artistName = ko.observable('');
@@ -190,7 +187,7 @@ class SearchTab {
       page: pageJump ? this.currentPage() + pageJump : 1,
     };
 
-    this._jqXHR = request({ url: this.endpoint, data: data }, this)
+    this._jqXHR = request({url: this.endpoint, data: data}, this)
       .done(this.requestDone)
       .fail(function (jqXHR, textStatus) {
         if (textStatus !== 'abort') {
@@ -281,7 +278,7 @@ export const mediumSearchTab =
 Object.assign(mediumSearchTab, {
   endpoint: '/ws/js/medium',
 
-  tracksRequestData: { inc: 'recordings' },
+  tracksRequestData: {inc: 'recordings'},
 
   tracksRequestURL: function (result) {
     return [this.endpoint, result.medium_id].join('/');

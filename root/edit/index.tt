@@ -75,7 +75,7 @@
 
         <h2>[% l('Edit notes') %]</h2>
         [%~ IF c.user_exists ~%]
-            [% INCLUDE 'edit/notes.tt' %]
+            [%- React.embed(c, 'edit/components/EditNotes', {edit => edit_json_obj, index => 0}) -%]
             [%- IF edit.editor_may_vote(c.user) -%]
                     [%- form_submit(l('Submit vote and note')) -%]
             [%- ELSIF edit.editor_may_add_note(c.user) -%]

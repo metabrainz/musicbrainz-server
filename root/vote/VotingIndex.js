@@ -42,12 +42,8 @@ const VotingGuideRow = ({
   );
 };
 
-type Props = {
-  +$c: CatalystContextT,
-};
-
-const VotingIndex = ({$c}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Voting suggestions')}>
+const VotingIndex = (): React.Element<typeof Layout> => (
+  <Layout fullWidth title={l('Voting suggestions')}>
     <div id="content">
       <h1>{l('Voting suggestions')}</h1>
 

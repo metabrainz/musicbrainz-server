@@ -38,7 +38,7 @@ const WorkIndex = ({
   wikipediaExtract,
   work,
 }: Props): React.Element<typeof WorkLayout> => (
-  <WorkLayout $c={$c} entity={work} page="index">
+  <WorkLayout entity={work} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="work" />
     ) : null}

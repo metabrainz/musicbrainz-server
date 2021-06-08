@@ -135,7 +135,7 @@ utils.reuseExistingMediumData = function (data) {
  */
 
 utils.cleanWebServiceData = function (data) {
-  var clean = { gid: data.id, name: data.title };
+  var clean = {gid: data.id, name: data.title};
 
   if (data.length) {
     clean.length = data.length;

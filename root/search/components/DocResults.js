@@ -12,12 +12,8 @@ import * as React from 'react';
 import Layout from '../../layout';
 import {GOOGLE_CUSTOM_SEARCH} from '../../static/scripts/common/DBDefs';
 
-type Props = {
-  +$c: CatalystContextT,
-};
-
-const DocResults = ({$c}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Documentation Search')}>
+const DocResults = (): React.Element<typeof Layout> => (
+  <Layout fullWidth title={l('Documentation Search')}>
     <div className="wikicontent" id="content">
       <h1>{l('Documentation Search')}</h1>
       <script

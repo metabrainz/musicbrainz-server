@@ -1,6 +1,12 @@
+// @flow
+
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
+const {
+  LOCATION_EDITOR_FLAG,
+  RELATIONSHIP_EDITOR_FLAG,
+} = require('../../../constants');
 const {
   default: Autocomplete2,
   createInitialState: createInitialAutocompleteState,
@@ -8,57 +14,92 @@ const {
 const {
   default: autocompleteReducer,
 } = require('../common/components/Autocomplete2/reducer');
+const {keyBy} = require('../common/utility/arrays');
 
-const vocals = [
-  {id: 3, name: 'vocal', level: 1},
-  {id: 4, name: 'lead vocals', level: 2},
-  {id: 5, name: 'alto vocals', level: 3},
-  {id: 6, name: 'baritone vocals', level: 3},
-  {id: 7, name: 'bass vocals', level: 3},
-  {id: 8, name: 'countertenor vocals', level: 3},
-  {id: 9, name: 'mezzo-soprano vocals', level: 3},
-  {id: 10, name: 'soprano vocals', level: 3},
-  {id: 11, name: 'tenor vocals', level: 3},
-  {id: 230, name: 'contralto vocals', level: 3},
-  {id: 231, name: 'bass-baritone vocals', level: 3},
-  {id: 834, name: 'treble vocals', level: 3},
-  {id: 1060, name: 'meane vocals', level: 3},
-  {id: 12, name: 'background vocals', level: 2},
-  {id: 13, name: 'choir vocals', level: 2},
-  {id: 461, name: 'other vocals', level: 2},
-  {id: 561, name: 'spoken vocals', level: 3},
-];
+const {linkAttributeTypes} = require('./typeInfo');
+
+const attributeTypesById = keyBy(
+  (linkAttributeTypes: $ReadOnlyArray<LinkAttrTypeT>),
+  x => String(x.id),
+);
+
+const attributeTypeOptions = (
+  linkAttributeTypes: $ReadOnlyArray<LinkAttrTypeT>
+).map((type) => {
+  let level = 0;
+  let parentId = type.parent_id;
+  let parentType =
+    parentId == null ? null : attributeTypesById[String(parentId)];
+  while (parentType) {
+    level++;
+    parentId = parentType.parent_id;
+    parentType =
+      parentId == null ? null : attributeTypesById[String(parentId)];
+  }
+  return {
+    entity: type,
+    id: type.id,
+    level,
+    name: type.name,
+    type: 'option',
+  };
+});
 
 $(function () {
   const container = document.createElement('div');
-  document.body.insertBefore(container, document.getElementById('page'));
+  document.body?.insertBefore(container, document.getElementById('page'));
 
   function reducer(state, action) {
     switch (action.type) {
       case 'update-autocomplete':
         state = {...state};
-        state[action.prop] = autocompleteReducer(
-          state[action.prop],
-          action.action,
-        );
+        switch (action.prop) {
+          case 'entityAutocomplete':
+            state.entityAutocomplete = autocompleteReducer<NonUrlCoreEntityT>(
+              state.entityAutocomplete,
+              action.action,
+            );
+            break;
+          case 'vocalAutocomplete':
+            state.vocalAutocomplete = autocompleteReducer<LinkAttrTypeT>(
+              state.vocalAutocomplete,
+              action.action,
+            );
+            break;
+        }
         break;
     }
     return state;
   }
 
+  const activeUser = {
+    entityType: 'editor',
+    gravatar: '',
+    has_confirmed_email_address: true,
+    id: 1,
+    name: 'user',
+    preferences: {
+      datetime_format: '',
+      timezone: 'UTC',
+    },
+    privileges: LOCATION_EDITOR_FLAG | RELATIONSHIP_EDITOR_FLAG,
+  };
+
   function createInitialState() {
     return {
-      entityAutocomplete: createInitialAutocompleteState({
+      entityAutocomplete: createInitialAutocompleteState<NonUrlCoreEntityT>({
+        activeUser,
         canChangeType: () => true,
         entityType: 'artist',
         id: 'entity-test',
         width: '200px',
       }),
-      vocalAutocomplete: createInitialAutocompleteState({
+      vocalAutocomplete: createInitialAutocompleteState<LinkAttrTypeT>({
+        activeUser,
         entityType: 'link_attribute_type',
         id: 'vocal-test',
-        placeholder: 'Choose a vocal',
-        staticItems: vocals,
+        placeholder: 'Choose an attribute type',
+        staticItems: attributeTypeOptions,
         width: '200px',
       }),
     };
@@ -116,14 +157,15 @@ $(function () {
           </p>
           <Autocomplete2
             dispatch={entityAutocompleteDispatch}
-            {...state.entityAutocomplete}
+            state={state.entityAutocomplete}
           />
         </div>
         <div>
           <h2>{'Vocal autocomplete'}</h2>
+          {/* $FlowIssue[incompatible-use] */}
           <Autocomplete2
             dispatch={vocalAutocompleteDispatch}
-            {...state.vocalAutocomplete}
+            state={state.vocalAutocomplete}
           />
         </div>
       </>

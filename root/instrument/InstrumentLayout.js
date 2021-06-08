@@ -18,7 +18,6 @@ import localizeInstrumentName
 import InstrumentHeader from './InstrumentHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: InstrumentT,
   +fullWidth?: boolean,
@@ -27,7 +26,6 @@ type Props = {
 };
 
 const InstrumentLayout = ({
-  $c,
   children,
   entity: instrument,
   fullWidth = false,
@@ -42,7 +40,6 @@ const InstrumentLayout = ({
   });
   return (
     <Layout
-      $c={$c}
       title={nonEmpty(title)
         ? hyphenateTitle(nameWithType, title)
         : nameWithType}

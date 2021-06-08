@@ -588,6 +588,7 @@ sub _seeded_url
     _report_unknown_fields($field_name, $params, $errors, @known_fields);
 
     my $result = {
+        id => undef,
         target => { name => '', entityType => 'url' },
     };
 

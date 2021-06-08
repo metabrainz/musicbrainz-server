@@ -15,14 +15,12 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: RatableT,
   +privateRatingCount: number,
   +publicRatings: $ReadOnlyArray<RatingT>,
 };
 
 const Ratings = ({
-  $c,
   entity,
   privateRatingCount,
   publicRatings,
@@ -33,7 +31,6 @@ const Ratings = ({
 
   return (
     <LayoutComponent
-      $c={$c}
       entity={entity}
       page="ratings"
       title={l('Ratings')}

@@ -190,6 +190,8 @@ sub index : Path('')
     my ($self, $c) = @_;
 
     my $form = $c->form( tag_lookup => 'TagLookup', name => 'tag-lookup' );
+    $c->stash->{form} = $form;
+
     my $nag = $self->nag_check($c);
 
     my $mapped_params = {

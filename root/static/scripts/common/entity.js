@@ -33,14 +33,12 @@ import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep';
 import formatTrackLength from './utility/formatTrackLength';
 
 (function () {
-
   /*
    * Base class that both core and non-core entities inherit from. The only
    * purpose this really serves is allowing the `data instanceof Entity`
    * check in MB.entity() to work.
    */
   class Entity {
-
     constructor(data) {
       Object.assign(this, data);
       this.name = this.name || '';
@@ -135,7 +133,6 @@ import formatTrackLength from './utility/formatTrackLength';
   MB.entityCache = {};
 
   class CoreEntity extends Entity {
-
     constructor(data) {
       super(data);
 
@@ -268,7 +265,7 @@ import formatTrackLength from './utility/formatTrackLength';
       return ReactDOMServer.renderToStaticMarkup(
         exp.l(
           'You selected {area}.',
-          {area: this.reactElement({ target: '_blank'})},
+          {area: this.reactElement({target: '_blank'})},
         ),
       );
     }
@@ -317,7 +314,7 @@ import formatTrackLength from './utility/formatTrackLength';
     toJSON() {
       return Object.assign(
         super.toJSON(),
-        { isrcs: this.isrcs, appearsOn: this.appearsOn },
+        {isrcs: this.isrcs, appearsOn: this.appearsOn},
       );
     }
   }
@@ -325,7 +322,6 @@ import formatTrackLength from './utility/formatTrackLength';
   Recording.prototype.entityType = 'recording';
 
   class Release extends CoreEntity {
-
     constructor(data) {
       super(data);
 
@@ -371,7 +367,6 @@ import formatTrackLength from './utility/formatTrackLength';
   ReleaseGroup.prototype.entityType = 'release_group';
 
   class Series extends CoreEntity {
-
     constructor(data) {
       super(data);
       this.type = ko.observable(data.type);
@@ -405,7 +400,6 @@ import formatTrackLength from './utility/formatTrackLength';
   Series.prototype.entityType = 'series';
 
   class Track extends CoreEntity {
-
     constructor(data) {
       super(data);
 
@@ -445,7 +439,7 @@ import formatTrackLength from './utility/formatTrackLength';
 
   class Work extends CoreEntity {
     toJSON() {
-      return Object.assign(super.toJSON(), { artists: this.artists });
+      return Object.assign(super.toJSON(), {artists: this.artists});
     }
   }
 

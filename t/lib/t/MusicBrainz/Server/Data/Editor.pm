@@ -464,12 +464,12 @@ test 'Searching editor by email (for admin only)' => sub {
     my $test = shift;
 
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, ha1, email) VALUES
-  (1, 'z', '{CLEARTEXT}password', '12345678901234567890123456789012', 'abc@f.g.h'),
-  (2, 'y', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f.g.h'),
-  (3, 'x', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f-g.h'),
+INSERT INTO editor (id, name, password, ha1, email, member_since) VALUES
+  (1, 'z', '{CLEARTEXT}password', '12345678901234567890123456789012', 'abc@f.g.h', '2021-05-31 16:31:36.901272+00'),
+  (2, 'y', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f.g.h', '2021-05-31 15:32:05.674592+00'),
+  (3, 'x', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f-g.h', '2021-05-31 14:32:15.079918+00'),
   -- Reminder: Editor #4 is ModBot
-  (5, 'w', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d@e.f.g.h');
+  (5, 'w', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d@e.f.g.h', '2021-05-31 13:32:28.205096+00');
 EOSQL
 
     my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);

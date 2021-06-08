@@ -28,7 +28,7 @@ const InstrumentMerge = ({
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Merge instruments')}>
+  <Layout fullWidth title={l('Merge instruments')}>
     <div id="content">
       <h1>{l('Merge instruments')}</h1>
       <p>

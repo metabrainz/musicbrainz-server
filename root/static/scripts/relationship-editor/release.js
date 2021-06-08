@@ -23,7 +23,6 @@ var UI = RE.UI = RE.UI || {};
 
 
 export class ReleaseViewModel extends ViewModel {
-
   constructor(options) {
     super(options);
 
@@ -281,7 +280,7 @@ export class ReleaseViewModel extends ViewModel {
 
   openRelateToWorkDialog(track) {
     var source = track.recording;
-    var target = new MB.entity.Work({ name: source.name });
+    var target = new MB.entity.Work({name: source.name});
 
     new UI.AddDialog({
       source: source,
@@ -303,7 +302,6 @@ export class ReleaseViewModel extends ViewModel {
   }
 
   _sortedRelationships(relationships, source) {
-
     return relationships
       .filter(function (relationship) {
         return relationship.entityTypes !== 'recording-work';

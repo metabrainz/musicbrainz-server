@@ -115,6 +115,7 @@ const DialogTest = () => {
             dialogRef={modalDialogRef}
             id="modal-test"
             onEscape={closeModal}
+            title="Title"
           >
             <p>{'Hello!'}</p>
             <p>

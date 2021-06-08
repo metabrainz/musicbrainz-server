@@ -31,7 +31,6 @@ const Aliases = ({
 
   return (
     <LayoutComponent
-      $c={$c}
       entity={entity}
       page="aliases"
       title={l('Aliases')}

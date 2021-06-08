@@ -6143,7 +6143,7 @@ msgstr ""
 msgid "Central Tunebo"
 msgstr ""
 
-#. frequency:0 iso_code_3:esu 
+#. frequency:1 iso_code_3:esu 
 #: DB:language/name:2243
 msgid "Central Yupik"
 msgstr ""

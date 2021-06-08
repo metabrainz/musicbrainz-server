@@ -41,7 +41,7 @@ const LabelIndex = ({
   releases,
   wikipediaExtract,
 }: Props): React.Element<typeof LabelLayout> => (
-  <LabelLayout $c={$c} entity={label} page="index">
+  <LabelLayout entity={label} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="label" />
     ) : null}

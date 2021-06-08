@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import CDStubLink from '../../static/scripts/common/components/CDStubLink';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsWithContextT} from '../types';
+import type {ResultsPropsT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -32,15 +32,14 @@ function buildResult(result, index) {
 }
 
 const CDStubResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<CDStubT>):
+}: ResultsPropsT<CDStubT>):
 React.Element<typeof ResultsLayout> => (
-  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
+  <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={

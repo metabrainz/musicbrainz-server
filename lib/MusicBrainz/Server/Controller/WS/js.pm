@@ -8,14 +8,16 @@ use Data::OptList;
 use DBDefs;
 use HTTP::Request;
 use JSON qw( encode_json decode_json );
+use List::MoreUtils qw( part );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Errors qw( capture_exceptions );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Constants qw( entities_with %ENTITIES $CONTACT_URL );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Validation qw( is_database_row_id is_guid );
 use Readonly;
 use Scalar::Util qw( blessed );
 use Text::Trim;
@@ -41,6 +43,9 @@ my $ws_defs = Data::OptList::mkopt([
     "entity" => {
         method => 'GET',
         inc => [ qw(rels) ]
+    },
+    "entities" => {
+        method => 'GET',
     },
     "events" => {
         method => 'GET'
@@ -439,6 +444,94 @@ sub entity : Chained('root') PathPart('entity') Args(1)
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($data));
+}
+
+Readonly our $MAX_FETCHED_ENTITIES => 25;
+
+Readonly our $MAX_FETCHED_ENTITIES_URL_LENGTH => (
+    # 36 => Length of an MBID.
+    # 24 => Number of separators.
+    ($MAX_FETCHED_ENTITIES * 36) + ($MAX_FETCHED_ENTITIES - 1)
+);
+
+sub entities : Chained('root') PathPart('entities') Args(2)
+{
+    my ($self, $c, $type_name, $raw_ids) = @_;
+
+    my $type_model_name = eval { type_to_model($type_name) };
+
+    $self->detach_with_error($c, "unknown type: $type_name", 400)
+        if $@;
+
+    my $type_model = $c->model($type_model_name);
+
+    # Limit to 25 MBIDs.
+    my @input_values =
+        split /\+/,
+        (substr $raw_ids, 0, $MAX_FETCHED_ENTITIES_URL_LENGTH);
+
+    if (scalar(@input_values) > $MAX_FETCHED_ENTITIES) {
+        @input_values = @input_values[0 .. ($MAX_FETCHED_ENTITIES - 1)];
+    }
+
+    my ($ids, $gids, $invalid_ids) = part {
+        is_database_row_id($_) ? 0 : (is_guid($_) ? 1 : 2)
+    } @input_values;
+
+    if (defined $invalid_ids && @$invalid_ids) {
+        $self->detach_with_error(
+            $c,
+            'invalid ids: ' . (join q(, ), @$invalid_ids),
+            400,
+        );
+    }
+
+    my @ids = defined $ids ? @$ids : ();
+    my @gids = defined $gids ? @$gids : ();
+
+    if (@ids && !$type_model->can('get_by_ids')) {
+        $self->detach_with_error($c, "model does not support numeric ids: $type_name", 400)
+    }
+
+    if (@gids && !$type_model->can('get_by_gids')) {
+        $self->detach_with_error($c, "model does not support gids: $type_name", 400)
+    }
+
+    my $results = {};
+    my $serializer = $c->stash->{serializer};
+
+    if (@ids) {
+        my $id_obj_map = $type_model->get_by_ids(@ids);
+        for my $id (@ids) {
+            my $entity = $id_obj_map->{$id};
+            if (defined $entity) {
+                $results->{$id} = $entity;
+            }
+        }
+    }
+
+    if (@gids) {
+        my $gid_obj_map = $type_model->get_by_gids(@gids);
+        for my $gid (@gids) {
+            my $entity = $gid_obj_map->{$gid};
+            if (defined $entity) {
+                $results->{$gid} = $entity;
+            }
+        }
+    }
+
+    if ($ENTITIES{$type_name}{artist_credits}) {
+        $c->model('ArtistCredit')->load(values %{$results});
+    }
+
+    while (my ($id, $entity) = each %{$results}) {
+        $results->{$id} = $entity->TO_JSON;
+    }
+
+    $c->res->content_type($serializer->mime_type . '; charset=utf-8');
+    $c->res->body(encode_json({
+        results => $results,
+    }));
 }
 
 sub default : Path

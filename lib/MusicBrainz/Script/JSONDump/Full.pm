@@ -170,6 +170,11 @@ sub run_impl {
         );
     }
 
+    if ($self->compression_enabled) {
+        log('Writing checksum files');
+        MusicBrainz::Script::MBDump::write_checksum_files('xz', $self->output_dir);
+    }
+
     log('Updating full_json_dump_replication_sequence to ' .
         $dump_replication_sequence);
     $c->sql->auto_commit(1);

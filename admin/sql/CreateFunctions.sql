@@ -1831,9 +1831,13 @@ DECLARE
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
     -- by a trigger on slaves.
+    WITH pending AS (
+        DELETE FROM artist_release_pending_update
+        RETURNING release
+    )
     SELECT array_agg(DISTINCT release)
     INTO release_ids
-    FROM artist_release_pending_update;
+    FROM pending;
 
     IF coalesce(array_length(release_ids, 1), 0) > 0 THEN
         -- If the user hasn't generated `artist_release`, then we
@@ -1855,7 +1859,6 @@ BEGIN
         END IF;
     END IF;
 
-    TRUNCATE artist_release_pending_update;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -1921,9 +1924,13 @@ DECLARE
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
     -- by a trigger on slaves.
+    WITH pending AS (
+        DELETE FROM artist_release_group_pending_update
+        RETURNING release_group
+    )
     SELECT array_agg(DISTINCT release_group)
     INTO release_group_ids
-    FROM artist_release_group_pending_update;
+    FROM pending;
 
     IF coalesce(array_length(release_group_ids, 1), 0) > 0 THEN
         -- If the user hasn't generated `artist_release_group`, then we
@@ -1945,7 +1952,6 @@ BEGIN
         END IF;
     END IF;
 
-    TRUNCATE artist_release_group_pending_update;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';

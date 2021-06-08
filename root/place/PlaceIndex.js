@@ -19,7 +19,6 @@ import * as manifest from '../static/manifest';
 import PlaceLayout from './PlaceLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +numberOfRevisions: number,
   +place: PlaceT,
@@ -27,13 +26,12 @@ type Props = {
 };
 
 const PlaceIndex = ({
-  $c,
   eligibleForCleanup,
   numberOfRevisions,
   place,
   wikipediaExtract,
 }: Props): React.Element<typeof PlaceLayout> => (
-  <PlaceLayout $c={$c} entity={place} page="index">
+  <PlaceLayout entity={place} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="place" />
     ) : null}

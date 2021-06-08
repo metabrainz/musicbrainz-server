@@ -152,7 +152,7 @@ const RecordingIndex = ({
   recording,
   tracks,
 }: Props): React.Element<typeof RecordingLayout> => (
-  <RecordingLayout $c={$c} entity={recording} page="index">
+  <RecordingLayout entity={recording} page="index">
     <Annotation
       annotation={recording.latest_annotation}
       collapse
