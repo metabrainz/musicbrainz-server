@@ -9,15 +9,6 @@
 
 import {type SearchResultT} from '../search/types';
 
-export type TagLookupFormT = FormT<{
-  +artist: ReadOnlyFieldT<string>,
-  +duration: ReadOnlyFieldT<string>,
-  +filename: ReadOnlyFieldT<string>,
-  +release: ReadOnlyFieldT<string>,
-  +track: ReadOnlyFieldT<string>,
-  +tracknum: ReadOnlyFieldT<string>,
-}>;
-
 export type TagLookupPropsT = {
   +form: TagLookupFormT,
   +nag: boolean,
