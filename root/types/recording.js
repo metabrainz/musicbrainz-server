@@ -26,3 +26,13 @@ declare type RecordingT = $ReadOnly<{
 
 declare type RecordingWithArtistCreditT =
   $ReadOnly<{...RecordingT, +artistCredit: ArtistCreditT}>;
+
+declare type ReleaseGroupAppearancesT = {
+  +hits: number,
+  +results: $ReadOnlyArray<ReleaseGroupT>,
+};
+
+declare type ReleaseGroupAppearancesRoleT = {
+  +releaseGroupAppearances?:
+    {+[recordingId: number]: ReleaseGroupAppearancesT},
+};
