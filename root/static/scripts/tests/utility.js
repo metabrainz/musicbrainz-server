@@ -6,6 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
 import formatDate from '../common/utility/formatDate';
@@ -15,6 +16,7 @@ import compareDates, {
   compareDatePeriods,
 } from '../common/utility/compareDates';
 import formatDatePeriod from '../common/utility/formatDatePeriod';
+import formatSetlist from '../common/utility/formatSetlist';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import parseDate from '../common/utility/parseDate';
 import * as dates from '../edit/utility/dates';
@@ -561,5 +563,42 @@ test('formatUserDate', function (t) {
     ),
     '2021-05-13 00:05 GMT+2',
     '%H ranges from 00-23',
+  );
+});
+
+test('formatSetlist', function (t) {
+  t.plan(1);
+
+  const setlist =
+    '@ pre-text [e1af2f0d-c685-4e83-a27d-b27e79787aab|artist 1] mid-text ' +
+      '[0eda70b7-c77b-4775-b1db-5b0e5a3ca4c1|artist 2] post-text\n\r\n' +
+    '* e [b831b5a4-e1a9-4516-bb50-b6eed446fc9b|work 1] [not a link]\r' +
+    '@ plain text artist\n' +
+    '# comment [b831b5a4-e1a9-4516-bb50-b6eed446fc9b|not a link]\r\n' +
+    '# comment <a href="#">also not a link</a>\r\n' +
+    '@ nor a link <a href="#">here</a>\n\r' +
+    '* plain text work\n' +
+    'ignored!\r\n';
+
+  t.equal(
+    ReactDOMServer.renderToStaticMarkup(formatSetlist(setlist)),
+    'pre-text <strong>' +
+      'Artist: ' +
+      '<a href="/artist/e1af2f0d-c685-4e83-a27d-b27e79787aab">artist 1</a>' +
+    '</strong> mid-text ' +
+    '<strong>Artist: ' +
+      '<a href="/artist/0eda70b7-c77b-4775-b1db-5b0e5a3ca4c1">artist 2</a>' +
+    '</strong> post-text<br/><br/>' +
+    'e <a href="/work/b831b5a4-e1a9-4516-bb50-b6eed446fc9b">work 1</a> ' +
+      '[not a link]<br/>' +
+    'plain text artist<br/>' +
+    '<span class="comment">' +
+      'comment [b831b5a4-e1a9-4516-bb50-b6eed446fc9b|not a link]' +
+    '</span><br/>' +
+    '<span class="comment">' +
+      'comment &lt;a href=&quot;#&quot;&gt;also not a link&lt;/a&gt;' +
+    '</span><br/>' +
+    'nor a link &lt;a href=&quot;#&quot;&gt;here&lt;/a&gt;<br/>' +
+    'plain text work<br/><br/><br/>',
   );
 });
