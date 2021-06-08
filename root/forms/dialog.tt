@@ -27,17 +27,14 @@
 
       <script>
         $(document)
-          .on("submit", function () {
-            containingDialog.toggleLoading(true);
-          })
           .on("click", ":button", function () {
-            containingDialog.adjustSize(document);
+            containingDialog.current.adjustDialogSize(window);
           })
           .on("keydown", function (event) {
               // $.ui can't esc-close a dialog if focus is within an iframe,
               // so we handle it ourselves.
               if (event.keyCode === 27 && !event.isDefaultPrevented()) {
-                  containingDialog.close(event);
+                  containingDialog.current.close();
               }
           });
       </script>

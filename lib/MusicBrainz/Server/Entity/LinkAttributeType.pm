@@ -78,6 +78,16 @@ has 'instrument_comment' => (
     isa => 'Maybe[Str]',
 );
 
+has 'instrument_type_id' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
+has 'instrument_type_name' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
@@ -102,6 +112,8 @@ around TO_JSON => sub {
         free_text => boolean_to_json($self->free_text),
         creditable => boolean_to_json($self->creditable),
         $self->instrument_comment ? (instrument_comment => $self->instrument_comment) : (),
+        $self->instrument_type_id ? (instrument_type_id => $self->instrument_type_id) : (),
+        $self->instrument_type_name ? (instrument_type_name => $self->instrument_type_name) : (),
         (defined $children && @$children) ? (children => $children) : (),
     };
 };
