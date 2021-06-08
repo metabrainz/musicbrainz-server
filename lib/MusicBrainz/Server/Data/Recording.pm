@@ -390,7 +390,7 @@ sub appears_on
 {
     my ($self, $recordings, $limit, $return_json) = @_;
 
-    return () unless scalar @$recordings;
+    return {} unless scalar @$recordings;
 
     my @ids = map { $_->id } @$recordings;
 
@@ -430,7 +430,7 @@ sub appears_on
         }
     }
 
-    return %map;
+    return \%map;
 }
 
 sub has_materialized_recording_first_release_date_data {
