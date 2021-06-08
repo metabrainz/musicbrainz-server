@@ -4127,6 +4127,13 @@ const testData = [
             expected_clean_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
        only_valid_entity_types: ['recording'],
   },
+  {
+                     input_url: 'https://twitter.com/privacy',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'socialnetwork',
+       only_valid_entity_types: [],
+  },
   // Universal Music
   {
                      input_url: 'http://www.universal-music.co.jp/sweety/products/umca-59007/',
