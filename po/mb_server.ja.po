@@ -37,8 +37,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-27 14:25+0000\n"
-"PO-Revision-Date: 2021-05-31 15:34+0000\n"
+"POT-Creation-Date: 2021-05-31 18:59+0300\n"
+"PO-Revision-Date: 2021-06-06 13:25+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -380,7 +380,7 @@ msgstr "新しい例を追加"
 msgid ""
 "Add a medium by clicking “Add Medium” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr "下の「メディアを追加」ボタンをクリックしてメディアを追加するか、トラックリストが不明である場合はチェックボックスを選択するかしてください。"
+msgstr "下の「メディアを追加」ボタンをクリックしてメディアを追加するか、トラックリストが不明である場合はチェックボックスを選択してください。"
 
 #: ../root/release/edit/recordings.tt:204
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:41
@@ -959,7 +959,7 @@ msgstr "CD TOCの詳細"
 
 #: ../root/cdtoc/attach_confirm.tt:23
 msgid "CD TOC track lengths"
-msgstr ""
+msgstr "CD TOCトラック長"
 
 #: ../root/cdstub/header.tt:5
 msgid "CD stub by {artist}"
@@ -1926,7 +1926,7 @@ msgstr "進む"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:148
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:65
 msgid "Forward link phrase:"
-msgstr "順方向のリンクの表記"
+msgstr "順方向のリンクの表記:"
 
 #: ../root/edit/list.tt:29
 msgid "Found at least {n} edit"
@@ -2096,7 +2096,7 @@ msgstr "このメディアのトラックリストが分かりません。"
 
 #: ../root/release/edit/tracklist.tt:280
 msgid "I have no information about this release’s media and tracklist."
-msgstr ""
+msgstr "このリリースメディアとトラックリストについての情報を持っていません。"
 
 #: ../root/edit/search_macros.tt:405 ../root/admin/attributes/Attribute.js:99
 #: ../root/admin/attributes/Language.js:43
@@ -2278,7 +2278,7 @@ msgstr "既にあるリリースグループを選択するか、もしくは新
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
-msgstr ""
+msgstr "コピー&ペーストでトラックリストの入力が可能です。"
 
 #: ../root/account/register.tt:55
 msgid ""
@@ -2310,7 +2310,7 @@ msgstr "画像は有効ではありません。数分後にもう一度お試し
 #: ../root/cdstub/import.tt:1 ../root/cdstub/import.tt:2
 #: ../root/cdtoc/lookup.tt:27
 msgid "Import CD Stub"
-msgstr "CD スタブをインポート"
+msgstr "CDスタブをインポート"
 
 #: ../root/cdstub/import.tt:41
 msgid "Import CD stub"
@@ -2650,7 +2650,7 @@ msgstr "メディアタイトル:"
 
 #: ../root/cdtoc/attach_confirm.tt:23
 msgid "Medium track lengths"
-msgstr ""
+msgstr "メディアトラック長"
 
 #: ../root/edit/details/merge_releases.tt:44
 msgid "Medium {position} is now medium {new_position}"
@@ -3015,7 +3015,7 @@ msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08; or "
 "which reorder relationships."
-msgstr ""
+msgstr "メモ: 編集の検索が可能なのは、2011年5月16日より後の関係の追加か編集。2013年7月8日より後の関係の削除か作成。または、関係の並び替えです。"
 
 #: ../root/release/edit/recordings.tt:112
 msgid "Now loading recording associations..."
@@ -3068,7 +3068,7 @@ msgstr ""
 msgid ""
 "Oops! It seems your search parameters are not correct, please double check "
 "your input!"
-msgstr ""
+msgstr "検索パラメーターが正しくないようです。入力を再確認してください。"
 
 #: ../root/edit/open.tt:1 ../root/edit/open.tt:3
 msgid "Open Edits"
@@ -3822,7 +3822,7 @@ msgstr "メールアドレスを公開する"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:153
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:72
 msgid "Reverse link phrase:"
-msgstr ""
+msgstr "逆方向のリンクの表記:"
 
 #: ../root/release/edit/information.tt:301
 msgid "Review the {packaging|list of packaging types} for help."
@@ -4028,7 +4028,7 @@ msgstr ""
 msgid ""
 "Show me {autoedit_select_block} sorted {sort_select_block} that "
 "{match_or_negation_block} {and_vs_or_block} of the following conditions:"
-msgstr ""
+msgstr "{autoedit_select_block} を {sort_select_block} でソートして以下の条件の {and_vs_or_block} に {match_or_negation_block}  結果を表示:"
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
@@ -4055,7 +4055,7 @@ msgstr ""
 msgid ""
 "Some errors were detected in the data you’ve entered. Click on the "
 "highlighted tabs and correct any visible errors."
-msgstr ""
+msgstr "入力されたデータにエラーが検出されました。強調されているタブのエラーを修正してください。"
 
 #: ../root/cdstub/error.tt:11
 msgid ""
@@ -4623,7 +4623,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:856
 #: ../root/static/scripts/common/components/DataTrackIcon.js:15
 msgid "This track is a data track."
-msgstr ""
+msgstr "このトラックはデータトラックです。"
 
 #: ../root/components/common-macros.tt:852
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:15
@@ -4974,7 +4974,7 @@ msgstr "ベータサイトを使う"
 
 #: ../root/release/edit/tracklist.tt:68
 msgid "Use custom artist delimiter"
-msgstr "アーティストに独自区切り文字を使用"
+msgstr "カスタムアーティスト区切り文字を使用"
 
 #: ../root/release/edit/tracklist.tt:261
 msgid "Use the following fields to search for a CD stub."
@@ -5102,7 +5102,7 @@ msgstr "投票のよくある質問"
 
 #: ../root/edit/search_macros.tt:405
 msgid "Voting closed"
-msgstr ""
+msgstr "投票終了"
 
 #: ../root/doc/edit_type.tt:32
 msgid "Voting period (days)"
@@ -5166,7 +5166,7 @@ msgstr ""
 
 #: ../root/release/edit_relationships.tt:96 ../root/release/index.tt:10
 msgid "We have no information about this release’s media and tracklist."
-msgstr ""
+msgstr "このリリースメディアとトラックリストについての情報がありません。"
 
 #: ../root/cdtoc/lookup.tt:12
 msgid "We used DiscID <code>{discid}</code> to look up this information."
@@ -5190,7 +5190,7 @@ msgstr "Wiki"
 
 #: ../root/edit/search_macros.tt:379
 msgid "Wiki Transcluder"
-msgstr ""
+msgstr "Wikiトランスクルーダー"
 
 #: ../root/edit/details/change_wikidoc.tt:4
 msgid "WikiDoc:"
@@ -5413,7 +5413,7 @@ msgstr "リリースを追加する時は編集ノートを記述してくださ
 msgid ""
 "You must select a relationship type and target entity for every "
 "relationship."
-msgstr ""
+msgstr "すべての関係の関係タイプと項目ターゲットを選択する必要があります。"
 
 #: ../root/release/edit/information.tt:52
 msgid "You must select an existing release group."
@@ -5435,7 +5435,7 @@ msgstr ""
 msgid ""
 "Your search took too long and was cancelled. It may help to be more "
 "specific, or to try again."
-msgstr ""
+msgstr "検索に時間がかかりすぎたためキャンセルされました。条件を追加するか、もう一度お試しください。"
 
 #: ../root/account/register.tt:32
 msgid "Your username will be publicly visible."
@@ -5494,7 +5494,7 @@ msgstr "[削除済]"
 
 #: ../root/edit/search_macros.tt:170
 msgid "after"
-msgstr ""
+msgstr "より後"
 
 #: ../root/edit/search_macros.tt:38
 msgid "all"
@@ -5530,7 +5530,7 @@ msgstr "自動適用"
 
 #: ../root/edit/search_macros.tt:170
 msgid "before"
-msgstr ""
+msgstr "より前"
 
 #: ../root/components/common-macros.tt:498
 msgid "beginner"
@@ -5538,7 +5538,7 @@ msgstr "初心者"
 
 #: ../root/edit/search_macros.tt:170
 msgid "between"
-msgstr ""
+msgstr "の間"
 
 #: ../root/components/common-macros.tt:499
 msgid "bot"
@@ -5604,7 +5604,7 @@ msgstr "{begin_date} から {end_date} まで"
 #: ../root/edit/details/macros.tt:28
 #: ../root/utility/relationshipDateText.js:32
 msgid "from {date} to ????"
-msgstr "{date}から"
+msgstr "{date}から????まで"
 
 #: ../root/edit/details/macros.tt:28
 #: ../root/utility/relationshipDateText.js:34
@@ -5683,7 +5683,7 @@ msgstr "楽器"
 #: ../root/edit/search_macros.tt:333 ../root/edit/search_macros.tt:357
 #: ../root/edit/search_macros.tt:375
 msgid "is"
-msgstr ""
+msgstr "が"
 
 #: ../root/edit/search_macros.tt:357
 msgid "is a beginner"
@@ -5691,20 +5691,20 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:132
 msgid "is after"
-msgstr ""
+msgstr "より後"
 
 #: ../root/edit/search_macros.tt:132
 msgid "is before"
-msgstr ""
+msgstr "より前"
 
 #: ../root/edit/search_macros.tt:132 ../root/edit/search_macros.tt:149
 msgid "is between"
-msgstr ""
+msgstr "の間"
 
 #: ../root/edit/search_macros.tt:268 ../root/edit/search_macros.tt:318
 #: ../root/edit/search_macros.tt:357
 msgid "is in my subscriptions"
-msgstr ""
+msgstr "を購読中"
 
 #: ../root/edit/search_macros.tt:149
 msgid "is less than"
@@ -5725,12 +5725,12 @@ msgstr ""
 #: ../root/edit/search_macros.tt:318 ../root/edit/search_macros.tt:333
 #: ../root/edit/search_macros.tt:357 ../root/edit/search_macros.tt:375
 msgid "is not"
-msgstr ""
+msgstr "が、ではない"
 
 #: ../root/edit/search_macros.tt:268 ../root/edit/search_macros.tt:318
 #: ../root/edit/search_macros.tt:357
 msgid "is not in my subscriptions"
-msgstr ""
+msgstr "を購読していない"
 
 #: ../root/edit/search_macros.tt:268 ../root/edit/search_macros.tt:357
 msgid "is not me"
@@ -5750,7 +5750,7 @@ msgstr "ログインして表示"
 
 #: ../root/edit/search_macros.tt:34
 msgid "match"
-msgstr "一致"
+msgstr "一致する"
 
 #: ../root/edit/search_macros.tt:25
 msgid "newest first"
@@ -5965,7 +5965,7 @@ msgstr ""
 #: ../root/components/medium.tt:84
 #: ../root/components/StaticRelationshipsDisplay.js:59
 msgid "{relationship} (order: {num})"
-msgstr ""
+msgstr "{relationship} (順番: {num})"
 
 #: ../root/cdtoc/move_search.tt:33
 msgid "{release} by {artist}"
@@ -6675,7 +6675,7 @@ msgstr "リリースを複数アーティストへ変換（歴史的）"
 #: ../lib/MusicBrainz/Server/Edit/Historic/SetTrackLengthsFromCDTOC.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:22
 msgid "Set track lengths"
-msgstr "トラック長をセット"
+msgstr "トラック長を設定"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 msgid "Add instrument alias"
@@ -7220,7 +7220,7 @@ msgstr "{begindate} &#x301C;"
 #: ../root/utility/groupRelationships.js:331
 #, perl-brace-format
 msgid "{role} (as {credited_name})"
-msgstr ""
+msgstr "{role} ({credited_name} として)"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/CPDL.pm:9
 msgid "Score(s) at CPDL"
@@ -7411,7 +7411,7 @@ msgstr "{credit} のアーティスト名を追加してください。"
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
-msgstr "アーティスト「{artist}」は削除されています。他のアーティストをお選びください。MusicBrainzに新たなアーティストの追加が必要な場合があります。"
+msgstr "アーティスト「{artist}」は削除されています。他のアーティストを選択してください。MusicBrainzに新たなアーティストの追加が必要な場合があります。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:61
 msgid "Please add an artist name for each credit."
@@ -8622,11 +8622,11 @@ msgstr ""
 
 #: ../root/artist_credit/ArtistCreditIndex.js:88
 msgid "This artist credit is composed of the following artists:"
-msgstr ""
+msgstr "このアーティスト・クレジットは次のアーティストにより構成されています:"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:98
 msgid "credited as “{credit}”"
-msgstr ""
+msgstr "「{credit}」としてクレジット"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:106
 msgid "Uses"
@@ -9356,7 +9356,7 @@ msgstr ""
 #: ../root/edit/details/AddAnnotation.js:58
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:37
 msgid "Text"
-msgstr ""
+msgstr "テキスト"
 
 #: ../root/edit/details/AddAnnotation.js:70
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:47
@@ -9610,7 +9610,7 @@ msgstr ""
 
 #: ../root/edit/details/ReorderCoverArt.js:52
 msgid "Old positions:"
-msgstr ""
+msgstr "前のポジション:"
 
 #: ../root/edit/details/ReorderCoverArt.js:64
 msgid "New positions:"
@@ -10224,7 +10224,7 @@ msgstr "{entity}を購読しているユーザーはいません。"
 
 #: ../root/entity/Subscribers.js:143
 msgid "You are currently subscribed. {unsub|Unsubscribe}?"
-msgstr "現在購読中。{unsub|購読を解除}？"
+msgstr "現在購読中。{unsub|購読を解除しますか}？"
 
 #: ../root/entity/Subscribers.js:147
 msgid "Be the first! {sub|Subscribe}?"
@@ -10307,7 +10307,7 @@ msgstr "ジャンル一覧"
 msgid ""
 "These are all the {genre_url|genres} currently available for use in "
 "MusicBrainz."
-msgstr ""
+msgstr "MusicBrainzで現在使用可能な全ての{genre_url|ジャンル}です。"
 
 #: ../root/genre/GenreListPage.js:35
 msgid ""
@@ -10318,11 +10318,11 @@ msgstr ""
 msgid ""
 "Is a genre missing from the list? Request it by {link|adding a style "
 "ticket}."
-msgstr ""
+msgstr "このリストのジャンルに誤りがありますか？{link|スタイルチケットを追加して}リクエストしてください。"
 
 #: ../root/instrument/InstrumentArtists.js:67
 msgid "No artists found."
-msgstr ""
+msgstr "アーティストが見つかりません。"
 
 #: ../root/instrument/InstrumentHeader.js:29
 msgid "instrument"
@@ -10348,7 +10348,7 @@ msgstr "未分類の楽器"
 msgid ""
 "Is this list missing an instrument? Request it by following {link|these "
 "instructions}."
-msgstr ""
+msgstr "このリストの楽器に誤りがありますか？{link|こちらの説明を}参照してください。"
 
 #: ../root/isrc/Index.js:39 ../root/isrc/Index.js:43
 msgid "ISRC “{isrc}”"
@@ -10357,7 +10357,7 @@ msgstr "ISRC「{isrc}」"
 #: ../root/isrc/Index.js:49
 msgid "Associated with {num} recording"
 msgid_plural "Associated with {num} recordings"
-msgstr[0] "{num}レコーディングとの関連"
+msgstr[0] "{num}件のレコーディングとの関連"
 
 #: ../root/iswc/Index.js:30 ../root/iswc/Index.js:33
 msgid "ISWC “{iswc}”"
@@ -10871,7 +10871,7 @@ msgstr "{date} に最終更新"
 
 #: ../root/layout/components/sidebar/LastUpdated.js:30
 msgid "Last updated on an unknown date"
-msgstr ""
+msgstr "最終更新日が不明です"
 
 #: ../root/layout/components/sidebar/PlaceSidebar.js:54
 msgid "Place information"
@@ -10885,7 +10885,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/PlaceSidebar.js:66
 msgctxt "place"
 msgid "Opened"
-msgstr ""
+msgstr "開始:"
 
 #: ../root/layout/components/sidebar/PlaceSidebar.js:75
 msgctxt "place"
@@ -11051,7 +11051,7 @@ msgstr "誕生日おめでとう、そしてMusicBrainzに貢献してくれて�
 
 #: ../root/main/ConfirmSeed.js:31
 msgid "Confirm Form Submission"
-msgstr ""
+msgstr "フォーム送信の確認"
 
 #: ../root/main/ConfirmSeed.js:37
 msgid ""
@@ -11068,11 +11068,11 @@ msgstr ""
 
 #: ../root/main/components/ConfirmSeedButtons.js:18
 msgid "Continue"
-msgstr ""
+msgstr "続ける"
 
 #: ../root/main/components/ConfirmSeedButtons.js:34
 msgid "Leave"
-msgstr ""
+msgstr "中止する"
 
 #: ../root/main/error/Error400.js:29
 msgid "Bad Request"
@@ -11575,7 +11575,7 @@ msgstr "子を追加"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:133
 msgid "Possible values:"
-msgstr ""
+msgstr "可能な値:"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesIndex.js:152
 msgid "No relationship attributes found."
@@ -11649,7 +11649,7 @@ msgstr "この関係タイプは他の関係タイプをグループ化するた
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:47
 msgid "more"
-msgstr ""
+msgstr "詳細"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:69
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:76
@@ -13653,7 +13653,7 @@ msgstr "ノートを削除"
 
 #: ../root/static/scripts/common/artworkViewer.js:76
 msgid "Image {current} of {total}"
-msgstr ""
+msgstr "{current}/{total} 画像"
 
 #: ../root/static/scripts/common/components/Annotation.js:76
 msgid "(no changelog)"
@@ -13661,13 +13661,13 @@ msgstr "(更新履歴なし)"
 
 #: ../root/static/scripts/common/components/Annotation.js:86
 msgid "Annotation last modified by {user} on {date}."
-msgstr "注釈は{date}に{user}で更新しました。"
+msgstr "注釈は{date}に{user}が更新しました。"
 
 #: ../root/static/scripts/common/components/Annotation.js:105
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
-msgstr ""
+msgstr "この注釈は{date}に{user}が編集した{history|古いバージョン}です。{current|現在のバージョンを表示}。"
 
 #: ../root/static/scripts/common/components/Annotation.js:117
 msgid "Annotation last modified on {date}."
@@ -13840,7 +13840,7 @@ msgstr "IROMBOOK image/IROMBOOKのイラスト"
 
 #: ../root/static/scripts/common/components/PostParameters.js:49
 msgid "Data submitted with this request"
-msgstr ""
+msgstr "このリクエストで送信されるデータ"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:53
 msgid "Missing country"
@@ -13857,11 +13857,11 @@ msgstr "すべてのリリースイベントを表示"
 #: ../root/static/scripts/common/components/ReleaseEvents.js:127
 #: ../root/static/scripts/common/components/WorkArtists.js:70
 msgid "show {n} more"
-msgstr ""
+msgstr "{n}件を表示"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:146
 msgid "Show less release events"
-msgstr ""
+msgstr "リリースイベントの表示を減らす"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:148
 #: ../root/static/scripts/common/components/WorkArtists.js:88
@@ -13870,7 +13870,7 @@ msgstr "表示を減らす"
 
 #: ../root/static/scripts/common/components/TagEditor.js:85
 msgid "Withdraw vote"
-msgstr ""
+msgstr "投票を撤回"
 
 #: ../root/static/scripts/common/components/TagEditor.js:108
 msgid "You’ve upvoted this tag"
@@ -13896,7 +13896,7 @@ msgstr "表示するジャンルはありません。"
 #: ../root/static/scripts/common/components/TagEditor.js:511
 #: ../root/user/UserTagList.js:112
 msgid "There are no other tags to show."
-msgstr ""
+msgstr "表示するその他のタグはありません。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:515
 msgid "Nobody has tagged this yet."
@@ -14274,7 +14274,7 @@ msgstr "必須な項目"
 msgid ""
 "Use the following fields to enter collaborations. See the {ac|Artist Credit}"
 " documentation for more information."
-msgstr ""
+msgstr "コラボを以下のフィールドに入力してください。 詳細は{ac|アーティストクレジット}を参照してください。"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:74
 msgid "[missing track name]"
@@ -14458,7 +14458,7 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:541
 msgid "Please select a relationship type."
-msgstr "関係タイプをお選びください。"
+msgstr "関係タイプを選択してください。"
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:544
 msgid ""
@@ -14839,7 +14839,7 @@ msgstr "データベースにタグがありません。"
 
 #: ../root/tag/TagIndex.js:41
 msgid "This tag is associated with the genre {genre}."
-msgstr ""
+msgstr "このタグはジャンル {genre} と関連付けられています。"
 
 #: ../root/tag/TagLayout.js:51 ../root/tag/TagLayout.js:52
 #: ../root/tag/TagLayout.js:57
@@ -15391,27 +15391,27 @@ msgstr "{editor} は以下を購読しています:"
 #: ../root/user/UserSubscriptions.js:143
 msgid "{num} artist"
 msgid_plural "{num} artists"
-msgstr[0] "{num} アーティスト"
+msgstr[0] "{num}名のアーティスト"
 
 #: ../root/user/UserSubscriptions.js:154
 msgid "{num} collection"
 msgid_plural "{num} collections"
-msgstr[0] "{num}のコレクション"
+msgstr[0] "{num}件のコレクション"
 
 #: ../root/user/UserSubscriptions.js:165
 msgid "{num} editor"
 msgid_plural "{num} editors"
-msgstr[0] "{num} 編集者"
+msgstr[0] "{num}名の編集者"
 
 #: ../root/user/UserSubscriptions.js:176
 msgid "{num} label"
 msgid_plural "{num} labels"
-msgstr[0] "{num} レーベル"
+msgstr[0] "{num}件のレーベル"
 
 #: ../root/user/UserSubscriptions.js:187
 msgid "{num} series"
 msgid_plural "{num} series"
-msgstr[0] "{num} 件のリリース"
+msgstr[0] "{num}件のシリーズ"
 
 #: ../root/user/UserSubscriptions.js:219
 msgid "No subscriptions."

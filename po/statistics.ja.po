@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-05-31 15:57+0000\n"
+"PO-Revision-Date: 2021-06-06 14:16+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -1128,7 +1128,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:293
 msgid "Non-group artists:"
-msgstr ""
+msgstr "非グループアーティスト"
 
 #: ../root/statistics/Index.js:299
 msgid "Male:"
@@ -1228,28 +1228,28 @@ msgstr "ディスクID"
 
 #: ../root/statistics/Index.js:525
 msgid "Releases with no disc IDs:"
-msgstr ""
+msgstr "ディスクIDのないリリース:"
 
 #: ../root/statistics/Index.js:532
 msgid "Releases with at least one disc ID:"
-msgstr ""
+msgstr "ディスクIDが少なくとも1つあるリリース:"
 
 #: ../root/statistics/Index.js:543 ../root/statistics/Index.js:587
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
-msgstr[0] ""
+msgstr[0] "{num}つのディスクID:"
 
 #: ../root/statistics/Index.js:558 ../root/statistics/Index.js:600
 msgid "with 10 or more disc IDs:"
-msgstr ""
+msgstr "10以上のディスクID:"
 
 #: ../root/statistics/Index.js:569
 msgid "Mediums with no disc IDs:"
-msgstr ""
+msgstr "ディスクIDのないメディア:"
 
 #: ../root/statistics/Index.js:576
 msgid "Mediums with at least one disc ID:"
-msgstr ""
+msgstr "ディスクIDが少なくとも1つあるメディア:"
 
 #: ../root/statistics/Index.js:607 ../root/statistics/stats.js:615
 msgid "Release Groups"
@@ -1586,7 +1586,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:63
 msgid "Female Artists"
-msgstr ""
+msgstr "女性アーティスト"
 
 #: ../root/statistics/stats.js:68
 msgid "Artists with gender set to male"
@@ -1610,7 +1610,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:81
 msgid "Unknown-gender Artists"
-msgstr ""
+msgstr "性別不明のアーティスト"
 
 #: ../root/statistics/stats.js:86
 msgid "Artists with gender set to other"
@@ -1618,7 +1618,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:87
 msgid "Other-gender Artists"
-msgstr ""
+msgstr "その他の性のアーティスト"
 
 #: ../root/statistics/stats.js:92
 msgid "Artists with at least one artist credit appearance"
@@ -1658,7 +1658,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:117
 msgid "Unknown-type Artists"
-msgstr ""
+msgstr "タイプ不明のアーティスト"
 
 #: ../root/statistics/stats.js:122
 msgid "Artists with type set to orchestra"
@@ -1674,7 +1674,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:129
 msgid "Other-type Artists"
-msgstr ""
+msgstr "その他のタイプのアーティスト"
 
 #: ../root/statistics/stats.js:134
 msgid "Artists with type set to person"
