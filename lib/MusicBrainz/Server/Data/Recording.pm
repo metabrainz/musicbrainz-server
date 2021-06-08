@@ -394,40 +394,70 @@ sub appears_on
 
     my @ids = map { $_->id } @$recordings;
 
-    my $query =
-        "SELECT DISTINCT ON (recording.id, rg.name, type)
-             rg.id, rg.gid, type AS primary_type_id, rg.name,
-             rg.artist_credit AS artist_credit_id, recording.id AS recording
-         FROM release_group rg
-           JOIN release ON release.release_group = rg.id
-           JOIN medium ON release.id = medium.release
-           JOIN track ON track.medium = medium.id
-           JOIN recording ON recording.id = track.recording
-         WHERE recording.id IN (" . placeholders (@ids) . ")";
+    my $hits_query = <<~'EOSQL';
+        SELECT rec.id AS recording, rgs.hits
+        FROM recording rec, LATERAL (
+            SELECT count(DISTINCT rg.id) AS hits
+            FROM release_group rg
+            JOIN release r ON r.release_group = rg.id
+            JOIN medium m ON m.release = r.id
+            JOIN track t ON t.medium = m.id
+            WHERE t.recording = rec.id
+        ) rgs
+        WHERE rec.id = any(?)
+        EOSQL
 
-    my %map;
-    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
-        my $recording_id = delete $row->{recording};
-        $map{$recording_id} ||= [];
-        push @{ $map{$recording_id} }, MusicBrainz::Server::Data::ReleaseGroup->_new_from_row($row);
+    my %hits_map;
+    for my $row (@{ $self->sql->select_list_of_hashes($hits_query, \@ids) }) {
+        $hits_map{ $row->{recording} } = $row->{hits};
     }
 
-    for my $rec_id (keys %map)
-    {
-        # A crude ordering of importance.
-        my $rgs = [ uniq_by { $_->name }
-                  nsort_by { $_->primary_type_id // 999 }
-                  sort_by { $_->name  }
-                  @{ $map{$rec_id} } ];
+    my $query = <<~'EOSQL';
+        SELECT rec.id AS recording, rgs.*
+        FROM recording rec, LATERAL (
+            SELECT DISTINCT rg.id, rg.gid, rg.name,
+                rg.type AS primary_type_id,
+                rg.artist_credit AS artist_credit_id,
+                rgm.first_release_date_year,
+                rgm.first_release_date_month,
+                rgm.first_release_date_day
+            FROM release_group rg
+            JOIN release_group_meta rgm ON rgm.id = rg.id
+            JOIN release r ON r.release_group = rg.id
+            JOIN medium m ON m.release = r.id
+            JOIN track t ON t.medium = m.id
+            WHERE t.recording = rec.id
+            ORDER BY rgm.first_release_date_year,
+                rgm.first_release_date_month,
+                rgm.first_release_date_day
+            LIMIT ?
+        ) rgs
+        WHERE rec.id = any(?)
+        ORDER BY rec.id,
+            rgs.first_release_date_year,
+            rgs.first_release_date_month,
+            rgs.first_release_date_day
+        EOSQL
+
+    my %map;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, $limit, \@ids) }) {
+        my $recording_id = delete $row->{recording};
+        delete $row->{first_release_date};
+        push @{ $map{$recording_id} //= [] },
+            MusicBrainz::Server::Data::ReleaseGroup->_new_from_row($row);
+    }
+
+    for my $rec_id (keys %map) {
+        my $rgs = $map{$rec_id};
 
         if ($return_json) {
             $rgs = to_json_array($rgs);
         }
 
         $map{$rec_id} = {
-            hits => scalar @$rgs,
-            results => defined $limit && scalar @$rgs > $limit ? [ @$rgs[ 0 .. ($limit-1) ] ] : $rgs,
-        }
+            hits => $hits_map{$rec_id},
+            results => $rgs,
+        };
     }
 
     return \%map;
