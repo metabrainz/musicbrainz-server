@@ -78,7 +78,9 @@ const EditNote = ({
         {' '}
         <EditorTypeInfo editor={editNote.editor} />
         <a className="date" href={`#${anchor}`}>
-          {formatUserDate($c, editNote.post_time)}
+          {nonEmpty(editNote.post_time)
+            ? formatUserDate($c, editNote.post_time)
+            : l('[time missing]')}
         </a>
       </h3>
       <div className={'edit-note-text' + (isModBot ? ' modbot' : '')}>
