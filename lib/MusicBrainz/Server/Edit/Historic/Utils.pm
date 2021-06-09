@@ -4,6 +4,7 @@ use warnings;
 
 use Sub::Exporter -setup => {
     exports => [qw(
+        get_historic_type
         upgrade_date
         upgrade_id
         upgrade_type
@@ -14,7 +15,11 @@ use Sub::Exporter -setup => {
 };
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
+use MusicBrainz::Server::Constants qw(
+    %HISTORICAL_RELEASE_GROUP_TYPES
+);
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 sub upgrade_date
 {
@@ -73,6 +78,34 @@ sub upgrade_type_and_status
     $status_id = upgrade_release_status($status_id);
 
     return ($type_id, $status_id);
+}
+
+sub get_historic_type {
+    my ($type_id, $loaded) = @_;
+
+    if (!$type_id) {
+        return undef;
+    }
+    
+    my $loaded_type = to_json_object($loaded->{ReleaseGroupType}{ $type_id });
+
+    if ($loaded_type) {
+        return $loaded_type;
+    }
+
+    my $name = $HISTORICAL_RELEASE_GROUP_TYPES{$type_id};
+
+    if (!$name) {
+        return undef;
+    }
+
+    my $mock_type = MusicBrainz::Server::Entity::ReleaseGroupType->new(
+        historic => 1,
+        id => $type_id,
+        name => $name,
+    );
+
+    return to_json_object($mock_type);
 }
 
 1;

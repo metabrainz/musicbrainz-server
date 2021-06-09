@@ -18,16 +18,28 @@ type EditReleaseAttributesEditT = {
     +changes: $ReadOnlyArray<{
       +releases: $ReadOnlyArray<ReleaseT | null>,
       +status: ReleaseStatusT | null,
-      +type: ReleaseGroupTypeT | null,
+      +type: ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null,
     }>,
     +status: ReleaseStatusT | null,
-    +type: ReleaseGroupTypeT | null,
+    +type: ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null,
   },
 };
 
 type Props = {
   +edit: EditReleaseAttributesEditT,
 };
+
+function getTypeName(type) {
+  return type ? (
+    type.historic ? lp_attributes(
+      type.name,
+      'release_group_secondary_type',
+    ) : lp_attributes(
+      type.name,
+      'release_group_primary_type',
+    )
+  ) : '?';
+}
 
 const EditReleaseAttributes = ({edit}: Props): React.Element<'table'> => (
   <table className="details edit-release">
@@ -44,11 +56,7 @@ const EditReleaseAttributes = ({edit}: Props): React.Element<'table'> => (
                     status: change.status
                       ? lp_attributes(change.status.name, 'release_status')
                       : '?',
-                    type: change.type
-                      ? lp_attributes(
-                        change.type.name,
-                        'release_group_primary_type',
-                      ) : '?',
+                    type: getTypeName(change.type),
                   },
                 )}
               </td>
@@ -64,11 +72,7 @@ const EditReleaseAttributes = ({edit}: Props): React.Element<'table'> => (
     <tr>
       <th>{l('New Type:')}</th>
       <td className="new" colSpan="2">
-        {edit.display_data.type
-          ? lp_attributes(
-            edit.display_data.type.name,
-            'release_group_primary_type',
-          ) : '?'}
+        {getTypeName(edit.display_data.type)}
       </td>
     </tr>
 
