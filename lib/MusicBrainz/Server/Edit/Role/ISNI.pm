@@ -5,7 +5,7 @@ use utf8;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Utils qw( localized_note type_to_model );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_ln );
 use Set::Scalar;
 
 has 'reused_isnis' => (
@@ -32,6 +32,21 @@ after initialize => sub {
     my @added_isnis = $added_isnis_set->members;
     $self->reused_isnis($self->c->model($self->_edit_model)->find_reused_isnis(@added_isnis));
 };
+
+# Strings used in post_insert, wrapped in N_ln so that they can be
+# properly extracted.
+N_ln(
+    'The ISNI {isni} is already in use on {artist_count} artist. ' .
+        'Please check {artist_search|all uses of this ISNI}.',
+    'The ISNI {isni} is already in use on {artist_count} artists. ' .
+        'Please check {artist_search|all uses of this ISNI}.',
+);
+N_ln(
+    'The ISNI {isni} is already in use on {label_count} label. ' .
+        'Please check {label_search|all uses of this ISNI}.',
+    'The ISNI {isni} is already in use on {label_count} labels. ' .
+        'Please check {label_search|all uses of this ISNI}.',
+);
 
 after post_insert => sub {
     my $self = shift;
