@@ -16,7 +16,6 @@ import {
 } from '../../constants';
 import {CatalystContext} from '../../context';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
 import getVoteName from '../../static/scripts/edit/utility/getVoteName';
 import formatUserDate from '../../utility/formatUserDate';
 
@@ -83,9 +82,10 @@ const EditNote = ({
             : l('[time missing]')}
         </a>
       </h3>
-      <div className={'edit-note-text' + (isModBot ? ' modbot' : '')}>
-        {expand2react(editNote.formatted_text)}
-      </div>
+      <div
+        className={'edit-note-text' + (isModBot ? ' modbot' : '')}
+        dangerouslySetInnerHTML={{__html: editNote.formatted_text}}
+      />
     </div>
   );
 };
