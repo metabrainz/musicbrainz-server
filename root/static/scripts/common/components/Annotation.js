@@ -10,6 +10,7 @@
 import * as React from 'react';
 import mutate from 'mutate-cow';
 
+import expand2react from '../i18n/expand2react';
 import {SanitizedCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
@@ -56,18 +57,16 @@ const Annotation = ({
     <>
       <h2 className="annotation">{l('Annotation')}</h2>
 
-      {collapse
-        ? (
-          <Collapsible
-            className="annotation"
-            html={annotation.html}
-          />
-        ) : (
-          <div
-            className="annotation-body"
-            dangerouslySetInnerHTML={{__html: annotation.html}}
-          />
-        )}
+      {collapse ? (
+        <Collapsible
+          className="annotation"
+          html={annotation.html}
+        />
+      ) : (
+        <div className="annotation-body">
+          {expand2react(annotation.html)}
+        </div>
+      )}
 
       {showChangeLog ? (
         <p>

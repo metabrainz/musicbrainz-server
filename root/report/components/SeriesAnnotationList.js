@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import expand2react from '../../static/scripts/common/i18n/expand2react';
 import loopParity from '../../utility/loopParity';
 import type {ReportSeriesAnnotationT} from '../types';
 
@@ -44,7 +45,7 @@ const SeriesAnnotationList = ({
                 {l('This series no longer exists.')}
               </td>
             )}
-            <td dangerouslySetInnerHTML={{__html: item.text}} />
+            <td>{expand2react(item.text)}</td>
             <td>{item.created}</td>
           </tr>
         ))}

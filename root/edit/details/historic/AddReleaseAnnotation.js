@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import expand2react
+  from '../../../static/scripts/common/i18n/expand2react';
 import HistoricReleaseList from '../../components/HistoricReleaseList';
 
 type AddReleaseAnnotationEditT = {
@@ -38,9 +40,7 @@ const AddReleaseAnnotation = ({edit}: Props): React.Element<'table'> => {
         <td>
           {display.html
             ? (
-              <span
-                dangerouslySetInnerHTML={{__html: display.html}}
-              />
+              expand2react(display.html)
             ) : (
               <p>
                 <span className="comment">
