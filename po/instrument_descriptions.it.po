@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-15 22:25+0000\n"
+"PO-Revision-Date: 2021-06-09 11:30+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -2463,6 +2463,15 @@ msgid ""
 "chords.."
 msgstr "Simile al taishogoto giapponese, ha una cassa in legno a forma di goccia allungata con tasti simili a quelli di una fisarmonica a bottoni che regolano la melodia e le corde."
 
+#. name:nadaswaram
+#: DB:instrument/description:738
+msgid ""
+"Similar to the north Indian <a href=\"/instrument/5e17d5f8-65b1-464d-"
+"9f90-47259d832507\">shahnai</a>, it has a 95 cm long hardwood body with 7 "
+"finger holes and 5 wax-fillable tuning holes and a wide flaring wooden bell;"
+" shorter variants have a metal bell."
+msgstr "Simile allo <a href=\"/instrument/5e17d5f8-65b1-464d-9f90-47259d832507\">shahnai</a> dell'India settentrionale, ha un corpo in legno duro lungo 95 cm con 7 fori di diteggiatura, 5 fori di accordatura che possono essere riempiti di cera, e un ampio padiglione a campana in legno; varianti più corte possono avere un padiglione a campana in metallo."
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -3588,11 +3597,6 @@ msgid ""
 "The nabal is a long, straight brass horn used in Korean traditional music."
 msgstr "Corno in ottone lungo e dritto usato nella musica tradizionale coreana."
 
-#. name:nadaswaram
-#: DB:instrument/description:738
-msgid "The nadaswaram is a South Indian double reed wind instrument."
-msgstr "Strumento a fiato ad ancia doppia dell'India meridionale."
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -4025,11 +4029,6 @@ msgstr "Strumento ad ancia turco/ungherese/rumeno imparentato con il sassofono e
 #: DB:instrument/description:662
 msgid "The tenor trombone is a trombone pitched in B♭."
 msgstr "Trombone intonato in si bemolle."
-
-#. name:thavil
-#: DB:instrument/description:480
-msgid "The thavil is a barrel shaped drum from South India."
-msgstr "Tamburo a forma di barile originario dell'India meridionale."
 
 #. name:thon
 #: DB:instrument/description:584

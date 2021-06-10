@@ -664,18 +664,18 @@ msgid "Controls"
 msgstr "Steuerelemente"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
-#: ../root/statistics/StatisticsLayout.js:52
+#: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
 msgstr "Länder"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:66
-#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:17
+#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:17
 msgid "Cover Art"
 msgstr "Cover-Art"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:99
-#: ../root/statistics/StatisticsLayout.js:113
+#: ../root/statistics/StatisticsLayout.js:97
+#: ../root/statistics/StatisticsLayout.js:110
 msgid "Database Statistics"
 msgstr "Datenbankstatistiken"
 
@@ -689,13 +689,13 @@ msgstr "Ein Rechteck auf einem der Graphen zeichnen"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:98
 #: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:909
-#: ../root/statistics/StatisticsLayout.js:82
+#: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "Bearbeiter"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:36
 #: ../root/statistics/Edits.js:40 ../root/statistics/Edits.js:49
-#: ../root/statistics/Index.js:1033 ../root/statistics/StatisticsLayout.js:72
+#: ../root/statistics/Index.js:1033 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:184
 msgid "Edits"
 msgstr "Bearbeitungen"
@@ -704,7 +704,7 @@ msgstr "Bearbeitungen"
 msgid "Exact Values (items vs. day)"
 msgstr "Genaue Werte (Einträge vs. Tag)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
 #: ../root/statistics/stats.js:19
 msgid "Formats"
 msgstr "Formate"
@@ -713,7 +713,7 @@ msgstr "Formate"
 msgid "Hover and click on vertical lines"
 msgstr "Über vertikale Linien bewegen und klicken"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:57
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
 msgid "Languages/Scripts"
 msgstr "Sprachen/Schriften"
 
@@ -730,7 +730,7 @@ msgid "MusicBrainz Events:"
 msgstr "MusicBrainz-Ereignisse:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:81
-#: ../root/statistics/StatisticsLayout.js:47
+#: ../root/statistics/StatisticsLayout.js:46
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -742,9 +742,9 @@ msgstr "Änderungsrate (durchschnittliche Elemente/Tag vs. Tag)"
 msgid "Rate of Change Graph"
 msgstr "Diagramm der Veränderungsrate"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:98
-#: ../root/statistics/Relationships.js:103
-#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:23
+#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:97
+#: ../root/statistics/Relationships.js:102
+#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:23
 #: ../root/statistics/stats.js:33
 msgid "Relationships"
 msgstr "Beziehungen"
@@ -753,7 +753,7 @@ msgstr "Beziehungen"
 msgid "Reset:"
 msgstr "Zurücksetzen:"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:87
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
 msgid "Timeline"
 msgstr "Zeitleiste"
 
@@ -767,15 +767,15 @@ msgstr "Zoom:"
 
 #: ../root/statistics/Countries.js:41 ../root/statistics/CoverArt.js:68
 #: ../root/statistics/Editors.js:100 ../root/statistics/Edits.js:38
-#: ../root/statistics/Formats.js:48 ../root/statistics/Index.js:83
-#: ../root/statistics/LanguagesScripts.js:53
-#: ../root/statistics/Relationships.js:101
+#: ../root/statistics/Formats.js:47 ../root/statistics/Index.js:83
+#: ../root/statistics/LanguagesScripts.js:52
+#: ../root/statistics/Relationships.js:100
 msgid "Last updated: {date}"
 msgstr "Zuletzt aktualisiert: {date}"
 
 #: ../root/statistics/Countries.js:47 ../root/statistics/Editors.js:53
-#: ../root/statistics/Formats.js:55 ../root/statistics/LanguagesScripts.js:66
-#: ../root/statistics/LanguagesScripts.js:147
+#: ../root/statistics/Formats.js:54 ../root/statistics/LanguagesScripts.js:65
+#: ../root/statistics/LanguagesScripts.js:146
 msgid "Rank"
 msgstr "Rang"
 
@@ -789,9 +789,9 @@ msgid "Artists"
 msgstr "Künstler"
 
 #: ../root/statistics/Countries.js:57 ../root/statistics/CoverArt.js:105
-#: ../root/statistics/Formats.js:57 ../root/statistics/Index.js:359
-#: ../root/statistics/LanguagesScripts.js:72
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:537
+#: ../root/statistics/Formats.js:56 ../root/statistics/Index.js:359
+#: ../root/statistics/LanguagesScripts.js:71
+#: ../root/statistics/LanguagesScripts.js:152 ../root/statistics/stats.js:537
 msgid "Releases"
 msgstr "Veröffentlichungen"
 
@@ -800,8 +800,8 @@ msgstr "Veröffentlichungen"
 msgid "Labels"
 msgstr "Labels"
 
-#: ../root/statistics/Countries.js:65 ../root/statistics/Formats.js:66
-#: ../root/statistics/LanguagesScripts.js:80
+#: ../root/statistics/Countries.js:65 ../root/statistics/Formats.js:65
+#: ../root/statistics/LanguagesScripts.js:79
 msgid "Total"
 msgstr "Insgesamt"
 
@@ -949,27 +949,27 @@ msgstr "Top-Abstimmer gesamt"
 msgid "No edit statistics available."
 msgstr "Keine Bearbeitungsstatistiken verfügbar."
 
-#: ../root/statistics/Formats.js:45 ../root/statistics/Formats.js:51
+#: ../root/statistics/Formats.js:44 ../root/statistics/Formats.js:50
 msgid "Release/Medium Formats"
 msgstr "Veröffentlichungs-/Medienformate"
 
-#: ../root/statistics/Formats.js:56
+#: ../root/statistics/Formats.js:55
 msgid "Format"
 msgstr "Format"
 
-#: ../root/statistics/Formats.js:58
+#: ../root/statistics/Formats.js:57
 msgid "% of total releases"
 msgstr "% aller Veröffentlichungen"
 
-#: ../root/statistics/Formats.js:59 ../root/statistics/stats.js:387
+#: ../root/statistics/Formats.js:58 ../root/statistics/stats.js:387
 msgid "Mediums"
 msgstr "Medien"
 
-#: ../root/statistics/Formats.js:60
+#: ../root/statistics/Formats.js:59
 msgid "% of total mediums"
 msgstr "% aller Medien"
 
-#: ../root/statistics/Formats.js:94
+#: ../root/statistics/Formats.js:93
 msgid "Unknown Format"
 msgstr "Unbekanntes Format"
 
@@ -1055,7 +1055,7 @@ msgstr "Andere Objekte"
 msgid "Editors (valid / deleted):"
 msgstr "Bearbeiter (bestätigt / gelöscht):"
 
-#: ../root/statistics/Index.js:163 ../root/statistics/Relationships.js:118
+#: ../root/statistics/Index.js:163 ../root/statistics/Relationships.js:117
 msgid "Relationships:"
 msgstr "Beziehungen:"
 
@@ -1300,7 +1300,7 @@ msgstr "Typen"
 msgid "None"
 msgstr "Keine"
 
-#: ../root/statistics/Index.js:712 ../root/statistics/LanguagesScripts.js:76
+#: ../root/statistics/Index.js:712 ../root/statistics/LanguagesScripts.js:75
 #: ../root/statistics/stats.js:737
 msgid "Works"
 msgstr "Werke"
@@ -1466,40 +1466,40 @@ msgctxt "vote"
 msgid "Abstain"
 msgstr "Enthalten"
 
-#: ../root/statistics/LanguagesScripts.js:50
+#: ../root/statistics/LanguagesScripts.js:49
 msgid "Languages and Scripts"
 msgstr "Sprachen und Schriften"
 
-#: ../root/statistics/LanguagesScripts.js:56
+#: ../root/statistics/LanguagesScripts.js:55
 msgid "All other available languages and scripts have 0 releases and works."
 msgstr "Alle anderen verfügbaren Sprachen und Schriften haben 0 Veröffentlichungen und Werke."
 
-#: ../root/statistics/LanguagesScripts.js:62
-#: ../root/statistics/LanguagesScripts.js:68
+#: ../root/statistics/LanguagesScripts.js:61
+#: ../root/statistics/LanguagesScripts.js:67
 msgid "Languages"
 msgstr "Sprachen"
 
-#: ../root/statistics/LanguagesScripts.js:93
+#: ../root/statistics/LanguagesScripts.js:92
 msgid "Unknown language"
 msgstr "Unbekannte Sprache"
 
-#: ../root/statistics/LanguagesScripts.js:143
+#: ../root/statistics/LanguagesScripts.js:142
 msgid "Scripts"
 msgstr "Schriften"
 
-#: ../root/statistics/LanguagesScripts.js:149
+#: ../root/statistics/LanguagesScripts.js:148
 msgid "Script"
 msgstr "Schrift"
 
-#: ../root/statistics/LanguagesScripts.js:166
+#: ../root/statistics/LanguagesScripts.js:165
 msgid "Unknown script"
 msgstr "Unbekannte Schrift"
 
-#: ../root/statistics/NoStatistics.js:23 ../root/statistics/NoStatistics.js:24
+#: ../root/statistics/NoStatistics.js:17 ../root/statistics/NoStatistics.js:18
 msgid "No Statistics"
 msgstr "Keine Statistiken"
 
-#: ../root/statistics/NoStatistics.js:27
+#: ../root/statistics/NoStatistics.js:21
 msgid ""
 "Statistics have never been collected for this server. If you are the "
 "administrator for this server, you should run "
@@ -1507,25 +1507,25 @@ msgid ""
 "stats.tar.bz2</code>."
 msgstr "Statistiken wurden für diesen Server noch nie gesammelt. Wenn Sie der Administrator für diesen Server sind, sollten Sie <code>./admin/CollectStats.pl</code> ausführen oder  <code>mbdump-stats.tar.bz2</code> importieren. "
 
-#: ../root/statistics/Relationships.js:106
+#: ../root/statistics/Relationships.js:105
 msgid "No relationship statistics available."
 msgstr "Keine Beziehungsstatistiken verfügbar."
 
-#: ../root/statistics/Relationships.js:113
+#: ../root/statistics/Relationships.js:112
 msgctxt "relationships"
 msgid "This type only"
 msgstr "Nur dieser Typ"
 
-#: ../root/statistics/Relationships.js:114
+#: ../root/statistics/Relationships.js:113
 msgctxt "relationships"
 msgid "Including subtypes"
 msgstr ""
 
-#: ../root/statistics/Relationships.js:135
+#: ../root/statistics/Relationships.js:134
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
 
-#: ../root/statistics/Relationships.js:141
+#: ../root/statistics/Relationships.js:140
 msgid "{type0}-{type1} relationships:"
 msgstr "{type0}-{type1} Beziehungen:"
 
