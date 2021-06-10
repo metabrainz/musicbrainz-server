@@ -5,7 +5,7 @@ use utf8;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Utils qw( localized_note type_to_model );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_ln );
 use Set::Scalar;
 
 has 'reused_ipis' => (
@@ -32,6 +32,21 @@ after initialize => sub {
     my @added_ipis = $added_ipis_set->members;
     $self->reused_ipis($self->c->model($self->_edit_model)->find_reused_ipis(@added_ipis));
 };
+
+# Strings used in post_insert, wrapped in N_ln so that they can be
+# properly extracted.
+N_ln(
+    'The IPI {ipi} is already in use on {artist_count} artist. ' .
+        'Please check {artist_search|all uses of this IPI}.',
+    'The IPI {ipi} is already in use on {artist_count} artists. ' .
+        'Please check {artist_search|all uses of this IPI}.',
+);
+N_ln(
+    'The IPI {ipi} is already in use on {label_count} label. ' .
+        'Please check {label_search|all uses of this IPI}.',
+    'The IPI {ipi} is already in use on {label_count} labels. ' .
+        'Please check {label_search|all uses of this IPI}.',
+);
 
 after post_insert => sub {
     my $self = shift;

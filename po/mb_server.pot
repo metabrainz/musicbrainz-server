@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-09 00:37+0300\n"
+"POT-Creation-Date: 2021-06-09 18:02-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6398,6 +6398,22 @@ msgstr ""
 msgid "Merge artists"
 msgstr ""
 
+#: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:77
+#, perl-brace-format
+msgid ""
+"The “{artist_type}” type has not been added to the destination artist "
+"because it conflicted with the gender setting of one of the artists here. "
+"Group artists cannot have a gender."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:102
+#, perl-brace-format
+msgid ""
+"The “{gender}” gender has not been added to the destination artist because "
+"it conflicted with the group type of one of the artists here. Group artists "
+"cannot have a gender."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 msgid "Add event alias"
 msgstr ""
@@ -6843,6 +6859,50 @@ msgstr ""
 #: ../root/release_group/ReleaseGroupMerge.js:33
 msgid "Merge release groups"
 msgstr ""
+
+#: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:39
+#, perl-brace-format
+msgid ""
+"The IPI {ipi} is already in use on {artist_count} artist. Please check "
+"{artist_search|all uses of this IPI}."
+msgid_plural ""
+"The IPI {ipi} is already in use on {artist_count} artists. Please check "
+"{artist_search|all uses of this IPI}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:45
+#, perl-brace-format
+msgid ""
+"The IPI {ipi} is already in use on {label_count} label. Please check "
+"{label_search|all uses of this IPI}."
+msgid_plural ""
+"The IPI {ipi} is already in use on {label_count} labels. Please check "
+"{label_search|all uses of this IPI}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:39
+#, perl-brace-format
+msgid ""
+"The ISNI {isni} is already in use on {artist_count} artist. Please check "
+"{artist_search|all uses of this ISNI}."
+msgid_plural ""
+"The ISNI {isni} is already in use on {artist_count} artists. Please check "
+"{artist_search|all uses of this ISNI}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:45
+#, perl-brace-format
+msgid ""
+"The ISNI {isni} is already in use on {label_count} label. Please check "
+"{label_search|all uses of this ISNI}."
+msgid_plural ""
+"The ISNI {isni} is already in use on {label_count} labels. Please check "
+"{label_search|all uses of this ISNI}."
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 msgid "Add series alias"
@@ -9212,7 +9272,7 @@ msgid ""
 "before you can approve it."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:83
+#: ../root/edit/components/EditNote.js:82
 msgid "[time missing]"
 msgstr ""
 
