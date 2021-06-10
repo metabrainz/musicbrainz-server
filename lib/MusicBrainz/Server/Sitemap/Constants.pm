@@ -4,6 +4,8 @@ use base 'Exporter';
 use MusicBrainz::Server::Constants qw(
     %ENTITIES
     @RELATABLE_ENTITIES
+    $MAX_INITIAL_MEDIUMS
+    $MAX_INITIAL_TRACKS
 );
 use MusicBrainz::Server::Data::Relationship;
 use Readonly;
@@ -165,22 +167,38 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
         };
 
         $suffix_info->{'disc'} = {
-            extra_sql => {columns => "(SELECT count(DISTINCT id) FROM medium WHERE medium.release = release.id) AS medium_count"},
+            extra_sql => {
+                columns => '(SELECT array_agg(array[position, track_count] ORDER BY position) FROM medium WHERE medium.release = release.id) AS medium_track_counts',
+            },
             filename_suffix => 'disc',
             url_constructor => sub {
                 my ($self, $c, $entity_type, $ids, %opts) = @_;
 
                 my @paginated_urls;
                 for my $id_info (@$ids) {
-                    if ($id_info->{medium_count} > $MAX_INITIAL_MEDIUMS) {
-                        my $id = $id_info->{main_id};
-                        my $url_base = $self->build_page_url($entity_type, $id);
+                    my $id = $id_info->{main_id};
+                    my $url_base = $self->build_page_url($entity_type, $id);
+                    my $medium_track_counts = $id_info->{medium_track_counts};
+                    my $medium_counter = 0;
+                    my $track_counter = 0;
 
-                        for (my $i = 1; $i < $id_info->{medium_count} + 1; $i++) {
+                    # Please keep this logic in sync with
+                    # Controller::Release::show such that we're only
+                    # paging discs that aren't shown on the initial page.
+                    for my $medium (@$medium_track_counts) {
+                        my ($position, $track_count) = @$medium;
+
+                        $medium_counter += 1;
+                        $track_counter += $track_count;
+
+                        if (
+                            $medium_counter > $MAX_INITIAL_MEDIUMS ||
+                            $track_counter > $MAX_INITIAL_TRACKS
+                        ) {
                             push @paginated_urls, $self->create_url_opts(
                                 $c,
                                 'release',
-                                "$url_base/disc/$i",
+                                "$url_base/disc/$position",
                                 \%opts,
                                 $id_info,
                             );

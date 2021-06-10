@@ -16,7 +16,6 @@ use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw(
     %ENTITIES
     entities_with
-    $MAX_INITIAL_MEDIUMS
 );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Sitemap::Constants qw( $MAX_SITEMAP_SIZE );

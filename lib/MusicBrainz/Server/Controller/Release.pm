@@ -31,7 +31,15 @@ use List::Util qw( first );
 use List::MoreUtils qw( uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Constants qw( :edit_type $MAX_INITIAL_MEDIUMS );
+use MusicBrainz::Server::Constants qw(
+    :edit_type
+    $MAX_INITIAL_MEDIUMS
+    $MAX_INITIAL_TRACKS
+);
+use MusicBrainz::Server::Validation qw(
+    is_integer
+    is_positive_integer
+);
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Utils qw(
@@ -40,6 +48,7 @@ use MusicBrainz::Server::Form::Utils qw(
     language_options
     build_type_info
 );
+use POSIX qw( ceil );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 
@@ -112,25 +121,6 @@ after 'load' => sub {
     }
 };
 
-before show => sub {
-    my ($self, $c, @args) = @_;
-
-    if (@args && $args[0] eq 'disc') {
-        my $position = $args[1];
-        my @mediums = $c->stash->{release}->all_mediums;
-
-        if (@mediums > $MAX_INITIAL_MEDIUMS) {
-            my %mediums_by_position = map { $_->position => $_ } @mediums;
-            my $medium = $mediums_by_position{$position} if looks_like_number($position);
-
-            if ($medium) {
-                my $user_id = $c->user->id if $c->user_exists;
-                $c->model('Medium')->load_related_info($user_id, $medium);
-            }
-        }
-    }
-};
-
 # Stuff that has the side bar and thus needs to display collection information
 after [qw( show collections details tags aliases
            discids cover_art add_cover_art edit_cover_art reorder_cover_art )] => sub {
@@ -160,14 +150,46 @@ tags, tracklisting, release events, etc.
 =cut
 
 sub show : Chained('load') PathPart('') {
-    my ($self, $c) = @_;
+    my ($self, $c, @args) = @_;
 
     my $release = $c->stash->{release};
     my @mediums = $release->all_mediums;
 
-    if (@mediums <= $MAX_INITIAL_MEDIUMS) {
-        my $user_id = $c->user->id if $c->user_exists;
-        $c->model('Medium')->load_related_info($user_id, @mediums);
+    # Individual medium selected via /disc/n.
+    # This is primarily used where JavaScript is disabled.
+    if (@args && $args[0] eq 'disc') {
+        my $position = scalar(@args) > 1 ? $args[1] : undef;
+
+        if (defined $position) {
+            $c->detach('/error_400') unless is_positive_integer($position);
+
+            my $selected_medium = first { $_->position == $position } @mediums;
+            if ($selected_medium) {
+                # Restrict the mediums we're (potentially) loading to just
+                # the selected one. If the number of tracks on it exceeds
+                # $MAX_INITIAL_TRACKS, it won't be preloaded below.
+                @mediums = $selected_medium;
+            } else {
+                $c->detach('/error_404');
+            }
+        }
+    }
+
+    my $user_id = $c->user->id if $c->user_exists;
+    my $total_mediums = 0;
+    my $total_tracks = 0;
+    my @preloaded_mediums;
+
+    for my $medium (@mediums) {
+        $total_mediums += 1;
+        last if $total_mediums > $MAX_INITIAL_MEDIUMS;
+        $total_tracks += $medium->track_count;
+        last if $total_tracks > $MAX_INITIAL_TRACKS;
+        push @preloaded_mediums, $medium;
+    }
+
+    if (@preloaded_mediums) {
+        $c->model('Medium')->load_related_info($user_id, @preloaded_mediums);
     }
 
     $c->stash->{template} = 'release/index.tt';
