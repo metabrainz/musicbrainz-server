@@ -125,13 +125,17 @@ function isPlaceCommentRequired(duplicates) {
   });
 }
 
+const normalizeName = name => unaccent(name).toUpperCase();
+
 function isCommentRequired(type, name, duplicates) {
   if (type === 'place') {
     return isPlaceCommentRequired(duplicates);
   }
 
+  const normalizedName = normalizeName(name);
+
   return duplicates.some(function (duplicate) {
-    return name.toUpperCase() === unaccent(duplicate.name).toUpperCase();
+    return normalizedName === normalizeName(duplicate.name);
   });
 }
 

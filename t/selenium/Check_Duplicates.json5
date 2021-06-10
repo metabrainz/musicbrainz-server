@@ -1,0 +1,84 @@
+{
+  title: 'Check Duplicates',
+  commands: [
+    {
+      command: 'open',
+      target: '/artist/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.name',
+      value: 'cruz cafuné',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+    },
+    {
+      command: 'assertEval',
+      target: 'Array.from(document.querySelectorAll("#possible-duplicates li a")).map(x => x.textContent + " " + x.href.slice(-36)).join("\\n")',
+      value: 'Cruz Cafuné 34652ef4-3f17-4eed-ba15-237c49373329',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("id-edit-artist.comment").classList.contains("error")',
+      value: 'true',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("id-edit-artist.comment").getAttribute("required")',
+      value: 'required',
+    },
+    // clear the name, which should clear the duplicates list
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.name',
+      value: 'abc',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+    },
+    {
+      command: 'assertEval',
+      target: 'Array.from(document.querySelectorAll("#possible-duplicates li a")).map(x => x.textContent + " " + x.href.slice(-36)).join("\\n")',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("id-edit-artist.comment").classList.contains("error")',
+      value: 'false',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("id-edit-artist.comment").getAttribute("required")',
+      value: 'null',
+    },
+    // replace the é with e
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.name',
+      value: 'cruz cafune',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+    },
+    {
+      command: 'assertEval',
+      target: 'Array.from(document.querySelectorAll("#possible-duplicates li a")).map(x => x.textContent + " " + x.href.slice(-36)).join("\\n")',
+      value: 'Cruz Cafuné 34652ef4-3f17-4eed-ba15-237c49373329',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("id-edit-artist.comment").classList.contains("error")',
+      value: 'true',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("id-edit-artist.comment").getAttribute("required")',
+      value: 'required',
+    },
+  ],
+}
