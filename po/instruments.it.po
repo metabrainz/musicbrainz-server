@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-14 20:05+0000\n"
+"PO-Revision-Date: 2021-06-08 21:42+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -2618,6 +2618,7 @@ msgid "nabal"
 msgstr "nabal"
 
 #: DB:instrument/name:738
+msgctxt "South Indian large double reed"
 msgid "nadaswaram"
 msgstr "nadaswaram"
 

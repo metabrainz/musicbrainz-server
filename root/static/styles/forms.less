@@ -793,6 +793,14 @@ button.guess-timezone {
             max-width: 800px;
         }
 
+        /* Put above jQuery UI's .ui-front (use by the relationship
+         * editor dialog), which has a z-index of 100.
+         *
+         * These can overlap when the "Add a new $entity" option is
+         * invoked from the relationship target autocomplete.
+         */
+        z-index: 200;
+
         .title-bar {
             display: flex;
             padding: 8px;

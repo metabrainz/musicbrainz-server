@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-06 13:48+0000\n"
+"PO-Revision-Date: 2021-06-09 16:37+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -3285,18 +3285,18 @@ msgstr "Wikidata"
 msgid "Wikidata page for"
 msgstr "次のWikidataページ"
 
-#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:355
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:216
-#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:595
-#: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:89
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:179
-#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
+#: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
+#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "次のWikipediaページ"
@@ -4282,10 +4282,10 @@ msgstr "のVGMdbページのURLは"
 msgid "has a Wikidata page at"
 msgstr "のWikidataページのURLは"
 
-#: DB:link_type/long_link_phrase:595 DB:link_type/long_link_phrase:355
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:216
-#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "のWikipediaページのURLは"
 
@@ -6210,7 +6210,7 @@ msgstr "無料配信"
 
 #: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 msgid "stream {video} for free"
-msgstr "無料配信({video})"
+msgstr "{video}無料配信"
 
 #: DB:link_type/name:978 DB:link_type/name:979 DB:link_type/name:980
 msgid "streaming"
@@ -6584,9 +6584,9 @@ msgstr ""
 msgid "wikidata"
 msgstr "wikidata"
 
-#: DB:link_type/name:595 DB:link_type/name:355 DB:link_type/name:89
-#: DB:link_type/name:744 DB:link_type/name:179 DB:link_type/name:279
-#: DB:link_type/name:216 DB:link_type/name:731 DB:link_type/name:789
+#: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
+#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "wikipedia"
 

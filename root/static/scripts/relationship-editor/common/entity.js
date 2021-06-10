@@ -21,15 +21,15 @@ import mergeDates from './mergeDates';
 
 import '../../common/entity';
 
-function getDirection(relationship, source) {
+function isBackward(relationship, source) {
   const entities = relationship.entities();
 
   if (source === entities[0]) {
-    return 'forward';
+    return false;
   }
 
   if (source === entities[1]) {
-    return 'backward';
+    return true;
   }
 
   throw 'source not in the entities array';
@@ -101,7 +101,7 @@ Object.assign(coreEntityPrototype, {
       var dialog = new RE.UI.AddDialog({
         source: self,
         target: MB.entity({}, firstRelationship.target(self).entityType),
-        direction: getDirection(firstRelationship, self),
+        backward: isBackward(firstRelationship, self),
         viewModel: vm,
       });
 
@@ -210,12 +210,12 @@ Object.assign(coreEntityPrototype, {
      * it should be in the same order as it appears in the UI.
      */
     const linkTypeID = String(relationship.linkTypeID());
-    const direction = getDirection(relationship, this);
+    const backward = isBackward(relationship, this);
 
     return this.displayableRelationships(viewModel)().filter(
       r => (
         String(r.linkTypeID()) === linkTypeID &&
-        getDirection(r, this) === direction
+        isBackward(r, this) === backward
       ),
     );
   },

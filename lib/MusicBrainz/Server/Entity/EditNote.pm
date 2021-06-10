@@ -127,7 +127,8 @@ around TO_JSON => sub {
     $json->{editor_id} = $self->editor_id + 0;
     $json->{editor} = $self->editor->TO_JSON;
     $json->{post_time} = datetime_to_iso8601($self->post_time);
-    $json->{formatted_text} = $self->editor_id == 4 ? $self->localize : format_editnote($self->text);
+    $json->{formatted_text} = $self->editor_id == $EDITOR_MODBOT
+        ? $self->localize : format_editnote($self->text);
 
     return $json;
 };

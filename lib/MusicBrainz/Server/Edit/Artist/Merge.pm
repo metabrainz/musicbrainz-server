@@ -74,10 +74,10 @@ sub do_merge
             $self->id => {
                 editor_id => $EDITOR_MODBOT,
                 text => localized_note(
-                    'The “{artist_type}” type has not been added to the ' .
-                    'destination artist because it conflicted with the ' .
-                    'gender setting of one of the artists here. Group ' .
-                    'artists cannot have a gender.',
+                    N_l('The “{artist_type}” type has not been added to the ' .
+                        'destination artist because it conflicted with the ' .
+                        'gender setting of one of the artists here. Group ' .
+                        'artists cannot have a gender.'),
                     vars => {
                         artist_type => localized_note(
                             $dropped_type->name,
@@ -99,10 +99,10 @@ sub do_merge
             $self->id => {
                 editor_id => $EDITOR_MODBOT,
                 text => localized_note(
-                    'The “{gender}” gender has not been added to the ' .
-                    'destination artist because it conflicted with the ' .
-                    'group type of one of the artists here. Group artists ' .
-                    'cannot have a gender.',
+                    N_l('The “{gender}” gender has not been added to the ' .
+                        'destination artist because it conflicted with the ' .
+                        'group type of one of the artists here. Group artists ' .
+                        'cannot have a gender.'),
                     vars => {
                         gender => localized_note(
                             $dropped_gender->name,
