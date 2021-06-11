@@ -46,7 +46,6 @@ const JSON5 = require('json5');
 const path = require('path');
 const test = require('tape');
 const TestCls = require('tape/lib/test');
-const utf8 = require('utf8');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
@@ -326,8 +325,8 @@ async function handleCommand({command, target, value}, t) {
 
   t.comment(
     command +
-    ' target=' + utf8.encode(JSON.stringify(target)) +
-    ' value=' + utf8.encode(JSON.stringify(value)),
+    ' target=' + JSON.stringify(target) +
+    ' value=' + JSON.stringify(value),
   );
 
   let element;
