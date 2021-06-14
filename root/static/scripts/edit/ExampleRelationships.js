@@ -6,8 +6,6 @@ import MB from '../common/MB';
 import request from '../common/utility/request';
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
-
-
   // Private variables
   let type0;
   let type1;
@@ -145,7 +143,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
               let source = data;
               let target = rel.target;
 
-              if (rel.direction == 'backward') {
+              if (rel.backward) {
                 source = rel.target;
                 target = data;
               }
@@ -180,5 +178,4 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
   };
 
   return ERE;
-
 }(MB.ExampleRelationshipsEditor || {}));

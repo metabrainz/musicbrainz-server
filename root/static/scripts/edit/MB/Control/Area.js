@@ -18,15 +18,15 @@ MB.Control.Area = function (...selectors) {
     return viewModel.area().gid;
   };
 
-  ko.applyBindingsToNode($('#area-bubble')[0], { bubble: bubble });
+  ko.applyBindingsToNode($('#area-bubble')[0], {bubble: bubble});
 
   for (const selector of selectors) {
     const $span = $(selector);
     const name = $span.find('input.name')[0];
-    const ac = MB.Control.EntityAutocomplete({ inputs: $span });
+    const ac = MB.Control.EntityAutocomplete({inputs: $span});
 
     ko.applyBindingsToNode(
-      name, { controlsBubble: bubble }, { area: ac.currentSelection },
+      name, {controlsBubble: bubble}, {area: ac.currentSelection},
     );
   }
 };

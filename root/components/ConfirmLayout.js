@@ -14,7 +14,6 @@ import Layout from '../layout';
 import FormCsrfToken from './FormCsrfToken';
 
 type Props = {
-  +$c: CatalystContextT,
   +action?: string,
   +form: ConfirmFormT | SecureConfirmFormT,
   +question: Expand2ReactOutput,
@@ -22,13 +21,12 @@ type Props = {
 };
 
 const ConfirmLayout = ({
-  $c,
   action,
   form,
   question,
   title,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={title}>
+  <Layout fullWidth title={title}>
     <h1>{title}</h1>
     <p>{question}</p>
     <form action={action} method="post">

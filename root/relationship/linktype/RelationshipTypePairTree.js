@@ -167,7 +167,6 @@ const RelationshipTypePairTree = ({
 
   return (
     <Layout
-      $c={$c}
       fullWidth
       noIcons
       title={texp.l(

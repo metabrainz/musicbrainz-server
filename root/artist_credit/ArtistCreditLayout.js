@@ -11,11 +11,12 @@ import * as React from 'react';
 
 import Tabs from '../components/Tabs';
 import Layout from '../layout';
+import ArtistCreditUsageLink
+  from '../static/scripts/common/components/ArtistCreditUsageLink';
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities';
 
 type Props = {
-  +$c: CatalystContextT,
   +artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
   +children: React.Node,
   +page: string,
@@ -31,14 +32,12 @@ const tabLinks: $ReadOnlyArray<[string, () => string]> = [
 ];
 
 const ArtistCreditLayout = ({
-  $c,
   artistCredit,
   children,
   page,
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
-    $c={$c}
     fullWidth
     title={
       nonEmpty(title)
@@ -54,19 +53,22 @@ const ArtistCreditLayout = ({
   >
     <div id="content">
       <h1>
-        <a href={'/artist-credit/' + artistCredit.id}>
-          {texp.l(
+        <ArtistCreditUsageLink
+          artistCredit={artistCredit}
+          content={texp.l(
             'Artist credit “{artist_credit}”',
             {artist_credit: reduceArtistCredit(artistCredit)},
           )}
-        </a>
+        />
       </h1>
       <Tabs>
         {tabLinks.map(link => (
           <li className={page === link[0] ? 'sel' : ''} key={link[0]}>
-            <a href={'/artist-credit/' + artistCredit.id + link[0]}>
-              {link[1]()}
-            </a>
+            <ArtistCreditUsageLink
+              artistCredit={artistCredit}
+              content={link[1]()}
+              subPath={link[0].replace(/^\//, '')}
+            />
           </li>
         ))}
       </Tabs>

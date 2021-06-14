@@ -43,7 +43,6 @@ const defaultLines = [
 ];
 
 class TimelineViewModel {
-
   constructor() {
     var self = this;
     self.categories = ko.observableArray([]);
@@ -64,10 +63,14 @@ class TimelineViewModel {
      * recalculated, and to ensure graph doesn't need repeated redrawing
      */
     self.zoom = {
-      xaxis: { min: debounceComputed(ko.observable(null), 50),
-        max: debounceComputed(ko.observable(null), 50) },
-      yaxis: { min: debounceComputed(ko.observable(null), 50),
-        max: debounceComputed(ko.observable(null), 50) },
+      xaxis: {
+        max: debounceComputed(ko.observable(null), 50),
+        min: debounceComputed(ko.observable(null), 50),
+      },
+      yaxis: {
+        max: debounceComputed(ko.observable(null), 50),
+        min: debounceComputed(ko.observable(null), 50),
+      },
     };
     self.zoomArray = ko.computed({
       read: function () {
@@ -321,7 +324,6 @@ class TimelineViewModel {
 }
 
 class TimelineCategory {
-
   constructor(name, label, enabledByDefault) {
     var self = this;
     if (enabledByDefault === undefined) {
@@ -368,7 +370,6 @@ class TimelineCategory {
 }
 
 class TimelineLine {
-
   constructor(name, label, color, enabledByDefault) {
     var self = this;
     if (enabledByDefault === undefined) {
@@ -442,8 +443,8 @@ class TimelineLine {
       for (var i = 0; i < days; i++) {
         count++;
         mean = mean + changeValue;
-        sCurrent = a * changeValue + (1-a) * sPrev;
-        weekData.push([datePrev + (i+1) * oneDay, sCurrent]);
+        sCurrent = a * changeValue + (1 - a) * sPrev;
+        weekData.push([datePrev + (i + 1) * oneDay, sCurrent]);
         sPrev = sCurrent;
       }
       dataPrev = value[1];
@@ -456,8 +457,10 @@ class TimelineLine {
       return sum + toSquare * toSquare;
     }, 0);
     var standardDeviation = Math.sqrt(deviationSum / count);
-    var thresholds = {min: mean - 3 * standardDeviation,
-      max: mean + 3 * standardDeviation};
+    var thresholds = {
+      max: mean + 3 * standardDeviation,
+      min: mean - 3 * standardDeviation,
+    };
 
     return {data: weekData, thresholds: thresholds};
   }
@@ -656,7 +659,7 @@ class TimelineLine {
          * events, line size)
          */
         if (graph === 'main' || graph === 'rate') {
-          options.grid = { hoverable: true };
+          options.grid = {hoverable: true};
           options.xaxis = {
             minTickSize: [7, 'day'],
             mode: 'time',
@@ -676,16 +679,16 @@ class TimelineLine {
             };
           }
         } else if (graph === 'overview') {
-          options.series = { lines: { lineWidth: 1 }, shadowSize: 0 };
-          options.xaxis = { mode: 'time', minTickSize: [1, 'year'] };
-          options.yaxis = { tickFormatter: () => '' };
+          options.series = {lines: {lineWidth: 1}, shadowSize: 0};
+          options.xaxis = {mode: 'time', minTickSize: [1, 'year']};
+          options.yaxis = {tickFormatter: () => ''};
         }
 
         // Selection mode
         if (graph === 'main' || graph === 'overview') {
-          options.selection = { mode: 'xy' };
+          options.selection = {mode: 'xy'};
         } else if (graph === 'rate') {
-          options.selection = { mode: 'x' };
+          options.selection = {mode: 'x'};
         }
 
         // zoom

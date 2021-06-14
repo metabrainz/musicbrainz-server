@@ -15,7 +15,6 @@ import ArtistSidebar from '../layout/components/sidebar/ArtistSidebar';
 import ArtistHeader from './ArtistHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: ArtistT,
   +fullWidth?: boolean,
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const ArtistLayout = ({
-  $c,
   children,
   entity: artist,
   fullWidth = false,
@@ -32,7 +30,6 @@ const ArtistLayout = ({
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
-    $c={$c}
     title={nonEmpty(title) ? hyphenateTitle(artist.name, title) : artist.name}
   >
     <div id="content">

@@ -107,7 +107,7 @@ const CollectionMerge = ({
   );
 
   return (
-    <Layout $c={$c} fullWidth title={l('Merge collections')}>
+    <Layout fullWidth title={l('Merge collections')}>
       <div id="content">
         <h1>{l('Merge collections')}</h1>
         <p>

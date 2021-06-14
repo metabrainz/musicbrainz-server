@@ -12,16 +12,13 @@ import * as React from 'react';
 import LabelLayout from './LabelLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +label: LabelT,
 };
 
 const SpecialPurpose = ({
-  $c,
   label,
 }: Props): React.Element<typeof LabelLayout> => (
   <LabelLayout
-    $c={$c}
     entity={label}
     fullWidth
     page="special_purpose"

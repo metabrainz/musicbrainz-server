@@ -51,7 +51,7 @@ const EntityList = ({
   page,
   pager,
 }: Props): React.Element<typeof ArtistCreditLayout> => (
-  <ArtistCreditLayout $c={$c} artistCredit={artistCredit} page={page}>
+  <ArtistCreditLayout artistCredit={artistCredit} page={page}>
     <h2>
       {expand2text(
         headingsText[entityType](pager.total_entries),

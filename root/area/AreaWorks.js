@@ -26,7 +26,7 @@ const AreaWorks = ({
   pagedLinkTypeGroup,
   pager,
 }: Props): React.Element<typeof AreaLayout> => (
-  <AreaLayout $c={$c} entity={area} page="works" title={l('Works')}>
+  <AreaLayout entity={area} page="works" title={l('Works')}>
     <RelationshipsTable
       $c={$c}
       entity={area}

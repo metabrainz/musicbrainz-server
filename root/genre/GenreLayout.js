@@ -15,7 +15,6 @@ import GenreSidebar from '../layout/components/sidebar/GenreSidebar';
 import GenreHeader from './GenreHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: GenreT,
   +fullWidth?: boolean,
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const GenreLayout = ({
-  $c,
   children,
   entity: genre,
   fullWidth = false,
@@ -32,7 +30,6 @@ const GenreLayout = ({
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
-    $c={$c}
     title={nonEmpty(title) ? hyphenateTitle(genre.name, title) : genre.name}
   >
     <div id="content">

@@ -128,7 +128,7 @@ const ReleaseResults = ({
   results,
 }: ResultsPropsWithContextT<ReleaseT>):
 React.Element<typeof ResultsLayout> => (
-  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
+  <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <ReleaseResultsInline
       pager={pager}
       query={query}

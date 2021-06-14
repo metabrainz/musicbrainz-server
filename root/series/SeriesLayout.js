@@ -15,7 +15,6 @@ import SeriesSidebar from '../layout/components/sidebar/SeriesSidebar';
 import SeriesHeader from './SeriesHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: SeriesT,
   +fullWidth?: boolean,
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const SeriesLayout = ({
-  $c,
   children,
   entity: series,
   fullWidth = false,
@@ -32,7 +30,6 @@ const SeriesLayout = ({
   title,
 }: Props): React.Element<typeof Layout> => (
   <Layout
-    $c={$c}
     title={nonEmpty(title) ? hyphenateTitle(series.name, title) : series.name}
   >
     <div id="content">

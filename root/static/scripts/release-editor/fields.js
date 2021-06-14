@@ -39,7 +39,6 @@ const fields = {};
 releaseEditor.fields = fields;
 
 class Track {
-
   constructor(data, medium) {
     this.medium = medium;
 
@@ -93,7 +92,7 @@ class Track {
     );
 
     this.recordingValue = ko.observable(
-      new mbEntity.Recording({ name: data.name }),
+      new mbEntity.Recording({name: data.name}),
     );
 
     /*
@@ -271,7 +270,7 @@ class Track {
   }
 
   setRecordingValue(value) {
-    value = value || new mbEntity.Recording({ name: this.name() });
+    value = value || new mbEntity.Recording({name: this.name()});
 
     var currentValue = this.recording.peek();
     if (value.gid === currentValue.gid) {
@@ -340,7 +339,6 @@ Object.assign(Track.prototype, {
 fields.Track = Track;
 
 class Medium {
-
   constructor(data, release) {
     this.release = release;
     this.name = ko.observable(data.name);
@@ -387,7 +385,7 @@ class Medium {
             self.tracks.shift();
           }
         } else if (newValue && !oldValue) {
-          self.tracks.unshift(new Track({ position: 0, number: 0 }, self));
+          self.tracks.unshift(new Track({position: 0, number: 0}, self));
         }
       },
     });
@@ -421,7 +419,7 @@ class Medium {
             }
           }
         } else if (newValue && !oldValue) {
-          self.pushTrack({ isDataTrack: true });
+          self.pushTrack({isDataTrack: true});
         }
       },
     });
@@ -590,7 +588,6 @@ class Medium {
 
     if (trackCount > tocTrackCount) {
       tocTracks = tocTracks.slice(0, tocTrackCount);
-
     } else if (trackCount < tocTrackCount) {
       const newTrackCount = tocTrackCount - trackCount;
 
@@ -656,7 +653,7 @@ class Medium {
 
     var args = {
       url: '/ws/js/medium/' + id,
-      data: { inc: 'recordings+rels' },
+      data: {inc: 'recordings+rels'},
     };
 
     request(args, this).done(this.tracksLoaded);
@@ -721,9 +718,8 @@ class Medium {
         );
       }
       return name;
-
     } else if (multidisc) {
-      return texp.l('Medium {position}', { position: position });
+      return texp.l('Medium {position}', {position: position});
     }
     return l('Tracklist');
   }
@@ -738,7 +734,6 @@ class Medium {
 fields.Medium = Medium;
 
 class ReleaseGroup extends mbEntity.ReleaseGroup {
-
   constructor(data) {
     data = data || {};
 
@@ -752,7 +747,6 @@ class ReleaseGroup extends mbEntity.ReleaseGroup {
 fields.ReleaseGroup = ReleaseGroup;
 
 class ReleaseEvent {
-
   constructor(data, release) {
     var date = data.date || {};
 
@@ -805,7 +799,6 @@ class ReleaseEvent {
 fields.ReleaseEvent = ReleaseEvent;
 
 class ReleaseLabel {
-
   constructor(data, release) {
     if (data.id) {
       this.id = data.id;
@@ -825,7 +818,7 @@ class ReleaseLabel {
   }
 
   labelHTML() {
-    return this.label().html({ target: '_blank' });
+    return this.label().html({target: '_blank'});
   }
 
   needsLabelMessage() {
@@ -839,7 +832,6 @@ class ReleaseLabel {
 fields.ReleaseLabel = ReleaseLabel;
 
 class Barcode {
-
   constructor(data) {
     this.original = data;
     this.barcode = ko.observable(data);
@@ -903,7 +895,6 @@ Barcode.prototype.weights = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3];
 fields.Barcode = Barcode;
 
 class Release extends mbEntity.Release {
-
   constructor(data) {
     super(data);
 

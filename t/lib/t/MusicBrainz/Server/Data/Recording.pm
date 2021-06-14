@@ -117,15 +117,14 @@ ok(!defined $rec);
 
 my @entities = map { $rec_data->get_by_id($_) } qw(1 8 14);
 
-my %appears = $rec_data->appears_on(\@entities, 2);
-$results = $appears{1}->{results};
+my $appears = $rec_data->appears_on(\@entities, 2);
+$results = $appears->{1}->{results};
 
-is ($appears{8}->{results}->[0]->name, "Aerial", "recording 8 appears on Aerial");
-is ($appears{1}->{hits}, 4, "recording 1 appears on four release groups");
+is ($appears->{8}->{results}->[0]->name, "Aerial", "recording 8 appears on Aerial");
+is ($appears->{1}->{hits}, 4, "recording 1 appears on four release groups");
 is (scalar @$results, 2, " ... of which two have been returned");
-is ($results->[0]->name, "King of the Mountain", "recording 1 appears on King of the Mountain");
-is ($results->[1]->name, "Aerial", "recording 1 appears on Aerial");
-
+is ($results->[0]->name, "Aerial", "recording 1 appears on Aerial");
+is ($results->[1]->name, "エアリアル", "recording 1 appears on エアリアル");
 
 };
 

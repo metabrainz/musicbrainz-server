@@ -277,6 +277,7 @@ div.g-recaptcha {
 
 .iframe-dialog {
     padding: 0 !important;
+    width: 800px;
 }
 
 .iframe-dialog iframe {
@@ -307,9 +308,10 @@ div.autocomplete2 {
             background-repeat: no-repeat;
             background-size: contain;
             border: none;
-            height: 20px;
+            min-height: 20px;
             vertical-align: top;
-            width: 20px;
+            min-width: 20px;
+            margin: auto;
 
             &.loading {
                 background-image: data-uri('../images/icons/loading.gif');
@@ -318,16 +320,20 @@ div.autocomplete2 {
     }
 
     ul {
-        border: 1px @musicbrainz-orange solid;
+        background: @text-white;
+        border: 1px #AAA solid;
+        border-bottom-width: 2px;
+        border-right-width: 2px;
         list-style: none;
         margin: 0;
-        max-width: 150%;
+        max-width: 350px;
         max-height: 400px;
         overflow-y: auto;
         padding: 0;
         position: absolute;
-        width: max-content;
+        width: 150%;
         z-index: 100;
+
 
         li {
             background: @text-white;
@@ -336,7 +342,11 @@ div.autocomplete2 {
             border-style: solid;
             cursor: pointer;
             padding: 4px;
-            &.highlighted {
+            &.disabled {
+                color: #666;
+                cursor: default;
+            }
+            &.highlighted, &:hover:not(.disabled) {
                 background: lighten(@musicbrainz-orange, 30%);
                 border-color: lighten(@musicbrainz-orange, 20%);
             }
@@ -345,7 +355,13 @@ div.autocomplete2 {
             }
             &.separator {
                 border-top-color: @medium-grey;
-                margin-top: 0px;
+                border-top-width: 2px;
+                margin-top: 4px;
+            }
+            &.header-item {
+                color: @text-black;
+                font-weight: bold;
+                text-align: center;
             }
         }
     }

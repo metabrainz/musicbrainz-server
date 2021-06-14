@@ -38,13 +38,19 @@ const UserList = ({users}: Props): React.Element<'table'> => {
           <tr className={loopParity(index)} key={user.name}>
             <td>
               <EditorLink editor={user} />
-              {' '}
-              {bracketed(
-                <a
-                  href={'/admin/user/delete/' + encodeURIComponent(user.name)}
-                >
-                  {l('delete')}
-                </a>,
+              {user.deleted ? null : (
+                <>
+                  {' '}
+                  {bracketed(
+                    <a
+                      href={
+                        '/admin/user/delete/' + encodeURIComponent(user.name)
+                      }
+                    >
+                      {l('delete')}
+                    </a>,
+                  )}
+                </>
               )}
             </td>
             <td>{formatUserDate($c, user.registration_date)}</td>

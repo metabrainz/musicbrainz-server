@@ -16,7 +16,7 @@ import type {TagLookupPropsT} from './types';
 import TagLookupNagSection from './Nag';
 
 const TagLookup = (props: TagLookupPropsT): React.Element<typeof Layout> => (
-  <Layout $c={props.$c} fullWidth title={l('Tag Lookup')}>
+  <Layout fullWidth title={l('Tag Lookup')}>
     <div className="content">
       <h1>{l('Tag Lookup')}</h1>
       {props.nag ? <TagLookupNagSection /> : null}

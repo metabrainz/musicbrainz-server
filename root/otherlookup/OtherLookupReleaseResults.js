@@ -13,17 +13,15 @@ import Layout from '../layout';
 import ReleaseList from '../components/list/ReleaseList';
 
 type Props = {
-  +$c: CatalystContextT,
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<ReleaseT>,
 };
 
 const OtherLookupReleaseResults = ({
-  $c,
   results,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Search Results')}>
+  <Layout fullWidth title={l('Search Results')}>
     <h1>{l('Search Results')}</h1>
     {results.length ? (
       <ReleaseList

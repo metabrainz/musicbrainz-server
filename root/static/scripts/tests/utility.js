@@ -6,6 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
 import formatDate from '../common/utility/formatDate';
@@ -15,6 +16,7 @@ import compareDates, {
   compareDatePeriods,
 } from '../common/utility/compareDates';
 import formatDatePeriod from '../common/utility/formatDatePeriod';
+import formatSetlist from '../common/utility/formatSetlist';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import parseDate from '../common/utility/parseDate';
 import * as dates from '../edit/utility/dates';
@@ -273,24 +275,24 @@ test('parseDate', function (t) {
   t.plan(16);
 
   var parseDateTests = [
-    { date: '', expected: { year: null, month: null, day: null} },
-    { date: '0000', expected: { year: 0, month: null, day: null} },
-    { date: '1999-01-02', expected: { year: 1999, month: 1, day: 2 } },
-    { date: '1999-01', expected: { year: 1999, month: 1, day: null } },
-    { date: '1999', expected: { year: 1999, month: null, day: null } },
-    { date: '????-01-02', expected: { year: null, month: 1, day: 2 } },
-    { date: '????-??-02', expected: { year: null, month: null, day: 2 } },
-    { date: '1999-??-02', expected: { year: 1999, month: null, day: 2 } },
+    {date: '', expected: {year: null, month: null, day: null}},
+    {date: '0000', expected: {year: 0, month: null, day: null}},
+    {date: '1999-01-02', expected: {year: 1999, month: 1, day: 2}},
+    {date: '1999-01', expected: {year: 1999, month: 1, day: null}},
+    {date: '1999', expected: {year: 1999, month: null, day: null}},
+    {date: '????-01-02', expected: {year: null, month: 1, day: 2}},
+    {date: '????-??-02', expected: {year: null, month: null, day: 2}},
+    {date: '1999-??-02', expected: {year: 1999, month: null, day: 2}},
 
     // Relationship editor seeding format (via URL query params).
-    { date: '-----', expected: { year: null, month: null, day: null} },
-    { date: '----02', expected: { year: null, month: null, day: 2 } },
-    { date: '--01--', expected: { year: null, month: 1, day: null } },
-    { date: '--01-02', expected: { year: null, month: 1, day: 2 } },
-    { date: '1999--', expected: { year: 1999, month: null, day: null } },
-    { date: '1999----', expected: { year: 1999, month: null, day: null } },
-    { date: '1999---02', expected: { year: 1999, month: null, day: 2 } },
-    { date: '1999-01--', expected: { year: 1999, month: 1, day: null } },
+    {date: '-----', expected: {year: null, month: null, day: null}},
+    {date: '----02', expected: {year: null, month: null, day: 2}},
+    {date: '--01--', expected: {year: null, month: 1, day: null}},
+    {date: '--01-02', expected: {year: null, month: 1, day: 2}},
+    {date: '1999--', expected: {year: 1999, month: null, day: null}},
+    {date: '1999----', expected: {year: 1999, month: null, day: null}},
+    {date: '1999---02', expected: {year: 1999, month: null, day: 2}},
+    {date: '1999-01--', expected: {year: 1999, month: 1, day: null}},
   ];
 
   for (const test of parseDateTests) {
@@ -305,23 +307,23 @@ test('formatDate', function (t) {
   t.equal(formatDate(null), '');
   t.equal(formatDate(undefined), '');
   t.equal(formatDate({}), '');
-  t.equal(formatDate({ year: 0 }), '0000');
-  t.equal(formatDate({ year: 1999 }), '1999');
-  t.equal(formatDate({ year: 1999, month: 1 }), '1999-01');
-  t.equal(formatDate({ year: 1999, month: 1, day: 1 }), '1999-01-01');
-  t.equal(formatDate({ year: 1999, day: 1 }), '1999-??-01');
-  t.equal(formatDate({ month: 1 }), '????-01');
-  t.equal(formatDate({ month: 1, day: 1 }), '????-01-01');
-  t.equal(formatDate({ day: 1 }), '????-??-01');
-  t.equal(formatDate({ year: 0, month: 1, day: 1 }), '0000-01-01');
-  t.equal(formatDate({ year: -1, month: 1, day: 1 }), '-0001-01-01');
+  t.equal(formatDate({year: 0}), '0000');
+  t.equal(formatDate({year: 1999}), '1999');
+  t.equal(formatDate({year: 1999, month: 1}), '1999-01');
+  t.equal(formatDate({year: 1999, month: 1, day: 1}), '1999-01-01');
+  t.equal(formatDate({year: 1999, day: 1}), '1999-??-01');
+  t.equal(formatDate({month: 1}), '????-01');
+  t.equal(formatDate({month: 1, day: 1}), '????-01-01');
+  t.equal(formatDate({day: 1}), '????-??-01');
+  t.equal(formatDate({year: 0, month: 1, day: 1}), '0000-01-01');
+  t.equal(formatDate({year: -1, month: 1, day: 1}), '-0001-01-01');
 });
 
 test('formatDatePeriod', function (t) {
   t.plan(8);
 
-  var a = { year: 1999 };
-  var b = { year: 2000 };
+  var a = {year: 1999};
+  var b = {year: 2000};
 
   t.equal(
     formatDatePeriod({begin_date: a, end_date: a, ended: false}),
@@ -409,38 +411,38 @@ test('validDatePeriod', function (t) {
       expected: true,
     },
     {
-      a: { year: 2000, month: null, day: 11 },
-      b: { year: 2000, month: null, day: 10 },
+      a: {year: 2000, month: null, day: 11},
+      b: {year: 2000, month: null, day: 10},
       expected: true,
     },
     {
-      a: { year: 2000, month: 11, day: 11 },
-      b: { year: 2000, month: 12, day: 12 },
+      a: {year: 2000, month: 11, day: 11},
+      b: {year: 2000, month: 12, day: 12},
       expected: true,
     },
     {
-      a: { year: 2000, month: 11, day: 11 },
-      b: { year: 1999, month: 12, day: 12 },
+      a: {year: 2000, month: 11, day: 11},
+      b: {year: 1999, month: 12, day: 12},
       expected: false,
     },
     {
-      a: { year: 2000, month: 11, day: 11 },
-      b: { year: 2000, month: 10, day: 12 },
+      a: {year: 2000, month: 11, day: 11},
+      b: {year: 2000, month: 10, day: 12},
       expected: false,
     },
     {
-      a: { year: 2000, month: 11, day: 11 },
-      b: { year: 2000, month: 11, day: 10 },
+      a: {year: 2000, month: 11, day: 11},
+      b: {year: 2000, month: 11, day: 10},
       expected: false,
     },
     {
-      a: { year: '2000', month: '3', day: '1' },
-      b: { year: '2000', month: '10', day: '1' },
+      a: {year: '2000', month: '3', day: '1'},
+      b: {year: '2000', month: '10', day: '1'},
       expected: true,
     },
     {
-      a: { year: 1961, month: 2, day: 28 },
-      b: { year: 1961, month: 2, day: 29 },
+      a: {year: 1961, month: 2, day: 28},
+      b: {year: 1961, month: 2, day: 29},
       expected: false,
     },
   ];
@@ -561,5 +563,42 @@ test('formatUserDate', function (t) {
     ),
     '2021-05-13 00:05 GMT+2',
     '%H ranges from 00-23',
+  );
+});
+
+test('formatSetlist', function (t) {
+  t.plan(1);
+
+  const setlist =
+    '@ pre-text [e1af2f0d-c685-4e83-a27d-b27e79787aab|artist 1] mid-text ' +
+      '[0eda70b7-c77b-4775-b1db-5b0e5a3ca4c1|artist 2] post-text\n\r\n' +
+    '* e [b831b5a4-e1a9-4516-bb50-b6eed446fc9b|work 1] [not a link]\r' +
+    '@ plain text artist\n' +
+    '# comment [b831b5a4-e1a9-4516-bb50-b6eed446fc9b|not a link]\r\n' +
+    '# comment <a href="#">also not a link</a>\r\n' +
+    '@ nor a link <a href="#">here</a>\n\r' +
+    '* plain text work\n' +
+    'ignored!\r\n';
+
+  t.equal(
+    ReactDOMServer.renderToStaticMarkup(formatSetlist(setlist)),
+    'pre-text <strong>' +
+      'Artist: ' +
+      '<a href="/artist/e1af2f0d-c685-4e83-a27d-b27e79787aab">artist 1</a>' +
+    '</strong> mid-text ' +
+    '<strong>Artist: ' +
+      '<a href="/artist/0eda70b7-c77b-4775-b1db-5b0e5a3ca4c1">artist 2</a>' +
+    '</strong> post-text<br/><br/>' +
+    'e <a href="/work/b831b5a4-e1a9-4516-bb50-b6eed446fc9b">work 1</a> ' +
+      '[not a link]<br/>' +
+    'plain text artist<br/>' +
+    '<span class="comment">' +
+      'comment [b831b5a4-e1a9-4516-bb50-b6eed446fc9b|not a link]' +
+    '</span><br/>' +
+    '<span class="comment">' +
+      'comment &lt;a href=&quot;#&quot;&gt;also not a link&lt;/a&gt;' +
+    '</span><br/>' +
+    'nor a link &lt;a href=&quot;#&quot;&gt;here&lt;/a&gt;<br/>' +
+    'plain text work<br/><br/><br/>',
   );
 });

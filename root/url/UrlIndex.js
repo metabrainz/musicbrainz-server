@@ -15,12 +15,11 @@ import UrlLayout from './UrlLayout';
 import isGreyedOut from './utility/isGreyedOut';
 
 type Props = {
-  +$c: CatalystContextT,
   +url: UrlT,
 };
 
-const UrlIndex = ({$c, url}: Props): React.Element<typeof UrlLayout> => (
-  <UrlLayout $c={$c} entity={url} page="index" title={l('URL Information')}>
+const UrlIndex = ({url}: Props): React.Element<typeof UrlLayout> => (
+  <UrlLayout entity={url} page="index" title={l('URL Information')}>
     <h2 className="url-details">{l('URL Details')}</h2>
     <table className="details">
       <tr>

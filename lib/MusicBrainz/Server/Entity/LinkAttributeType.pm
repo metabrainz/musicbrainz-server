@@ -33,6 +33,16 @@ has 'root' => (
     isa => 'LinkAttributeType',
 );
 
+has 'parent_gid' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
+has 'parent_name' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 sub l_name {
     my $self = shift;
     my $rootid = defined $self->root ? $self->root->id : $self->root_id;
@@ -68,12 +78,27 @@ has 'instrument_comment' => (
     isa => 'Maybe[Str]',
 );
 
+has 'instrument_type_id' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
+has 'instrument_type_name' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $root = $self->root;
     if ($root) {
         $self->link_entity('link_attribute_type', $root->id, $root);
+    }
+
+    my $parent = $self->parent;
+    if ($parent) {
+        $self->link_entity('link_attribute_type', $parent->id, $parent);
     }
 
     my $children = to_json_array($self->children);
@@ -83,9 +108,12 @@ around TO_JSON => sub {
         gid => $self->gid,
         root_id => $self->root_id + 0,
         root_gid => $self->root_gid,
+        parent_id => defined $self->parent_id ? ($self->parent_id + 0) : undef,
         free_text => boolean_to_json($self->free_text),
         creditable => boolean_to_json($self->creditable),
         $self->instrument_comment ? (instrument_comment => $self->instrument_comment) : (),
+        $self->instrument_type_id ? (instrument_type_id => $self->instrument_type_id) : (),
+        $self->instrument_type_name ? (instrument_type_name => $self->instrument_type_name) : (),
         (defined $children && @$children) ? (children => $children) : (),
     };
 };

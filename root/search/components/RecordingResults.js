@@ -155,7 +155,7 @@ const RecordingResults = ({
 React.Element<typeof ResultsLayout> => {
   linenum = 0;
   return (
-    <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
       <RecordingResultsInline
         pager={pager}
         query={query}

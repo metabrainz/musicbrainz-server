@@ -95,7 +95,7 @@ ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
         dialog.autocomplete.currentSelection(target);
       } else {
         // Fills in the recording name in the add-related-work dialog.
-        dialog.autocomplete.currentSelection({ name: target.name });
+        dialog.autocomplete.currentSelection({name: target.name});
       }
     },
   };
@@ -173,13 +173,12 @@ ko.bindingHandlers.instrumentSelect = {
     var childBindingContext = bindingContext.createChildContext(vm);
     ko.applyBindingsToDescendants(childBindingContext, element);
 
-    return { controlsDescendantBindings: true };
+    return {controlsDescendantBindings: true};
   },
 };
 
 
 class Dialog {
-
   constructor(options) {
     var self = this;
 
@@ -192,7 +191,7 @@ class Dialog {
       target = options.relationship.target(source);
     } else {
       options.relationship = this.viewModel.getRelationship({
-        target: target, direction: options.direction,
+        target: target, backward: !!options.backward,
       }, source);
 
       const linkTypeChildren =
@@ -414,7 +413,7 @@ class Dialog {
       description = ReactDOMServer.renderToStaticMarkup(
         exp.l('{description} ({url|more documentation})', {
           description: expand2react(l_relationships(linkType.description)),
-          url: { href: '/relationship/' + linkType.gid, target: '_blank' },
+          url: {href: '/relationship/' + linkType.gid, target: '_blank'},
         }),
       );
     }
@@ -474,7 +473,7 @@ class Dialog {
     }
 
     var options = targetTypes.map(function (type) {
-      return { value: type, text: ENTITY_NAMES[type]() };
+      return {value: type, text: ENTITY_NAMES[type]()};
     });
 
     options.sort(function (a, b) {
@@ -493,7 +492,7 @@ class Dialog {
     var currentTarget = currentRelationship.target(this.source);
 
     var data = currentRelationship.editData();
-    data.target = MB.entity({ name: currentTarget.name }, newType);
+    data.target = MB.entity({name: currentTarget.name}, newType);
 
     /*
      * Always keep any existing dates, even if the new relationship
@@ -714,7 +713,6 @@ function addRelationships(relationships, source, viewModel) {
 }
 
 export class AddDialog extends Dialog {
-
   _accept() {
     addRelationships(
       splitByCreditableAttributes(this.relationship()),
@@ -737,7 +735,6 @@ Object.assign(AddDialog.prototype, {
 });
 
 export class EditDialog extends Dialog {
-
   constructor(options) {
     /*
      * originalRelationship is a copy of the relationship when the dialog
@@ -780,7 +777,6 @@ Object.assign(EditDialog.prototype, {
 });
 
 export class BatchRelationshipDialog extends Dialog {
-
   constructor(options) {
     options.source = MB.entity({}, options.sources[0].entityType);
     options.target = options.target || new MB.entity.Artist({});
@@ -797,7 +793,7 @@ export class BatchRelationshipDialog extends Dialog {
     delete model.entities;
 
     model.target = this.relationship().target(this.source);
-    model.direction = this.backward() ? 'backward' : 'forward';
+    model.backward = !!this.backward();
 
     for (const source of this.sources) {
       model = {...model};
@@ -819,9 +815,8 @@ Object.assign(BatchRelationshipDialog.prototype, {
 });
 
 export class BatchCreateWorksDialog extends BatchRelationshipDialog {
-
   constructor(options) {
-    super(Object.assign(options, { target: new MB.entity.Work({}) }));
+    super(Object.assign(options, {target: new MB.entity.Work({})}));
     this.error = ko.observable(false);
   }
 
@@ -859,7 +854,7 @@ export class BatchCreateWorksDialog extends BatchRelationshipDialog {
   }
 
   createEdits(edits) {
-    return MB.edit.create({ editNote: '', makeVotable: false, edits: edits });
+    return MB.edit.create({editNote: '', makeVotable: false, edits: edits});
   }
 
   targetEntityError() {

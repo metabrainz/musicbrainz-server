@@ -42,7 +42,7 @@ const InstrumentResults = ({
   results,
 }: ResultsPropsWithContextT<InstrumentT>):
 React.Element<typeof ResultsLayout> => (
-  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
+  <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={(result, index) => buildResult($c, result, index)}
       columns={

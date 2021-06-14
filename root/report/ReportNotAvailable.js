@@ -11,14 +11,8 @@ import * as React from 'react';
 
 import Layout from '../layout';
 
-type Props = {
-  +$c: CatalystContextT,
-};
-
-const ReportNotAvailable = ({
-  $c,
-}: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Error')}>
+const ReportNotAvailable = (): React.Element<typeof Layout> => (
+  <Layout fullWidth title={l('Error')}>
     <div id="content">
       <h1>{l('Error')}</h1>
 

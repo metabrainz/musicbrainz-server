@@ -92,7 +92,6 @@ const Relationships = ({
   types,
 }: RelationshipsStatsT): React.Element<typeof StatisticsLayout> => (
   <StatisticsLayout
-    $c={$c}
     fullWidth
     page="relationships"
     title={l('Relationships')}

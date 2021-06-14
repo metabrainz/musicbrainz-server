@@ -18,12 +18,14 @@ const expandPath = path.resolve(i18nPath, 'expand2react');
 const expandTextPath = path.resolve(i18nPath, 'expand2text');
 const hasOwnPropPath = path.resolve(commonPath, 'utility/hasOwnProp');
 const nonEmptyPath = path.resolve(commonPath, 'utility/nonEmpty');
+const invariantPath = path.resolve(__dirname, '../root/utility/invariant');
 
 module.exports = {
   'addColon': [addColonPath, 'default'],
   'addColonText': [addColonPath, 'addColonText'],
   'hasOwnProp': [hasOwnPropPath, 'default'],
   'hyphenateTitle': [hyphenateTitlePath, 'default'],
+  'invariant': [invariantPath, 'default'],
   'nonEmpty': [nonEmptyPath, 'default'],
 
   'l': [i18nPath, 'l'],

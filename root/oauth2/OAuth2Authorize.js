@@ -28,7 +28,7 @@ const OAuth2Authorize = ({
   offline,
   permissions,
 }: Props): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('OAuth Authorization')}>
+  <Layout fullWidth title={l('OAuth Authorization')}>
     <h1>{l('Authorization')}</h1>
 
     <p>

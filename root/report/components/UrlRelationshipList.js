@@ -12,7 +12,6 @@ import * as React from 'react';
 import {l_relationships}
   from '../../static/scripts/common/i18n/relationships';
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
 import type {ReportUrlRelationshipT} from '../types';
 
@@ -31,6 +30,7 @@ const UrlRelationshipList = ({
         <tr>
           <th>{l('Relationship Type')}</th>
           <th>{l('URL')}</th>
+          <th>{l('URL Entity')}</th>
         </tr>
       </thead>
       <tbody>
@@ -41,13 +41,24 @@ const UrlRelationshipList = ({
                 {l_relationships(item.link_name)}
               </a>
             </td>
-            <td>
-              {item.url ? (
-                <EntityLink entity={item.url} />
-              ) : (
-                l('This URL no longer exists.')
-              )}
-            </td>
+            {item.url ? (
+              <>
+                <td>
+                  <a href={item.url.name}>
+                    {item.url.name}
+                  </a>
+                </td>
+                <td>
+                  <a href={'/url/' + item.url.gid}>
+                    {item.url.gid}
+                  </a>
+                </td>
+              </>
+            ) : (
+              <td colSpan="2">
+                {l('This URL no longer exists.')}
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

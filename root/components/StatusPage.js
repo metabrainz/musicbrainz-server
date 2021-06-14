@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../context';
 import Layout from '../layout';
 
 type Props = {
@@ -18,14 +17,10 @@ type Props = {
 };
 
 const StatusPage = ({title, children}: Props): React.MixedElement => (
-  <CatalystContext.Consumer>
-    {$c => (
-      <Layout $c={$c} fullWidth title={title}>
-        <h1>{title}</h1>
-        {children}
-      </Layout>
-    )}
-  </CatalystContext.Consumer>
+  <Layout fullWidth title={title}>
+    <h1>{title}</h1>
+    {children}
+  </Layout>
 );
 
 export default StatusPage;

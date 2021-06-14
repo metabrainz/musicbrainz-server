@@ -70,7 +70,6 @@ const Details = ({
 
   return (
     <LayoutComponent
-      $c={$c}
       entity={entity}
       page="details"
       title={l('Details')}

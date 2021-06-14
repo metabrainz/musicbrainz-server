@@ -13,7 +13,7 @@ import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks';
-import CritiqueBrainzReview
+import CritiqueBrainzReview, {type CritiqueBrainzReviewT}
   from '../static/scripts/common/components/CritiqueBrainzReview';
 import PaginatedResults from '../components/PaginatedResults';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';

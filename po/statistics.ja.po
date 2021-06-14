@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-05-31 15:57+0000\n"
+"PO-Revision-Date: 2021-06-09 16:44+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -652,18 +652,18 @@ msgid "Controls"
 msgstr "コントロール"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
-#: ../root/statistics/StatisticsLayout.js:52
+#: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
 msgstr "国"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:66
-#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:17
+#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:17
 msgid "Cover Art"
 msgstr "カバーアート"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:99
-#: ../root/statistics/StatisticsLayout.js:113
+#: ../root/statistics/StatisticsLayout.js:97
+#: ../root/statistics/StatisticsLayout.js:110
 msgid "Database Statistics"
 msgstr "データベース統計"
 
@@ -677,13 +677,13 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:98
 #: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:909
-#: ../root/statistics/StatisticsLayout.js:82
+#: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "編集者"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:36
 #: ../root/statistics/Edits.js:40 ../root/statistics/Edits.js:49
-#: ../root/statistics/Index.js:1033 ../root/statistics/StatisticsLayout.js:72
+#: ../root/statistics/Index.js:1033 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:184
 msgid "Edits"
 msgstr "編集"
@@ -692,7 +692,7 @@ msgstr "編集"
 msgid "Exact Values (items vs. day)"
 msgstr "正確な値(items vs. day)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
 #: ../root/statistics/stats.js:19
 msgid "Formats"
 msgstr "フォーマット"
@@ -701,7 +701,7 @@ msgstr "フォーマット"
 msgid "Hover and click on vertical lines"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:57
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
 msgid "Languages/Scripts"
 msgstr "言語/文字"
 
@@ -718,9 +718,9 @@ msgid "MusicBrainz Events:"
 msgstr "MusicBrainzイベント:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:81
-#: ../root/statistics/StatisticsLayout.js:47
+#: ../root/statistics/StatisticsLayout.js:46
 msgid "Overview"
-msgstr ""
+msgstr "概要"
 
 #: ../root/statistics/timeline.tt:30
 msgid "Rate of Change (average items/day vs. day)"
@@ -730,9 +730,9 @@ msgstr ""
 msgid "Rate of Change Graph"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:98
-#: ../root/statistics/Relationships.js:103
-#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:23
+#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:97
+#: ../root/statistics/Relationships.js:102
+#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:23
 #: ../root/statistics/stats.js:33
 msgid "Relationships"
 msgstr "関連"
@@ -741,7 +741,7 @@ msgstr "関連"
 msgid "Reset:"
 msgstr "リセット："
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:87
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
 msgid "Timeline"
 msgstr "タイムライン"
 
@@ -755,15 +755,15 @@ msgstr "ズーム："
 
 #: ../root/statistics/Countries.js:41 ../root/statistics/CoverArt.js:68
 #: ../root/statistics/Editors.js:100 ../root/statistics/Edits.js:38
-#: ../root/statistics/Formats.js:48 ../root/statistics/Index.js:83
-#: ../root/statistics/LanguagesScripts.js:53
-#: ../root/statistics/Relationships.js:101
+#: ../root/statistics/Formats.js:47 ../root/statistics/Index.js:83
+#: ../root/statistics/LanguagesScripts.js:52
+#: ../root/statistics/Relationships.js:100
 msgid "Last updated: {date}"
 msgstr "最終更新日: {date}"
 
 #: ../root/statistics/Countries.js:47 ../root/statistics/Editors.js:53
-#: ../root/statistics/Formats.js:55 ../root/statistics/LanguagesScripts.js:66
-#: ../root/statistics/LanguagesScripts.js:147
+#: ../root/statistics/Formats.js:54 ../root/statistics/LanguagesScripts.js:65
+#: ../root/statistics/LanguagesScripts.js:146
 msgid "Rank"
 msgstr "ランク"
 
@@ -777,9 +777,9 @@ msgid "Artists"
 msgstr "アーティスト"
 
 #: ../root/statistics/Countries.js:57 ../root/statistics/CoverArt.js:105
-#: ../root/statistics/Formats.js:57 ../root/statistics/Index.js:359
-#: ../root/statistics/LanguagesScripts.js:72
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:537
+#: ../root/statistics/Formats.js:56 ../root/statistics/Index.js:359
+#: ../root/statistics/LanguagesScripts.js:71
+#: ../root/statistics/LanguagesScripts.js:152 ../root/statistics/stats.js:537
 msgid "Releases"
 msgstr "リリース"
 
@@ -788,8 +788,8 @@ msgstr "リリース"
 msgid "Labels"
 msgstr "レーベル"
 
-#: ../root/statistics/Countries.js:65 ../root/statistics/Formats.js:66
-#: ../root/statistics/LanguagesScripts.js:80
+#: ../root/statistics/Countries.js:65 ../root/statistics/Formats.js:65
+#: ../root/statistics/LanguagesScripts.js:79
 msgid "Total"
 msgstr "合計"
 
@@ -936,27 +936,27 @@ msgstr "上位の投票者"
 msgid "No edit statistics available."
 msgstr ""
 
-#: ../root/statistics/Formats.js:45 ../root/statistics/Formats.js:51
+#: ../root/statistics/Formats.js:44 ../root/statistics/Formats.js:50
 msgid "Release/Medium Formats"
 msgstr "リリース/メディアフォーマット"
 
-#: ../root/statistics/Formats.js:56
+#: ../root/statistics/Formats.js:55
 msgid "Format"
 msgstr "フォーマット"
 
-#: ../root/statistics/Formats.js:58
+#: ../root/statistics/Formats.js:57
 msgid "% of total releases"
 msgstr ""
 
-#: ../root/statistics/Formats.js:59 ../root/statistics/stats.js:387
+#: ../root/statistics/Formats.js:58 ../root/statistics/stats.js:387
 msgid "Mediums"
 msgstr "メディア"
 
-#: ../root/statistics/Formats.js:60
+#: ../root/statistics/Formats.js:59
 msgid "% of total mediums"
 msgstr ""
 
-#: ../root/statistics/Formats.js:94
+#: ../root/statistics/Formats.js:93
 msgid "Unknown Format"
 msgstr "不明なフォーマット"
 
@@ -1042,7 +1042,7 @@ msgstr "その他の項目"
 msgid "Editors (valid / deleted):"
 msgstr "編集者数（有効 / 削除済）:"
 
-#: ../root/statistics/Index.js:163 ../root/statistics/Relationships.js:118
+#: ../root/statistics/Index.js:163 ../root/statistics/Relationships.js:117
 msgid "Relationships:"
 msgstr "関係数:"
 
@@ -1128,7 +1128,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:293
 msgid "Non-group artists:"
-msgstr ""
+msgstr "非グループアーティスト"
 
 #: ../root/statistics/Index.js:299
 msgid "Male:"
@@ -1228,28 +1228,28 @@ msgstr "ディスクID"
 
 #: ../root/statistics/Index.js:525
 msgid "Releases with no disc IDs:"
-msgstr ""
+msgstr "ディスクIDのないリリース:"
 
 #: ../root/statistics/Index.js:532
 msgid "Releases with at least one disc ID:"
-msgstr ""
+msgstr "ディスクIDが少なくとも1つあるリリース:"
 
 #: ../root/statistics/Index.js:543 ../root/statistics/Index.js:587
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
-msgstr[0] ""
+msgstr[0] "{num}つのディスクID:"
 
 #: ../root/statistics/Index.js:558 ../root/statistics/Index.js:600
 msgid "with 10 or more disc IDs:"
-msgstr ""
+msgstr "10以上のディスクID:"
 
 #: ../root/statistics/Index.js:569
 msgid "Mediums with no disc IDs:"
-msgstr ""
+msgstr "ディスクIDのないメディア:"
 
 #: ../root/statistics/Index.js:576
 msgid "Mediums with at least one disc ID:"
-msgstr ""
+msgstr "ディスクIDが少なくとも1つあるメディア:"
 
 #: ../root/statistics/Index.js:607 ../root/statistics/stats.js:615
 msgid "Release Groups"
@@ -1286,7 +1286,7 @@ msgstr "タイプ"
 msgid "None"
 msgstr "なし"
 
-#: ../root/statistics/Index.js:712 ../root/statistics/LanguagesScripts.js:76
+#: ../root/statistics/Index.js:712 ../root/statistics/LanguagesScripts.js:75
 #: ../root/statistics/stats.js:737
 msgid "Works"
 msgstr "作品"
@@ -1452,40 +1452,40 @@ msgctxt "vote"
 msgid "Abstain"
 msgstr "棄権"
 
-#: ../root/statistics/LanguagesScripts.js:50
+#: ../root/statistics/LanguagesScripts.js:49
 msgid "Languages and Scripts"
 msgstr "言語と文字"
 
-#: ../root/statistics/LanguagesScripts.js:56
+#: ../root/statistics/LanguagesScripts.js:55
 msgid "All other available languages and scripts have 0 releases and works."
 msgstr ""
 
-#: ../root/statistics/LanguagesScripts.js:62
-#: ../root/statistics/LanguagesScripts.js:68
+#: ../root/statistics/LanguagesScripts.js:61
+#: ../root/statistics/LanguagesScripts.js:67
 msgid "Languages"
 msgstr "言語"
 
-#: ../root/statistics/LanguagesScripts.js:93
+#: ../root/statistics/LanguagesScripts.js:92
 msgid "Unknown language"
 msgstr "不明な言語"
 
-#: ../root/statistics/LanguagesScripts.js:143
+#: ../root/statistics/LanguagesScripts.js:142
 msgid "Scripts"
 msgstr "文字"
 
-#: ../root/statistics/LanguagesScripts.js:149
+#: ../root/statistics/LanguagesScripts.js:148
 msgid "Script"
 msgstr "文字"
 
-#: ../root/statistics/LanguagesScripts.js:166
+#: ../root/statistics/LanguagesScripts.js:165
 msgid "Unknown script"
 msgstr "不明な文字"
 
-#: ../root/statistics/NoStatistics.js:23 ../root/statistics/NoStatistics.js:24
+#: ../root/statistics/NoStatistics.js:17 ../root/statistics/NoStatistics.js:18
 msgid "No Statistics"
 msgstr ""
 
-#: ../root/statistics/NoStatistics.js:27
+#: ../root/statistics/NoStatistics.js:21
 msgid ""
 "Statistics have never been collected for this server. If you are the "
 "administrator for this server, you should run "
@@ -1493,25 +1493,25 @@ msgid ""
 "stats.tar.bz2</code>."
 msgstr ""
 
-#: ../root/statistics/Relationships.js:106
+#: ../root/statistics/Relationships.js:105
 msgid "No relationship statistics available."
 msgstr ""
 
-#: ../root/statistics/Relationships.js:113
+#: ../root/statistics/Relationships.js:112
 msgctxt "relationships"
 msgid "This type only"
 msgstr "このタイプのみ"
 
-#: ../root/statistics/Relationships.js:114
+#: ../root/statistics/Relationships.js:113
 msgctxt "relationships"
 msgid "Including subtypes"
 msgstr "サブタイプを含む"
 
-#: ../root/statistics/Relationships.js:135
+#: ../root/statistics/Relationships.js:134
 msgid "{type0}-{type1}"
 msgstr "{type0}・{type1}"
 
-#: ../root/statistics/Relationships.js:141
+#: ../root/statistics/Relationships.js:140
 msgid "{type0}-{type1} relationships:"
 msgstr "{type0}・{type1}の関連："
 
@@ -1586,7 +1586,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:63
 msgid "Female Artists"
-msgstr ""
+msgstr "女性アーティスト"
 
 #: ../root/statistics/stats.js:68
 msgid "Artists with gender set to male"
@@ -1610,7 +1610,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:81
 msgid "Unknown-gender Artists"
-msgstr ""
+msgstr "性別不明のアーティスト"
 
 #: ../root/statistics/stats.js:86
 msgid "Artists with gender set to other"
@@ -1618,7 +1618,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:87
 msgid "Other-gender Artists"
-msgstr ""
+msgstr "その他の性のアーティスト"
 
 #: ../root/statistics/stats.js:92
 msgid "Artists with at least one artist credit appearance"
@@ -1658,7 +1658,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:117
 msgid "Unknown-type Artists"
-msgstr ""
+msgstr "タイプ不明のアーティスト"
 
 #: ../root/statistics/stats.js:122
 msgid "Artists with type set to orchestra"
@@ -1674,7 +1674,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:129
 msgid "Other-type Artists"
-msgstr ""
+msgstr "その他のタイプのアーティスト"
 
 #: ../root/statistics/stats.js:134
 msgid "Artists with type set to person"

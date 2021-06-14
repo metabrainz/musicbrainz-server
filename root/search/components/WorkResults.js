@@ -42,7 +42,7 @@ const WorkResults = ({
   results,
 }: ResultsPropsWithContextT<WorkT>):
 React.Element<typeof ResultsLayout> => (
-  <ResultsLayout $c={$c} form={form} lastUpdated={lastUpdated}>
+  <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={(result, index) => buildResult(result, index)}
       columns={

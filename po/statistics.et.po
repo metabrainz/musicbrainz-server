@@ -647,18 +647,18 @@ msgid "Controls"
 msgstr "Juhtimine"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
-#: ../root/statistics/StatisticsLayout.js:52
+#: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
 msgstr "Riigid"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:66
-#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:17
+#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:17
 msgid "Cover Art"
 msgstr "Kaanepildid"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:99
-#: ../root/statistics/StatisticsLayout.js:113
+#: ../root/statistics/StatisticsLayout.js:97
+#: ../root/statistics/StatisticsLayout.js:110
 msgid "Database Statistics"
 msgstr "Andmebaasi statistika"
 
@@ -672,13 +672,13 @@ msgstr "Joonista ristkülik emmal-kummal graafikul"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:98
 #: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:909
-#: ../root/statistics/StatisticsLayout.js:82
+#: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "Toimetajad"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:36
 #: ../root/statistics/Edits.js:40 ../root/statistics/Edits.js:49
-#: ../root/statistics/Index.js:1033 ../root/statistics/StatisticsLayout.js:72
+#: ../root/statistics/Index.js:1033 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:184
 msgid "Edits"
 msgstr "Toimetused"
@@ -687,7 +687,7 @@ msgstr "Toimetused"
 msgid "Exact Values (items vs. day)"
 msgstr "Täpsed väärtused (elementide arv vastaval päeval)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
 #: ../root/statistics/stats.js:19
 msgid "Formats"
 msgstr "Formaadid"
@@ -696,7 +696,7 @@ msgstr "Formaadid"
 msgid "Hover and click on vertical lines"
 msgstr "Vii kursor püstjoonele ja klõpsa"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:57
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
 msgid "Languages/Scripts"
 msgstr "Keeled ja kirjad"
 
@@ -713,7 +713,7 @@ msgid "MusicBrainz Events:"
 msgstr "MusicBrainzi sündmused:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:81
-#: ../root/statistics/StatisticsLayout.js:47
+#: ../root/statistics/StatisticsLayout.js:46
 msgid "Overview"
 msgstr "Ülevaade"
 
@@ -725,9 +725,9 @@ msgstr "Muutumiskiirus (keskmine elementide arvu muutus vastaval päeval)"
 msgid "Rate of Change Graph"
 msgstr "Muutumiskiiruse graafik"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:98
-#: ../root/statistics/Relationships.js:103
-#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:23
+#: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:97
+#: ../root/statistics/Relationships.js:102
+#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:23
 #: ../root/statistics/stats.js:33
 msgid "Relationships"
 msgstr "Seosed"
@@ -736,7 +736,7 @@ msgstr "Seosed"
 msgid "Reset:"
 msgstr "Lähtestamine:"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:87
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
 msgid "Timeline"
 msgstr "Ajatelg"
 
@@ -750,15 +750,15 @@ msgstr "Suurendamine:"
 
 #: ../root/statistics/Countries.js:41 ../root/statistics/CoverArt.js:68
 #: ../root/statistics/Editors.js:100 ../root/statistics/Edits.js:38
-#: ../root/statistics/Formats.js:48 ../root/statistics/Index.js:83
-#: ../root/statistics/LanguagesScripts.js:53
-#: ../root/statistics/Relationships.js:101
+#: ../root/statistics/Formats.js:47 ../root/statistics/Index.js:83
+#: ../root/statistics/LanguagesScripts.js:52
+#: ../root/statistics/Relationships.js:100
 msgid "Last updated: {date}"
 msgstr "Viimati uuendatud: {date}"
 
 #: ../root/statistics/Countries.js:47 ../root/statistics/Editors.js:53
-#: ../root/statistics/Formats.js:55 ../root/statistics/LanguagesScripts.js:66
-#: ../root/statistics/LanguagesScripts.js:147
+#: ../root/statistics/Formats.js:54 ../root/statistics/LanguagesScripts.js:65
+#: ../root/statistics/LanguagesScripts.js:146
 msgid "Rank"
 msgstr "Koht"
 
@@ -772,9 +772,9 @@ msgid "Artists"
 msgstr "Artistid"
 
 #: ../root/statistics/Countries.js:57 ../root/statistics/CoverArt.js:105
-#: ../root/statistics/Formats.js:57 ../root/statistics/Index.js:359
-#: ../root/statistics/LanguagesScripts.js:72
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:537
+#: ../root/statistics/Formats.js:56 ../root/statistics/Index.js:359
+#: ../root/statistics/LanguagesScripts.js:71
+#: ../root/statistics/LanguagesScripts.js:152 ../root/statistics/stats.js:537
 msgid "Releases"
 msgstr "Väljalasked"
 
@@ -783,8 +783,8 @@ msgstr "Väljalasked"
 msgid "Labels"
 msgstr "Plaadifirmad"
 
-#: ../root/statistics/Countries.js:65 ../root/statistics/Formats.js:66
-#: ../root/statistics/LanguagesScripts.js:80
+#: ../root/statistics/Countries.js:65 ../root/statistics/Formats.js:65
+#: ../root/statistics/LanguagesScripts.js:79
 msgid "Total"
 msgstr "Kokku"
 
@@ -932,27 +932,27 @@ msgstr "Aktiivseimad hääletajad üldse"
 msgid "No edit statistics available."
 msgstr "Toimetuste statistika pole saadaval."
 
-#: ../root/statistics/Formats.js:45 ../root/statistics/Formats.js:51
+#: ../root/statistics/Formats.js:44 ../root/statistics/Formats.js:50
 msgid "Release/Medium Formats"
 msgstr "Väljalasete ja helikandjate formaadid"
 
-#: ../root/statistics/Formats.js:56
+#: ../root/statistics/Formats.js:55
 msgid "Format"
 msgstr "Formaat"
 
-#: ../root/statistics/Formats.js:58
+#: ../root/statistics/Formats.js:57
 msgid "% of total releases"
 msgstr "% kõigist väljalasetest"
 
-#: ../root/statistics/Formats.js:59 ../root/statistics/stats.js:387
+#: ../root/statistics/Formats.js:58 ../root/statistics/stats.js:387
 msgid "Mediums"
 msgstr "Helikandjad"
 
-#: ../root/statistics/Formats.js:60
+#: ../root/statistics/Formats.js:59
 msgid "% of total mediums"
 msgstr "% kõigist helikandjatest"
 
-#: ../root/statistics/Formats.js:94
+#: ../root/statistics/Formats.js:93
 msgid "Unknown Format"
 msgstr "[formaat määramata]"
 
@@ -1038,7 +1038,7 @@ msgstr "Muud olemid"
 msgid "Editors (valid / deleted):"
 msgstr "Toimetajaid (kehtiva / kustutatud kontoga)"
 
-#: ../root/statistics/Index.js:163 ../root/statistics/Relationships.js:118
+#: ../root/statistics/Index.js:163 ../root/statistics/Relationships.js:117
 msgid "Relationships:"
 msgstr "Seoseid:"
 
@@ -1283,7 +1283,7 @@ msgstr "Tüübid"
 msgid "None"
 msgstr "[määramata]"
 
-#: ../root/statistics/Index.js:712 ../root/statistics/LanguagesScripts.js:76
+#: ../root/statistics/Index.js:712 ../root/statistics/LanguagesScripts.js:75
 #: ../root/statistics/stats.js:737
 msgid "Works"
 msgstr "Teosed"
@@ -1449,40 +1449,40 @@ msgctxt "vote"
 msgid "Abstain"
 msgstr "Erapooletu"
 
-#: ../root/statistics/LanguagesScripts.js:50
+#: ../root/statistics/LanguagesScripts.js:49
 msgid "Languages and Scripts"
 msgstr "Keeled ja kirjad"
 
-#: ../root/statistics/LanguagesScripts.js:56
+#: ../root/statistics/LanguagesScripts.js:55
 msgid "All other available languages and scripts have 0 releases and works."
 msgstr "Ülejäänud keeltes ja kirjasüsteemides väljalaskeid ja teoseid teadaolevalt pole."
 
-#: ../root/statistics/LanguagesScripts.js:62
-#: ../root/statistics/LanguagesScripts.js:68
+#: ../root/statistics/LanguagesScripts.js:61
+#: ../root/statistics/LanguagesScripts.js:67
 msgid "Languages"
 msgstr "Keeled"
 
-#: ../root/statistics/LanguagesScripts.js:93
+#: ../root/statistics/LanguagesScripts.js:92
 msgid "Unknown language"
 msgstr "[keel määramata]"
 
-#: ../root/statistics/LanguagesScripts.js:143
+#: ../root/statistics/LanguagesScripts.js:142
 msgid "Scripts"
 msgstr "Kirjasüsteemid"
 
-#: ../root/statistics/LanguagesScripts.js:149
+#: ../root/statistics/LanguagesScripts.js:148
 msgid "Script"
 msgstr "Kirjasüsteem"
 
-#: ../root/statistics/LanguagesScripts.js:166
+#: ../root/statistics/LanguagesScripts.js:165
 msgid "Unknown script"
 msgstr "[kiri määramata]"
 
-#: ../root/statistics/NoStatistics.js:23 ../root/statistics/NoStatistics.js:24
+#: ../root/statistics/NoStatistics.js:17 ../root/statistics/NoStatistics.js:18
 msgid "No Statistics"
 msgstr "Statistika puudub"
 
-#: ../root/statistics/NoStatistics.js:27
+#: ../root/statistics/NoStatistics.js:21
 msgid ""
 "Statistics have never been collected for this server. If you are the "
 "administrator for this server, you should run "
@@ -1490,25 +1490,25 @@ msgid ""
 "stats.tar.bz2</code>."
 msgstr ""
 
-#: ../root/statistics/Relationships.js:106
+#: ../root/statistics/Relationships.js:105
 msgid "No relationship statistics available."
 msgstr "Seoste statistika pole saadaval."
 
-#: ../root/statistics/Relationships.js:113
+#: ../root/statistics/Relationships.js:112
 msgctxt "relationships"
 msgid "This type only"
 msgstr ""
 
-#: ../root/statistics/Relationships.js:114
+#: ../root/statistics/Relationships.js:113
 msgctxt "relationships"
 msgid "Including subtypes"
 msgstr ""
 
-#: ../root/statistics/Relationships.js:135
+#: ../root/statistics/Relationships.js:134
 msgid "{type0}-{type1}"
 msgstr "Seosed {type0} ja {type1} vahel"
 
-#: ../root/statistics/Relationships.js:141
+#: ../root/statistics/Relationships.js:140
 msgid "{type0}-{type1} relationships:"
 msgstr "Seoseid {type0} ja {type1} vahel:"
 

@@ -13,15 +13,13 @@ import Layout from '../layout';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +genres: $ReadOnlyArray<GenreT>,
 };
 
 const GenreListPage = ({
-  $c,
   genres,
 }: PropsT): React.Element<typeof Layout> => (
-  <Layout $c={$c} fullWidth title={l('Genre List')}>
+  <Layout fullWidth title={l('Genre List')}>
     <div id="content">
       <h1>{l('Genre List')}</h1>
       <p>

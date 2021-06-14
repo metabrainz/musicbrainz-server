@@ -14,8 +14,6 @@ import FormRowText from '../components/FormRowText';
 import FormRowTextLong from '../components/FormRowTextLong';
 import FormSubmit from '../components/FormSubmit';
 
-import type {TagLookupFormT} from './types';
-
 type Props = {
   +form: TagLookupFormT,
 };

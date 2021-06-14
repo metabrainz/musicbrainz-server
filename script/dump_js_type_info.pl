@@ -29,8 +29,7 @@ print "Writing root/static/scripts/tests/typeInfo.js ...\n";
 open(my $fh, ">", $out_file);
 print $fh <<EOF;
 // Automatically generated, do not edit.
-require('../relationship-editor/common/viewModel');
-const MB = require('../common/MB').default;
-MB.relationshipEditor.exportTypeInfo($type_info, $attr_info);
+exports.linkTypeTree = $type_info;
+exports.linkAttributeTypes = $attr_info;
 EOF
 close $fh;

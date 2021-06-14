@@ -12,7 +12,7 @@ import * as React from 'react';
 import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
-import expand2react from '../static/scripts/common/i18n/expand2react';
+import formatSetlist from '../static/scripts/common/utility/formatSetlist';
 import CleanupBanner from '../components/CleanupBanner';
 import Relationships from '../components/Relationships';
 import * as manifest from '../static/manifest';
@@ -20,7 +20,6 @@ import * as manifest from '../static/manifest';
 import EventLayout from './EventLayout';
 
 type Props = {
-  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +event: EventT,
   +numberOfRevisions: number,
@@ -28,7 +27,6 @@ type Props = {
 };
 
 const EventIndex = ({
-  $c,
   eligibleForCleanup,
   event,
   numberOfRevisions,
@@ -37,7 +35,7 @@ const EventIndex = ({
   const setlist = event.setlist;
 
   return (
-    <EventLayout $c={$c} entity={event} page="index">
+    <EventLayout entity={event} page="index">
       {eligibleForCleanup ? (
         <CleanupBanner entityType="event" />
       ) : null}
@@ -56,7 +54,7 @@ const EventIndex = ({
         <>
           <h2 className="setlist">{l('Setlist')}</h2>
           <p className="setlist">
-            {expand2react(setlist)}
+            {formatSetlist(setlist)}
           </p>
         </>
       ) : null}

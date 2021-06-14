@@ -41,19 +41,14 @@ MB.GuessCase.Handler.Artist = function (gc) {
       }
       if (is.match(gc.re.ARTIST_EMPTY)) {
         return self.SPECIALCASE_UNKNOWN;
-
       } else if (is.match(gc.re.ARTIST_UNKNOWN)) {
         return self.SPECIALCASE_UNKNOWN;
-
       } else if (is.match(gc.re.ARTIST_NONE)) {
         return self.SPECIALCASE_UNKNOWN;
-
       } else if (is.match(gc.re.ARTIST_NOARTIST)) {
         return self.SPECIALCASE_UNKNOWN;
-
       } else if (is.match(gc.re.ARTIST_NOTAPPLICABLE)) {
         return self.SPECIALCASE_UNKNOWN;
-
       } else if (is.match(gc.re.ARTIST_NA)) {
         return self.SPECIALCASE_UNKNOWN;
       }
@@ -137,19 +132,19 @@ MB.GuessCase.Handler.Artist = function (gc) {
         if (reorder) {
           var reOrderedNames = [];
           if (names.length > 1) {
-            for (i = 0; i < names.length-1; i++) {
+            for (i = 0; i < names.length - 1; i++) {
               // >> firstnames,middlenames one pos right
-              if (i == names.length-2 && names[i] == 'St.') {
-                names[i+1] = names[i] + ' ' + names[i+1];
+              if (i == names.length - 2 && names[i] == 'St.') {
+                names[i + 1] = names[i] + ' ' + names[i + 1];
                 /*
                  * Handle St. because it belongs
                  * to the lastname
                  */
               } else if (names[i]) {
-                reOrderedNames[i+1] = names[i];
+                reOrderedNames[i + 1] = names[i];
               }
             }
-            reOrderedNames[0] = names[names.length-1]; // lastname,firstname
+            reOrderedNames[0] = names[names.length - 1]; // lastname,firstname
             if (reOrderedNames.length > 1) {
               /*
                * Only append comma if there was more than 1

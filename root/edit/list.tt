@@ -73,7 +73,7 @@
                     </div>
 
                     [%~ IF c.user_exists ~%]
-                        [% INCLUDE 'edit/notes.tt' verbose='not-verbose' hide=1 rows=1 index=loop.index %]
+                        [%- React.embed(c, 'edit/components/EditNotes', {edit => edit_json_obj, hide => 1, index => loop.index, verbose => 0}) -%]
                     [%~ END ~%]
                     <div class="seperator">
                     </div>

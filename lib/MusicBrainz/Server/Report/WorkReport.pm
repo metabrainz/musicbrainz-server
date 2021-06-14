@@ -4,7 +4,11 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
-sub _load_extra_work_info {}
+sub _load_extra_work_info {
+    my ($self, @works) = @_;
+
+    $self->c->model('WorkType')->load(@works);
+}
 
 around inflate_rows => sub {
     my $orig = shift;

@@ -18,7 +18,7 @@ type Props = {
 const Error401 = ({
   $c,
 }: Props): React.Element<typeof ErrorLayout> => (
-  <ErrorLayout $c={$c} title={l('Unauthorized Request')}>
+  <ErrorLayout title={l('Unauthorized Request')}>
     <p>
       <strong>
         {l('Sorry, you are not authorized to view this page.')}

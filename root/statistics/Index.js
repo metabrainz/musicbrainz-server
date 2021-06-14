@@ -78,7 +78,7 @@ const Index = ({
   const _formatPercentage = (a, b) => formatPercentage($c, a / b, 1);
 
   return (
-    <StatisticsLayout $c={$c} fullWidth page="index" title={l('Overview')}>
+    <StatisticsLayout fullWidth page="index" title={l('Overview')}>
       <p>
         {texp.l('Last updated: {date}', {date: dateCollected})}
       </p>

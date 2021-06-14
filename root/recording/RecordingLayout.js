@@ -18,7 +18,6 @@ import {
 import RecordingHeader from './RecordingHeader';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: RecordingWithArtistCreditT,
   +fullWidth?: boolean,
@@ -27,7 +26,6 @@ type Props = {
 };
 
 const RecordingLayout = ({
-  $c,
   children,
   entity: recording,
   fullWidth = false,
@@ -43,7 +41,6 @@ const RecordingLayout = ({
     : texp.l('Recording “{name}” by {artist}', titleArgs);
   return (
     <Layout
-      $c={$c}
       title={nonEmpty(title) ? hyphenateTitle(mainTitle, title) : mainTitle}
     >
       <div id="content">

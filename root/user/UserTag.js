@@ -39,7 +39,7 @@ const UserTag = ({
   taggedEntities,
   user,
 }: Props): React.Element<typeof UserAccountLayout> => (
-  <UserAccountLayout $c={$c} entity={user} page="tags">
+  <UserAccountLayout entity={user} page="tags">
     <nav className="breadcrumb">
       <ol>
         <li>

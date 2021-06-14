@@ -175,7 +175,7 @@ const EntityList = ({
   pager,
   tag,
 }: EntityListProps): React.Element<typeof TagLayout> => (
-  <TagLayout $c={$c} page={page} tag={tag}>
+  <TagLayout page={page} tag={tag}>
     <EntityListContent
       $c={$c}
       entityTags={entityTags}

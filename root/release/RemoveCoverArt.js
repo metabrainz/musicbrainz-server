@@ -34,7 +34,7 @@ const RemoveCoverArt = ({
   const title = l('Remove Cover Art');
 
   return (
-    <ReleaseLayout $c={$c} entity={release} fullWidth title={title}>
+    <ReleaseLayout entity={release} fullWidth title={title}>
       <h2>{title}</h2>
       <p>
         {exp.l(

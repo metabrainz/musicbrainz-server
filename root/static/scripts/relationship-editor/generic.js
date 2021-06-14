@@ -23,7 +23,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 var UI = RE.UI = RE.UI || {};
 
 export class GenericEntityViewModel extends ViewModel {
-
   constructor(options) {
     super(options);
 
@@ -264,7 +263,7 @@ export function prepareSubmission(formName) {
         data.removed = relationship.removed();
 
         if (data.entities[1].gid === source.gid) {
-          data.direction = 'backward';
+          data.backward = true;
         }
 
         return data;

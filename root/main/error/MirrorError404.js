@@ -11,15 +11,8 @@ import * as React from 'react';
 
 import ErrorLayout from './ErrorLayout';
 
-type Props = {
-  +$c: CatalystContextT,
-  +message?: string,
-};
-
-const MirrorError404 = ({
-  $c,
-}: Props): React.Element<typeof ErrorLayout> => (
-  <ErrorLayout $c={$c} title={l('Page Not Found')}>
+const MirrorError404 = (): React.Element<typeof ErrorLayout> => (
+  <ErrorLayout title={l('Page Not Found')}>
     <p>
       <strong>
         {l(`Sorry, the page you're looking for

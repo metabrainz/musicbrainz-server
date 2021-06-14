@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
+import {type SearchResultT} from '../types';
 
 type Props<T> = {
   +buildResult: (SearchResultT<T>, number) => React.Node,

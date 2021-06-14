@@ -8,9 +8,12 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptions} from 'react-table';
 
 import {SanitizedCatalystContext} from '../../context';
 import Table from '../Table';
+import ReleaseGroupAppearances
+  from '../../static/scripts/common/components/ReleaseGroupAppearances';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
 import {
@@ -29,6 +32,7 @@ import hydrate from '../../utility/hydrate';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
+  ...ReleaseGroupAppearancesRoleT,
   ...SeriesItemNumbersRoleT,
   +checkboxes?: string,
   +lengthClass?: string,
@@ -39,8 +43,24 @@ type Props = {
   +showExpandedArtistCredits?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
+  +showReleaseGroups?: boolean,
   +sortable?: boolean,
 };
+
+function defineReleaseGroupAppearancesColumn(
+  releaseGroupAppearances,
+): ColumnOptions<RecordingT, ReleaseGroupAppearancesT> {
+  return {
+    Cell: ({row: {original}}) => releaseGroupAppearances &&
+      releaseGroupAppearances[original.id] ? (
+        <ReleaseGroupAppearances
+          appearances={releaseGroupAppearances[original.id]}
+        />
+      ) : null,
+    Header: l('Release Groups'),
+    id: 'appearances',
+  };
+}
 
 const RecordingList = ({
   checkboxes,
@@ -49,11 +69,13 @@ const RecordingList = ({
   mergeForm,
   order,
   recordings,
+  releaseGroupAppearances,
   seriesItemNumbers,
   showAcoustIds = false,
   showExpandedArtistCredits = false,
   showInstrumentCreditsAndRelTypes = false,
   showRatings = false,
+  showReleaseGroups = false,
   sortable,
 }: Props): React.Element<typeof Table> => {
   const $c = React.useContext(SanitizedCatalystContext);
@@ -95,6 +117,9 @@ const RecordingList = ({
         sortable: sortable,
         title: l('Length'),
       });
+      const releaseGroupAppearancesColumn = showReleaseGroups
+        ? defineReleaseGroupAppearancesColumn(releaseGroupAppearances)
+        : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
@@ -110,6 +135,9 @@ const RecordingList = ({
         ...(showRatings ? [ratingsColumn] : []),
         ...(acoustIdsColumn ? [acoustIdsColumn] : []),
         lengthColumn,
+        ...(releaseGroupAppearancesColumn
+          ? [releaseGroupAppearancesColumn]
+          : []),
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
         ...(mergeForm && recordings.length > 2
           ? [removeFromMergeColumn]
@@ -124,11 +152,13 @@ const RecordingList = ({
       mergeForm,
       order,
       recordings,
+      releaseGroupAppearances,
       seriesItemNumbers,
       acoustIdsColumn,
       showExpandedArtistCredits,
       showInstrumentCreditsAndRelTypes,
       showRatings,
+      showReleaseGroups,
       sortable,
     ],
   );

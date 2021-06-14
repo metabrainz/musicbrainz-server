@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
+import ArtistCreditUsageLink
+  from '../../static/scripts/common/components/ArtistCreditUsageLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import loopParity from '../../utility/loopParity';
@@ -62,9 +64,10 @@ const ArtistCreditList = ({
                 {' '}
                 <span className="small">
                   {bracketed(
-                    <a href={`/artist-credit/${credit.id}`}>
-                      {l('see uses')}
-                    </a>,
+                    <ArtistCreditUsageLink
+                      artistCredit={credit}
+                      content={l('see uses')}
+                    />,
                   )}
                 </span>
               </td>

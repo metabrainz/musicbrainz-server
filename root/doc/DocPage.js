@@ -22,13 +22,11 @@ type DocPageT = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +id: string,
   +page: DocPageT,
 };
 
 const DocPage = ({
-  $c,
   id,
   page,
 }: Props): React.Element<typeof Layout> => {
@@ -54,7 +52,7 @@ const DocPage = ({
     </a>
   );
   return (
-    <Layout $c={$c} fullWidth noIcons title={page.title}>
+    <Layout fullWidth noIcons title={page.title}>
       <div className="wikicontent" id="content">
         {useGoogleCustomSearch ? <DocSearchBox /> : null}
 

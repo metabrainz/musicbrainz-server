@@ -30,7 +30,7 @@ const ConfirmSeed = ({
 }: Props): React.Element<typeof Layout> => {
   const title = l('Confirm Form Submission');
   return (
-    <Layout $c={$c} fullWidth title={title}>
+    <Layout fullWidth title={title}>
       <h1>{title}</h1>
       <p>
         {exp.l(
