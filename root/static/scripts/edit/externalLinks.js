@@ -227,7 +227,7 @@ export class ExternalLinksEditor
         <tbody>
           {linksArray.map((link, index) => {
             let error;
-            let errorTarget: ErrorTarget;
+            let errorTarget: ErrorTarget = URLCleanup.ERROR_TARGETS.NONE;
             const linkType = link.type
               ? linkedEntities.link_type[link.type] : {};
             const checker = URLCleanup.validationRules[linkType.gid];
@@ -458,12 +458,13 @@ export class ExternalLink extends React.Component<LinkProps> {
             value={props.url}
           />
           {props.errorMessage &&
-            <>
-              <div className="error field-error" data-visible="1">
-                {`${props.errorTarget}: `}
-                {props.errorMessage}
-              </div>
-            </>}
+            <div
+              className={`error field-error target-${props.errorTarget}`}
+              data-visible="1"
+            >
+              {props.errorMessage}
+            </div>
+          }
           {linkType &&
             hasOwnProp(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
             <div className="attribute-container">
