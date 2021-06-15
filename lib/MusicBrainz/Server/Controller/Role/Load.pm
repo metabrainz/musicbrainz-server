@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Utils 'model_to_type';
 use MusicBrainz::Server::Validation qw( is_guid is_positive_integer );
 use MusicBrainz::Server::Constants qw( :direction %ENTITIES );
 use Readonly;
+use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -116,13 +117,19 @@ role
                 );
 
                 if (defined $pager) {
-                    if (!scalar @$lt_groups) {
-                        $c->detach('/error_400');
-                    }
                     if (scalar @$lt_groups > 1) {
                         die 'Expected only one link type group';
                     }
-                    my $lt_group = $lt_groups->[0];
+
+                    my $lt_group;
+                    if (!scalar @$lt_groups) {
+                        $lt_group = RelationshipLinkTypeGroup->new(
+                            link_type_id => $link_type_id,
+                        );
+                    } else {
+                        $lt_group = $lt_groups->[0];
+                    }                    
+                     
                     $pager->total_entries($lt_group->total_relationships);
                     $c->stash->{pager} = $pager;
                     $c->stash->{paged_link_type_group} = $lt_group;
