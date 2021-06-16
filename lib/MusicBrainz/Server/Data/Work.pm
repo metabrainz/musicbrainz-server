@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Work;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( uniq zip );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN @WRITER_RELATIONSHIP_GIDS );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     hash_to_row
@@ -232,6 +232,7 @@ sub load_related_info {
 
     my $c = $self->c;
     $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_misc_artists(@works);
     $c->model('Work')->load_recording_artists(@works);
     $c->model('WorkAttribute')->load_for_works(@works);
     $c->model('ISWC')->load_for_works(@works);
@@ -281,7 +282,7 @@ sub find_artists
     return () unless @ids;
 
     my (%writers, %artists);
-    $self->_find_writers(\@ids, \%writers);
+    $self->_find_writers_or_misc_artists(\@ids, \%writers);
     $self->_find_recording_artists(\@ids, \%artists);
 
     my %map;
@@ -325,17 +326,40 @@ sub load_writers
     return () unless @ids;
 
     my %map;
-    $self->_find_writers(\@ids, \%map);
+    $self->_find_writers_or_misc_artists(\@ids, \%map);
     for my $work (@works) {
         $work->add_writer(@{ $map{$work->id} })
             if exists $map{$work->id};
     }
 }
 
-sub _find_writers
+sub load_misc_artists
 {
-    my ($self, $ids, $map) = @_;
+    my ($self, @works) = @_;
+
+    @works = grep { defined $_ && scalar $_->all_misc_artists == 0 } @works;
+    my @ids = map { $_->id } @works;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_writers_or_misc_artists(\@ids, \%map, 1);
+    for my $work (@works) {
+        $work->add_misc_artist(@{ $map{$work->id} })
+            if exists $map{$work->id};
+    }
+}
+
+sub _find_writers_or_misc_artists
+{
+    my ($self, $ids, $map, $find_misc) = @_;
     return unless @$ids;
+
+    my $reltypes_condition;
+    if ($find_misc) {
+        $reltypes_condition = "AND lt.gid NOT IN (" . placeholders(@WRITER_RELATIONSHIP_GIDS) . ") ";
+    } else {
+        $reltypes_condition = "AND lt.gid IN (" . placeholders(@WRITER_RELATIONSHIP_GIDS) . ") ";
+    }
 
     my $query = "
         SELECT law.entity1 AS work, law.entity0 AS artist, 
@@ -344,11 +368,12 @@ sub _find_writers
         JOIN link l ON law.link = l.id
         JOIN link_type lt ON l.link_type = lt.id
         WHERE law.entity1 IN (" . placeholders(@$ids) . ")
+        $reltypes_condition
         GROUP BY law.entity1, law.entity0, law.entity0_credit
         ORDER BY count(*) DESC, artist, credit
     ";
 
-    my $rows = $self->sql->select_list_of_lists($query, @$ids);
+    my $rows = $self->sql->select_list_of_lists($query, @$ids, @WRITER_RELATIONSHIP_GIDS);
 
     my @artist_ids = map { $_->[1] } @$rows;
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);

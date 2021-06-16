@@ -18,6 +18,11 @@ declare type WorkT = $ReadOnly<{
   +attributes: $ReadOnlyArray<WorkAttributeT>,
   +iswcs: $ReadOnlyArray<IswcT>,
   +languages: $ReadOnlyArray<WorkLanguageT>,
+  +misc_artists: $ReadOnlyArray<{
+    +credit: string,
+    +entity: ArtistT,
+    +roles: $ReadOnlyArray<string>,
+  }>,
   +primaryAlias?: string | null,
   +related_artists?: {
     +artists: AppearancesT<string>,

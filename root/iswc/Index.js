@@ -54,7 +54,8 @@ const Index = ({$c, iswcs, works}: Props): React.Element<typeof Layout> => {
               ) : null}
               <th>{l('Title')}</th>
               <th>{l('Writers')}</th>
-              <th>{l('Artists')}</th>
+              <th>{l('Recording artists')}</th>
+              <th>{l('Other artists')}</th>
               <th>{l('Type')}</th>
               <th>{l('Language')}</th>
             </tr>

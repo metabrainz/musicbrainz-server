@@ -692,10 +692,10 @@ export const taggerColumn:
     id: 'tagger',
   };
 
-export const workArtistsColumn:
+export const workRecordingArtistsColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
     Cell: ({cell: {value}}) => <WorkArtists artists={value} />,
-    Header: N_l('Artists'),
+    Header: N_l('Recording artists'),
     accessor: 'artists',
   };
 

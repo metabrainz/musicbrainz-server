@@ -72,6 +72,9 @@ export const WorkListRow = ({
       <td>
         <WorkArtists artists={work.artists} />
       </td>
+      <td>
+        <ArtistRoles relations={work.misc_artists} />
+      </td>
       {showIswcs ? (
         <td>
           <ul>

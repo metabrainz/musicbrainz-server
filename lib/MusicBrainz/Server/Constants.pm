@@ -93,6 +93,7 @@ our @EXPORT_OK = (
         $EDITOR_SANITISED_COLUMNS
         $PASSPHRASE_BCRYPT_COST
         %ALIAS_LOCALES
+        @WRITER_RELATIONSHIP_GIDS
     ),
 );
 
@@ -401,6 +402,22 @@ Readonly our %PART_OF_SERIES => (
 Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
 
 Readonly our $PART_OF_AREA_LINK_TYPE => 'de7cc874-8b1b-3a05-8272-f3834c968fb7';
+
+# All composition rels, plus "previous attribution"
+Readonly our @WRITER_RELATIONSHIP_GIDS => qw(
+    a255bca1-b157-4518-9108-7b147dc3fc68
+    d59d99ea-23d4-4a80-b066-edca32ee158f
+    3e48faba-ec01-47fd-8e89-30e81161661c
+    7474ab81-486f-40b5-8685-3a4f8ea624cb
+    eeb9c319-9fde-4313-b76d-29db1576aad8
+    da6c5d8a-ce13-474d-9375-61feb29039a5
+    cb887d1b-5267-4f3d-badb-5b3fba7349f6
+    d3fd781c-5894-47e2-8c12-86cc0e2c8d08
+    0084e70a-873e-4f7f-b3ff-635b9e863dae
+    0a1771e1-8639-4740-8a43-bdafc050c3da
+    6a88b92b-8fb5-41b3-aa1f-169ee7e05ed6
+    7231dcac-d2dc-4b4a-b218-ecea4123a4cd
+);
 
 Readonly our $PART_OF_AREA_LINK_TYPE_ID => 356;
 
