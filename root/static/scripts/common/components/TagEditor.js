@@ -685,7 +685,7 @@ function createInitialTagState(
   const used = new Set();
 
   const combined = aggregatedTags.map(function (t) {
-    const userTag = userTagsByName[t.tag.name];
+    const userTag = userTagsByName.get(t.tag.name);
 
     used.add(t.tag.name);
 
@@ -697,8 +697,7 @@ function createInitialTagState(
   });
 
   // Always show upvoted user tags (affects sidebar)
-  for (const tagName of Object.keys(userTagsByName)) {
-    const tag = userTagsByName[tagName];
+  for (const [tagName, tag] of userTagsByName) {
     if (tag.vote > 0 && !used.has(tagName)) {
       combined.push(tag);
     }

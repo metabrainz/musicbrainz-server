@@ -29,12 +29,12 @@ const attributeTypeOptions = (
   let level = 0;
   let parentId = type.parent_id;
   let parentType =
-    parentId == null ? null : attributeTypesById[String(parentId)];
+    parentId == null ? null : attributeTypesById.get(parentId);
   while (parentType) {
     level++;
     parentId = parentType.parent_id;
     parentType =
-      parentId == null ? null : attributeTypesById[String(parentId)];
+      parentId == null ? null : attributeTypesById.get(parentId);
   }
   return {
     entity: type,

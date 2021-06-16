@@ -912,7 +912,7 @@ function splitByCreditableAttributes(relationship) {
 
   for (
     const attributes of
-    Object.values(groupBy(creditable, linkAttributeTypeID))
+    groupBy(creditable, linkAttributeTypeID).values()
   ) {
     const extra = attributes.slice(1);
     relationship.attributes.removeAll(extra);

@@ -58,11 +58,11 @@ const RelationshipDiff = ({
       const typeId = String(attr.typeID);
       const display = displayLinkAttribute(attr);
 
-      if (oldAttrs[typeId] && !newAttrs[typeId]) {
+      if (oldAttrs.has(typeId) && !newAttrs.get(typeId)) {
         return diffOnlyA(display);
       }
 
-      if (newAttrs[typeId] && !oldAttrs[typeId]) {
+      if (newAttrs.get(typeId) && !oldAttrs.has(typeId)) {
         return diffOnlyB(display);
       }
 

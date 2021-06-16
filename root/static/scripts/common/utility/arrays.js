@@ -130,32 +130,34 @@ export function sortByString<T>(
   return keys.map(x => array[x[0]]);
 }
 
-export function groupBy<T>(
+export function groupBy<T, K>(
   array: $ReadOnlyArray<T>,
-  func: (T) => string,
-): {__proto__: empty, [groupKey: string]: $ReadOnlyArray<T>} {
+  func: (T) => K,
+): Map<K, Array<T>> {
   return array.reduce(function (result, item) {
     const key = func(item);
-    if (!(key in result)) {
-      result[key] = [];
+    let values = result.get(key);
+    if (values == null) {
+      values = [];
+      result.set(key, values);
     }
-    result[key].push(item);
+    values.push(item);
     return result;
-  }, Object.create(null));
+  }, new Map());
 }
 
 export function first<T>(array: ?$ReadOnlyArray<T>): ?T {
   return array?.length ? array[0] : undefined;
 }
 
-export function keyBy<T>(
+export function keyBy<T, K = string>(
   array: $ReadOnlyArray<T>,
-  func: (T) => string,
-): {__proto__: empty, [groupKey: string]: T} {
+  func: (T) => K,
+): Map<K, T> {
   return array.reduce(function (result, item) {
-    result[func(item)] = item;
+    result.set(func(item), item);
     return result;
-  }, Object.create(null));
+  }, new Map());
 }
 
 export function last<T>(array: ?$ReadOnlyArray<T>): ?T {

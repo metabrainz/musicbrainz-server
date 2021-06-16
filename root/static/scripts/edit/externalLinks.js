@@ -36,18 +36,15 @@ import * as URLCleanup from './URLCleanup';
 import validation from './validation';
 
 type LinkStateT = {
-  relationship: number | string | null,
+  // New relationships will use a unique string ID like "new-1".
+  relationship: StrOrNum | null,
   type: number | null,
   url: string,
   video: boolean,
   ...
 };
 
-type LinkHashT = {
-  __proto__: empty,
-  +[key: number | string | null]: LinkStateT,
-  ...
-};
+type LinkMapT = Map<string, LinkStateT>;
 
 type LinksEditorProps = {
   errorObservable: (boolean) => void,
@@ -135,8 +132,8 @@ export class ExternalLinksEditor
     });
   }
 
-  getOldLinksHash(): LinkHashT {
-    return keyBy(
+  getOldLinksHash(): LinkMapT {
+    return keyBy<LinkStateT, string>(
       this.props.initialLinks
         .filter(link => isPositiveInteger(link.relationship)),
       x => String(x.relationship),
@@ -144,18 +141,18 @@ export class ExternalLinksEditor
   }
 
   getEditData(): {
-    allLinks: LinkHashT,
-    newLinks: LinkHashT,
-    oldLinks: LinkHashT,
+    allLinks: LinkMapT,
+    newLinks: LinkMapT,
+    oldLinks: LinkMapT,
     } {
     const oldLinks = this.getOldLinksHash();
-    const newLinks = keyBy<
-      LinkStateT,
-      $ElementType<LinkStateT, 'relationship'>,
-    >(this.state.links, x => String(x.relationship));
+    const newLinks: LinkMapT = keyBy(
+      this.state.links,
+      x => String(x.relationship),
+    );
 
     return {
-      allLinks: {...oldLinks, ...newLinks},
+      allLinks: new Map([...oldLinks, ...newLinks]),
       newLinks: newLinks,
       oldLinks: oldLinks,
     };
@@ -170,10 +167,7 @@ export class ExternalLinksEditor
     const backward = this.props.sourceType > 'url';
     const {oldLinks, newLinks, allLinks} = this.getEditData();
 
-    for (
-      const [relationship, link] of
-      ((Object.entries(allLinks): any): $ReadOnlyArray<[string, ?LinkStateT]>)
-    ) {
+    for (const [relationship, link] of allLinks) {
       if (!link?.type) {
         return;
       }
@@ -183,7 +177,7 @@ export class ExternalLinksEditor
       if (isPositiveInteger(relationship)) {
         pushInput(prefix, 'relationship_id', String(relationship));
 
-        if (!newLinks[relationship]) {
+        if (!newLinks.has(relationship)) {
           pushInput(prefix, 'removed', '1');
         }
       }
@@ -192,7 +186,7 @@ export class ExternalLinksEditor
 
       if (link.video) {
         pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
-      } else if ((oldLinks[relationship] || {}).video) {
+      } else if (oldLinks.get(relationship)?.video) {
         pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
         pushInput(prefix + '.attributes.0', 'removed', '1');
       }
@@ -231,7 +225,7 @@ export class ExternalLinksEditor
             const linkType = link.type
               ? linkedEntities.link_type[link.type] : {};
             const checker = URLCleanup.validationRules[linkType.gid];
-            const oldLink = oldLinks[link.relationship];
+            const oldLink = oldLinks.get(String(link.relationship));
             const isNewLink = !isPositiveInteger(link.relationship);
             const linkChanged = oldLink && link.url !== oldLink.url;
             const isNewOrChangedLink = (isNewLink || linkChanged);
@@ -274,7 +268,9 @@ export class ExternalLinksEditor
                          and should not be used.`);
               errorTarget = URLCleanup.ERROR_TARGETS.RELATIONSHIP;
             } else if (
-              (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1
+              (linksByTypeAndUrl.get(
+                linkTypeAndUrlString(link),
+              ) || []).length > 1
             ) {
               error = l('This relationship already exists.');
               errorTarget = URLCleanup.ERROR_TARGETS.RELATIONSHIP;
