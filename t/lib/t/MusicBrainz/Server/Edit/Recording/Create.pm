@@ -17,18 +17,18 @@ use MusicBrainz::Server::Constants qw( :edit_status );
 around run_test => sub {
     my ($orig, $test, @args) = @_;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
+        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
 
-INSERT INTO release_group (id, name, type, artist_credit, gid)
-       VALUES (22, 'エアリアル', 1, 1, '6169f5bc-b5ff-3348-b806-1b0f2a414217');
-INSERT INTO release (id, name, release_group, artist_credit, gid)
-    VALUES (22, 'エアリアル', 22, 1, '888695fa-8acf-4ddb-8726-23edf32e48c5');
-INSERT INTO medium (id, release, position) VALUES (22, 22, 1);
-ALTER SEQUENCE artist_id_seq RESTART 2;
-EOSQL
+        INSERT INTO release_group (id, name, type, artist_credit, gid)
+            VALUES (22, 'エアリアル', 1, 1, '6169f5bc-b5ff-3348-b806-1b0f2a414217');
+        INSERT INTO release (id, name, release_group, artist_credit, gid)
+            VALUES (22, 'エアリアル', 22, 1, '888695fa-8acf-4ddb-8726-23edf32e48c5');
+        INSERT INTO medium (id, release, position) VALUES (22, 22, 1);
+        ALTER SEQUENCE artist_id_seq RESTART 2;
+        EOSQL
 
     $test->$orig(@args);
 };

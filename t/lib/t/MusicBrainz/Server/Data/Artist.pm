@@ -21,27 +21,27 @@ with 't::Context';
 
 test 'Test find_by_work' => sub {
     my $test = shift;
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO work (id, gid, name)
-    VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen');
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO work (id, gid, name)
+            VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen');
 
-INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', ''),
-           (2, '145c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', 'Other test artist');
+        INSERT INTO artist (id, gid, name, sort_name, comment)
+            VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', ''),
+                   (2, '145c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', 'Other test artist');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Test Artist', 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 'Test Artist', '');
+        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Test Artist', 1);
+        INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+            VALUES (1, 0, 1, 'Test Artist', '');
 
-INSERT INTO recording (id, gid, name, artist_credit)
-    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 'Recording', 1);
+        INSERT INTO recording (id, gid, name, artist_credit)
+            VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 'Recording', 1);
 
-INSERT INTO link (id, link_type, attribute_count)
-  VALUES (1, 278, 0), (2, 167, 0);
+        INSERT INTO link (id, link_type, attribute_count)
+            VALUES (1, 278, 0), (2, 167, 0);
 
-INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 1);
-INSERT INTO l_recording_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
-EOSQL
+        INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 1);
+        INSERT INTO l_recording_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
+        EOSQL
 
     my ($artists, $hits) = $test->c->model('Artist')->find_by_work(1, 100, 0);
     is($hits, 2);
@@ -342,20 +342,26 @@ test 'Deny delete "Deleted Artist" trigger' => sub {
 
 test 'Merging attributes' => sub {
     my $c = shift->c;
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name) VALUES
-  (3, '745c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name');
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (3, '745c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name');
 
-INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
-    end_date_day, comment)
-  VALUES (4, '145c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 2000, 2005, 12,
-          'Artist 4');
+        INSERT INTO artist (
+            id, gid, name, sort_name,
+            begin_date_year, end_date_year, end_date_day, comment
+        ) VALUES (
+            4, '145c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name',
+            2000, 2005, 12, 'Artist 4'
+        );
 
-INSERT INTO artist (id, gid, name, sort_name, begin_date_year,
-    begin_date_month, comment)
-  VALUES (5, '245c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 2000, 06,
-          'Artist 5');
-EOSQL
+        INSERT INTO artist (
+            id, gid, name, sort_name,
+            begin_date_year, begin_date_month, comment
+        ) VALUES (
+            5, '245c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name',
+            2000, 06, 'Artist 5'
+        );
+        EOSQL
 
     $c->model('Artist')->merge(3, [4, 5]);
     my $artist = $c->model('Artist')->get_by_id(3);
@@ -370,11 +376,11 @@ EOSQL
 
 test 'Merging "ended" flag' => sub {
     my $c = shift->c;
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name, ended) VALUES
-  (3, 'ac653796-bca1-4d2e-a92a-4ce5ef2efb0b', 'The Artist', 'Artist, The', FALSE),
-  (4, '0db63477-bc98-4aac-a76a-28d78971a07c', 'An Artist', 'Artist, An', TRUE);
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name, ended)
+            VALUES (3, 'ac653796-bca1-4d2e-a92a-4ce5ef2efb0b', 'The Artist', 'Artist, The', FALSE),
+                   (4, '0db63477-bc98-4aac-a76a-28d78971a07c', 'An Artist', 'Artist, An', TRUE);
+        EOSQL
 
     $c->model('Artist')->merge(3, [4]);
     my $artist = $c->model('Artist')->get_by_id(3);
@@ -385,19 +391,26 @@ test 'Merging attributes for VA' => sub {
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
     MusicBrainz::Server::Test->prepare_test_database($c, '+area');
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name, gender) VALUES
-  (4, '745c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 3);
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name, gender)
+            VALUES (4, '745c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 3);
 
-INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
-    end_date_day, comment)
-  VALUES (5, '145c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 2000, 2005, 12,
-          'Artist 4');
+        INSERT INTO artist (
+            id, gid, name, sort_name,
+            begin_date_year, end_date_year, end_date_day, comment
+        ) VALUES (
+            5, '145c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name',
+            2000, 2005, 12, 'Artist 4'
+        );
 
-INSERT INTO artist (id, gid, name, sort_name, area, type, comment)
-  VALUES (6, '245c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 222, 2,
-          'Artist 5');
-EOSQL
+        INSERT INTO artist (
+            id, gid, name, sort_name,
+            area, type, comment
+        ) VALUES (
+            6, '245c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name',
+            222, 2, 'Artist 5'
+        );
+        EOSQL
 
     $c->model('Artist')->merge(1, [4, 5, 6]);
     my $artist = $c->model('Artist')->get_by_id(1);
@@ -415,11 +428,11 @@ EOSQL
 
 test 'Cannot edit an artist into something that would violate uniqueness' => sub {
     my $c = shift->c;
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
-  (3, '745c079d-374e-4436-9448-da92dedef3ce', 'A', 'A', ''),
-  (4, '7848d7ce-d650-40c4-b98f-62fc037a678b', 'B', 'A', 'Comment');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name, comment)
+            VALUES (3, '745c079d-374e-4436-9448-da92dedef3ce', 'A', 'A', ''),
+                   (4, '7848d7ce-d650-40c4-b98f-62fc037a678b', 'B', 'A', 'Comment');
+        EOSQL
 
     my $conflicts_exception_ok = sub {
         my ($e, $target) = @_;
@@ -447,9 +460,10 @@ test 'Deleting an artist that\'s in a collection' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, ha1) VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1)
+            VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+        EOSQL
 
     my $artist = $c->model('Artist')->insert({ name => 'Test123', sort_name => 'Test123' });
 
@@ -473,9 +487,10 @@ test 'Merging an artist that\'s in a collection' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, ha1) VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1)
+            VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+        EOSQL
 
     my $artist1 = $c->model('Artist')->insert({ name => 'Test123', sort_name => 'Test123' });
     my $artist2 = $c->model('Artist')->insert({ name => 'Test456', sort_name => 'Test456' });

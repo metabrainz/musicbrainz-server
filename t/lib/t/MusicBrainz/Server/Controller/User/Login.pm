@@ -81,9 +81,10 @@ test 'Can login with usernames that contain the "/" character"' => sub {
     my $mech = $test->mech;
     my $enable_ssl = enable_ssl();
 
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, ha1) VALUES (100, 'ocharles/bot', '{CLEARTEXT}mb', 'f067d1b82bbf64c403cbbc996de73cda');
-EOSQL
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1)
+            VALUES (100, 'ocharles/bot', '{CLEARTEXT}mb', 'f067d1b82bbf64c403cbbc996de73cda');
+        EOSQL
 
     $mech->get_ok('/user/ocharles%2Fbot');
     html_ok($mech->content);

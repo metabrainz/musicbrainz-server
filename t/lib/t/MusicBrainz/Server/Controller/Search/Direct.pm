@@ -12,11 +12,11 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c);
-MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO link (id, link_type, attribute_count) VALUES (1000, 167, 0);
-INSERT INTO l_artist_work (id, entity0, link, entity1)
-    VALUES (1000, 6, 1000, 1);
-EOSQL
+MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    INSERT INTO link (id, link_type, attribute_count) VALUES (1000, 167, 0);
+    INSERT INTO l_artist_work (id, entity0, link, entity1)
+        VALUES (1000, 6, 1000, 1);
+    EOSQL
 
 $mech->get_ok('/search?query=Kate&type=artist&direct=on', 'perform artist search');
 html_ok($mech->content);

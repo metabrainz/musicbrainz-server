@@ -113,23 +113,23 @@ test 'Embedded JSON-LD `member` property' => sub {
     my $mech = $test->mech;
     my $c = $test->c;
 
-    $c->sql->do(<<'EOSQL');
-    INSERT INTO artist (id, gid, name, sort_name, type)
-        VALUES (100, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group', 2),
-               (22, '2a62773a-cdbf-44c6-a700-50f931504054', 'Person A', 'Person A', 1),
-               (3, 'efac67ce-33ae-4949-8fc8-3d2aeafcbefb', 'Person B', 'Person B', 1);
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name, type)
+            VALUES (100, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group', 2),
+                   (22, '2a62773a-cdbf-44c6-a700-50f931504054', 'Person A', 'Person A', 1),
+                   (3, 'efac67ce-33ae-4949-8fc8-3d2aeafcbefb', 'Person B', 'Person B', 1);
 
-    INSERT INTO link (id, link_type, begin_date_year, end_date_year)
-        VALUES (1, 103, 2001, 2002), (2, 103, 1999, 2002),
-               (3, 103, 1999, 2002), (4, 103, 2005, NULL);
+        INSERT INTO link (id, link_type, begin_date_year, end_date_year)
+            VALUES (1, 103, 2001, 2002), (2, 103, 1999, 2002),
+                   (3, 103, 1999, 2002), (4, 103, 2005, NULL);
 
-    INSERT INTO l_artist_artist (id, link, entity0, entity1, entity0_credit)
-        VALUES (1, 1, 22, 100, 'A.'), (2, 2, 3, 100, 'B.'),
-               (3, 3, 3, 100, 'B.'), (4, 4, 3, 100, 'B.');
+        INSERT INTO l_artist_artist (id, link, entity0, entity1, entity0_credit)
+            VALUES (1, 1, 22, 100, 'A.'), (2, 2, 3, 100, 'B.'),
+                   (3, 3, 3, 100, 'B.'), (4, 4, 3, 100, 'B.');
 
-    INSERT INTO link_attribute (link, attribute_type)
-        VALUES (2, 229), (3, 125), (4, 229);
-EOSQL
+        INSERT INTO link_attribute (link, attribute_type)
+            VALUES (2, 229), (3, 125), (4, 229);
+        EOSQL
 
     $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
     page_test_jsonld $mech => {
@@ -200,19 +200,19 @@ test 'Embedded JSON-LD `track` property (for artists with only recordings)' => s
     my $mech = $test->mech;
     my $c = $test->c;
 
-    $c->sql->do(<<'EOSQL');
-    INSERT INTO artist (id, gid, name, sort_name)
-        VALUES (1, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group');
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group');
 
-    INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'G.R.O.U.P.', 1);
+        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'G.R.O.U.P.', 1);
 
-    INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-        VALUES (1, 0, 1, 'G.R.O.U.P.', '');
+        INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+            VALUES (1, 0, 1, 'G.R.O.U.P.', '');
 
-    INSERT INTO recording (id, gid, name, artist_credit, length)
-        VALUES (1, '7af3d92f-5ef4-4ed4-bbbb-728928984d9c', 'R1', 1, 300000),
-               (2, '67f09ef6-0704-4841-935c-01c5b247574c', 'R2', 1, 250000);
-EOSQL
+        INSERT INTO recording (id, gid, name, artist_credit, length)
+            VALUES (1, '7af3d92f-5ef4-4ed4-bbbb-728928984d9c', 'R1', 1, 300000),
+                   (2, '67f09ef6-0704-4841-935c-01c5b247574c', 'R2', 1, 250000);
+        EOSQL
 
     $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
     page_test_jsonld $mech => {

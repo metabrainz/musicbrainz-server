@@ -348,10 +348,10 @@ test 'Fails edits trying to change the gender of a group (MBS-8722)' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name, type)
-VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'group', 'group', 1);
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name, type)
+            VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'group', 'group', 1);
+        EOSQL
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
@@ -375,10 +375,10 @@ test 'Fails edits trying to set an artist with a gender as a group' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name)
-VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'person', 'person');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'person', 'person');
+        EOSQL
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
@@ -402,10 +402,10 @@ test 'Type can be set to group when gender is removed (MBS-8801)' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name, gender)
-VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'Foo Baz', 'Foo Baz', 2);
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name, gender)
+            VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'Foo Baz', 'Foo Baz', 2);
+        EOSQL
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,

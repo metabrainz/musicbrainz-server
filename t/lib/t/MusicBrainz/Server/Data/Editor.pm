@@ -105,15 +105,15 @@ is_deeply($editor, $editor2);
 $editor2 = $editor_data->get_by_name('nEw_EdItOr');
 is_deeply($editor, $editor2, 'fetching by name is case insensitive');
 
-$test->c->sql->do(<<EOSQL, $editor->id);
-    INSERT INTO edit (id, editor, type, status, expire_time, autoedit) VALUES
-        (1, \$1, 1, $STATUS_APPLIED, now(), 0),
-        (2, \$1, 1, $STATUS_APPLIED, now(), 1),
-        (3, \$1, 1, $STATUS_FAILEDVOTE, now(), 0),
-        (4, \$1, 1, $STATUS_FAILEDDEP, now(), 0);
+$test->c->sql->do(<<~"EOSQL", $editor->id);
+    INSERT INTO edit (id, editor, type, status, expire_time, autoedit)
+        VALUES (1, \$1, 1, $STATUS_APPLIED, now(), 0),
+               (2, \$1, 1, $STATUS_APPLIED, now(), 1),
+               (3, \$1, 1, $STATUS_FAILEDVOTE, now(), 0),
+               (4, \$1, 1, $STATUS_FAILEDDEP, now(), 0);
     INSERT INTO edit_data (edit, data)
         SELECT x, '{}' FROM generate_series(1, 4) x;
-EOSQL
+    EOSQL
 
 $editor = $editor_data->get_by_id($editor->id);
 $edit_counts = $editor_data->various_edit_counts($editor->id);
@@ -200,13 +200,21 @@ test 'Deleting editors without data fully deletes them' => sub {
     my $c = $test->c;
     my $model = $c->model('Editor');
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO area (id, gid, name, type) VALUES
-  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
-INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
-INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
-INSERT INTO editor_language (editor, language, fluency) VALUES (1, 120, 'native');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO area (id, gid, name, type)
+            VALUES (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
+        INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
+        INSERT INTO editor (
+            id, name, password, email,
+            website, bio, member_since, email_confirm_date,
+            last_login_date, privs, birth_date, area, gender, ha1)
+            VALUES (
+                1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob',
+                'http://bob.bob/', 'Bobography', now(), now(),
+                now(), 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
+        INSERT INTO editor_language (editor, language, fluency)
+            VALUES (1, 120, 'native');
+        EOSQL
     $model->delete(1);
     is($model->get_by_id(1), undef, 'Editor without references in DB is deleted fully.');
 };
@@ -216,22 +224,23 @@ test 'Deleting editors removes most information' => sub {
     my $c = $test->c;
     my $model = $c->model('Editor');
 
-    $c->sql->do(<<EOSQL);
-INSERT INTO area (id, gid, name, type) VALUES
-  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
-INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
-INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob\@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
-INSERT INTO edit (id, editor, type, status, expire_time) VALUES
-    (1, 1, 1, $STATUS_APPLIED, now()),
-    (3, 1, 1, $STATUS_FAILEDVOTE, now()),
-    (4, 1, 1, $STATUS_FAILEDDEP, now());
-INSERT INTO edit_data (edit, data) VALUES (1, '{}'), (3, '{}'), (4, '{}');
-INSERT INTO editor_language (editor, language, fluency) VALUES (1, 120, 'native');
-INSERT INTO annotation (editor) VALUES (1); -- added to ensure editor won't be deleted
-INSERT INTO tag (id, name, ref_count) VALUES (1, 'foo', 1);
-INSERT INTO area_tag (area, count, tag) VALUES (221, 1, 1);
-INSERT INTO area_tag_raw (area, editor, tag, is_upvote) VALUES (221, 1, 1, TRUE);
-EOSQL
+    $c->sql->do(<<~"EOSQL");
+        INSERT INTO area (id, gid, name, type)
+            VALUES (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
+        INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
+        INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, privs, birth_date, area, gender, ha1)
+            VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob\@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
+        INSERT INTO edit (id, editor, type, status, expire_time)
+            VALUES (1, 1, 1, $STATUS_APPLIED, now()),
+                   (3, 1, 1, $STATUS_FAILEDVOTE, now()),
+                   (4, 1, 1, $STATUS_FAILEDDEP, now());
+        INSERT INTO edit_data (edit, data) VALUES (1, '{}'), (3, '{}'), (4, '{}');
+        INSERT INTO editor_language (editor, language, fluency) VALUES (1, 120, 'native');
+        INSERT INTO annotation (editor) VALUES (1); -- added to ensure editor won't be deleted
+        INSERT INTO tag (id, name, ref_count) VALUES (1, 'foo', 1);
+        INSERT INTO area_tag (area, count, tag) VALUES (221, 1, 1);
+        INSERT INTO area_tag_raw (area, editor, tag, is_upvote) VALUES (221, 1, 1, TRUE);
+        EOSQL
 
     # Test deleting editors
     $model->delete(1);
@@ -370,11 +379,13 @@ test 'Deleting an editor unsubscribes anyone who was subscribed to them' => sub 
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, ha1) VALUES (1, 'Subject', '{CLEARTEXT}', '46182940755cef2bdcc0a03b6c1a3580'), (2, 'Subscriber', '{CLEARTEXT}', '37d4b8c8bd88e53c69068830c9e34efc');
-INSERT INTO editor_subscribe_editor (editor, subscribed_editor, last_edit_sent)
-  VALUES (2, 1, 1);
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1)
+            VALUES (1, 'Subject', '{CLEARTEXT}', '46182940755cef2bdcc0a03b6c1a3580'),
+                   (2, 'Subscriber', '{CLEARTEXT}', '37d4b8c8bd88e53c69068830c9e34efc');
+        INSERT INTO editor_subscribe_editor (editor, subscribed_editor, last_edit_sent)
+            VALUES (2, 1, 1);
+        EOSQL
 
     $c->model('Editor')->delete(1);
     is(scalar($c->model('Editor')->subscription->get_subscriptions(2)), 0);
@@ -413,36 +424,36 @@ test 'Open edit and last-24-hour counts' => sub {
 
 test 'subscription_summary' => sub {
     my $test = shift;
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO artist (id, gid, name, sort_name)
-  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'artist', 'artist');
-INSERT INTO label (id, gid, name)
-  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'label');
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'artist', 'artist');
+        INSERT INTO label (id, gid, name)
+            VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'label');
 
-INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
-    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 788, 1);
+        INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
+            VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 788, 1);
 
-INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
-(1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943', '', now()),
-(2, 'Bob', '{CLEARTEXT}b0b', '47ac7eb9fe940581057e46994840a4ae', '', now());
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+            VALUES (1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943', '', now()),
+                   (2, 'Bob', '{CLEARTEXT}b0b', '47ac7eb9fe940581057e46994840a4ae', '', now());
 
-INSERT INTO edit (id, editor, type, status, expire_time) VALUES (1, 1, 1, 1, now());
-INSERT INTO edit_data (edit, data) VALUES (1, '{}');
+        INSERT INTO edit (id, editor, type, status, expire_time) VALUES (1, 1, 1, 1, now());
+        INSERT INTO edit_data (edit, data) VALUES (1, '{}');
 
-INSERT INTO editor_collection (id, gid, editor, name, type)
-  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 'Stuff', 1);
+        INSERT INTO editor_collection (id, gid, editor, name, type)
+            VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 'Stuff', 1);
 
-INSERT INTO editor_subscribe_artist (id, editor, artist, last_edit_sent) VALUES
-  (1, 1, 1, 1);
-INSERT INTO editor_subscribe_collection (id, editor, collection, last_edit_sent)
-  VALUES (1, 1, 1, 0);
-INSERT INTO editor_subscribe_label (id, editor, label, last_edit_sent) VALUES
-  (1, 1, 1, 1), (2, 2, 1, 1);
-INSERT INTO editor_subscribe_editor
-  (id, editor, subscribed_editor, last_edit_sent) VALUES (1, 1, 1, 1);
+        INSERT INTO editor_subscribe_artist (id, editor, artist, last_edit_sent)
+            VALUES (1, 1, 1, 1);
+        INSERT INTO editor_subscribe_collection (id, editor, collection, last_edit_sent)
+            VALUES (1, 1, 1, 0);
+        INSERT INTO editor_subscribe_label (id, editor, label, last_edit_sent)
+            VALUES (1, 1, 1, 1), (2, 2, 1, 1);
+        INSERT INTO editor_subscribe_editor (id, editor, subscribed_editor, last_edit_sent)
+            VALUES (1, 1, 1, 1);
 
-INSERT INTO editor_subscribe_series (id, editor, series, last_edit_sent) VALUES (1, 1, 1, 1);
-EOSQL
+        INSERT INTO editor_subscribe_series (id, editor, series, last_edit_sent) VALUES (1, 1, 1, 1);
+        EOSQL
 
     is_deeply($test->c->model('Editor')->subscription_summary(1),
               { artist => 1,
@@ -463,14 +474,14 @@ EOSQL
 test 'Searching editor by email (for admin only)' => sub {
     my $test = shift;
 
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, ha1, email, member_since) VALUES
-  (1, 'z', '{CLEARTEXT}password', '12345678901234567890123456789012', 'abc@f.g.h', '2021-05-31 16:31:36.901272+00'),
-  (2, 'y', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f.g.h', '2021-05-31 15:32:05.674592+00'),
-  (3, 'x', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f-g.h', '2021-05-31 14:32:15.079918+00'),
-  -- Reminder: Editor #4 is ModBot
-  (5, 'w', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d@e.f.g.h', '2021-05-31 13:32:28.205096+00');
-EOSQL
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1, email, member_since)
+            VALUES (1, 'z', '{CLEARTEXT}password', '12345678901234567890123456789012', 'abc@f.g.h', '2021-05-31 16:31:36.901272+00'),
+                   (2, 'y', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f.g.h', '2021-05-31 15:32:05.674592+00'),
+                   (3, 'x', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d.e@f-g.h', '2021-05-31 14:32:15.079918+00'),
+                   -- Reminder: Editor #4 is ModBot
+                   (5, 'w', '{CLEARTEXT}password', '12345678901234567890123456789012', 'a.b.c+d@e.f.g.h', '2021-05-31 13:32:28.205096+00');
+        EOSQL
 
     my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
 

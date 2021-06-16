@@ -26,10 +26,10 @@ test 'Sitemap build scripts' => sub {
         system 'sh', '-c' => "echo $sql | $psql TEST_SITEMAPS";
     };
 
-    $exec_sql->(<<EOSQL);
-INSERT INTO artist (id, gid, name, sort_name)
-VALUES (1, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'A', 'A');
-EOSQL
+    $exec_sql->(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'A', 'A');
+        EOSQL
 
     my $tmp = tempdir("t-sitemaps-XXXXXXXX", DIR => '/tmp', CLEANUP => 1);
     my $output_dir = File::Spec->catdir($tmp, 'sitemaps');
@@ -300,12 +300,12 @@ EOF
 3\tf\t"id"='3' "name"='C' "gid"='79e0f9b8-db97-4bfb-9995-217478dd6c3e' "last_updated"='2015-10-04 00:01:02.050000+00'\x{20}
 EOF
 
-    $exec_sql->(<<EOSQL);
-INSERT INTO work (id, gid, name)
-VALUES (1, 'daf4327f-19a0-450b-9448-e0ea1c707136', 'A'),
-       (2, 'b6c76104-d64c-4883-b395-c74f782b751c', 'B'),
-       (3, '79e0f9b8-db97-4bfb-9995-217478dd6c3e', 'C');
-EOSQL
+    $exec_sql->(<<~'EOSQL');
+        INSERT INTO work (id, gid, name)
+            VALUES (1, 'daf4327f-19a0-450b-9448-e0ea1c707136', 'A'),
+                   (2, 'b6c76104-d64c-4883-b395-c74f782b751c', 'B'),
+                   (3, '79e0f9b8-db97-4bfb-9995-217478dd6c3e', 'C');
+        EOSQL
     $build_packet->(2, $dbmirror_pending, $dbmirror_pendingdata);
 
     my $build_time3 = '2015-10-04T03:33:33.030000Z';
@@ -394,15 +394,15 @@ EOF
 4\tf\t"id"='3' "gid"='79e0f9b8-db97-4bfb-9995-217478dd6c3e' "name"='C?' "type"= "comment"='' "edits_pending"='0' "last_updated"='2017-04-05 01:12:36.172561+00' "language"=\x{20}
 EOF
 
-    $exec_sql->(<<EOSQL);
-INSERT INTO iswc (id, work, iswc, created)
-VALUES (1, 1, 'T-100.000.000-1', '2015-10-05 06:54:32.101234-05');
-INSERT INTO link (id, link_type, attribute_count, ended, created)
-VALUES (1, 168, 0, 'f', '2017-04-05 01:07:52.449236+00');
-INSERT INTO l_artist_work (id, link, entity0, entity1, last_updated)
-VALUES (1, 1, 1, 2, '2017-04-05 00:59:46.503449+00');
-UPDATE work SET name = 'C?' WHERE id = 3;
-EOSQL
+    $exec_sql->(<<~'EOSQL');
+        INSERT INTO iswc (id, work, iswc, created)
+            VALUES (1, 1, 'T-100.000.000-1', '2015-10-05 06:54:32.101234-05');
+        INSERT INTO link (id, link_type, attribute_count, ended, created)
+            VALUES (1, 168, 0, 'f', '2017-04-05 01:07:52.449236+00');
+        INSERT INTO l_artist_work (id, link, entity0, entity1, last_updated)
+            VALUES (1, 1, 1, 2, '2017-04-05 00:59:46.503449+00');
+        UPDATE work SET name = 'C?' WHERE id = 3;
+        EOSQL
     $build_packet->(3, $dbmirror_pending, $dbmirror_pendingdata);
 
     my $build_time4 = '2015-10-05T13:59:59.000123Z';
@@ -534,12 +534,12 @@ EOSQL
         {loc => 'https://musicbrainz.org/sitemap-work-1-recordings.xml', lastmod => $build_time5},
     ]);
 
-    $exec_sql->(<<EOSQL);
-TRUNCATE artist CASCADE;
-TRUNCATE work CASCADE;
-TRUNCATE sitemaps.control;
-TRUNCATE sitemaps.tmp_checked_entities;
-EOSQL
+    $exec_sql->(<<~'EOSQL');
+        TRUNCATE artist CASCADE;
+        TRUNCATE work CASCADE;
+        TRUNCATE sitemaps.control;
+        TRUNCATE sitemaps.tmp_checked_entities;
+        EOSQL
 };
 
 run_me;

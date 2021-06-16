@@ -38,12 +38,12 @@ test all => sub {
         system 'sh', '-c' => "echo $sql | $psql TEST_JSON_DUMP";
     };
 
-    $exec_sql->(<<EOSQL);
-INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date) VALUES
-    ($schema_seq, 1, now() - interval '1 hour');
-INSERT INTO artist (id, gid, name, sort_name)
-VALUES (1, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'Blue Guy', 'Blues Guy');
-EOSQL
+    $exec_sql->(<<~"EOSQL");
+        INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date)
+            VALUES ($schema_seq, 1, now() - interval '1 hour');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'Blue Guy', 'Blues Guy');
+        EOSQL
 
     my $output_dir;
     my $new_output_dir = sub {
@@ -613,19 +613,19 @@ EOF
     ]);
     $test_dumps_empty_except->($output_dir, qw( artist recording release-group work ));
 
-    $exec_sql->(<<EOSQL);
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE medium CASCADE;
-TRUNCATE recording CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE track CASCADE;
-TRUNCATE work CASCADE;
-TRUNCATE json_dump.control;
-TRUNCATE json_dump.tmp_checked_entities;
-EOSQL
+    $exec_sql->(<<~'EOSQL');
+        TRUNCATE artist CASCADE;
+        TRUNCATE artist_credit CASCADE;
+        TRUNCATE artist_credit_name CASCADE;
+        TRUNCATE medium CASCADE;
+        TRUNCATE recording CASCADE;
+        TRUNCATE release CASCADE;
+        TRUNCATE release_group CASCADE;
+        TRUNCATE track CASCADE;
+        TRUNCATE work CASCADE;
+        TRUNCATE json_dump.control;
+        TRUNCATE json_dump.tmp_checked_entities;
+        EOSQL
 };
 
 run_me;
