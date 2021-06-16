@@ -22,10 +22,10 @@ import {
   defineReleaseCatnosColumn,
   defineReleaseEventsColumn,
   defineReleaseLabelsColumn,
+  defineReleaseLanguageColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
   ratingsColumn,
-  releaseLanguageColumn,
   taggerColumn,
 } from '../../utility/tableColumns';
 
@@ -127,6 +127,11 @@ const ReleaseList = ({
         sortable: sortable,
         title: l('Barcode'),
       });
+      const releaseLanguageColumn = showLanguages
+        ? defineReleaseLanguageColumn<ReleaseT>({
+          getEntity: entity => entity,
+        })
+        : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,

@@ -9,12 +9,9 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
-import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
 
+import ReleaseList from './components/ReleaseList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseUrlT} from './types';
 
@@ -24,65 +21,47 @@ const BadAmazonUrls = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseUrlT>): React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases with Amazon URLs which don't follow
-       the expected format. They might still be correct if they're
-       archive.org cover links, but in any other case they should
-       probably be fixed or removed.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Bad Amazon URLs')}
-    totalEntries={pager.total_entries}
-  >
-    <PaginatedResults pager={pager}>
-      <table className="tbl">
-        <thead>
-          <tr>
-            <th>{l('Release')}</th>
-            <th>{l('Artist')}</th>
-            <th>{l('URL')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => (
-            <tr className={loopParity(index)} key={item.release_id}>
-              {item.release ? (
-                <>
-                  <td>
-                    <EntityLink entity={item.release} />
-                  </td>
-                  <td>
-                    <ArtistCreditLink
-                      artistCredit={item.release.artistCredit}
-                    />
-                  </td>
-                  <td>
-                    {item.url ? (
-                      <EntityLink
-                        content={item.url.href_url}
-                        entity={item.url}
-                      />
-                    ) : (
-                      l('This URL no longer exists.')
-                    )}
-                  </td>
-                </>
-              ) : (
-                <td colSpan="3">
-                  {l('This release no longer exists.')}
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </PaginatedResults>
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseUrlT>): React.Element<typeof ReportLayout> => {
+  const urlColumn = {
+    Cell: ({row: {original}}) => {
+      const url = original.url;
+      return (
+        url ? (
+          <EntityLink
+            content={url.href_url}
+            entity={url}
+          />
+        ) : (
+          l('This URL no longer exists.')
+        )
+      );
+    },
+    Header: l('URL'),
+    id: 'url',
+  };
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases with Amazon URLs which don't follow
+         the expected format. They might still be correct if they're
+         archive.org cover links, but in any other case they should
+         probably be fixed or removed.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Bad Amazon URLs')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList
+        columnsAfter={[urlColumn]}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default BadAmazonUrls;

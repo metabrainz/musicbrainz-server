@@ -15,22 +15,23 @@ import Table from '../../components/Table';
 import {
   defineEntityColumn,
 } from '../../utility/tableColumns';
+import type {ReportPlaceRelationshipT} from '../types';
 
-type Props<D: {+label: ?LabelT, ...}> = {
+type Props<D: {+place: ?PlaceT, ...}> = {
   +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
   +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
   +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const LabelList = <D: {+label: ?LabelT, ...}>({
+const PlaceList = <D: {+place: ?PlaceT, ...}>({
   columnsBefore,
   columnsAfter,
   items,
   pager,
 }: Props<D>): React.Element<typeof PaginatedResults> => {
-  const existingLabelItems = items.reduce((result, item) => {
-    if (item.label != null) {
+  const existingPlaceItems = items.reduce((result, item) => {
+    if (item.place != null) {
       result.push(item);
     }
     return result;
@@ -38,10 +39,10 @@ const LabelList = <D: {+label: ?LabelT, ...}>({
 
   const columns = React.useMemo(
     () => {
-      const nameColumn = defineEntityColumn<D>({
-        columnName: 'label',
-        getEntity: result => result.label ?? null,
-        title: l('Label'),
+      const nameColumn = defineEntityColumn<ReportPlaceRelationshipT>({
+        columnName: 'place',
+        getEntity: result => result.place ?? null,
+        title: l('Place'),
       });
 
       return [
@@ -55,9 +56,9 @@ const LabelList = <D: {+label: ?LabelT, ...}>({
 
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingLabelItems} />
+      <Table columns={columns} data={existingPlaceItems} />
     </PaginatedResults>
   );
 };
 
-export default LabelList;
+export default PlaceList;

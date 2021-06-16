@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import ReleaseGroupAnnotationList
-  from './components/ReleaseGroupAnnotationList';
+import ReleaseGroupList from './components/ReleaseGroupList';
 import ReportLayout from './components/ReportLayout';
+import useAnnotationColumns from './hooks/useAnnotationColumns';
 import type {ReportDataT, ReportReleaseGroupAnnotationT} from './types';
 
 const AnnotationsReleaseGroups = ({
@@ -22,19 +22,28 @@ const AnnotationsReleaseGroups = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseGroupAnnotationT>):
-React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l('This report lists release groups with annotations.')}
-    entityType="release_group"
-    extraInfo={ANNOTATION_REPORT_TEXT()}
-    filtered={filtered}
-    generated={generated}
-    title={l('Release group annotations')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseGroupAnnotationList items={items} pager={pager} />
-  </ReportLayout>
-);
+React.Element<typeof ReportLayout> => {
+  const annotationColumns =
+    useAnnotationColumns<ReportReleaseGroupAnnotationT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l('This report lists release groups with annotations.')}
+      entityType="release_group"
+      extraInfo={ANNOTATION_REPORT_TEXT()}
+      filtered={filtered}
+      generated={generated}
+      title={l('Release group annotations')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseGroupList
+        columnsAfter={annotationColumns}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default AnnotationsReleaseGroups;

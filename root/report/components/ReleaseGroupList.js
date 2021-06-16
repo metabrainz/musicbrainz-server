@@ -8,84 +8,74 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
-import type {ReportReleaseGroupT} from '../types';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
+import Table from '../../components/Table';
+import {
+  defineArtistCreditColumn,
+  defineEntityColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportReleaseGroupT>,
+type Props<D: {+release_group: ?ReleaseGroupT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const ReleaseGroupList = ({
+const ReleaseGroupList = <D: {+release_group: ?ReleaseGroupT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
-  let currentKey = '';
-  let lastKey = '';
+}: Props<D>): React.Element<typeof PaginatedResults> => {
+  const existingReleaseGroupItems = items.reduce((result, item) => {
+    if (item.release_group != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const releaseColumn = defineEntityColumn<D>({
+        columnName: 'release_group',
+        descriptive: false,
+        getEntity: result => result.release_group ?? null,
+        title: l('Release Group'),
+      });
+      const artistCreditColumn =
+        defineArtistCreditColumn<D>({
+          columnName: 'artist',
+          getArtistCredit:
+            result => result.release_group?.artistCredit ?? null,
+          title: l('Artist'),
+        });
+      const typeColumn = defineTextColumn<D>({
+        columnName: 'type',
+        getText: result => {
+          const typeName = result.release_group?.l_type_name;
+          return nonEmpty(typeName) ? typeName : l('Unknown');
+        },
+        title: l('Type'),
+      });
+
+      return [
+        ...(columnsBefore ? [...columnsBefore] : []),
+        releaseColumn,
+        artistCreditColumn,
+        typeColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
+      ];
+    },
+    [columnsAfter, columnsBefore],
+  );
 
   return (
     <PaginatedResults pager={pager}>
-      <table className="tbl">
-        <thead>
-          <tr>
-            <th>{l('Artist')}</th>
-            <th>{l('Release Group')}</th>
-            <th>{l('Type')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => {
-            if (item.key != null) {
-              lastKey = currentKey;
-              currentKey = item.key;
-            }
-
-            return (
-              <>
-                {item.key != null && (lastKey !== item.key) ? (
-                  <tr className="subh">
-                    <td colSpan="4" />
-                  </tr>
-                ) : null}
-                <tr
-                  className={loopParity(index)}
-                  key={item.release_group_id}
-                >
-                  {item.release_group ? (
-                    <>
-                      <td>
-                        <ArtistCreditLink
-                          artistCredit={item.release_group.artistCredit}
-                        />
-                      </td>
-                      <td>
-                        <EntityLink entity={item.release_group} />
-                      </td>
-                      <td>
-                        {nonEmpty(item.release_group.l_type_name)
-                          ? item.release_group.l_type_name
-                          : l('Unknown')}
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td />
-                      <td colSpan="2">
-                        {l('This release group no longer exists.')}
-                      </td>
-                    </>
-                  )}
-                </tr>
-              </>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table columns={columns} data={existingReleaseGroupItems} />
     </PaginatedResults>
   );
 };

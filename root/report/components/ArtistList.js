@@ -8,53 +8,72 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import loopParity from '../../utility/loopParity';
-import type {ReportArtistT} from '../types';
+import Table from '../../components/Table';
+import {
+  defineEntityColumn,
+  defineTextColumn,
+} from '../../utility/tableColumns';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportArtistT>,
+type Props<D: {+artist: ?ArtistT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
+  +subPath?: string,
 };
 
-const ArtistList = ({
+const ArtistList = <D: {+artist: ?ArtistT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Artist')}</th>
-          <th>{l('Type')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.artist_id}>
-            {item.artist ? (
-              <>
-                <td>
-                  <EntityLink entity={item.artist} />
-                </td>
-                <td>
-                  {nonEmpty(item.artist.typeName)
-                    ? lp_attributes(item.artist.typeName, 'artist_type')
-                    : l('Unknown')}
-                </td>
-              </>
-            ) : (
-              <td colSpan="2">
-                {l('This artist no longer exists.')}
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+  subPath,
+}: Props<D>): React.Element<typeof PaginatedResults> => {
+  const existingArtistItems = items.reduce((result, item) => {
+    if (item.artist != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = defineEntityColumn<D>({
+        columnName: 'artist',
+        getEntity: result => result.artist ?? null,
+        subPath: subPath,
+        title: l('Artist'),
+      });
+      const typeColumn = defineTextColumn<D>({
+        columnName: 'type',
+        getText: result => {
+          const typeName = result.artist?.typeName;
+          return (nonEmpty(typeName)
+            ? lp_attributes(typeName, 'artist_type')
+            : l('Unknown')
+          );
+        },
+        title: l('Type'),
+      });
+
+      return [
+        ...(columnsBefore ? [...columnsBefore] : []),
+        nameColumn,
+        typeColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
+      ];
+    },
+    [columnsAfter, columnsBefore, subPath],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingArtistItems} />
+    </PaginatedResults>
+  );
+};
 
 export default ArtistList;

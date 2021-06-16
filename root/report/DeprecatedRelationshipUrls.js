@@ -9,7 +9,11 @@
 
 import * as React from 'react';
 
-import UrlRelationshipList from './components/UrlRelationshipList';
+import {
+  relTypeColumn,
+} from '../utility/tableColumns';
+
+import UrlList from './components/UrlList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportUrlRelationshipT} from './types';
 
@@ -33,7 +37,11 @@ React.Element<typeof ReportLayout> => (
     title={l('URLs with deprecated relationships')}
     totalEntries={pager.total_entries}
   >
-    <UrlRelationshipList items={items} pager={pager} />
+    <UrlList
+      columnsBefore={[relTypeColumn]}
+      items={items}
+      pager={pager}
+    />
   </ReportLayout>
 );
 

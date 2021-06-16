@@ -9,7 +9,11 @@
 
 import * as React from 'react';
 
-import ArtistRelationshipList from './components/ArtistRelationshipList';
+import {
+  relTypeColumn,
+} from '../utility/tableColumns';
+
+import ArtistList from './components/ArtistList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportArtistRelationshipT, ReportDataT} from './types';
 
@@ -33,7 +37,11 @@ React.Element<typeof ReportLayout> => (
     title={l('Artists with deprecated relationships')}
     totalEntries={pager.total_entries}
   >
-    <ArtistRelationshipList items={items} pager={pager} />
+    <ArtistList
+      columnsBefore={[relTypeColumn]}
+      items={items}
+      pager={pager}
+    />
   </ReportLayout>
 );
 

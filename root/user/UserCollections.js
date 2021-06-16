@@ -96,7 +96,7 @@ const CollectionsEntityTypeSection = ({
       const sizeColumn:
         ColumnOptions<CollectionT, number> = {
           Header: formatPluralEntityTypeName(type),
-          accessor: 'entity_count',
+          accessor: x => x.entity_count,
           id: 'size',
         };
       const collaboratorsColumn:
@@ -105,7 +105,7 @@ const CollectionsEntityTypeSection = ({
             formatCollaboratorNumber(value, activeUserId)
           ),
           Header: l('Collaborators'),
-          accessor: 'collaborators',
+          accessor: x => x.collaborators,
           id: 'collaborators',
         };
       const privacyColumn:
@@ -116,7 +116,7 @@ const CollectionsEntityTypeSection = ({
             isCollaborative,
           ),
           Header: l('Privacy'),
-          accessor: 'public',
+          accessor: x => x.public,
           id: 'privacy',
         };
       const actionsColumn = defineActionsColumn({

@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import ReleaseList from './components/ReleaseList';
 import ReportLayout from './components/ReportLayout';
+import useReleaseLanguageColumn from './hooks/useReleaseLanguageColumn';
 import type {ReportDataT, ReportReleaseT} from './types';
 
 const ReleasesWithUnlikelyLanguageScript = ({
@@ -19,21 +20,29 @@ const ReleasesWithUnlikelyLanguageScript = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases that have an unlikely combination of
-       language and script properties, such as German and Ethiopic.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases with unlikely language/script pairs')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} showLanguageAndScript />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => {
+  const releaseLanguageColumn = useReleaseLanguageColumn<ReportReleaseT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases that have an unlikely combination of
+        language and script properties, such as German and Ethiopic.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases with unlikely language/script pairs')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList
+        columnsAfter={releaseLanguageColumn}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default ReleasesWithUnlikelyLanguageScript;

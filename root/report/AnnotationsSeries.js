@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import SeriesAnnotationList from './components/SeriesAnnotationList';
+import SeriesList from './components/SeriesList';
 import ReportLayout from './components/ReportLayout';
+import useAnnotationColumns from './hooks/useAnnotationColumns';
 import type {ReportDataT, ReportSeriesAnnotationT} from './types';
 
 const AnnotationsSeries = ({
@@ -21,19 +22,27 @@ const AnnotationsSeries = ({
   items,
   pager,
 }: ReportDataT<ReportSeriesAnnotationT>):
-React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l('This report lists series with annotations.')}
-    entityType="series"
-    extraInfo={ANNOTATION_REPORT_TEXT()}
-    filtered={filtered}
-    generated={generated}
-    title={l('Series annotations')}
-    totalEntries={pager.total_entries}
-  >
-    <SeriesAnnotationList items={items} pager={pager} />
-  </ReportLayout>
-);
+React.Element<typeof ReportLayout> => {
+  const annotationColumns = useAnnotationColumns<ReportSeriesAnnotationT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l('This report lists series with annotations.')}
+      entityType="series"
+      extraInfo={ANNOTATION_REPORT_TEXT()}
+      filtered={filtered}
+      generated={generated}
+      title={l('Series annotations')}
+      totalEntries={pager.total_entries}
+    >
+      <SeriesList
+        columnsAfter={annotationColumns}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default AnnotationsSeries;

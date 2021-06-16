@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import PlaceAnnotationList from './components/PlaceAnnotationList';
+import PlaceList from './components/PlaceList';
 import ReportLayout from './components/ReportLayout';
+import useAnnotationColumns from './hooks/useAnnotationColumns';
 import type {ReportDataT, ReportPlaceAnnotationT} from './types';
 
 const AnnotationsPlaces = ({
@@ -21,19 +22,27 @@ const AnnotationsPlaces = ({
   items,
   pager,
 }: ReportDataT<ReportPlaceAnnotationT>):
-React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l('This report lists places with annotations.')}
-    entityType="place"
-    extraInfo={ANNOTATION_REPORT_TEXT()}
-    filtered={filtered}
-    generated={generated}
-    title={l('Place annotations')}
-    totalEntries={pager.total_entries}
-  >
-    <PlaceAnnotationList items={items} pager={pager} />
-  </ReportLayout>
-);
+React.Element<typeof ReportLayout> => {
+  const annotationColumns = useAnnotationColumns<ReportPlaceAnnotationT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l('This report lists places with annotations.')}
+      entityType="place"
+      extraInfo={ANNOTATION_REPORT_TEXT()}
+      filtered={filtered}
+      generated={generated}
+      title={l('Place annotations')}
+      totalEntries={pager.total_entries}
+    >
+      <PlaceList
+        columnsAfter={annotationColumns}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default AnnotationsPlaces;

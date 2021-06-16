@@ -16,21 +16,21 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns';
 
-type Props<D: {+label: ?LabelT, ...}> = {
+type Props<D: {+series: ?SeriesT, ...}> = {
   +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
   +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
   +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const LabelList = <D: {+label: ?LabelT, ...}>({
+const SeriesList = <D: {+series: ?SeriesT, ...}>({
   columnsBefore,
   columnsAfter,
   items,
   pager,
 }: Props<D>): React.Element<typeof PaginatedResults> => {
-  const existingLabelItems = items.reduce((result, item) => {
-    if (item.label != null) {
+  const existingSeriesItems = items.reduce((result, item) => {
+    if (item.series != null) {
       result.push(item);
     }
     return result;
@@ -39,9 +39,9 @@ const LabelList = <D: {+label: ?LabelT, ...}>({
   const columns = React.useMemo(
     () => {
       const nameColumn = defineEntityColumn<D>({
-        columnName: 'label',
-        getEntity: result => result.label ?? null,
-        title: l('Label'),
+        columnName: 'series',
+        getEntity: result => result.series ?? null,
+        title: l('Series'),
       });
 
       return [
@@ -55,9 +55,9 @@ const LabelList = <D: {+label: ?LabelT, ...}>({
 
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingLabelItems} />
+      <Table columns={columns} data={existingSeriesItems} />
     </PaginatedResults>
   );
 };
 
-export default LabelList;
+export default SeriesList;
