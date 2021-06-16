@@ -17,6 +17,9 @@
         [% field_errors(form, 'description') %]
     [% END %]
 
+    [% form_row_checkbox(r, 'creditable', l('This attribute supports free text credits')) %]
+    [% form_row_checkbox(r, 'free_text', l('This attribute uses free text values')) %]
+
     <div class="row no-label">
         [% form_submit(l('Save')) %]
     </div>

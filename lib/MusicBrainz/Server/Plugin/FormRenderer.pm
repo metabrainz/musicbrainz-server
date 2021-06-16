@@ -62,6 +62,7 @@ sub _render_input
             value => '' . $field->fif,
             name => $field->html_name,
             class => $class . ($field->has_errors ? ' error' : ''),
+            disabled => $field->disabled,
             %attrs
         });
 }

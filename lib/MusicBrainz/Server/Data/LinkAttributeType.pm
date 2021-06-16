@@ -134,6 +134,12 @@ sub insert
     $row->{gid} = $values->{gid} || generate_gid();
     $row->{root} = $row->{parent} ? $self->find_root($row->{parent}) : $row->{id};
     $self->sql->insert_row('link_attribute_type', $row);
+    if ($values->{creditable}) {
+        $self->sql->insert_row('link_creditable_attribute_type', { attribute_type => $row->{id} });
+    }
+    if ($values->{free_text}) {
+        $self->sql->insert_row('link_text_attribute_type', { attribute_type => $row->{id} });
+    }
     return $self->_entity_class->new( id => $row->{id}, gid => $row->{gid} );
 }
 
@@ -156,6 +162,35 @@ sub update
     my ($self, $id, $values) = @_;
 
     my $row = $self->_hash_to_row($values);
+    my $attribute = $self->get_by_id($id);
+    my $attribute_in_use = $self->in_use($id);
+    my $adds_creditable = $values->{creditable} && !($attribute->creditable);
+    my $removes_creditable = $attribute->creditable && defined $values->{creditable} && !($values->{creditable});
+    my $adds_free_text = $values->{free_text} && !($attribute->free_text);
+    my $removes_free_text = $attribute->free_text && defined $values->{free_text} && !($values->{free_text});
+
+    if ($adds_creditable) {
+        $self->sql->insert_row('link_creditable_attribute_type', { attribute_type => $id });
+    }
+    if ($removes_creditable) {
+        if ($attribute_in_use) {
+            die('The attribute is in use, and this change would risk damaging existing values');
+        }
+        $self->sql->do('DELETE FROM link_creditable_attribute_type WHERE attribute_type = ?', $id);
+    }
+    if ($adds_free_text) {
+        if ($attribute_in_use) {
+            die('The attribute is in use, and this change would risk damaging existing values');
+        }
+        $self->sql->insert_row('link_text_attribute_type', { attribute_type => $id });
+    }
+    if ($removes_free_text) {
+        if ($attribute_in_use) {
+            die('The attribute is in use, and this change would risk damaging existing values');
+        }
+        $self->sql->do('DELETE FROM link_text_attribute_type WHERE attribute_type = ?', $id);
+    }
+
     if (%$row) {
         if ($row->{parent}) {
             $row->{root} = $self->find_root($row->{parent});
