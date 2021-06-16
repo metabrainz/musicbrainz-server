@@ -186,13 +186,19 @@ Object.assign(coreEntityPrototype, {
       var other = relationships[i];
 
       if (rel !== other && rel.isDuplicate(other)) {
-        var obj = {...rel.editData()};
-        delete obj.id;
+        /*
+         * If it is a duplicate part of series,
+         * just ignore it completely, otherwise merge it.
+         */
+        if (!rel.isSeriesPart()) {
+          const obj = {...rel.editData()};
+          delete obj.id;
 
-        obj.begin_date = mergeDates(rel.begin_date, other.begin_date);
-        obj.end_date = mergeDates(rel.end_date, other.end_date);
+          obj.begin_date = mergeDates(rel.begin_date, other.begin_date);
+          obj.end_date = mergeDates(rel.end_date, other.end_date);
+          other.fromJS(obj);
+        }
 
-        other.fromJS(obj);
         rel.remove();
 
         return true;
