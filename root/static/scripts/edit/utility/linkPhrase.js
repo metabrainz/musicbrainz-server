@@ -8,9 +8,15 @@
  */
 
 import commaList, {commaListText} from '../../common/i18n/commaList';
-import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
-import expand2react from '../../common/i18n/expand2react';
-import expand2text from '../../common/i18n/expand2text';
+import {
+  VarArgs,
+  type VarArgsObject,
+  type VarArgsClass,
+} from '../../common/i18n/expand2';
+import {
+  expand2reactWithVarArgsInstance,
+} from '../../common/i18n/expand2react';
+import {expand2textWithVarArgsClass} from '../../common/i18n/expand2text';
 import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
 import {compareStrings} from '../../common/utility/compare';
@@ -26,9 +32,7 @@ const entity1Subst = /\{entity1\}/;
 type LinkAttrs = Array<LinkAttrT> | LinkAttrT;
 
 type LinkAttrsByRootName = {
-  __proto__: null,
   [attributeName: string]: LinkAttrs,
-  ...
 };
 
 export type LinkPhraseProp =
@@ -36,7 +40,9 @@ export type LinkPhraseProp =
   | 'long_link_phrase'
   | 'reverse_link_phrase';
 
-class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
+class PhraseVarArgs<T>
+  extends VarArgs<LinkAttrs, T | string>
+  implements VarArgsClass<T | string> {
   +i18n: LinkPhraseI18n<T>;
 
   +entity0: T | string;
@@ -92,19 +98,19 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
 export type LinkPhraseI18n<T> = {
   commaList: ($ReadOnlyArray<T>) => T,
   displayLinkAttribute: (LinkAttrT) => T,
-  expand: (string, PhraseVarArgs<T>) => T,
+  expand: (string, VarArgsClass<T>) => T,
 };
 
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
   commaList,
   displayLinkAttribute,
-  expand: expand2react,
+  expand: expand2reactWithVarArgsInstance,
 };
 
 const textI18n: LinkPhraseI18n<string> = {
   commaList: commaListText,
   displayLinkAttribute: displayLinkAttributeText,
-  expand: expand2text,
+  expand: expand2textWithVarArgsClass,
 };
 
 function _getAttributesByRootName<T>(
@@ -112,7 +118,7 @@ function _getAttributesByRootName<T>(
   linkType: LinkTypeT,
   attributes: $ReadOnlyArray<LinkAttrT>,
 ): LinkAttrsByRootName {
-  const values: LinkAttrsByRootName = Object.create(null);
+  const values: LinkAttrsByRootName = {};
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];

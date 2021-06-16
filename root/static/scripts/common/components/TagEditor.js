@@ -554,7 +554,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                 </p>
               )}
               <p>
-                <a href="#" onClick={this.showAllTags.bind(this)}>
+                <a href="#" onClick={(event) => this.showAllTags(event)}>
                   {l('Show all tags.')}
                 </a>
               </p>
@@ -568,7 +568,10 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
               </p>
               {this.props.$c.user?.has_confirmed_email_address ? (
                 <p>
-                  <a href="#" onClick={this.hideNegativeTags.bind(this)}>
+                  <a
+                    href="#"
+                    onClick={(event) => this.hideNegativeTags(event)}
+                  >
                     {l(
                       `Hide tags with a score of zero or below,
                        and tags that you’ve downvoted.`,
@@ -577,7 +580,10 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                 </p>
               ) : (
                 <p>
-                  <a href="#" onClick={this.hideNegativeTags.bind(this)}>
+                  <a
+                    href="#"
+                    onClick={(event) => this.hideNegativeTags(event)}
+                  >
                     {l('Hide tags with a score of zero or below.')}
                   </a>
                 </p>

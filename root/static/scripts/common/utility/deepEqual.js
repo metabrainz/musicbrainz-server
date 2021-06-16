@@ -13,6 +13,7 @@
 /* eslint-disable import/no-commonjs */
 
 const objectPrototype = Object.prototype;
+// $FlowIgnore[method-unbinding]
 const hasOwnProperty = objectPrototype.hasOwnProperty;
 
 function deepEqual(

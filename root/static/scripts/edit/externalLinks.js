@@ -306,20 +306,20 @@ export class ExternalLinksEditor
                 errorMessage={error || ''}
                 errorTarget={errorTarget}
                 handleUrlBlur={
-                  this.handleUrlBlur.bind(this, index)
+                  (event) => this.handleUrlBlur(index, event)
                 }
                 handleUrlChange={
-                  this.handleUrlChange.bind(this, index)
+                  (event) => this.handleUrlChange(index, event)
                 }
                 handleVideoChange={
-                  this.handleVideoChange.bind(this, index)
+                  (event) => this.handleVideoChange(index, event)
                 }
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
-                onRemove={this.removeLink.bind(this, index)}
+                onRemove={() => this.removeLink(index)}
                 type={link.type}
                 typeChangeCallback={
-                  this.handleTypeChange.bind(this, index)
+                  (event) => this.handleTypeChange(index, event)
                 }
                 typeOptions={this.props.typeOptions}
                 url={link.url}
@@ -340,8 +340,7 @@ export class ExternalLinksEditor
 
 type LinkTypeSelectProps = {
   children: Array<React.Element<'option'>>,
-  handleTypeChange:
-    (number, SyntheticEvent<HTMLSelectElement>) => void,
+  handleTypeChange: (SyntheticEvent<HTMLSelectElement>) => void,
   type: number | null,
 };
 
@@ -365,14 +364,14 @@ type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 type LinkProps = {
   errorMessage: React.Node,
   errorTarget: ErrorTarget,
-  handleUrlBlur: (number, SyntheticEvent<HTMLInputElement>) => void,
-  handleUrlChange: (number, SyntheticEvent<HTMLInputElement>) => void,
+  handleUrlBlur: (SyntheticEvent<HTMLInputElement>) => void,
+  handleUrlChange: (SyntheticEvent<HTMLInputElement>) => void,
   handleVideoChange:
-    (number, SyntheticEvent<HTMLInputElement>) => void,
+    (SyntheticEvent<HTMLInputElement>) => void,
   isOnlyLink: boolean,
   onRemove: (number) => void,
   type: number | null,
-  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  typeChangeCallback: (SyntheticEvent<HTMLSelectElement>) => void,
   typeOptions: Array<React.Element<'option'>>,
   url: string,
   urlMatchesType: boolean,
