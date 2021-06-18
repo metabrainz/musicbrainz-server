@@ -30,7 +30,7 @@ const ratingURL = (
 const ratingInts = [1, 2, 3, 4, 5];
 
 type StaticRatingStarsProps = {
-  +rating: number | null,
+  +rating: ?number,
 };
 
 type RatingStarsProps = {

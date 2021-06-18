@@ -36,9 +36,9 @@ my $edit_data; # make file-level, so it can be accessed by subtests
 test 'Merge entity edit history' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
-    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, <<'EOSQL');
-INSERT INTO edit_artist (edit, artist) VALUES (4, 3);
-EOSQL
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, <<~'EOSQL');
+        INSERT INTO edit_artist (edit, artist) VALUES (4, 3);
+        EOSQL
 
     {
         my ($edits, $hits) = $test->c->model('Edit')->find({ artist => 2 }, 10, 0);
@@ -332,11 +332,11 @@ test 'Open edits expire in 7 days (MBS-8681)' => sub {
 
     is($edit->edit_conditions->{duration}, 7);
 
-    my ($expire_time) = @{ $c->sql->select_list_of_hashes(<<'EOSQL', $edit->id) };
-SELECT expire_time AS got,
-       (open_time + interval '@ 7 days') AS expected
-  FROM edit WHERE id = ?
-EOSQL
+    my ($expire_time) = @{ $c->sql->select_list_of_hashes(<<~'EOSQL', $edit->id) };
+        SELECT expire_time AS got,
+               (open_time + interval '@ 7 days') AS expected
+        FROM edit WHERE id = ?
+        EOSQL
 
     is($expire_time->{got}, $expire_time->{expected});
 };

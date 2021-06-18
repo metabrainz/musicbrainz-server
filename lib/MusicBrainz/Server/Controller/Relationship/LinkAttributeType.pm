@@ -7,6 +7,8 @@ use MusicBrainz::Server::Constants qw(
     $INSTRUMENT_ROOT_ID
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Translation qw( l );
+
 use MusicBrainz::Server::Validation qw( is_guid );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -99,24 +101,40 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
 
     my $form = $c->form( form => 'Admin::LinkAttributeType', init_object => $link_attr_type );
 
+    my $attribute_in_use = $c->model('LinkAttributeType')->in_use($link_attr_type->id);
+
+    if ($attribute_in_use) {
+        $form->field('free_text')->disabled(1);
+        if ($link_attr_type->creditable) {
+            $form->field('creditable')->disabled(1);
+        }
+    }
+
     if ($c->form_posted_and_valid($form)) {
+        my %values = map { $_->name => $_->value } $form->edit_fields;
+
+        my $edit;
+
         $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
+            $edit = $self->_insert_edit(
                 $c, $form,
                 edit_type => $EDIT_RELATIONSHIP_ATTRIBUTE,
                 entity_id => $link_attr_type->id,
-                new => { map { $_->name => $_->value } $form->edit_fields },
+                new => \%values ,
                 old => {
                     name => $link_attr_type->name,
                     description => $link_attr_type->description,
                     parent_id => $link_attr_type->parent_id,
                     child_order => $link_attr_type->child_order,
+                    creditable => $link_attr_type->creditable,
+                    free_text => $link_attr_type->free_text,
                 }
             );
         });
 
-        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/show', [ $link_attr_type->gid ]));
-        $c->detach;
+        if ($edit) {
+            $c->response->redirect($c->uri_for_action('relationship/linkattributetype/show', [ $link_attr_type->gid ]));
+        }
     }
 }
 

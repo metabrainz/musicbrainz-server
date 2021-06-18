@@ -2,11 +2,19 @@
   <div class="warning field-error" data-bind="showErrorRightAway: needsRecordings">
     <p><strong>[% l('Note:') %]</strong> [%- l('All tracks require an associated recording. Click “Edit” to select a recording for each track. Choose “Add a new recording” if an appropriate one doesn’t exist yet.') -%]</p>
 
-    <p data-bind="if: tracksWithUnsetPreviousRecordings().length">
-      <button type="button" class="styled-button" data-click="reuseUnsetPreviousRecordings">
-        [%~ l('Reuse previous recordings') | html ~%]
-      </button>
-    </p>
+    <div data-bind="if: tracksWithUnsetPreviousRecordings().length">
+      <p>
+        [% l(
+          'Keep in mind that recording durations are {doc_link|recalculated from tracks} once the duration of a track changes. As such, if you correct the duration of a track whose recording is only used in this release, just reuse the old recording, don’t create a new one. If the recording is also used elsewhere and the durations are significantly different, consider creating a new recording instead.',
+          { doc_link => doc_link('Recording') }
+        ) %]
+      </p>
+      <p>
+        <button type="button" class="styled-button" data-click="reuseUnsetPreviousRecordings">
+          [%~ l('Reuse previous recordings') | html ~%]
+        </button>
+      </p>
+    </div>
   </div>
 
   <div class="half-width" data-bind="affectsBubble: $root.recordingBubble">

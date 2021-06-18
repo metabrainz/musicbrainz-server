@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import commaList from '../static/scripts/common/i18n/commaList';
+import linkedEntities from '../static/scripts/common/linkedEntities';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import {interpolate} from '../static/scripts/edit/utility/linkPhrase';
 import groupRelationships, {
@@ -43,7 +44,8 @@ const renderPhraseGroup = (phraseGroup: RelationshipPhraseGroupT) => (
 const renderWorkRelationship = (relationship: RelationshipT) => {
   const work = relationship.target;
   const phrase = interpolate(
-    relationship,
+    linkedEntities.link_type[relationship.linkTypeID],
+    relationship.attributes,
     relationship.backward ? 'reverse_link_phrase' : 'link_phrase',
     /*
      * Work relationships are not grouped together on a single line,
@@ -101,27 +103,28 @@ const GroupedTrackRelationships = ({
 
   const groupedRelationships = groupRelationships(
     source.relationships,
-    undefined,
-    (
-      relationship: RelationshipT,
-      target: CoreEntityT,
-      targetType: CoreEntityTypeT,
-    ) => {
-      if (targetType === 'work') {
-        /*
-         * Specifically ignore rels that do not give information
-         * relevant to this track, such as other arrangements of the work
-         * or all the parts of the work linked.
-         */
-        if (!isIrrelevantLinkType(relationship)) {
-          workRelationships.push(relationship);
+    {
+      filter: (
+        relationship: RelationshipT,
+        target: CoreEntityT,
+        targetType: CoreEntityTypeT,
+      ) => {
+        if (targetType === 'work') {
+          /*
+           * Specifically ignore rels that do not give information
+           * relevant to this track, such as other arrangements of the work
+           * or all the parts of the work linked.
+           */
+          if (!isIrrelevantLinkType(relationship)) {
+            workRelationships.push(relationship);
+          }
+          return false;
         }
-        return false;
-      }
-      if (targetType === 'url') {
-        return false;
-      }
-      return true;
+        if (targetType === 'url') {
+          return false;
+        }
+        return true;
+      },
     },
   );
 

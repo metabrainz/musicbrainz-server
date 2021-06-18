@@ -9,7 +9,11 @@
 
 import * as React from 'react';
 
-import LabelRelationshipList from './components/LabelRelationshipList';
+import {
+  relTypeColumn,
+} from '../utility/tableColumns';
+
+import LabelList from './components/LabelList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportLabelRelationshipT} from './types';
 
@@ -33,7 +37,11 @@ React.Element<typeof ReportLayout> => (
     title={l('Labels with deprecated relationships')}
     totalEntries={pager.total_entries}
   >
-    <LabelRelationshipList items={items} pager={pager} />
+    <LabelList
+      columnsBefore={[relTypeColumn]}
+      items={items}
+      pager={pager}
+    />
   </ReportLayout>
 );
 

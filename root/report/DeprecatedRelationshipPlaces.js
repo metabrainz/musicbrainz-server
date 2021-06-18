@@ -9,7 +9,11 @@
 
 import * as React from 'react';
 
-import PlaceRelationshipList from './components/PlaceRelationshipList';
+import {
+  relTypeColumn,
+} from '../utility/tableColumns';
+
+import PlaceList from './components/PlaceList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportPlaceRelationshipT} from './types';
 
@@ -33,7 +37,11 @@ React.Element<typeof ReportLayout> => (
     title={l('Places with deprecated relationships')}
     totalEntries={pager.total_entries}
   >
-    <PlaceRelationshipList items={items} pager={pager} />
+    <PlaceList
+      columnsBefore={[relTypeColumn]}
+      items={items}
+      pager={pager}
+    />
   </ReportLayout>
 );
 

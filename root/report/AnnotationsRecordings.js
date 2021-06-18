@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import RecordingAnnotationList from './components/RecordingAnnotationList';
+import RecordingList from './components/RecordingList';
 import ReportLayout from './components/ReportLayout';
+import useAnnotationColumns from './hooks/useAnnotationColumns';
 import type {ReportDataT, ReportRecordingAnnotationT} from './types';
 
 const AnnotationsRecordings = ({
@@ -21,19 +22,28 @@ const AnnotationsRecordings = ({
   items,
   pager,
 }: ReportDataT<ReportRecordingAnnotationT>):
-React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l('This report lists recordings with annotations.')}
-    entityType="recording"
-    extraInfo={ANNOTATION_REPORT_TEXT()}
-    filtered={filtered}
-    generated={generated}
-    title={l('Recording annotations')}
-    totalEntries={pager.total_entries}
-  >
-    <RecordingAnnotationList items={items} pager={pager} />
-  </ReportLayout>
-);
+React.Element<typeof ReportLayout> => {
+  const annotationColumns =
+    useAnnotationColumns<ReportRecordingAnnotationT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l('This report lists recordings with annotations.')}
+      entityType="recording"
+      extraInfo={ANNOTATION_REPORT_TEXT()}
+      filtered={filtered}
+      generated={generated}
+      title={l('Recording annotations')}
+      totalEntries={pager.total_entries}
+    >
+      <RecordingList
+        columnsAfter={annotationColumns}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default AnnotationsRecordings;

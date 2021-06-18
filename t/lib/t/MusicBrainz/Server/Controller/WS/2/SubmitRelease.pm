@@ -20,10 +20,12 @@ test all => sub {
     $mech->default_header("Accept" => "application/xml");
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, 'new_editor', '{CLEARTEXT}password', 'e1dd8fee8ee728b0ddc8027d3a3db478', 'foo@example.com', now());
-INSERT INTO release_gid_redirect (gid, new_id) VALUES ('78ad6e24-dc0a-4c20-8284-db2d44d28fb9', 49161);
-EOSQL
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+            VALUES (1, 'new_editor', '{CLEARTEXT}password', 'e1dd8fee8ee728b0ddc8027d3a3db478', 'foo@example.com', now());
+        INSERT INTO release_gid_redirect (gid, new_id)
+            VALUES ('78ad6e24-dc0a-4c20-8284-db2d44d28fb9', 49161);
+        EOSQL
 
     my $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">

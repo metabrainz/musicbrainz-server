@@ -91,19 +91,19 @@ test 'Hide biography and website/homepage of beginners/limited users from not-lo
     $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/div[@class="deleted" and starts-with(text(), "This content is hidden to prevent spam.")]',
         'website field of beginner/limited user is hidden from not-logged-in user');
 
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO edit (id, editor, type, status, expire_time, autoedit) VALUES
-    ( 1, 1, 1, $STATUS_APPLIED, now(), 0),
-    ( 2, 1, 1, $STATUS_APPLIED, now(), 0),
-    ( 3, 1, 1, $STATUS_APPLIED, now(), 0),
-    ( 4, 1, 1, $STATUS_APPLIED, now(), 0),
-    ( 5, 1, 1, $STATUS_APPLIED, now(), 0),
-    ( 6, 1, 1, $STATUS_APPLIED, now(), 0),
-    ( 7, 1, 1, $STATUS_APPLIED, now(), 0),
-    ( 8, 1, 1, $STATUS_APPLIED, now(), 0),
-    ( 9, 1, 1, $STATUS_APPLIED, now(), 0),
-    (10, 1, 1, $STATUS_APPLIED, now(), 0);
-EOSQL
+    $test->c->sql->do(<<~"EOSQL");
+        INSERT INTO edit (id, editor, type, status, expire_time, autoedit)
+            VALUES (1, 1, 1, $STATUS_APPLIED, now(), 0),
+                   (2, 1, 1, $STATUS_APPLIED, now(), 0),
+                   (3, 1, 1, $STATUS_APPLIED, now(), 0),
+                   (4, 1, 1, $STATUS_APPLIED, now(), 0),
+                   (5, 1, 1, $STATUS_APPLIED, now(), 0),
+                   (6, 1, 1, $STATUS_APPLIED, now(), 0),
+                   (7, 1, 1, $STATUS_APPLIED, now(), 0),
+                   (8, 1, 1, $STATUS_APPLIED, now(), 0),
+                   (9, 1, 1, $STATUS_APPLIED, now(), 0),
+                   (10, 1, 1, $STATUS_APPLIED, now(), 0);
+        EOSQL
 
     $mech->get('/user/new_editor');
     html_ok($mech->content);

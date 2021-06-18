@@ -16,7 +16,7 @@ const displayLabel = (label) => (
 );
 
 type ReleaseLabelsProps = {
-  +labels?: $ReadOnlyArray<ReleaseLabelT>,
+  +labels: ?$ReadOnlyArray<ReleaseLabelT>,
 };
 
 const getLabelGid = x => x.gid;

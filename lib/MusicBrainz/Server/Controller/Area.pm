@@ -272,7 +272,7 @@ sub places : Chained('load')
                     my $json = $_->TO_JSON;
                     # These arguments aren't needed at all to render the map,
                     # and only increase the page size.
-                    delete @{$json}{qw(annotation unaccented_name)};
+                    delete @{$json}{qw(annotation)};
                     $json;
                 } grep { $_->coordinates } @$places
             ],

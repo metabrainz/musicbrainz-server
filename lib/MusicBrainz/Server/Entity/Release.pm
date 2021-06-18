@@ -318,7 +318,7 @@ around TO_JSON => sub {
         $data->{labels} = to_json_array($self->labels);
     }
 
-    if ($self->all_mediums) {
+    if ($self->mediums_loaded) {
         $data->{mediums} = to_json_array($self->mediums);
         $data->{combined_format_name} = $self->combined_format_name;
         $data->{combined_track_count} = $self->combined_track_count;

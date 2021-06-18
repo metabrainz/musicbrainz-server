@@ -63,7 +63,6 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
-        unaccented_name => 'unaccented_name',
         type_id => 'type',
         area_id => 'area',
         label_code => 'label_code',
@@ -276,23 +275,23 @@ sub is_empty {
     my ($self, $label_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, label => 'label_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $label_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"EOSQL", $label_id, $STATUS_OPEN);
         SELECT TRUE
         FROM label label_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
-          EXISTS (
-            SELECT TRUE FROM edit_label
-            WHERE status = ? AND label = label_row.id
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM release_label
-            WHERE label = label_row.id
-          ) OR
-          $used_in_relationship
+            EXISTS (
+                SELECT TRUE FROM edit_label
+                WHERE status = ? AND label = label_row.id
+            ) OR
+            EXISTS (
+                SELECT TRUE FROM release_label
+                WHERE label = label_row.id
+            ) OR
+            $used_in_relationship
         )
-EOSQL
+        EOSQL
 }
 
 __PACKAGE__->meta->make_immutable;

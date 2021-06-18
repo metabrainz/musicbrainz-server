@@ -46,7 +46,6 @@ const JSON5 = require('json5');
 const path = require('path');
 const test = require('tape');
 const TestCls = require('tape/lib/test');
-const utf8 = require('utf8');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
@@ -149,7 +148,7 @@ const driver = (x => {
       options.addArguments(
         'disable-dev-shm-usage',
         'no-sandbox',
-        'proxy-server=http://localhost:5050',
+        'proxy-server=http://localhost:5051',
       );
       x.setChromeOptions(options);
       break;
@@ -166,7 +165,7 @@ const driver = (x => {
       throw new Error('Unsupported browser: ' + argv.browser);
   }
 
-  x.setProxy(webdriverProxy.manual({http: 'localhost:5050'}));
+  x.setProxy(webdriverProxy.manual({http: 'localhost:5051'}));
 
   if (argv.headless) {
     options.headless();
@@ -326,8 +325,8 @@ async function handleCommand({command, target, value}, t) {
 
   t.comment(
     command +
-    ' target=' + utf8.encode(JSON.stringify(target)) +
-    ' value=' + utf8.encode(JSON.stringify(value)),
+    ' target=' + JSON.stringify(target) +
+    ' value=' + JSON.stringify(value),
   );
 
   let element;
@@ -505,6 +504,11 @@ const seleniumTests = [
   {name: 'release-editor/MBS-11015.json5', login: true},
   {name: 'release-editor/MBS-11114.json5', login: true},
   {name: 'release-editor/MBS-11156.json5', login: true},
+  {
+    name: 'Check_Duplicates.json5',
+    login: true,
+    sql: 'duplicate_checker.sql',
+  },
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);
@@ -638,7 +642,7 @@ async function runCommands(commands, t) {
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
     : seleniumTests;
 
-  customProxyServer.listen(5050);
+  customProxyServer.listen(5051);
 
   await testsToRun.reduce(function (accum, stest, index) {
     const {commands, plan, title} = getPlan(stest.path);

@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import LabelAnnotationList from './components/LabelAnnotationList';
+import LabelList from './components/LabelList';
 import ReportLayout from './components/ReportLayout';
+import useAnnotationColumns from './hooks/useAnnotationColumns';
 import type {ReportDataT, ReportLabelAnnotationT} from './types';
 
 const AnnotationsLabels = ({
@@ -21,19 +22,27 @@ const AnnotationsLabels = ({
   items,
   pager,
 }: ReportDataT<ReportLabelAnnotationT>):
-React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l('This report lists labels with annotations.')}
-    entityType="label"
-    extraInfo={ANNOTATION_REPORT_TEXT()}
-    filtered={filtered}
-    generated={generated}
-    title={l('Label annotations')}
-    totalEntries={pager.total_entries}
-  >
-    <LabelAnnotationList items={items} pager={pager} />
-  </ReportLayout>
-);
+React.Element<typeof ReportLayout> => {
+  const annotationColumns = useAnnotationColumns<ReportLabelAnnotationT>();
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l('This report lists labels with annotations.')}
+      entityType="label"
+      extraInfo={ANNOTATION_REPORT_TEXT()}
+      filtered={filtered}
+      generated={generated}
+      title={l('Label annotations')}
+      totalEntries={pager.total_entries}
+    >
+      <LabelList
+        columnsAfter={annotationColumns}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default AnnotationsLabels;

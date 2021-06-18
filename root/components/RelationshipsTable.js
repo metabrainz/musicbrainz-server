@@ -15,6 +15,7 @@ import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import {compare} from '../static/scripts/common/i18n';
 import commaList from '../static/scripts/common/i18n/commaList';
+import linkedEntities from '../static/scripts/common/linkedEntities';
 import formatDatePeriod
   from '../static/scripts/common/utility/formatDatePeriod';
 import formatTrackLength
@@ -56,7 +57,8 @@ const pickAppearancesTypes = (entityType) => {
 
 const getLinkPhraseForGroup = (linkTypeGroup) => (
   interpolateText(
-    {linkTypeID: linkTypeGroup.link_type_id},
+    linkedEntities.link_type[linkTypeGroup.link_type_id],
+    [],
     linkTypeGroup.backward
       ? 'reverse_link_phrase'
       : 'link_phrase',

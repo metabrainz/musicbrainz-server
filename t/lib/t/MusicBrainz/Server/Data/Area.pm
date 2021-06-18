@@ -10,10 +10,10 @@ with 't::Edit';
 with 't::Context';
 
 my $AREA_GID = 'f03dd94f-a936-42eb-bb97-819102487899';
-my $INSERT_AREA = <<"EOSQL";
-INSERT INTO area (id, gid, name)
-  VALUES (1, '$AREA_GID', 'Area');
-EOSQL
+my $INSERT_AREA = <<~"EOSQL";
+    INSERT INTO area (id, gid, name)
+        VALUES (1, '$AREA_GID', 'Area');
+    EOSQL
 
 for my $test_data (
     [ 'iso_3166_1', 'CO' ],
@@ -27,10 +27,10 @@ for my $test_data (
         my $test = shift;
         my $c = $test->c;
 
-        $c->sql->do(<<"EOSQL");
-$INSERT_AREA
-INSERT INTO $iso (area, code) VALUES (1, '$code');
-EOSQL
+        $c->sql->do(<<~"EOSQL");
+            $INSERT_AREA
+            INSERT INTO $iso (area, code) VALUES (1, '$code');
+            EOSQL
 
         my $areas = $c->model("Area")->$method($code, 'NA');
         ok(exists $areas->{$code}, "Found an area for $code");
@@ -42,17 +42,18 @@ EOSQL
 
 test 'Test load_containment' => sub {
     my $test = shift;
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO area (id, gid, name, type) VALUES
-    (1, 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'descendant', 5),
-    (2, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbaaaa', 'parent city', 3),
-    (3, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbcccc', 'parent subdivision', 2),
-    (4, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'parent country', 1),
-    (5, 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'parent meta-country', 1);
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO area (id, gid, name, type)
+            VALUES (1, 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'descendant', 5),
+                   (2, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbaaaa', 'parent city', 3),
+                   (3, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbcccc', 'parent subdivision', 2),
+                   (4, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'parent country', 1),
+                   (5, 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'parent meta-country', 1);
 
-INSERT INTO link (id, link_type) VALUES (1, 356);
-INSERT INTO l_area_area (link, entity0, entity1) VALUES (1, 2, 1), (1, 3, 2), (1, 4, 3), (1, 5, 4);
-EOSQL
+        INSERT INTO link (id, link_type) VALUES (1, 356);
+        INSERT INTO l_area_area (link, entity0, entity1)
+            VALUES (1, 2, 1), (1, 3, 2), (1, 4, 3), (1, 5, 4);
+        EOSQL
 
     my $area = $test->c->model('Area')->get_by_id(1);
     is($area->name, 'descendant', 'correct descendant country is loaded');

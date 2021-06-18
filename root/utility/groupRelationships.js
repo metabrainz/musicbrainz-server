@@ -48,6 +48,7 @@ export type RelationshipTargetGroupT = {
   linkOrder: number | null,
   target: CoreEntityT,
   targetCredit: string,
+  tracks: Set<TrackT> | null,
 };
 
 export type RelationshipPhraseGroupT = {
@@ -232,14 +233,31 @@ function targetIsOrderable(relationship: RelationshipT) {
 
 export default function groupRelationships(
   relationships: ?$ReadOnlyArray<RelationshipT>,
-  types?: ?$ReadOnlyArray<CoreEntityTypeT>,
-  filter?: (RelationshipT, CoreEntityT, CoreEntityTypeT) => boolean,
+  args?: {
+    +filter?: (RelationshipT, CoreEntityT, CoreEntityTypeT) => boolean,
+    +result?: Array<RelationshipTargetTypeGroupT>,
+    +trackMapping?: Map<string, Set<TrackT>>,
+    +types?: ?$ReadOnlyArray<CoreEntityTypeT>,
+  },
 ): $ReadOnlyArray<RelationshipTargetTypeGroupT> {
   if (!relationships) {
     return [];
   }
 
-  const targetTypeGroups: Array<RelationshipTargetTypeGroupT> = [];
+  let filter;
+  let result;
+  let trackMapping;
+  let types;
+
+  if (args) {
+    filter = args.filter;
+    result = args.result;
+    trackMapping = args.trackMapping;
+    types = args.types;
+  }
+
+  const targetTypeGroups: Array<RelationshipTargetTypeGroupT> =
+    (result ?? []);
 
   for (let i = 0; i < relationships.length; i++) {
     const relationship = relationships[i];
@@ -305,7 +323,8 @@ export default function groupRelationships(
     }
 
     const phraseArgs = [
-      relationship,
+      linkType,
+      linkAttrs,
       backward ? 'reverse_link_phrase' : 'link_phrase',
       true, /* forGrouping */
     ];
@@ -411,12 +430,27 @@ export default function groupRelationships(
         hasAttributes,
         isOrderable,
         key: String(target.id) + UNIT_SEP + targetCredit + UNIT_SEP +
-          (linkOrder ?? ''),
+          (linkOrder ?? '') + UNIT_SEP +
+          (hasAttributes ? '1' : '0'),
         linkOrder,
         target,
         targetCredit,
+        tracks: null,
       }: RelationshipTargetGroupT);
       phraseGroup.targetGroups.push(targetGroup);
+    }
+
+    if (trackMapping) {
+      const relationshipId = relationship.linkTypeID + '-' + relationship.id;
+      const tracks = trackMapping.get(relationshipId);
+      if (tracks) {
+        if (targetGroup.tracks == null) {
+          targetGroup.tracks = new Set();
+        }
+        for (const track of tracks) {
+          targetGroup.tracks.add(track);
+        }
+      }
     }
 
     if (datePeriod !== targetGroup.earliestDatePeriod) {
@@ -488,13 +522,13 @@ export default function groupRelationships(
               targetGroup1.editsPending || targetGroups2[k].editsPending;
           }
 
-          phraseGroup1.key += UNIT_SEP + phraseGroup2.key;
           const [index, exists] = sortedIndexWith(
             linkTypeInfo1,
             firstLinkType2,
             cmpPhraseGroupLinkTypeInfo,
           );
           if (!exists) {
+            phraseGroup1.key += UNIT_SEP + phraseGroup2.key;
             linkTypeInfo1.splice(index, 0, firstLinkType2);
             phraseGroups.splice(j, 1);
             j--;

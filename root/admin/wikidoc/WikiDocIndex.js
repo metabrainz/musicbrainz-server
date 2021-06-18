@@ -38,13 +38,13 @@ const WikiDocTable = ({
           <a href={'/doc/' + encodeURIComponent(value)}>{value}</a>
         ),
         Header: N_l('Page name'),
-        accessor: 'id',
+        accessor: x => x.id,
         cellProps: {className: 'title'},
         id: 'name',
       };
       const transcludedVersionColumn = {
         Header: N_l('Transcluded version'),
-        accessor: 'version',
+        accessor: x => x.version,
         cellProps: {
           className: 'c transcluded-version',
           style: (updatesRequired && isWikiTranscluder($c.user))
@@ -87,7 +87,7 @@ const WikiDocTable = ({
           </>
         ),
         Header: N_l('Wiki version'),
-        accessor: 'wiki_version',
+        accessor: x => x.wiki_version,
         headerProps: {className: 'c'},
         id: 'wiki-version',
       };
@@ -115,7 +115,7 @@ const WikiDocTable = ({
           </>
         ),
         Header: l('Actions'),
-        accessor: 'id',
+        accessor: x => x.id,
         cellProps: {className: 'actions c'},
         headerProps: {className: 'c'},
         id: 'actions',

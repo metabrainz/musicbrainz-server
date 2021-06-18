@@ -74,7 +74,6 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
-        unaccented_name => 'unaccented_name',
         sort_name => 'sort_name',
         type_id => 'type',
         area_id => 'area',
@@ -494,24 +493,24 @@ sub is_empty {
     my ($self, $artist_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, artist => 'artist_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $artist_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"EOSQL", $artist_id, $STATUS_OPEN);
         SELECT TRUE
         FROM artist artist_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
-          EXISTS (
-            SELECT TRUE FROM edit_artist
-            WHERE status = ? AND artist = artist_row.id
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM artist_credit_name
-            WHERE artist = artist_row.id
-            LIMIT 1
-          ) OR
-          $used_in_relationship
+            EXISTS (
+                SELECT TRUE FROM edit_artist
+                WHERE status = ? AND artist = artist_row.id
+            ) OR
+            EXISTS (
+                SELECT TRUE FROM artist_credit_name
+                WHERE artist = artist_row.id
+                LIMIT 1
+            ) OR
+            $used_in_relationship
         )
-EOSQL
+        EOSQL
 }
 
 __PACKAGE__->meta->make_immutable;

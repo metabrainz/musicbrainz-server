@@ -17,11 +17,11 @@ test 'merge_artists with renaming works if theres nothing to rename' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Queen', 'Queen'),
-           (2, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'David Bowie', 'David Bowie');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Queen', 'Queen'),
+                   (2, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'David Bowie', 'David Bowie');
+        EOSQL
 
     ok !exception {
         $c->model('ArtistCredit')->merge_artists(1, [2], rename => 1)
@@ -57,22 +57,22 @@ test 'Can have artist credits with no join phrase' => sub {
 test 'Merging should combine ACs which are string-identical before merge (MBS-7482)' => sub {
     my $test = shift;
     my $c = $test->c;
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Queen', 'Queen'),
-           (2, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'David Bowie', 'David Bowie'),
-           (3, '427c72ff-516a-4a4c-8ce4-828811324dd7', 'Merge', 'Merge');
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Queen', 'Queen'),
+                   (2, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'David Bowie', 'David Bowie'),
+                   (3, '427c72ff-516a-4a4c-8ce4-828811324dd7', 'Merge', 'Merge');
 
-INSERT INTO artist_credit (id, name, artist_count)
-    VALUES (1, 'Queen & David Bowie', 2),
-           (2, 'Queen & David Bowie', 2);
+        INSERT INTO artist_credit (id, name, artist_count)
+            VALUES (1, 'Queen & David Bowie', 2),
+                   (2, 'Queen & David Bowie', 2);
 
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 'Queen', ' & '),
-           (1, 1, 2, 'David Bowie', ''),
-           (2, 0, 1, 'Queen', ' & '),
-           (2, 1, 3, 'David Bowie', '');
-EOSQL
+        INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+            VALUES (1, 0, 1, 'Queen', ' & '),
+                   (1, 1, 2, 'David Bowie', ''),
+                   (2, 0, 1, 'Queen', ' & '),
+                   (2, 1, 3, 'David Bowie', '');
+        EOSQL
 
     is($c->sql->select_single_value('SELECT count(*) FROM artist_credit'), 2, 'Two artist credits before merge');
     $c->model('ArtistCredit')->merge_artists(2, [ 3 ]);

@@ -9,7 +9,6 @@ use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
 );
-use aliased 'MusicBrainz::Server::Entity::Work';
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium' };
@@ -298,20 +297,24 @@ sub load_related_info {
     $self->c->model('Track')->load_for_mediums(@mediums);
 
     my @tracks = map { $_->all_tracks } @mediums;
-    $self->c->model('ArtistCredit')->load(@tracks);
+    $self->c->model('Track')->load_related_info($user_id, @tracks);
+}
 
-    my @recordings = $self->c->model('Recording')->load(@tracks);
-    $self->c->model('ArtistCredit')->load(@recordings);
-    $self->c->model('Recording')->load_meta(@recordings);
-    $self->c->model('Recording')->load_gid_redirects(@recordings);
-    $self->c->model('Recording')->rating->load_user_ratings($user_id, @recordings) if $user_id;
+sub load_related_info_paged {
+    my ($self, $user_id, $medium, $page) = @_;
 
-    $self->c->model('Relationship')->load_cardinal(@recordings);
-    $self->c->model('Relationship')->load_cardinal(grep { $_->isa(Work) } map { $_->target } map { $_->all_relationships } @recordings);
+    $self->c->model('MediumFormat')->load($medium);
+    $self->c->model('Release')->load($medium);
 
-    $self->c->model('ArtistType')->load(map { $_->target } map { @{ $_->relationships_by_type('artist') } } @recordings);
+    my ($pager, $tracks) = $self->c->model('Track')->load_for_medium_paged(
+        $medium->id,
+        $page,
+    );
 
-    $self->c->model('ISRC')->load_for_recordings(@recordings);
+    $self->c->model('Track')->load_related_info($user_id, @$tracks);
+    $medium->tracks($tracks);
+    $medium->has_loaded_tracks(1);
+    $medium->tracks_pager($pager);
 }
 
 __PACKAGE__->meta->make_immutable;

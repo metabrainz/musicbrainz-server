@@ -10,9 +10,12 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
+import Table from '../../components/Table';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import bracketed from '../../static/scripts/common/utility/bracketed';
-import loopParity from '../../utility/loopParity';
+import {
+  defineTextColumn,
+} from '../../utility/tableColumns';
 import type {ReportEditorT} from '../types';
 
 type Props = {
@@ -23,48 +26,74 @@ type Props = {
 const EditorList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Editor')}</th>
-          <th>{l('Member since')}</th>
-          <th>{l('Website')}</th>
-          <th>{l('Email')}</th>
-          <th>{l('Bio')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => {
-          const editor = item.editor;
-          if (!editor) {
-            return null;
-          }
+}: Props): React.Element<typeof PaginatedResults> => {
+  const existingEditorItems = items.reduce((result, item) => {
+    if (item.editor != null) {
+      result.push(item);
+    }
+    return result;
+  }, []);
+
+  const columns = React.useMemo(
+    () => {
+      const nameColumn = {
+        Cell: ({row: {original}}) => {
+          const editor = original.editor;
           return (
-            <tr className={loopParity(index)} key={editor.name}>
-              <td>
-                <EditorLink editor={editor} />
-                {' '}
-                {bracketed(
-                  <a
-                    href={'/admin/user/delete/' +
-                    encodeURIComponent(editor.name)}
-                  >
-                    {l('delete')}
-                  </a>,
-                )}
-              </td>
-              <td>{editor.registration_date}</td>
-              <td>{editor.website}</td>
-              <td>{editor.email}</td>
-              <td>{editor.biography}</td>
-            </tr>
+            <>
+              <EditorLink editor={editor} />
+              {' '}
+              {bracketed(
+                <a
+                  href={'/admin/user/delete/' +
+                  encodeURIComponent(editor.name)}
+                >
+                  {l('delete')}
+                </a>,
+              )}
+            </>
           );
-        })}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+        },
+        Header: l('Editor'),
+        id: 'editor',
+      };
+      const memberSinceColumn = defineTextColumn<ReportEditorT>({
+        columnName: 'registration_date',
+        getText: result => result.editor?.registration_date ?? '',
+        title: l('Member since'),
+      });
+      const websiteColumn = defineTextColumn<ReportEditorT>({
+        columnName: 'website',
+        getText: result => result.editor?.website ?? '',
+        title: l('Website'),
+      });
+      const emailColumn = defineTextColumn<ReportEditorT>({
+        columnName: 'email',
+        getText: result => result.editor?.email ?? '',
+        title: l('Email'),
+      });
+      const bioColumn = defineTextColumn<ReportEditorT>({
+        columnName: 'biography',
+        getText: result => result.editor?.biography ?? '',
+        title: l('Bio'),
+      });
+
+      return [
+        nameColumn,
+        memberSinceColumn,
+        websiteColumn,
+        emailColumn,
+        bioColumn,
+      ];
+    },
+    [],
+  );
+
+  return (
+    <PaginatedResults pager={pager}>
+      <Table columns={columns} data={existingEditorItems} />
+    </PaginatedResults>
+  );
+};
 
 export default EditorList;

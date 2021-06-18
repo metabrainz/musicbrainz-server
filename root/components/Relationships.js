@@ -65,17 +65,17 @@ export function isNotSeriesPart(r: RelationshipT): boolean {
   return !seriesPartLinkTypes.has(linkedEntities.link_type[r.linkTypeID].gid);
 }
 
-type Props = {
+type PropsT = {
   +noRelationshipsHeading?: boolean,
   +relationships?: $ReadOnlyArray<RelationshipTargetTypeGroupT>,
   +source: CoreEntityT,
 };
 
-const Relationships = ({
+const Relationships = (React.memo<PropsT>(({
   noRelationshipsHeading = false,
   relationships,
   source,
-}: Props): React.Element<typeof React.Fragment> => {
+}: PropsT): React.Element<typeof React.Fragment> => {
   if (!relationships) {
     let srcRels = source.relationships;
     if (srcRels && source.entityType === 'series') {
@@ -83,7 +83,7 @@ const Relationships = ({
     }
     relationships = groupRelationships(
       srcRels,
-      displayTargets[source.entityType],
+      {types: displayTargets[source.entityType]},
     );
   }
 
@@ -112,6 +112,6 @@ const Relationships = ({
       ) : null}
     </>
   );
-};
+}): React.AbstractComponent<PropsT>);
 
 export default Relationships;
