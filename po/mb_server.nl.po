@@ -31,8 +31,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-09 18:02-0500\n"
-"PO-Revision-Date: 2021-06-10 09:42+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-06-16 10:22+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3145,7 +3145,7 @@ msgstr "Details van de plaats"
 
 #: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Place ratings"
-msgstr ""
+msgstr "Waarderingen van plaatsen"
 
 #: ../root/components/common-macros.tt:557
 msgid "Place:"
@@ -6451,7 +6451,7 @@ msgid ""
 "The “{artist_type}” type has not been added to the destination artist "
 "because it conflicted with the gender setting of one of the artists here. "
 "Group artists cannot have a gender."
-msgstr ""
+msgstr "Het type “{artist_type}” is niet aan de doelartiest toegevoegd omdat het niet past bij het ingestelde geslacht van een van de artiesten. Groepen kunnen geen geslacht hebben."
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:102
 #, perl-brace-format
@@ -6459,7 +6459,7 @@ msgid ""
 "The “{gender}” gender has not been added to the destination artist because "
 "it conflicted with the group type of one of the artists here. Group artists "
 "cannot have a gender."
-msgstr ""
+msgstr "Het geslacht “{gender}” is niet aan de doelartiest toegevoegd omdat het niet past bij het type groep van een van de artiesten. Groepen kunnen geen geslacht hebben."
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 msgid "Add event alias"
@@ -6916,8 +6916,8 @@ msgid ""
 msgid_plural ""
 "The IPI {ipi} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this IPI}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "De IPI {ipi} wordt al voor een artiest gebruikt. Controleer {artist_search|alle plekken waar deze IPI wordt gebruikt}."
+msgstr[1] "De IPI {ipi} wordt al voor {artist_count} artiesten gebruikt. Controleer {artist_search|alle plekken waar deze IPI wordt gebruikt}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:45
 #, perl-brace-format
@@ -6927,8 +6927,8 @@ msgid ""
 msgid_plural ""
 "The IPI {ipi} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this IPI}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "De IPI {ipi} wordt al voor een platenmaatschappij gebruikt. Controleer {label_search|alle plekken waar deze IPI wordt gebruikt}."
+msgstr[1] "De IPI {ipi} wordt al voor {label_count} platenmaatschappijen gebruikt. Controleer {label_search|alle plekken waar deze IPI wordt gebruikt}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:39
 #, perl-brace-format
@@ -6938,8 +6938,8 @@ msgid ""
 msgid_plural ""
 "The ISNI {isni} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this ISNI}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "De ISNI {isni} wordt al voor een artiest gebruikt. Controleer {artist_search|alle plekken waar deze IPI wordt gebruikt}."
+msgstr[1] "De ISNI {isni} wordt al voor {artist_count} artiesten gebruikt. Controleer {artist_search|alle plekken waar deze IPI wordt gebruikt}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:45
 #, perl-brace-format
@@ -6949,8 +6949,8 @@ msgid ""
 msgid_plural ""
 "The ISNI {isni} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this ISNI}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "De ISNI {isni} wordt al voor een platenmaatschappij gebruikt. Controleer {label_search|alle plekken waar deze IPI wordt gebruikt}."
+msgstr[1] "De ISNI {isni} wordt al voor {label_count} platenmaatschappijen gebruikt. Controleer {label_search|alle plekken waar deze IPI wordt gebruikt}."
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 msgid "Add series alias"
@@ -7210,7 +7210,7 @@ msgstr "Stream op Deezer"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Dogmazic.pm:10
 msgid "Stream at Dogmazic"
-msgstr ""
+msgstr "Stream op Dogmazic"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Gutenberg.pm:9
 msgid "Project Gutenberg"
@@ -7737,7 +7737,7 @@ msgstr "Onbekend type compositie-eigenschap."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:153
 msgid "You cannot enter the same attribute and value more than once."
-msgstr ""
+msgstr "Je kan dezelfde eigenschap of waarde maar één keer invoeren."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:160
 msgid "This value is not allowed for this work attribute type."
@@ -8743,11 +8743,11 @@ msgstr "Collectie ‘{collection}’"
 
 #: ../root/collection/CollectionMerge.js:51
 msgid "Entity Type"
-msgstr ""
+msgstr "Objecttype"
 
 #: ../root/collection/CollectionMerge.js:56
 msgid "Entities"
-msgstr ""
+msgstr "Objecten"
 
 #: ../root/collection/CollectionMerge.js:70 ../root/user/UserCollections.js:74
 msgid "Public"
@@ -8766,26 +8766,26 @@ msgstr "Privacy"
 #: ../root/collection/CollectionMerge.js:110
 #: ../root/collection/CollectionMerge.js:112
 msgid "Merge collections"
-msgstr ""
+msgstr "Collecties samenvoegen"
 
 #: ../root/collection/CollectionMerge.js:114
 msgid ""
 "You are about to merge all these collections into a single one. Please "
 "select the collection all others should be merged into:"
-msgstr ""
+msgstr "Je staat op het punt om al deze collecties samen te voegen. Selecteer de collectie waarin je de andere wil samenvoegen:"
 
 #: ../root/collection/CollectionMerge.js:123
 msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Please remove some collections from the merge queue until you only have "
 "collections for the same entity type."
-msgstr ""
+msgstr "<strong>Waarschuwing:</strong> Deze collecties zijn bedoeld voor verschillende objecttypes. Verwijder niet-passende collecties uit de wachtrij, zodat je alleen collecties voor hetzelfde objecttype hebt."
 
 #: ../root/collection/CollectionMerge.js:130
 msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Only collections for the same entity type can be merged."
-msgstr ""
+msgstr "<strong>Waarschuwing:</strong> Deze collecties zijn bedoeld voor verschillende objecttypes. Alleen collecties voor hetzelfde objecttype kunnen worden samengevoegd."
 
 #: ../root/collection/CollectionMerge.js:142
 msgid ""
@@ -8793,20 +8793,20 @@ msgid ""
 "private. Keep in mind the privacy setting of the destination collection will"
 " apply. If you merge your private collections into a public one, the final "
 "result will be visible to other users."
-msgstr ""
+msgstr "<strong>Waarschuwing:</strong> Sommige van deze collecties zijn openbaar en sommige privé. Houd er rekening mee dat de instelling voor de doelcollectie wordt aangehouden. Als je privécollecties in een openbare collectie samenvoegt, is het eindresultaat voor andere gebruikers zichtbaar."
 
 #: ../root/collection/CollectionMerge.js:157
 msgid "The merged collection will have the following collaborators:"
-msgstr ""
+msgstr "De samengevoegde collectie zal de volgende deelnemers hebben:"
 
 #: ../root/collection/CollectionMerge.js:168
 msgid ""
 "This process cannot be reverted. Are you sure you want to enter a merge?"
-msgstr ""
+msgstr "Dit proces kan niet ongedaan worden gemaakt. Weet je zeker dat je ze wilt samenvoegen?"
 
 #: ../root/collection/CollectionMerge.js:178
 msgid "Confirm"
-msgstr ""
+msgstr "Bevestigen"
 
 #: ../root/collection/CreateCollection.js:30
 #: ../root/collection/CreateCollection.js:33
@@ -9321,7 +9321,7 @@ msgstr "{edit} heeft één of meer tegenstemmen gekregen. Je moet een notitie bi
 
 #: ../root/edit/components/EditNote.js:82
 msgid "[time missing]"
-msgstr ""
+msgstr "[duur ontbreekt]"
 
 #: ../root/edit/components/EditNotes.js:51
 msgid "No edit notes have been added."
@@ -11625,7 +11625,7 @@ msgstr "Het type relatie-eigenschap ‘{type}’ kan niet worden verwijderd, omd
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:74
 msgid "Relationship Attribute"
-msgstr ""
+msgstr "Relatie-eigenschap"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:115
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:106
