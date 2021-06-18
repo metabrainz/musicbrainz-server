@@ -13,24 +13,24 @@
 # leofiore <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Salini <email address hidden>, 2012
-# salo.rock, 2012-2013,2016-2021
-# salo.rock, 2020
+# Luca Salini, 2012-2013,2016-2021
+# Luca Salini, 2020
 # Nicolás Tamargo <email address hidden>, 2021
 # nikki, 2012-2013
 # nikki, 2012-2013
 # nikki, 2013
 # nikki, 2012
-# salo.rock, 2012-2013
-# salo.rock, 2013-2016
-# salo.rock, 2012
+# Luca Salini, 2012-2013
+# Luca Salini, 2013-2016
+# Luca Salini, 2012
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-20 01:29-0500\n"
-"PO-Revision-Date: 2021-06-20 06:32+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2021-06-20 08:47+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1109,7 +1109,7 @@ msgstr "Chiuse"
 
 #: ../root/artist/split.tt:36
 msgid "Collaborators on this artist"
-msgstr ""
+msgstr "Collaboratori su quest'artista"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Collapse medium"
@@ -8463,7 +8463,7 @@ msgstr "Quest'artista non è al momento associato a nessuna opera."
 
 #: ../root/artist/CannotSplit.js:27
 msgid "This artist is already empty and is awaiting automatic deletion."
-msgstr ""
+msgstr "Quest'artista è già vuoto e in attesa di eliminazione automatica."
 
 #: ../root/artist/CannotSplit.js:30
 msgid ""
@@ -9619,12 +9619,12 @@ msgstr "Vecchia copertina:"
 msgid ""
 "The old image was selected automatically from the earliest release in the "
 "release group."
-msgstr ""
+msgstr "La vecchia immagine è stata selezionata automaticamente dalla prima pubblicazione nel gruppo di pubblicazioni."
 
 #: ../root/edit/details/SetCoverArt.js:70
 #: ../root/edit/details/SetCoverArt.js:95
 msgid "We are unable to display this cover art."
-msgstr ""
+msgstr "Non è possibile visualizzare questa copertina."
 
 #: ../root/edit/details/SetCoverArt.js:75
 msgid "New cover art:"
