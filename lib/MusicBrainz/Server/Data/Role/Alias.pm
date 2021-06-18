@@ -67,7 +67,7 @@ role
             "           JOIN search ON lower(musicbrainz_unaccent(${type}_alias.name)) = lower(musicbrainz_unaccent(term))" .
             "        UNION SELECT term, id FROM $type " .
             "           JOIN search ON lower(musicbrainz_unaccent(${type}.name)) = lower(musicbrainz_unaccent(term)))" .
-            "      SELECT term AS search_term, musicbrainz_unaccent(name) AS unaccented_name, ".$self->_columns.
+            "      SELECT term AS search_term, ".$self->_columns.
             "      FROM ". $self->_table ." JOIN entity_matches ON entity_matches.entity = $type.id";
 
         my %ret;

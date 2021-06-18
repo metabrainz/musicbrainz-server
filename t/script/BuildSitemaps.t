@@ -27,8 +27,20 @@ test 'Sitemap build scripts' => sub {
     };
 
     $exec_sql->(<<~'EOSQL');
+        DO $$
+        BEGIN
+            EXECUTE 'ALTER DATABASE ' || current_database() ||
+                ' SET TIMEZONE TO ''UTC''';
+        END $$;
+
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'A', 'A');
+
+        INSERT INTO artist_credit (id, name, artist_count)
+            VALUES (1, 'A', 1);
+
+        INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+            VALUES (1, 0, 1, 'A', '');
         EOSQL
 
     my $tmp = tempdir("t-sitemaps-XXXXXXXX", DIR => '/tmp', CLEANUP => 1);
@@ -505,7 +517,7 @@ EOF
         {loc => 'https://musicbrainz.org/sitemap-work-1-incremental.xml', lastmod => $build_time4},
     ]);
 
-    # Finally, push an empty replication packet and rebuild incremental
+    # Push an empty replication packet and rebuild incremental
     # sitemaps. Since no changes were made since the most recent overall build,
     # they should all be removed.
     $build_packet->(4, '', '');
@@ -532,6 +544,173 @@ EOF
         {loc => 'https://musicbrainz.org/sitemap-work-1.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1-details.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1-recordings.xml', lastmod => $build_time5},
+    ]);
+
+    # Insert a medium with more than 10 discs, and another with 1 disc
+    # but more than 100 tracks. These should be paged appropriately.
+    $dbmirror_pending = qq();
+    chomp ($dbmirror_pending = <<"EOF");
+1\t"musicbrainz"."release_group"\ti\t1
+2\t"musicbrainz"."release"\ti\t1
+3\t"musicbrainz"."medium"\ti\t1
+4\t"musicbrainz"."medium"\ti\t1
+5\t"musicbrainz"."medium"\ti\t1
+6\t"musicbrainz"."medium"\ti\t1
+7\t"musicbrainz"."medium"\ti\t1
+8\t"musicbrainz"."medium"\ti\t1
+9\t"musicbrainz"."medium"\ti\t1
+10\t"musicbrainz"."medium"\ti\t1
+11\t"musicbrainz"."medium"\ti\t1
+12\t"musicbrainz"."medium"\ti\t1
+13\t"musicbrainz"."medium"\ti\t1
+14\t"musicbrainz"."medium"\ti\t1
+15\t"musicbrainz"."release"\ti\t2
+16\t"musicbrainz"."medium"\ti\t2
+EOF
+
+    # No medium position 12 on the 12-disc medium. (Jumps from 11 to 13.)
+    # This tests that /disc/n correctly uses the positions for n.
+    chomp ($dbmirror_pendingdata = <<"EOF");
+1\tf\t"id"='1' "gid"='b8f8a738-f75c-43df-9f3f-7afb3ceb5173' "name"='R' "artist_credit"='10' "last_updated"='2021-06-10 20:59:59.571049+00'\x{20}
+2\tf\t"id"='1' "gid"='692c97b4-e9bb-4400-8afe-34d778064f28' "name"='R' "artist_credit"='10' "release_group"='1' "last_updated"='2021-06-10 20:59:59.571049+00'\x{20}
+3\tf\t"id"='1' "release"='1' "position"='1' "track_count"='1'\x{20}
+4\tf\t"id"='2' "release"='1' "position"='1' "track_count"='1'\x{20}
+5\tf\t"id"='3' "release"='1' "position"='3' "track_count"='1'\x{20}
+6\tf\t"id"='4' "release"='1' "position"='4' "track_count"='1'\x{20}
+7\tf\t"id"='5' "release"='1' "position"='5' "track_count"='1'\x{20}
+8\tf\t"id"='6' "release"='1' "position"='6' "track_count"='1'\x{20}
+9\tf\t"id"='7' "release"='1' "position"='7' "track_count"='1'\x{20}
+10\tf\t"id"='8' "release"='1' "position"='8' "track_count"='1'\x{20}
+11\tf\t"id"='9' "release"='1' "position"='9' "track_count"='1'\x{20}
+12\tf\t"id"='10' "release"='1' "position"='10' "track_count"='1'\x{20}
+13\tf\t"id"='11' "release"='1' "position"='11' "track_count"='1'\x{20}
+14\tf\t"id"='12' "release"='1' "position"='13' "track_count"='1'\x{20}
+15\tf\t"id"='2' "gid"='996d3d48-0cfa-4d30-9031-ea50d806b88a' "name"='R2' "artist_credit"='10' "release_group"='1' "last_updated"='2021-06-10 20:59:59.571049+00'\x{20}
+16\tf\t"id"='13' "release"='2' "position"='1' "track_count"='102'\x{20}
+EOF
+
+    $exec_sql->(<<~'EOSQL');
+        INSERT INTO release_group (id, gid, name, artist_credit, last_updated)
+            VALUES (1, 'b8f8a738-f75c-43df-9f3f-7afb3ceb5173', 'R', 1, '2021-06-10 20:59:59.571049+00');
+
+        INSERT INTO release (id, gid, name, artist_credit, release_group, last_updated)
+            VALUES (1, '692c97b4-e9bb-4400-8afe-34d778064f28', 'R', 1, 1, '2021-06-10 20:59:59.571049+00');
+
+        INSERT INTO medium (id, release, position, track_count)
+            VALUES (1, 1, 1, 1),
+                   (2, 1, 2, 1),
+                   (3, 1, 3, 1),
+                   (4, 1, 4, 1),
+                   (5, 1, 5, 1),
+                   (6, 1, 6, 1),
+                   (7, 1, 7, 1),
+                   (8, 1, 8, 1),
+                   (9, 1, 9, 1),
+                   (10, 1, 10, 1),
+                   (11, 1, 11, 1),
+
+                   (12, 1, 13, 1);
+        EOSQL
+
+    $exec_sql->(<<~'EOSQL');
+        INSERT INTO release (id, gid, name, artist_credit, release_group, last_updated)
+            VALUES (2, '996d3d48-0cfa-4d30-9031-ea50d806b88a', 'R2', 1, 1, '2021-06-10 20:59:59.571049+00');
+
+        INSERT INTO medium (id, release, position, track_count)
+            VALUES (13, 2, 1, 102);
+        EOSQL
+
+    $build_packet->(5, $dbmirror_pending, $dbmirror_pendingdata);
+
+    my $build_time7 = '2021-06-10T21:19:05.442098Z';
+    $build_incremental->($build_time7);
+
+    $test_sitemap->('sitemap-release-1-aliases-incremental.xml', [
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28/aliases',
+            'priority' => '0.1',
+        },
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release/996d3d48-0cfa-4d30-9031-ea50d806b88a/aliases',
+            'priority' => '0.1',
+        },
+    ]);
+
+    $test_sitemap->('sitemap-release-1-incremental.xml', [
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28',
+            'priority' => undef,
+        },
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release/996d3d48-0cfa-4d30-9031-ea50d806b88a',
+            'priority' => undef,
+        },
+    ]);
+
+    $test_sitemap->('sitemap-release-1-cover-art-incremental.xml', [
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28/cover-art',
+            'priority' => '0.1',
+        },
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release/996d3d48-0cfa-4d30-9031-ea50d806b88a/cover-art',
+            'priority' => '0.1',
+        },
+    ]);
+
+    $test_sitemap->('sitemap-release_group-1-aliases-incremental.xml', [
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release-group/b8f8a738-f75c-43df-9f3f-7afb3ceb5173/aliases',
+            'priority' => '0.1',
+        },
+    ]);
+
+    $test_sitemap->('sitemap-release_group-1-incremental.xml', [
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release-group/b8f8a738-f75c-43df-9f3f-7afb3ceb5173',
+            'priority' => undef,
+        },
+    ]);
+
+    $build_overall->($build_time7);
+
+    $test_sitemap->('sitemap-release-1.xml', [
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28',
+            'priority' => undef,
+        },
+        {
+            'lastmod' => '2021-06-10T20:59:59.571049Z',
+            'loc' => 'https://musicbrainz.org/release/996d3d48-0cfa-4d30-9031-ea50d806b88a',
+            'priority' => undef,
+        },
+    ]);
+
+    $test_sitemap->('sitemap-release-1-disc.xml', [
+        {
+            'lastmod' => undef,
+            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28/disc/11?page=1',
+            'priority' => undef,
+        },
+        {
+            'lastmod' => undef,
+            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28/disc/13?page=1',
+            'priority' => undef,
+        },
+        {
+            'lastmod' => undef,
+            'loc' => 'https://musicbrainz.org/release/996d3d48-0cfa-4d30-9031-ea50d806b88a/disc/1?page=2',
+            'priority' => undef,
+        },
     ]);
 
     $exec_sql->(<<~'EOSQL');

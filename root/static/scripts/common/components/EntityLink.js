@@ -351,7 +351,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     );
   }
 
-  return parts;
+  return React.createElement(React.Fragment, null, ...parts);
 };
 
 export default EntityLink;

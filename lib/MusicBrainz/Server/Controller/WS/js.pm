@@ -12,12 +12,18 @@ use List::MoreUtils qw( part );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Errors qw( capture_exceptions );
 use MusicBrainz::Server::WebService::Validator;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Constants qw( entities_with %ENTITIES $CONTACT_URL );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( is_database_row_id is_guid );
+use MusicBrainz::Server::Validation qw(
+    is_database_row_id
+    is_guid
+    is_positive_integer
+);
 use Readonly;
 use Scalar::Util qw( blessed );
 use Text::Trim;
@@ -32,6 +38,10 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
         inc => [ qw(recordings rels) ],
         optional => [ qw(q artist tracks limit page timestamp) ]
+    },
+    "tracks" => {
+        method => 'GET',
+        optional => [ qw(q page ) ]
     },
     "cdstub" => {
         method => 'GET',
@@ -87,6 +97,33 @@ sub medium : Chained('root') PathPart Args(1) {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($medium->TO_JSON));
+}
+
+sub tracks : Chained('root') PathPart Args(1) {
+    my ($self, $c, $medium_id) = @_;
+
+    $self->detach_with_error($c, "malformed medium id: $medium_id", 400)
+        unless is_database_row_id($medium_id);
+
+    my $page = $c->stash->{args}{page} || 1;
+    $self->detach_with_error($c, "malformed page: $page", 400)
+        unless is_positive_integer($page);
+
+    my ($pager, $tracks) = $c->model('Track')->load_for_medium_paged($medium_id, $page);
+    $c->model('Track')->load_related_info($c->user_exists ? $c->user->id : undef, @$tracks);
+
+    my $tracks_json_array = to_json_array($tracks);
+    my $linked_entities = $MusicBrainz::Server::Entity::Util::JSON::linked_entities;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body(encode_json({
+        linked_entities => {
+            link_attribute_type => ($linked_entities->{link_attribute_type} // {}),
+            link_type => ($linked_entities->{link_type} // {}),
+        },
+        pager => serialize_pager($pager),
+        tracks => $tracks_json_array,
+    }));
 }
 
 sub cdstub : Chained('root') PathPart Args(1) {

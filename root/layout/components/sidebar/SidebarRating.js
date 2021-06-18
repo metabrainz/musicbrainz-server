@@ -25,7 +25,8 @@ const SidebarRating = ({
     <h2 className="rating">{nonEmpty(heading) ? heading : l('Rating')}</h2>
     <p>
       <RatingStars entity={entity} />
-      {entity.rating_count > 0 ? (
+      {/* $FlowIgnore[sketchy-null-number] */}
+      {entity.rating_count ? (
         <>
           {' ('}
           <EntityLink

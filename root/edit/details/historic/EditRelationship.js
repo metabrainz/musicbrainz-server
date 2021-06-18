@@ -88,12 +88,14 @@ const EditRelationship = ({
                     <DiffSide
                       filter={DELETE}
                       newText={interpolateText(
-                        newRel,
+                        newLinkType,
+                        newRel.attributes,
                         'link_phrase',
                         false, /* forGrouping */
                       )}
                       oldText={interpolateText(
-                        oldRel,
+                        oldLinkType,
+                        oldRel.attributes,
                         'link_phrase',
                         false, /* forGrouping */
                       )}
@@ -158,12 +160,14 @@ const EditRelationship = ({
                     <DiffSide
                       filter={INSERT}
                       newText={interpolateText(
-                        newRel,
+                        newLinkType,
+                        newRel.attributes,
                         'link_phrase',
                         false, /* forGrouping */
                       )}
                       oldText={interpolateText(
-                        oldRel,
+                        oldLinkType,
+                        oldRel.attributes,
                         'link_phrase',
                         false, /* forGrouping */
                       )}

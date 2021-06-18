@@ -1,5 +1,0 @@
-[% PROCESS 'components/medium.tt' %]
-<table>
-  [% medium_body(medium) %]
-</table>
-[% medium_credits(medium) %]

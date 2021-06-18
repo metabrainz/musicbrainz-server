@@ -42,6 +42,7 @@ declare type ReleaseT = $ReadOnly<{
   +length?: number,
   +may_have_cover_art?: boolean,
   +may_have_discids?: boolean,
+  +mediums?: $ReadOnlyArray<MediumT>,
   +packagingID: number | null,
   +primaryAlias?: string | null,
   +quality: QualityT,

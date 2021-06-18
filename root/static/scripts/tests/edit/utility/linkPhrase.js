@@ -81,18 +81,16 @@ test('required attributes are left with forGrouping', function (t) {
   });
 
   const result = getPhraseAndExtraAttributesText(
-    {
-      attributes: [
-        {
-          type: {
-            gid: '706e788b-cf8d-4294-a118-b078e09905c9',
-          },
-          typeID: 10001,
-          typeName: 'guitar',
+    linkedEntities.link_type[10000],
+    [
+      {
+        type: {
+          gid: '706e788b-cf8d-4294-a118-b078e09905c9',
         },
-      ],
-      linkTypeID: 10000,
-    },
+        typeID: 10001,
+        typeName: 'guitar',
+      },
+    ],
     'link_phrase',
     true, /* forGrouping */
   );

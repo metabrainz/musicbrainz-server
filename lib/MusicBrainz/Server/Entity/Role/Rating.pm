@@ -21,9 +21,17 @@ around TO_JSON => sub {
 
     my $json = $self->$orig;
 
-    $json->{rating} = $self->rating;
-    $json->{rating_count} = $self->rating_count // 0;
-    $json->{user_rating} = $self->user_rating;
+    if (defined $self->rating_count) {
+        $json->{rating_count} = $self->rating_count;
+    }
+
+    if (defined $self->rating) {
+        $json->{rating} = $self->rating;
+    }
+
+    if (defined $self->user_rating) {
+        $json->{user_rating} = $self->user_rating;
+    }
 
     return $json;
 };
