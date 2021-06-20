@@ -368,20 +368,18 @@ div.status span.msg {
 }
 
 /* Cover art type checkboxes */
-form div.row ul.checkboxes {
+ul.cover-art-type-checkboxes {
+    margin: 0;
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
 
     li {
         display: inline;
 
         label {
             float: none;
-            text-align: left;
-        }
-
-        span {
-            display: inline-block;
-            min-width: 50px;
+            text-align: left !important;
         }
     }
 }

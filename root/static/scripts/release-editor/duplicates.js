@@ -9,9 +9,10 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
+import {compare} from '../common/i18n';
 import {isCompleteArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
-import {compactMap} from '../common/utility/arrays';
+import {compactMap, sortByString} from '../common/utility/arrays';
 import {debounceComputed} from '../common/utility/debounce';
 import request from '../common/utility/request';
 
@@ -151,13 +152,19 @@ function formatReleaseData(release) {
     x => (x.area?.['iso-3166-1-codes']) ?? [],
   ))] : [];
 
-  clean.labels = labels ? compactMap(labels, function (info) {
-    const label = info.label;
-    if (label) {
-      return new MB.entity.Label({gid: label.id, name: label.name});
-    }
-    return null;
-  }) : [];
+  clean.labels = labels ? (
+    sortByString(
+      compactMap(labels, function (info) {
+        const label = info.label;
+        if (label) {
+          return new MB.entity.Label({gid: label.id, name: label.name});
+        }
+        return null;
+      }),
+      label => label.name,
+      compare,
+    )
+  ) : [];
 
   clean.catalogNumbers = labels
     ? compactMap(labels, x => x['catalog-number'])

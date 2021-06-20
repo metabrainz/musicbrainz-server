@@ -33,6 +33,7 @@ use feature "switch";
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+use Cwd qw( abs_path );
 use File::Copy;
 use File::Slurp qw( read_file );
 use File::Spec;
@@ -40,17 +41,32 @@ use FindBin;
 use Plack::Request;
 use Plack::Response;
 use Log::Dispatch;
+use String::ShellQuote qw( shell_quote );
 
 use lib "$FindBin::Bin/../lib";
 use DBDefs;
 
 my $log = Log::Dispatch->new(outputs => [[ 'Screen', min_level => 'info' ]] );
 my $imgext = 'gif|jpg|pdf|png';
-my $ssssss_storage = $ENV{SSSSSS_STORAGE}
-    ? glob($ENV{SSSSSS_STORAGE})
-    : catfile($FindBin::Bin, 'caa');
+my $ssssss_storage = abs_path(
+    $ENV{SSSSSS_STORAGE}
+        ? glob($ENV{SSSSSS_STORAGE})
+        : catfile($FindBin::Bin, 'caa')
+);
 
 sub catfile { return File::Spec->catfile(@_); }
+
+sub abs_ssssss_path {
+    my $subpath = shift;
+
+    my $path = abs_path(catfile($ssssss_storage, $subpath));
+
+    if ($path !~ m/^\Q$ssssss_storage\E/) {
+        die 'file is outside of ssssss storage dir';
+    }
+
+    return $path;
+}
 
 sub thumb
 {
@@ -58,6 +74,7 @@ sub thumb
 
     my $newfile = $filename;
     $newfile =~ s/.($imgext)$/_thumb$max.jpg/;
+    $newfile = shell_quote($newfile);
 
     $log->info("Generating ${max}x${max} thumbnail, $newfile\n");
 
@@ -66,11 +83,12 @@ sub thumb
 
 sub create_bucket
 {
-    my $bucket = shift;
+    my $request = shift;
 
-    my $bucketdir = catfile($ssssss_storage, $bucket);
+    my $bucketdir = abs_ssssss_path($request->path_info);
+    my $quoted_bucketdir = shell_quote($bucketdir);
 
-    `mkdir -p $bucketdir` unless -d $bucketdir;
+    `mkdir -p $quoted_bucketdir` unless -d $bucketdir;
 
     return $bucketdir;
 }
@@ -124,7 +142,7 @@ sub handle_put
 
     my $file = $request->param('file');
     if ($file) {
-        my $bucketdir = create_bucket($request->path_info);
+        my $bucketdir = create_bucket($request);
         my $dest = catfile($bucketdir, $file);
         $log->info("PUT, storing upload at $dest\n");
 
@@ -138,7 +156,7 @@ sub handle_put
             <Error><Code>BucketAlreadyExists</Code></Error>});
         return $response;
     } else {
-        create_bucket($request->path_info);
+        create_bucket($request);
     }
 
     return $request->new_response(204);
@@ -151,7 +169,7 @@ sub handle_post
     my $key = $request->param('key');
     return undef unless $key;
 
-    my $bucketdir = create_bucket($request->path_info);
+    my $bucketdir = create_bucket($request);
     my $dest = catfile($bucketdir, $request->param('key'));
     $log->info("POST, storing upload at $dest\n");
 
@@ -193,12 +211,11 @@ my %mime_types = (
     jpg => 'image/jpeg',
     pdf => 'application/pdf',
     png => 'image/png',
+    json => 'application/json',
 );
 
 sub handle_get {
     my ($request) = @_;
-
-    my $path_info = $request->path_info;
 
     # Simulate the only bits from
     # https://archive.org/services/docs/api/metadata.html that we need.
@@ -206,25 +223,59 @@ sub handle_get {
     # This doesn't exactly belong in an "S3 simulator" service, but
     # it's simpler to have it here than to create a whole 'nother file
     # that has to run on a different port.
-    if ($path_info =~ m{^/metadata/}) {
+    if ($request->path_info =~ m{^/metadata/}) {
         my $response = $request->new_response(200);
         $response->content_type('application/json; charset=UTF-8');
         $response->body(q({"is_dark":false,"metadata":{"uploader":"caa@musicbrainz.org"}}));
         return $response;
     }
 
-    my $filename = catfile($ssssss_storage, $path_info);
+    my $filename = abs_ssssss_path($request->path_info);
 
     if (-f $filename) {
-        my ($ext) = $filename =~ m/\.($imgext)$/;
-        my $image_data = read_file($filename, {binmode => ':raw'});
+        my ($ext) = $filename =~ m/\.($imgext|json)$/;
+        my $data = read_file($filename, {binmode => ':raw'});
         my $response = $request->new_response(200);
         $response->content_type($mime_types{$ext});
-        $response->body($image_data);
+        $response->body($data);
         return $response;
     }
 
     return $request->new_response(404);
+}
+
+sub handle_delete {
+    my ($request) = @_;
+
+    my $fname = $request->param('file');
+    unless ($fname) {
+        return $request->new_response(400);
+    }
+
+    my $bucketdir = abs_ssssss_path($request->path_info);
+    my $fpath = abs_ssssss_path(catfile($request->path_info, $fname));
+
+    if (-f $fpath) {
+        my $keep = $request->header('x-archive-keep-old-version');
+        if ($keep) {
+            my $history_dir = catfile($bucketdir, 'history');
+            system('mkdir', '-p', $history_dir) == 0
+                or die "failed to created $bucketdir/history";
+            system('mv', $fpath, "$history_dir/") == 0
+                or die "failed to move $fpath to history";
+        } else {
+            unlink $fpath or die $!;
+        }
+        my $cascade = $request->header('x-archive-cascade-delete');
+        if ($cascade && $fpath =~ m/\.(?:$imgext)$/) {
+            unlink map {
+                my $size = $_;
+                $fpath =~ s/\.($imgext)$/_thumb$size.$1/r
+            } qw( 250 500 1200 );
+        }
+    }
+
+    return $request->new_response(204);
 }
 
 sub {
@@ -237,6 +288,7 @@ sub {
         when ("POST")    { $response = handle_post($request) }
         when ("OPTIONS") { $response = handle_options($request) }
         when ("GET")     { $response = handle_get($request) }
+        when ("DELETE")  { $response = handle_delete($request) }
     }
 
     $response->header("Access-Control-Allow-Origin" => "*");
