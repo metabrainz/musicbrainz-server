@@ -8,8 +8,8 @@ around serialize => sub {
 
     my $tags = $stash->store($entity)->{top_tags};
     my @genres = map {
-        my $genre = $_->{tag}->genre;
-        $genre ? (DBDefs->CANONICAL_SERVER . '/genre/' . $genre->gid) : ()
+        my $genre = $_->{tag}{genre};
+        $genre ? (DBDefs->JSON_LD_ID_BASE_URI . '/genre/' . $genre->{gid}) : ()
     } @$tags;
 
     if (@genres) {
