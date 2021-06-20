@@ -22,7 +22,7 @@ type AddReleaseGroupEditT = {
     +name: string,
     +release_group: ReleaseGroupT,
     +secondary_types: string,
-    +type: ReleaseGroupTypeT | null,
+    +type: ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null,
   },
 };
 
@@ -75,9 +75,16 @@ const AddReleaseGroup = ({allowNew, edit}: Props): React.MixedElement => {
 
           {type ? (
             <tr>
-              <th>{l('Primary Type:')}</th>
+              <th>
+                {type.historic
+                  ? addColonText(l('Type'))
+                  : l('Primary Type:')}
+              </th>
               <td>
-                {lp_attributes(type.name, 'release_group_primary_type')}
+                {type.historic
+                  ? lp_attributes(type.name, 'release_group_secondary_type')
+                  : lp_attributes(type.name, 'release_group_primary_type')
+                }
               </td>
             </tr>
           ) : null}

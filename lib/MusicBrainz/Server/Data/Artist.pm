@@ -288,6 +288,42 @@ sub update
     $self->sql->update_row('artist', $row, { id => $artist_id }) if %$row;
 }
 
+sub can_split
+{
+    my ($self, $artist_id) = @_;
+    return 0 if is_special_artist($artist_id);
+
+    # Can only split if they have no relationships at all other than collaboration
+    # These AND NOT EXISTS clauses are ordered by my estimated likelihood of a 
+    # relationship existing for a collaboration, as postgresql will not execute
+    # the later clauses if an earlier one has already excluded the lone artist row.
+    my $can_split = $self->sql->select_single_value(<<~'EOSQL', $artist_id);
+        SELECT TRUE FROM artist WHERE id = ?
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_url lau WHERE lau.entity0 = artist.id)
+        AND NOT EXISTS (
+            SELECT TRUE FROM l_artist_artist laa
+            JOIN link ON laa.link = link.id
+            JOIN link_type lt ON link.link_type = lt.id
+            WHERE (
+                laa.entity1 = artist.id
+                AND lt.gid != '75c09861-6857-4ec0-9729-84eefde7fc86' --collaboration
+            )
+            OR laa.entity0 = artist.id
+        )
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_recording lar WHERE lar.entity0 = artist.id)
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_release lare WHERE lare.entity0 = artist.id)
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_event lae WHERE lae.entity0 = artist.id)
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_work law WHERE law.entity0 = artist.id)
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_label lal WHERE lal.entity0 = artist.id)
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_place lap WHERE lap.entity0 = artist.id)
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_release_group larg WHERE larg.entity0 = artist.id)
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_series las WHERE las.entity0 = artist.id)
+        AND NOT EXISTS (SELECT TRUE FROM l_artist_instrument lai WHERE lai.entity0 = artist.id)
+        AND NOT EXISTS (SELECT TRUE FROM l_area_artist lara WHERE lara.entity1 = artist.id)
+        EOSQL
+    return $can_split;
+}
+
 sub can_delete
 {
     my ($self, $artist_id) = @_;

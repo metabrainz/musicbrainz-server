@@ -17,6 +17,11 @@
       value: 'The Downword Spiral',
     },
     {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
       command: 'click',
       target: 'css=button.guesscase-title.icon',
       value: '',

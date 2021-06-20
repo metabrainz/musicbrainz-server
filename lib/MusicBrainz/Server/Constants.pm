@@ -89,6 +89,7 @@ our @EXPORT_OK = (
         $CONTACT_URL
         $WS_EDIT_RESPONSE_OK $WS_EDIT_RESPONSE_NO_CHANGES
         %ENTITIES_WITH_RELATIONSHIP_CREDITS
+        %HISTORICAL_RELEASE_GROUP_TYPES
         %ENTITIES entities_with @RELATABLE_ENTITIES
         $EDITOR_SANITISED_COLUMNS
         $PASSPHRASE_BCRYPT_COST
@@ -421,6 +422,20 @@ Readonly our %ENTITIES_WITH_RELATIONSHIP_CREDITS => map { $_ => 1 } qw(
     instrument
     label
     place
+);
+
+Readonly our %HISTORICAL_RELEASE_GROUP_TYPES => (
+    1 => 'Album',
+    2 => 'Single',
+    3 => 'EP',
+    4 => 'Compilation',
+    5 => 'Soundtrack',
+    6 => 'Spokenword',
+    7 => 'Interview',
+    8 => 'Audiobook',
+    9 => 'Live',
+    10 => 'Remix',
+    11 => 'Other',
 );
 
 Readonly our %ENTITIES => %{

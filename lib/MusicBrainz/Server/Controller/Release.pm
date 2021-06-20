@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {
-        show => {copy_stash => ['release_artwork']},
+        show => {copy_stash => ['release_artwork', 'top_tags']},
         aliases => {copy_stash => ['aliases']},
         cover_art => {copy_stash => ['cover_art']},
     },
@@ -274,20 +274,6 @@ sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded') {
     my ($self, $c) = @_;
 
     $c->stash->{filename} = $c->req->params->{key};
-}
-
-sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit {
-    my ($self, $c) = @_;
-
-    my @mime_types = map { $_->{mime_type} } @{ $c->model('CoverArt')->mime_types };
-    $c->stash->{mime_types} = \@mime_types;
-
-    my $entity = $c->stash->{$self->{entity_name}};
-    my $bucket = 'mbid-' . $entity->gid;
-    my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
-                                      [ $entity->gid ])->as_string();
-
-    $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
 }
 
 sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {

@@ -53,8 +53,11 @@ our %relation_types = (
 # helps validate the second case (inc=recordings).
 our %extra_inc = (
     'recordings' => [ qw( artist-credits puids isrcs ) ],
+    'recording-rels' => [ qw( artist-credits ) ],
     'releases' => [ qw( artist-credits discids media type status ) ],
+    'release-rels' => [ qw( artist-credits ) ],
     'release-groups' => [ qw( artist-credits type ) ],
+    'release-group-rels' => [ qw( artist-credits ) ],
     'works' => [ qw( artist-credits ) ],
 );
 

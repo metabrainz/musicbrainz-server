@@ -71,22 +71,36 @@ has release => (
 
 sub _url_prefix
 {
-    my $self = shift;
+    my ($self, $suffix) = @_;
 
-    return join('/', DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX, 'release', $self->release->gid, $self->id)
+    return join(
+        '/',
+        DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX,
+        'release',
+        $self->release->gid,
+        $self->id,
+    ) . ($suffix // '');
 }
 
 sub _ia_url_prefix {
-    my $self = shift;
+    my ($self, $suffix) = @_;
+
+    $suffix //= '';
+
+    my $download_prefix = DBDefs->COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX;
+    unless ($download_prefix) {
+        $suffix =~ s/_thumb([0-9]+)\.jpg/-\1.jpg/;
+        return $self->_url_prefix($suffix);
+    }
 
     my $mbid_part = 'mbid-' . $self->release->gid;
 
     return join(
         '/',
-        DBDefs->COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX,
+        $download_prefix,
         $mbid_part,
         ($mbid_part . '-' . $self->id),
-    );
+    ) . $suffix;
 }
 
 sub filename
@@ -105,12 +119,12 @@ sub image {
     # but we still call this for edit display.
     return undef unless $self->suffix;
 
-    return $self->_url_prefix . "." . $self->suffix;
+    return $self->_url_prefix('.' . $self->suffix);
 }
 
-sub small_thumbnail { my $self = shift; return $self->_url_prefix . "-250.jpg"; }
-sub large_thumbnail { my $self = shift; return $self->_url_prefix . "-500.jpg"; }
-sub huge_thumbnail { my $self = shift; return $self->_url_prefix . "-1200.jpg"; }
+sub small_thumbnail { my $self = shift; return $self->_url_prefix('-250.jpg'); }
+sub large_thumbnail { my $self = shift; return $self->_url_prefix('-500.jpg'); }
+sub huge_thumbnail { my $self = shift; return $self->_url_prefix('-1200.jpg'); }
 
 # These accessors allow for requesting thumbnails directly from the IA,
 # bypassing our artwork redirect service. These are suitable for any <img>
@@ -118,9 +132,13 @@ sub huge_thumbnail { my $self = shift; return $self->_url_prefix . "-1200.jpg"; 
 # our redirect service from becoming overloaded. The "250px"/"500px"/"1200px"
 # "original" links still point to the public API at coverartarchive.org via
 # small_thumbnail, large_thumbnail, etc.
-sub small_ia_thumbnail { shift->_ia_url_prefix . '_thumb250.jpg' }
-sub large_ia_thumbnail { shift->_ia_url_prefix . '_thumb500.jpg' }
-sub huge_ia_thumbnail { shift->_ia_url_prefix . '_thumb1200.jpg' }
+#
+# COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX is required to be configured in
+# DBDefs.pm; if it isn't, we fall back to using the configured redirect
+# service.
+sub small_ia_thumbnail { shift->_ia_url_prefix('_thumb250.jpg') }
+sub large_ia_thumbnail { shift->_ia_url_prefix('_thumb500.jpg') }
+sub huge_ia_thumbnail { shift->_ia_url_prefix('_thumb1200.jpg') }
 
 sub TO_JSON {
     my ($self) = @_;

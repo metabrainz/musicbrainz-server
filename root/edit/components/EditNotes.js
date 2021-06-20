@@ -21,6 +21,7 @@ type Props = {
   +edit: {...EditT, +id: number},
   +hide?: boolean,
   +index?: number,
+  +isOnEditPage?: boolean,
   +verbose?: boolean,
 };
 
@@ -28,6 +29,7 @@ const EditNotes = ({
   edit,
   hide = false,
   index = 0,
+  isOnEditPage,
   verbose = true,
 }: Props): React.Element<'div'> => {
   const $c = React.useContext(CatalystContext);
@@ -43,6 +45,7 @@ const EditNotes = ({
             edit={edit}
             editNote={note}
             index={index}
+            isOnEditPage={isOnEditPage}
             key={index}
           />
         ))

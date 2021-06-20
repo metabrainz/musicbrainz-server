@@ -76,12 +76,22 @@ RUN apt-get update && \
         redis-server \
         runit \
         runit-systemd \
+        software-properties-common \
         sudo \
         unzip \
         virtualenv \
         wget \
         yarn \
         zlib1g-dev && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt install \
+        --no-install-recommends \
+        --no-install-suggests \
+        -y \
+        python3.9 \
+        python3.9-dev \
+        python3.9-distutils \
+        python3.9-venv && \
     rm -rf /var/lib/apt/lists/* && \
     rm google-chrome-stable_current_amd64.deb && \
     rm nodejs_16.1.0-deb-1nodesource1_amd64.deb && \
@@ -142,6 +152,22 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/sir.git &&
     sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install -r requirements.txt; pip install git+git://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
     cd /home/musicbrainz
 
+ENV ARTWORK_INDEXER_COMMIT c8731b5
+
+RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-indexer.git && \
+    cd artwork-indexer && \
+    sudo -E -H -u musicbrainz git reset --hard $ARTWORK_INDEXER_COMMIT && \
+    sudo -E -H -u musicbrainz sh -c 'python3.9 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
+    cd /home/musicbrainz
+
+ENV ARTWORK_REDIRECT_COMMIT origin/eaa
+
+RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-redirect.git && \
+    cd artwork-redirect && \
+    sudo -E -H -u musicbrainz git reset --hard $ARTWORK_REDIRECT_COMMIT && \
+    sudo -E -H -u musicbrainz sh -c 'python3.9 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
+    cd /home/musicbrainz
+
 RUN curl -sLO https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
     chmod +x /usr/local/bin/chromedriver && \
@@ -174,8 +200,16 @@ COPY --chown=postgres:postgres \
 RUN sudo -E -H -u postgres touch \
     $PGDATA/pg_ident.conf
 
+COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.ini
+COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 
+COPY \
+    docker/musicbrainz-tests/artwork-indexer.service \
+    /etc/service/artwork-indexer/run
+COPY \
+    docker/musicbrainz-tests/artwork-redirect.service \
+    /etc/service/artwork-redirect/run
 COPY \
     docker/musicbrainz-tests/chrome.service \
     /etc/service/chrome/run
@@ -192,6 +226,9 @@ COPY \
     docker/musicbrainz-tests/solr.service \
     /etc/service/solr/run
 COPY \
+    docker/musicbrainz-tests/ssssss.service \
+    /etc/service/ssssss/run
+COPY \
     docker/scripts/start_template_renderer.sh \
     /etc/service/template-renderer/run
 COPY \
@@ -201,22 +238,44 @@ COPY \
     docker/musicbrainz-tests/website.service \
     /etc/service/website/run
 RUN chmod 755 \
+        /etc/service/artwork-indexer/run \
+        /etc/service/artwork-redirect/run \
         /etc/service/chrome/run \
         /etc/service/postgresql/run \
         /etc/service/redis/run \
         /etc/service/sir-queue-purger/run \
         /etc/service/solr/run \
+        /etc/service/ssssss/run \
         /etc/service/template-renderer/run \
         /etc/service/vnu/run \
         /etc/service/website/run
 RUN touch \
+    /etc/service/artwork-indexer/down \
+    /etc/service/artwork-redirect/down \
     /etc/service/chrome/down \
     /etc/service/postgresql/down \
     /etc/service/redis/down \
     /etc/service/sir-queue-purger/down \
     /etc/service/solr/down \
+    /etc/service/ssssss/down \
     /etc/service/template-renderer/down \
     /etc/service/vnu/down \
     /etc/service/website/down
+
+COPY docker/scripts/install_svlogd_services.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/install_svlogd_services.sh && \
+    install_svlogd_services.sh \
+        artwork-indexer \
+        artwork-redirect \
+        chrome \
+        postgresql \
+        redis \
+        sir-queue-purger \
+        solr \
+        ssssss \
+        template-renderer \
+        vnu \
+        website && \
+    rm /usr/local/bin/install_svlogd_services.sh
 
 LABEL com.circleci.preserve-entrypoint=true

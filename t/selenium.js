@@ -68,10 +68,13 @@ function compareEditDataValues(actualValue, expectedValue) {
    * Handle cases where Perl's JSON module serializes numbers in the
    * edit data as strings (something we can't fix easily).
    */
-  if (typeof actualValue === 'string' &&
-      typeof expectedValue === 'number' &&
-      actualValue === String(expectedValue)) {
-    return true;
+  if (
+    (typeof actualValue === 'string' ||
+      typeof actualValue === 'number') &&
+    (typeof expectedValue === 'string' ||
+      typeof expectedValue === 'number')
+  ) {
+    return String(actualValue) === String(expectedValue);
   }
   // Tells `deepEqual` to perform its default comparison.
   return null;
@@ -265,6 +268,7 @@ const KEY_CODES = {
   '${KEY_HOME}': Key.HOME,
   '${KEY_SHIFT}': Key.SHIFT,
   '${KEY_TAB}': Key.TAB,
+  '${MBS_ROOT}': DBDefs.MB_SERVER_ROOT.replace(/\/$/, ''),
 };
 
 function getPageErrors() {
@@ -331,6 +335,15 @@ async function handleCommand({command, target, value}, t) {
 
   let element;
   switch (command) {
+    case 'assertArtworkJson':
+      const artworkJson = JSON.parse(await driver.executeAsyncScript(`
+        var callback = arguments[arguments.length - 1];
+        fetch('http://localhost:8081/release/${target}')
+          .then(x => x.text().then(callback));
+      `));
+      t.deepEqual2(artworkJson, value);
+      break;
+
     case 'assertAttribute':
       const splitAt = target.indexOf('@');
       const locator = target.slice(0, splitAt);
@@ -484,6 +497,7 @@ const seleniumTests = [
   {name: 'MBS-10510.json5', login: true, sql: 'mbs-10510.sql'},
   {name: 'MBS-11730.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
+  {name: 'CAA.json5', login: true},
   {name: 'External_Links_Editor.json5', login: true},
   {name: 'Work_Editor.json5', login: true},
   {name: 'Redirect_Merged_Entities.json5', login: true},
@@ -579,57 +593,7 @@ async function runCommands(commands, t) {
 (async function runTests() {
   const TEST_TIMEOUT = 200000; // 200 seconds
 
-  const cartonPrefix = process.env.PERL_CARTON_PATH
-    ? 'carton exec -- '
-    : '';
-
-  function pgPasswordEnv(db) {
-    if (db.password) {
-      return {env: Object.assign({}, process.env, {PGPASSWORD: db.password})};
-    }
-    return {};
-  }
-
-  async function getDbConfig(name) {
-    const result = (await execFile(
-      'sh', [
-        '-c',
-        `$(${cartonPrefix}./script/database_configuration ${name}) && ` +
-        'echo "$PGHOST\n$PGPORT\n$PGDATABASE\n$PGUSER\n$PGPASSWORD"',
-      ],
-    )).stdout.split('\n').map(x => x.trim());
-
-    return {
-      host: result[0],
-      port: result[1],
-      database: result[2],
-      user: result[3],
-      password: result[4],
-    };
-  }
-
-  const seleniumDb = await getDbConfig('SELENIUM');
-  const systemDb = await getDbConfig('SYSTEM');
-  const hostPort = ['-h', seleniumDb.host, '-p', seleniumDb.port];
-
   async function cleanSeleniumDb(extraSql) {
-    // Close active sessions before dropping the database.
-    await execFile(
-      'psql',
-      [
-        ...hostPort,
-        '-U',
-        systemDb.user,
-        '-c',
-        `
-          SELECT pg_terminate_backend(pg_stat_activity.pid)
-            FROM pg_stat_activity
-           WHERE datname = '${seleniumDb.database.replace(/'/g, "''")}'
-        `,
-        'template1',
-      ],
-      pgPasswordEnv(systemDb),
-    );
     await execFile(
       path.resolve(__dirname, '../script/reset_selenium_env.sh'),
       extraSql ? [path.resolve(__dirname, 'sql', extraSql)] : [],
