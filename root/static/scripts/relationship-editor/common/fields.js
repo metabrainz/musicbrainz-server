@@ -353,8 +353,12 @@ class Relationship {
   }
 
   phraseAndExtraAttributes(phraseProp, shouldStripAttributes) {
+    const linkType = this.getLinkType();
+    if (!linkType) {
+      return ['', ''];
+    }
     const result = linkPhrase.getPhraseAndExtraAttributesText(
-      this.getLinkType(),
+      linkType,
       this.attributes().map(x => {
         const result = x.toJS();
         result.typeID = x.type.id;

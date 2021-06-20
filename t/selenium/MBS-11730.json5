@@ -1,0 +1,20 @@
+{
+  title: 'MBS-11730',
+  commands: [
+    {
+      command: 'open',
+      target: '/event/create?rels.0.target=2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+      value: '',
+    },
+    {
+      command: 'assertTextMatches',
+      target: 'css=#relationship-editor p.error',
+      value: 'You must select a relationship type and target entity for every relationship.',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#relationship-editor table.details.row-form tr').textContent.replace(/\\s{2,}/g, ' ').replace(/(^\\s*|\\s*$)/g, '')",
+      value: 'no type: Bing Crosby',
+    },
+  ],
+}
