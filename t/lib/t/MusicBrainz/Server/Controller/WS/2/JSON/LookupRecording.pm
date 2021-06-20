@@ -283,11 +283,25 @@ test 'recording lookup with release relationships' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws_test_json 'recording lookup with release relationships',
-    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels' =>
+    ws_test_json 'recording lookup with release relationships and artist credits',
+    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels+artist-credits' =>
         {
             id => "37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9",
             title => "Dear Diary",
+            "artist-credit" => [
+                {
+                    name => "Wedlock",
+                    artist => {
+                        id => "6fe9f838-112e-44f1-af83-97464f08285b",
+                        name => "Wedlock",
+                        "sort-name" => "Wedlock",
+                        disambiguation => "USA electro pop",
+                        "type" => "Group",
+                        "type-id" => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                    },
+                    joinphrase => "",
+                },
+            ],
             disambiguation => "",
             length => 86666,
             video => JSON::false,
@@ -304,6 +318,20 @@ test 'recording lookup with release relationships' => sub {
                         barcode => '634479663338',
                         country => 'US',
                         date => '2007-11-08',
+                        "artist-credit" => [
+                            {
+                                name => "Paul Allgood",
+                                artist => {
+                                    id => "05d83760-08b5-42bb-a8d7-00d80b3bf47c",
+                                    name => "Paul Allgood",
+                                    "sort-name" => "Allgood, Paul",
+                                    disambiguation => "",
+                                    "type" => JSON::null,
+                                    "type-id" => JSON::null,
+                                },
+                                joinphrase => "",
+                            },
+                        ],
                         "release-events" => [{
                             area => {
                               disambiguation => '',
