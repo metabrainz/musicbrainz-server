@@ -978,7 +978,7 @@ msgstr "Hiligaynon-Sprache"
 msgid "Himachali languages"
 msgstr "Himachali-Sprachen"
 
-#. frequency:1 iso_code_3:hin
+#. frequency:2 iso_code_3:hin
 #: DB:language/name:171
 msgid "Hindi"
 msgstr "Hindi"
@@ -998,7 +998,7 @@ msgstr "Hethitisch"
 msgid "Hmong"
 msgstr "Miao-Sprachen"
 
-#. frequency:2 iso_code_3:hun
+#. frequency:1 iso_code_3:hun
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr "Ungarisch"

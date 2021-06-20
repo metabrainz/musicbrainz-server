@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-16 09:57+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2021-06-18 02:28+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2858,12 +2858,6 @@ msgid ""
 "Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
 msgstr "Deze relatie is <strong>verouderd</strong>! Upload afbeeldingen op de afbeeldingentab van de uitgave of voeg een ASIN-relatie toe.\n\nOpmerking over CD Baby: Veel uitgaves op CD Baby zijn ook beschikbaar (vaak met grotere afbeeldingen) op Amazon.com."
 
-#: DB:link_type/description:930 DB:link_type/description:931
-msgid ""
-"This relationship type is <strong>deprecated</strong>! Please use the "
-"instrument technician relationship, and select \"piano\" as the instrument."
-msgstr "Dit relatietype is <strong>verouderd</strong>. Gebruik in plaats hiervan de relatie voor instrumenttechnicus en selecteer ‘piano’ als instrument."
-
 #: DB:link_type/description:15
 msgid ""
 "This relationship type is used to indicate that a release group is a cover version of another release group, i.e. when an artist performs a new rendition of another artist's album.<br/>\n"
@@ -5604,15 +5598,6 @@ msgstr "fonografisch auteursrecht"
 msgid "photography"
 msgstr "fotografie"
 
-#: DB:link_type/name:930 DB:link_type/name:931
-#: DB:link_type/reverse_link_phrase:930 DB:link_type/reverse_link_phrase:931
-msgid "piano technician"
-msgstr "pianotechnicus"
-
-#: DB:link_type/link_phrase:930 DB:link_type/link_phrase:931
-msgid "piano technician for"
-msgstr "pianotechnicus voor"
-
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 #: DB:link_type/link_phrase:732
 msgid "picture"
@@ -6551,10 +6536,6 @@ msgstr "werd hernoemd naar"
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"
 msgstr "werd opnieuw gepland als"
-
-#: DB:link_type/long_link_phrase:930 DB:link_type/long_link_phrase:931
-msgid "was the piano technician for"
-msgstr "was de pianotechnicus voor"
 
 #: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
 msgid "was the {guest} concertmaster for"

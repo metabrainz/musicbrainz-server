@@ -973,7 +973,7 @@ msgstr "ヒリガイノン語"
 msgid "Himachali languages"
 msgstr "ヒマーチャル語"
 
-#. frequency:1 iso_code_3:hin
+#. frequency:2 iso_code_3:hin
 #: DB:language/name:171
 msgid "Hindi"
 msgstr "ヒンディー語"
@@ -993,7 +993,7 @@ msgstr "ヒッタイト語"
 msgid "Hmong"
 msgstr "フモング語"
 
-#. frequency:2 iso_code_3:hun
+#. frequency:1 iso_code_3:hun
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr "ハンガリー語"
