@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-17 21:26-0500\n"
+"POT-Creation-Date: 2021-06-20 01:29-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,27 +86,27 @@ msgstr ""
 msgid "&#10005;"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:83
+#: ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error creating edit"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:67
+#: ../root/release/add_cover_art.tt:86
 msgid "&#x26a0; Error requesting signature"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:81
+#: ../root/release/add_cover_art.tt:100
 msgid "&#x26a0; Error uploading image"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:82
+#: ../root/release/add_cover_art.tt:101
 msgid "&#x26a0; Server busy, try again later"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:66
+#: ../root/release/add_cover_art.tt:85
 msgid "&#x26a0; Unrecognized file"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:65
+#: ../root/release/add_cover_art.tt:84
 msgid "&#x2713; Success"
 msgstr ""
 
@@ -122,7 +122,7 @@ msgstr ""
 msgid "(new release group)"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:138
+#: ../root/release/add_cover_art.tt:127
 msgid "(no other cover art)"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 #: ../root/search/components/ReleaseResults.js:55
 #: ../root/static/scripts/common/components/ReleaseEvents.js:55
 #: ../root/static/scripts/common/components/ReleaseEvents.js:72
-#: ../root/static/scripts/release-editor/duplicates.js:144
+#: ../root/static/scripts/release-editor/duplicates.js:145
 msgctxt "missing data"
 msgid "-"
 msgstr ""
@@ -639,7 +639,7 @@ msgstr ""
 #: ../root/edit/details/EditArtist.js:77 ../root/edit/details/EditMedium.js:361
 #: ../root/edit/details/EditMedium.js:365
 #: ../root/edit/details/EditRecording.js:86
-#: ../root/edit/details/EditReleaseGroup.js:88
+#: ../root/edit/details/EditReleaseGroup.js:101
 #: ../root/edit/details/historic/AddRelease.js:67
 #: ../root/edit/details/historic/AddRelease.js:117
 #: ../root/edit/details/historic/AddTrackKV.js:55
@@ -852,7 +852,7 @@ msgstr ""
 msgid "Begin date:"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:74 ../root/search/error/InternalError.js:31
+#: ../root/release/add_cover_art.tt:93 ../root/search/error/InternalError.js:31
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
 "so at {bugs|our bug tracker}. The information below will help, so please be "
@@ -1065,10 +1065,6 @@ msgstr ""
 msgid "Child order:"
 msgstr ""
 
-#: ../root/release/cover_art_uploader.tt:16
-msgid "Choose file:"
-msgstr ""
-
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr ""
@@ -1099,6 +1095,10 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
+#: ../root/artist/split.tt:36
+msgid "Collaborators on this artist"
+msgstr ""
+
 #: ../root/release/edit/tracklist.tt:301
 msgid "Collapse medium"
 msgstr ""
@@ -1122,12 +1122,12 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: ../root/cdstub/edit_form.tt:8 ../root/release/add_cover_art.tt:117
+#: ../root/cdstub/edit_form.tt:8 ../root/release/add_cover_art.tt:67
 #: ../root/release_group/set_cover_art.tt:71
 #: ../root/edit/details/AddCoverArt.js:64
 #: ../root/edit/details/EditCoverArt.js:79
 #: ../root/edit/details/RemoveCoverArt.js:65
-#: ../root/release/CoverArtFields.js:81
+#: ../root/release/CoverArtFields.js:92
 msgid "Comment:"
 msgstr ""
 
@@ -1222,7 +1222,7 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:64
+#: ../root/release/add_cover_art.tt:83
 msgid "Creating edit..."
 msgstr ""
 
@@ -1330,7 +1330,9 @@ msgstr ""
 #: ../root/edit/details/EditInstrument.js:84
 #: ../root/edit/details/EditRelationshipAttribute.js:86
 #: ../root/edit/details/EditRelationshipAttribute.js:92
-#: ../root/edit/details/EditUrl.js:73 ../root/instrument/InstrumentIndex.js:35
+#: ../root/edit/details/EditUrl.js:73
+#: ../root/edit/details/RemoveRelationshipType.js:68
+#: ../root/instrument/InstrumentIndex.js:35
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:107
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:96
 #: ../root/search/components/InstrumentResults.js:52
@@ -1341,7 +1343,6 @@ msgstr ""
 
 #: ../root/edit/details/edit_relationship_type.tt:16
 #: ../root/edit/details/remove_relationship_attribute.tt:7
-#: ../root/edit/details/remove_relationship_type.tt:15
 #: ../root/instrument/edit_form.tt:13
 #: ../root/relationship/linkattributetype/form.tt:15
 #: ../root/relationship/linktype/form.tt:20
@@ -1383,7 +1384,7 @@ msgstr ""
 #: ../root/edit/details/EditInstrument.js:64
 #: ../root/edit/details/EditLabel.js:84 ../root/edit/details/EditPlace.js:70
 #: ../root/edit/details/EditRecording.js:65
-#: ../root/edit/details/EditReleaseGroup.js:62
+#: ../root/edit/details/EditReleaseGroup.js:64
 #: ../root/edit/details/EditSeries.js:61 ../root/edit/details/EditWork.js:73
 #: ../root/genre/GenreEditForm.js:38
 msgid "Disambiguation"
@@ -1666,7 +1667,7 @@ msgid ""
 "marker. If you’re too far out, clicking will zoom instead."
 msgstr ""
 
-#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:173
+#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:162
 #: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:125
 #: ../root/components/EnterEdit.js:48
 msgid "Enter edit"
@@ -1783,7 +1784,7 @@ msgstr ""
 msgid "Few relationships"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:94
+#: ../root/release/add_cover_art.tt:46
 msgid "File:"
 msgstr ""
 
@@ -2443,6 +2444,7 @@ msgstr ""
 
 #: ../root/edit/details/edit_relationship_type.tt:21
 #: ../root/edit/details/AddRelationshipType.js:128
+#: ../root/edit/details/RemoveRelationshipType.js:100
 msgid "Link phrase:"
 msgstr ""
 
@@ -2482,6 +2484,7 @@ msgstr ""
 #: ../root/edit/details/edit_relationship_type.tt:29
 #: ../root/relationship/linktype/form.tt:15
 #: ../root/edit/details/AddRelationshipType.js:144
+#: ../root/edit/details/RemoveRelationshipType.js:124
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:79
 msgid "Long link phrase:"
@@ -2651,11 +2654,11 @@ msgstr ""
 msgid "Move entity up"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:50
+#: ../root/release/add_cover_art.tt:42
 msgid "Move file down"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:48
+#: ../root/release/add_cover_art.tt:40
 msgid "Move file up"
 msgstr ""
 
@@ -2727,8 +2730,9 @@ msgstr ""
 #: ../root/edit/details/EditRecording.js:58
 #: ../root/edit/details/EditRelationshipAttribute.js:67
 #: ../root/edit/details/EditRelationshipAttribute.js:76
-#: ../root/edit/details/EditReleaseGroup.js:55
+#: ../root/edit/details/EditReleaseGroup.js:57
 #: ../root/edit/details/EditSeries.js:54 ../root/edit/details/EditWork.js:66
+#: ../root/edit/details/RemoveRelationshipType.js:60
 #: ../root/edit/details/historic/AddRelease.js:62
 #: ../root/edit/details/historic/AddRelease.js:116
 #: ../root/edit/details/historic/AddTrackKV.js:44
@@ -2760,7 +2764,6 @@ msgstr ""
 #: ../root/edit/details/edit_relationship_type.tt:11
 #: ../root/edit/details/edit_release.tt:9
 #: ../root/edit/details/remove_relationship_attribute.tt:3
-#: ../root/edit/details/remove_relationship_type.tt:7
 #: ../root/relationship/linkattributetype/form.tt:12
 #: ../root/relationship/linktype/form.tt:12
 #: ../root/relationship/linktype/form.tt:77
@@ -2773,7 +2776,7 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: ../root/artist/edit_credit.tt:18 ../root/artist/split.tt:35
+#: ../root/artist/edit_credit.tt:18 ../root/artist/split.tt:45
 msgid "New Artist Credit"
 msgstr ""
 
@@ -2781,7 +2784,7 @@ msgstr ""
 msgid "New Attribute"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:151
+#: ../root/release/add_cover_art.tt:140
 msgid "New Image Goes Here"
 msgstr ""
 
@@ -2793,10 +2796,6 @@ msgstr ""
 #: ../root/relationship/linktype/create.tt:1
 #: ../root/relationship/linktype/create.tt:3
 msgid "New Relationship Type"
-msgstr ""
-
-#: ../root/edit/details/set_cover_art.tt:32
-msgid "New cover art:"
 msgstr ""
 
 #: ../root/release/merge.tt:77
@@ -2953,10 +2952,6 @@ msgstr ""
 msgid "Old"
 msgstr ""
 
-#: ../root/edit/details/set_cover_art.tt:13
-msgid "Old cover art:"
-msgstr ""
-
 #: ../root/account/change_password.tt:20
 msgid "Old password:"
 msgstr ""
@@ -3078,10 +3073,6 @@ msgstr ""
 msgid "Password:"
 msgstr ""
 
-#: ../root/edit/details/remove_relationship_type.tt:11
-msgid "Phrase:"
-msgstr ""
-
 #: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:405
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
@@ -3129,12 +3120,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:403
 msgid "Please choose a condition"
-msgstr ""
-
-#: ../root/release/cover_art_uploader.tt:20
-msgid ""
-"Please choose a valid image. Currently the Cover Art Archive only supports "
-"JPEG, PNG, GIF and PDF files."
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:99
@@ -3189,7 +3174,7 @@ msgstr ""
 msgid "Please search for the artist you wish to create a new release for:"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:114 ../root/release/CoverArtFields.js:72
+#: ../root/release/add_cover_art.tt:64 ../root/release/CoverArtFields.js:83
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
@@ -3204,7 +3189,7 @@ msgstr ""
 msgid "Position"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:134 ../root/edit/details/AddMedium.js:136
+#: ../root/release/add_cover_art.tt:123 ../root/edit/details/AddMedium.js:136
 msgid "Position:"
 msgstr ""
 
@@ -3231,8 +3216,8 @@ msgid "Previous"
 msgstr ""
 
 #: ../root/release/edit/information.tt:91 ../root/release_group/edit_form.tt:16
-#: ../root/edit/details/AddReleaseGroup.js:78
-#: ../root/edit/details/EditReleaseGroup.js:69
+#: ../root/edit/details/AddReleaseGroup.js:81
+#: ../root/edit/details/EditReleaseGroup.js:74
 msgid "Primary Type:"
 msgstr ""
 
@@ -3405,7 +3390,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:36
 #: ../root/static/scripts/common/constants.js:26
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:328
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:332
 #: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:49
 msgid "Release"
 msgstr ""
@@ -3421,7 +3406,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:405
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
 #: ../root/edit/details/AddReleaseGroup.js:43
-#: ../root/edit/details/EditReleaseGroup.js:48
+#: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/layout/components/Search.js:32
 #: ../root/report/DuplicateReleaseGroups.js:62
 #: ../root/report/ReleaseRgDifferentName.js:32
@@ -3431,7 +3416,7 @@ msgstr ""
 #: ../root/search/components/ReleaseGroupResults.js:62
 #: ../root/search/components/SearchForm.js:35
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:335
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:339
 msgid "Release Group"
 msgstr ""
 
@@ -3501,7 +3486,6 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:557
 #: ../root/edit/details/add_release.tt:20
-#: ../root/edit/details/set_cover_art.tt:5
 #: ../root/edit/details/historic/ChangeReleaseGroup.js:35
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:38
 msgid "Release group:"
@@ -3513,11 +3497,8 @@ msgid "Release information"
 msgstr ""
 
 #: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:84
-msgid "Release title or MBID"
-msgstr ""
-
 #: ../root/cdtoc/move_search.tt:15
-msgid "Release title:"
+msgid "Release title or MBID"
 msgstr ""
 
 #: ../root/release/layout.tt:1 ../root/release/ReleaseLayout.js:34
@@ -3556,7 +3537,7 @@ msgstr ""
 #: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:59
 #: ../root/relationship/linkattributetype/delete.tt:14
 #: ../root/relationship/linktype/delete.tt:14
-#: ../root/release/add_cover_art.tt:89 ../root/release/discids.tt:42
+#: ../root/release/add_cover_art.tt:108 ../root/release/discids.tt:42
 #: ../root/account/applications/Index.js:42
 #: ../root/admin/attributes/Attribute.js:123
 #: ../root/admin/attributes/Language.js:70
@@ -3677,7 +3658,7 @@ msgctxt "header"
 msgid "Reorder Cover Art"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:62
+#: ../root/release/add_cover_art.tt:81
 msgid "Request signature..."
 msgstr ""
 
@@ -3709,6 +3690,7 @@ msgstr ""
 #: ../root/edit/details/edit_relationship_type.tt:25
 #: ../root/relationship/linktype/form.tt:14
 #: ../root/edit/details/AddRelationshipType.js:136
+#: ../root/edit/details/RemoveRelationshipType.js:112
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:153
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:72
 msgid "Reverse link phrase:"
@@ -3792,8 +3774,8 @@ msgid "Searching..."
 msgstr ""
 
 #: ../root/release/edit/information.tt:94 ../root/release_group/edit_form.tt:17
-#: ../root/edit/details/AddReleaseGroup.js:87
-#: ../root/edit/details/EditReleaseGroup.js:80
+#: ../root/edit/details/AddReleaseGroup.js:94
+#: ../root/edit/details/EditReleaseGroup.js:93
 msgid "Secondary Types:"
 msgstr ""
 
@@ -3822,7 +3804,7 @@ msgid ""
 "seem to match any type, just leave this blank."
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:37
+#: ../root/release/add_cover_art.tt:29
 msgid "Select images..."
 msgstr ""
 
@@ -3957,7 +3939,7 @@ msgstr ""
 msgid "Split Artist"
 msgstr ""
 
-#: ../root/artist/split.tt:6 ../root/artist/CannotSplit.js:22
+#: ../root/artist/split.tt:6 ../root/artist/CannotSplit.js:24
 msgid "Split Into Separate Artists"
 msgstr ""
 
@@ -4632,7 +4614,7 @@ msgstr ""
 #: ../root/edit/details/EditMedium.js:542
 #: ../root/edit/details/RemoveMedium.js:43
 #: ../root/static/scripts/release-editor/fields.js:724
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:290
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:294
 msgid "Tracklist"
 msgstr ""
 
@@ -4681,15 +4663,17 @@ msgstr ""
 #: ../root/edit/details/AddArea.js:77 ../root/edit/details/AddArtist.js:89
 #: ../root/edit/details/AddEvent.js:73 ../root/edit/details/AddInstrument.js:72
 #: ../root/edit/details/AddLabel.js:107 ../root/edit/details/AddPlace.js:65
+#: ../root/edit/details/AddReleaseGroup.js:80
 #: ../root/edit/details/AddRemoveAlias.js:101
 #: ../root/edit/details/AddSeries.js:57 ../root/edit/details/AddWork.js:69
 #: ../root/edit/details/EditAlias.js:123 ../root/edit/details/EditArea.js:91
 #: ../root/edit/details/EditArtist.js:107 ../root/edit/details/EditEvent.js:78
 #: ../root/edit/details/EditInstrument.js:71
 #: ../root/edit/details/EditLabel.js:92 ../root/edit/details/EditPlace.js:77
+#: ../root/edit/details/EditReleaseGroup.js:73
 #: ../root/edit/details/EditSeries.js:68
 #: ../root/edit/details/historic/AddRelease.js:74 ../root/iswc/Index.js:58
-#: ../root/release/CoverArtFields.js:52 ../root/report/DuplicateArtists.js:67
+#: ../root/release/CoverArtFields.js:55 ../root/report/DuplicateArtists.js:67
 #: ../root/report/DuplicateReleaseGroups.js:63
 #: ../root/report/IswcsWithManyWorks.js:52
 #: ../root/report/components/ArtistList.js:59
@@ -4722,7 +4706,7 @@ msgstr ""
 #: ../root/area/edit_form.tt:11 ../root/artist/edit_form.tt:16
 #: ../root/edit/data.tt:5 ../root/event/edit_form.tt:14
 #: ../root/instrument/edit_form.tt:11 ../root/label/edit_form.tt:15
-#: ../root/place/edit_form.tt:15 ../root/release/add_cover_art.tt:100
+#: ../root/place/edit_form.tt:15 ../root/release/add_cover_art.tt:52
 #: ../root/release/edit/information.tt:99 ../root/series/edit_form.tt:15
 #: ../root/work/edit_form.tt:14
 #: ../root/layout/components/sidebar/CollectionSidebar.js:47
@@ -4733,7 +4717,6 @@ msgstr ""
 msgid "Type:"
 msgstr ""
 
-#: ../root/edit/details/remove_relationship_type.tt:3
 #: ../root/release_group/set_cover_art.tt:69
 #: ../root/edit/details/AddCoverArt.js:43
 #: ../root/edit/details/EditCoverArt.js:70
@@ -4797,7 +4780,7 @@ msgstr ""
 msgid "Update the recording title to match the track title."
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:63
+#: ../root/release/add_cover_art.tt:82
 msgid "Uploading image..."
 msgstr ""
 
@@ -4859,7 +4842,7 @@ msgid ""
 "cannot be in the same position"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:60
+#: ../root/release/add_cover_art.tt:79
 msgid "Validating file..."
 msgstr ""
 
@@ -4998,7 +4981,7 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit_relationships.tt:96
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:305
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:309
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
@@ -5298,11 +5281,12 @@ msgstr ""
 #: ../root/components/list/ReleaseList.js:90
 #: ../root/release_group/ReleaseGroupIndex.js:75
 #: ../root/search/components/ReleaseResults.js:50
-#: ../root/static/scripts/release-editor/duplicates.js:142
+#: ../root/static/scripts/release-editor/duplicates.js:143
 msgid "[missing media]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:259
+#: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:111
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:87
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:186
@@ -5596,7 +5580,7 @@ msgstr ""
 msgid "on {date}"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:39
+#: ../root/release/add_cover_art.tt:31
 msgid "or drop files here"
 msgstr ""
 
@@ -5991,11 +5975,11 @@ msgid ""
 "attributes."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:665
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:666
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:670
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:671
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
 
@@ -6059,7 +6043,7 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:592
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:578
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr ""
@@ -6688,7 +6672,7 @@ msgstr ""
 msgid "Remove relationship attribute"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:14
 msgid "Remove relationship type"
 msgstr ""
 
@@ -6734,7 +6718,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:98
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:185
-#: ../root/static/scripts/release-editor/duplicates.js:186
+#: ../root/static/scripts/release-editor/duplicates.js:193
 msgctxt "medium format"
 msgid "(unknown)"
 msgstr ""
@@ -6757,6 +6741,7 @@ msgid "Reorder mediums"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
+#: ../root/edit/details/SetCoverArt.js:40
 #: ../root/static/scripts/common/constants.js:27 ../root/user/UserProfile.js:50
 msgid "Release group"
 msgstr ""
@@ -6769,7 +6754,7 @@ msgstr ""
 msgid "Add release group annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:27
 #: ../root/layout/components/sidebar/ArtistSidebar.js:140
 msgid "Add release group"
 msgstr ""
@@ -6782,7 +6767,7 @@ msgstr ""
 msgid "Remove release group alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:46
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:47
 msgid "Edit release group"
 msgstr ""
 
@@ -8034,6 +8019,7 @@ msgstr ""
 #: ../root/admin/attributes/Script.js:36
 #: ../root/components/RelationshipsTable.js:317
 #: ../root/edit/details/AddRelationshipType.js:192
+#: ../root/edit/details/RemoveRelationshipType.js:137
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:165
 #: ../root/utility/tableColumns.js:604
 msgid "Attributes"
@@ -8427,7 +8413,11 @@ msgstr ""
 msgid "This artist is not currently associated with any works."
 msgstr ""
 
-#: ../root/artist/CannotSplit.js:25
+#: ../root/artist/CannotSplit.js:27
+msgid "This artist is already empty and is awaiting automatic deletion."
+msgstr ""
+
+#: ../root/artist/CannotSplit.js:30
 msgid ""
 "This artist has relationships other than collaboration relationships, and "
 "cannot be split until these are removed. {relationships|View all "
@@ -8910,7 +8900,7 @@ msgid "{start_track}–{end_track}"
 msgstr ""
 
 #: ../root/components/StaticRelationshipsDisplay.js:94
-#: ../root/static/scripts/relationship-editor/common/fields.js:504
+#: ../root/static/scripts/relationship-editor/common/fields.js:508
 msgid "{num}. {relationship}"
 msgstr ""
 
@@ -9217,26 +9207,26 @@ msgid ""
 "before you can approve it."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:82
+#: ../root/edit/components/EditNote.js:89
 msgid "[time missing]"
 msgstr ""
 
-#: ../root/edit/components/EditNotes.js:51
+#: ../root/edit/components/EditNotes.js:54
 msgid "No edit notes have been added."
 msgstr ""
 
-#: ../root/edit/components/EditNotes.js:63
+#: ../root/edit/components/EditNotes.js:66
 msgid ""
 "Edit notes support {doc_formatting|a limited set of wiki formatting "
 "options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
 "writing edit notes!"
 msgstr ""
 
-#: ../root/edit/components/EditNotes.js:77
+#: ../root/edit/components/EditNotes.js:80
 msgid "Add an edit note"
 msgstr ""
 
-#: ../root/edit/components/EditNotes.js:85
+#: ../root/edit/components/EditNotes.js:88
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr ""
 
@@ -9408,6 +9398,7 @@ msgid "Creditable"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipType.js:104
+#: ../root/edit/details/RemoveRelationshipType.js:76
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:90
 msgctxt "description"
 msgid "(none)"
@@ -9415,10 +9406,15 @@ msgstr ""
 
 #: ../root/edit/details/AddRelationshipType.js:111
 #: ../root/edit/details/AddRelationshipType.js:120
+#: ../root/edit/details/RemoveRelationshipType.js:83
+#: ../root/edit/details/RemoveRelationshipType.js:92
 msgid "Type of {entity_placeholder}"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipType.js:151
+#: ../root/edit/details/RemoveRelationshipType.js:107
+#: ../root/edit/details/RemoveRelationshipType.js:119
+#: ../root/edit/details/RemoveRelationshipType.js:131
 msgctxt "link_phrase"
 msgid "(none)"
 msgstr ""
@@ -9568,6 +9564,25 @@ msgstr ""
 msgid "New Order"
 msgstr ""
 
+#: ../root/edit/details/SetCoverArt.js:47
+msgid "Old cover art:"
+msgstr ""
+
+#: ../root/edit/details/SetCoverArt.js:68
+msgid ""
+"The old image was selected automatically from the earliest release in the "
+"release group."
+msgstr ""
+
+#: ../root/edit/details/SetCoverArt.js:70
+#: ../root/edit/details/SetCoverArt.js:95
+msgid "We are unable to display this cover art."
+msgstr ""
+
+#: ../root/edit/details/SetCoverArt.js:75
+msgid "New cover art:"
+msgstr ""
+
 #: ../root/edit/details/historic/AddDiscId.js:34
 msgid "CD TOC:"
 msgstr ""
@@ -9611,20 +9626,20 @@ msgstr ""
 msgid "New relationships:"
 msgstr ""
 
-#: ../root/edit/details/historic/EditReleaseAttributes.js:35
+#: ../root/edit/details/historic/EditReleaseAttributes.js:47
 #: ../root/edit/details/historic/EditReleaseLanguage.js:35
 msgid "Old:"
 msgstr ""
 
-#: ../root/edit/details/historic/EditReleaseAttributes.js:42
+#: ../root/edit/details/historic/EditReleaseAttributes.js:54
 msgid "Type: {type}, status: {status}"
 msgstr ""
 
-#: ../root/edit/details/historic/EditReleaseAttributes.js:65
+#: ../root/edit/details/historic/EditReleaseAttributes.js:73
 msgid "New Type:"
 msgstr ""
 
-#: ../root/edit/details/historic/EditReleaseAttributes.js:76
+#: ../root/edit/details/historic/EditReleaseAttributes.js:80
 msgid "New Status:"
 msgstr ""
 
@@ -11739,7 +11754,7 @@ msgstr ""
 msgid "Cannot Add Cover Art"
 msgstr ""
 
-#: ../root/release/CoverArtFields.js:66
+#: ../root/release/CoverArtFields.js:77
 msgid "Choose one or more cover art types for this image"
 msgstr ""
 
@@ -14716,11 +14731,11 @@ msgstr ""
 msgid "Recording artist:"
 msgstr ""
 
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:312
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:316
 msgid "Credits"
 msgstr ""
 
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:318
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:322
 msgid ""
 "The credits listed below may be incomplete, as some tracks/mediums haven’t "
 "been loaded yet."
