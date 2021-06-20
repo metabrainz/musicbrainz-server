@@ -237,6 +237,50 @@ test 'Embedded JSON-LD `track` property (for artists with only recordings)' => s
     };
 };
 
+test 'Embedded JSON-LD `genre` property' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+    INSERT INTO artist (id, gid, name, sort_name)
+        VALUES (1, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group');
+
+    INSERT INTO tag (id, name, ref_count)
+        VALUES (30, 'dubstep', 347), (31, 'debstup', 33);
+
+    INSERT INTO genre (id, gid, name)
+        VALUES (1, '1b50083b-1afa-4778-82c8-548b309af783', 'dubstep'),
+               (2, '2b50083b-1afa-4778-82c8-548b309af783', 'debstup');
+
+    INSERT INTO artist_tag (artist, count, last_updated, tag) VALUES (1, 3, '2011-01-18 15:21:33.71184+00', 30);
+
+EOSQL
+
+    $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
+    page_test_jsonld $mech => {
+        'name' => 'Group',
+        '@type' => 'MusicGroup',
+        '@id' => 'https://musicbrainz.org/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
+        'genre' => 'https://musicbrainz.org/genre/1b50083b-1afa-4778-82c8-548b309af783',
+        '@context' => 'http://schema.org'
+    };
+
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO artist_tag (artist, count, last_updated, tag)
+            VALUES (1, 2, '2011-01-18 15:21:33.71184+00', 31);
+        EOSQL
+
+    $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
+    page_test_jsonld $mech => {
+        'name' => 'Group',
+        '@type' => 'MusicGroup',
+        '@id' => 'https://musicbrainz.org/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
+        'genre' => ['https://musicbrainz.org/genre/1b50083b-1afa-4778-82c8-548b309af783','https://musicbrainz.org/genre/2b50083b-1afa-4778-82c8-548b309af783'],
+        '@context' => 'http://schema.org'
+    };
+};
+
 test 'Embedded JSON-LD sameAs & performsAs' => sub {
     my $test = shift;
     my $mech = $test->mech;

@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
+    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}}
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
     entity_type => 'recording'

@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Utils qw( non_empty );
 use List::MoreUtils qw( uniq );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';
