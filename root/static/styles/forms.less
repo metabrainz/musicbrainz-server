@@ -64,7 +64,8 @@ form div.row {
 }
 
 form div.row label,
-form div.row div.label {
+form div.row div.label,
+form fieldset.row legend {
     float: left;
     text-align: right;
     min-width: @form-label-width;
@@ -792,6 +793,14 @@ button.guess-timezone {
         @media @wide900px {
             max-width: 800px;
         }
+
+        /* Put above jQuery UI's .ui-front (use by the relationship
+         * editor dialog), which has a z-index of 100.
+         *
+         * These can overlap when the "Add a new $entity" option is
+         * invoked from the relationship target autocomplete.
+         */
+        z-index: 200;
 
         .title-bar {
             display: flex;

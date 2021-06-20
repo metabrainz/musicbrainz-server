@@ -290,7 +290,7 @@ sub load_paged {
                 my $lt_group = RelationshipLinkTypeGroup->new(
                     link_type => $link_types->{$link_type_id},
                     link_type_id => $link_type_id,
-                    direction => $direction,
+                    backward => ($direction == $DIRECTION_BACKWARD),
                     total_relationships => $total_relationships,
                     limit => $limit,
                     offset => $offset,
@@ -361,7 +361,7 @@ sub load_paged {
                 $link_type_groups->{$group_key} = RelationshipLinkTypeGroup->new(
                     link_type => $link_types->{$link_type_filter},
                     link_type_id => $link_type_filter,
-                    direction => $direction,
+                    backward => ($direction == $DIRECTION_BACKWARD),
                     total_relationships => 0,
                     limit => $limit,
                     offset => $offset,
@@ -557,7 +557,7 @@ sub merge_entities {
             );
         }
 
-        my $relationships = $self->sql->select_list_of_hashes(<<EOSQL, \@ids);
+        my $relationships = $self->sql->select_list_of_hashes(<<~"EOSQL", \@ids);
             SELECT * FROM (
                 SELECT
                     a.*,
@@ -581,7 +581,7 @@ sub merge_entities {
                 ) a
                 JOIN link ON link.id = a.link
             ) b WHERE redundant > 1
-EOSQL
+            EOSQL
 
         # Given a set of duplicate relationship where only one will be kept,
         # determine what {entity0,entity1}_credit should be used. Non-empty

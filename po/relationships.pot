@@ -2844,12 +2844,6 @@ msgid ""
 "bigger covers) on Amazon.com."
 msgstr ""
 
-#: DB:link_type/description:930 DB:link_type/description:931
-msgid ""
-"This relationship type is <strong>deprecated</strong>! Please use the "
-"instrument technician relationship, and select \"piano\" as the instrument."
-msgstr ""
-
 #: DB:link_type/description:15
 msgid ""
 "This relationship type is used to indicate that a release group is a cover "
@@ -3272,18 +3266,18 @@ msgstr ""
 msgid "Wikidata page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:355
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:216
-#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr ""
 
-#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:595
-#: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:89
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:179
-#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
+#: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
+#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr ""
@@ -4269,10 +4263,10 @@ msgstr ""
 msgid "has a Wikidata page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:595 DB:link_type/long_link_phrase:355
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:216
-#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr ""
 
@@ -5592,15 +5586,6 @@ msgstr ""
 msgid "photography"
 msgstr ""
 
-#: DB:link_type/name:930 DB:link_type/name:931
-#: DB:link_type/reverse_link_phrase:930 DB:link_type/reverse_link_phrase:931
-msgid "piano technician"
-msgstr ""
-
-#: DB:link_type/link_phrase:930 DB:link_type/link_phrase:931
-msgid "piano technician for"
-msgstr ""
-
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 #: DB:link_type/link_phrase:732
 msgid "picture"
@@ -6539,10 +6524,6 @@ msgstr ""
 msgid "was rescheduled as"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:930 DB:link_type/long_link_phrase:931
-msgid "was the piano technician for"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
 msgid "was the {guest} concertmaster for"
 msgstr ""
@@ -6569,9 +6550,9 @@ msgstr ""
 msgid "wikidata"
 msgstr ""
 
-#: DB:link_type/name:595 DB:link_type/name:355 DB:link_type/name:89
-#: DB:link_type/name:744 DB:link_type/name:179 DB:link_type/name:279
-#: DB:link_type/name:216 DB:link_type/name:731 DB:link_type/name:789
+#: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
+#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
 msgid "wikipedia"
 msgstr ""
 

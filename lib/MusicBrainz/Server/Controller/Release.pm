@@ -31,8 +31,17 @@ use List::Util qw( first );
 use List::MoreUtils qw( uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Constants qw( :edit_type $MAX_INITIAL_MEDIUMS );
+use MusicBrainz::Server::Constants qw(
+    :edit_type
+    $MAX_INITIAL_MEDIUMS
+    $MAX_INITIAL_TRACKS
+);
+use MusicBrainz::Server::Validation qw(
+    is_integer
+    is_positive_integer
+);
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
@@ -40,8 +49,13 @@ use MusicBrainz::Server::Form::Utils qw(
     language_options
     build_type_info
 );
+use POSIX qw( ceil );
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
+use MusicBrainz::Server::Data::Utils qw(
+    artist_credit_to_ref
+    boolean_to_json
+    partial_date_to_hash
+);
 
 =head1 NAME
 
@@ -112,25 +126,6 @@ after 'load' => sub {
     }
 };
 
-before show => sub {
-    my ($self, $c, @args) = @_;
-
-    if (@args && $args[0] eq 'disc') {
-        my $position = $args[1];
-        my @mediums = $c->stash->{release}->all_mediums;
-
-        if (@mediums > $MAX_INITIAL_MEDIUMS) {
-            my %mediums_by_position = map { $_->position => $_ } @mediums;
-            my $medium = $mediums_by_position{$position} if looks_like_number($position);
-
-            if ($medium) {
-                my $user_id = $c->user->id if $c->user_exists;
-                $c->model('Medium')->load_related_info($user_id, $medium);
-            }
-        }
-    }
-};
-
 # Stuff that has the side bar and thus needs to display collection information
 after [qw( show collections details tags aliases
            discids cover_art add_cover_art edit_cover_art reorder_cover_art )] => sub {
@@ -160,17 +155,94 @@ tags, tracklisting, release events, etc.
 =cut
 
 sub show : Chained('load') PathPart('') {
-    my ($self, $c) = @_;
+    my ($self, $c, @args) = @_;
 
     my $release = $c->stash->{release};
     my @mediums = $release->all_mediums;
+    my $paged_medium;
+    my $medium_page_number = 1;
+    my $no_script = 0;
 
-    if (@mediums <= $MAX_INITIAL_MEDIUMS) {
-        my $user_id = $c->user->id if $c->user_exists;
-        $c->model('Medium')->load_related_info($user_id, @mediums);
+    # Individual medium selected via /disc/n.
+    #
+    # This subpath is only linked where JavaScript is disabled, so
+    # $no_script is set to 1 if we hit it.
+    if (@args && $args[0] eq 'disc') {
+        my $position = scalar(@args) > 1 ? $args[1] : undef;
+
+        if (defined $position) {
+            $c->detach('/error_400') unless is_positive_integer($position);
+
+            $paged_medium = first { $_->position == $position } @mediums;
+
+            if ($paged_medium) {
+                $no_script = 1;
+
+                my $page = $c->req->query_params->{page};
+                if (defined $page) {
+                    $c->detach('/error_400') unless is_integer($page);
+
+                    my $max_page = ceil($paged_medium->track_count / $MAX_INITIAL_TRACKS);
+                    if ($page > $max_page) {
+                        $c->detach('/error_404');
+                    }
+                    $medium_page_number = $page;
+                }
+            } else {
+                $c->detach('/error_404');
+            }
+        }
     }
 
-    $c->stash->{template} = 'release/index.tt';
+    my $user_id = $c->user->id if $c->user_exists;
+
+    if (@mediums && !defined $paged_medium) {
+        my $medium_counter = 0;
+        my $track_counter = 0;
+        my @preloaded_mediums;
+
+        for my $medium (@mediums) {
+            $medium_counter += 1;
+            last if $medium_counter > $MAX_INITIAL_MEDIUMS;
+            $track_counter += $medium->track_count;
+            last if $track_counter > $MAX_INITIAL_TRACKS;
+            push @preloaded_mediums, $medium;
+        }
+
+        if (@preloaded_mediums) {
+            $c->model('Medium')->load_related_info($user_id, @preloaded_mediums);
+        } else {
+            # If even the first medium exceeds $MAX_INITIAL_TRACKS, page that
+            # instead of loading nothing. This is equivalent to navigating to
+            # the /disc/1 subpath, except $no_script will remain 0.
+            $paged_medium = $mediums[0];
+        }
+    }
+
+    if ($paged_medium) {
+        $c->model('Medium')->load_related_info_paged(
+            $user_id,
+            $paged_medium,
+            $medium_page_number,
+        );
+    }
+
+    my $bottom_credits = $c->req->cookies->{'bottom-credits'};
+    my $credits_mode = defined $bottom_credits &&
+        $bottom_credits->value eq '1' ? 'bottom' : 'inline';
+
+    my %props = (
+        creditsMode => $credits_mode,
+        release => $release->TO_JSON,
+        noScript => boolean_to_json($no_script),
+        numberOfRevisions => $c->stash->{number_of_revisions},
+    );
+
+    $c->stash(
+        component_path => 'release/ReleaseIndex',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub _load_related : Private {
@@ -202,20 +274,6 @@ sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded') {
     my ($self, $c) = @_;
 
     $c->stash->{filename} = $c->req->params->{key};
-}
-
-sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit {
-    my ($self, $c) = @_;
-
-    my @mime_types = map { $_->{mime_type} } @{ $c->model('CoverArt')->mime_types };
-    $c->stash->{mime_types} = \@mime_types;
-
-    my $entity = $c->stash->{$self->{entity_name}};
-    my $bucket = 'mbid-' . $entity->gid;
-    my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
-                                      [ $entity->gid ])->as_string();
-
-    $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
 }
 
 sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {

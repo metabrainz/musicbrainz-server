@@ -486,7 +486,7 @@ relationshipEditorTest('dialog backwardness', function (t) {
       input: {
         source: recording1,
         target: recording0,
-        direction: 'backward',
+        backward: true,
       },
       expected: {
         backward: true,
@@ -711,7 +711,7 @@ relationshipEditorTest((
       linkTypeID: 234,
       target: target,
       entities: [target, source],
-      direction: 'backward',
+      backward: true,
     },
   ]));
 
@@ -827,7 +827,7 @@ relationshipEditorTest((
       relationships: [
         {
           linkTypeID: 103,
-          direction: 'backward',
+          backward: true,
           ended: true,
           target: {
             entityType: 'artist',
@@ -843,7 +843,7 @@ relationshipEditorTest((
         },
         {
           linkTypeID: 103,
-          direction: 'backward',
+          backward: true,
           ended: true,
           target: {
             entityType: 'artist',
@@ -863,7 +863,7 @@ relationshipEditorTest((
 
   var newRelationship = vm.getRelationship({
     linkTypeID: 103,
-    direction: 'backward',
+    backward: true,
     ended: true,
     target: {
       entityType: 'artist',
@@ -947,7 +947,7 @@ relationshipEditorTest((
 
   var newRelationship1 = vm.getRelationship({
     linkTypeID: 742,
-    direction: 'backward',
+    backward: true,
     target: {
       entityType: 'release_group',
       name: '「神のみぞ知るセカイ」キャラクターCD.0',
@@ -960,7 +960,7 @@ relationshipEditorTest((
 
   var newRelationship2 = vm.getRelationship({
     linkTypeID: 742,
-    direction: 'backward',
+    backward: true,
     target: {
       entityType: 'release_group',
       name: '「神のみぞ知るセカイ」キャラクターCD.1',
@@ -973,7 +973,7 @@ relationshipEditorTest((
 
   var newRelationship3 = vm.getRelationship({
     linkTypeID: 742,
-    direction: 'backward',
+    backward: true,
     target: {
       entityType: 'release_group',
       name: '「神のみぞ知るセカイ」キャラクターCD.2',
@@ -1065,7 +1065,7 @@ var loveMeDo = {
   relationships: [
     {
       linkTypeID: 44,
-      direction: 'backward',
+      backward: true,
       target: {
         entityType: 'artist',
         name: 'Ringo Starr',
@@ -1181,7 +1181,7 @@ relationshipEditorTest((
   var compositionData = {
     id: 666,
     linkTypeID: 168,
-    direction: 'backward',
+    backward: true,
     target: beethoven,
     linkOrder: 0,
     attributes: [],
@@ -1273,7 +1273,7 @@ relationshipEditorTest((
   var relData = [
     {
       attributes:  [],
-      direction: 'backward',
+      backward: true,
       id: 55536,
       linkOrder: 15,
       linkTypeID: 281,

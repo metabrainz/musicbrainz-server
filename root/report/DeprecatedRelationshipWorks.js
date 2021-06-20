@@ -9,7 +9,11 @@
 
 import * as React from 'react';
 
-import WorkRelationshipList from './components/WorkRelationshipList';
+import {
+  relTypeColumn,
+} from '../utility/tableColumns';
+
+import WorkList from './components/WorkList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportWorkRelationshipT} from './types';
 
@@ -33,7 +37,11 @@ React.Element<typeof ReportLayout> => (
     title={l('Works with deprecated relationships')}
     totalEntries={pager.total_entries}
   >
-    <WorkRelationshipList items={items} pager={pager} />
+    <WorkList
+      columnsBefore={[relTypeColumn]}
+      items={items}
+      pager={pager}
+    />
   </ReportLayout>
 );
 

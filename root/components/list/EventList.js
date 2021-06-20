@@ -19,11 +19,11 @@ import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
   defineDatePeriodColumn,
+  defineLocationColumn,
   defineNameColumn,
   defineSeriesNumberColumn,
   defineTypeColumn,
   defineTextColumn,
-  locationColumn,
   ratingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
@@ -83,6 +83,9 @@ const EventList = ({
         getRoles: entity => entity.performers,
         title: l('Artists'),
       });
+      const locationColumn = defineLocationColumn<EventT>({
+        getEntity: entity => entity,
+      });
       const timeColumn = defineTextColumn<EventT>({
         columnName: 'time',
         getText: entity => entity.time,
@@ -102,7 +105,8 @@ const EventList = ({
           title: l('Role'),
         })
         : null;
-      const dateColumn = defineDatePeriodColumn({
+      const dateColumn = defineDatePeriodColumn<EventT>({
+        getEntity: entity => entity,
         order: order,
         sortable: sortable,
       });

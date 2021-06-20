@@ -7,6 +7,7 @@ with 'MusicBrainz::Server::Report::QueryReport';
 sub _load_extra_work_info {
     my ($self, @works) = @_;
 
+    $self->c->model('Work')->load_writers(@works);
     $self->c->model('WorkType')->load(@works);
 }
 

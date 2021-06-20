@@ -3305,9 +3305,18 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/twitter\.com\/[^\/?#]+(\/status\/\d+)?$/.exec(url);
+      const m = /^https:\/\/twitter\.com\/([^\/?#]+)(\/status\/\d+)?$/.exec(url);
       if (m) {
-        const isATweet = !!m[1];
+        const username = m[1];
+        if (['privacy', 'rules', 'tos'].includes(username)) {
+          return {
+            error: l(
+              'This is not a profile, but a Twitter documentation page.',
+            ),
+            result: false,
+          };
+        }
+        const isATweet = !!m[2];
         if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
           return {
             result: isATweet &&

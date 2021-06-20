@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-18 14:39+0000\n"
+"PO-Revision-Date: 2021-06-03 16:53+0000\n"
 "Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -412,6 +412,11 @@ msgstr "中米インディアン諸語"
 #: DB:language/name:5809
 msgid "Central Okinawan"
 msgstr "沖縄語"
+
+#. frequency:1 iso_code_3:esu
+#: DB:language/name:2243
+msgid "Central Yupik"
+msgstr "中央アラスカ・ユピック語"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75

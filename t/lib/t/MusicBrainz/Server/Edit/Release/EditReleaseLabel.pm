@@ -303,10 +303,10 @@ test 'Can add a label where one is currently missing' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
-    $c->sql->do(<<'EOSQL');
-INSERT INTO release_label (id, release, label, catalog_number)
-    VALUES (2, 1, NULL, 'ABC-456');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO release_label (id, release, label, catalog_number)
+            VALUES (2, 1, NULL, 'ABC-456');
+        EOSQL
 
     my $edit = create_edit(
         $c,
@@ -323,10 +323,10 @@ test "Edits that only change the catalog number show up in the label's edit hist
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
-    $c->sql->do(<<'EOSQL');
-INSERT INTO release_label (id, release, label, catalog_number)
-    VALUES (2, 1, 2, 'FOO');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO release_label (id, release, label, catalog_number)
+            VALUES (2, 1, 2, 'FOO');
+        EOSQL
 
     my $edit = create_edit(
         $c,
@@ -342,10 +342,10 @@ test "Edits that only change the catalog number still store and display the labe
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
-    $c->sql->do(<<'EOSQL');
-INSERT INTO release_label (id, release, label, catalog_number)
-    VALUES (2, 1, 2, 'FOO');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO release_label (id, release, label, catalog_number)
+            VALUES (2, 1, 2, 'FOO');
+        EOSQL
 
     my $edit = create_edit(
         $c,
@@ -374,10 +374,10 @@ test "Edits that only change the label still store and display the catalog numbe
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
-    $c->sql->do(<<'EOSQL');
-INSERT INTO release_label (id, release, label, catalog_number)
-    VALUES (2, 1, 2, 'FOO');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO release_label (id, release, label, catalog_number)
+            VALUES (2, 1, 2, 'FOO');
+        EOSQL
 
     my $edit = create_edit(
         $c,

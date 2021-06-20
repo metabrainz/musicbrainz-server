@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-21 07:44+0000\n"
+"PO-Revision-Date: 2021-06-16 10:08+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2456,6 +2456,15 @@ msgid ""
 "chords.."
 msgstr "Een akkordolia is een citer met een houten klankkast in de vorm van een uitgerekte druppel. De snaren worden bespeeld met knoppen die lijken op de knoppen van een knopaccordeon."
 
+#. name:nadaswaram
+#: DB:instrument/description:738
+msgid ""
+"Similar to the north Indian <a href=\"/instrument/5e17d5f8-65b1-464d-"
+"9f90-47259d832507\">shahnai</a>, it has a 95 cm long hardwood body with 7 "
+"finger holes and 5 wax-fillable tuning holes and a wide flaring wooden bell;"
+" shorter variants have a metal bell."
+msgstr "De nadaswaram lijkt op de Noord-Indiase <a href=\"/instrument/5e17d5f8-65b1-464d-9f90-47259d832507\">shenhai</a>. Het 95 cm lange instrument van hardhout heeft zeven vingergaten, vijf stemgaten die met was kunnen worden gevuld en een breed uitlopende houten beker. Kortere varianten hebben een metalen beker."
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -3581,11 +3590,6 @@ msgid ""
 "The nabal is a long, straight brass horn used in Korean traditional music."
 msgstr "Een nabal is een lange koperen rechte hoorn die wordt gebruikt voor traditionele Koreaanse muziek."
 
-#. name:nadaswaram
-#: DB:instrument/description:738
-msgid "The nadaswaram is a South Indian double reed wind instrument."
-msgstr "Een nadaswaram is een dubbelrietinstrument uit het zuiden van India."
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -4018,11 +4022,6 @@ msgstr "Een taragot of tárogató is een Turks/Hongaars/Roemeens enkelrietinstru
 #: DB:instrument/description:662
 msgid "The tenor trombone is a trombone pitched in B♭."
 msgstr "Een tenortrombone is een trombone die in Bes gestemd is."
-
-#. name:thavil
-#: DB:instrument/description:480
-msgid "The thavil is a barrel shaped drum from South India."
-msgstr "Een thavil is een tonvormige trommel uit Zuid-India."
 
 #. name:thon
 #: DB:instrument/description:584

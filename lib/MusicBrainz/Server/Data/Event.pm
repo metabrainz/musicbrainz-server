@@ -153,20 +153,20 @@ sub is_empty {
     my ($self, $event_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, event => 'event_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $event_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"EOSQL", $event_id, $STATUS_OPEN);
         SELECT TRUE
         FROM event event_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
-          EXISTS (
-            SELECT TRUE
-            FROM edit_event JOIN edit ON edit_event.edit = edit.id
-            WHERE status = ? AND event = event_row.id
-          ) OR
-          $used_in_relationship
+            EXISTS (
+                SELECT TRUE
+                FROM edit_event JOIN edit ON edit_event.edit = edit.id
+                WHERE status = ? AND event = event_row.id
+            ) OR
+            $used_in_relationship
         )
-EOSQL
+        EOSQL
 }
 
 sub load_related_info {

@@ -39,7 +39,6 @@ sub build_display_data
             to_json_object($loaded->{Release}{$_})
         } @{ $self->data->{release_ids} } ],
         cdtoc => to_json_object(CDTOC->new(
-            id => $self->data->{cdtoc_id},
             discid => $self->data->{disc_id}
         )),
     };

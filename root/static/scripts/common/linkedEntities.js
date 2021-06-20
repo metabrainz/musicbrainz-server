@@ -13,7 +13,7 @@
 /* eslint-disable spaced-comment */
 
 /*::
-type LinkedEntities = {
+export type LinkedEntitiesT = {
   area: {
     [areaId: number]: AreaT,
   },
@@ -47,7 +47,7 @@ type LinkedEntities = {
   link_type_tree: {
     [entityTypes: string]: $ReadOnlyArray<LinkTypeT>,
   },
-  mergeLinkedEntities: (update: ?$Shape<LinkedEntities>) => void,
+  mergeLinkedEntities: (update: ?$Shape<LinkedEntitiesT>) => void,
   place: {
     [placeId: number]: PlaceT,
   },
@@ -99,7 +99,7 @@ type LinkedEntities = {
 
 const EMPTY_OBJECT = Object.freeze({});
 
-const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
+const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
   artist_type:                    EMPTY_OBJECT,
   language:                       EMPTY_OBJECT,
   link_attribute_type:            EMPTY_OBJECT,
@@ -118,7 +118,7 @@ const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
   work:                           EMPTY_OBJECT,
   work_attribute_type:            EMPTY_OBJECT,
 
-  mergeLinkedEntities(update/*: ?$Shape<LinkedEntities> */) {
+  mergeLinkedEntities(update/*: ?$Shape<LinkedEntitiesT> */) {
     if (update) {
       for (const [type, entities] of Object.entries(update)) {
         if (Object.prototype.hasOwnProperty.call(linkedEntities, type)) {
@@ -130,7 +130,7 @@ const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
     }
   },
 
-  setLinkedEntities(update/*: ?LinkedEntities */) {
+  setLinkedEntities(update/*: ?LinkedEntitiesT */) {
     for (const key of Object.keys(linkedEntities)) {
       // $FlowIgnore[incompatible-type]
       delete linkedEntities[key];

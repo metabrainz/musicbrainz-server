@@ -6,21 +6,21 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-    <<'EOSQL'
-SELECT release.id AS release_id,
-  row_number() OVER (ORDER BY release.name COLLATE musicbrainz)
-FROM (
-  SELECT release.id
-  FROM track
-  JOIN medium ON track.medium = medium.id
-  JOIN release ON medium.release = release.id
-  WHERE track.name ~ '^[0-9]'
-  AND   track.name ~ ('^0*' || track.position || '[^0-9]')
-  GROUP BY release.id
-  HAVING count(*) > 2
-) s
-JOIN release ON s.id = release.id
-EOSQL
+    <<~'EOSQL'
+    SELECT release.id AS release_id,
+        row_number() OVER (ORDER BY release.name COLLATE musicbrainz)
+    FROM (
+        SELECT release.id
+        FROM track
+        JOIN medium ON track.medium = medium.id
+        JOIN release ON medium.release = release.id
+        WHERE track.name ~ '^[0-9]'
+        AND   track.name ~ ('^0*' || track.position || '[^0-9]')
+        GROUP BY release.id
+        HAVING count(*) > 2
+    ) s
+    JOIN release ON s.id = release.id
+    EOSQL
 }
 
 1;

@@ -9,8 +9,11 @@
 
 import * as React from 'react';
 
-import ReleaseGroupRelationshipList
-  from './components/ReleaseGroupRelationshipList';
+import {
+  relTypeColumn,
+} from '../utility/tableColumns';
+
+import ReleaseGroupList from './components/ReleaseGroupList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseGroupRelationshipT} from './types';
 
@@ -34,7 +37,11 @@ React.Element<typeof ReportLayout> => (
     title={l('Release groups with deprecated relationships')}
     totalEntries={pager.total_entries}
   >
-    <ReleaseGroupRelationshipList items={items} pager={pager} />
+    <ReleaseGroupList
+      columnsBefore={[relTypeColumn]}
+      items={items}
+      pager={pager}
+    />
   </ReportLayout>
 );
 

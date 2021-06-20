@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-23 09:12+0000\n"
-"Last-Translator: ffff23 <email address hidden>\n"
+"PO-Revision-Date: 2021-06-08 21:42+0000\n"
+"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -633,11 +633,11 @@ msgstr "バズーカ"
 #: DB:instrument/name:235
 msgctxt "Turkish long-necked bowl lute"
 msgid "bağlama"
-msgstr ""
+msgstr "バーラマ"
 
 #: DB:instrument/name:426
 msgid "bağlama (saz) family"
-msgstr ""
+msgstr "バーラマ(サズ)・ファミリー"
 
 #: DB:instrument/name:968
 msgctxt "Very large suspended Javanese barrel drum"
@@ -1768,7 +1768,7 @@ msgstr "ギター"
 #: DB:instrument/name:52
 msgctxt "DO NOT USE"
 msgid "guitar family"
-msgstr ""
+msgstr "ギター・ファミリー"
 
 #: DB:instrument/name:763
 msgid "guitar synthesizer"
@@ -2418,7 +2418,7 @@ msgstr "ラウタ"
 #: DB:instrument/name:803
 msgctxt "spanish plucked chordophone"
 msgid "laúd"
-msgstr ""
+msgstr "ウード"
 
 #: DB:instrument/name:573
 msgid "limbe"
@@ -2454,7 +2454,7 @@ msgstr "リュート"
 
 #: DB:instrument/name:1015
 msgid "lute family"
-msgstr ""
+msgstr "リュート・ファミリー"
 
 #: DB:instrument/name:737
 msgid "luthéal"
@@ -2530,7 +2530,7 @@ msgstr "メロフォン"
 #: DB:instrument/name:132
 msgctxt "An electromechanical piano"
 msgid "mellotron"
-msgstr ""
+msgstr "メロトロン"
 
 #: DB:instrument/name:44
 msgctxt "Free-reed keyboard mouth-organ"
@@ -2618,6 +2618,7 @@ msgid "nabal"
 msgstr "喇叭（ナッパル）"
 
 #: DB:instrument/name:738
+msgctxt "South Indian large double reed"
 msgid "nadaswaram"
 msgstr "ナーダスワラム"
 
@@ -3254,7 +3255,7 @@ msgstr ""
 #: DB:instrument/name:597
 msgctxt "Family of Sundanese metallophones"
 msgid "saron family"
-msgstr ""
+msgstr "サロン・ファミリー"
 
 #: DB:instrument/name:1008
 msgctxt "Highest pitch saron-family member used in Sundanese gamelan."
@@ -3927,7 +3928,7 @@ msgstr "トランペット"
 #: DB:instrument/name:914
 msgctxt "Family of the brass instrument trumpet"
 msgid "trumpet family"
-msgstr ""
+msgstr "トランペット・ファミリー"
 
 #: DB:instrument/name:308
 msgid "tràm plè"
@@ -4028,7 +4029,7 @@ msgstr "イリアン・パイプス"
 
 #: DB:instrument/name:631
 msgid "ukeke"
-msgstr ""
+msgstr "ウケケ"
 
 #: DB:instrument/name:89
 msgid "ukulele"

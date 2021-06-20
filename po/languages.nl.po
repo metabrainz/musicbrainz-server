@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-17 06:43+0000\n"
+"PO-Revision-Date: 2021-06-16 10:03+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -405,6 +405,11 @@ msgstr "Meso-Amerikaanse talen"
 #: DB:language/name:5809
 msgid "Central Okinawan"
 msgstr "Centraal-Okinawaans"
+
+#. frequency:1 iso_code_3:esu
+#: DB:language/name:2243
+msgid "Central Yupik"
+msgstr "Centraal-Alaskaans Joepik"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75

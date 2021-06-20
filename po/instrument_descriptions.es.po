@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-14 20:04+0000\n"
+"PO-Revision-Date: 2021-06-08 21:41+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -2470,6 +2470,15 @@ msgid ""
 "chords.."
 msgstr ""
 
+#. name:nadaswaram
+#: DB:instrument/description:738
+msgid ""
+"Similar to the north Indian <a href=\"/instrument/5e17d5f8-65b1-464d-"
+"9f90-47259d832507\">shahnai</a>, it has a 95 cm long hardwood body with 7 "
+"finger holes and 5 wax-fillable tuning holes and a wide flaring wooden bell;"
+" shorter variants have a metal bell."
+msgstr ""
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -3595,11 +3604,6 @@ msgid ""
 "The nabal is a long, straight brass horn used in Korean traditional music."
 msgstr ""
 
-#. name:nadaswaram
-#: DB:instrument/description:738
-msgid "The nadaswaram is a South Indian double reed wind instrument."
-msgstr ""
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -4031,11 +4035,6 @@ msgstr ""
 #. name:tenor trombone
 #: DB:instrument/description:662
 msgid "The tenor trombone is a trombone pitched in B♭."
-msgstr ""
-
-#. name:thavil
-#: DB:instrument/description:480
-msgid "The thavil is a barrel shaped drum from South India."
 msgstr ""
 
 #. name:thon

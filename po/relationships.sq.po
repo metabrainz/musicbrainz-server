@@ -3274,18 +3274,18 @@ msgstr "Wikidata"
 msgid "Wikidata page for"
 msgstr "faqe në Wikidata për"
 
-#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:355
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:216
-#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:595
-#: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:89
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:179
-#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
+#: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
+#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "faqe në Wikipedia për"
@@ -4271,10 +4271,10 @@ msgstr "ka një faqe VGMdb te"
 msgid "has a Wikidata page at"
 msgstr "ka një faqe në Wikidata te"
 
-#: DB:link_type/long_link_phrase:595 DB:link_type/long_link_phrase:355
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:216
-#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "ka një faqe nē Wikipedia te"
 
@@ -6573,9 +6573,9 @@ msgstr ""
 msgid "wikidata"
 msgstr "wikidata"
 
-#: DB:link_type/name:595 DB:link_type/name:355 DB:link_type/name:89
-#: DB:link_type/name:744 DB:link_type/name:179 DB:link_type/name:279
-#: DB:link_type/name:216 DB:link_type/name:731 DB:link_type/name:789
+#: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
+#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "wikipedia"
 

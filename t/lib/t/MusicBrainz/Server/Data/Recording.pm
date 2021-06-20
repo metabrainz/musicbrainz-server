@@ -135,9 +135,10 @@ test 'Deleting a recording that\'s in a collection' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
     MusicBrainz::Server::Test->prepare_test_database($c, '+recording');
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, ha1) VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1)
+            VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+        EOSQL
 
     my $recording = $c->model('Recording')->insert({ name => 'Test123', artist_credit => 1});
 
@@ -162,9 +163,10 @@ test 'Merging a recording that\'s in a collection' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
     MusicBrainz::Server::Test->prepare_test_database($c, '+recording');
 
-    $c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, ha1) VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1)
+            VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+        EOSQL
 
     my $recording1 = $c->model('Recording')->insert({ name => 'Test123', artist_credit => 1 });
     my $recording2 = $c->model('Recording')->insert({ name => 'Test456', artist_credit => 1 });

@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import $ from 'jquery';
 import ko from 'knockout';
 import test from 'tape';
 
@@ -72,30 +71,6 @@ function createFakeFile(name) {
   fakefile.name = name;
   return fakefile;
 }
-
-test('iframe mime type', function (t) {
-  t.plan(4);
-
-  var $fixture = $('<div>').appendTo('body');
-  var newdoc = $('<iframe>').appendTo($fixture).contents()[0];
-  var input = newdoc.createElement('input');
-  newdoc.body.appendChild(input);
-  input.id = 'file';
-
-  input.value = 'filename.with.dots.jpg';
-  t.equal(CoverArt.get_image_mime_type(), 'image/jpeg', input.value);
-
-  input.value = 'ALL CAPS AND SOME SPACES.PNG';
-  t.equal(CoverArt.get_image_mime_type(), 'image/png', input.value);
-
-  input.value = 'is this animated?.gif';
-  t.equal(CoverArt.get_image_mime_type(), 'image/gif', input.value);
-
-  input.value = 'linux-3.10-rc7.tar.xz';
-  t.equal(CoverArt.get_image_mime_type(), null, input.value);
-
-  $fixture.remove();
-});
 
 test('multifile/ajax upload mime type', function (t) {
   if (typeof window.Blob !== 'function') {

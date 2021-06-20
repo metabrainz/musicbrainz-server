@@ -817,25 +817,25 @@ sub is_empty {
     my $used_in_relationship =
         used_in_relationship($self->c, release_group => 'release_group_row.id');
 
-    return $self->sql->select_single_value(<<EOSQL, $release_group_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"EOSQL", $release_group_id, $STATUS_OPEN);
         SELECT TRUE
         FROM release_group release_group_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
-          EXISTS (
-            SELECT TRUE FROM edit_release_group
-            JOIN edit ON edit.id = edit_release_group.edit
-            WHERE status = ? AND release_group = release_group_row.id
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM release
-            WHERE release.release_group = release_group_row.id
-            LIMIT 1
-          ) OR
-          $used_in_relationship
+            EXISTS (
+                SELECT TRUE FROM edit_release_group
+                JOIN edit ON edit.id = edit_release_group.edit
+                WHERE status = ? AND release_group = release_group_row.id
+            ) OR
+            EXISTS (
+                SELECT TRUE FROM release
+                WHERE release.release_group = release_group_row.id
+                LIMIT 1
+            ) OR
+            $used_in_relationship
         )
-EOSQL
+        EOSQL
 }
 
 sub series_ordering {

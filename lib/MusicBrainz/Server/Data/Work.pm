@@ -429,20 +429,20 @@ sub is_empty {
     my ($self, $work_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, work => 'work_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $work_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"EOSQL", $work_id, $STATUS_OPEN);
         SELECT TRUE
         FROM work work_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
-          EXISTS (
-            SELECT TRUE
-            FROM edit_work JOIN edit ON edit_work.edit = edit.id
-            WHERE status = ? AND work = work_row.id
-          ) OR
-          $used_in_relationship
+            EXISTS (
+                SELECT TRUE
+                FROM edit_work JOIN edit ON edit_work.edit = edit.id
+                WHERE status = ? AND work = work_row.id
+            ) OR
+            $used_in_relationship
         )
-EOSQL
+        EOSQL
 }
 
 sub set_attributes {

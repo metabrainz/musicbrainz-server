@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-04-14 20:04+0000\n"
+"PO-Revision-Date: 2021-06-08 21:41+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -2462,6 +2462,15 @@ msgid ""
 "chords.."
 msgstr ""
 
+#. name:nadaswaram
+#: DB:instrument/description:738
+msgid ""
+"Similar to the north Indian <a href=\"/instrument/5e17d5f8-65b1-464d-"
+"9f90-47259d832507\">shahnai</a>, it has a 95 cm long hardwood body with 7 "
+"finger holes and 5 wax-fillable tuning holes and a wide flaring wooden bell;"
+" shorter variants have a metal bell."
+msgstr ""
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -3587,11 +3596,6 @@ msgid ""
 "The nabal is a long, straight brass horn used in Korean traditional music."
 msgstr "Die Nabal ist ein koreanisches Blasinstrumente (Langtrompete) die hauptsächlich an Prozessionen gespielt wird."
 
-#. name:nadaswaram
-#: DB:instrument/description:738
-msgid "The nadaswaram is a South Indian double reed wind instrument."
-msgstr "Nadaswaram (auch nadasvaram, nagaswaram, nageshwaram, nageshvaram) ist eine Kegeloboe mit Doppelrohrblatt, die in der südindischen klassischen Musik und devotionalen Volksmusik verbreitet ist."
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -4024,11 +4028,6 @@ msgstr "Das Tárogató (auch Taragot) ist ein Holzblasinstrument mit einfachem R
 #: DB:instrument/description:662
 msgid "The tenor trombone is a trombone pitched in B♭."
 msgstr "Die Tenorposaune ist die bei weitem gängigste Bauform der Posaune, heute in der Regel in B gestimmt und mit einer Bohrung von etwa 12,2 bis 13,89 mm."
-
-#. name:thavil
-#: DB:instrument/description:480
-msgid "The thavil is a barrel shaped drum from South India."
-msgstr "Die tavil ist eine zweifellige Fasstrommel, die in der südindischen Volksmusik gespielt wird. Ihr Korpus ist beidseitig mit einem Bassfell und einem stark gespannten Fell bespannt. Das Bassfell schlägt man mit einem Stock, während die hohe Seite mit harten Finkerkappen in rasender Geschwindigkeit gespielt wird."
 
 #. name:thon
 #: DB:instrument/description:584

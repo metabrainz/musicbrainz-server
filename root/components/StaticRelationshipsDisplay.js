@@ -10,21 +10,61 @@
 import * as React from 'react';
 
 import RelationshipTargetLinks from '../components/RelationshipTargetLinks';
+import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
+import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import type {
   RelationshipTargetTypeGroupT,
 } from '../utility/groupRelationships';
 
 const detailsTableStyle = Object.freeze({width: '100%'});
 
-type Props = {
+function formatTrackRange(range) {
+  if (range[1] == null) {
+    return range[0].number;
+  }
+  return texp.l('{start_track}–{end_track}', {
+    end_track: range[1].number,
+    start_track: range[0].number,
+  });
+}
+
+function compareTrackPositions(a: TrackT, b: TrackT) {
+  return a.position - b.position;
+}
+
+function getTrackRanges(trackSet) {
+  const tracks = [...trackSet].sort(compareTrackPositions);
+
+  let range: [TrackT, TrackT | null] = [tracks[0], null];
+
+  const ranges = [range];
+
+  for (let i = 1; i < tracks.length; i++) {
+    const track = tracks[i];
+    const difference = track.position -
+      (range[1] == null ? range[0].position : range[1].position);
+    if (difference > 0) {
+      if (difference === 1) {
+        range[1] = track;
+      } else {
+        range = [track, null];
+        ranges.push(range);
+      }
+    }
+  }
+
+  return commaOnlyListText(ranges.map(formatTrackRange));
+}
+
+type PropsT = {
   +hiddenArtistCredit?: ?ArtistCreditT,
   +relationships: $ReadOnlyArray<RelationshipTargetTypeGroupT>,
 };
 
-const StaticRelationshipsDisplay = ({
+const StaticRelationshipsDisplay = (React.memo<PropsT>(({
   hiddenArtistCredit,
   relationships: groupedRelationships,
-}: Props): Array<React.Element<'table'>> => {
+}: PropsT): Array<React.Element<'table'>> => {
   const tables = [];
 
   for (let i = 0; i < groupedRelationships.length; i++) {
@@ -62,6 +102,21 @@ const StaticRelationshipsDisplay = ({
                 })
               )
             ) : relationshipLink}
+            {targetGroup.tracks ? (
+              <>
+                {' '}
+                <span className="comment">
+                  {bracketedText(
+                    texp.ln(
+                      'track {tracks}',
+                      'tracks {tracks}',
+                      targetGroup.tracks.size,
+                      {tracks: getTrackRanges(targetGroup.tracks)},
+                    ),
+                  )}
+                </span>
+              </>
+            ) : null}
             <br />
           </React.Fragment>,
         );
@@ -81,12 +136,14 @@ const StaticRelationshipsDisplay = ({
         key={targetTypeGroup.targetType}
         style={detailsTableStyle}
       >
-        {targetTypeRows}
+        <tbody>
+          {targetTypeRows}
+        </tbody>
       </table>,
     );
   }
 
   return tables;
-};
+}): React.AbstractComponent<PropsT>);
 
 export default StaticRelationshipsDisplay;

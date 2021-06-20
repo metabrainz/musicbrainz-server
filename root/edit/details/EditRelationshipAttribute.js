@@ -14,13 +14,18 @@ import IntentionallyRawIcon
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName';
+import FullChangeDiff from
+  '../../static/scripts/edit/components/edit/FullChangeDiff';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
+import yesNo from '../../static/scripts/common/utility/yesNo';
 
 type EditRelationshipAttributeEditT = {
   ...EditT,
   +display_data: {
     +child_order?: CompT<number>,
+    +creditable?: CompT<boolean>,
     +description: CompT<string | null>,
+    +free_text?: CompT<boolean>,
     +name: CompT<string>,
     +original_description: string | null,
     +original_name: string,
@@ -40,6 +45,8 @@ const EditRelationshipAttribute = ({edit}: Props): React.Element<'table'> => {
   const descriptionChanges = newDescription !== oldDescription;
   const name = display.name;
   const parent = display.parent;
+  const creditable = display.creditable;
+  const freeText = display.free_text;
   const newParentName = parent?.new
     ? localizeLinkAttributeTypeName(parent.new)
     : '';
@@ -102,6 +109,22 @@ const EditRelationshipAttribute = ({edit}: Props): React.Element<'table'> => {
           label={addColonText(l('Child order'))}
           newText={childOrder.new.toString()}
           oldText={childOrder.old.toString()}
+        />
+      ) : null}
+
+      {creditable ? (
+        <FullChangeDiff
+          label={addColonText(l('Creditable'))}
+          newContent={yesNo(creditable.new)}
+          oldContent={yesNo(creditable.old)}
+        />
+      ) : null}
+
+      {freeText ? (
+        <FullChangeDiff
+          label={addColonText(l('Free text'))}
+          newContent={yesNo(freeText.new)}
+          oldContent={yesNo(freeText.old)}
         />
       ) : null}
     </table>

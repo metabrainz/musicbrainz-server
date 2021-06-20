@@ -143,7 +143,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
               let source = data;
               let target = rel.target;
 
-              if (rel.direction == 'backward') {
+              if (rel.backward) {
                 source = rel.target;
                 target = data;
               }

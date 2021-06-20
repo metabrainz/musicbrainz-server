@@ -15,6 +15,7 @@ import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import {compare} from '../static/scripts/common/i18n';
 import commaList from '../static/scripts/common/i18n/commaList';
+import linkedEntities from '../static/scripts/common/linkedEntities';
 import formatDatePeriod
   from '../static/scripts/common/utility/formatDatePeriod';
 import formatTrackLength
@@ -56,23 +57,21 @@ const pickAppearancesTypes = (entityType) => {
 
 const getLinkPhraseForGroup = (linkTypeGroup) => (
   interpolateText(
-    {linkTypeID: linkTypeGroup.link_type_id},
-    linkTypeGroup.direction === 'backward'
+    linkedEntities.link_type[linkTypeGroup.link_type_id],
+    [],
+    linkTypeGroup.backward
       ? 'reverse_link_phrase'
       : 'link_phrase',
     true, /* forGrouping */
   )
 );
 
-const getDirectionFromName = (direction) => {
-  switch (direction) {
-    case 'forward':
-      return 1;
-    case 'backward':
-      return 2;
-    default:
-      return 0;
-  }
+/*
+ * Matches $DIRECTION_FORWARD and $DIRECTION_BACKWARD from
+ * lib/MusicBrainz/Server/Constants.pm.
+ */
+const getDirectionInteger = (backward) => {
+  return backward ? 2 : 1;
 };
 
 const RelationshipsTable = ({
@@ -121,7 +120,7 @@ const RelationshipsTable = ({
               <a
                 href={uriWith(
                   $c.req.uri, {
-                    direction: getDirectionFromName(group.direction),
+                    direction: getDirectionInteger(group.backward),
                     link_type_id: group.link_type_id,
                     page: 1,
                   },
@@ -210,7 +209,7 @@ const RelationshipsTable = ({
     for (const relationship of linkTypeGroup.relationships) {
       let sourceCredit = '';
       let targetCredit = '';
-      if (relationship.direction === 'backward') {
+      if (relationship.backward) {
         targetCredit = relationship.entity0_credit;
         sourceCredit = relationship.entity1_credit;
       } else {
@@ -290,7 +289,8 @@ const RelationshipsTable = ({
         tableRows.push(
           <RelationshipsTableGroup
             group={linkTypeGroup}
-            key={linkTypeGroup.link_type_id + '-' + linkTypeGroup.direction}
+            key={linkTypeGroup.link_type_id + '-' +
+              String(linkTypeGroup.backward)}
             relationshipRows={relationshipRows}
           />,
         );

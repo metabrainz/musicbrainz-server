@@ -39,8 +39,7 @@ const RelatedSeries = ({seriesIds}: Props): React.MixedElement => {
         relationships={
           groupRelationships(
             series.relationships,
-            undefined,
-            isNotSeriesPart,
+            {filter: isNotSeriesPart},
           )
         }
       />,

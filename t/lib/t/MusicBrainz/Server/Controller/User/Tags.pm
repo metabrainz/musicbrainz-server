@@ -11,13 +11,14 @@ test all => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-    INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (7, 'b9d99e40-72d7-11de-8a39-0800200c9a66', 'Kate Bush', 'Kate Bush');
-    TRUNCATE artist_tag_raw CASCADE;
-    INSERT INTO tag (id, name) VALUES (1, 'not a musical');
-    INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (7, 1, 1, 't');
-EOSQL
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (7, 'b9d99e40-72d7-11de-8a39-0800200c9a66', 'Kate Bush', 'Kate Bush');
+        TRUNCATE artist_tag_raw CASCADE;
+        INSERT INTO tag (id, name) VALUES (1, 'not a musical');
+        INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote)
+            VALUES (7, 1, 1, 't');
+        EOSQL
 
     $mech->get('/user/new_editor/tags');
     $mech->content_contains('not a musical', "new_editor has used the tag 'not a musical'");
