@@ -384,6 +384,7 @@ module.exports = {
   'edit/details/RemoveIswc': require('../edit/details/RemoveIswc'),
   'edit/details/RemoveMedium': require('../edit/details/RemoveMedium'),
   'edit/details/RemoveRelationship': require('../edit/details/RemoveRelationship'),
+  'edit/details/RemoveRelationshipType': require('../edit/details/RemoveRelationshipType'),
   'edit/details/RemoveReleaseLabel': require('../edit/details/RemoveReleaseLabel'),
   'edit/details/ReorderCoverArt': require('../edit/details/ReorderCoverArt'),
   'edit/details/ReorderRelationships': require('../edit/details/ReorderRelationships'),
