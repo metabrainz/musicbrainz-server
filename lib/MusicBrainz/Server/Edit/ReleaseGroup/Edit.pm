@@ -20,6 +20,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_value
     verify_artist_credits
 );
+use MusicBrainz::Server::Edit::Historic::Utils qw( get_historic_type );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -116,7 +117,6 @@ sub build_display_data
     my %map = (
         name    => 'name',
         comment => 'comment',
-        type    => [ qw( type_id ReleaseGroupType ) ],
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -140,9 +140,11 @@ sub build_display_data
         } qw( old new )
     };
 
-    if (exists $data->{type}) {
-        $data->{type}{old} = to_json_object($data->{type}{old});
-        $data->{type}{new} = to_json_object($data->{type}{new});
+    if (exists $self->data->{old}{type_id} || exists $self->data->{new}{type_id}) {
+        $data->{type} = {
+            new => get_historic_type($self->data->{new}{type_id}, $loaded),
+            old => get_historic_type($self->data->{old}{type_id}, $loaded),
+        };
     }
 
     return $data;
