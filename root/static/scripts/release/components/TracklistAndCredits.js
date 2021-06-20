@@ -270,12 +270,16 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
           return null;
         }
         return (
-          <React.Fragment key={medium.id}>
+          <div
+            className="bottom-credits"
+            data-position={medium.position}
+            key={medium.id}
+          >
             <h3>
               <MediumDescription medium={medium} />
             </h3>
             <StaticRelationshipsDisplay relationships={relationships} />
-          </React.Fragment>
+          </div>
         );
       })
     ) : null
@@ -308,7 +312,7 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
       )}
 
       {hasBottomCredits ? (
-        <>
+        <div id="bottom-credits">
           <h2>{l('Credits')}</h2>
 
           {(creditsMode === 'bottom' && hasUnloadedTracks) ? (
@@ -324,19 +328,19 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
           {bottomMediumCreditElements}
 
           {hasReleaseCredits ? (
-            <>
+            <div id="release-relationships">
               <h3>{l('Release')}</h3>
               <Relationships noRelationshipsHeading source={release} />
-            </>
+            </div>
           ) : null}
 
           {(hasReleaseGroupCredits /*:: && releaseGroup */) ? (
-            <>
+            <div id="release-group-relationships">
               <h3>{l('Release Group')}</h3>
               <Relationships noRelationshipsHeading source={releaseGroup} />
-            </>
+            </div>
           ) : null}
-        </>
+        </div>
       ) : null}
     </>
   );
