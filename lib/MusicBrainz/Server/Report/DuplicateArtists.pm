@@ -93,7 +93,7 @@ sub inflate_rows
 sub ordering { "key" }
 
 sub load_filtered {
-    my ($self, $editor_id, $limit, $offset) = @_;
+    my ($self, $c, $editor_id, $limit, $offset) = @_;
 
     my $qualified_table = $self->qualified_table;
     my $ordering = $self->ordering;
