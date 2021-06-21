@@ -286,6 +286,19 @@ sub _detach_with_ia_server_error {
     });
 }
 
+sub _detach_with_temporary_delay : Private {
+    my ($self, $c) = @_;
+
+    $self->detach_with_error(
+        $c,
+        message => l(
+            'We’ve hit a temporary delay while trying to fetch metadata ' .
+            'from the Internet Archive. Please wait a minute and try again.',
+        ),
+        500,
+    );
+}
+
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {
     my ($self, $c, $gid) = @_;
@@ -384,6 +397,12 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                     $self->_detach_with_ia_server_error($c, $json_decode_error);
                 }
 
+                unless (%{$item_metadata}) {
+                    # If the response is an empty object, we're waiting for
+                    # the item to become registered in the metadata service.
+                    $self->_detach_with_temporary_delay($c);
+                }
+
                 if ($item_metadata->{is_dark}) {
                     $self->detach_with_error(
                         $c,
@@ -399,7 +418,21 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 }
 
                 my $uploader = $item_metadata->{metadata}{uploader};
-                if (!defined $uploader || $uploader ne 'caa@musicbrainz.org') {
+                if (!defined $uploader) {
+                    send_message_to_sentry(
+                        "Undefined uploader for CAA item at $ia_metadata_uri",
+                        extra => {
+                            response_code => $response->code,
+                            response_content => $item_metadata_content,
+                        },
+                    );
+                    $self->_detach_with_ia_server_error(
+                        $c,
+                        'uploader is undef',
+                    );
+                }
+
+                if ($uploader ne 'caa@musicbrainz.org') {
                     send_message_to_sentry(
                         "Bad uploader for CAA item at $ia_metadata_uri",
                         extra => {
