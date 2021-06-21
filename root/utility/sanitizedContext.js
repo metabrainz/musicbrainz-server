@@ -25,6 +25,7 @@ function sanitizedContext(
     action: {
       name: $c.action.name,
     },
+    relative_uri: $c.relative_uri,
     req: {
       uri: $c.req.uri,
     },
