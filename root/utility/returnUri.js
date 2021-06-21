@@ -18,7 +18,7 @@ export default function returnUri(
 }
 
 export function returnToCurrentPage(
-  $c: CatalystContextT,
+  $c: CatalystContextT | SanitizedCatalystContextT,
 ): string {
   return 'returnto=' + encodeURIComponent($c.relative_uri);
 }

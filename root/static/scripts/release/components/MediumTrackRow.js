@@ -49,7 +49,7 @@ const MediumTrackRow = (React.memo<PropsT>(({
         <a href={'/track/' + track.gid}>{track.number}</a>
       </td>
 
-      <td>
+      <td className="title">
         <EntityLink
           content={track.name}
           entity={track.recording}

@@ -86,6 +86,7 @@ declare type SanitizedCatalystContextT = {
   +action: {
     +name: string,
   },
+  +relative_uri: string,
   +req: {
     +uri: string,
   },

@@ -38,6 +38,7 @@ const defaultSanitizedContext = {
   action: {
     name: '',
   },
+  relative_uri: '',
   req: {
     uri: '',
   },

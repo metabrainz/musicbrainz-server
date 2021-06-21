@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../context';
+import {SanitizedCatalystContext} from '../context';
 import ratingTooltip from '../utility/ratingTooltip';
 import {returnToCurrentPage} from '../utility/returnUri';
 
 const ratingURL = (
-  $c: CatalystContextT,
+  $c: SanitizedCatalystContextT,
   entity: RatableT,
   rating: number,
 ) => (
@@ -58,6 +58,7 @@ export const StaticRatingStars = ({
 const RatingStars = ({entity}: RatingStarsProps): React.Element<'span'> => {
   const currentStarRating =
     entity.user_rating == null ? 0 : (5 * entity.user_rating / 100);
+  const $c = React.useContext(SanitizedCatalystContext);
 
   return (
     <span className="inline-rating">
@@ -80,27 +81,25 @@ const RatingStars = ({entity}: RatingStarsProps): React.Element<'span'> => {
           </span>
         )}
 
-        <CatalystContext.Consumer>
-          {$c => $c.user?.has_confirmed_email_address ? (
-            ratingInts.map(rating => {
-              const isCurrentRating = rating === currentStarRating;
-              const newRating = isCurrentRating ? 0 : rating;
+        {$c.user?.has_confirmed_email_address ? (
+          ratingInts.map(rating => {
+            const isCurrentRating = rating === currentStarRating;
+            const newRating = isCurrentRating ? 0 : rating;
 
-              return (
-                <a
-                  className={`stars-${rating} ${isCurrentRating
-                    ? 'remove-rating'
-                    : 'set-rating'}`}
-                  href={ratingURL($c, entity, newRating)}
-                  key={rating}
-                  title={ratingTooltip(newRating)}
-                >
-                  {rating}
-                </a>
-              );
-            })
-          ) : null}
-        </CatalystContext.Consumer>
+            return (
+              <a
+                className={`stars-${rating} ${isCurrentRating
+                  ? 'remove-rating'
+                  : 'set-rating'}`}
+                href={ratingURL($c, entity, newRating)}
+                key={rating}
+                title={ratingTooltip(newRating)}
+              >
+                {rating}
+              </a>
+            );
+          })
+        ) : null}
       </span>
     </span>
   );

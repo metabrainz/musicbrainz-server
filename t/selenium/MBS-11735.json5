@@ -1,0 +1,53 @@
+{
+  title: 'MBS-11735',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=table.medium td.rating a.stars-1.set-rating',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=table.medium td.title a'
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#sidebar .current-user-rating').textContent",
+      value: '1',
+    },
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=table.medium td.rating a.stars-1.remove-rating',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=table.medium td.title a'
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#sidebar .current-user-rating')",
+      value: 'null',
+    },
+  ],
+}
