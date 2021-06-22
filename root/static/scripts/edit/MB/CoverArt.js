@@ -211,9 +211,7 @@ MB.CoverArt.sign_upload = function (fileUpload, gid, mimeType) {
     const errorInfo = jqxhr.responseJSON?.error;
     if (errorInfo && typeof errorInfo === 'object') {
       fileUpload.signErrorMessage(errorInfo.message);
-      if (errorInfo.error_details) {
-        fileUpload.signErrorDetails(errorInfo.error_details);
-      }
+      fileUpload.signErrorDetails(errorInfo.error_details ?? '');
     }
     deferred.reject('error obtaining signature: ' + status + ' ' + error);
   });
