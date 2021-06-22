@@ -284,7 +284,10 @@ export class ExternalLinksEditor
                 errorTarget = check.target ||
                   URLCleanup.ERROR_TARGETS.NONE;
                 if (errorTarget === URLCleanup.ERROR_TARGETS.URL) {
-                  error = l(`This URL is incorrectly formatted.`);
+                  error = l(
+                    `This URL is not allowed for the selected link type,
+                     or is incorrectly formatted.`,
+                  );
                 }
                 if (errorTarget === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
                   error = l(`This URL is not allowed 
