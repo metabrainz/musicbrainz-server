@@ -80,11 +80,11 @@ const SetCoverArt = ({edit}: Props): React.Element<'table'> => {
                 <Artwork artwork={newArt} />
               </div>
               {newArt.release ? (
-                <p>
+                <>
                   <DescriptiveLink entity={newArt.release} />
                   <br />
                   <ReleaseEvents events={newArt.release.events} />
-                </p>
+                </>
               ) : null}
               <p>
                 {commaList(newArt.types) || '-'}
