@@ -10,7 +10,10 @@ use HTTP::Request;
 use JSON qw( encode_json decode_json );
 use List::MoreUtils qw( part );
 use List::UtilsBy qw( uniq_by );
-use MusicBrainz::Errors qw( capture_exceptions );
+use MusicBrainz::Errors qw(
+    capture_exceptions
+    send_message_to_sentry
+);
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters;
@@ -283,6 +286,19 @@ sub _detach_with_ia_server_error {
     });
 }
 
+sub _detach_with_temporary_delay : Private {
+    my ($self, $c) = @_;
+
+    $self->detach_with_error(
+        $c,
+        message => l(
+            'We’ve hit a temporary delay while trying to fetch metadata ' .
+            'from the Internet Archive. Please wait a minute and try again.',
+        ),
+        500,
+    );
+}
+
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {
     my ($self, $c, $gid) = @_;
@@ -359,17 +375,18 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 my $ia_metadata_uri = DBDefs->COVER_ART_ARCHIVE_IA_METADATA_PREFIX . "/$bucket";
                 $response = $context->lwp->request(HTTP::Request->new(GET => $ia_metadata_uri));
 
+                my $item_metadata_content = $response->decoded_content;
                 my $item_metadata;
                 my $json_decode_error;
 
                 if ($response->is_success) {
                     capture_exceptions(sub {
-                        $item_metadata = $c->json->decode($response->decoded_content);
+                        $item_metadata = $c->json->decode($item_metadata_content);
                     }, sub {
                         $json_decode_error = shift;
                     });
                 } else {
-                    $self->_detach_with_ia_server_error($c, $response->decoded_content);
+                    $self->_detach_with_ia_server_error($c, $item_metadata_content);
                 }
 
                 if (
@@ -378,6 +395,12 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                     defined $json_decode_error
                 ) {
                     $self->_detach_with_ia_server_error($c, $json_decode_error);
+                }
+
+                unless (%{$item_metadata}) {
+                    # If the response is an empty object, we're waiting for
+                    # the item to become registered in the metadata service.
+                    $self->_detach_with_temporary_delay($c);
                 }
 
                 if ($item_metadata->{is_dark}) {
@@ -395,7 +418,28 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 }
 
                 my $uploader = $item_metadata->{metadata}{uploader};
-                if (!defined $uploader || $uploader ne 'caa@musicbrainz.org') {
+                if (!defined $uploader) {
+                    send_message_to_sentry(
+                        "Undefined uploader for CAA item at $ia_metadata_uri",
+                        extra => {
+                            response_code => $response->code,
+                            response_content => $item_metadata_content,
+                        },
+                    );
+                    $self->_detach_with_ia_server_error(
+                        $c,
+                        'uploader is undef',
+                    );
+                }
+
+                if ($uploader ne 'caa@musicbrainz.org') {
+                    send_message_to_sentry(
+                        "Bad uploader for CAA item at $ia_metadata_uri",
+                        extra => {
+                            response_code => $response->code,
+                            response_content => $item_metadata_content,
+                        },
+                    );
                     $self->detach_with_error(
                         $c,
                         {
