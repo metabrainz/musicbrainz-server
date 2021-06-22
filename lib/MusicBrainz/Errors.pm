@@ -16,6 +16,7 @@ our @EXPORT_OK = qw(
     capture_exceptions
     get_error_message
     send_error_to_sentry
+    send_message_to_sentry
     sentry_enabled
     sig_die_handler
 );
@@ -137,15 +138,7 @@ sub sig_die_handler {
 }
 
 our $sentry;
-sub send_error_to_sentry {
-    my ($error, $stack_traces, @context) = @_;
-
-    my $message = get_error_message($error);
-    my @stacktrace = reverse @{ $stack_traces->{$message}{sentry_frames} // [] };
-    if (@stacktrace) {
-        push @context, Sentry::Raven->stacktrace_context(\@stacktrace);
-    }
-
+sub _define_sentry {
     unless (defined $sentry) {
         my $sentry_dsn = DBDefs->SENTRY_DSN;
         my $git_branch = DBDefs->GIT_BRANCH;
@@ -159,7 +152,27 @@ sub send_error_to_sentry {
             }) : (),
         );
     }
+}
 
+sub send_message_to_sentry {
+    my ($message, @context) = @_;
+
+    if (sentry_enabled) {
+        _define_sentry();
+        $sentry->capture_message($message, @context);
+    }
+}
+
+sub send_error_to_sentry {
+    my ($error, $stack_traces, @context) = @_;
+
+    my $message = get_error_message($error);
+    my @stacktrace = reverse @{ $stack_traces->{$message}{sentry_frames} // [] };
+    if (@stacktrace) {
+        push @context, Sentry::Raven->stacktrace_context(\@stacktrace);
+    }
+
+    _define_sentry();
     $sentry->capture_exception($message, @context);
 }
 
