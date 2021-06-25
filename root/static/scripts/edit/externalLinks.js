@@ -31,11 +31,13 @@ import {isMalware} from '../../../url/utility/isGreyedOut';
 import isPositiveInteger from './utility/isPositiveInteger';
 import HelpIcon from './components/HelpIcon';
 import RemoveButton from './components/RemoveButton';
+import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
 import validation from './validation';
 
 type LinkStateT = {
+  rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
   type: number | null,
@@ -74,11 +76,20 @@ export class ExternalLinksEditor
   ) {
     const newLinks: Array<LinkStateT> = this.state.links.concat();
     newLinks[index] = Object.assign({}, newLinks[index], state);
-    this.setState({links: withOneEmptyLink(newLinks, index)}, callback);
+    this.setState({links: newLinks}, callback);
+  }
+
+  appendEmptyLink() {
+    this.setState({
+      links: this.state.links.concat(
+        newLinkState({relationship: uniqueId('new-')}),
+      ),
+    });
   }
 
   handleUrlChange(index: number, event: SyntheticEvent<HTMLInputElement>) {
-    let url = event.currentTarget.value;
+    const rawUrl = event.currentTarget.value;
+    let url = rawUrl;
     const link = this.state.links[index];
 
     // Allow adding spaces while typing, they'll be trimmed on blur
@@ -89,7 +100,7 @@ export class ExternalLinksEditor
       url = URLCleanup.cleanURL(url) || url;
     }
 
-    this.setLinkState(index, {url: url}, () => {
+    this.setLinkState(index, {url: url, rawUrl: rawUrl}, () => {
       if (!link.type) {
         const type = URLCleanup.guessType(this.props.sourceType, url);
 
@@ -100,13 +111,26 @@ export class ExternalLinksEditor
     });
   }
 
-  handleUrlBlur(index: number, event: SyntheticEvent<HTMLInputElement>) {
+  handleUrlBlur(
+    index: number,
+    event: SyntheticEvent<HTMLInputElement>,
+  ) {
     const url = event.currentTarget.value;
     const trimmed = url.trim();
     const unicodeUrl = getUnicodeUrl(trimmed);
 
     if (url !== unicodeUrl) {
       this.setLinkState(index, {url: unicodeUrl});
+    }
+    if (url !== '') {
+      this.appendEmptyLink();
+    }
+  }
+
+  handlePressEnter(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+    const url = event.currentTarget.value;
+    if (url !== '') {
+      this.appendEmptyLink();
     }
   }
 
@@ -222,6 +246,7 @@ export class ExternalLinksEditor
           {linksArray.map((link, index) => {
             let error;
             let errorTarget: ErrorTarget = URLCleanup.ERROR_TARGETS.NONE;
+            const isLastLink = index === linksArray.length - 1;
             const linkType = link.type
               ? linkedEntities.link_type[link.type] : {};
             const checker = URLCleanup.validationRules[linkType.gid];
@@ -301,6 +326,7 @@ export class ExternalLinksEditor
               <ExternalLink
                 errorMessage={error || ''}
                 errorTarget={errorTarget}
+                handlePressEnter={this.handlePressEnter.bind(this)}
                 handleUrlBlur={
                   (event) => this.handleUrlBlur(index, event)
                 }
@@ -310,9 +336,12 @@ export class ExternalLinksEditor
                 handleVideoChange={
                   (event) => this.handleVideoChange(index, event)
                 }
+                isLastLink={isLastLink}
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
+                onCancelEdit={this.setLinkState.bind(this, index)}
                 onRemove={() => this.removeLink(index)}
+                rawUrl={link.rawUrl}
                 type={link.type}
                 typeChangeCallback={
                   (event) => this.handleTypeChange(index, event)
@@ -360,12 +389,16 @@ type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 type LinkProps = {
   errorMessage: React.Node,
   errorTarget: ErrorTarget,
+  handlePressEnter: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   handleUrlBlur: (SyntheticEvent<HTMLInputElement>) => void,
   handleUrlChange: (SyntheticEvent<HTMLInputElement>) => void,
   handleVideoChange:
     (SyntheticEvent<HTMLInputElement>) => void,
+  isLastLink: boolean,
   isOnlyLink: boolean,
+  onCancelEdit: (number, LinkStateT) => void,
   onRemove: (number) => void,
+  rawUrl: string,
   type: number | null,
   typeChangeCallback: (SyntheticEvent<HTMLSelectElement>) => void,
   typeOptions: Array<React.Element<'option'>>,
@@ -375,6 +408,13 @@ type LinkProps = {
 };
 
 export class ExternalLink extends React.Component<LinkProps> {
+  handleKeyDown(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.props.handlePressEnter(event);
+    }
+  }
+
   render(): React.Element<'tr'> {
     const props = this.props;
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
@@ -448,13 +488,19 @@ export class ExternalLink extends React.Component<LinkProps> {
           }
         </td>
         <td>
-          <input
-            className="value with-button"
-            onBlur={props.handleUrlBlur}
-            onChange={props.handleUrlChange}
-            type="url"
-            value={props.url}
-          />
+          {props.isLastLink ? (
+            <input
+              className="value with-button"
+              onBlur={props.handleUrlBlur}
+              onChange={props.handleUrlChange}
+              onKeyDown={this.handleKeyDown.bind(this)}
+              type="url"
+              // Don't interrupt user input with clean URL
+              value={props.rawUrl}
+            />
+          ) : (
+            <a href={props.url}>{props.url}</a>
+          )}
           {props.errorMessage &&
             <div
               className={`error field-error target-${props.errorTarget}`}
@@ -477,9 +523,18 @@ export class ExternalLink extends React.Component<LinkProps> {
               </label>
             </div>}
         </td>
-        <td style={{minWidth: '34px'}}>
+        <td style={{minWidth: '51px'}}>
           {typeDescription && <HelpIcon content={typeDescription} />}
-          {isEmpty(props) ||
+          {!props.isLastLink &&
+            <URLInputPopover
+              errorMessage={props.errorMessage}
+              onCancel={props.onCancelEdit}
+              onChange={props.handleUrlChange}
+              rawUrl={props.rawUrl}
+              url={props.url}
+            />
+          }
+          {!isEmpty(props) && !props.isLastLink &&
             <RemoveButton
               onClick={props.onRemove}
               title={l('Remove Link')}
@@ -491,6 +546,7 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 const defaultLinkState: LinkStateT = {
+  rawUrl: '',
   relationship: null,
   type: null,
   url: '',
@@ -559,6 +615,7 @@ export function parseRelationships(
     if (target.entityType === 'url') {
       accum.push({
         relationship: data.id,
+        rawUrl: target.name,
         type: data.linkTypeID ?? null,
         url: target.name,
         video: data.attributes
