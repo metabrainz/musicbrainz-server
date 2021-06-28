@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-16 09:49+0000\n"
+"PO-Revision-Date: 2021-06-23 06:36+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgid ""
 "A give-away release or a release intended to promote an upcoming official "
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
-msgstr "Een uitgave die wordt weggegeven of bedoeld is om een officiële uitgave te promoten (bijv. prerelease-uitgaves, uitgaves die met een tijdschrift gebundeld zijn of versies die aan radio-dj’s worden gegeven om te draaien)."
+msgstr "Een uitgave die wordt weggegeven of bedoeld is om een officiële uitgave te promoten (bijv. prerelease-uitgaven, uitgaven die met een tijdschrift gebundeld zijn of versies die aan radio-dj’s worden gegeven om te draaien)."
 
 #: DB:artist_type/description:2
 msgctxt "artist_type"
@@ -346,7 +346,7 @@ msgstr "Een serie uitgavegroepen."
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
-msgstr "Een serie uitgaves."
+msgstr "Een serie uitgaven."
 
 #: DB:series_type/description:5
 msgctxt "series_type"
@@ -708,7 +708,7 @@ msgid ""
 "An unofficial/underground release that was not sanctioned by the artist "
 "and/or the record company. This includes unofficial live recordings and "
 "pirated releases."
-msgstr "Een onofficiële of underground uitgave waar geen toestemming voor is gegeven door de artiest en/of de platenmaatschappij. Hieronder vallen ook onofficiële liveopnames en illegaal verspreide uitgaves."
+msgstr "Een onofficiële of underground uitgave waar geen toestemming voor is gegeven door de artiest en/of de platenmaatschappij. Hieronder vallen ook onofficiële liveopnames en illegaal verspreide uitgaven."
 
 #: DB:work_type/description:20
 msgctxt "work_type"
@@ -728,7 +728,7 @@ msgctxt "release_status"
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " Most releases will fit into this category."
-msgstr "Elke uitgave waar officieel toestemming voor is gegeven door de artiest en/of de platenmaatschappij. De meeste uitgaves vallen in deze categorie."
+msgstr "Elke uitgave waar officieel toestemming voor is gegeven door de artiest en/of de platenmaatschappij. De meeste uitgaven vallen in deze categorie."
 
 #: DB:work_attribute_type_allowed_value/value:311
 msgctxt "work_attribute_type_allowed_value"
@@ -5721,7 +5721,7 @@ msgstr "Naam van de uitgave"
 #: DB:series_type/name:2
 msgctxt "series_type"
 msgid "Release series"
-msgstr "Serie uitgaves"
+msgstr "Serie uitgaven"
 
 #: DB:place_type/name:6
 msgctxt "place_type"
