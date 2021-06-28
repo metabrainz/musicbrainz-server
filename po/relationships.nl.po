@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-18 02:28+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2021-06-23 08:22+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -334,7 +334,7 @@ msgstr "Verwijst naar een internetpagina met een recensie van de uitgave(groep).
 #: DB:link_type/description:958
 msgid ""
 "Indicates a webpage where you can download a label's releases for free."
-msgstr "Verwijst naar een internetpagina waarvan de uitgaves van een platenmaatschappij gratis kunnen worden gedownload."
+msgstr "Verwijst naar een internetpagina waarvan de uitgaven van een platenmaatschappij gratis kunnen worden gedownload."
 
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
@@ -795,7 +795,7 @@ msgid ""
 "Links a release with an event where it was available. This is intended for "
 "event-exclusive releases and/or releases available at events before the "
 "official launch date, not for every release in the merchandise stall."
-msgstr "Koppelt de uitgave aan het evenement waarop het beschikbaar was. Dit is bedoeld voor uitgaves die buiten het evenement niet of nog niet officiëel te koop waren, niet voor alle uitgaves die op het evenement te koop waren."
+msgstr "Koppelt de uitgave aan het evenement waarop het beschikbaar was. Dit is bedoeld voor uitgaven die buiten het evenement niet of nog niet officieel te koop waren, niet voor alle uitgaven die op het evenement te koop waren."
 
 #: DB:link_type/description:823
 msgid "Links a series to another series that exists within it."
@@ -1318,7 +1318,7 @@ msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "release. This relationship is deprecated, please use either \"design\" or "
 "\"illustration\" (or both!)"
-msgstr "Deze relatie geeft de verantwoordelijke voor het ontwerp of de illustraties van deze uitgave aan. Deze relatie is verouderd, gebruik in plaats hiervan “ontwerp”, “illustratie” of allebei."
+msgstr "Deze relatie geeft de verantwoordelijke voor het ontwerp of de illustraties van deze uitgave aan. Deze relatie is verouderd, gebruik in plaats hiervan ‘ontwerp’, ‘illustratie’ of allebei."
 
 #: DB:link_type/description:130
 msgid ""
@@ -1342,7 +1342,7 @@ msgid ""
 "This indicates a personal production label for an artist. A personal label "
 "is a small label (usually a subdivision of a larger one) that exclusively "
 "handles releases by that artist."
-msgstr "Dit geeft een persoonlijke productiemaatschappij van een artiest aan. Een persoonlijke productiemaatschappij is een kleine maatschappij (vaak onderdeel van een grotere) die alleen de uitgaves van de artiest verzorgt."
+msgstr "Dit geeft een persoonlijke productiemaatschappij van een artiest aan. Een persoonlijke productiemaatschappij is een kleine maatschappij (vaak onderdeel van een grotere) die alleen de uitgaven van de artiest verzorgt."
 
 #: DB:link_type/description:724
 msgid ""
@@ -1470,7 +1470,7 @@ msgid ""
 "This allows a release to be linked to its supporting singles, EPs, and remix"
 " releases. A 'supporting release' is one which is released to increase sales"
 " of an album or to create publicity for an album."
-msgstr "Dit geeft aan dat een uitgave is uitgebracht om een andere uitgave te ondersteunen. Hiermee kan een uitgave aan ondersteunende singles, EP’s en remix-uitgaves worden gekoppeld. Een ‘ondersteunende uitgave’ wordt uitgegeven om de verkoop van een album te ondersteunen of om publiciteit voor een album te genereren."
+msgstr "Dit geeft aan dat een uitgave is uitgebracht om een andere uitgave te ondersteunen. Hiermee kan een uitgave aan ondersteunende singles, EP’s en remix-uitgaven worden gekoppeld. Een ‘ondersteunende uitgave’ wordt uitgegeven om de verkoop van een album te ondersteunen of om publiciteit voor een album te genereren."
 
 #: DB:link_type/description:11
 msgid ""
@@ -1951,13 +1951,13 @@ msgstr "Deze relatie koppelt de compositie aan haar Discogs-pagina."
 msgid ""
 "This is used to link to a page where the artist's releases can be purchased "
 "for download."
-msgstr "Deze relatie verwijst naar een pagina waar de uitgaves van de artiest tegen betaling kunnen worden gedownload."
+msgstr "Deze relatie verwijst naar een pagina waar de uitgaven van de artiest tegen betaling kunnen worden gedownload."
 
 #: DB:link_type/description:959
 msgid ""
 "This is used to link to a page where the label's releases can be purchased "
 "for download."
-msgstr "Deze relatie verwijst naar een pagina waar de uitgaves van een platenmaatschappij tegen betaling kunnen worden gedownload."
+msgstr "Deze relatie verwijst naar een pagina waar de uitgaven van een platenmaatschappij tegen betaling kunnen worden gedownload."
 
 #: DB:link_type/description:254
 msgid ""
@@ -2360,7 +2360,7 @@ msgid ""
 "This links an artist to an online discography of their works. The "
 "discography should provide a summary of most, if not all, releases by the "
 "artist, and be as comprehensive as possible."
-msgstr "Deze relatie koppelt een artiest aan een online discografie van zijn werk. De discografie moet een samenvatting van de meeste, en het liefst alle uitgaves van een artiest hebben, en zo uitgebreid mogelijk zijn."
+msgstr "Deze relatie koppelt een artiest aan een online discografie van zijn werk. De discografie moet een samenvatting van de meeste, en het liefst alle uitgaven van een artiest hebben, en zo uitgebreid mogelijk zijn."
 
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
@@ -2477,7 +2477,7 @@ msgstr "Deze relatie koppelt verschillende revisies van dezelfde <a href=\"/doc/
 
 #: DB:link_type/description:212
 msgid "This links to a catalog or list of records published by the label."
-msgstr "Deze relatie verwijst naar een door de platenmaatschappij uitgegeven catalogus of lijst van uitgaves."
+msgstr "Deze relatie verwijst naar een door de platenmaatschappij uitgegeven catalogus of lijst van uitgaven."
 
 #: DB:link_type/description:211
 msgid ""
@@ -2516,7 +2516,7 @@ msgid ""
 "playback equipment. The process generally doesn't involve changing the music"
 " in any artistically important way. It may, however, result in recordings "
 "that differ in length by a few seconds."
-msgstr "Deze relatie koppelt twee uitgaves, waarbij de ene een <a href=\"/doc/Mix_Terminology#remaster\">remaster</a> van de andere is. Dit wordt meestal gedaan om de geluidskwaliteit te verbeteren of om het geluid aan moderne afspeelapparatuur aan te passen. Bij dit proces wordt de muziek meestal niet op een artistiek belangrijke manier veranderd. Het kan er wel voor zorgen dat de opnames een paar seconden in lengte verschillen."
+msgstr "Deze relatie koppelt twee uitgaven, waarbij de ene een <a href=\"/doc/Mix_Terminology#remaster\">remaster</a> van de andere is. Dit wordt meestal gedaan om de geluidskwaliteit te verbeteren of om het geluid aan moderne afspeelapparatuur aan te passen. Bij dit proces wordt de muziek meestal niet op een artistiek belangrijke manier veranderd. Het kan er wel voor zorgen dat de opnames een paar seconden in lengte verschillen."
 
 #: DB:link_type/description:110
 msgid "This links two siblings (brothers or sisters)."
@@ -2856,7 +2856,7 @@ msgid ""
 "This relationship type is <strong>deprecated</strong>! Please upload covers on the cover art tab for the release and/or add an ASIN relationship.\n"
 "\n"
 "Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
-msgstr "Deze relatie is <strong>verouderd</strong>! Upload afbeeldingen op de afbeeldingentab van de uitgave of voeg een ASIN-relatie toe.\n\nOpmerking over CD Baby: Veel uitgaves op CD Baby zijn ook beschikbaar (vaak met grotere afbeeldingen) op Amazon.com."
+msgstr "Deze relatie is <strong>verouderd</strong>! Upload afbeeldingen op de afbeeldingentab van de uitgave of voeg een ASIN-relatie toe.\n\nOpmerking over CD Baby: Veel uitgaven op CD Baby zijn ook beschikbaar (vaak met grotere afbeeldingen) op Amazon.com."
 
 #: DB:link_type/description:15
 msgid ""
@@ -2928,13 +2928,13 @@ msgstr "Deze relatie wordt gebruikt om een artiest aan zijn weblog te koppelen."
 msgid ""
 "This relationship type is used to link to a page where the artist's releases"
 " can be purchased for mail order."
-msgstr "Deze relatie wordt gebruikt om naar een pagina te verwijzen waarop de uitgaves van de artiest per post kunnen worden besteld."
+msgstr "Deze relatie wordt gebruikt om naar een pagina te verwijzen waarop de uitgaven van de artiest per post kunnen worden besteld."
 
 #: DB:link_type/description:960
 msgid ""
 "This relationship type is used to link to a page where the label's releases "
 "can be purchased for mail order."
-msgstr "Deze relatie wordt gebruikt om naar een pagina te verwijzen waarop de uitgaves van de platenmaatschappij per post kunnen worden besteld."
+msgstr "Deze relatie wordt gebruikt om naar een pagina te verwijzen waarop de uitgaven van de platenmaatschappij per post kunnen worden besteld."
 
 #: DB:link_type/description:79
 msgid ""
@@ -3438,7 +3438,7 @@ msgstr "verkrijgbaar bij"
 
 #: DB:link_type/link_phrase:795
 msgid "available releases"
-msgstr "uitgaves die hier verkrijgbaar waren"
+msgstr "uitgaven die hier verkrijgbaar waren"
 
 #: DB:link_attribute_type/name:1137
 msgid "bachelor’s degree"
@@ -3553,7 +3553,7 @@ msgstr "afgelast"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
-msgstr "catalogus van uitgaves"
+msgstr "catalogus van uitgaven"
 
 #: DB:link_type/reverse_link_phrase:201
 msgid "catalog reissued by"
@@ -4293,7 +4293,7 @@ msgstr "heeft een weblog op"
 
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
-msgstr "heeft een catalogus van uitgaves op"
+msgstr "heeft een catalogus van uitgaven op"
 
 #: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:909
 #: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:905
@@ -4878,7 +4878,7 @@ msgstr "last.fm"
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"
-msgstr "latere uitgaves"
+msgstr "latere uitgaven"
 
 #: DB:link_type/link_phrase:241
 msgid "later {translated} {parody} versions"
@@ -6293,7 +6293,7 @@ msgstr "ondersteunende uitgave"
 
 #: DB:link_type/reverse_link_phrase:3
 msgid "supporting releases"
-msgstr "ondersteunende uitgaves"
+msgstr "ondersteunende uitgaven"
 
 #: DB:link_type/reverse_link_phrase:105
 msgid "supporting {instrument} by"
